@@ -23,7 +23,7 @@
 {
 	NSMutableArray *objects = [[NSMutableArray alloc] init];
 	for (NSDictionary *jsonObject in json) {
-		id obj = [[clazz alloc] initWithDictionary:jsonObject];
+		id <MERObject> obj = [[(Class)clazz alloc] initWithDictionary:jsonObject];
 		[objects addObject:obj];
 		if (createdBlock) {
 			createdBlock(obj);
@@ -37,9 +37,9 @@
 	return [MERObject convertJSONArray:json toArrayOfClass:clazz block:nil];
 }
 
-+ (id)convertObject:(id)object toMerObjectOfClass:(Class)clazz
++ (id <MERObject>)convertDictionary:(id)object toObjectOfClass:(Class)clazz
 {
-	id convertedObject = nil;
+	id <MERObject> convertedObject = nil;
 	if (!(object == nil || [object isKindOfClass:[NSNull class]])) {
 		convertedObject = [[clazz alloc] initWithDictionary:object];
 	}

@@ -16,6 +16,8 @@
 		F773749319C77BD20039681C /* MERShop.m in Sources */ = {isa = PBXBuildFile; fileRef = F773748919C77BD20039681C /* MERShop.m */; };
 		F773749919C77D230039681C /* MERDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F773749819C77D230039681C /* MERDataProvider.m */; };
 		F77374A619C78B670039681C /* NSDecimalNumber+MERAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F77374A519C78B670039681C /* NSDecimalNumber+MERAdditions.m */; };
+		F77374A819C78C780039681C /* MERObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F77374A719C78C780039681C /* MERObjectTests.m */; };
+		F77374A919C78F470039681C /* libStorefront.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F773745419C77B160039681C /* libStorefront.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -52,6 +54,7 @@
 		F773749819C77D230039681C /* MERDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MERDataProvider.m; sourceTree = "<group>"; };
 		F77374A419C78B670039681C /* NSDecimalNumber+MERAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDecimalNumber+MERAdditions.h"; sourceTree = "<group>"; };
 		F77374A519C78B670039681C /* NSDecimalNumber+MERAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDecimalNumber+MERAdditions.m"; sourceTree = "<group>"; };
+		F77374A719C78C780039681C /* MERObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MERObjectTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F77374A919C78F470039681C /* libStorefront.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				F773746119C77B160039681C /* Supporting Files */,
+				F77374A719C78C780039681C /* MERObjectTests.m */,
 			);
 			path = StorefrontTests;
 			sourceTree = "<group>";
@@ -259,6 +264,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F77374A819C78C780039681C /* MERObjectTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
