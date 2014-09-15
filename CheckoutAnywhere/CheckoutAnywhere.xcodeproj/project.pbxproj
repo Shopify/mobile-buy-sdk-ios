@@ -1,0 +1,362 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F773742119C770CB0039681C /* CheckoutAnywhere.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = F773742019C770CB0039681C /* CheckoutAnywhere.h */; };
+		F773742319C770CB0039681C /* CheckoutAnywhere.m in Sources */ = {isa = PBXBuildFile; fileRef = F773742219C770CB0039681C /* CheckoutAnywhere.m */; };
+		F773743519C771C50039681C /* ShopifyCheckoutAnywhere.podspec in Resources */ = {isa = PBXBuildFile; fileRef = F773743419C771C50039681C /* ShopifyCheckoutAnywhere.podspec */; };
+		F773743819C771D10039681C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = F773743619C771D10039681C /* LICENSE */; };
+		F773743919C771D10039681C /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = F773743719C771D10039681C /* README.md */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F773741B19C770CB0039681C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				F773742119C770CB0039681C /* CheckoutAnywhere.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		F773741D19C770CB0039681C /* libCheckoutAnywhere.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCheckoutAnywhere.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F773742019C770CB0039681C /* CheckoutAnywhere.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckoutAnywhere.h; sourceTree = "<group>"; };
+		F773742219C770CB0039681C /* CheckoutAnywhere.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckoutAnywhere.m; sourceTree = "<group>"; };
+		F773742819C770CB0039681C /* CheckoutAnywhereTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CheckoutAnywhereTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F773742B19C770CB0039681C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F773743419C771C50039681C /* ShopifyCheckoutAnywhere.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ShopifyCheckoutAnywhere.podspec; path = ../../ShopifyCheckoutAnywhere.podspec; sourceTree = "<group>"; };
+		F773743619C771D10039681C /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../../LICENSE; sourceTree = "<group>"; };
+		F773743719C771D10039681C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F773741A19C770CB0039681C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F773742519C770CB0039681C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F773741419C770CB0039681C = {
+			isa = PBXGroup;
+			children = (
+				F773741F19C770CB0039681C /* CheckoutAnywhere */,
+				F773742919C770CB0039681C /* CheckoutAnywhereTests */,
+				F773741E19C770CB0039681C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F773741E19C770CB0039681C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F773741D19C770CB0039681C /* libCheckoutAnywhere.a */,
+				F773742819C770CB0039681C /* CheckoutAnywhereTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F773741F19C770CB0039681C /* CheckoutAnywhere */ = {
+			isa = PBXGroup;
+			children = (
+				F773742019C770CB0039681C /* CheckoutAnywhere.h */,
+				F773742219C770CB0039681C /* CheckoutAnywhere.m */,
+			);
+			path = CheckoutAnywhere;
+			sourceTree = "<group>";
+		};
+		F773742919C770CB0039681C /* CheckoutAnywhereTests */ = {
+			isa = PBXGroup;
+			children = (
+				F773742A19C770CB0039681C /* Supporting Files */,
+			);
+			path = CheckoutAnywhereTests;
+			sourceTree = "<group>";
+		};
+		F773742A19C770CB0039681C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F773742B19C770CB0039681C /* Info.plist */,
+				F773743619C771D10039681C /* LICENSE */,
+				F773743719C771D10039681C /* README.md */,
+				F773743419C771C50039681C /* ShopifyCheckoutAnywhere.podspec */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F773741C19C770CB0039681C /* CheckoutAnywhere */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F773742E19C770CB0039681C /* Build configuration list for PBXNativeTarget "CheckoutAnywhere" */;
+			buildPhases = (
+				F773741919C770CB0039681C /* Sources */,
+				F773741A19C770CB0039681C /* Frameworks */,
+				F773741B19C770CB0039681C /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CheckoutAnywhere;
+			productName = CheckoutAnywhere;
+			productReference = F773741D19C770CB0039681C /* libCheckoutAnywhere.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		F773742719C770CB0039681C /* CheckoutAnywhereTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F773743119C770CB0039681C /* Build configuration list for PBXNativeTarget "CheckoutAnywhereTests" */;
+			buildPhases = (
+				F773742419C770CB0039681C /* Sources */,
+				F773742519C770CB0039681C /* Frameworks */,
+				F773742619C770CB0039681C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CheckoutAnywhereTests;
+			productName = CheckoutAnywhereTests;
+			productReference = F773742819C770CB0039681C /* CheckoutAnywhereTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F773741519C770CB0039681C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = "Shopify Inc.";
+				TargetAttributes = {
+					F773741C19C770CB0039681C = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					F773742719C770CB0039681C = {
+						CreatedOnToolsVersion = 6.0;
+					};
+				};
+			};
+			buildConfigurationList = F773741819C770CB0039681C /* Build configuration list for PBXProject "CheckoutAnywhere" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F773741419C770CB0039681C;
+			productRefGroup = F773741E19C770CB0039681C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F773741C19C770CB0039681C /* CheckoutAnywhere */,
+				F773742719C770CB0039681C /* CheckoutAnywhereTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F773742619C770CB0039681C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F773743819C771D10039681C /* LICENSE in Resources */,
+				F773743519C771C50039681C /* ShopifyCheckoutAnywhere.podspec in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F773741919C770CB0039681C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F773742319C770CB0039681C /* CheckoutAnywhere.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F773742419C770CB0039681C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F773743919C771D10039681C /* README.md in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		F773742C19C770CB0039681C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		F773742D19C770CB0039681C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F773742F19C770CB0039681C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		F773743019C770CB0039681C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		F773743219C770CB0039681C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = CheckoutAnywhereTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F773743319C770CB0039681C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = CheckoutAnywhereTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F773741819C770CB0039681C /* Build configuration list for PBXProject "CheckoutAnywhere" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F773742C19C770CB0039681C /* Debug */,
+				F773742D19C770CB0039681C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F773742E19C770CB0039681C /* Build configuration list for PBXNativeTarget "CheckoutAnywhere" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F773742F19C770CB0039681C /* Debug */,
+				F773743019C770CB0039681C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		F773743119C770CB0039681C /* Build configuration list for PBXNativeTarget "CheckoutAnywhereTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F773743219C770CB0039681C /* Debug */,
+				F773743319C770CB0039681C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F773741519C770CB0039681C /* Project object */;
+}
