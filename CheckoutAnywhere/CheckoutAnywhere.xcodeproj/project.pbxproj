@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F773742119C770CB0039681C /* CheckoutAnywhere.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = F773742019C770CB0039681C /* CheckoutAnywhere.h */; };
-		F773742319C770CB0039681C /* CheckoutAnywhere.m in Sources */ = {isa = PBXBuildFile; fileRef = F773742219C770CB0039681C /* CheckoutAnywhere.m */; };
+		4DA3F313EC2D48B4AA808DEA /* libPods-CheckoutAnywhere.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED7CAC6864F24DF6994E9680 /* libPods-CheckoutAnywhere.a */; };
 		F773743519C771C50039681C /* ShopifyCheckoutAnywhere.podspec in Resources */ = {isa = PBXBuildFile; fileRef = F773743419C771C50039681C /* ShopifyCheckoutAnywhere.podspec */; };
 		F773743819C771D10039681C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = F773743619C771D10039681C /* LICENSE */; };
 		F773743919C771D10039681C /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = F773743719C771D10039681C /* README.md */; };
+		F773744619C779C20039681C /* CHKAnywhereController.m in Sources */ = {isa = PBXBuildFile; fileRef = F773744319C779C20039681C /* CHKAnywhereController.m */; };
+		F773744919C77A210039681C /* CHKCart.m in Sources */ = {isa = PBXBuildFile; fileRef = F773744819C77A210039681C /* CHKCart.m */; };
+		F773749619C77C260039681C /* CHKCheckout.m in Sources */ = {isa = PBXBuildFile; fileRef = F773749519C77C260039681C /* CHKCheckout.m */; };
+		F773749D19C77DC90039681C /* CHKDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F773749C19C77DC90039681C /* CHKDataProvider.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -21,21 +24,29 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				F773742119C770CB0039681C /* CheckoutAnywhere.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		96E74FD94961416BAD002B55 /* Pods-CheckoutAnywhere.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutAnywhere.xcconfig"; path = "Pods/Pods-CheckoutAnywhere.xcconfig"; sourceTree = "<group>"; };
+		ED7CAC6864F24DF6994E9680 /* libPods-CheckoutAnywhere.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CheckoutAnywhere.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F773741D19C770CB0039681C /* libCheckoutAnywhere.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCheckoutAnywhere.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		F773742019C770CB0039681C /* CheckoutAnywhere.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckoutAnywhere.h; sourceTree = "<group>"; };
-		F773742219C770CB0039681C /* CheckoutAnywhere.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckoutAnywhere.m; sourceTree = "<group>"; };
 		F773742819C770CB0039681C /* CheckoutAnywhereTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CheckoutAnywhereTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F773742B19C770CB0039681C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F773743419C771C50039681C /* ShopifyCheckoutAnywhere.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ShopifyCheckoutAnywhere.podspec; path = ../../ShopifyCheckoutAnywhere.podspec; sourceTree = "<group>"; };
 		F773743619C771D10039681C /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../../LICENSE; sourceTree = "<group>"; };
 		F773743719C771D10039681C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
+		F773744219C779C20039681C /* CHKAnywhereController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKAnywhereController.h; sourceTree = "<group>"; };
+		F773744319C779C20039681C /* CHKAnywhereController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKAnywhereController.m; sourceTree = "<group>"; };
+		F773744719C77A210039681C /* CHKCart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKCart.h; sourceTree = "<group>"; };
+		F773744819C77A210039681C /* CHKCart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKCart.m; sourceTree = "<group>"; };
+		F773749419C77C260039681C /* CHKCheckout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKCheckout.h; sourceTree = "<group>"; };
+		F773749519C77C260039681C /* CHKCheckout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKCheckout.m; sourceTree = "<group>"; };
+		F773749B19C77DC90039681C /* CHKDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKDataProvider.h; sourceTree = "<group>"; };
+		F773749C19C77DC90039681C /* CHKDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKDataProvider.m; sourceTree = "<group>"; };
+		F77374A219C77F760039681C /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DA3F313EC2D48B4AA808DEA /* libPods-CheckoutAnywhere.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,12 +68,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		547B8D0CCDB9458C800F1E3C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ED7CAC6864F24DF6994E9680 /* libPods-CheckoutAnywhere.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F773741419C770CB0039681C = {
 			isa = PBXGroup;
 			children = (
-				F773741F19C770CB0039681C /* CheckoutAnywhere */,
+				F773743A19C777200039681C /* CheckoutAnywhere */,
 				F773742919C770CB0039681C /* CheckoutAnywhereTests */,
 				F773741E19C770CB0039681C /* Products */,
+				96E74FD94961416BAD002B55 /* Pods-CheckoutAnywhere.xcconfig */,
+				547B8D0CCDB9458C800F1E3C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -72,15 +94,6 @@
 				F773742819C770CB0039681C /* CheckoutAnywhereTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		F773741F19C770CB0039681C /* CheckoutAnywhere */ = {
-			isa = PBXGroup;
-			children = (
-				F773742019C770CB0039681C /* CheckoutAnywhere.h */,
-				F773742219C770CB0039681C /* CheckoutAnywhere.m */,
-			);
-			path = CheckoutAnywhere;
 			sourceTree = "<group>";
 		};
 		F773742919C770CB0039681C /* CheckoutAnywhereTests */ = {
@@ -95,11 +108,75 @@
 			isa = PBXGroup;
 			children = (
 				F773742B19C770CB0039681C /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F773743A19C777200039681C /* CheckoutAnywhere */ = {
+			isa = PBXGroup;
+			children = (
+				F773749F19C77E4E0039681C /* Classes */,
+				F773749E19C77E460039681C /* Supporting Files */,
+			);
+			path = CheckoutAnywhere;
+			sourceTree = "<group>";
+		};
+		F773744119C779C20039681C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F773744219C779C20039681C /* CHKAnywhereController.h */,
+				F773744319C779C20039681C /* CHKAnywhereController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		F773744419C779C20039681C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F773749419C77C260039681C /* CHKCheckout.h */,
+				F773749519C77C260039681C /* CHKCheckout.m */,
+				F773744719C77A210039681C /* CHKCart.h */,
+				F773744819C77A210039681C /* CHKCart.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		F773744519C779C20039681C /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		F773749A19C77DBB0039681C /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				F773749B19C77DC90039681C /* CHKDataProvider.h */,
+				F773749C19C77DC90039681C /* CHKDataProvider.m */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		F773749E19C77E460039681C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F77374A219C77F760039681C /* Podfile */,
 				F773743619C771D10039681C /* LICENSE */,
 				F773743719C771D10039681C /* README.md */,
 				F773743419C771C50039681C /* ShopifyCheckoutAnywhere.podspec */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F773749F19C77E4E0039681C /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				F773744119C779C20039681C /* Controllers */,
+				F773749A19C77DBB0039681C /* Data */,
+				F773744419C779C20039681C /* Models */,
+				F773744519C779C20039681C /* Utils */,
+			);
+			name = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -109,9 +186,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F773742E19C770CB0039681C /* Build configuration list for PBXNativeTarget "CheckoutAnywhere" */;
 			buildPhases = (
+				72242E9D60AD4092A72D5160 /* Check Pods Manifest.lock */,
 				F773741919C770CB0039681C /* Sources */,
 				F773741A19C770CB0039681C /* Frameworks */,
 				F773741B19C770CB0039681C /* CopyFiles */,
+				D18F98A2448843AEB1F10DE7 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -145,6 +224,7 @@
 		F773741519C770CB0039681C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = CHK;
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Shopify Inc.";
 				TargetAttributes = {
@@ -186,12 +266,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		72242E9D60AD4092A72D5160 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D18F98A2448843AEB1F10DE7 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-CheckoutAnywhere-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F773741919C770CB0039681C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F773742319C770CB0039681C /* CheckoutAnywhere.m in Sources */,
+				F773744919C77A210039681C /* CHKCart.m in Sources */,
+				F773749619C77C260039681C /* CHKCheckout.m in Sources */,
+				F773744619C779C20039681C /* CHKAnywhereController.m in Sources */,
+				F773749D19C77DC90039681C /* CHKDataProvider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,8 +398,8 @@
 		};
 		F773742F19C770CB0039681C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 96E74FD94961416BAD002B55 /* Pods-CheckoutAnywhere.xcconfig */;
 			buildSettings = {
-				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -291,8 +407,8 @@
 		};
 		F773743019C770CB0039681C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 96E74FD94961416BAD002B55 /* Pods-CheckoutAnywhere.xcconfig */;
 			buildSettings = {
-				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -347,6 +463,7 @@
 				F773743019C770CB0039681C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F773743119C770CB0039681C /* Build configuration list for PBXNativeTarget "CheckoutAnywhereTests" */ = {
 			isa = XCConfigurationList;
@@ -355,6 +472,7 @@
 				F773743319C770CB0039681C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

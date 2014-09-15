@@ -1,0 +1,12 @@
+platform :ios, "8.0"
+
+target "CheckoutAnywhere" do
+
+pod 'Stripe', :git => 'https://github.com/stripe/stripe-ios.git'
+
+end
+
+target "CheckoutAnywhereTests" do
+
+end
+

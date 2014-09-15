@@ -12,6 +12,6 @@ Pod::Spec.new do |s|
   s.author       = "Shopify Inc."
   s.platform     = :ios, "8.0"
   s.source       = { :git => "git@github.com:Shopify/checkout-anywhere-ios.git", :tag => "0.0.1" }
-
+  s.requires_arc = true
   s.source_files  = "CheckoutAnywhere/**/*.{h,m}"
 end

@@ -1,5 +1,5 @@
 //
-//  CheckoutAnywhere.h
+//  CHKAnywhereController.h
 //  CheckoutAnywhere
 //
 //  Created by Joshua Tessier on 2014-09-15.
@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CheckoutAnywhere : NSObject
+@interface CHKAnywhereController : NSObject
 
 @end
