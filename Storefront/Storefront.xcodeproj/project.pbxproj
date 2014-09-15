@@ -15,6 +15,7 @@
 		F773749219C77BD20039681C /* MERProductVariant.m in Sources */ = {isa = PBXBuildFile; fileRef = F773748719C77BD20039681C /* MERProductVariant.m */; };
 		F773749319C77BD20039681C /* MERShop.m in Sources */ = {isa = PBXBuildFile; fileRef = F773748919C77BD20039681C /* MERShop.m */; };
 		F773749919C77D230039681C /* MERDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F773749819C77D230039681C /* MERDataProvider.m */; };
+		F77374A619C78B670039681C /* NSDecimalNumber+MERAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F77374A519C78B670039681C /* NSDecimalNumber+MERAdditions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -49,6 +50,8 @@
 		F773748919C77BD20039681C /* MERShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MERShop.m; sourceTree = "<group>"; };
 		F773749719C77D230039681C /* MERDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MERDataProvider.h; sourceTree = "<group>"; };
 		F773749819C77D230039681C /* MERDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MERDataProvider.m; sourceTree = "<group>"; };
+		F77374A419C78B670039681C /* NSDecimalNumber+MERAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDecimalNumber+MERAdditions.h"; sourceTree = "<group>"; };
+		F77374A519C78B670039681C /* NSDecimalNumber+MERAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDecimalNumber+MERAdditions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +95,7 @@
 			children = (
 				F773747419C77BAA0039681C /* Data */,
 				F773747519C77BAA0039681C /* Models */,
+				F77374A319C78B4C0039681C /* Utils */,
 			);
 			path = Storefront;
 			sourceTree = "<group>";
@@ -140,6 +144,15 @@
 				F773748919C77BD20039681C /* MERShop.m */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		F77374A319C78B4C0039681C /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				F77374A419C78B670039681C /* NSDecimalNumber+MERAdditions.h */,
+				F77374A519C78B670039681C /* NSDecimalNumber+MERAdditions.m */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,6 +250,7 @@
 				F773748C19C77BD20039681C /* MERCollection.m in Sources */,
 				F773749919C77D230039681C /* MERDataProvider.m in Sources */,
 				F773749319C77BD20039681C /* MERShop.m in Sources */,
+				F77374A619C78B670039681C /* NSDecimalNumber+MERAdditions.m in Sources */,
 				F773749219C77BD20039681C /* MERProductVariant.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
