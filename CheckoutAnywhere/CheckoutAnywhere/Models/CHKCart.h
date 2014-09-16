@@ -20,7 +20,19 @@
 
 #pragma mark - Simple Cart Editing
 
-- (void)addVariant:(MERProductVariant *)variant;
+/**
+ * Adds a variant to the cart. If the existing line item exists, that line item's quantity is increased by one.
+ */
+- (void)incrementVariant:(MERProductVariant *)variant;
+
+/**
+ * Removes a variant from the cart. If the existing line item exists, that line item's quantity is decreased by one.
+ */
+- (void)decrementVariant:(MERProductVariant *)variant;
+
+/**
+ * Removes a variant from the cart. If an existing line item exists, that line item is removed completely.
+ */
 - (void)removeVariant:(MERProductVariant *)variant;
 
 #pragma mark - Direct Line Item Editing

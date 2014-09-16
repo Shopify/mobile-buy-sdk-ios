@@ -44,7 +44,7 @@
 	}
 }
 
-- (void)addVariant:(MERProductVariant *)variant
+- (void)incrementVariant:(MERProductVariant *)variant
 {
 	CHKLineItem *existingLineItem = [self lineItemForVariant:variant];
 	if (existingLineItem) {
@@ -52,6 +52,14 @@
 	}
 	else {
 		[self createLineItem:variant];
+	}
+}
+
+- (void)decrementVariant:(MERProductVariant *)variant
+{
+	CHKLineItem *existingLineItem = [self lineItemForVariant:variant];
+	if (existingLineItem) {
+		existingLineItem.quantity = [existingLineItem.quantity decimalNumberBySubtracting:[NSDecimalNumber one]];
 	}
 }
 
