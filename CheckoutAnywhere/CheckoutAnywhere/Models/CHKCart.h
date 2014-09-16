@@ -8,31 +8,35 @@
 
 @import Foundation;
 
+@class CHKLineItem;
+@class MERProductVariant;
+
 @interface CHKCart : NSObject
 
 @property (nonatomic, readonly, strong) NSArray *lineItems;
 
+- (BOOL)isValid;
+- (void)clearCart;
+
+#pragma mark - Simple Cart Editing
+
+- (void)addVariant:(MERProductVariant *)variant;
+- (void)removeVariant:(MERProductVariant *)variant;
+
+#pragma mark - Direct Line Item Editing
+
+- (void)addLineItemsObject:(CHKLineItem *)object;
+- (void)removeLineItemsObject:(CHKLineItem *)object;
+
 @end
 
+@interface CHKLineItem : NSObject
 
-/*
- @interface MERCart : NSObject
- 
- @property (nonatomic, readonly, strong) NSArray *lineItems;
- 
- - (void)addVariant:(MERProductVariant *)variant;
- - (void)clearCart;
- 
- @end
- 
- @interface MERLineItem : NSObject
- 
- @property (nonatomic, copy) NSString *title;
- @property (nonatomic, strong) NSDecimalNumber *itemPrice;
- @property (nonatomic, strong) NSDecimalNumber *quantity;
- @property (nonatomic, strong) MERProductVariant *variant;
- 
- - (instancetype)initWithVariant:(MERProductVariant*)variant;
- 
- @end
-*/
+@property (nonatomic, strong) MERProductVariant *variant;
+@property (nonatomic, strong) NSDecimalNumber *quantity;
+@property (nonatomic, strong) NSDecimalNumber *price;
+@property (nonatomic, copy) NSString *title;
+
+- (instancetype)initWithVariant:(MERProductVariant *)variant;
+
+@end

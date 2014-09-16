@@ -15,6 +15,8 @@
 		F773744919C77A210039681C /* CHKCart.m in Sources */ = {isa = PBXBuildFile; fileRef = F773744819C77A210039681C /* CHKCart.m */; };
 		F773749619C77C260039681C /* CHKCheckout.m in Sources */ = {isa = PBXBuildFile; fileRef = F773749519C77C260039681C /* CHKCheckout.m */; };
 		F773749D19C77DC90039681C /* CHKDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F773749C19C77DC90039681C /* CHKDataProvider.m */; };
+		F77374AC19C796BD0039681C /* CHKCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = F77374AB19C796BD0039681C /* CHKCreditCard.m */; };
+		F7FDA16319C8DFC200AF4E93 /* libStorefront.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7FDA16219C8DFC200AF4E93 /* libStorefront.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -47,6 +49,9 @@
 		F773749B19C77DC90039681C /* CHKDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKDataProvider.h; sourceTree = "<group>"; };
 		F773749C19C77DC90039681C /* CHKDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKDataProvider.m; sourceTree = "<group>"; };
 		F77374A219C77F760039681C /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
+		F77374AA19C796BD0039681C /* CHKCreditCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKCreditCard.h; sourceTree = "<group>"; };
+		F77374AB19C796BD0039681C /* CHKCreditCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKCreditCard.m; sourceTree = "<group>"; };
+		F7FDA16219C8DFC200AF4E93 /* libStorefront.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libStorefront.a; path = "../Storefront/build/Debug-iphoneos/libStorefront.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7FDA16319C8DFC200AF4E93 /* libStorefront.a in Frameworks */,
 				4DA3F313EC2D48B4AA808DEA /* libPods-CheckoutAnywhere.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -71,6 +77,7 @@
 		547B8D0CCDB9458C800F1E3C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F7FDA16219C8DFC200AF4E93 /* libStorefront.a */,
 				ED7CAC6864F24DF6994E9680 /* libPods-CheckoutAnywhere.a */,
 			);
 			name = Frameworks;
@@ -133,10 +140,12 @@
 		F773744419C779C20039681C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				F773749419C77C260039681C /* CHKCheckout.h */,
-				F773749519C77C260039681C /* CHKCheckout.m */,
 				F773744719C77A210039681C /* CHKCart.h */,
 				F773744819C77A210039681C /* CHKCart.m */,
+				F773749419C77C260039681C /* CHKCheckout.h */,
+				F773749519C77C260039681C /* CHKCheckout.m */,
+				F77374AA19C796BD0039681C /* CHKCreditCard.h */,
+				F77374AB19C796BD0039681C /* CHKCreditCard.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -304,6 +313,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F77374AC19C796BD0039681C /* CHKCreditCard.m in Sources */,
 				F773744919C77A210039681C /* CHKCart.m in Sources */,
 				F773749619C77C260039681C /* CHKCheckout.m in Sources */,
 				F773744619C779C20039681C /* CHKAnywhereController.m in Sources */,
@@ -400,6 +410,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 96E74FD94961416BAD002B55 /* Pods-CheckoutAnywhere.xcconfig */;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers\"",
+					"\"${PODS_ROOT}/Headers/Stripe\"",
+					"\"${PROJECT_DIR}/../Storefront\"/**",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -409,6 +424,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 96E74FD94961416BAD002B55 /* Pods-CheckoutAnywhere.xcconfig */;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers\"",
+					"\"${PODS_ROOT}/Headers/Stripe\"",
+					"\"${PROJECT_DIR}/../Storefront\"/**",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
