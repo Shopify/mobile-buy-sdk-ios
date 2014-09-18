@@ -10,6 +10,7 @@
 
 //Models
 #import "MERProductVariant.h"
+#import "CHKLineItem.h"
 
 @implementation CHKCart {
 	NSMutableArray *_lineItems;
@@ -103,26 +104,6 @@
 	if (variant.identifier) {
 		[_variantToLineItem removeObjectForKey:variant.identifier];
 	}
-}
-
-@end
-
-@implementation CHKLineItem
-
-- (instancetype)init
-{
-	return [self initWithVariant:nil];
-}
-
-- (instancetype)initWithVariant:(MERProductVariant *)variant
-{
-	self = [super init];
-	if (self) {
-		self.variant = variant;
-		self.quantity = [NSDecimalNumber one];
-		self.price = variant ? [variant price] : [NSDecimalNumber zero];
-	}
-	return self;
 }
 
 @end

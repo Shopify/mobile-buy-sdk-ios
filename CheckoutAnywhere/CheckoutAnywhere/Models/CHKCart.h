@@ -13,9 +13,16 @@
 
 @interface CHKCart : NSObject
 
-@property (nonatomic, readonly, strong) NSArray *lineItems;
+@property (nonatomic, readonly, copy) NSArray *lineItems;
 
+/**
+ * Returns true if the cart is acceptable to send to Shopify.
+ */
 - (BOOL)isValid;
+
+/**
+ * Empties the cart and any custom-stored propreties.
+ */
 - (void)clearCart;
 
 #pragma mark - Simple Cart Editing
@@ -37,18 +44,15 @@
 
 #pragma mark - Direct Line Item Editing
 
+/**
+ * Adds a custom-built line item to the cart.
+ */
 - (void)addLineItemsObject:(CHKLineItem *)object;
+
+/**
+ * Completely removes a line item from the cart.
+ */
 - (void)removeLineItemsObject:(CHKLineItem *)object;
 
 @end
 
-@interface CHKLineItem : NSObject
-
-@property (nonatomic, strong) MERProductVariant *variant;
-@property (nonatomic, strong) NSDecimalNumber *quantity;
-@property (nonatomic, strong) NSDecimalNumber *price;
-@property (nonatomic, copy) NSString *title;
-
-- (instancetype)initWithVariant:(MERProductVariant *)variant;
-
-@end

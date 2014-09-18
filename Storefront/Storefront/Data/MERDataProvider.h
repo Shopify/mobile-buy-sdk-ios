@@ -21,8 +21,20 @@ typedef void (^MERDataImagesListBlock)(NSArray *images, NSError *error);
 @interface MERDataProvider : NSObject
 
 - (instancetype)initWithShopDomain:(NSString*)shopDomain;
+
+/**
+ * Fetches the shop's metadata (from /meta.json).
+ */
 - (NSURLSessionDataTask*)fetchShop:(MERDataShopBlock)block;
+
+/**
+ * Fetches a single page of collections for the shop.
+ */
 - (NSURLSessionDataTask*)fetchCollections:(MERDataCollectionListBlock)block;
+
+/**
+ * Fetches a single page of products for the shop.
+ */
 - (NSURLSessionDataTask*)fetchProductsInCollection:(MERCollection*)collection completion:(MERDataProductListBlock)block;
 
 @end
