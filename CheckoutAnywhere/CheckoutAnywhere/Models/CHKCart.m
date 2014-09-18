@@ -17,6 +17,16 @@
 	NSMutableDictionary *_variantToLineItem;
 }
 
+- (instancetype)init
+{
+	self = [super init];
+	if (self) {
+		_lineItems = [[NSMutableArray alloc] init];
+		_variantToLineItem = [[NSMutableDictionary alloc] init];
+	}
+	return self;
+}
+
 - (NSArray *)lineItems
 {
 	return [NSArray arrayWithArray:_lineItems];
@@ -88,7 +98,6 @@
 
 - (void)removeLineItemsObject:(CHKLineItem *)object
 {
-	
 	[_lineItems removeObject:object];
 }
 

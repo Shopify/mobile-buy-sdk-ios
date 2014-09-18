@@ -12,6 +12,7 @@
 		F76CFF2519CB7D750079C703 /* CHKCheckoutTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F76CFF2419CB7D750079C703 /* CHKCheckoutTest.m */; };
 		F76CFF2719CB7E7B0079C703 /* CHKCartTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F76CFF2619CB7E7B0079C703 /* CHKCartTest.m */; };
 		F76CFF2819CB7F0B0079C703 /* libCheckoutAnywhere.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F773741D19C770CB0039681C /* libCheckoutAnywhere.a */; };
+		F76CFF2A19CB830D0079C703 /* CHKLineItemTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F76CFF2919CB830D0079C703 /* CHKLineItemTest.m */; };
 		F773743519C771C50039681C /* ShopifyCheckoutAnywhere.podspec in Resources */ = {isa = PBXBuildFile; fileRef = F773743419C771C50039681C /* ShopifyCheckoutAnywhere.podspec */; };
 		F773743819C771D10039681C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = F773743619C771D10039681C /* LICENSE */; };
 		F773743919C771D10039681C /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = F773743719C771D10039681C /* README.md */; };
@@ -44,6 +45,7 @@
 		F76CFF1E19CB7C500079C703 /* CHKSerializable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKSerializable.h; sourceTree = "<group>"; };
 		F76CFF2419CB7D750079C703 /* CHKCheckoutTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKCheckoutTest.m; sourceTree = "<group>"; };
 		F76CFF2619CB7E7B0079C703 /* CHKCartTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKCartTest.m; sourceTree = "<group>"; };
+		F76CFF2919CB830D0079C703 /* CHKLineItemTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKLineItemTest.m; sourceTree = "<group>"; };
 		F773741D19C770CB0039681C /* libCheckoutAnywhere.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCheckoutAnywhere.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F773742819C770CB0039681C /* CheckoutAnywhereTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CheckoutAnywhereTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F773742B19C770CB0039681C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				F773742A19C770CB0039681C /* Supporting Files */,
 				F76CFF2619CB7E7B0079C703 /* CHKCartTest.m */,
 				F76CFF2419CB7D750079C703 /* CHKCheckoutTest.m */,
+				F76CFF2919CB830D0079C703 /* CHKLineItemTest.m */,
 			);
 			path = CheckoutAnywhereTests;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F76CFF2519CB7D750079C703 /* CHKCheckoutTest.m in Sources */,
+				F76CFF2A19CB830D0079C703 /* CHKLineItemTest.m in Sources */,
 				F773743919C771D10039681C /* README.md in Sources */,
 				F76CFF2719CB7E7B0079C703 /* CHKCartTest.m in Sources */,
 			);
@@ -476,6 +480,12 @@
 				);
 				INFOPLIST_FILE = CheckoutAnywhereTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -494,6 +504,12 @@
 				);
 				INFOPLIST_FILE = CheckoutAnywhereTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

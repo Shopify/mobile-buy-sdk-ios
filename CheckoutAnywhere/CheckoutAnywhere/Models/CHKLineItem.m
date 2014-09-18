@@ -26,8 +26,9 @@
 	self = [super init];
 	if (self) {
 		self.variant = variant;
-		self.quantity = [NSDecimalNumber one];
+		self.quantity = variant ? [NSDecimalNumber one] : [NSDecimalNumber zero];
 		self.price = variant ? [variant price] : [NSDecimalNumber zero];
+		self.title = variant ? [variant title] : @"";
 	}
 	return self;
 }
@@ -39,7 +40,7 @@
 		lineItem[@"variant_id"] = self.variant.identifier;
 	}
 	
-	if (self.title) {
+	if ([self.title length] > 0) {
 		lineItem[@"title"] = [self.title trim];
 	}
 	

@@ -8,7 +8,7 @@
 
 #import "NSString+Trim.h"
 
-@implementation NSString
+@implementation NSString (Trim)
 
 - (NSString*)trim
 {

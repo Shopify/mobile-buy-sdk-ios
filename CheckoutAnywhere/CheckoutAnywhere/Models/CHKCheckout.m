@@ -49,3 +49,15 @@
 }
 
 @end
+
+@implementation CHKTaxLine
+
+@end
+
+@implementation CHKAddress
+
+@end
+
+@implementation CHKShippingRate
+
+@end
