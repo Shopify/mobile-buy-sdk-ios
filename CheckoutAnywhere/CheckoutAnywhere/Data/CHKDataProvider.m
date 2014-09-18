@@ -64,11 +64,18 @@
 - (NSURLSessionDataTask *)storeCreditCard:(CHKCreditCard *)creditCard checkout:(CHKCheckout *)checkout completion:(CHKDataCreditCardBlock)block
 {
 	NSURLSessionDataTask *task = nil;
-	
+	//TODO: This
 	return task;
 }
 
 - (NSURLSessionDataTask *)updateCheckout:(CHKCheckout *)checkout completion:(CHKDataCheckoutBlock)block
+{
+	NSURLSessionDataTask *task = nil;
+	
+	return task;
+}
+
+- (NSURLSessionDataTask*)completeCheckout:(CHKCheckout *)checkout block:(CHKDataCheckoutBlock)block
 {
 	NSURLSessionDataTask *task = nil;
 	

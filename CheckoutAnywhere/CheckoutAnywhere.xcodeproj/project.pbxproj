@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		4DA3F313EC2D48B4AA808DEA /* libPods-CheckoutAnywhere.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED7CAC6864F24DF6994E9680 /* libPods-CheckoutAnywhere.a */; };
+		F76CFF1D19CB7BE30079C703 /* NSString+Trim.m in Sources */ = {isa = PBXBuildFile; fileRef = F76CFF1C19CB7BE30079C703 /* NSString+Trim.m */; };
+		F76CFF2519CB7D750079C703 /* CHKCheckoutTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F76CFF2419CB7D750079C703 /* CHKCheckoutTest.m */; };
+		F76CFF2719CB7E7B0079C703 /* CHKCartTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F76CFF2619CB7E7B0079C703 /* CHKCartTest.m */; };
+		F76CFF2819CB7F0B0079C703 /* libCheckoutAnywhere.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F773741D19C770CB0039681C /* libCheckoutAnywhere.a */; };
 		F773743519C771C50039681C /* ShopifyCheckoutAnywhere.podspec in Resources */ = {isa = PBXBuildFile; fileRef = F773743419C771C50039681C /* ShopifyCheckoutAnywhere.podspec */; };
 		F773743819C771D10039681C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = F773743619C771D10039681C /* LICENSE */; };
 		F773743919C771D10039681C /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = F773743719C771D10039681C /* README.md */; };
@@ -35,6 +39,11 @@
 /* Begin PBXFileReference section */
 		96E74FD94961416BAD002B55 /* Pods-CheckoutAnywhere.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutAnywhere.xcconfig"; path = "Pods/Pods-CheckoutAnywhere.xcconfig"; sourceTree = "<group>"; };
 		ED7CAC6864F24DF6994E9680 /* libPods-CheckoutAnywhere.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CheckoutAnywhere.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F76CFF1B19CB7BE30079C703 /* NSString+Trim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Trim.h"; sourceTree = "<group>"; };
+		F76CFF1C19CB7BE30079C703 /* NSString+Trim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Trim.m"; sourceTree = "<group>"; };
+		F76CFF1E19CB7C500079C703 /* CHKSerializable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKSerializable.h; sourceTree = "<group>"; };
+		F76CFF2419CB7D750079C703 /* CHKCheckoutTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKCheckoutTest.m; sourceTree = "<group>"; };
+		F76CFF2619CB7E7B0079C703 /* CHKCartTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKCartTest.m; sourceTree = "<group>"; };
 		F773741D19C770CB0039681C /* libCheckoutAnywhere.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCheckoutAnywhere.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F773742819C770CB0039681C /* CheckoutAnywhereTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CheckoutAnywhereTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F773742B19C770CB0039681C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -71,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F76CFF2819CB7F0B0079C703 /* libCheckoutAnywhere.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,6 +120,8 @@
 			isa = PBXGroup;
 			children = (
 				F773742A19C770CB0039681C /* Supporting Files */,
+				F76CFF2619CB7E7B0079C703 /* CHKCartTest.m */,
+				F76CFF2419CB7D750079C703 /* CHKCheckoutTest.m */,
 			);
 			path = CheckoutAnywhereTests;
 			sourceTree = "<group>";
@@ -151,6 +163,7 @@
 				F77374AB19C796BD0039681C /* CHKCreditCard.m */,
 				F7FDA16C19C939FF00AF4E93 /* CHKLineItem.h */,
 				F7FDA16D19C939FF00AF4E93 /* CHKLineItem.m */,
+				F76CFF1E19CB7C500079C703 /* CHKSerializable.h */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -158,6 +171,8 @@
 		F773744519C779C20039681C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				F76CFF1B19CB7BE30079C703 /* NSString+Trim.h */,
+				F76CFF1C19CB7BE30079C703 /* NSString+Trim.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -322,6 +337,7 @@
 				F773744919C77A210039681C /* CHKCart.m in Sources */,
 				F773749619C77C260039681C /* CHKCheckout.m in Sources */,
 				F7FDA17219C93F6F00AF4E93 /* CHKDataProvider.m in Sources */,
+				F76CFF1D19CB7BE30079C703 /* NSString+Trim.m in Sources */,
 				F773744619C779C20039681C /* CHKAnywhereController.m in Sources */,
 				F7FDA16E19C939FF00AF4E93 /* CHKLineItem.m in Sources */,
 			);
@@ -331,7 +347,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F76CFF2519CB7D750079C703 /* CHKCheckoutTest.m in Sources */,
 				F773743919C771D10039681C /* README.md in Sources */,
+				F76CFF2719CB7E7B0079C703 /* CHKCartTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,6 +469,11 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"${PROJECT_DIR}/../Storefront\"/**",
+				);
 				INFOPLIST_FILE = CheckoutAnywhereTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -463,6 +486,11 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"${PROJECT_DIR}/../Storefront\"/**",
 				);
 				INFOPLIST_FILE = CheckoutAnywhereTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+#import "CHKSerializable.h"
+
 @class MERProductVariant;
 
-@interface CHKLineItem : NSObject
+@interface CHKLineItem : NSObject <CHKSerializable>
 
 /**
  * Optional product variant.

@@ -11,6 +11,9 @@
 //Model
 #import "MERProductVariant.h"
 
+//Utils
+#import "NSString+Trim.h"
+
 @implementation CHKLineItem
 
 - (instancetype)init
@@ -27,6 +30,27 @@
 		self.price = variant ? [variant price] : [NSDecimalNumber zero];
 	}
 	return self;
+}
+
+- (NSDictionary *)jsonDictionaryForCheckout
+{
+	NSMutableDictionary *lineItem = [[NSMutableDictionary alloc] init];
+	if (self.variant.identifier) {
+		lineItem[@"variant_id"] = self.variant.identifier;
+	}
+	
+	if (self.title) {
+		lineItem[@"title"] = [self.title trim];
+	}
+	
+	if (self.quantity) {
+		lineItem[@"quantity"] = self.quantity;
+	}
+	
+	if (self.price) {
+		lineItem[@"price"] = self.price;
+	}
+	return lineItem;
 }
 
 @end

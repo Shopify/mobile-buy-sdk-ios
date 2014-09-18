@@ -8,10 +8,12 @@
 
 @import Foundation;
 
+#import "CHKSerializable.h"
+
 @class CHKLineItem;
 @class MERProductVariant;
 
-@interface CHKCart : NSObject
+@interface CHKCart : NSObject <CHKSerializable>
 
 @property (nonatomic, readonly, copy) NSArray *lineItems;
 
@@ -55,4 +57,3 @@
 - (void)removeLineItemsObject:(CHKLineItem *)object;
 
 @end
-

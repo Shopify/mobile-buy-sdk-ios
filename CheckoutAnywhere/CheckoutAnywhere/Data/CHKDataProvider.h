@@ -45,4 +45,9 @@ typedef void (^CHKDataCheckoutBlock)(CHKCheckout *checkout, NSError *error);
  */
 - (NSURLSessionDataTask *)updateCheckout:(CHKCheckout *)checkout completion:(CHKDataCheckoutBlock)block;
 
+/**
+ * Finalizes the checkout and charges the credit card.
+ */
+- (NSURLSessionDataTask*)completeCheckout:(CHKCheckout *)checkout block:(CHKDataCheckoutBlock)block;
+
 @end

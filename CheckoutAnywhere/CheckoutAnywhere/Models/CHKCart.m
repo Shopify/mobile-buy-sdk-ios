@@ -106,4 +106,18 @@
 	}
 }
 
+- (NSDictionary *)jsonDictionaryForCheckout
+{
+	NSMutableDictionary *checkout = [[NSMutableDictionary alloc] init];
+	NSArray *lineItems = [self lineItems];
+	if ([lineItems count] > 0) {
+		NSMutableArray *lineItemsJson = [[NSMutableArray alloc] init];
+		for (CHKLineItem *lineItem in lineItems) {
+			[lineItemsJson addObject:[lineItem jsonDictionaryForCheckout]];
+		}
+		checkout[@"line_items"] = lineItemsJson;
+	}
+	return @{ @"checkout" : checkout };
+}
+
 @end
