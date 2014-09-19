@@ -19,6 +19,8 @@ typedef void (^CHKDataCheckoutBlock)(CHKCheckout *checkout, NSError *error);
 
 @interface CHKDataProvider : NSObject
 
+- (instancetype)initWithShopDomain:(NSString *)shopDomain;
+
 /**
  * Builds a checkout object with this cart. The checkout will be used to prepare an order.
  */
