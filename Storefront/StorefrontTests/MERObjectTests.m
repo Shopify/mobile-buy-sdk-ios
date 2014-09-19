@@ -41,8 +41,8 @@
 	XCTAssertEqual(2, [convertedArray count]);
 	XCTAssertTrue([convertedArray[0] isKindOfClass:[MERObject class]]);
 	XCTAssertTrue([convertedArray[1] isKindOfClass:[MERObject class]]);
-	XCTAssertEqual(@5, [convertedArray[0] identifier]);
-	XCTAssertEqual(@7, [convertedArray[1] identifier]);
+	XCTAssertEqualObjects(@5, [convertedArray[0] identifier]);
+	XCTAssertEqualObjects(@7, [convertedArray[1] identifier]);
 }
 
 - (void)testConvertJSONArrayWithCreatedBlock
@@ -53,6 +53,8 @@
 		XCTAssertTrue([obj isKindOfClass:[MERObject class]]);
 		++numberOfInvokes;
 	}];
+	XCTAssertNotNil(convertedArray);
+	XCTAssertEqual([json count], [convertedArray count]);
 	XCTAssertEqual([json count], numberOfInvokes);
 }
 

@@ -15,7 +15,6 @@
 		F76CFF2A19CB830D0079C703 /* CHKLineItemTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F76CFF2919CB830D0079C703 /* CHKLineItemTest.m */; };
 		F773743519C771C50039681C /* ShopifyCheckoutAnywhere.podspec in Resources */ = {isa = PBXBuildFile; fileRef = F773743419C771C50039681C /* ShopifyCheckoutAnywhere.podspec */; };
 		F773743819C771D10039681C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = F773743619C771D10039681C /* LICENSE */; };
-		F773743919C771D10039681C /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = F773743719C771D10039681C /* README.md */; };
 		F773744619C779C20039681C /* CHKAnywhereController.m in Sources */ = {isa = PBXBuildFile; fileRef = F773744319C779C20039681C /* CHKAnywhereController.m */; };
 		F773744919C77A210039681C /* CHKCart.m in Sources */ = {isa = PBXBuildFile; fileRef = F773744819C77A210039681C /* CHKCart.m */; };
 		F773749619C77C260039681C /* CHKCheckout.m in Sources */ = {isa = PBXBuildFile; fileRef = F773749519C77C260039681C /* CHKCheckout.m */; };
@@ -352,7 +351,6 @@
 			files = (
 				F76CFF2519CB7D750079C703 /* CHKCheckoutTest.m in Sources */,
 				F76CFF2A19CB830D0079C703 /* CHKLineItemTest.m in Sources */,
-				F773743919C771D10039681C /* README.md in Sources */,
 				F76CFF2719CB7E7B0079C703 /* CHKCartTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
