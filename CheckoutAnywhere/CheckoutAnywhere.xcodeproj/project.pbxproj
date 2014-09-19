@@ -19,6 +19,7 @@
 		F773744919C77A210039681C /* CHKCart.m in Sources */ = {isa = PBXBuildFile; fileRef = F773744819C77A210039681C /* CHKCart.m */; };
 		F773749619C77C260039681C /* CHKCheckout.m in Sources */ = {isa = PBXBuildFile; fileRef = F773749519C77C260039681C /* CHKCheckout.m */; };
 		F77374AC19C796BD0039681C /* CHKCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = F77374AB19C796BD0039681C /* CHKCreditCard.m */; };
+		F79CE45319CC612700C9AFAB /* CHKAnywhereIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F79CE45219CC612700C9AFAB /* CHKAnywhereIntegrationTest.m */; };
 		F7FDA16319C8DFC200AF4E93 /* libStorefront.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7FDA16219C8DFC200AF4E93 /* libStorefront.a */; };
 		F7FDA16E19C939FF00AF4E93 /* CHKLineItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDA16D19C939FF00AF4E93 /* CHKLineItem.m */; };
 		F7FDA17219C93F6F00AF4E93 /* CHKDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDA17119C93F6F00AF4E93 /* CHKDataProvider.m */; };
@@ -60,6 +61,9 @@
 		F77374A219C77F760039681C /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
 		F77374AA19C796BD0039681C /* CHKCreditCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKCreditCard.h; sourceTree = "<group>"; };
 		F77374AB19C796BD0039681C /* CHKCreditCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKCreditCard.m; sourceTree = "<group>"; };
+		F79CE45219CC612700C9AFAB /* CHKAnywhereIntegrationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKAnywhereIntegrationTest.m; sourceTree = "<group>"; };
+		F79CE46019CC979200C9AFAB /* libPods-CheckoutAnywhere-Stripe.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-CheckoutAnywhere-Stripe.a"; path = "Pods/build/Debug-iphoneos/libPods-CheckoutAnywhere-Stripe.a"; sourceTree = "<group>"; };
+		F79CE46119CC979200C9AFAB /* libPods-CheckoutAnywhere.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-CheckoutAnywhere.a"; path = "Pods/build/Debug-iphoneos/libPods-CheckoutAnywhere.a"; sourceTree = "<group>"; };
 		F7FDA16219C8DFC200AF4E93 /* libStorefront.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libStorefront.a; path = "../Storefront/build/Debug-iphoneos/libStorefront.a"; sourceTree = "<group>"; };
 		F7FDA16C19C939FF00AF4E93 /* CHKLineItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKLineItem.h; sourceTree = "<group>"; };
 		F7FDA16D19C939FF00AF4E93 /* CHKLineItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKLineItem.m; sourceTree = "<group>"; };
@@ -91,6 +95,8 @@
 		547B8D0CCDB9458C800F1E3C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F79CE46019CC979200C9AFAB /* libPods-CheckoutAnywhere-Stripe.a */,
+				F79CE46119CC979200C9AFAB /* libPods-CheckoutAnywhere.a */,
 				F7FDA16219C8DFC200AF4E93 /* libStorefront.a */,
 				ED7CAC6864F24DF6994E9680 /* libPods-CheckoutAnywhere.a */,
 			);
@@ -124,6 +130,7 @@
 				F76CFF2619CB7E7B0079C703 /* CHKCartTest.m */,
 				F76CFF2419CB7D750079C703 /* CHKCheckoutTest.m */,
 				F76CFF2919CB830D0079C703 /* CHKLineItemTest.m */,
+				F79CE45219CC612700C9AFAB /* CHKAnywhereIntegrationTest.m */,
 			);
 			path = CheckoutAnywhereTests;
 			sourceTree = "<group>";
@@ -349,6 +356,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F79CE45319CC612700C9AFAB /* CHKAnywhereIntegrationTest.m in Sources */,
 				F76CFF2519CB7D750079C703 /* CHKCheckoutTest.m in Sources */,
 				F76CFF2A19CB830D0079C703 /* CHKLineItemTest.m in Sources */,
 				F76CFF2719CB7E7B0079C703 /* CHKCartTest.m in Sources */,
@@ -462,6 +470,7 @@
 		};
 		F773743219C770CB0039681C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 96E74FD94961416BAD002B55 /* Pods-CheckoutAnywhere.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -478,6 +487,10 @@
 				);
 				INFOPLIST_FILE = CheckoutAnywhereTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -490,6 +503,7 @@
 		};
 		F773743319C770CB0039681C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 96E74FD94961416BAD002B55 /* Pods-CheckoutAnywhere.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -502,6 +516,10 @@
 				);
 				INFOPLIST_FILE = CheckoutAnywhereTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
