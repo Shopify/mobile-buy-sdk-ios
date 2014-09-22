@@ -39,13 +39,13 @@
 	self.reservationTime = dictionary[@"reservation_time"];
 	self.reservationTimeLeft = dictionary[@"reservation_time_left"];
 	
-	_lineItems = [MERObject convertJSONArray:dictionary[@"line_items"] toArrayOfClass:[CHKLineItem class]];
-	_taxLines = [MERObject convertJSONArray:dictionary[@"tax_lines"] toArrayOfClass:[CHKTaxLine class]];
+	_lineItems = [CHKLineItem convertJSONArray:dictionary[@"line_items"]];
+	_taxLines = [CHKTaxLine convertJSONArray:dictionary[@"tax_lines"]];
 	
-	self.billingAddress = [MERObject convertDictionary:dictionary[@"billing_address"] toObjectOfClass:[CHKAddress class]];
-	self.shippingAddress = [MERObject convertDictionary:dictionary[@"shipping_address"] toObjectOfClass:[CHKAddress class]];
+	self.billingAddress = [CHKAddress convertObject:dictionary[@"billing_address"]];
+	self.shippingAddress = [CHKAddress convertObject:dictionary[@"shipping_address"]];
 	
-	self.shippingAddress = [MERObject convertDictionary:dictionary[@"shipping_address"] toObjectOfClass:[CHKShippingRate class]];
+	self.shippingRate = [CHKShippingRate convertObject:dictionary[@"shipping_address"]];
 }
 
 @end

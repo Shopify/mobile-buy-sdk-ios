@@ -62,9 +62,20 @@
 	return [self performRequestForURL:[NSString stringWithFormat:@"http://%@/collections.json", _shopDomain] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		NSArray *collections = nil;
 		if (json) {
-			collections = [MERObject convertJSONArray:json[@"collections"] toArrayOfClass:[MERCollection class]];
+			collections = [MERCollection convertJSONArray:json[@"collections"]];
 		}
 		block(collections, error);
+	}];
+}
+
+- (NSURLSessionDataTask *)fetchProducts:(MERDataProductListBlock)block
+{
+	return [self performRequestForURL:[NSString stringWithFormat:@"http://%@/products.json", _shopDomain] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+		NSArray *products = nil;
+		if (json) {
+			products = [MERProduct convertJSONArray:json[@"products"]];
+		}
+		block(products, error);
 	}];
 }
 
@@ -73,7 +84,7 @@
 	return [self performRequestForURL:[NSString stringWithFormat:@"http://%@/collections/%@/products.json", _shopDomain, collection.handle] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		NSArray *products = nil;
 		if (json) {
-			products = [MERObject convertJSONArray:json[@"products"] toArrayOfClass:[MERProduct class]];
+			products = [MERProduct convertJSONArray:json[@"products"]];
 		}
 		block(products, error);
 	}];

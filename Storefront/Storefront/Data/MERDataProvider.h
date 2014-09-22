@@ -35,6 +35,11 @@ typedef void (^MERDataImagesListBlock)(NSArray *images, NSError *error);
 /**
  * Fetches a single page of products for the shop.
  */
+- (NSURLSessionDataTask *)fetchProducts:(MERDataProductListBlock)block;
+
+/**
+ * Fetches a single page of products for the shop.
+ */
 - (NSURLSessionDataTask*)fetchProductsInCollection:(MERCollection*)collection completion:(MERDataProductListBlock)block;
 
 @end

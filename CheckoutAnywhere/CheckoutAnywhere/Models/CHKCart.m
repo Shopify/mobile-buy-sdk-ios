@@ -53,9 +53,10 @@
 	if (variant.identifier) {
 		_variantToLineItem[variant.identifier] = lineItem;
 	}
+	[_lineItems addObject:lineItem];
 }
 
-- (void)incrementVariant:(MERProductVariant *)variant
+- (void)addVariant:(MERProductVariant *)variant
 {
 	CHKLineItem *existingLineItem = [self lineItemForVariant:variant];
 	if (existingLineItem) {
@@ -66,21 +67,16 @@
 	}
 }
 
-- (void)decrementVariant:(MERProductVariant *)variant
-{
-	CHKLineItem *existingLineItem = [self lineItemForVariant:variant];
-	if (existingLineItem) {
-		existingLineItem.quantity = [existingLineItem.quantity decimalNumberBySubtracting:[NSDecimalNumber one]];
-	}
-}
-
 - (void)removeVariant:(MERProductVariant *)variant
 {
 	CHKLineItem *existingLineItem = [self lineItemForVariant:variant];
 	if (existingLineItem) {
-		[_lineItems removeObject:existingLineItem];
-		if (existingLineItem.variant.identifier) {
-			[_variantToLineItem removeObjectForKey:existingLineItem.variant.identifier];
+		existingLineItem.quantity = [existingLineItem.quantity decimalNumberBySubtracting:[NSDecimalNumber one]];
+		if ([existingLineItem quantity] == 0) {
+			[_lineItems removeObject:existingLineItem];
+			if (existingLineItem.variant.identifier) {
+				[_variantToLineItem removeObjectForKey:existingLineItem.variant.identifier];
+			}
 		}
 	}
 }

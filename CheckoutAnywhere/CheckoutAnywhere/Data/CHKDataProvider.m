@@ -35,7 +35,7 @@
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
 	request.HTTPBody = body;
 	[request addValue:contentType forHTTPHeaderField:@"Content-Type"];
-	[request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
+	[request addValue:kJSONType forHTTPHeaderField:@"Accept"];
 	request.HTTPMethod = @"POST";
 	NSURLSessionDataTask *task = [_session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
 		NSDictionary *json = nil;

@@ -19,7 +19,7 @@
 	if (self) {
 		self.title = dictionary[@"title"];
 		self.handle = dictionary[@"handle"];
-		self.image = [MERObject convertDictionary:dictionary[@"image"] toObjectOfClass:[MERImage class]];
+		self.image = [MERImage convertObject:dictionary[@"image"]];
 		self.productsCount = dictionary[@"products_count"];
 	}
 	return self;

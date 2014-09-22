@@ -14,16 +14,21 @@
 {
 	self = [super init];
 	if (self) {
-		_identifier = dictionary[@"id"];
+		[self updateWithDictionary:dictionary];
 	}
 	return self;
 }
 
-+ (NSArray*)convertJSONArray:(NSArray*)json toArrayOfClass:(Class)clazz block:(void (^)(id obj))createdBlock
+- (void)updateWithDictionary:(NSDictionary *)dictionary
+{
+	_identifier = dictionary[@"id"];
+}
+
++ (NSArray *)convertJSONArray:(NSArray*)json block:(void (^)(id obj))createdBlock
 {
 	NSMutableArray *objects = [[NSMutableArray alloc] init];
 	for (NSDictionary *jsonObject in json) {
-		id <MERObject> obj = [[(Class)clazz alloc] initWithDictionary:jsonObject];
+		MERObject *obj = [[self alloc] initWithDictionary:jsonObject];
 		[objects addObject:obj];
 		if (createdBlock) {
 			createdBlock(obj);
@@ -32,16 +37,16 @@
 	return objects;
 }
 
-+ (NSArray*)convertJSONArray:(NSArray*)json toArrayOfClass:(Class)clazz
++ (NSArray *)convertJSONArray:(NSArray*)json
 {
-	return [MERObject convertJSONArray:json toArrayOfClass:clazz block:nil];
+	return [self convertJSONArray:json block:nil];
 }
 
-+ (id <MERObject>)convertDictionary:(id)object toObjectOfClass:(Class)clazz
++ (instancetype)convertObject:(id)object
 {
-	id <MERObject> convertedObject = nil;
+	MERObject *convertedObject = nil;
 	if (!(object == nil || [object isKindOfClass:[NSNull class]])) {
-		convertedObject = [[clazz alloc] initWithDictionary:object];
+		convertedObject = [[self alloc] initWithDictionary:object];
 	}
 	return convertedObject;
 }

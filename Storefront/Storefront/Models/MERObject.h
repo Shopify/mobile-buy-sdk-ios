@@ -8,16 +8,15 @@
 
 @import Foundation;
 
-@protocol MERObject <NSObject>
-- (instancetype)initWithDictionary:(NSDictionary*)dictionary;
-@end
-
-@interface MERObject : NSObject <MERObject>
+@interface MERObject : NSObject
 
 @property (nonatomic, strong, readonly) NSNumber *identifier;
 
-+ (NSArray*)convertJSONArray:(NSArray*)json toArrayOfClass:(Class)clazz block:(void (^)(id obj))createdBlock;
-+ (NSArray*)convertJSONArray:(NSArray*)json toArrayOfClass:(Class)clazz;
-+ (id <MERObject>)convertDictionary:(id)object toObjectOfClass:(Class)clazz;
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+- (void)updateWithDictionary:(NSDictionary *)dictionary;
+
++ (NSArray *)convertJSONArray:(NSArray *)json block:(void (^)(id obj))createdBlock;
++ (NSArray *)convertJSONArray:(NSArray *)json;
++ (instancetype)convertObject:(id)object;
 
 @end

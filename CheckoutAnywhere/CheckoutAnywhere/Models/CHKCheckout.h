@@ -42,7 +42,7 @@
 
 @end
 
-@interface CHKTaxLine : NSObject
+@interface CHKTaxLine : MERObject
 
 @property (nonatomic, strong) NSDecimalNumber *price;
 @property (nonatomic, strong) NSDecimalNumber *rate;
@@ -50,7 +50,7 @@
 
 @end
 
-@interface CHKAddress : NSObject
+@interface CHKAddress : MERObject
 
 @property (nonatomic, copy) NSString *address1;
 @property (nonatomic, copy) NSString *address2;
@@ -68,9 +68,8 @@
 
 @end
 
-@interface CHKShippingRate : NSObject
+@interface CHKShippingRate : MERObject
 
-@property (nonatomic, copy) NSString *identifier;
 @property (nonatomic, strong) NSDecimalNumber *price;
 @property (nonatomic, copy) NSString *title;
 

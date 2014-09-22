@@ -23,11 +23,11 @@
 		self.vendor = dictionary[@"vendor"];
 		self.productType = dictionary[@"product_type"];
 
-		self.variants = [MERObject convertJSONArray:dictionary[@"variants"] toArrayOfClass:[MERProductVariant class] block:^(MERProductVariant *variant) {
+		self.variants = [MERProductVariant convertJSONArray:dictionary[@"variants"] block:^(MERProductVariant *variant) {
 			variant.product = self;
 		}];
-		self.images = [MERObject convertJSONArray:dictionary[@"images"] toArrayOfClass:[MERImage class]];
-		self.options = [MERObject convertJSONArray:dictionary[@"options"] toArrayOfClass:[MEROption class]];
+		self.images = [MERImage convertJSONArray:dictionary[@"images"]];
+		self.options = [MEROption convertJSONArray:dictionary[@"options"]];
 		self.htmlDescription = dictionary[@"body_html"];
 	}
 	return self;

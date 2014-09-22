@@ -11,6 +11,12 @@
 
 #import "MERObject.h"
 
+@interface MERObjectSubclass : MERObject
+@end
+
+@implementation MERObjectSubclass
+@end
+
 @interface MERObjectTests : XCTestCase
 @end
 
@@ -28,16 +34,31 @@
 	XCTAssertNil([object identifier]);
 }
 
+- (void)testConvertObject
+{
+	MERObject *object = [MERObject convertObject:@{ @"id" : @10 }];
+	XCTAssertNotNil(object);
+	XCTAssertEqual(@10, [object identifier]);
+}
+
+- (void)testConvertObjectWorksWithSubclasses
+{
+	MERObject *object = [MERObjectSubclass convertObject:@{ @"id" : @10 }];
+	XCTAssertNotNil(object);
+	XCTAssertTrue([object isKindOfClass:[MERObjectSubclass class]]);
+	XCTAssertEqual(@10, [object identifier]);
+}
+
 - (void)testConvertJSONArrayWithEmptyArray
 {
 	NSArray *json = @[];
-	XCTAssertEqual(0, [[MERObject convertJSONArray:json toArrayOfClass:[MERObject class]] count]);
+	XCTAssertEqual(0, [[MERObject convertJSONArray:json] count]);
 }
 
 - (void)testConvertJSONArrayCreatesObjectOfClass
 {
 	NSArray *json = @[@{ @"id" : @5 }, @{ @"id" : @7 }];
-	NSArray *convertedArray = [MERObject convertJSONArray:json toArrayOfClass:[MERObject class]];
+	NSArray *convertedArray = [MERObject convertJSONArray:json];
 	XCTAssertEqual(2, [convertedArray count]);
 	XCTAssertTrue([convertedArray[0] isKindOfClass:[MERObject class]]);
 	XCTAssertTrue([convertedArray[1] isKindOfClass:[MERObject class]]);
@@ -49,7 +70,7 @@
 {
 	NSArray *json = @[@{ @"id" : @5 }, @{ @"id" : @6 }, @{ @"id" : @7 }];
 	__block NSUInteger numberOfInvokes = 0;
-	NSArray *convertedArray = [MERObject convertJSONArray:json toArrayOfClass:[MERObject class] block:^(id obj) {
+	NSArray *convertedArray = [MERObject convertJSONArray:json block:^(id obj) {
 		XCTAssertTrue([obj isKindOfClass:[MERObject class]]);
 		++numberOfInvokes;
 	}];
