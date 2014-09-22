@@ -11,10 +11,13 @@
 
 #import "MERObject.h"
 
-@interface MERObjectSubclass : MERObject
+@interface MERDirtyTracked : MERObject
+
+@property (nonatomic, copy) NSString *banana;
+
 @end
 
-@implementation MERObjectSubclass
+@interface MERObjectSubclass : MERObject
 @end
 
 @interface MERObjectTests : XCTestCase
@@ -79,4 +82,26 @@
 	XCTAssertEqual([json count], numberOfInvokes);
 }
 
+- (void)testDirtyTracking
+{
+	MERDirtyTracked *object = [[MERDirtyTracked alloc] init];
+	object.banana = @"asdf";
+}
+
+@end
+
+#pragma mark - Helper Impls
+
+@implementation MERDirtyTracked
+
++ (void)initialize
+{
+	if (self == [MERDirtyTracked class]) {
+		[self trackDirtyProperties];
+	}
+}
+
+@end
+
+@implementation MERObjectSubclass
 @end

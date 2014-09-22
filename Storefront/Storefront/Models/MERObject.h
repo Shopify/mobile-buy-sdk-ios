@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.
 //
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 
 @interface MERObject : NSObject
 
@@ -18,5 +18,11 @@
 + (NSArray *)convertJSONArray:(NSArray *)json block:(void (^)(id obj))createdBlock;
 + (NSArray *)convertJSONArray:(NSArray *)json;
 + (instancetype)convertObject:(id)object;
+
+#pragma mark - Dirty Property Tracking
+
+- (NSSet *)dirtyProperties;
+- (void)markPropertyAsDirty:(NSString *)property;
++ (void)trackDirtyProperties;
 
 @end

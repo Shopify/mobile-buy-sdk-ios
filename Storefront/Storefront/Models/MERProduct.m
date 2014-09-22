@@ -15,22 +15,19 @@
 
 @implementation MERProduct
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary
+- (void)updateWithDictionary:(NSDictionary *)dictionary
 {
-	self = [super initWithDictionary:dictionary];
-	if (self) {
-		self.title = dictionary[@"title"];
-		self.vendor = dictionary[@"vendor"];
-		self.productType = dictionary[@"product_type"];
-
-		self.variants = [MERProductVariant convertJSONArray:dictionary[@"variants"] block:^(MERProductVariant *variant) {
-			variant.product = self;
-		}];
-		self.images = [MERImage convertJSONArray:dictionary[@"images"]];
-		self.options = [MEROption convertJSONArray:dictionary[@"options"]];
-		self.htmlDescription = dictionary[@"body_html"];
-	}
-	return self;
+	[super updateWithDictionary:dictionary];
+	
+	self.title = dictionary[@"title"];
+	self.vendor = dictionary[@"vendor"];
+	self.productType = dictionary[@"product_type"];
+	self.variants = [MERProductVariant convertJSONArray:dictionary[@"variants"] block:^(MERProductVariant *variant) {
+		variant.product = self;
+	}];
+	self.images = [MERImage convertJSONArray:dictionary[@"images"]];
+	self.options = [MEROption convertJSONArray:dictionary[@"options"]];
+	self.htmlDescription = dictionary[@"body_html"];
 }
 
 @end

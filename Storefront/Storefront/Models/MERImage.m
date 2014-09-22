@@ -10,14 +10,12 @@
 
 @implementation MERImage
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary
+- (void)updateWithDictionary:(NSDictionary *)dictionary
 {
-	self = [super initWithDictionary:dictionary];
-	if (self) {
-		self.src = dictionary[@"src"];
-		self.variantIds = dictionary[@"variant_ids"];
-	}
-	return self;
+	[super updateWithDictionary:dictionary];
+	
+	self.src = dictionary[@"src"];
+	self.variantIds = dictionary[@"variant_ids"];
 }
 
 @end

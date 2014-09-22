@@ -13,16 +13,14 @@
 
 @implementation MERCollection
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary
+- (void)updateWithDictionary:(NSDictionary *)dictionary
 {
-	self = [super initWithDictionary:dictionary];
-	if (self) {
-		self.title = dictionary[@"title"];
-		self.handle = dictionary[@"handle"];
-		self.image = [MERImage convertObject:dictionary[@"image"]];
-		self.productsCount = dictionary[@"products_count"];
-	}
-	return self;
+	[super updateWithDictionary:dictionary];
+	
+	self.title = dictionary[@"title"];
+	self.handle = dictionary[@"handle"];
+	self.image = [MERImage convertObject:dictionary[@"image"]];
+	self.productsCount = dictionary[@"products_count"];
 }
 
 - (NSComparisonResult)compare:(MERCollection*)otherCollection

@@ -13,15 +13,6 @@
 
 @implementation CHKCheckout
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary
-{
-	self = [super initWithDictionary:dictionary];
-	if (self) {
-		[self updateWithDictionary:dictionary];
-	}
-	return self;
-}
-
 - (void)updateWithDictionary:(NSDictionary *)dictionary
 {
 	self.email = dictionary[@"email"];

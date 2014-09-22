@@ -10,14 +10,12 @@
 
 @implementation MEROption
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary
+- (void)updateWithDictionary:(NSDictionary *)dictionary
 {
-	self = [super initWithDictionary:dictionary];
-	if (self) {
-		self.name = dictionary[@"name"];
-		self.position = dictionary[@"position"];
-	}
-	return self;
+	[super updateWithDictionary:dictionary];
+	
+	self.name = dictionary[@"name"];
+	self.position = dictionary[@"position"];
 }
 
 @end

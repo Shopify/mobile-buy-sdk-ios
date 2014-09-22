@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		F773748C19C77BD20039681C /* MERCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = F773747B19C77BD20039681C /* MERCollection.m */; };
 		F773748D19C77BD20039681C /* MERImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F773747D19C77BD20039681C /* MERImage.m */; };
-		F773748E19C77BD20039681C /* MERObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F773747F19C77BD20039681C /* MERObject.m */; };
+		F773748E19C77BD20039681C /* MERObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = F773747F19C77BD20039681C /* MERObject.mm */; };
 		F773748F19C77BD20039681C /* MEROption.m in Sources */ = {isa = PBXBuildFile; fileRef = F773748119C77BD20039681C /* MEROption.m */; };
 		F773749119C77BD20039681C /* MERProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = F773748519C77BD20039681C /* MERProduct.m */; };
 		F773749219C77BD20039681C /* MERProductVariant.m in Sources */ = {isa = PBXBuildFile; fileRef = F773748719C77BD20039681C /* MERProductVariant.m */; };
@@ -18,6 +18,9 @@
 		F77374A619C78B670039681C /* NSDecimalNumber+MERAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F77374A519C78B670039681C /* NSDecimalNumber+MERAdditions.m */; };
 		F77374A819C78C780039681C /* MERObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F77374A719C78C780039681C /* MERObjectTests.m */; };
 		F77374A919C78F470039681C /* libStorefront.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F773745419C77B160039681C /* libStorefront.a */; };
+		F7AB6AB719CFC59100115224 /* MERRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = F7AB6AB619CFC59100115224 /* MERRuntime.m */; };
+		F7AB6ABB19CFCE8500115224 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AB6ABA19CFCE8500115224 /* libstdc++.dylib */; };
+		F7AB6ABD19CFCED200115224 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AB6ABA19CFCE8500115224 /* libstdc++.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -41,7 +44,7 @@
 		F773747C19C77BD20039681C /* MERImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MERImage.h; sourceTree = "<group>"; };
 		F773747D19C77BD20039681C /* MERImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MERImage.m; sourceTree = "<group>"; };
 		F773747E19C77BD20039681C /* MERObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MERObject.h; sourceTree = "<group>"; };
-		F773747F19C77BD20039681C /* MERObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MERObject.m; sourceTree = "<group>"; };
+		F773747F19C77BD20039681C /* MERObject.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MERObject.mm; sourceTree = "<group>"; };
 		F773748019C77BD20039681C /* MEROption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEROption.h; sourceTree = "<group>"; };
 		F773748119C77BD20039681C /* MEROption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEROption.m; sourceTree = "<group>"; };
 		F773748419C77BD20039681C /* MERProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MERProduct.h; sourceTree = "<group>"; };
@@ -55,6 +58,9 @@
 		F77374A419C78B670039681C /* NSDecimalNumber+MERAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDecimalNumber+MERAdditions.h"; sourceTree = "<group>"; };
 		F77374A519C78B670039681C /* NSDecimalNumber+MERAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDecimalNumber+MERAdditions.m"; sourceTree = "<group>"; };
 		F77374A719C78C780039681C /* MERObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MERObjectTests.m; sourceTree = "<group>"; };
+		F7AB6AB519CFC59100115224 /* MERRuntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MERRuntime.h; sourceTree = "<group>"; };
+		F7AB6AB619CFC59100115224 /* MERRuntime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MERRuntime.m; sourceTree = "<group>"; };
+		F7AB6ABA19CFCE8500115224 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7AB6ABB19CFCE8500115224 /* libstdc++.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7AB6ABD19CFCED200115224 /* libstdc++.dylib in Frameworks */,
 				F77374A919C78F470039681C /* libStorefront.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -82,6 +90,7 @@
 				F773745619C77B160039681C /* Storefront */,
 				F773746019C77B160039681C /* StorefrontTests */,
 				F773745519C77B160039681C /* Products */,
+				F7AB6ABA19CFCE8500115224 /* libstdc++.dylib */,
 			);
 			sourceTree = "<group>";
 		};
@@ -138,7 +147,7 @@
 				F773747C19C77BD20039681C /* MERImage.h */,
 				F773747D19C77BD20039681C /* MERImage.m */,
 				F773747E19C77BD20039681C /* MERObject.h */,
-				F773747F19C77BD20039681C /* MERObject.m */,
+				F773747F19C77BD20039681C /* MERObject.mm */,
 				F773748019C77BD20039681C /* MEROption.h */,
 				F773748119C77BD20039681C /* MEROption.m */,
 				F773748419C77BD20039681C /* MERProduct.h */,
@@ -154,6 +163,8 @@
 		F77374A319C78B4C0039681C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				F7AB6AB519CFC59100115224 /* MERRuntime.h */,
+				F7AB6AB619CFC59100115224 /* MERRuntime.m */,
 				F77374A419C78B670039681C /* NSDecimalNumber+MERAdditions.h */,
 				F77374A519C78B670039681C /* NSDecimalNumber+MERAdditions.m */,
 			);
@@ -250,9 +261,10 @@
 			files = (
 				F773748D19C77BD20039681C /* MERImage.m in Sources */,
 				F773748F19C77BD20039681C /* MEROption.m in Sources */,
-				F773748E19C77BD20039681C /* MERObject.m in Sources */,
+				F773748E19C77BD20039681C /* MERObject.mm in Sources */,
 				F773749119C77BD20039681C /* MERProduct.m in Sources */,
 				F773748C19C77BD20039681C /* MERCollection.m in Sources */,
+				F7AB6AB719CFC59100115224 /* MERRuntime.m in Sources */,
 				F773749919C77D230039681C /* MERDataProvider.m in Sources */,
 				F773749319C77BD20039681C /* MERShop.m in Sources */,
 				F77374A619C78B670039681C /* NSDecimalNumber+MERAdditions.m in Sources */,

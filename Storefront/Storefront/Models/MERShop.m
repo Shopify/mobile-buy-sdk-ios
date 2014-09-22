@@ -10,19 +10,24 @@
 
 @implementation MERShop
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary
++ (void)initialize
 {
-	self = [super initWithDictionary:dictionary];
-	if (self) {
-		self.name = dictionary[@"name"];
-		self.city = dictionary[@"city"];
-		self.province = dictionary[@"province"];
-		self.currency = dictionary[@"currency"];
-		self.domain = dictionary[@"domain"];
-		self.shopDescription = dictionary[@"description"];
-		self.shipsToCountries = dictionary[@"ships_to_countries"];
+	if (self == [MERShop class]) {
+		[self trackDirtyProperties];
 	}
-	return self;
+}
+
+- (void)updateWithDictionary:(NSDictionary *)dictionary
+{
+	[super updateWithDictionary:dictionary];
+	
+	self.name = dictionary[@"name"];
+	self.city = dictionary[@"city"];
+	self.province = dictionary[@"province"];
+	self.currency = dictionary[@"currency"];
+	self.domain = dictionary[@"domain"];
+	self.shopDescription = dictionary[@"description"];
+	self.shipsToCountries = dictionary[@"ships_to_countries"];
 }
 
 @end
