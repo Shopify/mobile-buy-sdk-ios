@@ -129,13 +129,12 @@
 	__block CHKCheckout *checkout;
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 	[_checkoutDataProvider createCheckoutWithCart:cart completion:^(CHKCheckout *returnedCheckout, NSError *error) {
-		XCTAssertNotNil(returnedCheckout);
 		XCTAssertNil(error);
-		
 		checkout = returnedCheckout;
 		dispatch_semaphore_signal(semaphore);
 	}];
 	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+	XCTAssertNotNil(checkout);
 	
 	//3) Add some information to it
 	checkout.email = @"banana@testausaurus.com";

@@ -14,6 +14,8 @@
 //Utils
 #import "NSString+Trim.h"
 
+static NSDictionary *kCHKPropertyMap = nil;
+
 @implementation CHKCheckout
 
 + (void)initialize
@@ -21,6 +23,34 @@
 	if (self == [CHKCheckout class]) {
 		[self trackDirtyProperties];
 	}
+}
+
++ (NSString *)jsonKeyForProperty:(NSString *)property
+{
+	NSString *key = nil;
+	if ([property isEqual:@"identifier"]) {
+		key = @"id";
+	}
+	else {
+		static NSCharacterSet *kUppercaseCharacters = nil;
+		static dispatch_once_t onceToken;
+		dispatch_once(&onceToken, ^{
+			kUppercaseCharacters = [NSCharacterSet uppercaseLetterCharacterSet];
+		});
+		
+		NSMutableString *output = [NSMutableString string];
+		for (NSInteger i = 0; i < [property length]; ++i) {
+			unichar c = [property characterAtIndex:i];
+			if ([kUppercaseCharacters characterIsMember:c]) {
+				[output appendFormat:@"_%@", [[NSString stringWithCharacters:&c length:1] lowercaseString]];
+			}
+			else {
+				[output appendFormat:@"%C", c];
+			}
+		}
+		key = output;
+	}
+	return key;
 }
 
 - (void)updateWithDictionary:(NSDictionary *)dictionary
@@ -62,9 +92,9 @@
 		else if ([value isKindOfClass:[NSString class]]) {
 			value = [value trim];
 		}
-		json[dirtyProperty] = value ?: [NSNull null];
+		json[[CHKCheckout jsonKeyForProperty:dirtyProperty]] = value ?: [NSNull null];
 	}
-	return json;
+	return @{ @"checkout" : json };
 }
 
 @end
