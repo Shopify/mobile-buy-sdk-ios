@@ -129,7 +129,7 @@
 	__block CHKCheckout *checkout;
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 	[_checkoutDataProvider createCheckoutWithCart:cart completion:^(CHKCheckout *returnedCheckout, NSError *error) {
-		XCTAssertNotNil(checkout);
+		XCTAssertNotNil(returnedCheckout);
 		XCTAssertNil(error);
 		
 		checkout = returnedCheckout;
@@ -143,13 +143,13 @@
 	checkout.billingAddress = [self testBillingAddress];
 	
 	[_checkoutDataProvider updateCheckout:checkout completion:^(CHKCheckout *returnedCheckout, NSError *error) {
-		XCTAssertNotNil(checkout);
+		XCTAssertNotNil(returnedCheckout);
 		XCTAssertNil(error);
 		
 		checkout = returnedCheckout;
 		dispatch_semaphore_signal(semaphore);
 	}];
-	//dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 }
 
 @end

@@ -9,6 +9,7 @@
 @import Foundation;
 
 #import "MERObject.h"
+#import "CHKSerializable.h"
 
 @class CHKCreditCard;
 @class CHKAddress;
@@ -19,9 +20,8 @@
  * Your responsibility as a developer is to have the user fill out as much information as necessary on the Checkout.
  *
  * Do not create checkouts directly. You should use the CHKDataProvider to transform a CHKCart into a CHKCheckout.
- *
  */
-@interface CHKCheckout : MERObject
+@interface CHKCheckout : MERObject <CHKSerializable>
 
 @property (nonatomic, copy) NSString *email;
 @property (nonatomic, copy) NSString *token;
@@ -61,7 +61,7 @@
 /**
  * A CHKAddress can represent either a shipping or billing address on an order. This will be associated with the customer upon completion.
  */
-@interface CHKAddress : MERObject
+@interface CHKAddress : MERObject <CHKSerializable>
 
 @property (nonatomic, copy) NSString *address1;
 @property (nonatomic, copy) NSString *address2;

@@ -11,7 +11,17 @@
 //Models
 #import "CHKLineItem.h"
 
+//Utils
+#import "NSString+Trim.h"
+
 @implementation CHKCheckout
+
++ (void)initialize
+{
+	if (self == [CHKCheckout class]) {
+		[self trackDirtyProperties];
+	}
+}
 
 - (void)updateWithDictionary:(NSDictionary *)dictionary
 {
@@ -39,6 +49,24 @@
 	self.shippingRate = [CHKShippingRate convertObject:dictionary[@"shipping_address"]];
 }
 
+- (NSDictionary *)jsonDictionaryForCheckout
+{
+	//We only need the dirty properties
+	NSSet *dirtyProperties = [self dirtyProperties];
+	NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
+	for (NSString *dirtyProperty in dirtyProperties) {
+		id value = [self valueForKey:dirtyProperty];
+		if ([value conformsToProtocol:@protocol(CHKSerializable)]) {
+			value = [(id <CHKSerializable>)value jsonDictionaryForCheckout];
+		}
+		else if ([value isKindOfClass:[NSString class]]) {
+			value = [value trim];
+		}
+		json[dirtyProperty] = value ?: [NSNull null];
+	}
+	return json;
+}
+
 @end
 
 @implementation CHKTaxLine
@@ -46,6 +74,40 @@
 @end
 
 @implementation CHKAddress
+
+- (NSDictionary *)jsonDictionaryForCheckout
+{
+	NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
+	json[@"address1"] = [self.address1 trim] ?: @"";
+	json[@"address2"] = [self.address2 trim] ?: @"";
+	json[@"city"] = [self.city trim] ?: @"";
+	json[@"company"] = [self.company trim] ?: @"";
+	json[@"first_name"] = [self.firstName trim] ?: @"";
+	json[@"last_name"] = [self.lastName trim] ?: @"";
+	json[@"phone"] = [self.phone trim] ?: @"";
+	json[@"zip"] = [self.zip trim] ?: @"";
+	
+	NSString *country = [self.country trim];
+	if ([country length] > 0) {
+		json[@"country"] = country;
+	}
+	
+	NSString *countryCode = [self.countryCode trim];
+	if ([countryCode length] > 0) {
+		json[@"country_code"] = countryCode;
+	}
+	
+	NSString *province = [self.province trim];
+	if ([province length] > 0) {
+		json[@"province"] = province;
+	}
+	
+	NSString *provinceCode = [self.provinceCode trim];
+	if ([provinceCode length] > 0) {
+		json[@"province_code"] = provinceCode;
+	}
+	return json;
+}
 
 @end
 

@@ -100,8 +100,10 @@
 
 - (NSURLSessionDataTask *)updateCheckout:(CHKCheckout *)checkout completion:(CHKDataCheckoutBlock)block
 {
+	NSDictionary *json = [checkout jsonDictionaryForCheckout];
+	NSLog(@"Checkout: %@", json);
 	NSURLSessionDataTask *task = nil;
-	
+	block(nil, nil);
 	return task;
 }
 
