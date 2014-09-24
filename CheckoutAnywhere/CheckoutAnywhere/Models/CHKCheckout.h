@@ -14,6 +14,13 @@
 @class CHKAddress;
 @class CHKShippingRate;
 
+/**
+ * The checkout object. This is the main object that you will interact with when creating orders on Shopify.
+ * Your responsibility as a developer is to have the user fill out as much information as necessary on the Checkout.
+ *
+ * Do not create checkouts directly. You should use the CHKDataProvider to transform a CHKCart into a CHKCheckout.
+ *
+ */
 @interface CHKCheckout : MERObject
 
 @property (nonatomic, copy) NSString *email;
@@ -38,10 +45,11 @@
 
 @property (nonatomic, strong) CHKShippingRate *shippingRate;
 
-- (void)updateWithDictionary:(NSDictionary *)dictionary;
-
 @end
 
+/**
+ * CHKTaxLine represents a single tax line on a checkout. Use this to display an itemized list of taxes that they are being charged for.
+ */
 @interface CHKTaxLine : MERObject
 
 @property (nonatomic, strong) NSDecimalNumber *price;
@@ -50,6 +58,9 @@
 
 @end
 
+/**
+ * A CHKAddress can represent either a shipping or billing address on an order. This will be associated with the customer upon completion.
+ */
 @interface CHKAddress : MERObject
 
 @property (nonatomic, copy) NSString *address1;
@@ -68,6 +79,9 @@
 
 @end
 
+/**
+ * CHKShippingRate represents the amount that the merchant is charging the customer for shipping to the specified address.
+ */
 @interface CHKShippingRate : MERObject
 
 @property (nonatomic, strong) NSDecimalNumber *price;

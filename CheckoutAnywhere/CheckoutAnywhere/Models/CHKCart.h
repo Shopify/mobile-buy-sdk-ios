@@ -13,6 +13,10 @@
 @class CHKLineItem;
 @class MERProductVariant;
 
+/**
+ * The CHKCart is the starting point for the Checkout API. You are responsible for building a cart, then transforming it 
+ * into a CHKCheckout using the CHKDataProvider.
+ */
 @interface CHKCart : NSObject <CHKSerializable>
 
 @property (nonatomic, readonly, copy) NSArray *lineItems;

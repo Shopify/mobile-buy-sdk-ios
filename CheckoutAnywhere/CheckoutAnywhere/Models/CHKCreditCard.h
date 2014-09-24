@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ * This represents raw credit card data that the user is posting. You **must** discard this object as soon as it has been posted
+ * to Shopify's secure environment.
+ */
 @interface CHKCreditCard : NSObject
 
 /**

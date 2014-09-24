@@ -13,6 +13,9 @@
 
 @class MERProductVariant;
 
+/**
+ * This represents a line item on a Cart or on a Checkout.
+ */
 @interface CHKLineItem : MERObject <CHKSerializable>
 
 /**
