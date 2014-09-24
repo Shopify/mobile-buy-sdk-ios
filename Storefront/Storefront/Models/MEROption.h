@@ -12,7 +12,7 @@
 
 @interface MEROption : MERObject
 
-@property (nonatomic, copy) NSString *name;
-@property (nonatomic, copy) NSNumber *position;
+@property (nonatomic, readonly, copy) NSString *name;
+@property (nonatomic, readonly, strong) NSNumber *position;
 
 @end

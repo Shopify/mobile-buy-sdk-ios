@@ -21,13 +21,13 @@
 {
 	[super updateWithDictionary:dictionary];
 	
-	self.name = dictionary[@"name"];
-	self.city = dictionary[@"city"];
-	self.province = dictionary[@"province"];
-	self.currency = dictionary[@"currency"];
-	self.domain = dictionary[@"domain"];
-	self.shopDescription = dictionary[@"description"];
-	self.shipsToCountries = dictionary[@"ships_to_countries"];
+	_name = [dictionary[@"name"] copy];
+	_city = [dictionary[@"city"] copy];
+	_province = [dictionary[@"province"] copy];
+	_currency = [dictionary[@"currency"] copy];
+	_domain = [dictionary[@"domain"] copy];
+	_shopDescription = [dictionary[@"description"] copy];
+	_shipsToCountries = [dictionary[@"ships_to_countries"] copy];
 }
 
 @end

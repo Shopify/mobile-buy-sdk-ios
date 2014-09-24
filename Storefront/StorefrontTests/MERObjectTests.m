@@ -29,6 +29,9 @@
 @property (nonatomic, assign) float dirtyFloatValue;
 @property (nonatomic, assign) double dirtyDoubleValue;
 
+@property (nonatomic, readonly) NSArray *array;
+@property (nonatomic, readonly) NSMutableArray *mutableArray;
+
 @end
 
 @interface MERObjectSubclass : MERObject

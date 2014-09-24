@@ -14,8 +14,8 @@
 {
 	[super updateWithDictionary:dictionary];
 	
-	self.src = dictionary[@"src"];
-	self.variantIds = dictionary[@"variant_ids"];
+	_src = [dictionary[@"src"] copy];
+	_variantIds = [dictionary[@"variant_ids"] copy];
 }
 
 @end

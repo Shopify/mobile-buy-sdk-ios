@@ -17,18 +17,18 @@
 {
 	[super updateWithDictionary:dictionary];
 	
-	self.title = dictionary[@"title"];
-	self.option1 = dictionary[@"option1"];
-	self.option2 = dictionary[@"option2"];
-	self.option3 = dictionary[@"option3"];
+	_title = [dictionary[@"title"] copy];
+	_option1 = [dictionary[@"option1"] copy];
+	_option2 = [dictionary[@"option2"] copy];
+	_option3 = [dictionary[@"option3"] copy];
 	
-	self.price = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"price"]];
-	self.compareAtPrice = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"compare_at_price"]];
-	self.grams = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"grams"]];
+	_price = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"price"]];
+	_compareAtPrice = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"compare_at_price"]];
+	_grams = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"grams"]];
 	
-	self.requiresShipping = dictionary[@"requires_shipping"];
-	self.taxable = dictionary[@"taxable"];
-	self.position = dictionary[@"position"];
+	_requiresShipping = dictionary[@"requires_shipping"];
+	_taxable = dictionary[@"taxable"];
+	_position = dictionary[@"position"];
 }
 
 @end

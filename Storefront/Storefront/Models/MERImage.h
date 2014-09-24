@@ -12,7 +12,7 @@
 
 @interface MERImage : MERObject
 
-@property (nonatomic, strong) NSString *src;
-@property (nonatomic, copy) NSArray *variantIds;
+@property (nonatomic, readonly, copy) NSString *src;
+@property (nonatomic, readonly, copy) NSArray *variantIds;
 
 @end

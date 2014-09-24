@@ -14,8 +14,8 @@
 {
 	[super updateWithDictionary:dictionary];
 	
-	self.name = dictionary[@"name"];
-	self.position = dictionary[@"position"];
+	_name = [dictionary[@"name"] copy];
+	_position = dictionary[@"position"];
 }
 
 @end

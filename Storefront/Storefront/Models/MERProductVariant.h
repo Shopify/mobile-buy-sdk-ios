@@ -16,15 +16,15 @@
 
 @property (nonatomic, strong) MERProduct *product;
 
-@property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *option1;
-@property (nonatomic, copy) NSString *option2;
-@property (nonatomic, copy) NSString *option3;
-@property (nonatomic, strong) NSDecimalNumber *price;
-@property (nonatomic, strong) NSDecimalNumber *compareAtPrice;
-@property (nonatomic, strong) NSDecimalNumber *grams;
-@property (nonatomic, strong) NSNumber *requiresShipping;
-@property (nonatomic, strong) NSNumber *taxable;
-@property (nonatomic, strong) NSNumber *position;
+@property (nonatomic, readonly, copy) NSString *title;
+@property (nonatomic, readonly, copy) NSString *option1;
+@property (nonatomic, readonly, copy) NSString *option2;
+@property (nonatomic, readonly, copy) NSString *option3;
+@property (nonatomic, readonly, strong) NSDecimalNumber *price;
+@property (nonatomic, readonly, strong) NSDecimalNumber *compareAtPrice;
+@property (nonatomic, readonly, strong) NSDecimalNumber *grams;
+@property (nonatomic, readonly, strong) NSNumber *requiresShipping;
+@property (nonatomic, readonly, strong) NSNumber *taxable;
+@property (nonatomic, readonly, strong) NSNumber *position;
 
 @end

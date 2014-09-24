@@ -190,33 +190,31 @@ namespace shopify
 	return setterBlock;
 }
 
-+ (void)wrapSetterForProperty:(NSString *)property
++ (void)wrapProperty:(NSString *)property
 {
-	if ([property length] > 0) {
-		SEL setter = NSSelectorFromString([NSString stringWithFormat:@"set%@:", [NSString stringWithFormat:@"%@%@",[[property substringToIndex:1] uppercaseString], [property substringFromIndex:1]]]);
+	SEL setter = NSSelectorFromString([NSString stringWithFormat:@"set%@:", [NSString stringWithFormat:@"%@%@",[[property substringToIndex:1] uppercaseString], [property substringFromIndex:1]]]);
+
+	//Get the setter. don't worry about readonly properties as they're irrelevant for dirty tracking
+	if (setter && [self instancesRespondToSelector:setter]) {
+		Method setterMethod = class_getInstanceMethod(self, setter);
+		IMP setterImpl = method_getImplementation(setterMethod);
 		
-		//Get the setter. don't worry about readonly properties as they're irrelevant for dirty tracking
-		if (setter && [self instancesRespondToSelector:setter]) {
-			Method setterMethod = class_getInstanceMethod(self, setter);
-			IMP setterImpl = method_getImplementation(setterMethod);
+		NSMethodSignature *methodSignature = [self instanceMethodSignatureForSelector:setter];
+		if ([methodSignature numberOfArguments] == 3) {
+			const char *typeEncoding = [methodSignature getArgumentTypeAtIndex:2];
+			SEL newSetter = NSSelectorFromString([NSString stringWithFormat:@"mer_%@", NSStringFromSelector(setter)]);
 			
-			NSMethodSignature *methodSignature = [self instanceMethodSignatureForSelector:setter];
-			if ([methodSignature numberOfArguments] == 3) {
-				const char *typeEncoding = [methodSignature getArgumentTypeAtIndex:2];
-				SEL newSetter = NSSelectorFromString([NSString stringWithFormat:@"mer_%@", NSStringFromSelector(setter)]);
+			id setterBlock = [self setterBlockForSelector:newSetter property:property typeEncoding:typeEncoding];
+			
+			if (setterBlock) {
+				//Create 'mer_setX:' that uses the existing implementation
+				BOOL success = class_addMethod(self, newSetter, setterImpl, method_getTypeEncoding(setterMethod));
 				
-				id setterBlock = [self setterBlockForSelector:newSetter property:property typeEncoding:typeEncoding];
+				//Create a new impmlementation
+				IMP newImpl = imp_implementationWithBlock(setterBlock);
 				
-				if (setterBlock) {
-					//Create 'mer_setX:' that uses the existing implementation
-					BOOL success = class_addMethod(self, newSetter, setterImpl, method_getTypeEncoding(setterMethod));
-					
-					//Create a new impmlementation
-					IMP newImpl = imp_implementationWithBlock(setterBlock);
-					
-					//Then attach that implementation to 'setX:'. This way calling 'setX:' calls our implementation, and 'mer_setX:' calls the original implementation.
-					success = class_replaceMethod(self, setter, newImpl, method_getTypeEncoding(setterMethod));
-				}
+				//Then attach that implementation to 'setX:'. This way calling 'setX:' calls our implementation, and 'mer_setX:' calls the original implementation.
+				success = class_replaceMethod(self, setter, newImpl, method_getTypeEncoding(setterMethod));
 			}
 		}
 	}
@@ -226,7 +224,9 @@ namespace shopify
 {
 	NSSet *properties = class_getMERProperties(self);
 	for (NSString *property in properties) {
-		[self wrapSetterForProperty:property];
+		if ([property length] > 0) {
+			[self wrapProperty:property];
+		}
 	}
 }
 

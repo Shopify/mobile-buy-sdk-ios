@@ -17,13 +17,12 @@
 
 @interface MERProduct : MERObject
 
-@property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *vendor;
-@property (nonatomic, copy) NSString *productType;
-
-@property (nonatomic, copy) NSArray *variants;
-@property (nonatomic, copy) NSArray *images;
-@property (nonatomic, copy) NSArray *options;
-@property (nonatomic, copy) NSString *htmlDescription;
+@property (nonatomic, readonly, copy) NSString *title;
+@property (nonatomic, readonly, copy) NSString *vendor;
+@property (nonatomic, readonly, copy) NSString *productType;
+@property (nonatomic, readonly, copy) NSArray *variants;
+@property (nonatomic, readonly, copy) NSArray *images;
+@property (nonatomic, readonly, copy) NSArray *options;
+@property (nonatomic, readonly, copy) NSString *htmlDescription;
 
 @end

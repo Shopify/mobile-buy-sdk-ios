@@ -12,12 +12,12 @@
 
 @interface MERShop : MERObject
 
-@property (nonatomic, copy) NSString *name;
-@property (nonatomic, copy) NSString *city;
-@property (nonatomic, copy) NSString *province;
-@property (nonatomic, copy) NSString *currency;
-@property (nonatomic, copy) NSString *domain;
-@property (nonatomic, copy) NSString *shopDescription;
-@property (nonatomic, copy) NSArray *shipsToCountries;
+@property (nonatomic, readonly, copy) NSString *name;
+@property (nonatomic, readonly, copy) NSString *city;
+@property (nonatomic, readonly, copy) NSString *province;
+@property (nonatomic, readonly, copy) NSString *currency;
+@property (nonatomic, readonly, copy) NSString *domain;
+@property (nonatomic, readonly, copy) NSString *shopDescription;
+@property (nonatomic, readonly, copy) NSArray *shipsToCountries;
 
 @end

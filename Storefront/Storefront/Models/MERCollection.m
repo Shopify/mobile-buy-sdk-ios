@@ -17,10 +17,11 @@
 {
 	[super updateWithDictionary:dictionary];
 	
-	self.title = dictionary[@"title"];
-	self.handle = dictionary[@"handle"];
-	self.image = [MERImage convertObject:dictionary[@"image"]];
-	self.productsCount = dictionary[@"products_count"];
+	_title = [dictionary[@"title"] copy];
+	_handle = [dictionary[@"handle"] copy];
+	_image = [MERImage convertObject:dictionary[@"image"]];
+	_productsCount = dictionary[@"products_count"];
+	_featured = dictionary[@"featured"];
 }
 
 - (NSComparisonResult)compare:(MERCollection*)otherCollection

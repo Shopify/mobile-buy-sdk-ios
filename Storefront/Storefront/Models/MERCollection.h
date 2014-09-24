@@ -14,10 +14,10 @@
 
 @interface MERCollection : MERObject
 
-@property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *handle;
-@property (nonatomic, strong) MERImage *image;
-@property (nonatomic, assign) NSNumber *productsCount;
-@property (nonatomic, assign) BOOL featured;
+@property (nonatomic, readonly, copy) NSString *title;
+@property (nonatomic, readonly, copy) NSString *handle;
+@property (nonatomic, readonly, strong) MERImage *image;
+@property (nonatomic, readonly, assign) NSNumber *productsCount;
+@property (nonatomic, readonly, assign) BOOL featured;
 
 @end
