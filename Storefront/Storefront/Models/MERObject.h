@@ -11,6 +11,7 @@
 @interface MERObject : NSObject
 
 @property (nonatomic, strong, readonly) NSNumber *identifier;
+@property (nonatomic, readonly, getter=isDirty) BOOL dirty;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 - (void)updateWithDictionary:(NSDictionary *)dictionary;
@@ -23,6 +24,7 @@
 
 - (NSSet *)dirtyProperties;
 - (void)markPropertyAsDirty:(NSString *)property;
+- (void)markAsClean;
 + (void)trackDirtyProperties;
 
 @end

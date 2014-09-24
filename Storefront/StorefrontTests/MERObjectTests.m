@@ -13,7 +13,21 @@
 
 @interface MERDirtyTracked : MERObject
 
-@property (nonatomic, copy) NSString *banana;
+@property (nonatomic, copy) NSString *dirtyObjectValue;
+@property (nonatomic, copy) NSString *s;
+@property (nonatomic, assign) BOOL dirtyBooleanValue;
+@property (nonatomic, assign) char dirtyCharacterValue;
+@property (nonatomic, assign) unsigned char dirtyUnsignedCharValue;
+@property (nonatomic, assign) int dirtyIntegerValue;
+@property (nonatomic, assign) unsigned int dirtyUnsignedIntegerValue;
+@property (nonatomic, assign) short dirtyShortValue;
+@property (nonatomic, assign) unsigned short dirtyUnsignedShortValue;
+@property (nonatomic, assign) long dirtyLongValue;
+@property (nonatomic, assign) unsigned long dirtyUnsignedLongValue;
+@property (nonatomic, assign) long long dirtyLongLongValue;
+@property (nonatomic, assign) unsigned long long dirtyUnsignedLongLongValue;
+@property (nonatomic, assign) float dirtyFloatValue;
+@property (nonatomic, assign) double dirtyDoubleValue;
 
 @end
 
@@ -28,6 +42,7 @@
 - (void)testInitWithDictionaryParsesIdentifier
 {
 	MERObject *object = [[MERObject alloc] initWithDictionary:@{ @"id" : @5 }];
+	XCTAssert([object isDirty] == NO);
 	XCTAssertEqual(@5, [object identifier]);
 }
 
@@ -85,7 +100,52 @@
 - (void)testDirtyTracking
 {
 	MERDirtyTracked *object = [[MERDirtyTracked alloc] init];
-	object.banana = @"asdf";
+	object.s = @"short property name test";
+	object.dirtyObjectValue = @"Banana";
+	object.dirtyBooleanValue = true;
+	object.dirtyCharacterValue = 'c';
+	object.dirtyUnsignedCharValue = 'c';
+	object.dirtyIntegerValue = 1234;
+	object.dirtyUnsignedIntegerValue = 123;
+	object.dirtyShortValue = 1;
+	object.dirtyUnsignedShortValue = 2;
+	object.dirtyLongValue = -4;
+	object.dirtyUnsignedLongValue = 4;
+	object.dirtyLongLongValue = 1234123412341234;
+	object.dirtyUnsignedLongLongValue = 1234123412341234;
+	object.dirtyFloatValue = 0.5f;
+	object.dirtyDoubleValue = 0.5;
+	NSSet *expected = [NSSet setWithArray:@[@"s", @"dirtyObjectValue", @"dirtyBooleanValue", @"dirtyCharacterValue",
+						 @"dirtyUnsignedCharValue", @"dirtyIntegerValue", @"dirtyUnsignedIntegerValue",
+						 @"dirtyShortValue", @"dirtyUnsignedShortValue", @"dirtyLongValue",
+						 @"dirtyUnsignedLongValue", @"dirtyLongLongValue", @"dirtyUnsignedLongLongValue",
+						 @"dirtyFloatValue", @"dirtyDoubleValue"]];
+	NSSet *actual = [object dirtyProperties];
+	XCTAssert([expected isEqual:actual]);
+	XCTAssertEqual([actual count], [expected count]);
+}
+
+- (void)testIsDirtyReturnsFalseWhenClean
+{
+	MERDirtyTracked *object = [[MERDirtyTracked alloc] init];
+	XCTAssert([object isDirty] == NO);
+	object.dirtyObjectValue = @"Banana";
+	[object markAsClean];
+	XCTAssert([object isDirty] == NO);
+}
+
+- (void)testIsDirtyReturnsTrueWhenDirty
+{
+	MERDirtyTracked *object = [[MERDirtyTracked alloc] init];
+	object.dirtyObjectValue = @"Banana";
+	XCTAssert([object isDirty]);
+}
+
+- (void)testMarkAsClean
+{
+	MERDirtyTracked *object = [[MERDirtyTracked alloc] init];
+	object.dirtyObjectValue = @"Banana";
+	XCTAssert([object dirtyProperties]);
 }
 
 @end
