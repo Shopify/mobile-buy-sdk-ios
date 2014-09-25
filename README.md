@@ -3,7 +3,7 @@ What is this?
 
 This is a client implementation of Checkout Anywhere for iOS that supports ApplePay.
 
-Here is what a 'synchronous' view of checkout would look like: (stolen from the integration tests)
+Here is what a 'synchronous' view of checkout would look like: (stolen from the [integration tests](https://github.com/Shopify/checkout-anywhere-ios/blob/master/CheckoutAnywhere/CheckoutAnywhereTests/CHKAnywhereIntegrationTest.m))
 ```
   //=======================================
   //1) Create the base cart
