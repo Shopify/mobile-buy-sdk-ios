@@ -13,7 +13,6 @@
 @class CHKCreditCard;
 @class CHKCart;
 @class CHKCheckout;
-@class CHKOrder;
 
 typedef NS_ENUM(NSUInteger, CHKStatus) {
 	CHKStatusComplete = 200,
@@ -25,11 +24,12 @@ typedef NS_ENUM(NSUInteger, CHKStatus) {
 typedef void (^CHKDataCreditCardBlock)(CHKCheckout *checkout, NSString *paymentSessionId, NSError *error);
 typedef void (^CHKDataCheckoutBlock)(CHKCheckout *checkout, NSError *error);
 typedef void (^CHKDataCheckoutStatusBlock)(CHKCheckout *checkout, CHKStatus status, NSError *error);
-typedef void (^CHKDataOrderBlock)(CHKOrder *order, NSError *error);
 
 @interface CHKDataProvider : NSObject
 
 - (instancetype)initWithShopDomain:(NSString *)shopDomain;
+
+#pragma mark - Checkout
 
 /**
  * Builds a checkout object with this cart. The checkout will be used to prepare an order.
@@ -37,23 +37,11 @@ typedef void (^CHKDataOrderBlock)(CHKOrder *order, NSError *error);
 - (NSURLSessionDataTask *)createCheckoutWithCart:(CHKCart *)cart completion:(CHKDataCheckoutBlock)block;
 
 /**
- * Prepares a stripe token for usage during the checkout process. This sends it to Shopify's secure servers.
- * 
- * Note: Storing the token does not charge the associated card (credit or otherwise).
- *       The card will be charged upon finalizing the checkout.
- */
-- (NSURLSessionDataTask *)storeStripeToken:(STPToken *)stripeToken checkout:(CHKCheckout *)checkout completion:(CHKDataCreditCardBlock)block;
-
-/**
- * Prepares a credit card for usage during the checkout process. This sends it to Shopify's secure servers.
+ * Fetches the updated version of this checkout.
  *
- * Detail: This will use the billingAddress stored on the CHKCheckout object. This is not a required field, but
- *         helps with fraud checking. Again, including it is recommended, but not required.
- *
- * Note: Storing the token does not charge the associated card (credit or otherwise).
- *       The card will be charged upon finalizing the checkout.
+ * Note: There is no guarantee that the checkout returned will be the same as the one that is passed in. You are recommended to use the one returned in the block.
  */
-- (NSURLSessionDataTask *)storeCreditCard:(CHKCreditCard *)creditCard checkout:(CHKCheckout *)checkout completion:(CHKDataCreditCardBlock)block;
+- (NSURLSessionDataTask *)getCheckout:(CHKCheckout *)checkout completion:(CHKDataCheckoutBlock)block;
 
 /**
  * Updates the checkout with the latest information added to it.
@@ -79,9 +67,25 @@ typedef void (^CHKDataOrderBlock)(CHKOrder *order, NSError *error);
  */
 - (NSURLSessionDataTask *)getCompletionStatusOfCheckout:(CHKCheckout *)checkout block:(CHKDataCheckoutStatusBlock)block;
 
+#pragma mark - Payment Management
+
 /**
- * This fetches the order for the given checkout.
+ * Prepares a stripe token for usage during the checkout process. This sends it to Shopify's secure servers.
+ * 
+ * Note: Storing the token does not charge the associated card (credit or otherwise).
+ *       The card will be charged upon finalizing the checkout.
  */
-- (NSURLSessionDataTask *)getAssociatedOrder:(CHKCheckout *)checkout block:(CHKDataOrderBlock)block;
+- (NSURLSessionDataTask *)storeStripeToken:(STPToken *)stripeToken checkout:(CHKCheckout *)checkout completion:(CHKDataCreditCardBlock)block;
+
+/**
+ * Prepares a credit card for usage during the checkout process. This sends it to Shopify's secure servers.
+ *
+ * Detail: This will use the billingAddress stored on the CHKCheckout object. This is not a required field, but
+ *         helps with fraud checking. Again, including it is recommended, but not required.
+ *
+ * Note: Storing the token does not charge the associated card (credit or otherwise).
+ *       The card will be charged upon finalizing the checkout.
+ */
+- (NSURLSessionDataTask *)storeCreditCard:(CHKCreditCard *)creditCard checkout:(CHKCheckout *)checkout completion:(CHKDataCreditCardBlock)block;
 
 @end

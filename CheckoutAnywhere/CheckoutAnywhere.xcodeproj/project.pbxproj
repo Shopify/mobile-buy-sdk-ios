@@ -22,7 +22,6 @@
 		F79CE45319CC612700C9AFAB /* CHKAnywhereIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F79CE45219CC612700C9AFAB /* CHKAnywhereIntegrationTest.m */; };
 		F7AB6AB919CFCE6A00115224 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AB6AB819CFCE6A00115224 /* libstdc++.dylib */; };
 		F7AB6ABC19CFCEBF00115224 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AB6AB819CFCE6A00115224 /* libstdc++.dylib */; };
-		F7FCEBBA19D452DA00CE9DE4 /* CHKOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FCEBB919D452DA00CE9DE4 /* CHKOrder.m */; };
 		F7FDA16319C8DFC200AF4E93 /* libStorefront.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7FDA16219C8DFC200AF4E93 /* libStorefront.a */; };
 		F7FDA16E19C939FF00AF4E93 /* CHKLineItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDA16D19C939FF00AF4E93 /* CHKLineItem.m */; };
 		F7FDA17219C93F6F00AF4E93 /* CHKDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDA17119C93F6F00AF4E93 /* CHKDataProvider.m */; };
@@ -68,8 +67,6 @@
 		F79CE46019CC979200C9AFAB /* libPods-CheckoutAnywhere-Stripe.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-CheckoutAnywhere-Stripe.a"; path = "Pods/build/Debug-iphoneos/libPods-CheckoutAnywhere-Stripe.a"; sourceTree = "<group>"; };
 		F79CE46119CC979200C9AFAB /* libPods-CheckoutAnywhere.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-CheckoutAnywhere.a"; path = "Pods/build/Debug-iphoneos/libPods-CheckoutAnywhere.a"; sourceTree = "<group>"; };
 		F7AB6AB819CFCE6A00115224 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
-		F7FCEBB819D452DA00CE9DE4 /* CHKOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKOrder.h; sourceTree = "<group>"; };
-		F7FCEBB919D452DA00CE9DE4 /* CHKOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKOrder.m; sourceTree = "<group>"; };
 		F7FDA16219C8DFC200AF4E93 /* libStorefront.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libStorefront.a; path = "../Storefront/build/Debug-iphoneos/libStorefront.a"; sourceTree = "<group>"; };
 		F7FDA16C19C939FF00AF4E93 /* CHKLineItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKLineItem.h; sourceTree = "<group>"; };
 		F7FDA16D19C939FF00AF4E93 /* CHKLineItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKLineItem.m; sourceTree = "<group>"; };
@@ -181,8 +178,6 @@
 				F77374AB19C796BD0039681C /* CHKCreditCard.m */,
 				F7FDA16C19C939FF00AF4E93 /* CHKLineItem.h */,
 				F7FDA16D19C939FF00AF4E93 /* CHKLineItem.m */,
-				F7FCEBB819D452DA00CE9DE4 /* CHKOrder.h */,
-				F7FCEBB919D452DA00CE9DE4 /* CHKOrder.m */,
 				F76CFF1E19CB7C500079C703 /* CHKSerializable.h */,
 			);
 			path = Models;
@@ -360,7 +355,6 @@
 				F76CFF1D19CB7BE30079C703 /* NSString+Trim.m in Sources */,
 				F773744619C779C20039681C /* CHKAnywhereController.m in Sources */,
 				F7FDA16E19C939FF00AF4E93 /* CHKLineItem.m in Sources */,
-				F7FCEBBA19D452DA00CE9DE4 /* CHKOrder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
