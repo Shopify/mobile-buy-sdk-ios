@@ -3,6 +3,23 @@ What is this?
 
 This is a client implementation of Checkout Anywhere for iOS that supports ApplePay.
 
+## Prereqs
+
+1. Fetch products in one way or another. You can use the provided SDK or just have the data and create the models.
+2. [ApplePay only] Get your Stripe Publishable Key.
+
+## Flow
+
+1. Create a cart.
+2. Transform cart into a Checkout.
+3. Add information to the Checkout.
+4. Post a credit card OR a **Stripe** token to our card store (which you can obtain via an **ApplePay** token).
+5. Complete the checkout.
+6. Poll until the payment job completes.
+7. Bask in the glory of a created order.
+
+## Flow Examples
+
 Here is what a 'synchronous' view of checkout would look like: (stolen from the [integration tests](https://github.com/Shopify/checkout-anywhere-ios/blob/master/CheckoutAnywhere/CheckoutAnywhereTests/CHKAnywhereIntegrationTest.m))
 ```
   //=======================================
