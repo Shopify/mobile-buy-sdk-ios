@@ -29,16 +29,19 @@
 	MERDataProvider *_storefrontDataProvider;
 	
 	MERShop *_shop;
-	NSArray *_collections;
-	NSArray *_products;
+	NSMutableArray *_collections;
+	NSMutableArray *_products;
 }
 
 - (void)setUp
 {
 	[super setUp];
 	
-	_checkoutDataProvider = [[CHKDataProvider alloc] initWithShopDomain:@"dinobanana.myshopify.com"];
-	_storefrontDataProvider = [[MERDataProvider alloc] initWithShopDomain:@"dinobanana.myshopify.com"];
+	_checkoutDataProvider = [[CHKDataProvider alloc] initWithShopDomain:@"ibukun.myshopify.com"];
+	_storefrontDataProvider = [[MERDataProvider alloc] initWithShopDomain:@"ibukun.myshopify.com"];
+	
+	_collections = [[NSMutableArray alloc] init];
+	_products = [[NSMutableArray alloc] init];
 }
 
 #pragma mark - Helpers
@@ -59,27 +62,49 @@
 - (void)fetchCollections
 {
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	[_storefrontDataProvider fetchCollectionsPage:0 completion:^(NSArray *collections, NSUInteger page, NSError *error) {
-		XCTAssertNil(error);
-		XCTAssertNotNil(collections);
+	__block BOOL done = NO;
+	NSUInteger currentPage = 0;
+	while (done == NO) {
+		[_storefrontDataProvider fetchCollectionsPage:currentPage completion:^(NSArray *collections, NSUInteger page, BOOL reachedEnd, NSError *error) {
+			done = reachedEnd || error;
+			
+			XCTAssertNil(error);
+			XCTAssertNotNil(collections);
+			
+			[_collections addObjectsFromArray:collections];
+			dispatch_semaphore_signal(semaphore);
+		}];
+		dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 		
-		_collections = collections;
-		dispatch_semaphore_signal(semaphore);
-	}];
-	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+		if (done == NO) {
+			++currentPage;
+		}
+	}
+	NSLog(@"Fetched collections (Pages: %d, Count: %d)", (int)(currentPage + 1), (int)[_collections count]);
 }
 
 - (void)fetchProducts
 {
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	[_storefrontDataProvider fetchProductsPage:0 completion:^(NSArray *products, NSUInteger page, NSError *error) {
-		XCTAssertNil(error);
-		XCTAssertNotNil(products);
+	__block BOOL done = NO;
+	NSUInteger currentPage = 0;
+	while (done == NO) {
+		[_storefrontDataProvider fetchProductsPage:currentPage completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+			done = reachedEnd || error;
+			
+			XCTAssertNil(error);
+			XCTAssertNotNil(products);
+			
+			[_products addObjectsFromArray:products];
+			dispatch_semaphore_signal(semaphore);
+		}];
+		dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 		
-		_products = products;
-		dispatch_semaphore_signal(semaphore);
-	}];
-	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+		if (done == NO) {
+			++currentPage;
+		}
+	}
+	NSLog(@"Fetched products (Pages: %d, Count: %d)", (int)(currentPage + 1), (int)[_products count]);
 }
 
 #pragma mark - Tests

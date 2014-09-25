@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>;
+#import <Foundation/Foundation.h>
 
 @interface MERRuntime : NSObject
 

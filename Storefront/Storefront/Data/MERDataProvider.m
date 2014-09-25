@@ -35,6 +35,11 @@
 	_pageSize = MAX(MIN(pageSize, 250), 1);
 }
 
+- (BOOL)hasReachedEndOfPage:(NSArray *)lastFetchedObjects
+{
+	return [lastFetchedObjects count] < self.pageSize;
+}
+
 #pragma mark - Fetch Methods
 
 - (NSURLSessionDataTask *)performRequestForURL:(NSString *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
@@ -70,7 +75,7 @@
 		if (json) {
 			collections = [MERCollection convertJSONArray:json[@"collections"]];
 		}
-		block(collections, page, error);
+		block(collections, page, [self hasReachedEndOfPage:collections] || error, error);
 	}];
 }
 
@@ -81,7 +86,7 @@
 		if (json) {
 			products = [MERProduct convertJSONArray:json[@"products"]];
 		}
-		block(products, page, error);
+		block(products, page, [self hasReachedEndOfPage:products] || error, error);
 	}];
 }
 
@@ -92,7 +97,7 @@
 		if (json) {
 			products = [MERProduct convertJSONArray:json[@"products"]];
 		}
-		block(products, page, error);
+		block(products, page, [self hasReachedEndOfPage:products] || error, error);
 	}];
 }
 

@@ -14,8 +14,8 @@
 @class MERProductVariant;
 
 typedef void (^MERDataShopBlock)(MERShop *shop, NSError *error);
-typedef void (^MERDataCollectionListBlock)(NSArray *collections, NSUInteger page, NSError *error);
-typedef void (^MERDataProductListBlock)(NSArray *products, NSUInteger page, NSError *error);
+typedef void (^MERDataCollectionListBlock)(NSArray *collections, NSUInteger page, BOOL reachedEnd, NSError *error);
+typedef void (^MERDataProductListBlock)(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error);
 typedef void (^MERDataImagesListBlock)(NSArray *images, NSError *error);
 
 @interface MERDataProvider : NSObject
