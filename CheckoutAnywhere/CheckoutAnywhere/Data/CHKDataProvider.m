@@ -11,6 +11,7 @@
 //Model
 #import "CHKCheckout.h"
 #import "CHKCart.h"
+#import "CHKCreditCard.h"
 
 #define kJSONType @"application/json"
 #define kFormType @"application/x-www-form-urlencoded"
@@ -78,9 +79,6 @@
 		if (error == nil) {
 			checkout = [[CHKCheckout alloc] initWithDictionary:json[@"checkout"]];
 		}
-		else {
-			NSLog(@"ERROR: %@", error);
-		}
 		block(checkout, error);
 	}];
 }
@@ -92,8 +90,18 @@
 		if (error == nil) {
 			paymentSessionId = json[@"id"];
 			checkout.paymentSessionId = paymentSessionId;
-		} else {
-			NSLog(@"ERROR: %@", error);
+		}
+		block(checkout, paymentSessionId, error);
+	}];
+}
+
+- (NSURLSessionDataTask *)postPaymentRequestWithCheckout:(CHKCheckout *)checkout body:(NSData *)body contentType:(NSString *)type completion:(CHKDataCreditCardBlock)block
+{
+	return [self requestForURL:checkout.paymentURL method:@"POST" body:body contentType:type completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+		NSString *paymentSessionId = nil;
+		if (error == nil) {
+			paymentSessionId = json[@"id"];
+			checkout.paymentSessionId = paymentSessionId;
 		}
 		block(checkout, paymentSessionId, error);
 	}];
@@ -102,13 +110,26 @@
 - (NSURLSessionDataTask *)storeStripeToken:(STPToken *)stripeToken checkout:(CHKCheckout *)checkout completion:(CHKDataCreditCardBlock)block
 {
 	NSString *params = [NSString stringWithFormat:@"checkout[token]=%@&checkout[credit_card][number]=%@", checkout.token, stripeToken.tokenId];
-	return [self postPaymentRequestWithCheckout:checkout params:params completion:block];
+	return [self postPaymentRequestWithCheckout:checkout body:[params dataUsingEncoding:NSUTF8StringEncoding] contentType:kFormType completion:block];
 }
 
 - (NSURLSessionDataTask *)storeCreditCard:(CHKCreditCard *)creditCard checkout:(CHKCheckout *)checkout completion:(CHKDataCreditCardBlock)block
 {
 	NSURLSessionDataTask *task = nil;
-	//TODO: This
+	if (checkout.token && creditCard) {
+		NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
+		json[@"token"] = checkout.token;
+		json[@"credit_card"] = [creditCard jsonDictionaryForCheckout];
+		if (checkout.billingAddress) {
+			json[@"billing_address"] = [checkout.billingAddress jsonDictionaryForCheckout];
+		}
+		
+		NSError *error = nil;
+		NSData *data = [NSJSONSerialization dataWithJSONObject:@{ @"checkout" : json } options:0 error:&error];
+		if (data && error == nil) {
+			task = [self postPaymentRequestWithCheckout:checkout body:data contentType:kJSONType completion:block];
+		}
+	}
 	return task;
 }
 
@@ -134,7 +155,50 @@
 - (NSURLSessionDataTask*)completeCheckout:(CHKCheckout *)checkout block:(CHKDataCheckoutBlock)block
 {
 	NSURLSessionDataTask *task = nil;
-	
+	if ([checkout.token length] > 0 && [checkout.paymentSessionId length] > 0) {
+		NSDictionary *paymentJson = @{ @"payment_session_id" : checkout.paymentSessionId };
+		NSError *error = nil;
+		NSData *data = [NSJSONSerialization dataWithJSONObject:paymentJson options:0 error:&error];
+		if (data && error == nil) {
+			task = [self requestForURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/complete.json", _shopDomain, checkout.token]] method:@"POST" body:data contentType:kJSONType completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+				if (error == nil) {
+					NSLog(@"ORDER: %@ (%@)", json, error);
+				}
+				block(checkout, error);
+			}];
+		}
+	}
+	return task;
+}
+
+- (NSURLSessionDataTask *)getCompletionStatusOfCheckout:(CHKCheckout *)checkout block:(CHKDataCheckoutStatusBlock)block
+{
+	NSURLSessionDataTask *task = nil;
+	if ([checkout.token length] > 0) {
+		task = [self requestForURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/progressing.json", _shopDomain, checkout.token]] method:@"GET" body:nil contentType:kJSONType completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+			NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
+			CHKStatus status = CHKStatusUnknown;
+			if (error || statusCode == CHKStatusFailed) {
+				status = CHKStatusFailed;
+			}
+			else if (statusCode == CHKStatusProcessing) {
+				status = CHKStatusProcessing;
+			}
+			else if (statusCode == CHKStatusComplete) {
+				status = CHKStatusComplete;
+			}
+			block(checkout, status, error);
+		}];
+	}
+	return task;
+}
+
+- (NSURLSessionDataTask *)getAssociatedOrder:(CHKCheckout *)checkout block:(CHKDataOrderBlock)block
+{
+	NSURLSessionDataTask *task = nil;
+	if ([checkout orderId]) {
+		
+	}
 	return task;
 }
 

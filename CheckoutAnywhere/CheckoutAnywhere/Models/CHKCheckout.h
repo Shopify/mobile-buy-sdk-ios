@@ -25,6 +25,7 @@
 
 @property (nonatomic, copy) NSString *email;
 @property (nonatomic, copy) NSString *token;
+@property (nonatomic, copy) NSNumber *orderId;
 @property (nonatomic, strong) NSNumber *requiresShipping;
 @property (nonatomic, strong) NSNumber *taxesIncluded;
 @property (nonatomic, copy) NSString *currency;

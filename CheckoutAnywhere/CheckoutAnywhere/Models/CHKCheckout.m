@@ -105,6 +105,23 @@ static NSDictionary *kCHKPropertyMap = nil;
 
 @implementation CHKAddress
 
+- (void)updateWithDictionary:(NSDictionary *)dictionary
+{
+	self.address1 = dictionary[@"address1"];
+	self.address2 = dictionary[@"address2"];
+	self.city = dictionary[@"city"];
+	self.company = dictionary[@"company"];
+	self.firstName = dictionary[@"first_name"];
+	self.lastName = dictionary[@"last_name"];
+	self.phone = dictionary[@"phone"];
+	
+	self.country = dictionary[@"country"];
+	self.countryCode = dictionary[@"country_code"];
+	self.province = dictionary[@"province"];
+	self.provinceCode = dictionary[@"province_code"];
+	self.zip = dictionary[@"zip"];
+}
+
 - (NSDictionary *)jsonDictionaryForCheckout
 {
 	NSMutableDictionary *json = [[NSMutableDictionary alloc] init];

@@ -18,6 +18,7 @@
 #import "MERProduct.h"
 #import "MERProductVariant.h"
 #import "CHKCheckout.h"
+#import "CHKCreditCard.h"
 
 @interface CHKAnywhereIntegrationTest : XCTestCase
 
@@ -137,18 +138,54 @@
 	XCTAssertNotNil(checkout);
 	
 	//3) Add some information to it
-	checkout.email = @"banana@testausaurus.com";
+	checkout.email = @"banana@testasaurus.com";
 	checkout.shippingAddress = [self testShippingAddress];
 	checkout.billingAddress = [self testBillingAddress];
 	
 	[_checkoutDataProvider updateCheckout:checkout completion:^(CHKCheckout *returnedCheckout, NSError *error) {
-		XCTAssertNotNil(returnedCheckout);
 		XCTAssertNil(error);
 		
 		checkout = returnedCheckout;
 		dispatch_semaphore_signal(semaphore);
 	}];
+	
+	XCTAssertEqualObjects(checkout.shippingAddress.address1, @"126 York Street");
+	XCTAssertEqualObjects(checkout.billingAddress.address1, @"150 Elgin Street");
+	XCTAssertEqualObjects(checkout.email, @"banana@testasaurus.com");
 	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+	
+	//4) Store a credit card on the secure server
+	CHKCreditCard *creditCard = [[CHKCreditCard alloc] init];
+	creditCard.number = @"4242424242424242";
+	creditCard.expiryMonth = @"12";
+	creditCard.expiryYear = @"20";
+	creditCard.cvv = @"123";
+	creditCard.nameOnCard = @"Dinosaur Banana";
+	[_checkoutDataProvider storeCreditCard:creditCard checkout:checkout completion:^(CHKCheckout *returnedCheckout, NSString *paymentSessionId, NSError *error) {
+		XCTAssertNil(error);
+		XCTAssertNotNil(paymentSessionId);
+		
+		checkout = returnedCheckout;
+		dispatch_semaphore_signal(semaphore);
+	}];
+	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+	
+	//5) Complete the checkout
+	[_checkoutDataProvider completeCheckout:checkout block:^(CHKCheckout *returnedCheckout, NSError *error) {
+		
+		checkout = returnedCheckout;
+		dispatch_semaphore_signal(semaphore);
+	}];
+	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+	
+	//6) Poll for job status
+	[_checkoutDataProvider getCompletionStatusOfCheckout:checkout block:^(CHKCheckout *checkout, CHKStatus status, NSError *error) {
+		
+	}];
+	
+	//7) Fetch the checkout again
+	
+	//8) Fetch the order
 }
 
 @end
