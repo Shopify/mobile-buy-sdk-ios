@@ -59,7 +59,7 @@
 - (void)fetchCollections
 {
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	[_storefrontDataProvider fetchCollections:^(NSArray *collections, NSError *error) {
+	[_storefrontDataProvider fetchCollectionsPage:0 completion:^(NSArray *collections, NSUInteger page, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(collections);
 		
@@ -72,7 +72,7 @@
 - (void)fetchProducts
 {
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	[_storefrontDataProvider fetchProducts:^(NSArray *products, NSError *error) {
+	[_storefrontDataProvider fetchProductsPage:0 completion:^(NSArray *products, NSUInteger page, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(products);
 		

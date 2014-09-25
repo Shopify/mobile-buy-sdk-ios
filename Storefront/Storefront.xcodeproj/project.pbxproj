@@ -21,6 +21,7 @@
 		F7AB6AB719CFC59100115224 /* MERRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = F7AB6AB619CFC59100115224 /* MERRuntime.m */; };
 		F7AB6ABB19CFCE8500115224 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AB6ABA19CFCE8500115224 /* libstdc++.dylib */; };
 		F7AB6ABD19CFCED200115224 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AB6ABA19CFCE8500115224 /* libstdc++.dylib */; };
+		F7FCEBBC19D4BE2D00CE9DE4 /* MERDataProviderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FCEBBB19D4BE2D00CE9DE4 /* MERDataProviderTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -61,6 +62,7 @@
 		F7AB6AB519CFC59100115224 /* MERRuntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MERRuntime.h; sourceTree = "<group>"; };
 		F7AB6AB619CFC59100115224 /* MERRuntime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MERRuntime.m; sourceTree = "<group>"; };
 		F7AB6ABA19CFCE8500115224 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
+		F7FCEBBB19D4BE2D00CE9DE4 /* MERDataProviderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MERDataProviderTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 			children = (
 				F773746119C77B160039681C /* Supporting Files */,
 				F77374A719C78C780039681C /* MERObjectTests.m */,
+				F7FCEBBB19D4BE2D00CE9DE4 /* MERDataProviderTests.m */,
 			);
 			path = StorefrontTests;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F77374A819C78C780039681C /* MERObjectTests.m in Sources */,
+				F7FCEBBC19D4BE2D00CE9DE4 /* MERDataProviderTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
