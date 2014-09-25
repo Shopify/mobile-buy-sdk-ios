@@ -15,7 +15,6 @@
 		F76CFF2A19CB830D0079C703 /* CHKLineItemTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F76CFF2919CB830D0079C703 /* CHKLineItemTest.m */; };
 		F773743519C771C50039681C /* ShopifyCheckoutAnywhere.podspec in Resources */ = {isa = PBXBuildFile; fileRef = F773743419C771C50039681C /* ShopifyCheckoutAnywhere.podspec */; };
 		F773743819C771D10039681C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = F773743619C771D10039681C /* LICENSE */; };
-		F773744619C779C20039681C /* CHKAnywhereController.m in Sources */ = {isa = PBXBuildFile; fileRef = F773744319C779C20039681C /* CHKAnywhereController.m */; };
 		F773744919C77A210039681C /* CHKCart.m in Sources */ = {isa = PBXBuildFile; fileRef = F773744819C77A210039681C /* CHKCart.m */; };
 		F773749619C77C260039681C /* CHKCheckout.m in Sources */ = {isa = PBXBuildFile; fileRef = F773749519C77C260039681C /* CHKCheckout.m */; };
 		F77374AC19C796BD0039681C /* CHKCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = F77374AB19C796BD0039681C /* CHKCreditCard.m */; };
@@ -54,8 +53,6 @@
 		F773743419C771C50039681C /* ShopifyCheckoutAnywhere.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ShopifyCheckoutAnywhere.podspec; path = ../../ShopifyCheckoutAnywhere.podspec; sourceTree = "<group>"; };
 		F773743619C771D10039681C /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../../LICENSE; sourceTree = "<group>"; };
 		F773743719C771D10039681C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
-		F773744219C779C20039681C /* CHKAnywhereController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKAnywhereController.h; sourceTree = "<group>"; };
-		F773744319C779C20039681C /* CHKAnywhereController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKAnywhereController.m; sourceTree = "<group>"; };
 		F773744719C77A210039681C /* CHKCart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKCart.h; sourceTree = "<group>"; };
 		F773744819C77A210039681C /* CHKCart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKCart.m; sourceTree = "<group>"; };
 		F773749419C77C260039681C /* CHKCheckout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKCheckout.h; sourceTree = "<group>"; };
@@ -158,15 +155,6 @@
 			path = CheckoutAnywhere;
 			sourceTree = "<group>";
 		};
-		F773744119C779C20039681C /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				F773744219C779C20039681C /* CHKAnywhereController.h */,
-				F773744319C779C20039681C /* CHKAnywhereController.m */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
 		F773744419C779C20039681C /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -206,7 +194,6 @@
 		F773749F19C77E4E0039681C /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				F773744119C779C20039681C /* Controllers */,
 				F7FDA16F19C93F6100AF4E93 /* Data */,
 				F773744419C779C20039681C /* Models */,
 				F773744519C779C20039681C /* Utils */,
@@ -353,7 +340,6 @@
 				F773749619C77C260039681C /* CHKCheckout.m in Sources */,
 				F7FDA17219C93F6F00AF4E93 /* CHKDataProvider.m in Sources */,
 				F76CFF1D19CB7BE30079C703 /* NSString+Trim.m in Sources */,
-				F773744619C779C20039681C /* CHKAnywhereController.m in Sources */,
 				F7FDA16E19C939FF00AF4E93 /* CHKLineItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
