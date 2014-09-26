@@ -14,6 +14,7 @@
 
 //Utils
 #import "NSString+Trim.h"
+#import "NSDecimalNumber+MERAdditions.h"
 
 static NSDictionary *kCHKPropertyMap = nil;
 
@@ -72,9 +73,9 @@ static NSDictionary *kCHKPropertyMap = nil;
 	self.requiresShipping = dictionary[@"requires_shipping"];
 	self.taxesIncluded = dictionary[@"taxes_included"];
 	self.currency = dictionary[@"currency"];
-	self.subtotalPrice = dictionary[@"subtotal_price"];
-	self.totalTax = dictionary[@"total_tax"];
-	self.totalPrice = dictionary[@"total_price"];
+	self.subtotalPrice = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"subtotal_price"]];
+	self.totalTax = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"total_tax"]];
+	self.totalPrice = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"total_price"]];
 	
 	self.paymentSessionId = dictionary[@"payment_session_id"];
 	NSString *paymentURLString = dictionary[@"payment_url"];
@@ -184,5 +185,21 @@ static NSDictionary *kCHKPropertyMap = nil;
 @end
 
 @implementation CHKShippingRate
+
+- (void)updateWithDictionary:(NSDictionary *)dictionary
+{
+	self.shippingRateIdentifier = dictionary[@"id"];
+	self.price = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"price"]];
+	self.title = dictionary[@"title"];
+}
+
+- (NSDictionary *)jsonDictionaryForCheckout
+{
+	NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
+	json[@"id"] = self.shippingRateIdentifier;
+	json[@"title"] = self.title;
+	json[@"price"] = self.price;
+	return json;
+}
 
 @end

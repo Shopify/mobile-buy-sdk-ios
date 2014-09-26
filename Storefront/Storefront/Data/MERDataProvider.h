@@ -14,7 +14,9 @@
 @class MERProductVariant;
 
 typedef void (^MERDataShopBlock)(MERShop *shop, NSError *error);
+typedef void (^MERDataCollectionBlock)(MERCollection *collection, NSError *error);
 typedef void (^MERDataCollectionListBlock)(NSArray *collections, NSUInteger page, BOOL reachedEnd, NSError *error);
+typedef void (^MERDataProductBlock)(MERProduct *product, NSError *error);
 typedef void (^MERDataProductListBlock)(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error);
 typedef void (^MERDataImagesListBlock)(NSArray *images, NSError *error);
 
@@ -30,21 +32,21 @@ typedef void (^MERDataImagesListBlock)(NSArray *images, NSError *error);
 /**
  * Fetches the shop's metadata (from /meta.json).
  */
-- (NSURLSessionDataTask*)fetchShop:(MERDataShopBlock)block;
+- (NSURLSessionDataTask *)getShop:(MERDataShopBlock)block;
 
 /**
  * Fetches a single page of collections for the shop by page number. Pages start at 1.
  */
-- (NSURLSessionDataTask*)fetchCollectionsPage:(NSUInteger)page completion:(MERDataCollectionListBlock)block;
+- (NSURLSessionDataTask *)getCollectionsPage:(NSUInteger)page completion:(MERDataCollectionListBlock)block;
 
 /**
  * Fetches a single page of products for the shop. Pages start at 1.
  */
-- (NSURLSessionDataTask *)fetchProductsPage:(NSUInteger)page completion:(MERDataProductListBlock)block;
+- (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page completion:(MERDataProductListBlock)block;
 
 /**
  * Fetches a single page of products for the shop.
  */
-- (NSURLSessionDataTask*)fetchProductsInCollection:(MERCollection*)collection page:(NSUInteger)page completion:(MERDataProductListBlock)block;
+- (NSURLSessionDataTask *)getProductsInCollection:(MERCollection*)collection page:(NSUInteger)page completion:(MERDataProductListBlock)block;
 
 @end

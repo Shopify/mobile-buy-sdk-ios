@@ -11,6 +11,18 @@
 
 #import "MERDataProvider.h"
 
+//Model
+#import "MERProduct.h"
+#import "MERShop.h"
+
+#define WAIT_FOR_TASK(task, semaphore) \
+	if (task) { \
+		dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER); \
+	} \
+	else { \
+		XCTFail(@"Task was nil, could not wait"); \
+	} \
+
 @interface MERDataProviderTests : XCTestCase
 @end
 
@@ -41,5 +53,64 @@
 	XCTAssertEqual(_provider.pageSize, 250);
 }
 
+- (void)testGetProductList
+{
+	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	NSURLSessionDataTask *task = [_provider getProductsPage:0 completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+		XCTAssertNil(error);
+		XCTAssertNotNil(products);
+		XCTAssertTrue([products count] > 0);
+		
+		dispatch_semaphore_signal(semaphore);
+	}];
+	WAIT_FOR_TASK(task, semaphore);
+}
+
+- (void)testGetCollectionList
+{
+	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	NSURLSessionDataTask *task = [_provider getCollectionsPage:0 completion:^(NSArray *collections, NSUInteger page, BOOL reachedEnd, NSError *error) {
+		XCTAssertNil(error);
+		XCTAssertNotNil(collections);
+		XCTAssertTrue([collections count] > 0);
+		
+		dispatch_semaphore_signal(semaphore);
+	}];
+	WAIT_FOR_TASK(task, semaphore);
+}
+
+- (void)testGetProductsInCollection
+{
+	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	NSURLSessionDataTask *task = [_provider getCollectionsPage:0 completion:^(NSArray *collections, NSUInteger page, BOOL reachedEnd, NSError *error) {
+		XCTAssertNil(error);
+		XCTAssertNotNil(collections);
+		XCTAssertTrue([collections count] > 0);
+		
+		NSURLSessionDataTask *productsTask = [_provider getProductsInCollection:collections[0] page:0 completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+			XCTAssertNil(error);
+			XCTAssertNotNil(products);
+			
+			dispatch_semaphore_signal(semaphore);
+		}];
+		WAIT_FOR_TASK(productsTask, semaphore);
+		
+		dispatch_semaphore_signal(semaphore);
+	}];
+	WAIT_FOR_TASK(task, semaphore);
+}
+
+- (void)testGetShop
+{
+	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	NSURLSessionDataTask *task = [_provider getShop:^(MERShop *shop, NSError *error) {
+		XCTAssertNil(error);
+		XCTAssertNotNil(shop);
+		XCTAssertEqualObjects(shop.name, @"Pack Leader");
+		
+		dispatch_semaphore_signal(semaphore);
+	}];
+	WAIT_FOR_TASK(task, semaphore);
+}
 
 @end

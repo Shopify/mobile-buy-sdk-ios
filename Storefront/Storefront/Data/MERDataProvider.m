@@ -17,6 +17,7 @@
 @implementation MERDataProvider {
 	NSString *_shopDomain;
 	NSURLSession *_session;
+	NSOperationQueue *_queue;
 }
 
 - (instancetype)initWithShopDomain:(NSString *)shopDomain
@@ -24,7 +25,8 @@
 	self = [super init];
 	if (self) {
 		_shopDomain = shopDomain;
-		_session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+		_queue = [[NSOperationQueue alloc] init];
+		_session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:_queue];
 		_pageSize = 25;
 	}
 	return self;
@@ -42,6 +44,52 @@
 
 #pragma mark - Fetch Methods
 
+- (NSURLSessionDataTask *)getShop:(MERDataShopBlock)block
+{
+	return [self performRequestForURL:[NSString stringWithFormat:@"http://%@/meta.json", _shopDomain] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+		MERShop *shop = nil;
+		if (json && error == nil) {
+			shop = [[MERShop alloc] initWithDictionary:json];
+		}
+		block(shop, error);
+	}];
+}
+
+- (NSURLSessionDataTask *)getCollectionsPage:(NSUInteger)page completion:(MERDataCollectionListBlock)block
+{
+	return [self performRequestForURL:[NSString stringWithFormat:@"http://%@/collections.json?limit=%lu&page=%lu", _shopDomain, (unsigned long)_pageSize, (unsigned long)page] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+		NSArray *collections = nil;
+		if (json && error == nil) {
+			collections = [MERCollection convertJSONArray:json[@"collections"]];
+		}
+		block(collections, page, [self hasReachedEndOfPage:collections] || error, error);
+	}];
+}
+
+- (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page completion:(MERDataProductListBlock)block
+{
+	return [self performRequestForURL:[NSString stringWithFormat:@"http://%@/products.json?limit=%lu&page=%lu", _shopDomain, (unsigned long)_pageSize, (unsigned long)page] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+		NSArray *products = nil;
+		if (json && error == nil) {
+			products = [MERProduct convertJSONArray:json[@"products"]];
+		}
+		block(products, page, [self hasReachedEndOfPage:products] || error, error);
+	}];
+}
+
+- (NSURLSessionDataTask *)getProductsInCollection:(MERCollection*)collection page:(NSUInteger)page completion:(MERDataProductListBlock)block
+{
+	return [self performRequestForURL:[NSString stringWithFormat:@"http://%@/collections/%@/products.json?limit=%lu&page=%lu", _shopDomain, collection.handle, (unsigned long)_pageSize, (unsigned long)page] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+		NSArray *products = nil;
+		if (json && error == nil) {
+			products = [MERProduct convertJSONArray:json[@"products"]];
+		}
+		block(products, page, [self hasReachedEndOfPage:products] || error, error);
+	}];
+}
+
+#pragma mark - Helpers
+
 - (NSURLSessionDataTask *)performRequestForURL:(NSString *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
 	NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
@@ -55,50 +103,6 @@
 	}];
 	[task resume];
 	return task;
-}
-
-- (NSURLSessionDataTask*)fetchShop:(MERDataShopBlock)block
-{
-	return [self performRequestForURL:[NSString stringWithFormat:@"http://%@/meta.json", _shopDomain] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		MERShop *shop = nil;
-		if (json) {
-			shop = [[MERShop alloc] initWithDictionary:json];
-		}
-		block(shop, error);
-	}];
-}
-
-- (NSURLSessionDataTask*)fetchCollectionsPage:(NSUInteger)page completion:(MERDataCollectionListBlock)block
-{
-	return [self performRequestForURL:[NSString stringWithFormat:@"http://%@/collections.json?limit=%lu&page=%lu", _shopDomain, (unsigned long)_pageSize, (unsigned long)page] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		NSArray *collections = nil;
-		if (json) {
-			collections = [MERCollection convertJSONArray:json[@"collections"]];
-		}
-		block(collections, page, [self hasReachedEndOfPage:collections] || error, error);
-	}];
-}
-
-- (NSURLSessionDataTask *)fetchProductsPage:(NSUInteger)page completion:(MERDataProductListBlock)block
-{
-	return [self performRequestForURL:[NSString stringWithFormat:@"http://%@/products.json?limit=%lu&page=%lu", _shopDomain, (unsigned long)_pageSize, (unsigned long)page] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		NSArray *products = nil;
-		if (json) {
-			products = [MERProduct convertJSONArray:json[@"products"]];
-		}
-		block(products, page, [self hasReachedEndOfPage:products] || error, error);
-	}];
-}
-
-- (NSURLSessionDataTask*)fetchProductsInCollection:(MERCollection*)collection page:(NSUInteger)page completion:(MERDataProductListBlock)block
-{
-	return [self performRequestForURL:[NSString stringWithFormat:@"http://%@/collections/%@/products.json?limit=%lu&page=%lu", _shopDomain, collection.handle, (unsigned long)_pageSize, (unsigned long)page] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		NSArray *products = nil;
-		if (json) {
-			products = [MERProduct convertJSONArray:json[@"products"]];
-		}
-		block(products, page, [self hasReachedEndOfPage:products] || error, error);
-	}];
 }
 
 @end

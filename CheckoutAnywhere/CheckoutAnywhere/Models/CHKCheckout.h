@@ -86,8 +86,9 @@
 /**
  * CHKShippingRate represents the amount that the merchant is charging the customer for shipping to the specified address.
  */
-@interface CHKShippingRate : MERObject
+@interface CHKShippingRate : MERObject <CHKSerializable>
 
+@property (nonatomic, strong) NSString *shippingRateIdentifier;
 @property (nonatomic, strong) NSDecimalNumber *price;
 @property (nonatomic, copy) NSString *title;
 

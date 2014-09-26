@@ -23,13 +23,15 @@
 @implementation CHKDataProvider {
 	NSURLSession *_session;
 	NSString *_shopDomain;
+	NSOperationQueue *_queue;
 }
 
 - (instancetype)initWithShopDomain:(NSString *)shopDomain
 {
 	self = [super init];
 	if (self) {
-		_session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+		_queue = [[NSOperationQueue alloc] init];
+		_session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:_queue];
 		_shopDomain = shopDomain;
 	}
 	return self;
@@ -109,6 +111,23 @@
 				status = CHKStatusComplete;
 			}
 			block(checkout, status, error);
+		}];
+	}
+	return task;
+}
+
+#pragma mark - Shipping Rates
+
+- (NSURLSessionDataTask *)getShippingRatesForCheckout:(CHKCheckout *)checkout block:(CHKDataShippingRatesBlock)block
+{
+	NSURLSessionDataTask *task = nil;
+	if ([checkout.token length] > 0) {
+		task = [self getRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/shipping_rates.json", _shopDomain, checkout.token] contentType:kJSONType completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+			NSArray *shippingRates = nil;
+			if (error == nil) {
+				shippingRates = [CHKShippingRate convertJSONArray:json[@"shipping_rates"]];
+			}
+			block(shippingRates, error);
 		}];
 	}
 	return task;

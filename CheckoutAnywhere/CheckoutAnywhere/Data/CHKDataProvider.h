@@ -24,6 +24,7 @@ typedef NS_ENUM(NSUInteger, CHKStatus) {
 typedef void (^CHKDataCreditCardBlock)(CHKCheckout *checkout, NSString *paymentSessionId, NSError *error);
 typedef void (^CHKDataCheckoutBlock)(CHKCheckout *checkout, NSError *error);
 typedef void (^CHKDataCheckoutStatusBlock)(CHKCheckout *checkout, CHKStatus status, NSError *error);
+typedef void (^CHKDataShippingRatesBlock)(NSArray *shippingRates, NSError *error);
 
 @interface CHKDataProvider : NSObject
 
@@ -66,6 +67,13 @@ typedef void (^CHKDataCheckoutStatusBlock)(CHKCheckout *checkout, CHKStatus stat
  * Note: There is no guarantee that the checkout returned will be the same as the one that is passed in. You are recommended to use the one returned in the block.
  */
 - (NSURLSessionDataTask *)getCompletionStatusOfCheckout:(CHKCheckout *)checkout block:(CHKDataCheckoutStatusBlock)block;
+
+#pragma mark - Shipping Rates
+
+/**
+ * Fetches a list of applicable shipping rates for this order. The shipping rate should be added to the checkout and the checkout should then be updated.
+ */
+- (NSURLSessionDataTask *)getShippingRatesForCheckout:(CHKCheckout *)checkout block:(CHKDataShippingRatesBlock)block;
 
 #pragma mark - Payment Management
 

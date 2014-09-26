@@ -20,8 +20,15 @@
 #import "CHKCheckout.h"
 #import "CHKCreditCard.h"
 
-@interface CHKAnywhereIntegrationTest : XCTestCase
+#define WAIT_FOR_TASK(task, sempahore) \
+	if (task) { \
+		dispatch_semaphore_wait(sempahore, DISPATCH_TIME_FOREVER); \
+	} \
+	else { \
+		XCTFail(@"Task was nil, could not wait"); \
+	} \
 
+@interface CHKAnywhereIntegrationTest : XCTestCase
 @end
 
 @implementation CHKAnywhereIntegrationTest {
@@ -37,8 +44,8 @@
 {
 	[super setUp];
 	
-	_checkoutDataProvider = [[CHKDataProvider alloc] initWithShopDomain:@"dinobanana.myshopify.com"];
-	_storefrontDataProvider = [[MERDataProvider alloc] initWithShopDomain:@"dinobanana.myshopify.com"];
+	_checkoutDataProvider = [[CHKDataProvider alloc] initWithShopDomain:@"coffeehut.myshopify.com"];
+	_storefrontDataProvider = [[MERDataProvider alloc] initWithShopDomain:@"coffeehut.myshopify.com"];
 	
 	_collections = [[NSMutableArray alloc] init];
 	_products = [[NSMutableArray alloc] init];
@@ -49,14 +56,14 @@
 - (void)fetchShop
 {
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	[_storefrontDataProvider fetchShop:^(MERShop *shop, NSError *error) {
+	NSURLSessionDataTask *task = [_storefrontDataProvider getShop:^(MERShop *shop, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(shop);
 		
 		_shop = shop;
 		dispatch_semaphore_signal(semaphore);
 	}];
-	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+	WAIT_FOR_TASK(task, semaphore);
 }
 
 - (void)fetchCollections
@@ -65,7 +72,7 @@
 	__block BOOL done = NO;
 	NSUInteger currentPage = 0;
 	while (done == NO) {
-		[_storefrontDataProvider fetchCollectionsPage:currentPage completion:^(NSArray *collections, NSUInteger page, BOOL reachedEnd, NSError *error) {
+		NSURLSessionDataTask *task = [_storefrontDataProvider getCollectionsPage:currentPage completion:^(NSArray *collections, NSUInteger page, BOOL reachedEnd, NSError *error) {
 			done = reachedEnd || error;
 			
 			XCTAssertNil(error);
@@ -74,7 +81,7 @@
 			[_collections addObjectsFromArray:collections];
 			dispatch_semaphore_signal(semaphore);
 		}];
-		dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+		WAIT_FOR_TASK(task, semaphore);
 		
 		if (done == NO) {
 			++currentPage;
@@ -89,7 +96,7 @@
 	__block BOOL done = NO;
 	NSUInteger currentPage = 0;
 	while (done == NO) {
-		[_storefrontDataProvider fetchProductsPage:currentPage completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+		NSURLSessionDataTask *task = [_storefrontDataProvider getProductsPage:currentPage completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 			done = reachedEnd || error;
 			
 			XCTAssertNil(error);
@@ -98,7 +105,7 @@
 			[_products addObjectsFromArray:products];
 			dispatch_semaphore_signal(semaphore);
 		}];
-		dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+		WAIT_FOR_TASK(task, semaphore);
 		
 		if (done == NO) {
 			++currentPage;
@@ -157,6 +164,8 @@
 	//2) Create the checkout with Shopify
 	//=======================================
 	__block CHKCheckout *checkout = [[CHKCheckout alloc] initWithCart:cart];
+	checkout.shippingAddress = [self testShippingAddress];
+	checkout.billingAddress = [self testBillingAddress];
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 	NSURLSessionDataTask *task = [_checkoutDataProvider createCheckout:checkout completion:^(CHKCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
@@ -165,16 +174,29 @@
 		checkout = returnedCheckout;
 		dispatch_semaphore_signal(semaphore);
 	}];
-	XCTAssertNotNil(task);
-	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+	WAIT_FOR_TASK(task, semaphore);
+	XCTAssertEqualObjects(checkout.shippingAddress.address1, @"126 York Street");
+	XCTAssertEqualObjects(checkout.billingAddress.address1, @"150 Elgin Street");
+	
+	//=======================================
+	//2) Fetch shipping rates
+	//=======================================
+	__block NSArray *shippingRates = nil;
+	task = [_checkoutDataProvider getShippingRatesForCheckout:checkout block:^(NSArray *returnedShippingRates, NSError *error) {
+		XCTAssertNil(error);
+		XCTAssertNotNil(returnedShippingRates);
+		
+		shippingRates = returnedShippingRates;
+		dispatch_semaphore_signal(semaphore);
+	}];
+	WAIT_FOR_TASK(task, semaphore);
+	XCTAssertTrue([shippingRates count] > 0);
 	
 	//=======================================
 	//3) Add some information to it
 	//=======================================
 	checkout.email = @"banana@testasaurus.com";
-	checkout.shippingAddress = [self testShippingAddress];
-	checkout.billingAddress = [self testBillingAddress];
-	
+	checkout.shippingRate = shippingRates[0];
 	task = [_checkoutDataProvider updateCheckout:checkout completion:^(CHKCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
@@ -182,14 +204,11 @@
 		checkout = returnedCheckout;
 		dispatch_semaphore_signal(semaphore);
 	}];
-	XCTAssertNotNil(task);
-	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-	XCTAssertEqualObjects(checkout.shippingAddress.address1, @"126 York Street");
-	XCTAssertEqualObjects(checkout.billingAddress.address1, @"150 Elgin Street");
+	WAIT_FOR_TASK(task, semaphore);
 	XCTAssertEqualObjects(checkout.email, @"banana@testasaurus.com");
 	
 	//=======================================
-	//4) Store a credit card on the secure server
+	//5) Store a credit card on the secure server
 	//=======================================
 	CHKCreditCard *creditCard = [[CHKCreditCard alloc] init];
 	creditCard.number = @"4242424242424242";
@@ -205,11 +224,10 @@
 		checkout = returnedCheckout;
 		dispatch_semaphore_signal(semaphore);
 	}];
-	XCTAssertNotNil(task);
-	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+	WAIT_FOR_TASK(task, semaphore);
 	
 	//=======================================
-	//5) Complete the checkout
+	//6) Complete the checkout
 	//=======================================
 	task = [_checkoutDataProvider completeCheckout:checkout block:^(CHKCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
@@ -218,14 +236,13 @@
 		checkout = returnedCheckout;
 		dispatch_semaphore_signal(semaphore);
 	}];
-	XCTAssertNotNil(task);
-	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+	WAIT_FOR_TASK(task, semaphore);
 	
 	//=======================================
-	//6) Poll for job status
+	//7) Poll for job status
 	//=======================================
 	__block CHKStatus status = CHKStatusUnknown;
-	while (status != CHKStatusFailed && status != CHKStatusComplete) {
+	while (checkout.token && status != CHKStatusFailed && status != CHKStatusComplete) {
 		task = [_checkoutDataProvider getCompletionStatusOfCheckout:checkout block:^(CHKCheckout *returnedCheckout, CHKStatus returnedStatus, NSError *error) {
 			XCTAssertNil(error);
 			XCTAssertNotNil(returnedCheckout);
@@ -238,13 +255,12 @@
 			}
 			dispatch_semaphore_signal(semaphore);
 		}];
-		XCTAssertNotNil(task);
-		dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+		WAIT_FOR_TASK(task, semaphore);
 	}
 	XCTAssertEqual(status, CHKStatusComplete);
 	
 	//=======================================
-	//7) Fetch the checkout again
+	//8) Fetch the checkout again
 	//=======================================
 	task = [_checkoutDataProvider getCheckout:checkout completion:^(CHKCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
@@ -253,8 +269,7 @@
 		checkout = returnedCheckout;
 		dispatch_semaphore_signal(semaphore);
 	}];
-	XCTAssertNotNil(task);
-	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+	WAIT_FOR_TASK(task, semaphore);
 	XCTAssertNotNil(checkout.orderId);
 }
 
