@@ -35,9 +35,9 @@
 	return self;
 }
 
-- (NSURLSessionDataTask *)createCheckoutWithCart:(CHKCart *)cart completion:(CHKDataCheckoutBlock)block
+- (NSURLSessionDataTask *)createCheckout:(CHKCheckout *)checkout completion:(CHKDataCheckoutBlock)block
 {
-	return [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts.json", _shopDomain] object:cart contentType:kJSONType completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts.json", _shopDomain] object:checkout contentType:kJSONType completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		CHKCheckout *checkout = nil;
 		if (error == nil) {
 			checkout = [[CHKCheckout alloc] initWithDictionary:json[@"checkout"]];

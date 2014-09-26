@@ -37,8 +37,8 @@
 {
 	[super setUp];
 	
-	_checkoutDataProvider = [[CHKDataProvider alloc] initWithShopDomain:@"ibukun.myshopify.com"];
-	_storefrontDataProvider = [[MERDataProvider alloc] initWithShopDomain:@"ibukun.myshopify.com"];
+	_checkoutDataProvider = [[CHKDataProvider alloc] initWithShopDomain:@"dinobanana.myshopify.com"];
+	_storefrontDataProvider = [[MERDataProvider alloc] initWithShopDomain:@"dinobanana.myshopify.com"];
 	
 	_collections = [[NSMutableArray alloc] init];
 	_products = [[NSMutableArray alloc] init];
@@ -156,9 +156,9 @@
 	//=======================================
 	//2) Create the checkout with Shopify
 	//=======================================
-	__block CHKCheckout *checkout;
+	__block CHKCheckout *checkout = [[CHKCheckout alloc] initWithCart:cart];
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_checkoutDataProvider createCheckoutWithCart:cart completion:^(CHKCheckout *returnedCheckout, NSError *error) {
+	NSURLSessionDataTask *task = [_checkoutDataProvider createCheckout:checkout completion:^(CHKCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
 		

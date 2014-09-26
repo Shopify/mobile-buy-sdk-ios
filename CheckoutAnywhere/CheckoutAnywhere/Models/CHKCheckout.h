@@ -14,6 +14,7 @@
 @class CHKCreditCard;
 @class CHKAddress;
 @class CHKShippingRate;
+@class CHKCart;
 
 /**
  * The checkout object. This is the main object that you will interact with when creating orders on Shopify.
@@ -22,6 +23,8 @@
  * Do not create checkouts directly. You should use the CHKDataProvider to transform a CHKCart into a CHKCheckout.
  */
 @interface CHKCheckout : MERObject <CHKSerializable>
+
+- (instancetype)initWithCart:(CHKCart *)cark;
 
 @property (nonatomic, copy) NSString *email;
 @property (nonatomic, copy) NSString *token;

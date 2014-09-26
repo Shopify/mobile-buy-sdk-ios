@@ -32,9 +32,9 @@ typedef void (^CHKDataCheckoutStatusBlock)(CHKCheckout *checkout, CHKStatus stat
 #pragma mark - Checkout
 
 /**
- * Builds a checkout object with this cart. The checkout will be used to prepare an order.
+ * Builds a checkout object on Shopify. The checkout will be used to prepare an order.
  */
-- (NSURLSessionDataTask *)createCheckoutWithCart:(CHKCart *)cart completion:(CHKDataCheckoutBlock)block;
+- (NSURLSessionDataTask *)createCheckout:(CHKCheckout *)checkout completion:(CHKDataCheckoutBlock)block;
 
 /**
  * Fetches the updated version of this checkout.

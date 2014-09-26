@@ -10,6 +10,7 @@
 
 //Models
 #import "CHKLineItem.h"
+#import "CHKCart.h"
 
 //Utils
 #import "NSString+Trim.h"
@@ -23,6 +24,16 @@ static NSDictionary *kCHKPropertyMap = nil;
 	if (self == [CHKCheckout class]) {
 		[self trackDirtyProperties];
 	}
+}
+
+- (instancetype)initWithCart:(CHKCart *)cart
+{
+	self = [super initWithDictionary:@{}];
+	if (self) {
+		_lineItems = cart.lineItems;
+		[self markPropertyAsDirty:@"lineItems"];
+	}
+	return self;
 }
 
 + (NSString *)jsonKeyForProperty:(NSString *)property
@@ -56,6 +67,7 @@ static NSDictionary *kCHKPropertyMap = nil;
 - (void)updateWithDictionary:(NSDictionary *)dictionary
 {
 	self.email = dictionary[@"email"];
+	self.orderId = dictionary[@"order_id"];
 	self.token = dictionary[@"token"];
 	self.requiresShipping = dictionary[@"requires_shipping"];
 	self.taxesIncluded = dictionary[@"taxes_included"];
@@ -79,19 +91,32 @@ static NSDictionary *kCHKPropertyMap = nil;
 	self.shippingRate = [CHKShippingRate convertObject:dictionary[@"shipping_address"]];
 }
 
+- (id)jsonValueForValue:(id)value
+{
+	id newValue = value;
+	if ([value conformsToProtocol:@protocol(CHKSerializable)]) {
+		newValue = [(id <CHKSerializable>)value jsonDictionaryForCheckout];
+	}
+	else if ([value isKindOfClass:[NSArray class]]) {
+		NSMutableArray *newArray = [[NSMutableArray alloc] init];
+		for (id arrayValue in value) {
+			[newArray addObject:[self jsonValueForValue:arrayValue]];
+		}
+		newValue = newArray;
+	}
+	else if ([value isKindOfClass:[NSString class]]) {
+		newValue = [value trim];
+	}
+	return newValue;
+}
+
 - (NSDictionary *)jsonDictionaryForCheckout
 {
 	//We only need the dirty properties
 	NSSet *dirtyProperties = [self dirtyProperties];
 	NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
 	for (NSString *dirtyProperty in dirtyProperties) {
-		id value = [self valueForKey:dirtyProperty];
-		if ([value conformsToProtocol:@protocol(CHKSerializable)]) {
-			value = [(id <CHKSerializable>)value jsonDictionaryForCheckout];
-		}
-		else if ([value isKindOfClass:[NSString class]]) {
-			value = [value trim];
-		}
+		id value = [self jsonValueForValue:[self valueForKey:dirtyProperty]];
 		json[[CHKCheckout jsonKeyForProperty:dirtyProperty]] = value ?: [NSNull null];
 	}
 	return @{ @"checkout" : json };
