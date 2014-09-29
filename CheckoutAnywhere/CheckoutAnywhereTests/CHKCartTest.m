@@ -34,11 +34,7 @@
 {
 	NSDictionary *json = [_cart jsonDictionaryForCheckout];
 	XCTAssertNotNil(json);
-	XCTAssertEqual(1, [json count]);
-	XCTAssertNotNil(json[@"checkout"]);
-	
-	NSDictionary *checkoutJson = json[@"checkout"];
-	XCTAssertEqual(0, [checkoutJson count]);
+	XCTAssertEqual(0, [json count]);
 }
 
 - (void)testJsonDictionaryContainsLineItems
@@ -50,12 +46,10 @@
 	NSDictionary *json = [_cart jsonDictionaryForCheckout];
 	XCTAssertNotNil(json);
 	XCTAssertEqual(1, [json count]);
-	XCTAssertNotNil(json[@"checkout"]);
-	
-	NSDictionary *checkoutJson = json[@"checkout"];
-	XCTAssertNotNil(checkoutJson[@"line_items"]);
-	XCTAssert([checkoutJson[@"line_items"] isKindOfClass:[NSArray class]]);
-	XCTAssertEqual(3, [checkoutJson[@"line_items"] count]);
+
+	XCTAssertNotNil(json[@"line_items"]);
+	XCTAssert([json[@"line_items"] isKindOfClass:[NSArray class]]);
+	XCTAssertEqual(3, [json[@"line_items"] count]);
 }
 
 @end

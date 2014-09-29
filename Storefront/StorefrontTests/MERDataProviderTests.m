@@ -106,7 +106,7 @@
 	NSURLSessionDataTask *task = [_provider getShop:^(MERShop *shop, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(shop);
-		XCTAssertEqualObjects(shop.name, @"Pack Leader");
+		XCTAssertEqualObjects(shop.name, @"PackLeader");
 		
 		dispatch_semaphore_signal(semaphore);
 	}];
