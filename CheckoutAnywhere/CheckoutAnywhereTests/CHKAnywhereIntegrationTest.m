@@ -182,15 +182,26 @@
 	//2) Fetch shipping rates
 	//=======================================
 	__block NSArray *shippingRates = nil;
-	task = [_checkoutDataProvider getShippingRatesForCheckout:checkout block:^(NSArray *returnedShippingRates, NSError *error) {
-		XCTAssertNil(error);
-		XCTAssertNotNil(returnedShippingRates);
+	__block CHKStatus shippingStatus = CHKStatusUnknown;
+	while (checkout.token && shippingStatus != CHKStatusFailed && shippingStatus != CHKStatusComplete) {
+		NSLog(@"Fetching shipping rates...");
+		task = [_checkoutDataProvider getShippingRatesForCheckout:checkout block:^(NSArray *returnedShippingRates, CHKStatus status, NSError *error) {
+			XCTAssertNil(error);
+			shippingStatus = status;
+			if (shippingStatus == CHKStatusComplete) {
+				XCTAssertNotNil(returnedShippingRates);
+				shippingRates = returnedShippingRates;
+			}
+			dispatch_semaphore_signal(semaphore);
+		}];
+		WAIT_FOR_TASK(task, semaphore);
 		
-		shippingRates = returnedShippingRates;
-		dispatch_semaphore_signal(semaphore);
-	}];
-	WAIT_FOR_TASK(task, semaphore);
+		if (shippingStatus != CHKStatusComplete) {
+			[NSThread sleepForTimeInterval:0.5f];
+		}
+	}
 	XCTAssertTrue([shippingRates count] > 0);
+	XCTAssertEqual(shippingStatus, CHKStatusComplete);
 	
 	//=======================================
 	//3) Add some information to it
@@ -241,23 +252,23 @@
 	//=======================================
 	//7) Poll for job status
 	//=======================================
-	__block CHKStatus status = CHKStatusUnknown;
-	while (checkout.token && status != CHKStatusFailed && status != CHKStatusComplete) {
+	__block CHKStatus checkoutStatus = CHKStatusUnknown;
+	while (checkout.token && checkoutStatus != CHKStatusFailed && checkoutStatus != CHKStatusComplete) {
+		NSLog(@"Checking completion status...");
 		task = [_checkoutDataProvider getCompletionStatusOfCheckout:checkout block:^(CHKCheckout *returnedCheckout, CHKStatus returnedStatus, NSError *error) {
 			XCTAssertNil(error);
 			XCTAssertNotNil(returnedCheckout);
 			
-			if (error) {
-				status = CHKStatusFailed;
-			}
-			else {
-				status = returnedStatus;
-			}
+			checkoutStatus = returnedStatus;
 			dispatch_semaphore_signal(semaphore);
 		}];
 		WAIT_FOR_TASK(task, semaphore);
+		
+		if (checkoutStatus != CHKStatusComplete) {
+			[NSThread sleepForTimeInterval:0.5f];
+		}
 	}
-	XCTAssertEqual(status, CHKStatusComplete);
+	XCTAssertEqual(checkoutStatus, CHKStatusComplete);
 	
 	//=======================================
 	//8) Fetch the checkout again

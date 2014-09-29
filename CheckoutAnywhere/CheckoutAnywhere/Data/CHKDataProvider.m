@@ -18,7 +18,9 @@
 #define kPATCH @"PATCH"
 
 #define kJSONType @"application/json"
-#define kFormType @"application/x-www-form-urlencoded"
+
+@interface STPToken (Shopify) <CHKSerializable>
+@end
 
 @implementation CHKDataProvider {
 	NSURLSession *_session;
@@ -39,7 +41,7 @@
 
 - (NSURLSessionDataTask *)createCheckout:(CHKCheckout *)checkout completion:(CHKDataCheckoutBlock)block
 {
-	return [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts.json", _shopDomain] object:checkout contentType:kJSONType completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts.json", _shopDomain] object:checkout completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		CHKCheckout *checkout = nil;
 		if (error == nil) {
 			checkout = [[CHKCheckout alloc] initWithDictionary:json[@"checkout"]];
@@ -50,7 +52,7 @@
 
 - (NSURLSessionDataTask *)getCheckout:(CHKCheckout *)checkout completion:(CHKDataCheckoutBlock)block
 {
-	return [self getRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@.json", _shopDomain, checkout.token] contentType:kJSONType completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self getRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@.json", _shopDomain, checkout.token] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		CHKCheckout *newCheckout = nil;
 		if (error == nil) {
 			newCheckout = [[CHKCheckout alloc] initWithDictionary:json[@"checkout"]];
@@ -63,7 +65,7 @@
 {
 	NSURLSessionDataTask *task = nil;
 	if ([checkout.token length] > 0) {
-		task = [self patchRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@.json", _shopDomain, checkout.token] object:checkout contentType:kJSONType completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+		task = [self patchRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@.json", _shopDomain, checkout.token] object:checkout completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			CHKCheckout *newCheckout = nil;
 			if (error == nil) {
 				newCheckout = [[CHKCheckout alloc] initWithDictionary:json[@"checkout"]];
@@ -82,7 +84,7 @@
 		NSError *error = nil;
 		NSData *data = [NSJSONSerialization dataWithJSONObject:paymentJson options:0 error:&error];
 		if (data && error == nil) {
-			task = [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/complete.json", _shopDomain, checkout.token] body:data contentType:kJSONType completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+			task = [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/complete.json", _shopDomain, checkout.token] body:data completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 				CHKCheckout *newCheckout = nil;
 				if (error == nil) {
 					newCheckout = [[CHKCheckout alloc] initWithDictionary:json[@"checkout"]];
@@ -98,19 +100,9 @@
 {
 	NSURLSessionDataTask *task = nil;
 	if ([checkout.token length] > 0) {
-		task = [self getRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/processing.json", _shopDomain, checkout.token] contentType:kJSONType completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
-			CHKStatus status = CHKStatusUnknown;
-			if (error || statusCode == CHKStatusFailed) {
-				status = CHKStatusFailed;
-			}
-			else if (statusCode == CHKStatusProcessing) {
-				status = CHKStatusProcessing;
-			}
-			else if (statusCode == CHKStatusComplete) {
-				status = CHKStatusComplete;
-			}
-			block(checkout, status, error);
+		task = [self getRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/processing.json", _shopDomain, checkout.token] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+			NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
+			block(checkout, [CHKDataProvider statusForStatusCode:statusCode error:error], error);
 		}];
 	}
 	return task;
@@ -122,12 +114,14 @@
 {
 	NSURLSessionDataTask *task = nil;
 	if ([checkout.token length] > 0) {
-		task = [self getRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/shipping_rates.json", _shopDomain, checkout.token] contentType:kJSONType completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+		task = [self getRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/shipping_rates.json", _shopDomain, checkout.token] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			NSArray *shippingRates = nil;
 			if (error == nil) {
 				shippingRates = [CHKShippingRate convertJSONArray:json[@"shipping_rates"]];
 			}
-			block(shippingRates, error);
+			
+			NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
+			block(shippingRates, [CHKDataProvider statusForStatusCode:statusCode error:error], error);
 		}];
 	}
 	return task;
@@ -137,11 +131,10 @@
 
 - (NSURLSessionDataTask *)storeStripeToken:(STPToken *)stripeToken checkout:(CHKCheckout *)checkout completion:(CHKDataCreditCardBlock)block
 {
-	NSString *params = [NSString stringWithFormat:@"checkout[token]=%@&checkout[credit_card][number]=%@", checkout.token, stripeToken.tokenId];
-	return [self postPaymentRequestWithCheckout:checkout body:[params dataUsingEncoding:NSUTF8StringEncoding] contentType:kFormType completion:block];
+	return [self storeCreditCard:stripeToken checkout:checkout completion:block];
 }
 
-- (NSURLSessionDataTask *)storeCreditCard:(CHKCreditCard *)creditCard checkout:(CHKCheckout *)checkout completion:(CHKDataCreditCardBlock)block
+- (NSURLSessionDataTask *)storeCreditCard:(id <CHKSerializable>)creditCard checkout:(CHKCheckout *)checkout completion:(CHKDataCreditCardBlock)block
 {
 	NSURLSessionDataTask *task = nil;
 	if (checkout.token && creditCard) {
@@ -155,7 +148,7 @@
 		NSError *error = nil;
 		NSData *data = [NSJSONSerialization dataWithJSONObject:@{ @"checkout" : json } options:0 error:&error];
 		if (data && error == nil) {
-			task = [self postPaymentRequestWithCheckout:checkout body:data contentType:kJSONType completion:block];
+			task = [self postPaymentRequestWithCheckout:checkout body:data completion:block];
 		}
 	}
 	return task;
@@ -163,28 +156,43 @@
 
 #pragma mark - Helpers
 
++ (CHKStatus)statusForStatusCode:(NSUInteger)statusCode error:(NSError *)error
+{
+	CHKStatus status = CHKStatusUnknown;
+	if (error || statusCode == CHKStatusFailed) {
+		status = CHKStatusFailed;
+	}
+	else if (statusCode == CHKStatusProcessing) {
+		status = CHKStatusProcessing;
+	}
+	else if (statusCode == CHKStatusComplete) {
+		status = CHKStatusComplete;
+	}
+	return status;
+}
+
 - (NSError *)errorFromJSON:(NSDictionary *)errorDictionary
 {
 	return [[NSError alloc] initWithDomain:@"shopify" code:422 userInfo:errorDictionary];
 }
 
-- (NSURLSessionDataTask *)requestForURL:(NSString *)url method:(NSString *)method object:(id <CHKSerializable>)object contentType:(NSString*)contentType completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
+- (NSURLSessionDataTask *)requestForURL:(NSString *)url method:(NSString *)method object:(id <CHKSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
 	NSDictionary *json = [object jsonDictionaryForCheckout];
 	NSError *error = nil;
 	NSData *data = [NSJSONSerialization dataWithJSONObject:json options:0 error:&error];
 	NSURLSessionDataTask *task = nil;
 	if (error == nil && data) {
-		task = [self requestForURL:url method:method body:data contentType:contentType completionHandler:completionHandler];
+		task = [self requestForURL:url method:method body:data completionHandler:completionHandler];
 	}
 	return task;
 }
 
-- (NSURLSessionDataTask *)requestForURL:(NSString *)url method:(NSString *)method body:(NSData *)body contentType:(NSString*)contentType completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
+- (NSURLSessionDataTask *)requestForURL:(NSString *)url method:(NSString *)method body:(NSData *)body completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
 	request.HTTPBody = body;
-	[request addValue:contentType forHTTPHeaderField:@"Content-Type"];
+	[request addValue:kJSONType forHTTPHeaderField:@"Content-Type"];
 	[request addValue:kJSONType forHTTPHeaderField:@"Accept"];
 	request.HTTPMethod = method;
 	NSURLSessionDataTask *task = [_session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -205,9 +213,9 @@
 	return task;
 }
 
-- (NSURLSessionDataTask *)postPaymentRequestWithCheckout:(CHKCheckout *)checkout params:(NSString *)params completion:(CHKDataCreditCardBlock)block
+- (NSURLSessionDataTask *)postPaymentRequestWithCheckout:(CHKCheckout *)checkout body:(NSData *)body completion:(CHKDataCreditCardBlock)block
 {
-	return [self requestForURL:[checkout.paymentURL absoluteString] method:kPOST body:[params dataUsingEncoding:NSUTF8StringEncoding] contentType:kFormType completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self requestForURL:[checkout.paymentURL absoluteString] method:kPOST body:body completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		NSString *paymentSessionId = nil;
 		if (error == nil) {
 			paymentSessionId = json[@"id"];
@@ -217,36 +225,34 @@
 	}];
 }
 
-- (NSURLSessionDataTask *)postPaymentRequestWithCheckout:(CHKCheckout *)checkout body:(NSData *)body contentType:(NSString *)type completion:(CHKDataCreditCardBlock)block
+- (NSURLSessionDataTask *)getRequestForURL:(NSString *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
-	return [self requestForURL:[checkout.paymentURL absoluteString] method:kPOST body:body contentType:type completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		NSString *paymentSessionId = nil;
-		if (error == nil) {
-			paymentSessionId = json[@"id"];
-			checkout.paymentSessionId = paymentSessionId;
-		}
-		block(checkout, paymentSessionId, error);
-	}];
+	return [self requestForURL:url method:kGET body:nil completionHandler:completionHandler];
 }
 
-- (NSURLSessionDataTask *)getRequestForURL:(NSString *)url contentType:(NSString *)contentType completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
+- (NSURLSessionDataTask *)postRequestForURL:(NSString *)url object:(id <CHKSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
-	return [self requestForURL:url method:kGET body:nil contentType:contentType completionHandler:completionHandler];
+	return [self requestForURL:url method:kPOST object:object completionHandler:completionHandler];
 }
 
-- (NSURLSessionDataTask *)postRequestForURL:(NSString *)url object:(id <CHKSerializable>)object contentType:(NSString*)contentType completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
+- (NSURLSessionDataTask *)postRequestForURL:(NSString *)url body:(NSData *)body completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
-	return [self requestForURL:url method:kPOST object:object contentType:contentType completionHandler:completionHandler];
+	return [self requestForURL:url method:kPOST body:body completionHandler:completionHandler];
 }
 
-- (NSURLSessionDataTask *)postRequestForURL:(NSString *)url body:(NSData *)body contentType:(NSString*)contentType completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
+- (NSURLSessionDataTask *)patchRequestForURL:(NSString *)url object:(id <CHKSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
-	return [self requestForURL:url method:kPOST body:body contentType:contentType completionHandler:completionHandler];
+	return [self requestForURL:url method:kPATCH object:object completionHandler:completionHandler];
 }
 
-- (NSURLSessionDataTask *)patchRequestForURL:(NSString *)url object:(id <CHKSerializable>)object contentType:(NSString*)contentType completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
+@end
+
+@implementation STPToken (Shopify)
+
+- (NSDictionary *)jsonDictionaryForCheckout
 {
-	return [self requestForURL:url method:kPATCH object:object contentType:contentType completionHandler:completionHandler];
+	NSString *tokenId = self.tokenId;
+	return tokenId ? @{ @"number" : tokenId } : @{};
 }
 
 @end

@@ -9,6 +9,7 @@
 @import Foundation;
 
 #import <Stripe/Stripe.h>
+#import "CHKSerializable.h"
 
 @class CHKCreditCard;
 @class CHKCart;
@@ -17,6 +18,7 @@
 typedef NS_ENUM(NSUInteger, CHKStatus) {
 	CHKStatusComplete = 200,
 	CHKStatusProcessing = 202,
+	CHKStatusNotFound = 404,
 	CHKStatusFailed = 424,
 	CHKStatusUnknown
 };
@@ -24,7 +26,7 @@ typedef NS_ENUM(NSUInteger, CHKStatus) {
 typedef void (^CHKDataCreditCardBlock)(CHKCheckout *checkout, NSString *paymentSessionId, NSError *error);
 typedef void (^CHKDataCheckoutBlock)(CHKCheckout *checkout, NSError *error);
 typedef void (^CHKDataCheckoutStatusBlock)(CHKCheckout *checkout, CHKStatus status, NSError *error);
-typedef void (^CHKDataShippingRatesBlock)(NSArray *shippingRates, NSError *error);
+typedef void (^CHKDataShippingRatesBlock)(NSArray *shippingRates, CHKStatus status, NSError *error);
 
 @interface CHKDataProvider : NSObject
 
@@ -94,6 +96,6 @@ typedef void (^CHKDataShippingRatesBlock)(NSArray *shippingRates, NSError *error
  * Note: Storing the token does not charge the associated card (credit or otherwise).
  *       The card will be charged upon finalizing the checkout.
  */
-- (NSURLSessionDataTask *)storeCreditCard:(CHKCreditCard *)creditCard checkout:(CHKCheckout *)checkout completion:(CHKDataCreditCardBlock)block;
+- (NSURLSessionDataTask *)storeCreditCard:(id <CHKSerializable>)creditCard checkout:(CHKCheckout *)checkout completion:(CHKDataCreditCardBlock)block;
 
 @end
