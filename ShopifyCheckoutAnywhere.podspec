@@ -13,5 +13,16 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "8.0"
   s.source       = { :git => "git@github.com:Shopify/checkout-anywhere-ios.git", :tag => "v0.5" }
   s.requires_arc = true
-  s.source_files = "CheckoutAnywhere/**/*.{h,m}"
+
+  s.subspec "ShopifyStorefront" do |subspec|
+    subspec.dependency               "Stripe"
+    subspec.source_files           = 'Storefront/Storefront/**/*.{h,m,mm}'
+    subspec.public_header_files    = 'Storefront/Storefront/**/*.h'
+  end
+
+  s.subspec "ShopifyCheckout" do |subspec|
+    subspec.dependency               "ShopifyCheckoutAnywhere/ShopifyStorefront"
+    subspec.source_files           = "CheckoutAnywhere/CheckoutAnywhere/**/*.{h,m}"
+    subspec.public_header_files    = 'CheckoutAnywhere/CheckoutAnywhere/**/*.h'
+  end
 end
