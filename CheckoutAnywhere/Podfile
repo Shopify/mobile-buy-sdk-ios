@@ -3,7 +3,6 @@ platform :ios, "8.0"
 target "CheckoutAnywhere" do
 
 pod 'Stripe', :git => 'https://github.com/stripe/stripe-ios.git'
-pod 'ShopifyStorefront', :git => 'git@github.com:Shopify/shopify-storefront-ios.git'
 
 end
 

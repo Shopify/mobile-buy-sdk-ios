@@ -272,6 +272,7 @@
 	[self updateCheckout];
 	[self addCreditCardToCheckout];
 	[self completeCheckout];
+	
 	[self pollUntilCheckoutIsComplete];
 	[self verifyCompletedCheckout];
 }
