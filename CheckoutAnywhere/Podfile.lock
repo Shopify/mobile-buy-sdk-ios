@@ -1,14 +1,21 @@
 PODS:
-  - Stripe (2.0)
+  - ShopifyStorefront (0.1)
+  - Stripe (2.0.3):
+    - Stripe/Core
+  - Stripe/Core (2.0.3)
 
 DEPENDENCIES:
+  - ShopifyStorefront (from `git@github.com:Shopify/shopify-storefront-ios.git`)
   - Stripe (from `https://github.com/stripe/stripe-ios.git`)
 
 EXTERNAL SOURCES:
+  ShopifyStorefront:
+    :git: git@github.com:Shopify/shopify-storefront-ios.git
   Stripe:
     :git: https://github.com/stripe/stripe-ios.git
 
 SPEC CHECKSUMS:
-  Stripe: 59b37425983874809e5eb6faf7cc160adf33805e
+  ShopifyStorefront: d822f69196a2316e35aa177b54cb76e60f8d97a7
+  Stripe: 2bfd3b23f7c6e7aa172da2bf6896ac45b40e290c
 
-COCOAPODS: 0.33.1
+COCOAPODS: 0.34.1
