@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "ShopifyCheckoutAnywhere"
-  s.version      = "0.0.1"
+  s.version      = "0.5"
   s.summary      = "An iOS library to create apps to purchase items off of Shopify Stores."
 
   s.description  = <<-DESC
