@@ -8,7 +8,7 @@
 
 @import Foundation;
 
-#import <Stripe/Stripe.h>
+#import "Stripe.h"
 #import "CHKSerializable.h"
 
 @class CHKCreditCard;

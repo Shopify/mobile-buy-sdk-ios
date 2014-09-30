@@ -231,13 +231,6 @@ fi
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>F76CFF2819CB7F0B0079C703</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F773741D19C770CB0039681C</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
 		<key>F76CFF2919CB830D0079C703</key>
 		<dict>
 			<key>fileEncoding</key>
@@ -365,7 +358,6 @@ fi
 			<string>2147483647</string>
 			<key>files</key>
 			<array>
-				<string>F7FDA16319C8DFC200AF4E93</string>
 				<string>4DA3F313EC2D48B4AA808DEA</string>
 			</array>
 			<key>isa</key>
@@ -464,8 +456,8 @@ fi
 			<string>2147483647</string>
 			<key>files</key>
 			<array>
+				<string>F7C64EB419DA53AB002B85B0</string>
 				<string>F7AB6ABC19CFCEBF00115224</string>
-				<string>F76CFF2819CB7F0B0079C703</string>
 			</array>
 			<key>isa</key>
 			<string>PBXFrameworksBuildPhase</string>
@@ -569,8 +561,6 @@ fi
 		<dict>
 			<key>buildSettings</key>
 			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
 				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
 				<string>gnu++0x</string>
 				<key>CLANG_CXX_LIBRARY</key>
@@ -654,8 +644,6 @@ fi
 		<dict>
 			<key>buildSettings</key>
 			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
 				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
 				<string>gnu++0x</string>
 				<key>CLANG_CXX_LIBRARY</key>
@@ -746,12 +734,6 @@ fi
 			<string>A32BD4D6D107D3A6ABA4081A</string>
 			<key>buildSettings</key>
 			<dict>
-				<key>HEADER_SEARCH_PATHS</key>
-				<array>
-					<string>"${PODS_ROOT}/Headers"</string>
-					<string>"${PODS_ROOT}/Headers/Stripe"</string>
-					<string>"${PROJECT_DIR}/../Storefront"/**</string>
-				</array>
 				<key>PRODUCT_NAME</key>
 				<string>$(TARGET_NAME)</string>
 				<key>SKIP_INSTALL</key>
@@ -768,12 +750,6 @@ fi
 			<string>6943EDC0486702B9C657AE04</string>
 			<key>buildSettings</key>
 			<dict>
-				<key>HEADER_SEARCH_PATHS</key>
-				<array>
-					<string>"${PODS_ROOT}/Headers"</string>
-					<string>"${PODS_ROOT}/Headers/Stripe"</string>
-					<string>"${PROJECT_DIR}/../Storefront"/**</string>
-				</array>
 				<key>PRODUCT_NAME</key>
 				<string>$(TARGET_NAME)</string>
 				<key>SKIP_INSTALL</key>
@@ -800,6 +776,8 @@ fi
 		</dict>
 		<key>F773743219C770CB0039681C</key>
 		<dict>
+			<key>baseConfigurationReference</key>
+			<string>A32BD4D6D107D3A6ABA4081A</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>FRAMEWORK_SEARCH_PATHS</key>
@@ -812,21 +790,10 @@ fi
 					<string>DEBUG=1</string>
 					<string>$(inherited)</string>
 				</array>
-				<key>HEADER_SEARCH_PATHS</key>
-				<array>
-					<string>$(inherited)</string>
-					<string>/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include</string>
-					<string>"${PROJECT_DIR}/../Storefront"/**</string>
-				</array>
 				<key>INFOPLIST_FILE</key>
 				<string>CheckoutAnywhereTests/Info.plist</string>
 				<key>LD_RUNPATH_SEARCH_PATHS</key>
 				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
-				<key>LIBRARY_SEARCH_PATHS</key>
-				<array>
-					<string>$(inherited)</string>
-					<string>$(PROJECT_DIR)/Pods/build/Debug-iphoneos</string>
-				</array>
 				<key>OTHER_LDFLAGS</key>
 				<array>
 					<string>$(inherited)</string>
@@ -844,6 +811,8 @@ fi
 		</dict>
 		<key>F773743319C770CB0039681C</key>
 		<dict>
+			<key>baseConfigurationReference</key>
+			<string>6943EDC0486702B9C657AE04</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>FRAMEWORK_SEARCH_PATHS</key>
@@ -851,21 +820,10 @@ fi
 					<string>$(SDKROOT)/Developer/Library/Frameworks</string>
 					<string>$(inherited)</string>
 				</array>
-				<key>HEADER_SEARCH_PATHS</key>
-				<array>
-					<string>$(inherited)</string>
-					<string>/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include</string>
-					<string>"${PROJECT_DIR}/../Storefront"/**</string>
-				</array>
 				<key>INFOPLIST_FILE</key>
 				<string>CheckoutAnywhereTests/Info.plist</string>
 				<key>LD_RUNPATH_SEARCH_PATHS</key>
 				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
-				<key>LIBRARY_SEARCH_PATHS</key>
-				<array>
-					<string>$(inherited)</string>
-					<string>$(PROJECT_DIR)/Pods/build/Debug-iphoneos</string>
-				</array>
 				<key>OTHER_LDFLAGS</key>
 				<array>
 					<string>$(inherited)</string>
@@ -1198,6 +1156,13 @@ fi
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
+		<key>F7C64EB419DA53AB002B85B0</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F773741D19C770CB0039681C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
 		<key>F7FDA16219C8DFC200AF4E93</key>
 		<dict>
 			<key>isa</key>
@@ -1210,13 +1175,6 @@ fi
 			<string>../Storefront/build/Debug-iphoneos/libStorefront.a</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F7FDA16319C8DFC200AF4E93</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F7FDA16219C8DFC200AF4E93</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
 		</dict>
 		<key>F7FDA16C19C939FF00AF4E93</key>
 		<dict>

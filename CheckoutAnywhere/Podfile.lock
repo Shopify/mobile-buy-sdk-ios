@@ -15,7 +15,7 @@ EXTERNAL SOURCES:
     :git: https://github.com/stripe/stripe-ios.git
 
 SPEC CHECKSUMS:
-  ShopifyStorefront: d822f69196a2316e35aa177b54cb76e60f8d97a7
+  ShopifyStorefront: 7d3bb95255a4218bc58bc6fc155bb66e812091ad
   Stripe: 2bfd3b23f7c6e7aa172da2bf6896ac45b40e290c
 
 COCOAPODS: 0.34.1
