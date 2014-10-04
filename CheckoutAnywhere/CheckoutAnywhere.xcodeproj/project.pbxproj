@@ -25,6 +25,23 @@
 		F7FDA17219C93F6F00AF4E93 /* CHKDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDA17119C93F6F00AF4E93 /* CHKDataProvider.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		F7FBFB0219DB5A0A0077EEB3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F7C64EB519DA65D9002B85B0 /* Storefront.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F773745419C77B160039681C;
+			remoteInfo = Storefront;
+		};
+		F7FBFB0419DB5A0A0077EEB3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F7C64EB519DA65D9002B85B0 /* Storefront.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F773745F19C77B160039681C;
+			remoteInfo = StorefrontTests;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		F773741B19C770CB0039681C /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -213,6 +230,15 @@
 			name = Classes;
 			sourceTree = "<group>";
 		};
+		F7FBFAFE19DB5A090077EEB3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F7FBFB0319DB5A0A0077EEB3 /* libStorefront.a */,
+				F7FBFB0519DB5A0A0077EEB3 /* StorefrontTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		F7FDA16F19C93F6100AF4E93 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -289,6 +315,12 @@
 			mainGroup = F773741419C770CB0039681C;
 			productRefGroup = F773741E19C770CB0039681C /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F7FBFAFE19DB5A090077EEB3 /* Products */;
+					ProjectRef = F7C64EB519DA65D9002B85B0 /* Storefront.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				F773741C19C770CB0039681C /* CheckoutAnywhere */,
@@ -296,6 +328,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F7FBFB0319DB5A0A0077EEB3 /* libStorefront.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libStorefront.a;
+			remoteRef = F7FBFB0219DB5A0A0077EEB3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F7FBFB0519DB5A0A0077EEB3 /* StorefrontTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = StorefrontTests.xctest;
+			remoteRef = F7FBFB0419DB5A0A0077EEB3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		F773742619C770CB0039681C /* Resources */ = {

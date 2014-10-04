@@ -31,7 +31,7 @@ static NSDictionary *kCHKPropertyMap = nil;
 {
 	self = [super initWithDictionary:@{}];
 	if (self) {
-		_lineItems = cart.lineItems;
+		_lineItems = [cart.lineItems copy];
 		[self markPropertyAsDirty:@"lineItems"];
 	}
 	return self;

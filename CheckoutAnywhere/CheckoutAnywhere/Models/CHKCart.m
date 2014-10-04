@@ -72,7 +72,7 @@
 	CHKLineItem *existingLineItem = [self lineItemForVariant:variant];
 	if (existingLineItem) {
 		existingLineItem.quantity = [existingLineItem.quantity decimalNumberBySubtracting:[NSDecimalNumber one]];
-		if ([existingLineItem quantity] == 0) {
+		if ([[existingLineItem quantity] isEqual:[NSDecimalNumber zero]]) {
 			[_lineItems removeObject:existingLineItem];
 			if (existingLineItem.variant.identifier) {
 				[_variantToLineItem removeObjectForKey:existingLineItem.variant.identifier];
