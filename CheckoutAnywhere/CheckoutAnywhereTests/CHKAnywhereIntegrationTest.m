@@ -51,7 +51,7 @@
 - (void)setUp
 {
 	[super setUp];
-	
+
 	_checkoutDataProvider = [[CHKDataProvider alloc] initWithShopDomain:@"coffeehut.myshopify.com"];
 	_storefrontDataProvider = [[MERDataProvider alloc] initWithShopDomain:@"coffeehut.myshopify.com"];
 	
@@ -225,7 +225,8 @@
 	card.name = @"Dinosaur Banana";
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 	__block STPToken *token = nil;
-	[Stripe createTokenWithCard:card completion:^(STPToken *returnedToken, NSError *error) {
+	NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+	[Stripe createTokenWithCard:card operationQueue:queue completion:^(STPToken *returnedToken, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedToken);
 		
