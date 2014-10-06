@@ -16,3 +16,5 @@ DerivedData
 *.xcuserstate
 Pods/
 .DS_Store
+
+CheckoutAnywhere/CheckoutAnywhereTests/CHKTestCredentials.h
