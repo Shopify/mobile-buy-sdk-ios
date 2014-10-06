@@ -13,6 +13,10 @@
 #import "CHKDataProvider.h"
 #import "MERDataProvider.h"
 
+//Other
+#import "Stripe.h"
+#import "CHKTestCredentials.h"
+
 //Models
 #import "CHKCart.h"
 #import "MERProduct.h"
@@ -53,6 +57,8 @@
 	
 	_collections = [[NSMutableArray alloc] init];
 	_products = [[NSMutableArray alloc] init];
+	
+	[Stripe setDefaultPublishableKey:STRIPE_PUBLISHABLE_KEY];
 	
 	//TODO: This currently does a bunch of API calls. We should add some fixtures to the tests.
 	[self fetchShop];
@@ -210,7 +216,33 @@
 
 - (void)addStripeTokenToCheckout
 {
-	//TODO:
+	//This is done to simulate the ApplePay flow. We'll get an ApplePay token from Apple for a credit card, hand it to stripe, and then get a stripe token.
+	STPCard *card = [[STPCard alloc] init];
+	card.number = @"4242424242424242";
+	card.expMonth = 12;
+	card.expYear = 20;
+	card.cvc = @"123";
+	card.name = @"Dinosaur Banana";
+	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	__block STPToken *token = nil;
+	[Stripe createTokenWithCard:card completion:^(STPToken *returnedToken, NSError *error) {
+		XCTAssertNil(error);
+		XCTAssertNotNil(returnedToken);
+		
+		token = returnedToken;
+		dispatch_semaphore_signal(semaphore);
+	}];
+	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+	
+	NSURLSessionDataTask *task = [_checkoutDataProvider storeStripeToken:token checkout:_checkout completion:^(CHKCheckout *returnedCheckout, NSString *paymentSessionId, NSError *error) {
+		XCTAssertNil(error);
+		XCTAssertNotNil(paymentSessionId);
+		XCTAssertNotNil(returnedCheckout);
+		
+		_checkout = returnedCheckout;
+		dispatch_semaphore_signal(semaphore);
+	}];
+	WAIT_FOR_TASK(task, semaphore);
 }
 
 - (void)completeCheckout

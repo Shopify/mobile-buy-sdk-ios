@@ -83,6 +83,7 @@
 		F7AB6AB819CFCE6A00115224 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		F7C64EB519DA65D9002B85B0 /* Storefront.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Storefront.xcodeproj; path = ../Storefront/Storefront.xcodeproj; sourceTree = "<group>"; };
 		F7C64EBE19DA668D002B85B0 /* libStorefront.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libStorefront.a; path = "../Storefront/build/Debug-iphoneos/libStorefront.a"; sourceTree = "<group>"; };
+		F7D156F719E30AC000D38D67 /* CHKTestCredentials.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHKTestCredentials.h; sourceTree = "<group>"; };
 		F7FDA16219C8DFC200AF4E93 /* libStorefront.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libStorefront.a; path = "../Storefront/build/Debug-iphoneos/libStorefront.a"; sourceTree = "<group>"; };
 		F7FDA16C19C939FF00AF4E93 /* CHKLineItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKLineItem.h; sourceTree = "<group>"; };
 		F7FDA16D19C939FF00AF4E93 /* CHKLineItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKLineItem.m; sourceTree = "<group>"; };
@@ -171,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				F773742B19C770CB0039681C /* Info.plist */,
+				F7D156F719E30AC000D38D67 /* CHKTestCredentials.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
