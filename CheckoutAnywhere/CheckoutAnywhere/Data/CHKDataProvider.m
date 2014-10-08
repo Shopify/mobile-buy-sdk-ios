@@ -23,18 +23,20 @@
 @end
 
 @implementation CHKDataProvider {
-	NSURLSession *_session;
 	NSString *_shopDomain;
+	NSString *_apiKey;
 	NSOperationQueue *_queue;
+	NSURLSession *_session;
 }
 
-- (instancetype)initWithShopDomain:(NSString *)shopDomain
+- (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey
 {
 	self = [super init];
 	if (self) {
+		_shopDomain = shopDomain;
+		_apiKey = apiKey;
 		_queue = [[NSOperationQueue alloc] init];
 		_session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:_queue];
-		_shopDomain = shopDomain;
 	}
 	return self;
 }

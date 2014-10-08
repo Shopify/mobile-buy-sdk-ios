@@ -52,8 +52,8 @@
 {
 	[super setUp];
 
-	_checkoutDataProvider = [[CHKDataProvider alloc] initWithShopDomain:@"coffeehut.myshopify.com"];
-	_storefrontDataProvider = [[MERDataProvider alloc] initWithShopDomain:@"coffeehut.myshopify.com"];
+	_checkoutDataProvider = [[CHKDataProvider alloc] initWithShopDomain:CHECKOUT_ANYWHERE_SHOP apiKey:CHECKOUT_ANYHWERE_API_KEY];
+	_storefrontDataProvider = [[MERDataProvider alloc] initWithShopDomain:CHECKOUT_ANYWHERE_SHOP];
 	
 	_collections = [[NSMutableArray alloc] init];
 	_products = [[NSMutableArray alloc] init];

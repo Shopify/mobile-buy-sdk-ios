@@ -30,7 +30,7 @@ typedef void (^CHKDataShippingRatesBlock)(NSArray *shippingRates, CHKStatus stat
 
 @interface CHKDataProvider : NSObject
 
-- (instancetype)initWithShopDomain:(NSString *)shopDomain;
+- (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey;
 
 #pragma mark - Checkout
 
