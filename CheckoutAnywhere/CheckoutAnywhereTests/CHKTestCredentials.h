@@ -10,6 +10,7 @@
 #define CheckoutAnywhere_CHKTestCredentials_h
 
 #define STRIPE_PUBLISHABLE_KEY @""
+#define CHECKOUT_ANYWHERE_SHOP @""
 #define CHECKOUT_ANYHWERE_API_KEY @""
 
 #endif
