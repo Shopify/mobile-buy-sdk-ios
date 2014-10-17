@@ -20,7 +20,7 @@
  * The checkout object. This is the main object that you will interact with when creating orders on Shopify.
  * Your responsibility as a developer is to have the user fill out as much information as necessary on the Checkout.
  *
- * Do not create checkouts directly. You should use the CHKDataProvider to transform a CHKCart into a CHKCheckout.
+ * Do not create checkouts directly. You should use initWithCart: to transform a CHKCart into a CHKCheckout.
  */
 @interface CHKCheckout : MERObject <CHKSerializable>
 
