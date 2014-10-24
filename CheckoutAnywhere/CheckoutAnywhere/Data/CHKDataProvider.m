@@ -196,6 +196,7 @@
 	request.HTTPBody = body;
 	[request addValue:kJSONType forHTTPHeaderField:@"Content-Type"];
 	[request addValue:kJSONType forHTTPHeaderField:@"Accept"];
+	[request addValue:[self authorizationHeader] forHTTPHeaderField:@"Authorization"];
 	request.HTTPMethod = method;
 	NSURLSessionDataTask *task = [_session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
 		NSDictionary *json = nil;
@@ -245,6 +246,12 @@
 - (NSURLSessionDataTask *)patchRequestForURL:(NSString *)url object:(id <CHKSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
 	return [self requestForURL:url method:kPATCH object:object completionHandler:completionHandler];
+}
+
+- (NSString *)authorizationHeader
+{
+	NSData *data = [_apiKey dataUsingEncoding:NSUTF8StringEncoding];
+	return [NSString stringWithFormat:@"%@ %@", @"Basic", [data base64EncodedStringWithOptions:0]];
 }
 
 @end

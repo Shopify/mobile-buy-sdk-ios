@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4DA3F313EC2D48B4AA808DEA /* libPods-CheckoutAnywhere.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED7CAC6864F24DF6994E9680 /* libPods-CheckoutAnywhere.a */; };
+		2A6755B519FAA63500C9E5E7 /* libCheckoutAnywhere.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F773741D19C770CB0039681C /* libCheckoutAnywhere.a */; };
+		2A6755B719FAA6A200C9E5E7 /* libPods-CheckoutAnywhere.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A6755B619FAA6A200C9E5E7 /* libPods-CheckoutAnywhere.a */; };
 		F76CFF1D19CB7BE30079C703 /* NSString+Trim.m in Sources */ = {isa = PBXBuildFile; fileRef = F76CFF1C19CB7BE30079C703 /* NSString+Trim.m */; };
 		F76CFF2519CB7D750079C703 /* CHKCheckoutTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F76CFF2419CB7D750079C703 /* CHKCheckoutTest.m */; };
 		F76CFF2719CB7E7B0079C703 /* CHKCartTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F76CFF2619CB7E7B0079C703 /* CHKCartTest.m */; };
@@ -19,7 +20,6 @@
 		F77374AC19C796BD0039681C /* CHKCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = F77374AB19C796BD0039681C /* CHKCreditCard.m */; };
 		F79CE45319CC612700C9AFAB /* CHKAnywhereIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F79CE45219CC612700C9AFAB /* CHKAnywhereIntegrationTest.m */; };
 		F7AB6ABC19CFCEBF00115224 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AB6AB819CFCE6A00115224 /* libstdc++.dylib */; };
-		F7C64EB419DA53AB002B85B0 /* libCheckoutAnywhere.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F773741D19C770CB0039681C /* libCheckoutAnywhere.a */; };
 		F7C64EBF19DA668D002B85B0 /* libStorefront.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7C64EBE19DA668D002B85B0 /* libStorefront.a */; };
 		F7FDA16E19C939FF00AF4E93 /* CHKLineItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDA16D19C939FF00AF4E93 /* CHKLineItem.m */; };
 		F7FDA17219C93F6F00AF4E93 /* CHKDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDA17119C93F6F00AF4E93 /* CHKDataProvider.m */; };
@@ -55,6 +55,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2A6755B619FAA6A200C9E5E7 /* libPods-CheckoutAnywhere.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-CheckoutAnywhere.a"; path = "Pods/build/Debug-iphoneos/libPods-CheckoutAnywhere.a"; sourceTree = "<group>"; };
 		6943EDC0486702B9C657AE04 /* Pods-CheckoutAnywhere.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutAnywhere.release.xcconfig"; path = "Pods/Target Support Files/Pods-CheckoutAnywhere/Pods-CheckoutAnywhere.release.xcconfig"; sourceTree = "<group>"; };
 		A32BD4D6D107D3A6ABA4081A /* Pods-CheckoutAnywhere.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutAnywhere.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CheckoutAnywhere/Pods-CheckoutAnywhere.debug.xcconfig"; sourceTree = "<group>"; };
 		ED7CAC6864F24DF6994E9680 /* libPods-CheckoutAnywhere.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CheckoutAnywhere.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,8 +97,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A6755B719FAA6A200C9E5E7 /* libPods-CheckoutAnywhere.a in Frameworks */,
 				F7C64EBF19DA668D002B85B0 /* libStorefront.a in Frameworks */,
-				4DA3F313EC2D48B4AA808DEA /* libPods-CheckoutAnywhere.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,7 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F7C64EB419DA53AB002B85B0 /* libCheckoutAnywhere.a in Frameworks */,
+				2A6755B519FAA63500C9E5E7 /* libCheckoutAnywhere.a in Frameworks */,
 				F7AB6ABC19CFCEBF00115224 /* libstdc++.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -125,6 +126,7 @@
 		547B8D0CCDB9458C800F1E3C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2A6755B619FAA6A200C9E5E7 /* libPods-CheckoutAnywhere.a */,
 				F7C64EBE19DA668D002B85B0 /* libStorefront.a */,
 				F7C64EB519DA65D9002B85B0 /* Storefront.xcodeproj */,
 				F7AB6AB819CFCE6A00115224 /* libstdc++.dylib */,
@@ -515,6 +517,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/joshpc/ws/Shopify/checkout-anywhere-ios/Storefront/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -533,6 +536,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/joshpc/ws/Shopify/checkout-anywhere-ios/Storefront/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -559,7 +563,6 @@
 				INFOPLIST_FILE = CheckoutAnywhereTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
-					"$(inherited)",
 					"-framework",
 					XCTest,
 					"-ObjC",
@@ -584,7 +587,6 @@
 				INFOPLIST_FILE = CheckoutAnywhereTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
-					"$(inherited)",
 					"-framework",
 					XCTest,
 					"-ObjC",
