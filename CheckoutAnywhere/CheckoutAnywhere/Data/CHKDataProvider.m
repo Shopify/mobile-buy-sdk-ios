@@ -93,7 +93,7 @@
 	return task;
 }
 
-- (NSURLSessionDataTask *)completeCheckout:(CHKCheckout *)checkout withStripeToken:(STPToken *)token block:(CHKDataCheckoutBlock)block
+- (NSURLSessionDataTask *)completeCheckout:(CHKCheckout *)checkout withApplePayToken:(STPToken *)token block:(CHKDataCheckoutBlock)block
 {
 	NSURLSessionDataTask *task = nil;
 	if ([checkout.token length] > 0 && token && [token.tokenId length] > 0) {
