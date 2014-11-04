@@ -87,16 +87,35 @@
 		NSError *error = nil;
 		NSData *data = [NSJSONSerialization dataWithJSONObject:paymentJson options:0 error:&error];
 		if (data && error == nil) {
-			task = [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/complete.json", _shopDomain, checkout.token] body:data completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-				CHKCheckout *newCheckout = nil;
-				if (error == nil) {
-					newCheckout = [[CHKCheckout alloc] initWithDictionary:json[@"checkout"]];
-				}
-				block(newCheckout, error);
-			}];
+			task = [self checkoutCompletionRequestWithCheckout:checkout body:data block:block];
 		}
 	}
 	return task;
+}
+
+- (NSURLSessionDataTask *)completeCheckout:(CHKCheckout *)checkout withStripeToken:(STPToken *)token block:(CHKDataCheckoutBlock)block
+{
+	NSURLSessionDataTask *task = nil;
+	if ([checkout.token length] > 0 && token && [token.tokenId length] > 0) {
+		NSDictionary *paymentJson = @{ @"payment_token" : token.tokenId };
+		NSError *error = nil;
+		NSData *data = [NSJSONSerialization dataWithJSONObject:paymentJson options:0 error:&error];
+		if (data && error == nil) {
+			task = [self checkoutCompletionRequestWithCheckout:checkout body:data block:block];
+		}
+	}
+	return task;
+}
+
+- (NSURLSessionDataTask *)checkoutCompletionRequestWithCheckout:(CHKCheckout *)checkout body:(NSData *)body block:(CHKDataCheckoutBlock)block
+{
+	return [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/complete.json", _shopDomain, checkout.token] body:body completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+		CHKCheckout *newCheckout = nil;
+		if (error == nil) {
+			newCheckout = [[CHKCheckout alloc] initWithDictionary:json[@"checkout"]];
+		}
+		block(newCheckout, error);
+	}];
 }
 
 - (NSURLSessionDataTask *)getCompletionStatusOfCheckout:(CHKCheckout *)checkout block:(CHKDataCheckoutStatusBlock)block
