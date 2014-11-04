@@ -255,7 +255,7 @@
 - (void)completeCheckoutWithStripeToken
 {
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_checkoutDataProvider completeCheckout:_checkout withApplePayToken:token block:^(CHKCheckout *returnedCheckout, NSError *error) {
+	NSURLSessionDataTask *task = [_checkoutDataProvider completeCheckout:_checkout withApplePayToken:token.tokenId block:^(CHKCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
 		

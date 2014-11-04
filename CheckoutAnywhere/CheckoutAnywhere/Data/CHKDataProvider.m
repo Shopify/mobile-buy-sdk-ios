@@ -93,11 +93,11 @@
 	return task;
 }
 
-- (NSURLSessionDataTask *)completeCheckout:(CHKCheckout *)checkout withApplePayToken:(STPToken *)token block:(CHKDataCheckoutBlock)block
+- (NSURLSessionDataTask *)completeCheckout:(CHKCheckout *)checkout withApplePayToken:(NSString *)token block:(CHKDataCheckoutBlock)block
 {
 	NSURLSessionDataTask *task = nil;
-	if ([checkout.token length] > 0 && token && [token.tokenId length] > 0) {
-		NSDictionary *paymentJson = @{ @"payment_token" : token.tokenId };
+	if ([checkout.token length] > 0 && token) {
+		NSDictionary *paymentJson = @{ @"payment_token" : token };
 		NSError *error = nil;
 		NSData *data = [NSJSONSerialization dataWithJSONObject:paymentJson options:0 error:&error];
 		if (data && error == nil) {
