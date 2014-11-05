@@ -18,6 +18,7 @@
 #define kPATCH @"PATCH"
 
 #define kJSONType @"application/json"
+#define kShopifyError @"shopify"
 
 @interface STPToken (Shopify) <CHKSerializable>
 @end
@@ -175,7 +176,7 @@
 
 - (NSError *)errorFromJSON:(NSDictionary *)errorDictionary
 {
-	return [[NSError alloc] initWithDomain:@"shopify" code:422 userInfo:errorDictionary];
+	return [[NSError alloc] initWithDomain:kShopifyError code:422 userInfo:errorDictionary];
 }
 
 - (NSURLSessionDataTask *)requestForURL:(NSString *)url method:(NSString *)method object:(id <CHKSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
@@ -199,16 +200,24 @@
 	[request addValue:[self authorizationHeader] forHTTPHeaderField:@"Authorization"];
 	request.HTTPMethod = method;
 	NSURLSessionDataTask *task = [_session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+		NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
 		NSDictionary *json = nil;
-		//2 is the minimum amount of data {} for a JSON Object. Just ignore anything less.
-		BOOL failedValidation = [(NSHTTPURLResponse *)response statusCode] == 422;
-		if ((error == nil || failedValidation) && [data length] > 2) {
-			id jsonData = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-			json = [jsonData isKindOfClass:[NSDictionary class]] ? jsonData : nil;
-		}
+		BOOL unauthorized = statusCode == 401;
+		BOOL failedValidation = statusCode == 422;
 		
-		if (failedValidation) {
-			error = [self errorFromJSON:json];
+		if (unauthorized) {
+			error = [[NSError alloc] initWithDomain:kShopifyError code:statusCode userInfo:nil];
+		}
+		else {
+			//2 is the minimum amount of data {} for a JSON Object. Just ignore anything less.
+			if ((error == nil || failedValidation) && [data length] > 2) {
+				id jsonData = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+				json = [jsonData isKindOfClass:[NSDictionary class]] ? jsonData : nil;
+			}
+			
+			if (failedValidation) {
+				error = [self errorFromJSON:json];
+			}
 		}
 		completionHandler(json, response, error);
 	}];

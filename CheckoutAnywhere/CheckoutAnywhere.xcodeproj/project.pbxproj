@@ -21,6 +21,7 @@
 		F79CE45319CC612700C9AFAB /* CHKAnywhereIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F79CE45219CC612700C9AFAB /* CHKAnywhereIntegrationTest.m */; };
 		F7AB6ABC19CFCEBF00115224 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AB6AB819CFCE6A00115224 /* libstdc++.dylib */; };
 		F7C64EBF19DA668D002B85B0 /* libStorefront.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7C64EBE19DA668D002B85B0 /* libStorefront.a */; };
+		F7E9B0B219FF49C700CCE82A /* libPods-CheckoutAnywhere-Stripe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E9B0B119FF49C700CCE82A /* libPods-CheckoutAnywhere-Stripe.a */; };
 		F7FDA16E19C939FF00AF4E93 /* CHKLineItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDA16D19C939FF00AF4E93 /* CHKLineItem.m */; };
 		F7FDA17219C93F6F00AF4E93 /* CHKDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDA17119C93F6F00AF4E93 /* CHKDataProvider.m */; };
 /* End PBXBuildFile section */
@@ -85,6 +86,7 @@
 		F7C64EB519DA65D9002B85B0 /* Storefront.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Storefront.xcodeproj; path = ../Storefront/Storefront.xcodeproj; sourceTree = "<group>"; };
 		F7C64EBE19DA668D002B85B0 /* libStorefront.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libStorefront.a; path = "../Storefront/build/Debug-iphoneos/libStorefront.a"; sourceTree = "<group>"; };
 		F7D156F719E30AC000D38D67 /* CHKTestCredentials.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHKTestCredentials.h; sourceTree = "<group>"; };
+		F7E9B0B119FF49C700CCE82A /* libPods-CheckoutAnywhere-Stripe.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-CheckoutAnywhere-Stripe.a"; path = "Pods/build/Debug-iphoneos/libPods-CheckoutAnywhere-Stripe.a"; sourceTree = "<group>"; };
 		F7FDA16219C8DFC200AF4E93 /* libStorefront.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libStorefront.a; path = "../Storefront/build/Debug-iphoneos/libStorefront.a"; sourceTree = "<group>"; };
 		F7FDA16C19C939FF00AF4E93 /* CHKLineItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKLineItem.h; sourceTree = "<group>"; };
 		F7FDA16D19C939FF00AF4E93 /* CHKLineItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKLineItem.m; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7E9B0B219FF49C700CCE82A /* libPods-CheckoutAnywhere-Stripe.a in Frameworks */,
 				2A6755B719FAA6A200C9E5E7 /* libPods-CheckoutAnywhere.a in Frameworks */,
 				F7C64EBF19DA668D002B85B0 /* libStorefront.a in Frameworks */,
 			);
@@ -126,6 +129,7 @@
 		547B8D0CCDB9458C800F1E3C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F7E9B0B119FF49C700CCE82A /* libPods-CheckoutAnywhere-Stripe.a */,
 				2A6755B619FAA6A200C9E5E7 /* libPods-CheckoutAnywhere.a */,
 				F7C64EBE19DA668D002B85B0 /* libStorefront.a */,
 				F7C64EB519DA65D9002B85B0 /* Storefront.xcodeproj */,

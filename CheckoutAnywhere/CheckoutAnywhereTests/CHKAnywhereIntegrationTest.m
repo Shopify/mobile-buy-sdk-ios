@@ -52,6 +52,9 @@
 {
 	[super setUp];
 
+	XCTAssert([CHECKOUT_ANYWHERE_SHOP length] > 0, @"You must provide a valid CHECKOUT_ANYWHERE_SHOP. This is your 'shopname.myshopify.com' address.");
+	XCTAssert([CHECKOUT_ANYHWERE_API_KEY length] > 0, @"You must provide a valid CHECKOUT_ANYHWERE_API_KEY. This is the API_KEY of your app.");
+	
 	_checkoutDataProvider = [[CHKDataProvider alloc] initWithShopDomain:CHECKOUT_ANYWHERE_SHOP apiKey:CHECKOUT_ANYHWERE_API_KEY];
 	_storefrontDataProvider = [[MERDataProvider alloc] initWithShopDomain:CHECKOUT_ANYWHERE_SHOP];
 	
@@ -296,6 +299,19 @@
 }
 
 #pragma mark - Tests
+
+- (void)testCheckoutAnywhereWithoutAuthToken
+{
+	[self createCart];
+	_checkout = [[CHKCheckout alloc] initWithCart:_cart];
+	
+	_checkoutDataProvider = [[CHKDataProvider alloc] initWithShopDomain:CHECKOUT_ANYWHERE_SHOP apiKey:@""];
+	[_checkoutDataProvider createCheckout:_checkout completion:^(CHKCheckout *checkout, NSError *error) {
+		XCTAssertNotNil(error);
+		XCTAssertEqualObjects(error.domain, @"shopify");
+		XCTAssertEqual(error.code, 401);
+	}];
+}
 
 - (void)testCheckoutAnywhereFlowUsingCreditCard
 {
