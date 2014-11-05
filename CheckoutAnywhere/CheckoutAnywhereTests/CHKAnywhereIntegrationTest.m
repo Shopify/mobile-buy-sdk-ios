@@ -47,7 +47,7 @@
 	CHKCart *_cart;
 	CHKCheckout *_checkout;
 	NSArray *_shippingRates;
-	STPToken *token;
+	STPToken *_token;
 }
 
 - (void)setUp

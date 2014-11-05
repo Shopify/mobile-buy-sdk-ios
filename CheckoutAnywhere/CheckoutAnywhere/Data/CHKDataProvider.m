@@ -67,7 +67,7 @@
 - (NSURLSessionDataTask *)updateCheckout:(CHKCheckout *)checkout completion:(CHKDataCheckoutBlock)block
 {
 	NSURLSessionDataTask *task = nil;
-	if ([checkout.token length] > 0) {
+	if ([checkout hasToken]) {
 		task = [self patchRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@.json", _shopDomain, checkout.token] object:checkout completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			CHKCheckout *newCheckout = nil;
 			if (error == nil) {
@@ -82,7 +82,7 @@
 - (NSURLSessionDataTask*)completeCheckout:(CHKCheckout *)checkout block:(CHKDataCheckoutBlock)block
 {
 	NSURLSessionDataTask *task = nil;
-	if ([checkout.token length] > 0 && [checkout.paymentSessionId length] > 0) {
+	if ([checkout hasToken] && [checkout.paymentSessionId length] > 0) {
 		NSDictionary *paymentJson = @{ @"payment_session_id" : checkout.paymentSessionId };
 		NSError *error = nil;
 		NSData *data = [NSJSONSerialization dataWithJSONObject:paymentJson options:0 error:&error];
@@ -96,7 +96,7 @@
 - (NSURLSessionDataTask *)completeCheckout:(CHKCheckout *)checkout withApplePayToken:(PKPaymentToken *)token block:(CHKDataCheckoutBlock)block
 {
 	NSURLSessionDataTask *task = nil;
-	if ([checkout.token length] > 0 && token) {
+	if ([checkout hasToken] && token) {
 		NSString *tokenString = [[NSString alloc] initWithData:token.paymentData encoding:NSUTF8StringEncoding];
 		NSDictionary *paymentJson = @{ @"payment_token" : tokenString };
 		NSError *error = nil;
@@ -122,7 +122,7 @@
 - (NSURLSessionDataTask *)getCompletionStatusOfCheckout:(CHKCheckout *)checkout block:(CHKDataCheckoutStatusBlock)block
 {
 	NSURLSessionDataTask *task = nil;
-	if ([checkout.token length] > 0) {
+	if ([checkout hasToken]) {
 		task = [self getRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/processing.json", _shopDomain, checkout.token] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
 			block(checkout, [CHKDataProvider statusForStatusCode:statusCode error:error], error);
@@ -136,7 +136,7 @@
 - (NSURLSessionDataTask *)getShippingRatesForCheckout:(CHKCheckout *)checkout block:(CHKDataShippingRatesBlock)block
 {
 	NSURLSessionDataTask *task = nil;
-	if ([checkout.token length] > 0) {
+	if ([checkout hasToken]) {
 		task = [self getRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/shipping_rates.json", _shopDomain, checkout.token] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			NSArray *shippingRates = nil;
 			if (error == nil) {

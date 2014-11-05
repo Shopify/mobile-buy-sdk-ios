@@ -24,7 +24,8 @@
  */
 @interface CHKCheckout : MERObject <CHKSerializable>
 
-- (instancetype)initWithCart:(CHKCart *)cark;
+- (instancetype)initWithCart:(CHKCart *)cart;
+- (BOOL)hasToken;
 
 @property (nonatomic, copy) NSString *email;
 @property (nonatomic, copy) NSString *token;
