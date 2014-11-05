@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2A6755B519FAA63500C9E5E7 /* libCheckoutAnywhere.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F773741D19C770CB0039681C /* libCheckoutAnywhere.a */; };
 		2A6755B719FAA6A200C9E5E7 /* libPods-CheckoutAnywhere.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A6755B619FAA6A200C9E5E7 /* libPods-CheckoutAnywhere.a */; };
+		2AD315511A0AA8B20001E40A /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A54742D1A0AA61600822409 /* PassKit.framework */; };
+		2AD315581A0AAE350001E40A /* CHKPaymentToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD315571A0AAE350001E40A /* CHKPaymentToken.m */; };
 		F76CFF1D19CB7BE30079C703 /* NSString+Trim.m in Sources */ = {isa = PBXBuildFile; fileRef = F76CFF1C19CB7BE30079C703 /* NSString+Trim.m */; };
 		F76CFF2519CB7D750079C703 /* CHKCheckoutTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F76CFF2419CB7D750079C703 /* CHKCheckoutTest.m */; };
 		F76CFF2719CB7E7B0079C703 /* CHKCartTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F76CFF2619CB7E7B0079C703 /* CHKCartTest.m */; };
@@ -56,7 +58,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2A54742D1A0AA61600822409 /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 		2A6755B619FAA6A200C9E5E7 /* libPods-CheckoutAnywhere.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-CheckoutAnywhere.a"; path = "Pods/build/Debug-iphoneos/libPods-CheckoutAnywhere.a"; sourceTree = "<group>"; };
+		2AD315561A0AAE350001E40A /* CHKPaymentToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHKPaymentToken.h; path = Models/CHKPaymentToken.h; sourceTree = "<group>"; };
+		2AD315571A0AAE350001E40A /* CHKPaymentToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHKPaymentToken.m; path = Models/CHKPaymentToken.m; sourceTree = "<group>"; };
 		6943EDC0486702B9C657AE04 /* Pods-CheckoutAnywhere.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutAnywhere.release.xcconfig"; path = "Pods/Target Support Files/Pods-CheckoutAnywhere/Pods-CheckoutAnywhere.release.xcconfig"; sourceTree = "<group>"; };
 		A32BD4D6D107D3A6ABA4081A /* Pods-CheckoutAnywhere.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutAnywhere.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CheckoutAnywhere/Pods-CheckoutAnywhere.debug.xcconfig"; sourceTree = "<group>"; };
 		ED7CAC6864F24DF6994E9680 /* libPods-CheckoutAnywhere.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CheckoutAnywhere.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,6 +105,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F7E9B0B219FF49C700CCE82A /* libPods-CheckoutAnywhere-Stripe.a in Frameworks */,
+				2AD315511A0AA8B20001E40A /* PassKit.framework in Frameworks */,
 				2A6755B719FAA6A200C9E5E7 /* libPods-CheckoutAnywhere.a in Frameworks */,
 				F7C64EBF19DA668D002B85B0 /* libStorefront.a in Frameworks */,
 			);
@@ -126,10 +132,20 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		2AD315541A0AADA90001E40A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2AD315561A0AAE350001E40A /* CHKPaymentToken.h */,
+				2AD315571A0AAE350001E40A /* CHKPaymentToken.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		547B8D0CCDB9458C800F1E3C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				F7E9B0B119FF49C700CCE82A /* libPods-CheckoutAnywhere-Stripe.a */,
+				2A54742D1A0AA61600822409 /* PassKit.framework */,
 				2A6755B619FAA6A200C9E5E7 /* libPods-CheckoutAnywhere.a */,
 				F7C64EBE19DA668D002B85B0 /* libStorefront.a */,
 				F7C64EB519DA65D9002B85B0 /* Storefront.xcodeproj */,
@@ -165,6 +181,7 @@
 		F773742919C770CB0039681C /* CheckoutAnywhereTests */ = {
 			isa = PBXGroup;
 			children = (
+				2AD315541A0AADA90001E40A /* Models */,
 				F773742A19C770CB0039681C /* Supporting Files */,
 				F76CFF2619CB7E7B0079C703 /* CHKCartTest.m */,
 				F76CFF2419CB7D750079C703 /* CHKCheckoutTest.m */,
@@ -419,6 +436,7 @@
 			files = (
 				F79CE45319CC612700C9AFAB /* CHKAnywhereIntegrationTest.m in Sources */,
 				F76CFF2519CB7D750079C703 /* CHKCheckoutTest.m in Sources */,
+				2AD315581A0AAE350001E40A /* CHKPaymentToken.m in Sources */,
 				F76CFF2A19CB830D0079C703 /* CHKLineItemTest.m in Sources */,
 				F76CFF2719CB7E7B0079C703 /* CHKCartTest.m in Sources */,
 			);

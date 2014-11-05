@@ -10,6 +10,7 @@
 
 #import "Stripe.h"
 #import "CHKSerializable.h"
+#import <PassKit/PassKit.h>
 
 @class CHKCreditCard;
 @class CHKCart;
@@ -67,7 +68,7 @@ typedef void (^CHKDataShippingRatesBlock)(NSArray *shippingRates, CHKStatus stat
  *
  * Note: There is no guarantee that the checkout returned will be the same as the one that is passed in. You are recommended to use the one returned in the block.
  */
-- (NSURLSessionDataTask *)completeCheckout:(CHKCheckout *)checkout withApplePayToken:(NSString *)token block:(CHKDataCheckoutBlock)block;
+- (NSURLSessionDataTask *)completeCheckout:(CHKCheckout *)checkout withApplePayToken:(PKPaymentToken *)token block:(CHKDataCheckoutBlock)block;
 
 /**
  * This checks the status of the current payment processing job for the provided checkout.

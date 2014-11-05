@@ -23,6 +23,7 @@
 #import "MERProductVariant.h"
 #import "CHKCheckout.h"
 #import "CHKCreditCard.h"
+#import "CHKPaymentToken.h"
 
 #define WAIT_FOR_TASK(task, sempahore) \
 	if (task) { \
@@ -255,7 +256,8 @@
 - (void)completeCheckoutWithStripeToken
 {
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_checkoutDataProvider completeCheckout:_checkout withApplePayToken:token.tokenId block:^(CHKCheckout *returnedCheckout, NSError *error) {
+	CHKPaymentToken *applePayToken = [[CHKPaymentToken alloc] initWithPaymentToken:token.tokenId];
+	NSURLSessionDataTask *task = [_checkoutDataProvider completeCheckout:_checkout withApplePayToken:applePayToken block:^(CHKCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
 		
