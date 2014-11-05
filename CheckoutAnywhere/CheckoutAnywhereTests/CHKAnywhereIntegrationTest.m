@@ -234,7 +234,7 @@
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedToken);
 		
-		token = returnedToken;
+		_token = returnedToken;
 		dispatch_semaphore_signal(semaphore);
 	}];
 	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
@@ -256,7 +256,7 @@
 - (void)completeCheckoutWithStripeToken
 {
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	CHKPaymentToken *applePayToken = [[CHKPaymentToken alloc] initWithPaymentToken:token.tokenId];
+	CHKPaymentToken *applePayToken = [[CHKPaymentToken alloc] initWithPaymentToken:_token.tokenId];
 	NSURLSessionDataTask *task = [_checkoutDataProvider completeCheckout:_checkout withApplePayToken:applePayToken block:^(CHKCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
