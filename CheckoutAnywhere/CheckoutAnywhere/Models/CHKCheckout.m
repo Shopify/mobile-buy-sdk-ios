@@ -123,6 +123,11 @@ static NSDictionary *kCHKPropertyMap = nil;
 	return @{ @"checkout" : json };
 }
 
+- (BOOL)hasToken
+{
+	return (_token && [_token length] > 0);
+}
+
 @end
 
 @implementation CHKTaxLine

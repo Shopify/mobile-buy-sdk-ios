@@ -23,6 +23,7 @@
 #import "MERProductVariant.h"
 #import "CHKCheckout.h"
 #import "CHKCreditCard.h"
+#import "CHKPaymentToken.h"
 
 #define WAIT_FOR_TASK(task, sempahore) \
 	if (task) { \
@@ -46,6 +47,7 @@
 	CHKCart *_cart;
 	CHKCheckout *_checkout;
 	NSArray *_shippingRates;
+	STPToken *_token;
 }
 
 - (void)setUp
@@ -217,7 +219,7 @@
 	WAIT_FOR_TASK(task, semaphore);
 }
 
-- (void)addStripeTokenToCheckout
+- (void)fetchStripeToken
 {
 	//This is done to simulate the ApplePay flow. We'll get an ApplePay token from Apple for a credit card, hand it to stripe, and then get a stripe token.
 	STPCard *card = [[STPCard alloc] init];
@@ -227,20 +229,22 @@
 	card.cvc = @"123";
 	card.name = @"Dinosaur Banana";
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	__block STPToken *token = nil;
 	NSOperationQueue *queue = [[NSOperationQueue alloc] init];
 	[Stripe createTokenWithCard:card operationQueue:queue completion:^(STPToken *returnedToken, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedToken);
 		
-		token = returnedToken;
+		_token = returnedToken;
 		dispatch_semaphore_signal(semaphore);
 	}];
 	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-	
-	NSURLSessionDataTask *task = [_checkoutDataProvider storeStripeToken:token checkout:_checkout completion:^(CHKCheckout *returnedCheckout, NSString *paymentSessionId, NSError *error) {
+}
+
+- (void)completeCheckout
+{
+	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	NSURLSessionDataTask *task = [_checkoutDataProvider completeCheckout:_checkout block:^(CHKCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
-		XCTAssertNotNil(paymentSessionId);
 		XCTAssertNotNil(returnedCheckout);
 		
 		_checkout = returnedCheckout;
@@ -249,10 +253,11 @@
 	WAIT_FOR_TASK(task, semaphore);
 }
 
-- (void)completeCheckout
+- (void)completeCheckoutWithStripeToken
 {
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_checkoutDataProvider completeCheckout:_checkout block:^(CHKCheckout *returnedCheckout, NSError *error) {
+	CHKPaymentToken *applePayToken = [[CHKPaymentToken alloc] initWithPaymentToken:_token.tokenId];
+	NSURLSessionDataTask *task = [_checkoutDataProvider completeCheckout:_checkout withApplePayToken:applePayToken block:^(CHKCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
 		
@@ -332,8 +337,8 @@
 	[self createCheckout];
 	[self fetchShippingRates];
 	[self updateCheckout];
-	[self addStripeTokenToCheckout];
-	[self completeCheckout];
+	[self fetchStripeToken];
+	[self completeCheckoutWithStripeToken];
 	[self pollUntilCheckoutIsComplete];
 	[self verifyCompletedCheckout];
 }

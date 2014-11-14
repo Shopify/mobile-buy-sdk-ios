@@ -1,12 +1,12 @@
 PODS:
-  - Stripe (2.2.1):
+  - Stripe (2.2.0):
     - Stripe/Core
-  - Stripe/Core (2.2.1)
+  - Stripe/Core (2.2.0)
 
 DEPENDENCIES:
   - Stripe
 
 SPEC CHECKSUMS:
-  Stripe: 437edda1493d6544e81068d47ae7f54d7a9eabb7
+  Stripe: 935d0ff491100ca1ba0f4040c64e449c5ed69f6d
 
-COCOAPODS: 0.34.2
+COCOAPODS: 0.34.4
