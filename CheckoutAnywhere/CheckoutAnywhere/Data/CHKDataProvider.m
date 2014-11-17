@@ -98,7 +98,7 @@
 	NSURLSessionDataTask *task = nil;
 	if ([checkout hasToken] && token) {
 		NSString *tokenString = [[NSString alloc] initWithData:token.paymentData encoding:NSUTF8StringEncoding];
-		NSDictionary *paymentJson = @{ @"payment_token" : tokenString };
+		NSDictionary *paymentJson = @{ @"payment_token" : @{ @"payment_data" : tokenString, @"type" : @"apple_pay" }};
 		NSError *error = nil;
 		NSData *data = [NSJSONSerialization dataWithJSONObject:paymentJson options:0 error:&error];
 		if (data && error == nil) {
