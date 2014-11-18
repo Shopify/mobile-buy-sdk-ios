@@ -44,7 +44,7 @@ Here is a simplistic view:
 [_checkoutDataProvider getCheckout:checkout completion:...]
 ```
 
-### Error Handling
+## Error Handling
 
 Please ensure to verify the `error` object returned with every call back to Shopify. If there was an error along the way, the error object will be populated with a dictionary containing a mapping of fields->errors.
 This will give you detailed information about what fields are missing, or what fields are wrong.
@@ -55,20 +55,21 @@ For example, if you were to complete a checkout with an **email**, the `error.us
 {
   "errors" = {
     "checkout" = {
-      "email" = [           //One error associated with a "blank" (or missing) email.
-		{
-			"code" = "blank",
-			"message" = "can't be blank"
-        }
-      ],
-	"line_items" = [],      //No errors associated with this
-    "shipping_rate_id" = [] //No errors associated with this
+      "email" = [              //One error associated with a "blank" (or missing) email.
+        {
+          "code" = "blank",
+          "message" = "can't be blank"
+        }],
+       "line_items" = [],      //No errors associated with this
+       "shipping_rate_id" = [] //No errors associated with this
   }
 }
 ```
 
-Pods
-====
+## Testing
+To run the Shopify Anywhere SDK integration tests, you will need a Shopify shop that is publicly accessible (in other words, not hidden behind a password). Please note that the integration tests **will create an order** on that shop. This is to validate that the SDK works properly with Shopify. To have these tests run, fill out the information in `CHKTestCredentials.h`.
+
+## Pods
 This repo is also a CocoaPod.
 
 Make sure to run `pod spec lint ShopifyCheckoutAnywhere.podspec` before publishing, and update this README.md to be public facing.
