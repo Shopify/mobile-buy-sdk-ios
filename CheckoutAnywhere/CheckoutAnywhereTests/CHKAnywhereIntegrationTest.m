@@ -14,7 +14,6 @@
 #import "MERDataProvider.h"
 
 //Other
-#import "Stripe.h"
 #import "CHKTestCredentials.h"
 
 //Models
@@ -47,7 +46,6 @@
 	CHKCart *_cart;
 	CHKCheckout *_checkout;
 	NSArray *_shippingRates;
-	STPToken *_token;
 }
 
 - (void)setUp
@@ -62,8 +60,6 @@
 	
 	_collections = [[NSMutableArray alloc] init];
 	_products = [[NSMutableArray alloc] init];
-	
-	[Stripe setDefaultPublishableKey:STRIPE_PUBLISHABLE_KEY];
 	
 	//TODO: This currently does a bunch of API calls. We should add some fixtures to the tests.
 	[self fetchShop];
@@ -164,7 +160,7 @@
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 	while (_checkout.token && shippingStatus != CHKStatusFailed && shippingStatus != CHKStatusComplete) {
 		NSLog(@"Fetching shipping rates...");
-		NSURLSessionDataTask *task = [_checkoutDataProvider getShippingRatesForCheckout:_checkout block:^(NSArray *returnedShippingRates, CHKStatus status, NSError *error) {
+		NSURLSessionDataTask *task = [_checkoutDataProvider getShippingRatesForCheckout:_checkout completion:^(NSArray *returnedShippingRates, CHKStatus status, NSError *error) {
 			XCTAssertNil(error);
 			shippingStatus = status;
 			if (shippingStatus == CHKStatusComplete) {
@@ -219,45 +215,10 @@
 	WAIT_FOR_TASK(task, semaphore);
 }
 
-- (void)fetchStripeToken
-{
-	//This is done to simulate the ApplePay flow. We'll get an ApplePay token from Apple for a credit card, hand it to stripe, and then get a stripe token.
-	STPCard *card = [[STPCard alloc] init];
-	card.number = @"4242424242424242";
-	card.expMonth = 12;
-	card.expYear = 20;
-	card.cvc = @"123";
-	card.name = @"Dinosaur Banana";
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-	[Stripe createTokenWithCard:card operationQueue:queue completion:^(STPToken *returnedToken, NSError *error) {
-		XCTAssertNil(error);
-		XCTAssertNotNil(returnedToken);
-		
-		_token = returnedToken;
-		dispatch_semaphore_signal(semaphore);
-	}];
-	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-}
-
 - (void)completeCheckout
 {
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_checkoutDataProvider completeCheckout:_checkout block:^(CHKCheckout *returnedCheckout, NSError *error) {
-		XCTAssertNil(error);
-		XCTAssertNotNil(returnedCheckout);
-		
-		_checkout = returnedCheckout;
-		dispatch_semaphore_signal(semaphore);
-	}];
-	WAIT_FOR_TASK(task, semaphore);
-}
-
-- (void)completeCheckoutWithStripeToken
-{
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	CHKPaymentToken *applePayToken = [[CHKPaymentToken alloc] initWithPaymentToken:_token.tokenId];
-	NSURLSessionDataTask *task = [_checkoutDataProvider completeCheckout:_checkout withApplePayToken:applePayToken block:^(CHKCheckout *returnedCheckout, NSError *error) {
+	NSURLSessionDataTask *task = [_checkoutDataProvider completeCheckout:_checkout completion:^(CHKCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
 		
@@ -273,7 +234,7 @@
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 	while (_checkout.token && checkoutStatus != CHKStatusFailed && checkoutStatus != CHKStatusComplete) {
 		NSLog(@"Checking completion status...");
-		NSURLSessionDataTask *task = [_checkoutDataProvider getCompletionStatusOfCheckout:_checkout block:^(CHKCheckout *returnedCheckout, CHKStatus returnedStatus, NSError *error) {
+		NSURLSessionDataTask *task = [_checkoutDataProvider getCompletionStatusOfCheckout:_checkout completion:^(CHKCheckout *returnedCheckout, CHKStatus returnedStatus, NSError *error) {
 			XCTAssertNil(error);
 			XCTAssertNotNil(returnedCheckout);
 			
@@ -327,18 +288,6 @@
 	[self addCreditCardToCheckout];
 	[self completeCheckout];
 	
-	[self pollUntilCheckoutIsComplete];
-	[self verifyCompletedCheckout];
-}
-
-- (void)testCheckoutAnywhereFlowUsingStripeToken
-{
-	[self createCart];
-	[self createCheckout];
-	[self fetchShippingRates];
-	[self updateCheckout];
-	[self fetchStripeToken];
-	[self completeCheckoutWithStripeToken];
 	[self pollUntilCheckoutIsComplete];
 	[self verifyCompletedCheckout];
 }

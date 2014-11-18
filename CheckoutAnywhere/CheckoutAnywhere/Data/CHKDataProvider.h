@@ -8,7 +8,6 @@
 
 @import Foundation;
 
-#import "Stripe.h"
 #import "CHKSerializable.h"
 #import <PassKit/PassKit.h>
 
@@ -60,7 +59,7 @@ typedef void (^CHKDataShippingRatesBlock)(NSArray *shippingRates, CHKStatus stat
  *
  * Note: There is no guarantee that the checkout returned will be the same as the one that is passed in. You are recommended to use the one returned in the block.
  */
-- (NSURLSessionDataTask *)completeCheckout:(CHKCheckout *)checkout block:(CHKDataCheckoutBlock)block;
+- (NSURLSessionDataTask *)completeCheckout:(CHKCheckout *)checkout completion:(CHKDataCheckoutBlock)block;
 
 /**
  * Finalizes the checkout and charges the credit card associated with the payment token. This only enqueues a completion job, and will return immediately.
@@ -68,7 +67,7 @@ typedef void (^CHKDataShippingRatesBlock)(NSArray *shippingRates, CHKStatus stat
  *
  * Note: There is no guarantee that the checkout returned will be the same as the one that is passed in. You are recommended to use the one returned in the block.
  */
-- (NSURLSessionDataTask *)completeCheckout:(CHKCheckout *)checkout withApplePayToken:(PKPaymentToken *)token block:(CHKDataCheckoutBlock)block;
+- (NSURLSessionDataTask *)completeCheckout:(CHKCheckout *)checkout withApplePayToken:(PKPaymentToken *)token completion:(CHKDataCheckoutBlock)block;
 
 /**
  * This checks the status of the current payment processing job for the provided checkout.
@@ -77,24 +76,16 @@ typedef void (^CHKDataShippingRatesBlock)(NSArray *shippingRates, CHKStatus stat
  *
  * Note: There is no guarantee that the checkout returned will be the same as the one that is passed in. You are recommended to use the one returned in the block.
  */
-- (NSURLSessionDataTask *)getCompletionStatusOfCheckout:(CHKCheckout *)checkout block:(CHKDataCheckoutStatusBlock)block;
+- (NSURLSessionDataTask *)getCompletionStatusOfCheckout:(CHKCheckout *)checkout completion:(CHKDataCheckoutStatusBlock)block;
 
 #pragma mark - Shipping Rates
 
 /**
  * Fetches a list of applicable shipping rates for this order. The shipping rate should be added to the checkout and the checkout should then be updated.
  */
-- (NSURLSessionDataTask *)getShippingRatesForCheckout:(CHKCheckout *)checkout block:(CHKDataShippingRatesBlock)block;
+- (NSURLSessionDataTask *)getShippingRatesForCheckout:(CHKCheckout *)checkout completion:(CHKDataShippingRatesBlock)block;
 
 #pragma mark - Payment Management
-
-/**
- * Prepares a stripe token for usage during the checkout process. This sends it to Shopify's secure servers.
- * 
- * Note: Storing the token does not charge the associated card (credit or otherwise).
- *       The card will be charged upon finalizing the checkout.
- */
-- (NSURLSessionDataTask *)storeStripeToken:(STPToken *)stripeToken checkout:(CHKCheckout *)checkout completion:(CHKDataCreditCardBlock)block;
 
 /**
  * Prepares a credit card for usage during the checkout process. This sends it to Shopify's secure servers.

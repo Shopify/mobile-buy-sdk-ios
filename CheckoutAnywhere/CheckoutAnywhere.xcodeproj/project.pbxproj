@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2A6755B519FAA63500C9E5E7 /* libCheckoutAnywhere.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F773741D19C770CB0039681C /* libCheckoutAnywhere.a */; };
-		2A6755B719FAA6A200C9E5E7 /* libPods-CheckoutAnywhere.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A6755B619FAA6A200C9E5E7 /* libPods-CheckoutAnywhere.a */; };
 		2AD315511A0AA8B20001E40A /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A54742D1A0AA61600822409 /* PassKit.framework */; };
 		2AD315581A0AAE350001E40A /* CHKPaymentToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD315571A0AAE350001E40A /* CHKPaymentToken.m */; };
 		F76CFF1D19CB7BE30079C703 /* NSString+Trim.m in Sources */ = {isa = PBXBuildFile; fileRef = F76CFF1C19CB7BE30079C703 /* NSString+Trim.m */; };
@@ -23,12 +22,18 @@
 		F79CE45319CC612700C9AFAB /* CHKAnywhereIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F79CE45219CC612700C9AFAB /* CHKAnywhereIntegrationTest.m */; };
 		F7AB6ABC19CFCEBF00115224 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AB6AB819CFCE6A00115224 /* libstdc++.dylib */; };
 		F7C64EBF19DA668D002B85B0 /* libStorefront.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7C64EBE19DA668D002B85B0 /* libStorefront.a */; };
-		F7E9B0B219FF49C700CCE82A /* libPods-CheckoutAnywhere-Stripe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7E9B0B119FF49C700CCE82A /* libPods-CheckoutAnywhere-Stripe.a */; };
 		F7FDA16E19C939FF00AF4E93 /* CHKLineItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDA16D19C939FF00AF4E93 /* CHKLineItem.m */; };
 		F7FDA17219C93F6F00AF4E93 /* CHKDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDA17119C93F6F00AF4E93 /* CHKDataProvider.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		F7848E5D1A1B9E8400B89E96 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F7C64EB519DA65D9002B85B0 /* Storefront.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F773745319C77B160039681C;
+			remoteInfo = Storefront;
+		};
 		F7FBFB0219DB5A0A0077EEB3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F7C64EB519DA65D9002B85B0 /* Storefront.xcodeproj */;
@@ -59,12 +64,8 @@
 
 /* Begin PBXFileReference section */
 		2A54742D1A0AA61600822409 /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
-		2A6755B619FAA6A200C9E5E7 /* libPods-CheckoutAnywhere.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-CheckoutAnywhere.a"; path = "Pods/build/Debug-iphoneos/libPods-CheckoutAnywhere.a"; sourceTree = "<group>"; };
 		2AD315561A0AAE350001E40A /* CHKPaymentToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHKPaymentToken.h; path = Models/CHKPaymentToken.h; sourceTree = "<group>"; };
 		2AD315571A0AAE350001E40A /* CHKPaymentToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHKPaymentToken.m; path = Models/CHKPaymentToken.m; sourceTree = "<group>"; };
-		6943EDC0486702B9C657AE04 /* Pods-CheckoutAnywhere.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutAnywhere.release.xcconfig"; path = "Pods/Target Support Files/Pods-CheckoutAnywhere/Pods-CheckoutAnywhere.release.xcconfig"; sourceTree = "<group>"; };
-		A32BD4D6D107D3A6ABA4081A /* Pods-CheckoutAnywhere.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CheckoutAnywhere.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CheckoutAnywhere/Pods-CheckoutAnywhere.debug.xcconfig"; sourceTree = "<group>"; };
-		ED7CAC6864F24DF6994E9680 /* libPods-CheckoutAnywhere.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CheckoutAnywhere.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F76CFF1B19CB7BE30079C703 /* NSString+Trim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Trim.h"; sourceTree = "<group>"; };
 		F76CFF1C19CB7BE30079C703 /* NSString+Trim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Trim.m"; sourceTree = "<group>"; };
 		F76CFF1E19CB7C500079C703 /* CHKSerializable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKSerializable.h; sourceTree = "<group>"; };
@@ -81,18 +82,13 @@
 		F773744819C77A210039681C /* CHKCart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKCart.m; sourceTree = "<group>"; };
 		F773749419C77C260039681C /* CHKCheckout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKCheckout.h; sourceTree = "<group>"; };
 		F773749519C77C260039681C /* CHKCheckout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKCheckout.m; sourceTree = "<group>"; };
-		F77374A219C77F760039681C /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
 		F77374AA19C796BD0039681C /* CHKCreditCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKCreditCard.h; sourceTree = "<group>"; };
 		F77374AB19C796BD0039681C /* CHKCreditCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKCreditCard.m; sourceTree = "<group>"; };
 		F79CE45219CC612700C9AFAB /* CHKAnywhereIntegrationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKAnywhereIntegrationTest.m; sourceTree = "<group>"; };
-		F79CE46019CC979200C9AFAB /* libPods-CheckoutAnywhere-Stripe.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-CheckoutAnywhere-Stripe.a"; path = "Pods/build/Debug-iphoneos/libPods-CheckoutAnywhere-Stripe.a"; sourceTree = "<group>"; };
-		F79CE46119CC979200C9AFAB /* libPods-CheckoutAnywhere.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-CheckoutAnywhere.a"; path = "Pods/build/Debug-iphoneos/libPods-CheckoutAnywhere.a"; sourceTree = "<group>"; };
 		F7AB6AB819CFCE6A00115224 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		F7C64EB519DA65D9002B85B0 /* Storefront.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Storefront.xcodeproj; path = ../Storefront/Storefront.xcodeproj; sourceTree = "<group>"; };
 		F7C64EBE19DA668D002B85B0 /* libStorefront.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libStorefront.a; path = "../Storefront/build/Debug-iphoneos/libStorefront.a"; sourceTree = "<group>"; };
 		F7D156F719E30AC000D38D67 /* CHKTestCredentials.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHKTestCredentials.h; sourceTree = "<group>"; };
-		F7E9B0B119FF49C700CCE82A /* libPods-CheckoutAnywhere-Stripe.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-CheckoutAnywhere-Stripe.a"; path = "Pods/build/Debug-iphoneos/libPods-CheckoutAnywhere-Stripe.a"; sourceTree = "<group>"; };
-		F7FDA16219C8DFC200AF4E93 /* libStorefront.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libStorefront.a; path = "../Storefront/build/Debug-iphoneos/libStorefront.a"; sourceTree = "<group>"; };
 		F7FDA16C19C939FF00AF4E93 /* CHKLineItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKLineItem.h; sourceTree = "<group>"; };
 		F7FDA16D19C939FF00AF4E93 /* CHKLineItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKLineItem.m; sourceTree = "<group>"; };
 		F7FDA17019C93F6F00AF4E93 /* CHKDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKDataProvider.h; sourceTree = "<group>"; };
@@ -104,9 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F7E9B0B219FF49C700CCE82A /* libPods-CheckoutAnywhere-Stripe.a in Frameworks */,
 				2AD315511A0AA8B20001E40A /* PassKit.framework in Frameworks */,
-				2A6755B719FAA6A200C9E5E7 /* libPods-CheckoutAnywhere.a in Frameworks */,
 				F7C64EBF19DA668D002B85B0 /* libStorefront.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -123,15 +117,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		207793ACC741967FDD58EA5C /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				A32BD4D6D107D3A6ABA4081A /* Pods-CheckoutAnywhere.debug.xcconfig */,
-				6943EDC0486702B9C657AE04 /* Pods-CheckoutAnywhere.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		2AD315541A0AADA90001E40A /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -144,16 +129,10 @@
 		547B8D0CCDB9458C800F1E3C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F7E9B0B119FF49C700CCE82A /* libPods-CheckoutAnywhere-Stripe.a */,
-				2A54742D1A0AA61600822409 /* PassKit.framework */,
-				2A6755B619FAA6A200C9E5E7 /* libPods-CheckoutAnywhere.a */,
-				F7C64EBE19DA668D002B85B0 /* libStorefront.a */,
 				F7C64EB519DA65D9002B85B0 /* Storefront.xcodeproj */,
+				2A54742D1A0AA61600822409 /* PassKit.framework */,
+				F7C64EBE19DA668D002B85B0 /* libStorefront.a */,
 				F7AB6AB819CFCE6A00115224 /* libstdc++.dylib */,
-				F79CE46019CC979200C9AFAB /* libPods-CheckoutAnywhere-Stripe.a */,
-				F79CE46119CC979200C9AFAB /* libPods-CheckoutAnywhere.a */,
-				F7FDA16219C8DFC200AF4E93 /* libStorefront.a */,
-				ED7CAC6864F24DF6994E9680 /* libPods-CheckoutAnywhere.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -165,7 +144,6 @@
 				F773742919C770CB0039681C /* CheckoutAnywhereTests */,
 				F773741E19C770CB0039681C /* Products */,
 				547B8D0CCDB9458C800F1E3C /* Frameworks */,
-				207793ACC741967FDD58EA5C /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -237,7 +215,6 @@
 		F773749E19C77E460039681C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				F77374A219C77F760039681C /* Podfile */,
 				F773743619C771D10039681C /* LICENSE */,
 				F773743719C771D10039681C /* README.md */,
 				F773743419C771C50039681C /* ShopifyCheckoutAnywhere.podspec */,
@@ -280,15 +257,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F773742E19C770CB0039681C /* Build configuration list for PBXNativeTarget "CheckoutAnywhere" */;
 			buildPhases = (
-				72242E9D60AD4092A72D5160 /* Check Pods Manifest.lock */,
 				F773741919C770CB0039681C /* Sources */,
 				F773741A19C770CB0039681C /* Frameworks */,
 				F773741B19C770CB0039681C /* CopyFiles */,
-				D18F98A2448843AEB1F10DE7 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F7848E5E1A1B9E8400B89E96 /* PBXTargetDependency */,
 			);
 			name = CheckoutAnywhere;
 			productName = CheckoutAnywhere;
@@ -383,39 +359,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		72242E9D60AD4092A72D5160 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		D18F98A2448843AEB1F10DE7 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CheckoutAnywhere/Pods-CheckoutAnywhere-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		F773741919C770CB0039681C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -443,6 +386,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F7848E5E1A1B9E8400B89E96 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Storefront;
+			targetProxy = F7848E5D1A1B9E8400B89E96 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		F773742C19C770CB0039681C /* Debug */ = {
@@ -529,7 +480,6 @@
 		};
 		F773742F19C770CB0039681C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A32BD4D6D107D3A6ABA4081A /* Pods-CheckoutAnywhere.debug.xcconfig */;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -548,7 +498,6 @@
 		};
 		F773743019C770CB0039681C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6943EDC0486702B9C657AE04 /* Pods-CheckoutAnywhere.release.xcconfig */;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -567,7 +516,6 @@
 		};
 		F773743219C770CB0039681C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A32BD4D6D107D3A6ABA4081A /* Pods-CheckoutAnywhere.debug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -595,7 +543,6 @@
 		};
 		F773743319C770CB0039681C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6943EDC0486702B9C657AE04 /* Pods-CheckoutAnywhere.release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

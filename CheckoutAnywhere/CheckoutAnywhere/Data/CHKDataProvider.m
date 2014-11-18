@@ -20,9 +20,6 @@
 #define kJSONType @"application/json"
 #define kShopifyError @"shopify"
 
-@interface STPToken (Shopify) <CHKSerializable>
-@end
-
 @implementation CHKDataProvider {
 	NSString *_shopDomain;
 	NSString *_apiKey;
@@ -79,7 +76,7 @@
 	return task;
 }
 
-- (NSURLSessionDataTask*)completeCheckout:(CHKCheckout *)checkout block:(CHKDataCheckoutBlock)block
+- (NSURLSessionDataTask*)completeCheckout:(CHKCheckout *)checkout completion:(CHKDataCheckoutBlock)block
 {
 	NSURLSessionDataTask *task = nil;
 	if ([checkout hasToken] && [checkout.paymentSessionId length] > 0) {
@@ -87,13 +84,13 @@
 		NSError *error = nil;
 		NSData *data = [NSJSONSerialization dataWithJSONObject:paymentJson options:0 error:&error];
 		if (data && error == nil) {
-			task = [self checkoutCompletionRequestWithCheckout:checkout body:data block:block];
+			task = [self checkoutCompletionRequestWithCheckout:checkout body:data completion:block];
 		}
 	}
 	return task;
 }
 
-- (NSURLSessionDataTask *)completeCheckout:(CHKCheckout *)checkout withApplePayToken:(PKPaymentToken *)token block:(CHKDataCheckoutBlock)block
+- (NSURLSessionDataTask *)completeCheckout:(CHKCheckout *)checkout withApplePayToken:(PKPaymentToken *)token completion:(CHKDataCheckoutBlock)block
 {
 	NSURLSessionDataTask *task = nil;
 	if ([checkout hasToken] && token) {
@@ -102,13 +99,13 @@
 		NSError *error = nil;
 		NSData *data = [NSJSONSerialization dataWithJSONObject:paymentJson options:0 error:&error];
 		if (data && error == nil) {
-			task = [self checkoutCompletionRequestWithCheckout:checkout body:data block:block];
+			task = [self checkoutCompletionRequestWithCheckout:checkout body:data completion:block];
 		}
 	}
 	return task;
 }
 
-- (NSURLSessionDataTask *)checkoutCompletionRequestWithCheckout:(CHKCheckout *)checkout body:(NSData *)body block:(CHKDataCheckoutBlock)block
+- (NSURLSessionDataTask *)checkoutCompletionRequestWithCheckout:(CHKCheckout *)checkout body:(NSData *)body completion:(CHKDataCheckoutBlock)block
 {
 	return [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/complete.json", _shopDomain, checkout.token] body:body completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		CHKCheckout *newCheckout = nil;
@@ -119,7 +116,7 @@
 	}];
 }
 
-- (NSURLSessionDataTask *)getCompletionStatusOfCheckout:(CHKCheckout *)checkout block:(CHKDataCheckoutStatusBlock)block
+- (NSURLSessionDataTask *)getCompletionStatusOfCheckout:(CHKCheckout *)checkout completion:(CHKDataCheckoutStatusBlock)block
 {
 	NSURLSessionDataTask *task = nil;
 	if ([checkout hasToken]) {
@@ -133,7 +130,7 @@
 
 #pragma mark - Shipping Rates
 
-- (NSURLSessionDataTask *)getShippingRatesForCheckout:(CHKCheckout *)checkout block:(CHKDataShippingRatesBlock)block
+- (NSURLSessionDataTask *)getShippingRatesForCheckout:(CHKCheckout *)checkout completion:(CHKDataShippingRatesBlock)block
 {
 	NSURLSessionDataTask *task = nil;
 	if ([checkout hasToken]) {
@@ -151,11 +148,6 @@
 }
 
 #pragma mark - Payments
-
-- (NSURLSessionDataTask *)storeStripeToken:(STPToken *)stripeToken checkout:(CHKCheckout *)checkout completion:(CHKDataCreditCardBlock)block
-{
-	return [self storeCreditCard:stripeToken checkout:checkout completion:block];
-}
 
 - (NSURLSessionDataTask *)storeCreditCard:(id <CHKSerializable>)creditCard checkout:(CHKCheckout *)checkout completion:(CHKDataCreditCardBlock)block
 {
@@ -281,16 +273,6 @@
 {
 	NSData *data = [_apiKey dataUsingEncoding:NSUTF8StringEncoding];
 	return [NSString stringWithFormat:@"%@ %@", @"Basic", [data base64EncodedStringWithOptions:0]];
-}
-
-@end
-
-@implementation STPToken (Shopify)
-
-- (NSDictionary *)jsonDictionaryForCheckout
-{
-	NSString *tokenId = self.tokenId;
-	return tokenId ? @{ @"number" : tokenId } : @{};
 }
 
 @end
