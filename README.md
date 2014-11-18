@@ -9,8 +9,8 @@ This library also includes an implementation of Shopify's Storefront API. This i
 1. Create a cart.
 2. Transform cart into a Checkout.
 3. Add information to the Checkout.
-4. Post a credit card OR a **Stripe** token to our card store (which you can obtain via an **ApplePay** token).
-5. Complete the checkout.
+4. Post a credit card to our card store (optional if using ApplePay).
+5. Complete the checkout with the stored credit card (or an ApplePay token).
 6. Poll until the payment job completes.
 7. Bask in the glory of a created order.
 
