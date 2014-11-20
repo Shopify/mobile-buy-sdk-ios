@@ -77,6 +77,17 @@
 	}];
 }
 
+- (NSURLSessionDataTask *)getProductByHandle:(NSString *)handle completion:(MERDataProductBlock)block
+{
+	return [self performRequestForURL:[NSString stringWithFormat:@"http://%@/products/%@.json", _shopDomain, handle] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+		MERProduct *product = nil;
+		if (json && error == nil) {
+			product = [[MERProduct alloc] initWithDictionary:json[@"product"]];
+		}
+		block(product, error);
+	}];
+}
+
 - (NSURLSessionDataTask *)getProductsInCollection:(MERCollection*)collection page:(NSUInteger)page completion:(MERDataProductListBlock)block
 {
 	return [self performRequestForURL:[NSString stringWithFormat:@"http://%@/collections/%@/products.json?limit=%lu&page=%lu", _shopDomain, collection.handle, (unsigned long)_pageSize, (unsigned long)page] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
