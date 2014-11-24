@@ -32,7 +32,7 @@ Here is a simplistic view:
 //Update the checkout with any updated information (refetch shipping rates if the addresses change)
 [_checkoutDataProvider updateCheckout:checkout completion:...] (if necessary)
 
-//Add a payment method and complete the checkout (see below)
+//Add a payment method and complete the checkout (see below for Options 1 and 2)
 ...
 
 
@@ -44,13 +44,13 @@ Here is a simplistic view:
 [_checkoutDataProvider getCheckout:checkout completion:...]
 ```
 
-### Completing a Checkout using ApplePay
+### Option 1: Completing a Checkout using ApplePay
 ```
 //Or directly complete the payment using an ApplePay token (PKPaymentToken *)
 [_checkoutDataProvider completeCheckout:checkout withApplePayToken:token block:...]
 ```
 
-### Completing a Checkout using a Credit Card
+### Option 2: Completing a Checkout using a Credit Card
 ```
 [_checkoutDataProvider storeCreditCard:creditCard checkout:checkout completion:...]
 [_checkoutDataProvider completeCheckout:checkout block:...]
