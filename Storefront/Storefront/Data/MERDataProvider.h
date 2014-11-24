@@ -45,6 +45,14 @@ typedef void (^MERDataImagesListBlock)(NSArray *images, NSError *error);
 - (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page completion:(MERDataProductListBlock)block;
 
 /**
+ * Fetches a single product by the name of the product. For example, if the product url is:
+ * http://_________.myshopify.com/products/BANANA
+ *
+ * Then the handle is BANANA and you would invoke [provider getProductByHandle:@"BANANA" completion:...];
+ */
+- (NSURLSessionDataTask *)getProductByHandle:(NSString *)handle completion:(MERDataProductBlock)block;
+
+/**
  * Fetches a single page of products for the shop.
  */
 - (NSURLSessionDataTask *)getProductsInCollection:(MERCollection*)collection page:(NSUInteger)page completion:(MERDataProductListBlock)block;
