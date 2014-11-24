@@ -9,10 +9,12 @@ This library also includes an implementation of Shopify's Storefront API. This i
 1. Create a cart.
 2. Transform cart into a Checkout.
 3. Add information to the Checkout.
-4. Post a credit card to our card store (optional if using ApplePay).
-5. Complete the checkout with the stored credit card (or an ApplePay token).
+4. Complete the checkout using an ApplePay token (or use a credit card).
 6. Poll until the payment job completes.
 7. Bask in the glory of a created order.
+
+We highly recommend that you use ApplePay as the sole source of payment within your application, even if this SDK supports payment by credit card as well.
+Please familiarize yourself with the [Mobile PCI Standards](https://www.pcisecuritystandards.org/documents/Mobile_Payment_Security_Guidelines_Developers_v1.pdf) before including a full credit card checkout flow in your application.
 
 ## Flow Examples
 
@@ -30,18 +32,28 @@ Here is a simplistic view:
 //Update the checkout with any updated information (refetch shipping rates if the addresses change)
 [_checkoutDataProvider updateCheckout:checkout completion:...] (if necessary)
 
-//Add a payment method and complete the checkout 
-[_checkoutDataProvider storeCreditCard:creditCard checkout:checkout completion:...]
-[_checkoutDataProvider completeCheckout:checkout block:...]
+//Add a payment method and complete the checkout (see below)
+...
 
-//Or directly complete the payment using an ApplePay token (PKPaymentToken *)
-[_checkoutDataProvider completeCheckout:checkout withApplePayToken:token block:...]
 
-//Poll for completion -- this may take a few seconds
+//Poll for completion -- this may take a few seconds.
+//You will need to poll at a regular interval until this is complete (the status will be one of the many CHKStatus values).
 [_checkoutDataProvider getCompletionStatusOfCheckout:checkout block:...]
 
 //Update the checkout to obtain the final information if necessary
 [_checkoutDataProvider getCheckout:checkout completion:...]
+```
+
+### Completing a Checkout using ApplePay
+```
+//Or directly complete the payment using an ApplePay token (PKPaymentToken *)
+[_checkoutDataProvider completeCheckout:checkout withApplePayToken:token block:...]
+```
+
+### Completing a Checkout using a Credit Card
+```
+[_checkoutDataProvider storeCreditCard:creditCard checkout:checkout completion:...]
+[_checkoutDataProvider completeCheckout:checkout block:...]
 ```
 
 ## Error Handling
