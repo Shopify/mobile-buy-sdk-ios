@@ -4,6 +4,13 @@ This is a client implementation of Checkout Anywhere for iOS that allows you to 
 
 This library also includes an implementation of Shopify's Storefront API. This is an API that allows you to fetch products and collections from a specific shop (i.e. ______.myshopify.com).
 
+## Adding to a Project
+
+You can either use CocoaPods or include this project in your workspace/project directly. However, you must do two steps:
+
+1. Link against `libdstdc++.dylib` under **Project > Build Phases > Link Binary With Libraries**.
+2. Add `-ObjC` in your `Other Linker Flags` under **Project > Build Settings.**.
+
 ## Flow
 
 1. Create a cart.
