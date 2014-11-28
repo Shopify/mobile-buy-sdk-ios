@@ -15,7 +15,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.subspec "ShopifyStorefront" do |subspec|
-    subspec.dependency               'Stripe/ApplePay'
     subspec.source_files           = 'Storefront/Storefront/**/*.{h,m,mm}'
     subspec.public_header_files    = 'Storefront/Storefront/**/*.h'
   end
