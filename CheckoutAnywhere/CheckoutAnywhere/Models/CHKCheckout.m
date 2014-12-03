@@ -89,7 +89,7 @@ static NSDictionary *kCHKPropertyMap = nil;
 	self.billingAddress = [CHKAddress convertObject:dictionary[@"billing_address"]];
 	self.shippingAddress = [CHKAddress convertObject:dictionary[@"shipping_address"]];
 	
-	self.shippingRate = [CHKShippingRate convertObject:dictionary[@"shipping_address"]];
+	self.shippingRate = [CHKShippingRate convertObject:dictionary[@"shipping_rate"]];
 }
 
 - (id)jsonValueForValue:(id)value
