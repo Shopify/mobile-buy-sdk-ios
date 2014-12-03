@@ -187,7 +187,8 @@
 	NSURLSessionDataTask *task = [_checkoutDataProvider updateCheckout:_checkout completion:^(CHKCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
-		
+		XCTAssertNotNil(returnedCheckout.shippingRate.shippingRateIdentifier);
+		XCTAssertNotNil(returnedCheckout.email);
 		_checkout = returnedCheckout;
 		dispatch_semaphore_signal(semaphore);
 	}];
@@ -231,6 +232,7 @@
 - (void)pollUntilCheckoutIsComplete
 {
 	__block CHKStatus checkoutStatus = CHKStatusUnknown;
+	__block NSError *checkoutError = nil;
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 	while (_checkout.token && checkoutStatus != CHKStatusFailed && checkoutStatus != CHKStatusComplete) {
 		NSLog(@"Checking completion status...");
@@ -238,6 +240,7 @@
 			XCTAssertNil(error);
 			XCTAssertNotNil(returnedCheckout);
 			
+			checkoutError = error;
 			checkoutStatus = returnedStatus;
 			dispatch_semaphore_signal(semaphore);
 		}];
@@ -247,6 +250,7 @@
 			[NSThread sleepForTimeInterval:0.5f];
 		}
 	}
+	XCTAssertNil(checkoutError);
 	XCTAssertEqual(checkoutStatus, CHKStatusComplete);
 }
 
