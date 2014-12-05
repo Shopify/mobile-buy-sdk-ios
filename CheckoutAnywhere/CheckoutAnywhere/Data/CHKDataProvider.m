@@ -203,6 +203,11 @@
 	return task;
 }
 
+- (void)startTask:(NSURLSessionDataTask *)task
+{
+	[task resume];
+}
+
 - (NSURLSessionDataTask *)requestForURL:(NSString *)url method:(NSString *)method body:(NSData *)body completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
@@ -233,7 +238,7 @@
 		}
 		completionHandler(json, response, error);
 	}];
-	[task resume];
+	[self startTask:task];
 	return task;
 }
 
