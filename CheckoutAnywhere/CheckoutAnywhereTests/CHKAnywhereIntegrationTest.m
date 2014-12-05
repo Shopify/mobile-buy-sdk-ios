@@ -296,6 +296,41 @@
 	[self verifyCompletedCheckout];
 }
 
+- (void)testCheckoutAnywhereWithAPartialAddress
+{
+	[self createCart];
+	_checkout = [[CHKCheckout alloc] initWithCart:_cart];
+	_checkout.shippingAddress = [self partialShippingAddress];
+	
+	//Create the checkout
+	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	NSURLSessionDataTask *task = [_checkoutDataProvider createCheckout:_checkout completion:^(CHKCheckout *returnedCheckout, NSError *error) {
+		XCTAssertNil(error);
+		XCTAssertNotNil(returnedCheckout);
+		
+		_checkout = returnedCheckout;
+		dispatch_semaphore_signal(semaphore);
+	}];
+	WAIT_FOR_TASK(task, semaphore);
+
+	//Fetch the rates
+	[self fetchShippingRates];
+	
+	//Select the first rate
+	[self updateCheckout];
+	
+	//Update with full addresses
+	_checkout.shippingAddress = [self shippingAddress];
+	_checkout.billingAddress = [self billingAddress];
+	[self updateCheckout];
+	
+	//We use a credit card here because we're not generating apple pay tokens in the tests
+	[self addCreditCardToCheckout];
+	[self completeCheckout];
+	[self pollUntilCheckoutIsComplete];
+	[self verifyCompletedCheckout];
+}
+
 #pragma mark - Test Data
 
 - (CHKAddress *)billingAddress
@@ -324,6 +359,19 @@
 	address.firstName = @"Tobi";
 	address.lastName = @"Lütke";
 	address.phone = @"1-555-555-5555";
+	address.countryCode = @"CA";
+	address.provinceCode = @"ON";
+	address.zip = @"K1N5T5";
+	return address;
+}
+
+- (CHKAddress *)partialShippingAddress
+{
+	CHKAddress *address = [[CHKAddress alloc] init];
+	address.address1 = @"--";
+	address.city = @"Ottawa";
+	address.firstName = @"---";
+	address.lastName = @"---";
 	address.countryCode = @"CA";
 	address.provinceCode = @"ON";
 	address.zip = @"K1N5T5";
