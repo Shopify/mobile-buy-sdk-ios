@@ -37,6 +37,17 @@ static NSDictionary *kCHKPropertyMap = nil;
 	return self;
 }
 
+- (void)setShippingRateId:(NSString *)shippingRateIdentifier
+{
+	_shippingRateId = shippingRateIdentifier;
+}
+
+- (void)setShippingRate:(CHKShippingRate *)shippingRate
+{
+	_shippingRate = shippingRate;
+	[self setShippingRateId:shippingRate.shippingRateIdentifier];
+}
+
 + (NSString *)jsonKeyForProperty:(NSString *)property
 {
 	NSString *key = nil;
@@ -202,9 +213,9 @@ static NSDictionary *kCHKPropertyMap = nil;
 - (NSDictionary *)jsonDictionaryForCheckout
 {
 	NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
-	json[@"id"] = self.shippingRateIdentifier;
-	json[@"title"] = self.title;
-	json[@"price"] = self.price;
+	json[@"id"] = [self.shippingRateIdentifier trim] ?: @"";
+	json[@"title"] = [self.title trim] ?: @"";
+	json[@"price"] = self.price ?: [NSDecimalNumber zero];
 	return json;
 }
 

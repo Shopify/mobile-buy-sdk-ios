@@ -52,4 +52,34 @@
 	XCTAssertTrue([cleanJSON[@"checkout"][@"partial_addresses"] boolValue]);
 }
 
+- (void)testSettingAShippingRateMarksShippingRateIdAsDirty
+{
+	CHKShippingRate *shippingRate = [[CHKShippingRate alloc] init];
+	shippingRate.shippingRateIdentifier = @"banana";
+	XCTAssertNil(_checkout.shippingRate);
+	XCTAssertNil(_checkout.shippingRateId);
+	_checkout.shippingRate = shippingRate;
+	XCTAssertEqualObjects(@"banana", _checkout.shippingRateId);
+	
+	XCTAssertTrue([[_checkout dirtyProperties] containsObject:@"shippingRateId"]);
+}
+
+- (void)testDirtyPropertiesAreReturnedInJSON
+{
+	CHKShippingRate *shippingRate = [[CHKShippingRate alloc] init];
+	shippingRate.shippingRateIdentifier = @"banana";
+	[_checkout markAsClean];
+	
+	_checkout.shippingRate = shippingRate;
+	_checkout.currency = @"BANANA";
+	NSSet *dirtyProperties = [_checkout dirtyProperties];
+	XCTAssertTrue([dirtyProperties containsObject:@"currency"]);
+	XCTAssertTrue([dirtyProperties containsObject:@"shippingRateId"]);
+	XCTAssertTrue([dirtyProperties containsObject:@"shippingRate"]);
+	
+	NSDictionary *json = [_checkout jsonDictionaryForCheckout];
+	XCTAssertEqualObjects(json[@"checkout"][@"currency"], @"BANANA");
+	XCTAssertEqualObjects(json[@"checkout"][@"shipping_rate_id"], @"banana");
+}
+
 @end

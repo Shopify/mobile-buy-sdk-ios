@@ -49,6 +49,7 @@
 @property (nonatomic, strong) CHKAddress *shippingAddress;
 
 @property (nonatomic, strong) CHKShippingRate *shippingRate;
+@property (nonatomic, readonly) NSString *shippingRateId;
 
 @end
 
