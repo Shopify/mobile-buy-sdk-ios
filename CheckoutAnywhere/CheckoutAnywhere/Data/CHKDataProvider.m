@@ -134,7 +134,7 @@
 {
 	NSURLSessionDataTask *task = nil;
 	if ([checkout hasToken]) {
-		task = [self getRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/shipping_rates.json", _shopDomain, checkout.token] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+		task = [self getRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/shipping_rates.json?checkout[partial_addresses]=true", _shopDomain, checkout.token] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			NSArray *shippingRates = nil;
 			if (error == nil && json) {
 				shippingRates = [CHKShippingRate convertJSONArray:json[@"shipping_rates"]];
