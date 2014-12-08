@@ -283,6 +283,19 @@
 	}];
 }
 
+- (void)testCheckoutAnywhereWithInvalidShop
+{
+	[self createCart];
+	_checkout = [[CHKCheckout alloc] initWithCart:_cart];
+	
+	_checkoutDataProvider = [[CHKDataProvider alloc] initWithShopDomain:@"asdfdsasdfdsasdfdsadsfowinfaoinfw.myshopify.com" apiKey:CHECKOUT_ANYHWERE_API_KEY];
+	[_checkoutDataProvider createCheckout:_checkout completion:^(CHKCheckout *checkout, NSError *error) {
+		XCTAssertNotNil(error);
+		XCTAssertEqualObjects(error.domain, @"shopify");
+		XCTAssertEqual(error.code, 404);
+	}];
+}
+
 - (void)testCheckoutAnywhereFlowUsingCreditCard
 {
 	[self createCart];
