@@ -123,12 +123,9 @@
 - (NSError *)extractErrorFromResponse:(NSURLResponse *)response json:(NSDictionary *)json
 {
 	NSError *error = nil;
-	if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-		NSHTTPURLResponse *httpResponse = ((NSHTTPURLResponse *) response);
-		NSInteger statusCode = [httpResponse statusCode];
-		if (statusCode < kMinSuccessfulStatusCode || statusCode > kMaxSuccessfulStatusCode) {
-			error = [NSError errorWithDomain:NSURLErrorDomain code:statusCode userInfo:json];
-		}
+	NSInteger statusCode = [((NSHTTPURLResponse *) response) statusCode];
+	if (statusCode < kMinSuccessfulStatusCode || statusCode > kMaxSuccessfulStatusCode) {
+		error = [NSError errorWithDomain:NSURLErrorDomain code:statusCode userInfo:json];
 	}
 	return error;
 }
