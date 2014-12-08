@@ -113,4 +113,27 @@
 	WAIT_FOR_TASK(task, semaphore);
 }
 
+- (void)testGetProductByHandle
+{
+	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	NSURLSessionDataTask *task = [_provider getProductByHandle:@"dogs" completion:^(MERProduct *product, NSError *error) {
+		XCTAssertNil(error);
+		XCTAssertNotNil(product);
+		XCTAssertEqualObjects(@"Dogs", [product title]);
+		dispatch_semaphore_signal(semaphore);
+	}];
+	WAIT_FOR_TASK(task, semaphore);
+}
+
+- (void)testHandleRequestError
+{
+	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	NSURLSessionDataTask *task = [_provider getProductByHandle:@"asdfdsasdfdsasdfdsasdfjkllkj" completion:^(MERProduct *product, NSError *error) {
+		XCTAssertNotNil(error);
+		XCTAssertEqual(404, [error code]);
+		dispatch_semaphore_signal(semaphore);
+	}];
+	WAIT_FOR_TASK(task, semaphore);
+}
+
 @end
