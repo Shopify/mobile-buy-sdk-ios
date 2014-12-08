@@ -19,6 +19,8 @@
 
 #define kJSONType @"application/json"
 #define kShopifyError @"shopify"
+#define kMinSuccessfulStatusCode 200
+#define kMaxSuccessfulStatusCode 299
 
 @implementation CHKDataProvider {
 	NSString *_shopDomain;
@@ -186,9 +188,9 @@
 	return status;
 }
 
-- (NSError *)errorFromJSON:(NSDictionary *)errorDictionary
+- (NSError *)errorFromJSON:(NSDictionary *)errorDictionary statusCode:(NSInteger)statusCode
 {
-	return [[NSError alloc] initWithDomain:kShopifyError code:422 userInfo:errorDictionary];
+	return [[NSError alloc] initWithDomain:kShopifyError code:statusCode userInfo:errorDictionary];
 }
 
 - (NSURLSessionDataTask *)requestForURL:(NSString *)url method:(NSString *)method object:(id <CHKSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
@@ -232,8 +234,8 @@
 				json = [jsonData isKindOfClass:[NSDictionary class]] ? jsonData : nil;
 			}
 			
-			if (failedValidation) {
-				error = [self errorFromJSON:json];
+			if (statusCode < kMinSuccessfulStatusCode || statusCode > kMaxSuccessfulStatusCode) {
+				error = [self errorFromJSON:json statusCode:statusCode];
 			}
 		}
 		completionHandler(json, response, error);

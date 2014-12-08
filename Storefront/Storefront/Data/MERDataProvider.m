@@ -14,6 +14,9 @@
 #import "MERProductVariant.h"
 #import "MERCollection.h"
 
+#define kMinSuccessfulStatusCode 200
+#define kMaxSuccessfulStatusCode 299
+
 @implementation MERDataProvider {
 	NSString *_shopDomain;
 	NSURLSession *_session;
@@ -109,11 +112,25 @@
 		if (error == nil) {
 			id jsonData = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
 			json = [jsonData isKindOfClass:[NSDictionary class]] ? jsonData : nil;
+			error = [self extractErrorFromResponse:response json:json];
 		}
 		completionHandler(json, response, error);
 	}];
 	[task resume];
 	return task;
+}
+
+- (NSError *)extractErrorFromResponse:(NSURLResponse *)response json:(NSDictionary *)json
+{
+	NSError *error = nil;
+	if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+		NSHTTPURLResponse *httpResponse = ((NSHTTPURLResponse *) response);
+		NSInteger statusCode = [httpResponse statusCode];
+		if (statusCode < kMinSuccessfulStatusCode || statusCode > kMaxSuccessfulStatusCode) {
+			error = [NSError errorWithDomain:NSURLErrorDomain code:statusCode userInfo:json];
+		}
+	}
+	return error;
 }
 
 @end
