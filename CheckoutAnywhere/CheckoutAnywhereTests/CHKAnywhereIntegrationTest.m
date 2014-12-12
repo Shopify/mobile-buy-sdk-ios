@@ -344,6 +344,68 @@
 	[self verifyCompletedCheckout];
 }
 
+- (void)testCheckoutAnywhereWithApplicableDiscount
+{
+    [self createCart];
+    
+    _checkout = [[CHKCheckout alloc] initWithCart:_cart];
+    _checkout.discount = [self applicableDiscount];
+    
+    //Create the checkout
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    NSURLSessionDataTask *task = [_checkoutDataProvider createCheckout:_checkout completion:^(CHKCheckout *returnedCheckout, NSError *error) {
+        XCTAssertNil(error);
+        XCTAssertNotNil(returnedCheckout);
+        _checkout = returnedCheckout;
+        dispatch_semaphore_signal(semaphore);
+    }];
+    WAIT_FOR_TASK(task, semaphore);
+    
+    XCTAssertNotNil(_checkout.discount);
+    XCTAssertTrue(_checkout.discount.applicable);
+}
+
+- (void)testCheckoutAnywhereWithInapplicableDiscount
+{
+    [self createCart];
+    
+    _checkout = [[CHKCheckout alloc] initWithCart:_cart];
+    _checkout.discount = [self inapplicableDiscount];
+    
+    //Create the checkout
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    NSURLSessionDataTask *task = [_checkoutDataProvider createCheckout:_checkout completion:^(CHKCheckout *returnedCheckout, NSError *error) {
+        XCTAssertNil(error);
+        XCTAssertNotNil(returnedCheckout);
+        _checkout = returnedCheckout;
+        dispatch_semaphore_signal(semaphore);
+    }];
+    WAIT_FOR_TASK(task, semaphore);
+    
+    XCTAssertNotNil(_checkout.discount);
+    XCTAssertFalse(_checkout.discount.applicable);
+}
+
+- (void)testCheckoutAnywhereWithNonExistentDiscount
+{
+    [self createCart];
+    
+    _checkout = [[CHKCheckout alloc] initWithCart:_cart];
+    _checkout.discount = [self nonExistentDiscount];
+    
+    //Create the checkout
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    NSURLSessionDataTask *task = [_checkoutDataProvider createCheckout:_checkout completion:^(CHKCheckout *returnedCheckout, NSError *error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqual(error.code, 422);
+        NSDictionary *info = [error userInfo];
+        XCTAssertNotNil(info[@"errors"][@"checkout"][@"discount"][@"code"]);
+        dispatch_semaphore_signal(semaphore);
+    }];
+    WAIT_FOR_TASK(task, semaphore);
+}
+
+
 #pragma mark - Test Data
 
 - (CHKAddress *)billingAddress
@@ -389,6 +451,27 @@
 	address.provinceCode = @"ON";
 	address.zip = @"K1N5T5";
 	return address;
+}
+
+- (CHKDiscount *)applicableDiscount
+{
+    CHKDiscount *discount = [[CHKDiscount alloc] init];
+    discount.code = @"applicable";
+    return discount;
+}
+
+- (CHKDiscount *)inapplicableDiscount
+{
+    CHKDiscount *discount = [[CHKDiscount alloc] init];
+    discount.code = @"inapplicable";
+    return discount;
+}
+
+- (CHKDiscount *)nonExistentDiscount
+{
+    CHKDiscount *discount = [[CHKDiscount alloc] init];
+    discount.code = @"asdfasdfasdfasdf";
+    return discount;
 }
 
 @end

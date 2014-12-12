@@ -15,6 +15,7 @@
 @class CHKAddress;
 @class CHKShippingRate;
 @class CHKCart;
+@class CHKDiscount;
 
 /**
  * The checkout object. This is the main object that you will interact with when creating orders on Shopify.
@@ -50,6 +51,8 @@
 
 @property (nonatomic, strong) CHKShippingRate *shippingRate;
 @property (nonatomic, readonly) NSString *shippingRateId;
+
+@property (nonatomic, strong) CHKDiscount *discount;
 
 @end
 
@@ -93,5 +96,16 @@
 @property (nonatomic, strong) NSString *shippingRateIdentifier;
 @property (nonatomic, strong) NSDecimalNumber *price;
 @property (nonatomic, copy) NSString *title;
+
+@end
+
+/**
+ * CHKDiscount represents a discount that is applied to the checkout.
+ */
+@interface CHKDiscount : MERObject <CHKSerializable>
+
+@property (nonatomic, copy) NSString *code;
+@property (nonatomic, strong) NSDecimalNumber *amount;
+@property (nonatomic, assign) BOOL applicable;
 
 @end

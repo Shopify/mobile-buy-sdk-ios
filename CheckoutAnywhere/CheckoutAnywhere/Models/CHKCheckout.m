@@ -101,6 +101,8 @@ static NSDictionary *kCHKPropertyMap = nil;
 	self.shippingAddress = [CHKAddress convertObject:dictionary[@"shipping_address"]];
 	
 	self.shippingRate = [CHKShippingRate convertObject:dictionary[@"shipping_rate"]];
+    
+    self.discount = [CHKDiscount convertObject:dictionary[@"discount"]];
 }
 
 - (id)jsonValueForValue:(id)value
@@ -217,6 +219,26 @@ static NSDictionary *kCHKPropertyMap = nil;
 	json[@"title"] = [self.title trim] ?: @"";
 	json[@"price"] = self.price ?: [NSDecimalNumber zero];
 	return json;
+}
+
+@end
+
+@implementation CHKDiscount
+
+- (void)updateWithDictionary:(NSDictionary *)dictionary
+{
+    self.code = dictionary[@"code"];
+    self.amount = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"amount"]];
+    self.applicable = [dictionary[@"applicable"] boolValue];
+}
+
+- (NSDictionary *)jsonDictionaryForCheckout
+{
+    NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
+    json[@"code"] = [self.code trim] ?: @"";
+    json[@"amount"] = self.amount ?: [NSDecimalNumber zero];
+    json[@"applicable"] = [NSNumber numberWithBool:self.applicable];
+    return json;
 }
 
 @end
