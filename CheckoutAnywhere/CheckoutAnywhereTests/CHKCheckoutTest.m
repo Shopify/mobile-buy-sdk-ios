@@ -21,6 +21,7 @@
 	CHKCheckout *_checkout;
 	CHKCart *_cart;
 	MERProductVariant *_product;
+	NSDictionary *_discountDictionary;
 }
 
 - (void)setUp
@@ -29,6 +30,7 @@
 	_checkout = [[CHKCheckout alloc] init];
 	_cart = [[CHKCart alloc] init];
 	_product = [[MERProductVariant alloc] initWithDictionary:@{ @"id" : @1 }];
+	_discountDictionary = @{ @"code" : @"abcd1234", @"amount" : @"5.00", @"applicable" : @true };
 }
 
 - (void)testInitWithCartAddsLineItems
@@ -80,6 +82,21 @@
 	NSDictionary *json = [_checkout jsonDictionaryForCheckout];
 	XCTAssertEqualObjects(json[@"checkout"][@"currency"], @"BANANA");
 	XCTAssertEqualObjects(json[@"checkout"][@"shipping_rate_id"], @"banana");
+}
+
+- (void)testDiscountDeserialization
+{
+	CHKDiscount *discount = [[CHKDiscount alloc] initWithDictionary: _discountDictionary];
+	XCTAssertEqualObjects(@"abcd1234", discount.code);
+	XCTAssertEqualObjects(@5.00, discount.amount);
+	XCTAssertEqual(true, discount.applicable);
+}
+
+- (void)testDiscountSerialization
+{
+	NSDictionary *jsonDict = @{ @"code": @"abcd1234" };
+	CHKDiscount *discount = [[CHKDiscount alloc] initWithDictionary:_discountDictionary];
+	XCTAssertEqualObjects(jsonDict, [discount jsonDictionaryForCheckout]);
 }
 
 @end

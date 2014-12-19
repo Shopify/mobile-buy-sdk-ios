@@ -104,8 +104,10 @@
  */
 @interface CHKDiscount : MERObject <CHKSerializable>
 
-@property (nonatomic, copy) NSString *code;
-@property (nonatomic, strong) NSDecimalNumber *amount;
-@property (nonatomic, assign) BOOL applicable;
+@property (nonatomic, readonly, copy) NSString *code;
+@property (nonatomic, readonly, strong) NSDecimalNumber *amount;
+@property (nonatomic, readonly, assign) BOOL applicable;
+
+- (instancetype)initWithCode:(NSString *)code;
 
 @end
