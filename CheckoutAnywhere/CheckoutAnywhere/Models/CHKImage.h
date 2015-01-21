@@ -1,5 +1,5 @@
 //
-//  MERImage.h
+//  CHKImage.h
 //  Merchant
 //
 //  Created by Joshua Tessier on 2014-09-10.
@@ -8,9 +8,9 @@
 
 @import Foundation;
 
-#import "MERObject.h"
+#import "CHKObject.h"
 
-@interface MERImage : MERObject
+@interface CHKImage : CHKObject
 
 @property (nonatomic, readonly, copy) NSString *src;
 @property (nonatomic, readonly, copy) NSArray *variantIds;

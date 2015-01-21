@@ -11,15 +11,14 @@
 
 //Data
 #import "CHKDataProvider.h"
-#import "MERDataProvider.h"
 
 //Other
 #import "CHKTestCredentials.h"
 
 //Models
 #import "CHKCart.h"
-#import "MERProduct.h"
-#import "MERProductVariant.h"
+#import "CHKProduct.h"
+#import "CHKProductVariant.h"
 #import "CHKCheckout.h"
 #import "CHKCreditCard.h"
 #import "CHKPaymentToken.h"
@@ -37,9 +36,8 @@
 
 @implementation CHKAnywhereIntegrationTest {
 	CHKDataProvider *_checkoutDataProvider;
-	MERDataProvider *_storefrontDataProvider;
 	
-	MERShop *_shop;
+	CHKShop *_shop;
 	NSMutableArray *_collections;
 	NSMutableArray *_products;
 	
@@ -56,7 +54,6 @@
 	XCTAssert([CHECKOUT_ANYHWERE_API_KEY length] > 0, @"You must provide a valid CHECKOUT_ANYHWERE_API_KEY. This is the API_KEY of your app.");
 	
 	_checkoutDataProvider = [[CHKDataProvider alloc] initWithShopDomain:CHECKOUT_ANYWHERE_SHOP apiKey:CHECKOUT_ANYHWERE_API_KEY];
-	_storefrontDataProvider = [[MERDataProvider alloc] initWithShopDomain:CHECKOUT_ANYWHERE_SHOP];
 	
 	_collections = [[NSMutableArray alloc] init];
 	_products = [[NSMutableArray alloc] init];
@@ -72,7 +69,7 @@
 - (void)fetchShop
 {
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_storefrontDataProvider getShop:^(MERShop *shop, NSError *error) {
+	NSURLSessionDataTask *task = [_checkoutDataProvider getShop:^(CHKShop *shop, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(shop);
 		
@@ -88,7 +85,7 @@
 	__block BOOL done = NO;
 	NSUInteger currentPage = 0;
 	while (done == NO) {
-		NSURLSessionDataTask *task = [_storefrontDataProvider getCollectionsPage:currentPage completion:^(NSArray *collections, NSUInteger page, BOOL reachedEnd, NSError *error) {
+		NSURLSessionDataTask *task = [_checkoutDataProvider getCollectionsPage:currentPage completion:^(NSArray *collections, NSUInteger page, BOOL reachedEnd, NSError *error) {
 			done = reachedEnd || error;
 			
 			XCTAssertNil(error);
@@ -112,7 +109,7 @@
 	__block BOOL done = NO;
 	NSUInteger currentPage = 0;
 	while (done == NO) {
-		NSURLSessionDataTask *task = [_storefrontDataProvider getProductsPage:currentPage completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+		NSURLSessionDataTask *task = [_checkoutDataProvider getProductsPage:currentPage completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 			done = reachedEnd || error;
 			
 			XCTAssertNil(error);

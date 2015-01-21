@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.
 //
 
-#import "MERProduct.h"
+#import "CHKProduct.h"
 
 //Models
-#import "MERImage.h"
-#import "MEROption.h"
-#import "MERProductVariant.h"
+#import "CHKImage.h"
+#import "CHKOption.h"
+#import "CHKProductVariant.h"
 
-@implementation MERProduct
+@implementation CHKProduct
 
 - (void)updateWithDictionary:(NSDictionary *)dictionary
 {
@@ -22,11 +22,11 @@
 	_title = [dictionary[@"title"] copy];
 	_vendor = [dictionary[@"vendor"] copy];
 	_productType = [dictionary[@"product_type"] copy];
-	_variants = [MERProductVariant convertJSONArray:dictionary[@"variants"] block:^(MERProductVariant *variant) {
+	_variants = [CHKProductVariant convertJSONArray:dictionary[@"variants"] block:^(CHKProductVariant *variant) {
 		variant.product = self;
 	}];
-	_images = [MERImage convertJSONArray:dictionary[@"images"]];
-	_options = [MEROption convertJSONArray:dictionary[@"options"]];
+	_images = [CHKImage convertJSONArray:dictionary[@"images"]];
+	_options = [CHKOption convertJSONArray:dictionary[@"options"]];
 	_htmlDescription = dictionary[@"body_html"];
 }
 

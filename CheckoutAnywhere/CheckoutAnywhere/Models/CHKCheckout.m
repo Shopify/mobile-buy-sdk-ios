@@ -14,7 +14,7 @@
 
 //Utils
 #import "NSString+Trim.h"
-#import "NSDecimalNumber+MERAdditions.h"
+#import "NSDecimalNumber+CHKAdditions.h"
 
 static NSDictionary *kCHKPropertyMap = nil;
 

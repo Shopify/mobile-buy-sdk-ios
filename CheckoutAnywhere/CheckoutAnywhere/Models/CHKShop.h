@@ -1,5 +1,5 @@
 //
-//  MERShop.h
+//  CHKShop.h
 //  Merchant
 //
 //  Created by Joshua Tessier on 2014-09-10.
@@ -8,9 +8,9 @@
 
 @import Foundation;
 
-#import "MERObject.h"
+#import "CHKObject.h"
 
-@interface MERShop : MERObject
+@interface CHKShop : CHKObject
 
 @property (nonatomic, readonly, copy) NSString *name;
 @property (nonatomic, readonly, copy) NSString *city;

@@ -6,12 +6,12 @@
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.
 //
 
-#import "MERProductVariant.h"
+#import "CHKProductVariant.h"
 
 //Additions
-#import "NSDecimalNumber+MERAdditions.h"
+#import "NSDecimalNumber+CHKAdditions.h"
 
-@implementation MERProductVariant
+@implementation CHKProductVariant
 
 - (void)updateWithDictionary:(NSDictionary *)dictionary
 {

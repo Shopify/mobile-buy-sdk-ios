@@ -12,7 +12,7 @@
 //Models
 #import "CHKCart.h"
 #import "CHKLineItem.h"
-#import "MERProductVariant.h"
+#import "CHKProductVariant.h"
 
 @interface CHKCartTest : XCTestCase
 @end
@@ -84,7 +84,7 @@
 
 - (void)testAddVariantWillAddALineItem
 {
-	MERProductVariant *variant = [[MERProductVariant alloc] initWithDictionary:@{ @"id" : @1 }];
+	CHKProductVariant *variant = [[CHKProductVariant alloc] initWithDictionary:@{ @"id" : @1 }];
 	[_cart addVariant:variant];
 	XCTAssertEqual([[_cart lineItems] count], 1);
 	XCTAssertEqualObjects([[_cart lineItems][0] variant], variant);
@@ -92,10 +92,10 @@
 
 - (void)testAddingTwoDifferentVariantsWillAddDifferentLineItems
 {
-	MERProductVariant *variant = [[MERProductVariant alloc] initWithDictionary:@{ @"id" : @1 }];
+	CHKProductVariant *variant = [[CHKProductVariant alloc] initWithDictionary:@{ @"id" : @1 }];
 	[_cart addVariant:variant];
 	
-	MERProductVariant *variant2 = [[MERProductVariant alloc] initWithDictionary:@{ @"id" : @2 }];
+	CHKProductVariant *variant2 = [[CHKProductVariant alloc] initWithDictionary:@{ @"id" : @2 }];
 	[_cart addVariant:variant2];
 	
 	XCTAssertEqual([[_cart lineItems] count], 2);
@@ -103,7 +103,7 @@
 
 - (void)testAddingAVariantOfTheSameTypeWillNotAddAnotherLineItem
 {
-	MERProductVariant *variant = [[MERProductVariant alloc] initWithDictionary:@{ @"id" : @1 }];
+	CHKProductVariant *variant = [[CHKProductVariant alloc] initWithDictionary:@{ @"id" : @1 }];
 	[_cart addVariant:variant];
 	[_cart addVariant:variant];
 	XCTAssertEqual([[_cart lineItems] count], 1);
@@ -113,7 +113,7 @@
 
 - (void)testRemovingAVariantDecrementsQuantity
 {
-	MERProductVariant *variant = [[MERProductVariant alloc] initWithDictionary:@{ @"id" : @1 }];
+	CHKProductVariant *variant = [[CHKProductVariant alloc] initWithDictionary:@{ @"id" : @1 }];
 	[_cart addVariant:variant];
 	[_cart addVariant:variant];
 	[_cart removeVariant:variant];
@@ -122,7 +122,7 @@
 
 - (void)testRemovingAllVariantsOfASingleTypeRemovesItsLineItem
 {
-	MERProductVariant *variant = [[MERProductVariant alloc] initWithDictionary:@{ @"id" : @1 }];
+	CHKProductVariant *variant = [[CHKProductVariant alloc] initWithDictionary:@{ @"id" : @1 }];
 	[_cart addVariant:variant];
 	[_cart removeVariant:variant];
 	XCTAssertEqual([[_cart lineItems] count], 0);

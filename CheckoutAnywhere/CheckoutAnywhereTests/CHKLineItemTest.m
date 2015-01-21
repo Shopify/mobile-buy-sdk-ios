@@ -11,7 +11,7 @@
 
 //Models
 #import "CHKLineItem.h"
-#import "MERProductVariant.h"
+#import "CHKProductVariant.h"
 
 @interface CHKLineItemTest : XCTestCase
 @end
@@ -38,7 +38,7 @@
 
 - (void)testJsonDictionaryDoesntIncludeVariantsWithoutIds
 {
-	_lineItem.variant = [[MERProductVariant alloc] init];
+	_lineItem.variant = [[CHKProductVariant alloc] init];
 	NSDictionary *json = [_lineItem jsonDictionaryForCheckout];
 	XCTAssertNotNil(json);
 	XCTAssertNil(json[@"variant_id"]);
@@ -46,7 +46,7 @@
 
 - (void)testJsonDictionaryShouldShowAllProperties
 {
-	_lineItem.variant = [[MERProductVariant alloc] initWithDictionary:@{ @"id" : @5 }];
+	_lineItem.variant = [[CHKProductVariant alloc] initWithDictionary:@{ @"id" : @5 }];
 	_lineItem.quantity = [NSDecimalNumber decimalNumberWithString:@"3"];
 	_lineItem.price = [NSDecimalNumber decimalNumberWithString:@"5.55"];
 	_lineItem.title = @"banana";

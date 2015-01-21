@@ -1,21 +1,21 @@
 //
-//  MERImage.m
+//  MEROption.m
 //  Merchant
 //
 //  Created by Joshua Tessier on 2014-09-10.
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.
 //
 
-#import "MERImage.h"
+#import "CHKOption.h"
 
-@implementation MERImage
+@implementation CHKOption
 
 - (void)updateWithDictionary:(NSDictionary *)dictionary
 {
 	[super updateWithDictionary:dictionary];
 	
-	_src = [dictionary[@"src"] copy];
-	_variantIds = [dictionary[@"variant_ids"] copy];
+	_name = [dictionary[@"name"] copy];
+	_position = dictionary[@"position"];
 }
 
 @end

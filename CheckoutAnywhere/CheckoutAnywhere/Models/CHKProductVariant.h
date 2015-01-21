@@ -1,5 +1,5 @@
 //
-//  MERProductVariant.h
+//  CHKProductVariant.h
 //  Merchant
 //
 //  Created by Joshua Tessier on 2014-09-10.
@@ -8,13 +8,13 @@
 
 @import Foundation;
 
-#import "MERObject.h"
+#import "CHKObject.h"
 
-@class MERProduct;
+@class CHKProduct;
 
-@interface MERProductVariant : MERObject
+@interface CHKProductVariant : CHKObject
 
-@property (nonatomic, strong) MERProduct *product;
+@property (nonatomic, strong) CHKProduct *product;
 
 @property (nonatomic, readonly, copy) NSString *title;
 @property (nonatomic, readonly, copy) NSString *option1;

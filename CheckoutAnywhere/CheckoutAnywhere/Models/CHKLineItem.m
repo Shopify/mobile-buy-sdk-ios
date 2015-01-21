@@ -9,7 +9,7 @@
 #import "CHKLineItem.h"
 
 //Model
-#import "MERProductVariant.h"
+#import "CHKProductVariant.h"
 
 //Utils
 #import "NSString+Trim.h"
@@ -21,7 +21,7 @@
 	return [self initWithVariant:nil];
 }
 
-- (instancetype)initWithVariant:(MERProductVariant *)variant
+- (instancetype)initWithVariant:(CHKProductVariant *)variant
 {
 	self = [super init];
 	if (self) {

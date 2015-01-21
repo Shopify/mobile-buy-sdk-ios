@@ -1,5 +1,5 @@
 //
-//  MERObjectTests.m
+//  CHKObjectTests.m
 //  Storefront
 //
 //  Created by Joshua Tessier on 2014-09-15.
@@ -9,9 +9,9 @@
 @import UIKit;
 @import XCTest;
 
-#import "MERObject.h"
+#import "CHKObject.h"
 
-@interface MERDirtyTracked : MERObject
+@interface CHKDirtyTracked : CHKObject
 
 @property (nonatomic, copy) NSString *dirtyObjectValue;
 @property (nonatomic, copy) NSString *s;
@@ -34,55 +34,55 @@
 
 @end
 
-@interface MERObjectSubclass : MERObject
+@interface CHKObjectSubclass : CHKObject
 @end
 
-@interface MERObjectTests : XCTestCase
+@interface CHKObjectTests : XCTestCase
 @end
 
-@implementation MERObjectTests
+@implementation CHKObjectTests
 
 - (void)testInitWithDictionaryParsesIdentifier
 {
-	MERObject *object = [[MERObject alloc] initWithDictionary:@{ @"id" : @5 }];
+	CHKObject *object = [[CHKObject alloc] initWithDictionary:@{ @"id" : @5 }];
 	XCTAssert([object isDirty] == NO);
 	XCTAssertEqual(@5, [object identifier]);
 }
 
 - (void)testInitWithDictionaryWithoutIdentifier
 {
-	MERObject *object = [[MERObject alloc] initWithDictionary:@{}];
+	CHKObject *object = [[CHKObject alloc] initWithDictionary:@{}];
 	XCTAssertNil([object identifier]);
 }
 
 - (void)testConvertObject
 {
-	MERObject *object = [MERObject convertObject:@{ @"id" : @10 }];
+	CHKObject *object = [CHKObject convertObject:@{ @"id" : @10 }];
 	XCTAssertNotNil(object);
 	XCTAssertEqual(@10, [object identifier]);
 }
 
 - (void)testConvertObjectWorksWithSubclasses
 {
-	MERObject *object = [MERObjectSubclass convertObject:@{ @"id" : @10 }];
+	CHKObject *object = [CHKObjectSubclass convertObject:@{ @"id" : @10 }];
 	XCTAssertNotNil(object);
-	XCTAssertTrue([object isKindOfClass:[MERObjectSubclass class]]);
+	XCTAssertTrue([object isKindOfClass:[CHKObjectSubclass class]]);
 	XCTAssertEqual(@10, [object identifier]);
 }
 
 - (void)testConvertJSONArrayWithEmptyArray
 {
 	NSArray *json = @[];
-	XCTAssertEqual(0, [[MERObject convertJSONArray:json] count]);
+	XCTAssertEqual(0, [[CHKObject convertJSONArray:json] count]);
 }
 
 - (void)testConvertJSONArrayCreatesObjectOfClass
 {
 	NSArray *json = @[@{ @"id" : @5 }, @{ @"id" : @7 }];
-	NSArray *convertedArray = [MERObject convertJSONArray:json];
+	NSArray *convertedArray = [CHKObject convertJSONArray:json];
 	XCTAssertEqual(2, [convertedArray count]);
-	XCTAssertTrue([convertedArray[0] isKindOfClass:[MERObject class]]);
-	XCTAssertTrue([convertedArray[1] isKindOfClass:[MERObject class]]);
+	XCTAssertTrue([convertedArray[0] isKindOfClass:[CHKObject class]]);
+	XCTAssertTrue([convertedArray[1] isKindOfClass:[CHKObject class]]);
 	XCTAssertEqualObjects(@5, [convertedArray[0] identifier]);
 	XCTAssertEqualObjects(@7, [convertedArray[1] identifier]);
 }
@@ -91,8 +91,8 @@
 {
 	NSArray *json = @[@{ @"id" : @5 }, @{ @"id" : @6 }, @{ @"id" : @7 }];
 	__block NSUInteger numberOfInvokes = 0;
-	NSArray *convertedArray = [MERObject convertJSONArray:json block:^(id obj) {
-		XCTAssertTrue([obj isKindOfClass:[MERObject class]]);
+	NSArray *convertedArray = [CHKObject convertJSONArray:json block:^(id obj) {
+		XCTAssertTrue([obj isKindOfClass:[CHKObject class]]);
 		++numberOfInvokes;
 	}];
 	XCTAssertNotNil(convertedArray);
@@ -102,7 +102,7 @@
 
 - (void)testDirtyTracking
 {
-	MERDirtyTracked *object = [[MERDirtyTracked alloc] init];
+	CHKDirtyTracked *object = [[CHKDirtyTracked alloc] init];
 	object.s = @"short property name test";
 	object.dirtyObjectValue = @"Banana";
 	object.dirtyBooleanValue = true;
@@ -130,7 +130,7 @@
 
 - (void)testIsDirtyReturnsFalseWhenClean
 {
-	MERDirtyTracked *object = [[MERDirtyTracked alloc] init];
+	CHKDirtyTracked *object = [[CHKDirtyTracked alloc] init];
 	XCTAssert([object isDirty] == NO);
 	object.dirtyObjectValue = @"Banana";
 	[object markAsClean];
@@ -139,14 +139,14 @@
 
 - (void)testIsDirtyReturnsTrueWhenDirty
 {
-	MERDirtyTracked *object = [[MERDirtyTracked alloc] init];
+	CHKDirtyTracked *object = [[CHKDirtyTracked alloc] init];
 	object.dirtyObjectValue = @"Banana";
 	XCTAssert([object isDirty]);
 }
 
 - (void)testMarkAsClean
 {
-	MERDirtyTracked *object = [[MERDirtyTracked alloc] init];
+	CHKDirtyTracked *object = [[CHKDirtyTracked alloc] init];
 	object.dirtyObjectValue = @"Banana";
 	XCTAssert([object dirtyProperties]);
 }
@@ -155,16 +155,16 @@
 
 #pragma mark - Helper Impls
 
-@implementation MERDirtyTracked
+@implementation CHKDirtyTracked
 
 + (void)initialize
 {
-	if (self == [MERDirtyTracked class]) {
+	if (self == [CHKDirtyTracked class]) {
 		[self trackDirtyProperties];
 	}
 }
 
 @end
 
-@implementation MERObjectSubclass
+@implementation CHKObjectSubclass
 @end

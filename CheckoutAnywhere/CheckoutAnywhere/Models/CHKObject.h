@@ -1,6 +1,5 @@
 //
-//  MERObject.h
-//  Merchant
+//  CHKObject.h
 //
 //  Created by Joshua Tessier on 2014-09-10.
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.
@@ -8,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MERObject : NSObject
+@interface CHKObject : NSObject
 
 @property (nonatomic, strong, readonly) NSNumber *identifier;
 @property (nonatomic, readonly, getter=isDirty) BOOL dirty;

@@ -1,5 +1,5 @@
 //
-//  MERDataProviderTests.m
+//  CHKDataProviderTest_Storefront.m
 //  Storefront
 //
 //  Created by Joshua Tessier on 2014-09-25.
@@ -9,11 +9,11 @@
 @import UIKit;
 @import XCTest;
 
-#import "MERDataProvider.h"
+#import "CHKDataProvider.h"
 
 //Model
-#import "MERProduct.h"
-#import "MERShop.h"
+#import "CHKProduct.h"
+#import "CHKShop.h"
 
 #define WAIT_FOR_TASK(task, semaphore) \
 	if (task) { \
@@ -23,17 +23,17 @@
 		XCTFail(@"Task was nil, could not wait"); \
 	} \
 
-@interface MERDataProviderTests : XCTestCase
+@interface CHKDataProviderTest_Storefront : XCTestCase
 @end
 
-@implementation MERDataProviderTests {
-	MERDataProvider *_provider;
+@implementation CHKDataProviderTest_Storefront {
+	CHKDataProvider *_provider;
 }
 
 - (void)setUp
 {
 	[super setUp];
-	_provider = [[MERDataProvider alloc] initWithShopDomain:@"ibukun.myshopify.com"];
+	_provider = [[CHKDataProvider alloc] initWithShopDomain:@"ibukun.myshopify.com" apiKey:nil];
 }
 
 - (void)testDefaultPageSize
@@ -103,7 +103,7 @@
 - (void)testGetShop
 {
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_provider getShop:^(MERShop *shop, NSError *error) {
+	NSURLSessionDataTask *task = [_provider getShop:^(CHKShop *shop, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(shop);
 		XCTAssertEqualObjects(shop.name, @"PackLeader");
@@ -116,7 +116,7 @@
 - (void)testGetProductByHandle
 {
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_provider getProductByHandle:@"dogs" completion:^(MERProduct *product, NSError *error) {
+	NSURLSessionDataTask *task = [_provider getProductByHandle:@"dogs" completion:^(CHKProduct *product, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(product);
 		XCTAssertEqualObjects(@"Dogs", [product title]);
@@ -128,7 +128,7 @@
 - (void)testHandleRequestError
 {
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_provider getProductByHandle:@"asdfdsasdfdsasdfdsasdfjkllkj" completion:^(MERProduct *product, NSError *error) {
+	NSURLSessionDataTask *task = [_provider getProductByHandle:@"asdfdsasdfdsasdfdsasdfjkllkj" completion:^(CHKProduct *product, NSError *error) {
 		XCTAssertNotNil(error);
 		XCTAssertEqual(404, [error code]);
 		dispatch_semaphore_signal(semaphore);

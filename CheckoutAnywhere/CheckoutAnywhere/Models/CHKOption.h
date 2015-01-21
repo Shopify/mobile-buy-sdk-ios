@@ -1,5 +1,5 @@
 //
-//  MEROption.h
+//  CHKOption.h
 //  Merchant
 //
 //  Created by Joshua Tessier on 2014-09-10.
@@ -8,9 +8,9 @@
 
 @import Foundation;
 
-#import "MERObject.h"
+#import "CHKObject.h"
 
-@interface MEROption : MERObject
+@interface CHKOption : CHKObject
 
 @property (nonatomic, readonly, copy) NSString *name;
 @property (nonatomic, readonly, strong) NSNumber *position;

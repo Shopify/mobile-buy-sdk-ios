@@ -6,12 +6,12 @@
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.
 //
 
-#import "MERRuntime.h"
+#import "CHKRuntime.h"
 
-#import "MERObject.h"
+#import "CHKObject.h"
 #import <objc/runtime.h>
 
-NSSet* __attribute__((overloadable)) class_getMERProperties(Class clazz, BOOL includeSuper)
+NSSet* __attribute__((overloadable)) class_getCHKProperties(Class clazz, BOOL includeSuper)
 {
 	if (clazz == [NSObject class]) {
 		return [[NSSet alloc] init];
@@ -34,14 +34,14 @@ NSSet* __attribute__((overloadable)) class_getMERProperties(Class clazz, BOOL in
 		if (includeSuper) {
 			Class superClass = class_getSuperclass(clazz);
 			if (superClass) {
-				[propertyNames unionSet:class_getMERProperties(superClass)];
+				[propertyNames unionSet:class_getCHKProperties(superClass)];
 			}
 		}
 		return [propertyNames copy];
 	}
 }
 
-NSSet* __attribute__((overloadable)) class_getMERProperties(Class clazz)
+NSSet* __attribute__((overloadable)) class_getCHKProperties(Class clazz)
 {
-	return class_getMERProperties(clazz, YES);
+	return class_getCHKProperties(clazz, YES);
 }

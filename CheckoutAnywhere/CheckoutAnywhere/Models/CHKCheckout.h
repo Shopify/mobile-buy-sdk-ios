@@ -8,7 +8,7 @@
 
 @import Foundation;
 
-#import "MERObject.h"
+#import "CHKObject.h"
 #import "CHKSerializable.h"
 
 @class CHKCreditCard;
@@ -23,7 +23,7 @@
  *
  * Do not create checkouts directly. You should use initWithCart: to transform a CHKCart into a CHKCheckout.
  */
-@interface CHKCheckout : MERObject <CHKSerializable>
+@interface CHKCheckout : CHKObject <CHKSerializable>
 
 - (instancetype)initWithCart:(CHKCart *)cart;
 - (BOOL)hasToken;
@@ -59,7 +59,7 @@
 /**
  * CHKTaxLine represents a single tax line on a checkout. Use this to display an itemized list of taxes that they are being charged for.
  */
-@interface CHKTaxLine : MERObject
+@interface CHKTaxLine : CHKObject
 
 @property (nonatomic, strong) NSDecimalNumber *price;
 @property (nonatomic, strong) NSDecimalNumber *rate;
@@ -70,7 +70,7 @@
 /**
  * A CHKAddress can represent either a shipping or billing address on an order. This will be associated with the customer upon completion.
  */
-@interface CHKAddress : MERObject <CHKSerializable>
+@interface CHKAddress : CHKObject <CHKSerializable>
 
 @property (nonatomic, copy) NSString *address1;
 @property (nonatomic, copy) NSString *address2;
@@ -91,7 +91,7 @@
 /**
  * CHKShippingRate represents the amount that the merchant is charging the customer for shipping to the specified address.
  */
-@interface CHKShippingRate : MERObject <CHKSerializable>
+@interface CHKShippingRate : CHKObject <CHKSerializable>
 
 @property (nonatomic, strong) NSString *shippingRateIdentifier;
 @property (nonatomic, strong) NSDecimalNumber *price;
@@ -102,7 +102,7 @@
 /**
  * CHKDiscount represents a discount that is applied to the checkout.
  */
-@interface CHKDiscount : MERObject <CHKSerializable>
+@interface CHKDiscount : CHKObject <CHKSerializable>
 
 @property (nonatomic, readonly, copy) NSString *code;
 @property (nonatomic, readonly, strong) NSDecimalNumber *amount;

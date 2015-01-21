@@ -12,7 +12,7 @@
 //Models
 #import "CHKCheckout.h"
 #import "CHKCart.h"
-#import "MERProductVariant.h"
+#import "CHKProductVariant.h"
 
 @interface CHKCheckoutTest : XCTestCase
 @end
@@ -20,7 +20,7 @@
 @implementation CHKCheckoutTest {
 	CHKCheckout *_checkout;
 	CHKCart *_cart;
-	MERProductVariant *_product;
+	CHKProductVariant *_product;
 	NSDictionary *_discountDictionary;
 }
 
@@ -29,7 +29,7 @@
 	[super setUp];
 	_checkout = [[CHKCheckout alloc] init];
 	_cart = [[CHKCart alloc] init];
-	_product = [[MERProductVariant alloc] initWithDictionary:@{ @"id" : @1 }];
+	_product = [[CHKProductVariant alloc] initWithDictionary:@{ @"id" : @1 }];
 	_discountDictionary = @{ @"code" : @"abcd1234", @"amount" : @"5.00", @"applicable" : @true };
 }
 

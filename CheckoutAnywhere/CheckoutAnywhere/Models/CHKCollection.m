@@ -6,12 +6,12 @@
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.
 //
 
-#import "MERCollection.h"
+#import "CHKCollection.h"
 
 //Models
-#import "MERImage.h"
+#import "CHKImage.h"
 
-@implementation MERCollection
+@implementation CHKCollection
 
 - (void)updateWithDictionary:(NSDictionary *)dictionary
 {
@@ -19,12 +19,12 @@
 	
 	_title = [dictionary[@"title"] copy];
 	_handle = [dictionary[@"handle"] copy];
-	_image = [MERImage convertObject:dictionary[@"image"]];
+	_image = [CHKImage convertObject:dictionary[@"image"]];
 	_productsCount = dictionary[@"products_count"];
 	_featured = [dictionary[@"featured"] boolValue];
 }
 
-- (NSComparisonResult)compare:(MERCollection*)otherCollection
+- (NSComparisonResult)compare:(CHKCollection*)otherCollection
 {
 	NSComparisonResult result = NSOrderedDescending;
 	if (self.featured == otherCollection.featured) {
