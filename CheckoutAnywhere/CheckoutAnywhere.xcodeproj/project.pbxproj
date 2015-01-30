@@ -106,6 +106,7 @@
 		F773749519C77C260039681C /* CHKCheckout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKCheckout.m; sourceTree = "<group>"; };
 		F77374AA19C796BD0039681C /* CHKCreditCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKCreditCard.h; sourceTree = "<group>"; };
 		F77374AB19C796BD0039681C /* CHKCreditCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKCreditCard.m; sourceTree = "<group>"; };
+		F777D5B41A422BD200280B1B /* CheckoutAnywhere.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckoutAnywhere.h; sourceTree = "<group>"; };
 		F79CE45219CC612700C9AFAB /* CHKAnywhereIntegrationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKAnywhereIntegrationTest.m; sourceTree = "<group>"; };
 		F7AB6AB819CFCE6A00115224 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		F7D156F719E30AC000D38D67 /* CHKTestCredentials.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHKTestCredentials.h; sourceTree = "<group>"; };
@@ -223,6 +224,7 @@
 				2AF52A821A700B0A0087DB2C /* CHKProductVariant.m */,
 				2AF52A831A700B0A0087DB2C /* CHKShop.h */,
 				2AF52A841A700B0A0087DB2C /* CHKShop.m */,
+				F777D5B41A422BD200280B1B /* CheckoutAnywhere.h */,
 				F773744719C77A210039681C /* CHKCart.h */,
 				F773744819C77A210039681C /* CHKCart.m */,
 				F773749419C77C260039681C /* CHKCheckout.h */,

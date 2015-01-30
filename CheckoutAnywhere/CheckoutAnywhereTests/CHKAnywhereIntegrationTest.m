@@ -9,19 +9,8 @@
 @import UIKit;
 @import XCTest;
 
-//Data
-#import "CHKDataProvider.h"
-
-//Other
+#import "CheckoutAnywhere.h"
 #import "CHKTestCredentials.h"
-
-//Models
-#import "CHKCart.h"
-#import "CHKProduct.h"
-#import "CHKProductVariant.h"
-#import "CHKCheckout.h"
-#import "CHKCreditCard.h"
-#import "CHKPaymentToken.h"
 
 #define WAIT_FOR_TASK(task, sempahore) \
 	if (task) { \
