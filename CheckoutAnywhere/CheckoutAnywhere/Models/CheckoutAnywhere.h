@@ -15,12 +15,11 @@
 #import "CHKLineItem.h"
 #import "CHKDataProvider.h"
 
-#import "MERCollection.h"
-#import "MERImage.h"
-#import "MEROption.h"
-#import "MERProduct.h"
-#import "MERProductVariant.h"
-#import "MERShop.h"
-#import "MERDataProvider.h"
+#import "CHKCollection.h"
+#import "CHKImage.h"
+#import "CHKOption.h"
+#import "CHKProduct.h"
+#import "CHKProductVariant.h"
+#import "CHKShop.h"
 
 #endif

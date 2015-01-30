@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MERRuntime : NSObject
+@interface CHKRuntime : NSObject
 
-OBJC_EXTERN NSSet* __attribute__((overloadable)) class_getMERProperties(Class clazz);
+OBJC_EXTERN NSSet* __attribute__((overloadable)) class_getCHKProperties(Class clazz);
 
 @end

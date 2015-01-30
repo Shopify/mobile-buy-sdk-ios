@@ -11,7 +11,7 @@
 #import "CHKSerializable.h"
 
 @class CHKLineItem;
-@class MERProductVariant;
+@class CHKProductVariant;
 
 /**
  * The CHKCart is the starting point for the Checkout API. You are responsible for building a cart, then transforming it 
@@ -36,12 +36,12 @@
 /**
  * Adds a variant to the cart. If the existing line item exists, that line item's quantity is increased by one.
  */
-- (void)addVariant:(MERProductVariant *)variant;
+- (void)addVariant:(CHKProductVariant *)variant;
 
 /**
  * Removes a variant from the cart. If the existing line item exists, that line item's quantity is decreased by one.
  */
-- (void)removeVariant:(MERProductVariant *)variant;
+- (void)removeVariant:(CHKProductVariant *)variant;
 
 #pragma mark - Direct Line Item Editing
 

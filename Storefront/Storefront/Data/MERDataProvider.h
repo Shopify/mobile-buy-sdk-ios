@@ -8,15 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-@class MERShop;
-@class MERCollection;
-@class MERProduct;
-@class MERProductVariant;
+@class CHKShop;
+@class CHKCollection;
+@class CHKProduct;
+@class CHKProductVariant;
 
-typedef void (^MERDataShopBlock)(MERShop *shop, NSError *error);
-typedef void (^MERDataCollectionBlock)(MERCollection *collection, NSError *error);
+typedef void (^MERDataShopBlock)(CHKShop *shop, NSError *error);
+typedef void (^MERDataCollectionBlock)(CHKCollection *collection, NSError *error);
 typedef void (^MERDataCollectionListBlock)(NSArray *collections, NSUInteger page, BOOL reachedEnd, NSError *error);
-typedef void (^MERDataProductBlock)(MERProduct *product, NSError *error);
+typedef void (^MERDataProductBlock)(CHKProduct *product, NSError *error);
 typedef void (^MERDataProductListBlock)(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error);
 typedef void (^MERDataImagesListBlock)(NSArray *images, NSError *error);
 
@@ -55,6 +55,6 @@ typedef void (^MERDataImagesListBlock)(NSArray *images, NSError *error);
 /**
  * Fetches a single page of products for the shop.
  */
-- (NSURLSessionDataTask *)getProductsInCollection:(MERCollection*)collection page:(NSUInteger)page completion:(MERDataProductListBlock)block;
+- (NSURLSessionDataTask *)getProductsInCollection:(CHKCollection*)collection page:(NSUInteger)page completion:(MERDataProductListBlock)block;
 
 @end

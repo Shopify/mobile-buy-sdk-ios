@@ -9,19 +9,19 @@
 #import <Foundation/Foundation.h>
 
 #import "CHKSerializable.h"
-#import "MERObject.h"
+#import "CHKObject.h"
 
-@class MERProductVariant;
+@class CHKProductVariant;
 
 /**
  * This represents a line item on a Cart or on a Checkout.
  */
-@interface CHKLineItem : MERObject <CHKSerializable>
+@interface CHKLineItem : CHKObject <CHKSerializable>
 
 /**
  * Optional product variant.
  */
-@property (nonatomic, strong) MERProductVariant *variant;
+@property (nonatomic, strong) CHKProductVariant *variant;
 
 /**
  * The quantity of the line item.
@@ -38,6 +38,6 @@
  */
 @property (nonatomic, copy) NSString *title;
 
-- (instancetype)initWithVariant:(MERProductVariant *)variant;
+- (instancetype)initWithVariant:(CHKProductVariant *)variant;
 
 @end

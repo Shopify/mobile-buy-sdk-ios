@@ -9,7 +9,7 @@
 #import "CHKCart.h"
 
 //Models
-#import "MERProductVariant.h"
+#import "CHKProductVariant.h"
 #import "CHKLineItem.h"
 
 @implementation CHKCart {
@@ -47,7 +47,7 @@
 
 #pragma mark - Simple Cart Editing
 
-- (void)createLineItem:(MERProductVariant *)variant
+- (void)createLineItem:(CHKProductVariant *)variant
 {
 	CHKLineItem *lineItem = [[CHKLineItem alloc] initWithVariant:variant];
 	if (variant.identifier) {
@@ -56,7 +56,7 @@
 	[_lineItems addObject:lineItem];
 }
 
-- (void)addVariant:(MERProductVariant *)variant
+- (void)addVariant:(CHKProductVariant *)variant
 {
 	CHKLineItem *existingLineItem = [self lineItemForVariant:variant];
 	if (existingLineItem) {
@@ -67,7 +67,7 @@
 	}
 }
 
-- (void)removeVariant:(MERProductVariant *)variant
+- (void)removeVariant:(CHKProductVariant *)variant
 {
 	CHKLineItem *existingLineItem = [self lineItemForVariant:variant];
 	if (existingLineItem) {
@@ -99,12 +99,12 @@
 
 #pragma mark - Helpers
 
-- (CHKLineItem *)lineItemForVariant:(MERProductVariant *)variant
+- (CHKLineItem *)lineItemForVariant:(CHKProductVariant *)variant
 {
 	return variant.identifier ? _variantToLineItem[variant.identifier] : nil;
 }
 
-- (void)removeVariantFromCache:(MERProductVariant *)variant
+- (void)removeVariantFromCache:(CHKProductVariant *)variant
 {
 	if (variant.identifier) {
 		[_variantToLineItem removeObjectForKey:variant.identifier];

@@ -7,9 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2A6755B519FAA63500C9E5E7 /* libCheckoutAnywhere.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F773741D19C770CB0039681C /* libCheckoutAnywhere.a */; };
 		2AD315511A0AA8B20001E40A /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A54742D1A0AA61600822409 /* PassKit.framework */; };
 		2AD315581A0AAE350001E40A /* CHKPaymentToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD315571A0AAE350001E40A /* CHKPaymentToken.m */; };
+		2AF52A751A700AC80087DB2C /* CHKRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A741A700AC80087DB2C /* CHKRuntime.m */; };
+		2AF52A761A700AC80087DB2C /* CHKRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A741A700AC80087DB2C /* CHKRuntime.m */; };
+		2AF52A851A700B0A0087DB2C /* CHKCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A781A700B0A0087DB2C /* CHKCollection.m */; };
+		2AF52A861A700B0A0087DB2C /* CHKCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A781A700B0A0087DB2C /* CHKCollection.m */; };
+		2AF52A871A700B0A0087DB2C /* CHKImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A7A1A700B0A0087DB2C /* CHKImage.m */; };
+		2AF52A881A700B0A0087DB2C /* CHKImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A7A1A700B0A0087DB2C /* CHKImage.m */; };
+		2AF52A891A700B0A0087DB2C /* CHKProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A7D1A700B0A0087DB2C /* CHKProduct.m */; };
+		2AF52A8A1A700B0A0087DB2C /* CHKProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A7D1A700B0A0087DB2C /* CHKProduct.m */; };
+		2AF52A8D1A700B0A0087DB2C /* CHKOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A801A700B0A0087DB2C /* CHKOption.m */; };
+		2AF52A8E1A700B0A0087DB2C /* CHKOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A801A700B0A0087DB2C /* CHKOption.m */; };
+		2AF52A8F1A700B0A0087DB2C /* CHKProductVariant.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A821A700B0A0087DB2C /* CHKProductVariant.m */; };
+		2AF52A901A700B0A0087DB2C /* CHKProductVariant.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A821A700B0A0087DB2C /* CHKProductVariant.m */; };
+		2AF52A911A700B0A0087DB2C /* CHKShop.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A841A700B0A0087DB2C /* CHKShop.m */; };
+		2AF52A921A700B0A0087DB2C /* CHKShop.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A841A700B0A0087DB2C /* CHKShop.m */; };
+		2AF52A951A7010B20087DB2C /* CHKObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A941A7010B20087DB2C /* CHKObject.mm */; };
+		2AF52A961A7010B20087DB2C /* CHKObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A941A7010B20087DB2C /* CHKObject.mm */; };
+		2AF52A9D1A7011DC0087DB2C /* NSDecimalNumber+CHKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A9C1A7011DC0087DB2C /* NSDecimalNumber+CHKAdditions.m */; };
+		2AF52A9E1A7011DC0087DB2C /* NSDecimalNumber+CHKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A9C1A7011DC0087DB2C /* NSDecimalNumber+CHKAdditions.m */; };
+		2AF52AA11A704C9A0087DB2C /* CHKObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A9F1A704C9A0087DB2C /* CHKObjectTests.m */; };
+		2AF52AA41A704D620087DB2C /* CHKDataProviderTest_Storefront.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52AA21A704D620087DB2C /* CHKDataProviderTest_Storefront.m */; };
+		2AF52AA51A705CDE0087DB2C /* CHKCheckout.m in Sources */ = {isa = PBXBuildFile; fileRef = F773749519C77C260039681C /* CHKCheckout.m */; };
+		2AF52AA61A705CF50087DB2C /* CHKCart.m in Sources */ = {isa = PBXBuildFile; fileRef = F773744819C77A210039681C /* CHKCart.m */; };
+		2AF52AA71A705D1C0087DB2C /* CHKDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDA17119C93F6F00AF4E93 /* CHKDataProvider.m */; };
+		2AF52AA81A705D2D0087DB2C /* CHKCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = F77374AB19C796BD0039681C /* CHKCreditCard.m */; };
+		2AF52AA91A705D400087DB2C /* CHKLineItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDA16D19C939FF00AF4E93 /* CHKLineItem.m */; };
+		2AF52AAA1A705F7E0087DB2C /* NSString+Trim.m in Sources */ = {isa = PBXBuildFile; fileRef = F76CFF1C19CB7BE30079C703 /* NSString+Trim.m */; };
 		F74EC5861A314381005F39DB /* CHKDataProviderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F74EC5851A314381005F39DB /* CHKDataProviderTest.m */; };
 		F76CFF1D19CB7BE30079C703 /* NSString+Trim.m in Sources */ = {isa = PBXBuildFile; fileRef = F76CFF1C19CB7BE30079C703 /* NSString+Trim.m */; };
 		F76CFF2519CB7D750079C703 /* CHKCheckoutTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F76CFF2419CB7D750079C703 /* CHKCheckoutTest.m */; };
@@ -22,34 +47,9 @@
 		F77374AC19C796BD0039681C /* CHKCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = F77374AB19C796BD0039681C /* CHKCreditCard.m */; };
 		F79CE45319CC612700C9AFAB /* CHKAnywhereIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F79CE45219CC612700C9AFAB /* CHKAnywhereIntegrationTest.m */; };
 		F7AB6ABC19CFCEBF00115224 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AB6AB819CFCE6A00115224 /* libstdc++.dylib */; };
-		F7C64EBF19DA668D002B85B0 /* libStorefront.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7C64EBE19DA668D002B85B0 /* libStorefront.a */; };
 		F7FDA16E19C939FF00AF4E93 /* CHKLineItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDA16D19C939FF00AF4E93 /* CHKLineItem.m */; };
 		F7FDA17219C93F6F00AF4E93 /* CHKDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDA17119C93F6F00AF4E93 /* CHKDataProvider.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		F7848E5D1A1B9E8400B89E96 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F7C64EB519DA65D9002B85B0 /* Storefront.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = F773745319C77B160039681C;
-			remoteInfo = Storefront;
-		};
-		F7FBFB0219DB5A0A0077EEB3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F7C64EB519DA65D9002B85B0 /* Storefront.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F773745419C77B160039681C;
-			remoteInfo = Storefront;
-		};
-		F7FBFB0419DB5A0A0077EEB3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F7C64EB519DA65D9002B85B0 /* Storefront.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F773745F19C77B160039681C;
-			remoteInfo = StorefrontTests;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		F773741B19C770CB0039681C /* CopyFiles */ = {
@@ -67,6 +67,26 @@
 		2A54742D1A0AA61600822409 /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 		2AD315561A0AAE350001E40A /* CHKPaymentToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHKPaymentToken.h; path = Models/CHKPaymentToken.h; sourceTree = "<group>"; };
 		2AD315571A0AAE350001E40A /* CHKPaymentToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHKPaymentToken.m; path = Models/CHKPaymentToken.m; sourceTree = "<group>"; };
+		2AF52A731A700AC80087DB2C /* CHKRuntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKRuntime.h; sourceTree = "<group>"; };
+		2AF52A741A700AC80087DB2C /* CHKRuntime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKRuntime.m; sourceTree = "<group>"; };
+		2AF52A771A700B0A0087DB2C /* CHKCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKCollection.h; sourceTree = "<group>"; };
+		2AF52A781A700B0A0087DB2C /* CHKCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKCollection.m; sourceTree = "<group>"; };
+		2AF52A791A700B0A0087DB2C /* CHKImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKImage.h; sourceTree = "<group>"; };
+		2AF52A7A1A700B0A0087DB2C /* CHKImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKImage.m; sourceTree = "<group>"; };
+		2AF52A7C1A700B0A0087DB2C /* CHKProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKProduct.h; sourceTree = "<group>"; };
+		2AF52A7D1A700B0A0087DB2C /* CHKProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKProduct.m; sourceTree = "<group>"; };
+		2AF52A7F1A700B0A0087DB2C /* CHKOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKOption.h; sourceTree = "<group>"; };
+		2AF52A801A700B0A0087DB2C /* CHKOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKOption.m; sourceTree = "<group>"; };
+		2AF52A811A700B0A0087DB2C /* CHKProductVariant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKProductVariant.h; sourceTree = "<group>"; };
+		2AF52A821A700B0A0087DB2C /* CHKProductVariant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKProductVariant.m; sourceTree = "<group>"; };
+		2AF52A831A700B0A0087DB2C /* CHKShop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKShop.h; sourceTree = "<group>"; };
+		2AF52A841A700B0A0087DB2C /* CHKShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKShop.m; sourceTree = "<group>"; };
+		2AF52A931A7010B20087DB2C /* CHKObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKObject.h; sourceTree = "<group>"; };
+		2AF52A941A7010B20087DB2C /* CHKObject.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CHKObject.mm; sourceTree = "<group>"; };
+		2AF52A9B1A7011DC0087DB2C /* NSDecimalNumber+CHKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDecimalNumber+CHKAdditions.h"; sourceTree = "<group>"; };
+		2AF52A9C1A7011DC0087DB2C /* NSDecimalNumber+CHKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDecimalNumber+CHKAdditions.m"; sourceTree = "<group>"; };
+		2AF52A9F1A704C9A0087DB2C /* CHKObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKObjectTests.m; sourceTree = "<group>"; };
+		2AF52AA21A704D620087DB2C /* CHKDataProviderTest_Storefront.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKDataProviderTest_Storefront.m; sourceTree = "<group>"; };
 		F74EC5851A314381005F39DB /* CHKDataProviderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKDataProviderTest.m; sourceTree = "<group>"; };
 		F76CFF1B19CB7BE30079C703 /* NSString+Trim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Trim.h"; sourceTree = "<group>"; };
 		F76CFF1C19CB7BE30079C703 /* NSString+Trim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Trim.m"; sourceTree = "<group>"; };
@@ -89,8 +109,6 @@
 		F777D5B41A422BD200280B1B /* CheckoutAnywhere.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckoutAnywhere.h; sourceTree = "<group>"; };
 		F79CE45219CC612700C9AFAB /* CHKAnywhereIntegrationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKAnywhereIntegrationTest.m; sourceTree = "<group>"; };
 		F7AB6AB819CFCE6A00115224 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
-		F7C64EB519DA65D9002B85B0 /* Storefront.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Storefront.xcodeproj; path = ../Storefront/Storefront.xcodeproj; sourceTree = "<group>"; };
-		F7C64EBE19DA668D002B85B0 /* libStorefront.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libStorefront.a; path = "../Storefront/build/Debug-iphoneos/libStorefront.a"; sourceTree = "<group>"; };
 		F7D156F719E30AC000D38D67 /* CHKTestCredentials.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHKTestCredentials.h; sourceTree = "<group>"; };
 		F7FDA16C19C939FF00AF4E93 /* CHKLineItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKLineItem.h; sourceTree = "<group>"; };
 		F7FDA16D19C939FF00AF4E93 /* CHKLineItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKLineItem.m; sourceTree = "<group>"; };
@@ -104,7 +122,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2AD315511A0AA8B20001E40A /* PassKit.framework in Frameworks */,
-				F7C64EBF19DA668D002B85B0 /* libStorefront.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,7 +129,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A6755B519FAA63500C9E5E7 /* libCheckoutAnywhere.a in Frameworks */,
 				F7AB6ABC19CFCEBF00115224 /* libstdc++.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -132,9 +148,7 @@
 		547B8D0CCDB9458C800F1E3C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F7C64EB519DA65D9002B85B0 /* Storefront.xcodeproj */,
 				2A54742D1A0AA61600822409 /* PassKit.framework */,
-				F7C64EBE19DA668D002B85B0 /* libStorefront.a */,
 				F7AB6AB819CFCE6A00115224 /* libstdc++.dylib */,
 			);
 			name = Frameworks;
@@ -169,6 +183,8 @@
 				F76CFF2919CB830D0079C703 /* CHKLineItemTest.m */,
 				F79CE45219CC612700C9AFAB /* CHKAnywhereIntegrationTest.m */,
 				F74EC5851A314381005F39DB /* CHKDataProviderTest.m */,
+				2AF52AA21A704D620087DB2C /* CHKDataProviderTest_Storefront.m */,
+				2AF52A9F1A704C9A0087DB2C /* CHKObjectTests.m */,
 			);
 			path = CheckoutAnywhereTests;
 			sourceTree = "<group>";
@@ -194,6 +210,20 @@
 		F773744419C779C20039681C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2AF52A931A7010B20087DB2C /* CHKObject.h */,
+				2AF52A941A7010B20087DB2C /* CHKObject.mm */,
+				2AF52A771A700B0A0087DB2C /* CHKCollection.h */,
+				2AF52A781A700B0A0087DB2C /* CHKCollection.m */,
+				2AF52A791A700B0A0087DB2C /* CHKImage.h */,
+				2AF52A7A1A700B0A0087DB2C /* CHKImage.m */,
+				2AF52A7C1A700B0A0087DB2C /* CHKProduct.h */,
+				2AF52A7D1A700B0A0087DB2C /* CHKProduct.m */,
+				2AF52A7F1A700B0A0087DB2C /* CHKOption.h */,
+				2AF52A801A700B0A0087DB2C /* CHKOption.m */,
+				2AF52A811A700B0A0087DB2C /* CHKProductVariant.h */,
+				2AF52A821A700B0A0087DB2C /* CHKProductVariant.m */,
+				2AF52A831A700B0A0087DB2C /* CHKShop.h */,
+				2AF52A841A700B0A0087DB2C /* CHKShop.m */,
 				F777D5B41A422BD200280B1B /* CheckoutAnywhere.h */,
 				F773744719C77A210039681C /* CHKCart.h */,
 				F773744819C77A210039681C /* CHKCart.m */,
@@ -211,6 +241,10 @@
 		F773744519C779C20039681C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				2AF52A9B1A7011DC0087DB2C /* NSDecimalNumber+CHKAdditions.h */,
+				2AF52A9C1A7011DC0087DB2C /* NSDecimalNumber+CHKAdditions.m */,
+				2AF52A731A700AC80087DB2C /* CHKRuntime.h */,
+				2AF52A741A700AC80087DB2C /* CHKRuntime.m */,
 				F76CFF1B19CB7BE30079C703 /* NSString+Trim.h */,
 				F76CFF1C19CB7BE30079C703 /* NSString+Trim.m */,
 			);
@@ -237,15 +271,6 @@
 			name = Classes;
 			sourceTree = "<group>";
 		};
-		F7FBFAFE19DB5A090077EEB3 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				F7FBFB0319DB5A0A0077EEB3 /* libStorefront.a */,
-				F7FBFB0519DB5A0A0077EEB3 /* StorefrontTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		F7FDA16F19C93F6100AF4E93 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -269,7 +294,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				F7848E5E1A1B9E8400B89E96 /* PBXTargetDependency */,
 			);
 			name = CheckoutAnywhere;
 			productName = CheckoutAnywhere;
@@ -321,12 +345,6 @@
 			mainGroup = F773741419C770CB0039681C;
 			productRefGroup = F773741E19C770CB0039681C /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = F7FBFAFE19DB5A090077EEB3 /* Products */;
-					ProjectRef = F7C64EB519DA65D9002B85B0 /* Storefront.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				F773741C19C770CB0039681C /* CheckoutAnywhere */,
@@ -334,23 +352,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		F7FBFB0319DB5A0A0077EEB3 /* libStorefront.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libStorefront.a;
-			remoteRef = F7FBFB0219DB5A0A0077EEB3 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F7FBFB0519DB5A0A0077EEB3 /* StorefrontTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = StorefrontTests.xctest;
-			remoteRef = F7FBFB0419DB5A0A0077EEB3 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		F773742619C770CB0039681C /* Resources */ = {
@@ -370,11 +371,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				F77374AC19C796BD0039681C /* CHKCreditCard.m in Sources */,
+				2AF52A911A700B0A0087DB2C /* CHKShop.m in Sources */,
 				F773744919C77A210039681C /* CHKCart.m in Sources */,
 				F773749619C77C260039681C /* CHKCheckout.m in Sources */,
 				F7FDA17219C93F6F00AF4E93 /* CHKDataProvider.m in Sources */,
 				F76CFF1D19CB7BE30079C703 /* NSString+Trim.m in Sources */,
+				2AF52A8F1A700B0A0087DB2C /* CHKProductVariant.m in Sources */,
 				F7FDA16E19C939FF00AF4E93 /* CHKLineItem.m in Sources */,
+				2AF52A851A700B0A0087DB2C /* CHKCollection.m in Sources */,
+				2AF52A871A700B0A0087DB2C /* CHKImage.m in Sources */,
+				2AF52A9D1A7011DC0087DB2C /* NSDecimalNumber+CHKAdditions.m in Sources */,
+				2AF52A891A700B0A0087DB2C /* CHKProduct.m in Sources */,
+				2AF52A751A700AC80087DB2C /* CHKRuntime.m in Sources */,
+				2AF52A8D1A700B0A0087DB2C /* CHKOption.m in Sources */,
+				2AF52A951A7010B20087DB2C /* CHKObject.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,24 +392,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AF52AAA1A705F7E0087DB2C /* NSString+Trim.m in Sources */,
+				2AF52AA91A705D400087DB2C /* CHKLineItem.m in Sources */,
+				2AF52AA81A705D2D0087DB2C /* CHKCreditCard.m in Sources */,
+				2AF52AA71A705D1C0087DB2C /* CHKDataProvider.m in Sources */,
+				2AF52AA61A705CF50087DB2C /* CHKCart.m in Sources */,
+				2AF52AA51A705CDE0087DB2C /* CHKCheckout.m in Sources */,
 				F79CE45319CC612700C9AFAB /* CHKAnywhereIntegrationTest.m in Sources */,
+				2AF52A921A700B0A0087DB2C /* CHKShop.m in Sources */,
+				2AF52AA41A704D620087DB2C /* CHKDataProviderTest_Storefront.m in Sources */,
 				F76CFF2519CB7D750079C703 /* CHKCheckoutTest.m in Sources */,
 				2AD315581A0AAE350001E40A /* CHKPaymentToken.m in Sources */,
 				F74EC5861A314381005F39DB /* CHKDataProviderTest.m in Sources */,
+				2AF52AA11A704C9A0087DB2C /* CHKObjectTests.m in Sources */,
 				F76CFF2A19CB830D0079C703 /* CHKLineItemTest.m in Sources */,
+				2AF52A901A700B0A0087DB2C /* CHKProductVariant.m in Sources */,
 				F76CFF2719CB7E7B0079C703 /* CHKCartTest.m in Sources */,
+				2AF52A861A700B0A0087DB2C /* CHKCollection.m in Sources */,
+				2AF52A881A700B0A0087DB2C /* CHKImage.m in Sources */,
+				2AF52A9E1A7011DC0087DB2C /* NSDecimalNumber+CHKAdditions.m in Sources */,
+				2AF52A8A1A700B0A0087DB2C /* CHKProduct.m in Sources */,
+				2AF52A761A700AC80087DB2C /* CHKRuntime.m in Sources */,
+				2AF52A8E1A700B0A0087DB2C /* CHKOption.m in Sources */,
+				2AF52A961A7010B20087DB2C /* CHKObject.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		F7848E5E1A1B9E8400B89E96 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Storefront;
-			targetProxy = F7848E5D1A1B9E8400B89E96 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		F773742C19C770CB0039681C /* Debug */ = {

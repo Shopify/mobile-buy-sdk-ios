@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "ShopifyCheckoutAnywhere"
-  s.version      = "0.9"
+  s.version      = "0.9.1"
   s.summary      = "An iOS library to create apps to purchase items off of Shopify Stores."
 
   s.description  = <<-DESC
@@ -11,16 +11,10 @@ Pod::Spec.new do |s|
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.author       = "Shopify Inc."
   s.platform     = :ios, "8.0"
-  s.source       = { :git => "git@github.com:Shopify/checkout-anywhere-ios.git", :tag => "0.9" }
+  s.source       = { :git => "git@github.com:Shopify/checkout-anywhere-ios.git", :tag => "0.9.1" }
   s.requires_arc = true
 
-  s.subspec "ShopifyStorefront" do |subspec|
-    subspec.source_files           = 'Storefront/Storefront/**/*.{h,m,mm}'
-    subspec.public_header_files    = 'Storefront/Storefront/**/*.h'
-  end
-
   s.subspec "ShopifyCheckout" do |subspec|
-    subspec.dependency               "ShopifyCheckoutAnywhere/ShopifyStorefront"
     subspec.source_files           = "CheckoutAnywhere/CheckoutAnywhere/**/*.{h,m}"
     subspec.public_header_files    = 'CheckoutAnywhere/CheckoutAnywhere/**/*.h'
   end

@@ -1,21 +1,20 @@
 //
-//  MERObject.m
-//  Merchant
+//  CHKObject.m
 //
 //  Created by Joshua Tessier on 2014-09-10.
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.
 //
 
-#import "MERObject.h"
+#import "CHKObject.h"
 
 //Runtime
 #import <objc/runtime.h>
 #import <objc/message.h>
-#import "MERRuntime.h"
+#import "CHKRuntime.h"
 
 namespace shopify
 {
-	namespace merchant
+	namespace checkout
 	{
 		/**
 		 * Creates and returns a block that is used as the setter method for the persisted subclasses
@@ -37,7 +36,7 @@ namespace shopify
 	}
 }
 
-@implementation MERObject {
+@implementation CHKObject {
 	NSMutableSet *_dirtyProperties;
 }
 
@@ -66,7 +65,7 @@ namespace shopify
 {
 	NSMutableArray *objects = [[NSMutableArray alloc] init];
 	for (NSDictionary *jsonObject in json) {
-		MERObject *obj = [[self alloc] initWithDictionary:jsonObject];
+		CHKObject *obj = [[self alloc] initWithDictionary:jsonObject];
 		[objects addObject:obj];
 		if (createdBlock) {
 			createdBlock(obj);
@@ -82,7 +81,7 @@ namespace shopify
 
 + (instancetype)convertObject:(id)object
 {
-	MERObject *convertedObject = nil;
+	CHKObject *convertedObject = nil;
 	if (!(object == nil || [object isKindOfClass:[NSNull class]])) {
 		convertedObject = [[self alloc] initWithDictionary:object];
 	}
@@ -118,72 +117,72 @@ namespace shopify
 	switch (typeEncoding[0]) {
 		case '@': // object
 		{
-			setterBlock = shopify::merchant::attribute_setter<id>(property, selector);
+			setterBlock = shopify::checkout::attribute_setter<id>(property, selector);
 			break;
 		}
 		case 'B': // C++ style bool/_Bool
 		{
-			setterBlock = shopify::merchant::attribute_setter<bool>(property, selector);
+			setterBlock = shopify::checkout::attribute_setter<bool>(property, selector);
 			break;
 		}
 		case 'c': // char
 		{
-			setterBlock = shopify::merchant::attribute_setter<char>(property, selector);
+			setterBlock = shopify::checkout::attribute_setter<char>(property, selector);
 			break;
 		}
 		case 'C': // unsigned char
 		{
-			setterBlock = shopify::merchant::attribute_setter<unsigned char>(property, selector);
+			setterBlock = shopify::checkout::attribute_setter<unsigned char>(property, selector);
 			break;
 		}
 		case 'i': // int
 		{
-			setterBlock = shopify::merchant::attribute_setter<int>(property, selector);
+			setterBlock = shopify::checkout::attribute_setter<int>(property, selector);
 			break;
 		}
 		case 'I': // unsigned int
 		{
-			setterBlock = shopify::merchant::attribute_setter<unsigned int>(property, selector);
+			setterBlock = shopify::checkout::attribute_setter<unsigned int>(property, selector);
 			break;
 		}
 		case 's': // short
 		{
-			setterBlock = shopify::merchant::attribute_setter<short>(property, selector);
+			setterBlock = shopify::checkout::attribute_setter<short>(property, selector);
 			break;
 		}
 		case 'S': // unsigned short
 		{
-			setterBlock = shopify::merchant::attribute_setter<unsigned short>(property, selector);
+			setterBlock = shopify::checkout::attribute_setter<unsigned short>(property, selector);
 			break;
 		}
 		case 'l': // long
 		{
-			setterBlock = shopify::merchant::attribute_setter<long>(property, selector);
+			setterBlock = shopify::checkout::attribute_setter<long>(property, selector);
 			break;
 		}
 		case 'L': // unsigned long
 		{
-			setterBlock = shopify::merchant::attribute_setter<unsigned long>(property, selector);
+			setterBlock = shopify::checkout::attribute_setter<unsigned long>(property, selector);
 			break;
 		}
 		case 'q': // long long
 		{
-			setterBlock = shopify::merchant::attribute_setter<long long>(property, selector);
+			setterBlock = shopify::checkout::attribute_setter<long long>(property, selector);
 			break;
 		}
 		case 'Q': // unsigned long long
 		{
-			setterBlock = shopify::merchant::attribute_setter<unsigned long long>(property, selector);
+			setterBlock = shopify::checkout::attribute_setter<unsigned long long>(property, selector);
 			break;
 		}
 		case 'f': // float
 		{
-			setterBlock = shopify::merchant::attribute_setter<float>(property, selector);
+			setterBlock = shopify::checkout::attribute_setter<float>(property, selector);
 			break;
 		}
 		case 'd': // double
 		{
-			setterBlock = shopify::merchant::attribute_setter<double>(property, selector);
+			setterBlock = shopify::checkout::attribute_setter<double>(property, selector);
 			break;
 		}
 	}
@@ -202,18 +201,18 @@ namespace shopify
 		NSMethodSignature *methodSignature = [self instanceMethodSignatureForSelector:setter];
 		if ([methodSignature numberOfArguments] == 3) {
 			const char *typeEncoding = [methodSignature getArgumentTypeAtIndex:2];
-			SEL newSetter = NSSelectorFromString([NSString stringWithFormat:@"mer_%@", NSStringFromSelector(setter)]);
+			SEL newSetter = NSSelectorFromString([NSString stringWithFormat:@"chk_%@", NSStringFromSelector(setter)]);
 			
 			id setterBlock = [self setterBlockForSelector:newSetter property:property typeEncoding:typeEncoding];
 			
 			if (setterBlock) {
-				//Create 'mer_setX:' that uses the existing implementation
+				//Create 'chk_setX:' that uses the existing implementation
 				class_addMethod(self, newSetter, setterImpl, method_getTypeEncoding(setterMethod));
 				
 				//Create a new impmlementation
 				IMP newImpl = imp_implementationWithBlock(setterBlock);
 				
-				//Then attach that implementation to 'setX:'. This way calling 'setX:' calls our implementation, and 'mer_setX:' calls the original implementation.
+				//Then attach that implementation to 'setX:'. This way calling 'setX:' calls our implementation, and 'chk_setX:' calls the original implementation.
 				class_replaceMethod(self, setter, newImpl, method_getTypeEncoding(setterMethod));
 			}
 		}
@@ -222,7 +221,7 @@ namespace shopify
 
 + (void)trackDirtyProperties
 {
-	NSSet *properties = class_getMERProperties(self);
+	NSSet *properties = class_getCHKProperties(self);
 	for (NSString *property in properties) {
 		if ([property length] > 0) {
 			[self wrapProperty:property];

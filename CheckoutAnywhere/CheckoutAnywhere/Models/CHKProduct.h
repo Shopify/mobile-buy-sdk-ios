@@ -9,13 +9,13 @@
 @import Foundation;
 
 //Base
-#import "MERObject.h"
+#import "CHKObject.h"
 
-@class MERProductVariant;
-@class MERImage;
-@class MEROption;
+@class CHKProductVariant;
+@class CHKImage;
+@class CHKOption;
 
-@interface MERProduct : MERObject
+@interface CHKProduct : CHKObject
 
 @property (nonatomic, readonly, copy) NSString *title;
 @property (nonatomic, readonly, copy) NSString *vendor;

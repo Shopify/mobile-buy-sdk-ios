@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.
 //
 
-#import "MERShop.h"
+#import "CHKShop.h"
 
-@implementation MERShop
+@implementation CHKShop
 
 + (void)initialize
 {
-	if (self == [MERShop class]) {
+	if (self == [CHKShop class]) {
 		[self trackDirtyProperties];
 	}
 }

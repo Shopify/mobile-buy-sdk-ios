@@ -1,5 +1,5 @@
 //
-//  NSDecimalNumber+MERAdditions.h
+//  NSDecimalNumber+CHKAdditions.h
 //  Storefront
 //
 //  Created by Joshua Tessier on 2014-09-15.
@@ -8,7 +8,7 @@
 
 @import Foundation;
 
-@interface NSDecimalNumber (MERAdditions)
+@interface NSDecimalNumber (CHKAdditions)
 
 + (NSDecimalNumber*)decimalNumberOrZeroWithString:(NSString*)string;
 + (NSDecimalNumber*)decimalNumberFromJSON:(id)valueFromJSON;

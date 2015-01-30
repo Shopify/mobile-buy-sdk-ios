@@ -8,15 +8,15 @@
 
 @import Foundation;
 
-#import "MERObject.h"
+#import "CHKObject.h"
 
-@class MERImage;
+@class CHKImage;
 
-@interface MERCollection : MERObject
+@interface CHKCollection : CHKObject
 
 @property (nonatomic, readonly, copy) NSString *title;
 @property (nonatomic, readonly, copy) NSString *handle;
-@property (nonatomic, readonly, strong) MERImage *image;
+@property (nonatomic, readonly, strong) CHKImage *image;
 @property (nonatomic, readonly, assign) NSNumber *productsCount;
 @property (nonatomic, readonly, assign) BOOL featured;
 
