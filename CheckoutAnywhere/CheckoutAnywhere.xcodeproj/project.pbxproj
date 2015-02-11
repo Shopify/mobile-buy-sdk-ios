@@ -35,6 +35,9 @@
 		2AF52AA81A705D2D0087DB2C /* CHKCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = F77374AB19C796BD0039681C /* CHKCreditCard.m */; };
 		2AF52AA91A705D400087DB2C /* CHKLineItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDA16D19C939FF00AF4E93 /* CHKLineItem.m */; };
 		2AF52AAA1A705F7E0087DB2C /* NSString+Trim.m in Sources */ = {isa = PBXBuildFile; fileRef = F76CFF1C19CB7BE30079C703 /* NSString+Trim.m */; };
+		F70CE40F1A8BF1D90055BEB8 /* CHKApplePayAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F70CE40E1A8BF1D90055BEB8 /* CHKApplePayAdditions.m */; };
+		F70CE4141A8BF3B70055BEB8 /* CHKApplePayAdditionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F70CE4131A8BF3B70055BEB8 /* CHKApplePayAdditionsTest.m */; };
+		F70CE4151A8BF61D0055BEB8 /* CHKApplePayAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F70CE40E1A8BF1D90055BEB8 /* CHKApplePayAdditions.m */; };
 		F74EC5861A314381005F39DB /* CHKDataProviderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F74EC5851A314381005F39DB /* CHKDataProviderTest.m */; };
 		F76CFF1D19CB7BE30079C703 /* NSString+Trim.m in Sources */ = {isa = PBXBuildFile; fileRef = F76CFF1C19CB7BE30079C703 /* NSString+Trim.m */; };
 		F76CFF2519CB7D750079C703 /* CHKCheckoutTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F76CFF2419CB7D750079C703 /* CHKCheckoutTest.m */; };
@@ -87,6 +90,9 @@
 		2AF52A9C1A7011DC0087DB2C /* NSDecimalNumber+CHKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDecimalNumber+CHKAdditions.m"; sourceTree = "<group>"; };
 		2AF52A9F1A704C9A0087DB2C /* CHKObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKObjectTests.m; sourceTree = "<group>"; };
 		2AF52AA21A704D620087DB2C /* CHKDataProviderTest_Storefront.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKDataProviderTest_Storefront.m; sourceTree = "<group>"; };
+		F70CE40D1A8BF1D90055BEB8 /* CHKApplePayAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKApplePayAdditions.h; sourceTree = "<group>"; };
+		F70CE40E1A8BF1D90055BEB8 /* CHKApplePayAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKApplePayAdditions.m; sourceTree = "<group>"; };
+		F70CE4131A8BF3B70055BEB8 /* CHKApplePayAdditionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKApplePayAdditionsTest.m; sourceTree = "<group>"; };
 		F74EC5851A314381005F39DB /* CHKDataProviderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKDataProviderTest.m; sourceTree = "<group>"; };
 		F76CFF1B19CB7BE30079C703 /* NSString+Trim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Trim.h"; sourceTree = "<group>"; };
 		F76CFF1C19CB7BE30079C703 /* NSString+Trim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Trim.m"; sourceTree = "<group>"; };
@@ -178,6 +184,7 @@
 			children = (
 				2AD315541A0AADA90001E40A /* Models */,
 				F773742A19C770CB0039681C /* Supporting Files */,
+				F70CE4131A8BF3B70055BEB8 /* CHKApplePayAdditionsTest.m */,
 				F76CFF2619CB7E7B0079C703 /* CHKCartTest.m */,
 				F76CFF2419CB7D750079C703 /* CHKCheckoutTest.m */,
 				F76CFF2919CB830D0079C703 /* CHKLineItemTest.m */,
@@ -241,10 +248,12 @@
 		F773744519C779C20039681C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				2AF52A9B1A7011DC0087DB2C /* NSDecimalNumber+CHKAdditions.h */,
-				2AF52A9C1A7011DC0087DB2C /* NSDecimalNumber+CHKAdditions.m */,
+				F70CE40D1A8BF1D90055BEB8 /* CHKApplePayAdditions.h */,
+				F70CE40E1A8BF1D90055BEB8 /* CHKApplePayAdditions.m */,
 				2AF52A731A700AC80087DB2C /* CHKRuntime.h */,
 				2AF52A741A700AC80087DB2C /* CHKRuntime.m */,
+				2AF52A9B1A7011DC0087DB2C /* NSDecimalNumber+CHKAdditions.h */,
+				2AF52A9C1A7011DC0087DB2C /* NSDecimalNumber+CHKAdditions.m */,
 				F76CFF1B19CB7BE30079C703 /* NSString+Trim.h */,
 				F76CFF1C19CB7BE30079C703 /* NSString+Trim.m */,
 			);
@@ -372,6 +381,7 @@
 			files = (
 				F77374AC19C796BD0039681C /* CHKCreditCard.m in Sources */,
 				2AF52A911A700B0A0087DB2C /* CHKShop.m in Sources */,
+				F70CE40F1A8BF1D90055BEB8 /* CHKApplePayAdditions.m in Sources */,
 				F773744919C77A210039681C /* CHKCart.m in Sources */,
 				F773749619C77C260039681C /* CHKCheckout.m in Sources */,
 				F7FDA17219C93F6F00AF4E93 /* CHKDataProvider.m in Sources */,
@@ -392,6 +402,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F70CE4151A8BF61D0055BEB8 /* CHKApplePayAdditions.m in Sources */,
 				2AF52AAA1A705F7E0087DB2C /* NSString+Trim.m in Sources */,
 				2AF52AA91A705D400087DB2C /* CHKLineItem.m in Sources */,
 				2AF52AA81A705D2D0087DB2C /* CHKCreditCard.m in Sources */,
@@ -406,6 +417,7 @@
 				F74EC5861A314381005F39DB /* CHKDataProviderTest.m in Sources */,
 				2AF52AA11A704C9A0087DB2C /* CHKObjectTests.m in Sources */,
 				F76CFF2A19CB830D0079C703 /* CHKLineItemTest.m in Sources */,
+				F70CE4141A8BF3B70055BEB8 /* CHKApplePayAdditionsTest.m in Sources */,
 				2AF52A901A700B0A0087DB2C /* CHKProductVariant.m in Sources */,
 				F76CFF2719CB7E7B0079C703 /* CHKCartTest.m in Sources */,
 				2AF52A861A700B0A0087DB2C /* CHKCollection.m in Sources */,
