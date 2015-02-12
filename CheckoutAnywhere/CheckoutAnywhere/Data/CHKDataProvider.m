@@ -142,25 +142,43 @@
 
 #pragma mark - Checkout
 
+- (void)handleCheckoutResponse:(NSDictionary *)json error:(NSError *)error block:(CHKDataCheckoutBlock)block
+{
+	CHKCheckout *checkout = nil;
+	if (error == nil) {
+		checkout = [[CHKCheckout alloc] initWithDictionary:json[@"checkout"]];
+	}
+	block(checkout, error);
+}
+
+- (NSURLSessionDataTask *)createCheckoutWithCartToken:(NSString *)cartToken completion:(CHKDataCheckoutBlock)block
+{
+	NSURLSessionDataTask *task = nil;
+	if (cartToken) {
+		NSDictionary *body = @{ @"checkout" : @{ @"cart_token" : cartToken } };
+		NSError *error = nil;
+		NSData *data = [NSJSONSerialization dataWithJSONObject:body options:0 error:&error];
+
+		if (data && error == nil) {
+			task = [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts.json", _shopDomain] body:data completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+				[self handleCheckoutResponse:json error:error block:block];
+			}];
+		}
+	}
+	return task;
+}
+
 - (NSURLSessionDataTask *)createCheckout:(CHKCheckout *)checkout completion:(CHKDataCheckoutBlock)block
 {
 	return [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts.json", _shopDomain] object:checkout completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		CHKCheckout *checkout = nil;
-		if (error == nil) {
-			checkout = [[CHKCheckout alloc] initWithDictionary:json[@"checkout"]];
-		}
-		block(checkout, error);
+		[self handleCheckoutResponse:json error:error block:block];
 	}];
 }
 
 - (NSURLSessionDataTask *)getCheckout:(CHKCheckout *)checkout completion:(CHKDataCheckoutBlock)block
 {
 	return [self getRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@.json", _shopDomain, checkout.token] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		CHKCheckout *newCheckout = nil;
-		if (error == nil) {
-			newCheckout = [[CHKCheckout alloc] initWithDictionary:json[@"checkout"]];
-		}
-		block(newCheckout, error);
+		[self handleCheckoutResponse:json error:error block:block];
 	}];
 }
 
@@ -169,11 +187,7 @@
 	NSURLSessionDataTask *task = nil;
 	if ([checkout hasToken]) {
 		task = [self patchRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@.json", _shopDomain, checkout.token] object:checkout completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-			CHKCheckout *newCheckout = nil;
-			if (error == nil) {
-				newCheckout = [[CHKCheckout alloc] initWithDictionary:json[@"checkout"]];
-			}
-			block(newCheckout, error);
+			[self handleCheckoutResponse:json error:error block:block];
 		}];
 	}
 	return task;
@@ -211,11 +225,7 @@
 - (NSURLSessionDataTask *)checkoutCompletionRequestWithCheckout:(CHKCheckout *)checkout body:(NSData *)body completion:(CHKDataCheckoutBlock)block
 {
 	return [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/complete.json", _shopDomain, checkout.token] body:body completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		CHKCheckout *newCheckout = nil;
-		if (error == nil) {
-			newCheckout = [[CHKCheckout alloc] initWithDictionary:json[@"checkout"]];
-		}
-		block(newCheckout, error);
+		[self handleCheckoutResponse:json error:error block:block];
 	}];
 }
 
