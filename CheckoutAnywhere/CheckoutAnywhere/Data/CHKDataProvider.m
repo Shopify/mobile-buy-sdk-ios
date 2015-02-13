@@ -277,7 +277,13 @@
 + (CHKStatus)statusForStatusCode:(NSUInteger)statusCode error:(NSError *)error
 {
 	CHKStatus status = CHKStatusUnknown;
-	if (error || statusCode == CHKStatusFailed) {
+	if (statusCode == CHKStatusPreconditionFailed) {
+		status = CHKStatusPreconditionFailed;
+	}
+	else if (statusCode == CHKStatusNotFound) {
+		status = CHKStatusNotFound;
+	}
+	else if (error || statusCode == CHKStatusFailed) {
 		status = CHKStatusFailed;
 	}
 	else if (statusCode == CHKStatusProcessing) {

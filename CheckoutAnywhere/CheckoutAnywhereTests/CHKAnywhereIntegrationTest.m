@@ -282,6 +282,40 @@
 	}];
 }
 
+- (void)testFetchingShippingRatesWithoutShippingAddressShouldReturnPreconditionFailed
+{
+	[self createCart];
+	_checkout = [[CHKCheckout alloc] initWithCart:_cart];
+	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	NSURLSessionDataTask *task = [_checkoutDataProvider createCheckout:_checkout completion:^(CHKCheckout *returnedCheckout, NSError *error) {
+		XCTAssertNil(error);
+		XCTAssertNotNil(returnedCheckout);
+		
+		_checkout = returnedCheckout;
+		dispatch_semaphore_signal(semaphore);
+	}];
+	WAIT_FOR_TASK(task, semaphore);
+	
+	task = [_checkoutDataProvider getShippingRatesForCheckout:_checkout completion:^(NSArray *returnedShippingRates, CHKStatus status, NSError *error) {
+		XCTAssertEqual(CHKStatusPreconditionFailed, status);
+		dispatch_semaphore_signal(semaphore);
+	}];
+	WAIT_FOR_TASK(task, semaphore);
+}
+
+- (void)testFetchingShippingRatesForInvalidCheckoutShouldReturnNotFound
+{
+	CHKCheckout *checkout = [[CHKCheckout alloc] init];
+	checkout.token = @"bananaaaa";
+
+	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	NSURLSessionDataTask *task = [_checkoutDataProvider getShippingRatesForCheckout:checkout completion:^(NSArray *returnedShippingRates, CHKStatus status, NSError *error) {
+		XCTAssertEqual(CHKStatusNotFound, status);
+		dispatch_semaphore_signal(semaphore);
+	}];
+	WAIT_FOR_TASK(task, semaphore);
+}
+
 - (void)testCheckoutAnywhereFlowUsingCreditCard
 {
 	[self createCart];
@@ -336,10 +370,15 @@
 
 	_checkout = [[CHKCheckout alloc] initWithCart:_cart];
 	_checkout.discount = [self applicableDiscount];
-
+	
 	//Create the checkout
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 	NSURLSessionDataTask *task = [_checkoutDataProvider createCheckout:_checkout completion:^(CHKCheckout *returnedCheckout, NSError *error) {
+		//NOTE: Is this test failing? Make sure that you create the following discounts on your test shop:
+		//
+		// applicable 	- this should be valid
+		// inapplicable - this should be invalid (i.e expired)
+		//
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
 		_checkout = returnedCheckout;
