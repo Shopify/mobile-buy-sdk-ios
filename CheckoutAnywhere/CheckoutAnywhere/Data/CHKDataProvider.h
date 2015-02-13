@@ -23,6 +23,7 @@ typedef NS_ENUM(NSUInteger, CHKStatus) {
 	CHKStatusComplete = 200,
 	CHKStatusProcessing = 202,
 	CHKStatusNotFound = 404,
+	CHKStatusPreconditionFailed = 412,
 	CHKStatusFailed = 424,
 	CHKStatusUnknown
 };
