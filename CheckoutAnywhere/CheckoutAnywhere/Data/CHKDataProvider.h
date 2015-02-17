@@ -81,6 +81,11 @@ typedef void (^CHKDataImagesListBlock)(NSArray *images, NSError *error);
 #pragma mark - Checkout
 
 /**
+ * Builds a checkout object on Shopify using a Cart Token. The checkout will be used to prepare an order.
+ */
+- (NSURLSessionDataTask *)createCheckoutWithCartToken:(NSString *)cartToken completion:(CHKDataCheckoutBlock)block;
+
+/**
  * Builds a checkout object on Shopify. The checkout will be used to prepare an order.
  */
 - (NSURLSessionDataTask *)createCheckout:(CHKCheckout *)checkout completion:(CHKDataCheckoutBlock)block;
