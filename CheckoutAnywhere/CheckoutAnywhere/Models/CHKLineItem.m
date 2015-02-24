@@ -11,8 +11,9 @@
 //Model
 #import "CHKProductVariant.h"
 
-//Utils
+//Utils & Additions
 #import "NSString+Trim.h"
+#import "NSDecimalNumber+CHKAdditions.h"
 
 @implementation CHKLineItem
 
@@ -29,8 +30,18 @@
 		self.quantity = variant ? [NSDecimalNumber one] : [NSDecimalNumber zero];
 		self.price = variant ? [variant price] : [NSDecimalNumber zero];
 		self.title = variant ? [variant title] : @"";
+		self.requiresShipping = variant.requiresShipping;
 	}
 	return self;
+}
+
+- (void)updateWithDictionary:(NSDictionary *)dictionary
+{
+	[super updateWithDictionary:dictionary];
+	self.title = dictionary[@"title"];
+	self.quantity = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"quantity"]];
+	self.price = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"price"]];
+	self.requiresShipping = dictionary[@"requires_shipping"];
 }
 
 - (NSDictionary *)jsonDictionaryForCheckout
@@ -51,6 +62,9 @@
 	if (self.price) {
 		lineItem[@"price"] = self.price;
 	}
+	
+	lineItem[@"requires_shipping"] = self.requiresShipping ?: @NO;
+	
 	return lineItem;
 }
 

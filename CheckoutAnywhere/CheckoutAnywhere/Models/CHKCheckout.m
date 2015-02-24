@@ -147,7 +147,7 @@ static NSDictionary *kCHKPropertyMap = nil;
 {
 	BOOL requiresShipping = NO;
 	for (CHKLineItem *lineItem in _lineItems) {
-		if ([[lineItem variant] requiresShipping]) {
+		if ([[lineItem requiresShipping] boolValue]) {
 			requiresShipping = YES;
 			break;
 		}

@@ -58,4 +58,16 @@
 	XCTAssertEqualObjects(@"banana", json[@"title"]);
 }
 
+- (void)testUpdatingFromJsonShouldUpdateAllValues
+{
+	XCTAssertFalse([[_lineItem requiresShipping] boolValue]);
+	
+	CHKLineItem *lineItem = [[CHKLineItem alloc] initWithDictionary:@{ @"id" : @5, @"price" : @"5.99", @"quantity" : @5, @"requires_shipping" : @YES, @"title" : @"banana" }];
+	XCTAssertEqualObjects(@5, lineItem.identifier);
+	XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"5.99"], lineItem.price);
+	XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"5"], lineItem.quantity);
+	XCTAssertEqualObjects(@"banana", lineItem.title);
+	XCTAssertTrue([[lineItem requiresShipping] boolValue]);
+}
+
 @end
