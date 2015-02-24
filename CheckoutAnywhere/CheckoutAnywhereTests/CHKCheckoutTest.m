@@ -33,6 +33,24 @@
 	_discountDictionary = @{ @"code" : @"abcd1234", @"amount" : @"5.00", @"applicable" : @true };
 }
 
+- (void)testOrderStatusDeserializationWithInvalidURL
+{
+	CHKCheckout *checkout = [[CHKCheckout alloc] initWithDictionary:@{ @"order_status_url" : @"NOT REAL" }];
+	XCTAssertNil([checkout orderStatusURL]);
+}
+
+- (void)testOrderStatusDeserializationWithValidURL
+{
+	CHKCheckout *checkout = [[CHKCheckout alloc] initWithDictionary:@{ @"order_status_url" : @"http://www.shopify.com/" }];
+	XCTAssertNotNil([checkout orderStatusURL]);
+}
+
+- (void)testOrderStatusDeserializationWithNoURL
+{
+	CHKCheckout *checkout = [[CHKCheckout alloc] initWithDictionary:@{}];
+	XCTAssertNil([checkout orderStatusURL]);
+}
+
 - (void)testInitWithCartAddsLineItems
 {
 	[_cart addVariant:_product];

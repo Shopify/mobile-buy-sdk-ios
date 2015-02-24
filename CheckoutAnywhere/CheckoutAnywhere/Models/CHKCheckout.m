@@ -99,10 +99,11 @@ static NSDictionary *kCHKPropertyMap = nil;
 	
 	self.billingAddress = [CHKAddress convertObject:dictionary[@"billing_address"]];
 	self.shippingAddress = [CHKAddress convertObject:dictionary[@"shipping_address"]];
-	
 	self.shippingRate = [CHKShippingRate convertObject:dictionary[@"shipping_rate"]];
-	
 	self.discount = [CHKDiscount convertObject:dictionary[@"discount"]];
+	
+	NSString *orderStatusURL = dictionary[@"order_status_url"];
+	self.orderStatusURL = orderStatusURL ? [NSURL URLWithString:orderStatusURL] : nil;
 }
 
 - (id)jsonValueForValue:(id)value
