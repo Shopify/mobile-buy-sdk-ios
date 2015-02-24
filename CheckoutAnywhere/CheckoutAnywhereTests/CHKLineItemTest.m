@@ -26,6 +26,18 @@
 	_lineItem = [[CHKLineItem alloc] init];
 }
 
+- (void)testInitRespectsVariantShippingFlag
+{
+	XCTAssertFalse([[_lineItem requiresShipping] boolValue]);
+	
+	CHKProductVariant *variant = [[CHKProductVariant alloc] initWithDictionary:@{ @"id" : @1, @"requires_shipping" : @YES }];
+	_lineItem.variant = variant;
+	XCTAssertTrue([[_lineItem requiresShipping] boolValue]);
+	
+	CHKLineItem *newLineItem = [[CHKLineItem alloc] initWithVariant:variant];
+	XCTAssertTrue([[newLineItem requiresShipping] boolValue]);
+}
+
 #pragma mark - Serialization Tests
 
 - (void)testJsonDictionaryShouldHaveSaneDefaults

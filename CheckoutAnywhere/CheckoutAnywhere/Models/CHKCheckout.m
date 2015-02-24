@@ -40,12 +40,17 @@ static NSDictionary *kCHKPropertyMap = nil;
 
 - (void)setShippingRateId:(NSString *)shippingRateIdentifier
 {
+	[self willChangeValueForKey:@"shippingRateId"];
 	_shippingRateId = shippingRateIdentifier;
+	[self didChangeValueForKey:@"shippingRateId"];
 }
 
 - (void)setShippingRate:(CHKShippingRate *)shippingRate
 {
+	[self willChangeValueForKey:@"shippingRate"];
 	_shippingRate = shippingRate;
+	[self didChangeValueForKey:@"shippingRate"];
+	
 	[self setShippingRateId:shippingRate.shippingRateIdentifier];
 }
 

@@ -44,6 +44,14 @@
 	self.requiresShipping = dictionary[@"requires_shipping"];
 }
 
+- (void)setVariant:(CHKProductVariant *)variant
+{
+	[self willChangeValueForKey:@"variant"];
+	_variant = variant;
+	[self didChangeValueForKey:@"variant"];
+	self.requiresShipping = variant.requiresShipping;
+}
+
 - (NSDictionary *)jsonDictionaryForCheckout
 {
 	NSMutableDictionary *lineItem = [[NSMutableDictionary alloc] init];
