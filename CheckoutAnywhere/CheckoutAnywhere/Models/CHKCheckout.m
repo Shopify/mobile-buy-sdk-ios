@@ -11,6 +11,7 @@
 //Models
 #import "CHKLineItem.h"
 #import "CHKCart.h"
+#import "CHKProductVariant.h"
 
 //Utils
 #import "NSString+Trim.h"
@@ -140,6 +141,18 @@ static NSDictionary *kCHKPropertyMap = nil;
 - (BOOL)hasToken
 {
 	return (_token && [_token length] > 0);
+}
+
+- (BOOL)requiresShipping
+{
+	BOOL requiresShipping = NO;
+	for (CHKLineItem *lineItem in _lineItems) {
+		if ([[lineItem variant] requiresShipping]) {
+			requiresShipping = YES;
+			break;
+		}
+	}
+	return requiresShipping;
 }
 
 @end
