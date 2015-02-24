@@ -53,6 +53,7 @@
 @property (nonatomic, readonly) NSString *shippingRateId;
 
 @property (nonatomic, strong) CHKDiscount *discount;
+@property (nonatomic, strong) NSURL *orderStatusURL;
 
 @end
 
