@@ -103,7 +103,7 @@ static NSDictionary *kCHKPropertyMap = nil;
 	self.discount = [CHKDiscount convertObject:dictionary[@"discount"]];
 	
 	NSString *orderStatusURL = dictionary[@"order_status_url"];
-	self.orderStatusURL = orderStatusURL ? [NSURL URLWithString:orderStatusURL] : nil;
+	self.orderStatusURL = orderStatusURL && [orderStatusURL isKindOfClass:[NSString class]] ? [NSURL URLWithString:orderStatusURL] : nil;
 }
 
 - (id)jsonValueForValue:(id)value
