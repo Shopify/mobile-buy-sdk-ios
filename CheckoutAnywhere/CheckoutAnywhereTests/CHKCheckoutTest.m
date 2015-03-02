@@ -102,6 +102,15 @@
 	XCTAssertEqualObjects(json[@"checkout"][@"shipping_rate_id"], @"banana");
 }
 
+- (void)testRequiresShippingAndIncludesTaxesSerialization
+{
+	_checkout.requiresShipping = YES;
+	_checkout.taxesIncluded = YES;
+	NSDictionary *jsonDictionary = [_checkout jsonDictionaryForCheckout][@"checkout"];
+	XCTAssertEqualObjects(@YES, jsonDictionary[@"requires_shipping"]);
+	XCTAssertEqualObjects(@YES, jsonDictionary[@"taxes_included"]);
+}
+
 - (void)testDiscountDeserialization
 {
 	CHKDiscount *discount = [[CHKDiscount alloc] initWithDictionary: _discountDictionary];
@@ -130,22 +139,14 @@
 
 - (void)testEmptyCheckoutsDoNotRequireShipping
 {
+	_checkout = [[CHKCheckout alloc] initWithDictionary:@{}];
 	XCTAssertFalse([_checkout requiresShipping]);
 }
 
 - (void)testCheckoutsWithoutItemsThatRequireShipping
 {
-	[_cart addVariant:_variant];
-	CHKCheckout *checkout = [[CHKCheckout alloc] initWithCart:_cart];
-	XCTAssertFalse([checkout requiresShipping]);
-}
-
-- (void)testCheckoutsRequireShipping
-{
-	CHKProductVariant *variant = [[CHKProductVariant alloc] initWithDictionary:@{ @"id" : @2, @"requires_shipping" : @YES }];
-	[_cart addVariant:variant];
-	CHKCheckout *checkout = [[CHKCheckout alloc] initWithCart:_cart];
-	XCTAssertTrue([checkout requiresShipping]);
+	_checkout = [[CHKCheckout alloc] initWithDictionary:@{ @"requires_shipping" : @1 }];
+	XCTAssertTrue([_checkout requiresShipping]);
 }
 
 @end
