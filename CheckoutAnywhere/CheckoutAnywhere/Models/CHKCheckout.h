@@ -27,13 +27,12 @@
 
 - (instancetype)initWithCart:(CHKCart *)cart;
 - (BOOL)hasToken;
-- (BOOL)requiresShipping;
 
 @property (nonatomic, copy) NSString *email;
 @property (nonatomic, copy) NSString *token;
 @property (nonatomic, copy) NSNumber *orderId;
-@property (nonatomic, strong) NSNumber *requiresShipping;
-@property (nonatomic, strong) NSNumber *taxesIncluded;
+@property (nonatomic, assign) BOOL requiresShipping;
+@property (nonatomic, assign) BOOL taxesIncluded;
 @property (nonatomic, copy) NSString *currency;
 @property (nonatomic, strong) NSDecimalNumber *subtotalPrice;
 @property (nonatomic, strong) NSDecimalNumber *totalTax;

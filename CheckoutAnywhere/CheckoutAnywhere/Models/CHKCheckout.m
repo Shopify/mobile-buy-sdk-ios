@@ -87,8 +87,8 @@ static NSDictionary *kCHKPropertyMap = nil;
 	self.email = dictionary[@"email"];
 	self.orderId = dictionary[@"order_id"];
 	self.token = dictionary[@"token"];
-	self.requiresShipping = dictionary[@"requires_shipping"];
-	self.taxesIncluded = dictionary[@"taxes_included"];
+	self.requiresShipping = [dictionary[@"requires_shipping"] boolValue];
+	self.taxesIncluded = [dictionary[@"taxes_included"] boolValue];
 	self.currency = dictionary[@"currency"];
 	self.subtotalPrice = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"subtotal_price"]];
 	self.totalTax = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"total_tax"]];
@@ -147,18 +147,6 @@ static NSDictionary *kCHKPropertyMap = nil;
 - (BOOL)hasToken
 {
 	return (_token && [_token length] > 0);
-}
-
-- (BOOL)requiresShipping
-{
-	BOOL requiresShipping = NO;
-	for (CHKLineItem *lineItem in _lineItems) {
-		if ([[lineItem requiresShipping] boolValue]) {
-			requiresShipping = YES;
-			break;
-		}
-	}
-	return requiresShipping;
 }
 
 @end
