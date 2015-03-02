@@ -11,6 +11,7 @@
 //Models
 #import "CHKLineItem.h"
 #import "CHKCart.h"
+#import "CHKProductVariant.h"
 
 //Utils
 #import "NSString+Trim.h"
@@ -39,12 +40,17 @@ static NSDictionary *kCHKPropertyMap = nil;
 
 - (void)setShippingRateId:(NSString *)shippingRateIdentifier
 {
+	[self willChangeValueForKey:@"shippingRateId"];
 	_shippingRateId = shippingRateIdentifier;
+	[self didChangeValueForKey:@"shippingRateId"];
 }
 
 - (void)setShippingRate:(CHKShippingRate *)shippingRate
 {
+	[self willChangeValueForKey:@"shippingRate"];
 	_shippingRate = shippingRate;
+	[self didChangeValueForKey:@"shippingRate"];
+	
 	[self setShippingRateId:shippingRate.shippingRateIdentifier];
 }
 
@@ -141,6 +147,18 @@ static NSDictionary *kCHKPropertyMap = nil;
 - (BOOL)hasToken
 {
 	return (_token && [_token length] > 0);
+}
+
+- (BOOL)requiresShipping
+{
+	BOOL requiresShipping = NO;
+	for (CHKLineItem *lineItem in _lineItems) {
+		if ([[lineItem requiresShipping] boolValue]) {
+			requiresShipping = YES;
+			break;
+		}
+	}
+	return requiresShipping;
 }
 
 @end

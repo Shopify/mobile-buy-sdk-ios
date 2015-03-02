@@ -26,6 +26,18 @@
 	_lineItem = [[CHKLineItem alloc] init];
 }
 
+- (void)testInitRespectsVariantShippingFlag
+{
+	XCTAssertFalse([[_lineItem requiresShipping] boolValue]);
+	
+	CHKProductVariant *variant = [[CHKProductVariant alloc] initWithDictionary:@{ @"id" : @1, @"requires_shipping" : @YES }];
+	_lineItem.variant = variant;
+	XCTAssertTrue([[_lineItem requiresShipping] boolValue]);
+	
+	CHKLineItem *newLineItem = [[CHKLineItem alloc] initWithVariant:variant];
+	XCTAssertTrue([[newLineItem requiresShipping] boolValue]);
+}
+
 #pragma mark - Serialization Tests
 
 - (void)testJsonDictionaryShouldHaveSaneDefaults
@@ -56,6 +68,18 @@
 	XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"3"], json[@"quantity"]);
 	XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"5.55"], json[@"price"]);
 	XCTAssertEqualObjects(@"banana", json[@"title"]);
+}
+
+- (void)testUpdatingFromJsonShouldUpdateAllValues
+{
+	XCTAssertFalse([[_lineItem requiresShipping] boolValue]);
+	
+	CHKLineItem *lineItem = [[CHKLineItem alloc] initWithDictionary:@{ @"id" : @5, @"price" : @"5.99", @"quantity" : @5, @"requires_shipping" : @YES, @"title" : @"banana" }];
+	XCTAssertEqualObjects(@5, lineItem.identifier);
+	XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"5.99"], lineItem.price);
+	XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"5"], lineItem.quantity);
+	XCTAssertEqualObjects(@"banana", lineItem.title);
+	XCTAssertTrue([[lineItem requiresShipping] boolValue]);
 }
 
 @end

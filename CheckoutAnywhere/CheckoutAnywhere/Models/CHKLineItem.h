@@ -38,6 +38,11 @@
  */
 @property (nonatomic, copy) NSString *title;
 
+/**
+ * YES if this line item requires shipping. This needs to match the product variant.
+ */
+@property (nonatomic, strong) NSNumber *requiresShipping;
+
 - (instancetype)initWithVariant:(CHKProductVariant *)variant;
 
 @end

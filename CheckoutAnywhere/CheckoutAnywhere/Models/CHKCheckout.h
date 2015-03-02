@@ -27,6 +27,7 @@
 
 - (instancetype)initWithCart:(CHKCart *)cart;
 - (BOOL)hasToken;
+- (BOOL)requiresShipping;
 
 @property (nonatomic, copy) NSString *email;
 @property (nonatomic, copy) NSString *token;

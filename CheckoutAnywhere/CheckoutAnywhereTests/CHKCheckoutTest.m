@@ -20,7 +20,7 @@
 @implementation CHKCheckoutTest {
 	CHKCheckout *_checkout;
 	CHKCart *_cart;
-	CHKProductVariant *_product;
+	CHKProductVariant *_variant;
 	NSDictionary *_discountDictionary;
 }
 
@@ -29,7 +29,7 @@
 	[super setUp];
 	_checkout = [[CHKCheckout alloc] init];
 	_cart = [[CHKCart alloc] init];
-	_product = [[CHKProductVariant alloc] initWithDictionary:@{ @"id" : @1 }];
+	_variant = [[CHKProductVariant alloc] initWithDictionary:@{ @"id" : @1 }];
 	_discountDictionary = @{ @"code" : @"abcd1234", @"amount" : @"5.00", @"applicable" : @true };
 }
 
@@ -53,7 +53,7 @@
 
 - (void)testInitWithCartAddsLineItems
 {
-	[_cart addVariant:_product];
+	[_cart addVariant:_variant];
 	CHKCheckout *checkout = [[CHKCheckout alloc] initWithCart:_cart];
 	XCTAssertEqual([[checkout lineItems] count], [[_cart lineItems] count]);
 	XCTAssertTrue([checkout isDirty]);
@@ -115,6 +115,37 @@
 	NSDictionary *jsonDict = @{ @"code": @"abcd1234" };
 	CHKDiscount *discount = [[CHKDiscount alloc] initWithDictionary:_discountDictionary];
 	XCTAssertEqualObjects(jsonDict, [discount jsonDictionaryForCheckout]);
+}
+
+- (void)testHasToken
+{
+	CHKCheckout *checkout = [[CHKCheckout alloc] init];
+	checkout.token = nil;
+	XCTAssertFalse([checkout hasToken]);
+	checkout.token = @"";
+	XCTAssertFalse([checkout hasToken]);
+	checkout.token = @"banana";
+	XCTAssertTrue([checkout hasToken]);
+}
+
+- (void)testEmptyCheckoutsDoNotRequireShipping
+{
+	XCTAssertFalse([_checkout requiresShipping]);
+}
+
+- (void)testCheckoutsWithoutItemsThatRequireShipping
+{
+	[_cart addVariant:_variant];
+	CHKCheckout *checkout = [[CHKCheckout alloc] initWithCart:_cart];
+	XCTAssertFalse([checkout requiresShipping]);
+}
+
+- (void)testCheckoutsRequireShipping
+{
+	CHKProductVariant *variant = [[CHKProductVariant alloc] initWithDictionary:@{ @"id" : @2, @"requires_shipping" : @YES }];
+	[_cart addVariant:variant];
+	CHKCheckout *checkout = [[CHKCheckout alloc] initWithCart:_cart];
+	XCTAssertTrue([checkout requiresShipping]);
 }
 
 @end

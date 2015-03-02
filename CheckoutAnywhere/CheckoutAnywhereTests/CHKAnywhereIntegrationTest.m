@@ -400,15 +400,12 @@
 	//Create the checkout
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 	NSURLSessionDataTask *task = [_checkoutDataProvider createCheckout:_checkout completion:^(CHKCheckout *returnedCheckout, NSError *error) {
-		XCTAssertNil(error);
-		XCTAssertNotNil(returnedCheckout);
-		_checkout = returnedCheckout;
+		XCTAssert(error);
+		XCTAssertEqual(422, error.code); //This is a validation error
+		XCTAssertNil(returnedCheckout);
 		dispatch_semaphore_signal(semaphore);
 	}];
 	WAIT_FOR_TASK(task, semaphore);
-
-	XCTAssertNotNil(_checkout.discount);
-	XCTAssertFalse(_checkout.discount.applicable);
 }
 
 - (void)testCheckoutAnywhereWithNonExistentDiscount
