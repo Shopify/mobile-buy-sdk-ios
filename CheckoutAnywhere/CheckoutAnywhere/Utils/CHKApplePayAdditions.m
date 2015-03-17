@@ -20,6 +20,11 @@
 	NSMutableArray *summaryItems = [[NSMutableArray alloc] init];
 	[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"SUBTOTAL" amount:self.subtotalPrice ?: [NSDecimalNumber zero]]];
 	
+	if ([self.discount.amount compare:[NSDecimalNumber zero]] == NSOrderedDescending) {
+		NSString *discountLabel = [self.discount.code length] > 0 ? [NSString stringWithFormat:@"DISCOUNTS (%@)", self.discount.code] : @"DISCOUNTS";
+		[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:discountLabel amount:self.discount.amount]];
+	}
+	
 	if ([self.shippingRate.price compare:[NSDecimalNumber zero]] == NSOrderedDescending) {
 		[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"SHIPPING" amount:self.shippingRate.price]];
 	}
