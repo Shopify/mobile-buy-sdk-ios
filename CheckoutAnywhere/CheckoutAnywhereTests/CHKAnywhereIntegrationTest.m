@@ -11,6 +11,9 @@
 
 #import "CheckoutAnywhere.h"
 #import "CHKTestCredentials.h"
+#import "CHKGiftCard.h"
+
+#define GIFT_CARD_CODE @""
 
 #define WAIT_FOR_TASK(task, sempahore) \
 	if (task) { \
@@ -33,6 +36,7 @@
 	CHKCart *_cart;
 	CHKCheckout *_checkout;
 	NSArray *_shippingRates;
+	CHKGiftCard *_giftCard;
 }
 
 - (void)setUp
@@ -256,6 +260,37 @@
 
 #pragma mark - Tests
 
+- (void)testApplyingGiftCardToCheckout
+{
+	[self createCart];
+	[self createCheckout];
+	
+	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	NSURLSessionDataTask *task = [_checkoutDataProvider applyGiftCard:GIFT_CARD_CODE toCheckout:_checkout completion:^(CHKGiftCard *giftCard, NSError *error) {
+		//NOTE: Is this test failing? Make sure that you have configured GIFT_CARD_CODE above
+		XCTAssertNil(error);
+		XCTAssertNotNil(giftCard);
+		XCTAssertEqualObjects([GIFT_CARD_CODE substringWithRange:NSMakeRange(GIFT_CARD_CODE.length - 4, 4)], giftCard.lastCharacters);
+		_giftCard = giftCard;
+		dispatch_semaphore_signal(semaphore);
+	}];
+	WAIT_FOR_TASK(task, semaphore);
+}
+
+- (void)testRemovingGiftCardFromCheckout
+{
+	[self testApplyingGiftCardToCheckout];
+	
+	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	NSURLSessionDataTask *task = [_checkoutDataProvider removeGiftCard:_giftCard.identifier fromCheckout:_checkout completion:^(CHKGiftCard *giftCard, NSError *error) {
+		//NOTE: Is this test failing? Make sure that you have configured GIFT_CARD_CODE above
+		XCTAssertNil(error);
+		XCTAssertNotNil(giftCard);
+		dispatch_semaphore_signal(semaphore);
+	}];
+	WAIT_FOR_TASK(task, semaphore);
+}
+
 - (void)testCheckoutAnywhereWithoutAuthToken
 {
 	[self createCart];
@@ -426,7 +461,6 @@
 	}];
 	WAIT_FOR_TASK(task, semaphore);
 }
-
 
 #pragma mark - Test Data
 

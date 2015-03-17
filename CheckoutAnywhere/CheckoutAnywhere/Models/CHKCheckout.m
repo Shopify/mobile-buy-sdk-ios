@@ -99,7 +99,8 @@ static NSDictionary *kCHKPropertyMap = nil;
 	self.paymentURL = paymentURLString ? [NSURL URLWithString:paymentURLString] : nil;
 	self.reservationTime = dictionary[@"reservation_time"];
 	self.reservationTimeLeft = dictionary[@"reservation_time_left"];
-	
+	self.paymentDue = dictionary[@"payment_due"];
+					   
 	_lineItems = [CHKLineItem convertJSONArray:dictionary[@"line_items"]];
 	_taxLines = [CHKTaxLine convertJSONArray:dictionary[@"tax_lines"]];
 	
@@ -107,7 +108,7 @@ static NSDictionary *kCHKPropertyMap = nil;
 	self.shippingAddress = [CHKAddress convertObject:dictionary[@"shipping_address"]];
 	self.shippingRate = [CHKShippingRate convertObject:dictionary[@"shipping_rate"]];
 	self.discount = [CHKDiscount convertObject:dictionary[@"discount"]];
-	
+
 	NSString *orderStatusURL = dictionary[@"order_status_url"];
 	self.orderStatusURL = orderStatusURL && [orderStatusURL isKindOfClass:[NSString class]] ? [NSURL URLWithString:orderStatusURL] : nil;
 }

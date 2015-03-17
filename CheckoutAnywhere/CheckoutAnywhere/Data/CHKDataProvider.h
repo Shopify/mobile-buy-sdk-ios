@@ -18,6 +18,7 @@
 @class CHKCollection;
 @class CHKProduct;
 @class CHKProductVariant;
+@class CHKGiftCard;
 
 typedef NS_ENUM(NSUInteger, CHKStatus) {
 	CHKStatusComplete = 200,
@@ -38,6 +39,7 @@ typedef void (^CHKDataCollectionListBlock)(NSArray *collections, NSUInteger page
 typedef void (^CHKDataProductBlock)(CHKProduct *product, NSError *error);
 typedef void (^CHKDataProductListBlock)(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error);
 typedef void (^CHKDataImagesListBlock)(NSArray *images, NSError *error);
+typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 
 @interface CHKDataProvider : NSObject
 
@@ -81,14 +83,24 @@ typedef void (^CHKDataImagesListBlock)(NSArray *images, NSError *error);
 #pragma mark - Checkout
 
 /**
+ * Builds a checkout object on Shopify. The checkout will be used to prepare an order.
+ */
+- (NSURLSessionDataTask *)createCheckout:(CHKCheckout *)checkout completion:(CHKDataCheckoutBlock)block;
+
+/**
  * Builds a checkout object on Shopify using a Cart Token. The checkout will be used to prepare an order.
  */
 - (NSURLSessionDataTask *)createCheckoutWithCartToken:(NSString *)cartToken completion:(CHKDataCheckoutBlock)block;
 
-/**
- * Builds a checkout object on Shopify. The checkout will be used to prepare an order.
+/*
+ * Applies a gift card code to the checkout. Note, giftCardCode is not the same as the gift card identifier.
  */
-- (NSURLSessionDataTask *)createCheckout:(CHKCheckout *)checkout completion:(CHKDataCheckoutBlock)block;
+- (NSURLSessionDataTask *)applyGiftCard:(NSString *)giftCardCode toCheckout:(CHKCheckout *)checkout completion:(CHKDataGiftCardBlock)block;
+
+/**
+ * Removes a gift card from the checkout. Note, giftCardId is not the same as the gift card code.
+ */
+- (NSURLSessionDataTask *)removeGiftCard:(NSNumber *)giftCardId fromCheckout:(CHKCheckout *)checkout completion:(CHKDataGiftCardBlock)block;
 
 /**
  * Fetches the updated version of this checkout.
