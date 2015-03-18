@@ -135,7 +135,7 @@
 	
 	XCTAssertEqualObjects(@"SUBTOTAL", [summaryItems[0] label]);
 	XCTAssertEqualObjects([NSDecimalNumber one], [summaryItems[0] amount]);
-	XCTAssertEqualObjects(@"DISCOUNTS (BANANA)", [summaryItems[1] label]);
+	XCTAssertEqualObjects(@"DISCOUNT (BANANA)", [summaryItems[1] label]);
 	XCTAssertEqualObjects([NSDecimalNumber one], [summaryItems[1] amount]);
 	XCTAssertEqualObjects(@"TOTAL", [summaryItems[2] label]);
 	XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"2.00"], [summaryItems[2] amount]);
@@ -159,7 +159,7 @@
 	
 	XCTAssertEqualObjects(@"SUBTOTAL", [summaryItems[0] label]);
 	XCTAssertEqualObjects([NSDecimalNumber one], [summaryItems[0] amount]);
-	XCTAssertEqualObjects(@"DISCOUNTS", [summaryItems[1] label]);
+	XCTAssertEqualObjects(@"DISCOUNT", [summaryItems[1] label]);
 	XCTAssertEqualObjects([NSDecimalNumber one], [summaryItems[1] amount]);
 	XCTAssertEqualObjects(@"TOTAL", [summaryItems[2] label]);
 	XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"2.00"], [summaryItems[2] amount]);
