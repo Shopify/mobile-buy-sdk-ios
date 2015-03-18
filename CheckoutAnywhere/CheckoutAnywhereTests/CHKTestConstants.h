@@ -9,10 +9,10 @@
 #ifndef CheckoutAnywhere_CHKTestCredentials_h
 #define CheckoutAnywhere_CHKTestCredentials_h
 
-#define CHECKOUT_ANYWHERE_SHOP @"abetterlookingshop.myshopify.com"
-#define CHECKOUT_ANYHWERE_API_KEY @"1805c7730b09d9645062f0abd54adf0f"
+#define CHECKOUT_ANYWHERE_SHOP @""
+#define CHECKOUT_ANYHWERE_API_KEY @""
 
-#define GIFT_CARD_CODE @"1111222233334444"
-#define EXPIRED_GIFT_CARD_CODE @"1111222233335555"
-#define EXPIRED_GIFT_CARD_ID @"4447090"
+#define GIFT_CARD_CODE @""
+#define EXPIRED_GIFT_CARD_CODE @""
+#define EXPIRED_GIFT_CARD_ID @""
 #endif
