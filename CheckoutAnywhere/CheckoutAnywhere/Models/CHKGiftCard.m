@@ -7,6 +7,7 @@
 //
 
 #import "CHKGiftCard.h"
+#import "NSDecimalNumber+CHKAdditions.h"
 
 //Models
 #import "CHKCheckout.h"
@@ -19,8 +20,8 @@
 	
 	_code = dictionary[@"code"];
 	_lastCharacters = dictionary[@"last_characters"];
-	_balance = dictionary[@"balance"];
-	_amountUsed = dictionary[@"amountUsed"];
+	_balance = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"balance"]];
+	_amountUsed = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"amountUsed"]];
 	_checkout = [CHKCheckout convertObject:dictionary[@"checkout"]];
 }
 

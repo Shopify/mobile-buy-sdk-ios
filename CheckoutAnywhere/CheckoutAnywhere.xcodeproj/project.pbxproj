@@ -119,7 +119,7 @@
 		F777D5B41A422BD200280B1B /* CheckoutAnywhere.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckoutAnywhere.h; sourceTree = "<group>"; };
 		F79CE45219CC612700C9AFAB /* CHKAnywhereIntegrationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKAnywhereIntegrationTest.m; sourceTree = "<group>"; };
 		F7AB6AB819CFCE6A00115224 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
-		F7D156F719E30AC000D38D67 /* CHKTestCredentials.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHKTestCredentials.h; sourceTree = "<group>"; };
+		F7D156F719E30AC000D38D67 /* CHKTestConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHKTestConstants.h; sourceTree = "<group>"; };
 		F7FDA16C19C939FF00AF4E93 /* CHKLineItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKLineItem.h; sourceTree = "<group>"; };
 		F7FDA16D19C939FF00AF4E93 /* CHKLineItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKLineItem.m; sourceTree = "<group>"; };
 		F7FDA17019C93F6F00AF4E93 /* CHKDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKDataProvider.h; sourceTree = "<group>"; };
@@ -204,7 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				F773742B19C770CB0039681C /* Info.plist */,
-				F7D156F719E30AC000D38D67 /* CHKTestCredentials.h */,
+				F7D156F719E30AC000D38D67 /* CHKTestConstants.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";

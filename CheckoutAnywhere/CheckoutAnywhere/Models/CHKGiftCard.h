@@ -15,8 +15,8 @@
 
 @property (nonatomic, readonly, copy) NSString *code;
 @property (nonatomic, readonly, copy) NSString *lastCharacters;
-@property (nonatomic, readonly, strong) NSNumber *balance;
-@property (nonatomic, readonly, strong) NSNumber *amountUsed;
+@property (nonatomic, readonly, strong) NSDecimalNumber *balance;
+@property (nonatomic, readonly, strong) NSDecimalNumber *amountUsed;
 @property (nonatomic, readonly, strong) CHKCheckout *checkout;
 
 @end

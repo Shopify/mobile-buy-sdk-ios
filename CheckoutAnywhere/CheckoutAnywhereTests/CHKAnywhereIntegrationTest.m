@@ -10,10 +10,8 @@
 @import XCTest;
 
 #import "CheckoutAnywhere.h"
-#import "CHKTestCredentials.h"
+#import "CHKTestConstants.h"
 #import "CHKGiftCard.h"
-
-#define GIFT_CARD_CODE @""
 
 #define WAIT_FOR_TASK(task, sempahore) \
 	if (task) { \
@@ -44,6 +42,7 @@
 	[super setUp];
 
 	XCTAssert([CHECKOUT_ANYWHERE_SHOP length] > 0, @"You must provide a valid CHECKOUT_ANYWHERE_SHOP. This is your 'shopname.myshopify.com' address.");
+	XCTAssertEqualObjects([CHECKOUT_ANYWHERE_SHOP substringFromIndex:CHECKOUT_ANYWHERE_SHOP.length - 14], @".myshopify.com", @"You must provide a valid CHECKOUT_ANYWHERE_SHOP. This is your 'shopname.myshopify.com' address.");
 	XCTAssert([CHECKOUT_ANYHWERE_API_KEY length] > 0, @"You must provide a valid CHECKOUT_ANYHWERE_API_KEY. This is the API_KEY of your app.");
 	
 	_checkoutDataProvider = [[CHKDataProvider alloc] initWithShopDomain:CHECKOUT_ANYWHERE_SHOP apiKey:CHECKOUT_ANYHWERE_API_KEY];
@@ -107,7 +106,7 @@
 			
 			XCTAssertNil(error);
 			XCTAssertNotNil(products);
-			
+
 			[_products addObjectsFromArray:products];
 			dispatch_semaphore_signal(semaphore);
 		}];
@@ -266,7 +265,7 @@
 	[self createCheckout];
 	
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_checkoutDataProvider applyGiftCard:GIFT_CARD_CODE toCheckout:_checkout completion:^(CHKGiftCard *giftCard, NSError *error) {
+	NSURLSessionDataTask *task = [_checkoutDataProvider applyGiftCardWithCode:GIFT_CARD_CODE toCheckout:_checkout completion:^(CHKGiftCard *giftCard, NSError *error) {
 		//NOTE: Is this test failing? Make sure that you have configured GIFT_CARD_CODE above
 		XCTAssertNil(error);
 		XCTAssertNotNil(giftCard);
@@ -277,15 +276,71 @@
 	WAIT_FOR_TASK(task, semaphore);
 }
 
+- (void)testApplyingInvalidGiftCardToCheckout
+{
+	[self createCart];
+	[self createCheckout];
+	
+	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	NSURLSessionDataTask *task = [_checkoutDataProvider applyGiftCardWithCode:@"000" toCheckout:_checkout completion:^(CHKGiftCard *giftCard, NSError *error) {
+		XCTAssertNotNil(error);
+		XCTAssertEqual(422, error.code);
+		dispatch_semaphore_signal(semaphore);
+	}];
+	WAIT_FOR_TASK(task, semaphore);
+}
+
+- (void)testApplyingExpiredGiftCardToCheckout
+{
+	[self createCart];
+	[self createCheckout];
+	
+	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	NSURLSessionDataTask *task = [_checkoutDataProvider applyGiftCardWithCode:EXPIRED_GIFT_CARD_CODE toCheckout:_checkout completion:^(CHKGiftCard *giftCard, NSError *error) {
+		XCTAssertNotNil(error);
+		XCTAssertEqual(422, error.code);
+		dispatch_semaphore_signal(semaphore);
+	}];
+	WAIT_FOR_TASK(task, semaphore);
+}
+
 - (void)testRemovingGiftCardFromCheckout
 {
 	[self testApplyingGiftCardToCheckout];
 	
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_checkoutDataProvider removeGiftCard:_giftCard.identifier fromCheckout:_checkout completion:^(CHKGiftCard *giftCard, NSError *error) {
+	NSURLSessionDataTask *task = [_checkoutDataProvider removeGiftCard:_giftCard fromCheckout:_checkout completion:^(CHKGiftCard *giftCard, NSError *error) {
 		//NOTE: Is this test failing? Make sure that you have configured GIFT_CARD_CODE above
 		XCTAssertNil(error);
 		XCTAssertNotNil(giftCard);
+		dispatch_semaphore_signal(semaphore);
+	}];
+	WAIT_FOR_TASK(task, semaphore);
+}
+
+- (void)testRemovingInvalidGiftCardFromCheckout
+{
+	[self testApplyingGiftCardToCheckout];
+	
+	CHKGiftCard *giftCard = [[CHKGiftCard alloc] initWithDictionary:@{ @"id" : @"000" }];
+	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	NSURLSessionDataTask *task = [_checkoutDataProvider removeGiftCard:giftCard fromCheckout:_checkout completion:^(CHKGiftCard *giftCard, NSError *error) {
+		XCTAssertNotNil(error);
+		XCTAssertEqual(404, error.code);
+		dispatch_semaphore_signal(semaphore);
+	}];
+	WAIT_FOR_TASK(task, semaphore);
+}
+
+- (void)testRemovingExpiredGiftCardFromCheckout
+{
+	[self testApplyingGiftCardToCheckout];
+	
+	CHKGiftCard *giftCard = [[CHKGiftCard alloc] initWithDictionary:@{ @"id" : EXPIRED_GIFT_CARD_CODE }];
+	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	NSURLSessionDataTask *task = [_checkoutDataProvider removeGiftCard:giftCard fromCheckout:_checkout completion:^(CHKGiftCard *giftCard, NSError *error) {
+		XCTAssertNotNil(error);
+		XCTAssertEqual(404, error.code);
 		dispatch_semaphore_signal(semaphore);
 	}];
 	WAIT_FOR_TASK(task, semaphore);

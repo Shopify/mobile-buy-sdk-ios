@@ -177,7 +177,7 @@
 	return task;
 }
 
-- (NSURLSessionDataTask *)applyGiftCard:(NSString *)giftCardCode toCheckout:(CHKCheckout *)checkout completion:(CHKDataGiftCardBlock)block
+- (NSURLSessionDataTask *)applyGiftCardWithCode:(NSString *)giftCardCode toCheckout:(CHKCheckout *)checkout completion:(CHKDataGiftCardBlock)block
 {
 	NSURLSessionDataTask *task = nil;
 	if (checkout.hasToken && giftCardCode) {
@@ -194,11 +194,11 @@
 	return task;
 }
 
-- (NSURLSessionDataTask *)removeGiftCard:(NSNumber *)giftCardId fromCheckout:(CHKCheckout *)checkout completion:(CHKDataGiftCardBlock)block
+- (NSURLSessionDataTask *)removeGiftCard:(CHKGiftCard *)giftCard fromCheckout:(CHKCheckout *)checkout completion:(CHKDataGiftCardBlock)block
 {
 	NSURLSessionDataTask *task = nil;
-	if (giftCardId) {
-		task = [self deleteRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/gift_cards/%@.json", _shopDomain, checkout.token, giftCardId] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	if (giftCard.identifier) {
+		task = [self deleteRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/gift_cards/%@.json", _shopDomain, checkout.token, giftCard.identifier] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			CHKGiftCard *giftCard = nil;
 			if (error == nil) {
 				giftCard = [[CHKGiftCard alloc] initWithDictionary:json[@"gift_card"]];

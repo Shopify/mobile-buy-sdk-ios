@@ -95,12 +95,12 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 /*
  * Applies a gift card code to the checkout. Note, giftCardCode is not the same as the gift card identifier.
  */
-- (NSURLSessionDataTask *)applyGiftCard:(NSString *)giftCardCode toCheckout:(CHKCheckout *)checkout completion:(CHKDataGiftCardBlock)block;
+- (NSURLSessionDataTask *)applyGiftCardWithCode:(NSString *)giftCardCode toCheckout:(CHKCheckout *)checkout completion:(CHKDataGiftCardBlock)block;
 
 /**
- * Removes a gift card from the checkout. Note, giftCardId is not the same as the gift card code.
+ * Removes a gift card from the checkout. 
  */
-- (NSURLSessionDataTask *)removeGiftCard:(NSNumber *)giftCardId fromCheckout:(CHKCheckout *)checkout completion:(CHKDataGiftCardBlock)block;
+- (NSURLSessionDataTask *)removeGiftCard:(CHKGiftCard *)giftCard fromCheckout:(CHKCheckout *)checkout completion:(CHKDataGiftCardBlock)block;
 
 /**
  * Fetches the updated version of this checkout.
