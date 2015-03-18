@@ -21,7 +21,7 @@
 	[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"SUBTOTAL" amount:self.subtotalPrice ?: [NSDecimalNumber zero]]];
 	
 	if ([self.discount.amount compare:[NSDecimalNumber zero]] == NSOrderedDescending) {
-		NSString *discountLabel = [self.discount.code length] > 0 ? [NSString stringWithFormat:@"DISCOUNTS (%@)", self.discount.code] : @"DISCOUNTS";
+		NSString *discountLabel = [self.discount.code length] > 0 ? [NSString stringWithFormat:@"DISCOUNT (%@)", self.discount.code] : @"DISCOUNT";
 		[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:discountLabel amount:self.discount.amount]];
 	}
 	
