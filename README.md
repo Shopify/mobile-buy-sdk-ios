@@ -93,6 +93,11 @@ The integration tests that exercise discount code functionality require the foll
 1. **code:** "applicable" **amount:** 10% **conditions:** none
 2. **code:** "inapplicable" **amount:** \<anything\> **conditions:** order value > $1,000,000
 
+The integration tests that exercise the apply of gitfcards to orders will need you to create 2 giftcards:
+
+1. a valid gift card (you'll need the code of this one)
+2. an unexpired gift card (you'll need the id of this one)
+
 ## Pods
 This repo is also a CocoaPod.
 
