@@ -104,8 +104,8 @@
 		NSURLSessionDataTask *task = [_checkoutDataProvider getProductsPage:currentPage completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 			done = reachedEnd || error;
 			
-			XCTAssertNil(error);
-			XCTAssertNotNil(products);
+			XCTAssertNil(error, @"There was an error getting your store's products");
+			XCTAssertNotNil(products, @"Add products to your store for tests to pass");
 
 			[_products addObjectsFromArray:products];
 			dispatch_semaphore_signal(semaphore);
