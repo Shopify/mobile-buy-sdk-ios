@@ -86,7 +86,7 @@ For example, if you were to complete a checkout with an **email**, the `error.us
 ```
 
 ## Testing
-To run the Shopify Anywhere SDK integration tests, you will need a Shopify shop that is publicly accessible (in other words, not hidden behind a password). Please note that the integration tests **will create an order** on that shop. This is to validate that the SDK works properly with Shopify. To have these tests run, fill out the information in `CHKTestCredentials.h`.
+To run the Shopify Anywhere SDK integration tests, you will need a Shopify shop that is publicly accessible (in other words, not hidden behind a password). Please note that the integration tests **will create an order** on that shop. This is to validate that the SDK works properly with Shopify. To have these tests run, fill out the information in `CHKTestConstants.h`.
 
 The integration tests that exercise discount code functionality require the following discounts on your test shop:
 

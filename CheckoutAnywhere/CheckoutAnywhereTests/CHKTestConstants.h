@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.
 //
 
-#ifndef CheckoutAnywhere_CHKTestCredentials_h
-#define CheckoutAnywhere_CHKTestCredentials_h
+#ifndef CheckoutAnywhere_CHKTestConstants_h
+#define CheckoutAnywhere_CHKTestConstants_h
 
 #define CHECKOUT_ANYWHERE_SHOP @""
 #define CHECKOUT_ANYHWERE_API_KEY @""
