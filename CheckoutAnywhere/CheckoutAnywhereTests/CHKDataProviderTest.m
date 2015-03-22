@@ -10,7 +10,7 @@
 @import XCTest;
 
 #import "CHKDataProvider.h"
-#import "CHKTestCredentials.h"
+#import "CHKTestConstants.h"
 #import "CHKCheckout.h"
 #import "CHKCart.h"
 

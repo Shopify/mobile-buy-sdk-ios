@@ -17,7 +17,7 @@
 @property (nonatomic, readonly, copy) NSString *title;
 @property (nonatomic, readonly, copy) NSString *handle;
 @property (nonatomic, readonly, strong) CHKImage *image;
-@property (nonatomic, readonly, assign) NSNumber *productsCount;
+@property (nonatomic, readonly, strong) NSNumber *productsCount;
 @property (nonatomic, readonly, assign) BOOL featured;
 
 @end

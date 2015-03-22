@@ -42,6 +42,7 @@
 @property (nonatomic, strong) NSURL *paymentURL;
 @property (nonatomic, strong) NSNumber *reservationTime;
 @property (nonatomic, strong) NSNumber *reservationTimeLeft;
+@property (nonatomic, strong) NSDecimalNumber *paymentDue;
 
 @property (nonatomic, readonly, copy) NSArray *lineItems;
 @property (nonatomic, readonly, copy) NSArray *taxLines;
