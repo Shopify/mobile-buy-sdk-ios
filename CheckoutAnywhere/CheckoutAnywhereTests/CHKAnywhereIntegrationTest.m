@@ -326,7 +326,7 @@
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 	NSURLSessionDataTask *task = [_checkoutDataProvider removeGiftCard:giftCard fromCheckout:_checkout completion:^(CHKGiftCard *giftCard, NSError *error) {
 		XCTAssertNotNil(error);
-		XCTAssertEqual(404, error.code);
+		XCTAssertEqual(422, error.code);
 		dispatch_semaphore_signal(semaphore);
 	}];
 	WAIT_FOR_TASK(task, semaphore);
@@ -340,7 +340,7 @@
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 	NSURLSessionDataTask *task = [_checkoutDataProvider removeGiftCard:giftCard fromCheckout:_checkout completion:^(CHKGiftCard *giftCard, NSError *error) {
 		XCTAssertNotNil(error);
-		XCTAssertEqual(404, error.code);
+		XCTAssertEqual(422, error.code);
 		dispatch_semaphore_signal(semaphore);
 	}];
 	WAIT_FOR_TASK(task, semaphore);
