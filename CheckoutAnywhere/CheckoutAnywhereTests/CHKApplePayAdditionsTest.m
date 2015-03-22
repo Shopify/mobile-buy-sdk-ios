@@ -95,6 +95,76 @@
 	XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"3.00"], [summaryItems[1] amount]);
 }
 
+- (void)testSummaryItemsWithZeroDiscount
+{
+	_checkout.subtotalPrice = [NSDecimalNumber one];
+	_checkout.shippingRate = [[CHKShippingRate alloc] init];
+	_checkout.shippingRate.price = [NSDecimalNumber zero];
+	_checkout.totalTax = [NSDecimalNumber zero];
+	_checkout.totalPrice = [NSDecimalNumber decimalNumberWithString:@"3.00"];
+	CHKDiscount *discount = [[CHKDiscount alloc] init];
+	discount.code = @"BANANA";
+	discount.amount = [NSDecimalNumber zero];
+	discount.applicable = YES;
+	_checkout.discount = discount;
+	
+	NSArray *summaryItems = [_checkout summaryItems];
+	XCTAssertEqual(2, [summaryItems count]);
+	
+	XCTAssertEqualObjects(@"SUBTOTAL", [summaryItems[0] label]);
+	XCTAssertEqualObjects([NSDecimalNumber one], [summaryItems[0] amount]);
+	XCTAssertEqualObjects(@"TOTAL", [summaryItems[1] label]);
+	XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"3.00"], [summaryItems[1] amount]);
+}
+
+- (void)testSummaryItemsWithNonZeroDiscount
+{
+	_checkout.subtotalPrice = [NSDecimalNumber one];
+	_checkout.shippingRate = [[CHKShippingRate alloc] init];
+	_checkout.shippingRate.price = [NSDecimalNumber zero];
+	_checkout.totalTax = [NSDecimalNumber zero];
+	_checkout.totalPrice = [NSDecimalNumber decimalNumberWithString:@"2.00"];
+	CHKDiscount *discount = [[CHKDiscount alloc] init];
+	discount.code = @"BANANA";
+	discount.amount = [NSDecimalNumber one];
+	discount.applicable = YES;
+	_checkout.discount = discount;
+	
+	NSArray *summaryItems = [_checkout summaryItems];
+	XCTAssertEqual(3, [summaryItems count]);
+	
+	XCTAssertEqualObjects(@"SUBTOTAL", [summaryItems[0] label]);
+	XCTAssertEqualObjects([NSDecimalNumber one], [summaryItems[0] amount]);
+	XCTAssertEqualObjects(@"DISCOUNT (BANANA)", [summaryItems[1] label]);
+	XCTAssertEqualObjects([NSDecimalNumber one], [summaryItems[1] amount]);
+	XCTAssertEqualObjects(@"TOTAL", [summaryItems[2] label]);
+	XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"2.00"], [summaryItems[2] amount]);
+}
+
+- (void)testSummaryItemsWithNonZeroCodelessDiscount
+{
+	_checkout.subtotalPrice = [NSDecimalNumber one];
+	_checkout.shippingRate = [[CHKShippingRate alloc] init];
+	_checkout.shippingRate.price = [NSDecimalNumber zero];
+	_checkout.totalTax = [NSDecimalNumber zero];
+	_checkout.totalPrice = [NSDecimalNumber decimalNumberWithString:@"2.00"];
+	CHKDiscount *discount = [[CHKDiscount alloc] init];
+	discount.code = @"";
+	discount.amount = [NSDecimalNumber one];
+	discount.applicable = YES;
+	_checkout.discount = discount;
+	
+	NSArray *summaryItems = [_checkout summaryItems];
+	XCTAssertEqual(3, [summaryItems count]);
+	
+	XCTAssertEqualObjects(@"SUBTOTAL", [summaryItems[0] label]);
+	XCTAssertEqualObjects([NSDecimalNumber one], [summaryItems[0] amount]);
+	XCTAssertEqualObjects(@"DISCOUNT", [summaryItems[1] label]);
+	XCTAssertEqualObjects([NSDecimalNumber one], [summaryItems[1] amount]);
+	XCTAssertEqualObjects(@"TOTAL", [summaryItems[2] label]);
+	XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"2.00"], [summaryItems[2] amount]);
+}
+
 #pragma mark - CHKShippingRate Apple Pay additions
 
 - (void)testConvertShippingRatesToShippingMethods

@@ -240,9 +240,10 @@ static NSDictionary *kCHKPropertyMap = nil;
 
 - (void)updateWithDictionary:(NSDictionary *)dictionary
 {
-	_code = dictionary[@"code"];
-	_amount = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"amount"]];
-	_applicable = [dictionary[@"applicable"] boolValue];
+	[super updateWithDictionary:dictionary];
+	self.code = dictionary[@"code"];
+	self.amount = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"amount"]];
+	self.applicable = [dictionary[@"applicable"] boolValue];
 }
 
 - (NSDictionary *)jsonDictionaryForCheckout
