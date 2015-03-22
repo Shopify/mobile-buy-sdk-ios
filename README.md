@@ -95,8 +95,8 @@ The integration tests that exercise discount code functionality require the foll
 
 The integration tests that exercise the apply of gitfcards to orders will need you to create 2 giftcards:
 
-1. a valid gift card - you'll need the code of this one
-2. an unexpired gift card - you'll need the both the code and id of this one
+1. a valid gift card - you'll need the gift card code 
+2. an unexpired gift card - you'll need the both the gift card code and id
 
 ## Pods
 This repo is also a CocoaPod.
