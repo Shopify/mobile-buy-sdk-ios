@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		904FB61A1AE03DC500EA1758 /* MobileCheckout-Universal */ = {
+		904FB61A1AE03DC500EA1758 /* Checkout-Universal */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 904FB61B1AE03DC500EA1758 /* Build configuration list for PBXAggregateTarget "MobileCheckout-Universal" */;
+			buildConfigurationList = 904FB61B1AE03DC500EA1758 /* Build configuration list for PBXAggregateTarget "Checkout-Universal" */;
 			buildPhases = (
 				904FB61F1AE03DCF00EA1758 /* ShellScript */,
 			);
 			dependencies = (
 			);
-			name = "MobileCheckout-Universal";
+			name = "Checkout-Universal";
 			productName = "MobileCheckout-Universal";
 		};
 /* End PBXAggregateTarget section */
@@ -85,9 +85,9 @@
 		90368D5A1AE0417700F053C6 /* CHKRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A731A700AC80087DB2C /* CHKRuntime.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90368D5B1AE0417700F053C6 /* NSDecimalNumber+CHKAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A9B1A7011DC0087DB2C /* NSDecimalNumber+CHKAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90368D5C1AE0417700F053C6 /* NSString+Trim.h in Headers */ = {isa = PBXBuildFile; fileRef = F76CFF1B19CB7BE30079C703 /* NSString+Trim.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		904FB6021AE03D4500EA1758 /* MobileCheckout.h in Headers */ = {isa = PBXBuildFile; fileRef = 904FB6011AE03D4500EA1758 /* MobileCheckout.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		904FB6081AE03D4500EA1758 /* MobileCheckout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 904FB5FD1AE03D4500EA1758 /* MobileCheckout.framework */; };
-		904FB60F1AE03D4500EA1758 /* MobileCheckoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 904FB60E1AE03D4500EA1758 /* MobileCheckoutTests.m */; };
+		904FB6021AE03D4500EA1758 /* Checkout.h in Headers */ = {isa = PBXBuildFile; fileRef = 904FB6011AE03D4500EA1758 /* Checkout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		904FB6081AE03D4500EA1758 /* Checkout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 904FB5FD1AE03D4500EA1758 /* Checkout.framework */; };
+		904FB60F1AE03D4500EA1758 /* CheckoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 904FB60E1AE03D4500EA1758 /* CheckoutTests.m */; };
 		90BC07FD1AE0453E005D1195 /* CHKCheckout.m in Sources */ = {isa = PBXBuildFile; fileRef = F773749519C77C260039681C /* CHKCheckout.m */; };
 		F70CE40F1A8BF1D90055BEB8 /* CHKApplePayAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F70CE40E1A8BF1D90055BEB8 /* CHKApplePayAdditions.m */; };
 		F70CE4141A8BF3B70055BEB8 /* CHKApplePayAdditionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F70CE4131A8BF3B70055BEB8 /* CHKApplePayAdditionsTest.m */; };
@@ -156,12 +156,12 @@
 		2AF52AA21A704D620087DB2C /* CHKDataProviderTest_Storefront.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKDataProviderTest_Storefront.m; sourceTree = "<group>"; };
 		42488B321AB8761A005F21A9 /* CHKGiftCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKGiftCard.h; sourceTree = "<group>"; };
 		42488B331AB8761A005F21A9 /* CHKGiftCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKGiftCard.m; sourceTree = "<group>"; };
-		904FB5FD1AE03D4500EA1758 /* MobileCheckout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MobileCheckout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		904FB6001AE03D4500EA1758 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		904FB6011AE03D4500EA1758 /* MobileCheckout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MobileCheckout.h; sourceTree = "<group>"; };
-		904FB6071AE03D4500EA1758 /* MobileCheckoutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MobileCheckoutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		904FB60D1AE03D4500EA1758 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		904FB60E1AE03D4500EA1758 /* MobileCheckoutTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MobileCheckoutTests.m; sourceTree = "<group>"; };
+		904FB5FD1AE03D4500EA1758 /* Checkout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Checkout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		904FB6001AE03D4500EA1758 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Checkout/Info.plist; sourceTree = "<group>"; };
+		904FB6011AE03D4500EA1758 /* Checkout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Checkout.h; path = ../Checkout/Checkout.h; sourceTree = "<group>"; };
+		904FB6071AE03D4500EA1758 /* CheckoutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CheckoutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		904FB60D1AE03D4500EA1758 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../CheckoutTests/Info.plist; sourceTree = "<group>"; };
+		904FB60E1AE03D4500EA1758 /* CheckoutTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CheckoutTests.m; path = ../CheckoutTests/CheckoutTests.m; sourceTree = "<group>"; };
 		90BC07F51AE043FD005D1195 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		90BC07F71AE0440F005D1195 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		F70CE40D1A8BF1D90055BEB8 /* CHKApplePayAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKApplePayAdditions.h; sourceTree = "<group>"; };
@@ -208,7 +208,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				904FB6081AE03D4500EA1758 /* MobileCheckout.framework in Frameworks */,
+				904FB6081AE03D4500EA1758 /* Checkout.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,12 +251,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		904FB5FE1AE03D4500EA1758 /* MobileCheckout */ = {
+		904FB5FE1AE03D4500EA1758 /* Checkout */ = {
 			isa = PBXGroup;
 			children = (
-				904FB6011AE03D4500EA1758 /* MobileCheckout.h */,
+				904FB6011AE03D4500EA1758 /* Checkout.h */,
 				904FB5FF1AE03D4500EA1758 /* Supporting Files */,
 			);
+			name = Checkout;
 			path = MobileCheckout;
 			sourceTree = "<group>";
 		};
@@ -268,12 +269,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		904FB60B1AE03D4500EA1758 /* MobileCheckoutTests */ = {
+		904FB60B1AE03D4500EA1758 /* CheckoutTests */ = {
 			isa = PBXGroup;
 			children = (
-				904FB60E1AE03D4500EA1758 /* MobileCheckoutTests.m */,
+				904FB60E1AE03D4500EA1758 /* CheckoutTests.m */,
 				904FB60C1AE03D4500EA1758 /* Supporting Files */,
 			);
+			name = CheckoutTests;
 			path = MobileCheckoutTests;
 			sourceTree = "<group>";
 		};
@@ -290,8 +292,8 @@
 			children = (
 				F773743A19C777200039681C /* CheckoutAnywhere */,
 				F773742919C770CB0039681C /* CheckoutAnywhereTests */,
-				904FB5FE1AE03D4500EA1758 /* MobileCheckout */,
-				904FB60B1AE03D4500EA1758 /* MobileCheckoutTests */,
+				904FB5FE1AE03D4500EA1758 /* Checkout */,
+				904FB60B1AE03D4500EA1758 /* CheckoutTests */,
 				F773741E19C770CB0039681C /* Products */,
 				547B8D0CCDB9458C800F1E3C /* Frameworks */,
 			);
@@ -302,8 +304,8 @@
 			children = (
 				F773741D19C770CB0039681C /* libCheckoutAnywhere.a */,
 				F773742819C770CB0039681C /* CheckoutAnywhereTests.xctest */,
-				904FB5FD1AE03D4500EA1758 /* MobileCheckout.framework */,
-				904FB6071AE03D4500EA1758 /* MobileCheckoutTests.xctest */,
+				904FB5FD1AE03D4500EA1758 /* Checkout.framework */,
+				904FB6071AE03D4500EA1758 /* CheckoutTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -427,7 +429,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				904FB6021AE03D4500EA1758 /* MobileCheckout.h in Headers */,
+				904FB6021AE03D4500EA1758 /* Checkout.h in Headers */,
 				90368D4A1AE0417700F053C6 /* CHKDataProvider.h in Headers */,
 				90368D4C1AE0417700F053C6 /* CHKCart.h in Headers */,
 				90368D4D1AE0417700F053C6 /* CHKCheckout.h in Headers */,
@@ -452,9 +454,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		904FB5FC1AE03D4500EA1758 /* MobileCheckout */ = {
+		904FB5FC1AE03D4500EA1758 /* Checkout */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 904FB6141AE03D4500EA1758 /* Build configuration list for PBXNativeTarget "MobileCheckout" */;
+			buildConfigurationList = 904FB6141AE03D4500EA1758 /* Build configuration list for PBXNativeTarget "Checkout" */;
 			buildPhases = (
 				904FB5F81AE03D4500EA1758 /* Sources */,
 				904FB5F91AE03D4500EA1758 /* Frameworks */,
@@ -465,14 +467,14 @@
 			);
 			dependencies = (
 			);
-			name = MobileCheckout;
+			name = Checkout;
 			productName = MobileCheckout;
-			productReference = 904FB5FD1AE03D4500EA1758 /* MobileCheckout.framework */;
+			productReference = 904FB5FD1AE03D4500EA1758 /* Checkout.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		904FB6061AE03D4500EA1758 /* MobileCheckoutTests */ = {
+		904FB6061AE03D4500EA1758 /* CheckoutTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 904FB6151AE03D4500EA1758 /* Build configuration list for PBXNativeTarget "MobileCheckoutTests" */;
+			buildConfigurationList = 904FB6151AE03D4500EA1758 /* Build configuration list for PBXNativeTarget "CheckoutTests" */;
 			buildPhases = (
 				904FB6031AE03D4500EA1758 /* Sources */,
 				904FB6041AE03D4500EA1758 /* Frameworks */,
@@ -483,9 +485,9 @@
 			dependencies = (
 				904FB60A1AE03D4500EA1758 /* PBXTargetDependency */,
 			);
-			name = MobileCheckoutTests;
+			name = CheckoutTests;
 			productName = MobileCheckoutTests;
-			productReference = 904FB6071AE03D4500EA1758 /* MobileCheckoutTests.xctest */;
+			productReference = 904FB6071AE03D4500EA1758 /* CheckoutTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		F773741C19C770CB0039681C /* CheckoutAnywhere */ = {
@@ -563,9 +565,9 @@
 			targets = (
 				F773741C19C770CB0039681C /* CheckoutAnywhere */,
 				F773742719C770CB0039681C /* CheckoutAnywhereTests */,
-				904FB5FC1AE03D4500EA1758 /* MobileCheckout */,
-				904FB6061AE03D4500EA1758 /* MobileCheckoutTests */,
-				904FB61A1AE03DC500EA1758 /* MobileCheckout-Universal */,
+				904FB5FC1AE03D4500EA1758 /* Checkout */,
+				904FB6061AE03D4500EA1758 /* CheckoutTests */,
+				904FB61A1AE03DC500EA1758 /* Checkout-Universal */,
 			);
 		};
 /* End PBXProject section */
@@ -599,7 +601,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		904FB61F1AE03DCF00EA1758 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -608,7 +610,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "######################\n# Options\n######################\n\nREVEAL_ARCHIVE_IN_FINDER=false\n\n# FRAMEWORK_NAME=\"${PROJECT_NAME}\"\n\n\n#SIMULATOR_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${FRAMEWORK_NAME}.framework\"\n\n#DEVICE_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${FRAMEWORK_NAME}.framework\"\n\nFRAMEWORK_NAME=\"MobileCheckout\"\nFRAMEWORK_NAME_FRAMEWORK=\"${FRAMEWORK_NAME}.framework\"\nUNIVERSAL_LIBRARY_DIR=\"${BUILD_DIR}/${FRAMEWORK_NAME}\"\nFRAMEWORK=\"${UNIVERSAL_LIBRARY_DIR}/${FRAMEWORK_NAME_FRAMEWORK}\"\n\n######################\n# Build Frameworks\n######################\n\n#xcodebuild -scheme ${FRAMEWORK_NAME} -sdk iphonesimulator -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphonesimulator 2>&1\n\n#xcodebuild -scheme ${FRAMEWORK_NAME} -sdk iphoneos -configuration ${CONFIGURATION} clean build ARCHS=\"x86_64\" CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphoneos 2>&1\n\nxcodebuild -scheme ${FRAMEWORK_NAME} -configuration \"Release\" -sdk \"iphoneos8.3\" clean build ARCHS=\"armv7 armv7s\" IPHONEOS_DEPLOYMENT_TARGET=\"8.0\" TARGET_BUILD_DIR=\"${BUILD_DIR}/build-arm\" BUILT_PRODUCTS_DIR=\"${BUILD_DIR}/build-arm\"\nxcodebuild -scheme ${FRAMEWORK_NAME} -configuration \"Release\" -sdk \"iphoneos8.3\" clean build ARCHS=\"arm64\" IPHONEOS_DEPLOYMENT_TARGET=\"8.0\" TARGET_BUILD_DIR=\"${BUILD_DIR}/build-arm64\" BUILT_PRODUCTS_DIR=\"${BUILD_DIR}/build-arm64\"\nxcodebuild -scheme ${FRAMEWORK_NAME} -configuration \"Release\" -sdk \"iphonesimulator8.3\" clean build ARCHS=\"i386\" IPHONEOS_DEPLOYMENT_TARGET=\"8.0\" TARGET_BUILD_DIR=\"${BUILD_DIR}/build-i386\" BUILT_PRODUCTS_DIR=\"${BUILD_DIR}/build-i386\"\nxcodebuild -scheme ${FRAMEWORK_NAME} -configuration \"Release\" -sdk \"iphonesimulator8.3\" clean build ARCHS=\"x86_64\" VALID_ARCHS=\"x86_64\" IPHONEOS_DEPLOYMENT_TARGET=\"8.0\" TARGET_BUILD_DIR=\"${BUILD_DIR}/build-x86_64\" BUILT_PRODUCTS_DIR=\"${BUILD_DIR}/build-x86_64\"\n\n######################\n# Create directory for universal\n######################\n\nrm -rf \"${UNIVERSAL_LIBRARY_DIR}\"\n\nmkdir \"${UNIVERSAL_LIBRARY_DIR}\"\n\nmkdir \"${FRAMEWORK}\"\n\n\n######################\n# Copy files Framework\n######################\n\n#cp -r \"${DEVICE_LIBRARY_PATH}/.\" \"${FRAMEWORK}\"\n\n\n######################\n# Make an universal binary\n######################\n\n# create universal library\nlipo -create \"${BUILD_DIR}/build-arm/${FRAMEWORK_NAME_FRAMEWORK}/${FRAMEWORK_NAME}\" \"${BUILD_DIR}/build-arm64/${FRAMEWORK_NAME_FRAMEWORK}/${FRAMEWORK_NAME}\" \"${BUILD_DIR}/build-i386/${FRAMEWORK_NAME_FRAMEWORK}/${FRAMEWORK_NAME}\" \"${BUILD_DIR}/build-x86_64/${FRAMEWORK_NAME_FRAMEWORK}/${FRAMEWORK_NAME}\" -output \"${FRAMEWORK}/${FRAMEWORK_NAME}\" | echo\n\n#lipo \"${SIMULATOR_LIBRARY_PATH}/${FRAMEWORK_NAME}\" \"${DEVICE_LIBRARY_PATH}/${FRAMEWORK_NAME}\" -create -output \"${FRAMEWORK}/${FRAMEWORK_NAME}\"\n\n# For Swift framework, Swiftmodule needs to be copied in the universal framework\nif [ -d \"${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" ]; then\ncp -f ${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/* \"${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" | echo\n                                                                      fi\n                                                                      \n                                                                      if [ -d \"${DEVICE_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" ]; then\n                                                                      cp -f ${DEVICE_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/* \"${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" | echo\n                                                                      fi\n                                                                      \n                                                                      ######################\n                                                                      # On Release, copy the result to release directory\n                                                                      ######################\n                                                                      OUTPUT_DIR=\"${PROJECT_DIR}/Output/${FRAMEWORK_NAME}-${CONFIGURATION}-iphoneuniversal/\"\n                                                                      \n                                                                      rm -rf \"$OUTPUT_DIR\"\n                                                                      mkdir -p \"$OUTPUT_DIR\"\n                                                                      \n                                                                      cp -r \"${FRAMEWORK}\" \"$OUTPUT_DIR\"\n                                                                      \n                                                                      if [ ${REVEAL_ARCHIVE_IN_FINDER} = true ]; then\n                                                                      open \"${OUTPUT_DIR}/\"\n                                                                      fi";
+			shellScript = "######################\n# Options\n######################\n\nREVEAL_ARCHIVE_IN_FINDER=false\n\nFRAMEWORK_NAME=\"Checkout\"\nFRAMEWORK_NAME_FRAMEWORK=\"${FRAMEWORK_NAME}.framework\"\nUNIVERSAL_LIBRARY_DIR=\"${BUILD_DIR}/${FRAMEWORK_NAME}\"\nFRAMEWORK=\"${UNIVERSAL_LIBRARY_DIR}/${FRAMEWORK_NAME_FRAMEWORK}\"\nDIR_ARM=\"${BUILD_DIR}/build-arm\"\nDIR_ARM64=\"${BUILD_DIR}/build-arm64\"\nDIR_i386=\"${BUILD_DIR}/build-i386\"\nDIR_x8664=\"${BUILD_DIR}/build-x86_64\"\n\n######################\n# Build Frameworks\n######################\n\nxcodebuild -scheme ${FRAMEWORK_NAME} -configuration \"Release\" -sdk \"iphoneos8.3\" clean build ARCHS=\"armv7 armv7s\" IPHONEOS_DEPLOYMENT_TARGET=\"8.0\" TARGET_BUILD_DIR=\"${DIR_ARM}\" BUILT_PRODUCTS_DIR=\"${DIR_ARM}\"\nxcodebuild -scheme ${FRAMEWORK_NAME} -configuration \"Release\" -sdk \"iphoneos8.3\" clean build ARCHS=\"arm64\" IPHONEOS_DEPLOYMENT_TARGET=\"8.0\" TARGET_BUILD_DIR=\"${DIR_ARM64}\" BUILT_PRODUCTS_DIR=\"${DIR_ARM64}\"\nxcodebuild -scheme ${FRAMEWORK_NAME} -configuration \"Release\" -sdk \"iphonesimulator8.3\" clean build ARCHS=\"i386\" IPHONEOS_DEPLOYMENT_TARGET=\"8.0\" TARGET_BUILD_DIR=\"${DIR_i386}\" BUILT_PRODUCTS_DIR=\"${DIR_i386}\"\nxcodebuild -scheme ${FRAMEWORK_NAME} -configuration \"Release\" -sdk \"iphonesimulator8.3\" clean build ARCHS=\"x86_64\" VALID_ARCHS=\"x86_64\" IPHONEOS_DEPLOYMENT_TARGET=\"8.0\" TARGET_BUILD_DIR=\"${DIR_x8664}\" BUILT_PRODUCTS_DIR=\"${DIR_x8664}\"\n\n######################\n# Create directory for universal\n######################\n\nrm -rf \"${UNIVERSAL_LIBRARY_DIR}\"\nmkdir \"${UNIVERSAL_LIBRARY_DIR}\"\nmkdir \"${FRAMEWORK}\"\n\n######################\n# Copy files Framework\n######################\n\ncp -r \"${DIR_ARM}/${FRAMEWORK_NAME_FRAMEWORK}/.\" \"${FRAMEWORK}\"\n\n######################\n# Make an universal binary\n######################\n\n# create universal library\nlipo -create \"${DIR_ARM}/${FRAMEWORK_NAME_FRAMEWORK}/${FRAMEWORK_NAME}\" \"${DIR_ARM64}/${FRAMEWORK_NAME_FRAMEWORK}/${FRAMEWORK_NAME}\" \"${DIR_i386}/${FRAMEWORK_NAME_FRAMEWORK}/${FRAMEWORK_NAME}\" \"${DIR_x8664}/${FRAMEWORK_NAME_FRAMEWORK}/${FRAMEWORK_NAME}\" -output \"${FRAMEWORK}/${FRAMEWORK_NAME}\" | echo\n\n# For Swift framework, Swiftmodule needs to be copied in the universal framework\nif [ -d \"${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" ]; then\ncp -f ${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/* \"${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" | echo\n                                                                      fi\n                                                                      \n                                                                      if [ -d \"${DEVICE_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" ]; then\n                                                                      cp -f ${DEVICE_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/* \"${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" | echo\n                                                                      fi\n                                                                      \n                                                                      ######################\n                                                                      # On Release, copy the result to release directory\n                                                                      ######################\n                                                                      OUTPUT_DIR=\"${PROJECT_DIR}/Output/${FRAMEWORK_NAME}-${CONFIGURATION}-iphoneuniversal/\"\n                                                                      \n                                                                      rm -rf \"$OUTPUT_DIR\"\n                                                                      mkdir -p \"$OUTPUT_DIR\"\n                                                                      \n                                                                      cp -r \"${FRAMEWORK}\" \"$OUTPUT_DIR\"\n                                                                      \n                                                                      if [ ${REVEAL_ARCHIVE_IN_FINDER} = true ]; then\n                                                                      open \"${OUTPUT_DIR}/\"\n                                                                      fi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -641,7 +643,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				904FB60F1AE03D4500EA1758 /* MobileCheckoutTests.m in Sources */,
+				904FB60F1AE03D4500EA1758 /* CheckoutTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -707,7 +709,7 @@
 /* Begin PBXTargetDependency section */
 		904FB60A1AE03D4500EA1758 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 904FB5FC1AE03D4500EA1758 /* MobileCheckout */;
+			target = 904FB5FC1AE03D4500EA1758 /* Checkout */;
 			targetProxy = 904FB6091AE03D4500EA1758 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -730,7 +732,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = MobileCheckout/Info.plist;
+				INFOPLIST_FILE = Checkout/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -758,7 +760,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = MobileCheckout/Info.plist;
+				INFOPLIST_FILE = Checkout/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -788,7 +790,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = MobileCheckoutTests/Info.plist;
+				INFOPLIST_FILE = CheckoutTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -807,7 +809,7 @@
 					"$(inherited)",
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = MobileCheckoutTests/Info.plist;
+				INFOPLIST_FILE = CheckoutTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -999,7 +1001,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		904FB6141AE03D4500EA1758 /* Build configuration list for PBXNativeTarget "MobileCheckout" */ = {
+		904FB6141AE03D4500EA1758 /* Build configuration list for PBXNativeTarget "Checkout" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				904FB6101AE03D4500EA1758 /* Debug */,
@@ -1008,7 +1010,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		904FB6151AE03D4500EA1758 /* Build configuration list for PBXNativeTarget "MobileCheckoutTests" */ = {
+		904FB6151AE03D4500EA1758 /* Build configuration list for PBXNativeTarget "CheckoutTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				904FB6121AE03D4500EA1758 /* Debug */,
@@ -1017,7 +1019,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		904FB61B1AE03DC500EA1758 /* Build configuration list for PBXAggregateTarget "MobileCheckout-Universal" */ = {
+		904FB61B1AE03DC500EA1758 /* Build configuration list for PBXAggregateTarget "Checkout-Universal" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				904FB61C1AE03DC500EA1758 /* Debug */,

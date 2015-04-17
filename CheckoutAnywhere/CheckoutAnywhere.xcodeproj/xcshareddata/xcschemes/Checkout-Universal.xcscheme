@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "904FB61A1AE03DC500EA1758"
-               BuildableName = "MobileCheckout-Universal"
-               BlueprintName = "MobileCheckout-Universal"
+               BuildableName = "Checkout-Universal"
+               BlueprintName = "Checkout-Universal"
                ReferencedContainer = "container:CheckoutAnywhere.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -43,8 +43,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "904FB61A1AE03DC500EA1758"
-            BuildableName = "MobileCheckout-Universal"
-            BlueprintName = "MobileCheckout-Universal"
+            BuildableName = "Checkout-Universal"
+            BlueprintName = "Checkout-Universal"
             ReferencedContainer = "container:CheckoutAnywhere.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -61,8 +61,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "904FB61A1AE03DC500EA1758"
-            BuildableName = "MobileCheckout-Universal"
-            BlueprintName = "MobileCheckout-Universal"
+            BuildableName = "Checkout-Universal"
+            BlueprintName = "Checkout-Universal"
             ReferencedContainer = "container:CheckoutAnywhere.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

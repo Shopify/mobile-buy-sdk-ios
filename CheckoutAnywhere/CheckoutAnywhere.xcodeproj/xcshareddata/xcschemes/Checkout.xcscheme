@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "904FB5FC1AE03D4500EA1758"
-               BuildableName = "MobileCheckout.framework"
-               BlueprintName = "MobileCheckout"
+               BuildableName = "Checkout.framework"
+               BlueprintName = "Checkout"
                ReferencedContainer = "container:CheckoutAnywhere.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -29,8 +29,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "904FB6061AE03D4500EA1758"
-               BuildableName = "MobileCheckoutTests.xctest"
-               BlueprintName = "MobileCheckoutTests"
+               BuildableName = "CheckoutTests.xctest"
+               BlueprintName = "CheckoutTests"
                ReferencedContainer = "container:CheckoutAnywhere.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,8 +47,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "904FB6061AE03D4500EA1758"
-               BuildableName = "MobileCheckoutTests.xctest"
-               BlueprintName = "MobileCheckoutTests"
+               BuildableName = "CheckoutTests.xctest"
+               BlueprintName = "CheckoutTests"
                ReferencedContainer = "container:CheckoutAnywhere.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -57,8 +57,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "904FB5FC1AE03D4500EA1758"
-            BuildableName = "MobileCheckout.framework"
-            BlueprintName = "MobileCheckout"
+            BuildableName = "Checkout.framework"
+            BlueprintName = "Checkout"
             ReferencedContainer = "container:CheckoutAnywhere.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -76,8 +76,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "904FB5FC1AE03D4500EA1758"
-            BuildableName = "MobileCheckout.framework"
-            BlueprintName = "MobileCheckout"
+            BuildableName = "Checkout.framework"
+            BlueprintName = "Checkout"
             ReferencedContainer = "container:CheckoutAnywhere.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -94,8 +94,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "904FB5FC1AE03D4500EA1758"
-            BuildableName = "MobileCheckout.framework"
-            BlueprintName = "MobileCheckout"
+            BuildableName = "Checkout.framework"
+            BlueprintName = "Checkout"
             ReferencedContainer = "container:CheckoutAnywhere.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
