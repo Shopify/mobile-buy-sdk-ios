@@ -1,6 +1,0 @@
-framework module MobileCheckout {
-  umbrella header "MobileCheckout.h"
-
-  export *
-  module * { export * }
-}
