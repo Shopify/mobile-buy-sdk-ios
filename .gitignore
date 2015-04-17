@@ -1,4 +1,5 @@
 build/*
+Output/*
 *.pbxuser
 !default.pbxuser
 *.mode1v3
