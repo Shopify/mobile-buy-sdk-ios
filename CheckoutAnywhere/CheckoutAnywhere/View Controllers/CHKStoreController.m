@@ -137,7 +137,28 @@
 
 - (void)presentCheckoutMethodSelectionMenuWithCheckoutRequest:(NSURLRequest *)request
 {
-    [self.delegate controllerShouldPresentPaymentSelection:self];
+    if ([self.delegate respondsToSelector:@selector(controller:shouldProceedWithCheckoutType:)]) {
+        
+        [self.delegate controller:self shouldProceedWithCheckoutType:^(CHKCheckoutType type) {
+            
+            switch (type) {
+                case CHKheckoutTypeNormal:
+                    [self checkoutWithNormalCheckout];
+                    break;
+                    
+                case CHKCheckoutTypeApplePay:
+                    [self checkoutWithApplePay];
+                    break;
+                    
+                default:
+                    break;
+            }
+        }];
+    }
+    
+    else {
+        [self checkoutWithNormalCheckout];
+    }
 }
 
 - (void)getProduct:(NSString *)handle withVariantId:(NSString *)variantId completion:(void (^)(CHKProductVariant *variant, NSError *error))completion;

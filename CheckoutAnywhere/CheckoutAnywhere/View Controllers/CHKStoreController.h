@@ -10,11 +10,25 @@
 
 #import "CHKViewController.h"
 
+typedef NS_ENUM(NSUInteger, CHKCheckoutType) {
+    CHKheckoutTypeNormal,
+    CHKCheckoutTypeApplePay,
+    
+    CHKCheckoutTypeCancel
+};
+
+typedef void (^CHKCheckoutTypeBlock)(CHKCheckoutType type);
+
+
 @class CHKStoreController;
 
 @protocol CHKStoreController <CHKControllerDelegate>
 
-- (void)controllerShouldPresentPaymentSelection:(CHKStoreController *)controller;
+/**
+ * Tells the delegate that the user has proceeded to checkout.  Use this opportunity to present an interface the the
+ * user to choose between checking out with ApplePay or standard webcheckout. Before presenting an option for ApplePay, check if the device is setup to do so by calling `[PKPaymentAuthorizationViewController canMakePayments]`
+ */
+- (void)controller:(CHKStoreController *)controller shouldProceedWithCheckoutType:(CHKCheckoutTypeBlock)completionHandler;
 
 @end
 
@@ -36,9 +50,5 @@
 - (instancetype)initWithShopAddress:(NSString *)shopAddress apiKey:(NSString *)apiKey merchantId:(NSString *)merchantId url:(NSURL *)url;
 
 @property (nonatomic, weak) id <CHKStoreController> delegate;
-
-- (void)checkoutWithApplePay;
-
-- (void)checkoutWithNormalCheckout;
 
 @end
