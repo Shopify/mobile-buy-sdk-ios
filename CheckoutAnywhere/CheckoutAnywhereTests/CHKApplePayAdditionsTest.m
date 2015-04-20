@@ -30,7 +30,7 @@
 
 - (void)testSummaryItemsWithEmptyCheckout
 {
-	NSArray *summaryItems = [_checkout summaryItems];
+	NSArray *summaryItems = [_checkout chk_summaryItems];
 	XCTAssertEqual(2, [summaryItems count]);
 	
 	XCTAssertEqualObjects(@"SUBTOTAL", [summaryItems[0] label]);
@@ -47,7 +47,7 @@
 	_checkout.totalTax = [NSDecimalNumber decimalNumberWithString:@"1.00"];
 	_checkout.totalPrice = [NSDecimalNumber decimalNumberWithString:@"4.00"];
 	
-	NSArray *summaryItems = [_checkout summaryItems];
+	NSArray *summaryItems = [_checkout chk_summaryItems];
 	XCTAssertEqual(4, [summaryItems count]);
 	
 	XCTAssertEqualObjects(@"SUBTOTAL", [summaryItems[0] label]);
@@ -67,7 +67,7 @@
 	_checkout.shippingRate.price = [NSDecimalNumber decimalNumberWithString:@"2.00"];
 	_checkout.totalPrice = [NSDecimalNumber decimalNumberWithString:@"3.00"];
 	
-	NSArray *summaryItems = [_checkout summaryItems];
+	NSArray *summaryItems = [_checkout chk_summaryItems];
 	XCTAssertEqual(3, [summaryItems count]);
 	
 	XCTAssertEqualObjects(@"SUBTOTAL", [summaryItems[0] label]);
@@ -86,7 +86,7 @@
 	_checkout.totalTax = [NSDecimalNumber zero];
 	_checkout.totalPrice = [NSDecimalNumber decimalNumberWithString:@"3.00"];
 	
-	NSArray *summaryItems = [_checkout summaryItems];
+	NSArray *summaryItems = [_checkout chk_summaryItems];
 	XCTAssertEqual(2, [summaryItems count]);
 	
 	XCTAssertEqualObjects(@"SUBTOTAL", [summaryItems[0] label]);
@@ -108,7 +108,7 @@
 	discount.applicable = YES;
 	_checkout.discount = discount;
 	
-	NSArray *summaryItems = [_checkout summaryItems];
+	NSArray *summaryItems = [_checkout chk_summaryItems];
 	XCTAssertEqual(2, [summaryItems count]);
 	
 	XCTAssertEqualObjects(@"SUBTOTAL", [summaryItems[0] label]);
@@ -130,7 +130,7 @@
 	discount.applicable = YES;
 	_checkout.discount = discount;
 	
-	NSArray *summaryItems = [_checkout summaryItems];
+	NSArray *summaryItems = [_checkout chk_summaryItems];
 	XCTAssertEqual(3, [summaryItems count]);
 	
 	XCTAssertEqualObjects(@"SUBTOTAL", [summaryItems[0] label]);
@@ -154,7 +154,7 @@
 	discount.applicable = YES;
 	_checkout.discount = discount;
 	
-	NSArray *summaryItems = [_checkout summaryItems];
+	NSArray *summaryItems = [_checkout chk_summaryItems];
 	XCTAssertEqual(3, [summaryItems count]);
 	
 	XCTAssertEqualObjects(@"SUBTOTAL", [summaryItems[0] label]);
@@ -179,7 +179,7 @@
 	rate2.price = [NSDecimalNumber decimalNumberWithString:@"3.00"];
 	rate2.title = @"Dinosaur";
 	
-	NSArray *shippingMethods = [CHKShippingRate convertShippingRatesToShippingMethods:@[rate1, rate2]];
+	NSArray *shippingMethods = [CHKShippingRate chk_convertShippingRatesToShippingMethods:@[rate1, rate2]];
 	XCTAssertEqual(2, [shippingMethods count]);
 	
 	PKShippingMethod *method1 = shippingMethods[0];
@@ -195,7 +195,7 @@
 
 - (void)testConvertShippingRatesToShippingMethodsWithEmptyArray
 {
-	NSArray *shippingMethods = [CHKShippingRate convertShippingRatesToShippingMethods:@[]];
+	NSArray *shippingMethods = [CHKShippingRate chk_convertShippingRatesToShippingMethods:@[]];
 	XCTAssertEqual(0, [shippingMethods count]);
 }
 
@@ -214,7 +214,7 @@
 	ABRecordSetValue(person, kABPersonEmailProperty, emails, &error);
 	CFRelease(emails);
 	
-	XCTAssertEqualObjects(@"bob@banana.com", [CHKAddress emailFromRecord:person]);
+	XCTAssertEqualObjects(@"bob@banana.com", [CHKAddress chk_emailFromRecord:person]);
 	
 	CFRelease(person);
 }
@@ -226,7 +226,7 @@
 	ABRecordSetValue(person, kABPersonFirstNameProperty, CFSTR("Bob"), &error);
 	ABRecordSetValue(person, kABPersonLastNameProperty, CFSTR("Banana"), &error);
 	
-	XCTAssertNil([CHKAddress emailFromRecord:person]);
+	XCTAssertNil([CHKAddress chk_emailFromRecord:person]);
 	
 	CFRelease(person);
 }
@@ -252,7 +252,7 @@
 	ABRecordSetValue(person, kABPersonAddressProperty, addresses, &error);
 	CFRelease(addresses);
 	
-	CHKAddress *newAddress = [CHKAddress addressFromRecord:person];
+	CHKAddress *newAddress = [CHKAddress chk_addressFromRecord:person];
 	XCTAssertNotNil(newAddress);
 	XCTAssertEqualObjects(@"150 Elgin Street", newAddress.address1);
 	XCTAssertEqualObjects(@"Ottawa", newAddress.city);
@@ -284,7 +284,7 @@
 	ABRecordSetValue(person, kABPersonFirstNameProperty, CFSTR("---"), &error);
 	ABRecordSetValue(person, kABPersonLastNameProperty, CFSTR("---"), &error);
 	
-	CHKAddress *newAddress = [CHKAddress addressFromRecord:person];
+	CHKAddress *newAddress = [CHKAddress chk_addressFromRecord:person];
 	XCTAssertNotNil(newAddress);
 	XCTAssertEqualObjects(@"---", newAddress.address1);
 	XCTAssertEqualObjects(@"Ottawa", newAddress.city);

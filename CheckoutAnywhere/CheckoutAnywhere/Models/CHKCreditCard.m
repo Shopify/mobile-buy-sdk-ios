@@ -15,27 +15,27 @@
 - (NSDictionary *)jsonDictionaryForCheckout
 {
 	NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
-	NSString *name = [self.nameOnCard trim];
+	NSString *name = [self.nameOnCard chk_trim];
 	if ([name length] > 0) {
 		json[@"name"] = name;
 	}
 	
-	NSString *number = [self.number trim];
+	NSString *number = [self.number chk_trim];
 	if ([number length] > 0) {
 		json[@"number"] = number;
 	}
 	
-	NSString *expiryMonth = [self.expiryMonth trim];
+	NSString *expiryMonth = [self.expiryMonth chk_trim];
 	if ([expiryMonth length] > 0) {
 		json[@"month"] = expiryMonth;
 	}
 	
-	NSString *expiryYear = [self.expiryYear trim];
+	NSString *expiryYear = [self.expiryYear chk_trim];
 	if ([expiryYear length] > 0) {
 		json[@"year"] = expiryYear;
 	}
 	
-	NSString *cvv = [self.cvv trim];
+	NSString *cvv = [self.cvv chk_trim];
 	if ([cvv length] > 0) {
 		json[@"verification_value"] = cvv;
 	}

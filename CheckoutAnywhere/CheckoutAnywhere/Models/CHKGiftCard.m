@@ -20,8 +20,8 @@
 	
 	_code = dictionary[@"code"];
 	_lastCharacters = dictionary[@"last_characters"];
-	_balance = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"balance"]];
-	_amountUsed = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"amountUsed"]];
+	_balance = [NSDecimalNumber chk_decimalNumberFromJSON:dictionary[@"balance"]];
+	_amountUsed = [NSDecimalNumber chk_decimalNumberFromJSON:dictionary[@"amountUsed"]];
 	_checkout = [CHKCheckout convertObject:dictionary[@"checkout"]];
 }
 

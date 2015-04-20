@@ -39,8 +39,8 @@
 {
 	[super updateWithDictionary:dictionary];
 	self.title = dictionary[@"title"];
-	self.quantity = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"quantity"]];
-	self.price = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"price"]];
+	self.quantity = [NSDecimalNumber chk_decimalNumberFromJSON:dictionary[@"quantity"]];
+	self.price = [NSDecimalNumber chk_decimalNumberFromJSON:dictionary[@"price"]];
 	self.requiresShipping = dictionary[@"requires_shipping"];
 }
 
@@ -60,7 +60,7 @@
 	}
 	
 	if ([self.title length] > 0) {
-		lineItem[@"title"] = [self.title trim];
+		lineItem[@"title"] = [self.title chk_trim];
 	}
 	
 	if (self.quantity) {

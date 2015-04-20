@@ -13,6 +13,6 @@
 /**
  * Equivalent to `[self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]`
  */
-- (NSString*)trim;
+- (NSString*)chk_trim;
 
 @end

@@ -82,12 +82,12 @@
 		90368D571AE0417700F053C6 /* CHKSerializable.h in Headers */ = {isa = PBXBuildFile; fileRef = F76CFF1E19CB7C500079C703 /* CHKSerializable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90368D581AE0417700F053C6 /* CHKShop.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A831A700B0A0087DB2C /* CHKShop.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90368D591AE0417700F053C6 /* CHKApplePayAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = F70CE40D1A8BF1D90055BEB8 /* CHKApplePayAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		90368D5A1AE0417700F053C6 /* CHKRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A731A700AC80087DB2C /* CHKRuntime.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		90368D5A1AE0417700F053C6 /* CHKRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A731A700AC80087DB2C /* CHKRuntime.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		90368D5B1AE0417700F053C6 /* NSDecimalNumber+CHKAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A9B1A7011DC0087DB2C /* NSDecimalNumber+CHKAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90368D5C1AE0417700F053C6 /* NSString+Trim.h in Headers */ = {isa = PBXBuildFile; fileRef = F76CFF1B19CB7BE30079C703 /* NSString+Trim.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		904FB6021AE03D4500EA1758 /* Checkout.h in Headers */ = {isa = PBXBuildFile; fileRef = 904FB6011AE03D4500EA1758 /* Checkout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		904FB6081AE03D4500EA1758 /* Checkout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 904FB5FD1AE03D4500EA1758 /* Checkout.framework */; };
-		904FB60F1AE03D4500EA1758 /* CheckoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 904FB60E1AE03D4500EA1758 /* CheckoutTests.m */; };
+		904FB60F1AE03D4500EA1758 /* CheckoutTests in Sources */ = {isa = PBXBuildFile; fileRef = 904FB60E1AE03D4500EA1758 /* CheckoutTests */; };
 		90BC07FD1AE0453E005D1195 /* CHKCheckout.m in Sources */ = {isa = PBXBuildFile; fileRef = F773749519C77C260039681C /* CHKCheckout.m */; };
 		F70CE40F1A8BF1D90055BEB8 /* CHKApplePayAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F70CE40E1A8BF1D90055BEB8 /* CHKApplePayAdditions.m */; };
 		F70CE4141A8BF3B70055BEB8 /* CHKApplePayAdditionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F70CE4131A8BF3B70055BEB8 /* CHKApplePayAdditionsTest.m */; };
@@ -160,8 +160,8 @@
 		904FB6001AE03D4500EA1758 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Checkout/Info.plist; sourceTree = "<group>"; };
 		904FB6011AE03D4500EA1758 /* Checkout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Checkout.h; path = ../Checkout/Checkout.h; sourceTree = "<group>"; };
 		904FB6071AE03D4500EA1758 /* CheckoutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CheckoutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		904FB60D1AE03D4500EA1758 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../CheckoutTests/Info.plist; sourceTree = "<group>"; };
-		904FB60E1AE03D4500EA1758 /* CheckoutTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CheckoutTests.m; path = ../CheckoutTests/CheckoutTests.m; sourceTree = "<group>"; };
+		904FB60D1AE03D4500EA1758 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = CheckoutTests/Info.plist; sourceTree = "<group>"; };
+		904FB60E1AE03D4500EA1758 /* CheckoutTests */ = {isa = PBXFileReference; lastKnownFileType = text; path = CheckoutTests; sourceTree = "<group>"; };
 		90BC07F51AE043FD005D1195 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		90BC07F71AE0440F005D1195 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		F70CE40D1A8BF1D90055BEB8 /* CHKApplePayAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKApplePayAdditions.h; sourceTree = "<group>"; };
@@ -257,8 +257,7 @@
 				904FB6011AE03D4500EA1758 /* Checkout.h */,
 				904FB5FF1AE03D4500EA1758 /* Supporting Files */,
 			);
-			name = Checkout;
-			path = MobileCheckout;
+			path = Checkout;
 			sourceTree = "<group>";
 		};
 		904FB5FF1AE03D4500EA1758 /* Supporting Files */ = {
@@ -272,7 +271,7 @@
 		904FB60B1AE03D4500EA1758 /* CheckoutTests */ = {
 			isa = PBXGroup;
 			children = (
-				904FB60E1AE03D4500EA1758 /* CheckoutTests.m */,
+				904FB60E1AE03D4500EA1758 /* CheckoutTests */,
 				904FB60C1AE03D4500EA1758 /* Supporting Files */,
 			);
 			name = CheckoutTests;
@@ -445,9 +444,9 @@
 				90368D571AE0417700F053C6 /* CHKSerializable.h in Headers */,
 				90368D581AE0417700F053C6 /* CHKShop.h in Headers */,
 				90368D591AE0417700F053C6 /* CHKApplePayAdditions.h in Headers */,
-				90368D5A1AE0417700F053C6 /* CHKRuntime.h in Headers */,
 				90368D5B1AE0417700F053C6 /* NSDecimalNumber+CHKAdditions.h in Headers */,
 				90368D5C1AE0417700F053C6 /* NSString+Trim.h in Headers */,
+				90368D5A1AE0417700F053C6 /* CHKRuntime.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -643,7 +642,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				904FB60F1AE03D4500EA1758 /* CheckoutTests.m in Sources */,
+				904FB60F1AE03D4500EA1758 /* CheckoutTests in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

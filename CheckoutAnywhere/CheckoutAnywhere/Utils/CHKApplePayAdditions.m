@@ -15,7 +15,7 @@
 
 @implementation CHKCheckout (ApplePay)
 
-- (NSArray *)summaryItems
+- (NSArray *)chk_summaryItems
 {
 	NSMutableArray *summaryItems = [[NSMutableArray alloc] init];
 	[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"SUBTOTAL" amount:self.subtotalPrice ?: [NSDecimalNumber zero]]];
@@ -41,7 +41,7 @@
 
 @implementation CHKShippingRate (ApplePay)
 
-+ (NSArray *)convertShippingRatesToShippingMethods:(NSArray *)rates
++ (NSArray *)chk_convertShippingRatesToShippingMethods:(NSArray *)rates
 {
 	NSMutableArray *shippingMethods = [[NSMutableArray alloc] init];
 	for (CHKShippingRate *shippingRate in rates) {
@@ -59,7 +59,7 @@
 
 @implementation CHKAddress (ApplePay)
 
-+ (NSString *)emailFromRecord:(ABRecordRef)record
++ (NSString *)chk_emailFromRecord:(ABRecordRef)record
 {
 	ABMultiValueRef emailMultiValue = ABRecordCopyValue(record, kABPersonEmailProperty);
 	CFArrayRef allEmails = ABMultiValueCopyArrayOfAllValues(emailMultiValue);
@@ -74,7 +74,7 @@
 	return email;
 }
 
-+ (CHKAddress *)addressFromRecord:(ABRecordRef)record
++ (CHKAddress *)chk_addressFromRecord:(ABRecordRef)record
 {
 	CHKAddress *address = [[CHKAddress alloc] init];
 	

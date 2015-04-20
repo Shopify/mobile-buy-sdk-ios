@@ -10,7 +10,7 @@
 
 @implementation NSString (Trim)
 
-- (NSString*)trim
+- (NSString*)chk_trim
 {
 	return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }

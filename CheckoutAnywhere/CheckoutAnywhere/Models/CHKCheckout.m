@@ -90,9 +90,9 @@ static NSDictionary *kCHKPropertyMap = nil;
 	self.requiresShipping = [dictionary[@"requires_shipping"] boolValue];
 	self.taxesIncluded = [dictionary[@"taxes_included"] boolValue];
 	self.currency = dictionary[@"currency"];
-	self.subtotalPrice = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"subtotal_price"]];
-	self.totalTax = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"total_tax"]];
-	self.totalPrice = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"total_price"]];
+	self.subtotalPrice = [NSDecimalNumber chk_decimalNumberFromJSON:dictionary[@"subtotal_price"]];
+	self.totalTax = [NSDecimalNumber chk_decimalNumberFromJSON:dictionary[@"total_tax"]];
+	self.totalPrice = [NSDecimalNumber chk_decimalNumberFromJSON:dictionary[@"total_price"]];
 	
 	self.paymentSessionId = dictionary[@"payment_session_id"];
 	NSString *paymentURLString = dictionary[@"payment_url"];
@@ -127,7 +127,7 @@ static NSDictionary *kCHKPropertyMap = nil;
 		newValue = newArray;
 	}
 	else if ([value isKindOfClass:[NSString class]]) {
-		newValue = [value trim];
+		newValue = [value chk_trim];
 	}
 	return newValue;
 }
@@ -178,31 +178,31 @@ static NSDictionary *kCHKPropertyMap = nil;
 - (NSDictionary *)jsonDictionaryForCheckout
 {
 	NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
-	json[@"address1"] = [self.address1 trim] ?: @"";
-	json[@"address2"] = [self.address2 trim] ?: @"";
-	json[@"city"] = [self.city trim] ?: @"";
-	json[@"company"] = [self.company trim] ?: @"";
-	json[@"first_name"] = [self.firstName trim] ?: @"";
-	json[@"last_name"] = [self.lastName trim] ?: @"";
-	json[@"phone"] = [self.phone trim] ?: @"";
-	json[@"zip"] = [self.zip trim] ?: @"";
+	json[@"address1"] = [self.address1 chk_trim] ?: @"";
+	json[@"address2"] = [self.address2 chk_trim] ?: @"";
+	json[@"city"] = [self.city chk_trim] ?: @"";
+	json[@"company"] = [self.company chk_trim] ?: @"";
+	json[@"first_name"] = [self.firstName chk_trim] ?: @"";
+	json[@"last_name"] = [self.lastName chk_trim] ?: @"";
+	json[@"phone"] = [self.phone chk_trim] ?: @"";
+	json[@"zip"] = [self.zip chk_trim] ?: @"";
 	
-	NSString *country = [self.country trim];
+	NSString *country = [self.country chk_trim];
 	if ([country length] > 0) {
 		json[@"country"] = country;
 	}
 	
-	NSString *countryCode = [self.countryCode trim];
+	NSString *countryCode = [self.countryCode chk_trim];
 	if ([countryCode length] > 0) {
 		json[@"country_code"] = countryCode;
 	}
 	
-	NSString *province = [self.province trim];
+	NSString *province = [self.province chk_trim];
 	if ([province length] > 0) {
 		json[@"province"] = province;
 	}
 	
-	NSString *provinceCode = [self.provinceCode trim];
+	NSString *provinceCode = [self.provinceCode chk_trim];
 	if ([provinceCode length] > 0) {
 		json[@"province_code"] = provinceCode;
 	}
@@ -216,15 +216,15 @@ static NSDictionary *kCHKPropertyMap = nil;
 - (void)updateWithDictionary:(NSDictionary *)dictionary
 {
 	self.shippingRateIdentifier = dictionary[@"id"];
-	self.price = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"price"]];
+	self.price = [NSDecimalNumber chk_decimalNumberFromJSON:dictionary[@"price"]];
 	self.title = dictionary[@"title"];
 }
 
 - (NSDictionary *)jsonDictionaryForCheckout
 {
 	NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
-	json[@"id"] = [self.shippingRateIdentifier trim] ?: @"";
-	json[@"title"] = [self.title trim] ?: @"";
+	json[@"id"] = [self.shippingRateIdentifier chk_trim] ?: @"";
+	json[@"title"] = [self.title chk_trim] ?: @"";
 	json[@"price"] = self.price ?: [NSDecimalNumber zero];
 	return json;
 }
@@ -242,14 +242,14 @@ static NSDictionary *kCHKPropertyMap = nil;
 {
 	[super updateWithDictionary:dictionary];
 	self.code = dictionary[@"code"];
-	self.amount = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"amount"]];
+	self.amount = [NSDecimalNumber chk_decimalNumberFromJSON:dictionary[@"amount"]];
 	self.applicable = [dictionary[@"applicable"] boolValue];
 }
 
 - (NSDictionary *)jsonDictionaryForCheckout
 {
 	NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
-	json[@"code"] = [self.code trim] ?: @"";
+	json[@"code"] = [self.code chk_trim] ?: @"";
 	return json;
 }
 

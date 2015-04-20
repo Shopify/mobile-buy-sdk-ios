@@ -10,7 +10,7 @@
 
 @interface NSDecimalNumber (CHKAdditions)
 
-+ (NSDecimalNumber*)decimalNumberOrZeroWithString:(NSString*)string;
-+ (NSDecimalNumber*)decimalNumberFromJSON:(id)valueFromJSON;
++ (NSDecimalNumber*)chk_decimalNumberOrZeroWithString:(NSString*)string;
++ (NSDecimalNumber*)chk_decimalNumberFromJSON:(id)valueFromJSON;
 
 @end
