@@ -37,6 +37,8 @@
 		2AF52AAA1A705F7E0087DB2C /* NSString+Trim.m in Sources */ = {isa = PBXBuildFile; fileRef = F76CFF1C19CB7BE30079C703 /* NSString+Trim.m */; };
 		42488B341AB8761A005F21A9 /* CHKGiftCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 42488B331AB8761A005F21A9 /* CHKGiftCard.m */; };
 		42488B471AB89E61005F21A9 /* CHKGiftCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 42488B331AB8761A005F21A9 /* CHKGiftCard.m */; };
+		BE6C4DC01AE1A35000F3E628 /* CHKStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE6C4DBD1AE1A35000F3E628 /* CHKStoreController.m */; };
+		BE6C4DC11AE1A35000F3E628 /* CHKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE6C4DBF1AE1A35000F3E628 /* CHKViewController.m */; };
 		F70CE40F1A8BF1D90055BEB8 /* CHKApplePayAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F70CE40E1A8BF1D90055BEB8 /* CHKApplePayAdditions.m */; };
 		F70CE4141A8BF3B70055BEB8 /* CHKApplePayAdditionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F70CE4131A8BF3B70055BEB8 /* CHKApplePayAdditionsTest.m */; };
 		F70CE4151A8BF61D0055BEB8 /* CHKApplePayAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F70CE40E1A8BF1D90055BEB8 /* CHKApplePayAdditions.m */; };
@@ -94,6 +96,10 @@
 		2AF52AA21A704D620087DB2C /* CHKDataProviderTest_Storefront.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKDataProviderTest_Storefront.m; sourceTree = "<group>"; };
 		42488B321AB8761A005F21A9 /* CHKGiftCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKGiftCard.h; sourceTree = "<group>"; };
 		42488B331AB8761A005F21A9 /* CHKGiftCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKGiftCard.m; sourceTree = "<group>"; };
+		BE6C4DBC1AE1A35000F3E628 /* CHKStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHKStoreController.h; path = "View Controllers/CHKStoreController.h"; sourceTree = "<group>"; };
+		BE6C4DBD1AE1A35000F3E628 /* CHKStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHKStoreController.m; path = "View Controllers/CHKStoreController.m"; sourceTree = "<group>"; };
+		BE6C4DBE1AE1A35000F3E628 /* CHKViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHKViewController.h; path = "View Controllers/CHKViewController.h"; sourceTree = "<group>"; };
+		BE6C4DBF1AE1A35000F3E628 /* CHKViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHKViewController.m; path = "View Controllers/CHKViewController.m"; sourceTree = "<group>"; };
 		F70CE40D1A8BF1D90055BEB8 /* CHKApplePayAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKApplePayAdditions.h; sourceTree = "<group>"; };
 		F70CE40E1A8BF1D90055BEB8 /* CHKApplePayAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKApplePayAdditions.m; sourceTree = "<group>"; };
 		F70CE4131A8BF3B70055BEB8 /* CHKApplePayAdditionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKApplePayAdditionsTest.m; sourceTree = "<group>"; };
@@ -162,6 +168,17 @@
 				F7AB6AB819CFCE6A00115224 /* libstdc++.dylib */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BE6C4DBB1AE1A33100F3E628 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BE6C4DBC1AE1A35000F3E628 /* CHKStoreController.h */,
+				BE6C4DBD1AE1A35000F3E628 /* CHKStoreController.m */,
+				BE6C4DBE1AE1A35000F3E628 /* CHKViewController.h */,
+				BE6C4DBF1AE1A35000F3E628 /* CHKViewController.m */,
+			);
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 		F773741419C770CB0039681C = {
@@ -279,6 +296,7 @@
 		F773749F19C77E4E0039681C /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				BE6C4DBB1AE1A33100F3E628 /* View Controllers */,
 				F7FDA16F19C93F6100AF4E93 /* Data */,
 				F773744419C779C20039681C /* Models */,
 				F773744519C779C20039681C /* Utils */,
@@ -388,6 +406,7 @@
 				F77374AC19C796BD0039681C /* CHKCreditCard.m in Sources */,
 				2AF52A911A700B0A0087DB2C /* CHKShop.m in Sources */,
 				F70CE40F1A8BF1D90055BEB8 /* CHKApplePayAdditions.m in Sources */,
+				BE6C4DC11AE1A35000F3E628 /* CHKViewController.m in Sources */,
 				F773744919C77A210039681C /* CHKCart.m in Sources */,
 				F773749619C77C260039681C /* CHKCheckout.m in Sources */,
 				F7FDA17219C93F6F00AF4E93 /* CHKDataProvider.m in Sources */,
@@ -401,6 +420,7 @@
 				2AF52A891A700B0A0087DB2C /* CHKProduct.m in Sources */,
 				2AF52A751A700AC80087DB2C /* CHKRuntime.m in Sources */,
 				2AF52A8D1A700B0A0087DB2C /* CHKOption.m in Sources */,
+				BE6C4DC01AE1A35000F3E628 /* CHKStoreController.m in Sources */,
 				2AF52A951A7010B20087DB2C /* CHKObject.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
