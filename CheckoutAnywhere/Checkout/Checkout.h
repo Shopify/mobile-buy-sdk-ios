@@ -11,10 +11,10 @@
 //! Project version number for Checkout.
 FOUNDATION_EXPORT double CheckoutVersionNumber;
 
-//! Project version string for MobileCheckout.
+//! Project version string for Checkout.
 FOUNDATION_EXPORT const unsigned char CheckoutVersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <MobileCheckout/PublicHeader.h>
+// In this header, you should import all the public headers of your framework using statements like #import <Checkout/Checkout.h>
 
 #import "CHKCart.h"
 #import "CHKCheckout.h"
