@@ -1,8 +1,8 @@
 //
 //  CHKTestConstants.h
-//  CheckoutAnywhere
+//  Checkout
 //
-//  Created by Joshua Tessier on 2014-10-06.
+//  Created by Shopify on 2014-10-06.
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.
 //
 

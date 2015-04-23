@@ -80,7 +80,7 @@
 	//Step 2 - Request payment from the user by presenting an Apple Pay sheet
 	
 	PKPaymentRequest *request = [self paymentRequest];
-	request.paymentSummaryItems = [_checkout summaryItems];
+	request.paymentSummaryItems = [_checkout lineItems];
 	PKPaymentAuthorizationViewController *controller = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:request];
 	if (controller) {
 		controller.delegate = self;
@@ -97,7 +97,7 @@
 {
 	//Step 3- ApplePay only provides us a partial address at this point. This is done (presumably) so that developers cannot phish user information (full name, address) without their permission.
 	
-	_checkout.shippingAddress = [CHKAddress addressFromRecord:address];
+	_checkout.shippingAddress = [CHKAddress chk_addressFromRecord:address];
 	[_provider updateCheckout:_checkout completion:^(CHKCheckout *checkout, NSError *error) {
 		if (checkout && error == nil) {
 			_checkout = checkout;
@@ -105,7 +105,7 @@
 		}
 		else {
 			[_delegate controller:self failedToUpdateCheckout:checkout withError:error];
-			completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [_checkout summaryItems]);
+			completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [_checkout lineItems]);
 		}
 	}];
 }
@@ -125,14 +125,14 @@
 			
 			if (error) {
 				[_delegate controller:self failedToGetShippingRates:_checkout withError:error];
-				completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [_checkout summaryItems]);
+				completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [_checkout lineItems]);
 			}
 			else if (status == CHKStatusComplete && [shippingRates count] == 0) {
 				//You don't ship to this location
 				[_delegate controller:self failedToGetShippingRates:_checkout withError:error];
 				
 				_checkout.shippingRate = nil;
-				completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [_checkout summaryItems]);
+				completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [_checkout lineItems]);
 			}
 			else if ((status == CHKStatusUnknown && error == nil) || status == CHKStatusComplete) { //We shouldn't add unkonown here, but this supports the case where we don't need shipping rates
 				shippingStatus = CHKStatusComplete;
@@ -159,22 +159,22 @@
 	//We then turn our CHKShippingRate objects into PKShippingMethods for Apple to present to the user.
 	
 	if ([_checkout requiresShipping] == NO) {
-		completion(PKPaymentAuthorizationStatusSuccess, nil, [_checkout summaryItems]);
+		completion(PKPaymentAuthorizationStatusSuccess, nil, [_checkout lineItems]);
 	}
 	else {
 		[self fetchShippingRates:completion];
 		
-		NSArray *shippingMethods = [CHKShippingRate convertShippingRatesToShippingMethods:_shippingRates];
+		NSArray *shippingMethods = [CHKShippingRate chk_convertShippingRatesToShippingMethods:_shippingRates];
 		if ([shippingMethods count] > 0) {
 			[self selectShippingMethod:shippingMethods[0] completion:^(CHKCheckout *checkout, NSError *error) {
 				if (checkout && error == nil) {
 					_checkout = checkout;
 				}
-				completion(error ? PKPaymentAuthorizationStatusFailure : PKPaymentAuthorizationStatusSuccess, shippingMethods, [_checkout summaryItems]);
+				completion(error ? PKPaymentAuthorizationStatusFailure : PKPaymentAuthorizationStatusSuccess, shippingMethods, [_checkout lineItems]);
 			}];
 		}
 		else {
-			completion(PKPaymentAuthorizationStatusSuccess, nil, [_checkout summaryItems]);
+			completion(PKPaymentAuthorizationStatusSuccess, nil, [_checkout lineItems]);
 		}
 	}
 }
@@ -187,7 +187,7 @@
 		if (checkout && error == nil) {
 			_checkout = checkout;
 		}
-		completion(error == nil ? PKPaymentAuthorizationStatusSuccess : PKPaymentAuthorizationStatusFailure, [_checkout summaryItems]);
+		completion(error == nil ? PKPaymentAuthorizationStatusSuccess : PKPaymentAuthorizationStatusFailure, [_checkout lineItems]);
 	}];
 }
 
@@ -206,11 +206,11 @@
 	//Step 6 - Update the checkout with the rest of the information. Apple has now provided us with a FULL billing address and a FULL shipping address.
 	//We now update the checkout with our new found data so that you can ship the products to the right address, and we collect whatever else we need.
 	
-	_checkout.shippingAddress = [CHKAddress addressFromRecord:[payment shippingAddress]];
-	_checkout.billingAddress = [CHKAddress addressFromRecord:[payment billingAddress]];
-	_checkout.email = [CHKAddress emailFromRecord:[payment billingAddress]];
+	_checkout.shippingAddress = [CHKAddress chk_addressFromRecord:[payment shippingAddress]];
+	_checkout.billingAddress = [CHKAddress chk_addressFromRecord:[payment billingAddress]];
+	_checkout.email = [CHKAddress chk_emailFromRecord:[payment billingAddress]];
 	if (_checkout.email == nil) {
-		_checkout.email = [CHKAddress emailFromRecord:[payment shippingAddress]];
+		_checkout.email = [CHKAddress chk_emailFromRecord:[payment shippingAddress]];
 	}
 	
 	[_provider updateCheckout:_checkout completion:^(CHKCheckout *checkout, NSError *error) {

@@ -1,8 +1,8 @@
 //
 //  CHKAnywhereIntegrationTest.m
-//  CheckoutAnywhere
+//  Checkout
 //
-//  Created by Joshua Tessier on 2014-09-19.
+//  Created by Shopify on 2014-09-19.
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.
 //
 

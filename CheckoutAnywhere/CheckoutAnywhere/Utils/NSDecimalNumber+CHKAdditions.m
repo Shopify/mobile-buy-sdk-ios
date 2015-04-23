@@ -1,8 +1,8 @@
 //
 //  NSDecimalNumber+CHKAdditions.m
-//  Storefront
+//  Checkout
 //
-//  Created by Joshua Tessier on 2014-09-15.
+//  Created by Shopify on 2014-09-15.
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 @implementation NSDecimalNumber (CHKAdditions)
 
-+ (NSDecimalNumber*)decimalNumberOrZeroWithString:(NSString*)string
++ (NSDecimalNumber*)chk_decimalNumberOrZeroWithString:(NSString*)string
 {
 	NSDecimalNumber *decimalNumber = nil;
 	if (string) {
@@ -23,7 +23,7 @@
 	return decimalNumber;
 }
 
-+ (NSDecimalNumber*)decimalNumberFromJSON:(id)valueFromJSON
++ (NSDecimalNumber*)chk_decimalNumberFromJSON:(id)valueFromJSON
 {
 	static NSDecimalNumberHandler *numberHandler;
 	static dispatch_once_t onceToken;
@@ -36,7 +36,7 @@
 		decimalNumber = nil;
 	}
 	else if ([valueFromJSON isKindOfClass:[NSString class]]) {
-		decimalNumber = [NSDecimalNumber decimalNumberOrZeroWithString:valueFromJSON];
+		decimalNumber = [NSDecimalNumber chk_decimalNumberOrZeroWithString:valueFromJSON];
 	}
 	else if ([valueFromJSON isKindOfClass:[NSDecimalNumber class]]) {
 		decimalNumber = valueFromJSON;

@@ -1,8 +1,8 @@
 //
 //  CHKDataProviderTest.m
-//  CheckoutAnywhere
+//  Checkout
 //
-//  Created by Joshua Tessier on 2014-12-04.
+//  Created by Shopify on 2014-12-04.
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.
 //
 

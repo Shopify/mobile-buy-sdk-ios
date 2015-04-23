@@ -1,6 +1,6 @@
 //
 //  CHKGiftCard.h
-//  CheckoutAnywhere
+//  Checkout
 //
 //  Created by IBK Ajila on 2015-03-17.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.

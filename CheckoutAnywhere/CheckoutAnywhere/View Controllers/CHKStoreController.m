@@ -8,7 +8,9 @@
 
 @import WebKit;
 #import "CHKStoreController.h"
-#import "CheckoutAnywhere.h"
+#import "CHKLineItem.h"
+#import "CHKProductVariant.h"
+#import "CHKProduct.h"
 
 #define kBuyNowEvent @"com.shopify.hybrid.buynow"
 #define kCheckoutEvent @"com.shopify.hybrid.checkout"
