@@ -1,8 +1,8 @@
 //
 //  CHKApplePayAdditions.h
-//  CheckoutAnywhere
+//  Checkout
 //
-//  Created by Joshua Tessier on 2015-02-11.
+//  Created by Shopify on 2015-02-11.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 
