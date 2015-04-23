@@ -81,14 +81,14 @@
 		90368D561AE0417700F053C6 /* CHKProductVariant.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A811A700B0A0087DB2C /* CHKProductVariant.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90368D571AE0417700F053C6 /* CHKSerializable.h in Headers */ = {isa = PBXBuildFile; fileRef = F76CFF1E19CB7C500079C703 /* CHKSerializable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90368D581AE0417700F053C6 /* CHKShop.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A831A700B0A0087DB2C /* CHKShop.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		90368D591AE0417700F053C6 /* CHKApplePayAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = F70CE40D1A8BF1D90055BEB8 /* CHKApplePayAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		90368D591AE0417700F053C6 /* CHKApplePayAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = F70CE40D1A8BF1D90055BEB8 /* CHKApplePayAdditions.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		90368D5A1AE0417700F053C6 /* CHKRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A731A700AC80087DB2C /* CHKRuntime.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		90368D5B1AE0417700F053C6 /* NSDecimalNumber+CHKAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A9B1A7011DC0087DB2C /* NSDecimalNumber+CHKAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		90368D5C1AE0417700F053C6 /* NSString+Trim.h in Headers */ = {isa = PBXBuildFile; fileRef = F76CFF1B19CB7BE30079C703 /* NSString+Trim.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		904FB6021AE03D4500EA1758 /* Checkout.h in Headers */ = {isa = PBXBuildFile; fileRef = 904FB6011AE03D4500EA1758 /* Checkout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		90368D5B1AE0417700F053C6 /* NSDecimalNumber+CHKAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A9B1A7011DC0087DB2C /* NSDecimalNumber+CHKAdditions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		90368D5C1AE0417700F053C6 /* NSString+Trim.h in Headers */ = {isa = PBXBuildFile; fileRef = F76CFF1B19CB7BE30079C703 /* NSString+Trim.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		904FB6081AE03D4500EA1758 /* Checkout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 904FB5FD1AE03D4500EA1758 /* Checkout.framework */; };
-		904FB60F1AE03D4500EA1758 /* CheckoutTests in Sources */ = {isa = PBXBuildFile; fileRef = 904FB60E1AE03D4500EA1758 /* CheckoutTests */; };
 		90BC07FD1AE0453E005D1195 /* CHKCheckout.m in Sources */ = {isa = PBXBuildFile; fileRef = F773749519C77C260039681C /* CHKCheckout.m */; };
+		90ED9BD91AE557200064345F /* Checkout.h in Headers */ = {isa = PBXBuildFile; fileRef = 904FB6011AE03D4500EA1758 /* Checkout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		90ED9BDB1AE571410064345F /* CheckoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 90ED9BDA1AE571410064345F /* CheckoutTests.m */; };
 		F70CE40F1A8BF1D90055BEB8 /* CHKApplePayAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F70CE40E1A8BF1D90055BEB8 /* CHKApplePayAdditions.m */; };
 		F70CE4141A8BF3B70055BEB8 /* CHKApplePayAdditionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F70CE4131A8BF3B70055BEB8 /* CHKApplePayAdditionsTest.m */; };
 		F70CE4151A8BF61D0055BEB8 /* CHKApplePayAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F70CE40E1A8BF1D90055BEB8 /* CHKApplePayAdditions.m */; };
@@ -161,9 +161,9 @@
 		904FB6011AE03D4500EA1758 /* Checkout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Checkout.h; path = ../Checkout/Checkout.h; sourceTree = "<group>"; };
 		904FB6071AE03D4500EA1758 /* CheckoutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CheckoutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		904FB60D1AE03D4500EA1758 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = CheckoutTests/Info.plist; sourceTree = "<group>"; };
-		904FB60E1AE03D4500EA1758 /* CheckoutTests */ = {isa = PBXFileReference; lastKnownFileType = text; path = CheckoutTests; sourceTree = "<group>"; };
 		90BC07F51AE043FD005D1195 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		90BC07F71AE0440F005D1195 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		90ED9BDA1AE571410064345F /* CheckoutTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckoutTests.m; path = CheckoutTests/CheckoutTests.m; sourceTree = SOURCE_ROOT; };
 		F70CE40D1A8BF1D90055BEB8 /* CHKApplePayAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKApplePayAdditions.h; sourceTree = "<group>"; };
 		F70CE40E1A8BF1D90055BEB8 /* CHKApplePayAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKApplePayAdditions.m; sourceTree = "<group>"; };
 		F70CE4131A8BF3B70055BEB8 /* CHKApplePayAdditionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKApplePayAdditionsTest.m; sourceTree = "<group>"; };
@@ -271,7 +271,7 @@
 		904FB60B1AE03D4500EA1758 /* CheckoutTests */ = {
 			isa = PBXGroup;
 			children = (
-				904FB60E1AE03D4500EA1758 /* CheckoutTests */,
+				90ED9BDA1AE571410064345F /* CheckoutTests.m */,
 				904FB60C1AE03D4500EA1758 /* Supporting Files */,
 			);
 			name = CheckoutTests;
@@ -428,7 +428,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				904FB6021AE03D4500EA1758 /* Checkout.h in Headers */,
+				90ED9BD91AE557200064345F /* Checkout.h in Headers */,
 				90368D4A1AE0417700F053C6 /* CHKDataProvider.h in Headers */,
 				90368D4C1AE0417700F053C6 /* CHKCart.h in Headers */,
 				90368D4D1AE0417700F053C6 /* CHKCheckout.h in Headers */,
@@ -609,7 +609,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "######################\n# Options\n######################\n\nREVEAL_ARCHIVE_IN_FINDER=false\n\nFRAMEWORK_NAME=\"Checkout\"\nFRAMEWORK_NAME_FRAMEWORK=\"${FRAMEWORK_NAME}.framework\"\nUNIVERSAL_LIBRARY_DIR=\"${BUILD_DIR}/${FRAMEWORK_NAME}\"\nFRAMEWORK=\"${UNIVERSAL_LIBRARY_DIR}/${FRAMEWORK_NAME_FRAMEWORK}\"\n\nDIR_ARM=\"${BUILD_DIR}/build-arm\"\nDIR_ARM64=\"${BUILD_DIR}/build-arm64\"\nDIR_i386=\"${BUILD_DIR}/build-i386\"\nDIR_x8664=\"${BUILD_DIR}/build-x86_64\"\n\n######################\n# Build Frameworks\n######################\n\nxcodebuild -scheme ${FRAMEWORK_NAME} -configuration \"Release\" -sdk \"iphoneos8.3\" clean build ARCHS=\"armv7 armv7s\" IPHONEOS_DEPLOYMENT_TARGET=\"8.0\" TARGET_BUILD_DIR=\"${DIR_ARM}\" BUILT_PRODUCTS_DIR=\"${DIR_ARM}\"\nxcodebuild -scheme ${FRAMEWORK_NAME} -configuration \"Release\" -sdk \"iphoneos8.3\" clean build ARCHS=\"arm64\" IPHONEOS_DEPLOYMENT_TARGET=\"8.0\" TARGET_BUILD_DIR=\"${DIR_ARM64}\" BUILT_PRODUCTS_DIR=\"${DIR_ARM64}\"\nxcodebuild -scheme ${FRAMEWORK_NAME} -configuration \"Release\" -sdk \"iphonesimulator8.3\" clean build ARCHS=\"i386\" IPHONEOS_DEPLOYMENT_TARGET=\"8.0\" TARGET_BUILD_DIR=\"${DIR_i386}\" BUILT_PRODUCTS_DIR=\"${DIR_i386}\"\nxcodebuild -scheme ${FRAMEWORK_NAME} -configuration \"Release\" -sdk \"iphonesimulator8.3\" clean build ARCHS=\"x86_64\" VALID_ARCHS=\"x86_64\" IPHONEOS_DEPLOYMENT_TARGET=\"8.0\" TARGET_BUILD_DIR=\"${DIR_x8664}\" BUILT_PRODUCTS_DIR=\"${DIR_x8664}\"\n\n######################\n# Create directory for universal\n######################\n\nrm -rf \"${UNIVERSAL_LIBRARY_DIR}\"\nmkdir \"${UNIVERSAL_LIBRARY_DIR}\"\nmkdir \"${FRAMEWORK}\"\n\n######################\n# Copy files Framework\n######################\n\ncp -r \"${DIR_ARM}/${FRAMEWORK_NAME_FRAMEWORK}/.\" \"${FRAMEWORK}\"\n\n######################\n# Make an universal binary\n######################\n\n# create universal library\nlipo -create \"${DIR_ARM}/${FRAMEWORK_NAME_FRAMEWORK}/${FRAMEWORK_NAME}\" \"${DIR_ARM64}/${FRAMEWORK_NAME_FRAMEWORK}/${FRAMEWORK_NAME}\" \"${DIR_i386}/${FRAMEWORK_NAME_FRAMEWORK}/${FRAMEWORK_NAME}\" \"${DIR_x8664}/${FRAMEWORK_NAME_FRAMEWORK}/${FRAMEWORK_NAME}\" -output \"${FRAMEWORK}/${FRAMEWORK_NAME}\" | echo\n";
+			shellScript = "######################\n# Options\n######################\n\nREVEAL_ARCHIVE_IN_FINDER=false\n\nFRAMEWORK_NAME=\"Checkout\"\nFRAMEWORK_NAME_FRAMEWORK=\"${FRAMEWORK_NAME}.framework\"\nUNIVERSAL_LIBRARY_DIR=\"${BUILD_DIR}/${FRAMEWORK_NAME}\"\nFRAMEWORK=\"${UNIVERSAL_LIBRARY_DIR}/${FRAMEWORK_NAME_FRAMEWORK}\"\n\nDIR_ARM=\"${BUILD_DIR}/build-arm\"\nDIR_ARM64=\"${BUILD_DIR}/build-arm64\"\nDIR_i386=\"${BUILD_DIR}/build-i386\"\nDIR_x8664=\"${BUILD_DIR}/build-x86_64\"\n\n######################\n# Build Frameworks\n######################\n\nxcodebuild -scheme ${FRAMEWORK_NAME} -configuration \"Release\" -sdk \"iphoneos8.3\" clean build ARCHS=\"armv7 armv7s\" IPHONEOS_DEPLOYMENT_TARGET=\"8.0\" TARGET_BUILD_DIR=\"${DIR_ARM}\" BUILT_PRODUCTS_DIR=\"${DIR_ARM}\"\nxcodebuild -scheme ${FRAMEWORK_NAME} -configuration \"Release\" -sdk \"iphoneos8.3\" clean build ARCHS=\"arm64\" IPHONEOS_DEPLOYMENT_TARGET=\"8.0\" TARGET_BUILD_DIR=\"${DIR_ARM64}\" BUILT_PRODUCTS_DIR=\"${DIR_ARM64}\"\nxcodebuild -scheme ${FRAMEWORK_NAME} -configuration \"Release\" -sdk \"iphonesimulator8.3\" clean build ARCHS=\"i386\" IPHONEOS_DEPLOYMENT_TARGET=\"8.0\" TARGET_BUILD_DIR=\"${DIR_i386}\" BUILT_PRODUCTS_DIR=\"${DIR_i386}\"\nxcodebuild -scheme ${FRAMEWORK_NAME} -configuration \"Release\" -sdk \"iphonesimulator8.3\" clean build ARCHS=\"x86_64\" VALID_ARCHS=\"x86_64\" IPHONEOS_DEPLOYMENT_TARGET=\"8.0\" TARGET_BUILD_DIR=\"${DIR_x8664}\" BUILT_PRODUCTS_DIR=\"${DIR_x8664}\"\n\n######################\n# Create directory for universal\n######################\n\nrm -rf \"${UNIVERSAL_LIBRARY_DIR}\"\nmkdir \"${UNIVERSAL_LIBRARY_DIR}\"\nmkdir \"${FRAMEWORK}\"\n\n######################\n# Copy files Framework\n######################\n\ncp -r \"${DIR_ARM}/${FRAMEWORK_NAME_FRAMEWORK}/.\" \"${FRAMEWORK}\"\nrm -rf \"${FRAMEWORK}/PrivateHeaders\"\n\n######################\n# Make an universal binary\n######################\n\n# create universal library\nlipo -create \"${DIR_ARM}/${FRAMEWORK_NAME_FRAMEWORK}/${FRAMEWORK_NAME}\" \"${DIR_ARM64}/${FRAMEWORK_NAME_FRAMEWORK}/${FRAMEWORK_NAME}\" \"${DIR_i386}/${FRAMEWORK_NAME_FRAMEWORK}/${FRAMEWORK_NAME}\" \"${DIR_x8664}/${FRAMEWORK_NAME_FRAMEWORK}/${FRAMEWORK_NAME}\" -output \"${FRAMEWORK}/${FRAMEWORK_NAME}\" | echo\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -642,7 +642,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				904FB60F1AE03D4500EA1758 /* CheckoutTests in Sources */,
+				90ED9BDB1AE571410064345F /* CheckoutTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
