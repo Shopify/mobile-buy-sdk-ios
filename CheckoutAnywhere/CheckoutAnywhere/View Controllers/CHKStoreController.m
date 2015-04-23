@@ -137,6 +137,8 @@
 
 - (void)presentCheckoutMethodSelectionMenuWithCheckoutRequest:(NSURLRequest *)request
 {
+    _checkoutRequest = request;
+    
     if ([self.delegate respondsToSelector:@selector(controller:shouldProceedWithCheckoutType:)]) {
         
         [self.delegate controller:self shouldProceedWithCheckoutType:^(CHKCheckoutType type) {
