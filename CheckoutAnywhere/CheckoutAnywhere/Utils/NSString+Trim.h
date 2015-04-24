@@ -1,18 +1,18 @@
 //
 //  NSString+Trim.h
-//  CheckoutAnywhere
+//  Checkout
 //
-//  Created by Joshua Tessier on 2014-09-18.
+//  Created by Shopify on 2014-09-18.
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @interface NSString (Trim)
 
 /**
  * Equivalent to `[self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]`
  */
-- (NSString*)trim;
+- (NSString*)chk_trim;
 
 @end

@@ -1,12 +1,12 @@
 //
 //  CHKSerializable.h
-//  CheckoutAnywhere
+//  Checkout
 //
-//  Created by Joshua Tessier on 2014-09-18.
+//  Created by Shopify on 2014-09-18.
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @protocol CHKSerializable <NSObject>
 

@@ -1,6 +1,6 @@
 //
 //  CHKGiftCard.m
-//  CheckoutAnywhere
+//  Checkout
 //
 //  Created by IBK Ajila on 2015-03-17.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -20,8 +20,8 @@
 	
 	_code = dictionary[@"code"];
 	_lastCharacters = dictionary[@"last_characters"];
-	_balance = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"balance"]];
-	_amountUsed = [NSDecimalNumber decimalNumberFromJSON:dictionary[@"amountUsed"]];
+	_balance = [NSDecimalNumber chk_decimalNumberFromJSON:dictionary[@"balance"]];
+	_amountUsed = [NSDecimalNumber chk_decimalNumberFromJSON:dictionary[@"amountUsed"]];
 	_checkout = [CHKCheckout convertObject:dictionary[@"checkout"]];
 }
 

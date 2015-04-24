@@ -1,8 +1,8 @@
 //
-//  MERRuntime.m
-//  Storefront
+//  CHKRuntime.m
+//  Checkout
 //
-//  Created by Joshua Tessier on 2014-09-21.
+//  Created by Shopify on 2014-09-21.
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.
 //
 

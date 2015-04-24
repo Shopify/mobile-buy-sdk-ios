@@ -1,8 +1,8 @@
 //
 //  NSDecimalNumber+CHKAdditions.h
-//  Storefront
+//  Checkout
 //
-//  Created by Joshua Tessier on 2014-09-15.
+//  Created by Shopify on 2014-09-15.
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 @interface NSDecimalNumber (CHKAdditions)
 
-+ (NSDecimalNumber*)decimalNumberOrZeroWithString:(NSString*)string;
-+ (NSDecimalNumber*)decimalNumberFromJSON:(id)valueFromJSON;
++ (NSDecimalNumber*)chk_decimalNumberOrZeroWithString:(NSString*)string;
++ (NSDecimalNumber*)chk_decimalNumberFromJSON:(id)valueFromJSON;
 
 @end

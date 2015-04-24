@@ -1,6 +1,6 @@
 //
 //  CHKPaymentToken.m
-//  CheckoutAnywhere
+//  Checkout
 //
 //  Created by Allan Godding on 2014-11-05.
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.

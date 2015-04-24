@@ -1,12 +1,12 @@
 //
 //  CHKLineItem.h
-//  CheckoutAnywhere
+//  Checkout
 //
-//  Created by Joshua Tessier on 2014-09-16.
+//  Created by Shopify on 2014-09-16.
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 #import "CHKSerializable.h"
 #import "CHKObject.h"

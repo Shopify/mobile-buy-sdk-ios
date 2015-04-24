@@ -1,8 +1,8 @@
 //
 //  CHKApplePayAdditions.h
-//  CheckoutAnywhere
+//  Checkout
 //
-//  Created by Joshua Tessier on 2015-02-11.
+//  Created by Shopify on 2015-02-11.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 
@@ -15,7 +15,7 @@
 /**
  * Returns an array of summary items for all ApplePay requests
  */
-- (NSArray *)summaryItems;
+- (NSArray *)chk_summaryItems;
 
 @end
 
@@ -24,17 +24,17 @@
 /**
  * Returns an array of `PKShippingMethod` objects, based on Shopify's shipping rates.
  */
-+ (NSArray *)convertShippingRatesToShippingMethods:(NSArray *)rates;
++ (NSArray *)chk_convertShippingRatesToShippingMethods:(NSArray *)rates;
 
 @end
 
 @interface CHKAddress (ApplePay)
 
-+ (NSString *)emailFromRecord:(ABRecordRef)record;
++ (NSString *)chk_emailFromRecord:(ABRecordRef)record;
 
 /**
  * Creates a CHKAddress, usable with the Shopify Checkout API
  */
-+ (CHKAddress *)addressFromRecord:(ABRecordRef)record;
++ (CHKAddress *)chk_addressFromRecord:(ABRecordRef)record;
 
 @end

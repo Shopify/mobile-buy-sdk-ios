@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		904FB61A1AE03DC500EA1758 /* Checkout-Universal */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 904FB61B1AE03DC500EA1758 /* Build configuration list for PBXAggregateTarget "Checkout-Universal" */;
+			buildPhases = (
+				904FB61F1AE03DCF00EA1758 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "Checkout-Universal";
+			productName = "MobileCheckout-Universal";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		2AD315511A0AA8B20001E40A /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A54742D1A0AA61600822409 /* PassKit.framework */; };
 		2AD315581A0AAE350001E40A /* CHKPaymentToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD315571A0AAE350001E40A /* CHKPaymentToken.m */; };
@@ -37,6 +51,44 @@
 		2AF52AAA1A705F7E0087DB2C /* NSString+Trim.m in Sources */ = {isa = PBXBuildFile; fileRef = F76CFF1C19CB7BE30079C703 /* NSString+Trim.m */; };
 		42488B341AB8761A005F21A9 /* CHKGiftCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 42488B331AB8761A005F21A9 /* CHKGiftCard.m */; };
 		42488B471AB89E61005F21A9 /* CHKGiftCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 42488B331AB8761A005F21A9 /* CHKGiftCard.m */; };
+		90368D3A1AE040E700F053C6 /* CHKDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDA17119C93F6F00AF4E93 /* CHKDataProvider.m */; };
+		90368D3B1AE040EA00F053C6 /* CHKCart.m in Sources */ = {isa = PBXBuildFile; fileRef = F773744819C77A210039681C /* CHKCart.m */; };
+		90368D3C1AE040F300F053C6 /* CHKCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A781A700B0A0087DB2C /* CHKCollection.m */; };
+		90368D3D1AE040F500F053C6 /* CHKCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = F77374AB19C796BD0039681C /* CHKCreditCard.m */; };
+		90368D3E1AE040F700F053C6 /* CHKGiftCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 42488B331AB8761A005F21A9 /* CHKGiftCard.m */; };
+		90368D3F1AE040FA00F053C6 /* CHKImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A7A1A700B0A0087DB2C /* CHKImage.m */; };
+		90368D401AE040FC00F053C6 /* CHKLineItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDA16D19C939FF00AF4E93 /* CHKLineItem.m */; };
+		90368D411AE040FE00F053C6 /* CHKObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A941A7010B20087DB2C /* CHKObject.mm */; };
+		90368D421AE0410000F053C6 /* CHKOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A801A700B0A0087DB2C /* CHKOption.m */; };
+		90368D431AE0410200F053C6 /* CHKProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A7D1A700B0A0087DB2C /* CHKProduct.m */; };
+		90368D441AE0410400F053C6 /* CHKProductVariant.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A821A700B0A0087DB2C /* CHKProductVariant.m */; };
+		90368D451AE0410800F053C6 /* CHKShop.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A841A700B0A0087DB2C /* CHKShop.m */; };
+		90368D461AE0410A00F053C6 /* CHKApplePayAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F70CE40E1A8BF1D90055BEB8 /* CHKApplePayAdditions.m */; };
+		90368D471AE0410C00F053C6 /* CHKRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A741A700AC80087DB2C /* CHKRuntime.m */; };
+		90368D481AE0410E00F053C6 /* NSDecimalNumber+CHKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A9C1A7011DC0087DB2C /* NSDecimalNumber+CHKAdditions.m */; };
+		90368D491AE0411000F053C6 /* NSString+Trim.m in Sources */ = {isa = PBXBuildFile; fileRef = F76CFF1C19CB7BE30079C703 /* NSString+Trim.m */; };
+		90368D4A1AE0417700F053C6 /* CHKDataProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = F7FDA17019C93F6F00AF4E93 /* CHKDataProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		90368D4C1AE0417700F053C6 /* CHKCart.h in Headers */ = {isa = PBXBuildFile; fileRef = F773744719C77A210039681C /* CHKCart.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		90368D4D1AE0417700F053C6 /* CHKCheckout.h in Headers */ = {isa = PBXBuildFile; fileRef = F773749419C77C260039681C /* CHKCheckout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		90368D4E1AE0417700F053C6 /* CHKCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A771A700B0A0087DB2C /* CHKCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		90368D4F1AE0417700F053C6 /* CHKCreditCard.h in Headers */ = {isa = PBXBuildFile; fileRef = F77374AA19C796BD0039681C /* CHKCreditCard.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		90368D501AE0417700F053C6 /* CHKGiftCard.h in Headers */ = {isa = PBXBuildFile; fileRef = 42488B321AB8761A005F21A9 /* CHKGiftCard.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		90368D511AE0417700F053C6 /* CHKImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A791A700B0A0087DB2C /* CHKImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		90368D521AE0417700F053C6 /* CHKLineItem.h in Headers */ = {isa = PBXBuildFile; fileRef = F7FDA16C19C939FF00AF4E93 /* CHKLineItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		90368D531AE0417700F053C6 /* CHKObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A931A7010B20087DB2C /* CHKObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		90368D541AE0417700F053C6 /* CHKOption.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A7F1A700B0A0087DB2C /* CHKOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		90368D551AE0417700F053C6 /* CHKProduct.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A7C1A700B0A0087DB2C /* CHKProduct.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		90368D561AE0417700F053C6 /* CHKProductVariant.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A811A700B0A0087DB2C /* CHKProductVariant.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		90368D571AE0417700F053C6 /* CHKSerializable.h in Headers */ = {isa = PBXBuildFile; fileRef = F76CFF1E19CB7C500079C703 /* CHKSerializable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		90368D581AE0417700F053C6 /* CHKShop.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A831A700B0A0087DB2C /* CHKShop.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		90368D591AE0417700F053C6 /* CHKApplePayAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = F70CE40D1A8BF1D90055BEB8 /* CHKApplePayAdditions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		90368D5A1AE0417700F053C6 /* CHKRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A731A700AC80087DB2C /* CHKRuntime.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		90368D5B1AE0417700F053C6 /* NSDecimalNumber+CHKAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A9B1A7011DC0087DB2C /* NSDecimalNumber+CHKAdditions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		90368D5C1AE0417700F053C6 /* NSString+Trim.h in Headers */ = {isa = PBXBuildFile; fileRef = F76CFF1B19CB7BE30079C703 /* NSString+Trim.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		904FB6081AE03D4500EA1758 /* Checkout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 904FB5FD1AE03D4500EA1758 /* Checkout.framework */; };
+		90BC07FD1AE0453E005D1195 /* CHKCheckout.m in Sources */ = {isa = PBXBuildFile; fileRef = F773749519C77C260039681C /* CHKCheckout.m */; };
+		90ED9BD91AE557200064345F /* Checkout.h in Headers */ = {isa = PBXBuildFile; fileRef = 904FB6011AE03D4500EA1758 /* Checkout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		90ED9BDB1AE571410064345F /* CheckoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 90ED9BDA1AE571410064345F /* CheckoutTests.m */; };
 		F70CE40F1A8BF1D90055BEB8 /* CHKApplePayAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F70CE40E1A8BF1D90055BEB8 /* CHKApplePayAdditions.m */; };
 		F70CE4141A8BF3B70055BEB8 /* CHKApplePayAdditionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F70CE4131A8BF3B70055BEB8 /* CHKApplePayAdditionsTest.m */; };
 		F70CE4151A8BF61D0055BEB8 /* CHKApplePayAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F70CE40E1A8BF1D90055BEB8 /* CHKApplePayAdditions.m */; };
@@ -56,6 +108,16 @@
 		F7FDA17219C93F6F00AF4E93 /* CHKDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDA17119C93F6F00AF4E93 /* CHKDataProvider.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		904FB6091AE03D4500EA1758 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F773741519C770CB0039681C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 904FB5FC1AE03D4500EA1758;
+			remoteInfo = MobileCheckout;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		F773741B19C770CB0039681C /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -72,61 +134,83 @@
 		2A54742D1A0AA61600822409 /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 		2AD315561A0AAE350001E40A /* CHKPaymentToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHKPaymentToken.h; path = Models/CHKPaymentToken.h; sourceTree = "<group>"; };
 		2AD315571A0AAE350001E40A /* CHKPaymentToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHKPaymentToken.m; path = Models/CHKPaymentToken.m; sourceTree = "<group>"; };
-		2AF52A731A700AC80087DB2C /* CHKRuntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKRuntime.h; sourceTree = "<group>"; };
-		2AF52A741A700AC80087DB2C /* CHKRuntime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKRuntime.m; sourceTree = "<group>"; };
-		2AF52A771A700B0A0087DB2C /* CHKCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKCollection.h; sourceTree = "<group>"; };
-		2AF52A781A700B0A0087DB2C /* CHKCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKCollection.m; sourceTree = "<group>"; };
-		2AF52A791A700B0A0087DB2C /* CHKImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKImage.h; sourceTree = "<group>"; };
-		2AF52A7A1A700B0A0087DB2C /* CHKImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKImage.m; sourceTree = "<group>"; };
-		2AF52A7C1A700B0A0087DB2C /* CHKProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKProduct.h; sourceTree = "<group>"; };
-		2AF52A7D1A700B0A0087DB2C /* CHKProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKProduct.m; sourceTree = "<group>"; };
-		2AF52A7F1A700B0A0087DB2C /* CHKOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKOption.h; sourceTree = "<group>"; };
-		2AF52A801A700B0A0087DB2C /* CHKOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKOption.m; sourceTree = "<group>"; };
-		2AF52A811A700B0A0087DB2C /* CHKProductVariant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKProductVariant.h; sourceTree = "<group>"; };
-		2AF52A821A700B0A0087DB2C /* CHKProductVariant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKProductVariant.m; sourceTree = "<group>"; };
-		2AF52A831A700B0A0087DB2C /* CHKShop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKShop.h; sourceTree = "<group>"; };
-		2AF52A841A700B0A0087DB2C /* CHKShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKShop.m; sourceTree = "<group>"; };
-		2AF52A931A7010B20087DB2C /* CHKObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKObject.h; sourceTree = "<group>"; };
-		2AF52A941A7010B20087DB2C /* CHKObject.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CHKObject.mm; sourceTree = "<group>"; };
-		2AF52A9B1A7011DC0087DB2C /* NSDecimalNumber+CHKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDecimalNumber+CHKAdditions.h"; sourceTree = "<group>"; };
-		2AF52A9C1A7011DC0087DB2C /* NSDecimalNumber+CHKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDecimalNumber+CHKAdditions.m"; sourceTree = "<group>"; };
-		2AF52A9F1A704C9A0087DB2C /* CHKObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKObjectTests.m; sourceTree = "<group>"; };
-		2AF52AA21A704D620087DB2C /* CHKDataProviderTest_Storefront.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKDataProviderTest_Storefront.m; sourceTree = "<group>"; };
+		2AF52A731A700AC80087DB2C /* CHKRuntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CHKRuntime.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		2AF52A741A700AC80087DB2C /* CHKRuntime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CHKRuntime.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		2AF52A771A700B0A0087DB2C /* CHKCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CHKCollection.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		2AF52A781A700B0A0087DB2C /* CHKCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CHKCollection.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		2AF52A791A700B0A0087DB2C /* CHKImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CHKImage.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		2AF52A7A1A700B0A0087DB2C /* CHKImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CHKImage.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		2AF52A7C1A700B0A0087DB2C /* CHKProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CHKProduct.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		2AF52A7D1A700B0A0087DB2C /* CHKProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CHKProduct.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		2AF52A7F1A700B0A0087DB2C /* CHKOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CHKOption.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		2AF52A801A700B0A0087DB2C /* CHKOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CHKOption.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		2AF52A811A700B0A0087DB2C /* CHKProductVariant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CHKProductVariant.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		2AF52A821A700B0A0087DB2C /* CHKProductVariant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CHKProductVariant.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		2AF52A831A700B0A0087DB2C /* CHKShop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CHKShop.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		2AF52A841A700B0A0087DB2C /* CHKShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CHKShop.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		2AF52A931A7010B20087DB2C /* CHKObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CHKObject.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		2AF52A941A7010B20087DB2C /* CHKObject.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = CHKObject.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		2AF52A9B1A7011DC0087DB2C /* NSDecimalNumber+CHKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "NSDecimalNumber+CHKAdditions.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		2AF52A9C1A7011DC0087DB2C /* NSDecimalNumber+CHKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSDecimalNumber+CHKAdditions.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		2AF52A9F1A704C9A0087DB2C /* CHKObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CHKObjectTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		2AF52AA21A704D620087DB2C /* CHKDataProviderTest_Storefront.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CHKDataProviderTest_Storefront.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		42488B321AB8761A005F21A9 /* CHKGiftCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKGiftCard.h; sourceTree = "<group>"; };
 		42488B331AB8761A005F21A9 /* CHKGiftCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKGiftCard.m; sourceTree = "<group>"; };
-		F70CE40D1A8BF1D90055BEB8 /* CHKApplePayAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKApplePayAdditions.h; sourceTree = "<group>"; };
-		F70CE40E1A8BF1D90055BEB8 /* CHKApplePayAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKApplePayAdditions.m; sourceTree = "<group>"; };
-		F70CE4131A8BF3B70055BEB8 /* CHKApplePayAdditionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKApplePayAdditionsTest.m; sourceTree = "<group>"; };
-		F74EC5851A314381005F39DB /* CHKDataProviderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKDataProviderTest.m; sourceTree = "<group>"; };
-		F76CFF1B19CB7BE30079C703 /* NSString+Trim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Trim.h"; sourceTree = "<group>"; };
-		F76CFF1C19CB7BE30079C703 /* NSString+Trim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Trim.m"; sourceTree = "<group>"; };
-		F76CFF1E19CB7C500079C703 /* CHKSerializable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKSerializable.h; sourceTree = "<group>"; };
-		F76CFF2419CB7D750079C703 /* CHKCheckoutTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKCheckoutTest.m; sourceTree = "<group>"; };
-		F76CFF2619CB7E7B0079C703 /* CHKCartTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKCartTest.m; sourceTree = "<group>"; };
-		F76CFF2919CB830D0079C703 /* CHKLineItemTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKLineItemTest.m; sourceTree = "<group>"; };
+		904FB5FD1AE03D4500EA1758 /* Checkout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Checkout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		904FB6001AE03D4500EA1758 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Checkout/Info.plist; sourceTree = "<group>"; };
+		904FB6011AE03D4500EA1758 /* Checkout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Checkout.h; path = ../Checkout/Checkout.h; sourceTree = "<group>"; };
+		904FB6071AE03D4500EA1758 /* CheckoutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CheckoutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		904FB60D1AE03D4500EA1758 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = CheckoutTests/Info.plist; sourceTree = "<group>"; };
+		90BC07F51AE043FD005D1195 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		90BC07F71AE0440F005D1195 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		90ED9BDA1AE571410064345F /* CheckoutTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckoutTests.m; path = CheckoutTests/CheckoutTests.m; sourceTree = SOURCE_ROOT; };
+		F70CE40D1A8BF1D90055BEB8 /* CHKApplePayAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CHKApplePayAdditions.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		F70CE40E1A8BF1D90055BEB8 /* CHKApplePayAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CHKApplePayAdditions.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		F70CE4131A8BF3B70055BEB8 /* CHKApplePayAdditionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CHKApplePayAdditionsTest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		F74EC5851A314381005F39DB /* CHKDataProviderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CHKDataProviderTest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		F76CFF1B19CB7BE30079C703 /* NSString+Trim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "NSString+Trim.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		F76CFF1C19CB7BE30079C703 /* NSString+Trim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSString+Trim.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		F76CFF1E19CB7C500079C703 /* CHKSerializable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CHKSerializable.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		F76CFF2419CB7D750079C703 /* CHKCheckoutTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CHKCheckoutTest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		F76CFF2619CB7E7B0079C703 /* CHKCartTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CHKCartTest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		F76CFF2919CB830D0079C703 /* CHKLineItemTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CHKLineItemTest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		F773741D19C770CB0039681C /* libCheckoutAnywhere.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCheckoutAnywhere.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F773742819C770CB0039681C /* CheckoutAnywhereTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CheckoutAnywhereTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F773742B19C770CB0039681C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F773743419C771C50039681C /* ShopifyCheckoutAnywhere.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ShopifyCheckoutAnywhere.podspec; path = ../../ShopifyCheckoutAnywhere.podspec; sourceTree = "<group>"; };
 		F773743619C771D10039681C /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../../LICENSE; sourceTree = "<group>"; };
 		F773743719C771D10039681C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
-		F773744719C77A210039681C /* CHKCart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKCart.h; sourceTree = "<group>"; };
-		F773744819C77A210039681C /* CHKCart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKCart.m; sourceTree = "<group>"; };
-		F773749419C77C260039681C /* CHKCheckout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKCheckout.h; sourceTree = "<group>"; };
-		F773749519C77C260039681C /* CHKCheckout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKCheckout.m; sourceTree = "<group>"; };
-		F77374AA19C796BD0039681C /* CHKCreditCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKCreditCard.h; sourceTree = "<group>"; };
-		F77374AB19C796BD0039681C /* CHKCreditCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKCreditCard.m; sourceTree = "<group>"; };
-		F777D5B41A422BD200280B1B /* CheckoutAnywhere.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckoutAnywhere.h; sourceTree = "<group>"; };
+		F773744719C77A210039681C /* CHKCart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CHKCart.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		F773744819C77A210039681C /* CHKCart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CHKCart.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		F773749419C77C260039681C /* CHKCheckout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CHKCheckout.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		F773749519C77C260039681C /* CHKCheckout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CHKCheckout.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		F77374AA19C796BD0039681C /* CHKCreditCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CHKCreditCard.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		F77374AB19C796BD0039681C /* CHKCreditCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CHKCreditCard.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		F79CE45219CC612700C9AFAB /* CHKAnywhereIntegrationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKAnywhereIntegrationTest.m; sourceTree = "<group>"; };
 		F7AB6AB819CFCE6A00115224 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
-		F7D156F719E30AC000D38D67 /* CHKTestConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHKTestConstants.h; sourceTree = "<group>"; };
-		F7FDA16C19C939FF00AF4E93 /* CHKLineItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKLineItem.h; sourceTree = "<group>"; };
-		F7FDA16D19C939FF00AF4E93 /* CHKLineItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKLineItem.m; sourceTree = "<group>"; };
-		F7FDA17019C93F6F00AF4E93 /* CHKDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHKDataProvider.h; sourceTree = "<group>"; };
-		F7FDA17119C93F6F00AF4E93 /* CHKDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHKDataProvider.m; sourceTree = "<group>"; };
+		F7D156F719E30AC000D38D67 /* CHKTestConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CHKTestConstants.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		F7FDA16C19C939FF00AF4E93 /* CHKLineItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CHKLineItem.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		F7FDA16D19C939FF00AF4E93 /* CHKLineItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CHKLineItem.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		F7FDA17019C93F6F00AF4E93 /* CHKDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CHKDataProvider.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		F7FDA17119C93F6F00AF4E93 /* CHKDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CHKDataProvider.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		904FB5F91AE03D4500EA1758 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		904FB6041AE03D4500EA1758 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				904FB6081AE03D4500EA1758 /* Checkout.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F773741A19C770CB0039681C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -158,10 +242,47 @@
 		547B8D0CCDB9458C800F1E3C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				90BC07F71AE0440F005D1195 /* AddressBook.framework */,
+				90BC07F51AE043FD005D1195 /* Foundation.framework */,
 				2A54742D1A0AA61600822409 /* PassKit.framework */,
 				F7AB6AB819CFCE6A00115224 /* libstdc++.dylib */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		904FB5FE1AE03D4500EA1758 /* Checkout */ = {
+			isa = PBXGroup;
+			children = (
+				904FB6011AE03D4500EA1758 /* Checkout.h */,
+				904FB5FF1AE03D4500EA1758 /* Supporting Files */,
+			);
+			path = Checkout;
+			sourceTree = "<group>";
+		};
+		904FB5FF1AE03D4500EA1758 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				904FB6001AE03D4500EA1758 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		904FB60B1AE03D4500EA1758 /* CheckoutTests */ = {
+			isa = PBXGroup;
+			children = (
+				90ED9BDA1AE571410064345F /* CheckoutTests.m */,
+				904FB60C1AE03D4500EA1758 /* Supporting Files */,
+			);
+			name = CheckoutTests;
+			path = MobileCheckoutTests;
+			sourceTree = "<group>";
+		};
+		904FB60C1AE03D4500EA1758 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				904FB60D1AE03D4500EA1758 /* Info.plist */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		F773741419C770CB0039681C = {
@@ -169,6 +290,8 @@
 			children = (
 				F773743A19C777200039681C /* CheckoutAnywhere */,
 				F773742919C770CB0039681C /* CheckoutAnywhereTests */,
+				904FB5FE1AE03D4500EA1758 /* Checkout */,
+				904FB60B1AE03D4500EA1758 /* CheckoutTests */,
 				F773741E19C770CB0039681C /* Products */,
 				547B8D0CCDB9458C800F1E3C /* Frameworks */,
 			);
@@ -179,6 +302,8 @@
 			children = (
 				F773741D19C770CB0039681C /* libCheckoutAnywhere.a */,
 				F773742819C770CB0039681C /* CheckoutAnywhereTests.xctest */,
+				904FB5FD1AE03D4500EA1758 /* Checkout.framework */,
+				904FB6071AE03D4500EA1758 /* CheckoutTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -221,7 +346,6 @@
 		F773744419C779C20039681C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				F777D5B41A422BD200280B1B /* CheckoutAnywhere.h */,
 				F773744719C77A210039681C /* CHKCart.h */,
 				F773744819C77A210039681C /* CHKCart.m */,
 				F773749419C77C260039681C /* CHKCheckout.h */,
@@ -297,7 +421,72 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		904FB5FA1AE03D4500EA1758 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				90ED9BD91AE557200064345F /* Checkout.h in Headers */,
+				90368D4A1AE0417700F053C6 /* CHKDataProvider.h in Headers */,
+				90368D4C1AE0417700F053C6 /* CHKCart.h in Headers */,
+				90368D4D1AE0417700F053C6 /* CHKCheckout.h in Headers */,
+				90368D4E1AE0417700F053C6 /* CHKCollection.h in Headers */,
+				90368D4F1AE0417700F053C6 /* CHKCreditCard.h in Headers */,
+				90368D501AE0417700F053C6 /* CHKGiftCard.h in Headers */,
+				90368D511AE0417700F053C6 /* CHKImage.h in Headers */,
+				90368D521AE0417700F053C6 /* CHKLineItem.h in Headers */,
+				90368D531AE0417700F053C6 /* CHKObject.h in Headers */,
+				90368D541AE0417700F053C6 /* CHKOption.h in Headers */,
+				90368D551AE0417700F053C6 /* CHKProduct.h in Headers */,
+				90368D561AE0417700F053C6 /* CHKProductVariant.h in Headers */,
+				90368D571AE0417700F053C6 /* CHKSerializable.h in Headers */,
+				90368D581AE0417700F053C6 /* CHKShop.h in Headers */,
+				90368D591AE0417700F053C6 /* CHKApplePayAdditions.h in Headers */,
+				90368D5B1AE0417700F053C6 /* NSDecimalNumber+CHKAdditions.h in Headers */,
+				90368D5C1AE0417700F053C6 /* NSString+Trim.h in Headers */,
+				90368D5A1AE0417700F053C6 /* CHKRuntime.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		904FB5FC1AE03D4500EA1758 /* Checkout */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 904FB6141AE03D4500EA1758 /* Build configuration list for PBXNativeTarget "Checkout" */;
+			buildPhases = (
+				904FB5F81AE03D4500EA1758 /* Sources */,
+				904FB5F91AE03D4500EA1758 /* Frameworks */,
+				904FB5FA1AE03D4500EA1758 /* Headers */,
+				904FB5FB1AE03D4500EA1758 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Checkout;
+			productName = MobileCheckout;
+			productReference = 904FB5FD1AE03D4500EA1758 /* Checkout.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		904FB6061AE03D4500EA1758 /* CheckoutTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 904FB6151AE03D4500EA1758 /* Build configuration list for PBXNativeTarget "CheckoutTests" */;
+			buildPhases = (
+				904FB6031AE03D4500EA1758 /* Sources */,
+				904FB6041AE03D4500EA1758 /* Frameworks */,
+				904FB6051AE03D4500EA1758 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				904FB60A1AE03D4500EA1758 /* PBXTargetDependency */,
+			);
+			name = CheckoutTests;
+			productName = MobileCheckoutTests;
+			productReference = 904FB6071AE03D4500EA1758 /* CheckoutTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		F773741C19C770CB0039681C /* CheckoutAnywhere */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F773742E19C770CB0039681C /* Build configuration list for PBXNativeTarget "CheckoutAnywhere" */;
@@ -342,6 +531,15 @@
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Shopify Inc.";
 				TargetAttributes = {
+					904FB5FC1AE03D4500EA1758 = {
+						CreatedOnToolsVersion = 6.3;
+					};
+					904FB6061AE03D4500EA1758 = {
+						CreatedOnToolsVersion = 6.3;
+					};
+					904FB61A1AE03DC500EA1758 = {
+						CreatedOnToolsVersion = 6.3;
+					};
 					F773741C19C770CB0039681C = {
 						CreatedOnToolsVersion = 6.0;
 					};
@@ -364,11 +562,28 @@
 			targets = (
 				F773741C19C770CB0039681C /* CheckoutAnywhere */,
 				F773742719C770CB0039681C /* CheckoutAnywhereTests */,
+				904FB5FC1AE03D4500EA1758 /* Checkout */,
+				904FB6061AE03D4500EA1758 /* CheckoutTests */,
+				904FB61A1AE03DC500EA1758 /* Checkout-Universal */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		904FB5FB1AE03D4500EA1758 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		904FB6051AE03D4500EA1758 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F773742619C770CB0039681C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -380,7 +595,55 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		904FB61F1AE03DCF00EA1758 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "######################\n# Options\n######################\n\nREVEAL_ARCHIVE_IN_FINDER=false\n\nFRAMEWORK_NAME=\"Checkout\"\nFRAMEWORK_NAME_FRAMEWORK=\"${FRAMEWORK_NAME}.framework\"\nUNIVERSAL_LIBRARY_DIR=\"${BUILD_DIR}/${FRAMEWORK_NAME}\"\nFRAMEWORK=\"${UNIVERSAL_LIBRARY_DIR}/${FRAMEWORK_NAME_FRAMEWORK}\"\n\nDIR_ARM=\"${BUILD_DIR}/build-arm\"\nDIR_ARM64=\"${BUILD_DIR}/build-arm64\"\nDIR_i386=\"${BUILD_DIR}/build-i386\"\nDIR_x8664=\"${BUILD_DIR}/build-x86_64\"\n\n######################\n# Build Frameworks\n######################\n\nxcodebuild -scheme ${FRAMEWORK_NAME} -configuration \"Release\" -sdk \"iphoneos8.3\" clean build ARCHS=\"armv7 armv7s\" IPHONEOS_DEPLOYMENT_TARGET=\"8.0\" TARGET_BUILD_DIR=\"${DIR_ARM}\" BUILT_PRODUCTS_DIR=\"${DIR_ARM}\"\nxcodebuild -scheme ${FRAMEWORK_NAME} -configuration \"Release\" -sdk \"iphoneos8.3\" clean build ARCHS=\"arm64\" IPHONEOS_DEPLOYMENT_TARGET=\"8.0\" TARGET_BUILD_DIR=\"${DIR_ARM64}\" BUILT_PRODUCTS_DIR=\"${DIR_ARM64}\"\nxcodebuild -scheme ${FRAMEWORK_NAME} -configuration \"Release\" -sdk \"iphonesimulator8.3\" clean build ARCHS=\"i386\" IPHONEOS_DEPLOYMENT_TARGET=\"8.0\" TARGET_BUILD_DIR=\"${DIR_i386}\" BUILT_PRODUCTS_DIR=\"${DIR_i386}\"\nxcodebuild -scheme ${FRAMEWORK_NAME} -configuration \"Release\" -sdk \"iphonesimulator8.3\" clean build ARCHS=\"x86_64\" VALID_ARCHS=\"x86_64\" IPHONEOS_DEPLOYMENT_TARGET=\"8.0\" TARGET_BUILD_DIR=\"${DIR_x8664}\" BUILT_PRODUCTS_DIR=\"${DIR_x8664}\"\n\n######################\n# Create directory for universal\n######################\n\nrm -rf \"${UNIVERSAL_LIBRARY_DIR}\"\nmkdir \"${UNIVERSAL_LIBRARY_DIR}\"\nmkdir \"${FRAMEWORK}\"\n\n######################\n# Copy files Framework\n######################\n\ncp -r \"${DIR_ARM}/${FRAMEWORK_NAME_FRAMEWORK}/.\" \"${FRAMEWORK}\"\nrm -rf \"${FRAMEWORK}/PrivateHeaders\"\n\n######################\n# Make an universal binary\n######################\n\n# create universal library\nlipo -create \"${DIR_ARM}/${FRAMEWORK_NAME_FRAMEWORK}/${FRAMEWORK_NAME}\" \"${DIR_ARM64}/${FRAMEWORK_NAME_FRAMEWORK}/${FRAMEWORK_NAME}\" \"${DIR_i386}/${FRAMEWORK_NAME_FRAMEWORK}/${FRAMEWORK_NAME}\" \"${DIR_x8664}/${FRAMEWORK_NAME_FRAMEWORK}/${FRAMEWORK_NAME}\" -output \"${FRAMEWORK}/${FRAMEWORK_NAME}\" | echo\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		904FB5F81AE03D4500EA1758 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				90BC07FD1AE0453E005D1195 /* CHKCheckout.m in Sources */,
+				90368D441AE0410400F053C6 /* CHKProductVariant.m in Sources */,
+				90368D3F1AE040FA00F053C6 /* CHKImage.m in Sources */,
+				90368D411AE040FE00F053C6 /* CHKObject.mm in Sources */,
+				90368D3B1AE040EA00F053C6 /* CHKCart.m in Sources */,
+				90368D3E1AE040F700F053C6 /* CHKGiftCard.m in Sources */,
+				90368D3D1AE040F500F053C6 /* CHKCreditCard.m in Sources */,
+				90368D481AE0410E00F053C6 /* NSDecimalNumber+CHKAdditions.m in Sources */,
+				90368D461AE0410A00F053C6 /* CHKApplePayAdditions.m in Sources */,
+				90368D471AE0410C00F053C6 /* CHKRuntime.m in Sources */,
+				90368D491AE0411000F053C6 /* NSString+Trim.m in Sources */,
+				90368D401AE040FC00F053C6 /* CHKLineItem.m in Sources */,
+				90368D431AE0410200F053C6 /* CHKProduct.m in Sources */,
+				90368D451AE0410800F053C6 /* CHKShop.m in Sources */,
+				90368D3C1AE040F300F053C6 /* CHKCollection.m in Sources */,
+				90368D3A1AE040E700F053C6 /* CHKDataProvider.m in Sources */,
+				90368D421AE0410000F053C6 /* CHKOption.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		904FB6031AE03D4500EA1758 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				90ED9BDB1AE571410064345F /* CheckoutTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F773741919C770CB0039681C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -440,7 +703,130 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		904FB60A1AE03D4500EA1758 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 904FB5FC1AE03D4500EA1758 /* Checkout */;
+			targetProxy = 904FB6091AE03D4500EA1758 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		904FB6101AE03D4500EA1758 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = Checkout/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		904FB6111AE03D4500EA1758 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = Checkout/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		904FB6121AE03D4500EA1758 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = CheckoutTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		904FB6131AE03D4500EA1758 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = CheckoutTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		904FB61C1AE03DC500EA1758 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		904FB61D1AE03DC500EA1758 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		F773742C19C770CB0039681C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -612,6 +998,33 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		904FB6141AE03D4500EA1758 /* Build configuration list for PBXNativeTarget "Checkout" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				904FB6101AE03D4500EA1758 /* Debug */,
+				904FB6111AE03D4500EA1758 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		904FB6151AE03D4500EA1758 /* Build configuration list for PBXNativeTarget "CheckoutTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				904FB6121AE03D4500EA1758 /* Debug */,
+				904FB6131AE03D4500EA1758 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		904FB61B1AE03DC500EA1758 /* Build configuration list for PBXAggregateTarget "Checkout-Universal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				904FB61C1AE03DC500EA1758 /* Debug */,
+				904FB61D1AE03DC500EA1758 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F773741819C770CB0039681C /* Build configuration list for PBXProject "CheckoutAnywhere" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -1,8 +1,8 @@
 //
 //  CHKObjectTests.m
-//  Storefront
+//  Checkout
 //
-//  Created by Joshua Tessier on 2014-09-15.
+//  Created by Shopify on 2014-09-15.
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.
 //
 
