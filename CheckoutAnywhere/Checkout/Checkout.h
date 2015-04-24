@@ -28,3 +28,5 @@ FOUNDATION_EXPORT const unsigned char CheckoutVersionString[];
 #import "CHKProduct.h"
 #import "CHKProductVariant.h"
 #import "CHKShop.h"
+#import "CHKViewController.h"
+#import "CHKStoreController.h"
