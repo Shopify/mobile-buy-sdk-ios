@@ -2,7 +2,7 @@
 //  CHKGiftCard.h
 //  Checkout
 //
-//  Created by IBK Ajila on 2015-03-17.
+//  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 

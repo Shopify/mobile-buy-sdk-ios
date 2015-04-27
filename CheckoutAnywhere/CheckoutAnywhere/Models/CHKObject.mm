@@ -1,5 +1,6 @@
 //
 //  CHKObject.m
+//  Checkout
 //
 //  Created by Shopify on 2014-09-10.
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.

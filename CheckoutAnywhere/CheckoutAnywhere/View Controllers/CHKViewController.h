@@ -1,8 +1,8 @@
 //
-//  CHKController.h
-//  CheckoutAnywhere
+//  CHKViewController.h
+//  Checkout
 //
-//  Created by Joshua Tessier on 2015-02-11.
+//  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 
