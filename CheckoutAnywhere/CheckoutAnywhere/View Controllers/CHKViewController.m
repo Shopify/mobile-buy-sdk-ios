@@ -9,6 +9,7 @@
 #import "CHKViewController.h"
 
 @import AddressBook;
+@import PassKit;
 
 //Other
 #import "CHKApplePayAdditions.h"
@@ -80,7 +81,7 @@
 	//Step 2 - Request payment from the user by presenting an Apple Pay sheet
 	
 	PKPaymentRequest *request = [self paymentRequest];
-	request.paymentSummaryItems = [_checkout lineItems];
+	request.paymentSummaryItems = [_checkout chk_summaryItems];
 	PKPaymentAuthorizationViewController *controller = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:request];
 	if (controller) {
 		controller.delegate = self;
@@ -105,7 +106,7 @@
 		}
 		else {
 			[_delegate controller:self failedToUpdateCheckout:checkout withError:error];
-			completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [_checkout lineItems]);
+			completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [_checkout chk_summaryItems]);
 		}
 	}];
 }
@@ -125,14 +126,14 @@
 			
 			if (error) {
 				[_delegate controller:self failedToGetShippingRates:_checkout withError:error];
-				completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [_checkout lineItems]);
+				completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [_checkout chk_summaryItems]);
 			}
 			else if (status == CHKStatusComplete && [shippingRates count] == 0) {
 				//You don't ship to this location
 				[_delegate controller:self failedToGetShippingRates:_checkout withError:error];
 				
 				_checkout.shippingRate = nil;
-				completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [_checkout lineItems]);
+				completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [_checkout chk_summaryItems]);
 			}
 			else if ((status == CHKStatusUnknown && error == nil) || status == CHKStatusComplete) { //We shouldn't add unkonown here, but this supports the case where we don't need shipping rates
 				shippingStatus = CHKStatusComplete;
@@ -159,7 +160,7 @@
 	//We then turn our CHKShippingRate objects into PKShippingMethods for Apple to present to the user.
 	
 	if ([_checkout requiresShipping] == NO) {
-		completion(PKPaymentAuthorizationStatusSuccess, nil, [_checkout lineItems]);
+		completion(PKPaymentAuthorizationStatusSuccess, nil, [_checkout chk_summaryItems]);
 	}
 	else {
 		[self fetchShippingRates:completion];
@@ -170,11 +171,11 @@
 				if (checkout && error == nil) {
 					_checkout = checkout;
 				}
-				completion(error ? PKPaymentAuthorizationStatusFailure : PKPaymentAuthorizationStatusSuccess, shippingMethods, [_checkout lineItems]);
+				completion(error ? PKPaymentAuthorizationStatusFailure : PKPaymentAuthorizationStatusSuccess, shippingMethods, [_checkout chk_summaryItems]);
 			}];
 		}
 		else {
-			completion(PKPaymentAuthorizationStatusSuccess, nil, [_checkout lineItems]);
+			completion(PKPaymentAuthorizationStatusSuccess, nil, [_checkout chk_summaryItems]);
 		}
 	}
 }
@@ -187,7 +188,7 @@
 		if (checkout && error == nil) {
 			_checkout = checkout;
 		}
-		completion(error == nil ? PKPaymentAuthorizationStatusSuccess : PKPaymentAuthorizationStatusFailure, [_checkout lineItems]);
+		completion(error == nil ? PKPaymentAuthorizationStatusSuccess : PKPaymentAuthorizationStatusFailure, [_checkout chk_summaryItems]);
 	}];
 }
 
@@ -300,7 +301,7 @@
 
 - (PKPaymentRequest *)paymentRequest
 {
-	PKPaymentRequest *paymentRequest = [PKPaymentRequest new];
+	PKPaymentRequest *paymentRequest = [[PKPaymentRequest alloc] init];
 	[paymentRequest setMerchantIdentifier:_merchantId];
 	[paymentRequest setRequiredBillingAddressFields:PKAddressFieldAll];
 	[paymentRequest setRequiredShippingAddressFields:_checkout.requiresShipping ? PKAddressFieldAll : PKAddressFieldPostalAddress];
