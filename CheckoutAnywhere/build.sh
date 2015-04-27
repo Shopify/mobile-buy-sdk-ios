@@ -38,6 +38,7 @@ mkdir "${FRAMEWORK}"
 
 cp -r "${DIR_ARM}/${FRAMEWORK_NAME_FRAMEWORK}/." "${FRAMEWORK}"
 rm -rf "${FRAMEWORK}/PrivateHeaders"
+rm -rf "${FRAMEWORK}/_CodeSignature"
 
 ######################
 # Make an universal binary
