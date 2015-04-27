@@ -296,7 +296,11 @@
 
 - (WKUserScript *)userScriptWithName:(NSString*)scriptName
 {
-	NSData *jsData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:scriptName ofType:@"js"]];
+    NSString *frameworkDirPath = [[NSBundle mainBundle] privateFrameworksPath];
+    NSString *frameworkBundlePath = [frameworkDirPath stringByAppendingPathComponent:@"Checkout.framework"];
+    NSBundle *frameworkBundle = [NSBundle bundleWithPath:frameworkBundlePath];
+    
+	NSData *jsData = [NSData dataWithContentsOfFile:[frameworkBundle pathForResource:scriptName ofType:@"js"]];
 	NSString *js = [[NSString alloc] initWithData:jsData encoding:NSUTF8StringEncoding];
 	return [[WKUserScript alloc] initWithSource:js injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:YES];
 }
