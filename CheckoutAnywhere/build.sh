@@ -1,3 +1,4 @@
+
 ######################
 # Options
 ######################
@@ -36,6 +37,7 @@ mkdir "${FRAMEWORK}"
 ######################
 
 cp -r "${DIR_ARM}/${FRAMEWORK_NAME_FRAMEWORK}/." "${FRAMEWORK}"
+rm -rf "${FRAMEWORK}/PrivateHeaders"
 
 ######################
 # Make an universal binary
