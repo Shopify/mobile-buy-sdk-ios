@@ -7,7 +7,7 @@
 //
 
 @import WebKit;
-#import "CHKStoreController.h"
+#import "CHKStoreViewController.h"
 #import "CHKLineItem.h"
 #import "CHKProductVariant.h"
 #import "CHKProduct.h"
@@ -16,10 +16,10 @@
 #define kCheckoutEvent @"com.shopify.hybrid.checkout"
 #define kToolbarHeight 44.0f
 
-@interface CHKStoreController () <WKNavigationDelegate, WKScriptMessageHandler>
+@interface CHKStoreViewController () <WKNavigationDelegate, WKScriptMessageHandler>
 @end
 
-@implementation CHKStoreController {
+@implementation CHKStoreViewController {
 	NSURL *_url;
 	WKWebView *_webView;
 	

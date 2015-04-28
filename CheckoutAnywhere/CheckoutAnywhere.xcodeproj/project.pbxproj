@@ -89,14 +89,14 @@
 		90BC07FD1AE0453E005D1195 /* CHKCheckout.m in Sources */ = {isa = PBXBuildFile; fileRef = F773749519C77C260039681C /* CHKCheckout.m */; };
 		90ED9BD91AE557200064345F /* Checkout.h in Headers */ = {isa = PBXBuildFile; fileRef = 904FB6011AE03D4500EA1758 /* Checkout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90ED9BDB1AE571410064345F /* CheckoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 90ED9BDA1AE571410064345F /* CheckoutTests.m */; };
-		BE1C4DF71AE98FBB00E21624 /* CHKStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1C4DF41AE98FBB00E21624 /* CHKStoreController.m */; };
+		BE1C4DF71AE98FBB00E21624 /* CHKStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1C4DF41AE98FBB00E21624 /* CHKStoreViewController.m */; };
 		BE1C4DF81AE98FBB00E21624 /* CHKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1C4DF61AE98FBB00E21624 /* CHKViewController.m */; };
-		BE1C4DF91AE98FC300E21624 /* CHKStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1C4DF41AE98FBB00E21624 /* CHKStoreController.m */; };
-		BE1C4DFA1AE98FC300E21624 /* CHKStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1C4DF41AE98FBB00E21624 /* CHKStoreController.m */; };
+		BE1C4DF91AE98FC300E21624 /* CHKStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1C4DF41AE98FBB00E21624 /* CHKStoreViewController.m */; };
+		BE1C4DFA1AE98FC300E21624 /* CHKStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1C4DF41AE98FBB00E21624 /* CHKStoreViewController.m */; };
 		BE1C4DFB1AE98FC500E21624 /* CHKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1C4DF61AE98FBB00E21624 /* CHKViewController.m */; };
 		BE1C4DFC1AE98FC600E21624 /* CHKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1C4DF61AE98FBB00E21624 /* CHKViewController.m */; };
 		BE1C4DFD1AE98FD300E21624 /* CHKViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = BE1C4DF51AE98FBB00E21624 /* CHKViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BE1C4DFE1AE98FD500E21624 /* CHKStoreController.h in Headers */ = {isa = PBXBuildFile; fileRef = BE1C4DF31AE98FBB00E21624 /* CHKStoreController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BE1C4DFE1AE98FD500E21624 /* CHKStoreViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = BE1C4DF31AE98FBB00E21624 /* CHKStoreViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BE1C4E361AEAD06100E21624 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A54742D1A0AA61600822409 /* PassKit.framework */; };
 		BE1C4E3B1AEE6EBE00E21624 /* app.js in Resources */ = {isa = PBXBuildFile; fileRef = BE1C4E3A1AEE6EBE00E21624 /* app.js */; };
 		F70CE40F1A8BF1D90055BEB8 /* CHKApplePayAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F70CE40E1A8BF1D90055BEB8 /* CHKApplePayAdditions.m */; };
@@ -174,8 +174,8 @@
 		90BC07F51AE043FD005D1195 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		90BC07F71AE0440F005D1195 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		90ED9BDA1AE571410064345F /* CheckoutTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckoutTests.m; path = CheckoutTests/CheckoutTests.m; sourceTree = SOURCE_ROOT; };
-		BE1C4DF31AE98FBB00E21624 /* CHKStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHKStoreController.h; path = "View Controllers/CHKStoreController.h"; sourceTree = "<group>"; };
-		BE1C4DF41AE98FBB00E21624 /* CHKStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHKStoreController.m; path = "View Controllers/CHKStoreController.m"; sourceTree = "<group>"; };
+		BE1C4DF31AE98FBB00E21624 /* CHKStoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHKStoreViewController.h; path = "View Controllers/CHKStoreViewController.h"; sourceTree = "<group>"; };
+		BE1C4DF41AE98FBB00E21624 /* CHKStoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHKStoreViewController.m; path = "View Controllers/CHKStoreViewController.m"; sourceTree = "<group>"; };
 		BE1C4DF51AE98FBB00E21624 /* CHKViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHKViewController.h; path = "View Controllers/CHKViewController.h"; sourceTree = "<group>"; };
 		BE1C4DF61AE98FBB00E21624 /* CHKViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHKViewController.m; path = "View Controllers/CHKViewController.m"; sourceTree = "<group>"; };
 		BE1C4E3A1AEE6EBE00E21624 /* app.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = app.js; sourceTree = "<group>"; };
@@ -304,8 +304,8 @@
 		BE1C4DF21AE98F8E00E21624 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				BE1C4DF31AE98FBB00E21624 /* CHKStoreController.h */,
-				BE1C4DF41AE98FBB00E21624 /* CHKStoreController.m */,
+				BE1C4DF31AE98FBB00E21624 /* CHKStoreViewController.h */,
+				BE1C4DF41AE98FBB00E21624 /* CHKStoreViewController.m */,
 				BE1C4DF51AE98FBB00E21624 /* CHKViewController.h */,
 				BE1C4DF61AE98FBB00E21624 /* CHKViewController.m */,
 			);
@@ -461,7 +461,7 @@
 				BE1C4DFD1AE98FD300E21624 /* CHKViewController.h in Headers */,
 				90368D4D1AE0417700F053C6 /* CHKCheckout.h in Headers */,
 				90368D4E1AE0417700F053C6 /* CHKCollection.h in Headers */,
-				BE1C4DFE1AE98FD500E21624 /* CHKStoreController.h in Headers */,
+				BE1C4DFE1AE98FD500E21624 /* CHKStoreViewController.h in Headers */,
 				90368D4F1AE0417700F053C6 /* CHKCreditCard.h in Headers */,
 				90368D501AE0417700F053C6 /* CHKGiftCard.h in Headers */,
 				90368D511AE0417700F053C6 /* CHKImage.h in Headers */,
@@ -665,7 +665,7 @@
 				90368D451AE0410800F053C6 /* CHKShop.m in Sources */,
 				90368D3C1AE040F300F053C6 /* CHKCollection.m in Sources */,
 				90368D3A1AE040E700F053C6 /* CHKDataProvider.m in Sources */,
-				BE1C4DFA1AE98FC300E21624 /* CHKStoreController.m in Sources */,
+				BE1C4DFA1AE98FC300E21624 /* CHKStoreViewController.m in Sources */,
 				90368D421AE0410000F053C6 /* CHKOption.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -699,7 +699,7 @@
 				2AF52A891A700B0A0087DB2C /* CHKProduct.m in Sources */,
 				2AF52A751A700AC80087DB2C /* CHKRuntime.m in Sources */,
 				2AF52A8D1A700B0A0087DB2C /* CHKOption.m in Sources */,
-				BE1C4DF71AE98FBB00E21624 /* CHKStoreController.m in Sources */,
+				BE1C4DF71AE98FBB00E21624 /* CHKStoreViewController.m in Sources */,
 				2AF52A951A7010B20087DB2C /* CHKObject.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -734,7 +734,7 @@
 				BE1C4DFB1AE98FC500E21624 /* CHKViewController.m in Sources */,
 				2AF52A761A700AC80087DB2C /* CHKRuntime.m in Sources */,
 				2AF52A8E1A700B0A0087DB2C /* CHKOption.m in Sources */,
-				BE1C4DF91AE98FC300E21624 /* CHKStoreController.m in Sources */,
+				BE1C4DF91AE98FC300E21624 /* CHKStoreViewController.m in Sources */,
 				2AF52A961A7010B20087DB2C /* CHKObject.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

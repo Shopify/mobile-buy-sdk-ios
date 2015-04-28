@@ -1,5 +1,5 @@
 //
-//  CHKStoreController.h
+//  CHKStoreViewController.h
 //  Checkout
 //
 //  Created by Shopify.
@@ -20,15 +20,15 @@ typedef NS_ENUM(NSUInteger, CHKCheckoutType) {
 typedef void (^CHKCheckoutTypeBlock)(CHKCheckoutType type);
 
 
-@class CHKStoreController;
+@class CHKStoreViewController;
 
-@protocol CHKStoreController <CHKControllerDelegate>
+@protocol CHKStoreViewController <CHKControllerDelegate>
 
 /**
  * Tells the delegate that the user has proceeded to checkout.  Use this opportunity to present an interface the the
  * user to choose between checking out with ApplePay or standard webcheckout. Before presenting an option for ApplePay, check if the device is setup to do so by calling `[PKPaymentAuthorizationViewController canMakePayments]`
  */
-- (void)controller:(CHKStoreController *)controller shouldProceedWithCheckoutType:(CHKCheckoutTypeBlock)completionHandler;
+- (void)controller:(CHKStoreViewController *)controller shouldProceedWithCheckoutType:(CHKCheckoutTypeBlock)completionHandler;
 
 @end
 
@@ -45,10 +45,10 @@ typedef void (^CHKCheckoutTypeBlock)(CHKCheckoutType type);
  *    This approach REQUIRES a few small changes to the storefront to work. (See .m file)
  *    You will need **some** knowledge of liquid and Shopify's theming system to get this working.
  */
-@interface CHKStoreController : CHKViewController
+@interface CHKStoreViewController : CHKViewController
 
 - (instancetype)initWithShopAddress:(NSString *)shopAddress apiKey:(NSString *)apiKey merchantId:(NSString *)merchantId url:(NSURL *)url;
 
-@property (nonatomic, weak) id <CHKStoreController> delegate;
+@property (nonatomic, weak) id <CHKStoreViewController> delegate;
 
 @end

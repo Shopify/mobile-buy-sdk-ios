@@ -2,7 +2,7 @@
 //  Checkout.h
 //  Checkout
 //
-//  Created by Rune Madsen on 2015-04-16.
+//  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 
@@ -29,4 +29,4 @@ FOUNDATION_EXPORT const unsigned char CheckoutVersionString[];
 #import <Checkout/CHKProductVariant.h>
 #import <Checkout/CHKShop.h>
 #import <Checkout/CHKViewController.h>
-#import <Checkout/CHKStoreController.h>
+#import <Checkout/CHKStoreViewController.h>
