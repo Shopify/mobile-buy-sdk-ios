@@ -16,17 +16,17 @@ FOUNDATION_EXPORT const unsigned char CheckoutVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <Checkout/Checkout.h>
 
-#import "CHKCart.h"
-#import "CHKCheckout.h"
-#import "CHKCreditCard.h"
-#import "CHKGiftCard.h"
-#import "CHKLineItem.h"
-#import "CHKDataProvider.h"
-#import "CHKCollection.h"
-#import "CHKImage.h"
-#import "CHKOption.h"
-#import "CHKProduct.h"
-#import "CHKProductVariant.h"
-#import "CHKShop.h"
-#import "CHKViewController.h"
-#import "CHKStoreController.h"
+#import <Checkout/CHKCart.h>
+#import <Checkout/CHKCheckout.h>
+#import <Checkout/CHKCreditCard.h>
+#import <Checkout/CHKGiftCard.h>
+#import <Checkout/CHKLineItem.h>
+#import <Checkout/CHKDataProvider.h>
+#import <Checkout/CHKCollection.h>
+#import <Checkout/CHKImage.h>
+#import <Checkout/CHKOption.h>
+#import <Checkout/CHKProduct.h>
+#import <Checkout/CHKProductVariant.h>
+#import <Checkout/CHKShop.h>
+#import <Checkout/CHKViewController.h>
+#import <Checkout/CHKStoreController.h>
