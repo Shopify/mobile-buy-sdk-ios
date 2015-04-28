@@ -8,13 +8,11 @@ Pod::Spec.new do |s|
                    DESC
   s.homepage     = "https://www.shopify.com"
   s.license      = { :type => "MIT", :file => "LICENSE" }
-  s.author               = "Shopify Inc."
+  s.author       = "Shopify Inc."
   s.platform     = :ios
   s.platform     = :ios, "8.0"
   s.source       = { :http => "https://www.dropbox.com/s/4rx7k007crlad3r/Checkout.framework.zip?dl=1" }
   s.vendored_frameworks = "Checkout.framework"
-  s.public_header_files = "Checkout.framework/**/*.h"
-  s.frameworks   = "Foundation", "UIKit", "PassKit"
-  s.requires_arc = true
+  s.frameworks   = "PassKit"
 
 end
