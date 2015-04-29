@@ -10,11 +10,17 @@
 
 #import "CHKViewController.h"
 
+NSString * const CHKShopifyError;
+
 typedef NS_ENUM(NSUInteger, CHKCheckoutType) {
     CHKheckoutTypeNormal,
     CHKCheckoutTypeApplePay,
     
     CHKCheckoutTypeCancel
+};
+
+typedef NS_ENUM(NSUInteger, CHKCheckoutError) {
+    CHKCheckoutError_CartFetchError
 };
 
 typedef void (^CHKCheckoutTypeBlock)(CHKCheckoutType type);
