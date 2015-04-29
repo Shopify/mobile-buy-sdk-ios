@@ -22,7 +22,7 @@ typedef void (^CHKCheckoutTypeBlock)(CHKCheckoutType type);
 
 @class CHKStoreViewController;
 
-@protocol CHKStoreViewController <CHKControllerDelegate>
+@protocol CHKStoreViewController <CHKViewControllerDelegate>
 
 /**
  * Tells the delegate that the user has proceeded to checkout.  Use this opportunity to present an interface the the

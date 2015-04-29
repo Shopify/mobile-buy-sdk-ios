@@ -15,7 +15,7 @@
 
 @class CHKViewController;
 
-@protocol CHKControllerDelegate <NSObject>
+@protocol CHKViewControllerDelegate <NSObject>
 
 /**
  * This is called if there is an error in creating the checkout. These problems may range from not being connected to the internet, or if there is a validation error in the checkout.
@@ -57,7 +57,7 @@
 /**
  * Register yourself as a delegate to handle all errors, and status changes.
  */
-@property (nonatomic, weak) id <CHKControllerDelegate> delegate;
+@property (nonatomic, weak) id <CHKViewControllerDelegate> delegate;
 @property (nonatomic, strong, readonly) CHKDataProvider *provider;
 
 #pragma mark - Apple Pay Overrides
