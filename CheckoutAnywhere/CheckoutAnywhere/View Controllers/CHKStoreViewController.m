@@ -222,9 +222,8 @@ NSString * const CHKShopifyError = @"shopify";
 				[self startCheckoutWithCart:checkoutCart];
 			}
 			else {
-               
-                NSError *error = [[NSError alloc] initWithDomain:CHKShopifyError code:CHKCheckoutError_CartFetchError userInfo:cart];
-                [self.delegate controller:self failedToCompleteCheckout:nil withError:error];
+				NSError *error = [[NSError alloc] initWithDomain:CHKShopifyError code:CHKCheckoutError_CartFetchError userInfo:cart];
+				[self.delegate controller:self failedToCompleteCheckout:nil withError:error];
 			}
 		});
 	});
