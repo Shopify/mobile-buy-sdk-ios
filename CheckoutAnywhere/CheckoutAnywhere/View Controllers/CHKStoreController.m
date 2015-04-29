@@ -16,6 +16,8 @@
 #define kCheckoutEvent @"com.shopify.hybrid.checkout"
 #define kToolbarHeight 44.0f
 
+NSString * const CHKShopifyError = @"shopify";
+
 @interface CHKStoreController () <WKNavigationDelegate, WKScriptMessageHandler>
 @end
 
@@ -220,7 +222,9 @@
 				[self startCheckoutWithCart:checkoutCart];
 			}
 			else {
-				[[[UIAlertView alloc] initWithTitle:@"Failed!" message:@"Failed to initiate checkout :(" delegate:nil cancelButtonTitle:@"(;´༎ຶД༎ຶ`)" otherButtonTitles:nil] show];
+               
+                NSError *error = [[NSError alloc] initWithDomain:CHKShopifyError code:CHKCheckoutError_CartFetchError userInfo:cart];
+                [self.delegate controller:self failedToCompleteCheckout:nil withError:error];
 			}
 		});
 	});
