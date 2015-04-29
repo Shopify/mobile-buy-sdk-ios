@@ -9,7 +9,7 @@
 @import UIKit;
 @import XCTest;
 
-#import "CheckoutAnywhere.h"
+#import "Checkout.h"
 #import "CHKTestConstants.h"
 #import "CHKGiftCard.h"
 
@@ -336,7 +336,7 @@
 {
 	[self testApplyingGiftCardToCheckout];
 	
-	CHKGiftCard *giftCard = [[CHKGiftCard alloc] initWithDictionary:@{ @"id" : EXPIRED_GIFT_CARD_CODE }];
+	CHKGiftCard *giftCard = [[CHKGiftCard alloc] initWithDictionary:@{ @"id" : EXPIRED_GIFT_CARD_ID }];
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 	NSURLSessionDataTask *task = [_checkoutDataProvider removeGiftCard:giftCard fromCheckout:_checkout completion:^(CHKGiftCard *giftCard, NSError *error) {
 		XCTAssertNotNil(error);
