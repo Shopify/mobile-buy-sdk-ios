@@ -7,7 +7,7 @@
 //
 
 @import WebKit;
-#import "CHKStoreController.h"
+#import "CHKStoreViewController.h"
 #import "CHKLineItem.h"
 #import "CHKProductVariant.h"
 #import "CHKProduct.h"
@@ -18,10 +18,10 @@
 
 NSString * const CHKShopifyError = @"shopify";
 
-@interface CHKStoreController () <WKNavigationDelegate, WKScriptMessageHandler>
+@interface CHKStoreViewController () <WKNavigationDelegate, WKScriptMessageHandler>
 @end
 
-@implementation CHKStoreController {
+@implementation CHKStoreViewController {
 	NSURL *_url;
 	WKWebView *_webView;
 	
