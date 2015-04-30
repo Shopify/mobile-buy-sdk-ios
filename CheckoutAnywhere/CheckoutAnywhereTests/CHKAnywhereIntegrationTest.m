@@ -350,26 +350,35 @@
 {
 	[self createCart];
 	_checkout = [[CHKCheckout alloc] initWithCart:_cart];
-	
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
 	_checkoutDataProvider = [[CHKDataProvider alloc] initWithShopDomain:CHECKOUT_ANYWHERE_SHOP apiKey:@""];
-	[_checkoutDataProvider createCheckout:_checkout completion:^(CHKCheckout *checkout, NSError *error) {
+	NSURLSessionDataTask *task = [_checkoutDataProvider createCheckout:_checkout completion:^(CHKCheckout *checkout, NSError *error) {
 		XCTAssertNotNil(error);
 		XCTAssertEqualObjects(error.domain, @"shopify");
 		XCTAssertEqual(error.code, 401);
+        dispatch_semaphore_signal(semaphore);
 	}];
+    
+    WAIT_FOR_TASK(task, semaphore);
 }
 
 - (void)testCheckoutAnywhereWithInvalidShop
 {
 	[self createCart];
 	_checkout = [[CHKCheckout alloc] initWithCart:_cart];
-	
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
 	_checkoutDataProvider = [[CHKDataProvider alloc] initWithShopDomain:@"asdfdsasdfdsasdfdsadsfowinfaoinfw.myshopify.com" apiKey:CHECKOUT_ANYHWERE_API_KEY];
-	[_checkoutDataProvider createCheckout:_checkout completion:^(CHKCheckout *checkout, NSError *error) {
+	NSURLSessionDataTask *task = [_checkoutDataProvider createCheckout:_checkout completion:^(CHKCheckout *checkout, NSError *error) {
 		XCTAssertNotNil(error);
 		XCTAssertEqualObjects(error.domain, @"shopify");
 		XCTAssertEqual(error.code, 404);
+        dispatch_semaphore_signal(semaphore);
+
 	}];
+    
+    WAIT_FOR_TASK(task, semaphore);
 }
 
 - (void)testFetchingShippingRatesWithoutShippingAddressShouldReturnPreconditionFailed
