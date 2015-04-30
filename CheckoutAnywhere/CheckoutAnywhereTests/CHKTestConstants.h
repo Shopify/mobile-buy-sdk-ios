@@ -9,10 +9,11 @@
 #ifndef CheckoutAnywhere_CHKTestConstants_h
 #define CheckoutAnywhere_CHKTestConstants_h
 
-#define CHECKOUT_ANYWHERE_SHOP @""
-#define CHECKOUT_ANYHWERE_API_KEY @""
+#define CHECKOUT_ANYWHERE_SHOP @"<#Shop Domain#>"
+#define CHECKOUT_ANYHWERE_API_KEY @"<#API Key#>"
 
-#define GIFT_CARD_CODE @""
-#define EXPIRED_GIFT_CARD_CODE @""
-#define EXPIRED_GIFT_CARD_ID @""
+#define GIFT_CARD_CODE @"<#Gift Card Code#>"
+#define EXPIRED_GIFT_CARD_CODE @"<#Expired Gift Card Code#>"
+#define EXPIRED_GIFT_CARD_ID @"<#Expired Gift Card ID#>"
+
 #endif
