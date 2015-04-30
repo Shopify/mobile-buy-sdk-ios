@@ -28,7 +28,7 @@ typedef void (^CHKCheckoutTypeBlock)(CHKCheckoutType type);
 
 @class CHKStoreViewController;
 
-@protocol CHKStoreViewController <CHKViewControllerDelegate>
+@protocol CHKStoreViewControllerDelegate <CHKViewControllerDelegate>
 
 /**
  * Tells the delegate that the user has proceeded to checkout.  Use this opportunity to present an interface the the
@@ -55,6 +55,6 @@ typedef void (^CHKCheckoutTypeBlock)(CHKCheckoutType type);
 
 - (instancetype)initWithShopAddress:(NSString *)shopAddress apiKey:(NSString *)apiKey merchantId:(NSString *)merchantId url:(NSURL *)url;
 
-@property (nonatomic, weak) id <CHKStoreViewController> delegate;
+@property (nonatomic, weak) id <CHKStoreViewControllerDelegate> delegate;
 
 @end
