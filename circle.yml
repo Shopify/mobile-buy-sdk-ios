@@ -8,5 +8,5 @@ test:
       -reporter pretty
       -reporter junit:$CIRCLE_TEST_REPORTS/xcode/results.xml 
       -scheme "CheckoutAnywhereTests" 
-      -project CheckoutAnywhere.xcodeproj 
+      -project CheckoutAnywhere/CheckoutAnywhere.xcodeproj 
       -sdk iphonesimulator clean test
