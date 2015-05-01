@@ -1,0 +1,7 @@
+machine:
+  xcode:
+    version: "6.2"
+	
+test:
+  override:
+    - xctool -reporter pretty -reporter junit:$CIRCLE_TEST_REPORTS/xcode/results.xml -scheme "CheckoutAnywhereTests" -project CheckoutAnywhere.xcodeproj -sdk iphonesimulator clean test
