@@ -265,6 +265,10 @@ NSString * const CHKShopifyError = @"shopify";
 			});
 		}];
 	}
+    else {
+		NSError *error = [NSError errorWithDomain:CHKShopifyError code:status userInfo:@{@"checkout": checkout}];
+		[self.delegate controller:self failedToCompleteCheckout:checkout withError:error];
+    }
 }
 
 #pragma mark - Web View Configuration
