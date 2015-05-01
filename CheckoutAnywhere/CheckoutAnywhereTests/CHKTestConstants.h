@@ -9,11 +9,11 @@
 #ifndef CheckoutAnywhere_CHKTestConstants_h
 #define CheckoutAnywhere_CHKTestConstants_h
 
-#define CHECKOUT_ANYWHERE_SHOP @"<#Shop Domain#>"
-#define CHECKOUT_ANYHWERE_API_KEY @"<#API Key#>"
-
-#define GIFT_CARD_CODE @"<#Gift Card Code#>"
-#define EXPIRED_GIFT_CARD_CODE @"<#Expired Gift Card Code#>"
-#define EXPIRED_GIFT_CARD_ID @"<#Expired Gift Card ID#>"
+// These should be defined as environment variables in your scheme, or in the CI machine
+#define kCHKTestDomain @"shop_domain"
+#define kCHKTestAPIKey @"api_key"
+#define kCHKTestGiftCardCode @"gift_card_code"
+#define kCHKTestExpiredGiftCardCode @"expired_gift_card_code"
+#define kCHKTestExpiredGiftCardID @"expired_gift_card_id"
 
 #endif
