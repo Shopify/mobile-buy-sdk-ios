@@ -1,3 +1,5 @@
+[![Circle CI](https://circleci.com/gh/Shopify/checkout-anywhere-ios.svg?style=svg)](https://circleci.com/gh/Shopify/checkout-anywhere-ios)
+
 ##What is this?
 
 This is a client implementation of Checkout Anywhere for iOS that allows you to perform checkouts from an App. This also supports ApplePay.
