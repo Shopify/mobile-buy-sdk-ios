@@ -446,7 +446,17 @@
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
 {
-    completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
+    NSURLProtectionSpace *protectionSpace = [challenge protectionSpace];
+    
+//    if ([protectionSpace authenticationMethod] == NSURLAuthenticationMethodHTTPBasic) {
+//        NSURLCredential *credential = nil;//[NSURLCredential credentialWithUser:_basicAuthUsername password:_basicAuthPassword persistence:NSURLCredentialPersistenceForSession];
+//        completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
+//    } else {
+//        
+    
+        NSURLCredential *credential = [NSURLCredential credentialForTrust:protectionSpace.serverTrust];
+        completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
+   // }
 }
 
 @end
