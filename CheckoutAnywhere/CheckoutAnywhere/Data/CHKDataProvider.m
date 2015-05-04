@@ -446,7 +446,7 @@
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
 {
-    completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
+    completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
 }
 
 @end
