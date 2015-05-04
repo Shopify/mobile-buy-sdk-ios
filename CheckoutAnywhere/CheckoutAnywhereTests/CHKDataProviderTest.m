@@ -69,8 +69,12 @@
 	NSData *data = request.HTTPBody;
 	XCTAssertNotNil(data);
 	
-	NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-	XCTAssertEqualObjects(@"{\"checkout\":{\"partial_addresses\":true,\"line_items\":[]}}", string);
+    NSDictionary *dict = @{@"checkout":
+							   @{@"partial_addresses": @1,
+								 @"line_items": @[]}};
+    
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+	XCTAssertEqualObjects(dict, json);
 }
 
 @end

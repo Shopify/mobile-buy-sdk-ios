@@ -448,15 +448,11 @@
 {
     NSURLProtectionSpace *protectionSpace = [challenge protectionSpace];
     
-//    if ([protectionSpace authenticationMethod] == NSURLAuthenticationMethodHTTPBasic) {
-//        NSURLCredential *credential = nil;//[NSURLCredential credentialWithUser:_basicAuthUsername password:_basicAuthPassword persistence:NSURLCredentialPersistenceForSession];
-//        completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
-//    } else {
-//        
-    
+    if ([protectionSpace authenticationMethod] == NSURLAuthenticationMethodServerTrust) {
+        
         NSURLCredential *credential = [NSURLCredential credentialForTrust:protectionSpace.serverTrust];
         completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
-   // }
+    }
 }
 
 @end
