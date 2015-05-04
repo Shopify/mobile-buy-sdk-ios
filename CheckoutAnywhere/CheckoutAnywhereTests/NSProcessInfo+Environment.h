@@ -10,8 +10,6 @@
 
 @interface NSProcessInfo (Environment)
 
-+ (id)objectForKeyedSubscript:(NSString *)key;
-
 + (id)environmentForKey:(NSString *)key;
 
 @end

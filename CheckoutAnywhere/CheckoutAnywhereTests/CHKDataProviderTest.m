@@ -44,12 +44,12 @@
 {
 	[super setUp];
 	
-    shopDomain = [NSProcessInfo environmentForKey:kCHKTestDomain];
-    apiKey = [NSProcessInfo environmentForKey:kCHKTestAPIKey];
-    giftCardCode = [NSProcessInfo environmentForKey:kCHKTestGiftCardCode];
-    expiredGiftCardCode = [NSProcessInfo environmentForKey:kCHKTestExpiredGiftCardCode];
-    expiredGiftCardId = [NSProcessInfo environmentForKey:kCHKTestExpiredGiftCardID];
-    
+	shopDomain = [NSProcessInfo environmentForKey:kCHKTestDomain];
+	apiKey = [NSProcessInfo environmentForKey:kCHKTestAPIKey];
+	giftCardCode = [NSProcessInfo environmentForKey:kCHKTestGiftCardCode];
+	expiredGiftCardCode = [NSProcessInfo environmentForKey:kCHKTestExpiredGiftCardCode];
+	expiredGiftCardId = [NSProcessInfo environmentForKey:kCHKTestExpiredGiftCardID];
+	
 	XCTAssert([shopDomain length] > 0, @"You must provide a valid CHECKOUT_ANYWHERE_SHOP. This is your 'shopname.myshopify.com' address.");
 	XCTAssert([apiKey length] > 0, @"You must provide a valid CHECKOUT_ANYHWERE_API_KEY. This is the API_KEY of your app.");
 	

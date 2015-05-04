@@ -10,12 +10,6 @@
 
 @implementation NSProcessInfo (Environment)
 
-+ (id)objectForKeyedSubscript:(NSString *)key
-{
-    NSDictionary *environment = [[self processInfo] environment];
-    return environment[key];
-}
-
 + (id)environmentForKey:(id)key
 {
     NSDictionary *environment = [[self processInfo] environment];
