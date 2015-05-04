@@ -448,10 +448,22 @@
 {
     NSURLProtectionSpace *protectionSpace = [challenge protectionSpace];
     
-    if ([protectionSpace authenticationMethod] == NSURLAuthenticationMethodServerTrust) {
+    if (protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust) {
         
-        NSURLCredential *credential = [NSURLCredential credentialForTrust:protectionSpace.serverTrust];
-        completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
+        SecTrustResultType resultType;
+        SecTrustEvaluate(protectionSpace.serverTrust, &resultType);
+        
+        if (resultType == kSecTrustResultUnspecified || resultType == kSecTrustResultProceed) {
+            NSURLCredential *credential = [NSURLCredential credentialForTrust:protectionSpace.serverTrust];
+            completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
+        }
+        else {
+            completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, NULL);
+        }
+
+    }
+    else {
+        completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, NULL);
     }
 }
 
