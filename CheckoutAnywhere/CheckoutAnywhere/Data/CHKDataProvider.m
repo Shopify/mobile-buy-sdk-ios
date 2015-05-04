@@ -446,25 +446,31 @@
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
 {
-    NSURLProtectionSpace *protectionSpace = [challenge protectionSpace];
-    
-    if (protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust) {
-        
-        SecTrustResultType resultType;
-        SecTrustEvaluate(protectionSpace.serverTrust, &resultType);
-        NSLog(@"result: %d", resultType);
-        //if (resultType == kSecTrustResultUnspecified || resultType == kSecTrustResultProceed) {
-            NSURLCredential *credential = [NSURLCredential credentialForTrust:protectionSpace.serverTrust];
-            completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
-       // }
-//        else {
-//            completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, NULL);
-//        }
-
-    }
-    else {
-        completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, NULL);
-    }
+	NSURLProtectionSpace *protectionSpace = [challenge protectionSpace];
+	
+	if (protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust) {
+		
+		SecTrustResultType resultType;
+		SecTrustEvaluate(protectionSpace.serverTrust, &resultType);
+		
+		BOOL trusted = (resultType == kSecTrustResultUnspecified) || (resultType == kSecTrustResultProceed);
+		
+#ifdef DEBUG
+		trusted |= (resultType == kSecTrustResultInvalid); // TODO: Why is CircleCI returning invalid?
+#endif
+		
+		if (trusted) {
+			NSURLCredential *credential = [NSURLCredential credentialForTrust:protectionSpace.serverTrust];
+			completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
+		}
+		else {
+			completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, NULL);
+		}
+		
+	}
+	else {
+		completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, NULL);
+	}
 }
 
 @end
