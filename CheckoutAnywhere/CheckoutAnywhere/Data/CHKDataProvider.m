@@ -27,6 +27,9 @@
 #define kMinSuccessfulStatusCode 200
 #define kMaxSuccessfulStatusCode 299
 
+@interface CHKDataProvider () <NSURLSessionDelegate>
+@end
+
 @implementation CHKDataProvider {
 	NSString *_shopDomain;
 	NSString *_apiKey;
@@ -41,7 +44,7 @@
 		_shopDomain = shopDomain;
 		_apiKey = apiKey;
 		_queue = [[NSOperationQueue alloc] init];
-		_session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:_queue];
+		_session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:_queue];
 		_pageSize = 25;
 	}
 	return self;
@@ -437,6 +440,13 @@
 {
 	NSData *data = [_apiKey dataUsingEncoding:NSUTF8StringEncoding];
 	return [NSString stringWithFormat:@"%@ %@", @"Basic", [data base64EncodedStringWithOptions:0]];
+}
+
+#pragma mark - NSURLSessionTaskDelegate
+
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
+{
+    completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
 }
 
 @end
