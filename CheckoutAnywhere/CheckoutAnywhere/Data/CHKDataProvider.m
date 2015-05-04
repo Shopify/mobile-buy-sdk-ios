@@ -452,14 +452,14 @@
         
         SecTrustResultType resultType;
         SecTrustEvaluate(protectionSpace.serverTrust, &resultType);
-        
-        if (resultType == kSecTrustResultUnspecified || resultType == kSecTrustResultProceed) {
+        NSLog(@"result: %d", resultType);
+        //if (resultType == kSecTrustResultUnspecified || resultType == kSecTrustResultProceed) {
             NSURLCredential *credential = [NSURLCredential credentialForTrust:protectionSpace.serverTrust];
             completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
-        }
-        else {
-            completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, NULL);
-        }
+       // }
+//        else {
+//            completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, NULL);
+//        }
 
     }
     else {
