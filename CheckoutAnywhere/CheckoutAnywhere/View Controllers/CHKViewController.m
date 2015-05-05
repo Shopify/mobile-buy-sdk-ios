@@ -33,6 +33,10 @@
 {
 	self = [super init];
 	if (self) {
+		NSParameterAssert(shopAddress, @"Shop Address must not be nil");
+		NSParameterAssert(apiKey, @"API key must not be nil");
+		NSParameterAssert(merchantId, @"Merchant ID must not be nil");
+		
 		_provider = [[CHKDataProvider alloc] initWithShopDomain:shopAddress apiKey:apiKey];
 		_merchantId = merchantId;
 		
