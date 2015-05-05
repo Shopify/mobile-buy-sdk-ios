@@ -50,8 +50,8 @@
 	expiredGiftCardCode = [NSProcessInfo environmentForKey:kCHKTestExpiredGiftCardCode];
 	expiredGiftCardId = [NSProcessInfo environmentForKey:kCHKTestExpiredGiftCardID];
 	
-	XCTAssert([shopDomain length] > 0, @"You must provide a valid CHECKOUT_ANYWHERE_SHOP. This is your 'shopname.myshopify.com' address.");
-	XCTAssert([apiKey length] > 0, @"You must provide a valid CHECKOUT_ANYHWERE_API_KEY. This is the API_KEY of your app.");
+	XCTAssert([shopDomain length] > 0, @"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");
+	XCTAssert([apiKey length] > 0, @"You must provide a valid API Key. This is the API Key of your app.");
 	
 	_dataProvider = [[TESTDataProvider alloc] initWithShopDomain:shopDomain apiKey:apiKey];
 }

@@ -55,9 +55,9 @@
 	expiredGiftCardCode = [NSProcessInfo environmentForKey:kCHKTestExpiredGiftCardCode];
 	expiredGiftCardId = [NSProcessInfo environmentForKey:kCHKTestExpiredGiftCardID];
 	
-	XCTAssert([shopDomain length] > 0, @"You must provide a valid CHECKOUT_ANYWHERE_SHOP. This is your 'shopname.myshopify.com' address.");
-	XCTAssertEqualObjects([shopDomain substringFromIndex:shopDomain.length - 14], @".myshopify.com", @"You must provide a valid CHECKOUT_ANYWHERE_SHOP. This is your 'shopname.myshopify.com' address.");
-	XCTAssert([apiKey length] > 0, @"You must provide a valid CHECKOUT_ANYHWERE_API_KEY. This is the API_KEY of your app.");
+	XCTAssert([shopDomain length] > 0, @"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");
+	XCTAssertEqualObjects([shopDomain substringFromIndex:shopDomain.length - 14], @".myshopify.com", @"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");
+	XCTAssert([apiKey length] > 0, @"You must provide a valid API Key.");
 	
 	_checkoutDataProvider = [[CHKDataProvider alloc] initWithShopDomain:shopDomain apiKey:apiKey];
 	
@@ -280,7 +280,7 @@
 	
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 	NSURLSessionDataTask *task = [_checkoutDataProvider applyGiftCardWithCode:giftCardCode toCheckout:_checkout completion:^(CHKGiftCard *giftCard, NSError *error) {
-		//NOTE: Is this test failing? Make sure that you have configured GIFT_CARD_CODE above
+		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
 		XCTAssertNil(error);
 		XCTAssertNotNil(giftCard);
 		XCTAssertEqualObjects([giftCardCode substringWithRange:NSMakeRange(giftCardCode.length - 4, 4)], giftCard.lastCharacters);
@@ -324,7 +324,7 @@
 	
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 	NSURLSessionDataTask *task = [_checkoutDataProvider removeGiftCard:_giftCard fromCheckout:_checkout completion:^(CHKGiftCard *giftCard, NSError *error) {
-		//NOTE: Is this test failing? Make sure that you have configured GIFT_CARD_CODE above
+		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
 		XCTAssertNil(error);
 		XCTAssertNotNil(giftCard);
 		dispatch_semaphore_signal(semaphore);
