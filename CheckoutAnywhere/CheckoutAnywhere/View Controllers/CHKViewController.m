@@ -21,13 +21,12 @@
 #define CFSafeRelease(obj) if (obj) { CFRelease(obj); }
 
 @interface CHKViewController () <PKPaymentAuthorizationViewControllerDelegate>
+@property (nonatomic, strong) NSString *merchantId;
+@property (nonatomic, strong) CHKCheckout *checkout;
+@property (nonatomic, strong) NSArray *shippingRates;
 @end
 
-@implementation CHKViewController {
-	CHKCheckout *_checkout;
-	NSArray *_shippingRates;
-	NSString *_merchantId;
-}
+@implementation CHKViewController
 
 - (instancetype)initWithShopAddress:(NSString *)shopAddress apiKey:(NSString *)apiKey merchantId:(NSString *)merchantId
 {
@@ -42,7 +41,7 @@
 		if([apiKey length] == 0) NSLog(@"You must provide a valid API Key. This is the API Key of your app.");
 
 		_provider = [[CHKDataProvider alloc] initWithShopDomain:shopAddress apiKey:apiKey];
-		_merchantId = merchantId;
+		self.merchantId = merchantId;
 		
 		self.merchantCapability = PKMerchantCapability3DS;
 		self.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa];
