@@ -31,22 +31,22 @@
 
 - (instancetype)initWithShopAddress:(NSString *)shopAddress apiKey:(NSString *)apiKey merchantId:(NSString *)merchantId
 {
-    self = [super init];
-    if (self) {
+	self = [super init];
+	if (self) {
 		if (shopAddress == nil || apiKey == nil) {
 			NSException *exception = [NSException exceptionWithName:@"Missing keys" reason:@"Please ensure you initialize with a shop address, API key. The Merchant ID is optional and only needed for Apple Pay support" userInfo:@{ @"Shop Address" : shopAddress ?: @"", @"API key" : apiKey ?: @""}];
 			@throw exception;
 		}
-        
-        _provider = [[CHKDataProvider alloc] initWithShopDomain:shopAddress apiKey:apiKey];
-        _merchantId = merchantId;
-        
-        self.merchantCapability = PKMerchantCapability3DS;
-        self.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa];
-        self.countryCode = @"US";
-        self.currencyCode = @"USD";
-    }
-    return self;
+		
+		_provider = [[CHKDataProvider alloc] initWithShopDomain:shopAddress apiKey:apiKey];
+		_merchantId = merchantId;
+		
+		self.merchantCapability = PKMerchantCapability3DS;
+		self.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa];
+		self.countryCode = @"US";
+		self.currencyCode = @"USD";
+	}
+	return self;
 }
 
 #pragma mark - Checkout Flow Methods
