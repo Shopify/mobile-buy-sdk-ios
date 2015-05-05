@@ -33,10 +33,14 @@
 {
 	self = [super init];
 	if (self) {
+		
 		NSParameterAssert(shopAddress);
 		NSParameterAssert(apiKey);
 		NSParameterAssert(merchantId);
 		
+		if([shopAddress length] == 0) NSLog(@"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");
+		if([apiKey length] == 0) NSLog(@"You must provide a valid API Key. This is the API Key of your app.");
+
 		_provider = [[CHKDataProvider alloc] initWithShopDomain:shopAddress apiKey:apiKey];
 		_merchantId = merchantId;
 		
@@ -83,6 +87,11 @@
 - (void)requestPayment
 {
 	//Step 2 - Request payment from the user by presenting an Apple Pay sheet
+	if (_merchantId.length == 0) {
+		NSLog(@"Merchant ID must be configured to use Apple Pay");
+		[_delegate controllerFailedToStartApplePayProcess:self];
+		return;
+	}
 	
 	PKPaymentRequest *request = [self paymentRequest];
 	request.paymentSummaryItems = [_checkout chk_summaryItems];
