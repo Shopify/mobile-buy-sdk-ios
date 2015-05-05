@@ -26,6 +26,9 @@
 #define kMinSuccessfulStatusCode 200
 #define kMaxSuccessfulStatusCode 299
 
+@interface CHKDataProvider () <NSURLSessionDelegate>
+@end
+
 @implementation CHKDataProvider {
 	NSString *_shopDomain;
 	NSString *_apiKey;
@@ -40,7 +43,7 @@
 		_shopDomain = shopDomain;
 		_apiKey = apiKey;
 		_queue = [[NSOperationQueue alloc] init];
-		_session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:_queue];
+		_session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:_queue];
 		_pageSize = 25;
 	}
 	return self;
@@ -414,6 +417,37 @@
 {
 	NSData *data = [_apiKey dataUsingEncoding:NSUTF8StringEncoding];
 	return [NSString stringWithFormat:@"%@ %@", @"Basic", [data base64EncodedStringWithOptions:0]];
+}
+
+#pragma mark - NSURLSessionTaskDelegate
+
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
+{
+	NSURLProtectionSpace *protectionSpace = [challenge protectionSpace];
+	
+	if (protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust) {
+		
+		SecTrustResultType resultType;
+		SecTrustEvaluate(protectionSpace.serverTrust, &resultType);
+		
+		BOOL trusted = (resultType == kSecTrustResultUnspecified) || (resultType == kSecTrustResultProceed);
+		
+#ifdef DEBUG
+		trusted |= (resultType == kSecTrustResultInvalid); // TODO: CircleCI is using xctool which does not support Security.framework
+#endif
+		
+		if (trusted) {
+			NSURLCredential *credential = [NSURLCredential credentialForTrust:protectionSpace.serverTrust];
+			completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
+		}
+		else {
+			completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, NULL);
+		}
+		
+	}
+	else {
+		completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, NULL);
+	}
 }
 
 @end

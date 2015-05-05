@@ -13,6 +13,7 @@
 #import "CHKTestConstants.h"
 #import "CHKCheckout.h"
 #import "CHKCart.h"
+#import "NSProcessInfo+Environment.h"
 
 @interface TESTDataProvider : CHKDataProvider
 @end
@@ -31,16 +32,28 @@
 
 @implementation CHKDataProviderTest {
 	CHKDataProvider *_dataProvider;
+    
+    NSString *shopDomain;
+    NSString *apiKey;
+    NSString *giftCardCode;
+    NSString *expiredGiftCardCode;
+    NSString *expiredGiftCardId;
 }
 
 - (void)setUp
 {
 	[super setUp];
 	
-	XCTAssert([CHECKOUT_ANYWHERE_SHOP length] > 0, @"You must provide a valid CHECKOUT_ANYWHERE_SHOP. This is your 'shopname.myshopify.com' address.");
-	XCTAssert([CHECKOUT_ANYHWERE_API_KEY length] > 0, @"You must provide a valid CHECKOUT_ANYHWERE_API_KEY. This is the API_KEY of your app.");
+	shopDomain = [NSProcessInfo environmentForKey:kCHKTestDomain];
+	apiKey = [NSProcessInfo environmentForKey:kCHKTestAPIKey];
+	giftCardCode = [NSProcessInfo environmentForKey:kCHKTestGiftCardCode];
+	expiredGiftCardCode = [NSProcessInfo environmentForKey:kCHKTestExpiredGiftCardCode];
+	expiredGiftCardId = [NSProcessInfo environmentForKey:kCHKTestExpiredGiftCardID];
 	
-	_dataProvider = [[TESTDataProvider alloc] initWithShopDomain:CHECKOUT_ANYWHERE_SHOP apiKey:CHECKOUT_ANYHWERE_API_KEY];
+	XCTAssert([shopDomain length] > 0, @"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");
+	XCTAssert([apiKey length] > 0, @"You must provide a valid API Key. This is the API Key of your app.");
+	
+	_dataProvider = [[TESTDataProvider alloc] initWithShopDomain:shopDomain apiKey:apiKey];
 }
 
 - (void)testCheckoutSerialization
@@ -56,8 +69,12 @@
 	NSData *data = request.HTTPBody;
 	XCTAssertNotNil(data);
 	
-	NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-	XCTAssertEqualObjects(@"{\"checkout\":{\"partial_addresses\":true,\"line_items\":[]}}", string);
+    NSDictionary *dict = @{@"checkout":
+							   @{@"partial_addresses": @1,
+								 @"line_items": @[]}};
+    
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+	XCTAssertEqualObjects(dict, json);
 }
 
 @end
