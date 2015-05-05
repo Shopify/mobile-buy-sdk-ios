@@ -2,7 +2,7 @@
 
 This is a client implementation of Checkout Anywhere for iOS that allows you to perform checkouts from an App. This also supports ApplePay.
 
-This library also includes an implementation of Shopify's Storefront API. This is an API that allows you to fetch products and collections from a specific shop (i.e. ______.myshopify.com).
+This library also includes an implementation of Shopify's Storefront API. This is an API that allows you to fetch products from a specific shop (i.e. ______.myshopify.com).
 
 ## Adding to a Project
 

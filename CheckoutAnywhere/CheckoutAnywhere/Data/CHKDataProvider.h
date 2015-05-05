@@ -15,7 +15,6 @@
 @class CHKCart;
 @class CHKCheckout;
 @class CHKShop;
-@class CHKCollection;
 @class CHKProduct;
 @class CHKProductVariant;
 @class CHKGiftCard;
@@ -34,8 +33,6 @@ typedef void (^CHKDataCheckoutBlock)(CHKCheckout *checkout, NSError *error);
 typedef void (^CHKDataCheckoutStatusBlock)(CHKCheckout *checkout, CHKStatus status, NSError *error);
 typedef void (^CHKDataShippingRatesBlock)(NSArray *shippingRates, CHKStatus status, NSError *error);
 typedef void (^CHKDataShopBlock)(CHKShop *shop, NSError *error);
-typedef void (^CHKDataCollectionBlock)(CHKCollection *collection, NSError *error);
-typedef void (^CHKDataCollectionListBlock)(NSArray *collections, NSUInteger page, BOOL reachedEnd, NSError *error);
 typedef void (^CHKDataProductBlock)(CHKProduct *product, NSError *error);
 typedef void (^CHKDataProductListBlock)(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error);
 typedef void (^CHKDataImagesListBlock)(NSArray *images, NSError *error);
@@ -58,11 +55,6 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 - (NSURLSessionDataTask *)getShop:(CHKDataShopBlock)block;
 
 /**
- * Fetches a single page of collections for the shop by page number. Pages start at 1.
- */
-- (NSURLSessionDataTask *)getCollectionsPage:(NSUInteger)page completion:(CHKDataCollectionListBlock)block;
-
-/**
  * Fetches a single page of products for the shop. Pages start at 1.
  */
 - (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page completion:(CHKDataProductListBlock)block;
@@ -74,11 +66,6 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
  * Then the handle is BANANA and you would invoke [provider getProductByHandle:@"BANANA" completion:...];
  */
 - (NSURLSessionDataTask *)getProductByHandle:(NSString *)handle completion:(CHKDataProductBlock)block;
-
-/**
- * Fetches a single page of products for the shop.
- */
-- (NSURLSessionDataTask *)getProductsInCollection:(CHKCollection*)collection page:(NSUInteger)page completion:(CHKDataProductListBlock)block;
 
 #pragma mark - Checkout
 
