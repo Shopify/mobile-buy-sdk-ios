@@ -99,6 +99,7 @@
 		BE1C4DFE1AE98FD500E21624 /* CHKStoreViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = BE1C4DF31AE98FBB00E21624 /* CHKStoreViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BE1C4E361AEAD06100E21624 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A54742D1A0AA61600822409 /* PassKit.framework */; };
 		BE1C4E3B1AEE6EBE00E21624 /* app.js in Resources */ = {isa = PBXBuildFile; fileRef = BE1C4E3A1AEE6EBE00E21624 /* app.js */; };
+		BEBD5F8A1AF4090200EFE869 /* NSProcessInfo+Environment.m in Sources */ = {isa = PBXBuildFile; fileRef = BEBD5F891AF4090200EFE869 /* NSProcessInfo+Environment.m */; };
 		F70CE40F1A8BF1D90055BEB8 /* CHKApplePayAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F70CE40E1A8BF1D90055BEB8 /* CHKApplePayAdditions.m */; };
 		F70CE4141A8BF3B70055BEB8 /* CHKApplePayAdditionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F70CE4131A8BF3B70055BEB8 /* CHKApplePayAdditionsTest.m */; };
 		F70CE4151A8BF61D0055BEB8 /* CHKApplePayAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F70CE40E1A8BF1D90055BEB8 /* CHKApplePayAdditions.m */; };
@@ -179,6 +180,8 @@
 		BE1C4DF51AE98FBB00E21624 /* CHKViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHKViewController.h; path = "View Controllers/CHKViewController.h"; sourceTree = "<group>"; };
 		BE1C4DF61AE98FBB00E21624 /* CHKViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHKViewController.m; path = "View Controllers/CHKViewController.m"; sourceTree = "<group>"; };
 		BE1C4E3A1AEE6EBE00E21624 /* app.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = app.js; sourceTree = "<group>"; };
+		BEBD5F881AF4090200EFE869 /* NSProcessInfo+Environment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSProcessInfo+Environment.h"; sourceTree = "<group>"; };
+		BEBD5F891AF4090200EFE869 /* NSProcessInfo+Environment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSProcessInfo+Environment.m"; sourceTree = "<group>"; };
 		F70CE40D1A8BF1D90055BEB8 /* CHKApplePayAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CHKApplePayAdditions.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F70CE40E1A8BF1D90055BEB8 /* CHKApplePayAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CHKApplePayAdditions.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		F70CE4131A8BF3B70055BEB8 /* CHKApplePayAdditionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CHKApplePayAdditionsTest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -358,6 +361,8 @@
 			children = (
 				F773742B19C770CB0039681C /* Info.plist */,
 				F7D156F719E30AC000D38D67 /* CHKTestConstants.h */,
+				BEBD5F881AF4090200EFE869 /* NSProcessInfo+Environment.h */,
+				BEBD5F891AF4090200EFE869 /* NSProcessInfo+Environment.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -724,6 +729,7 @@
 				2AD315581A0AAE350001E40A /* CHKPaymentToken.m in Sources */,
 				F74EC5861A314381005F39DB /* CHKDataProviderTest.m in Sources */,
 				2AF52AA11A704C9A0087DB2C /* CHKObjectTests.m in Sources */,
+				BEBD5F8A1AF4090200EFE869 /* NSProcessInfo+Environment.m in Sources */,
 				F76CFF2A19CB830D0079C703 /* CHKLineItemTest.m in Sources */,
 				F70CE4141A8BF3B70055BEB8 /* CHKApplePayAdditionsTest.m in Sources */,
 				2AF52A901A700B0A0087DB2C /* CHKProductVariant.m in Sources */,
