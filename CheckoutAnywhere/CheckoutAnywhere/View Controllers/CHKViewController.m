@@ -33,6 +33,12 @@
 {
 	self = [super init];
 	if (self) {
+        
+        if (shopAddress == nil || apiKey == nil || merchantId == nil) {
+            NSException *exception = [NSException exceptionWithName:@"Missing keys!" reason:@"Please ensure you initialize with a shop address, API key and merchant ID" userInfo:@{ @"Shop Address" : shopAddress :? @"", @"API key" : apiKey :? @"", @"Merchant ID" : merchantId :? @"" }]
+            @throw exception;
+        }
+        
 		_provider = [[CHKDataProvider alloc] initWithShopDomain:shopAddress apiKey:apiKey];
 		_merchantId = merchantId;
 		
