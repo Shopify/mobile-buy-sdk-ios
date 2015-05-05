@@ -139,7 +139,8 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 /**
  *  Retrieves an updated version of a given CHKCheckout from Shopify.
  *
- *  Note: There is no guarantee that the checkout returned will be the same as the one that is passed in. We recommended using the CHKCheckout returned in the block.
+ *  Note: There is no guarantee that the CHKCheckout returned will be the same as the one that is passed in.
+ *  We recommended using the CHKCheckout returned in the block.
  *
  *  @param checkout Given CHKCheckout to retrieve (updated) from Shopify
  *  @param block    (^CHKDataCheckoutBlock)(CHKCheckout *checkout, NSError *error);
@@ -151,7 +152,8 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 /**
  *  Updates a given CHKCheckout on Shopify.
  *
- *  Note: There is no guarantee that the CHKCheckout returned will be the same as the one that is passed in. We recommended using the CHKCheckout returned in the block.
+ *  Note: There is no guarantee that the CHKCheckout returned will be the same as the one that is passed in.
+ *  We recommended using the CHKCheckout returned in the block.
  *
  *  @param checkout Given CHKCheckout to updated on Shopify
  *  @param block    (^CHKDataCheckoutBlock)(CHKCheckout *checkout, NSError *error);
@@ -165,7 +167,8 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
  *  This only enqueues a completion job, and will return immediately.
  *  You are responsible for calling `checkCompletionStatusOfCheckout:block` to get the job's status.
  *
- *  Note: There is no guarantee that the CHKCheckout returned will be the same as the one that is passed in. We recommended using the CHKCheckout returned in the block.
+ *  Note: There is no guarantee that the CHKCheckout returned will be the same as the one that is passed in. 
+ *  We recommended using the CHKCheckout returned in the block.
  *
  *  @param checkout Given CHKCheckout to complete
  *  @param block    (^CHKDataCheckoutBlock)(CHKCheckout *checkout, NSError *error);
@@ -181,7 +184,8 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
  *  This only enqueues a completion job, and will return immediately.
  *  You are responsible for calling `checkCompletionStatusOfCheckout:block` to get the job's status.
  *
- *  Note: There is no guarantee that the CHKCheckout returned will be the same as the one that is passed in. We recommended using the CHKCheckout returned in the block.
+ *  Note: There is no guarantee that the CHKCheckout returned will be the same as the one that is passed in.
+ *  We recommended using the CHKCheckout returned in the block.
  *
  *  @param checkout Given CHKCheckout to complete
  *  @param token    Given PKPaymentToken
@@ -195,7 +199,8 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
  *  Retrieve the status of a CHKCheckout. This checks the status of the current payment processing job for the provided checkout.
  *  Once the job is complete (status == CHKStatusComplete), you can use the `orderId` property on CHKCheckout to retrieve the associated order.
  *
- *  Note: There is no guarantee that the CHKCheckout returned will be the same as the one that is passed in. We recommended using the CHKCheckout returned in the block.
+ *  Note: There is no guarantee that the CHKCheckout returned will be the same as the one that is passed in.
+ *  We recommended using the CHKCheckout returned in the block.
  *
  *  @param checkout Given CHKCheckout to retrieve completion status for
  *  @param block    (^CHKDataCheckoutStatusBlock)(CHKCheckout *checkout, CHKStatus status, NSError *error);
