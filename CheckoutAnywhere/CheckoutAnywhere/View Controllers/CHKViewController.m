@@ -33,9 +33,10 @@
 {
 	self = [super init];
 	if (self) {
-		NSParameterAssert(shopAddress, @"Shop Address must not be nil");
-		NSParameterAssert(apiKey, @"API key must not be nil");
-		NSParameterAssert(merchantId, @"Merchant ID must not be nil");
+        if (shopAddress == nil || apiKey == nil) {
+            NSException *exception = [NSException exceptionWithName:@"Missing keys" reason:@"Please ensure you initialize with a shop address, API key. The Merchant ID is optional and only needed for Apple Pay support" userInfo:@{ @"Shop Address" : shopAddress ?: @"", @"API key" : apiKey ?: @""}];
+            @throw exception;
+        }
 		
 		_provider = [[CHKDataProvider alloc] initWithShopDomain:shopAddress apiKey:apiKey];
 		_merchantId = merchantId;
