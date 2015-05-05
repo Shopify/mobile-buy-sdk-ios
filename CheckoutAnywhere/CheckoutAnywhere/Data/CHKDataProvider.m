@@ -456,7 +456,7 @@
 		BOOL trusted = (resultType == kSecTrustResultUnspecified) || (resultType == kSecTrustResultProceed);
 		
 #ifdef DEBUG
-		trusted |= (resultType == kSecTrustResultInvalid); // TODO: Why is CircleCI returning invalid?
+		trusted |= (resultType == kSecTrustResultInvalid); // TODO: CircleCI is using xctool which does not support Security.framework
 #endif
 		
 		if (trusted) {
