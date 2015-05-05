@@ -165,7 +165,7 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 /**
  *  Finalizes the CHKCheckout and charges the credit card. 
  *  This only enqueues a completion job, and will return immediately.
- *  You are responsible for calling `checkCompletionStatusOfCheckout:block` to get the job's status.
+ *  You must get the job's status by calling checkCompletionStatusOfCheckout:block
  *
  *  Note: There is no guarantee that the CHKCheckout returned will be the same as the one that is passed in. 
  *  We recommended using the CHKCheckout returned in the block.
@@ -182,7 +182,7 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 /**
  *  Finalizes the checkout and charges the credit card associated with the payment token from PassKit (Apple Pay). 
  *  This only enqueues a completion job, and will return immediately.
- *  You are responsible for calling `checkCompletionStatusOfCheckout:block` to get the job's status.
+ *  You must get the job's status by calling checkCompletionStatusOfCheckout:block
  *
  *  Note: There is no guarantee that the CHKCheckout returned will be the same as the one that is passed in.
  *  We recommended using the CHKCheckout returned in the block.
@@ -213,7 +213,7 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 
 /**
  *  Retrieves a list of applicable shipping rates for a given CHKCheckout. 
- *  The preferred/selected CHKShippingRate should be added to the CHKCheckout and the CHKCheckOut should then be updated.
+ *  Add the preferred/selected CHKShippingRate to CHKCheckout, then update CHKCheckout
  *
  *  @param checkout Given CHKCheckout to retrieve shipping rates for
  *  @param block    (^CHKDataShippingRatesBlock)(NSArray *shippingRates, CHKStatus status, NSError *error);
