@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 
 /**
  *  This is the base class for all Shopify model objects.

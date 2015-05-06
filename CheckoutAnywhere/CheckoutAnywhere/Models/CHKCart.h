@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 
-@import Foundation
+@import Foundation;
 #import "CHKSerializable.h"
 
 @class CHKLineItem;
