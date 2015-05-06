@@ -35,6 +35,7 @@
     
     NSString *shopDomain;
     NSString *apiKey;
+	NSString *channelId;
     NSString *giftCardCode;
     NSString *expiredGiftCardCode;
     NSString *expiredGiftCardId;
@@ -46,6 +47,7 @@
 	
 	shopDomain = [NSProcessInfo environmentForKey:kCHKTestDomain];
 	apiKey = [NSProcessInfo environmentForKey:kCHKTestAPIKey];
+	channelId = [NSProcessInfo environmentForKey:kCHKTestChannelId];
 	giftCardCode = [NSProcessInfo environmentForKey:kCHKTestGiftCardCode];
 	expiredGiftCardCode = [NSProcessInfo environmentForKey:kCHKTestExpiredGiftCardCode];
 	expiredGiftCardId = [NSProcessInfo environmentForKey:kCHKTestExpiredGiftCardID];
@@ -53,7 +55,7 @@
 	XCTAssert([shopDomain length] > 0, @"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");
 	XCTAssert([apiKey length] > 0, @"You must provide a valid API Key. This is the API Key of your app.");
 	
-	_dataProvider = [[TESTDataProvider alloc] initWithShopDomain:shopDomain apiKey:apiKey];
+	_dataProvider = [[TESTDataProvider alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
 }
 
 - (void)testCheckoutSerialization
@@ -71,7 +73,8 @@
 	
     NSDictionary *dict = @{@"checkout":
 							   @{@"partial_addresses": @1,
-								 @"line_items": @[]}};
+								 @"line_items": @[],
+								 @"channel": channelId}};
     
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
 	XCTAssertEqualObjects(dict, json);
