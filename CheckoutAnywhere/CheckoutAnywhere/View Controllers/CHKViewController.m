@@ -87,7 +87,7 @@
 - (void)requestPayment
 {
 	//Step 2 - Request payment from the user by presenting an Apple Pay sheet
-	if (_merchantId.length == 0) {
+	if (self.merchantId.length == 0) {
 		NSLog(@"Merchant ID must be configured to use Apple Pay");
 		[_delegate controllerFailedToStartApplePayProcess:self];
 		return;
