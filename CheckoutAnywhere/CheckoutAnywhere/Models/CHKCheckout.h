@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 
-@import Foundation;
-
 #import "CHKObject.h"
 #import "CHKSerializable.h"
 
@@ -18,15 +16,11 @@
 @class CHKDiscount;
 
 /**
- * The checkout object. This is the main object that you will interact with when creating orders on Shopify.
- * Your responsibility as a developer is to have the user fill out as much information as necessary on the Checkout.
- *
- * Do not create checkouts directly. You should use initWithCart: to transform a CHKCart into a CHKCheckout.
+ *  The checkout object. This is the main object that you will interact with when creating orders on Shopify.
+ *  
+ *  Note: Do not create a CHKCheckout object directly. Use initWithCart: to transform a CHKCart into a CHKCheckout.
  */
 @interface CHKCheckout : CHKObject <CHKSerializable>
-
-- (instancetype)initWithCart:(CHKCart *)cart;
-- (BOOL)hasToken;
 
 @property (nonatomic, copy) NSString *email;
 @property (nonatomic, copy) NSString *token;
@@ -56,10 +50,13 @@
 @property (nonatomic, strong) CHKDiscount *discount;
 @property (nonatomic, strong) NSURL *orderStatusURL;
 
+- (instancetype)initWithCart:(CHKCart *)cart NS_DESIGNATED_INITIALIZER;
+- (BOOL)hasToken;
+
 @end
 
 /**
- * CHKTaxLine represents a single tax line on a checkout. Use this to display an itemized list of taxes that they are being charged for.
+ * CHKTaxLine represents a single tax line on a checkout. Use this to display an itemized list of taxes that a customer is being charged for.
  */
 @interface CHKTaxLine : CHKObject
 
@@ -70,7 +67,7 @@
 @end
 
 /**
- * A CHKAddress can represent either a shipping or billing address on an order. This will be associated with the customer upon completion.
+ * A CHKAddress represents a shipping or billing address on an order. This will be associated with the customer upon completion.
  */
 @interface CHKAddress : CHKObject <CHKSerializable>
 
@@ -91,7 +88,7 @@
 @end
 
 /**
- * CHKShippingRate represents the amount that the merchant is charging the customer for shipping to the specified address.
+ * CHKShippingRate represents the amount that the merchant is charging a customer for shipping to the specified address.
  */
 @interface CHKShippingRate : CHKObject <CHKSerializable>
 
@@ -102,7 +99,7 @@
 @end
 
 /**
- * CHKDiscount represents a discount that is applied to the checkout.
+ * CHKDiscount represents a discount that is applied to the CHKCheckout.
  */
 @interface CHKDiscount : CHKObject <CHKSerializable>
 

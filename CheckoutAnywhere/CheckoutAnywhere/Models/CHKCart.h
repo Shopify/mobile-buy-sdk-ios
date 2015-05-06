@@ -7,51 +7,60 @@
 //
 
 @import Foundation;
-
 #import "CHKSerializable.h"
 
 @class CHKLineItem;
 @class CHKProductVariant;
 
 /**
- * The CHKCart is the starting point for the Checkout API. You are responsible for building a cart, then transforming it 
- * into a CHKCheckout using the CHKDataProvider.
+ *  The CHKCart is the starting point for the Checkout API. You are responsible for building a cart, then transforming it
+ *  into a CHKCheckout using the CHKDataProvider.
  */
 @interface CHKCart : NSObject <CHKSerializable>
 
 @property (nonatomic, readonly, copy) NSArray *lineItems;
 
 /**
- * Returns true if the cart is acceptable to send to Shopify.
+ *  Returns true if the cart is acceptable to send to Shopify.
  */
 - (BOOL)isValid;
 
 /**
- * Empties the cart and any custom-stored propreties.
+ *  Empties the cart and any custom-stored propreties.
  */
 - (void)clearCart;
 
 #pragma mark - Simple Cart Editing
 
 /**
- * Adds a variant to the cart. If the existing line item exists, that line item's quantity is increased by one.
+ *  Adds a CHKProductVariant to the CHKCart.
+ *  If the associated CHKLineItem exists, that CHKLineItem's quantity is increased by one.
+ *
+ *  @param variant The CHKProductVariant to add to the CHKCart
  */
 - (void)addVariant:(CHKProductVariant *)variant;
 
 /**
- * Removes a variant from the cart. If the existing line item exists, that line item's quantity is decreased by one.
+ *  Removes a CHKProductVariant from the CHKCart.
+ *  If the associated CHKLineItem exists, that CHKLineItem's quantity is decreased by one.
+ *
+ *  @param variant The CHKProductVariant to remove from the CHKCart
  */
 - (void)removeVariant:(CHKProductVariant *)variant;
 
 #pragma mark - Direct Line Item Editing
 
 /**
- * Adds a custom-built line item to the cart.
+ *  Adds a custom-built CHKLineItem to the CHKCart.
+ *
+ *  @param object CHKLineItem to add the the CHKCart
  */
 - (void)addLineItemsObject:(CHKLineItem *)object;
 
 /**
- * Completely removes a line item from the cart.
+ *  Removes a CHKLineItem from the CHKCart, including all CHKProductVariant's
+ *
+ *  @param object CHKLineItem to remove from the CHKCart
  */
 - (void)removeLineItemsObject:(CHKLineItem *)object;
 

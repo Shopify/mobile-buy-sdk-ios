@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 
-@import Foundation;
-
 #import "CHKObject.h"
 
 @interface CHKOption : CHKObject

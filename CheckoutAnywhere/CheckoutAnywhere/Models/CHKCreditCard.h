@@ -7,37 +7,38 @@
 //
 
 @import Foundation;
-
 #import "CHKSerializable.h"
 
 /**
- * This represents raw credit card data that the user is posting. You **must** discard this object as soon as it has been posted
- * to Shopify's secure environment.
+ *  This represents raw credit card data that the user is posting. You MUST discard this object as soon as it has been posted
+ *  to Shopify's secure environment.
  */
 @interface CHKCreditCard : NSObject <CHKSerializable>
 
 /**
- * The full name on the credit card (First & Last in this format 'First Last').
+ *  The full name on the credit card
+ *  First and Last in this format: 'First Last'.
  */
 @property (nonatomic, copy) NSString *nameOnCard;
 
 /**
- * The full credit card number. This should be a numerical value without spaces, dashes or any other special characters.
+ *  The full credit card number.
+ *  This should be a numerical value without spaces, dashes or any other special characters.
  */
 @property (nonatomic, copy) NSString *number;
 
 /**
- * The month that the credit card expires, as a numerical value (i.e. 12 for December).
+ *  The month that the credit card expires, as a numerical value (i.e. 12 for December).
  */
 @property (nonatomic, copy) NSString *expiryMonth;
 
 /**
- * The last two digits of the year in which the credit card expires (i.e. 2018 -> 18).
+ *  The last two digits of the year in which the credit card expires (i.e. 18 for 2018).
  */
 @property (nonatomic, copy) NSString *expiryYear;
 
 /**
- * The card verification value (or whichever card security code should be used for the card type).
+ *  The Card Verification Value number (or whichever card security code should be used for the card type).
  */
 @property (nonatomic, copy) NSString *cvv;
 

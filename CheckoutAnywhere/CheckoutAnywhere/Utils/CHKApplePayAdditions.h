@@ -13,7 +13,7 @@
 @interface CHKCheckout (ApplePay)
 
 /**
- * Returns an array of summary items for all ApplePay requests
+ *  Returns an array of summary items for all ApplePay requests
  */
 - (NSArray *)chk_summaryItems;
 
@@ -22,7 +22,7 @@
 @interface CHKShippingRate (ApplePay)
 
 /**
- * Returns an array of `PKShippingMethod` objects, based on Shopify's shipping rates.
+ *  Returns an array of `PKShippingMethod` objects, based on Shopify's shipping rates.
  */
 + (NSArray *)chk_convertShippingRatesToShippingMethods:(NSArray *)rates;
 
@@ -33,7 +33,7 @@
 + (NSString *)chk_emailFromRecord:(ABRecordRef)record;
 
 /**
- * Creates a CHKAddress, usable with the Shopify Checkout API
+ *  Creates a CHKAddress, usable with the Shopify Checkout API
  */
 + (CHKAddress *)chk_addressFromRecord:(ABRecordRef)record;
 
