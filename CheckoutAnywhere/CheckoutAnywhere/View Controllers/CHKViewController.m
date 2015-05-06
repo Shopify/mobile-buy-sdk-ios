@@ -33,7 +33,7 @@
 {
 	self = [super init];
 	if (self) {
-		if (shopAddress == nil || apiKey == nil) {
+		if ([shopAddress length] == 0 || [apiKey length] == 0) {
 			NSException *exception = [NSException exceptionWithName:@"Missing keys" reason:@"Please ensure you initialize with a shop address, API key. The Merchant ID is optional and only needed for Apple Pay support" userInfo:@{ @"Shop Address" : shopAddress ?: @"", @"API key" : apiKey ?: @""}];
 			@throw exception;
 		}
