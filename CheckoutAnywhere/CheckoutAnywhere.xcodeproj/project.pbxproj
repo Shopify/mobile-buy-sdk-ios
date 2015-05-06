@@ -25,8 +25,6 @@
 		2AD315581A0AAE350001E40A /* CHKPaymentToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD315571A0AAE350001E40A /* CHKPaymentToken.m */; };
 		2AF52A751A700AC80087DB2C /* CHKRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A741A700AC80087DB2C /* CHKRuntime.m */; };
 		2AF52A761A700AC80087DB2C /* CHKRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A741A700AC80087DB2C /* CHKRuntime.m */; };
-		2AF52A851A700B0A0087DB2C /* CHKCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A781A700B0A0087DB2C /* CHKCollection.m */; };
-		2AF52A861A700B0A0087DB2C /* CHKCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A781A700B0A0087DB2C /* CHKCollection.m */; };
 		2AF52A871A700B0A0087DB2C /* CHKImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A7A1A700B0A0087DB2C /* CHKImage.m */; };
 		2AF52A881A700B0A0087DB2C /* CHKImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A7A1A700B0A0087DB2C /* CHKImage.m */; };
 		2AF52A891A700B0A0087DB2C /* CHKProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A7D1A700B0A0087DB2C /* CHKProduct.m */; };
@@ -53,7 +51,6 @@
 		42488B471AB89E61005F21A9 /* CHKGiftCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 42488B331AB8761A005F21A9 /* CHKGiftCard.m */; };
 		90368D3A1AE040E700F053C6 /* CHKDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDA17119C93F6F00AF4E93 /* CHKDataProvider.m */; };
 		90368D3B1AE040EA00F053C6 /* CHKCart.m in Sources */ = {isa = PBXBuildFile; fileRef = F773744819C77A210039681C /* CHKCart.m */; };
-		90368D3C1AE040F300F053C6 /* CHKCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A781A700B0A0087DB2C /* CHKCollection.m */; };
 		90368D3D1AE040F500F053C6 /* CHKCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = F77374AB19C796BD0039681C /* CHKCreditCard.m */; };
 		90368D3E1AE040F700F053C6 /* CHKGiftCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 42488B331AB8761A005F21A9 /* CHKGiftCard.m */; };
 		90368D3F1AE040FA00F053C6 /* CHKImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A7A1A700B0A0087DB2C /* CHKImage.m */; };
@@ -70,7 +67,6 @@
 		90368D4A1AE0417700F053C6 /* CHKDataProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = F7FDA17019C93F6F00AF4E93 /* CHKDataProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90368D4C1AE0417700F053C6 /* CHKCart.h in Headers */ = {isa = PBXBuildFile; fileRef = F773744719C77A210039681C /* CHKCart.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90368D4D1AE0417700F053C6 /* CHKCheckout.h in Headers */ = {isa = PBXBuildFile; fileRef = F773749419C77C260039681C /* CHKCheckout.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		90368D4E1AE0417700F053C6 /* CHKCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A771A700B0A0087DB2C /* CHKCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90368D4F1AE0417700F053C6 /* CHKCreditCard.h in Headers */ = {isa = PBXBuildFile; fileRef = F77374AA19C796BD0039681C /* CHKCreditCard.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90368D501AE0417700F053C6 /* CHKGiftCard.h in Headers */ = {isa = PBXBuildFile; fileRef = 42488B321AB8761A005F21A9 /* CHKGiftCard.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90368D511AE0417700F053C6 /* CHKImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A791A700B0A0087DB2C /* CHKImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -147,8 +143,6 @@
 		2AD315571A0AAE350001E40A /* CHKPaymentToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHKPaymentToken.m; path = Models/CHKPaymentToken.m; sourceTree = "<group>"; };
 		2AF52A731A700AC80087DB2C /* CHKRuntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CHKRuntime.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2AF52A741A700AC80087DB2C /* CHKRuntime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CHKRuntime.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		2AF52A771A700B0A0087DB2C /* CHKCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CHKCollection.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		2AF52A781A700B0A0087DB2C /* CHKCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CHKCollection.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2AF52A791A700B0A0087DB2C /* CHKImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CHKImage.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2AF52A7A1A700B0A0087DB2C /* CHKImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CHKImage.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2AF52A7C1A700B0A0087DB2C /* CHKProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CHKProduct.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -383,8 +377,6 @@
 				F773744819C77A210039681C /* CHKCart.m */,
 				F773749419C77C260039681C /* CHKCheckout.h */,
 				F773749519C77C260039681C /* CHKCheckout.m */,
-				2AF52A771A700B0A0087DB2C /* CHKCollection.h */,
-				2AF52A781A700B0A0087DB2C /* CHKCollection.m */,
 				F77374AA19C796BD0039681C /* CHKCreditCard.h */,
 				F77374AB19C796BD0039681C /* CHKCreditCard.m */,
 				42488B321AB8761A005F21A9 /* CHKGiftCard.h */,
@@ -466,7 +458,6 @@
 				90368D4C1AE0417700F053C6 /* CHKCart.h in Headers */,
 				BE1C4DFD1AE98FD300E21624 /* CHKViewController.h in Headers */,
 				90368D4D1AE0417700F053C6 /* CHKCheckout.h in Headers */,
-				90368D4E1AE0417700F053C6 /* CHKCollection.h in Headers */,
 				BE1C4DFE1AE98FD500E21624 /* CHKStoreViewController.h in Headers */,
 				90368D4F1AE0417700F053C6 /* CHKCreditCard.h in Headers */,
 				90368D501AE0417700F053C6 /* CHKGiftCard.h in Headers */,
@@ -669,7 +660,6 @@
 				90368D401AE040FC00F053C6 /* CHKLineItem.m in Sources */,
 				90368D431AE0410200F053C6 /* CHKProduct.m in Sources */,
 				90368D451AE0410800F053C6 /* CHKShop.m in Sources */,
-				90368D3C1AE040F300F053C6 /* CHKCollection.m in Sources */,
 				90368D3A1AE040E700F053C6 /* CHKDataProvider.m in Sources */,
 				BE1C4DFA1AE98FC300E21624 /* CHKStoreViewController.m in Sources */,
 				90368D421AE0410000F053C6 /* CHKOption.m in Sources */,
@@ -699,7 +689,6 @@
 				F76CFF1D19CB7BE30079C703 /* NSString+Trim.m in Sources */,
 				2AF52A8F1A700B0A0087DB2C /* CHKProductVariant.m in Sources */,
 				F7FDA16E19C939FF00AF4E93 /* CHKLineItem.m in Sources */,
-				2AF52A851A700B0A0087DB2C /* CHKCollection.m in Sources */,
 				2AF52A871A700B0A0087DB2C /* CHKImage.m in Sources */,
 				2AF52A9D1A7011DC0087DB2C /* NSDecimalNumber+CHKAdditions.m in Sources */,
 				2AF52A891A700B0A0087DB2C /* CHKProduct.m in Sources */,
@@ -734,7 +723,6 @@
 				F70CE4141A8BF3B70055BEB8 /* CHKApplePayAdditionsTest.m in Sources */,
 				2AF52A901A700B0A0087DB2C /* CHKProductVariant.m in Sources */,
 				F76CFF2719CB7E7B0079C703 /* CHKCartTest.m in Sources */,
-				2AF52A861A700B0A0087DB2C /* CHKCollection.m in Sources */,
 				2AF52A881A700B0A0087DB2C /* CHKImage.m in Sources */,
 				2AF52A9E1A7011DC0087DB2C /* NSDecimalNumber+CHKAdditions.m in Sources */,
 				2AF52A8A1A700B0A0087DB2C /* CHKProduct.m in Sources */,
