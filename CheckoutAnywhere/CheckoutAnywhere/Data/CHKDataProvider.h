@@ -43,7 +43,7 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 - (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey;
 
 /**
- * The page size for any paged request. This can range from 1-250.
+ *  The page size for any paged request. This can range from 1-250.
  */
 @property (nonatomic, assign) NSUInteger pageSize;
 
@@ -92,7 +92,8 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 - (NSURLSessionDataTask *)createCheckout:(CHKCheckout *)checkout completion:(CHKDataCheckoutBlock)block;
 
 /**
- *  Retrieves an existing checkout object on Shopify using a Cart Token. The checkout object is used to prepare an order.
+ *  Builds a checkout on Shopify using a Cart Token from storefront. 
+ *  The CHKCheckout object is used to prepare an order.
  *
  *  @param cartToken Cart Token associated with an existing CHKCheckout on Shopify
  *  @param block     (^CHKDataCheckoutBlock)(CHKCheckout *checkout, NSError *error);
