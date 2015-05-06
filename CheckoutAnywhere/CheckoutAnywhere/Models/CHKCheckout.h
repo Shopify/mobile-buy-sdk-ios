@@ -18,10 +18,9 @@
 @class CHKDiscount;
 
 /**
- * The checkout object. This is the main object that you will interact with when creating orders on Shopify.
- * Your responsibility as a developer is to have the user fill out as much information as necessary on the CHKCheckout.
- *
- * Do not create a CHKCheckout object directly. Use initWithCart: to transform a CHKCart into a CHKCheckout.
+ *  The checkout object. This is the main object that you will interact with when creating orders on Shopify.
+ *  
+ *  Note: Do not create a CHKCheckout object directly. Use initWithCart: to transform a CHKCart into a CHKCheckout.
  */
 @interface CHKCheckout : CHKObject <CHKSerializable>
 

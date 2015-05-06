@@ -7,17 +7,16 @@
 //
 
 @import Foundation;
-
 #import "CHKSerializable.h"
 #import <PassKit/PassKit.h>
 
-@class CHKCreditCard;
 @class CHKCart;
 @class CHKCheckout;
-@class CHKShop;
+@class CHKCreditCard;
+@class CHKGiftCard;
 @class CHKProduct;
 @class CHKProductVariant;
-@class CHKGiftCard;
+@class CHKShop;
 
 typedef NS_ENUM(NSUInteger, CHKStatus) {
 	CHKStatusComplete = 200,
