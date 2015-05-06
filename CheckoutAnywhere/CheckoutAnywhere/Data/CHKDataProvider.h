@@ -95,7 +95,7 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 #pragma mark - Checkout
 
 /**
- *  Builds a checkout object on Shopify. The checkout will be used to prepare an order.
+ *  Builds a checkout on Shopify. The checkout object is used to prepare an order
  *
  *  @param checkout CHKCheckout to create on Shopify
  *  @param block    (^CHKDataCheckoutBlock)(CHKCheckout *checkout, NSError *error);
@@ -105,7 +105,7 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 - (NSURLSessionDataTask *)createCheckout:(CHKCheckout *)checkout completion:(CHKDataCheckoutBlock)block;
 
 /**
- *  Retrieve an existing checkout object on Shopify using a Cart Token. The checkout will be used to prepare an order.
+ *  Retrieves an existing checkout object on Shopify using a Cart Token. The checkout object is used to prepare an order.
  *
  *  @param cartToken Cart Token associated with an existing CHKCheckout on Shopify
  *  @param block     (^CHKDataCheckoutBlock)(CHKCheckout *checkout, NSError *error);
@@ -137,12 +137,12 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 - (NSURLSessionDataTask *)removeGiftCard:(CHKGiftCard *)giftCard fromCheckout:(CHKCheckout *)checkout completion:(CHKDataGiftCardBlock)block;
 
 /**
- *  Retrieves an updated version of a given CHKCheckout from Shopify.
+ *  Retrieves an updated version of a CHKCheckout from Shopify.
  *
- *  Note: There is no guarantee that the CHKCheckout returned will be the same as the one that is passed in.
+ *  Note: There's no guarantee that the CHKCheckout returned will be the same as the one that is passed in.
  *  We recommended using the CHKCheckout returned in the block.
  *
- *  @param checkout Given CHKCheckout to retrieve (updated) from Shopify
+ *  @param checkout The CHKCheckout to retrieve (updated) from Shopify
  *  @param block    (^CHKDataCheckoutBlock)(CHKCheckout *checkout, NSError *error);
  *
  *  @return The associated NSURLSessionDataTask
@@ -152,10 +152,10 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 /**
  *  Updates a given CHKCheckout on Shopify.
  *
- *  Note: There is no guarantee that the CHKCheckout returned will be the same as the one that is passed in.
+ *  Note: There's no guarantee that the CHKCheckout returned will be the same as the one that is passed in.
  *  We recommended using the CHKCheckout returned in the block.
  *
- *  @param checkout Given CHKCheckout to updated on Shopify
+ *  @param checkout The CHKCheckout to updated on Shopify
  *  @param block    (^CHKDataCheckoutBlock)(CHKCheckout *checkout, NSError *error);
  *
  *  @return The associated NSURLSessionDataTask
@@ -164,13 +164,13 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 
 /**
  *  Finalizes the CHKCheckout and charges the credit card. 
- *  This only enqueues a completion job, and will return immediately.
+ *  This queues a completion job on Shopify and returns immediately.
  *  You must get the job's status by calling checkCompletionStatusOfCheckout:block
  *
- *  Note: There is no guarantee that the CHKCheckout returned will be the same as the one that is passed in. 
+ *  Note: There's no guarantee that the CHKCheckout returned will be the same as the one that is passed in.
  *  We recommended using the CHKCheckout returned in the block.
  *
- *  @param checkout Given CHKCheckout to complete
+ *  @param checkout The CHKCheckout to complete
  *  @param block    (^CHKDataCheckoutBlock)(CHKCheckout *checkout, NSError *error);
  *
  *  @return The associated NSURLSessionDataTask
@@ -184,11 +184,11 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
  *  This only enqueues a completion job, and will return immediately.
  *  You must get the job's status by calling checkCompletionStatusOfCheckout:block
  *
- *  Note: There is no guarantee that the CHKCheckout returned will be the same as the one that is passed in.
+ *  Note: There's no guarantee that the CHKCheckout returned will be the same as the one that is passed in.
  *  We recommended using the CHKCheckout returned in the block.
  *
- *  @param checkout Given CHKCheckout to complete
- *  @param token    Given PKPaymentToken
+ *  @param checkout The CHKCheckout to complete
+ *  @param token    The PKPaymentToken
  *  @param block    (^CHKDataCheckoutBlock)(CHKCheckout *checkout, NSError *error);
  *
  *  @return The associated NSURLSessionDataTask
@@ -199,10 +199,10 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
  *  Retrieve the status of a CHKCheckout. This checks the status of the current payment processing job for the provided checkout.
  *  Once the job is complete (status == CHKStatusComplete), you can use the `orderId` property on CHKCheckout to retrieve the associated order.
  *
- *  Note: There is no guarantee that the CHKCheckout returned will be the same as the one that is passed in.
+ *  Note: There's no guarantee that the CHKCheckout returned will be the same as the one that is passed in.
  *  We recommended using the CHKCheckout returned in the block.
  *
- *  @param checkout Given CHKCheckout to retrieve completion status for
+ *  @param checkout The CHKCheckout to retrieve completion status for
  *  @param block    (^CHKDataCheckoutStatusBlock)(CHKCheckout *checkout, CHKStatus status, NSError *error);
  *
  *  @return The associated NSURLSessionDataTask
@@ -215,7 +215,7 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
  *  Retrieves a list of applicable shipping rates for a given CHKCheckout. 
  *  Add the preferred/selected CHKShippingRate to CHKCheckout, then update CHKCheckout
  *
- *  @param checkout Given CHKCheckout to retrieve shipping rates for
+ *  @param checkout The CHKCheckout to retrieve shipping rates for
  *  @param block    (^CHKDataShippingRatesBlock)(NSArray *shippingRates, CHKStatus status, NSError *error);
  *
  *  @return The associated NSURLSessionDataTask
@@ -230,7 +230,7 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
  *  The card will be charged upon finalizing the checkout (completeCheckout:completion:)
  *
  *  @param creditCard CHKCreditCard to prepare for usage
- *  @param checkout   Given CHKCheckout associated to the purchase. 
+ *  @param checkout   The CHKCheckout associated to the purchase.
  *                    The `billingAddress` stored on the CHKCheckout object is optional and recommended and
  *                    used (if provided) to help with fraud checking.
  *  @param block      (^CHKDataCreditCardBlock)(CHKCheckout *checkout, NSString *paymentSessionId, NSError *error);
