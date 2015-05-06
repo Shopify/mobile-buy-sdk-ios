@@ -6,15 +6,12 @@
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 
-#import "CHKViewController.h"
-
 @import AddressBook;
 @import PassKit;
-
-//Other
 #import "CHKApplePayAdditions.h"
-#import "CHKDataProvider.h"
 #import "CHKCart.h"
+#import "CHKDataProvider.h"
+#import "CHKViewController.h"
 
 #define kPollDelay 0.5f
 

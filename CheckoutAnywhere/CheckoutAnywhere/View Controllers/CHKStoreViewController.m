@@ -7,10 +7,10 @@
 //
 
 @import WebKit;
-#import "CHKStoreViewController.h"
 #import "CHKLineItem.h"
-#import "CHKProductVariant.h"
 #import "CHKProduct.h"
+#import "CHKProductVariant.h"
+#import "CHKStoreViewController.h"
 
 #define kBuyNowEvent @"com.shopify.hybrid.buynow"
 #define kCheckoutEvent @"com.shopify.hybrid.checkout"

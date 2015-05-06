@@ -15,7 +15,6 @@ NSString * const CHKShopifyError;
 typedef NS_ENUM(NSUInteger, CHKCheckoutType) {
     CHKheckoutTypeNormal,
     CHKCheckoutTypeApplePay,
-    
     CHKCheckoutTypeCancel
 };
 

@@ -8,7 +8,6 @@
 
 @import UIKit;
 @import PassKit;
-
 #import "CHKDataProvider.h"
 #import "CHKCart.h"
 #import "CHKCheckout.h"

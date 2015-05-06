@@ -55,7 +55,7 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 /**
  *  Fetches the shop's metadata (from /meta.json).
  *
- *  @param block returns the CHKShop and optionally an NSError
+ *  @param block (^CHKDataShopBlock)(CHKShop *shop, NSError *error);
  *
  *  @return The associated NSURLSessionDataTask
  */
