@@ -10,7 +10,7 @@
 
 #import "CHKViewController.h"
 
-NSString * const CHKShopifyError;
+extern NSString * const CHKShopifyError;
 
 typedef NS_ENUM(NSUInteger, CHKCheckoutType) {
     CHKheckoutTypeNormal,
