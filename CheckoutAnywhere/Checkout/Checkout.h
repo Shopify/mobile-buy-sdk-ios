@@ -22,7 +22,6 @@ FOUNDATION_EXPORT const unsigned char CheckoutVersionString[];
 #import <Checkout/CHKGiftCard.h>
 #import <Checkout/CHKLineItem.h>
 #import <Checkout/CHKDataProvider.h>
-#import <Checkout/CHKCollection.h>
 #import <Checkout/CHKImage.h>
 #import <Checkout/CHKOption.h>
 #import <Checkout/CHKProduct.h>

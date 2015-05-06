@@ -13,7 +13,6 @@
 #import "CHKCart.h"
 #import "CHKCreditCard.h"
 #import "CHKShop.h"
-#import "CHKCollection.h"
 #import "CHKProduct.h"
 #import "CHKGiftCard.h"
 
@@ -73,17 +72,6 @@
 	}];
 }
 
-- (NSURLSessionDataTask *)getCollectionsPage:(NSUInteger)page completion:(CHKDataCollectionListBlock)block
-{
-	return [self performRequestForURL:[NSString stringWithFormat:@"http://%@/collections.json?limit=%lu&page=%lu", _shopDomain, (unsigned long)_pageSize, (unsigned long)page] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		NSArray *collections = nil;
-		if (json && error == nil) {
-			collections = [CHKCollection convertJSONArray:json[@"collections"]];
-		}
-		block(collections, page, [self hasReachedEndOfPage:collections] || error, error);
-	}];
-}
-
 - (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page completion:(CHKDataProductListBlock)block
 {
 	return [self performRequestForURL:[NSString stringWithFormat:@"http://%@/products.json?limit=%lu&page=%lu", _shopDomain, (unsigned long)_pageSize, (unsigned long)page] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
@@ -103,17 +91,6 @@
 			product = [[CHKProduct alloc] initWithDictionary:json[@"product"]];
 		}
 		block(product, error);
-	}];
-}
-
-- (NSURLSessionDataTask *)getProductsInCollection:(CHKCollection*)collection page:(NSUInteger)page completion:(CHKDataProductListBlock)block
-{
-	return [self performRequestForURL:[NSString stringWithFormat:@"http://%@/collections/%@/products.json?limit=%lu&page=%lu", _shopDomain, collection.handle, (unsigned long)_pageSize, (unsigned long)page] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		NSArray *products = nil;
-		if (json && error == nil) {
-			products = [CHKProduct convertJSONArray:json[@"products"]];
-		}
-		block(products, page, [self hasReachedEndOfPage:products] || error, error);
 	}];
 }
 
