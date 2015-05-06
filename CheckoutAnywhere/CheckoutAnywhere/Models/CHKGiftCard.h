@@ -13,10 +13,29 @@
 
 @interface CHKGiftCard : CHKObject <CHKSerializable>
 
+/**
+ *  <#Description#>
+ */
 @property (nonatomic, readonly, copy) NSString *code;
+
+/**
+ *  <#Description#>
+ */
 @property (nonatomic, readonly, copy) NSString *lastCharacters;
+
+/**
+ *  <#Description#>
+ */
 @property (nonatomic, readonly, strong) NSDecimalNumber *balance;
+
+/**
+ *  <#Description#>
+ */
 @property (nonatomic, readonly, strong) NSDecimalNumber *amountUsed;
+
+/**
+ *  <#Description#>
+ */
 @property (nonatomic, readonly, strong) CHKCheckout *checkout;
 
 @end

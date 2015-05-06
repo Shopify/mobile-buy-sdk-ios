@@ -7,7 +7,6 @@
 //
 
 @import UIKit;
-
 #import "CHKViewController.h"
 
 NSString * const CHKShopifyError;

@@ -118,9 +118,9 @@
 /**
  *  Creates a CHKViewController using your shop address, api key, and merchant id
  *
- *  @param shopAddress This is your shopify domain. For example "snowdevil.myshopify.com"
+ *  @param shopAddress This is your Shopify domain. For example "snowdevil.myshopify.com"
  *  @param apiKey      This is the API Key for your application on Shopify.
- *  @param merchantId  This is the merchant id you have set up with Apple.
+ *  @param merchantId  This is the Merchant ID you have set up with Apple.
  *
  *  @return A CHKViewController
  */
