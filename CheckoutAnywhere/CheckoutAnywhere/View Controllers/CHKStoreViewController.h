@@ -47,7 +47,7 @@ typedef void (^CHKCheckoutTypeBlock)(CHKCheckoutType type);
  *  There are a few approaches that you can take, this app shows you a couple:
  *
  *  1. Only present Apple Pay in your /checkout. When the user taps 'Checkout' you can present the user an 
- *     Apple Pay button, or allow them to continue on as normal. This approach does NOT require any changes 
+ *     Apple Pay button, or allow them to continue on as normal. This approach does NOT require any changes
  *     to the web storefront.
  *
  *  2. Add 'Buy With  Pay' buttons on individual product pages and/or a ' Pay' button in your /checkout.

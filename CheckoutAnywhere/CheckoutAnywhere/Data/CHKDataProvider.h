@@ -91,7 +91,7 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 - (NSURLSessionDataTask *)createCheckout:(CHKCheckout *)checkout completion:(CHKDataCheckoutBlock)block;
 
 /**
- *  Builds a checkout on Shopify using a Cart Token from storefront. 
+ *  Builds a checkout on Shopify using a Cart Token from an existing cart on your Shopify store's storefront. 
  *  The CHKCheckout object is used to prepare an order.
  *
  *  @param cartToken Cart Token associated with an existing CHKCheckout on Shopify
