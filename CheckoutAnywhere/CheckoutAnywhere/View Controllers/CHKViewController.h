@@ -113,6 +113,11 @@
  */
 @property (nonatomic, assign) PKMerchantCapability merchantCapability;
 
+/**
+ *  The Merchant ID required for Apple Pay.  Ensure the Merchant ID is set in the Apple Pay section in the Capabilites tab of the app target
+ */
+@property (nonatomic, strong, readonly) NSString *merchantId;
+
 #pragma mark - Checkout Process
 
 /**
