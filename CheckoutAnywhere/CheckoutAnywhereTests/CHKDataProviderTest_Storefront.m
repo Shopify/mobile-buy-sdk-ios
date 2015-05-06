@@ -66,40 +66,6 @@
 	WAIT_FOR_TASK(task, semaphore);
 }
 
-- (void)testGetCollectionList
-{
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_provider getCollectionsPage:0 completion:^(NSArray *collections, NSUInteger page, BOOL reachedEnd, NSError *error) {
-		XCTAssertNil(error);
-		XCTAssertNotNil(collections);
-		XCTAssertTrue([collections count] > 0);
-		
-		dispatch_semaphore_signal(semaphore);
-	}];
-	WAIT_FOR_TASK(task, semaphore);
-}
-
-- (void)testGetProductsInCollection
-{
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_provider getCollectionsPage:0 completion:^(NSArray *collections, NSUInteger page, BOOL reachedEnd, NSError *error) {
-		XCTAssertNil(error);
-		XCTAssertNotNil(collections);
-		XCTAssertTrue([collections count] > 0);
-		
-		NSURLSessionDataTask *productsTask = [_provider getProductsInCollection:collections[0] page:0 completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
-			XCTAssertNil(error);
-			XCTAssertNotNil(products);
-			
-			dispatch_semaphore_signal(semaphore);
-		}];
-		WAIT_FOR_TASK(productsTask, semaphore);
-		
-		dispatch_semaphore_signal(semaphore);
-	}];
-	WAIT_FOR_TASK(task, semaphore);
-}
-
 - (void)testGetShop
 {
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);

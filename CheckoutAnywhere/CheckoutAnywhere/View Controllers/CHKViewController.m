@@ -32,10 +32,11 @@
 {
 	self = [super init];
 	if (self) {
-		
-		NSParameterAssert(shopAddress);
-		NSParameterAssert(apiKey);
-		NSParameterAssert(merchantId);
+
+		if ([shopAddress length] == 0 || [apiKey length] == 0) {
+			NSException *exception = [NSException exceptionWithName:@"Missing keys" reason:@"Please ensure you initialize with a shop address, API key. The Merchant ID is optional and only needed for Apple Pay support" userInfo:@{ @"Shop Address" : shopAddress ?: @"", @"API key" : apiKey ?: @""}];
+			@throw exception;
+		}
 		
 		if([shopAddress length] == 0) NSLog(@"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");
 		if([apiKey length] == 0) NSLog(@"You must provide a valid API Key. This is the API Key of your app.");

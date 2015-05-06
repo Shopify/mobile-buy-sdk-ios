@@ -29,7 +29,6 @@
 	CHKDataProvider *_checkoutDataProvider;
 	
 	CHKShop *_shop;
-	NSMutableArray *_collections;
 	NSMutableArray *_products;
 	
 	CHKCart *_cart;
@@ -61,12 +60,10 @@
 	
 	_checkoutDataProvider = [[CHKDataProvider alloc] initWithShopDomain:shopDomain apiKey:apiKey];
 	
-	_collections = [[NSMutableArray alloc] init];
 	_products = [[NSMutableArray alloc] init];
 	
 	//TODO: This currently does a bunch of API calls. We should add some fixtures to the tests.
 	[self fetchShop];
-	[self fetchCollections];
 	[self fetchProducts];
 }
 
@@ -83,30 +80,6 @@
 		dispatch_semaphore_signal(semaphore);
 	}];
 	WAIT_FOR_TASK(task, semaphore);
-}
-
-- (void)fetchCollections
-{
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	__block BOOL done = NO;
-	NSUInteger currentPage = 0;
-	while (done == NO) {
-		NSURLSessionDataTask *task = [_checkoutDataProvider getCollectionsPage:currentPage completion:^(NSArray *collections, NSUInteger page, BOOL reachedEnd, NSError *error) {
-			done = reachedEnd || error;
-			
-			XCTAssertNil(error);
-			XCTAssertNotNil(collections);
-			
-			[_collections addObjectsFromArray:collections];
-			dispatch_semaphore_signal(semaphore);
-		}];
-		WAIT_FOR_TASK(task, semaphore);
-		
-		if (done == NO) {
-			++currentPage;
-		}
-	}
-	NSLog(@"Fetched collections (Pages: %d, Count: %d)", (int)(currentPage + 1), (int)[_collections count]);
 }
 
 - (void)fetchProducts
