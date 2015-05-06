@@ -164,7 +164,7 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 
 /**
  *  Finalizes the CHKCheckout and charges the credit card. 
- *  This queues a completion job on Shopify and returns immediately.
+ *  This enqueues a completion job on Shopify and returns immediately.
  *  You must get the job's status by calling checkCompletionStatusOfCheckout:block
  *
  *  Note: There's no guarantee that the CHKCheckout returned will be the same as the one that is passed in.
