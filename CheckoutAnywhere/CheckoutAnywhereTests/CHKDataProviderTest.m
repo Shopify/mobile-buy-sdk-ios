@@ -58,11 +58,11 @@
 	_dataProvider = [[TESTDataProvider alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
 }
 
-- (void)testCheckoutSerialization
+- (NSData *)dataForCartFromDataProvider:(CHKDataProvider *)provider
 {
 	CHKCart *cart = [[CHKCart alloc] init];
 	CHKCheckout *checkout = [[CHKCheckout alloc] initWithCart:cart];
-	NSURLSessionDataTask *task = [_dataProvider createCheckout:checkout completion:nil];
+	NSURLSessionDataTask *task = [provider createCheckout:checkout completion:nil];
 	XCTAssertNotNil(task);
 	
 	NSURLRequest *request = task.originalRequest;
@@ -71,12 +71,39 @@
 	NSData *data = request.HTTPBody;
 	XCTAssertNotNil(data);
 	
+	return data;
+}
+
+- (void)testCheckoutSerialization
+{
+	NSData *data = [self dataForCartFromDataProvider:_dataProvider];
+	
     NSDictionary *dict = @{@"checkout":
 							   @{@"partial_addresses": @1,
 								 @"line_items": @[],
-								 @"channel": channelId}};
+								 @"channel": channelId,
+								 @"marketing_attribution":@{@"platform": @"iOS", @"application_name": @""}}};
     
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+	XCTAssertEqualObjects(dict, json);
+}
+
+- (void)testMarketingAttributions
+{
+	NSString *appName = @"ApPnAmE";
+
+	TESTDataProvider *testProvider = [[TESTDataProvider alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
+	testProvider.applicationName = appName;
+	
+	NSData *data = [self dataForCartFromDataProvider:testProvider];
+	
+	NSDictionary *dict = @{@"checkout":
+							   @{@"partial_addresses": @1,
+								 @"line_items": @[],
+								 @"channel": channelId,
+								 @"marketing_attribution":@{@"platform": @"iOS", @"application_name": appName}}};
+	
+	NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
 	XCTAssertEqualObjects(dict, json);
 }
 
