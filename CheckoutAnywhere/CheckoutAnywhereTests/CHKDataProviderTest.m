@@ -82,7 +82,7 @@
 							   @{@"partial_addresses": @1,
 								 @"line_items": @[],
 								 @"channel": channelId,
-								 @"marketing_attribution":@{@"platform": @"iOS", @"application_name": @""}}};
+								 @"marketing_attribution":@{@"platform": @"iOS", @"application_name": _dataProvider.applicationName}}};
     
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
 	XCTAssertEqualObjects(dict, json);
