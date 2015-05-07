@@ -32,13 +32,13 @@
 
 @implementation CHKDataProviderTest {
 	CHKDataProvider *_dataProvider;
-    
-    NSString *shopDomain;
-    NSString *apiKey;
+	
+	NSString *shopDomain;
+	NSString *apiKey;
 	NSString *channelId;
-    NSString *giftCardCode;
-    NSString *expiredGiftCardCode;
-    NSString *expiredGiftCardId;
+	NSString *giftCardCode;
+	NSString *expiredGiftCardCode;
+	NSString *expiredGiftCardId;
 }
 
 - (void)setUp

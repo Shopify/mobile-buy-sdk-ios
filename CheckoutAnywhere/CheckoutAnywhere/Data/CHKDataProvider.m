@@ -139,13 +139,13 @@
 
 - (NSDictionary *)marketingAttributions
 {
-	return @{@"platform": @"iOS", @"application_name": _applicationName};
+	return @{@"platform": @"iOS", @"application_name": self.applicationName};
 }
 
 - (NSURLSessionDataTask *)createCheckout:(CHKCheckout *)checkout completion:(CHKDataCheckoutBlock)block
 {
-	checkout.channel = _channelId;
-	checkout.marketingAttribution = [self marketingAttributions];
+	checkout.channel = self.channelId;
+	checkout.marketingAttribution = self.marketingAttributions;
 	
 	return [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts.json", _shopDomain] object:checkout completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		[self handleCheckoutResponse:json error:error block:block];
@@ -156,7 +156,7 @@
 {
 	NSURLSessionDataTask *task = nil;
 	if (cartToken) {
-		NSDictionary *body = @{ @"checkout" : @{ @"cart_token" : cartToken, @"channel": _channelId, @"marketing_attribution":[self marketingAttributions]} };
+		NSDictionary *body = @{ @"checkout" : @{ @"cart_token" : cartToken, @"channel": self.channelId, @"marketing_attribution": self.marketingAttributions} };
 		NSError *error = nil;
 		NSData *data = [NSJSONSerialization dataWithJSONObject:body options:0 error:&error];
 

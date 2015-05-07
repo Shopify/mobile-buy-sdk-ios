@@ -62,7 +62,7 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 @property (nonatomic, strong, readonly) NSString *channelId;
 
 /**
- *  Application name to attribute orders to.  Defaults to app bundle name
+ *  Application name to attribute orders to.  Defaults to app bundle name (CFBundleName)
  */
 @property (nonatomic, strong) NSString *applicationName;
 
