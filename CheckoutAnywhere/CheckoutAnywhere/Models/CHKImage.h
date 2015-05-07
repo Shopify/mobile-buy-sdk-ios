@@ -8,6 +8,9 @@
 
 #import "CHKObject.h"
 
+/**
+ *  Products are easier to sell if customers can see pictures of them, which is why there are product images.
+ */
 @interface CHKImage : CHKObject
 
 /**

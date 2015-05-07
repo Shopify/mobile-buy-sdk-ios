@@ -11,10 +11,10 @@
 
 extern NSString * const CHKShopifyError;
 
-typedef NS_ENUM(NSUInteger, CHKCheckoutType) {
-    CHKheckoutTypeNormal,
-    CHKCheckoutTypeApplePay,
-    CHKCheckoutTypeCancel
+typedef NS_ENUM(NSUInteger, CHKCheckoutType){
+	CHKheckoutTypeNormal,
+	CHKCheckoutTypeApplePay,
+	CHKCheckoutTypeCancel
 };
 
 typedef NS_ENUM(NSUInteger, CHKCheckoutError) {
@@ -25,6 +25,9 @@ typedef void (^CHKCheckoutTypeBlock)(CHKCheckoutType type);
 
 @class CHKStoreViewController;
 
+/**
+ *  The CHKStoreViewControllerDelegate protocol implements methods related to the checkout process
+ */
 @protocol CHKStoreViewControllerDelegate <CHKViewControllerDelegate>
 
 /**
