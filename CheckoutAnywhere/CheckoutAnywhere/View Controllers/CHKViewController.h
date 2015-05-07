@@ -129,7 +129,10 @@
  *
  *  @return A CHKViewController
  */
-- (instancetype)initWithShopAddress:(NSString *)shopAddress apiKey:(NSString *)apiKey merchantId:(NSString *)merchantId NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithShopAddress:(NSString *)shopAddress
+							 apiKey:(NSString *)apiKey
+						  channelId:(NSString *)channelId
+						 merchantId:(NSString *)merchantId NS_DESIGNATED_INITIALIZER;
 
 /**
  *  Creates a checkout with a pre-existing cart.

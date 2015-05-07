@@ -39,12 +39,32 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 
 @interface CHKDataProvider : NSObject
 
-- (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey;
+- (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey channelId:(NSString *)channelId;
 
 /**
  *  The page size for any paged request. This can range from 1-250.
  */
 @property (nonatomic, assign) NSUInteger pageSize;
+
+/**
+ *  The shop domain set using the initializer
+ */
+@property (nonatomic, strong, readonly) NSString *shopDomain;
+
+/**
+ *  The API Key set using the initializer
+ */
+@property (nonatomic, strong, readonly) NSString *apiKey;
+
+/**
+ *  The Channel ID set using the initializer
+ */
+@property (nonatomic, strong, readonly) NSString *channelId;
+
+/**
+ *  Application name to attribute orders to.  Defaults to app bundle name (CFBundleName)
+ */
+@property (nonatomic, strong) NSString *applicationName;
 
 #pragma mark - Storefront
 

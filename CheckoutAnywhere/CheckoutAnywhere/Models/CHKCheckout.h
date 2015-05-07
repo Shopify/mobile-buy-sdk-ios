@@ -49,6 +49,8 @@
 
 @property (nonatomic, strong) CHKDiscount *discount;
 @property (nonatomic, strong) NSURL *orderStatusURL;
+@property (nonatomic, strong) NSString *channel;
+@property (nonatomic, strong) NSDictionary *marketingAttribution;
 
 - (instancetype)initWithCart:(CHKCart *)cart NS_DESIGNATED_INITIALIZER;
 - (BOOL)hasToken;

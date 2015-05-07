@@ -27,24 +27,28 @@
 #define kMaxSuccessfulStatusCode 299
 
 @interface CHKDataProvider () <NSURLSessionDelegate>
+
+@property (nonatomic, strong) NSString *shopDomain;
+@property (nonatomic, strong) NSString *apiKey;
+@property (nonatomic, strong) NSString *channelId;
+@property (nonatomic, strong) NSURLSession *session;
+@property (nonatomic, strong) NSOperationQueue *queue;
+
 @end
 
-@implementation CHKDataProvider {
-	NSString *_shopDomain;
-	NSString *_apiKey;
-	NSOperationQueue *_queue;
-	NSURLSession *_session;
-}
+@implementation CHKDataProvider
 
-- (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey
+- (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey channelId:(NSString *)channelId
 {
 	self = [super init];
 	if (self) {
-		_shopDomain = shopDomain;
-		_apiKey = apiKey;
-		_queue = [[NSOperationQueue alloc] init];
-		_session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:_queue];
-		_pageSize = 25;
+		self.shopDomain = shopDomain;
+		self.apiKey = apiKey;
+		self.channelId = channelId;
+		self.applicationName = [[NSBundle mainBundle] infoDictionary][@"CFBundleName"] ?: @"";
+		self.queue = [[NSOperationQueue alloc] init];
+		self.session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:_queue];
+		self.pageSize = 25;
 	}
 	return self;
 }
@@ -133,8 +137,16 @@
 	block(checkout, error);
 }
 
+- (NSDictionary *)marketingAttributions
+{
+	return @{@"platform": @"iOS", @"application_name": self.applicationName};
+}
+
 - (NSURLSessionDataTask *)createCheckout:(CHKCheckout *)checkout completion:(CHKDataCheckoutBlock)block
 {
+	checkout.channel = self.channelId;
+	checkout.marketingAttribution = self.marketingAttributions;
+	
 	return [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts.json", _shopDomain] object:checkout completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		[self handleCheckoutResponse:json error:error block:block];
 	}];
@@ -144,7 +156,7 @@
 {
 	NSURLSessionDataTask *task = nil;
 	if (cartToken) {
-		NSDictionary *body = @{ @"checkout" : @{ @"cart_token" : cartToken } };
+		NSDictionary *body = @{ @"checkout" : @{ @"cart_token" : cartToken, @"channel": self.channelId, @"marketing_attribution": self.marketingAttributions} };
 		NSError *error = nil;
 		NSData *data = [NSJSONSerialization dataWithJSONObject:body options:0 error:&error];
 
