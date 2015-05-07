@@ -40,11 +40,7 @@ NSString * const CHKShopifyError = @"shopify";
 	return [self initWithShopAddress:shopAddress apiKey:apiKey channelId:channelId merchantId:merchantId url:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@", shopAddress]]];
 }
 
-- (instancetype)initWithShopAddress:(NSString *)shopAddress
-							 apiKey:(NSString *)apiKey
-						  channelId:(NSString *)channelId
-						 merchantId:(NSString *)merchantId
-								url:(NSURL *)url
+- (instancetype)initWithShopAddress:(NSString *)shopAddress apiKey:(NSString *)apiKey channelId:(NSString *)channelId merchantId:(NSString *)merchantId url:(NSURL *)url
 {
 	self = [super initWithShopAddress:shopAddress apiKey:apiKey channelId:channelId merchantId:merchantId];
 	if (self) {

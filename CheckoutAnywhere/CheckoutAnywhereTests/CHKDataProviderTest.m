@@ -78,20 +78,20 @@
 {
 	NSData *data = [self dataForCartFromDataProvider:_dataProvider];
 	
-    NSDictionary *dict = @{@"checkout":
+	NSDictionary *dict = @{@"checkout":
 							   @{@"partial_addresses": @1,
 								 @"line_items": @[],
 								 @"channel": channelId,
 								 @"marketing_attribution":@{@"platform": @"iOS", @"application_name": _dataProvider.applicationName}}};
-    
-    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+	
+	NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
 	XCTAssertEqualObjects(dict, json);
 }
 
 - (void)testMarketingAttributions
 {
 	NSString *appName = @"ApPnAmE";
-
+	
 	TESTDataProvider *testProvider = [[TESTDataProvider alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
 	testProvider.applicationName = appName;
 	
