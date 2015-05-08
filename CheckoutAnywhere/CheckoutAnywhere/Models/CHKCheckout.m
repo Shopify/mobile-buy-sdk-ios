@@ -6,16 +6,12 @@
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.
 //
 
-#import "CHKCheckout.h"
-
-//Models
-#import "CHKLineItem.h"
 #import "CHKCart.h"
+#import "CHKCheckout.h"
+#import "CHKLineItem.h"
 #import "CHKProductVariant.h"
-
-//Utils
-#import "NSString+Trim.h"
 #import "NSDecimalNumber+CHKAdditions.h"
+#import "NSString+Trim.h"
 
 static NSDictionary *kCHKPropertyMap = nil;
 

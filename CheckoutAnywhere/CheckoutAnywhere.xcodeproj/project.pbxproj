@@ -26,7 +26,7 @@
 				90E80E441AFAB0C3003A9909 /* ShellScript */,
 			);
 			dependencies = (
-				90EB0EDB1AFBEB84007E9A6E /* PBXTargetDependency */,
+				90D502491AFD0A7700667F1C /* PBXTargetDependency */,
 			);
 			name = Documentation;
 			productName = Documentation;
@@ -136,7 +136,7 @@
 			remoteGlobalIDString = 904FB5FC1AE03D4500EA1758;
 			remoteInfo = MobileCheckout;
 		};
-		90EB0EDA1AFBEB84007E9A6E /* PBXContainerItemProxy */ = {
+		90D502481AFD0A7700667F1C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F773741519C770CB0039681C /* Project object */;
 			proxyType = 1;
@@ -683,7 +683,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"warning: Framework built, building docs\"\n\n###################\n# Builds the docs #\n###################\n\nFRAMEWORK_NAME=\"Checkout\"\nFRAMEWORK_NAME_FRAMEWORK=\"${FRAMEWORK_NAME}.framework\"\nUNIVERSAL_LIBRARY_DIR=\"${BUILD_DIR}/${FRAMEWORK_NAME}\"\nFRAMEWORK=\"${UNIVERSAL_LIBRARY_DIR}/${FRAMEWORK_NAME_FRAMEWORK}\"\n\nif [ ! -x /usr/local/bin/appledoc ]; then\necho \"error: appledoc is required for building ResearchKit's documentation. See http://appledoc.gentlebytes.com\" 1>&2\nexit 1\nfi\n\n# echo \"warning: warnings are a result of https://github.com/tomaz/appledoc/issues/348\"\n# we don't see these warnings because we have --explicit-crossref in the AppledocSettings.plist\n\n/usr/local/bin/appledoc --print-settings --publish-docset --install-docset --output \"${BUILT_PRODUCTS_DIR}/docs/\" --include \"docs/Overview\" --ignore \"docs/templates\" --templates \"docs/templates\" \"${BUILT_PRODUCTS_DIR}/${FRAMEWORK_NAME_FRAMEWORK}\" \"docs\"\n\necho \"warning: Opening documentation in browser...\"\nopen \"$HOME/Library/Developer/Shared/Documentation/DocSets/org.shopify.Mobile-Checkout-SDK.docset/Contents/Resources/Documents/index.html\"";
+			shellScript = "echo \"warning: Framework built, building docs\"\n\n###################\n# Builds the docs #\n###################\n\nFRAMEWORK_NAME=\"Checkout\"\nFRAMEWORK_NAME_FRAMEWORK=\"${FRAMEWORK_NAME}.framework\"\nUNIVERSAL_LIBRARY_DIR=\"${BUILD_DIR}/${FRAMEWORK_NAME}\"\nFRAMEWORK=\"${UNIVERSAL_LIBRARY_DIR}/${FRAMEWORK_NAME_FRAMEWORK}\"\n\nif [ ! -x /usr/local/bin/appledoc ]; then\necho \"error: appledoc is required for building Checkout's documentation. See http://appledoc.gentlebytes.com\" 1>&2\nexit 1\nfi\n\n# echo \"warning: warnings are a result of https://github.com/tomaz/appledoc/issues/348\"\n# we don't see these warnings because we have --explicit-crossref in the AppledocSettings.plist\n\n/usr/local/bin/appledoc --print-settings --publish-docset --install-docset --output \"${BUILT_PRODUCTS_DIR}/docs/\" --include \"docs/Overview\" --ignore \"docs/templates\" --templates \"docs/templates\" \"${BUILT_PRODUCTS_DIR}/${FRAMEWORK_NAME_FRAMEWORK}\" \"docs\"\n\necho \"warning: Opening documentation in browser...\"\nopen \"$HOME/Library/Developer/Shared/Documentation/DocSets/org.shopify.Mobile-Checkout-SDK.docset/Contents/Resources/Documents/index.html\"";
 		};
 		90E80E471AFBE0FF003A9909 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -802,10 +802,10 @@
 			target = 904FB5FC1AE03D4500EA1758 /* Checkout */;
 			targetProxy = 904FB6091AE03D4500EA1758 /* PBXContainerItemProxy */;
 		};
-		90EB0EDB1AFBEB84007E9A6E /* PBXTargetDependency */ = {
+		90D502491AFD0A7700667F1C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 904FB5FC1AE03D4500EA1758 /* Checkout */;
-			targetProxy = 90EB0EDA1AFBEB84007E9A6E /* PBXContainerItemProxy */;
+			targetProxy = 90D502481AFD0A7700667F1C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

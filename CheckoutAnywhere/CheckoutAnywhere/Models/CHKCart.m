@@ -7,10 +7,8 @@
 //
 
 #import "CHKCart.h"
-
-//Models
-#import "CHKProductVariant.h"
 #import "CHKLineItem.h"
+#import "CHKProductVariant.h"
 
 @implementation CHKCart {
 	NSMutableArray *_lineItems;

@@ -7,8 +7,6 @@
 //
 
 #import "CHKProductVariant.h"
-
-//Additions
 #import "NSDecimalNumber+CHKAdditions.h"
 
 @implementation CHKProductVariant

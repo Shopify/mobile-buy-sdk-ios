@@ -7,13 +7,9 @@
 //
 
 #import "CHKLineItem.h"
-
-//Model
 #import "CHKProductVariant.h"
-
-//Utils & Additions
-#import "NSString+Trim.h"
 #import "NSDecimalNumber+CHKAdditions.h"
+#import "NSString+Trim.h"
 
 @implementation CHKLineItem
 

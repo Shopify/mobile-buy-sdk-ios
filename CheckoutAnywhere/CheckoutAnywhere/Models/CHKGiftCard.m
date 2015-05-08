@@ -6,11 +6,9 @@
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 
+#import "CHKCheckout.h"
 #import "CHKGiftCard.h"
 #import "NSDecimalNumber+CHKAdditions.h"
-
-//Models
-#import "CHKCheckout.h"
 
 @implementation CHKGiftCard
 

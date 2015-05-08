@@ -7,11 +7,9 @@
 //
 
 #import "CHKObject.h"
-
-//Runtime
+#import "CHKRuntime.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
-#import "CHKRuntime.h"
 
 namespace shopify
 {
