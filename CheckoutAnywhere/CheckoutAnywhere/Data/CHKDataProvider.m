@@ -40,6 +40,11 @@
 
 - (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey channelId:(NSString *)channelId
 {
+	if (shopDomain.length == 0) {
+		NSException *exception = [NSException exceptionWithName:@"Bad shop domain" reason:@"Please ensure you initialize with a shop domain" userInfo:nil];
+		@throw exception;
+	}
+	
 	self = [super init];
 	if (self) {
 		self.shopDomain = shopDomain;
@@ -51,6 +56,14 @@
 		self.pageSize = 25;
 	}
 	return self;
+}
+
+- (void)testIntegration
+{
+	NSString *urlString = [NSString stringWithFormat:@"http://%@/mobile_app/verify?api_key=%@&channel_id=%@", self.shopDomain, self.apiKey, self.channelId];
+	// TOOD: append merchant ID if Apple Pay enabled
+	
+	[self performRequestForURL:urlString completionHandler:nil];
 }
 
 #pragma mark - Storefront

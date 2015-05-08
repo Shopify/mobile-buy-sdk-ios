@@ -42,6 +42,11 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 - (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey channelId:(NSString *)channelId;
 
 /**
+ *  Test the integration with your shop.  This should not be shipped in production code
+ */
+- (void)testIntegration;
+
+/**
  *  The page size for any paged request. This can range from 1-250.
  */
 @property (nonatomic, assign) NSUInteger pageSize;
