@@ -91,7 +91,9 @@
 
 - (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page completion:(CHKDataProductListBlock)block
 {
-	return [self performRequestForURL:[NSString stringWithFormat:@"http://%@/products.json?limit=%lu&page=%lu", _shopDomain, (unsigned long)_pageSize, (unsigned long)page] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	NSString *url = [NSString stringWithFormat:@"http://%@/api/channels/%@/product_publications.json?limit=%lu&page=%lu", self.shopDomain, self.channelId, self.pageSize, page];
+	
+	return [self performRequestForURL:url completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		NSArray *products = nil;
 		if (json && error == nil) {
 			products = [CHKProduct convertJSONArray:json[@"products"]];

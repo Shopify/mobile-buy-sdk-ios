@@ -39,6 +39,7 @@
     
     NSString *shopDomain;
     NSString *apiKey;
+	NSString *channelId;
     NSString *giftCardCode;
     NSString *expiredGiftCardCode;
     NSString *expiredGiftCardId;
@@ -53,12 +54,13 @@
 	giftCardCode = [NSProcessInfo environmentForKey:kCHKTestGiftCardCode];
 	expiredGiftCardCode = [NSProcessInfo environmentForKey:kCHKTestExpiredGiftCardCode];
 	expiredGiftCardId = [NSProcessInfo environmentForKey:kCHKTestExpiredGiftCardID];
+	channelId = [NSProcessInfo environmentForKey:kCHKTestChannelId];
 	
 	XCTAssert([shopDomain length] > 0, @"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");
 	XCTAssertEqualObjects([shopDomain substringFromIndex:shopDomain.length - 14], @".myshopify.com", @"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");
 	XCTAssert([apiKey length] > 0, @"You must provide a valid API Key.");
 	
-	_checkoutDataProvider = [[CHKDataProvider alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:nil];
+	_checkoutDataProvider = [[CHKDataProvider alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
 	
 	_products = [[NSMutableArray alloc] init];
 	
