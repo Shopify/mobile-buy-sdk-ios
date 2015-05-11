@@ -41,6 +41,8 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 
 - (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey channelId:(NSString *)channelId;
 
+- (void)enableApplePayWithMerchantId:(NSString *)merchantId;
+
 /**
  *  Test the integration with your shop.  This should not be shipped in production code
  */
@@ -65,6 +67,9 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
  *  The Channel ID set using the initializer
  */
 @property (nonatomic, strong, readonly) NSString *channelId;
+
+@property (nonatomic, strong, readonly) NSString *merchantId;
+
 
 /**
  *  Application name to attribute orders to.  Defaults to app bundle name (CFBundleName)

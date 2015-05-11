@@ -31,6 +31,8 @@
 @property (nonatomic, strong) NSString *shopDomain;
 @property (nonatomic, strong) NSString *apiKey;
 @property (nonatomic, strong) NSString *channelId;
+@property (nonatomic, strong) NSString *merchantId;
+
 @property (nonatomic, strong) NSURLSession *session;
 @property (nonatomic, strong) NSOperationQueue *queue;
 
@@ -58,10 +60,18 @@
 	return self;
 }
 
+- (void)enableApplePayWithMerchantId:(NSString *)merchantId
+{
+	self.merchantId = merchantId;
+}
+
 - (void)testIntegration
 {
 	NSString *urlString = [NSString stringWithFormat:@"http://%@/mobile_app/verify?api_key=%@&channel_id=%@", self.shopDomain, self.apiKey, self.channelId];
-	// TOOD: append merchant ID if Apple Pay enabled
+
+	if (self.merchantId.length > 0) {
+		urlString = [urlString stringByAppendingFormat:@"&merchant_id=%@", self.merchantId];
+	}
 	
 	[self performRequestForURL:urlString completionHandler:nil];
 }
