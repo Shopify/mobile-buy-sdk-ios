@@ -44,6 +44,15 @@
  */
 @property (nonatomic, strong) NSNumber *requiresShipping;
 
+/**
+ *  Initialize a CHKLineItem with an optional variant.
+ *  Note: We recommend setting up a CHKCart and using `addVariant:`, which handles incrementing
+ *  existing variants for line items in a cart
+ *
+ *  @param variant A CHKProductVariant to initialize the CHKLineItem with
+ *
+ *  @return Returns an instance of CHKLineItem
+ */
 - (instancetype)initWithVariant:(CHKProductVariant *)variant;
 
 @end
