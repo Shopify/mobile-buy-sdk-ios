@@ -113,26 +113,16 @@
  */
 @property (nonatomic, assign) PKMerchantCapability merchantCapability;
 
-/**
- *  The Merchant ID required for Apple Pay.  Ensure the Merchant ID is set in the Apple Pay section in the Capabilites tab of the app target
- */
-@property (nonatomic, strong, readonly) NSString *merchantId;
-
 #pragma mark - Checkout Process
 
 /**
- *  Creates a CHKViewController using your shop address, api key, and merchant id
+ *  Creates a CHKViewController using your
  *
- *  @param shopAddress This is your Shopify domain. For example "snowdevil.myshopify.com"
- *  @param apiKey      This is the API Key for your application on Shopify.
- *  @param merchantId  This is the Merchant ID you have set up with Apple.
+ *  @param dataProvider a dataProvider configured to your shop
  *
  *  @return A CHKViewController
  */
-- (instancetype)initWithShopAddress:(NSString *)shopAddress
-							 apiKey:(NSString *)apiKey
-						  channelId:(NSString *)channelId
-						 merchantId:(NSString *)merchantId NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithDataProvider:(CHKDataProvider *)dataProvider;
 
 /**
  *  Creates a checkout with a pre-existing cart.

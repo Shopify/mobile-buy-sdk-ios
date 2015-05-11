@@ -18,27 +18,19 @@
 #define CFSafeRelease(obj) if (obj) { CFRelease(obj); }
 
 @interface CHKViewController () <PKPaymentAuthorizationViewControllerDelegate>
-@property (nonatomic, strong) NSString *merchantId;
 @property (nonatomic, strong) CHKCheckout *checkout;
+@property (nonatomic, strong) CHKDataProvider *provider;
 @property (nonatomic, strong) NSArray *shippingRates;
 @end
 
 @implementation CHKViewController
 
-- (instancetype)initWithShopAddress:(NSString *)shopAddress
-							 apiKey:(NSString *)apiKey
-						  channelId:(NSString *)channelId
-						 merchantId:(NSString *)merchantId {
+- (instancetype)initWithDataProvider:(CHKDataProvider *)dataProvider
+{
 	self = [super init];
 	if (self) {
-
-		if ([shopAddress length] == 0 || [apiKey length] == 0 || [channelId length] == 0) {
-			NSException *exception = [NSException exceptionWithName:@"Missing keys" reason:@"Please ensure you initialize with a shop address, API key and Channel ID. The Merchant ID is optional and only needed for Apple Pay support" userInfo:@{ @"Shop Address" : shopAddress ?: @"", @"API key" : apiKey ?: @""}];
-			@throw exception;
-		}
-
-		_provider = [[CHKDataProvider alloc] initWithShopDomain:shopAddress apiKey:apiKey channelId:channelId];
-		self.merchantId = merchantId;
+		
+		self.provider = dataProvider;
 		
 		self.merchantCapability = PKMerchantCapability3DS;
 		self.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa];
@@ -47,6 +39,7 @@
 	}
 	return self;
 }
+
 
 #pragma mark - Checkout Flow Methods
 #pragma mark - Step 1 - Creating a Checkout
@@ -83,7 +76,7 @@
 - (void)requestPayment
 {
 	//Step 2 - Request payment from the user by presenting an Apple Pay sheet
-	if (self.merchantId.length == 0) {
+	if (self.provider.merchantId.length == 0) {
 		NSLog(@"Merchant ID must be configured to use Apple Pay");
 		[_delegate controllerFailedToStartApplePayProcess:self];
 		return;
@@ -311,7 +304,7 @@
 - (PKPaymentRequest *)paymentRequest
 {
 	PKPaymentRequest *paymentRequest = [[PKPaymentRequest alloc] init];
-	[paymentRequest setMerchantIdentifier:_merchantId];
+	[paymentRequest setMerchantIdentifier:self.provider.merchantId];
 	[paymentRequest setRequiredBillingAddressFields:PKAddressFieldAll];
 	[paymentRequest setRequiredShippingAddressFields:_checkout.requiresShipping ? PKAddressFieldAll : PKAddressFieldPostalAddress];
 	[paymentRequest setSupportedNetworks:self.supportedNetworks];
