@@ -82,14 +82,26 @@
 		90368D5B1AE0417700F053C6 /* NSDecimalNumber+CHKAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A9B1A7011DC0087DB2C /* NSDecimalNumber+CHKAdditions.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		90368D5C1AE0417700F053C6 /* NSString+Trim.h in Headers */ = {isa = PBXBuildFile; fileRef = F76CFF1B19CB7BE30079C703 /* NSString+Trim.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		904FB6081AE03D4500EA1758 /* Checkout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 904FB5FD1AE03D4500EA1758 /* Checkout.framework */; };
-		90AFAA5E1B011EA600F21C23 /* CHKTaxLine.h in Headers */ = {isa = PBXBuildFile; fileRef = 90AFAA5C1B011EA600F21C23 /* CHKTaxLine.h */; };
+		90AFAA5E1B011EA600F21C23 /* CHKTaxLine.h in Headers */ = {isa = PBXBuildFile; fileRef = 90AFAA5C1B011EA600F21C23 /* CHKTaxLine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90AFAA5F1B011EA600F21C23 /* CHKTaxLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AFAA5D1B011EA600F21C23 /* CHKTaxLine.m */; };
-		90AFAA621B01390F00F21C23 /* CHKAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 90AFAA601B01390F00F21C23 /* CHKAddress.h */; };
+		90AFAA621B01390F00F21C23 /* CHKAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 90AFAA601B01390F00F21C23 /* CHKAddress.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90AFAA631B01390F00F21C23 /* CHKAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AFAA611B01390F00F21C23 /* CHKAddress.m */; };
-		90AFAA661B01398A00F21C23 /* CHKShippingRate.h in Headers */ = {isa = PBXBuildFile; fileRef = 90AFAA641B01398A00F21C23 /* CHKShippingRate.h */; };
+		90AFAA661B01398A00F21C23 /* CHKShippingRate.h in Headers */ = {isa = PBXBuildFile; fileRef = 90AFAA641B01398A00F21C23 /* CHKShippingRate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90AFAA671B01398A00F21C23 /* CHKShippingRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AFAA651B01398A00F21C23 /* CHKShippingRate.m */; };
-		90AFAA6A1B0139DE00F21C23 /* CHKDiscount.h in Headers */ = {isa = PBXBuildFile; fileRef = 90AFAA681B0139DE00F21C23 /* CHKDiscount.h */; };
+		90AFAA6A1B0139DE00F21C23 /* CHKDiscount.h in Headers */ = {isa = PBXBuildFile; fileRef = 90AFAA681B0139DE00F21C23 /* CHKDiscount.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90AFAA6B1B0139DE00F21C23 /* CHKDiscount.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AFAA691B0139DE00F21C23 /* CHKDiscount.m */; };
+		90AFAA6C1B0147C200F21C23 /* CHKShippingRate.h in Sources */ = {isa = PBXBuildFile; fileRef = 90AFAA641B01398A00F21C23 /* CHKShippingRate.h */; };
+		90AFAA6D1B0147C200F21C23 /* CHKDiscount.h in Sources */ = {isa = PBXBuildFile; fileRef = 90AFAA681B0139DE00F21C23 /* CHKDiscount.h */; };
+		90AFAA6E1B0147C200F21C23 /* CHKTaxLine.h in Sources */ = {isa = PBXBuildFile; fileRef = 90AFAA5C1B011EA600F21C23 /* CHKTaxLine.h */; };
+		90AFAA6F1B0147C200F21C23 /* CHKAddress.h in Sources */ = {isa = PBXBuildFile; fileRef = 90AFAA601B01390F00F21C23 /* CHKAddress.h */; };
+		90AFAA741B01485800F21C23 /* CHKShippingRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AFAA651B01398A00F21C23 /* CHKShippingRate.m */; };
+		90AFAA751B01485900F21C23 /* CHKShippingRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AFAA651B01398A00F21C23 /* CHKShippingRate.m */; };
+		90AFAA761B01485B00F21C23 /* CHKDiscount.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AFAA691B0139DE00F21C23 /* CHKDiscount.m */; };
+		90AFAA771B01485B00F21C23 /* CHKDiscount.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AFAA691B0139DE00F21C23 /* CHKDiscount.m */; };
+		90AFAA781B01485E00F21C23 /* CHKTaxLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AFAA5D1B011EA600F21C23 /* CHKTaxLine.m */; };
+		90AFAA791B01485E00F21C23 /* CHKTaxLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AFAA5D1B011EA600F21C23 /* CHKTaxLine.m */; };
+		90AFAA7A1B01486000F21C23 /* CHKAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AFAA611B01390F00F21C23 /* CHKAddress.m */; };
+		90AFAA7B1B01486000F21C23 /* CHKAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AFAA611B01390F00F21C23 /* CHKAddress.m */; };
 		90BC07FD1AE0453E005D1195 /* CHKCheckout.m in Sources */ = {isa = PBXBuildFile; fileRef = F773749519C77C260039681C /* CHKCheckout.m */; };
 		90ED9BD91AE557200064345F /* Checkout.h in Headers */ = {isa = PBXBuildFile; fileRef = 904FB6011AE03D4500EA1758 /* Checkout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90ED9BDB1AE571410064345F /* CheckoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 90ED9BDA1AE571410064345F /* CheckoutTests.m */; };
@@ -487,19 +499,19 @@
 				90368D501AE0417700F053C6 /* CHKGiftCard.h in Headers */,
 				90368D511AE0417700F053C6 /* CHKImage.h in Headers */,
 				90368D521AE0417700F053C6 /* CHKLineItem.h in Headers */,
-				90AFAA6A1B0139DE00F21C23 /* CHKDiscount.h in Headers */,
 				90368D531AE0417700F053C6 /* CHKObject.h in Headers */,
-				90AFAA661B01398A00F21C23 /* CHKShippingRate.h in Headers */,
 				90368D541AE0417700F053C6 /* CHKOption.h in Headers */,
 				90368D551AE0417700F053C6 /* CHKProduct.h in Headers */,
 				90368D561AE0417700F053C6 /* CHKProductVariant.h in Headers */,
+				90AFAA6A1B0139DE00F21C23 /* CHKDiscount.h in Headers */,
+				90AFAA661B01398A00F21C23 /* CHKShippingRate.h in Headers */,
+				90AFAA5E1B011EA600F21C23 /* CHKTaxLine.h in Headers */,
+				90AFAA621B01390F00F21C23 /* CHKAddress.h in Headers */,
 				90368D571AE0417700F053C6 /* CHKSerializable.h in Headers */,
 				90368D581AE0417700F053C6 /* CHKShop.h in Headers */,
 				90368D591AE0417700F053C6 /* CHKApplePayAdditions.h in Headers */,
-				90AFAA5E1B011EA600F21C23 /* CHKTaxLine.h in Headers */,
 				90368D5B1AE0417700F053C6 /* NSDecimalNumber+CHKAdditions.h in Headers */,
 				90368D5C1AE0417700F053C6 /* NSString+Trim.h in Headers */,
-				90AFAA621B01390F00F21C23 /* CHKAddress.h in Headers */,
 				90368D5A1AE0417700F053C6 /* CHKRuntime.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -710,9 +722,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90AFAA6C1B0147C200F21C23 /* CHKShippingRate.h in Sources */,
+				90AFAA7A1B01486000F21C23 /* CHKAddress.m in Sources */,
+				90AFAA6D1B0147C200F21C23 /* CHKDiscount.h in Sources */,
+				90AFAA6E1B0147C200F21C23 /* CHKTaxLine.h in Sources */,
+				90AFAA6F1B0147C200F21C23 /* CHKAddress.h in Sources */,
 				F77374AC19C796BD0039681C /* CHKCreditCard.m in Sources */,
 				2AF52A911A700B0A0087DB2C /* CHKShop.m in Sources */,
 				F70CE40F1A8BF1D90055BEB8 /* CHKApplePayAdditions.m in Sources */,
+				90AFAA761B01485B00F21C23 /* CHKDiscount.m in Sources */,
 				BE1C4DF81AE98FBB00E21624 /* CHKViewController.m in Sources */,
 				F773744919C77A210039681C /* CHKCart.m in Sources */,
 				F773749619C77C260039681C /* CHKCheckout.m in Sources */,
@@ -720,6 +738,7 @@
 				42488B341AB8761A005F21A9 /* CHKGiftCard.m in Sources */,
 				F76CFF1D19CB7BE30079C703 /* NSString+Trim.m in Sources */,
 				2AF52A8F1A700B0A0087DB2C /* CHKProductVariant.m in Sources */,
+				90AFAA741B01485800F21C23 /* CHKShippingRate.m in Sources */,
 				F7FDA16E19C939FF00AF4E93 /* CHKLineItem.m in Sources */,
 				2AF52A871A700B0A0087DB2C /* CHKImage.m in Sources */,
 				2AF52A9D1A7011DC0087DB2C /* NSDecimalNumber+CHKAdditions.m in Sources */,
@@ -727,6 +746,7 @@
 				2AF52A751A700AC80087DB2C /* CHKRuntime.m in Sources */,
 				2AF52A8D1A700B0A0087DB2C /* CHKOption.m in Sources */,
 				BE1C4DF71AE98FBB00E21624 /* CHKStoreViewController.m in Sources */,
+				90AFAA781B01485E00F21C23 /* CHKTaxLine.m in Sources */,
 				2AF52A951A7010B20087DB2C /* CHKObject.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -735,7 +755,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90AFAA791B01485E00F21C23 /* CHKTaxLine.m in Sources */,
 				F70CE4151A8BF61D0055BEB8 /* CHKApplePayAdditions.m in Sources */,
+				90AFAA771B01485B00F21C23 /* CHKDiscount.m in Sources */,
+				90AFAA7B1B01486000F21C23 /* CHKAddress.m in Sources */,
 				2AF52AAA1A705F7E0087DB2C /* NSString+Trim.m in Sources */,
 				42488B471AB89E61005F21A9 /* CHKGiftCard.m in Sources */,
 				2AF52AA91A705D400087DB2C /* CHKLineItem.m in Sources */,
@@ -744,6 +767,7 @@
 				2AF52AA61A705CF50087DB2C /* CHKCart.m in Sources */,
 				2AF52AA51A705CDE0087DB2C /* CHKCheckout.m in Sources */,
 				F79CE45319CC612700C9AFAB /* CHKAnywhereIntegrationTest.m in Sources */,
+				90AFAA751B01485900F21C23 /* CHKShippingRate.m in Sources */,
 				2AF52A921A700B0A0087DB2C /* CHKShop.m in Sources */,
 				2AF52AA41A704D620087DB2C /* CHKDataProviderTest_Storefront.m in Sources */,
 				F76CFF2519CB7D750079C703 /* CHKCheckoutTest.m in Sources */,
