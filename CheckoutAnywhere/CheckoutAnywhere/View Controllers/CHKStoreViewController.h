@@ -63,7 +63,7 @@ typedef void (^CHKCheckoutTypeBlock)(CHKCheckoutType type);
  *
  *  @return the CHKStoreViewController instance
  */
-- (instancetype)initDataProvider:(CHKDataProvider *)provider url:(NSURL *)url;
+- (instancetype)initWithDataProvider:(CHKDataProvider *)provider url:(NSURL *)url;
 
 @property (nonatomic, weak) id <CHKStoreViewControllerDelegate> delegate;
 

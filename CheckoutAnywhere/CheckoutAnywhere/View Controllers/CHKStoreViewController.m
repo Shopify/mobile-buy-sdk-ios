@@ -35,7 +35,7 @@ NSString * const CHKShopifyError = @"shopify";
 
 @synthesize delegate;
 
-- (instancetype)initDataProvider:(CHKDataProvider *)provider url:(NSURL *)url
+- (instancetype)initWithDataProvider:(CHKDataProvider *)provider url:(NSURL *)url
 {
 	self = [super initWithDataProvider:provider];
 	
@@ -46,7 +46,7 @@ NSString * const CHKShopifyError = @"shopify";
 	return self;
 }
 
-- (instancetype)initDataProvider:(CHKDataProvider *)provider
+- (instancetype)initWithDataProvider:(CHKDataProvider *)provider
 {
 	self = [super initWithDataProvider:provider];
 	
