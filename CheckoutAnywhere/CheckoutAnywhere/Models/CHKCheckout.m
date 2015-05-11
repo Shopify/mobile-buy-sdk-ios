@@ -6,16 +6,16 @@
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.
 //
 
-#import "CHKCheckout.h"
-
-//Models
-#import "CHKLineItem.h"
+#import "CHKAddress.h"
 #import "CHKCart.h"
+#import "CHKCheckout.h"
+#import "CHKDiscount.h"
+#import "CHKLineItem.h"
 #import "CHKProductVariant.h"
-
-//Utils
-#import "NSString+Trim.h"
+#import "CHKShippingRate.h"
+#import "CHKTaxLine.h"
 #import "NSDecimalNumber+CHKAdditions.h"
+#import "NSString+Trim.h"
 
 static NSDictionary *kCHKPropertyMap = nil;
 
@@ -148,109 +148,6 @@ static NSDictionary *kCHKPropertyMap = nil;
 - (BOOL)hasToken
 {
 	return (_token && [_token length] > 0);
-}
-
-@end
-
-@implementation CHKTaxLine
-
-@end
-
-@implementation CHKAddress
-
-- (void)updateWithDictionary:(NSDictionary *)dictionary
-{
-	self.address1 = dictionary[@"address1"];
-	self.address2 = dictionary[@"address2"];
-	self.city = dictionary[@"city"];
-	self.company = dictionary[@"company"];
-	self.firstName = dictionary[@"first_name"];
-	self.lastName = dictionary[@"last_name"];
-	self.phone = dictionary[@"phone"];
-	
-	self.country = dictionary[@"country"];
-	self.countryCode = dictionary[@"country_code"];
-	self.province = dictionary[@"province"];
-	self.provinceCode = dictionary[@"province_code"];
-	self.zip = dictionary[@"zip"];
-}
-
-- (NSDictionary *)jsonDictionaryForCheckout
-{
-	NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
-	json[@"address1"] = [self.address1 chk_trim] ?: @"";
-	json[@"address2"] = [self.address2 chk_trim] ?: @"";
-	json[@"city"] = [self.city chk_trim] ?: @"";
-	json[@"company"] = [self.company chk_trim] ?: @"";
-	json[@"first_name"] = [self.firstName chk_trim] ?: @"";
-	json[@"last_name"] = [self.lastName chk_trim] ?: @"";
-	json[@"phone"] = [self.phone chk_trim] ?: @"";
-	json[@"zip"] = [self.zip chk_trim] ?: @"";
-	
-	NSString *country = [self.country chk_trim];
-	if ([country length] > 0) {
-		json[@"country"] = country;
-	}
-	
-	NSString *countryCode = [self.countryCode chk_trim];
-	if ([countryCode length] > 0) {
-		json[@"country_code"] = countryCode;
-	}
-	
-	NSString *province = [self.province chk_trim];
-	if ([province length] > 0) {
-		json[@"province"] = province;
-	}
-	
-	NSString *provinceCode = [self.provinceCode chk_trim];
-	if ([provinceCode length] > 0) {
-		json[@"province_code"] = provinceCode;
-	}
-	return json;
-}
-
-@end
-
-@implementation CHKShippingRate
-
-- (void)updateWithDictionary:(NSDictionary *)dictionary
-{
-	self.shippingRateIdentifier = dictionary[@"id"];
-	self.price = [NSDecimalNumber chk_decimalNumberFromJSON:dictionary[@"price"]];
-	self.title = dictionary[@"title"];
-}
-
-- (NSDictionary *)jsonDictionaryForCheckout
-{
-	NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
-	json[@"id"] = [self.shippingRateIdentifier chk_trim] ?: @"";
-	json[@"title"] = [self.title chk_trim] ?: @"";
-	json[@"price"] = self.price ?: [NSDecimalNumber zero];
-	return json;
-}
-
-@end
-
-@implementation CHKDiscount
-
-- (instancetype)initWithCode:(NSString *)code
-{
-	return [super initWithDictionary:@{@"code": code ?: @""}];
-}
-
-- (void)updateWithDictionary:(NSDictionary *)dictionary
-{
-	[super updateWithDictionary:dictionary];
-	self.code = dictionary[@"code"];
-	self.amount = [NSDecimalNumber chk_decimalNumberFromJSON:dictionary[@"amount"]];
-	self.applicable = [dictionary[@"applicable"] boolValue];
-}
-
-- (NSDictionary *)jsonDictionaryForCheckout
-{
-	NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
-	json[@"code"] = [self.code chk_trim] ?: @"";
-	return json;
 }
 
 @end
