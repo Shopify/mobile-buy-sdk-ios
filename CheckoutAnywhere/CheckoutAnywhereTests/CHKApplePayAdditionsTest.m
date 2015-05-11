@@ -6,13 +6,13 @@
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 
+@import AddressBook;
+@import PassKit;
 @import UIKit;
 @import XCTest;
-@import PassKit;
-@import AddressBook;
-
-#import "CHKCheckout.h"
 #import "CHKApplePayAdditions.h"
+#import "CHKCheckout.h"
+#import "CHKDiscount.h"
 
 @interface CHKApplePayAdditionsTest : XCTestCase
 @end
