@@ -102,9 +102,9 @@
 	}];
 }
 
-- (NSURLSessionDataTask *)getProductByHandle:(NSString *)handle completion:(CHKDataProductBlock)block
+- (NSURLSessionDataTask *)getProductById:(NSString *)productId completion:(CHKDataProductBlock)block;
 {
-	return [self performRequestForURL:[NSString stringWithFormat:@"http://%@/products/%@.json", _shopDomain, handle] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self performRequestForURL:[NSString stringWithFormat:@"http://%@/api/channels/%@/product_publications.json?product_id=%@", self.shopDomain, self.channelId, productId] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		CHKProduct *product = nil;
 		if (json && error == nil) {
 			product = [[CHKProduct alloc] initWithDictionary:json[@"product"]];

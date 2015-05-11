@@ -93,15 +93,14 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 - (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page completion:(CHKDataProductListBlock)block;
 
 /**
- *  Fetches a single product by the name of the product. 
- *  For example, if the product url is: http://_________.myshopify.com/products/BANANA
+ *  Fetches a product by its product id
  *
- *  @param handle Product handle
+ *  @param productId the product id
  *  @param block  (^CHKDataProductBlock)(CHKProduct *product, NSError *error);
  *
  *  @return The associated NSURLSessionDataTask
  */
-- (NSURLSessionDataTask *)getProductByHandle:(NSString *)handle completion:(CHKDataProductBlock)block;
+- (NSURLSessionDataTask *)getProductById:(NSString *)productId completion:(CHKDataProductBlock)block;
 
 #pragma mark - Checkout
 

@@ -167,9 +167,9 @@ NSString * const CHKShopifyError = @"shopify";
     }
 }
 
-- (void)getProduct:(NSString *)handle withVariantId:(NSString *)variantId completion:(void (^)(CHKProductVariant *variant, NSError *error))completion;
+- (void)getProduct:(NSString *)productId withVariantId:(NSString *)variantId completion:(void (^)(CHKProductVariant *variant, NSError *error))completion;
 {
-	[self.provider getProductByHandle:handle completion:^(CHKProduct *product, NSError *error) {
+	[self.provider getProductById:productId completion:^(CHKProduct *product, NSError *error) {
 		CHKProductVariant *selectedVariant = nil;
 		if (error == nil) {
 			for (CHKProductVariant *variant in product.variants) {
@@ -201,7 +201,7 @@ NSString * const CHKShopifyError = @"shopify";
 		for (NSDictionary *lineItem in lineItems) {
 			dispatch_group_enter(group);
 			
-			[self getProduct:lineItem[@"handle"] withVariantId:lineItem[@"variantId"] completion:^(CHKProductVariant *variant, NSError *error) {
+			[self getProduct:lineItem[@"product_id"] withVariantId:lineItem[@"variantId"] completion:^(CHKProductVariant *variant, NSError *error) {
 				if (variant) {
 					CHKLineItem *cartLineItem = [[CHKLineItem alloc] initWithVariant:variant];
 					cartLineItem.quantity = [NSDecimalNumber decimalNumberWithDecimal:[lineItem[@"quantity"] decimalValue]];
