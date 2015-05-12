@@ -6,12 +6,14 @@
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.
 //
 
+#import "CHKAddress.h"
 #import "CHKCart.h"
 #import "CHKCheckout.h"
 #import "CHKCreditCard.h"
 #import "CHKDataProvider.h"
 #import "CHKGiftCard.h"
 #import "CHKProduct.h"
+#import "CHKShippingRate.h"
 #import "CHKShop.h"
 
 #define kGET @"GET"
@@ -25,26 +27,53 @@
 #define kMaxSuccessfulStatusCode 299
 
 @interface CHKDataProvider () <NSURLSessionDelegate>
+
+@property (nonatomic, strong) NSString *shopDomain;
+@property (nonatomic, strong) NSString *apiKey;
+@property (nonatomic, strong) NSString *channelId;
+@property (nonatomic, strong) NSString *merchantId;
+
+@property (nonatomic, strong) NSURLSession *session;
+@property (nonatomic, strong) NSOperationQueue *queue;
+
 @end
 
-@implementation CHKDataProvider {
-	NSString *_shopDomain;
-	NSString *_apiKey;
-	NSOperationQueue *_queue;
-	NSURLSession *_session;
-}
+@implementation CHKDataProvider
 
-- (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey
+- (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey channelId:(NSString *)channelId
 {
+	if (shopDomain.length == 0) {
+		NSException *exception = [NSException exceptionWithName:@"Bad shop domain" reason:@"Please ensure you initialize with a shop domain" userInfo:nil];
+		@throw exception;
+	}
+	
 	self = [super init];
 	if (self) {
-		_shopDomain = shopDomain;
-		_apiKey = apiKey;
-		_queue = [[NSOperationQueue alloc] init];
-		_session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:_queue];
-		_pageSize = 25;
+		self.shopDomain = shopDomain;
+		self.apiKey = apiKey;
+		self.channelId = channelId;
+		self.applicationName = [[NSBundle mainBundle] infoDictionary][@"CFBundleName"] ?: @"";
+		self.queue = [[NSOperationQueue alloc] init];
+		self.session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:_queue];
+		self.pageSize = 25;
 	}
 	return self;
+}
+
+- (void)enableApplePayWithMerchantId:(NSString *)merchantId
+{
+	self.merchantId = merchantId;
+}
+
+- (void)testIntegration
+{
+	NSString *urlString = [NSString stringWithFormat:@"http://%@/mobile_app/verify?api_key=%@&channel_id=%@", self.shopDomain, self.apiKey, self.channelId];
+
+	if (self.merchantId.length > 0) {
+		urlString = [urlString stringByAppendingFormat:@"&merchant_id=%@", self.merchantId];
+	}
+	
+	[self performRequestForURL:urlString completionHandler:nil];
 }
 
 #pragma mark - Storefront
@@ -131,8 +160,16 @@
 	block(checkout, error);
 }
 
+- (NSDictionary *)marketingAttributions
+{
+	return @{@"platform": @"iOS", @"application_name": self.applicationName};
+}
+
 - (NSURLSessionDataTask *)createCheckout:(CHKCheckout *)checkout completion:(CHKDataCheckoutBlock)block
 {
+	checkout.channel = self.channelId;
+	checkout.marketingAttribution = self.marketingAttributions;
+	
 	return [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts.json", _shopDomain] object:checkout completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		[self handleCheckoutResponse:json error:error block:block];
 	}];
@@ -142,7 +179,7 @@
 {
 	NSURLSessionDataTask *task = nil;
 	if (cartToken) {
-		NSDictionary *body = @{ @"checkout" : @{ @"cart_token" : cartToken } };
+		NSDictionary *body = @{ @"checkout" : @{ @"cart_token" : cartToken, @"channel": self.channelId, @"marketing_attribution": self.marketingAttributions} };
 		NSError *error = nil;
 		NSData *data = [NSJSONSerialization dataWithJSONObject:body options:0 error:&error];
 

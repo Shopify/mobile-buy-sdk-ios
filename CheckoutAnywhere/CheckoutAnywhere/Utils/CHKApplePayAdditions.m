@@ -9,6 +9,7 @@
 @import AddressBook;
 @import PassKit;
 #import "CHKApplePayAdditions.h"
+#import "CHKDiscount.h"
 
 #define CFSafeRelease(obj) if (obj) { CFRelease(obj); }
 

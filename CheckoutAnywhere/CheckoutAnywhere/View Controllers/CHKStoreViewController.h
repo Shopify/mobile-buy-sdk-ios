@@ -58,7 +58,15 @@ typedef void (^CHKCheckoutTypeBlock)(CHKCheckoutType type);
  */
 @interface CHKStoreViewController : CHKViewController
 
-- (instancetype)initWithShopAddress:(NSString *)shopAddress apiKey:(NSString *)apiKey merchantId:(NSString *)merchantId url:(NSURL *)url;
+/**
+ *  Creates a view controller with an embedded webview to show the shops storefront
+ *
+ *  @param provider    The dataProvider configured to your shop
+ *  @param url         The address where the shop can be viewed
+ *
+ *  @return the CHKStoreViewController instance
+ */
+- (instancetype)initWithDataProvider:(CHKDataProvider *)provider url:(NSURL *)url;
 
 @property (nonatomic, weak) id <CHKStoreViewControllerDelegate> delegate;
 

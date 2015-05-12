@@ -33,7 +33,7 @@
 - (void)setUp
 {
 	[super setUp];
-	_provider = [[CHKDataProvider alloc] initWithShopDomain:@"ibukun.myshopify.com" apiKey:nil];
+	_provider = [[CHKDataProvider alloc] initWithShopDomain:@"ibukun.myshopify.com" apiKey:nil channelId:nil];
 }
 
 - (void)testDefaultPageSize

@@ -35,19 +35,25 @@ NSString * const CHKShopifyError = @"shopify";
 
 @synthesize delegate;
 
-- (instancetype)initWithShopAddress:(NSString *)shopAddress apiKey:(NSString *)apiKey merchantId:(NSString *)merchantId
+- (instancetype)initWithDataProvider:(CHKDataProvider *)provider url:(NSURL *)url
 {
-	return [self initWithShopAddress:shopAddress apiKey:apiKey merchantId:merchantId url:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@", shopAddress]]];
-}
-
-- (instancetype)initWithShopAddress:(NSString *)shopAddress apiKey:(NSString *)apiKey merchantId:(NSString *)merchantId url:(NSURL *)url
-{
-	self = [super initWithShopAddress:shopAddress apiKey:apiKey merchantId:merchantId];
+	self = [super initWithDataProvider:provider];
+	
 	if (self) {
 		_url = url;
-		
-		self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Store" image:[UIImage imageNamed:@"shop"] tag:1];
 	}
+	
+	return self;
+}
+
+- (instancetype)initWithDataProvider:(CHKDataProvider *)provider
+{
+	self = [super initWithDataProvider:provider];
+	
+	if (self) {
+		_url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", provider.shopDomain]];
+	}
+	
 	return self;
 }
 

@@ -133,12 +133,42 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
  */
 @interface CHKDataProvider : NSObject
 
-- (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey;
+- (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey channelId:(NSString *)channelId;
+
+- (void)enableApplePayWithMerchantId:(NSString *)merchantId;
+
+/**
+ *  Test the integration with your shop.  This should not be shipped in production code
+ */
+- (void)testIntegration;
 
 /**
  *  The page size for any paged request. This can range from 1-250.
  */
 @property (nonatomic, assign) NSUInteger pageSize;
+
+/**
+ *  The shop domain set using the initializer
+ */
+@property (nonatomic, strong, readonly) NSString *shopDomain;
+
+/**
+ *  The API Key set using the initializer
+ */
+@property (nonatomic, strong, readonly) NSString *apiKey;
+
+/**
+ *  The Channel ID set using the initializer
+ */
+@property (nonatomic, strong, readonly) NSString *channelId;
+
+@property (nonatomic, strong, readonly) NSString *merchantId;
+
+
+/**
+ *  Application name to attribute orders to.  Defaults to app bundle name (CFBundleName)
+ */
+@property (nonatomic, strong) NSString *applicationName;
 
 #pragma mark - Storefront
 

@@ -32,12 +32,13 @@
 
 @implementation CHKDataProviderTest {
 	CHKDataProvider *_dataProvider;
-    
-    NSString *shopDomain;
-    NSString *apiKey;
-    NSString *giftCardCode;
-    NSString *expiredGiftCardCode;
-    NSString *expiredGiftCardId;
+	
+	NSString *shopDomain;
+	NSString *apiKey;
+	NSString *channelId;
+	NSString *giftCardCode;
+	NSString *expiredGiftCardCode;
+	NSString *expiredGiftCardId;
 }
 
 - (void)setUp
@@ -46,6 +47,7 @@
 	
 	shopDomain = [NSProcessInfo environmentForKey:kCHKTestDomain];
 	apiKey = [NSProcessInfo environmentForKey:kCHKTestAPIKey];
+	channelId = [NSProcessInfo environmentForKey:kCHKTestChannelId];
 	giftCardCode = [NSProcessInfo environmentForKey:kCHKTestGiftCardCode];
 	expiredGiftCardCode = [NSProcessInfo environmentForKey:kCHKTestExpiredGiftCardCode];
 	expiredGiftCardId = [NSProcessInfo environmentForKey:kCHKTestExpiredGiftCardID];
@@ -53,14 +55,14 @@
 	XCTAssert([shopDomain length] > 0, @"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");
 	XCTAssert([apiKey length] > 0, @"You must provide a valid API Key. This is the API Key of your app.");
 	
-	_dataProvider = [[TESTDataProvider alloc] initWithShopDomain:shopDomain apiKey:apiKey];
+	_dataProvider = [[TESTDataProvider alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
 }
 
-- (void)testCheckoutSerialization
+- (NSData *)dataForCartFromDataProvider:(CHKDataProvider *)provider
 {
 	CHKCart *cart = [[CHKCart alloc] init];
 	CHKCheckout *checkout = [[CHKCheckout alloc] initWithCart:cart];
-	NSURLSessionDataTask *task = [_dataProvider createCheckout:checkout completion:nil];
+	NSURLSessionDataTask *task = [provider createCheckout:checkout completion:nil];
 	XCTAssertNotNil(task);
 	
 	NSURLRequest *request = task.originalRequest;
@@ -69,11 +71,39 @@
 	NSData *data = request.HTTPBody;
 	XCTAssertNotNil(data);
 	
-    NSDictionary *dict = @{@"checkout":
+	return data;
+}
+
+- (void)testCheckoutSerialization
+{
+	NSData *data = [self dataForCartFromDataProvider:_dataProvider];
+	
+	NSDictionary *dict = @{@"checkout":
 							   @{@"partial_addresses": @1,
-								 @"line_items": @[]}};
-    
-    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+								 @"line_items": @[],
+								 @"channel": channelId,
+								 @"marketing_attribution":@{@"platform": @"iOS", @"application_name": _dataProvider.applicationName}}};
+	
+	NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+	XCTAssertEqualObjects(dict, json);
+}
+
+- (void)testMarketingAttributions
+{
+	NSString *appName = @"ApPnAmE";
+	
+	TESTDataProvider *testProvider = [[TESTDataProvider alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
+	testProvider.applicationName = appName;
+	
+	NSData *data = [self dataForCartFromDataProvider:testProvider];
+	
+	NSDictionary *dict = @{@"checkout":
+							   @{@"partial_addresses": @1,
+								 @"line_items": @[],
+								 @"channel": channelId,
+								 @"marketing_attribution":@{@"platform": @"iOS", @"application_name": appName}}};
+	
+	NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
 	XCTAssertEqualObjects(dict, json);
 }
 

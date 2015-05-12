@@ -12,6 +12,7 @@
 // These should be defined as environment variables in your scheme, or in the CI machine
 #define kCHKTestDomain @"shop_domain"
 #define kCHKTestAPIKey @"api_key"
+#define kCHKTestChannelId @"channel_id"
 #define kCHKTestGiftCardCode @"gift_card_code"
 #define kCHKTestExpiredGiftCardCode @"expired_gift_card_code"
 #define kCHKTestExpiredGiftCardID @"expired_gift_card_id"
