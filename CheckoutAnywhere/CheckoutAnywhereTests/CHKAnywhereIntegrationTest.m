@@ -15,12 +15,12 @@
 #import "NSProcessInfo+Environment.h"
 
 #define WAIT_FOR_TASK(task, sempahore) \
-	if (task) { \
-		dispatch_semaphore_wait(sempahore, DISPATCH_TIME_FOREVER); \
-	} \
-	else { \
-		XCTFail(@"Task was nil, could not wait"); \
-	} \
+if (task) { \
+dispatch_semaphore_wait(sempahore, DISPATCH_TIME_FOREVER); \
+} \
+else { \
+XCTFail(@"Task was nil, could not wait"); \
+} \
 
 @interface CHKAnywhereIntegrationTest : XCTestCase
 @end
@@ -35,20 +35,20 @@
 	CHKCheckout *_checkout;
 	NSArray *_shippingRates;
 	CHKGiftCard *_giftCard;
-    
-    
-    NSString *shopDomain;
-    NSString *apiKey;
+	
+	
+	NSString *shopDomain;
+	NSString *apiKey;
 	NSString *channelId;
-    NSString *giftCardCode;
-    NSString *expiredGiftCardCode;
-    NSString *expiredGiftCardId;
+	NSString *giftCardCode;
+	NSString *expiredGiftCardCode;
+	NSString *expiredGiftCardId;
 }
 
 - (void)setUp
 {
 	[super setUp];
-    
+	
 	shopDomain = [NSProcessInfo environmentForKey:kCHKTestDomain];
 	apiKey = [NSProcessInfo environmentForKey:kCHKTestAPIKey];
 	giftCardCode = [NSProcessInfo environmentForKey:kCHKTestGiftCardCode];
@@ -95,7 +95,7 @@
 			
 			XCTAssertNil(error, @"There was an error getting your store's products");
 			XCTAssertNotNil(products, @"Add products to your store for tests to pass");
-
+			
 			[_products addObjectsFromArray:products];
 			dispatch_semaphore_signal(semaphore);
 		}];
@@ -339,35 +339,35 @@
 {
 	[self createCart];
 	_checkout = [[CHKCheckout alloc] initWithCart:_cart];
-    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-
+	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	
 	_checkoutDataProvider = [[CHKDataProvider alloc] initWithShopDomain:shopDomain apiKey:@"" channelId:nil];
 	NSURLSessionDataTask *task = [_checkoutDataProvider createCheckout:_checkout completion:^(CHKCheckout *checkout, NSError *error) {
 		XCTAssertNotNil(error);
 		XCTAssertEqualObjects(error.domain, @"shopify");
 		XCTAssertEqual(error.code, 401);
-        dispatch_semaphore_signal(semaphore);
+		dispatch_semaphore_signal(semaphore);
 	}];
-    
-    WAIT_FOR_TASK(task, semaphore);
+	
+	WAIT_FOR_TASK(task, semaphore);
 }
 
 - (void)testCheckoutAnywhereWithInvalidShop
 {
 	[self createCart];
 	_checkout = [[CHKCheckout alloc] initWithCart:_cart];
-    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-
+	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	
 	_checkoutDataProvider = [[CHKDataProvider alloc] initWithShopDomain:@"asdfdsasdfdsasdfdsadsfowinfaoinfw.myshopify.com" apiKey:apiKey channelId:nil];
 	NSURLSessionDataTask *task = [_checkoutDataProvider createCheckout:_checkout completion:^(CHKCheckout *checkout, NSError *error) {
 		XCTAssertNotNil(error);
 		XCTAssertEqualObjects(error.domain, @"shopify");
 		XCTAssertEqual(error.code, 404);
-        dispatch_semaphore_signal(semaphore);
-
+		dispatch_semaphore_signal(semaphore);
+		
 	}];
-    
-    WAIT_FOR_TASK(task, semaphore);
+	
+	WAIT_FOR_TASK(task, semaphore);
 }
 
 - (void)testFetchingShippingRatesWithoutShippingAddressShouldReturnPreconditionFailed
@@ -395,7 +395,7 @@
 {
 	CHKCheckout *checkout = [[CHKCheckout alloc] init];
 	checkout.token = @"bananaaaa";
-
+	
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 	NSURLSessionDataTask *task = [_checkoutDataProvider getShippingRatesForCheckout:checkout completion:^(NSArray *returnedShippingRates, CHKStatus status, NSError *error) {
 		XCTAssertEqual(CHKStatusNotFound, status);
@@ -433,7 +433,7 @@
 		dispatch_semaphore_signal(semaphore);
 	}];
 	WAIT_FOR_TASK(task, semaphore);
-
+	
 	//Fetch the rates
 	[self fetchShippingRates];
 	
@@ -455,7 +455,7 @@
 - (void)testCheckoutAnywhereWithApplicableDiscount
 {
 	[self createCart];
-
+	
 	_checkout = [[CHKCheckout alloc] initWithCart:_cart];
 	_checkout.discount = [self applicableDiscount];
 	
@@ -473,7 +473,7 @@
 		dispatch_semaphore_signal(semaphore);
 	}];
 	WAIT_FOR_TASK(task, semaphore);
-
+	
 	XCTAssertNotNil(_checkout.discount);
 	XCTAssertTrue(_checkout.discount.applicable);
 }
@@ -481,10 +481,10 @@
 - (void)testCheckoutAnywhereWithInapplicableDiscount
 {
 	[self createCart];
-
+	
 	_checkout = [[CHKCheckout alloc] initWithCart:_cart];
 	_checkout.discount = [self inapplicableDiscount];
-
+	
 	//Create the checkout
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 	NSURLSessionDataTask *task = [_checkoutDataProvider createCheckout:_checkout completion:^(CHKCheckout *returnedCheckout, NSError *error) {
@@ -499,10 +499,10 @@
 - (void)testCheckoutAnywhereWithNonExistentDiscount
 {
 	[self createCart];
-
+	
 	_checkout = [[CHKCheckout alloc] initWithCart:_cart];
 	_checkout.discount = [self nonExistentDiscount];
-
+	
 	//Create the checkout
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 	NSURLSessionDataTask *task = [_checkoutDataProvider createCheckout:_checkout completion:^(CHKCheckout *returnedCheckout, NSError *error) {

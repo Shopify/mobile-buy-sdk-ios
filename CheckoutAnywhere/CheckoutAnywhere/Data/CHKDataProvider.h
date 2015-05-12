@@ -95,7 +95,7 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 /**
  *  Fetches a product by its product id
  *
- *  @param productId the product id
+ *  @param productId the product_id
  *  @param block  (^CHKDataProductBlock)(CHKProduct *product, NSError *error);
  *
  *  @return The associated NSURLSessionDataTask
