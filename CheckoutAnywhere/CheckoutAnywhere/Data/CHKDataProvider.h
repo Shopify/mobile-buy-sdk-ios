@@ -18,25 +18,119 @@
 @class CHKProductVariant;
 @class CHKShop;
 
+/**
+ *  A CHKStatus is associated with the completion of an enqueued job on Shopify.
+ *  CHKStatus is equal is HTTP status codes returned from the server
+ */
 typedef NS_ENUM(NSUInteger, CHKStatus) {
+	/**
+	 *  The job is complete
+	 */
 	CHKStatusComplete = 200,
+	/**
+	 *  The job is still processing
+	 */
 	CHKStatusProcessing = 202,
+	/**
+	 *  The job is not found, please check the identifier
+	 */
 	CHKStatusNotFound = 404,
+	/**
+	 *  The precondition given in one or more of the request-header fields evaluated to false when it was tested on the server.
+	 */
 	CHKStatusPreconditionFailed = 412,
+	/**
+	 *  The request failed, refer to an NSError for details
+	 */
 	CHKStatusFailed = 424,
+	/**
+	 *  The status is unknown
+	 */
 	CHKStatusUnknown
 };
 
+/**
+ *  Return block containing a CHKCheckout, Payment Session ID and/or an NSError
+ *
+ *  @param checkout         The returned CHKCheckout
+ *  @param paymentSessionId The Payment Session ID associated with a credit card transaction
+ *  @param error            Optional NSError
+ */
 typedef void (^CHKDataCreditCardBlock)(CHKCheckout *checkout, NSString *paymentSessionId, NSError *error);
+
+/**
+ *  Return block containing a CHKCheckout and/or an NSError
+ *
+ *  @param checkout The returned CHKCheckout
+ *  @param error    Optional NSError
+ */
 typedef void (^CHKDataCheckoutBlock)(CHKCheckout *checkout, NSError *error);
+
+/**
+ *  Return block containing a CHKCheckout, a CHKStatus and/or an NSError
+ *
+ *  @param checkout The returned CHKCheckout
+ *  @param status   A CHKStatus specifying the requested job's completion status
+ *  @param error    Optional NSError
+ */
 typedef void (^CHKDataCheckoutStatusBlock)(CHKCheckout *checkout, CHKStatus status, NSError *error);
+
+/**
+ *  Return block containing CHKShippingRate objects, a CHKStatus and/or an NSError
+ *
+ *  @param shippingRates Array of SHKShippingRates
+ *  @param status        A CHKStatus specifying the requested job's completion status
+ *  @param error         Optional NSError
+ */
 typedef void (^CHKDataShippingRatesBlock)(NSArray *shippingRates, CHKStatus status, NSError *error);
+
+/**
+ *  Return block containing a CHKShop and/or an NSError
+ *
+ *  @param shop  A CHKShop object
+ *  @param error Optional NSError
+ */
 typedef void (^CHKDataShopBlock)(CHKShop *shop, NSError *error);
+
+/**
+ *  Return block containing a CHKProduct and/or an NSError
+ *
+ *  @param product A CHKProduct
+ *  @param error   Optional NSError
+ */
 typedef void (^CHKDataProductBlock)(CHKProduct *product, NSError *error);
+
+/**
+ *  Return block containing a list of CHKProduct objects, the page requested, a boolean to determine whether the end of the list has been reach and/or an optional NSError
+ *
+ *  @param products   An array of CHKProduct objects
+ *  @param page       Index of the page requested
+ *  @param reachedEnd Boolean indicating whether additional pages exist
+ *  @param error      An optional NSError
+ */
 typedef void (^CHKDataProductListBlock)(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error);
+
+/**
+ *  Return block containing a list of CHKProductImage objects and/or an NSError
+ *
+ *  @param images An array of CHKProductImage objects
+ *  @param error  An optional NSError
+ */
 typedef void (^CHKDataImagesListBlock)(NSArray *images, NSError *error);
+
+/**
+ *  Return block containing a CHKGiftCard
+ *
+ *  @param giftCard A CHKGiftCard
+ *  @param error    An optional NSError
+ */
 typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 
+/**
+ The CHKDataProvider provides all requests needed to perform request on the Shopify Checkout API.
+ Use this class to perform tasks such as getting a shop, products for a shop, creating a Checkout on Shopify
+ and completing Checkouts.
+ */
 @interface CHKDataProvider : NSObject
 
 - (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey channelId:(NSString *)channelId;

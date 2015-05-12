@@ -6,11 +6,9 @@
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.
 //
 
-#import "CHKProduct.h"
-
-//Models
 #import "CHKImage.h"
 #import "CHKOption.h"
+#import "CHKProduct.h"
 #import "CHKProductVariant.h"
 
 @implementation CHKProduct

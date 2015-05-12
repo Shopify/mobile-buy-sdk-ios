@@ -6,9 +6,8 @@
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 
-@import PassKit;
 @import AddressBook;
-
+@import PassKit;
 #import "CHKApplePayAdditions.h"
 #import "CHKDiscount.h"
 

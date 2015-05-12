@@ -7,7 +7,6 @@
 //
 
 #import "CHKCreditCard.h"
-
 #import "NSString+Trim.h"
 
 @implementation CHKCreditCard

@@ -6,9 +6,8 @@
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.
 //
 
-#import "CHKRuntime.h"
-
 #import "CHKObject.h"
+#import "CHKRuntime.h"
 #import <objc/runtime.h>
 
 NSSet* __attribute__((overloadable)) class_getCHKProperties(Class clazz, BOOL includeSuper)

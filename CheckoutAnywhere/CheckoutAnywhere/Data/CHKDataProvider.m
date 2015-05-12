@@ -6,15 +6,15 @@
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.
 //
 
-#import "CHKDataProvider.h"
-#import "CHKCheckout.h"
-#import "CHKCart.h"
-#import "CHKCreditCard.h"
-#import "CHKShop.h"
-#import "CHKProduct.h"
-#import "CHKGiftCard.h"
-#import "CHKShippingRate.h"
 #import "CHKAddress.h"
+#import "CHKCart.h"
+#import "CHKCheckout.h"
+#import "CHKCreditCard.h"
+#import "CHKDataProvider.h"
+#import "CHKGiftCard.h"
+#import "CHKProduct.h"
+#import "CHKShippingRate.h"
+#import "CHKShop.h"
 
 #define kGET @"GET"
 #define kPOST @"POST"

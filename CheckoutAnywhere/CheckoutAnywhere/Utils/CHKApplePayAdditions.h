@@ -24,8 +24,12 @@
 @interface CHKShippingRate (ApplePay)
 
 /**
- *  Returns an array of `PKShippingMethod` objects, based on Shopify's shipping rates.
- */
+*  Returns an array of `PKShippingMethod` objects, based on Shopify's shipping rates.
+*
+*  @param rates Shipping rates
+*
+*  @return An array of PKShippingMethods
+*/
 + (NSArray *)chk_convertShippingRatesToShippingMethods:(NSArray *)rates;
 
 @end
@@ -35,7 +39,11 @@
 + (NSString *)chk_emailFromRecord:(ABRecordRef)record;
 
 /**
- *  Creates a CHKAddress, usable with the Shopify Checkout API
+ *  Creates a CHKAddress from an ABRecordRef
+ *
+ *  @param record ABRecordRef to create a CHKAddress from
+ *
+ *  @return The CHKAddress created from an ABRecordRef
  */
 + (CHKAddress *)chk_addressFromRecord:(ABRecordRef)record;
 

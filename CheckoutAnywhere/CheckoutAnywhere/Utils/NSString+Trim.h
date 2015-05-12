@@ -8,11 +8,16 @@
 
 @import Foundation;
 
+/**
+ *  Convenience method for easier white space and newline character trimming
+ */
 @interface NSString (Trim)
 
 /**
- * Equivalent to `[self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]`
- */
+*  Equivalent to `[self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]`
+*
+*  @return NSString without white space and newline characters
+*/
 - (NSString*)chk_trim;
 
 @end

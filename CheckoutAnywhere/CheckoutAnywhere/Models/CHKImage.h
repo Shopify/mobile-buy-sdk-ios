@@ -8,15 +8,18 @@
 
 #import "CHKObject.h"
 
+/**
+ *  Products are easier to sell if customers can see pictures of them, which is why there are product images.
+ */
 @interface CHKImage : CHKObject
 
 /**
- *  The location of a CHKImage
+ *  Specifies the location of the product image.
  */
 @property (nonatomic, readonly, copy) NSString *src;
 
 /**
- *  CHKProductVarient's identifier associated with the CHKImage
+ *  An array of variant ids associated with the image.
  */
 @property (nonatomic, readonly, copy) NSArray *variantIds;
 
