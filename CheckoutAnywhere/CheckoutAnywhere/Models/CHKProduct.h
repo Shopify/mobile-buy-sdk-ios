@@ -18,7 +18,7 @@
 @interface CHKProduct : CHKObject
 
 /**
- *  The name of the product. In a shop's catalog, clicking on a product's title takes you to that product's page. 
+ *  The name of the product. In a shop's catalog, clicking on a product's title takes you to that product's page.
  *  On a product's page, the product's title typically appears in a large font.
  */
 @property (nonatomic, readonly, copy) NSString *title;
@@ -44,8 +44,8 @@
 @property (nonatomic, readonly, copy) NSArray *images;
 
 /**
- *  Custom product property names like "Size", "Color", and "Material". 
- *  Products are based on permutations of these options. 
+ *  Custom product property names like "Size", "Color", and "Material".
+ *  Products are based on permutations of these options.
  *  A product may have a maximum of 3 options. 255 characters limit each.
  */
 @property (nonatomic, readonly, copy) NSArray *options;

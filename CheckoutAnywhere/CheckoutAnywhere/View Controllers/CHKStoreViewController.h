@@ -18,7 +18,7 @@ typedef NS_ENUM(NSUInteger, CHKCheckoutType){
 };
 
 typedef NS_ENUM(NSUInteger, CHKCheckoutError) {
-    CHKCheckoutError_CartFetchError
+	CHKCheckoutError_CartFetchError
 };
 
 typedef void (^CHKCheckoutTypeBlock)(CHKCheckoutType type);
@@ -48,12 +48,12 @@ typedef void (^CHKCheckoutTypeBlock)(CHKCheckoutType type);
  *
  *  There are a few approaches that you can take, this app shows you a couple:
  *
- *  1. Only present Apple Pay in your /checkout. When the user taps 'Checkout' you can present the user an 
+ *  1. Only present Apple Pay in your /checkout. When the user taps 'Checkout' you can present the user an
  *     Apple Pay button, or allow them to continue on as normal. This approach does NOT require any changes
  *     to the web storefront.
  *
  *  2. Add 'Buy With  Pay' buttons on individual product pages and/or a ' Pay' button in your /checkout.
- *     This approach REQUIRES a few small changes to the web storefront to work. Refer to the app.js file 
+ *     This approach REQUIRES a few small changes to the web storefront to work. Refer to the app.js file
  *     located within the SDK. General knowledge of Liquid and Shopify's theming is required system to get this working.
  */
 @interface CHKStoreViewController : CHKViewController

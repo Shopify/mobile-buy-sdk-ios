@@ -18,7 +18,7 @@
 
 /**
  *  The checkout object. This is the main object that you will interact with when creating orders on Shopify.
- *  
+ *
  *  Note: Do not create a CHKCheckout object directly. Use initWithCart: to transform a CHKCart into a CHKCheckout.
  */
 @interface CHKCheckout : CHKObject <CHKSerializable>

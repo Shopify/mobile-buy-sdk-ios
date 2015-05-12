@@ -26,7 +26,7 @@
 @property (nonatomic, readonly, copy) NSString *title;
 
 /**
- *  Custom properties that a shop owner can use to define CHKProductVariants. 
+ *  Custom properties that a shop owner can use to define CHKProductVariants.
  *  Multiple options can exist. Options are represented as: option1, option2, option3.
  */
 @property (nonatomic, readonly, copy) NSString *option1;

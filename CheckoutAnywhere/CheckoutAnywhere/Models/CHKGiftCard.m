@@ -30,7 +30,7 @@
 	if (_code) {
 		json[@"code"] = _code;
 	}
-
+	
 	if (_lastCharacters) {
 		json[@"last_characters"] = _lastCharacters;
 	}

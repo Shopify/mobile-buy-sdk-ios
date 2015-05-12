@@ -27,7 +27,7 @@
 @property (nonatomic, strong) NSDecimalNumber *quantity;
 
 /**
- *  The price of the CHKLineItem. 
+ *  The price of the CHKLineItem.
  *  Note: This price does not need to match the product variant.
  */
 @property (nonatomic, strong) NSDecimalNumber *price;

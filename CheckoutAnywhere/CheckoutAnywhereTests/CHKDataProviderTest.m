@@ -22,7 +22,7 @@
 
 - (void)startTask:(NSURLSessionDataTask *)task
 {
-	//Do nothing
+	// Do nothing
 }
 
 @end

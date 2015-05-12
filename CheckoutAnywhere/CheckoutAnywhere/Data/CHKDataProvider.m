@@ -68,7 +68,7 @@
 - (void)testIntegration
 {
 	NSString *urlString = [NSString stringWithFormat:@"http://%@/mobile_app/verify?api_key=%@&channel_id=%@", self.shopDomain, self.apiKey, self.channelId];
-
+	
 	if (self.merchantId.length > 0) {
 		urlString = [urlString stringByAppendingFormat:@"&merchant_id=%@", self.merchantId];
 	}
@@ -182,7 +182,7 @@
 		NSDictionary *body = @{ @"checkout" : @{ @"cart_token" : cartToken, @"channel": self.channelId, @"marketing_attribution": self.marketingAttributions} };
 		NSError *error = nil;
 		NSData *data = [NSJSONSerialization dataWithJSONObject:body options:0 error:&error];
-
+		
 		if (data && error == nil) {
 			task = [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts.json", _shopDomain] body:data completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 				[self handleCheckoutResponse:json error:error block:block];

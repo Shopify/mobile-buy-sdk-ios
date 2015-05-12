@@ -29,8 +29,8 @@ NSString * const CHKShopifyError = @"shopify";
 	UIBarButtonItem *_forwardButton;
 	
 	BOOL _skippingAppCheckout;
-    
-    NSURLRequest *_checkoutRequest;
+	
+	NSURLRequest *_checkoutRequest;
 }
 
 @synthesize delegate;
@@ -112,7 +112,7 @@ NSString * const CHKShopifyError = @"shopify";
 	//The `fetchCart();` method is defined in `app.js` which is a small Javascript bundle we've prepared for demo purposes.
 	//
 	NSString *currentUrlString = [[[navigationAction request] URL] absoluteString];
-
+	
 	BOOL checkoutLink = [currentUrlString containsString:@"/checkout"] || [currentUrlString containsString:@"/sessions"];
 	BOOL thankYouPage = [currentUrlString containsString:@"thank_you"];
 	
@@ -147,30 +147,30 @@ NSString * const CHKShopifyError = @"shopify";
 
 - (void)presentCheckoutMethodSelectionMenuWithCheckoutRequest:(NSURLRequest *)request
 {
-    _checkoutRequest = request;
-    
-    if ([self.delegate respondsToSelector:@selector(controller:shouldProceedWithCheckoutType:)]) {
-        
-        [self.delegate controller:self shouldProceedWithCheckoutType:^(CHKCheckoutType type) {
-            
-            switch (type) {
-                case CHKheckoutTypeNormal:
-                    [self checkoutWithNormalCheckout];
-                    break;
-                    
-                case CHKCheckoutTypeApplePay:
-                    [self checkoutWithApplePay];
-                    break;
-                    
-                default:
-                    break;
-            }
-        }];
-    }
-    
-    else {
-        [self checkoutWithNormalCheckout];
-    }
+	_checkoutRequest = request;
+	
+	if ([self.delegate respondsToSelector:@selector(controller:shouldProceedWithCheckoutType:)]) {
+		
+		[self.delegate controller:self shouldProceedWithCheckoutType:^(CHKCheckoutType type) {
+			
+			switch (type) {
+				case CHKheckoutTypeNormal:
+					[self checkoutWithNormalCheckout];
+					break;
+					
+				case CHKCheckoutTypeApplePay:
+					[self checkoutWithApplePay];
+					break;
+					
+				default:
+					break;
+			}
+		}];
+	}
+	
+	else {
+		[self checkoutWithNormalCheckout];
+	}
 }
 
 - (void)getProduct:(NSString *)handle withVariantId:(NSString *)variantId completion:(void (^)(CHKProductVariant *variant, NSError *error))completion;
@@ -244,15 +244,15 @@ NSString * const CHKShopifyError = @"shopify";
 
 - (void)checkoutWithApplePay
 {
-    [_webView evaluateJavaScript:@"fetchCart();" completionHandler:^(id result, NSError *error) {
-        NSLog(@"Fetch Cart - %@ - %@", result, error);
-    }];
+	[_webView evaluateJavaScript:@"fetchCart();" completionHandler:^(id result, NSError *error) {
+		NSLog(@"Fetch Cart - %@ - %@", result, error);
+	}];
 }
 
 - (void)checkoutWithNormalCheckout
 {
-    _skippingAppCheckout = YES;
-    [_webView loadRequest:_checkoutRequest];
+	_skippingAppCheckout = YES;
+	[_webView loadRequest:_checkoutRequest];
 }
 
 #pragma mark - Checkout Completion Handling
@@ -271,10 +271,10 @@ NSString * const CHKShopifyError = @"shopify";
 			});
 		}];
 	}
-    else {
+	else {
 		NSError *error = [NSError errorWithDomain:CHKShopifyError code:status userInfo:@{@"checkout": checkout}];
 		[self.delegate controller:self failedToCompleteCheckout:checkout withError:error];
-    }
+	}
 }
 
 #pragma mark - Web View Configuration
@@ -309,10 +309,10 @@ NSString * const CHKShopifyError = @"shopify";
 
 - (WKUserScript *)userScriptWithName:(NSString*)scriptName
 {
-    NSString *frameworkDirPath = [[NSBundle mainBundle] privateFrameworksPath];
-    NSString *frameworkBundlePath = [frameworkDirPath stringByAppendingPathComponent:@"Checkout.framework"];
-    NSBundle *frameworkBundle = [NSBundle bundleWithPath:frameworkBundlePath];
-    
+	NSString *frameworkDirPath = [[NSBundle mainBundle] privateFrameworksPath];
+	NSString *frameworkBundlePath = [frameworkDirPath stringByAppendingPathComponent:@"Checkout.framework"];
+	NSBundle *frameworkBundle = [NSBundle bundleWithPath:frameworkBundlePath];
+	
 	NSData *jsData = [NSData dataWithContentsOfFile:[frameworkBundle pathForResource:scriptName ofType:@"js"]];
 	NSString *js = [[NSString alloc] initWithData:jsData encoding:NSUTF8StringEncoding];
 	return [[WKUserScript alloc] initWithSource:js injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:YES];

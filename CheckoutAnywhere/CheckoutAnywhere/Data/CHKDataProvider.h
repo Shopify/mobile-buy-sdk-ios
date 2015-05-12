@@ -164,7 +164,6 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 
 @property (nonatomic, strong, readonly) NSString *merchantId;
 
-
 /**
  *  Application name to attribute orders to.  Defaults to app bundle name (CFBundleName)
  */
@@ -192,7 +191,7 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 - (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page completion:(CHKDataProductListBlock)block;
 
 /**
- *  Fetches a single product by the name of the product. 
+ *  Fetches a single product by the name of the product.
  *  For example, if the product url is: http://_________.myshopify.com/products/BANANA
  *
  *  @param handle Product handle
@@ -215,7 +214,7 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 - (NSURLSessionDataTask *)createCheckout:(CHKCheckout *)checkout completion:(CHKDataCheckoutBlock)block;
 
 /**
- *  Builds a checkout on Shopify using a Cart Token from an existing cart on your Shopify store's storefront. 
+ *  Builds a checkout on Shopify using a Cart Token from an existing cart on your Shopify store's storefront.
  *  The CHKCheckout object is used to prepare an order.
  *
  *  @param cartToken Cart Token associated with an existing CHKCheckout on Shopify
@@ -274,7 +273,7 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 - (NSURLSessionDataTask *)updateCheckout:(CHKCheckout *)checkout completion:(CHKDataCheckoutBlock)block;
 
 /**
- *  Finalizes the CHKCheckout and charges the credit card. 
+ *  Finalizes the CHKCheckout and charges the credit card.
  *  This enqueues a completion job on Shopify and returns immediately.
  *  You must get the job's status by calling checkCompletionStatusOfCheckout:block
  *
@@ -291,7 +290,7 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 /**
  */
 /**
- *  Finalizes the checkout and charges the credit card associated with the payment token from PassKit (Apple Pay). 
+ *  Finalizes the checkout and charges the credit card associated with the payment token from PassKit (Apple Pay).
  *  This only enqueues a completion job, and will return immediately.
  *  You must get the job's status by calling checkCompletionStatusOfCheckout:block
  *
@@ -323,7 +322,7 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
 #pragma mark - Shipping Rates
 
 /**
- *  Retrieves a list of applicable shipping rates for a given CHKCheckout. 
+ *  Retrieves a list of applicable shipping rates for a given CHKCheckout.
  *  Add the preferred/selected CHKShippingRate to CHKCheckout, then update CHKCheckout
  *
  *  @param checkout The CHKCheckout to retrieve shipping rates for

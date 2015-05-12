@@ -9,7 +9,7 @@
 #import <PassKit/PassKit.h>
 
 /**
- * Simple wrapper on PKPaymentToken to allow writing to the paymentData field for testing purposes
+ *  Simple wrapper on PKPaymentToken to allow writing to the paymentData field for testing purposes
  */
 @interface CHKPaymentToken : PKPaymentToken
 

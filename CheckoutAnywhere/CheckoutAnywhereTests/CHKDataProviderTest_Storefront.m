@@ -16,12 +16,12 @@
 #import "CHKShop.h"
 
 #define WAIT_FOR_TASK(task, semaphore) \
-	if (task) { \
-		dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER); \
-	} \
-	else { \
-		XCTFail(@"Task was nil, could not wait"); \
-	} \
+if (task) { \
+dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER); \
+} \
+else { \
+XCTFail(@"Task was nil, could not wait"); \
+} \
 
 @interface CHKDataProviderTest_Storefront : XCTestCase
 @end

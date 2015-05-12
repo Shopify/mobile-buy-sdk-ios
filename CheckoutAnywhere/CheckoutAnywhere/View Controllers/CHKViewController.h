@@ -17,7 +17,7 @@
 @protocol CHKViewControllerDelegate <NSObject>
 
 /**
- *  This is called if there is an error in creating the CHKCheckout. These problems include not being connected to the Internet, 
+ *  This is called if there is an error in creating the CHKCheckout. These problems include not being connected to the Internet,
  *  or if there is a validation error in the checkout.
  *
  *  @param controller The CHKViewController
@@ -26,7 +26,7 @@
 - (void)controller:(CHKViewController *)controller failedToCreateCheckout:(NSError *)error;
 
 /**
- *  This failure occurs when either the application is not properly configured to handle Apple Pay, 
+ *  This failure occurs when either the application is not properly configured to handle Apple Pay,
  *  or if the user does not have any credit cards configured in PassBook or cannot add any credit cards.
  *
  *  @param controller The CHKViewController
@@ -52,7 +52,7 @@
 - (void)controller:(CHKViewController *)controller failedToGetShippingRates:(CHKCheckout *)checkout withError:(NSError *)error;
 
 /**
- *  This failure occurs whenever completing a checkout fails. 
+ *  This failure occurs whenever completing a checkout fails.
  *  This can occur if there is missing payment information or if the shop is improperly configured.
  *
  *  @param controller The CHKViewController
@@ -78,8 +78,8 @@
 @interface CHKViewController : UIViewController
 
 /**
-*  Register yourself as a CHKViewControllerDelegate to handle all errors, and status changes.
-*/
+ *  Register yourself as a CHKViewControllerDelegate to handle all errors, and status changes.
+ */
 @property (nonatomic, weak) id <CHKViewControllerDelegate> delegate;
 @property (nonatomic, strong, readonly) CHKDataProvider *provider;
 
@@ -132,7 +132,7 @@
 - (void)startCheckoutWithCart:(CHKCart *)cart;
 
 /**
- *  Creates a checkout using a web cart's token. 
+ *  Creates a checkout using a web cart's token.
  *  This is useful when handing off the cart from a WKWebView to an Apple Pay checkout.
  *
  *  @param token Cart token from your Shopify store's storefront

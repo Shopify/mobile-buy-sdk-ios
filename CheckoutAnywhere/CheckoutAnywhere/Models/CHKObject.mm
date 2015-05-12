@@ -191,7 +191,7 @@ namespace shopify
 + (void)wrapProperty:(NSString *)property
 {
 	SEL setter = NSSelectorFromString([NSString stringWithFormat:@"set%@:", [NSString stringWithFormat:@"%@%@",[[property substringToIndex:1] uppercaseString], [property substringFromIndex:1]]]);
-
+	
 	//Get the setter. don't worry about readonly properties as they're irrelevant for dirty tracking
 	if (setter && [self instancesRespondToSelector:setter]) {
 		Method setterMethod = class_getInstanceMethod(self, setter);

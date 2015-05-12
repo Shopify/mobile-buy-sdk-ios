@@ -119,10 +119,10 @@
 	object.dirtyFloatValue = 0.5f;
 	object.dirtyDoubleValue = 0.5;
 	NSSet *expected = [NSSet setWithArray:@[@"s", @"dirtyObjectValue", @"dirtyBooleanValue", @"dirtyCharacterValue",
-						 @"dirtyUnsignedCharValue", @"dirtyIntegerValue", @"dirtyUnsignedIntegerValue",
-						 @"dirtyShortValue", @"dirtyUnsignedShortValue", @"dirtyLongValue",
-						 @"dirtyUnsignedLongValue", @"dirtyLongLongValue", @"dirtyUnsignedLongLongValue",
-						 @"dirtyFloatValue", @"dirtyDoubleValue"]];
+											@"dirtyUnsignedCharValue", @"dirtyIntegerValue", @"dirtyUnsignedIntegerValue",
+											@"dirtyShortValue", @"dirtyUnsignedShortValue", @"dirtyLongValue",
+											@"dirtyUnsignedLongValue", @"dirtyLongLongValue", @"dirtyUnsignedLongLongValue",
+											@"dirtyFloatValue", @"dirtyDoubleValue"]];
 	NSSet *actual = [object dirtyProperties];
 	XCTAssert([expected isEqual:actual]);
 	XCTAssertEqual([actual count], [expected count]);
