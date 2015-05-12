@@ -11,7 +11,6 @@
 
 #import "Checkout.h"
 #import "CHKTestConstants.h"
-#import "CHKGiftCard.h"
 #import "NSProcessInfo+Environment.h"
 
 #define WAIT_FOR_TASK(task, sempahore) \

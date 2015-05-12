@@ -7,14 +7,14 @@
 //
 
 #import "CHKDataProvider.h"
-
-//Model
 #import "CHKCheckout.h"
 #import "CHKCart.h"
 #import "CHKCreditCard.h"
 #import "CHKShop.h"
 #import "CHKProduct.h"
 #import "CHKGiftCard.h"
+#import "CHKShippingRate.h"
+#import "CHKAddress.h"
 
 #define kGET @"GET"
 #define kPOST @"POST"

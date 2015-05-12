@@ -8,11 +8,11 @@
 
 @import UIKit;
 @import XCTest;
-
-//Models
-#import "CHKCheckout.h"
 #import "CHKCart.h"
+#import "CHKCheckout.h"
+#import "CHKDiscount.h"
 #import "CHKProductVariant.h"
+#import "CHKShippingRate.h"
 
 @interface CHKCheckoutTest : XCTestCase
 @end

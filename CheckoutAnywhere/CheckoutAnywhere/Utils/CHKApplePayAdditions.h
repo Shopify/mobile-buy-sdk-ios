@@ -9,6 +9,8 @@
 @import Foundation;
 
 #import "CHKCheckout.h"
+#import "CHKShippingRate.h"
+#import "CHKAddress.h"
 
 @interface CHKCheckout (ApplePay)
 
