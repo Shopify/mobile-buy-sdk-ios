@@ -7,8 +7,8 @@
 //
 
 @import Foundation;
+@import PassKit;
 #import "CHKSerializable.h"
-#import <PassKit/PassKit.h>
 
 @class CHKCart;
 @class CHKCheckout;
@@ -133,8 +133,22 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
  */
 @interface CHKDataProvider : NSObject
 
-- (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey channelId:(NSString *)channelId;
+/**
+ *  Initialize a CHKDataProvider using a shop's domain, API key and the Channel ID.
+ *
+ *  @param shopDomain The Shop Domain i.e. abetterlookingshop.myshopify.com
+ *  @param apiKey     The API key provided via the Mobile SDK Channel on Shopify Admin
+ *  @param channelId  The Channel ID provided on Shopify Admin
+ *
+ *  @return An instance of CHKDataProvider
+ */
+- (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey channelId:(NSString *)channelId NS_DESIGNATED_INITIALIZER;
 
+/**
+ *  Enable Apple Pay by calling this method with the Merchant ID provided via Apple Pay setup in the Mobile SDK Channel on Shopify Admin
+ *
+ *  @param merchantId The Merchant ID generated on Shopify Admin
+ */
 - (void)enableApplePayWithMerchantId:(NSString *)merchantId;
 
 /**
@@ -162,6 +176,9 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
  */
 @property (nonatomic, strong, readonly) NSString *channelId;
 
+/**
+ *  The Merchant ID is used for Apple Pay and set using `enableApplePayWithMerchantId:`
+ */
 @property (nonatomic, strong, readonly) NSString *merchantId;
 
 /**
