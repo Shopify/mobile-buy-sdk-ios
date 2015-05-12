@@ -16,6 +16,7 @@
 		<string>Checkout</string>
 		<string>CheckoutTests</string>
 		<string>docs</string>
+		<string>CheckoutAnywhere/Utils</string>
 	</array>
 	<key>--index-desc</key>
 	<string>docs/index-template.md</string>
@@ -37,7 +38,5 @@
 	<true/>
 	<key>--warn-unknown-directive</key>
 	<true/>
-	<key>--explicit-crossref</key>
-	<string></string>
 </dict>
 </plist>
