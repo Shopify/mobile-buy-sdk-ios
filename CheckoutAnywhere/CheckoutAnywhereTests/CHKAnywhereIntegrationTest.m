@@ -38,6 +38,7 @@ XCTFail(@"Task was nil, could not wait"); \
 	
 	NSString *shopDomain;
 	NSString *apiKey;
+	NSString *channelId;
 	NSString *giftCardCode;
 	NSString *expiredGiftCardCode;
 	NSString *expiredGiftCardId;
@@ -49,6 +50,7 @@ XCTFail(@"Task was nil, could not wait"); \
 	
 	shopDomain = [NSProcessInfo environmentForKey:kCHKTestDomain];
 	apiKey = [NSProcessInfo environmentForKey:kCHKTestAPIKey];
+	channelId = [NSProcessInfo environmentForKey:kCHKTestChannelId];
 	giftCardCode = [NSProcessInfo environmentForKey:kCHKTestGiftCardCode];
 	expiredGiftCardCode = [NSProcessInfo environmentForKey:kCHKTestExpiredGiftCardCode];
 	expiredGiftCardId = [NSProcessInfo environmentForKey:kCHKTestExpiredGiftCardID];
@@ -57,7 +59,7 @@ XCTFail(@"Task was nil, could not wait"); \
 	XCTAssertEqualObjects([shopDomain substringFromIndex:shopDomain.length - 14], @".myshopify.com", @"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");
 	XCTAssert([apiKey length] > 0, @"You must provide a valid API Key.");
 	
-	_checkoutDataProvider = [[CHKDataProvider alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:nil];
+	_checkoutDataProvider = [[CHKDataProvider alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
 	
 	_products = [[NSMutableArray alloc] init];
 	
@@ -510,6 +512,20 @@ XCTFail(@"Task was nil, could not wait"); \
 		dispatch_semaphore_signal(semaphore);
 	}];
 	WAIT_FOR_TASK(task, semaphore);
+}
+
+- (void)testIntegration
+{
+	XCTAssertTrue([_checkoutDataProvider testIntegration]);
+	
+	CHKDataProvider *badProvider = [[CHKDataProvider alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:@"asdvfdbfdgasfgdsfg"];
+	XCTAssertFalse([_checkoutDataProvider testIntegration]);
+	
+	badProvider = [[CHKDataProvider alloc] initWithShopDomain:shopDomain apiKey:@"sadgsefgsdfgsdfgsdfg" channelId:channelId];
+	XCTAssertFalse([_checkoutDataProvider testIntegration]);
+	
+	badProvider = [[CHKDataProvider alloc] initWithShopDomain:@"asdvfdbfdgasfgdsfg" apiKey:apiKey channelId:channelId];
+	XCTAssertFalse([_checkoutDataProvider testIntegration]);
 }
 
 #pragma mark - Test Data
