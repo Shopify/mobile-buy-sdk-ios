@@ -23,7 +23,7 @@
 
 - (void)setUp
 {
-	_checkout = [[CHKCheckout alloc] init];
+	_checkout = [[CHKCheckout alloc] initWithCart:nil];
 }
 
 #pragma mark - CHKCheckout Apple Pay additions

@@ -133,6 +133,8 @@ typedef void (^CHKDataGiftCardBlock)(CHKGiftCard *giftCard, NSError *error);
  */
 @interface CHKDataProvider : NSObject
 
+- (instancetype)init NS_UNAVAILABLE;
+
 /**
  *  Initialize a CHKDataProvider using a shop's domain, API key and the Channel ID.
  *
