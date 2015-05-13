@@ -115,6 +115,8 @@
 
 #pragma mark - Checkout Process
 
+- (instancetype)init NS_UNAVAILABLE;
+
 /**
  *  Creates a CHKViewController using your
  *

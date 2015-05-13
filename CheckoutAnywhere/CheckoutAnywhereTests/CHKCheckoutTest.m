@@ -27,8 +27,8 @@
 - (void)setUp
 {
 	[super setUp];
-	_checkout = [[CHKCheckout alloc] init];
 	_cart = [[CHKCart alloc] init];
+	_checkout = [[CHKCheckout alloc] initWithCart:_cart];
 	_variant = [[CHKProductVariant alloc] initWithDictionary:@{ @"id" : @1 }];
 	_discountDictionary = @{ @"code" : @"abcd1234", @"amount" : @"5.00", @"applicable" : @true };
 }
@@ -128,7 +128,7 @@
 
 - (void)testHasToken
 {
-	CHKCheckout *checkout = [[CHKCheckout alloc] init];
+	CHKCheckout *checkout = [[CHKCheckout alloc] initWithCart:_cart];
 	checkout.token = nil;
 	XCTAssertFalse([checkout hasToken]);
 	checkout.token = @"";

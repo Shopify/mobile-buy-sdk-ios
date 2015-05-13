@@ -390,7 +390,7 @@ XCTFail(@"Task was nil, could not wait"); \
 
 - (void)testFetchingShippingRatesForInvalidCheckoutShouldReturnNotFound
 {
-	CHKCheckout *checkout = [[CHKCheckout alloc] init];
+	CHKCheckout *checkout = [[CHKCheckout alloc] initWithCart:nil];
 	checkout.token = @"bananaaaa";
 	
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
