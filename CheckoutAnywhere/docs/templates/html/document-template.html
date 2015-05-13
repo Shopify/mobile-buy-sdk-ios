@@ -14,12 +14,12 @@
 		<div class="container" class="hide-in-xcode">
 			{{#page}}
 			<h1 id="library-title">
-				<a href="{{page.documentationIndexPath}}">{{projectName}} {{strings.objectPage.libraryTitlePostfix}}</a>
+				<a href="http://www.shopify.com">{{projectName}} {{strings.objectPage.libraryTitlePostfix}}</a>
 			</h1>
 
-			<p id="developer-home">
+			<!--<p id="developer-home">
 				<a href="{{page.documentationIndexPath}}">{{projectCompany}}</a>
-			</p>
+			</p>-->
 			{{/page}}
 		</div>
 	</header>
@@ -28,6 +28,9 @@
 		<div class="container">
 			<nav>
 				<ul id="header-buttons" role="toolbar">
+				    <li>Programming Guide:</li>
+					<li><a href="../../docs/Integration/Integration Guide.html">Integration Guide</a></li>
+				    <li>API Reference:</li>
 					{{>Navigation}}
 				</ul>
 			</nav>
@@ -38,7 +41,7 @@
 		<div id="overview-contents" class="container">
 			<div id="content">
 				<main role="main">
-					<h1 class="title">{{page.title}}</h1>
+					<!--<h1 class="title">{{page.title}}</h1>-->
 
 					{{#object.comment}}{{#longDescription}}{{>GBCommentComponentsList}}{{/longDescription}}{{/object.comment}}
 
