@@ -11,7 +11,6 @@ Shopify's Mobile Buy SDK for iOS enables merchants to easily sell products in iO
 - *Mobile App* Channel on your shop
 - Apple Pay Guide: [Getting Started with Apple Pay](https://developer.apple.com/apple-pay/Getting-Started-with-Apple-Pay.pdf)
 
-
 ### Installation
 
 1. In the project editor, select the target to which you want to add `Buy.framework`.
