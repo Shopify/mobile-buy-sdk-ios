@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		904FB61A1AE03DC500EA1758 /* Checkout-Universal */ = {
+		904FB61A1AE03DC500EA1758 /* Universal Framework */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 904FB61B1AE03DC500EA1758 /* Build configuration list for PBXAggregateTarget "Checkout-Universal" */;
+			buildConfigurationList = 904FB61B1AE03DC500EA1758 /* Build configuration list for PBXAggregateTarget "Universal Framework" */;
 			buildPhases = (
 				904FB61F1AE03DCF00EA1758 /* ShellScript */,
 			);
 			dependencies = (
 			);
-			name = "Checkout-Universal";
+			name = "Universal Framework";
 			productName = "MobileCheckout-Universal";
 		};
 		90E80E401AFAB0B9003A9909 /* Documentation */ = {
@@ -624,7 +624,7 @@
 		F773741519C770CB0039681C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				CLASSPREFIX = CHK;
+				CLASSPREFIX = BUY;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Shopify Inc.";
 				TargetAttributes = {
@@ -664,7 +664,7 @@
 				F773742719C770CB0039681C /* CheckoutAnywhereTests */,
 				904FB5FC1AE03D4500EA1758 /* Buy */,
 				904FB6061AE03D4500EA1758 /* CheckoutTests */,
-				904FB61A1AE03DC500EA1758 /* Checkout-Universal */,
+				904FB61A1AE03DC500EA1758 /* Universal Framework */,
 				90E80E401AFAB0B9003A9909 /* Documentation */,
 			);
 		};
@@ -1168,7 +1168,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		904FB61B1AE03DC500EA1758 /* Build configuration list for PBXAggregateTarget "Checkout-Universal" */ = {
+		904FB61B1AE03DC500EA1758 /* Build configuration list for PBXAggregateTarget "Universal Framework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				904FB61C1AE03DC500EA1758 /* Debug */,
