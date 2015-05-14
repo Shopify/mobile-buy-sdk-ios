@@ -35,9 +35,9 @@ NSString * const BUYShopifyError = @"shopify";
 
 @synthesize delegate;
 
-- (instancetype)initWithDataProvider:(BUYClient *)provider url:(NSURL *)url
+- (instancetype)initWithClient:(BUYClient *)client url:(NSURL *)url
 {
-	self = [super initWithDataProvider:provider];
+	self = [super initWithDataProvider:client];
 	
 	if (self) {
 		_url = url;

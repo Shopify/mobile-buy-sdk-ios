@@ -61,12 +61,12 @@ typedef void (^BUYCheckoutTypeBlock)(BUYCheckoutType type);
 /**
  *  Creates a view controller with an embedded webview to show the shops storefront
  *
- *  @param provider    The dataProvider configured to your shop
- *  @param url         The address where the shop can be viewed
+ *  @param client    The client configured to your shop
+ *  @param url       The address where the shop can be viewed
  *
  *  @return the BUYStoreViewController instance
  */
-- (instancetype)initWithDataProvider:(BUYClient *)provider url:(NSURL *)url;
+- (instancetype)initWithClient:(BUYClient *)client url:(NSURL *)url;
 
 @property (nonatomic, weak) id <BUYStoreViewControllerDelegate> delegate;
 
