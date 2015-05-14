@@ -21,9 +21,9 @@ Shopify's Mobile Buy SDK for iOS enables merchants to easily sell products in iO
 
 ### Initialize the framework
 
-Import the Checkout header
+Import the Buy header
 
-	@import Checkout;
+	@import Buy;
 
 Initialize the client
  
@@ -125,7 +125,7 @@ If you want to support Apple Pay, familiarize yourself with the [Apple Pay Progr
 Once the checkout has been updated with the shipping address, the shipping rates can be retreived.
 
 	// Obtain shipping rates
-	[client getShippingRatesForCheckout:self.checkout completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
+	[client getShippingRatesForCheckout:self.checkout completion:^(NSArray *shippingRates, NSError *error) {
 	    if (error == nil) {
 	        // prompt the customer to select the desired shipping method
 	        self.shippingRates = shippingRates;
