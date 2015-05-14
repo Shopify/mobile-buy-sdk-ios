@@ -15,10 +15,10 @@ Shopify's Mobile Buy SDK for iOS enables merchants to easily sell products in iO
 
 ### Installation
 
-1. In the project editor, select the target to which you want to add `Checkout.framework`.
+1. In the project editor, select the target to which you want to add `Buy.framework`.
 <center><img src="sdk_integration_embedding_framework_1.png" width="100%" alt="ResearchKit framework Overview"/></center>
 
-2. In the **General** tab, drag the `Checkout.framework` onto the **Embedded Binaries** section. Check **Copy items if needed** so the framework is copied to your project.
+2. In the **General** tab, drag the `Buy.framework` onto the **Embedded Binaries** section. Check **Copy items if needed** so the framework is copied to your project.
 <center><img src="sdk_integration_embedding_framework_2.png" width="100%" alt="ResearchKit framework Overview"/></center>
 
 ### Initialize the framework
@@ -49,14 +49,15 @@ To implement a fully custom checkout experience in your app, use the **Mobile Bu
 
 ### Overview
 
-- [Getting Products](#Getting-Products)
-- [Building a cart](#Building-a-cart)
-- [Creating a Checkout](#Creating-a-Checkout)
-- [Adding information to the Checkout](#Add-information-to-the-Checkout)
-- [Completing the Checkout](#Completing-the-Checkout)
+- [Getting Products](#getting-products)
+- [Building a cart](#building-a-cart)
+- [Creating a Checkout](#creating-a-checkout)
+- [Adding information to the Checkout](#adding-information-to-the-checkout)
+- [Completing the Checkout](#completing-the-checkout)
 - [Checking for Checkout Completion](#checking-for-checkout-completion)
+- [Error Handling](#error-handling)
 
-### Getting Products
+### Getting Products<div id="getting-products"></div>
 
 Get products from a shop and display the products in your app.
 
@@ -69,7 +70,7 @@ Get products from a shop and display the products in your app.
 	    }
 	}];
 
-### Building a Cart
+### Building a Cart<div id="building-a-cart"></div>
 
 `CHKCart` consists of one or more line items from product variants retrieved in the product list. 
 
@@ -82,7 +83,7 @@ Get products from a shop and display the products in your app.
 	CHKProductVariant *variant = [product.variants firstObject];
 	[cart addVariant:variant];
 
-### Creating a Checkout
+### Creating a Checkout<div id="creating-a-checkout"></div>
 
 When the customer is ready to make a purchase, a `CHKCheckout` must be created from the `CHKCart` object.
 
@@ -97,7 +98,7 @@ KCheckout *checkout = [[CHKCheckout alloc] initWithCart:cart];
 	    }
 	}];
 
-### Adding information to the Checkout
+### Adding information to the Checkout<div id="adding-information-to-the-checkout"></div>
 
 Before completing the checkout, additional shipping and payment information must be added to the `CHKCheckout` object. The customer's shipping information is required to obtain shipping rates. This is an opportunity to prompt the customer for their shipping address. 
 
@@ -140,7 +141,7 @@ Add the selected shipping method to the `CHKCheckout` object.
 	CHKShippingRate *selectedShippingRate;
 	self.checkout.shippingRate = selectedShippingRate;
 
-### Completing the Checkout
+### Completing the Checkout<div id="completing-the-checkout"></div>
 
 At this point you are ready to collect the payment information from the customer. If using a credit card payment, prompt the customer to enter the credit card information. If [using Apple Pay](#Option-2-Using-Apple-Pay), keep a reference to the `PKPaymentToken`.
 
@@ -190,7 +191,7 @@ The `PKPaymentToken` enables Shopify Payments to process the payment.
 		}
 	}];
 
-### Checking for Checkout Completion
+### Checking for Checkout Completion<div id="checking-for-checkout-completion"></div>
 
 `completeCheckout:completion:` and `completeCheckout:withApplePayToken:completion:` returns immediately. You are required to poll the status of a checkout until the checkout is complete (either sucessful or failed).
 
@@ -212,7 +213,7 @@ The `PKPaymentToken` enables Shopify Payments to process the payment.
 		} 
 	} while (completedCheckout.token && checkoutStatus != CHKStatusFailed && checkoutStatus != CHKStatusComplete)
 
-## Error Handling
+## Error Handling<div id="error-handling"></div>
 
 It's essential to verify the `error` object returned with every completion block.
 
