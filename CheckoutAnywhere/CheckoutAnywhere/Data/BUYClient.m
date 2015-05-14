@@ -67,7 +67,7 @@
 		NSString *versionString = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
 		sessionConfig.HTTPAdditionalHeaders = @{@"Content-Type": kJSONType,
 												@"Accept": kJSONType,
-												@"X-Shopify-Mobile-Buy-SDK-Version": [NSString stringWithFormat:@"iOS/%@", [BUYClient versionString]]};
+												@"X-Shopify-Mobile-Buy-SDK-Version": [NSString stringWithFormat:@"iOS/%@", versionString]};
 		_session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:self.queue];
 	}
 
