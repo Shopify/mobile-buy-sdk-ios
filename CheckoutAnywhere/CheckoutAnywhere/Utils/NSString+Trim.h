@@ -1,6 +1,6 @@
 //
 //  NSString+Trim.h
-//  Checkout
+//  Mobile Buy SDK
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -18,6 +18,6 @@
 *
 *  @return NSString without white space and newline characters
 */
-- (NSString*)chk_trim;
+- (NSString*)buy_trim;
 
 @end

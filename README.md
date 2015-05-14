@@ -27,7 +27,7 @@ Please familiarize yourself with the [Mobile PCI Standards](https://www.pcisecur
 
 ## Flow Examples
 
-For a view of what a 'synchronous' view of checkout would look like: see the [integration tests](https://github.com/Shopify/checkout-anywhere-ios/blob/master/CheckoutAnywhere/CheckoutAnywhereTests/CHKAnywhereIntegrationTest.m)
+For a view of what a 'synchronous' view of checkout would look like: see the [integration tests](https://github.com/Shopify/checkout-anywhere-ios/blob/master/CheckoutAnywhere/CheckoutAnywhereTests/BUYAnywhereIntegrationTest.m)
 
 Here is a simplistic view:
 
@@ -46,7 +46,7 @@ Here is a simplistic view:
 
 
 //Poll for completion -- this may take a few seconds.
-//You will need to poll at a regular interval until this is complete (the status will be one of the many CHKStatus values).
+//You will need to poll at a regular interval until this is complete (the status will be one of the many BUYStatus values).
 [_checkoutDataProvider getCompletionStatusOfCheckout:checkout block:...]
 
 //Update the checkout to obtain the final information if necessary
@@ -88,7 +88,7 @@ For example, if you were to complete a checkout with an **email**, the `error.us
 ```
 
 ## Testing
-To run the Shopify Anywhere SDK integration tests, you will need a Shopify shop that is publicly accessible (in other words, not hidden behind a password). Please note that the integration tests **will create an order** on that shop. This is to validate that the SDK works properly with Shopify. To have these tests run, fill out the information in `CHKTestConstants.h`.
+To run the Shopify Anywhere SDK integration tests, you will need a Shopify shop that is publicly accessible (in other words, not hidden behind a password). Please note that the integration tests **will create an order** on that shop. This is to validate that the SDK works properly with Shopify. To have these tests run, fill out the information in `BUYTestConstants.h`.
 
 The integration tests that exercise discount code functionality require the following discounts on your test shop:
 
