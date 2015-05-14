@@ -519,13 +519,13 @@ XCTFail(@"Task was nil, could not wait"); \
 	XCTAssertTrue([_checkoutDataProvider testIntegration]);
 	
 	CHKDataProvider *badProvider = [[CHKDataProvider alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:@"asdvfdbfdgasfgdsfg"];
-	XCTAssertFalse([_checkoutDataProvider testIntegration]);
+	XCTAssertFalse([badProvider testIntegration]);
 	
 	badProvider = [[CHKDataProvider alloc] initWithShopDomain:shopDomain apiKey:@"sadgsefgsdfgsdfgsdfg" channelId:channelId];
-	XCTAssertFalse([_checkoutDataProvider testIntegration]);
+	XCTAssertFalse([badProvider testIntegration]);
 	
 	badProvider = [[CHKDataProvider alloc] initWithShopDomain:@"asdvfdbfdgasfgdsfg" apiKey:apiKey channelId:channelId];
-	XCTAssertFalse([_checkoutDataProvider testIntegration]);
+	XCTAssertFalse([badProvider testIntegration]);
 }
 
 #pragma mark - Test Data
