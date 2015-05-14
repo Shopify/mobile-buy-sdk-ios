@@ -29,7 +29,7 @@ Import the Checkout header
 
 Initialize the data provider
  
-	CHKDataProvider *provider = [[CHKDataProvider alloc] initWithShopDomain:SHOP_DOMAIN
+	BUYDataProvider *provider = [[BUYDataProvider alloc] initWithShopDomain:SHOP_DOMAIN
 																	 apiKey:API_KEY
 																  channelId:CHANNEL_ID];
 
@@ -38,14 +38,14 @@ Optionally, enable Apple Pay (you must enable Apple Pay in the *Mobile App* Chan
 	[provider enableApplePayWithMerchantId:MERCHANT_ID];
 
 ## Using the Mobile Buy SDK
-The easiest way to use the Mobile Buy SDK is to leverage the `CHKViewController`. This view controller handles most of the checkout process for you, and makes it easy to support Apple Pay.
+The easiest way to use the Mobile Buy SDK is to leverage the `BUYViewController`. This view controller handles most of the checkout process for you, and makes it easy to support Apple Pay.
 
 We provide two sample apps that integrate this view controller:
 
 - The `Sample App Native` demonstrates a native checkout using Apple Pay
 - The `Sample App Web` displays a shop's responsive website and supports both Apple Pay and web checkout
 
-To implement a fully custom checkout experience in your app, use the **Mobile Buy SDK** to obtain product details, build a cart, and complete a checkout. The `CHKDataProvider` provides methods to perform these tasks.
+To implement a fully custom checkout experience in your app, use the **Mobile Buy SDK** to obtain product details, build a cart, and complete a checkout. The `BUYDataProvider` provides methods to perform these tasks.
 
 ### Overview
 
@@ -72,25 +72,25 @@ Get products from a shop and display the products in your app.
 
 ### Building a Cart<div id="building-a-cart"></div>
 
-`CHKCart` consists of one or more line items from product variants retrieved in the product list. 
+`BUYCart` consists of one or more line items from product variants retrieved in the product list. 
 
 	// Create a cart
-	CHKCart *cart = [[CHKCart alloc] init];
+	BUYCart *cart = [[BUYCart alloc] init];
 	
 	// Add a product variant to the cart
 	// In this case, we're adding the first product and its first variant
-	CHKProduct *product = [self.products firstObject];
-	CHKProductVariant *variant = [product.variants firstObject];
+	BUYProduct *product = [self.products firstObject];
+	BUYProductVariant *variant = [product.variants firstObject];
 	[cart addVariant:variant];
 
 ### Creating a Checkout<div id="creating-a-checkout"></div>
 
-When the customer is ready to make a purchase, a `CHKCheckout` must be created from the `CHKCart` object.
+When the customer is ready to make a purchase, a `BUYCheckout` must be created from the `BUYCart` object.
 
-KCheckout *checkout = [[CHKCheckout alloc] initWithCart:cart];
+	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:cart];
 
 	// Sync the checkout with Shopify
-	[provider createCheckout:checkout completion:^(CHKCheckout *checkout, NSError *error) {
+	[provider createCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
 	    if (error == nil) {
 	        self.checkout = checkout;
 	    } else {
@@ -100,12 +100,12 @@ KCheckout *checkout = [[CHKCheckout alloc] initWithCart:cart];
 
 ### Adding information to the Checkout<div id="adding-information-to-the-checkout"></div>
 
-Before completing the checkout, additional shipping and payment information must be added to the `CHKCheckout` object. The customer's shipping information is required to obtain shipping rates. This is an opportunity to prompt the customer for their shipping address. 
+Before completing the checkout, additional shipping and payment information must be added to the `BUYCheckout` object. The customer's shipping information is required to obtain shipping rates. This is an opportunity to prompt the customer for their shipping address. 
 
 If you want to support Apple Pay, familiarize yourself with the [Apple Pay Programming Guide](https://developer.apple.com/library/ios/ApplePay_Guide/). The shipping address is provided from the `PKPaymentAuthorizationViewControllerDelegate` method `paymentAuthorizationViewController:didSelectShippingAddress:completion:`
 
 	// Get the customer's shipping address
-	CHKAddress *shippingAddress = [[CHKAddress alloc] init];
+	BUYAddress *shippingAddress = [[BUYAddress alloc] init];
 	shippingAddress.address1 = @"421 8th Ave";
 	shippingAddress.city = @"New York";
 	shippingAddress.province = @"NY";
@@ -116,7 +116,7 @@ If you want to support Apple Pay, familiarize yourself with the [Apple Pay Progr
 	self.checkout.shippingAddress = shippingAddress;
 	
 	// Update the checkout with the shipping address
-	[provider updateCheckout:self.checkout completion:^(CHKCheckout *checkout, NSError *error) {
+	[provider updateCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
 	    if (error == nil) {
 	        self.checkout = checkout;
 	    } else {
@@ -127,7 +127,7 @@ If you want to support Apple Pay, familiarize yourself with the [Apple Pay Progr
 Once the checkout has been updated with the shipping address, the shipping rates can be retreived.
 
 	// Obtain shipping rates
-	[provider getShippingRatesForCheckout:self.checkout completion:^(NSArray *shippingRates, CHKStatus status, NSError *error) {
+	[provider getShippingRatesForCheckout:self.checkout completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
 	    if (error == nil) {
 	        // prompt the customer to select the desired shipping method
 	        self.shippingRates = shippingRates;
@@ -136,9 +136,9 @@ Once the checkout has been updated with the shipping address, the shipping rates
 	    }
 	}];
 
-Add the selected shipping method to the `CHKCheckout` object.
+Add the selected shipping method to the `BUYCheckout` object.
 
-	CHKShippingRate *selectedShippingRate;
+	BUYShippingRate *selectedShippingRate;
 	self.checkout.shippingRate = selectedShippingRate;
 
 ### Completing the Checkout<div id="completing-the-checkout"></div>
@@ -149,7 +149,7 @@ Although the SDK supports payment by credit card, we highly recommend that you u
 
 #### Option 1: Using Credit Card
 
-	CHKCreditCard *creditCard = [[CHKCreditCard alloc] init];
+	BUYCreditCard *creditCard = [[BUYCreditCard alloc] init];
 	creditCard.number = @"4242424242424242";
 	creditCard.expiryMonth = @"12";
 	creditCard.expiryYear = @"20";
@@ -157,7 +157,7 @@ Although the SDK supports payment by credit card, we highly recommend that you u
 	creditCard.nameOnCard = @"Dinosaur Banana";
 	
 	// Associate the credit card with the checkout
-	[provider storeCreditCard:creditCard checkout:self.checkout completion:^(CHKCheckout *returnedCheckout, NSString *paymentSessionId, NSError *error) {
+	[provider storeCreditCard:creditCard checkout:self.checkout completion:^(BUYCheckout *returnedCheckout, NSString *paymentSessionId, NSError *error) {
 		if (error == nil) {
 	        self.checkout = returnedCheckout;
 	    } else {
@@ -167,7 +167,7 @@ Although the SDK supports payment by credit card, we highly recommend that you u
 
 Once the credit card has been stored on the checkout on Shopify, the checkout can be completed.
 
-	[provider completeCheckout:self.checkout completion:^(CHKCheckout *returnedCheckout, NSError *error) {
+	[provider completeCheckout:self.checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		if (error == nil) {
 	        self.checkout = returnedCheckout;
 	    } else {
@@ -182,7 +182,7 @@ Obtain a `PKPaymentToken` from the `PKPayment` object provided through the `PKPa
 The `PKPaymentToken` enables Shopify Payments to process the payment.
 
 	// After obtaining a PKPayment using Apple Pay, complete checkout on Shopify
-	[provider completeCheckout:checkout withApplePayToken:payment.token completion:^(CHKCheckout *checkout, NSError *error) {
+	[provider completeCheckout:checkout withApplePayToken:payment.token completion:^(BUYCheckout *checkout, NSError *error) {
 		if (error == nil) {
 			self.checkout = checkout;
 			// check for checkout completion
@@ -195,11 +195,11 @@ The `PKPaymentToken` enables Shopify Payments to process the payment.
 
 `completeCheckout:completion:` and `completeCheckout:withApplePayToken:completion:` returns immediately. You are required to poll the status of a checkout until the checkout is complete (either sucessful or failed).
 
-	__block CHKStatus checkoutStatus = CHKStatusUnknown;
-	__block CHKCheckout *completedCheckout = self.checkout;
+	__block BUYStatus checkoutStatus = BUYStatusUnknown;
+	__block BUYCheckout *completedCheckout = self.checkout;
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 	do {
-		[provider getCompletionStatusOfCheckout:self.checkout completion:^(CHKCheckout *checkout, CHKStatus status, NSError *error) {
+		[provider getCompletionStatusOfCheckout:self.checkout completion:^(BUYCheckout *checkout, BUYStatus status, NSError *error) {
 			completedCheckout = checkout;
 			checkoutStatus = status;
 			dispatch_semaphore_signal(semaphore);
@@ -211,7 +211,7 @@ The `PKPaymentToken` enables Shopify Payments to process the payment.
 		} else {
 			// Handle success/error
 		} 
-	} while (completedCheckout.token && checkoutStatus != CHKStatusFailed && checkoutStatus != CHKStatusComplete)
+	} while (completedCheckout.token && checkoutStatus != BUYStatusFailed && checkoutStatus != BUYStatusComplete)
 
 ## Error Handling<div id="error-handling"></div>
 
