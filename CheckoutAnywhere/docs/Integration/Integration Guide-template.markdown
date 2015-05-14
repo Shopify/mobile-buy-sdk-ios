@@ -1,6 +1,5 @@
 # Mobile Buy SDK Integration Guide
 
-
 Shopify's Mobile Buy SDK for iOS enables merchants to easily sell products in iOS apps and allows their customers to checkout using the Shopify Checkout API or Apple Pay.
 
 ## Getting Started
