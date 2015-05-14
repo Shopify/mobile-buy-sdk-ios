@@ -25,15 +25,15 @@ Import the Checkout header
 
 	@import Checkout;
 
-Initialize the data provider
+Initialize the client
  
-	BUYDataProvider *provider = [[BUYDataProvider alloc] initWithShopDomain:SHOP_DOMAIN
-																	 apiKey:API_KEY
-																  channelId:CHANNEL_ID];
+	BUYClient *client = [[BUYClient alloc] initWithShopDomain:SHOP_DOMAIN
+													   apiKey:API_KEY
+												    channelId:CHANNEL_ID];
 
 Optionally, enable Apple Pay (you must enable Apple Pay in the *Mobile App* Channel)
 
-	[provider enableApplePayWithMerchantId:MERCHANT_ID];
+	[client enableApplePayWithMerchantId:MERCHANT_ID];
 
 ## Using the Mobile Buy SDK
 The easiest way to use the Mobile Buy SDK is to leverage the `BUYViewController`. This view controller handles most of the checkout process for you, and makes it easy to support Apple Pay.
@@ -43,7 +43,7 @@ We provide two sample apps that integrate this view controller:
 - The `Sample App Native` demonstrates a native checkout using Apple Pay
 - The `Sample App Web` displays a shop's responsive website and supports both Apple Pay and web checkout
 
-To implement a fully custom checkout experience in your app, use the **Mobile Buy SDK** to obtain product details, build a cart, and complete a checkout. The `BUYDataProvider` provides methods to perform these tasks.
+To implement a fully custom checkout experience in your app, use the **Mobile Buy SDK** to obtain product details, build a cart, and complete a checkout. The `BUYClient` provides methods to perform these tasks.
 
 ### Overview
 
@@ -59,7 +59,7 @@ To implement a fully custom checkout experience in your app, use the **Mobile Bu
 
 Get products from a shop and display the products in your app.
 
-	[provider getProductsPage:0 completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+	[client getProductsPage:0 completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 	    if (error == nil) {
 	        self.products = products;
 			// display list of products
@@ -88,7 +88,7 @@ When the customer is ready to make a purchase, a `BUYCheckout` must be created f
 	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:cart];
 
 	// Sync the checkout with Shopify
-	[provider createCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	[client createCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
 	    if (error == nil) {
 	        self.checkout = checkout;
 	    } else {
@@ -114,7 +114,7 @@ If you want to support Apple Pay, familiarize yourself with the [Apple Pay Progr
 	self.checkout.shippingAddress = shippingAddress;
 	
 	// Update the checkout with the shipping address
-	[provider updateCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	[client updateCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
 	    if (error == nil) {
 	        self.checkout = checkout;
 	    } else {
@@ -125,7 +125,7 @@ If you want to support Apple Pay, familiarize yourself with the [Apple Pay Progr
 Once the checkout has been updated with the shipping address, the shipping rates can be retreived.
 
 	// Obtain shipping rates
-	[provider getShippingRatesForCheckout:self.checkout completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
+	[client getShippingRatesForCheckout:self.checkout completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
 	    if (error == nil) {
 	        // prompt the customer to select the desired shipping method
 	        self.shippingRates = shippingRates;
@@ -155,7 +155,7 @@ Although the SDK supports payment by credit card, we highly recommend that you u
 	creditCard.nameOnCard = @"Dinosaur Banana";
 	
 	// Associate the credit card with the checkout
-	[provider storeCreditCard:creditCard checkout:self.checkout completion:^(BUYCheckout *returnedCheckout, NSString *paymentSessionId, NSError *error) {
+	[client storeCreditCard:creditCard checkout:self.checkout completion:^(BUYCheckout *returnedCheckout, NSString *paymentSessionId, NSError *error) {
 		if (error == nil) {
 	        self.checkout = returnedCheckout;
 	    } else {
@@ -165,7 +165,7 @@ Although the SDK supports payment by credit card, we highly recommend that you u
 
 Once the credit card has been stored on the checkout on Shopify, the checkout can be completed.
 
-	[provider completeCheckout:self.checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+	[client completeCheckout:self.checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		if (error == nil) {
 	        self.checkout = returnedCheckout;
 	    } else {
@@ -180,7 +180,7 @@ Obtain a `PKPaymentToken` from the `PKPayment` object provided through the `PKPa
 The `PKPaymentToken` enables Shopify Payments to process the payment.
 
 	// After obtaining a PKPayment using Apple Pay, complete checkout on Shopify
-	[provider completeCheckout:checkout withApplePayToken:payment.token completion:^(BUYCheckout *checkout, NSError *error) {
+	[client completeCheckout:checkout withApplePayToken:payment.token completion:^(BUYCheckout *checkout, NSError *error) {
 		if (error == nil) {
 			self.checkout = checkout;
 			// check for checkout completion
@@ -193,23 +193,23 @@ The `PKPaymentToken` enables Shopify Payments to process the payment.
 
 `completeCheckout:completion:` and `completeCheckout:withApplePayToken:completion:` returns immediately. You are required to poll the status of a checkout until the checkout is complete (either sucessful or failed).
 
-	__block BUYStatus checkoutStatus = BUYStatusUnknown;
+	__block BUYStatus buyStatus = BUYStatusUnknown;
 	__block BUYCheckout *completedCheckout = self.checkout;
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 	do {
-		[provider getCompletionStatusOfCheckout:self.checkout completion:^(BUYCheckout *checkout, BUYStatus status, NSError *error) {
+		[client getCompletionStatusOfCheckout:self.checkout completion:^(BUYCheckout *checkout, BUYStatus status, NSError *error) {
 			completedCheckout = checkout;
-			checkoutStatus = status;
+			buyStatus = status;
 			dispatch_semaphore_signal(semaphore);
 		}];
 		dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 		
-		if (checkoutStatus == CHKStatusProcessing) {
+		if (buyStatus == BUYStatusProcessing) {
 			[NSThread sleepForTimeInterval:0.5];
 		} else {
 			// Handle success/error
 		} 
-	} while (completedCheckout.token && checkoutStatus != BUYStatusFailed && checkoutStatus != BUYStatusComplete)
+	} while (completedCheckout.token && buyStatus != BUYStatusFailed && buyStatus != BUYStatusComplete)
 
 ## Error Handling<div id="error-handling"></div>
 
