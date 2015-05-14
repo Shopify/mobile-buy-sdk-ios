@@ -34,6 +34,13 @@ Initialize the client
 Optionally, enable Apple Pay (you must enable Apple Pay in the *Mobile App* Channel)
 
 	[client enableApplePayWithMerchantId:MERCHANT_ID];
+	
+Test the integration
+
+	#warning FOR DEBUG PURPOSES ONLY. DO NOT USE IN RELEASE.
+	[client testIntegration]
+	
+This method call should only be made once to ensure your integration works. Once you have confirmed that the integration works on the Mobile App Channel, remove this method.
 
 ## Using the Mobile Buy SDK
 The easiest way to use the Mobile Buy SDK is to leverage the `BUYViewController`. This view controller handles most of the checkout process for you, and makes it easy to support Apple Pay.
