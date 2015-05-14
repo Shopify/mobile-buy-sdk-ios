@@ -18,6 +18,8 @@
 @class BUYProductVariant;
 @class BUYShop;
 
+extern NSString * const BUYClientError;
+
 /**
  *  A BUYStatus is associated with the completion of an enqueued job on Shopify.
  *  BUYStatus is equal is HTTP status codes returned from the server
@@ -79,10 +81,9 @@ typedef void (^BUYDataCheckoutStatusBlock)(BUYCheckout *checkout, BUYStatus stat
  *  Return block containing BUYShippingRate objects, a BUYStatus and/or an NSError
  *
  *  @param shippingRates Array of SHKShippingRates
- *  @param status        A BUYStatus specifying the requested job's completion status
  *  @param error         Optional NSError
  */
-typedef void (^BUYDataShippingRatesBlock)(NSArray *shippingRates, BUYStatus status, NSError *error);
+typedef void (^BUYDataShippingRatesBlock)(NSArray *shippingRates, NSError *error);
 
 /**
  *  Return block containing a BUYShop and/or an NSError

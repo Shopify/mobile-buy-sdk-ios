@@ -26,6 +26,11 @@
 #define kMinSuccessfulStatusCode 200
 #define kMaxSuccessfulStatusCode 299
 
+#define kPollingInterval 0.5
+#define kMaxPollingAttempts 20
+
+NSString * const BUYClientError = @"shopify.client";
+
 @interface BUYClient () <NSURLSessionDelegate>
 
 @property (nonatomic, strong) NSString *shopDomain;
@@ -150,7 +155,6 @@
 }
 
 #pragma mark - Checkout
-
 - (void)handleCheckoutResponse:(NSDictionary *)json error:(NSError *)error block:(BUYDataCheckoutBlock)block
 {
 	BUYCheckout *checkout = nil;
@@ -294,6 +298,48 @@
 #pragma mark - Shipping Rates
 
 - (NSURLSessionDataTask *)getShippingRatesForCheckout:(BUYCheckout *)checkout completion:(BUYDataShippingRatesBlock)block
+{
+	if ([checkout hasToken]) {
+		return [self getShippingRatesForCheckout:checkout retriesRemaining:kMaxPollingAttempts completion:block];
+	}
+	else {
+		return nil;
+	}
+}
+
+- (NSURLSessionDataTask *)getShippingRatesForCheckout:(BUYCheckout *)checkout retriesRemaining:(int)retriesRemaining completion:(BUYDataShippingRatesBlock)block {
+	
+	__block NSURLSessionDataTask *task = nil;
+	
+	if (retriesRemaining > 0) {
+		
+		task = [self getRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/shipping_rates.json?checkout[partial_addresses]=true", _shopDomain, checkout.token] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+			NSArray *shippingRates = nil;
+			if (error == nil && json) {
+				shippingRates = [BUYShippingRate convertJSONArray:json[@"shipping_rates"]];
+			}
+			
+			NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
+			
+			if (statusCode == BUYStatusProcessing) {
+				dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kPollingInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+					task = [self getShippingRatesForCheckout:checkout retriesRemaining:retriesRemaining-1 completion:block];
+				});
+			}
+			else {
+				block(shippingRates, error);
+			}
+		}];
+	}
+	else {
+		NSError *error = [NSError errorWithDomain:BUYClientError code:-1 userInfo:nil];
+		block(nil, error);
+	}
+	
+	return task;
+}
+
+- (NSURLSessionDataTask *)fetchShippingRatesWithCheckout:(BUYCheckout *)checkout completion:(void (^)(NSArray *shippingRates, BUYStatus status, NSError *error))block
 {
 	NSURLSessionDataTask *task = nil;
 	if ([checkout hasToken]) {
