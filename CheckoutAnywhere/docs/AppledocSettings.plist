@@ -27,7 +27,7 @@
 	<key>--project-company</key>
 	<string>Shopify</string>
 	<key>--project-name</key>
-	<string>Mobile Checkout SDK</string>
+	<string>Mobile Buy SDK</string>
 	<key>--verbose</key>
 	<string>6</string>
 	<key>--warn-empty-description</key>

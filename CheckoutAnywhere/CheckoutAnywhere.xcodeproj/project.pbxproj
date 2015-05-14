@@ -12,7 +12,6 @@
 			buildConfigurationList = 904FB61B1AE03DC500EA1758 /* Build configuration list for PBXAggregateTarget "Checkout-Universal" */;
 			buildPhases = (
 				904FB61F1AE03DCF00EA1758 /* ShellScript */,
-				90E80E471AFBE0FF003A9909 /* ShellScript */,
 			);
 			dependencies = (
 			);
@@ -723,20 +722,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"warning: Framework built, building docs\"\n\n###################\n# Builds the docs #\n###################\n\nFRAMEWORK_NAME=\"Checkout\"\nFRAMEWORK_NAME_FRAMEWORK=\"${FRAMEWORK_NAME}.framework\"\nUNIVERSAL_LIBRARY_DIR=\"${BUILD_DIR}/${FRAMEWORK_NAME}\"\nFRAMEWORK=\"${UNIVERSAL_LIBRARY_DIR}/${FRAMEWORK_NAME_FRAMEWORK}\"\n\nif [ ! -x /usr/local/bin/appledoc ]; then\necho \"error: appledoc is required for building Checkout's documentation. See http://appledoc.gentlebytes.com\" 1>&2\nexit 1\nfi\n\n# echo \"warning: warnings are a result of https://github.com/tomaz/appledoc/issues/348\"\n# we don't see these warnings because we have --explicit-crossref in the AppledocSettings.plist\n\n/usr/local/bin/appledoc --print-settings --publish-docset --install-docset --output \"${BUILT_PRODUCTS_DIR}/docs/\" --include \"docs/Integration\" --ignore \"docs/templates\" --templates \"docs/templates\" \"${BUILT_PRODUCTS_DIR}/${FRAMEWORK_NAME_FRAMEWORK}\" \"docs\"\n\necho \"warning: Opening documentation in browser...\"\nopen \"$HOME/Library/Developer/Shared/Documentation/DocSets/org.shopify.Mobile-Checkout-SDK.docset/Contents/Resources/Documents/index.html\"";
-		};
-		90E80E471AFBE0FF003A9909 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "###################\n# Builds the docs #\n###################\n\nif [ ! -x /usr/local/bin/appledoc ]; then\necho \"error: appledoc is required for building ResearchKit's documentation. See http://appledoc.gentlebytes.com\" 1>&2\nexit 1\nfi\n\necho \"warning: warnings are a result of https://github.com/tomaz/appledoc/issues/348\"\n\n/usr/local/bin/appledoc --print-settings --publish-docset --install-docset --output \"${BUILT_PRODUCTS_DIR}/docs/\" --include \"docs/Overview\" --ignore \"docs/templates\" --templates \"docs/templates\" \"${FRAMEWORK_NAME_FRAMEWORK}/${FRAMEWORK_NAME}\" \"docs\"\n\necho \"warning: Opening documentation in browser...\"\nopen \"$HOME/Library/Developer/Shared/Documentation/DocSets/org.shopify.Mobile-Checkout-SDK.docset/Contents/Resources/Documents/index.html\"\n";
+			shellScript = "echo \"warning: Framework built, building docs\"\n\n###################\n# Builds the docs #\n###################\n\nFRAMEWORK_NAME=\"Buy\"\nFRAMEWORK_NAME_FRAMEWORK=\"${FRAMEWORK_NAME}.framework\"\nUNIVERSAL_LIBRARY_DIR=\"${BUILD_DIR}/${FRAMEWORK_NAME}\"\nFRAMEWORK=\"${UNIVERSAL_LIBRARY_DIR}/${FRAMEWORK_NAME_FRAMEWORK}\"\n\nif [ ! -x /usr/local/bin/appledoc ]; then\necho \"error: appledoc is required for building Shopify Mobile Buy SDK's documentation. See http://appledoc.gentlebytes.com\" 1>&2\nexit 1\nfi\n\n# echo \"warning: warnings are a result of https://github.com/tomaz/appledoc/issues/348\"\n# we don't see these warnings because we have --explicit-crossref in the AppledocSettings.plist\n\n/usr/local/bin/appledoc --print-settings --publish-docset --install-docset --output \"${BUILT_PRODUCTS_DIR}/docs/\" --include \"docs/Integration\" --ignore \"docs/templates\" --templates \"docs/templates\" \"${BUILT_PRODUCTS_DIR}/${FRAMEWORK_NAME_FRAMEWORK}\" \"docs\"\n\necho \"warning: Opening documentation in browser...\"\nopen \"$HOME/Library/Developer/Shared/Documentation/DocSets/org.shopify.Mobile-Buy-SDK.docset/Contents/Resources/Documents/index.html\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
