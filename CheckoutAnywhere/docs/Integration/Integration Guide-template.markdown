@@ -1,7 +1,7 @@
 # Mobile Buy SDK Integration Guide
 
 
-Shopify's **Mobile Buy SDK** for iOS enables merchants to easily sell products in iOS apps and allow their customers to checkout using the Shopify Checkout API or Apple Pay.
+Shopify's Mobile Buy SDK for iOS enables merchants to easily sell products in iOS apps and allows their customers to checkout using the Shopify Checkout API or Apple Pay.
 
 ## Getting Started
 
@@ -10,15 +10,15 @@ Shopify's **Mobile Buy SDK** for iOS enables merchants to easily sell products i
 - iOS 8.0 or greater
 - Xcode 6.2 or greater
 - *Mobile App* Channel on your shop
-- Apple Pay: [Getting Started with Apple Pay](https://developer.apple.com/apple-pay/Getting-Started-with-Apple-Pay.pdf)
+- Apple Pay Guide: [Getting Started with Apple Pay](https://developer.apple.com/apple-pay/Getting-Started-with-Apple-Pay.pdf)
 
 
 ### Installation
 
-1. In the project editor, select the target to which you want to add Checkout.framework
+1. In the project editor, select the target to which you want to add `Checkout.framework`.
 <center><img src="sdk_integration_embedding_framework_1.png" width="100%" alt="ResearchKit framework Overview"/></center>
 
-2. In the *General* tab, drag the `Checkout.framework` onto the *Embedded Binaries* section. Check *Copy items if needed* so the framework is copied to your project
+2. In the **General** tab, drag the `Checkout.framework` onto the **Embedded Binaries** section. Check **Copy items if needed** so the framework is copied to your project.
 <center><img src="sdk_integration_embedding_framework_2.png" width="100%" alt="ResearchKit framework Overview"/></center>
 
 ### Initialize the framework
@@ -38,9 +38,9 @@ Optionally, enable Apple Pay (you must enable Apple Pay in the *Mobile App* Chan
 	[provider enableApplePayWithMerchantId:MERCHANT_ID];
 
 ## Using the Mobile Buy SDK
-The easiest way to use the **Mobile Buy SDK** is to leverage the `CHKViewController`. This view controller handles most of the checkout process for you, and makes it easy to support Apple Pay.
+The easiest way to use the Mobile Buy SDK is to leverage the `CHKViewController`. This view controller handles most of the checkout process for you, and makes it easy to support Apple Pay.
 
-We provide two sample apps that integrates this view controller:
+We provide two sample apps that integrate this view controller:
 
 - The `Sample App Native` demonstrates a native checkout using Apple Pay
 - The `Sample App Web` displays a shop's responsive website and supports both Apple Pay and web checkout
@@ -49,11 +49,11 @@ To implement a fully custom checkout experience in your app, use the **Mobile Bu
 
 ### Overview
 
-- [Get list of Products](#Getting-Products)
+- [Getting Products](#Getting-Products)
 - [Building a cart](#Building-a-cart)
 - [Creating a Checkout](#Creating-a-Checkout)
-- [Add information to the Checkout](#Add-information-to-the-Checkout)
-- [Complete the Checkout](#Completing-the-Checkout)
+- [Adding information to the Checkout](#Add-information-to-the-Checkout)
+- [Completing the Checkout](#Completing-the-Checkout)
 - [Checking for Checkout Completion](#checking-for-checkout-completion)
 
 ### Getting Products
@@ -71,7 +71,7 @@ Get products from a shop and display the products in your app.
 
 ### Building a Cart
 
-A `CHKCart` is required for any checkout. `CHKCart` consists of one or more line items from product variants retrieved above. 
+`CHKCart` consists of one or more line items from product variants retrieved in the product list. 
 
 	// Create a cart
 	CHKCart *cart = [[CHKCart alloc] init];
@@ -84,7 +84,7 @@ A `CHKCart` is required for any checkout. `CHKCart` consists of one or more line
 
 ### Creating a Checkout
 
-When the customer is ready to make a purchase, a `CHKCheckout` must to be created from the `CHKCart` object.
+When the customer is ready to make a purchase, a `CHKCheckout` must be created from the `CHKCart` object.
 
 KCheckout *checkout = [[CHKCheckout alloc] initWithCart:cart];
 
@@ -97,11 +97,11 @@ KCheckout *checkout = [[CHKCheckout alloc] initWithCart:cart];
 	    }
 	}];
 
-### Add information to the Checkout
+### Adding information to the Checkout
 
-Before completing the checkout, additional shipping and payment information must to be added to the `CHKCheckout` object. The customer's shipping information is required to obtain shipping rates. This is an opportunity to prompt the customer for their shipping address. 
+Before completing the checkout, additional shipping and payment information must be added to the `CHKCheckout` object. The customer's shipping information is required to obtain shipping rates. This is an opportunity to prompt the customer for their shipping address. 
 
-If you wish to support Apple Pay familiarize yourself with the [Apple Pay Programming Guide](https://developer.apple.com/library/ios/ApplePay_Guide/). The shipping address is provided from the `PKPaymentAuthorizationViewControllerDelegate` method `paymentAuthorizationViewController:didSelectShippingAddress:completion:`
+If you want to support Apple Pay, familiarize yourself with the [Apple Pay Programming Guide](https://developer.apple.com/library/ios/ApplePay_Guide/). The shipping address is provided from the `PKPaymentAuthorizationViewControllerDelegate` method `paymentAuthorizationViewController:didSelectShippingAddress:completion:`
 
 	// Get the customer's shipping address
 	CHKAddress *shippingAddress = [[CHKAddress alloc] init];
@@ -123,7 +123,7 @@ If you wish to support Apple Pay familiarize yourself with the [Apple Pay Progra
 	    }
 	}];
 
-Once the checkout has been updated with the shipping address, the shipping rates can be retreived
+Once the checkout has been updated with the shipping address, the shipping rates can be retreived.
 
 	// Obtain shipping rates
 	[provider getShippingRatesForCheckout:self.checkout completion:^(NSArray *shippingRates, CHKStatus status, NSError *error) {
@@ -144,7 +144,7 @@ Add the selected shipping method to the `CHKCheckout` object.
 
 At this point you are ready to collect the payment information from the customer. If using a credit card payment, prompt the customer to enter the credit card information. If [using Apple Pay](#Option-2-Using-Apple-Pay), keep a reference to the `PKPaymentToken`.
 
-We highly recommend that you use Apple Pay as the only source of payment within your app, even if this SDK supports payment by credit card as well. Please familiarize yourself with the [Mobile PCI Standards](https://www.pcisecuritystandards.org/documents/Mobile_Payment_Security_Guidelines_Developers_v1.pdf) before including a full credit card checkout flow in your app.
+Although the SDK supports payment by credit card, we highly recommend that you use Apple Pay as the only source of payment within your app. Familiarize yourself with the [Mobile PCI Standards](https://www.pcisecuritystandards.org/documents/Mobile_Payment_Security_Guidelines_Developers_v1.pdf) before including a full credit card checkout flow in your app.
 
 #### Option 1: Using Credit Card
 
@@ -214,7 +214,7 @@ The `PKPaymentToken` enables Shopify Payments to process the payment.
 
 ## Error Handling
 
-Please ensure to verify the `error` object returned with every completion block.
+It's essential to verify the `error` object returned with every completion block.
 
 For example, if you were to complete a checkout **without an email**, the `error.userInfo` will be:
 
