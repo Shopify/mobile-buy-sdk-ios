@@ -155,8 +155,10 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
 
 /**
  *  Test the integration with your shop.  This should not be shipped in production code
+ *
+ *  @return YES on success
  */
-- (void)testIntegration;
+- (BOOL)testIntegration;
 
 /**
  *  The page size for any paged request. This can range from 1-250.

@@ -65,15 +65,26 @@
 	self.merchantId = merchantId;
 }
 
-- (void)testIntegration
+- (BOOL)testIntegration
 {
+	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	__block BOOL success = NO;
+	
 	NSString *urlString = [NSString stringWithFormat:@"http://%@/mobile_app/verify?api_key=%@&channel_id=%@", self.shopDomain, self.apiKey, self.channelId];
 	
 	if (self.merchantId.length > 0) {
 		urlString = [urlString stringByAppendingFormat:@"&merchant_id=%@", self.merchantId];
 	}
 	
-	[self performRequestForURL:urlString completionHandler:nil];
+	[self performRequestForURL:urlString completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+		
+		success = ((NSHTTPURLResponse *)response).statusCode == 200;
+		dispatch_semaphore_signal(semaphore);
+	}];
+	
+	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+
+	return success;
 }
 
 #pragma mark - Storefront
