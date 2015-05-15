@@ -54,10 +54,24 @@
 		self.channelId = channelId;
 		self.applicationName = [[NSBundle mainBundle] infoDictionary][@"CFBundleName"] ?: @"";
 		self.queue = [[NSOperationQueue alloc] init];
-		self.session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:_queue];
 		self.pageSize = 25;
 	}
 	return self;
+}
+
+- (NSURLSession *)session
+{
+	if (_session == nil) {
+		NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+		
+		NSString *versionString = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+		sessionConfig.HTTPAdditionalHeaders = @{@"Content-Type": kJSONType,
+												@"Accept": kJSONType,
+												@"X-Shopify-Mobile-Buy-SDK-Version": [NSString stringWithFormat:@"iOS/%@", versionString]};
+		_session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:self.queue];
+	}
+
+	return _session;
 }
 
 - (void)enableApplePayWithMerchantId:(NSString *)merchantId
@@ -137,7 +151,7 @@
 - (NSURLSessionDataTask *)performRequestForURL:(NSString *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
 	NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
-	NSURLSessionDataTask *task = [_session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+	NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
 		NSDictionary *json = nil;
 		if (error == nil) {
 			id jsonData = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
@@ -392,11 +406,9 @@
 {
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
 	request.HTTPBody = body;
-	[request addValue:kJSONType forHTTPHeaderField:@"Content-Type"];
-	[request addValue:kJSONType forHTTPHeaderField:@"Accept"];
 	[request addValue:[self authorizationHeader] forHTTPHeaderField:@"Authorization"];
 	request.HTTPMethod = method;
-	NSURLSessionDataTask *task = [_session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+	NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
 		NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
 		NSDictionary *json = nil;
 		BOOL unauthorized = statusCode == 401;

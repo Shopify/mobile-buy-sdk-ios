@@ -6,14 +6,6 @@
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
-//! Project version number for Buy.
-FOUNDATION_EXPORT double BuyVersionNumber;
-
-//! Project version string for Buy.
-FOUNDATION_EXPORT const unsigned char BuyVersionString[];
-
 #import <Buy/BUYAddress.h>
 #import <Buy/BUYCart.h>
 #import <Buy/BUYCheckout.h>
