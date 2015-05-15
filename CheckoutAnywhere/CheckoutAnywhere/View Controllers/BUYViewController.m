@@ -113,78 +113,38 @@
 	}];
 }
 
-#pragma mark - Step 4 - Fetch Shipping Rates and Default to the First One
-
-- (void)fetchShippingRates:(void (^)(PKPaymentAuthorizationStatus, NSArray *, NSArray *))completion
-{
-	//Step 4 - Fetch shipping rates. This may take several seconds to get back from our shipping providers. You have to poll here.
-	_shippingRates = @[];
-	
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	__block BUYStatus shippingStatus = BUYStatusUnknown;
-	while (shippingStatus == BUYStatusUnknown || shippingStatus == BUYStatusProcessing) {
-		[_provider getShippingRatesForCheckout:_checkout completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
-			shippingStatus = status;
-			
-			if (error) {
-				[_delegate controller:self failedToGetShippingRates:_checkout withError:error];
-				completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [_checkout buy_summaryItems]);
-			}
-			else if (status == BUYStatusComplete && [shippingRates count] == 0) {
-				//You don't ship to this location
-				[_delegate controller:self failedToGetShippingRates:_checkout withError:error];
-				
-				_checkout.shippingRate = nil;
-				completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [_checkout buy_summaryItems]);
-			}
-			else if ((status == BUYStatusUnknown && error == nil) || status == BUYStatusComplete) { //We shouldn't add unkonown here, but this supports the case where we don't need shipping rates
-				shippingStatus = BUYStatusComplete;
-				
-				_shippingRates = shippingRates;
-			}
-			
-			dispatch_semaphore_signal(semaphore);
-		}];
-		
-		dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-		if (shippingStatus != BUYStatusComplete && shippingStatus != BUYStatusUnknown) {
-			//ADjust as you see fit for your polling rate.
-			[NSThread sleepForTimeInterval:kPollDelay];
-		}
-	}
-}
-
-#pragma mark - Step 5 - Update Checkout with Shipping Info
+#pragma mark - Step 4 - Update Checkout with Shipping Info
 
 - (void)getShippingRates:(BUYCheckout *)checkout completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *shippingMethods, NSArray *summaryItems))completion
 {
-	//Step 5 - We're now fetching the rates from Shopify. This will will calculate shipping rates very similarly to how our web checkout.
-	//We then turn our BUYShippingRate objects into PKShippingMethods for Apple to present to the user.
+	//Step 4 - We're now fetching the rates from Shopify. This will will calculate shipping rates very similarly to how our web checkout.
+	//We then turn our CHKShippingRate objects into PKShippingMethods for Apple to present to the user.
 	
 	if ([_checkout requiresShipping] == NO) {
 		completion(PKPaymentAuthorizationStatusSuccess, nil, [_checkout buy_summaryItems]);
 	}
 	else {
-		[self fetchShippingRates:completion];
-		
-		NSArray *shippingMethods = [BUYShippingRate buy_convertShippingRatesToShippingMethods:_shippingRates];
-		if ([shippingMethods count] > 0) {
-			[self selectShippingMethod:shippingMethods[0] completion:^(BUYCheckout *checkout, NSError *error) {
-				if (checkout && error == nil) {
-					_checkout = checkout;
-				}
-				completion(error ? PKPaymentAuthorizationStatusFailure : PKPaymentAuthorizationStatusSuccess, shippingMethods, [_checkout buy_summaryItems]);
-			}];
-		}
-		else {
-			completion(PKPaymentAuthorizationStatusSuccess, nil, [_checkout buy_summaryItems]);
-		}
+		[_provider getShippingRatesForCheckout:_checkout completion:^(NSArray *shippingRates, NSError *error) {
+			
+			NSArray *shippingMethods = [BUYShippingRate buy_convertShippingRatesToShippingMethods:_shippingRates];
+			if ([shippingMethods count] > 0) {
+				[self selectShippingMethod:shippingMethods[0] completion:^(BUYCheckout *checkout, NSError *error) {
+					if (checkout && error == nil) {
+						_checkout = checkout;
+					}
+					completion(error ? PKPaymentAuthorizationStatusFailure : PKPaymentAuthorizationStatusSuccess, shippingMethods, [_checkout buy_summaryItems]);
+				}];
+			}
+			else {
+				completion(PKPaymentAuthorizationStatusSuccess, nil, [_checkout buy_summaryItems]);
+			}
+		}];
 	}
 }
 
 - (void)updateCheckoutWithShippingMethod:(PKShippingMethod *)shippingMethod completion:(void (^)(PKPaymentAuthorizationStatus, NSArray *))completion
 {
-	//Step 5B -- Update the checkout with the selected shipping rate. This is called when a user selects an alternative rate (or double-selects the same one)
+	//Step 4B -- Update the checkout with the selected shipping rate. This is called when a user selects an alternative rate (or double-selects the same one)
 	
 	[self selectShippingMethod:shippingMethod completion:^(BUYCheckout *checkout, NSError *error) {
 		if (checkout && error == nil) {
@@ -202,7 +162,7 @@
 	[_provider updateCheckout:_checkout completion:block];
 }
 
-#pragma mark - Step 6 - Complete Checkout
+#pragma mark - Step 5 - Complete Checkout
 
 - (void)updateAndCompleteCheckoutWithPayment:(PKPayment *)payment completion:(void (^)(PKPaymentAuthorizationStatus))completion
 {
