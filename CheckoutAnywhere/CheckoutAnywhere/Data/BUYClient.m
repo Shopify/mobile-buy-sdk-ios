@@ -300,14 +300,15 @@ NSString * const BUYClientError = @"shopify.client";
 - (NSURLSessionDataTask *)getShippingRatesForCheckout:(BUYCheckout *)checkout completion:(BUYDataShippingRatesBlock)block
 {
 	if ([checkout hasToken]) {
-		return [self getShippingRatesForCheckout:checkout retriesRemaining:kMaxPollingAttempts completion:block];
+		
+		return [self pollShippingRatesForCheckout:checkout retriesRemaining:kMaxPollingAttempts completion:block];
 	}
 	else {
 		return nil;
 	}
 }
 
-- (NSURLSessionDataTask *)getShippingRatesForCheckout:(BUYCheckout *)checkout retriesRemaining:(int)retriesRemaining completion:(BUYDataShippingRatesBlock)block {
+- (NSURLSessionDataTask *)pollShippingRatesForCheckout:(BUYCheckout *)checkout retriesRemaining:(int)retriesRemaining completion:(BUYDataShippingRatesBlock)block {
 	
 	__block NSURLSessionDataTask *task = nil;
 	
@@ -322,8 +323,12 @@ NSString * const BUYClientError = @"shopify.client";
 			NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
 			
 			if (statusCode == BUYStatusProcessing) {
-				dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kPollingInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-					task = [self getShippingRatesForCheckout:checkout retriesRemaining:retriesRemaining-1 completion:block];
+				
+				// Increase the interval for the last few attempts
+				NSTimeInterval interval = (retriesRemaining > kMaxPollingAttempts/2) ? kPollingInterval : 4 * kPollingInterval;
+				
+				dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(interval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+					task = [self pollShippingRatesForCheckout:checkout retriesRemaining:retriesRemaining-1 completion:block];
 				});
 			}
 			else {
