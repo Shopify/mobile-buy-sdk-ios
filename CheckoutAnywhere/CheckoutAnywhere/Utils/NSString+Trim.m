@@ -1,6 +1,6 @@
 //
 //  NSString+Trim.m
-//  Checkout
+//  Mobile Buy SDK
 //
 //  Created by Shopify on 2014-09-18.
 //  Copyright (c) 2014 Shopify Inc. All rights reserved.
@@ -10,7 +10,7 @@
 
 @implementation NSString (Trim)
 
-- (NSString*)chk_trim
+- (NSString*)buy_trim
 {
 	return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
