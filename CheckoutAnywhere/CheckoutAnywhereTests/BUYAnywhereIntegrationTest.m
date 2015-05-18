@@ -21,7 +21,6 @@ else { \
 XCTFail(@"Task was nil, could not wait"); \
 } \
 
-
 @interface BUYAnywhereIntegrationTest : XCTestCase
 @end
 
@@ -36,6 +35,7 @@ XCTFail(@"Task was nil, could not wait"); \
 	NSArray *_shippingRates;
 	BUYGiftCard *_giftCard;
 	
+	
 	NSString *shopDomain;
 	NSString *apiKey;
 	NSString *channelId;
@@ -48,7 +48,7 @@ XCTFail(@"Task was nil, could not wait"); \
 {
 	[super setUp];
 	
-
+	
 	shopDomain = [NSProcessInfo environmentForKey:kBUYTestDomain];
 	apiKey = [NSProcessInfo environmentForKey:kBUYTestAPIKey];
 	channelId = [NSProcessInfo environmentForKey:kBUYTestChannelId];
@@ -59,6 +59,7 @@ XCTFail(@"Task was nil, could not wait"); \
 	XCTAssert([shopDomain length] > 0, @"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");
 	XCTAssertEqualObjects([shopDomain substringFromIndex:shopDomain.length - 14], @".myshopify.com", @"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");
 	XCTAssert([apiKey length] > 0, @"You must provide a valid API Key.");
+	
 	
 	_checkoutDataProvider = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
 	
@@ -134,19 +135,27 @@ XCTFail(@"Task was nil, could not wait"); \
 
 - (void)fetchShippingRates
 {
+	__block BUYStatus shippingStatus = BUYStatusUnknown;
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	if (_checkout.token) {
+	while (_checkout.token && shippingStatus != BUYStatusFailed && shippingStatus != BUYStatusComplete) {
 		NSLog(@"Fetching shipping rates...");
-		NSURLSessionDataTask *task = [_checkoutDataProvider getShippingRatesForCheckout:_checkout completion:^(NSArray *returnedShippingRates, NSError *error) {
-			
+		NSURLSessionDataTask *task = [_checkoutDataProvider getShippingRatesForCheckout:_checkout completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
 			XCTAssertNil(error);
-			XCTAssertNotNil(returnedShippingRates);
-			_shippingRates = returnedShippingRates;
+			shippingStatus = status;
+			if (shippingStatus == BUYStatusComplete) {
+				XCTAssertNotNil(returnedShippingRates);
+				_shippingRates = returnedShippingRates;
+			}
 			dispatch_semaphore_signal(semaphore);
 		}];
 		WAIT_FOR_TASK(task, semaphore);
+		
+		if (shippingStatus != BUYStatusComplete) {
+			[NSThread sleepForTimeInterval:0.5f];
+		}
 	}
 	XCTAssertTrue([_shippingRates count] > 0);
+	XCTAssertEqual(shippingStatus, BUYStatusComplete);
 }
 
 - (void)updateCheckout
@@ -330,13 +339,11 @@ XCTFail(@"Task was nil, could not wait"); \
 - (void)testCheckoutAnywhereWithoutAuthToken
 {
 	[self createCart];
-
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 	
 	_checkoutDataProvider = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:@"" channelId:nil];
 	NSURLSessionDataTask *task = [_checkoutDataProvider createCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
-
 		XCTAssertNotNil(error);
 		XCTAssertEqualObjects(error.domain, @"shopify");
 		XCTAssertEqual(error.code, 401);
@@ -349,13 +356,11 @@ XCTFail(@"Task was nil, could not wait"); \
 - (void)testCheckoutAnywhereWithInvalidShop
 {
 	[self createCart];
-
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 	
 	_checkoutDataProvider = [[BUYClient alloc] initWithShopDomain:@"asdfdsasdfdsasdfdsadsfowinfaoinfw.myshopify.com" apiKey:apiKey channelId:nil];
 	NSURLSessionDataTask *task = [_checkoutDataProvider createCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
-
 		XCTAssertNotNil(error);
 		XCTAssertEqualObjects(error.domain, @"shopify");
 		XCTAssertEqual(error.code, 404);
@@ -380,8 +385,8 @@ XCTFail(@"Task was nil, could not wait"); \
 	}];
 	WAIT_FOR_TASK(task, semaphore);
 	
-	task = [_checkoutDataProvider getShippingRatesForCheckout:_checkout completion:^(NSArray *returnedShippingRates, NSError *error) {
-		XCTAssertEqual(BUYStatusPreconditionFailed, error.code);
+	task = [_checkoutDataProvider getShippingRatesForCheckout:_checkout completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
+		XCTAssertEqual(BUYStatusPreconditionFailed, status);
 		dispatch_semaphore_signal(semaphore);
 	}];
 	WAIT_FOR_TASK(task, semaphore);
@@ -393,8 +398,8 @@ XCTFail(@"Task was nil, could not wait"); \
 	checkout.token = @"bananaaaa";
 	
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_checkoutDataProvider getShippingRatesForCheckout:checkout completion:^(NSArray *returnedShippingRates, NSError *error) {
-		XCTAssertEqual(BUYStatusNotFound, error.code);
+	NSURLSessionDataTask *task = [_checkoutDataProvider getShippingRatesForCheckout:checkout completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
+		XCTAssertEqual(BUYStatusNotFound, status);
 		dispatch_semaphore_signal(semaphore);
 	}];
 	WAIT_FOR_TASK(task, semaphore);
@@ -452,7 +457,6 @@ XCTFail(@"Task was nil, could not wait"); \
 {
 	[self createCart];
 	
-
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	_checkout.discount = [self applicableDiscount];
 	
