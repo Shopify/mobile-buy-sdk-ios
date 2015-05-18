@@ -48,7 +48,7 @@ XCTFail(@"Task was nil, could not wait"); \
 {
 	[super setUp];
 	
-	
+
 	shopDomain = [NSProcessInfo environmentForKey:kBUYTestDomain];
 	apiKey = [NSProcessInfo environmentForKey:kBUYTestAPIKey];
 	channelId = [NSProcessInfo environmentForKey:kBUYTestChannelId];
@@ -60,7 +60,7 @@ XCTFail(@"Task was nil, could not wait"); \
 	XCTAssertEqualObjects([shopDomain substringFromIndex:shopDomain.length - 14], @".myshopify.com", @"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");
 	XCTAssert([apiKey length] > 0, @"You must provide a valid API Key.");
 	
-	
+
 	_checkoutDataProvider = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
 	
 	_products = [[NSMutableArray alloc] init];
