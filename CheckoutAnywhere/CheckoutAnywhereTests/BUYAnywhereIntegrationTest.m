@@ -135,19 +135,27 @@ XCTFail(@"Task was nil, could not wait"); \
 
 - (void)fetchShippingRates
 {
+	__block BUYStatus shippingStatus = BUYStatusUnknown;
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	if (_checkout.token) {
+	while (_checkout.token && shippingStatus != BUYStatusFailed && shippingStatus != BUYStatusComplete) {
 		NSLog(@"Fetching shipping rates...");
-		NSURLSessionDataTask *task = [_checkoutDataProvider getShippingRatesForCheckout:_checkout completion:^(NSArray *returnedShippingRates, NSError *error) {
-			
+		NSURLSessionDataTask *task = [_checkoutDataProvider getShippingRatesForCheckout:_checkout completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
 			XCTAssertNil(error);
-			XCTAssertNotNil(returnedShippingRates);
-			_shippingRates = returnedShippingRates;
+			shippingStatus = status;
+			if (shippingStatus == BUYStatusComplete) {
+				XCTAssertNotNil(returnedShippingRates);
+				_shippingRates = returnedShippingRates;
+			}
 			dispatch_semaphore_signal(semaphore);
 		}];
 		WAIT_FOR_TASK(task, semaphore);
+		
+		if (shippingStatus != BUYStatusComplete) {
+			[NSThread sleepForTimeInterval:0.5f];
+		}
 	}
 	XCTAssertTrue([_shippingRates count] > 0);
+	XCTAssertEqual(shippingStatus, BUYStatusComplete);
 }
 
 - (void)updateCheckout
@@ -377,8 +385,8 @@ XCTFail(@"Task was nil, could not wait"); \
 	}];
 	WAIT_FOR_TASK(task, semaphore);
 	
-	task = [_checkoutDataProvider getShippingRatesForCheckout:_checkout completion:^(NSArray *returnedShippingRates, NSError *error) {
-		XCTAssertEqual(BUYStatusPreconditionFailed, error.code);
+	task = [_checkoutDataProvider getShippingRatesForCheckout:_checkout completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
+		XCTAssertEqual(BUYStatusPreconditionFailed, status);
 		dispatch_semaphore_signal(semaphore);
 	}];
 	WAIT_FOR_TASK(task, semaphore);
@@ -390,8 +398,8 @@ XCTFail(@"Task was nil, could not wait"); \
 	checkout.token = @"bananaaaa";
 	
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_checkoutDataProvider getShippingRatesForCheckout:checkout completion:^(NSArray *returnedShippingRates, NSError *error) {
-		XCTAssertEqual(BUYStatusNotFound, error.code);
+	NSURLSessionDataTask *task = [_checkoutDataProvider getShippingRatesForCheckout:checkout completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
+		XCTAssertEqual(BUYStatusNotFound, status);
 		dispatch_semaphore_signal(semaphore);
 	}];
 	WAIT_FOR_TASK(task, semaphore);

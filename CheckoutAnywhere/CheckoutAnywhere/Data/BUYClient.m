@@ -26,11 +26,6 @@
 #define kMinSuccessfulStatusCode 200
 #define kMaxSuccessfulStatusCode 299
 
-#define kPollingInterval 0.5
-#define kMaxPollingAttempts 20
-
-NSString * const BUYClientError = @"shopify.client";
-
 @interface BUYClient () <NSURLSessionDelegate>
 
 @property (nonatomic, strong) NSString *shopDomain;
@@ -59,7 +54,13 @@ NSString * const BUYClientError = @"shopify.client";
 		self.channelId = channelId;
 		self.applicationName = [[NSBundle mainBundle] infoDictionary][@"CFBundleName"] ?: @"";
 		self.queue = [[NSOperationQueue alloc] init];
-		self.session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:self.queue];
+		
+		NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+		NSString *versionString = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+		
+		config.HTTPAdditionalHeaders = @{@"X-Shopify-Mobile-Buy-SDK-Version": [NSString stringWithFormat:@"iOS/%@", versionString]};
+		
+		self.session = [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:self.queue];
 		self.pageSize = 25;
 	}
 	return self;
@@ -141,11 +142,7 @@ NSString * const BUYClientError = @"shopify.client";
 
 - (NSURLSessionDataTask *)performRequestForURL:(NSString *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
-	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
-	NSString *versionString = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-	[request addValue:[NSString stringWithFormat:@"iOS/%@", versionString] forHTTPHeaderField:@"X-Shopify-Mobile-Buy-SDK-Version"];
-	
-	NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+	NSURLSessionDataTask *task = [self.session dataTaskWithURL:[NSURL URLWithString:url] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
 		NSDictionary *json = nil;
 		if (error == nil) {
 			id jsonData = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
@@ -169,6 +166,7 @@ NSString * const BUYClientError = @"shopify.client";
 }
 
 #pragma mark - Checkout
+
 - (void)handleCheckoutResponse:(NSDictionary *)json error:(NSError *)error block:(BUYDataCheckoutBlock)block
 {
 	BUYCheckout *checkout = nil;
@@ -313,53 +311,6 @@ NSString * const BUYClientError = @"shopify.client";
 
 - (NSURLSessionDataTask *)getShippingRatesForCheckout:(BUYCheckout *)checkout completion:(BUYDataShippingRatesBlock)block
 {
-	if ([checkout hasToken]) {
-		
-		return [self pollShippingRatesForCheckout:checkout retriesRemaining:kMaxPollingAttempts completion:block];
-	}
-	else {
-		return nil;
-	}
-}
-
-- (NSURLSessionDataTask *)pollShippingRatesForCheckout:(BUYCheckout *)checkout retriesRemaining:(int)retriesRemaining completion:(BUYDataShippingRatesBlock)block {
-	
-	__block NSURLSessionDataTask *task = nil;
-	
-	if (retriesRemaining > 0) {
-		
-		task = [self getRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/shipping_rates.json?checkout[partial_addresses]=true", _shopDomain, checkout.token] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-			NSArray *shippingRates = nil;
-			if (error == nil && json) {
-				shippingRates = [BUYShippingRate convertJSONArray:json[@"shipping_rates"]];
-			}
-			
-			NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
-			
-			if (statusCode == BUYStatusProcessing) {
-				
-				// Increase the interval for the last few attempts
-				NSTimeInterval interval = (retriesRemaining > kMaxPollingAttempts/2) ? kPollingInterval : 4 * kPollingInterval;
-				
-				dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(interval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-					task = [self pollShippingRatesForCheckout:checkout retriesRemaining:retriesRemaining-1 completion:block];
-				});
-			}
-			else {
-				block(shippingRates, error);
-			}
-		}];
-	}
-	else {
-		NSError *error = [NSError errorWithDomain:BUYClientError code:-1 userInfo:nil];
-		block(nil, error);
-	}
-	
-	return task;
-}
-
-- (NSURLSessionDataTask *)fetchShippingRatesWithCheckout:(BUYCheckout *)checkout completion:(void (^)(NSArray *shippingRates, BUYStatus status, NSError *error))block
-{
 	NSURLSessionDataTask *task = nil;
 	if ([checkout hasToken]) {
 		task = [self getRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/shipping_rates.json?checkout[partial_addresses]=true", _shopDomain, checkout.token] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
@@ -447,8 +398,6 @@ NSString * const BUYClientError = @"shopify.client";
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
 	request.HTTPBody = body;
 	
-	NSString *versionString = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-	[request addValue:[NSString stringWithFormat:@"iOS/%@", versionString] forHTTPHeaderField:@"X-Shopify-Mobile-Buy-SDK-Version"];
 	[request addValue:[self authorizationHeader] forHTTPHeaderField:@"Authorization"];
 	[request addValue:kJSONType forHTTPHeaderField:@"Content-Type"];
 	[request addValue:kJSONType forHTTPHeaderField:@"Accept"];
