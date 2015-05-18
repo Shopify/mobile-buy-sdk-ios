@@ -54,7 +54,13 @@
 		self.channelId = channelId;
 		self.applicationName = [[NSBundle mainBundle] infoDictionary][@"CFBundleName"] ?: @"";
 		self.queue = [[NSOperationQueue alloc] init];
-		self.session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:self.queue];
+		
+		NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+		NSString *versionString = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+		
+		config.HTTPAdditionalHeaders = @{@"X-Shopify-Mobile-Buy-SDK-Version": [NSString stringWithFormat:@"iOS/%@", versionString]};
+		
+		self.session = [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:self.queue];
 		self.pageSize = 25;
 	}
 	return self;
@@ -136,11 +142,7 @@
 
 - (NSURLSessionDataTask *)performRequestForURL:(NSString *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
-	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
-	NSString *versionString = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-	[request addValue:[NSString stringWithFormat:@"iOS/%@", versionString] forHTTPHeaderField:@"X-Shopify-Mobile-Buy-SDK-Version"];
-	
-	NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+	NSURLSessionDataTask *task = [self.session dataTaskWithURL:[NSURL URLWithString:url] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
 		NSDictionary *json = nil;
 		if (error == nil) {
 			id jsonData = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
@@ -396,8 +398,6 @@
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
 	request.HTTPBody = body;
 	
-	NSString *versionString = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-	[request addValue:[NSString stringWithFormat:@"iOS/%@", versionString] forHTTPHeaderField:@"X-Shopify-Mobile-Buy-SDK-Version"];
 	[request addValue:[self authorizationHeader] forHTTPHeaderField:@"Authorization"];
 	[request addValue:kJSONType forHTTPHeaderField:@"Content-Type"];
 	[request addValue:kJSONType forHTTPHeaderField:@"Accept"];
