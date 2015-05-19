@@ -312,7 +312,7 @@ NSString * const BUYShopifyError = @"shopify";
 - (WKUserScript *)userScriptWithName:(NSString*)scriptName
 {
 	NSString *frameworkDirPath = [[NSBundle mainBundle] privateFrameworksPath];
-	NSString *frameworkBundlePath = [frameworkDirPath stringByAppendingPathComponent:@"Checkout.framework"];
+	NSString *frameworkBundlePath = [frameworkDirPath stringByAppendingPathComponent:@"Buy.framework"];
 	NSBundle *frameworkBundle = [NSBundle bundleWithPath:frameworkBundlePath];
 	
 	NSData *jsData = [NSData dataWithContentsOfFile:[frameworkBundle pathForResource:scriptName ofType:@"js"]];
