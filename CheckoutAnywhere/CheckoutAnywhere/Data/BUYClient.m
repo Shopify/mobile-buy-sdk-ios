@@ -118,21 +118,28 @@
 
 - (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page completion:(BUYDataProductListBlock)block
 {
-	return [self performRequestForURL:[NSString stringWithFormat:@"http://%@/products.json?limit=%lu&page=%lu", _shopDomain, (unsigned long)_pageSize, (unsigned long)page] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	NSString *url = [NSString stringWithFormat:@"https://%@/api/channels/%@/product_publications.json?limit=%lu&page=%lu", self.shopDomain, self.channelId,  (unsigned long)self.pageSize, (unsigned long)page];
+	
+	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+		
 		NSArray *products = nil;
 		if (json && error == nil) {
-			products = [BUYProduct convertJSONArray:json[@"products"]];
+			products = [BUYProduct convertJSONArray:json[@"product_publications"]];
 		}
 		block(products, page, [self hasReachedEndOfPage:products] || error, error);
 	}];
 }
 
-- (NSURLSessionDataTask *)getProductByHandle:(NSString *)handle completion:(BUYDataProductBlock)block
+- (NSURLSessionDataTask *)getProductById:(NSString *)productId completion:(BUYDataProductBlock)block;
 {
-	return [self performRequestForURL:[NSString stringWithFormat:@"http://%@/products/%@.json", _shopDomain, handle] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	NSString *url = [NSString stringWithFormat:@"https://%@/api/channels/%@/product_publications.json?product_ids=%@", self.shopDomain, self.channelId, productId];
+	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+
 		BUYProduct *product = nil;
+
 		if (json && error == nil) {
-			product = [[BUYProduct alloc] initWithDictionary:json[@"product"]];
+			NSArray *products = [BUYProduct convertJSONArray:json[@"product_publications"]];
+			product = [products firstObject];
 		}
 		block(product, error);
 	}];

@@ -8,6 +8,7 @@
 
 #import "BUYProductVariant.h"
 #import "NSDecimalNumber+BUYAdditions.h"
+#import "BUYOptionValue.h"
 
 @implementation BUYProductVariant
 
@@ -16,9 +17,8 @@
 	[super updateWithDictionary:dictionary];
 	
 	_title = [dictionary[@"title"] copy];
-	_option1 = [dictionary[@"option1"] copy];
-	_option2 = [dictionary[@"option2"] copy];
-	_option3 = [dictionary[@"option3"] copy];
+	
+	_options = [BUYOptionValue convertJSONArray:dictionary[@"option_values"]];
 	
 	_price = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"price"]];
 	_compareAtPrice = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"compare_at_price"]];

@@ -27,11 +27,8 @@
 
 /**
  *  Custom properties that a shop owner can use to define BUYProductVariants.
- *  Multiple options can exist. Options are represented as: option1, option2, option3.
  */
-@property (nonatomic, readonly, copy) NSString *option1;
-@property (nonatomic, readonly, copy) NSString *option2;
-@property (nonatomic, readonly, copy) NSString *option3;
+@property (nonatomic, readonly, copy) NSArray *options;
 
 /**
  *  The price of the BUYProductVariant.

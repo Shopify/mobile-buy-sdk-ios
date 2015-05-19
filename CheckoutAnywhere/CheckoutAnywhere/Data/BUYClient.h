@@ -212,15 +212,14 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
 - (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page completion:(BUYDataProductListBlock)block;
 
 /**
- *  Fetches a single product by the name of the product.
- *  For example, if the product url is: http://_________.myshopify.com/products/BANANA
+ *  Fetches a single product by the ID of the product.
  *
- *  @param handle Product handle
+ *  @param prodcutId Product ID
  *  @param block  (^BUYDataProductBlock)(BUYProduct *product, NSError *error);
  *
  *  @return The associated NSURLSessionDataTask
  */
-- (NSURLSessionDataTask *)getProductByHandle:(NSString *)handle completion:(BUYDataProductBlock)block;
+- (NSURLSessionDataTask *)getProductById:(NSString *)productId completion:(BUYDataProductBlock)block;
 
 #pragma mark - Checkout
 
