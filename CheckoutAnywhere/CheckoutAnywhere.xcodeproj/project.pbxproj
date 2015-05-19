@@ -128,6 +128,7 @@
 		BE1C4E361AEAD06100E21624 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A54742D1A0AA61600822409 /* PassKit.framework */; };
 		BE1C4E3B1AEE6EBE00E21624 /* app.js in Resources */ = {isa = PBXBuildFile; fileRef = BE1C4E3A1AEE6EBE00E21624 /* app.js */; };
 		BEBD5F8A1AF4090200EFE869 /* NSProcessInfo+Environment.m in Sources */ = {isa = PBXBuildFile; fileRef = BEBD5F891AF4090200EFE869 /* NSProcessInfo+Environment.m */; };
+		BEE2ED531B0B808400718C48 /* BUYOptionValue.h in Headers */ = {isa = PBXBuildFile; fileRef = BEEA83E51B0B76C7000C6483 /* BUYOptionValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BEEA83E71B0B76C7000C6483 /* BUYOptionValue.m in Sources */ = {isa = PBXBuildFile; fileRef = BEEA83E61B0B76C7000C6483 /* BUYOptionValue.m */; };
 		BEEA83E81B0B788F000C6483 /* BUYOptionValue.m in Sources */ = {isa = PBXBuildFile; fileRef = BEEA83E61B0B76C7000C6483 /* BUYOptionValue.m */; };
 		BEEA83E91B0B788F000C6483 /* BUYOptionValue.m in Sources */ = {isa = PBXBuildFile; fileRef = BEEA83E61B0B76C7000C6483 /* BUYOptionValue.m */; };
@@ -542,6 +543,7 @@
 				90AFAA6A1B0139DE00F21C23 /* BUYDiscount.h in Headers */,
 				90AFAA661B01398A00F21C23 /* BUYShippingRate.h in Headers */,
 				90AFAA5E1B011EA600F21C23 /* BUYTaxLine.h in Headers */,
+				BEE2ED531B0B808400718C48 /* BUYOptionValue.h in Headers */,
 				90AFAA621B01390F00F21C23 /* BUYAddress.h in Headers */,
 				90368D571AE0417700F053C6 /* BUYSerializable.h in Headers */,
 				90368D581AE0417700F053C6 /* BUYShop.h in Headers */,
