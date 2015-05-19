@@ -20,11 +20,8 @@ The sample app instantiates a view controller which is a subclass of `BUYStoreVi
 
 The sample app also demonstrates how to use the `BUYClient` to obtain shop details by calling `getShop:`
 
-
     [self.provider getShop:^(BUYShop *shop, NSError *error) {
-        
         dispatch_async(dispatch_get_main_queue(), ^{
-            
             if (error == nil && shop) {
                 self.title = shop.name;
             }
