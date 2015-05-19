@@ -6,7 +6,7 @@ The native sample app shows an example of displaying a product from a shop and c
 
 ### Getting started
 
-First, add your shop domain, API key and Channel ID to the `AppDelegate.h` macros.
+First, add your shop domain, API key and Channel ID to the `AppDelegate.m` macros.
 
 	#define SHOP_DOMAIN @"<shop_domain>"
 	#define API_KEY @"<api_key>"
@@ -26,4 +26,4 @@ The sample app displays a single product from a shop retrieved on app launch as 
 
 The `ProductController` is a subclass of `BUYViewController`. When the customer taps the **Buy with Apple Pay** button a `BUYCart` is created with the product and Apple Pay using `startCheckoutWithCart:`.
 
-The `AppDelegate` implements the `BUYViewControllerDelegate` protocol and logs erros and progress to the console.
+The `AppDelegate` implements the `BUYViewControllerDelegate` protocol and logs errors and progress to the console.
