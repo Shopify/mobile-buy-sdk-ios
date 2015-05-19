@@ -37,7 +37,7 @@ Optionally, enable Apple Pay (you must enable Apple Pay in the *Mobile App* Chan
 	
 Test the integration
 
-	#warning FOR DEBUG PURPOSES ONLY. DO NOT USE IN RELEASE.
+	// FOR DEBUG PURPOSES ONLY. DO NOT USE IN RELEASE.
 	[client testIntegration]
 	
 This method call should only be made once to ensure your integration works. Once you have confirmed that the integration works on the Mobile App Channel, remove this method.
