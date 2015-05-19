@@ -10,6 +10,8 @@
 @import XCTest;
 
 #import "BUYClient.h"
+#import "NSProcessInfo+Environment.h"
+#import "BUYTestConstants.h"
 
 //Model
 #import "BUYProduct.h"
@@ -28,12 +30,28 @@ XCTFail(@"Task was nil, could not wait"); \
 
 @implementation BUYDataProviderTest_Storefront {
 	BUYClient *_provider;
+	
+	NSString *shopDomain;
+	NSString *apiKey;
+	NSString *channelId;
+	NSString *giftCardCode;
+	NSString *expiredGiftCardCode;
+	NSString *expiredGiftCardId;
 }
 
 - (void)setUp
 {
 	[super setUp];
-	_provider = [[BUYClient alloc] initWithShopDomain:@"ibukun.myshopify.com" apiKey:nil channelId:nil];
+	
+	shopDomain = [NSProcessInfo environmentForKey:kBUYTestDomain];
+	apiKey = [NSProcessInfo environmentForKey:kBUYTestAPIKey];
+	channelId = [NSProcessInfo environmentForKey:kBUYTestChannelId];
+	giftCardCode = [NSProcessInfo environmentForKey:kBUYTestGiftCardCode];
+	expiredGiftCardCode = [NSProcessInfo environmentForKey:kBUYTestExpiredGiftCardCode];
+	expiredGiftCardId = [NSProcessInfo environmentForKey:kBUYTestExpiredGiftCardID];
+	
+	
+	_provider = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
 }
 
 - (void)testDefaultPageSize
@@ -72,7 +90,7 @@ XCTFail(@"Task was nil, could not wait"); \
 	NSURLSessionDataTask *task = [_provider getShop:^(BUYShop *shop, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(shop);
-		XCTAssertEqualObjects(shop.name, @"PackLeader");
+		XCTAssertEqualObjects(shop.name, @"davidmuzi");
 		
 		dispatch_semaphore_signal(semaphore);
 	}];
@@ -82,11 +100,11 @@ XCTFail(@"Task was nil, could not wait"); \
 - (void)testGetProductById
 {
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_provider getProductById:@"123456" completion:^(BUYProduct *product, NSError *error) {
+	NSURLSessionDataTask *task = [_provider getProductById:@"378783139" completion:^(BUYProduct *product, NSError *error) {
 
 		XCTAssertNil(error);
 		XCTAssertNotNil(product);
-		XCTAssertEqualObjects(@"Dogs", [product title]);
+		XCTAssertEqualObjects(@"App crasher", [product title]);
 		dispatch_semaphore_signal(semaphore);
 	}];
 	WAIT_FOR_TASK(task, semaphore);
@@ -97,8 +115,7 @@ XCTFail(@"Task was nil, could not wait"); \
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 	NSURLSessionDataTask *task = [_provider getProductById:@"asdfdsasdfdsasdfdsasdfjkllkj" completion:^(BUYProduct *product, NSError *error) {
 
-		XCTAssertNotNil(error);
-		XCTAssertEqual(404, [error code]);
+		XCTAssertNil(product);
 		dispatch_semaphore_signal(semaphore);
 	}];
 	WAIT_FOR_TASK(task, semaphore);
