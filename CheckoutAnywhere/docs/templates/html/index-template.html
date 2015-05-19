@@ -6,12 +6,13 @@
 	<title>{{page.title}}</title>
 
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="/mobile-buy-sdk/api/css/style.css">
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
 	{{#strings.appledocData}}<meta name="generator" content="{{tool}} {{version}} (build {{build}})">{{/strings.appledocData}}
 </head>
 <body class="appledoc">
 	<header>
-		<div class="container" class="hide-in-xcode">
+		<div class="container">
 			{{#page}}
 			<h1 id="library-title">
 				<a href="http://www.shopify.com">{{projectName}} {{strings.objectPage.libraryTitlePostfix}}</a>
@@ -29,7 +30,7 @@
 			<nav>
 				<ul id="header-buttons" role="toolbar">
 				    <li>Programming Guide:</li>
-					<li><a href="docs/Integration/Integration Guide.html">Integration Guide</a></li>
+					<li><a href="/mobile-buy-sdk/api/docs/Integration/Integration Guide.html">Integration Guide</a></li>
 				    <li>API Reference:</li>
 					{{>Navigation}}
 				</ul>
@@ -123,10 +124,10 @@
 		</div>
 	</article>
 
-	<script src="js/script.js"></script>
+	<script src="/mobile-buy-sdk/api/js/script.js"></script>
 </body>
 </html>
 
 Section Navigation
-<li><a href="hierarchy.html">Hierarchy</a></li>
+<li><a href="/mobile-buy-sdk/api/hierarchy.html">Hierarchy</a></li>
 EndSection
