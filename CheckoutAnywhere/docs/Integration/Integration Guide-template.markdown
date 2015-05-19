@@ -14,10 +14,10 @@ Shopify's Mobile Buy SDK for iOS enables merchants to easily sell products in iO
 ### Installation
 
 1. In the project editor, select the target to which you want to add `Buy.framework`.
-<center><img src="sdk_integration_embedding_framework_1.png" width="100%" alt="ResearchKit framework Overview"/></center>
+<center><img src="sdk_integration_embedding_framework_1.png" width="100%" alt="Mobile Buy SDK integration Xcode 1"/></center>
 
 2. In the **General** tab, drag the `Buy.framework` onto the **Embedded Binaries** section. Check **Copy items if needed** so the framework is copied to your project.
-<center><img src="sdk_integration_embedding_framework_2.png" width="100%" alt="ResearchKit framework Overview"/></center>
+<center><img src="sdk_integration_embedding_framework_2.png" width="100%" alt="Mobile Buy SDK integration Xcode 2"/></center>
 
 ### Initialize the framework
 
