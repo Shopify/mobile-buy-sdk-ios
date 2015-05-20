@@ -6,4 +6,4 @@ UNIVERSAL_LIBRARY_DIR="${BUILD_DIR}/${FRAMEWORK_NAME}"
 FRAMEWORK="${UNIVERSAL_LIBRARY_DIR}/${FRAMEWORK_NAME_FRAMEWORK}"
 CONFIGURATION="Release"
 
-cp -r "${FRAMEWORK}" "${SRCROOT}/../mobile-buy-sdk-sample-apps"
+cp -r "${FRAMEWORK}" "${SRCROOT}/../Mobile Buy SDK Sample Apps"
