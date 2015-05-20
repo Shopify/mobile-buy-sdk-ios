@@ -1,3 +1,0 @@
-[submodule "mobile-buy-sdk-sample-apps"]
-	path = mobile-buy-sdk-sample-apps
-	url = git@github.com:Shopify/checkout-ios-sample.git
