@@ -30,6 +30,17 @@
 			name = Documentation;
 			productName = Documentation;
 		};
+		90F7BA571B0D04690067864D /* Universal Framework Sample Apps */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 90F7BA591B0D04690067864D /* Build configuration list for PBXAggregateTarget "Universal Framework Sample Apps" */;
+			buildPhases = (
+				90F7BA581B0D04690067864D /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "Universal Framework Sample Apps";
+			productName = "MobileCheckout-Universal";
+		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
@@ -93,7 +104,6 @@
 		90368D5A1AE0417700F053C6 /* BUYRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A731A700AC80087DB2C /* BUYRuntime.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		90368D5B1AE0417700F053C6 /* NSDecimalNumber+BUYAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A9B1A7011DC0087DB2C /* NSDecimalNumber+BUYAdditions.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		90368D5C1AE0417700F053C6 /* NSString+Trim.h in Headers */ = {isa = PBXBuildFile; fileRef = F76CFF1B19CB7BE30079C703 /* NSString+Trim.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		904FB6081AE03D4500EA1758 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 904FB5FD1AE03D4500EA1758 /* Buy.framework */; };
 		90AFAA5E1B011EA600F21C23 /* BUYTaxLine.h in Headers */ = {isa = PBXBuildFile; fileRef = 90AFAA5C1B011EA600F21C23 /* BUYTaxLine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90AFAA5F1B011EA600F21C23 /* BUYTaxLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AFAA5D1B011EA600F21C23 /* BUYTaxLine.m */; };
 		90AFAA621B01390F00F21C23 /* BUYAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 90AFAA601B01390F00F21C23 /* BUYAddress.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -116,7 +126,13 @@
 		90AFAA7B1B01486000F21C23 /* BUYAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AFAA611B01390F00F21C23 /* BUYAddress.m */; };
 		90BC07FD1AE0453E005D1195 /* BUYCheckout.m in Sources */ = {isa = PBXBuildFile; fileRef = F773749519C77C260039681C /* BUYCheckout.m */; };
 		90ED9BD91AE557200064345F /* Buy.h in Headers */ = {isa = PBXBuildFile; fileRef = 904FB6011AE03D4500EA1758 /* Buy.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		90ED9BDB1AE571410064345F /* CheckoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 90ED9BDA1AE571410064345F /* CheckoutTests.m */; };
+		90F7BA6D1B0D1DAF0067864D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F7BA6C1B0D1DAF0067864D /* main.m */; };
+		90F7BA701B0D1DAF0067864D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F7BA6F1B0D1DAF0067864D /* AppDelegate.m */; };
+		90F7BA731B0D1DAF0067864D /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F7BA721B0D1DAF0067864D /* FirstViewController.m */; };
+		90F7BA761B0D1DAF0067864D /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F7BA751B0D1DAF0067864D /* SecondViewController.m */; };
+		90F7BA791B0D1DAF0067864D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90F7BA771B0D1DAF0067864D /* Main.storyboard */; };
+		90F7BA7B1B0D1DAF0067864D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90F7BA7A1B0D1DAF0067864D /* Images.xcassets */; };
+		90F7BA7E1B0D1DAF0067864D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90F7BA7C1B0D1DAF0067864D /* LaunchScreen.xib */; };
 		BE1C4DF71AE98FBB00E21624 /* BUYStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1C4DF41AE98FBB00E21624 /* BUYStoreViewController.m */; };
 		BE1C4DF81AE98FBB00E21624 /* BUYViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1C4DF61AE98FBB00E21624 /* BUYViewController.m */; };
 		BE1C4DF91AE98FC300E21624 /* BUYStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1C4DF41AE98FBB00E21624 /* BUYStoreViewController.m */; };
@@ -152,19 +168,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		904FB6091AE03D4500EA1758 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F773741519C770CB0039681C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 904FB5FC1AE03D4500EA1758;
-			remoteInfo = MobileCheckout;
-		};
 		90D502481AFD0A7700667F1C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F773741519C770CB0039681C /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 904FB5FC1AE03D4500EA1758;
 			remoteInfo = Checkout;
+		};
+		90F7BA911B0D1E510067864D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F773741519C770CB0039681C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 904FB5FC1AE03D4500EA1758;
+			remoteInfo = Buy;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -207,7 +223,6 @@
 		904FB5FD1AE03D4500EA1758 /* Buy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Buy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		904FB6001AE03D4500EA1758 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Checkout/Info.plist; sourceTree = "<group>"; };
 		904FB6011AE03D4500EA1758 /* Buy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Buy.h; path = ../Checkout/Buy.h; sourceTree = "<group>"; };
-		904FB6071AE03D4500EA1758 /* CheckoutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CheckoutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		904FB60D1AE03D4500EA1758 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = CheckoutTests/Info.plist; sourceTree = "<group>"; };
 		90AFAA5C1B011EA600F21C23 /* BUYTaxLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYTaxLine.h; sourceTree = "<group>"; };
 		90AFAA5D1B011EA600F21C23 /* BUYTaxLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYTaxLine.m; sourceTree = "<group>"; };
@@ -221,6 +236,18 @@
 		90BC07F71AE0440F005D1195 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		90E80E461AFBBB68003A9909 /* AppledocSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppledocSettings.plist; path = docs/AppledocSettings.plist; sourceTree = "<group>"; };
 		90ED9BDA1AE571410064345F /* CheckoutTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckoutTests.m; path = CheckoutTests/CheckoutTests.m; sourceTree = SOURCE_ROOT; };
+		90F7BA681B0D1DAF0067864D /* Playground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Playground.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		90F7BA6B1B0D1DAF0067864D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		90F7BA6C1B0D1DAF0067864D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		90F7BA6E1B0D1DAF0067864D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		90F7BA6F1B0D1DAF0067864D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		90F7BA711B0D1DAF0067864D /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
+		90F7BA721B0D1DAF0067864D /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		90F7BA741B0D1DAF0067864D /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
+		90F7BA751B0D1DAF0067864D /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		90F7BA781B0D1DAF0067864D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		90F7BA7A1B0D1DAF0067864D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		90F7BA7D1B0D1DAF0067864D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		BE1C4DF31AE98FBB00E21624 /* BUYStoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYStoreViewController.h; path = "View Controllers/BUYStoreViewController.h"; sourceTree = "<group>"; };
 		BE1C4DF41AE98FBB00E21624 /* BUYStoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = BUYStoreViewController.m; path = "View Controllers/BUYStoreViewController.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BE1C4DF51AE98FBB00E21624 /* BUYViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = BUYViewController.h; path = "View Controllers/BUYViewController.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -270,11 +297,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		904FB6041AE03D4500EA1758 /* Frameworks */ = {
+		90F7BA651B0D1DAF0067864D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				904FB6081AE03D4500EA1758 /* Buy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,6 +386,32 @@
 			name = docs;
 			sourceTree = "<group>";
 		};
+		90F7BA691B0D1DAF0067864D /* Playground */ = {
+			isa = PBXGroup;
+			children = (
+				90F7BA6E1B0D1DAF0067864D /* AppDelegate.h */,
+				90F7BA6F1B0D1DAF0067864D /* AppDelegate.m */,
+				90F7BA711B0D1DAF0067864D /* FirstViewController.h */,
+				90F7BA721B0D1DAF0067864D /* FirstViewController.m */,
+				90F7BA741B0D1DAF0067864D /* SecondViewController.h */,
+				90F7BA751B0D1DAF0067864D /* SecondViewController.m */,
+				90F7BA771B0D1DAF0067864D /* Main.storyboard */,
+				90F7BA7A1B0D1DAF0067864D /* Images.xcassets */,
+				90F7BA7C1B0D1DAF0067864D /* LaunchScreen.xib */,
+				90F7BA6A1B0D1DAF0067864D /* Supporting Files */,
+			);
+			path = Playground;
+			sourceTree = "<group>";
+		};
+		90F7BA6A1B0D1DAF0067864D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				90F7BA6B1B0D1DAF0067864D /* Info.plist */,
+				90F7BA6C1B0D1DAF0067864D /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		BE1C4DF21AE98F8E00E21624 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -379,6 +431,7 @@
 				F773742919C770CB0039681C /* CheckoutAnywhereTests */,
 				904FB5FE1AE03D4500EA1758 /* Checkout */,
 				904FB60B1AE03D4500EA1758 /* CheckoutTests */,
+				90F7BA691B0D1DAF0067864D /* Playground */,
 				F773741E19C770CB0039681C /* Products */,
 				547B8D0CCDB9458C800F1E3C /* Frameworks */,
 			);
@@ -391,7 +444,7 @@
 				F773741D19C770CB0039681C /* libCheckoutAnywhere.a */,
 				F773742819C770CB0039681C /* CheckoutAnywhereTests.xctest */,
 				904FB5FD1AE03D4500EA1758 /* Buy.framework */,
-				904FB6071AE03D4500EA1758 /* CheckoutTests.xctest */,
+				90F7BA681B0D1DAF0067864D /* Playground.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -575,23 +628,23 @@
 			productReference = 904FB5FD1AE03D4500EA1758 /* Buy.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		904FB6061AE03D4500EA1758 /* CheckoutTests */ = {
+		90F7BA671B0D1DAF0067864D /* Playground */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 904FB6151AE03D4500EA1758 /* Build configuration list for PBXNativeTarget "CheckoutTests" */;
+			buildConfigurationList = 90F7BA8B1B0D1DAF0067864D /* Build configuration list for PBXNativeTarget "Playground" */;
 			buildPhases = (
-				904FB6031AE03D4500EA1758 /* Sources */,
-				904FB6041AE03D4500EA1758 /* Frameworks */,
-				904FB6051AE03D4500EA1758 /* Resources */,
+				90F7BA641B0D1DAF0067864D /* Sources */,
+				90F7BA651B0D1DAF0067864D /* Frameworks */,
+				90F7BA661B0D1DAF0067864D /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				904FB60A1AE03D4500EA1758 /* PBXTargetDependency */,
+				90F7BA921B0D1E510067864D /* PBXTargetDependency */,
 			);
-			name = CheckoutTests;
-			productName = MobileCheckoutTests;
-			productReference = 904FB6071AE03D4500EA1758 /* CheckoutTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
+			name = Playground;
+			productName = Playground;
+			productReference = 90F7BA681B0D1DAF0067864D /* Playground.app */;
+			productType = "com.apple.product-type.application";
 		};
 		F773741C19C770CB0039681C /* CheckoutAnywhere */ = {
 			isa = PBXNativeTarget;
@@ -640,14 +693,14 @@
 					904FB5FC1AE03D4500EA1758 = {
 						CreatedOnToolsVersion = 6.3;
 					};
-					904FB6061AE03D4500EA1758 = {
-						CreatedOnToolsVersion = 6.3;
-					};
 					904FB61A1AE03DC500EA1758 = {
 						CreatedOnToolsVersion = 6.3;
 					};
 					90E80E401AFAB0B9003A9909 = {
 						CreatedOnToolsVersion = 6.3.1;
+					};
+					90F7BA671B0D1DAF0067864D = {
+						CreatedOnToolsVersion = 6.3.2;
 					};
 					F773741C19C770CB0039681C = {
 						CreatedOnToolsVersion = 6.0;
@@ -663,6 +716,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = F773741419C770CB0039681C;
 			productRefGroup = F773741E19C770CB0039681C /* Products */;
@@ -672,9 +726,10 @@
 				F773741C19C770CB0039681C /* CheckoutAnywhere */,
 				F773742719C770CB0039681C /* CheckoutAnywhereTests */,
 				904FB5FC1AE03D4500EA1758 /* Buy */,
-				904FB6061AE03D4500EA1758 /* CheckoutTests */,
 				904FB61A1AE03DC500EA1758 /* Universal Framework */,
 				90E80E401AFAB0B9003A9909 /* Documentation */,
+				90F7BA571B0D04690067864D /* Universal Framework Sample Apps */,
+				90F7BA671B0D1DAF0067864D /* Playground */,
 			);
 		};
 /* End PBXProject section */
@@ -688,10 +743,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		904FB6051AE03D4500EA1758 /* Resources */ = {
+		90F7BA661B0D1DAF0067864D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90F7BA791B0D1DAF0067864D /* Main.storyboard in Resources */,
+				90F7BA7E1B0D1DAF0067864D /* LaunchScreen.xib in Resources */,
+				90F7BA7B1B0D1DAF0067864D /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -733,6 +791,19 @@
 			shellPath = /bin/sh;
 			shellScript = "echo \"warning: Framework built, building docs\"\n\n###################\n# Builds the docs #\n###################\n\nFRAMEWORK_NAME=\"Buy\"\nFRAMEWORK_NAME_FRAMEWORK=\"${FRAMEWORK_NAME}.framework\"\nUNIVERSAL_LIBRARY_DIR=\"${BUILD_DIR}/${FRAMEWORK_NAME}\"\nFRAMEWORK=\"${UNIVERSAL_LIBRARY_DIR}/${FRAMEWORK_NAME_FRAMEWORK}\"\n\nif [ ! -x /usr/local/bin/appledoc ]; then\necho \"error: appledoc is required for building Shopify Mobile Buy SDK's documentation. See http://appledoc.gentlebytes.com\" 1>&2\nexit 1\nfi\n\n# echo \"warning: warnings are a result of https://github.com/tomaz/appledoc/issues/348\"\n# we don't see these warnings because we have --explicit-crossref in the AppledocSettings.plist\n\n/usr/local/bin/appledoc --print-settings --publish-docset --install-docset --output \"${BUILT_PRODUCTS_DIR}/docs/\" --include \"docs/Integration\" --include \"docs/Sample App Native\" --include \"docs/Sample App Web\" --ignore \"docs/templates\" --templates \"docs/templates\" \"${BUILT_PRODUCTS_DIR}/${FRAMEWORK_NAME_FRAMEWORK}\" \"docs\"\n\necho \"warning: Opening documentation in browser...\"\nopen \"$HOME/Library/Developer/Shared/Documentation/DocSets/org.shopify.Mobile-Buy-SDK.docset/Contents/Resources/Documents/index.html\"";
 		};
+		90F7BA581B0D04690067864D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "sh \"${SRCROOT}/build_sample_apps_framework.sh\"";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -766,11 +837,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		904FB6031AE03D4500EA1758 /* Sources */ = {
+		90F7BA641B0D1DAF0067864D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90ED9BDB1AE571410064345F /* CheckoutTests.m in Sources */,
+				90F7BA761B0D1DAF0067864D /* SecondViewController.m in Sources */,
+				90F7BA701B0D1DAF0067864D /* AppDelegate.m in Sources */,
+				90F7BA731B0D1DAF0067864D /* FirstViewController.m in Sources */,
+				90F7BA6D1B0D1DAF0067864D /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -851,23 +925,43 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		904FB60A1AE03D4500EA1758 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 904FB5FC1AE03D4500EA1758 /* Buy */;
-			targetProxy = 904FB6091AE03D4500EA1758 /* PBXContainerItemProxy */;
-		};
 		90D502491AFD0A7700667F1C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 904FB5FC1AE03D4500EA1758 /* Buy */;
 			targetProxy = 90D502481AFD0A7700667F1C /* PBXContainerItemProxy */;
 		};
+		90F7BA921B0D1E510067864D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 904FB5FC1AE03D4500EA1758 /* Buy */;
+			targetProxy = 90F7BA911B0D1E510067864D /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		90F7BA771B0D1DAF0067864D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				90F7BA781B0D1DAF0067864D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		90F7BA7C1B0D1DAF0067864D /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				90F7BA7D1B0D1DAF0067864D /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		904FB6101AE03D4500EA1758 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -898,6 +992,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
@@ -919,47 +1014,6 @@
 				VALID_ARCHS = "arm64 armv7";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		904FB6121AE03D4500EA1758 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = CheckoutTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		904FB6131AE03D4500EA1758 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = CheckoutTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -987,6 +1041,55 @@
 		90E80E421AFAB0B9003A9909 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		90F7BA5A1B0D04690067864D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "Universal Framework copy";
+			};
+			name = Debug;
+		};
+		90F7BA5B1B0D04690067864D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "Universal Framework copy";
+			};
+			name = Release;
+		};
+		90F7BA8C1B0D1DAF0067864D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = Playground/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		90F7BA8D1B0D1DAF0067864D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = Playground/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -1171,15 +1274,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		904FB6151AE03D4500EA1758 /* Build configuration list for PBXNativeTarget "CheckoutTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				904FB6121AE03D4500EA1758 /* Debug */,
-				904FB6131AE03D4500EA1758 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		904FB61B1AE03DC500EA1758 /* Build configuration list for PBXAggregateTarget "Universal Framework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1197,6 +1291,23 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		90F7BA591B0D04690067864D /* Build configuration list for PBXAggregateTarget "Universal Framework Sample Apps" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				90F7BA5A1B0D04690067864D /* Debug */,
+				90F7BA5B1B0D04690067864D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		90F7BA8B1B0D1DAF0067864D /* Build configuration list for PBXNativeTarget "Playground" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				90F7BA8C1B0D1DAF0067864D /* Debug */,
+				90F7BA8D1B0D1DAF0067864D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		F773741819C770CB0039681C /* Build configuration list for PBXProject "CheckoutAnywhere" */ = {
 			isa = XCConfigurationList;

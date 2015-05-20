@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:CheckoutAnywhere/CheckoutAnywhere.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Mobile Buy SDK Sample Apps/Sample App Native/Mobile Buy SDK Native Sample.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Mobile Buy SDK Sample Apps/Sample App Web/Mobile Buy SDK Web Sample.xcodeproj">
+   </FileRef>
+</Workspace>
