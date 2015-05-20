@@ -98,6 +98,8 @@
 		9054DDB01B0D321B00CF67BE /* BUYShippingRate.h in Headers */ = {isa = PBXBuildFile; fileRef = 90AFAA641B01398A00F21C23 /* BUYShippingRate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9054DDB11B0D321D00CF67BE /* BUYCheckout.h in Headers */ = {isa = PBXBuildFile; fileRef = F773749419C77C260039681C /* BUYCheckout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9054DDB21B0D321F00CF67BE /* BUYCart.h in Headers */ = {isa = PBXBuildFile; fileRef = F773744719C77A210039681C /* BUYCart.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		909D70271B0D3C250059AE97 /* BUYClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F7FDA17019C93F6F00AF4E93 /* BUYClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		909D70281B0D3C290059AE97 /* BUYOption.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A7F1A700B0A0087DB2C /* BUYOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90AFAA5F1B011EA600F21C23 /* BUYTaxLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AFAA5D1B011EA600F21C23 /* BUYTaxLine.m */; };
 		90AFAA631B01390F00F21C23 /* BUYAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AFAA611B01390F00F21C23 /* BUYAddress.m */; };
 		90AFAA671B01398A00F21C23 /* BUYShippingRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AFAA651B01398A00F21C23 /* BUYShippingRate.m */; };
@@ -522,7 +524,9 @@
 				9054DDA71B0D31FE00CF67BE /* BUYProduct.h in Headers */,
 				9054DDAE1B0D321500CF67BE /* BUYTaxLine.h in Headers */,
 				9054DDA31B0D31F300CF67BE /* BUYOptionValue.h in Headers */,
+				909D70281B0D3C290059AE97 /* BUYOption.h in Headers */,
 				9054DDAD1B0D321300CF67BE /* BUYAddress.h in Headers */,
+				909D70271B0D3C250059AE97 /* BUYClient.h in Headers */,
 				9054DDA41B0D31F500CF67BE /* BUYShop.h in Headers */,
 				9054DDA61B0D31F900CF67BE /* BUYProductVariant.h in Headers */,
 				9054DDA51B0D31F700CF67BE /* BUYSerializable.h in Headers */,
