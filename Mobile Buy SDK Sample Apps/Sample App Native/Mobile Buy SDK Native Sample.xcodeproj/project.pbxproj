@@ -16,18 +16,18 @@
 		90070E6B1AF12ADF003ED7B6 /* Shopify Checkout.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 90070E6A1AF12ADF003ED7B6 /* Shopify Checkout.entitlements */; };
 		90070E951AF163F3003ED7B6 /* ProductController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90070E941AF163F3003ED7B6 /* ProductController.m */; };
 		90070E981AF167FE003ED7B6 /* ProductView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90070E971AF167FE003ED7B6 /* ProductView.m */; };
-		90B73AA21B0B74A70092DD9E /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90B73AA11B0B74A70092DD9E /* Buy.framework */; };
-		90B73AA31B0B74A70092DD9E /* Buy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 90B73AA11B0B74A70092DD9E /* Buy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		90F7BA611B0D1BF00067864D /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F7BA601B0D1BF00067864D /* Buy.framework */; };
+		90F7BA621B0D1BF00067864D /* Buy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 90F7BA601B0D1BF00067864D /* Buy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		90070E601AF125D6003ED7B6 /* Embed Frameworks */ = {
+		90F7BA631B0D1BF00067864D /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				90B73AA31B0B74A70092DD9E /* Buy.framework in Embed Frameworks */,
+				90F7BA621B0D1BF00067864D /* Buy.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -50,6 +50,7 @@
 		90070E961AF167FE003ED7B6 /* ProductView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductView.h; sourceTree = "<group>"; };
 		90070E971AF167FE003ED7B6 /* ProductView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductView.m; sourceTree = "<group>"; };
 		90B73AA11B0B74A70092DD9E /* Buy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Buy.framework; path = ../../Buy.framework; sourceTree = "<group>"; };
+		90F7BA601B0D1BF00067864D /* Buy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Buy.framework; path = ../Buy.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +59,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				90070E671AF1264A003ED7B6 /* PassKit.framework in Frameworks */,
-				90B73AA21B0B74A70092DD9E /* Buy.framework in Frameworks */,
+				90F7BA611B0D1BF00067864D /* Buy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +69,7 @@
 		90070E291AF120A6003ED7B6 = {
 			isa = PBXGroup;
 			children = (
+				90F7BA601B0D1BF00067864D /* Buy.framework */,
 				90070E631AF12626003ED7B6 /* Frameworks */,
 				90070E341AF120A6003ED7B6 /* Shopify Checkout */,
 				90070E331AF120A6003ED7B6 /* Products */,
@@ -128,7 +130,7 @@
 				90070E2E1AF120A6003ED7B6 /* Sources */,
 				90070E2F1AF120A6003ED7B6 /* Frameworks */,
 				90070E301AF120A6003ED7B6 /* Resources */,
-				90070E601AF125D6003ED7B6 /* Embed Frameworks */,
+				90F7BA631B0D1BF00067864D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -309,8 +311,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"${PROJECT_DIR}/../..",
-					"/Users/davidmuzi/Repos/checkout-ios-sample",
-					"/Users/runemadsen/Development/checkout-ios-sample",
 				);
 				INFOPLIST_FILE = "Shopify Checkout/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -328,8 +328,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"${PROJECT_DIR}/../..",
-					"/Users/davidmuzi/Repos/checkout-ios-sample",
-					"/Users/runemadsen/Development/checkout-ios-sample",
 				);
 				INFOPLIST_FILE = "Shopify Checkout/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

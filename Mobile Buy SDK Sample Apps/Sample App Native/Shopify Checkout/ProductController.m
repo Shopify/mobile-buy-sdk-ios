@@ -11,12 +11,15 @@
 #import "ProductController.h"
 #import "ProductView.h"
 
-@implementation ProductController {
-	ProductView *_view;
-	BUYProductVariant *_product;
-	
-	NSString *_initialProductId;
-}
+@interface ProductController ()
+
+@property (nonatomic, strong) ProductView *productView;
+@property (nonatomic, strong) BUYProductVariant *productVariant;
+@property (nonatomic, strong) NSString *initialProductId;
+
+@end
+
+@implementation ProductController
 
 - (instancetype)initWithDataProvider:(BUYClient *)dataProvider productId:(NSString *)productId;
 {
@@ -45,7 +48,7 @@
     [self.provider getProductById:_initialProductId completion:^(BUYProduct *product, NSError *error) {
         
     	//NOTE: You would want to display your product + a picker to select the correct variant or iterate the variants and pick the right one
-		_product = [product.variants firstObject];
+		self.productVariant = [product.variants firstObject];
         
 		UIImage *image = nil;
 		if ([[product images] count] > 0) {
@@ -69,7 +72,7 @@
 	// Step 1 - Create the checkout on Shopify. This demo only works with ApplePay.
 	if ([PKPaymentAuthorizationViewController canMakePayments]) {
 		BUYCart *cart = [[BUYCart alloc] init];
-		[cart addVariant:_product];
+		[cart addVariant:self.productVariant];
 
 		// This starts the main process, detailed in BUYViewController. You can copy the functionality/subclass BUYViewController to add Apple Pay functionality to your app.
 		// You will likely want to tweak the BUYViewController so that you handle errors correctly, as you want them to be presented in your app.
