@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "90F7BA571B0D04690067864D"
-               BuildableName = "Universal Framework Sample Apps"
-               BlueprintName = "Universal Framework Sample Apps"
-               ReferencedContainer = "container:CheckoutAnywhere.xcodeproj">
+               BlueprintIdentifier = "90E80E401AFAB0B9003A9909"
+               BuildableName = "Documentation"
+               BlueprintName = "Documentation"
+               ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -29,6 +29,15 @@
       buildConfiguration = "Debug">
       <Testables>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "90E80E401AFAB0B9003A9909"
+            BuildableName = "Documentation"
+            BlueprintName = "Documentation"
+            ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -42,10 +51,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "90F7BA571B0D04690067864D"
-            BuildableName = "Universal Framework Sample Apps"
-            BlueprintName = "Universal Framework Sample Apps"
-            ReferencedContainer = "container:CheckoutAnywhere.xcodeproj">
+            BlueprintIdentifier = "90E80E401AFAB0B9003A9909"
+            BuildableName = "Documentation"
+            BlueprintName = "Documentation"
+            ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -60,10 +69,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "90F7BA571B0D04690067864D"
-            BuildableName = "Universal Framework Sample Apps"
-            BlueprintName = "Universal Framework Sample Apps"
-            ReferencedContainer = "container:CheckoutAnywhere.xcodeproj">
+            BlueprintIdentifier = "90E80E401AFAB0B9003A9909"
+            BuildableName = "Documentation"
+            BlueprintName = "Documentation"
+            ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

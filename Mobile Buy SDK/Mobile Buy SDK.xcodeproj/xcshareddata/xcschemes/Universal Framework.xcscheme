@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F773741C19C770CB0039681C"
-               BuildableName = "libCheckoutAnywhere.a"
-               BlueprintName = "CheckoutAnywhere"
-               ReferencedContainer = "container:CheckoutAnywhere.xcodeproj">
+               BlueprintIdentifier = "904FB61A1AE03DC500EA1758"
+               BuildableName = "Universal Framework"
+               BlueprintName = "Universal Framework"
+               ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -42,10 +42,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F773741C19C770CB0039681C"
-            BuildableName = "libCheckoutAnywhere.a"
-            BlueprintName = "CheckoutAnywhere"
-            ReferencedContainer = "container:CheckoutAnywhere.xcodeproj">
+            BlueprintIdentifier = "904FB61A1AE03DC500EA1758"
+            BuildableName = "Universal Framework"
+            BlueprintName = "Universal Framework"
+            ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -60,10 +60,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F773741C19C770CB0039681C"
-            BuildableName = "libCheckoutAnywhere.a"
-            BlueprintName = "CheckoutAnywhere"
-            ReferencedContainer = "container:CheckoutAnywhere.xcodeproj">
+            BlueprintIdentifier = "904FB61A1AE03DC500EA1758"
+            BuildableName = "Universal Framework"
+            BlueprintName = "Universal Framework"
+            ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
