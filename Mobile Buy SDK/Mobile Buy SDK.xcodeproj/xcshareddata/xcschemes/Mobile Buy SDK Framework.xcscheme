@@ -20,20 +20,6 @@
                ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "904FB6061AE03D4500EA1758"
-               BuildableName = "CheckoutTests.xctest"
-               BlueprintName = "CheckoutTests"
-               ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -42,26 +28,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "904FB6061AE03D4500EA1758"
-               BuildableName = "CheckoutTests.xctest"
-               BlueprintName = "CheckoutTests"
-               ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "904FB5FC1AE03D4500EA1758"
-            BuildableName = "Buy.framework"
-            BlueprintName = "Buy"
-            ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
