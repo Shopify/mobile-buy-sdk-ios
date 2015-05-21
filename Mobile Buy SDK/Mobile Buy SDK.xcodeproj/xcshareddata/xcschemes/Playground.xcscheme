@@ -20,6 +20,34 @@
                ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "90F592401B0D569F0026B382"
+               BuildableName = "BuyTests.xctest"
+               BlueprintName = "BuyTests"
+               ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "90F592A61B0D585D0026B382"
+               BuildableName = "TESTTests.xctest"
+               BlueprintName = "TESTTests"
+               ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -28,6 +56,26 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "90F592401B0D569F0026B382"
+               BuildableName = "BuyTests.xctest"
+               BlueprintName = "BuyTests"
+               ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "90F592A61B0D585D0026B382"
+               BuildableName = "TESTTests.xctest"
+               BlueprintName = "TESTTests"
+               ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

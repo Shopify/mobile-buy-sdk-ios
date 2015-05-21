@@ -24,3 +24,4 @@
 #import <Buy/BUYStoreViewController.h>
 #import <Buy/BUYTaxLine.h>
 #import <Buy/BUYViewController.h>
+#import <Buy/BUYApplePayAdditions.h>

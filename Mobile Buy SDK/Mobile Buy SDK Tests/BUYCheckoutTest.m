@@ -8,11 +8,7 @@
 
 @import UIKit;
 @import XCTest;
-#import "BUYCart.h"
-#import "BUYCheckout.h"
-#import "BUYDiscount.h"
-#import "BUYProductVariant.h"
-#import "BUYShippingRate.h"
+#import <Buy/Buy.h>
 
 @interface BUYCheckoutTest : XCTestCase
 @end

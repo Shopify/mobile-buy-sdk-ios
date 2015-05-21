@@ -8,14 +8,9 @@
 
 @import UIKit;
 @import XCTest;
-
-#import "BUYClient.h"
+#import <Buy/Buy.h>
 #import "NSProcessInfo+Environment.h"
 #import "BUYTestConstants.h"
-
-//Model
-#import "BUYProduct.h"
-#import "BUYShop.h"
 
 #define WAIT_FOR_TASK(task, semaphore) \
 if (task) { \
