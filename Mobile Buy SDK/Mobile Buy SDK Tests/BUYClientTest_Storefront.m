@@ -108,7 +108,7 @@ XCTFail(@"Task was nil, could not wait"); \
 - (void)testGetMultipleProductByIds
 {
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_provider getProductsById:@[@"378783139", @"376722235", @"458943719"] completion:^(NSArray *products, NSError *error) {
+	NSURLSessionDataTask *task = [_provider getProductsByIds:@[@"378783139", @"376722235", @"458943719"] completion:^(NSArray *products, NSError *error) {
 		
 		XCTAssertNil(error);
 		XCTAssertNotNil(products);

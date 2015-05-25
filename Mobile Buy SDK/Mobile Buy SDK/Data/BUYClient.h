@@ -237,7 +237,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
  *
  *  @return The associated NSURLSessionDataTask
  */
-- (NSURLSessionDataTask *)getProductsById:(NSArray *)productIds completion:(BUYDataProductsBlock)block;
+- (NSURLSessionDataTask *)getProductsByIds:(NSArray *)productIds completion:(BUYDataProductsBlock)block;
 
 #pragma mark - Checkout
 
