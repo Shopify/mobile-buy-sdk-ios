@@ -14,24 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "904FB5FC1AE03D4500EA1758"
-               BuildableName = "Buy.framework"
-               BlueprintName = "Buy"
-               ReferencedContainer = "container:CheckoutAnywhere.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "904FB6061AE03D4500EA1758"
-               BuildableName = "CheckoutTests.xctest"
-               BlueprintName = "CheckoutTests"
-               ReferencedContainer = "container:CheckoutAnywhere.xcodeproj">
+               BlueprintIdentifier = "90E80E401AFAB0B9003A9909"
+               BuildableName = "Documentation"
+               BlueprintName = "Documentation"
+               ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -42,24 +28,14 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "904FB6061AE03D4500EA1758"
-               BuildableName = "CheckoutTests.xctest"
-               BlueprintName = "CheckoutTests"
-               ReferencedContainer = "container:CheckoutAnywhere.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "904FB5FC1AE03D4500EA1758"
-            BuildableName = "Buy.framework"
-            BlueprintName = "Buy"
-            ReferencedContainer = "container:CheckoutAnywhere.xcodeproj">
+            BlueprintIdentifier = "90E80E401AFAB0B9003A9909"
+            BuildableName = "Documentation"
+            BlueprintName = "Documentation"
+            ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -75,10 +51,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "904FB5FC1AE03D4500EA1758"
-            BuildableName = "Buy.framework"
-            BlueprintName = "Buy"
-            ReferencedContainer = "container:CheckoutAnywhere.xcodeproj">
+            BlueprintIdentifier = "90E80E401AFAB0B9003A9909"
+            BuildableName = "Documentation"
+            BlueprintName = "Documentation"
+            ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -93,10 +69,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "904FB5FC1AE03D4500EA1758"
-            BuildableName = "Buy.framework"
-            BlueprintName = "Buy"
-            ReferencedContainer = "container:CheckoutAnywhere.xcodeproj">
+            BlueprintIdentifier = "90E80E401AFAB0B9003A9909"
+            BuildableName = "Documentation"
+            BlueprintName = "Documentation"
+            ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

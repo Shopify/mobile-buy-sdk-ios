@@ -9,7 +9,7 @@
 @import UIKit;
 @import XCTest;
 
-#import "BUYObject.h"
+#import <Buy/Buy.h>
 
 @interface BUYDirtyTracked : BUYObject
 

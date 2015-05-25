@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "90F7BA571B0D04690067864D"
-               BuildableName = "Universal Framework Sample Apps"
-               BlueprintName = "Universal Framework Sample Apps"
-               ReferencedContainer = "container:CheckoutAnywhere.xcodeproj">
+               BlueprintIdentifier = "90F592361B0D569F0026B382"
+               BuildableName = "Buy.framework"
+               BlueprintName = "Buy"
+               ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -42,10 +42,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "90F7BA571B0D04690067864D"
-            BuildableName = "Universal Framework Sample Apps"
-            BlueprintName = "Universal Framework Sample Apps"
-            ReferencedContainer = "container:CheckoutAnywhere.xcodeproj">
+            BlueprintIdentifier = "90F592361B0D569F0026B382"
+            BuildableName = "Buy.framework"
+            BlueprintName = "Buy"
+            ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -60,10 +60,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "90F7BA571B0D04690067864D"
-            BuildableName = "Universal Framework Sample Apps"
-            BlueprintName = "Universal Framework Sample Apps"
-            ReferencedContainer = "container:CheckoutAnywhere.xcodeproj">
+            BlueprintIdentifier = "90F592361B0D569F0026B382"
+            BuildableName = "Buy.framework"
+            BlueprintName = "Buy"
+            ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

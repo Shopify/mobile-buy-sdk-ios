@@ -10,9 +10,7 @@
 @import PassKit;
 @import UIKit;
 @import XCTest;
-#import "BUYApplePayAdditions.h"
-#import "BUYCheckout.h"
-#import "BUYDiscount.h"
+#import <Buy/Buy.h>
 
 @interface BUYApplePayAdditionsTest : XCTestCase
 @end

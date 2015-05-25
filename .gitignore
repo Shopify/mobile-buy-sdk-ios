@@ -1,4 +1,4 @@
-build/*
+Ibuild/*
 */Output/*
 *.pbxuser
 !default.pbxuser

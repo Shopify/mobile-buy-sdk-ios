@@ -9,7 +9,7 @@
 @import UIKit;
 @import XCTest;
 
-#import "Buy.h"
+#import <Buy/Buy.h>
 #import "BUYTestConstants.h"
 #import "NSProcessInfo+Environment.h"
 
@@ -21,10 +21,10 @@ else { \
 XCTFail(@"Task was nil, could not wait"); \
 } \
 
-@interface BUYAnywhereIntegrationTest : XCTestCase
+@interface BUYIntegrationTest : XCTestCase
 @end
 
-@implementation BUYAnywhereIntegrationTest {
+@implementation BUYIntegrationTest {
 	BUYClient *_checkoutDataProvider;
 	
 	BUYShop *_shop;

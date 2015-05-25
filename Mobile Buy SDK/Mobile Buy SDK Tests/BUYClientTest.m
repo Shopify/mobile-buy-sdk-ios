@@ -8,11 +8,8 @@
 
 @import UIKit;
 @import XCTest;
-
-#import "BUYClient.h"
+#import <Buy/Buy.h>
 #import "BUYTestConstants.h"
-#import "BUYCheckout.h"
-#import "BUYCart.h"
 #import "NSProcessInfo+Environment.h"
 
 @interface BUYDataProvider : BUYClient
