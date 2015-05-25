@@ -44,7 +44,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		9035887D1B137D21008422B3 /* Buy.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 90F592371B0D569F0026B382 /* Buy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9035887D1B137D21008422B3 /* Buy.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 90F592371B0D569F0026B382 /* Buy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		90F5924E1B0D569F0026B382 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F592371B0D569F0026B382 /* Buy.framework */; };
 		90F5924F1B0D569F0026B382 /* Buy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 90F592371B0D569F0026B382 /* Buy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		90F592591B0D574B0026B382 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A54742D1A0AA61600822409 /* PassKit.framework */; };
@@ -143,14 +143,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		9035887C1B137D12008422B3 /* CopyFiles */ = {
+		9035887C1B137D12008422B3 /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9035887D1B137D21008422B3 /* Buy.framework in CopyFiles */,
+				9035887D1B137D21008422B3 /* Buy.framework in Copy Files */,
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		90F592531B0D569F0026B382 /* Embed Frameworks */ = {
@@ -577,7 +578,7 @@
 				90F592E81B0D5EFE0026B382 /* Sources */,
 				90F592E91B0D5EFE0026B382 /* Frameworks */,
 				90F592EA1B0D5EFE0026B382 /* Resources */,
-				9035887C1B137D12008422B3 /* CopyFiles */,
+				9035887C1B137D12008422B3 /* Copy Files */,
 			);
 			buildRules = (
 			);
