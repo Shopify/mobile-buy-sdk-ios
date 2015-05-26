@@ -209,7 +209,7 @@
 	//Step 6 - Update the checkout with the rest of the information. Apple has now provided us with a FULL billing address and a FULL shipping address.
 	//We now update the checkout with our new found data so that you can ship the products to the right address, and we collect whatever else we need.
 	
-	_checkout.shippingAddress = [BUYAddress buy_addressFromRecord:[payment shippingAddress]];
+	_checkout.shippingAddress = _checkout.requiresShipping ? [BUYAddress buy_addressFromRecord:[payment shippingAddress]] : nil;
 	_checkout.billingAddress = [BUYAddress buy_addressFromRecord:[payment billingAddress]];
 	_checkout.email = [BUYAddress buy_emailFromRecord:[payment billingAddress]];
 	if (_checkout.email == nil) {
@@ -306,7 +306,7 @@
 	PKPaymentRequest *paymentRequest = [[PKPaymentRequest alloc] init];
 	[paymentRequest setMerchantIdentifier:self.provider.merchantId];
 	[paymentRequest setRequiredBillingAddressFields:PKAddressFieldAll];
-	[paymentRequest setRequiredShippingAddressFields:_checkout.requiresShipping ? PKAddressFieldAll : PKAddressFieldPostalAddress];
+	[paymentRequest setRequiredShippingAddressFields:_checkout.requiresShipping ? PKAddressFieldAll : PKAddressFieldEmail];
 	[paymentRequest setSupportedNetworks:self.supportedNetworks];
 	[paymentRequest setMerchantCapabilities:self.merchantCapability];
 	[paymentRequest setCountryCode:self.countryCode];
