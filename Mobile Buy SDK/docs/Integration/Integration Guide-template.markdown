@@ -8,8 +8,10 @@ Shopify's Mobile Buy SDK for iOS enables merchants to easily sell products in iO
 
 - iOS 8.0 or greater
 - Xcode 6.2 or greater
-- *Mobile App* Channel on your shop
-- Apple Pay Guide: [Getting Started with Apple Pay](https://developer.apple.com/apple-pay/Getting-Started-with-Apple-Pay.pdf)
+- The **Mobile App** sales channel [added to your Shopify store](https://docs.shopify.com/mobile-buy-sdk/adding-mobile-app-sales-channel)
+
+If you intend to offer Apple Pay, you'll also need to visit [Enable Apple Pay in your store's iOS app](https://docs.shopify.com/mobile-buy-sdk/enable-apple-pay) and read Apple's [Getting Started with Apple Pay](https://developer.apple.com/apple-pay/Getting-Started-with-Apple-Pay.pdf) guide.
+
 
 ### Installation
 
