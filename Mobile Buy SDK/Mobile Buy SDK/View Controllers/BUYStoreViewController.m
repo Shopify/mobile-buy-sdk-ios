@@ -205,6 +205,7 @@ NSString * const BUYShopifyError = @"shopify";
 		
 		__block BOOL successful = YES;
 		BUYCart *checkoutCart = [[BUYCart alloc] init];
+
 		for (NSDictionary *lineItem in lineItems) {
 			dispatch_group_enter(group);
 			

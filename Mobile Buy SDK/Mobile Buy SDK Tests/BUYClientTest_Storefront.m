@@ -105,6 +105,27 @@ XCTFail(@"Task was nil, could not wait"); \
 	WAIT_FOR_TASK(task, semaphore);
 }
 
+- (void)testGetMultipleProductByIds
+{
+	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	NSURLSessionDataTask *task = [_provider getProductsByIds:@[@"378783139", @"376722235", @"458943719"] completion:^(NSArray *products, NSError *error) {
+		
+		XCTAssertNil(error);
+		XCTAssertNotNil(products);
+		XCTAssertEqual([products count], 3);
+		
+		// TODO: Change to test against 
+		NSSortDescriptor *sortByName = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES];
+		NSArray *sortDescriptors = [NSArray arrayWithObject:sortByName];
+		products = [products sortedArrayUsingDescriptors:sortDescriptors];
+		XCTAssertEqualObjects(@"App crasher", [products[0] title]);
+		XCTAssertEqualObjects(@"Pixel", [products[1] title]);
+		XCTAssertEqualObjects(@"Solar powered umbrella", [products[2] title]);
+		dispatch_semaphore_signal(semaphore);
+	}];
+	WAIT_FOR_TASK(task, semaphore);
+}
+
 - (void)testProductRequestError
 {
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);

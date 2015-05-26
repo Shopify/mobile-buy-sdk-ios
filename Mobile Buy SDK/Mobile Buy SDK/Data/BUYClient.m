@@ -132,16 +132,25 @@
 
 - (NSURLSessionDataTask *)getProductById:(NSString *)productId completion:(BUYDataProductBlock)block;
 {
-	NSString *url = [NSString stringWithFormat:@"https://%@/api/channels/%@/product_publications.json?product_ids=%@", self.shopDomain, self.channelId, productId];
-	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-
-		BUYProduct *product = nil;
-
-		if (json && error == nil) {
-			NSArray *products = [BUYProduct convertJSONArray:json[@"product_publications"]];
-			product = [products firstObject];
+	return [self getProductsByIds:@[productId] completion:^(NSArray *products, NSError *error) {
+		if ([products count]) {
+			block(products[0], error);
+		} else {
+			block(nil, error);
 		}
-		block(product, error);
+	}];
+}
+
+- (NSURLSessionDataTask *)getProductsByIds:(NSArray *)productIds completion:(BUYDataProductsBlock)block
+{
+	NSString *url = [NSString stringWithFormat:@"https://%@/api/channels/%@/product_publications.json?product_ids=%@", self.shopDomain, self.channelId, [productIds componentsJoinedByString:@","]];
+	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+		
+		NSArray *products = nil;
+		if (json && error == nil) {
+			products = [BUYProduct convertJSONArray:json[@"product_publications"]];
+		}
+		block(products, error);
 	}];
 }
 

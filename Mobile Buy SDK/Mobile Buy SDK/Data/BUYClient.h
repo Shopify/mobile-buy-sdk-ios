@@ -101,6 +101,14 @@ typedef void (^BUYDataShopBlock)(BUYShop *shop, NSError *error);
 typedef void (^BUYDataProductBlock)(BUYProduct *product, NSError *error);
 
 /**
+ *  Return block containing a list of BUYProduct objects and/or an NSError
+ *
+ *  @param products An array of BUYProduct objects
+ *  @param error    Optional NSError
+ */
+typedef void (^BUYDataProductsBlock)(NSArray *products, NSError *error);
+
+/**
  *  Return block containing a list of BUYProduct objects, the page requested, a boolean to determine whether the end of the list has been reach and/or an optional NSError
  *
  *  @param products   An array of BUYProduct objects
@@ -214,12 +222,22 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
 /**
  *  Fetches a single product by the ID of the product.
  *
- *  @param prodcutId Product ID
- *  @param block  (^BUYDataProductBlock)(BUYProduct *product, NSError *error);
+ *  @param productId Product ID
+ *  @param block     (^BUYDataProductBlock)(BUYProduct *product, NSError *error);
  *
  *  @return The associated NSURLSessionDataTask
  */
 - (NSURLSessionDataTask *)getProductById:(NSString *)productId completion:(BUYDataProductBlock)block;
+
+/**
+ *  Fetches a list of product by the ID of each product.
+ *
+ *  @param productIds An array of `NSString` objects with Product IDs to fetch
+ *  @param block      (^BUYDataProductsBlock)(NSArray *products, NSError *error);
+ *
+ *  @return The associated NSURLSessionDataTask
+ */
+- (NSURLSessionDataTask *)getProductsByIds:(NSArray *)productIds completion:(BUYDataProductsBlock)block;
 
 #pragma mark - Checkout
 
