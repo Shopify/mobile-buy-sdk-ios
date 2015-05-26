@@ -223,7 +223,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
  *  Fetches a single product by the ID of the product.
  *
  *  @param productId Product ID
- *  @param block  (^BUYDataProductBlock)(BUYProduct *product, NSError *error);
+ *  @param block     (^BUYDataProductBlock)(BUYProduct *product, NSError *error);
  *
  *  @return The associated NSURLSessionDataTask
  */
@@ -233,7 +233,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
  *  Fetches a list of product by the ID of each product.
  *
  *  @param productIds An array of `NSString` objects with Product IDs to fetch
- *  @param block  (^BUYDataProductBlock)(BUYProduct *product, NSError *error);
+ *  @param block      (^BUYDataProductsBlock)(NSArray *products, NSError *error);
  *
  *  @return The associated NSURLSessionDataTask
  */
