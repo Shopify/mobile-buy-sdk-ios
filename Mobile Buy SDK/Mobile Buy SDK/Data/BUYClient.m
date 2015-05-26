@@ -34,7 +34,6 @@
 @property (nonatomic, strong) NSString *merchantId;
 
 @property (nonatomic, strong) NSURLSession *session;
-@property (nonatomic, strong) NSOperationQueue *queue;
 
 @end
 
@@ -53,14 +52,14 @@
 		self.apiKey = apiKey;
 		self.channelId = channelId;
 		self.applicationName = [[NSBundle mainBundle] infoDictionary][@"CFBundleName"] ?: @"";
-		self.queue = [[NSOperationQueue alloc] init];
+		self.queue = dispatch_get_main_queue();
 		
 		NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
 		NSString *versionString = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
 		
 		config.HTTPAdditionalHeaders = @{@"X-Shopify-Mobile-Buy-SDK-Version": [NSString stringWithFormat:@"iOS/%@", versionString]};
 		
-		self.session = [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:self.queue];
+		self.session = [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:nil];
 		self.pageSize = 25;
 	}
 	return self;
@@ -165,7 +164,9 @@
 			json = [jsonData isKindOfClass:[NSDictionary class]] ? jsonData : nil;
 			error = [self extractErrorFromResponse:response json:json];
 		}
-		completionHandler(json, response, error);
+		dispatch_async(self.queue, ^{
+			completionHandler(json, response, error);
+		});
 	}];
 	[task resume];
 	return task;
@@ -439,7 +440,9 @@
 				error = [self errorFromJSON:json statusCode:statusCode];
 			}
 		}
-		completionHandler(json, response, error);
+		dispatch_async(self.queue, ^{
+			completionHandler(json, response, error);
+		});
 	}];
 	[self startTask:task];
 	return task;
