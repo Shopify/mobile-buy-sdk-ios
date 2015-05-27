@@ -113,21 +113,24 @@
 	
 	__block BUYStatus checkoutStatus = BUYStatusUnknown;
 	__block BUYCheckout *completedCheckout = nil;
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 	
-	while (checkout.token && checkoutStatus != BUYStatusFailed && checkoutStatus != BUYStatusComplete) {
-		[self.client getCompletionStatusOfCheckout:self.checkout completion:^(BUYCheckout *checkout, BUYStatus status, NSError *error) {
-			completedCheckout = checkout;
-			checkoutStatus = status;
-			dispatch_semaphore_signal(semaphore);
-		}];
-		dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+		dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 		
-		if (checkoutStatus != BUYStatusComplete) {
-			[NSThread sleepForTimeInterval:kPollDelay];
+		while (checkout.token && checkoutStatus != BUYStatusFailed && checkoutStatus != BUYStatusComplete) {
+			[self.client getCompletionStatusOfCheckout:self.checkout completion:^(BUYCheckout *checkout, BUYStatus status, NSError *error) {
+				completedCheckout = checkout;
+				checkoutStatus = status;
+				dispatch_semaphore_signal(semaphore);
+			}];
+			dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+			
+			if (checkoutStatus != BUYStatusComplete) {
+				[NSThread sleepForTimeInterval:kPollDelay];
+			}
 		}
-	}
-	completion(checkoutStatus == BUYStatusComplete ? PKPaymentAuthorizationStatusSuccess : PKPaymentAuthorizationStatusFailure);
+		completion(checkoutStatus == BUYStatusComplete ? PKPaymentAuthorizationStatusSuccess : PKPaymentAuthorizationStatusFailure);
+	});
 }
 
 - (BUYShippingRate *)rateForShippingMethod:(PKShippingMethod *)method
@@ -152,20 +155,21 @@
 		completion(PKPaymentAuthorizationStatusSuccess, nil, [self.checkout buy_summaryItems]);
 	}
 	else {
-		[self fetchShippingRates:completion];
-		
-		NSArray *shippingMethods = [BUYShippingRate buy_convertShippingRatesToShippingMethods:_shippingRates];
-		if ([shippingMethods count] > 0) {
-			[self selectShippingMethod:shippingMethods[0] completion:^(BUYCheckout *checkout, NSError *error) {
-				if (checkout && error == nil) {
-					self.checkout = checkout;
-				}
-				completion(error ? PKPaymentAuthorizationStatusFailure : PKPaymentAuthorizationStatusSuccess, shippingMethods, [self.checkout buy_summaryItems]);
-			}];
-		}
-		else {
-			completion(PKPaymentAuthorizationStatusSuccess, nil, [self.checkout buy_summaryItems]);
-		}
+		[self fetchShippingRates:^(PKPaymentAuthorizationStatus status, NSArray *methods, NSArray *summaryItems) {
+			
+			NSArray *shippingMethods = [BUYShippingRate buy_convertShippingRatesToShippingMethods:_shippingRates];
+			if ([shippingMethods count] > 0) {
+				[self selectShippingMethod:shippingMethods[0] completion:^(BUYCheckout *checkout, NSError *error) {
+					if (checkout && error == nil) {
+						self.checkout = checkout;
+					}
+					completion(error ? PKPaymentAuthorizationStatusFailure : PKPaymentAuthorizationStatusSuccess, shippingMethods, [self.checkout buy_summaryItems]);
+				}];
+			}
+			else {
+				completion(PKPaymentAuthorizationStatusSuccess, nil, [self.checkout buy_summaryItems]);
+			}
+		}];
 	}
 }
 
@@ -174,35 +178,38 @@
 	//Step 4 - Fetch shipping rates. This may take several seconds to get back from our shipping providers. You have to poll here.
 	self.shippingRates = @[];
 	
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	__block BUYStatus shippingStatus = BUYStatusUnknown;
-	while (shippingStatus == BUYStatusUnknown || shippingStatus == BUYStatusProcessing) {
-		[self.client getShippingRatesForCheckout:self.checkout completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
-			shippingStatus = status;
-			
-			if (error) {
-				completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItems]);
-			}
-			else if (status == BUYStatusComplete && [shippingRates count] == 0) {
-				//You don't ship to this location
-				self.checkout.shippingRate = nil;
-				completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItems]);
-			}
-			else if ((status == BUYStatusUnknown && error == nil) || status == BUYStatusComplete) { //We shouldn't add unkonown here, but this supports the case where we don't need shipping rates
-				shippingStatus = BUYStatusComplete;
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+		dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+		__block BUYStatus shippingStatus = BUYStatusUnknown;
+		while (shippingStatus == BUYStatusUnknown || shippingStatus == BUYStatusProcessing) {
+			[self.client getShippingRatesForCheckout:self.checkout completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
+				shippingStatus = status;
 				
-				self.shippingRates = shippingRates;
-			}
+				if (error) {
+					completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItems]);
+				}
+				else if (status == BUYStatusComplete && [shippingRates count] == 0) {
+					//You don't ship to this location
+					self.checkout.shippingRate = nil;
+					completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItems]);
+				}
+				else if ((status == BUYStatusUnknown && error == nil) || status == BUYStatusComplete) { //We shouldn't add unkonown here, but this supports the case where we don't need shipping rates
+					shippingStatus = BUYStatusComplete;
+					
+					self.shippingRates = shippingRates;
+					completion(PKPaymentAuthorizationStatusSuccess, shippingRates, [self.checkout buy_summaryItems]);
+				}
+				
+				dispatch_semaphore_signal(semaphore);
+			}];
 			
-			dispatch_semaphore_signal(semaphore);
-		}];
-		
-		dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-		if (shippingStatus != BUYStatusComplete && shippingStatus != BUYStatusUnknown) {
-			//Adjust as you see fit for your polling rate.
-			[NSThread sleepForTimeInterval:kPollDelay];
+			dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+			if (shippingStatus != BUYStatusComplete && shippingStatus != BUYStatusUnknown) {
+				//Adjust as you see fit for your polling rate.
+				[NSThread sleepForTimeInterval:kPollDelay];
+			}
 		}
-	}
+	});
 }
 
 - (void)selectShippingMethod:(PKShippingMethod *)shippingMethod completion:(BUYDataCheckoutBlock)block
