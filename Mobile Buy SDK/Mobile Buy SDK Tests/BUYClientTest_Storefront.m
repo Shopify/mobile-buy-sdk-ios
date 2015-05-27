@@ -12,14 +12,6 @@
 #import "NSProcessInfo+Environment.h"
 #import "BUYTestConstants.h"
 
-#define WAIT_FOR_TASK(task, semaphore) \
-if (task) { \
-dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER); \
-} \
-else { \
-XCTFail(@"Task was nil, could not wait"); \
-} \
-
 @interface BUYDataProviderTest_Storefront : XCTestCase
 @end
 
@@ -83,15 +75,17 @@ XCTFail(@"Task was nil, could not wait"); \
 
 - (void)testGetShop
 {
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_provider getShop:^(BUYShop *shop, NSError *error) {
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_provider getShop:^(BUYShop *shop, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(shop);
 		XCTAssertEqualObjects(shop.name, @"davidmuzi");
 		
-		dispatch_semaphore_signal(semaphore);
+		[expectation fulfill];
 	}];
-	WAIT_FOR_TASK(task, semaphore);
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
 }
 
 - (void)testGetProductById
@@ -135,13 +129,15 @@ XCTFail(@"Task was nil, could not wait"); \
 
 - (void)testProductRequestError
 {
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_provider getProductById:@"asdfdsasdfdsasdfdsasdfjkllkj" completion:^(BUYProduct *product, NSError *error) {
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_provider getProductById:@"asdfdsasdfdsasdfdsasdfjkllkj" completion:^(BUYProduct *product, NSError *error) {
 
 		XCTAssertNil(product);
-		dispatch_semaphore_signal(semaphore);
+		[expectation fulfill];
 	}];
-	WAIT_FOR_TASK(task, semaphore);
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
 }
 
 @end

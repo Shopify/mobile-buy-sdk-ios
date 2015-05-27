@@ -13,21 +13,12 @@
 #import "BUYTestConstants.h"
 #import "NSProcessInfo+Environment.h"
 
-#define WAIT_FOR_TASK(task, sempahore) \
-if (task) { \
-dispatch_semaphore_wait(sempahore, DISPATCH_TIME_FOREVER); \
-} \
-else { \
-XCTFail(@"Task was nil, could not wait"); \
-} \
-
 @interface BUYIntegrationTest : XCTestCase
 @end
 
 @implementation BUYIntegrationTest {
 	BUYClient *_checkoutDataProvider;
 	
-	BUYShop *_shop;
 	NSMutableArray *_products;
 	
 	BUYCart *_cart;
@@ -66,46 +57,37 @@ XCTFail(@"Task was nil, could not wait"); \
 	_products = [[NSMutableArray alloc] init];
 	
 	//TODO: This currently does a bunch of API calls. We should add some fixtures to the tests.
-	[self fetchShop];
 	[self fetchProducts];
 }
 
 #pragma mark - Helpers
 
-- (void)fetchShop
-{
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_checkoutDataProvider getShop:^(BUYShop *shop, NSError *error) {
-		XCTAssertNil(error);
-		XCTAssertNotNil(shop);
-		
-		_shop = shop;
-		dispatch_semaphore_signal(semaphore);
-	}];
-	WAIT_FOR_TASK(task, semaphore);
-}
-
 - (void)fetchProducts
 {
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 	__block BOOL done = NO;
 	NSUInteger currentPage = 0;
 	while (done == NO) {
-		NSURLSessionDataTask *task = [_checkoutDataProvider getProductsPage:currentPage completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+		XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+
+		[_checkoutDataProvider getProductsPage:currentPage completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 			done = reachedEnd || error;
 			
 			XCTAssertNil(error, @"There was an error getting your store's products");
 			XCTAssertNotNil(products, @"Add products to your store for tests to pass");
 			
 			[_products addObjectsFromArray:products];
-			dispatch_semaphore_signal(semaphore);
+			[expectation fulfill];
 		}];
-		WAIT_FOR_TASK(task, semaphore);
 		
 		if (done == NO) {
 			++currentPage;
 		}
+		
+		[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+			XCTAssertNil(error);
+		}];
 	}
+	
 	NSLog(@"Fetched products (Pages: %d, Count: %d)", (int)(currentPage + 1), (int)[_products count]);
 }
 
@@ -120,15 +102,17 @@ XCTFail(@"Task was nil, could not wait"); \
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	_checkout.shippingAddress = [self shippingAddress];
 	_checkout.billingAddress = [self billingAddress];
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_checkoutDataProvider createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_checkoutDataProvider createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
 		
 		_checkout = returnedCheckout;
-		dispatch_semaphore_signal(semaphore);
+		[expectation fulfill];
 	}];
-	WAIT_FOR_TASK(task, semaphore);
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
 	XCTAssertEqualObjects(_checkout.shippingAddress.address1, @"126 York Street");
 	XCTAssertEqualObjects(_checkout.billingAddress.address1, @"150 Elgin Street");
 }
@@ -136,19 +120,24 @@ XCTFail(@"Task was nil, could not wait"); \
 - (void)fetchShippingRates
 {
 	__block BUYStatus shippingStatus = BUYStatusUnknown;
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 	while (_checkout.token && shippingStatus != BUYStatusFailed && shippingStatus != BUYStatusComplete) {
+		
 		NSLog(@"Fetching shipping rates...");
-		NSURLSessionDataTask *task = [_checkoutDataProvider getShippingRatesForCheckout:_checkout completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
+		XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+
+		[_checkoutDataProvider getShippingRatesForCheckout:_checkout completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
 			XCTAssertNil(error);
 			shippingStatus = status;
 			if (shippingStatus == BUYStatusComplete) {
 				XCTAssertNotNil(returnedShippingRates);
 				_shippingRates = returnedShippingRates;
 			}
-			dispatch_semaphore_signal(semaphore);
+			[expectation fulfill];
 		}];
-		WAIT_FOR_TASK(task, semaphore);
+		
+		[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+			XCTAssertNil(error);
+		}];
 		
 		if (shippingStatus != BUYStatusComplete) {
 			[NSThread sleepForTimeInterval:0.5f];
@@ -162,16 +151,18 @@ XCTFail(@"Task was nil, could not wait"); \
 {
 	_checkout.email = @"banana@testasaurus.com";
 	_checkout.shippingRate = _shippingRates[0];
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_checkoutDataProvider updateCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_checkoutDataProvider updateCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
 		XCTAssertNotNil(returnedCheckout.shippingRate.shippingRateIdentifier);
 		XCTAssertNotNil(returnedCheckout.email);
 		_checkout = returnedCheckout;
-		dispatch_semaphore_signal(semaphore);
+		[expectation fulfill];
 	}];
-	WAIT_FOR_TASK(task, semaphore);
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
 	XCTAssertEqualObjects(_checkout.email, @"banana@testasaurus.com");
 }
 
@@ -183,47 +174,57 @@ XCTFail(@"Task was nil, could not wait"); \
 	creditCard.expiryYear = @"20";
 	creditCard.cvv = @"123";
 	creditCard.nameOnCard = @"Dinosaur Banana";
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_checkoutDataProvider storeCreditCard:creditCard checkout:_checkout completion:^(BUYCheckout *returnedCheckout, NSString *paymentSessionId, NSError *error) {
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_checkoutDataProvider storeCreditCard:creditCard checkout:_checkout completion:^(BUYCheckout *returnedCheckout, NSString *paymentSessionId, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(paymentSessionId);
 		XCTAssertNotNil(returnedCheckout);
 		
 		_checkout = returnedCheckout;
-		dispatch_semaphore_signal(semaphore);
+		[expectation fulfill];
 	}];
-	WAIT_FOR_TASK(task, semaphore);
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
 }
 
 - (void)completeCheckout
 {
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_checkoutDataProvider completeCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_checkoutDataProvider completeCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
 		
 		_checkout = returnedCheckout;
-		dispatch_semaphore_signal(semaphore);
+		[expectation fulfill];
 	}];
-	WAIT_FOR_TASK(task, semaphore);
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
 }
 
 - (void)pollUntilCheckoutIsComplete
 {
 	__block BUYStatus checkoutStatus = BUYStatusUnknown;
 	__block NSError *checkoutError = nil;
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
 	while (_checkout.token && checkoutStatus != BUYStatusFailed && checkoutStatus != BUYStatusComplete) {
+		
 		NSLog(@"Checking completion status...");
-		NSURLSessionDataTask *task = [_checkoutDataProvider getCompletionStatusOfCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, BUYStatus returnedStatus, NSError *error) {
+		XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+
+		[_checkoutDataProvider getCompletionStatusOfCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, BUYStatus returnedStatus, NSError *error) {
 			XCTAssertNil(error);
 			XCTAssertNotNil(returnedCheckout);
 			
 			checkoutError = error;
 			checkoutStatus = returnedStatus;
-			dispatch_semaphore_signal(semaphore);
+			[expectation fulfill];
 		}];
-		WAIT_FOR_TASK(task, semaphore);
+		
+		[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+			XCTAssertNil(error);
+		}];
 		
 		if (checkoutStatus != BUYStatusComplete) {
 			[NSThread sleepForTimeInterval:0.5f];
@@ -235,15 +236,17 @@ XCTFail(@"Task was nil, could not wait"); \
 
 - (void)verifyCompletedCheckout
 {
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_checkoutDataProvider getCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_checkoutDataProvider getCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
 		
 		_checkout = returnedCheckout;
-		dispatch_semaphore_signal(semaphore);
+		[expectation fulfill];
 	}];
-	WAIT_FOR_TASK(task, semaphore);
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
 	XCTAssertNotNil(_checkout.orderId);
 }
 
@@ -254,16 +257,18 @@ XCTFail(@"Task was nil, could not wait"); \
 	[self createCart];
 	[self createCheckout];
 	
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_checkoutDataProvider applyGiftCardWithCode:giftCardCode toCheckout:_checkout completion:^(BUYGiftCard *giftCard, NSError *error) {
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_checkoutDataProvider applyGiftCardWithCode:giftCardCode toCheckout:_checkout completion:^(BUYGiftCard *giftCard, NSError *error) {
 		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
 		XCTAssertNil(error);
 		XCTAssertNotNil(giftCard);
 		XCTAssertEqualObjects([giftCardCode substringWithRange:NSMakeRange(giftCardCode.length - 4, 4)], giftCard.lastCharacters);
 		_giftCard = giftCard;
-		dispatch_semaphore_signal(semaphore);
+		[expectation fulfill];
 	}];
-	WAIT_FOR_TASK(task, semaphore);
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
 }
 
 - (void)testApplyingInvalidGiftCardToCheckout
@@ -271,13 +276,15 @@ XCTFail(@"Task was nil, could not wait"); \
 	[self createCart];
 	[self createCheckout];
 	
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_checkoutDataProvider applyGiftCardWithCode:@"000" toCheckout:_checkout completion:^(BUYGiftCard *giftCard, NSError *error) {
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_checkoutDataProvider applyGiftCardWithCode:@"000" toCheckout:_checkout completion:^(BUYGiftCard *giftCard, NSError *error) {
 		XCTAssertNotNil(error);
 		XCTAssertEqual(422, error.code);
-		dispatch_semaphore_signal(semaphore);
+		[expectation fulfill];
 	}];
-	WAIT_FOR_TASK(task, semaphore);
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
 }
 
 - (void)testApplyingExpiredGiftCardToCheckout
@@ -285,27 +292,31 @@ XCTFail(@"Task was nil, could not wait"); \
 	[self createCart];
 	[self createCheckout];
 	
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_checkoutDataProvider applyGiftCardWithCode:expiredGiftCardCode toCheckout:_checkout completion:^(BUYGiftCard *giftCard, NSError *error) {
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_checkoutDataProvider applyGiftCardWithCode:expiredGiftCardCode toCheckout:_checkout completion:^(BUYGiftCard *giftCard, NSError *error) {
 		XCTAssertNotNil(error);
 		XCTAssertEqual(422, error.code);
-		dispatch_semaphore_signal(semaphore);
+		[expectation fulfill];
 	}];
-	WAIT_FOR_TASK(task, semaphore);
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
 }
 
 - (void)testRemovingGiftCardFromCheckout
 {
 	[self testApplyingGiftCardToCheckout];
 	
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_checkoutDataProvider removeGiftCard:_giftCard fromCheckout:_checkout completion:^(BUYGiftCard *giftCard, NSError *error) {
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_checkoutDataProvider removeGiftCard:_giftCard fromCheckout:_checkout completion:^(BUYGiftCard *giftCard, NSError *error) {
 		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
 		XCTAssertNil(error);
 		XCTAssertNotNil(giftCard);
-		dispatch_semaphore_signal(semaphore);
+		[expectation fulfill];
 	}];
-	WAIT_FOR_TASK(task, semaphore);
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
 }
 
 - (void)testRemovingInvalidGiftCardFromCheckout
@@ -313,13 +324,15 @@ XCTFail(@"Task was nil, could not wait"); \
 	[self testApplyingGiftCardToCheckout];
 	
 	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:@{ @"id" : @"000" }];
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_checkoutDataProvider removeGiftCard:giftCard fromCheckout:_checkout completion:^(BUYGiftCard *giftCard, NSError *error) {
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_checkoutDataProvider removeGiftCard:giftCard fromCheckout:_checkout completion:^(BUYGiftCard *giftCard, NSError *error) {
 		XCTAssertNotNil(error);
 		XCTAssertEqual(422, error.code);
-		dispatch_semaphore_signal(semaphore);
+		[expectation fulfill];
 	}];
-	WAIT_FOR_TASK(task, semaphore);
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
 }
 
 - (void)testRemovingExpiredGiftCardFromCheckout
@@ -327,69 +340,84 @@ XCTFail(@"Task was nil, could not wait"); \
 	[self testApplyingGiftCardToCheckout];
 	
 	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:@{ @"id" : expiredGiftCardId }];
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_checkoutDataProvider removeGiftCard:giftCard fromCheckout:_checkout completion:^(BUYGiftCard *giftCard, NSError *error) {
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_checkoutDataProvider removeGiftCard:giftCard fromCheckout:_checkout completion:^(BUYGiftCard *giftCard, NSError *error) {
 		XCTAssertNotNil(error);
 		XCTAssertEqual(422, error.code);
-		dispatch_semaphore_signal(semaphore);
+		[expectation fulfill];
 	}];
-	WAIT_FOR_TASK(task, semaphore);
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
 }
 
 - (void)testCheckoutAnywhereWithoutAuthToken
 {
 	[self createCart];
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
 	_checkoutDataProvider = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:@"" channelId:nil];
-	NSURLSessionDataTask *task = [_checkoutDataProvider createCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	[_checkoutDataProvider createCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		XCTAssertNotNil(error);
 		XCTAssertEqualObjects(error.domain, @"shopify");
 		XCTAssertEqual(error.code, 401);
-		dispatch_semaphore_signal(semaphore);
+		[expectation fulfill];
 	}];
 	
-	WAIT_FOR_TASK(task, semaphore);
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
 }
 
 - (void)testCheckoutAnywhereWithInvalidShop
 {
 	[self createCart];
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
 	_checkoutDataProvider = [[BUYClient alloc] initWithShopDomain:@"asdfdsasdfdsasdfdsadsfowinfaoinfw.myshopify.com" apiKey:apiKey channelId:nil];
-	NSURLSessionDataTask *task = [_checkoutDataProvider createCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	[_checkoutDataProvider createCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		XCTAssertNotNil(error);
 		XCTAssertEqualObjects(error.domain, @"shopify");
 		XCTAssertEqual(error.code, 404);
-		dispatch_semaphore_signal(semaphore);
+		[expectation fulfill];
 		
 	}];
 	
-	WAIT_FOR_TASK(task, semaphore);
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
 }
 
 - (void)testFetchingShippingRatesWithoutShippingAddressShouldReturnPreconditionFailed
 {
 	[self createCart];
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_checkoutDataProvider createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+
+	[_checkoutDataProvider createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
 		
 		_checkout = returnedCheckout;
-		dispatch_semaphore_signal(semaphore);
+		[expectation fulfill];
 	}];
-	WAIT_FOR_TASK(task, semaphore);
 	
-	task = [_checkoutDataProvider getShippingRatesForCheckout:_checkout completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
-		XCTAssertEqual(BUYStatusPreconditionFailed, status);
-		dispatch_semaphore_signal(semaphore);
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
 	}];
-	WAIT_FOR_TASK(task, semaphore);
+	
+	XCTestExpectation *expectation2 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	
+	[_checkoutDataProvider getShippingRatesForCheckout:_checkout completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
+		XCTAssertEqual(BUYStatusPreconditionFailed, status);
+		[expectation2 fulfill];
+	}];
+	
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
 }
 
 - (void)testFetchingShippingRatesForInvalidCheckoutShouldReturnNotFound
@@ -397,12 +425,14 @@ XCTFail(@"Task was nil, could not wait"); \
 	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:nil];
 	checkout.token = @"bananaaaa";
 	
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_checkoutDataProvider getShippingRatesForCheckout:checkout completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_checkoutDataProvider getShippingRatesForCheckout:checkout completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
 		XCTAssertEqual(BUYStatusNotFound, status);
-		dispatch_semaphore_signal(semaphore);
+		[expectation fulfill];
 	}];
-	WAIT_FOR_TASK(task, semaphore);
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
 }
 
 - (void)testCheckoutAnywhereFlowUsingCreditCard
@@ -425,16 +455,17 @@ XCTFail(@"Task was nil, could not wait"); \
 	_checkout.shippingAddress = [self partialShippingAddress];
 	
 	//Create the checkout
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_checkoutDataProvider createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_checkoutDataProvider createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
 		
 		_checkout = returnedCheckout;
-		dispatch_semaphore_signal(semaphore);
+		[expectation fulfill];
 	}];
-	WAIT_FOR_TASK(task, semaphore);
-	
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
 	//Fetch the rates
 	[self fetchShippingRates];
 	
@@ -461,8 +492,8 @@ XCTFail(@"Task was nil, could not wait"); \
 	_checkout.discount = [self applicableDiscount];
 	
 	//Create the checkout
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_checkoutDataProvider createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_checkoutDataProvider createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		//NOTE: Is this test failing? Make sure that you create the following discounts on your test shop:
 		//
 		// applicable 	- this should be valid
@@ -471,10 +502,11 @@ XCTFail(@"Task was nil, could not wait"); \
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
 		_checkout = returnedCheckout;
-		dispatch_semaphore_signal(semaphore);
+		[expectation fulfill];
 	}];
-	WAIT_FOR_TASK(task, semaphore);
-	
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
 	XCTAssertNotNil(_checkout.discount);
 	XCTAssertTrue(_checkout.discount.applicable);
 }
@@ -487,14 +519,16 @@ XCTFail(@"Task was nil, could not wait"); \
 	_checkout.discount = [self inapplicableDiscount];
 	
 	//Create the checkout
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_checkoutDataProvider createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_checkoutDataProvider createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		XCTAssert(error);
 		XCTAssertEqual(422, error.code); //This is a validation error
 		XCTAssertNil(returnedCheckout);
-		dispatch_semaphore_signal(semaphore);
+		[expectation fulfill];
 	}];
-	WAIT_FOR_TASK(task, semaphore);
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
 }
 
 - (void)testCheckoutAnywhereWithNonExistentDiscount
@@ -505,15 +539,17 @@ XCTFail(@"Task was nil, could not wait"); \
 	_checkout.discount = [self nonExistentDiscount];
 	
 	//Create the checkout
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_checkoutDataProvider createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_checkoutDataProvider createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNotNil(error);
 		XCTAssertEqual(error.code, 422);
 		NSDictionary *info = [error userInfo];
 		XCTAssertNotNil(info[@"errors"][@"checkout"][@"discount"][@"code"]);
-		dispatch_semaphore_signal(semaphore);
+		[expectation fulfill];
 	}];
-	WAIT_FOR_TASK(task, semaphore);
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
 }
 
 - (void)testIntegration

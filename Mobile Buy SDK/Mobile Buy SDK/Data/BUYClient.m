@@ -72,8 +72,7 @@
 
 - (BOOL)testIntegration
 {
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	__block BOOL success = NO;
+	NSLog(@"Remove this call once integration succeeds.  This should never be called in production code!!");
 	
 	NSString *urlString = [NSString stringWithFormat:@"http://%@/mobile_app/verify?api_key=%@&channel_id=%@", self.shopDomain, self.apiKey, self.channelId];
 	
@@ -81,14 +80,14 @@
 		urlString = [urlString stringByAppendingFormat:@"&merchant_id=%@", self.merchantId];
 	}
 	
-	[self performRequestForURL:urlString completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		
-		success = ((NSHTTPURLResponse *)response).statusCode == 200;
-		dispatch_semaphore_signal(semaphore);
-	}];
+	NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+	NSHTTPURLResponse *response = nil;
+	NSError *error = nil;
 	
-	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-
+	[NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+	
+	BOOL success = (error == nil && response.statusCode == 200);
+	
 	return success;
 }
 
