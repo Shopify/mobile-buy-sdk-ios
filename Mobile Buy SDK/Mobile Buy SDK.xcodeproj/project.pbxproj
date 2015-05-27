@@ -116,7 +116,7 @@
 		90F7BA791B0D1DAF0067864D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90F7BA771B0D1DAF0067864D /* Main.storyboard */; };
 		90F7BA7B1B0D1DAF0067864D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90F7BA7A1B0D1DAF0067864D /* Images.xcassets */; };
 		90F7BA7E1B0D1DAF0067864D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90F7BA7C1B0D1DAF0067864D /* LaunchScreen.xib */; };
-		BE33B4EF1B15FF4D0067982B /* BUYApplePayHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = BE33B4ED1B15FF4D0067982B /* BUYApplePayHelpers.h */; };
+		BE33B4EF1B15FF4D0067982B /* BUYApplePayHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = BE33B4ED1B15FF4D0067982B /* BUYApplePayHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BE33B4F01B15FF4D0067982B /* BUYApplePayHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = BE33B4EE1B15FF4D0067982B /* BUYApplePayHelpers.m */; };
 /* End PBXBuildFile section */
 
@@ -548,12 +548,12 @@
 				90F592941B0D58140026B382 /* BUYCreditCard.h in Headers */,
 				90F592951B0D58140026B382 /* BUYGiftCard.h in Headers */,
 				90F592961B0D58140026B382 /* BUYImage.h in Headers */,
+				BE33B4EF1B15FF4D0067982B /* BUYApplePayHelpers.h in Headers */,
 				90F592971B0D58140026B382 /* BUYLineItem.h in Headers */,
 				90F5927F1B0D57DC0026B382 /* BUYApplePayAdditions.h in Headers */,
 				90F592801B0D57DE0026B382 /* BUYRuntime.h in Headers */,
 				90F592811B0D57E00026B382 /* NSDecimalNumber+BUYAdditions.h in Headers */,
 				90F592821B0D57E20026B382 /* NSString+Trim.h in Headers */,
-				BE33B4EF1B15FF4D0067982B /* BUYApplePayHelpers.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
