@@ -90,8 +90,6 @@
 	}];
 }
 
-
-
 - (void)updateCheckoutWithAddress:(ABRecordRef)address
 					   completion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion
 {
