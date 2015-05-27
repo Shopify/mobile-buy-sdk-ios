@@ -73,8 +73,7 @@
 	}];
 }
 
-- (void)updateCheckoutWithShippingMethod:(PKShippingMethod *)shippingMethod
-							  completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *methods))completion
+- (void)updateCheckoutWithShippingMethod:(PKShippingMethod *)shippingMethod completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *methods))completion
 {
 	BUYShippingRate *shippingRate = [self rateForShippingMethod:shippingMethod];
 	self.checkout.shippingRate = shippingRate;
@@ -90,8 +89,7 @@
 	}];
 }
 
-- (void)updateCheckoutWithAddress:(ABRecordRef)address
-					   completion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion
+- (void)updateCheckoutWithAddress:(ABRecordRef)address completion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion
 {
 	self.checkout.shippingAddress = [BUYAddress buy_addressFromRecord:address];
 	[self.client updateCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {

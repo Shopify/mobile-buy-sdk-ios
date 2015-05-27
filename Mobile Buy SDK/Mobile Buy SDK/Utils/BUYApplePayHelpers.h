@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 @import PassKit;
 
 @class BUYClient;
@@ -30,8 +30,7 @@
  *  @param payment    the authorized payment
  *  @param completion completion block thats called after Shopify authorizes the payment
  */
-- (void)updateAndCompleteCheckoutWithPayment:(PKPayment *)payment
-								  completion:(void (^)(PKPaymentAuthorizationStatus status))completion;
+- (void)updateAndCompleteCheckoutWithPayment:(PKPayment *)payment completion:(void (^)(PKPaymentAuthorizationStatus status))completion;
 
 /**
  *  Call this method in the PKPaymentAuthorizationViewControllerDelegate `paymentAuthorizationViewController:didSelectPaymentMethod:completion`
@@ -39,8 +38,7 @@
  *  @param shippingMethod The selected shipping method
  *  @param completion     the completion block called after shipping method is updated on the checkout
  */
-- (void)updateCheckoutWithShippingMethod:(PKShippingMethod *)shippingMethod
-							  completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *methods))completion;
+- (void)updateCheckoutWithShippingMethod:(PKShippingMethod *)shippingMethod completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *methods))completion;
 
 /**
  *  Call this method in the PKPaymentAuthorizationViewControllerDelegate `paymentAuthorizationViewController:didSelectShippingAddress:completion`
@@ -48,8 +46,7 @@
  *  @param address    The selected shipping address
  *  @param completion the completion block called after the shipping address is updated on the checkout
  */
-- (void)updateCheckoutWithAddress:(ABRecordRef)address
-					   completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *shippingMethods, NSArray *summaryItems))completion;
+- (void)updateCheckoutWithAddress:(ABRecordRef)address completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *shippingMethods, NSArray *summaryItems))completion;
 
 /**
  *  The current checkout
