@@ -12,14 +12,6 @@
 #import "NSProcessInfo+Environment.h"
 #import "BUYTestConstants.h"
 
-#define WAIT_FOR_TASK(task, semaphore) \
-if (task) { \
-dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER); \
-} \
-else { \
-XCTFail(@"Task was nil, could not wait"); \
-} \
-
 @interface BUYDataProviderTest_Storefront : XCTestCase
 @end
 
@@ -68,47 +60,53 @@ XCTFail(@"Task was nil, could not wait"); \
 
 - (void)testGetProductList
 {
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_provider getProductsPage:0 completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_provider getProductsPage:0 completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(products);
 		XCTAssertTrue([products count] > 0);
 		
-		dispatch_semaphore_signal(semaphore);
+		[expectation fulfill];
 	}];
-	WAIT_FOR_TASK(task, semaphore);
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
 }
 
 - (void)testGetShop
 {
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_provider getShop:^(BUYShop *shop, NSError *error) {
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_provider getShop:^(BUYShop *shop, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(shop);
 		XCTAssertEqualObjects(shop.name, @"davidmuzi");
 		
-		dispatch_semaphore_signal(semaphore);
+		[expectation fulfill];
 	}];
-	WAIT_FOR_TASK(task, semaphore);
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
 }
 
 - (void)testGetProductById
 {
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_provider getProductById:@"378783139" completion:^(BUYProduct *product, NSError *error) {
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_provider getProductById:@"378783139" completion:^(BUYProduct *product, NSError *error) {
 
 		XCTAssertNil(error);
 		XCTAssertNotNil(product);
 		XCTAssertEqualObjects(@"App crasher", [product title]);
-		dispatch_semaphore_signal(semaphore);
+		[expectation fulfill];
 	}];
-	WAIT_FOR_TASK(task, semaphore);
-}
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];}
 
 - (void)testGetMultipleProductByIds
 {
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_provider getProductsByIds:@[@"378783139", @"376722235", @"458943719"] completion:^(NSArray *products, NSError *error) {
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+
+	[_provider getProductsByIds:@[@"378783139", @"376722235", @"458943719"] completion:^(NSArray *products, NSError *error) {
 		
 		XCTAssertNil(error);
 		XCTAssertNotNil(products);
@@ -121,20 +119,25 @@ XCTFail(@"Task was nil, could not wait"); \
 		XCTAssertEqualObjects(@"App crasher", [products[0] title]);
 		XCTAssertEqualObjects(@"Pixel", [products[1] title]);
 		XCTAssertEqualObjects(@"Solar powered umbrella", [products[2] title]);
-		dispatch_semaphore_signal(semaphore);
+		[expectation fulfill];
 	}];
-	WAIT_FOR_TASK(task, semaphore);
+
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
 }
 
 - (void)testProductRequestError
 {
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	NSURLSessionDataTask *task = [_provider getProductById:@"asdfdsasdfdsasdfdsasdfjkllkj" completion:^(BUYProduct *product, NSError *error) {
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_provider getProductById:@"asdfdsasdfdsasdfdsasdfjkllkj" completion:^(BUYProduct *product, NSError *error) {
 
 		XCTAssertNil(product);
-		dispatch_semaphore_signal(semaphore);
+		[expectation fulfill];
 	}];
-	WAIT_FOR_TASK(task, semaphore);
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
 }
 
 @end

@@ -34,7 +34,6 @@
 @property (nonatomic, strong) NSString *merchantId;
 
 @property (nonatomic, strong) NSURLSession *session;
-@property (nonatomic, strong) NSOperationQueue *queue;
 
 @end
 
@@ -53,14 +52,14 @@
 		self.apiKey = apiKey;
 		self.channelId = channelId;
 		self.applicationName = [[NSBundle mainBundle] infoDictionary][@"CFBundleName"] ?: @"";
-		self.queue = [[NSOperationQueue alloc] init];
+		self.queue = dispatch_get_main_queue();
 		
 		NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
 		NSString *versionString = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
 		
 		config.HTTPAdditionalHeaders = @{@"X-Shopify-Mobile-Buy-SDK-Version": [NSString stringWithFormat:@"iOS/%@", versionString]};
 		
-		self.session = [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:self.queue];
+		self.session = [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:nil];
 		self.pageSize = 25;
 	}
 	return self;
@@ -73,8 +72,7 @@
 
 - (BOOL)testIntegration
 {
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	__block BOOL success = NO;
+	NSLog(@"Remove this call once integration succeeds.  This should never be called in production code!!");
 	
 	NSString *urlString = [NSString stringWithFormat:@"http://%@/mobile_app/verify?api_key=%@&channel_id=%@", self.shopDomain, self.apiKey, self.channelId];
 	
@@ -82,14 +80,14 @@
 		urlString = [urlString stringByAppendingFormat:@"&merchant_id=%@", self.merchantId];
 	}
 	
-	[self performRequestForURL:urlString completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		
-		success = ((NSHTTPURLResponse *)response).statusCode == 200;
-		dispatch_semaphore_signal(semaphore);
-	}];
+	NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+	NSHTTPURLResponse *response = nil;
+	NSError *error = nil;
 	
-	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-
+	[NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+	
+	BOOL success = (error == nil && response.statusCode == 200);
+	
 	return success;
 }
 
@@ -165,7 +163,9 @@
 			json = [jsonData isKindOfClass:[NSDictionary class]] ? jsonData : nil;
 			error = [self extractErrorFromResponse:response json:json];
 		}
-		completionHandler(json, response, error);
+		dispatch_async(self.queue, ^{
+			completionHandler(json, response, error);
+		});
 	}];
 	[task resume];
 	return task;
@@ -439,7 +439,9 @@
 				error = [self errorFromJSON:json statusCode:statusCode];
 			}
 		}
-		completionHandler(json, response, error);
+		dispatch_async(self.queue, ^{
+			completionHandler(json, response, error);
+		});
 	}];
 	[self startTask:task];
 	return task;

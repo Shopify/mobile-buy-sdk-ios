@@ -169,6 +169,12 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
 - (BOOL)testIntegration;
 
 /**
+ *  Queue where callbacks will be called
+ *  defaults to main queue
+ */
+@property (nonatomic, strong) dispatch_queue_t queue;
+
+/**
  *  The page size for any paged request. This can range from 1-250.
  */
 @property (nonatomic, assign) NSUInteger pageSize;

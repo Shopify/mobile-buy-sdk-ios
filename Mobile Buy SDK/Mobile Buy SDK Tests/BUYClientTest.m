@@ -104,4 +104,30 @@
 	XCTAssertEqualObjects(dict, json);
 }
 
+- (void)testCallbackQueue
+{
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	XCTestExpectation *expectation2 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+
+	[_dataProvider getShop:^(BUYShop *shop, NSError *error) {
+		
+		BOOL isMainThread = [NSThread isMainThread];
+		XCTAssertTrue(isMainThread);
+		[expectation fulfill];
+	}];
+	
+	BUYDataProvider *testProvider = [[BUYDataProvider alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
+	testProvider.queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+	
+	[testProvider getShop:^(BUYShop *shop, NSError *error) {
+		BOOL isMainThread = [NSThread isMainThread];
+		XCTAssertFalse(isMainThread);
+		[expectation2 fulfill];
+	}];
+	
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
 @end
