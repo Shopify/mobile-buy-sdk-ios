@@ -490,6 +490,32 @@
 
 #pragma mark - NSURLSessionTaskDelegate
 
+/*
+ // first, check for an invalid certificate and cancel the request if necessary
+ +	NSURLCredential *credential = nil;
+ +
+ +	if ([_authenticationChallengeUsername length] > 0 && [_authenticationChallengePassword length] > 0) {
+ +		credential = [NSURLCredential credentialWithUser:_authenticationChallengeUsername password:_authenticationChallengePassword persistence:NSURLCredentialPersistenceForSession];
+ +	}
+ +	else {
+ +		NSURLProtectionSpace *protectionSpace = [challenge protectionSpace];
+ +
+ +		if ([[protectionSpace authenticationMethod] isEqualToString:NSURLAuthenticationMethodServerTrust]) {
+ +			if (_allowInvalidCertificates) {
+ +				NSLog(@"_allowInvalidCertificates is YES; allowing requests without validating certificate chain.");
+ +			}
+ +			if (_allowInvalidCertificates || [self protectionSpaceHasValidCertificate:protectionSpace]) {
+ +				credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
+ +			}
+ +		}
+ +	}
+ +
+ +	completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, credential);
+ +}
+ +
+ */
+
+
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
 {
 	NSURLProtectionSpace *protectionSpace = [challenge protectionSpace];
