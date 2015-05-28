@@ -175,7 +175,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
 @property (nonatomic, strong) dispatch_queue_t queue;
 
 /**
- *  The page size for any paged request. This can range from 1-250.
+ *  The page size for any paged request. This can range from 1-250.  Default is 25
  */
 @property (nonatomic, assign) NSUInteger pageSize;
 

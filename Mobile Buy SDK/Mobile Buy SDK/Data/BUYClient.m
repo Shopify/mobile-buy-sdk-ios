@@ -15,6 +15,7 @@
 #import "BUYProduct.h"
 #import "BUYShippingRate.h"
 #import "BUYShop.h"
+#import "BUYAddress+Additions.h"
 
 #define kGET @"GET"
 #define kPOST @"POST"
@@ -204,7 +205,9 @@
 	checkout.marketingAttribution = self.marketingAttributions;
 	
 	NSMutableDictionary *json = [[checkout jsonDictionaryForCheckout] mutableCopy];
-	json[@"checkout"][@"partial_addresses"] = @YES;
+	if ([checkout.shippingAddress isPartialAddress]) {
+		json[@"checkout"][@"partial_addresses"] = @YES;
+	}
 	
 	return [self postCheckout:json completion:block];
 }
@@ -213,7 +216,6 @@
 {
 	NSDictionary *json = @{ @"checkout" : @{ @"cart_token" : cartToken,
 											 @"channel": self.channelId,
-											 @"partial_addresses": @YES,
 											 @"marketing_attribution": self.marketingAttributions} };
 	
 	return [self postCheckout:json completion:block];
@@ -233,8 +235,6 @@
 	
 	return task;
 }
-
-#pragma mark - Gift Cards
 
 - (NSURLSessionDataTask *)applyGiftCardWithCode:(NSString *)giftCardCode toCheckout:(BUYCheckout *)checkout completion:(BUYDataGiftCardBlock)block
 {

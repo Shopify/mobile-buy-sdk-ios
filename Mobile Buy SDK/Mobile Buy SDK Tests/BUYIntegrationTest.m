@@ -12,6 +12,7 @@
 #import <Buy/Buy.h>
 #import "BUYTestConstants.h"
 #import "NSProcessInfo+Environment.h"
+#import "BUYAddress+Additions.h"
 
 @interface BUYIntegrationTest : XCTestCase
 @end
@@ -603,10 +604,10 @@
 - (BUYAddress *)partialShippingAddress
 {
 	BUYAddress *address = [[BUYAddress alloc] init];
-	address.address1 = @"--";
+	address.address1 = BUYPartialAddressPlaceholder;
 	address.city = @"Ottawa";
-	address.firstName = @"---";
-	address.lastName = @"---";
+	address.firstName = BUYPartialAddressPlaceholder;
+	address.lastName = BUYPartialAddressPlaceholder;
 	address.countryCode = @"CA";
 	address.provinceCode = @"ON";
 	address.zip = @"K1N5T5";

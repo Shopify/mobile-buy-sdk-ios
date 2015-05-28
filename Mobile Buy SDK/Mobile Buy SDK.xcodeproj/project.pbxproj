@@ -117,6 +117,8 @@
 		90F7BA7E1B0D1DAF0067864D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90F7BA7C1B0D1DAF0067864D /* LaunchScreen.xib */; };
 		BE33B4EF1B15FF4D0067982B /* BUYApplePayHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = BE33B4ED1B15FF4D0067982B /* BUYApplePayHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BE33B4F01B15FF4D0067982B /* BUYApplePayHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = BE33B4EE1B15FF4D0067982B /* BUYApplePayHelpers.m */; };
+		BE33B4FB1B177EC80067982B /* BUYAddress+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = BE33B4F91B177EC80067982B /* BUYAddress+Additions.h */; };
+		BE33B4FC1B177EC80067982B /* BUYAddress+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = BE33B4FA1B177EC80067982B /* BUYAddress+Additions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -236,6 +238,8 @@
 		BE1C4DF61AE98FBB00E21624 /* BUYViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BUYViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BE33B4ED1B15FF4D0067982B /* BUYApplePayHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYApplePayHelpers.h; sourceTree = "<group>"; };
 		BE33B4EE1B15FF4D0067982B /* BUYApplePayHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYApplePayHelpers.m; sourceTree = "<group>"; };
+		BE33B4F91B177EC80067982B /* BUYAddress+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BUYAddress+Additions.h"; sourceTree = "<group>"; };
+		BE33B4FA1B177EC80067982B /* BUYAddress+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYAddress+Additions.m"; sourceTree = "<group>"; };
 		BEEA83E51B0B76C7000C6483 /* BUYOptionValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYOptionValue.h; sourceTree = "<group>"; };
 		BEEA83E61B0B76C7000C6483 /* BUYOptionValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYOptionValue.m; sourceTree = "<group>"; };
 		F70CE40D1A8BF1D90055BEB8 /* BUYApplePayAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BUYApplePayAdditions.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -482,6 +486,8 @@
 				F76CFF1C19CB7BE30079C703 /* NSString+Trim.m */,
 				BE33B4ED1B15FF4D0067982B /* BUYApplePayHelpers.h */,
 				BE33B4EE1B15FF4D0067982B /* BUYApplePayHelpers.m */,
+				BE33B4F91B177EC80067982B /* BUYAddress+Additions.h */,
+				BE33B4FA1B177EC80067982B /* BUYAddress+Additions.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -531,6 +537,7 @@
 				90F592841B0D57E70026B382 /* BUYShop.h in Headers */,
 				90F592851B0D57EA0026B382 /* BUYSerializable.h in Headers */,
 				90F592871B0D57F20026B382 /* BUYProductVariant.h in Headers */,
+				BE33B4FB1B177EC80067982B /* BUYAddress+Additions.h in Headers */,
 				90F592881B0D57F70026B382 /* BUYProduct.h in Headers */,
 				90F592891B0D57F90026B382 /* BUYOption.h in Headers */,
 				90F5928A1B0D57FC0026B382 /* BUYObject.h in Headers */,
@@ -742,6 +749,7 @@
 				90F592711B0D579B0026B382 /* BUYGiftCard.m in Sources */,
 				90F5925F1B0D578C0026B382 /* BUYShippingRate.m in Sources */,
 				90F5927E1B0D57A40026B382 /* NSString+Trim.m in Sources */,
+				BE33B4FC1B177EC80067982B /* BUYAddress+Additions.m in Sources */,
 				90F592701B0D579B0026B382 /* BUYCreditCard.m in Sources */,
 				BE33B4F01B15FF4D0067982B /* BUYApplePayHelpers.m in Sources */,
 				90F592721B0D579B0026B382 /* BUYImage.m in Sources */,

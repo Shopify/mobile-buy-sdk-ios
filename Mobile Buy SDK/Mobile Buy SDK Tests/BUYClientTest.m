@@ -11,6 +11,7 @@
 #import <Buy/Buy.h>
 #import "BUYTestConstants.h"
 #import "NSProcessInfo+Environment.h"
+#import "BUYAddress+Additions.h"
 
 @interface BUYDataProvider : BUYClient
 @end
@@ -76,8 +77,7 @@
 	NSData *data = [self dataForCartFromDataProvider:_dataProvider];
 	
 	NSDictionary *dict = @{@"checkout":
-							   @{@"partial_addresses": @1,
-								 @"line_items": @[],
+							   @{@"line_items": @[],
 								 @"channel": channelId,
 								 @"marketing_attribution":@{@"platform": @"iOS", @"application_name": _dataProvider.applicationName}}};
 	
@@ -90,16 +90,21 @@
 	BUYCart *cart = [[BUYCart alloc] init];
 	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:cart];
 	
-	// Ensure the partial address is YES for creation
+
 	NSURLSessionDataTask *task = [_dataProvider createCheckout:checkout completion:nil];
 	NSDictionary *json = [NSJSONSerialization JSONObjectWithData:task.originalRequest.HTTPBody options:0 error:nil];
+	XCTAssertFalse([json[@"checkout"][@"partial_addresses"] boolValue]);
+	
+	checkout = [[BUYCheckout alloc] initWithCart:cart];
+	
+	BUYAddress *partialAddress = [[BUYAddress alloc] init];
+	partialAddress.address1 = BUYPartialAddressPlaceholder;
+	
+	checkout.shippingAddress = partialAddress;
+	task = [_dataProvider createCheckout:checkout completion:nil];
+	json = [NSJSONSerialization JSONObjectWithData:task.originalRequest.HTTPBody options:0 error:nil];
 
 	XCTAssertTrue([json[@"checkout"][@"partial_addresses"] boolValue]);
-	
-	// ensure it is NO when not creating it
-	json = [checkout jsonDictionaryForCheckout];
-	
-	XCTAssertFalse([json[@"checkout"][@"partial_addresses"] boolValue]);
 }
 
 - (void)testMarketingAttributions
@@ -112,8 +117,7 @@
 	NSData *data = [self dataForCartFromDataProvider:testProvider];
 	
 	NSDictionary *dict = @{@"checkout":
-							   @{@"partial_addresses": @1,
-								 @"line_items": @[],
+							   @{@"line_items": @[],
 								 @"channel": channelId,
 								 @"marketing_attribution":@{@"platform": @"iOS", @"application_name": appName}}};
 	
