@@ -12,9 +12,6 @@
 #import "BUYProductVariant.h"
 #import "BUYStoreViewController.h"
 
-#define kCheckoutEvent @"com.shopify.hybrid.checkout"
-#define kToolbarHeight 44.0f
-
 NSString * const BUYShopifyError = @"shopify";
 
 @interface BUYStoreViewController () <WKNavigationDelegate>
@@ -75,9 +72,6 @@ NSString * const BUYShopifyError = @"shopify";
 	
 	[_webView loadRequest:[NSURLRequest requestWithURL:_url]];
 	[self updateButtons];
-	
-	
-
 }
 
 #pragma mark - Button Presses
@@ -92,12 +86,6 @@ NSString * const BUYShopifyError = @"shopify";
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler
 {
-	//This is the first approach, where we respond to /checkout links.
-	//This takes advantage of Shopify's 'cart.js' functionality. We can fetch the entire active cart by hitting /cart.json.
-	//It will fetch the current session's cart, and return it to you in json.
-	//
-	//The `fetchCart();` method is defined in `app.js` which is a small Javascript bundle we've prepared for demo purposes.
-	//
 	NSString *currentUrlString = [[[navigationAction request] URL] absoluteString];
 	
 	BOOL checkoutLink = [currentUrlString containsString:@"/checkout"] || [currentUrlString containsString:@"/sessions"];
@@ -179,15 +167,7 @@ NSString * const BUYShopifyError = @"shopify";
 
 - (void)checkoutWithApplePay
 {
-	NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:_url];
-	
-	NSString *cartToken = nil;
-	for (NSHTTPCookie *cookie in cookies) {
-		if ([cookie.name isEqualToString:@"cart"]) {
-			cartToken = cookie.value;
-			break;
-		}
-	}
+	NSString *cartToken = [BUYStoreViewController cookieValueForName:@"cart" withURL:_url];
 	
 	if (cartToken) {
 		[self startCheckoutWithCartToken:cartToken];
@@ -223,6 +203,23 @@ NSString * const BUYShopifyError = @"shopify";
 		NSError *error = [NSError errorWithDomain:BUYShopifyError code:status userInfo:@{@"checkout": checkout}];
 		[self.delegate controller:self failedToCompleteCheckout:checkout withError:error];
 	}
+}
+
+#pragma mark - Cookie helper
+
++ (NSString *)cookieValueForName:(NSString *)name withURL:(NSURL *)url
+{
+	NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:url];
+	
+	NSString *value = nil;
+	for (NSHTTPCookie *cookie in cookies) {
+		if ([cookie.name isEqualToString:name]) {
+			value = cookie.value;
+			break;
+		}
+	}
+	
+	return value;
 }
 
 @end
