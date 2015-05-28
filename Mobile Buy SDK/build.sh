@@ -42,4 +42,3 @@ rm -rf "${FRAMEWORK}/_CodeSignature"
 ######################
 lipo -create "${DIR_ARM}/${FRAMEWORK_NAME_FRAMEWORK}/${FRAMEWORK_NAME}" "${DIR_x8664}/${FRAMEWORK_NAME_FRAMEWORK}/${FRAMEWORK_NAME}" -output "${FRAMEWORK}/${FRAMEWORK_NAME}" | echo
 
-open "${UNIVERSAL_LIBRARY_DIR}"

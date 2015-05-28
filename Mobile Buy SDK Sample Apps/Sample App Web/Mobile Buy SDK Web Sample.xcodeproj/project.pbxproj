@@ -19,7 +19,6 @@
 		BEDC7A361AE03BA800C4B4FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEDC7A341AE03BA800C4B4FE /* Main.storyboard */; };
 		BEDC7A381AE03BA800C4B4FE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEDC7A371AE03BA800C4B4FE /* Images.xcassets */; };
 		BEDC7A3B1AE03BA900C4B4FE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEDC7A391AE03BA800C4B4FE /* LaunchScreen.xib */; };
-		BEDC7A5D1AE04AE600C4B4FE /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEDC7A5C1AE04AE600C4B4FE /* PassKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -58,7 +57,6 @@
 		BEDC7A351AE03BA800C4B4FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BEDC7A371AE03BA800C4B4FE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BEDC7A3A1AE03BA900C4B4FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		BEDC7A5C1AE04AE600C4B4FE /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,7 +65,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE9652F41AE563CE00084408 /* WebKit.framework in Frameworks */,
-				BEDC7A5D1AE04AE600C4B4FE /* PassKit.framework in Frameworks */,
 				90F7BA5D1B0D1BE50067864D /* Buy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -80,7 +77,6 @@
 			children = (
 				BE7D51CB1B04E21800E4A08F /* Buy.framework */,
 				BE9652F31AE563CE00084408 /* WebKit.framework */,
-				BEDC7A5C1AE04AE600C4B4FE /* PassKit.framework */,
 				BE9652F01AE5550A00084408 /* libc++.dylib */,
 			);
 			name = Frameworks;
@@ -181,6 +177,9 @@
 						SystemCapabilities = {
 							com.apple.OMC = {
 								enabled = 1;
+							};
+							com.apple.Passbook = {
+								enabled = 0;
 							};
 						};
 					};
@@ -382,8 +381,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Shopify Checkout/Shopify Checkout.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"${PROJECT_DIR}/../..",

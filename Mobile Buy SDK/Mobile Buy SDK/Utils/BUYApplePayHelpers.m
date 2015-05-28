@@ -26,6 +26,9 @@
 
 - (instancetype)initWithClient:(BUYClient *)client checkout:(BUYCheckout *)checkout
 {
+	NSParameterAssert(client);
+	NSParameterAssert(checkout);
+	
 	self = [super init];
 	
 	if (self) {
@@ -106,30 +109,6 @@
 
 #pragma mark - internal
 
-- (void)pollUntilCheckoutIsComplete:(BUYCheckout *)checkout completion:(void (^)(PKPaymentAuthorizationStatus status))completion
-{
-	//Step 7 - Poll until done. At this point, we've sent the payment information to the Payment Gateway for your shop, and we're waiting for it to come back.
-	//This is sometimes a slow process, so we need to poll until we've received confirmation that money has been authorized or captured.
-	
-	__block BUYStatus checkoutStatus = BUYStatusUnknown;
-	__block BUYCheckout *completedCheckout = nil;
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	
-	while (checkout.token && checkoutStatus != BUYStatusFailed && checkoutStatus != BUYStatusComplete) {
-		[self.client getCompletionStatusOfCheckout:self.checkout completion:^(BUYCheckout *checkout, BUYStatus status, NSError *error) {
-			completedCheckout = checkout;
-			checkoutStatus = status;
-			dispatch_semaphore_signal(semaphore);
-		}];
-		dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-		
-		if (checkoutStatus != BUYStatusComplete) {
-			[NSThread sleepForTimeInterval:kPollDelay];
-		}
-	}
-	completion(checkoutStatus == BUYStatusComplete ? PKPaymentAuthorizationStatusSuccess : PKPaymentAuthorizationStatusFailure);
-}
-
 - (BUYShippingRate *)rateForShippingMethod:(PKShippingMethod *)method
 {
 	BUYShippingRate *rate = nil;
@@ -145,64 +124,68 @@
 
 - (void)getShippingRates:(BUYCheckout *)checkout completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *shippingMethods, NSArray *summaryItems))completion
 {
-	//Step 5 - We're now fetching the rates from Shopify. This will will calculate shipping rates very similarly to how our web checkout.
-	//We then turn our BUYShippingRate objects into PKShippingMethods for Apple to present to the user.
+	// We're now fetching the rates from Shopify. This will will calculate shipping rates very similarly to how our web checkout.
+	// We then turn our BUYShippingRate objects into PKShippingMethods for Apple to present to the user.
 	
 	if ([self.checkout requiresShipping] == NO) {
 		completion(PKPaymentAuthorizationStatusSuccess, nil, [self.checkout buy_summaryItems]);
 	}
 	else {
-		[self fetchShippingRates:completion];
-		
-		NSArray *shippingMethods = [BUYShippingRate buy_convertShippingRatesToShippingMethods:_shippingRates];
-		if ([shippingMethods count] > 0) {
-			[self selectShippingMethod:shippingMethods[0] completion:^(BUYCheckout *checkout, NSError *error) {
-				if (checkout && error == nil) {
-					self.checkout = checkout;
-				}
-				completion(error ? PKPaymentAuthorizationStatusFailure : PKPaymentAuthorizationStatusSuccess, shippingMethods, [self.checkout buy_summaryItems]);
-			}];
-		}
-		else {
-			completion(PKPaymentAuthorizationStatusSuccess, nil, [self.checkout buy_summaryItems]);
-		}
+		[self fetchShippingRates:^(PKPaymentAuthorizationStatus status, NSArray *methods, NSArray *summaryItems) {
+			
+			NSArray *shippingMethods = [BUYShippingRate buy_convertShippingRatesToShippingMethods:_shippingRates];
+			if ([shippingMethods count] > 0) {
+				[self selectShippingMethod:shippingMethods[0] completion:^(BUYCheckout *checkout, NSError *error) {
+					if (checkout && error == nil) {
+						self.checkout = checkout;
+					}
+					completion(error ? PKPaymentAuthorizationStatusFailure : PKPaymentAuthorizationStatusSuccess, shippingMethods, [self.checkout buy_summaryItems]);
+				}];
+			}
+			else {
+				completion(PKPaymentAuthorizationStatusSuccess, nil, [self.checkout buy_summaryItems]);
+			}
+		}];
 	}
 }
 
 - (void)fetchShippingRates:(void (^)(PKPaymentAuthorizationStatus, NSArray *, NSArray *))completion
 {
-	//Step 4 - Fetch shipping rates. This may take several seconds to get back from our shipping providers. You have to poll here.
+	// Fetch shipping rates. This may take several seconds to get back from our shipping providers. You have to poll here.
 	self.shippingRates = @[];
 	
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-	__block BUYStatus shippingStatus = BUYStatusUnknown;
-	while (shippingStatus == BUYStatusUnknown || shippingStatus == BUYStatusProcessing) {
-		[self.client getShippingRatesForCheckout:self.checkout completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
-			shippingStatus = status;
-			
-			if (error) {
-				completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItems]);
-			}
-			else if (status == BUYStatusComplete && [shippingRates count] == 0) {
-				//You don't ship to this location
-				self.checkout.shippingRate = nil;
-				completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItems]);
-			}
-			else if ((status == BUYStatusUnknown && error == nil) || status == BUYStatusComplete) { //We shouldn't add unkonown here, but this supports the case where we don't need shipping rates
-				shippingStatus = BUYStatusComplete;
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+		dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+		__block BUYStatus shippingStatus = BUYStatusUnknown;
+		while (shippingStatus == BUYStatusUnknown || shippingStatus == BUYStatusProcessing) {
+			[self.client getShippingRatesForCheckout:self.checkout completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
+				shippingStatus = status;
 				
-				self.shippingRates = shippingRates;
-			}
+				if (error) {
+					completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItems]);
+				}
+				else if (status == BUYStatusComplete && [shippingRates count] == 0) {
+					//You don't ship to this location
+					self.checkout.shippingRate = nil;
+					completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItems]);
+				}
+				else if ((status == BUYStatusUnknown && error == nil) || status == BUYStatusComplete) { //We shouldn't add unkonown here, but this supports the case where we don't need shipping rates
+					shippingStatus = BUYStatusComplete;
+					
+					self.shippingRates = shippingRates;
+					completion(PKPaymentAuthorizationStatusSuccess, shippingRates, [self.checkout buy_summaryItems]);
+				}
+				
+				dispatch_semaphore_signal(semaphore);
+			}];
 			
-			dispatch_semaphore_signal(semaphore);
-		}];
-		
-		dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-		if (shippingStatus != BUYStatusComplete && shippingStatus != BUYStatusUnknown) {
-			//Adjust as you see fit for your polling rate.
-			[NSThread sleepForTimeInterval:kPollDelay];
+			dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+			if (shippingStatus != BUYStatusComplete && shippingStatus != BUYStatusUnknown) {
+				//Adjust as you see fit for your polling rate.
+				[NSThread sleepForTimeInterval:kPollDelay];
+			}
 		}
-	}
+	});
 }
 
 - (void)selectShippingMethod:(PKShippingMethod *)shippingMethod completion:(BUYDataCheckoutBlock)block
@@ -211,6 +194,33 @@
 	self.checkout.shippingRate = shippingRate;
 	
 	[self.client updateCheckout:self.checkout completion:block];
+}
+
+- (void)pollUntilCheckoutIsComplete:(BUYCheckout *)checkout completion:(void (^)(PKPaymentAuthorizationStatus status))completion
+{
+	// Poll until done. At this point, we've sent the payment information to the Payment Gateway for your shop, and we're waiting for it to come back.
+	// This is sometimes a slow process, so we need to poll until we've received confirmation that money has been authorized or captured.
+	
+	__block BUYStatus checkoutStatus = BUYStatusUnknown;
+	__block BUYCheckout *completedCheckout = nil;
+	
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+		dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+		
+		while (checkout.token && checkoutStatus != BUYStatusFailed && checkoutStatus != BUYStatusComplete) {
+			[self.client getCompletionStatusOfCheckout:self.checkout completion:^(BUYCheckout *checkout, BUYStatus status, NSError *error) {
+				completedCheckout = checkout;
+				checkoutStatus = status;
+				dispatch_semaphore_signal(semaphore);
+			}];
+			dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+			
+			if (checkoutStatus != BUYStatusComplete) {
+				[NSThread sleepForTimeInterval:kPollDelay];
+			}
+		}
+		completion(checkoutStatus == BUYStatusComplete ? PKPaymentAuthorizationStatusSuccess : PKPaymentAuthorizationStatusFailure);
+	});
 }
 
 @end
