@@ -199,30 +199,42 @@
 
 - (NSURLSessionDataTask *)createCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
+	// Inject channel and marketing attributions
 	checkout.channel = self.channelId;
 	checkout.marketingAttribution = self.marketingAttributions;
 	
-	return [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts.json", _shopDomain] object:checkout completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		[self handleCheckoutResponse:json error:error block:block];
-	}];
+	NSMutableDictionary *json = [[checkout jsonDictionaryForCheckout] mutableCopy];
+	json[@"checkout"][@"partial_addresses"] = @YES;
+	
+	return [self postCheckout:json completion:block];
 }
 
 - (NSURLSessionDataTask *)createCheckoutWithCartToken:(NSString *)cartToken completion:(BUYDataCheckoutBlock)block
 {
+	NSDictionary *json = @{ @"checkout" : @{ @"cart_token" : cartToken,
+											 @"channel": self.channelId,
+											 @"partial_addresses": @YES,
+											 @"marketing_attribution": self.marketingAttributions} };
+	
+	return [self postCheckout:json completion:block];
+}
+
+- (NSURLSessionDataTask *)postCheckout:(NSDictionary *)checkoutJSON completion:(BUYDataCheckoutBlock)block
+{
 	NSURLSessionDataTask *task = nil;
-	if (cartToken) {
-		NSDictionary *body = @{ @"checkout" : @{ @"cart_token" : cartToken, @"channel": self.channelId, @"marketing_attribution": self.marketingAttributions} };
-		NSError *error = nil;
-		NSData *data = [NSJSONSerialization dataWithJSONObject:body options:0 error:&error];
-		
-		if (data && error == nil) {
-			task = [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts.json", _shopDomain] body:data completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-				[self handleCheckoutResponse:json error:error block:block];
-			}];
-		}
+	NSError *error = nil;
+	NSData *data = [NSJSONSerialization dataWithJSONObject:checkoutJSON options:0 error:&error];
+
+	if (data && error == nil) {
+		task = [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts.json", _shopDomain] body:data completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+			[self handleCheckoutResponse:json error:error block:block];
+		}];
 	}
+	
 	return task;
 }
+
+#pragma mark - Gift Cards
 
 - (NSURLSessionDataTask *)applyGiftCardWithCode:(NSString *)giftCardCode toCheckout:(BUYCheckout *)checkout completion:(BUYDataGiftCardBlock)block
 {

@@ -85,6 +85,23 @@
 	XCTAssertEqualObjects(dict, json);
 }
 
+- (void)testPartialAddressesFlag
+{
+	BUYCart *cart = [[BUYCart alloc] init];
+	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:cart];
+	
+	// Ensure the partial address is YES for creation
+	NSURLSessionDataTask *task = [_dataProvider createCheckout:checkout completion:nil];
+	NSDictionary *json = [NSJSONSerialization JSONObjectWithData:task.originalRequest.HTTPBody options:0 error:nil];
+
+	XCTAssertTrue([json[@"checkout"][@"partial_addresses"] boolValue]);
+	
+	// ensure it is NO when not creating it
+	json = [checkout jsonDictionaryForCheckout];
+	
+	XCTAssertFalse([json[@"checkout"][@"partial_addresses"] boolValue]);
+}
+
 - (void)testMarketingAttributions
 {
 	NSString *appName = @"ApPnAmE";
