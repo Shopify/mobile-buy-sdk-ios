@@ -173,7 +173,8 @@ NSString * const BUYShopifyError = @"shopify";
 		[self startCheckoutWithCartToken:cartToken];
 	}
 	else {
-		[self.delegate controller:self failedToCreateCheckout:nil];
+		NSError *error = [NSError errorWithDomain:BUYShopifyError code:BUYCheckoutError_CartFetchError userInfo:nil];
+		[self.delegate controller:self failedToCreateCheckout:error];
 	}
 }
 
