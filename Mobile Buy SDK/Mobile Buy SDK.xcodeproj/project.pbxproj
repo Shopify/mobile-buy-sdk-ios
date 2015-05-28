@@ -699,7 +699,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "sh \"${SRCROOT}/build.sh\"";
+			shellScript = "BUILD_CONFIGURATION=\"release\"\nsh \"${SRCROOT}/build.sh\"";
 		};
 		90E80E441AFAB0C3003A9909 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -725,7 +725,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "sh \"${SRCROOT}/build_sample_apps_framework.sh\"";
+			shellScript = "BUILD_CONFIGURATION=${CONFIGURATION}\nsh \"${SRCROOT}/build_sample_apps_framework.sh\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
