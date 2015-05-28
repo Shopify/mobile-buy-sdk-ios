@@ -1,4 +1,4 @@
-[![Circle CI](https://circleci.com/gh/Shopify/checkout-anywhere-ios/tree/develop.svg?style=svg&circle-token=bc81f8016a1c01955fb98204e59f01c418e02c4c)](https://circleci.com/gh/Shopify/checkout-anywhere-ios/tree/develop)
+[![Circle CI](https://circleci.com/gh/Shopify/mobile-buy-sdk-ios-private.svg?style=svg&circle-token=bc81f8016a1c01955fb98204e59f01c418e02c4c)](https://circleci.com/gh/Shopify/mobile-buy-sdk-ios-private)
 
 # Shopify's Mobile Buy SDK for iOS
 
