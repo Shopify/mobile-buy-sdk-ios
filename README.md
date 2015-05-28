@@ -1,106 +1,44 @@
 [![Circle CI](https://circleci.com/gh/Shopify/mobile-buy-sdk-ios-private.svg?style=svg&circle-token=bc81f8016a1c01955fb98204e59f01c418e02c4c)](https://circleci.com/gh/Shopify/mobile-buy-sdk-ios-private)
 
-##What is this?
+# Shopify's Mobile Buy SDK for iOS
 
-This is a client implementation of Checkout Anywhere for iOS that allows you to perform checkouts from an App. This also supports ApplePay.
+Shopify’s Mobile Buy SDK makes it simple to sell physical products inside your mobile app. With a few lines of code, you can connect your app with the Shopify platform and let your users buy your products using Apple Pay or their credit card.
 
-This library also includes an implementation of Shopify's Storefront API. This is an API that allows you to fetch products from a specific shop (i.e. ______.myshopify.com).
+### Documentation
 
-## Adding to a Project
+Please find all documentation on the [Mobile Buy SDK for iOS page](https://docs.shopify.com/mobile-buy-sdk).
 
-You can either use CocoaPods or include this project in your workspace/project directly. However, you must do two steps:
+### Building the SDK
 
-1. Link against `libdstdc++.dylib` under **Project > Build Phases > Link Binary With Libraries**.
-2. Add `-ObjC` in your `Other Linker Flags` under **Project > Build Settings.**.
+Clone this repo or download as .zip and open `Mobile Buy SDK.xcworkspace`.
 
-## Flow
+The workspace includes the Mobile Buy SDK project and the two sample app projects. The sample apps can also be opened outside the workspace with the `.xcodeproj` files found in the sample app folders. However, if you need to use breakpoints or inspect methods in the SDK, run the sample apps from the workspace.
 
-1. Create a cart.
-2. Transform cart into a Checkout.
-3. Add information to the Checkout.
-4. Complete the checkout using an ApplePay token (or use a credit card).
-6. Poll until the payment job completes.
-7. Bask in the glory of a created order.
+### Mobile Buy SDK Targets and schemes
 
-We highly recommend that you use ApplePay as the sole source of payment within your application, even if this SDK supports payment by credit card as well.
-Please familiarize yourself with the [Mobile PCI Standards](https://www.pcisecuritystandards.org/documents/Mobile_Payment_Security_Guidelines_Developers_v1.pdf) before including a full credit card checkout flow in your application.
+The Mobile Buy SDK includes a number of targets:
 
-## Flow Examples
+* `Buy`: This is the Mobile Buy SDK framework. This build is based on the current build configuration. To build a universal framework that can run on a device and on the Simulator and to be included in your app, please refer to the `Universal Framework` target below
 
-For a view of what a 'synchronous' view of checkout would look like: see the [integration tests](https://github.com/Shopify/checkout-anywhere-ios/blob/master/CheckoutAnywhere/CheckoutAnywhereTests/BUYAnywhereIntegrationTest.m)
+* `Universal Framework`: This builds a universal the framework using the `build.sh` script that can be included in apps running on a device and in the Simulator
 
-Here is a simplistic view:
+* `Mobile Buy SDK Tests`: Tests for the Mobile Buy SDK framework. See instructions below
 
-```
-//Create the checkout
-[_checkoutDataProvider createCheckout:checkout block:...]
+* `Documentation`: This generates appledoc documentation for the framework
 
-//Fetch shipping rates as necessary
-[_checkoutDataProvider getShippingRatesForCheckout:checkout block:...]
+* `Universal Framework Sample Apps`: This builds the framework using same `build.sh` script in the `Universal Framework` target and copies the built framework in the `/Mobile Buy SDK Sample Apps` folder. Build this target and scheme if you have made any changes to the framework that you want to test with the sample apps as the sample apps do not build the framework directly but embed the already built framework 
 
-//Update the checkout with any updated information (refetch shipping rates if the addresses change)
-[_checkoutDataProvider updateCheckout:checkout completion:...] (if necessary)
+* `Playground`: This target is a basic app that depends directly on the `Buy` framework target and builds the framework every time using the `Playground` app's build configuration. You may use this app and target to play around with the SDK. Be sure not to check in any changes you may have made in files related to this app
 
-//Add a payment method and complete the checkout (see below for Options 1 and 2)
-...
+### Integration Tests
 
+To run the Mobile Buy SDK integration tests locally, you will need a Shopify shop that is publicly accessible (not password protected). Please note that the integration tests **will create an order** on that shop. This is to validate that the SDK works properly with Shopify.
 
-//Poll for completion -- this may take a few seconds.
-//You will need to poll at a regular interval until this is complete (the status will be one of the many BUYStatus values).
-[_checkoutDataProvider getCompletionStatusOfCheckout:checkout block:...]
+To run the tests, edit the `Mobile Buy SDK Tests` scheme and add the following arguments to the **Environment Variables**:
 
-//Update the checkout to obtain the final information if necessary
-[_checkoutDataProvider getCheckout:checkout completion:...]
-```
-
-### Option 1: Completing a Checkout using ApplePay
-```
-//Or directly complete the payment using an ApplePay token (PKPaymentToken *)
-[_checkoutDataProvider completeCheckout:checkout withApplePayToken:token block:...]
-```
-
-### Option 2: Completing a Checkout using a Credit Card
-```
-[_checkoutDataProvider storeCreditCard:creditCard checkout:checkout completion:...]
-[_checkoutDataProvider completeCheckout:checkout block:...]
-```
-
-## Error Handling
-
-Please ensure to verify the `error` object returned with every call back to Shopify. If there was an error along the way, the error object will be populated with a dictionary containing a mapping of fields->errors.
-This will give you detailed information about what fields are missing, or what fields are wrong.
-
-For example, if you were to complete a checkout with an **email**, the `error.userInfo` will be:
-
-```
-{
-  "errors" = {
-    "checkout" = {
-      "email" = [              //One error associated with a "blank" (or missing) email.
-        {
-          "code" = "blank",
-          "message" = "can't be blank"
-        }],
-       "line_items" = [],      //No errors associated with this
-       "shipping_rate_id" = [] //No errors associated with this
-  }
-}
-```
-
-## Testing
-To run the Shopify Anywhere SDK integration tests, you will need a Shopify shop that is publicly accessible (in other words, not hidden behind a password). Please note that the integration tests **will create an order** on that shop. This is to validate that the SDK works properly with Shopify. To have these tests run, fill out the information in `BUYTestConstants.h`.
-
-The integration tests that exercise discount code functionality require the following discounts on your test shop:
-
-1. **code:** "applicable" **amount:** 10% **conditions:** none
-2. **code:** "inapplicable" **amount:** \<anything\> **conditions:** order value > $1,000,000
-
-The integration tests that exercise the apply of gitfcards to orders will need you to create 2 giftcards:
-
-1. a valid gift card - you'll need the gift card code 
-2. an unexpired gift card - you'll need the both the gift card code and id
-
-## Pods
-This repo is also a CocoaPod.
-
-Make sure to run `pod spec lint ShopifyCheckoutAnywhere.podspec` before publishing, and update this README.md to be public facing.
+* `shop_domain`: Your shop's domain, for example: `abetterlookingshop.myshopify.com`
+* `api_key`: The API provided when setting up the Mobile App channel on Shopify Admin: *https://your_shop_id.myshopify.com/admin/mobile_app/integration*
+* `channel_id`: The Channel ID provided with the API Key above
+* `gift_card_code`: A valid [Gift Card](https://docs.shopify.com/manual/your-store/gift-cards) code for your shop
+* `expired_gift_card_code`: An expired Gift Card code
+* `expired_gift_card_id`: The `product_id` for the expired Gift Card
