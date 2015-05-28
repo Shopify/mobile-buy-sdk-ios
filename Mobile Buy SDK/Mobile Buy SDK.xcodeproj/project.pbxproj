@@ -117,6 +117,8 @@
 		90F7BA7E1B0D1DAF0067864D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90F7BA7C1B0D1DAF0067864D /* LaunchScreen.xib */; };
 		BE33B4EF1B15FF4D0067982B /* BUYApplePayHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = BE33B4ED1B15FF4D0067982B /* BUYApplePayHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BE33B4F01B15FF4D0067982B /* BUYApplePayHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = BE33B4EE1B15FF4D0067982B /* BUYApplePayHelpers.m */; };
+		BE33B4F31B174A1A0067982B /* BUYClient+WebCheckout.h in Headers */ = {isa = PBXBuildFile; fileRef = BE33B4F11B174A1A0067982B /* BUYClient+WebCheckout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BE33B4F41B174A1A0067982B /* BUYClient+WebCheckout.m in Sources */ = {isa = PBXBuildFile; fileRef = BE33B4F21B174A1A0067982B /* BUYClient+WebCheckout.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -236,6 +238,8 @@
 		BE1C4DF61AE98FBB00E21624 /* BUYViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BUYViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BE33B4ED1B15FF4D0067982B /* BUYApplePayHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYApplePayHelpers.h; sourceTree = "<group>"; };
 		BE33B4EE1B15FF4D0067982B /* BUYApplePayHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYApplePayHelpers.m; sourceTree = "<group>"; };
+		BE33B4F11B174A1A0067982B /* BUYClient+WebCheckout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BUYClient+WebCheckout.h"; sourceTree = "<group>"; };
+		BE33B4F21B174A1A0067982B /* BUYClient+WebCheckout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYClient+WebCheckout.m"; sourceTree = "<group>"; };
 		BEEA83E51B0B76C7000C6483 /* BUYOptionValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYOptionValue.h; sourceTree = "<group>"; };
 		BEEA83E61B0B76C7000C6483 /* BUYOptionValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYOptionValue.m; sourceTree = "<group>"; };
 		F70CE40D1A8BF1D90055BEB8 /* BUYApplePayAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BUYApplePayAdditions.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -482,6 +486,8 @@
 				F76CFF1C19CB7BE30079C703 /* NSString+Trim.m */,
 				BE33B4ED1B15FF4D0067982B /* BUYApplePayHelpers.h */,
 				BE33B4EE1B15FF4D0067982B /* BUYApplePayHelpers.m */,
+				BE33B4F11B174A1A0067982B /* BUYClient+WebCheckout.h */,
+				BE33B4F21B174A1A0067982B /* BUYClient+WebCheckout.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -526,6 +532,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				90F592861B0D57ED0026B382 /* Buy.h in Headers */,
+				BE33B4F31B174A1A0067982B /* BUYClient+WebCheckout.h in Headers */,
 				90F5928D1B0D58130026B382 /* BUYClient.h in Headers */,
 				90F592831B0D57E50026B382 /* BUYOptionValue.h in Headers */,
 				90F592841B0D57E70026B382 /* BUYShop.h in Headers */,
@@ -754,6 +761,7 @@
 				90F592781B0D579B0026B382 /* BUYShop.m in Sources */,
 				90F592791B0D579B0026B382 /* BUYOptionValue.m in Sources */,
 				90F5926E1B0D579B0026B382 /* BUYTaxLine.m in Sources */,
+				BE33B4F41B174A1A0067982B /* BUYClient+WebCheckout.m in Sources */,
 				90F592741B0D579B0026B382 /* BUYObject.mm in Sources */,
 				90F592761B0D579B0026B382 /* BUYProduct.m in Sources */,
 				90F5926F1B0D579B0026B382 /* BUYAddress.m in Sources */,
