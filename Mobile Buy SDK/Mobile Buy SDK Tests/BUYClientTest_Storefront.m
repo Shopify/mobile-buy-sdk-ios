@@ -1,5 +1,5 @@
 //
-//  BUYDataProviderTest_Storefront.m
+//  BUYClientTest_Storefront.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify on 2014-09-25.
@@ -12,11 +12,11 @@
 #import "NSProcessInfo+Environment.h"
 #import "BUYTestConstants.h"
 
-@interface BUYDataProviderTest_Storefront : XCTestCase
+@interface BUYClientTest_Storefront : XCTestCase
 @end
 
-@implementation BUYDataProviderTest_Storefront {
-	BUYClient *_provider;
+@implementation BUYClientTest_Storefront {
+	BUYClient *_client;
 	
 	NSString *shopDomain;
 	NSString *apiKey;
@@ -38,30 +38,30 @@
 	expiredGiftCardId = [NSProcessInfo environmentForKey:kBUYTestExpiredGiftCardID];
 	
 	
-	_provider = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
+	_client = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
 }
 
 - (void)testDefaultPageSize
 {
-	XCTAssertEqual(_provider.pageSize, 25);
+	XCTAssertEqual(_client.pageSize, 25);
 }
 
 - (void)testSetPageSizeIsClamped
 {
-	[_provider setPageSize:0];
-	XCTAssertEqual(_provider.pageSize, 1);
+	[_client setPageSize:0];
+	XCTAssertEqual(_client.pageSize, 1);
 	
-	[_provider setPageSize:54];
-	XCTAssertEqual(_provider.pageSize, 54);
+	[_client setPageSize:54];
+	XCTAssertEqual(_client.pageSize, 54);
 	
-	[_provider setPageSize:260];
-	XCTAssertEqual(_provider.pageSize, 250);
+	[_client setPageSize:260];
+	XCTAssertEqual(_client.pageSize, 250);
 }
 
 - (void)testGetProductList
 {
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_provider getProductsPage:0 completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+	[_client getProductsPage:0 completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(products);
 		XCTAssertTrue([products count] > 0);
@@ -76,7 +76,7 @@
 - (void)testGetShop
 {
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_provider getShop:^(BUYShop *shop, NSError *error) {
+	[_client getShop:^(BUYShop *shop, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(shop);
 		XCTAssertEqualObjects(shop.name, @"davidmuzi");
@@ -91,7 +91,7 @@
 - (void)testGetProductById
 {
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_provider getProductById:@"378783139" completion:^(BUYProduct *product, NSError *error) {
+	[_client getProductById:@"378783139" completion:^(BUYProduct *product, NSError *error) {
 
 		XCTAssertNil(error);
 		XCTAssertNotNil(product);
@@ -106,7 +106,7 @@
 {
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 
-	[_provider getProductsByIds:@[@"378783139", @"376722235", @"458943719"] completion:^(NSArray *products, NSError *error) {
+	[_client getProductsByIds:@[@"378783139", @"376722235", @"458943719"] completion:^(NSArray *products, NSError *error) {
 		
 		XCTAssertNil(error);
 		XCTAssertNotNil(products);
@@ -130,7 +130,7 @@
 - (void)testProductRequestError
 {
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_provider getProductById:@"asdfdsasdfdsasdfdsasdfjkllkj" completion:^(BUYProduct *product, NSError *error) {
+	[_client getProductById:@"asdfdsasdfdsasdfdsasdfjkllkj" completion:^(BUYProduct *product, NSError *error) {
 
 		XCTAssertNil(product);
 		[expectation fulfill];

@@ -1,5 +1,5 @@
 //
-//  BUYDataProvider.m
+//  BUYDataClient.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify on 2014-09-17.

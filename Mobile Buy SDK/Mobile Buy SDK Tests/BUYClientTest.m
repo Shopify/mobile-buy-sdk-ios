@@ -1,5 +1,5 @@
 //
-//  BUYDataProviderTest.m
+//  BUYClientTest.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify on 2014-12-04.
@@ -12,23 +12,20 @@
 #import "BUYTestConstants.h"
 #import "NSProcessInfo+Environment.h"
 
-@interface BUYDataProvider : BUYClient
+//@implementation BUYClient ()
+//
+//- (void)startTask:(NSURLSessionDataTask *)task
+//{
+//	// Do nothing
+//}
+//
+//@end
+
+@interface BUYClientTest : XCTestCase
 @end
 
-@implementation BUYDataProvider
-
-- (void)startTask:(NSURLSessionDataTask *)task
-{
-	// Do nothing
-}
-
-@end
-
-@interface BUYDataProviderTest : XCTestCase
-@end
-
-@implementation BUYDataProviderTest {
-	BUYClient *_dataProvider;
+@implementation BUYClientTest {
+	BUYClient *_client;
 	
 	NSString *shopDomain;
 	NSString *apiKey;
@@ -52,14 +49,14 @@
 	XCTAssert([shopDomain length] > 0, @"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");
 	XCTAssert([apiKey length] > 0, @"You must provide a valid API Key. This is the API Key of your app.");
 	
-	_dataProvider = [[BUYDataProvider alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
+	_client = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
 }
 
-- (NSData *)dataForCartFromDataProvider:(BUYClient *)provider
+- (NSData *)dataForCartFromClient:(BUYClient *)client
 {
 	BUYCart *cart = [[BUYCart alloc] init];
 	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:cart];
-	NSURLSessionDataTask *task = [provider createCheckout:checkout completion:nil];
+	NSURLSessionDataTask *task = [client createCheckout:checkout completion:nil];
 	XCTAssertNotNil(task);
 	
 	NSURLRequest *request = task.originalRequest;
@@ -73,13 +70,13 @@
 
 - (void)testCheckoutSerialization
 {
-	NSData *data = [self dataForCartFromDataProvider:_dataProvider];
+	NSData *data = [self dataForCartFromClient:_client];
 	
 	NSDictionary *dict = @{@"checkout":
 							   @{@"partial_addresses": @1,
 								 @"line_items": @[],
 								 @"channel": channelId,
-								 @"marketing_attribution":@{@"platform": @"iOS", @"application_name": _dataProvider.applicationName}}};
+								 @"marketing_attribution":@{@"platform": @"iOS", @"application_name": _client.applicationName}}};
 	
 	NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
 	XCTAssertEqualObjects(dict, json);
@@ -89,10 +86,10 @@
 {
 	NSString *appName = @"ApPnAmE";
 	
-	BUYDataProvider *testProvider = [[BUYDataProvider alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
-	testProvider.applicationName = appName;
+	BUYClient *testClient = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
+	testClient.applicationName = appName;
 	
-	NSData *data = [self dataForCartFromDataProvider:testProvider];
+	NSData *data = [self dataForCartFromClient:testClient];
 	
 	NSDictionary *dict = @{@"checkout":
 							   @{@"partial_addresses": @1,
@@ -108,18 +105,18 @@
 {
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	XCTestExpectation *expectation2 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-
-	[_dataProvider getShop:^(BUYShop *shop, NSError *error) {
+	
+	[_client getShop:^(BUYShop *shop, NSError *error) {
 		
 		BOOL isMainThread = [NSThread isMainThread];
 		XCTAssertTrue(isMainThread);
 		[expectation fulfill];
 	}];
 	
-	BUYDataProvider *testProvider = [[BUYDataProvider alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
-	testProvider.queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+	BUYClient *testClient = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
+	testClient.queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
 	
-	[testProvider getShop:^(BUYShop *shop, NSError *error) {
+	[testClient getShop:^(BUYShop *shop, NSError *error) {
 		BOOL isMainThread = [NSThread isMainThread];
 		XCTAssertFalse(isMainThread);
 		[expectation2 fulfill];

@@ -33,7 +33,7 @@
     
     [client enableApplePayWithMerchantId:MERCHANT_ID];
     
-    ProductController *productController = [[ProductController alloc] initWithDataProvider:client productId:PRODUCT_ID];
+    ProductController *productController = [[ProductController alloc] initWithClient:client productId:PRODUCT_ID];
     productController.delegate = self;
     self.window.rootViewController = productController;
     

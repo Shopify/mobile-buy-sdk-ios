@@ -81,7 +81,7 @@
  *  Register yourself as a BUYViewControllerDelegate to handle all errors, and status changes.
  */
 @property (nonatomic, weak) id <BUYViewControllerDelegate> delegate;
-@property (nonatomic, strong, readonly) BUYClient *provider;
+@property (nonatomic, strong, readonly) BUYClient *client;
 
 #pragma mark - Apple Pay Overrides
 
@@ -120,11 +120,11 @@
 /**
  *  Creates a BUYViewController using your
  *
- *  @param dataProvider a dataProvider configured to your shop
+ *  @param client A BUYClient configured to your shop
  *
- *  @return A BUYViewController
+ *  @return		  A BUYViewController
  */
-- (instancetype)initWithDataProvider:(BUYClient *)dataProvider;
+- (instancetype)initWithClient:(BUYClient *)client;
 
 /**
  *  Creates a checkout with a pre-existing cart.

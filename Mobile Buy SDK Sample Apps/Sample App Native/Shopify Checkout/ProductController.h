@@ -11,7 +11,7 @@
 
 @interface ProductController : BUYViewController
 
-- (instancetype)initWithDataProvider:(BUYClient *)dataProvider productId:(NSString *)handle;
+- (instancetype)initWithClient:(BUYClient *)client productId:(NSString *)handle;
 
 @end
 
