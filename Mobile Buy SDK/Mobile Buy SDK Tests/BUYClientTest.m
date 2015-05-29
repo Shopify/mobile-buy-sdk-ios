@@ -12,20 +12,24 @@
 #import "BUYTestConstants.h"
 #import "NSProcessInfo+Environment.h"
 
-//@implementation BUYClient ()
-//
-//- (void)startTask:(NSURLSessionDataTask *)task
-//{
-//	// Do nothing
-//}
-//
-//@end
+@interface BUYTestClient : BUYClient
+
+@end
+
+@implementation BUYTestClient
+
+- (void)startTask:(NSURLSessionDataTask *)task
+{
+	// Do nothing
+}
+
+@end
 
 @interface BUYClientTest : XCTestCase
 @end
 
 @implementation BUYClientTest {
-	BUYClient *_client;
+	BUYTestClient *_client;
 	
 	NSString *shopDomain;
 	NSString *apiKey;
@@ -49,7 +53,7 @@
 	XCTAssert([shopDomain length] > 0, @"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");
 	XCTAssert([apiKey length] > 0, @"You must provide a valid API Key. This is the API Key of your app.");
 	
-	_client = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
+	_client = [[BUYTestClient alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
 }
 
 - (NSData *)dataForCartFromClient:(BUYClient *)client
