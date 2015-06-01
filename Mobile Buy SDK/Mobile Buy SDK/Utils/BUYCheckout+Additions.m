@@ -19,7 +19,7 @@
 		json[@"checkout"][@"partial_addresses"] = @YES;
 	}
 	
-	return json;
+	return [json copy];
 }
 
 @end
