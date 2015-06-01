@@ -1,5 +1,5 @@
 //
-//  BUYDataProvider.m
+//  BUYDataClient.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify on 2014-09-17.
@@ -189,7 +189,7 @@
 	if (error == nil) {
 		checkout = [[BUYCheckout alloc] initWithDictionary:json[@"checkout"]];
 	}
-	block(checkout, error);
+    block(checkout, error);
 }
 
 - (NSDictionary *)marketingAttributions
