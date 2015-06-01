@@ -189,9 +189,7 @@
 	if (error == nil) {
 		checkout = [[BUYCheckout alloc] initWithDictionary:json[@"checkout"]];
 	}
-	if (block) {
-		block(checkout, error);
-	}
+    block(checkout, error);
 }
 
 - (NSDictionary *)marketingAttributions
