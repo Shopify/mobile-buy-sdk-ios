@@ -12,24 +12,11 @@
 #import "NSProcessInfo+Environment.h"
 #import "BUYTestConstants.h"
 
-@interface BUYClient_Storefront : BUYClient
-
-@end
-
-@implementation BUYClient_Storefront
-
-- (void)startTask:(NSURLSessionDataTask *)task
-{
-	// Do nothing
-}
-
-@end
-
 @interface BUYClientTest_Storefront : XCTestCase
 @end
 
 @implementation BUYClientTest_Storefront {
-	BUYClient_Storefront *_client;
+	BUYClient *_client;
 	
 	NSString *shopDomain;
 	NSString *apiKey;
@@ -50,7 +37,7 @@
 	expiredGiftCardCode = [NSProcessInfo environmentForKey:kBUYTestExpiredGiftCardCode];
 	expiredGiftCardId = [NSProcessInfo environmentForKey:kBUYTestExpiredGiftCardID];
 	
-	_client = [[BUYClient_Storefront alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
+	_client = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
 }
 
 - (void)testDefaultPageSize
