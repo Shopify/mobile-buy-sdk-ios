@@ -9,6 +9,6 @@
 
 @interface BUYClient (WebCheckout)
 
-- (NSURL *)urlForCheckout:(BUYCheckout *)checkout;
+- (NSURL *)urlForCart:(BUYCart *)cart;
 
 @end

@@ -7,27 +7,34 @@
 //
 
 #import "BUYClient+WebCheckout.h"
-#import "BUYCheckout.h"
+#import "BUYLineItem.h"
+#import "BUYProductVariant.h"
+#import "BUYCart.h"
 
 @implementation BUYClient (WebCheckout)
 
-- (NSURL *)urlForCheckout:(BUYCheckout *)checkout
+- (NSURL *)urlForCart:(BUYCart *)cart
 {
-	NSString *checkoutToken = checkout.token;
-	NSString *channel = self.channelId;
+	NSMutableString *urlString = [[NSMutableString alloc] initWithFormat:@"https://%@/cart/", self.shopDomain];
 	
-	NSURL *url = nil;
-
-	if (checkoutToken.length) {
-		
-		NSString *urlString = [NSString stringWithFormat:@"https://checkout.shopify.com/%@/checkouts/%@/?channel=%@&marketing_attributions=platform-ios", @"2958581", checkoutToken, channel];
-		
-		url = [NSURL URLWithString:urlString];
+	// Add line items
+	NSMutableArray *lineItemStrings = [[NSMutableArray alloc] initWithCapacity:cart.lineItems.count];
+	
+	for (BUYLineItem *lineItem in cart.lineItems) {
+		[lineItemStrings addObject:[NSString stringWithFormat:@"%@:%@", lineItem.variant.identifier, lineItem.quantity]];
 	}
 	
+	[urlString appendString:[lineItemStrings componentsJoinedByString:@","]];
+	
+	// Add channel
+	[urlString appendFormat:@"/?channel=%@", self.channelId];
+	
+	// Add marketing attributions
+	NSString *appName = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)self.applicationName, NULL, CFSTR(":/?#[]@!$&’()*+,;="), kCFStringEncodingUTF8));
 
-	return url;
+	[urlString appendFormat:@"&platform=iOS&application_name=%@", appName];
+	
+	return [NSURL URLWithString:urlString];
 }
-
 
 @end

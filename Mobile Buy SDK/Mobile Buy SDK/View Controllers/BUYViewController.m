@@ -16,18 +16,18 @@
 
 @interface BUYViewController () <PKPaymentAuthorizationViewControllerDelegate>
 @property (nonatomic, strong) BUYCheckout *checkout;
-@property (nonatomic, strong) BUYClient *provider;
+@property (nonatomic, strong) BUYClient *client;
 @property (nonatomic, strong) BUYApplePayHelpers *applePayHelper;
 @end
 
 @implementation BUYViewController
 
-- (instancetype)initWithDataProvider:(BUYClient *)dataProvider
+- (instancetype)initWithClient:(BUYClient *)client
 {
 	self = [super init];
 	if (self) {
 		
-		self.provider = dataProvider;
+		self.client = client;
 		
 		self.merchantCapability = PKMerchantCapability3DS;
 		self.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa];
@@ -43,9 +43,9 @@
 
 - (void)startCheckoutWithCart:(BUYCart *)cart
 {
-	[_provider createCheckout:[[BUYCheckout alloc] initWithCart:cart] completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client createCheckout:[[BUYCheckout alloc] initWithCart:cart] completion:^(BUYCheckout *checkout, NSError *error) {
 		
-		self.applePayHelper = [[BUYApplePayHelpers alloc] initWithClient:self.provider checkout:checkout];
+		self.applePayHelper = [[BUYApplePayHelpers alloc] initWithClient:self.client checkout:checkout];
 		[self handleCheckoutCompletion:checkout error:error];
 	}];
 }
@@ -54,8 +54,8 @@
 
 - (void)startCheckoutWithCartToken:(NSString *)token
 {
-	[_provider createCheckoutWithCartToken:token completion:^(BUYCheckout *checkout, NSError *error) {
-		self.applePayHelper = [[BUYApplePayHelpers alloc] initWithClient:self.provider checkout:checkout];
+	[self.client createCheckoutWithCartToken:token completion:^(BUYCheckout *checkout, NSError *error) {
+		self.applePayHelper = [[BUYApplePayHelpers alloc] initWithClient:self.client checkout:checkout];
 		[self handleCheckoutCompletion:checkout error:error];
 	}];
 }
@@ -76,7 +76,7 @@
 - (void)requestPayment
 {
 	//Step 2 - Request payment from the user by presenting an Apple Pay sheet
-	if (self.provider.merchantId.length == 0) {
+	if (self.client.merchantId.length == 0) {
 		NSLog(@"Merchant ID must be configured to use Apple Pay");
 		[_delegate controllerFailedToStartApplePayProcess:self];
 		return;
@@ -157,7 +157,7 @@
 - (PKPaymentRequest *)paymentRequest
 {
 	PKPaymentRequest *paymentRequest = [[PKPaymentRequest alloc] init];
-	[paymentRequest setMerchantIdentifier:self.provider.merchantId];
+	[paymentRequest setMerchantIdentifier:self.client.merchantId];
 	[paymentRequest setRequiredBillingAddressFields:PKAddressFieldAll];
 	[paymentRequest setRequiredShippingAddressFields:_checkout.requiresShipping ? PKAddressFieldAll : PKAddressFieldEmail];
 	[paymentRequest setSupportedNetworks:self.supportedNetworks];

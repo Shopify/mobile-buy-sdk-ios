@@ -33,7 +33,7 @@
     [client enableApplePayWithMerchantId:MERCHANT_ID];
     
     // Setup the views
-    ViewController *storeController = [[ViewController alloc] initWithDataProvider:client];
+    ViewController *storeController = [[ViewController alloc] initWithClient:client];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:storeController];
     navController.toolbarHidden = NO;

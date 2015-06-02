@@ -33,7 +33,7 @@ NSString * const BUYShopifyError = @"shopify";
 
 - (instancetype)initWithClient:(BUYClient *)client url:(NSURL *)url
 {
-	self = [super initWithDataProvider:client];
+	self = [super initWithClient:client];
 	
 	if (self) {
 		_url = url;
@@ -42,12 +42,12 @@ NSString * const BUYShopifyError = @"shopify";
 	return self;
 }
 
-- (instancetype)initWithDataProvider:(BUYClient *)provider
+- (instancetype)initWithClient:(BUYClient *)client
 {
-	self = [super initWithDataProvider:provider];
+	self = [super initWithClient:client];
 	
 	if (self) {
-		_url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", provider.shopDomain]];
+		_url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", client.shopDomain]];
 	}
 	
 	return self;
@@ -108,7 +108,7 @@ NSString * const BUYShopifyError = @"shopify";
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
-{	
+{
 	[self updateButtons];
 }
 
@@ -144,9 +144,9 @@ NSString * const BUYShopifyError = @"shopify";
 
 - (void)getProduct:(NSString *)productId withVariantId:(NSString *)variantId completion:(void (^)(BUYProductVariant *variant, NSError *error))completion;
 {
-	[self.provider getProductById:productId completion:^(BUYProduct *product, NSError *error) {
+	[self.client getProductById:productId completion:^(BUYProduct *product, NSError *error) {
 		BUYProductVariant *selectedVariant = nil;
-
+		
 		if (error == nil) {
 			for (BUYProductVariant *variant in product.variants) {
 				if ([variant.identifier isEqual:@([variantId longLongValue])]) {
@@ -189,7 +189,7 @@ NSString * const BUYShopifyError = @"shopify";
 - (void)checkoutCompleted:(BUYCheckout *)checkout status:(BUYStatus)status
 {
 	if (status == BUYStatusComplete) {
-		[self.provider getCheckout:checkout completion:^(BUYCheckout *updatedCheckout, NSError *error) {
+		[self.client getCheckout:checkout completion:^(BUYCheckout *updatedCheckout, NSError *error) {
 			dispatch_async(dispatch_get_main_queue(), ^{
 				if (updatedCheckout.orderStatusURL) {
 					[_webView loadRequest:[NSURLRequest requestWithURL:updatedCheckout.orderStatusURL]];

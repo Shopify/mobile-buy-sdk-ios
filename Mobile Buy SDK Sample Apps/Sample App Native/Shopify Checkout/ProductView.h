@@ -15,6 +15,7 @@
 @property (nonatomic, strong, readonly) UILabel *titleLabel;
 @property (nonatomic, strong, readonly) UILabel *priceLabel;
 @property (nonatomic, strong, readonly) PKPaymentButton *paymentButton;
+@property (nonatomic, strong, readonly) UIButton *checkoutButton;
 
 - (void)showLoading:(BOOL)loading;
 

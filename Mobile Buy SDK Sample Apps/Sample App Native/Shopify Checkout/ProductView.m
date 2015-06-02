@@ -89,6 +89,22 @@
                                                                      options:0
                                                                      metrics:0
                                                                        views:NSDictionaryOfVariableBindings(_paymentButton)]];
+        
+        _checkoutButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _checkoutButton.layer.cornerRadius = 5.0;
+        _checkoutButton.translatesAutoresizingMaskIntoConstraints = NO;
+        [_checkoutButton setTitle:@"Checkout" forState:UIControlStateNormal];
+        _checkoutButton.titleLabel.textColor = [UIColor whiteColor];
+        _checkoutButton.backgroundColor = [UIColor blackColor];
+        [self addSubview:_checkoutButton];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_checkoutButton]-|"
+                                                                     options:NSLayoutFormatAlignAllCenterY
+                                                                     metrics:0
+                                                                       views:NSDictionaryOfVariableBindings(_checkoutButton)]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_checkoutButton(66)]-(100)-|"
+                                                                     options:0
+                                                                     metrics:0
+                                                                       views:NSDictionaryOfVariableBindings(_checkoutButton)]];
 	}
 	return self;
 }

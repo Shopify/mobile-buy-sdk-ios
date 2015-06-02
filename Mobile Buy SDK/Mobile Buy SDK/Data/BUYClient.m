@@ -1,5 +1,5 @@
 //
-//  BUYDataProvider.m
+//  BUYDataClient.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify on 2014-09-17.
@@ -15,6 +15,7 @@
 #import "BUYProduct.h"
 #import "BUYShippingRate.h"
 #import "BUYShop.h"
+#import "BUYCheckout+Additions.h"
 
 #define kGET @"GET"
 #define kPOST @"POST"
@@ -189,7 +190,7 @@
 	if (error == nil) {
 		checkout = [[BUYCheckout alloc] initWithDictionary:json[@"checkout"]];
 	}
-	block(checkout, error);
+    block(checkout, error);
 }
 
 - (NSDictionary *)marketingAttributions
@@ -199,28 +200,35 @@
 
 - (NSURLSessionDataTask *)createCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
+	// Inject channel and marketing attributions
 	checkout.channel = self.channelId;
 	checkout.marketingAttribution = self.marketingAttributions;
 	
-	return [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts.json", _shopDomain] object:checkout completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		[self handleCheckoutResponse:json error:error block:block];
-	}];
+	NSDictionary *json = [checkout jsonDictionaryForUpdatingCheckout];
+	return [self postCheckout:json completion:block];
 }
 
 - (NSURLSessionDataTask *)createCheckoutWithCartToken:(NSString *)cartToken completion:(BUYDataCheckoutBlock)block
 {
+	NSDictionary *json = @{ @"checkout" : @{ @"cart_token" : cartToken,
+											 @"channel": self.channelId,
+											 @"marketing_attribution": self.marketingAttributions} };
+	
+	return [self postCheckout:json completion:block];
+}
+
+- (NSURLSessionDataTask *)postCheckout:(NSDictionary *)checkoutJSON completion:(BUYDataCheckoutBlock)block
+{
 	NSURLSessionDataTask *task = nil;
-	if (cartToken) {
-		NSDictionary *body = @{ @"checkout" : @{ @"cart_token" : cartToken, @"channel": self.channelId, @"marketing_attribution": self.marketingAttributions} };
-		NSError *error = nil;
-		NSData *data = [NSJSONSerialization dataWithJSONObject:body options:0 error:&error];
-		
-		if (data && error == nil) {
-			task = [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts.json", _shopDomain] body:data completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-				[self handleCheckoutResponse:json error:error block:block];
-			}];
-		}
+	NSError *error = nil;
+	NSData *data = [NSJSONSerialization dataWithJSONObject:checkoutJSON options:0 error:&error];
+
+	if (data && error == nil) {
+		task = [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts.json", _shopDomain] body:data completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+			[self handleCheckoutResponse:json error:error block:block];
+		}];
 	}
+	
 	return task;
 }
 
@@ -266,9 +274,12 @@
 
 - (NSURLSessionDataTask *)updateCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
+	NSDictionary *json = [checkout jsonDictionaryForUpdatingCheckout];
+	NSData *data = [NSJSONSerialization dataWithJSONObject:json options:0 error:nil];
+	
 	NSURLSessionDataTask *task = nil;
 	if ([checkout hasToken]) {
-		task = [self patchRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@.json", _shopDomain, checkout.token] object:checkout completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+		task = [self patchRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@.json", _shopDomain, checkout.token] body:data completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			[self handleCheckoutResponse:json error:error block:block];
 		}];
 	}
@@ -329,7 +340,7 @@
 {
 	NSURLSessionDataTask *task = nil;
 	if ([checkout hasToken]) {
-		task = [self getRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/shipping_rates.json?checkout[partial_addresses]=true", _shopDomain, checkout.token] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+		task = [self getRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/shipping_rates.json?checkout", _shopDomain, checkout.token] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			NSArray *shippingRates = nil;
 			if (error == nil && json) {
 				shippingRates = [BUYShippingRate convertJSONArray:json[@"shipping_rates"]];
@@ -477,6 +488,11 @@
 - (NSURLSessionDataTask *)patchRequestForURL:(NSString *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
 	return [self requestForURL:url method:kPATCH object:object completionHandler:completionHandler];
+}
+
+- (NSURLSessionDataTask *)patchRequestForURL:(NSString *)url body:(NSData *)body completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
+{
+	return [self requestForURL:url method:kPATCH body:body completionHandler:completionHandler];
 }
 
 - (NSURLSessionDataTask *)deleteRequestForURL:(NSString *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler

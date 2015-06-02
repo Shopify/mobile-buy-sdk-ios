@@ -1,5 +1,5 @@
 //
-//  BUYDataProvider.h
+//  BUYDataClient.h
 //  Checkout
 //
 //  Created by Shopify.
@@ -135,7 +135,7 @@ typedef void (^BUYDataImagesListBlock)(NSArray *images, NSError *error);
 typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
 
 /**
- The BUYDataProvider provides all requests needed to perform request on the Shopify Checkout API.
+ The BUYDataClient provides all requests needed to perform request on the Shopify Checkout API.
  Use this class to perform tasks such as getting a shop, products for a shop, creating a Checkout on Shopify
  and completing Checkouts.
  */
@@ -144,13 +144,13 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
 - (instancetype)init NS_UNAVAILABLE;
 
 /**
- *  Initialize a BUYDataProvider using a shop's domain, API key and the Channel ID.
+ *  Initialize a BUYDataClient using a shop's domain, API key and the Channel ID.
  *
  *  @param shopDomain The Shop Domain i.e. abetterlookingshop.myshopify.com
  *  @param apiKey     The API key provided via the Mobile SDK Channel on Shopify Admin
  *  @param channelId  The Channel ID provided on Shopify Admin
  *
- *  @return An instance of BUYDataProvider
+ *  @return An instance of BUYDataClient
  */
 - (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey channelId:(NSString *)channelId NS_DESIGNATED_INITIALIZER;
 
@@ -175,7 +175,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
 @property (nonatomic, strong) dispatch_queue_t queue;
 
 /**
- *  The page size for any paged request. This can range from 1-250.
+ *  The page size for any paged request. This can range from 1-250.  Default is 25
  */
 @property (nonatomic, assign) NSUInteger pageSize;
 
