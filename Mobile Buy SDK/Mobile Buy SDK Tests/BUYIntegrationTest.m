@@ -636,7 +636,8 @@
 - (void)testWebCheckoutURL
 {
 	NSURL *url = [_checkoutClient urlForCart:_cart];
-	XCTAssertEqual(url.absoluteString, @"https://davidmuzi.myshopify.com/cart/?channel_id=237698&marketing_attribution%5Bplatform%5D=iOS&marketing_attribution%5Bapplication_name%5D=");
+	
+	XCTAssertTrue([@"https://davidmuzi.myshopify.com/cart/?channel_id=237698&marketing_attribution%5Bplatform%5D=iOS&marketing_attribution%5Bapplication_name%5D=" isEqualToString:url.absoluteString]);
 }
 
 @end
