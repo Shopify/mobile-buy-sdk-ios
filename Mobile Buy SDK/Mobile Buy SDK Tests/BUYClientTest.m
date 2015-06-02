@@ -90,9 +90,8 @@
 {
 	BUYCart *cart = [[BUYCart alloc] init];
 	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:cart];
-	
 
-	NSURLSessionDataTask *task = [_dataProvider createCheckout:checkout completion:nil];
+	NSURLSessionDataTask *task = [_client createCheckout:checkout completion:nil];
 	NSDictionary *json = [NSJSONSerialization JSONObjectWithData:task.originalRequest.HTTPBody options:0 error:nil];
 	XCTAssertFalse([json[@"checkout"][@"partial_addresses"] boolValue]);
 	
@@ -102,7 +101,7 @@
 	partialAddress.address1 = BUYPartialAddressPlaceholder;
 	
 	checkout.shippingAddress = partialAddress;
-	task = [_dataProvider createCheckout:checkout completion:nil];
+	task = [_client createCheckout:checkout completion:nil];
 	json = [NSJSONSerialization JSONObjectWithData:task.originalRequest.HTTPBody options:0 error:nil];
 
 	XCTAssertTrue([json[@"checkout"][@"partial_addresses"] boolValue]);

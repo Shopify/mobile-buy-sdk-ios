@@ -611,7 +611,7 @@
 	address.countryCode = @"CA";
 	address.provinceCode = @"ON";
 	address.zip = @"K1N5T5";
-	address.phone = @"---";
+	address.phone = BUYPartialAddressPlaceholder;
 	return address;
 }
 
