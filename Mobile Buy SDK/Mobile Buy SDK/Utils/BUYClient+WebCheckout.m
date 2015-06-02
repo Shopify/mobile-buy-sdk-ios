@@ -27,12 +27,12 @@
 	[urlString appendString:[lineItemStrings componentsJoinedByString:@","]];
 	
 	// Add channel
-	[urlString appendFormat:@"/?channel=%@", self.channelId];
+	[urlString appendFormat:@"?channel_id=%@", self.channelId];
 	
 	// Add marketing attributions
 	NSString *appName = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)self.applicationName, NULL, CFSTR(":/?#[]@!$&’()*+,;="), kCFStringEncodingUTF8));
 
-	[urlString appendFormat:@"&platform=iOS&application_name=%@", appName];
+	[urlString appendFormat:@"&marketing_attribution[platform]=iOS&marketing_attribution[application_name]=%@", appName];
 	
 	return [NSURL URLWithString:urlString];
 }
