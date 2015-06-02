@@ -74,8 +74,7 @@
     BUYCart *cart = [[BUYCart alloc] init];
     [cart addVariant:self.productVariant];
     
-    NSURL *checkoutURL = [self.client urlForCart:cart];
-    [[UIApplication sharedApplication] openURL:checkoutURL];
+    [self startWebCheckoutWithCart:cart];
 }
 
 - (void)applePayPressed:(id)sender
@@ -85,7 +84,7 @@
         BUYCart *cart = [[BUYCart alloc] init];
         [cart addVariant:self.productVariant];
 
-		[self startCheckoutWithCart:cart];
+		[self startApplePayCheckoutWithCart:cart];
 	}
     else
     {

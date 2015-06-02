@@ -13,6 +13,7 @@
 #import "BUYClient.h"
 #import "BUYViewController.h"
 #import "BUYApplePayHelpers.h"
+#import "BUYClient+WebCheckout.h"
 
 @interface BUYViewController () <PKPaymentAuthorizationViewControllerDelegate>
 @property (nonatomic, strong) BUYCheckout *checkout;
@@ -41,7 +42,7 @@
 #pragma mark - Checkout Flow Methods
 #pragma mark - Step 1 - Creating a Checkout
 
-- (void)startCheckoutWithCart:(BUYCart *)cart
+- (void)startApplePayCheckoutWithCart:(BUYCart *)cart
 {
 	[self.client createCheckout:[[BUYCheckout alloc] initWithCart:cart] completion:^(BUYCheckout *checkout, NSError *error) {
 		
@@ -49,6 +50,13 @@
 		[self handleCheckoutCompletion:checkout error:error];
 	}];
 }
+
+- (void)startWebCheckoutWithCart:(BUYCart *)cart
+{
+	NSURL *checkoutURL = [self.client urlForCart:cart];
+	[[UIApplication sharedApplication] openURL:checkoutURL];
+}
+
 
 #pragma  mark - Alternative Step 1 - Creating a Checkout using a Cart Token
 

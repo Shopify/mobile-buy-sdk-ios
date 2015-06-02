@@ -127,11 +127,18 @@
 - (instancetype)initWithClient:(BUYClient *)client;
 
 /**
- *  Creates a checkout with a pre-existing cart.
+ *  Creates a checkout with a pre-existing cart using Apple Pay.
  *
  *  @param cart A pre-existing BUYCart to start a checkout with
  */
-- (void)startCheckoutWithCart:(BUYCart *)cart;
+- (void)startApplePayCheckoutWithCart:(BUYCart *)cart;
+
+/**
+ *  Creates a checkout using the responsive web checkout.  This call will jump to Safari
+ *
+ *  @param cart A pre-existing BUYCart to start a checkout with
+ */
+- (void)startWebCheckoutWithCart:(BUYCart *)cart;
 
 /**
  *  Creates a checkout using a web cart's token.
