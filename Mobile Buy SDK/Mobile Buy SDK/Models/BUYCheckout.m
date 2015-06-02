@@ -141,7 +141,6 @@ static NSDictionary *kBUYPropertyMap = nil;
 		id value = [self jsonValueForValue:[self valueForKey:dirtyProperty]];
 		json[[BUYCheckout jsonKeyForProperty:dirtyProperty]] = value ?: [NSNull null];
 	}
-	json[@"partial_addresses"] = @YES;
 	return @{ @"checkout" : json };
 }
 

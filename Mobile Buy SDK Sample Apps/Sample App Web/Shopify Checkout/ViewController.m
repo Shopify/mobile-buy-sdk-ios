@@ -22,7 +22,7 @@
     self.delegate = self;
     
     // Get shop details
-    [self.provider getShop:^(BUYShop *shop, NSError *error) {
+    [self.client getShop:^(BUYShop *shop, NSError *error) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -43,7 +43,7 @@
     // If ApplePay is not setup, proceed to normal checkout
     if ([PKPaymentAuthorizationViewController canMakePaymentsUsingNetworks:self.supportedNetworks] && // checks if the device has payment setup
         [PKPaymentAuthorizationViewController canMakePayments] && // checks if device hardware is capable of using Apple Pay
-        self.provider.merchantId.length) // checks if the data provider is setup to use Apple Pay
+        self.client.merchantId.length) // checks if the client is setup to use Apple Pay
     {
         
         CheckoutSelectionController *selectionController = [[CheckoutSelectionController alloc] init];

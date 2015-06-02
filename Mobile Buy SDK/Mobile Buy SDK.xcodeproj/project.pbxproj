@@ -66,7 +66,6 @@
 		90F592771B0D579B0026B382 /* BUYProductVariant.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A821A700B0A0087DB2C /* BUYProductVariant.m */; };
 		90F592781B0D579B0026B382 /* BUYShop.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A841A700B0A0087DB2C /* BUYShop.m */; };
 		90F592791B0D579B0026B382 /* BUYOptionValue.m in Sources */ = {isa = PBXBuildFile; fileRef = BEEA83E61B0B76C7000C6483 /* BUYOptionValue.m */; };
-		90F5927A1B0D57A40026B382 /* app.js in Resources */ = {isa = PBXBuildFile; fileRef = BE1C4E3A1AEE6EBE00E21624 /* app.js */; };
 		90F5927B1B0D57A40026B382 /* BUYApplePayAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F70CE40E1A8BF1D90055BEB8 /* BUYApplePayAdditions.m */; };
 		90F5927C1B0D57A40026B382 /* BUYRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A741A700AC80087DB2C /* BUYRuntime.m */; };
 		90F5927D1B0D57A40026B382 /* NSDecimalNumber+BUYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A9C1A7011DC0087DB2C /* NSDecimalNumber+BUYAdditions.m */; };
@@ -118,6 +117,10 @@
 		90F7BA7E1B0D1DAF0067864D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90F7BA7C1B0D1DAF0067864D /* LaunchScreen.xib */; };
 		BE33B4EF1B15FF4D0067982B /* BUYApplePayHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = BE33B4ED1B15FF4D0067982B /* BUYApplePayHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BE33B4F01B15FF4D0067982B /* BUYApplePayHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = BE33B4EE1B15FF4D0067982B /* BUYApplePayHelpers.m */; };
+		BE33B4FB1B177EC80067982B /* BUYAddress+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = BE33B4F91B177EC80067982B /* BUYAddress+Additions.h */; };
+		BE33B4FC1B177EC80067982B /* BUYAddress+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = BE33B4FA1B177EC80067982B /* BUYAddress+Additions.m */; };
+		BE6C5E721B1CF776003AD9D0 /* BUYCheckout+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = BE6C5E701B1CF776003AD9D0 /* BUYCheckout+Additions.h */; };
+		BE6C5E731B1CF776003AD9D0 /* BUYCheckout+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = BE6C5E711B1CF776003AD9D0 /* BUYCheckout+Additions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -235,9 +238,12 @@
 		BE1C4DF41AE98FBB00E21624 /* BUYStoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BUYStoreViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BE1C4DF51AE98FBB00E21624 /* BUYViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BUYViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		BE1C4DF61AE98FBB00E21624 /* BUYViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BUYViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		BE1C4E3A1AEE6EBE00E21624 /* app.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = app.js; sourceTree = "<group>"; };
 		BE33B4ED1B15FF4D0067982B /* BUYApplePayHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYApplePayHelpers.h; sourceTree = "<group>"; };
 		BE33B4EE1B15FF4D0067982B /* BUYApplePayHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYApplePayHelpers.m; sourceTree = "<group>"; };
+		BE33B4F91B177EC80067982B /* BUYAddress+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BUYAddress+Additions.h"; sourceTree = "<group>"; };
+		BE33B4FA1B177EC80067982B /* BUYAddress+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYAddress+Additions.m"; sourceTree = "<group>"; };
+		BE6C5E701B1CF776003AD9D0 /* BUYCheckout+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BUYCheckout+Additions.h"; sourceTree = "<group>"; };
+		BE6C5E711B1CF776003AD9D0 /* BUYCheckout+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYCheckout+Additions.m"; sourceTree = "<group>"; };
 		BEEA83E51B0B76C7000C6483 /* BUYOptionValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYOptionValue.h; sourceTree = "<group>"; };
 		BEEA83E61B0B76C7000C6483 /* BUYOptionValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYOptionValue.m; sourceTree = "<group>"; };
 		F70CE40D1A8BF1D90055BEB8 /* BUYApplePayAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BUYApplePayAdditions.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -474,7 +480,6 @@
 		F773744519C779C20039681C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				BE1C4E3A1AEE6EBE00E21624 /* app.js */,
 				F70CE40D1A8BF1D90055BEB8 /* BUYApplePayAdditions.h */,
 				F70CE40E1A8BF1D90055BEB8 /* BUYApplePayAdditions.m */,
 				2AF52A731A700AC80087DB2C /* BUYRuntime.h */,
@@ -485,6 +490,10 @@
 				F76CFF1C19CB7BE30079C703 /* NSString+Trim.m */,
 				BE33B4ED1B15FF4D0067982B /* BUYApplePayHelpers.h */,
 				BE33B4EE1B15FF4D0067982B /* BUYApplePayHelpers.m */,
+				BE33B4F91B177EC80067982B /* BUYAddress+Additions.h */,
+				BE33B4FA1B177EC80067982B /* BUYAddress+Additions.m */,
+				BE6C5E701B1CF776003AD9D0 /* BUYCheckout+Additions.h */,
+				BE6C5E711B1CF776003AD9D0 /* BUYCheckout+Additions.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -533,7 +542,9 @@
 				90F592831B0D57E50026B382 /* BUYOptionValue.h in Headers */,
 				90F592841B0D57E70026B382 /* BUYShop.h in Headers */,
 				90F592851B0D57EA0026B382 /* BUYSerializable.h in Headers */,
+				BE6C5E721B1CF776003AD9D0 /* BUYCheckout+Additions.h in Headers */,
 				90F592871B0D57F20026B382 /* BUYProductVariant.h in Headers */,
+				BE33B4FB1B177EC80067982B /* BUYAddress+Additions.h in Headers */,
 				90F592881B0D57F70026B382 /* BUYProduct.h in Headers */,
 				90F592891B0D57F90026B382 /* BUYOption.h in Headers */,
 				90F5928A1B0D57FC0026B382 /* BUYObject.h in Headers */,
@@ -671,7 +682,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90F5927A1B0D57A40026B382 /* app.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -706,7 +716,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "sh \"${SRCROOT}/build.sh\"";
+			shellScript = "BUILD_CONFIGURATION=\"release\"\nsh \"${SRCROOT}/build.sh\"";
 		};
 		90E80E441AFAB0C3003A9909 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -719,7 +729,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"warning: Framework built, building docs\"\n\n###################\n# Builds the docs #\n###################\n\nFRAMEWORK_NAME=\"Buy\"\nFRAMEWORK_NAME_FRAMEWORK=\"${FRAMEWORK_NAME}.framework\"\nUNIVERSAL_LIBRARY_DIR=\"${BUILD_DIR}/${FRAMEWORK_NAME}\"\nFRAMEWORK=\"${UNIVERSAL_LIBRARY_DIR}/${FRAMEWORK_NAME_FRAMEWORK}\"\n\nif [ ! -x /usr/local/bin/appledoc ]; then\necho \"error: appledoc is required for building Shopify Mobile Buy SDK's documentation. See http://appledoc.gentlebytes.com\" 1>&2\nexit 1\nfi\n\n# echo \"warning: warnings are a result of https://github.com/tomaz/appledoc/issues/348\"\n# we don't see these warnings because we have --explicit-crossref in the AppledocSettings.plist\n\n/usr/local/bin/appledoc --print-settings --publish-docset --install-docset --output \"${BUILT_PRODUCTS_DIR}/docs/\" --include \"docs/Integration\" --include \"docs/Sample App Native\" --include \"docs/Sample App Web\" --ignore \"docs/templates\" --templates \"docs/templates\" \"${BUILT_PRODUCTS_DIR}/${FRAMEWORK_NAME_FRAMEWORK}\" \"docs\"\n\necho \"warning: Opening documentation in browser...\"\nopen \"$HOME/Library/Developer/Shared/Documentation/DocSets/org.shopify.Mobile-Buy-SDK.docset/Contents/Resources/Documents/index.html\"";
+			shellScript = "echo \"warning: Framework built, building docs\"\n\n###################\n# Builds the docs #\n###################\n\nFRAMEWORK_NAME=\"Buy\"\nFRAMEWORK_NAME_FRAMEWORK=\"${FRAMEWORK_NAME}.framework\"\nUNIVERSAL_LIBRARY_DIR=\"${BUILD_DIR}/${FRAMEWORK_NAME}\"\nFRAMEWORK=\"${UNIVERSAL_LIBRARY_DIR}/${FRAMEWORK_NAME_FRAMEWORK}\"\n\nif [ ! -x /usr/local/bin/appledoc ]; then\necho \"error: appledoc is required for building Shopify Mobile Buy SDK's documentation. See http://appledoc.gentlebytes.com\" 1>&2\nexit 1\nfi\n\n# echo \"warning: warnings are a result of https://github.com/tomaz/appledoc/issues/348\"\n# we don't see these warnings because we have --explicit-crossref in the AppledocSettings.plist\n\n/usr/local/bin/appledoc --print-settings --publish-docset --install-docset --output \"${BUILT_PRODUCTS_DIR}/docs/\" --include \"docs/Integration\" --include \"docs/Sample App Native\" --include \"docs/Sample App Web\" --include \"docs/Release Notes\" --ignore \"docs/templates\" --templates \"docs/templates\" \"${BUILT_PRODUCTS_DIR}/${FRAMEWORK_NAME_FRAMEWORK}\" \"docs\"\n\necho \"warning: Opening documentation in browser...\"\nopen \"$HOME/Library/Developer/Shared/Documentation/DocSets/org.shopify.Mobile-Buy-SDK.docset/Contents/Resources/Documents/index.html\"";
 		};
 		90F7BA581B0D04690067864D /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -732,7 +742,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "sh \"${SRCROOT}/build_sample_apps_framework.sh\"";
+			shellScript = "BUILD_CONFIGURATION=${CONFIGURATION}\nsh \"${SRCROOT}/build_sample_apps_framework.sh\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -745,7 +755,9 @@
 				90F5927D1B0D57A40026B382 /* NSDecimalNumber+BUYAdditions.m in Sources */,
 				90F592711B0D579B0026B382 /* BUYGiftCard.m in Sources */,
 				90F5925F1B0D578C0026B382 /* BUYShippingRate.m in Sources */,
+				BE6C5E731B1CF776003AD9D0 /* BUYCheckout+Additions.m in Sources */,
 				90F5927E1B0D57A40026B382 /* NSString+Trim.m in Sources */,
+				BE33B4FC1B177EC80067982B /* BUYAddress+Additions.m in Sources */,
 				90F592701B0D579B0026B382 /* BUYCreditCard.m in Sources */,
 				BE33B4F01B15FF4D0067982B /* BUYApplePayHelpers.m in Sources */,
 				90F592721B0D579B0026B382 /* BUYImage.m in Sources */,

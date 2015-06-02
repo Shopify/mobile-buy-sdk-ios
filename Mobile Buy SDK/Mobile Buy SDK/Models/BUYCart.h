@@ -14,7 +14,7 @@
 
 /**
  *  The BUYCart is the starting point for the Checkout API. You are responsible for building a cart, then transforming it
- *  into a BUYCheckout using the BUYDataProvider.
+ *  into a BUYCheckout using the BUYDataClient.
  */
 @interface BUYCart : NSObject <BUYSerializable>
 

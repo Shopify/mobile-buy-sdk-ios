@@ -12,13 +12,9 @@
 #import "BUYProductVariant.h"
 #import "BUYStoreViewController.h"
 
-#define kBuyNowEvent @"com.shopify.hybrid.buynow"
-#define kCheckoutEvent @"com.shopify.hybrid.checkout"
-#define kToolbarHeight 44.0f
-
 NSString * const BUYShopifyError = @"shopify";
 
-@interface BUYStoreViewController () <WKNavigationDelegate, WKScriptMessageHandler>
+@interface BUYStoreViewController () <WKNavigationDelegate>
 @end
 
 @implementation BUYStoreViewController {
@@ -37,7 +33,7 @@ NSString * const BUYShopifyError = @"shopify";
 
 - (instancetype)initWithClient:(BUYClient *)client url:(NSURL *)url
 {
-	self = [super initWithDataProvider:client];
+	self = [super initWithClient:client];
 	
 	if (self) {
 		_url = url;
@@ -46,12 +42,12 @@ NSString * const BUYShopifyError = @"shopify";
 	return self;
 }
 
-- (instancetype)initWithDataProvider:(BUYClient *)provider
+- (instancetype)initWithClient:(BUYClient *)client
 {
-	self = [super initWithDataProvider:provider];
+	self = [super initWithClient:client];
 	
 	if (self) {
-		_url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", provider.shopDomain]];
+		_url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", client.shopDomain]];
 	}
 	
 	return self;
@@ -59,8 +55,7 @@ NSString * const BUYShopifyError = @"shopify";
 
 - (void)loadView
 {
-	WKWebViewConfiguration *configuration = [self webViewConfiguration];
-	_webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:configuration];
+	_webView = [[WKWebView alloc] initWithFrame:CGRectZero];
 	_webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
 	_webView.navigationDelegate = self;
 	self.view = _webView;
@@ -87,30 +82,10 @@ NSString * const BUYShopifyError = @"shopify";
 	_forwardButton.enabled = [_webView canGoForward];
 }
 
-#pragma mark - Web View Script Handling
-
-- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message
-{
-	NSDictionary *options = message.body;
-	NSString *eventName = options[@"eventName"];
-	if ([eventName isEqual:kBuyNowEvent]) {
-		[self receivedCart:options[@"cart"]];
-	}
-	else if ([eventName isEqual:kCheckoutEvent]) {
-		[self receivedCartToken:options[@"token"]];
-	}
-}
-
 #pragma mark - Web View Navigation Delegate Methods
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler
 {
-	//This is the first approach, where we respond to /checkout links.
-	//This takes advantage of Shopify's 'cart.js' functionality. We can fetch the entire active cart by hitting /cart.json.
-	//It will fetch the current session's cart, and return it to you in json.
-	//
-	//The `fetchCart();` method is defined in `app.js` which is a small Javascript bundle we've prepared for demo purposes.
-	//
 	NSString *currentUrlString = [[[navigationAction request] URL] absoluteString];
 	
 	BOOL checkoutLink = [currentUrlString containsString:@"/checkout"] || [currentUrlString containsString:@"/sessions"];
@@ -134,12 +109,6 @@ NSString * const BUYShopifyError = @"shopify";
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
-	[_webView evaluateJavaScript:@"nativeAppSetup();" completionHandler:^(id result, NSError *error) {
-		if (error) {
-			NSLog(@"Setup - %@ - %@", result, error);
-		}
-	}];
-	
 	[self updateButtons];
 }
 
@@ -175,9 +144,9 @@ NSString * const BUYShopifyError = @"shopify";
 
 - (void)getProduct:(NSString *)productId withVariantId:(NSString *)variantId completion:(void (^)(BUYProductVariant *variant, NSError *error))completion;
 {
-	[self.provider getProductById:productId completion:^(BUYProduct *product, NSError *error) {
+	[self.client getProductById:productId completion:^(BUYProduct *product, NSError *error) {
 		BUYProductVariant *selectedVariant = nil;
-
+		
 		if (error == nil) {
 			for (BUYProductVariant *variant in product.variants) {
 				if ([variant.identifier isEqual:@([variantId longLongValue])]) {
@@ -194,62 +163,19 @@ NSString * const BUYShopifyError = @"shopify";
 	}];
 }
 
-- (void)receivedCart:(NSDictionary *)cart
-{
-	//This is useful when we don't have a persisted cart on Shopify (i.e the user added a buy now button to their shop)
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		//Download all of the products that we need
-		NSArray *lineItems = cart[@"lineItems"];
-		
-		dispatch_group_t group = dispatch_group_create();
-		
-		__block BOOL successful = YES;
-		BUYCart *checkoutCart = [[BUYCart alloc] init];
-
-		for (NSDictionary *lineItem in lineItems) {
-			dispatch_group_enter(group);
-			
-			[self getProduct:lineItem[@"product_id"] withVariantId:lineItem[@"variantId"] completion:^(BUYProductVariant *variant, NSError *error) {
-
-				if (variant) {
-					BUYLineItem *cartLineItem = [[BUYLineItem alloc] initWithVariant:variant];
-					cartLineItem.quantity = [NSDecimalNumber decimalNumberWithDecimal:[lineItem[@"quantity"] decimalValue]];
-					cartLineItem.price = [cartLineItem.quantity decimalNumberByMultiplyingBy:variant.price];
-					[checkoutCart addLineItemsObject:cartLineItem];
-				}
-				else {
-					successful = NO;
-					NSLog(@"Did not have a variant!");
-				}
-				dispatch_group_leave(group);
-			}];
-		}
-		dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
-		
-		dispatch_async(dispatch_get_main_queue(), ^{
-			if (successful) {
-				[self startCheckoutWithCart:checkoutCart];
-			}
-			else {
-				NSError *error = [[NSError alloc] initWithDomain:BUYShopifyError code:BUYCheckoutError_CartFetchError userInfo:cart];
-				[self.delegate controller:self failedToCompleteCheckout:nil withError:error];
-			}
-		});
-	});
-}
-
-- (void)receivedCartToken:(NSString *)token
-{
-	[self startCheckoutWithCartToken:token];
-}
-
 #pragma mark - Checkout Selection Delegate Methods
 
 - (void)checkoutWithApplePay
 {
-	[_webView evaluateJavaScript:@"fetchCart();" completionHandler:^(id result, NSError *error) {
-		NSLog(@"Fetch Cart - %@ - %@", result, error);
-	}];
+	NSString *cartToken = [BUYStoreViewController cookieValueForName:@"cart" withURL:_url];
+	
+	if (cartToken) {
+		[self startCheckoutWithCartToken:cartToken];
+	}
+	else {
+		NSError *error = [NSError errorWithDomain:BUYShopifyError code:BUYCheckoutError_CartFetchError userInfo:nil];
+		[self.delegate controller:self failedToCreateCheckout:error];
+	}
 }
 
 - (void)checkoutWithNormalCheckout
@@ -263,7 +189,7 @@ NSString * const BUYShopifyError = @"shopify";
 - (void)checkoutCompleted:(BUYCheckout *)checkout status:(BUYStatus)status
 {
 	if (status == BUYStatusComplete) {
-		[self.provider getCheckout:checkout completion:^(BUYCheckout *updatedCheckout, NSError *error) {
+		[self.client getCheckout:checkout completion:^(BUYCheckout *updatedCheckout, NSError *error) {
 			dispatch_async(dispatch_get_main_queue(), ^{
 				if (updatedCheckout.orderStatusURL) {
 					[_webView loadRequest:[NSURLRequest requestWithURL:updatedCheckout.orderStatusURL]];
@@ -280,45 +206,21 @@ NSString * const BUYShopifyError = @"shopify";
 	}
 }
 
-#pragma mark - Web View Configuration
+#pragma mark - Cookie helper
 
-- (WKWebViewConfiguration *)webViewConfiguration
++ (NSString *)cookieValueForName:(NSString *)name withURL:(NSURL *)url
 {
-	WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
-	configuration.userContentController = [self userContentConfiguration];
-	configuration.processPool = [self processPool];
-	return configuration;
-}
-
-- (WKProcessPool *)processPool
-{
-	static WKProcessPool *pool = nil;
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		pool = [[WKProcessPool alloc] init];
-	});
-	return pool;
-}
-
-- (WKUserContentController *)userContentConfiguration
-{
-	//Register our native bridge
-	WKUserContentController *contentController = [WKUserContentController new];
-	WKUserScript *userScript = [self userScriptWithName:@"app"];
-	[contentController addUserScript:userScript];
-	[contentController addScriptMessageHandler:self name:@"nativeApp"];
-	return contentController;
-}
-
-- (WKUserScript *)userScriptWithName:(NSString*)scriptName
-{
-	NSString *frameworkDirPath = [[NSBundle mainBundle] privateFrameworksPath];
-	NSString *frameworkBundlePath = [frameworkDirPath stringByAppendingPathComponent:@"Buy.framework"];
-	NSBundle *frameworkBundle = [NSBundle bundleWithPath:frameworkBundlePath];
+	NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:url];
 	
-	NSData *jsData = [NSData dataWithContentsOfFile:[frameworkBundle pathForResource:scriptName ofType:@"js"]];
-	NSString *js = [[NSString alloc] initWithData:jsData encoding:NSUTF8StringEncoding];
-	return [[WKUserScript alloc] initWithSource:js injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:YES];
+	NSString *value = nil;
+	for (NSHTTPCookie *cookie in cookies) {
+		if ([cookie.name isEqualToString:name]) {
+			value = cookie.value;
+			break;
+		}
+	}
+	
+	return value;
 }
 
 @end

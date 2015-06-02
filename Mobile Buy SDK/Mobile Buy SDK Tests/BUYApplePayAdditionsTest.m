@@ -11,6 +11,7 @@
 @import UIKit;
 @import XCTest;
 #import <Buy/Buy.h>
+#import "BUYAddress+Additions.h"
 
 @interface BUYApplePayAdditionsTest : XCTestCase
 @end
@@ -288,7 +289,7 @@
 	
 	BUYAddress *newAddress = [BUYAddress buy_addressFromRecord:person];
 	XCTAssertNotNil(newAddress);
-	XCTAssertEqualObjects(@"---", newAddress.address1);
+	XCTAssertEqualObjects(BUYPartialAddressPlaceholder, newAddress.address1);
 	XCTAssertEqualObjects(@"Ottawa", newAddress.city);
 	XCTAssertEqualObjects(@"Ontario", newAddress.province);
 	XCTAssertEqualObjects(@"K1N5T5", newAddress.zip);

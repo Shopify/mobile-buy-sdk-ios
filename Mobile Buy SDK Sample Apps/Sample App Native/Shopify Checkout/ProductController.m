@@ -21,9 +21,9 @@
 
 @implementation ProductController
 
-- (instancetype)initWithDataProvider:(BUYClient *)dataProvider productId:(NSString *)productId;
+- (instancetype)initWithClient:(BUYClient *)client productId:(NSString *)productId;
 {
-	self = [super initWithDataProvider:dataProvider];
+	self = [super initWithClient:client];
 	if (self) {
 		_initialProductId = productId;
 	}
@@ -45,7 +45,7 @@
 	[self.productView showLoading:YES];
 	
 	//Download the necessary product information from Shopify, given a handle and (optionally) a variant id.
-    [self.provider getProductById:_initialProductId completion:^(BUYProduct *product, NSError *error) {
+    [self.client getProductById:_initialProductId completion:^(BUYProduct *product, NSError *error) {
         
     	//NOTE: You would want to display your product + a picker to select the correct variant or iterate the variants and pick the right one
 		self.productVariant = [product.variants firstObject];
