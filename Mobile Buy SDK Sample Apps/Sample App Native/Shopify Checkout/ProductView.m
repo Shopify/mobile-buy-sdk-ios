@@ -81,14 +81,28 @@
 		_paymentButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypeBuy style:PKPaymentButtonStyleBlack];
         _paymentButton.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_paymentButton];
+
+        
+        _checkoutButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _checkoutButton.layer.cornerRadius = 5.0;
+        _checkoutButton.translatesAutoresizingMaskIntoConstraints = NO;
+        [_checkoutButton setTitle:@"Checkout" forState:UIControlStateNormal];
+        _checkoutButton.titleLabel.textColor = [UIColor whiteColor];
+        _checkoutButton.backgroundColor = [UIColor blackColor];
+        [self addSubview:_checkoutButton];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_checkoutButton]-|"
+                                                                     options:NSLayoutFormatAlignAllCenterY
+                                                                     metrics:0
+                                                                       views:NSDictionaryOfVariableBindings(_checkoutButton)]];
+
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_paymentButton]-|"
                                                                      options:NSLayoutFormatAlignAllCenterY
                                                                      metrics:0
                                                                        views:NSDictionaryOfVariableBindings(_paymentButton)]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_paymentButton(66)]-(20)-|"
-                                                                     options:0
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_checkoutButton(66)]-[_paymentButton(66)]-(20)-|"
+                                                                     options:NSLayoutFormatAlignAllCenterX
                                                                      metrics:0
-                                                                       views:NSDictionaryOfVariableBindings(_paymentButton)]];
+                                                                       views:NSDictionaryOfVariableBindings(_paymentButton, _checkoutButton)]];
 	}
 	return self;
 }
