@@ -121,6 +121,7 @@
 		BE33B4FC1B177EC80067982B /* BUYAddress+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = BE33B4FA1B177EC80067982B /* BUYAddress+Additions.m */; };
 		BE6C5E721B1CF776003AD9D0 /* BUYCheckout+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = BE6C5E701B1CF776003AD9D0 /* BUYCheckout+Additions.h */; };
 		BE6C5E731B1CF776003AD9D0 /* BUYCheckout+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = BE6C5E711B1CF776003AD9D0 /* BUYCheckout+Additions.m */; };
+		BE6C5E741B1E3D8E003AD9D0 /* NSProcessInfo+Environment.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F593031B0D5F4C0026B382 /* NSProcessInfo+Environment.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -776,6 +777,7 @@
 				90F5925E1B0D578C0026B382 /* BUYCheckout.m in Sources */,
 				90F5925B1B0D57680026B382 /* BUYViewController.m in Sources */,
 				90F592731B0D579B0026B382 /* BUYLineItem.m in Sources */,
+				BE6C5E741B1E3D8E003AD9D0 /* NSProcessInfo+Environment.m in Sources */,
 				90F592751B0D579B0026B382 /* BUYOption.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

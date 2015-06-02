@@ -62,8 +62,10 @@ NSString * const BUYShopifyError = @"shopify";
 	
 	_backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:_webView action:@selector(goBack)];
 	_forwardButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"forward"] style:UIBarButtonItemStylePlain target:_webView action:@selector(goForward)];
+	UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareTapped)];
+
 	UIBarButtonItem *flexible = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-	self.toolbarItems = @[_backButton, flexible, _forwardButton, flexible, flexible, flexible, flexible, flexible];
+	self.toolbarItems = @[_backButton, flexible, _forwardButton, flexible, shareButton, flexible, flexible, flexible];
 }
 
 - (void)viewDidLoad
@@ -80,6 +82,13 @@ NSString * const BUYShopifyError = @"shopify";
 {
 	_backButton.enabled = [_webView canGoBack];
 	_forwardButton.enabled = [_webView canGoForward];
+}
+
+- (void)shareTapped
+{
+	UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[_webView.URL] applicationActivities:nil];
+	activityViewController.excludedActivityTypes = @[UIActivityTypeAddToReadingList, UIActivityTypeAssignToContact, UIActivityTypePrint, UIActivityTypeSaveToCameraRoll];
+	[self presentViewController:activityViewController animated:YES completion:nil];
 }
 
 #pragma mark - Web View Navigation Delegate Methods
@@ -110,6 +119,11 @@ NSString * const BUYShopifyError = @"shopify";
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
 	[self updateButtons];
+}
+
+- (void)reloadHomePage
+{
+	[_webView loadRequest:[NSURLRequest requestWithURL:_url]];
 }
 
 #pragma mark - Checkout Methods

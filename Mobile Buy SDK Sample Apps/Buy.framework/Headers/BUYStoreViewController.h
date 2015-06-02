@@ -58,6 +58,8 @@ typedef void (^BUYCheckoutTypeBlock)(BUYCheckoutType type);
  */
 - (instancetype)initWithClient:(BUYClient *)client url:(NSURL *)url;
 
+- (void)goHome;
+
 @property (nonatomic, weak) id <BUYStoreViewControllerDelegate> delegate;
 
 @end
