@@ -81,7 +81,7 @@
  *  Register yourself as a BUYViewControllerDelegate to handle all errors, and status changes.
  */
 @property (nonatomic, weak) id <BUYViewControllerDelegate> delegate;
-@property (nonatomic, strong, readonly) BUYClient *provider;
+@property (nonatomic, strong, readonly) BUYClient *client;
 
 #pragma mark - Apple Pay Overrides
 
@@ -120,18 +120,25 @@
 /**
  *  Creates a BUYViewController using your
  *
- *  @param dataProvider a dataProvider configured to your shop
+ *  @param client A BUYClient configured to your shop
  *
- *  @return A BUYViewController
+ *  @return		  A BUYViewController
  */
-- (instancetype)initWithDataProvider:(BUYClient *)dataProvider;
+- (instancetype)initWithClient:(BUYClient *)client;
 
 /**
- *  Creates a checkout with a pre-existing cart.
+ *  Creates a checkout with a pre-existing cart using Apple Pay.
  *
  *  @param cart A pre-existing BUYCart to start a checkout with
  */
-- (void)startCheckoutWithCart:(BUYCart *)cart;
+- (void)startApplePayCheckoutWithCart:(BUYCart *)cart;
+
+/**
+ *  Creates a checkout using the responsive web checkout.  This call will jump to Safari
+ *
+ *  @param cart A pre-existing BUYCart to start a checkout with
+ */
+- (void)startWebCheckoutWithCart:(BUYCart *)cart;
 
 /**
  *  Creates a checkout using a web cart's token.

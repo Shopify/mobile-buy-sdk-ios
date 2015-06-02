@@ -36,6 +36,8 @@
 	self.view = self.productView;
 	
 	[self.productView.paymentButton addTarget:self action:@selector(applePayPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.productView.checkoutButton addTarget:self action:@selector(checkoutPressed:) forControlEvents:UIControlEventTouchUpInside];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -67,19 +69,25 @@
 	}];
 }
 
+- (void)checkoutPressed:(id)sender
+{
+    BUYCart *cart = [[BUYCart alloc] init];
+    [cart addVariant:self.productVariant];
+    
+    [self startWebCheckoutWithCart:cart];
+}
+
 - (void)applePayPressed:(id)sender
 {
 	// Step 1 - Create the checkout on Shopify. This demo only works with ApplePay.
 	if ([PKPaymentAuthorizationViewController canMakePayments]) {
-		BUYCart *cart = [[BUYCart alloc] init];
-		[cart addVariant:self.productVariant];
+        BUYCart *cart = [[BUYCart alloc] init];
+        [cart addVariant:self.productVariant];
 
-		// This starts the main process, detailed in BUYViewController. You can copy the functionality/subclass BUYViewController to add Apple Pay functionality to your app.
-		// You will likely want to tweak the BUYViewController so that you handle errors correctly, as you want them to be presented in your app.
-		// The default behaviour in the BUYViewController is to NSLog the error, which the user will never see.
-		[self startCheckoutWithCart:cart];
+		[self startApplePayCheckoutWithCart:cart];
 	}
-    else {
+    else
+    {
         // Alternativelty, a web view with the checkout flow could be displayed, or a fully native checkout which then calls `completeCheckout:completion`
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Apple Pay not supported on this device" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
