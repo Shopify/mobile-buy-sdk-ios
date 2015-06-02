@@ -211,6 +211,7 @@
 			[self.client getCompletionStatusOfCheckout:self.checkout completion:^(BUYCheckout *checkout, BUYStatus status, NSError *error) {
 				completedCheckout = checkout;
 				checkoutStatus = status;
+				self.lastError = error;
 				dispatch_semaphore_signal(semaphore);
 			}];
 			dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);

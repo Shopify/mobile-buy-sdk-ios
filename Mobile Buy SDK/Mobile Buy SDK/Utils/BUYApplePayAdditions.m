@@ -10,6 +10,7 @@
 @import PassKit;
 #import "BUYApplePayAdditions.h"
 #import "BUYDiscount.h"
+#import "BUYAddress+Additions.h"
 
 #define CFSafeRelease(obj) if (obj) { CFRelease(obj); }
 
@@ -81,12 +82,12 @@
 	//Grab the simple information
 	address.firstName = (__bridge NSString *)ABRecordCopyValue(record, kABPersonFirstNameProperty);
 	if ([address.firstName length] == 0) {
-		address.firstName = @"---";
+		address.firstName = BUYPartialAddressPlaceholder;
 	}
 	
 	address.lastName = (__bridge NSString *)ABRecordCopyValue(record, kABPersonLastNameProperty);
 	if ([[address lastName] length] == 0) {
-		address.lastName = @"---";
+		address.lastName = BUYPartialAddressPlaceholder;
 	}
 	
 	//Grab the address information
@@ -98,7 +99,7 @@
 		//NOTE: We do not receive an address1 line right now via this partial address, as Apple deemds it unimportant to calculate the shipping rates. We get the actual address later on in a later step.
 		address.address1 = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressStreetKey);
 		if (address.address1 == nil) {
-			address.address1 = @"---";
+			address.address1 = BUYPartialAddressPlaceholder;
 		}
 		
 		address.city = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressCityKey);

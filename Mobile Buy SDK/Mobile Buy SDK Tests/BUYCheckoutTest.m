@@ -55,19 +55,6 @@
 	XCTAssertTrue([checkout isDirty]);
 }
 
-- (void)testPartialAddressFlagIsAlwaysSetInJson
-{
-	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:_cart];
-	NSDictionary *dirtyJSON = [checkout jsonDictionaryForCheckout];
-	XCTAssertNotNil(dirtyJSON[@"checkout"][@"partial_addresses"]);
-	XCTAssertTrue([dirtyJSON[@"checkout"][@"partial_addresses"] boolValue]);
-	[checkout markAsClean];
-	
-	NSDictionary *cleanJSON = [checkout jsonDictionaryForCheckout];
-	XCTAssertNotNil(cleanJSON[@"checkout"][@"partial_addresses"]);
-	XCTAssertTrue([cleanJSON[@"checkout"][@"partial_addresses"] boolValue]);
-}
-
 - (void)testSettingAShippingRateMarksShippingRateIdAsDirty
 {
 	BUYShippingRate *shippingRate = [[BUYShippingRate alloc] init];
