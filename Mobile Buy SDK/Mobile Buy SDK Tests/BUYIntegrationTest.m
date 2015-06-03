@@ -637,7 +637,7 @@
 {
 	NSURL *url = [_checkoutClient urlForCart:_cart];
 	
-	NSString *urlString = [NSString stringWithFormat:@"https://%@/cart/?channel_id=%@&marketing_attribution%%5Bplatform%%5D=iOS&marketing_attribution%%5Bapplication_name%%5D=", _checkoutClient.shopDomain, _checkoutClient.channelId];
+	NSString *urlString = [NSString stringWithFormat:@"https://%@/cart/?channel_id=%@&marketing_attribution%%5Bmedium%%5D=iOS&marketing_attribution%%5Bsource%%5D=", _checkoutClient.shopDomain, _checkoutClient.channelId];
 	
 	XCTAssertTrue([urlString isEqualToString:url.absoluteString]);
 }

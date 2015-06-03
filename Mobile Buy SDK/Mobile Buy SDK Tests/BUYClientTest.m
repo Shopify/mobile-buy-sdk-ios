@@ -80,7 +80,7 @@
 	NSDictionary *dict = @{@"checkout":
 							   @{@"line_items": @[],
 								 @"channel": channelId,
-								 @"marketing_attribution":@{@"platform": @"iOS", @"application_name": _client.applicationName}}};
+								 @"marketing_attribution":@{@"medium": @"iOS", @"source": _client.applicationName}}};
 	
 	NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
 	XCTAssertEqualObjects(dict, json);
@@ -120,7 +120,7 @@
 	NSDictionary *dict = @{@"checkout":
 							   @{@"line_items": @[],
 								 @"channel": channelId,
-								 @"marketing_attribution":@{@"platform": @"iOS", @"application_name": appName}}};
+								 @"marketing_attribution":@{@"medium": @"iOS", @"source": appName}}};
 	
 	NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
 	XCTAssertEqualObjects(dict, json);

@@ -195,7 +195,7 @@
 
 - (NSDictionary *)marketingAttributions
 {
-	return @{@"platform": @"iOS", @"application_name": self.applicationName};
+	return @{@"medium": @"iOS", @"source": self.applicationName};
 }
 
 - (NSURLSessionDataTask *)createCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block

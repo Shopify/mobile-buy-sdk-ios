@@ -32,7 +32,7 @@
 	// Add marketing attributions
 	NSString *appName = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)self.applicationName, NULL, CFSTR(":/?#[]@!$&’()*+,;="), kCFStringEncodingUTF8));
 
-	[urlString appendFormat:@"&marketing_attribution[platform]=iOS&marketing_attribution[application_name]=%@", appName];
+	[urlString appendFormat:@"&marketing_attribution[medium]=iOS&marketing_attribution[source]=%@", appName];
 	
 	return [NSURL URLWithString:urlString];
 }
