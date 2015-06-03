@@ -21,6 +21,16 @@
     
     self.delegate = self;
     
+    // Add a home button to the navigation bar
+    UIButton *button =  [UIButton buttonWithType:UIButtonTypeCustom];
+    button.tintColor = [UIColor whiteColor];
+    UIImage *buttonImage = [UIImage imageNamed:@"shop"];
+    [button setImage:[buttonImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+    [button setFrame:CGRectMake(0, 0, 53, 31)];
+    [button addTarget:self action:@selector(goHome)forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    self.navigationItem.rightBarButtonItem = rightButton;
+    
     // Get shop details
     [self.client getShop:^(BUYShop *shop, NSError *error) {
         

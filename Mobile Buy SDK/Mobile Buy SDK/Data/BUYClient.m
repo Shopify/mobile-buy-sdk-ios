@@ -17,6 +17,9 @@
 #import "BUYShop.h"
 #import "BUYCheckout+Additions.h"
 
+#import "BUYTestConstants.h"
+#import "NSProcessInfo+Environment.h"
+
 #define kGET @"GET"
 #define kPOST @"POST"
 #define kPATCH @"PATCH"
@@ -42,6 +45,12 @@
 
 - (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey channelId:(NSString *)channelId
 {
+	if (shopDomain.length == 0 && apiKey.length == 0 && channelId.length == 0) {
+		shopDomain = [NSProcessInfo environmentForKey:kBUYTestDomain];
+		apiKey = [NSProcessInfo environmentForKey:kBUYTestAPIKey];
+		channelId = [NSProcessInfo environmentForKey:kBUYTestChannelId];
+	}
+	
 	if (shopDomain.length == 0) {
 		NSException *exception = [NSException exceptionWithName:@"Bad shop domain" reason:@"Please ensure you initialize with a shop domain" userInfo:nil];
 		@throw exception;

@@ -22,8 +22,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    [self configureUI];
-
     // Initialize the Buy SDK
     BUYClient *client = [[BUYClient alloc] initWithShopDomain:SHOP_DOMAIN
                                                        apiKey:API_KEY
@@ -44,13 +42,6 @@
     [self.window makeKeyAndVisible];
     
     return YES;
-}
-
-- (void)configureUI {
-    
-    [[UINavigationBar appearance] setTitleTextAttributes: @{NSForegroundColorAttributeName: [UIColor whiteColor],
-                                                            NSFontAttributeName: [UIFont fontWithName:@"Futura" size:20.0f]}];
-    [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
 }
 
 @end

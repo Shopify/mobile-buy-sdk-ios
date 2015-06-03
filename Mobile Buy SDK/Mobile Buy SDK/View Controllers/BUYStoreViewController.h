@@ -58,6 +58,11 @@ typedef void (^BUYCheckoutTypeBlock)(BUYCheckoutType type);
  */
 - (instancetype)initWithClient:(BUYClient *)client url:(NSURL *)url;
 
+/**
+ *  Jumps back to the shops home page
+ */
+- (void)reloadHomePage;
+
 @property (nonatomic, weak) id <BUYStoreViewControllerDelegate> delegate;
 
 @end
