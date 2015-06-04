@@ -16,7 +16,7 @@
 #import "BUYShippingRate.h"
 #import "BUYShop.h"
 #import "BUYCheckout+Additions.h"
-
+#import "BUYErrors.h"
 #import "BUYTestConstants.h"
 #import "NSProcessInfo+Environment.h"
 
@@ -29,6 +29,8 @@
 #define kShopifyError @"shopify"
 #define kMinSuccessfulStatusCode 200
 #define kMaxSuccessfulStatusCode 299
+
+NSString * const BUYShopifyError = @"BUYShopifyError";
 
 @interface BUYClient () <NSURLSessionDelegate>
 

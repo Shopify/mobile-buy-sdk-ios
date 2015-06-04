@@ -8,17 +8,12 @@
 
 @import UIKit;
 #import "BUYViewController.h"
-
-extern NSString * const BUYShopifyError;
+#import "BUYErrors.h"
 
 typedef NS_ENUM(NSUInteger, BUYCheckoutType){
 	BUYCheckoutTypeNormal,
 	BUYCheckoutTypeApplePay,
 	BUYCheckoutTypeCancel
-};
-
-typedef NS_ENUM(NSUInteger, BUYCheckoutError) {
-	BUYCheckoutError_CartFetchError
 };
 
 typedef void (^BUYCheckoutTypeBlock)(BUYCheckoutType type);

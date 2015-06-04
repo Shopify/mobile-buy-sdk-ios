@@ -12,8 +12,6 @@
 #import "BUYProductVariant.h"
 #import "BUYStoreViewController.h"
 
-NSString * const BUYShopifyError = @"shopify";
-
 @interface BUYStoreViewController () <WKNavigationDelegate>
 @end
 
@@ -187,7 +185,7 @@ NSString * const BUYShopifyError = @"shopify";
 		[self startCheckoutWithCartToken:cartToken];
 	}
 	else {
-		NSError *error = [NSError errorWithDomain:BUYShopifyError code:BUYCheckoutError_CartFetchError userInfo:nil];
+		NSError *error = [NSError errorWithDomain:BUYShopifyError code:BUYShopifyError_CartFetchError userInfo:nil];
 		[self.delegate controller:self failedToCreateCheckout:error];
 	}
 }
