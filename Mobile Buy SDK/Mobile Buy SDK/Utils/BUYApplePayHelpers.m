@@ -10,8 +10,9 @@
 #import "BUYClient.h"
 #import "BUYCheckout.h"
 #import "BUYApplePayAdditions.h"
+#import "BUYErrors.h"
 
-#define kPollDelay 0.5f
+const NSTimeInterval PollDelay = 0.5;
 
 @interface BUYApplePayHelpers ()
 @property (nonatomic, strong) BUYCheckout *checkout;
@@ -143,7 +144,8 @@
 				}];
 			}
 			else {
-				completion(PKPaymentAuthorizationStatusSuccess, nil, [self.checkout buy_summaryItems]);
+				self.lastError = [NSError errorWithDomain:BUYShopifyError code:BUYShopifyError_NoShippingMethodsToAddress userInfo:nil];
+				completion(status, nil, [self.checkout buy_summaryItems]);
 			}
 		}];
 	}
@@ -182,7 +184,7 @@
 			dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 			if (shippingStatus != BUYStatusComplete && shippingStatus != BUYStatusUnknown) {
 				//Adjust as you see fit for your polling rate.
-				[NSThread sleepForTimeInterval:kPollDelay];
+				[NSThread sleepForTimeInterval:PollDelay];
 			}
 		}
 	});
@@ -217,7 +219,7 @@
 			dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 			
 			if (checkoutStatus != BUYStatusComplete) {
-				[NSThread sleepForTimeInterval:kPollDelay];
+				[NSThread sleepForTimeInterval:PollDelay];
 			}
 		}
 		completion(checkoutStatus == BUYStatusComplete ? PKPaymentAuthorizationStatusSuccess : PKPaymentAuthorizationStatusFailure);
