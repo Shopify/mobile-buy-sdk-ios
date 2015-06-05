@@ -113,17 +113,19 @@
 {
 	[self.applePayHelper updateAndCompleteCheckoutWithPayment:payment completion:^(PKPaymentAuthorizationStatus status) {
 		
-		BUYStatus buyStatus = BUYStatusComplete;
-		
 		switch (status) {
 			case PKPaymentAuthorizationStatusFailure:
-			case PKPaymentAuthorizationStatusInvalidShippingPostalAddress:
 				[_delegate controller:self failedToCompleteCheckout:self.checkout withError:self.applePayHelper.lastError];
-				buyStatus = BUYStatusFailed;
 				break;
 				
-			default:
+			case PKPaymentAuthorizationStatusInvalidShippingPostalAddress:
+				[_delegate controller:self failedToUpdateCheckout:self.checkout withError:self.applePayHelper.lastError];
+				break;
+
+			default: {
+				BUYStatus buyStatus = (status == PKPaymentAuthorizationStatusSuccess) ? BUYStatusComplete : BUYStatusFailed;
 				[_delegate controller:self didCompleteCheckout:self.checkout status:buyStatus];
+			}
 				break;
 		}
 

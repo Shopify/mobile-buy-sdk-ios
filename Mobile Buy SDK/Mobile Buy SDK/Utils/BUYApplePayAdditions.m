@@ -80,12 +80,12 @@
 	BUYAddress *address = [[BUYAddress alloc] init];
 	
 	//Grab the simple information
-	address.firstName = (__bridge NSString *)ABRecordCopyValue(record, kABPersonFirstNameProperty);
+	address.firstName = (__bridge_transfer NSString *)ABRecordCopyValue(record, kABPersonFirstNameProperty);
 	if ([address.firstName length] == 0) {
 		address.firstName = BUYPartialAddressPlaceholder;
 	}
 	
-	address.lastName = (__bridge NSString *)ABRecordCopyValue(record, kABPersonLastNameProperty);
+	address.lastName = (__bridge_transfer NSString *)ABRecordCopyValue(record, kABPersonLastNameProperty);
 	if ([[address lastName] length] == 0) {
 		address.lastName = BUYPartialAddressPlaceholder;
 	}
