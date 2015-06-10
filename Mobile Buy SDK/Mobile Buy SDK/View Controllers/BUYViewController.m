@@ -169,7 +169,7 @@
 	PKPaymentRequest *paymentRequest = [[PKPaymentRequest alloc] init];
 	[paymentRequest setMerchantIdentifier:self.client.merchantId];
 	[paymentRequest setRequiredBillingAddressFields:PKAddressFieldAll];
-	[paymentRequest setRequiredShippingAddressFields:_checkout.requiresShipping ? PKAddressFieldAll : PKAddressFieldEmail];
+	[paymentRequest setRequiredShippingAddressFields:_checkout.requiresShipping ? PKAddressFieldAll : PKAddressFieldEmail|PKAddressFieldPhone];
 	[paymentRequest setSupportedNetworks:self.supportedNetworks];
 	[paymentRequest setMerchantCapabilities:self.merchantCapability];
 	[paymentRequest setCountryCode:self.countryCode];

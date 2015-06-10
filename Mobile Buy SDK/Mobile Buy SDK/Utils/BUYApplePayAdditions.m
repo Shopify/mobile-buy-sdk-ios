@@ -116,6 +116,9 @@
 	if (allPhoneNumbers && CFArrayGetCount(allPhoneNumbers) > 0) {
 		address.phone = (__bridge NSString *)CFArrayGetValueAtIndex(allPhoneNumbers, 0);
 	}
+	if ([address.phone length] == 0) {
+		address.phone = BUYPartialAddressPlaceholder;
+	}
 	CFSafeRelease(phoneMultiValue);
 	CFSafeRelease(allPhoneNumbers);
 	

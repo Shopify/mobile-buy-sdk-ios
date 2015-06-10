@@ -564,7 +564,7 @@
 	badClient = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:@"sadgsefgsdfgsdfgsdfg" channelId:channelId];
 	XCTAssertFalse([badClient testIntegration]);
 	
-	badClient = [[BUYClient alloc] initWithShopDomain:@"asdvfdbfdgasfgdsfg" apiKey:apiKey channelId:channelId];
+	badClient = [[BUYClient alloc] initWithShopDomain:@"asdvfdbfdgasfgdsfg.myshopify.com" apiKey:apiKey channelId:channelId];
 	XCTAssertFalse([badClient testIntegration]);
 }
 
@@ -612,6 +612,7 @@
 	address.countryCode = @"CA";
 	address.provinceCode = @"ON";
 	address.zip = @"K1N5T5";
+	address.phone = BUYPartialAddressPlaceholder;
 	return address;
 }
 

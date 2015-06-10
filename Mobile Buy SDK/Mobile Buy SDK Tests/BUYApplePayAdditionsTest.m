@@ -262,7 +262,7 @@
 	CFRelease(person);
 }
 
-- (void)testAddressFromRecordWithoutNameOrStreet
+- (void)testAddressFromRecordWithoutNameOrStreetOrPhone
 {
 	ABRecordRef person = ABPersonCreate();
 	CFErrorRef error = NULL;
@@ -280,8 +280,12 @@
 	ABRecordSetValue(person, kABPersonAddressProperty, addresses, &error);
 	CFRelease(addresses);
 	
-	ABRecordSetValue(person, kABPersonFirstNameProperty, CFSTR("---"), &error);
-	ABRecordSetValue(person, kABPersonLastNameProperty, CFSTR("---"), &error);
+	ABRecordSetValue(person, kABPersonFirstNameProperty, (__bridge CFStringRef)BUYPartialAddressPlaceholder, &error);
+	ABRecordSetValue(person, kABPersonLastNameProperty, (__bridge CFStringRef)BUYPartialAddressPlaceholder, &error);
+
+	ABMutableMultiValueRef phoneNumberMultiValue  = ABMultiValueCreateMutable(kABMultiStringPropertyType);
+	ABMultiValueAddValueAndLabel(phoneNumberMultiValue, (__bridge CFStringRef)BUYPartialAddressPlaceholder, kABPersonPhoneMobileLabel, NULL);
+	ABRecordSetValue(person, kABPersonPhoneProperty, phoneNumberMultiValue, &error);
 	
 	BUYAddress *newAddress = [BUYAddress buy_addressFromRecord:person];
 	XCTAssertNotNil(newAddress);
@@ -290,6 +294,7 @@
 	XCTAssertEqualObjects(@"Ontario", newAddress.province);
 	XCTAssertEqualObjects(@"K1N5T5", newAddress.zip);
 	XCTAssertEqualObjects(@"Canada", newAddress.country);
+	XCTAssertEqualObjects(BUYPartialAddressPlaceholder, newAddress.phone);
 	
 	CFRelease(person);
 }
