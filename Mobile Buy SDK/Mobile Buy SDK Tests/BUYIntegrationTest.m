@@ -122,8 +122,8 @@
 - (void)fetchShippingRates
 {
 	__block BUYStatus shippingStatus = BUYStatusUnknown;
-	while (_checkout.token && shippingStatus != BUYStatusFailed && shippingStatus != BUYStatusComplete) {
-		
+	
+	do {
 		NSLog(@"Fetching shipping rates...");
 		XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 
@@ -141,10 +141,11 @@
 			XCTAssertNil(error);
 		}];
 		
-		if (shippingStatus != BUYStatusComplete) {
+		if (shippingStatus == BUYStatusProcessing) {
 			[NSThread sleepForTimeInterval:0.5f];
 		}
-	}
+	} while (shippingStatus == BUYStatusProcessing);
+		
 	XCTAssertTrue([_shippingRates count] > 0);
 	XCTAssertEqual(shippingStatus, BUYStatusComplete);
 }
