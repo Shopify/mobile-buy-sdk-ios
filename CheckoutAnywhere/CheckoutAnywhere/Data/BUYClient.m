@@ -203,7 +203,7 @@
 {
 	NSURLSessionDataTask *task = nil;
 	if (cartToken) {
-		NSDictionary *body = @{ @"checkout" : @{ @"cart_token" : cartToken, @"channel": @"mobile_app", @"channel_id": self.channelId, @"marketing_attribution": self.marketingAttributions} };
+		NSDictionary *body = @{ @"checkout" : @{ @"cart_token" : cartToken, @"channel_id": self.channelId, @"marketing_attribution": self.marketingAttributions} };
 		NSError *error = nil;
 		NSData *data = [NSJSONSerialization dataWithJSONObject:body options:0 error:&error];
 		
