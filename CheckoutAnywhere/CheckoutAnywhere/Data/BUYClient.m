@@ -191,7 +191,6 @@
 - (NSURLSessionDataTask *)createCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
 	checkout.channelId = self.channelId;
-	checkout.channel = @"mobile_app";
 	checkout.marketingAttribution = self.marketingAttributions;
 	
 	return [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts.json", _shopDomain] object:checkout completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
