@@ -251,12 +251,15 @@
 	
 	__block BUYStatus checkoutStatus = BUYStatusUnknown;
 	__block BUYCheckout *completedCheckout = nil;
+	__block NSError *error = nil;
+	
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 	
 	while (checkout.token && checkoutStatus != BUYStatusFailed && checkoutStatus != BUYStatusComplete) {
-		[_provider getCompletionStatusOfCheckout:_checkout completion:^(BUYCheckout *checkout, BUYStatus status, NSError *error) {
+		[_provider getCompletionStatusOfCheckout:_checkout completion:^(BUYCheckout *checkout, BUYStatus status, NSError *err) {
 			completedCheckout = checkout;
 			checkoutStatus = status;
+			error = err;
 			dispatch_semaphore_signal(semaphore);
 		}];
 		dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
@@ -267,7 +270,12 @@
 	}
 	completion(checkoutStatus == BUYStatusComplete ? PKPaymentAuthorizationStatusSuccess : PKPaymentAuthorizationStatusFailure);
 	
-	[self checkoutCompleted:completedCheckout status:checkoutStatus];
+	if (error) {
+		[_delegate controller:self failedToCompleteCheckout:checkout withError:error	];
+	}
+	else {
+		[self checkoutCompleted:completedCheckout status:checkoutStatus];
+	}
 }
 
 - (void)checkoutCompleted:(BUYCheckout *)checkout status:(BUYStatus)status
