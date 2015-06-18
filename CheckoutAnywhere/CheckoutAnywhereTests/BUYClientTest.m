@@ -82,7 +82,6 @@
 							   @{@"partial_addresses": @1,
 								 @"line_items": @[],
 								 @"channel_id": channelId,
-								 @"channel": @"mobile_app",
 								 @"marketing_attribution":@{@"platform": @"iOS", @"application_name": _dataProvider.applicationName}}};
 	
 	NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
@@ -102,7 +101,6 @@
 							   @{@"partial_addresses": @1,
 								 @"line_items": @[],
 								 @"channel_id": channelId,
-								 @"channel": @"mobile_app",
 								 @"marketing_attribution":@{@"platform": @"iOS", @"application_name": appName}}};
 	
 	NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
