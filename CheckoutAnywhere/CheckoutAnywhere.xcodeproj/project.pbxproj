@@ -267,7 +267,6 @@
 		904FB5FE1AE03D4500EA1758 /* Checkout */ = {
 			isa = PBXGroup;
 			children = (
-				904FB6011AE03D4500EA1758 /* Buy.h */,
 				904FB5FF1AE03D4500EA1758 /* Supporting Files */,
 			);
 			path = Checkout;
@@ -372,6 +371,7 @@
 		F773743A19C777200039681C /* CheckoutAnywhere */ = {
 			isa = PBXGroup;
 			children = (
+				904FB6011AE03D4500EA1758 /* Buy.h */,
 				F773749F19C77E4E0039681C /* Classes */,
 				F773749E19C77E460039681C /* Supporting Files */,
 			);
