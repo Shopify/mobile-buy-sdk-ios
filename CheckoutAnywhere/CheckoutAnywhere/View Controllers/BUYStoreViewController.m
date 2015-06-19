@@ -12,13 +12,12 @@
 #import "BUYProductVariant.h"
 #import "BUYStoreViewController.h"
 
-#define kBuyNowEvent @"com.shopify.hybrid.buynow"
 #define kCheckoutEvent @"com.shopify.hybrid.checkout"
 #define kToolbarHeight 44.0f
 
 NSString * const BUYShopifyError = @"shopify";
 
-@interface BUYStoreViewController () <WKNavigationDelegate, WKScriptMessageHandler>
+@interface BUYStoreViewController () <WKNavigationDelegate>
 @end
 
 @implementation BUYStoreViewController {
@@ -59,8 +58,7 @@ NSString * const BUYShopifyError = @"shopify";
 
 - (void)loadView
 {
-	WKWebViewConfiguration *configuration = [self webViewConfiguration];
-	_webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:configuration];
+	_webView = [[WKWebView alloc] initWithFrame:CGRectZero];
 	_webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
 	_webView.navigationDelegate = self;
 	self.view = _webView;
@@ -85,20 +83,6 @@ NSString * const BUYShopifyError = @"shopify";
 {
 	_backButton.enabled = [_webView canGoBack];
 	_forwardButton.enabled = [_webView canGoForward];
-}
-
-#pragma mark - Web View Script Handling
-
-- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message
-{
-	NSDictionary *options = message.body;
-	NSString *eventName = options[@"eventName"];
-	if ([eventName isEqual:kBuyNowEvent]) {
-		[self receivedCart:options[@"cart"]];
-	}
-	else if ([eventName isEqual:kCheckoutEvent]) {
-		[self receivedCartToken:options[@"token"]];
-	}
 }
 
 #pragma mark - Web View Navigation Delegate Methods
@@ -134,12 +118,6 @@ NSString * const BUYShopifyError = @"shopify";
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
-	[_webView evaluateJavaScript:@"nativeAppSetup();" completionHandler:^(id result, NSError *error) {
-		if (error) {
-			NSLog(@"Setup - %@ - %@", result, error);
-		}
-	}];
-	
 	[self updateButtons];
 }
 
@@ -194,61 +172,26 @@ NSString * const BUYShopifyError = @"shopify";
 	}];
 }
 
-- (void)receivedCart:(NSDictionary *)cart
-{
-	//This is useful when we don't have a persisted cart on Shopify (i.e the user added a buy now button to their shop)
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		//Download all of the products that we need
-		NSArray *lineItems = cart[@"lineItems"];
-		
-		dispatch_group_t group = dispatch_group_create();
-		
-		__block BOOL successful = YES;
-		BUYCart *checkoutCart = [[BUYCart alloc] init];
-		for (NSDictionary *lineItem in lineItems) {
-			dispatch_group_enter(group);
-			
-			[self getProduct:lineItem[@"product_id"] withVariantId:lineItem[@"variantId"] completion:^(BUYProductVariant *variant, NSError *error) {
-
-				if (variant) {
-					BUYLineItem *cartLineItem = [[BUYLineItem alloc] initWithVariant:variant];
-					cartLineItem.quantity = [NSDecimalNumber decimalNumberWithDecimal:[lineItem[@"quantity"] decimalValue]];
-					cartLineItem.price = [cartLineItem.quantity decimalNumberByMultiplyingBy:variant.price];
-					[checkoutCart addLineItemsObject:cartLineItem];
-				}
-				else {
-					successful = NO;
-					NSLog(@"Did not have a variant!");
-				}
-				dispatch_group_leave(group);
-			}];
-		}
-		dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
-		
-		dispatch_async(dispatch_get_main_queue(), ^{
-			if (successful) {
-				[self startCheckoutWithCart:checkoutCart];
-			}
-			else {
-				NSError *error = [[NSError alloc] initWithDomain:BUYShopifyError code:BUYCheckoutError_CartFetchError userInfo:cart];
-				[self.delegate controller:self failedToCompleteCheckout:nil withError:error];
-			}
-		});
-	});
-}
-
-- (void)receivedCartToken:(NSString *)token
-{
-	[self startCheckoutWithCartToken:token];
-}
-
 #pragma mark - Checkout Selection Delegate Methods
 
 - (void)checkoutWithApplePay
 {
-	[_webView evaluateJavaScript:@"fetchCart();" completionHandler:^(id result, NSError *error) {
-		NSLog(@"Fetch Cart - %@ - %@", result, error);
-	}];
+	NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:_url];
+	
+	NSString *cartToken = nil;
+	for (NSHTTPCookie *cookie in cookies) {
+		if ([cookie.name isEqualToString:@"cart"]) {
+			cartToken = cookie.value;
+			break;
+		}
+	}
+	
+	if (cartToken) {
+		[self startCheckoutWithCartToken:cartToken];
+	}
+	else {
+		[self.delegate controller:self failedToCreateCheckout:nil];
+	}
 }
 
 - (void)checkoutWithNormalCheckout
@@ -277,47 +220,6 @@ NSString * const BUYShopifyError = @"shopify";
 		NSError *error = [NSError errorWithDomain:BUYShopifyError code:status userInfo:@{@"checkout": checkout}];
 		[self.delegate controller:self failedToCompleteCheckout:checkout withError:error];
 	}
-}
-
-#pragma mark - Web View Configuration
-
-- (WKWebViewConfiguration *)webViewConfiguration
-{
-	WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
-	configuration.userContentController = [self userContentConfiguration];
-	configuration.processPool = [self processPool];
-	return configuration;
-}
-
-- (WKProcessPool *)processPool
-{
-	static WKProcessPool *pool = nil;
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		pool = [[WKProcessPool alloc] init];
-	});
-	return pool;
-}
-
-- (WKUserContentController *)userContentConfiguration
-{
-	//Register our native bridge
-	WKUserContentController *contentController = [WKUserContentController new];
-	WKUserScript *userScript = [self userScriptWithName:@"app"];
-	[contentController addUserScript:userScript];
-	[contentController addScriptMessageHandler:self name:@"nativeApp"];
-	return contentController;
-}
-
-- (WKUserScript *)userScriptWithName:(NSString*)scriptName
-{
-	NSString *frameworkDirPath = [[NSBundle mainBundle] privateFrameworksPath];
-	NSString *frameworkBundlePath = [frameworkDirPath stringByAppendingPathComponent:@"Buy.framework"];
-	NSBundle *frameworkBundle = [NSBundle bundleWithPath:frameworkBundlePath];
-	
-	NSData *jsData = [NSData dataWithContentsOfFile:[frameworkBundle pathForResource:scriptName ofType:@"js"]];
-	NSString *js = [[NSString alloc] initWithData:jsData encoding:NSUTF8StringEncoding];
-	return [[WKUserScript alloc] initWithSource:js injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:YES];
 }
 
 @end
