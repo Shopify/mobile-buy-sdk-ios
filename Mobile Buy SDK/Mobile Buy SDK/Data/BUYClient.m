@@ -212,7 +212,8 @@ NSString * const BUYShopifyError = @"BUYShopifyError";
 - (NSURLSessionDataTask *)createCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
 	// Inject channel and marketing attributions
-	checkout.channel = self.channelId;
+	checkout.channel = @"mobile_app";
+	checkout.channelId = self.channelId;
 	checkout.marketingAttribution = self.marketingAttributions;
 	
 	NSDictionary *json = [checkout jsonDictionaryForUpdatingCheckout];
@@ -222,7 +223,8 @@ NSString * const BUYShopifyError = @"BUYShopifyError";
 - (NSURLSessionDataTask *)createCheckoutWithCartToken:(NSString *)cartToken completion:(BUYDataCheckoutBlock)block
 {
 	NSDictionary *json = @{ @"checkout" : @{ @"cart_token" : cartToken,
-											 @"channel": self.channelId,
+											 @"channel": @"mobile_app",
+											 @"channel_id": self.channelId,
 											 @"marketing_attribution": self.marketingAttributions} };
 	
 	return [self postCheckout:json completion:block];
