@@ -28,7 +28,7 @@
 /**
  *  Custom properties that a shop owner can use to define BUYProductVariants.
  */
-@property (nonatomic, readonly, copy) NSArray *options;
+@property (nonatomic, readonly, copy) NSDictionary *options;
 
 /**
  *  The price of the BUYProductVariant.

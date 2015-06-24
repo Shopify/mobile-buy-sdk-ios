@@ -29,6 +29,8 @@
 
 + (NSArray *)convertJSONArray:(NSArray *)json block:(void (^)(id obj))createdBlock;
 + (NSArray *)convertJSONArray:(NSArray *)json;
++ (NSDictionary *)convertJSONArrayToDictionary:(NSArray *)json usingKey:(NSString *)key;
+
 + (instancetype)convertObject:(id)object;
 
 #pragma mark - Dirty Property Tracking

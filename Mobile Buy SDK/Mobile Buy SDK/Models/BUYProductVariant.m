@@ -18,7 +18,7 @@
 	
 	_title = [dictionary[@"title"] copy];
 	
-	_options = [BUYOptionValue convertJSONArray:dictionary[@"option_values"]];
+	_options = [BUYOptionValue convertJSONArrayToDictionary:dictionary[@"option_values"] usingKey:@"name"];
 	
 	_price = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"price"]];
 	_compareAtPrice = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"compare_at_price"]];

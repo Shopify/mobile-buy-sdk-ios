@@ -54,17 +54,17 @@
 
 	switch (productVariant.options.count) {
 		case 3: {
-			BUYOptionValue *optionValue = productVariant.options[2];
+			BUYOptionValue *optionValue = productVariant.options.allValues[2];
 			[self.optionView3 setTextForOptionValue:optionValue];
 		}
 		
 		case 2: {
-			BUYOptionValue *optionValue = productVariant.options[1];
+			BUYOptionValue *optionValue = productVariant.options.allValues[1];
 			[self.optionView2 setTextForOptionValue:optionValue];
 		}
 			
 		case 1: {
-			BUYOptionValue *optionValue = productVariant.options[0];
+			BUYOptionValue *optionValue = productVariant.options.allValues[0];
 			[self.optionView1 setTextForOptionValue:optionValue];
 		}
 			break;
