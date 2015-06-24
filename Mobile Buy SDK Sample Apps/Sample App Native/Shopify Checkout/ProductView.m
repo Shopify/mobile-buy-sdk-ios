@@ -78,7 +78,7 @@
                                                                      metrics:nil
                                                                        views:NSDictionaryOfVariableBindings(_priceLabel, _titleLabel)]];
 		
-		_paymentButton = [PKPaymentButton buttonWithType:PKPaymentButtonTypeBuy style:PKPaymentButtonStyleBlack];
+		_paymentButton = [BUYPaymentButton buttonWithType:BUYPaymentButtonTypeBuy style:BUYPaymentButtonStyleBlack];
         _paymentButton.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_paymentButton];
 
