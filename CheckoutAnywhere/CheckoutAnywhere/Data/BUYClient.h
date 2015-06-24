@@ -18,6 +18,8 @@
 @class BUYProductVariant;
 @class BUYShop;
 
+extern NSString * const versionString;
+
 /**
  *  A BUYStatus is associated with the completion of an enqueued job on Shopify.
  *  BUYStatus is equal is HTTP status codes returned from the server

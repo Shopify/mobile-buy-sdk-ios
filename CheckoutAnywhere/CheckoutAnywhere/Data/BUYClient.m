@@ -26,6 +26,8 @@
 #define kMinSuccessfulStatusCode 200
 #define kMaxSuccessfulStatusCode 299
 
+NSString * const versionString = @"1.0.2";
+
 @interface BUYClient () <NSURLSessionDelegate>
 
 @property (nonatomic, strong) NSString *shopDomain;
@@ -56,8 +58,6 @@
 		self.queue = [[NSOperationQueue alloc] init];
 		
 		NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-		NSString *versionString = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-		
 		config.HTTPAdditionalHeaders = @{@"X-Shopify-Mobile-Buy-SDK-Version": [NSString stringWithFormat:@"iOS/%@", versionString]};
 		
 		self.session = [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:self.queue];
