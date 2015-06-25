@@ -212,7 +212,6 @@ NSString * const BUYShopifyError = @"BUYShopifyError";
 - (NSURLSessionDataTask *)createCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
 	// Inject channel and marketing attributions
-	checkout.channel = @"mobile_app";
 	checkout.channelId = self.channelId;
 	checkout.marketingAttribution = self.marketingAttributions;
 	
