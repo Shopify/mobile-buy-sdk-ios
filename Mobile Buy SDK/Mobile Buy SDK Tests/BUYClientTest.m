@@ -79,7 +79,7 @@
 	
 	NSDictionary *dict = @{@"checkout":
 							   @{@"line_items": @[],
-								 @"channel": channelId,
+								 @"channel_id": channelId,
 								 @"marketing_attribution":@{@"medium": @"iOS", @"source": _client.applicationName}}};
 	
 	NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
@@ -118,7 +118,7 @@
 	
 	NSDictionary *dict = @{@"checkout":
 							   @{@"line_items": @[],
-								 @"channel": channelId,
+								 @"channel_id": channelId,
 								 @"marketing_attribution":@{@"medium": @"iOS", @"source": appName}}};
 	
 	NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];

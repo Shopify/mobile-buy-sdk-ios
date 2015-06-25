@@ -50,7 +50,7 @@
 
 @property (nonatomic, strong) BUYDiscount *discount;
 @property (nonatomic, strong) NSURL *orderStatusURL;
-@property (nonatomic, strong) NSString *channel;
+@property (nonatomic, strong) NSString *channelId;
 @property (nonatomic, strong) NSDictionary *marketingAttribution;
 
 - (instancetype)init NS_UNAVAILABLE;
