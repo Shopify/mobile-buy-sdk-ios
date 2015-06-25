@@ -223,7 +223,6 @@ NSString * const BUYShopifyError = @"BUYShopifyError";
 - (NSURLSessionDataTask *)createCheckoutWithCartToken:(NSString *)cartToken completion:(BUYDataCheckoutBlock)block
 {
 	NSDictionary *json = @{ @"checkout" : @{ @"cart_token" : cartToken,
-											 @"channel": @"mobile_app",
 											 @"channel_id": self.channelId,
 											 @"marketing_attribution": self.marketingAttributions} };
 	

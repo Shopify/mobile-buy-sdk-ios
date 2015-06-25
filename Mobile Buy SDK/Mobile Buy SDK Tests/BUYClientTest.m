@@ -79,7 +79,6 @@
 	
 	NSDictionary *dict = @{@"checkout":
 							   @{@"line_items": @[],
-								 @"channel": @"mobile_app",
 								 @"channel_id": channelId,
 								 @"marketing_attribution":@{@"medium": @"iOS", @"source": _client.applicationName}}};
 	
@@ -119,7 +118,6 @@
 	
 	NSDictionary *dict = @{@"checkout":
 							   @{@"line_items": @[],
-								 @"channel": @"mobile_app",
 								 @"channel_id": channelId,
 								 @"marketing_attribution":@{@"medium": @"iOS", @"source": appName}}};
 	
