@@ -3,7 +3,7 @@
 ### Version 1.0.2
 ###### Released June 25, 2015
 
-* Changed SDK to a static framework
+* Changed SDK to a static framework (see updated [integration guide](https://docs.shopify.com/mobile-buy-sdk/api/docs/Integration/Integration%20Guide))
 * Fixed `BUYTaxLine` parsing
 * Fixed channel attribution
 * Removed `app.js`
