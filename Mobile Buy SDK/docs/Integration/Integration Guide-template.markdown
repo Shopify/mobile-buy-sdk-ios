@@ -15,17 +15,19 @@ If you intend to offer Apple Pay, you'll also need to visit [Enable Apple Pay in
 
 ### Installation
 
-1. In the project editor, select the target to which you want to add `Buy.framework`.
-<center><img src="sdk_integration_embedding_framework_1.png" width="100%" alt="Mobile Buy SDK integration Xcode 1"/></center>
+*Note: If you have previously embedded the dynamic framework, remove it from Embedded Binaries before adding the static framework.*
 
-2. In the **General** tab, drag the `Buy.framework` onto the **Embedded Binaries** section. Check **Copy items if needed** so the framework is copied to your project.
-<center><img src="sdk_integration_embedding_framework_2.png" width="100%" alt="Mobile Buy SDK integration Xcode 2"/></center>
+1. In the **General** tab, drag the `Buy.framework` onto the **Linked Frameworks and Libraries** section for the target you want to add the framework to. Check **Copy items if needed** so the framework is copied to your project. <center><img src="sdk_integration_step_1.png" width="100%" alt="Mobile Buy SDK integration Xcode Step 1"/></center>
+
+2. Add the `libc++.dylib` library to **Linked Frameworks and Libraries**. <center><img src="sdk_integration_step_2.png" width="100%" alt="Mobile Buy SDK integration Xcode Step 2"/></center>
+
+3. In the **Build Settings** tab, add `-all_load` to **Other Linker Flags**. <center><img src="sdk_integration_step_3.png" width="100%" alt="Mobile Buy SDK integration Xcode Step 3"/></center>
 
 ### Initialize the framework
 
 Import the Buy header
 
-	@import Buy;
+	#import <Buy/Buy.h>
 
 Initialize the client
  
