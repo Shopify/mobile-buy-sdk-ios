@@ -12,12 +12,7 @@
 #import "BUYProductVariant.h"
 #import "BUYStoreViewController.h"
 
-#define kCheckoutEvent @"com.shopify.hybrid.checkout"
-#define kToolbarHeight 44.0f
-
-NSString * const BUYShopifyError = @"shopify";
-
-@interface BUYStoreViewController () <WKNavigationDelegate>
+@interface BUYStoreViewController () <WKNavigationDelegate, WKScriptMessageHandler>
 @end
 
 @implementation BUYStoreViewController {
@@ -58,7 +53,8 @@ NSString * const BUYShopifyError = @"shopify";
 
 - (void)loadView
 {
-	_webView = [[WKWebView alloc] initWithFrame:CGRectZero];
+	WKWebViewConfiguration *configuration = [self webViewConfiguration];
+	_webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:configuration];
 	_webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
 	_webView.navigationDelegate = self;
 	self.view = _webView;
@@ -176,15 +172,24 @@ NSString * const BUYShopifyError = @"shopify";
 
 - (void)checkoutWithApplePay
 {
-	NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:_url];
-	
-	NSString *cartToken = nil;
-	for (NSHTTPCookie *cookie in cookies) {
-		if ([cookie.name isEqualToString:@"cart"]) {
-			cartToken = cookie.value;
-			break;
-		}
-	}
+	[_webView evaluateJavaScript:@"\
+	 var cartRequest = new XMLHttpRequest();\
+	 cartRequest.open(\"GET\", \"/cart.json\", false);\
+	 cartRequest.onreadystatechange = function() {\
+		if (cartRequest.readyState == 4 && cartRequest.status == 200) {\
+			window.webkit.messageHandlers.nativeApp.postMessage(JSON.parse(cartRequest.responseText));\
+		}\
+	 };\
+	 cartRequest.send(null);"
+			   completionHandler:^(id response, NSError *error) {
+		
+	}];
+}
+
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message
+{
+	NSDictionary *json = message.body;
+	NSString *cartToken = json[@"token"];
 	
 	if (cartToken) {
 		[self startCheckoutWithCartToken:cartToken];
@@ -220,6 +225,34 @@ NSString * const BUYShopifyError = @"shopify";
 		NSError *error = [NSError errorWithDomain:BUYShopifyError code:status userInfo:@{@"checkout": checkout}];
 		[self.delegate controller:self failedToCompleteCheckout:checkout withError:error];
 	}
+}
+
+#pragma mark - Web View Configuration
+
+- (WKWebViewConfiguration *)webViewConfiguration
+{
+	WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
+	configuration.userContentController = [self userContentConfiguration];
+	configuration.processPool = [self processPool];
+	return configuration;
+}
+
+- (WKProcessPool *)processPool
+{
+	static WKProcessPool *pool = nil;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		pool = [[WKProcessPool alloc] init];
+	});
+	return pool;
+}
+
+- (WKUserContentController *)userContentConfiguration
+{
+	//Register our native bridge
+	WKUserContentController *contentController = [WKUserContentController new];
+	[contentController addScriptMessageHandler:self name:@"nativeApp"];
+	return contentController;
 }
 
 @end
