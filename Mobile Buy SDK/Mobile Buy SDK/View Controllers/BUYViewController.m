@@ -45,7 +45,7 @@
 - (BUYClient*)client
 {
 	if (_client == nil) {
-		NSLog(@"`BUYClient` has not been initialized. Please initialize BUYViewController with `initWithClient:` or set a `BUYClient` after Storyboard initalization");
+		NSLog(@"`BUYClient` has not been initialized. Please initialize BUYViewController with `initWithClient:` or set a `BUYClient` after Storyboard initialization");
 		return nil;
 	}
 	return _client;
