@@ -12,6 +12,8 @@
 #import "BUYProductVariant.h"
 #import "BUYStoreViewController.h"
 
+NSString * const BUYShopifyError = @"shopify";
+
 @interface BUYStoreViewController () <WKNavigationDelegate, WKScriptMessageHandler>
 @end
 
