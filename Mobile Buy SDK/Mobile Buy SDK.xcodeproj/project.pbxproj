@@ -14,6 +14,7 @@
 				904FB61F1AE03DCF00EA1758 /* ShellScript */,
 			);
 			dependencies = (
+				BE9496641B45CC2700B38949 /* PBXTargetDependency */,
 			);
 			name = "Universal Framework";
 			productName = "Mobile Buy SDK-Universal";
@@ -53,7 +54,6 @@
 		90F5930B1B0D5F4C0026B382 /* BUYObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592FF1B0D5F4C0026B382 /* BUYObjectTests.m */; };
 		90F5930D1B0D5F4C0026B382 /* NSProcessInfo+Environment.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F593031B0D5F4C0026B382 /* NSProcessInfo+Environment.m */; };
 		90F593111B0D5F650026B382 /* BUYPaymentToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F593101B0D5F650026B382 /* BUYPaymentToken.m */; };
-		90F593121B0D5F7F0026B382 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A54742D1A0AA61600822409 /* PassKit.framework */; };
 		90F7BA6D1B0D1DAF0067864D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F7BA6C1B0D1DAF0067864D /* main.m */; };
 		90F7BA701B0D1DAF0067864D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F7BA6F1B0D1DAF0067864D /* AppDelegate.m */; };
 		90F7BA731B0D1DAF0067864D /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F7BA721B0D1DAF0067864D /* FirstViewController.m */; };
@@ -86,7 +86,6 @@
 		BE94963D1B45C61F00B38949 /* NSDecimalNumber+BUYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A9C1A7011DC0087DB2C /* NSDecimalNumber+BUYAdditions.m */; };
 		BE94963E1B45C62200B38949 /* NSString+Trim.m in Sources */ = {isa = PBXBuildFile; fileRef = F76CFF1C19CB7BE30079C703 /* NSString+Trim.m */; };
 		BE94963F1B45C62400B38949 /* BUYApplePayHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = BE33B4EE1B15FF4D0067982B /* BUYApplePayHelpers.m */; };
-		BE9496401B45C62700B38949 /* BUYClient+WebCheckout.m in Sources */ = {isa = PBXBuildFile; fileRef = BE33B4F21B174A1A0067982B /* BUYClient+WebCheckout.m */; };
 		BE9496411B45C62900B38949 /* BUYAddress+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = BE33B4FA1B177EC80067982B /* BUYAddress+Additions.m */; };
 		BE9496421B45C62C00B38949 /* BUYCheckout+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = BE6C5E711B1CF776003AD9D0 /* BUYCheckout+Additions.m */; };
 		BE9496431B45C67E00B38949 /* BUYStoreViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = BE1C4DF31AE98FBB00E21624 /* BUYStoreViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -121,19 +120,29 @@
 		BE9496601B45CBC100B38949 /* Buy.h in Headers */ = {isa = PBXBuildFile; fileRef = 904FB6011AE03D4500EA1758 /* Buy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BE9496611B45CBD200B38949 /* BUYPaymentButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 905AA96F1B3B32A500CAE037 /* BUYPaymentButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BE9496621B45CBD600B38949 /* BUYPaymentButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 905AA9701B3B32A500CAE037 /* BUYPaymentButton.m */; };
+		BE9496671B45CCE900B38949 /* libBuy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE94960E1B45C5A500B38949 /* libBuy.a */; };
+		BE94966A1B45CD0500B38949 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AB6AB819CFCE6A00115224 /* libstdc++.dylib */; };
+		BE94966B1B45CD6400B38949 /* BUYClient+WebCheckout.m in Sources */ = {isa = PBXBuildFile; fileRef = BE33B4F21B174A1A0067982B /* BUYClient+WebCheckout.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		9035887C1B137D12008422B3 /* Copy Files */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Copy Files";
-			runOnlyForDeploymentPostprocessing = 0;
+/* Begin PBXContainerItemProxy section */
+		BE9496631B45CC2700B38949 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F773741519C770CB0039681C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BE94960D1B45C5A500B38949;
+			remoteInfo = Buy;
 		};
+		BE9496651B45CCDD00B38949 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F773741519C770CB0039681C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BE94960D1B45C5A500B38949;
+			remoteInfo = Buy;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
 		90F592531B0D569F0026B382 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -225,6 +234,7 @@
 		BE9496101B45C5A500B38949 /* Buy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Buy.h; sourceTree = "<group>"; };
 		BE9496121B45C5A500B38949 /* Buy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Buy.m; sourceTree = "<group>"; };
 		BE94961E1B45C5A500B38949 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BE9496681B45CCF400B38949 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		BED5C1C21B20C26A0009079F /* BUYErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYErrors.h; sourceTree = "<group>"; };
 		BEEA83E51B0B76C7000C6483 /* BUYOptionValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYOptionValue.h; sourceTree = "<group>"; };
 		BEEA83E61B0B76C7000C6483 /* BUYOptionValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYOptionValue.m; sourceTree = "<group>"; };
@@ -253,7 +263,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90F593121B0D5F7F0026B382 /* PassKit.framework in Frameworks */,
+				BE94966A1B45CD0500B38949 /* libstdc++.dylib in Frameworks */,
+				BE9496671B45CCE900B38949 /* libBuy.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,6 +289,7 @@
 		547B8D0CCDB9458C800F1E3C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BE9496681B45CCF400B38949 /* libc++.dylib */,
 				90BC07F71AE0440F005D1195 /* AddressBook.framework */,
 				90BC07F51AE043FD005D1195 /* Foundation.framework */,
 				2A54742D1A0AA61600822409 /* PassKit.framework */,
@@ -584,12 +596,11 @@
 			buildPhases = (
 				90F592E81B0D5EFE0026B382 /* Sources */,
 				90F592E91B0D5EFE0026B382 /* Frameworks */,
-				90F592EA1B0D5EFE0026B382 /* Resources */,
-				9035887C1B137D12008422B3 /* Copy Files */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				BE9496661B45CCDD00B38949 /* PBXTargetDependency */,
 			);
 			name = "Mobile Buy SDK Tests";
 			productName = "Mobile Buy SDK Tests";
@@ -683,13 +694,6 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		90F592EA1B0D5EFE0026B382 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		90F7BA661B0D1DAF0067864D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -714,7 +718,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "BUILD_CONFIGURATION=\"release\"\nsh \"${SRCROOT}/build.sh\"";
+			shellScript = "set -e\n\n# If we're already inside this script then die\nif [ -n \"$RW_MULTIPLATFORM_BUILD_IN_PROGRESS\" ]; then\nexit 0\nfi\nexport RW_MULTIPLATFORM_BUILD_IN_PROGRESS=1\n\nRW_FRAMEWORK_NAME=\"Buy\"\nRW_INPUT_STATIC_LIB=\"lib${RW_FRAMEWORK_NAME}.a\"\nRW_FRAMEWORK_LOCATION=\"${BUILT_PRODUCTS_DIR}/${RW_FRAMEWORK_NAME}.framework\"\n\nfunction build_static_library {\n    # Will rebuild the static library as specified\n    #     build_static_library sdk\n    xcrun xcodebuild -project \"${PROJECT_FILE_PATH}\" \\\n    -target \"${TARGET_NAME}\" \\\n    -configuration \"${CONFIGURATION}\" \\\n    -sdk \"${1}\" \\\n    ONLY_ACTIVE_ARCH=NO \\\n    BUILD_DIR=\"${BUILD_DIR}\" \\\n    OBJROOT=\"${OBJROOT}\" \\\n    BUILD_ROOT=\"${BUILD_ROOT}\" \\\n    SYMROOT=\"${SYMROOT}\" $ACTION\n}\n\nfunction make_fat_library {\n    # Will smash 2 static libs together\n    #     make_fat_library in1 in2 out\n    xcrun lipo -create \"${1}\" \"${2}\" -output \"${3}\"\n}\n\n# Extract the platform (iphoneos/iphonesimulator) from the SDK name\nif [[ \"$SDK_NAME\" =~ ([A-Za-z]+) ]]; then\nRW_SDK_PLATFORM=${BASH_REMATCH[1]}\nelse\necho \"Could not find platform name from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\n# Extract the version from the SDK\nif [[ \"$SDK_NAME\" =~ ([0-9]+.*$) ]]; then\nRW_SDK_VERSION=${BASH_REMATCH[1]}\nelse\necho \"Could not find sdk version from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\n# Determine the other platform\nif [ \"$RW_SDK_PLATFORM\" == \"iphoneos\" ]; then\nRW_OTHER_PLATFORM=iphonesimulator\nelse\nRW_OTHER_PLATFORM=iphoneos\nfi\n\n# Find the build directory\nif [[ \"$BUILT_PRODUCTS_DIR\" =~ (.*)$RW_SDK_PLATFORM$ ]]; then\nRW_OTHER_BUILT_PRODUCTS_DIR=\"${BASH_REMATCH[1]}${RW_OTHER_PLATFORM}\"\nelse\necho \"Could not find other platform build directory.\"\nexit 1\nfi\n\n# Build the other platform.\nbuild_static_library \"${RW_OTHER_PLATFORM}${RW_SDK_VERSION}\"\n\n# If we're currently building for iphonesimulator, then need to rebuild\n#   to ensure that we get both i386 and x86_64\nif [ \"$RW_SDK_PLATFORM\" == \"iphonesimulator\" ]; then\nbuild_static_library \"${SDK_NAME}\"\nfi\n\n# Join the 2 static libs into 1 and push into the .framework\nmake_fat_library \"${BUILT_PRODUCTS_DIR}/${RW_INPUT_STATIC_LIB}\" \\\n\"${RW_OTHER_BUILT_PRODUCTS_DIR}/${RW_INPUT_STATIC_LIB}\" \\\n\"${RW_FRAMEWORK_LOCATION}/Versions/A/${RW_FRAMEWORK_NAME}\"\n\n# Ensure that the framework is present in both platorm's build directories\ncp -a \"${RW_FRAMEWORK_LOCATION}/Versions/A/${RW_FRAMEWORK_NAME}\" \\\n\"${RW_OTHER_BUILT_PRODUCTS_DIR}/${RW_FRAMEWORK_NAME}.framework/Versions/A/${RW_FRAMEWORK_NAME}\"\n\n# Copy the framework to the user's desktop\nditto \"${RW_FRAMEWORK_LOCATION}\" \"${HOME}/Desktop/${RW_FRAMEWORK_NAME}.framework\"";
 		};
 		90E80E441AFAB0C3003A9909 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -794,6 +798,7 @@
 				BE94963E1B45C62200B38949 /* NSString+Trim.m in Sources */,
 				BE9496421B45C62C00B38949 /* BUYCheckout+Additions.m in Sources */,
 				BE9496321B45C60200B38949 /* BUYGiftCard.m in Sources */,
+				BE94966B1B45CD6400B38949 /* BUYClient+WebCheckout.m in Sources */,
 				BE9496331B45C60400B38949 /* BUYImage.m in Sources */,
 				BE9496341B45C60700B38949 /* BUYLineItem.m in Sources */,
 				BE94963A1B45C61700B38949 /* BUYOptionValue.m in Sources */,
@@ -814,7 +819,6 @@
 				BE9496311B45C5FF00B38949 /* BUYCreditCard.m in Sources */,
 				BE94963C1B45C61D00B38949 /* BUYRuntime.m in Sources */,
 				BE94962F1B45C5FA00B38949 /* BUYTaxLine.m in Sources */,
-				BE9496401B45C62700B38949 /* BUYClient+WebCheckout.m in Sources */,
 				BE94962C1B45C5F200B38949 /* BUYCheckout.m in Sources */,
 				BE9496281B45C5E400B38949 /* BUYStoreViewController.m in Sources */,
 				BE9496361B45C60D00B38949 /* BUYOption.m in Sources */,
@@ -822,6 +826,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BE9496641B45CC2700B38949 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BE94960D1B45C5A500B38949 /* Buy */;
+			targetProxy = BE9496631B45CC2700B38949 /* PBXContainerItemProxy */;
+		};
+		BE9496661B45CCDD00B38949 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BE94960D1B45C5A500B38949 /* Buy */;
+			targetProxy = BE9496651B45CCDD00B38949 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		90F7BA771B0D1DAF0067864D /* Main.storyboard */ = {
@@ -874,7 +891,7 @@
 		90F592F61B0D5EFE0026B382 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -885,9 +902,16 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}\"/**";
 				INFOPLIST_FILE = "Mobile Buy SDK Tests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -895,7 +919,7 @@
 		90F592F71B0D5EFE0026B382 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -903,9 +927,16 @@
 					"$(inherited)",
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}\"/**";
 				INFOPLIST_FILE = "Mobile Buy SDK Tests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
