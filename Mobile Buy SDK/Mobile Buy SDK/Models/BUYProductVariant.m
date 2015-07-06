@@ -27,6 +27,8 @@
 	_requiresShipping = dictionary[@"requires_shipping"];
 	_taxable = dictionary[@"taxable"];
 	_position = dictionary[@"position"];
+	
+	_available = [dictionary[@"available"] boolValue];
 }
 
 @end
