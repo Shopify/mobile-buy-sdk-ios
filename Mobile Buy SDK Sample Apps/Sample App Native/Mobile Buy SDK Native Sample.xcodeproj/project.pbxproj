@@ -298,17 +298,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"${PROJECT_DIR}/../..",
-					"/Users/davidmuzi/Repos/mobile-buy-sdk-ios/Mobile",
-					Buy,
-					SDK,
-					Sample,
-					Apps,
-					"/Users/davidmuzi/Repos/mobile-buy-sdk-ios/Mobile",
-					Buy,
-					SDK,
-					Sample,
-					Apps,
+					"${PROJECT_DIR}",
 				);
 				INFOPLIST_FILE = "Shopify Checkout/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -326,17 +316,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"${PROJECT_DIR}/../..",
-					"/Users/davidmuzi/Repos/mobile-buy-sdk-ios/Mobile",
-					Buy,
-					SDK,
-					Sample,
-					Apps,
-					"/Users/davidmuzi/Repos/mobile-buy-sdk-ios/Mobile",
-					Buy,
-					SDK,
-					Sample,
-					Apps,
+					"${PROJECT_DIR}",
 				);
 				INFOPLIST_FILE = "Shopify Checkout/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

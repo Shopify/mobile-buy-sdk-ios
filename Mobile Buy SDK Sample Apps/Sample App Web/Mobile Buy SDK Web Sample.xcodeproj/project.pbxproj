@@ -341,12 +341,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"${PROJECT_DIR}/../..",
-					"/Users/davidmuzi/Repos/mobile-buy-sdk-ios/Mobile",
-					Buy,
-					SDK,
-					Sample,
-					Apps,
+					"${PROJECT_DIR}",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -377,12 +372,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"${PROJECT_DIR}/../..",
-					"/Users/davidmuzi/Repos/mobile-buy-sdk-ios/Mobile",
-					Buy,
-					SDK,
-					Sample,
-					Apps,
+					"${PROJECT_DIR}",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
