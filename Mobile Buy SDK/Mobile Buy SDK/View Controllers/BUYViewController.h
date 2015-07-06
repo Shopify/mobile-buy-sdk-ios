@@ -81,7 +81,12 @@
  *  Register yourself as a BUYViewControllerDelegate to handle all errors, and status changes.
  */
 @property (nonatomic, weak) id <BUYViewControllerDelegate> delegate;
-@property (nonatomic, strong, readonly) BUYClient *client;
+
+/**
+ *  Set the BUYClient using the provided initializer method `initWithClient:` or
+ *  if using Storyboards, override after Storyboard initialization.
+ */
+@property (nonatomic, strong) BUYClient *client;
 
 #pragma mark - Apple Pay Overrides
 

@@ -17,27 +17,38 @@
 
 @interface BUYViewController () <PKPaymentAuthorizationViewControllerDelegate>
 @property (nonatomic, strong) BUYCheckout *checkout;
-@property (nonatomic, strong) BUYClient *client;
 @property (nonatomic, strong) BUYApplePayHelpers *applePayHelper;
 @end
 
 @implementation BUYViewController
 
+@synthesize client = _client;
+
 - (instancetype)initWithClient:(BUYClient *)client
 {
 	self = [super init];
 	if (self) {
-		
 		self.client = client;
-		
-		self.merchantCapability = PKMerchantCapability3DS;
-		self.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa];
-		self.countryCode = @"US";
-		self.currencyCode = @"USD";
 	}
 	return self;
 }
 
+- (void)setClient:(BUYClient *)client
+{
+	_client = client;
+	self.merchantCapability = PKMerchantCapability3DS;
+	self.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa];
+	self.countryCode = @"US";
+	self.currencyCode = @"USD";
+}
+
+- (BUYClient*)client
+{
+	if (_client == nil) {
+		NSLog(@"`BUYClient` has not been initialized. Please initialize BUYViewController with `initWithClient:` or set a `BUYClient` after Storyboard initialization");
+	}
+	return _client;
+}
 
 #pragma mark - Checkout Flow Methods
 #pragma mark - Step 1 - Creating a Checkout

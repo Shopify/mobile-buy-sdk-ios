@@ -27,7 +27,7 @@
 	NSURLRequest *_checkoutRequest;
 }
 
-@synthesize delegate;
+@dynamic delegate;
 
 - (instancetype)initWithClient:(BUYClient *)client url:(NSURL *)url
 {
