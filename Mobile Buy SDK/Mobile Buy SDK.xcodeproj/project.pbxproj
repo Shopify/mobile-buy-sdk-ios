@@ -231,9 +231,6 @@
 		BE6C5E701B1CF776003AD9D0 /* BUYCheckout+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BUYCheckout+Additions.h"; sourceTree = "<group>"; };
 		BE6C5E711B1CF776003AD9D0 /* BUYCheckout+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYCheckout+Additions.m"; sourceTree = "<group>"; };
 		BE94960E1B45C5A500B38949 /* libBuy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBuy.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		BE9496101B45C5A500B38949 /* Buy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Buy.h; sourceTree = "<group>"; };
-		BE9496121B45C5A500B38949 /* Buy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Buy.m; sourceTree = "<group>"; };
-		BE94961E1B45C5A500B38949 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE9496681B45CCF400B38949 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		BED5C1C21B20C26A0009079F /* BUYErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYErrors.h; sourceTree = "<group>"; };
 		BEEA83E51B0B76C7000C6483 /* BUYOptionValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYOptionValue.h; sourceTree = "<group>"; };
@@ -243,7 +240,6 @@
 		F76CFF1B19CB7BE30079C703 /* NSString+Trim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "NSString+Trim.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F76CFF1C19CB7BE30079C703 /* NSString+Trim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSString+Trim.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		F76CFF1E19CB7C500079C703 /* BUYSerializable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BUYSerializable.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		F773743419C771C50039681C /* ShopifyCheckoutAnywhere.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ShopifyCheckoutAnywhere.podspec; path = ../ShopifyCheckoutAnywhere.podspec; sourceTree = "<group>"; };
 		F773743619C771D10039681C /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		F773744719C77A210039681C /* BUYCart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BUYCart.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F773744819C77A210039681C /* BUYCart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BUYCart.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -389,41 +385,14 @@
 			path = "View Controllers";
 			sourceTree = "<group>";
 		};
-		BE94960F1B45C5A500B38949 /* Buy */ = {
-			isa = PBXGroup;
-			children = (
-				BE9496101B45C5A500B38949 /* Buy.h */,
-				BE9496121B45C5A500B38949 /* Buy.m */,
-			);
-			path = Buy;
-			sourceTree = "<group>";
-		};
-		BE94961C1B45C5A500B38949 /* BuyTests */ = {
-			isa = PBXGroup;
-			children = (
-				BE94961D1B45C5A500B38949 /* Supporting Files */,
-			);
-			path = BuyTests;
-			sourceTree = "<group>";
-		};
-		BE94961D1B45C5A500B38949 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				BE94961E1B45C5A500B38949 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		F773741419C770CB0039681C = {
 			isa = PBXGroup;
 			children = (
 				90E80E451AFBBB59003A9909 /* docs */,
 				F773743A19C777200039681C /* Mobile Buy SDK */,
-				90F7BA691B0D1DAF0067864D /* Playground */,
 				90F592ED1B0D5EFE0026B382 /* Mobile Buy SDK Tests */,
-				BE94960F1B45C5A500B38949 /* Buy */,
-				BE94961C1B45C5A500B38949 /* BuyTests */,
 				F773741E19C770CB0039681C /* Products */,
+				90F7BA691B0D1DAF0067864D /* Playground */,
 				547B8D0CCDB9458C800F1E3C /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -518,7 +487,6 @@
 			children = (
 				F773743619C771D10039681C /* LICENSE */,
 				90B043AF1B0D380D006CA6FC /* README.md */,
-				F773743419C771C50039681C /* ShopifyCheckoutAnywhere.podspec */,
 				904FB6001AE03D4500EA1758 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -1166,6 +1134,7 @@
 				BE9496211B45C5A500B38949 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F773741819C770CB0039681C /* Build configuration list for PBXProject "Mobile Buy SDK" */ = {
 			isa = XCConfigurationList;
