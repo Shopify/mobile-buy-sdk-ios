@@ -1,19 +1,20 @@
-# Mobile Buy SDK Integration Guide
+# Getting started with the Mobile Buy SDK for iOS
 
 Shopify's Mobile Buy SDK for iOS enables merchants to easily sell products in iOS apps and allows their customers to checkout using the Shopify Checkout API or Apple Pay.
 
-## Getting Started
+* [Before you begin](#before-you-begin)
+* [Installation](#installation)
+* [Initialize the framework](#initialize-the-framework)
+* [Using the Mobile Buy SDK](#using-the-mobile-buy-sdk)
+* [Error Handling](#error-handling)
 
-### Requirements
+## Before you begin<div id="before-you-begin"></div>
 
-- iOS 8.0 or greater
-- Xcode 6.2 or greater
-- The **Mobile App** sales channel [added to your Shopify store](https://docs.shopify.com/mobile-buy-sdk/adding-mobile-app-sales-channel)
+Before you use the Mobile Buy SDK, make sure you've satisfied all the prerequisites. 
 
-If you intend to offer Apple Pay, you'll also need to visit [Enable Apple Pay in your store's iOS app](https://docs.shopify.com/mobile-buy-sdk/enable-apple-pay) and read Apple's [Getting Started with Apple Pay](https://developer.apple.com/apple-pay/Getting-Started-with-Apple-Pay.pdf) guide.
+[DOWNLOAD BUTTON]
 
-
-### Installation
+### Installation<div id="installation"></div>
 
 *Note: If you have previously embedded the dynamic framework, remove it from Embedded Binaries before adding the static framework.*
 
@@ -23,7 +24,7 @@ If you intend to offer Apple Pay, you'll also need to visit [Enable Apple Pay in
 
 3. In the **Build Settings** tab, add `-all_load` to **Other Linker Flags**. <center><img src="sdk_integration_step_3.png" width="100%" alt="Mobile Buy SDK integration Xcode Step 3"/></center>
 
-### Initialize the framework
+### Initialize the framework<div id="initialize-the-framework"></div>
 
 Import the Buy header
 
@@ -46,7 +47,8 @@ Test the integration
 	
 This method call should only be made once to ensure your integration works. Once you have confirmed that the integration works on the Mobile App Channel, remove this method.
 
-## Using the Mobile Buy SDK
+## Using the Mobile Buy SDK<div id="using-the-mobile-buy-sdk"></div>
+
 The easiest way to use the Mobile Buy SDK is to leverage the `BUYViewController`. This view controller handles most of the checkout process for you, and makes it easy to support Apple Pay.
 
 We provide two sample apps that integrate this view controller:
@@ -58,13 +60,12 @@ To implement a fully custom checkout experience in your app, use the **Mobile Bu
 
 ### Overview
 
-- [Getting Products](#getting-products)
-- [Building a cart](#building-a-cart)
-- [Creating a Checkout](#creating-a-checkout)
-- [Adding information to the Checkout](#adding-information-to-the-checkout)
-- [Completing the Checkout](#completing-the-checkout)
-- [Checking for Checkout Completion](#checking-for-checkout-completion)
-- [Error Handling](#error-handling)
+* [Getting Products](#getting-products)
+* [Building a cart](#building-a-cart)
+* [Creating a Checkout](#creating-a-checkout)
+* [Adding information to the Checkout](#adding-information-to-the-checkout)
+* [Completing the Checkout](#completing-the-checkout)
+* [Checking for Checkout Completion](#checking-for-checkout-completion)
 
 ### Getting Products<div id="getting-products"></div>
 
