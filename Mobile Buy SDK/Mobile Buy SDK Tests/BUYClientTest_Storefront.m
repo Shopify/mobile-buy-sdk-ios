@@ -9,7 +9,6 @@
 @import UIKit;
 @import XCTest;
 #import <Buy/Buy.h>
-#import "NSProcessInfo+Environment.h"
 #import "BUYTestConstants.h"
 
 @interface BUYClientTest_Storefront : XCTestCase
@@ -30,12 +29,13 @@
 {
 	[super setUp];
 	
-	shopDomain = [NSProcessInfo environmentForKey:kBUYTestDomain];
-	apiKey = [NSProcessInfo environmentForKey:kBUYTestAPIKey];
-	channelId = [NSProcessInfo environmentForKey:kBUYTestChannelId];
-	giftCardCode = [NSProcessInfo environmentForKey:kBUYTestGiftCardCode];
-	expiredGiftCardCode = [NSProcessInfo environmentForKey:kBUYTestExpiredGiftCardCode];
-	expiredGiftCardId = [NSProcessInfo environmentForKey:kBUYTestExpiredGiftCardID];
+	NSDictionary *environment = [[NSProcessInfo processInfo] environment];
+	shopDomain = environment[kBUYTestDomain];
+	apiKey = environment[kBUYTestAPIKey];
+	channelId = environment[kBUYTestChannelId];
+	giftCardCode = environment[kBUYTestGiftCardCode];
+	expiredGiftCardCode = environment[kBUYTestExpiredGiftCardCode];
+	expiredGiftCardId = environment[kBUYTestExpiredGiftCardID];
 	
 	_client = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
 }

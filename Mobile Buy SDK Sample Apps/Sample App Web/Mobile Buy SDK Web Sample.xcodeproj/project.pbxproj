@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		90F7BA5D1B0D1BE50067864D /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F7BA5C1B0D1BE50067864D /* Buy.framework */; };
-		90F7BA5E1B0D1BE50067864D /* Buy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 90F7BA5C1B0D1BE50067864D /* Buy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BE1C4E011AE9922100E21624 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDC7A321AE03BA800C4B4FE /* ViewController.m */; };
 		BE7764D61AE5724200C74937 /* CheckoutSelectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE7764D51AE5724200C74937 /* CheckoutSelectionController.m */; };
 		BE7764DB1AE5728E00C74937 /* PAYButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BE7764D81AE5728E00C74937 /* PAYButton.m */; };
 		BE7764DC1AE5728E00C74937 /* CheckoutSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE7764DA1AE5728E00C74937 /* CheckoutSelectionView.m */; };
+		BE9496701B4B0DD200B38949 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F7BA5C1B0D1BE50067864D /* Buy.framework */; };
+		BE9496711B4B0DEC00B38949 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9652F01AE5550A00084408 /* libc++.dylib */; };
 		BE9652F41AE563CE00084408 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9652F31AE563CE00084408 /* WebKit.framework */; };
 		BEDC7A2D1AE03BA800C4B4FE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDC7A2C1AE03BA800C4B4FE /* main.m */; };
 		BEDC7A301AE03BA800C4B4FE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDC7A2F1AE03BA800C4B4FE /* AppDelegate.m */; };
@@ -20,20 +20,6 @@
 		BEDC7A381AE03BA800C4B4FE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEDC7A371AE03BA800C4B4FE /* Images.xcassets */; };
 		BEDC7A3B1AE03BA900C4B4FE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEDC7A391AE03BA800C4B4FE /* LaunchScreen.xib */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		90F7BA5F1B0D1BE50067864D /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				90F7BA5E1B0D1BE50067864D /* Buy.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		90F7BA5C1B0D1BE50067864D /* Buy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Buy.framework; path = ../Buy.framework; sourceTree = "<group>"; };
@@ -64,8 +50,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE9496711B4B0DEC00B38949 /* libc++.dylib in Frameworks */,
 				BE9652F41AE563CE00084408 /* WebKit.framework in Frameworks */,
-				90F7BA5D1B0D1BE50067864D /* Buy.framework in Frameworks */,
+				BE9496701B4B0DD200B38949 /* Buy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,7 +138,6 @@
 				BEDC7A241AE03BA800C4B4FE /* Frameworks */,
 				BEDC7A251AE03BA800C4B4FE /* Resources */,
 				BE9572AD1AE5BEF20024968A /* ShellScript */,
-				90F7BA5F1B0D1BE50067864D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -356,6 +342,11 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"${PROJECT_DIR}/../..",
+					"/Users/davidmuzi/Repos/mobile-buy-sdk-ios/Mobile",
+					Buy,
+					SDK,
+					Sample,
+					Apps,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -369,6 +360,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/**",
 				);
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "Mobile Buy SDK Web Sample";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -386,6 +378,11 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"${PROJECT_DIR}/../..",
+					"/Users/davidmuzi/Repos/mobile-buy-sdk-ios/Mobile",
+					Buy,
+					SDK,
+					Sample,
+					Apps,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -399,6 +396,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/**",
 				);
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "Mobile Buy SDK Web Sample";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
