@@ -111,6 +111,13 @@
 		BE9496671B45CCE900B38949 /* libBuy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE94960E1B45C5A500B38949 /* libBuy.a */; };
 		BE94966A1B45CD0500B38949 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AB6AB819CFCE6A00115224 /* libstdc++.dylib */; };
 		BE94966B1B45CD6400B38949 /* BUYClient+WebCheckout.m in Sources */ = {isa = PBXBuildFile; fileRef = BE33B4F21B174A1A0067982B /* BUYClient+WebCheckout.m */; };
+		BE9496751B4B124D00B38949 /* BUYProductHeaderCell.h in Headers */ = {isa = PBXBuildFile; fileRef = BE9496731B4B124D00B38949 /* BUYProductHeaderCell.h */; };
+		BE9496761B4B124D00B38949 /* BUYProductHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BE9496741B4B124D00B38949 /* BUYProductHeaderCell.m */; };
+		BE9496791B4B12BA00B38949 /* BUYProductVariantCell.h in Headers */ = {isa = PBXBuildFile; fileRef = BE9496771B4B12BA00B38949 /* BUYProductVariantCell.h */; };
+		BE94967A1B4B12BA00B38949 /* BUYProductVariantCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BE9496781B4B12BA00B38949 /* BUYProductVariantCell.m */; };
+		BE94967D1B4B12D100B38949 /* BUYProductDescriptionCell.h in Headers */ = {isa = PBXBuildFile; fileRef = BE94967B1B4B12D100B38949 /* BUYProductDescriptionCell.h */; };
+		BE94967E1B4B12D100B38949 /* BUYProductDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BE94967C1B4B12D100B38949 /* BUYProductDescriptionCell.m */; };
+		BE94968B1B4B279200B38949 /* libBuy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE94960E1B45C5A500B38949 /* libBuy.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,6 +129,13 @@
 			remoteInfo = Buy;
 		};
 		BE9496651B45CCDD00B38949 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F773741519C770CB0039681C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BE94960D1B45C5A500B38949;
+			remoteInfo = Buy;
+		};
+		BE9496891B4B278A00B38949 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F773741519C770CB0039681C /* Project object */;
 			proxyType = 1;
@@ -218,6 +232,12 @@
 		BE6C5E711B1CF776003AD9D0 /* BUYCheckout+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYCheckout+Additions.m"; sourceTree = "<group>"; };
 		BE94960E1B45C5A500B38949 /* libBuy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBuy.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE9496681B45CCF400B38949 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		BE9496731B4B124D00B38949 /* BUYProductHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYProductHeaderCell.h; path = Views/BUYProductHeaderCell.h; sourceTree = "<group>"; };
+		BE9496741B4B124D00B38949 /* BUYProductHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYProductHeaderCell.m; path = Views/BUYProductHeaderCell.m; sourceTree = "<group>"; };
+		BE9496771B4B12BA00B38949 /* BUYProductVariantCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYProductVariantCell.h; path = Views/BUYProductVariantCell.h; sourceTree = "<group>"; };
+		BE9496781B4B12BA00B38949 /* BUYProductVariantCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYProductVariantCell.m; path = Views/BUYProductVariantCell.m; sourceTree = "<group>"; };
+		BE94967B1B4B12D100B38949 /* BUYProductDescriptionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYProductDescriptionCell.h; path = Views/BUYProductDescriptionCell.h; sourceTree = "<group>"; };
+		BE94967C1B4B12D100B38949 /* BUYProductDescriptionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYProductDescriptionCell.m; path = Views/BUYProductDescriptionCell.m; sourceTree = "<group>"; };
 		BED5C1C21B20C26A0009079F /* BUYErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYErrors.h; sourceTree = "<group>"; };
 		BEEA83E51B0B76C7000C6483 /* BUYOptionValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYOptionValue.h; sourceTree = "<group>"; };
 		BEEA83E61B0B76C7000C6483 /* BUYOptionValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYOptionValue.m; sourceTree = "<group>"; };
@@ -254,6 +274,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE94968B1B4B279200B38949 /* libBuy.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,6 +390,19 @@
 			path = "View Controllers";
 			sourceTree = "<group>";
 		};
+		BE9496721B4B121D00B38949 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BE9496731B4B124D00B38949 /* BUYProductHeaderCell.h */,
+				BE9496741B4B124D00B38949 /* BUYProductHeaderCell.m */,
+				BE9496771B4B12BA00B38949 /* BUYProductVariantCell.h */,
+				BE9496781B4B12BA00B38949 /* BUYProductVariantCell.m */,
+				BE94967B1B4B12D100B38949 /* BUYProductDescriptionCell.h */,
+				BE94967C1B4B12D100B38949 /* BUYProductDescriptionCell.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		F773741419C770CB0039681C = {
 			isa = PBXGroup;
 			children = (
@@ -480,6 +514,7 @@
 		F773749F19C77E4E0039681C /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				BE9496721B4B121D00B38949 /* Views */,
 				BE1C4DF21AE98F8E00E21624 /* View Controllers */,
 				F7FDA16F19C93F6100AF4E93 /* Data */,
 				F773744419C779C20039681C /* Models */,
@@ -511,6 +546,7 @@
 				BE9496511B45C6BE00B38949 /* BUYOption.h in Headers */,
 				BE9496531B45C6D200B38949 /* BUYProductVariant.h in Headers */,
 				BE94965E1B45C70D00B38949 /* BUYCheckout+Additions.h in Headers */,
+				BE9496751B4B124D00B38949 /* BUYProductHeaderCell.h in Headers */,
 				BE94965A1B45C6FB00B38949 /* NSString+Trim.h in Headers */,
 				BE94965D1B45C70800B38949 /* BUYAddress+Additions.h in Headers */,
 				BE9496441B45C68300B38949 /* BUYViewController.h in Headers */,
@@ -528,8 +564,10 @@
 				BE94964F1B45C6B700B38949 /* BUYLineItem.h in Headers */,
 				BE9496601B45CBC100B38949 /* Buy.h in Headers */,
 				BE94965F1B45C71100B38949 /* BUYErrors.h in Headers */,
+				BE94967D1B4B12D100B38949 /* BUYProductDescriptionCell.h in Headers */,
 				BE9496591B45C6F200B38949 /* NSDecimalNumber+BUYAdditions.h in Headers */,
 				BE94964E1B45C6AE00B38949 /* BUYImage.h in Headers */,
+				BE9496791B4B12BA00B38949 /* BUYProductVariantCell.h in Headers */,
 				BE94964C1B45C6A600B38949 /* BUYCreditCard.h in Headers */,
 				BE94965C1B45C70300B38949 /* BUYClient+WebCheckout.h in Headers */,
 				BE9496611B45CBD200B38949 /* BUYPaymentButton.h in Headers */,
@@ -571,6 +609,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				BE94968A1B4B278A00B38949 /* PBXTargetDependency */,
 			);
 			name = Playground;
 			productName = Playground;
@@ -740,10 +779,12 @@
 				BE9496341B45C60700B38949 /* BUYLineItem.m in Sources */,
 				BE94963A1B45C61700B38949 /* BUYOptionValue.m in Sources */,
 				BE9496621B45CBD600B38949 /* BUYPaymentButton.m in Sources */,
+				BE9496761B4B124D00B38949 /* BUYProductHeaderCell.m in Sources */,
 				BE9496301B45C5FC00B38949 /* BUYAddress.m in Sources */,
 				BE94962E1B45C5F800B38949 /* BUYDiscount.m in Sources */,
 				BE94962B1B45C5EF00B38949 /* BUYCart.m in Sources */,
 				BE9496411B45C62900B38949 /* BUYAddress+Additions.m in Sources */,
+				BE94967A1B4B12BA00B38949 /* BUYProductVariantCell.m in Sources */,
 				BE9496371B45C61000B38949 /* BUYProduct.m in Sources */,
 				BE94963F1B45C62400B38949 /* BUYApplePayHelpers.m in Sources */,
 				BE94962A1B45C5EA00B38949 /* BUYClient.m in Sources */,
@@ -754,6 +795,7 @@
 				BE94962D1B45C5F500B38949 /* BUYShippingRate.m in Sources */,
 				BE9496291B45C5E700B38949 /* BUYViewController.m in Sources */,
 				BE9496311B45C5FF00B38949 /* BUYCreditCard.m in Sources */,
+				BE94967E1B4B12D100B38949 /* BUYProductDescriptionCell.m in Sources */,
 				BE94963C1B45C61D00B38949 /* BUYRuntime.m in Sources */,
 				BE94962F1B45C5FA00B38949 /* BUYTaxLine.m in Sources */,
 				BE94962C1B45C5F200B38949 /* BUYCheckout.m in Sources */,
@@ -774,6 +816,11 @@
 			isa = PBXTargetDependency;
 			target = BE94960D1B45C5A500B38949 /* Buy */;
 			targetProxy = BE9496651B45CCDD00B38949 /* PBXContainerItemProxy */;
+		};
+		BE94968A1B4B278A00B38949 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BE94960D1B45C5A500B38949 /* Buy */;
+			targetProxy = BE9496891B4B278A00B38949 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
