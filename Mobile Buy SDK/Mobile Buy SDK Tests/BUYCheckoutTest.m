@@ -132,4 +132,15 @@
 	XCTAssertTrue([_checkout requiresShipping]);
 }
 
+- (void)testTaxLineDeserialization
+{
+	BUYTaxLine *taxLine = [[BUYTaxLine alloc] initWithDictionary:@{@"price": @"0.29",
+																   @"rate": @"0.13",
+																   @"title": @"HST"}];
+	XCTAssertEqualObjects(@0.29, taxLine.price);
+	XCTAssertEqualObjects(@0.13, taxLine.rate);
+	XCTAssertEqualObjects(@"HST", taxLine.title);
+	
+}
+
 @end
