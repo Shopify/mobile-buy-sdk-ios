@@ -31,6 +31,7 @@
 #define kMaxSuccessfulStatusCode 299
 
 NSString * const BUYShopifyError = @"BUYShopifyError";
+NSString * const BUYVersionString = @"1.1";
 
 @interface BUYClient () <NSURLSessionDelegate>
 

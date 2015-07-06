@@ -26,5 +26,4 @@
 #import <Buy/BUYViewController.h>
 #import <Buy/BUYApplePayAdditions.h>
 #import <Buy/BUYApplePayHelpers.h>
-#import <Buy/BUYClient+WebCheckout.h>
 #import <Buy/BUYPaymentButton.h>

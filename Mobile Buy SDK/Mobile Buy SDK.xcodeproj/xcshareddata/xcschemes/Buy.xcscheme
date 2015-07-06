@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "90F592361B0D569F0026B382"
-               BuildableName = "Buy.framework"
+               BlueprintIdentifier = "BE94960D1B45C5A500B38949"
+               BuildableName = "libBuy.a"
                BlueprintName = "Buy"
                ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
             </BuildableReference>
@@ -42,8 +42,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "90F592361B0D569F0026B382"
-            BuildableName = "Buy.framework"
+            BlueprintIdentifier = "BE94960D1B45C5A500B38949"
+            BuildableName = "libBuy.a"
             BlueprintName = "Buy"
             ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
          </BuildableReference>
@@ -60,8 +60,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "90F592361B0D569F0026B382"
-            BuildableName = "Buy.framework"
+            BlueprintIdentifier = "BE94960D1B45C5A500B38949"
+            BuildableName = "libBuy.a"
             BlueprintName = "Buy"
             ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
          </BuildableReference>
