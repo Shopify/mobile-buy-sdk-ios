@@ -26,7 +26,7 @@
 		
 		// Configure option label
 		_optionNameLabel = [[UILabel alloc] init];
-		_optionNameLabel.textColor = [UIColor colorWithWhite:0.6 alpha:1];
+		_optionNameLabel.textColor = [UIColor colorWithWhite:0.6f alpha:1];
 		_optionNameLabel.translatesAutoresizingMaskIntoConstraints = NO;
 		[_optionNameLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12]];
 		[self addSubview:_optionNameLabel];

@@ -8,7 +8,14 @@
 
 #import "BUYProductDescriptionCell.h"
 
+const NSString *fontName = @"HelveticaNeue";
+const CGFloat textSize = 16.0;
+
 @interface BUYProductDescriptionCell ()
+
+@property (nonatomic, strong) UIColor *textColor;
+@property (nonatomic, strong) UILabel *descriptionLabel;
+
 @end
 
 @implementation BUYProductDescriptionCell
@@ -22,20 +29,48 @@
 		_descriptionLabel.translatesAutoresizingMaskIntoConstraints = NO;
 		_descriptionLabel.backgroundColor = [UIColor whiteColor];
 		_descriptionLabel.numberOfLines = 0;
-		_descriptionLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
-		_descriptionLabel.textColor = [UIColor colorWithWhite:0.6 alpha:1];
 		[self.contentView addSubview:self.descriptionLabel];
 
 		NSDictionary *views = NSDictionaryOfVariableBindings(_descriptionLabel);
-		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_descriptionLabel]|" options:0 metrics:nil views:views]];
-		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_descriptionLabel]|" options:0 metrics:nil views:views]];
-
+		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_descriptionLabel]-|" options:0 metrics:nil views:views]];
+		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_descriptionLabel]-|" options:0 metrics:nil views:views]];
 		
+		_textColor = [UIColor colorWithWhite:0.6f alpha:1];
 	}
 	
 	return self;
 }
 
+- (void)setDescriptionHTML:(NSString *)html
+{
+	html = [html stringByAppendingString:[NSString stringWithFormat:@"<style>body{font-family: '%@'; font-size:%fpx; color:%@;}</style>",
+											  fontName, textSize, [self hexStringFromColor:self.textColor]]];
+	
+	NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithData:[html dataUsingEncoding:NSUTF8StringEncoding]
+																			options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+																					  NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)}
+																 documentAttributes:nil
+																			  error:nil];
+	self.descriptionLabel.attributedText = attributedString;
+}
 
+- (NSString *)descriptionString
+{
+	return self.descriptionLabel.attributedText.string;
+}
+
+- (NSString *)hexStringFromColor:(UIColor *)color {
+	
+	CGFloat r;
+	CGFloat g;
+	CGFloat b;
+	
+	[color getRed:&r green:&g blue:&b alpha:nil];
+	
+	return [NSString stringWithFormat:@"#%02lX%02lX%02lX",
+			lround(r * 255),
+			lround(g * 255),
+			lround(b * 255)];
+}
 
 @end

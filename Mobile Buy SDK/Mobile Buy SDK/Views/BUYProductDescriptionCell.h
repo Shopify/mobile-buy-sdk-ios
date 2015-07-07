@@ -10,6 +10,6 @@
 
 @interface BUYProductDescriptionCell : UITableViewCell
 
-@property (nonatomic, strong) UILabel *descriptionLabel;
+@property (nonatomic, copy) NSString *descriptionHTML;
 
 @end
