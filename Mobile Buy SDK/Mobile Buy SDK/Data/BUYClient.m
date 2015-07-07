@@ -18,7 +18,6 @@
 #import "BUYCheckout+Additions.h"
 #import "BUYErrors.h"
 #import "BUYTestConstants.h"
-#import "NSProcessInfo+Environment.h"
 
 #define kGET @"GET"
 #define kPOST @"POST"
@@ -49,9 +48,10 @@ NSString * const BUYVersionString = @"1.1";
 - (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey channelId:(NSString *)channelId
 {
 	if (shopDomain.length == 0 && apiKey.length == 0 && channelId.length == 0) {
-		shopDomain = [NSProcessInfo environmentForKey:kBUYTestDomain];
-		apiKey = [NSProcessInfo environmentForKey:kBUYTestAPIKey];
-		channelId = [NSProcessInfo environmentForKey:kBUYTestChannelId];
+		NSDictionary *environment = [[NSProcessInfo processInfo] environment];
+		shopDomain = environment[kBUYTestDomain];
+		apiKey = environment[kBUYTestAPIKey];
+		channelId = environment[kBUYTestChannelId];
 	}
 	
 	if (shopDomain.length == 0) {

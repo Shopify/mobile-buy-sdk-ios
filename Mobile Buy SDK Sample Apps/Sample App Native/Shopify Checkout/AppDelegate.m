@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "ProductController.h"
 
-@import Buy;
+#import <Buy/Buy.h>
 
 #warning - Enter your shop domain and API Key
 #define SHOP_DOMAIN @""
