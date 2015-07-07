@@ -33,6 +33,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		90516C7B1B4C589A00E35E45 /* BUYProductViewFooter.h in Headers */ = {isa = PBXBuildFile; fileRef = 90516C791B4C589A00E35E45 /* BUYProductViewFooter.h */; };
+		90516C7C1B4C589A00E35E45 /* BUYProductViewFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 90516C7A1B4C589A00E35E45 /* BUYProductViewFooter.m */; };
 		905ECCC21B4C39710094F336 /* BUYProductViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 905ECCC01B4C39710094F336 /* BUYProductViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		905ECCC31B4C39710094F336 /* BUYProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 905ECCC11B4C39710094F336 /* BUYProductViewController.m */; };
 		905ECCC61B4C3C6A0094F336 /* libBuy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE94960E1B45C5A500B38949 /* libBuy.a */; };
@@ -177,6 +179,8 @@
 		42488B331AB8761A005F21A9 /* BUYGiftCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYGiftCard.m; sourceTree = "<group>"; };
 		904FB6001AE03D4500EA1758 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Mobile Buy SDK/Info.plist"; sourceTree = "<group>"; };
 		904FB6011AE03D4500EA1758 /* Buy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Buy.h; sourceTree = "<group>"; };
+		90516C791B4C589A00E35E45 /* BUYProductViewFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYProductViewFooter.h; path = Views/BUYProductViewFooter.h; sourceTree = "<group>"; };
+		90516C7A1B4C589A00E35E45 /* BUYProductViewFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYProductViewFooter.m; path = Views/BUYProductViewFooter.m; sourceTree = "<group>"; };
 		905AA96F1B3B32A500CAE037 /* BUYPaymentButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYPaymentButton.h; sourceTree = "<group>"; };
 		905AA9701B3B32A500CAE037 /* BUYPaymentButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYPaymentButton.m; sourceTree = "<group>"; };
 		905ECCC01B4C39710094F336 /* BUYProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYProductViewController.h; sourceTree = "<group>"; };
@@ -295,6 +299,15 @@
 				F7AB6AB819CFCE6A00115224 /* libstdc++.dylib */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		90516C781B4C4D3900E35E45 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				90516C791B4C589A00E35E45 /* BUYProductViewFooter.h */,
+				90516C7A1B4C589A00E35E45 /* BUYProductViewFooter.m */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		905AA96E1B3B32A500CAE037 /* BUYPaymentButton */ = {
@@ -499,6 +512,7 @@
 		F773749F19C77E4E0039681C /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				90516C781B4C4D3900E35E45 /* Views */,
 				BE1C4DF21AE98F8E00E21624 /* View Controllers */,
 				F7FDA16F19C93F6100AF4E93 /* Data */,
 				F773744419C779C20039681C /* Models */,
@@ -535,6 +549,7 @@
 				BE94965D1B45C70800B38949 /* BUYAddress+Additions.h in Headers */,
 				BE9496441B45C68300B38949 /* BUYViewController.h in Headers */,
 				BE9496481B45C69400B38949 /* BUYShippingRate.h in Headers */,
+				90516C7B1B4C589A00E35E45 /* BUYProductViewFooter.h in Headers */,
 				BE9496521B45C6CD00B38949 /* BUYProduct.h in Headers */,
 				BE94964D1B45C6AA00B38949 /* BUYGiftCard.h in Headers */,
 				BE94964B1B45C6A100B38949 /* BUYAddress.h in Headers */,
@@ -770,6 +785,7 @@
 				BE94962A1B45C5EA00B38949 /* BUYClient.m in Sources */,
 				BE94963B1B45C61A00B38949 /* BUYApplePayAdditions.m in Sources */,
 				BE9496351B45C60B00B38949 /* BUYObject.mm in Sources */,
+				90516C7C1B4C589A00E35E45 /* BUYProductViewFooter.m in Sources */,
 				BE94963D1B45C61F00B38949 /* NSDecimalNumber+BUYAdditions.m in Sources */,
 				BE9496381B45C61200B38949 /* BUYProductVariant.m in Sources */,
 				BE94962D1B45C5F500B38949 /* BUYShippingRate.m in Sources */,
