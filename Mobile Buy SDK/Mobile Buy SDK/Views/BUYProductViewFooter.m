@@ -16,7 +16,7 @@
 	if (self) {
 		self.backgroundColor = [UIColor clearColor];
 		
-		UIVisualEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+		UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
 		UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
 		visualEffectView.translatesAutoresizingMaskIntoConstraints = NO;
 		[self addSubview:visualEffectView];
@@ -43,7 +43,7 @@
 		[visualEffectView.contentView addSubview:self.buyPaymentButton];
 		
 		NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_checkoutButton, _buyPaymentButton);
-		NSDictionary *metricsDictionary = @{ @"buttonHeight" : @44 };
+		NSDictionary *metricsDictionary = @{ @"buttonHeight" : @44, @"lineHeight" : @([[UIScreen mainScreen] scale] / 4) };
 		
 		[visualEffectView.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_checkoutButton]-[_buyPaymentButton(==_checkoutButton)]-|"
 																	 options:0
@@ -57,6 +57,20 @@
 																							 options:0
 																							 metrics:metricsDictionary
 																							   views:viewsDictionary]];
+		
+		UIView *separatorLineView = [[UIView alloc] init];
+		separatorLineView.translatesAutoresizingMaskIntoConstraints = NO;
+		separatorLineView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.25];
+		[visualEffectView.contentView addSubview:separatorLineView];
+		
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[separatorLineView]|"
+																	 options:0
+																	 metrics:nil
+																	   views:NSDictionaryOfVariableBindings(separatorLineView)]];
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[separatorLineView(lineHeight)]"
+																	 options:0
+																	 metrics:metricsDictionary
+																	   views:NSDictionaryOfVariableBindings(separatorLineView)]];
 	}
 	return self;
 }
