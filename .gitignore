@@ -18,5 +18,4 @@ DerivedData
 Pods/
 .DS_Store
 .ruby-version
-
-CheckoutAnywhere/CheckoutAnywhereTests/CHKTestCredentials.h
+*Sample*/Buy.framework
