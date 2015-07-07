@@ -50,6 +50,14 @@
 	return _client;
 }
 
+- (BOOL)isApplePayAvailable
+{
+	// checks if device hardware is capable of using Apple Pay
+	// checks if the device has a payment card setup
+	// checks if the client is setup to use Apple Pay
+	return ([PKPaymentAuthorizationViewController canMakePayments] && [PKPaymentAuthorizationViewController canMakePaymentsUsingNetworks:self.supportedNetworks] && self.client.merchantId.length);
+}
+
 #pragma mark - Checkout Flow Methods
 #pragma mark - Step 1 - Creating a Checkout
 

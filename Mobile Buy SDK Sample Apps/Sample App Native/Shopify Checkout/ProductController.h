@@ -7,7 +7,7 @@
 //
 
 @import UIKit;
-@import Buy;
+#import <Buy/Buy.h>
 
 @interface ProductController : BUYViewController
 

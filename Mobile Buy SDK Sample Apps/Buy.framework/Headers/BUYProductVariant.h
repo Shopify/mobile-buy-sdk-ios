@@ -63,4 +63,9 @@
  */
 @property (nonatomic, readonly, strong) NSNumber *position;
 
+/**
+ *  If the variant is in stock
+ */
+@property (nonatomic, readonly, assign) BOOL available;
+
 @end
