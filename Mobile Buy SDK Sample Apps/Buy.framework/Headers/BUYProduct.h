@@ -55,4 +55,9 @@
  */
 @property (nonatomic, readonly, copy) NSString *htmlDescription;
 
+/**
+ *  If the product is in stock (see each variant for their specific availability)
+ */
+@property (nonatomic, readonly, assign) BOOL available;
+
 @end

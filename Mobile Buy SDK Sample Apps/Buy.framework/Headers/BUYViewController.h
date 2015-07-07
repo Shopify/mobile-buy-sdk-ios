@@ -81,7 +81,20 @@
  *  Register yourself as a BUYViewControllerDelegate to handle all errors, and status changes.
  */
 @property (nonatomic, weak) id <BUYViewControllerDelegate> delegate;
-@property (nonatomic, strong, readonly) BUYClient *client;
+
+/**
+ *  Set the BUYClient using the provided initializer method `initWithClient:` or
+ *  if using Storyboards, override after Storyboard initialization.
+ */
+@property (nonatomic, strong) BUYClient *client;
+
+/**
+ *  Returns YES if the following conditions are met:
+ *  - the device hardware is capable of using Apple Pay
+ *  - the device has a payment card setup
+ *  - the `BUYClient` is setup to use Apple Pay
+ */
+@property (nonatomic, assign, readonly) BOOL isApplePayAvailable;
 
 #pragma mark - Apple Pay Overrides
 
