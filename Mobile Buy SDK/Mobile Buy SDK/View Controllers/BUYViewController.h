@@ -88,6 +88,14 @@
  */
 @property (nonatomic, strong) BUYClient *client;
 
+/**
+ *  Returns YES if the following conditions are met:
+ *  - the device hardware is capable of using Apple Pay
+ *  - the device has a payment card setup
+ *  - the `BUYClient` is setup to use Apple Pay
+ */
+@property (nonatomic, assign, readonly) BOOL isApplePayAvailable;
+
 #pragma mark - Apple Pay Overrides
 
 /**
