@@ -16,23 +16,9 @@
 		90070E6B1AF12ADF003ED7B6 /* Shopify Checkout.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 90070E6A1AF12ADF003ED7B6 /* Shopify Checkout.entitlements */; };
 		90070E951AF163F3003ED7B6 /* ProductController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90070E941AF163F3003ED7B6 /* ProductController.m */; };
 		90070E981AF167FE003ED7B6 /* ProductView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90070E971AF167FE003ED7B6 /* ProductView.m */; };
-		90F7BA611B0D1BF00067864D /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F7BA601B0D1BF00067864D /* Buy.framework */; };
-		90F7BA621B0D1BF00067864D /* Buy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 90F7BA601B0D1BF00067864D /* Buy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BE94966E1B4B091C00B38949 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BE94966D1B4B091C00B38949 /* libc++.dylib */; };
+		BE94966F1B4B0B4100B38949 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F7BA601B0D1BF00067864D /* Buy.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		90F7BA631B0D1BF00067864D /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				90F7BA621B0D1BF00067864D /* Buy.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		90070E321AF120A6003ED7B6 /* Mobile Buy SDK Native Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile Buy SDK Native Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,6 +37,7 @@
 		90070E971AF167FE003ED7B6 /* ProductView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductView.m; sourceTree = "<group>"; };
 		90B73AA11B0B74A70092DD9E /* Buy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Buy.framework; path = ../../Buy.framework; sourceTree = "<group>"; };
 		90F7BA601B0D1BF00067864D /* Buy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Buy.framework; path = ../Buy.framework; sourceTree = "<group>"; };
+		BE94966D1B4B091C00B38949 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,8 +45,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE94966E1B4B091C00B38949 /* libc++.dylib in Frameworks */,
 				90070E671AF1264A003ED7B6 /* PassKit.framework in Frameworks */,
-				90F7BA611B0D1BF00067864D /* Buy.framework in Frameworks */,
+				BE94966F1B4B0B4100B38949 /* Buy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,6 +102,7 @@
 		90070E631AF12626003ED7B6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BE94966D1B4B091C00B38949 /* libc++.dylib */,
 				90B73AA11B0B74A70092DD9E /* Buy.framework */,
 				90070E661AF1264A003ED7B6 /* PassKit.framework */,
 			);
@@ -130,7 +119,6 @@
 				90070E2E1AF120A6003ED7B6 /* Sources */,
 				90070E2F1AF120A6003ED7B6 /* Frameworks */,
 				90070E301AF120A6003ED7B6 /* Resources */,
-				90F7BA631B0D1BF00067864D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -310,10 +298,11 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"${PROJECT_DIR}/../..",
+					"${PROJECT_DIR}",
 				);
 				INFOPLIST_FILE = "Shopify Checkout/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "Mobile Buy SDK Native Sample";
 				PROVISIONING_PROFILE = "052e6e7b-f4da-47ea-bda5-384d69515712";
 			};
@@ -327,10 +316,11 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"${PROJECT_DIR}/../..",
+					"${PROJECT_DIR}",
 				);
 				INFOPLIST_FILE = "Shopify Checkout/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "Mobile Buy SDK Native Sample";
 				PROVISIONING_PROFILE = "052e6e7b-f4da-47ea-bda5-384d69515712";
 			};

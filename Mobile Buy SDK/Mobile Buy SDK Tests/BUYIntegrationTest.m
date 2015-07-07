@@ -11,7 +11,6 @@
 
 #import <Buy/Buy.h>
 #import "BUYTestConstants.h"
-#import "NSProcessInfo+Environment.h"
 #import "BUYAddress+Additions.h"
 #import "BUYClient+WebCheckout.h"
 
@@ -41,13 +40,13 @@
 {
 	[super setUp];
 	
-
-	shopDomain = [NSProcessInfo environmentForKey:kBUYTestDomain];
-	apiKey = [NSProcessInfo environmentForKey:kBUYTestAPIKey];
-	channelId = [NSProcessInfo environmentForKey:kBUYTestChannelId];
-	giftCardCode = [NSProcessInfo environmentForKey:kBUYTestGiftCardCode];
-	expiredGiftCardCode = [NSProcessInfo environmentForKey:kBUYTestExpiredGiftCardCode];
-	expiredGiftCardId = [NSProcessInfo environmentForKey:kBUYTestExpiredGiftCardID];
+	NSDictionary *environment = [[NSProcessInfo processInfo] environment];
+	shopDomain = environment[kBUYTestDomain];
+	apiKey = environment[kBUYTestAPIKey];
+	channelId = environment[kBUYTestChannelId];
+	giftCardCode = environment[kBUYTestGiftCardCode];
+	expiredGiftCardCode = environment[kBUYTestExpiredGiftCardCode];
+	expiredGiftCardId = environment[kBUYTestExpiredGiftCardID];
 	
 	XCTAssert([shopDomain length] > 0, @"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");
 	XCTAssertEqualObjects([shopDomain substringFromIndex:shopDomain.length - 14], @".myshopify.com", @"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");
