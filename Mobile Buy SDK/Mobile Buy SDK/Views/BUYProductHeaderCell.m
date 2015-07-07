@@ -19,18 +19,20 @@
 		_titleLabel.textColor = [UIColor blackColor];
 		_titleLabel.numberOfLines = 2;
 		_titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-		[self addSubview:_titleLabel];
+		[self.contentView addSubview:_titleLabel];
 		
 		_priceLabel = [[UILabel alloc] init];
 		_priceLabel.textColor = self.tintColor;
 		_priceLabel.translatesAutoresizingMaskIntoConstraints = NO;
-		[self addSubview:_priceLabel];
+		[self.contentView addSubview:_priceLabel];
 		
 		NSDictionary *views = NSDictionaryOfVariableBindings(_priceLabel, _titleLabel);
-		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_titleLabel]-(>=10)-[_priceLabel(>=60)]-|" options:NSLayoutFormatAlignAllBottom metrics:nil views:views]];
-		[self addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_titleLabel attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
-		[self addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_priceLabel attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
-
+		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_titleLabel]-(>=10)-[_priceLabel(>=60)]-|" options:NSLayoutFormatAlignAllBottom metrics:nil views:views]];
+		[self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.contentView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_titleLabel attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
+		[self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.contentView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_priceLabel attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
+		[self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.contentView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_titleLabel attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0.0]];
+		
+		[self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.contentView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_priceLabel attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0.0]];
 	}
 	return self;
 }

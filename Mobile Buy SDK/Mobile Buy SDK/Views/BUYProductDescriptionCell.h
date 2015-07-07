@@ -10,4 +10,6 @@
 
 @interface BUYProductDescriptionCell : UITableViewCell
 
+@property (nonatomic, strong) UILabel *descriptionLabel;
+
 @end

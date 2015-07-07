@@ -26,19 +26,22 @@
 				
 		_optionView1 = [[BUYVariantOptionView alloc] init];
 		_optionView1.translatesAutoresizingMaskIntoConstraints = NO;
-		[self addSubview:_optionView1];
+		[self.contentView addSubview:_optionView1];
 		
 		_optionView2 = [[BUYVariantOptionView alloc] init];
 		_optionView2.translatesAutoresizingMaskIntoConstraints = NO;
-		[self addSubview:_optionView2];
+		[self.contentView addSubview:_optionView2];
 		
 		_optionView3 = [[BUYVariantOptionView alloc] init];
 		_optionView3.translatesAutoresizingMaskIntoConstraints = NO;
-		[self addSubview:_optionView3];
+		[self.contentView addSubview:_optionView3];
 		
 		NSDictionary *views = NSDictionaryOfVariableBindings(_optionView1, _optionView2, _optionView3);
-		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_optionView1]-[_optionView2]-[_optionView3]" options:0 metrics:nil views:views]];
-		
+		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_optionView1]-[_optionView2]-[_optionView3]" options:0 metrics:nil views:views]];
+		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_optionView1]-|" options:0 metrics:nil views:views]];
+		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_optionView2]-|" options:0 metrics:nil views:views]];
+		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_optionView3]-|" options:0 metrics:nil views:views]];
+
 		self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
 
