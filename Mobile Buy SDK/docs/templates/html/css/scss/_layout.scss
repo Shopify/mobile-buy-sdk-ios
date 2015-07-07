@@ -162,7 +162,7 @@ aside {
 	}
 
 	#header-buttons {
-		background: rgba(255, 255, 255, .9);
+		background: rgba(255, 255, 255, .8);
 		margin: 0 1px;
 		padding: 0;
 		list-style: none;
@@ -171,12 +171,12 @@ aside {
 
 		li {
 			display: inline-block;
-			cursor: default;
+			cursor: pointer;
 			padding: 0 10px;
 		}
 
 		label, select {
-			cursor: auto;
+			cursor: inherit;
 		}
 
 		#on-this-page {
