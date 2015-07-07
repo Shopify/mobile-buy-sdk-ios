@@ -6,21 +6,20 @@
 	<title>{{page.title}}</title>
 
 	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="/mobile-buy-sdk/api/css/style.css">
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
 	{{#strings.appledocData}}<meta name="generator" content="{{tool}} {{version}} (build {{build}})">{{/strings.appledocData}}
 </head>
 <body class="appledoc">
 	<header>
-		<div class="container">
+		<div class="container" class="hide-in-xcode">
 			{{#page}}
 			<h1 id="library-title">
-				<a href="http://www.shopify.com">{{projectName}} {{strings.objectPage.libraryTitlePostfix}}</a>
+				<a href="index.html">{{projectName}} {{strings.objectPage.libraryTitlePostfix}}</a>
 			</h1>
 
-			<!--<p id="developer-home">
+			<p id="developer-home">
 				<a href="index.html">{{projectCompany}}</a>
-			</p>-->
+			</p>
 			{{/page}}
 		</div>
 	</header>
@@ -29,11 +28,6 @@
 		<div class="container">
 			<nav>
 				<ul id="header-buttons" role="toolbar">
-				    <li>Programming Guide:</li>
-					<li><a href="/mobile-buy-sdk/api/docs/Integration/Integration Guide.html">Integration Guide</a></li>
-					<li><a href="/mobile-buy-sdk/api/docs/Sample App Native/Sample App Native.html">Sample App Native</a></li>
-					<li><a href="/mobile-buy-sdk/api/docs/Sample App Web/Sample App Web.html">Sample App Web</a></li>
-				    <li>API Reference:</li>
 					{{>Navigation}}
 				</ul>
 			</nav>
@@ -97,7 +91,7 @@
 		</div>
 	</article>
 
-	<script src="/mobile-buy-sdk/api/js/script.js"></script>
+	<script src="js/script.js"></script>
 </body>
 </html>
 
@@ -112,5 +106,5 @@ Section Classes
 EndSection
 
 Section Navigation
-<li><a href="/mobile-buy-sdk/api/index.html">Home</a></li>
+<li><a href="index.html">Home</a></li>
 EndSection
