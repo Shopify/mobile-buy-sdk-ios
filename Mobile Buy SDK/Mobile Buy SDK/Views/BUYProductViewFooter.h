@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Buy/BUYPaymentButton.h>
 
 @interface BUYProductViewFooter : UIView
+
+@property (nonatomic, strong) UIButton *checkoutButton;
+@property (nonatomic, strong) BUYPaymentButton *buyPaymentButton;
 
 @end

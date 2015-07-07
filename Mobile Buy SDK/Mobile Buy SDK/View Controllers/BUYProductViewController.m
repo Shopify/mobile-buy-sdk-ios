@@ -7,10 +7,12 @@
 //
 
 #import "BUYProductViewController.h"
+#import "BUYProductViewFooter.h"
 
 @interface BUYProductViewController ()
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) BUYProductViewFooter *productViewFooter;
 
 @end
 
@@ -31,6 +33,19 @@
 																	  options:0
 																	  metrics:nil
 																		views:NSDictionaryOfVariableBindings(_tableView)]];
+	
+	self.productViewFooter = [[BUYProductViewFooter alloc] init];
+	self.productViewFooter.translatesAutoresizingMaskIntoConstraints = NO;
+	[self.view addSubview:self.productViewFooter];
+	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_productViewFooter]|"
+																	  options:0
+																	  metrics:nil
+																		views:NSDictionaryOfVariableBindings(_productViewFooter)]];
+	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_productViewFooter(60)]|"
+																	  options:0
+																	  metrics:nil
+																		views:NSDictionaryOfVariableBindings(_productViewFooter)]];
+	
 	
     // Do any additional setup after loading the view.
 }
