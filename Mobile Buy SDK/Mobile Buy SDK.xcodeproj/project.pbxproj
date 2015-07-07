@@ -44,6 +44,11 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		905ECCC21B4C39710094F336 /* BUYProductViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 905ECCC01B4C39710094F336 /* BUYProductViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		905ECCC31B4C39710094F336 /* BUYProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 905ECCC11B4C39710094F336 /* BUYProductViewController.m */; };
+		905ECCC61B4C3C6A0094F336 /* libBuy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE94960E1B45C5A500B38949 /* libBuy.a */; };
+		905ECCC91B4C3DCB0094F336 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9496681B45CCF400B38949 /* libc++.dylib */; };
+		905ECCCA1B4C3DD20094F336 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A54742D1A0AA61600822409 /* PassKit.framework */; };
 		90F593041B0D5F4C0026B382 /* BUYIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592F81B0D5F4C0026B382 /* BUYIntegrationTest.m */; };
 		90F593051B0D5F4C0026B382 /* BUYApplePayAdditionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592F91B0D5F4C0026B382 /* BUYApplePayAdditionsTest.m */; };
 		90F593061B0D5F4C0026B382 /* BUYCartTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592FA1B0D5F4C0026B382 /* BUYCartTest.m */; };
@@ -126,6 +131,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		905ECCC71B4C3D190094F336 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F773741519C770CB0039681C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BE94960D1B45C5A500B38949;
+			remoteInfo = Buy;
+		};
 		BE9496631B45CC2700B38949 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F773741519C770CB0039681C /* Project object */;
@@ -179,6 +191,8 @@
 		904FB6011AE03D4500EA1758 /* Buy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Buy.h; sourceTree = "<group>"; };
 		905AA96F1B3B32A500CAE037 /* BUYPaymentButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYPaymentButton.h; sourceTree = "<group>"; };
 		905AA9701B3B32A500CAE037 /* BUYPaymentButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYPaymentButton.m; sourceTree = "<group>"; };
+		905ECCC01B4C39710094F336 /* BUYProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYProductViewController.h; sourceTree = "<group>"; };
+		905ECCC11B4C39710094F336 /* BUYProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYProductViewController.m; sourceTree = "<group>"; };
 		90AFAA5C1B011EA600F21C23 /* BUYTaxLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYTaxLine.h; sourceTree = "<group>"; };
 		90AFAA5D1B011EA600F21C23 /* BUYTaxLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYTaxLine.m; sourceTree = "<group>"; };
 		90AFAA601B01390F00F21C23 /* BUYAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYAddress.h; sourceTree = "<group>"; };
@@ -268,6 +282,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				905ECCCA1B4C3DD20094F336 /* PassKit.framework in Frameworks */,
+				905ECCC91B4C3DCB0094F336 /* libc++.dylib in Frameworks */,
+				905ECCC61B4C3C6A0094F336 /* libBuy.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,6 +398,8 @@
 				BE1C4DF41AE98FBB00E21624 /* BUYStoreViewController.m */,
 				BE1C4DF51AE98FBB00E21624 /* BUYViewController.h */,
 				BE1C4DF61AE98FBB00E21624 /* BUYViewController.m */,
+				905ECCC01B4C39710094F336 /* BUYProductViewController.h */,
+				905ECCC11B4C39710094F336 /* BUYProductViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -521,6 +540,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				905ECCC21B4C39710094F336 /* BUYProductViewController.h in Headers */,
 				BE9496561B45C6E300B38949 /* BUYOptionValue.h in Headers */,
 				BE94965B1B45C6FE00B38949 /* BUYApplePayHelpers.h in Headers */,
 				BE9496551B45C6DF00B38949 /* BUYShop.h in Headers */,
@@ -587,6 +607,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				905ECCC81B4C3D190094F336 /* PBXTargetDependency */,
 			);
 			name = Playground;
 			productName = Playground;
@@ -789,6 +810,7 @@
 				BE94962F1B45C5FA00B38949 /* BUYTaxLine.m in Sources */,
 				BE94962C1B45C5F200B38949 /* BUYCheckout.m in Sources */,
 				BE9496281B45C5E400B38949 /* BUYStoreViewController.m in Sources */,
+				905ECCC31B4C39710094F336 /* BUYProductViewController.m in Sources */,
 				BE9496361B45C60D00B38949 /* BUYOption.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -796,6 +818,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		905ECCC81B4C3D190094F336 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BE94960D1B45C5A500B38949 /* Buy */;
+			targetProxy = 905ECCC71B4C3D190094F336 /* PBXContainerItemProxy */;
+		};
 		BE9496641B45CC2700B38949 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = BE94960D1B45C5A500B38949 /* Buy */;
