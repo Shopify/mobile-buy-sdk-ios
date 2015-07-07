@@ -35,6 +35,8 @@
 /* Begin PBXBuildFile section */
 		90516C7B1B4C589A00E35E45 /* BUYProductViewFooter.h in Headers */ = {isa = PBXBuildFile; fileRef = 90516C791B4C589A00E35E45 /* BUYProductViewFooter.h */; };
 		90516C7C1B4C589A00E35E45 /* BUYProductViewFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 90516C7A1B4C589A00E35E45 /* BUYProductViewFooter.m */; };
+		90516C871B4C6F7000E35E45 /* BUYProductViewHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 90516C851B4C6F7000E35E45 /* BUYProductViewHeader.h */; };
+		90516C881B4C6F7000E35E45 /* BUYProductViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 90516C861B4C6F7000E35E45 /* BUYProductViewHeader.m */; };
 		905ECCC21B4C39710094F336 /* BUYProductViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 905ECCC01B4C39710094F336 /* BUYProductViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		905ECCC31B4C39710094F336 /* BUYProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 905ECCC11B4C39710094F336 /* BUYProductViewController.m */; };
 		905ECCC61B4C3C6A0094F336 /* libBuy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE94960E1B45C5A500B38949 /* libBuy.a */; };
@@ -181,6 +183,8 @@
 		904FB6011AE03D4500EA1758 /* Buy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Buy.h; sourceTree = "<group>"; };
 		90516C791B4C589A00E35E45 /* BUYProductViewFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYProductViewFooter.h; path = Views/BUYProductViewFooter.h; sourceTree = "<group>"; };
 		90516C7A1B4C589A00E35E45 /* BUYProductViewFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYProductViewFooter.m; path = Views/BUYProductViewFooter.m; sourceTree = "<group>"; };
+		90516C851B4C6F7000E35E45 /* BUYProductViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYProductViewHeader.h; path = Views/BUYProductViewHeader.h; sourceTree = "<group>"; };
+		90516C861B4C6F7000E35E45 /* BUYProductViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYProductViewHeader.m; path = Views/BUYProductViewHeader.m; sourceTree = "<group>"; };
 		905AA96F1B3B32A500CAE037 /* BUYPaymentButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYPaymentButton.h; sourceTree = "<group>"; };
 		905AA9701B3B32A500CAE037 /* BUYPaymentButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYPaymentButton.m; sourceTree = "<group>"; };
 		905ECCC01B4C39710094F336 /* BUYProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYProductViewController.h; sourceTree = "<group>"; };
@@ -306,6 +310,8 @@
 			children = (
 				90516C791B4C589A00E35E45 /* BUYProductViewFooter.h */,
 				90516C7A1B4C589A00E35E45 /* BUYProductViewFooter.m */,
+				90516C851B4C6F7000E35E45 /* BUYProductViewHeader.h */,
+				90516C861B4C6F7000E35E45 /* BUYProductViewHeader.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -551,6 +557,7 @@
 				BE9496481B45C69400B38949 /* BUYShippingRate.h in Headers */,
 				90516C7B1B4C589A00E35E45 /* BUYProductViewFooter.h in Headers */,
 				BE9496521B45C6CD00B38949 /* BUYProduct.h in Headers */,
+				90516C871B4C6F7000E35E45 /* BUYProductViewHeader.h in Headers */,
 				BE94964D1B45C6AA00B38949 /* BUYGiftCard.h in Headers */,
 				BE94964B1B45C6A100B38949 /* BUYAddress.h in Headers */,
 				BE9496491B45C69800B38949 /* BUYDiscount.h in Headers */,
@@ -775,6 +782,7 @@
 				BE9496331B45C60400B38949 /* BUYImage.m in Sources */,
 				BE9496341B45C60700B38949 /* BUYLineItem.m in Sources */,
 				BE94963A1B45C61700B38949 /* BUYOptionValue.m in Sources */,
+				90516C881B4C6F7000E35E45 /* BUYProductViewHeader.m in Sources */,
 				BE9496621B45CBD600B38949 /* BUYPaymentButton.m in Sources */,
 				BE9496301B45C5FC00B38949 /* BUYAddress.m in Sources */,
 				BE94962E1B45C5F800B38949 /* BUYDiscount.m in Sources */,

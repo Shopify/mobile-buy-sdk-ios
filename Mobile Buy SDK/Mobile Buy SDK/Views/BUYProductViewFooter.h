@@ -14,4 +14,6 @@
 @property (nonatomic, strong) UIButton *checkoutButton;
 @property (nonatomic, strong) BUYPaymentButton *buyPaymentButton;
 
+- (void)setApplePayButtonVisible:(BOOL)isApplePayAvailable;
+
 @end
