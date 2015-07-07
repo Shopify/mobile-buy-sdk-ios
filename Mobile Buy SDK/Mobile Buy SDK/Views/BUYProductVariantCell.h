@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class BUYProductVariant;
+
 @interface BUYProductVariantCell : UITableViewCell
+
+@property (nonatomic, strong) BUYProductVariant *productVariant;
 
 @end
