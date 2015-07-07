@@ -1,7 +1,9 @@
 # Mobile Buy SDK Release Notes
 
+Here is a reverse-chronologically ordered list of patch notes for the Mobile Buy SDK for iOS.
+
 ### Version 1.0.3
-###### Released Jule 2, 2015
+###### Released July 2, 2015
 
 * Fixed an issue retrieving a cart when using Apple Pay and WKWebView checkout
 
