@@ -51,11 +51,8 @@
 - (void)controller:(BUYStoreViewController *)controller shouldProceedWithCheckoutType:(BUYCheckoutTypeBlock)completionHandler
 {
     // If ApplePay is not setup, proceed to normal checkout
-    if ([PKPaymentAuthorizationViewController canMakePaymentsUsingNetworks:self.supportedNetworks] && // checks if the device has payment setup
-        [PKPaymentAuthorizationViewController canMakePayments] && // checks if device hardware is capable of using Apple Pay
-        self.client.merchantId.length) // checks if the client is setup to use Apple Pay
+    if (self.isApplePayAvailable)
     {
-        
         CheckoutSelectionController *selectionController = [[CheckoutSelectionController alloc] init];
         selectionController.delegate = self;
         self.callback = completionHandler;
