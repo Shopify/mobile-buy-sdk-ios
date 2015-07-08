@@ -33,6 +33,7 @@
 	self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
 	self.tableView.estimatedRowHeight = 60.0;
 	self.tableView.rowHeight = UITableViewAutomaticDimension;
+	self.tableView.tableFooterView = [UIView new];
 	[self.view addSubview:self.tableView];
 	
 	[self.tableView registerClass:[BUYProductHeaderCell class] forCellReuseIdentifier:@"Cell"];
@@ -114,6 +115,7 @@
 		BUYProductDescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"descriptionCell"];
 		cell.tintColor = [UIColor redColor];
 		cell.descriptionHTML = self.product.htmlDescription;
+		cell.separatorInset = UIEdgeInsetsMake(0, CGRectGetWidth(self.tableView.bounds), 0, 0);
 		return cell;
 	}
  
