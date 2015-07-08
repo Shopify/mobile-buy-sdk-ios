@@ -9,26 +9,35 @@
 #import "BUYProductViewController.h"
 #import "BUYProductViewFooter.h"
 #import "BUYProductViewHeader.h"
+#import "BUYProductHeaderCell.h"
+#import "BUYProductVariantCell.h"
+#import "BUYProductDescriptionCell.h"
 
 @interface BUYProductViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) BUYProductViewHeader *productViewHeader;
 @property (nonatomic, strong) BUYProductViewFooter *productViewFooter;
+@property (nonatomic, strong) BUYProduct *product;
 
 @end
 
 @implementation BUYProductViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+	[super viewDidLoad];
 	
 	self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
 	self.tableView.delegate = self;
 	self.tableView.dataSource = self;
 	self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
-	[self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CellIdentifier"];
+	self.tableView.estimatedRowHeight = 60.0;
+	self.tableView.rowHeight = UITableViewAutomaticDimension;
 	[self.view addSubview:self.tableView];
+	
+	[self.tableView registerClass:[BUYProductHeaderCell class] forCellReuseIdentifier:@"Cell"];
+	[self.tableView registerClass:[BUYProductVariantCell class] forCellReuseIdentifier:@"variantCell"];
+	[self.tableView registerClass:[BUYProductDescriptionCell class] forCellReuseIdentifier:@"descriptionCell"];
 	
 	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_tableView]|"
 																	  options:0
@@ -55,6 +64,11 @@
 																		views:NSDictionaryOfVariableBindings(_productViewFooter)]];
 	
 	[self.productViewFooter setApplePayButtonVisible:YES];
+	
+	[self.client getProductById:@"595444547" completion:^(BUYProduct *product, NSError *error) {
+		self.product = product;
+		[self.tableView reloadData];
+	}];
 }
 
 - (void)viewDidLayoutSubviews
@@ -64,8 +78,8 @@
 }
 
 - (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+	[super didReceiveMemoryWarning];
+	// Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
@@ -75,14 +89,34 @@
 	return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	// Return the number of rows in the section.
-	return 20;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+	return self.product ? 3 : 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellIdentifier" forIndexPath:indexPath];
-	return cell;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	if (indexPath.row == 0) {
+		BUYProductHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+		cell.tintColor = [UIColor redColor];
+		
+		cell.titleLabel.text = @"Products with a really loooooong title";
+		cell.priceLabel.text = @"$9.99";
+		return cell;
+	}
+	else if (indexPath.row == 1) {
+		BUYProductVariantCell *cell = [tableView dequeueReusableCellWithIdentifier:@"variantCell"];
+		cell.tintColor = [UIColor redColor];
+		cell.productVariant = self.product.variants.firstObject;
+		return cell;
+	}
+	else {
+		BUYProductDescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"descriptionCell"];
+		cell.tintColor = [UIColor redColor];
+		cell.descriptionHTML = self.product.htmlDescription;
+		return cell;
+	}
+ 
 }
 
 #pragma mark Scroll view delegate
