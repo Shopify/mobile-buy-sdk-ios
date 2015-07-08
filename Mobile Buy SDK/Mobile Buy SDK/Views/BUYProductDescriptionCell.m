@@ -8,9 +8,6 @@
 
 #import "BUYProductDescriptionCell.h"
 
-const NSString *fontName = @"HelveticaNeue";
-const CGFloat textSize = 16.0;
-
 @interface BUYProductDescriptionCell ()
 
 @property (nonatomic, strong) UIColor *textColor;
@@ -43,8 +40,10 @@ const CGFloat textSize = 16.0;
 
 - (void)setDescriptionHTML:(NSString *)html
 {
+	UIFont *font = [UIFont systemFontOfSize:16.0];
+	
 	html = [html stringByAppendingString:[NSString stringWithFormat:@"<style>body{font-family: '%@'; font-size:%fpx; color:%@;}</style>",
-											  fontName, textSize, [self hexStringFromColor:self.textColor]]];
+											  font.fontName, font.pointSize, [self hexStringFromColor:self.textColor]]];
 	
 	NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithData:[html dataUsingEncoding:NSUTF8StringEncoding]
 																			options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
