@@ -45,6 +45,10 @@
 		90516CA01B4D76D900E35E45 /* BUYProductVariantCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90516C9A1B4D76D900E35E45 /* BUYProductVariantCell.m */; };
 		90516CA31B4D771400E35E45 /* BUYVariantOptionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 90516CA11B4D771400E35E45 /* BUYVariantOptionView.h */; };
 		90516CA41B4D771400E35E45 /* BUYVariantOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90516CA21B4D771400E35E45 /* BUYVariantOptionView.m */; };
+		90516CA81B4D932700E35E45 /* robot.png in Resources */ = {isa = PBXBuildFile; fileRef = 90516CA61B4D932700E35E45 /* robot.png */; };
+		90516CA91B4D933100E35E45 /* robot_blur.png in Resources */ = {isa = PBXBuildFile; fileRef = 90516CA51B4D932700E35E45 /* robot_blur.png */; };
+		90516CAC1B4DAB6100E35E45 /* scarf.png in Resources */ = {isa = PBXBuildFile; fileRef = 90516CAA1B4DAB6100E35E45 /* scarf.png */; };
+		90516CAD1B4DAB6100E35E45 /* scarf_blur.png in Resources */ = {isa = PBXBuildFile; fileRef = 90516CAB1B4DAB6100E35E45 /* scarf_blur.png */; };
 		905ECCC21B4C39710094F336 /* BUYProductViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 905ECCC01B4C39710094F336 /* BUYProductViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		905ECCC31B4C39710094F336 /* BUYProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 905ECCC11B4C39710094F336 /* BUYProductViewController.m */; };
 		905ECCC61B4C3C6A0094F336 /* libBuy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE94960E1B45C5A500B38949 /* libBuy.a */; };
@@ -205,6 +209,10 @@
 		90516C9A1B4D76D900E35E45 /* BUYProductVariantCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYProductVariantCell.m; path = Views/BUYProductVariantCell.m; sourceTree = "<group>"; };
 		90516CA11B4D771400E35E45 /* BUYVariantOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYVariantOptionView.h; path = Views/BUYVariantOptionView.h; sourceTree = "<group>"; };
 		90516CA21B4D771400E35E45 /* BUYVariantOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYVariantOptionView.m; path = Views/BUYVariantOptionView.m; sourceTree = "<group>"; };
+		90516CA51B4D932700E35E45 /* robot_blur.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = robot_blur.png; sourceTree = "<group>"; };
+		90516CA61B4D932700E35E45 /* robot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = robot.png; sourceTree = "<group>"; };
+		90516CAA1B4DAB6100E35E45 /* scarf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scarf.png; sourceTree = "<group>"; };
+		90516CAB1B4DAB6100E35E45 /* scarf_blur.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scarf_blur.png; sourceTree = "<group>"; };
 		905AA96F1B3B32A500CAE037 /* BUYPaymentButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYPaymentButton.h; sourceTree = "<group>"; };
 		905AA9701B3B32A500CAE037 /* BUYPaymentButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYPaymentButton.m; sourceTree = "<group>"; };
 		905ECCC01B4C39710094F336 /* BUYProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYProductViewController.h; sourceTree = "<group>"; };
@@ -550,6 +558,10 @@
 		F773749F19C77E4E0039681C /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				90516CA51B4D932700E35E45 /* robot_blur.png */,
+				90516CA61B4D932700E35E45 /* robot.png */,
+				90516CAA1B4DAB6100E35E45 /* scarf.png */,
+				90516CAB1B4DAB6100E35E45 /* scarf_blur.png */,
 				90516C781B4C4D3900E35E45 /* Views */,
 				BE1C4DF21AE98F8E00E21624 /* View Controllers */,
 				F7FDA16F19C93F6100AF4E93 /* Data */,
@@ -732,7 +744,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90516CAD1B4DAB6100E35E45 /* scarf_blur.png in Resources */,
+				90516CA81B4D932700E35E45 /* robot.png in Resources */,
+				90516CAC1B4DAB6100E35E45 /* scarf.png in Resources */,
 				90F7BA791B0D1DAF0067864D /* Main.storyboard in Resources */,
+				90516CA91B4D933100E35E45 /* robot_blur.png in Resources */,
 				90F7BA7E1B0D1DAF0067864D /* LaunchScreen.xib in Resources */,
 				90F7BA7B1B0D1DAF0067864D /* Images.xcassets in Resources */,
 			);

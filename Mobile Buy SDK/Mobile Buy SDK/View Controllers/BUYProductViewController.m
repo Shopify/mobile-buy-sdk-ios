@@ -48,7 +48,7 @@
 																	  metrics:nil
 																		views:NSDictionaryOfVariableBindings(_tableView)]];
 	
-	self.productViewHeader = [[BUYProductViewHeader alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.frame), 200)];
+	self.productViewHeader = [[BUYProductViewHeader alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.bounds), CGRectGetWidth([[UIScreen mainScreen] bounds]))];
 	self.tableView.tableHeaderView = self.productViewHeader;
 	
 	self.productViewFooter = [[BUYProductViewFooter alloc] init];
