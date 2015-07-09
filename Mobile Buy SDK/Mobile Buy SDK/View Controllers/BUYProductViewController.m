@@ -181,6 +181,15 @@
 	}
 }
 
+- (void)setSelectedProductVariant:(BUYProductVariant *)selectedProductVariant {
+	_selectedProductVariant = selectedProductVariant;
+	BUYImage *image = [self.product imageForVariant:selectedProductVariant];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", image.src]];
+	[self.productViewHeader.productImageView loadImageWithURL:url
+												   completion:^(UIImage *image, NSError *error) {
+													   [self.productViewHeader setContentOffset:self.tableView.contentOffset];
+												   }];
+}
 #pragma mark Scroll view delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
