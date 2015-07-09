@@ -16,7 +16,7 @@
 	
 	if (self) {
 		_tintColor = [UIColor blackColor];
-		_style = BUYThemeStyle_Light;
+		_style = BUYThemeStyleLight;
 	}
 	
 	return self;

@@ -9,14 +9,20 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSInteger, BUYThemeStyle) {
-	BUYThemeStyle_Light,
-	BUYThemeStyle_Dark
+	BUYThemeStyleLight,
+	BUYThemeStyleDark
 };
 
 @interface BUYTheme : NSObject
 
+/**
+ * Used for the highlight color
+ */
 @property (nonatomic, strong) UIColor *tintColor;
 
+/**
+ * Theme style for the views
+ */
 @property (nonatomic, assign) BUYThemeStyle style;
 
 @end

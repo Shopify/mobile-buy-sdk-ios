@@ -7,8 +7,8 @@
 
 #import "BUYPresentationController.h"
 
-CGFloat const BUYPresentationControllerParialHeight = 250.0;
-CGFloat const BUYPresentationControllerParialWidth = 250.0;
+CGFloat const BUYPresentationControllerPartialHeight = 250.0;
+CGFloat const BUYPresentationControllerPartialWidth = 250.0;
 
 @interface BUYPresentationController ()
 @property (nonatomic, strong) UIView *backgroundView;
@@ -58,10 +58,10 @@ CGFloat const BUYPresentationControllerParialWidth = 250.0;
 	
 	UIView *presentingView = self.presentingViewController.view;
 	
-    return CGRectMake((CGRectGetWidth(presentingView.bounds)-BUYPresentationControllerParialWidth)/2,
-					  (CGRectGetHeight(presentingView.bounds)-BUYPresentationControllerParialHeight)/2,
-					  BUYPresentationControllerParialWidth,
-					  BUYPresentationControllerParialHeight);
+    return CGRectMake((CGRectGetWidth(presentingView.bounds)-BUYPresentationControllerPartialWidth)/2,
+					  (CGRectGetHeight(presentingView.bounds)-BUYPresentationControllerPartialHeight)/2,
+					  BUYPresentationControllerPartialWidth,
+					  BUYPresentationControllerPartialHeight);
 }
 
 @end
