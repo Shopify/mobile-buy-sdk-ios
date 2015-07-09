@@ -9,6 +9,7 @@
 #import "BUYOptionSelectionViewController.h"
 #import "BUYProduct+Options.h"
 #import "BUYOptionValue.h"
+#import "BUYTheme.h"
 
 @interface BUYOptionSelectionViewController ()
 @property (nonatomic, strong) NSArray *options;
