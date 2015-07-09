@@ -70,4 +70,16 @@
 	[self.delegate optionSelectionController:self didSelectOption:option];
 }
 
+#pragma mark UIStatusBar appearance
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+	return UIStatusBarStyleLightContent;
+}
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation
+{
+	return UIStatusBarAnimationFade;
+}
+
 @end

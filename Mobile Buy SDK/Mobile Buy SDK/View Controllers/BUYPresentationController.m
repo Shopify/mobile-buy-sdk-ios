@@ -11,7 +11,7 @@ CGFloat const BUYPresentationControllerPartialHeight = 250.0;
 CGFloat const BUYPresentationControllerPartialWidth = 250.0;
 
 @interface BUYPresentationController ()
-@property (nonatomic, strong) UIView *backgroundView;
+@property (nonatomic, strong) UIVisualEffectView *backgroundView;
 @end
 
 
@@ -22,9 +22,9 @@ CGFloat const BUYPresentationControllerPartialWidth = 250.0;
     self = [super initWithPresentedViewController:presentedViewController presentingViewController:presentingViewController];
 	
 	if (self) {
-		
-		_backgroundView = [[UIView alloc] init];
-		_backgroundView.backgroundColor = [UIColor blackColor];
+		UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+		_backgroundView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+		_backgroundView.translatesAutoresizingMaskIntoConstraints = NO;
 		_backgroundView.alpha = 0.0;
 	}
 	
@@ -35,11 +35,24 @@ CGFloat const BUYPresentationControllerPartialWidth = 250.0;
 {
     [super presentationTransitionWillBegin];
 	
-	self.backgroundView.frame = self.containerView.bounds;
 	[self.containerView insertSubview:self.backgroundView atIndex:0];
+	[self.containerView addConstraint:[NSLayoutConstraint constraintWithItem:self.backgroundView
+																   attribute:NSLayoutAttributeHeight
+																   relatedBy:NSLayoutRelationEqual
+																	  toItem:self.containerView
+																   attribute:NSLayoutAttributeHeight
+																  multiplier:1.0
+																	constant:0.0]];
+	[self.containerView addConstraint:[NSLayoutConstraint constraintWithItem:self.backgroundView
+																   attribute:NSLayoutAttributeWidth
+																   relatedBy:NSLayoutRelationEqual
+																	  toItem:self.containerView
+																   attribute:NSLayoutAttributeWidth
+																  multiplier:1.0
+																	constant:0.0]];
 	
 	[self.presentedViewController.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-		self.backgroundView.alpha = 0.5;
+		self.backgroundView.alpha = 1.0;
 	} completion:nil];
 }
 

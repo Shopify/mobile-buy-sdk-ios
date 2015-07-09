@@ -17,8 +17,9 @@
 #import "BUYProductHeaderCell.h"
 #import "BUYProductVariantCell.h"
 #import "BUYProductDescriptionCell.h"
+#import "BUYVariantSelectionViewController.h"
 
-@interface BUYProductViewController () <UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate>
+@interface BUYProductViewController () <UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, BUYVariantSelectionDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) BUYProductViewHeader *productViewHeader;
@@ -181,6 +182,25 @@
 	}
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	if (indexPath.row == 1) {
+		[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+		// TODO: Get this navigation controller inside the BUYVariantSelectionViewController so it takes care of it's own presentation
+		BUYVariantSelectionViewController *optionSelectionViewController = [[BUYVariantSelectionViewController alloc] initWithProduct:self.product];
+		optionSelectionViewController.delegate = self;
+		BUYOptionSelectionNavigationController *optionSelectionNavigationController = [[BUYOptionSelectionNavigationController alloc] initWithRootViewController:optionSelectionViewController];
+		[self presentViewController:optionSelectionNavigationController animated:YES completion:^{}];
+	}
+}
+
+- (void)variantSelectionController:(BUYVariantSelectionViewController *)controller didSelectVariant:(BUYProductVariant *)variant
+{
+	[controller dismissViewControllerAnimated:YES completion:^{}];
+	self.selectedProductVariant = variant;
+	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+}
+
 - (void)setSelectedProductVariant:(BUYProductVariant *)selectedProductVariant {
 	_selectedProductVariant = selectedProductVariant;
 	BUYImage *image = [self.product imageForVariant:selectedProductVariant];
@@ -190,6 +210,7 @@
 													   [self.productViewHeader setContentOffset:self.tableView.contentOffset];
 												   }];
 }
+
 #pragma mark Scroll view delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

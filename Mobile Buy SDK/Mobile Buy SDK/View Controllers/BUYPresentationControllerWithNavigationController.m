@@ -6,14 +6,15 @@
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 
-#import "BUYPresentationControllerWithNavigationController.h"
+#import "BUYNavigationController.h"
 #import "BUYOptionSelectionNavigationController.h"
+#import "BUYPresentationControllerWithNavigationController.h"
 
 @implementation BUYPresentationControllerWithNavigationController
 
 - (UIViewController *)presentationController:(UIPresentationController *)controller viewControllerForAdaptivePresentationStyle:(UIModalPresentationStyle)style
 {
-	UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller.presentedViewController];
+	BUYNavigationController *navigationController = [[BUYNavigationController alloc] initWithRootViewController:controller.presentedViewController];
 	UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(dismissPopover)];
 	navigationController.topViewController.navigationItem.leftBarButtonItem = barButtonItem;
 	return navigationController;

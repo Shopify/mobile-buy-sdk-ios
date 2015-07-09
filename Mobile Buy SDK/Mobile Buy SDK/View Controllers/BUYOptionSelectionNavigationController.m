@@ -25,7 +25,7 @@
 		self.view.layer.cornerRadius = 4.0;
 		self.view.clipsToBounds = YES;
 		
-		[self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor grayColor]}];
+		[self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor grayColor] }];
 		self.navigationBar.tintColor = [UIColor grayColor];
 	}
 	
@@ -60,14 +60,14 @@
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext
 {
 	UIViewController *presentedController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-
+	
 	if (presentedController == self) {
 		
 		UIView *presentedView = presentedController.view;
 		CGRect finalRect = [transitionContext finalFrameForViewController:presentedController];
 		presentedView.frame = finalRect;
 		presentedView.alpha = 0.0;
-
+		
 		[[transitionContext containerView] addSubview:presentedView];
 		
 		[UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
@@ -87,6 +87,14 @@
 			[transitionContext completeTransition:finished];
 		}];
 	}
+}
+
+-(UIViewController *)childViewControllerForStatusBarStyle {
+	return self.visibleViewController;
+}
+
+-(UIViewController *)childViewControllerForStatusBarHidden {
+	return self.visibleViewController;
 }
 
 @end
