@@ -98,7 +98,7 @@
 {
 	NSLog(@"%@", NSStringFromCGPoint(offset));
 	
-	if (offset.y < 0) {
+	if (offset.y <= 0) {
 		self.clipsToBounds = NO;
 		if (self.backgroundImageViewConstraintBottom.constant != 0.0) {
 			self.backgroundImageViewConstraintBottom.constant = 0.0;
