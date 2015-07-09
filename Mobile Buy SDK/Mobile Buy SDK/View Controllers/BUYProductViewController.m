@@ -10,6 +10,7 @@
 #import "BUYImageView.h"
 #import "BUYOptionSelectionNavigationController.h"
 #import "BUYPresentationControllerWithNavigationController.h"
+#import "BUYProduct+Options.h"
 #import "BUYProductViewController.h"
 #import "BUYProductViewFooter.h"
 #import "BUYProductViewHeader.h"
@@ -57,10 +58,6 @@
 		dispatch_async(dispatch_get_main_queue(), ^{
 			self.product = product;
 			self.selectedProductVariant = [self.product.variants firstObject];
-			[self.productViewHeader.productImageView loadImageWithURL:[self imageSrcForVariant:self.selectedProductVariant]
-														   completion:^(UIImage *image, NSError *error) {
-															   [self.productViewHeader setContentOffset:self.tableView.contentOffset];
-														   }];
 			[self.tableView reloadData];
 			[self.productViewHeader setContentOffset:self.tableView.contentOffset];
 			if (completion) {
@@ -189,17 +186,6 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
 	[self.productViewHeader setContentOffset:scrollView.contentOffset];
-}
-
-- (NSURL*)imageSrcForVariant:(BUYProductVariant*)productVariant {
-	for (BUYImage *image in productVariant.product.images) {
-		for (NSNumber *variantId in image.variantIds) {
-			if ([variantId isEqualToNumber:productVariant.identifier]) {
-				return [NSURL URLWithString:image.src];
-			}
-		}
-	}
-	return nil;
 }
 
 #pragma mark Checkout
