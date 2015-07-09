@@ -21,12 +21,48 @@
 @property (nonatomic, strong) BUYProductViewHeader *productViewHeader;
 @property (nonatomic, strong) BUYProductViewFooter *productViewFooter;
 @property (nonatomic, strong) BUYGradientView *topGradientView;
+
+@property (nonatomic, strong) NSString *productId;
 @property (nonatomic, strong) BUYProduct *product;
 @property (nonatomic, strong) BUYProductVariant *selectedProductVariant;
 
 @end
 
 @implementation BUYProductViewController
+
+- (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey channelId:(NSString *)channelId
+{
+	BUYClient *client = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
+	self = [self initWithClient:client];
+	return self;
+}
+
+- (instancetype)initWithClient:(BUYClient *)client
+{
+	self = [super initWithClient:client];
+	if (self) {
+		self.view.backgroundColor = [UIColor clearColor];
+		self.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+	}
+	return self;
+}
+
+- (void)loadProduct:(NSString *)productId completion:(void (^)(BOOL success, NSError *error))completion
+{
+	self.productId = productId;
+	[self.client getProductById:productId completion:^(BUYProduct *product, NSError *error) {
+		dispatch_async(dispatch_get_main_queue(), ^{
+			self.product = product;
+			self.selectedProductVariant = [self.product.variants firstObject];
+			[self.productViewHeader.productImageView loadImageWithURL:[self imageSrcForVariant:self.selectedProductVariant]];
+			[self.tableView reloadData];
+			[self.productViewHeader setContentOffset:self.tableView.contentOffset];
+			if (completion) {
+				completion(error == nil, error);
+			}
+		});
+	}];
+}
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
@@ -95,15 +131,6 @@
 														  attribute:NSLayoutAttributeNotAnAttribute
 														 multiplier:1.0
 														   constant:64]];
-	
-	
-	[self.client getProductById:@"595444547" completion:^(BUYProduct *product, NSError *error) {
-		self.product = product;
-		self.selectedProductVariant = [self.product.variants firstObject];
-		[self.productViewHeader.productImageView loadImageWithURL:[self imageSrcForVariant:self.selectedProductVariant]];
-		[self.tableView reloadData];
-		[self.productViewHeader setContentOffset:self.tableView.contentOffset];
-	}];
 }
 
 - (void)viewDidLayoutSubviews
@@ -148,7 +175,6 @@
 		cell.separatorInset = UIEdgeInsetsMake(0, CGRectGetWidth(self.tableView.bounds), 0, 0);
 		return cell;
 	}
- 
 }
 
 #pragma mark Scroll view delegate

@@ -23,7 +23,9 @@
 														   apiKey:@"506ede8b60f86fbf86109a762fe8093d"
 														channelId:@"9060547"];
 		BUYProductViewController *productViewController = [[BUYProductViewController alloc] initWithClient:client];
-		[self presentViewController:productViewController animated:YES completion:NULL];
+		[productViewController loadProduct:@"595444547" completion:^(BOOL success, NSError *error) {
+			[self presentViewController:productViewController animated:YES completion:NULL];
+		}];
 	});
 	
     // Do any additional setup after loading the view, typically from a nib.
