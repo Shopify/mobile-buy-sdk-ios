@@ -25,6 +25,8 @@
 
 @property (nonatomic, copy) NSString *email;
 @property (nonatomic, copy) NSString *token;
+@property (nonatomic, copy) NSString *cartToken;
+
 @property (nonatomic, copy) NSNumber *orderId;
 @property (nonatomic, assign) BOOL requiresShipping;
 @property (nonatomic, assign) BOOL taxesIncluded;
@@ -53,8 +55,14 @@
 @property (nonatomic, strong) NSString *channelId;
 @property (nonatomic, strong) NSDictionary *marketingAttribution;
 
+@property (nonatomic, strong) NSURL *webCheckoutURL;
+@property (nonatomic, strong) NSString *webReturnToURL;
+@property (nonatomic, strong) NSString *webReturnToLabel;
+
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithCart:(BUYCart *)cart NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithCart:(BUYCart *)cart;
+- (instancetype)initWithCartToken:(NSString *)cartToken;
+
 - (BOOL)hasToken;
 
 @end

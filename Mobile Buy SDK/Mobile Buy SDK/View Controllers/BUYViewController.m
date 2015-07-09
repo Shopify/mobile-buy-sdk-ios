@@ -72,8 +72,17 @@
 
 - (void)startWebCheckoutWithCart:(BUYCart *)cart
 {
-	NSURL *checkoutURL = [self.client urlForCart:cart];
-	[[UIApplication sharedApplication] openURL:checkoutURL];
+	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:cart];
+	[self.client createCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
+		
+		if (error == nil) {
+			[[UIApplication sharedApplication] openURL:checkout.webCheckoutURL];
+		}
+		else {
+			[self.delegate controller:self failedToCreateCheckout:error];
+		}
+	}];
+	
 }
 
 

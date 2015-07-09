@@ -205,16 +205,20 @@ NSString * const BUYVersionString = @"1.1";
     block(checkout, error);
 }
 
-- (NSDictionary *)marketingAttributions
+- (void)configureCheckout:(BUYCheckout *)checkout
 {
-	return @{@"medium": @"iOS", @"source": self.applicationName};
+	checkout.channelId = self.channelId;
+	checkout.marketingAttribution = @{@"medium": @"iOS", @"source": self.applicationName};
+	if (self.urlScheme) {
+		checkout.webReturnToURL = self.urlScheme;
+		checkout.webReturnToLabel = self.applicationName;
+	}
 }
 
 - (NSURLSessionDataTask *)createCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
 	// Inject channel and marketing attributions
-	checkout.channelId = self.channelId;
-	checkout.marketingAttribution = self.marketingAttributions;
+	[self configureCheckout:checkout];
 	
 	NSDictionary *json = [checkout jsonDictionaryForUpdatingCheckout];
 	return [self postCheckout:json completion:block];
@@ -222,10 +226,10 @@ NSString * const BUYVersionString = @"1.1";
 
 - (NSURLSessionDataTask *)createCheckoutWithCartToken:(NSString *)cartToken completion:(BUYDataCheckoutBlock)block
 {
-	NSDictionary *json = @{ @"checkout" : @{ @"cart_token" : cartToken,
-											 @"channel_id": self.channelId,
-											 @"marketing_attribution": self.marketingAttributions} };
+	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCartToken:cartToken];
+	[self configureCheckout:checkout];
 	
+	NSDictionary *json = [checkout jsonDictionaryForUpdatingCheckout];
 	return [self postCheckout:json completion:block];
 }
 

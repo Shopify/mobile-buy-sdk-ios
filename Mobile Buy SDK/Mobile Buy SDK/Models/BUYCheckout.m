@@ -38,6 +38,15 @@ static NSDictionary *kBUYPropertyMap = nil;
 	return self;
 }
 
+- (instancetype)initWithCartToken:(NSString *)cartToken
+{
+	self = [super initWithDictionary:@{@"cart_token" : cartToken}];
+	if (self) {
+		[self markPropertyAsDirty:@"cartToken"];
+	}
+	return self;
+}
+
 - (void)setShippingRateId:(NSString *)shippingRateIdentifier
 {
 	[self willChangeValueForKey:@"shippingRateId"];
@@ -67,6 +76,10 @@ static NSDictionary *kBUYPropertyMap = nil;
 			kUppercaseCharacters = [NSCharacterSet uppercaseLetterCharacterSet];
 		});
 		
+		if ([property containsString:@"URL"]) {
+			property = [property stringByReplacingOccurrencesOfString:@"URL" withString:@"Url"];
+		}
+		
 		NSMutableString *output = [NSMutableString string];
 		for (NSInteger i = 0; i < [property length]; ++i) {
 			unichar c = [property characterAtIndex:i];
@@ -87,6 +100,7 @@ static NSDictionary *kBUYPropertyMap = nil;
 	self.email = dictionary[@"email"];
 	self.orderId = dictionary[@"order_id"];
 	self.token = dictionary[@"token"];
+	self.cartToken = dictionary[@"cart_token"];
 	self.requiresShipping = [dictionary[@"requires_shipping"] boolValue];
 	self.taxesIncluded = [dictionary[@"taxes_included"] boolValue];
 	self.currency = dictionary[@"currency"];
@@ -111,6 +125,8 @@ static NSDictionary *kBUYPropertyMap = nil;
 	
 	NSString *orderStatusURL = dictionary[@"order_status_url"];
 	self.orderStatusURL = orderStatusURL && [orderStatusURL isKindOfClass:[NSString class]] ? [NSURL URLWithString:orderStatusURL] : nil;
+	
+	self.webCheckoutURL = [NSURL URLWithString:dictionary[@"web_url"]];
 }
 
 - (id)jsonValueForValue:(id)value
