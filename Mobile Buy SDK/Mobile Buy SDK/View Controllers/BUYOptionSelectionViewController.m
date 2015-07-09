@@ -12,19 +12,19 @@
 #import "BUYTheme.h"
 
 @interface BUYOptionSelectionViewController ()
-@property (nonatomic, strong) NSArray *options;
+@property (nonatomic, strong) NSArray *optionValues;
 @end
 
 @implementation BUYOptionSelectionViewController
 
-- (instancetype)initWithOptions:(NSArray *)options
+- (instancetype)initWithOptionValues:(NSArray *)options
 {
 	NSParameterAssert(options);
 	
 	self = [super init];
 	
 	if (self) {
-		self.options = options;
+		self.optionValues = options;
 		self.title = [options.firstObject name];
 	}
 	
@@ -50,13 +50,12 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return self.options.count;
+	return self.optionValues.count;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	BUYOptionValue *option = self.options[indexPath.row];
+	BUYOptionValue *option = self.optionValues[indexPath.row];
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	cell.textLabel.text = option.value;
@@ -67,7 +66,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	BUYOptionValue *option = self.options[indexPath.row];
+	BUYOptionValue *option = self.optionValues[indexPath.row];
 	[self.delegate optionSelectionController:self didSelectOption:option];
 }
 

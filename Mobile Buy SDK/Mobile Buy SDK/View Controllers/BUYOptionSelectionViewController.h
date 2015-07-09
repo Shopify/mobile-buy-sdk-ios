@@ -22,9 +22,9 @@
 
 @interface BUYOptionSelectionViewController : UITableViewController
 
-- (instancetype)initWithOptions:(NSArray *)options;
+- (instancetype)initWithOptionValues:(NSArray *)optionValues;
 
-@property (nonatomic, strong, readonly) NSArray *options;
+@property (nonatomic, strong, readonly) NSArray *optionValues;
 
 @property (nonatomic, weak) id <BUYOptionSelectionDelegate> delegate;
 

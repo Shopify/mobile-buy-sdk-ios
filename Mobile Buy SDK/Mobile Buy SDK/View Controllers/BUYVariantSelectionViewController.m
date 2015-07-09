@@ -62,7 +62,7 @@
 	BUYOption *option = self.product.options[index];
 	
 	NSArray *options = [self.product valuesForOption:option];
-	BUYOptionSelectionViewController *optionController = [[BUYOptionSelectionViewController alloc] initWithOptions:options];
+	BUYOptionSelectionViewController *optionController = [[BUYOptionSelectionViewController alloc] initWithOptionValues:options];
 	optionController.delegate = self;
 	optionController.theme = self.theme;
 
@@ -86,7 +86,7 @@
 
 - (void)optionSelectionControllerDidBackOutOfChoosingOption:(BUYOptionSelectionViewController *)controller
 {
-	BUYOption *option = [controller.options firstObject];
+	BUYOption *option = [controller.optionValues firstObject];
 	[self.selectedOptions removeObjectForKey:option.name];
 }
 
