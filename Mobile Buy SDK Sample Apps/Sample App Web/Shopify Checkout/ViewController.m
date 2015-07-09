@@ -46,6 +46,11 @@
     }];
 }
 
+- (void)goHome
+{
+    [self reloadHomePage];
+}
+
 #pragma mark - BUYStoreViewController delegate methods
 
 - (void)controller:(BUYStoreViewController *)controller shouldProceedWithCheckoutType:(BUYCheckoutTypeBlock)completionHandler
