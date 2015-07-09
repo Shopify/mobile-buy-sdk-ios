@@ -7,13 +7,13 @@
 //
 
 #import "BUYProductViewHeader.h"
+#import "BUYImageView.h"
 
 @interface BUYProductViewHeader ()
 
-@property (nonatomic, strong) UIImageView *backgroundImageView;
+@property (nonatomic, strong) BUYImageView *backgroundImageView;
 @property (nonatomic, strong) NSLayoutConstraint *backgroundImageViewConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *backgroundImageViewConstraintBottom;
-@property (nonatomic, strong) UIImageView *productImageView;
 @property (nonatomic, strong) NSLayoutConstraint *productImageViewConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *productImageViewConstraintBottom;
 
@@ -28,12 +28,11 @@
 	if (self) {
 		self.backgroundColor = [UIColor redColor];
 		
-		self.backgroundImageView = [[UIImageView alloc] init];
+		self.backgroundImageView = [[BUYImageView alloc] init];
 		self.backgroundImageView.clipsToBounds = YES;
 		self.backgroundImageView.translatesAutoresizingMaskIntoConstraints = NO;
 		self.backgroundImageView.backgroundColor = [UIColor clearColor];
 		self.backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
-		self.backgroundImageView.image = [UIImage imageNamed:@"robot_blur"];
 		[self addSubview:self.backgroundImageView];
 		
 		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_backgroundImageView]|"
@@ -59,12 +58,11 @@
 																		   constant:0.0];
 		[self addConstraint:self.backgroundImageViewConstraint];
 		
-		self.productImageView = [[UIImageView alloc] init];
+		self.productImageView = [[BUYImageView alloc] init];
 		self.productImageView.clipsToBounds = YES;
 		self.productImageView.translatesAutoresizingMaskIntoConstraints = NO;
 		self.productImageView.backgroundColor = [UIColor clearColor];
 		self.productImageView.contentMode = UIViewContentModeScaleAspectFit;
-		self.productImageView.image = [UIImage imageNamed:@"robot"];
 		[self addSubview:self.productImageView];
 		
 		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_productImageView]|"
@@ -96,8 +94,6 @@
 
 - (void)setContentOffset:(CGPoint)offset
 {
-	NSLog(@"%@", NSStringFromCGPoint(offset));
-	
 	if (offset.y <= 0) {
 		self.clipsToBounds = NO;
 		if (self.backgroundImageViewConstraintBottom.constant != 0.0) {
@@ -116,10 +112,11 @@
 		self.productImageViewConstraintBottom.constant = self.backgroundImageViewConstraintBottom.constant;
 	}
 	
-	if (self.productImageView.image.size.height > self.productImageView.image.size.width) {
+	// change the image content mode on portrait (or 1:1) images so they zoom-scale on scrollview over-pulls
+	if (self.productImageView.image.size.height >= self.productImageView.image.size.width) {
 		CGFloat imageRatio = self.productImageView.image.size.height / self.productImageView.image.size.width;
 		CGFloat imageViewRatio = CGRectGetHeight(self.productImageView.bounds) / CGRectGetWidth(self.productImageView.bounds);
-		if (imageViewRatio > imageRatio) {
+		if (imageViewRatio >= imageRatio) {
 			self.productImageView.contentMode = UIViewContentModeScaleAspectFill;
 		} else {
 			self.productImageView.contentMode = UIViewContentModeScaleAspectFit;

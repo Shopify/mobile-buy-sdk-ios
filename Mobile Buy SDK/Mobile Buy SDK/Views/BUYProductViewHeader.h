@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+@class BUYImageView;
 
 @interface BUYProductViewHeader : UIView
+
+@property (nonatomic, strong) BUYImageView *productImageView;
 
 - (void)setContentOffset:(CGPoint)offset;
 
