@@ -69,6 +69,7 @@
 	[self.client getProductById:@"595444547" completion:^(BUYProduct *product, NSError *error) {
 		self.product = product;
 		[self.tableView reloadData];
+		[self.productViewHeader setContentOffset:self.tableView.contentOffset];
 	}];
 }
 
