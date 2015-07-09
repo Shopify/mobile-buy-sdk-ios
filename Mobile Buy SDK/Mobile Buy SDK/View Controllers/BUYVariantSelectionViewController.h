@@ -11,6 +11,7 @@
 @class BUYProduct;
 @class BUYVariantSelectionViewController;
 @class BUYProductVariant;
+@class BUYTheme;
 
 @protocol BUYVariantSelectionDelegate <NSObject>
 
@@ -25,5 +26,7 @@
 @property (nonatomic, strong, readonly) BUYProduct *product;
 
 @property (nonatomic, weak) id <BUYVariantSelectionDelegate> delegate;
+
+@property (nonatomic, strong) BUYTheme *theme;
 
 @end

@@ -10,6 +10,7 @@
 
 @class BUYOptionValue;
 @class BUYOptionSelectionViewController;
+@class BUYTheme;
 
 @protocol BUYOptionSelectionDelegate <NSObject>
 
@@ -26,5 +27,7 @@
 @property (nonatomic, strong, readonly) NSArray *options;
 
 @property (nonatomic, weak) id <BUYOptionSelectionDelegate> delegate;
+
+@property (nonatomic, strong) BUYTheme *theme;
 
 @end

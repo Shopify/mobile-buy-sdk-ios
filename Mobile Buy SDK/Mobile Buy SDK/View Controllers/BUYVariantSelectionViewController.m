@@ -9,6 +9,7 @@
 #import "BUYVariantSelectionViewController.h"
 #import "BUYOptionSelectionViewController.h"
 #import "BUYProduct+Options.h"
+#import "BUYTheme.h"
 
 @interface BUYVariantSelectionViewController () <BUYOptionSelectionDelegate>
 
@@ -28,6 +29,7 @@
 	if (self) {
 		self.product = product;
 		self.selectedOptions = [NSMutableDictionary new];
+		self.theme = [[BUYTheme alloc] init];
 	}
 	
 	return self;
@@ -39,7 +41,6 @@
 	
 	BUYOptionSelectionViewController *controller = [self nextOptionSelectionController];
 	controller.navigationItem.hidesBackButton = YES;
-
 	[self.navigationController pushViewController:controller animated:NO];
 }
 
@@ -63,6 +64,7 @@
 	NSArray *options = [self.product valuesForOption:option];
 	BUYOptionSelectionViewController *optionController = [[BUYOptionSelectionViewController alloc] initWithOptions:options];
 	optionController.delegate = self;
+	optionController.theme = self.theme;
 
 	return optionController;
 }

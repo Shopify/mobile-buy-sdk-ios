@@ -59,7 +59,7 @@
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	cell.textLabel.text = option.value;
-	cell.textLabel.textColor = self.view.tintColor;
+	cell.textLabel.textColor = self.theme.tintColor;
 	
 	return cell;
 }

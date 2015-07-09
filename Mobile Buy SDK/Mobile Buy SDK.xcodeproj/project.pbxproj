@@ -131,6 +131,8 @@
 		BE9496BD1B4DA9F800B38949 /* BUYPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE9496BB1B4DA9F800B38949 /* BUYPresentationController.m */; };
 		BE9496C01B4DAA3C00B38949 /* BUYNavigationController.h in Headers */ = {isa = PBXBuildFile; fileRef = BE9496BE1B4DAA3C00B38949 /* BUYNavigationController.h */; };
 		BE9496C11B4DAA3C00B38949 /* BUYNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE9496BF1B4DAA3C00B38949 /* BUYNavigationController.m */; };
+		BE9496C41B4EC54100B38949 /* BUYTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = BE9496C21B4EC54100B38949 /* BUYTheme.h */; };
+		BE9496C51B4EC54100B38949 /* BUYTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = BE9496C31B4EC54100B38949 /* BUYTheme.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -263,6 +265,8 @@
 		BE9496BB1B4DA9F800B38949 /* BUYPresentationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYPresentationController.m; sourceTree = "<group>"; };
 		BE9496BE1B4DAA3C00B38949 /* BUYNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYNavigationController.h; sourceTree = "<group>"; };
 		BE9496BF1B4DAA3C00B38949 /* BUYNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYNavigationController.m; sourceTree = "<group>"; };
+		BE9496C21B4EC54100B38949 /* BUYTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYTheme.h; path = Views/BUYTheme.h; sourceTree = "<group>"; };
+		BE9496C31B4EC54100B38949 /* BUYTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYTheme.m; path = Views/BUYTheme.m; sourceTree = "<group>"; };
 		BED5C1C21B20C26A0009079F /* BUYErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYErrors.h; sourceTree = "<group>"; };
 		BEEA83E51B0B76C7000C6483 /* BUYOptionValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYOptionValue.h; sourceTree = "<group>"; };
 		BEEA83E61B0B76C7000C6483 /* BUYOptionValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYOptionValue.m; sourceTree = "<group>"; };
@@ -435,6 +439,8 @@
 				BE94968D1B4B3D8300B38949 /* BUYVariantOptionView.m */,
 				BE94967B1B4B12D100B38949 /* BUYProductDescriptionCell.h */,
 				BE94967C1B4B12D100B38949 /* BUYProductDescriptionCell.m */,
+				BE9496C21B4EC54100B38949 /* BUYTheme.h */,
+				BE9496C31B4EC54100B38949 /* BUYTheme.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -616,6 +622,7 @@
 				BE9496C01B4DAA3C00B38949 /* BUYNavigationController.h in Headers */,
 				BE9496611B45CBD200B38949 /* BUYPaymentButton.h in Headers */,
 				BE9496471B45C68E00B38949 /* BUYCheckout.h in Headers */,
+				BE9496C41B4EC54100B38949 /* BUYTheme.h in Headers */,
 				BE9496431B45C67E00B38949 /* BUYStoreViewController.h in Headers */,
 				BE94964A1B45C69C00B38949 /* BUYTaxLine.h in Headers */,
 			);
@@ -816,6 +823,7 @@
 			files = (
 				BE9496B91B4D96F100B38949 /* BUYProduct+Options.m in Sources */,
 				BE9496391B45C61500B38949 /* BUYShop.m in Sources */,
+				BE9496C51B4EC54100B38949 /* BUYTheme.m in Sources */,
 				BE94963E1B45C62200B38949 /* NSString+Trim.m in Sources */,
 				BE9496421B45C62C00B38949 /* BUYCheckout+Additions.m in Sources */,
 				BE9496321B45C60200B38949 /* BUYGiftCard.m in Sources */,
