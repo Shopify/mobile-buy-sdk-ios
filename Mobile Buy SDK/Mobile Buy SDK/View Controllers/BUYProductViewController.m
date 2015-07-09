@@ -64,8 +64,8 @@
 	}];
 }
 
-- (void)viewDidLoad {
-	[super viewDidLoad];
+- (void)loadView {
+	[super loadView];
 	
 	self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
 	self.tableView.delegate = self;
