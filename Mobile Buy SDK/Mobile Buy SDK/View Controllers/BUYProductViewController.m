@@ -22,6 +22,7 @@
 @property (nonatomic, strong) BUYProductViewFooter *productViewFooter;
 @property (nonatomic, strong) BUYGradientView *topGradientView;
 @property (nonatomic, strong) BUYProduct *product;
+@property (nonatomic, strong) BUYProductVariant *selectedProductVariant;
 
 @end
 
@@ -52,11 +53,14 @@
 																	  metrics:nil
 																		views:NSDictionaryOfVariableBindings(_tableView)]];
 	
-	self.productViewHeader = [[BUYProductViewHeader alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.bounds), CGRectGetWidth([[UIScreen mainScreen] bounds]))];
+	self.productViewHeader = [[BUYProductViewHeader alloc] init];
+	[self.productViewHeader setFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.bounds), CGRectGetWidth([[UIScreen mainScreen] bounds]))];
 	self.tableView.tableHeaderView = self.productViewHeader;
 	
 	self.productViewFooter = [[BUYProductViewFooter alloc] init];
 	self.productViewFooter.translatesAutoresizingMaskIntoConstraints = NO;
+	[self.productViewFooter.buyPaymentButton addTarget:self action:@selector(checkoutWithApplePay) forControlEvents:UIControlEventTouchUpInside];
+	[self.productViewFooter.checkoutButton addTarget:self action:@selector(checkoutWithShopify) forControlEvents:UIControlEventTouchUpInside];
 	[self.view addSubview:self.productViewFooter];
 	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_productViewFooter]|"
 																	  options:0
@@ -66,8 +70,8 @@
 																	  options:0
 																	  metrics:nil
 																		views:NSDictionaryOfVariableBindings(_productViewFooter)]];
+	[self.productViewFooter setApplePayButtonVisible:self.isApplePayAvailable];
 	
-	[self.productViewFooter setApplePayButtonVisible:YES];
 	
 	self.topGradientView = [[BUYGradientView alloc] init];
 	self.topGradientView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -95,8 +99,8 @@
 	
 	[self.client getProductById:@"595444547" completion:^(BUYProduct *product, NSError *error) {
 		self.product = product;
-		BUYProductVariant *productVariant = [self.product.variants firstObject];
-		[self.productViewHeader.productImageView loadImageWithURL:[self imageSrcForVariant:productVariant]];
+		self.selectedProductVariant = [self.product.variants firstObject];
+		[self.productViewHeader.productImageView loadImageWithURL:[self imageSrcForVariant:self.selectedProductVariant]];
 		[self.tableView reloadData];
 		[self.productViewHeader setContentOffset:self.tableView.contentOffset];
 	}];
@@ -135,12 +139,12 @@
 	}
 	else if (indexPath.row == 1) {
 		BUYProductVariantCell *cell = [tableView dequeueReusableCellWithIdentifier:@"variantCell"];
-		cell.productVariant = self.product.variants.firstObject;
+		cell.productVariant = self.selectedProductVariant;
 		return cell;
 	}
 	else {
 		BUYProductDescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"descriptionCell"];
-		cell.descriptionHTML = self.product.htmlDescription;
+		cell.descriptionHTML = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non eleifend lectus, nec efficitur velit. Etiam ligula elit, sagittis at velit ac, vehicula efficitur nulla. Vivamus nec nulla vel lacus sollicitudin bibendum. Mauris mattis neque eu arcu scelerisque blandit condimentum vehicula eros. Suspendisse potenti. Proin ornare ut augue eu posuere. Ut volutpat, massa a tempor suscipit, enim augue sodales nulla, non efficitur urna magna vel nunc. Aenean commodo turpis nec orci consectetur, luctus suscipit purus laoreet. Phasellus mi nisi, viverra eu diam in, scelerisque tempor velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc ut tristique arcu, in scelerisque diam. Sed sem dolor, euismod tristique maximus a, viverra sed metus. Donec ex nisi, facilisis at lacus condimentum, vulputate malesuada turpis.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non eleifend lectus, nec efficitur velit. Etiam ligula elit, sagittis at velit ac, vehicula efficitur nulla. Vivamus nec nulla vel lacus sollicitudin bibendum. Mauris mattis neque eu arcu scelerisque blandit condimentum vehicula eros. Suspendisse potenti. Proin ornare ut augue eu posuere. Ut volutpat, massa a tempor suscipit, enim augue sodales nulla, non efficitur urna magna vel nunc. Aenean commodo turpis nec orci consectetur, luctus suscipit purus laoreet. Phasellus mi nisi, viverra eu diam in, scelerisque tempor velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc ut tristique arcu, in scelerisque diam. Sed sem dolor, euismod tristique maximus a, viverra sed metus. Donec ex nisi, facilisis at lacus condimentum, vulputate malesuada turpis.";// self.product.htmlDescription;
 		cell.separatorInset = UIEdgeInsetsMake(0, CGRectGetWidth(self.tableView.bounds), 0, 0);
 		return cell;
 	}
@@ -164,6 +168,27 @@
 	}
 	return nil;
 }
+
+#pragma mark Checkout
+
+- (BUYCart*)cart
+{
+	BUYCart *cart = [[BUYCart alloc] init];
+	[cart addVariant:self.selectedProductVariant];
+	return cart;
+}
+
+- (void)checkoutWithApplePay
+{
+	[self startApplePayCheckoutWithCart:[self cart]];
+}
+
+- (void)checkoutWithShopify
+{
+	[self startWebCheckoutWithCart:[self cart]];
+}
+
+#pragma mark UIStatusBar appearance
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {

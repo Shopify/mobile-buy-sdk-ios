@@ -22,9 +22,9 @@
 
 @implementation BUYProductViewHeader
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)init
 {
-	self = [super initWithFrame:frame];
+	self = [super init];
 	if (self) {
 		self.backgroundColor = [UIColor redColor];
 		
@@ -80,11 +80,11 @@
 		[self addConstraint:self.productImageViewConstraintBottom];
 		
 		self.productImageViewConstraint = [NSLayoutConstraint constraintWithItem:self.productImageView
-																		  attribute:NSLayoutAttributeHeight
-																		  relatedBy:NSLayoutRelationEqual
-																			 toItem:nil
-																		  attribute:NSLayoutAttributeNotAnAttribute
-																		 multiplier:1.0
+																	   attribute:NSLayoutAttributeHeight
+																	   relatedBy:NSLayoutRelationEqual
+																		  toItem:nil
+																	   attribute:NSLayoutAttributeNotAnAttribute
+																	  multiplier:1.0
 																		constant:0.0];
 		[self addConstraint:self.productImageViewConstraint];
 		
