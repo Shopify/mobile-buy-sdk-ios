@@ -7,13 +7,13 @@
 //
 
 #import "BUYPresentationControllerWithNavigationController.h"
-#import "BUYNavigationController.h"
+#import "BUYOptionSelectionNavigationController.h"
 
 @implementation BUYPresentationControllerWithNavigationController
 
 - (UIViewController *)presentationController:(UIPresentationController *)controller viewControllerForAdaptivePresentationStyle:(UIModalPresentationStyle)style
 {
-	BUYNavigationController *navigationController = [[BUYNavigationController alloc] initWithRootViewController:controller.presentedViewController];
+	UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller.presentedViewController];
 	UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(dismissPopover)];
 	navigationController.topViewController.navigationItem.leftBarButtonItem = barButtonItem;
 	return navigationController;

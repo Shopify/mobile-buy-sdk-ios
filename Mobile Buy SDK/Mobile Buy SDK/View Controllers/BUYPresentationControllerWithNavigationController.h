@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BUYPresentationControllerWithNavigationController : UIPresentationController
+@interface BUYPresentationControllerWithNavigationController : UIPresentationController <UIAdaptivePresentationControllerDelegate>
 
 @end

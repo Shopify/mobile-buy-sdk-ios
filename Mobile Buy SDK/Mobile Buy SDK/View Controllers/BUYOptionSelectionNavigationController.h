@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BUYNavigationController : UINavigationController
+@interface BUYOptionSelectionNavigationController : UINavigationController
 
 @end

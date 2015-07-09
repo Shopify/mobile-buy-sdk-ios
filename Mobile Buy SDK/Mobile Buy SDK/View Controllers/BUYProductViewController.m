@@ -8,7 +8,7 @@
 
 #import "BUYGradientView.h"
 #import "BUYImageView.h"
-#import "BUYNavigationController.h"
+#import "BUYOptionSelectionNavigationController.h"
 #import "BUYPresentationControllerWithNavigationController.h"
 #import "BUYProductViewController.h"
 #import "BUYProductViewFooter.h"
@@ -17,7 +17,7 @@
 #import "BUYProductVariantCell.h"
 #import "BUYProductDescriptionCell.h"
 
-@interface BUYProductViewController () <UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, UIAdaptivePresentationControllerDelegate>
+@interface BUYProductViewController () <UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) BUYProductViewHeader *productViewHeader;
@@ -53,7 +53,7 @@
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source
 {
 	BUYPresentationControllerWithNavigationController *presentationController = [[BUYPresentationControllerWithNavigationController alloc] initWithPresentedViewController:presented presentingViewController:presenting];
-	presentationController.delegate = self;
+	presentationController.delegate = presentationController;
 	return presentationController;
 }
 

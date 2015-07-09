@@ -6,14 +6,14 @@
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 
-#import "BUYNavigationController.h"
+#import "BUYOptionSelectionNavigationController.h"
 #import "BUYPresentationController.h"
 
-@interface BUYNavigationController () <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
+@interface BUYOptionSelectionNavigationController () <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
 
 @end
 
-@implementation BUYNavigationController
+@implementation BUYOptionSelectionNavigationController
 
 - (instancetype)initWithRootViewController:(UIViewController *)rootViewController
 {
