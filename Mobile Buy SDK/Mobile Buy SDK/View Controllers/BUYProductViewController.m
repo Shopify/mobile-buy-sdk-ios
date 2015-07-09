@@ -44,7 +44,7 @@
 	self = [super initWithClient:client];
 	if (self) {
 		self.view.backgroundColor = [UIColor clearColor];
-		self.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+		self.modalPresentationStyle = UIModalPresentationCustom;
 		self.transitioningDelegate = self;
 	}
 	return self;
