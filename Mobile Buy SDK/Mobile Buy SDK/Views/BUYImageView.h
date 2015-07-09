@@ -10,6 +10,6 @@
 
 @interface BUYImageView : UIImageView
 
-- (void)loadImageWithURL:(NSURL *)imageURL;
+- (void)loadImageWithURL:(NSURL *)imageURL completion:(void (^)(UIImage *image, NSError *error))completion;
 
 @end

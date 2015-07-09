@@ -16,14 +16,21 @@
 
 @implementation BUYImageView
 
-- (void)loadImageWithURL:(NSURL *)imageURL
+- (void)loadImageWithURL:(NSURL *)imageURL completion:(void (^)(UIImage *image, NSError *error))completion
 {
 	self.task = [[NSURLSession sharedSession] dataTaskWithURL:imageURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
 		if (error == nil && data) {
 			UIImage *productImage = [UIImage imageWithData:data];
 			dispatch_async(dispatch_get_main_queue(), ^{
 				self.image = productImage;
+				if (completion) {
+					completion(productImage, nil);
+				}
 			});
+		} else {
+			if (completion) {
+				completion(nil, error);
+			}
 		}
 	}];
 	[self.task resume];

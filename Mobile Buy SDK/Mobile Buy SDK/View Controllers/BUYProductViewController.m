@@ -64,7 +64,10 @@
 		dispatch_async(dispatch_get_main_queue(), ^{
 			self.product = product;
 			self.selectedProductVariant = [self.product.variants firstObject];
-			[self.productViewHeader.productImageView loadImageWithURL:[self imageSrcForVariant:self.selectedProductVariant]];
+			[self.productViewHeader.productImageView loadImageWithURL:[self imageSrcForVariant:self.selectedProductVariant]
+														   completion:^(UIImage *image, NSError *error) {
+															   [self.productViewHeader setContentOffset:self.tableView.contentOffset];
+														   }];
 			[self.tableView reloadData];
 			[self.productViewHeader setContentOffset:self.tableView.contentOffset];
 			if (completion) {
