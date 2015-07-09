@@ -209,8 +209,10 @@ NSString * const BUYVersionString = @"1.1";
 {
 	checkout.channelId = self.channelId;
 	checkout.marketingAttribution = @{@"medium": @"iOS", @"source": self.applicationName};
-	checkout.webReturnToURL = self.urlScheme;
-	checkout.webReturnToLabel = self.applicationName;
+	if (self.urlScheme) {
+		checkout.webReturnToURL = self.urlScheme;
+		checkout.webReturnToLabel = self.applicationName;
+	}
 }
 
 - (NSURLSessionDataTask *)createCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
