@@ -2,7 +2,7 @@
 //  BUYProductViewController.h
 //  Mobile Buy SDK
 //
-//  Created by Rune Madsen on 2015-07-07.
+//  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 

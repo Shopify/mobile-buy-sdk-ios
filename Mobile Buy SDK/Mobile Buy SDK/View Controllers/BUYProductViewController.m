@@ -6,16 +6,18 @@
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 
+#import "BUYGradientView.h"
+#import "BUYImageView.h"
+#import "BUYNavigationController.h"
+#import "BUYPresentationControllerWithNavigationController.h"
 #import "BUYProductViewController.h"
 #import "BUYProductViewFooter.h"
 #import "BUYProductViewHeader.h"
 #import "BUYProductHeaderCell.h"
 #import "BUYProductVariantCell.h"
 #import "BUYProductDescriptionCell.h"
-#import "BUYImageView.h"
-#import "BUYGradientView.h"
 
-@interface BUYProductViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface BUYProductViewController () <UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, UIAdaptivePresentationControllerDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) BUYProductViewHeader *productViewHeader;
@@ -43,8 +45,16 @@
 	if (self) {
 		self.view.backgroundColor = [UIColor clearColor];
 		self.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+		self.transitioningDelegate = self;
 	}
 	return self;
+}
+
+- (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source
+{
+	BUYPresentationControllerWithNavigationController *presentationController = [[BUYPresentationControllerWithNavigationController alloc] initWithPresentedViewController:presented presentingViewController:presenting];
+	presentationController.delegate = self;
+	return presentationController;
 }
 
 - (void)loadProduct:(NSString *)productId completion:(void (^)(BOOL success, NSError *error))completion

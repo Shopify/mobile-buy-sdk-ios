@@ -51,6 +51,8 @@
 		90516CB51B4EE5E700E35E45 /* BUYGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90516CB31B4EE5E700E35E45 /* BUYGradientView.m */; };
 		90516CBA1B4F0E3F00E35E45 /* BUYTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = 90516CB61B4F0DD500E35E45 /* BUYTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90516CBC1B4F0E9800E35E45 /* BUYTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 90516CB71B4F0DD500E35E45 /* BUYTheme.m */; };
+		90516CBF1B4F110A00E35E45 /* BUYPresentationControllerWithNavigationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 90516CBD1B4F110A00E35E45 /* BUYPresentationControllerWithNavigationController.h */; };
+		90516CC01B4F110A00E35E45 /* BUYPresentationControllerWithNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90516CBE1B4F110A00E35E45 /* BUYPresentationControllerWithNavigationController.m */; };
 		905ECCC21B4C39710094F336 /* BUYProductViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 905ECCC01B4C39710094F336 /* BUYProductViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		905ECCC31B4C39710094F336 /* BUYProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 905ECCC11B4C39710094F336 /* BUYProductViewController.m */; };
 		905ECCC61B4C3C6A0094F336 /* libBuy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE94960E1B45C5A500B38949 /* libBuy.a */; };
@@ -223,6 +225,8 @@
 		90516CB31B4EE5E700E35E45 /* BUYGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYGradientView.m; sourceTree = "<group>"; };
 		90516CB61B4F0DD500E35E45 /* BUYTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYTheme.h; path = Views/BUYTheme.h; sourceTree = "<group>"; };
 		90516CB71B4F0DD500E35E45 /* BUYTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYTheme.m; path = Views/BUYTheme.m; sourceTree = "<group>"; };
+		90516CBD1B4F110A00E35E45 /* BUYPresentationControllerWithNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYPresentationControllerWithNavigationController.h; sourceTree = "<group>"; };
+		90516CBE1B4F110A00E35E45 /* BUYPresentationControllerWithNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYPresentationControllerWithNavigationController.m; sourceTree = "<group>"; };
 		905AA96F1B3B32A500CAE037 /* BUYPaymentButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYPaymentButton.h; sourceTree = "<group>"; };
 		905AA9701B3B32A500CAE037 /* BUYPaymentButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYPaymentButton.m; sourceTree = "<group>"; };
 		905ECCC01B4C39710094F336 /* BUYProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYProductViewController.h; sourceTree = "<group>"; };
@@ -461,6 +465,8 @@
 			children = (
 				905ECCC01B4C39710094F336 /* BUYProductViewController.h */,
 				905ECCC11B4C39710094F336 /* BUYProductViewController.m */,
+				90516CBD1B4F110A00E35E45 /* BUYPresentationControllerWithNavigationController.h */,
+				90516CBE1B4F110A00E35E45 /* BUYPresentationControllerWithNavigationController.m */,
 				BE9496BA1B4DA9F800B38949 /* BUYPresentationController.h */,
 				BE9496BB1B4DA9F800B38949 /* BUYPresentationController.m */,
 				BE9496BE1B4DAA3C00B38949 /* BUYNavigationController.h */,
@@ -623,6 +629,7 @@
 				BE9496B21B4D96D800B38949 /* BUYOptionSelectionViewController.h in Headers */,
 				BE9496551B45C6DF00B38949 /* BUYShop.h in Headers */,
 				BE9496511B45C6BE00B38949 /* BUYOption.h in Headers */,
+				90516CBF1B4F110A00E35E45 /* BUYPresentationControllerWithNavigationController.h in Headers */,
 				90516C9B1B4D76D900E35E45 /* BUYProductDescriptionCell.h in Headers */,
 				BE9496531B45C6D200B38949 /* BUYProductVariant.h in Headers */,
 				90516CB01B4EC9FE00E35E45 /* BUYImageView.h in Headers */,
@@ -871,6 +878,7 @@
 				BE9496621B45CBD600B38949 /* BUYPaymentButton.m in Sources */,
 				90516CA01B4D76D900E35E45 /* BUYProductVariantCell.m in Sources */,
 				BE9496301B45C5FC00B38949 /* BUYAddress.m in Sources */,
+				90516CC01B4F110A00E35E45 /* BUYPresentationControllerWithNavigationController.m in Sources */,
 				90516CB51B4EE5E700E35E45 /* BUYGradientView.m in Sources */,
 				BE94962E1B45C5F800B38949 /* BUYDiscount.m in Sources */,
 				BE94962B1B45C5EF00B38949 /* BUYCart.m in Sources */,
