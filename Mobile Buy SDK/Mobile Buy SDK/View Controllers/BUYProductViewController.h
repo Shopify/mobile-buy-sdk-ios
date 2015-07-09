@@ -13,17 +13,6 @@
 @interface BUYProductViewController : BUYViewController
 
 /**
- *  Instantiates a `BUYProductViewController` with a newly created BUYClient
- *
- *  @param shopDomain The Shop Domain i.e. abetterlookingshop.myshopify.com
- *  @param apiKey     The API key provided via the Mobile SDK Channel on Shopify Admin
- *  @param channelId  The Channel ID provided on Shopify Admin
- *
- *  @return a `BUYProductViewController` instance
- */
-- (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey channelId:(NSString *)channelId;
-
-/**
  *  Loads the product details
  *
  *  @param productId  the product ID for the item to display

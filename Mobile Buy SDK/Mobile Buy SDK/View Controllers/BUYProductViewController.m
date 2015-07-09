@@ -32,13 +32,6 @@
 
 @implementation BUYProductViewController
 
-- (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey channelId:(NSString *)channelId
-{
-	BUYClient *client = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
-	self = [self initWithClient:client];
-	return self;
-}
-
 - (instancetype)initWithClient:(BUYClient *)client
 {
 	self = [super initWithClient:client];
@@ -166,6 +159,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+	// TODO: add logic to determine whether there are variants to select
 	return self.product ? 3 : 0;
 }
 
