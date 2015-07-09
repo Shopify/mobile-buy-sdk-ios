@@ -54,6 +54,11 @@
 @property (nonatomic, readonly, strong) NSNumber *requiresShipping;
 
 /**
+ *  A unique identifier for the product in the shop.
+ */
+@property (nonatomic, readonly, strong) NSString *sku;
+
+/**
  *  Specifies whether or not a tax is charged when the BUYProductVariant is sold.
  */
 @property (nonatomic, readonly, strong) NSNumber *taxable;
