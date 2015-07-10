@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol BUYPresentationControllerWithNavigationControllerDelegate;
+
 @interface BUYPresentationControllerWithNavigationController : UIPresentationController <UIAdaptivePresentationControllerDelegate>
+
+@property (nonatomic, weak) id <BUYPresentationControllerWithNavigationControllerDelegate> presentationDelegate;
+
+@end
+
+@protocol BUYPresentationControllerWithNavigationControllerDelegate <NSObject>
+
+- (void)presentationControllerWillDismiss:(UIPresentationController*)presentationController;
+- (void)presentationControllerDidDismiss:(UIPresentationController*)presentationController;
 
 @end

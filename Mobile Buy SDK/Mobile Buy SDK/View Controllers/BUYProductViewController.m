@@ -25,7 +25,7 @@
 @property (nonatomic, strong) BUYProductViewHeader *productViewHeader;
 @property (nonatomic, strong) BUYProductViewFooter *productViewFooter;
 @property (nonatomic, strong) BUYGradientView *topGradientView;
-
+@property (nonatomic, weak) UIImageView *navigationBarShadowImageView;
 @property (nonatomic, strong) NSString *productId;
 @property (nonatomic, strong) BUYProduct *product;
 @property (nonatomic, strong) BUYProductVariant *selectedProductVariant;
@@ -135,6 +135,12 @@
 														  attribute:NSLayoutAttributeNotAnAttribute
 														 multiplier:1.0
 														   constant:64]];
+}
+
+- (void)viewDidLoad
+{
+	[super viewDidLoad];
+	self.navigationBarShadowImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
 }
 
 - (void)viewDidLayoutSubviews
@@ -248,5 +254,18 @@
 {
 	return UIStatusBarAnimationFade;
 }
+
+//- (UIImageView *)findHairlineImageViewUnder:(UIView *)view {
+//	if ([view isKindOfClass:UIImageView.class] && view.bounds.size.height <= 1.0) {
+//		return (UIImageView *)view;
+//	}
+//	for (UIView *subview in view.subviews) {
+//		UIImageView *imageView = [self findHairlineImageViewUnder:subview];
+//		if (imageView) {
+//			return imageView;
+//		}
+//	}
+//	return nil;
+//}
 
 @end

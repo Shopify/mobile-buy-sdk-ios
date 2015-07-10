@@ -22,8 +22,13 @@
 
 - (void)dismissPopover
 {
+	if ([self.presentationDelegate respondsToSelector:@selector(presentationControllerWillDismiss:)]) {
+		[self.presentationDelegate presentationControllerWillDismiss:self];
+	}
 	[self.presentedViewController dismissViewControllerAnimated:YES completion:^{
-		// TODO: call a delegate so we can notify the presenting view controller of dismissal
+		if ([self.presentationDelegate respondsToSelector:@selector(presentationControllerDidDismiss:)]) {
+			[self.presentationDelegate presentationControllerDidDismiss:self];
+		}
 	}];
 }
 
