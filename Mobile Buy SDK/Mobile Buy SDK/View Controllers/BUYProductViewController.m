@@ -19,7 +19,7 @@
 #import "BUYProductDescriptionCell.h"
 #import "BUYVariantSelectionViewController.h"
 
-@interface BUYProductViewController () <UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, BUYVariantSelectionDelegate>
+@interface BUYProductViewController () <UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, BUYVariantSelectionDelegate, BUYPresentationControllerWithNavigationControllerDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) BUYProductViewHeader *productViewHeader;
@@ -49,6 +49,7 @@
 {
 	BUYPresentationControllerWithNavigationController *presentationController = [[BUYPresentationControllerWithNavigationController alloc] initWithPresentedViewController:presented presentingViewController:presenting];
 	presentationController.delegate = presentationController;
+	presentationController.presentationDelegate = self;
 	return presentationController;
 }
 
@@ -235,11 +236,17 @@
 
 - (void)checkoutWithApplePay
 {
+	if ([self.productDelegate respondsToSelector:@selector(productViewControllerWillCheckoutViaApplePay:)]) {
+		[self.productDelegate productViewControllerWillCheckoutViaApplePay:self];
+	}
 	[self startApplePayCheckoutWithCart:[self cart]];
 }
 
 - (void)checkoutWithShopify
 {
+	if ([self.productDelegate respondsToSelector:@selector(productViewControllerWillCheckoutViaWeb:)]) {
+		[self.productDelegate productViewControllerWillCheckoutViaWeb:self];
+	}
 	[self startWebCheckoutWithCart:[self cart]];
 }
 
@@ -255,17 +262,31 @@
 	return UIStatusBarAnimationFade;
 }
 
-//- (UIImageView *)findHairlineImageViewUnder:(UIView *)view {
-//	if ([view isKindOfClass:UIImageView.class] && view.bounds.size.height <= 1.0) {
-//		return (UIImageView *)view;
-//	}
-//	for (UIView *subview in view.subviews) {
-//		UIImageView *imageView = [self findHairlineImageViewUnder:subview];
-//		if (imageView) {
-//			return imageView;
-//		}
-//	}
-//	return nil;
-//}
+#pragma mark BUYPresentationControllerWithNavigationControllerDelegate
+
+- (void)presentationControllerWillDismiss:(UIPresentationController *)presentationController
+{
+	
+}
+
+- (void)presentationControllerDidDismiss:(UIPresentationController *)presentationController
+{
+	if ([self.productDelegate respondsToSelector:@selector(productViewControllerDidFinish:)]) {
+		[self.productDelegate productViewControllerDidFinish:self];
+	}
+}
+
+- (UIImageView *)findHairlineImageViewUnder:(UIView *)view {
+	if ([view isKindOfClass:UIImageView.class] && view.bounds.size.height <= 1.0) {
+		return (UIImageView *)view;
+	}
+	for (UIView *subview in view.subviews) {
+		UIImageView *imageView = [self findHairlineImageViewUnder:subview];
+		if (imageView) {
+			return imageView;
+		}
+	}
+	return nil;
+}
 
 @end
