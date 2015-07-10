@@ -6,12 +6,13 @@
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 
-#import "BUYProductViewHeader.h"
 #import "BUYImageView.h"
+#import "BUYProductViewHeader.h"
+#import "BUYProductViewHeaderBackgroundImageView.h"
 
 @interface BUYProductViewHeader ()
 
-@property (nonatomic, strong) BUYImageView *backgroundImageView;
+@property (nonatomic, strong) BUYProductViewHeaderBackgroundImageView *backgroundImageView;
 @property (nonatomic, strong) NSLayoutConstraint *backgroundImageViewConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *backgroundImageViewConstraintBottom;
 @property (nonatomic, strong) NSLayoutConstraint *productImageViewConstraint;
@@ -28,11 +29,8 @@
 	if (self) {
 		self.backgroundColor = [UIColor redColor];
 		
-		self.backgroundImageView = [[BUYImageView alloc] init];
-		self.backgroundImageView.clipsToBounds = YES;
+		self.backgroundImageView = [[BUYProductViewHeaderBackgroundImageView alloc] init];
 		self.backgroundImageView.translatesAutoresizingMaskIntoConstraints = NO;
-		self.backgroundImageView.backgroundColor = [UIColor clearColor];
-		self.backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
 		[self addSubview:self.backgroundImageView];
 		
 		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_backgroundImageView]|"
@@ -71,12 +69,12 @@
 																	   views:NSDictionaryOfVariableBindings(_productImageView)]];
 		
 		self.productImageViewConstraintBottom = [NSLayoutConstraint constraintWithItem:self.productImageView
-																				attribute:NSLayoutAttributeBottom
-																				relatedBy:NSLayoutRelationEqual
+																			 attribute:NSLayoutAttributeBottom
+																			 relatedBy:NSLayoutRelationEqual
 																				toItem:self
-																				attribute:NSLayoutAttributeBottom
+																			 attribute:NSLayoutAttributeBottom
 																			multiplier:1.0
-																				 constant:0.0];
+																			  constant:0.0];
 		[self addConstraint:self.productImageViewConstraintBottom];
 		
 		self.productImageViewConstraint = [NSLayoutConstraint constraintWithItem:self.productImageView
@@ -90,6 +88,11 @@
 		
 	}
 	return self;
+}
+
+- (void)setProductImage:(UIImage*)image
+{
+	self.backgroundImageView.productImageView.image = image;
 }
 
 - (void)setContentOffset:(CGPoint)offset
@@ -121,6 +124,8 @@
 		} else {
 			self.productImageView.contentMode = UIViewContentModeScaleAspectFit;
 		}
+	} else {
+		self.productImageView.contentMode = UIViewContentModeScaleAspectFit;
 	}
 }
 

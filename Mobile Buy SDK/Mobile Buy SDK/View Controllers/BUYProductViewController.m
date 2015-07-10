@@ -118,7 +118,7 @@
 																	  options:0
 																	  metrics:nil
 																		views:NSDictionaryOfVariableBindings(_productViewFooter)]];
-	[self.productViewFooter setApplePayButtonVisible:self.isApplePayAvailable];
+	[self.productViewFooter setApplePayButtonVisible:YES]; //self.isApplePayAvailable
 	
 	
 	self.topGradientView = [[BUYGradientView alloc] init];
@@ -154,7 +154,7 @@
 - (void)viewDidLayoutSubviews
 {
 	[super viewDidLayoutSubviews];
-	self.tableView.separatorInset = self.tableView.contentInset = UIEdgeInsetsMake(self.tableView.contentInset.top, self.tableView.contentInset.left, CGRectGetHeight(self.productViewFooter.frame), self.tableView.contentInset.right);
+	self.tableView.separatorInset = self.tableView.contentInset = UIEdgeInsetsMake(0, self.tableView.contentInset.left, CGRectGetHeight(self.productViewFooter.frame), self.tableView.contentInset.right);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -228,6 +228,7 @@
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", image.src]];
 	[self.productViewHeader.productImageView loadImageWithURL:url
 												   completion:^(UIImage *image, NSError *error) {
+													   [self.productViewHeader setProductImage:image];
 													   [self.productViewHeader setContentOffset:self.tableView.contentOffset];
 												   }];
 }

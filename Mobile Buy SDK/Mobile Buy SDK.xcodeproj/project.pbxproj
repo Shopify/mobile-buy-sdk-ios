@@ -76,6 +76,8 @@
 		90F7BA791B0D1DAF0067864D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90F7BA771B0D1DAF0067864D /* Main.storyboard */; };
 		90F7BA7B1B0D1DAF0067864D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90F7BA7A1B0D1DAF0067864D /* Images.xcassets */; };
 		90F7BA7E1B0D1DAF0067864D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90F7BA7C1B0D1DAF0067864D /* LaunchScreen.xib */; };
+		90FC31A81B50371600AFAB51 /* BUYProductViewHeaderBackgroundImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 90FC31A61B50371600AFAB51 /* BUYProductViewHeaderBackgroundImageView.h */; };
+		90FC31A91B50371600AFAB51 /* BUYProductViewHeaderBackgroundImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90FC31A71B50371600AFAB51 /* BUYProductViewHeaderBackgroundImageView.m */; };
 		BE9496251B45C5C400B38949 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A54742D1A0AA61600822409 /* PassKit.framework */; };
 		BE9496281B45C5E400B38949 /* BUYStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1C4DF41AE98FBB00E21624 /* BUYStoreViewController.m */; };
 		BE9496291B45C5E700B38949 /* BUYViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1C4DF61AE98FBB00E21624 /* BUYViewController.m */; };
@@ -272,6 +274,8 @@
 		90F7BA781B0D1DAF0067864D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		90F7BA7A1B0D1DAF0067864D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		90F7BA7D1B0D1DAF0067864D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		90FC31A61B50371600AFAB51 /* BUYProductViewHeaderBackgroundImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYProductViewHeaderBackgroundImageView.h; sourceTree = "<group>"; };
+		90FC31A71B50371600AFAB51 /* BUYProductViewHeaderBackgroundImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYProductViewHeaderBackgroundImageView.m; sourceTree = "<group>"; };
 		BE1C4DF31AE98FBB00E21624 /* BUYStoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYStoreViewController.h; sourceTree = "<group>"; };
 		BE1C4DF41AE98FBB00E21624 /* BUYStoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BUYStoreViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BE1C4DF51AE98FBB00E21624 /* BUYViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BUYViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -378,6 +382,8 @@
 				90516C7A1B4C589A00E35E45 /* BUYProductViewFooter.m */,
 				90516C851B4C6F7000E35E45 /* BUYProductViewHeader.h */,
 				90516C861B4C6F7000E35E45 /* BUYProductViewHeader.m */,
+				90FC31A61B50371600AFAB51 /* BUYProductViewHeaderBackgroundImageView.h */,
+				90FC31A71B50371600AFAB51 /* BUYProductViewHeaderBackgroundImageView.m */,
 				90516CB61B4F0DD500E35E45 /* BUYTheme.h */,
 				90516CB71B4F0DD500E35E45 /* BUYTheme.m */,
 				90516CA11B4D771400E35E45 /* BUYVariantOptionView.h */,
@@ -637,6 +643,7 @@
 				BE9496551B45C6DF00B38949 /* BUYShop.h in Headers */,
 				BE9496511B45C6BE00B38949 /* BUYOption.h in Headers */,
 				90516CBF1B4F110A00E35E45 /* BUYPresentationControllerWithNavigationController.h in Headers */,
+				90FC31A81B50371600AFAB51 /* BUYProductViewHeaderBackgroundImageView.h in Headers */,
 				90516C9B1B4D76D900E35E45 /* BUYProductDescriptionCell.h in Headers */,
 				BE9496531B45C6D200B38949 /* BUYProductVariant.h in Headers */,
 				90516CB01B4EC9FE00E35E45 /* BUYImageView.h in Headers */,
@@ -877,6 +884,7 @@
 				BE94963E1B45C62200B38949 /* NSString+Trim.m in Sources */,
 				BE9496421B45C62C00B38949 /* BUYCheckout+Additions.m in Sources */,
 				BE9496321B45C60200B38949 /* BUYGiftCard.m in Sources */,
+				90FC31A91B50371600AFAB51 /* BUYProductViewHeaderBackgroundImageView.m in Sources */,
 				BE94966B1B45CD6400B38949 /* BUYClient+WebCheckout.m in Sources */,
 				BE9496331B45C60400B38949 /* BUYImage.m in Sources */,
 				BE9496341B45C60700B38949 /* BUYLineItem.m in Sources */,
