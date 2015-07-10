@@ -133,6 +133,8 @@
 		BE9496C11B4DAA3C00B38949 /* BUYNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE9496BF1B4DAA3C00B38949 /* BUYNavigationController.m */; };
 		BE9496C41B4EC54100B38949 /* BUYTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = BE9496C21B4EC54100B38949 /* BUYTheme.h */; };
 		BE9496C51B4EC54100B38949 /* BUYTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = BE9496C31B4EC54100B38949 /* BUYTheme.m */; };
+		BE9A636A1B4F157E0033E558 /* Buy.modulemap in Sources */ = {isa = PBXBuildFile; fileRef = BE9A63691B4F157E0033E558 /* Buy.modulemap */; };
+		BE9A639E1B500B550033E558 /* Buy-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = BE9A639D1B500B360033E558 /* Buy-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -267,6 +269,8 @@
 		BE9496BF1B4DAA3C00B38949 /* BUYNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYNavigationController.m; sourceTree = "<group>"; };
 		BE9496C21B4EC54100B38949 /* BUYTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYTheme.h; path = Views/BUYTheme.h; sourceTree = "<group>"; };
 		BE9496C31B4EC54100B38949 /* BUYTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYTheme.m; path = Views/BUYTheme.m; sourceTree = "<group>"; };
+		BE9A63691B4F157E0033E558 /* Buy.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = Buy.modulemap; sourceTree = "<group>"; };
+		BE9A639D1B500B360033E558 /* Buy-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Buy-Bridging-Header.h"; sourceTree = "<group>"; };
 		BED5C1C21B20C26A0009079F /* BUYErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYErrors.h; sourceTree = "<group>"; };
 		BEEA83E51B0B76C7000C6483 /* BUYOptionValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYOptionValue.h; sourceTree = "<group>"; };
 		BEEA83E61B0B76C7000C6483 /* BUYOptionValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYOptionValue.m; sourceTree = "<group>"; };
@@ -472,6 +476,8 @@
 			isa = PBXGroup;
 			children = (
 				904FB6011AE03D4500EA1758 /* Buy.h */,
+				BE9A639D1B500B360033E558 /* Buy-Bridging-Header.h */,
+				BE9A63691B4F157E0033E558 /* Buy.modulemap */,
 				F773749F19C77E4E0039681C /* Classes */,
 				F773749E19C77E460039681C /* Supporting Files */,
 			);
@@ -600,6 +606,7 @@
 				BE9496481B45C69400B38949 /* BUYShippingRate.h in Headers */,
 				BE9496521B45C6CD00B38949 /* BUYProduct.h in Headers */,
 				BE9496B81B4D96F100B38949 /* BUYProduct+Options.h in Headers */,
+				BE9A639E1B500B550033E558 /* Buy-Bridging-Header.h in Headers */,
 				BE94964D1B45C6AA00B38949 /* BUYGiftCard.h in Headers */,
 				BE94964B1B45C6A100B38949 /* BUYAddress.h in Headers */,
 				BE9496491B45C69800B38949 /* BUYDiscount.h in Headers */,
@@ -830,6 +837,7 @@
 				BE94966B1B45CD6400B38949 /* BUYClient+WebCheckout.m in Sources */,
 				BE9496331B45C60400B38949 /* BUYImage.m in Sources */,
 				BE9496341B45C60700B38949 /* BUYLineItem.m in Sources */,
+				BE9A636A1B4F157E0033E558 /* Buy.modulemap in Sources */,
 				BE94963A1B45C61700B38949 /* BUYOptionValue.m in Sources */,
 				BE9496621B45CBD600B38949 /* BUYPaymentButton.m in Sources */,
 				BE9496761B4B124D00B38949 /* BUYProductHeaderCell.m in Sources */,
@@ -1025,6 +1033,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1047,6 +1056,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
