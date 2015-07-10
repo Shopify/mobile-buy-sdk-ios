@@ -56,7 +56,7 @@
 		[self addConstraint:self.productImageViewConstraint];
 		
 		self.pageControl = [[UIPageControl alloc] init];
-		self.pageControl.numberOfPages = 10;
+		self.pageControl.hidesForSinglePage = YES;
 		self.pageControl.translatesAutoresizingMaskIntoConstraints = NO;
 		[self addSubview:self.pageControl];
 		[self addConstraint:[NSLayoutConstraint constraintWithItem:self.pageControl

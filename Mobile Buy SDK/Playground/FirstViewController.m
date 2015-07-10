@@ -24,10 +24,10 @@
 														channelId:@"9060547"];
 		client.urlScheme = @"playground://";
 		BUYProductViewController *productViewController = [[BUYProductViewController alloc] initWithClient:client];
-		BUYTheme *theme = [[BUYTheme alloc] init];
-		theme.tintColor = [UIColor colorWithRed:0.48 green:0.71 blue:0.36 alpha:1];
-		theme.style = BUYThemeStyleDark;
-		productViewController.theme = theme;
+//		BUYTheme *theme = [[BUYTheme alloc] init];
+//		theme.tintColor = [UIColor colorWithRed:0.48 green:0.71 blue:0.36 alpha:1];
+//		theme.style = BUYThemeStyleDark;
+//		productViewController.theme = theme;
 		[productViewController loadProduct:@"1550472835" completion:^(BOOL success, NSError *error) {
 			[self presentViewController:productViewController animated:YES completion:NULL];
 		}];
