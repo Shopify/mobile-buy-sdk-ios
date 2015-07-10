@@ -13,7 +13,7 @@
 
 @property (nonatomic, strong) NSLayoutConstraint *productImageViewConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *productImageViewConstraintBottom;
-
+@property (nonatomic, strong) UIPageControl *pageControl;
 
 @end
 
@@ -54,6 +54,27 @@
 																	  multiplier:1.0
 																		constant:0.0];
 		[self addConstraint:self.productImageViewConstraint];
+		
+		self.pageControl = [[UIPageControl alloc] init];
+		self.pageControl.numberOfPages = 10;
+		self.pageControl.translatesAutoresizingMaskIntoConstraints = NO;
+		[self addSubview:self.pageControl];
+		[self addConstraint:[NSLayoutConstraint constraintWithItem:self.pageControl
+														 attribute:NSLayoutAttributeBottom
+														 relatedBy:NSLayoutRelationEqual
+															toItem:self
+														 attribute:NSLayoutAttributeBottom
+														multiplier:1.0
+														  constant:0.0]];
+		
+		[self addConstraint:[NSLayoutConstraint constraintWithItem:self.pageControl
+														 attribute:NSLayoutAttributeWidth
+														 relatedBy:NSLayoutRelationEqual
+															toItem:self
+														 attribute:NSLayoutAttributeWidth
+														multiplier:1.0
+														  constant:0.0]];
+		
 		
 	}
 	return self;
