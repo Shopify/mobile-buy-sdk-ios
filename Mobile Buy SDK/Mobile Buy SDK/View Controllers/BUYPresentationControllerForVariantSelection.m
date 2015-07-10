@@ -5,17 +5,12 @@
 //  Copyright (c) 2015 Shopify. All rights reserved.
 //
 
-#import "BUYPresentationController.h"
+#import "BUYPresentationControllerForVariantSelection.h"
 
 CGFloat const BUYPresentationControllerPartialHeight = 250.0;
 CGFloat const BUYPresentationControllerPartialWidth = 250.0;
 
-@interface BUYPresentationController ()
-@property (nonatomic, strong) UIVisualEffectView *backgroundView;
-@end
-
-
-@implementation BUYPresentationController
+@implementation BUYPresentationControllerForVariantSelection
 
 - (instancetype)initWithPresentedViewController:(UIViewController *)presentedViewController presentingViewController:(UIViewController *)presentingViewController
 {
@@ -23,9 +18,9 @@ CGFloat const BUYPresentationControllerPartialWidth = 250.0;
 	
 	if (self) {
 		UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-		_backgroundView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-		_backgroundView.translatesAutoresizingMaskIntoConstraints = NO;
-		_backgroundView.alpha = 0.0;
+		self.backgroundView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+		self.backgroundView.translatesAutoresizingMaskIntoConstraints = NO;
+		self.backgroundView.alpha = 0.0;
 	}
 	
     return self;

@@ -16,6 +16,7 @@
 @protocol BUYVariantSelectionDelegate <NSObject>
 
 - (void)variantSelectionController:(BUYVariantSelectionViewController *)controller didSelectVariant:(BUYProductVariant *)variant;
+- (void)variantSelectionControllerDidCancelVariantSelection:(BUYVariantSelectionViewController *)controller atOptionIndex:(NSUInteger)optionIndex;
 
 @end
 

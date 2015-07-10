@@ -10,6 +10,8 @@
 #import "BUYOptionSelectionViewController.h"
 #import "BUYProduct+Options.h"
 #import "BUYTheme.h"
+#import "BUYPresentationControllerForVariantSelection.h"
+#import "BUYOptionSelectionNavigationController.h"
 
 @interface BUYVariantSelectionViewController () <BUYOptionSelectionDelegate>
 
@@ -42,6 +44,11 @@
 	BUYOptionSelectionViewController *controller = [self nextOptionSelectionController];
 	controller.navigationItem.hidesBackButton = YES;
 	[self.navigationController pushViewController:controller animated:NO];
+	
+	BUYOptionSelectionNavigationController *navigationController = (BUYOptionSelectionNavigationController*)self.navigationController;
+	UIVisualEffectView *backgroundView = [(BUYPresentationControllerForVariantSelection*)navigationController.presentationController backgroundView];
+	UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissPopover)];
+	[backgroundView addGestureRecognizer:tapGestureRecognizer];
 }
 
 - (void)presentNextOption
@@ -69,6 +76,13 @@
 	return optionController;
 }
 
+- (void)dismissPopover
+{
+	if ([self.delegate respondsToSelector:@selector(variantSelectionControllerDidCancelVariantSelection:atOptionIndex:)]) {
+		[self.delegate variantSelectionControllerDidCancelVariantSelection:self atOptionIndex:self.selectedOptions.count];
+	}
+}
+
 #pragma mark - BUYOptionSelectionDelegate
 
 - (void)optionSelectionController:(BUYOptionSelectionViewController *)controller didSelectOption:(BUYOptionValue *)option
@@ -80,7 +94,9 @@
 	}
 	else {
 		BUYProductVariant *variant = [self.product variantWithOptions:self.selectedOptions.allValues];
-		[self.delegate variantSelectionController:self didSelectVariant:variant];
+		if ([self.delegate respondsToSelector:@selector(variantSelectionController:didSelectVariant:)]) {
+			[self.delegate variantSelectionController:self didSelectVariant:variant];
+		}
 	}
 }
 

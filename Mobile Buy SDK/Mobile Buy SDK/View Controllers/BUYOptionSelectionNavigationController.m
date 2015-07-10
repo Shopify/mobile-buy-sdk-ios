@@ -7,7 +7,7 @@
 //
 
 #import "BUYOptionSelectionNavigationController.h"
-#import "BUYPresentationController.h"
+#import "BUYPresentationControllerForVariantSelection.h"
 
 @interface BUYOptionSelectionNavigationController () <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
 
@@ -36,7 +36,7 @@
 
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source
 {
-	UIPresentationController *presentationController = [[BUYPresentationController alloc] initWithPresentedViewController:presented presentingViewController:presenting];
+	BUYPresentationControllerForVariantSelection *presentationController = [[BUYPresentationControllerForVariantSelection alloc] initWithPresentedViewController:presented presentingViewController:presenting];
 	return presentationController;
 }
 
@@ -62,7 +62,6 @@
 	UIViewController *presentedController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
 	
 	if (presentedController == self) {
-		
 		UIView *presentedView = presentedController.view;
 		CGRect finalRect = [transitionContext finalFrameForViewController:presentedController];
 		presentedView.frame = finalRect;

@@ -201,11 +201,18 @@
 	}
 }
 
+#pragma mark - BUYVariantSelectionViewControllerDelegate
+
 - (void)variantSelectionController:(BUYVariantSelectionViewController *)controller didSelectVariant:(BUYProductVariant *)variant
 {
-	[controller dismissViewControllerAnimated:YES completion:^{}];
+	[controller dismissViewControllerAnimated:YES completion:NULL];
 	self.selectedProductVariant = variant;
 	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+}
+
+- (void)variantSelectionControllerDidCancelVariantSelection:(BUYVariantSelectionViewController *)controller atOptionIndex:(NSUInteger)optionIndex
+{
+	[controller dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (void)setSelectedProductVariant:(BUYProductVariant *)selectedProductVariant {

@@ -144,8 +144,8 @@
 		BE9496B51B4D96D800B38949 /* BUYVariantSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE9496B11B4D96D800B38949 /* BUYVariantSelectionViewController.m */; };
 		BE9496B81B4D96F100B38949 /* BUYProduct+Options.h in Headers */ = {isa = PBXBuildFile; fileRef = BE9496B61B4D96F100B38949 /* BUYProduct+Options.h */; };
 		BE9496B91B4D96F100B38949 /* BUYProduct+Options.m in Sources */ = {isa = PBXBuildFile; fileRef = BE9496B71B4D96F100B38949 /* BUYProduct+Options.m */; };
-		BE9496BC1B4DA9F800B38949 /* BUYPresentationController.h in Headers */ = {isa = PBXBuildFile; fileRef = BE9496BA1B4DA9F800B38949 /* BUYPresentationController.h */; };
-		BE9496BD1B4DA9F800B38949 /* BUYPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE9496BB1B4DA9F800B38949 /* BUYPresentationController.m */; };
+		BE9496BC1B4DA9F800B38949 /* BUYPresentationControllerForVariantSelection.h in Headers */ = {isa = PBXBuildFile; fileRef = BE9496BA1B4DA9F800B38949 /* BUYPresentationControllerForVariantSelection.h */; };
+		BE9496BD1B4DA9F800B38949 /* BUYPresentationControllerForVariantSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = BE9496BB1B4DA9F800B38949 /* BUYPresentationControllerForVariantSelection.m */; };
 		BE9496C01B4DAA3C00B38949 /* BUYOptionSelectionNavigationController.h in Headers */ = {isa = PBXBuildFile; fileRef = BE9496BE1B4DAA3C00B38949 /* BUYOptionSelectionNavigationController.h */; };
 		BE9496C11B4DAA3C00B38949 /* BUYOptionSelectionNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE9496BF1B4DAA3C00B38949 /* BUYOptionSelectionNavigationController.m */; };
 /* End PBXBuildFile section */
@@ -292,8 +292,8 @@
 		BE9496B11B4D96D800B38949 /* BUYVariantSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYVariantSelectionViewController.m; sourceTree = "<group>"; };
 		BE9496B61B4D96F100B38949 /* BUYProduct+Options.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BUYProduct+Options.h"; sourceTree = "<group>"; };
 		BE9496B71B4D96F100B38949 /* BUYProduct+Options.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYProduct+Options.m"; sourceTree = "<group>"; };
-		BE9496BA1B4DA9F800B38949 /* BUYPresentationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYPresentationController.h; sourceTree = "<group>"; };
-		BE9496BB1B4DA9F800B38949 /* BUYPresentationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYPresentationController.m; sourceTree = "<group>"; };
+		BE9496BA1B4DA9F800B38949 /* BUYPresentationControllerForVariantSelection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYPresentationControllerForVariantSelection.h; sourceTree = "<group>"; };
+		BE9496BB1B4DA9F800B38949 /* BUYPresentationControllerForVariantSelection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYPresentationControllerForVariantSelection.m; sourceTree = "<group>"; };
 		BE9496BE1B4DAA3C00B38949 /* BUYOptionSelectionNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYOptionSelectionNavigationController.h; sourceTree = "<group>"; };
 		BE9496BF1B4DAA3C00B38949 /* BUYOptionSelectionNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYOptionSelectionNavigationController.m; sourceTree = "<group>"; };
 		BED5C1C21B20C26A0009079F /* BUYErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYErrors.h; sourceTree = "<group>"; };
@@ -473,8 +473,8 @@
 				BE9496BF1B4DAA3C00B38949 /* BUYOptionSelectionNavigationController.m */,
 				BE9496AE1B4D96D800B38949 /* BUYOptionSelectionViewController.h */,
 				BE9496AF1B4D96D800B38949 /* BUYOptionSelectionViewController.m */,
-				BE9496BA1B4DA9F800B38949 /* BUYPresentationController.h */,
-				BE9496BB1B4DA9F800B38949 /* BUYPresentationController.m */,
+				BE9496BA1B4DA9F800B38949 /* BUYPresentationControllerForVariantSelection.h */,
+				BE9496BB1B4DA9F800B38949 /* BUYPresentationControllerForVariantSelection.m */,
 				90516CBD1B4F110A00E35E45 /* BUYPresentationControllerWithNavigationController.h */,
 				90516CBE1B4F110A00E35E45 /* BUYPresentationControllerWithNavigationController.m */,
 				905ECCC01B4C39710094F336 /* BUYProductViewController.h */,
@@ -630,7 +630,7 @@
 			files = (
 				905ECCC21B4C39710094F336 /* BUYProductViewController.h in Headers */,
 				BE9496561B45C6E300B38949 /* BUYOptionValue.h in Headers */,
-				BE9496BC1B4DA9F800B38949 /* BUYPresentationController.h in Headers */,
+				BE9496BC1B4DA9F800B38949 /* BUYPresentationControllerForVariantSelection.h in Headers */,
 				90516CC31B4F1ED700E35E45 /* BUYNavigationController.h in Headers */,
 				BE94965B1B45C6FE00B38949 /* BUYApplePayHelpers.h in Headers */,
 				BE9496B21B4D96D800B38949 /* BUYOptionSelectionViewController.h in Headers */,
@@ -899,7 +899,7 @@
 				BE94963B1B45C61A00B38949 /* BUYApplePayAdditions.m in Sources */,
 				BE9496351B45C60B00B38949 /* BUYObject.mm in Sources */,
 				90516C7C1B4C589A00E35E45 /* BUYProductViewFooter.m in Sources */,
-				BE9496BD1B4DA9F800B38949 /* BUYPresentationController.m in Sources */,
+				BE9496BD1B4DA9F800B38949 /* BUYPresentationControllerForVariantSelection.m in Sources */,
 				BE94963D1B45C61F00B38949 /* NSDecimalNumber+BUYAdditions.m in Sources */,
 				90516CA41B4D771400E35E45 /* BUYVariantOptionView.m in Sources */,
 				90516C9E1B4D76D900E35E45 /* BUYProductHeaderCell.m in Sources */,

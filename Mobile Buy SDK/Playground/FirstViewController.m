@@ -21,6 +21,7 @@
 	BUYClient *client = [[BUYClient alloc] initWithShopDomain:@"the-app-boutique.myshopify.com"
 													   apiKey:@"506ede8b60f86fbf86109a762fe8093d"
 													channelId:@"9060547"];
+	client.urlScheme = @"playground://";
 	BUYProductViewController *productViewController = [[BUYProductViewController alloc] initWithClient:client];
 	[productViewController loadProduct:@"595444547" completion:^(BOOL success, NSError *error) {
 		[self presentViewController:productViewController animated:YES completion:NULL];
