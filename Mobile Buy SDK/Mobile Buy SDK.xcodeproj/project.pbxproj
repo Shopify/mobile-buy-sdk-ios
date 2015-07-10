@@ -221,22 +221,22 @@
 		90516C981B4D76D900E35E45 /* BUYProductHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYProductHeaderCell.m; path = Views/BUYProductHeaderCell.m; sourceTree = "<group>"; };
 		90516C991B4D76D900E35E45 /* BUYProductVariantCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYProductVariantCell.h; path = Views/BUYProductVariantCell.h; sourceTree = "<group>"; };
 		90516C9A1B4D76D900E35E45 /* BUYProductVariantCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYProductVariantCell.m; path = Views/BUYProductVariantCell.m; sourceTree = "<group>"; };
-		90516CA11B4D771400E35E45 /* BUYVariantOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYVariantOptionView.h; path = Views/BUYVariantOptionView.h; sourceTree = "<group>"; };
-		90516CA21B4D771400E35E45 /* BUYVariantOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYVariantOptionView.m; path = Views/BUYVariantOptionView.m; sourceTree = "<group>"; };
+		90516CA11B4D771400E35E45 /* BUYVariantOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYVariantOptionView.h; path = ../Views/BUYVariantOptionView.h; sourceTree = "<group>"; };
+		90516CA21B4D771400E35E45 /* BUYVariantOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYVariantOptionView.m; path = ../Views/BUYVariantOptionView.m; sourceTree = "<group>"; };
 		90516CAE1B4EC9FE00E35E45 /* BUYImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYImageView.h; path = Views/BUYImageView.h; sourceTree = "<group>"; };
 		90516CAF1B4EC9FE00E35E45 /* BUYImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYImageView.m; path = Views/BUYImageView.m; sourceTree = "<group>"; };
 		90516CB21B4EE5E700E35E45 /* BUYGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYGradientView.h; sourceTree = "<group>"; };
 		90516CB31B4EE5E700E35E45 /* BUYGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYGradientView.m; sourceTree = "<group>"; };
 		90516CB61B4F0DD500E35E45 /* BUYTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYTheme.h; path = Views/BUYTheme.h; sourceTree = "<group>"; };
 		90516CB71B4F0DD500E35E45 /* BUYTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYTheme.m; path = Views/BUYTheme.m; sourceTree = "<group>"; };
-		90516CBD1B4F110A00E35E45 /* BUYPresentationControllerWithNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYPresentationControllerWithNavigationController.h; sourceTree = "<group>"; };
-		90516CBE1B4F110A00E35E45 /* BUYPresentationControllerWithNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYPresentationControllerWithNavigationController.m; sourceTree = "<group>"; };
-		90516CC11B4F1ED700E35E45 /* BUYNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYNavigationController.h; sourceTree = "<group>"; };
-		90516CC21B4F1ED700E35E45 /* BUYNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYNavigationController.m; sourceTree = "<group>"; };
+		90516CBD1B4F110A00E35E45 /* BUYPresentationControllerWithNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYPresentationControllerWithNavigationController.h; path = "View Controllers/BUYPresentationControllerWithNavigationController.h"; sourceTree = "<group>"; };
+		90516CBE1B4F110A00E35E45 /* BUYPresentationControllerWithNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYPresentationControllerWithNavigationController.m; path = "View Controllers/BUYPresentationControllerWithNavigationController.m"; sourceTree = "<group>"; };
+		90516CC11B4F1ED700E35E45 /* BUYNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYNavigationController.h; path = "View Controllers/BUYNavigationController.h"; sourceTree = "<group>"; };
+		90516CC21B4F1ED700E35E45 /* BUYNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYNavigationController.m; path = "View Controllers/BUYNavigationController.m"; sourceTree = "<group>"; };
 		905AA96F1B3B32A500CAE037 /* BUYPaymentButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYPaymentButton.h; sourceTree = "<group>"; };
 		905AA9701B3B32A500CAE037 /* BUYPaymentButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYPaymentButton.m; sourceTree = "<group>"; };
-		905ECCC01B4C39710094F336 /* BUYProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYProductViewController.h; sourceTree = "<group>"; };
-		905ECCC11B4C39710094F336 /* BUYProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYProductViewController.m; sourceTree = "<group>"; };
+		905ECCC01B4C39710094F336 /* BUYProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYProductViewController.h; path = "View Controllers/BUYProductViewController.h"; sourceTree = "<group>"; };
+		905ECCC11B4C39710094F336 /* BUYProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYProductViewController.m; path = "View Controllers/BUYProductViewController.m"; sourceTree = "<group>"; };
 		90AFAA5C1B011EA600F21C23 /* BUYTaxLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYTaxLine.h; sourceTree = "<group>"; };
 		90AFAA5D1B011EA600F21C23 /* BUYTaxLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYTaxLine.m; sourceTree = "<group>"; };
 		90AFAA601B01390F00F21C23 /* BUYAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYAddress.h; sourceTree = "<group>"; };
@@ -365,33 +365,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		90516C781B4C4D3900E35E45 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				90516CB21B4EE5E700E35E45 /* BUYGradientView.h */,
-				90516CB31B4EE5E700E35E45 /* BUYGradientView.m */,
-				90516CAE1B4EC9FE00E35E45 /* BUYImageView.h */,
-				90516CAF1B4EC9FE00E35E45 /* BUYImageView.m */,
-				90516C951B4D76D900E35E45 /* BUYProductDescriptionCell.h */,
-				90516C961B4D76D900E35E45 /* BUYProductDescriptionCell.m */,
-				90516C971B4D76D900E35E45 /* BUYProductHeaderCell.h */,
-				90516C981B4D76D900E35E45 /* BUYProductHeaderCell.m */,
-				90516C991B4D76D900E35E45 /* BUYProductVariantCell.h */,
-				90516C9A1B4D76D900E35E45 /* BUYProductVariantCell.m */,
-				90516C791B4C589A00E35E45 /* BUYProductViewFooter.h */,
-				90516C7A1B4C589A00E35E45 /* BUYProductViewFooter.m */,
-				90516C851B4C6F7000E35E45 /* BUYProductViewHeader.h */,
-				90516C861B4C6F7000E35E45 /* BUYProductViewHeader.m */,
-				90FC31A61B50371600AFAB51 /* BUYProductViewHeaderBackgroundImageView.h */,
-				90FC31A71B50371600AFAB51 /* BUYProductViewHeaderBackgroundImageView.m */,
-				90516CB61B4F0DD500E35E45 /* BUYTheme.h */,
-				90516CB71B4F0DD500E35E45 /* BUYTheme.m */,
-				90516CA11B4D771400E35E45 /* BUYVariantOptionView.h */,
-				90516CA21B4D771400E35E45 /* BUYVariantOptionView.m */,
-			);
-			name = Views;
-			sourceTree = "<group>";
-		};
 		905AA96E1B3B32A500CAE037 /* BUYPaymentButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -470,25 +443,60 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		BE1C4DF21AE98F8E00E21624 /* View Controllers */ = {
+		90FC31AA1B50576400AFAB51 /* Variant Selection */ = {
 			isa = PBXGroup;
 			children = (
-				90516CC11B4F1ED700E35E45 /* BUYNavigationController.h */,
-				90516CC21B4F1ED700E35E45 /* BUYNavigationController.m */,
 				BE9496BE1B4DAA3C00B38949 /* BUYOptionSelectionNavigationController.h */,
 				BE9496BF1B4DAA3C00B38949 /* BUYOptionSelectionNavigationController.m */,
 				BE9496AE1B4D96D800B38949 /* BUYOptionSelectionViewController.h */,
 				BE9496AF1B4D96D800B38949 /* BUYOptionSelectionViewController.m */,
 				BE9496BA1B4DA9F800B38949 /* BUYPresentationControllerForVariantSelection.h */,
 				BE9496BB1B4DA9F800B38949 /* BUYPresentationControllerForVariantSelection.m */,
-				90516CBD1B4F110A00E35E45 /* BUYPresentationControllerWithNavigationController.h */,
-				90516CBE1B4F110A00E35E45 /* BUYPresentationControllerWithNavigationController.m */,
-				905ECCC01B4C39710094F336 /* BUYProductViewController.h */,
-				905ECCC11B4C39710094F336 /* BUYProductViewController.m */,
-				BE1C4DF31AE98FBB00E21624 /* BUYStoreViewController.h */,
-				BE1C4DF41AE98FBB00E21624 /* BUYStoreViewController.m */,
+				90516CA11B4D771400E35E45 /* BUYVariantOptionView.h */,
+				90516CA21B4D771400E35E45 /* BUYVariantOptionView.m */,
 				BE9496B01B4D96D800B38949 /* BUYVariantSelectionViewController.h */,
 				BE9496B11B4D96D800B38949 /* BUYVariantSelectionViewController.m */,
+			);
+			name = "Variant Selection";
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		90FC31AB1B50589800AFAB51 /* Product View */ = {
+			isa = PBXGroup;
+			children = (
+				90516CB21B4EE5E700E35E45 /* BUYGradientView.h */,
+				90516CB31B4EE5E700E35E45 /* BUYGradientView.m */,
+				90516CAE1B4EC9FE00E35E45 /* BUYImageView.h */,
+				90516CAF1B4EC9FE00E35E45 /* BUYImageView.m */,
+				90516CC11B4F1ED700E35E45 /* BUYNavigationController.h */,
+				90516CC21B4F1ED700E35E45 /* BUYNavigationController.m */,
+				90516CBD1B4F110A00E35E45 /* BUYPresentationControllerWithNavigationController.h */,
+				90516CBE1B4F110A00E35E45 /* BUYPresentationControllerWithNavigationController.m */,
+				90516C951B4D76D900E35E45 /* BUYProductDescriptionCell.h */,
+				90516C961B4D76D900E35E45 /* BUYProductDescriptionCell.m */,
+				90516C971B4D76D900E35E45 /* BUYProductHeaderCell.h */,
+				90516C981B4D76D900E35E45 /* BUYProductHeaderCell.m */,
+				90516C991B4D76D900E35E45 /* BUYProductVariantCell.h */,
+				90516C9A1B4D76D900E35E45 /* BUYProductVariantCell.m */,
+				905ECCC01B4C39710094F336 /* BUYProductViewController.h */,
+				905ECCC11B4C39710094F336 /* BUYProductViewController.m */,
+				90516C791B4C589A00E35E45 /* BUYProductViewFooter.h */,
+				90516C7A1B4C589A00E35E45 /* BUYProductViewFooter.m */,
+				90516C851B4C6F7000E35E45 /* BUYProductViewHeader.h */,
+				90516C861B4C6F7000E35E45 /* BUYProductViewHeader.m */,
+				90FC31A61B50371600AFAB51 /* BUYProductViewHeaderBackgroundImageView.h */,
+				90FC31A71B50371600AFAB51 /* BUYProductViewHeaderBackgroundImageView.m */,
+				90516CB61B4F0DD500E35E45 /* BUYTheme.h */,
+				90516CB71B4F0DD500E35E45 /* BUYTheme.m */,
+			);
+			name = "Product View";
+			sourceTree = "<group>";
+		};
+		BE1C4DF21AE98F8E00E21624 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BE1C4DF31AE98FBB00E21624 /* BUYStoreViewController.h */,
+				BE1C4DF41AE98FBB00E21624 /* BUYStoreViewController.m */,
 				BE1C4DF51AE98FBB00E21624 /* BUYViewController.h */,
 				BE1C4DF61AE98FBB00E21624 /* BUYViewController.m */,
 			);
@@ -608,12 +616,13 @@
 		F773749F19C77E4E0039681C /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				90516C781B4C4D3900E35E45 /* Views */,
-				BE1C4DF21AE98F8E00E21624 /* View Controllers */,
+				905AA96E1B3B32A500CAE037 /* BUYPaymentButton */,
 				F7FDA16F19C93F6100AF4E93 /* Data */,
 				F773744419C779C20039681C /* Models */,
+				90FC31AB1B50589800AFAB51 /* Product View */,
 				F773744519C779C20039681C /* Utils */,
-				905AA96E1B3B32A500CAE037 /* BUYPaymentButton */,
+				90FC31AA1B50576400AFAB51 /* Variant Selection */,
+				BE1C4DF21AE98F8E00E21624 /* View Controllers */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
