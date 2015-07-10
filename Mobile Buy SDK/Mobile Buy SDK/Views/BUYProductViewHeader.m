@@ -8,13 +8,9 @@
 
 #import "BUYImageView.h"
 #import "BUYProductViewHeader.h"
-#import "BUYProductViewHeaderBackgroundImageView.h"
 
 @interface BUYProductViewHeader ()
 
-@property (nonatomic, strong) BUYProductViewHeaderBackgroundImageView *backgroundImageView;
-@property (nonatomic, strong) NSLayoutConstraint *backgroundImageViewConstraint;
-@property (nonatomic, strong) NSLayoutConstraint *backgroundImageViewConstraintBottom;
 @property (nonatomic, strong) NSLayoutConstraint *productImageViewConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *productImageViewConstraintBottom;
 
@@ -27,35 +23,8 @@
 {
 	self = [super init];
 	if (self) {
-		self.backgroundColor = [UIColor redColor];
-		
-		self.backgroundImageView = [[BUYProductViewHeaderBackgroundImageView alloc] init];
-		self.backgroundImageView.translatesAutoresizingMaskIntoConstraints = NO;
-		[self addSubview:self.backgroundImageView];
-		
-		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_backgroundImageView]|"
-																	 options:0
-																	 metrics:nil
-																	   views:NSDictionaryOfVariableBindings(_backgroundImageView)]];
-		
-		self.backgroundImageViewConstraintBottom = [NSLayoutConstraint constraintWithItem:self.backgroundImageView
-																				attribute:NSLayoutAttributeBottom
-																				relatedBy:NSLayoutRelationEqual
-																				   toItem:self
-																				attribute:NSLayoutAttributeBottom
-																			   multiplier:1.0
-																				 constant:0.0];
-		[self addConstraint:self.backgroundImageViewConstraintBottom];
-		
-		self.backgroundImageViewConstraint = [NSLayoutConstraint constraintWithItem:self.backgroundImageView
-																		  attribute:NSLayoutAttributeHeight
-																		  relatedBy:NSLayoutRelationEqual
-																			 toItem:nil
-																		  attribute:NSLayoutAttributeNotAnAttribute
-																		 multiplier:1.0
-																		   constant:0.0];
-		[self addConstraint:self.backgroundImageViewConstraint];
-		
+		self.backgroundColor = [UIColor clearColor];
+				
 		self.productImageView = [[BUYImageView alloc] init];
 		self.productImageView.clipsToBounds = YES;
 		self.productImageView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -90,29 +59,20 @@
 	return self;
 }
 
-- (void)setProductImage:(UIImage*)image
-{
-	self.backgroundImageView.productImageView.image = image;
-}
-
 - (void)setContentOffset:(CGPoint)offset
 {
 	if (offset.y <= 0) {
 		self.clipsToBounds = NO;
-		if (self.backgroundImageViewConstraintBottom.constant != 0.0) {
-			self.backgroundImageViewConstraintBottom.constant = 0.0;
-			self.productImageViewConstraintBottom.constant = self.backgroundImageViewConstraintBottom.constant;
+		if (self.productImageViewConstraintBottom.constant != 0.0) {
+			self.productImageViewConstraintBottom.constant = 0.0;
 		}
-		self.backgroundImageViewConstraint.constant = CGRectGetHeight(self.bounds) + -offset.y;
-		self.productImageViewConstraint.constant = self.backgroundImageViewConstraint.constant;
+		self.productImageViewConstraint.constant = CGRectGetHeight(self.bounds) + -offset.y;
 	} else {
 		self.clipsToBounds = YES;
-		if (self.backgroundImageViewConstraint.constant != CGRectGetHeight(self.bounds)) {
-			self.backgroundImageViewConstraint.constant = CGRectGetHeight(self.bounds);
-			self.productImageViewConstraintBottom.constant = self.backgroundImageViewConstraintBottom.constant;
+		if (self.productImageViewConstraint.constant != CGRectGetHeight(self.bounds)) {
+			self.productImageViewConstraint.constant = CGRectGetHeight(self.bounds);
 		}
-		self.backgroundImageViewConstraintBottom.constant = offset.y / 2;
-		self.productImageViewConstraintBottom.constant = self.backgroundImageViewConstraintBottom.constant;
+		self.productImageViewConstraintBottom.constant = offset.y / 2;
 	}
 	
 	// change the image content mode on portrait (or 1:1) images so they zoom-scale on scrollview over-pulls

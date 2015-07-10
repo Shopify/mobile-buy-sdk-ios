@@ -13,7 +13,6 @@
 
 @property (nonatomic, strong) BUYImageView *productImageView;
 
-- (void)setProductImage:(UIImage*)image;
 - (void)setContentOffset:(CGPoint)offset;
 
 @end
