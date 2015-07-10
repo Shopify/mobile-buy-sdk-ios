@@ -13,19 +13,21 @@
 
 @interface BUYOptionSelectionViewController ()
 @property (nonatomic, strong) NSArray *optionValues;
+@property (nonatomic, weak) BUYTheme *theme;
 @end
 
 @implementation BUYOptionSelectionViewController
 
-- (instancetype)initWithOptionValues:(NSArray *)options
+- (instancetype)initWithOptionValues:(NSArray *)optionValues theme:(BUYTheme*)theme
 {
-	NSParameterAssert(options);
+	NSParameterAssert(optionValues);
 	
 	self = [super init];
 	
 	if (self) {
-		self.optionValues = options;
-		self.title = [options.firstObject name];
+		self.optionValues = optionValues;
+		self.title = [self.optionValues.firstObject name];
+		self.theme = theme;
 	}
 	
 	return self;
@@ -35,6 +37,7 @@
 {
 	[super viewDidLoad];
 	[self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
+	self.tableView.tableFooterView = [UIView new];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

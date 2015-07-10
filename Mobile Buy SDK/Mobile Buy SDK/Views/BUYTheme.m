@@ -15,7 +15,7 @@
 	self = [super init];
 	
 	if (self) {
-		_tintColor = [UIColor blackColor];
+		_tintColor = [UIColor colorWithRed:0.48 green:0.71 blue:0.36 alpha:1];
 		_style = BUYThemeStyleLight;
 	}
 	

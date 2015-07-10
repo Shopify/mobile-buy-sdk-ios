@@ -45,6 +45,12 @@
 	return self;
 }
 
+- (void)setTheme:(BUYTheme *)theme
+{
+	_theme = theme;
+	self.view.tintColor = theme.tintColor;
+}
+
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source
 {
 	BUYPresentationControllerWithNavigationController *presentationController = [[BUYPresentationControllerWithNavigationController alloc] initWithPresentedViewController:presented presentingViewController:presenting];
@@ -69,7 +75,8 @@
 	}];
 }
 
-- (void)loadView {
+- (void)loadView
+{
 	[super loadView];
 	
 	self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -194,7 +201,7 @@
 	if (indexPath.row == 1) {
 		[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 		// TODO: Get this navigation controller inside the BUYVariantSelectionViewController so it takes care of it's own presentation
-		BUYVariantSelectionViewController *optionSelectionViewController = [[BUYVariantSelectionViewController alloc] initWithProduct:self.product];
+		BUYVariantSelectionViewController *optionSelectionViewController = [[BUYVariantSelectionViewController alloc] initWithProduct:self.product theme:self.theme];
 		optionSelectionViewController.delegate = self;
 		BUYOptionSelectionNavigationController *optionSelectionNavigationController = [[BUYOptionSelectionNavigationController alloc] initWithRootViewController:optionSelectionViewController];
 		[self presentViewController:optionSelectionNavigationController animated:YES completion:^{}];

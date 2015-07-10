@@ -7,6 +7,7 @@
 //
 
 #import <Buy/Buy.h>
+#import "BUYTheme.h"
 
 @protocol BUYProductViewControllerDelegate;
 
@@ -20,6 +21,11 @@
  *  Upon success, the view controller should be presented modally
  */
 - (void)loadProduct:(NSString *)productId completion:(void (^)(BOOL success, NSError *error))completion;
+
+/**
+ *  Customize the theme by overriding the BUYTheme on the BUYProductViewController
+ */
+@property (nonatomic, strong) BUYTheme *theme;
 
 /**
  *  The loaded product ID

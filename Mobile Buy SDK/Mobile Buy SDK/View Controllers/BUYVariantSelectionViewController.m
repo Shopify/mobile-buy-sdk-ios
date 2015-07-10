@@ -16,13 +16,14 @@
 @interface BUYVariantSelectionViewController () <BUYOptionSelectionDelegate>
 
 @property (nonatomic, strong) BUYProduct *product;
-
+@property (nonatomic, weak) BUYTheme *theme;
 @property (nonatomic, strong) NSMutableDictionary *selectedOptions;
+
 @end
 
 @implementation BUYVariantSelectionViewController
 
-- (instancetype)initWithProduct:(BUYProduct *)product
+- (instancetype)initWithProduct:(BUYProduct *)product theme:(BUYTheme*)theme
 {
 	NSParameterAssert(product);
 	
@@ -31,7 +32,7 @@
 	if (self) {
 		self.product = product;
 		self.selectedOptions = [NSMutableDictionary new];
-		self.theme = [[BUYTheme alloc] init];
+		self.theme = theme;
 	}
 	
 	return self;
@@ -69,10 +70,8 @@
 	BUYOption *option = self.product.options[index];
 	
 	NSArray *options = [self.product valuesForOption:option];
-	BUYOptionSelectionViewController *optionController = [[BUYOptionSelectionViewController alloc] initWithOptionValues:options];
+	BUYOptionSelectionViewController *optionController = [[BUYOptionSelectionViewController alloc] initWithOptionValues:options theme:self.theme];
 	optionController.delegate = self;
-	optionController.theme = self.theme;
-
 	return optionController;
 }
 

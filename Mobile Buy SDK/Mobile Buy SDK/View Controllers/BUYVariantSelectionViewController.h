@@ -22,12 +22,10 @@
 
 @interface BUYVariantSelectionViewController : UIViewController
 
-- (instancetype)initWithProduct:(BUYProduct *)product;
+- (instancetype)initWithProduct:(BUYProduct *)product theme:(BUYTheme*)theme;
 
 @property (nonatomic, strong, readonly) BUYProduct *product;
 
 @property (nonatomic, weak) id <BUYVariantSelectionDelegate> delegate;
-
-@property (nonatomic, strong) BUYTheme *theme;
 
 @end
