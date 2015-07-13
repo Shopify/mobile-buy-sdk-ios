@@ -64,12 +64,11 @@ CGFloat const BUYPresentationControllerPartialWidth = 250.0;
 
 - (CGRect)frameOfPresentedViewInContainerView {
 	
-	UIView *presentingView = self.presentingViewController.view;
+	CGRect containerBounds = self.containerView.bounds;
+	CGFloat height = BUYPresentationControllerPartialWidth;
+	CGFloat width = BUYPresentationControllerPartialHeight;
 	
-    return CGRectMake((CGRectGetWidth(presentingView.bounds)-BUYPresentationControllerPartialWidth)/2,
-					  (CGRectGetHeight(presentingView.bounds)-BUYPresentationControllerPartialHeight)/2,
-					  BUYPresentationControllerPartialWidth,
-					  BUYPresentationControllerPartialHeight);
+    return CGRectMake((CGRectGetWidth(containerBounds)-width)/2, (CGRectGetHeight(containerBounds)-height)/2, width, height);
 }
 
 @end

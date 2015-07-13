@@ -233,8 +233,8 @@
 		90516CBE1B4F110A00E35E45 /* BUYPresentationControllerWithNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYPresentationControllerWithNavigationController.m; path = "Product View/BUYPresentationControllerWithNavigationController.m"; sourceTree = "<group>"; };
 		90516CC11B4F1ED700E35E45 /* BUYNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYNavigationController.h; path = "Product View/BUYNavigationController.h"; sourceTree = "<group>"; };
 		90516CC21B4F1ED700E35E45 /* BUYNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYNavigationController.m; path = "Product View/BUYNavigationController.m"; sourceTree = "<group>"; };
-		905AA96F1B3B32A500CAE037 /* BUYPaymentButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYPaymentButton.h; sourceTree = "<group>"; };
-		905AA9701B3B32A500CAE037 /* BUYPaymentButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYPaymentButton.m; sourceTree = "<group>"; };
+		905AA96F1B3B32A500CAE037 /* BUYPaymentButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYPaymentButton.h; path = BUYPaymentButton/BUYPaymentButton.h; sourceTree = "<group>"; };
+		905AA9701B3B32A500CAE037 /* BUYPaymentButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYPaymentButton.m; path = BUYPaymentButton/BUYPaymentButton.m; sourceTree = "<group>"; };
 		905ECCC01B4C39710094F336 /* BUYProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYProductViewController.h; path = "Product View/BUYProductViewController.h"; sourceTree = "<group>"; };
 		905ECCC11B4C39710094F336 /* BUYProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYProductViewController.m; path = "Product View/BUYProductViewController.m"; sourceTree = "<group>"; };
 		90AFAA5C1B011EA600F21C23 /* BUYTaxLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYTaxLine.h; sourceTree = "<group>"; };
@@ -365,15 +365,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		905AA96E1B3B32A500CAE037 /* BUYPaymentButton */ = {
-			isa = PBXGroup;
-			children = (
-				905AA96F1B3B32A500CAE037 /* BUYPaymentButton.h */,
-				905AA9701B3B32A500CAE037 /* BUYPaymentButton.m */,
-			);
-			path = BUYPaymentButton;
-			sourceTree = "<group>";
-		};
 		90E80E451AFBBB59003A9909 /* docs */ = {
 			isa = PBXGroup;
 			children = (
@@ -464,6 +455,9 @@
 		90FC31AB1B50589800AFAB51 /* Product View */ = {
 			isa = PBXGroup;
 			children = (
+				90FC31AA1B50576400AFAB51 /* Variant Selection */,
+				905AA96F1B3B32A500CAE037 /* BUYPaymentButton.h */,
+				905AA9701B3B32A500CAE037 /* BUYPaymentButton.m */,
 				90516CB21B4EE5E700E35E45 /* BUYGradientView.h */,
 				90516CB31B4EE5E700E35E45 /* BUYGradientView.m */,
 				90516CAE1B4EC9FE00E35E45 /* BUYImageView.h */,
@@ -616,12 +610,10 @@
 		F773749F19C77E4E0039681C /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				905AA96E1B3B32A500CAE037 /* BUYPaymentButton */,
 				F7FDA16F19C93F6100AF4E93 /* Data */,
 				F773744419C779C20039681C /* Models */,
 				90FC31AB1B50589800AFAB51 /* Product View */,
 				F773744519C779C20039681C /* Utils */,
-				90FC31AA1B50576400AFAB51 /* Variant Selection */,
 				BE1C4DF21AE98F8E00E21624 /* View Controllers */,
 			);
 			name = Classes;
@@ -1071,10 +1063,11 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Playground/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1088,10 +1081,11 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = Playground/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
