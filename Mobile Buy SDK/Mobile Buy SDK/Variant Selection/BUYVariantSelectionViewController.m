@@ -10,17 +10,20 @@
 #import "BUYOptionSelectionViewController.h"
 #import "BUYProduct+Options.h"
 #import "BUYTheme.h"
+#import "BUYPresentationControllerForVariantSelection.h"
+#import "BUYOptionSelectionNavigationController.h"
 
 @interface BUYVariantSelectionViewController () <BUYOptionSelectionDelegate>
 
 @property (nonatomic, strong) BUYProduct *product;
-
+@property (nonatomic, weak) BUYTheme *theme;
 @property (nonatomic, strong) NSMutableDictionary *selectedOptions;
+
 @end
 
 @implementation BUYVariantSelectionViewController
 
-- (instancetype)initWithProduct:(BUYProduct *)product
+- (instancetype)initWithProduct:(BUYProduct *)product theme:(BUYTheme*)theme
 {
 	NSParameterAssert(product);
 	
@@ -29,7 +32,7 @@
 	if (self) {
 		self.product = product;
 		self.selectedOptions = [NSMutableDictionary new];
-		self.theme = [[BUYTheme alloc] init];
+		self.theme = theme;
 	}
 	
 	return self;
@@ -42,6 +45,11 @@
 	BUYOptionSelectionViewController *controller = [self nextOptionSelectionController];
 	controller.navigationItem.hidesBackButton = YES;
 	[self.navigationController pushViewController:controller animated:NO];
+	
+	BUYOptionSelectionNavigationController *navigationController = (BUYOptionSelectionNavigationController*)self.navigationController;
+	UIVisualEffectView *backgroundView = [(BUYPresentationControllerForVariantSelection*)navigationController.presentationController backgroundView];
+	UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissPopover)];
+	[backgroundView addGestureRecognizer:tapGestureRecognizer];
 }
 
 - (void)presentNextOption
@@ -62,11 +70,16 @@
 	BUYOption *option = self.product.options[index];
 	
 	NSArray *options = [self.product valuesForOption:option];
-	BUYOptionSelectionViewController *optionController = [[BUYOptionSelectionViewController alloc] initWithOptionValues:options];
+	BUYOptionSelectionViewController *optionController = [[BUYOptionSelectionViewController alloc] initWithOptionValues:options theme:self.theme];
 	optionController.delegate = self;
-	optionController.theme = self.theme;
-
 	return optionController;
+}
+
+- (void)dismissPopover
+{
+	if ([self.delegate respondsToSelector:@selector(variantSelectionControllerDidCancelVariantSelection:atOptionIndex:)]) {
+		[self.delegate variantSelectionControllerDidCancelVariantSelection:self atOptionIndex:self.selectedOptions.count];
+	}
 }
 
 #pragma mark - BUYOptionSelectionDelegate
@@ -80,7 +93,9 @@
 	}
 	else {
 		BUYProductVariant *variant = [self.product variantWithOptions:self.selectedOptions.allValues];
-		[self.delegate variantSelectionController:self didSelectVariant:variant];
+		if ([self.delegate respondsToSelector:@selector(variantSelectionController:didSelectVariant:)]) {
+			[self.delegate variantSelectionController:self didSelectVariant:variant];
+		}
 	}
 }
 

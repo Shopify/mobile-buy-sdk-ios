@@ -22,12 +22,10 @@
 
 @interface BUYOptionSelectionViewController : UITableViewController
 
-- (instancetype)initWithOptionValues:(NSArray *)optionValues;
+- (instancetype)initWithOptionValues:(NSArray *)optionValues theme:(BUYTheme*)theme;
 
 @property (nonatomic, strong, readonly) NSArray *optionValues;
 
 @property (nonatomic, weak) id <BUYOptionSelectionDelegate> delegate;
-
-@property (nonatomic, strong) BUYTheme *theme;
 
 @end

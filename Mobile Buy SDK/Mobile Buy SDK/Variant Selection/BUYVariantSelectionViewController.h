@@ -16,17 +16,16 @@
 @protocol BUYVariantSelectionDelegate <NSObject>
 
 - (void)variantSelectionController:(BUYVariantSelectionViewController *)controller didSelectVariant:(BUYProductVariant *)variant;
+- (void)variantSelectionControllerDidCancelVariantSelection:(BUYVariantSelectionViewController *)controller atOptionIndex:(NSUInteger)optionIndex;
 
 @end
 
 @interface BUYVariantSelectionViewController : UIViewController
 
-- (instancetype)initWithProduct:(BUYProduct *)product;
+- (instancetype)initWithProduct:(BUYProduct *)product theme:(BUYTheme*)theme;
 
 @property (nonatomic, strong, readonly) BUYProduct *product;
 
 @property (nonatomic, weak) id <BUYVariantSelectionDelegate> delegate;
-
-@property (nonatomic, strong) BUYTheme *theme;
 
 @end

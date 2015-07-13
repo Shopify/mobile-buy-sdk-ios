@@ -25,6 +25,7 @@
 	_grams = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"grams"]];
 	
 	_requiresShipping = dictionary[@"requires_shipping"];
+	_sku = dictionary[@"sku"];
 	_taxable = dictionary[@"taxable"];
 	_position = dictionary[@"position"];
 	

@@ -554,32 +554,12 @@
 + (instancetype)buttonWithType:(BUYPaymentButtonType)buttonType style:(BUYPaymentButtonStyle)buttonStyle {
 	Class ApplePayButton = NSClassFromString(@"PKPaymentButton");
 	if (ApplePayButton) {
-		return (BUYPaymentButton*)[PKPaymentButton buttonWithType:[[self class] convertedButtonType:buttonType] style:[[self class] convertedButtonStyle:buttonStyle]];
+		return (BUYPaymentButton*)[ApplePayButton buttonWithType:buttonType
+														   style:buttonStyle];
 	} else {
 		BUYCustomPaymentButton *customPaymentButton = [BUYCustomPaymentButton buttonWithType:UIButtonTypeCustom];
 		[customPaymentButton buttonWithType:buttonType style:buttonStyle];
 		return (BUYPaymentButton*)customPaymentButton;
-	}
-}
-
-+ (PKPaymentButtonType)convertedButtonType:(BUYPaymentButtonType)buttonType {
-	switch (buttonType) {
-		case BUYPaymentButtonTypePlain:
-			return PKPaymentButtonTypePlain;
-		case BUYPaymentButtonTypeBuy:
-			return PKPaymentButtonTypeBuy;
-			break;
-	}
-}
-
-+ (PKPaymentButtonStyle)convertedButtonStyle:(BUYPaymentButtonStyle)buttonStyle {
-	switch (buttonStyle) {
-		case BUYPaymentButtonStyleWhite:
-			return PKPaymentButtonStyleWhite;
-		case BUYPaymentButtonStyleWhiteOutline:
-			return PKPaymentButtonStyleWhiteOutline;
-		case BUYPaymentButtonStyleBlack:
-			return PKPaymentButtonStyleBlack;
 	}
 }
 

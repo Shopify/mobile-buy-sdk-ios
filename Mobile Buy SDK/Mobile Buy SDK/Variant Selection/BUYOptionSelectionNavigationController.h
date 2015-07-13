@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BUYNavigationController.h"
 
-@interface BUYNavigationController : UINavigationController
+@interface BUYOptionSelectionNavigationController : BUYNavigationController
 
 @end

@@ -12,10 +12,10 @@
 		90070E411AF120A6003ED7B6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90070E3F1AF120A6003ED7B6 /* Main.storyboard */; };
 		90070E431AF120A6003ED7B6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90070E421AF120A6003ED7B6 /* Images.xcassets */; };
 		90070E461AF120A6003ED7B6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90070E441AF120A6003ED7B6 /* LaunchScreen.xib */; };
-		90070E671AF1264A003ED7B6 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90070E661AF1264A003ED7B6 /* PassKit.framework */; };
 		90070E6B1AF12ADF003ED7B6 /* Shopify Checkout.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 90070E6A1AF12ADF003ED7B6 /* Shopify Checkout.entitlements */; };
 		90070E951AF163F3003ED7B6 /* ProductController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90070E941AF163F3003ED7B6 /* ProductController.m */; };
 		90070E981AF167FE003ED7B6 /* ProductView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90070E971AF167FE003ED7B6 /* ProductView.m */; };
+		90858EC71B540D11009D19D7 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90858EC61B540D11009D19D7 /* PassKit.framework */; };
 		BE94966E1B4B091C00B38949 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BE94966D1B4B091C00B38949 /* libc++.dylib */; };
 		BE94966F1B4B0B4100B38949 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F7BA601B0D1BF00067864D /* Buy.framework */; };
 /* End PBXBuildFile section */
@@ -29,12 +29,13 @@
 		90070E401AF120A6003ED7B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		90070E421AF120A6003ED7B6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		90070E451AF120A6003ED7B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		90070E661AF1264A003ED7B6 /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 		90070E6A1AF12ADF003ED7B6 /* Shopify Checkout.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Shopify Checkout.entitlements"; sourceTree = "<group>"; };
 		90070E931AF163F3003ED7B6 /* ProductController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductController.h; sourceTree = "<group>"; };
 		90070E941AF163F3003ED7B6 /* ProductController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductController.m; sourceTree = "<group>"; };
 		90070E961AF167FE003ED7B6 /* ProductView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductView.h; sourceTree = "<group>"; };
 		90070E971AF167FE003ED7B6 /* ProductView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductView.m; sourceTree = "<group>"; };
+		907396331B53FDD6001EB4A2 /* Mobile Buy SDK Native Sample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Mobile Buy SDK Native Sample.entitlements"; sourceTree = "<group>"; };
+		90858EC61B540D11009D19D7 /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 		90B73AA11B0B74A70092DD9E /* Buy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Buy.framework; path = ../../Buy.framework; sourceTree = "<group>"; };
 		90F7BA601B0D1BF00067864D /* Buy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Buy.framework; path = ../Buy.framework; sourceTree = "<group>"; };
 		BE94966D1B4B091C00B38949 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
@@ -45,8 +46,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90858EC71B540D11009D19D7 /* PassKit.framework in Frameworks */,
 				BE94966E1B4B091C00B38949 /* libc++.dylib in Frameworks */,
-				90070E671AF1264A003ED7B6 /* PassKit.framework in Frameworks */,
 				BE94966F1B4B0B4100B38949 /* Buy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -57,6 +58,7 @@
 		90070E291AF120A6003ED7B6 = {
 			isa = PBXGroup;
 			children = (
+				907396331B53FDD6001EB4A2 /* Mobile Buy SDK Native Sample.entitlements */,
 				90F7BA601B0D1BF00067864D /* Buy.framework */,
 				90070E631AF12626003ED7B6 /* Frameworks */,
 				90070E341AF120A6003ED7B6 /* Shopify Checkout */,
@@ -102,9 +104,9 @@
 		90070E631AF12626003ED7B6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				90858EC61B540D11009D19D7 /* PassKit.framework */,
 				BE94966D1B4B091C00B38949 /* libc++.dylib */,
 				90B73AA11B0B74A70092DD9E /* Buy.framework */,
-				90070E661AF1264A003ED7B6 /* PassKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -141,6 +143,14 @@
 					90070E311AF120A6003ED7B6 = {
 						CreatedOnToolsVersion = 6.3.1;
 						DevelopmentTeam = A7XGC83MZE;
+						SystemCapabilities = {
+							com.apple.OMC = {
+								enabled = 1;
+							};
+							com.apple.Passbook = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -294,7 +304,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Rune Madsen (77Q3RZ847U)";
+				CODE_SIGN_ENTITLEMENTS = "Mobile Buy SDK Native Sample.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -304,7 +315,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "Mobile Buy SDK Native Sample";
-				PROVISIONING_PROFILE = "052e6e7b-f4da-47ea-bda5-384d69515712";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -312,7 +323,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Rune Madsen (77Q3RZ847U)";
+				CODE_SIGN_ENTITLEMENTS = "Mobile Buy SDK Native Sample.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -322,7 +334,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "Mobile Buy SDK Native Sample";
-				PROVISIONING_PROFILE = "052e6e7b-f4da-47ea-bda5-384d69515712";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

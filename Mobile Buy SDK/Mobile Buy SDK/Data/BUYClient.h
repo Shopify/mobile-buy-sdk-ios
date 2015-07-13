@@ -206,6 +206,12 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
  */
 @property (nonatomic, strong) NSString *applicationName;
 
+/**
+ * The applications URLScheme, used to return to the application after a complete web checkout. Ex. @"storeApp://"
+ */
+@property (nonatomic, strong) NSString *urlScheme;
+
+
 #pragma mark - Storefront
 
 /**

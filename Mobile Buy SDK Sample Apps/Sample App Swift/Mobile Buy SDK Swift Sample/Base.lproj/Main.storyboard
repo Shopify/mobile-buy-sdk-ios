@@ -32,9 +32,24 @@
                                     <constraint firstAttribute="height" constant="174" id="uVT-fL-eSP"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LhO-1x-id6">
+                                <rect key="frame" x="209" y="377" width="183" height="46"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="183" id="FX3-Mu-EHH"/>
+                                    <constraint firstAttribute="height" constant="46" id="PZh-iB-XaY"/>
+                                </constraints>
+                                <state key="normal" title="Checkout">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="didTapCheckout:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="NUh-t1-m3u"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="LhO-1x-id6" firstAttribute="top" secondItem="w4i-KI-xG9" secondAttribute="bottom" constant="67" id="4bJ-BB-Bp3"/>
+                            <constraint firstAttribute="centerX" secondItem="LhO-1x-id6" secondAttribute="centerX" constant="-0.5" id="9c5-lh-Eum"/>
                             <constraint firstAttribute="centerY" secondItem="w4i-KI-xG9" secondAttribute="centerY" constant="0.5" id="FTK-cT-nSo"/>
                             <constraint firstAttribute="centerX" secondItem="w4i-KI-xG9" secondAttribute="centerX" constant="-0.5" id="K4o-ZV-HHD"/>
                             <constraint firstItem="w4i-KI-xG9" firstAttribute="top" secondItem="myN-h2-Dgs" secondAttribute="bottom" constant="8" id="Qol-n6-Rvq"/>
