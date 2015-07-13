@@ -6,14 +6,14 @@
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 
-#import "BUYNavigationController.h"
-#import "BUYPresentationController.h"
+#import "BUYOptionSelectionNavigationController.h"
+#import "BUYPresentationControllerForVariantSelection.h"
 
-@interface BUYNavigationController () <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
+@interface BUYOptionSelectionNavigationController () <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
 
 @end
 
-@implementation BUYNavigationController
+@implementation BUYOptionSelectionNavigationController
 
 - (instancetype)initWithRootViewController:(UIViewController *)rootViewController
 {
@@ -25,7 +25,7 @@
 		self.view.layer.cornerRadius = 4.0;
 		self.view.clipsToBounds = YES;
 		
-		[self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor grayColor]}];
+		[self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor grayColor] }];
 		self.navigationBar.tintColor = [UIColor grayColor];
 	}
 	
@@ -36,7 +36,7 @@
 
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source
 {
-	UIPresentationController *presentationController = [[BUYPresentationController alloc] initWithPresentedViewController:presented presentingViewController:presenting];
+	BUYPresentationControllerForVariantSelection *presentationController = [[BUYPresentationControllerForVariantSelection alloc] initWithPresentedViewController:presented presentingViewController:presenting];
 	return presentationController;
 }
 
@@ -60,14 +60,13 @@
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext
 {
 	UIViewController *presentedController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-
+	
 	if (presentedController == self) {
-		
 		UIView *presentedView = presentedController.view;
 		CGRect finalRect = [transitionContext finalFrameForViewController:presentedController];
 		presentedView.frame = finalRect;
 		presentedView.alpha = 0.0;
-
+		
 		[[transitionContext containerView] addSubview:presentedView];
 		
 		[UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{

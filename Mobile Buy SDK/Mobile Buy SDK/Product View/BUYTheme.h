@@ -2,7 +2,7 @@
 //  BUYTheme.h
 //  Mobile Buy SDK
 //
-//  Created by David Muzi on 2015-07-09.
+//  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 

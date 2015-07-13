@@ -21,6 +21,7 @@
 {
 	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
 	if (self) {
+		self.selectionStyle = UITableViewCellSelectionStyleNone;
 		
 		_descriptionLabel = [[UILabel alloc] init];
 		_descriptionLabel.translatesAutoresizingMaskIntoConstraints = NO;

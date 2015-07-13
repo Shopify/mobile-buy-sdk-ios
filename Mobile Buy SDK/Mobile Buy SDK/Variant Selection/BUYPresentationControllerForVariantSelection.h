@@ -7,6 +7,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BUYPresentationController : UIPresentationController
+@interface BUYPresentationControllerForVariantSelection : UIPresentationController
+
+@property (nonatomic, strong) UIVisualEffectView *backgroundView;
 
 @end
