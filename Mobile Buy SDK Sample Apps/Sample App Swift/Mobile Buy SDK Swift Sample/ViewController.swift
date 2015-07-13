@@ -13,10 +13,10 @@ class ViewController: UIViewController {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var imageView: UIImageView!
 
-    let shopDomain = "davidmuzi.myshopify.com"
-    let apiKey = "ad30d5343ef86e2b4babef12f1d90d13"
-    let channelId = "237698"
-    let productId = "470952706"
+    let shopDomain = ""
+    let apiKey = ""
+    let channelId = ""
+    let productId = ""
     
     var productVariant: BUYProductVariant?
     let client: BUYClient
