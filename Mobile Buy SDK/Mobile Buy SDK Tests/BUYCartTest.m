@@ -83,7 +83,7 @@
 	BUYProductVariant *variant = [[BUYProductVariant alloc] initWithDictionary:@{ @"id" : @1 }];
 	[_cart addVariant:variant];
 	XCTAssertEqual([[_cart lineItems] count], 1);
-	XCTAssertEqualObjects([[_cart lineItems][0] variant], variant);
+	XCTAssertEqualObjects([[_cart lineItems][0] variantId], variant.identifier);
 }
 
 - (void)testAddingTwoDifferentVariantsWillAddDifferentLineItems
@@ -103,7 +103,7 @@
 	[_cart addVariant:variant];
 	[_cart addVariant:variant];
 	XCTAssertEqual([[_cart lineItems] count], 1);
-	XCTAssertEqualObjects([[_cart lineItems][0] variant], variant);
+	XCTAssertEqualObjects([[_cart lineItems][0] variantId], variant.identifier);
 	XCTAssertEqualObjects([[_cart lineItems][0] quantity], [NSDecimalNumber decimalNumberWithString:@"2"]);
 }
 

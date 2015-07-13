@@ -28,7 +28,7 @@
 	XCTAssertFalse([[_lineItem requiresShipping] boolValue]);
 	
 	BUYProductVariant *variant = [[BUYProductVariant alloc] initWithDictionary:@{ @"id" : @1, @"requires_shipping" : @YES }];
-	_lineItem.variant = variant;
+	_lineItem = [[BUYLineItem alloc] initWithVariant:variant];
 	XCTAssertTrue([[_lineItem requiresShipping] boolValue]);
 	
 	BUYLineItem *newLineItem = [[BUYLineItem alloc] initWithVariant:variant];
@@ -47,7 +47,7 @@
 
 - (void)testJsonDictionaryDoesntIncludeVariantsWithoutIds
 {
-	_lineItem.variant = [[BUYProductVariant alloc] init];
+	_lineItem.variantId = nil;
 	NSDictionary *json = [_lineItem jsonDictionaryForCheckout];
 	XCTAssertNotNil(json);
 	XCTAssertNil(json[@"variant_id"]);
@@ -55,7 +55,8 @@
 
 - (void)testJsonDictionaryShouldShowAllProperties
 {
-	_lineItem.variant = [[BUYProductVariant alloc] initWithDictionary:@{ @"id" : @5 }];
+	BUYProductVariant *variant = [[BUYProductVariant alloc] initWithDictionary:@{ @"id" : @5 }];
+	_lineItem = [[BUYLineItem alloc] initWithVariant:variant];
 	_lineItem.quantity = [NSDecimalNumber decimalNumberWithString:@"3"];
 	_lineItem.price = [NSDecimalNumber decimalNumberWithString:@"5.55"];
 	_lineItem.title = @"banana";

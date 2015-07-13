@@ -21,7 +21,7 @@
 	NSMutableArray *lineItemStrings = [[NSMutableArray alloc] initWithCapacity:cart.lineItems.count];
 	
 	for (BUYLineItem *lineItem in cart.lineItems) {
-		[lineItemStrings addObject:[NSString stringWithFormat:@"%@:%@", lineItem.variant.identifier, lineItem.quantity]];
+		[lineItemStrings addObject:[NSString stringWithFormat:@"%@:%@", lineItem.variantId, lineItem.quantity]];
 	}
 	
 	[urlString appendString:[lineItemStrings componentsJoinedByString:@","]];
