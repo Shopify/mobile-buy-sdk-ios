@@ -357,7 +357,7 @@
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "Mobile Buy SDK Web Sample";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "15af1dd6-199c-479f-9787-1fd80c902629";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "${PROJECT_DIR}/**";
 			};
@@ -388,7 +388,7 @@
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "Mobile Buy SDK Web Sample";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "15af1dd6-199c-479f-9787-1fd80c902629";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "${PROJECT_DIR}/**";
 			};
