@@ -11,6 +11,12 @@
 #import "NSDecimalNumber+BUYAdditions.h"
 #import "NSString+Trim.h"
 
+@interface BUYLineItem ()
+
+@property (nonatomic, strong) NSNumber *variantId;
+
+@end
+
 @implementation BUYLineItem
 
 - (instancetype)init

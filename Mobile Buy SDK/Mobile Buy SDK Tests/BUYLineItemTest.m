@@ -47,7 +47,7 @@
 
 - (void)testJsonDictionaryDoesntIncludeVariantsWithoutIds
 {
-	_lineItem.variantId = nil;
+	_lineItem = [[BUYLineItem alloc] initWithVariant:nil];
 	NSDictionary *json = [_lineItem jsonDictionaryForCheckout];
 	XCTAssertNotNil(json);
 	XCTAssertNil(json[@"variant_id"]);

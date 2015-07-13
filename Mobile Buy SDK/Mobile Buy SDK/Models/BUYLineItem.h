@@ -20,7 +20,7 @@
  *  BUYProductVariant identifer. Keep a reference to a cart or products if you wish to 
  *  display information for product variants
  */
-@property (nonatomic, strong) NSNumber *variantId;
+@property (nonatomic, strong, readonly) NSNumber *variantId;
 
 /**
  *  The quantity of the BUYLineItem.
