@@ -315,7 +315,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "Mobile Buy SDK Native Sample";
-				PROVISIONING_PROFILE = "d2662dd7-bd0b-4746-a2f3-f8f0c09ddb00";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -334,7 +334,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "Mobile Buy SDK Native Sample";
-				PROVISIONING_PROFILE = "d2662dd7-bd0b-4746-a2f3-f8f0c09ddb00";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
