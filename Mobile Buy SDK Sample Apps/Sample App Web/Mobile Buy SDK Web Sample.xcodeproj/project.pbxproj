@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		90858EC91B540D1B009D19D7 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90858EC81B540D1B009D19D7 /* PassKit.framework */; };
 		BE1C4E011AE9922100E21624 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDC7A321AE03BA800C4B4FE /* ViewController.m */; };
 		BE7764D61AE5724200C74937 /* CheckoutSelectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE7764D51AE5724200C74937 /* CheckoutSelectionController.m */; };
 		BE7764DB1AE5728E00C74937 /* PAYButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BE7764D81AE5728E00C74937 /* PAYButton.m */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		90858EC81B540D1B009D19D7 /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 		90F7BA5C1B0D1BE50067864D /* Buy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Buy.framework; path = ../Buy.framework; sourceTree = "<group>"; };
 		BE7764D41AE5724200C74937 /* CheckoutSelectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckoutSelectionController.h; sourceTree = "<group>"; };
 		BE7764D51AE5724200C74937 /* CheckoutSelectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckoutSelectionController.m; sourceTree = "<group>"; };
@@ -50,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90858EC91B540D1B009D19D7 /* PassKit.framework in Frameworks */,
 				BE9496711B4B0DEC00B38949 /* libc++.dylib in Frameworks */,
 				BE9652F41AE563CE00084408 /* WebKit.framework in Frameworks */,
 				BE9496701B4B0DD200B38949 /* Buy.framework in Frameworks */,
@@ -62,6 +65,7 @@
 		90171E981AF0294500BB73DB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				90858EC81B540D1B009D19D7 /* PassKit.framework */,
 				BE7D51CB1B04E21800E4A08F /* Buy.framework */,
 				BE9652F31AE563CE00084408 /* WebKit.framework */,
 				BE9652F01AE5550A00084408 /* libc++.dylib */,
