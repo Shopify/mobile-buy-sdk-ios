@@ -56,7 +56,7 @@
 
 - (void)addVariant:(BUYProductVariant *)variant
 {
-	BUYLineItem *existingLineItem = [self lineItemForVariant:variant];
+	BUYLineItem *existingLineItem = [self lineItemForVariantId:variant.identifier];
 	if (existingLineItem) {
 		existingLineItem.quantity = [existingLineItem.quantity decimalNumberByAdding:[NSDecimalNumber one]];
 	}
@@ -67,13 +67,13 @@
 
 - (void)removeVariant:(BUYProductVariant *)variant
 {
-	BUYLineItem *existingLineItem = [self lineItemForVariant:variant];
+	BUYLineItem *existingLineItem = [self lineItemForVariantId:variant.identifier];
 	if (existingLineItem) {
 		existingLineItem.quantity = [existingLineItem.quantity decimalNumberBySubtracting:[NSDecimalNumber one]];
 		if ([[existingLineItem quantity] isEqual:[NSDecimalNumber zero]]) {
 			[_lineItems removeObject:existingLineItem];
-			if (existingLineItem.variant.identifier) {
-				[_variantToLineItem removeObjectForKey:existingLineItem.variant.identifier];
+			if (existingLineItem.variantId) {
+				[_variantToLineItem removeObjectForKey:existingLineItem.variantId];
 			}
 		}
 	}
@@ -81,13 +81,13 @@
 
 #pragma mark - Direct Line Item Editing
 
-- (void)addLineItemsObject:(BUYLineItem *)object
+- (void)addLineItemsObject:(BUYLineItem *)lineItem
 {
-	BUYLineItem *existingLineItem = [self lineItemForVariant:object.variant];
+	BUYLineItem *existingLineItem = [self lineItemForVariantId:lineItem.variantId];
 	if (existingLineItem) {
 		[_lineItems removeObject:existingLineItem];
 	}
-	[_lineItems addObject:object];
+	[_lineItems addObject:lineItem];
 }
 
 - (void)removeLineItemsObject:(BUYLineItem *)object
@@ -97,9 +97,9 @@
 
 #pragma mark - Helpers
 
-- (BUYLineItem *)lineItemForVariant:(BUYProductVariant *)variant
+- (BUYLineItem *)lineItemForVariantId:(NSNumber *)variantId
 {
-	return variant.identifier ? _variantToLineItem[variant.identifier] : nil;
+	return variantId ? _variantToLineItem[variantId] : nil;
 }
 
 - (void)removeVariantFromCache:(BUYProductVariant *)variant

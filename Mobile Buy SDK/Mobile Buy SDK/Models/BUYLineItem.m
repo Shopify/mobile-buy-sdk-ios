@@ -11,6 +11,12 @@
 #import "NSDecimalNumber+BUYAdditions.h"
 #import "NSString+Trim.h"
 
+@interface BUYLineItem ()
+
+@property (nonatomic, strong) NSNumber *variantId;
+
+@end
+
 @implementation BUYLineItem
 
 - (instancetype)init
@@ -22,7 +28,7 @@
 {
 	self = [super init];
 	if (self) {
-		self.variant = variant;
+		self.variantId = variant.identifier;
 		self.quantity = variant ? [NSDecimalNumber one] : [NSDecimalNumber zero];
 		self.price = variant ? [variant price] : [NSDecimalNumber zero];
 		self.title = variant ? [variant title] : @"";
@@ -40,19 +46,11 @@
 	self.requiresShipping = dictionary[@"requires_shipping"];
 }
 
-- (void)setVariant:(BUYProductVariant *)variant
-{
-	[self willChangeValueForKey:@"variant"];
-	_variant = variant;
-	[self didChangeValueForKey:@"variant"];
-	self.requiresShipping = variant.requiresShipping;
-}
-
 - (NSDictionary *)jsonDictionaryForCheckout
 {
 	NSMutableDictionary *lineItem = [[NSMutableDictionary alloc] init];
-	if (self.variant.identifier) {
-		lineItem[@"variant_id"] = self.variant.identifier;
+	if (self.variantId) {
+		lineItem[@"variant_id"] = self.variantId;
 	}
 	
 	if ([self.title length] > 0) {
