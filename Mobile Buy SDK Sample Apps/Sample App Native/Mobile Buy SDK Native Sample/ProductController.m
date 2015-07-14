@@ -80,48 +80,17 @@
 - (void)applePayPressed:(id)sender
 {
 	// Step 1 - Create the checkout on Shopify. This demo only works with ApplePay.
-//	if ([PKPaymentAuthorizationViewController canMakePayments]) {
+	if ([PKPaymentAuthorizationViewController canMakePayments]) {
         BUYCart *cart = [[BUYCart alloc] init];
         [cart addVariant:self.productVariant];
-        [cart removeVariant:self.productVariant];
-        [cart addVariant:self.productVariant];
-
-//		[self startApplePayCheckoutWithCart:cart];
-        
-        BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:cart];
-        
-        BUYDiscount *discount = [[BUYDiscount alloc] initWithCode:@"20OFF"];
-        checkout.discount = discount;
-        
-        BUYAddress *shippingAddress     = [[BUYAddress alloc] init];
-        shippingAddress.firstName = @"Rune";
-        shippingAddress.lastName = @"Madsen";
-        shippingAddress.address1        = @"80 Spadina Ave";
-        shippingAddress.city            = @"Toronto";
-        shippingAddress.province        = @"Ontario";
-        shippingAddress.zip             = @"M5H4E6";
-        shippingAddress.countryCode     = @"Canada";
-        checkout.shippingAddress        = shippingAddress;
-
-        
-        [self.client createCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
-            
-            
-            
-            [self.client getShippingRatesForCheckout:checkout completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
-                
-                checkout.shippingRate = [shippingRates firstObject];
-                
-                NSLog(@"getShippingRatesForCheckout after %@", checkout.shippingRate);
-            }];
-        }];
-//	}
-//    else
-//    {
-//        // Alternativelty, a web view with the checkout flow could be displayed, or a fully native checkout which then calls `completeCheckout:completion`
-//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Apple Pay not supported on this device" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-//        [alertView show];
-//    }
+		[self startApplePayCheckoutWithCart:cart];
+	}
+    else
+    {
+        // Alternativelty, a web view with the checkout flow could be displayed, or a fully native checkout which then calls `completeCheckout:completion`
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Apple Pay not supported on this device" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+    }
 }
 
 @end
