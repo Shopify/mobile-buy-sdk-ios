@@ -99,7 +99,6 @@
 		BE9A64731B503D2C0033E558 /* NSString+Trim.m in Sources */ = {isa = PBXBuildFile; fileRef = F76CFF1C19CB7BE30079C703 /* NSString+Trim.m */; };
 		BE9A64741B503D2E0033E558 /* BUYApplePayHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = BE33B4ED1B15FF4D0067982B /* BUYApplePayHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BE9A64751B503D370033E558 /* BUYApplePayHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = BE33B4EE1B15FF4D0067982B /* BUYApplePayHelpers.m */; };
-		BE9A64761B503D390033E558 /* (null) in Headers */ = {isa = PBXBuildFile; };
 		BE9A64781B503D3F0033E558 /* BUYAddress+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = BE33B4FA1B177EC80067982B /* BUYAddress+Additions.m */; };
 		BE9A64791B503D420033E558 /* BUYAddress+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = BE33B4F91B177EC80067982B /* BUYAddress+Additions.h */; };
 		BE9A647A1B503D450033E558 /* BUYCheckout+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = BE6C5E701B1CF776003AD9D0 /* BUYCheckout+Additions.h */; };
@@ -289,14 +288,12 @@
 		BE9A639D1B500B360033E558 /* Buy-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Buy-Bridging-Header.h"; sourceTree = "<group>"; };
 		BE9A64281B503C2F0033E558 /* Buy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Buy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE9A642B1B503C2F0033E558 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BE9A643A1B503C2F0033E558 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BE9A643B1B503C2F0033E558 /* BuyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BuyTests.m; sourceTree = "<group>"; };
 		BEB74A1B1B5490140005A300 /* BUYCheckout_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYCheckout_Private.h; sourceTree = "<group>"; };
 		BEB74A1F1B554BF20005A300 /* BUYPresentationControllerForVariantSelection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYPresentationControllerForVariantSelection.h; path = "Mobile Buy SDK/Variant Selection/BUYPresentationControllerForVariantSelection.h"; sourceTree = SOURCE_ROOT; };
 		BEB74A201B554BF20005A300 /* BUYPresentationControllerForVariantSelection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYPresentationControllerForVariantSelection.m; path = "Mobile Buy SDK/Variant Selection/BUYPresentationControllerForVariantSelection.m"; sourceTree = SOURCE_ROOT; };
 		BEB74A251B554BFB0005A300 /* BUYOptionSelectionNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYOptionSelectionNavigationController.h; path = "Mobile Buy SDK/Variant Selection/BUYOptionSelectionNavigationController.h"; sourceTree = SOURCE_ROOT; };
 		BEB74A261B554BFB0005A300 /* BUYOptionSelectionNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYOptionSelectionNavigationController.m; path = "Mobile Buy SDK/Variant Selection/BUYOptionSelectionNavigationController.m"; sourceTree = SOURCE_ROOT; };
-		BEB74A7F1B557A1C0005A300 /* buy.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = buy.modulemap; sourceTree = "<group>"; };
+		BEB74A7F1B557A1C0005A300 /* Buy.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = Buy.modulemap; sourceTree = "<group>"; };
 		BED5C1C21B20C26A0009079F /* BUYErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYErrors.h; sourceTree = "<group>"; };
 		BEEA83E51B0B76C7000C6483 /* BUYOptionValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYOptionValue.h; sourceTree = "<group>"; };
 		BEEA83E61B0B76C7000C6483 /* BUYOptionValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYOptionValue.m; sourceTree = "<group>"; };
@@ -509,23 +506,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		BE9A64381B503C2F0033E558 /* BuyTests */ = {
-			isa = PBXGroup;
-			children = (
-				BE9A643B1B503C2F0033E558 /* BuyTests.m */,
-				BE9A64391B503C2F0033E558 /* Supporting Files */,
-			);
-			path = BuyTests;
-			sourceTree = "<group>";
-		};
-		BE9A64391B503C2F0033E558 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				BE9A643A1B503C2F0033E558 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		F773741419C770CB0039681C = {
 			isa = PBXGroup;
 			children = (
@@ -533,7 +513,6 @@
 				F773743A19C777200039681C /* Mobile Buy SDK */,
 				90F592ED1B0D5EFE0026B382 /* Mobile Buy SDK Tests */,
 				BE9A64291B503C2F0033E558 /* Buy */,
-				BE9A64381B503C2F0033E558 /* BuyTests */,
 				F773741E19C770CB0039681C /* Products */,
 				90F7BA691B0D1DAF0067864D /* Playground */,
 				547B8D0CCDB9458C800F1E3C /* Frameworks */,
@@ -556,7 +535,7 @@
 			children = (
 				904FB6011AE03D4500EA1758 /* Buy.h */,
 				BE9A639D1B500B360033E558 /* Buy-Bridging-Header.h */,
-				BEB74A7F1B557A1C0005A300 /* buy.modulemap */,
+				BEB74A7F1B557A1C0005A300 /* Buy.modulemap */,
 				F773749F19C77E4E0039681C /* Classes */,
 				F773749E19C77E460039681C /* Supporting Files */,
 			);
@@ -712,7 +691,6 @@
 				BE9A64701B503D230033E558 /* NSDecimalNumber+BUYAdditions.h in Headers */,
 				BE9A644B1B503C9B0033E558 /* BUYCheckout.h in Headers */,
 				BE9A64491B503C940033E558 /* BUYCart.h in Headers */,
-				BE9A64761B503D390033E558 /* (null) in Headers */,
 				BEB74A2D1B554E870005A300 /* BUYProductViewController.h in Headers */,
 				BE9A64611B503CEF0033E558 /* BUYProduct.h in Headers */,
 				BE9A64651B503CFE0033E558 /* BUYSerializable.h in Headers */,
@@ -1131,7 +1109,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "${PROJECT_DIR}/Mobile Buy SDK/buy.modulemap";
+				MODULEMAP_FILE = "${PROJECT_DIR}/Mobile Buy SDK/Buy.modulemap";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1158,7 +1136,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "${PROJECT_DIR}/Mobile Buy SDK/buy.modulemap";
+				MODULEMAP_FILE = "${PROJECT_DIR}/Mobile Buy SDK/Buy.modulemap";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
