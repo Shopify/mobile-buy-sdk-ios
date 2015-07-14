@@ -12,7 +12,7 @@
 #import <Buy/Buy.h>
 #import "BUYTestConstants.h"
 #import "BUYAddress+Additions.h"
-#import "BUYClient+WebCheckout.h"
+#import "BUYCheckout_Private.h"
 
 @interface BUYIntegrationTest : XCTestCase
 @end
@@ -632,15 +632,6 @@
 {
 	BUYDiscount *discount = [[BUYDiscount alloc] initWithCode:@"asdfasdfasdfasdf"];
 	return discount;
-}
-
-- (void)testWebCheckoutURL
-{
-	NSURL *url = [_checkoutClient urlForCart:_cart];
-	
-	NSString *urlString = [NSString stringWithFormat:@"https://%@/cart/?channel_id=%@&marketing_attribution%%5Bmedium%%5D=iOS&marketing_attribution%%5Bsource%%5D=", _checkoutClient.shopDomain, _checkoutClient.channelId];
-	
-	XCTAssertTrue([urlString isEqualToString:url.absoluteString]);
 }
 
 - (void)testReservationTimeModification
