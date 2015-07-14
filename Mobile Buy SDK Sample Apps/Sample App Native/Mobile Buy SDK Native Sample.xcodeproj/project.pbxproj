@@ -61,7 +61,7 @@
 				907396331B53FDD6001EB4A2 /* Mobile Buy SDK Native Sample.entitlements */,
 				90F7BA601B0D1BF00067864D /* Buy.framework */,
 				90070E631AF12626003ED7B6 /* Frameworks */,
-				90070E341AF120A6003ED7B6 /* Shopify Checkout */,
+				90070E341AF120A6003ED7B6 /* Mobile Buy SDK Native Sample */,
 				90070E331AF120A6003ED7B6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -74,7 +74,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		90070E341AF120A6003ED7B6 /* Shopify Checkout */ = {
+		90070E341AF120A6003ED7B6 /* Mobile Buy SDK Native Sample */ = {
 			isa = PBXGroup;
 			children = (
 				90070E6A1AF12ADF003ED7B6 /* Shopify Checkout.entitlements */,
@@ -89,7 +89,7 @@
 				90070E441AF120A6003ED7B6 /* LaunchScreen.xib */,
 				90070E351AF120A6003ED7B6 /* Supporting Files */,
 			);
-			path = "Shopify Checkout";
+			path = "Mobile Buy SDK Native Sample";
 			sourceTree = "<group>";
 		};
 		90070E351AF120A6003ED7B6 /* Supporting Files */ = {
