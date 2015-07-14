@@ -29,12 +29,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    BUYClient *client = [[BUYClient alloc] initWithShopDomain:@"the-app-boutique.myshopify.com"
-                                                       apiKey:@"506ede8b60f86fbf86109a762fe8093d"
-                                                    channelId:@"9060547"];
+    BUYClient *client = [[BUYClient alloc] initWithShopDomain:SHOP_DOMAIN apiKey:API_KEY channelId:CHANNEL_ID];
     client.urlScheme = @"nativeapp://";
     
-    [client enableApplePayWithMerchantId:@"merchant.com.shopify.applepay"];
+    [client enableApplePayWithMerchantId:MERCHANT_ID];
     
     ProductController *productController = [[ProductController alloc] initWithClient:client productId:PRODUCT_ID];
     productController.delegate = self;
