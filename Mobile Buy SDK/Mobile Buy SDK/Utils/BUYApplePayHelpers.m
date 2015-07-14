@@ -159,23 +159,28 @@ const NSTimeInterval PollDelay = 0.5;
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
 		dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 		__block BUYStatus shippingStatus = BUYStatusUnknown;
-		while (shippingStatus == BUYStatusUnknown || shippingStatus == BUYStatusProcessing) {
+		do {
 			[self.client getShippingRatesForCheckout:self.checkout completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
 				shippingStatus = status;
-				
+
 				if (error) {
 					completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItems]);
 				}
-				else if (status == BUYStatusComplete && [shippingRates count] == 0) {
-					//You don't ship to this location
-					self.checkout.shippingRate = nil;
-					completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItems]);
-				}
-				else if ((status == BUYStatusUnknown && error == nil) || status == BUYStatusComplete) { //We shouldn't add unkonown here, but this supports the case where we don't need shipping rates
-					shippingStatus = BUYStatusComplete;
-					
+				else if (shippingStatus == BUYStatusComplete) {
 					self.shippingRates = shippingRates;
-					completion(PKPaymentAuthorizationStatusSuccess, shippingRates, [self.checkout buy_summaryItems]);
+					
+					if ([self.shippingRates count] == 0) {
+						// Shipping address not supported
+						self.checkout.shippingRate = nil;
+						if (completion) {
+							completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItems]);
+						}
+					} else {
+						if (completion) {
+							completion(PKPaymentAuthorizationStatusSuccess, self.shippingRates, [self.checkout buy_summaryItems]);
+						}
+					}
+					
 				}
 				
 				dispatch_semaphore_signal(semaphore);
@@ -183,10 +188,10 @@ const NSTimeInterval PollDelay = 0.5;
 			
 			dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 			if (shippingStatus != BUYStatusComplete && shippingStatus != BUYStatusUnknown) {
-				//Adjust as you see fit for your polling rate.
+				// Adjust as you see fit for your polling rate.
 				[NSThread sleepForTimeInterval:PollDelay];
 			}
-		}
+		} while (shippingStatus == BUYStatusProcessing);
 	});
 }
 
