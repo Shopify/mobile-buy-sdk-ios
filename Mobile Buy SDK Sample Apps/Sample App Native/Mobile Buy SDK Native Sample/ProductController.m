@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 Shopify. All rights reserved.
 //
 
-#import <Buy/Buy.h>
-
+@import Buy;
 #import "ProductController.h"
 #import "ProductView.h"
 
