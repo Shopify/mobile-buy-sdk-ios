@@ -83,7 +83,6 @@
 	if ([PKPaymentAuthorizationViewController canMakePayments]) {
         BUYCart *cart = [[BUYCart alloc] init];
         [cart addVariant:self.productVariant];
-
 		[self startApplePayCheckoutWithCart:cart];
 	}
     else
