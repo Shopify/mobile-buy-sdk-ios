@@ -32,7 +32,7 @@
 		BE7764D91AE5728E00C74937 /* CheckoutSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckoutSelectionView.h; sourceTree = "<group>"; };
 		BE7764DA1AE5728E00C74937 /* CheckoutSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckoutSelectionView.m; sourceTree = "<group>"; };
 		BE7D51CB1B04E21800E4A08F /* Buy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Buy.framework; path = ../../../Buy.framework; sourceTree = "<group>"; };
-		BE9572AC1AE592E70024968A /* Shopify Checkout.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Shopify Checkout.entitlements"; sourceTree = "<group>"; };
+		BE9572AC1AE592E70024968A /* Mobile Buy SDK Web Sample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Mobile Buy SDK Web Sample.entitlements"; sourceTree = "<group>"; };
 		BE9652F01AE5550A00084408 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		BE9652F31AE563CE00084408 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		BEDC7A271AE03BA800C4B4FE /* Mobile Buy SDK Web Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile Buy SDK Web Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,7 +108,7 @@
 		BEDC7A291AE03BA800C4B4FE /* Mobile Buy SDK Web Sample */ = {
 			isa = PBXGroup;
 			children = (
-				BE9572AC1AE592E70024968A /* Shopify Checkout.entitlements */,
+				BE9572AC1AE592E70024968A /* Mobile Buy SDK Web Sample.entitlements */,
 				BE7764DD1AE5729200C74937 /* Payment Selection */,
 				BEDC7A2E1AE03BA800C4B4FE /* AppDelegate.h */,
 				BEDC7A2F1AE03BA800C4B4FE /* AppDelegate.m */,
@@ -340,7 +340,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Shopify Checkout/Shopify Checkout.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Mobile Buy SDK Web Sample/Mobile Buy SDK Web Sample.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -353,7 +353,7 @@
 					"${PROJECT_DIR}/**",
 					"${PROJECT_DIR}/../..",
 				);
-				INFOPLIST_FILE = "Shopify Checkout/Info.plist";
+				INFOPLIST_FILE = "Mobile Buy SDK Web Sample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -371,7 +371,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Shopify Checkout/Shopify Checkout.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Mobile Buy SDK Web Sample/Mobile Buy SDK Web Sample.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -384,7 +384,7 @@
 					"${PROJECT_DIR}/**",
 					"${PROJECT_DIR}/../..",
 				);
-				INFOPLIST_FILE = "Shopify Checkout/Info.plist";
+				INFOPLIST_FILE = "Mobile Buy SDK Web Sample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
