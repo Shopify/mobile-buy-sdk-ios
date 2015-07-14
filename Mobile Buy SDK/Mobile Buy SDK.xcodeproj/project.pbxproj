@@ -151,6 +151,8 @@
 		BE9A636A1B4F157E0033E558 /* Buy.modulemap in Sources */ = {isa = PBXBuildFile; fileRef = BE9A63691B4F157E0033E558 /* Buy.modulemap */; };
 		BE9A639E1B500B550033E558 /* Buy-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = BE9A639D1B500B360033E558 /* Buy-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BEB74A1C1B5490140005A300 /* BUYCheckout_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = BEB74A1B1B5490140005A300 /* BUYCheckout_Private.h */; };
+		BEB74A881B5589C80005A300 /* BUYCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = BEB74A861B5589C80005A300 /* BUYCollection.h */; };
+		BEB74A891B5589C80005A300 /* BUYCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB74A871B5589C80005A300 /* BUYCollection.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -302,6 +304,8 @@
 		BE9A63691B4F157E0033E558 /* Buy.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = Buy.modulemap; sourceTree = "<group>"; };
 		BE9A639D1B500B360033E558 /* Buy-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Buy-Bridging-Header.h"; sourceTree = "<group>"; };
 		BEB74A1B1B5490140005A300 /* BUYCheckout_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYCheckout_Private.h; sourceTree = "<group>"; };
+		BEB74A861B5589C80005A300 /* BUYCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYCollection.h; sourceTree = "<group>"; };
+		BEB74A871B5589C80005A300 /* BUYCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYCollection.m; sourceTree = "<group>"; };
 		BED5C1C21B20C26A0009079F /* BUYErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYErrors.h; sourceTree = "<group>"; };
 		BEEA83E51B0B76C7000C6483 /* BUYOptionValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYOptionValue.h; sourceTree = "<group>"; };
 		BEEA83E61B0B76C7000C6483 /* BUYOptionValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYOptionValue.m; sourceTree = "<group>"; };
@@ -571,6 +575,8 @@
 				2AF52A841A700B0A0087DB2C /* BUYShop.m */,
 				90AFAA5C1B011EA600F21C23 /* BUYTaxLine.h */,
 				90AFAA5D1B011EA600F21C23 /* BUYTaxLine.m */,
+				BEB74A861B5589C80005A300 /* BUYCollection.h */,
+				BEB74A871B5589C80005A300 /* BUYCollection.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -667,6 +673,7 @@
 				BE9496491B45C69800B38949 /* BUYDiscount.h in Headers */,
 				BE9496571B45C6E700B38949 /* BUYApplePayAdditions.h in Headers */,
 				90516CA31B4D771400E35E45 /* BUYVariantOptionView.h in Headers */,
+				BEB74A881B5589C80005A300 /* BUYCollection.h in Headers */,
 				BE9496461B45C68A00B38949 /* BUYCart.h in Headers */,
 				BE9496501B45C6BA00B38949 /* BUYObject.h in Headers */,
 				BE9496451B45C68700B38949 /* BUYClient.h in Headers */,
@@ -918,6 +925,7 @@
 				90516C9E1B4D76D900E35E45 /* BUYProductHeaderCell.m in Sources */,
 				BE9496381B45C61200B38949 /* BUYProductVariant.m in Sources */,
 				BE94962D1B45C5F500B38949 /* BUYShippingRate.m in Sources */,
+				BEB74A891B5589C80005A300 /* BUYCollection.m in Sources */,
 				BE9496291B45C5E700B38949 /* BUYViewController.m in Sources */,
 				90516CB11B4EC9FE00E35E45 /* BUYImageView.m in Sources */,
 				90516CBC1B4F0E9800E35E45 /* BUYTheme.m in Sources */,

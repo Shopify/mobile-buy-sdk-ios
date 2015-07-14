@@ -10,6 +10,7 @@
 @import XCTest;
 #import <Buy/Buy.h>
 #import "BUYTestConstants.h"
+#import "BUYCollection.h"
 
 @interface BUYClientTest_Storefront : XCTestCase
 @end
@@ -132,6 +133,26 @@
 	[_client getProductById:@"asdfdsasdfdsasdfdsasdfjkllkj" completion:^(BUYProduct *product, NSError *error) {
 
 		XCTAssertNil(product);
+		[expectation fulfill];
+	}];
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
+- (void)testCollections
+{
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_client getCollections:^(NSArray *collections, NSError *error) {
+		
+		XCTAssertNotNil(collections);
+		
+		BUYCollection *collection = collections.firstObject;
+		
+		XCTAssertEqualObjects(@"Super Sale", [collection title]);
+		XCTAssertEqualObjects(@"super-sale", [collection handle]);
+		XCTAssertEqualObjects(@42362050, [collection collectionId]);
+
 		[expectation fulfill];
 	}];
 	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
