@@ -111,7 +111,6 @@
 		BE9A64811B503D9E0033E558 /* BUYViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1C4DF61AE98FBB00E21624 /* BUYViewController.m */; };
 		BE9A64821B503DAD0033E558 /* BUYPaymentButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 905AA96F1B3B32A500CAE037 /* BUYPaymentButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BE9A64831B503DB10033E558 /* BUYPaymentButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 905AA9701B3B32A500CAE037 /* BUYPaymentButton.m */; };
-		BE9A64861B5045E60033E558 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9496681B45CCF400B38949 /* libc++.dylib */; };
 		BEB74A221B554BF20005A300 /* BUYPresentationControllerForVariantSelection.h in Headers */ = {isa = PBXBuildFile; fileRef = BEB74A1F1B554BF20005A300 /* BUYPresentationControllerForVariantSelection.h */; };
 		BEB74A241B554BF20005A300 /* BUYPresentationControllerForVariantSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB74A201B554BF20005A300 /* BUYPresentationControllerForVariantSelection.m */; };
 		BEB74A281B554BFB0005A300 /* BUYOptionSelectionNavigationController.h in Headers */ = {isa = PBXBuildFile; fileRef = BEB74A251B554BFB0005A300 /* BUYOptionSelectionNavigationController.h */; };
@@ -345,7 +344,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE9A64861B5045E60033E558 /* libc++.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
