@@ -1,0 +1,7 @@
+framework module Buy {
+  umbrella header "Buy.h"
+
+  export *
+  module * { export * }
+  link "c++"
+}

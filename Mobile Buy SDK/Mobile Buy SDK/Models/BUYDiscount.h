@@ -10,7 +10,7 @@
 #import "BUYSerializable.h"
 
 /**
- *   UYDiscount represents a discount that is applied to the BUYCheckout.
+ *   BUYDiscount represents a discount that is applied to the BUYCheckout.
  */
 @interface BUYDiscount : BUYObject <BUYSerializable>
 
