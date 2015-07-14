@@ -49,9 +49,7 @@
 		90F7BA7B1B0D1DAF0067864D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90F7BA7A1B0D1DAF0067864D /* Images.xcassets */; };
 		90F7BA7E1B0D1DAF0067864D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90F7BA7C1B0D1DAF0067864D /* LaunchScreen.xib */; };
 		BE94966A1B45CD0500B38949 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AB6AB819CFCE6A00115224 /* libstdc++.dylib */; };
-		BE9496901B4C133A00B38949 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9496681B45CCF400B38949 /* libc++.dylib */; };
 		BE9A643F1B503C2F0033E558 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9A64281B503C2F0033E558 /* Buy.framework */; };
-		BE9A64401B503C2F0033E558 /* Buy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BE9A64281B503C2F0033E558 /* Buy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BE9A64471B503C8B0033E558 /* BUYClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F7FDA17019C93F6F00AF4E93 /* BUYClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BE9A64481B503C900033E558 /* BUYClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDA17119C93F6F00AF4E93 /* BUYClient.m */; };
 		BE9A64491B503C940033E558 /* BUYCart.h in Headers */ = {isa = PBXBuildFile; fileRef = F773744719C77A210039681C /* BUYCart.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -175,7 +173,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				BE9A64401B503C2F0033E558 /* Buy.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -335,7 +332,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE9496901B4C133A00B38949 /* libc++.dylib in Frameworks */,
 				BE9A643F1B503C2F0033E558 /* Buy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

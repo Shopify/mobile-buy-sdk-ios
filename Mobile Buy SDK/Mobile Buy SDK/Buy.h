@@ -29,3 +29,4 @@
 #import <Buy/BUYPaymentButton.h>
 #import <Buy/BUYProductViewController.h>
 #import <Buy/BUYTheme.h>
+#import <Buy/Buy-Bridging-Header.h>

@@ -7,7 +7,8 @@
 //
 
 #import "FirstViewController.h"
-#import <Buy/Buy.h>
+
+@import Buy;
 
 @interface FirstViewController ()
 
