@@ -12,6 +12,7 @@
 @import XCTest;
 #import <Buy/Buy.h>
 #import "BUYAddress+Additions.h"
+#import "BUYCheckout_Private.h"
 
 @interface BUYApplePayAdditionsTest : XCTestCase
 @end

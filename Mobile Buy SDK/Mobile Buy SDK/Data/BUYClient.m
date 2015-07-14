@@ -18,6 +18,7 @@
 #import "BUYCheckout+Additions.h"
 #import "BUYErrors.h"
 #import "BUYTestConstants.h"
+#import "BUYCheckout_Private.h"
 
 #define kGET @"GET"
 #define kPOST @"POST"

@@ -9,7 +9,7 @@
 @import UIKit;
 @import XCTest;
 #import <Buy/Buy.h>
-
+#import "BUYCheckout_Private.h"
 @interface BUYCheckoutTest : XCTestCase
 @end
 
