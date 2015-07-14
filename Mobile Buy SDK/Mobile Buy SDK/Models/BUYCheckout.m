@@ -16,8 +16,7 @@
 #import "BUYTaxLine.h"
 #import "NSDecimalNumber+BUYAdditions.h"
 #import "NSString+Trim.h"
-
-static NSDictionary *kBUYPropertyMap = nil;
+#import "BUYCheckout_Private.h"
 
 @implementation BUYCheckout
 

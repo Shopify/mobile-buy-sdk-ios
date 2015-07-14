@@ -31,72 +31,72 @@
 /**
  *  Unique token for the checkout on Shopify
  */
-@property (nonatomic, copy) NSString *token;
+@property (nonatomic, copy, readonly) NSString *token;
 
 /**
  *  Unique token for a cart which can be used to convert to a checkout
  */
-@property (nonatomic, copy) NSString *cartToken;
+@property (nonatomic, copy, readonly) NSString *cartToken;
 
 /**
  *  The unique order ID
  */
-@property (nonatomic, copy) NSNumber *orderId;
+@property (nonatomic, copy, readonly) NSNumber *orderId;
 
 /**
  *  States whether or not the fulfillment requires shipping
  */
-@property (nonatomic, assign) BOOL requiresShipping;
+@property (nonatomic, assign, readonly) BOOL requiresShipping;
 
 /**
  *  States whether or not the taxes are included in the price
  */
-@property (nonatomic, assign) BOOL taxesIncluded;
+@property (nonatomic, assign, readonly) BOOL taxesIncluded;
 
 /**
  *  The three letter code (ISO 4217) for the currency used for the payment
  */
-@property (nonatomic, copy) NSString *currency;
+@property (nonatomic, copy, readonly) NSString *currency;
 
 /**
  *  Price of the order before shipping and taxes
  */
-@property (nonatomic, strong) NSDecimalNumber *subtotalPrice;
+@property (nonatomic, strong, readonly) NSDecimalNumber *subtotalPrice;
 
 /**
  *  The sum of all the taxes applied to the line items in the order
  */
-@property (nonatomic, strong) NSDecimalNumber *totalTax;
+@property (nonatomic, strong, readonly) NSDecimalNumber *totalTax;
 
 /**
  *  The sum of all the prices of all the items in the order, taxes and discounts included
  */
-@property (nonatomic, strong) NSDecimalNumber *totalPrice;
+@property (nonatomic, strong, readonly) NSDecimalNumber *totalPrice;
 
 /**
  *  The Payment Session ID associated with a credit card transaction
  */
-@property (nonatomic, strong) NSString *paymentSessionId;
+@property (nonatomic, strong, readonly) NSString *paymentSessionId;
 
 /**
  *  URL to the payment gateway
  */
-@property (nonatomic, strong) NSURL *paymentURL;
+@property (nonatomic, strong, readonly) NSURL *paymentURL;
 
 /**
- *  Reservation time on the checkout in seconds
+ *  Reservation time on the checkout in seconds. Setting to @0 and updating the checkout will release the products
  */
 @property (nonatomic, strong) NSNumber *reservationTime;
 
 /**
  *  Reservation time remaining on the checkout in seconds
  */
-@property (nonatomic, strong) NSNumber *reservationTimeLeft;
+@property (nonatomic, strong, readonly) NSNumber *reservationTimeLeft;
 
 /**
  *  Amount of payment due on the checkout
  */
-@property (nonatomic, strong) NSDecimalNumber *paymentDue;
+@property (nonatomic, strong, readonly) NSDecimalNumber *paymentDue;
 
 /**
  *  Array of line items in the checkout
@@ -136,7 +136,7 @@
 /**
  *  URL for the website showing the order status
  */
-@property (nonatomic, strong) NSURL *orderStatusURL;
+@property (nonatomic, strong, readonly) NSURL *orderStatusURL;
 
 /**
  *  Channel ID where the checkout was created
@@ -144,7 +144,8 @@
 @property (nonatomic, strong) NSString *channelId;
 
 /**
- *  Attributions for the checkout, containing the application name and platform
+ *  Attributions for the checkout, containing the application name and platform (defaults to applicationName set 
+ *  on the BUYClient, and "iOS" respectively
  */
 @property (nonatomic, strong) NSDictionary *marketingAttribution;
 
@@ -152,7 +153,7 @@
  *  URL which is used for completing checkout.  It is recommended to open the URL in Safari to take
  *  advantage of its autocompletion and credit card capture capabilities
  */
-@property (nonatomic, strong) NSURL *webCheckoutURL;
+@property (nonatomic, strong, readonly) NSURL *webCheckoutURL;
 
 /**
  *  The URL Scheme of the host app.  Used to return to the app from the web checkout
@@ -181,7 +182,7 @@
 - (instancetype)initWithCart:(BUYCart *)cart;
 
 /**
- *  <#Description#>
+ *  Creates a new checkout
  *
  *  @param cartToken a token for a previously created cart
  *

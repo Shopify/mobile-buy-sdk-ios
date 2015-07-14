@@ -13,7 +13,6 @@
 #import "BUYClient.h"
 #import "BUYViewController.h"
 #import "BUYApplePayHelpers.h"
-#import "BUYClient+WebCheckout.h"
 
 @interface BUYViewController () <PKPaymentAuthorizationViewControllerDelegate>
 @property (nonatomic, strong) BUYCheckout *checkout;
