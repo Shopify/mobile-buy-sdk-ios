@@ -16,19 +16,17 @@ The workspace includes the Mobile Buy SDK project and the two sample app project
 
 ### Mobile Buy SDK Targets and schemes
 
-The Mobile Buy SDK includes a number of targets:
+The Mobile Buy SDK includes a number of targets and schemes:
 
-* `Buy`: This is the Mobile Buy SDK framework. This build is based on the current build configuration. To build a universal framework that can run on a device and on the Simulator and to be included in your app, please refer to the `Universal Framework` target below
+* **Buy**: This is the Mobile Buy SDK framework. This build is based on the current build configuration. To build a universal framework that can run on a device and on the Simulator and to be included in your app, please refer to the `Universal Framework` target below
 
-* `Universal Framework`: This builds a universal the framework using the `build.sh` script that can be included in apps running on a device and in the Simulator
+* **Universal Framework**: This builds the framework using same `build.sh` script in the `Universal Framework` target and copies the built framework in the `/Mobile Buy SDK Sample Apps` folder. Build this target and scheme if you have made any changes to the framework that you want to test with the sample apps as the sample apps do not build the framework directly but embed the already built framework 
 
-* `Mobile Buy SDK Tests`: Tests for the Mobile Buy SDK framework. See instructions below
+* **Mobile Buy SDK Tests**: Tests for the Mobile Buy SDK framework. See instructions below
 
-* `Documentation`: This generates appledoc documentation for the framework
+* **Documentation**: This generates appledoc documentation for the framework
 
-* `Universal Framework Sample Apps`: This builds the framework using same `build.sh` script in the `Universal Framework` target and copies the built framework in the `/Mobile Buy SDK Sample Apps` folder. Build this target and scheme if you have made any changes to the framework that you want to test with the sample apps as the sample apps do not build the framework directly but embed the already built framework 
-
-* `Playground`: This target is a basic app that depends directly on the `Buy` framework target and builds the framework every time using the `Playground` app's build configuration. You may use this app and target to play around with the SDK. Be sure not to check in any changes you may have made in files related to this app
+* **Playground**: This target is a basic app that depends directly on the `Buy` framework target and builds the framework every time using the `Playground` app's build configuration. You may use this app and target to play around with the SDK. Be sure not to check in any changes you may have made in files related to this app
 
 ### Integration Tests
 
