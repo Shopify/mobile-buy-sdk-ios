@@ -13,7 +13,6 @@
 		BE7764DB1AE5728E00C74937 /* PAYButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BE7764D81AE5728E00C74937 /* PAYButton.m */; };
 		BE7764DC1AE5728E00C74937 /* CheckoutSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE7764DA1AE5728E00C74937 /* CheckoutSelectionView.m */; };
 		BE9496701B4B0DD200B38949 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F7BA5C1B0D1BE50067864D /* Buy.framework */; };
-		BE9496711B4B0DEC00B38949 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9652F01AE5550A00084408 /* libc++.dylib */; };
 		BE9652F41AE563CE00084408 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9652F31AE563CE00084408 /* WebKit.framework */; };
 		BEDC7A2D1AE03BA800C4B4FE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDC7A2C1AE03BA800C4B4FE /* main.m */; };
 		BEDC7A301AE03BA800C4B4FE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDC7A2F1AE03BA800C4B4FE /* AppDelegate.m */; };
@@ -53,7 +52,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				90858EC91B540D1B009D19D7 /* PassKit.framework in Frameworks */,
-				BE9496711B4B0DEC00B38949 /* libc++.dylib in Frameworks */,
 				BE9652F41AE563CE00084408 /* WebKit.framework in Frameworks */,
 				BE9496701B4B0DD200B38949 /* Buy.framework in Frameworks */,
 			);

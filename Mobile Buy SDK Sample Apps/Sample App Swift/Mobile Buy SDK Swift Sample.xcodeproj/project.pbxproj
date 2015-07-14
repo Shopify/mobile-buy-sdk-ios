@@ -13,7 +13,6 @@
 		BE9A63811B5007AA0033E558 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE9A63801B5007AA0033E558 /* Images.xcassets */; };
 		BE9A63841B5007AA0033E558 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE9A63821B5007AA0033E558 /* LaunchScreen.xib */; };
 		BE9A639A1B5008E10033E558 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9A63991B5008E10033E558 /* Buy.framework */; };
-		BE9A639C1B5008E80033E558 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9A639B1B5008E80033E558 /* libc++.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +24,6 @@
 		BE9A63801B5007AA0033E558 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BE9A63831B5007AA0033E558 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		BE9A63991B5008E10033E558 /* Buy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Buy.framework; path = ../Buy.framework; sourceTree = "<group>"; };
-		BE9A639B1B5008E80033E558 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,7 +31,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE9A639C1B5008E80033E558 /* libc++.dylib in Frameworks */,
 				BE9A639A1B5008E10033E558 /* Buy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -44,7 +41,6 @@
 		BE9A636B1B5007AA0033E558 = {
 			isa = PBXGroup;
 			children = (
-				BE9A639B1B5008E80033E558 /* libc++.dylib */,
 				BE9A63991B5008E10033E558 /* Buy.framework */,
 				BE9A63761B5007AA0033E558 /* Mobile Buy SDK Swift Sample */,
 				BE9A63751B5007AA0033E558 /* Products */,
