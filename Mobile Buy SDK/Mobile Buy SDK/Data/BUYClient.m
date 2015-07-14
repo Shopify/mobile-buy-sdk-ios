@@ -19,6 +19,7 @@
 #import "BUYErrors.h"
 #import "BUYTestConstants.h"
 #import "BUYCheckout_Private.h"
+#import "BUYCollection.h"
 
 #define kGET @"GET"
 #define kPOST @"POST"
@@ -163,6 +164,20 @@ NSString * const BUYVersionString = @"1.1";
 			products = [BUYProduct convertJSONArray:json[@"product_publications"]];
 		}
 		block(products, error);
+	}];
+}
+
+- (NSURLSessionDataTask *)getCollections:(BUYDataCollectionsBlock)block;
+{
+	NSString *url = [NSString stringWithFormat:@"https://%@/api/channels/%@/collection_publications.json", self.shopDomain, self.channelId];
+	
+	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+		
+		NSArray *collections = nil;
+		if (json && error == nil) {
+			collections = [BUYCollection convertJSONArray:json[@"collection_publications"]];
+		}
+		block(collections, error);
 	}];
 }
 
