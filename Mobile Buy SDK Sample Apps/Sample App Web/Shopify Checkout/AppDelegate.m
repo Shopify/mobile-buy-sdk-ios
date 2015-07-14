@@ -8,7 +8,8 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
-#import <Buy/Buy.h>
+
+@import Buy;
 
 #warning - Enter your shop domain and API Key
 #define SHOP_DOMAIN @""

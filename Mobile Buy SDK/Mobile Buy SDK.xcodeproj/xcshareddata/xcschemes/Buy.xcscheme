@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0630"
+   LastUpgradeVersion = "0640"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BE94960D1B45C5A500B38949"
-               BuildableName = "libBuy.a"
+               BlueprintIdentifier = "BE9A64271B503C2F0033E558"
+               BuildableName = "Buy.framework"
                BlueprintName = "Buy"
                ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
             </BuildableReference>
@@ -42,8 +42,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BE94960D1B45C5A500B38949"
-            BuildableName = "libBuy.a"
+            BlueprintIdentifier = "BE9A64271B503C2F0033E558"
+            BuildableName = "Buy.framework"
             BlueprintName = "Buy"
             ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
          </BuildableReference>
@@ -60,8 +60,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BE94960D1B45C5A500B38949"
-            BuildableName = "libBuy.a"
+            BlueprintIdentifier = "BE9A64271B503C2F0033E558"
+            BuildableName = "Buy.framework"
             BlueprintName = "Buy"
             ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
          </BuildableReference>

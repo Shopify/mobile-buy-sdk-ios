@@ -16,7 +16,6 @@
 		90070E951AF163F3003ED7B6 /* ProductController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90070E941AF163F3003ED7B6 /* ProductController.m */; };
 		90070E981AF167FE003ED7B6 /* ProductView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90070E971AF167FE003ED7B6 /* ProductView.m */; };
 		90858EC71B540D11009D19D7 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90858EC61B540D11009D19D7 /* PassKit.framework */; };
-		BE94966E1B4B091C00B38949 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BE94966D1B4B091C00B38949 /* libc++.dylib */; };
 		BE94966F1B4B0B4100B38949 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F7BA601B0D1BF00067864D /* Buy.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,7 +37,6 @@
 		90858EC61B540D11009D19D7 /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 		90B73AA11B0B74A70092DD9E /* Buy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Buy.framework; path = ../../Buy.framework; sourceTree = "<group>"; };
 		90F7BA601B0D1BF00067864D /* Buy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Buy.framework; path = ../Buy.framework; sourceTree = "<group>"; };
-		BE94966D1B4B091C00B38949 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,7 +45,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				90858EC71B540D11009D19D7 /* PassKit.framework in Frameworks */,
-				BE94966E1B4B091C00B38949 /* libc++.dylib in Frameworks */,
 				BE94966F1B4B0B4100B38949 /* Buy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -105,7 +102,6 @@
 			isa = PBXGroup;
 			children = (
 				90858EC61B540D11009D19D7 /* PassKit.framework */,
-				BE94966D1B4B091C00B38949 /* libc++.dylib */,
 				90B73AA11B0B74A70092DD9E /* Buy.framework */,
 			);
 			name = Frameworks;
