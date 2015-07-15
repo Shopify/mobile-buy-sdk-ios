@@ -1,5 +1,5 @@
 //
-//  BUYCheckout_BUYCheckout_Private.h
+//  BUYCheckout_Private.h
 //  Mobile Buy SDK
 //
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
