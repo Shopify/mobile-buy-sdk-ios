@@ -48,7 +48,7 @@
 {
 	self = [super initWithClient:client];
 	if (self) {
-
+		
 		self.modalPresentationStyle = UIModalPresentationCustom;
 		self.transitioningDelegate = self;
 		self.productViewHeader = [[BUYProductViewHeader alloc] init];
@@ -90,12 +90,12 @@
 
 - (void)setProduct:(BUYProduct *)product
 {
-    _product = product;
+	_product = product;
 	self.navigationItem.title = _product.title;
 	[self.tableView reloadData];
 	[self scrollViewDidScroll:self.tableView];
-    self.selectedProductVariant = [_product.variants firstObject];
-    self.shouldShowVariantSelector = [_product isDefaultVariant] == NO;
+	self.selectedProductVariant = [_product.variants firstObject];
+	self.shouldShowVariantSelector = [_product isDefaultVariant] == NO;
 }
 
 - (void)viewDidLoad
@@ -108,7 +108,7 @@
 	}
 	
 	self.view.backgroundColor = [UIColor clearColor];
-
+	
 	self.backgroundImageView = [[BUYProductViewHeaderBackgroundImageView alloc] init];
 	self.backgroundImageView.translatesAutoresizingMaskIntoConstraints = NO;
 	[self.view addSubview:self.backgroundImageView];
@@ -228,21 +228,25 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+	[super viewWillAppear:animated];
+	[self findNavigationBar];
+}
+
+- (void)findNavigationBar
+{
 	for (UIView *view in [self.navigationController.navigationBar subviews]) {
-		Class navigationBarBackgroundClass = NSClassFromString(@"_UINavigationBarBackground");
-		if ([view isKindOfClass:navigationBarBackgroundClass]) {
+		if (CGRectGetHeight(view.bounds) >= 64) {
+			// Get a reference to the UINavigationBar
 			self.navigationBar = view;
 			self.gradientHeightConstraint.constant = CGRectGetHeight(self.navigationBar.bounds) * 2;
 			continue;
-		}
-		Class navigationBarTitleClass = NSClassFromString(@"UINavigationItemView");
-		if ([view isKindOfClass:navigationBarTitleClass]) {
+		} else if (CGRectGetMinX(view.frame) > 0 && [view.subviews count] == 1 && [view.subviews[0] isKindOfClass:[UILabel class]]) {
+			// Get a reference to the UINavigationBar's title
 			self.navigationBarTitle = view;
 			continue;
 		}
 	}
 	[self scrollViewDidScroll:self.tableView];
-	
 }
 
 - (void)viewDidLayoutSubviews
@@ -286,7 +290,7 @@
 	}
 	else {
 		BUYProductDescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"descriptionCell"];
-//		cell.descriptionHTML = self.product.htmlDescription;
+		//		cell.descriptionHTML = self.product.htmlDescription;
 		cell.descriptionHTML = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non eleifend lectus, nec efficitur velit. Etiam ligula elit, sagittis at velit ac, vehicula efficitur nulla. Vivamus nec nulla vel lacus sollicitudin bibendum. Mauris mattis neque eu arcu scelerisque blandit condimentum vehicula eros. Suspendisse potenti. Proin ornare ut augue eu posuere. Ut volutpat, massa a tempor suscipit, enim augue sodales nulla, non efficitur urna magna vel nunc. Aenean commodo turpis nec orci consectetur, luctus suscipit purus laoreet. Phasellus mi nisi, viverra eu diam in, scelerisque tempor velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc ut tristique arcu, in scelerisque diam. Sed sem dolor, euismod tristique maximus a, viverra sed metus. Donec ex nisi, facilisis at lacus condimentum, vulputate malesuada turpis.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non eleifend lectus, nec efficitur velit. Etiam ligula elit, sagittis at velit ac, vehicula efficitur nulla. Vivamus nec nulla vel lacus sollicitudin bibendum. Mauris mattis neque eu arcu scelerisque blandit condimentum vehicula eros. Suspendisse potenti. Proin ornare ut augue eu posuere. Ut volutpat, massa a tempor suscipit, enim augue sodales nulla, non efficitur urna magna vel nunc. Aenean commodo turpis nec orci consectetur, luctus suscipit purus laoreet. Phasellus mi nisi, viverra eu diam in, scelerisque tempor velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc ut tristique arcu, in scelerisque diam. Sed sem dolor, euismod tristique maximus a, viverra sed metus. Donec ex nisi, facilisis at lacus condimentum, vulputate malesuada turpis.";
 		cell.separatorInset = UIEdgeInsetsMake(0, CGRectGetWidth(self.tableView.bounds), 0, 0);
 		theCell = cell;
@@ -349,6 +353,11 @@
 		CGFloat navigationBarHeight = CGRectGetHeight(self.navigationBar.bounds);
 		CGFloat transitionPosition = CGRectGetHeight(self.tableView.tableHeaderView.bounds) - scrollView.contentOffset.y - navigationBarHeight;
 		transitionPosition = -transitionPosition / navigationBarHeight;
+		if (transitionPosition >= 1) {
+			transitionPosition = 1;
+		} else if (transitionPosition <= 0) {
+			transitionPosition = 0;
+		}
 		self.navigationBar.alpha = transitionPosition;
 		self.navigationBarTitle.alpha = transitionPosition;
 	}
