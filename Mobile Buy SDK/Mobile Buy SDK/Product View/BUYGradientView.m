@@ -27,7 +27,7 @@
 	
 	NSArray *gradientColors = [NSArray arrayWithObjects:(id)self.topColor.CGColor, (id)self.bottomColor.CGColor, nil];
 	
-	CGFloat gradientLocations[] = {0, 0.50, 1};
+	CGFloat gradientLocations[] = {0, 1};
 	CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef) gradientColors, gradientLocations);
 	
 	CGPoint startPoint = CGPointMake(CGRectGetMidX(rect), CGRectGetMinY(rect));

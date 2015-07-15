@@ -30,7 +30,6 @@
 @property (nonatomic, strong) BUYProductViewHeaderBackgroundImageView *backgroundImageView;
 @property (nonatomic, strong) BUYProductViewFooter *productViewFooter;
 @property (nonatomic, strong) BUYGradientView *topGradientView;
-@property (nonatomic, weak) UIImageView *navigationBarShadowImageView;
 @property (nonatomic, weak) UIView *navigationBar;
 @property (nonatomic, weak) UIView *navigationBarTitle;
 @property (nonatomic, strong) NSLayoutConstraint *gradientHeightConstraint;
@@ -229,24 +228,28 @@
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
-	[self findNavigationBar];
+	[self setupNavigationBarAppearance];
 }
 
-- (void)findNavigationBar
+- (void)setupNavigationBarAppearance
 {
-	for (UIView *view in [self.navigationController.navigationBar subviews]) {
-		if (CGRectGetHeight(view.bounds) >= 64) {
-			// Get a reference to the UINavigationBar
-			self.navigationBar = view;
-			self.gradientHeightConstraint.constant = CGRectGetHeight(self.navigationBar.bounds) * 2;
-			continue;
-		} else if (CGRectGetMinX(view.frame) > 0 && [view.subviews count] == 1 && [view.subviews[0] isKindOfClass:[UILabel class]]) {
-			// Get a reference to the UINavigationBar's title
-			self.navigationBarTitle = view;
-			continue;
+	if (self.navigationBar == nil) {
+		for (UIView *view in [self.navigationController.navigationBar subviews]) {
+			if (CGRectGetHeight(view.bounds) >= 64) {
+				// Get a reference to the UINavigationBar
+				self.navigationBar = view;
+				// Get the height for the gradient view underneath the UINavigationBar
+				self.gradientHeightConstraint.constant = CGRectGetHeight(self.navigationBar.bounds);
+				continue;
+			} else if (CGRectGetMinX(view.frame) > 0 && [view.subviews count] == 1 && [view.subviews[0] isKindOfClass:[UILabel class]]) {
+				// Get a reference to the UINavigationBar's title
+				self.navigationBarTitle = view;
+				continue;
+			}
 		}
+		// Hide the navigation bar
+		[self scrollViewDidScroll:self.tableView];
 	}
-	[self scrollViewDidScroll:self.tableView];
 }
 
 - (void)viewDidLayoutSubviews
@@ -365,7 +368,6 @@
 		self.navigationBar.alpha = transitionPosition;
 		self.navigationBarTitle.alpha = transitionPosition;
 	}
-	
 }
 
 #pragma mark Checkout
