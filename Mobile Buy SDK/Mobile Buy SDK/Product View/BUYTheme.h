@@ -26,3 +26,14 @@ typedef NS_ENUM(NSInteger, BUYThemeStyle) {
 @property (nonatomic, assign) BUYThemeStyle style;
 
 @end
+
+@protocol BUYThemeable <NSObject>
+
+/**
+ *  Sets the theme for the view, and its subviews
+ *
+ *  @param theme The new theme to apply
+ */
+- (void)setTheme:(BUYTheme *)theme;
+
+@end

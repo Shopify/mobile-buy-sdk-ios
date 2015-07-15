@@ -15,6 +15,7 @@
 @property (nonatomic, strong) BUYVariantOptionView *optionView1;
 @property (nonatomic, strong) BUYVariantOptionView *optionView2;
 @property (nonatomic, strong) BUYVariantOptionView *optionView3;
+@property (nonatomic, strong) BUYTheme *theme;
 @end
 
 @implementation BUYProductVariantCell
@@ -72,6 +73,24 @@
 		default:
 			break;
 		}
+}
+
+- (void)setTheme:(BUYTheme *)theme
+{
+	_theme = theme;
+	
+	switch (theme.style) {
+		case BUYThemeStyleDark:
+			self.backgroundColor = [UIColor blackColor];
+			break;
+			
+		case BUYThemeStyleLight:
+			self.backgroundColor = [UIColor whiteColor];
+			break;
+			
+		default:
+			break;
+	}
 }
 
 @end

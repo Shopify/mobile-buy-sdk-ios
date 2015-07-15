@@ -7,12 +7,13 @@
 //
 
 #import "BUYProductDescriptionCell.h"
+#import "BUYTheme.h"
 
 @interface BUYProductDescriptionCell ()
 
 @property (nonatomic, strong) UIColor *textColor;
 @property (nonatomic, strong) UILabel *descriptionLabel;
-
+@property (nonatomic, strong) BUYTheme *theme;
 @end
 
 @implementation BUYProductDescriptionCell
@@ -57,6 +58,26 @@
 - (NSString *)descriptionString
 {
 	return self.descriptionLabel.attributedText.string;
+}
+
+- (void)setTheme:(BUYTheme *)theme
+{
+	_theme = theme;
+	
+	switch (theme.style) {
+		case BUYThemeStyleDark:
+			self.backgroundColor = [UIColor blackColor];
+			self.descriptionLabel.backgroundColor = [UIColor blackColor];
+			break;
+			
+		case BUYThemeStyleLight:
+			self.backgroundColor = [UIColor whiteColor];
+			self.descriptionLabel.backgroundColor = [UIColor whiteColor];
+			break;
+			
+		default:
+			break;
+	}
 }
 
 - (NSString *)hexStringFromColor:(UIColor *)color {
