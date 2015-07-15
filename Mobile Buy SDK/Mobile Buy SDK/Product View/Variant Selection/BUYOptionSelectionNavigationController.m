@@ -88,18 +88,7 @@
 		}];
 	}
 	else {
-		
 		UIView *dismissedView = [transitionContext viewForKey:UITransitionContextFromViewKey];
-
-		UIDynamicAnimator *animator = [[UIDynamicAnimator alloc] initWithReferenceView:dismissedView.superview];
-		UIGravityBehavior *gravityBehaviour = [[UIGravityBehavior alloc] initWithItems:@[dismissedView]];
-//		gravityBehaviour.gravityDirection = CGVectorMake(0, 5);
-		[animator addBehavior:gravityBehaviour];
-		
-//		UIDynamicItemBehavior *itemBehaviour = [[UIDynamicItemBehavior alloc] initWithItems:@[dismissedView]];
-//		[itemBehaviour addAngularVelocity:0.5 forItem:dismissedView];
-//		[animator addBehavior:itemBehaviour];
-		
 		[UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
 			CGRect frame = dismissedView.frame;
 			frame.origin.y += 50;
