@@ -37,6 +37,7 @@
 @property (nonatomic, strong) BUYProduct *product;
 @property (nonatomic, strong) BUYProductVariant *selectedProductVariant;
 @property (nonatomic, strong) BUYTheme *theme;
+@property (nonatomic, assign) BOOL shouldShowVariantSelector;
 
 @end
 
@@ -46,7 +47,7 @@
 {
 	self = [super initWithClient:client];
 	if (self) {
-
+		
 		self.modalPresentationStyle = UIModalPresentationCustom;
 		self.transitioningDelegate = self;
 		self.productViewHeader = [[BUYProductViewHeader alloc] init];
@@ -79,15 +80,21 @@
 	[self.client getProductById:productId completion:^(BUYProduct *product, NSError *error) {
 		dispatch_async(dispatch_get_main_queue(), ^{
 			self.product = product;
-			self.navigationItem.title = self.product.title;
-			self.selectedProductVariant = [self.product.variants firstObject];
-			[self.tableView reloadData];
-			[self scrollViewDidScroll:self.tableView];
 			if (completion) {
 				completion(error == nil, error);
 			}
 		});
 	}];
+}
+
+- (void)setProduct:(BUYProduct *)product
+{
+	_product = product;
+	self.navigationItem.title = _product.title;
+	[self.tableView reloadData];
+	[self scrollViewDidScroll:self.tableView];
+	self.selectedProductVariant = [_product.variants firstObject];
+	self.shouldShowVariantSelector = [_product isDefaultVariant] == NO;
 }
 
 - (void)viewDidLoad
@@ -100,7 +107,7 @@
 	}
 	
 	self.view.backgroundColor = [UIColor clearColor];
-
+	
 	self.backgroundImageView = [[BUYProductViewHeaderBackgroundImageView alloc] init];
 	self.backgroundImageView.translatesAutoresizingMaskIntoConstraints = NO;
 	[self.view addSubview:self.backgroundImageView];
@@ -265,8 +272,15 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	// TODO: add logic to determine whether there are variants to select
-	return self.product ? 3 : 0;
+	NSInteger rows = 0;
+	if (self.product) {
+		if (self.shouldShowVariantSelector) {
+			rows = 3;
+		} else {
+			rows = 2;
+		}
+	}
+	return rows;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -279,14 +293,14 @@
 		cell.priceLabel.text = @"$9.99";
 		theCell = cell;
 	}
-	else if (indexPath.row == 1) {
+	else if (indexPath.row == 1 && self.shouldShowVariantSelector) {
 		BUYProductVariantCell *cell = [tableView dequeueReusableCellWithIdentifier:@"variantCell"];
 		cell.productVariant = self.selectedProductVariant;
 		theCell = cell;
 	}
 	else {
 		BUYProductDescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"descriptionCell"];
-//		cell.descriptionHTML = self.product.htmlDescription;
+		//		cell.descriptionHTML = self.product.htmlDescription;
 		cell.descriptionHTML = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non eleifend lectus, nec efficitur velit. Etiam ligula elit, sagittis at velit ac, vehicula efficitur nulla. Vivamus nec nulla vel lacus sollicitudin bibendum. Mauris mattis neque eu arcu scelerisque blandit condimentum vehicula eros. Suspendisse potenti. Proin ornare ut augue eu posuere. Ut volutpat, massa a tempor suscipit, enim augue sodales nulla, non efficitur urna magna vel nunc. Aenean commodo turpis nec orci consectetur, luctus suscipit purus laoreet. Phasellus mi nisi, viverra eu diam in, scelerisque tempor velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc ut tristique arcu, in scelerisque diam. Sed sem dolor, euismod tristique maximus a, viverra sed metus. Donec ex nisi, facilisis at lacus condimentum, vulputate malesuada turpis.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non eleifend lectus, nec efficitur velit. Etiam ligula elit, sagittis at velit ac, vehicula efficitur nulla. Vivamus nec nulla vel lacus sollicitudin bibendum. Mauris mattis neque eu arcu scelerisque blandit condimentum vehicula eros. Suspendisse potenti. Proin ornare ut augue eu posuere. Ut volutpat, massa a tempor suscipit, enim augue sodales nulla, non efficitur urna magna vel nunc. Aenean commodo turpis nec orci consectetur, luctus suscipit purus laoreet. Phasellus mi nisi, viverra eu diam in, scelerisque tempor velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc ut tristique arcu, in scelerisque diam. Sed sem dolor, euismod tristique maximus a, viverra sed metus. Donec ex nisi, facilisis at lacus condimentum, vulputate malesuada turpis.";
 		cell.separatorInset = UIEdgeInsetsMake(0, CGRectGetWidth(self.tableView.bounds), 0, 0);
 		theCell = cell;
@@ -298,7 +312,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (indexPath.row == 1) {
+	if (indexPath.row == 1 && self.shouldShowVariantSelector) {
 		[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 		// TODO: Get this navigation controller inside the BUYVariantSelectionViewController so it takes care of it's own presentation
 		BUYVariantSelectionViewController *optionSelectionViewController = [[BUYVariantSelectionViewController alloc] initWithProduct:self.product theme:self.theme];

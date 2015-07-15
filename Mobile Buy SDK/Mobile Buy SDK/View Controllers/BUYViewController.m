@@ -162,7 +162,7 @@
 
 - (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller
 {
-	//The checkout is done at this point, it may have succeeded or failed. You are responsible for dealing with failure/success earlier in the steps.
+	// The checkout is done at this point, it may have succeeded or failed. You are responsible for dealing with failure/success earlier in the steps.
 	[controller dismissViewControllerAnimated:YES completion:nil];
 }
 
