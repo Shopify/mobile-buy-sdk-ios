@@ -270,7 +270,11 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 	// TODO: add logic to determine whether there are variants to select
-	return self.product ? self.shouldShowVariantSelector ? 3 : 2 : 0;
+	NSInteger rows = 0;
+	if (self.product) {
+		self.shouldShowVariantSelector ? 3 : 2;
+	}
+	return rows;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
