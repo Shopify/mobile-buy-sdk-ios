@@ -272,7 +272,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	// TODO: add logic to determine whether there are variants to select
 	NSInteger rows = 0;
 	if (self.product) {
 		if (self.shouldShowVariantSelector) {
