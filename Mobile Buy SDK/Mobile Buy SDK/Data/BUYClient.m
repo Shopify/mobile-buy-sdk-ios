@@ -181,6 +181,26 @@ NSString * const BUYVersionString = @"1.1";
 	}];
 }
 
+- (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page inCollection:(BUYCollection *)collection completion:(BUYDataProductListBlock)block
+{
+	NSURLSessionDataTask *task = nil;
+	if (collection.collectionId) {
+	
+		NSString *url = [NSString stringWithFormat:@"https://%@/api/channels/%@/product_publications.json?collection_id=%lu&sort=collection_sort&limit=%lu&page=%lu", self.shopDomain, self.channelId, collection.collectionId.longValue, (unsigned long)self.pageSize, (unsigned long)page];
+
+		task = [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+			
+			NSArray *products = nil;
+			if (json && error == nil) {
+				products = [BUYProduct convertJSONArray:json[@"product_publications"]];
+			}
+			block(products, page, [self hasReachedEndOfPage:products] || error, error);
+		}];
+	}
+	
+	return task;
+}
+
 #pragma mark - Helpers
 
 - (NSURLSessionDataTask *)performRequestForURL:(NSString *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
