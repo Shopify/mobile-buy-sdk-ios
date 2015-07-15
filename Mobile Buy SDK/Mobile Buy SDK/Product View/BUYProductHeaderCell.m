@@ -7,6 +7,11 @@
 //
 
 #import "BUYProductHeaderCell.h"
+#import "BUYTheme.h"
+
+@interface BUYProductHeaderCell ()
+@property (nonatomic, strong) BUYTheme *theme;
+@end
 
 @implementation BUYProductHeaderCell
 
@@ -33,8 +38,29 @@
 		[self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_titleLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
 		[self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_priceLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
 		[self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_priceLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_titleLabel attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0.0]];
+		
 	}
 	return self;
+}
+
+- (void)setTheme:(BUYTheme *)theme
+{
+	_theme = theme;
+	
+	switch (theme.style) {
+		case BUYThemeStyleDark:
+			self.titleLabel.textColor = [UIColor whiteColor];
+			self.contentView.backgroundColor = [UIColor blackColor];
+			break;
+			
+		case BUYThemeStyleLight:
+			self.titleLabel.textColor = [UIColor blackColor];
+			self.contentView.backgroundColor = [UIColor whiteColor];
+			break;
+			
+		default:
+			break;
+	}
 }
 
 - (void)layoutSubviews

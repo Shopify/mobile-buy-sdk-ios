@@ -7,24 +7,27 @@
 //
 
 #import "BUYProductViewFooter.h"
+#import "BUYTheme.h"
 
 @interface BUYProductViewFooter ()
 
 @property (nonatomic, strong) UIVisualEffectView *visualEffectView;
 @property (nonatomic, strong) NSArray *checkoutLayoutConstraints;
 @property (nonatomic, strong) NSArray *applePayLayoutConstraints;
-
+@property (nonatomic, strong) BUYTheme *theme;
 @end
 
 @implementation BUYProductViewFooter
 
-- (instancetype)init
+- (instancetype)initWithTheme:(BUYTheme *)theme;
 {
 	self = [super init];
 	if (self) {
 		self.backgroundColor = [UIColor clearColor];
+		self.theme = theme;
 		
-		UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+		UIBlurEffectStyle style = theme.style == BUYThemeStyleLight ? UIBlurEffectStyleLight : UIBlurEffectStyleDark;
+		UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:style];
 		self.visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
 		self.visualEffectView.translatesAutoresizingMaskIntoConstraints = NO;
 		[self addSubview:self.visualEffectView];
@@ -55,12 +58,15 @@
 		self.checkoutButton = [UIButton buttonWithType:UIButtonTypeSystem];
 		self.checkoutButton.translatesAutoresizingMaskIntoConstraints = NO;
 		[self.checkoutButton setTitle:@"Checkout" forState:UIControlStateNormal];
-		[self.checkoutButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+		
+		UIColor *textColor = theme.style == BUYThemeStyleLight ? [UIColor whiteColor] : [UIColor blackColor];
+		[self.checkoutButton setTitleColor:textColor forState:UIControlStateNormal];
 		self.checkoutButton.backgroundColor = self.tintColor;
 		self.checkoutButton.layer.cornerRadius = 5;
 		[self.visualEffectView.contentView addSubview:self.checkoutButton];
 		
-		self.buyPaymentButton = [BUYPaymentButton buttonWithType:BUYPaymentButtonTypeBuy style:BUYPaymentButtonStyleBlack];
+		BUYPaymentButtonStyle buttonStyle = theme.style == BUYThemeStyleLight ? BUYPaymentButtonStyleBlack : BUYPaymentButtonStyleWhite;
+		self.buyPaymentButton = [BUYPaymentButton buttonWithType:BUYPaymentButtonTypeBuy style:buttonStyle];
 		self.buyPaymentButton.translatesAutoresizingMaskIntoConstraints = NO;
 		[self.visualEffectView.contentView addSubview:self.buyPaymentButton];
 		

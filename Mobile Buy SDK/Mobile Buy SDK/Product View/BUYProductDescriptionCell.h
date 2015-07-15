@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BUYTheme.h"
 
-@interface BUYProductDescriptionCell : UITableViewCell
+@interface BUYProductDescriptionCell : UITableViewCell <BUYThemeable>
 
 @property (nonatomic, copy) NSString *descriptionHTML;
 

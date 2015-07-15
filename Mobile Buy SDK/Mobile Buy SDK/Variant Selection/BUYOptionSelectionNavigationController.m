@@ -24,12 +24,26 @@
 		self.transitioningDelegate = self;
 		self.view.layer.cornerRadius = 4.0;
 		self.view.clipsToBounds = YES;
-		
-		[self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor grayColor] }];
-		self.navigationBar.tintColor = [UIColor grayColor];
 	}
 	
 	return self;
+}
+
+- (void)setTheme:(BUYTheme *)theme
+{
+	switch (theme.style) {
+		case BUYThemeStyleDark:
+			[self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor lightGrayColor] }];
+			self.navigationBar.barTintColor = [UIColor blackColor];
+			self.navigationBar.tintColor = [UIColor lightGrayColor];
+			break;
+		case BUYThemeStyleLight:
+			[self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor grayColor] }];
+			self.navigationBar.tintColor = [UIColor grayColor];
+			break;
+		default:
+			break;
+	}
 }
 
 #pragma mark - Transitioning Delegate Methods

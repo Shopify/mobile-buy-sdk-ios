@@ -38,6 +38,8 @@
 	[super viewDidLoad];
 	[self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
 	self.tableView.tableFooterView = [UIView new];
+	
+	self.tableView.backgroundColor = self.theme.style == BUYThemeStyleDark ? [UIColor blackColor] : [UIColor whiteColor];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -63,7 +65,7 @@
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	cell.textLabel.text = option.value;
 	cell.textLabel.textColor = self.theme.tintColor;
-	
+	cell.backgroundColor = self.theme.style == BUYThemeStyleLight ? [UIColor whiteColor] : [UIColor blackColor];
 	return cell;
 }
 
