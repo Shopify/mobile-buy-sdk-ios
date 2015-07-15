@@ -31,6 +31,9 @@
 @property (nonatomic, strong) BUYProductViewFooter *productViewFooter;
 @property (nonatomic, strong) BUYGradientView *topGradientView;
 @property (nonatomic, weak) UIImageView *navigationBarShadowImageView;
+@property (nonatomic, weak) UIView *navigationBar;
+@property (nonatomic, weak) UIView *navigationBarTitle;
+@property (nonatomic, strong) NSLayoutConstraint *gradientHeightConstraint;
 @property (nonatomic, strong) NSString *productId;
 @property (nonatomic, strong) BUYProduct *product;
 @property (nonatomic, strong) BUYProductVariant *selectedProductVariant;
@@ -77,6 +80,7 @@
 	[self.client getProductById:productId completion:^(BUYProduct *product, NSError *error) {
 		dispatch_async(dispatch_get_main_queue(), ^{
 			self.product = product;
+			self.navigationItem.title = self.product.title;
 			self.selectedProductVariant = [self.product.variants firstObject];
 			[self.tableView reloadData];
 			[self scrollViewDidScroll:self.tableView];
@@ -199,19 +203,39 @@
 														  attribute:NSLayoutAttributeTop
 														 multiplier:1.0
 														   constant:0]];
-	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.topGradientView
-														  attribute:NSLayoutAttributeHeight
-														  relatedBy:NSLayoutRelationEqual
-															 toItem:nil
-														  attribute:NSLayoutAttributeNotAnAttribute
-														 multiplier:1.0
-														   constant:64]];
+	self.gradientHeightConstraint = [NSLayoutConstraint constraintWithItem:self.topGradientView
+																 attribute:NSLayoutAttributeHeight
+																 relatedBy:NSLayoutRelationEqual
+																	toItem:nil
+																 attribute:NSLayoutAttributeNotAnAttribute
+																multiplier:1.0
+																  constant:0];
+	[self.view addConstraint:self.gradientHeightConstraint];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	for (UIView *view in [self.navigationController.navigationBar subviews]) {
+		Class navigationBarBackgroundClass = NSClassFromString(@"_UINavigationBarBackground");
+		if ([view isKindOfClass:navigationBarBackgroundClass]) {
+			self.navigationBar = view;
+			self.gradientHeightConstraint.constant = CGRectGetHeight(self.navigationBar.bounds) * 2;
+			continue;
+		}
+		Class navigationBarTitleClass = NSClassFromString(@"UINavigationItemView");
+		if ([view isKindOfClass:navigationBarTitleClass]) {
+			self.navigationBarTitle = view;
+			continue;
+		}
+	}
+	[self scrollViewDidScroll:self.tableView];
+	
 }
 
 - (void)viewDidLayoutSubviews
 {
 	[super viewDidLayoutSubviews];
-	self.tableView.separatorInset = self.tableView.contentInset = UIEdgeInsetsMake(0, self.tableView.contentInset.left, CGRectGetHeight(self.productViewFooter.frame), self.tableView.contentInset.right);
+	self.tableView.contentInset = self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, self.tableView.contentInset.left, CGRectGetHeight(self.productViewFooter.frame), self.tableView.contentInset.right);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -301,6 +325,15 @@
 		self.footerHeightLayoutConstraint.constant = footerViewHeight;
 		self.footerOffsetLayoutConstraint.constant = -footerViewHeight;
 	}
+	
+	if (self.navigationBar) {
+		CGFloat navigationBarHeight = CGRectGetHeight(self.navigationBar.bounds);
+		CGFloat transitionPosition = CGRectGetHeight(self.tableView.tableHeaderView.bounds) - scrollView.contentOffset.y - navigationBarHeight;
+		transitionPosition = -transitionPosition / navigationBarHeight;
+		self.navigationBar.alpha = transitionPosition;
+		self.navigationBarTitle.alpha = transitionPosition;
+	}
+	
 }
 
 #pragma mark Checkout
