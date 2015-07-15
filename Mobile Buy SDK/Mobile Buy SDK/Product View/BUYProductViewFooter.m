@@ -77,12 +77,14 @@
 																				 metrics:nil
 																				   views:viewsDictionary];
 		[self addConstraints:self.applePayLayoutConstraints];
+		[NSLayoutConstraint deactivateConstraints:self.applePayLayoutConstraints];
 		
 		self.checkoutLayoutConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_checkoutButton]-|"
 																				options:0
 																				metrics:nil
 																				  views:viewsDictionary];
 		[self addConstraints:self.checkoutLayoutConstraints];
+		[NSLayoutConstraint deactivateConstraints:self.checkoutLayoutConstraints];
 		
 		NSDictionary *metricsDictionary = @{ @"buttonHeight" : @(44.0f) };
 		
