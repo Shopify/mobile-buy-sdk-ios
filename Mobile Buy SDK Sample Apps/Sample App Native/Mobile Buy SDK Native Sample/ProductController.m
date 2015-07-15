@@ -79,7 +79,7 @@
 - (void)applePayPressed:(id)sender
 {
 	// Step 1 - Create the checkout on Shopify. This demo only works with ApplePay.
-	if ([PKPaymentAuthorizationViewController canMakePayments]) {
+    if (self.isApplePayAvailable) {
         BUYCart *cart = [[BUYCart alloc] init];
         [cart addVariant:self.productVariant];
 		[self startApplePayCheckoutWithCart:cart];
