@@ -221,21 +221,25 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+	[super viewWillAppear:animated];
+	[self findNavigationBar];
+}
+
+- (void)findNavigationBar
+{
 	for (UIView *view in [self.navigationController.navigationBar subviews]) {
-		Class navigationBarBackgroundClass = NSClassFromString(@"_UINavigationBarBackground");
-		if ([view isKindOfClass:navigationBarBackgroundClass]) {
+		if (CGRectGetHeight(view.bounds) >= 64) {
+			// Get a reference to the UINavigationBar
 			self.navigationBar = view;
 			self.gradientHeightConstraint.constant = CGRectGetHeight(self.navigationBar.bounds) * 2;
 			continue;
-		}
-		Class navigationBarTitleClass = NSClassFromString(@"UINavigationItemView");
-		if ([view isKindOfClass:navigationBarTitleClass]) {
+		} else if (CGRectGetMinX(view.frame) > 0 && [view.subviews count] == 1 && [view.subviews[0] isKindOfClass:[UILabel class]]) {
+			// Get a reference to the UINavigationBar's title
 			self.navigationBarTitle = view;
 			continue;
 		}
 	}
 	[self scrollViewDidScroll:self.tableView];
-	
 }
 
 - (void)viewDidLayoutSubviews
@@ -342,6 +346,11 @@
 		CGFloat navigationBarHeight = CGRectGetHeight(self.navigationBar.bounds);
 		CGFloat transitionPosition = CGRectGetHeight(self.tableView.tableHeaderView.bounds) - scrollView.contentOffset.y - navigationBarHeight;
 		transitionPosition = -transitionPosition / navigationBarHeight;
+		if (transitionPosition >= 1) {
+			transitionPosition = 1;
+		} else if (transitionPosition <= 0) {
+			transitionPosition = 0;
+		}
 		self.navigationBar.alpha = transitionPosition;
 		self.navigationBarTitle.alpha = transitionPosition;
 	}
