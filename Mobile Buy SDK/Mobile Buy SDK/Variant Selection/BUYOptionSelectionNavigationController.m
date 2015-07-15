@@ -41,8 +41,6 @@
 			[self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor grayColor] }];
 			self.navigationBar.tintColor = [UIColor grayColor];
 			break;
-		default:
-			break;
 	}
 }
 
