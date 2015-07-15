@@ -13,6 +13,7 @@
 #import "BUYCollection.h"
 
 @interface BUYClientTest_Storefront : XCTestCase
+@property (nonatomic, strong) BUYCollection *collection;
 @end
 
 @implementation BUYClientTest_Storefront {
@@ -147,14 +148,37 @@
 		
 		XCTAssertNotNil(collections);
 		
-		BUYCollection *collection = collections.firstObject;
+		self.collection = collections.firstObject;
 		
-		XCTAssertEqualObjects(@"Super Sale", [collection title]);
-		XCTAssertEqualObjects(@"super-sale", [collection handle]);
-		XCTAssertEqualObjects(@42362050, [collection collectionId]);
+		XCTAssertEqualObjects(@"Super Sale", [self.collection title]);
+		XCTAssertEqualObjects(@"super-sale", [self.collection handle]);
+		XCTAssertEqualObjects(@42362050, [self.collection collectionId]);
 
 		[expectation fulfill];
 	}];
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
+- (void)testProductsInCollection
+{
+	if (self.collection == nil) {
+		[self testCollections];
+	}
+	
+	XCTAssertNotNil(self.collection);
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+
+	[_client getProductsPage:1 inCollection:self.collection completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+	
+		XCTAssertEqual(products.count, 1);
+		XCTAssertEqualObjects(@"Pixel", [products.firstObject title]);
+		
+		[expectation fulfill];
+	}];
+	
 	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
 		XCTAssertNil(error);
 	}];

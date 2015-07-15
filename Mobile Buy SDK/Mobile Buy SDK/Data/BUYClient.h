@@ -17,6 +17,7 @@
 @class BUYProduct;
 @class BUYProductVariant;
 @class BUYShop;
+@class BUYCollection;
 
 extern NSString * const BUYVersionString;
 
@@ -269,6 +270,16 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
  *  @return The associated NSURLSessionDataTask
  */
 - (NSURLSessionDataTask *)getCollections:(BUYDataCollectionsBlock)block;
+
+/**
+ *  Fetches the products in the given collection
+ *
+ *  @param collection The collection to fetch the products from
+ *  @param block      (NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error)
+ *
+ *  @return the associated NSURLSessionDataTask
+ */
+- (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page inCollection:(BUYCollection *)collection completion:(BUYDataProductListBlock)block;
 
 #pragma mark - Checkout
 
