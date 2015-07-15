@@ -16,4 +16,6 @@
 
 - (BUYImage *)imageForVariant:(BUYProductVariant *)variant;
 
+- (BOOL)isDefaultVariant;
+
 @end

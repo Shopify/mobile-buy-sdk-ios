@@ -38,6 +38,7 @@
 @property (nonatomic, strong) BUYProduct *product;
 @property (nonatomic, strong) BUYProductVariant *selectedProductVariant;
 @property (nonatomic, strong) BUYTheme *theme;
+@property (nonatomic, assign) BOOL shouldShowVariantSelector;
 
 @end
 
@@ -80,15 +81,21 @@
 	[self.client getProductById:productId completion:^(BUYProduct *product, NSError *error) {
 		dispatch_async(dispatch_get_main_queue(), ^{
 			self.product = product;
-			self.navigationItem.title = self.product.title;
-			self.selectedProductVariant = [self.product.variants firstObject];
-			[self.tableView reloadData];
-			[self scrollViewDidScroll:self.tableView];
 			if (completion) {
 				completion(error == nil, error);
 			}
 		});
 	}];
+}
+
+- (void)setProduct:(BUYProduct *)product
+{
+    _product = product;
+	self.navigationItem.title = _product.title;
+	[self.tableView reloadData];
+	[self scrollViewDidScroll:self.tableView];
+    self.selectedProductVariant = [_product.variants firstObject];
+    self.shouldShowVariantSelector = [_product isDefaultVariant] == NO;
 }
 
 - (void)viewDidLoad
@@ -259,7 +266,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 	// TODO: add logic to determine whether there are variants to select
-	return self.product ? 3 : 0;
+	return self.product ? self.shouldShowVariantSelector ? 3 : 2 : 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -272,7 +279,7 @@
 		cell.priceLabel.text = @"$9.99";
 		theCell = cell;
 	}
-	else if (indexPath.row == 1) {
+	else if (indexPath.row == 1 && self.shouldShowVariantSelector) {
 		BUYProductVariantCell *cell = [tableView dequeueReusableCellWithIdentifier:@"variantCell"];
 		cell.productVariant = self.selectedProductVariant;
 		theCell = cell;
@@ -291,7 +298,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (indexPath.row == 1) {
+	if (indexPath.row == 1 && self.shouldShowVariantSelector) {
 		[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 		// TODO: Get this navigation controller inside the BUYVariantSelectionViewController so it takes care of it's own presentation
 		BUYVariantSelectionViewController *optionSelectionViewController = [[BUYVariantSelectionViewController alloc] initWithProduct:self.product theme:self.theme];
