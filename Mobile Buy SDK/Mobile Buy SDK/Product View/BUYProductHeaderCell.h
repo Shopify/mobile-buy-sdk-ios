@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BUYTheme.h"
 
-@interface BUYProductHeaderCell : UITableViewCell
+@interface BUYProductHeaderCell : UITableViewCell <BUYThemeable>
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *priceLabel;

@@ -37,6 +37,7 @@
 @property (nonatomic, strong) NSString *productId;
 @property (nonatomic, strong) BUYProduct *product;
 @property (nonatomic, strong) BUYProductVariant *selectedProductVariant;
+@property (nonatomic, strong) BUYTheme *theme;
 
 @end
 
@@ -46,9 +47,7 @@
 {
 	self = [super initWithClient:client];
 	if (self) {
-		BUYTheme *theme = [[BUYTheme alloc] init];
-		self.theme = theme;
-		self.view.backgroundColor = [UIColor clearColor];
+
 		self.modalPresentationStyle = UIModalPresentationCustom;
 		self.transitioningDelegate = self;
 	}
@@ -91,10 +90,17 @@
 	}];
 }
 
-- (void)loadView
+- (void)viewDidLoad
 {
-	[super loadView];
+	[super viewDidLoad];
 	
+	if (self.theme == nil) {
+		BUYTheme *theme = [[BUYTheme alloc] init];
+		self.theme = theme;
+	}
+	
+	self.view.backgroundColor = [UIColor clearColor];
+
 	self.backgroundImageView = [[BUYProductViewHeaderBackgroundImageView alloc] init];
 	self.backgroundImageView.translatesAutoresizingMaskIntoConstraints = NO;
 	[self.view addSubview:self.backgroundImageView];
@@ -172,7 +178,7 @@
 	[self.productViewHeader setFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.bounds), CGRectGetWidth([[UIScreen mainScreen] bounds]))];
 	self.tableView.tableHeaderView = self.productViewHeader;
 	
-	self.productViewFooter = [[BUYProductViewFooter alloc] init];
+	self.productViewFooter = [[BUYProductViewFooter alloc] initWithTheme:self.theme];
 	self.productViewFooter.translatesAutoresizingMaskIntoConstraints = NO;
 	[self.productViewFooter.buyPaymentButton addTarget:self action:@selector(checkoutWithApplePay) forControlEvents:UIControlEventTouchUpInside];
 	[self.productViewFooter.checkoutButton addTarget:self action:@selector(checkoutWithShopify) forControlEvents:UIControlEventTouchUpInside];
@@ -258,24 +264,29 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+	UITableViewCell <BUYThemeable> *theCell = nil;
+	
 	if (indexPath.row == 0) {
 		BUYProductHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
 		cell.titleLabel.text = self.product.title;
 		cell.priceLabel.text = @"$9.99";
-		return cell;
+		theCell = cell;
 	}
 	else if (indexPath.row == 1) {
 		BUYProductVariantCell *cell = [tableView dequeueReusableCellWithIdentifier:@"variantCell"];
 		cell.productVariant = self.selectedProductVariant;
-		return cell;
+		theCell = cell;
 	}
 	else {
 		BUYProductDescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"descriptionCell"];
 //		cell.descriptionHTML = self.product.htmlDescription;
 		cell.descriptionHTML = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non eleifend lectus, nec efficitur velit. Etiam ligula elit, sagittis at velit ac, vehicula efficitur nulla. Vivamus nec nulla vel lacus sollicitudin bibendum. Mauris mattis neque eu arcu scelerisque blandit condimentum vehicula eros. Suspendisse potenti. Proin ornare ut augue eu posuere. Ut volutpat, massa a tempor suscipit, enim augue sodales nulla, non efficitur urna magna vel nunc. Aenean commodo turpis nec orci consectetur, luctus suscipit purus laoreet. Phasellus mi nisi, viverra eu diam in, scelerisque tempor velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc ut tristique arcu, in scelerisque diam. Sed sem dolor, euismod tristique maximus a, viverra sed metus. Donec ex nisi, facilisis at lacus condimentum, vulputate malesuada turpis.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non eleifend lectus, nec efficitur velit. Etiam ligula elit, sagittis at velit ac, vehicula efficitur nulla. Vivamus nec nulla vel lacus sollicitudin bibendum. Mauris mattis neque eu arcu scelerisque blandit condimentum vehicula eros. Suspendisse potenti. Proin ornare ut augue eu posuere. Ut volutpat, massa a tempor suscipit, enim augue sodales nulla, non efficitur urna magna vel nunc. Aenean commodo turpis nec orci consectetur, luctus suscipit purus laoreet. Phasellus mi nisi, viverra eu diam in, scelerisque tempor velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc ut tristique arcu, in scelerisque diam. Sed sem dolor, euismod tristique maximus a, viverra sed metus. Donec ex nisi, facilisis at lacus condimentum, vulputate malesuada turpis.";
 		cell.separatorInset = UIEdgeInsetsMake(0, CGRectGetWidth(self.tableView.bounds), 0, 0);
-		return cell;
+		theCell = cell;
 	}
+	
+	[theCell setTheme:self.theme];
+	return theCell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -286,6 +297,7 @@
 		BUYVariantSelectionViewController *optionSelectionViewController = [[BUYVariantSelectionViewController alloc] initWithProduct:self.product theme:self.theme];
 		optionSelectionViewController.delegate = self;
 		BUYOptionSelectionNavigationController *optionSelectionNavigationController = [[BUYOptionSelectionNavigationController alloc] initWithRootViewController:optionSelectionViewController];
+		[optionSelectionNavigationController setTheme:self.theme];
 		[self presentViewController:optionSelectionNavigationController animated:YES completion:^{}];
 	}
 }

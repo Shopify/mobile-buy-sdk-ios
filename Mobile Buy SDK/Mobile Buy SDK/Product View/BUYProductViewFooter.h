@@ -9,7 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <Buy/BUYPaymentButton.h>
 
+@class BUYTheme;
+
 @interface BUYProductViewFooter : UIView
+
+- (instancetype)initWithTheme:(BUYTheme *)theme;
 
 @property (nonatomic, strong) UIButton *checkoutButton;
 @property (nonatomic, strong) BUYPaymentButton *buyPaymentButton;

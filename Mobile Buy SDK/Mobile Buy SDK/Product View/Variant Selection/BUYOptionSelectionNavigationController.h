@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "BUYNavigationController.h"
+#import "BUYTheme.h"
 
-@interface BUYOptionSelectionNavigationController : BUYNavigationController
+@interface BUYOptionSelectionNavigationController : BUYNavigationController <BUYThemeable>
 
 @end

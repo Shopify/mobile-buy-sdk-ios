@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BUYTheme.h"
 
 @class BUYProductVariant;
 
-@interface BUYProductVariantCell : UITableViewCell
+@interface BUYProductVariantCell : UITableViewCell <BUYThemeable>
 
 @property (nonatomic, strong) BUYProductVariant *productVariant;
 
