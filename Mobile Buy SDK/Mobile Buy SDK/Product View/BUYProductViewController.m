@@ -30,7 +30,9 @@
 @property (nonatomic, strong) BUYProductViewHeaderBackgroundImageView *backgroundImageView;
 @property (nonatomic, strong) BUYProductViewFooter *productViewFooter;
 @property (nonatomic, strong) BUYGradientView *topGradientView;
-@property (nonatomic, weak) UIImageView *navigationBarShadowImageView;
+@property (nonatomic, weak) UIView *navigationBar;
+@property (nonatomic, weak) UIView *navigationBarTitle;
+@property (nonatomic, strong) NSLayoutConstraint *gradientHeightConstraint;
 @property (nonatomic, strong) NSString *productId;
 @property (nonatomic, strong) BUYProduct *product;
 @property (nonatomic, strong) BUYProductVariant *selectedProductVariant;
@@ -77,6 +79,7 @@
 	[self.client getProductById:productId completion:^(BUYProduct *product, NSError *error) {
 		dispatch_async(dispatch_get_main_queue(), ^{
 			self.product = product;
+			self.navigationItem.title = self.product.title;
 			self.selectedProductVariant = [self.product.variants firstObject];
 			[self.tableView reloadData];
 			[self scrollViewDidScroll:self.tableView];
@@ -205,19 +208,47 @@
 														  attribute:NSLayoutAttributeTop
 														 multiplier:1.0
 														   constant:0]];
-	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.topGradientView
-														  attribute:NSLayoutAttributeHeight
-														  relatedBy:NSLayoutRelationEqual
-															 toItem:nil
-														  attribute:NSLayoutAttributeNotAnAttribute
-														 multiplier:1.0
-														   constant:64]];
+	self.gradientHeightConstraint = [NSLayoutConstraint constraintWithItem:self.topGradientView
+																 attribute:NSLayoutAttributeHeight
+																 relatedBy:NSLayoutRelationEqual
+																	toItem:nil
+																 attribute:NSLayoutAttributeNotAnAttribute
+																multiplier:1.0
+																  constant:0];
+	[self.view addConstraint:self.gradientHeightConstraint];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+	[self setupNavigationBarAppearance];
+}
+
+- (void)setupNavigationBarAppearance
+{
+	if (self.navigationBar == nil) {
+		for (UIView *view in [self.navigationController.navigationBar subviews]) {
+			if (CGRectGetHeight(view.bounds) >= 64) {
+				// Get a reference to the UINavigationBar
+				self.navigationBar = view;
+				// Get the height for the gradient view underneath the UINavigationBar
+				self.gradientHeightConstraint.constant = CGRectGetHeight(self.navigationBar.bounds);
+				continue;
+			} else if (CGRectGetMinX(view.frame) > 0 && [view.subviews count] == 1 && [view.subviews[0] isKindOfClass:[UILabel class]]) {
+				// Get a reference to the UINavigationBar's title
+				self.navigationBarTitle = view;
+				continue;
+			}
+		}
+		// Hide the navigation bar
+		[self scrollViewDidScroll:self.tableView];
+	}
 }
 
 - (void)viewDidLayoutSubviews
 {
 	[super viewDidLayoutSubviews];
-	self.tableView.separatorInset = self.tableView.contentInset = UIEdgeInsetsMake(0, self.tableView.contentInset.left, CGRectGetHeight(self.productViewFooter.frame), self.tableView.contentInset.right);
+	self.tableView.contentInset = self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, self.tableView.contentInset.left, CGRectGetHeight(self.productViewFooter.frame), self.tableView.contentInset.right);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -312,6 +343,19 @@
 	if (footerViewHeight >= 0) {
 		self.footerHeightLayoutConstraint.constant = footerViewHeight;
 		self.footerOffsetLayoutConstraint.constant = -footerViewHeight;
+	}
+	
+	if (self.navigationBar) {
+		CGFloat navigationBarHeight = CGRectGetHeight(self.navigationBar.bounds);
+		CGFloat transitionPosition = CGRectGetHeight(self.tableView.tableHeaderView.bounds) - scrollView.contentOffset.y - navigationBarHeight;
+		transitionPosition = -transitionPosition / navigationBarHeight;
+		if (transitionPosition >= 1) {
+			transitionPosition = 1;
+		} else if (transitionPosition <= 0) {
+			transitionPosition = 0;
+		}
+		self.navigationBar.alpha = transitionPosition;
+		self.navigationBarTitle.alpha = transitionPosition;
 	}
 }
 

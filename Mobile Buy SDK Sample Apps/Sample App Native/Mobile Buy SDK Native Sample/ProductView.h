@@ -8,7 +8,7 @@
 
 @import UIKit;
 @import PassKit;
-#import <Buy/Buy.h>
+@import Buy;
 
 @interface ProductView : UIView
 

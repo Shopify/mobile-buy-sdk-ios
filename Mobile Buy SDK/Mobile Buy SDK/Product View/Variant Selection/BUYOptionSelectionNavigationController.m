@@ -88,10 +88,11 @@
 		}];
 	}
 	else {
-		
 		UIView *dismissedView = [transitionContext viewForKey:UITransitionContextFromViewKey];
-		
 		[UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
+			CGRect frame = dismissedView.frame;
+			frame.origin.y += 50;
+			dismissedView.frame = frame;
 			dismissedView.alpha = 0.0;
 		} completion:^(BOOL finished) {
 			[dismissedView removeFromSuperview];
