@@ -51,7 +51,8 @@
 #pragma mark - Direct Line Item Editing
 
 /**
- *  Adds a custom-built BUYLineItem to the BUYCart.
+ *  Adds a custom-built BUYLineItem to the BUYCart that is not associated with a BUYProductVariant in the shop,
+ *  for example tips, physical item that doesn't exist on the shop.
  *
  *  @param object BUYLineItem to add the the BUYCart
  */
