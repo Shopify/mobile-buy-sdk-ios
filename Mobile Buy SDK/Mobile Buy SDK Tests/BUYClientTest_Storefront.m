@@ -177,14 +177,11 @@
 		XCTAssertEqualObjects(@"Pixel", [products.firstObject title]);
 		
 		[expectation fulfill];
-
-		
 	}];
 	
 	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
 		XCTAssertNil(error);
 	}];
-	
 }
 
 @end
