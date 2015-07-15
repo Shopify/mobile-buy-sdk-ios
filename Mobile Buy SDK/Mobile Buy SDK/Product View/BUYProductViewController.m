@@ -50,6 +50,7 @@
 
 		self.modalPresentationStyle = UIModalPresentationCustom;
 		self.transitioningDelegate = self;
+		self.productViewHeader = [[BUYProductViewHeader alloc] init];
 	}
 	return self;
 }
@@ -174,7 +175,6 @@
 																	  metrics:nil
 																		views:NSDictionaryOfVariableBindings(_tableView)]];
 	
-	self.productViewHeader = [[BUYProductViewHeader alloc] init];
 	[self.productViewHeader setFrame:CGRectMake(0, 0, CGRectGetWidth(self.tableView.bounds), CGRectGetWidth([[UIScreen mainScreen] bounds]))];
 	self.tableView.tableHeaderView = self.productViewHeader;
 	
