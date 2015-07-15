@@ -275,7 +275,11 @@
 	// TODO: add logic to determine whether there are variants to select
 	NSInteger rows = 0;
 	if (self.product) {
-		self.shouldShowVariantSelector ? 3 : 2;
+		if (self.shouldShowVariantSelector) {
+			rows = 3;
+		} else {
+			rows = 2;
+		}
 	}
 	return rows;
 }
