@@ -18,6 +18,11 @@
 @interface BUYProduct : BUYObject
 
 /**
+ *  The product ID
+ */
+@property (nonatomic, readonly, copy) NSNumber *productId;
+
+/**
  *  The name of the product. In a shop's catalog, clicking on a product's title takes you to that product's page.
  *  On a product's page, the product's title typically appears in a large font.
  */

@@ -23,6 +23,11 @@
 - (void)loadProduct:(NSString *)productId completion:(void (^)(BOOL success, NSError *error))completion;
 
 /**
+ *  The product to be displayed.  This can be set before presentation instead of calling loadProduct:completion:
+ */
+@property (nonatomic, strong) BUYProduct *product;
+
+/**
  *  The loaded product ID
  */
 @property (nonatomic, strong, readonly) NSString *productId;

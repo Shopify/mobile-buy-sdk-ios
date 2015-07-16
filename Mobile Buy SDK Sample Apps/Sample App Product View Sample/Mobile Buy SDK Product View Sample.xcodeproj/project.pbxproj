@@ -1,0 +1,328 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BEA618911B57FBBF0073A594 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BEA618901B57FBBF0073A594 /* main.m */; };
+		BEA618941B57FBBF0073A594 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BEA618931B57FBBF0073A594 /* AppDelegate.m */; };
+		BEA618971B57FBBF0073A594 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEA618961B57FBBF0073A594 /* ViewController.m */; };
+		BEA6189A1B57FBBF0073A594 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEA618981B57FBBF0073A594 /* Main.storyboard */; };
+		BEA6189C1B57FBBF0073A594 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEA6189B1B57FBBF0073A594 /* Images.xcassets */; };
+		BEA6189F1B57FBBF0073A594 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEA6189D1B57FBBF0073A594 /* LaunchScreen.xib */; };
+		BEA618C71B57FC4B0073A594 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEA618C61B57FC4B0073A594 /* Buy.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		BEA6188B1B57FBBF0073A594 /* Mobile Buy SDK Product View Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile Buy SDK Product View Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BEA6188F1B57FBBF0073A594 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BEA618901B57FBBF0073A594 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		BEA618921B57FBBF0073A594 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		BEA618931B57FBBF0073A594 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		BEA618951B57FBBF0073A594 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		BEA618961B57FBBF0073A594 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		BEA618991B57FBBF0073A594 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BEA6189B1B57FBBF0073A594 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		BEA6189E1B57FBBF0073A594 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		BEA618C61B57FC4B0073A594 /* Buy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Buy.framework; path = ../Buy.framework; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BEA618881B57FBBF0073A594 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BEA618C71B57FC4B0073A594 /* Buy.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BEA618821B57FBBF0073A594 = {
+			isa = PBXGroup;
+			children = (
+				BEA618C61B57FC4B0073A594 /* Buy.framework */,
+				BEA6188D1B57FBBF0073A594 /* Mobile Buy SDK Product View Sample */,
+				BEA6188C1B57FBBF0073A594 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BEA6188C1B57FBBF0073A594 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BEA6188B1B57FBBF0073A594 /* Mobile Buy SDK Product View Sample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BEA6188D1B57FBBF0073A594 /* Mobile Buy SDK Product View Sample */ = {
+			isa = PBXGroup;
+			children = (
+				BEA618921B57FBBF0073A594 /* AppDelegate.h */,
+				BEA618931B57FBBF0073A594 /* AppDelegate.m */,
+				BEA618951B57FBBF0073A594 /* ViewController.h */,
+				BEA618961B57FBBF0073A594 /* ViewController.m */,
+				BEA618981B57FBBF0073A594 /* Main.storyboard */,
+				BEA6189B1B57FBBF0073A594 /* Images.xcassets */,
+				BEA6189D1B57FBBF0073A594 /* LaunchScreen.xib */,
+				BEA6188E1B57FBBF0073A594 /* Supporting Files */,
+			);
+			path = "Mobile Buy SDK Product View Sample";
+			sourceTree = "<group>";
+		};
+		BEA6188E1B57FBBF0073A594 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BEA6188F1B57FBBF0073A594 /* Info.plist */,
+				BEA618901B57FBBF0073A594 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BEA6188A1B57FBBF0073A594 /* Mobile Buy SDK Product View Sample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BEA618AE1B57FBBF0073A594 /* Build configuration list for PBXNativeTarget "Mobile Buy SDK Product View Sample" */;
+			buildPhases = (
+				BEA618871B57FBBF0073A594 /* Sources */,
+				BEA618881B57FBBF0073A594 /* Frameworks */,
+				BEA618891B57FBBF0073A594 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Mobile Buy SDK Product View Sample";
+			productName = "Mobile Buy SDK Product View Sample";
+			productReference = BEA6188B1B57FBBF0073A594 /* Mobile Buy SDK Product View Sample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BEA618831B57FBBF0073A594 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = Shopify;
+				TargetAttributes = {
+					BEA6188A1B57FBBF0073A594 = {
+						CreatedOnToolsVersion = 6.4;
+					};
+				};
+			};
+			buildConfigurationList = BEA618861B57FBBF0073A594 /* Build configuration list for PBXProject "Mobile Buy SDK Product View Sample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BEA618821B57FBBF0073A594;
+			productRefGroup = BEA6188C1B57FBBF0073A594 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BEA6188A1B57FBBF0073A594 /* Mobile Buy SDK Product View Sample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BEA618891B57FBBF0073A594 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BEA6189A1B57FBBF0073A594 /* Main.storyboard in Resources */,
+				BEA6189F1B57FBBF0073A594 /* LaunchScreen.xib in Resources */,
+				BEA6189C1B57FBBF0073A594 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BEA618871B57FBBF0073A594 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BEA618971B57FBBF0073A594 /* ViewController.m in Sources */,
+				BEA618941B57FBBF0073A594 /* AppDelegate.m in Sources */,
+				BEA618911B57FBBF0073A594 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		BEA618981B57FBBF0073A594 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BEA618991B57FBBF0073A594 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		BEA6189D1B57FBBF0073A594 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BEA6189E1B57FBBF0073A594 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BEA618AC1B57FBBF0073A594 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BEA618AD1B57FBBF0073A594 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BEA618AF1B57FBBF0073A594 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/davidmuzi/Repos/mobile-buy-sdk-ios/Mobile",
+					Buy,
+					SDK,
+					Sample,
+					Apps,
+				);
+				INFOPLIST_FILE = "Mobile Buy SDK Product View Sample/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		BEA618B01B57FBBF0073A594 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/davidmuzi/Repos/mobile-buy-sdk-ios/Mobile",
+					Buy,
+					SDK,
+					Sample,
+					Apps,
+				);
+				INFOPLIST_FILE = "Mobile Buy SDK Product View Sample/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BEA618861B57FBBF0073A594 /* Build configuration list for PBXProject "Mobile Buy SDK Product View Sample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BEA618AC1B57FBBF0073A594 /* Debug */,
+				BEA618AD1B57FBBF0073A594 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BEA618AE1B57FBBF0073A594 /* Build configuration list for PBXNativeTarget "Mobile Buy SDK Product View Sample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BEA618AF1B57FBBF0073A594 /* Debug */,
+				BEA618B01B57FBBF0073A594 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BEA618831B57FBBF0073A594 /* Project object */;
+}
