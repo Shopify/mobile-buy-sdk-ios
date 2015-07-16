@@ -32,6 +32,8 @@
 	NSString *apiKey;
 	NSString *channelId;
 	NSString *giftCardCode;
+	NSString *giftCardCode2;
+	NSString *giftCardCode3;
 	NSString *expiredGiftCardCode;
 	NSString *expiredGiftCardId;
 }
@@ -45,6 +47,8 @@
 	apiKey = environment[kBUYTestAPIKey];
 	channelId = environment[kBUYTestChannelId];
 	giftCardCode = environment[kBUYTestGiftCardCode];
+	giftCardCode2 = environment[kBUYTestGiftCardCode2];
+	giftCardCode3 = environment[kBUYTestGiftCardCode3];
 	expiredGiftCardCode = environment[kBUYTestExpiredGiftCardCode];
 	expiredGiftCardId = environment[kBUYTestExpiredGiftCardID];
 	
@@ -348,6 +352,27 @@
 	[_checkoutClient removeGiftCard:giftCard fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		XCTAssertNotNil(error);
 		XCTAssertEqual(404, error.code);
+		[expectation fulfill];
+	}];
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
+- (void)testAddingMultipleGiftCards
+{
+	[self testApplyingGiftCardToCheckout];
+	XCTAssertEqual([_checkout.giftCards count], 1);
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_checkoutClient applyGiftCardWithCode:giftCardCode2 toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
+		XCTAssertNil(error);
+		_checkout = checkout;
+		XCTAssertEqual([_checkout.giftCards count], 2);
+		
+		BUYGiftCard *giftCard2 = _checkout.giftCards[2];
+		XCTAssertEqualObjects([giftCardCode substringWithRange:NSMakeRange(giftCardCode.length - 4, 4)], giftCard2.lastCharacters);
 		[expectation fulfill];
 	}];
 	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
