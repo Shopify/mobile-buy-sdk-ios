@@ -19,23 +19,4 @@
 	_optionId = [dictionary[@"option_id"] copy];
 }
 
-- (BOOL)isEqual:(id)object
-{
-	if (self == object) return YES;
-	
-	if (![object isKindOfClass:self.class]) return NO;
-	
-	BOOL same = ([self.optionId isEqualToNumber:[object optionId]] &&
-				 [self.value isEqualToString:[object value]]);
-	
-	return same;
-}
-
-- (NSUInteger)hash
-{
-	NSUInteger hash = [self.value hash];
-	hash ^= [self.optionId hash];
-	return hash;
-}
-
 @end

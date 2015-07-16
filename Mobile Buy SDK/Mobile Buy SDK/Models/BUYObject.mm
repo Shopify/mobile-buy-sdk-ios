@@ -238,4 +238,21 @@ namespace shopify
 	}
 }
 
+- (BOOL)isEqual:(id)object
+{
+	if (self == object) return YES;
+	
+	if (![object isKindOfClass:self.class]) return NO;
+	
+	BOOL same = ([self.identifier isEqualToNumber:[(BUYObject*)object identifier]]);
+	
+	return same;
+}
+
+- (NSUInteger)hash
+{
+	NSUInteger hash = [self.identifier hash];
+	return hash;
+}
+
 @end

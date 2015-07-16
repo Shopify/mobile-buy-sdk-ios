@@ -309,22 +309,22 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
  *
  *  @param giftCardCode The gift card code to apply on an existing checkout on Shopify. Note: This is not the same as the gift card identifier.
  *  @param checkout     An existing BUYCheckout on Shopify
- *  @param block        (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
+ *  @param block        (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
  *
  *  @return The associated NSURLSessionDataTask
  */
-- (NSURLSessionDataTask *)applyGiftCardWithCode:(NSString *)giftCardCode toCheckout:(BUYCheckout *)checkout completion:(BUYDataGiftCardBlock)block;
+- (NSURLSessionDataTask *)applyGiftCardWithCode:(NSString *)giftCardCode toCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
 
 /**
  *  Removes a gift card from the checkout.
  *
- *  @param giftCard The BUYGiftCard to remove
- *  @param checkout The BUYCheckout for which the Gift Card should be removed
- *  @param block    (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
+ *  @param giftCardCode The BUYGiftCard identifier to remove on an existing checkout on Shopify.
+ *  @param checkout     An existing BUYCheckout on Shopify
+ *  @param block        (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
  *
  *  @return The associated NSURLSessionDataTask
  */
-- (NSURLSessionDataTask *)removeGiftCard:(BUYGiftCard *)giftCard fromCheckout:(BUYCheckout *)checkout completion:(BUYDataGiftCardBlock)block;
+- (NSURLSessionDataTask *)removeGiftCard:(BUYGiftCard *)giftCard fromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
 
 /**
  *  Retrieves an updated version of a BUYCheckout from Shopify.

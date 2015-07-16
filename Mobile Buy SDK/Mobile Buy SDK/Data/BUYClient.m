@@ -284,36 +284,59 @@ NSString * const BUYVersionString = @"1.1";
 	return task;
 }
 
-- (NSURLSessionDataTask *)applyGiftCardWithCode:(NSString *)giftCardCode toCheckout:(BUYCheckout *)checkout completion:(BUYDataGiftCardBlock)block
+- (NSURLSessionDataTask *)applyGiftCardWithCode:(NSString *)giftCardCode toCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
 	NSURLSessionDataTask *task = nil;
 	if (checkout.hasToken && giftCardCode) {
+		NSMutableArray *giftCardArray = [NSMutableArray arrayWithArray:checkout.giftCards];
 		BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:@{ @"code" : giftCardCode }];
-		task = [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/gift_cards.json", _shopDomain, checkout.token] object:giftCard completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-			BUYGiftCard *giftCard = nil;
-			if (error == nil) {
-				giftCard = [[BUYGiftCard alloc] initWithDictionary:json[@"gift_card"]];
-			}
-			block(giftCard, error);
-		}];
+		[giftCardArray addObject:giftCard];
+		task = [self patchGiftCards:giftCardArray fromCheckout:checkout completion:block];
 	}
 	
 	return task;
 }
 
-- (NSURLSessionDataTask *)removeGiftCard:(BUYGiftCard *)giftCard fromCheckout:(BUYCheckout *)checkout completion:(BUYDataGiftCardBlock)block
+- (NSURLSessionDataTask *)removeGiftCard:(BUYGiftCard *)giftCard fromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
 	NSURLSessionDataTask *task = nil;
-	if (giftCard.identifier) {
-		task = [self deleteRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/gift_cards/%@.json", _shopDomain, checkout.token, giftCard.identifier] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-			BUYGiftCard *giftCard = nil;
-			if (error == nil) {
-				giftCard = [[BUYGiftCard alloc] initWithDictionary:json[@"gift_card"]];
+	if (checkout.hasToken && giftCard.identifier) {
+		// Create an empty array an only add the gift cards that are still valid
+		NSMutableArray *giftCardArray = [NSMutableArray new];
+		for (BUYGiftCard *existingGiftCard in checkout.giftCards) {
+			if ([existingGiftCard isEqual:giftCard] == NO) {
+				[giftCardArray addObject:giftCard];
 			}
-			block(giftCard, error);
-		}];
+		}
+		// check if the amount of gift cards has changed
+		NSError *error = nil;
+		if ([giftCardArray count] != [checkout.giftCards count]) {
+			task = [self patchGiftCards:giftCardArray fromCheckout:checkout completion:block];
+		} else {
+			error = [NSError errorWithDomain:kShopifyError code:BUYStatusNotFound userInfo:@{ NSLocalizedFailureReasonErrorKey : @"Gift card code does not match an existing BUYGiftCard on the BUYCheckout object" }];
+			block(nil, error);
+		}
 	}
 	
+	return task;
+}
+
+- (NSURLSessionDataTask *)patchGiftCards:(NSArray *)giftCards fromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
+{
+	NSURLSessionDataTask *task = nil;
+	NSMutableArray *giftCardCodes = [NSMutableArray new];
+	for (BUYGiftCard *giftCard in giftCards) {
+		if (giftCard.identifier && giftCard.code == nil) {
+			[giftCardCodes addObject:@{ @"id" : giftCard.identifier }];
+		} else if (giftCard.code) {
+			[giftCardCodes addObject:@{ @"code" : giftCard.code }];
+		}
+	}
+	NSDictionary *json = @{ @"checkout" : @{ @"gift_cards" : giftCardCodes } };
+	NSData *data = [NSJSONSerialization dataWithJSONObject:json options:0 error:nil];
+	task = [self patchRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@.json", _shopDomain, checkout.token] body:data completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+		[self handleCheckoutResponse:json error:error block:block];
+	}];
 	return task;
 }
 

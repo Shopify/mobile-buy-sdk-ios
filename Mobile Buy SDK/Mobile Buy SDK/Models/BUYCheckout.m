@@ -121,6 +121,7 @@
 	self.shippingAddress = [BUYAddress convertObject:dictionary[@"shipping_address"]];
 	self.shippingRate = [BUYShippingRate convertObject:dictionary[@"shipping_rate"]];
 	self.discount = [BUYDiscount convertObject:dictionary[@"discount"]];
+	self.giftCards = [BUYGiftCard convertJSONArray:dictionary[@"gift_cards"]];
 	
 	NSString *orderStatusURL = dictionary[@"order_status_url"];
 	self.orderStatusURL = orderStatusURL && [orderStatusURL isKindOfClass:[NSString class]] ? [NSURL URLWithString:orderStatusURL] : nil;

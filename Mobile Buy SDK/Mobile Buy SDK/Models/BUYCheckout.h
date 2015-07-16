@@ -134,6 +134,11 @@
 @property (nonatomic, strong) BUYDiscount *discount;
 
 /**
+ *  An array of BUYDiscount objects applied to the checkout
+ */
+@property (nonatomic, strong, readonly) NSArray *giftCards;
+
+/**
  *  URL for the website showing the order status
  */
 @property (nonatomic, strong, readonly) NSURL *orderStatusURL;
