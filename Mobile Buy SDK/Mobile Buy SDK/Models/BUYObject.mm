@@ -244,7 +244,7 @@ namespace shopify
 	
 	if (![object isKindOfClass:self.class]) return NO;
 	
-	BOOL same = ([self.identifier isEqualToNumber:[(BUYObject*)object identifier]]);
+	BOOL same = ([self.identifier isEqual:((BUYObject*)object).identifier]);
 	
 	return same;
 }

@@ -323,37 +323,37 @@
 	}];
 }
 
-//- (void)testRemovingInvalidGiftCardFromCheckout
-//{
-//	[self testApplyingGiftCardToCheckout];
-//	
-//	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:@{ @"id" : @"000" }];
-//	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-//	[_checkoutClient removeGiftCardWithCode:giftCard.code fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
-//		XCTAssertNotNil(error);
-//		XCTAssertEqual(422, error.code);
-//		[expectation fulfill];
-//	}];
-//	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
-//		XCTAssertNil(error);
-//	}];
-//}
-//
-//- (void)testRemovingExpiredGiftCardFromCheckout
-//{
-//	[self testApplyingGiftCardToCheckout];
-//	
-//	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:@{ @"id" : expiredGiftCardId, @"code" : expiredGiftCardCode }];
-//	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-//	[_checkoutClient removeGiftCardWithCode:giftCard.code fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
-//		XCTAssertNotNil(error);
-//		XCTAssertEqual(422, error.code);
-//		[expectation fulfill];
-//	}];
-//	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
-//		XCTAssertNil(error);
-//	}];
-//}
+- (void)testRemovingInvalidGiftCardFromCheckout
+{
+	[self testApplyingGiftCardToCheckout];
+	
+	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:@{ @"id" : @"000" }];
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_checkoutClient removeGiftCard:giftCard fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+		XCTAssertNotNil(error);
+		XCTAssertEqual(404, error.code);
+		[expectation fulfill];
+	}];
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
+- (void)testRemovingExpiredGiftCardFromCheckout
+{
+	[self testApplyingGiftCardToCheckout];
+	
+	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:@{ @"id" : expiredGiftCardId }];
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_checkoutClient removeGiftCard:giftCard fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+		XCTAssertNotNil(error);
+		XCTAssertEqual(404, error.code);
+		[expectation fulfill];
+	}];
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
 
 - (void)testCheckoutAnywhereWithoutAuthToken
 {
