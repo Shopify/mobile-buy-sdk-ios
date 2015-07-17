@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "BUYTheme.h"
+@class BUYProductVariant;
 
 @interface BUYProductHeaderCell : UITableViewCell <BUYThemeable>
+
+@property (nonatomic, strong) BUYProductVariant *productVariant;
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *priceLabel;
