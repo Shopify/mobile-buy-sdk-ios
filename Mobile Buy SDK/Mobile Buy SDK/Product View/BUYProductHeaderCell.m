@@ -7,7 +7,7 @@
 //
 
 #import "BUYProductHeaderCell.h"
-#import "BUYTheme.h"
+#import "BUYProductVariant.h"
 
 @interface BUYProductHeaderCell ()
 @property (nonatomic, strong) BUYTheme *theme;
@@ -41,6 +41,17 @@
 		
 	}
 	return self;
+}
+
+- (void)setProductVariant:(BUYProductVariant *)productVariant
+{
+	_productVariant = productVariant;
+	
+	self.titleLabel.text = productVariant.title;
+	
+	NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+	[numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
+	self.priceLabel.text = [numberFormatter stringFromNumber:productVariant.price];;
 }
 
 - (void)setTheme:(BUYTheme *)theme

@@ -34,7 +34,6 @@
 @property (nonatomic, weak) UIView *navigationBarTitle;
 @property (nonatomic, strong) NSLayoutConstraint *gradientHeightConstraint;
 @property (nonatomic, strong) NSString *productId;
-@property (nonatomic, strong) BUYProduct *product;
 @property (nonatomic, strong) BUYProductVariant *selectedProductVariant;
 @property (nonatomic, strong) BUYTheme *theme;
 @property (nonatomic, assign) BOOL shouldShowVariantSelector;
@@ -197,7 +196,7 @@
 																	  options:0
 																	  metrics:nil
 																		views:NSDictionaryOfVariableBindings(_productViewFooter)]];
-	[self.productViewFooter setApplePayButtonVisible:YES]; //self.isApplePayAvailable
+	[self.productViewFooter setApplePayButtonVisible:self.isApplePayAvailable];
 	
 	
 	self.topGradientView = [[BUYGradientView alloc] init];
@@ -289,8 +288,7 @@
 	
 	if (indexPath.row == 0) {
 		BUYProductHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-		cell.titleLabel.text = self.product.title;
-		cell.priceLabel.text = @"$9.99";
+		cell.productVariant = self.selectedProductVariant;
 		theCell = cell;
 	}
 	else if (indexPath.row == 1 && self.shouldShowVariantSelector) {
@@ -300,8 +298,7 @@
 	}
 	else {
 		BUYProductDescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"descriptionCell"];
-		//		cell.descriptionHTML = self.product.htmlDescription;
-		cell.descriptionHTML = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non eleifend lectus, nec efficitur velit. Etiam ligula elit, sagittis at velit ac, vehicula efficitur nulla. Vivamus nec nulla vel lacus sollicitudin bibendum. Mauris mattis neque eu arcu scelerisque blandit condimentum vehicula eros. Suspendisse potenti. Proin ornare ut augue eu posuere. Ut volutpat, massa a tempor suscipit, enim augue sodales nulla, non efficitur urna magna vel nunc. Aenean commodo turpis nec orci consectetur, luctus suscipit purus laoreet. Phasellus mi nisi, viverra eu diam in, scelerisque tempor velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc ut tristique arcu, in scelerisque diam. Sed sem dolor, euismod tristique maximus a, viverra sed metus. Donec ex nisi, facilisis at lacus condimentum, vulputate malesuada turpis.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non eleifend lectus, nec efficitur velit. Etiam ligula elit, sagittis at velit ac, vehicula efficitur nulla. Vivamus nec nulla vel lacus sollicitudin bibendum. Mauris mattis neque eu arcu scelerisque blandit condimentum vehicula eros. Suspendisse potenti. Proin ornare ut augue eu posuere. Ut volutpat, massa a tempor suscipit, enim augue sodales nulla, non efficitur urna magna vel nunc. Aenean commodo turpis nec orci consectetur, luctus suscipit purus laoreet. Phasellus mi nisi, viverra eu diam in, scelerisque tempor velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc ut tristique arcu, in scelerisque diam. Sed sem dolor, euismod tristique maximus a, viverra sed metus. Donec ex nisi, facilisis at lacus condimentum, vulputate malesuada turpis.";
+		cell.descriptionHTML = self.product.htmlDescription;
 		cell.separatorInset = UIEdgeInsetsMake(0, CGRectGetWidth(self.tableView.bounds), 0, 0);
 		theCell = cell;
 	}

@@ -18,6 +18,7 @@
 	[super updateWithDictionary:dictionary];
 	
 	_title = [dictionary[@"title"] copy];
+	_productId = [dictionary[@"product_id"] copy];
 	_vendor = [dictionary[@"vendor"] copy];
 	_productType = [dictionary[@"product_type"] copy];
 	_variants = [BUYProductVariant convertJSONArray:dictionary[@"variants"] block:^(BUYProductVariant *variant) {
