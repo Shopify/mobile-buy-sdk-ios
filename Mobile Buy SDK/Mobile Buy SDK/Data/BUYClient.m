@@ -292,11 +292,7 @@ NSString * const BUYVersionString = @"1.1";
 		BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:@{ @"code" : giftCardCode }];
 		task = [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/gift_cards.json", _shopDomain, checkout.token] object:giftCard completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			if (error == nil) {
-				NSMutableArray *giftCardArray = [NSMutableArray arrayWithArray:checkout.giftCards];
-				BUYGiftCard *newGiftCard = [[BUYGiftCard alloc] initWithDictionary:json[@"gift_card"]];
-				[giftCardArray addObject:newGiftCard];
-				checkout.giftCards = [giftCardArray copy];
-				checkout.paymentDue = [NSDecimalNumber buy_decimalNumberFromJSON:json[@"gift_card"][@"checkout"][@"payment_due"]];
+				[self updateCheckout:checkout withGiftCardDictionary:json[@"gift_card"] addingGiftCard:YES];
 			}
 			block(checkout, error);
 		}];
@@ -311,18 +307,26 @@ NSString * const BUYVersionString = @"1.1";
 	if (giftCard.identifier) {
 		task = [self deleteRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/gift_cards/%@.json", _shopDomain, checkout.token, giftCard.identifier] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			if (error == nil) {
-				BUYGiftCard *removedGiftCard = [[BUYGiftCard alloc] initWithDictionary:json[@"gift_card"]];
-				NSMutableArray *giftCardArray = [NSMutableArray arrayWithArray:checkout.giftCards];
-				[giftCardArray removeObject:removedGiftCard];
-				checkout.giftCards = [giftCardArray copy];
-				checkout.paymentDue = [NSDecimalNumber buy_decimalNumberFromJSON:json[@"gift_card"][@"checkout"][@"payment_due"]];
-				
+				[self updateCheckout:checkout withGiftCardDictionary:json[@"gift_card"] addingGiftCard:NO];
 			}
 			block(checkout, error);
 		}];
 	}
 	
 	return task;
+}
+
+- (void)updateCheckout:(BUYCheckout *)checkout withGiftCardDictionary:(NSDictionary *)giftCardDictionary addingGiftCard:(BOOL)addingGiftCard
+{
+	NSMutableArray *giftCardArray = [NSMutableArray arrayWithArray:checkout.giftCards];
+	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:giftCardDictionary];
+	if (addingGiftCard) {
+		[giftCardArray addObject:giftCard];
+	} else {
+		[giftCardArray removeObject:giftCard];
+	}
+	checkout.giftCards = [giftCardArray copy];
+	checkout.paymentDue = [NSDecimalNumber buy_decimalNumberFromJSON:giftCardDictionary[@"checkout"][@"payment_due"]];
 }
 
 - (NSURLSessionDataTask *)getCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
