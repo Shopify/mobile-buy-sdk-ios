@@ -20,6 +20,7 @@
 #import "BUYTestConstants.h"
 #import "BUYCheckout_Private.h"
 #import "BUYCollection.h"
+#import "NSDecimalNumber+BUYAdditions.h"
 
 #define kGET @"GET"
 #define kPOST @"POST"
@@ -185,9 +186,9 @@ NSString * const BUYVersionString = @"1.1";
 {
 	NSURLSessionDataTask *task = nil;
 	if (collection.collectionId) {
-	
+		
 		NSString *url = [NSString stringWithFormat:@"https://%@/api/channels/%@/product_publications.json?collection_id=%lu&sort=collection_sort&limit=%lu&page=%lu", self.shopDomain, self.channelId, collection.collectionId.longValue, (unsigned long)self.pageSize, (unsigned long)page];
-
+		
 		task = [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			
 			NSArray *products = nil;
@@ -238,7 +239,7 @@ NSString * const BUYVersionString = @"1.1";
 	if (error == nil) {
 		checkout = [[BUYCheckout alloc] initWithDictionary:json[@"checkout"]];
 	}
-    block(checkout, error);
+	block(checkout, error);
 }
 
 - (void)configureCheckout:(BUYCheckout *)checkout
@@ -274,7 +275,7 @@ NSString * const BUYVersionString = @"1.1";
 	NSURLSessionDataTask *task = nil;
 	NSError *error = nil;
 	NSData *data = [NSJSONSerialization dataWithJSONObject:checkoutJSON options:0 error:&error];
-
+	
 	if (data && error == nil) {
 		task = [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts.json", _shopDomain] body:data completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			[self handleCheckoutResponse:json error:error block:block];
@@ -288,10 +289,17 @@ NSString * const BUYVersionString = @"1.1";
 {
 	NSURLSessionDataTask *task = nil;
 	if (checkout.hasToken && giftCardCode) {
-		NSMutableArray *giftCardArray = [NSMutableArray arrayWithArray:checkout.giftCards];
 		BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:@{ @"code" : giftCardCode }];
-		[giftCardArray addObject:giftCard];
-		task = [self patchGiftCards:giftCardArray fromCheckout:checkout completion:block];
+		task = [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/gift_cards.json", _shopDomain, checkout.token] object:giftCard completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+			if (error == nil) {
+				NSMutableArray *giftCardArray = [NSMutableArray arrayWithArray:checkout.giftCards];
+				BUYGiftCard *newGiftCard = [[BUYGiftCard alloc] initWithDictionary:json[@"gift_card"]];
+				[giftCardArray addObject:newGiftCard];
+				checkout.giftCards = [giftCardArray copy];
+				checkout.paymentDue = [NSDecimalNumber buy_decimalNumberFromJSON:json[@"gift_card"][@"checkout"][@"payment_due"]];
+			}
+			block(checkout, error);
+		}];
 	}
 	
 	return task;
@@ -300,22 +308,18 @@ NSString * const BUYVersionString = @"1.1";
 - (NSURLSessionDataTask *)removeGiftCard:(BUYGiftCard *)giftCard fromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
 	NSURLSessionDataTask *task = nil;
-	if (checkout.hasToken && giftCard.identifier) {
-		// Create an empty array an only add the gift cards that are still valid
-		NSMutableArray *giftCardArray = [NSMutableArray new];
-		for (BUYGiftCard *existingGiftCard in checkout.giftCards) {
-			if ([existingGiftCard isEqual:giftCard] == NO) {
-				[giftCardArray addObject:giftCard];
+	if (giftCard.identifier) {
+		task = [self deleteRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/gift_cards/%@.json", _shopDomain, checkout.token, giftCard.identifier] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+			if (error == nil) {
+				BUYGiftCard *removedGiftCard = [[BUYGiftCard alloc] initWithDictionary:json[@"gift_card"]];
+				NSMutableArray *giftCardArray = [NSMutableArray arrayWithArray:checkout.giftCards];
+				[giftCardArray removeObject:removedGiftCard];
+				checkout.giftCards = [giftCardArray copy];
+				checkout.paymentDue = [NSDecimalNumber buy_decimalNumberFromJSON:json[@"gift_card"][@"checkout"][@"payment_due"]];
+				
 			}
-		}
-		// check if the amount of gift cards has changed
-		NSError *error = nil;
-		if ([giftCardArray count] != [checkout.giftCards count]) {
-			task = [self patchGiftCards:giftCardArray fromCheckout:checkout completion:block];
-		} else {
-			error = [NSError errorWithDomain:kShopifyError code:BUYStatusNotFound userInfo:@{ NSLocalizedFailureReasonErrorKey : @"Gift card code does not match an existing BUYGiftCard on the BUYCheckout object" }];
-			block(nil, error);
-		}
+			block(checkout, error);
+		}];
 	}
 	
 	return task;

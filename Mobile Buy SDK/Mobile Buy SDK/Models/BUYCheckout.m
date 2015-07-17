@@ -106,13 +106,13 @@
 	self.subtotalPrice = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"subtotal_price"]];
 	self.totalTax = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"total_tax"]];
 	self.totalPrice = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"total_price"]];
+	self.paymentDue = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"payment_due"]];
 	
 	self.paymentSessionId = dictionary[@"payment_session_id"];
 	NSString *paymentURLString = dictionary[@"payment_url"];
 	self.paymentURL = paymentURLString ? [NSURL URLWithString:paymentURLString] : nil;
 	self.reservationTime = dictionary[@"reservation_time"];
 	self.reservationTimeLeft = dictionary[@"reservation_time_left"];
-	self.paymentDue = dictionary[@"payment_due"];
 	
 	_lineItems = [BUYLineItem convertJSONArray:dictionary[@"line_items"]];
 	_taxLines = [BUYTaxLine convertJSONArray:dictionary[@"tax_lines"]];
