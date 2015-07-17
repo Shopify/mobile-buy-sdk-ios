@@ -56,7 +56,7 @@
 	XCTAssertEqualObjects([shopDomain substringFromIndex:shopDomain.length - 14], @".myshopify.com", @"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");
 	XCTAssert([apiKey length] > 0, @"You must provide a valid API Key.");
 	XCTAssert([channelId length], @"You must provide a valid Channel ID");
-
+	
 	_checkoutClient = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
 	
 	_products = [[NSMutableArray alloc] init];
@@ -73,7 +73,7 @@
 	NSUInteger currentPage = 0;
 	while (done == NO) {
 		XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-
+		
 		[_checkoutClient getProductsPage:currentPage completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 			done = reachedEnd || error;
 			
@@ -129,7 +129,7 @@
 	do {
 		NSLog(@"Fetching shipping rates...");
 		XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-
+		
 		[_checkoutClient getShippingRatesForCheckout:_checkout completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
 			XCTAssertNil(error);
 			shippingStatus = status;
@@ -148,7 +148,7 @@
 			[NSThread sleepForTimeInterval:0.5f];
 		}
 	} while (shippingStatus == BUYStatusProcessing);
-		
+	
 	XCTAssertTrue([_shippingRates count] > 0);
 	XCTAssertEqual(shippingStatus, BUYStatusComplete);
 }
@@ -213,12 +213,12 @@
 {
 	__block BUYStatus checkoutStatus = BUYStatusUnknown;
 	__block NSError *checkoutError = nil;
-
+	
 	while (_checkout.token && checkoutStatus != BUYStatusFailed && checkoutStatus != BUYStatusComplete) {
 		
 		NSLog(@"Checking completion status...");
 		XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-
+		
 		[_checkoutClient getCompletionStatusOfCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, BUYStatus returnedStatus, NSError *error) {
 			XCTAssertNil(error);
 			XCTAssertNotNil(returnedCheckout);
@@ -369,7 +369,7 @@
 		XCTAssertNotNil(error);
 		XCTAssertEqual(422, error.code);
 		
-		NSDecimalNumber *paymentDue = [NSDecimalNumber decimalNumberWithString:@"225.75"];
+		NSDecimalNumber *paymentDue = [NSDecimalNumber decimalNumberWithString:@"215.75"];
 		NSComparisonResult result = [_checkout.paymentDue compare:paymentDue];
 		XCTAssertEqual(result, NSOrderedSame);
 		
@@ -390,7 +390,7 @@
 		XCTAssertNotNil(error);
 		XCTAssertEqual(422, error.code);
 		
-		NSDecimalNumber *paymentDue = [NSDecimalNumber decimalNumberWithString:@"225.75"];
+		NSDecimalNumber *paymentDue = [NSDecimalNumber decimalNumberWithString:@"215.75"];
 		NSComparisonResult result = [_checkout.paymentDue compare:paymentDue];
 		XCTAssertEqual(result, NSOrderedSame);
 		
@@ -401,26 +401,138 @@
 	}];
 }
 
-//- (void)testAddingMultipleGiftCards
-//{
-//	[self testApplyingGiftCardToCheckout];
-//	XCTAssertEqual([_checkout.giftCards count], 1);
-//	
-//	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-//	[_checkoutClient applyGiftCardWithCode:giftCardCode2 toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
-//		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
-//		XCTAssertNil(error);
-//		_checkout = checkout;
-//		XCTAssertEqual([_checkout.giftCards count], 2);
-//		
-//		BUYGiftCard *giftCard2 = _checkout.giftCards[2];
-//		XCTAssertEqualObjects([giftCardCode substringWithRange:NSMakeRange(giftCardCode.length - 4, 4)], giftCard2.lastCharacters);
-//		[expectation fulfill];
-//	}];
-//	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
-//		XCTAssertNil(error);
-//	}];
-//}
+- (void)testAddingTwoGiftCards
+{
+	[self testApplyingGiftCardToCheckout];
+	XCTAssertEqual([_checkout.giftCards count], 1);
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_checkoutClient applyGiftCardWithCode:giftCardCode2 toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
+		XCTAssertNil(error);
+		_checkout = checkout;
+		XCTAssertEqual([_checkout.giftCards count], 2);
+		
+		BUYGiftCard *giftCard2 = _checkout.giftCards[1];
+		XCTAssertEqualObjects([giftCardCode2 substringWithRange:NSMakeRange(giftCardCode2.length - 4, 4)], giftCard2.lastCharacters);
+		
+		NSDecimalNumber *paymentDue = [NSDecimalNumber decimalNumberWithString:@"205.75"];
+		NSComparisonResult result = [_checkout.paymentDue compare:paymentDue];
+		XCTAssertEqual(result, NSOrderedSame);
+		
+		[expectation fulfill];
+	}];
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
+- (void)testAddingThreeGiftCards
+{
+	[self testAddingTwoGiftCards];
+	XCTAssertEqual([_checkout.giftCards count], 2);
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_checkoutClient applyGiftCardWithCode:giftCardCode3 toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
+		XCTAssertNil(error);
+		_checkout = checkout;
+		XCTAssertEqual([_checkout.giftCards count], 3);
+		
+		BUYGiftCard *giftCard3 = _checkout.giftCards[2];
+		XCTAssertEqualObjects([giftCardCode3 substringWithRange:NSMakeRange(giftCardCode3.length - 4, 4)], giftCard3.lastCharacters);
+		
+		NSDecimalNumber *paymentDue = [NSDecimalNumber decimalNumberWithString:@"195.75"];
+		NSComparisonResult result = [_checkout.paymentDue compare:paymentDue];
+		XCTAssertEqual(result, NSOrderedSame);
+		
+		[expectation fulfill];
+	}];
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
+- (void)testRemovingSecondGiftCard
+{
+	[self testAddingThreeGiftCards];
+	XCTAssertEqual([_checkout.giftCards count], 3);
+	
+	BUYGiftCard *giftCard2 = _checkout.giftCards[1];
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_checkoutClient removeGiftCard:giftCard2 fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
+		XCTAssertNil(error);
+		_checkout = checkout;
+		XCTAssertEqual([_checkout.giftCards count], 2);
+		
+		BUYGiftCard *giftCard3 = _checkout.giftCards[1];
+		XCTAssertEqualObjects([giftCardCode3 substringWithRange:NSMakeRange(giftCardCode3.length - 4, 4)], giftCard3.lastCharacters);
+		
+		NSDecimalNumber *paymentDue = [NSDecimalNumber decimalNumberWithString:@"205.75"];
+		NSComparisonResult result = [_checkout.paymentDue compare:paymentDue];
+		XCTAssertEqual(result, NSOrderedSame);
+		
+		[expectation fulfill];
+	}];
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
+- (void)testRemovingFirstGiftCard
+{
+	[self testRemovingSecondGiftCard];
+	XCTAssertEqual([_checkout.giftCards count], 2);
+	
+	BUYGiftCard *giftCard1 = _checkout.giftCards[0];
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_checkoutClient removeGiftCard:giftCard1 fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
+		XCTAssertNil(error);
+		_checkout = checkout;
+		XCTAssertEqual([_checkout.giftCards count], 1);
+		
+		BUYGiftCard *giftCard3 = _checkout.giftCards[0];
+		XCTAssertEqualObjects([giftCardCode3 substringWithRange:NSMakeRange(giftCardCode3.length - 4, 4)], giftCard3.lastCharacters);
+		
+		NSDecimalNumber *paymentDue = [NSDecimalNumber decimalNumberWithString:@"215.75"];
+		NSComparisonResult result = [_checkout.paymentDue compare:paymentDue];
+		XCTAssertEqual(result, NSOrderedSame);
+		
+		[expectation fulfill];
+	}];
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
+- (void)testRemovingAllGiftCards
+{
+	[self testRemovingFirstGiftCard];
+	XCTAssertEqual([_checkout.giftCards count], 1);
+	
+	BUYGiftCard *giftCard3 = _checkout.giftCards[0];
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_checkoutClient removeGiftCard:giftCard3 fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
+		XCTAssertNil(error);
+		_checkout = checkout;
+		XCTAssertEqual([_checkout.giftCards count], 0);
+		
+		NSDecimalNumber *paymentDue = [NSDecimalNumber decimalNumberWithString:@"225.75"];
+		NSComparisonResult result = [_checkout.paymentDue compare:paymentDue];
+		XCTAssertEqual(result, NSOrderedSame);
+		
+		[expectation fulfill];
+	}];
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
 
 - (void)testCheckoutAnywhereWithoutAuthToken
 {
@@ -466,7 +578,7 @@
 	[self createCart];
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-
+	
 	[_checkoutClient createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
@@ -712,7 +824,7 @@
 	//Create the checkout
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[_checkoutClient createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
-
+		
 		XCTAssertNil(error);
 		
 		_checkout = returnedCheckout;
@@ -727,7 +839,7 @@
 	XCTestExpectation *expectation2 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
 	_checkout.reservationTime = @0;
-
+	
 	[_checkoutClient updateCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		
 		XCTAssertEqual(0, returnedCheckout.reservationTime.intValue);
