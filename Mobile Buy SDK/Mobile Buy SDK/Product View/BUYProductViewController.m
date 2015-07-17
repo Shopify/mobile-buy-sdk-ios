@@ -349,9 +349,18 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+	NSLog(@"%@", NSStringFromCGSize(scrollView.bounds.size));
+	NSLog(@"%@", NSStringFromCGSize(scrollView.contentSize));
+	NSLog(@"%@", NSStringFromCGPoint(scrollView.contentOffset));
 	[self.productViewHeader setContentOffset:scrollView.contentOffset];
 	CGFloat footerViewHeight = (scrollView.contentOffset.y + scrollView.bounds.size.height) - scrollView.contentSize.height;
+	if (footerViewHeight == -scrollView.bounds.size.height) {
+		footerViewHeight = -scrollView.bounds.size.height;
+	}
 	if (footerViewHeight >= 0) {
+		if (scrollView.bounds.size.height == 0) {
+		}
+		NSLog(@"%f", footerViewHeight);
 		self.footerHeightLayoutConstraint.constant = footerViewHeight;
 		self.footerOffsetLayoutConstraint.constant = -footerViewHeight;
 	}
