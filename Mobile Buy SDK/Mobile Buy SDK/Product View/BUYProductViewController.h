@@ -23,7 +23,7 @@
 - (void)loadProduct:(NSString *)productId completion:(void (^)(BOOL success, NSError *error))completion;
 
 /**
- *  Alternative method when setting the product (optionally, shop) directly on the view controller
+ *  Alternative method when setting the product (and optionally, shop) directly on the view controller
  *
  *  @param product  the product to display
  *  @param completion block called when view controller is ready for display. Called on main thread
