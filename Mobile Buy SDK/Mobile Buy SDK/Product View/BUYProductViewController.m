@@ -37,7 +37,7 @@
 @property (nonatomic, strong) BUYProductVariant *selectedProductVariant;
 @property (nonatomic, strong) BUYTheme *theme;
 @property (nonatomic, assign) BOOL shouldShowVariantSelector;
-
+@property (nonatomic, strong) BUYProduct *product;
 @end
 
 @implementation BUYProductViewController
@@ -86,6 +86,36 @@
 	}];
 }
 
+- (void)loadWithProduct:(BUYProduct *)product completion:(void (^)(BOOL success, NSError *error))completion;
+{
+	if (product == nil) {
+		completion(NO, [NSError errorWithDomain:BUYShopifyError code:BUYShopifyError_NoProductSpecified userInfo:nil]);
+	}
+	else {
+		self.product = product;
+		
+		if (self.shop == nil) {
+			[self.client getShop:^(BUYShop *shop, NSError *error) {
+				
+				dispatch_async(dispatch_get_main_queue(), ^{
+					if (error) {
+						completion(NO, error);
+					}
+					else {
+						self.shop = shop;
+						completion(YES, nil);
+					}
+				});
+			}];
+		}
+		else {
+			dispatch_async(dispatch_get_main_queue(), ^{
+				completion(YES, nil);
+			});
+		}
+	}
+}
+
 - (void)setProduct:(BUYProduct *)product
 {
 	_product = product;
@@ -94,6 +124,12 @@
 	[self scrollViewDidScroll:self.tableView];
 	self.selectedProductVariant = [_product.variants firstObject];
 	self.shouldShowVariantSelector = [_product isDefaultVariant] == NO;
+}
+
+- (void)setShop:(BUYShop *)shop
+{
+	_shop = shop;
+	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 - (void)viewDidLoad
@@ -167,7 +203,7 @@
 	self.tableView.tableFooterView = [UIView new];
 	[self.view addSubview:self.tableView];
 	
-	[self.tableView registerClass:[BUYProductHeaderCell class] forCellReuseIdentifier:@"Cell"];
+	[self.tableView registerClass:[BUYProductHeaderCell class] forCellReuseIdentifier:@"headerCell"];
 	[self.tableView registerClass:[BUYProductVariantCell class] forCellReuseIdentifier:@"variantCell"];
 	[self.tableView registerClass:[BUYProductDescriptionCell class] forCellReuseIdentifier:@"descriptionCell"];
 	
@@ -264,11 +300,6 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	// Return the number of sections.
-	return 1;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 	NSInteger rows = 0;
@@ -287,8 +318,9 @@
 	UITableViewCell <BUYThemeable> *theCell = nil;
 	
 	if (indexPath.row == 0) {
-		BUYProductHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+		BUYProductHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"headerCell"];
 		cell.productVariant = self.selectedProductVariant;
+		cell.currency = self.shop.currency;
 		theCell = cell;
 	}
 	else if (indexPath.row == 1 && self.shouldShowVariantSelector) {

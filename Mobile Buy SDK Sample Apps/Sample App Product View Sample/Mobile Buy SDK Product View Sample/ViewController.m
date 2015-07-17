@@ -74,9 +74,15 @@
     BUYProduct *product = self.products[indexPath.row];
 
     BUYProductViewController *productViewController = [[BUYProductViewController alloc] initWithClient:self.client];
-    productViewController.product = product;
     
-    [self presentViewController:productViewController animated:YES completion:nil];
+    [productViewController loadWithProduct:product completion:^(BOOL success, NSError *error) {
+        if (success) {
+            [self presentViewController:productViewController animated:YES completion:nil];
+        }
+        else {
+            NSLog(@"Error: %@", error.userInfo);
+        }
+    }];
 }
 
 @end

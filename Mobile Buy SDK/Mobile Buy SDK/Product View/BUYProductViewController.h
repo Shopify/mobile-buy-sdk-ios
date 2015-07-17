@@ -23,14 +23,27 @@
 - (void)loadProduct:(NSString *)productId completion:(void (^)(BOOL success, NSError *error))completion;
 
 /**
- *  The product to be displayed.  This can be set before presentation instead of calling loadProduct:completion:
+ *  Alternative method when setting the product (optionally, shop) directly on the view controller
+ *
+ *  @param product  the product to display
+ *  @param completion block called when view controller is ready for display. Called on main thread
  */
-@property (nonatomic, strong) BUYProduct *product;
+- (void)loadWithProduct:(BUYProduct *)product completion:(void (^)(BOOL success, NSError *error))completion;
+
+/**
+ *  The associated shop. setting this prior to displaying will prevent another network request
+ */
+@property (nonatomic, strong) BUYShop *shop;
 
 /**
  *  The loaded product ID
  */
 @property (nonatomic, strong, readonly) NSString *productId;
+
+/**
+ *  The product to be displayed.  This can be set before presentation instead of calling loadProduct:completion:
+ */
+@property (nonatomic, strong, readonly) BUYProduct *product;
 
 /**
  *  The product view controller's delegate
