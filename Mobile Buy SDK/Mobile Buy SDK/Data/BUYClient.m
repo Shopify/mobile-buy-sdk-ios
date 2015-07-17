@@ -325,25 +325,6 @@ NSString * const BUYVersionString = @"1.1";
 	return task;
 }
 
-- (NSURLSessionDataTask *)patchGiftCards:(NSArray *)giftCards fromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
-{
-	NSURLSessionDataTask *task = nil;
-	NSMutableArray *giftCardCodes = [NSMutableArray new];
-	for (BUYGiftCard *giftCard in giftCards) {
-		if (giftCard.identifier && giftCard.code == nil) {
-			[giftCardCodes addObject:@{ @"id" : giftCard.identifier }];
-		} else if (giftCard.code) {
-			[giftCardCodes addObject:@{ @"code" : giftCard.code }];
-		}
-	}
-	NSDictionary *json = @{ @"checkout" : @{ @"gift_cards" : giftCardCodes } };
-	NSData *data = [NSJSONSerialization dataWithJSONObject:json options:0 error:nil];
-	task = [self patchRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@.json", _shopDomain, checkout.token] body:data completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		[self handleCheckoutResponse:json error:error block:block];
-	}];
-	return task;
-}
-
 - (NSURLSessionDataTask *)getCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
 	return [self getRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@.json", _shopDomain, checkout.token] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
