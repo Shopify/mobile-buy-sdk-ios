@@ -349,18 +349,13 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-	NSLog(@"%@", NSStringFromCGSize(scrollView.bounds.size));
-	NSLog(@"%@", NSStringFromCGSize(scrollView.contentSize));
-	NSLog(@"%@", NSStringFromCGPoint(scrollView.contentOffset));
 	[self.productViewHeader setContentOffset:scrollView.contentOffset];
 	CGFloat footerViewHeight = (scrollView.contentOffset.y + scrollView.bounds.size.height) - scrollView.contentSize.height;
-	if (footerViewHeight == -scrollView.bounds.size.height) {
-		footerViewHeight = -scrollView.bounds.size.height;
-	}
-	if (footerViewHeight >= 0) {
+	if (footerViewHeight >= 0 || -footerViewHeight == scrollView.contentSize.height) {
+		// when the table view is initially displayed we don't get the correct bounds, so we need to force the footer view to display below the table view on the first view
 		if (scrollView.bounds.size.height == 0) {
+			footerViewHeight = scrollView.contentSize.height;
 		}
-		NSLog(@"%f", footerViewHeight);
 		self.footerHeightLayoutConstraint.constant = footerViewHeight;
 		self.footerOffsetLayoutConstraint.constant = -footerViewHeight;
 	}
