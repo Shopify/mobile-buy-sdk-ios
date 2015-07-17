@@ -32,6 +32,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		90EC38531B5985C6005C6B21 /* BUYImageKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 90EC38511B5985C6005C6B21 /* BUYImageKit.h */; };
+		90EC38541B5985C6005C6B21 /* BUYImageKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 90EC38521B5985C6005C6B21 /* BUYImageKit.m */; };
 		90F593041B0D5F4C0026B382 /* BUYIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592F81B0D5F4C0026B382 /* BUYIntegrationTest.m */; };
 		90F593051B0D5F4C0026B382 /* BUYApplePayAdditionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592F91B0D5F4C0026B382 /* BUYApplePayAdditionsTest.m */; };
 		90F593061B0D5F4C0026B382 /* BUYCartTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592FA1B0D5F4C0026B382 /* BUYCartTest.m */; };
@@ -239,6 +241,8 @@
 		90BC07F51AE043FD005D1195 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		90BC07F71AE0440F005D1195 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		90E80E461AFBBB68003A9909 /* AppledocSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppledocSettings.plist; path = docs/AppledocSettings.plist; sourceTree = "<group>"; };
+		90EC38511B5985C6005C6B21 /* BUYImageKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYImageKit.h; sourceTree = "<group>"; };
+		90EC38521B5985C6005C6B21 /* BUYImageKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYImageKit.m; sourceTree = "<group>"; };
 		90F592EC1B0D5EFE0026B382 /* Mobile Buy SDK Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Mobile Buy SDK Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		90F592EF1B0D5EFE0026B382 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		90F592F81B0D5F4C0026B382 /* BUYIntegrationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYIntegrationTest.m; sourceTree = "<group>"; };
@@ -607,6 +611,8 @@
 				2AF52A9C1A7011DC0087DB2C /* NSDecimalNumber+BUYAdditions.m */,
 				F76CFF1B19CB7BE30079C703 /* NSString+Trim.h */,
 				F76CFF1C19CB7BE30079C703 /* NSString+Trim.m */,
+				90EC38511B5985C6005C6B21 /* BUYImageKit.h */,
+				90EC38521B5985C6005C6B21 /* BUYImageKit.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -688,6 +694,7 @@
 				BE9A645D1B503CE30033E558 /* BUYObject.h in Headers */,
 				BE9A646E1B503D1E0033E558 /* BUYRuntime.h in Headers */,
 				BEB74A901B55A3D00005A300 /* BUYCollection.h in Headers */,
+				90EC38531B5985C6005C6B21 /* BUYImageKit.h in Headers */,
 				BEB74A6D1B5564200005A300 /* BUYProductHeaderCell.h in Headers */,
 				BE9A64471B503C8B0033E558 /* BUYClient.h in Headers */,
 				BE9A647C1B503D4A0033E558 /* BUYErrors.h in Headers */,
@@ -929,6 +936,7 @@
 				BE9A644E1B503CA60033E558 /* BUYShippingRate.m in Sources */,
 				BEB74A661B5564030005A300 /* BUYGradientView.m in Sources */,
 				BE9A64811B503D9E0033E558 /* BUYViewController.m in Sources */,
+				90EC38541B5985C6005C6B21 /* BUYImageKit.m in Sources */,
 				BE9A64541B503CC30033E558 /* BUYAddress.m in Sources */,
 				BE9A64601B503CEC0033E558 /* BUYOption.m in Sources */,
 				BE9A64481B503C900033E558 /* BUYClient.m in Sources */,
