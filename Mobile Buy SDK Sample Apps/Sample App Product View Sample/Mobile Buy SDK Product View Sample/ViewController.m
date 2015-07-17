@@ -21,6 +21,8 @@
 @interface ViewController ()
 @property (nonatomic, strong) NSArray *products;
 @property (nonatomic, strong) BUYClient *client;
+
+@property (nonatomic, strong) BUYProductViewController *productViewController;
 @end
 
 @implementation ViewController
@@ -52,6 +54,16 @@
     }];
 }
 
+- (BUYProductViewController *)productViewController
+{
+    // reusing the same productViewController will prevent unnecessary network calls in subsequent uses
+    if (_productViewController == nil) {
+        _productViewController = [[BUYProductViewController alloc] initWithClient:self.client];
+    }
+    
+    return _productViewController;
+}
+
 #pragma TableView methods
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -72,12 +84,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BUYProduct *product = self.products[indexPath.row];
-
-    BUYProductViewController *productViewController = [[BUYProductViewController alloc] initWithClient:self.client];
     
-    [productViewController loadWithProduct:product completion:^(BOOL success, NSError *error) {
+    [self.productViewController loadWithProduct:product completion:^(BOOL success, NSError *error) {
         if (success) {
-            [self presentViewController:productViewController animated:YES completion:nil];
+            [self presentViewController:self.productViewController animated:YES completion:nil];
         }
         else {
             NSLog(@"Error: %@", error.userInfo);
