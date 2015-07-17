@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 
-#import "BUYCheckout.h"
 #import "BUYGiftCard.h"
 #import "NSDecimalNumber+BUYAdditions.h"
 
@@ -20,7 +19,6 @@
 	_lastCharacters = dictionary[@"last_characters"];
 	_balance = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"balance"]];
 	_amountUsed = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"amountUsed"]];
-	_checkout = [BUYCheckout convertObject:dictionary[@"checkout"]];
 }
 
 - (NSDictionary *)jsonDictionaryForCheckout
@@ -41,10 +39,6 @@
 	
 	if (_amountUsed) {
 		json[@"amountUsed"] = _amountUsed;
-	}
-	
-	if (_checkout) {
-		json[@"checkout"] = [_checkout jsonDictionaryForCheckout];
 	}
 	
 	return @{ @"gift_card" : json };

@@ -14,6 +14,8 @@
 #define kBUYTestAPIKey @"api_key"
 #define kBUYTestChannelId @"channel_id"
 #define kBUYTestGiftCardCode @"gift_card_code"
+#define kBUYTestGiftCardCode2 @"gift_card_code_2"
+#define kBUYTestGiftCardCode3 @"gift_card_code_3"
 #define kBUYTestExpiredGiftCardCode @"expired_gift_card_code"
 #define kBUYTestExpiredGiftCardID @"expired_gift_card_id"
 

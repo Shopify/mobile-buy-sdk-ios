@@ -24,4 +24,5 @@
 @property (nonatomic, strong) NSDecimalNumber *totalTax;
 @property (nonatomic, strong) NSDecimalNumber *totalPrice;
 @property (nonatomic, strong) NSURL *orderStatusURL;
+@property (nonatomic, strong) NSArray *giftCards;
 @end

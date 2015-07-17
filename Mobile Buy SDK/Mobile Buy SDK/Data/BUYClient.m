@@ -20,6 +20,7 @@
 #import "BUYTestConstants.h"
 #import "BUYCheckout_Private.h"
 #import "BUYCollection.h"
+#import "NSDecimalNumber+BUYAdditions.h"
 
 #define kGET @"GET"
 #define kPOST @"POST"
@@ -185,9 +186,9 @@ NSString * const BUYVersionString = @"1.1";
 {
 	NSURLSessionDataTask *task = nil;
 	if (collection.collectionId) {
-	
+		
 		NSString *url = [NSString stringWithFormat:@"https://%@/api/channels/%@/product_publications.json?collection_id=%lu&sort=collection_sort&limit=%lu&page=%lu", self.shopDomain, self.channelId, collection.collectionId.longValue, (unsigned long)self.pageSize, (unsigned long)page];
-
+		
 		task = [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			
 			NSArray *products = nil;
@@ -238,7 +239,7 @@ NSString * const BUYVersionString = @"1.1";
 	if (error == nil) {
 		checkout = [[BUYCheckout alloc] initWithDictionary:json[@"checkout"]];
 	}
-    block(checkout, error);
+	block(checkout, error);
 }
 
 - (void)configureCheckout:(BUYCheckout *)checkout
@@ -274,7 +275,7 @@ NSString * const BUYVersionString = @"1.1";
 	NSURLSessionDataTask *task = nil;
 	NSError *error = nil;
 	NSData *data = [NSJSONSerialization dataWithJSONObject:checkoutJSON options:0 error:&error];
-
+	
 	if (data && error == nil) {
 		task = [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts.json", _shopDomain] body:data completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			[self handleCheckoutResponse:json error:error block:block];
@@ -284,37 +285,48 @@ NSString * const BUYVersionString = @"1.1";
 	return task;
 }
 
-- (NSURLSessionDataTask *)applyGiftCardWithCode:(NSString *)giftCardCode toCheckout:(BUYCheckout *)checkout completion:(BUYDataGiftCardBlock)block
+- (NSURLSessionDataTask *)applyGiftCardWithCode:(NSString *)giftCardCode toCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
 	NSURLSessionDataTask *task = nil;
 	if (checkout.hasToken && giftCardCode) {
 		BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:@{ @"code" : giftCardCode }];
 		task = [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/gift_cards.json", _shopDomain, checkout.token] object:giftCard completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-			BUYGiftCard *giftCard = nil;
 			if (error == nil) {
-				giftCard = [[BUYGiftCard alloc] initWithDictionary:json[@"gift_card"]];
+				[self updateCheckout:checkout withGiftCardDictionary:json[@"gift_card"] addingGiftCard:YES];
 			}
-			block(giftCard, error);
+			block(checkout, error);
 		}];
 	}
 	
 	return task;
 }
 
-- (NSURLSessionDataTask *)removeGiftCard:(BUYGiftCard *)giftCard fromCheckout:(BUYCheckout *)checkout completion:(BUYDataGiftCardBlock)block
+- (NSURLSessionDataTask *)removeGiftCard:(BUYGiftCard *)giftCard fromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
 	NSURLSessionDataTask *task = nil;
 	if (giftCard.identifier) {
 		task = [self deleteRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/gift_cards/%@.json", _shopDomain, checkout.token, giftCard.identifier] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-			BUYGiftCard *giftCard = nil;
 			if (error == nil) {
-				giftCard = [[BUYGiftCard alloc] initWithDictionary:json[@"gift_card"]];
+				[self updateCheckout:checkout withGiftCardDictionary:json[@"gift_card"] addingGiftCard:NO];
 			}
-			block(giftCard, error);
+			block(checkout, error);
 		}];
 	}
 	
 	return task;
+}
+
+- (void)updateCheckout:(BUYCheckout *)checkout withGiftCardDictionary:(NSDictionary *)giftCardDictionary addingGiftCard:(BOOL)addingGiftCard
+{
+	NSMutableArray *giftCardArray = [NSMutableArray arrayWithArray:checkout.giftCards];
+	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:giftCardDictionary];
+	if (addingGiftCard) {
+		[giftCardArray addObject:giftCard];
+	} else {
+		[giftCardArray removeObject:giftCard];
+	}
+	checkout.giftCards = [giftCardArray copy];
+	checkout.paymentDue = [NSDecimalNumber buy_decimalNumberFromJSON:giftCardDictionary[@"checkout"][@"payment_due"]];
 }
 
 - (NSURLSessionDataTask *)getCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
