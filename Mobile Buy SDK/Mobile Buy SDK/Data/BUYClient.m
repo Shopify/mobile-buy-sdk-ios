@@ -327,6 +327,7 @@ NSString * const BUYVersionString = @"1.1";
 	}
 	checkout.giftCards = [giftCardArray copy];
 	checkout.paymentDue = [NSDecimalNumber buy_decimalNumberFromJSON:giftCardDictionary[@"checkout"][@"payment_due"]];
+	[checkout markAsClean];
 }
 
 - (NSURLSessionDataTask *)getCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block

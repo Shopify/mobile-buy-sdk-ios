@@ -19,12 +19,13 @@
 - (NSArray *)buy_summaryItems
 {
 	NSMutableArray *summaryItems = [[NSMutableArray alloc] init];
-	[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"SUBTOTAL" amount:self.subtotalPrice ?: [NSDecimalNumber zero]]];
 	
 	if ([self.discount.amount compare:[NSDecimalNumber zero]] == NSOrderedDescending) {
 		NSString *discountLabel = [self.discount.code length] > 0 ? [NSString stringWithFormat:@"DISCOUNT (%@)", self.discount.code] : @"DISCOUNT";
 		[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:discountLabel amount:self.discount.amount]];
 	}
+
+	[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"SUBTOTAL" amount:self.subtotalPrice ?: [NSDecimalNumber zero]]];
 	
 	if ([self.shippingRate.price compare:[NSDecimalNumber zero]] == NSOrderedDescending) {
 		[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"SHIPPING" amount:self.shippingRate.price]];
@@ -34,7 +35,14 @@
 		[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"TAXES" amount:self.totalTax]];
 	}
 	
-	[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"TOTAL" amount:self.totalPrice ?: [NSDecimalNumber zero]]];
+	if ([self.giftCards count] > 0) {
+		for (BUYGiftCard *giftCard in self.giftCards) {
+			NSString *giftCardLabel = [giftCard.lastCharacters length] > 0 ? [NSString stringWithFormat:@"GIFT CARD (•••• %@)", giftCard.lastCharacters] : @"GIFT CARD";
+			[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:giftCardLabel amount:giftCard.amountUsed ? giftCard.amountUsed : giftCard.balance]];
+		}
+	}
+	
+	[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"TOTAL" amount:self.paymentDue ?: [NSDecimalNumber zero]]];
 	return summaryItems;
 }
 

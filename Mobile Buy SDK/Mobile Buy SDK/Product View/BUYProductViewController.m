@@ -372,19 +372,33 @@
 
 #pragma mark Checkout
 
-- (BUYCart*)cart
+- (BUYCart *)cart
 {
 	BUYCart *cart = [[BUYCart alloc] init];
 	[cart addVariant:self.selectedProductVariant];
 	return cart;
 }
 
+- (BUYCheckout *)checkout
+{
+	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:[self cart]];
+	return checkout;
+}
+
 - (void)checkoutWithApplePay
 {
-	if ([self.productDelegate respondsToSelector:@selector(productViewControllerWillCheckoutViaApplePay:)]) {
-		[self.productDelegate productViewControllerWillCheckoutViaApplePay:self];
-	}
-	[self startApplePayCheckoutWithCart:[self cart]];
+	[self.client createCheckout:[self checkout] completion:^(BUYCheckout *checkout, NSError *error) {
+		BUYDiscount *discount = [[BUYDiscount alloc] initWithCode:@"20OFF"];
+		checkout.discount = discount;
+		[self.client updateCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
+			[self.client applyGiftCardWithCode:@"4c6e dce3 c989 7457" toCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
+				if ([self.productDelegate respondsToSelector:@selector(productViewControllerWillCheckoutViaApplePay:)]) {
+					[self.productDelegate productViewControllerWillCheckoutViaApplePay:self];
+				}
+				[self startApplePayCheckout:checkout];
+			}];
+		}];
+	}];
 }
 
 - (void)checkoutWithShopify
@@ -392,7 +406,7 @@
 	if ([self.productDelegate respondsToSelector:@selector(productViewControllerWillCheckoutViaWeb:)]) {
 		[self.productDelegate productViewControllerWillCheckoutViaWeb:self];
 	}
-	[self startWebCheckoutWithCart:[self cart]];
+	[self startWebCheckout:[self checkout]];
 }
 
 #pragma mark UIStatusBar appearance
