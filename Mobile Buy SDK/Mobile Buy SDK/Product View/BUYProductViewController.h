@@ -46,6 +46,11 @@
 @property (nonatomic, strong, readonly) BUYProduct *product;
 
 /**
+ *  Returns YES when the view controller is loading data.  loadProduct: or loadWithProduct: should not be called when data is already loading
+ */
+@property (nonatomic, assign, readonly) BOOL isLoading;
+
+/**
  *  The product view controller's delegate
  */
 @property (nonatomic, weak) id<BUYProductViewControllerDelegate> productDelegate;

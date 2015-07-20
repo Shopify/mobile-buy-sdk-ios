@@ -38,6 +38,7 @@
 @property (nonatomic, strong) BUYTheme *theme;
 @property (nonatomic, assign) BOOL shouldShowVariantSelector;
 @property (nonatomic, strong) BUYProduct *product;
+@property (nonatomic, assign) BOOL isLoading;
 @end
 
 @implementation BUYProductViewController
@@ -75,9 +76,11 @@
 
 - (void)loadProduct:(NSString *)productId completion:(void (^)(BOOL success, NSError *error))completion
 {
+	self.isLoading = YES;
 	self.productId = productId;
 	[self.client getProductById:productId completion:^(BUYProduct *product, NSError *error) {
 		dispatch_async(dispatch_get_main_queue(), ^{
+			self.isLoading = NO;
 			self.product = product;
 			if (completion) {
 				completion(error == nil, error);
@@ -95,9 +98,11 @@
 		self.product = product;
 		
 		if (self.shop == nil) {
+			self.isLoading = YES;
 			[self.client getShop:^(BUYShop *shop, NSError *error) {
 				
 				dispatch_async(dispatch_get_main_queue(), ^{
+					self.isLoading = NO;
 					if (error) {
 						completion(NO, error);
 					}

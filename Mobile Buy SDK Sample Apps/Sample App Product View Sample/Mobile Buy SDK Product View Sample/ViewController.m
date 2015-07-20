@@ -85,14 +85,22 @@
 {
     BUYProduct *product = self.products[indexPath.row];
     
-    [self.productViewController loadWithProduct:product completion:^(BOOL success, NSError *error) {
-        if (success) {
-            [self presentViewController:self.productViewController animated:YES completion:nil];
-        }
-        else {
-            NSLog(@"Error: %@", error.userInfo);
-        }
-    }];
+    if (self.productViewController.isLoading == NO) {
+        
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+        
+        [self.productViewController loadWithProduct:product completion:^(BOOL success, NSError *error) {
+            
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
+            if (success) {
+                [self presentViewController:self.productViewController animated:YES completion:nil];
+            }
+            else {
+                NSLog(@"Error: %@", error.userInfo);
+            }
+        }];
+    }
 }
 
 @end
