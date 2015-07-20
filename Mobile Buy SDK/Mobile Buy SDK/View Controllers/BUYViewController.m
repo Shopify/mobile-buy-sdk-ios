@@ -63,26 +63,24 @@
 
 - (void)startApplePayCheckout:(BUYCheckout *)checkout
 {
-	void (^completion)(BUYCheckout *checkout, NSError *error) = ^(BUYCheckout *checkout, NSError *error) {
+	[self handleCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		if (error == nil) {
 			self.applePayHelper = [[BUYApplePayHelpers alloc] initWithClient:self.client checkout:checkout];
 		}
 		[self handleCheckoutCompletion:checkout error:error];
-	};
-	[self handleCheckout:checkout completion:completion];
+	}];
 }
 
 - (void)startWebCheckout:(BUYCheckout *)checkout
 {
-	void (^completion)(BUYCheckout *checkout, NSError *error) = ^(BUYCheckout *checkout, NSError *error) {
+	[self handleCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		if (error == nil) {
 			[[UIApplication sharedApplication] openURL:checkout.webCheckoutURL];
 		}
 		else {
 			[self.delegate controller:self failedToCreateCheckout:error];
 		}
-	};
-	[self handleCheckout:checkout completion:completion];
+	}];
 }
 
 - (void)handleCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)completion
