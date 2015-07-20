@@ -42,17 +42,23 @@
 
 - (void)setDescriptionHTML:(NSString *)html
 {
-	UIFont *font = [UIFont systemFontOfSize:16.0];
-	
-	html = [html stringByAppendingString:[NSString stringWithFormat:@"<style>body{font-family: '%@'; font-size:%fpx; color:%@;}</style>",
+	if ((html != nil) && ![html isKindOfClass:[NSNull class]]) {
+		
+		UIFont *font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+		
+		html = [html stringByAppendingString:[NSString stringWithFormat:@"<style>body{font-family: '%@'; font-size:%fpx; color:%@;}</style>",
 											  font.fontName, font.pointSize, [self hexStringFromColor:self.textColor]]];
-	
-	NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithData:[html dataUsingEncoding:NSUTF8StringEncoding]
-																			options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-																					  NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)}
-																 documentAttributes:nil
-																			  error:nil];
-	self.descriptionLabel.attributedText = attributedString;
+		
+		NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithData:[html dataUsingEncoding:NSUTF8StringEncoding]
+																							  options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+																										NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)}
+																				   documentAttributes:nil
+																								error:nil];
+		self.descriptionLabel.attributedText = attributedString;
+	}
+	else {
+		self.descriptionLabel.attributedText = nil;
+	}
 }
 
 - (NSString *)descriptionString
