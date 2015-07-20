@@ -59,11 +59,10 @@
 {
 	_theme = theme;
 	self.view.tintColor = theme.tintColor;
-	UIColor *backgroundColor = [UIColor whiteColor];
-	if (theme.style == BUYThemeStyleDark) {
-		backgroundColor = [UIColor blackColor];
-	}
+	UIColor *backgroundColor = (theme.style == BUYThemeStyleDark) ? [UIColor blackColor] : [UIColor whiteColor];
 	self.stickyFooterView.backgroundColor = backgroundColor;
+	self.view.backgroundColor = backgroundColor;
+
 }
 
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source
@@ -134,7 +133,9 @@
 - (void)setShop:(BUYShop *)shop
 {
 	_shop = shop;
-	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+	if ([self tableView:self.tableView numberOfRowsInSection:0] == 1){
+		[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+	}
 }
 
 - (void)viewDidLoad
@@ -145,8 +146,6 @@
 		BUYTheme *theme = [[BUYTheme alloc] init];
 		self.theme = theme;
 	}
-	
-	self.view.backgroundColor = [UIColor clearColor];
 	
 	self.backgroundImageView = [[BUYProductViewHeaderBackgroundImageView alloc] init];
 	self.backgroundImageView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -324,8 +323,8 @@
 	
 	if (indexPath.row == 0) {
 		BUYProductHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"headerCell"];
-		cell.productVariant = self.selectedProductVariant;
 		cell.currency = self.shop.currency;
+		cell.productVariant = self.selectedProductVariant;
 		theCell = cell;
 	}
 	else if (indexPath.row == 1 && self.shouldShowVariantSelector) {
@@ -363,7 +362,8 @@
 {
 	[controller dismissViewControllerAnimated:YES completion:NULL];
 	self.selectedProductVariant = variant;
-	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0], [NSIndexPath indexPathForRow:1 inSection:0]]
+						  withRowAnimation:UITableViewRowAnimationFade];
 }
 
 - (void)variantSelectionControllerDidCancelVariantSelection:(BUYVariantSelectionViewController *)controller atOptionIndex:(NSUInteger)optionIndex

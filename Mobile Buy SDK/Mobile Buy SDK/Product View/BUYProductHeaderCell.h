@@ -17,5 +17,6 @@
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *priceLabel;
+@property (nonatomic, strong) UILabel *comparePriceLabel;
 
 @end
