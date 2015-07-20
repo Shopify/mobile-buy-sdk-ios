@@ -8,6 +8,7 @@
 
 #import "BUYProductHeaderCell.h"
 #import "BUYProductVariant.h"
+#import "BUYProduct.h"
 
 @interface BUYProductHeaderCell ()
 @property (nonatomic, strong) BUYTheme *theme;
@@ -74,7 +75,7 @@
 {
 	_productVariant = productVariant;
 	
-	self.titleLabel.text = productVariant.title;
+	self.titleLabel.text = productVariant.product.title;
 	
 	if (self.currency) {
 		self.priceLabel.text = [self.currencyFormatter stringFromNumber:productVariant.price];
