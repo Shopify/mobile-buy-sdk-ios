@@ -9,13 +9,16 @@
 #import "BUYNavigationController.h"
 #import "BUYOptionSelectionNavigationController.h"
 #import "BUYPresentationControllerWithNavigationController.h"
+#import "BUYImageKit.h"
 
 @implementation BUYPresentationControllerWithNavigationController
 
 - (UIViewController *)presentationController:(UIPresentationController *)controller viewControllerForAdaptivePresentationStyle:(UIModalPresentationStyle)style
 {
 	BUYNavigationController *navigationController = [[BUYNavigationController alloc] initWithRootViewController:controller.presentedViewController];
-	UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(dismissPopover)];
+	UIImage *closeButton = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22)];
+	UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithImage:closeButton style:UIBarButtonItemStylePlain target:self action:@selector(dismissPopover)];
+	barButtonItem.tintColor = [UIColor whiteColor];
 	navigationController.topViewController.navigationItem.leftBarButtonItem = barButtonItem;
 	return navigationController;
 }
