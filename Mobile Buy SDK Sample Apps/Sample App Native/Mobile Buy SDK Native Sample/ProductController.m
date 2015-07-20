@@ -72,8 +72,8 @@
 {
     BUYCart *cart = [[BUYCart alloc] init];
     [cart addVariant:self.productVariant];
-    
-    [self startWebCheckoutWithCart:cart];
+    BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:cart];
+    [self startWebCheckout:checkout];
 }
 
 - (void)applePayPressed:(id)sender
@@ -82,7 +82,8 @@
     if (self.isApplePayAvailable) {
         BUYCart *cart = [[BUYCart alloc] init];
         [cart addVariant:self.productVariant];
-        [self startApplePayCheckoutWithCart:cart];
+        BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:cart];
+        [self startApplePayCheckout:checkout];
     }
     else
     {
