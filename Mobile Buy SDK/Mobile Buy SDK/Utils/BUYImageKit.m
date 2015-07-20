@@ -24,21 +24,21 @@
 + (void)drawVariantCloseImageWithFrame: (CGRect)frame
 {
     //// Color Declarations
-    UIColor* closeColor = [UIColor colorWithRed: 0.596 green: 0.596 blue: 0.596 alpha: 1];
+    UIColor* closeColor = [UIColor colorWithRed: 0.596f green: 0.596f blue: 0.596f alpha: 1];
 
     //// Variant Close Icon Drawing
     UIBezierPath* variantCloseIconPath = UIBezierPath.bezierPath;
-    [variantCloseIconPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.13971 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.06114 * CGRectGetHeight(frame))];
-    [variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.93886 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.86029 * CGRectGetHeight(frame))];
-    [variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.86029 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.93886 * CGRectGetHeight(frame))];
-    [variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.06114 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.13971 * CGRectGetHeight(frame))];
-    [variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.13971 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.06114 * CGRectGetHeight(frame))];
+    [variantCloseIconPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.13971f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.06114f * CGRectGetHeight(frame))];
+    [variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.93886f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.86029f * CGRectGetHeight(frame))];
+    [variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.86029f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.93886f * CGRectGetHeight(frame))];
+    [variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.06114f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.13971f * CGRectGetHeight(frame))];
+    [variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.13971f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.06114f * CGRectGetHeight(frame))];
     [variantCloseIconPath closePath];
-    [variantCloseIconPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.86029 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.06114 * CGRectGetHeight(frame))];
-    [variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.93886 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.13971 * CGRectGetHeight(frame))];
-    [variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.13971 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.93886 * CGRectGetHeight(frame))];
-    [variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.06114 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.86029 * CGRectGetHeight(frame))];
-    [variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.86029 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.06114 * CGRectGetHeight(frame))];
+    [variantCloseIconPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.86029f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.06114f * CGRectGetHeight(frame))];
+    [variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.93886f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.13971f * CGRectGetHeight(frame))];
+    [variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.13971f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.93886f * CGRectGetHeight(frame))];
+    [variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.06114f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.86029f * CGRectGetHeight(frame))];
+    [variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.86029f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.06114f * CGRectGetHeight(frame))];
     [variantCloseIconPath closePath];
     [closeColor setFill];
     [variantCloseIconPath fill];
@@ -51,21 +51,21 @@
 
     //// Previous Selection Indicator Drawing
     UIBezierPath* previousSelectionIndicatorPath = UIBezierPath.bezierPath;
-    [previousSelectionIndicatorPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.50000 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 1.00000 * CGRectGetHeight(frame))];
-    [previousSelectionIndicatorPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.00000 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.50000 * CGRectGetHeight(frame)) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 0.22386 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 1.00000 * CGRectGetHeight(frame)) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 0.00000 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.77614 * CGRectGetHeight(frame))];
-    [previousSelectionIndicatorPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.50000 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.00000 * CGRectGetHeight(frame)) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 0.00000 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.22386 * CGRectGetHeight(frame)) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 0.22386 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.00000 * CGRectGetHeight(frame))];
-    [previousSelectionIndicatorPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 1.00000 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.50000 * CGRectGetHeight(frame)) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 0.77614 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.00000 * CGRectGetHeight(frame)) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 1.00000 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.22386 * CGRectGetHeight(frame))];
-    [previousSelectionIndicatorPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.50000 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 1.00000 * CGRectGetHeight(frame)) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 1.00000 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.77614 * CGRectGetHeight(frame)) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 0.77614 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 1.00000 * CGRectGetHeight(frame))];
+    [previousSelectionIndicatorPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.50000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 1.00000f * CGRectGetHeight(frame))];
+    [previousSelectionIndicatorPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.00000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.50000f * CGRectGetHeight(frame)) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 0.22386f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 1.00000f * CGRectGetHeight(frame)) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 0.00000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.77614f * CGRectGetHeight(frame))];
+    [previousSelectionIndicatorPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.50000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.00000f * CGRectGetHeight(frame)) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 0.00000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.22386f * CGRectGetHeight(frame)) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 0.22386f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.00000f * CGRectGetHeight(frame))];
+    [previousSelectionIndicatorPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 1.00000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.50000f * CGRectGetHeight(frame)) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 0.77614f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.00000f * CGRectGetHeight(frame)) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 1.00000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.22386f * CGRectGetHeight(frame))];
+    [previousSelectionIndicatorPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.50000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 1.00000f * CGRectGetHeight(frame)) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 1.00000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.77614f * CGRectGetHeight(frame)) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 0.77614f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 1.00000f * CGRectGetHeight(frame))];
     [previousSelectionIndicatorPath closePath];
-    [previousSelectionIndicatorPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.74926 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.28003 * CGRectGetHeight(frame))];
-    [previousSelectionIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.40000 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.62929 * CGRectGetHeight(frame))];
-    [previousSelectionIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.25074 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.48003 * CGRectGetHeight(frame))];
-    [previousSelectionIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.18002 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.55074 * CGRectGetHeight(frame))];
-    [previousSelectionIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.39926 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.76997 * CGRectGetHeight(frame))];
-    [previousSelectionIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.40000 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.76924 * CGRectGetHeight(frame))];
-    [previousSelectionIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.40073 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.76997 * CGRectGetHeight(frame))];
-    [previousSelectionIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.81997 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.35074 * CGRectGetHeight(frame))];
-    [previousSelectionIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.74926 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.28003 * CGRectGetHeight(frame))];
+    [previousSelectionIndicatorPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.74926f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.28003f * CGRectGetHeight(frame))];
+    [previousSelectionIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.40000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.62929f * CGRectGetHeight(frame))];
+    [previousSelectionIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.25074f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.48003f * CGRectGetHeight(frame))];
+    [previousSelectionIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.18002f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.55074f * CGRectGetHeight(frame))];
+    [previousSelectionIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.39926f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.76997f * CGRectGetHeight(frame))];
+    [previousSelectionIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.40000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.76924f * CGRectGetHeight(frame))];
+    [previousSelectionIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.40073f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.76997f * CGRectGetHeight(frame))];
+    [previousSelectionIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.81997f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.35074f * CGRectGetHeight(frame))];
+    [previousSelectionIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.74926f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.28003f * CGRectGetHeight(frame))];
     [previousSelectionIndicatorPath closePath];
     [indicatorColor setFill];
     [previousSelectionIndicatorPath fill];
@@ -74,21 +74,21 @@
 + (void)drawDisclosureIndicatorImageWithFrame: (CGRect)frame
 {
     //// Color Declarations
-    UIColor* arrowColor = [UIColor colorWithRed: 0.75 green: 0.75 blue: 0.75 alpha: 1];
+    UIColor* arrowColor = [UIColor colorWithRed: 0.75f green: 0.75f blue: 0.75f alpha: 1];
 
     //// Disclosure Indicator Drawing
     UIBezierPath* disclosureIndicatorPath = UIBezierPath.bezierPath;
-    [disclosureIndicatorPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.25149 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.06878 * CGRectGetHeight(frame))];
-    [disclosureIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.93995 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.49908 * CGRectGetHeight(frame))];
-    [disclosureIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.79854 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.58746 * CGRectGetHeight(frame))];
-    [disclosureIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.11004 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.15717 * CGRectGetHeight(frame))];
-    [disclosureIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.25149 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.06878 * CGRectGetHeight(frame))];
+    [disclosureIndicatorPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.25149f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.06878f * CGRectGetHeight(frame))];
+    [disclosureIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.93995f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.49908f * CGRectGetHeight(frame))];
+    [disclosureIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.79854f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.58746f * CGRectGetHeight(frame))];
+    [disclosureIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.11004f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.15717f * CGRectGetHeight(frame))];
+    [disclosureIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.25149f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.06878f * CGRectGetHeight(frame))];
     [disclosureIndicatorPath closePath];
-    [disclosureIndicatorPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.79854 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.41253 * CGRectGetHeight(frame))];
-    [disclosureIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.93995 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.50092 * CGRectGetHeight(frame))];
-    [disclosureIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.25149 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.93121 * CGRectGetHeight(frame))];
-    [disclosureIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.11004 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.84282 * CGRectGetHeight(frame))];
-    [disclosureIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.79854 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.41253 * CGRectGetHeight(frame))];
+    [disclosureIndicatorPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.79854f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.41253f * CGRectGetHeight(frame))];
+    [disclosureIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.93995f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.50092f * CGRectGetHeight(frame))];
+    [disclosureIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.25149f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.93121f * CGRectGetHeight(frame))];
+    [disclosureIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.11004f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.84282f * CGRectGetHeight(frame))];
+    [disclosureIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.79854f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.41253f * CGRectGetHeight(frame))];
     [disclosureIndicatorPath closePath];
     [arrowColor setFill];
     [disclosureIndicatorPath fill];
@@ -105,23 +105,23 @@
 
     //// Shadow Declarations
     NSShadow* closeDropShadow = [[NSShadow alloc] init];
-    [closeDropShadow setShadowColor: [closeShadowColor colorWithAlphaComponent: 0.15]];
-    [closeDropShadow setShadowOffset: CGSizeMake(0.1, 1.1)];
+    [closeDropShadow setShadowColor: [closeShadowColor colorWithAlphaComponent: 0.15f]];
+    [closeDropShadow setShadowOffset: CGSizeMake(0.1f, 1.1f)];
     [closeDropShadow setShadowBlurRadius: 2];
 
     //// Close Icon Drawing
     UIBezierPath* closeIconPath = UIBezierPath.bezierPath;
-    [closeIconPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.15977 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.09548 * CGRectGetHeight(frame))];
-    [closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.90452 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.84024 * CGRectGetHeight(frame))];
-    [closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.84025 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.90452 * CGRectGetHeight(frame))];
-    [closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.09547 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.15976 * CGRectGetHeight(frame))];
-    [closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.15977 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.09548 * CGRectGetHeight(frame))];
+    [closeIconPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.15977f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.09548f * CGRectGetHeight(frame))];
+    [closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.90452f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.84024f * CGRectGetHeight(frame))];
+    [closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.84025f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.90452f * CGRectGetHeight(frame))];
+    [closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.09547f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.15976f * CGRectGetHeight(frame))];
+    [closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.15977f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.09548f * CGRectGetHeight(frame))];
     [closeIconPath closePath];
-    [closeIconPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.84025 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.09548 * CGRectGetHeight(frame))];
-    [closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.90452 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.15976 * CGRectGetHeight(frame))];
-    [closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.15977 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.90452 * CGRectGetHeight(frame))];
-    [closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.09547 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.84024 * CGRectGetHeight(frame))];
-    [closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.84025 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.09548 * CGRectGetHeight(frame))];
+    [closeIconPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.84025f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.09548f * CGRectGetHeight(frame))];
+    [closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.90452f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.15976f * CGRectGetHeight(frame))];
+    [closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.15977f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.90452f * CGRectGetHeight(frame))];
+    [closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.09547f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.84024f * CGRectGetHeight(frame))];
+    [closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.84025f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.09548f * CGRectGetHeight(frame))];
     [closeIconPath closePath];
     CGContextSaveGState(context);
     CGContextSetShadowWithColor(context, closeDropShadow.shadowOffset, closeDropShadow.shadowBlurRadius, [closeDropShadow.shadowColor CGColor]);
@@ -141,19 +141,19 @@
 
     //// Shadow Declarations
     NSShadow* indicatorDropShadow = [[NSShadow alloc] init];
-    [indicatorDropShadow setShadowColor: [indicatorShadowColor colorWithAlphaComponent: 0.15]];
-    [indicatorDropShadow setShadowOffset: CGSizeMake(0.1, 1.1)];
+    [indicatorDropShadow setShadowColor: [indicatorShadowColor colorWithAlphaComponent: 0.15f]];
+    [indicatorDropShadow setShadowOffset: CGSizeMake(0.1f, 1.1f)];
     [indicatorDropShadow setShadowBlurRadius: 2];
 
     //// Back Indicator Drawing
     UIBezierPath* backIndicatorPath = UIBezierPath.bezierPath;
-    [backIndicatorPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.10000 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.50000 * CGRectGetHeight(frame))];
-    [backIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.80000 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.92000 * CGRectGetHeight(frame))];
-    [backIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.93333 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.84000 * CGRectGetHeight(frame))];
-    [backIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.36667 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.50000 * CGRectGetHeight(frame))];
-    [backIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.93333 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.16000 * CGRectGetHeight(frame))];
-    [backIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.80000 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.08000 * CGRectGetHeight(frame))];
-    [backIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.10000 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.50000 * CGRectGetHeight(frame))];
+    [backIndicatorPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.10000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.50000f * CGRectGetHeight(frame))];
+    [backIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.80000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.92000f * CGRectGetHeight(frame))];
+    [backIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.93333f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.84000f * CGRectGetHeight(frame))];
+    [backIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.36667f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.50000f * CGRectGetHeight(frame))];
+    [backIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.93333f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.16000f * CGRectGetHeight(frame))];
+    [backIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.80000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.08000f * CGRectGetHeight(frame))];
+    [backIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.10000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.50000f * CGRectGetHeight(frame))];
     [backIndicatorPath closePath];
     CGContextSaveGState(context);
     CGContextSetShadowWithColor(context, indicatorDropShadow.shadowOffset, indicatorDropShadow.shadowBlurRadius, [indicatorDropShadow.shadowColor CGColor]);
@@ -165,21 +165,21 @@
 + (void)drawVariantBackImageWithFrame: (CGRect)frame
 {
     //// Color Declarations
-    UIColor* indicatorColor3 = [UIColor colorWithRed: 0.596 green: 0.596 blue: 0.596 alpha: 1];
+    UIColor* indicatorColor3 = [UIColor colorWithRed: 0.596f green: 0.596f blue: 0.596f alpha: 1];
 
     //// Variant Back Indicator Drawing
     UIBezierPath* variantBackIndicatorPath = UIBezierPath.bezierPath;
-    [variantBackIndicatorPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.20956 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.42225 * CGRectGetHeight(frame))];
-    [variantBackIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.86663 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.86029 * CGRectGetHeight(frame))];
-    [variantBackIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.74878 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.93886 * CGRectGetHeight(frame))];
-    [variantBackIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.09171 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.50082 * CGRectGetHeight(frame))];
-    [variantBackIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.20956 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.42225 * CGRectGetHeight(frame))];
+    [variantBackIndicatorPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.20956f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.42225f * CGRectGetHeight(frame))];
+    [variantBackIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.86663f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.86029f * CGRectGetHeight(frame))];
+    [variantBackIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.74878f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.93886f * CGRectGetHeight(frame))];
+    [variantBackIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.09171f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.50082f * CGRectGetHeight(frame))];
+    [variantBackIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.20956f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.42225f * CGRectGetHeight(frame))];
     [variantBackIndicatorPath closePath];
-    [variantBackIndicatorPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.74878 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.06114 * CGRectGetHeight(frame))];
-    [variantBackIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.86663 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.13971 * CGRectGetHeight(frame))];
-    [variantBackIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.20956 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.57775 * CGRectGetHeight(frame))];
-    [variantBackIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.09171 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.49918 * CGRectGetHeight(frame))];
-    [variantBackIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.74878 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.06114 * CGRectGetHeight(frame))];
+    [variantBackIndicatorPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.74878f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.06114f * CGRectGetHeight(frame))];
+    [variantBackIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.86663f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.13971f * CGRectGetHeight(frame))];
+    [variantBackIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.20956f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.57775f * CGRectGetHeight(frame))];
+    [variantBackIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.09171f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.49918f * CGRectGetHeight(frame))];
+    [variantBackIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.74878f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.06114f * CGRectGetHeight(frame))];
     [variantBackIndicatorPath closePath];
     [indicatorColor3 setFill];
     [variantBackIndicatorPath fill];
