@@ -32,7 +32,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		900E7C831B5DA32F006F3C81 /* BUYImageKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 900E7C821B5DA32F006F3C81 /* BUYImageKit.m */; };
+		900E7C841B5DA553006F3C81 /* BUYImageKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 900E7C811B5DA32F006F3C81 /* BUYImageKit.h */; };
+		900E7C851B5DA559006F3C81 /* BUYImageKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 900E7C821B5DA32F006F3C81 /* BUYImageKit.m */; };
 		90F593041B0D5F4C0026B382 /* BUYIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592F81B0D5F4C0026B382 /* BUYIntegrationTest.m */; };
 		90F593051B0D5F4C0026B382 /* BUYApplePayAdditionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592F91B0D5F4C0026B382 /* BUYApplePayAdditionsTest.m */; };
 		90F593061B0D5F4C0026B382 /* BUYCartTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592FA1B0D5F4C0026B382 /* BUYCartTest.m */; };
@@ -703,6 +704,7 @@
 				BE9A645D1B503CE30033E558 /* BUYObject.h in Headers */,
 				BE9A646E1B503D1E0033E558 /* BUYRuntime.h in Headers */,
 				BEB74A901B55A3D00005A300 /* BUYCollection.h in Headers */,
+				900E7C841B5DA553006F3C81 /* BUYImageKit.h in Headers */,
 				BEB74A6D1B5564200005A300 /* BUYProductHeaderCell.h in Headers */,
 				BE9A64471B503C8B0033E558 /* BUYClient.h in Headers */,
 				BE9A647C1B503D4A0033E558 /* BUYErrors.h in Headers */,
@@ -904,7 +906,6 @@
 				90F7BA701B0D1DAF0067864D /* AppDelegate.m in Sources */,
 				90F7BA731B0D1DAF0067864D /* FirstViewController.m in Sources */,
 				90F7BA6D1B0D1DAF0067864D /* main.m in Sources */,
-				900E7C831B5DA32F006F3C81 /* BUYImageKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -951,6 +952,7 @@
 				BE9A644E1B503CA60033E558 /* BUYShippingRate.m in Sources */,
 				BEB74A661B5564030005A300 /* BUYGradientView.m in Sources */,
 				BE9A64811B503D9E0033E558 /* BUYViewController.m in Sources */,
+				900E7C851B5DA559006F3C81 /* BUYImageKit.m in Sources */,
 				BE9A64541B503CC30033E558 /* BUYAddress.m in Sources */,
 				BE9A64601B503CEC0033E558 /* BUYOption.m in Sources */,
 				BE9A64481B503C900033E558 /* BUYClient.m in Sources */,
