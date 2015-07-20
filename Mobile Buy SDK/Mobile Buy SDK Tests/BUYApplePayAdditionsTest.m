@@ -132,13 +132,15 @@
 	_checkout.discount = discount;
 	
 	NSArray *summaryItems = [_checkout buy_summaryItems];
-	XCTAssertEqual(3, [summaryItems count]);
-	XCTAssertEqualObjects(@"DISCOUNT (BANANA)", [summaryItems[0] label]);
-	XCTAssertEqualObjects([[NSDecimalNumber one] buy_decimalNumberAsNegative], [summaryItems[0] amount]);
-	XCTAssertEqualObjects(@"SUBTOTAL", [summaryItems[1] label]);
-	XCTAssertEqualObjects([NSDecimalNumber one], [summaryItems[1] amount]);
-	XCTAssertEqualObjects(@"TOTAL", [summaryItems[2] label]);
-	XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"2.00"], [summaryItems[2] amount]);
+	XCTAssertEqual(4, [summaryItems count]);
+	XCTAssertEqualObjects(@"CART TOTAL", [summaryItems[0] label]);
+	XCTAssertEqualObjects([NSDecimalNumber zero], [summaryItems[0] amount]);
+	XCTAssertEqualObjects(@"DISCOUNT (BANANA)", [summaryItems[1] label]);
+	XCTAssertEqualObjects([[NSDecimalNumber one] buy_decimalNumberAsNegative], [summaryItems[1] amount]);
+	XCTAssertEqualObjects(@"SUBTOTAL", [summaryItems[2] label]);
+	XCTAssertEqualObjects([NSDecimalNumber one], [summaryItems[2] amount]);
+	XCTAssertEqualObjects(@"TOTAL", [summaryItems[3] label]);
+	XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"2.00"], [summaryItems[3] amount]);
 }
 
 - (void)testSummaryItemsWithNonZeroCodelessDiscount
@@ -155,13 +157,15 @@
 	_checkout.discount = discount;
 	
 	NSArray *summaryItems = [_checkout buy_summaryItems];
-	XCTAssertEqual(3, [summaryItems count]);
-	XCTAssertEqualObjects(@"DISCOUNT", [summaryItems[0] label]);
-	XCTAssertEqualObjects([[NSDecimalNumber one] buy_decimalNumberAsNegative], [summaryItems[0] amount]);
-	XCTAssertEqualObjects(@"SUBTOTAL", [summaryItems[1] label]);
-	XCTAssertEqualObjects([NSDecimalNumber one], [summaryItems[1] amount]);
-	XCTAssertEqualObjects(@"TOTAL", [summaryItems[2] label]);
-	XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"2.00"], [summaryItems[2] amount]);
+	XCTAssertEqual(4, [summaryItems count]);
+	XCTAssertEqualObjects(@"CART TOTAL", [summaryItems[0] label]);
+	XCTAssertEqualObjects([NSDecimalNumber zero], [summaryItems[0] amount]);
+	XCTAssertEqualObjects(@"DISCOUNT", [summaryItems[1] label]);
+	XCTAssertEqualObjects([[NSDecimalNumber one] buy_decimalNumberAsNegative], [summaryItems[1] amount]);
+	XCTAssertEqualObjects(@"SUBTOTAL", [summaryItems[2] label]);
+	XCTAssertEqualObjects([NSDecimalNumber one], [summaryItems[2] amount]);
+	XCTAssertEqualObjects(@"TOTAL", [summaryItems[3] label]);
+	XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"2.00"], [summaryItems[3] amount]);
 }
 
 - (void)testSummaryItemsWithGiftCard
@@ -177,7 +181,7 @@
 	discount.applicable = YES;
 	_checkout.discount = discount;
 	
-	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:@{ @"balance" : [NSDecimalNumber decimalNumberWithString:@"10.00"], @"last_characters" : @"1234" }];
+	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:@{ @"amount_used" : [NSDecimalNumber decimalNumberWithString:@"10.00"], @"balance" : [NSDecimalNumber decimalNumberWithString:@"10.00"], @"last_characters" : @"1234" }];
 	_checkout.giftCards = @[giftCard];
 	
 	NSArray *summaryItems = [_checkout buy_summaryItems];

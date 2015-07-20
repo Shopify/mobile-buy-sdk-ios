@@ -387,18 +387,10 @@
 
 - (void)checkoutWithApplePay
 {
-	[self.client createCheckout:[self checkout] completion:^(BUYCheckout *checkout, NSError *error) {
-		BUYDiscount *discount = [[BUYDiscount alloc] initWithCode:@"20OFF"];
-		checkout.discount = discount;
-		[self.client updateCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
-			[self.client applyGiftCardWithCode:@"4c6e dce3 c989 7457" toCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
-				if ([self.productDelegate respondsToSelector:@selector(productViewControllerWillCheckoutViaApplePay:)]) {
-					[self.productDelegate productViewControllerWillCheckoutViaApplePay:self];
-				}
-				[self startApplePayCheckout:checkout];
-			}];
-		}];
-	}];
+	if ([self.productDelegate respondsToSelector:@selector(productViewControllerWillCheckoutViaApplePay:)]) {
+		[self.productDelegate productViewControllerWillCheckoutViaApplePay:self];
+	}
+	[self startApplePayCheckout:[self checkout]];
 }
 
 - (void)checkoutWithShopify

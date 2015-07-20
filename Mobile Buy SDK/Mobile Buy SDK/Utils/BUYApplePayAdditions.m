@@ -20,11 +20,10 @@
 - (NSArray *)buy_summaryItems
 {
 	BOOL hasDiscount = [self.discount.amount compare:[NSDecimalNumber zero]] == NSOrderedDescending;
-	BOOL hasGiftCards = [self.giftCards count] > 0;
 	
 	NSMutableArray *summaryItems = [[NSMutableArray alloc] init];
 	
-	if ((hasDiscount && hasGiftCards) || [self.lineItems count] > 1) {
+	if (hasDiscount || [self.lineItems count] > 1) {
 		NSDecimalNumber *lineItemSubtotal = [NSDecimalNumber zero];
 		for (BUYLineItem *lineItem in self.lineItems) {
 			lineItemSubtotal = [lineItemSubtotal decimalNumberByAdding:lineItem.price];
@@ -47,7 +46,7 @@
 		[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"TAXES" amount:self.totalTax]];
 	}
 	
-	if (hasGiftCards) {
+	if ([self.giftCards count] > 0) {
 		for (BUYGiftCard *giftCard in self.giftCards) {
 			NSString *giftCardLabel = [giftCard.lastCharacters length] > 0 ? [NSString stringWithFormat:@"GIFT CARD (•••• %@)", giftCard.lastCharacters] : @"GIFT CARD";
 			[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:giftCardLabel amount:giftCard.amountUsed ? [giftCard.amountUsed buy_decimalNumberAsNegative] : [giftCard.balance buy_decimalNumberAsNegative]]];
