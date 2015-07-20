@@ -13,6 +13,7 @@
 @interface BUYProductHeaderCell : UITableViewCell <BUYThemeable>
 
 @property (nonatomic, strong) BUYProductVariant *productVariant;
+@property (nonatomic, strong) NSString *currency;
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *priceLabel;

@@ -13,6 +13,7 @@ extern NSString * const BUYShopifyError;
 typedef NS_ENUM(NSUInteger, BUYCheckoutError) {
 	BUYShopifyError_CartFetchError,
 	BUYShopifyError_NoShippingMethodsToAddress,
+	BUYShopifyError_NoProductSpecified
 };
 
 #endif

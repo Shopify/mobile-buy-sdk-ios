@@ -49,9 +49,19 @@
 	
 	self.titleLabel.text = productVariant.title;
 	
-	NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-	[numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
-	self.priceLabel.text = [numberFormatter stringFromNumber:productVariant.price];;
+	if (self.currency) {
+		NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+		numberFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
+		numberFormatter.currencyCode = self.currency;
+		self.priceLabel.text = [numberFormatter stringFromNumber:productVariant.price];
+	}
+}
+
+- (void)setCurrency:(NSString *)currency
+{
+	_currency = currency;
+	
+	[self setProductVariant:self.productVariant];
 }
 
 - (void)setTheme:(BUYTheme *)theme
