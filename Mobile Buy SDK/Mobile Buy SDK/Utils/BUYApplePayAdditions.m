@@ -24,7 +24,7 @@
 	
 	NSMutableArray *summaryItems = [[NSMutableArray alloc] init];
 	
-	if ((hasDiscount || hasGiftCards) || [self.lineItems count] > 1) {
+	if ((hasDiscount && hasGiftCards) || [self.lineItems count] > 1) {
 		NSDecimalNumber *lineItemSubtotal = [NSDecimalNumber zero];
 		for (BUYLineItem *lineItem in self.lineItems) {
 			lineItemSubtotal = [lineItemSubtotal decimalNumberByAdding:lineItem.price];
