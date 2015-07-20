@@ -53,4 +53,9 @@
 	return [decimalNumber decimalNumberByRoundingAccordingToBehavior:numberHandler];
 }
 
+- (NSDecimalNumber*)buy_decimalNumberAsNegative
+{
+	return [self decimalNumberByMultiplyingBy:[NSDecimalNumber decimalNumberWithMantissa:1 exponent:0 isNegative:YES]];
+}
+
 @end
