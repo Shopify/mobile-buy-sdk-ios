@@ -20,7 +20,6 @@ CGFloat const BUYPresentationControllerPartialWidth = 250.0;
 		UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
 		self.backgroundView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
 		self.backgroundView.translatesAutoresizingMaskIntoConstraints = NO;
-		self.backgroundView.alpha = 0.0;
 	}
 	
     return self;
@@ -30,24 +29,22 @@ CGFloat const BUYPresentationControllerPartialWidth = 250.0;
 {
     [super presentationTransitionWillBegin];
 	
-	[self.containerView insertSubview:self.backgroundView atIndex:0];
-	[self.containerView addConstraint:[NSLayoutConstraint constraintWithItem:self.backgroundView
-																   attribute:NSLayoutAttributeHeight
-																   relatedBy:NSLayoutRelationEqual
-																	  toItem:self.containerView
-																   attribute:NSLayoutAttributeHeight
-																  multiplier:1.0
-																	constant:0.0]];
-	[self.containerView addConstraint:[NSLayoutConstraint constraintWithItem:self.backgroundView
-																   attribute:NSLayoutAttributeWidth
-																   relatedBy:NSLayoutRelationEqual
-																	  toItem:self.containerView
-																   attribute:NSLayoutAttributeWidth
-																  multiplier:1.0
-																	constant:0.0]];
+	// Place the blur view inside a container view so it can be animated without warning
+	UIView *blurContainer = [[UIView alloc] init];
+	blurContainer.translatesAutoresizingMaskIntoConstraints = NO;
+	blurContainer.alpha = 0.0;
+	[blurContainer addSubview:self.backgroundView];
+	[self.containerView insertSubview:blurContainer atIndex:0];
+
+	NSDictionary *views = NSDictionaryOfVariableBindings(blurContainer, _backgroundView);
+	
+	[self.containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[blurContainer]|" options:0 metrics:nil views:views]];
+	[self.containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[blurContainer]|" options:0 metrics:nil views:views]];
+	[self.containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_backgroundView]|" options:0 metrics:nil views:views]];
+	[self.containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_backgroundView]|" options:0 metrics:nil views:views]];
 	
 	[self.presentedViewController.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-		self.backgroundView.alpha = 1.0;
+		blurContainer.alpha = 1.0;
 	} completion:nil];
 }
 
@@ -56,7 +53,7 @@ CGFloat const BUYPresentationControllerPartialWidth = 250.0;
     [super dismissalTransitionWillBegin];
 	
 	[self.presentedViewController.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-		self.backgroundView.alpha = 0.0;
+		self.backgroundView.superview.alpha = 0.0;
 	} completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
 		[self.backgroundView removeFromSuperview];
 	}];

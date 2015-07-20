@@ -38,8 +38,8 @@
 			self.navigationBar.tintColor = [UIColor lightGrayColor];
 			break;
 		case BUYThemeStyleLight:
-			[self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor grayColor] }];
-			self.navigationBar.tintColor = [UIColor grayColor];
+			[self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor colorWithWhite:(float)(152.0/255.0) alpha:1.0] }];
+			self.navigationBar.tintColor = [UIColor colorWithWhite:(float)(242.0/255.0) alpha:1.0];
 			break;
 	}
 }
