@@ -324,8 +324,8 @@
 	
 	if (indexPath.row == 0) {
 		BUYProductHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"headerCell"];
-		cell.productVariant = self.selectedProductVariant;
 		cell.currency = self.shop.currency;
+		cell.productVariant = self.selectedProductVariant;
 		theCell = cell;
 	}
 	else if (indexPath.row == 1 && self.shouldShowVariantSelector) {
@@ -363,7 +363,8 @@
 {
 	[controller dismissViewControllerAnimated:YES completion:NULL];
 	self.selectedProductVariant = variant;
-	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0], [NSIndexPath indexPathForRow:1 inSection:0]]
+						  withRowAnimation:UITableViewRowAnimationFade];
 }
 
 - (void)variantSelectionControllerDidCancelVariantSelection:(BUYVariantSelectionViewController *)controller atOptionIndex:(NSUInteger)optionIndex
