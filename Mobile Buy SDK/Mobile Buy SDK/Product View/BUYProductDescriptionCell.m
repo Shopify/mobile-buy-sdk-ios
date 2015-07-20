@@ -44,7 +44,7 @@
 {
 	if ((html != nil) && ![html isKindOfClass:[NSNull class]]) {
 		
-		UIFont *font = [UIFont systemFontOfSize:16.0];
+		UIFont *font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 		
 		html = [html stringByAppendingString:[NSString stringWithFormat:@"<style>body{font-family: '%@'; font-size:%fpx; color:%@;}</style>",
 											  font.fontName, font.pointSize, [self hexStringFromColor:self.textColor]]];
