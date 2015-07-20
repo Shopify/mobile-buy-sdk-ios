@@ -140,18 +140,23 @@
 - (instancetype)initWithClient:(BUYClient *)client;
 
 /**
- *  Creates a checkout with a pre-existing cart using Apple Pay.
+ *  Start an Apple Pay checkout with a BUYCheckout object.
+ *  The checkout object will be created or updated on Shopify 
+ *  before proceeding with the Apple Pay checkout
  *
- *  @param cart A pre-existing BUYCart to start a checkout with
+ *  @param checkout A BUYCheckout object to start an Apple Pay checkout with
  */
-- (void)startApplePayCheckoutWithCart:(BUYCart *)cart;
+- (void)startApplePayCheckout:(BUYCheckout *)checkout;
 
 /**
- *  Creates a checkout using the responsive web checkout.  This call will jump to Safari
+ *  Start a responsive web checkout with a BUYCheckout object.
+ *  This call will jump out to Safari and the shop's responsive web checkout.
+ *  The checkout object will be created or updated on Shopify
+ *  before proceeding with the responsive web checkout
  *
- *  @param cart A pre-existing BUYCart to start a checkout with
+ *  @param checkout A BUYCheckout object to start a web checkout with
  */
-- (void)startWebCheckoutWithCart:(BUYCart *)cart;
+- (void)startWebCheckout:(BUYCheckout *)checkout;
 
 /**
  *  Creates a checkout using a web cart's token.

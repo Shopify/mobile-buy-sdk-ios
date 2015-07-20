@@ -327,6 +327,10 @@ NSString * const BUYVersionString = @"1.1";
 	}
 	checkout.giftCards = [giftCardArray copy];
 	checkout.paymentDue = [NSDecimalNumber buy_decimalNumberFromJSON:giftCardDictionary[@"checkout"][@"payment_due"]];
+	// Marking the checkout as clean. The properties we have updated above we don't need to re-sync with Shopify.
+	// There's also an issue with gift cards where syncing the gift card JSON won't work since the update endpoint
+	// doesn't accept the gift card without a gift card code (which we do not have).
+	[checkout markAsClean];
 }
 
 - (NSURLSessionDataTask *)getCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block

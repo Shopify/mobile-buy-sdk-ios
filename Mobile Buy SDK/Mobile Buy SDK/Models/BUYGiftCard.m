@@ -18,7 +18,7 @@
 	_code = dictionary[@"code"];
 	_lastCharacters = dictionary[@"last_characters"];
 	_balance = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"balance"]];
-	_amountUsed = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"amountUsed"]];
+	_amountUsed = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"amount_used"]];
 }
 
 - (NSDictionary *)jsonDictionaryForCheckout
@@ -38,7 +38,7 @@
 	}
 	
 	if (_amountUsed) {
-		json[@"amountUsed"] = _amountUsed;
+		json[@"amount_used"] = _amountUsed;
 	}
 	
 	return @{ @"gift_card" : json };
