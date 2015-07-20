@@ -12,6 +12,7 @@
 @interface BUYProductHeaderCell ()
 @property (nonatomic, strong) BUYTheme *theme;
 @property (nonatomic, strong) NSNumberFormatter *currencyFormatter;
+
 @end
 
 @implementation BUYProductHeaderCell
@@ -22,31 +23,49 @@
 	if (self) {
 		self.selectionStyle = UITableViewCellSelectionStyleNone;
 		
+		self.preservesSuperviewLayoutMargins = YES;
+		
 		_titleLabel = [[UILabel alloc] init];
 		_titleLabel.textColor = [UIColor blackColor];
-		_comparePriceLabel.font = [UIFont systemFontOfSize:20.0];
-		_titleLabel.numberOfLines = 2;
+		_titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+		_titleLabel.numberOfLines = 0;
 		_titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
 		[self.contentView addSubview:_titleLabel];
 		
+		UIView *priceView = [[UIView alloc] init];
+		priceView.translatesAutoresizingMaskIntoConstraints = NO;
+		[self.contentView addSubview:priceView];
+		
 		_priceLabel = [[UILabel alloc] init];
-		_priceLabel.textColor = self.tintColor;
-		_comparePriceLabel.font = [UIFont systemFontOfSize:20.0];
+		_priceLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 		_priceLabel.translatesAutoresizingMaskIntoConstraints = NO;
-		[self.contentView addSubview:_priceLabel];
+		_priceLabel.textAlignment = NSTextAlignmentRight;
+		[_priceLabel setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+		[_priceLabel setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+		[priceView addSubview:_priceLabel];
 		
 		_comparePriceLabel = [[UILabel alloc] init];
 		_comparePriceLabel.textColor = [UIColor colorWithWhite:0.6f alpha:1];
-		_comparePriceLabel.font = [UIFont systemFontOfSize:16.0];
+		_comparePriceLabel.textAlignment = NSTextAlignmentRight;
+		_comparePriceLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
 		_comparePriceLabel.translatesAutoresizingMaskIntoConstraints = NO;
-		[self.contentView addSubview:_comparePriceLabel];
+		[_comparePriceLabel setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+		[_comparePriceLabel setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+		[priceView addSubview:_comparePriceLabel];
 		
-		NSDictionary *views = NSDictionaryOfVariableBindings(_priceLabel, _titleLabel, _comparePriceLabel);
-		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_titleLabel]-(>=10)-[_priceLabel]-|" options:NSLayoutFormatAlignAllBottom metrics:nil views:views]];
-		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_comparePriceLabel]-|" options:0 metrics:nil views:views]];
+		NSDictionary *views = NSDictionaryOfVariableBindings(priceView, _titleLabel);
+		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_titleLabel]-[priceView]-|" options:0 metrics:nil views:views]];
 		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_titleLabel]" options:0 metrics:nil views:views]];
-		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_priceLabel][_comparePriceLabel]-|" options:0 metrics:nil views:views]];
+		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[priceView]" options:0 metrics:nil views:views]];
+		[self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_titleLabel attribute:NSLayoutAttributeFirstBaseline relatedBy:NSLayoutRelationEqual toItem:_priceLabel attribute:NSLayoutAttributeFirstBaseline multiplier:1.0 constant:0.0]];
 		
+		[self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_titleLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationLessThanOrEqual toItem:self.contentView attribute:NSLayoutAttributeBottomMargin multiplier:1.0 constant:0.0]];
+		[self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:priceView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationLessThanOrEqual toItem:self.contentView attribute:NSLayoutAttributeBottomMargin multiplier:1.0 constant:0.0]];
+		
+		NSDictionary *priceViews = NSDictionaryOfVariableBindings(_priceLabel, _comparePriceLabel);
+		[priceView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_priceLabel]|" options:0 metrics:nil views:priceViews]];
+		[priceView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_comparePriceLabel]|" options:0 metrics:nil views:priceViews]];
+		[priceView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_priceLabel][_comparePriceLabel]|" options:0 metrics:nil views:priceViews]];
 	}
 	return self;
 }
@@ -69,6 +88,9 @@
 	else {
 		self.comparePriceLabel.attributedText = nil;
 	}
+	
+	[self setNeedsLayout];
+	[self layoutIfNeeded];
 }
 
 - (void)setCurrency:(NSString *)currency
