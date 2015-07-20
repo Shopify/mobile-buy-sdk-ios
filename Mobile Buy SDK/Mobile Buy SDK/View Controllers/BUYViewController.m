@@ -13,6 +13,7 @@
 #import "BUYClient.h"
 #import "BUYViewController.h"
 #import "BUYApplePayHelpers.h"
+#import "BUYDiscount.h"
 
 @interface BUYViewController () <PKPaymentAuthorizationViewControllerDelegate>
 @property (nonatomic, strong) BUYCheckout *checkout;
@@ -58,22 +59,21 @@
 }
 
 #pragma mark - Checkout Flow Methods
-#pragma mark - Step 1 - Creating a Checkout
+#pragma mark - Step 1 - Creating or updating a Checkout
 
-- (void)startApplePayCheckoutWithCart:(BUYCart *)cart
+- (void)startApplePayCheckout:(BUYCheckout *)checkout
 {
-	[self.client createCheckout:[[BUYCheckout alloc] initWithCart:cart] completion:^(BUYCheckout *checkout, NSError *error) {
-		
-		self.applePayHelper = [[BUYApplePayHelpers alloc] initWithClient:self.client checkout:checkout];
+	[self handleCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
+		if (error == nil) {
+			self.applePayHelper = [[BUYApplePayHelpers alloc] initWithClient:self.client checkout:checkout];
+		}
 		[self handleCheckoutCompletion:checkout error:error];
 	}];
 }
 
-- (void)startWebCheckoutWithCart:(BUYCart *)cart
+- (void)startWebCheckout:(BUYCheckout *)checkout
 {
-	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:cart];
-	[self.client createCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
-		
+	[self handleCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		if (error == nil) {
 			[[UIApplication sharedApplication] openURL:checkout.webCheckoutURL];
 		}
@@ -81,9 +81,16 @@
 			[self.delegate controller:self failedToCreateCheckout:error];
 		}
 	}];
-	
 }
 
+- (void)handleCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)completion
+{
+	if ([checkout.token length] > 0) {
+		[self.client updateCheckout:checkout completion:completion];
+	} else {
+		[self.client createCheckout:checkout completion:completion];
+	}
+}
 
 #pragma  mark - Alternative Step 1 - Creating a Checkout using a Cart Token
 

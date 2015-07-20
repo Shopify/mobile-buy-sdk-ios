@@ -243,6 +243,7 @@
 		90E80E461AFBBB68003A9909 /* AppledocSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppledocSettings.plist; path = docs/AppledocSettings.plist; sourceTree = "<group>"; };
 		90EC38511B5985C6005C6B21 /* BUYImageKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYImageKit.h; sourceTree = "<group>"; };
 		90EC38521B5985C6005C6B21 /* BUYImageKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYImageKit.m; sourceTree = "<group>"; };
+		90EC38551B598DE1005C6B21 /* Playground.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Playground.entitlements; sourceTree = "<group>"; };
 		90F592EC1B0D5EFE0026B382 /* Mobile Buy SDK Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Mobile Buy SDK Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		90F592EF1B0D5EFE0026B382 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		90F592F81B0D5F4C0026B382 /* BUYIntegrationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYIntegrationTest.m; sourceTree = "<group>"; };
@@ -408,6 +409,7 @@
 		90F7BA691B0D1DAF0067864D /* Playground */ = {
 			isa = PBXGroup;
 			children = (
+				90EC38551B598DE1005C6B21 /* Playground.entitlements */,
 				90F7BA6E1B0D1DAF0067864D /* AppDelegate.h */,
 				90F7BA6F1B0D1DAF0067864D /* AppDelegate.m */,
 				90F7BA711B0D1DAF0067864D /* FirstViewController.h */,
@@ -796,6 +798,12 @@
 					};
 					90F7BA671B0D1DAF0067864D = {
 						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = A7XGC83MZE;
+						SystemCapabilities = {
+							com.apple.OMC = {
+								enabled = 1;
+							};
+						};
 					};
 					BE9A64271B503C2F0033E558 = {
 						CreatedOnToolsVersion = 6.4;
@@ -1076,6 +1084,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Playground/Playground.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1088,6 +1098,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1097,6 +1108,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Playground/Playground.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1106,6 +1119,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

@@ -12,5 +12,6 @@
 
 + (NSDecimalNumber*)buy_decimalNumberOrZeroWithString:(NSString*)string;
 + (NSDecimalNumber*)buy_decimalNumberFromJSON:(id)valueFromJSON;
+- (NSDecimalNumber*)buy_decimalNumberAsNegative;
 
 @end

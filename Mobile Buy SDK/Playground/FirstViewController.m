@@ -23,6 +23,7 @@
 		BUYClient *client = [[BUYClient alloc] initWithShopDomain:@"the-app-boutique.myshopify.com"
 														   apiKey:@"506ede8b60f86fbf86109a762fe8093d"
 														channelId:@"9060547"];
+		[client enableApplePayWithMerchantId:@"merchant.com.shopify.applepay"];
 		client.urlScheme = @"playground://";
 		BUYProductViewController *productViewController = [[BUYProductViewController alloc] initWithClient:client];
 //		BUYTheme *theme = [[BUYTheme alloc] init];

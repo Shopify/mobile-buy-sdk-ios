@@ -11,6 +11,7 @@
 #import "BUYApplePayAdditions.h"
 #import "BUYDiscount.h"
 #import "BUYAddress+Additions.h"
+#import "NSDecimalNumber+BUYAdditions.h"
 
 #define CFSafeRelease(obj) if (obj) { CFRelease(obj); }
 
@@ -18,13 +19,24 @@
 
 - (NSArray *)buy_summaryItems
 {
-	NSMutableArray *summaryItems = [[NSMutableArray alloc] init];
-	[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"SUBTOTAL" amount:self.subtotalPrice ?: [NSDecimalNumber zero]]];
+	BOOL hasDiscount = [self.discount.amount compare:[NSDecimalNumber zero]] == NSOrderedDescending;
 	
-	if ([self.discount.amount compare:[NSDecimalNumber zero]] == NSOrderedDescending) {
-		NSString *discountLabel = [self.discount.code length] > 0 ? [NSString stringWithFormat:@"DISCOUNT (%@)", self.discount.code] : @"DISCOUNT";
-		[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:discountLabel amount:self.discount.amount]];
+	NSMutableArray *summaryItems = [[NSMutableArray alloc] init];
+	
+	if (hasDiscount || [self.lineItems count] > 1) {
+		NSDecimalNumber *lineItemSubtotal = [NSDecimalNumber zero];
+		for (BUYLineItem *lineItem in self.lineItems) {
+			lineItemSubtotal = [lineItemSubtotal decimalNumberByAdding:lineItem.price];
+		}
+		[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"CART TOTAL" amount:lineItemSubtotal]];
 	}
+	
+	if (hasDiscount) {
+		NSString *discountLabel = [self.discount.code length] > 0 ? [NSString stringWithFormat:@"DISCOUNT (%@)", self.discount.code] : @"DISCOUNT";
+		[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:discountLabel amount:[self.discount.amount buy_decimalNumberAsNegative]]];
+	}
+
+	[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"SUBTOTAL" amount:self.subtotalPrice ?: [NSDecimalNumber zero]]];
 	
 	if ([self.shippingRate.price compare:[NSDecimalNumber zero]] == NSOrderedDescending) {
 		[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"SHIPPING" amount:self.shippingRate.price]];
@@ -34,7 +46,14 @@
 		[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"TAXES" amount:self.totalTax]];
 	}
 	
-	[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"TOTAL" amount:self.totalPrice ?: [NSDecimalNumber zero]]];
+	if ([self.giftCards count] > 0) {
+		for (BUYGiftCard *giftCard in self.giftCards) {
+			NSString *giftCardLabel = [giftCard.lastCharacters length] > 0 ? [NSString stringWithFormat:@"GIFT CARD (•••• %@)", giftCard.lastCharacters] : @"GIFT CARD";
+			[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:giftCardLabel amount:giftCard.amountUsed ? [giftCard.amountUsed buy_decimalNumberAsNegative] : [giftCard.balance buy_decimalNumberAsNegative]]];
+		}
+	}
+	
+	[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"TOTAL" amount:self.paymentDue ?: [NSDecimalNumber zero]]];
 	return summaryItems;
 }
 

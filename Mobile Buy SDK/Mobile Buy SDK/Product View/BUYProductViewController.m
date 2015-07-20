@@ -413,11 +413,17 @@
 
 #pragma mark Checkout
 
-- (BUYCart*)cart
+- (BUYCart *)cart
 {
 	BUYCart *cart = [[BUYCart alloc] init];
 	[cart addVariant:self.selectedProductVariant];
 	return cart;
+}
+
+- (BUYCheckout *)checkout
+{
+	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:[self cart]];
+	return checkout;
 }
 
 - (void)checkoutWithApplePay
@@ -425,7 +431,7 @@
 	if ([self.productDelegate respondsToSelector:@selector(productViewControllerWillCheckoutViaApplePay:)]) {
 		[self.productDelegate productViewControllerWillCheckoutViaApplePay:self];
 	}
-	[self startApplePayCheckoutWithCart:[self cart]];
+	[self startApplePayCheckout:[self checkout]];
 }
 
 - (void)checkoutWithShopify
@@ -433,7 +439,7 @@
 	if ([self.productDelegate respondsToSelector:@selector(productViewControllerWillCheckoutViaWeb:)]) {
 		[self.productDelegate productViewControllerWillCheckoutViaWeb:self];
 	}
-	[self startWebCheckoutWithCart:[self cart]];
+	[self startWebCheckout:[self checkout]];
 }
 
 #pragma mark UIStatusBar appearance
