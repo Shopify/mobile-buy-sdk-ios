@@ -78,7 +78,7 @@
 			if (deliveryRange == 0) {
 				if (daysInBetweenFirst == daysInBetweenLast) {
 					deliveryRange = daysInBetweenFirst;
-					deliveryDetailDays = [NSString stringWithFormat:@"%lu", daysInBetweenFirst];
+					deliveryDetailDays = [NSString stringWithFormat:@"%lu", (long)daysInBetweenFirst];
 				} else {
 					deliveryRange = 1;
 					deliveryDetailDays = @"1";
