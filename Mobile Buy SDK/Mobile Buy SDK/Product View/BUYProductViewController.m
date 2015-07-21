@@ -217,11 +217,6 @@
 	self.tableView.contentInset = self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, self.tableView.contentInset.left, CGRectGetHeight(self.productViewFooter.frame), self.tableView.contentInset.right);
 }
 
-- (void)loadDependanciesWithCallback:(void (^)(BOOL, NSError *))block
-{
-	// do nothing for now
-}
-
 - (void)setTheme:(BUYTheme *)theme
 {
 	_theme = theme;
