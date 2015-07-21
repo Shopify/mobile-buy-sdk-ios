@@ -14,7 +14,6 @@
 #import <Buy/BUYGiftCard.h>
 #import <Buy/BUYLineItem.h>
 #import <Buy/BUYClient.h>
-#import <Buy/BUYClient+Test.h>
 #import <Buy/BUYImage.h>
 #import <Buy/BUYOption.h>
 #import <Buy/BUYOptionValue.h>
