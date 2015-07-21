@@ -14,6 +14,7 @@
 #import "BUYAddress+Additions.h"
 #import "BUYCheckout_Private.h"
 #import "NSDecimalNumber+BUYAdditions.h"
+#import "BUYDateFormatter.h"
 
 @interface BUYApplePayAdditionsTest : XCTestCase
 @end
@@ -196,9 +197,22 @@
 
 - (void)testConvertShippingRatesToShippingMethods
 {
-	BUYShippingRate *rate1 = [[BUYShippingRate alloc] initWithDictionary:@{ @"price" : @"5.00", @"id" : @"1234", @"title" : @"Banana", @"delivery_range" : @[@"2015-07-29T00:00:00.000+00:00", @"2015-07-29T00:00:00.000+00:00"] }];
-	BUYShippingRate *rate2 = [[BUYShippingRate alloc] initWithDictionary:@{ @"price" : @"3.00", @"id" : @"5678", @"title" : @"Dinosaur", @"delivery_range" : @[@"2015-07-30T00:00:00.000+00:00", @"2015-08-02T00:00:00.000+00:00"] } ];
-	BUYShippingRate *rate3 = [[BUYShippingRate alloc] initWithDictionary:@{ @"price" : @"19.00", @"id" : @"1357", @"title" : @"Bulldozer", @"delivery_range" : @[@"2015-08-05T00:00:00.000+00:00", @"2015-08-09T00:00:00.000+00:00"] } ];
+	// Create fake dates from now. We need to remove the hours, minutes and seconds
+	// so it's at GMT as this is what Shopify provides
+	NSInteger day = 60*60*24;
+	NSDate *firstDate = [self dateWithoutTime:[NSDate dateWithTimeIntervalSinceNow:day]];
+	NSDate *lastDate = [self dateWithoutTime:[NSDate dateWithTimeIntervalSinceNow:day]];
+	BUYDateFormatter *dateFormatter = [[BUYDateFormatter alloc] init];
+	
+	BUYShippingRate *rate1 = [[BUYShippingRate alloc] initWithDictionary:@{@"price" : @"5.00", @"id" : @"1234", @"title" : @"Banana", @"delivery_range" : @[[dateFormatter stringFromDate:firstDate], [dateFormatter stringFromDate:lastDate]]}];
+	
+	firstDate = [self dateWithoutTime:[NSDate dateWithTimeIntervalSinceNow:day * 3]];
+	lastDate = [self dateWithoutTime:[NSDate dateWithTimeIntervalSinceNow:day * 5]];
+	BUYShippingRate *rate2 = [[BUYShippingRate alloc] initWithDictionary:@{@"price" : @"3.00", @"id" : @"5678", @"title" : @"Dinosaur", @"delivery_range" : @[[dateFormatter stringFromDate:firstDate], [dateFormatter stringFromDate:lastDate]]}];
+	
+	firstDate = [self dateWithoutTime:[NSDate dateWithTimeIntervalSinceNow:day * 10]];
+	lastDate = [self dateWithoutTime:[NSDate dateWithTimeIntervalSinceNow:day * 12]];
+	BUYShippingRate *rate3 = [[BUYShippingRate alloc] initWithDictionary:@{@"price" : @"19.00", @"id" : @"1357", @"title" : @"Bulldozer", @"delivery_range" : @[[dateFormatter stringFromDate:firstDate], [dateFormatter stringFromDate:lastDate]]}];
 	
 	NSArray *shippingMethods = [BUYShippingRate buy_convertShippingRatesToShippingMethods:@[rate1, rate2, rate3]];
 	XCTAssertEqual(3, [shippingMethods count]);
@@ -207,19 +221,32 @@
 	XCTAssertEqualObjects(@"1234", method1.identifier);
 	XCTAssertEqualObjects(@"Banana", method1.label);
 	XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"5.00"], method1.amount);
-	XCTAssertEqualObjects(@"7 business days", method1.detail);
+	XCTAssertEqualObjects(@"1 day", method1.detail);
 	
 	PKShippingMethod *method2 = shippingMethods[1];
 	XCTAssertEqualObjects(@"5678", method2.identifier);
 	XCTAssertEqualObjects(@"Dinosaur", method2.label);
 	XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"3.00"], method2.amount);
-	XCTAssertEqualObjects(@"8-11 business days", method2.detail);
+	XCTAssertEqualObjects(@"3-5 days", method2.detail);
 	
 	PKShippingMethod *method3 = shippingMethods[2];
 	XCTAssertEqualObjects(@"1357", method3.identifier);
 	XCTAssertEqualObjects(@"Bulldozer", method3.label);
 	XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"19.00"], method3.amount);
-	XCTAssertEqualObjects(@"14-18 business days", method3.detail);
+	XCTAssertEqualObjects(@"10-12 days", method3.detail);
+}
+
+-(NSDate *)dateWithoutTime:(NSDate *)datDate{
+	if( datDate == nil ) {
+		datDate = [NSDate date];
+	}
+	NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond fromDate:datDate];
+	[dateComponents setHour:00];
+	[dateComponents setMinute:00];
+	[dateComponents setSecond:00];
+	[dateComponents setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+	
+	return [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
 }
 
 - (void)testConvertShippingRatesToShippingMethodsWithEmptyArray

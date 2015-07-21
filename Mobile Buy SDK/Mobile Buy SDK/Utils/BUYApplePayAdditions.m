@@ -71,22 +71,18 @@
 		shippingMethod.amount = shippingRate.price;
 		shippingMethod.identifier = shippingRate.shippingRateIdentifier;
 		if ([shippingRate.deliveryRange count]) {
-			NSInteger daysInBetweenFirst = [NSDate daysBetweenDate:[NSDate date] andDate:shippingRate.deliveryRange[0]];
-			NSInteger daysInBetweenLast = [NSDate daysBetweenDate:[NSDate date] andDate:[shippingRate.deliveryRange lastObject]];
-			NSInteger deliveryRange =  daysInBetweenLast - daysInBetweenFirst;
+			NSInteger daysInBetweenFirst = 1 + [NSDate daysBetweenDate:[NSDate date] andDate:shippingRate.deliveryRange[0]];
+			NSInteger daysInBetweenLast = 1 + [NSDate daysBetweenDate:[NSDate date] andDate:[shippingRate.deliveryRange lastObject]];
+			BOOL plural = NO;
 			NSString *deliveryDetailDays = @"";
-			if (deliveryRange == 0) {
-				if (daysInBetweenFirst == daysInBetweenLast) {
-					deliveryRange = daysInBetweenFirst;
-					deliveryDetailDays = [NSString stringWithFormat:@"%lu", (long)daysInBetweenFirst];
-				} else {
-					deliveryRange = 1;
-					deliveryDetailDays = @"1";
-				}
+			if (daysInBetweenLast - daysInBetweenFirst == 0) {
+				plural = daysInBetweenFirst > 1;
+				deliveryDetailDays = [NSString stringWithFormat:@"%lu", (long)daysInBetweenFirst];
 			} else {
+				plural = YES;
 				deliveryDetailDays = [NSString stringWithFormat:@"%ld-%ld", (long)daysInBetweenFirst, (long)daysInBetweenLast];
 			}
-			shippingMethod.detail = [NSString stringWithFormat:@"%@ business day%@", deliveryDetailDays, deliveryRange > 1 ? @"s" : @""];
+			shippingMethod.detail = [NSString stringWithFormat:@"%@ day%@", deliveryDetailDays, plural ? @"s" : @""];
 		} else {
 			shippingMethod.detail = @"";
 		}
