@@ -236,16 +236,12 @@
 	XCTAssertEqualObjects(@"10-12 days", method3.detail);
 }
 
--(NSDate *)dateWithoutTime:(NSDate *)datDate{
-	if( datDate == nil ) {
-		datDate = [NSDate date];
-	}
-	NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond fromDate:datDate];
+-(NSDate *)dateWithoutTime:(NSDate *)date {
+	NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond fromDate:date];
 	[dateComponents setHour:00];
 	[dateComponents setMinute:00];
 	[dateComponents setSecond:00];
 	[dateComponents setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-	
 	return [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
 }
 
