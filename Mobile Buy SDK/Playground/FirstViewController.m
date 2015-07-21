@@ -23,9 +23,11 @@
 		BUYClient *client = [[BUYClient alloc] initWithShopDomain:@"the-app-boutique.myshopify.com"
 														   apiKey:@"506ede8b60f86fbf86109a762fe8093d"
 														channelId:@"9060547"];
-		[client enableApplePayWithMerchantId:@"merchant.com.shopify.applepay"];
+
 		client.urlScheme = @"playground://";
 		BUYProductViewController *productViewController = [[BUYProductViewController alloc] initWithClient:client];
+		productViewController.merchantId = @"merchant.com.shopify.applepay";
+		
 //		BUYTheme *theme = [[BUYTheme alloc] init];
 //		theme.tintColor = [UIColor colorWithRed:0.48 green:0.71 blue:0.36 alpha:1];
 //		theme.style = BUYThemeStyleDark;
