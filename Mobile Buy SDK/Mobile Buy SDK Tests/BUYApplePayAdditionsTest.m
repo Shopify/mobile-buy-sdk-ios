@@ -43,8 +43,7 @@
 - (void)testFullSummaryItems
 {
 	_checkout.subtotalPrice = [NSDecimalNumber one];
-	_checkout.shippingRate = [[BUYShippingRate alloc] init];
-	_checkout.shippingRate.price = [NSDecimalNumber decimalNumberWithString:@"2.00"];
+	_checkout.shippingRate = [[BUYShippingRate alloc] initWithDictionary:@{ @"price" : @"2.00" }];
 	_checkout.totalTax = [NSDecimalNumber decimalNumberWithString:@"1.00"];
 	_checkout.paymentDue = [NSDecimalNumber decimalNumberWithString:@"4.00"];
 	
@@ -64,8 +63,7 @@
 - (void)testSummaryItemsWithShippingRate
 {
 	_checkout.subtotalPrice = [NSDecimalNumber one];
-	_checkout.shippingRate = [[BUYShippingRate alloc] init];
-	_checkout.shippingRate.price = [NSDecimalNumber decimalNumberWithString:@"2.00"];
+	_checkout.shippingRate = [[BUYShippingRate alloc] initWithDictionary:@{ @"price" : @"2.00" }];
 	_checkout.paymentDue = [NSDecimalNumber decimalNumberWithString:@"3.00"];
 	
 	NSArray *summaryItems = [_checkout buy_summaryItems];
@@ -82,8 +80,7 @@
 - (void)testSummaryItemsWithFreeShippingAndTaxesShouldNotShowShippingOrTaxes
 {
 	_checkout.subtotalPrice = [NSDecimalNumber one];
-	_checkout.shippingRate = [[BUYShippingRate alloc] init];
-	_checkout.shippingRate.price = [NSDecimalNumber zero];
+	_checkout.shippingRate = [[BUYShippingRate alloc] initWithDictionary:@{ @"price" : @"0.00" }];
 	_checkout.totalTax = [NSDecimalNumber zero];
 	_checkout.paymentDue = [NSDecimalNumber decimalNumberWithString:@"3.00"];
 	
@@ -99,8 +96,7 @@
 - (void)testSummaryItemsWithZeroDiscount
 {
 	_checkout.subtotalPrice = [NSDecimalNumber one];
-	_checkout.shippingRate = [[BUYShippingRate alloc] init];
-	_checkout.shippingRate.price = [NSDecimalNumber zero];
+	_checkout.shippingRate = [[BUYShippingRate alloc] initWithDictionary:@{ @"price" : @"0.00" }];
 	_checkout.totalTax = [NSDecimalNumber zero];
 	_checkout.paymentDue = [NSDecimalNumber decimalNumberWithString:@"3.00"];
 	BUYDiscount *discount = [[BUYDiscount alloc] init];
@@ -121,8 +117,7 @@
 - (void)testSummaryItemsWithNonZeroDiscount
 {
 	_checkout.subtotalPrice = [NSDecimalNumber one];
-	_checkout.shippingRate = [[BUYShippingRate alloc] init];
-	_checkout.shippingRate.price = [NSDecimalNumber zero];
+	_checkout.shippingRate = [[BUYShippingRate alloc] initWithDictionary:@{ @"price" : @"0.00" }];
 	_checkout.totalTax = [NSDecimalNumber zero];
 	_checkout.paymentDue = [NSDecimalNumber decimalNumberWithString:@"2.00"];
 	BUYDiscount *discount = [[BUYDiscount alloc] init];
@@ -146,8 +141,7 @@
 - (void)testSummaryItemsWithNonZeroCodelessDiscount
 {
 	_checkout.subtotalPrice = [NSDecimalNumber one];
-	_checkout.shippingRate = [[BUYShippingRate alloc] init];
-	_checkout.shippingRate.price = [NSDecimalNumber zero];
+	_checkout.shippingRate = [[BUYShippingRate alloc] initWithDictionary:@{ @"price" : @"0.00" }];
 	_checkout.totalTax = [NSDecimalNumber zero];
 	_checkout.paymentDue = [NSDecimalNumber decimalNumberWithString:@"2.00"];
 	BUYDiscount *discount = [[BUYDiscount alloc] init];
@@ -171,8 +165,7 @@
 - (void)testSummaryItemsWithGiftCard
 {
 	_checkout.subtotalPrice = [NSDecimalNumber decimalNumberWithString:@"12.00"];
-	_checkout.shippingRate = [[BUYShippingRate alloc] init];
-	_checkout.shippingRate.price = [NSDecimalNumber zero];
+	_checkout.shippingRate = [[BUYShippingRate alloc] initWithDictionary:@{ @"price" : @"0.00" }];
 	_checkout.totalTax = [NSDecimalNumber zero];
 	_checkout.paymentDue = [NSDecimalNumber decimalNumberWithString:@"2.00"];
 	BUYDiscount *discount = [[BUYDiscount alloc] init];
@@ -203,15 +196,8 @@
 
 - (void)testConvertShippingRatesToShippingMethods
 {
-	BUYShippingRate *rate1 = [[BUYShippingRate alloc] init];
-	rate1.shippingRateIdentifier = @"1234";
-	rate1.price = [NSDecimalNumber decimalNumberWithString:@"5.00"];
-	rate1.title = @"Banana";
-	
-	BUYShippingRate *rate2 = [[BUYShippingRate alloc] init];
-	rate2.shippingRateIdentifier = @"5678";
-	rate2.price = [NSDecimalNumber decimalNumberWithString:@"3.00"];
-	rate2.title = @"Dinosaur";
+	BUYShippingRate *rate1 = [[BUYShippingRate alloc] initWithDictionary:@{ @"price" : @"5.00", @"id" : @"1234", @"title" : @"Banana" }];
+	BUYShippingRate *rate2 = [[BUYShippingRate alloc] initWithDictionary:@{ @"price" : @"3.00", @"id" : @"5678", @"title" : @"Dinosaur" }];
 	
 	NSArray *shippingMethods = [BUYShippingRate buy_convertShippingRatesToShippingMethods:@[rate1, rate2]];
 	XCTAssertEqual(2, [shippingMethods count]);

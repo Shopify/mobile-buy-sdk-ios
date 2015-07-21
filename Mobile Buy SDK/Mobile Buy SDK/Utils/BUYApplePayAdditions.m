@@ -70,7 +70,7 @@
 		shippingMethod.label = shippingRate.title;
 		shippingMethod.amount = shippingRate.price;
 		shippingMethod.identifier = shippingRate.shippingRateIdentifier;
-		if (shippingRate.deliveryRange) {
+		if ([shippingRate.deliveryRange count]) {
 			NSInteger daysInBetween = 1 + [NSDate daysBetweenDate:shippingRate.deliveryRange[0] andDate:[shippingRate.deliveryRange lastObject]];
 			shippingMethod.detail = [NSString stringWithFormat:@"%ld business day%@", (long)daysInBetween, daysInBetween > 1 ? @"s" : @""];
 		} else {
