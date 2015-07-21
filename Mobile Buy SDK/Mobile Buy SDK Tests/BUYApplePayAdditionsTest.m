@@ -196,21 +196,30 @@
 
 - (void)testConvertShippingRatesToShippingMethods
 {
-	BUYShippingRate *rate1 = [[BUYShippingRate alloc] initWithDictionary:@{ @"price" : @"5.00", @"id" : @"1234", @"title" : @"Banana" }];
-	BUYShippingRate *rate2 = [[BUYShippingRate alloc] initWithDictionary:@{ @"price" : @"3.00", @"id" : @"5678", @"title" : @"Dinosaur" }];
+	BUYShippingRate *rate1 = [[BUYShippingRate alloc] initWithDictionary:@{ @"price" : @"5.00", @"id" : @"1234", @"title" : @"Banana", @"delivery_range" : @[@"2015-07-29T00:00:00.000+00:00", @"2015-07-29T00:00:00.000+00:00"] }];
+	BUYShippingRate *rate2 = [[BUYShippingRate alloc] initWithDictionary:@{ @"price" : @"3.00", @"id" : @"5678", @"title" : @"Dinosaur", @"delivery_range" : @[@"2015-07-30T00:00:00.000+00:00", @"2015-08-02T00:00:00.000+00:00"] } ];
+	BUYShippingRate *rate3 = [[BUYShippingRate alloc] initWithDictionary:@{ @"price" : @"19.00", @"id" : @"1357", @"title" : @"Bulldozer", @"delivery_range" : @[@"2015-08-05T00:00:00.000+00:00", @"2015-08-09T00:00:00.000+00:00"] } ];
 	
-	NSArray *shippingMethods = [BUYShippingRate buy_convertShippingRatesToShippingMethods:@[rate1, rate2]];
-	XCTAssertEqual(2, [shippingMethods count]);
+	NSArray *shippingMethods = [BUYShippingRate buy_convertShippingRatesToShippingMethods:@[rate1, rate2, rate3]];
+	XCTAssertEqual(3, [shippingMethods count]);
 	
 	PKShippingMethod *method1 = shippingMethods[0];
 	XCTAssertEqualObjects(@"1234", method1.identifier);
 	XCTAssertEqualObjects(@"Banana", method1.label);
 	XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"5.00"], method1.amount);
+	XCTAssertEqualObjects(@"7 business days", method1.detail);
 	
 	PKShippingMethod *method2 = shippingMethods[1];
 	XCTAssertEqualObjects(@"5678", method2.identifier);
 	XCTAssertEqualObjects(@"Dinosaur", method2.label);
 	XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"3.00"], method2.amount);
+	XCTAssertEqualObjects(@"8-11 business days", method2.detail);
+	
+	PKShippingMethod *method3 = shippingMethods[2];
+	XCTAssertEqualObjects(@"1357", method3.identifier);
+	XCTAssertEqualObjects(@"Bulldozer", method3.label);
+	XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"19.00"], method3.amount);
+	XCTAssertEqualObjects(@"14-18 business days", method3.detail);
 }
 
 - (void)testConvertShippingRatesToShippingMethodsWithEmptyArray

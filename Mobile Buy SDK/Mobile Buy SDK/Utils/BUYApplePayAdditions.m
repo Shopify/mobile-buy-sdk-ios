@@ -71,8 +71,22 @@
 		shippingMethod.amount = shippingRate.price;
 		shippingMethod.identifier = shippingRate.shippingRateIdentifier;
 		if ([shippingRate.deliveryRange count]) {
-			NSInteger daysInBetween = 1 + [NSDate daysBetweenDate:shippingRate.deliveryRange[0] andDate:[shippingRate.deliveryRange lastObject]];
-			shippingMethod.detail = [NSString stringWithFormat:@"%ld business day%@", (long)daysInBetween, daysInBetween > 1 ? @"s" : @""];
+			NSInteger daysInBetweenFirst = [NSDate daysBetweenDate:[NSDate date] andDate:shippingRate.deliveryRange[0]];
+			NSInteger daysInBetweenLast = [NSDate daysBetweenDate:[NSDate date] andDate:[shippingRate.deliveryRange lastObject]];
+			NSInteger deliveryRange =  daysInBetweenLast - daysInBetweenFirst;
+			NSString *deliveryDetailDays = @"";
+			if (deliveryRange == 0) {
+				if (daysInBetweenFirst == daysInBetweenLast) {
+					deliveryRange = daysInBetweenFirst;
+					deliveryDetailDays = [NSString stringWithFormat:@"%lu", daysInBetweenFirst];
+				} else {
+					deliveryRange = 1;
+					deliveryDetailDays = @"1";
+				}
+			} else {
+				deliveryDetailDays = [NSString stringWithFormat:@"%ld-%ld", (long)daysInBetweenFirst, (long)daysInBetweenLast];
+			}
+			shippingMethod.detail = [NSString stringWithFormat:@"%@ business day%@", deliveryDetailDays, deliveryRange > 1 ? @"s" : @""];
 		} else {
 			shippingMethod.detail = @"";
 		}

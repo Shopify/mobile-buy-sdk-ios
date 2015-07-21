@@ -26,8 +26,7 @@
 	self.shippingRateIdentifier = dictionary[@"id"];
 	self.price = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"price"]];
 	self.title = dictionary[@"title"];
-	
-	if ([dictionary[@"delivery_range"] isKindOfClass:[NSNull class]] == NO) {
+	if ([dictionary[@"delivery_range"] isKindOfClass:[NSNull class]] == NO && [dictionary[@"delivery_range"] count]) {
 		NSDateFormatter* dateFormatter = [self dateFormatter];
 		NSMutableArray *shippingRangeDates = [NSMutableArray new];
 		for (NSString *dateString in dictionary[@"delivery_range"]) {
