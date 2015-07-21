@@ -17,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		90A446271B5ED091009602AA /* Mobile Buy SDK Product View Sample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Mobile Buy SDK Product View Sample.entitlements"; sourceTree = "<group>"; };
 		BEA6188B1B57FBBF0073A594 /* Mobile Buy SDK Product View Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile Buy SDK Product View Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEA6188F1B57FBBF0073A594 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BEA618901B57FBBF0073A594 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -62,6 +63,7 @@
 		BEA6188D1B57FBBF0073A594 /* Mobile Buy SDK Product View Sample */ = {
 			isa = PBXGroup;
 			children = (
+				90A446271B5ED091009602AA /* Mobile Buy SDK Product View Sample.entitlements */,
 				BEA618921B57FBBF0073A594 /* AppDelegate.h */,
 				BEA618931B57FBBF0073A594 /* AppDelegate.m */,
 				BEA618951B57FBBF0073A594 /* ViewController.h */,
@@ -114,6 +116,12 @@
 				TargetAttributes = {
 					BEA6188A1B57FBBF0073A594 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = A7XGC83MZE;
+						SystemCapabilities = {
+							com.apple.OMC = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -267,6 +275,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Mobile Buy SDK Product View Sample/Mobile Buy SDK Product View Sample.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"${PROJECT_DIR}",
@@ -275,6 +286,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -282,6 +294,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Mobile Buy SDK Product View Sample/Mobile Buy SDK Product View Sample.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"${PROJECT_DIR}",
@@ -290,6 +305,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

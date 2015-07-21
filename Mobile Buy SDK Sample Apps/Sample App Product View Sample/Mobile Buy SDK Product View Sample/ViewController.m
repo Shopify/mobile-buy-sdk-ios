@@ -33,8 +33,6 @@
     
     self.title = @"Products";
     
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
-    
     // Initialize the Buy SDK
     self.client = [[BUYClient alloc] initWithShopDomain:SHOP_DOMAIN apiKey:API_KEY channelId:CHANNEL_ID];
     self.client.urlScheme = @"sampleapp://";
