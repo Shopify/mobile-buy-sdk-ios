@@ -70,6 +70,7 @@ NSString * const BUYVersionString = @"1.1";
 		self.queue = dispatch_get_main_queue();
 		
 		NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+		// ensure requests are sent serially
 		config.HTTPMaximumConnectionsPerHost = 1;
 		NSString *versionString = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
 		
