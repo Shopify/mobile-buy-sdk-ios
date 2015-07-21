@@ -14,8 +14,9 @@
  */
 @interface BUYShippingRate : BUYObject <BUYSerializable>
 
-@property (nonatomic, strong) NSString *shippingRateIdentifier;
-@property (nonatomic, strong) NSDecimalNumber *price;
-@property (nonatomic, copy) NSString *title;
+@property (nonatomic, strong, readonly) NSString *shippingRateIdentifier;
+@property (nonatomic, strong, readonly) NSString *title;
+@property (nonatomic, strong, readonly) NSDecimalNumber *price;
+@property (nonatomic, strong, readonly) NSArray *deliveryRange;
 
 @end

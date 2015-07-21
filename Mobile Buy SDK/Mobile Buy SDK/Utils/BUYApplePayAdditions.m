@@ -12,6 +12,7 @@
 #import "BUYDiscount.h"
 #import "BUYAddress+Additions.h"
 #import "NSDecimalNumber+BUYAdditions.h"
+#import "NSDate+BUYAdditions.h"
 
 #define CFSafeRelease(obj) if (obj) { CFRelease(obj); }
 
@@ -66,10 +67,25 @@
 	NSMutableArray *shippingMethods = [[NSMutableArray alloc] init];
 	for (BUYShippingRate *shippingRate in rates) {
 		PKShippingMethod *shippingMethod = [[PKShippingMethod alloc] init];
-		shippingMethod.label = [shippingRate title];
-		shippingMethod.amount = [shippingRate price];
-		shippingMethod.identifier = [shippingRate shippingRateIdentifier];
-		shippingMethod.detail = @"";
+		shippingMethod.label = shippingRate.title;
+		shippingMethod.amount = shippingRate.price;
+		shippingMethod.identifier = shippingRate.shippingRateIdentifier;
+		if ([shippingRate.deliveryRange count]) {
+			NSInteger daysInBetweenFirst = 1 + [NSDate daysBetweenDate:[NSDate date] andDate:shippingRate.deliveryRange[0]];
+			NSInteger daysInBetweenLast = 1 + [NSDate daysBetweenDate:[NSDate date] andDate:[shippingRate.deliveryRange lastObject]];
+			BOOL plural = NO;
+			NSString *deliveryDetailDays = @"";
+			if (daysInBetweenLast - daysInBetweenFirst == 0) {
+				plural = daysInBetweenFirst > 1;
+				deliveryDetailDays = [NSString stringWithFormat:@"%lu", (long)daysInBetweenFirst];
+			} else {
+				plural = YES;
+				deliveryDetailDays = [NSString stringWithFormat:@"%ld-%ld", (long)daysInBetweenFirst, (long)daysInBetweenLast];
+			}
+			shippingMethod.detail = [NSString stringWithFormat:@"%@ day%@", deliveryDetailDays, plural ? @"s" : @""];
+		} else {
+			shippingMethod.detail = @"";
+		}
 		[shippingMethods addObject:shippingMethod];
 	}
 	return shippingMethods;

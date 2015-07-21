@@ -57,8 +57,7 @@
 
 - (void)testSettingAShippingRateMarksShippingRateIdAsDirty
 {
-	BUYShippingRate *shippingRate = [[BUYShippingRate alloc] init];
-	shippingRate.shippingRateIdentifier = @"banana";
+	BUYShippingRate *shippingRate = [[BUYShippingRate alloc] initWithDictionary:@{ @"id" : @"banana" }];
 	XCTAssertNil(_checkout.shippingRate);
 	XCTAssertNil(_checkout.shippingRateId);
 	_checkout.shippingRate = shippingRate;
@@ -69,8 +68,7 @@
 
 - (void)testDirtyPropertiesAreReturnedInJSON
 {
-	BUYShippingRate *shippingRate = [[BUYShippingRate alloc] init];
-	shippingRate.shippingRateIdentifier = @"banana";
+	BUYShippingRate *shippingRate = [[BUYShippingRate alloc] initWithDictionary:@{ @"id" : @"banana" }];
 	[_checkout markAsClean];
 	
 	_checkout.shippingRate = shippingRate;
