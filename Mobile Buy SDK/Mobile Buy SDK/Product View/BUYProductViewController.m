@@ -28,7 +28,6 @@
 @property (nonatomic, assign) BOOL shouldShowVariantSelector;
 @property (nonatomic, strong) BUYProduct *product;
 @property (nonatomic, assign) BOOL isLoading;
-@property (nonatomic, strong) NSString *merchantId;
 
 // views
 @property (nonatomic, strong) UITableView *tableView;
@@ -46,8 +45,6 @@
 @end
 
 @implementation BUYProductViewController
-
-@synthesize merchantId=_merchantId;
 
 - (instancetype)initWithClient:(BUYClient *)client
 {
