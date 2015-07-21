@@ -16,7 +16,7 @@
 #define CHANNEL_ID @""
 
 #warning Optionally, to support Apple Pay, enter your merchant ID
-#define MERCHANT_ID @"com.merchant.shopify.applepay"
+#define MERCHANT_ID @""
 
 @interface ViewController ()
 @property (nonatomic, strong) NSArray *products;
