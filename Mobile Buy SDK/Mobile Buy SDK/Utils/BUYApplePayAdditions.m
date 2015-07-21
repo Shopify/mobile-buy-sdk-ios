@@ -12,6 +12,7 @@
 #import "BUYDiscount.h"
 #import "BUYAddress+Additions.h"
 #import "NSDecimalNumber+BUYAdditions.h"
+#import "NSDate+BUYAdditions.h"
 
 #define CFSafeRelease(obj) if (obj) { CFRelease(obj); }
 
@@ -66,10 +67,15 @@
 	NSMutableArray *shippingMethods = [[NSMutableArray alloc] init];
 	for (BUYShippingRate *shippingRate in rates) {
 		PKShippingMethod *shippingMethod = [[PKShippingMethod alloc] init];
-		shippingMethod.label = [shippingRate title];
-		shippingMethod.amount = [shippingRate price];
-		shippingMethod.identifier = [shippingRate shippingRateIdentifier];
-		shippingMethod.detail = @"";
+		shippingMethod.label = shippingRate.title;
+		shippingMethod.amount = shippingRate.price;
+		shippingMethod.identifier = shippingRate.shippingRateIdentifier;
+		if (shippingRate.deliveryRange) {
+			NSInteger daysInBetween = 1 + [NSDate daysBetweenDate:shippingRate.deliveryRange[0] andDate:[shippingRate.deliveryRange lastObject]];
+			shippingMethod.detail = [NSString stringWithFormat:@"%ld business day%@", (long)daysInBetween, daysInBetween > 1 ? @"s" : @""];
+		} else {
+			shippingMethod.detail = @"";
+		}
 		[shippingMethods addObject:shippingMethod];
 	}
 	return shippingMethods;
