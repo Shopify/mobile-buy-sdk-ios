@@ -15,10 +15,12 @@
 #import "BUYApplePayHelpers.h"
 #import "BUYDiscount.h"
 #import "BUYShop.h"
+#import "BUYTestConstants.h"
 
 @interface BUYViewController () <PKPaymentAuthorizationViewControllerDelegate>
 @property (nonatomic, strong) BUYCheckout *checkout;
 @property (nonatomic, strong) BUYApplePayHelpers *applePayHelper;
+@property (nonatomic, assign) BOOL isLoadingShop;
 @end
 
 @implementation BUYViewController
@@ -51,6 +53,7 @@
 - (void)loadShopWithCallback:(void (^)(BOOL, NSError *))block
 {
 	// fetch shop details for the currency and country codes
+	self.isLoadingShop = YES;
 	[self.client getShop:^(BUYShop *shop, NSError *error) {
 		
 		if (error == nil) {
@@ -59,9 +62,25 @@
 		else {
 			[self.delegate controllerFailedToStartApplePayProcess:self];
 		}
-		
+
+		self.isLoadingShop = NO;
+
 		if (block) block((error == nil), error);
 	}];
+}
+
+- (void)setMerchantId:(NSString *)merchantId
+{
+	NSDictionary *environment = [[NSProcessInfo processInfo] environment];
+	NSString *merchId = environment[kBUYTestMerchantId];
+	
+	if (merchId && merchantId.length <= 2) {
+		_merchantId = merchId;
+		NSLog(@"Using environment varianble for merchant ID: %@", merchId);
+	}
+	else {
+		_merchantId = merchantId;
+	}
 }
 
 - (BOOL)isApplePayAvailable
@@ -82,8 +101,14 @@
 	if ([self.delegate respondsToSelector:@selector(controllerWillCheckoutViaApplePay:)]) {
 		[self.delegate controllerWillCheckoutViaApplePay:self];
 	}
-	// todo: get shop if not already fetched
+	
+	if (self.shop == nil && self.isLoadingShop == NO) {
+		// since requests are sent serially, this will return before the checkout is created
+		[self loadShopWithCallback:nil];
+	}
+
 	[self handleCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
+
 		if (error == nil) {
 			self.applePayHelper = [[BUYApplePayHelpers alloc] initWithClient:self.client checkout:checkout];
 		}
@@ -144,6 +169,12 @@
 	//Step 2 - Request payment from the user by presenting an Apple Pay sheet
 	if (self.merchantId.length == 0) {
 		NSLog(@"Merchant ID must be configured to use Apple Pay");
+		[_delegate controllerFailedToStartApplePayProcess:self];
+		return;
+	}
+	
+	if (self.shop == nil) {
+		NSLog(@"loadShopWithCallback: must be called before starting an Apple Pay checkout");
 		[_delegate controllerFailedToStartApplePayProcess:self];
 		return;
 	}
@@ -230,8 +261,9 @@
 	[paymentRequest setRequiredShippingAddressFields:_checkout.requiresShipping ? PKAddressFieldAll : PKAddressFieldEmail|PKAddressFieldPhone];
 	[paymentRequest setSupportedNetworks:self.supportedNetworks];
 	[paymentRequest setMerchantCapabilities:PKMerchantCapability3DS];
-	[paymentRequest setCountryCode:self.shop ? self.shop.country : @"US"];
-	[paymentRequest setCurrencyCode:self.shop ? self.shop.currency : @"USD"];
+	[paymentRequest setCountryCode:self.shop.country];
+	[paymentRequest setCurrencyCode:self.shop.currency];
+	
 	return paymentRequest;
 }
 
