@@ -57,8 +57,6 @@
 		}
 		json[@"delivery_range"] = [shippingRangeStrings copy];
 		
-	} else {
-		json[@"delivery_range"] = @"";
 	}
 	return json;
 }
