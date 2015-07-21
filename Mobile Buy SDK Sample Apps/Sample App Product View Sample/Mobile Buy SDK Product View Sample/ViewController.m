@@ -39,8 +39,6 @@
     self.client = [[BUYClient alloc] initWithShopDomain:SHOP_DOMAIN apiKey:API_KEY channelId:CHANNEL_ID];
     self.client.urlScheme = @"sampleapp://";
     
-    [self.client enableApplePayWithMerchantId:MERCHANT_ID];
-    
     // Get the list of products
     [self.client getProductsPage:1 completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
         
@@ -59,6 +57,7 @@
     // reusing the same productViewController will prevent unnecessary network calls in subsequent uses
     if (_productViewController == nil) {
         _productViewController = [[BUYProductViewController alloc] initWithClient:self.client];
+        _productViewController.merchantId = MERCHANT_ID;
     }
     
     return _productViewController;

@@ -166,20 +166,6 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
 - (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey channelId:(NSString *)channelId NS_DESIGNATED_INITIALIZER;
 
 /**
- *  Enable Apple Pay by calling this method with the Merchant ID provided via Apple Pay setup in the Mobile SDK Channel on Shopify Admin
- *
- *  @param merchantId The Merchant ID generated on Shopify Admin
- */
-- (void)enableApplePayWithMerchantId:(NSString *)merchantId;
-
-/**
- *  Test the integration with your shop.  This should not be shipped in production code
- *
- *  @return YES on success
- */
-- (BOOL)testIntegration;
-
-/**
  *  Queue where callbacks will be called
  *  defaults to main queue
  */
@@ -204,11 +190,6 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
  *  The Channel ID set using the initializer
  */
 @property (nonatomic, strong, readonly) NSString *channelId;
-
-/**
- *  The Merchant ID is used for Apple Pay and set using `enableApplePayWithMerchantId:`
- */
-@property (nonatomic, strong, readonly) NSString *merchantId;
 
 /**
  *  Application name to attribute orders to.  Defaults to app bundle name (CFBundleName)

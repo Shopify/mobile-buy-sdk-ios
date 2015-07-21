@@ -32,9 +32,8 @@
     BUYClient *client = [[BUYClient alloc] initWithShopDomain:SHOP_DOMAIN apiKey:API_KEY channelId:CHANNEL_ID];
     client.urlScheme = @"nativeapp://";
     
-    [client enableApplePayWithMerchantId:MERCHANT_ID];
-    
     ProductController *productController = [[ProductController alloc] initWithClient:client productId:PRODUCT_ID];
+    productController.merchantId = MERCHANT_ID;
     productController.delegate = self;
     self.window.rootViewController = productController;
     

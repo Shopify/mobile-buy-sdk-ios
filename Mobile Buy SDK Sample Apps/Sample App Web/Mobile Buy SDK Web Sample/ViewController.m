@@ -31,13 +31,11 @@
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.rightBarButtonItem = rightButton;
     
-    // Get shop details
-    [self.client getShop:^(BUYShop *shop, NSError *error) {
-        
+    [self loadShopWithCallback:^(BOOL success, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            if (error == nil && shop) {
-                self.title = shop.name;
+            if (success) {
+                self.title = self.shop.name;
             }
             else {
                 NSLog(@"Error fetching shop: %@", error.localizedDescription);

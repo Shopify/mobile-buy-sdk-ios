@@ -13,6 +13,7 @@
 #import "BUYTestConstants.h"
 #import "BUYAddress+Additions.h"
 #import "BUYCheckout_Private.h"
+#import "BUYClient+Test.h"
 
 @interface BUYIntegrationTest : XCTestCase
 @end
@@ -737,16 +738,19 @@
 
 - (void)testIntegration
 {
-	XCTAssertTrue([_checkoutClient testIntegration]);
-	
+	XCTAssertTrue([_checkoutClient testIntegrationWithMerchantId:nil]);
+	XCTAssertTrue([_checkoutClient testIntegrationWithMerchantId:@"merchant.com.shopify.applepay"]);
+
 	BUYClient *badClient = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:@"asdvfdbfdgasfgdsfg"];
-	XCTAssertFalse([badClient testIntegration]);
+	XCTAssertFalse([badClient testIntegrationWithMerchantId:nil]);
 	
 	badClient = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:@"sadgsefgsdfgsdfgsdfg" channelId:channelId];
-	XCTAssertFalse([badClient testIntegration]);
+	XCTAssertFalse([badClient testIntegrationWithMerchantId:nil]);
 	
 	badClient = [[BUYClient alloc] initWithShopDomain:@"asdvfdbfdgasfgdsfg.myshopify.com" apiKey:apiKey channelId:channelId];
-	XCTAssertFalse([badClient testIntegration]);
+	XCTAssertFalse([badClient testIntegrationWithMerchantId:nil]);
+	
+	XCTAssertFalse([badClient testIntegrationWithMerchantId:@"blah"]);
 }
 
 #pragma mark - Test Data

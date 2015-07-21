@@ -23,6 +23,7 @@
 	
 	_name = [dictionary[@"name"] copy];
 	_city = [dictionary[@"city"] copy];
+	_country = [dictionary[@"country"] copy];
 	_province = [dictionary[@"province"] copy];
 	_currency = [dictionary[@"currency"] copy];
 	_domain = [dictionary[@"domain"] copy];

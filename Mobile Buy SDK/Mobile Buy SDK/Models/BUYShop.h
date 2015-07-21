@@ -29,6 +29,11 @@
 @property (nonatomic, readonly, copy) NSString *province;
 
 /**
+ *  The country in which the shop is located
+ */
+@property (nonatomic, readonly, copy) NSString *country;
+
+/**
  *  The three-letter code for the currency that the shop accepts.
  */
 @property (nonatomic, readonly, copy) NSString *currency;

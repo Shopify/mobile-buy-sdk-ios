@@ -28,11 +28,9 @@
                                                        apiKey:API_KEY
                                                     channelId:CHANNEL_ID];
     
-    
-    [client enableApplePayWithMerchantId:MERCHANT_ID];
-    
     // Setup the views
     ViewController *storeController = [[ViewController alloc] initWithClient:client];
+    storeController.merchantId = MERCHANT_ID;
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:storeController];
     navController.toolbarHidden = NO;

@@ -13,6 +13,7 @@
 #define kBUYTestDomain @"shop_domain"
 #define kBUYTestAPIKey @"api_key"
 #define kBUYTestChannelId @"channel_id"
+#define kBUYTestMerchantId @"merchant_id"
 #define kBUYTestGiftCardCode @"gift_card_code"
 #define kBUYTestGiftCardCode2 @"gift_card_code_2"
 #define kBUYTestGiftCardCode3 @"gift_card_code_3"

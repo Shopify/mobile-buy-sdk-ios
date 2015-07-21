@@ -14,10 +14,13 @@
 #import "BUYViewController.h"
 #import "BUYApplePayHelpers.h"
 #import "BUYDiscount.h"
+#import "BUYShop.h"
+#import "BUYTestConstants.h"
 
 @interface BUYViewController () <PKPaymentAuthorizationViewControllerDelegate>
 @property (nonatomic, strong) BUYCheckout *checkout;
 @property (nonatomic, strong) BUYApplePayHelpers *applePayHelper;
+@property (nonatomic, assign) BOOL isLoadingShop;
 @end
 
 @implementation BUYViewController
@@ -36,10 +39,7 @@
 - (void)setClient:(BUYClient *)client
 {
 	_client = client;
-	self.merchantCapability = PKMerchantCapability3DS;
 	self.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa];
-	self.countryCode = @"US";
-	self.currencyCode = @"USD";
 }
 
 - (BUYClient*)client
@@ -50,12 +50,47 @@
 	return _client;
 }
 
+- (void)loadShopWithCallback:(void (^)(BOOL, NSError *))block
+{
+	// fetch shop details for the currency and country codes
+	self.isLoadingShop = YES;
+	[self.client getShop:^(BUYShop *shop, NSError *error) {
+		
+		if (error == nil) {
+			self.shop = shop;
+		}
+		else {
+			[self.delegate controllerFailedToStartApplePayProcess:self];
+		}
+
+		self.isLoadingShop = NO;
+
+		if (block) block((error == nil), error);
+	}];
+}
+
+- (void)setMerchantId:(NSString *)merchantId
+{
+	NSDictionary *environment = [[NSProcessInfo processInfo] environment];
+	NSString *merchId = environment[kBUYTestMerchantId];
+	
+	if (merchId && merchantId.length <= 2) {
+		_merchantId = merchId;
+		NSLog(@"Using environment varianble for merchant ID: %@", merchId);
+	}
+	else {
+		_merchantId = merchantId;
+	}
+}
+
 - (BOOL)isApplePayAvailable
 {
+	// checks if the client is setup to use Apple Pay
 	// checks if device hardware is capable of using Apple Pay
 	// checks if the device has a payment card setup
-	// checks if the client is setup to use Apple Pay
-	return ([PKPaymentAuthorizationViewController canMakePayments] && [PKPaymentAuthorizationViewController canMakePaymentsUsingNetworks:self.supportedNetworks] && self.client.merchantId.length);
+	return (self.merchantId.length &&
+			[PKPaymentAuthorizationViewController canMakePayments] &&
+			[PKPaymentAuthorizationViewController canMakePaymentsUsingNetworks:self.supportedNetworks]);
 }
 
 #pragma mark - Checkout Flow Methods
@@ -63,7 +98,17 @@
 
 - (void)startApplePayCheckout:(BUYCheckout *)checkout
 {
+	if ([self.delegate respondsToSelector:@selector(controllerWillCheckoutViaApplePay:)]) {
+		[self.delegate controllerWillCheckoutViaApplePay:self];
+	}
+	
+	if (self.shop == nil && self.isLoadingShop == NO) {
+		// since requests are sent serially, this will return before the checkout is created
+		[self loadShopWithCallback:nil];
+	}
+
 	[self handleCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
+
 		if (error == nil) {
 			self.applePayHelper = [[BUYApplePayHelpers alloc] initWithClient:self.client checkout:checkout];
 		}
@@ -73,6 +118,10 @@
 
 - (void)startWebCheckout:(BUYCheckout *)checkout
 {
+	if ([self.delegate respondsToSelector:@selector(controllerWillCheckoutViaWeb:)]) {
+		[self.delegate controllerWillCheckoutViaWeb:self];
+	}
+	
 	[self handleCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		if (error == nil) {
 			[[UIApplication sharedApplication] openURL:checkout.webCheckoutURL];
@@ -118,8 +167,14 @@
 - (void)requestPayment
 {
 	//Step 2 - Request payment from the user by presenting an Apple Pay sheet
-	if (self.client.merchantId.length == 0) {
+	if (self.merchantId.length == 0) {
 		NSLog(@"Merchant ID must be configured to use Apple Pay");
+		[_delegate controllerFailedToStartApplePayProcess:self];
+		return;
+	}
+	
+	if (self.shop == nil) {
+		NSLog(@"loadShopWithCallback: must be called before starting an Apple Pay checkout");
 		[_delegate controllerFailedToStartApplePayProcess:self];
 		return;
 	}
@@ -201,13 +256,14 @@
 - (PKPaymentRequest *)paymentRequest
 {
 	PKPaymentRequest *paymentRequest = [[PKPaymentRequest alloc] init];
-	[paymentRequest setMerchantIdentifier:self.client.merchantId];
+	[paymentRequest setMerchantIdentifier:self.merchantId];
 	[paymentRequest setRequiredBillingAddressFields:PKAddressFieldAll];
 	[paymentRequest setRequiredShippingAddressFields:_checkout.requiresShipping ? PKAddressFieldAll : PKAddressFieldEmail|PKAddressFieldPhone];
 	[paymentRequest setSupportedNetworks:self.supportedNetworks];
-	[paymentRequest setMerchantCapabilities:self.merchantCapability];
-	[paymentRequest setCountryCode:self.countryCode];
-	[paymentRequest setCurrencyCode:self.currencyCode];
+	[paymentRequest setMerchantCapabilities:PKMerchantCapability3DS];
+	[paymentRequest setCountryCode:self.shop.country];
+	[paymentRequest setCurrencyCode:self.shop.currency];
+	
 	return paymentRequest;
 }
 
