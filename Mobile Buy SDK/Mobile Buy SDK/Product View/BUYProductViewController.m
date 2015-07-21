@@ -311,11 +311,8 @@
 
 	[self.productViewFooter setApplePayButtonVisible:self.isApplePayAvailable];
 
-	if ([self tableView:self.tableView numberOfRowsInSection:0] >= 1){
-		[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-	}
+	[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
 }
-
 
 #pragma mark - Table view data source
 
@@ -389,6 +386,12 @@
 - (void)setSelectedProductVariant:(BUYProductVariant *)selectedProductVariant {
 	_selectedProductVariant = selectedProductVariant;
 	BUYImage *image = [self.product imageForVariant:selectedProductVariant];
+	
+	// if image is nil (no image specified for the variant) choose the first one
+	if (image == nil) {
+		image = self.product.images.firstObject;
+	}
+	
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", image.src]];
 	[self.productViewHeader.productImageView loadImageWithURL:url
 												   completion:^(UIImage *image, NSError *error) {
@@ -472,7 +475,9 @@
 
 - (void)presentationControllerDidDismiss:(UIPresentationController *)presentationController
 {
-
+	self.product = nil;
+	self.productId = nil;
+	self.productViewHeader.productImageView.image = nil;
 }
 
 @end
