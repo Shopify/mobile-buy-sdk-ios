@@ -22,6 +22,15 @@
 
 @interface BUYProductViewController () <UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, BUYVariantSelectionDelegate, BUYPresentationControllerWithNavigationControllerDelegate>
 
+@property (nonatomic, strong) NSString *productId;
+@property (nonatomic, strong) BUYProductVariant *selectedProductVariant;
+@property (nonatomic, strong) BUYTheme *theme;
+@property (nonatomic, assign) BOOL shouldShowVariantSelector;
+@property (nonatomic, strong) BUYProduct *product;
+@property (nonatomic, assign) BOOL isLoading;
+@property (nonatomic, strong) NSString *merchantId;
+
+// views
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *stickyFooterView;
 @property (nonatomic, strong) NSLayoutConstraint *footerHeightLayoutConstraint;
@@ -33,15 +42,12 @@
 @property (nonatomic, weak) UIView *navigationBar;
 @property (nonatomic, weak) UIView *navigationBarTitle;
 @property (nonatomic, strong) NSLayoutConstraint *gradientHeightConstraint;
-@property (nonatomic, strong) NSString *productId;
-@property (nonatomic, strong) BUYProductVariant *selectedProductVariant;
-@property (nonatomic, strong) BUYTheme *theme;
-@property (nonatomic, assign) BOOL shouldShowVariantSelector;
-@property (nonatomic, strong) BUYProduct *product;
-@property (nonatomic, assign) BOOL isLoading;
+
 @end
 
 @implementation BUYProductViewController
+
+@synthesize merchantId=_merchantId;
 
 - (instancetype)initWithClient:(BUYClient *)client
 {
@@ -53,89 +59,6 @@
 		self.productViewHeader = [[BUYProductViewHeader alloc] init];
 	}
 	return self;
-}
-
-- (void)setTheme:(BUYTheme *)theme
-{
-	_theme = theme;
-	self.view.tintColor = theme.tintColor;
-	UIColor *backgroundColor = (theme.style == BUYThemeStyleDark) ? [UIColor blackColor] : [UIColor whiteColor];
-	self.stickyFooterView.backgroundColor = backgroundColor;
-	self.view.backgroundColor = backgroundColor;
-
-}
-
-- (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source
-{
-	BUYPresentationControllerWithNavigationController *presentationController = [[BUYPresentationControllerWithNavigationController alloc] initWithPresentedViewController:presented presentingViewController:presenting];
-	presentationController.delegate = presentationController;
-	presentationController.presentationDelegate = self;
-	return presentationController;
-}
-
-- (void)loadProduct:(NSString *)productId completion:(void (^)(BOOL success, NSError *error))completion
-{
-	self.isLoading = YES;
-	self.productId = productId;
-	[self.client getProductById:productId completion:^(BUYProduct *product, NSError *error) {
-		dispatch_async(dispatch_get_main_queue(), ^{
-			self.isLoading = NO;
-			self.product = product;
-			if (completion) {
-				completion(error == nil, error);
-			}
-		});
-	}];
-}
-
-- (void)loadWithProduct:(BUYProduct *)product completion:(void (^)(BOOL success, NSError *error))completion;
-{
-	if (product == nil) {
-		completion(NO, [NSError errorWithDomain:BUYShopifyError code:BUYShopifyError_NoProductSpecified userInfo:nil]);
-	}
-	else {
-		self.product = product;
-		
-		if (self.shop == nil) {
-			self.isLoading = YES;
-			[self.client getShop:^(BUYShop *shop, NSError *error) {
-				
-				dispatch_async(dispatch_get_main_queue(), ^{
-					self.isLoading = NO;
-					if (error) {
-						completion(NO, error);
-					}
-					else {
-						self.shop = shop;
-						completion(YES, nil);
-					}
-				});
-			}];
-		}
-		else {
-			dispatch_async(dispatch_get_main_queue(), ^{
-				completion(YES, nil);
-			});
-		}
-	}
-}
-
-- (void)setProduct:(BUYProduct *)product
-{
-	_product = product;
-	self.navigationItem.title = _product.title;
-	[self.tableView reloadData];
-	[self scrollViewDidScroll:self.tableView];
-	self.selectedProductVariant = [_product.variants firstObject];
-	self.shouldShowVariantSelector = [_product isDefaultVariant] == NO;
-}
-
-- (void)setShop:(BUYShop *)shop
-{
-	_shop = shop;
-	if ([self tableView:self.tableView numberOfRowsInSection:0] == 1){
-		[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-	}
 }
 
 - (void)viewDidLoad
@@ -297,10 +220,110 @@
 	self.tableView.contentInset = self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, self.tableView.contentInset.left, CGRectGetHeight(self.productViewFooter.frame), self.tableView.contentInset.right);
 }
 
-- (void)didReceiveMemoryWarning {
-	[super didReceiveMemoryWarning];
-	// Dispose of any resources that can be recreated.
+- (void)loadDependanciesWithCallback:(void (^)(BOOL, NSError *))block
+{
+	// do nothing for now
 }
+
+- (void)setTheme:(BUYTheme *)theme
+{
+	_theme = theme;
+	self.view.tintColor = theme.tintColor;
+	UIColor *backgroundColor = (theme.style == BUYThemeStyleDark) ? [UIColor blackColor] : [UIColor whiteColor];
+	self.stickyFooterView.backgroundColor = backgroundColor;
+	self.view.backgroundColor = backgroundColor;
+
+}
+
+- (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source
+{
+	BUYPresentationControllerWithNavigationController *presentationController = [[BUYPresentationControllerWithNavigationController alloc] initWithPresentedViewController:presented presentingViewController:presenting];
+	presentationController.delegate = presentationController;
+	presentationController.presentationDelegate = self;
+	return presentationController;
+}
+
+- (void)loadProduct:(NSString *)productId completion:(void (^)(BOOL success, NSError *error))completion
+{
+	if (productId == nil) {
+		completion(NO, [NSError errorWithDomain:BUYShopifyError code:BUYShopifyError_NoProductSpecified userInfo:nil]);
+	}
+	else {
+		self.isLoading = YES;
+
+		[self loadShopWithCallback:^(BOOL success, NSError *error) {
+			
+			if (success) {
+				self.productId = productId;
+
+				[self.client getProductById:productId completion:^(BUYProduct *product, NSError *error) {
+					dispatch_async(dispatch_get_main_queue(), ^{
+						self.isLoading = NO;
+
+						if (error) {
+							completion(NO, error);
+						}
+						else {
+							self.product = product;
+							completion(YES, nil);
+						}
+					});
+				}];
+			}
+			else {
+				self.isLoading = NO;
+				completion(success, error);
+			}
+		}];
+	}
+}
+
+- (void)loadWithProduct:(BUYProduct *)product completion:(void (^)(BOOL success, NSError *error))completion;
+{
+	if (product == nil) {
+		completion(NO, [NSError errorWithDomain:BUYShopifyError code:BUYShopifyError_NoProductSpecified userInfo:nil]);
+	}
+	else {
+		self.product = product;
+		
+		if (self.shop == nil) {
+			self.isLoading = YES;
+			
+			[self loadShopWithCallback:^(BOOL success, NSError *error) {
+				
+				self.isLoading = NO;
+				completion(success, error);
+			}];
+		}
+		else {
+			dispatch_async(dispatch_get_main_queue(), ^{
+				completion(YES, nil);
+			});
+		}
+	}
+}
+
+- (void)setProduct:(BUYProduct *)product
+{
+	_product = product;
+	self.navigationItem.title = _product.title;
+	[self.tableView reloadData];
+	[self scrollViewDidScroll:self.tableView];
+	self.selectedProductVariant = [_product.variants firstObject];
+	self.shouldShowVariantSelector = [_product isDefaultVariant] == NO;
+}
+
+- (void)setShop:(BUYShop *)shop
+{
+	[super setShop:shop];
+
+	[self.productViewFooter setApplePayButtonVisible:self.isApplePayAvailable];
+
+	if ([self tableView:self.tableView numberOfRowsInSection:0] >= 1){
+		[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+	}
+}
+
 
 #pragma mark - Table view data source
 
@@ -428,17 +451,11 @@
 
 - (void)checkoutWithApplePay
 {
-	if ([self.productDelegate respondsToSelector:@selector(productViewControllerWillCheckoutViaApplePay:)]) {
-		[self.productDelegate productViewControllerWillCheckoutViaApplePay:self];
-	}
 	[self startApplePayCheckout:[self checkout]];
 }
 
 - (void)checkoutWithShopify
 {
-	if ([self.productDelegate respondsToSelector:@selector(productViewControllerWillCheckoutViaWeb:)]) {
-		[self.productDelegate productViewControllerWillCheckoutViaWeb:self];
-	}
 	[self startWebCheckout:[self checkout]];
 }
 
@@ -463,9 +480,7 @@
 
 - (void)presentationControllerDidDismiss:(UIPresentationController *)presentationController
 {
-	if ([self.productDelegate respondsToSelector:@selector(productViewControllerDidFinish:)]) {
-		[self.productDelegate productViewControllerDidFinish:self];
-	}
+
 }
 
 @end

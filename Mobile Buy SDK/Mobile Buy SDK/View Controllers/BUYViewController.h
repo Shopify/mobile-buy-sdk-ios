@@ -70,6 +70,22 @@
  */
 - (void)controller:(BUYViewController *)controller didCompleteCheckout:(BUYCheckout *)checkout status:(BUYStatus)status;
 
+@optional
+
+/**
+ *  Called when the user chooses to checkout via web checkout which will open Safari
+ *
+ *  @param viewController the view controller
+ */
+- (void)controllerWillCheckoutViaWeb:(BUYViewController *)viewController;
+
+/**
+ *  Called when the user chooses to checkout via Apple Pay
+ *
+ *  @param viewController the view controller
+ */
+- (void)controllerWillCheckoutViaApplePay:(BUYViewController *)viewController;
+
 @end
 
 /**
@@ -89,42 +105,45 @@
 @property (nonatomic, strong) BUYClient *client;
 
 /**
+ *  The associated shop. setting this prior to displaying will prevent another network request
+ */
+@property (nonatomic, strong) BUYShop *shop;
+
+/**
+ *  The merchant ID used for Apple Pay.  This is set by calling `enableApplePayWithMerchantId:`
+ */
+@property (nonatomic, strong) NSString *merchantId;
+
+/**
  *  Returns YES if the following conditions are met:
  *  - the device hardware is capable of using Apple Pay
  *  - the device has a payment card setup
- *  - the `BUYClient` is setup to use Apple Pay
+ *  - the merchant ID has been set to use Apple Pay
  */
 @property (nonatomic, assign, readonly) BOOL isApplePayAvailable;
+
+/**
+ *  Loads the shop details
+ *
+ *  @param block callback block called on completion
+ */
+- (void)loadShopWithCallback:(void (^)(BOOL, NSError *))block;
 
 #pragma mark - Apple Pay Overrides
 
 /**
- *  The supported credit card payment networks. As of iOS 8.3: PKPaymentNetworkAmex, PKPaymentNetworkMasterCard and PKPaymentNetworkVisa are the only valid options.
- *
- *  The default value is to support all three.
+ *  The supported credit card payment networks. As of iOS 8.3: PKPaymentNetworkAmex, PKPaymentNetworkMasterCard and PKPaymentNetworkVisa are the only valid options. 
  */
 @property (nonatomic, copy) NSArray *supportedNetworks;
 
 /**
- *  The country code for the PKPaymentRequest.
+ *  Override point to return a custom payment request
  *
- *  The default value is `US`
- */
-@property (nonatomic, copy) NSString *countryCode;
-
-/**
- *  The currency code for the PKPaymentRequest.
+ *  The default merchantCapability is PKMerchantCapability3DS
  *
- *  The default value is `USD`
+ *  @return a new payment request object
  */
-@property (nonatomic, copy) NSString *currencyCode;
-
-/**
- *  The merchant capabilities (see PKMerchantCapability).
- *
- *  The default value is PKMerchantCapability3DS
- */
-@property (nonatomic, assign) PKMerchantCapability merchantCapability;
+- (PKPaymentRequest *)paymentRequest;
 
 #pragma mark - Checkout Process
 

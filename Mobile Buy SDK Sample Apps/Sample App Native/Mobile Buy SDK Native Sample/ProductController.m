@@ -39,6 +39,14 @@
 
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    // Load shop details so Apple Pay will know what currency to use
+    [self loadShopWithCallback:nil];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];

@@ -40,7 +40,6 @@ NSString * const BUYVersionString = @"1.1";
 @property (nonatomic, strong) NSString *shopDomain;
 @property (nonatomic, strong) NSString *apiKey;
 @property (nonatomic, strong) NSString *channelId;
-@property (nonatomic, strong) NSString *merchantId;
 
 @property (nonatomic, strong) NSURLSession *session;
 
@@ -71,6 +70,7 @@ NSString * const BUYVersionString = @"1.1";
 		self.queue = dispatch_get_main_queue();
 		
 		NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+		config.HTTPMaximumConnectionsPerHost = 1;
 		NSString *versionString = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
 		
 		config.HTTPAdditionalHeaders = @{@"X-Shopify-Mobile-Buy-SDK-Version": [NSString stringWithFormat:@"iOS/%@", versionString]};
@@ -79,32 +79,6 @@ NSString * const BUYVersionString = @"1.1";
 		self.pageSize = 25;
 	}
 	return self;
-}
-
-- (void)enableApplePayWithMerchantId:(NSString *)merchantId
-{
-	self.merchantId = merchantId;
-}
-
-- (BOOL)testIntegration
-{
-	NSLog(@"Remove this call once integration succeeds.  This should never be called in production code!!");
-	
-	NSString *urlString = [NSString stringWithFormat:@"http://%@/mobile_app/verify?api_key=%@&channel_id=%@", self.shopDomain, self.apiKey, self.channelId];
-	
-	if (self.merchantId.length > 0) {
-		urlString = [urlString stringByAppendingFormat:@"&merchant_id=%@", self.merchantId];
-	}
-	
-	NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-	NSHTTPURLResponse *response = nil;
-	NSError *error = nil;
-	
-	[NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-	
-	BOOL success = (error == nil && response.statusCode == 200);
-	
-	return success;
 }
 
 #pragma mark - Storefront
