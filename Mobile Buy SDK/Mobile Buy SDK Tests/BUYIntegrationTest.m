@@ -13,6 +13,7 @@
 #import "BUYTestConstants.h"
 #import "BUYAddress+Additions.h"
 #import "BUYCheckout_Private.h"
+#import "BUYClient+Test.h"
 
 @interface BUYIntegrationTest : XCTestCase
 @end
