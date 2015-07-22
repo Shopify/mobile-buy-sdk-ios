@@ -10,6 +10,7 @@
 #import "BUYSerializable.h"
 
 @class BUYLineItem;
+@class BUYCartLineItem;
 @class BUYProductVariant;
 
 /**
@@ -18,7 +19,12 @@
  */
 @interface BUYCart : NSObject <BUYSerializable>
 
-@property (nonatomic, readonly, copy) NSArray *lineItems;
+/**
+ *  Array of BUYCartLineItem objects in the cart
+ *  Note: These are different from BUYLineItem objects in that
+ *  the line item objects do include the BUYProductVariant.
+ */
+@property (nonatomic, strong, readonly) NSArray *lineItems;
 
 /**
  *  Returns true if the cart is acceptable to send to Shopify.
@@ -33,36 +39,19 @@
 #pragma mark - Simple Cart Editing
 
 /**
- *  Adds a BUYProductVariant to the BUYCart.
- *  If the associated BUYLineItem exists, that BUYLineItem's quantity is increased by one.
+ *  Adds a BUYCartLineItem to the BUYCart with the given BUYProductVariant object on it.
+ *  If the associated BUYCartLineItem exists, that BUYCartLineItem's quantity is increased by one.
  *
- *  @param variant The BUYProductVariant to add to the BUYCart
+ *  @param variant The BUYProductVariant to add to the BUYCart or increase by one quantity
  */
 - (void)addVariant:(BUYProductVariant *)variant;
 
 /**
- *  Removes a BUYProductVariant from the BUYCart.
- *  If the associated BUYLineItem exists, that BUYLineItem's quantity is decreased by one.
+ *  Removes the BUYCartLineItem from the BUYCart associated with the given BUYProductVariant object.
+ *  If the associated BUYCartLineItem exists, that BUYCartLineItem's quantity is decreased by one.
  *
- *  @param variant The BUYProductVariant to remove from the BUYCart
+ *  @param variant The BUYProductVariant to remove from the BUYCart or decrease by one quantity
  */
 - (void)removeVariant:(BUYProductVariant *)variant;
-
-#pragma mark - Direct Line Item Editing
-
-/**
- *  Adds a custom-built BUYLineItem to the BUYCart that is not associated with a BUYProductVariant in the shop,
- *  for example tips, physical item that doesn't exist on the shop.
- *
- *  @param object BUYLineItem to add the the BUYCart
- */
-- (void)addLineItemsObject:(BUYLineItem *)object;
-
-/**
- *  Removes a BUYLineItem from the BUYCart, including all BUYProductVariant's
- *
- *  @param object BUYLineItem to remove from the BUYCart
- */
-- (void)removeLineItemsObject:(BUYLineItem *)object;
 
 @end

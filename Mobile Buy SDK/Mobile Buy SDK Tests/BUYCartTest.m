@@ -33,49 +33,10 @@
 	XCTAssertEqual(0, [json count]);
 }
 
-- (void)testJsonDictionaryContainsLineItems
-{
-	[_cart addLineItemsObject:[[BUYLineItem alloc] init]];
-	[_cart addLineItemsObject:[[BUYLineItem alloc] init]];
-	[_cart addLineItemsObject:[[BUYLineItem alloc] init]];
-	
-	NSDictionary *json = [_cart jsonDictionaryForCheckout];
-	XCTAssertNotNil(json);
-	XCTAssertEqual(1, [json count]);
-	
-	XCTAssertNotNil(json[@"line_items"]);
-	XCTAssert([json[@"line_items"] isKindOfClass:[NSArray class]]);
-	XCTAssertEqual(3, [json[@"line_items"] count]);
-}
-
-- (void)testAddLineItemsObject
-{
-	[_cart addLineItemsObject:[[BUYLineItem alloc] init]];
-	XCTAssertEqual([[_cart lineItems] count], 1);
-	
-	[_cart addLineItemsObject:[[BUYLineItem alloc] init]];
-	XCTAssertEqual([[_cart lineItems] count], 2);
-}
-
-- (void)testRemoveLineItemsObject
-{
-	BUYLineItem *lineItem = [[BUYLineItem alloc] init];
-	[_cart addLineItemsObject:lineItem];
-	XCTAssertEqual([[_cart lineItems] count], 1);
-	[_cart removeLineItemsObject:lineItem];
-	XCTAssertEqual([[_cart lineItems] count], 0);
-}
-
 - (void)testCartShouldBeInvalidWhenEmpty
 {
 	BUYCart *cart = [[BUYCart alloc] init];
 	XCTAssertFalse([cart isValid]);
-}
-
-- (void)testCartShouldBeValidWhenItHasLineItems
-{
-	[_cart addLineItemsObject:[[BUYLineItem alloc] init]];
-	XCTAssertTrue([_cart isValid]);
 }
 
 - (void)testAddVariantWillAddALineItem
