@@ -78,16 +78,6 @@ namespace shopify
 	return [self convertJSONArray:json block:nil];
 }
 
-+ (NSDictionary *)convertJSONArrayToDictionary:(NSArray *)json usingKey:(NSString *)key
-{
-	NSMutableDictionary *objects = [[NSMutableDictionary alloc] init];
-	for (NSDictionary *jsonObject in json) {
-		BUYObject *obj = [[self alloc] initWithDictionary:jsonObject];
-		[objects setObject:obj forKey:jsonObject[key]];
-	}
-	return objects;
-}
-
 + (instancetype)convertObject:(id)object
 {
 	BUYObject *convertedObject = nil;

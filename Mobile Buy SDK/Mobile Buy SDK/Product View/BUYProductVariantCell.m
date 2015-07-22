@@ -53,7 +53,7 @@
 {
 	_productVariant = productVariant;
 
-	NSArray *productOptions = productVariant.options.allValues;
+	NSArray *productOptions = productVariant.options;
 	
 	switch (productVariant.options.count) {
 		case 3:
