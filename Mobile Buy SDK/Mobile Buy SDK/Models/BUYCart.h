@@ -54,21 +54,4 @@
  */
 - (void)removeVariant:(BUYProductVariant *)variant;
 
-#pragma mark - Direct Line Item Editing
-
-/**
- *  Adds a custom-built BUYLineItem to the BUYCart that is not associated with a BUYProductVariant in the shop,
- *  for example tips, physical item that doesn't exist on the shop.
- *
- *  @param object BUYLineItem to add the the BUYCart
- */
-- (void)addLineItemsObject:(BUYLineItem *)object;
-
-/**
- *  Removes a BUYLineItem from the BUYCart, including all BUYProductVariant's
- *
- *  @param object BUYLineItem to remove from the BUYCart
- */
-- (void)removeLineItemsObject:(BUYLineItem *)object;
-
 @end

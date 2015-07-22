@@ -67,18 +67,6 @@
 	}
 }
 
-#pragma mark - Direct Line Item Editing
-
-- (void)addLineItemsObject:(BUYLineItem *)lineItem
-{
-	[self.lineItemsSet addObject:lineItem];
-}
-
-- (void)removeLineItemsObject:(BUYLineItem *)object
-{
-	[self.lineItemsSet removeObject:object];
-}
-
 #pragma mark - Helpers
 
 - (NSDictionary *)jsonDictionaryForCheckout

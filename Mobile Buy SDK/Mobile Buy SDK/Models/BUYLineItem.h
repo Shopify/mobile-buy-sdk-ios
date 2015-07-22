@@ -18,7 +18,7 @@
 
 /**
  *  BUYProductVariant identifer. Keep a reference to a cart or products if you wish to 
- *  display information for product variants
+ *  display information for product variants in a BUYCheckout
  */
 @property (nonatomic, strong, readonly) NSNumber *variantId;
 
