@@ -40,7 +40,6 @@
 @property (nonatomic, strong) BUYGradientView *topGradientView;
 @property (nonatomic, weak) UIView *navigationBar;
 @property (nonatomic, weak) UIView *navigationBarTitle;
-@property (nonatomic, strong) NSLayoutConstraint *gradientHeightConstraint;
 
 @end
 
@@ -160,6 +159,7 @@
 	
 	
 	self.topGradientView = [[BUYGradientView alloc] init];
+	self.topGradientView.topColor = [UIColor colorWithWhite:0 alpha:0.25];
 	self.topGradientView.translatesAutoresizingMaskIntoConstraints = NO;
 	[self.view addSubview:self.topGradientView];
 	
@@ -167,21 +167,10 @@
 																	  options:0
 																	  metrics:nil
 																		views:NSDictionaryOfVariableBindings(_topGradientView)]];
-	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.topGradientView
-														  attribute:NSLayoutAttributeTop
-														  relatedBy:NSLayoutRelationEqual
-															 toItem:self.view
-														  attribute:NSLayoutAttributeTop
-														 multiplier:1.0
-														   constant:0]];
-	self.gradientHeightConstraint = [NSLayoutConstraint constraintWithItem:self.topGradientView
-																 attribute:NSLayoutAttributeHeight
-																 relatedBy:NSLayoutRelationEqual
-																	toItem:nil
-																 attribute:NSLayoutAttributeNotAnAttribute
-																multiplier:1.0
-																  constant:0];
-	[self.view addConstraint:self.gradientHeightConstraint];
+	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_topGradientView(height)]|"
+																	  options:0
+																	  metrics:@{ @"height" : @114 }
+																		views:NSDictionaryOfVariableBindings(_topGradientView)]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -197,8 +186,6 @@
 			if (CGRectGetHeight(view.bounds) >= 64) {
 				// Get a reference to the UINavigationBar
 				self.navigationBar = view;
-				// Get the height for the gradient view underneath the UINavigationBar
-				self.gradientHeightConstraint.constant = CGRectGetHeight(self.navigationBar.bounds);
 				continue;
 			} else if (CGRectGetMinX(view.frame) > 0 && [view.subviews count] == 1 && [view.subviews[0] isKindOfClass:[UILabel class]]) {
 				// Get a reference to the UINavigationBar's title

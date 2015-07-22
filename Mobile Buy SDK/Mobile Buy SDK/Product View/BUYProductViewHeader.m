@@ -6,14 +6,16 @@
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 
-#import "BUYImageView.h"
 #import "BUYProductViewHeader.h"
+#import "BUYImageView.h"
+#import "BUYGradientView.h"
 
 @interface BUYProductViewHeader ()
 
 @property (nonatomic, strong) NSLayoutConstraint *productImageViewConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *productImageViewConstraintBottom;
 @property (nonatomic, strong) UIPageControl *pageControl;
+@property (nonatomic, strong) BUYGradientView *bottomGradientView;
 
 @end
 
@@ -75,7 +77,20 @@
 														multiplier:1.0
 														  constant:0.0]];
 		
+		self.bottomGradientView = [[BUYGradientView alloc] init];
+		self.bottomGradientView.topColor = [UIColor clearColor];
+		self.bottomGradientView.bottomColor = [UIColor colorWithWhite:0 alpha:0.10];
+		self.bottomGradientView.translatesAutoresizingMaskIntoConstraints = NO;
+		[self addSubview:self.bottomGradientView];
 		
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_bottomGradientView]|"
+																		  options:0
+																		  metrics:nil
+																			views:NSDictionaryOfVariableBindings(_bottomGradientView)]];
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_bottomGradientView(height)]|"
+																		  options:0
+																		  metrics:@{ @"height" : @29 }
+																			views:NSDictionaryOfVariableBindings(_bottomGradientView)]];
 	}
 	return self;
 }
