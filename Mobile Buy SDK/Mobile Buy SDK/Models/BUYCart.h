@@ -10,7 +10,6 @@
 #import "BUYSerializable.h"
 
 @class BUYLineItem;
-@class BUYCartLineItem;
 @class BUYProductVariant;
 
 /**
@@ -19,12 +18,7 @@
  */
 @interface BUYCart : NSObject <BUYSerializable>
 
-/**
- *  Array of BUYCartLineItem objects in the cart
- *  Note: These are different from BUYLineItem objects in that
- *  the line item objects do include the BUYProductVariant.
- */
-@property (nonatomic, strong, readonly) NSArray *lineItems;
+@property (nonatomic, readonly, copy) NSArray *lineItems;
 
 /**
  *  Returns true if the cart is acceptable to send to Shopify.
@@ -39,18 +33,18 @@
 #pragma mark - Simple Cart Editing
 
 /**
- *  Adds a BUYCartLineItem to the BUYCart with the given BUYProductVariant object on it.
- *  If the associated BUYCartLineItem exists, that BUYCartLineItem's quantity is increased by one.
+ *  Adds a BUYProductVariant to the BUYCart.
+ *  If the associated BUYLineItem exists, that BUYLineItem's quantity is increased by one.
  *
- *  @param variant The BUYProductVariant to add to the BUYCart or increase by one quantity
+ *  @param variant The BUYProductVariant to add to the BUYCart
  */
 - (void)addVariant:(BUYProductVariant *)variant;
 
 /**
- *  Removes the BUYCartLineItem from the BUYCart associated with the given BUYProductVariant object.
- *  If the associated BUYCartLineItem exists, that BUYCartLineItem's quantity is decreased by one.
+ *  Removes a BUYProductVariant from the BUYCart.
+ *  If the associated BUYLineItem exists, that BUYLineItem's quantity is decreased by one.
  *
- *  @param variant The BUYProductVariant to remove from the BUYCart or decrease by one quantity
+ *  @param variant The BUYProductVariant to remove from the BUYCart
  */
 - (void)removeVariant:(BUYProductVariant *)variant;
 
