@@ -32,7 +32,7 @@
 //		theme.tintColor = [UIColor colorWithRed:0.48 green:0.71 blue:0.36 alpha:1];
 //		theme.style = BUYThemeStyleDark;
 //		productViewController.theme = theme;
-		[productViewController loadProduct:@"595444547" completion:^(BOOL success, NSError *error) {
+		[productViewController loadProduct:@"1550472835" completion:^(BOOL success, NSError *error) {
 			[self presentViewController:productViewController animated:YES completion:NULL];
 		}];
 	});

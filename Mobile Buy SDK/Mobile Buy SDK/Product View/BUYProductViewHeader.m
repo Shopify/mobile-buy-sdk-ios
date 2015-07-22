@@ -115,7 +115,7 @@
 	if (self.productImageView.image.size.height >= self.productImageView.image.size.width) {
 		CGFloat imageRatio = self.productImageView.image.size.height / self.productImageView.image.size.width;
 		CGFloat imageViewRatio = CGRectGetHeight(self.productImageView.bounds) / CGRectGetWidth(self.productImageView.bounds);
-		if (imageViewRatio >= imageRatio || isnan(imageViewRatio)) {
+		if (imageViewRatio >= imageRatio) {
 			self.productImageView.contentMode = UIViewContentModeScaleAspectFill;
 		} else {
 			self.productImageView.contentMode = UIViewContentModeScaleAspectFit;

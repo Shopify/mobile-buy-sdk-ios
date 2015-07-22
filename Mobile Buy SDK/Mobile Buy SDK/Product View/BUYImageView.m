@@ -22,7 +22,22 @@
 		if (error == nil && data) {
 			UIImage *productImage = [UIImage imageWithData:data];
 			dispatch_async(dispatch_get_main_queue(), ^{
-				self.image = productImage;
+				if (self.image) {
+					[UIView transitionWithView:self
+									  duration:0.1f
+									   options:UIViewAnimationOptionTransitionCrossDissolve
+									animations:^{
+										self.image = productImage;
+									}
+									completion:nil];
+				} else {
+					self.alpha = 0.0f;
+					self.image = productImage;
+					[UIView animateWithDuration:0.15f
+									 animations:^{
+										 self.alpha = 1.0f;
+									 }];
+				}
 				if (completion) {
 					completion(productImage, nil);
 				}

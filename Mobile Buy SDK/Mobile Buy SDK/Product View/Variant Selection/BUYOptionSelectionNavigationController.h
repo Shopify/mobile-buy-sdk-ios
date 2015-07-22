@@ -12,4 +12,6 @@
 
 @interface BUYOptionSelectionNavigationController : BUYNavigationController <BUYThemeable>
 
+@property (nonatomic, assign) BOOL dismissWithCancelAnimation;
+
 @end

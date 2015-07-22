@@ -26,6 +26,7 @@
 @property (nonatomic, strong) BUYProductVariant *selectedProductVariant;
 @property (nonatomic, strong) BUYTheme *theme;
 @property (nonatomic, assign) BOOL shouldShowVariantSelector;
+@property (nonatomic, assign) BOOL shouldShowDescription;
 @property (nonatomic, strong) BUYProduct *product;
 @property (nonatomic, assign) BOOL isLoading;
 
@@ -292,6 +293,7 @@
 	[self scrollViewDidScroll:self.tableView];
 	self.selectedProductVariant = [_product.variants firstObject];
 	self.shouldShowVariantSelector = [_product isDefaultVariant] == NO;
+	self.shouldShowDescription = ([_product.htmlDescription length] == 0) == NO;
 }
 
 - (void)setShop:(BUYShop *)shop
@@ -309,11 +311,9 @@
 {
 	NSInteger rows = 0;
 	if (self.product) {
-		if (self.shouldShowVariantSelector) {
-			rows = 3;
-		} else {
-			rows = 2;
-		}
+		rows += 1; // product title and price
+		rows += self.shouldShowVariantSelector;
+		rows += self.shouldShowDescription;
 	}
 	return rows;
 }
@@ -327,13 +327,11 @@
 		cell.currency = self.shop.currency;
 		cell.productVariant = self.selectedProductVariant;
 		theCell = cell;
-	}
-	else if (indexPath.row == 1 && self.shouldShowVariantSelector) {
+	} else if (indexPath.row == 1 && self.shouldShowVariantSelector) {
 		BUYProductVariantCell *cell = [tableView dequeueReusableCellWithIdentifier:@"variantCell"];
 		cell.productVariant = self.selectedProductVariant;
 		theCell = cell;
-	}
-	else {
+	} else if ((indexPath.row == 2 && self.shouldShowDescription) || (indexPath.row == 1 && self.shouldShowVariantSelector == NO && self.shouldShowDescription)) {
 		BUYProductDescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"descriptionCell"];
 		cell.descriptionHTML = self.product.htmlDescription;
 		cell.separatorInset = UIEdgeInsetsMake(0, CGRectGetWidth(self.tableView.bounds), 0, 0);
@@ -384,7 +382,23 @@
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", image.src]];
 	[self.productViewHeader.productImageView loadImageWithURL:url
 												   completion:^(UIImage *image, NSError *error) {
-													   self.backgroundImageView.productImageView.image = image;
+													   [self.productViewHeader setContentOffset:self.tableView.contentOffset];
+													   if (self.backgroundImageView.productImageView.image) {
+														   [UIView transitionWithView:self.backgroundImageView.productImageView
+																			 duration:0.1f
+																			  options:UIViewAnimationOptionTransitionCrossDissolve
+																		   animations:^{
+																			   self.backgroundImageView.productImageView.image = image;
+																		   }
+																		   completion:nil];
+													   } else {
+														   self.backgroundImageView.productImageView.alpha = 0.0f;
+														   self.backgroundImageView.productImageView.image = image;
+														   [UIView animateWithDuration:0.15f
+																			animations:^{
+																				self.backgroundImageView.productImageView.alpha = 1.0f;
+																			}];
+													   }
 													   [self.productViewHeader setContentOffset:self.tableView.contentOffset];
 												   }];
 }

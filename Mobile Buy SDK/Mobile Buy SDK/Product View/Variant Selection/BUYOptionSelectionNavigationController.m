@@ -71,11 +71,11 @@
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext
 {
-	UIViewController *presentedController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+	UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
 	
-	if (presentedController == self) {
-		UIView *presentedView = presentedController.view;
-		CGRect finalRect = [transitionContext finalFrameForViewController:presentedController];
+	if (toViewController == self) {
+		UIView *presentedView = toViewController.view;
+		CGRect finalRect = [transitionContext finalFrameForViewController:toViewController];
 		presentedView.frame = finalRect;
 		presentedView.alpha = 0.0;
 		
@@ -89,16 +89,30 @@
 	}
 	else {
 		UIView *dismissedView = [transitionContext viewForKey:UITransitionContextFromViewKey];
+		CGRect frame = dismissedView.frame;
+		CGAffineTransform transform;
+		BUYOptionSelectionNavigationController *optionSelectionNavigationController = (BUYOptionSelectionNavigationController *)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+		if (optionSelectionNavigationController.dismissWithCancelAnimation) {
+			frame.origin.y += 150;
+			int angle = (int)arc4random_uniform(20) - 10;
+			transform = CGAffineTransformMakeRotation(((angle) / 180.0 * M_PI));
+		} else {
+			transform = CGAffineTransformMakeScale(2, 2);
+		}
 		[UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
-			CGRect frame = dismissedView.frame;
-			frame.origin.y += 50;
 			dismissedView.frame = frame;
+			dismissedView.transform = transform;
 			dismissedView.alpha = 0.0;
 		} completion:^(BOOL finished) {
 			[dismissedView removeFromSuperview];
 			[transitionContext completeTransition:finished];
 		}];
 	}
+}
+
+- (float)randomFloatBetween:(float)smallNumber and:(float)bigNumber {
+	float diff = bigNumber - smallNumber;
+	return (((float) (arc4random() % ((unsigned)RAND_MAX + 1)) / RAND_MAX) * diff) + smallNumber;
 }
 
 @end
