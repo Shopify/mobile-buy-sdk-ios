@@ -332,11 +332,17 @@ NSString * const BUYVersionString = @"1.1";
 - (NSURLSessionDataTask*)completeCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
 	NSURLSessionDataTask *task = nil;
-	if ([checkout hasToken] && [checkout.paymentSessionId length] > 0) {
-		NSDictionary *paymentJson = @{ @"payment_session_id" : checkout.paymentSessionId };
+	if ([checkout hasToken]) {
+		
+		NSData *data = nil;
 		NSError *error = nil;
-		NSData *data = [NSJSONSerialization dataWithJSONObject:paymentJson options:0 error:&error];
-		if (data && error == nil) {
+
+		if (checkout.paymentSessionId.length > 0) {
+			NSDictionary *paymentJson = @{ @"payment_session_id" : checkout.paymentSessionId };
+		    data = [NSJSONSerialization dataWithJSONObject:paymentJson options:0 error:&error];
+		}
+
+		if ((data && error == nil) || checkout.paymentDue.floatValue == 0) {
 			task = [self checkoutCompletionRequestWithCheckout:checkout body:data completion:block];
 		}
 	}
