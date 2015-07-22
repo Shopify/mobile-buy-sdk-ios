@@ -87,7 +87,7 @@
 														   constant:0.0]];
 	
 	self.stickyFooterView = [UIView new];
-	self.stickyFooterView.backgroundColor = (self.theme.style == BUYThemeStyleDark) ? [UIColor blackColor] : [UIColor whiteColor];;
+	self.stickyFooterView.backgroundColor = (self.theme.style == BUYThemeStyleDark) ? [UIColor blackColor] : [UIColor whiteColor];
 	self.stickyFooterView.translatesAutoresizingMaskIntoConstraints = NO;
 	[self.view addSubview:self.stickyFooterView];
 	
@@ -361,8 +361,9 @@
 {
 	[controller dismissViewControllerAnimated:YES completion:NULL];
 	self.selectedProductVariant = variant;
-	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0], [NSIndexPath indexPathForRow:1 inSection:0]]
-						  withRowAnimation:UITableViewRowAnimationFade];
+	[self.tableView reloadData];
+//	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0], [NSIndexPath indexPathForRow:1 inSection:0]]
+//						  withRowAnimation:UITableViewRowAnimationFade];
 }
 
 - (void)variantSelectionControllerDidCancelVariantSelection:(BUYVariantSelectionViewController *)controller atOptionIndex:(NSUInteger)optionIndex
@@ -415,9 +416,11 @@
 			footerViewHeight = scrollView.contentSize.height;
 			footerViewHeight = MIN(CGRectGetHeight(self.view.bounds) - CGRectGetHeight(self.tableView.tableHeaderView.bounds), scrollView.contentSize.height);
 		}
-		self.footerHeightLayoutConstraint.constant = footerViewHeight;
-		self.footerOffsetLayoutConstraint.constant = -footerViewHeight;
+	} else {
+		footerViewHeight = 0;
 	}
+	self.footerHeightLayoutConstraint.constant = footerViewHeight;
+	self.footerOffsetLayoutConstraint.constant = -footerViewHeight;
 	
 	if (self.navigationBar) {
 		CGFloat navigationBarHeight = CGRectGetHeight(self.navigationBar.bounds);
