@@ -86,8 +86,8 @@
 														   constant:0.0]];
 	
 	self.stickyFooterView = [UIView new];
+	self.stickyFooterView.backgroundColor = (self.theme.style == BUYThemeStyleDark) ? [UIColor blackColor] : [UIColor whiteColor];;
 	self.stickyFooterView.translatesAutoresizingMaskIntoConstraints = NO;
-	self.stickyFooterView.backgroundColor = [UIColor whiteColor];
 	[self.view addSubview:self.stickyFooterView];
 	
 	self.footerHeightLayoutConstraint = [NSLayoutConstraint constraintWithItem:self.stickyFooterView
@@ -124,6 +124,7 @@
 	self.tableView.estimatedRowHeight = 60.0;
 	self.tableView.rowHeight = UITableViewAutomaticDimension;
 	self.tableView.tableFooterView = [UIView new];
+	self.tableView.layoutMargins = UIEdgeInsetsMake(0, 16, 0, 12);
 	[self.view addSubview:self.tableView];
 	
 	[self.tableView registerClass:[BUYProductHeaderCell class] forCellReuseIdentifier:@"headerCell"];
@@ -207,9 +208,10 @@
 - (void)setTheme:(BUYTheme *)theme
 {
 	_theme = theme;
-	self.view.tintColor = theme.tintColor;
-	UIColor *backgroundColor = (theme.style == BUYThemeStyleDark) ? [UIColor blackColor] : [UIColor whiteColor];
-	self.stickyFooterView.backgroundColor = backgroundColor;
+	_theme.style = BUYThemeStyleDark;
+	self.view.tintColor = _theme.tintColor;
+	UIColor *backgroundColor = (_theme.style == BUYThemeStyleDark) ? [UIColor colorWithWhite:0.192 alpha:1.000] : [UIColor colorWithWhite:0.873 alpha:1.000];
+	self.stickyFooterView.backgroundColor = (_theme.style == BUYThemeStyleDark) ? [UIColor blackColor] : [UIColor whiteColor];;
 	self.view.backgroundColor = backgroundColor;
 
 }
@@ -397,6 +399,7 @@
 		// when the table view is initially displayed we don't get the correct bounds, so we need to force the footer view to display below the table view on the first view
 		if (scrollView.bounds.size.height == 0) {
 			footerViewHeight = scrollView.contentSize.height;
+			footerViewHeight = MIN(CGRectGetHeight(self.view.bounds) - CGRectGetHeight(self.tableView.tableHeaderView.bounds), scrollView.contentSize.height);
 		}
 		self.footerHeightLayoutConstraint.constant = footerViewHeight;
 		self.footerOffsetLayoutConstraint.constant = -footerViewHeight;

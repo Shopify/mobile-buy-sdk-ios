@@ -24,6 +24,8 @@
 	if (self) {
 		self.selectionStyle = UITableViewCellSelectionStyleNone;
 		
+		self.layoutMargins = UIEdgeInsetsMake(12, self.layoutMargins.left, 12, self.layoutMargins.right);
+		
 		_descriptionLabel = [[UILabel alloc] init];
 		_descriptionLabel.translatesAutoresizingMaskIntoConstraints = NO;
 		_descriptionLabel.backgroundColor = [UIColor whiteColor];

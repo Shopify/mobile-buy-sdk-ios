@@ -26,7 +26,7 @@
 	self = [super init];
 	if (self) {
 		self.backgroundColor = [UIColor clearColor];
-				
+		
 		self.productImageView = [[BUYImageView alloc] init];
 		self.productImageView.clipsToBounds = YES;
 		self.productImageView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -84,13 +84,13 @@
 		[self addSubview:self.bottomGradientView];
 		
 		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_bottomGradientView]|"
-																		  options:0
-																		  metrics:nil
-																			views:NSDictionaryOfVariableBindings(_bottomGradientView)]];
+																	 options:0
+																	 metrics:nil
+																	   views:NSDictionaryOfVariableBindings(_bottomGradientView)]];
 		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_bottomGradientView(height)]|"
-																		  options:0
-																		  metrics:@{ @"height" : @29 }
-																			views:NSDictionaryOfVariableBindings(_bottomGradientView)]];
+																	 options:0
+																	 metrics:@{ @"height" : @29 }
+																	   views:NSDictionaryOfVariableBindings(_bottomGradientView)]];
 	}
 	return self;
 }
