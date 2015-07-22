@@ -342,7 +342,7 @@ NSString * const BUYVersionString = @"1.1";
 		    data = [NSJSONSerialization dataWithJSONObject:paymentJson options:0 error:&error];
 		}
 
-		if ((data && error == nil) || checkout.paymentDue.floatValue == 0) {
+		if ((data && error == nil) || (checkout.paymentDue && checkout.paymentDue.floatValue == 0)) {
 			task = [self checkoutCompletionRequestWithCheckout:checkout body:data completion:block];
 		}
 	}

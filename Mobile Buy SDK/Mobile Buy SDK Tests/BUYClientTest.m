@@ -151,4 +151,13 @@
 	}];
 }
 
+
+- (void)testCheckoutPaymentWithOnlyGiftCard
+{
+	BUYCheckout *checkout = [[BUYCheckout alloc] initWithDictionary:@{@"token": @"abcdef", @"payment_due": @0}];
+	
+	NSURLSessionDataTask *task = [_client completeCheckout:checkout completion:nil];
+	XCTAssertNotNil(task);
+}
+
 @end
