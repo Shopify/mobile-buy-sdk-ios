@@ -26,7 +26,7 @@
 	}];
 	_images = [BUYImage convertJSONArray:dictionary[@"images"]];
 	_options = [BUYOption convertJSONArray:dictionary[@"options"]];
-	_htmlDescription = dictionary[@"body_html"];
+	_htmlDescription = [dictionary[@"body_html"] isKindOfClass:[NSNull class]] ? nil : dictionary[@"body_html"];
 	_available = [dictionary[@"available"] boolValue];
 }
 
