@@ -17,4 +17,11 @@
  */
 - (BOOL)testIntegrationWithMerchantId:(NSString *)merchantId;
 
+/**
+ *   Test the integration with your shop.  This should not be shipped in production code.  This is a syncronous network call.
+ *
+ *  @return YES on success
+ */
+- (BOOL)testIntegration __attribute__((deprecated("Use testIntegrationWithMerchantId: instead")));
+
 @end

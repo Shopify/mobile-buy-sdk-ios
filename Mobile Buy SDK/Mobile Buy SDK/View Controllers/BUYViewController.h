@@ -110,7 +110,7 @@
 @property (nonatomic, strong) BUYShop *shop;
 
 /**
- *  The merchant ID used for Apple Pay.  This is set by calling `enableApplePayWithMerchantId:`
+ *  The merchant ID used for Apple Pay
  */
 @property (nonatomic, strong) NSString *merchantId;
 
