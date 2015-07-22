@@ -13,7 +13,7 @@
 
 namespace shopify
 {
-	namespace checkout
+	namespace mobilebuysdk
 	{
 		/**
 		 * Creates and returns a block that is used as the setter method for the persisted subclasses
@@ -126,72 +126,72 @@ namespace shopify
 	switch (typeEncoding[0]) {
 		case '@': // object
 		{
-			setterBlock = shopify::checkout::attribute_setter<id>(property, selector);
+			setterBlock = shopify::mobilebuysdk::attribute_setter<id>(property, selector);
 			break;
 		}
 		case 'B': // C++ style bool/_Bool
 		{
-			setterBlock = shopify::checkout::attribute_setter<bool>(property, selector);
+			setterBlock = shopify::mobilebuysdk::attribute_setter<bool>(property, selector);
 			break;
 		}
 		case 'c': // char
 		{
-			setterBlock = shopify::checkout::attribute_setter<char>(property, selector);
+			setterBlock = shopify::mobilebuysdk::attribute_setter<char>(property, selector);
 			break;
 		}
 		case 'C': // unsigned char
 		{
-			setterBlock = shopify::checkout::attribute_setter<unsigned char>(property, selector);
+			setterBlock = shopify::mobilebuysdk::attribute_setter<unsigned char>(property, selector);
 			break;
 		}
 		case 'i': // int
 		{
-			setterBlock = shopify::checkout::attribute_setter<int>(property, selector);
+			setterBlock = shopify::mobilebuysdk::attribute_setter<int>(property, selector);
 			break;
 		}
 		case 'I': // unsigned int
 		{
-			setterBlock = shopify::checkout::attribute_setter<unsigned int>(property, selector);
+			setterBlock = shopify::mobilebuysdk::attribute_setter<unsigned int>(property, selector);
 			break;
 		}
 		case 's': // short
 		{
-			setterBlock = shopify::checkout::attribute_setter<short>(property, selector);
+			setterBlock = shopify::mobilebuysdk::attribute_setter<short>(property, selector);
 			break;
 		}
 		case 'S': // unsigned short
 		{
-			setterBlock = shopify::checkout::attribute_setter<unsigned short>(property, selector);
+			setterBlock = shopify::mobilebuysdk::attribute_setter<unsigned short>(property, selector);
 			break;
 		}
 		case 'l': // long
 		{
-			setterBlock = shopify::checkout::attribute_setter<long>(property, selector);
+			setterBlock = shopify::mobilebuysdk::attribute_setter<long>(property, selector);
 			break;
 		}
 		case 'L': // unsigned long
 		{
-			setterBlock = shopify::checkout::attribute_setter<unsigned long>(property, selector);
+			setterBlock = shopify::mobilebuysdk::attribute_setter<unsigned long>(property, selector);
 			break;
 		}
 		case 'q': // long long
 		{
-			setterBlock = shopify::checkout::attribute_setter<long long>(property, selector);
+			setterBlock = shopify::mobilebuysdk::attribute_setter<long long>(property, selector);
 			break;
 		}
 		case 'Q': // unsigned long long
 		{
-			setterBlock = shopify::checkout::attribute_setter<unsigned long long>(property, selector);
+			setterBlock = shopify::mobilebuysdk::attribute_setter<unsigned long long>(property, selector);
 			break;
 		}
 		case 'f': // float
 		{
-			setterBlock = shopify::checkout::attribute_setter<float>(property, selector);
+			setterBlock = shopify::mobilebuysdk::attribute_setter<float>(property, selector);
 			break;
 		}
 		case 'd': // double
 		{
-			setterBlock = shopify::checkout::attribute_setter<double>(property, selector);
+			setterBlock = shopify::mobilebuysdk::attribute_setter<double>(property, selector);
 			break;
 		}
 	}
