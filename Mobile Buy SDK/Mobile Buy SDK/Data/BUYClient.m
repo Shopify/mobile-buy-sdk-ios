@@ -339,7 +339,7 @@ NSString * const BUYVersionString = @"1.1";
 
 		if (checkout.paymentSessionId.length > 0) {
 			NSDictionary *paymentJson = @{ @"payment_session_id" : checkout.paymentSessionId };
-		    data = [NSJSONSerialization dataWithJSONObject:paymentJson options:0 error:&error];
+			data = [NSJSONSerialization dataWithJSONObject:paymentJson options:0 error:&error];
 		}
 
 		if ((data && error == nil) || checkout.paymentDue.floatValue == 0) {
