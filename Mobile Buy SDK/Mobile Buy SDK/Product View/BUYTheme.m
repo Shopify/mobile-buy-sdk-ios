@@ -17,7 +17,7 @@
 	if (self) {
 		self.tintColor = [UIColor colorWithRed:0.48f green:0.71f blue:0.36f alpha:1.0f];
 		self.style = BUYThemeStyleLight;
-		self.productImageBackground = NO;
+		self.productImageBackground = YES;
 	}
 	
 	return self;
