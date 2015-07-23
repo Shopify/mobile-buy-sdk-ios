@@ -12,12 +12,15 @@
 #import "BUYTheme.h"
 #import "BUYPresentationControllerForVariantSelection.h"
 #import "BUYOptionSelectionNavigationController.h"
+#import "BUYImageKit.h"
+#import "BUYProductVariant+Options.h"
 
 @interface BUYVariantSelectionViewController () <BUYOptionSelectionDelegate>
 
 @property (nonatomic, strong) BUYProduct *product;
 @property (nonatomic, weak) BUYTheme *theme;
 @property (nonatomic, strong) NSMutableDictionary *selectedOptions;
+@property (nonatomic, assign) BOOL changedOptionSelection;
 
 @end
 
@@ -43,7 +46,12 @@
 	[super viewDidLoad];
 	
 	BUYOptionSelectionViewController *controller = [self nextOptionSelectionController];
-	controller.navigationItem.hidesBackButton = YES;
+	
+	// Add close button
+	UIImage *closeButton = [BUYImageKit imageOfVariantCloseImageWithFrame:CGRectMake(0, 0, 18, 18)];
+	UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithImage:closeButton style:UIBarButtonItemStylePlain target:self action:@selector(dismissPopover)];
+	barButtonItem.tintColor = [UIColor colorWithWhite:(float)(152.0/255.0) alpha:1.0];
+	controller.navigationItem.leftBarButtonItem = barButtonItem;
 	[self.navigationController pushViewController:controller animated:NO];
 	
 	BUYOptionSelectionNavigationController *navigationController = (BUYOptionSelectionNavigationController*)self.navigationController;
@@ -64,6 +72,12 @@
 	return self.product.options.count > index;
 }
 
+- (BOOL)isLastOption
+{
+	NSUInteger index = self.selectedOptions.count;
+	return self.product.options.count-1 == index;
+}
+
 - (BUYOptionSelectionViewController *)nextOptionSelectionController
 {
 	NSUInteger index = self.selectedOptions.count;
@@ -72,6 +86,9 @@
 	NSArray *options = [self.product valuesForOption:option];
 	BUYOptionSelectionViewController *optionController = [[BUYOptionSelectionViewController alloc] initWithOptionValues:options theme:self.theme];
 	optionController.delegate = self;
+	optionController.selectedOptionValue = self.changedOptionSelection ? nil : [self.selectedProductVariant optionValueForName:option.name];
+	optionController.isLastOption = [self isLastOption];
+	
 	return optionController;
 }
 
@@ -87,8 +104,9 @@
 
 - (void)optionSelectionController:(BUYOptionSelectionViewController *)controller didSelectOption:(BUYOptionValue *)option
 {
+	self.changedOptionSelection |= ![controller.selectedOptionValue.value isEqualToString:option.value];
 	self.selectedOptions[option.name] = option;
-	
+
 	if ([self hasNextOption]) {
 		[self presentNextOption];
 	}

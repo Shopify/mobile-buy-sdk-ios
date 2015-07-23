@@ -26,6 +26,8 @@
 
 @property (nonatomic, strong, readonly) BUYProduct *product;
 
+@property (nonatomic, strong) BUYProductVariant *selectedProductVariant;
+
 @property (nonatomic, weak) id <BUYVariantSelectionDelegate> delegate;
 
 @end

@@ -42,6 +42,7 @@ NSString * const BUYVersionString = @"1.1";
 @property (nonatomic, strong) NSString *channelId;
 
 @property (nonatomic, strong) NSURLSession *session;
+@property (nonatomic, strong) NSString *merchantId;
 
 @end
 
@@ -584,6 +585,13 @@ NSString * const BUYVersionString = @"1.1";
 	else {
 		completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, NULL);
 	}
+}
+
+#pragma mark - Deprecations
+
+- (void)enableApplePayWithMerchantId:(NSString *)merchantId
+{
+	self.merchantId = merchantId;
 }
 
 @end

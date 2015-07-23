@@ -8,6 +8,7 @@
 
 #import "BUYOptionSelectionNavigationController.h"
 #import "BUYPresentationControllerForVariantSelection.h"
+#import "BUYImageKit.h"
 
 @interface BUYOptionSelectionNavigationController () <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
 
@@ -24,6 +25,14 @@
 		self.transitioningDelegate = self;
 		self.view.layer.cornerRadius = 4.0;
 		self.view.clipsToBounds = YES;
+		
+		// Add custom back button
+		UIImage *buttonImage = [BUYImageKit imageOfVariantBackImageWithFrame:CGRectMake(0, 0, 12, 18)];
+		[[UIBarButtonItem appearanceWhenContainedIn:[BUYNavigationController class], nil]
+		 setBackButtonBackgroundImage:[buttonImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 12, 0, 0)]
+														  forState:UIControlStateNormal
+														barMetrics:UIBarMetricsDefault];
+		
 	}
 	
 	return self;
