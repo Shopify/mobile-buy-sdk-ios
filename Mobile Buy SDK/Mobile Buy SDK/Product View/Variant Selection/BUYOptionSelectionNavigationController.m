@@ -94,7 +94,7 @@
 		BUYOptionSelectionNavigationController *optionSelectionNavigationController = (BUYOptionSelectionNavigationController *)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
 		if (optionSelectionNavigationController.dismissWithCancelAnimation) {
 			frame.origin.y += 150;
-			float angle = (int)arc4random_uniform(20.0f) - 10.0f;
+			CGFloat angle = arc4random_uniform(20.0f) - 10.0f;
 			transform = CGAffineTransformMakeRotation(((angle) / 180.0f * M_PI));
 		} else {
 			transform = CGAffineTransformMakeScale(2, 2);

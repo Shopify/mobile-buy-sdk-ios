@@ -412,7 +412,6 @@
 	if (footerViewHeight >= 0 || -footerViewHeight == scrollView.contentSize.height) {
 		// when the table view is initially displayed we don't get the correct bounds, so we need to force the footer view to display below the table view on the first view
 		if (scrollView.bounds.size.height == 0) {
-			footerViewHeight = scrollView.contentSize.height;
 			footerViewHeight = MIN(CGRectGetHeight(self.view.bounds) - CGRectGetHeight(self.tableView.tableHeaderView.bounds), scrollView.contentSize.height);
 		}
 	} else {
