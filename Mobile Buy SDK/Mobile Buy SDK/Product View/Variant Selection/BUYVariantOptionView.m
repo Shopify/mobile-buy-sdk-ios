@@ -28,7 +28,7 @@
 		_optionNameLabel = [[UILabel alloc] init];
 		_optionNameLabel.textColor = [UIColor colorWithWhite:0.6f alpha:1];
 		_optionNameLabel.translatesAutoresizingMaskIntoConstraints = NO;
-		[_optionNameLabel setFont:[UIFont systemFontOfSize:12.0]];
+		[_optionNameLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleCaption2]];
 		[self addSubview:_optionNameLabel];
 		
 		// Configure option value label
@@ -36,7 +36,7 @@
 		_optionValueLabel.textColor = self.tintColor;
 		_optionValueLabel.translatesAutoresizingMaskIntoConstraints = NO;
 
-		[_optionValueLabel setFont:[UIFont systemFontOfSize:16.0]];
+		[_optionValueLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline]];
 		[self addSubview:_optionValueLabel];
 		
 		NSDictionary *views = NSDictionaryOfVariableBindings(_optionNameLabel, _optionValueLabel);
