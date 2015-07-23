@@ -40,8 +40,7 @@
 		[self addSubview:_optionValueLabel];
 		
 		NSDictionary *views = NSDictionaryOfVariableBindings(_optionNameLabel, _optionValueLabel);
-		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_optionNameLabel]-[_optionValueLabel]|" options:NSLayoutFormatAlignAllLeading metrics:nil views:views]];
-
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_optionNameLabel]-(3)-[_optionValueLabel]|" options:NSLayoutFormatAlignAllLeading metrics:nil views:views]];
 		
 		[self addConstraint:[NSLayoutConstraint constraintWithItem:_optionNameLabel attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.0]];
 		[self addConstraint:[NSLayoutConstraint constraintWithItem:_optionValueLabel attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.0]];
