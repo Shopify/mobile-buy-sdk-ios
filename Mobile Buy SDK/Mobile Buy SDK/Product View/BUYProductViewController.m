@@ -211,7 +211,7 @@
 {
 	_theme = theme;
 	self.view.tintColor = _theme.tintColor;
-	UIColor *backgroundColor = (_theme.style == BUYThemeStyleDark) ? [UIColor colorWithWhite:0.192f alpha:1.000f] : [UIColor colorWithWhite:0.873f alpha:1.000f];
+	UIColor *backgroundColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(64, 64, 64) : BUY_RGB(229, 229, 229);
 	self.stickyFooterView.backgroundColor = (_theme.style == BUYThemeStyleDark) ? [UIColor blackColor] : [UIColor whiteColor];;
 	self.view.backgroundColor = backgroundColor;
 	self.backgroundImageView.hidden = _theme.productImageBackground == NO;
