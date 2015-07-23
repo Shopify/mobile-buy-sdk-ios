@@ -34,9 +34,7 @@
     self.title = @"Products";
     
     // Initialize the Buy SDK
-    self.client = [[BUYClient alloc] initWithShopDomain:@"davidmuzi.myshopify.com"
-                                                 apiKey:@"ad30d5343ef86e2b4babef12f1d90d13"
-                                              channelId:@"237698"];
+    self.client = [[BUYClient alloc] initWithShopDomain:SHOP_DOMAIN apiKey:API_KEY channelId:CHANNEL_ID];
     self.client.urlScheme = @"sampleapp://";
     
     // Get the list of products
