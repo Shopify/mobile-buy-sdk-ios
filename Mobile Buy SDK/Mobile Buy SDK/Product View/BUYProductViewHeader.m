@@ -79,7 +79,7 @@
 		
 		self.bottomGradientView = [[BUYGradientView alloc] init];
 		self.bottomGradientView.topColor = [UIColor clearColor];
-		self.bottomGradientView.bottomColor = [UIColor colorWithWhite:0 alpha:0.10];
+		self.bottomGradientView.bottomColor = [UIColor colorWithWhite:0 alpha:0.10f];
 		self.bottomGradientView.translatesAutoresizingMaskIntoConstraints = NO;
 		[self addSubview:self.bottomGradientView];
 		

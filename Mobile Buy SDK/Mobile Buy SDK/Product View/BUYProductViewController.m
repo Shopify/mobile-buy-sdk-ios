@@ -210,7 +210,7 @@
 {
 	_theme = theme;
 	self.view.tintColor = _theme.tintColor;
-	UIColor *backgroundColor = (_theme.style == BUYThemeStyleDark) ? [UIColor colorWithWhite:0.192 alpha:1.000] : [UIColor colorWithWhite:0.873 alpha:1.000];
+	UIColor *backgroundColor = (_theme.style == BUYThemeStyleDark) ? [UIColor colorWithWhite:0.192f alpha:1.000] : [UIColor colorWithWhite:0.873f alpha:1.000];
 	self.stickyFooterView.backgroundColor = (_theme.style == BUYThemeStyleDark) ? [UIColor blackColor] : [UIColor whiteColor];;
 	self.view.backgroundColor = backgroundColor;
 
