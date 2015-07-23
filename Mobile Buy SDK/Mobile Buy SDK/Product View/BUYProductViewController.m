@@ -19,6 +19,7 @@
 #import "BUYProductVariantCell.h"
 #import "BUYProductDescriptionCell.h"
 #import "BUYVariantSelectionViewController.h"
+#import "BUYImageKit.h"
 
 @interface BUYProductViewController () <UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, BUYVariantSelectionDelegate, BUYPresentationControllerWithNavigationControllerDelegate>
 
@@ -361,10 +362,12 @@
 		[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 		// TODO: Get this navigation controller inside the BUYVariantSelectionViewController so it takes care of it's own presentation
 		BUYVariantSelectionViewController *optionSelectionViewController = [[BUYVariantSelectionViewController alloc] initWithProduct:self.product theme:self.theme];
+		optionSelectionViewController.selectedProductVariant = self.selectedProductVariant;
 		optionSelectionViewController.delegate = self;
 		BUYOptionSelectionNavigationController *optionSelectionNavigationController = [[BUYOptionSelectionNavigationController alloc] initWithRootViewController:optionSelectionViewController];
 		[optionSelectionNavigationController setTheme:self.theme];
-		[self presentViewController:optionSelectionNavigationController animated:YES completion:^{}];
+		
+		[self presentViewController:optionSelectionNavigationController animated:YES completion:nil];
 	}
 }
 

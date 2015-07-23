@@ -256,7 +256,13 @@
 - (PKPaymentRequest *)paymentRequest
 {
 	PKPaymentRequest *paymentRequest = [[PKPaymentRequest alloc] init];
-	[paymentRequest setMerchantIdentifier:self.merchantId];
+	
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+	NSString *merchantId = self.client.merchantId ? : self.merchantId;
+#pragma GCC diagnostic pop
+	
+	[paymentRequest setMerchantIdentifier:merchantId];
 	[paymentRequest setRequiredBillingAddressFields:PKAddressFieldAll];
 	[paymentRequest setRequiredShippingAddressFields:_checkout.requiresShipping ? PKAddressFieldAll : PKAddressFieldEmail|PKAddressFieldPhone];
 	[paymentRequest setSupportedNetworks:self.supportedNetworks];

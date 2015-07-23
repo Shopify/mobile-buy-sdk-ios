@@ -7,6 +7,7 @@
 //
 
 #import "BUYProduct+Options.h"
+#import "BUYProductVariant+Options.h"
 
 @implementation BUYProduct (Options)
 
@@ -16,7 +17,7 @@
 	
 	for (BUYProductVariant *variant in self.variants) {
 		
-		BUYOptionValue *optionValue = variant.options[option.name];
+		BUYOptionValue *optionValue = [variant optionValueForName:option.name];
 		[set addObject:optionValue];
 	}
 	
@@ -33,7 +34,8 @@
 		
 		for (BUYOptionValue *value in options) {
 			
-			if (![aVariant.options[value.name] isEqual:value]) {
+			BUYOptionValue *optionValue = [aVariant optionValueForName:value.name];
+			if (![optionValue isEqual:value]) {
 				match = NO;
 				break;
 			}
@@ -42,7 +44,6 @@
 		if (match) {
 			variant = aVariant;
 		}
-		
 	}
 	
 	return variant;

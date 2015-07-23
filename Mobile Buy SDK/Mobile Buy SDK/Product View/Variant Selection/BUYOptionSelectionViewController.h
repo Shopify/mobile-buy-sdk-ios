@@ -26,6 +26,10 @@
 
 @property (nonatomic, strong, readonly) NSArray *optionValues;
 
+@property (nonatomic, strong) BUYOptionValue *selectedOptionValue;
+
+@property (nonatomic, assign) BOOL isLastOption;
+
 @property (nonatomic, weak) id <BUYOptionSelectionDelegate> delegate;
 
 @end
