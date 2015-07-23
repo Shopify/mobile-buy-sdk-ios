@@ -161,7 +161,7 @@
 	
 	
 	self.topGradientView = [[BUYGradientView alloc] init];
-	self.topGradientView.topColor = [UIColor colorWithWhite:0 alpha:0.25];
+	self.topGradientView.topColor = [UIColor colorWithWhite:0 alpha:0.25f];
 	self.topGradientView.translatesAutoresizingMaskIntoConstraints = NO;
 	[self.view addSubview:self.topGradientView];
 	
@@ -210,7 +210,7 @@
 {
 	_theme = theme;
 	self.view.tintColor = _theme.tintColor;
-	UIColor *backgroundColor = (_theme.style == BUYThemeStyleDark) ? [UIColor colorWithWhite:0.192f alpha:1.000] : [UIColor colorWithWhite:0.873f alpha:1.000];
+	UIColor *backgroundColor = (_theme.style == BUYThemeStyleDark) ? [UIColor colorWithWhite:0.192f alpha:1.000f] : [UIColor colorWithWhite:0.873f alpha:1.000f];
 	self.stickyFooterView.backgroundColor = (_theme.style == BUYThemeStyleDark) ? [UIColor blackColor] : [UIColor whiteColor];;
 	self.view.backgroundColor = backgroundColor;
 
