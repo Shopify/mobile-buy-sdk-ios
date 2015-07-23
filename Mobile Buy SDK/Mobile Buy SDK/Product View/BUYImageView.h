@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+extern float const imageDuration;
+
 @interface BUYImageView : UIImageView
 
 - (void)loadImageWithURL:(NSURL *)imageURL completion:(void (^)(UIImage *image, NSError *error))completion;

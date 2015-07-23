@@ -389,7 +389,7 @@
 													   [self.productViewHeader setContentOffset:self.tableView.contentOffset];
 													   if (self.backgroundImageView.productImageView.image) {
 														   [UIView transitionWithView:self.backgroundImageView.productImageView
-																			 duration:0.1f
+																			 duration:imageDuration
 																			  options:UIViewAnimationOptionTransitionCrossDissolve
 																		   animations:^{
 																			   self.backgroundImageView.productImageView.image = image;
@@ -398,7 +398,7 @@
 													   } else {
 														   self.backgroundImageView.productImageView.alpha = 0.0f;
 														   self.backgroundImageView.productImageView.image = image;
-														   [UIView animateWithDuration:0.15f
+														   [UIView animateWithDuration:imageDuration
 																			animations:^{
 																				self.backgroundImageView.productImageView.alpha = 1.0f;
 																			}];

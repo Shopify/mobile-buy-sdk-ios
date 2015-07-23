@@ -8,6 +8,8 @@
 
 #import "BUYImageView.h"
 
+float const imageDuration = 0.1f;
+
 @interface BUYImageView ()
 
 @property (nonatomic, strong) NSURLSessionDataTask *task;
@@ -24,7 +26,7 @@
 			dispatch_async(dispatch_get_main_queue(), ^{
 				if (self.image) {
 					[UIView transitionWithView:self
-									  duration:0.1f
+									  duration:imageDuration
 									   options:UIViewAnimationOptionTransitionCrossDissolve
 									animations:^{
 										self.image = productImage;
