@@ -99,7 +99,9 @@
 @property (nonatomic, strong, readonly) NSDecimalNumber *paymentDue;
 
 /**
- *  Array of line items in the checkout
+ *  Array of BUYLineItem objects in the checkout
+ *  Note: These are different from BUYCartLineItems in that the line item
+ *  objects do not include the BUYProductVariant
  */
 @property (nonatomic, readonly, copy) NSArray *lineItems;
 

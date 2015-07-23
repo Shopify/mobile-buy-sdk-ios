@@ -44,7 +44,7 @@
 
 - (void)setDescriptionHTML:(NSString *)html
 {
-	if ((html != nil) && ![html isKindOfClass:[NSNull class]]) {
+	if (html != nil) {
 		
 		UIFont *font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 		
