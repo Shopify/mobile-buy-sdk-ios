@@ -12,6 +12,7 @@
 #import "BUYTheme.h"
 #import "BUYPresentationControllerForVariantSelection.h"
 #import "BUYOptionSelectionNavigationController.h"
+#import "BUYImageKit.h"
 
 @interface BUYVariantSelectionViewController () <BUYOptionSelectionDelegate>
 
@@ -43,7 +44,12 @@
 	[super viewDidLoad];
 	
 	BUYOptionSelectionViewController *controller = [self nextOptionSelectionController];
-	controller.navigationItem.hidesBackButton = YES;
+	
+	// Add close button
+	UIImage *closeButton = [BUYImageKit imageOfVariantCloseImageWithFrame:CGRectMake(0, 0, 18, 18)];
+	UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithImage:closeButton style:UIBarButtonItemStylePlain target:self action:@selector(dismissPopover)];
+	barButtonItem.tintColor = [UIColor colorWithWhite:(float)(152.0/255.0) alpha:1.0];
+	controller.navigationItem.leftBarButtonItem = barButtonItem;
 	[self.navigationController pushViewController:controller animated:NO];
 	
 	BUYOptionSelectionNavigationController *navigationController = (BUYOptionSelectionNavigationController*)self.navigationController;
