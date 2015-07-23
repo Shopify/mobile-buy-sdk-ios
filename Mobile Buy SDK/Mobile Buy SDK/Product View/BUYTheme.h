@@ -16,14 +16,19 @@ typedef NS_ENUM(NSInteger, BUYThemeStyle) {
 @interface BUYTheme : NSObject
 
 /**
- * Used for the highlight color
+ *  Used for the highlight color
  */
 @property (nonatomic, strong) UIColor *tintColor;
 
 /**
- * Theme style for the views
+ *  Theme style for the views
  */
 @property (nonatomic, assign) BUYThemeStyle style;
+
+/**
+ *  Determines whether a blurred scaled-up product image should appear behind the product details. Default is YES
+ */
+@property (nonatomic, assign) BOOL productImageBackground;
 
 @end
 
