@@ -179,6 +179,9 @@
 {
 	[self.productViewHeader setContentOffset:scrollView.contentOffset];
 	CGFloat footerViewHeight = self.bounds.size.height - self.productViewHeader.productImageViewConstraintHeight.constant;
+	if (scrollView.contentOffset.y > 0) {
+		footerViewHeight += scrollView.contentOffset.y;
+	}
 	if (footerViewHeight <= 0) {
 		footerViewHeight = 0;
 	}
