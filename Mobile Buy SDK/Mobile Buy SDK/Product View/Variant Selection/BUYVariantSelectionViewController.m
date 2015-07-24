@@ -21,6 +21,7 @@
 @property (nonatomic, weak) BUYTheme *theme;
 @property (nonatomic, strong) NSMutableDictionary *selectedOptions;
 @property (nonatomic, assign) BOOL changedOptionSelection;
+@property (nonatomic, strong) NSArray *filteredProductVariantsForSelectionOption;
 
 @end
 
@@ -83,8 +84,8 @@
 	NSUInteger index = self.selectedOptions.count;
 	BUYOption *option = self.product.options[index];
 	
-	NSArray *options = [self.product valuesForOption:option];
-	BUYOptionSelectionViewController *optionController = [[BUYOptionSelectionViewController alloc] initWithOptionValues:options theme:self.theme];
+	NSArray *options = [self.product valuesForOption:option variants:self.filteredProductVariantsForSelectionOption];
+	BUYOptionSelectionViewController *optionController = [[BUYOptionSelectionViewController alloc] initWithOptionValues:options theme:self.theme filteredProductVariantsForSelectionOption:self.filteredProductVariantsForSelectionOption];
 	optionController.delegate = self;
 	optionController.selectedOptionValue = self.changedOptionSelection ? nil : [self.selectedProductVariant optionValueForName:option.name];
 	optionController.isLastOption = [self isLastOption];
@@ -102,10 +103,12 @@
 
 #pragma mark - BUYOptionSelectionDelegate
 
-- (void)optionSelectionController:(BUYOptionSelectionViewController *)controller didSelectOption:(BUYOptionValue *)option
+- (void)optionSelectionController:(BUYOptionSelectionViewController *)controller didSelectOptionValue:(BUYOptionValue *)optionValue
 {
-	self.changedOptionSelection |= ![controller.selectedOptionValue.value isEqualToString:option.value];
-	self.selectedOptions[option.name] = option;
+	self.changedOptionSelection |= ![controller.selectedOptionValue.value isEqualToString:optionValue.value];
+	self.selectedOptions[optionValue.name] = optionValue;
+	
+	self.filteredProductVariantsForSelectionOption = [self filterProductVariants:controller.filteredProductVariantsForSelectionOption withOptionValue:optionValue];
 
 	if ([self hasNextOption]) {
 		[self presentNextOption];
@@ -122,6 +125,26 @@
 {
 	BUYOption *option = [controller.optionValues firstObject];
 	[self.selectedOptions removeObjectForKey:option.name];
+	self.filteredProductVariantsForSelectionOption = controller.filteredProductVariantsForSelectionOption;
+}
+
+- (NSArray *)filterProductVariants:(NSArray*)filteredProductVariantsForSelectionOption withOptionValue:(BUYOptionValue*)optionValue {
+	NSMutableArray *filteredArray = [NSMutableArray new];
+	for (BUYProductVariant *variant in filteredProductVariantsForSelectionOption) {
+		if ([variant.options member:optionValue]) {
+			[filteredArray addObject:variant];
+			NSLog(@"%@", variant.title);
+		}
+	}
+	return [filteredArray copy];
+}
+
+- (NSArray*)filteredProductVariantsForSelectionOption
+{
+	if (_filteredProductVariantsForSelectionOption == nil) {
+		_filteredProductVariantsForSelectionOption = [self.product.variants copy];
+	}
+	return _filteredProductVariantsForSelectionOption;
 }
 
 @end

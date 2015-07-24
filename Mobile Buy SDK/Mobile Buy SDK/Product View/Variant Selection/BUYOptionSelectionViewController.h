@@ -14,7 +14,7 @@
 
 @protocol BUYOptionSelectionDelegate <NSObject>
 
-- (void)optionSelectionController:(BUYOptionSelectionViewController *)controller didSelectOption:(BUYOptionValue *)option;
+- (void)optionSelectionController:(BUYOptionSelectionViewController *)controller didSelectOptionValue:(BUYOptionValue *)optionValue;
 
 - (void)optionSelectionControllerDidBackOutOfChoosingOption:(BUYOptionSelectionViewController *)controller;
 
@@ -22,13 +22,15 @@
 
 @interface BUYOptionSelectionViewController : UITableViewController
 
-- (instancetype)initWithOptionValues:(NSArray *)optionValues theme:(BUYTheme*)theme;
+- (instancetype)initWithOptionValues:(NSArray *)optionValues theme:(BUYTheme*)theme filteredProductVariantsForSelectionOption:(NSArray*)filteredProductVariantsForSelectionOption;
 
 @property (nonatomic, strong, readonly) NSArray *optionValues;
 
 @property (nonatomic, strong) BUYOptionValue *selectedOptionValue;
 
 @property (nonatomic, assign) BOOL isLastOption;
+
+@property (nonatomic, strong) NSArray *filteredProductVariantsForSelectionOption;
 
 @property (nonatomic, weak) id <BUYOptionSelectionDelegate> delegate;
 

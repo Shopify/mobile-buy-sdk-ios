@@ -20,13 +20,14 @@
 
 @implementation BUYOptionSelectionViewController
 
-- (instancetype)initWithOptionValues:(NSArray *)optionValues theme:(BUYTheme*)theme
+- (instancetype)initWithOptionValues:(NSArray *)optionValues theme:(BUYTheme*)theme filteredProductVariantsForSelectionOption:(NSArray*)filteredProductVariantsForSelectionOption
 {
 	NSParameterAssert(optionValues);
 	
 	self = [super init];
 	
 	if (self) {
+		self.filteredProductVariantsForSelectionOption = filteredProductVariantsForSelectionOption;
 		self.optionValues = optionValues;
 		self.title = [self.optionValues.firstObject name];
 		self.theme = theme;
@@ -83,10 +84,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	BUYOptionValue *option = self.optionValues[indexPath.row];
-	[self.delegate optionSelectionController:self didSelectOption:option];
+	BUYOptionValue *optionValue = self.optionValues[indexPath.row];
+	[self.delegate optionSelectionController:self didSelectOptionValue:optionValue];
 	
-	self.selectedOptionValue = option;
+	self.selectedOptionValue = optionValue;
 }
 
 #pragma mark UIStatusBar appearance
