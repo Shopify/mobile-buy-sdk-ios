@@ -40,6 +40,7 @@
 - (void)updateWithDictionary:(NSDictionary *)dictionary
 {
 	[super updateWithDictionary:dictionary];
+	self.variantId = dictionary[@"variant_id"];
 	self.title = dictionary[@"title"];
 	self.quantity = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"quantity"]];
 	self.price = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"price"]];
