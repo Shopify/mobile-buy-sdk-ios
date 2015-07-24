@@ -29,6 +29,11 @@
 @property (nonatomic, readonly, copy) NSString *title;
 
 /**
+ *  The handle of the product.  Can be used to construct links to the web page for the product
+ */
+@property (nonatomic, readonly, copy) NSString *handle;
+
+/**
  *  The name of the vendor of the product.
  */
 @property (nonatomic, readonly, copy) NSString *vendor;
