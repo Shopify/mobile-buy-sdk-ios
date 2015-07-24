@@ -94,6 +94,7 @@
 
 - (void)dismissPopover
 {
+	[(BUYOptionSelectionNavigationController*)self.navigationController setDismissWithCancelAnimation:YES];
 	if ([self.delegate respondsToSelector:@selector(variantSelectionControllerDidCancelVariantSelection:atOptionIndex:)]) {
 		[self.delegate variantSelectionControllerDidCancelVariantSelection:self atOptionIndex:self.selectedOptions.count];
 	}

@@ -10,17 +10,16 @@
 
 @implementation BUYGradientView
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)init
 {
-	self = [super initWithFrame:frame];
+	self = [super init];
 	if (self) {
 		self.backgroundColor = [UIColor clearColor];
-		self.topColor = [UIColor colorWithWhite:0 alpha:0.5];
+		self.topColor = [UIColor colorWithWhite:0 alpha:0.5f];
 		self.bottomColor = [UIColor clearColor];
 	}
 	return self;
 }
-
 - (void)drawRect:(CGRect)rect {
 	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
 	CGContextRef context = UIGraphicsGetCurrentContext();

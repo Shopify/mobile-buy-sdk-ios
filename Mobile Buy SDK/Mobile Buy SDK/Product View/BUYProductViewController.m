@@ -27,6 +27,7 @@
 @property (nonatomic, strong) BUYProductVariant *selectedProductVariant;
 @property (nonatomic, strong) BUYTheme *theme;
 @property (nonatomic, assign) BOOL shouldShowVariantSelector;
+@property (nonatomic, assign) BOOL shouldShowDescription;
 @property (nonatomic, strong) BUYProduct *product;
 @property (nonatomic, assign) BOOL isLoading;
 
@@ -41,7 +42,6 @@
 @property (nonatomic, strong) BUYGradientView *topGradientView;
 @property (nonatomic, weak) UIView *navigationBar;
 @property (nonatomic, weak) UIView *navigationBarTitle;
-@property (nonatomic, strong) NSLayoutConstraint *gradientHeightConstraint;
 
 @end
 
@@ -69,6 +69,7 @@
 	}
 	
 	self.backgroundImageView = [[BUYProductViewHeaderBackgroundImageView alloc] init];
+	self.backgroundImageView.hidden = _theme.showsProductImageBackground == NO;
 	self.backgroundImageView.translatesAutoresizingMaskIntoConstraints = NO;
 	[self.view addSubview:self.backgroundImageView];
 	
@@ -88,8 +89,8 @@
 														   constant:0.0]];
 	
 	self.stickyFooterView = [UIView new];
+	self.stickyFooterView.backgroundColor = (self.theme.style == BUYThemeStyleDark) ? [UIColor blackColor] : [UIColor whiteColor];
 	self.stickyFooterView.translatesAutoresizingMaskIntoConstraints = NO;
-	self.stickyFooterView.backgroundColor = [UIColor whiteColor];
 	[self.view addSubview:self.stickyFooterView];
 	
 	self.footerHeightLayoutConstraint = [NSLayoutConstraint constraintWithItem:self.stickyFooterView
@@ -126,6 +127,7 @@
 	self.tableView.estimatedRowHeight = 60.0;
 	self.tableView.rowHeight = UITableViewAutomaticDimension;
 	self.tableView.tableFooterView = [UIView new];
+	self.tableView.layoutMargins = UIEdgeInsetsMake(0, 16, 0, 12);
 	[self.view addSubview:self.tableView];
 	
 	[self.tableView registerClass:[BUYProductHeaderCell class] forCellReuseIdentifier:@"headerCell"];
@@ -161,6 +163,7 @@
 	
 	
 	self.topGradientView = [[BUYGradientView alloc] init];
+	self.topGradientView.topColor = [UIColor colorWithWhite:0 alpha:0.25f];
 	self.topGradientView.translatesAutoresizingMaskIntoConstraints = NO;
 	[self.view addSubview:self.topGradientView];
 	
@@ -168,21 +171,10 @@
 																	  options:0
 																	  metrics:nil
 																		views:NSDictionaryOfVariableBindings(_topGradientView)]];
-	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.topGradientView
-														  attribute:NSLayoutAttributeTop
-														  relatedBy:NSLayoutRelationEqual
-															 toItem:self.view
-														  attribute:NSLayoutAttributeTop
-														 multiplier:1.0
-														   constant:0]];
-	self.gradientHeightConstraint = [NSLayoutConstraint constraintWithItem:self.topGradientView
-																 attribute:NSLayoutAttributeHeight
-																 relatedBy:NSLayoutRelationEqual
-																	toItem:nil
-																 attribute:NSLayoutAttributeNotAnAttribute
-																multiplier:1.0
-																  constant:0];
-	[self.view addConstraint:self.gradientHeightConstraint];
+	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_topGradientView(height)]|"
+																	  options:0
+																	  metrics:@{ @"height" : @114 }
+																		views:NSDictionaryOfVariableBindings(_topGradientView)]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -198,8 +190,6 @@
 			if (CGRectGetHeight(view.bounds) >= 64) {
 				// Get a reference to the UINavigationBar
 				self.navigationBar = view;
-				// Get the height for the gradient view underneath the UINavigationBar
-				self.gradientHeightConstraint.constant = CGRectGetHeight(self.navigationBar.bounds);
 				continue;
 			} else if (CGRectGetMinX(view.frame) > 0 && [view.subviews count] == 1 && [view.subviews[0] isKindOfClass:[UILabel class]]) {
 				// Get a reference to the UINavigationBar's title
@@ -221,11 +211,11 @@
 - (void)setTheme:(BUYTheme *)theme
 {
 	_theme = theme;
-	self.view.tintColor = theme.tintColor;
-	UIColor *backgroundColor = (theme.style == BUYThemeStyleDark) ? [UIColor blackColor] : [UIColor whiteColor];
-	self.stickyFooterView.backgroundColor = backgroundColor;
+	self.view.tintColor = _theme.tintColor;
+	UIColor *backgroundColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(64, 64, 64) : BUY_RGB(229, 229, 229);
+	self.stickyFooterView.backgroundColor = (_theme.style == BUYThemeStyleDark) ? [UIColor blackColor] : [UIColor whiteColor];;
 	self.view.backgroundColor = backgroundColor;
-
+	self.backgroundImageView.hidden = _theme.showsProductImageBackground == NO;
 }
 
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source
@@ -304,6 +294,7 @@
 	[self scrollViewDidScroll:self.tableView];
 	self.selectedProductVariant = [_product.variants firstObject];
 	self.shouldShowVariantSelector = [_product isDefaultVariant] == NO;
+	self.shouldShowDescription = ([_product.htmlDescription length] == 0) == NO;
 }
 
 - (void)setShop:(BUYShop *)shop
@@ -321,11 +312,9 @@
 {
 	NSInteger rows = 0;
 	if (self.product) {
-		if (self.shouldShowVariantSelector) {
-			rows = 3;
-		} else {
-			rows = 2;
-		}
+		rows += 1; // product title and price
+		rows += self.shouldShowVariantSelector;
+		rows += self.shouldShowDescription;
 	}
 	return rows;
 }
@@ -339,13 +328,11 @@
 		cell.currency = self.shop.currency;
 		cell.productVariant = self.selectedProductVariant;
 		theCell = cell;
-	}
-	else if (indexPath.row == 1 && self.shouldShowVariantSelector) {
+	} else if (indexPath.row == 1 && self.shouldShowVariantSelector) {
 		BUYProductVariantCell *cell = [tableView dequeueReusableCellWithIdentifier:@"variantCell"];
 		cell.productVariant = self.selectedProductVariant;
 		theCell = cell;
-	}
-	else {
+	} else if ((indexPath.row == 2 && self.shouldShowDescription) || (indexPath.row == 1 && self.shouldShowVariantSelector == NO && self.shouldShowDescription)) {
 		BUYProductDescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"descriptionCell"];
 		cell.descriptionHTML = self.product.htmlDescription;
 		cell.separatorInset = UIEdgeInsetsMake(0, CGRectGetWidth(self.tableView.bounds), 0, 0);
@@ -377,8 +364,9 @@
 {
 	[controller dismissViewControllerAnimated:YES completion:NULL];
 	self.selectedProductVariant = variant;
-	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0], [NSIndexPath indexPathForRow:1 inSection:0]]
-						  withRowAnimation:UITableViewRowAnimationFade];
+	[self.tableView reloadData];
+//	[self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0], [NSIndexPath indexPathForRow:1 inSection:0]]
+//						  withRowAnimation:UITableViewRowAnimationFade];
 }
 
 - (void)variantSelectionControllerDidCancelVariantSelection:(BUYVariantSelectionViewController *)controller atOptionIndex:(NSUInteger)optionIndex
@@ -398,7 +386,23 @@
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", image.src]];
 	[self.productViewHeader.productImageView loadImageWithURL:url
 												   completion:^(UIImage *image, NSError *error) {
-													   self.backgroundImageView.productImageView.image = image;
+													   [self.productViewHeader setContentOffset:self.tableView.contentOffset];
+													   if (self.backgroundImageView.productImageView.image) {
+														   [UIView transitionWithView:self.backgroundImageView.productImageView
+																			 duration:imageDuration
+																			  options:UIViewAnimationOptionTransitionCrossDissolve
+																		   animations:^{
+																			   self.backgroundImageView.productImageView.image = image;
+																		   }
+																		   completion:nil];
+													   } else {
+														   self.backgroundImageView.productImageView.alpha = 0.0f;
+														   self.backgroundImageView.productImageView.image = image;
+														   [UIView animateWithDuration:imageDuration
+																			animations:^{
+																				self.backgroundImageView.productImageView.alpha = 1.0f;
+																			}];
+													   }
 													   [self.productViewHeader setContentOffset:self.tableView.contentOffset];
 												   }];
 }
@@ -412,11 +416,13 @@
 	if (footerViewHeight >= 0 || -footerViewHeight == scrollView.contentSize.height) {
 		// when the table view is initially displayed we don't get the correct bounds, so we need to force the footer view to display below the table view on the first view
 		if (scrollView.bounds.size.height == 0) {
-			footerViewHeight = scrollView.contentSize.height;
+			footerViewHeight = MIN(CGRectGetHeight(self.view.bounds) - CGRectGetHeight(self.tableView.tableHeaderView.bounds), scrollView.contentSize.height);
 		}
-		self.footerHeightLayoutConstraint.constant = footerViewHeight;
-		self.footerOffsetLayoutConstraint.constant = -footerViewHeight;
+	} else {
+		footerViewHeight = 0;
 	}
+	self.footerHeightLayoutConstraint.constant = footerViewHeight;
+	self.footerOffsetLayoutConstraint.constant = -footerViewHeight;
 	
 	if (self.navigationBar) {
 		CGFloat navigationBarHeight = CGRectGetHeight(self.navigationBar.bounds);

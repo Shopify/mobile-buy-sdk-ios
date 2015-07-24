@@ -16,9 +16,12 @@
 - (UIViewController *)presentationController:(UIPresentationController *)controller viewControllerForAdaptivePresentationStyle:(UIModalPresentationStyle)style
 {
 	BUYNavigationController *navigationController = [[BUYNavigationController alloc] initWithRootViewController:controller.presentedViewController];
-	UIImage *closeButton = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22)];
-	UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithImage:closeButton style:UIBarButtonItemStylePlain target:self action:@selector(dismissPopover)];
-	barButtonItem.tintColor = [UIColor whiteColor];
+	UIImage *closeButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22)];
+	UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	[closeButton addTarget:self action:@selector(dismissPopover) forControlEvents:UIControlEventTouchUpInside];
+	[closeButton setImage:closeButtonImage forState:UIControlStateNormal];
+	closeButton.frame = CGRectMake(0, 0, 22, 22);
+	UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
 	navigationController.topViewController.navigationItem.leftBarButtonItem = barButtonItem;
 	return navigationController;
 }

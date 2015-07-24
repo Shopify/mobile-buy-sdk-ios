@@ -24,7 +24,7 @@
 	if (self) {
 		self.selectionStyle = UITableViewCellSelectionStyleNone;
 		
-		self.preservesSuperviewLayoutMargins = YES;
+		self.layoutMargins = UIEdgeInsetsMake(16, self.layoutMargins.left, 16, self.layoutMargins.right);
 		
 		_titleLabel = [[UILabel alloc] init];
 		_titleLabel.textColor = [UIColor blackColor];
@@ -112,12 +112,12 @@
 	switch (theme.style) {
 		case BUYThemeStyleDark:
 			self.titleLabel.textColor = [UIColor whiteColor];
-			self.contentView.backgroundColor = [UIColor blackColor];
+			self.backgroundColor = [UIColor blackColor];
 			break;
 			
 		case BUYThemeStyleLight:
 			self.titleLabel.textColor = [UIColor blackColor];
-			self.contentView.backgroundColor = [UIColor whiteColor];
+			self.backgroundColor = [UIColor whiteColor];
 			break;
 			
 		default:

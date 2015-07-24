@@ -24,6 +24,8 @@
 	if (self) {
 		self.selectionStyle = UITableViewCellSelectionStyleNone;
 		
+		self.layoutMargins = UIEdgeInsetsMake(12, self.layoutMargins.left, 12, self.layoutMargins.right);
+		
 		_descriptionLabel = [[UILabel alloc] init];
 		_descriptionLabel.translatesAutoresizingMaskIntoConstraints = NO;
 		_descriptionLabel.backgroundColor = [UIColor whiteColor];
@@ -32,7 +34,7 @@
 
 		NSDictionary *views = NSDictionaryOfVariableBindings(_descriptionLabel);
 		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_descriptionLabel]-|" options:0 metrics:nil views:views]];
-		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_descriptionLabel(>=80)]-|" options:0 metrics:nil views:views]];
+		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_descriptionLabel]-|" options:0 metrics:nil views:views]];
 		
 		_textColor = [UIColor colorWithWhite:0.6f alpha:1];
 	}

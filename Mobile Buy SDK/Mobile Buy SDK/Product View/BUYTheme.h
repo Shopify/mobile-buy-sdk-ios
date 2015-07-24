@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+#define BUY_RGB(r, g, b) BUY_RGBA(r, g, b, 1)
+#define BUY_RGBA(r, g, b, a) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a]
+
 typedef NS_ENUM(NSInteger, BUYThemeStyle) {
 	BUYThemeStyleLight,
 	BUYThemeStyleDark
@@ -16,14 +19,19 @@ typedef NS_ENUM(NSInteger, BUYThemeStyle) {
 @interface BUYTheme : NSObject
 
 /**
- * Used for the highlight color
+ *  Used for the highlight color
  */
 @property (nonatomic, strong) UIColor *tintColor;
 
 /**
- * Theme style for the views
+ *  Theme style for the views
  */
 @property (nonatomic, assign) BUYThemeStyle style;
+
+/**
+ *  Determines whether a blurred scaled-up product image should appear behind the product details. Default is YES
+ */
+@property (nonatomic, assign) BOOL showsProductImageBackground;
 
 @end
 
