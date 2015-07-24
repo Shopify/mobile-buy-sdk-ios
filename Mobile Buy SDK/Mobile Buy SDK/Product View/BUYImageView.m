@@ -35,7 +35,7 @@ float const imageDuration = 0.1f;
 				} else {
 					self.alpha = 0.0f;
 					self.image = productImage;
-					[UIView animateWithDuration:0.15f
+					[UIView animateWithDuration:imageDuration
 									 animations:^{
 										 self.alpha = 1.0f;
 									 }];

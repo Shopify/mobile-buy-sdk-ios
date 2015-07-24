@@ -69,7 +69,7 @@
 	}
 	
 	self.backgroundImageView = [[BUYProductViewHeaderBackgroundImageView alloc] init];
-	self.backgroundImageView.hidden = _theme.productImageBackground == NO;
+	self.backgroundImageView.hidden = _theme.showsProductImageBackground == NO;
 	self.backgroundImageView.translatesAutoresizingMaskIntoConstraints = NO;
 	[self.view addSubview:self.backgroundImageView];
 	
@@ -215,7 +215,7 @@
 	UIColor *backgroundColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(64, 64, 64) : BUY_RGB(229, 229, 229);
 	self.stickyFooterView.backgroundColor = (_theme.style == BUYThemeStyleDark) ? [UIColor blackColor] : [UIColor whiteColor];;
 	self.view.backgroundColor = backgroundColor;
-	self.backgroundImageView.hidden = _theme.productImageBackground == NO;
+	self.backgroundImageView.hidden = _theme.showsProductImageBackground == NO;
 }
 
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source
