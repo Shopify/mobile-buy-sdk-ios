@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BUYImageView.h"
+@class BUYImageView;
+@class BUYTheme;
 
 @interface BUYProductViewHeaderBackgroundImageView : UIView
 
 @property (nonatomic, strong) BUYImageView *productImageView;
+
+- (instancetype)initWithTheme:(BUYTheme*)theme;
 
 @end

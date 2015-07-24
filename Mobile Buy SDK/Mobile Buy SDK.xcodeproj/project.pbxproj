@@ -60,7 +60,7 @@
 		90F7BA7E1B0D1DAF0067864D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90F7BA7C1B0D1DAF0067864D /* LaunchScreen.xib */; };
 		BE1007951B6038150031CEE7 /* BUYProductVariant+Options.h in Headers */ = {isa = PBXBuildFile; fileRef = BE1007931B6038150031CEE7 /* BUYProductVariant+Options.h */; };
 		BE1007961B6038150031CEE7 /* BUYProductVariant+Options.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1007941B6038150031CEE7 /* BUYProductVariant+Options.m */; };
-		BE10079B1B6165EC0031CEE7 /* BUYOptionValueCell.h in Headers */ = {isa = PBXBuildFile; fileRef = BE1007991B6165EC0031CEE7 /* BUYOptionValueCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BE10079B1B6165EC0031CEE7 /* BUYOptionValueCell.h in Headers */ = {isa = PBXBuildFile; fileRef = BE1007991B6165EC0031CEE7 /* BUYOptionValueCell.h */; };
 		BE10079C1B6165EC0031CEE7 /* BUYOptionValueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BE10079A1B6165EC0031CEE7 /* BUYOptionValueCell.m */; };
 		BE2E1D3A1B5E8663009610DA /* BUYClient+Test.h in Headers */ = {isa = PBXBuildFile; fileRef = BE2E1D381B5E8663009610DA /* BUYClient+Test.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BE2E1D3B1B5E8663009610DA /* BUYClient+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2E1D391B5E8663009610DA /* BUYClient+Test.m */; };

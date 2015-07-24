@@ -16,6 +16,7 @@
 #import "BUYProductDescriptionCell.h"
 #import "BUYProductHeaderCell.h"
 #import "BUYImage.h"
+#import "BUYImageView.h"
 
 @implementation BUYProductView
 
@@ -27,7 +28,7 @@
 		
 		self.productViewHeader = [[BUYProductViewHeader alloc] init];
 		
-		self.backgroundImageView = [[BUYProductViewHeaderBackgroundImageView alloc] init];
+		self.backgroundImageView = [[BUYProductViewHeaderBackgroundImageView alloc] initWithTheme:theme];
 		self.backgroundImageView.hidden = self.theme.showsProductImageBackground == NO;
 		self.backgroundImageView.translatesAutoresizingMaskIntoConstraints = NO;
 		[self addSubview:self.backgroundImageView];
