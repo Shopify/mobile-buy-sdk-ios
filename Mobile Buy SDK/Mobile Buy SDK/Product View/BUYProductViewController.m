@@ -171,7 +171,7 @@
 																	  options:0
 																	  metrics:nil
 																		views:NSDictionaryOfVariableBindings(_topGradientView)]];
-	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_topGradientView(height)]|"
+	[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_topGradientView(height)]"
 																	  options:0
 																	  metrics:@{ @"height" : @114 }
 																		views:NSDictionaryOfVariableBindings(_topGradientView)]];
