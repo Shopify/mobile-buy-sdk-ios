@@ -12,6 +12,8 @@ extern float const imageDuration;
 
 @interface BUYImageView : UIImageView
 
+@property (nonatomic, assign) BOOL showsActivityIndicator;
+
 - (void)loadImageWithURL:(NSURL *)imageURL completion:(void (^)(UIImage *image, NSError *error))completion;
 
 @end

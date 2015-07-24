@@ -13,14 +13,48 @@ float const imageDuration = 0.1f;
 @interface BUYImageView ()
 
 @property (nonatomic, strong) NSURLSessionDataTask *task;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
 
 @end
 
 @implementation BUYImageView
 
+- (instancetype)init
+{
+	self = [super init];
+	if (self) {
+		self.showsActivityIndicator = YES;
+		
+		self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+		self.activityIndicatorView.translatesAutoresizingMaskIntoConstraints = NO;
+		self.activityIndicatorView.hidesWhenStopped = YES;
+		[self addSubview:self.activityIndicatorView];
+		
+		[self addConstraint:[NSLayoutConstraint constraintWithItem:self.activityIndicatorView
+														 attribute:NSLayoutAttributeCenterY
+														 relatedBy:NSLayoutRelationEqual
+															toItem:self
+														 attribute:NSLayoutAttributeCenterY
+														multiplier:1.0
+														  constant:0]];
+		[self addConstraint:[NSLayoutConstraint constraintWithItem:self.activityIndicatorView
+														 attribute:NSLayoutAttributeCenterX
+														 relatedBy:NSLayoutRelationEqual
+															toItem:self
+														 attribute:NSLayoutAttributeCenterX
+														multiplier:1.0
+														  constant:0]];
+	}
+	return self;
+}
+
 - (void)loadImageWithURL:(NSURL *)imageURL completion:(void (^)(UIImage *image, NSError *error))completion
 {
+	if (self.showsActivityIndicator) {
+		[self.activityIndicatorView startAnimating];
+	}
 	self.task = [[NSURLSession sharedSession] dataTaskWithURL:imageURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+		[self.activityIndicatorView stopAnimating];
 		if (error == nil && data) {
 			UIImage *productImage = [UIImage imageWithData:data];
 			dispatch_async(dispatch_get_main_queue(), ^{
