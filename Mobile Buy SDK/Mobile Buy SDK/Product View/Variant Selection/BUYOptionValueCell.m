@@ -66,7 +66,7 @@
 - (void)setAccessoryType:(UITableViewCellAccessoryType)accessoryType
 {
 	[super setAccessoryType:accessoryType];
-	self.imageConstraint.constant = accessoryType == UITableViewCellAccessoryNone ? -12.0 : 0.0;
+	self.imageConstraint.constant = accessoryType == UITableViewCellAccessoryNone ? -12.0f : 0.0f;
 }
 
 - (void)setOptionValue:(BUYOptionValue *)optionValue
