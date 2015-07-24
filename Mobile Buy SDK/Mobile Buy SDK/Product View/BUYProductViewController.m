@@ -279,6 +279,7 @@
 	}
 	
 	[self.productView setProductImage:image];
+	[self scrollViewDidScroll:self.productView.tableView];
 }
 
 #pragma mark Scroll view delegate
