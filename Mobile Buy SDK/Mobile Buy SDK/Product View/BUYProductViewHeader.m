@@ -110,10 +110,10 @@
 	}
 	
 	// change the image content mode on portrait (or 1:1) images so they zoom-scale on scrollview over-pulls
-	if (self.productImageView.image.size.height >= self.productImageView.image.size.width) {
+	if (self.productImageView.image && self.productImageView.image.size.height >= self.productImageView.image.size.width) {
 		CGFloat imageRatio = self.productImageView.image.size.height / self.productImageView.image.size.width;
 		CGFloat imageViewRatio = CGRectGetHeight(self.productImageView.bounds) / CGRectGetWidth(self.productImageView.bounds);
-		if (imageViewRatio >= imageRatio) {
+		if (imageViewRatio >= imageRatio && isnan(imageViewRatio) == NO && isinf(imageViewRatio) == NO) {
 			self.productImageView.contentMode = UIViewContentModeScaleAspectFill;
 		} else {
 			self.productImageView.contentMode = UIViewContentModeScaleAspectFit;

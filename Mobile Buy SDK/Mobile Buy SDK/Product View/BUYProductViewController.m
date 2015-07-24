@@ -350,6 +350,7 @@
 {
 	_product = nil;
 	_productId = nil;
+	[_productView removeFromSuperview];
 	_productView = nil;
 }
 
