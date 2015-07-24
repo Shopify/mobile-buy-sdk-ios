@@ -12,8 +12,6 @@
 
 @interface BUYProductViewHeader ()
 
-@property (nonatomic, strong) NSLayoutConstraint *productImageViewConstraint;
-@property (nonatomic, strong) NSLayoutConstraint *productImageViewConstraintBottom;
 @property (nonatomic, strong) UIPageControl *pageControl;
 @property (nonatomic, strong) BUYGradientView *bottomGradientView;
 
@@ -48,14 +46,14 @@
 																			  constant:0.0];
 		[self addConstraint:self.productImageViewConstraintBottom];
 		
-		self.productImageViewConstraint = [NSLayoutConstraint constraintWithItem:self.productImageView
-																	   attribute:NSLayoutAttributeHeight
-																	   relatedBy:NSLayoutRelationEqual
-																		  toItem:nil
-																	   attribute:NSLayoutAttributeNotAnAttribute
-																	  multiplier:1.0
-																		constant:0.0];
-		[self addConstraint:self.productImageViewConstraint];
+		self.productImageViewConstraintHeight = [NSLayoutConstraint constraintWithItem:self.productImageView
+																			 attribute:NSLayoutAttributeHeight
+																			 relatedBy:NSLayoutRelationEqual
+																				toItem:nil
+																			 attribute:NSLayoutAttributeNotAnAttribute
+																			multiplier:1.0
+																			  constant:0.0];
+		[self addConstraint:self.productImageViewConstraintHeight];
 		
 		self.pageControl = [[UIPageControl alloc] init];
 		self.pageControl.hidesForSinglePage = YES;
@@ -102,11 +100,11 @@
 		if (self.productImageViewConstraintBottom.constant != 0.0) {
 			self.productImageViewConstraintBottom.constant = 0.0;
 		}
-		self.productImageViewConstraint.constant = CGRectGetHeight(self.bounds) + -offset.y;
+		self.productImageViewConstraintHeight.constant = CGRectGetHeight(self.bounds) + -offset.y;
 	} else {
 		self.clipsToBounds = YES;
-		if (self.productImageViewConstraint.constant != CGRectGetHeight(self.bounds)) {
-			self.productImageViewConstraint.constant = CGRectGetHeight(self.bounds);
+		if (self.productImageViewConstraintHeight.constant != CGRectGetHeight(self.bounds)) {
+			self.productImageViewConstraintHeight.constant = CGRectGetHeight(self.bounds);
 		}
 		self.productImageViewConstraintBottom.constant = offset.y / 2;
 	}
