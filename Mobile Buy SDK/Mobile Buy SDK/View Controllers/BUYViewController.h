@@ -70,6 +70,19 @@
  */
 - (void)controller:(BUYViewController *)controller didCompleteCheckout:(BUYCheckout *)checkout status:(BUYStatus)status;
 
+/**
+ *  This is called when the Apple Pay Authorization View Controller has been dismissed.
+ *  It will be called if the user cancels Apple Pay or the authorization was successful and the Apple Pay
+ *  payment confirmation was shown to the user.
+ *
+ *  Note: If the PKPaymentAuthorizationStatus is not PKPaymentAuthorizationStatusSuccess we will expire the checkout by
+ *  calling `expireCheckout:completion:` to release the hold on the product inventory.
+ *
+ *  @param controller The BUYViewController
+ *  @param checkout   The BUYCheckout
+ */
+- (void)controller:(BUYViewController *)controller didDismissApplePayControllerWithStatus:(PKPaymentAuthorizationStatus)status forCheckout:(BUYCheckout *)checkout;
+
 @optional
 
 /**
@@ -91,7 +104,7 @@
 /**
  *  This base class guides you through the entire Apple Pay process.
  */
-@interface BUYViewController : UIViewController
+@interface BUYViewController : UIViewController <PKPaymentAuthorizationViewControllerDelegate>
 
 /**
  *  Register yourself as a BUYViewControllerDelegate to handle all errors, and status changes.

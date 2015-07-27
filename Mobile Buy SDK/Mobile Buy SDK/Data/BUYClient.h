@@ -415,6 +415,17 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
  */
 - (NSURLSessionDataTask *)storeCreditCard:(id <BUYSerializable>)creditCard checkout:(BUYCheckout *)checkout completion:(BUYDataCreditCardBlock)block;
 
+/**
+ *  Convenience method to expire a checkout (this releases all product inventory reservation).
+ *  Expires a BUYCheckout by setting its `reservationTime` to `@0` and calls `updateCheckout:completion`
+ *
+ *  @param checkout The BUYCheckout to expire
+ *  @param block    (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
+ *
+ *  @return The associated NSURLSessionDataTask
+ */
+- (NSURLSessionDataTask *)expireCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
+
 #pragma mark - Deprecated methods
 
 /**

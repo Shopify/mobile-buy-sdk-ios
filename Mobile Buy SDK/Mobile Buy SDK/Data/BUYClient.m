@@ -408,7 +408,7 @@ NSString * const BUYVersionString = @"1.1";
 - (NSURLSessionDataTask *)storeCreditCard:(id <BUYSerializable>)creditCard checkout:(BUYCheckout *)checkout completion:(BUYDataCreditCardBlock)block
 {
 	NSURLSessionDataTask *task = nil;
-	if (checkout.token && creditCard) {
+	if ([checkout hasToken] && creditCard) {
 		NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
 		json[@"token"] = checkout.token;
 		json[@"credit_card"] = [creditCard jsonDictionaryForCheckout];
@@ -421,6 +421,16 @@ NSString * const BUYVersionString = @"1.1";
 		if (data && error == nil) {
 			task = [self postPaymentRequestWithCheckout:checkout body:data completion:block];
 		}
+	}
+	return task;
+}
+
+- (NSURLSessionDataTask *)expireCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
+{
+	NSURLSessionDataTask *task = nil;
+	if ([checkout hasToken]) {
+		checkout.reservationTime = @0;
+		task = [self updateCheckout:checkout completion:block];
 	}
 	return task;
 }

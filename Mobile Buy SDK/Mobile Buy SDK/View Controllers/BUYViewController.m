@@ -17,10 +17,13 @@
 #import "BUYShop.h"
 #import "BUYTestConstants.h"
 
-@interface BUYViewController () <PKPaymentAuthorizationViewControllerDelegate>
+@interface BUYViewController ()
+
 @property (nonatomic, strong) BUYCheckout *checkout;
 @property (nonatomic, strong) BUYApplePayHelpers *applePayHelper;
 @property (nonatomic, assign) BOOL isLoadingShop;
+@property (nonatomic, assign) PKPaymentAuthorizationStatus paymentAuthorizationStatus;
+
 @end
 
 @implementation BUYViewController
@@ -158,7 +161,9 @@
 		[self requestPayment];
 	}
 	else {
-		[_delegate controller:self failedToCreateCheckout:error];
+		if ([self.delegate respondsToSelector:@selector(controller:failedToCreateCheckout:)]) {
+			[self.delegate controller:self failedToCreateCheckout:error];
+		}
 	}
 }
 
@@ -169,13 +174,17 @@
 	//Step 2 - Request payment from the user by presenting an Apple Pay sheet
 	if (self.merchantId.length == 0) {
 		NSLog(@"Merchant ID must be configured to use Apple Pay");
-		[_delegate controllerFailedToStartApplePayProcess:self];
+		if ([self.delegate respondsToSelector:@selector(controllerFailedToStartApplePayProcess:)]) {
+			[self.delegate controllerFailedToStartApplePayProcess:self];
+		}
 		return;
 	}
 	
 	if (self.shop == nil) {
 		NSLog(@"loadShopWithCallback: must be called before starting an Apple Pay checkout");
-		[_delegate controllerFailedToStartApplePayProcess:self];
+		if ([self.delegate respondsToSelector:@selector(controllerFailedToStartApplePayProcess:)]) {
+			[self.delegate controllerFailedToStartApplePayProcess:self];
+		}
 		return;
 	}
 	
@@ -187,13 +196,17 @@
 		[self presentViewController:controller animated:YES completion:nil];
 	}
 	else {
-		[_delegate controllerFailedToStartApplePayProcess:self];
+		if ([self.delegate respondsToSelector:@selector(controllerFailedToStartApplePayProcess:)]) {
+			[self.delegate controllerFailedToStartApplePayProcess:self];
+		}
 	}
 }
 
 - (void)checkoutCompleted:(BUYCheckout *)checkout status:(BUYStatus)status
 {
-	[_delegate controller:self didCompleteCheckout:checkout status:status];
+	if ([self.delegate respondsToSelector:@selector(controller:didCompleteCheckout:status:)]) {
+		[self.delegate controller:self didCompleteCheckout:checkout status:status];
+	}
 }
 
 #pragma mark - PKPaymentAuthorizationViewControllerDelegate Methods
@@ -201,19 +214,25 @@
 - (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didAuthorizePayment:(PKPayment *)payment completion:(void (^)(PKPaymentAuthorizationStatus status))completion
 {
 	[self.applePayHelper updateAndCompleteCheckoutWithPayment:payment completion:^(PKPaymentAuthorizationStatus status) {
-		
+		paymentAuthorizationStatus = status;
 		switch (status) {
 			case PKPaymentAuthorizationStatusFailure:
-				[_delegate controller:self failedToCompleteCheckout:self.checkout withError:self.applePayHelper.lastError];
+				if ([self.delegate respondsToSelector:@selector(controller:failedToCompleteCheckout:withError:)]) {
+					[self.delegate controller:self failedToCompleteCheckout:self.checkout withError:self.applePayHelper.lastError];
+				}
 				break;
 				
 			case PKPaymentAuthorizationStatusInvalidShippingPostalAddress:
-				[_delegate controller:self failedToUpdateCheckout:self.checkout withError:self.applePayHelper.lastError];
+				if ([self.delegate respondsToSelector:@selector(controller:failedToUpdateCheckout:withError:)]) {
+					[self.delegate controller:self failedToUpdateCheckout:self.checkout withError:self.applePayHelper.lastError];
+				}
 				break;
 
 			default: {
-				BUYStatus buyStatus = (status == PKPaymentAuthorizationStatusSuccess) ? BUYStatusComplete : BUYStatusFailed;
-				[_delegate controller:self didCompleteCheckout:self.checkout status:buyStatus];
+				if ([self.delegate respondsToSelector:@selector(controller:didCompleteCheckout:status:)]) {
+					BUYStatus buyStatus = (status == PKPaymentAuthorizationStatusSuccess) ? BUYStatusComplete : BUYStatusFailed;
+					[self.delegate controller:self didCompleteCheckout:self.checkout status:buyStatus];
+				}
 			}
 				break;
 		}
@@ -225,7 +244,21 @@
 - (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller
 {
 	// The checkout is done at this point, it may have succeeded or failed. You are responsible for dealing with failure/success earlier in the steps.
-	[controller dismissViewControllerAnimated:YES completion:nil];
+	[controller dismissViewControllerAnimated:YES completion:^{
+		// If Apple Pay is dismissed with Cancel we need to clear the reservation time on the products in the checkout
+		if (self.paymentAuthorizationStatus != PKPaymentAuthorizationStatusSuccess) {
+			[self.client expireCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
+				self.checkout = checkout;
+				if ([self.delegate respondsToSelector:@selector(controller:didDismissApplePayControllerWithStatus:forCheckout:)]) {
+					[self.delegate controller:self didDismissApplePayControllerWithStatus:self.paymentAuthorizationStatus forCheckout:self.checkout];
+				}
+			}];
+		} else {
+			if ([self.delegate respondsToSelector:@selector(controller:didDismissApplePayControllerWithStatus:forCheckout:)]) {
+				[self.delegate controller:self didDismissApplePayControllerWithStatus:self.paymentAuthorizationStatus forCheckout:self.checkout];
+			}
+		}
+	}];
 }
 
 - (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingMethod:(PKShippingMethod *)shippingMethod completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *summaryItems))completion
@@ -233,7 +266,9 @@
 	[self.applePayHelper updateCheckoutWithShippingMethod:shippingMethod completion:^(PKPaymentAuthorizationStatus status, NSArray *methods) {
 		
 		if (status == PKPaymentAuthorizationStatusInvalidShippingPostalAddress) {
-			[_delegate controller:self failedToGetShippingRates:_checkout withError:self.applePayHelper.lastError];
+			if ([self.delegate respondsToSelector:@selector(controller:failedToGetShippingRates:withError:)]) {
+				[self.delegate controller:self failedToGetShippingRates:_checkout withError:self.applePayHelper.lastError];
+			}
 		}
 		
 		completion(status, methods);
@@ -245,7 +280,9 @@
 	[self.applePayHelper updateCheckoutWithAddress:address completion:^(PKPaymentAuthorizationStatus status, NSArray *shippingMethods, NSArray *summaryItems) {
 		
 		if (status == PKPaymentAuthorizationStatusInvalidShippingPostalAddress) {
-			[_delegate controller:self failedToUpdateCheckout:self.checkout withError:self.applePayHelper.lastError];
+			if ([self.delegate respondsToSelector:@selector(controller:failedToUpdateCheckout:withError:)]) {
+				[self.delegate controller:self failedToUpdateCheckout:self.checkout withError:self.applePayHelper.lastError];
+			}
 		}
 		completion(status, shippingMethods, summaryItems);
 	}];
