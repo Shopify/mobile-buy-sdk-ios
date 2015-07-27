@@ -214,7 +214,7 @@
 - (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didAuthorizePayment:(PKPayment *)payment completion:(void (^)(PKPaymentAuthorizationStatus status))completion
 {
 	[self.applePayHelper updateAndCompleteCheckoutWithPayment:payment completion:^(PKPaymentAuthorizationStatus status) {
-		paymentAuthorizationStatus = status;
+		self.paymentAuthorizationStatus = status;
 		switch (status) {
 			case PKPaymentAuthorizationStatusFailure:
 				if ([self.delegate respondsToSelector:@selector(controller:failedToCompleteCheckout:withError:)]) {
