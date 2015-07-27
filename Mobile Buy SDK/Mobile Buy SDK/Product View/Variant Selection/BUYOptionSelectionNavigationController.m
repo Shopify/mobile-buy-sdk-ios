@@ -31,7 +31,6 @@
 		[[UIBarButtonItem appearanceWhenContainedIn:[BUYNavigationController class], nil] setBackButtonBackgroundImage:[buttonImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 12, 0, 0)]
 																											  forState:UIControlStateNormal
 																											barMetrics:UIBarMetricsDefault];
-		
 	}
 	
 	return self;
