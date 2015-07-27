@@ -260,12 +260,12 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
 /**
  *  Fetches the products in the given collection
  *
- *  @param collection The collection to fetch the products from
+ *  @param collection The collectionId found in the BUYCollection object to fetch the products from
  *  @param block      (NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error)
  *
  *  @return the associated NSURLSessionDataTask
  */
-- (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page inCollection:(BUYCollection *)collection completion:(BUYDataProductListBlock)block;
+- (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId completion:(BUYDataProductListBlock)block;
 
 #pragma mark - Checkout
 

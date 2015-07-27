@@ -171,7 +171,7 @@
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 
-	[_client getProductsPage:1 inCollection:self.collection completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+	[_client getProductsPage:1 inCollection:self.collection.collectionId completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 	
 		XCTAssertEqual(products.count, 1);
 		XCTAssertEqualObjects(@"Pixel", [products.firstObject title]);
