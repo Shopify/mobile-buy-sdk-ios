@@ -54,10 +54,10 @@ float const imageDuration = 0.1f;
 		[self.activityIndicatorView startAnimating];
 	}
 	self.task = [[NSURLSession sharedSession] dataTaskWithURL:imageURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-		dispatch_async(dispatch_get_main_queue(), ^{
-			[self.activityIndicatorView stopAnimating];
-			if (error == nil && data) {
-				UIImage *productImage = [UIImage imageWithData:nil];
+		[self.activityIndicatorView stopAnimating];
+		if (error == nil && data) {
+			UIImage *productImage = [UIImage imageWithData:data];
+			dispatch_async(dispatch_get_main_queue(), ^{
 				if (self.image) {
 					[UIView transitionWithView:self
 									  duration:imageDuration
@@ -77,12 +77,12 @@ float const imageDuration = 0.1f;
 				if (completion) {
 					completion(productImage, nil);
 				}
-			} else {
-				if (completion) {
-					completion(nil, error);
-				}
+			});
+		} else {
+			if (completion) {
+				completion(nil, error);
 			}
-		});
+		}
 	}];
 	[self.task resume];
 }
@@ -90,15 +90,6 @@ float const imageDuration = 0.1f;
 - (void)cancelImageTask {
 	[self.task cancel];
 	self.task = nil;
-}
-
-- (void)setTheme:(BUYTheme *)theme
-{
-	if (theme.style == BUYThemeStyleDark) {
-		self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
-	} else {
-		self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-	}
 }
 
 @end

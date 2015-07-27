@@ -43,6 +43,7 @@
 {
 	self = [super initWithClient:client];
 	if (self) {
+		
 		self.modalPresentationStyle = UIModalPresentationCustom;
 		self.transitioningDelegate = self;
 	}

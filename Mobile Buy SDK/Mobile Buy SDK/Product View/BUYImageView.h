@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BUYTheme.h"
 
 extern float const imageDuration;
 
-@interface BUYImageView : UIImageView <BUYThemeable>
+@interface BUYImageView : UIImageView
 
 @property (nonatomic, assign) BOOL showsActivityIndicator;
 
