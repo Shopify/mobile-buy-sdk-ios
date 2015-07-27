@@ -124,6 +124,7 @@
 	BUYPresentationControllerWithNavigationController *presentationController = [[BUYPresentationControllerWithNavigationController alloc] initWithPresentedViewController:presented presentingViewController:presenting];
 	presentationController.delegate = presentationController;
 	presentationController.presentationDelegate = self;
+	[presentationController setTheme:self.theme];
 	return presentationController;
 }
 

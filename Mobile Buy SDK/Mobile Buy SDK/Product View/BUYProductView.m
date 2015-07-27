@@ -151,7 +151,8 @@
 	[self.productViewHeader.productImageView setTheme:_theme];
 }
 
-- (void)setProductImage:(BUYImage *)image {
+- (void)setProductImage:(BUYImage *)image
+{
 	if (self.productViewHeader && image) {
 		NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", image.src]];
 		[self.productViewHeader.productImageView loadImageWithURL:url
