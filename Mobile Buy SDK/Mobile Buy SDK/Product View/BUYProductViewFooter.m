@@ -43,7 +43,7 @@
 		
 		UIView *separatorLineView = [[UIView alloc] init];
 		separatorLineView.translatesAutoresizingMaskIntoConstraints = NO;
-		separatorLineView.backgroundColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(20, 20, 20) : BUY_RGB(217, 217, 217);;
+		separatorLineView.backgroundColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(76, 76, 76) : BUY_RGB(217, 217, 217);;
 		[self.visualEffectView.contentView addSubview:separatorLineView];
 		
 		[self.visualEffectView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[separatorLineView]|"
