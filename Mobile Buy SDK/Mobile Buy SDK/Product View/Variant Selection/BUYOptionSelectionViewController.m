@@ -39,7 +39,7 @@
 - (void)setTheme:(BUYTheme *)theme
 {
 	_theme = theme;
-	UIColor *backgroundColor = _theme.style == BUYThemeStyleDark ? BUY_RGBA(26, 26, 26, 0.8) : BUY_RGBA(255, 255, 255, 0.9);
+	UIColor *backgroundColor = _theme.style == BUYThemeStyleDark ? BUY_RGBA(26, 26, 26, 0.8f) : BUY_RGBA(255, 255, 255, 0.9f);
 	self.view.backgroundColor = backgroundColor;
 }
 
