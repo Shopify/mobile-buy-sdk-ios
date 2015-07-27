@@ -152,11 +152,10 @@
 }
 
 - (void)setProductImage:(BUYImage *)image {
-	if (self.productViewHeader) {		
+	if (self.productViewHeader && image) {
 		NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", image.src]];
 		[self.productViewHeader.productImageView loadImageWithURL:url
 													   completion:^(UIImage *image, NSError *error) {
-														   [self.productViewHeader setContentOffset:self.tableView.contentOffset];
 														   if (self.backgroundImageView.productImageView.image) {
 															   [UIView transitionWithView:self.backgroundImageView.productImageView
 																				 duration:imageDuration

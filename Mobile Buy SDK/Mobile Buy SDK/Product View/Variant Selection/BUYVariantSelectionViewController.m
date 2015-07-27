@@ -109,7 +109,7 @@
 	self.changedOptionSelection |= ![controller.selectedOptionValue.value isEqualToString:optionValue.value];
 	self.selectedOptions[optionValue.name] = optionValue;
 	
-	self.filteredProductVariantsForSelectionOption = [self filterProductVariants:controller.filteredProductVariantsForSelectionOption withOptionValue:optionValue];
+	self.filteredProductVariantsForSelectionOption = [BUYProductVariant filterProductVariants:controller.filteredProductVariantsForSelectionOption forOptionValue:optionValue];
 
 	if ([self hasNextOption]) {
 		[self presentNextOption];
@@ -127,18 +127,6 @@
 	BUYOption *option = [controller.optionValues firstObject];
 	[self.selectedOptions removeObjectForKey:option.name];
 	self.filteredProductVariantsForSelectionOption = controller.filteredProductVariantsForSelectionOption;
-}
-
-- (NSArray *)filterProductVariants:(NSArray*)filteredProductVariantsForSelectionOption withOptionValue:(BUYOptionValue*)optionValue {
-	NSMutableArray *filteredArray = [NSMutableArray new];
-	for (BUYProductVariant *variant in filteredProductVariantsForSelectionOption) {
-		for (BUYOptionValue *opValue in variant.options) {
-			if ([opValue isEqual:optionValue]) {
-				[filteredArray addObject:variant];
-			}
-		}
-	}
-	return [filteredArray copy];
 }
 
 - (NSArray*)filteredProductVariantsForSelectionOption

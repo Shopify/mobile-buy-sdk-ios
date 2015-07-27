@@ -34,6 +34,8 @@
 @property (nonatomic, strong) BUYProductView *productView;
 @property (nonatomic, weak) UIView *navigationBar;
 @property (nonatomic, weak) UIView *navigationBarTitle;
+@property (nonatomic, strong) BUYProductHeaderCell *headerCell;
+@property (nonatomic, strong) BUYProductVariantCell *variantCell;
 
 @end
 
@@ -73,7 +75,6 @@
 		[_productView.productViewFooter setApplePayButtonVisible:self.isApplePayAvailable];
 		[_productView.productViewFooter.buyPaymentButton addTarget:self action:@selector(checkoutWithApplePay) forControlEvents:UIControlEventTouchUpInside];
 		[_productView.productViewFooter.checkoutButton addTarget:self action:@selector(checkoutWithShopify) forControlEvents:UIControlEventTouchUpInside];
-		[self setSelectedProductVariant:self.selectedProductVariant];
 	}
 	return _productView;
 }
@@ -223,14 +224,16 @@
 		BUYProductHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"headerCell"];
 		cell.currency = self.shop.currency;
 		cell.productVariant = self.selectedProductVariant;
+		self.headerCell = cell;
 		theCell = cell;
 	} else if (indexPath.row == 1 && self.shouldShowVariantSelector) {
 		BUYProductVariantCell *cell = [tableView dequeueReusableCellWithIdentifier:@"variantCell"];
 		cell.productVariant = self.selectedProductVariant;
+		self.variantCell = cell;
 		theCell = cell;
 	} else if ((indexPath.row == 2 && self.shouldShowDescription) || (indexPath.row == 1 && self.shouldShowVariantSelector == NO && self.shouldShowDescription)) {
 		BUYProductDescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"descriptionCell"];
-		cell.descriptionHTML = self.product.htmlDescription;
+		cell.descriptionHTML = [NSString stringWithFormat:@"%@ %@", self.product.htmlDescription, self.product.htmlDescription];
 		cell.separatorInset = UIEdgeInsetsMake(0, CGRectGetWidth(self.productView.tableView.bounds), 0, 0);
 		theCell = cell;
 	}
@@ -260,7 +263,6 @@
 {
 	[controller dismissViewControllerAnimated:YES completion:NULL];
 	self.selectedProductVariant = variant;
-	[self.productView.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0], [NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 - (void)variantSelectionControllerDidCancelVariantSelection:(BUYVariantSelectionViewController *)controller atOptionIndex:(NSUInteger)optionIndex
@@ -278,6 +280,8 @@
 	}
 	
 	[self.productView setProductImage:image];
+	self.headerCell.productVariant = selectedProductVariant;
+	self.variantCell.productVariant = selectedProductVariant;
 	[self scrollViewDidScroll:self.productView.tableView];
 }
 
@@ -289,7 +293,7 @@
 
 	if (self.navigationBar) {
 		CGFloat navigationBarHeight = CGRectGetHeight(self.navigationBar.bounds);
-		CGFloat transitionPosition = CGRectGetHeight(self.productView.tableView.tableHeaderView.bounds) - scrollView.contentOffset.y - navigationBarHeight;
+		CGFloat transitionPosition = CGRectGetHeight(self.productView.tableView.tableHeaderView.bounds) - scrollView.contentOffset.y - (navigationBarHeight * 2);
 		transitionPosition = -transitionPosition / navigationBarHeight;
 		if (transitionPosition >= 1) {
 			transitionPosition = 1;

@@ -57,7 +57,7 @@ float const imageDuration = 0.1f;
 		dispatch_async(dispatch_get_main_queue(), ^{
 			[self.activityIndicatorView stopAnimating];
 			if (error == nil && data) {
-				UIImage *productImage = [UIImage imageWithData:nil];
+				UIImage *productImage = [UIImage imageWithData:data];
 				if (self.image) {
 					[UIView transitionWithView:self
 									  duration:imageDuration
