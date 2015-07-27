@@ -158,12 +158,12 @@ NSString * const BUYVersionString = @"1.1";
 	}];
 }
 
-- (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page inCollection:(BUYCollection *)collection completion:(BUYDataProductListBlock)block
+- (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId completion:(BUYDataProductListBlock)block;
 {
 	NSURLSessionDataTask *task = nil;
-	if (collection.collectionId) {
+	if (collectionId) {
 		
-		NSString *url = [NSString stringWithFormat:@"https://%@/api/channels/%@/product_publications.json?collection_id=%lu&sort=collection_sort&limit=%lu&page=%lu", self.shopDomain, self.channelId, collection.collectionId.longValue, (unsigned long)self.pageSize, (unsigned long)page];
+		NSString *url = [NSString stringWithFormat:@"https://%@/api/channels/%@/product_publications.json?collection_id=%lu&sort=collection_sort&limit=%lu&page=%lu", self.shopDomain, self.channelId, collectionId.longValue, (unsigned long)self.pageSize, (unsigned long)page];
 		
 		task = [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			
