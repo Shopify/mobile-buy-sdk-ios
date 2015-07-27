@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BUYTheme.h"
 
 @protocol BUYPresentationControllerWithNavigationControllerDelegate;
 
-@interface BUYPresentationControllerWithNavigationController : UIPresentationController <UIAdaptivePresentationControllerDelegate>
+@interface BUYPresentationControllerWithNavigationController : UIPresentationController <UIAdaptivePresentationControllerDelegate, BUYThemeable>
 
 @property (nonatomic, weak) id <BUYPresentationControllerWithNavigationControllerDelegate> presentationDelegate;
 

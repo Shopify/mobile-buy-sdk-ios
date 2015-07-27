@@ -11,6 +11,12 @@
 #import "BUYPresentationControllerWithNavigationController.h"
 #import "BUYImageKit.h"
 
+@interface BUYPresentationControllerWithNavigationController ()
+
+@property (nonatomic, strong) BUYTheme *theme;
+
+@end
+
 @implementation BUYPresentationControllerWithNavigationController
 
 - (UIViewController *)presentationController:(UIPresentationController *)controller viewControllerForAdaptivePresentationStyle:(UIModalPresentationStyle)style
@@ -23,6 +29,7 @@
 	closeButton.frame = CGRectMake(0, 0, 22, 22);
 	UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
 	navigationController.topViewController.navigationItem.leftBarButtonItem = barButtonItem;
+	navigationController.navigationBar.barStyle = (self.theme.style == BUYThemeStyleDark) ? UIBarStyleBlack : UIBarStyleDefault;
 	return navigationController;
 }
 
@@ -46,6 +53,11 @@
 - (UIModalPresentationStyle)adaptivePresentationStyleForTraitCollection:(UITraitCollection *)traitCollection NS_AVAILABLE_IOS(8_3)
 {
 	return (traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact) ? UIModalPresentationFullScreen : UIModalPresentationFormSheet;
+}
+
+- (void)setTheme:(BUYTheme *)theme
+{
+	_theme = theme;
 }
 
 @end
