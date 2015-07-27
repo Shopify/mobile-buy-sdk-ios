@@ -27,6 +27,7 @@
 		self.theme = theme;
 		
 		self.productViewHeader = [[BUYProductViewHeader alloc] init];
+		[self.productViewHeader.productImageView setTheme:self.theme];
 		
 		self.backgroundImageView = [[BUYProductViewHeaderBackgroundImageView alloc] initWithTheme:theme];
 		self.backgroundImageView.hidden = self.theme.showsProductImageBackground == NO;
@@ -147,6 +148,7 @@
 	self.stickyFooterView.backgroundColor = (_theme.style == BUYThemeStyleDark) ? [UIColor blackColor] : [UIColor whiteColor];;
 	self.backgroundColor = backgroundColor;
 	self.backgroundImageView.hidden = _theme.showsProductImageBackground == NO;
+	[self.productViewHeader.productImageView setTheme:_theme];
 }
 
 - (void)setProductImage:(BUYImage *)image {
