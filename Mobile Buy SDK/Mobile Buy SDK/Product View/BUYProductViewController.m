@@ -293,6 +293,7 @@
 
 	if (self.navigationBar) {
 		CGFloat navigationBarHeight = CGRectGetHeight(self.navigationBar.bounds);
+		// multiply by double statusbar height to have it fade it sooner with the scrolling
 		CGFloat transitionPosition = CGRectGetHeight(self.productView.tableView.tableHeaderView.bounds) - scrollView.contentOffset.y - (navigationBarHeight * 2);
 		transitionPosition = -transitionPosition / navigationBarHeight;
 		if (transitionPosition >= 1) {
