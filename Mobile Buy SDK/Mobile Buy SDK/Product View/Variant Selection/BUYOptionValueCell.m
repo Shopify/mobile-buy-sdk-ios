@@ -20,6 +20,8 @@
 {
 	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
 	if (self) {
+		self.backgroundColor = [UIColor clearColor];
+		self.contentView.backgroundColor = [UIColor clearColor];
 		
 		self.textLabel.backgroundColor = [UIColor clearColor];
 		self.layoutMargins = UIEdgeInsetsMake(self.layoutMargins.top, 16.0, self.layoutMargins.bottom, 0);
@@ -80,20 +82,6 @@
 {
 	self.titleLabel.textColor = theme.tintColor;
 	self.selectedImageView.tintColor = theme.tintColor;
-	
-	switch (theme.style) {
-		case BUYThemeStyleDark:
-			self.backgroundColor = [UIColor blackColor];
-			self.contentView.backgroundColor = [UIColor blackColor];
-			break;
-			
-		case BUYThemeStyleLight:
-			self.backgroundColor = [UIColor whiteColor];
-			break;
-			
-		default:
-			break;
-	}
 }
 
 - (void)prepareForReuse

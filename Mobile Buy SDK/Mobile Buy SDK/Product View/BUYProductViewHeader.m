@@ -12,8 +12,6 @@
 
 @interface BUYProductViewHeader ()
 
-@property (nonatomic, strong) NSLayoutConstraint *productImageViewConstraint;
-@property (nonatomic, strong) NSLayoutConstraint *productImageViewConstraintBottom;
 @property (nonatomic, strong) UIPageControl *pageControl;
 @property (nonatomic, strong) BUYGradientView *bottomGradientView;
 
@@ -48,14 +46,29 @@
 																			  constant:0.0];
 		[self addConstraint:self.productImageViewConstraintBottom];
 		
-		self.productImageViewConstraint = [NSLayoutConstraint constraintWithItem:self.productImageView
-																	   attribute:NSLayoutAttributeHeight
-																	   relatedBy:NSLayoutRelationEqual
-																		  toItem:nil
-																	   attribute:NSLayoutAttributeNotAnAttribute
-																	  multiplier:1.0
-																		constant:0.0];
-		[self addConstraint:self.productImageViewConstraint];
+		self.productImageViewConstraintHeight = [NSLayoutConstraint constraintWithItem:self.productImageView
+																			 attribute:NSLayoutAttributeHeight
+																			 relatedBy:NSLayoutRelationEqual
+																				toItem:nil
+																			 attribute:NSLayoutAttributeNotAnAttribute
+																			multiplier:1.0
+																			  constant:0.0];
+		[self addConstraint:self.productImageViewConstraintHeight];
+		
+		self.bottomGradientView = [[BUYGradientView alloc] init];
+		self.bottomGradientView.topColor = [UIColor clearColor];
+		self.bottomGradientView.bottomColor = [UIColor colorWithWhite:0 alpha:0.10f];
+		self.bottomGradientView.translatesAutoresizingMaskIntoConstraints = NO;
+		[self addSubview:self.bottomGradientView];
+		
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_bottomGradientView]|"
+																	 options:0
+																	 metrics:nil
+																	   views:NSDictionaryOfVariableBindings(_bottomGradientView)]];
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_bottomGradientView(height)]|"
+																	 options:0
+																	 metrics:@{ @"height" : @29 }
+																	   views:NSDictionaryOfVariableBindings(_bottomGradientView)]];
 		
 		self.pageControl = [[UIPageControl alloc] init];
 		self.pageControl.hidesForSinglePage = YES;
@@ -77,20 +90,13 @@
 														multiplier:1.0
 														  constant:0.0]];
 		
-		self.bottomGradientView = [[BUYGradientView alloc] init];
-		self.bottomGradientView.topColor = [UIColor clearColor];
-		self.bottomGradientView.bottomColor = [UIColor colorWithWhite:0 alpha:0.10f];
-		self.bottomGradientView.translatesAutoresizingMaskIntoConstraints = NO;
-		[self addSubview:self.bottomGradientView];
-		
-		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_bottomGradientView]|"
-																	 options:0
-																	 metrics:nil
-																	   views:NSDictionaryOfVariableBindings(_bottomGradientView)]];
-		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_bottomGradientView(height)]|"
-																	 options:0
-																	 metrics:@{ @"height" : @29 }
-																	   views:NSDictionaryOfVariableBindings(_bottomGradientView)]];
+		[self addConstraint:[NSLayoutConstraint constraintWithItem:self.pageControl
+														 attribute:NSLayoutAttributeHeight
+														 relatedBy:NSLayoutRelationEqual
+															toItem:nil
+														 attribute:NSLayoutAttributeNotAnAttribute
+														multiplier:1.0
+														  constant:20.0]];
 	}
 	return self;
 }
@@ -102,20 +108,20 @@
 		if (self.productImageViewConstraintBottom.constant != 0.0) {
 			self.productImageViewConstraintBottom.constant = 0.0;
 		}
-		self.productImageViewConstraint.constant = CGRectGetHeight(self.bounds) + -offset.y;
+		self.productImageViewConstraintHeight.constant = CGRectGetHeight(self.bounds) + -offset.y;
 	} else {
 		self.clipsToBounds = YES;
-		if (self.productImageViewConstraint.constant != CGRectGetHeight(self.bounds)) {
-			self.productImageViewConstraint.constant = CGRectGetHeight(self.bounds);
+		if (self.productImageViewConstraintHeight.constant != CGRectGetHeight(self.bounds)) {
+			self.productImageViewConstraintHeight.constant = CGRectGetHeight(self.bounds);
 		}
 		self.productImageViewConstraintBottom.constant = offset.y / 2;
 	}
 	
 	// change the image content mode on portrait (or 1:1) images so they zoom-scale on scrollview over-pulls
-	if (self.productImageView.image.size.height >= self.productImageView.image.size.width) {
+	if (self.productImageView.image && self.productImageView.image.size.height >= self.productImageView.image.size.width) {
 		CGFloat imageRatio = self.productImageView.image.size.height / self.productImageView.image.size.width;
 		CGFloat imageViewRatio = CGRectGetHeight(self.productImageView.bounds) / CGRectGetWidth(self.productImageView.bounds);
-		if (imageViewRatio >= imageRatio) {
+		if (imageViewRatio >= imageRatio && isnan(imageViewRatio) == NO && isinf(imageViewRatio) == NO) {
 			self.productImageView.contentMode = UIViewContentModeScaleAspectFill;
 		} else {
 			self.productImageView.contentMode = UIViewContentModeScaleAspectFit;

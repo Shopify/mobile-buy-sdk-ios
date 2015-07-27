@@ -16,23 +16,31 @@
 @interface BUYOptionSelectionViewController ()
 @property (nonatomic, strong) NSArray *optionValues;
 @property (nonatomic, weak) BUYTheme *theme;
+@property (nonatomic, strong) NSArray *filteredProductVariantsForSelectionOption;
 @end
 
 @implementation BUYOptionSelectionViewController
 
-- (instancetype)initWithOptionValues:(NSArray *)optionValues theme:(BUYTheme*)theme
+- (instancetype)initWithOptionValues:(NSArray *)optionValues filteredProductVariantsForSelectionOption:(NSArray*)filteredProductVariantsForSelectionOption
 {
 	NSParameterAssert(optionValues);
 	
 	self = [super init];
 	
 	if (self) {
+		self.filteredProductVariantsForSelectionOption = filteredProductVariantsForSelectionOption;
 		self.optionValues = optionValues;
 		self.title = [self.optionValues.firstObject name];
-		self.theme = theme;
 	}
 	
 	return self;
+}
+
+- (void)setTheme:(BUYTheme *)theme
+{
+	_theme = theme;
+	UIColor *backgroundColor = _theme.style == BUYThemeStyleDark ? BUY_RGBA(26, 26, 26, 0.8f) : BUY_RGBA(255, 255, 255, 0.9f);
+	self.view.backgroundColor = backgroundColor;
 }
 
 - (void)viewDidLoad
@@ -83,10 +91,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	BUYOptionValue *option = self.optionValues[indexPath.row];
-	[self.delegate optionSelectionController:self didSelectOption:option];
+	BUYOptionValue *optionValue = self.optionValues[indexPath.row];
+	[self.delegate optionSelectionController:self didSelectOptionValue:optionValue];
 	
-	self.selectedOptionValue = option;
+	self.selectedOptionValue = optionValue;
 }
 
 #pragma mark UIStatusBar appearance

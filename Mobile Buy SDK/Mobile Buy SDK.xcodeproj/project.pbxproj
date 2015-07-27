@@ -34,6 +34,8 @@
 /* Begin PBXBuildFile section */
 		9003969B1B601DF400226B73 /* BUYCartLineItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 900396991B601DF400226B73 /* BUYCartLineItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9003969C1B601DF400226B73 /* BUYCartLineItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9003969A1B601DF400226B73 /* BUYCartLineItem.m */; };
+		900396AC1B627CB900226B73 /* BUYProductView.h in Headers */ = {isa = PBXBuildFile; fileRef = 900396AA1B627CB900226B73 /* BUYProductView.h */; };
+		900396AD1B627CB900226B73 /* BUYProductView.m in Sources */ = {isa = PBXBuildFile; fileRef = 900396AB1B627CB900226B73 /* BUYProductView.m */; };
 		900E7C841B5DA553006F3C81 /* BUYImageKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 900E7C811B5DA32F006F3C81 /* BUYImageKit.h */; };
 		900E7C851B5DA559006F3C81 /* BUYImageKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 900E7C821B5DA32F006F3C81 /* BUYImageKit.m */; };
 		90A446211B5E8614009602AA /* NSDate+BUYAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 90A4461F1B5E8614009602AA /* NSDate+BUYAdditions.h */; };
@@ -58,7 +60,7 @@
 		90F7BA7E1B0D1DAF0067864D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90F7BA7C1B0D1DAF0067864D /* LaunchScreen.xib */; };
 		BE1007951B6038150031CEE7 /* BUYProductVariant+Options.h in Headers */ = {isa = PBXBuildFile; fileRef = BE1007931B6038150031CEE7 /* BUYProductVariant+Options.h */; };
 		BE1007961B6038150031CEE7 /* BUYProductVariant+Options.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1007941B6038150031CEE7 /* BUYProductVariant+Options.m */; };
-		BE10079B1B6165EC0031CEE7 /* BUYOptionValueCell.h in Headers */ = {isa = PBXBuildFile; fileRef = BE1007991B6165EC0031CEE7 /* BUYOptionValueCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BE10079B1B6165EC0031CEE7 /* BUYOptionValueCell.h in Headers */ = {isa = PBXBuildFile; fileRef = BE1007991B6165EC0031CEE7 /* BUYOptionValueCell.h */; };
 		BE10079C1B6165EC0031CEE7 /* BUYOptionValueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BE10079A1B6165EC0031CEE7 /* BUYOptionValueCell.m */; };
 		BE2E1D3A1B5E8663009610DA /* BUYClient+Test.h in Headers */ = {isa = PBXBuildFile; fileRef = BE2E1D381B5E8663009610DA /* BUYClient+Test.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BE2E1D3B1B5E8663009610DA /* BUYClient+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2E1D391B5E8663009610DA /* BUYClient+Test.m */; };
@@ -215,6 +217,8 @@
 		42488B331AB8761A005F21A9 /* BUYGiftCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYGiftCard.m; sourceTree = "<group>"; };
 		900396991B601DF400226B73 /* BUYCartLineItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYCartLineItem.h; sourceTree = "<group>"; };
 		9003969A1B601DF400226B73 /* BUYCartLineItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYCartLineItem.m; sourceTree = "<group>"; };
+		900396AA1B627CB900226B73 /* BUYProductView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYProductView.h; path = "Product View/BUYProductView.h"; sourceTree = "<group>"; };
+		900396AB1B627CB900226B73 /* BUYProductView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYProductView.m; path = "Product View/BUYProductView.m"; sourceTree = "<group>"; };
 		900E7C811B5DA32F006F3C81 /* BUYImageKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYImageKit.h; sourceTree = "<group>"; };
 		900E7C821B5DA32F006F3C81 /* BUYImageKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYImageKit.m; sourceTree = "<group>"; };
 		904FB6001AE03D4500EA1758 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Mobile Buy SDK/Info.plist"; sourceTree = "<group>"; };
@@ -493,6 +497,8 @@
 				90516CBE1B4F110A00E35E45 /* BUYPresentationControllerWithNavigationController.m */,
 				905ECCC01B4C39710094F336 /* BUYProductViewController.h */,
 				905ECCC11B4C39710094F336 /* BUYProductViewController.m */,
+				900396AA1B627CB900226B73 /* BUYProductView.h */,
+				900396AB1B627CB900226B73 /* BUYProductView.m */,
 				90516C791B4C589A00E35E45 /* BUYProductViewFooter.h */,
 				90516C7A1B4C589A00E35E45 /* BUYProductViewFooter.m */,
 				90516C851B4C6F7000E35E45 /* BUYProductViewHeader.h */,
@@ -724,6 +730,7 @@
 				BE9A64791B503D420033E558 /* BUYAddress+Additions.h in Headers */,
 				BE9A64801B503D990033E558 /* BUYViewController.h in Headers */,
 				BE9A644F1B503CA90033E558 /* BUYDiscount.h in Headers */,
+				900396AC1B627CB900226B73 /* BUYProductView.h in Headers */,
 				BE9A64511B503CB00033E558 /* BUYTaxLine.h in Headers */,
 				BEB74A7D1B5564870005A300 /* BUYVariantSelectionViewController.h in Headers */,
 				BE10079B1B6165EC0031CEE7 /* BUYOptionValueCell.h in Headers */,
@@ -1012,6 +1019,7 @@
 				BE9A64541B503CC30033E558 /* BUYAddress.m in Sources */,
 				BE9A64601B503CEC0033E558 /* BUYOption.m in Sources */,
 				BE9A64481B503C900033E558 /* BUYClient.m in Sources */,
+				900396AD1B627CB900226B73 /* BUYProductView.m in Sources */,
 				BE9A64561B503CC90033E558 /* BUYCreditCard.m in Sources */,
 				BE9A64671B503D060033E558 /* BUYShop.m in Sources */,
 				BE9A645E1B503CE60033E558 /* BUYObject.mm in Sources */,

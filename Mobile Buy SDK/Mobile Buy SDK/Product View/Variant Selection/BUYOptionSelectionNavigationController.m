@@ -19,8 +19,8 @@
 - (instancetype)initWithRootViewController:(UIViewController *)rootViewController
 {
 	self = [super initWithRootViewController:rootViewController];
-	
 	if (self) {
+		
 		self.modalPresentationStyle = UIModalPresentationCustom;
 		self.transitioningDelegate = self;
 		self.view.layer.cornerRadius = 4.0;
@@ -28,10 +28,9 @@
 		
 		// Add custom back button
 		UIImage *buttonImage = [BUYImageKit imageOfVariantBackImageWithFrame:CGRectMake(0, 0, 12, 18)];
-		[[UIBarButtonItem appearanceWhenContainedIn:[BUYNavigationController class], nil]
-		 setBackButtonBackgroundImage:[buttonImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 12, 0, 0)]
-														  forState:UIControlStateNormal
-														barMetrics:UIBarMetricsDefault];
+		[[UIBarButtonItem appearanceWhenContainedIn:[BUYNavigationController class], nil] setBackButtonBackgroundImage:[buttonImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 12, 0, 0)]
+																											  forState:UIControlStateNormal
+																											barMetrics:UIBarMetricsDefault];
 		
 	}
 	
@@ -43,11 +42,12 @@
 	switch (theme.style) {
 		case BUYThemeStyleDark:
 			[self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor lightGrayColor] }];
-			self.navigationBar.barTintColor = [UIColor blackColor];
+			self.navigationBar.barStyle = UIBarStyleBlack;
 			self.navigationBar.tintColor = [UIColor lightGrayColor];
 			break;
 		case BUYThemeStyleLight:
 			[self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor colorWithWhite:(float)(152.0/255.0) alpha:1.0] }];
+			self.navigationBar.barStyle = UIBarStyleDefault;
 			self.navigationBar.tintColor = [UIColor colorWithWhite:(float)(152.0/255.0) alpha:1.0];
 			break;
 	}

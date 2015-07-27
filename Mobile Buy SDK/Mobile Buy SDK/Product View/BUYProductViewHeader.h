@@ -12,6 +12,8 @@
 @interface BUYProductViewHeader : UIView
 
 @property (nonatomic, strong) BUYImageView *productImageView;
+@property (nonatomic, strong) NSLayoutConstraint *productImageViewConstraintHeight;
+@property (nonatomic, strong) NSLayoutConstraint *productImageViewConstraintBottom;
 
 - (void)setContentOffset:(CGPoint)offset;
 

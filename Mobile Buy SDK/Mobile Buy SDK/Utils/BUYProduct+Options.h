@@ -17,7 +17,7 @@
  *
  *  @return array of BUYOptionValues
  */
-- (NSArray *)valuesForOption:(BUYOption *)option;
+- (NSArray *)valuesForOption:(BUYOption *)option variants:(NSArray *)variants;
 
 /**
  *  Determine the variant given an array of options

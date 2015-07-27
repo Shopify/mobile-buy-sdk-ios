@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BUYTheme.h"
 
 extern float const imageDuration;
 
-@interface BUYImageView : UIImageView
+@interface BUYImageView : UIImageView <BUYThemeable>
+
+@property (nonatomic, assign) BOOL showsActivityIndicator;
 
 - (void)loadImageWithURL:(NSURL *)imageURL completion:(void (^)(UIImage *image, NSError *error))completion;
 
