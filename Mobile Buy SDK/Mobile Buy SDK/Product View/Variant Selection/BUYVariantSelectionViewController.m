@@ -132,9 +132,10 @@
 - (NSArray *)filterProductVariants:(NSArray*)filteredProductVariantsForSelectionOption withOptionValue:(BUYOptionValue*)optionValue {
 	NSMutableArray *filteredArray = [NSMutableArray new];
 	for (BUYProductVariant *variant in filteredProductVariantsForSelectionOption) {
-		if ([variant.options member:optionValue]) {
-			[filteredArray addObject:variant];
-			NSLog(@"%@", variant.title);
+		for (BUYOptionValue *opValue in variant.options) {
+			if ([opValue isEqual:optionValue]) {
+				[filteredArray addObject:variant];
+			}
 		}
 	}
 	return [filteredArray copy];
