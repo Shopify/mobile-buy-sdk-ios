@@ -100,7 +100,12 @@
 - (void)createCart
 {
 	_cart = [[BUYCart alloc] init];
-	[_cart addVariant:[_products[0] variants][0]];
+	for (BUYProduct *product in _products) {
+		if ([product.productId isEqualToNumber:@458943719]) {
+			[_cart addVariant:product.variants[0]];
+			return;
+		}
+	}
 }
 
 - (void)createCheckout
