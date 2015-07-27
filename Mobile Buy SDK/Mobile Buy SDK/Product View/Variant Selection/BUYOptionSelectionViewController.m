@@ -16,11 +16,12 @@
 @interface BUYOptionSelectionViewController ()
 @property (nonatomic, strong) NSArray *optionValues;
 @property (nonatomic, weak) BUYTheme *theme;
+@property (nonatomic, strong) NSArray *filteredProductVariantsForSelectionOption;
 @end
 
 @implementation BUYOptionSelectionViewController
 
-- (instancetype)initWithOptionValues:(NSArray *)optionValues theme:(BUYTheme*)theme filteredProductVariantsForSelectionOption:(NSArray*)filteredProductVariantsForSelectionOption
+- (instancetype)initWithOptionValues:(NSArray *)optionValues filteredProductVariantsForSelectionOption:(NSArray*)filteredProductVariantsForSelectionOption
 {
 	NSParameterAssert(optionValues);
 	
@@ -30,10 +31,14 @@
 		self.filteredProductVariantsForSelectionOption = filteredProductVariantsForSelectionOption;
 		self.optionValues = optionValues;
 		self.title = [self.optionValues.firstObject name];
-		self.theme = theme;
 	}
 	
 	return self;
+}
+
+- (void)setTheme:(BUYTheme *)theme
+{
+	_theme = theme;
 }
 
 - (void)viewDidLoad

@@ -85,7 +85,8 @@
 	BUYOption *option = self.product.options[index];
 	
 	NSArray *options = [self.product valuesForOption:option variants:self.filteredProductVariantsForSelectionOption];
-	BUYOptionSelectionViewController *optionController = [[BUYOptionSelectionViewController alloc] initWithOptionValues:options theme:self.theme filteredProductVariantsForSelectionOption:self.filteredProductVariantsForSelectionOption];
+	BUYOptionSelectionViewController *optionController = [[BUYOptionSelectionViewController alloc] initWithOptionValues:options filteredProductVariantsForSelectionOption:self.filteredProductVariantsForSelectionOption];
+	optionController.theme = self.theme;
 	optionController.delegate = self;
 	optionController.selectedOptionValue = self.changedOptionSelection ? nil : [self.selectedProductVariant optionValueForName:option.name];
 	optionController.isLastOption = [self isLastOption];

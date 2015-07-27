@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BUYTheme.h"
 
 @class BUYOptionValue;
 @class BUYOptionSelectionViewController;
-@class BUYTheme;
 
 @protocol BUYOptionSelectionDelegate <NSObject>
 
@@ -20,9 +20,9 @@
 
 @end
 
-@interface BUYOptionSelectionViewController : UITableViewController
+@interface BUYOptionSelectionViewController : UITableViewController <BUYThemeable>
 
-- (instancetype)initWithOptionValues:(NSArray *)optionValues theme:(BUYTheme*)theme filteredProductVariantsForSelectionOption:(NSArray*)filteredProductVariantsForSelectionOption;
+- (instancetype)initWithOptionValues:(NSArray *)optionValues filteredProductVariantsForSelectionOption:(NSArray*)filteredProductVariantsForSelectionOption;
 
 @property (nonatomic, strong, readonly) NSArray *optionValues;
 
@@ -30,7 +30,7 @@
 
 @property (nonatomic, assign) BOOL isLastOption;
 
-@property (nonatomic, strong) NSArray *filteredProductVariantsForSelectionOption;
+@property (nonatomic, strong, readonly) NSArray *filteredProductVariantsForSelectionOption;
 
 @property (nonatomic, weak) id <BUYOptionSelectionDelegate> delegate;
 
