@@ -51,7 +51,7 @@
 	// Add close button
 	UIImage *closeButton = [BUYImageKit imageOfVariantCloseImageWithFrame:CGRectMake(0, 0, 18, 18)];
 	UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithImage:closeButton style:UIBarButtonItemStylePlain target:self action:@selector(dismissPopover)];
-	barButtonItem.tintColor = [UIColor colorWithWhite:(float)(152.0/255.0) alpha:1.0];
+	barButtonItem.tintColor = self.theme.style == BUYThemeStyleDark ? BUY_RGBA(229, 229, 229, 1) : BUY_RGBA(51, 51, 51, 1);
 	controller.navigationItem.leftBarButtonItem = barButtonItem;
 	[self.navigationController pushViewController:controller animated:NO];
 	

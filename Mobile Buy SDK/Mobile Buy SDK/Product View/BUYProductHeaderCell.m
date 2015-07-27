@@ -112,7 +112,7 @@
 	switch (theme.style) {
 		case BUYThemeStyleDark:
 			self.titleLabel.textColor = [UIColor whiteColor];
-			self.backgroundColor = [UIColor blackColor];
+			self.backgroundColor = BUY_RGB(26, 26, 26);
 			break;
 			
 		case BUYThemeStyleLight:

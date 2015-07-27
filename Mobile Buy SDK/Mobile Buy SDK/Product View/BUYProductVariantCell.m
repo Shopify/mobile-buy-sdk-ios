@@ -86,7 +86,7 @@
 	
 	switch (theme.style) {
 		case BUYThemeStyleDark:
-			self.backgroundColor = [UIColor blackColor];
+			self.backgroundColor = BUY_RGB(26, 26, 26);
 			break;
 			
 		case BUYThemeStyleLight:
@@ -96,6 +96,10 @@
 		default:
 			break;
 	}
+	
+	[self.optionView1 setTheme:theme];
+	[self.optionView2 setTheme:theme];
+	[self.optionView3 setTheme:theme];
 }
 
 @end

@@ -8,8 +8,9 @@
 
 @import UIKit;
 @class BUYOptionValue;
+#import "BUYTheme.h"
 
-@interface BUYVariantOptionView : UIView
+@interface BUYVariantOptionView : UIView <BUYThemeable>
 
 - (void)setTextForOptionValue:(BUYOptionValue*)optionValue;
 
