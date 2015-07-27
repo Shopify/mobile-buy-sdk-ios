@@ -233,7 +233,7 @@
 		theCell = cell;
 	} else if ((indexPath.row == 2 && self.shouldShowDescription) || (indexPath.row == 1 && self.shouldShowVariantSelector == NO && self.shouldShowDescription)) {
 		BUYProductDescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"descriptionCell"];
-		cell.descriptionHTML = [NSString stringWithFormat:@"%@ %@", self.product.htmlDescription, self.product.htmlDescription];
+		cell.descriptionHTML = self.product.htmlDescription;
 		cell.separatorInset = UIEdgeInsetsMake(0, CGRectGetWidth(self.productView.tableView.bounds), 0, 0);
 		theCell = cell;
 	}
