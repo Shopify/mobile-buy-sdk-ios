@@ -19,4 +19,14 @@
  */
 - (BUYOptionValue *)optionValueForName:(NSString *)optionName;
 
+/**
+ *  Filters array of product variants filtered based on a selected option value
+ *
+ *  @param productVariants BUYProductVariant objects to filter
+ *  @param optionValue     The option value to filter with
+ *
+ *  @return A filtered copy of the original array
+ */
++ (NSArray *)filterProductVariants:(NSArray *)productVariants forOptionValue:(BUYOptionValue *)optionValue;
+
 @end

@@ -11,12 +11,11 @@
 
 @implementation BUYProduct (Options)
 
-- (NSArray *)valuesForOption:(BUYOption *)option
+- (NSArray *)valuesForOption:(BUYOption *)option variants:(NSArray *)variants
 {
 	NSMutableOrderedSet *set = [NSMutableOrderedSet new];
 	
-	for (BUYProductVariant *variant in self.variants) {
-		
+	for (BUYProductVariant *variant in variants) {
 		BUYOptionValue *optionValue = [variant optionValueForName:option.name];
 		[set addObject:optionValue];
 	}

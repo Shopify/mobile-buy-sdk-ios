@@ -7,28 +7,30 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BUYTheme.h"
 
 @class BUYOptionValue;
 @class BUYOptionSelectionViewController;
-@class BUYTheme;
 
 @protocol BUYOptionSelectionDelegate <NSObject>
 
-- (void)optionSelectionController:(BUYOptionSelectionViewController *)controller didSelectOption:(BUYOptionValue *)option;
+- (void)optionSelectionController:(BUYOptionSelectionViewController *)controller didSelectOptionValue:(BUYOptionValue *)optionValue;
 
 - (void)optionSelectionControllerDidBackOutOfChoosingOption:(BUYOptionSelectionViewController *)controller;
 
 @end
 
-@interface BUYOptionSelectionViewController : UITableViewController
+@interface BUYOptionSelectionViewController : UITableViewController <BUYThemeable>
 
-- (instancetype)initWithOptionValues:(NSArray *)optionValues theme:(BUYTheme*)theme;
+- (instancetype)initWithOptionValues:(NSArray *)optionValues filteredProductVariantsForSelectionOption:(NSArray*)filteredProductVariantsForSelectionOption;
 
 @property (nonatomic, strong, readonly) NSArray *optionValues;
 
 @property (nonatomic, strong) BUYOptionValue *selectedOptionValue;
 
 @property (nonatomic, assign) BOOL isLastOption;
+
+@property (nonatomic, strong, readonly) NSArray *filteredProductVariantsForSelectionOption;
 
 @property (nonatomic, weak) id <BUYOptionSelectionDelegate> delegate;
 

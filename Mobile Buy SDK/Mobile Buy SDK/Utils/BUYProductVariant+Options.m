@@ -21,4 +21,17 @@
 	return nil;
 }
 
++ (NSArray *)filterProductVariants:(NSArray *)productVariants forOptionValue:(BUYOptionValue *)optionValue
+{
+	NSMutableArray *filteredArray = [NSMutableArray new];
+	for (BUYProductVariant *variant in productVariants) {
+		for (BUYOptionValue *opValue in variant.options) {
+			if ([opValue isEqual:optionValue]) {
+				[filteredArray addObject:variant];
+			}
+		}
+	}
+	return [filteredArray copy];
+}
+
 @end
