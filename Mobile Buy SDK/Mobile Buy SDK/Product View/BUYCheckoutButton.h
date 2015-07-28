@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BUYTheme.h"
 
-@interface BUYCheckoutButton : UIButton
+@interface BUYCheckoutButton : UIButton <BUYThemeable>
 
 @end

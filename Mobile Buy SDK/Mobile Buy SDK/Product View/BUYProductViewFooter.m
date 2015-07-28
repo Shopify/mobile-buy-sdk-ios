@@ -57,11 +57,8 @@
 		
 		self.checkoutButton = [BUYCheckoutButton buttonWithType:UIButtonTypeCustom];
 		self.checkoutButton.translatesAutoresizingMaskIntoConstraints = NO;
+		[self.checkoutButton setTheme:self.theme];
 		[self.checkoutButton setTitle:@"Checkout" forState:UIControlStateNormal];
-		
-		UIColor *textColor = theme.style == BUYThemeStyleLight ? [UIColor whiteColor] : [UIColor blackColor];
-		[self.checkoutButton setTitleColor:textColor forState:UIControlStateNormal];
-		self.checkoutButton.backgroundColor = self.tintColor;
 		self.checkoutButton.layer.cornerRadius = 5;
 		[self.visualEffectView.contentView addSubview:self.checkoutButton];
 		
