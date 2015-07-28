@@ -70,6 +70,7 @@
 - (void)setTheme:(BUYTheme *)theme
 {
 	self.optionNameLabel.textColor = (theme.style == BUYThemeStyleDark) ? BUY_RGB(76, 76, 76) : BUY_RGB(191, 191, 191);
+	
 }
 
 @end

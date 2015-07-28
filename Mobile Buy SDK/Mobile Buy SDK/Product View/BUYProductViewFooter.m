@@ -55,7 +55,7 @@
 																					  metrics:@{ @"lineHeight" : @([[UIScreen mainScreen] scale] / 4) }
 																						views:NSDictionaryOfVariableBindings(separatorLineView)]];
 		
-		self.checkoutButton = [UIButton buttonWithType:UIButtonTypeSystem];
+		self.checkoutButton = [BUYCheckoutButton buttonWithType:UIButtonTypeCustom];
 		self.checkoutButton.translatesAutoresizingMaskIntoConstraints = NO;
 		[self.checkoutButton setTitle:@"Checkout" forState:UIControlStateNormal];
 		
