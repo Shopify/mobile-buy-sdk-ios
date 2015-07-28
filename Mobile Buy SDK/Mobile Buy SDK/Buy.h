@@ -33,4 +33,6 @@
 #import <Buy/BUYCartLineItem.h>
 #import <Buy/BUYClient+Test.h>
 #import <Buy/BUYCollection.h>
+#import <Buy/BuyError.h>
 #import <Buy/Buy-Bridging-Header.h>
+

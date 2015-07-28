@@ -74,8 +74,8 @@
 	
 	switch (theme.style) {
 		case BUYThemeStyleDark:
-			self.backgroundColor = [UIColor blackColor];
-			self.descriptionLabel.backgroundColor = [UIColor blackColor];
+			self.backgroundColor = BUY_RGB(26, 26, 26);
+			self.descriptionLabel.backgroundColor = BUY_RGB(26, 26, 26);
 			break;
 			
 		case BUYThemeStyleLight:
