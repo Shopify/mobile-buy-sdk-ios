@@ -19,7 +19,7 @@
 - (void)setHighlighted:(BOOL)highlighted
 {
 	[super setHighlighted:highlighted];
-	self.backgroundColor = highlighted ? [self.theme.tintColor colorWithAlphaComponent:0.4] : self.theme.tintColor;
+	self.backgroundColor = highlighted ? [self.theme.tintColor colorWithAlphaComponent:0.4f] : self.theme.tintColor;
 }
 
 - (void)setTheme:(BUYTheme *)theme
