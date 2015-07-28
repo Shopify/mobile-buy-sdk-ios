@@ -209,14 +209,12 @@ const NSTimeInterval PollDelay = 0.5;
 	// This is sometimes a slow process, so we need to poll until we've received confirmation that money has been authorized or captured.
 	
 	__block BUYStatus checkoutStatus = BUYStatusUnknown;
-	__block BUYCheckout *completedCheckout = nil;
 	
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
 		dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 		
 		while (checkout.token && checkoutStatus != BUYStatusFailed && checkoutStatus != BUYStatusComplete) {
-			[self.client getCompletionStatusOfCheckout:self.checkout completion:^(BUYCheckout *checkout, BUYStatus status, NSError *error) {
-				completedCheckout = checkout;
+			[self.client getCompletionStatusOfCheckout:self.checkout completion:^(BUYStatus status, NSError *error) {
 				checkoutStatus = status;
 				self.lastError = error;
 				dispatch_semaphore_signal(semaphore);

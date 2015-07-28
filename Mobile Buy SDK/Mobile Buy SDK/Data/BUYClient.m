@@ -401,11 +401,11 @@ NSString * const BUYVersionString = @"1.1";
 	if ([checkout hasToken]) {
 		task = [self getRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/processing.json", _shopDomain, checkout.token] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
-			block(checkout, [BUYClient statusForStatusCode:statusCode error:error], error);
+			block([BUYClient statusForStatusCode:statusCode error:error], error);
 		}];
 	}
 	else {
-		block(nil, BUYStatusUnknown, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
+		block(BUYStatusUnknown, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
 	}
 	return task;
 }
@@ -460,6 +460,18 @@ NSString * const BUYVersionString = @"1.1";
 		else {
 			block(nil, nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
 		}
+	}
+	return task;
+}
+
+- (NSURLSessionDataTask *)removeProductReservationsFromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
+{
+	NSURLSessionDataTask *task = nil;
+	if ([checkout hasToken]) {
+		checkout.reservationTime = @0;
+		task = [self updateCheckout:checkout completion:block];
+	} else {
+		block(checkout, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
 	}
 	return task;
 }

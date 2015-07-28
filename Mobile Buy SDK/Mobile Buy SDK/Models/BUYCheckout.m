@@ -97,7 +97,7 @@
 - (void)updateWithDictionary:(NSDictionary *)dictionary
 {
 	self.email = dictionary[@"email"];
-	self.orderId = dictionary[@"order_id"];
+	self.orderId = [dictionary[@"order_id"] isKindOfClass:[NSNull class]] ? nil : dictionary[@"order_id"];
 	self.token = dictionary[@"token"];
 	self.cartToken = dictionary[@"cart_token"];
 	self.requiresShipping = [dictionary[@"requires_shipping"] boolValue];
