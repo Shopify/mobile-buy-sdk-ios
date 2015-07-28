@@ -34,9 +34,7 @@
     self.title = @"Products";
     
     // Initialize the Buy SDK
-    self.client = [[BUYClient alloc] initWithShopDomain:@"davidmuzi.myshopify.com"
-                                                 apiKey:@"ad30d5343ef86e2b4babef12f1d90d13"
-                                              channelId:@"237698"];
+    self.client = [[BUYClient alloc] initWithShopDomain:SHOP_DOMAIN apiKey:API_KEY channelId:CHANNEL_ID];
     self.client.urlScheme = @"sampleapp://";
     
     // Get the list of products
@@ -83,46 +81,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BUYProduct *product = self.products[indexPath.row];
-    
-    BUYTheme *theme = [[BUYTheme alloc] init];
-    switch (indexPath.row) {
-        case 0: {
-//            theme.style = BUYThemeStyleDark;
-            theme.tintColor = [UIColor colorWithRed:0.349 green:0.627 blue:0.847 alpha:1.000];
-        }
-            break;
-        case 1: {
-            theme.tintColor = [UIColor colorWithRed:0.055 green:0.502 blue:0.129 alpha:1.000];
-        }
-            break;
-        case 2: {
-            theme.showsProductImageBackground = NO;
-        }
-            break;
-        case 3: {
-            theme.style = BUYThemeStyleDark;
-            theme.tintColor = [UIColor colorWithRed:0.855 green:0.678 blue:0.463 alpha:1.000];
-        }
-            break;
-        case 4: {
-            theme.tintColor = [UIColor colorWithRed:0.894 green:0.275 blue:0.290 alpha:1.000];
-        }
-            break;
-        case 6: {
-            theme.showsProductImageBackground = NO;
-            theme.tintColor = [UIColor colorWithRed:0.227 green:0.651 blue:0.996 alpha:1.000];
-        }
-            break;
-        case 7: {
-            theme.style = BUYThemeStyleDark;
-            theme.showsProductImageBackground = NO;
-            theme.tintColor = [UIColor colorWithRed:0.745 green:0.749 blue:0.000 alpha:1.000];
-        }
-            break;
-        default:
-            break;
-    }
-    self.productViewController.theme = theme;
     
     if (self.productViewController.isLoading == NO) {
         
