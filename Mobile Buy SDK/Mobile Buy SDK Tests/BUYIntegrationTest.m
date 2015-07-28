@@ -881,14 +881,6 @@
 	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
 		XCTAssertNil(error);
 	}];
-	
-	[self fetchShippingRates];
-	[self updateCheckout];
-	[self addCreditCardToCheckout];
-	[self completeCheckout];
-	
-	[self pollUntilCheckoutIsComplete];
-	[self verifyCompletedCheckout];
 }
 
 @end
