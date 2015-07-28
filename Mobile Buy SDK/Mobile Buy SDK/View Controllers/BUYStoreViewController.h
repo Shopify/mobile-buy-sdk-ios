@@ -8,7 +8,7 @@
 
 @import UIKit;
 #import "BUYViewController.h"
-#import "BUYErrors.h"
+#import "BUYError.h"
 
 typedef NS_ENUM(NSUInteger, BUYCheckoutType){
 	BUYCheckoutTypeNormal,

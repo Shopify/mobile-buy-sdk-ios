@@ -16,11 +16,11 @@
 #import "BUYShippingRate.h"
 #import "BUYShop.h"
 #import "BUYCheckout+Additions.h"
-#import "BUYErrors.h"
 #import "BUYTestConstants.h"
 #import "BUYCheckout_Private.h"
 #import "BUYCollection.h"
 #import "NSDecimalNumber+BUYAdditions.h"
+#import "BUYError.h"
 
 #define kGET @"GET"
 #define kPOST @"POST"
@@ -32,7 +32,6 @@
 #define kMinSuccessfulStatusCode 200
 #define kMaxSuccessfulStatusCode 299
 
-NSString * const BUYShopifyError = @"BUYShopifyError";
 NSString * const BUYVersionString = @"1.1";
 
 @interface BUYClient () <NSURLSessionDelegate>
@@ -174,6 +173,9 @@ NSString * const BUYVersionString = @"1.1";
 			block(products, page, [self hasReachedEndOfPage:products] || error, error);
 		}];
 	}
+	else {
+		block(nil, 0, NO, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_NoCollectionIdSpecified userInfo:nil]);
+	}
 	
 	return task;
 }
@@ -264,7 +266,10 @@ NSString * const BUYVersionString = @"1.1";
 - (NSURLSessionDataTask *)applyGiftCardWithCode:(NSString *)giftCardCode toCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
 	NSURLSessionDataTask *task = nil;
-	if (checkout.hasToken && giftCardCode) {
+	if (giftCardCode.length == 0) {
+		block(nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_NoGiftCardSpecified userInfo:nil]);
+	}
+	else {
 		BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:@{ @"code" : giftCardCode }];
 		task = [self postRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/gift_cards.json", _shopDomain, checkout.token] object:giftCard completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			if (error == nil) {
@@ -287,6 +292,9 @@ NSString * const BUYVersionString = @"1.1";
 			}
 			block(checkout, error);
 		}];
+	}
+	else {
+		block(nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_NoGiftCardSpecified userInfo:nil]);
 	}
 	
 	return task;
@@ -333,6 +341,7 @@ NSString * const BUYVersionString = @"1.1";
 - (NSURLSessionDataTask*)completeCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
 	NSURLSessionDataTask *task = nil;
+	
 	if ([checkout hasToken]) {
 		
 		NSData *data = nil;
@@ -347,19 +356,33 @@ NSString * const BUYVersionString = @"1.1";
 			task = [self checkoutCompletionRequestWithCheckout:checkout body:data completion:block];
 		}
 	}
+	else {
+		block(nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
+	}
+	
 	return task;
 }
 
 - (NSURLSessionDataTask *)completeCheckout:(BUYCheckout *)checkout withApplePayToken:(PKPaymentToken *)token completion:(BUYDataCheckoutBlock)block
 {
 	NSURLSessionDataTask *task = nil;
-	if ([checkout hasToken] && token) {
+	
+	if ([checkout hasToken] == NO) {
+		block(nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
+	}
+	else if (token == nil) {
+		block(nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_NoApplePayTokenSpecified userInfo:nil]);
+	}
+	else {
 		NSString *tokenString = [[NSString alloc] initWithData:token.paymentData encoding:NSUTF8StringEncoding];
 		NSDictionary *paymentJson = @{ @"payment_token" : @{ @"payment_data" : tokenString, @"type" : @"apple_pay" }};
 		NSError *error = nil;
 		NSData *data = [NSJSONSerialization dataWithJSONObject:paymentJson options:0 error:&error];
 		if (data && error == nil) {
 			task = [self checkoutCompletionRequestWithCheckout:checkout body:data completion:block];
+		}
+		else {
+			block(nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
 		}
 	}
 	return task;
@@ -381,6 +404,9 @@ NSString * const BUYVersionString = @"1.1";
 			block(checkout, [BUYClient statusForStatusCode:statusCode error:error], error);
 		}];
 	}
+	else {
+		block(nil, BUYStatusUnknown, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
+	}
 	return task;
 }
 
@@ -400,6 +426,9 @@ NSString * const BUYVersionString = @"1.1";
 			block(shippingRates, [BUYClient statusForStatusCode:statusCode error:error], error);
 		}];
 	}
+	else {
+		block(nil, BUYStatusUnknown, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
+	}
 	return task;
 }
 
@@ -408,7 +437,14 @@ NSString * const BUYVersionString = @"1.1";
 - (NSURLSessionDataTask *)storeCreditCard:(id <BUYSerializable>)creditCard checkout:(BUYCheckout *)checkout completion:(BUYDataCreditCardBlock)block
 {
 	NSURLSessionDataTask *task = nil;
-	if (checkout.token && creditCard) {
+	
+	if ([checkout hasToken] == NO) {
+		block(nil, nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
+	}
+	else if (creditCard == nil) {
+		block(nil, nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_NoCreditCardSpecified userInfo:nil]);
+	}
+	else {
 		NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
 		json[@"token"] = checkout.token;
 		json[@"credit_card"] = [creditCard jsonDictionaryForCheckout];
@@ -420,6 +456,9 @@ NSString * const BUYVersionString = @"1.1";
 		NSData *data = [NSJSONSerialization dataWithJSONObject:@{ @"checkout" : json } options:0 error:&error];
 		if (data && error == nil) {
 			task = [self postPaymentRequestWithCheckout:checkout body:data completion:block];
+		}
+		else {
+			block(nil, nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
 		}
 	}
 	return task;
@@ -448,9 +487,9 @@ NSString * const BUYVersionString = @"1.1";
 	return status;
 }
 
-- (NSError *)errorFromJSON:(NSDictionary *)errorDictionary statusCode:(NSInteger)statusCode
+- (BUYError *)errorFromJSON:(NSDictionary *)errorDictionary statusCode:(NSInteger)statusCode
 {
-	return [[NSError alloc] initWithDomain:kShopifyError code:statusCode userInfo:errorDictionary];
+	return [[BUYError alloc] initWithDomain:kShopifyError code:statusCode userInfo:errorDictionary];
 }
 
 - (NSURLSessionDataTask *)requestForURL:(NSString *)url method:(NSString *)method object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler

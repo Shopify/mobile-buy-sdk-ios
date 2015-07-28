@@ -11,6 +11,7 @@
 #import "BUYProduct.h"
 #import "BUYProductVariant.h"
 #import "BUYStoreViewController.h"
+#import "BUYError.h"
 
 @interface BUYStoreViewController () <WKNavigationDelegate, WKScriptMessageHandler>
 @end
