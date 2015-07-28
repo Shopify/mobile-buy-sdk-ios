@@ -470,6 +470,8 @@ NSString * const BUYVersionString = @"1.1";
 	if ([checkout hasToken]) {
 		checkout.reservationTime = @0;
 		task = [self updateCheckout:checkout completion:block];
+	} else {
+		block(checkout, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
 	}
 	return task;
 }
