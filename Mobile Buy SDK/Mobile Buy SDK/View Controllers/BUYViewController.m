@@ -111,7 +111,8 @@
 	}
 
 	[self handleCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
-
+		self.checkout = checkout;
+		
 		if (error == nil) {
 			self.applePayHelper = [[BUYApplePayHelpers alloc] initWithClient:self.client checkout:checkout];
 		}
@@ -157,7 +158,7 @@
 - (void)handleCheckoutCompletion:(BUYCheckout *)checkout error:(NSError *)error
 {
 	if (checkout && error == nil) {
-		_checkout = checkout;
+		self.checkout = checkout;
 		[self requestPayment];
 	}
 	else {
@@ -247,7 +248,7 @@
 	[controller dismissViewControllerAnimated:YES completion:^{
 		// If Apple Pay is dismissed with Cancel we need to clear the reservation time on the products in the checkout
 		if (self.paymentAuthorizationStatus != PKPaymentAuthorizationStatusSuccess) {
-			[self.client expireCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
+			[self.client removeProductReservationsFromCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
 				self.checkout = checkout;
 				if ([self.delegate respondsToSelector:@selector(controller:didDismissApplePayControllerWithStatus:forCheckout:)]) {
 					[self.delegate controller:self didDismissApplePayControllerWithStatus:self.paymentAuthorizationStatus forCheckout:self.checkout];

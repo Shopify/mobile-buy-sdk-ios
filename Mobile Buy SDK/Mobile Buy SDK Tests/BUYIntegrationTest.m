@@ -225,12 +225,10 @@
 		NSLog(@"Checking completion status...");
 		XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 		
-		[_checkoutClient getCompletionStatusOfCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, BUYStatus returnedStatus, NSError *error) {
+		[_checkoutClient getCompletionStatusOfCheckout:_checkout completion:^(BUYStatus status, NSError *error) {
 			XCTAssertNil(error);
-			XCTAssertNotNil(returnedCheckout);
-			
 			checkoutError = error;
-			checkoutStatus = returnedStatus;
+			checkoutStatus = status;
 			[expectation fulfill];
 		}];
 		
@@ -248,12 +246,13 @@
 
 - (void)verifyCompletedCheckout
 {
+	XCTAssertNil(_checkout.orderId);
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[_checkoutClient getCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
-		
 		_checkout = returnedCheckout;
+		XCTAssertNotNil(_checkout.orderId);
 		[expectation fulfill];
 	}];
 	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
@@ -863,31 +862,18 @@
 - (void)testExpiringCheckout
 {
 	[self createCart];
-	
-	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
-	
-	// Create the checkout
-	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_checkoutClient createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
-		
-		XCTAssertNil(error);
-		
-		_checkout = returnedCheckout;
-		XCTAssertEqual(300, _checkout.reservationTime.intValue);
-		[expectation fulfill];
-	}];
-	
-	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
-		XCTAssertNil(error);
-	}];
+	[self createCheckout];
+	XCTAssertEqual(1, [_checkout.lineItems count]);
+	XCTAssertEqual(300, _checkout.reservationTime.intValue);
 	
 	// Expire the checkout
 	XCTestExpectation *expectation2 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_checkoutClient expireCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+	[_checkoutClient removeProductReservationsFromCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		
 		XCTAssertNil(error);
 		
 		_checkout = returnedCheckout;
+		XCTAssertEqual(1, [_checkout.lineItems count]);
 		XCTAssertEqual(0, _checkout.reservationTime.intValue);
 		[expectation2 fulfill];
 	}];
@@ -896,20 +882,13 @@
 		XCTAssertNil(error);
 	}];
 	
-	// Expire the checkout
-	XCTestExpectation *expectation3 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_checkoutClient updateCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
-		
-		XCTAssertNil(error);
-		
-		_checkout = returnedCheckout;
-		XCTAssertEqual(0, _checkout.reservationTime.intValue);
-		[expectation3 fulfill];
-	}];
+	[self fetchShippingRates];
+	[self updateCheckout];
+	[self addCreditCardToCheckout];
+	[self completeCheckout];
 	
-	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
-		XCTAssertNil(error);
-	}];
+	[self pollUntilCheckoutIsComplete];
+	[self verifyCompletedCheckout];
 }
 
 @end

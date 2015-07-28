@@ -72,11 +72,10 @@ typedef void (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
 /**
  *  Return block containing a BUYCheckout, a BUYStatus and/or an NSError
  *
- *  @param checkout The returned BUYCheckout
  *  @param status   A BUYStatus specifying the requested job's completion status
  *  @param error    Optional NSError
  */
-typedef void (^BUYDataCheckoutStatusBlock)(BUYCheckout *checkout, BUYStatus status, NSError *error);
+typedef void (^BUYDataCheckoutStatusBlock)(BUYStatus status, NSError *error);
 
 /**
  *  Return block containing BUYShippingRate objects, a BUYStatus and/or an NSError
@@ -331,6 +330,8 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
  *  Note: There's no guarantee that the BUYCheckout returned will be the same as the one that is passed in.
  *  We recommended using the BUYCheckout returned in the block.
  *
+ *  Note: A BUYCheckout object with an `orderId` is a completed checkout.
+ *
  *  @param checkout The BUYCheckout to updated on Shopify
  *  @param block    (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
  *
@@ -373,10 +374,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
 
 /**
  *  Retrieve the status of a BUYCheckout. This checks the status of the current payment processing job for the provided checkout.
- *  Once the job is complete (status == BUYStatusComplete), you can use the `orderId` property on BUYCheckout to retrieve the associated order.
- *
- *  Note: There's no guarantee that the BUYCheckout returned will be the same as the one that is passed in.
- *  We recommended using the BUYCheckout returned in the block.
+ *  Once the job is complete (status == BUYStatusComplete), you can retrieve the completed order by calling `getCheckout:completion`
  *
  *  @param checkout The BUYCheckout to retrieve completion status for
  *  @param block    (^BUYDataCheckoutStatusBlock)(BUYCheckout *checkout, BUYStatus status, NSError *error);
@@ -416,15 +414,16 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
 - (NSURLSessionDataTask *)storeCreditCard:(id <BUYSerializable>)creditCard checkout:(BUYCheckout *)checkout completion:(BUYDataCreditCardBlock)block;
 
 /**
- *  Convenience method to expire a checkout (this releases all product inventory reservation).
- *  Expires a BUYCheckout by setting its `reservationTime` to `@0` and calls `updateCheckout:completion`
+ *  Convenience method to release all product inventory reservations by setting its 
+ *  `reservationTime` to `@0` and calls `updateCheckout:completion`. We recommend creating
+ *  a new BUYCheckout object from a BUYCart for further API calls.
  *
  *  @param checkout The BUYCheckout to expire
  *  @param block    (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
  *
  *  @return The associated NSURLSessionDataTask
  */
-- (NSURLSessionDataTask *)expireCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
+- (NSURLSessionDataTask *)removeProductReservationsFromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
 
 #pragma mark - Deprecated methods
 

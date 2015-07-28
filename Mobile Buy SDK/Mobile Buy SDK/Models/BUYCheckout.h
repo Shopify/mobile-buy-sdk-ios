@@ -84,7 +84,10 @@
 @property (nonatomic, strong, readonly) NSURL *paymentURL;
 
 /**
- *  Reservation time on the checkout in seconds. Setting to @0 and updating the checkout will release the products
+ *  Reservation time on the checkout in seconds. Setting to @0 and updating the checkout 
+ *  will release inventory reserved by the checkout (when product inventory is not infinite).
+ *  Note: This can also be done with `removeProductReservationsFromCheckout:completion` 
+ *  found in the BUYClient.
  */
 @property (nonatomic, strong) NSNumber *reservationTime;
 

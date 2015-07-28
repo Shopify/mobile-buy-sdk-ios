@@ -378,7 +378,7 @@ NSString * const BUYVersionString = @"1.1";
 	if ([checkout hasToken]) {
 		task = [self getRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/processing.json", _shopDomain, checkout.token] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
-			block(checkout, [BUYClient statusForStatusCode:statusCode error:error], error);
+			block([BUYClient statusForStatusCode:statusCode error:error], error);
 		}];
 	}
 	return task;
@@ -425,7 +425,7 @@ NSString * const BUYVersionString = @"1.1";
 	return task;
 }
 
-- (NSURLSessionDataTask *)expireCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
+- (NSURLSessionDataTask *)removeProductReservationsFromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
 	NSURLSessionDataTask *task = nil;
 	if ([checkout hasToken]) {
