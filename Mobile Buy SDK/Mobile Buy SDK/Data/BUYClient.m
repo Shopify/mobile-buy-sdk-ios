@@ -405,7 +405,7 @@ NSString * const BUYVersionString = @"1.1";
 		}];
 	}
 	else {
-		block(nil, BUYStatusUnknown, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
+		block(BUYStatusUnknown, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
 	}
 	return task;
 }
