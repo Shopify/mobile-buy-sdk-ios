@@ -42,7 +42,7 @@
 		[self.contentView addSubview:_optionView3];
 		
 		NSDictionary *views = NSDictionaryOfVariableBindings(_optionView1, _optionView2, _optionView3);
-		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_optionView1]-(16)-[_optionView2]-(16)-[_optionView3]" options:0 metrics:nil views:views]];
+		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_optionView1]-(16)-[_optionView2]-(16)-[_optionView3]-(>=8)-|" options:0 metrics:nil views:views]];
 		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_optionView1]-|" options:0 metrics:nil views:views]];
 		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_optionView2]-|" options:0 metrics:nil views:views]];
 		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_optionView3]-|" options:0 metrics:nil views:views]];
