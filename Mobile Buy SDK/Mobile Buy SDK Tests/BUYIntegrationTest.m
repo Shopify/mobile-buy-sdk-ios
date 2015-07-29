@@ -97,6 +97,15 @@
 	NSLog(@"Fetched products (Pages: %d, Count: %d)", (int)(currentPage + 1), (int)[_products count]);
 }
 
+- (void)testFetchInvalidProductId
+{
+	[_checkoutClient getProductById:@"123456789" completion:^(BUYProduct *product, NSError *error) {
+		XCTAssertNil(product);
+		XCTAssertNotNil(error);
+		XCTAssertEqual(error.code, BUYShopifyError_InvalidProductID);
+	}];
+}
+
 - (void)createCart
 {
 	_cart = [[BUYCart alloc] init];
