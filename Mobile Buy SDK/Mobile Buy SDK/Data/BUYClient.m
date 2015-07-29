@@ -125,6 +125,9 @@ NSString * const BUYVersionString = @"1.1";
 		if ([products count]) {
 			block(products[0], error);
 		} else {
+			if (error == nil && [products count] == 0) {
+				error = [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidProductID userInfo:@{ NSLocalizedDescriptionKey : @"Product ID is not valid. Confirm the product ID on your shop's admin and also ensure that the visibility is on for the Mobile App channel." }];
+			}
 			block(nil, error);
 		}
 	}];
@@ -138,6 +141,9 @@ NSString * const BUYVersionString = @"1.1";
 		NSArray *products = nil;
 		if (json && error == nil) {
 			products = [BUYProduct convertJSONArray:json[@"product_publications"]];
+		}
+		if (error == nil && [products count] == 0) {
+			error = [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidProductID userInfo:@{ NSLocalizedDescriptionKey : @"Product IDs are not valid. Confirm the product IDs on your shop's admin and also ensure that the visibility is on for the Mobile App channel." }];
 		}
 		block(products, error);
 	}];
