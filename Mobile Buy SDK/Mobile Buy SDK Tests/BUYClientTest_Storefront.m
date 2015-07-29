@@ -11,6 +11,7 @@
 #import <Buy/Buy.h>
 #import "BUYTestConstants.h"
 #import "BUYCollection.h"
+#import "NSDateFormatter+BUYAdditions.h"
 
 @interface BUYClientTest_Storefront : XCTestCase
 @property (nonatomic, strong) BUYCollection *collection;
@@ -101,7 +102,26 @@
 	}];
 	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
 		XCTAssertNil(error);
-	}];}
+	}];
+}
+
+- (void)testProductDates
+{
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_client getProductById:@"378783139" completion:^(BUYProduct *product, NSError *error) {
+		
+		XCTAssertNil(error);
+		XCTAssertNotNil(product);
+		NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForPublications];
+		XCTAssertEqualObjects([dateFormatter stringFromDate:product.createdAtDate], @"2015-07-28T09:58:24-0400");
+		XCTAssertEqualObjects([dateFormatter stringFromDate:product.publishedAtDate], @"2015-07-28T09:58:24-0400");
+		XCTAssertNotNil(product.updatedAtDate);
+		[expectation fulfill];
+	}];
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
 
 - (void)testGetMultipleProductByIds
 {
@@ -173,8 +193,8 @@
 
 	[_client getProductsPage:1 inCollection:self.collection.collectionId completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 	
-		XCTAssertEqual(products.count, 1);
-		XCTAssertEqualObjects(@"Pixel", [products.firstObject title]);
+		XCTAssertEqual(products.count, 5);
+		XCTAssertEqualObjects(@"Wood", [products.firstObject title]);
 		
 		[expectation fulfill];
 	}];

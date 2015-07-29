@@ -10,6 +10,7 @@
 #import "BUYOption.h"
 #import "BUYProduct.h"
 #import "BUYProductVariant.h"
+#import "NSDateFormatter+BUYAdditions.h"
 
 @implementation BUYProduct
 
@@ -29,6 +30,10 @@
 	_options = [BUYOption convertJSONArray:dictionary[@"options"]];
 	_htmlDescription = [dictionary[@"body_html"] isKindOfClass:[NSNull class]] ? nil : dictionary[@"body_html"];
 	_available = [dictionary[@"available"] boolValue];
+	NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForPublications];
+	_createdAtDate = [dateFormatter dateFromString:dictionary[@"created_at"]];
+	_updatedAtDate = [dateFormatter dateFromString:dictionary[@"updated_at"]];
+	_publishedAtDate = [dateFormatter dateFromString:dictionary[@"updated_at"]];
 }
 
 @end
