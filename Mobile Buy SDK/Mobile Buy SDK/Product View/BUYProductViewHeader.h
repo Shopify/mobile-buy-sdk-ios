@@ -16,5 +16,6 @@
 @property (nonatomic, strong) NSLayoutConstraint *productImageViewConstraintBottom;
 
 - (void)setContentOffset:(CGPoint)offset;
+- (void)setNumberOfPages:(NSInteger)numberOfPages;
 
 @end

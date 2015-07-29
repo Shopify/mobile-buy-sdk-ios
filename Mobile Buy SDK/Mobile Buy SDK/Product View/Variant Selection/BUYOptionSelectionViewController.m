@@ -39,9 +39,10 @@
 - (void)setTheme:(BUYTheme *)theme
 {
 	_theme = theme;
-	UIColor *backgroundColor = _theme.style == BUYThemeStyleDark ? BUY_RGBA(26, 26, 26, 0.8f) : BUY_RGBA(255, 255, 255, 0.9f);
+	UIColor *backgroundColor = _theme.style == BUYThemeStyleDark ? BUY_RGB(26, 26, 26) : BUY_RGB(255, 255, 255);
 	self.view.backgroundColor = backgroundColor;
-	self.tableView.separatorColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(76, 76, 76) : BUY_RGB(217, 217, 217);;
+	self.tableView.backgroundColor = backgroundColor;
+	self.tableView.separatorColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(76, 76, 76) : BUY_RGB(217, 217, 217);
 }
 
 - (void)viewDidLoad
@@ -49,8 +50,6 @@
 	[super viewDidLoad];
 	[self.tableView registerClass:[BUYOptionValueCell class] forCellReuseIdentifier:@"Cell"];
 	self.tableView.tableFooterView = [UIView new];
-	
-	self.tableView.backgroundColor = self.theme.style == BUYThemeStyleDark ? [UIColor blackColor] : [UIColor whiteColor];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

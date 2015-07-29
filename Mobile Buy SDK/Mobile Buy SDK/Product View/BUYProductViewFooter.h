@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Buy/BUYPaymentButton.h>
+#import "BUYPaymentButton.h"
+#import "BUYCheckoutButton.h"
 
 @class BUYTheme;
 
@@ -15,7 +16,7 @@
 
 - (instancetype)initWithTheme:(BUYTheme *)theme;
 
-@property (nonatomic, strong) UIButton *checkoutButton;
+@property (nonatomic, strong) BUYCheckoutButton *checkoutButton;
 @property (nonatomic, strong) BUYPaymentButton *buyPaymentButton;
 
 - (void)setApplePayButtonVisible:(BOOL)isApplePayAvailable;

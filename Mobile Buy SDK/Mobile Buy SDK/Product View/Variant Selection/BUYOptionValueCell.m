@@ -20,8 +20,8 @@
 {
 	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
 	if (self) {
-		self.backgroundColor = [UIColor clearColor];
-		self.contentView.backgroundColor = [UIColor clearColor];
+		UIView *backgroundView = [[UIView alloc] init];
+		[self setSelectedBackgroundView:backgroundView];
 		
 		self.textLabel.backgroundColor = [UIColor clearColor];
 		self.layoutMargins = UIEdgeInsetsMake(self.layoutMargins.top, 16.0, self.layoutMargins.bottom, 0);
@@ -82,6 +82,8 @@
 {
 	self.titleLabel.textColor = theme.tintColor;
 	self.selectedImageView.tintColor = theme.tintColor;
+	self.backgroundColor = theme.style == BUYThemeStyleDark ? BUY_RGB(26, 26, 26) : BUY_RGB(255, 255, 255);
+	self.selectedBackgroundView.backgroundColor = theme.style == BUYThemeStyleDark ? BUY_RGB(60, 60, 60) : BUY_RGB(242, 242, 242);
 }
 
 - (void)prepareForReuse

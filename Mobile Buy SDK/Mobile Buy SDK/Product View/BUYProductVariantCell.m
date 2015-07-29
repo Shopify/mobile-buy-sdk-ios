@@ -25,6 +25,9 @@
 	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
 	if (self) {
 		self.layoutMargins = UIEdgeInsetsMake(12, self.layoutMargins.left, 12, self.layoutMargins.right);
+
+		UIView *backgroundView = [[UIView alloc] init];
+		[self setSelectedBackgroundView:backgroundView];
 		
 		_optionView1 = [[BUYVariantOptionView alloc] init];
 		_optionView1.translatesAutoresizingMaskIntoConstraints = NO;
@@ -87,10 +90,12 @@
 	switch (theme.style) {
 		case BUYThemeStyleDark:
 			self.backgroundColor = BUY_RGB(26, 26, 26);
+			self.selectedBackgroundView.backgroundColor = BUY_RGB(60, 60, 60);
 			break;
 			
 		case BUYThemeStyleLight:
 			self.backgroundColor = [UIColor whiteColor];
+			self.selectedBackgroundView.backgroundColor = BUY_RGB(242, 242, 242);
 			break;
 			
 		default:

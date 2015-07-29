@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) UIPageControl *pageControl;
 @property (nonatomic, strong) BUYGradientView *bottomGradientView;
+@property (nonatomic, strong) NSLayoutConstraint *bottomGradientViewLayoutConstraintHeight;
 
 @end
 
@@ -57,7 +58,7 @@
 		
 		self.bottomGradientView = [[BUYGradientView alloc] init];
 		self.bottomGradientView.topColor = [UIColor clearColor];
-		self.bottomGradientView.bottomColor = [UIColor colorWithWhite:0 alpha:0.10f];
+		self.bottomGradientView.bottomColor = [UIColor colorWithWhite:0 alpha:0.05f];
 		self.bottomGradientView.translatesAutoresizingMaskIntoConstraints = NO;
 		[self addSubview:self.bottomGradientView];
 		
@@ -65,10 +66,19 @@
 																	 options:0
 																	 metrics:nil
 																	   views:NSDictionaryOfVariableBindings(_bottomGradientView)]];
-		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_bottomGradientView(height)]|"
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_bottomGradientView]|"
 																	 options:0
-																	 metrics:@{ @"height" : @29 }
+																	 metrics:nil
 																	   views:NSDictionaryOfVariableBindings(_bottomGradientView)]];
+		
+		self.bottomGradientViewLayoutConstraintHeight = [NSLayoutConstraint constraintWithItem:self.bottomGradientView
+																					 attribute:NSLayoutAttributeHeight
+																					 relatedBy:NSLayoutRelationEqual
+																						toItem:nil
+																					 attribute:NSLayoutAttributeNotAnAttribute
+																					multiplier:1.0
+																					  constant:20];
+		[self addConstraint:self.bottomGradientViewLayoutConstraintHeight];
 		
 		self.pageControl = [[UIPageControl alloc] init];
 		self.pageControl.hidesForSinglePage = YES;
@@ -99,6 +109,18 @@
 														  constant:20.0]];
 	}
 	return self;
+}
+
+- (void)setNumberOfPages:(NSInteger)numberOfPages
+{
+	self.pageControl.numberOfPages = numberOfPages;
+	if (self.pageControl.numberOfPages == 0) {
+		self.bottomGradientViewLayoutConstraintHeight.constant = 20;
+		self.bottomGradientView.bottomColor = [UIColor colorWithWhite:0 alpha:0.05f];
+	} else {
+		self.bottomGradientViewLayoutConstraintHeight.constant = 42;
+		self.bottomGradientView.bottomColor = [UIColor colorWithWhite:0 alpha:0.15f];
+	}
 }
 
 - (void)setContentOffset:(CGPoint)offset
