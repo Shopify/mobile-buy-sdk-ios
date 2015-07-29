@@ -17,7 +17,7 @@
 @class BUYProduct;
 @class BUYProductVariant;
 @class BUYShop;
-@class BUYCollection;
+#import "BUYCollection.h"
 
 extern NSString * const BUYVersionString;
 

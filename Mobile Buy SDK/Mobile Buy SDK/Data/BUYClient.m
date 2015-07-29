@@ -20,6 +20,7 @@
 #import "BUYCheckout_Private.h"
 #import "NSDecimalNumber+BUYAdditions.h"
 #import "BUYError.h"
+#import "BUYCollection.h"
 #import "BUYCollection+Additions.h"
 
 #define kGET @"GET"

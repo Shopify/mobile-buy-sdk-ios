@@ -6,6 +6,7 @@
 //
 
 #import <Buy/Buy.h>
+#import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSUInteger, BUYCollectionSort) {
 	BUYCollectionSortCollectionDefault,
@@ -15,7 +16,7 @@ typedef NS_ENUM(NSUInteger, BUYCollectionSort) {
 	BUYCollectionSortPriceAscending,
 	BUYCollectionSortPriceDescending,
 	BUYCollectionSortCreatedAscending,
-	BUYCollectionSortCreatedDescending,
+	BUYCollectionSortCreatedDescending
 };
 
 /**
