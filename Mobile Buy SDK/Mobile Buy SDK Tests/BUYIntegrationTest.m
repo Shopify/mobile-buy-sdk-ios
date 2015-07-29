@@ -106,6 +106,15 @@
 	}];
 }
 
+- (void)testFetchInvalidProductIds
+{
+	[_checkoutClient getProductsByIds:@[@"123456789", @"987654321"] completion:^(NSArray *products, NSError *error) {
+		XCTAssertNil(products);
+		XCTAssertNotNil(error);
+		XCTAssertEqual(error.code, BUYShopifyError_InvalidProductID);
+	}];
+}
+
 - (void)createCart
 {
 	_cart = [[BUYCart alloc] init];
