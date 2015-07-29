@@ -125,6 +125,9 @@ NSString * const BUYVersionString = @"1.1";
 		if ([products count]) {
 			block(products[0], error);
 		} else {
+			if (error == nil && [products count] == 0) {
+				error = [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidProductID userInfo:nil];
+			}
 			block(nil, error);
 		}
 	}];

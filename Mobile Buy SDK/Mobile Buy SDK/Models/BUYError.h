@@ -14,6 +14,7 @@ typedef NS_ENUM(NSUInteger, BUYCheckoutError) {
 	BUYShopifyError_CartFetchError,
 	BUYShopifyError_NoShippingMethodsToAddress,
 	BUYShopifyError_NoProductSpecified,
+	BUYShopifyError_InvalidProductID,
 	BUYShopifyError_NoCollectionIdSpecified,
 	BUYShopifyError_NoGiftCardSpecified,
 	BUYShopifyError_NoCreditCardSpecified,
