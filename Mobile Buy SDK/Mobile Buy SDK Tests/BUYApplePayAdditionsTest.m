@@ -14,7 +14,7 @@
 #import "BUYAddress+Additions.h"
 #import "BUYCheckout_Private.h"
 #import "NSDecimalNumber+BUYAdditions.h"
-#import "BUYDateFormatter.h"
+#import "NSDateFormatter+BUYAdditions.h"
 
 @interface BUYApplePayAdditionsTest : XCTestCase
 @end
@@ -202,7 +202,7 @@
 	NSInteger day = 60*60*24;
 	NSDate *firstDate = [self dateWithoutTime:[NSDate dateWithTimeIntervalSinceNow:day]];
 	NSDate *lastDate = [self dateWithoutTime:[NSDate dateWithTimeIntervalSinceNow:day]];
-	BUYDateFormatter *dateFormatter = [[BUYDateFormatter alloc] init];
+	NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForShippingRates];
 	
 	BUYShippingRate *rate1 = [[BUYShippingRate alloc] initWithDictionary:@{@"price" : @"5.00", @"id" : @"1234", @"title" : @"Banana", @"delivery_range" : @[[dateFormatter stringFromDate:firstDate], [dateFormatter stringFromDate:lastDate]]}];
 	
