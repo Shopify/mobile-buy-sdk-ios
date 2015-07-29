@@ -9,7 +9,7 @@
 #import "BUYShippingRate.h"
 #import "NSDecimalNumber+BUYAdditions.h"
 #import "NSString+Trim.h"
-#import "NSDateFormatter+BUYAdditions.h"
+#import "BUYDateFormatter.h"
 
 @interface BUYShippingRate ()
 
@@ -28,7 +28,7 @@
 	self.price = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"price"]];
 	self.title = dictionary[@"title"];
 	if ([dictionary[@"delivery_range"] isKindOfClass:[NSNull class]] == NO && [dictionary[@"delivery_range"] count]) {
-		NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForShippingRates];
+		BUYDateFormatter *dateFormatter = [[BUYDateFormatter alloc] init];
 		NSMutableArray *shippingRangeDates = [NSMutableArray new];
 		for (NSString *dateString in dictionary[@"delivery_range"]) {
 			[shippingRangeDates addObject:[dateFormatter dateFromString:dateString]];
@@ -44,7 +44,7 @@
 	json[@"title"] = [self.title buy_trim] ?: @"";
 	json[@"price"] = self.price ?: [NSDecimalNumber zero];
 	if (self.deliveryRange) {
-		NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForShippingRates];
+		BUYDateFormatter *dateFormatter = [[BUYDateFormatter alloc] init];
 		NSMutableArray *shippingRangeStrings = [NSMutableArray new];
 		for (NSDate *date in self.deliveryRange) {
 			[shippingRangeStrings addObject:[dateFormatter stringFromDate:date]];

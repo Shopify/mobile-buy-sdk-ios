@@ -70,19 +70,4 @@
  */
 @property (nonatomic, readonly, assign) BOOL available;
 
-/**
- *  The creation date for a product
- */
-@property (nonatomic, readonly, copy) NSDate *createdAtDate;
-
-/**
- *  The updated date for a product
- */
-@property (nonatomic, readonly, copy) NSDate *updatedAtDate;
-
-/**
- *  The publish date for a product
- */
-@property (nonatomic, readonly, copy) NSDate *publishedAtDate;
-
 @end

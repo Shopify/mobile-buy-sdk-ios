@@ -8,9 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSDateFormatter (BUYAdditions)
-
-+ (NSDateFormatter*)dateFormatterForShippingRates;
-+ (NSDateFormatter*)dateFormatterForPublications;
+@interface BUYDateFormatter : NSDateFormatter
 
 @end
