@@ -35,18 +35,14 @@
 		_optionValueLabel = [[UILabel alloc] init];
 		_optionValueLabel.textColor = self.tintColor;
 		_optionValueLabel.translatesAutoresizingMaskIntoConstraints = NO;
-
+		[_optionValueLabel setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
 		[_optionValueLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline]];
 		[self addSubview:_optionValueLabel];
 		
 		NSDictionary *views = NSDictionaryOfVariableBindings(_optionNameLabel, _optionValueLabel);
 		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_optionNameLabel]-(3)-[_optionValueLabel]|" options:NSLayoutFormatAlignAllLeading metrics:nil views:views]];
-		
-		[self addConstraint:[NSLayoutConstraint constraintWithItem:_optionNameLabel attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.0]];
-		[self addConstraint:[NSLayoutConstraint constraintWithItem:_optionValueLabel attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.0]];
-		
-		[self addConstraint:[NSLayoutConstraint constraintWithItem:_optionNameLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0]];
-		[self addConstraint:[NSLayoutConstraint constraintWithItem:_optionValueLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0]];
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_optionNameLabel]|" options:0 metrics:nil views:views]];
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_optionValueLabel]|" options:0 metrics:nil views:views]];
 	}
 	return self;
 }
