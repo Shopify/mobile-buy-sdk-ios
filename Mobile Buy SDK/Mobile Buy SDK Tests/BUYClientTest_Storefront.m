@@ -11,6 +11,7 @@
 #import <Buy/Buy.h>
 #import "BUYTestConstants.h"
 #import "BUYCollection.h"
+#import "BUYCollection+Additions.h"
 
 @interface BUYClientTest_Storefront : XCTestCase
 @property (nonatomic, strong) BUYCollection *collection;
@@ -173,8 +174,262 @@
 
 	[_client getProductsPage:1 inCollection:self.collection.collectionId completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 	
-		XCTAssertEqual(products.count, 1);
+		XCTAssertEqual(products.count, 5);
 		XCTAssertEqualObjects(@"Pixel", [products.firstObject title]);
+		XCTAssertEqualObjects(@"Solar powered umbrella", [products.lastObject title]);
+		
+		[expectation fulfill];
+	}];
+	
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
+- (void)testProductCollectionSortParamterConversions
+{
+	XCTAssertEqualObjects(@"collection-sort", [BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortCollectionDefault]);
+	XCTAssertEqualObjects(@"best-selling", [BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortBestSelling]);
+	XCTAssertEqualObjects(@"created-ascending", [BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortCreatedAscending]);
+	XCTAssertEqualObjects(@"created-descending", [BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortCreatedDescending]);
+	XCTAssertEqualObjects(@"price-ascending", [BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortPriceAscending]);
+	XCTAssertEqualObjects(@"price-descending", [BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortPriceDescending]);
+	XCTAssertEqualObjects(@"title-ascending", [BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortTitleAscending]);
+	XCTAssertEqualObjects(@"title-descending", [BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortTitleDescending]);
+}
+
+- (void)testProductsInCollectionWithSortOrderCollectionDefault
+{
+	if (self.collection == nil) {
+		[self testCollections];
+	}
+	
+	XCTAssertNotNil(self.collection);
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortCollectionDefault completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+		
+		XCTAssertEqual(products.count, 5);
+		XCTAssertEqualObjects(@"Pixel", [products.firstObject title]);
+		XCTAssertEqualObjects(@"Solar powered umbrella", [products.lastObject title]);
+		
+		[expectation fulfill];
+	}];
+	
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
+- (void)testProductsInCollectionWithSortOrderBestSelling
+{
+	if (self.collection == nil) {
+		[self testCollections];
+	}
+	
+	XCTAssertNotNil(self.collection);
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortBestSelling completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+		
+		XCTAssertEqual(products.count, 5);
+		XCTAssertEqualObjects(@"Pixel", [products.firstObject title]);
+		XCTAssertEqualObjects(@"Solar powered umbrella", [products.lastObject title]);
+		
+		[expectation fulfill];
+	}];
+	
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
+- (void)testProductsInCollectionWithSortOrderCreatedAscending
+{
+	if (self.collection == nil) {
+		[self testCollections];
+	}
+	
+	XCTAssertNotNil(self.collection);
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortCreatedAscending completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+		
+		XCTAssertEqual(products.count, 5);
+		NSDate *productCreation1 = [products[0] createdAtDate];
+		NSDate *productCreation2 = [products[1] createdAtDate];
+		NSDate *productCreation3 = [products[2] createdAtDate];
+		NSDate *productCreation4 = [products[3] createdAtDate];
+		NSDate *productCreation4 = [products[4] createdAtDate];
+		NSComparisonResult result = [productCreation1 compare:productCreation2];
+		XCTAssertEqual(result, NSOrderedAscending);
+		NSComparisonResult result = [productCreation2 compare:productCreation3];
+		XCTAssertEqual(result, NSOrderedAscending);
+		NSComparisonResult result = [productCreation3 compare:productCreation4];
+		XCTAssertEqual(result, NSOrderedAscending);
+		NSComparisonResult result = [productCreation4 compare:productCreation5];
+		XCTAssertEqual(result, NSOrderedAscending);
+		[expectation fulfill];
+	}];
+	
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
+- (void)testProductsInCollectionWithSortOrderCreatedDescending
+{
+	if (self.collection == nil) {
+		[self testCollections];
+	}
+	
+	XCTAssertNotNil(self.collection);
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortCreatedDescending completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+		
+		XCTAssertEqual(products.count, 5);
+		NSDate *productCreation1 = [products[0] createdAtDate];
+		NSDate *productCreation2 = [products[1] createdAtDate];
+		NSDate *productCreation3 = [products[2] createdAtDate];
+		NSDate *productCreation4 = [products[3] createdAtDate];
+		NSDate *productCreation4 = [products[4] createdAtDate];
+		NSComparisonResult result = [productCreation1 compare:productCreation2];
+		XCTAssertEqual(result, NSOrderedDescending);
+		NSComparisonResult result = [productCreation2 compare:productCreation3];
+		XCTAssertEqual(result, NSOrderedDescending);
+		NSComparisonResult result = [productCreation3 compare:productCreation4];
+		XCTAssertEqual(result, NSOrderedDescending);
+		NSComparisonResult result = [productCreation4 compare:productCreation5];
+		XCTAssertEqual(result, NSOrderedDescending);
+		
+		[expectation fulfill];
+	}];
+	
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
+- (void)testProductsInCollectionWithSortOrderPriceAscending
+{
+	if (self.collection == nil) {
+		[self testCollections];
+	}
+	
+	XCTAssertNotNil(self.collection);
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortPriceAscending completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+		
+		XCTAssertEqual(products.count, 5);
+		NSDecimalNumber *productPrice1 = [products[0] price];
+		NSDecimalNumber *productPrice2 = [products[1] price];
+		NSDecimalNumber *productPrice3 = [products[2] price];
+		NSDecimalNumber *productPrice4 = [products[3] price];
+		NSDecimalNumber *productPrice5 = [products[4] price];
+		XCTAssertLessThan(productPrice1, productPrice2);
+		XCTAssertLessThan(productPrice2, productPrice3);
+		XCTAssertLessThan(productPrice3, productPrice4);
+		XCTAssertLessThan(productPrice4, productPrice5);
+		
+		[expectation fulfill];
+	}];
+	
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
+- (void)testProductsInCollectionWithSortOrderPriceDescending
+{
+	if (self.collection == nil) {
+		[self testCollections];
+	}
+	
+	XCTAssertNotNil(self.collection);
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortPriceDescending completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+		
+		XCTAssertEqual(products.count, 5);
+		NSDecimalNumber *productPrice1 = [products[0] price];
+		NSDecimalNumber *productPrice2 = [products[1] price];
+		NSDecimalNumber *productPrice3 = [products[2] price];
+		NSDecimalNumber *productPrice4 = [products[3] price];
+		NSDecimalNumber *productPrice5 = [products[4] price];
+		XCTAssertGreaterThan(productPrice1, productPrice2);
+		XCTAssertGreaterThan(productPrice2, productPrice3);
+		XCTAssertGreaterThan(productPrice3, productPrice4);
+		XCTAssertGreaterThan(productPrice4, productPrice5);
+		
+		[expectation fulfill];
+	}];
+	
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
+- (void)testProductsInCollectionWithSortOrderTitleAscending
+{
+	if (self.collection == nil) {
+		[self testCollections];
+	}
+	
+	XCTAssertNotNil(self.collection);
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortTitleAscending completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+		
+		XCTAssertEqual(products.count, 5);
+		NSString *productTitle1 = [products[0] title];
+		NSString *productTitle2 = [products[1] title];
+		NSString *productTitle3 = [products[2] title];
+		NSString *productTitle4 = [products[3] title];
+		NSString *productTitle5 = [products[4] title];
+		NSComparisonResult result = [productTitle1 compare:productTitle2];
+		XCTAssertEqual(result, NSOrderedDescending);
+		NSComparisonResult result = [productTitle2 compare:productTitle3];
+		XCTAssertEqual(result, NSOrderedDescending);
+		NSComparisonResult result = [productTitle3 compare:productTitle4];
+		XCTAssertEqual(result, NSOrderedDescending);
+		NSComparisonResult result = [productTitle4 compare:productTitle5];
+		XCTAssertEqual(result, NSOrderedDescending);
+		
+		[expectation fulfill];
+	}];
+	
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
+- (void)testProductsInCollectionWithSortOrderTitleDescending
+{
+	if (self.collection == nil) {
+		[self testCollections];
+	}
+	
+	XCTAssertNotNil(self.collection);
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortTitleDescending completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+		
+		XCTAssertEqual(products.count, 5);
+		NSString *productTitle1 = [products[0] title];
+		NSString *productTitle2 = [products[1] title];
+		NSString *productTitle3 = [products[2] title];
+		NSString *productTitle4 = [products[3] title];
+		NSString *productTitle5 = [products[4] title];
+		NSComparisonResult result = [productTitle1 compare:productTitle2];
+		XCTAssertEqual(result, NSOrderedAscending);
+		NSComparisonResult result = [productTitle2 compare:productTitle3];
+		XCTAssertEqual(result, NSOrderedAscending);
+		NSComparisonResult result = [productTitle3 compare:productTitle4];
+		XCTAssertEqual(result, NSOrderedAscending);
+		NSComparisonResult result = [productTitle4 compare:productTitle5];
+		XCTAssertEqual(result, NSOrderedAscending);
 		
 		[expectation fulfill];
 	}];

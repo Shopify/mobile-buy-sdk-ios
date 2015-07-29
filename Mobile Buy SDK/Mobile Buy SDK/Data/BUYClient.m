@@ -18,9 +18,9 @@
 #import "BUYCheckout+Additions.h"
 #import "BUYTestConstants.h"
 #import "BUYCheckout_Private.h"
-#import "BUYCollection.h"
 #import "NSDecimalNumber+BUYAdditions.h"
 #import "BUYError.h"
+#import "BUYCollection+Additions.h"
 
 #define kGET @"GET"
 #define kPOST @"POST"
@@ -149,7 +149,7 @@ NSString * const BUYVersionString = @"1.1";
 	}];
 }
 
-- (NSURLSessionDataTask *)getCollections:(BUYDataCollectionsBlock)block;
+- (NSURLSessionDataTask *)getCollections:(BUYDataCollectionsBlock)block
 {
 	NSString *url = [NSString stringWithFormat:@"https://%@/api/channels/%@/collection_publications.json", self.shopDomain, self.channelId];
 	
@@ -163,12 +163,17 @@ NSString * const BUYVersionString = @"1.1";
 	}];
 }
 
-- (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId completion:(BUYDataProductListBlock)block;
+- (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId completion:(BUYDataProductListBlock)block
+{
+	return [self getProductsPage:page inCollection:collectionId sortOrder:0 completion:block];
+}
+
+- (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId sortOrder:(BUYCollectionSort)sortOrder completion:(BUYDataProductListBlock)block
 {
 	NSURLSessionDataTask *task = nil;
 	if (collectionId) {
-		
-		NSString *url = [NSString stringWithFormat:@"https://%@/api/channels/%@/product_publications.json?collection_id=%lu&sort=collection_sort&limit=%lu&page=%lu", self.shopDomain, self.channelId, collectionId.longValue, (unsigned long)self.pageSize, (unsigned long)page];
+		NSString *sortOrder = [BUYCollection sortOrderParameterForCollectionSort:sortOrder];
+		NSString *url = [NSString stringWithFormat:@"https://%@/api/channels/%@/product_publications.json?collection_id=%lu&sort_by=%@&limit=%lu&page=%lu", self.shopDomain, self.channelId, collectionId.longValue, sortOrder, (unsigned long)self.pageSize, (unsigned long)page];
 		
 		task = [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			

@@ -257,14 +257,28 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
 - (NSURLSessionDataTask *)getCollections:(BUYDataCollectionsBlock)block;
 
 /**
- *  Fetches the products in the given collection
+ *  Fetches the products in the given collection with the collection's 
+ *  default sort order set in the shop's admin
  *
+ *  @param page         Index of the page requested
  *  @param collectionId The `collectionId` found in the BUYCollection object to fetch the products from
- *  @param block      (NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error)
+ *  @param block        (NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error)
  *
  *  @return the associated NSURLSessionDataTask
  */
 - (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId completion:(BUYDataProductListBlock)block;
+
+/**
+ *  Fetches the products in the given collection with a given sort order
+ *
+ *  @param page         Index of the page requested
+ *  @param collectionId The `collectionId` found in the BUYCollection object to fetch the products from
+ *  @param sortOrder    The sort order that overrides the default collection sort order
+ *  @param block        (NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error)
+ *
+ *  @return the associated NSURLSessionDataTask
+ */
+- (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId sortOrder:(BUYCollectionSort)sortOrder completion:(BUYDataProductListBlock)block;
 
 #pragma mark - Checkout
 

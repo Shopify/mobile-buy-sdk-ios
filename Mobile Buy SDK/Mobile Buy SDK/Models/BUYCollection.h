@@ -7,6 +7,17 @@
 
 #import <Buy/Buy.h>
 
+typedef NS_ENUM(NSUInteger, BUYCollectionSort) {
+	BUYCollectionSortCollectionDefault,
+	BUYCollectionSortBestSelling,
+	BUYCollectionSortTitleAscending,
+	BUYCollectionSortTitleDescending,
+	BUYCollectionSortPriceAscending,
+	BUYCollectionSortPriceDescending,
+	BUYCollectionSortCreatedAscending,
+	BUYCollectionSortCreatedDescending,
+};
+
 /**
  *  Represents a collection of products on the shop
  */
