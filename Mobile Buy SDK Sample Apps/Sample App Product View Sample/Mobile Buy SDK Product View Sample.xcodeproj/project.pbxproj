@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		900396EC1B69398800226B73 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 900396EB1B69398800226B73 /* PassKit.framework */; };
 		BEA618911B57FBBF0073A594 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BEA618901B57FBBF0073A594 /* main.m */; };
 		BEA618941B57FBBF0073A594 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BEA618931B57FBBF0073A594 /* AppDelegate.m */; };
 		BEA618971B57FBBF0073A594 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEA618961B57FBBF0073A594 /* ViewController.m */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		900396EB1B69398800226B73 /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 		90A446271B5ED091009602AA /* Mobile Buy SDK Product View Sample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Mobile Buy SDK Product View Sample.entitlements"; sourceTree = "<group>"; };
 		BEA6188B1B57FBBF0073A594 /* Mobile Buy SDK Product View Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile Buy SDK Product View Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEA6188F1B57FBBF0073A594 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -36,6 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				900396EC1B69398800226B73 /* PassKit.framework in Frameworks */,
 				BEA618C71B57FC4B0073A594 /* Buy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -43,10 +46,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		900396ED1B69398E00226B73 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				900396EB1B69398800226B73 /* PassKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		BEA618821B57FBBF0073A594 = {
 			isa = PBXGroup;
 			children = (
 				BEA618C61B57FC4B0073A594 /* Buy.framework */,
+				900396ED1B69398E00226B73 /* Frameworks */,
 				BEA6188D1B57FBBF0073A594 /* Mobile Buy SDK Product View Sample */,
 				BEA6188C1B57FBBF0073A594 /* Products */,
 			);

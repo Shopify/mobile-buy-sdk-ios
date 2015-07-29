@@ -30,9 +30,7 @@
 		BE7764D81AE5728E00C74937 /* PAYButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAYButton.m; sourceTree = "<group>"; };
 		BE7764D91AE5728E00C74937 /* CheckoutSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckoutSelectionView.h; sourceTree = "<group>"; };
 		BE7764DA1AE5728E00C74937 /* CheckoutSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckoutSelectionView.m; sourceTree = "<group>"; };
-		BE7D51CB1B04E21800E4A08F /* Buy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Buy.framework; path = ../../../Buy.framework; sourceTree = "<group>"; };
 		BE9572AC1AE592E70024968A /* Mobile Buy SDK Web Sample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Mobile Buy SDK Web Sample.entitlements"; sourceTree = "<group>"; };
-		BE9652F01AE5550A00084408 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		BE9652F31AE563CE00084408 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		BEDC7A271AE03BA800C4B4FE /* Mobile Buy SDK Web Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile Buy SDK Web Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEDC7A2B1AE03BA800C4B4FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -64,9 +62,7 @@
 			isa = PBXGroup;
 			children = (
 				90858EC81B540D1B009D19D7 /* PassKit.framework */,
-				BE7D51CB1B04E21800E4A08F /* Buy.framework */,
 				BE9652F31AE563CE00084408 /* WebKit.framework */,
-				BE9652F01AE5550A00084408 /* libc++.dylib */,
 			);
 			name = Frameworks;
 			path = "Shopify Checkout";
@@ -89,8 +85,8 @@
 			isa = PBXGroup;
 			children = (
 				90F7BA5C1B0D1BE50067864D /* Buy.framework */,
-				BEDC7A291AE03BA800C4B4FE /* Mobile Buy SDK Web Sample */,
 				90171E981AF0294500BB73DB /* Frameworks */,
+				BEDC7A291AE03BA800C4B4FE /* Mobile Buy SDK Web Sample */,
 				BEDC7A281AE03BA800C4B4FE /* Products */,
 			);
 			sourceTree = "<group>";
