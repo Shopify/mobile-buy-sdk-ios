@@ -177,10 +177,7 @@ NSString * const BUYVersionString = @"1.1";
 		[parameters addObject:[NSString stringWithFormat:@"collection_id=%lu", collectionId.longValue]];
 		[parameters addObject:[NSString stringWithFormat:@"limit=%lu", (unsigned long)self.pageSize]];
 		[parameters addObject:[NSString stringWithFormat:@"page=%lu", (unsigned long)page]];
-		if (sortOrder != BUYCollectionSortCollectionDefault) {
-			NSString *sortByString = [BUYCollection sortOrderParameterForCollectionSort:sortOrder];
-			[parameters addObject:[NSString stringWithFormat:@"sort_by=%@", sortByString]];
-		}
+		[parameters addObject:[NSString stringWithFormat:@"sort_by=%@", [BUYCollection sortOrderParameterForCollectionSort:sortOrder]]];
 		NSString *url = [NSString stringWithFormat:@"https://%@/api/channels/%@/product_publications.json?%@", self.shopDomain, self.channelId, [parameters componentsJoinedByString:@"&"]];
 		
 		task = [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {

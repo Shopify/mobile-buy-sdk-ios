@@ -196,9 +196,9 @@
 
 	[_client getProductsPage:1 inCollection:self.collection.collectionId completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 	
-		XCTAssertEqual(products.count, 5);
-		XCTAssertEqualObjects([products.firstObject title], @"Wood");
-		XCTAssertEqualObjects(@"Solar powered umbrella", [products.lastObject title]);
+		XCTAssertNil(error);
+		XCTAssertNotNil(products);
+		XCTAssertGreaterThanOrEqual(products.count, 1);
 		
 		[expectation fulfill];
 	}];
@@ -210,7 +210,7 @@
 
 - (void)testProductCollectionSortParamterConversions
 {
-	XCTAssertEqualObjects(@"", [BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortCollectionDefault]);
+	XCTAssertEqualObjects(@"collection-default", [BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortCollectionDefault]);
 	XCTAssertEqualObjects(@"best-selling", [BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortBestSelling]);
 	XCTAssertEqualObjects(@"created-ascending", [BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortCreatedAscending]);
 	XCTAssertEqualObjects(@"created-descending", [BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortCreatedDescending]);
@@ -231,12 +231,9 @@
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[_client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortCollectionDefault completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 		
-		XCTAssertEqual(products.count, 5);
-		XCTAssertEqualObjects([products[0] title], @"Wood");
-		XCTAssertEqualObjects([products[1] title], @"Sharpie Pen");
-		XCTAssertEqualObjects([products[2] title], @"App crasher");
-		XCTAssertEqualObjects([products[3] title], @"Pixel");
-		XCTAssertEqualObjects([products[4] title], @"Solar powered umbrella");
+		XCTAssertNil(error);
+		XCTAssertNotNil(products);
+		XCTAssertGreaterThanOrEqual(products.count, 1);
 		
 		[expectation fulfill];
 	}];
@@ -257,12 +254,9 @@
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[_client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortBestSelling completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 		
-		XCTAssertEqual(products.count, 5);
-		XCTAssertEqualObjects([products[0] title], @"Sharpie Pen");
-		XCTAssertEqualObjects([products[1] title], @"App crasher");
-		XCTAssertEqualObjects([products[2] title], @"Solar powered umbrella");
-		XCTAssertEqualObjects([products[3] title], @"Pixel");
-		XCTAssertEqualObjects([products[4] title], @"Wood");
+		XCTAssertNil(error);
+		XCTAssertNotNil(products);
+		XCTAssertGreaterThanOrEqual(products.count, 1);
 		
 		[expectation fulfill];
 	}];
@@ -288,7 +282,9 @@
 		BUYProduct *product = (BUYProduct*)products[0];
 		for (int i = 1; i < products.count; i++) {
 			BUYProduct *productToCompare = (BUYProduct*)products[i];
-			XCTAssertEqual([product.createdAtDate compare:productToCompare.createdAtDate], NSOrderedSame);
+			NSLog(@"%@", product.createdAtDate);
+			NSLog(@"%@", productToCompare.createdAtDate);
+			XCTAssertEqual([product.createdAtDate compare:productToCompare.createdAtDate], NSOrderedAscending);
 			product = productToCompare;
 		}
 		
@@ -316,7 +312,7 @@
 		BUYProduct *product = (BUYProduct*)products[0];
 		for (int i = 1; i < products.count; i++) {
 			BUYProduct *productToCompare = (BUYProduct*)products[i];
-			XCTAssertEqual([product.createdAtDate compare:productToCompare.createdAtDate], NSOrderedSame);
+			XCTAssertEqual([product.createdAtDate compare:productToCompare.createdAtDate], NSOrderedDescending);
 			product = productToCompare;
 		}
 		
