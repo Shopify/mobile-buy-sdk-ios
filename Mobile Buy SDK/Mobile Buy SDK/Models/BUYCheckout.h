@@ -178,12 +178,12 @@
 /**
  *  Creation date of the checkout
  */
-@property (nonatomic, copy, readonly) NSDate *creationDate;
+@property (nonatomic, copy, readonly) NSDate *createdAtDate;
 
 /**
  *  Last updated date for the checkout
  */
-@property (nonatomic, copy, readonly) NSDate *lastUpdatedDate;
+@property (nonatomic, copy, readonly) NSDate *updatedAtDate;
 
 /**
  *  The website URL for the privacy policy for the checkout

@@ -21,8 +21,8 @@
 	_position = [dictionary[@"position"] copy];
 	
 	NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForPublications];
-	_creationDate = [dateFormatter dateFromString:dictionary[@"created_at"]];
-	_lastUpdatedDate = [dateFormatter dateFromString:dictionary[@"updated_at"]];
+	_createdAtDate = [dateFormatter dateFromString:dictionary[@"created_at"]];
+	_updatedAtDate = [dateFormatter dateFromString:dictionary[@"updated_at"]];
 }
 
 @end

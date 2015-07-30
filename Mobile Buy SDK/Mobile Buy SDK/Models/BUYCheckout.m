@@ -129,7 +129,8 @@
 	
 	self.webCheckoutURL = [NSURL URLWithString:dictionary[@"web_url"]];
 	NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForPublications];
-	self.creationDate = [dateFormatter dateFromString:dictionary[@"created_at"]];
+	self.createdAtDate = [dateFormatter dateFromString:dictionary[@"created_at"]];
+	self.updatedAtDate = [dateFormatter dateFromString:dictionary[@"updated_at"]];
 	self.creditCard = [dictionary[@"credit_card"] copy];
 	self.customerId = [dictionary[@"customer_id"] copy];
 	

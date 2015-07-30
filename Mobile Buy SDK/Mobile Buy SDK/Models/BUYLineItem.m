@@ -83,6 +83,10 @@
 		lineItem[@"price"] = self.price;
 	}
 	
+	if (self.properties) {
+		lineItem[@"properties"] = self.properties;
+	}
+	
 	lineItem[@"requires_shipping"] = self.requiresShipping ?: @NO;
 	
 	return lineItem;

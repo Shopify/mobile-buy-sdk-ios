@@ -30,7 +30,7 @@
 @property (nonatomic, copy) NSString *city;
 
 /**
- *  The company of the person associated with the address.
+ *  The company of the person associated with the address (optional).
  */
 @property (nonatomic, copy) NSString *company;
 

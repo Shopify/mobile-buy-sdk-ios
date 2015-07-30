@@ -26,12 +26,12 @@
 /**
  *  Creation date of the image
  */
-@property (nonatomic, readonly, copy) NSDate *creationDate;
+@property (nonatomic, readonly, copy) NSDate *createdAtDate;
 
 /**
  *  The date the image was last updated
  */
-@property (nonatomic, readonly, copy) NSDate *lastUpdatedDate;
+@property (nonatomic, readonly, copy) NSDate *updatedAtDate;
 
 /**
  *  The position of the image for the product
