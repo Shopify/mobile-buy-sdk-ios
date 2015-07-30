@@ -195,8 +195,9 @@
 
 	[_client getProductsPage:1 inCollection:self.collection.collectionId completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 	
-		XCTAssertEqual(products.count, 5);
-		XCTAssertEqualObjects(@"Wood", [products.firstObject title]);
+		XCTAssertNil(error);
+		XCTAssertNotNil(products);
+		XCTAssertGreaterThanOrEqual(products.count, 1);
 		
 		[expectation fulfill];
 	}];
