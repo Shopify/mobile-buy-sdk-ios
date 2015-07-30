@@ -16,6 +16,7 @@
 	
 	_name = [dictionary[@"name"] copy];
 	_position = dictionary[@"position"];
+	_productId = [dictionary[@"product_id"] copy];
 }
 
 @end

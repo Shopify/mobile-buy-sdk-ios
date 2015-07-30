@@ -37,4 +37,19 @@
  */
 @property (nonatomic, assign, readonly) BOOL published;
 
+/**
+ *  The creation date for the collection
+ */
+@property (nonatomic, readonly, copy) NSDate *createdAtDate;
+
+/**
+ *  The updated date for the collection
+ */
+@property (nonatomic, readonly, copy) NSDate *updatedAtDate;
+
+/**
+ *  The publish date for the collection
+ */
+@property (nonatomic, readonly, copy) NSDate *publishedAtDate;
+
 @end

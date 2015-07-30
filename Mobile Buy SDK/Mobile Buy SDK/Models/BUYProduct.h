@@ -71,6 +71,11 @@
 @property (nonatomic, readonly, assign) BOOL available;
 
 /**
+ *  The product is published on the current sales channel
+ */
+@property (nonatomic, readonly, assign) BOOL published;
+
+/**
  *  The creation date for a product
  */
 @property (nonatomic, readonly, copy) NSDate *createdAtDate;

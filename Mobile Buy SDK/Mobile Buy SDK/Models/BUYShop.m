@@ -26,9 +26,12 @@
 	_country = [dictionary[@"country"] copy];
 	_province = [dictionary[@"province"] copy];
 	_currency = [dictionary[@"currency"] copy];
+	_moneyFormat = [dictionary[@"money_format"] copy];
 	_domain = [dictionary[@"domain"] copy];
 	_shopDescription = [dictionary[@"description"] copy];
 	_shipsToCountries = [dictionary[@"ships_to_countries"] copy];
+	_shopURL = [NSURL URLWithString:dictionary[@"url"]];
+	_myShopifyURL = [NSURL URLWithString:dictionary[@"myshopify_domain"]];
 }
 
 @end
