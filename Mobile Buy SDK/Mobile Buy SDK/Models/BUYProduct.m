@@ -33,7 +33,7 @@
 	NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForPublications];
 	_createdAtDate = [dateFormatter dateFromString:dictionary[@"created_at"]];
 	_updatedAtDate = [dateFormatter dateFromString:dictionary[@"updated_at"]];
-	_publishedAtDate = [dateFormatter dateFromString:dictionary[@"updated_at"]];
+	_publishedAtDate = [dateFormatter dateFromString:dictionary[@"published_at"]];
 }
 
 @end
