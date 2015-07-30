@@ -113,10 +113,10 @@
 		XCTAssertNil(error);
 		XCTAssertNotNil(product);
 		NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForPublications];
-		// Integration test might run on a different timezone, so we have to remove the timezone part of the date format
-		dateFormatter.dateFormat = [dateFormatter.dateFormat stringByReplacingOccurrencesOfString:@"Z" withString:@""];
-		XCTAssertEqualObjects([dateFormatter stringFromDate:product.createdAtDate], @"2015-07-28T09:58:24");
-		XCTAssertEqualObjects([dateFormatter stringFromDate:product.createdAtDate], @"2015-07-28T09:58:24");
+		// Integration test might run on a different timezone, so we have to force the timezone to GMT
+		dateFormatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+		XCTAssertEqual([product.createdAtDate compare:[dateFormatter dateFromString:@"2015-07-28T09:58:24-0400"]], NSOrderedSame);
+		XCTAssertEqual([product.publishedAtDate compare:[dateFormatter dateFromString:@"2015-07-28T09:58:24-0400"]], NSOrderedSame);
 		XCTAssertNotNil(product.updatedAtDate);
 		[expectation fulfill];
 	}];
