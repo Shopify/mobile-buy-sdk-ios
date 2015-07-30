@@ -30,7 +30,8 @@
 	_domain = [dictionary[@"domain"] copy];
 	_shopDescription = [dictionary[@"description"] copy];
 	_shipsToCountries = [dictionary[@"ships_to_countries"] copy];
-	_shopUrl = [NSURL URLWithString:dictionary[@"url"]];
+	_shopURL = [NSURL URLWithString:dictionary[@"url"]];
+	_myShopifyURL = [NSURL URLWithString:dictionary[@"myshopify_domain"]];
 }
 
 @end

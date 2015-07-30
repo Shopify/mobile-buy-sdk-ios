@@ -61,6 +61,11 @@
 /**
  *  The URL for the web storefront
  */
-@property (nonatomic, readonly) NSURL *shopUrl;
+@property (nonatomic, readonly) NSURL *shopURL;
+
+/**
+ *  The shop's 'myshopify.com' domain.
+ */
+@property (nonatomic, readonly) NSURL *myShopifyURL;
 
 @end
