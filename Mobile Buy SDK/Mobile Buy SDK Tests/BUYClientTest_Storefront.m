@@ -188,7 +188,7 @@
 
 - (void)testProductCollectionSortParamterConversions
 {
-	XCTAssertEqualObjects(@"collection-sort", [BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortCollectionDefault]);
+	XCTAssertEqualObjects(@"", [BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortCollectionDefault]);
 	XCTAssertEqualObjects(@"best-selling", [BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortBestSelling]);
 	XCTAssertEqualObjects(@"created-ascending", [BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortCreatedAscending]);
 	XCTAssertEqualObjects(@"created-descending", [BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortCreatedDescending]);
@@ -210,8 +210,11 @@
 	[_client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortCollectionDefault completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 		
 		XCTAssertEqual(products.count, 5);
-		XCTAssertEqualObjects(@"Pixel", [products.firstObject title]);
-		XCTAssertEqualObjects(@"Solar powered umbrella", [products.lastObject title]);
+		XCTAssertEqualObjects([products[0] title], @"Wood");
+		XCTAssertEqualObjects([products[1] title], @"Sharpie Pen");
+		XCTAssertEqualObjects([products[2] title], @"App crasher");
+		XCTAssertEqualObjects([products[3] title], @"Pixel");
+		XCTAssertEqualObjects([products[4] title], @"Solar powered umbrella");
 		
 		[expectation fulfill];
 	}];
@@ -233,8 +236,11 @@
 	[_client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortBestSelling completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 		
 		XCTAssertEqual(products.count, 5);
-		XCTAssertEqualObjects(@"Pixel", [products.firstObject title]);
-		XCTAssertEqualObjects(@"Solar powered umbrella", [products.lastObject title]);
+		XCTAssertEqualObjects([products[0] title], @"Sharpie Pen");
+		XCTAssertEqualObjects([products[1] title], @"App crasher");
+		XCTAssertEqualObjects([products[2] title], @"Solar powered umbrella");
+		XCTAssertEqualObjects([products[3] title], @"Pixel");
+		XCTAssertEqualObjects([products[4] title], @"Wood");
 		
 		[expectation fulfill];
 	}];
@@ -256,19 +262,14 @@
 	[_client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortCreatedAscending completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 		
 		XCTAssertEqual(products.count, 5);
-		NSDate *productCreation1 = [products[0] createdAtDate];
-		NSDate *productCreation2 = [products[1] createdAtDate];
-		NSDate *productCreation3 = [products[2] createdAtDate];
-		NSDate *productCreation4 = [products[3] createdAtDate];
-		NSDate *productCreation4 = [products[4] createdAtDate];
-		NSComparisonResult result = [productCreation1 compare:productCreation2];
-		XCTAssertEqual(result, NSOrderedAscending);
-		NSComparisonResult result = [productCreation2 compare:productCreation3];
-		XCTAssertEqual(result, NSOrderedAscending);
-		NSComparisonResult result = [productCreation3 compare:productCreation4];
-		XCTAssertEqual(result, NSOrderedAscending);
-		NSComparisonResult result = [productCreation4 compare:productCreation5];
-		XCTAssertEqual(result, NSOrderedAscending);
+		
+		BUYProduct *product = (BUYProduct*)products[0];
+		for (int i = 1; i < products.count; i++) {
+			BUYProduct *productToCompare = (BUYProduct*)products[i];
+			XCTAssertEqual([product.createdAtDate compare:product.productToCompare], NSOrderedAscending);
+			product = [productToCompare copy];
+		}
+		
 		[expectation fulfill];
 	}];
 	
@@ -289,19 +290,13 @@
 	[_client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortCreatedDescending completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 		
 		XCTAssertEqual(products.count, 5);
-		NSDate *productCreation1 = [products[0] createdAtDate];
-		NSDate *productCreation2 = [products[1] createdAtDate];
-		NSDate *productCreation3 = [products[2] createdAtDate];
-		NSDate *productCreation4 = [products[3] createdAtDate];
-		NSDate *productCreation4 = [products[4] createdAtDate];
-		NSComparisonResult result = [productCreation1 compare:productCreation2];
-		XCTAssertEqual(result, NSOrderedDescending);
-		NSComparisonResult result = [productCreation2 compare:productCreation3];
-		XCTAssertEqual(result, NSOrderedDescending);
-		NSComparisonResult result = [productCreation3 compare:productCreation4];
-		XCTAssertEqual(result, NSOrderedDescending);
-		NSComparisonResult result = [productCreation4 compare:productCreation5];
-		XCTAssertEqual(result, NSOrderedDescending);
+		
+		BUYProduct *product = (BUYProduct*)products[0];
+		for (int i = 1; i < products.count; i++) {
+			BUYProduct *productToCompare = (BUYProduct*)products[i];
+			XCTAssertEqual([product.createdAtDate compare:product.productToCompare], NSOrderedDescending);
+			product = [productToCompare copy];
+		}
 		
 		[expectation fulfill];
 	}];
@@ -323,15 +318,17 @@
 	[_client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortPriceAscending completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 		
 		XCTAssertEqual(products.count, 5);
-		NSDecimalNumber *productPrice1 = [products[0] price];
-		NSDecimalNumber *productPrice2 = [products[1] price];
-		NSDecimalNumber *productPrice3 = [products[2] price];
-		NSDecimalNumber *productPrice4 = [products[3] price];
-		NSDecimalNumber *productPrice5 = [products[4] price];
-		XCTAssertLessThan(productPrice1, productPrice2);
-		XCTAssertLessThan(productPrice2, productPrice3);
-		XCTAssertLessThan(productPrice3, productPrice4);
-		XCTAssertLessThan(productPrice4, productPrice5);
+		
+		BUYProduct *product = (BUYProduct*)products[0];
+		BUYProductVariant *variant = (BUYProductVariant*)product.variants[0];
+		NSDecimalNumber *productPrice = variant.price;
+		for (int i = 1; i < products.count; i++) {
+			product = (BUYProduct*)products[i];
+			variant = (BUYProductVariant*)product.variants[0];
+			NSDecimalNumber *productPriceToCompare = [variant.price copy];
+			XCTAssertEqual([productPrice compare:productPriceToCompare], NSOrderedAscending);
+			productPrice = [productPriceToCompare copy];
+		}
 		
 		[expectation fulfill];
 	}];
@@ -353,15 +350,18 @@
 	[_client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortPriceDescending completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 		
 		XCTAssertEqual(products.count, 5);
-		NSDecimalNumber *productPrice1 = [products[0] price];
-		NSDecimalNumber *productPrice2 = [products[1] price];
-		NSDecimalNumber *productPrice3 = [products[2] price];
-		NSDecimalNumber *productPrice4 = [products[3] price];
-		NSDecimalNumber *productPrice5 = [products[4] price];
-		XCTAssertGreaterThan(productPrice1, productPrice2);
-		XCTAssertGreaterThan(productPrice2, productPrice3);
-		XCTAssertGreaterThan(productPrice3, productPrice4);
-		XCTAssertGreaterThan(productPrice4, productPrice5);
+		
+		BUYProduct *product = (BUYProduct*)products[0];
+		BUYProductVariant *variant = (BUYProductVariant*)product.variants[0];
+		NSDecimalNumber *productPrice = variant.price;
+		for (int i = 1; i < products.count; i++) {
+			product = (BUYProduct*)products[i];
+			NSLog(@"%@", product.title);
+			variant = (BUYProductVariant*)product.variants[0];
+			NSDecimalNumber *productPriceToCompare = [variant.price copy];
+			XCTAssertEqual([productPrice compare:productPriceToCompare], NSOrderedDescending);
+			productPrice = [productPriceToCompare copy];
+		}
 		
 		[expectation fulfill];
 	}];
@@ -388,14 +388,10 @@
 		NSString *productTitle3 = [products[2] title];
 		NSString *productTitle4 = [products[3] title];
 		NSString *productTitle5 = [products[4] title];
-		NSComparisonResult result = [productTitle1 compare:productTitle2];
-		XCTAssertEqual(result, NSOrderedDescending);
-		NSComparisonResult result = [productTitle2 compare:productTitle3];
-		XCTAssertEqual(result, NSOrderedDescending);
-		NSComparisonResult result = [productTitle3 compare:productTitle4];
-		XCTAssertEqual(result, NSOrderedDescending);
-		NSComparisonResult result = [productTitle4 compare:productTitle5];
-		XCTAssertEqual(result, NSOrderedDescending);
+		XCTAssertEqual([productTitle1 compare:productTitle2], NSOrderedAscending);
+		XCTAssertEqual([productTitle2 compare:productTitle3], NSOrderedAscending);
+		XCTAssertEqual([productTitle3 compare:productTitle4], NSOrderedAscending);
+		XCTAssertEqual([productTitle4 compare:productTitle5], NSOrderedAscending);
 		
 		[expectation fulfill];
 	}];
@@ -422,14 +418,10 @@
 		NSString *productTitle3 = [products[2] title];
 		NSString *productTitle4 = [products[3] title];
 		NSString *productTitle5 = [products[4] title];
-		NSComparisonResult result = [productTitle1 compare:productTitle2];
-		XCTAssertEqual(result, NSOrderedAscending);
-		NSComparisonResult result = [productTitle2 compare:productTitle3];
-		XCTAssertEqual(result, NSOrderedAscending);
-		NSComparisonResult result = [productTitle3 compare:productTitle4];
-		XCTAssertEqual(result, NSOrderedAscending);
-		NSComparisonResult result = [productTitle4 compare:productTitle5];
-		XCTAssertEqual(result, NSOrderedAscending);
+		XCTAssertEqual([productTitle1 compare:productTitle2], NSOrderedDescending);
+		XCTAssertEqual([productTitle2 compare:productTitle3], NSOrderedDescending);
+		XCTAssertEqual([productTitle3 compare:productTitle4], NSOrderedDescending);
+		XCTAssertEqual([productTitle4 compare:productTitle5], NSOrderedDescending);
 		
 		[expectation fulfill];
 	}];

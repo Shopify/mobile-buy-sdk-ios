@@ -7,6 +7,7 @@
 //
 
 #import "BUYCollection.h"
+#import "BUYClient.h"
 
 @interface BUYCollection (Additions)
 

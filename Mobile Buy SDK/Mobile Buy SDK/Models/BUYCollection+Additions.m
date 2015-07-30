@@ -28,7 +28,7 @@
 		case BUYCollectionSortTitleDescending:
 			return @"title-descending";
 		default:
-			return @"collection-sort";
+			return @"";
 	}
 }
 

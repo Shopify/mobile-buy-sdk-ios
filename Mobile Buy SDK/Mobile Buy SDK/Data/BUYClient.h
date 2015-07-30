@@ -17,7 +17,19 @@
 @class BUYProduct;
 @class BUYProductVariant;
 @class BUYShop;
-#import "BUYCollection.h"
+@class BUYCollection;
+
+
+typedef NS_ENUM(NSUInteger, BUYCollectionSort) {
+	BUYCollectionSortCollectionDefault,
+	BUYCollectionSortBestSelling,
+	BUYCollectionSortTitleAscending,
+	BUYCollectionSortTitleDescending,
+	BUYCollectionSortPriceAscending,
+	BUYCollectionSortPriceDescending,
+	BUYCollectionSortCreatedAscending,
+	BUYCollectionSortCreatedDescending
+};
 
 extern NSString * const BUYVersionString;
 
