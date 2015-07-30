@@ -139,7 +139,7 @@
 	
 	self.sourceName = dictionary[@"source_name"];
 	self.sourceId = dictionary[@"source_identifier"];
-	self.sourceURL = [NSURL URLWithString:dictionary[@"source_url"]];
+	self.sourceURL = [dictionary[@"source_url"] isKindOfClass:[NSString class]]? [NSURL URLWithString:dictionary[@"source_url"]] : nil;
 }
 
 - (id)jsonValueForValue:(id)value
