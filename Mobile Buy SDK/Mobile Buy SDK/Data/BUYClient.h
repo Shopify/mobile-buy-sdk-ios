@@ -19,15 +19,41 @@
 @class BUYShop;
 @class BUYCollection;
 
-
+/**
+ *  The sort order for products in a collection
+ */
 typedef NS_ENUM(NSUInteger, BUYCollectionSort) {
+	/**
+	 *  Sort products by best selling using the order set in the shop's admin
+	 */
 	BUYCollectionSortCollectionDefault,
+	/**
+	 *  Sort products by best selling
+	 */
 	BUYCollectionSortBestSelling,
+	/**
+	 *  Sort products by title, ascending
+	 */
 	BUYCollectionSortTitleAscending,
+	/**
+	 *  Sort products by title, descending
+	 */
 	BUYCollectionSortTitleDescending,
+	/**
+	 *  Sort products by price (first variant), ascending
+	 */
 	BUYCollectionSortPriceAscending,
+	/**
+	 *  Sort products by price (first variant), ascending
+	 */
 	BUYCollectionSortPriceDescending,
+	/**
+	 *  Sort products by creation date, ascending
+	 */
 	BUYCollectionSortCreatedAscending,
+	/**
+	 *  Sort products by creation date, ascending
+	 */
 	BUYCollectionSortCreatedDescending
 };
 
