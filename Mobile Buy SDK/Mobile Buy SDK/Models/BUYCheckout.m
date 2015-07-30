@@ -17,6 +17,7 @@
 #import "NSDecimalNumber+BUYAdditions.h"
 #import "NSString+Trim.h"
 #import "BUYCheckout_Private.h"
+#import "NSDateFormatter+BUYAdditions.h"
 
 @implementation BUYCheckout
 
@@ -127,6 +128,18 @@
 	self.orderStatusURL = orderStatusURL && [orderStatusURL isKindOfClass:[NSString class]] ? [NSURL URLWithString:orderStatusURL] : nil;
 	
 	self.webCheckoutURL = [NSURL URLWithString:dictionary[@"web_url"]];
+	NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForPublications];
+	self.creationDate = [dateFormatter dateFromString:dictionary[@"created_at"]];
+	self.creditCard = [dictionary[@"credit_card"] copy];
+	self.customerId = [dictionary[@"customer_id"] copy];
+	
+	self.privacyPolicyURL = [NSURL URLWithString:dictionary[@"privacy_policy_url"]];
+	self.refundPolicyURL = [NSURL URLWithString:dictionary[@"refund_policy_url"]];
+	self.termsOfServiceURL = [NSURL URLWithString:dictionary[@"terms_of_service_url"]];
+	
+	self.sourceName = dictionary[@"source_name"];
+	self.sourceId = dictionary[@"source_identifier"];
+	self.sourceURL = [NSURL URLWithString:dictionary[@"source_url"]];
 }
 
 - (id)jsonValueForValue:(id)value

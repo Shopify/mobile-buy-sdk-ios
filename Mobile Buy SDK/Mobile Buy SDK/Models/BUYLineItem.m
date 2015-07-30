@@ -14,6 +14,12 @@
 @interface BUYLineItem ()
 
 @property (nonatomic, strong) NSNumber *variantId;
+@property (nonatomic, strong) NSNumber *productId;
+@property (nonatomic, copy) NSString *sku;
+@property (nonatomic, readwrite) BOOL taxable;
+@property (nonatomic, strong) NSDecimalNumber *compareAtPrice;
+@property (nonatomic, strong) NSDecimalNumber *grams;
+@property (nonatomic, copy) NSString *fulfillmentService;
 
 @end
 
@@ -33,6 +39,8 @@
 		self.price = variant ? [variant price] : [NSDecimalNumber zero];
 		self.title = variant ? [variant title] : @"";
 		self.requiresShipping = variant.requiresShipping;
+		self.compareAtPrice = variant.compareAtPrice;
+		self.grams = variant.grams;
 	}
 	return self;
 }
@@ -41,10 +49,19 @@
 {
 	[super updateWithDictionary:dictionary];
 	self.variantId = dictionary[@"variant_id"];
+	self.productId = dictionary[@"product_id"];
 	self.title = dictionary[@"title"];
+	self.variantTitle = dictionary[@"variant_title"];
 	self.quantity = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"quantity"]];
 	self.price = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"price"]];
+	self.linePrice = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"line_price"]];
+	self.compareAtPrice = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"compare_at_price"]];
 	self.requiresShipping = dictionary[@"requires_shipping"];
+	self.sku = dictionary[@"sku"];
+	self.taxable = [dictionary[@"taxable"] boolValue];
+	self.properties = dictionary[@"properties"];
+	self.grams = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"grams"]];
+	self.fulfillmentService = [dictionary[@"fulfillment_service"] copy];
 }
 
 - (NSDictionary *)jsonDictionaryForCheckout

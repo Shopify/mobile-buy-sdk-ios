@@ -30,6 +30,7 @@
 	_options = [BUYOption convertJSONArray:dictionary[@"options"]];
 	_htmlDescription = [dictionary[@"body_html"] isKindOfClass:[NSNull class]] ? nil : dictionary[@"body_html"];
 	_available = [dictionary[@"available"] boolValue];
+	_published = [dictionary[@"published"] boolValue];
 	NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForPublications];
 	_createdAtDate = [dateFormatter dateFromString:dictionary[@"created_at"]];
 	_updatedAtDate = [dateFormatter dateFromString:dictionary[@"updated_at"]];

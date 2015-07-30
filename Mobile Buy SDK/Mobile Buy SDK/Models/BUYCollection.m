@@ -7,6 +7,7 @@
 //
 
 #import "BUYCollection.h"
+#import "NSDateFormatter+BUYAdditions.h"
 
 @interface BUYCollection ()
 @property (nonatomic, strong) NSString *title;
@@ -27,6 +28,11 @@
 	_handle = [dictionary[@"handle"] copy];
 	_published = [dictionary[@"published"] boolValue];
 	_collectionId = [dictionary[@"collection_id"] copy];
+	
+	NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForPublications];
+	_createdAtDate = [dateFormatter dateFromString:dictionary[@"created_at"]];
+	_updatedAtDate = [dateFormatter dateFromString:dictionary[@"updated_at"]];
+	_publishedAtDate = [dateFormatter dateFromString:dictionary[@"published_at"]];
 }
 
 @end

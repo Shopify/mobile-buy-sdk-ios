@@ -23,4 +23,24 @@
  */
 @property (nonatomic, readonly, copy) NSArray *variantIds;
 
+/**
+ *  Creation date of the image
+ */
+@property (nonatomic, readonly, copy) NSDate *creationDate;
+
+/**
+ *  The date the image was last updated
+ */
+@property (nonatomic, readonly, copy) NSDate *lastUpdatedDate;
+
+/**
+ *  The position of the image for the product
+ */
+@property (nonatomic, readonly, copy) NSNumber *position;
+
+/**
+ *  The associated product ID for the image
+ */
+@property (nonatomic, readonly, copy) NSNumber *productId;
+
 @end

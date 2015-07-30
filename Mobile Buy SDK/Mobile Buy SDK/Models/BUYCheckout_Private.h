@@ -25,4 +25,13 @@
 @property (nonatomic, strong) NSDecimalNumber *totalPrice;
 @property (nonatomic, strong) NSURL *orderStatusURL;
 @property (nonatomic, strong) NSArray *giftCards;
+@property (nonatomic, copy) NSDate *creationDate;
+@property (nonatomic, copy) NSString *creditCard;
+@property (nonatomic, copy) NSString *customerId;
+@property (nonatomic, strong) NSURL *privacyPolicyURL;
+@property (nonatomic, strong) NSURL *refundPolicyURL;
+@property (nonatomic, strong) NSURL *termsOfServiceURL;
+@property (nonatomic, copy) NSString *sourceName;
+@property (nonatomic, copy) NSString *sourceId;
+@property (nonatomic, strong) NSURL *sourceURL;
 @end

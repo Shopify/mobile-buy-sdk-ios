@@ -7,6 +7,7 @@
 //
 
 #import "BUYImage.h"
+#import "NSDateFormatter+BUYAdditions.h"
 
 @implementation BUYImage
 
@@ -16,6 +17,12 @@
 	
 	_src = [dictionary[@"src"] copy];
 	_variantIds = [dictionary[@"variant_ids"] copy];
+	_productId = [dictionary[@"product_id"] copy];
+	_position = [dictionary[@"position"] copy];
+	
+	NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForPublications];
+	_creationDate = [dateFormatter dateFromString:dictionary[@"created_at"]];
+	_lastUpdatedDate = [dateFormatter dateFromString:dictionary[@"updated_at"]];
 }
 
 @end
