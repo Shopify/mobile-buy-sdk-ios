@@ -12,6 +12,7 @@
 #import "BUYTestConstants.h"
 #import "BUYCollection.h"
 #import "BUYCollection+Additions.h"
+#import "NSDateFormatter+BUYAdditions.h"
 
 @interface BUYClientTest_Storefront : XCTestCase
 @property (nonatomic, strong) BUYCollection *collection;
@@ -102,7 +103,28 @@
 	}];
 	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
 		XCTAssertNil(error);
-	}];}
+	}];
+}
+
+- (void)testProductDates
+{
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_client getProductById:@"378783139" completion:^(BUYProduct *product, NSError *error) {
+		
+		XCTAssertNil(error);
+		XCTAssertNotNil(product);
+		NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForPublications];
+		// Integration test might run on a different timezone, so we have to force the timezone to GMT
+		dateFormatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+		XCTAssertEqual([product.createdAtDate compare:[dateFormatter dateFromString:@"2015-07-28T09:58:24-0400"]], NSOrderedSame);
+		XCTAssertEqual([product.publishedAtDate compare:product.createdAtDate], NSOrderedSame);
+		XCTAssertNotNil(product.updatedAtDate);
+		[expectation fulfill];
+	}];
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
 
 - (void)testGetMultipleProductByIds
 {
@@ -175,7 +197,7 @@
 	[_client getProductsPage:1 inCollection:self.collection.collectionId completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 	
 		XCTAssertEqual(products.count, 5);
-		XCTAssertEqualObjects(@"Pixel", [products.firstObject title]);
+		XCTAssertEqualObjects([products.firstObject title], @"Wood");
 		XCTAssertEqualObjects(@"Solar powered umbrella", [products.lastObject title]);
 		
 		[expectation fulfill];
@@ -266,8 +288,8 @@
 		BUYProduct *product = (BUYProduct*)products[0];
 		for (int i = 1; i < products.count; i++) {
 			BUYProduct *productToCompare = (BUYProduct*)products[i];
-			XCTAssertEqual([product.createdAtDate compare:product.productToCompare], NSOrderedAscending);
-			product = [productToCompare copy];
+			XCTAssertEqual([product.createdAtDate compare:productToCompare.createdAtDate], NSOrderedSame);
+			product = productToCompare;
 		}
 		
 		[expectation fulfill];
@@ -294,8 +316,8 @@
 		BUYProduct *product = (BUYProduct*)products[0];
 		for (int i = 1; i < products.count; i++) {
 			BUYProduct *productToCompare = (BUYProduct*)products[i];
-			XCTAssertEqual([product.createdAtDate compare:product.productToCompare], NSOrderedDescending);
-			product = [productToCompare copy];
+			XCTAssertEqual([product.createdAtDate compare:productToCompare.createdAtDate], NSOrderedSame);
+			product = productToCompare;
 		}
 		
 		[expectation fulfill];
