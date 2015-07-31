@@ -26,19 +26,19 @@
 	if (self) {
 		self.backgroundColor = [UIColor clearColor];
 		
-		self.productImageView = [[BUYImageView alloc] init];
-		self.productImageView.clipsToBounds = YES;
-		self.productImageView.translatesAutoresizingMaskIntoConstraints = NO;
-		self.productImageView.backgroundColor = [UIColor clearColor];
-		self.productImageView.contentMode = UIViewContentModeScaleAspectFit;
-		[self addSubview:self.productImageView];
+		_productImageView = [[BUYImageView alloc] init];
+		_productImageView.clipsToBounds = YES;
+		_productImageView.translatesAutoresizingMaskIntoConstraints = NO;
+		_productImageView.backgroundColor = [UIColor clearColor];
+		_productImageView.contentMode = UIViewContentModeScaleAspectFit;
+		[self addSubview:_productImageView];
 		
 		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_productImageView]|"
 																	 options:0
 																	 metrics:nil
 																	   views:NSDictionaryOfVariableBindings(_productImageView)]];
 		
-		self.productImageViewConstraintBottom = [NSLayoutConstraint constraintWithItem:self.productImageView
+		self.productImageViewConstraintBottom = [NSLayoutConstraint constraintWithItem:_productImageView
 																			 attribute:NSLayoutAttributeBottom
 																			 relatedBy:NSLayoutRelationEqual
 																				toItem:self
@@ -47,20 +47,20 @@
 																			  constant:0.0];
 		[self addConstraint:self.productImageViewConstraintBottom];
 		
-		self.productImageViewConstraintHeight = [NSLayoutConstraint constraintWithItem:self.productImageView
-																			 attribute:NSLayoutAttributeHeight
-																			 relatedBy:NSLayoutRelationEqual
-																				toItem:nil
-																			 attribute:NSLayoutAttributeNotAnAttribute
-																			multiplier:1.0
-																			  constant:0.0];
-		[self addConstraint:self.productImageViewConstraintHeight];
+		_productImageViewConstraintHeight = [NSLayoutConstraint constraintWithItem:_productImageView
+																		 attribute:NSLayoutAttributeHeight
+																		 relatedBy:NSLayoutRelationEqual
+																			toItem:nil
+																		 attribute:NSLayoutAttributeNotAnAttribute
+																		multiplier:1.0
+																		  constant:0.0];
+		[self addConstraint:_productImageViewConstraintHeight];
 		
-		self.bottomGradientView = [[BUYGradientView alloc] init];
-		self.bottomGradientView.topColor = [UIColor clearColor];
-		self.bottomGradientView.bottomColor = [UIColor colorWithWhite:0 alpha:0.05f];
-		self.bottomGradientView.translatesAutoresizingMaskIntoConstraints = NO;
-		[self addSubview:self.bottomGradientView];
+		_bottomGradientView = [[BUYGradientView alloc] init];
+		_bottomGradientView.topColor = [UIColor clearColor];
+		_bottomGradientView.bottomColor = [UIColor colorWithWhite:0 alpha:0.05f];
+		_bottomGradientView.translatesAutoresizingMaskIntoConstraints = NO;
+		[self addSubview:_bottomGradientView];
 		
 		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_bottomGradientView]|"
 																	 options:0
@@ -71,20 +71,20 @@
 																	 metrics:nil
 																	   views:NSDictionaryOfVariableBindings(_bottomGradientView)]];
 		
-		self.bottomGradientViewLayoutConstraintHeight = [NSLayoutConstraint constraintWithItem:self.bottomGradientView
-																					 attribute:NSLayoutAttributeHeight
-																					 relatedBy:NSLayoutRelationEqual
-																						toItem:nil
-																					 attribute:NSLayoutAttributeNotAnAttribute
-																					multiplier:1.0
-																					  constant:20];
-		[self addConstraint:self.bottomGradientViewLayoutConstraintHeight];
+		_bottomGradientViewLayoutConstraintHeight = [NSLayoutConstraint constraintWithItem:_bottomGradientView
+																				 attribute:NSLayoutAttributeHeight
+																				 relatedBy:NSLayoutRelationEqual
+																					toItem:nil
+																				 attribute:NSLayoutAttributeNotAnAttribute
+																				multiplier:1.0
+																				  constant:20];
+		[self addConstraint:_bottomGradientViewLayoutConstraintHeight];
 		
-		self.pageControl = [[UIPageControl alloc] init];
-		self.pageControl.hidesForSinglePage = YES;
-		self.pageControl.translatesAutoresizingMaskIntoConstraints = NO;
-		[self addSubview:self.pageControl];
-		[self addConstraint:[NSLayoutConstraint constraintWithItem:self.pageControl
+		_pageControl = [[UIPageControl alloc] init];
+		_pageControl.hidesForSinglePage = YES;
+		_pageControl.translatesAutoresizingMaskIntoConstraints = NO;
+		[self addSubview:_pageControl];
+		[self addConstraint:[NSLayoutConstraint constraintWithItem:_pageControl
 														 attribute:NSLayoutAttributeBottom
 														 relatedBy:NSLayoutRelationEqual
 															toItem:self
@@ -92,7 +92,7 @@
 														multiplier:1.0
 														  constant:0.0]];
 		
-		[self addConstraint:[NSLayoutConstraint constraintWithItem:self.pageControl
+		[self addConstraint:[NSLayoutConstraint constraintWithItem:_pageControl
 														 attribute:NSLayoutAttributeWidth
 														 relatedBy:NSLayoutRelationEqual
 															toItem:self
@@ -100,7 +100,7 @@
 														multiplier:1.0
 														  constant:0.0]];
 		
-		[self addConstraint:[NSLayoutConstraint constraintWithItem:self.pageControl
+		[self addConstraint:[NSLayoutConstraint constraintWithItem:_pageControl
 														 attribute:NSLayoutAttributeHeight
 														 relatedBy:NSLayoutRelationEqual
 															toItem:nil
