@@ -33,7 +33,7 @@
 		collectionViewFlowLayout.itemSize = CGSizeMake(CGRectGetWidth(frame), CGRectGetHeight(frame));
 		collectionViewFlowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
 		_collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:collectionViewFlowLayout];
-		_collectionView.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.2];
+		_collectionView.backgroundColor = [UIColor clearColor];
 		_collectionView.showsHorizontalScrollIndicator = NO;
 		_collectionView.pagingEnabled = YES;
 		_collectionView.translatesAutoresizingMaskIntoConstraints = NO;

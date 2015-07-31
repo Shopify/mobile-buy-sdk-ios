@@ -384,7 +384,6 @@
 	}
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", image.src]];
 	[cell.productImageView loadImageWithURL:url completion:NULL];
-	[self.productView.productViewHeader imageHeightWithContentOffset:self.productView.tableView.contentOffset];
 	return cell;
 }
 

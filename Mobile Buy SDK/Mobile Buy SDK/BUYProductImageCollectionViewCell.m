@@ -47,7 +47,7 @@
 																			toItem:nil
 																		 attribute:NSLayoutAttributeNotAnAttribute
 																		multiplier:1.0
-																		  constant:0.0];
+																		  constant:CGRectGetHeight(frame)];
 		[self.contentView addConstraint:_productImageViewConstraintHeight];
 		
 	}
