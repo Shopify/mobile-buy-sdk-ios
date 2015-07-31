@@ -11,11 +11,10 @@
 
 @interface BUYProductViewHeader : UIView
 
-@property (nonatomic, strong) BUYImageView *productImageView;
-@property (nonatomic, strong) NSLayoutConstraint *productImageViewConstraintHeight;
-@property (nonatomic, strong) NSLayoutConstraint *productImageViewConstraintBottom;
+@property (nonatomic, strong) UICollectionView *collectionView;
 
-- (void)setContentOffset:(CGPoint)offset;
+- (CGFloat)imageHeightWithContentOffset:(CGPoint)offset;
 - (void)setNumberOfPages:(NSInteger)numberOfPages;
+- (void)setCurrentPage:(NSInteger)currentPage;
 
 @end

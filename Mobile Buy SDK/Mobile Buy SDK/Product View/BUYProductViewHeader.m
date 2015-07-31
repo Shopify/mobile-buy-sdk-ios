@@ -9,6 +9,7 @@
 #import "BUYProductViewHeader.h"
 #import "BUYImageView.h"
 #import "BUYGradientView.h"
+#import "BUYProductImageCollectionViewCell.h"
 
 @interface BUYProductViewHeader ()
 
@@ -20,41 +21,34 @@
 
 @implementation BUYProductViewHeader
 
-- (instancetype)init
+- (instancetype)initWithFrame:(CGRect)frame
 {
-	self = [super init];
+	self = [super initWithFrame:frame];
 	if (self) {
 		self.backgroundColor = [UIColor clearColor];
 		
-		_productImageView = [[BUYImageView alloc] init];
-		_productImageView.clipsToBounds = YES;
-		_productImageView.translatesAutoresizingMaskIntoConstraints = NO;
-		_productImageView.backgroundColor = [UIColor clearColor];
-		_productImageView.contentMode = UIViewContentModeScaleAspectFit;
-		[self addSubview:_productImageView];
+		UICollectionViewFlowLayout *collectionViewFlowLayout = [[UICollectionViewFlowLayout alloc] init];
+		collectionViewFlowLayout.sectionInset = UIEdgeInsetsZero;
+		collectionViewFlowLayout.minimumLineSpacing = 0;
+		collectionViewFlowLayout.itemSize = CGSizeMake(CGRectGetWidth(frame), CGRectGetHeight(frame));
+		collectionViewFlowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+		_collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:collectionViewFlowLayout];
+		_collectionView.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.2];
+		_collectionView.showsHorizontalScrollIndicator = NO;
+		_collectionView.pagingEnabled = YES;
+		_collectionView.translatesAutoresizingMaskIntoConstraints = NO;
+		[_collectionView registerClass:[BUYProductImageCollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
+		[self addSubview:_collectionView];
 		
-		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_productImageView]|"
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_collectionView]|"
 																	 options:0
 																	 metrics:nil
-																	   views:NSDictionaryOfVariableBindings(_productImageView)]];
+																	   views:NSDictionaryOfVariableBindings(_collectionView)]];
 		
-		self.productImageViewConstraintBottom = [NSLayoutConstraint constraintWithItem:_productImageView
-																			 attribute:NSLayoutAttributeBottom
-																			 relatedBy:NSLayoutRelationEqual
-																				toItem:self
-																			 attribute:NSLayoutAttributeBottom
-																			multiplier:1.0
-																			  constant:0.0];
-		[self addConstraint:self.productImageViewConstraintBottom];
-		
-		_productImageViewConstraintHeight = [NSLayoutConstraint constraintWithItem:_productImageView
-																		 attribute:NSLayoutAttributeHeight
-																		 relatedBy:NSLayoutRelationEqual
-																			toItem:nil
-																		 attribute:NSLayoutAttributeNotAnAttribute
-																		multiplier:1.0
-																		  constant:0.0];
-		[self addConstraint:_productImageViewConstraintHeight];
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_collectionView]|"
+																	 options:0
+																	 metrics:nil
+																	   views:NSDictionaryOfVariableBindings(_collectionView)]];
 		
 		_bottomGradientView = [[BUYGradientView alloc] init];
 		_bottomGradientView.topColor = [UIColor clearColor];
@@ -123,34 +117,19 @@
 	}
 }
 
-- (void)setContentOffset:(CGPoint)offset
+- (void)setCurrentPage:(NSInteger)currentPage
 {
-	if (offset.y <= 0) {
-		self.clipsToBounds = NO;
-		if (self.productImageViewConstraintBottom.constant != 0.0) {
-			self.productImageViewConstraintBottom.constant = 0.0;
-		}
-		self.productImageViewConstraintHeight.constant = CGRectGetHeight(self.bounds) + -offset.y;
-	} else {
-		self.clipsToBounds = YES;
-		if (self.productImageViewConstraintHeight.constant != CGRectGetHeight(self.bounds)) {
-			self.productImageViewConstraintHeight.constant = CGRectGetHeight(self.bounds);
-		}
-		self.productImageViewConstraintBottom.constant = offset.y / 2;
-	}
-	
-	// change the image content mode on portrait (or 1:1) images so they zoom-scale on scrollview over-pulls
-	if (self.productImageView.image && self.productImageView.image.size.height >= self.productImageView.image.size.width) {
-		CGFloat imageRatio = self.productImageView.image.size.height / self.productImageView.image.size.width;
-		CGFloat imageViewRatio = CGRectGetHeight(self.productImageView.bounds) / CGRectGetWidth(self.productImageView.bounds);
-		if (imageViewRatio >= imageRatio && isnan(imageViewRatio) == NO && isinf(imageViewRatio) == NO) {
-			self.productImageView.contentMode = UIViewContentModeScaleAspectFill;
-		} else {
-			self.productImageView.contentMode = UIViewContentModeScaleAspectFit;
-		}
-	} else {
-		self.productImageView.contentMode = UIViewContentModeScaleAspectFit;
-	}
+	self.pageControl.currentPage = currentPage;
+}
+
+- (CGFloat)imageHeightWithContentOffset:(CGPoint)offset
+{
+	CGRect visibleRect = (CGRect){.origin = self.collectionView.contentOffset, .size = self.collectionView.bounds.size};
+	CGPoint visiblePoint = CGPointMake(CGRectGetMidX(visibleRect), CGRectGetMidY(visibleRect));
+	NSIndexPath *visibleIndexPath = [self.collectionView indexPathForItemAtPoint:visiblePoint];
+	BUYProductImageCollectionViewCell *cell = (BUYProductImageCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:visibleIndexPath];
+	[cell setContentOffset:offset];
+	return cell.productImageViewConstraintHeight.constant;
 }
 
 @end
