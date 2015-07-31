@@ -36,6 +36,7 @@
 		_collectionView.backgroundColor = [UIColor clearColor];
 		_collectionView.showsHorizontalScrollIndicator = NO;
 		_collectionView.pagingEnabled = YES;
+		_collectionView.clipsToBounds = NO;
 		_collectionView.translatesAutoresizingMaskIntoConstraints = NO;
 		[_collectionView registerClass:[BUYProductImageCollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
 		[self addSubview:_collectionView];
