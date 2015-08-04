@@ -72,5 +72,9 @@
     NSLog(@"Did complete checkout: %@, status: %ld", checkout.token, (unsigned long)status);
 }
 
+- (void)controller:(BUYViewController *)controller didDismissApplePayControllerWithStatus:(PKPaymentAuthorizationStatus)status forCheckout:(BUYCheckout *)checkout
+{
+    NSLog(@"Did dismiss Apple Pay controller with status: %ld, checkout: %@", (unsigned long)status, checkout.token);
+}
 
 @end

@@ -15,6 +15,7 @@
 @class BUYDiscount;
 @class BUYShippingRate;
 @class BUYTaxLine;
+@class BUYMaskedCreditCard;
 
 /**
  *  The checkout object. This is the main object that you will interact with when creating orders on Shopify.
@@ -174,6 +175,56 @@
  *  The button title that will appear after checkout to return to the host app
  */
 @property (nonatomic, strong) NSString *webReturnToLabel;
+
+/**
+ *  Creation date of the checkout
+ */
+@property (nonatomic, copy, readonly) NSDate *createdAtDate;
+
+/**
+ *  Last updated date for the checkout
+ */
+@property (nonatomic, copy, readonly) NSDate *updatedAtDate;
+
+/**
+ *  The website URL for the privacy policy for the checkout
+ */
+@property (nonatomic, strong, readonly) NSURL *privacyPolicyURL;
+
+/**
+ *  The website URL for the refund policy for the checkout
+ */
+@property (nonatomic, strong, readonly) NSURL *refundPolicyURL;
+
+/**
+ *  The website URL for the terms of service for the checkout
+ */
+@property (nonatomic, strong, readonly) NSURL *termsOfServiceURL;
+
+/**
+ *  The name of the source of the checkout (ie, web, ios)
+ */
+@property (nonatomic, copy, readonly) NSString *sourceName;
+
+/**
+ *  The unique identifier for the source
+ */
+@property (nonatomic, copy, readonly) NSString *sourceId;
+
+/**
+ *  The URL for the source
+ */
+@property (nonatomic, strong, readonly) NSURL *sourceURL;
+
+/**
+ *  Credit card stored on the checkout
+ */
+@property (nonatomic, strong, readonly) BUYMaskedCreditCard *creditCard;
+
+/**
+ *  Customer ID associated with the checkout
+ */
+@property (nonatomic, copy, readonly) NSString *customerId;
 
 /**
  *  It is recommended to instantiate a checkout with a cart, or cart token

@@ -24,4 +24,9 @@
  */
 @property (nonatomic, readonly, strong) NSNumber *position;
 
+/**
+ *  The associated product ID for this option
+ */
+@property (nonatomic, readonly, copy) NSNumber *productId;
+
 @end

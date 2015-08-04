@@ -39,6 +39,11 @@
 @property (nonatomic, readonly, copy) NSString *currency;
 
 /**
+ *  A string representing the way currency is formatted when the currency isn't specified.
+ */
+@property (nonatomic, readonly, copy) NSString *moneyFormat;
+
+/**
  *  The shop's domain.
  */
 @property (nonatomic, readonly, copy) NSString *domain;
@@ -52,5 +57,15 @@
  *  A list of countries the shop ships containing two-letter country codes.
  */
 @property (nonatomic, readonly, copy) NSArray *shipsToCountries;
+
+/**
+ *  The URL for the web storefront
+ */
+@property (nonatomic, readonly) NSURL *shopURL;
+
+/**
+ *  The shop's 'myshopify.com' domain.
+ */
+@property (nonatomic, readonly) NSURL *myShopifyURL;
 
 @end
