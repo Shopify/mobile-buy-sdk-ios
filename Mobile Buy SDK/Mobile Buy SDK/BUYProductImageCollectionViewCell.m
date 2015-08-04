@@ -84,4 +84,11 @@
 	}
 }
 
+- (void)prepareForReuse
+{
+	[super prepareForReuse];
+	[self.productImageView cancelImageTask];
+	self.productImageView.image = nil;
+}
+
 @end

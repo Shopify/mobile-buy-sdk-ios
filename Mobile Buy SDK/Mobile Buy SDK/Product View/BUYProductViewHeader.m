@@ -10,6 +10,8 @@
 #import "BUYImageView.h"
 #import "BUYGradientView.h"
 #import "BUYProductImageCollectionViewCell.h"
+#import "BUYImage.h"
+#import "BUYProductVariant.h"
 
 @interface BUYProductViewHeader ()
 
@@ -78,6 +80,7 @@
 		_pageControl = [[UIPageControl alloc] init];
 		_pageControl.hidesForSinglePage = YES;
 		_pageControl.translatesAutoresizingMaskIntoConstraints = NO;
+		_pageControl.userInteractionEnabled = NO;
 		[self addSubview:_pageControl];
 		[self addConstraint:[NSLayoutConstraint constraintWithItem:_pageControl
 														 attribute:NSLayoutAttributeBottom
@@ -131,6 +134,20 @@
 	BUYProductImageCollectionViewCell *cell = (BUYProductImageCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:visibleIndexPath];
 	[cell setContentOffset:offset];
 	return cell.productImageViewConstraintHeight.constant;
+}
+
+- (void)setImageForSelectedVariant:(BUYProductVariant*)productVariant withImages:(NSArray*)images
+{
+	for (int i = 0; i < [images count]; i++) {
+		BUYImage *image = (BUYImage*)images[i];
+		for (int j = 0; j < [image.variantIds count]; j++) {
+			if ([image.variantIds[j] isEqualToNumber:productVariant.identifier]) {
+				[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+				[self setCurrentPage:i];
+				return;
+			}
+		}
+	}
 }
 
 @end

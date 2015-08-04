@@ -281,6 +281,9 @@
 	_selectedProductVariant = selectedProductVariant;
 	self.headerCell.productVariant = selectedProductVariant;
 	self.variantCell.productVariant = selectedProductVariant;
+	if (self.productView.productViewHeader.collectionView) {
+		[self.productView.productViewHeader setImageForSelectedVariant:_selectedProductVariant withImages:self.product.images];
+	}
 	[self scrollViewDidScroll:self.productView.tableView];
 }
 
@@ -384,6 +387,7 @@
 	}
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", image.src]];
 	[cell.productImageView loadImageWithURL:url completion:NULL];
+	[cell setContentOffset:self.productView.tableView.contentOffset];
 	return cell;
 }
 

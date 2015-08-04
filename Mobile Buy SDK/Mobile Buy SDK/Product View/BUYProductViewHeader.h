@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class BUYImageView;
+@class BUYProductVariant;
 
 @interface BUYProductViewHeader : UIView
 
@@ -16,5 +17,6 @@
 - (CGFloat)imageHeightWithContentOffset:(CGPoint)offset;
 - (void)setNumberOfPages:(NSInteger)numberOfPages;
 - (void)setCurrentPage:(NSInteger)currentPage;
+- (void)setImageForSelectedVariant:(BUYProductVariant*)productVariant withImages:(NSArray*)images;
 
 @end
