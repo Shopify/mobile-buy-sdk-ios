@@ -15,6 +15,7 @@
 @class BUYDiscount;
 @class BUYShippingRate;
 @class BUYTaxLine;
+@class BUYMaskedCreditCard;
 
 /**
  *  The checkout object. This is the main object that you will interact with when creating orders on Shopify.
@@ -218,7 +219,7 @@
 /**
  *  Credit card stored on the checkout
  */
-@property (nonatomic, copy, readonly) NSString *creditCard;
+@property (nonatomic, strong, readonly) BUYMaskedCreditCard *creditCard;
 
 /**
  *  Customer ID associated with the checkout
