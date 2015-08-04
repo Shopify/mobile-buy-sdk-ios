@@ -16,6 +16,8 @@
 
 @protocol BUYViewControllerDelegate <NSObject>
 
+@optional
+
 /**
  *  This is called if there is an error in creating the BUYCheckout. These problems include not being connected to the Internet,
  *  or if there is a validation error in the checkout.

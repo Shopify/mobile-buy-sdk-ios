@@ -198,12 +198,8 @@
 
 - (void)addCreditCardToCheckout
 {
-	BUYCreditCard *creditCard = [[BUYCreditCard alloc] init];
-	creditCard.number = @"4242424242424242";
-	creditCard.expiryMonth = @"12";
-	creditCard.expiryYear = @"20";
-	creditCard.cvv = @"123";
-	creditCard.nameOnCard = @"Dinosaur Banana";
+	BUYCreditCard *creditCard = [self creditCard];
+	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[_checkoutClient storeCreditCard:creditCard checkout:_checkout completion:^(BUYCheckout *returnedCheckout, NSString *paymentSessionId, NSError *error) {
 		XCTAssertNil(error);
@@ -216,6 +212,18 @@
 	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
 		XCTAssertNil(error);
 	}];
+}
+
+- (BUYCreditCard *)creditCard
+{
+	BUYCreditCard *creditCard = [[BUYCreditCard alloc] init];
+	creditCard.number = @"4242424242424242";
+	creditCard.expiryMonth = @"12";
+	creditCard.expiryYear = @"20";
+	creditCard.cvv = @"123";
+	creditCard.nameOnCard = @"Dinosaur Banana";
+	
+	return creditCard;
 }
 
 - (void)completeCheckout
@@ -272,11 +280,30 @@
 		_checkout = returnedCheckout;
 		XCTAssertNotNil(_checkout.orderId);
 		[expectation fulfill];
+		
+		[self confirmCreditCard];
 	}];
 	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
 		XCTAssertNil(error);
 	}];
 	XCTAssertNotNil(_checkout.orderId);
+}
+
+- (void)confirmCreditCard
+{
+	BUYCreditCard *creditCard = [self creditCard];
+	BUYMaskedCreditCard *maskedCard = _checkout.creditCard;
+	
+	NSArray *names = [creditCard.nameOnCard componentsSeparatedByString:@" "];
+	XCTAssertEqualObjects(maskedCard.firstName, names.firstObject);
+	XCTAssertEqualObjects(maskedCard.lastName, names.lastObject);
+	
+	XCTAssertEqual(maskedCard.expiryMonth.integerValue, creditCard.expiryMonth.integerValue);
+	XCTAssertEqual(maskedCard.expiryYear.integerValue%2000, creditCard.expiryYear.integerValue);
+
+	XCTAssertEqualObjects(maskedCard.firstDigits, [creditCard.number substringWithRange:NSMakeRange(0, 6)]);
+	XCTAssertEqualObjects(maskedCard.lastDigits, [creditCard.number substringWithRange:NSMakeRange(12, 4)]);
+
 }
 
 #pragma mark - Tests

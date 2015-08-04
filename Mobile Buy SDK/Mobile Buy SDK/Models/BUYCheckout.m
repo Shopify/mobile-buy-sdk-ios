@@ -14,6 +14,8 @@
 #import "BUYProductVariant.h"
 #import "BUYShippingRate.h"
 #import "BUYTaxLine.h"
+#import "BUYMaskedCreditCard.h"
+
 #import "NSDecimalNumber+BUYAdditions.h"
 #import "NSString+Trim.h"
 #import "BUYCheckout_Private.h"
@@ -131,7 +133,7 @@
 	NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForPublications];
 	self.createdAtDate = [dateFormatter dateFromString:dictionary[@"created_at"]];
 	self.updatedAtDate = [dateFormatter dateFromString:dictionary[@"updated_at"]];
-	self.creditCard = [dictionary[@"credit_card"] copy];
+	self.creditCard = [BUYMaskedCreditCard convertObject:dictionary[@"credit_card"]];
 	self.customerId = [dictionary[@"customer_id"] copy];
 	
 	self.privacyPolicyURL = [NSURL URLWithString:dictionary[@"privacy_policy_url"]];

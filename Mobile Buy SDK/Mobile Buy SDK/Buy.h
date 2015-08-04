@@ -31,8 +31,7 @@
 #import <Buy/BUYProductViewController.h>
 #import <Buy/BUYTheme.h>
 #import <Buy/BUYCartLineItem.h>
-#import <Buy/BUYClient+Test.h>
 #import <Buy/BUYCollection.h>
+#import <Buy/BUYMaskedCreditCard.h>
 #import <Buy/BuyError.h>
 #import <Buy/Buy-Bridging-Header.h>
-
