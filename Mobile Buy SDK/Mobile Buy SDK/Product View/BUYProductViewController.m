@@ -201,7 +201,6 @@
 	self.selectedProductVariant = [_product.variants firstObject];
 	self.shouldShowVariantSelector = [_product isDefaultVariant] == NO;
 	self.shouldShowDescription = ([_product.htmlDescription length] == 0) == NO;
-	[_productView.productViewHeader setNumberOfPages:_product.images.count];
 }
 
 - (void)setShop:(BUYShop *)shop
@@ -254,13 +253,11 @@
 {
 	if (indexPath.row == 1 && self.shouldShowVariantSelector) {
 		[self.productView.tableView deselectRowAtIndexPath:indexPath animated:YES];
-		// TODO: Get this navigation controller inside the BUYVariantSelectionViewController so it takes care of it's own presentation
 		BUYVariantSelectionViewController *optionSelectionViewController = [[BUYVariantSelectionViewController alloc] initWithProduct:self.product theme:self.theme];
 		optionSelectionViewController.selectedProductVariant = self.selectedProductVariant;
 		optionSelectionViewController.delegate = self;
 		BUYOptionSelectionNavigationController *optionSelectionNavigationController = [[BUYOptionSelectionNavigationController alloc] initWithRootViewController:optionSelectionViewController];
 		[optionSelectionNavigationController setTheme:self.theme];
-		
 		[self presentViewController:optionSelectionNavigationController animated:YES completion:nil];
 	}
 }
@@ -289,7 +286,7 @@
 	}
 	if (self.productView.productViewHeader.collectionView) {
 		[self.productView.productViewHeader setImageForSelectedVariant:_selectedProductVariant withImages:self.product.images];
-		[self updateProductViewImages];
+		[self updateProductBackgroundImage];
 	}
 	[self scrollViewDidScroll:self.productView.tableView];
 }
@@ -320,19 +317,25 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
 	if ([scrollView isKindOfClass:[UICollectionView class]]) {
-		[self updateProductViewImages];
+		[self updateProductBackgroundImage];
 	}
 }
 
-- (void)updateProductViewImages
+- (void)updateProductBackgroundImage
 {
-	NSInteger page = (int)(self.productView.productViewHeader.collectionView.contentOffset.x / self.productView.productViewHeader.collectionView.frame.size.width);
 	[self.productView.productViewHeader setCurrentPage:page];
-	BUYImage *image = self.product.images[page];
-	if (image == nil) {
-		image = self.product.images.firstObject;
+	NSInteger page = (int)(self.productView.productViewHeader.collectionView.contentOffset.x / self.productView.productViewHeader.collectionView.contentSize.width);
+	if (self.productView.productViewHeader.collectionView.contentSize.width == 0) {
+		// if the collection view hasn't yet laid out grab the first image so we can load it right away, and ensure there are images to display
+		page = [self.product.images count] > 0 ? 0 : page;
 	}
-	[self.productView.backgroundImageView setBackgroundProductImage:image];
+	if (page >= 0) {
+		BUYImage *image = self.product.images[page];
+		if (image == nil) {
+			image = self.product.images.firstObject;
+		}
+		[self.productView.backgroundImageView setBackgroundProductImage:image];
+	}
 }
 
 #pragma mark Checkout
@@ -405,6 +408,7 @@
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", image.src]];
 	[cell.productImageView loadImageWithURL:url completion:NULL];
 	[cell setContentOffset:self.productView.tableView.contentOffset];
+	
 	return cell;
 }
 

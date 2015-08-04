@@ -15,7 +15,6 @@
 @property (nonatomic, strong) UICollectionView *collectionView;
 
 - (CGFloat)imageHeightWithContentOffset:(CGPoint)offset;
-- (void)setNumberOfPages:(NSInteger)numberOfPages;
 - (void)setCurrentPage:(NSInteger)currentPage;
 - (void)setImageForSelectedVariant:(BUYProductVariant*)productVariant withImages:(NSArray*)images;
 
