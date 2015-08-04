@@ -5,7 +5,7 @@
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 
-#import <Buy/Buy.h>
+#import "BUYClient.h"
 
 @interface BUYClient (Test)
 

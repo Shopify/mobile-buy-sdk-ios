@@ -20,7 +20,7 @@ typedef NS_ENUM(NSUInteger, BUYCheckoutError) {
 	BUYShopifyError_NoCreditCardSpecified,
 	BUYShopifyError_NoApplePayTokenSpecified,
 	BUYShopifyError_InvalidCheckoutObject,
-	
+
 };
 
 @interface BUYError : NSError
