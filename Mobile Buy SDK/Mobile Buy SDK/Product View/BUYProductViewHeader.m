@@ -140,8 +140,8 @@
 {
 	for (int i = 0; i < [images count]; i++) {
 		BUYImage *image = (BUYImage*)images[i];
-		for (int j = 0; j < [image.variantIds count]; j++) {
-			if ([image.variantIds[j] isEqualToNumber:productVariant.identifier]) {
+		for (NSNumber *variantId in image.variantIds) {
+			if ([variantId isEqualToNumber:productVariant.identifier]) {
 				[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
 				[self setCurrentPage:i];
 				return;
