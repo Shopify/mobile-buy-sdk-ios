@@ -44,7 +44,7 @@ typedef NS_ENUM(NSUInteger, BUYCollectionSort) {
 	 */
 	BUYCollectionSortPriceAscending,
 	/**
-	 *  Sort products by price (first variant), ascending
+	 *  Sort products by price (first variant), descending
 	 */
 	BUYCollectionSortPriceDescending,
 	/**
@@ -52,7 +52,7 @@ typedef NS_ENUM(NSUInteger, BUYCollectionSort) {
 	 */
 	BUYCollectionSortCreatedAscending,
 	/**
-	 *  Sort products by creation date, ascending
+	 *  Sort products by creation date, descending
 	 */
 	BUYCollectionSortCreatedDescending
 };
