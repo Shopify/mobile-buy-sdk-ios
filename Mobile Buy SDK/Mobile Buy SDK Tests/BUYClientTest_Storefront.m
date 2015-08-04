@@ -230,10 +230,7 @@
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[_client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortCollectionDefault completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
-		
-		for (BUYProduct *product in products) {
-			NSLog(@"%@", product.title);
-		}
+
 		XCTAssertNil(error);
 		XCTAssertNotNil(products);
 		XCTAssertGreaterThanOrEqual(products.count, 1);
