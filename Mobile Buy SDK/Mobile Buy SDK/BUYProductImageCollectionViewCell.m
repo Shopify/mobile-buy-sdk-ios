@@ -58,20 +58,15 @@
 {
 	if (offset.y <= 0) {
 		self.clipsToBounds = NO;
-		if (self.productImageViewConstraintBottom.constant != 0.0) {
-			self.productImageViewConstraintBottom.constant = 0.0;
-		}
+		self.productImageViewConstraintBottom.constant = 0.0;
 		self.productImageViewConstraintHeight.constant = CGRectGetHeight(self.bounds) + -offset.y;
 	} else {
 		self.clipsToBounds = YES;
-		if (self.productImageViewConstraintHeight.constant != CGRectGetHeight(self.bounds)) {
-			self.productImageViewConstraintHeight.constant = CGRectGetHeight(self.bounds);
-		}
+		self.productImageViewConstraintHeight.constant = CGRectGetHeight(self.bounds);
 		self.productImageViewConstraintBottom.constant = offset.y / 2;
 	}
 	
-	// change the image content mode on portrait (or 1:1) images so they zoom-scale on scrollview over-pulls
-	if (self.productImageView.image && self.productImageView.image.size.height >= self.productImageView.image.size.width) {
+	if (self.productImageView.image && [self.productImageView isPortraitOrSquare]) {
 		CGFloat imageRatio = self.productImageView.image.size.height / self.productImageView.image.size.width;
 		CGFloat imageViewRatio = CGRectGetHeight(self.productImageView.bounds) / CGRectGetWidth(self.productImageView.bounds);
 		if (imageViewRatio >= imageRatio && isnan(imageViewRatio) == NO && isinf(imageViewRatio) == NO) {

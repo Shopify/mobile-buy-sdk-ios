@@ -323,13 +323,12 @@
 
 - (void)updateProductBackgroundImage
 {
-	[self.productView.productViewHeader setCurrentPage:page];
-	NSInteger page = (int)(self.productView.productViewHeader.collectionView.contentOffset.x / self.productView.productViewHeader.collectionView.contentSize.width);
-	if (self.productView.productViewHeader.collectionView.contentSize.width == 0) {
-		// if the collection view hasn't yet laid out grab the first image so we can load it right away, and ensure there are images to display
-		page = [self.product.images count] > 0 ? 0 : page;
+	NSInteger page = [self.product.images count] > 0 ? 0 : 0;
+	if (self.productView.productViewHeader.collectionView.contentSize.width > 0) {
+		page =  (int)(self.productView.productViewHeader.collectionView.contentOffset.x / self.productView.productViewHeader.collectionView.frame.size.width);
 	}
 	if (page >= 0) {
+		[self.productView.productViewHeader setCurrentPage:page];
 		BUYImage *image = self.product.images[page];
 		if (image == nil) {
 			image = self.product.images.firstObject;

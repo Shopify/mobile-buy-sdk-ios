@@ -95,4 +95,9 @@ float const imageDuration = 0.1f;
 	}
 }
 
+- (BOOL)isPortraitOrSquare
+{
+	return self.image.size.height >= self.image.size.width;
+}
+
 @end

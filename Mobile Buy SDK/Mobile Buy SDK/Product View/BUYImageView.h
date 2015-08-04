@@ -17,5 +17,6 @@ extern float const imageDuration;
 
 - (void)loadImageWithURL:(NSURL *)imageURL completion:(void (^)(UIImage *image, NSError *error))completion;
 - (void)cancelImageTask;
+- (BOOL)isPortraitOrSquare;
 
 @end
