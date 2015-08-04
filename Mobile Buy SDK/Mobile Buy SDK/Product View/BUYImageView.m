@@ -57,23 +57,8 @@ float const imageDuration = 0.1f;
 	self.task = [[NSURLSession sharedSession] dataTaskWithURL:imageURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
 		dispatch_async(dispatch_get_main_queue(), ^{
 			UIImage *image = [UIImage imageWithData:data];
+			self.image = image;
 			[self.activityIndicatorView stopAnimating];
-			if (self.image) {
-				[UIView transitionWithView:self
-								  duration:imageDuration
-								   options:UIViewAnimationOptionTransitionCrossDissolve
-								animations:^{
-									self.image = image;
-								}
-								completion:nil];
-			} else {
-				self.alpha = 0.0f;
-				self.image = image;
-				[UIView animateWithDuration:imageDuration
-								 animations:^{
-									 self.alpha = 1.0f;
-								 }];
-			}
 			if (completion) {
 				completion(image, error);
 			}
