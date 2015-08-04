@@ -132,8 +132,13 @@
 	CGPoint visiblePoint = CGPointMake(CGRectGetMidX(visibleRect), CGRectGetMidY(visibleRect));
 	NSIndexPath *visibleIndexPath = [self.collectionView indexPathForItemAtPoint:visiblePoint];
 	BUYProductImageCollectionViewCell *cell = (BUYProductImageCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:visibleIndexPath];
-	[cell setContentOffset:offset];
-	return cell.productImageViewConstraintHeight.constant;
+	if (cell) {
+		[cell setContentOffset:offset];
+		return cell.productImageViewConstraintHeight.constant;
+	} else {
+		cell = [self.collectionView.visibleCells firstObject];
+		return cell.productImageViewConstraintHeight.constant;
+	}
 }
 
 - (void)setImageForSelectedVariant:(BUYProductVariant*)productVariant withImages:(NSArray*)images

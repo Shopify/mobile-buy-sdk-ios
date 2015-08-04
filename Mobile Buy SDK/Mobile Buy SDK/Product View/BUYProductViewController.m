@@ -404,7 +404,7 @@
 	if (image == nil) {
 		image = self.product.images.firstObject;
 	}
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", image.src]];
+	NSURL *url = [NSURL URLWithString:image.src];
 	[cell.productImageView loadImageWithURL:url completion:NULL];
 	[cell setContentOffset:self.productView.tableView.contentOffset];
 	

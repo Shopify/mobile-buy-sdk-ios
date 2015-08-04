@@ -142,10 +142,9 @@
 {
 	_theme = theme;
 	self.tintColor = _theme.tintColor;
-	UIColor *backgroundColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(64, 64, 64) : BUY_RGB(229, 229, 229);
 	self.stickyFooterView.backgroundColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(26, 26, 26) : [UIColor whiteColor];
 	self.tableView.separatorColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(76, 76, 76) : BUY_RGB(217, 217, 217);
-	self.backgroundColor = backgroundColor;
+	self.backgroundColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(64, 64, 64) : BUY_RGB(229, 229, 229);
 	self.backgroundImageView.hidden = _theme.showsProductImageBackground == NO;
 }
 
@@ -159,6 +158,7 @@
 	if (footerViewHeight <= 0) {
 		footerViewHeight = 0;
 	}
+	NSLog(@"%f", footerViewHeight);
 	self.footerHeightLayoutConstraint.constant = footerViewHeight;
 	self.footerOffsetLayoutConstraint.constant = -footerViewHeight;
 }

@@ -53,6 +53,7 @@ float const imageDuration = 0.1f;
 	if (self.task) {
 		[self cancelImageTask];
 	}
+	[self.activityIndicatorView startAnimating];
 	self.task = [[NSURLSession sharedSession] dataTaskWithURL:imageURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
 		dispatch_async(dispatch_get_main_queue(), ^{
 			UIImage *image = [UIImage imageWithData:data];
