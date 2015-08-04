@@ -68,7 +68,7 @@
 		BE2E1D3B1B5E8663009610DA /* BUYClient+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = BE2E1D391B5E8663009610DA /* BUYClient+Test.m */; };
 		BE47340F1B66C4EF00AA721A /* BUYError.h in Headers */ = {isa = PBXBuildFile; fileRef = BE47340D1B66C4EF00AA721A /* BUYError.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BE4734101B66C4EF00AA721A /* BUYError.m in Sources */ = {isa = PBXBuildFile; fileRef = BE47340E1B66C4EF00AA721A /* BUYError.m */; };
-		BE5DC3631B71022D00B2BC1E /* BUYMaskedCreditCard.h in Headers */ = {isa = PBXBuildFile; fileRef = BE5DC3611B71022D00B2BC1E /* BUYMaskedCreditCard.h */; };
+		BE5DC3631B71022D00B2BC1E /* BUYMaskedCreditCard.h in Headers */ = {isa = PBXBuildFile; fileRef = BE5DC3611B71022D00B2BC1E /* BUYMaskedCreditCard.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BE5DC3641B71022D00B2BC1E /* BUYMaskedCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = BE5DC3621B71022D00B2BC1E /* BUYMaskedCreditCard.m */; };
 		BE94966A1B45CD0500B38949 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AB6AB819CFCE6A00115224 /* libstdc++.dylib */; };
 		BE9A643F1B503C2F0033E558 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9A64281B503C2F0033E558 /* Buy.framework */; };
