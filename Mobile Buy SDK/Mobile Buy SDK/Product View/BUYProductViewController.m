@@ -391,7 +391,11 @@
 		image = self.product.images.firstObject;
 	}
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", image.src]];
-	[cell.productImageView loadImageWithURL:url completion:NULL];
+	[cell.productImageView loadImageWithURL:url completion:^(UIImage *image, NSError *error) {
+		if (image) {
+			[self.productView setProductImage:image];
+		}
+	}];
 	[cell setContentOffset:self.productView.tableView.contentOffset];
 	return cell;
 }
