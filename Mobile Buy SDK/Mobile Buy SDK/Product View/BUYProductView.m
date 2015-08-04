@@ -100,7 +100,6 @@
 																			views:NSDictionaryOfVariableBindings(_tableView)]];
 		
 		self.productViewHeader = [[BUYProductViewHeader alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([[UIScreen mainScreen] bounds]), CGRectGetWidth([[UIScreen mainScreen] bounds]))];
-//		[self.productViewHeader.productImageView setTheme:self.theme];
 		self.tableView.tableHeaderView = self.productViewHeader;
 		
 		self.productViewFooter = [[BUYProductViewFooter alloc] initWithTheme:self.theme];
@@ -148,34 +147,6 @@
 	self.tableView.separatorColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(76, 76, 76) : BUY_RGB(217, 217, 217);	
 	self.backgroundColor = backgroundColor;
 	self.backgroundImageView.hidden = _theme.showsProductImageBackground == NO;
-//	[self.productViewHeader.productImageView setTheme:_theme];
-}
-
-- (void)setProductImage:(BUYImage *)image
-{
-//	if (self.productViewHeader && image) {
-//		NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", image.src]];
-//		[self.productViewHeader.productImageView loadImageWithURL:url
-//													   completion:^(UIImage *image, NSError *error) {
-//														   if (self.backgroundImageView.productImageView.image) {
-//															   [UIView transitionWithView:self.backgroundImageView.productImageView
-//																				 duration:imageDuration
-//																				  options:UIViewAnimationOptionTransitionCrossDissolve
-//																			   animations:^{
-//																				   self.backgroundImageView.productImageView.image = image;
-//																			   }
-//																			   completion:nil];
-//														   } else {
-//															   self.backgroundImageView.productImageView.alpha = 0.0f;
-//															   self.backgroundImageView.productImageView.image = image;
-//															   [UIView animateWithDuration:imageDuration
-//																				animations:^{
-//																					self.backgroundImageView.productImageView.alpha = 1.0f;
-//																				}];
-//														   }
-//														   [self.productViewHeader setContentOffset:self.tableView.contentOffset];
-//													   }];
-//	}
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
