@@ -27,7 +27,6 @@
 @property (nonatomic, weak) BUYTheme *theme;
 
 - (instancetype)initWithTheme:(BUYTheme*)theme;
-- (void)setProductImage:(UIImage *)image;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView;
 
 @end

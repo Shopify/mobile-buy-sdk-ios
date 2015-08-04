@@ -9,11 +9,13 @@
 #import <UIKit/UIKit.h>
 @class BUYImageView;
 @class BUYTheme;
+@class BUYImage;
 
 @interface BUYProductViewHeaderBackgroundImageView : UIView
 
 @property (nonatomic, strong) BUYImageView *productImageView;
 
 - (instancetype)initWithTheme:(BUYTheme*)theme;
+- (void)setBackgroundProductImage:(BUYImage *)image;
 
 @end

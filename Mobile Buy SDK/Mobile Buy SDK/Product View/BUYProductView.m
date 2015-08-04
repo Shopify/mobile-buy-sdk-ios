@@ -149,26 +149,6 @@
 	self.backgroundImageView.hidden = _theme.showsProductImageBackground == NO;
 }
 
-- (void)setProductImage:(UIImage *)image
-{
-	if (self.backgroundImageView.productImageView.image) {
-		[UIView transitionWithView:self.backgroundImageView.productImageView
-						  duration:imageDuration
-						   options:UIViewAnimationOptionTransitionCrossDissolve
-						animations:^{
-							self.backgroundImageView.productImageView.image = image;
-						}
-						completion:nil];
-	} else {
-		self.backgroundImageView.productImageView.alpha = 0.0f;
-		self.backgroundImageView.productImageView.image = image;
-		[UIView animateWithDuration:imageDuration
-						 animations:^{
-							 self.backgroundImageView.productImageView.alpha = 1.0f;
-						 }];
-	}
-}
-
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
 	CGFloat imageHeight = [self.productViewHeader imageHeightWithContentOffset:scrollView.contentOffset];

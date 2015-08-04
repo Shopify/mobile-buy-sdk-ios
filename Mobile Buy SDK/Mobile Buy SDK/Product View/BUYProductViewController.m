@@ -21,6 +21,7 @@
 #import "BUYProductDescriptionCell.h"
 #import "BUYProductViewHeader.h"
 #import "BUYProductImageCollectionViewCell.h"
+#import "BUYProductViewHeaderBackgroundImageView.h"
 
 @interface BUYProductViewController () <UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, BUYVariantSelectionDelegate, BUYPresentationControllerWithNavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -288,6 +289,7 @@
 	}
 	if (self.productView.productViewHeader.collectionView) {
 		[self.productView.productViewHeader setImageForSelectedVariant:_selectedProductVariant withImages:self.product.images];
+		[self updateProductViewImages];
 	}
 	[self scrollViewDidScroll:self.productView.tableView];
 }
@@ -318,9 +320,19 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
 	if ([scrollView isKindOfClass:[UICollectionView class]]) {
-		NSInteger page = (int)(scrollView.contentOffset.x / scrollView.frame.size.width);
-		[self.productView.productViewHeader setCurrentPage:page];
+		[self updateProductViewImages];
 	}
+}
+
+- (void)updateProductViewImages
+{
+	NSInteger page = (int)(self.productView.productViewHeader.collectionView.contentOffset.x / self.productView.productViewHeader.collectionView.frame.size.width);
+	[self.productView.productViewHeader setCurrentPage:page];
+	BUYImage *image = self.product.images[page];
+	if (image == nil) {
+		image = self.product.images.firstObject;
+	}
+	[self.productView.backgroundImageView setBackgroundProductImage:image];
 }
 
 #pragma mark Checkout

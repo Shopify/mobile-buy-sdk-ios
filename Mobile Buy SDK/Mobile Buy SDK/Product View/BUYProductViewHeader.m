@@ -138,16 +138,16 @@
 
 - (void)setImageForSelectedVariant:(BUYProductVariant*)productVariant withImages:(NSArray*)images
 {
-	for (int i = 0; i < [images count]; i++) {
-		BUYImage *image = (BUYImage*)images[i];
+	[images enumerateObjectsUsingBlock:^(BUYImage *image, NSUInteger i, BOOL *stop) {
 		for (NSNumber *variantId in image.variantIds) {
 			if ([variantId isEqualToNumber:productVariant.identifier]) {
 				[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
 				[self setCurrentPage:i];
-				return;
+				*stop = YES;
+				break;
 			}
 		}
-	}
+	}];
 }
 
 @end

@@ -91,10 +91,9 @@
 	// checks if the client is setup to use Apple Pay
 	// checks if device hardware is capable of using Apple Pay
 	// checks if the device has a payment card setup
-	return YES;
-//	return (self.merchantId.length &&
-//			[PKPaymentAuthorizationViewController canMakePayments] &&
-//			[PKPaymentAuthorizationViewController canMakePaymentsUsingNetworks:self.supportedNetworks]);
+	return (self.merchantId.length &&
+			[PKPaymentAuthorizationViewController canMakePayments] &&
+			[PKPaymentAuthorizationViewController canMakePaymentsUsingNetworks:self.supportedNetworks]);
 }
 
 #pragma mark - Checkout Flow Methods
