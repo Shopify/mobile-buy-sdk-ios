@@ -9,12 +9,16 @@
 #import <UIKit/UIKit.h>
 @class BUYImageView;
 @class BUYProductVariant;
+@class BUYTheme;
+@class BUYProductViewHeaderOverlay;
 
 @interface BUYProductViewHeader : UIView
 
 @property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) BUYProductViewHeaderOverlay *productViewHeaderOverlay;
 
-- (CGFloat)imageHeightWithContentOffset:(CGPoint)offset;
+- (instancetype)initWithFrame:(CGRect)frame theme:(BUYTheme*)theme;
+- (CGFloat)imageHeightWithScrollViewDidScroll:(UIScrollView *)scrollView;
 - (void)setCurrentPage:(NSInteger)currentPage;
 - (void)setImageForSelectedVariant:(BUYProductVariant*)productVariant withImages:(NSArray*)images;
 

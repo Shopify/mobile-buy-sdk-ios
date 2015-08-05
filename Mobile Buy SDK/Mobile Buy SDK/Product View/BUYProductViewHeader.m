@@ -12,6 +12,8 @@
 #import "BUYProductImageCollectionViewCell.h"
 #import "BUYImage.h"
 #import "BUYProductVariant.h"
+#import "BUYTheme.h"
+#import "BUYProductViewHeaderOverlay.h"
 
 @interface BUYProductViewHeader ()
 
@@ -23,7 +25,7 @@
 
 @implementation BUYProductViewHeader
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame theme:(BUYTheme*)theme
 {
 	self = [super initWithFrame:frame];
 	if (self) {
@@ -105,6 +107,12 @@
 														 attribute:NSLayoutAttributeNotAnAttribute
 														multiplier:1.0
 														  constant:20.0]];
+		
+		_productViewHeaderOverlay = [[BUYProductViewHeaderOverlay alloc] initWithTheme:theme];
+		_productViewHeaderOverlay.translatesAutoresizingMaskIntoConstraints = NO;
+		[self addSubview:_productViewHeaderOverlay];
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_productViewHeaderOverlay]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_productViewHeaderOverlay)]];
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_productViewHeaderOverlay]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_productViewHeaderOverlay)]];
 	}
 	return self;
 }
@@ -126,14 +134,14 @@
 	self.pageControl.currentPage = currentPage;
 }
 
-- (CGFloat)imageHeightWithContentOffset:(CGPoint)offset
+- (CGFloat)imageHeightWithScrollViewDidScroll:(UIScrollView *)scrollView
 {
 	CGRect visibleRect = (CGRect){.origin = self.collectionView.contentOffset, .size = self.collectionView.bounds.size};
 	CGPoint visiblePoint = CGPointMake(CGRectGetMidX(visibleRect), CGRectGetMidY(visibleRect));
 	NSIndexPath *visibleIndexPath = [self.collectionView indexPathForItemAtPoint:visiblePoint];
 	BUYProductImageCollectionViewCell *cell = (BUYProductImageCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:visibleIndexPath];
 	if (cell) {
-		[cell setContentOffset:offset];
+		[cell setContentOffset:scrollView.contentOffset];
 		return cell.productImageViewConstraintHeight.constant;
 	} else {
 		cell = [self.collectionView.visibleCells firstObject];

@@ -22,6 +22,7 @@
 #import "BUYProductViewHeader.h"
 #import "BUYProductImageCollectionViewCell.h"
 #import "BUYProductViewHeaderBackgroundImageView.h"
+#import "BUYProductViewHeaderOverlay.h"
 
 @interface BUYProductViewController () <UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, BUYVariantSelectionDelegate, BUYPresentationControllerWithNavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -120,7 +121,7 @@
 {
 	_theme = theme;
 	self.view.tintColor = _theme.tintColor;
-	UIColor *backgroundColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(64, 64, 64) : BUY_RGB(229, 229, 229);
+	UIColor *backgroundColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(26, 26, 26) : BUY_RGB(255, 255, 255);
 	self.view.backgroundColor = backgroundColor;
 	self.productView.theme = theme;
 }
@@ -297,20 +298,51 @@
 {
 	if ([scrollView isKindOfClass:[UITableView class]]) {
 		[self.productView scrollViewDidScroll:scrollView];
-		
 		if (self.navigationBar) {
-			CGFloat navigationBarHeight = CGRectGetHeight(self.navigationBar.bounds);
-			// multiply by double statusbar height to have it fade it sooner with the scrolling
-			CGFloat transitionPosition = CGRectGetHeight(self.productView.tableView.tableHeaderView.bounds) - scrollView.contentOffset.y - (navigationBarHeight * 2);
-			transitionPosition = -transitionPosition / navigationBarHeight;
-			if (transitionPosition >= 1) {
-				transitionPosition = 1;
-			} else if (transitionPosition <= 0) {
-				transitionPosition = 0;
+			if (self.navigationBar.alpha != 1 && [self navigationBarThresholdReached] == YES) {
+				[self updateCloseButtonImageWithDarkStyle:YES];
+				[self setNeedsStatusBarAppearanceUpdate];
+				[UIView animateWithDuration:0.3f
+									  delay:0
+									options:(UIViewAnimationOptionCurveLinear | UIViewKeyframeAnimationOptionBeginFromCurrentState)
+								 animations:^{
+									 self.navigationBar.alpha = 1;
+									 self.navigationBarTitle.alpha = 1;
+								 }
+								 completion:NULL];
+			} else if (self.navigationBar.alpha != 0 && [self navigationBarThresholdReached] == NO)  {
+				[self updateCloseButtonImageWithDarkStyle:NO];
+				[self setNeedsStatusBarAppearanceUpdate];
+				[UIView animateWithDuration:0.20f
+									  delay:0
+									options:(UIViewAnimationOptionCurveLinear | UIViewKeyframeAnimationOptionBeginFromCurrentState)
+								 animations:^{
+									 self.navigationBar.alpha = 0;
+									 self.navigationBarTitle.alpha = 0;
+								 }
+								 completion:NULL];
 			}
-			self.navigationBar.alpha = transitionPosition;
-			self.navigationBarTitle.alpha = transitionPosition;
+			[self.productView.productViewHeader.productViewHeaderOverlay scrollViewDidScroll:scrollView withNavigationBarHeight:CGRectGetHeight(self.navigationBar.bounds)];
 		}
+	}
+}
+
+- (void)updateCloseButtonImageWithDarkStyle:(BOOL)darkStyle
+{
+	if (self.theme.style == BUYThemeStyleLight) {
+		UIButton *button = (UIButton*)self.navigationItem.leftBarButtonItem.customView;
+		UIImage *oldButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22) color:darkStyle ? [UIColor whiteColor] : [UIColor blackColor]];
+		UIImage *newButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22) color:darkStyle ? [UIColor blackColor] : [UIColor whiteColor]];
+		CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
+		crossFade.duration = 0.25f;
+		crossFade.fromValue = (id)oldButtonImage.CGImage;
+		crossFade.toValue = (id)newButtonImage.CGImage;
+		crossFade.removedOnCompletion = NO;
+		crossFade.fillMode = kCAFillModeForwards;
+		[button.imageView.layer addAnimation:crossFade forKey:@"animateContents"];
+		[button setImage:newButtonImage forState:UIControlStateNormal];
+		[button setImage:oldButtonImage forState:UIControlStateHighlighted];
+
 	}
 }
 
@@ -366,12 +398,21 @@
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-	return UIStatusBarStyleLightContent;
+	if (self.theme.style == BUYThemeStyleDark || [self navigationBarThresholdReached] == NO) {
+		return UIStatusBarStyleLightContent;
+	} else {
+		return UIStatusBarStyleDefault;
+	}
 }
 
 - (UIStatusBarAnimation)preferredStatusBarUpdateAnimation
 {
 	return UIStatusBarAnimationFade;
+}
+		
+- (BOOL)navigationBarThresholdReached
+{
+	return self.productView.tableView.contentOffset.y > CGRectGetHeight(self.productView.productViewHeader.bounds) - CGRectGetHeight(self.navigationBar.bounds);
 }
 
 #pragma mark BUYPresentationControllerWithNavigationControllerDelegate
