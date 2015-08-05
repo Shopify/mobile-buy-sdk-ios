@@ -99,7 +99,7 @@
 																	 metrics:nil
 																	   views:NSDictionaryOfVariableBindings(_tableView)]];
 		
-		self.productViewHeader = [[BUYProductViewHeader alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([[UIScreen mainScreen] bounds]), CGRectGetWidth([[UIScreen mainScreen] bounds]))];
+		self.productViewHeader = [[BUYProductViewHeader alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([[UIScreen mainScreen] bounds]), CGRectGetWidth([[UIScreen mainScreen] bounds])) theme:self.theme];
 		self.tableView.tableHeaderView = self.productViewHeader;
 		
 		self.productViewFooter = [[BUYProductViewFooter alloc] initWithTheme:self.theme];
@@ -144,13 +144,13 @@
 	self.tintColor = _theme.tintColor;
 	self.stickyFooterView.backgroundColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(26, 26, 26) : [UIColor whiteColor];
 	self.tableView.separatorColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(76, 76, 76) : BUY_RGB(217, 217, 217);
-	self.backgroundColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(64, 64, 64) : BUY_RGB(229, 229, 229);
+	self.backgroundColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(26, 26, 26) : BUY_RGB(255, 255, 255);
 	self.backgroundImageView.hidden = _theme.showsProductImageBackground == NO;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-	CGFloat imageHeight = [self.productViewHeader imageHeightWithContentOffset:scrollView.contentOffset];
+	CGFloat imageHeight = [self.productViewHeader imageHeightWithScrollViewDidScroll:scrollView];
 	CGFloat footerViewHeight = self.bounds.size.height - imageHeight;
 	if (scrollView.contentOffset.y > 0) {
 		footerViewHeight += scrollView.contentOffset.y;
@@ -160,6 +160,10 @@
 	}
 	self.footerHeightLayoutConstraint.constant = footerViewHeight;
 	self.footerOffsetLayoutConstraint.constant = -footerViewHeight;
+	
+	CGFloat opaqueOffset = CGRectGetHeight(self.productViewHeader.bounds);
+	CGFloat whiteStartingOffset = opaqueOffset - CGRectGetHeight(self.topGradientView.bounds);
+	self.topGradientView.alpha = -(scrollView.contentOffset.y - whiteStartingOffset) / (opaqueOffset - whiteStartingOffset);
 }
 
 @end

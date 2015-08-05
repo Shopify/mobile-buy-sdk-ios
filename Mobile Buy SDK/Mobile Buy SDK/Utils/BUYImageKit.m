@@ -91,13 +91,12 @@
     [disclosureIndicatorPath fill];
 }
 
-+ (void)drawProductViewCloseImageWithFrame: (CGRect)frame
++ (void)drawProductViewCloseImageWithFrame: (CGRect)frame color:(UIColor*)closeColor2
 {
     //// General Declarations
     CGContextRef context = UIGraphicsGetCurrentContext();
 
     //// Color Declarations
-    UIColor* closeColor2 = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
     UIColor* closeShadowColor = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 1];
 
     //// Shadow Declarations
@@ -217,10 +216,10 @@
     return imageOfDisclosureIndicatorImage;
 }
 
-+ (UIImage*)imageOfProductViewCloseImageWithFrame: (CGRect)frame
++ (UIImage*)imageOfProductViewCloseImageWithFrame: (CGRect)frame color:(UIColor*)color
 {
     UIGraphicsBeginImageContextWithOptions(frame.size, NO, 0.0f);
-    [BUYImageKit drawProductViewCloseImageWithFrame: frame];
+    [BUYImageKit drawProductViewCloseImageWithFrame: frame color:color];
 
     UIImage* imageOfProductViewCloseImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();

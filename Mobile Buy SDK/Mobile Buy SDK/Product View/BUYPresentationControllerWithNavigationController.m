@@ -22,7 +22,7 @@
 - (UIViewController *)presentationController:(UIPresentationController *)controller viewControllerForAdaptivePresentationStyle:(UIModalPresentationStyle)style
 {
 	BUYNavigationController *navigationController = [[BUYNavigationController alloc] initWithRootViewController:controller.presentedViewController];
-	UIImage *closeButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22)];
+	UIImage *closeButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22) color:[UIColor whiteColor]];
 	UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	[closeButton addTarget:self action:@selector(dismissPopover) forControlEvents:UIControlEventTouchUpInside];
 	[closeButton setImage:closeButtonImage forState:UIControlStateNormal];
@@ -31,6 +31,26 @@
 	navigationController.topViewController.navigationItem.leftBarButtonItem = barButtonItem;
 	navigationController.navigationBar.barStyle = (self.theme.style == BUYThemeStyleDark) ? UIBarStyleBlack : UIBarStyleDefault;
 	return navigationController;
+}
+
+- (void)updateCloseButtonImageWithDarkStyle:(BOOL)darkStyle
+{
+	if (self.theme.style == BUYThemeStyleLight) {
+		UINavigationController *navigationController = (UINavigationController*)self.presentedViewController;
+		UIButton *button = (UIButton*)navigationController.navigationItem.leftBarButtonItem.customView;
+		UIImage *oldButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22) color:darkStyle ? [UIColor whiteColor] : [UIColor blackColor]];
+		UIImage *newButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22) color:darkStyle ? [UIColor blackColor] : [UIColor whiteColor]];
+		CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
+		crossFade.duration = 0.25f;
+		crossFade.fromValue = (id)oldButtonImage.CGImage;
+		crossFade.toValue = (id)newButtonImage.CGImage;
+		crossFade.removedOnCompletion = NO;
+		crossFade.fillMode = kCAFillModeForwards;
+		[button.imageView.layer addAnimation:crossFade forKey:@"animateContents"];
+		[button setImage:newButtonImage forState:UIControlStateNormal];
+		[button setImage:oldButtonImage forState:UIControlStateHighlighted];
+		
+	}
 }
 
 - (void)dismissPopover
