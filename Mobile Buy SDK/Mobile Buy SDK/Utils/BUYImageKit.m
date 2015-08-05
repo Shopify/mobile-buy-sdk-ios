@@ -54,7 +54,7 @@
 	[previousSelectionIndicatorPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.50000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 1.00000f * CGRectGetHeight(frame))];
 	[previousSelectionIndicatorPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.00000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.50000f * CGRectGetHeight(frame)) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 0.22386f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 1.00000f * CGRectGetHeight(frame)) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 0.00000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.77614f * CGRectGetHeight(frame))];
 	[previousSelectionIndicatorPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.50000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.00000f * CGRectGetHeight(frame)) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 0.00000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.22386f * CGRectGetHeight(frame)) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 0.22386f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.00000f * CGRectGetHeight(frame))];
-	[previousSelectionIndicatorPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 1.00000 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.50000f * CGRectGetHeight(frame)) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 0.77614 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.00000f * CGRectGetHeight(frame)) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 1.00000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.22386f * CGRectGetHeight(frame))];
+	[previousSelectionIndicatorPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 1.00000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.50000f * CGRectGetHeight(frame)) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 0.77614f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.00000f * CGRectGetHeight(frame)) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 1.00000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.22386f * CGRectGetHeight(frame))];
 	[previousSelectionIndicatorPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.50000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 1.00000f * CGRectGetHeight(frame)) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 1.00000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.77614f * CGRectGetHeight(frame)) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 0.77614f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 1.00000f * CGRectGetHeight(frame))];
 	[previousSelectionIndicatorPath closePath];
 	[previousSelectionIndicatorPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.74926f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.28003f * CGRectGetHeight(frame))];
@@ -65,7 +65,7 @@
 	[previousSelectionIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.40000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.76924f * CGRectGetHeight(frame))];
 	[previousSelectionIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.40073f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.76997f * CGRectGetHeight(frame))];
 	[previousSelectionIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.81997f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.35074f * CGRectGetHeight(frame))];
-	[previousSelectionIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.74926 * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.28003f * CGRectGetHeight(frame))];
+	[previousSelectionIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.74926f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.28003f * CGRectGetHeight(frame))];
 	[previousSelectionIndicatorPath closePath];
     [indicatorColor setFill];
     [previousSelectionIndicatorPath fill];
@@ -103,7 +103,7 @@
     //// Shadow Declarations
     NSShadow* closeDropShadow = [[NSShadow alloc] init];
     [closeDropShadow setShadowColor: [closeShadowColor colorWithAlphaComponent: 0.15f]];
-    [closeDropShadow setShadowOffset: CGSizeMake(0.1, 1.1f)];
+    [closeDropShadow setShadowOffset: CGSizeMake(0.1f, 1.1f)];
     [closeDropShadow setShadowBlurRadius: 2];
 
     //// Close Icon Drawing
