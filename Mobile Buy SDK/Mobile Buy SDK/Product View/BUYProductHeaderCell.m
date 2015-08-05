@@ -9,6 +9,7 @@
 #import "BUYProductHeaderCell.h"
 #import "BUYProductVariant.h"
 #import "BUYProduct.h"
+#import "UIFont+BUYAdditions.h"
 
 @interface BUYProductHeaderCell ()
 @property (nonatomic, strong) BUYTheme *theme;
@@ -28,7 +29,7 @@
 		
 		_titleLabel = [[UILabel alloc] init];
 		_titleLabel.textColor = [UIColor blackColor];
-		_titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+		_titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody increasedPointSize:4];
 		_titleLabel.numberOfLines = 0;
 		_titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
 		[self.contentView addSubview:_titleLabel];
@@ -38,7 +39,7 @@
 		[self.contentView addSubview:priceView];
 		
 		_priceLabel = [[UILabel alloc] init];
-		_priceLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+		_priceLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody increasedPointSize:4];
 		_priceLabel.translatesAutoresizingMaskIntoConstraints = NO;
 		_priceLabel.textAlignment = NSTextAlignmentRight;
 		[_priceLabel setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
@@ -48,7 +49,7 @@
 		_comparePriceLabel = [[UILabel alloc] init];
 		_comparePriceLabel.textColor = [UIColor colorWithWhite:0.6f alpha:1];
 		_comparePriceLabel.textAlignment = NSTextAlignmentRight;
-		_comparePriceLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+		_comparePriceLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 		_comparePriceLabel.translatesAutoresizingMaskIntoConstraints = NO;
 		[_comparePriceLabel setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
 		[_comparePriceLabel setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
