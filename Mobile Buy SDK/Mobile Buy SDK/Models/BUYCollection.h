@@ -28,6 +28,11 @@
 @property (nonatomic, strong, readonly) NSString *htmlDescription;
 
 /**
+ *  The collection's image URL
+ */
+@property (nonatomic, strong, readonly) NSURL *imageURL;
+
+/**
  *  The handle of the collection
  */
 @property (nonatomic, strong, readonly) NSString *handle;
