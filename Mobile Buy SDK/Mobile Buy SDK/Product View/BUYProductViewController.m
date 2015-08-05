@@ -268,6 +268,8 @@
 {
 	[controller dismissViewControllerAnimated:YES completion:NULL];
 	self.selectedProductVariant = variant;
+	
+	[self.productView.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)variantSelectionControllerDidCancelVariantSelection:(BUYVariantSelectionViewController *)controller atOptionIndex:(NSUInteger)optionIndex
@@ -279,9 +281,6 @@
 	_selectedProductVariant = selectedProductVariant;
 	if (self.headerCell) {
 		self.headerCell.productVariant = selectedProductVariant;
-		[self.productView.tableView beginUpdates];
-		[self.productView.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-		[self.productView.tableView endUpdates];
 		self.variantCell.productVariant = selectedProductVariant;
 	}
 	if (self.productView.productViewHeader.collectionView) {
