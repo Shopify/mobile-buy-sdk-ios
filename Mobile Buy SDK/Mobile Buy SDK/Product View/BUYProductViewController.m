@@ -44,8 +44,6 @@
 
 @implementation BUYProductViewController
 
-@synthesize theme = _theme;
-
 - (instancetype)initWithClient:(BUYClient *)client
 {
 	self = [super initWithClient:client];
@@ -54,6 +52,16 @@
 		self.transitioningDelegate = self;
 	}
 	return self;
+}
+
+- (void)viewDidLoad
+{
+	[super viewDidLoad];
+	
+	if (self.theme == nil) {
+		BUYTheme *theme = [[BUYTheme alloc] init];
+		self.theme = theme;
+	}
 }
 
 - (BUYProductView *)productView
@@ -106,14 +114,6 @@
 		// Hide the navigation bar
 		[self scrollViewDidScroll:self.productView.tableView];
 	}
-}
-
-- (BUYTheme*)theme
-{
-	if (_theme == nil) {
-		_theme = [[BUYTheme alloc] init];
-	}
-	return _theme;
 }
 
 - (void)setTheme:(BUYTheme *)theme
