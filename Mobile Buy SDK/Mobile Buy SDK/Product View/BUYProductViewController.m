@@ -300,7 +300,7 @@
 		[self.productView scrollViewDidScroll:scrollView];
 		if (self.navigationBar) {
 			if (self.navigationBar.alpha != 1 && [self navigationBarThresholdReached] == YES) {
-				[self updateCloseButtonImageWithDarkStyle:YES];
+				[(BUYPresentationControllerWithNavigationController*)self.presentationController updateCloseButtonImageWithDarkStyle:YES];
 				[self setNeedsStatusBarAppearanceUpdate];
 				[UIView animateWithDuration:0.3f
 									  delay:0
@@ -311,7 +311,7 @@
 								 }
 								 completion:NULL];
 			} else if (self.navigationBar.alpha != 0 && [self navigationBarThresholdReached] == NO)  {
-				[self updateCloseButtonImageWithDarkStyle:NO];
+				[(BUYPresentationControllerWithNavigationController*)self.presentationController updateCloseButtonImageWithDarkStyle:NO];
 				[self setNeedsStatusBarAppearanceUpdate];
 				[UIView animateWithDuration:0.20f
 									  delay:0
@@ -324,25 +324,6 @@
 			}
 			[self.productView.productViewHeader.productViewHeaderOverlay scrollViewDidScroll:scrollView withNavigationBarHeight:CGRectGetHeight(self.navigationBar.bounds)];
 		}
-	}
-}
-
-- (void)updateCloseButtonImageWithDarkStyle:(BOOL)darkStyle
-{
-	if (self.theme.style == BUYThemeStyleLight) {
-		UIButton *button = (UIButton*)self.navigationItem.leftBarButtonItem.customView;
-		UIImage *oldButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22) color:darkStyle ? [UIColor whiteColor] : [UIColor blackColor]];
-		UIImage *newButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22) color:darkStyle ? [UIColor blackColor] : [UIColor whiteColor]];
-		CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
-		crossFade.duration = 0.25f;
-		crossFade.fromValue = (id)oldButtonImage.CGImage;
-		crossFade.toValue = (id)newButtonImage.CGImage;
-		crossFade.removedOnCompletion = NO;
-		crossFade.fillMode = kCAFillModeForwards;
-		[button.imageView.layer addAnimation:crossFade forKey:@"animateContents"];
-		[button setImage:newButtonImage forState:UIControlStateNormal];
-		[button setImage:oldButtonImage forState:UIControlStateHighlighted];
-
 	}
 }
 
