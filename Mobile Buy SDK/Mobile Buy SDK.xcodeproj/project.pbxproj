@@ -72,6 +72,8 @@
 		BE4734101B66C4EF00AA721A /* BUYError.m in Sources */ = {isa = PBXBuildFile; fileRef = BE47340E1B66C4EF00AA721A /* BUYError.m */; };
 		BE5DC3631B71022D00B2BC1E /* BUYMaskedCreditCard.h in Headers */ = {isa = PBXBuildFile; fileRef = BE5DC3611B71022D00B2BC1E /* BUYMaskedCreditCard.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BE5DC3641B71022D00B2BC1E /* BUYMaskedCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = BE5DC3621B71022D00B2BC1E /* BUYMaskedCreditCard.m */; };
+		BE5DC3A01B71B13700B2BC1E /* NSURL+BUYAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = BE5DC39E1B71B13700B2BC1E /* NSURL+BUYAdditions.h */; };
+		BE5DC3A11B71B13700B2BC1E /* NSURL+BUYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BE5DC39F1B71B13700B2BC1E /* NSURL+BUYAdditions.m */; };
 		BE94966A1B45CD0500B38949 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AB6AB819CFCE6A00115224 /* libstdc++.dylib */; };
 		BE9A643F1B503C2F0033E558 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9A64281B503C2F0033E558 /* Buy.framework */; };
 		BE9A64471B503C8B0033E558 /* BUYClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F7FDA17019C93F6F00AF4E93 /* BUYClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -322,6 +324,8 @@
 		BE47340E1B66C4EF00AA721A /* BUYError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYError.m; sourceTree = "<group>"; };
 		BE5DC3611B71022D00B2BC1E /* BUYMaskedCreditCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYMaskedCreditCard.h; sourceTree = "<group>"; };
 		BE5DC3621B71022D00B2BC1E /* BUYMaskedCreditCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYMaskedCreditCard.m; sourceTree = "<group>"; };
+		BE5DC39E1B71B13700B2BC1E /* NSURL+BUYAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+BUYAdditions.h"; sourceTree = "<group>"; };
+		BE5DC39F1B71B13700B2BC1E /* NSURL+BUYAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+BUYAdditions.m"; sourceTree = "<group>"; };
 		BE6C5E701B1CF776003AD9D0 /* BUYCheckout+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BUYCheckout+Additions.h"; sourceTree = "<group>"; };
 		BE6C5E711B1CF776003AD9D0 /* BUYCheckout+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYCheckout+Additions.m"; sourceTree = "<group>"; };
 		BE9496681B45CCF400B38949 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
@@ -692,6 +696,8 @@
 				BE9496B71B4D96F100B38949 /* BUYProduct+Options.m */,
 				BE1007931B6038150031CEE7 /* BUYProductVariant+Options.h */,
 				BE1007941B6038150031CEE7 /* BUYProductVariant+Options.m */,
+				BE5DC39E1B71B13700B2BC1E /* NSURL+BUYAdditions.h */,
+				BE5DC39F1B71B13700B2BC1E /* NSURL+BUYAdditions.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -771,6 +777,7 @@
 				BE9A64571B503CCC0033E558 /* BUYGiftCard.h in Headers */,
 				BE2E1D3A1B5E8663009610DA /* BUYClient+Test.h in Headers */,
 				BEB74A671B55640C0005A300 /* BUYNavigationController.h in Headers */,
+				BE5DC3A01B71B13700B2BC1E /* NSURL+BUYAdditions.h in Headers */,
 				BEB74A711B5564300005A300 /* BUYProductViewFooter.h in Headers */,
 				BEB74A791B5564790005A300 /* BUYOptionSelectionViewController.h in Headers */,
 				BE9A647D1B503D840033E558 /* Buy.h in Headers */,
@@ -1019,6 +1026,7 @@
 				900396B11B67BD0A00226B73 /* BUYCheckoutButton.m in Sources */,
 				BE9A64521B503CB80033E558 /* BUYTaxLine.m in Sources */,
 				900396F71B69563400226B73 /* BUYCollection+Additions.m in Sources */,
+				BE5DC3A11B71B13700B2BC1E /* NSURL+BUYAdditions.m in Sources */,
 				BE9A647F1B503D960033E558 /* BUYStoreViewController.m in Sources */,
 				BE9A64691B503D0C0033E558 /* BUYOptionValue.m in Sources */,
 				BE9A646D1B503D1C0033E558 /* BUYApplePayAdditions.m in Sources */,

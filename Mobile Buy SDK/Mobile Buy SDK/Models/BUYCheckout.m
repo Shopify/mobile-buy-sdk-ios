@@ -20,6 +20,7 @@
 #import "NSString+Trim.h"
 #import "BUYCheckout_Private.h"
 #import "NSDateFormatter+BUYAdditions.h"
+#import "NSURL+BUYAdditions.h"
 
 @implementation BUYCheckout
 
@@ -127,7 +128,7 @@
 	self.giftCards = [BUYGiftCard convertJSONArray:dictionary[@"gift_cards"]];
 	
 	NSString *orderStatusURL = dictionary[@"order_status_url"];
-	self.orderStatusURL = orderStatusURL && [orderStatusURL isKindOfClass:[NSString class]] ? [NSURL URLWithString:orderStatusURL] : nil;
+	self.orderStatusURL = [NSURL buy_urlWithString:orderStatusURL];
 	
 	self.webCheckoutURL = [NSURL URLWithString:dictionary[@"web_url"]];
 	NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForPublications];
@@ -136,13 +137,13 @@
 	self.creditCard = [BUYMaskedCreditCard convertObject:dictionary[@"credit_card"]];
 	self.customerId = [dictionary[@"customer_id"] copy];
 	
-	self.privacyPolicyURL = [NSURL URLWithString:dictionary[@"privacy_policy_url"]];
-	self.refundPolicyURL = [NSURL URLWithString:dictionary[@"refund_policy_url"]];
-	self.termsOfServiceURL = [NSURL URLWithString:dictionary[@"terms_of_service_url"]];
+	self.privacyPolicyURL = [NSURL buy_urlWithString:dictionary[@"privacy_policy_url"]];
+	self.refundPolicyURL = [NSURL buy_urlWithString:dictionary[@"refund_policy_url"]];
+	self.termsOfServiceURL = [NSURL buy_urlWithString:dictionary[@"terms_of_service_url"]];
 	
 	self.sourceName = dictionary[@"source_name"];
 	self.sourceId = dictionary[@"source_identifier"];
-	self.sourceURL = [dictionary[@"source_url"] isKindOfClass:[NSString class]]? [NSURL URLWithString:dictionary[@"source_url"]] : nil;
+	self.sourceURL = [NSURL buy_urlWithString:dictionary[@"source_url"]];
 }
 
 - (id)jsonValueForValue:(id)value
