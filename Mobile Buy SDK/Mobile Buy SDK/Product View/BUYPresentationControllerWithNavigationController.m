@@ -26,6 +26,8 @@
 	UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	[closeButton addTarget:self action:@selector(dismissPopover) forControlEvents:UIControlEventTouchUpInside];
 	[closeButton setImage:closeButtonImage forState:UIControlStateNormal];
+	UIImage *highlightedImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22) color:self.theme.style == BUYThemeStyleDark ? BUY_RGB(76, 76, 76) : BUY_RGB(191, 191, 191)];
+	[closeButton setImage:highlightedImage forState:UIControlStateHighlighted];
 	closeButton.frame = CGRectMake(0, 0, 22, 22);
 	UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
 	navigationController.topViewController.navigationItem.leftBarButtonItem = barButtonItem;
@@ -40,7 +42,7 @@
 		UIButton *button = (UIButton*)navigationController.navigationItem.leftBarButtonItem.customView;
 		UIImage *oldButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22) color:darkStyle ? [UIColor whiteColor] : [UIColor blackColor]];
 		UIImage *newButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22) color:darkStyle ? [UIColor blackColor] : [UIColor whiteColor]];
-		CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
+		CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"animateContents"];
 		crossFade.duration = 0.25f;
 		crossFade.fromValue = (id)oldButtonImage.CGImage;
 		crossFade.toValue = (id)newButtonImage.CGImage;
@@ -48,8 +50,6 @@
 		crossFade.fillMode = kCAFillModeForwards;
 		[button.imageView.layer addAnimation:crossFade forKey:@"animateContents"];
 		[button setImage:newButtonImage forState:UIControlStateNormal];
-		[button setImage:oldButtonImage forState:UIControlStateHighlighted];
-		
 	}
 }
 
