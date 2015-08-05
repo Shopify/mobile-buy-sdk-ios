@@ -71,11 +71,8 @@
     [previousSelectionIndicatorPath fill];
 }
 
-+ (void)drawDisclosureIndicatorImageWithFrame: (CGRect)frame
++ (void)drawDisclosureIndicatorImageWithFrame: (CGRect)frame color:(UIColor*)arrowColor
 {
-    //// Color Declarations
-    UIColor* arrowColor = [UIColor colorWithRed: 0.75f green: 0.75f blue: 0.75f alpha: 1];
-
     //// Disclosure Indicator Drawing
     UIBezierPath* disclosureIndicatorPath = UIBezierPath.bezierPath;
     [disclosureIndicatorPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.21192f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.00000f * CGRectGetHeight(frame))];
@@ -209,10 +206,10 @@
     return imageOfPreviousSelectionIndicatorImage;
 }
 
-+ (UIImage*)imageOfDisclosureIndicatorImageWithFrame: (CGRect)frame
++ (UIImage*)imageOfDisclosureIndicatorImageWithFrame: (CGRect)frame color:(UIColor*)color
 {
     UIGraphicsBeginImageContextWithOptions(frame.size, NO, 0.0f);
-    [BUYImageKit drawDisclosureIndicatorImageWithFrame: frame];
+    [BUYImageKit drawDisclosureIndicatorImageWithFrame: frame color:color];
 
     UIImage* imageOfDisclosureIndicatorImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
