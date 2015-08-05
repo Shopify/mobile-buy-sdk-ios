@@ -19,8 +19,11 @@
 #import "BUYProductHeaderCell.h"
 #import "BUYProductVariantCell.h"
 #import "BUYProductDescriptionCell.h"
+#import "BUYProductViewHeader.h"
+#import "BUYProductImageCollectionViewCell.h"
+#import "BUYProductViewHeaderBackgroundImageView.h"
 
-@interface BUYProductViewController () <UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, BUYVariantSelectionDelegate, BUYPresentationControllerWithNavigationControllerDelegate>
+@interface BUYProductViewController () <UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, BUYVariantSelectionDelegate, BUYPresentationControllerWithNavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (nonatomic, strong) NSString *productId;
 @property (nonatomic, strong) BUYProductVariant *selectedProductVariant;
@@ -75,6 +78,9 @@
 		[_productView.productViewFooter setApplePayButtonVisible:self.isApplePayAvailable];
 		[_productView.productViewFooter.buyPaymentButton addTarget:self action:@selector(checkoutWithApplePay) forControlEvents:UIControlEventTouchUpInside];
 		[_productView.productViewFooter.checkoutButton addTarget:self action:@selector(checkoutWithShopify) forControlEvents:UIControlEventTouchUpInside];
+		
+		_productView.productViewHeader.collectionView.delegate = self;
+		_productView.productViewHeader.collectionView.dataSource = self;
 	}
 	return _productView;
 }
@@ -247,13 +253,11 @@
 {
 	if (indexPath.row == 1 && self.shouldShowVariantSelector) {
 		[self.productView.tableView deselectRowAtIndexPath:indexPath animated:YES];
-		// TODO: Get this navigation controller inside the BUYVariantSelectionViewController so it takes care of it's own presentation
 		BUYVariantSelectionViewController *optionSelectionViewController = [[BUYVariantSelectionViewController alloc] initWithProduct:self.product theme:self.theme];
 		optionSelectionViewController.selectedProductVariant = self.selectedProductVariant;
 		optionSelectionViewController.delegate = self;
 		BUYOptionSelectionNavigationController *optionSelectionNavigationController = [[BUYOptionSelectionNavigationController alloc] initWithRootViewController:optionSelectionViewController];
 		[optionSelectionNavigationController setTheme:self.theme];
-		
 		[self presentViewController:optionSelectionNavigationController animated:YES completion:nil];
 	}
 }
@@ -273,16 +277,17 @@
 
 - (void)setSelectedProductVariant:(BUYProductVariant *)selectedProductVariant {
 	_selectedProductVariant = selectedProductVariant;
-	BUYImage *image = [self.product imageForVariant:selectedProductVariant];
-	
-	// if image is nil (no image specified for the variant) choose the first one
-	if (image == nil) {
-		image = self.product.images.firstObject;
+	if (self.headerCell) {
+		self.headerCell.productVariant = selectedProductVariant;
+		[self.productView.tableView beginUpdates];
+		[self.productView.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+		[self.productView.tableView endUpdates];
+		self.variantCell.productVariant = selectedProductVariant;
 	}
-	
-	[self.productView setProductImage:image];
-	self.headerCell.productVariant = selectedProductVariant;
-	self.variantCell.productVariant = selectedProductVariant;
+	if (self.productView.productViewHeader.collectionView) {
+		[self.productView.productViewHeader setImageForSelectedVariant:_selectedProductVariant withImages:self.product.images];
+		[self updateProductBackgroundImage];
+	}
 	[self scrollViewDidScroll:self.productView.tableView];
 }
 
@@ -290,20 +295,45 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-	[self.productView scrollViewDidScroll:scrollView];
-
-	if (self.navigationBar) {
-		CGFloat navigationBarHeight = CGRectGetHeight(self.navigationBar.bounds);
-		// multiply by double statusbar height to have it fade it sooner with the scrolling
-		CGFloat transitionPosition = CGRectGetHeight(self.productView.tableView.tableHeaderView.bounds) - scrollView.contentOffset.y - (navigationBarHeight * 2);
-		transitionPosition = -transitionPosition / navigationBarHeight;
-		if (transitionPosition >= 1) {
-			transitionPosition = 1;
-		} else if (transitionPosition <= 0) {
-			transitionPosition = 0;
+	if ([scrollView isKindOfClass:[UITableView class]]) {
+		[self.productView scrollViewDidScroll:scrollView];
+		
+		if (self.navigationBar) {
+			CGFloat navigationBarHeight = CGRectGetHeight(self.navigationBar.bounds);
+			// multiply by double statusbar height to have it fade it sooner with the scrolling
+			CGFloat transitionPosition = CGRectGetHeight(self.productView.tableView.tableHeaderView.bounds) - scrollView.contentOffset.y - (navigationBarHeight * 2);
+			transitionPosition = -transitionPosition / navigationBarHeight;
+			if (transitionPosition >= 1) {
+				transitionPosition = 1;
+			} else if (transitionPosition <= 0) {
+				transitionPosition = 0;
+			}
+			self.navigationBar.alpha = transitionPosition;
+			self.navigationBarTitle.alpha = transitionPosition;
 		}
-		self.navigationBar.alpha = transitionPosition;
-		self.navigationBarTitle.alpha = transitionPosition;
+	}
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+	if ([scrollView isKindOfClass:[UICollectionView class]]) {
+		[self updateProductBackgroundImage];
+	}
+}
+
+- (void)updateProductBackgroundImage
+{
+	NSInteger page = [self.product.images count] > 0 ? 0 : 0;
+	if (self.productView.productViewHeader.collectionView.contentSize.width > 0) {
+		page =  (int)(self.productView.productViewHeader.collectionView.contentOffset.x / self.productView.productViewHeader.collectionView.frame.size.width);
+	}
+	if (page >= 0) {
+		[self.productView.productViewHeader setCurrentPage:page];
+		BUYImage *image = self.product.images[page];
+		if (image == nil) {
+			image = self.product.images.firstObject;
+		}
+		[self.productView.backgroundImageView setBackgroundProductImage:image];
 	}
 }
 
@@ -357,6 +387,28 @@
 	_productId = nil;
 	[_productView removeFromSuperview];
 	_productView = nil;
+}
+
+#pragma mark - Collection View Delegate and Datasource
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+	return [self.product.images count];
+}
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+	BUYProductImageCollectionViewCell *cell = (BUYProductImageCollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+	BUYImage *image = self.product.images[indexPath.row];
+	// if image is nil (no image specified for the variant) choose the first one
+	if (image == nil) {
+		image = self.product.images.firstObject;
+	}
+	NSURL *url = [NSURL URLWithString:image.src];
+	[cell.productImageView loadImageWithURL:url completion:NULL];
+	[cell setContentOffset:self.productView.tableView.contentOffset];
+	
+	return cell;
 }
 
 @end

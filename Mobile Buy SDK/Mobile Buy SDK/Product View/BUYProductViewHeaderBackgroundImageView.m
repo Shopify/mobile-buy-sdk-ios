@@ -9,6 +9,7 @@
 #import "BUYProductViewHeaderBackgroundImageView.h"
 #import "BUYTheme.h"
 #import "BUYImageView.h"
+#import "BUYImage.h"
 
 @implementation BUYProductViewHeaderBackgroundImageView
 
@@ -59,6 +60,12 @@
 														  constant:0.0]];
 	}
 	return self;
+}
+
+- (void)setBackgroundProductImage:(BUYImage *)image
+{
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", image.src]];
+	[self.productImageView loadImageWithURL:url completion:NULL];
 }
 
 @end

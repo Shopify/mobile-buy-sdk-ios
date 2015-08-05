@@ -50,37 +50,19 @@ float const imageDuration = 0.1f;
 
 - (void)loadImageWithURL:(NSURL *)imageURL completion:(void (^)(UIImage *image, NSError *error))completion
 {
-	if (self.showsActivityIndicator) {
-		[self.activityIndicatorView startAnimating];
+	if (self.task) {
+		[self cancelImageTask];
 	}
+    if (self.showsActivityIndicator) {
+        [self.activityIndicatorView startAnimating];
+    }
 	self.task = [[NSURLSession sharedSession] dataTaskWithURL:imageURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
 		dispatch_async(dispatch_get_main_queue(), ^{
+			UIImage *image = [UIImage imageWithData:data];
+			self.image = image;
 			[self.activityIndicatorView stopAnimating];
-			if (error == nil && data) {
-				UIImage *productImage = [UIImage imageWithData:data];
-				if (self.image) {
-					[UIView transitionWithView:self
-									  duration:imageDuration
-									   options:UIViewAnimationOptionTransitionCrossDissolve
-									animations:^{
-										self.image = productImage;
-									}
-									completion:nil];
-				} else {
-					self.alpha = 0.0f;
-					self.image = productImage;
-					[UIView animateWithDuration:imageDuration
-									 animations:^{
-										 self.alpha = 1.0f;
-									 }];
-				}
-				if (completion) {
-					completion(productImage, nil);
-				}
-			} else {
-				if (completion) {
-					completion(nil, error);
-				}
+			if (completion) {
+				completion(image, error);
 			}
 		});
 	}];
@@ -99,6 +81,11 @@ float const imageDuration = 0.1f;
 	} else {
 		self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
 	}
+}
+
+- (BOOL)isPortraitOrSquare
+{
+	return self.image.size.height >= self.image.size.width;
 }
 
 @end

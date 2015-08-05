@@ -42,6 +42,8 @@
 		900396F71B69563400226B73 /* BUYCollection+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 900396F51B69563400226B73 /* BUYCollection+Additions.m */; };
 		900E7C841B5DA553006F3C81 /* BUYImageKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 900E7C811B5DA32F006F3C81 /* BUYImageKit.h */; };
 		900E7C851B5DA559006F3C81 /* BUYImageKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 900E7C821B5DA32F006F3C81 /* BUYImageKit.m */; };
+		904606AF1B6BC8D700754173 /* BUYProductImageCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 904606AD1B6BC8D700754173 /* BUYProductImageCollectionViewCell.h */; };
+		904606B01B6BC8D700754173 /* BUYProductImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 904606AE1B6BC8D700754173 /* BUYProductImageCollectionViewCell.m */; };
 		90A446211B5E8614009602AA /* NSDate+BUYAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 90A4461F1B5E8614009602AA /* NSDate+BUYAdditions.h */; };
 		90A446221B5E8614009602AA /* NSDate+BUYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A446201B5E8614009602AA /* NSDate+BUYAdditions.m */; };
 		90A446251B5EC03F009602AA /* NSDateFormatter+BUYAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 90A446231B5EC03F009602AA /* NSDateFormatter+BUYAdditions.h */; };
@@ -58,7 +60,6 @@
 		90F7BA6D1B0D1DAF0067864D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F7BA6C1B0D1DAF0067864D /* main.m */; };
 		90F7BA701B0D1DAF0067864D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F7BA6F1B0D1DAF0067864D /* AppDelegate.m */; };
 		90F7BA731B0D1DAF0067864D /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F7BA721B0D1DAF0067864D /* FirstViewController.m */; };
-		90F7BA761B0D1DAF0067864D /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F7BA751B0D1DAF0067864D /* SecondViewController.m */; };
 		90F7BA791B0D1DAF0067864D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90F7BA771B0D1DAF0067864D /* Main.storyboard */; };
 		90F7BA7B1B0D1DAF0067864D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90F7BA7A1B0D1DAF0067864D /* Images.xcassets */; };
 		90F7BA7E1B0D1DAF0067864D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90F7BA7C1B0D1DAF0067864D /* LaunchScreen.xib */; };
@@ -234,6 +235,8 @@
 		900396F51B69563400226B73 /* BUYCollection+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYCollection+Additions.m"; sourceTree = "<group>"; };
 		900E7C811B5DA32F006F3C81 /* BUYImageKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYImageKit.h; sourceTree = "<group>"; };
 		900E7C821B5DA32F006F3C81 /* BUYImageKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYImageKit.m; sourceTree = "<group>"; };
+		904606AD1B6BC8D700754173 /* BUYProductImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYProductImageCollectionViewCell.h; sourceTree = "<group>"; };
+		904606AE1B6BC8D700754173 /* BUYProductImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYProductImageCollectionViewCell.m; sourceTree = "<group>"; };
 		904FB6001AE03D4500EA1758 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Mobile Buy SDK/Info.plist"; sourceTree = "<group>"; };
 		904FB6011AE03D4500EA1758 /* Buy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Buy.h; sourceTree = "<group>"; };
 		90516C791B4C589A00E35E45 /* BUYProductViewFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYProductViewFooter.h; path = "Product View/BUYProductViewFooter.h"; sourceTree = "<group>"; };
@@ -299,8 +302,6 @@
 		90F7BA6F1B0D1DAF0067864D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		90F7BA711B0D1DAF0067864D /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
 		90F7BA721B0D1DAF0067864D /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
-		90F7BA741B0D1DAF0067864D /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
-		90F7BA751B0D1DAF0067864D /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		90F7BA781B0D1DAF0067864D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		90F7BA7A1B0D1DAF0067864D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		90F7BA7D1B0D1DAF0067864D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -460,8 +461,6 @@
 				90F7BA6F1B0D1DAF0067864D /* AppDelegate.m */,
 				90F7BA711B0D1DAF0067864D /* FirstViewController.h */,
 				90F7BA721B0D1DAF0067864D /* FirstViewController.m */,
-				90F7BA741B0D1DAF0067864D /* SecondViewController.h */,
-				90F7BA751B0D1DAF0067864D /* SecondViewController.m */,
 				90F7BA771B0D1DAF0067864D /* Main.storyboard */,
 				90F7BA7A1B0D1DAF0067864D /* Images.xcassets */,
 				90F7BA7C1B0D1DAF0067864D /* LaunchScreen.xib */,
@@ -523,6 +522,8 @@
 				900396AF1B67BD0A00226B73 /* BUYCheckoutButton.m */,
 				90516C851B4C6F7000E35E45 /* BUYProductViewHeader.h */,
 				90516C861B4C6F7000E35E45 /* BUYProductViewHeader.m */,
+				904606AD1B6BC8D700754173 /* BUYProductImageCollectionViewCell.h */,
+				904606AE1B6BC8D700754173 /* BUYProductImageCollectionViewCell.m */,
 				90FC31A61B50371600AFAB51 /* BUYProductViewHeaderBackgroundImageView.h */,
 				90FC31A71B50371600AFAB51 /* BUYProductViewHeaderBackgroundImageView.m */,
 				90516CB61B4F0DD500E35E45 /* BUYTheme.h */,
@@ -789,6 +790,7 @@
 				BE9A645D1B503CE30033E558 /* BUYObject.h in Headers */,
 				BE9A646E1B503D1E0033E558 /* BUYRuntime.h in Headers */,
 				BEB74A901B55A3D00005A300 /* BUYCollection.h in Headers */,
+				904606AF1B6BC8D700754173 /* BUYProductImageCollectionViewCell.h in Headers */,
 				900E7C841B5DA553006F3C81 /* BUYImageKit.h in Headers */,
 				900396F61B69563400226B73 /* BUYCollection+Additions.h in Headers */,
 				90A446251B5EC03F009602AA /* NSDateFormatter+BUYAdditions.h in Headers */,
@@ -990,7 +992,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90F7BA761B0D1DAF0067864D /* SecondViewController.m in Sources */,
 				90F7BA701B0D1DAF0067864D /* AppDelegate.m in Sources */,
 				90F7BA731B0D1DAF0067864D /* FirstViewController.m in Sources */,
 				90F7BA6D1B0D1DAF0067864D /* main.m in Sources */,
@@ -1057,6 +1058,7 @@
 				BE9A64481B503C900033E558 /* BUYClient.m in Sources */,
 				900396AD1B627CB900226B73 /* BUYProductView.m in Sources */,
 				BE9A64561B503CC90033E558 /* BUYCreditCard.m in Sources */,
+				904606B01B6BC8D700754173 /* BUYProductImageCollectionViewCell.m in Sources */,
 				BE9A64671B503D060033E558 /* BUYShop.m in Sources */,
 				BE9A645E1B503CE60033E558 /* BUYObject.mm in Sources */,
 				BEB74A6C1B55641D0005A300 /* BUYProductDescriptionCell.m in Sources */,

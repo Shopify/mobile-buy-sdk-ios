@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 @class BUYImageView;
+@class BUYProductVariant;
 
 @interface BUYProductViewHeader : UIView
 
-@property (nonatomic, strong) BUYImageView *productImageView;
-@property (nonatomic, strong) NSLayoutConstraint *productImageViewConstraintHeight;
-@property (nonatomic, strong) NSLayoutConstraint *productImageViewConstraintBottom;
+@property (nonatomic, strong) UICollectionView *collectionView;
 
-- (void)setContentOffset:(CGPoint)offset;
-- (void)setNumberOfPages:(NSInteger)numberOfPages;
+- (CGFloat)imageHeightWithContentOffset:(CGPoint)offset;
+- (void)setCurrentPage:(NSInteger)currentPage;
+- (void)setImageForSelectedVariant:(BUYProductVariant*)productVariant withImages:(NSArray*)images;
 
 @end
