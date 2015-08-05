@@ -380,7 +380,6 @@
 		NSDecimalNumber *productPrice = variant.price;
 		for (int i = 1; i < products.count; i++) {
 			product = (BUYProduct*)products[i];
-			NSLog(@"%@", product.title);
 			variant = (BUYProductVariant*)product.variants[0];
 			NSDecimalNumber *productPriceToCompare = [variant.price copy];
 			XCTAssertEqual([productPrice compare:productPriceToCompare], NSOrderedDescending);

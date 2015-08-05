@@ -158,7 +158,6 @@
 	if (footerViewHeight <= 0) {
 		footerViewHeight = 0;
 	}
-	NSLog(@"%f", footerViewHeight);
 	self.footerHeightLayoutConstraint.constant = footerViewHeight;
 	self.footerOffsetLayoutConstraint.constant = -footerViewHeight;
 }
