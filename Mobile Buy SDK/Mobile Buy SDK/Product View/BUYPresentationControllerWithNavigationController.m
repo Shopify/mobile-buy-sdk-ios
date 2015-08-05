@@ -33,6 +33,26 @@
 	return navigationController;
 }
 
+- (void)updateCloseButtonImageWithDarkStyle:(BOOL)darkStyle
+{
+	if (self.theme.style == BUYThemeStyleLight) {
+		UINavigationController *navigationController = (UINavigationController*)self.presentedViewController;
+		UIButton *button = (UIButton*)navigationController.navigationItem.leftBarButtonItem.customView;
+		UIImage *oldButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22) color:darkStyle ? [UIColor whiteColor] : [UIColor blackColor]];
+		UIImage *newButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22) color:darkStyle ? [UIColor blackColor] : [UIColor whiteColor]];
+		CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
+		crossFade.duration = 0.25f;
+		crossFade.fromValue = (id)oldButtonImage.CGImage;
+		crossFade.toValue = (id)newButtonImage.CGImage;
+		crossFade.removedOnCompletion = NO;
+		crossFade.fillMode = kCAFillModeForwards;
+		[button.imageView.layer addAnimation:crossFade forKey:@"animateContents"];
+		[button setImage:newButtonImage forState:UIControlStateNormal];
+		[button setImage:oldButtonImage forState:UIControlStateHighlighted];
+		
+	}
+}
+
 - (void)dismissPopover
 {
 	if ([self.presentationDelegate respondsToSelector:@selector(presentationControllerWillDismiss:)]) {
