@@ -9,6 +9,9 @@
 #import "BUYProductViewHeader.h"
 #import "BUYImageView.h"
 #import "BUYGradientView.h"
+#import "BUYProductImageCollectionViewCell.h"
+#import "BUYImage.h"
+#import "BUYProductVariant.h"
 
 @interface BUYProductViewHeader ()
 
@@ -20,47 +23,41 @@
 
 @implementation BUYProductViewHeader
 
-- (instancetype)init
+- (instancetype)initWithFrame:(CGRect)frame
 {
-	self = [super init];
+	self = [super initWithFrame:frame];
 	if (self) {
 		self.backgroundColor = [UIColor clearColor];
 		
-		self.productImageView = [[BUYImageView alloc] init];
-		self.productImageView.clipsToBounds = YES;
-		self.productImageView.translatesAutoresizingMaskIntoConstraints = NO;
-		self.productImageView.backgroundColor = [UIColor clearColor];
-		self.productImageView.contentMode = UIViewContentModeScaleAspectFit;
-		[self addSubview:self.productImageView];
+		UICollectionViewFlowLayout *collectionViewFlowLayout = [[UICollectionViewFlowLayout alloc] init];
+		collectionViewFlowLayout.sectionInset = UIEdgeInsetsZero;
+		collectionViewFlowLayout.minimumLineSpacing = 0;
+		collectionViewFlowLayout.itemSize = CGSizeMake(CGRectGetWidth(frame), CGRectGetHeight(frame));
+		collectionViewFlowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+		_collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:collectionViewFlowLayout];
+		_collectionView.backgroundColor = [UIColor clearColor];
+		_collectionView.showsHorizontalScrollIndicator = NO;
+		_collectionView.pagingEnabled = YES;
+		_collectionView.clipsToBounds = NO;
+		_collectionView.translatesAutoresizingMaskIntoConstraints = NO;
+		[_collectionView registerClass:[BUYProductImageCollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
+		[self addSubview:_collectionView];
 		
-		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_productImageView]|"
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_collectionView]|"
 																	 options:0
 																	 metrics:nil
-																	   views:NSDictionaryOfVariableBindings(_productImageView)]];
+																	   views:NSDictionaryOfVariableBindings(_collectionView)]];
 		
-		self.productImageViewConstraintBottom = [NSLayoutConstraint constraintWithItem:self.productImageView
-																			 attribute:NSLayoutAttributeBottom
-																			 relatedBy:NSLayoutRelationEqual
-																				toItem:self
-																			 attribute:NSLayoutAttributeBottom
-																			multiplier:1.0
-																			  constant:0.0];
-		[self addConstraint:self.productImageViewConstraintBottom];
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_collectionView]|"
+																	 options:0
+																	 metrics:nil
+																	   views:NSDictionaryOfVariableBindings(_collectionView)]];
 		
-		self.productImageViewConstraintHeight = [NSLayoutConstraint constraintWithItem:self.productImageView
-																			 attribute:NSLayoutAttributeHeight
-																			 relatedBy:NSLayoutRelationEqual
-																				toItem:nil
-																			 attribute:NSLayoutAttributeNotAnAttribute
-																			multiplier:1.0
-																			  constant:0.0];
-		[self addConstraint:self.productImageViewConstraintHeight];
-		
-		self.bottomGradientView = [[BUYGradientView alloc] init];
-		self.bottomGradientView.topColor = [UIColor clearColor];
-		self.bottomGradientView.bottomColor = [UIColor colorWithWhite:0 alpha:0.05f];
-		self.bottomGradientView.translatesAutoresizingMaskIntoConstraints = NO;
-		[self addSubview:self.bottomGradientView];
+		_bottomGradientView = [[BUYGradientView alloc] init];
+		_bottomGradientView.topColor = [UIColor clearColor];
+		_bottomGradientView.bottomColor = [UIColor colorWithWhite:0 alpha:0.05f];
+		_bottomGradientView.translatesAutoresizingMaskIntoConstraints = NO;
+		[self addSubview:_bottomGradientView];
 		
 		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_bottomGradientView]|"
 																	 options:0
@@ -71,20 +68,21 @@
 																	 metrics:nil
 																	   views:NSDictionaryOfVariableBindings(_bottomGradientView)]];
 		
-		self.bottomGradientViewLayoutConstraintHeight = [NSLayoutConstraint constraintWithItem:self.bottomGradientView
-																					 attribute:NSLayoutAttributeHeight
-																					 relatedBy:NSLayoutRelationEqual
-																						toItem:nil
-																					 attribute:NSLayoutAttributeNotAnAttribute
-																					multiplier:1.0
-																					  constant:20];
-		[self addConstraint:self.bottomGradientViewLayoutConstraintHeight];
+		_bottomGradientViewLayoutConstraintHeight = [NSLayoutConstraint constraintWithItem:_bottomGradientView
+																				 attribute:NSLayoutAttributeHeight
+																				 relatedBy:NSLayoutRelationEqual
+																					toItem:nil
+																				 attribute:NSLayoutAttributeNotAnAttribute
+																				multiplier:1.0
+																				  constant:20];
+		[self addConstraint:_bottomGradientViewLayoutConstraintHeight];
 		
-		self.pageControl = [[UIPageControl alloc] init];
-		self.pageControl.hidesForSinglePage = YES;
-		self.pageControl.translatesAutoresizingMaskIntoConstraints = NO;
-		[self addSubview:self.pageControl];
-		[self addConstraint:[NSLayoutConstraint constraintWithItem:self.pageControl
+		_pageControl = [[UIPageControl alloc] init];
+		_pageControl.hidesForSinglePage = YES;
+		_pageControl.translatesAutoresizingMaskIntoConstraints = NO;
+		_pageControl.userInteractionEnabled = NO;
+		[self addSubview:_pageControl];
+		[self addConstraint:[NSLayoutConstraint constraintWithItem:_pageControl
 														 attribute:NSLayoutAttributeBottom
 														 relatedBy:NSLayoutRelationEqual
 															toItem:self
@@ -92,7 +90,7 @@
 														multiplier:1.0
 														  constant:0.0]];
 		
-		[self addConstraint:[NSLayoutConstraint constraintWithItem:self.pageControl
+		[self addConstraint:[NSLayoutConstraint constraintWithItem:_pageControl
 														 attribute:NSLayoutAttributeWidth
 														 relatedBy:NSLayoutRelationEqual
 															toItem:self
@@ -100,7 +98,7 @@
 														multiplier:1.0
 														  constant:0.0]];
 		
-		[self addConstraint:[NSLayoutConstraint constraintWithItem:self.pageControl
+		[self addConstraint:[NSLayoutConstraint constraintWithItem:_pageControl
 														 attribute:NSLayoutAttributeHeight
 														 relatedBy:NSLayoutRelationEqual
 															toItem:nil
@@ -123,34 +121,39 @@
 	}
 }
 
-- (void)setContentOffset:(CGPoint)offset
+- (void)setCurrentPage:(NSInteger)currentPage
 {
-	if (offset.y <= 0) {
-		self.clipsToBounds = NO;
-		if (self.productImageViewConstraintBottom.constant != 0.0) {
-			self.productImageViewConstraintBottom.constant = 0.0;
-		}
-		self.productImageViewConstraintHeight.constant = CGRectGetHeight(self.bounds) + -offset.y;
+	self.pageControl.currentPage = currentPage;
+}
+
+- (CGFloat)imageHeightWithContentOffset:(CGPoint)offset
+{
+	CGRect visibleRect = (CGRect){.origin = self.collectionView.contentOffset, .size = self.collectionView.bounds.size};
+	CGPoint visiblePoint = CGPointMake(CGRectGetMidX(visibleRect), CGRectGetMidY(visibleRect));
+	NSIndexPath *visibleIndexPath = [self.collectionView indexPathForItemAtPoint:visiblePoint];
+	BUYProductImageCollectionViewCell *cell = (BUYProductImageCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:visibleIndexPath];
+	if (cell) {
+		[cell setContentOffset:offset];
+		return cell.productImageViewConstraintHeight.constant;
 	} else {
-		self.clipsToBounds = YES;
-		if (self.productImageViewConstraintHeight.constant != CGRectGetHeight(self.bounds)) {
-			self.productImageViewConstraintHeight.constant = CGRectGetHeight(self.bounds);
-		}
-		self.productImageViewConstraintBottom.constant = offset.y / 2;
+		cell = [self.collectionView.visibleCells firstObject];
+		return cell.productImageViewConstraintHeight.constant;
 	}
-	
-	// change the image content mode on portrait (or 1:1) images so they zoom-scale on scrollview over-pulls
-	if (self.productImageView.image && self.productImageView.image.size.height >= self.productImageView.image.size.width) {
-		CGFloat imageRatio = self.productImageView.image.size.height / self.productImageView.image.size.width;
-		CGFloat imageViewRatio = CGRectGetHeight(self.productImageView.bounds) / CGRectGetWidth(self.productImageView.bounds);
-		if (imageViewRatio >= imageRatio && isnan(imageViewRatio) == NO && isinf(imageViewRatio) == NO) {
-			self.productImageView.contentMode = UIViewContentModeScaleAspectFill;
-		} else {
-			self.productImageView.contentMode = UIViewContentModeScaleAspectFit;
+}
+
+- (void)setImageForSelectedVariant:(BUYProductVariant*)productVariant withImages:(NSArray*)images
+{
+	[self setNumberOfPages:[images count]];
+	[images enumerateObjectsUsingBlock:^(BUYImage *image, NSUInteger i, BOOL *stop) {
+		for (NSNumber *variantId in image.variantIds) {
+			if ([variantId isEqualToNumber:productVariant.identifier]) {
+				[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+				self.pageControl.currentPage = i;
+				*stop = YES;
+				break;
+			}
 		}
-	} else {
-		self.productImageView.contentMode = UIViewContentModeScaleAspectFit;
-	}
+	}];
 }
 
 @end
