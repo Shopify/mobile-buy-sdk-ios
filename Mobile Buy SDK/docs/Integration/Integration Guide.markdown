@@ -20,30 +20,24 @@ Before you use the Mobile Buy SDK, make sure you've satisfied all the prerequisi
 
 1. In the **General** tab, drag the `Buy.framework` onto the **Linked Frameworks and Libraries** section for the target you want to add the framework to. Check **Copy items if needed** so the framework is copied to your project. <center><img src="sdk_integration_step_1.png" width="100%" alt="Mobile Buy SDK integration Xcode Step 1"/></center>
 
-2. Add the `libc++.dylib` library to **Linked Frameworks and Libraries**. <center><img src="sdk_integration_step_2.png" width="100%" alt="Mobile Buy SDK integration Xcode Step 2"/></center>
-
-3. In the **Build Settings** tab, add `-all_load` to **Other Linker Flags**. <center><img src="sdk_integration_step_3.png" width="100%" alt="Mobile Buy SDK integration Xcode Step 3"/></center>
+2. In the **Build Settings** tab, add `-all_load` to **Other Linker Flags**. <center><img src="sdk_integration_step_2.png" width="100%" alt="Mobile Buy SDK integration Xcode Step 2"/></center>
 
 ### Initialize the framework<div id="initialize-the-framework"></div>
 
 Import the Buy header
 
-	#import <Buy/Buy.h>
+	@import Buy;
 
 Initialize the client
  
 	BUYClient *client = [[BUYClient alloc] initWithShopDomain:SHOP_DOMAIN
 													   apiKey:API_KEY
 												    channelId:CHANNEL_ID];
-
-Optionally, enable Apple Pay (you must enable Apple Pay in the *Mobile App* Channel)
-
-	[client enableApplePayWithMerchantId:MERCHANT_ID];
 	
 Test the integration
 
 	// FOR DEBUG PURPOSES ONLY. DO NOT USE IN RELEASE.
-	[client testIntegration]
+	[client testIntegrationWithMerchantId:nil]; // If using Apple Pay, include the merchant ID in the test
 	
 This method call should only be made once to ensure your integration works. Once you have confirmed that the integration works on the Mobile App Channel, remove this method.
 
@@ -63,9 +57,11 @@ To implement a fully custom checkout experience in your app, use the **Mobile Bu
 * [Getting Products](#getting-products)
 * [Building a cart](#building-a-cart)
 * [Creating a Checkout](#creating-a-checkout)
-* [Adding information to the Checkout](#adding-information-to-the-checkout)
-* [Completing the Checkout](#completing-the-checkout)
-* [Checking for Checkout Completion](#checking-for-checkout-completion)
+* [Using Web Checkout](#web-checkout)
+* [Using Native Checkout](#zzz)
+  * [Adding information to the Checkout](#adding-information-to-the-checkout)
+  * [Completing the Checkout](#completing-the-checkout)
+  * [Checking for Checkout Completion](#checking-for-checkout-completion)
 
 ### Getting Products<div id="getting-products"></div>
 
@@ -107,6 +103,15 @@ When the customer is ready to make a purchase, a `BUYCheckout` must be created f
 	        // Handle errors here
 	    }
 	}];
+	
+### Using the Web Checkout<div id="web-checkout"></div>
+
+Completing the checkout in Safari is the easiest and safest way to complete the checkout.  Opening the checkout in Safari allows for credit card and shipping address auto-fill.
+
+	[[UIApplication sharedApplication] openURL:self.checkout.webCheckoutURL];
+
+
+Alternatively, the checkout can be completed natively in app, or with Apple Pay.
 
 ### Adding information to the Checkout<div id="adding-information-to-the-checkout"></div>
 
@@ -116,6 +121,7 @@ If you want to support Apple Pay, familiarize yourself with the [Apple Pay Progr
 
 	// Get the customer's shipping address
 	BUYAddress *shippingAddress = [[BUYAddress alloc] init];
+	shippingAddress.lastName = @"Spengler";
 	shippingAddress.address1 = @"421 8th Ave";
 	shippingAddress.city = @"New York";
 	shippingAddress.province = @"NY";
