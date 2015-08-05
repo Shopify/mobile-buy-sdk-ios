@@ -90,24 +90,19 @@
 - (void)setTheme:(BUYTheme *)theme
 {
 	_theme = theme;
-	UIImage *disclosureIndicatorImage;
-	
 	switch (theme.style) {
 		case BUYThemeStyleDark:
 			self.backgroundColor = BUY_RGB(26, 26, 26);
 			self.selectedBackgroundView.backgroundColor = BUY_RGB(60, 60, 60);
-			disclosureIndicatorImage = [BUYImageKit imageOfDisclosureIndicatorImageWithFrame:CGRectMake(0, 0, 10, 16) color:BUY_RGB(76, 76, 76)];
 			break;
 		case BUYThemeStyleLight:
 			self.backgroundColor = [UIColor whiteColor];
 			self.selectedBackgroundView.backgroundColor = BUY_RGB(242, 242, 242);
-			disclosureIndicatorImage = [BUYImageKit imageOfDisclosureIndicatorImageWithFrame:CGRectMake(0, 0, 10, 16) color:BUY_RGB(191, 191, 191)];
 			break;
 		default:
 			break;
 	}
-	
-	_disclosureIndicatorImageView.image = disclosureIndicatorImage;
+	_disclosureIndicatorImageView.image = [BUYImageKit imageOfDisclosureIndicatorImageWithFrame:CGRectMake(0, 0, 10, 16) color:theme.style == BUYThemeStyleDark ? BUY_RGB(76, 76, 76) : BUY_RGB(191, 191, 191)];
 	
 	[self.optionView1 setTheme:theme];
 	[self.optionView2 setTheme:theme];

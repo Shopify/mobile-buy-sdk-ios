@@ -98,18 +98,7 @@
 	self.selectedImageView.tintColor = theme.tintColor;
 	self.backgroundColor = theme.style == BUYThemeStyleDark ? BUY_RGB(26, 26, 26) : BUY_RGB(255, 255, 255);
 	self.selectedBackgroundView.backgroundColor = theme.style == BUYThemeStyleDark ? BUY_RGB(60, 60, 60) : BUY_RGB(242, 242, 242);
-	UIImage *disclosureIndicatorImage;
-	switch (theme.style) {
-		case BUYThemeStyleDark:
-			disclosureIndicatorImage = [BUYImageKit imageOfDisclosureIndicatorImageWithFrame:CGRectMake(0, 0, 10, 16) color:BUY_RGB(76, 76, 76)];
-			break;
-		case BUYThemeStyleLight:
-			disclosureIndicatorImage = [BUYImageKit imageOfDisclosureIndicatorImageWithFrame:CGRectMake(0, 0, 10, 16) color:BUY_RGB(191, 191, 191)];
-			break;
-		default:
-			break;
-	}
-	_disclosureIndicatorImageView.image = disclosureIndicatorImage;
+	_disclosureIndicatorImageView.image = [BUYImageKit imageOfDisclosureIndicatorImageWithFrame:CGRectMake(0, 0, 10, 16) color:theme.style == BUYThemeStyleDark ? BUY_RGB(76, 76, 76) : BUY_RGB(191, 191, 191)];
 }
 
 - (void)prepareForReuse
