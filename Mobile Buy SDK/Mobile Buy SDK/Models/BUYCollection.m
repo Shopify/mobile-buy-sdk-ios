@@ -8,6 +8,7 @@
 
 #import "BUYCollection.h"
 #import "NSDateFormatter+BUYAdditions.h"
+#import "NSURL+BUYAdditions.h"	
 
 @interface BUYCollection ()
 @property (nonatomic, strong) NSString *title;
@@ -23,11 +24,12 @@
 {
 	[super updateWithDictionary:dictionary];
 	
-	_title = [dictionary[@"title"] copy];
-	_htmlDescription = [dictionary[@"body_html"] copy];
-	_handle = [dictionary[@"handle"] copy];
+	_title = dictionary[@"title"];
+	_htmlDescription = dictionary[@"body_html"];
+	_imageURL = [NSURL buy_urlWithString:dictionary[@"image"][@"src"]];
+	_handle = dictionary[@"handle"];
 	_published = [dictionary[@"published"] boolValue];
-	_collectionId = [dictionary[@"collection_id"] copy];
+	_collectionId = dictionary[@"collection_id"];
 	
 	NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForPublications];
 	_createdAtDate = [dateFormatter dateFromString:dictionary[@"created_at"]];
