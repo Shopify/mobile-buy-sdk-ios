@@ -73,9 +73,7 @@ NSString * const BUYVersionString = @"1.1";
 		NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
 		// ensure requests are sent serially
 		config.HTTPMaximumConnectionsPerHost = 1;
-		NSString *versionString = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-		
-		config.HTTPAdditionalHeaders = @{@"X-Shopify-Mobile-Buy-SDK-Version": [NSString stringWithFormat:@"iOS/%@", versionString]};
+		config.HTTPAdditionalHeaders = @{@"User-Agent": [NSString stringWithFormat:@"Mobile Buy SDK iOS/%@", BUYVersionString]};
 		
 		self.session = [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:nil];
 		self.pageSize = 25;
