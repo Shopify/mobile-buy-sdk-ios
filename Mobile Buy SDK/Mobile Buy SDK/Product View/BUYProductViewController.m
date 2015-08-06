@@ -88,6 +88,7 @@
 {
 	[super viewDidLayoutSubviews];
 	[self.productView scrollViewDidScroll:self.productView.tableView];
+	[self setSelectedProductVariant:self.selectedProductVariant];
 }
 
 - (void)setupNavigationBarAppearance
