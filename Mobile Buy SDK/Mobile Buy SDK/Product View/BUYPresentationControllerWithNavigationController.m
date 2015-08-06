@@ -22,11 +22,11 @@
 - (UIViewController *)presentationController:(UIPresentationController *)controller viewControllerForAdaptivePresentationStyle:(UIModalPresentationStyle)style
 {
 	BUYNavigationController *navigationController = [[BUYNavigationController alloc] initWithRootViewController:controller.presentedViewController];
-	UIImage *closeButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22) color:[UIColor whiteColor]];
+	UIImage *closeButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22) color:[UIColor whiteColor] hasShadow:YES];
 	UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	[closeButton addTarget:self action:@selector(dismissPopover) forControlEvents:UIControlEventTouchUpInside];
 	[closeButton setImage:closeButtonImage forState:UIControlStateNormal];
-	UIImage *highlightedImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22) color:self.theme.style == BUYThemeStyleDark ? BUY_RGB(76, 76, 76) : BUY_RGB(191, 191, 191)];
+	UIImage *highlightedImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22) color:self.theme.style == BUYThemeStyleDark ? BUY_RGB(76, 76, 76) : BUY_RGB(191, 191, 191) hasShadow:YES];
 	[closeButton setImage:highlightedImage forState:UIControlStateHighlighted];
 	closeButton.frame = CGRectMake(0, 0, 22, 22);
 	UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
@@ -37,19 +37,19 @@
 
 - (void)updateCloseButtonImageWithDarkStyle:(BOOL)darkStyle
 {
+	UINavigationController *navigationController = (UINavigationController*)self.presentedViewController;
+	UIButton *button = (UIButton*)navigationController.navigationItem.leftBarButtonItem.customView;
+	UIImage *oldButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22) color:darkStyle ? [UIColor whiteColor] : self.theme.tintColor hasShadow:darkStyle == NO];
+	UIImage *newButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22) color:darkStyle ? self.theme.tintColor : [UIColor whiteColor] hasShadow:darkStyle == NO];
+	CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
+	crossFade.duration = 0.25f;
+	crossFade.fromValue = (id)oldButtonImage.CGImage;
+	crossFade.toValue = (id)newButtonImage.CGImage;
+	crossFade.removedOnCompletion = YES;
+	crossFade.fillMode = kCAFillModeForwards;
+	[button.imageView.layer addAnimation:crossFade forKey:@"contents"];
+	[button setImage:newButtonImage forState:UIControlStateNormal];
 	if (self.theme.style == BUYThemeStyleLight) {
-		UINavigationController *navigationController = (UINavigationController*)self.presentedViewController;
-		UIButton *button = (UIButton*)navigationController.navigationItem.leftBarButtonItem.customView;
-		UIImage *oldButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22) color:darkStyle ? [UIColor whiteColor] : self.theme.tintColor];
-		UIImage *newButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22) color:darkStyle ? self.theme.tintColor : [UIColor whiteColor]];
-		CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
-		crossFade.duration = 0.25f;
-		crossFade.fromValue = (id)oldButtonImage.CGImage;
-		crossFade.toValue = (id)newButtonImage.CGImage;
-		crossFade.removedOnCompletion = YES;
-		crossFade.fillMode = kCAFillModeForwards;
-		[button.imageView.layer addAnimation:crossFade forKey:@"contents"];
-		[button setImage:newButtonImage forState:UIControlStateNormal];
 	}
 }
 

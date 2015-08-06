@@ -91,7 +91,7 @@
 	[disclosureIndicatorPath fill];
 }
 
-+ (void)drawProductViewCloseImageWithFrame: (CGRect)frame color:(UIColor *)closeColor2
++ (void)drawProductViewCloseImageWithFrame: (CGRect)frame color:(UIColor *)closeColor2 hasShadow:(BOOL)hasShadow
 {
 	//// General Declarations
 	CGContextRef context = UIGraphicsGetCurrentContext();
@@ -120,7 +120,9 @@
 	[closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.84025f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.09548f * CGRectGetHeight(frame))];
 	[closeIconPath closePath];
 	CGContextSaveGState(context);
-	CGContextSetShadowWithColor(context, closeDropShadow.shadowOffset, closeDropShadow.shadowBlurRadius, [closeDropShadow.shadowColor CGColor]);
+	if (hasShadow) {
+		CGContextSetShadowWithColor(context, closeDropShadow.shadowOffset, closeDropShadow.shadowBlurRadius, [closeDropShadow.shadowColor CGColor]);
+	}
 	[closeColor2 setFill];
 	[closeIconPath fill];
 	CGContextRestoreGState(context);
@@ -216,10 +218,10 @@
 	return imageOfDisclosureIndicatorImage;
 }
 
-+ (UIImage*)imageOfProductViewCloseImageWithFrame: (CGRect)frame color:(UIColor*)color;
++ (UIImage*)imageOfProductViewCloseImageWithFrame: (CGRect)frame color:(UIColor*)color hasShadow:(BOOL)hasShadow;
 {
 	UIGraphicsBeginImageContextWithOptions(frame.size, NO, 0.0f);
-	[BUYImageKit drawProductViewCloseImageWithFrame: frame color:color];
+	[BUYImageKit drawProductViewCloseImageWithFrame: frame color:color hasShadow:hasShadow];
 	
 	UIImage* imageOfProductViewCloseImage = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
