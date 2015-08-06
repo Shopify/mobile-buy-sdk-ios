@@ -46,7 +46,7 @@
 		crossFade.duration = 0.25f;
 		crossFade.fromValue = (id)oldButtonImage.CGImage;
 		crossFade.toValue = (id)newButtonImage.CGImage;
-		crossFade.removedOnCompletion = NO;
+		crossFade.removedOnCompletion = YES;
 		crossFade.fillMode = kCAFillModeForwards;
 		[button.imageView.layer addAnimation:crossFade forKey:@"contents"];
 		[button setImage:newButtonImage forState:UIControlStateNormal];
