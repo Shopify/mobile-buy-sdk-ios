@@ -40,15 +40,15 @@
 	if (self.theme.style == BUYThemeStyleLight) {
 		UINavigationController *navigationController = (UINavigationController*)self.presentedViewController;
 		UIButton *button = (UIButton*)navigationController.navigationItem.leftBarButtonItem.customView;
-		UIImage *oldButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22) color:darkStyle ? [UIColor whiteColor] : [UIColor blackColor]];
-		UIImage *newButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22) color:darkStyle ? [UIColor blackColor] : [UIColor whiteColor]];
-		CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"animateContents"];
+		UIImage *oldButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22) color:darkStyle ? [UIColor whiteColor] : self.theme.tintColor];
+		UIImage *newButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22) color:darkStyle ? self.theme.tintColor : [UIColor whiteColor]];
+		CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
 		crossFade.duration = 0.25f;
 		crossFade.fromValue = (id)oldButtonImage.CGImage;
 		crossFade.toValue = (id)newButtonImage.CGImage;
-		crossFade.removedOnCompletion = NO;
+		crossFade.removedOnCompletion = YES;
 		crossFade.fillMode = kCAFillModeForwards;
-		[button.imageView.layer addAnimation:crossFade forKey:@"animateContents"];
+		[button.imageView.layer addAnimation:crossFade forKey:@"contents"];
 		[button setImage:newButtonImage forState:UIControlStateNormal];
 	}
 }
@@ -78,6 +78,9 @@
 - (void)setTheme:(BUYTheme *)theme
 {
 	_theme = theme;
+	BUYNavigationController *navigationController = (BUYNavigationController*)self.presentedViewController;
+	navigationController.navigationBar.barStyle = (_theme.style == BUYThemeStyleDark) ? UIBarStyleBlack : UIBarStyleDefault;
+	[[UINavigationBar appearanceWhenContainedIn:[BUYNavigationController class], nil] setTitleTextAttributes:@{ NSForegroundColorAttributeName:BUY_RGB(127, 127, 127) }];
 }
 
 @end

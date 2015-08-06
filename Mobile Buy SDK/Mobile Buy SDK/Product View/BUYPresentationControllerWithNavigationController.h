@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 #import "BUYTheme.h"
 
 @protocol BUYPresentationControllerWithNavigationControllerDelegate;
