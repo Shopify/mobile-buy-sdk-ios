@@ -301,7 +301,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"${PROJECT_DIR}",
+					"${PROJECT_DIR}/../**",
 				);
 				INFOPLIST_FILE = "Mobile Buy SDK Native Sample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -320,7 +320,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"${PROJECT_DIR}",
+					"${PROJECT_DIR}/../**",
 				);
 				INFOPLIST_FILE = "Mobile Buy SDK Native Sample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
