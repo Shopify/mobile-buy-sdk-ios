@@ -17,8 +17,8 @@
 // Generated Images
 + (UIImage*)imageOfVariantCloseImageWithFrame: (CGRect)frame;
 + (UIImage*)imageOfPreviousSelectionIndicatorImageWithFrame: (CGRect)frame;
-+ (UIImage*)imageOfDisclosureIndicatorImageWithFrame: (CGRect)frame color:(UIColor*)color;
-+ (UIImage*)imageOfProductViewCloseImageWithFrame: (CGRect)frame color:(UIColor*)color;
++ (UIImage*)imageOfDisclosureIndicatorImageWithFrame: (CGRect)frame;
++ (UIImage*)imageOfProductViewCloseImageWithFrame: (CGRect)frame color:(UIColor*)color hasShadow:(BOOL)hasShadow;
 + (UIImage*)imageOfProductViewBackImageWithFrame: (CGRect)frame;
 + (UIImage*)imageOfVariantBackImageWithFrame: (CGRect)frame;
 
