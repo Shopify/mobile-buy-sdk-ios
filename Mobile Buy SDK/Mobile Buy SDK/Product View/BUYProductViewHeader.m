@@ -56,6 +56,7 @@
 																	   views:NSDictionaryOfVariableBindings(_collectionView)]];
 		
 		_bottomGradientView = [[BUYGradientView alloc] init];
+		_bottomGradientView.userInteractionEnabled = NO;
 		_bottomGradientView.topColor = [UIColor clearColor];
 		_bottomGradientView.bottomColor = [UIColor colorWithWhite:0 alpha:0.05f];
 		_bottomGradientView.translatesAutoresizingMaskIntoConstraints = NO;
