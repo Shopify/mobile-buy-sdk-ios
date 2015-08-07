@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BUYTheme.h"
 
-@interface BUYNavigationController : UINavigationController
+@interface BUYNavigationController : UINavigationController <BUYThemeable>
+
+- (void)updateCloseButtonImageWithDarkStyle:(BOOL)darkStyle;
 
 @end

@@ -45,6 +45,8 @@
  */
 @property (nonatomic, assign, readonly) BOOL isLoading;
 
+- (void)presentInViewController:(UIViewController *)controller;
+
 @end
 
 

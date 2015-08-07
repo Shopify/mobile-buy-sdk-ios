@@ -15,8 +15,6 @@
 
 @property (nonatomic, weak) id <BUYPresentationControllerWithNavigationControllerDelegate> presentationDelegate;
 
-- (void)updateCloseButtonImageWithDarkStyle:(BOOL)darkStyle;
-
 @end
 
 @protocol BUYPresentationControllerWithNavigationControllerDelegate <NSObject>

@@ -91,7 +91,9 @@
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 
             if (success) {
-                [self presentViewController:self.productViewController animated:YES completion:nil];
+                //[self.navigationController pushViewController:self.productViewController animated:YES];
+                [self.productViewController presentInViewController:self];
+                //[self presentViewController:self.productViewController animated:YES completion:nil];
             }
             else {
                 NSLog(@"Error: %@", error.userInfo);

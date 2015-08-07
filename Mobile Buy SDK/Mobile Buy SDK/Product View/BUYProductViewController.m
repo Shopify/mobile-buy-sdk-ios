@@ -300,7 +300,7 @@
 		[self.productView scrollViewDidScroll:scrollView];
 		if (self.navigationBar) {
 			if (self.navigationBar.alpha != 1 && [self navigationBarThresholdReached] == YES) {
-				[(BUYPresentationControllerWithNavigationController*)self.presentationController updateCloseButtonImageWithDarkStyle:YES];
+				[(BUYNavigationController*)self.navigationController updateCloseButtonImageWithDarkStyle:YES];
 				[self setNeedsStatusBarAppearanceUpdate];
 				[UIView animateWithDuration:0.3f
 									  delay:0
@@ -311,7 +311,7 @@
 								 }
 								 completion:NULL];
 			} else if (self.navigationBar.alpha != 0 && [self navigationBarThresholdReached] == NO)  {
-				[(BUYPresentationControllerWithNavigationController*)self.presentationController updateCloseButtonImageWithDarkStyle:NO];
+				[(BUYNavigationController*)self.navigationController updateCloseButtonImageWithDarkStyle:NO];
 				[self setNeedsStatusBarAppearanceUpdate];
 				[UIView animateWithDuration:0.20f
 									  delay:0
@@ -398,6 +398,14 @@
 
 #pragma mark BUYPresentationControllerWithNavigationControllerDelegate
 
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+	return UIInterfaceOrientationPortrait;
+}
+
+- (BOOL)shouldAutorotate {
+	return NO;
+}
+
 - (void)presentationControllerWillDismiss:(UIPresentationController *)presentationController
 {
 	
@@ -432,5 +440,13 @@
 	
 	return cell;
 }
+
+- (void)presentInViewController:(UIViewController *)controller
+{
+	BUYNavigationController *navController = [[BUYNavigationController alloc] initWithRootViewController:self];
+	[navController setTheme:self.theme];
+	[controller presentViewController:navController animated:YES completion:nil];
+}
+
 
 @end
