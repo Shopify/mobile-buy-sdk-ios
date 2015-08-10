@@ -195,7 +195,7 @@
 	CGFloat whiteStartingOffset = opaqueOffset - CGRectGetHeight(self.topGradientView.bounds);
 	self.topGradientView.alpha = -(scrollView.contentOffset.y - whiteStartingOffset) / (opaqueOffset - whiteStartingOffset);
 	
-	CGFloat labelOffset = labelOffset = scrollView.contentSize.height - (scrollView.contentOffset.y + CGRectGetHeight(scrollView.bounds));
+	CGFloat labelOffset = scrollView.contentSize.height - (scrollView.contentOffset.y + CGRectGetHeight(scrollView.bounds));
 	self.poweredByShopifyLabelConstraint.constant = (CGRectGetHeight(scrollView.bounds) / 3) + labelOffset;
 }
 
