@@ -87,8 +87,9 @@
 - (void)viewDidLayoutSubviews
 {
 	[super viewDidLayoutSubviews];
-	[self.productView scrollViewDidScroll:self.productView.tableView];
-	[self setSelectedProductVariant:self.selectedProductVariant];
+	if (CGSizeEqualToSize(self.productView.productViewHeader.collectionView.bounds.size, CGSizeZero) == NO) {
+		[self setSelectedProductVariant:self.selectedProductVariant];
+	}
 }
 
 - (void)setupNavigationBarAppearance
