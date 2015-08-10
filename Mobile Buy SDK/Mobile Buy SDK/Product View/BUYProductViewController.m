@@ -40,6 +40,7 @@
 @property (nonatomic, weak) UIView *navigationBarTitle;
 @property (nonatomic, strong) BUYProductHeaderCell *headerCell;
 @property (nonatomic, strong) BUYProductVariantCell *variantCell;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
 
 @end
 
@@ -53,15 +54,40 @@
 	if (self) {
 		self.modalPresentationStyle = UIModalPresentationCustom;
 		self.transitioningDelegate = self;
+		
+		_activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectZero];
+		_activityIndicatorView.translatesAutoresizingMaskIntoConstraints = NO;
+		_activityIndicatorView.hidesWhenStopped = YES;
+		[_activityIndicatorView startAnimating];
+		[self.view addSubview:_activityIndicatorView];
+		
+		[self.view addConstraint:[NSLayoutConstraint constraintWithItem:_activityIndicatorView
+															  attribute:NSLayoutAttributeCenterY
+															  relatedBy:NSLayoutRelationEqual
+																 toItem:self.view
+															  attribute:NSLayoutAttributeCenterY
+															 multiplier:1.0
+															   constant:0.0]];
+		
+		[self.view addConstraint:[NSLayoutConstraint constraintWithItem:_activityIndicatorView
+															  attribute:NSLayoutAttributeCenterX
+															  relatedBy:NSLayoutRelationEqual
+																 toItem:self.view
+															  attribute:NSLayoutAttributeCenterX
+															 multiplier:1.0
+															   constant:0.0]];
+		
+		self.theme = [[BUYTheme alloc] init];
 	}
 	return self;
 }
 
 - (BUYProductView *)productView
 {
-	if (_productView == nil) {
+	if (_productView == nil && self.product != nil) {
 		_productView = [[BUYProductView alloc] initWithTheme:self.theme];
 		_productView.translatesAutoresizingMaskIntoConstraints = NO;
+		_productView.hidden = YES;
 		[self.view addSubview:_productView];
 		[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_productView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_productView)]];
 		[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_productView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_productView)]];
@@ -94,29 +120,23 @@
 
 - (void)setupNavigationBarAppearance
 {
-	if (self.navigationBar == nil) {
+	if (self.navigationBar == nil && _productView) {
 		for (UIView *view in [self.navigationController.navigationBar subviews]) {
 			if (CGRectGetHeight(view.bounds) >= 64) {
 				// Get a reference to the UINavigationBar
 				self.navigationBar = view;
+				self.navigationBar.alpha = 0;
 				continue;
-			} else if (CGRectGetMinX(view.frame) > 0 && [view.subviews count] == 1 && [view.subviews[0] isKindOfClass:[UILabel class]]) {
+			} else if ([view.subviews count] == 1 && [view.subviews[0] isKindOfClass:[UILabel class]]) {
 				// Get a reference to the UINavigationBar's title
 				self.navigationBarTitle = view;
+				self.navigationBarTitle.alpha = 0;
 				continue;
 			}
 		}
 		// Hide the navigation bar
 		[self scrollViewDidScroll:self.productView.tableView];
 	}
-}
-
-- (BUYTheme*)theme
-{
-	if (_theme == nil) {
-		_theme = [[BUYTheme alloc] init];
-	}
-	return _theme;
 }
 
 - (void)setTheme:(BUYTheme *)theme
@@ -126,6 +146,7 @@
 	UIColor *backgroundColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(26, 26, 26) : BUY_RGB(255, 255, 255);
 	self.view.backgroundColor = backgroundColor;
 	self.productView.theme = theme;
+	self.activityIndicatorView.activityIndicatorViewStyle = (_theme.style == BUYThemeStyleDark) ? UIActivityIndicatorViewStyleWhite : UIActivityIndicatorViewStyleGray;
 }
 
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source
@@ -139,37 +160,39 @@
 
 - (void)loadProduct:(NSString *)productId completion:(void (^)(BOOL success, NSError *error))completion
 {
-	if (productId == nil) {
-		completion(NO, [NSError errorWithDomain:BUYShopifyError code:BUYShopifyError_NoProductSpecified userInfo:nil]);
-	}
-	else {
-		self.isLoading = YES;
-		
-		[self loadShopWithCallback:^(BOOL success, NSError *error) {
+	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+		if (productId == nil) {
+			completion(NO, [NSError errorWithDomain:BUYShopifyError code:BUYShopifyError_NoProductSpecified userInfo:nil]);
+		}
+		else {
+			self.isLoading = YES;
 			
-			if (success) {
-				self.productId = productId;
+			[self loadShopWithCallback:^(BOOL success, NSError *error) {
 				
-				[self.client getProductById:productId completion:^(BUYProduct *product, NSError *error) {
-					dispatch_async(dispatch_get_main_queue(), ^{
-						self.isLoading = NO;
-						
-						if (error) {
-							completion(NO, error);
-						}
-						else {
-							self.product = product;
-							completion(YES, nil);
-						}
-					});
-				}];
-			}
-			else {
-				self.isLoading = NO;
-				completion(success, error);
-			}
-		}];
-	}
+				if (success) {
+					self.productId = productId;
+					
+					[self.client getProductById:productId completion:^(BUYProduct *product, NSError *error) {
+						dispatch_async(dispatch_get_main_queue(), ^{
+							self.isLoading = NO;
+							
+							if (error) {
+								completion(NO, error);
+							}
+							else {
+								self.product = product;
+								completion(YES, nil);
+							}
+						});
+					}];
+				}
+				else {
+					self.isLoading = NO;
+					completion(success, error);
+				}
+			}];
+		}
+	});
 }
 
 - (void)loadWithProduct:(BUYProduct *)product completion:(void (^)(BOOL success, NSError *error))completion;
@@ -204,6 +227,9 @@
 	self.selectedProductVariant = [_product.variants firstObject];
 	self.shouldShowVariantSelector = [_product isDefaultVariant] == NO;
 	self.shouldShowDescription = ([_product.htmlDescription length] == 0) == NO;
+	self.productView.hidden = NO;
+	[self setupNavigationBarAppearance];
+	[self.activityIndicatorView stopAnimating];
 }
 
 - (void)setShop:(BUYShop *)shop
