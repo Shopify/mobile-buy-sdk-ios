@@ -153,16 +153,18 @@
 - (void)setImageForSelectedVariant:(BUYProductVariant*)productVariant withImages:(NSArray*)images
 {
 	[self setNumberOfPages:[images count]];
-	[images enumerateObjectsUsingBlock:^(BUYImage *image, NSUInteger i, BOOL *stop) {
-		for (NSNumber *variantId in image.variantIds) {
-			if ([variantId isEqualToNumber:productVariant.identifier]) {
-				[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
-				self.pageControl.currentPage = i;
-				*stop = YES;
-				break;
+	if (CGSizeEqualToSize(self.collectionView.contentSize, CGSizeZero) == NO) {
+		[images enumerateObjectsUsingBlock:^(BUYImage *image, NSUInteger i, BOOL *stop) {
+			for (NSNumber *variantId in image.variantIds) {
+				if ([variantId isEqualToNumber:productVariant.identifier]) {
+					[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+					self.pageControl.currentPage = i;
+					*stop = YES;
+					break;
+				}
 			}
-		}
-	}];
+		}];
+	}
 }
 
 @end
