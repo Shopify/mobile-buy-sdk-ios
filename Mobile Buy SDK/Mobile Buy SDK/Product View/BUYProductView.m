@@ -18,14 +18,19 @@
 #import "BUYImage.h"
 #import "BUYImageView.h"
 
+@interface BUYProductView ()
+
+@property (nonatomic, strong) UILabel *poweredByShopifyLabel;
+@property (nonatomic, strong) NSLayoutConstraint *poweredByShopifyLabelConstraint;
+
+@end
+
 @implementation BUYProductView
 
 - (instancetype)initWithFrame:(CGRect)rect theme:(BUYTheme*)theme;
 {
 	self = [super initWithFrame:rect];
 	if (self) {
-		self.theme = theme;
-		
 		self.backgroundImageView = [[BUYProductViewHeaderBackgroundImageView alloc] initWithTheme:theme];
 		self.backgroundImageView.hidden = self.theme.showsProductImageBackground == NO;
 		self.backgroundImageView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -102,7 +107,29 @@
 		self.productViewHeader = [[BUYProductViewHeader alloc] initWithFrame:CGRectMake(0, 0, width, width) theme:self.theme];
 		self.tableView.tableHeaderView = self.productViewHeader;
 		
-		self.productViewFooter = [[BUYProductViewFooter alloc] initWithTheme:self.theme];
+		_poweredByShopifyLabel = [[UILabel alloc] init];
+		_poweredByShopifyLabel.translatesAutoresizingMaskIntoConstraints = NO;
+		_poweredByShopifyLabel.backgroundColor = [UIColor clearColor];
+		_poweredByShopifyLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
+		_poweredByShopifyLabel.text = @"Powered by Shopify";
+		_poweredByShopifyLabel.textAlignment = NSTextAlignmentCenter;
+		[self addSubview:_poweredByShopifyLabel];
+		
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_poweredByShopifyLabel]|"
+																	 options:0
+																	 metrics:nil
+																	   views:NSDictionaryOfVariableBindings(_poweredByShopifyLabel)]];
+		
+		_poweredByShopifyLabelConstraint = [NSLayoutConstraint constraintWithItem:_poweredByShopifyLabel
+																		attribute:NSLayoutAttributeTop
+																		relatedBy:NSLayoutRelationEqual
+																		   toItem:self
+																		attribute:NSLayoutAttributeBottom
+																	   multiplier:1.0
+																		 constant:0.0];
+		[self addConstraint:_poweredByShopifyLabelConstraint];
+		
+		self.productViewFooter = [[BUYProductViewFooter alloc] initWithTheme:theme];
 		self.productViewFooter.translatesAutoresizingMaskIntoConstraints = NO;
 		[self addSubview:self.productViewFooter];
 		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_productViewFooter]|"
@@ -128,6 +155,8 @@
 																	 options:0
 																	 metrics:@{ @"height" : @114 }
 																	   views:NSDictionaryOfVariableBindings(_topGradientView)]];
+		
+		self.theme = theme;
 	}
 	return self;
 }
@@ -146,6 +175,7 @@
 	self.tableView.separatorColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(76, 76, 76) : BUY_RGB(217, 217, 217);
 	self.backgroundColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(26, 26, 26) : BUY_RGB(255, 255, 255);
 	self.backgroundImageView.hidden = _theme.showsProductImageBackground == NO;
+	self.poweredByShopifyLabel.textColor = self.tableView.separatorColor;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -164,6 +194,9 @@
 	CGFloat opaqueOffset = CGRectGetHeight(self.productViewHeader.bounds);
 	CGFloat whiteStartingOffset = opaqueOffset - CGRectGetHeight(self.topGradientView.bounds);
 	self.topGradientView.alpha = -(scrollView.contentOffset.y - whiteStartingOffset) / (opaqueOffset - whiteStartingOffset);
+	
+	CGFloat labelOffset = scrollView.contentSize.height - (scrollView.contentOffset.y + CGRectGetHeight(scrollView.bounds));
+	self.poweredByShopifyLabelConstraint.constant = (CGRectGetHeight(scrollView.bounds) / 3) + labelOffset;
 }
 
 @end
