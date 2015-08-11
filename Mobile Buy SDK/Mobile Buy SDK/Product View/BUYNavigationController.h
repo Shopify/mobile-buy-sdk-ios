@@ -7,7 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BUYTheme.h"
 
-@interface BUYNavigationController : UINavigationController
+@protocol BUYNavigationControllerDelegate <NSObject>
+
+- (void)presentationControllerWillDismiss:(UIPresentationController*)presentationController;
+- (void)presentationControllerDidDismiss:(UIPresentationController*)presentationController;
 
 @end
+
+@interface BUYNavigationController : UINavigationController <BUYThemeable>
+
+- (void)updateCloseButtonImageWithDarkStyle:(BOOL)darkStyle;
+@property (nonatomic, weak) id <BUYNavigationControllerDelegate> navigationDelegate;
+
+@end
+

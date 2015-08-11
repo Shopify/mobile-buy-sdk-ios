@@ -13,15 +13,8 @@
 
 @interface BUYPresentationControllerWithNavigationController : UIPresentationController <UIAdaptivePresentationControllerDelegate, BUYThemeable>
 
-@property (nonatomic, weak) id <BUYPresentationControllerWithNavigationControllerDelegate> presentationDelegate;
-
-- (void)updateCloseButtonImageWithDarkStyle:(BOOL)darkStyle;
+@property (nonatomic, weak) id <BUYNavigationControllerDelegate> navigationDelegate;
 
 @end
 
-@protocol BUYPresentationControllerWithNavigationControllerDelegate <NSObject>
 
-- (void)presentationControllerWillDismiss:(UIPresentationController*)presentationController;
-- (void)presentationControllerDidDismiss:(UIPresentationController*)presentationController;
-
-@end
