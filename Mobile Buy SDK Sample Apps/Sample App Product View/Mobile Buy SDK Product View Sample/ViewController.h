@@ -10,6 +10,7 @@
 
 @interface ViewController : UITableViewController
 
+- (void)getCheckoutStatusWithURL:(NSURL *)url;
 
 @end
 

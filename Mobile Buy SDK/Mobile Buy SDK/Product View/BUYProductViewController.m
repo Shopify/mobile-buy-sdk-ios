@@ -290,7 +290,12 @@
 		[self.productView.productViewHeader setImageForSelectedVariant:_selectedProductVariant withImages:self.product.images];
 		[self updateProductBackgroundImage];
 	}
-	[self scrollViewDidScroll:self.productView.tableView];
+	if (self.productView.productViewFooter) {
+		[self.productView.productViewFooter updateButtonsForProductVariant:selectedProductVariant];
+	}
+	if (self.productView.tableView) {
+		[self scrollViewDidScroll:self.productView.tableView];
+	}
 }
 
 #pragma mark Scroll view delegate
