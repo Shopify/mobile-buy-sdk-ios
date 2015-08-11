@@ -37,9 +37,10 @@
 // views
 @property (nonatomic, strong) BUYProductView *productView;
 @property (nonatomic, weak) UIView *navigationBar;
-@property (nonatomic, weak) UIView *navigationBarTitle;
+@property (nonatomic, weak) UILabel *navigationBarTitle;
 @property (nonatomic, strong) BUYProductHeaderCell *headerCell;
 @property (nonatomic, strong) BUYProductVariantCell *variantCell;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
 
 @end
 
@@ -53,15 +54,40 @@
 	if (self) {
 		self.modalPresentationStyle = UIModalPresentationCustom;
 		self.transitioningDelegate = self;
+		
+		_activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectZero];
+		_activityIndicatorView.translatesAutoresizingMaskIntoConstraints = NO;
+		_activityIndicatorView.hidesWhenStopped = YES;
+		[_activityIndicatorView startAnimating];
+		[self.view addSubview:_activityIndicatorView];
+		
+		[self.view addConstraint:[NSLayoutConstraint constraintWithItem:_activityIndicatorView
+															  attribute:NSLayoutAttributeCenterY
+															  relatedBy:NSLayoutRelationEqual
+																 toItem:self.view
+															  attribute:NSLayoutAttributeCenterY
+															 multiplier:1.0
+															   constant:0.0]];
+		
+		[self.view addConstraint:[NSLayoutConstraint constraintWithItem:_activityIndicatorView
+															  attribute:NSLayoutAttributeCenterX
+															  relatedBy:NSLayoutRelationEqual
+																 toItem:self.view
+															  attribute:NSLayoutAttributeCenterX
+															 multiplier:1.0
+															   constant:0.0]];
+		
+		self.theme = [[BUYTheme alloc] init];
 	}
 	return self;
 }
 
 - (BUYProductView *)productView
 {
-	if (_productView == nil) {
+	if (_productView == nil && self.product != nil) {
 		_productView = [[BUYProductView alloc] initWithTheme:self.theme];
 		_productView.translatesAutoresizingMaskIntoConstraints = NO;
+		_productView.hidden = YES;
 		[self.view addSubview:_productView];
 		[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_productView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_productView)]];
 		[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_productView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_productView)]];
@@ -82,6 +108,7 @@
 {
 	[super viewWillAppear:animated];
 	[self setupNavigationBarAppearance];
+	[self.navigationController setNavigationBarHidden:self.isLoading];
 }
 
 - (void)viewDidLayoutSubviews
@@ -94,29 +121,23 @@
 
 - (void)setupNavigationBarAppearance
 {
-	if (self.navigationBar == nil) {
+	if (self.navigationBar == nil && _productView) {
 		for (UIView *view in [self.navigationController.navigationBar subviews]) {
 			if (CGRectGetHeight(view.bounds) >= 64) {
 				// Get a reference to the UINavigationBar
 				self.navigationBar = view;
+				self.navigationBar.alpha = 0;
 				continue;
-			} else if (CGRectGetMinX(view.frame) > 0 && [view.subviews count] == 1 && [view.subviews[0] isKindOfClass:[UILabel class]]) {
+			} else if ([view.subviews count] == 1 && [view.subviews[0] isKindOfClass:[UILabel class]]) {
 				// Get a reference to the UINavigationBar's title
-				self.navigationBarTitle = view;
+				self.navigationBarTitle = view.subviews[0];
+				self.navigationBarTitle.alpha = 0;
 				continue;
 			}
 		}
 		// Hide the navigation bar
 		[self scrollViewDidScroll:self.productView.tableView];
 	}
-}
-
-- (BUYTheme*)theme
-{
-	if (_theme == nil) {
-		_theme = [[BUYTheme alloc] init];
-	}
-	return _theme;
 }
 
 - (void)setTheme:(BUYTheme *)theme
@@ -126,6 +147,8 @@
 	UIColor *backgroundColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(26, 26, 26) : BUY_RGB(255, 255, 255);
 	self.view.backgroundColor = backgroundColor;
 	self.productView.theme = theme;
+	self.activityIndicatorView.activityIndicatorViewStyle = (_theme.style == BUYThemeStyleDark) ? UIActivityIndicatorViewStyleWhite : UIActivityIndicatorViewStyleGray;
+	[self setNeedsStatusBarAppearanceUpdate];
 }
 
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source
@@ -204,6 +227,11 @@
 	self.selectedProductVariant = [_product.variants firstObject];
 	self.shouldShowVariantSelector = [_product isDefaultVariant] == NO;
 	self.shouldShowDescription = ([_product.htmlDescription length] == 0) == NO;
+	self.productView.hidden = NO;
+	[self setupNavigationBarAppearance];
+	[self.activityIndicatorView stopAnimating];
+	[self setNeedsStatusBarAppearanceUpdate];
+	[self.navigationController setNavigationBarHidden:NO];
 }
 
 - (void)setShop:(BUYShop *)shop
@@ -307,22 +335,22 @@
 		if (self.navigationBar) {
 			if (self.navigationBar.alpha != 1 && [self navigationBarThresholdReached] == YES) {
 				[(BUYPresentationControllerWithNavigationController*)self.presentationController updateCloseButtonImageWithDarkStyle:YES];
-				[self setNeedsStatusBarAppearanceUpdate];
 				[UIView animateWithDuration:0.3f
 									  delay:0
 									options:(UIViewAnimationOptionCurveLinear | UIViewKeyframeAnimationOptionBeginFromCurrentState)
 								 animations:^{
+									 [self setNeedsStatusBarAppearanceUpdate];
 									 self.navigationBar.alpha = 1;
 									 self.navigationBarTitle.alpha = 1;
 								 }
 								 completion:NULL];
 			} else if (self.navigationBar.alpha != 0 && [self navigationBarThresholdReached] == NO)  {
 				[(BUYPresentationControllerWithNavigationController*)self.presentationController updateCloseButtonImageWithDarkStyle:NO];
-				[self setNeedsStatusBarAppearanceUpdate];
 				[UIView animateWithDuration:0.20f
 									  delay:0
 									options:(UIViewAnimationOptionCurveLinear | UIViewKeyframeAnimationOptionBeginFromCurrentState)
 								 animations:^{
+									 [self setNeedsStatusBarAppearanceUpdate];
 									 self.navigationBar.alpha = 0;
 									 self.navigationBarTitle.alpha = 0;
 								 }
@@ -385,7 +413,9 @@
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-	if (self.theme.style == BUYThemeStyleDark || [self navigationBarThresholdReached] == NO) {
+	if (self.theme.style == BUYThemeStyleDark || ([self navigationBarThresholdReached] == NO && self.isLoading == NO)) {
+		return UIStatusBarStyleLightContent;
+	} else if (self.isLoading == YES && self.theme.style == BUYThemeStyleDark) {
 		return UIStatusBarStyleLightContent;
 	} else {
 		return UIStatusBarStyleDefault;
