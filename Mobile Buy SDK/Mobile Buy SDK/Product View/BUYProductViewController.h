@@ -51,7 +51,7 @@
  *
  *  @param controller The view controller where the BUYProductViewController is to be presented on
  */
-- (void)presentInViewController:(UIViewController *)controller;
+- (void)presentPortraitInViewController:(UIViewController *)controller;
 
 @end
 
