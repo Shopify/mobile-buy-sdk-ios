@@ -37,7 +37,7 @@
 // views
 @property (nonatomic, strong) BUYProductView *productView;
 @property (nonatomic, weak) UIView *navigationBar;
-@property (nonatomic, weak) UIView *navigationBarTitle;
+@property (nonatomic, weak) UILabel *navigationBarTitle;
 @property (nonatomic, strong) BUYProductHeaderCell *headerCell;
 @property (nonatomic, strong) BUYProductVariantCell *variantCell;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
@@ -108,6 +108,7 @@
 {
 	[super viewWillAppear:animated];
 	[self setupNavigationBarAppearance];
+	[self.navigationController setNavigationBarHidden:self.isLoading];
 }
 
 - (void)viewDidLayoutSubviews
@@ -129,7 +130,7 @@
 				continue;
 			} else if ([view.subviews count] == 1 && [view.subviews[0] isKindOfClass:[UILabel class]]) {
 				// Get a reference to the UINavigationBar's title
-				self.navigationBarTitle = view;
+				self.navigationBarTitle = view.subviews[0];
 				self.navigationBarTitle.alpha = 0;
 				continue;
 			}
@@ -160,12 +161,12 @@
 
 - (void)loadProduct:(NSString *)productId completion:(void (^)(BOOL success, NSError *error))completion
 {
+	self.isLoading = YES;
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 		if (productId == nil) {
 			completion(NO, [NSError errorWithDomain:BUYShopifyError code:BUYShopifyError_NoProductSpecified userInfo:nil]);
 		}
 		else {
-			self.isLoading = YES;
 			
 			[self loadShopWithCallback:^(BOOL success, NSError *error) {
 				
@@ -230,6 +231,8 @@
 	self.productView.hidden = NO;
 	[self setupNavigationBarAppearance];
 	[self.activityIndicatorView stopAnimating];
+	[self setNeedsStatusBarAppearanceUpdate];
+	[self.navigationController setNavigationBarHidden:NO];
 }
 
 - (void)setShop:(BUYShop *)shop
@@ -328,22 +331,22 @@
 		if (self.navigationBar) {
 			if (self.navigationBar.alpha != 1 && [self navigationBarThresholdReached] == YES) {
 				[(BUYPresentationControllerWithNavigationController*)self.presentationController updateCloseButtonImageWithDarkStyle:YES];
-				[self setNeedsStatusBarAppearanceUpdate];
 				[UIView animateWithDuration:0.3f
 									  delay:0
 									options:(UIViewAnimationOptionCurveLinear | UIViewKeyframeAnimationOptionBeginFromCurrentState)
 								 animations:^{
+									 [self setNeedsStatusBarAppearanceUpdate];
 									 self.navigationBar.alpha = 1;
 									 self.navigationBarTitle.alpha = 1;
 								 }
 								 completion:NULL];
 			} else if (self.navigationBar.alpha != 0 && [self navigationBarThresholdReached] == NO)  {
 				[(BUYPresentationControllerWithNavigationController*)self.presentationController updateCloseButtonImageWithDarkStyle:NO];
-				[self setNeedsStatusBarAppearanceUpdate];
 				[UIView animateWithDuration:0.20f
 									  delay:0
 									options:(UIViewAnimationOptionCurveLinear | UIViewKeyframeAnimationOptionBeginFromCurrentState)
 								 animations:^{
+									 [self setNeedsStatusBarAppearanceUpdate];
 									 self.navigationBar.alpha = 0;
 									 self.navigationBarTitle.alpha = 0;
 								 }
@@ -406,7 +409,9 @@
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-	if (self.theme.style == BUYThemeStyleDark || [self navigationBarThresholdReached] == NO) {
+	if (self.theme.style == BUYThemeStyleDark || ([self navigationBarThresholdReached] == NO && self.isLoading == NO)) {
+		return UIStatusBarStyleLightContent;
+	} else if (self.isLoading == YES && self.theme.style == BUYThemeStyleDark) {
 		return UIStatusBarStyleLightContent;
 	} else {
 		return UIStatusBarStyleDefault;
