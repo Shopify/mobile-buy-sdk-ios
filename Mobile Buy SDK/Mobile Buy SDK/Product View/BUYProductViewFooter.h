@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+@class BUYProductVariant;
+@class BUYTheme;
 #import "BUYPaymentButton.h"
 #import "BUYCheckoutButton.h"
-
-@class BUYTheme;
 
 @interface BUYProductViewFooter : UIView
 
@@ -20,5 +20,6 @@
 @property (nonatomic, strong) BUYPaymentButton *buyPaymentButton;
 
 - (void)setApplePayButtonVisible:(BOOL)isApplePayAvailable;
+- (void)updateButtonsForProductVariant:(BUYProductVariant *)productVariant;
 
 @end
