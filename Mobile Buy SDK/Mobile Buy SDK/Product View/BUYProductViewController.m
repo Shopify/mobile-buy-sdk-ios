@@ -161,39 +161,37 @@
 
 - (void)loadProduct:(NSString *)productId completion:(void (^)(BOOL success, NSError *error))completion
 {
-	self.isLoading = YES;
-	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-		if (productId == nil) {
-			completion(NO, [NSError errorWithDomain:BUYShopifyError code:BUYShopifyError_NoProductSpecified userInfo:nil]);
-		}
-		else {
+	if (productId == nil) {
+		completion(NO, [NSError errorWithDomain:BUYShopifyError code:BUYShopifyError_NoProductSpecified userInfo:nil]);
+	}
+	else {
+		self.isLoading = YES;
+		
+		[self loadShopWithCallback:^(BOOL success, NSError *error) {
 			
-			[self loadShopWithCallback:^(BOOL success, NSError *error) {
+			if (success) {
+				self.productId = productId;
 				
-				if (success) {
-					self.productId = productId;
-					
-					[self.client getProductById:productId completion:^(BUYProduct *product, NSError *error) {
-						dispatch_async(dispatch_get_main_queue(), ^{
-							self.isLoading = NO;
-							
-							if (error) {
-								completion(NO, error);
-							}
-							else {
-								self.product = product;
-								completion(YES, nil);
-							}
-						});
-					}];
-				}
-				else {
-					self.isLoading = NO;
-					completion(success, error);
-				}
-			}];
-		}
-	});
+				[self.client getProductById:productId completion:^(BUYProduct *product, NSError *error) {
+					dispatch_async(dispatch_get_main_queue(), ^{
+						self.isLoading = NO;
+						
+						if (error) {
+							completion(NO, error);
+						}
+						else {
+							self.product = product;
+							completion(YES, nil);
+						}
+					});
+				}];
+			}
+			else {
+				self.isLoading = NO;
+				completion(success, error);
+			}
+		}];
+	}
 }
 
 - (void)loadWithProduct:(BUYProduct *)product completion:(void (^)(BOOL success, NSError *error))completion;
