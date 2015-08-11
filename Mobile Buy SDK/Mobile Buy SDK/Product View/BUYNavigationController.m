@@ -46,8 +46,6 @@
 	crossFade.fillMode = kCAFillModeForwards;
 	[button.imageView.layer addAnimation:crossFade forKey:@"contents"];
 	[button setImage:newButtonImage forState:UIControlStateNormal];
-	if (self.theme.style == BUYThemeStyleLight) {
-	}
 }
 
 - (void)dismissPopover

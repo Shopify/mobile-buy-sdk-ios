@@ -22,6 +22,7 @@
 {
 	BUYNavigationController *navigationController = [[BUYNavigationController alloc] initWithRootViewController:controller.presentedViewController];
 	navigationController.navigationDelegate = self.navigationDelegate;
+	[navigationController setTheme:self.theme];
 	return navigationController;
 }
 
