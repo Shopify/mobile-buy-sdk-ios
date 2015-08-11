@@ -14,7 +14,6 @@
 @interface BUYPresentationControllerWithNavigationController ()
 
 @property (nonatomic, strong) BUYTheme *theme;
-
 @end
 
 @implementation BUYPresentationControllerWithNavigationController
@@ -22,7 +21,7 @@
 - (UIViewController *)presentationController:(UIPresentationController *)controller viewControllerForAdaptivePresentationStyle:(UIModalPresentationStyle)style
 {
 	BUYNavigationController *navigationController = [[BUYNavigationController alloc] initWithRootViewController:controller.presentedViewController];
-
+	navigationController.navigationDelegate = self.navigationDelegate;
 	return navigationController;
 }
 
@@ -31,7 +30,7 @@
 	return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? UIModalPresentationFullScreen : UIModalPresentationFormSheet;
 }
 
-- (UIModalPresentationStyle)adaptivePresentationStyleForTraitCollection:(UITraitCollection *)traitCollection NS_AVAILABLE_IOS(8_3)
+- (UIModalPresentationStyle)adaptivePresentationStyleForTraitCollection:(UITraitCollection *)traitCollection
 {
 	return (traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact) ? UIModalPresentationFullScreen : UIModalPresentationFormSheet;
 }

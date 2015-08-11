@@ -24,7 +24,7 @@
 #import "BUYProductViewHeaderBackgroundImageView.h"
 #import "BUYProductViewHeaderOverlay.h"
 
-@interface BUYProductViewController () <UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, BUYVariantSelectionDelegate, BUYPresentationControllerWithNavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
+@interface BUYProductViewController () <UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, BUYVariantSelectionDelegate, BUYNavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (nonatomic, strong) NSString *productId;
 @property (nonatomic, strong) BUYProductVariant *selectedProductVariant;
@@ -60,7 +60,7 @@
 - (BUYProductView *)productView
 {
 	if (_productView == nil) {
-		_productView = [[BUYProductView alloc] initWithTheme:self.theme];
+		_productView = [[BUYProductView alloc] initWithFrame:self.view.bounds theme:self.theme];
 		_productView.translatesAutoresizingMaskIntoConstraints = NO;
 		[self.view addSubview:_productView];
 		[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_productView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_productView)]];
@@ -131,7 +131,7 @@
 {
 	BUYPresentationControllerWithNavigationController *presentationController = [[BUYPresentationControllerWithNavigationController alloc] initWithPresentedViewController:presented presentingViewController:presenting];
 	presentationController.delegate = presentationController;
-	presentationController.presentationDelegate = self;
+	presentationController.navigationDelegate = self;
 	[presentationController setTheme:self.theme];
 	return presentationController;
 }
@@ -430,10 +430,6 @@
 {
 	BUYProductImageCollectionViewCell *cell = (BUYProductImageCollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
 	BUYImage *image = self.product.images[indexPath.row];
-	// if image is nil (no image specified for the variant) choose the first one
-	if (image == nil) {
-		image = self.product.images.firstObject;
-	}
 	NSURL *url = [NSURL URLWithString:image.src];
 	[cell.productImageView loadImageWithURL:url completion:NULL];
 	[cell setContentOffset:self.productView.tableView.contentOffset];
@@ -444,6 +440,7 @@
 - (void)presentInViewController:(UIViewController *)controller
 {
 	BUYNavigationController *navController = [[BUYNavigationController alloc] initWithRootViewController:self];
+	navController.navigationDelegate = self;
 	[navController setTheme:self.theme];
 	[controller presentViewController:navController animated:YES completion:nil];
 }

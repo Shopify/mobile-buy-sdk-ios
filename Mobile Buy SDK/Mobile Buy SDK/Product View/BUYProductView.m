@@ -20,9 +20,9 @@
 
 @implementation BUYProductView
 
-- (instancetype)initWithTheme:(BUYTheme*)theme
+- (instancetype)initWithFrame:(CGRect)rect theme:(BUYTheme*)theme;
 {
-	self = [super init];
+	self = [super initWithFrame:rect];
 	if (self) {
 		self.theme = theme;
 		
@@ -98,8 +98,8 @@
 																	 options:0
 																	 metrics:nil
 																	   views:NSDictionaryOfVariableBindings(_tableView)]];
-		
-		self.productViewHeader = [[BUYProductViewHeader alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([[UIScreen mainScreen] bounds]), CGRectGetWidth([[UIScreen mainScreen] bounds])) theme:self.theme];
+		CGFloat width = MIN(CGRectGetWidth(rect), CGRectGetHeight(rect));
+		self.productViewHeader = [[BUYProductViewHeader alloc] initWithFrame:CGRectMake(0, 0, width, width) theme:self.theme];
 		self.tableView.tableHeaderView = self.productViewHeader;
 		
 		self.productViewFooter = [[BUYProductViewFooter alloc] initWithTheme:self.theme];

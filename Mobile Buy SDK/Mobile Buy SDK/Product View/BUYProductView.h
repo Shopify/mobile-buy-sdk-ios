@@ -26,7 +26,7 @@
 @property (nonatomic, strong) BUYGradientView *topGradientView;
 @property (nonatomic, weak) BUYTheme *theme;
 
-- (instancetype)initWithTheme:(BUYTheme*)theme;
+- (instancetype)initWithFrame:(CGRect)rect theme:(BUYTheme*)theme;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView;
 
 @end

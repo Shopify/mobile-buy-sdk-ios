@@ -52,13 +52,13 @@
 
 - (void)dismissPopover
 {
-//	if ([self.presentationDelegate respondsToSelector:@selector(presentationControllerWillDismiss:)]) {
-//		[self.presentationDelegate presentationControllerWillDismiss:self];
-//	}
+	if ([self.navigationDelegate respondsToSelector:@selector(presentationControllerWillDismiss:)]) {
+		[self.navigationDelegate presentationControllerWillDismiss:nil];
+	}
 	[self dismissViewControllerAnimated:YES completion:^{
-//		if ([self.presentationDelegate respondsToSelector:@selector(presentationControllerDidDismiss:)]) {
-//			[self.presentationDelegate presentationControllerDidDismiss:self];
-//		}
+		if ([self.navigationDelegate respondsToSelector:@selector(presentationControllerDidDismiss:)]) {
+			[self.navigationDelegate presentationControllerDidDismiss:nil];
+		}
 	}];
 }
 
