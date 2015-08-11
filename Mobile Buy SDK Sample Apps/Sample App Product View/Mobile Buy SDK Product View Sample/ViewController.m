@@ -50,6 +50,14 @@
     }];
 }
 
+- (void)getCheckoutStatusWithURL:(NSURL *)url
+{
+    [self.client getCompletionStatusOfCheckoutURL:url completion:^(BUYStatus status, NSError *error) {
+        NSLog(@"Checkout status: %lu", (unsigned long)status);
+    }];
+}
+
+
 - (BUYProductViewController *)productViewController
 {
     // reusing the same productViewController will prevent unnecessary network calls in subsequent uses

@@ -413,15 +413,41 @@ NSString * const BUYVersionString = @"1.1";
 {
 	NSURLSessionDataTask *task = nil;
 	if ([checkout hasToken]) {
-		task = [self getRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/processing.json", _shopDomain, checkout.token] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-			NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
-			block([BUYClient statusForStatusCode:statusCode error:error], error);
-		}];
+		task = [self getCompletionStatusOfCheckoutToken:checkout.token completion:block];
 	}
 	else {
 		block(BUYStatusUnknown, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
 	}
 	return task;
+}
+
+- (NSURLSessionDataTask *)getCompletionStatusOfCheckoutURL:(NSURL *)url completion:(BUYDataCheckoutStatusBlock)block
+{
+	NSString *token = nil;
+	
+	NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+	for (NSURLQueryItem *item in components.queryItems) {
+		
+		if ([item.name isEqualToString:@"checkout[token]"]) {
+			token = item.value;
+		}
+	}
+	
+	if (token) {
+		return [self getCompletionStatusOfCheckoutToken:token completion:block];
+	}
+	else {
+		block(BUYStatusUnknown, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
+		return nil;
+	}
+}
+
+- (NSURLSessionDataTask *)getCompletionStatusOfCheckoutToken:(NSString *)token completion:(BUYDataCheckoutStatusBlock)block
+{
+	return [self getRequestForURL:[NSString stringWithFormat:@"https://%@/anywhere/checkouts/%@/processing.json", _shopDomain, token] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+		NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
+		block([BUYClient statusForStatusCode:statusCode error:error], error);
+	}];
 }
 
 #pragma mark - Shipping Rates
