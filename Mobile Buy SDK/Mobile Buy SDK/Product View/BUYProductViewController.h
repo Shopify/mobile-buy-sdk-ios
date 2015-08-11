@@ -45,6 +45,12 @@
  */
 @property (nonatomic, assign, readonly) BOOL isLoading;
 
+/**
+ *  This is a convenience method as an alternative to presentViewController: which will force portrait orientation.  This method is only 
+ *  required when presenting from a landscape view controller.
+ *
+ *  @param controller The view controller where the BUYProductViewController is to be presented on
+ */
 - (void)presentInViewController:(UIViewController *)controller;
 
 @end
