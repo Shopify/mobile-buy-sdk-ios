@@ -378,23 +378,45 @@
 
 - (void)checkoutWithShopify
 {
-	[_productView.productViewFooter.checkoutButton showActivityIndicator:YES];
+	[self startWebCheckout:[self checkout]];
+}
 
+- (void)startWebCheckout:(BUYCheckout *)checkout
+{
 	if ([self.delegate respondsToSelector:@selector(controllerWillCheckoutViaWeb:)]) {
 		[self.delegate controllerWillCheckoutViaWeb:self];
 	}
 	
-	[self handleCheckout:[self checkout] completion:^(BUYCheckout *checkout, NSError *error) {
-		
+	[_productView.productViewFooter.checkoutButton showActivityIndicator:YES];
+	
+	[self handleCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	
 		[_productView.productViewFooter.checkoutButton showActivityIndicator:NO];
-		
+
 		if (error == nil) {
 			[[UIApplication sharedApplication] openURL:checkout.webCheckoutURL];
 		}
 		else {
-			[self.delegate controller:self failedToCreateCheckout:error];
+			
+			if ([self.delegate respondsToSelector:@selector(controller:failedToCreateCheckout:)]) {
+				[self.delegate controller:self failedToCreateCheckout:error];
+			}
+			else {
+				UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Could not checkout at this time" preferredStyle:UIAlertControllerStyleAlert];
+				[alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+				[self presentViewController:alert animated:YES completion:nil];
+			}
 		}
 	}];
+}
+
+- (void)handleCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)completion
+{
+	if ([checkout.token length] > 0) {
+		[self.client updateCheckout:checkout completion:completion];
+	} else {
+		[self.client createCheckout:checkout completion:completion];
+	}
 }
 
 #pragma mark UIStatusBar appearance

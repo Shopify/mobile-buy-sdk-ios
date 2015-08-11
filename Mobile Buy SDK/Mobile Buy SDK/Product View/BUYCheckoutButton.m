@@ -58,8 +58,7 @@
 	}
 	else {
 		[self.activityIndicator stopAnimating];
-		UIColor *textColor = self.theme.style == BUYThemeStyleLight ? [UIColor whiteColor] : [UIColor blackColor];
-		[self setTitleColor:textColor forState:UIControlStateNormal];
+		[self setTheme:self.theme];
 	}
 }
 
