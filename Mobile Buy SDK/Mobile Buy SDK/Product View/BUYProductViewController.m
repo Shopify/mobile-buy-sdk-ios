@@ -24,6 +24,9 @@
 #import "BUYProductViewHeaderBackgroundImageView.h"
 #import "BUYProductViewHeaderOverlay.h"
 
+CGFloat const BUYMaxProductViewWidth = 414.0;
+CGFloat const BUYMaxProductViewHeight = 640.0;
+
 @interface BUYProductViewController () <UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, BUYVariantSelectionDelegate, BUYNavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (nonatomic, strong) NSString *productId;
@@ -60,7 +63,7 @@
 - (BUYProductView *)productView
 {
 	if (_productView == nil) {
-		_productView = [[BUYProductView alloc] initWithFrame:self.view.bounds theme:self.theme];
+		_productView = [[BUYProductView alloc] initWithFrame:CGRectMake(0, 0, self.preferredContentSize.width, self.preferredContentSize.height) theme:self.theme];
 		_productView.translatesAutoresizingMaskIntoConstraints = NO;
 		[self.view addSubview:_productView];
 		[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_productView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_productView)]];
@@ -76,6 +79,12 @@
 		_productView.productViewHeader.collectionView.dataSource = self;
 	}
 	return _productView;
+}
+
+- (CGSize)preferredContentSize
+{
+	return CGSizeMake(MIN(BUYMaxProductViewWidth, self.view.bounds.size.width),
+					  MIN(BUYMaxProductViewHeight, self.view.bounds.size.height));
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -404,7 +413,7 @@
 }
 
 - (BOOL)shouldAutorotate {
-	return NO;
+	return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
 }
 
 - (void)presentationControllerWillDismiss:(UIPresentationController *)presentationController
