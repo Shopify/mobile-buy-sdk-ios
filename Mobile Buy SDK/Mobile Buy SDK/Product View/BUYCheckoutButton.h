@@ -11,4 +11,6 @@
 
 @interface BUYCheckoutButton : UIButton <BUYThemeable>
 
+- (void)showActivityIndicator:(BOOL)show;
+
 @end
