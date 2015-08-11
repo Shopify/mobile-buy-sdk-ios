@@ -109,6 +109,7 @@
 		
 		_poweredByShopifyLabel = [[UILabel alloc] init];
 		_poweredByShopifyLabel.translatesAutoresizingMaskIntoConstraints = NO;
+		_poweredByShopifyLabel.backgroundColor = [UIColor clearColor];
 		_poweredByShopifyLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
 		_poweredByShopifyLabel.text = @"Powered by Shopify";
 		_poweredByShopifyLabel.textAlignment = NSTextAlignmentCenter;
@@ -174,7 +175,6 @@
 	self.tableView.separatorColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(76, 76, 76) : BUY_RGB(217, 217, 217);
 	self.backgroundColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(26, 26, 26) : BUY_RGB(255, 255, 255);
 	self.backgroundImageView.hidden = _theme.showsProductImageBackground == NO;
-	self.poweredByShopifyLabel.backgroundColor = self.backgroundColor;
 	self.poweredByShopifyLabel.textColor = self.tableView.separatorColor;
 }
 
