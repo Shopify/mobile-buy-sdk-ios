@@ -378,7 +378,23 @@
 
 - (void)checkoutWithShopify
 {
-	[self startWebCheckout:[self checkout]];
+	[_productView.productViewFooter.checkoutButton showActivityIndicator:YES];
+
+	if ([self.delegate respondsToSelector:@selector(controllerWillCheckoutViaWeb:)]) {
+		[self.delegate controllerWillCheckoutViaWeb:self];
+	}
+	
+	[self handleCheckout:[self checkout] completion:^(BUYCheckout *checkout, NSError *error) {
+		
+		[_productView.productViewFooter.checkoutButton showActivityIndicator:NO];
+		
+		if (error == nil) {
+			[[UIApplication sharedApplication] openURL:checkout.webCheckoutURL];
+		}
+		else {
+			[self.delegate controller:self failedToCreateCheckout:error];
+		}
+	}];
 }
 
 #pragma mark UIStatusBar appearance

@@ -11,6 +11,7 @@
 @interface BUYCheckoutButton ()
 
 @property (nonatomic, weak) BUYTheme *theme;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -29,6 +30,37 @@
 	self.backgroundColor = self.tintColor;
 	UIColor *textColor = theme.style == BUYThemeStyleLight ? [UIColor whiteColor] : [UIColor blackColor];
 	[self setTitleColor:textColor forState:UIControlStateNormal];
+}
+
+- (UIActivityIndicatorView *)activityIndicator
+{
+	if (_activityIndicator == nil) {
+		
+		UIActivityIndicatorViewStyle style = self.theme.style == BUYThemeStyleLight ? UIActivityIndicatorViewStyleWhite : UIActivityIndicatorViewStyleGray;
+		_activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:style];
+		_activityIndicator.translatesAutoresizingMaskIntoConstraints = NO;
+		_activityIndicator.hidesWhenStopped = YES;
+		[self addSubview:_activityIndicator];
+		
+		NSDictionary *views = NSDictionaryOfVariableBindings(_activityIndicator);
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_activityIndicator]|" options:0 metrics:nil views:views]];
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_activityIndicator]|" options:0 metrics:nil views:views]];
+	}
+	
+	return _activityIndicator;
+}
+
+- (void)showActivityIndicator:(BOOL)show
+{
+	if (show) {
+		[self.activityIndicator startAnimating];
+		[self setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+	}
+	else {
+		[self.activityIndicator stopAnimating];
+		UIColor *textColor = self.theme.style == BUYThemeStyleLight ? [UIColor whiteColor] : [UIColor blackColor];
+		[self setTitleColor:textColor forState:UIControlStateNormal];
+	}
 }
 
 @end

@@ -208,4 +208,12 @@
  */
 - (void)checkoutCompleted:(BUYCheckout *)checkout status:(BUYStatus)status;
 
+/**
+ *  Override point to have custom post-checkout creation logic
+ *
+ *  @param checkout   the created checkout
+ *  @param completion callback upon completion
+ */
+- (void)handleCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)completion;
+
 @end
