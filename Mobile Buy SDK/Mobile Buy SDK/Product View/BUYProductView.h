@@ -25,6 +25,7 @@
 @property (nonatomic, strong) BUYProductViewFooter *productViewFooter;
 @property (nonatomic, strong) BUYGradientView *topGradientView;
 @property (nonatomic, weak) BUYTheme *theme;
+@property (nonatomic, assign) BOOL hasSetVariantOnCollectionView;
 
 - (instancetype)initWithFrame:(CGRect)rect theme:(BUYTheme*)theme;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView;
