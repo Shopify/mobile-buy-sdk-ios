@@ -148,6 +148,7 @@
 	self.view.backgroundColor = backgroundColor;
 	self.productView.theme = theme;
 	self.activityIndicatorView.activityIndicatorViewStyle = (_theme.style == BUYThemeStyleDark) ? UIActivityIndicatorViewStyleWhite : UIActivityIndicatorViewStyleGray;
+	[self setNeedsStatusBarAppearanceUpdate];
 }
 
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source
