@@ -33,6 +33,7 @@
 @property (nonatomic, assign) BOOL shouldShowDescription;
 @property (nonatomic, strong) BUYProduct *product;
 @property (nonatomic, assign) BOOL isLoading;
+@property (nonatomic, assign) BOOL hasSetVariantOnCollectionView;
 
 // views
 @property (nonatomic, strong) BUYProductView *productView;
@@ -114,8 +115,9 @@
 - (void)viewDidLayoutSubviews
 {
 	[super viewDidLayoutSubviews];
-	if (CGSizeEqualToSize(self.productView.productViewHeader.collectionView.bounds.size, CGSizeZero) == NO) {
+	if (CGSizeEqualToSize(self.productView.productViewHeader.collectionView.bounds.size, CGSizeZero) == NO && self.hasSetVariantOnCollectionView == NO) {
 		[self setSelectedProductVariant:self.selectedProductVariant];
+		self.hasSetVariantOnCollectionView = YES;
 	}
 }
 
