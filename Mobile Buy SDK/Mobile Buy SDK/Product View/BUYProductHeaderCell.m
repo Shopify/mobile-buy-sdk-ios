@@ -79,7 +79,7 @@
 	self.titleLabel.text = productVariant.product.title;
 	
 	if (productVariant.available == NO) {
-		self.priceLabel.text = @"SOLD OUT";
+		self.priceLabel.text = @"Sold Out";
 		self.comparePriceLabel.attributedText = nil;
 	} else {
 		if (self.currency) {
