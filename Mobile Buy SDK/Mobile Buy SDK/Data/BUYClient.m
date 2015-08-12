@@ -48,6 +48,8 @@ NSString * const BUYVersionString = @"1.1.1";
 
 @implementation BUYClient
 
+- (instancetype)init { return nil; }
+
 - (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey channelId:(NSString *)channelId
 {
 	if (shopDomain.length == 0 && apiKey.length == 0 && channelId.length == 0) {

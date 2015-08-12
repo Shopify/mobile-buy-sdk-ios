@@ -12,6 +12,12 @@
 #import "BUYTestConstants.h"
 #import "BUYAddress+Additions.h"
 
+@interface BUYClient ()
+
++ (BUYStatus)statusForStatusCode:(NSUInteger)statusCode error:(NSError *)error;
+
+@end
+
 @interface BUYClient_Test : BUYClient
 
 @end
@@ -185,6 +191,58 @@
 	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
 		XCTAssertNil(error);
 	}];
+}
+
+- (void)testMerchantId
+{
+	NSString *merchantId = @"com.merchant.id";
+	
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+	[_client enableApplePayWithMerchantId:merchantId];
+	
+	XCTAssertEqualObjects(merchantId, _client.merchantId);
+#pragma GCC diagnostic pop
+}
+
+- (void)testStatusCodeConversions
+{
+	BUYStatus status = [BUYClient statusForStatusCode:412 error:nil];
+	XCTAssertEqual(BUYStatusPreconditionFailed, status);
+	
+	status = [BUYClient statusForStatusCode:404 error:nil];
+	XCTAssertEqual(BUYStatusNotFound, status);
+	
+	status = [BUYClient statusForStatusCode:0 error:[NSError errorWithDomain:@"" code:-1 userInfo:nil]];
+	XCTAssertEqual(BUYStatusFailed, status);
+	
+	status = [BUYClient statusForStatusCode:424 error:nil];
+	XCTAssertEqual(BUYStatusFailed, status);
+	
+	status = [BUYClient statusForStatusCode:202 error:nil];
+	XCTAssertEqual(BUYStatusProcessing, status);
+	
+	status = [BUYClient statusForStatusCode:200 error:nil];
+	XCTAssertEqual(BUYStatusComplete, status);
+}
+
+- (void)testCheckoutWithApplePayToken
+{
+	__block int callbackCount = 0;
+	
+	[_client completeCheckout:nil withApplePayToken:[PKPaymentToken new] completion:^(BUYCheckout *checkout, NSError *error) {
+		callbackCount++;
+		XCTAssertEqual(error.code, BUYShopifyError_InvalidCheckoutObject);
+	}];
+	
+	BUYCheckout *checkout = [[BUYCheckout alloc] initWithDictionary:@{@"token": @"abcdef", @"payment_due": @0}];
+
+	[_client completeCheckout:checkout withApplePayToken:nil completion:^(BUYCheckout *checkout, NSError *error) {
+		callbackCount++;
+		XCTAssertEqual(error.code, BUYShopifyError_NoApplePayTokenSpecified);
+	}];
+	
+	XCTAssertEqual(callbackCount, 2);
 }
 
 @end
