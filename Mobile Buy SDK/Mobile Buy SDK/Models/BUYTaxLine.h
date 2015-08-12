@@ -14,8 +14,19 @@
  */
 @interface BUYTaxLine : BUYObject
 
+/**
+ *  The amount of tax to be charged.
+ */
 @property (nonatomic, strong) NSDecimalNumber *price;
+
+/**
+ *  The rate of tax to be applied.
+ */
 @property (nonatomic, strong) NSDecimalNumber *rate;
+
+/**
+ *  The name of the tax.
+ */
 @property (nonatomic, copy) NSString *title;
 
 @end

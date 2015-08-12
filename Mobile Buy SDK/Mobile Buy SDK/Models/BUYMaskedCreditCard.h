@@ -12,7 +12,6 @@
  */
 @interface BUYMaskedCreditCard : BUYObject
 
-
 /**
  *  The first name on the credit card
  */
