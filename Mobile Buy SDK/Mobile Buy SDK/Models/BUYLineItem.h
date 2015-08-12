@@ -53,7 +53,6 @@
  */
 @property (nonatomic, strong) NSDecimalNumber *linePrice;
 
-
 /**
  *  The competitor's prices for the same item.
  */

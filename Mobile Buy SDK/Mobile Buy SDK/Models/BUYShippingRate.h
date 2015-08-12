@@ -14,9 +14,24 @@
  */
 @interface BUYShippingRate : BUYObject <BUYSerializable>
 
+/**
+ *  A reference to the shipping method.
+ */
 @property (nonatomic, strong, readonly) NSString *shippingRateIdentifier;
+
+/**
+ *  The shipping method name.
+ */
 @property (nonatomic, strong, readonly) NSString *title;
+
+/**
+ *  The price of this shipping method.
+ */
 @property (nonatomic, strong, readonly) NSDecimalNumber *price;
+
+/**
+ *  One or two NSDate objects of the potential delivery dates.
+ */
 @property (nonatomic, strong, readonly) NSArray *deliveryRange;
 
 @end
