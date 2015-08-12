@@ -29,5 +29,6 @@
 
 - (instancetype)initWithFrame:(CGRect)rect theme:(BUYTheme*)theme;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView;
+- (void)updateBackgroundImage:(NSArray *)images;
 
 @end

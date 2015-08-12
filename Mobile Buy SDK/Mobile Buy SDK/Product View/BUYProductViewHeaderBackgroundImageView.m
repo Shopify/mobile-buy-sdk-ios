@@ -64,8 +64,9 @@
 
 - (void)setBackgroundProductImage:(BUYImage *)image
 {
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", image.src]];
-	[self.productImageView loadImageWithURL:url completion:NULL];
+	NSString *string = [image.src stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@".%@", [image.src pathExtension]] withString:[NSString stringWithFormat:@"_small.%@", [image.src pathExtension]]];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", string]];
+	[self.productImageView loadImageWithURL:url animateChange:YES completion:NULL];
 }
 
 @end

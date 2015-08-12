@@ -16,6 +16,7 @@ extern float const imageDuration;
 @property (nonatomic, assign) BOOL showsActivityIndicator;
 
 - (void)loadImageWithURL:(NSURL *)imageURL completion:(void (^)(UIImage *image, NSError *error))completion;
+- (void)loadImageWithURL:(NSURL *)imageURL animateChange:(BOOL)animateChange completion:(void (^)(UIImage *image, NSError *error))completion;
 - (void)cancelImageTask;
 - (BOOL)isPortraitOrSquare;
 
