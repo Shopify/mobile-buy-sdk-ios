@@ -70,6 +70,9 @@ float const imageDuration = 0.1f;
 							}];
 		} else {
 			self.image = image;
+			if (completion) {
+				completion(image, error);
+			}
 		}
 	}];
 }
