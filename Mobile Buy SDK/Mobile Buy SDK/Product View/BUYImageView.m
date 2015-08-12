@@ -50,16 +50,44 @@ float const imageDuration = 0.1f;
 
 - (void)loadImageWithURL:(NSURL *)imageURL completion:(void (^)(UIImage *image, NSError *error))completion
 {
+	[self loadImageWithURL:imageURL setImage:YES completion:completion];
+}
+
+- (void)loadImageWithURL:(NSURL *)imageURL animateChange:(BOOL)animateChange completion:(void (^)(UIImage *image, NSError *error))completion
+{
+	[self loadImageWithURL:imageURL setImage:NO completion:^(UIImage *image, NSError *error) {
+		if (animateChange) {
+			[UIView transitionWithView:self
+							  duration:0.15f
+							   options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState)
+							animations:^{
+								self.image = image;
+							}
+							completion:^(BOOL finished) {
+								if (completion) {
+									completion(image, error);
+								}
+							}];
+		} else {
+			self.image = image;
+		}
+	}];
+}
+
+- (void)loadImageWithURL:(NSURL *)imageURL setImage:(BOOL)setImage completion:(void (^)(UIImage *image, NSError *error))completion
+{
 	if (self.task) {
 		[self cancelImageTask];
 	}
-    if (self.showsActivityIndicator) {
-        [self.activityIndicatorView startAnimating];
-    }
+	if (self.showsActivityIndicator) {
+		[self.activityIndicatorView startAnimating];
+	}
 	self.task = [[NSURLSession sharedSession] dataTaskWithURL:imageURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
 		dispatch_async(dispatch_get_main_queue(), ^{
 			UIImage *image = [UIImage imageWithData:data];
-			self.image = image;
+			if (setImage) {
+				self.image = image;
+			}
 			[self.activityIndicatorView stopAnimating];
 			if (completion) {
 				completion(image, error);

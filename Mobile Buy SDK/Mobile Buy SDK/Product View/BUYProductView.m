@@ -178,6 +178,19 @@
 	self.poweredByShopifyLabel.textColor = self.tableView.separatorColor;
 }
 
+- (void)updateBackgroundImage:(NSArray *)images
+{
+	if ([images count] > 0) {
+		NSInteger page = 0;
+		if (CGSizeEqualToSize(self.productViewHeader.collectionView.contentSize, CGSizeZero) == NO) {
+			page = (int)(self.productViewHeader.collectionView.contentOffset.x / self.productViewHeader.collectionView.frame.size.width);
+		}
+		[self.productViewHeader setCurrentPage:page];
+		BUYImage *image = images[page];
+		[self.backgroundImageView setBackgroundProductImage:image];
+	}
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
 	CGFloat imageHeight = [self.productViewHeader imageHeightWithScrollViewDidScroll:scrollView];

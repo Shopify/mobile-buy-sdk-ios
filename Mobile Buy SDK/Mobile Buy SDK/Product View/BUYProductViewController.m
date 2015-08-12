@@ -326,7 +326,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 	}
 	if (self.productView.productViewHeader.collectionView) {
 		[self.productView.productViewHeader setImageForSelectedVariant:_selectedProductVariant withImages:self.product.images];
-		[self updateProductBackgroundImage];
+		[self.productView updateBackgroundImage:self.product.images];
 	}
 	if (self.productView.productViewFooter) {
 		[self.productView.productViewFooter updateButtonsForProductVariant:selectedProductVariant];
@@ -376,20 +376,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
 	if ([scrollView isKindOfClass:[UICollectionView class]]) {
-		[self updateProductBackgroundImage];
-	}
-}
-
-- (void)updateProductBackgroundImage
-{
-	if ([self.product.images count] > 0) {
-		NSInteger page = 0;
-		if (CGSizeEqualToSize(self.productView.productViewHeader.collectionView.contentSize, CGSizeZero) == NO) {
-			page = (int)(self.productView.productViewHeader.collectionView.contentOffset.x / self.productView.productViewHeader.collectionView.frame.size.width);
-		}
-		[self.productView.productViewHeader setCurrentPage:page];
-		BUYImage *image = self.product.images[page];
-		[self.productView.backgroundImageView setBackgroundProductImage:image];
+		[self.productView updateBackgroundImage:self.product.images];
 	}
 }
 
