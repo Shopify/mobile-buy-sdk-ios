@@ -382,16 +382,13 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 
 - (void)updateProductBackgroundImage
 {
-	NSInteger page = [self.product.images count] > 0 ? 0 : 0;
-	if (self.productView.productViewHeader.collectionView.contentSize.width > 0) {
-		page =  (int)(self.productView.productViewHeader.collectionView.contentOffset.x / self.productView.productViewHeader.collectionView.frame.size.width);
-	}
-	if (page >= 0) {
+	if ([self.product.images count] > 0) {
+		NSInteger page = 0;
+		if (CGSizeEqualToSize(self.productView.productViewHeader.collectionView.contentSize, CGSizeZero) == NO) {
+			page = (int)(self.productView.productViewHeader.collectionView.contentOffset.x / self.productView.productViewHeader.collectionView.frame.size.width);
+		}
 		[self.productView.productViewHeader setCurrentPage:page];
 		BUYImage *image = self.product.images[page];
-		if (image == nil) {
-			image = self.product.images.firstObject;
-		}
 		[self.productView.backgroundImageView setBackgroundProductImage:image];
 	}
 }
