@@ -257,9 +257,9 @@
 	self.errorView.errorLabel.text = errorMessage;
 	[NSLayoutConstraint deactivateConstraints:@[self.errorView.hiddenConstraint]];
 	[NSLayoutConstraint activateConstraints:@[self.errorView.visibleConstraint]];
-	[UIView animateWithDuration:0.3
+	[UIView animateWithDuration:0.3f
 						  delay:0
-		 usingSpringWithDamping:0.8
+		 usingSpringWithDamping:0.8f
 		  initialSpringVelocity:10
 						options:0
 					 animations:^{
@@ -275,9 +275,9 @@
 {
 	[NSLayoutConstraint deactivateConstraints:@[self.errorView.visibleConstraint]];
 	[NSLayoutConstraint activateConstraints:@[self.errorView.hiddenConstraint]];
-	[UIView animateWithDuration:0.3
+	[UIView animateWithDuration:0.3f
 						  delay:0
-		 usingSpringWithDamping:0.9
+		 usingSpringWithDamping:0.9f
 		  initialSpringVelocity:3
 						options:0
 					 animations:^{

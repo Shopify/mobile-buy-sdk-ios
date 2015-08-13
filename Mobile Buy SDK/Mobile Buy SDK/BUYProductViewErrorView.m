@@ -31,7 +31,7 @@
 		
 		UIView *redTintOverlayView = [[UIView alloc] init];
 		redTintOverlayView.translatesAutoresizingMaskIntoConstraints = NO;
-		redTintOverlayView.backgroundColor = [BUY_RGB(221, 93, 93) colorWithAlphaComponent:0.8];
+		redTintOverlayView.backgroundColor = [BUY_RGB(221, 93, 93) colorWithAlphaComponent:0.8f];
 		[visualEffectView.contentView addSubview:redTintOverlayView];
 		[visualEffectView.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[redTintOverlayView]|"
 																							 options:0
