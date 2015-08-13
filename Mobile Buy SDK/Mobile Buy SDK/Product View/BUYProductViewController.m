@@ -45,6 +45,8 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 @property (nonatomic, strong) BUYProductVariantCell *variantCell;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
 
+@property (nonatomic, strong) BUYCheckout *checkout;
+
 @end
 
 @implementation BUYProductViewController
@@ -389,20 +391,16 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 	return cart;
 }
 
-- (BUYCheckout *)checkout
-{
-	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:[self cart]];
-	return checkout;
-}
-
 - (void)checkoutWithApplePay
 {
-	[self startApplePayCheckout:[self checkout]];
+	self.checkout = [[BUYCheckout alloc] initWithCart:[self cart]];
+	[self startApplePayCheckout:self.checkout];
 }
 
 - (void)checkoutWithShopify
 {
-	[self startWebCheckout:[self checkout]];
+	self.checkout = [[BUYCheckout alloc] initWithCart:[self cart]];
+	[self startWebCheckout:self.checkout];
 }
 
 - (void)startWebCheckout:(BUYCheckout *)checkout
@@ -483,6 +481,8 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 
 - (void)presentationControllerDidDismiss:(UIPresentationController *)presentationController
 {
+	[self.delegate controller:self didCompleteCheckout:self.checkout status:BUYStatusUnknown];
+	
 	_product = nil;
 	_productId = nil;
 	[_productView removeFromSuperview];
