@@ -421,13 +421,10 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 			[[UIApplication sharedApplication] openURL:checkout.webCheckoutURL];
 		}
 		else {
-			
 			if ([self.delegate respondsToSelector:@selector(controller:failedToCreateCheckout:)]) {
 				[self.delegate controller:self failedToCreateCheckout:error];
 			}
-			else {
-				[self.productView showErrorWithMessage:@"Could not checkout at this time"];
-			}
+			[self.productView showErrorWithMessage:@"Could not checkout at this time"];
 		}
 	}];
 }
