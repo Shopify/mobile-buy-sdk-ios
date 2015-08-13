@@ -9,8 +9,6 @@
 #import <Buy/Buy.h>
 #import "BUYTheme.h"
 
-@protocol BUYProductViewControllerDelegate;
-
 @interface BUYProductViewController : BUYViewController <BUYThemeable>
 
 /**
