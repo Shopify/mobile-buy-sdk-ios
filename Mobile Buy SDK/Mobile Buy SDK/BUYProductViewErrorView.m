@@ -59,8 +59,6 @@
 																	 options:0
 																	 metrics:nil
 																	   views:NSDictionaryOfVariableBindings(_errorLabel)]];
-		
-		_errorLabel.text = @"Testing error message";
 	}
 	return self;
 }
