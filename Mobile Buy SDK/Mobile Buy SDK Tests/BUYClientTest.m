@@ -131,33 +131,6 @@
 	XCTAssertEqualObjects(dict, json);
 }
 
-- (void)testCallbackQueue
-{
-	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	XCTestExpectation *expectation2 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	
-	[_client getShop:^(BUYShop *shop, NSError *error) {
-		
-		BOOL isMainThread = [NSThread isMainThread];
-		XCTAssertTrue(isMainThread);
-		[expectation fulfill];
-	}];
-	
-	BUYClient *testClient = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
-	testClient.queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-	
-	[testClient getShop:^(BUYShop *shop, NSError *error) {
-		BOOL isMainThread = [NSThread isMainThread];
-		XCTAssertFalse(isMainThread);
-		[expectation2 fulfill];
-	}];
-	
-	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
-		XCTAssertNil(error);
-	}];
-}
-
-
 - (void)testCheckoutPaymentWithOnlyGiftCard
 {
 	BUYCheckout *checkout = [[BUYCheckout alloc] initWithDictionary:@{@"token": @"abcdef", @"payment_due": @0}];

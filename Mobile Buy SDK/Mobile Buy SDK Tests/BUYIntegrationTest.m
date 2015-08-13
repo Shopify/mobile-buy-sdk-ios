@@ -97,24 +97,6 @@
 	NSLog(@"Fetched products (Pages: %d, Count: %d)", (int)(currentPage + 1), (int)[_products count]);
 }
 
-- (void)testFetchInvalidProductId
-{
-	[_checkoutClient getProductById:@"123456789" completion:^(BUYProduct *product, NSError *error) {
-		XCTAssertNil(product);
-		XCTAssertNotNil(error);
-		XCTAssertEqual(error.code, BUYShopifyError_InvalidProductID);
-	}];
-}
-
-- (void)testFetchInvalidProductIds
-{
-	[_checkoutClient getProductsByIds:@[@"123456789", @"987654321"] completion:^(NSArray *products, NSError *error) {
-		XCTAssertNil(products);
-		XCTAssertNotNil(error);
-		XCTAssertEqual(error.code, BUYShopifyError_InvalidProductID);
-	}];
-}
-
 - (void)createCart
 {
 	_cart = [[BUYCart alloc] init];
@@ -922,6 +904,32 @@
 		_checkout = returnedCheckout;
 		XCTAssertEqual(1, [_checkout.lineItems count]);
 		XCTAssertEqual(0, _checkout.reservationTime.intValue);
+		[expectation2 fulfill];
+	}];
+	
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
+- (void)testCallbackQueue
+{
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	XCTestExpectation *expectation2 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	
+	[_checkoutClient getShop:^(BUYShop *shop, NSError *error) {
+		
+		BOOL isMainThread = [NSThread isMainThread];
+		XCTAssertTrue(isMainThread);
+		[expectation fulfill];
+	}];
+	
+	BUYClient *testClient = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
+	testClient.queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+	
+	[testClient getShop:^(BUYShop *shop, NSError *error) {
+		BOOL isMainThread = [NSThread isMainThread];
+		XCTAssertFalse(isMainThread);
 		[expectation2 fulfill];
 	}];
 	
