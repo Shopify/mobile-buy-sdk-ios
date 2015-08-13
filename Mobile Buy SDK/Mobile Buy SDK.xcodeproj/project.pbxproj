@@ -42,6 +42,8 @@
 		900396F71B69563400226B73 /* BUYCollection+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 900396F51B69563400226B73 /* BUYCollection+Additions.m */; };
 		900E7C841B5DA553006F3C81 /* BUYImageKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 900E7C811B5DA32F006F3C81 /* BUYImageKit.h */; };
 		900E7C851B5DA559006F3C81 /* BUYImageKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 900E7C821B5DA32F006F3C81 /* BUYImageKit.m */; };
+		903BCC7C1B7D1C2D00C21FEB /* BUYProductViewErrorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 903BCC7A1B7D1C2D00C21FEB /* BUYProductViewErrorView.h */; };
+		903BCC7D1B7D1C2D00C21FEB /* BUYProductViewErrorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 903BCC7B1B7D1C2D00C21FEB /* BUYProductViewErrorView.m */; };
 		904606AF1B6BC8D700754173 /* BUYProductImageCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 904606AD1B6BC8D700754173 /* BUYProductImageCollectionViewCell.h */; };
 		904606B01B6BC8D700754173 /* BUYProductImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 904606AE1B6BC8D700754173 /* BUYProductImageCollectionViewCell.m */; };
 		907874991B7276BA0023775B /* BUYProductViewHeaderOverlay.h in Headers */ = {isa = PBXBuildFile; fileRef = 907874971B7276BA0023775B /* BUYProductViewHeaderOverlay.h */; };
@@ -238,6 +240,8 @@
 		900396F51B69563400226B73 /* BUYCollection+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYCollection+Additions.m"; sourceTree = "<group>"; };
 		900E7C811B5DA32F006F3C81 /* BUYImageKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYImageKit.h; sourceTree = "<group>"; };
 		900E7C821B5DA32F006F3C81 /* BUYImageKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYImageKit.m; sourceTree = "<group>"; };
+		903BCC7A1B7D1C2D00C21FEB /* BUYProductViewErrorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYProductViewErrorView.h; sourceTree = "<group>"; };
+		903BCC7B1B7D1C2D00C21FEB /* BUYProductViewErrorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYProductViewErrorView.m; sourceTree = "<group>"; };
 		904606AD1B6BC8D700754173 /* BUYProductImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYProductImageCollectionViewCell.h; sourceTree = "<group>"; };
 		904606AE1B6BC8D700754173 /* BUYProductImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYProductImageCollectionViewCell.m; sourceTree = "<group>"; };
 		904FB6001AE03D4500EA1758 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Mobile Buy SDK/Info.plist"; sourceTree = "<group>"; };
@@ -495,36 +499,38 @@
 		90FC31AB1B50589800AFAB51 /* Product View */ = {
 			isa = PBXGroup;
 			children = (
-				90FC31AA1B50576400AFAB51 /* Variant Selection */,
-				BE2E1D371B599039009610DA /* Cells */,
-				905AA96F1B3B32A500CAE037 /* BUYPaymentButton.h */,
-				905AA9701B3B32A500CAE037 /* BUYPaymentButton.m */,
+				900396AE1B67BD0A00226B73 /* BUYCheckoutButton.h */,
+				900396AF1B67BD0A00226B73 /* BUYCheckoutButton.m */,
 				90516CB21B4EE5E700E35E45 /* BUYGradientView.h */,
 				90516CB31B4EE5E700E35E45 /* BUYGradientView.m */,
 				90516CAE1B4EC9FE00E35E45 /* BUYImageView.h */,
 				90516CAF1B4EC9FE00E35E45 /* BUYImageView.m */,
 				90516CC11B4F1ED700E35E45 /* BUYNavigationController.h */,
 				90516CC21B4F1ED700E35E45 /* BUYNavigationController.m */,
+				905AA96F1B3B32A500CAE037 /* BUYPaymentButton.h */,
+				905AA9701B3B32A500CAE037 /* BUYPaymentButton.m */,
 				90516CBD1B4F110A00E35E45 /* BUYPresentationControllerWithNavigationController.h */,
 				90516CBE1B4F110A00E35E45 /* BUYPresentationControllerWithNavigationController.m */,
-				905ECCC01B4C39710094F336 /* BUYProductViewController.h */,
-				905ECCC11B4C39710094F336 /* BUYProductViewController.m */,
-				900396AA1B627CB900226B73 /* BUYProductView.h */,
-				900396AB1B627CB900226B73 /* BUYProductView.m */,
-				907874971B7276BA0023775B /* BUYProductViewHeaderOverlay.h */,
-				907874981B7276BA0023775B /* BUYProductViewHeaderOverlay.m */,
-				90516C791B4C589A00E35E45 /* BUYProductViewFooter.h */,
-				90516C7A1B4C589A00E35E45 /* BUYProductViewFooter.m */,
-				900396AE1B67BD0A00226B73 /* BUYCheckoutButton.h */,
-				900396AF1B67BD0A00226B73 /* BUYCheckoutButton.m */,
-				90516C851B4C6F7000E35E45 /* BUYProductViewHeader.h */,
-				90516C861B4C6F7000E35E45 /* BUYProductViewHeader.m */,
 				904606AD1B6BC8D700754173 /* BUYProductImageCollectionViewCell.h */,
 				904606AE1B6BC8D700754173 /* BUYProductImageCollectionViewCell.m */,
+				900396AA1B627CB900226B73 /* BUYProductView.h */,
+				900396AB1B627CB900226B73 /* BUYProductView.m */,
+				905ECCC01B4C39710094F336 /* BUYProductViewController.h */,
+				905ECCC11B4C39710094F336 /* BUYProductViewController.m */,
+				903BCC7A1B7D1C2D00C21FEB /* BUYProductViewErrorView.h */,
+				903BCC7B1B7D1C2D00C21FEB /* BUYProductViewErrorView.m */,
+				90516C791B4C589A00E35E45 /* BUYProductViewFooter.h */,
+				90516C7A1B4C589A00E35E45 /* BUYProductViewFooter.m */,
+				90516C851B4C6F7000E35E45 /* BUYProductViewHeader.h */,
+				90516C861B4C6F7000E35E45 /* BUYProductViewHeader.m */,
 				90FC31A61B50371600AFAB51 /* BUYProductViewHeaderBackgroundImageView.h */,
 				90FC31A71B50371600AFAB51 /* BUYProductViewHeaderBackgroundImageView.m */,
+				907874971B7276BA0023775B /* BUYProductViewHeaderOverlay.h */,
+				907874981B7276BA0023775B /* BUYProductViewHeaderOverlay.m */,
 				90516CB61B4F0DD500E35E45 /* BUYTheme.h */,
 				90516CB71B4F0DD500E35E45 /* BUYTheme.m */,
+				BE2E1D371B599039009610DA /* Cells */,
+				90FC31AA1B50576400AFAB51 /* Variant Selection */,
 			);
 			name = "Product View";
 			sourceTree = "<group>";
@@ -797,6 +803,7 @@
 				90A446251B5EC03F009602AA /* NSDateFormatter+BUYAdditions.h in Headers */,
 				BE47340F1B66C4EF00AA721A /* BUYError.h in Headers */,
 				BEB74A6D1B5564200005A300 /* BUYProductHeaderCell.h in Headers */,
+				903BCC7C1B7D1C2D00C21FEB /* BUYProductViewErrorView.h in Headers */,
 				BE9A64471B503C8B0033E558 /* BUYClient.h in Headers */,
 				BEB74A851B5580B20005A300 /* Buy-Bridging-Header.h in Headers */,
 				BEB74A651B5563FF0005A300 /* BUYGradientView.h in Headers */,
@@ -1023,6 +1030,7 @@
 				BEB74A701B5564290005A300 /* BUYProductVariantCell.m in Sources */,
 				BEB74A2C1B554C370005A300 /* BUYTheme.m in Sources */,
 				BE1007961B6038150031CEE7 /* BUYProductVariant+Options.m in Sources */,
+				903BCC7D1B7D1C2D00C21FEB /* BUYProductViewErrorView.m in Sources */,
 				BE9A645C1B503CE00033E558 /* BUYLineItem.m in Sources */,
 				BEB74A911B55A3D00005A300 /* BUYCollection.m in Sources */,
 				900396B11B67BD0A00226B73 /* BUYCheckoutButton.m in Sources */,

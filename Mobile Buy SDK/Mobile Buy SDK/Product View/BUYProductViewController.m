@@ -345,7 +345,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 		if (self.navigationBar) {
 			if (self.navigationBar.alpha != 1 && [self navigationBarThresholdReached] == YES) {
 				[(BUYNavigationController*)self.navigationController updateCloseButtonImageWithDarkStyle:YES];
-
+				
 				[UIView animateWithDuration:0.3f
 									  delay:0
 									options:(UIViewAnimationOptionCurveLinear | UIViewKeyframeAnimationOptionBeginFromCurrentState)
@@ -357,7 +357,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 								 completion:NULL];
 			} else if (self.navigationBar.alpha != 0 && [self navigationBarThresholdReached] == NO)  {
 				[(BUYNavigationController*)self.navigationController updateCloseButtonImageWithDarkStyle:NO];
-
+				
 				[UIView animateWithDuration:0.20f
 									  delay:0
 									options:(UIViewAnimationOptionCurveLinear | UIViewKeyframeAnimationOptionBeginFromCurrentState)
@@ -414,9 +414,9 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 	[_productView.productViewFooter.checkoutButton showActivityIndicator:YES];
 	
 	[self handleCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
-	
+		
 		[_productView.productViewFooter.checkoutButton showActivityIndicator:NO];
-
+		
 		if (error == nil) {
 			[[UIApplication sharedApplication] openURL:checkout.webCheckoutURL];
 		}
@@ -426,9 +426,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 				[self.delegate controller:self failedToCreateCheckout:error];
 			}
 			else {
-				UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Could not checkout at this time" preferredStyle:UIAlertControllerStyleAlert];
-				[alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
-				[self presentViewController:alert animated:YES completion:nil];
+				[self.productView showErrorWithMessage:@"Could not checkout at this time"];
 			}
 		}
 	}];
@@ -460,7 +458,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 {
 	return UIStatusBarAnimationFade;
 }
-		
+
 - (BOOL)navigationBarThresholdReached
 {
 	return self.productView.tableView.contentOffset.y > CGRectGetHeight(self.productView.productViewHeader.bounds) - CGRectGetHeight(self.navigationBar.bounds);

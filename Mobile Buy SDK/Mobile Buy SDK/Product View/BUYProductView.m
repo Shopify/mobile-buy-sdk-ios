@@ -17,11 +17,13 @@
 #import "BUYProductHeaderCell.h"
 #import "BUYImage.h"
 #import "BUYImageView.h"
+#import "BUYProductViewErrorView.h"
 
 @interface BUYProductView ()
 
 @property (nonatomic, strong) UILabel *poweredByShopifyLabel;
 @property (nonatomic, strong) NSLayoutConstraint *poweredByShopifyLabelConstraint;
+@property (nonatomic, strong) BUYProductViewErrorView *errorView;
 
 @end
 
@@ -210,6 +212,82 @@
 	
 	CGFloat labelOffset = scrollView.contentSize.height - (scrollView.contentOffset.y + CGRectGetHeight(scrollView.bounds));
 	self.poweredByShopifyLabelConstraint.constant = (CGRectGetHeight(scrollView.bounds) / 3) + labelOffset;
+}
+
+#pragma mark - Error Handling
+
+- (BUYProductViewErrorView *)errorView
+{
+	if (_errorView == nil) {
+		_errorView = [[BUYProductViewErrorView alloc] init];
+		_errorView.alpha = 0;
+		_errorView.translatesAutoresizingMaskIntoConstraints = NO;
+		[self insertSubview:_errorView belowSubview:self.productViewFooter];
+		
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_errorView]|"
+																	 options:0
+																	 metrics:nil
+																	   views:NSDictionaryOfVariableBindings(_errorView)]];
+		
+		_errorView.hiddenConstraint = [NSLayoutConstraint constraintWithItem:_errorView
+																   attribute:NSLayoutAttributeTop
+																   relatedBy:NSLayoutRelationEqual
+																	  toItem:self
+																   attribute:NSLayoutAttributeBottom
+																  multiplier:1.0
+																	constant:0.0];
+		[self addConstraint:_errorView.hiddenConstraint];
+		
+		_errorView.visibleConstraint = [NSLayoutConstraint constraintWithItem:_errorView
+																	attribute:NSLayoutAttributeBottom
+																	relatedBy:NSLayoutRelationEqual
+																	   toItem:self.productViewFooter
+																	attribute:NSLayoutAttributeTop
+																   multiplier:1.0
+																	 constant:0.0];
+		
+		[NSLayoutConstraint activateConstraints:@[_errorView.hiddenConstraint]];
+		[_errorView layoutIfNeeded];
+	}
+	return _errorView;
+}
+
+- (void)showErrorWithMessage:(NSString*)errorMessage
+{
+	self.errorView.errorLabel.text = errorMessage;
+	[NSLayoutConstraint deactivateConstraints:@[self.errorView.hiddenConstraint]];
+	[NSLayoutConstraint activateConstraints:@[self.errorView.visibleConstraint]];
+	[UIView animateWithDuration:0.3
+						  delay:0
+		 usingSpringWithDamping:0.8
+		  initialSpringVelocity:10
+						options:0
+					 animations:^{
+						 self.errorView.alpha = 1;
+						 [self.errorView layoutIfNeeded];
+					 }
+					 completion:^(BOOL finished) {
+						 [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(removeErrorView) userInfo:nil repeats:NO];
+					 }];
+}
+
+- (void)removeErrorView
+{
+	[NSLayoutConstraint deactivateConstraints:@[self.errorView.visibleConstraint]];
+	[NSLayoutConstraint activateConstraints:@[self.errorView.hiddenConstraint]];
+	[UIView animateWithDuration:0.3
+						  delay:0
+		 usingSpringWithDamping:0.9
+		  initialSpringVelocity:3
+						options:0
+					 animations:^{
+						 self.errorView.alpha = 0;
+						 [self.errorView layoutIfNeeded];
+					 }
+					 completion:^(BOOL finished) {
+						 [self.errorView removeFromSuperview];
+						 self.errorView = nil;
+					 }];
 }
 
 @end
