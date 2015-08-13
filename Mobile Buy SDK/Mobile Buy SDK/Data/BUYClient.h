@@ -435,6 +435,16 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
  */
 - (NSURLSessionDataTask *)getCompletionStatusOfCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutStatusBlock)block;
 
+/**
+ *  Retrieve the status of a checkout given a URL obtained in the UIApplicationDelegate method `application:sourceApplication:annotation`
+ *
+ *  @param url   The URL resource used to open the application
+ *  @param block    (^BUYDataCheckoutStatusBlock)(BUYCheckout *checkout, BUYStatus status, NSError *error);
+ *
+ *  @return The associated NSURLSessionDataTask
+ */
+- (NSURLSessionDataTask *)getCompletionStatusOfCheckoutURL:(NSURL *)url completion:(BUYDataCheckoutStatusBlock)block;
+
 #pragma mark - Shipping Rates
 
 /**

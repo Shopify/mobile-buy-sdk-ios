@@ -8,6 +8,7 @@
 
 #import "BUYProductViewFooter.h"
 #import "BUYTheme.h"
+#import "BUYProductVariant.h"
 
 @interface BUYProductViewFooter ()
 
@@ -113,6 +114,13 @@
 {
 	[super tintColorDidChange];
 	self.checkoutButton.backgroundColor = self.tintColor;
+}
+
+- (void)updateButtonsForProductVariant:(BUYProductVariant *)productVariant {
+	self.checkoutButton.enabled = productVariant.available;
+	self.checkoutButton.alpha = productVariant.available ? 1.0f : 0.5f;
+	self.buyPaymentButton.enabled = productVariant.available;
+	self.buyPaymentButton.alpha = productVariant.available ? 1.0f : 0.5f;
 }
 
 @end

@@ -17,6 +17,11 @@
 @interface BUYLineItem : BUYObject <BUYSerializable>
 
 /**
+ *  The unique line item identifier
+ */
+@property (nonatomic, strong, readonly) NSString *lineItemIdentifier;
+
+/**
  *  BUYProductVariant identifer. Keep a reference to a cart or products if you wish to 
  *  display information for product variants in a BUYCheckout
  */
@@ -47,7 +52,6 @@
  *  The line price of the item (price * quantity)
  */
 @property (nonatomic, strong) NSDecimalNumber *linePrice;
-
 
 /**
  *  The competitor's prices for the same item.

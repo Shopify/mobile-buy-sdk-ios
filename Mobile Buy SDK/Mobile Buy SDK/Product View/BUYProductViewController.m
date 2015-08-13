@@ -24,7 +24,10 @@
 #import "BUYProductViewHeaderBackgroundImageView.h"
 #import "BUYProductViewHeaderOverlay.h"
 
-@interface BUYProductViewController () <UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, BUYVariantSelectionDelegate, BUYPresentationControllerWithNavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
+CGFloat const BUYMaxProductViewWidth = 414.0; // We max out to the width of the iPhone 6+
+CGFloat const BUYMaxProductViewHeight = 640.0;
+
+@interface BUYProductViewController () <UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, BUYVariantSelectionDelegate, BUYNavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (nonatomic, strong) NSString *productId;
 @property (nonatomic, strong) BUYProductVariant *selectedProductVariant;
@@ -37,9 +40,10 @@
 // views
 @property (nonatomic, strong) BUYProductView *productView;
 @property (nonatomic, weak) UIView *navigationBar;
-@property (nonatomic, weak) UIView *navigationBarTitle;
+@property (nonatomic, weak) UILabel *navigationBarTitle;
 @property (nonatomic, strong) BUYProductHeaderCell *headerCell;
 @property (nonatomic, strong) BUYProductVariantCell *variantCell;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
 
 @end
 
@@ -53,15 +57,40 @@
 	if (self) {
 		self.modalPresentationStyle = UIModalPresentationCustom;
 		self.transitioningDelegate = self;
+		
+		_activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectZero];
+		_activityIndicatorView.translatesAutoresizingMaskIntoConstraints = NO;
+		_activityIndicatorView.hidesWhenStopped = YES;
+		[_activityIndicatorView startAnimating];
+		[self.view addSubview:_activityIndicatorView];
+		
+		[self.view addConstraint:[NSLayoutConstraint constraintWithItem:_activityIndicatorView
+															  attribute:NSLayoutAttributeCenterY
+															  relatedBy:NSLayoutRelationEqual
+																 toItem:self.view
+															  attribute:NSLayoutAttributeCenterY
+															 multiplier:1.0
+															   constant:0.0]];
+		
+		[self.view addConstraint:[NSLayoutConstraint constraintWithItem:_activityIndicatorView
+															  attribute:NSLayoutAttributeCenterX
+															  relatedBy:NSLayoutRelationEqual
+																 toItem:self.view
+															  attribute:NSLayoutAttributeCenterX
+															 multiplier:1.0
+															   constant:0.0]];
+		
+		self.theme = [[BUYTheme alloc] init];
 	}
 	return self;
 }
 
 - (BUYProductView *)productView
 {
-	if (_productView == nil) {
-		_productView = [[BUYProductView alloc] initWithTheme:self.theme];
+	if (_productView == nil && self.product != nil) {
+		_productView = [[BUYProductView alloc] initWithFrame:CGRectMake(0, 0, self.preferredContentSize.width, self.preferredContentSize.height) theme:self.theme];
 		_productView.translatesAutoresizingMaskIntoConstraints = NO;
+		_productView.hidden = YES;
 		[self.view addSubview:_productView];
 		[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_productView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_productView)]];
 		[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_productView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_productView)]];
@@ -78,44 +107,47 @@
 	return _productView;
 }
 
+- (CGSize)preferredContentSize
+{
+	return CGSizeMake(MIN(BUYMaxProductViewWidth, self.view.bounds.size.width),
+					  MIN(BUYMaxProductViewHeight, self.view.bounds.size.height));
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
 	[self setupNavigationBarAppearance];
+	[self.navigationController setNavigationBarHidden:self.isLoading];
 }
 
 - (void)viewDidLayoutSubviews
 {
 	[super viewDidLayoutSubviews];
-	[self.productView scrollViewDidScroll:self.productView.tableView];
-	[self setSelectedProductVariant:self.selectedProductVariant];
+	if (CGSizeEqualToSize(self.productView.productViewHeader.collectionView.bounds.size, CGSizeZero) == NO && self.productView.hasSetVariantOnCollectionView == NO) {
+		[self setSelectedProductVariant:self.selectedProductVariant];
+		self.productView.hasSetVariantOnCollectionView = YES;
+	}
 }
 
 - (void)setupNavigationBarAppearance
 {
-	if (self.navigationBar == nil) {
+	if (self.navigationBar == nil && _productView) {
 		for (UIView *view in [self.navigationController.navigationBar subviews]) {
 			if (CGRectGetHeight(view.bounds) >= 64) {
 				// Get a reference to the UINavigationBar
 				self.navigationBar = view;
+				self.navigationBar.alpha = 0;
 				continue;
-			} else if (CGRectGetMinX(view.frame) > 0 && [view.subviews count] == 1 && [view.subviews[0] isKindOfClass:[UILabel class]]) {
+			} else if ([view.subviews count] == 1 && [view.subviews[0] isKindOfClass:[UILabel class]]) {
 				// Get a reference to the UINavigationBar's title
-				self.navigationBarTitle = view;
+				self.navigationBarTitle = view.subviews[0];
+				self.navigationBarTitle.alpha = 0;
 				continue;
 			}
 		}
 		// Hide the navigation bar
 		[self scrollViewDidScroll:self.productView.tableView];
 	}
-}
-
-- (BUYTheme*)theme
-{
-	if (_theme == nil) {
-		_theme = [[BUYTheme alloc] init];
-	}
-	return _theme;
 }
 
 - (void)setTheme:(BUYTheme *)theme
@@ -125,13 +157,15 @@
 	UIColor *backgroundColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(26, 26, 26) : BUY_RGB(255, 255, 255);
 	self.view.backgroundColor = backgroundColor;
 	self.productView.theme = theme;
+	self.activityIndicatorView.activityIndicatorViewStyle = (_theme.style == BUYThemeStyleDark) ? UIActivityIndicatorViewStyleWhite : UIActivityIndicatorViewStyleGray;
+	[self setNeedsStatusBarAppearanceUpdate];
 }
 
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source
 {
 	BUYPresentationControllerWithNavigationController *presentationController = [[BUYPresentationControllerWithNavigationController alloc] initWithPresentedViewController:presented presentingViewController:presenting];
 	presentationController.delegate = presentationController;
-	presentationController.presentationDelegate = self;
+	presentationController.navigationDelegate = self;
 	[presentationController setTheme:self.theme];
 	return presentationController;
 }
@@ -203,6 +237,11 @@
 	self.selectedProductVariant = [_product.variants firstObject];
 	self.shouldShowVariantSelector = [_product isDefaultVariant] == NO;
 	self.shouldShowDescription = ([_product.htmlDescription length] == 0) == NO;
+	self.productView.hidden = NO;
+	[self setupNavigationBarAppearance];
+	[self.activityIndicatorView stopAnimating];
+	[self setNeedsStatusBarAppearanceUpdate];
+	[self.navigationController setNavigationBarHidden:NO];
 }
 
 - (void)setShop:(BUYShop *)shop
@@ -287,9 +326,14 @@
 	}
 	if (self.productView.productViewHeader.collectionView) {
 		[self.productView.productViewHeader setImageForSelectedVariant:_selectedProductVariant withImages:self.product.images];
-		[self updateProductBackgroundImage];
+		[self.productView updateBackgroundImage:self.product.images];
 	}
-	[self scrollViewDidScroll:self.productView.tableView];
+	if (self.productView.productViewFooter) {
+		[self.productView.productViewFooter updateButtonsForProductVariant:selectedProductVariant];
+	}
+	if (self.productView.tableView) {
+		[self scrollViewDidScroll:self.productView.tableView];
+	}
 }
 
 #pragma mark Scroll view delegate
@@ -300,23 +344,25 @@
 		[self.productView scrollViewDidScroll:scrollView];
 		if (self.navigationBar) {
 			if (self.navigationBar.alpha != 1 && [self navigationBarThresholdReached] == YES) {
-				[(BUYPresentationControllerWithNavigationController*)self.presentationController updateCloseButtonImageWithDarkStyle:YES];
-				[self setNeedsStatusBarAppearanceUpdate];
+				[(BUYNavigationController*)self.navigationController updateCloseButtonImageWithDarkStyle:YES];
+
 				[UIView animateWithDuration:0.3f
 									  delay:0
 									options:(UIViewAnimationOptionCurveLinear | UIViewKeyframeAnimationOptionBeginFromCurrentState)
 								 animations:^{
+									 [self setNeedsStatusBarAppearanceUpdate];
 									 self.navigationBar.alpha = 1;
 									 self.navigationBarTitle.alpha = 1;
 								 }
 								 completion:NULL];
 			} else if (self.navigationBar.alpha != 0 && [self navigationBarThresholdReached] == NO)  {
-				[(BUYPresentationControllerWithNavigationController*)self.presentationController updateCloseButtonImageWithDarkStyle:NO];
-				[self setNeedsStatusBarAppearanceUpdate];
+				[(BUYNavigationController*)self.navigationController updateCloseButtonImageWithDarkStyle:NO];
+
 				[UIView animateWithDuration:0.20f
 									  delay:0
 									options:(UIViewAnimationOptionCurveLinear | UIViewKeyframeAnimationOptionBeginFromCurrentState)
 								 animations:^{
+									 [self setNeedsStatusBarAppearanceUpdate];
 									 self.navigationBar.alpha = 0;
 									 self.navigationBarTitle.alpha = 0;
 								 }
@@ -330,23 +376,7 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
 	if ([scrollView isKindOfClass:[UICollectionView class]]) {
-		[self updateProductBackgroundImage];
-	}
-}
-
-- (void)updateProductBackgroundImage
-{
-	NSInteger page = [self.product.images count] > 0 ? 0 : 0;
-	if (self.productView.productViewHeader.collectionView.contentSize.width > 0) {
-		page =  (int)(self.productView.productViewHeader.collectionView.contentOffset.x / self.productView.productViewHeader.collectionView.frame.size.width);
-	}
-	if (page >= 0) {
-		[self.productView.productViewHeader setCurrentPage:page];
-		BUYImage *image = self.product.images[page];
-		if (image == nil) {
-			image = self.product.images.firstObject;
-		}
-		[self.productView.backgroundImageView setBackgroundProductImage:image];
+		[self.productView updateBackgroundImage:self.product.images];
 	}
 }
 
@@ -375,11 +405,51 @@
 	[self startWebCheckout:[self checkout]];
 }
 
+- (void)startWebCheckout:(BUYCheckout *)checkout
+{
+	if ([self.delegate respondsToSelector:@selector(controllerWillCheckoutViaWeb:)]) {
+		[self.delegate controllerWillCheckoutViaWeb:self];
+	}
+	
+	[_productView.productViewFooter.checkoutButton showActivityIndicator:YES];
+	
+	[self handleCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	
+		[_productView.productViewFooter.checkoutButton showActivityIndicator:NO];
+
+		if (error == nil) {
+			[[UIApplication sharedApplication] openURL:checkout.webCheckoutURL];
+		}
+		else {
+			
+			if ([self.delegate respondsToSelector:@selector(controller:failedToCreateCheckout:)]) {
+				[self.delegate controller:self failedToCreateCheckout:error];
+			}
+			else {
+				UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Could not checkout at this time" preferredStyle:UIAlertControllerStyleAlert];
+				[alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+				[self presentViewController:alert animated:YES completion:nil];
+			}
+		}
+	}];
+}
+
+- (void)handleCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)completion
+{
+	if ([checkout.token length] > 0) {
+		[self.client updateCheckout:checkout completion:completion];
+	} else {
+		[self.client createCheckout:checkout completion:completion];
+	}
+}
+
 #pragma mark UIStatusBar appearance
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-	if (self.theme.style == BUYThemeStyleDark || [self navigationBarThresholdReached] == NO) {
+	if (self.theme.style == BUYThemeStyleDark || ([self navigationBarThresholdReached] == NO && self.isLoading == NO)) {
+		return UIStatusBarStyleLightContent;
+	} else if (self.isLoading == YES && self.theme.style == BUYThemeStyleDark) {
 		return UIStatusBarStyleLightContent;
 	} else {
 		return UIStatusBarStyleDefault;
@@ -397,6 +467,14 @@
 }
 
 #pragma mark BUYPresentationControllerWithNavigationControllerDelegate
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+	return UIInterfaceOrientationPortrait;
+}
+
+- (BOOL)shouldAutorotate {
+	return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
+}
 
 - (void)presentationControllerWillDismiss:(UIPresentationController *)presentationController
 {
@@ -422,15 +500,20 @@
 {
 	BUYProductImageCollectionViewCell *cell = (BUYProductImageCollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
 	BUYImage *image = self.product.images[indexPath.row];
-	// if image is nil (no image specified for the variant) choose the first one
-	if (image == nil) {
-		image = self.product.images.firstObject;
-	}
 	NSURL *url = [NSURL URLWithString:image.src];
 	[cell.productImageView loadImageWithURL:url completion:NULL];
 	[cell setContentOffset:self.productView.tableView.contentOffset];
 	
 	return cell;
 }
+
+- (void)presentPortraitInViewController:(UIViewController *)controller
+{
+	BUYNavigationController *navController = [[BUYNavigationController alloc] initWithRootViewController:self];
+	navController.navigationDelegate = self;
+	[navController setTheme:self.theme];
+	[controller presentViewController:navController animated:YES completion:nil];
+}
+
 
 @end

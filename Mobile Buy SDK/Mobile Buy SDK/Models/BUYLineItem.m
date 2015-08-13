@@ -13,6 +13,7 @@
 
 @interface BUYLineItem ()
 
+@property (nonatomic, strong) NSString *lineItemIdentifier;
 @property (nonatomic, strong) NSNumber *variantId;
 @property (nonatomic, strong) NSNumber *productId;
 @property (nonatomic, copy) NSString *sku;
@@ -47,7 +48,7 @@
 
 - (void)updateWithDictionary:(NSDictionary *)dictionary
 {
-	[super updateWithDictionary:dictionary];
+	self.lineItemIdentifier = dictionary[@"id"];
 	self.variantId = dictionary[@"variant_id"];
 	self.productId = dictionary[@"product_id"];
 	self.title = dictionary[@"title"];
