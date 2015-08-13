@@ -874,14 +874,15 @@
 	
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	
-	//Create the checkout
+	// Test default reservation time
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[_checkoutClient createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		
 		XCTAssertNil(error);
+		XCTAssertEqual(300, returnedCheckout.reservationTime.intValue);
 		
 		_checkout = returnedCheckout;
-		XCTAssertEqual(300, _checkout.reservationTime.intValue);
+		
 		[expectation fulfill];
 	}];
 	
@@ -889,13 +890,14 @@
 		XCTAssertNil(error);
 	}];
 	
+	// Test reservation time set to zero
 	XCTestExpectation *expectation2 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	
 	_checkout.reservationTime = @0;
-	
 	[_checkoutClient updateCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		
+		XCTAssertNil(error);
 		XCTAssertEqual(0, returnedCheckout.reservationTime.intValue);
+		
 		[expectation2 fulfill];
 	}];
 	
