@@ -219,7 +219,7 @@
 - (BUYProductViewErrorView *)errorView
 {
 	if (_errorView == nil) {
-		_errorView = [[BUYProductViewErrorView alloc] init];
+		_errorView = [[BUYProductViewErrorView alloc] initWithTheme:self.theme];
 		_errorView.alpha = 0;
 		_errorView.translatesAutoresizingMaskIntoConstraints = NO;
 		[self insertSubview:_errorView belowSubview:self.productViewFooter];

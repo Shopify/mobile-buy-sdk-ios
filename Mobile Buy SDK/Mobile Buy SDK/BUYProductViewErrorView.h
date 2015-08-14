@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+@class BUYTheme;
 
 @interface BUYProductViewErrorView : UIView
 
 @property (nonatomic, strong) UILabel *errorLabel;
 @property (nonatomic, strong) NSLayoutConstraint *hiddenConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *visibleConstraint;
+
+- (instancetype)initWithTheme:(BUYTheme*)theme;
 
 @end

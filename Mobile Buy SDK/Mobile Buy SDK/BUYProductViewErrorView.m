@@ -11,7 +11,7 @@
 
 @implementation BUYProductViewErrorView
 
-- (instancetype)init
+- (instancetype)initWithTheme:(BUYTheme*)theme
 {
 	self = [super init];
 	if (self) {
@@ -31,7 +31,7 @@
 		
 		UIView *redTintOverlayView = [[UIView alloc] init];
 		redTintOverlayView.translatesAutoresizingMaskIntoConstraints = NO;
-		redTintOverlayView.backgroundColor = [BUY_RGB(221, 93, 93) colorWithAlphaComponent:0.8f];
+		redTintOverlayView.backgroundColor = (theme.style == BUYThemeStyleDark) ? BUY_RGBA(255, 66, 66, 0.75f) : BUY_RGBA(209, 44, 44, 0.75f);
 		[visualEffectView.contentView addSubview:redTintOverlayView];
 		[visualEffectView.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[redTintOverlayView]|"
 																							 options:0
