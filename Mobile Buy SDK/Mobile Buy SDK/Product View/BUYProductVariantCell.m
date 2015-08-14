@@ -16,6 +16,8 @@
 @property (nonatomic, strong) BUYVariantOptionView *optionView1;
 @property (nonatomic, strong) BUYVariantOptionView *optionView2;
 @property (nonatomic, strong) BUYVariantOptionView *optionView3;
+@property (nonatomic, strong) NSArray *disclosureConstraint;
+@property (nonatomic, strong) NSArray *noDisclosureConstraint;
 @property (nonatomic, strong) UIImageView *disclosureIndicatorImageView;
 @property (nonatomic, strong) BUYTheme *theme;
 @end
@@ -48,10 +50,21 @@
 		[self.contentView addSubview:_disclosureIndicatorImageView];
 		
 		NSDictionary *views = NSDictionaryOfVariableBindings(_optionView1, _optionView2, _optionView3, _disclosureIndicatorImageView);
-		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_optionView1]-(16)-[_optionView2]-(16)-[_optionView3]-(>=8)-[_disclosureIndicatorImageView]-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
+		
+		self.disclosureConstraint = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_optionView1]-(16)-[_optionView2]-(16)-[_optionView3]-(>=8)-[_disclosureIndicatorImageView]-|" options:0 metrics:nil views:views];
+		self.noDisclosureConstraint = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_optionView1]-(16)-[_optionView2]-(16)-[_optionView3]-(>=8)-[_disclosureIndicatorImageView]-|" options:0 metrics:nil views:views];
+		
 		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_optionView1]-|" options:0 metrics:nil views:views]];
 		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_optionView2]-|" options:0 metrics:nil views:views]];
 		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_optionView3]-|" options:0 metrics:nil views:views]];
+		
+		[self.contentView addConstraint: [NSLayoutConstraint constraintWithItem:_disclosureIndicatorImageView
+																	  attribute:NSLayoutAttributeCenterY
+																	  relatedBy:NSLayoutRelationEqual
+																		 toItem:_disclosureIndicatorImageView.superview
+																	  attribute:NSLayoutAttributeCenterY
+																	 multiplier:1.0f
+																	   constant:0.0f]];
 	}
 
 	return self;
@@ -85,6 +98,20 @@
 		default:
 			break;
 		}
+}
+
+-(void)setAccessoryType:(UITableViewCellAccessoryType)accessoryType
+{
+	self.disclosureIndicatorImageView.hidden = accessoryType != UITableViewCellAccessoryDisclosureIndicator;
+	if (accessoryType == UITableViewCellAccessoryDisclosureIndicator) {
+		self.selectionStyle = UITableViewCellSelectionStyleDefault;
+		[NSLayoutConstraint activateConstraints:self.disclosureConstraint];
+		[NSLayoutConstraint deactivateConstraints:self.noDisclosureConstraint];
+	} else {
+		self.selectionStyle = UITableViewCellSelectionStyleNone;
+		[NSLayoutConstraint deactivateConstraints:self.disclosureConstraint];
+		[NSLayoutConstraint activateConstraints:self.noDisclosureConstraint];
+	}
 }
 
 - (void)setTheme:(BUYTheme *)theme
