@@ -53,8 +53,19 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 
 - (instancetype)initWithClient:(BUYClient *)client
 {
+	return [self initWithClient:client theme:nil];
+}
+
+- (instancetype)initWithClient:(BUYClient *)client theme:(BUYTheme *)theme
+{
 	self = [super initWithClient:client];
 	if (self) {
+		if (theme == nil) {
+			self.theme = [[BUYTheme alloc] init];
+		} else {
+			self.theme = theme;
+		}
+		
 		self.modalPresentationStyle = UIModalPresentationCustom;
 		self.transitioningDelegate = self;
 		
@@ -79,8 +90,6 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 															  attribute:NSLayoutAttributeCenterX
 															 multiplier:1.0
 															   constant:0.0]];
-		
-		self.theme = [[BUYTheme alloc] init];
 	}
 	return self;
 }
