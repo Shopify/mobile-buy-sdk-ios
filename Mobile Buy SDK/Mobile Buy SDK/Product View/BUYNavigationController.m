@@ -71,8 +71,7 @@
 - (void)setTheme:(BUYTheme *)theme
 {
 	_theme = theme;
-	BUYNavigationController *navigationController = (BUYNavigationController*)self.presentedViewController;
-	navigationController.navigationBar.barStyle = (_theme.style == BUYThemeStyleDark) ? UIBarStyleBlack : UIBarStyleDefault;
+	self.navigationBar.barStyle = (_theme.style == BUYThemeStyleDark) ? UIBarStyleBlack : UIBarStyleDefault;
 	[[UINavigationBar appearanceWhenContainedIn:[BUYNavigationController class], nil] setTitleTextAttributes:@{ NSForegroundColorAttributeName:BUY_RGB(127, 127, 127) }];
 }
 
