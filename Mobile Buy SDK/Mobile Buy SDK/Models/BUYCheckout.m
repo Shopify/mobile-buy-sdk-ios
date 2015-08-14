@@ -142,7 +142,7 @@
 	self.termsOfServiceURL = [NSURL buy_urlWithString:dictionary[@"terms_of_service_url"]];
 	
 	self.sourceName = dictionary[@"source_name"];
-	self.sourceId = dictionary[@"source_identifier"];
+	self.sourceIdentifier = dictionary[@"source_identifier"];
 	self.sourceURL = [NSURL buy_urlWithString:dictionary[@"source_url"]];
 }
 

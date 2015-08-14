@@ -225,6 +225,8 @@ NSString * const BUYVersionString = @"1.1.1";
 {
 	checkout.channelId = self.channelId;
 	checkout.marketingAttribution = @{@"medium": @"iOS", @"source": self.applicationName};
+	checkout.sourceName = @"mobile_app";
+	checkout.sourceIdentifier = checkout.channelId;
 	if (self.urlScheme || checkout.webReturnToURL) {
 		checkout.webReturnToURL = checkout.webReturnToURL ?: self.urlScheme;
 		checkout.webReturnToLabel = checkout.webReturnToLabel ?: self.applicationName;
