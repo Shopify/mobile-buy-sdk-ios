@@ -16,8 +16,8 @@
 @property (nonatomic, strong) BUYVariantOptionView *optionView1;
 @property (nonatomic, strong) BUYVariantOptionView *optionView2;
 @property (nonatomic, strong) BUYVariantOptionView *optionView3;
-@property (nonatomic, strong) NSArray *disclosureConstraint;
-@property (nonatomic, strong) NSArray *noDisclosureConstraint;
+@property (nonatomic, strong) NSArray *disclosureConstraints;
+@property (nonatomic, strong) NSArray *noDisclosureConstraints;
 @property (nonatomic, strong) UIImageView *disclosureIndicatorImageView;
 @property (nonatomic, strong) BUYTheme *theme;
 @end
@@ -51,8 +51,8 @@
 		
 		NSDictionary *views = NSDictionaryOfVariableBindings(_optionView1, _optionView2, _optionView3, _disclosureIndicatorImageView);
 		
-		self.disclosureConstraint = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_optionView1]-(16)-[_optionView2]-(16)-[_optionView3]-(>=8)-[_disclosureIndicatorImageView]-|" options:0 metrics:nil views:views];
-		self.noDisclosureConstraint = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_optionView1]-(16)-[_optionView2]-(16)-[_optionView3]-(>=8)-[_disclosureIndicatorImageView]-|" options:0 metrics:nil views:views];
+		self.disclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_optionView1]-(16)-[_optionView2]-(16)-[_optionView3]-(>=8)-[_disclosureIndicatorImageView]-|" options:0 metrics:nil views:views];
+		self.noDisclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_optionView1]-(16)-[_optionView2]-(16)-[_optionView3]-(>=8)-|" options:0 metrics:nil views:views];
 		
 		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_optionView1]-|" options:0 metrics:nil views:views]];
 		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_optionView2]-|" options:0 metrics:nil views:views]];
@@ -105,12 +105,12 @@
 	self.disclosureIndicatorImageView.hidden = accessoryType != UITableViewCellAccessoryDisclosureIndicator;
 	if (accessoryType == UITableViewCellAccessoryDisclosureIndicator) {
 		self.selectionStyle = UITableViewCellSelectionStyleDefault;
-		[NSLayoutConstraint activateConstraints:self.disclosureConstraint];
-		[NSLayoutConstraint deactivateConstraints:self.noDisclosureConstraint];
+		[NSLayoutConstraint activateConstraints:self.disclosureConstraints];
+		[NSLayoutConstraint deactivateConstraints:self.noDisclosureConstraints];
 	} else {
 		self.selectionStyle = UITableViewCellSelectionStyleNone;
-		[NSLayoutConstraint deactivateConstraints:self.disclosureConstraint];
-		[NSLayoutConstraint activateConstraints:self.noDisclosureConstraint];
+		[NSLayoutConstraint deactivateConstraints:self.disclosureConstraints];
+		[NSLayoutConstraint activateConstraints:self.noDisclosureConstraints];
 	}
 }
 
