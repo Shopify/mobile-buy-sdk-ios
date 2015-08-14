@@ -27,7 +27,7 @@
 CGFloat const BUYMaxProductViewWidth = 414.0; // We max out to the width of the iPhone 6+
 CGFloat const BUYMaxProductViewHeight = 640.0;
 
-@interface BUYProductViewController () <UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, BUYVariantSelectionDelegate, BUYNavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
+@interface BUYProductViewController () <BUYThemeable, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, BUYVariantSelectionDelegate, BUYNavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (nonatomic, strong) NSString *productId;
 @property (nonatomic, strong) BUYProductVariant *selectedProductVariant;
