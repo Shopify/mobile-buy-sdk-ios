@@ -276,10 +276,6 @@
 	[NSLayoutConstraint deactivateConstraints:@[self.errorView.visibleConstraint]];
 	[NSLayoutConstraint activateConstraints:@[self.errorView.hiddenConstraint]];
 	[UIView animateWithDuration:0.3f
-						  delay:0
-		 usingSpringWithDamping:0.9f
-		  initialSpringVelocity:3
-						options:0
 					 animations:^{
 						 self.errorView.alpha = 0;
 						 [self.errorView layoutIfNeeded];
