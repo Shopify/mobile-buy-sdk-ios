@@ -9,7 +9,7 @@
 #import <Buy/Buy.h>
 #import "BUYTheme.h"
 
-@interface BUYProductViewController : BUYViewController <BUYThemeable>
+@interface BUYProductViewController : BUYViewController
 
 /**
  *  Creates a BUYProductViewController with a BUYClient and a theme
