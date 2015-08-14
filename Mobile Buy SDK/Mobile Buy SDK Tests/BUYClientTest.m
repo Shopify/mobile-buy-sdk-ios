@@ -115,26 +115,6 @@
 	XCTAssertTrue([json[@"checkout"][@"partial_addresses"] boolValue]);
 }
 
-- (void)testMarketingAttributions
-{
-	NSString *appName = @"ApPnAmE";
-	
-	BUYClient_Test *testClient = [[BUYClient_Test alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
-	testClient.applicationName = appName;
-	
-	NSData *data = [self dataForCartFromClient:testClient];
-	
-	NSDictionary *dict = @{@"checkout":
-							   @{@"line_items": @[],
-								 @"channel_id": channelId,
-								 @"source_name": @"mobile_app",
-								 @"source_identifier": _client.channelId,
-								 @"marketing_attribution":@{@"medium": @"iOS", @"source": appName}}};
-	
-	NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-	XCTAssertEqualObjects(dict, json);
-}
-
 - (void)testCheckoutPaymentWithOnlyGiftCard
 {
 	BUYCheckout *checkout = [[BUYCheckout alloc] initWithDictionary:@{@"token": @"abcdef", @"payment_due": @0}];
