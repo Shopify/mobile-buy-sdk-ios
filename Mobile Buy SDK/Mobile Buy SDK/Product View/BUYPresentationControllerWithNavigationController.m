@@ -28,6 +28,11 @@
 
 - (UIModalPresentationStyle)adaptivePresentationStyle
 {
+	return [self.class adaptivePresentationStyle];
+}
+
++ (UIModalPresentationStyle)adaptivePresentationStyle
+{
 	return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? UIModalPresentationFullScreen : UIModalPresentationFormSheet;
 }
 
@@ -40,8 +45,7 @@
 {
 	_theme = theme;
 	BUYNavigationController *navigationController = (BUYNavigationController*)self.presentedViewController;
-	navigationController.navigationBar.barStyle = (_theme.style == BUYThemeStyleDark) ? UIBarStyleBlack : UIBarStyleDefault;
-	[[UINavigationBar appearanceWhenContainedIn:[BUYNavigationController class], nil] setTitleTextAttributes:@{ NSForegroundColorAttributeName:BUY_RGB(127, 127, 127) }];
+	[navigationController setTheme:theme];
 }
 
 @end
