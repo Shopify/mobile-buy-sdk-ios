@@ -26,7 +26,7 @@
 	
 	_title = dictionary[@"title"];
 	_htmlDescription = dictionary[@"body_html"];
-	_imageURL = [NSURL buy_urlWithString:dictionary[@"image"][@"src"]];
+	_imageURL = [dictionary[@"image"] isKindOfClass:[NSNull class]] ? nil : [NSURL buy_urlWithString:dictionary[@"image"][@"src"]];
 	_handle = dictionary[@"handle"];
 	_published = [dictionary[@"published"] boolValue];
 	_collectionId = dictionary[@"collection_id"];
