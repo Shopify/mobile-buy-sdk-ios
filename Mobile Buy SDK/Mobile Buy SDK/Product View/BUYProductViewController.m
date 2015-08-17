@@ -33,6 +33,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 @property (nonatomic, strong) BUYProductVariant *selectedProductVariant;
 @property (nonatomic, strong) BUYTheme *theme;
 @property (nonatomic, assign) BOOL shouldShowVariantSelector;
+@property (nonatomic, assign) BOOL shouldEnableVariantSelection;
 @property (nonatomic, assign) BOOL shouldShowDescription;
 @property (nonatomic, strong) BUYProduct *product;
 @property (nonatomic, assign) BOOL isLoading;
@@ -236,6 +237,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 	self.navigationItem.title = _product.title;
 	self.selectedProductVariant = [_product.variants firstObject];
 	self.shouldShowVariantSelector = [_product isDefaultVariant] == NO;
+	self.shouldEnableVariantSelection = self.shouldShowVariantSelector && [_product.variants count] > 1;
 	self.shouldShowDescription = ([_product.htmlDescription length] == 0) == NO;
 	self.productView.hidden = NO;
 	[self setupNavigationBarAppearance];
@@ -277,6 +279,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 	} else if (indexPath.row == 1 && self.shouldShowVariantSelector) {
 		BUYProductVariantCell *cell = [tableView dequeueReusableCellWithIdentifier:@"variantCell"];
 		cell.productVariant = self.selectedProductVariant;
+		cell.accessoryType = self.shouldEnableVariantSelection ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 		self.variantCell = cell;
 		theCell = cell;
 	} else if ((indexPath.row == 2 && self.shouldShowDescription) || (indexPath.row == 1 && self.shouldShowVariantSelector == NO && self.shouldShowDescription)) {
@@ -292,7 +295,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (indexPath.row == 1 && self.shouldShowVariantSelector) {
+	if (indexPath.row == 1 && self.shouldEnableVariantSelection) {
 		[self.productView.tableView deselectRowAtIndexPath:indexPath animated:YES];
 		BUYVariantSelectionViewController *optionSelectionViewController = [[BUYVariantSelectionViewController alloc] initWithProduct:self.product theme:self.theme];
 		optionSelectionViewController.selectedProductVariant = self.selectedProductVariant;
