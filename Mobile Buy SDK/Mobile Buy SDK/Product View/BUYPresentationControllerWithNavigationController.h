@@ -15,6 +15,8 @@
 
 @property (nonatomic, weak) id <BUYNavigationControllerDelegate> navigationDelegate;
 
++ (UIModalPresentationStyle)adaptivePresentationStyle;
+
 @end
 
 

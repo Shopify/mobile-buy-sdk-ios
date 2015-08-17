@@ -28,6 +28,11 @@
 
 - (UIModalPresentationStyle)adaptivePresentationStyle
 {
+	return [self.class adaptivePresentationStyle];
+}
+
++ (UIModalPresentationStyle)adaptivePresentationStyle
+{
 	return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? UIModalPresentationFullScreen : UIModalPresentationFormSheet;
 }
 

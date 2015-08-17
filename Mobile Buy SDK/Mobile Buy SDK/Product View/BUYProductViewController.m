@@ -135,7 +135,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 {
 	if (self.navigationBar == nil && _productView) {
 		for (UIView *view in [self.navigationController.navigationBar subviews]) {
-			if (CGRectGetHeight(view.bounds) >= 64) {
+			if (CGRectGetHeight(view.bounds) >= 44) {
 				// Get a reference to the UINavigationBar
 				self.navigationBar = view;
 				self.navigationBar.alpha = 0;
@@ -510,6 +510,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 - (void)presentPortraitInViewController:(UIViewController *)controller
 {
 	BUYNavigationController *navController = [[BUYNavigationController alloc] initWithRootViewController:self];
+	navController.modalPresentationStyle = [BUYPresentationControllerWithNavigationController adaptivePresentationStyle];
 	navController.navigationDelegate = self;
 	[navController setTheme:self.theme];
 	[controller presentViewController:navController animated:YES completion:nil];
