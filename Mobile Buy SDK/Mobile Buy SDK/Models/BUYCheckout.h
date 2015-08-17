@@ -213,7 +213,7 @@
 /**
  *  The unique identifier for the source
  */
-@property (nonatomic, copy, readonly) NSString *sourceId;
+@property (nonatomic, copy, readonly) NSString *sourceIdentifier;
 
 /**
  *  The URL for the source
