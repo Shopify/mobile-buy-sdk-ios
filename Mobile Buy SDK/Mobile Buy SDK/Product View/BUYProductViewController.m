@@ -27,12 +27,13 @@
 CGFloat const BUYMaxProductViewWidth = 414.0; // We max out to the width of the iPhone 6+
 CGFloat const BUYMaxProductViewHeight = 640.0;
 
-@interface BUYProductViewController () <UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, BUYVariantSelectionDelegate, BUYNavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
+@interface BUYProductViewController () <BUYThemeable, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, BUYVariantSelectionDelegate, BUYNavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (nonatomic, strong) NSString *productId;
 @property (nonatomic, strong) BUYProductVariant *selectedProductVariant;
 @property (nonatomic, strong) BUYTheme *theme;
 @property (nonatomic, assign) BOOL shouldShowVariantSelector;
+@property (nonatomic, assign) BOOL shouldEnableVariantSelection;
 @property (nonatomic, assign) BOOL shouldShowDescription;
 @property (nonatomic, strong) BUYProduct *product;
 @property (nonatomic, assign) BOOL isLoading;
@@ -55,8 +56,15 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 
 - (instancetype)initWithClient:(BUYClient *)client
 {
+	return [self initWithClient:client theme:nil];
+}
+
+- (instancetype)initWithClient:(BUYClient *)client theme:(BUYTheme *)theme
+{
 	self = [super initWithClient:client];
 	if (self) {
+		self.theme = theme? : [[BUYTheme alloc] init];
+		
 		self.modalPresentationStyle = UIModalPresentationCustom;
 		self.transitioningDelegate = self;
 		
@@ -81,8 +89,6 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 															  attribute:NSLayoutAttributeCenterX
 															 multiplier:1.0
 															   constant:0.0]];
-		
-		self.theme = [[BUYTheme alloc] init];
 	}
 	return self;
 }
@@ -238,6 +244,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 	self.navigationItem.title = _product.title;
 	self.selectedProductVariant = [_product.variants firstObject];
 	self.shouldShowVariantSelector = [_product isDefaultVariant] == NO;
+	self.shouldEnableVariantSelection = self.shouldShowVariantSelector && [_product.variants count] > 1;
 	self.shouldShowDescription = ([_product.htmlDescription length] == 0) == NO;
 	self.productView.hidden = NO;
 	[self setupNavigationBarAppearance];
@@ -279,6 +286,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 	} else if (indexPath.row == 1 && self.shouldShowVariantSelector) {
 		BUYProductVariantCell *cell = [tableView dequeueReusableCellWithIdentifier:@"variantCell"];
 		cell.productVariant = self.selectedProductVariant;
+		cell.accessoryType = self.shouldEnableVariantSelection ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 		self.variantCell = cell;
 		theCell = cell;
 	} else if ((indexPath.row == 2 && self.shouldShowDescription) || (indexPath.row == 1 && self.shouldShowVariantSelector == NO && self.shouldShowDescription)) {
@@ -294,7 +302,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (indexPath.row == 1 && self.shouldShowVariantSelector) {
+	if (indexPath.row == 1 && self.shouldEnableVariantSelection) {
 		[self.productView.tableView deselectRowAtIndexPath:indexPath animated:YES];
 		BUYVariantSelectionViewController *optionSelectionViewController = [[BUYVariantSelectionViewController alloc] initWithProduct:self.product theme:self.theme];
 		optionSelectionViewController.selectedProductVariant = self.selectedProductVariant;
@@ -347,7 +355,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 		if (self.navigationBar) {
 			if (self.navigationBar.alpha != 1 && [self navigationBarThresholdReached] == YES) {
 				[(BUYNavigationController*)self.navigationController updateCloseButtonImageWithDarkStyle:YES];
-
+				
 				[UIView animateWithDuration:0.3f
 									  delay:0
 									options:(UIViewAnimationOptionCurveLinear | UIViewKeyframeAnimationOptionBeginFromCurrentState)
@@ -359,7 +367,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 								 completion:NULL];
 			} else if (self.navigationBar.alpha != 0 && [self navigationBarThresholdReached] == NO)  {
 				[(BUYNavigationController*)self.navigationController updateCloseButtonImageWithDarkStyle:NO];
-
+				
 				[UIView animateWithDuration:0.20f
 									  delay:0
 									options:(UIViewAnimationOptionCurveLinear | UIViewKeyframeAnimationOptionBeginFromCurrentState)
@@ -412,22 +420,17 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 	[_productView.productViewFooter.checkoutButton showActivityIndicator:YES];
 	
 	[self handleCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
-	
+		
 		[_productView.productViewFooter.checkoutButton showActivityIndicator:NO];
-
+		
 		if (error == nil) {
 			[[UIApplication sharedApplication] openURL:checkout.webCheckoutURL];
 		}
 		else {
-			
 			if ([self.delegate respondsToSelector:@selector(controller:failedToCreateCheckout:)]) {
 				[self.delegate controller:self failedToCreateCheckout:error];
 			}
-			else {
-				UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Could not checkout at this time" preferredStyle:UIAlertControllerStyleAlert];
-				[alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
-				[self presentViewController:alert animated:YES completion:nil];
-			}
+			[self.productView showErrorWithMessage:@"Could not checkout at this time"];
 		}
 	}];
 }
@@ -458,7 +461,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 {
 	return UIStatusBarAnimationFade;
 }
-		
+
 - (BOOL)navigationBarThresholdReached
 {
 	return self.productView.tableView.contentOffset.y > CGRectGetHeight(self.productView.productViewHeader.bounds) - CGRectGetHeight(self.navigationBar.bounds);

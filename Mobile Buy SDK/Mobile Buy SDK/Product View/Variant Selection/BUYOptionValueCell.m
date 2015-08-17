@@ -11,8 +11,8 @@
 #import "BUYOptionValue.h"
 
 @interface BUYOptionValueCell()
-@property (nonatomic, strong) NSArray *disclosureConstraint;
-@property (nonatomic, strong) NSArray *noDisclosureConstraint;
+@property (nonatomic, strong) NSArray *disclosureConstraints;
+@property (nonatomic, strong) NSArray *noDisclosureConstraints;
 @property (nonatomic, strong) UIImageView *disclosureIndicatorImageView;
 @end
 
@@ -48,8 +48,8 @@
 		
 		NSDictionary *views = NSDictionaryOfVariableBindings(_titleLabel, _selectedImageView, _disclosureIndicatorImageView);
 		
-		self.disclosureConstraint = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_titleLabel]-[_selectedImageView]-[_disclosureIndicatorImageView]-(12)-|" options:0 metrics:nil views:views];
-		self.noDisclosureConstraint = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_titleLabel]-[_selectedImageView]-(12)-|" options:0 metrics:nil views:views];
+		self.disclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_titleLabel]-[_selectedImageView]-[_disclosureIndicatorImageView]-(12)-|" options:0 metrics:nil views:views];
+		self.noDisclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_titleLabel]-[_selectedImageView]-(12)-|" options:0 metrics:nil views:views];
 		
 		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_titleLabel]|" options:0 metrics:nil views:views]];
 		
@@ -77,11 +77,11 @@
 {
 	self.disclosureIndicatorImageView.hidden = accessoryType != UITableViewCellAccessoryDisclosureIndicator;
 	if (accessoryType == UITableViewCellAccessoryDisclosureIndicator) {
-		[NSLayoutConstraint activateConstraints:self.disclosureConstraint];
-		[NSLayoutConstraint deactivateConstraints:self.noDisclosureConstraint];
+		[NSLayoutConstraint activateConstraints:self.disclosureConstraints];
+		[NSLayoutConstraint deactivateConstraints:self.noDisclosureConstraints];
 	} else {
-		[NSLayoutConstraint deactivateConstraints:self.disclosureConstraint];
-		[NSLayoutConstraint activateConstraints:self.noDisclosureConstraint];
+		[NSLayoutConstraint deactivateConstraints:self.disclosureConstraints];
+		[NSLayoutConstraint activateConstraints:self.noDisclosureConstraints];
 	}
 }
 
