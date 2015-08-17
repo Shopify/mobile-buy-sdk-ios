@@ -34,7 +34,7 @@
 	self = [super initWithFrame:rect];
 	if (self) {
 		self.backgroundImageView = [[BUYProductViewHeaderBackgroundImageView alloc] initWithTheme:theme];
-		self.backgroundImageView.hidden = self.theme.showsProductImageBackground == NO;
+		self.backgroundImageView.hidden = theme.showsProductImageBackground == NO;
 		self.backgroundImageView.translatesAutoresizingMaskIntoConstraints = NO;
 		[self addSubview:self.backgroundImageView];
 		
@@ -54,7 +54,7 @@
 														  constant:0.0]];
 		
 		self.stickyFooterView = [UIView new];
-		self.stickyFooterView.backgroundColor = (self.theme.style == BUYThemeStyleDark) ? [UIColor blackColor] : [UIColor whiteColor];
+		self.stickyFooterView.backgroundColor = (theme.style == BUYThemeStyleDark) ? [UIColor blackColor] : [UIColor whiteColor];
 		self.stickyFooterView.translatesAutoresizingMaskIntoConstraints = NO;
 		[self addSubview:self.stickyFooterView];
 		
@@ -106,7 +106,7 @@
 																	 metrics:nil
 																	   views:NSDictionaryOfVariableBindings(_tableView)]];
 		CGFloat width = MIN(CGRectGetWidth(rect), CGRectGetHeight(rect));
-		self.productViewHeader = [[BUYProductViewHeader alloc] initWithFrame:CGRectMake(0, 0, width, width) theme:self.theme];
+		self.productViewHeader = [[BUYProductViewHeader alloc] initWithFrame:CGRectMake(0, 0, width, width) theme:theme];
 		self.tableView.tableHeaderView = self.productViewHeader;
 		
 		_poweredByShopifyLabel = [[UILabel alloc] init];
