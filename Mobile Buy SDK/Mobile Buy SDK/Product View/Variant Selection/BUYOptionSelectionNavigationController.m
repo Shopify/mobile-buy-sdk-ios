@@ -40,12 +40,12 @@
 {
 	switch (theme.style) {
 		case BUYThemeStyleDark:
-			[self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName : BUY_RGBA(229, 229, 229, 1) }];
+			[self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName : BUY_RGB(229, 229, 229) }];
 			self.navigationBar.barStyle = UIBarStyleBlack;
 			self.navigationBar.tintColor = [UIColor lightGrayColor];
 			break;
 		case BUYThemeStyleLight:
-			[self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName: BUY_RGBA(51, 51, 51, 1) }];
+			[self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName: BUY_RGB(51, 51, 51) }];
 			self.navigationBar.barStyle = UIBarStyleDefault;
 			self.navigationBar.tintColor = [UIColor colorWithWhite:(float)(152.0/255.0) alpha:1.0];
 			break;

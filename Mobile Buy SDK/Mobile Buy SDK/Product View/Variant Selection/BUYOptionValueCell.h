@@ -7,15 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BUYTheme.h"
-
+@class BUYTheme;
 @class BUYOptionValue;
+@class BUYProductVariant;
 
-@interface BUYOptionValueCell : UITableViewCell <BUYThemeable>
+@interface BUYOptionValueCell : UITableViewCell
 
 @property (nonatomic, strong) BUYOptionValue *optionValue;
 
 @property (nonatomic, strong) UIImageView *selectedImageView;
+
+- (void)setOptionValue:(BUYOptionValue *)optionValue productVariant:(BUYProductVariant*)productVariant currencyFormatter:(NSNumberFormatter*)currencyFormatter theme:(BUYTheme *)theme;
 
 @end
 

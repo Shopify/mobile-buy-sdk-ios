@@ -9,6 +9,8 @@
 #import "BUYOptionValueCell.h"
 #import "BUYImageKit.h"
 #import "BUYOptionValue.h"
+#import "BUYProductVariant.h"
+#import "BUYTheme.h"
 
 @interface BUYOptionValueCell()
 @property (nonatomic, strong) NSArray *priceConstraints;
@@ -39,10 +41,12 @@
 		
 		_titleLabel = [[UILabel alloc] init];
 		_titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+		[_priceLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
 		[labelContainerView addSubview:_titleLabel];
 		
 		_priceLabel = [[UILabel alloc] init];
 		_priceLabel.translatesAutoresizingMaskIntoConstraints = NO;
+		[_priceLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleFootnote]];
 		[labelContainerView addSubview:_priceLabel];
 		
 		UIImage *selectedImage = [BUYImageKit imageOfPreviousSelectionIndicatorImageWithFrame:CGRectMake(0, 0, 20, 20)];
@@ -51,6 +55,7 @@
 		_selectedImageView = [[UIImageView alloc] initWithImage:selectedImage];
 		_selectedImageView.translatesAutoresizingMaskIntoConstraints = NO;
 		[_selectedImageView setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+		[_selectedImageView setContentHuggingPriority:UILayoutPriorityFittingSizeLevel forAxis:UILayoutConstraintAxisHorizontal];
 		[self.contentView addSubview:_selectedImageView];
 		
 		_disclosureIndicatorImageView = [[UIImageView alloc] init];
@@ -62,30 +67,38 @@
 		[labelContainerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_titleLabel]|" options:0 metrics:nil views:views]];
 		[labelContainerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_priceLabel]|" options:0 metrics:nil views:views]];
 		
-		_priceConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_titleLabel]-[_priceLabel]|" options:0 metrics:nil views:views];
+		_priceConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_titleLabel][_priceLabel]|" options:0 metrics:nil views:views];
 		_noPriceConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_titleLabel]|" options:0 metrics:nil views:views];
 		[NSLayoutConstraint activateConstraints:self.noPriceConstraints];
 		
-		_disclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[labelContainerView]-[_selectedImageView]-[_disclosureIndicatorImageView]-(12)-|" options:0 metrics:nil views:views];
-		_noDisclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[labelContainerView]-[_selectedImageView]-(12)-|" options:0 metrics:nil views:views];
+		NSDictionary *metricsDictionary = @{ @"padding" : @12 };
 		
-		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[labelContainerView]|" options:0 metrics:nil views:views]];
+		_disclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[labelContainerView]-(>=padding)-[_selectedImageView]-[_disclosureIndicatorImageView]-(padding)-|" options:0 metrics:metricsDictionary views:views];
+		_noDisclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[labelContainerView]-(>=padding)-[_selectedImageView]-(padding)-|" options:0 metrics:metricsDictionary views:views];
 		
-		[self.contentView addConstraint: [NSLayoutConstraint constraintWithItem:_selectedImageView
-																	  attribute:NSLayoutAttributeCenterY
-																	  relatedBy:NSLayoutRelationEqual
-																		 toItem:_selectedImageView.superview
-																	  attribute:NSLayoutAttributeCenterY
-																	 multiplier:1.0f
-																	   constant:0.0f]];
+		[self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:labelContainerView
+																	 attribute:NSLayoutAttributeCenterY
+																	 relatedBy:NSLayoutRelationEqual
+																		toItem:labelContainerView.superview
+																	 attribute:NSLayoutAttributeCenterY
+																	multiplier:1.0f
+																	  constant:0.0f]];
 		
-		[self.contentView addConstraint: [NSLayoutConstraint constraintWithItem:_disclosureIndicatorImageView
-																	  attribute:NSLayoutAttributeCenterY
-																	  relatedBy:NSLayoutRelationEqual
-																		 toItem:_disclosureIndicatorImageView.superview
-																	  attribute:NSLayoutAttributeCenterY
-																	 multiplier:1.0f
-																	   constant:0.0f]];
+		[self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_selectedImageView
+																	 attribute:NSLayoutAttributeCenterY
+																	 relatedBy:NSLayoutRelationEqual
+																		toItem:_selectedImageView.superview
+																	 attribute:NSLayoutAttributeCenterY
+																	multiplier:1.0f
+																	  constant:0.0f]];
+		
+		[self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_disclosureIndicatorImageView
+																	 attribute:NSLayoutAttributeCenterY
+																	 relatedBy:NSLayoutRelationEqual
+																		toItem:_disclosureIndicatorImageView.superview
+																	 attribute:NSLayoutAttributeCenterY
+																	multiplier:1.0f
+																	  constant:0.0f]];
 		
 	}
 	return self;
@@ -103,20 +116,33 @@
 	}
 }
 
-- (void)setOptionValue:(BUYOptionValue *)optionValue
-{
-	_optionValue = optionValue;
-	
-	self.titleLabel.text = optionValue.value;
-}
-
-- (void)setTheme:(BUYTheme *)theme
+- (void)setOptionValue:(BUYOptionValue *)optionValue productVariant:(BUYProductVariant*)productVariant currencyFormatter:(NSNumberFormatter*)currencyFormatter theme:(BUYTheme *)theme
 {
 	self.titleLabel.textColor = theme.tintColor;
 	self.selectedImageView.tintColor = theme.tintColor;
 	self.backgroundColor = theme.style == BUYThemeStyleDark ? BUY_RGB(26, 26, 26) : BUY_RGB(255, 255, 255);
 	self.selectedBackgroundView.backgroundColor = theme.style == BUYThemeStyleDark ? BUY_RGB(60, 60, 60) : BUY_RGB(242, 242, 242);
-	_disclosureIndicatorImageView.image = [BUYImageKit imageOfDisclosureIndicatorImageWithFrame:CGRectMake(0, 0, 10, 16) color:theme.style == BUYThemeStyleDark ? BUY_RGB(76, 76, 76) : BUY_RGB(191, 191, 191)];
+	self.disclosureIndicatorImageView.image = [BUYImageKit imageOfDisclosureIndicatorImageWithFrame:CGRectMake(0, 0, 10, 16) color:theme.style == BUYThemeStyleDark ? BUY_RGB(76, 76, 76) : BUY_RGB(191, 191, 191)];
+	
+	self.optionValue = optionValue;
+	
+	self.titleLabel.text = optionValue.value;
+	
+	if (productVariant) {
+		if (productVariant.available) {
+			self.priceLabel.text = [currencyFormatter stringFromNumber:productVariant.price];
+			self.priceLabel.textColor = (theme.style == BUYThemeStyleDark) ? BUY_RGB(229, 229, 229) : BUY_RGB(51, 51, 51);
+		} else {
+			self.priceLabel.text = @"Sold Out";
+			self.priceLabel.textColor = [UIColor redColor];
+		}
+		[NSLayoutConstraint activateConstraints:self.priceConstraints];
+		[NSLayoutConstraint deactivateConstraints:self.noPriceConstraints];
+	} else {
+		self.priceLabel.text = nil;
+		[NSLayoutConstraint deactivateConstraints:self.priceConstraints];
+		[NSLayoutConstraint activateConstraints:self.noPriceConstraints];
+	}
 }
 
 - (void)prepareForReuse

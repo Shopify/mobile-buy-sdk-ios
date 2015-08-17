@@ -78,22 +78,18 @@
 	
 	self.titleLabel.text = productVariant.product.title;
 	
-	if (productVariant.available == NO) {
-		self.priceLabel.text = @"Sold Out";
-		self.comparePriceLabel.attributedText = nil;
+	if (currencyFormatter) {
+		self.priceLabel.text = [currencyFormatter stringFromNumber:productVariant.price];
+	}
+	
+	if (productVariant.available == YES && productVariant.compareAtPrice) {
+		NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:[currencyFormatter stringFromNumber:productVariant.compareAtPrice]
+																			   attributes:@{NSStrikethroughStyleAttributeName: @(NSUnderlineStyleSingle)}];
+		self.comparePriceLabel.attributedText = attributedString;
+	} else if (productVariant.available == NO) {
+		self.comparePriceLabel.text = @"Sold Out";
 	} else {
-		if (currencyFormatter) {
-			self.priceLabel.text = [currencyFormatter stringFromNumber:productVariant.price];
-		}
-		
-		if (productVariant.compareAtPrice) {
-			NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:[currencyFormatter stringFromNumber:productVariant.compareAtPrice]
-																				   attributes:@{NSStrikethroughStyleAttributeName: @(NSUnderlineStyleSingle)}];
-			self.comparePriceLabel.attributedText = attributedString;
-		}
-		else {
-			self.comparePriceLabel.attributedText = nil;
-		}
+		self.comparePriceLabel.attributedText = nil;
 	}
 	
 	[self setNeedsLayout];
