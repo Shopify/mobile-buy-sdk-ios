@@ -62,11 +62,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 {
 	self = [super initWithClient:client];
 	if (self) {
-		if (theme == nil) {
-			self.theme = [[BUYTheme alloc] init];
-		} else {
-			self.theme = theme;
-		}
+		self.theme = theme? : [[BUYTheme alloc] init];
 		
 		self.modalPresentationStyle = UIModalPresentationCustom;
 		self.transitioningDelegate = self;
