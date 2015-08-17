@@ -80,11 +80,16 @@
 {
 	BUYOptionValue *optionValue = self.optionValues[indexPath.row];
 	BUYOptionValueCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-	cell.accessoryType = self.isLastOption ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
-
 	[cell setTheme:self.theme];
 	cell.optionValue = optionValue;
 	cell.selectedImageView.hidden = ![optionValue isEqual:self.selectedOptionValue];
+	if (self.isLastOption) {
+		cell.accessoryType = UITableViewCellAccessoryNone;
+		BUYProductVariant *productVariant = (BUYProductVariant*)self.filteredProductVariantsForSelectionOption[indexPath.row];
+		NSLog(@"%@", [self.currencyFormatter stringFromNumber:productVariant.price]);
+	} else {
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	}
 	
 	return cell;
 }

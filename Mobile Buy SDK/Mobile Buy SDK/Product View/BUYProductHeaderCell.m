@@ -13,7 +13,7 @@
 
 @interface BUYProductHeaderCell ()
 @property (nonatomic, strong) BUYTheme *theme;
-@property (nonatomic, strong) NSNumberFormatter *currencyFormatter;
+@property (nonatomic, strong) BUYProductVariant *productVariant;
 
 @end
 
@@ -72,7 +72,7 @@
 	return self;
 }
 
-- (void)setProductVariant:(BUYProductVariant *)productVariant
+- (void)setProductVariant:(BUYProductVariant *)productVariant withCurrencyFormatter:(NSNumberFormatter*)currencyFormatter
 {
 	_productVariant = productVariant;
 	
@@ -82,12 +82,12 @@
 		self.priceLabel.text = @"Sold Out";
 		self.comparePriceLabel.attributedText = nil;
 	} else {
-		if (self.currency) {
-			self.priceLabel.text = [self.currencyFormatter stringFromNumber:productVariant.price];
+		if (currencyFormatter) {
+			self.priceLabel.text = [currencyFormatter stringFromNumber:productVariant.price];
 		}
 		
 		if (productVariant.compareAtPrice) {
-			NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:[self.currencyFormatter stringFromNumber:productVariant.compareAtPrice]
+			NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:[currencyFormatter stringFromNumber:productVariant.compareAtPrice]
 																				   attributes:@{NSStrikethroughStyleAttributeName: @(NSUnderlineStyleSingle)}];
 			self.comparePriceLabel.attributedText = attributedString;
 		}
@@ -98,17 +98,6 @@
 	
 	[self setNeedsLayout];
 	[self layoutIfNeeded];
-}
-
-- (void)setCurrency:(NSString *)currency
-{
-	_currency = currency;
-	
-	self.currencyFormatter = [[NSNumberFormatter alloc] init];
-	self.currencyFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
-	self.currencyFormatter.currencyCode = self.currency;
-	
-	[self setProductVariant:self.productVariant];
 }
 
 - (void)setTheme:(BUYTheme *)theme

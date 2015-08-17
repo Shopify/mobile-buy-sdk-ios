@@ -90,6 +90,7 @@
 	optionController.delegate = self;
 	optionController.selectedOptionValue = self.changedOptionSelection ? nil : [self.selectedProductVariant optionValueForName:option.name];
 	optionController.isLastOption = [self isLastOption];
+	optionController.currencyFormatter = self.currencyFormatter;
 	
 	return optionController;
 }

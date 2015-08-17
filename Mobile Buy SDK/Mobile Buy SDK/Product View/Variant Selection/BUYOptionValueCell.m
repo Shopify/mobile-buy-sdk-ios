@@ -11,9 +11,13 @@
 #import "BUYOptionValue.h"
 
 @interface BUYOptionValueCell()
-@property (nonatomic, strong) NSArray *disclosureConstraint;
-@property (nonatomic, strong) NSArray *noDisclosureConstraint;
+@property (nonatomic, strong) NSArray *priceConstraints;
+@property (nonatomic, strong) NSArray *noPriceConstraints;
+@property (nonatomic, strong) NSArray *disclosureConstraints;
+@property (nonatomic, strong) NSArray *noDisclosureConstraints;
 @property (nonatomic, strong) UIImageView *disclosureIndicatorImageView;
+@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *priceLabel;
 @end
 
 @implementation BUYOptionValueCell
@@ -28,11 +32,18 @@
 		self.textLabel.backgroundColor = [UIColor clearColor];
 		self.layoutMargins = UIEdgeInsetsMake(self.layoutMargins.top, 16.0, self.layoutMargins.bottom, 0);
 		
+		UIView *labelContainerView = [[UIView alloc] init];
+		labelContainerView.translatesAutoresizingMaskIntoConstraints = NO;
+		[labelContainerView setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+		[self.contentView addSubview:labelContainerView];
+		
 		_titleLabel = [[UILabel alloc] init];
 		_titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-		[_titleLabel setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+		[labelContainerView addSubview:_titleLabel];
 		
-		[self.contentView addSubview:_titleLabel];
+		_priceLabel = [[UILabel alloc] init];
+		_priceLabel.translatesAutoresizingMaskIntoConstraints = NO;
+		[labelContainerView addSubview:_priceLabel];
 		
 		UIImage *selectedImage = [BUYImageKit imageOfPreviousSelectionIndicatorImageWithFrame:CGRectMake(0, 0, 20, 20)];
 		selectedImage = [selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
@@ -46,12 +57,19 @@
 		_disclosureIndicatorImageView.translatesAutoresizingMaskIntoConstraints = NO;
 		[self.contentView addSubview:_disclosureIndicatorImageView];
 		
-		NSDictionary *views = NSDictionaryOfVariableBindings(_titleLabel, _selectedImageView, _disclosureIndicatorImageView);
+		NSDictionary *views = NSDictionaryOfVariableBindings(_titleLabel, _priceLabel, labelContainerView, _selectedImageView, _disclosureIndicatorImageView);
 		
-		self.disclosureConstraint = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_titleLabel]-[_selectedImageView]-[_disclosureIndicatorImageView]-(12)-|" options:0 metrics:nil views:views];
-		self.noDisclosureConstraint = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_titleLabel]-[_selectedImageView]-(12)-|" options:0 metrics:nil views:views];
+		[labelContainerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_titleLabel]|" options:0 metrics:nil views:views]];
+		[labelContainerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_priceLabel]|" options:0 metrics:nil views:views]];
 		
-		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_titleLabel]|" options:0 metrics:nil views:views]];
+		_priceConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_titleLabel]-[_priceLabel]|" options:0 metrics:nil views:views];
+		_noPriceConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_titleLabel]|" options:0 metrics:nil views:views];
+		[NSLayoutConstraint activateConstraints:self.noPriceConstraints];
+		
+		_disclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[labelContainerView]-[_selectedImageView]-[_disclosureIndicatorImageView]-(12)-|" options:0 metrics:nil views:views];
+		_noDisclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[labelContainerView]-[_selectedImageView]-(12)-|" options:0 metrics:nil views:views];
+		
+		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[labelContainerView]|" options:0 metrics:nil views:views]];
 		
 		[self.contentView addConstraint: [NSLayoutConstraint constraintWithItem:_selectedImageView
 																	  attribute:NSLayoutAttributeCenterY
@@ -77,11 +95,11 @@
 {
 	self.disclosureIndicatorImageView.hidden = accessoryType != UITableViewCellAccessoryDisclosureIndicator;
 	if (accessoryType == UITableViewCellAccessoryDisclosureIndicator) {
-		[NSLayoutConstraint activateConstraints:self.disclosureConstraint];
-		[NSLayoutConstraint deactivateConstraints:self.noDisclosureConstraint];
+		[NSLayoutConstraint activateConstraints:self.disclosureConstraints];
+		[NSLayoutConstraint deactivateConstraints:self.noDisclosureConstraints];
 	} else {
-		[NSLayoutConstraint deactivateConstraints:self.disclosureConstraint];
-		[NSLayoutConstraint activateConstraints:self.noDisclosureConstraint];
+		[NSLayoutConstraint deactivateConstraints:self.disclosureConstraints];
+		[NSLayoutConstraint activateConstraints:self.noDisclosureConstraints];
 	}
 }
 

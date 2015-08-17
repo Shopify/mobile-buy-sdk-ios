@@ -17,7 +17,5 @@
 
 @property (nonatomic, strong) UIImageView *selectedImageView;
 
-@property (nonatomic, strong) UILabel *titleLabel;
-
 @end
 
