@@ -69,7 +69,6 @@
 		
 		_priceConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_titleLabel][_priceLabel]|" options:0 metrics:nil views:views];
 		_noPriceConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_titleLabel]|" options:0 metrics:nil views:views];
-		[NSLayoutConstraint activateConstraints:self.noPriceConstraints];
 		
 		NSDictionary *metricsDictionary = @{ @"padding" : @12 };
 		
