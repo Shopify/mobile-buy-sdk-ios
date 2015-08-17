@@ -19,30 +19,24 @@
 {
 	self = [super initWithRootViewController:rootViewController];
 	
-	UIImage *closeButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22) color:[UIColor whiteColor] hasShadow:YES];
 	UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	[closeButton addTarget:self action:@selector(dismissPopover) forControlEvents:UIControlEventTouchUpInside];
-	[closeButton setImage:closeButtonImage forState:UIControlStateNormal];
-	UIImage *highlightedImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22) color:self.theme.style == BUYThemeStyleDark ? BUY_RGB(76, 76, 76) : BUY_RGB(191, 191, 191) hasShadow:YES];
-	[closeButton setImage:highlightedImage forState:UIControlStateHighlighted];
 	closeButton.frame = CGRectMake(0, 0, 22, 22);
 	UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
 	self.topViewController.navigationItem.leftBarButtonItem = barButtonItem;
 	self.navigationBar.barStyle = (self.theme.style == BUYThemeStyleDark) ? UIBarStyleBlack : UIBarStyleDefault;
-	
-	[[UINavigationBar appearanceWhenContainedIn:[BUYNavigationController class], nil] setTitleTextAttributes:@{ NSForegroundColorAttributeName:BUY_RGB(127, 127, 127) }];
 	[[UINavigationBar appearanceWhenContainedIn:[BUYNavigationController class], nil] setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
 	
 	return self;
 }
 
-- (void)updateCloseButtonImageWithDarkStyle:(BOOL)darkStyle
+- (void)updateCloseButtonImageWithDarkStyle:(BOOL)darkStyle duration:(CGFloat)duration
 {
 	UIButton *button = (UIButton*)self.topViewController.navigationItem.leftBarButtonItem.customView;
-	UIImage *oldButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22) color:darkStyle ? [UIColor whiteColor] : self.theme.tintColor hasShadow:darkStyle == NO];
-	UIImage *newButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:CGRectMake(0, 0, 22, 22) color:darkStyle ? self.theme.tintColor : [UIColor whiteColor] hasShadow:darkStyle == NO];
+	UIImage *oldButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:button.bounds color:darkStyle ? [UIColor whiteColor] : self.theme.tintColor hasShadow:darkStyle == NO];
+	UIImage *newButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:button.bounds color:darkStyle ? self.theme.tintColor : [UIColor whiteColor] hasShadow:darkStyle == NO];
 	CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
-	crossFade.duration = 0.25f;
+	crossFade.duration = duration;
 	crossFade.fromValue = (id)oldButtonImage.CGImage;
 	crossFade.toValue = (id)newButtonImage.CGImage;
 	crossFade.removedOnCompletion = YES;
@@ -74,7 +68,9 @@
 - (void)setTheme:(BUYTheme *)theme
 {
 	_theme = theme;
-	self.navigationBar.barStyle = (_theme.style == BUYThemeStyleDark) ? UIBarStyleBlack : UIBarStyleDefault;
+	self.navigationBar.barStyle = (theme.style == BUYThemeStyleDark) ? UIBarStyleBlack : UIBarStyleDefault;
+	[self updateCloseButtonImageWithDarkStyle:NO duration:0];
+	[[UINavigationBar appearanceWhenContainedIn:[BUYNavigationController class], nil] setTitleTextAttributes:@{ NSForegroundColorAttributeName:theme.style == BUYThemeStyleDark ? [UIColor whiteColor] : [UIColor blackColor] }];
 }
 
 -(UIViewController *)childViewControllerForStatusBarStyle {
