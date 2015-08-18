@@ -18,7 +18,8 @@
 
 @interface BUYNavigationController : UINavigationController <BUYThemeable>
 
-- (void)updateCloseButtonImageWithDarkStyle:(BOOL)darkStyle;
+- (void)updateCloseButtonImageWithDarkStyle:(BOOL)darkStyle duration:(CGFloat)duration;
+
 @property (nonatomic, weak) id <BUYNavigationControllerDelegate> navigationDelegate;
 
 @end
