@@ -24,14 +24,13 @@
 - (UIColor*)errorTintOverlayColor;
 - (UIColor*)navigationBarTitleColor;
 - (UIColor*)navigationBarTitleVariantSelectionColor;
-- (UIColor*)navigationBarVariantSelectionTintColor;
-- (UIColor*)navigationBarVariantSelectionCloseButtonTintColor;
+- (UIColor*)navigationBarTitleVariantSelectionOptionsColor;
 - (UIColor*)productTitleColor;
 + (UIColor*)comparePriceTextColor;
 + (UIColor*)descriptionTextColor;
 - (UIColor*)variantOptionNameTextColor;
 - (UIColor*)variantPriceTextColor;
-- (UIColor*)variantSoldOutTextColor;
++ (UIColor*)variantSoldOutTextColor;
 
 // padding
 + (CGFloat)paddingSmall;
@@ -54,6 +53,8 @@
 + (UIFont*)variantOptionNameFont;
 + (UIFont*)variantOptionValueFont;
 + (UIFont*)variantOptionPriceFont;
++ (UIFont*)variantOptionSelectionTitleFont;
++ (UIFont*)variantOptionSelectionSelectionVariantOptionFont;
 + (UIFont*)errorLabelFont;
 
 // misc

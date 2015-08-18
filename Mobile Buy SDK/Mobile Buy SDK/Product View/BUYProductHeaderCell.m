@@ -90,7 +90,7 @@
 		self.comparePriceLabel.textColor = [BUYTheme comparePriceTextColor];
 	} else if (productVariant.available == NO) {
 		self.comparePriceLabel.text = @"Sold Out";
-		self.comparePriceLabel.textColor = [self.theme variantSoldOutTextColor];
+		self.comparePriceLabel.textColor = [BUYTheme variantSoldOutTextColor];
 	} else {
 		self.comparePriceLabel.attributedText = nil;
 	}

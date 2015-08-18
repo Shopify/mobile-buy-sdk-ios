@@ -55,17 +55,12 @@
 
 - (UIColor*)navigationBarTitleVariantSelectionColor
 {
-	return self.style == BUYThemeStyleDark ? [UIColor whiteColor] : [UIColor blackColor];
+	return self.style == BUYThemeStyleDark ? BUY_RGB(229, 229, 229) : [UIColor blackColor];
 }
 
-- (UIColor*)navigationBarVariantSelectionTintColor
+- (UIColor*)navigationBarTitleVariantSelectionOptionsColor
 {
-	return self.style == BUYThemeStyleDark ? [UIColor lightGrayColor] : [UIColor colorWithWhite:(float)(152.0/255.0) alpha:1.0];
-}
-
-- (UIColor*)navigationBarVariantSelectionCloseButtonTintColor
-{
-	return self.style == BUYThemeStyleDark ? BUY_RGB(229, 229, 229) : BUY_RGB(51, 51, 51);
+	return BUY_RGB(140, 140, 140);
 }
 
 - (UIColor*)productTitleColor
@@ -93,7 +88,7 @@
 	return BUY_RGB(140, 140, 140);
 }
 
-- (UIColor*)variantSoldOutTextColor
++ (UIColor*)variantSoldOutTextColor
 {
 	return BUY_RGB(220, 96, 96);
 }
@@ -182,6 +177,16 @@
 + (UIFont*)variantOptionPriceFont
 {
 	return [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+}
+
++ (UIFont*)variantOptionSelectionTitleFont
+{
+	return [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
+}
+
++ (UIFont*)variantOptionSelectionSelectionVariantOptionFont
+{
+	return [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
 }
 
 + (UIFont*)errorLabelFont

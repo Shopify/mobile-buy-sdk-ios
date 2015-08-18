@@ -31,7 +31,6 @@
 	if (self) {
 		self.filteredProductVariantsForSelectionOption = filteredProductVariantsForSelectionOption;
 		self.optionValues = optionValues;
-		self.title = [self.optionValues.firstObject name];
 		self.tableView.estimatedRowHeight = 44.0f;
 		self.tableView.rowHeight = UITableViewAutomaticDimension;
 	}

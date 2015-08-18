@@ -127,7 +127,7 @@
 			self.priceLabel.textColor = [theme variantPriceTextColor];
 		} else {
 			self.priceLabel.text = @"Sold Out";
-			self.priceLabel.textColor = [theme variantSoldOutTextColor];
+			self.priceLabel.textColor = [BUYTheme variantSoldOutTextColor];
 		}
 		[NSLayoutConstraint activateConstraints:self.priceConstraints];
 		[NSLayoutConstraint deactivateConstraints:self.noPriceConstraints];

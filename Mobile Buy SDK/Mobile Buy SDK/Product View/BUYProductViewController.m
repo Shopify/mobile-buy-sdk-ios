@@ -322,9 +322,10 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 - (void)variantSelectionController:(BUYVariantSelectionViewController *)controller didSelectVariant:(BUYProductVariant *)variant
 {
 	[controller dismissViewControllerAnimated:YES completion:NULL];
-	self.selectedProductVariant = variant;
-	
-	[self.productView.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+	if (self.selectedProductVariant != variant) {
+		self.selectedProductVariant = variant;
+		[self.productView.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+	}
 }
 
 - (void)variantSelectionControllerDidCancelVariantSelection:(BUYVariantSelectionViewController *)controller atOptionIndex:(NSUInteger)optionIndex
