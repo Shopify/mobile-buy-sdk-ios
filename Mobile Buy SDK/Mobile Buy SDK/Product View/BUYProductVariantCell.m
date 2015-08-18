@@ -51,10 +51,10 @@
 		
 		NSDictionary *views = NSDictionaryOfVariableBindings(_optionView1, _optionView2, _optionView3, _disclosureIndicatorImageView);
 		
-		NSDictionary *metricsDictionary = @{ @"paddingLarge" : @([BUYTheme paddingLarge]), @"paddingSmall" : @([BUYTheme paddingSmall]) };
+		NSDictionary *metricsDictionary = @{ @"paddingExtraLarge" : @([BUYTheme paddingExtraLarge]), @"paddingSmall" : @([BUYTheme paddingSmall]) };
 		
-		self.disclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_optionView1]-(paddingLarge)-[_optionView2]-(paddingLarge)-[_optionView3]-(>=paddingSmall)-[_disclosureIndicatorImageView]-|" options:0 metrics:metricsDictionary views:views];
-		self.noDisclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_optionView1]-(paddingLarge)-[_optionView2]-(paddingLarge)-[_optionView3]-(>=paddingSmall)-|" options:0 metrics:metricsDictionary views:views];
+		self.disclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_optionView1]-(paddingExtraLarge)-[_optionView2]-(paddingExtraLarge)-[_optionView3]-(>=paddingSmall)-[_disclosureIndicatorImageView]-|" options:0 metrics:metricsDictionary views:views];
+		self.noDisclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_optionView1]-(paddingExtraLarge)-[_optionView2]-(paddingExtraLarge)-[_optionView3]-(>=paddingSmall)-|" options:0 metrics:metricsDictionary views:views];
 		
 		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_optionView1]-|" options:0 metrics:nil views:views]];
 		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_optionView2]-|" options:0 metrics:nil views:views]];

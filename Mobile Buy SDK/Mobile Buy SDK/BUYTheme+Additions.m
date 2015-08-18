@@ -112,6 +112,11 @@
 
 + (CGFloat)paddingLarge
 {
+	return 14.0f;
+}
+
++ (CGFloat)paddingExtraLarge
+{
 	return 16.0f;
 }
 

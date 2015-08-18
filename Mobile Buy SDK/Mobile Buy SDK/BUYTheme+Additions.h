@@ -37,6 +37,7 @@
 + (CGFloat)paddingSmall;
 + (CGFloat)paddingMedium;
 + (CGFloat)paddingLarge;
++ (CGFloat)paddingExtraLarge;
 
 // sizes
 + (CGFloat)topGradientViewHeight;

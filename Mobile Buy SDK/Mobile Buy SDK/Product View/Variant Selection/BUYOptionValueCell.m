@@ -33,7 +33,7 @@
 		[self setSelectedBackgroundView:backgroundView];
 		
 		self.textLabel.backgroundColor = [UIColor clearColor];
-		self.layoutMargins = UIEdgeInsetsMake(self.layoutMargins.top, [BUYTheme paddingLarge], self.layoutMargins.bottom, 0);
+		self.layoutMargins = UIEdgeInsetsMake(self.layoutMargins.top, [BUYTheme paddingExtraLarge], self.layoutMargins.bottom, 0);
 		
 		UIView *labelContainerView = [[UIView alloc] init];
 		labelContainerView.translatesAutoresizingMaskIntoConstraints = NO;
