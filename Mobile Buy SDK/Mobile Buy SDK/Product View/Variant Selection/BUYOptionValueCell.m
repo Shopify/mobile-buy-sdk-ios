@@ -27,7 +27,7 @@
 		[self setSelectedBackgroundView:backgroundView];
 		
 		self.textLabel.backgroundColor = [UIColor clearColor];
-		self.layoutMargins = UIEdgeInsetsMake(self.layoutMargins.top, [BUYTheme paddingBlue], self.layoutMargins.bottom, 0);
+		self.layoutMargins = UIEdgeInsetsMake(self.layoutMargins.top, [BUYTheme paddingLarge], self.layoutMargins.bottom, 0);
 		
 		_titleLabel = [[UILabel alloc] init];
 		_titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -48,7 +48,7 @@
 		[self.contentView addSubview:_disclosureIndicatorImageView];
 		
 		NSDictionary *views = NSDictionaryOfVariableBindings(_titleLabel, _selectedImageView, _disclosureIndicatorImageView);
-		NSDictionary *metricsDictionary = @{ @"paddingPurple" : [NSNumber numberWithDouble:[BUYTheme paddingPurple]] };
+		NSDictionary *metricsDictionary = @{ @"paddingPurple" : [NSNumber numberWithDouble:[BUYTheme paddingMedium]] };
 		
 		self.disclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_titleLabel]-[_selectedImageView]-[_disclosureIndicatorImageView]-(paddingPurple)-|" options:0 metrics:metricsDictionary views:views];
 		self.noDisclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_titleLabel]-[_selectedImageView]-(paddingPurple)-|" options:0 metrics:metricsDictionary views:views];

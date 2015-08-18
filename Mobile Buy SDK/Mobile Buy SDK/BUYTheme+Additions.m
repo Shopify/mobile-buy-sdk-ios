@@ -85,17 +85,17 @@
 
 #pragma mark - Padding
 
-+ (CGFloat)paddingRed
++ (CGFloat)paddingSmall
 {
 	return 8.0f;
 }
 
-+ (CGFloat)paddingPurple
++ (CGFloat)paddingMedium
 {
 	return 12.0f;
 }
 
-+ (CGFloat)paddingBlue
++ (CGFloat)paddingLarge
 {
 	return 16.0f;
 }

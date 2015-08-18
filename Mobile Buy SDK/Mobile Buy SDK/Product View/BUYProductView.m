@@ -91,7 +91,7 @@
 		self.tableView.estimatedRowHeight = 60.0;
 		self.tableView.rowHeight = UITableViewAutomaticDimension;
 		self.tableView.tableFooterView = [UIView new];
-		self.tableView.layoutMargins = UIEdgeInsetsMake(self.tableView.layoutMargins.top, [BUYTheme paddingBlue], self.tableView.layoutMargins.bottom, [BUYTheme paddingPurple]);
+		self.tableView.layoutMargins = UIEdgeInsetsMake(self.tableView.layoutMargins.top, [BUYTheme paddingLarge], self.tableView.layoutMargins.bottom, [BUYTheme paddingMedium]);
 		[self addSubview:self.tableView];
 		
 		[self.tableView registerClass:[BUYProductHeaderCell class] forCellReuseIdentifier:@"headerCell"];
