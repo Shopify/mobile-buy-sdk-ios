@@ -9,6 +9,7 @@
 #import "BUYProductViewFooter.h"
 #import "BUYTheme.h"
 #import "BUYProductVariant.h"
+#import "BUYTheme+Additions.h"
 
 @interface BUYProductViewFooter ()
 
@@ -27,9 +28,7 @@
 		self.backgroundColor = [UIColor clearColor];
 		self.theme = theme;
 		
-		UIBlurEffectStyle style = theme.style == BUYThemeStyleLight ? UIBlurEffectStyleLight : UIBlurEffectStyleDark;
-		UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:style];
-		self.visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+		self.visualEffectView = [[UIVisualEffectView alloc] initWithEffect:[theme blurEffect]];
 		self.visualEffectView.translatesAutoresizingMaskIntoConstraints = NO;
 		[self addSubview:self.visualEffectView];
 		
@@ -44,7 +43,7 @@
 		
 		UIView *separatorLineView = [[UIView alloc] init];
 		separatorLineView.translatesAutoresizingMaskIntoConstraints = NO;
-		separatorLineView.backgroundColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(76, 76, 76) : BUY_RGB(217, 217, 217);;
+		separatorLineView.backgroundColor = [theme separatorColor];
 		[self.visualEffectView.contentView addSubview:separatorLineView];
 		
 		[self.visualEffectView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[separatorLineView]|"
@@ -63,8 +62,7 @@
 		self.checkoutButton.layer.cornerRadius = 5;
 		[self.visualEffectView.contentView addSubview:self.checkoutButton];
 		
-		BUYPaymentButtonStyle buttonStyle = theme.style == BUYThemeStyleLight ? BUYPaymentButtonStyleBlack : BUYPaymentButtonStyleWhite;
-		self.buyPaymentButton = [BUYPaymentButton buttonWithType:BUYPaymentButtonTypeBuy style:buttonStyle];
+		self.buyPaymentButton = [BUYPaymentButton buttonWithType:BUYPaymentButtonTypeBuy style:[theme paymentButtonStyle]];
 		self.buyPaymentButton.translatesAutoresizingMaskIntoConstraints = NO;
 		[self.visualEffectView.contentView addSubview:self.buyPaymentButton];
 		
@@ -84,7 +82,7 @@
 		[self addConstraints:self.checkoutLayoutConstraints];
 		[NSLayoutConstraint deactivateConstraints:self.checkoutLayoutConstraints];
 		
-		NSDictionary *metricsDictionary = @{ @"buttonHeight" : @(44.0f) };
+		NSDictionary *metricsDictionary = @{ @"buttonHeight" : @([BUYTheme checkoutButtonHeight]) };
 		
 		[self.visualEffectView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_checkoutButton(buttonHeight)]-|"
 																					  options:0

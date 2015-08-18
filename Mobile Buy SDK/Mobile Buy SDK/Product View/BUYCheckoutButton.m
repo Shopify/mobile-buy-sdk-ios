@@ -7,6 +7,7 @@
 //
 
 #import "BUYCheckoutButton.h"
+#import "BUYTheme+Additions.h"
 
 @interface BUYCheckoutButton ()
 
@@ -28,7 +29,7 @@
 	_theme = theme;
 	self.tintColor = theme.tintColor;
 	self.backgroundColor = self.tintColor;
-	UIColor *textColor = theme.style == BUYThemeStyleLight ? [UIColor whiteColor] : [UIColor blackColor];
+	UIColor *textColor = [theme checkoutButtonTextColor];
 	[self setTitleColor:textColor forState:UIControlStateNormal];
 }
 

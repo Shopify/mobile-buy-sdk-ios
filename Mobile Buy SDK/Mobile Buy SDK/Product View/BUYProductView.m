@@ -11,13 +11,14 @@
 #import "BUYProductViewHeaderBackgroundImageView.h"
 #import "BUYProductViewFooter.h"
 #import "BUYGradientView.h"
-#import "BUYTheme.h"
 #import "BUYProductVariantCell.h"
 #import "BUYProductDescriptionCell.h"
 #import "BUYProductHeaderCell.h"
 #import "BUYImage.h"
 #import "BUYImageView.h"
 #import "BUYProductViewErrorView.h"
+#import "BUYTheme.h"
+#import "BUYTheme+Additions.h"
 
 @interface BUYProductView ()
 
@@ -54,7 +55,7 @@
 														  constant:0.0]];
 		
 		self.stickyFooterView = [UIView new];
-		self.stickyFooterView.backgroundColor = (theme.style == BUYThemeStyleDark) ? [UIColor blackColor] : [UIColor whiteColor];
+		self.stickyFooterView.backgroundColor = [theme backgroundColor];
 		self.stickyFooterView.translatesAutoresizingMaskIntoConstraints = NO;
 		[self addSubview:self.stickyFooterView];
 		
@@ -90,7 +91,7 @@
 		self.tableView.estimatedRowHeight = 60.0;
 		self.tableView.rowHeight = UITableViewAutomaticDimension;
 		self.tableView.tableFooterView = [UIView new];
-		self.tableView.layoutMargins = UIEdgeInsetsMake(0, 16, 0, 12);
+		self.tableView.layoutMargins = UIEdgeInsetsMake(self.tableView.layoutMargins.top, [BUYTheme paddingLarge], self.tableView.layoutMargins.bottom, [BUYTheme paddingMedium]);
 		[self addSubview:self.tableView];
 		
 		[self.tableView registerClass:[BUYProductHeaderCell class] forCellReuseIdentifier:@"headerCell"];
@@ -138,13 +139,13 @@
 																	 options:0
 																	 metrics:nil
 																	   views:NSDictionaryOfVariableBindings(_productViewFooter)]];
-		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_productViewFooter(60)]|"
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_productViewFooter(height)]|"
 																	 options:0
-																	 metrics:nil
+																	 metrics:@{ @"height" : @([BUYTheme productFooterHeight]) }
 																	   views:NSDictionaryOfVariableBindings(_productViewFooter)]];
 		
 		self.topGradientView = [[BUYGradientView alloc] init];
-		self.topGradientView.topColor = [UIColor colorWithWhite:0 alpha:0.25f];
+		self.topGradientView.topColor = [BUYTheme topGradientViewTopColor];
 		self.topGradientView.translatesAutoresizingMaskIntoConstraints = NO;
 		self.topGradientView.userInteractionEnabled = NO;
 		[self addSubview:self.topGradientView];
@@ -155,7 +156,7 @@
 																	   views:NSDictionaryOfVariableBindings(_topGradientView)]];
 		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_topGradientView(height)]"
 																	 options:0
-																	 metrics:@{ @"height" : @114 }
+																	 metrics:@{ @"height" : @([BUYTheme topGradientViewHeight]) }
 																	   views:NSDictionaryOfVariableBindings(_topGradientView)]];
 		
 		self.theme = theme;
@@ -173,10 +174,10 @@
 {
 	_theme = theme;
 	self.tintColor = _theme.tintColor;
-	self.stickyFooterView.backgroundColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(26, 26, 26) : [UIColor whiteColor];
-	self.tableView.separatorColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(76, 76, 76) : BUY_RGB(217, 217, 217);
-	self.backgroundColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(26, 26, 26) : BUY_RGB(255, 255, 255);
-	self.backgroundImageView.hidden = _theme.showsProductImageBackground == NO;
+	self.tableView.separatorColor = [theme separatorColor];
+	self.backgroundColor = [theme backgroundColor];
+	self.stickyFooterView.backgroundColor = self.backgroundColor;
+	self.backgroundImageView.hidden = theme.showsProductImageBackground == NO;
 	self.poweredByShopifyLabel.textColor = self.tableView.separatorColor;
 }
 

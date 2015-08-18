@@ -9,6 +9,7 @@
 #import "BUYOptionValueCell.h"
 #import "BUYImageKit.h"
 #import "BUYOptionValue.h"
+#import "BUYTheme+Additions.h"
 
 @interface BUYOptionValueCell()
 @property (nonatomic, strong) NSArray *disclosureConstraints;
@@ -26,7 +27,7 @@
 		[self setSelectedBackgroundView:backgroundView];
 		
 		self.textLabel.backgroundColor = [UIColor clearColor];
-		self.layoutMargins = UIEdgeInsetsMake(self.layoutMargins.top, 16.0, self.layoutMargins.bottom, 0);
+		self.layoutMargins = UIEdgeInsetsMake(self.layoutMargins.top, [BUYTheme paddingLarge], self.layoutMargins.bottom, 0);
 		
 		_titleLabel = [[UILabel alloc] init];
 		_titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -47,9 +48,10 @@
 		[self.contentView addSubview:_disclosureIndicatorImageView];
 		
 		NSDictionary *views = NSDictionaryOfVariableBindings(_titleLabel, _selectedImageView, _disclosureIndicatorImageView);
+		NSDictionary *metricsDictionary = @{ @"paddingMedium" : @([BUYTheme paddingMedium]) };
 		
-		self.disclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_titleLabel]-[_selectedImageView]-[_disclosureIndicatorImageView]-(12)-|" options:0 metrics:nil views:views];
-		self.noDisclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_titleLabel]-[_selectedImageView]-(12)-|" options:0 metrics:nil views:views];
+		self.disclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_titleLabel]-[_selectedImageView]-[_disclosureIndicatorImageView]-(paddingMedium)-|" options:0 metrics:metricsDictionary views:views];
+		self.noDisclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_titleLabel]-[_selectedImageView]-(paddingMedium)-|" options:0 metrics:metricsDictionary views:views];
 		
 		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_titleLabel]|" options:0 metrics:nil views:views]];
 		
@@ -88,7 +90,6 @@
 - (void)setOptionValue:(BUYOptionValue *)optionValue
 {
 	_optionValue = optionValue;
-	
 	self.titleLabel.text = optionValue.value;
 }
 
@@ -96,19 +97,16 @@
 {
 	self.titleLabel.textColor = theme.tintColor;
 	self.selectedImageView.tintColor = theme.tintColor;
-	self.backgroundColor = theme.style == BUYThemeStyleDark ? BUY_RGB(26, 26, 26) : BUY_RGB(255, 255, 255);
-	self.selectedBackgroundView.backgroundColor = theme.style == BUYThemeStyleDark ? BUY_RGB(60, 60, 60) : BUY_RGB(242, 242, 242);
-	_disclosureIndicatorImageView.image = [BUYImageKit imageOfDisclosureIndicatorImageWithFrame:CGRectMake(0, 0, 10, 16) color:theme.style == BUYThemeStyleDark ? BUY_RGB(76, 76, 76) : BUY_RGB(191, 191, 191)];
+	self.backgroundColor = [theme backgroundColor];
+	self.selectedBackgroundView.backgroundColor = [theme selectedBackgroundColor];
+	_disclosureIndicatorImageView.image = [BUYImageKit imageOfDisclosureIndicatorImageWithFrame:CGRectMake(0, 0, 10, 16) color:[theme disclosureIndicatorColor]];
 }
 
 - (void)prepareForReuse
 {
 	[super prepareForReuse];
-	
 	self.textLabel.text = nil;
 	self.selectedImageView.hidden = YES;
 }
 
 @end
-
-

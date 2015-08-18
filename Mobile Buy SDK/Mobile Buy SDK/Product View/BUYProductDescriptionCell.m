@@ -8,6 +8,7 @@
 
 #import "BUYProductDescriptionCell.h"
 #import "BUYTheme.h"
+#import "BUYTheme+Additions.h"
 
 @interface BUYProductDescriptionCell ()
 
@@ -24,7 +25,7 @@
 	if (self) {
 		self.selectionStyle = UITableViewCellSelectionStyleNone;
 		
-		self.layoutMargins = UIEdgeInsetsMake(12, self.layoutMargins.left, 12, self.layoutMargins.right);
+		self.layoutMargins = UIEdgeInsetsMake([BUYTheme paddingMedium], self.layoutMargins.left, [BUYTheme paddingMedium], self.layoutMargins.right);
 		
 		_descriptionLabel = [[UILabel alloc] init];
 		_descriptionLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -36,7 +37,7 @@
 		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_descriptionLabel]-|" options:0 metrics:nil views:views]];
 		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_descriptionLabel]-|" options:0 metrics:nil views:views]];
 		
-		_textColor = [UIColor colorWithWhite:0.6f alpha:1];
+		_textColor = [BUYTheme descriptionTextColor];
 	}
 	
 	return self;
@@ -52,8 +53,7 @@
 											  font.fontName, font.pointSize, [self hexStringFromColor:self.textColor]]];
 		
 		NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithData:[html dataUsingEncoding:NSUTF8StringEncoding]
-																							  options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-																										NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)}
+																							  options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,  NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)}
 																				   documentAttributes:nil
 																								error:nil];
 		self.descriptionLabel.attributedText = attributedString;
@@ -71,21 +71,8 @@
 - (void)setTheme:(BUYTheme *)theme
 {
 	_theme = theme;
-	
-	switch (theme.style) {
-		case BUYThemeStyleDark:
-			self.backgroundColor = BUY_RGB(26, 26, 26);
-			self.descriptionLabel.backgroundColor = BUY_RGB(26, 26, 26);
-			break;
-			
-		case BUYThemeStyleLight:
-			self.backgroundColor = [UIColor whiteColor];
-			self.descriptionLabel.backgroundColor = [UIColor whiteColor];
-			break;
-			
-		default:
-			break;
-	}
+	self.backgroundColor = [theme backgroundColor];
+	self.descriptionLabel.backgroundColor = self.backgroundColor;
 }
 
 - (NSString *)hexStringFromColor:(UIColor *)color {
