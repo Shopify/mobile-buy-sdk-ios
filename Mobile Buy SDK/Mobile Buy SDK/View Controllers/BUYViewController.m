@@ -63,7 +63,10 @@
 			self.shop = shop;
 		}
 		else {
-			[self.delegate controllerFailedToStartApplePayProcess:self];
+			
+			if ([self.delegate respondsToSelector:@selector(controllerFailedToStartApplePayProcess:)]) {
+				[self.delegate controllerFailedToStartApplePayProcess:self];
+			}
 		}
 
 		self.isLoadingShop = NO;
@@ -101,9 +104,6 @@
 
 - (void)startApplePayCheckout:(BUYCheckout *)checkout
 {
-	if ([self.delegate respondsToSelector:@selector(controllerWillCheckoutViaApplePay:)]) {
-		[self.delegate controllerWillCheckoutViaApplePay:self];
-	}
 	
 	if (self.shop == nil && self.isLoadingShop == NO) {
 		// since requests are sent serially, this will return before the checkout is created
@@ -114,6 +114,9 @@
 		self.checkout = checkout;
 		
 		if (error == nil) {
+			if ([self.delegate respondsToSelector:@selector(controllerWillCheckoutViaApplePay:)]) {
+				[self.delegate controllerWillCheckoutViaApplePay:self];
+			}
 			self.applePayHelper = [[BUYApplePayHelpers alloc] initWithClient:self.client checkout:checkout];
 		}
 		[self handleCheckoutCompletion:checkout error:error];
@@ -122,12 +125,15 @@
 
 - (void)startWebCheckout:(BUYCheckout *)checkout
 {
-	if ([self.delegate respondsToSelector:@selector(controllerWillCheckoutViaWeb:)]) {
-		[self.delegate controllerWillCheckoutViaWeb:self];
-	}
 	
 	[self handleCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
+		
 		if (error == nil) {
+			self.checkout = checkout;
+
+			if ([self.delegate respondsToSelector:@selector(controllerWillCheckoutViaWeb:)]) {
+				[self.delegate controllerWillCheckoutViaWeb:self];
+			}
 			[[UIApplication sharedApplication] openURL:checkout.webCheckoutURL];
 		}
 		else {

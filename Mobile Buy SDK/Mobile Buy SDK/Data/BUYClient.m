@@ -229,7 +229,7 @@ NSString * const BUYVersionString = @"1.1.1";
 	checkout.sourceIdentifier = checkout.channelId;
 	if (self.urlScheme || checkout.webReturnToURL) {
 		checkout.webReturnToURL = checkout.webReturnToURL ?: self.urlScheme;
-		checkout.webReturnToLabel = checkout.webReturnToLabel ?: self.applicationName;
+		checkout.webReturnToLabel = checkout.webReturnToLabel ?: [@"Return to " stringByAppendingString:self.applicationName];
 	}
 }
 
