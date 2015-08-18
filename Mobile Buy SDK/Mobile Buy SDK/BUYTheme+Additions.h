@@ -20,6 +20,7 @@
 - (UIColor*)checkoutButtonTextColor;
 + (UIColor*)topGradientViewTopColor;
 - (UIColor*)errorTintOverlayColor;
+- (UIColor*)navigationBarTitleColor;
 - (UIColor*)productTitleColor;
 + (UIColor*)descriptionTextColor;
 

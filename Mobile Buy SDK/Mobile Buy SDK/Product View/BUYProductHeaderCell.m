@@ -116,6 +116,7 @@
 {
 	_theme = theme;
 	self.backgroundColor = [theme backgroundColor];
+	self.titleLabel.backgroundColor = self.priceLabel.backgroundColor = self.comparePriceLabel.backgroundColor = self.backgroundColor;
 	self.titleLabel.textColor = [theme productTitleColor];
 }
 

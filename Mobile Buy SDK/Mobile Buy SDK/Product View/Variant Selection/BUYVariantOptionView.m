@@ -67,6 +67,9 @@
 - (void)setTheme:(BUYTheme *)theme
 {
 	self.optionNameLabel.textColor = (theme.style == BUYThemeStyleDark) ? BUY_RGB(76, 76, 76) : BUY_RGB(191, 191, 191);
+	self.backgroundColor = (theme.style == BUYThemeStyleDark) ? BUY_RGB(26, 26, 26) : [UIColor whiteColor];
+	self.optionNameLabel.backgroundColor = self.backgroundColor;
+	self.optionValueLabel.backgroundColor = self.backgroundColor;
 }
 
 @end

@@ -190,7 +190,7 @@
 	}
 	
 	PKPaymentRequest *request = [self paymentRequest];
-	request.paymentSummaryItems = [_checkout buy_summaryItems];
+	request.paymentSummaryItems = [self.checkout buy_summaryItems];
 	PKPaymentAuthorizationViewController *controller = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:request];
 	if (controller) {
 		controller.delegate = self;
@@ -272,7 +272,7 @@
 		
 		if (status == PKPaymentAuthorizationStatusInvalidShippingPostalAddress) {
 			if ([self.delegate respondsToSelector:@selector(controller:failedToGetShippingRates:withError:)]) {
-				[self.delegate controller:self failedToGetShippingRates:_checkout withError:self.applePayHelper.lastError];
+				[self.delegate controller:self failedToGetShippingRates:self.checkout withError:self.applePayHelper.lastError];
 			}
 		}
 		
@@ -310,7 +310,7 @@
 	
 	[paymentRequest setMerchantIdentifier:merchantId];
 	[paymentRequest setRequiredBillingAddressFields:PKAddressFieldAll];
-	[paymentRequest setRequiredShippingAddressFields:_checkout.requiresShipping ? PKAddressFieldAll : PKAddressFieldEmail|PKAddressFieldPhone];
+	[paymentRequest setRequiredShippingAddressFields:self.checkout.requiresShipping ? PKAddressFieldAll : PKAddressFieldEmail|PKAddressFieldPhone];
 	[paymentRequest setSupportedNetworks:self.supportedNetworks];
 	[paymentRequest setMerchantCapabilities:PKMerchantCapability3DS];
 	[paymentRequest setCountryCode:self.shop.country];

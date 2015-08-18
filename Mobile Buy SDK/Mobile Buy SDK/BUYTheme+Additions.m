@@ -38,6 +38,11 @@
 	return self.style == BUYThemeStyleDark ? BUY_RGBA(255, 66, 66, 0.75f) : BUY_RGBA(209, 44, 44, 0.75f);
 }
 
+- (UIColor*)navigationBarTitleColor
+{
+	return self.style == BUYThemeStyleDark ? [UIColor whiteColor] : [UIColor blackColor];
+}
+
 - (UIColor*)productTitleColor
 {
 	return self.style == BUYThemeStyleDark ? [UIColor whiteColor] : [UIColor blackColor];

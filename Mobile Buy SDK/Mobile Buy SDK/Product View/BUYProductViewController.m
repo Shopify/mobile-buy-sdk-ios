@@ -352,11 +352,11 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 {
 	if ([scrollView isKindOfClass:[UITableView class]]) {
 		[self.productView scrollViewDidScroll:scrollView];
+		CGFloat duration = 0.3f;
 		if (self.navigationBar) {
 			if (self.navigationBar.alpha != 1 && [self navigationBarThresholdReached] == YES) {
-				[(BUYNavigationController*)self.navigationController updateCloseButtonImageWithDarkStyle:YES];
-				
-				[UIView animateWithDuration:0.3f
+				[(BUYNavigationController*)self.navigationController updateCloseButtonImageWithDarkStyle:YES duration:duration];
+				[UIView animateWithDuration:duration
 									  delay:0
 									options:(UIViewAnimationOptionCurveLinear | UIViewKeyframeAnimationOptionBeginFromCurrentState)
 								 animations:^{
@@ -366,9 +366,9 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 								 }
 								 completion:NULL];
 			} else if (self.navigationBar.alpha != 0 && [self navigationBarThresholdReached] == NO)  {
-				[(BUYNavigationController*)self.navigationController updateCloseButtonImageWithDarkStyle:NO];
-				
-				[UIView animateWithDuration:0.20f
+				duration = 0.2f;
+				[(BUYNavigationController*)self.navigationController updateCloseButtonImageWithDarkStyle:NO duration:duration];
+				[UIView animateWithDuration:duration
 									  delay:0
 									options:(UIViewAnimationOptionCurveLinear | UIViewKeyframeAnimationOptionBeginFromCurrentState)
 								 animations:^{
