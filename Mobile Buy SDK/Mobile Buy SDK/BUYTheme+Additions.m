@@ -32,6 +32,11 @@
 	return [UIColor colorWithWhite:0 alpha:0.25f];
 }
 
+- (UIColor*)errorTintOverlayColor
+{
+	return self.style == BUYThemeStyleDark ? BUY_RGBA(255, 66, 66, 0.75f) : BUY_RGBA(209, 44, 44, 0.75f);
+}
+
 #pragma mark - Padding
 
 + (CGFloat)paddingRed
@@ -61,6 +66,18 @@
 	return 60.f;
 }
 
++ (CGFloat)checkoutButtonHeight
+{
+	return 44.0f;
+}
+
+#pragma mark - Fonts
+
++ (UIFont*)errorLabelFont
+{
+	return [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+}
+
 #pragma mark - Misc
 
 - (UIBlurEffect*)blurEffect
@@ -76,6 +93,11 @@
 - (UIBarStyle)navigationBarStyle
 {
 	return self.style == BUYThemeStyleDark ? UIBarStyleBlack : UIBarStyleDefault;
+}
+
+- (BUYPaymentButtonStyle)paymentButtonStyle
+{
+	return self.style == BUYThemeStyleLight ? BUYPaymentButtonStyleBlack : BUYPaymentButtonStyleWhite;
 }
 
 @end

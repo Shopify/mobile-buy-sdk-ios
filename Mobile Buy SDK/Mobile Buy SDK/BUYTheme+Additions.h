@@ -7,6 +7,7 @@
 //
 
 #import "BUYTheme.h"
+#import "BUYPaymentButton.h"
 
 #define BUY_RGB(r, g, b) BUY_RGBA(r, g, b, 1)
 #define BUY_RGBA(r, g, b, a) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a]
@@ -18,6 +19,7 @@
 - (UIColor*)separatorColor;
 - (UIColor*)checkoutButtonTextColor;
 + (UIColor*)topGradientViewTopColor;
+- (UIColor*)errorTintOverlayColor;
 
 // padding
 + (CGFloat)paddingRed;
@@ -27,12 +29,15 @@
 // sizes
 + (CGFloat)topGradientViewHeight;
 + (CGFloat)productFooterHeight;
++ (CGFloat)checkoutButtonHeight;
 
 // fonts
++ (UIFont*)errorLabelFont;
 
 // misc
 - (UIBlurEffect*)blurEffect;
 - (UIActivityIndicatorViewStyle)activityIndicatorViewStyle;
 - (UIBarStyle)navigationBarStyle;
+- (BUYPaymentButtonStyle)paymentButtonStyle;
 
 @end
