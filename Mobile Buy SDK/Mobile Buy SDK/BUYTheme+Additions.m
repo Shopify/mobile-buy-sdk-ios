@@ -75,7 +75,7 @@
 
 + (UIColor*)descriptionTextColor
 {
-	return [UIColor colorWithWhite:0.4 alpha:1];
+	return [UIColor colorWithWhite:0.4f alpha:1];
 }
 
 - (UIColor*)variantOptionNameTextColor
