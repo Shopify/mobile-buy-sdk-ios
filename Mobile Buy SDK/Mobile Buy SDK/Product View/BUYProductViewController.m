@@ -162,11 +162,10 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 - (void)setTheme:(BUYTheme *)theme
 {
 	_theme = theme;
-	self.view.tintColor = _theme.tintColor;
-	UIColor *backgroundColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(26, 26, 26) : BUY_RGB(255, 255, 255);
-	self.view.backgroundColor = backgroundColor;
+	self.view.tintColor = theme.tintColor;
+	self.view.backgroundColor = [theme backgroundColor];
 	self.productView.theme = theme;
-	self.activityIndicatorView.activityIndicatorViewStyle = (_theme.style == BUYThemeStyleDark) ? UIActivityIndicatorViewStyleWhite : UIActivityIndicatorViewStyleGray;
+	self.activityIndicatorView.activityIndicatorViewStyle = [theme activityIndicatorViewStyle];
 	[self setNeedsStatusBarAppearanceUpdate];
 }
 

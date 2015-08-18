@@ -33,8 +33,7 @@
 		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_visualEffectContainerView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_visualEffectContainerView)]];
 		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_visualEffectContainerView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_visualEffectContainerView)]];
 		
-		UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:(theme.style == BUYThemeStyleDark ? UIBlurEffectStyleDark : UIBlurEffectStyleLight)];
-		UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+		UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:[theme blurEffect]];
 		visualEffectView.translatesAutoresizingMaskIntoConstraints = NO;
 		[_visualEffectContainerView addSubview:visualEffectView];
 		

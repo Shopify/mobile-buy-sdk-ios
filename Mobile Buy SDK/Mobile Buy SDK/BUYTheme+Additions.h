@@ -13,8 +13,26 @@
 
 @interface BUYTheme (Additions)
 
+// colours
+- (UIColor*)backgroundColor;
+- (UIColor*)separatorColor;
+- (UIColor*)checkoutButtonTextColor;
++ (UIColor*)topGradientViewTopColor;
+
+// padding
 + (CGFloat)paddingRed;
 + (CGFloat)paddingPurple;
 + (CGFloat)paddingBlue;
+
+// sizes
++ (CGFloat)topGradientViewHeight;
++ (CGFloat)productFooterHeight;
+
+// fonts
+
+// misc
+- (UIBlurEffect*)blurEffect;
+- (UIActivityIndicatorViewStyle)activityIndicatorViewStyle;
+- (UIBarStyle)navigationBarStyle;
 
 @end

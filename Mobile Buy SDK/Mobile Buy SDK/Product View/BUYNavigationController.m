@@ -75,7 +75,7 @@
 - (void)setTheme:(BUYTheme *)theme
 {
 	_theme = theme;
-	self.navigationBar.barStyle = (_theme.style == BUYThemeStyleDark) ? UIBarStyleBlack : UIBarStyleDefault;
+	self.navigationBar.barStyle = [theme navigationBarStyle];
 }
 
 -(UIViewController *)childViewControllerForStatusBarStyle {

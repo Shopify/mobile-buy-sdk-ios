@@ -7,6 +7,7 @@
 //
 
 #import "BUYImageView.h"
+#import "BUYTheme+Additions.h"
 
 float const imageDuration = 0.1f;
 
@@ -107,11 +108,7 @@ float const imageDuration = 0.1f;
 
 - (void)setTheme:(BUYTheme *)theme
 {
-	if (theme.style == BUYThemeStyleDark) {
-		self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
-	} else {
-		self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-	}
+	self.activityIndicatorView.activityIndicatorViewStyle = [theme activityIndicatorViewStyle];
 }
 
 - (BOOL)isPortraitOrSquare
