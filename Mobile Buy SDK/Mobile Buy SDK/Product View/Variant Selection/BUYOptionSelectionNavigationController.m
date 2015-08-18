@@ -40,16 +40,8 @@
 - (void)setTheme:(BUYTheme *)theme
 {
 	self.navigationBar.barStyle = [theme navigationBarStyle];
-	switch (theme.style) {
-		case BUYThemeStyleDark:
-			[self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName : BUY_RGB(229, 229, 229) }];
-			self.navigationBar.tintColor = [UIColor lightGrayColor];
-			break;
-		case BUYThemeStyleLight:
-			[self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName: BUY_RGB(51, 51, 51) }];
-			self.navigationBar.tintColor = [UIColor colorWithWhite:(float)(152.0/255.0) alpha:1.0];
-			break;
-	}
+	[self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName : [theme navigationBarTitleVariantSelectionColor] }];
+//	self.navigationBar.tintColor = [theme navigationBarVariantSelectionTintColor];
 }
 
 #pragma mark - Transitioning Delegate Methods

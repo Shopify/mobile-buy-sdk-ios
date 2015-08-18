@@ -52,13 +52,13 @@
 		_errorLabel.numberOfLines = 0;
 		[visualEffectView.contentView addSubview:_errorLabel];
 		
-		NSDictionary *metricsDictionary = @{ @"horizontalPadding" : [NSNumber numberWithDouble:[BUYTheme paddingBlue]], @"verticalPadding" : [NSNumber numberWithDouble:[BUYTheme paddingPurple]],  };
+		NSDictionary *metricsDictionary = @{ @"paddingBlue" : [NSNumber numberWithDouble:[BUYTheme paddingBlue]], @"paddingPurple" : [NSNumber numberWithDouble:[BUYTheme paddingPurple]] };
 		
-		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(horizontalPadding)-[_errorLabel]-(horizontalPadding)-|"
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(paddingBlue)-[_errorLabel]-(paddingBlue)-|"
 																	 options:0
 																	 metrics:metricsDictionary
 																	   views:NSDictionaryOfVariableBindings(_errorLabel)]];
-		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(verticalPadding)-[_errorLabel]-(verticalPadding)-|"
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(paddingPurple)-[_errorLabel]-(paddingPurple)-|"
 																	 options:0
 																	 metrics:metricsDictionary
 																	   views:NSDictionaryOfVariableBindings(_errorLabel)]];

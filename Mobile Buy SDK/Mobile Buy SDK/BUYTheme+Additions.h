@@ -16,13 +16,19 @@
 
 // colours
 - (UIColor*)backgroundColor;
+- (UIColor*)selectedBackgroundColor;
 - (UIColor*)separatorColor;
+- (UIColor*)disclosureIndicatorColor;
 - (UIColor*)checkoutButtonTextColor;
 + (UIColor*)topGradientViewTopColor;
 - (UIColor*)errorTintOverlayColor;
 - (UIColor*)navigationBarTitleColor;
+- (UIColor*)navigationBarTitleVariantSelectionColor;
+- (UIColor*)navigationBarVariantSelectionTintColor;
+- (UIColor*)navigationBarVariantSelectionCloseButtonTintColor;
 - (UIColor*)productTitleColor;
 + (UIColor*)descriptionTextColor;
+- (UIColor*)variantOptionNameTextColor;
 
 // padding
 + (CGFloat)paddingRed;
@@ -41,6 +47,8 @@
 + (UIFont*)productTitleFont;
 + (UIFont*)productPriceFont;
 + (UIFont*)productComparePriceFont;
++ (UIFont*)variantOptionNameFont;
++ (UIFont*)variantOptionValueFont;
 + (UIFont*)errorLabelFont;
 
 // misc

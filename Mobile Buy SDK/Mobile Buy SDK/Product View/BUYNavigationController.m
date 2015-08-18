@@ -25,7 +25,6 @@
 	closeButton.frame = CGRectMake(0, 0, 22, 22);
 	UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
 	self.topViewController.navigationItem.leftBarButtonItem = barButtonItem;
-	self.navigationBar.barStyle = (self.theme.style == BUYThemeStyleDark) ? UIBarStyleBlack : UIBarStyleDefault;
 	[[UINavigationBar appearanceWhenContainedIn:[BUYNavigationController class], nil] setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
 	
 	return self;

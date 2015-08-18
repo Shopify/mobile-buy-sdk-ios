@@ -29,7 +29,7 @@
 		_optionNameLabel = [[UILabel alloc] init];
 		_optionNameLabel.textColor = [UIColor colorWithWhite:0.6f alpha:1];
 		_optionNameLabel.translatesAutoresizingMaskIntoConstraints = NO;
-		[_optionNameLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleFootnote]];
+		[_optionNameLabel setFont:[BUYTheme variantOptionNameFont]];
 		[self addSubview:_optionNameLabel];
 		
 		// Configure option value label
@@ -37,11 +37,11 @@
 		_optionValueLabel.textColor = self.tintColor;
 		_optionValueLabel.translatesAutoresizingMaskIntoConstraints = NO;
 		[_optionValueLabel setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
-		[_optionValueLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody increasedPointSize:2]];
+		[_optionValueLabel setFont:[BUYTheme variantOptionValueFont]];
 		[self addSubview:_optionValueLabel];
 		
 		NSDictionary *views = NSDictionaryOfVariableBindings(_optionNameLabel, _optionValueLabel);
-		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_optionNameLabel]-(3)-[_optionValueLabel]|" options:NSLayoutFormatAlignAllLeading metrics:nil views:views]];
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_optionNameLabel][_optionValueLabel]|" options:NSLayoutFormatAlignAllLeading metrics:nil views:views]];
 		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_optionNameLabel]|" options:0 metrics:nil views:views]];
 		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_optionValueLabel]|" options:0 metrics:nil views:views]];
 	}
@@ -66,8 +66,8 @@
 
 - (void)setTheme:(BUYTheme *)theme
 {
-	self.optionNameLabel.textColor = (theme.style == BUYThemeStyleDark) ? BUY_RGB(76, 76, 76) : BUY_RGB(191, 191, 191);
-	self.backgroundColor = (theme.style == BUYThemeStyleDark) ? BUY_RGB(26, 26, 26) : [UIColor whiteColor];
+	self.optionNameLabel.textColor = [theme variantOptionNameTextColor];
+	self.backgroundColor = [theme backgroundColor];
 	self.optionNameLabel.backgroundColor = self.backgroundColor;
 	self.optionValueLabel.backgroundColor = self.backgroundColor;
 }

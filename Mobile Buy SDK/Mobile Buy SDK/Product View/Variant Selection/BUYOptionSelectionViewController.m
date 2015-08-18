@@ -40,10 +40,9 @@
 - (void)setTheme:(BUYTheme *)theme
 {
 	_theme = theme;
-	UIColor *backgroundColor = _theme.style == BUYThemeStyleDark ? BUY_RGB(26, 26, 26) : BUY_RGB(255, 255, 255);
-	self.view.backgroundColor = backgroundColor;
-	self.tableView.backgroundColor = backgroundColor;
-	self.tableView.separatorColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(76, 76, 76) : BUY_RGB(217, 217, 217);
+	self.view.backgroundColor = [theme backgroundColor];
+	self.tableView.backgroundColor = self.view.backgroundColor;
+	self.tableView.separatorColor = [theme separatorColor];
 }
 
 - (void)viewDidLoad

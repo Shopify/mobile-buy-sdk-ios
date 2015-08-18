@@ -18,9 +18,19 @@
 	return self.style == BUYThemeStyleDark ? BUY_RGB(26, 26, 26) : [UIColor whiteColor];
 }
 
+- (UIColor*)selectedBackgroundColor
+{
+	return self.style == BUYThemeStyleDark ? BUY_RGB(60, 60, 60) : BUY_RGB(242, 242, 242);
+}
+
 - (UIColor*)separatorColor
 {
 	return self.style == BUYThemeStyleDark ? BUY_RGB(76, 76, 76) : BUY_RGB(217, 217, 217);
+}
+
+- (UIColor*)disclosureIndicatorColor
+{
+	return self.style == BUYThemeStyleDark ? BUY_RGB(76, 76, 76) : BUY_RGB(191, 191, 191);
 }
 
 - (UIColor*)checkoutButtonTextColor
@@ -43,6 +53,21 @@
 	return self.style == BUYThemeStyleDark ? [UIColor whiteColor] : [UIColor blackColor];
 }
 
+- (UIColor*)navigationBarTitleVariantSelectionColor
+{
+	return self.style == BUYThemeStyleDark ? [UIColor whiteColor] : [UIColor blackColor];
+}
+
+- (UIColor*)navigationBarVariantSelectionTintColor
+{
+	return self.style == BUYThemeStyleDark ? [UIColor lightGrayColor] : [UIColor colorWithWhite:(float)(152.0/255.0) alpha:1.0];
+}
+
+- (UIColor*)navigationBarVariantSelectionCloseButtonTintColor
+{
+	return self.style == BUYThemeStyleDark ? BUY_RGB(229, 229, 229) : BUY_RGB(51, 51, 51);
+}
+
 - (UIColor*)productTitleColor
 {
 	return self.style == BUYThemeStyleDark ? [UIColor whiteColor] : [UIColor blackColor];
@@ -51,6 +76,11 @@
 + (UIColor*)descriptionTextColor
 {
 	return [UIColor colorWithWhite:0.4 alpha:1];
+}
+
+- (UIColor*)variantOptionNameTextColor
+{
+	return self.style == BUYThemeStyleDark ? BUY_RGB(76, 76, 76) : BUY_RGB(191, 191, 191);
 }
 
 #pragma mark - Padding
@@ -119,6 +149,15 @@
 	return [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 }
 
++ (UIFont*)variantOptionNameFont
+{
+	return [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
+}
+
++ (UIFont*)variantOptionValueFont
+{
+	return [UIFont preferredFontForTextStyle:UIFontTextStyleBody increasedPointSize:2];
+}
 
 + (UIFont*)errorLabelFont
 {
