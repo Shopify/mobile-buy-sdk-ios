@@ -8,6 +8,7 @@
 
 #import "BUYProductDescriptionCell.h"
 #import "BUYTheme.h"
+#import "BUYTheme+Additions.h"
 
 @interface BUYProductDescriptionCell ()
 

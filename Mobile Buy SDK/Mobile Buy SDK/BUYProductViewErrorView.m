@@ -8,6 +8,7 @@
 
 #import "BUYProductViewErrorView.h"
 #import "BUYTheme.h"
+#import "BUYTheme+Additions.h"
 
 @implementation BUYProductViewErrorView
 

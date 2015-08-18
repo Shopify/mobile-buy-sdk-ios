@@ -9,6 +9,7 @@
 #import "BUYOptionValueCell.h"
 #import "BUYImageKit.h"
 #import "BUYOptionValue.h"
+#import "BUYTheme+Additions.h"
 
 @interface BUYOptionValueCell()
 @property (nonatomic, strong) NSArray *disclosureConstraints;

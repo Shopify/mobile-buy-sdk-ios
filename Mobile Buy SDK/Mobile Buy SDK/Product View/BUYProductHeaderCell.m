@@ -10,6 +10,7 @@
 #import "BUYProductVariant.h"
 #import "BUYProduct.h"
 #import "UIFont+BUYAdditions.h"
+#import "BUYTheme+Additions.h"
 
 @interface BUYProductHeaderCell ()
 @property (nonatomic, strong) BUYTheme *theme;

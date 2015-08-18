@@ -6,12 +6,13 @@
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 
-#import "BUYOptionSelectionViewController.h"
-#import "BUYProduct+Options.h"
-#import "BUYOptionValue.h"
-#import "BUYTheme.h"
 #import "BUYImageKit.h"
+#import "BUYProduct+Options.h"
+#import "BUYOptionSelectionViewController.h"
+#import "BUYOptionValue.h"
 #import "BUYOptionValueCell.h"
+#import "BUYTheme.h"
+#import "BUYTheme+Additions.h"
 
 @interface BUYOptionSelectionViewController ()
 @property (nonatomic, strong) NSArray *optionValues;

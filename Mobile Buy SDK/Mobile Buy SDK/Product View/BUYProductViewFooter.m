@@ -9,6 +9,7 @@
 #import "BUYProductViewFooter.h"
 #import "BUYTheme.h"
 #import "BUYProductVariant.h"
+#import "BUYTheme+Additions.h"
 
 @interface BUYProductViewFooter ()
 

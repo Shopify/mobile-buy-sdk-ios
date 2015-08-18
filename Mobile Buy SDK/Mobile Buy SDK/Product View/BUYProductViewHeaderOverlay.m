@@ -8,6 +8,7 @@
 
 #import "BUYProductViewHeaderOverlay.h"
 #import "BUYTheme.h"
+#import "BUYTheme+Additions.h"
 
 @interface BUYProductViewHeaderOverlay ()
 

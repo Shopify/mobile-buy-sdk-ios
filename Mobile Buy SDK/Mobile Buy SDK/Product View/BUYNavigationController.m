@@ -8,6 +8,7 @@
 
 #import "BUYNavigationController.h"
 #import "BUYImageKit.h"
+#import "BUYTheme+Additions.h"
 
 @interface BUYNavigationController ()
 @property (nonatomic, strong) BUYTheme *theme;

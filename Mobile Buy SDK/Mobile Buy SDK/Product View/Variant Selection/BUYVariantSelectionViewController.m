@@ -6,14 +6,15 @@
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 
-#import "BUYVariantSelectionViewController.h"
-#import "BUYOptionSelectionViewController.h"
-#import "BUYProduct+Options.h"
-#import "BUYTheme.h"
-#import "BUYPresentationControllerForVariantSelection.h"
-#import "BUYOptionSelectionNavigationController.h"
 #import "BUYImageKit.h"
+#import "BUYOptionSelectionNavigationController.h"
+#import "BUYOptionSelectionViewController.h"
+#import "BUYPresentationControllerForVariantSelection.h"
+#import "BUYProduct+Options.h"
 #import "BUYProductVariant+Options.h"
+#import "BUYTheme.h"
+#import "BUYTheme+Additions.h"
+#import "BUYVariantSelectionViewController.h"
 
 @interface BUYVariantSelectionViewController () <BUYOptionSelectionDelegate>
 

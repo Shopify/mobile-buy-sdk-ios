@@ -11,13 +11,14 @@
 #import "BUYProductViewHeaderBackgroundImageView.h"
 #import "BUYProductViewFooter.h"
 #import "BUYGradientView.h"
-#import "BUYTheme.h"
 #import "BUYProductVariantCell.h"
 #import "BUYProductDescriptionCell.h"
 #import "BUYProductHeaderCell.h"
 #import "BUYImage.h"
 #import "BUYImageView.h"
 #import "BUYProductViewErrorView.h"
+#import "BUYTheme.h"
+#import "BUYTheme+Additions.h"
 
 @interface BUYProductView ()
 
