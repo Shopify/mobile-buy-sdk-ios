@@ -8,6 +8,7 @@
 
 #import "BUYNavigationController.h"
 #import "BUYImageKit.h"
+#import "BUYTheme+Additions.h"
 
 @interface BUYNavigationController ()
 @property (nonatomic, strong) BUYTheme *theme;
@@ -24,7 +25,6 @@
 	closeButton.frame = CGRectMake(0, 0, 22, 22);
 	UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
 	self.topViewController.navigationItem.leftBarButtonItem = barButtonItem;
-	self.navigationBar.barStyle = (self.theme.style == BUYThemeStyleDark) ? UIBarStyleBlack : UIBarStyleDefault;
 	[[UINavigationBar appearanceWhenContainedIn:[BUYNavigationController class], nil] setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
 	
 	return self;
@@ -68,9 +68,9 @@
 - (void)setTheme:(BUYTheme *)theme
 {
 	_theme = theme;
-	self.navigationBar.barStyle = (theme.style == BUYThemeStyleDark) ? UIBarStyleBlack : UIBarStyleDefault;
+	self.navigationBar.barStyle = [theme navigationBarStyle];
 	[self updateCloseButtonImageWithDarkStyle:NO duration:0];
-	[[UINavigationBar appearanceWhenContainedIn:[BUYNavigationController class], nil] setTitleTextAttributes:@{ NSForegroundColorAttributeName:theme.style == BUYThemeStyleDark ? [UIColor whiteColor] : [UIColor blackColor] }];
+	[[UINavigationBar appearanceWhenContainedIn:[BUYNavigationController class], nil] setTitleTextAttributes:@{ NSForegroundColorAttributeName: [theme navigationBarTitleColor] }];
 }
 
 -(UIViewController *)childViewControllerForStatusBarStyle {

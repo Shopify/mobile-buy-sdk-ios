@@ -10,6 +10,7 @@
 #import "BUYTheme.h"
 #import "BUYImageView.h"
 #import "BUYImage.h"
+#import "BUYTheme+Additions.h"
 
 @implementation BUYProductViewHeaderBackgroundImageView
 
@@ -39,8 +40,7 @@
 														multiplier:1.0
 														  constant:0.0]];
 		
-		UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:theme.style == BUYThemeStyleDark ? UIBlurEffectStyleDark : UIBlurEffectStyleLight];
-		UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+		UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:[theme blurEffect]];
 		visualEffectView.translatesAutoresizingMaskIntoConstraints = NO;
 		[self addSubview:visualEffectView];
 		

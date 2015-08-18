@@ -11,6 +11,7 @@
 #import "BUYOptionValue.h"
 #import "BUYProductVariant.h"
 #import "BUYTheme.h"
+#import "BUYTheme+Additions.h"
 
 @interface BUYOptionValueCell()
 @property (nonatomic, strong) NSArray *priceConstraints;
@@ -32,7 +33,7 @@
 		[self setSelectedBackgroundView:backgroundView];
 		
 		self.textLabel.backgroundColor = [UIColor clearColor];
-		self.layoutMargins = UIEdgeInsetsMake(self.layoutMargins.top, 16.0, self.layoutMargins.bottom, 0);
+		self.layoutMargins = UIEdgeInsetsMake(self.layoutMargins.top, [BUYTheme paddingBlue], self.layoutMargins.bottom, 0);
 		
 		UIView *labelContainerView = [[UIView alloc] init];
 		labelContainerView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -63,6 +64,7 @@
 		[self.contentView addSubview:_disclosureIndicatorImageView];
 		
 		NSDictionary *views = NSDictionaryOfVariableBindings(_titleLabel, _priceLabel, labelContainerView, _selectedImageView, _disclosureIndicatorImageView);
+		NSDictionary *metricsDictionary = @{ @"paddingPurple" : [NSNumber numberWithDouble:[BUYTheme paddingPurple]] };
 		
 		[labelContainerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_titleLabel]|" options:0 metrics:nil views:views]];
 		[labelContainerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_priceLabel]|" options:0 metrics:nil views:views]];
@@ -70,10 +72,8 @@
 		_priceConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_titleLabel][_priceLabel]|" options:0 metrics:nil views:views];
 		_noPriceConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_titleLabel]|" options:0 metrics:nil views:views];
 		
-		NSDictionary *metricsDictionary = @{ @"padding" : @12 };
-		
-		_disclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[labelContainerView]-(>=padding)-[_selectedImageView]-[_disclosureIndicatorImageView]-(padding)-|" options:0 metrics:metricsDictionary views:views];
-		_noDisclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[labelContainerView]-(>=padding)-[_selectedImageView]-(padding)-|" options:0 metrics:metricsDictionary views:views];
+		_disclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[labelContainerView]-(>=padding)-[_selectedImageView]-[_disclosureIndicatorImageView]-(paddingPurple)-|" options:0 metrics:metricsDictionary views:views];
+		_noDisclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[labelContainerView]-(>=padding)-[_selectedImageView]-(paddingPurple)-|" options:0 metrics:metricsDictionary views:views];
 		
 		[self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:labelContainerView
 																	 attribute:NSLayoutAttributeCenterY
@@ -119,9 +119,9 @@
 {
 	self.titleLabel.textColor = theme.tintColor;
 	self.selectedImageView.tintColor = theme.tintColor;
-	self.backgroundColor = theme.style == BUYThemeStyleDark ? BUY_RGB(26, 26, 26) : BUY_RGB(255, 255, 255);
-	self.selectedBackgroundView.backgroundColor = theme.style == BUYThemeStyleDark ? BUY_RGB(60, 60, 60) : BUY_RGB(242, 242, 242);
-	self.disclosureIndicatorImageView.image = [BUYImageKit imageOfDisclosureIndicatorImageWithFrame:CGRectMake(0, 0, 10, 16) color:theme.style == BUYThemeStyleDark ? BUY_RGB(76, 76, 76) : BUY_RGB(191, 191, 191)];
+	self.backgroundColor = [theme backgroundColor];
+	self.selectedBackgroundView.backgroundColor = [theme selectedBackgroundColor];
+	self.disclosureIndicatorImageView.image = [BUYImageKit imageOfDisclosureIndicatorImageWithFrame:CGRectMake(0, 0, 10, 16) color:[theme disclosureIndicatorColor]];
 	
 	self.optionValue = optionValue;
 	
@@ -130,10 +130,10 @@
 	if (productVariant) {
 		if (productVariant.available) {
 			self.priceLabel.text = [currencyFormatter stringFromNumber:productVariant.price];
-			self.priceLabel.textColor = (theme.style == BUYThemeStyleDark) ? BUY_RGB(229, 229, 229) : BUY_RGB(51, 51, 51);
+			self.priceLabel.textColor = [theme variantPriceTextColor];
 		} else {
 			self.priceLabel.text = @"Sold Out";
-			self.priceLabel.textColor = [UIColor redColor];
+			self.priceLabel.textColor = [theme variantSoldOutTextColor];
 		}
 		[NSLayoutConstraint activateConstraints:self.priceConstraints];
 		[NSLayoutConstraint deactivateConstraints:self.noPriceConstraints];
@@ -147,11 +147,8 @@
 - (void)prepareForReuse
 {
 	[super prepareForReuse];
-	
 	self.textLabel.text = nil;
 	self.selectedImageView.hidden = YES;
 }
 
 @end
-
-

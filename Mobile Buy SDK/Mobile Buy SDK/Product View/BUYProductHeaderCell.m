@@ -10,6 +10,7 @@
 #import "BUYProductVariant.h"
 #import "BUYProduct.h"
 #import "UIFont+BUYAdditions.h"
+#import "BUYTheme+Additions.h"
 
 @interface BUYProductHeaderCell ()
 @property (nonatomic, strong) BUYTheme *theme;
@@ -25,11 +26,11 @@
 	if (self) {
 		self.selectionStyle = UITableViewCellSelectionStyleNone;
 		
-		self.layoutMargins = UIEdgeInsetsMake(16, self.layoutMargins.left, 16, self.layoutMargins.right);
+		self.layoutMargins = UIEdgeInsetsMake([BUYTheme paddingBlue], self.layoutMargins.left, [BUYTheme paddingBlue], self.layoutMargins.right);
 		
 		_titleLabel = [[UILabel alloc] init];
 		_titleLabel.textColor = [UIColor blackColor];
-		_titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody increasedPointSize:4];
+		_titleLabel.font = [BUYTheme productTitleFont];
 		_titleLabel.numberOfLines = 0;
 		_titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
 		[self.contentView addSubview:_titleLabel];
@@ -39,7 +40,7 @@
 		[self.contentView addSubview:priceView];
 		
 		_priceLabel = [[UILabel alloc] init];
-		_priceLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody increasedPointSize:4];
+		_priceLabel.font = [BUYTheme productPriceFont];
 		_priceLabel.translatesAutoresizingMaskIntoConstraints = NO;
 		_priceLabel.textAlignment = NSTextAlignmentRight;
 		[_priceLabel setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
@@ -47,9 +48,9 @@
 		[priceView addSubview:_priceLabel];
 		
 		_comparePriceLabel = [[UILabel alloc] init];
-		_comparePriceLabel.textColor = [UIColor colorWithWhite:0.6f alpha:1];
+		_comparePriceLabel.textColor = [BUYTheme comparePriceTextColor];
 		_comparePriceLabel.textAlignment = NSTextAlignmentRight;
-		_comparePriceLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+		_comparePriceLabel.font = [BUYTheme productComparePriceFont];
 		_comparePriceLabel.translatesAutoresizingMaskIntoConstraints = NO;
 		[_comparePriceLabel setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
 		[_comparePriceLabel setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
@@ -86,8 +87,10 @@
 		NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:[currencyFormatter stringFromNumber:productVariant.compareAtPrice]
 																			   attributes:@{NSStrikethroughStyleAttributeName: @(NSUnderlineStyleSingle)}];
 		self.comparePriceLabel.attributedText = attributedString;
+		self.comparePriceLabel.textColor = [BUYTheme comparePriceTextColor];
 	} else if (productVariant.available == NO) {
 		self.comparePriceLabel.text = @"Sold Out";
+		self.comparePriceLabel.textColor = [self.theme variantSoldOutTextColor];
 	} else {
 		self.comparePriceLabel.attributedText = nil;
 	}
@@ -99,9 +102,9 @@
 - (void)setTheme:(BUYTheme *)theme
 {
 	_theme = theme;
-	self.titleLabel.textColor = (theme.style == BUYThemeStyleDark) ? [UIColor whiteColor] : [UIColor blackColor];
-	self.backgroundColor = (theme.style == BUYThemeStyleDark) ? BUY_RGB(26, 26, 26) : [UIColor whiteColor];
+	self.backgroundColor = [theme backgroundColor];
 	self.titleLabel.backgroundColor = self.priceLabel.backgroundColor = self.comparePriceLabel.backgroundColor = self.backgroundColor;
+	self.titleLabel.textColor = [theme productTitleColor];
 }
 
 - (void)tintColorDidChange

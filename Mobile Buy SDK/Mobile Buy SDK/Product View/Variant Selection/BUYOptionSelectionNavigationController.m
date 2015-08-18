@@ -9,6 +9,7 @@
 #import "BUYOptionSelectionNavigationController.h"
 #import "BUYPresentationControllerForVariantSelection.h"
 #import "BUYImageKit.h"
+#import "BUYTheme+Additions.h"
 
 @interface BUYOptionSelectionNavigationController () <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
 
@@ -38,18 +39,9 @@
 
 - (void)setTheme:(BUYTheme *)theme
 {
-	switch (theme.style) {
-		case BUYThemeStyleDark:
-			[self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName : BUY_RGB(229, 229, 229) }];
-			self.navigationBar.barStyle = UIBarStyleBlack;
-			self.navigationBar.tintColor = [UIColor lightGrayColor];
-			break;
-		case BUYThemeStyleLight:
-			[self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName: BUY_RGB(51, 51, 51) }];
-			self.navigationBar.barStyle = UIBarStyleDefault;
-			self.navigationBar.tintColor = [UIColor colorWithWhite:(float)(152.0/255.0) alpha:1.0];
-			break;
-	}
+	self.navigationBar.barStyle = [theme navigationBarStyle];
+	[self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName : [theme navigationBarTitleVariantSelectionColor] }];
+	self.navigationBar.tintColor = [theme navigationBarVariantSelectionTintColor];
 }
 
 #pragma mark - Transitioning Delegate Methods

@@ -8,6 +8,7 @@
 
 #import "BUYProductViewErrorView.h"
 #import "BUYTheme.h"
+#import "BUYTheme+Additions.h"
 
 @implementation BUYProductViewErrorView
 
@@ -31,7 +32,7 @@
 		
 		UIView *redTintOverlayView = [[UIView alloc] init];
 		redTintOverlayView.translatesAutoresizingMaskIntoConstraints = NO;
-		redTintOverlayView.backgroundColor = (theme.style == BUYThemeStyleDark) ? BUY_RGBA(255, 66, 66, 0.75f) : BUY_RGBA(209, 44, 44, 0.75f);
+		redTintOverlayView.backgroundColor = [theme errorTintOverlayColor];
 		[visualEffectView.contentView addSubview:redTintOverlayView];
 		[visualEffectView.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[redTintOverlayView]|"
 																							 options:0
@@ -45,19 +46,21 @@
 		_errorLabel = [[UILabel alloc] init];
 		_errorLabel.translatesAutoresizingMaskIntoConstraints = NO;
 		_errorLabel.textAlignment = NSTextAlignmentCenter;
-		_errorLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+		_errorLabel.font = [BUYTheme errorLabelFont];
 		_errorLabel.textColor = [UIColor whiteColor];
 		_errorLabel.backgroundColor = [UIColor clearColor];
 		_errorLabel.numberOfLines = 0;
 		[visualEffectView.contentView addSubview:_errorLabel];
 		
-		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(16)-[_errorLabel]-(16)-|"
+		NSDictionary *metricsDictionary = @{ @"paddingBlue" : [NSNumber numberWithDouble:[BUYTheme paddingBlue]], @"paddingPurple" : [NSNumber numberWithDouble:[BUYTheme paddingPurple]] };
+		
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(paddingBlue)-[_errorLabel]-(paddingBlue)-|"
 																	 options:0
-																	 metrics:nil
+																	 metrics:metricsDictionary
 																	   views:NSDictionaryOfVariableBindings(_errorLabel)]];
-		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(12)-[_errorLabel]-(12)-|"
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(paddingPurple)-[_errorLabel]-(paddingPurple)-|"
 																	 options:0
-																	 metrics:nil
+																	 metrics:metricsDictionary
 																	   views:NSDictionaryOfVariableBindings(_errorLabel)]];
 	}
 	return self;

@@ -8,6 +8,7 @@
 
 #import "BUYProductViewHeaderOverlay.h"
 #import "BUYTheme.h"
+#import "BUYTheme+Additions.h"
 
 @interface BUYProductViewHeaderOverlay ()
 
@@ -32,8 +33,7 @@
 		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_visualEffectContainerView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_visualEffectContainerView)]];
 		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_visualEffectContainerView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_visualEffectContainerView)]];
 		
-		UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:(theme.style == BUYThemeStyleDark ? UIBlurEffectStyleDark : UIBlurEffectStyleLight)];
-		UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+		UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:[theme blurEffect]];
 		visualEffectView.translatesAutoresizingMaskIntoConstraints = NO;
 		[_visualEffectContainerView addSubview:visualEffectView];
 		
@@ -42,7 +42,7 @@
 		
 		_overlayView = [[UIView alloc] init];
 		_overlayView.alpha = 0;
-		_overlayView.backgroundColor = (theme.style == BUYThemeStyleDark) ? BUY_RGB(26, 26, 26) : BUY_RGB(255, 255, 255);
+		_overlayView.backgroundColor = [theme backgroundColor];
 		_overlayView.translatesAutoresizingMaskIntoConstraints = NO;
 		[self addSubview:_overlayView];
 		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_overlayView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_overlayView)]];
