@@ -488,19 +488,19 @@
 		90FC31AA1B50576400AFAB51 /* Variant Selection */ = {
 			isa = PBXGroup;
 			children = (
-				BE1007981B6165CD0031CEE7 /* Cells */,
-				BEB74A1F1B554BF20005A300 /* BUYPresentationControllerForVariantSelection.h */,
-				BEB74A201B554BF20005A300 /* BUYPresentationControllerForVariantSelection.m */,
-				BE9496AE1B4D96D800B38949 /* BUYOptionSelectionViewController.h */,
-				BE9496AF1B4D96D800B38949 /* BUYOptionSelectionViewController.m */,
+				906EAE451B83D30300976165 /* BUYNavigationTitleView.h */,
+				906EAE461B83D30300976165 /* BUYNavigationTitleView.m */,
 				BEB74A251B554BFB0005A300 /* BUYOptionSelectionNavigationController.h */,
 				BEB74A261B554BFB0005A300 /* BUYOptionSelectionNavigationController.m */,
+				BE9496AE1B4D96D800B38949 /* BUYOptionSelectionViewController.h */,
+				BE9496AF1B4D96D800B38949 /* BUYOptionSelectionViewController.m */,
+				BEB74A1F1B554BF20005A300 /* BUYPresentationControllerForVariantSelection.h */,
+				BEB74A201B554BF20005A300 /* BUYPresentationControllerForVariantSelection.m */,
 				90516CA11B4D771400E35E45 /* BUYVariantOptionView.h */,
 				90516CA21B4D771400E35E45 /* BUYVariantOptionView.m */,
 				BE9496B01B4D96D800B38949 /* BUYVariantSelectionViewController.h */,
 				BE9496B11B4D96D800B38949 /* BUYVariantSelectionViewController.m */,
-				906EAE451B83D30300976165 /* BUYNavigationTitleView.h */,
-				906EAE461B83D30300976165 /* BUYNavigationTitleView.m */,
+				BE1007981B6165CD0031CEE7 /* Cells */,
 			);
 			name = "Variant Selection";
 			path = "Product View/Variant Selection";
@@ -623,8 +623,8 @@
 		F773743A19C777200039681C /* Mobile Buy SDK */ = {
 			isa = PBXGroup;
 			children = (
-				904FB6011AE03D4500EA1758 /* Buy.h */,
 				BE9A639D1B500B360033E558 /* Buy-Bridging-Header.h */,
+				904FB6011AE03D4500EA1758 /* Buy.h */,
 				BEB74A7F1B557A1C0005A300 /* Buy.modulemap */,
 				F773749F19C77E4E0039681C /* Classes */,
 				F773749E19C77E460039681C /* Supporting Files */,
