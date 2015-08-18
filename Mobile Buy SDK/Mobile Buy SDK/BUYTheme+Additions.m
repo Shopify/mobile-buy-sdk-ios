@@ -90,12 +90,12 @@
 
 - (UIColor*)variantPriceTextColor
 {
-	return self.style == BUYThemeStyleDark ? BUY_RGB(229, 229, 229) : BUY_RGB(51, 51, 51);
+	return BUY_RGB(140, 140, 140);
 }
 
 - (UIColor*)variantSoldOutTextColor
 {
-	return [UIColor redColor];
+	return BUY_RGB(220, 96, 96);
 }
 
 #pragma mark - Padding
@@ -177,6 +177,11 @@
 + (UIFont*)variantOptionValueFont
 {
 	return [UIFont preferredFontForTextStyle:UIFontTextStyleBody increasedPointSize:2];
+}
+
++ (UIFont*)variantOptionPriceFont
+{
+	return [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
 }
 
 + (UIFont*)errorLabelFont

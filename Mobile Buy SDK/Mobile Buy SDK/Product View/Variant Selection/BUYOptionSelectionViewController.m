@@ -32,6 +32,8 @@
 		self.filteredProductVariantsForSelectionOption = filteredProductVariantsForSelectionOption;
 		self.optionValues = optionValues;
 		self.title = [self.optionValues.firstObject name];
+		self.tableView.estimatedRowHeight = 44.0f;
+		self.tableView.rowHeight = UITableViewAutomaticDimension;
 	}
 	
 	return self;
@@ -89,6 +91,7 @@
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		[cell setOptionValue:optionValue productVariant:nil currencyFormatter:nil theme:self.theme];
 	}
+	[cell setNeedsLayout];
 	[cell layoutIfNeeded];
 	
 	return cell;

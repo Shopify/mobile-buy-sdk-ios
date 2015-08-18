@@ -53,6 +53,7 @@
 + (UIFont*)productComparePriceFont;
 + (UIFont*)variantOptionNameFont;
 + (UIFont*)variantOptionValueFont;
++ (UIFont*)variantOptionPriceFont;
 + (UIFont*)errorLabelFont;
 
 // misc
