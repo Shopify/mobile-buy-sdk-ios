@@ -141,7 +141,7 @@
 																	   views:NSDictionaryOfVariableBindings(_productViewFooter)]];
 		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_productViewFooter(height)]|"
 																	 options:0
-																	 metrics:@{ @"height" : [NSNumber numberWithDouble:[BUYTheme productFooterHeight]] }
+																	 metrics:@{ @"height" : @([BUYTheme productFooterHeight]) }
 																	   views:NSDictionaryOfVariableBindings(_productViewFooter)]];
 		
 		self.topGradientView = [[BUYGradientView alloc] init];
@@ -156,7 +156,7 @@
 																	   views:NSDictionaryOfVariableBindings(_topGradientView)]];
 		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_topGradientView(height)]"
 																	 options:0
-																	 metrics:@{ @"height" : [NSNumber numberWithDouble:[BUYTheme topGradientViewHeight]] }
+																	 metrics:@{ @"height" : @([BUYTheme topGradientViewHeight]) }
 																	   views:NSDictionaryOfVariableBindings(_topGradientView)]];
 		
 		self.theme = theme;
