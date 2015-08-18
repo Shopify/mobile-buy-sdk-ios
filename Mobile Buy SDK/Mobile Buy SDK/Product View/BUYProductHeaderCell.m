@@ -114,27 +114,14 @@
 - (void)setTheme:(BUYTheme *)theme
 {
 	_theme = theme;
-	
-	switch (theme.style) {
-		case BUYThemeStyleDark:
-			self.titleLabel.textColor = [UIColor whiteColor];
-			self.backgroundColor = BUY_RGB(26, 26, 26);
-			break;
-			
-		case BUYThemeStyleLight:
-			self.titleLabel.textColor = [UIColor blackColor];
-			self.backgroundColor = [UIColor whiteColor];
-			break;
-			
-		default:
-			break;
-	}
+	self.titleLabel.textColor = (theme.style == BUYThemeStyleDark) ? [UIColor whiteColor] : [UIColor blackColor];
+	self.backgroundColor = (theme.style == BUYThemeStyleDark) ? BUY_RGB(26, 26, 26) : [UIColor whiteColor];
+	self.titleLabel.backgroundColor = self.priceLabel.backgroundColor = self.comparePriceLabel.backgroundColor = self.backgroundColor;
 }
 
 - (void)tintColorDidChange
 {
 	[super tintColorDidChange];
-	
 	self.priceLabel.textColor = self.tintColor;
 }
 
