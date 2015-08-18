@@ -41,7 +41,7 @@
 {
 	self.navigationBar.barStyle = [theme navigationBarStyle];
 	[self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName : [theme navigationBarTitleVariantSelectionColor] }];
-//	self.navigationBar.tintColor = [theme navigationBarVariantSelectionTintColor];
+	self.navigationBar.tintColor = [theme navigationBarVariantSelectionTintColor];
 }
 
 #pragma mark - Transitioning Delegate Methods
