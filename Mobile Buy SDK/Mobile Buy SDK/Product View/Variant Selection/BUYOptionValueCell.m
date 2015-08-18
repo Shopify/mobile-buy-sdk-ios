@@ -33,7 +33,7 @@
 		[self setSelectedBackgroundView:backgroundView];
 		
 		self.textLabel.backgroundColor = [UIColor clearColor];
-		self.layoutMargins = UIEdgeInsetsMake(self.layoutMargins.top, [BUYTheme paddingBlue], self.layoutMargins.bottom, 0);
+		self.layoutMargins = UIEdgeInsetsMake(self.layoutMargins.top, [BUYTheme paddingLarge], self.layoutMargins.bottom, 0);
 		
 		UIView *labelContainerView = [[UIView alloc] init];
 		labelContainerView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -64,7 +64,7 @@
 		[self.contentView addSubview:_disclosureIndicatorImageView];
 		
 		NSDictionary *views = NSDictionaryOfVariableBindings(_titleLabel, _priceLabel, labelContainerView, _selectedImageView, _disclosureIndicatorImageView);
-		NSDictionary *metricsDictionary = @{ @"paddingPurple" : [NSNumber numberWithDouble:[BUYTheme paddingPurple]] };
+		NSDictionary *metricsDictionary = @{ @"paddingMedium" : @([BUYTheme paddingMedium]), @"paddingSmall" : @([BUYTheme paddingMedium]) };
 		
 		[labelContainerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_titleLabel]|" options:0 metrics:nil views:views]];
 		[labelContainerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_priceLabel]|" options:0 metrics:nil views:views]];
@@ -72,8 +72,8 @@
 		_priceConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_titleLabel][_priceLabel]|" options:0 metrics:nil views:views];
 		_noPriceConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_titleLabel]|" options:0 metrics:nil views:views];
 		
-		_disclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[labelContainerView]-(>=padding)-[_selectedImageView]-[_disclosureIndicatorImageView]-(paddingPurple)-|" options:0 metrics:metricsDictionary views:views];
-		_noDisclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[labelContainerView]-(>=padding)-[_selectedImageView]-(paddingPurple)-|" options:0 metrics:metricsDictionary views:views];
+		_disclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[labelContainerView]-(>=paddingSmall)-[_selectedImageView]-[_disclosureIndicatorImageView]-(paddingPurple)-|" options:0 metrics:metricsDictionary views:views];
+		_noDisclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[labelContainerView]-(>=paddingSmall)-[_selectedImageView]-(paddingMedium)-|" options:0 metrics:metricsDictionary views:views];
 		
 		[self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:labelContainerView
 																	 attribute:NSLayoutAttributeCenterY

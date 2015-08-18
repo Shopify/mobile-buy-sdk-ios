@@ -34,9 +34,9 @@
 - (UIColor*)variantSoldOutTextColor;
 
 // padding
-+ (CGFloat)paddingRed;
-+ (CGFloat)paddingPurple;
-+ (CGFloat)paddingBlue;
++ (CGFloat)paddingSmall;
++ (CGFloat)paddingMedium;
++ (CGFloat)paddingLarge;
 
 // sizes
 + (CGFloat)topGradientViewHeight;
