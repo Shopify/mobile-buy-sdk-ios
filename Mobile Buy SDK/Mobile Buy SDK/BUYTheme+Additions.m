@@ -7,6 +7,7 @@
 //
 
 #import "BUYTheme+Additions.h"
+#import "UIFont+BUYAdditions.h"
 
 @implementation BUYTheme (Additions)
 
@@ -35,6 +36,16 @@
 - (UIColor*)errorTintOverlayColor
 {
 	return self.style == BUYThemeStyleDark ? BUY_RGBA(255, 66, 66, 0.75f) : BUY_RGBA(209, 44, 44, 0.75f);
+}
+
+- (UIColor*)productTitleColor
+{
+	return self.style == BUYThemeStyleDark ? [UIColor whiteColor] : [UIColor blackColor];
+}
+
++ (UIColor*)descriptionTextColor
+{
+	return [UIColor colorWithWhite:0.4 alpha:1];
 }
 
 #pragma mark - Padding
@@ -71,7 +82,38 @@
 	return 44.0f;
 }
 
++ (CGFloat)pageControlHeight
+{
+	return 20.0f;
+}
+
++ (CGFloat)bottomGradientHeightWithPageControl
+{
+	return 42.0f;
+}
+
++ (CGFloat)bottomGradientHeightWithoutPageControl
+{
+	return 20.0f;
+}
+
 #pragma mark - Fonts
+
++ (UIFont*)productTitleFont
+{
+	return [UIFont preferredFontForTextStyle:UIFontTextStyleBody increasedPointSize:4];
+}
+
++ (UIFont*)productPriceFont
+{
+	return [UIFont preferredFontForTextStyle:UIFontTextStyleBody increasedPointSize:4];
+}
+
++ (UIFont*)productComparePriceFont
+{
+	return [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+}
+
 
 + (UIFont*)errorLabelFont
 {

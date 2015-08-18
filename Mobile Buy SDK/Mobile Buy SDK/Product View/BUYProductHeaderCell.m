@@ -26,11 +26,11 @@
 	if (self) {
 		self.selectionStyle = UITableViewCellSelectionStyleNone;
 		
-		self.layoutMargins = UIEdgeInsetsMake(16, self.layoutMargins.left, 16, self.layoutMargins.right);
+		self.layoutMargins = UIEdgeInsetsMake([BUYTheme paddingBlue], self.layoutMargins.left, [BUYTheme paddingBlue], self.layoutMargins.right);
 		
 		_titleLabel = [[UILabel alloc] init];
 		_titleLabel.textColor = [UIColor blackColor];
-		_titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody increasedPointSize:4];
+		_titleLabel.font = [BUYTheme productTitleFont];
 		_titleLabel.numberOfLines = 0;
 		_titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
 		[self.contentView addSubview:_titleLabel];
@@ -40,7 +40,7 @@
 		[self.contentView addSubview:priceView];
 		
 		_priceLabel = [[UILabel alloc] init];
-		_priceLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody increasedPointSize:4];
+		_priceLabel.font = [BUYTheme productPriceFont];
 		_priceLabel.translatesAutoresizingMaskIntoConstraints = NO;
 		_priceLabel.textAlignment = NSTextAlignmentRight;
 		[_priceLabel setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
@@ -50,7 +50,7 @@
 		_comparePriceLabel = [[UILabel alloc] init];
 		_comparePriceLabel.textColor = [UIColor colorWithWhite:0.6f alpha:1];
 		_comparePriceLabel.textAlignment = NSTextAlignmentRight;
-		_comparePriceLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+		_comparePriceLabel.font = [BUYTheme productComparePriceFont];
 		_comparePriceLabel.translatesAutoresizingMaskIntoConstraints = NO;
 		[_comparePriceLabel setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
 		[_comparePriceLabel setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
@@ -115,27 +115,13 @@
 - (void)setTheme:(BUYTheme *)theme
 {
 	_theme = theme;
-	
-	switch (theme.style) {
-		case BUYThemeStyleDark:
-			self.titleLabel.textColor = [UIColor whiteColor];
-			self.backgroundColor = BUY_RGB(26, 26, 26);
-			break;
-			
-		case BUYThemeStyleLight:
-			self.titleLabel.textColor = [UIColor blackColor];
-			self.backgroundColor = [UIColor whiteColor];
-			break;
-			
-		default:
-			break;
-	}
+	self.backgroundColor = [theme backgroundColor];
+	self.titleLabel.textColor = [theme productTitleColor];
 }
 
 - (void)tintColorDidChange
 {
 	[super tintColorDidChange];
-	
 	self.priceLabel.textColor = self.tintColor;
 }
 

@@ -28,7 +28,7 @@
 {
 	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
 	if (self) {
-		self.layoutMargins = UIEdgeInsetsMake(12, self.layoutMargins.left, 12, self.layoutMargins.right);
+		self.layoutMargins = UIEdgeInsetsMake([BUYTheme paddingPurple], self.layoutMargins.left, [BUYTheme paddingPurple], self.layoutMargins.right);
 
 		UIView *backgroundView = [[UIView alloc] init];
 		[self setSelectedBackgroundView:backgroundView];

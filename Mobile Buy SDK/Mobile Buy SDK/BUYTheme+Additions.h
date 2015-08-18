@@ -20,6 +20,8 @@
 - (UIColor*)checkoutButtonTextColor;
 + (UIColor*)topGradientViewTopColor;
 - (UIColor*)errorTintOverlayColor;
+- (UIColor*)productTitleColor;
++ (UIColor*)descriptionTextColor;
 
 // padding
 + (CGFloat)paddingRed;
@@ -30,8 +32,14 @@
 + (CGFloat)topGradientViewHeight;
 + (CGFloat)productFooterHeight;
 + (CGFloat)checkoutButtonHeight;
++ (CGFloat)pageControlHeight;
++ (CGFloat)bottomGradientHeightWithPageControl;
++ (CGFloat)bottomGradientHeightWithoutPageControl;
 
 // fonts
++ (UIFont*)productTitleFont;
++ (UIFont*)productPriceFont;
++ (UIFont*)productComparePriceFont;
 + (UIFont*)errorLabelFont;
 
 // misc

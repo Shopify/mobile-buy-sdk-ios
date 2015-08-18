@@ -13,6 +13,7 @@
 #import "BUYImage.h"
 #import "BUYProductVariant.h"
 #import "BUYTheme.h"
+#import "BUYTheme+Additions.h"
 #import "BUYProductViewHeaderOverlay.h"
 
 @interface BUYProductViewHeader ()
@@ -79,7 +80,7 @@
 																					toItem:nil
 																				 attribute:NSLayoutAttributeNotAnAttribute
 																				multiplier:1.0
-																				  constant:20];
+																				  constant:[BUYTheme bottomGradientHeightWithoutPageControl]];
 		[self addConstraint:_bottomGradientViewLayoutConstraintHeight];
 		
 		_bottomGradientView = [[BUYGradientView alloc] init];
@@ -139,7 +140,7 @@
 																		   toItem:nil
 																		attribute:NSLayoutAttributeNotAnAttribute
 																	   multiplier:1.0
-																		 constant:20.0]];
+																		 constant:[BUYTheme pageControlHeight]]];
 		
 		_productViewHeaderOverlay = [[BUYProductViewHeaderOverlay alloc] initWithTheme:theme];
 		_productViewHeaderOverlay.translatesAutoresizingMaskIntoConstraints = NO;
@@ -154,10 +155,10 @@
 {
 	self.pageControl.numberOfPages = numberOfPages;
 	if (self.pageControl.numberOfPages == 0) {
-		self.bottomGradientViewLayoutConstraintHeight.constant = 20;
+		self.bottomGradientViewLayoutConstraintHeight.constant = [BUYTheme bottomGradientHeightWithoutPageControl];
 		self.bottomGradientView.bottomColor = [UIColor colorWithWhite:0 alpha:0.05f];
 	} else {
-		self.bottomGradientViewLayoutConstraintHeight.constant = 42;
+		self.bottomGradientViewLayoutConstraintHeight.constant = [BUYTheme bottomGradientHeightWithPageControl];
 		self.bottomGradientView.bottomColor = [UIColor colorWithWhite:0 alpha:0.15f];
 	}
 }
