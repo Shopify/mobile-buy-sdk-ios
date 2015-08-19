@@ -94,12 +94,11 @@
 	optionController.selectedOptionValue = self.changedOptionSelection ? nil : [self.selectedProductVariant optionValueForName:option.name];
 	optionController.isLastOption = [self isLastOption];
 	optionController.currencyFormatter = self.currencyFormatter;
-	optionController.title = option.name;
+	optionController.title = nil;
 	BUYNavigationTitleView *navigationTitleView = [[BUYNavigationTitleView alloc] init];
 	navigationTitleView.theme = self.theme;
 	[navigationTitleView setTitleWithBuyOption:option selectedBuyOptionValues:self.optionValueNames];
 	optionController.navigationItem.titleView = navigationTitleView;
-	
 	return optionController;
 }
 

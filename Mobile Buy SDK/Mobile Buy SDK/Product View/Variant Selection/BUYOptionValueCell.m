@@ -64,15 +64,15 @@
 		[self.contentView addSubview:_disclosureIndicatorImageView];
 		
 		NSDictionary *views = NSDictionaryOfVariableBindings(_titleLabel, _priceLabel, labelContainerView, _selectedImageView, _disclosureIndicatorImageView);
-		NSDictionary *metricsDictionary = @{ @"paddingMedium" : @([BUYTheme paddingMedium]), @"paddingSmall" : @([BUYTheme paddingSmall]), @"paddingLarge" : @([BUYTheme paddingLarge]), @"paddingExtraLarge" : @([BUYTheme paddingExtraLarge]) };
+		NSDictionary *metricsDictionary = @{ @"paddingMedium" : @([BUYTheme paddingMedium]), @"paddingSmall" : @([BUYTheme paddingSmall]), @"paddingExtraLarge" : @([BUYTheme paddingExtraLarge]) };
 		
 		[labelContainerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_titleLabel]|" options:0 metrics:nil views:views]];
 		[labelContainerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_priceLabel]|" options:0 metrics:nil views:views]];
 		
-		_priceConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(paddingMedium)-[_titleLabel][_priceLabel]-(paddingMedium)-|" options:0 metrics:metricsDictionary views:views];
-		_noPriceConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(paddingLarge)-[_titleLabel]-(paddingLarge)-|" options:0 metrics:metricsDictionary views:views];
+		_priceConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_titleLabel][_priceLabel]|" options:0 metrics:metricsDictionary views:views];
+		_noPriceConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_titleLabel]|" options:0 metrics:metricsDictionary views:views];
 		
-		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[labelContainerView]|" options:0 metrics:nil views:views]];
+		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[labelContainerView]-|" options:0 metrics:nil views:views]];
 		
 		_disclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[labelContainerView]-(>=paddingSmall)-[_selectedImageView]-[_disclosureIndicatorImageView]-(paddingMedium)-|" options:0 metrics:metricsDictionary views:views];
 		_noDisclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[labelContainerView]-(>=paddingSmall)-[_selectedImageView]-(paddingExtraLarge)-|" options:0 metrics:metricsDictionary views:views];

@@ -31,23 +31,29 @@
 		_titleLabel = [[UILabel alloc] init];
 		_titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
 		_titleLabel.textAlignment = NSTextAlignmentCenter;
+		_titleLabel.adjustsFontSizeToFitWidth = YES;
+		_titleLabel.minimumScaleFactor = 0.5;
+		_titleLabel.lineBreakMode = NSLineBreakByTruncatingHead;
 		_titleLabel.font = [BUYTheme variantOptionSelectionTitleFont];
 		[containerView addSubview:_titleLabel];
 		
 		_selectedOptionsLabel = [[UILabel alloc] init];
 		_selectedOptionsLabel.translatesAutoresizingMaskIntoConstraints = NO;
 		_selectedOptionsLabel.textAlignment = NSTextAlignmentCenter;
+		_selectedOptionsLabel.adjustsFontSizeToFitWidth = YES;
+		_selectedOptionsLabel.minimumScaleFactor = 0.5;
+		_selectedOptionsLabel.lineBreakMode = NSLineBreakByTruncatingHead;
 		_selectedOptionsLabel.font = [BUYTheme variantOptionSelectionSelectionVariantOptionFont];
 		[containerView addSubview:_selectedOptionsLabel];
 		
 		NSDictionary *views = NSDictionaryOfVariableBindings(_titleLabel, _selectedOptionsLabel);
 		
-		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_titleLabel]|"
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_titleLabel(<=190)]|"
 																	 options:0
 																	 metrics:nil
 																	   views:views]];
 		
-		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_selectedOptionsLabel]|"
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_selectedOptionsLabel(<=190)]|"
 																	 options:0
 																	 metrics:nil
 																	   views:views]];

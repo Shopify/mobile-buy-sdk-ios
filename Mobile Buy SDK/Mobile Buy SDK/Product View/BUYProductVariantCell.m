@@ -47,6 +47,7 @@
 		
 		_disclosureIndicatorImageView = [[UIImageView alloc] init];
 		_disclosureIndicatorImageView.translatesAutoresizingMaskIntoConstraints = NO;
+		[_disclosureIndicatorImageView setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
 		[self.contentView addSubview:_disclosureIndicatorImageView];
 		
 		NSDictionary *views = NSDictionaryOfVariableBindings(_optionView1, _optionView2, _optionView3, _disclosureIndicatorImageView);
