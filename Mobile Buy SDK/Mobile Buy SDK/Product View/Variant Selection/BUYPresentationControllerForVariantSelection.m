@@ -62,9 +62,9 @@ CGFloat const BUYPresentationControllerPartialWidth = 350.0;
 - (CGRect)frameOfPresentedViewInContainerView
 {
 	CGRect containerBounds = self.containerView.bounds;
-	CGFloat height = floor(MIN(containerBounds.size.height / 2, BUYPresentationControllerPartialHeight));
-	CGFloat width = floor(MIN(containerBounds.size.width / 1.3, BUYPresentationControllerPartialWidth));
-    return CGRectMake(CGRectGetMidX(containerBounds) - (width / 2), CGRectGetMidY(containerBounds) - (height / 2), width, height);
+	CGFloat height = MIN((CGRectGetHeight(containerBounds) / 2), BUYPresentationControllerPartialHeight);
+	CGFloat width = MIN((CGRectGetWidth(containerBounds) / 1.3), BUYPresentationControllerPartialWidth);
+    return CGRectIntegral(CGRectMake(CGRectGetMidX(containerBounds) - (width / 2), CGRectGetMidY(containerBounds) - (height / 2), width, height));
 }
 
 @end
