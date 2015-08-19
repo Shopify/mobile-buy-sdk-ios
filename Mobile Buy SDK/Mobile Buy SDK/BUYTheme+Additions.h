@@ -29,7 +29,7 @@
 + (UIColor*)comparePriceTextColor;
 + (UIColor*)descriptionTextColor;
 - (UIColor*)variantOptionNameTextColor;
-- (UIColor*)variantPriceTextColor;
++ (UIColor*)variantPriceTextColor;
 + (UIColor*)variantSoldOutTextColor;
 
 // padding

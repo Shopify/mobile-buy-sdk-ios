@@ -83,7 +83,7 @@
 
 - (void)setTitleWithBuyOption:(BUYOption*)buyOption selectedBuyOptionValues:(NSArray*)selectedBuyOptions
 {
-	_titleLabel.text = buyOption.name;
+	_titleLabel.text = [NSString stringWithFormat:@"Choose %@", buyOption.name];
 	if ([selectedBuyOptions count] > 0) {
 		[NSLayoutConstraint activateConstraints:self.titleVariantsConstraints];
 		[NSLayoutConstraint deactivateConstraints:self.titleConstraints];

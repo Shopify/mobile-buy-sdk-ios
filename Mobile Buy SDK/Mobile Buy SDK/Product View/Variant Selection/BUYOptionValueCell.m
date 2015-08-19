@@ -124,7 +124,7 @@
 	if (productVariant) {
 		if (productVariant.available) {
 			self.priceLabel.text = [currencyFormatter stringFromNumber:productVariant.price];
-			self.priceLabel.textColor = [theme variantPriceTextColor];
+			self.priceLabel.textColor = [BUYTheme variantPriceTextColor];
 		} else {
 			self.priceLabel.text = @"Sold Out";
 			self.priceLabel.textColor = [BUYTheme variantSoldOutTextColor];

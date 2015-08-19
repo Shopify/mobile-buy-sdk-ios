@@ -83,7 +83,7 @@
 	return self.style == BUYThemeStyleDark ? BUY_RGB(76, 76, 76) : BUY_RGB(191, 191, 191);
 }
 
-- (UIColor*)variantPriceTextColor
++ (UIColor*)variantPriceTextColor
 {
 	return BUY_RGB(140, 140, 140);
 }
