@@ -57,7 +57,7 @@
 																	metrics:nil
 																	  views:views];
 		
-		_titleVariantsConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_selectedOptionsLabel][_titleLabel]|"
+		_titleVariantsConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_selectedOptionsLabel]-(-2)-[_titleLabel]|"
 																			options:0
 																			metrics:nil
 																			  views:views];
