@@ -14,4 +14,6 @@
 
 - (void)setTitleWithBuyOption:(BUYOption*)buyOption selectedBuyOptionValues:(NSArray*)selectedBuyOptions;
 
+- (instancetype)initWithContainerFrame:(CGRect)frame;
+
 @end
