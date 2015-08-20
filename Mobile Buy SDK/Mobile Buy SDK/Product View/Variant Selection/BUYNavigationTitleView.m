@@ -8,6 +8,7 @@
 
 #import "BUYNavigationTitleView.h"
 #import "BUYTheme+Additions.h"
+#import "BUYPresentationControllerForVariantSelection.h"
 
 @interface BUYNavigationTitleView ()
 
@@ -20,9 +21,9 @@
 
 @implementation BUYNavigationTitleView
 
-- (instancetype)init
+- (instancetype)initWithFrame:(CGRect)frame
 {
-	self = [super init];
+	self = [super initWithFrame:frame];
 	if (self) {
 		UIView *containerView = [UIView new];
 		containerView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -47,15 +48,17 @@
 		[containerView addSubview:_selectedOptionsLabel];
 		
 		NSDictionary *views = NSDictionaryOfVariableBindings(_titleLabel, _selectedOptionsLabel);
+		CGRect insetFrame = [BUYPresentationControllerForVariantSelection insetFrameGivenBounds:frame];
+		NSDictionary *metricsDictionary = @{ @"maxWidth" : @(CGRectGetWidth(insetFrame) / 1.5f) };
 		
-		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_titleLabel(<=190)]|"
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_titleLabel(<=maxWidth)]|"
 																	 options:0
-																	 metrics:nil
+																	 metrics:metricsDictionary
 																	   views:views]];
 		
-		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_selectedOptionsLabel(<=190)]|"
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_selectedOptionsLabel(<=maxWidth)]|"
 																	 options:0
-																	 metrics:nil
+																	 metrics:metricsDictionary
 																	   views:views]];
 		
 		_titleConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_titleLabel]|"
