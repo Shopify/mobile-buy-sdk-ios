@@ -125,21 +125,26 @@
 
 - (void)startWebCheckout:(BUYCheckout *)checkout
 {
-	
 	[self handleCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		
-		if (error == nil) {
-			self.checkout = checkout;
-
-			if ([self.delegate respondsToSelector:@selector(controllerWillCheckoutViaWeb:)]) {
-				[self.delegate controllerWillCheckoutViaWeb:self];
-			}
-			[[UIApplication sharedApplication] openURL:checkout.webCheckoutURL];
-		}
-		else {
-			[self.delegate controller:self failedToCreateCheckout:error];
-		}
+		[self postCheckoutCompletion:checkout error:error];
 	}];
+}
+
+- (void)postCheckoutCompletion:(BUYCheckout *)checkout error:(NSError *)error
+{
+	if (error == nil) {
+		self.checkout = checkout;
+		if ([self.delegate respondsToSelector:@selector(controllerWillCheckoutViaWeb:)]) {
+			[self.delegate controllerWillCheckoutViaWeb:self];
+		}
+		[[UIApplication sharedApplication] openURL:checkout.webCheckoutURL];
+	}
+	else {
+		if ([self.delegate respondsToSelector:@selector(controller:failedToCreateCheckout:)]) {
+		 [self.delegate controller:self failedToCreateCheckout:error];
+		}
+	}
 }
 
 - (void)handleCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)completion
