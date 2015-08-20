@@ -11,4 +11,6 @@
 
 @property (nonatomic, strong) UIVisualEffectView *backgroundView;
 
++ (CGRect)insetFrameGivenBounds:(CGRect)bounds;
+
 @end

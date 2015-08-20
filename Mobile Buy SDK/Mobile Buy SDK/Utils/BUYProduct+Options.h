@@ -29,15 +29,6 @@
 - (BUYProductVariant *)variantWithOptions:(NSArray *)options;
 
 /**
- *  Get the image for the given variant
- *
- *  @param variant the variant
- *
- *  @return the image for the variant
- */
-- (BUYImage *)imageForVariant:(BUYProductVariant *)variant;
-
-/**
  *  Determine if the variant is a default variant automatically created by Shopify
  *
  *  @return YES if its a default variant

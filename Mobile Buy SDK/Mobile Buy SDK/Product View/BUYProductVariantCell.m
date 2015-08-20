@@ -28,7 +28,7 @@
 {
 	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
 	if (self) {
-		self.layoutMargins = UIEdgeInsetsMake([BUYTheme paddingMedium], self.layoutMargins.left, [BUYTheme paddingMedium], self.layoutMargins.right);
+		self.layoutMargins = UIEdgeInsetsMake(kBuyPaddingMedium, self.layoutMargins.left, kBuyPaddingMedium, self.layoutMargins.right);
 
 		UIView *backgroundView = [[UIView alloc] init];
 		[self setSelectedBackgroundView:backgroundView];
@@ -47,14 +47,15 @@
 		
 		_disclosureIndicatorImageView = [[UIImageView alloc] init];
 		_disclosureIndicatorImageView.translatesAutoresizingMaskIntoConstraints = NO;
+		[_disclosureIndicatorImageView setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
 		[self.contentView addSubview:_disclosureIndicatorImageView];
 		
 		NSDictionary *views = NSDictionaryOfVariableBindings(_optionView1, _optionView2, _optionView3, _disclosureIndicatorImageView);
 		
-		NSDictionary *metricsDictionary = @{ @"paddingLarge" : @([BUYTheme paddingLarge]), @"paddingSmall" : @([BUYTheme paddingSmall]) };
+		NSDictionary *metricsDictionary = @{ @"paddingExtraLarge" : @(kBuyPaddingExtraLarge), @"paddingSmall" : @(kBuyPaddingSmall) };
 		
-		self.disclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_optionView1]-(paddingLarge)-[_optionView2]-(paddingLarge)-[_optionView3]-(>=paddingSmall)-[_disclosureIndicatorImageView]-|" options:0 metrics:metricsDictionary views:views];
-		self.noDisclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_optionView1]-(paddingLarge)-[_optionView2]-(paddingLarge)-[_optionView3]-(>=paddingSmall)-|" options:0 metrics:metricsDictionary views:views];
+		self.disclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_optionView1]-(paddingExtraLarge)-[_optionView2]-(paddingExtraLarge)-[_optionView3]-(>=paddingSmall)-[_disclosureIndicatorImageView]-|" options:0 metrics:metricsDictionary views:views];
+		self.noDisclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_optionView1]-(paddingExtraLarge)-[_optionView2]-(paddingExtraLarge)-[_optionView3]-(>=paddingSmall)-|" options:0 metrics:metricsDictionary views:views];
 		
 		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_optionView1]-|" options:0 metrics:nil views:views]];
 		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_optionView2]-|" options:0 metrics:nil views:views]];

@@ -42,6 +42,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 @property (nonatomic, assign) BOOL shouldShowDescription;
 @property (nonatomic, strong) BUYProduct *product;
 @property (nonatomic, assign) BOOL isLoading;
+@property (nonatomic, strong) NSNumberFormatter *currencyFormatter;
 
 // views
 @property (nonatomic, strong) BUYProductView *productView;
@@ -258,6 +259,9 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 - (void)setShop:(BUYShop *)shop
 {
 	[super setShop:shop];
+	self.currencyFormatter = [[NSNumberFormatter alloc] init];
+	self.currencyFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
+	self.currencyFormatter.currencyCode = shop.currency;
 	[self.productView.productViewFooter setApplePayButtonVisible:self.isApplePayAvailable];
 	[self.productView.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
 }
@@ -281,8 +285,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 	
 	if (indexPath.row == 0) {
 		BUYProductHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"headerCell"];
-		cell.currency = self.shop.currency;
-		cell.productVariant = self.selectedProductVariant;
+		[cell setProductVariant:self.selectedProductVariant withCurrencyFormatter:self.currencyFormatter];
 		self.headerCell = cell;
 		theCell = cell;
 	} else if (indexPath.row == 1 && self.shouldShowVariantSelector) {
@@ -309,6 +312,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 		BUYVariantSelectionViewController *optionSelectionViewController = [[BUYVariantSelectionViewController alloc] initWithProduct:self.product theme:self.theme];
 		optionSelectionViewController.selectedProductVariant = self.selectedProductVariant;
 		optionSelectionViewController.delegate = self;
+		optionSelectionViewController.currencyFormatter = self.currencyFormatter;
 		BUYOptionSelectionNavigationController *optionSelectionNavigationController = [[BUYOptionSelectionNavigationController alloc] initWithRootViewController:optionSelectionViewController];
 		[optionSelectionNavigationController setTheme:self.theme];
 		[self presentViewController:optionSelectionNavigationController animated:YES completion:nil];
@@ -339,7 +343,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 - (void)setSelectedProductVariant:(BUYProductVariant *)selectedProductVariant {
 	_selectedProductVariant = selectedProductVariant;
 	if (self.headerCell) {
-		self.headerCell.productVariant = selectedProductVariant;
+		[self.headerCell setProductVariant:selectedProductVariant withCurrencyFormatter:self.currencyFormatter];
 		self.variantCell.productVariant = selectedProductVariant;
 	}
 	if (self.productView.productViewHeader.collectionView) {

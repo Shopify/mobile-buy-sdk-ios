@@ -25,7 +25,7 @@
 	if (self) {
 		self.selectionStyle = UITableViewCellSelectionStyleNone;
 		
-		self.layoutMargins = UIEdgeInsetsMake([BUYTheme paddingMedium], self.layoutMargins.left, [BUYTheme paddingMedium], self.layoutMargins.right);
+		self.layoutMargins = UIEdgeInsetsMake(kBuyPaddingMedium, self.layoutMargins.left, kBuyPaddingMedium, self.layoutMargins.right);
 		
 		_descriptionLabel = [[UILabel alloc] init];
 		_descriptionLabel.translatesAutoresizingMaskIntoConstraints = NO;

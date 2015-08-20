@@ -28,7 +28,7 @@
 		self.view.clipsToBounds = YES;
 		
 		// Add custom back button
-		UIImage *buttonImage = [BUYImageKit imageOfVariantBackImageWithFrame:CGRectMake(0, 0, 12, 18)];
+		UIImage *buttonImage = [[BUYImageKit imageOfVariantBackImageWithFrame:CGRectMake(0, 0, 12, 18)] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 		[[UIBarButtonItem appearanceWhenContainedIn:[BUYNavigationController class], nil] setBackButtonBackgroundImage:[buttonImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 12, 0, 0)]
 																											  forState:UIControlStateNormal
 																											barMetrics:UIBarMetricsDefault];
@@ -41,7 +41,7 @@
 {
 	self.navigationBar.barStyle = [theme navigationBarStyle];
 	[self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName : [theme navigationBarTitleVariantSelectionColor] }];
-	self.navigationBar.tintColor = [theme navigationBarVariantSelectionTintColor];
+	self.navigationBar.tintColor = theme.tintColor;
 }
 
 #pragma mark - Transitioning Delegate Methods

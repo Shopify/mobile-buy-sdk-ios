@@ -31,7 +31,8 @@
 	if (self) {
 		self.filteredProductVariantsForSelectionOption = filteredProductVariantsForSelectionOption;
 		self.optionValues = optionValues;
-		self.title = [self.optionValues.firstObject name];
+		self.tableView.estimatedRowHeight = 44.0f;
+		self.tableView.rowHeight = UITableViewAutomaticDimension;
 	}
 	
 	return self;
@@ -80,11 +81,17 @@
 {
 	BUYOptionValue *optionValue = self.optionValues[indexPath.row];
 	BUYOptionValueCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-	cell.accessoryType = self.isLastOption ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
-
-	[cell setTheme:self.theme];
-	cell.optionValue = optionValue;
 	cell.selectedImageView.hidden = ![optionValue isEqual:self.selectedOptionValue];
+	if (self.isLastOption) {
+		cell.accessoryType = UITableViewCellAccessoryNone;
+		BUYProductVariant *productVariant = (BUYProductVariant*)self.filteredProductVariantsForSelectionOption[indexPath.row];
+		[cell setOptionValue:optionValue productVariant:productVariant currencyFormatter:self.currencyFormatter theme:self.theme];
+	} else {
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		[cell setOptionValue:optionValue productVariant:nil currencyFormatter:nil theme:self.theme];
+	}
+	[cell setNeedsLayout];
+	[cell layoutIfNeeded];
 	
 	return cell;
 }

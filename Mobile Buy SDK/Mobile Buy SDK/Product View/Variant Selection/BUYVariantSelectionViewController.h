@@ -28,6 +28,8 @@
 
 @property (nonatomic, strong) BUYProductVariant *selectedProductVariant;
 
+@property (nonatomic, weak) NSNumberFormatter *currencyFormatter;
+
 @property (nonatomic, weak) id <BUYVariantSelectionDelegate> delegate;
 
 @end

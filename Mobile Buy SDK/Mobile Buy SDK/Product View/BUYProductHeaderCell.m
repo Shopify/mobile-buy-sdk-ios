@@ -14,7 +14,7 @@
 
 @interface BUYProductHeaderCell ()
 @property (nonatomic, strong) BUYTheme *theme;
-@property (nonatomic, strong) NSNumberFormatter *currencyFormatter;
+@property (nonatomic, strong) BUYProductVariant *productVariant;
 
 @end
 
@@ -26,7 +26,7 @@
 	if (self) {
 		self.selectionStyle = UITableViewCellSelectionStyleNone;
 		
-		self.layoutMargins = UIEdgeInsetsMake([BUYTheme paddingLarge], self.layoutMargins.left, [BUYTheme paddingLarge], self.layoutMargins.right);
+		self.layoutMargins = UIEdgeInsetsMake(kBuyPaddingExtraLarge, self.layoutMargins.left, kBuyPaddingExtraLarge, self.layoutMargins.right);
 		
 		_titleLabel = [[UILabel alloc] init];
 		_titleLabel.textColor = [UIColor blackColor];
@@ -48,7 +48,7 @@
 		[priceView addSubview:_priceLabel];
 		
 		_comparePriceLabel = [[UILabel alloc] init];
-		_comparePriceLabel.textColor = [UIColor colorWithWhite:0.6f alpha:1];
+		_comparePriceLabel.textColor = [BUYTheme comparePriceTextColor];
 		_comparePriceLabel.textAlignment = NSTextAlignmentRight;
 		_comparePriceLabel.font = [BUYTheme productComparePriceFont];
 		_comparePriceLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -73,43 +73,30 @@
 	return self;
 }
 
-- (void)setProductVariant:(BUYProductVariant *)productVariant
+- (void)setProductVariant:(BUYProductVariant *)productVariant withCurrencyFormatter:(NSNumberFormatter*)currencyFormatter
 {
 	_productVariant = productVariant;
 	
 	self.titleLabel.text = productVariant.product.title;
 	
-	if (productVariant.available == NO) {
-		self.priceLabel.text = @"Sold Out";
-		self.comparePriceLabel.attributedText = nil;
+	if (currencyFormatter) {
+		self.priceLabel.text = [currencyFormatter stringFromNumber:productVariant.price];
+	}
+	
+	if (productVariant.available == YES && productVariant.compareAtPrice) {
+		NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:[currencyFormatter stringFromNumber:productVariant.compareAtPrice]
+																			   attributes:@{NSStrikethroughStyleAttributeName: @(NSUnderlineStyleSingle)}];
+		self.comparePriceLabel.attributedText = attributedString;
+		self.comparePriceLabel.textColor = [BUYTheme comparePriceTextColor];
+	} else if (productVariant.available == NO) {
+		self.comparePriceLabel.text = @"Sold Out";
+		self.comparePriceLabel.textColor = [BUYTheme variantSoldOutTextColor];
 	} else {
-		if (self.currency) {
-			self.priceLabel.text = [self.currencyFormatter stringFromNumber:productVariant.price];
-		}
-		
-		if (productVariant.compareAtPrice) {
-			NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:[self.currencyFormatter stringFromNumber:productVariant.compareAtPrice]
-																				   attributes:@{NSStrikethroughStyleAttributeName: @(NSUnderlineStyleSingle)}];
-			self.comparePriceLabel.attributedText = attributedString;
-		}
-		else {
-			self.comparePriceLabel.attributedText = nil;
-		}
+		self.comparePriceLabel.attributedText = nil;
 	}
 	
 	[self setNeedsLayout];
 	[self layoutIfNeeded];
-}
-
-- (void)setCurrency:(NSString *)currency
-{
-	_currency = currency;
-	
-	self.currencyFormatter = [[NSNumberFormatter alloc] init];
-	self.currencyFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
-	self.currencyFormatter.currencyCode = self.currency;
-	
-	[self setProductVariant:self.productVariant];
 }
 
 - (void)setTheme:(BUYTheme *)theme
