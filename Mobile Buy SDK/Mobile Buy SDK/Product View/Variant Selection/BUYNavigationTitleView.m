@@ -33,7 +33,7 @@
 		_titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
 		_titleLabel.textAlignment = NSTextAlignmentCenter;
 		_titleLabel.adjustsFontSizeToFitWidth = YES;
-		_titleLabel.minimumScaleFactor = 0.7;
+		_titleLabel.minimumScaleFactor = 0.7f;
 		_titleLabel.lineBreakMode = NSLineBreakByTruncatingHead;
 		_titleLabel.font = [BUYTheme variantOptionSelectionTitleFont];
 		[containerView addSubview:_titleLabel];
@@ -42,7 +42,7 @@
 		_selectedOptionsLabel.translatesAutoresizingMaskIntoConstraints = NO;
 		_selectedOptionsLabel.textAlignment = NSTextAlignmentCenter;
 		_selectedOptionsLabel.adjustsFontSizeToFitWidth = YES;
-		_selectedOptionsLabel.minimumScaleFactor = 0.7;
+		_selectedOptionsLabel.minimumScaleFactor = 0.7f;
 		_selectedOptionsLabel.lineBreakMode = NSLineBreakByTruncatingHead;
 		_selectedOptionsLabel.font = [BUYTheme variantOptionSelectionSelectionVariantOptionFont];
 		[containerView addSubview:_selectedOptionsLabel];
