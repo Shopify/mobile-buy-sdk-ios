@@ -28,6 +28,10 @@
 CGFloat const BUYMaxProductViewWidth = 414.0; // We max out to the width of the iPhone 6+
 CGFloat const BUYMaxProductViewHeight = 640.0;
 
+@interface BUYProductViewController (Private)
+@property (nonatomic, strong) BUYCheckout *checkout;
+@end
+
 @interface BUYProductViewController () <BUYThemeable, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, BUYVariantSelectionDelegate, BUYNavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (nonatomic, strong) NSString *productId;
@@ -47,8 +51,6 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 @property (nonatomic, strong) BUYProductHeaderCell *headerCell;
 @property (nonatomic, strong) BUYProductVariantCell *variantCell;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
-
-@property (nonatomic, strong) BUYCheckout *checkout;
 
 @end
 
@@ -423,9 +425,6 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 
 - (void)startWebCheckout:(BUYCheckout *)checkout
 {
-	if ([self.delegate respondsToSelector:@selector(controllerWillCheckoutViaWeb:)]) {
-		[self.delegate controllerWillCheckoutViaWeb:self];
-	}
 	
 	[_productView.productViewFooter.checkoutButton showActivityIndicator:YES];
 	
@@ -434,6 +433,10 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 		[_productView.productViewFooter.checkoutButton showActivityIndicator:NO];
 		
 		if (error == nil) {
+			self.checkout = checkout;
+			if ([self.delegate respondsToSelector:@selector(controllerWillCheckoutViaWeb:)]) {
+				[self.delegate controllerWillCheckoutViaWeb:self];
+			}
 			[[UIApplication sharedApplication] openURL:checkout.webCheckoutURL];
 		}
 		else {

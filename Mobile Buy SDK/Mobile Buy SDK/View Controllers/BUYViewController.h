@@ -138,6 +138,11 @@
 @property (nonatomic, assign, readonly) BOOL isApplePayAvailable;
 
 /**
+ *  The current checkout object
+ */
+@property (nonatomic, strong, readonly) BUYCheckout *checkout;
+
+/**
  *  Loads the shop details
  *
  *  @param block callback block called on completion
