@@ -213,4 +213,6 @@
  */
 - (void)checkoutCompleted:(BUYCheckout *)checkout status:(BUYStatus)status;
 
+- (void)webCheckoutComplete:(NSURL *)url;
+
 @end

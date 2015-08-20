@@ -16,6 +16,7 @@
 #import "BUYDiscount.h"
 #import "BUYShop.h"
 #import "BUYTestConstants.h"
+#import "BUYViewController+Checkout.h"
 
 @interface BUYViewController ()
 
@@ -138,7 +139,8 @@
 		if ([self.delegate respondsToSelector:@selector(controllerWillCheckoutViaWeb:)]) {
 			[self.delegate controllerWillCheckoutViaWeb:self];
 		}
-		[[UIApplication sharedApplication] openURL:checkout.webCheckoutURL];
+
+		[self openWebCheckout:checkout];
 	}
 	else {
 		if ([self.delegate respondsToSelector:@selector(controller:failedToCreateCheckout:)]) {
@@ -329,5 +331,18 @@
 	
 	return paymentRequest;
 }
+
+- (void)webCheckoutComplete:(NSURL *)url
+{
+	[self.client getCompletionStatusOfCheckoutURL:url completion:^(BUYStatus status, NSError *error) {
+
+		[self checkoutCompleted:_checkout status:status];
+	}];
+	
+	if (self.presentedViewController) {
+		[self dismissViewControllerAnimated:YES completion:nil];
+	}
+}
+
 
 @end

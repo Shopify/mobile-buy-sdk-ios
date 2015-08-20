@@ -182,6 +182,8 @@
 		BEB74A851B5580B20005A300 /* Buy-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = BE9A639D1B500B360033E558 /* Buy-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BEB74A901B55A3D00005A300 /* BUYCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = BEB74A8E1B55A3D00005A300 /* BUYCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BEB74A911B55A3D00005A300 /* BUYCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB74A8F1B55A3D00005A300 /* BUYCollection.m */; };
+		BED498C71B8680B9000C6862 /* BUYViewController+Checkout.h in Headers */ = {isa = PBXBuildFile; fileRef = BED498C51B8680B9000C6862 /* BUYViewController+Checkout.h */; };
+		BED498C81B8680B9000C6862 /* BUYViewController+Checkout.m in Sources */ = {isa = PBXBuildFile; fileRef = BED498C61B8680B9000C6862 /* BUYViewController+Checkout.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -366,6 +368,8 @@
 		BEB74A871B5589C80005A300 /* BUYCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYCollection.m; sourceTree = "<group>"; };
 		BEB74A8E1B55A3D00005A300 /* BUYCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYCollection.h; sourceTree = "<group>"; };
 		BEB74A8F1B55A3D00005A300 /* BUYCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYCollection.m; sourceTree = "<group>"; };
+		BED498C51B8680B9000C6862 /* BUYViewController+Checkout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BUYViewController+Checkout.h"; sourceTree = "<group>"; };
+		BED498C61B8680B9000C6862 /* BUYViewController+Checkout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYViewController+Checkout.m"; sourceTree = "<group>"; };
 		BEEA83E51B0B76C7000C6483 /* BUYOptionValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYOptionValue.h; sourceTree = "<group>"; };
 		BEEA83E61B0B76C7000C6483 /* BUYOptionValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYOptionValue.m; sourceTree = "<group>"; };
 		F70CE40D1A8BF1D90055BEB8 /* BUYApplePayAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BUYApplePayAdditions.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -563,6 +567,8 @@
 				BE1C4DF41AE98FBB00E21624 /* BUYStoreViewController.m */,
 				BE1C4DF51AE98FBB00E21624 /* BUYViewController.h */,
 				BE1C4DF61AE98FBB00E21624 /* BUYViewController.m */,
+				BED498C51B8680B9000C6862 /* BUYViewController+Checkout.h */,
+				BED498C61B8680B9000C6862 /* BUYViewController+Checkout.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -766,6 +772,7 @@
 				BE9A647E1B503D930033E558 /* BUYStoreViewController.h in Headers */,
 				BE9A64551B503CC50033E558 /* BUYCreditCard.h in Headers */,
 				BE9A645F1B503CE90033E558 /* BUYOption.h in Headers */,
+				BED498C71B8680B9000C6862 /* BUYViewController+Checkout.h in Headers */,
 				BEB74A6F1B5564260005A300 /* BUYProductVariantCell.h in Headers */,
 				BEB74A2B1B554C150005A300 /* BUYTheme.h in Headers */,
 				BEB74A6B1B55641B0005A300 /* BUYProductDescriptionCell.h in Headers */,
@@ -1068,6 +1075,7 @@
 				BE9A64621B503CF40033E558 /* BUYProduct.m in Sources */,
 				BEB74A781B55646F0005A300 /* BUYImageView.m in Sources */,
 				BEB74A6E1B5564230005A300 /* BUYProductHeaderCell.m in Sources */,
+				BED498C81B8680B9000C6862 /* BUYViewController+Checkout.m in Sources */,
 				9003969C1B601DF400226B73 /* BUYCartLineItem.m in Sources */,
 				BE5DC3641B71022D00B2BC1E /* BUYMaskedCreditCard.m in Sources */,
 				BE9A644C1B503C9F0033E558 /* BUYCheckout.m in Sources */,

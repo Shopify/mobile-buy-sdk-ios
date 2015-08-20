@@ -52,9 +52,7 @@
 
 - (void)getCheckoutStatusWithURL:(NSURL *)url
 {
-    [self.client getCompletionStatusOfCheckoutURL:url completion:^(BUYStatus status, NSError *error) {
-        NSLog(@"Checkout status: %lu", (unsigned long)status);
-    }];
+    [self.productViewController webCheckoutComplete:url];
 }
 
 
