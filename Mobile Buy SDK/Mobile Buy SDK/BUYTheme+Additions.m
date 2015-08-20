@@ -93,59 +93,18 @@
 	return BUY_RGB(220, 96, 96);
 }
 
-#pragma mark - Padding
+#pragma mark - Padding and Sizes
 
-+ (CGFloat)paddingSmall
-{
-	return 8.0f;
-}
-
-+ (CGFloat)paddingMedium
-{
-	return 12.0f;
-}
-
-+ (CGFloat)paddingLarge
-{
-	return 14.0f;
-}
-
-+ (CGFloat)paddingExtraLarge
-{
-	return 16.0f;
-}
-
-#pragma mark - Sizes
-
-+ (CGFloat)topGradientViewHeight
-{
-	return 114.0f;
-}
-
-+ (CGFloat)productFooterHeight
-{
-	return 60.f;
-}
-
-+ (CGFloat)checkoutButtonHeight
-{
-	return 44.0f;
-}
-
-+ (CGFloat)pageControlHeight
-{
-	return 20.0f;
-}
-
-+ (CGFloat)bottomGradientHeightWithPageControl
-{
-	return 42.0f;
-}
-
-+ (CGFloat)bottomGradientHeightWithoutPageControl
-{
-	return 20.0f;
-}
+CGFloat const kBuyPaddingSmall = 8.0f;
+CGFloat const kBuyPaddingMedium = 12.0f;
+CGFloat const kBuyPaddingLarge = 14.0f;
+CGFloat const kBuyPaddingExtraLarge = 16.0f;
+CGFloat const kBuyTopGradientViewHeight = 114.0f;
+CGFloat const kBuyProductFooterHeight = 60.0f;
+CGFloat const kBuyCheckoutButtonHeight = 44.0f;
+CGFloat const kBuyPageControlHeight = 20.0f;
+CGFloat const kBuyBottomGradientHeightWithPageControl = 42.0f;
+CGFloat const kBuyBottomGradientHeightWithoutPageControl = 20.0f;
 
 #pragma mark - Fonts
 

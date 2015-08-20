@@ -91,7 +91,7 @@
 		self.tableView.estimatedRowHeight = 60.0;
 		self.tableView.rowHeight = UITableViewAutomaticDimension;
 		self.tableView.tableFooterView = [UIView new];
-		self.tableView.layoutMargins = UIEdgeInsetsMake(self.tableView.layoutMargins.top, [BUYTheme paddingExtraLarge], self.tableView.layoutMargins.bottom, [BUYTheme paddingMedium]);
+		self.tableView.layoutMargins = UIEdgeInsetsMake(self.tableView.layoutMargins.top, kBuyPaddingExtraLarge, self.tableView.layoutMargins.bottom, kBuyPaddingMedium);
 		[self addSubview:self.tableView];
 		
 		[self.tableView registerClass:[BUYProductHeaderCell class] forCellReuseIdentifier:@"headerCell"];
@@ -141,7 +141,7 @@
 																	   views:NSDictionaryOfVariableBindings(_productViewFooter)]];
 		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_productViewFooter(height)]|"
 																	 options:0
-																	 metrics:@{ @"height" : @([BUYTheme productFooterHeight]) }
+																	 metrics:@{ @"height" : @(kBuyProductFooterHeight) }
 																	   views:NSDictionaryOfVariableBindings(_productViewFooter)]];
 		
 		self.topGradientView = [[BUYGradientView alloc] init];
@@ -156,7 +156,7 @@
 																	   views:NSDictionaryOfVariableBindings(_topGradientView)]];
 		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_topGradientView(height)]"
 																	 options:0
-																	 metrics:@{ @"height" : @([BUYTheme topGradientViewHeight]) }
+																	 metrics:@{ @"height" : @(kBuyTopGradientViewHeight) }
 																	   views:NSDictionaryOfVariableBindings(_topGradientView)]];
 		
 		self.theme = theme;

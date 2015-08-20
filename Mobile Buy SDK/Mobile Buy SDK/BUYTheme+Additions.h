@@ -32,19 +32,17 @@
 + (UIColor*)variantPriceTextColor;
 + (UIColor*)variantSoldOutTextColor;
 
-// padding
-+ (CGFloat)paddingSmall;
-+ (CGFloat)paddingMedium;
-+ (CGFloat)paddingLarge;
-+ (CGFloat)paddingExtraLarge;
-
-// sizes
-+ (CGFloat)topGradientViewHeight;
-+ (CGFloat)productFooterHeight;
-+ (CGFloat)checkoutButtonHeight;
-+ (CGFloat)pageControlHeight;
-+ (CGFloat)bottomGradientHeightWithPageControl;
-+ (CGFloat)bottomGradientHeightWithoutPageControl;
+// padding and sizes
+extern CGFloat const kBuyPaddingSmall;
+extern CGFloat const kBuyPaddingMedium;
+extern CGFloat const kBuyPaddingLarge;
+extern CGFloat const kBuyPaddingExtraLarge;
+extern CGFloat const kBuyTopGradientViewHeight;
+extern CGFloat const kBuyProductFooterHeight;
+extern CGFloat const kBuyCheckoutButtonHeight;
+extern CGFloat const kBuyPageControlHeight;
+extern CGFloat const kBuyBottomGradientHeightWithPageControl;
+extern CGFloat const kBuyBottomGradientHeightWithoutPageControl;
 
 // fonts
 + (UIFont*)productTitleFont;

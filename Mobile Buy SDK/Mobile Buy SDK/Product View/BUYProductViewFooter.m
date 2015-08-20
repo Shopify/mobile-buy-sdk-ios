@@ -82,7 +82,7 @@
 		[self addConstraints:self.checkoutLayoutConstraints];
 		[NSLayoutConstraint deactivateConstraints:self.checkoutLayoutConstraints];
 		
-		NSDictionary *metricsDictionary = @{ @"buttonHeight" : @([BUYTheme checkoutButtonHeight]) };
+		NSDictionary *metricsDictionary = @{ @"buttonHeight" : @(kBuyCheckoutButtonHeight) };
 		
 		[self.visualEffectView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_checkoutButton(buttonHeight)]-|"
 																					  options:0

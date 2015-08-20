@@ -33,7 +33,7 @@
 		[self setSelectedBackgroundView:backgroundView];
 		
 		self.textLabel.backgroundColor = [UIColor clearColor];
-		self.layoutMargins = UIEdgeInsetsMake([BUYTheme paddingLarge], [BUYTheme paddingExtraLarge], [BUYTheme paddingLarge], [BUYTheme paddingLarge]);
+		self.layoutMargins = UIEdgeInsetsMake(kBuyPaddingLarge, kBuyPaddingExtraLarge, kBuyPaddingLarge, kBuyPaddingLarge);
 		
 		UIView *labelContainerView = [[UIView alloc] init];
 		labelContainerView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -64,7 +64,7 @@
 		[self.contentView addSubview:_disclosureIndicatorImageView];
 		
 		NSDictionary *views = NSDictionaryOfVariableBindings(_titleLabel, _priceLabel, labelContainerView, _selectedImageView, _disclosureIndicatorImageView);
-		NSDictionary *metricsDictionary = @{ @"paddingMedium" : @([BUYTheme paddingMedium]), @"paddingSmall" : @([BUYTheme paddingSmall]), @"paddingExtraLarge" : @([BUYTheme paddingExtraLarge]) };
+		NSDictionary *metricsDictionary = @{ @"paddingMedium" : @(kBuyPaddingMedium), @"paddingSmall" : @(kBuyPaddingSmall), @"paddingExtraLarge" : @(kBuyPaddingExtraLarge) };
 		
 		[labelContainerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_titleLabel]|" options:0 metrics:nil views:views]];
 		[labelContainerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_priceLabel]|" options:0 metrics:nil views:views]];

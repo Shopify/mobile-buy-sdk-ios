@@ -80,7 +80,7 @@
 																					toItem:nil
 																				 attribute:NSLayoutAttributeNotAnAttribute
 																				multiplier:1.0
-																				  constant:[BUYTheme bottomGradientHeightWithoutPageControl]];
+																				  constant:kBuyBottomGradientHeightWithoutPageControl];
 		[self addConstraint:_bottomGradientViewLayoutConstraintHeight];
 		
 		_bottomGradientView = [[BUYGradientView alloc] init];
@@ -140,7 +140,7 @@
 																		   toItem:nil
 																		attribute:NSLayoutAttributeNotAnAttribute
 																	   multiplier:1.0
-																		 constant:[BUYTheme pageControlHeight]]];
+																		 constant:kBuyPageControlHeight]];
 		
 		_productViewHeaderOverlay = [[BUYProductViewHeaderOverlay alloc] initWithTheme:theme];
 		_productViewHeaderOverlay.translatesAutoresizingMaskIntoConstraints = NO;
@@ -155,10 +155,10 @@
 {
 	self.pageControl.numberOfPages = numberOfPages;
 	if (self.pageControl.numberOfPages == 0) {
-		self.bottomGradientViewLayoutConstraintHeight.constant = [BUYTheme bottomGradientHeightWithoutPageControl];
+		self.bottomGradientViewLayoutConstraintHeight.constant = kBuyBottomGradientHeightWithoutPageControl;
 		self.bottomGradientView.bottomColor = [UIColor colorWithWhite:0 alpha:0.05f];
 	} else {
-		self.bottomGradientViewLayoutConstraintHeight.constant = [BUYTheme bottomGradientHeightWithPageControl];
+		self.bottomGradientViewLayoutConstraintHeight.constant = kBuyBottomGradientHeightWithPageControl;
 		self.bottomGradientView.bottomColor = [UIColor colorWithWhite:0 alpha:0.15f];
 	}
 }

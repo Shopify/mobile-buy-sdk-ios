@@ -26,7 +26,7 @@
 	if (self) {
 		self.selectionStyle = UITableViewCellSelectionStyleNone;
 		
-		self.layoutMargins = UIEdgeInsetsMake([BUYTheme paddingExtraLarge], self.layoutMargins.left, [BUYTheme paddingExtraLarge], self.layoutMargins.right);
+		self.layoutMargins = UIEdgeInsetsMake(kBuyPaddingExtraLarge, self.layoutMargins.left, kBuyPaddingExtraLarge, self.layoutMargins.right);
 		
 		_titleLabel = [[UILabel alloc] init];
 		_titleLabel.textColor = [UIColor blackColor];
