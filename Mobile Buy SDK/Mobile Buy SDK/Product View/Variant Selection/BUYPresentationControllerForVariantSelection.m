@@ -56,15 +56,15 @@
 	}];
 }
 
-CGFloat const BUYPresentationControllerPartialHeight = 350.0;
-CGFloat const BUYPresentationControllerPartialWidth = 350.0;
+CGFloat const BUYPresentationControllerPartialHeight = 350.0f;
+CGFloat const BUYPresentationControllerPartialWidth = 350.0f;
 
 - (CGRect)frameOfPresentedViewInContainerView
 {
 	CGRect containerBounds = self.containerView.bounds;
-	CGFloat height = MIN((CGRectGetHeight(containerBounds) / 2), BUYPresentationControllerPartialHeight);
-	CGFloat width = MIN((CGRectGetWidth(containerBounds) / 1.3), BUYPresentationControllerPartialWidth);
-    return CGRectIntegral(CGRectMake(CGRectGetMidX(containerBounds) - (width / 2), CGRectGetMidY(containerBounds) - (height / 2), width, height));
+	CGFloat height = MIN((CGRectGetHeight(containerBounds) / 2.0f), BUYPresentationControllerPartialHeight);
+	CGFloat width = MIN((CGRectGetWidth(containerBounds) / 1.3f), BUYPresentationControllerPartialWidth);
+    return CGRectIntegral(CGRectMake(CGRectGetMidX(containerBounds) - (width / 2.0f), CGRectGetMidY(containerBounds) - (height / 2.0f), width, height));
 }
 
 @end
