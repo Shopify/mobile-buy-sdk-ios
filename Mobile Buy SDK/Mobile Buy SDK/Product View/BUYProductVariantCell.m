@@ -24,6 +24,8 @@
 
 @implementation BUYProductVariantCell
 
+CGFloat const buttonWidth = 10.0f;
+
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
 	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -35,26 +37,28 @@
 		
 		_optionView1 = [[BUYVariantOptionView alloc] init];
 		_optionView1.translatesAutoresizingMaskIntoConstraints = NO;
+		[_optionView1 setContentCompressionResistancePriority:UILayoutPriorityFittingSizeLevel forAxis:UILayoutConstraintAxisHorizontal];
 		[self.contentView addSubview:_optionView1];
 		
 		_optionView2 = [[BUYVariantOptionView alloc] init];
 		_optionView2.translatesAutoresizingMaskIntoConstraints = NO;
+		[_optionView3 setContentCompressionResistancePriority:UILayoutPriorityFittingSizeLevel forAxis:UILayoutConstraintAxisHorizontal];
 		[self.contentView addSubview:_optionView2];
 		
 		_optionView3 = [[BUYVariantOptionView alloc] init];
 		_optionView3.translatesAutoresizingMaskIntoConstraints = NO;
+		[_optionView3 setContentCompressionResistancePriority:UILayoutPriorityFittingSizeLevel forAxis:UILayoutConstraintAxisHorizontal];
 		[self.contentView addSubview:_optionView3];
 		
 		_disclosureIndicatorImageView = [[UIImageView alloc] init];
 		_disclosureIndicatorImageView.translatesAutoresizingMaskIntoConstraints = NO;
-		[_disclosureIndicatorImageView setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
 		[self.contentView addSubview:_disclosureIndicatorImageView];
 		
 		NSDictionary *views = NSDictionaryOfVariableBindings(_optionView1, _optionView2, _optionView3, _disclosureIndicatorImageView);
 		
-		NSDictionary *metricsDictionary = @{ @"paddingExtraLarge" : @(kBuyPaddingExtraLarge), @"paddingSmall" : @(kBuyPaddingSmall) };
+		NSDictionary *metricsDictionary = @{ @"paddingExtraLarge" : @(kBuyPaddingExtraLarge), @"paddingSmall" : @(kBuyPaddingSmall), @"buttonWidth" : @(buttonWidth) };
 		
-		self.disclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_optionView1]-(paddingExtraLarge)-[_optionView2]-(paddingExtraLarge)-[_optionView3]-(>=paddingSmall)-[_disclosureIndicatorImageView]-|" options:0 metrics:metricsDictionary views:views];
+		self.disclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_optionView1]-(paddingExtraLarge)-[_optionView2]-(paddingExtraLarge)-[_optionView3]-(>=paddingSmall)-[_disclosureIndicatorImageView(buttonWidth)]-|" options:0 metrics:metricsDictionary views:views];
 		self.noDisclosureConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_optionView1]-(paddingExtraLarge)-[_optionView2]-(paddingExtraLarge)-[_optionView3]-(>=paddingSmall)-|" options:0 metrics:metricsDictionary views:views];
 		
 		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_optionView1]-|" options:0 metrics:nil views:views]];
@@ -122,7 +126,7 @@
 	_theme = theme;
 	self.backgroundColor = [theme backgroundColor];
 	self.selectedBackgroundView.backgroundColor = [theme selectedBackgroundColor];
-	self.disclosureIndicatorImageView.image = [BUYImageKit imageOfDisclosureIndicatorImageWithFrame:CGRectMake(0, 0, 10, 16) color:[theme disclosureIndicatorColor]];
+	self.disclosureIndicatorImageView.image = [BUYImageKit imageOfDisclosureIndicatorImageWithFrame:CGRectMake(0, 0, buttonWidth, 16) color:[theme disclosureIndicatorColor]];
 	
 	[self.optionView1 setTheme:theme];
 	[self.optionView2 setTheme:theme];
