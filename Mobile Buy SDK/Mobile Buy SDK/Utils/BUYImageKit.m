@@ -28,17 +28,17 @@
 	
 	//// Variant Close Icon Drawing
 	UIBezierPath* variantCloseIconPath = UIBezierPath.bezierPath;
-	[variantCloseIconPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.13971f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.06114f * CGRectGetHeight(frame))];
-	[variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.93886f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.86029f * CGRectGetHeight(frame))];
-	[variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.86029f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.93886f * CGRectGetHeight(frame))];
-	[variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.06114f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.13971f * CGRectGetHeight(frame))];
-	[variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.13971f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.06114f * CGRectGetHeight(frame))];
+	[variantCloseIconPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.13971f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.16669f * CGRectGetHeight(frame))];
+	[variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.93886f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.87988f * CGRectGetHeight(frame))];
+	[variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.86029f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.95000f * CGRectGetHeight(frame))];
+	[variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.06114f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.23681f * CGRectGetHeight(frame))];
+	[variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.13971f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.16669f * CGRectGetHeight(frame))];
 	[variantCloseIconPath closePath];
-	[variantCloseIconPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.86029f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.06114f * CGRectGetHeight(frame))];
-	[variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.93886f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.13971f * CGRectGetHeight(frame))];
-	[variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.13971f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.93886f * CGRectGetHeight(frame))];
-	[variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.06114f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.86029f * CGRectGetHeight(frame))];
-	[variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.86029f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.06114f * CGRectGetHeight(frame))];
+	[variantCloseIconPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.86029f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.16669f * CGRectGetHeight(frame))];
+	[variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.93886f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.23681f * CGRectGetHeight(frame))];
+	[variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.13971f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.95000f * CGRectGetHeight(frame))];
+	[variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.06114f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.87988f * CGRectGetHeight(frame))];
+	[variantCloseIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.86029f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.16669f * CGRectGetHeight(frame))];
 	[variantCloseIconPath closePath];
 	[closeColor setFill];
 	[variantCloseIconPath fill];

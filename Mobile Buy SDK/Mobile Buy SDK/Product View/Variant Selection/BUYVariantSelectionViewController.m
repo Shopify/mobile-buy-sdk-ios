@@ -53,7 +53,7 @@
 	BUYOptionSelectionViewController *controller = [self nextOptionSelectionController];
 	
 	// Add close button
-	UIImage *closeButton = [[BUYImageKit imageOfVariantCloseImageWithFrame:CGRectMake(0, 0, 18, 18)] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+	UIImage *closeButton = [[BUYImageKit imageOfVariantCloseImageWithFrame:CGRectMake(0, 0, 18, 20)] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 	UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithImage:closeButton style:UIBarButtonItemStylePlain target:self action:@selector(dismissPopover)];
 	controller.navigationItem.leftBarButtonItem = barButtonItem;
 	[self.navigationController pushViewController:controller animated:NO];
