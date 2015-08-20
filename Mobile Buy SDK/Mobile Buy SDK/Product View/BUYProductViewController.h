@@ -9,13 +9,13 @@
 #import <Buy/Buy.h>
 #import "BUYTheme.h"
 
-@interface BUYProductViewController : BUYViewController
+@interface BUYProductViewController : BUYViewController <BUYThemeable>
 
 /**
  *  Creates a BUYProductViewController with a BUYClient and a theme
  *  Note: Use this initializer to instatiate a BUYProdctViewController
  *  with a custom theme. If you don't need to customize the theme
- *  us `initWithClient:`
+ *  use `initWithClient:`
  *
  *  @param client A BUYClient configured to your shop
  *  @param theme  A BUYTheme

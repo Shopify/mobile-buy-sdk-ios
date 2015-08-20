@@ -176,7 +176,8 @@
 @property (nonatomic, strong) NSString *webReturnToURL;
 
 /**
- *  The button title that will appear after checkout to return to the host app
+ *  The button title that will appear after checkout to return to the host app.  Defaults to "Return to 'application'", 
+ *  where 'application' is the `applicationName` set on the BUYClient
  */
 @property (nonatomic, strong) NSString *webReturnToLabel;
 
