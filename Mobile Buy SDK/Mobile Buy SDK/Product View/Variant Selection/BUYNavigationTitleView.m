@@ -21,9 +21,9 @@
 
 @implementation BUYNavigationTitleView
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithContainerFrame:(CGRect)frame
 {
-	self = [super initWithFrame:frame];
+	self = [super init];
 	if (self) {
 		UIView *containerView = [UIView new];
 		containerView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -49,7 +49,7 @@
 		
 		NSDictionary *views = NSDictionaryOfVariableBindings(_titleLabel, _selectedOptionsLabel);
 		CGRect insetFrame = [BUYPresentationControllerForVariantSelection insetFrameGivenBounds:frame];
-		NSDictionary *metricsDictionary = @{ @"maxWidth" : @(CGRectGetWidth(insetFrame) / 1.5f) };
+		NSDictionary *metricsDictionary = @{ @"maxWidth" : @(CGRectGetWidth(insetFrame) / 2) };
 		
 		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_titleLabel(<=maxWidth)]|"
 																	 options:0
