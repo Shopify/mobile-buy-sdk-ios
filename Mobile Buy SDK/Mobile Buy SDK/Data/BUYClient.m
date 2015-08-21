@@ -33,7 +33,7 @@
 #define kMinSuccessfulStatusCode 200
 #define kMaxSuccessfulStatusCode 299
 
-NSString * const BUYVersionString = @"1.1.1";
+NSString * const BUYVersionString = @"1.1.2";
 
 @interface BUYClient () <NSURLSessionDelegate>
 
@@ -47,6 +47,8 @@ NSString * const BUYVersionString = @"1.1.1";
 @end
 
 @implementation BUYClient
+
+- (instancetype)init { return nil; }
 
 - (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey channelId:(NSString *)channelId
 {
@@ -95,7 +97,9 @@ NSString * const BUYVersionString = @"1.1.1";
 
 - (NSURLSessionDataTask *)getShop:(BUYDataShopBlock)block
 {
-	return [self performRequestForURL:[NSString stringWithFormat:@"http://%@/meta.json", _shopDomain] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	NSString *url = [NSString stringWithFormat:@"http://%@/meta.json", _shopDomain];
+	
+	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		BUYShop *shop = nil;
 		if (json && error == nil) {
 			shop = [[BUYShop alloc] initWithDictionary:json];
@@ -196,23 +200,6 @@ NSString * const BUYVersionString = @"1.1.1";
 
 #pragma mark - Helpers
 
-- (NSURLSessionDataTask *)performRequestForURL:(NSString *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
-{
-	NSURLSessionDataTask *task = [self.session dataTaskWithURL:[NSURL URLWithString:url] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-		NSDictionary *json = nil;
-		if (error == nil) {
-			id jsonData = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-			json = [jsonData isKindOfClass:[NSDictionary class]] ? jsonData : nil;
-			error = [self extractErrorFromResponse:response json:json];
-		}
-		dispatch_async(self.queue, ^{
-			completionHandler(json, response, error);
-		});
-	}];
-	[task resume];
-	return task;
-}
-
 - (NSError *)extractErrorFromResponse:(NSURLResponse *)response json:(NSDictionary *)json
 {
 	NSError *error = nil;
@@ -238,9 +225,11 @@ NSString * const BUYVersionString = @"1.1.1";
 {
 	checkout.channelId = self.channelId;
 	checkout.marketingAttribution = @{@"medium": @"iOS", @"source": self.applicationName};
+	checkout.sourceName = @"mobile_app";
+	checkout.sourceIdentifier = checkout.channelId;
 	if (self.urlScheme || checkout.webReturnToURL) {
 		checkout.webReturnToURL = checkout.webReturnToURL ?: self.urlScheme;
-		checkout.webReturnToLabel = checkout.webReturnToLabel ?: self.applicationName;
+		checkout.webReturnToLabel = checkout.webReturnToLabel ?: [@"Return to " stringByAppendingString:self.applicationName];
 	}
 }
 

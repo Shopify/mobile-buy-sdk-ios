@@ -32,6 +32,8 @@
 
 @property (nonatomic, strong, readonly) NSArray *filteredProductVariantsForSelectionOption;
 
+@property (nonatomic, weak) NSNumberFormatter *currencyFormatter;
+
 @property (nonatomic, weak) id <BUYOptionSelectionDelegate> delegate;
 
 @end

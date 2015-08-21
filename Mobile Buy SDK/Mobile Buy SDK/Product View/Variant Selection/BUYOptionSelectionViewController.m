@@ -6,12 +6,13 @@
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 
-#import "BUYOptionSelectionViewController.h"
-#import "BUYProduct+Options.h"
-#import "BUYOptionValue.h"
-#import "BUYTheme.h"
 #import "BUYImageKit.h"
+#import "BUYProduct+Options.h"
+#import "BUYOptionSelectionViewController.h"
+#import "BUYOptionValue.h"
 #import "BUYOptionValueCell.h"
+#import "BUYTheme.h"
+#import "BUYTheme+Additions.h"
 
 @interface BUYOptionSelectionViewController ()
 @property (nonatomic, strong) NSArray *optionValues;
@@ -30,7 +31,8 @@
 	if (self) {
 		self.filteredProductVariantsForSelectionOption = filteredProductVariantsForSelectionOption;
 		self.optionValues = optionValues;
-		self.title = [self.optionValues.firstObject name];
+		self.tableView.estimatedRowHeight = 44.0f;
+		self.tableView.rowHeight = UITableViewAutomaticDimension;
 	}
 	
 	return self;
@@ -39,10 +41,9 @@
 - (void)setTheme:(BUYTheme *)theme
 {
 	_theme = theme;
-	UIColor *backgroundColor = _theme.style == BUYThemeStyleDark ? BUY_RGB(26, 26, 26) : BUY_RGB(255, 255, 255);
-	self.view.backgroundColor = backgroundColor;
-	self.tableView.backgroundColor = backgroundColor;
-	self.tableView.separatorColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(76, 76, 76) : BUY_RGB(217, 217, 217);
+	self.view.backgroundColor = [theme backgroundColor];
+	self.tableView.backgroundColor = self.view.backgroundColor;
+	self.tableView.separatorColor = [theme separatorColor];
 }
 
 - (void)viewDidLoad
@@ -80,11 +81,17 @@
 {
 	BUYOptionValue *optionValue = self.optionValues[indexPath.row];
 	BUYOptionValueCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-	cell.accessoryType = self.isLastOption ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
-
-	[cell setTheme:self.theme];
-	cell.optionValue = optionValue;
 	cell.selectedImageView.hidden = ![optionValue isEqual:self.selectedOptionValue];
+	if (self.isLastOption) {
+		cell.accessoryType = UITableViewCellAccessoryNone;
+		BUYProductVariant *productVariant = (BUYProductVariant*)self.filteredProductVariantsForSelectionOption[indexPath.row];
+		[cell setOptionValue:optionValue productVariant:productVariant currencyFormatter:self.currencyFormatter theme:self.theme];
+	} else {
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		[cell setOptionValue:optionValue productVariant:nil currencyFormatter:nil theme:self.theme];
+	}
+	[cell setNeedsLayout];
+	[cell layoutIfNeeded];
 	
 	return cell;
 }

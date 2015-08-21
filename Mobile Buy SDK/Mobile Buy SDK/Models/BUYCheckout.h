@@ -87,6 +87,10 @@
 /**
  *  Reservation time on the checkout in seconds. Setting to @0 and updating the checkout 
  *  will release inventory reserved by the checkout (when product inventory is not infinite).
+ *
+ *  300 seconds is default and maximum. `reservationTime` is reset to @300 on every
+ *  `updateCheckout:completion:` call.
+ *
  *  Note: This can also be done with `removeProductReservationsFromCheckout:completion` 
  *  found in the BUYClient.
  */
@@ -172,7 +176,8 @@
 @property (nonatomic, strong) NSString *webReturnToURL;
 
 /**
- *  The button title that will appear after checkout to return to the host app
+ *  The button title that will appear after checkout to return to the host app.  Defaults to "Return to 'application'", 
+ *  where 'application' is the `applicationName` set on the BUYClient
  */
 @property (nonatomic, strong) NSString *webReturnToLabel;
 
@@ -209,7 +214,7 @@
 /**
  *  The unique identifier for the source
  */
-@property (nonatomic, copy, readonly) NSString *sourceId;
+@property (nonatomic, copy, readonly) NSString *sourceIdentifier;
 
 /**
  *  The URL for the source

@@ -8,9 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#define BUY_RGB(r, g, b) BUY_RGBA(r, g, b, 1)
-#define BUY_RGBA(r, g, b, a) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a]
-
 typedef NS_ENUM(NSInteger, BUYThemeStyle) {
 	BUYThemeStyleLight,
 	BUYThemeStyleDark

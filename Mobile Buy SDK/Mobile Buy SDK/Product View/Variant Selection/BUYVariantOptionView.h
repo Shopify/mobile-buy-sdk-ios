@@ -9,6 +9,7 @@
 @import UIKit;
 @class BUYOptionValue;
 #import "BUYTheme.h"
+#import "BUYTheme+Additions.h"
 
 @interface BUYVariantOptionView : UIView <BUYThemeable>
 

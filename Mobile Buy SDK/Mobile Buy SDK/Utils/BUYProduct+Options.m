@@ -48,21 +48,6 @@
 	return variant;
 }
 
-- (BUYImage *)imageForVariant:(BUYProductVariant *)variant
-{
-	BUYImage *image = nil;
-	
-	BOOL isDefaultVariant = [self isDefaultVariant];
-	
-	for (BUYImage *anImage in self.images) {
-		if ([anImage.variantIds containsObject:variant.identifier] || isDefaultVariant) {
-			image = anImage;
-		}
-	}
-	
-	return image;
-}
-
 - (BOOL)isDefaultVariant
 {
 	if ([self.variants count] == 1) {

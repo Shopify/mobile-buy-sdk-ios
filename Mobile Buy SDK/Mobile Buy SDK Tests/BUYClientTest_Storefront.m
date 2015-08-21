@@ -99,26 +99,14 @@
 		XCTAssertNil(error);
 		XCTAssertNotNil(product);
 		XCTAssertEqualObjects(@"App crasher", [product title]);
-		[expectation fulfill];
-	}];
-	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
-		XCTAssertNil(error);
-	}];
-}
-
-- (void)testProductDates
-{
-	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_client getProductById:@"378783139" completion:^(BUYProduct *product, NSError *error) {
 		
-		XCTAssertNil(error);
-		XCTAssertNotNil(product);
 		NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForPublications];
 		// Integration test might run on a different timezone, so we have to force the timezone to GMT
 		dateFormatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
 		XCTAssertEqual([product.createdAtDate compare:[dateFormatter dateFromString:@"2015-07-28T09:58:24-0400"]], NSOrderedSame);
 		XCTAssertEqual([product.publishedAtDate compare:product.createdAtDate], NSOrderedSame);
 		XCTAssertNotNil(product.updatedAtDate);
+		
 		[expectation fulfill];
 	}];
 	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
@@ -157,6 +145,21 @@
 	[_client getProductById:@"asdfdsasdfdsasdfdsasdfjkllkj" completion:^(BUYProduct *product, NSError *error) {
 
 		XCTAssertNil(product);
+		XCTAssertEqual(BUYShopifyError_InvalidProductID, error.code);
+		[expectation fulfill];
+	}];
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
+- (void)testProductsRequestError
+{
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_client getProductsByIds:@[@"asdfdsasdfds", @"asdfdsasdfjkllkj"] completion:^(NSArray *products, NSError *error) {
+		
+		XCTAssertEqual(BUYShopifyError_InvalidProductID, error.code);
+		XCTAssertEqual(0, products.count);
 		[expectation fulfill];
 	}];
 	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
@@ -170,13 +173,13 @@
 	[_client getCollections:^(NSArray *collections, NSError *error) {
 		
 		XCTAssertNotNil(collections);
+		XCTAssertNil(error);
 		
-		self.collection = collections.firstObject;
-		
-		XCTAssertEqualObjects(@"Super Sale", [self.collection title]);
-		XCTAssertEqualObjects(@"super-sale", [self.collection handle]);
-		XCTAssertEqualObjects(@42362050, [self.collection collectionId]);
+		XCTAssertNotNil([collections.firstObject title]);
+		XCTAssertNotNil([collections.firstObject handle]);
+		XCTAssertNotNil([collections.firstObject collectionId]);
 
+		self.collection = collections.firstObject;
 		[expectation fulfill];
 	}];
 	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {

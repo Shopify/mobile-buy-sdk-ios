@@ -6,14 +6,15 @@
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 
-#import "BUYVariantSelectionViewController.h"
-#import "BUYOptionSelectionViewController.h"
-#import "BUYProduct+Options.h"
-#import "BUYTheme.h"
-#import "BUYPresentationControllerForVariantSelection.h"
-#import "BUYOptionSelectionNavigationController.h"
 #import "BUYImageKit.h"
+#import "BUYOptionSelectionNavigationController.h"
+#import "BUYOptionSelectionViewController.h"
+#import "BUYPresentationControllerForVariantSelection.h"
+#import "BUYProduct+Options.h"
 #import "BUYProductVariant+Options.h"
+#import "BUYTheme.h"
+#import "BUYTheme+Additions.h"
+#import "BUYVariantSelectionViewController.h"
 
 @interface BUYVariantSelectionViewController () <BUYOptionSelectionDelegate>
 
@@ -22,6 +23,7 @@
 @property (nonatomic, strong) NSMutableDictionary *selectedOptions;
 @property (nonatomic, assign) BOOL changedOptionSelection;
 @property (nonatomic, strong) NSArray *filteredProductVariantsForSelectionOption;
+@property (nonatomic, strong) NSMutableArray *optionValueNames;
 
 @end
 
@@ -36,6 +38,7 @@
 	if (self) {
 		self.product = product;
 		self.selectedOptions = [NSMutableDictionary new];
+		self.optionValueNames = [NSMutableArray new];
 		self.theme = theme;
 	}
 	
@@ -49,9 +52,8 @@
 	BUYOptionSelectionViewController *controller = [self nextOptionSelectionController];
 	
 	// Add close button
-	UIImage *closeButton = [BUYImageKit imageOfVariantCloseImageWithFrame:CGRectMake(0, 0, 18, 18)];
+	UIImage *closeButton = [[BUYImageKit imageOfVariantCloseImageWithFrame:CGRectMake(0, 0, 18, 20)] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 	UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithImage:closeButton style:UIBarButtonItemStylePlain target:self action:@selector(dismissPopover)];
-	barButtonItem.tintColor = self.theme.style == BUYThemeStyleDark ? BUY_RGBA(229, 229, 229, 1) : BUY_RGBA(51, 51, 51, 1);
 	controller.navigationItem.leftBarButtonItem = barButtonItem;
 	[self.navigationController pushViewController:controller animated:NO];
 	
@@ -69,19 +71,19 @@
 
 - (BOOL)hasNextOption
 {
-	NSUInteger index = self.selectedOptions.count;
+	NSUInteger index = [[self.selectedOptions allKeys] count];
 	return self.product.options.count > index;
 }
 
 - (BOOL)isLastOption
 {
-	NSUInteger index = self.selectedOptions.count;
-	return self.product.options.count-1 == index;
+	NSUInteger index = [[self.selectedOptions allKeys] count];
+	return self.product.options.count - 1 == index;
 }
 
 - (BUYOptionSelectionViewController *)nextOptionSelectionController
 {
-	NSUInteger index = self.selectedOptions.count;
+	NSUInteger index = [[self.selectedOptions allKeys] count];
 	BUYOption *option = self.product.options[index];
 	
 	NSArray *options = [self.product valuesForOption:option variants:self.filteredProductVariantsForSelectionOption];
@@ -90,7 +92,8 @@
 	optionController.delegate = self;
 	optionController.selectedOptionValue = self.changedOptionSelection ? nil : [self.selectedProductVariant optionValueForName:option.name];
 	optionController.isLastOption = [self isLastOption];
-	
+	optionController.currencyFormatter = self.currencyFormatter;
+	optionController.title = option.name;
 	return optionController;
 }
 
@@ -108,6 +111,7 @@
 {
 	self.changedOptionSelection |= ![controller.selectedOptionValue.value isEqualToString:optionValue.value];
 	self.selectedOptions[optionValue.name] = optionValue;
+	[self.optionValueNames addObject:optionValue.value];
 	
 	self.filteredProductVariantsForSelectionOption = [BUYProductVariant filterProductVariants:controller.filteredProductVariantsForSelectionOption forOptionValue:optionValue];
 
@@ -126,6 +130,7 @@
 {
 	BUYOption *option = [controller.optionValues firstObject];
 	[self.selectedOptions removeObjectForKey:option.name];
+	[self.optionValueNames removeLastObject];
 	self.filteredProductVariantsForSelectionOption = controller.filteredProductVariantsForSelectionOption;
 }
 

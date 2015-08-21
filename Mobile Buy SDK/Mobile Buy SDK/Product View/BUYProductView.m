@@ -11,17 +11,20 @@
 #import "BUYProductViewHeaderBackgroundImageView.h"
 #import "BUYProductViewFooter.h"
 #import "BUYGradientView.h"
-#import "BUYTheme.h"
 #import "BUYProductVariantCell.h"
 #import "BUYProductDescriptionCell.h"
 #import "BUYProductHeaderCell.h"
 #import "BUYImage.h"
 #import "BUYImageView.h"
+#import "BUYProductViewErrorView.h"
+#import "BUYTheme.h"
+#import "BUYTheme+Additions.h"
 
 @interface BUYProductView ()
 
 @property (nonatomic, strong) UILabel *poweredByShopifyLabel;
 @property (nonatomic, strong) NSLayoutConstraint *poweredByShopifyLabelConstraint;
+@property (nonatomic, strong) BUYProductViewErrorView *errorView;
 
 @end
 
@@ -32,7 +35,7 @@
 	self = [super initWithFrame:rect];
 	if (self) {
 		self.backgroundImageView = [[BUYProductViewHeaderBackgroundImageView alloc] initWithTheme:theme];
-		self.backgroundImageView.hidden = self.theme.showsProductImageBackground == NO;
+		self.backgroundImageView.hidden = theme.showsProductImageBackground == NO;
 		self.backgroundImageView.translatesAutoresizingMaskIntoConstraints = NO;
 		[self addSubview:self.backgroundImageView];
 		
@@ -52,7 +55,7 @@
 														  constant:0.0]];
 		
 		self.stickyFooterView = [UIView new];
-		self.stickyFooterView.backgroundColor = (self.theme.style == BUYThemeStyleDark) ? [UIColor blackColor] : [UIColor whiteColor];
+		self.stickyFooterView.backgroundColor = [theme backgroundColor];
 		self.stickyFooterView.translatesAutoresizingMaskIntoConstraints = NO;
 		[self addSubview:self.stickyFooterView];
 		
@@ -88,7 +91,7 @@
 		self.tableView.estimatedRowHeight = 60.0;
 		self.tableView.rowHeight = UITableViewAutomaticDimension;
 		self.tableView.tableFooterView = [UIView new];
-		self.tableView.layoutMargins = UIEdgeInsetsMake(0, 16, 0, 12);
+		self.tableView.layoutMargins = UIEdgeInsetsMake(self.tableView.layoutMargins.top, kBuyPaddingExtraLarge, self.tableView.layoutMargins.bottom, kBuyPaddingMedium);
 		[self addSubview:self.tableView];
 		
 		[self.tableView registerClass:[BUYProductHeaderCell class] forCellReuseIdentifier:@"headerCell"];
@@ -104,7 +107,7 @@
 																	 metrics:nil
 																	   views:NSDictionaryOfVariableBindings(_tableView)]];
 		CGFloat width = MIN(CGRectGetWidth(rect), CGRectGetHeight(rect));
-		self.productViewHeader = [[BUYProductViewHeader alloc] initWithFrame:CGRectMake(0, 0, width, width) theme:self.theme];
+		self.productViewHeader = [[BUYProductViewHeader alloc] initWithFrame:CGRectMake(0, 0, width, width) theme:theme];
 		self.tableView.tableHeaderView = self.productViewHeader;
 		
 		_poweredByShopifyLabel = [[UILabel alloc] init];
@@ -136,13 +139,13 @@
 																	 options:0
 																	 metrics:nil
 																	   views:NSDictionaryOfVariableBindings(_productViewFooter)]];
-		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_productViewFooter(60)]|"
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_productViewFooter(height)]|"
 																	 options:0
-																	 metrics:nil
+																	 metrics:@{ @"height" : @(kBuyProductFooterHeight) }
 																	   views:NSDictionaryOfVariableBindings(_productViewFooter)]];
 		
 		self.topGradientView = [[BUYGradientView alloc] init];
-		self.topGradientView.topColor = [UIColor colorWithWhite:0 alpha:0.25f];
+		self.topGradientView.topColor = [BUYTheme topGradientViewTopColor];
 		self.topGradientView.translatesAutoresizingMaskIntoConstraints = NO;
 		self.topGradientView.userInteractionEnabled = NO;
 		[self addSubview:self.topGradientView];
@@ -153,7 +156,7 @@
 																	   views:NSDictionaryOfVariableBindings(_topGradientView)]];
 		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_topGradientView(height)]"
 																	 options:0
-																	 metrics:@{ @"height" : @114 }
+																	 metrics:@{ @"height" : @(kBuyTopGradientViewHeight) }
 																	   views:NSDictionaryOfVariableBindings(_topGradientView)]];
 		
 		self.theme = theme;
@@ -171,10 +174,10 @@
 {
 	_theme = theme;
 	self.tintColor = _theme.tintColor;
-	self.stickyFooterView.backgroundColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(26, 26, 26) : [UIColor whiteColor];
-	self.tableView.separatorColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(76, 76, 76) : BUY_RGB(217, 217, 217);
-	self.backgroundColor = (_theme.style == BUYThemeStyleDark) ? BUY_RGB(26, 26, 26) : BUY_RGB(255, 255, 255);
-	self.backgroundImageView.hidden = _theme.showsProductImageBackground == NO;
+	self.tableView.separatorColor = [theme separatorColor];
+	self.backgroundColor = [theme backgroundColor];
+	self.stickyFooterView.backgroundColor = self.backgroundColor;
+	self.backgroundImageView.hidden = theme.showsProductImageBackground == NO;
 	self.poweredByShopifyLabel.textColor = self.tableView.separatorColor;
 }
 
@@ -210,6 +213,78 @@
 	
 	CGFloat labelOffset = scrollView.contentSize.height - (scrollView.contentOffset.y + CGRectGetHeight(scrollView.bounds));
 	self.poweredByShopifyLabelConstraint.constant = (CGRectGetHeight(scrollView.bounds) / 3) + labelOffset;
+}
+
+#pragma mark - Error Handling
+
+- (BUYProductViewErrorView *)errorView
+{
+	if (_errorView == nil) {
+		_errorView = [[BUYProductViewErrorView alloc] initWithTheme:self.theme];
+		_errorView.alpha = 0;
+		_errorView.translatesAutoresizingMaskIntoConstraints = NO;
+		[self insertSubview:_errorView belowSubview:self.productViewFooter];
+		
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_errorView]|"
+																	 options:0
+																	 metrics:nil
+																	   views:NSDictionaryOfVariableBindings(_errorView)]];
+		
+		_errorView.hiddenConstraint = [NSLayoutConstraint constraintWithItem:_errorView
+																   attribute:NSLayoutAttributeTop
+																   relatedBy:NSLayoutRelationEqual
+																	  toItem:self
+																   attribute:NSLayoutAttributeBottom
+																  multiplier:1.0
+																	constant:0.0];
+		[self addConstraint:_errorView.hiddenConstraint];
+		
+		_errorView.visibleConstraint = [NSLayoutConstraint constraintWithItem:_errorView
+																	attribute:NSLayoutAttributeBottom
+																	relatedBy:NSLayoutRelationEqual
+																	   toItem:self.productViewFooter
+																	attribute:NSLayoutAttributeTop
+																   multiplier:1.0
+																	 constant:0.0];
+		
+		[NSLayoutConstraint activateConstraints:@[_errorView.hiddenConstraint]];
+		[_errorView layoutIfNeeded];
+	}
+	return _errorView;
+}
+
+- (void)showErrorWithMessage:(NSString*)errorMessage
+{
+	self.errorView.errorLabel.text = errorMessage;
+	[NSLayoutConstraint deactivateConstraints:@[self.errorView.hiddenConstraint]];
+	[NSLayoutConstraint activateConstraints:@[self.errorView.visibleConstraint]];
+	[UIView animateWithDuration:0.3f
+						  delay:0
+		 usingSpringWithDamping:0.8f
+		  initialSpringVelocity:10
+						options:0
+					 animations:^{
+						 self.errorView.alpha = 1;
+						 [self.errorView layoutIfNeeded];
+					 }
+					 completion:^(BOOL finished) {
+						 [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(removeErrorView) userInfo:nil repeats:NO];
+					 }];
+}
+
+- (void)removeErrorView
+{
+	[NSLayoutConstraint deactivateConstraints:@[self.errorView.visibleConstraint]];
+	[NSLayoutConstraint activateConstraints:@[self.errorView.hiddenConstraint]];
+	[UIView animateWithDuration:0.3f
+					 animations:^{
+						 self.errorView.alpha = 0;
+						 [self.errorView layoutIfNeeded];
+					 }
+					 completion:^(BOOL finished) {
+						 [self.errorView removeFromSuperview];
+						 self.errorView = nil;
+					 }];
 }
 
 @end

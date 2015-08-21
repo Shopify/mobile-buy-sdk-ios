@@ -33,6 +33,6 @@
 @property (nonatomic, strong) NSURL *refundPolicyURL;
 @property (nonatomic, strong) NSURL *termsOfServiceURL;
 @property (nonatomic, copy) NSString *sourceName;
-@property (nonatomic, copy) NSString *sourceId;
+@property (nonatomic, copy) NSString *sourceIdentifier;
 @property (nonatomic, strong) NSURL *sourceURL;
 @end

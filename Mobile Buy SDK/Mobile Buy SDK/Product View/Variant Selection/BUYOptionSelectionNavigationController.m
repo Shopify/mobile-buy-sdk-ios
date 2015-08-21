@@ -9,6 +9,7 @@
 #import "BUYOptionSelectionNavigationController.h"
 #import "BUYPresentationControllerForVariantSelection.h"
 #import "BUYImageKit.h"
+#import "BUYTheme+Additions.h"
 
 @interface BUYOptionSelectionNavigationController () <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
 
@@ -27,7 +28,7 @@
 		self.view.clipsToBounds = YES;
 		
 		// Add custom back button
-		UIImage *buttonImage = [BUYImageKit imageOfVariantBackImageWithFrame:CGRectMake(0, 0, 12, 18)];
+		UIImage *buttonImage = [[BUYImageKit imageOfVariantBackImageWithFrame:CGRectMake(0, 0, 12, 18)] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 		[[UIBarButtonItem appearanceWhenContainedIn:[BUYNavigationController class], nil] setBackButtonBackgroundImage:[buttonImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 12, 0, 0)]
 																											  forState:UIControlStateNormal
 																											barMetrics:UIBarMetricsDefault];
@@ -38,18 +39,9 @@
 
 - (void)setTheme:(BUYTheme *)theme
 {
-	switch (theme.style) {
-		case BUYThemeStyleDark:
-			[self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName : BUY_RGBA(229, 229, 229, 1) }];
-			self.navigationBar.barStyle = UIBarStyleBlack;
-			self.navigationBar.tintColor = [UIColor lightGrayColor];
-			break;
-		case BUYThemeStyleLight:
-			[self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName: BUY_RGBA(51, 51, 51, 1) }];
-			self.navigationBar.barStyle = UIBarStyleDefault;
-			self.navigationBar.tintColor = [UIColor colorWithWhite:(float)(152.0/255.0) alpha:1.0];
-			break;
-	}
+	self.navigationBar.barStyle = [theme navigationBarStyle];
+	[self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName : [theme navigationBarTitleVariantSelectionColor] }];
+	self.navigationBar.tintColor = theme.tintColor;
 }
 
 #pragma mark - Transitioning Delegate Methods

@@ -7,9 +7,6 @@
 
 #import "BUYPresentationControllerForVariantSelection.h"
 
-CGFloat const BUYPresentationControllerPartialHeight = 250.0;
-CGFloat const BUYPresentationControllerPartialWidth = 250.0;
-
 @implementation BUYPresentationControllerForVariantSelection
 
 - (instancetype)initWithPresentedViewController:(UIViewController *)presentedViewController presentingViewController:(UIViewController *)presentingViewController
@@ -59,13 +56,14 @@ CGFloat const BUYPresentationControllerPartialWidth = 250.0;
 	}];
 }
 
-- (CGRect)frameOfPresentedViewInContainerView {
-	
-	CGRect containerBounds = self.containerView.bounds;
-	CGFloat height = BUYPresentationControllerPartialWidth;
-	CGFloat width = BUYPresentationControllerPartialHeight;
-	
-    return CGRectMake((CGRectGetWidth(containerBounds)-width)/2, (CGRectGetHeight(containerBounds)-height)/2, width, height);
+CGFloat const BUYPresentationControllerPartialHeight = 350.0f;
+CGFloat const BUYPresentationControllerPartialWidth = 350.0f;
+
+- (CGRect)frameOfPresentedViewInContainerView
+{
+	CGFloat height = MIN((CGRectGetHeight(self.containerView.bounds) / 2.0f), BUYPresentationControllerPartialHeight);
+	CGFloat width = MIN((CGRectGetWidth(self.containerView.bounds) / 1.3f), BUYPresentationControllerPartialWidth);
+	return CGRectIntegral(CGRectMake(CGRectGetMidX(self.containerView.bounds) - (width / 2.0f), CGRectGetMidY(self.containerView.bounds) - (height / 2.0f), width, height));
 }
 
 @end

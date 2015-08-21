@@ -63,7 +63,10 @@
 			self.shop = shop;
 		}
 		else {
-			[self.delegate controllerFailedToStartApplePayProcess:self];
+			
+			if ([self.delegate respondsToSelector:@selector(controllerFailedToStartApplePayProcess:)]) {
+				[self.delegate controllerFailedToStartApplePayProcess:self];
+			}
 		}
 
 		self.isLoadingShop = NO;
@@ -101,9 +104,6 @@
 
 - (void)startApplePayCheckout:(BUYCheckout *)checkout
 {
-	if ([self.delegate respondsToSelector:@selector(controllerWillCheckoutViaApplePay:)]) {
-		[self.delegate controllerWillCheckoutViaApplePay:self];
-	}
 	
 	if (self.shop == nil && self.isLoadingShop == NO) {
 		// since requests are sent serially, this will return before the checkout is created
@@ -114,6 +114,9 @@
 		self.checkout = checkout;
 		
 		if (error == nil) {
+			if ([self.delegate respondsToSelector:@selector(controllerWillCheckoutViaApplePay:)]) {
+				[self.delegate controllerWillCheckoutViaApplePay:self];
+			}
 			self.applePayHelper = [[BUYApplePayHelpers alloc] initWithClient:self.client checkout:checkout];
 		}
 		[self handleCheckoutCompletion:checkout error:error];
@@ -122,12 +125,15 @@
 
 - (void)startWebCheckout:(BUYCheckout *)checkout
 {
-	if ([self.delegate respondsToSelector:@selector(controllerWillCheckoutViaWeb:)]) {
-		[self.delegate controllerWillCheckoutViaWeb:self];
-	}
 	
 	[self handleCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
+		
 		if (error == nil) {
+			self.checkout = checkout;
+
+			if ([self.delegate respondsToSelector:@selector(controllerWillCheckoutViaWeb:)]) {
+				[self.delegate controllerWillCheckoutViaWeb:self];
+			}
 			[[UIApplication sharedApplication] openURL:checkout.webCheckoutURL];
 		}
 		else {
@@ -190,7 +196,7 @@
 	}
 	
 	PKPaymentRequest *request = [self paymentRequest];
-	request.paymentSummaryItems = [_checkout buy_summaryItems];
+	request.paymentSummaryItems = [self.checkout buy_summaryItems];
 	PKPaymentAuthorizationViewController *controller = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:request];
 	if (controller) {
 		controller.delegate = self;
@@ -262,13 +268,17 @@
 	}];
 }
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
+- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingMethod:(nonnull PKShippingMethod *)shippingMethod completion:(nonnull void (^)(PKPaymentAuthorizationStatus, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
+#else
 - (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingMethod:(PKShippingMethod *)shippingMethod completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *summaryItems))completion
+#endif
 {
 	[self.applePayHelper updateCheckoutWithShippingMethod:shippingMethod completion:^(PKPaymentAuthorizationStatus status, NSArray *methods) {
 		
 		if (status == PKPaymentAuthorizationStatusInvalidShippingPostalAddress) {
 			if ([self.delegate respondsToSelector:@selector(controller:failedToGetShippingRates:withError:)]) {
-				[self.delegate controller:self failedToGetShippingRates:_checkout withError:self.applePayHelper.lastError];
+				[self.delegate controller:self failedToGetShippingRates:self.checkout withError:self.applePayHelper.lastError];
 			}
 		}
 		
@@ -276,7 +286,11 @@
 	}];
 }
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
+- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingAddress:(ABRecordRef)address completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
+#else
 - (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingAddress:(ABRecordRef)address completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *shippingMethods, NSArray *summaryItems))completion
+#endif
 {
 	[self.applePayHelper updateCheckoutWithAddress:address completion:^(PKPaymentAuthorizationStatus status, NSArray *shippingMethods, NSArray *summaryItems) {
 		
@@ -302,7 +316,7 @@
 	
 	[paymentRequest setMerchantIdentifier:merchantId];
 	[paymentRequest setRequiredBillingAddressFields:PKAddressFieldAll];
-	[paymentRequest setRequiredShippingAddressFields:_checkout.requiresShipping ? PKAddressFieldAll : PKAddressFieldEmail|PKAddressFieldPhone];
+	[paymentRequest setRequiredShippingAddressFields:self.checkout.requiresShipping ? PKAddressFieldAll : PKAddressFieldEmail|PKAddressFieldPhone];
 	[paymentRequest setSupportedNetworks:self.supportedNetworks];
 	[paymentRequest setMerchantCapabilities:PKMerchantCapability3DS];
 	[paymentRequest setCountryCode:self.shop.country];
