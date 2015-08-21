@@ -481,7 +481,9 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 
 - (void)presentationControllerDidDismiss:(UIPresentationController *)presentationController
 {
-	[self.delegate controller:self didCompleteCheckout:self.checkout status:BUYStatusUnknown];
+	if ([self.delegate respondsToSelector:@selector(didDismissViewController:)]) {
+		[self.delegate didDismissViewController:self];
+	}
 	
 	_product = nil;
 	_productId = nil;

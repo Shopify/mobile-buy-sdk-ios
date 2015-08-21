@@ -14,7 +14,6 @@
 @interface BUYViewController () <SFSafariViewControllerDelegate>
 
 @end
-
 #endif
 
 @implementation BUYViewController (Checkout)
@@ -39,13 +38,12 @@
 }
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
-
-
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller;
 {
-	
+	if ([self.delegate respondsToSelector:@selector(controller:didDismissWebCheckout:)]) {
+		[self.delegate controller:self didDismissWebCheckout:self.checkout];
+	}
 }
-
 #endif
 
 @end
