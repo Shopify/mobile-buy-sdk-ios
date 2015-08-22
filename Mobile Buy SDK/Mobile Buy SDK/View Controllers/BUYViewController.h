@@ -152,7 +152,9 @@
 #pragma mark - Apple Pay Overrides
 
 /**
- *  The supported credit card payment networks. As of iOS 8.3: PKPaymentNetworkAmex, PKPaymentNetworkMasterCard and PKPaymentNetworkVisa are the only valid options. 
+ *  The supported credit card payment networks. 
+ *  iOS 8.3: PKPaymentNetworkAmex, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa.
+ *  iOS 9.0: PKPaymentNetworkAmex, PKPaymentNetworkDiscover, PKPaymentNetworkMasterCard, PKPaymentNetworkPrivateLabel, PKPaymentNetworkVisa.
  */
 @property (nonatomic, copy) NSArray *supportedNetworks;
 
