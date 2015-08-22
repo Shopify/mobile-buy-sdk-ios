@@ -46,7 +46,15 @@
  *  @param address    The selected shipping address
  *  @param completion the completion block called after the shipping address is updated on the checkout
  */
-- (void)updateCheckoutWithAddress:(ABRecordRef)address completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *shippingMethods, NSArray *summaryItems))completion;
+- (void)updateCheckoutWithAddress:(ABRecordRef)address completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *shippingMethods, NSArray *summaryItems))completion NS_DEPRECATED_IOS(8_0, 9_0, "Use the CNContact backed `updateCheckoutWithContact:completion:` instead");
+
+/**
+ *  Call this method in the PKPaymentAuthorizationViewControllerDelegate `paymentAuthorizationViewController:didSelectShippingAddress:completion`
+ *
+ *  @param contact    The selected contact
+ *  @param completion the completion block called after the shipping address is updated on the checkout
+ */
+- (void)updateCheckoutWithContact:(PKContact*)contact completion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion NS_AVAILABLE_IOS(9_0);
 
 /**
  *  The current checkout

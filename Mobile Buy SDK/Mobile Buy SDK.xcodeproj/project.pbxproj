@@ -56,6 +56,7 @@
 		90A446221B5E8614009602AA /* NSDate+BUYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A446201B5E8614009602AA /* NSDate+BUYAdditions.m */; };
 		90A446251B5EC03F009602AA /* NSDateFormatter+BUYAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 90A446231B5EC03F009602AA /* NSDateFormatter+BUYAdditions.h */; };
 		90A446261B5EC03F009602AA /* NSDateFormatter+BUYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A446241B5EC03F009602AA /* NSDateFormatter+BUYAdditions.m */; };
+		90BBCD731B87B6BA00FCCE51 /* BUYPKContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BBCD701B87B6AB00FCCE51 /* BUYPKContact.m */; };
 		90F593041B0D5F4C0026B382 /* BUYIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592F81B0D5F4C0026B382 /* BUYIntegrationTest.m */; };
 		90F593051B0D5F4C0026B382 /* BUYApplePayAdditionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592F91B0D5F4C0026B382 /* BUYApplePayAdditionsTest.m */; };
 		90F593061B0D5F4C0026B382 /* BUYCartTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592FA1B0D5F4C0026B382 /* BUYCartTest.m */; };
@@ -293,6 +294,8 @@
 		90AFAA681B0139DE00F21C23 /* BUYDiscount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYDiscount.h; sourceTree = "<group>"; };
 		90AFAA691B0139DE00F21C23 /* BUYDiscount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYDiscount.m; sourceTree = "<group>"; };
 		90B043AF1B0D380D006CA6FC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		90BBCD6F1B87B6AB00FCCE51 /* BUYPKContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYPKContact.h; sourceTree = "<group>"; };
+		90BBCD701B87B6AB00FCCE51 /* BUYPKContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYPKContact.m; sourceTree = "<group>"; };
 		90BC07F51AE043FD005D1195 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		90BC07F71AE0440F005D1195 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		90E80E461AFBBB68003A9909 /* AppledocSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppledocSettings.plist; path = docs/AppledocSettings.plist; sourceTree = "<group>"; };
@@ -436,6 +439,8 @@
 			children = (
 				90F592F81B0D5F4C0026B382 /* BUYIntegrationTest.m */,
 				90F592F91B0D5F4C0026B382 /* BUYApplePayAdditionsTest.m */,
+				90BBCD6F1B87B6AB00FCCE51 /* BUYPKContact.h */,
+				90BBCD701B87B6AB00FCCE51 /* BUYPKContact.m */,
 				90F592FA1B0D5F4C0026B382 /* BUYCartTest.m */,
 				90F592FB1B0D5F4C0026B382 /* BUYCheckoutTest.m */,
 				90F592FC1B0D5F4C0026B382 /* BUYClientTest_Storefront.m */,
@@ -999,6 +1004,7 @@
 				90F5930B1B0D5F4C0026B382 /* BUYObjectTests.m in Sources */,
 				90F593041B0D5F4C0026B382 /* BUYIntegrationTest.m in Sources */,
 				90F593081B0D5F4C0026B382 /* BUYClientTest_Storefront.m in Sources */,
+				90BBCD731B87B6BA00FCCE51 /* BUYPKContact.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

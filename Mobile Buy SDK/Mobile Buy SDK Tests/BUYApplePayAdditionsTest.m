@@ -315,6 +315,45 @@
 	CFRelease(person);
 }
 
+- (void)testAddressFromContact
+{
+//	if ([PKContact class]) {
+//		CNContact
+//		PKContact *contact = [[PKContact alloc] init];
+//		CNPostalAddress *postalAddress = [[CNPostalAddress alloc] init];
+//		postalAddress.street = @"150 Elgin Street";
+//		contact.postalAddress.
+//	}
+//	ABRecordRef person = ABPersonCreate();
+//	CFErrorRef error = NULL;
+//	ABRecordSetValue(person, kABPersonFirstNameProperty, CFSTR("Bob"), &error);
+//	ABRecordSetValue(person, kABPersonLastNameProperty, CFSTR("Banana"), &error);
+//	
+//	ABMutableMultiValueRef addresses = ABMultiValueCreateMutable(kABMultiDictionaryPropertyType);
+//	CFMutableDictionaryRef address = CFDictionaryCreateMutable(kCFAllocatorDefault, 10, nil, nil);
+//	CFDictionarySetValue(address, kABPersonAddressStreetKey, CFSTR("150 Elgin Street"));
+//	CFDictionarySetValue(address, kABPersonAddressCityKey, CFSTR("Ottawa"));
+//	CFDictionarySetValue(address, kABPersonAddressStateKey, CFSTR("Ontario"));
+//	CFDictionarySetValue(address, kABPersonAddressZIPKey, CFSTR("K1N5T5"));
+//	CFDictionarySetValue(address, kABPersonAddressCountryKey, CFSTR("Canada"));
+//	
+//	ABMultiValueAddValueAndLabel(addresses, address, CFSTR("Shipping"), nil);
+//	CFRelease(address);
+//	
+//	ABRecordSetValue(person, kABPersonAddressProperty, addresses, &error);
+//	CFRelease(addresses);
+//	
+//	BUYAddress *newAddress = [BUYAddress buy_addressFromContact:person];
+//	XCTAssertNotNil(newAddress);
+//	XCTAssertEqualObjects(@"150 Elgin Street", newAddress.address1);
+//	XCTAssertEqualObjects(@"Ottawa", newAddress.city);
+//	XCTAssertEqualObjects(@"Ontario", newAddress.province);
+//	XCTAssertEqualObjects(@"K1N5T5", newAddress.zip);
+//	XCTAssertEqualObjects(@"Canada", newAddress.country);
+//	
+//	CFRelease(person);
+}
+
 - (void)testAddressFromRecordWithoutNameOrStreetOrPhone
 {
 	ABRecordRef person = ABPersonCreate();

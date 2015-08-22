@@ -93,9 +93,20 @@ const NSTimeInterval PollDelay = 0.5;
 	}];
 }
 
+- (void)updateCheckoutWithContact:(PKContact*)contact completion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion
+{
+	self.checkout.shippingAddress = [BUYAddress buy_addressFromContact:contact];
+	[self updateCheckoutWithAddressOrContactCompletion:completion];
+}
+
 - (void)updateCheckoutWithAddress:(ABRecordRef)address completion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion
 {
 	self.checkout.shippingAddress = [BUYAddress buy_addressFromRecord:address];
+	[self updateCheckoutWithAddressOrContactCompletion:completion];
+}
+
+- (void)updateCheckoutWithAddressOrContactCompletion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion
+{
 	[self.client updateCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		if (checkout && error == nil) {
 			self.checkout = checkout;

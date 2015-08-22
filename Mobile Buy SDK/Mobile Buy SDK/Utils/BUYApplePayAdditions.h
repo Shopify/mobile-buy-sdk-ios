@@ -7,6 +7,7 @@
 //
 
 @import Foundation;
+@import PassKit;
 
 #import "BUYCheckout.h"
 #import "BUYShippingRate.h"
@@ -45,6 +46,15 @@
  *
  *  @return The BUYAddress created from an ABRecordRef
  */
-+ (BUYAddress *)buy_addressFromRecord:(ABRecordRef)record;
++ (BUYAddress *)buy_addressFromRecord:(ABRecordRef)record NS_DEPRECATED_IOS(8_0, 9_0, "Use the CNContact backed `buy_addressFromContact:` instead");
+
+/**
+ *  Creates a BUYAddress from a PKContact
+ *
+ *  @param contact PKContact to create a BUYAddress from
+ *
+ *  @return The BUYAddress created from a PKContact
+ */
++ (BUYAddress *)buy_addressFromContact:(PKContact*)contact NS_AVAILABLE_IOS(9_0);
 
 @end
