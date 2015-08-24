@@ -233,6 +233,6 @@
  *
  *  @param url the NSURL passed in to the app delegate
  */
-- (void)webCheckoutComplete:(NSURL *)url;
++ (void)completeCheckoutFromLaunchURL:(NSURL *)url;
 
 @end

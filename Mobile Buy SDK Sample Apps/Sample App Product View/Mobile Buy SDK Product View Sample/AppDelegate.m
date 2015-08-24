@@ -8,10 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
-
-@interface AppDelegate ()
-
-@end
+@import Buy;
 
 @implementation AppDelegate
 
@@ -21,11 +18,9 @@
     return YES;
 }
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    
-    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-    ViewController *viewController = (ViewController *)navigationController.topViewController;
-    [viewController getCheckoutStatusWithURL:url];
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    [BUYViewController completeCheckoutFromLaunchURL:url];
     
     return YES;
 }

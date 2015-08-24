@@ -50,12 +50,6 @@
     }];
 }
 
-- (void)getCheckoutStatusWithURL:(NSURL *)url
-{
-    [self.productViewController webCheckoutComplete:url];
-}
-
-
 - (BUYProductViewController *)productViewController
 {
     // reusing the same productViewController will prevent unnecessary network calls in subsequent uses
