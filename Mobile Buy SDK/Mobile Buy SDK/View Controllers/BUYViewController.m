@@ -42,11 +42,15 @@
 - (void)setClient:(BUYClient *)client
 {
 	_client = client;
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
 	if (&PKPaymentNetworkDiscover != NULL) {
 		self.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa, PKPaymentNetworkDiscover];
 	} else {
+#endif
 		self.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa];
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
 	}
+#endif
 }
 
 - (BUYClient*)client
