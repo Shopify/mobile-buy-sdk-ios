@@ -149,7 +149,7 @@ NSString * BUYURLKey = @"url";
 			[self.delegate controllerWillCheckoutViaWeb:self];
 		}
 		
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didreceiveCallbackURLNotification:) name:BUYSafariCallbackURLNotification object:nil];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveCallbackURLNotification:) name:BUYSafariCallbackURLNotification object:nil];
 
 		[self openWebCheckout:checkout];
 	}
@@ -376,7 +376,7 @@ NSString * BUYURLKey = @"url";
 }
 #endif
 
-- (void)didreceiveCallbackURLNotification:(NSNotification *)notification
+- (void)didReceiveCallbackURLNotification:(NSNotification *)notification
 {
 	NSURL *url = notification.userInfo[BUYURLKey];
 	
