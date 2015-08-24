@@ -18,7 +18,7 @@
 #warning Optionally, to support Apple Pay, enter your merchant ID
 #define MERCHANT_ID @""
 
-@interface ViewController ()
+@interface ViewController () <BUYViewControllerDelegate>
 @property (nonatomic, strong) NSArray *products;
 @property (nonatomic, strong) BUYClient *client;
 
@@ -50,19 +50,12 @@
     }];
 }
 
-- (void)getCheckoutStatusWithURL:(NSURL *)url
-{
-    [self.client getCompletionStatusOfCheckoutURL:url completion:^(BUYStatus status, NSError *error) {
-        NSLog(@"Checkout status: %lu", (unsigned long)status);
-    }];
-}
-
-
 - (BUYProductViewController *)productViewController
 {
     // reusing the same productViewController will prevent unnecessary network calls in subsequent uses
     if (_productViewController == nil) {
         _productViewController = [[BUYProductViewController alloc] initWithClient:self.client];
+        _productViewController.delegate = self;
         _productViewController.merchantId = MERCHANT_ID;
     }
     
@@ -106,6 +99,28 @@
             }
         }];
     }
+}
+
+#pragma mark - BUYViewController delegate methods
+
+- (void)controllerWillCheckoutViaWeb:(BUYViewController *)viewController
+{
+    NSLog(@"Started web checkout");
+}
+
+- (void)controller:(BUYViewController *)controller didDismissWebCheckout:(BUYCheckout *)checkout
+{
+    NSLog(@"web view controller dismissed");
+}
+
+- (void)controller:(BUYViewController *)controller didCompleteCheckout:(BUYCheckout *)checkout status:(BUYStatus)status
+{
+    NSLog(@"web checkout complete: %lu", (unsigned long)status);
+}
+
+- (void)didDismissViewController:(BUYViewController *)viewController
+{
+    NSLog(@"product view controller dismissed");
 }
 
 @end

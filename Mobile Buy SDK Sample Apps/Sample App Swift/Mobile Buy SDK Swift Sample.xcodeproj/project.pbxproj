@@ -102,6 +102,7 @@
 		BE9A636C1B5007AA0033E558 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = Shopify;
 				TargetAttributes = {
