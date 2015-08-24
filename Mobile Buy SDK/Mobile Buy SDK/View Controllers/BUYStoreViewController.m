@@ -46,7 +46,7 @@
 	self = [super initWithClient:client];
 	
 	if (self) {
-		_url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", client.shopDomain]];
+		_url = [NSURL URLWithString:[NSString stringWithFormat:@"https://%@", client.shopDomain]];
 	}
 	
 	return self;

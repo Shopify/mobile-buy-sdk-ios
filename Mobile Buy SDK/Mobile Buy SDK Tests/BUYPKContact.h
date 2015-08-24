@@ -6,8 +6,10 @@
 //  Copyright © 2015 Shopify Inc. All rights reserved.
 //
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
 #import <PassKit/PassKit.h>
 
 @interface BUYPKContact : PKContact
 
 @end
+#endif

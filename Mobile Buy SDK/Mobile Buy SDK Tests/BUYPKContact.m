@@ -7,13 +7,38 @@
 //
 
 #import "BUYPKContact.h"
+#import "BUYNSPersonNameComponents.h"
+#import "BUYCNPostalAddress.h"
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
 @interface BUYPKContact () {
-	NSPersonNameComponents *_name;
+	BUYNSPersonNameComponents *_name;
+	BUYCNPostalAddress *_postalAddress;
 }
 
 @end
 
 @implementation BUYPKContact
 
+- (void)setName:(BUYNSPersonNameComponents *)name
+{
+	_name = name;
+}
+
+-(NSPersonNameComponents *)name
+{
+	return _name;
+}
+
+- (void)setPostalAddress:(BUYCNPostalAddress *)postalAddress
+{
+	_postalAddress = postalAddress;
+}
+
+- (CNPostalAddress *)postalAddress
+{
+	return _postalAddress;
+}
+
 @end
+#endif

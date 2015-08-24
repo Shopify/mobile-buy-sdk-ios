@@ -48,6 +48,7 @@
  */
 + (BUYAddress *)buy_addressFromRecord:(ABRecordRef)record NS_DEPRECATED_IOS(8_0, 9_0, "Use the CNContact backed `buy_addressFromContact:` instead");
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
 /**
  *  Creates a BUYAddress from a PKContact
  *
@@ -56,5 +57,6 @@
  *  @return The BUYAddress created from a PKContact
  */
 + (BUYAddress *)buy_addressFromContact:(PKContact*)contact NS_AVAILABLE_IOS(9_0);
+#endif
 
 @end

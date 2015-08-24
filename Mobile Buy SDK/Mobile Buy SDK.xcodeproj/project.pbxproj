@@ -46,6 +46,8 @@
 		903BCC7D1B7D1C2D00C21FEB /* BUYProductViewErrorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 903BCC7B1B7D1C2D00C21FEB /* BUYProductViewErrorView.m */; };
 		904606AF1B6BC8D700754173 /* BUYProductImageCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 904606AD1B6BC8D700754173 /* BUYProductImageCollectionViewCell.h */; };
 		904606B01B6BC8D700754173 /* BUYProductImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 904606AE1B6BC8D700754173 /* BUYProductImageCollectionViewCell.m */; };
+		906CF1AD1B8B5F7D001F7D5B /* BUYNSPersonNameComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = 906CF1AC1B8B5F7D001F7D5B /* BUYNSPersonNameComponents.m */; };
+		906CF1B11B8B66AE001F7D5B /* BUYCNPostalAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 906CF1B01B8B66AE001F7D5B /* BUYCNPostalAddress.m */; };
 		906EAE431B836DE000976165 /* BUYTheme+Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 906EAE411B836DE000976165 /* BUYTheme+Additions.h */; };
 		906EAE441B836DE000976165 /* BUYTheme+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 906EAE421B836DE000976165 /* BUYTheme+Additions.m */; };
 		907874991B7276BA0023775B /* BUYProductViewHeaderOverlay.h in Headers */ = {isa = PBXBuildFile; fileRef = 907874971B7276BA0023775B /* BUYProductViewHeaderOverlay.h */; };
@@ -275,6 +277,10 @@
 		905AA9701B3B32A500CAE037 /* BUYPaymentButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYPaymentButton.m; path = BUYPaymentButton/BUYPaymentButton.m; sourceTree = "<group>"; };
 		905ECCC01B4C39710094F336 /* BUYProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYProductViewController.h; path = "Product View/BUYProductViewController.h"; sourceTree = "<group>"; };
 		905ECCC11B4C39710094F336 /* BUYProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYProductViewController.m; path = "Product View/BUYProductViewController.m"; sourceTree = "<group>"; };
+		906CF1AB1B8B5F7D001F7D5B /* BUYNSPersonNameComponents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYNSPersonNameComponents.h; sourceTree = "<group>"; };
+		906CF1AC1B8B5F7D001F7D5B /* BUYNSPersonNameComponents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYNSPersonNameComponents.m; sourceTree = "<group>"; };
+		906CF1AF1B8B66AE001F7D5B /* BUYCNPostalAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYCNPostalAddress.h; sourceTree = "<group>"; };
+		906CF1B01B8B66AE001F7D5B /* BUYCNPostalAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYCNPostalAddress.m; sourceTree = "<group>"; };
 		906EAE411B836DE000976165 /* BUYTheme+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BUYTheme+Additions.h"; sourceTree = "<group>"; };
 		906EAE421B836DE000976165 /* BUYTheme+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYTheme+Additions.m"; sourceTree = "<group>"; };
 		907874971B7276BA0023775B /* BUYProductViewHeaderOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYProductViewHeaderOverlay.h; path = "Product View/BUYProductViewHeaderOverlay.h"; sourceTree = "<group>"; };
@@ -426,6 +432,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		906CF1AE1B8B660F001F7D5B /* PKContact Test Objects */ = {
+			isa = PBXGroup;
+			children = (
+				90BBCD6F1B87B6AB00FCCE51 /* BUYPKContact.h */,
+				90BBCD701B87B6AB00FCCE51 /* BUYPKContact.m */,
+				906CF1AB1B8B5F7D001F7D5B /* BUYNSPersonNameComponents.h */,
+				906CF1AC1B8B5F7D001F7D5B /* BUYNSPersonNameComponents.m */,
+				906CF1AF1B8B66AE001F7D5B /* BUYCNPostalAddress.h */,
+				906CF1B01B8B66AE001F7D5B /* BUYCNPostalAddress.m */,
+			);
+			name = "PKContact Test Objects";
+			sourceTree = "<group>";
+		};
 		90E80E451AFBBB59003A9909 /* docs */ = {
 			isa = PBXGroup;
 			children = (
@@ -439,8 +458,7 @@
 			children = (
 				90F592F81B0D5F4C0026B382 /* BUYIntegrationTest.m */,
 				90F592F91B0D5F4C0026B382 /* BUYApplePayAdditionsTest.m */,
-				90BBCD6F1B87B6AB00FCCE51 /* BUYPKContact.h */,
-				90BBCD701B87B6AB00FCCE51 /* BUYPKContact.m */,
+				906CF1AE1B8B660F001F7D5B /* PKContact Test Objects */,
 				90F592FA1B0D5F4C0026B382 /* BUYCartTest.m */,
 				90F592FB1B0D5F4C0026B382 /* BUYCheckoutTest.m */,
 				90F592FC1B0D5F4C0026B382 /* BUYClientTest_Storefront.m */,
@@ -998,7 +1016,9 @@
 			files = (
 				90F5930A1B0D5F4C0026B382 /* BUYLineItemTest.m in Sources */,
 				90F593061B0D5F4C0026B382 /* BUYCartTest.m in Sources */,
+				906CF1B11B8B66AE001F7D5B /* BUYCNPostalAddress.m in Sources */,
 				90F593051B0D5F4C0026B382 /* BUYApplePayAdditionsTest.m in Sources */,
+				906CF1AD1B8B5F7D001F7D5B /* BUYNSPersonNameComponents.m in Sources */,
 				90F593071B0D5F4C0026B382 /* BUYCheckoutTest.m in Sources */,
 				90F593091B0D5F4C0026B382 /* BUYClientTest.m in Sources */,
 				90F5930B1B0D5F4C0026B382 /* BUYObjectTests.m in Sources */,
