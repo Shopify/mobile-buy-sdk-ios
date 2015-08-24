@@ -154,7 +154,7 @@
 /**
  *  The supported credit card payment networks. 
  *  iOS 8.3: PKPaymentNetworkAmex, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa.
- *  iOS 9.0: PKPaymentNetworkAmex, PKPaymentNetworkDiscover, PKPaymentNetworkMasterCard, PKPaymentNetworkPrivateLabel, PKPaymentNetworkVisa.
+ *  iOS 9.0: PKPaymentNetworkAmex, PKPaymentNetworkDiscover, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa.
  */
 @property (nonatomic, copy) NSArray *supportedNetworks;
 
