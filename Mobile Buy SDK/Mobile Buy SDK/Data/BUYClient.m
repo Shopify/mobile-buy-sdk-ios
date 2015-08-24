@@ -97,7 +97,7 @@ NSString * const BUYVersionString = @"1.1.2";
 
 - (NSURLSessionDataTask *)getShop:(BUYDataShopBlock)block
 {
-	NSString *url = [NSString stringWithFormat:@"http://%@/meta.json", _shopDomain];
+	NSString *url = [NSString stringWithFormat:@"https://%@/meta.json", _shopDomain];
 	
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		BUYShop *shop = nil;

@@ -15,7 +15,6 @@
 #import "BUYTheme.h"
 #import "BUYTheme+Additions.h"
 #import "BUYVariantSelectionViewController.h"
-#import "BUYNavigationTitleView.h"
 
 @interface BUYVariantSelectionViewController () <BUYOptionSelectionDelegate>
 
@@ -94,11 +93,7 @@
 	optionController.selectedOptionValue = self.changedOptionSelection ? nil : [self.selectedProductVariant optionValueForName:option.name];
 	optionController.isLastOption = [self isLastOption];
 	optionController.currencyFormatter = self.currencyFormatter;
-	optionController.title = nil;
-	BUYNavigationTitleView *navigationTitleView = [[BUYNavigationTitleView alloc] initWithFrame:self.view.bounds];
-	navigationTitleView.theme = self.theme;
-	[navigationTitleView setTitleWithBuyOption:option selectedBuyOptionValues:self.optionValueNames];
-	optionController.navigationItem.titleView = navigationTitleView;
+	optionController.title = option.name;
 	return optionController;
 }
 
