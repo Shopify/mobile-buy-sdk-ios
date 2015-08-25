@@ -85,6 +85,21 @@
  */
 - (void)controller:(BUYViewController *)controller didDismissApplePayControllerWithStatus:(PKPaymentAuthorizationStatus)status forCheckout:(BUYCheckout *)checkout;
 
+/**
+ *  This is called when the SFSafariViewController has been dismissed before checkout completion.
+ *
+ *  @param controller The BUYViewController
+ *  @param checkout   The BUYCheckout
+ */
+- (void)controller:(BUYViewController *)controller didDismissWebCheckout:(BUYCheckout *)checkout;
+
+/**
+ *  The view controller has been dismissed
+ *
+ *  @param controller The BUYViewController
+ */
+- (void)didDismissViewController:(BUYViewController *)controller;
+
 @optional
 
 /**
@@ -154,7 +169,7 @@
 /**
  *  The supported credit card payment networks. 
  *  iOS 8.3: PKPaymentNetworkAmex, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa.
- *  iOS 9.0: PKPaymentNetworkAmex, PKPaymentNetworkDiscover, PKPaymentNetworkMasterCard, PKPaymentNetworkPrivateLabel, PKPaymentNetworkVisa.
+ *  iOS 9.0: PKPaymentNetworkAmex, PKPaymentNetworkDiscover, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa.
  */
 @property (nonatomic, copy) NSArray *supportedNetworks;
 
@@ -214,5 +229,12 @@
  *  @param status   The status of the BUYCheckout
  */
 - (void)checkoutCompleted:(BUYCheckout *)checkout status:(BUYStatus)status;
+
+/**
+ *  Call this method from the application delegate method openURL:sourceApplication:annotation when returning from a web checkout
+ *
+ *  @param url the NSURL passed in to the app delegate
+ */
++ (void)completeCheckoutFromLaunchURL:(NSURL *)url;
 
 @end

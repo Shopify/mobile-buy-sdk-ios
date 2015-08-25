@@ -30,6 +30,8 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 
 @interface BUYProductViewController (Private)
 @property (nonatomic, strong) BUYCheckout *checkout;
+- (void)handleCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)completion;
+- (void)postCheckoutCompletion:(BUYCheckout *)checkout error:(NSError *)error;
 @end
 
 @interface BUYProductViewController () <BUYThemeable, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, BUYVariantSelectionDelegate, BUYNavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
@@ -425,36 +427,18 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 
 - (void)startWebCheckout:(BUYCheckout *)checkout
 {
-	
 	[_productView.productViewFooter.checkoutButton showActivityIndicator:YES];
 	
 	[self handleCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		
 		[_productView.productViewFooter.checkoutButton showActivityIndicator:NO];
 		
-		if (error == nil) {
-			self.checkout = checkout;
-			if ([self.delegate respondsToSelector:@selector(controllerWillCheckoutViaWeb:)]) {
-				[self.delegate controllerWillCheckoutViaWeb:self];
-			}
-			[[UIApplication sharedApplication] openURL:checkout.webCheckoutURL];
-		}
-		else {
-			if ([self.delegate respondsToSelector:@selector(controller:failedToCreateCheckout:)]) {
-				[self.delegate controller:self failedToCreateCheckout:error];
-			}
+		[self postCheckoutCompletion:checkout error:error];
+		
+		if (error) {
 			[self.productView showErrorWithMessage:@"Could not checkout at this time"];
 		}
 	}];
-}
-
-- (void)handleCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)completion
-{
-	if ([checkout.token length] > 0) {
-		[self.client updateCheckout:checkout completion:completion];
-	} else {
-		[self.client createCheckout:checkout completion:completion];
-	}
 }
 
 #pragma mark UIStatusBar appearance
@@ -497,7 +481,9 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 
 - (void)presentationControllerDidDismiss:(UIPresentationController *)presentationController
 {
-	[self.delegate controller:self didCompleteCheckout:self.checkout status:BUYStatusUnknown];
+	if ([self.delegate respondsToSelector:@selector(didDismissViewController:)]) {
+		[self.delegate didDismissViewController:self];
+	}
 	
 	_product = nil;
 	_productId = nil;

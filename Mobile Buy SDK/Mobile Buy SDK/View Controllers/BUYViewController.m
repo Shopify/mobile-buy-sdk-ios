@@ -8,6 +8,9 @@
 
 @import AddressBook;
 @import PassKit;
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
+@import SafariServices;
+#endif
 #import "BUYApplePayAdditions.h"
 #import "BUYCart.h"
 #import "BUYClient.h"
@@ -17,7 +20,14 @@
 #import "BUYShop.h"
 #import "BUYTestConstants.h"
 
+NSString * BUYSafariCallbackURLNotification = @"kBUYSafariCallbackURLNotification";
+NSString * BUYURLKey = @"url";
+
+
 @interface BUYViewController ()
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
+<SFSafariViewControllerDelegate>
+#endif
 
 @property (nonatomic, strong) BUYCheckout *checkout;
 @property (nonatomic, strong) BUYApplePayHelpers *applePayHelper;
@@ -43,9 +53,13 @@
 {
 	_client = client;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
-	self.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa, PKPaymentNetworkDiscover, PKPaymentNetworkPrivateLabel];
-#else
-	self.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa];
+	if (&PKPaymentNetworkDiscover != NULL) {
+		self.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa, PKPaymentNetworkDiscover];
+	} else {
+#endif
+		self.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa];
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
+	}
 #endif
 }
 
@@ -129,21 +143,29 @@
 
 - (void)startWebCheckout:(BUYCheckout *)checkout
 {
-	
 	[self handleCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		
-		if (error == nil) {
-			self.checkout = checkout;
-
-			if ([self.delegate respondsToSelector:@selector(controllerWillCheckoutViaWeb:)]) {
-				[self.delegate controllerWillCheckoutViaWeb:self];
-			}
-			[[UIApplication sharedApplication] openURL:checkout.webCheckoutURL];
-		}
-		else {
-			[self.delegate controller:self failedToCreateCheckout:error];
-		}
+		[self postCheckoutCompletion:checkout error:error];
 	}];
+}
+
+- (void)postCheckoutCompletion:(BUYCheckout *)checkout error:(NSError *)error
+{
+	if (error == nil) {
+		self.checkout = checkout;
+		if ([self.delegate respondsToSelector:@selector(controllerWillCheckoutViaWeb:)]) {
+			[self.delegate controllerWillCheckoutViaWeb:self];
+		}
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveCallbackURLNotification:) name:BUYSafariCallbackURLNotification object:nil];
+
+		[self openWebCheckout:checkout];
+	}
+	else {
+		if ([self.delegate respondsToSelector:@selector(controller:failedToCreateCheckout:)]) {
+            [self.delegate controller:self failedToCreateCheckout:error];
+		}
+	}
 }
 
 - (void)handleCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)completion
@@ -176,6 +198,26 @@
 			[self.delegate controller:self failedToCreateCheckout:error];
 		}
 	}
+}
+
+#pragma mark - Web Checkout
+
+- (void)openWebCheckout:(BUYCheckout *)checkout
+{
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
+	if ([SFSafariViewController class]) {
+		
+		SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:checkout.webCheckoutURL];
+		safariViewController.delegate = self;
+		
+		[self presentViewController:safariViewController animated:YES completion:nil];
+	}
+	else{
+		[[UIApplication sharedApplication] openURL:checkout.webCheckoutURL];
+	}
+#else
+	[[UIApplication sharedApplication] openURL:checkout.webCheckoutURL];
+#endif
 }
 
 #pragma mark - Step 2 - Requesting Payment using ApplePay
@@ -328,6 +370,40 @@
 	[paymentRequest setCurrencyCode:self.shop.currency];
 	
 	return paymentRequest;
+}
+
+#pragma mark - Web Checkout delegate methods
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
+- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller;
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:BUYSafariCallbackURLNotification object:nil];
+
+	if ([self.delegate respondsToSelector:@selector(controller:didDismissWebCheckout:)]) {
+		[self.delegate controller:self didDismissWebCheckout:self.checkout];
+	}
+}
+#endif
+
+- (void)didReceiveCallbackURLNotification:(NSNotification *)notification
+{
+	NSURL *url = notification.userInfo[BUYURLKey];
+	
+	[self.client getCompletionStatusOfCheckoutURL:url completion:^(BUYStatus status, NSError *error) {
+		
+		[self checkoutCompleted:_checkout status:status];
+		
+		[[NSNotificationCenter defaultCenter] removeObserver:self name:BUYSafariCallbackURLNotification object:nil];
+	}];
+	
+	if (self.presentedViewController) {
+		[self dismissViewControllerAnimated:YES completion:nil];
+	}
+}
+
++ (void)completeCheckoutFromLaunchURL:(NSURL *)url
+{
+	[[NSNotificationCenter defaultCenter] postNotificationName:BUYSafariCallbackURLNotification object:nil userInfo:@{BUYURLKey: url}];
 }
 
 @end
