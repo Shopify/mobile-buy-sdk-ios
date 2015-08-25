@@ -7,7 +7,7 @@
 //
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
-#import <PassKit/PassKit.h>
+@import PassKit;
 
 @interface BUYPKContact : PKContact
 

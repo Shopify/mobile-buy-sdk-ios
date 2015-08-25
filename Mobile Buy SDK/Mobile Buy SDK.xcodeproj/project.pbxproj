@@ -456,16 +456,16 @@
 		90F592ED1B0D5EFE0026B382 /* Mobile Buy SDK Tests */ = {
 			isa = PBXGroup;
 			children = (
-				90F592F81B0D5F4C0026B382 /* BUYIntegrationTest.m */,
 				90F592F91B0D5F4C0026B382 /* BUYApplePayAdditionsTest.m */,
-				906CF1AE1B8B660F001F7D5B /* PKContact Test Objects */,
 				90F592FA1B0D5F4C0026B382 /* BUYCartTest.m */,
 				90F592FB1B0D5F4C0026B382 /* BUYCheckoutTest.m */,
 				90F592FC1B0D5F4C0026B382 /* BUYClientTest_Storefront.m */,
 				90F592FD1B0D5F4C0026B382 /* BUYClientTest.m */,
+				90F592F81B0D5F4C0026B382 /* BUYIntegrationTest.m */,
 				90F592FE1B0D5F4C0026B382 /* BUYLineItemTest.m */,
 				90F592FF1B0D5F4C0026B382 /* BUYObjectTests.m */,
 				90F593001B0D5F4C0026B382 /* BUYTestConstants.h */,
+				906CF1AE1B8B660F001F7D5B /* PKContact Test Objects */,
 				90F592EE1B0D5EFE0026B382 /* Supporting Files */,
 			);
 			path = "Mobile Buy SDK Tests";
@@ -1016,15 +1016,15 @@
 			files = (
 				90F5930A1B0D5F4C0026B382 /* BUYLineItemTest.m in Sources */,
 				90F593061B0D5F4C0026B382 /* BUYCartTest.m in Sources */,
-				906CF1B11B8B66AE001F7D5B /* BUYCNPostalAddress.m in Sources */,
 				90F593051B0D5F4C0026B382 /* BUYApplePayAdditionsTest.m in Sources */,
-				906CF1AD1B8B5F7D001F7D5B /* BUYNSPersonNameComponents.m in Sources */,
 				90F593071B0D5F4C0026B382 /* BUYCheckoutTest.m in Sources */,
 				90F593091B0D5F4C0026B382 /* BUYClientTest.m in Sources */,
 				90F5930B1B0D5F4C0026B382 /* BUYObjectTests.m in Sources */,
 				90F593041B0D5F4C0026B382 /* BUYIntegrationTest.m in Sources */,
 				90F593081B0D5F4C0026B382 /* BUYClientTest_Storefront.m in Sources */,
 				90BBCD731B87B6BA00FCCE51 /* BUYPKContact.m in Sources */,
+				906CF1B11B8B66AE001F7D5B /* BUYCNPostalAddress.m in Sources */,
+				906CF1AD1B8B5F7D001F7D5B /* BUYNSPersonNameComponents.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

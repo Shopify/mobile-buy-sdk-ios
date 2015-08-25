@@ -7,7 +7,7 @@
 //
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
-#import <Contacts/Contacts.h>
+@import Contacts;
 
 @interface BUYCNPostalAddress : CNPostalAddress
 
