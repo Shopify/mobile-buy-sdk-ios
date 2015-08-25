@@ -62,4 +62,9 @@
 	return json;
 }
 
+-(NSString *)countryCode
+{
+	return [_countryCode uppercaseString];
+}
+
 @end
