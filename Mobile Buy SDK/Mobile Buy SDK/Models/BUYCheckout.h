@@ -144,7 +144,7 @@
 @property (nonatomic, strong) BUYDiscount *discount;
 
 /**
- *  An array of BUYDiscount objects applied to the checkout
+ *  An array of BUYGiftCard objects applied to the checkout
  */
 @property (nonatomic, strong, readonly) NSArray *giftCards;
 
