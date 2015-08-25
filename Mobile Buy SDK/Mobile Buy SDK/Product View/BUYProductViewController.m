@@ -252,6 +252,10 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 	self.shouldEnableVariantSelection = self.shouldShowVariantSelector && [_product.variants count] > 1;
 	self.shouldShowDescription = ([_product.htmlDescription length] == 0) == NO;
 	self.productView.hidden = NO;
+	if ([product.images count] == 0) {
+//		self.productView.tableView.tableHeaderView = nil;
+//		self.productView.tableView.contentInset = self.productView.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(self.productView.tableView.contentInset.top + CGRectGetHeight(self.navigationBar.bounds) + 100, self.productView.tableView.contentInset.left, self.productView.tableView.contentInset.bottom, self.productView.tableView.contentInset.right);
+	}
 	[self setupNavigationBarAppearance];
 	[self.activityIndicatorView stopAnimating];
 	[self setNeedsStatusBarAppearanceUpdate];
@@ -365,34 +369,42 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
 	if ([scrollView isKindOfClass:[UITableView class]]) {
-		[self.productView scrollViewDidScroll:scrollView];
-		CGFloat duration = 0.3f;
-		if (self.navigationBar) {
-			if (self.navigationBar.alpha != 1 && [self navigationBarThresholdReached] == YES) {
-				[(BUYNavigationController*)self.navigationController updateCloseButtonImageWithDarkStyle:YES duration:duration];
-				[UIView animateWithDuration:duration
-									  delay:0
-									options:(UIViewAnimationOptionCurveLinear | UIViewKeyframeAnimationOptionBeginFromCurrentState)
-								 animations:^{
-									 [self setNeedsStatusBarAppearanceUpdate];
-									 self.navigationBar.alpha = 1;
-									 self.navigationBarTitle.alpha = 1;
-								 }
-								 completion:NULL];
-			} else if (self.navigationBar.alpha != 0 && [self navigationBarThresholdReached] == NO)  {
-				duration = 0.2f;
-				[(BUYNavigationController*)self.navigationController updateCloseButtonImageWithDarkStyle:NO duration:duration];
-				[UIView animateWithDuration:duration
-									  delay:0
-									options:(UIViewAnimationOptionCurveLinear | UIViewKeyframeAnimationOptionBeginFromCurrentState)
-								 animations:^{
-									 [self setNeedsStatusBarAppearanceUpdate];
-									 self.navigationBar.alpha = 0;
-									 self.navigationBarTitle.alpha = 0;
-								 }
-								 completion:NULL];
+		if (self.productView.tableView.tableHeaderView) {
+			[self.productView scrollViewDidScroll:scrollView];
+			if (self.navigationBar) {
+				CGFloat duration = 0.3f;
+				if (self.navigationBar.alpha != 1 && [self navigationBarThresholdReached] == YES) {
+					[(BUYNavigationController*)self.navigationController updateCloseButtonImageWithDarkStyle:YES duration:duration];
+					[UIView animateWithDuration:duration
+										  delay:0
+										options:(UIViewAnimationOptionCurveLinear | UIViewKeyframeAnimationOptionBeginFromCurrentState)
+									 animations:^{
+										 [self setNeedsStatusBarAppearanceUpdate];
+										 self.navigationBar.alpha = 1;
+										 self.navigationBarTitle.alpha = 1;
+									 }
+									 completion:NULL];
+				} else if (self.navigationBar.alpha != 0 && [self navigationBarThresholdReached] == NO)  {
+					duration = 0.2f;
+					[(BUYNavigationController*)self.navigationController updateCloseButtonImageWithDarkStyle:NO duration:duration];
+					[UIView animateWithDuration:duration
+										  delay:0
+										options:(UIViewAnimationOptionCurveLinear | UIViewKeyframeAnimationOptionBeginFromCurrentState)
+									 animations:^{
+										 [self setNeedsStatusBarAppearanceUpdate];
+										 self.navigationBar.alpha = 0;
+										 self.navigationBarTitle.alpha = 0;
+									 }
+									 completion:NULL];
+				}
+				[self.productView.productViewHeader.productViewHeaderOverlay scrollViewDidScroll:scrollView withNavigationBarHeight:CGRectGetHeight(self.navigationBar.bounds)];
 			}
-			[self.productView.productViewHeader.productViewHeaderOverlay scrollViewDidScroll:scrollView withNavigationBarHeight:CGRectGetHeight(self.navigationBar.bounds)];
+		} else if (self.productView.tableView.tableHeaderView == nil && self.navigationBar && self.navigationBar.alpha == 0) {
+			[(BUYNavigationController*)self.navigationController updateCloseButtonImageWithDarkStyle:YES duration:0];
+			self.navigationBar.alpha = 1;
+			self.navigationBarTitle.alpha = 1;
+			self.productView.tableView.contentInset = self.productView.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(self.productView.tableView.contentInset.top + CGRectGetHeight(self.navigationBar.bounds) + 100, self.productView.tableView.contentInset.left, self.productView.tableView.contentInset.bottom, self.productView.tableView.contentInset.right);
+			NSLog(@"%@", NSStringFromUIEdgeInsets(self.productView.tableView.contentInset));
 		}
 	}
 }
