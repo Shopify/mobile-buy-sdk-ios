@@ -160,4 +160,30 @@
 	return address;
 }
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
++ (BUYAddress *)buy_addressFromContact:(PKContact*)contact
+{
+	BUYAddress *address = [[BUYAddress alloc] init];
+	
+	address.firstName = [contact.name.givenName length] ? contact.name.givenName : BUYPartialAddressPlaceholder;
+	address.lastName = [contact.name.familyName length] ? contact.name.familyName : BUYPartialAddressPlaceholder;
+	
+	if (contact.postalAddress) {
+		// break up the address:
+		NSArray *addressComponents = [contact.postalAddress.street componentsSeparatedByString:@"\n"];
+		address.address1 = [addressComponents[0] length] ? addressComponents[0] : BUYPartialAddressPlaceholder;
+		address.address2 = ([addressComponents count] > 1 && addressComponents[1]) ? addressComponents[1] : nil;
+		address.city = [contact.postalAddress.city length] ? contact.postalAddress.city : BUYPartialAddressPlaceholder;
+		address.province = contact.postalAddress.state;
+		address.zip = contact.postalAddress.postalCode;
+		address.country = contact.postalAddress.country;
+		address.countryCode = contact.postalAddress.ISOCountryCode;
+	}
+
+	address.phone = contact.phoneNumber.stringValue ?: BUYPartialAddressPlaceholder;
+	
+	return address;
+}
+#endif
+
 @end
