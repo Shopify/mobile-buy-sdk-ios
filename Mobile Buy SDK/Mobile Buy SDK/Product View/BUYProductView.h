@@ -13,6 +13,7 @@
 @class BUYGradientView;
 @class BUYTheme;
 @class BUYImage;
+@class BUYProduct;
 
 @interface BUYProductView : UIView
 
@@ -27,7 +28,7 @@
 @property (nonatomic, weak) BUYTheme *theme;
 @property (nonatomic, assign) BOOL hasSetVariantOnCollectionView;
 
-- (instancetype)initWithFrame:(CGRect)rect theme:(BUYTheme*)theme;
+- (instancetype)initWithFrame:(CGRect)rect product:(BUYProduct*)product theme:(BUYTheme*)theme;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView;
 - (void)updateBackgroundImage:(NSArray *)images;
 - (void)showErrorWithMessage:(NSString*)errorMessage;

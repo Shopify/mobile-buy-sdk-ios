@@ -102,7 +102,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 - (BUYProductView *)productView
 {
 	if (_productView == nil && self.product != nil) {
-		_productView = [[BUYProductView alloc] initWithFrame:CGRectMake(0, 0, self.preferredContentSize.width, self.preferredContentSize.height) theme:self.theme];
+		_productView = [[BUYProductView alloc] initWithFrame:CGRectMake(0, 0, self.preferredContentSize.width, self.preferredContentSize.height) product:self.product theme:self.theme];
 		_productView.translatesAutoresizingMaskIntoConstraints = NO;
 		_productView.hidden = YES;
 		[self.view addSubview:_productView];
@@ -252,10 +252,6 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 	self.shouldEnableVariantSelection = self.shouldShowVariantSelector && [_product.variants count] > 1;
 	self.shouldShowDescription = ([_product.htmlDescription length] == 0) == NO;
 	self.productView.hidden = NO;
-	if ([product.images count] == 0) {
-//		self.productView.tableView.tableHeaderView = nil;
-//		self.productView.tableView.contentInset = self.productView.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(self.productView.tableView.contentInset.top + CGRectGetHeight(self.navigationBar.bounds) + 100, self.productView.tableView.contentInset.left, self.productView.tableView.contentInset.bottom, self.productView.tableView.contentInset.right);
-	}
 	[self setupNavigationBarAppearance];
 	[self.activityIndicatorView stopAnimating];
 	[self setNeedsStatusBarAppearanceUpdate];
@@ -369,7 +365,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
 	if ([scrollView isKindOfClass:[UITableView class]]) {
-		if (self.productView.tableView.tableHeaderView) {
+		if (self.productView.productViewHeader) {
 			[self.productView scrollViewDidScroll:scrollView];
 			if (self.navigationBar) {
 				CGFloat duration = 0.3f;
@@ -399,12 +395,11 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 				}
 				[self.productView.productViewHeader.productViewHeaderOverlay scrollViewDidScroll:scrollView withNavigationBarHeight:CGRectGetHeight(self.navigationBar.bounds)];
 			}
-		} else if (self.productView.tableView.tableHeaderView == nil && self.navigationBar && self.navigationBar.alpha == 0) {
+		} else if (self.productView.productViewHeader == nil && self.navigationBar && self.navigationBar.alpha == 0) {
 			[(BUYNavigationController*)self.navigationController updateCloseButtonImageWithDarkStyle:YES duration:0];
 			self.navigationBar.alpha = 1;
 			self.navigationBarTitle.alpha = 1;
-			self.productView.tableView.contentInset = self.productView.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(self.productView.tableView.contentInset.top + CGRectGetHeight(self.navigationBar.bounds) + 100, self.productView.tableView.contentInset.left, self.productView.tableView.contentInset.bottom, self.productView.tableView.contentInset.right);
-			NSLog(@"%@", NSStringFromUIEdgeInsets(self.productView.tableView.contentInset));
+			self.productView.tableView.contentInset = self.productView.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(self.productView.tableView.contentInset.top + CGRectGetHeight(self.navigationBar.bounds), self.productView.tableView.contentInset.left, self.productView.tableView.contentInset.bottom, self.productView.tableView.contentInset.right);
 		}
 	}
 }
@@ -457,9 +452,9 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-	if (self.theme.style == BUYThemeStyleDark || ([self navigationBarThresholdReached] == NO && self.isLoading == NO)) {
+	if (self.theme.style == BUYThemeStyleDark || ([self navigationBarThresholdReached] == NO && self.isLoading == NO && self.productView.productViewHeader)) {
 		return UIStatusBarStyleLightContent;
-	} else if (self.isLoading == YES && self.theme.style == BUYThemeStyleDark) {
+	} else if (self.isLoading == YES && self.theme.style == BUYThemeStyleDark && self.productView.productViewHeader) {
 		return UIStatusBarStyleLightContent;
 	} else {
 		return UIStatusBarStyleDefault;

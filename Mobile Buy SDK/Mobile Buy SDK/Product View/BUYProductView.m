@@ -16,6 +16,7 @@
 #import "BUYProductHeaderCell.h"
 #import "BUYImage.h"
 #import "BUYImageView.h"
+#import "BUYProduct.h"
 #import "BUYProductViewErrorView.h"
 #import "BUYTheme.h"
 #import "BUYTheme+Additions.h"
@@ -30,7 +31,7 @@
 
 @implementation BUYProductView
 
-- (instancetype)initWithFrame:(CGRect)rect theme:(BUYTheme*)theme;
+- (instancetype)initWithFrame:(CGRect)rect product:(BUYProduct*)product theme:(BUYTheme*)theme
 {
 	self = [super initWithFrame:rect];
 	if (self) {
@@ -106,9 +107,12 @@
 																	 options:0
 																	 metrics:nil
 																	   views:NSDictionaryOfVariableBindings(_tableView)]];
+		
 		CGFloat width = MIN(CGRectGetWidth(rect), CGRectGetHeight(rect));
-		self.productViewHeader = [[BUYProductViewHeader alloc] initWithFrame:CGRectMake(0, 0, width, width) theme:theme];
-		self.tableView.tableHeaderView = self.productViewHeader;
+		if ([product.images count]) {
+			self.productViewHeader = [[BUYProductViewHeader alloc] initWithFrame:CGRectMake(0, 0, width, width) theme:theme];
+			self.tableView.tableHeaderView = self.productViewHeader;
+		}
 		
 		_poweredByShopifyLabel = [[UILabel alloc] init];
 		_poweredByShopifyLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -144,20 +148,22 @@
 																	 metrics:@{ @"height" : @(kBuyProductFooterHeight) }
 																	   views:NSDictionaryOfVariableBindings(_productViewFooter)]];
 		
-		self.topGradientView = [[BUYGradientView alloc] init];
-		self.topGradientView.topColor = [BUYTheme topGradientViewTopColor];
-		self.topGradientView.translatesAutoresizingMaskIntoConstraints = NO;
-		self.topGradientView.userInteractionEnabled = NO;
-		[self addSubview:self.topGradientView];
-		
-		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_topGradientView]|"
-																	 options:0
-																	 metrics:nil
-																	   views:NSDictionaryOfVariableBindings(_topGradientView)]];
-		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_topGradientView(height)]"
-																	 options:0
-																	 metrics:@{ @"height" : @(kBuyTopGradientViewHeight) }
-																	   views:NSDictionaryOfVariableBindings(_topGradientView)]];
+		if ([product.images count]) {
+			self.topGradientView = [[BUYGradientView alloc] init];
+			self.topGradientView.topColor = [BUYTheme topGradientViewTopColor];
+			self.topGradientView.translatesAutoresizingMaskIntoConstraints = NO;
+			self.topGradientView.userInteractionEnabled = NO;
+			[self addSubview:self.topGradientView];
+			
+			[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_topGradientView]|"
+																		 options:0
+																		 metrics:nil
+																		   views:NSDictionaryOfVariableBindings(_topGradientView)]];
+			[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_topGradientView(height)]"
+																		 options:0
+																		 metrics:@{ @"height" : @(kBuyTopGradientViewHeight) }
+																		   views:NSDictionaryOfVariableBindings(_topGradientView)]];
+		}
 		
 		self.theme = theme;
 	}
@@ -167,7 +173,9 @@
 - (void)layoutSubviews
 {
 	[super layoutSubviews];
-	self.tableView.contentInset = self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, self.tableView.contentInset.left, CGRectGetHeight(self.productViewFooter.frame), self.tableView.contentInset.right);
+	if (self.productViewHeader) {
+		self.tableView.contentInset = self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, self.tableView.contentInset.left, CGRectGetHeight(self.productViewFooter.frame), self.tableView.contentInset.right);
+	}
 }
 
 - (void)setTheme:(BUYTheme *)theme
@@ -196,7 +204,10 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-	CGFloat imageHeight = [self.productViewHeader imageHeightWithScrollViewDidScroll:scrollView];
+	CGFloat imageHeight = 0;
+	if (self.productViewHeader) {
+		imageHeight = [self.productViewHeader imageHeightWithScrollViewDidScroll:scrollView];
+	}
 	CGFloat footerViewHeight = self.bounds.size.height - imageHeight;
 	if (scrollView.contentOffset.y > 0) {
 		footerViewHeight += scrollView.contentOffset.y;
