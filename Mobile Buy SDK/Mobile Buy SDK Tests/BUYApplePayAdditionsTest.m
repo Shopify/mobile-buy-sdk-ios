@@ -299,7 +299,7 @@
 	XCTAssertEqualObjects(@"Ontario", newAddress.province);
 	XCTAssertEqualObjects(@"K1N5T5", newAddress.zip);
 	XCTAssertEqualObjects(@"Canada", newAddress.country);
-	XCTAssertEqualObjects(@"CA", newAddress.countryCode);
+	XCTAssertNil(newAddress.countryCode);
 	XCTAssertEqualObjects(@"1-888-746-7439", newAddress.phone);
 }
 
@@ -351,7 +351,7 @@
 	XCTAssertEqualObjects(@"Ontario", newAddress.province);
 	XCTAssertEqualObjects(@"K1N5T5", newAddress.zip);
 	XCTAssertEqualObjects(@"Canada", newAddress.country);
-	XCTAssertEqualObjects(@"CA", newAddress.countryCode);
+	XCTAssertNil(newAddress.countryCode);
 	XCTAssertEqualObjects(BUYPartialAddressPlaceholder, newAddress.phone);
 }
 
