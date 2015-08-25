@@ -178,7 +178,7 @@
 		address.province = contact.postalAddress.state;
 		address.zip = contact.postalAddress.postalCode;
 		address.country = contact.postalAddress.country;
-		address.countryCode = contact.postalAddress.countryCode;
+		address.countryCode = contact.postalAddress.ISOCountryCode;
 	}
 
 	address.phone = contact.phoneNumber.stringValue ?: BUYPartialAddressPlaceholder;
