@@ -141,7 +141,6 @@
 		address.province = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressStateKey);
 		address.zip = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressZIPKey);
 		address.country = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressCountryKey);
-		address.countryCode = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressCountryCodeKey);
 	}
 	CFSafeRelease(allAddresses);
 	CFSafeRelease(addressMultiValue);

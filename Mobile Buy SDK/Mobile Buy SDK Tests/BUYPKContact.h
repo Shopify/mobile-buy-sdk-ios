@@ -12,4 +12,8 @@
 @interface BUYPKContact : PKContact
 
 @end
+#else
+@import Foundation;
+@interface BUYPKContact : NSObject
+@end
 #endif

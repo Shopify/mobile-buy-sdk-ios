@@ -6,10 +6,12 @@
 //  Copyright © 2015 Shopify Inc. All rights reserved.
 //
 
+@import Foundation;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
-#import <Foundation/Foundation.h>
-
 @interface BUYNSPersonNameComponents : NSPersonNameComponents
 
+@end
+#else
+@interface BUYNSPersonNameComponents : NSObject
 @end
 #endif

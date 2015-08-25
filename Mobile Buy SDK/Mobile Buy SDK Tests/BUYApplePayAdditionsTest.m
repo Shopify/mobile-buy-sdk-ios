@@ -15,11 +15,11 @@
 #import "BUYCheckout_Private.h"
 #import "NSDecimalNumber+BUYAdditions.h"
 #import "NSDateFormatter+BUYAdditions.h"
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
+
 #import "BUYPKContact.h"
 #import "BUYNSPersonNameComponents.h"
 #import "BUYCNPostalAddress.h"
-#endif
+
 
 @interface BUYApplePayAdditionsTest : XCTestCase
 @end
@@ -355,7 +355,7 @@
 	XCTAssertEqualObjects(BUYPartialAddressPlaceholder, newAddress.phone);
 }
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
+
 - (void)testAddressFromContact
 {
 	BUYAddress *newAddress = [self buyAddressWithTestContactFullDetails:YES];
@@ -368,7 +368,7 @@
 	XCTAssertEqualObjects(@"Ontario", newAddress.province);
 	XCTAssertEqualObjects(@"K1N5T5", newAddress.zip);
 	XCTAssertEqualObjects(@"Canada", newAddress.country);
-	XCTAssertEqualObjects(@"CA", newAddress.country);
+	XCTAssertEqualObjects(@"CA", newAddress.countryCode);
 }
 
 - (BUYAddress*)buyAddressWithTestContactFullDetails:(BOOL)fullDetails
@@ -390,7 +390,7 @@
 	[postalAddress setState:@"Ontario"];
 	[postalAddress setPostalCode:@"K1N5T5"];
 	[postalAddress setCountry:@"Canada"];
-	[postalAddress setCountryCode:@"CA"];
+	[postalAddress setISOCountryCode:@"CA"];
 	[contact setPostalAddress:postalAddress];
 	
 	return [BUYAddress buy_addressFromContact:contact];
@@ -422,8 +422,8 @@
 	XCTAssertEqualObjects(addressFromRecord.zip, addressFromContact.zip);
 	XCTAssertEqualObjects(addressFromRecord.country, addressFromContact.country);
 	XCTAssertEqualObjects(addressFromRecord.phone, addressFromContact.phone);
-	XCTAssertEqualObjects(addressFromRecord.countryCode, addressFromContact.countryCode);
+	XCTAssertNotEqualObjects(addressFromRecord.countryCode, addressFromContact.countryCode);
 }
-#endif
+
 
 @end

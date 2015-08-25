@@ -14,6 +14,7 @@
 @interface BUYPKContact () {
 	BUYNSPersonNameComponents *_name;
 	BUYCNPostalAddress *_postalAddress;
+	CNPhoneNumber *_phoneNumber;
 }
 
 @end
@@ -40,5 +41,18 @@
 	return _postalAddress;
 }
 
+- (void)setPhoneNumber:(CNPhoneNumber*)phoneNumber
+{
+	_phoneNumber = phoneNumber;
+}
+
+- (CNPhoneNumber *)phoneNumber
+{
+	return _phoneNumber;
+}
+
+@end
+#else
+@implementation BUYPKContact
 @end
 #endif

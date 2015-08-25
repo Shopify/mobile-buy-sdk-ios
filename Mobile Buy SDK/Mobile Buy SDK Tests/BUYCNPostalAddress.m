@@ -15,7 +15,7 @@
 	NSString *_state;
 	NSString *_postalCode;
 	NSString *_country;
-	NSString *_countryCode;
+	NSString *_ISOCountryCode;
 }
 
 @end
@@ -72,15 +72,18 @@
 	return _country;
 }
 
-- (void)setCountryCode:(NSString*)countryCode
+- (void)setISOCountryCode:(NSString*)ISOCountryCode
 {
-	_countryCode = countryCode;
+	_ISOCountryCode = ISOCountryCode;
 }
 
-- (NSString*)countryCode
+- (NSString*)ISOCountryCode
 {
-	return _countryCode;
+	return _ISOCountryCode;
 }
 
+@end
+#else
+@implementation BUYCNPostalAddress
 @end
 #endif

@@ -16,7 +16,11 @@
 - (void)setState:(NSString*)state;
 - (void)setPostalCode:(NSString*)postalCode;
 - (void)setCountry:(NSString*)country;
-- (void)setCountryCode:(NSString*)country;
+- (void)setISOCountryCode:(NSString*)ISOCountryCode;
 
+@end
+#else
+@import Foundation;
+@interface BUYCNPostalAddress : NSObject
 @end
 #endif
