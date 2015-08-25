@@ -15,6 +15,7 @@
 	NSString *_state;
 	NSString *_postalCode;
 	NSString *_country;
+	NSString *_countryCode;
 }
 
 @end
@@ -69,6 +70,16 @@
 - (NSString*)country
 {
 	return _country;
+}
+
+- (void)setCountryCode:(NSString*)countryCode
+{
+	_countryCode = countryCode;
+}
+
+- (NSString*)countryCode
+{
+	return _countryCode;
 }
 
 @end

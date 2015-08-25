@@ -16,6 +16,7 @@
 - (void)setState:(NSString*)state;
 - (void)setPostalCode:(NSString*)postalCode;
 - (void)setCountry:(NSString*)country;
+- (void)setCountryCode:(NSString*)country;
 
 @end
 #endif

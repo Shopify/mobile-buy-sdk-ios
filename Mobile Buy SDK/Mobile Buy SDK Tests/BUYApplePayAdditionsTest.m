@@ -299,6 +299,7 @@
 	XCTAssertEqualObjects(@"Ontario", newAddress.province);
 	XCTAssertEqualObjects(@"K1N5T5", newAddress.zip);
 	XCTAssertEqualObjects(@"Canada", newAddress.country);
+	XCTAssertEqualObjects(@"CA", newAddress.countryCode);
 	XCTAssertEqualObjects(@"1-888-746-7439", newAddress.phone);
 }
 
@@ -320,6 +321,7 @@
 	CFDictionarySetValue(address, kABPersonAddressStateKey, CFSTR("Ontario"));
 	CFDictionarySetValue(address, kABPersonAddressZIPKey, CFSTR("K1N5T5"));
 	CFDictionarySetValue(address, kABPersonAddressCountryKey, CFSTR("Canada"));
+	CFDictionarySetValue(address, kABPersonAddressCountryCodeKey, CFSTR("CA"));
 	
 	if (fullDetails) {
 		ABMutableMultiValueRef phoneNumberMultiValue = ABMultiValueCreateMutable(kABMultiStringPropertyType);
@@ -349,6 +351,7 @@
 	XCTAssertEqualObjects(@"Ontario", newAddress.province);
 	XCTAssertEqualObjects(@"K1N5T5", newAddress.zip);
 	XCTAssertEqualObjects(@"Canada", newAddress.country);
+	XCTAssertEqualObjects(@"CA", newAddress.countryCode);
 	XCTAssertEqualObjects(BUYPartialAddressPlaceholder, newAddress.phone);
 }
 
@@ -365,7 +368,7 @@
 	XCTAssertEqualObjects(@"Ontario", newAddress.province);
 	XCTAssertEqualObjects(@"K1N5T5", newAddress.zip);
 	XCTAssertEqualObjects(@"Canada", newAddress.country);
-	XCTAssertEqualObjects(@"1-888-746-7439", newAddress.phone);
+	XCTAssertEqualObjects(@"CA", newAddress.country);
 }
 
 - (BUYAddress*)buyAddressWithTestContactFullDetails:(BOOL)fullDetails
@@ -387,6 +390,7 @@
 	[postalAddress setState:@"Ontario"];
 	[postalAddress setPostalCode:@"K1N5T5"];
 	[postalAddress setCountry:@"Canada"];
+	[postalAddress setCountryCode:@"CA"];
 	[contact setPostalAddress:postalAddress];
 	
 	return [BUYAddress buy_addressFromContact:contact];

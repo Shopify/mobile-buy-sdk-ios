@@ -141,6 +141,7 @@
 		address.province = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressStateKey);
 		address.zip = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressZIPKey);
 		address.country = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressCountryKey);
+		address.countryCode = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressCountryCodeKey);
 	}
 	CFSafeRelease(allAddresses);
 	CFSafeRelease(addressMultiValue);
@@ -177,6 +178,7 @@
 		address.province = contact.postalAddress.state;
 		address.zip = contact.postalAddress.postalCode;
 		address.country = contact.postalAddress.country;
+		address.countryCode = contact.postalAddress.countryCode;
 	}
 
 	address.phone = contact.phoneNumber.stringValue ?: BUYPartialAddressPlaceholder;
