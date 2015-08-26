@@ -209,19 +209,14 @@
 @property (nonatomic, strong, readonly) NSURL *termsOfServiceURL;
 
 /**
- *  The name of the source of the checkout (ie, web, ios)
+ *  The name of the source of the checkout: "mobile_app"
  */
 @property (nonatomic, copy, readonly) NSString *sourceName;
 
 /**
- *  The unique identifier for the source
+ *  The unique identifier for the source: the channelId
  */
 @property (nonatomic, copy, readonly) NSString *sourceIdentifier;
-
-/**
- *  The URL for the source
- */
-@property (nonatomic, strong, readonly) NSURL *sourceURL;
 
 /**
  *  Credit card stored on the checkout
