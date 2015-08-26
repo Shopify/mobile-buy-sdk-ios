@@ -35,19 +35,19 @@
 {
 	self = [super initWithFrame:rect];
 	if (self) {
-		self.backgroundImageView = [[BUYProductViewHeaderBackgroundImageView alloc] initWithTheme:theme];
-		self.backgroundImageView.hidden = theme.showsProductImageBackground == NO;
-		self.backgroundImageView.translatesAutoresizingMaskIntoConstraints = NO;
-		[self addSubview:self.backgroundImageView];
+		_backgroundImageView = [[BUYProductViewHeaderBackgroundImageView alloc] initWithTheme:theme];
+		_backgroundImageView.hidden = theme.showsProductImageBackground == NO;
+		_backgroundImageView.translatesAutoresizingMaskIntoConstraints = NO;
+		[self addSubview:_backgroundImageView];
 		
-		[self addConstraint:[NSLayoutConstraint constraintWithItem:self.backgroundImageView
+		[self addConstraint:[NSLayoutConstraint constraintWithItem:_backgroundImageView
 														 attribute:NSLayoutAttributeHeight
 														 relatedBy:NSLayoutRelationEqual
 															toItem:self
 														 attribute:NSLayoutAttributeHeight
 														multiplier:1.0
 														  constant:0.0]];
-		[self addConstraint:[NSLayoutConstraint constraintWithItem:self.backgroundImageView
+		[self addConstraint:[NSLayoutConstraint constraintWithItem:_backgroundImageView
 														 attribute:NSLayoutAttributeWidth
 														 relatedBy:NSLayoutRelationEqual
 															toItem:self
@@ -55,30 +55,30 @@
 														multiplier:1.0
 														  constant:0.0]];
 		
-		self.stickyFooterView = [UIView new];
-		self.stickyFooterView.backgroundColor = [theme backgroundColor];
-		self.stickyFooterView.translatesAutoresizingMaskIntoConstraints = NO;
-		[self addSubview:self.stickyFooterView];
+		_stickyFooterView = [UIView new];
+		_stickyFooterView.backgroundColor = [theme backgroundColor];
+		_stickyFooterView.translatesAutoresizingMaskIntoConstraints = NO;
+		[self addSubview:_stickyFooterView];
 		
-		self.footerHeightLayoutConstraint = [NSLayoutConstraint constraintWithItem:self.stickyFooterView
-																		 attribute:NSLayoutAttributeHeight
-																		 relatedBy:NSLayoutRelationEqual
-																			toItem:nil
-																		 attribute:NSLayoutAttributeNotAnAttribute
-																		multiplier:1.0
-																		  constant:0.0];
-		[self addConstraint:self.footerHeightLayoutConstraint];
+		_footerHeightLayoutConstraint = [NSLayoutConstraint constraintWithItem:_stickyFooterView
+																	 attribute:NSLayoutAttributeHeight
+																	 relatedBy:NSLayoutRelationEqual
+																		toItem:nil
+																	 attribute:NSLayoutAttributeNotAnAttribute
+																	multiplier:1.0
+																	  constant:0.0];
+		[self addConstraint:_footerHeightLayoutConstraint];
 		
-		self.footerOffsetLayoutConstraint = [NSLayoutConstraint constraintWithItem:self.stickyFooterView
-																		 attribute:NSLayoutAttributeTop
-																		 relatedBy:NSLayoutRelationEqual
-																			toItem:self
-																		 attribute:NSLayoutAttributeBottom
-																		multiplier:1.0
-																		  constant:0.0];
-		[self addConstraint:self.footerOffsetLayoutConstraint];
+		_footerOffsetLayoutConstraint = [NSLayoutConstraint constraintWithItem:_stickyFooterView
+																	 attribute:NSLayoutAttributeTop
+																	 relatedBy:NSLayoutRelationEqual
+																		toItem:self
+																	 attribute:NSLayoutAttributeBottom
+																	multiplier:1.0
+																	  constant:0.0];
+		[self addConstraint:_footerOffsetLayoutConstraint];
 		
-		[self addConstraint:[NSLayoutConstraint constraintWithItem:self.stickyFooterView
+		[self addConstraint:[NSLayoutConstraint constraintWithItem:_stickyFooterView
 														 attribute:NSLayoutAttributeWidth
 														 relatedBy:NSLayoutRelationEqual
 															toItem:self
@@ -86,18 +86,18 @@
 														multiplier:1.0
 														  constant:0.0]];
 		
-		self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-		self.tableView.backgroundColor = [UIColor clearColor];
-		self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
-		self.tableView.estimatedRowHeight = 60.0;
-		self.tableView.rowHeight = UITableViewAutomaticDimension;
-		self.tableView.tableFooterView = [UIView new];
-		self.tableView.layoutMargins = UIEdgeInsetsMake(self.tableView.layoutMargins.top, kBuyPaddingExtraLarge, self.tableView.layoutMargins.bottom, kBuyPaddingMedium);
-		[self addSubview:self.tableView];
+		_tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+		_tableView.backgroundColor = [UIColor clearColor];
+		_tableView.translatesAutoresizingMaskIntoConstraints = NO;
+		_tableView.estimatedRowHeight = 60.0;
+		_tableView.rowHeight = UITableViewAutomaticDimension;
+		_tableView.tableFooterView = [UIView new];
+		_tableView.layoutMargins = UIEdgeInsetsMake(_tableView.layoutMargins.top, kBuyPaddingExtraLarge, _tableView.layoutMargins.bottom, kBuyPaddingMedium);
+		[self addSubview:_tableView];
 		
-		[self.tableView registerClass:[BUYProductHeaderCell class] forCellReuseIdentifier:@"headerCell"];
-		[self.tableView registerClass:[BUYProductVariantCell class] forCellReuseIdentifier:@"variantCell"];
-		[self.tableView registerClass:[BUYProductDescriptionCell class] forCellReuseIdentifier:@"descriptionCell"];
+		[_tableView registerClass:[BUYProductHeaderCell class] forCellReuseIdentifier:@"headerCell"];
+		[_tableView registerClass:[BUYProductVariantCell class] forCellReuseIdentifier:@"variantCell"];
+		[_tableView registerClass:[BUYProductDescriptionCell class] forCellReuseIdentifier:@"descriptionCell"];
 		
 		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_tableView]|"
 																	 options:0
@@ -110,8 +110,8 @@
 		
 		CGFloat width = MIN(CGRectGetWidth(rect), CGRectGetHeight(rect));
 		if ([product.images count]) {
-			self.productViewHeader = [[BUYProductViewHeader alloc] initWithFrame:CGRectMake(0, 0, width, width) theme:theme];
-			self.tableView.tableHeaderView = self.productViewHeader;
+			_productViewHeader = [[BUYProductViewHeader alloc] initWithFrame:CGRectMake(0, 0, width, width) theme:theme];
+			_tableView.tableHeaderView = self.productViewHeader;
 		}
 		
 		_poweredByShopifyLabel = [[UILabel alloc] init];
@@ -136,9 +136,9 @@
 																		 constant:0.0];
 		[self addConstraint:_poweredByShopifyLabelConstraint];
 		
-		self.productViewFooter = [[BUYProductViewFooter alloc] initWithTheme:theme];
-		self.productViewFooter.translatesAutoresizingMaskIntoConstraints = NO;
-		[self addSubview:self.productViewFooter];
+		_productViewFooter = [[BUYProductViewFooter alloc] initWithTheme:theme];
+		_productViewFooter.translatesAutoresizingMaskIntoConstraints = NO;
+		[self addSubview:_productViewFooter];
 		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_productViewFooter]|"
 																	 options:0
 																	 metrics:nil
@@ -148,12 +148,12 @@
 																	 metrics:@{ @"height" : @(kBuyProductFooterHeight) }
 																	   views:NSDictionaryOfVariableBindings(_productViewFooter)]];
 		
-		if ([product.images count]) {
-			self.topGradientView = [[BUYGradientView alloc] init];
-			self.topGradientView.topColor = [BUYTheme topGradientViewTopColor];
-			self.topGradientView.translatesAutoresizingMaskIntoConstraints = NO;
-			self.topGradientView.userInteractionEnabled = NO;
-			[self addSubview:self.topGradientView];
+		if (_productViewHeader) {
+			_topGradientView = [[BUYGradientView alloc] init];
+			_topGradientView.topColor = [BUYTheme topGradientViewTopColor];
+			_topGradientView.translatesAutoresizingMaskIntoConstraints = NO;
+			_topGradientView.userInteractionEnabled = NO;
+			[self addSubview:_topGradientView];
 			
 			[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_topGradientView]|"
 																		 options:0
@@ -165,7 +165,7 @@
 																		   views:NSDictionaryOfVariableBindings(_topGradientView)]];
 		}
 		
-		self.theme = theme;
+		_theme = theme;
 	}
 	return self;
 }
