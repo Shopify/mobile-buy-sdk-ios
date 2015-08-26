@@ -107,17 +107,17 @@
 	
 	//// Close Icon Drawing
 	UIBezierPath* closeIconPath = UIBezierPath.bezierPath;
-	[closeIconPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.15977f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.09548f * CGRectGetHeight(frame))];
-	[closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.90452f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.84024f * CGRectGetHeight(frame))];
-	[closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.84025f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.90452f * CGRectGetHeight(frame))];
-	[closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.09547f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.15976f * CGRectGetHeight(frame))];
-	[closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.15977f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.09548f * CGRectGetHeight(frame))];
+	[closeIconPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.11431f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.09548f * CGRectGetHeight(frame))];
+	[closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.85907f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.84024f * CGRectGetHeight(frame))];
+	[closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.79479f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.90452f * CGRectGetHeight(frame))];
+	[closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.05002f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.15976f * CGRectGetHeight(frame))];
+	[closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.11431f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.09548f * CGRectGetHeight(frame))];
 	[closeIconPath closePath];
-	[closeIconPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.84025f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.09548f * CGRectGetHeight(frame))];
-	[closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.90452f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.15976f * CGRectGetHeight(frame))];
-	[closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.15977f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.90452f * CGRectGetHeight(frame))];
-	[closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.09547f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.84024f * CGRectGetHeight(frame))];
-	[closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.84025f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.09548f * CGRectGetHeight(frame))];
+	[closeIconPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.79479f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.09548f * CGRectGetHeight(frame))];
+	[closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.85907f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.15976f * CGRectGetHeight(frame))];
+	[closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.11431f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.90452f * CGRectGetHeight(frame))];
+	[closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.05002f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.84024f * CGRectGetHeight(frame))];
+	[closeIconPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.79479f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.09548f * CGRectGetHeight(frame))];
 	[closeIconPath closePath];
 	CGContextSaveGState(context);
 	if (hasShadow) {
