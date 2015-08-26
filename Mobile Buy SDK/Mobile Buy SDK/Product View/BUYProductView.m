@@ -173,9 +173,7 @@
 - (void)layoutSubviews
 {
 	[super layoutSubviews];
-	if (self.productViewHeader) {
-		self.tableView.contentInset = self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, self.tableView.contentInset.left, CGRectGetHeight(self.productViewFooter.frame), self.tableView.contentInset.right);
-	}
+	[self setInsets:UIEdgeInsetsMake(self.tableView.contentInset.top, self.tableView.contentInset.left, CGRectGetHeight(self.productViewFooter.frame), self.tableView.contentInset.right) appendToCurrentInset:NO];
 }
 
 - (void)setTheme:(BUYTheme *)theme
@@ -296,6 +294,15 @@
 						 [self.errorView removeFromSuperview];
 						 self.errorView = nil;
 					 }];
+}
+
+- (void)setInsets:(UIEdgeInsets)edgeInsets appendToCurrentInset:(BOOL)appendToCurrentInset
+{
+	CGFloat top = appendToCurrentInset ? self.tableView.contentInset.top + edgeInsets.top : edgeInsets.top;
+	CGFloat left = appendToCurrentInset ? self.tableView.contentInset.left + edgeInsets.left : edgeInsets.left;
+	CGFloat bottom = appendToCurrentInset ? self.tableView.contentInset.bottom + edgeInsets.bottom : edgeInsets.bottom;
+	CGFloat right = appendToCurrentInset ? self.tableView.contentInset.right + edgeInsets.right : edgeInsets.right;
+	self.tableView.contentInset = self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(top, left, bottom, right);
 }
 
 @end

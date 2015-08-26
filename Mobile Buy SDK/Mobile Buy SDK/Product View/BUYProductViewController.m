@@ -399,7 +399,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 			[(BUYNavigationController*)self.navigationController updateCloseButtonImageWithDarkStyle:YES duration:0];
 			self.navigationBar.alpha = 1;
 			self.navigationBarTitle.alpha = 1;
-			self.productView.tableView.contentInset = self.productView.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(self.productView.tableView.contentInset.top + CGRectGetHeight(self.navigationBar.bounds), self.productView.tableView.contentInset.left, self.productView.tableView.contentInset.bottom, self.productView.tableView.contentInset.right);
+			[self.productView setInsets:UIEdgeInsetsMake(CGRectGetHeight(self.navigationBar.bounds), 0, 0, 0) appendToCurrentInset:YES];
 		}
 	}
 }

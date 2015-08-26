@@ -32,5 +32,6 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView;
 - (void)updateBackgroundImage:(NSArray *)images;
 - (void)showErrorWithMessage:(NSString*)errorMessage;
+- (void)setInsets:(UIEdgeInsets)edgeInsets appendToCurrentInset:(BOOL)appendToCurrentInset;
 
 @end

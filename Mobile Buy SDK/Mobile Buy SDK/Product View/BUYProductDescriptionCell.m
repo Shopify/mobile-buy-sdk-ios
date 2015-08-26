@@ -29,7 +29,6 @@
 		
 		_descriptionLabel = [[UILabel alloc] init];
 		_descriptionLabel.translatesAutoresizingMaskIntoConstraints = NO;
-		_descriptionLabel.backgroundColor = [UIColor whiteColor];
 		_descriptionLabel.numberOfLines = 0;
 		[self.contentView addSubview:self.descriptionLabel];
 
