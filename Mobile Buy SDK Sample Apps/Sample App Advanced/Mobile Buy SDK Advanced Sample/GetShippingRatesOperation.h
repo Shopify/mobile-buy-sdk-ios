@@ -9,21 +9,21 @@
 #import <Foundation/Foundation.h>
 @class BUYCheckout;
 @class BUYClient;
-@class GetShippingRatesOperations;
+@class GetShippingRatesOperation;
 
-@protocol GetShippingRatesOperationsDelegate <NSObject>
+@protocol GetShippingRatesOperationDelegate <NSObject>
 
-- (void)operation:(GetShippingRatesOperations *)operation didReceiveShippingRates:(NSArray *)shippingRates;
+- (void)operation:(GetShippingRatesOperation *)operation didReceiveShippingRates:(NSArray *)shippingRates;
 
-- (void)operation:(GetShippingRatesOperations *)operation failedToReceiveShippingRates:(NSError *)error;
+- (void)operation:(GetShippingRatesOperation *)operation failedToReceiveShippingRates:(NSError *)error;
 
 @end
 
-@interface GetShippingRatesOperations : NSOperation
+@interface GetShippingRatesOperation : NSOperation
 
 - (instancetype)initWithClient:(BUYClient *)client withCheckout:(BUYCheckout *)checkout;
 
-@property (nonatomic, weak) id <GetShippingRatesOperationsDelegate> delegate;
+@property (nonatomic, weak) id <GetShippingRatesOperationDelegate> delegate;
 
 @property (nonatomic, strong, readonly) BUYCheckout *checkout;
 

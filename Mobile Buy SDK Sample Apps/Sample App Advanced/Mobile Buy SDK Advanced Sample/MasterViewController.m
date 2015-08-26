@@ -7,13 +7,11 @@
 //
 
 #import "MasterViewController.h"
-#import "DetailViewController.h"
-
-#import "GetShippingRatesOperations.h"
+#import "ShippingRatesTableViewController.h"
 
 @import Buy;
 
-@interface MasterViewController () <GetShippingRatesOperationsDelegate>
+@interface MasterViewController ()
 @property BUYClient *client;
 @property NSArray *objects;
 @end
@@ -44,16 +42,6 @@
             NSLog(@"Error fetching products: %@", error);
         }
     }];
-}
-
-#pragma mark - Segues
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"showDetail"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *object = self.objects[indexPath.row];
-        [[segue destinationViewController] setDetailItem:object];
-    }
 }
 
 #pragma mark - Table View
@@ -87,9 +75,14 @@
     
     [self.client createCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
         
-        GetShippingRatesOperations *shippingOperation = [[GetShippingRatesOperations alloc] initWithClient:self.client withCheckout:checkout];
-        shippingOperation.delegate = self;
-        [[NSOperationQueue mainQueue] addOperation:shippingOperation];
+        if (error == nil && checkout) {
+            
+            ShippingRatesTableViewController *shippingController = [[ShippingRatesTableViewController alloc] initWithClient:self.client checkout:checkout];
+            [self.navigationController pushViewController:shippingController animated:YES];
+        }
+        else {
+            NSLog(@"Error creating checkout: %@", error);
+        }
     }];
     
 }
@@ -108,18 +101,6 @@
     address.provinceCode = @"ON";
     address.zip = @"K1N5T5";
     return address;
-}
-
-#pragma mark - Shipping Rates delegate methods
-
--(void)operation:(GetShippingRatesOperations *)operation didReceiveShippingRates:(NSArray *)shippingRates
-{
-    NSLog(@"Got shipping rates: %@", shippingRates);
-}
-
--(void)operation:(GetShippingRatesOperations *)operation failedToReceiveShippingRates:(NSError *)error
-{
-    NSLog(@"Failed to retrieve shipping rates: %@", error);
 }
 
 @end

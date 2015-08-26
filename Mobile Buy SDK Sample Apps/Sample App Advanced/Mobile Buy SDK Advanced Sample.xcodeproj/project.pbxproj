@@ -10,12 +10,13 @@
 		BE8B82511B8CF49D00E3F871 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82501B8CF49D00E3F871 /* main.m */; };
 		BE8B82541B8CF49D00E3F871 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82531B8CF49D00E3F871 /* AppDelegate.m */; };
 		BE8B82571B8CF49D00E3F871 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82561B8CF49D00E3F871 /* MasterViewController.m */; };
-		BE8B825A1B8CF49D00E3F871 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82591B8CF49D00E3F871 /* DetailViewController.m */; };
 		BE8B825D1B8CF49D00E3F871 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE8B825B1B8CF49D00E3F871 /* Main.storyboard */; };
 		BE8B825F1B8CF49D00E3F871 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE8B825E1B8CF49D00E3F871 /* Images.xcassets */; };
 		BE8B82621B8CF49D00E3F871 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE8B82601B8CF49D00E3F871 /* LaunchScreen.xib */; };
 		BE8B82781B8CFAD800E3F871 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE8B82771B8CFAD800E3F871 /* Buy.framework */; };
-		BE8B827B1B8CFF0E00E3F871 /* GetShippingRatesOperations.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B827A1B8CFF0E00E3F871 /* GetShippingRatesOperations.m */; };
+		BE8B827B1B8CFF0E00E3F871 /* GetShippingRatesOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B827A1B8CFF0E00E3F871 /* GetShippingRatesOperation.m */; };
+		BE8B82921B8E612700E3F871 /* ShippingRatesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82911B8E612700E3F871 /* ShippingRatesTableViewController.m */; };
+		BE8B82951B8E65D700E3F871 /* PreCheckoutTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82941B8E65D700E3F871 /* PreCheckoutTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,14 +27,16 @@
 		BE8B82531B8CF49D00E3F871 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		BE8B82551B8CF49D00E3F871 /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
 		BE8B82561B8CF49D00E3F871 /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
-		BE8B82581B8CF49D00E3F871 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
-		BE8B82591B8CF49D00E3F871 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		BE8B825C1B8CF49D00E3F871 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BE8B825E1B8CF49D00E3F871 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BE8B82611B8CF49D00E3F871 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		BE8B82771B8CFAD800E3F871 /* Buy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Buy.framework; path = "../../../../Library/Developer/Xcode/DerivedData/Mobile_Buy_SDK-ewumbdubcjbgvfcrbhbskoeapdfq/Build/Products/Debug-iphoneos/Buy.framework"; sourceTree = "<group>"; };
-		BE8B82791B8CFF0E00E3F871 /* GetShippingRatesOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetShippingRatesOperations.h; sourceTree = "<group>"; };
-		BE8B827A1B8CFF0E00E3F871 /* GetShippingRatesOperations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetShippingRatesOperations.m; sourceTree = "<group>"; };
+		BE8B82791B8CFF0E00E3F871 /* GetShippingRatesOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetShippingRatesOperation.h; sourceTree = "<group>"; };
+		BE8B827A1B8CFF0E00E3F871 /* GetShippingRatesOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetShippingRatesOperation.m; sourceTree = "<group>"; };
+		BE8B82901B8E612700E3F871 /* ShippingRatesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShippingRatesTableViewController.h; sourceTree = "<group>"; };
+		BE8B82911B8E612700E3F871 /* ShippingRatesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShippingRatesTableViewController.m; sourceTree = "<group>"; };
+		BE8B82931B8E65D700E3F871 /* PreCheckoutTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreCheckoutTableViewController.h; sourceTree = "<group>"; };
+		BE8B82941B8E65D700E3F871 /* PreCheckoutTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreCheckoutTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,18 +71,14 @@
 		BE8B824D1B8CF49D00E3F871 /* Mobile Buy SDK Advanced Sample */ = {
 			isa = PBXGroup;
 			children = (
+				BE8B82971B8E6A7100E3F871 /* Operations */,
+				BE8B82961B8E6A6900E3F871 /* View Controllers */,
 				BE8B82521B8CF49D00E3F871 /* AppDelegate.h */,
 				BE8B82531B8CF49D00E3F871 /* AppDelegate.m */,
-				BE8B82551B8CF49D00E3F871 /* MasterViewController.h */,
-				BE8B82561B8CF49D00E3F871 /* MasterViewController.m */,
-				BE8B82581B8CF49D00E3F871 /* DetailViewController.h */,
-				BE8B82591B8CF49D00E3F871 /* DetailViewController.m */,
 				BE8B825B1B8CF49D00E3F871 /* Main.storyboard */,
 				BE8B825E1B8CF49D00E3F871 /* Images.xcassets */,
 				BE8B82601B8CF49D00E3F871 /* LaunchScreen.xib */,
 				BE8B824E1B8CF49D00E3F871 /* Supporting Files */,
-				BE8B82791B8CFF0E00E3F871 /* GetShippingRatesOperations.h */,
-				BE8B827A1B8CFF0E00E3F871 /* GetShippingRatesOperations.m */,
 			);
 			path = "Mobile Buy SDK Advanced Sample";
 			sourceTree = "<group>";
@@ -91,6 +90,28 @@
 				BE8B82501B8CF49D00E3F871 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BE8B82961B8E6A6900E3F871 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BE8B82551B8CF49D00E3F871 /* MasterViewController.h */,
+				BE8B82561B8CF49D00E3F871 /* MasterViewController.m */,
+				BE8B82901B8E612700E3F871 /* ShippingRatesTableViewController.h */,
+				BE8B82911B8E612700E3F871 /* ShippingRatesTableViewController.m */,
+				BE8B82931B8E65D700E3F871 /* PreCheckoutTableViewController.h */,
+				BE8B82941B8E65D700E3F871 /* PreCheckoutTableViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		BE8B82971B8E6A7100E3F871 /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				BE8B82791B8CFF0E00E3F871 /* GetShippingRatesOperation.h */,
+				BE8B827A1B8CFF0E00E3F871 /* GetShippingRatesOperation.m */,
+			);
+			name = Operations;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -163,11 +184,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE8B82951B8E65D700E3F871 /* PreCheckoutTableViewController.m in Sources */,
 				BE8B82541B8CF49D00E3F871 /* AppDelegate.m in Sources */,
-				BE8B827B1B8CFF0E00E3F871 /* GetShippingRatesOperations.m in Sources */,
+				BE8B827B1B8CFF0E00E3F871 /* GetShippingRatesOperation.m in Sources */,
 				BE8B82571B8CF49D00E3F871 /* MasterViewController.m in Sources */,
 				BE8B82511B8CF49D00E3F871 /* main.m in Sources */,
-				BE8B825A1B8CF49D00E3F871 /* DetailViewController.m in Sources */,
+				BE8B82921B8E612700E3F871 /* ShippingRatesTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

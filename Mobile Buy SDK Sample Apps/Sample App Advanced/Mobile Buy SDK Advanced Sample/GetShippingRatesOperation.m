@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Shopify. All rights reserved.
 //
 
-#import "GetShippingRatesOperations.h"
+#import "GetShippingRatesOperation.h"
 @import Buy;
 
-@interface GetShippingRatesOperations ()
+@interface GetShippingRatesOperation ()
 
 @property (nonatomic, strong) BUYCheckout *checkout;
 @property (nonatomic, strong) BUYClient *client;
@@ -19,7 +19,7 @@
 
 @end
 
-@implementation GetShippingRatesOperations
+@implementation GetShippingRatesOperation
 
 - (instancetype)initWithClient:(BUYClient *)client withCheckout:(BUYCheckout *)checkout;
 {
