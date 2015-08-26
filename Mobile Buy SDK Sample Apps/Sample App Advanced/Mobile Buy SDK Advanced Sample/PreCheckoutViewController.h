@@ -10,7 +10,7 @@
 @class BUYCheckout;
 @class BUYClient;
 
-@interface PreCheckoutTableViewController : UIViewController
+@interface PreCheckoutViewController : UIViewController
 
 - (instancetype)initWithClient:(BUYClient *)client checkout:(BUYCheckout *)checkout;
 

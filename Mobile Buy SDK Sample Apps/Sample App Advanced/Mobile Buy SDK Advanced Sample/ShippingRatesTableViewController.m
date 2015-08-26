@@ -8,7 +8,7 @@
 
 #import "ShippingRatesTableViewController.h"
 #import "GetShippingRatesOperation.h"
-#import "PreCheckoutTableViewController.h"
+#import "PreCheckoutViewController.h"
 
 @import Buy;
 
@@ -74,7 +74,7 @@
         
         if (error == nil && checkout) {
             
-            PreCheckoutTableViewController *preCheckoutController = [[PreCheckoutTableViewController alloc] initWithClient:self.client checkout:checkout];
+            PreCheckoutViewController *preCheckoutController = [[PreCheckoutViewController alloc] initWithClient:self.client checkout:checkout];
             [self.navigationController pushViewController:preCheckoutController animated:YES];
         }
         else {

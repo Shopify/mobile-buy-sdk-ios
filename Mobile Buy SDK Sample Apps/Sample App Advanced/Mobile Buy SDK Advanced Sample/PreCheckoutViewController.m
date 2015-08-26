@@ -6,17 +6,19 @@
 //  Copyright (c) 2015 Shopify. All rights reserved.
 //
 
-#import "PreCheckoutTableViewController.h"
+#import "PreCheckoutViewController.h"
+#import "CheckoutViewController.h"
+
 @import Buy;
 
-@interface PreCheckoutTableViewController ()
+@interface PreCheckoutViewController ()
 
 @property (nonatomic, strong) BUYCheckout *checkout;
 @property (nonatomic, strong) BUYClient *client;
 
 @end
 
-@implementation PreCheckoutTableViewController
+@implementation PreCheckoutViewController
 
 - (instancetype)initWithClient:(BUYClient *)client checkout:(BUYCheckout *)checkout;
 {
@@ -51,11 +53,18 @@
     [giftCardButton addTarget:self action:@selector(applyGiftCard) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:giftCardButton];
     
-    NSDictionary *views = NSDictionaryOfVariableBindings(discountButton, giftCardButton);
+    UIButton *checkoutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [checkoutButton setTitle:@"Checkout" forState:UIControlStateNormal];
+    checkoutButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [checkoutButton addTarget:self action:@selector(proceedToCheckout) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:checkoutButton];
+    
+    NSDictionary *views = NSDictionaryOfVariableBindings(discountButton, giftCardButton, checkoutButton);
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[discountButton]-|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[giftCardButton]-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[checkoutButton]-|" options:0 metrics:nil views:views]];
 
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(100)-[discountButton]-[giftCardButton]" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(100)-[discountButton]-[giftCardButton]-(>=100)-[checkoutButton]-(100)-|" options:0 metrics:nil views:views]];
 
 }
 
@@ -83,8 +92,8 @@
                                                               
                                                               if (error == nil && checkout) {
                                                                   
-                                                                  PreCheckoutTableViewController *preCheckoutController = [[PreCheckoutTableViewController alloc] initWithClient:self.client checkout:checkout];
-                                                                  [self.navigationController pushViewController:preCheckoutController animated:YES];
+                                                                  NSLog(@"Successfully added discount");
+                                                                  self.checkout = checkout;
                                                               }
                                                               else {
                                                                   NSLog(@"Error applying checkout: %@", error);
@@ -100,6 +109,12 @@
 - (void)applyGiftCard
 {
     
+}
+
+- (void)proceedToCheckout
+{
+    CheckoutViewController *checkoutController = [[CheckoutViewController alloc] initWithClient:self.client checkout:self.checkout];
+    [self.navigationController pushViewController:checkoutController animated:YES];
 }
 
 @end
