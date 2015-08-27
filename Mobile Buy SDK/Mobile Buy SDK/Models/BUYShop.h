@@ -54,7 +54,7 @@
 @property (nonatomic, readonly, copy) NSString *shopDescription;
 
 /**
- *  A list of countries the shop ships containing two-letter country codes.
+ *  A list of two-letter country codes identifying the countries that the shop ships to.
  */
 @property (nonatomic, readonly, copy) NSArray *shipsToCountries;
 
