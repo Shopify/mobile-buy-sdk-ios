@@ -71,8 +71,13 @@
     
     BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:cart];
     
-    checkout.shippingAddress = [self shippingAddress];
+    // Apply billing and shipping address, as well as email to the checkout
+    checkout.shippingAddress = [self address];
+    checkout.billingAddress = [self address];
+    checkout.email = @"banana@testasaurus.com";
     
+    self.client.urlScheme = @"advancedsample://";
+
     [self.client createCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
         
         if (error == nil && checkout) {
@@ -87,7 +92,7 @@
     
 }
 
-- (BUYAddress *)shippingAddress
+- (BUYAddress *)address
 {
     BUYAddress *address = [[BUYAddress alloc] init];
     address.address1 = @"126 York Street";

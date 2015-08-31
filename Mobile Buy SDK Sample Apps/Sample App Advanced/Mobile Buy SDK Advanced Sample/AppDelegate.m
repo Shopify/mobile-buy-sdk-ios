@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "CheckoutViewController.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:CheckoutCallbackNotification object:nil userInfo:@{@"url": url}];
+    
     return YES;
 }
 

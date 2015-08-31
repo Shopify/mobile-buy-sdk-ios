@@ -10,6 +10,8 @@
 @class BUYCheckout;
 @class BUYClient;
 
+extern NSString * const CheckoutCallbackNotification;
+
 @interface CheckoutViewController : UIViewController
 
 - (instancetype)initWithClient:(BUYClient *)client checkout:(BUYCheckout *)checkout;

@@ -98,9 +98,7 @@
                                                               else {
                                                                   NSLog(@"Error applying checkout: %@", error);
                                                               }
-                                                          }];
-                                                          
-                                                          
+                                                          }];                                                          
                                                       }]];
     
     [self presentViewController:alertController animated:YES completion:nil];
@@ -108,7 +106,36 @@
 
 - (void)applyGiftCard
 {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Enter Gift Card Code" message:nil preferredStyle:UIAlertControllerStyleAlert];;
     
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @"Gift Card Code";
+    }];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:^(UIAlertAction *action) {
+                                                          NSLog(@"Cancel action");
+                                                      }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *action) {
+                                                          
+                                                          [self.client applyGiftCardWithCode:[alertController.textFields[0] text] toCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
+                                                              
+                                                              if (error == nil && checkout) {
+                                                                  
+                                                                  NSLog(@"Successfully added gift card");
+                                                                  self.checkout = checkout;
+                                                              }
+                                                              else {
+                                                                  NSLog(@"Error applying gift card: %@", error);
+                                                              }
+                                                          }];
+                                                      }]];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)proceedToCheckout
