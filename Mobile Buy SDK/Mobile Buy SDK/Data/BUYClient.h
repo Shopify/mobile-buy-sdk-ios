@@ -463,7 +463,10 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
 /**
  *  Prepares a credit card for usage during the checkout process. This sends it to Shopify's secure servers.
  *  Note: Storing the token does not charge the associated card (credit or otherwise).
- *  The card will be charged upon finalizing the checkout (completeCheckout:completion:)
+ *  The card will be charged upon finalizing the checkout (`completeCheckout:completion:`)
+ *
+ *  You MUST call `completeCheckout:completion:` after this call and receiving a `paymentSessionId`.
+ *  The `paymentSessionId` on the `BUYCheckout` object is not persisted on `updateCheckout:completion:` calls.
  *
  *  @param creditCard BUYCreditCard to prepare for usage
  *  @param checkout   The BUYCheckout associated to the purchase.
