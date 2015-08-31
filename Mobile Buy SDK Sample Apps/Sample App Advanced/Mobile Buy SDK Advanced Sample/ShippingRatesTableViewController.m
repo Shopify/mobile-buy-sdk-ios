@@ -45,6 +45,8 @@
     
     GetShippingRatesOperation *shippingOperation = [[GetShippingRatesOperation alloc] initWithClient:self.client withCheckout:self.checkout];
     shippingOperation.delegate = self;
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [[NSOperationQueue mainQueue] addOperation:shippingOperation];
 }
 
@@ -87,13 +89,17 @@
 #pragma mark - Shipping Rates delegate methods
 
 -(void)operation:(GetShippingRatesOperation *)operation didReceiveShippingRates:(NSArray *)shippingRates
-{    
+{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
     self.shippingRates = shippingRates;
     [self.tableView reloadData];
 }
 
 -(void)operation:(GetShippingRatesOperation *)operation failedToReceiveShippingRates:(NSError *)error
 {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
     NSLog(@"Failed to retrieve shipping rates: %@", error);
 }
 

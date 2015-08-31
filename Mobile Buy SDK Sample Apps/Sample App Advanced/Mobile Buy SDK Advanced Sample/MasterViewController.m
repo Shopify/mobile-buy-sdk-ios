@@ -31,9 +31,10 @@
                                                  apiKey:@""
                                               channelId:@""];
 
-    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [self.client getProductsPage:1 completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
-        
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
         if (error == nil && products) {
             self.objects = products;
             [self.tableView reloadData];
@@ -78,8 +79,10 @@
     
     self.client.urlScheme = @"advancedsample://";
 
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [self.client createCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
-        
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
         if (error == nil && checkout) {
             
             ShippingRatesTableViewController *shippingController = [[ShippingRatesTableViewController alloc] initWithClient:self.client checkout:checkout];

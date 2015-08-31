@@ -11,16 +11,18 @@
 		BE8B82541B8CF49D00E3F871 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82531B8CF49D00E3F871 /* AppDelegate.m */; };
 		BE8B82571B8CF49D00E3F871 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82561B8CF49D00E3F871 /* MasterViewController.m */; };
 		BE8B825D1B8CF49D00E3F871 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE8B825B1B8CF49D00E3F871 /* Main.storyboard */; };
-		BE8B825F1B8CF49D00E3F871 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE8B825E1B8CF49D00E3F871 /* Images.xcassets */; };
 		BE8B82621B8CF49D00E3F871 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE8B82601B8CF49D00E3F871 /* LaunchScreen.xib */; };
 		BE8B82781B8CFAD800E3F871 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE8B82771B8CFAD800E3F871 /* Buy.framework */; };
 		BE8B827B1B8CFF0E00E3F871 /* GetShippingRatesOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B827A1B8CFF0E00E3F871 /* GetShippingRatesOperation.m */; };
 		BE8B82921B8E612700E3F871 /* ShippingRatesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82911B8E612700E3F871 /* ShippingRatesTableViewController.m */; };
 		BE8B82951B8E65D700E3F871 /* PreCheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82941B8E65D700E3F871 /* PreCheckoutViewController.m */; };
 		BE8B829A1B8E72CC00E3F871 /* CheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82991B8E72CC00E3F871 /* CheckoutViewController.m */; };
+		BE948D491B9500DC009AB20B /* GetCompletionStatusOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BE948D481B9500DC009AB20B /* GetCompletionStatusOperation.m */; };
+		BE948D4D1B95087A009AB20B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE948D4C1B95087A009AB20B /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BE5E28451B94F5C300D2ECB5 /* Mobile Buy SDK Advanced Sample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Mobile Buy SDK Advanced Sample.entitlements"; sourceTree = "<group>"; };
 		BE8B824B1B8CF49D00E3F871 /* Mobile Buy SDK Advanced Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile Buy SDK Advanced Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE8B824F1B8CF49D00E3F871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE8B82501B8CF49D00E3F871 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -29,7 +31,6 @@
 		BE8B82551B8CF49D00E3F871 /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
 		BE8B82561B8CF49D00E3F871 /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
 		BE8B825C1B8CF49D00E3F871 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		BE8B825E1B8CF49D00E3F871 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BE8B82611B8CF49D00E3F871 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		BE8B82771B8CFAD800E3F871 /* Buy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Buy.framework; path = "../../../../Library/Developer/Xcode/DerivedData/Mobile_Buy_SDK-ewumbdubcjbgvfcrbhbskoeapdfq/Build/Products/Debug-iphoneos/Buy.framework"; sourceTree = "<group>"; };
 		BE8B82791B8CFF0E00E3F871 /* GetShippingRatesOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetShippingRatesOperation.h; sourceTree = "<group>"; };
@@ -40,6 +41,9 @@
 		BE8B82941B8E65D700E3F871 /* PreCheckoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreCheckoutViewController.m; sourceTree = "<group>"; };
 		BE8B82981B8E72CC00E3F871 /* CheckoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckoutViewController.h; sourceTree = "<group>"; };
 		BE8B82991B8E72CC00E3F871 /* CheckoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckoutViewController.m; sourceTree = "<group>"; };
+		BE948D471B9500DC009AB20B /* GetCompletionStatusOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCompletionStatusOperation.h; sourceTree = "<group>"; };
+		BE948D481B9500DC009AB20B /* GetCompletionStatusOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCompletionStatusOperation.m; sourceTree = "<group>"; };
+		BE948D4C1B95087A009AB20B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,12 +78,13 @@
 		BE8B824D1B8CF49D00E3F871 /* Mobile Buy SDK Advanced Sample */ = {
 			isa = PBXGroup;
 			children = (
+				BE5E28451B94F5C300D2ECB5 /* Mobile Buy SDK Advanced Sample.entitlements */,
 				BE8B82971B8E6A7100E3F871 /* Operations */,
 				BE8B82961B8E6A6900E3F871 /* View Controllers */,
+				BE948D4C1B95087A009AB20B /* Images.xcassets */,
 				BE8B82521B8CF49D00E3F871 /* AppDelegate.h */,
 				BE8B82531B8CF49D00E3F871 /* AppDelegate.m */,
 				BE8B825B1B8CF49D00E3F871 /* Main.storyboard */,
-				BE8B825E1B8CF49D00E3F871 /* Images.xcassets */,
 				BE8B82601B8CF49D00E3F871 /* LaunchScreen.xib */,
 				BE8B824E1B8CF49D00E3F871 /* Supporting Files */,
 			);
@@ -115,6 +120,8 @@
 			children = (
 				BE8B82791B8CFF0E00E3F871 /* GetShippingRatesOperation.h */,
 				BE8B827A1B8CFF0E00E3F871 /* GetShippingRatesOperation.m */,
+				BE948D471B9500DC009AB20B /* GetCompletionStatusOperation.h */,
+				BE948D481B9500DC009AB20B /* GetCompletionStatusOperation.m */,
 			);
 			name = Operations;
 			sourceTree = "<group>";
@@ -150,6 +157,12 @@
 				TargetAttributes = {
 					BE8B824A1B8CF49D00E3F871 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = A7XGC83MZE;
+						SystemCapabilities = {
+							com.apple.OMC = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -176,9 +189,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE948D4D1B95087A009AB20B /* Images.xcassets in Resources */,
 				BE8B825D1B8CF49D00E3F871 /* Main.storyboard in Resources */,
 				BE8B82621B8CF49D00E3F871 /* LaunchScreen.xib in Resources */,
-				BE8B825F1B8CF49D00E3F871 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,6 +202,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE948D491B9500DC009AB20B /* GetCompletionStatusOperation.m in Sources */,
 				BE8B82951B8E65D700E3F871 /* PreCheckoutViewController.m in Sources */,
 				BE8B829A1B8E72CC00E3F871 /* CheckoutViewController.m in Sources */,
 				BE8B82541B8CF49D00E3F871 /* AppDelegate.m in Sources */,
@@ -305,6 +319,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Mobile Buy SDK Advanced Sample/Mobile Buy SDK Advanced Sample.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Mobile_Buy_SDK-ewumbdubcjbgvfcrbhbskoeapdfq/Build/Products/Debug-iphoneos",
@@ -313,6 +330,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -320,6 +338,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Mobile Buy SDK Advanced Sample/Mobile Buy SDK Advanced Sample.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Mobile_Buy_SDK-ewumbdubcjbgvfcrbhbskoeapdfq/Build/Products/Debug-iphoneos",
@@ -328,6 +349,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

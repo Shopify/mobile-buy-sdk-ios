@@ -7,14 +7,19 @@
 //
 
 #import "CheckoutViewController.h"
+#import "GetCompletionStatusOperation.h"
+
 @import Buy;
 
 NSString * const CheckoutCallbackNotification = @"CheckoutCallbackNotification";
+NSString * const MerchantId = @"";
 
+@interface CheckoutViewController () <PKPaymentAuthorizationViewControllerDelegate, GetCompletionStatusOperationDelegate>
 
-@interface CheckoutViewController ()
 @property (nonatomic, strong) BUYCheckout *checkout;
 @property (nonatomic, strong) BUYClient *client;
+
+@property (nonatomic, strong) BUYApplePayHelpers *applePayHelper;
 
 @end
 
@@ -54,24 +59,27 @@ NSString * const CheckoutCallbackNotification = @"CheckoutCallbackNotification";
     [webCheckoutButton addTarget:self action:@selector(checkoutOnWeb) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:webCheckoutButton];
     
-    UIButton *checkoutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [checkoutButton setTitle:@"Checkout" forState:UIControlStateNormal];
-    checkoutButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [checkoutButton addTarget:self action:@selector(proceedToCheckout) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:checkoutButton];
+    UIButton *applePayButton = [BUYPaymentButton buttonWithType:BUYPaymentButtonTypeBuy style:BUYPaymentButtonStyleBlack];
+    applePayButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [applePayButton addTarget:self action:@selector(checkoutWithApplePay) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:applePayButton];
     
-    NSDictionary *views = NSDictionaryOfVariableBindings(creditCardButton, webCheckoutButton, checkoutButton);
+    NSDictionary *views = NSDictionaryOfVariableBindings(creditCardButton, webCheckoutButton, applePayButton);
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[creditCardButton]-|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[webCheckoutButton]-|" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[checkoutButton]-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[applePayButton]-|" options:0 metrics:nil views:views]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(100)-[creditCardButton]-[webCheckoutButton]-(>=100)-[checkoutButton]-(100)-|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(100)-[creditCardButton]-[webCheckoutButton]-[applePayButton]" options:0 metrics:nil views:views]];
 }
 
 - (void)addCreditCardToCheckout:(void (^)(BOOL success))callback
 {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
     [self.client storeCreditCard:[self creditCard] checkout:self.checkout completion:^(BUYCheckout *checkout, NSString *paymentSessionId, NSError *error) {
         
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
         if (error == nil && checkout) {
             
             NSLog(@"Successfully added credit card to checkout");
@@ -112,6 +120,8 @@ NSString * const CheckoutCallbackNotification = @"CheckoutCallbackNotification";
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
+#pragma mark Native Checkout
+
 - (void)checkoutWithCreditCard
 {
     __weak CheckoutViewController *welf = self;
@@ -120,6 +130,8 @@ NSString * const CheckoutCallbackNotification = @"CheckoutCallbackNotification";
         
         if (success) {
             
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
             [welf.client completeCheckout:welf.checkout completion:^(BUYCheckout *checkout, NSError *error) {
                 
                 if (error == nil && checkout) {
@@ -127,9 +139,14 @@ NSString * const CheckoutCallbackNotification = @"CheckoutCallbackNotification";
                     NSLog(@"Successfully completed checkout");
                     welf.checkout = checkout;
                     
-                    [welf showCheckoutConfirmation];
+                    GetCompletionStatusOperation *completionOperation = [[GetCompletionStatusOperation alloc] initWithClient:welf.client withCheckout:welf.checkout];
+                    completionOperation.delegate = welf;
+
+                    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+                    [[NSOperationQueue mainQueue] addOperation:completionOperation];
                 }
                 else {
+                    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
                     NSLog(@"Error completing checkout: %@", error);
                 }
             }];
@@ -137,10 +154,84 @@ NSString * const CheckoutCallbackNotification = @"CheckoutCallbackNotification";
     }];
 }
 
+- (void)operation:(GetCompletionStatusOperation *)operation didReceiveCompletionStatus:(BUYStatus)completionStatus
+{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
+    NSLog(@"Successfully got completion status: %lu", (unsigned long)completionStatus);
+    
+    [self showCheckoutConfirmation];
+}
+
+- (void)operation:(GetCompletionStatusOperation *)operation failedToReceiveCompletionStatus:(NSError *)error
+{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
+    NSLog(@"Error getting completion status: %@", error);
+}
+
+#pragma mark - Apple Pay Checkout
+
 - (void)checkoutWithApplePay
 {
+    PKPaymentRequest *request = [self paymentRequest];
     
+    PKPaymentAuthorizationViewController *paymentController = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:request];
+    paymentController.delegate = self;
+ 
+    self.applePayHelper = [[BUYApplePayHelpers alloc] initWithClient:self.client checkout:self.checkout];
+    
+    [self presentViewController:paymentController animated:YES completion:nil];
 }
+
+- (PKPaymentRequest *)paymentRequest
+{
+    PKPaymentRequest *paymentRequest = [[PKPaymentRequest alloc] init];
+    
+    [paymentRequest setMerchantIdentifier:MerchantId];
+    [paymentRequest setRequiredBillingAddressFields:PKAddressFieldAll];
+    [paymentRequest setRequiredShippingAddressFields:self.checkout.requiresShipping ? PKAddressFieldAll : PKAddressFieldEmail|PKAddressFieldPhone];
+    [paymentRequest setSupportedNetworks:@[PKPaymentNetworkVisa, PKPaymentNetworkMasterCard]];
+    [paymentRequest setMerchantCapabilities:PKMerchantCapability3DS];
+    [paymentRequest setCountryCode:@"US"];
+    [paymentRequest setCurrencyCode:@"USD"];
+    
+    [paymentRequest setPaymentSummaryItems: [self.checkout buy_summaryItems]];
+
+    
+    return paymentRequest;
+}
+
+- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didAuthorizePayment:(PKPayment *)payment completion:(void (^)(PKPaymentAuthorizationStatus status))completion
+{
+    [self.applePayHelper updateAndCompleteCheckoutWithPayment:payment completion:completion];
+}
+
+- (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller
+{
+    [controller dismissViewControllerAnimated:YES completion:nil];
+}
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
+- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingMethod:(nonnull PKShippingMethod *)shippingMethod completion:(nonnull void (^)(PKPaymentAuthorizationStatus, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
+#else
+- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingMethod:(PKShippingMethod *)shippingMethod completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *summaryItems))completion
+#endif
+{
+    [self.applePayHelper updateCheckoutWithShippingMethod:shippingMethod completion:completion];
+}
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
+- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingAddress:(ABRecordRef)address completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
+#else
+- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingAddress:(ABRecordRef)address completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *shippingMethods, NSArray *summaryItems))completion
+#endif
+{
+    [self.applePayHelper updateCheckoutWithAddress:address completion:completion];
+}
+
+
+# pragma mark - Web checkout
 
 - (void)checkoutOnWeb
 {
@@ -156,8 +247,12 @@ NSString * const CheckoutCallbackNotification = @"CheckoutCallbackNotification";
     
     __weak CheckoutViewController *welf = self;
 
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
     [self.client getCompletionStatusOfCheckoutURL:url completion:^(BUYStatus status, NSError *error) {
         
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
         if (error == nil && status == BUYStatusComplete) {
             
             NSLog(@"Successfully completed checkout");

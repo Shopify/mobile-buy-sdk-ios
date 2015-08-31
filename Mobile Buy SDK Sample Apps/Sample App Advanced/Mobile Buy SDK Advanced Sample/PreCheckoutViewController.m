@@ -88,8 +88,13 @@
                                                           
                                                           BUYDiscount *discount = [[BUYDiscount alloc] initWithCode:[alertController.textFields[0] text]];
                                                           self.checkout.discount = discount;
+                                                          
+                                                          [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
                                                           [self.client updateCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
                                                               
+                                                              [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
                                                               if (error == nil && checkout) {
                                                                   
                                                                   NSLog(@"Successfully added discount");
@@ -122,8 +127,12 @@
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction *action) {
                                                           
+                                                          [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
                                                           [self.client applyGiftCardWithCode:[alertController.textFields[0] text] toCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
                                                               
+                                                              [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
                                                               if (error == nil && checkout) {
                                                                   
                                                                   NSLog(@"Successfully added gift card");
