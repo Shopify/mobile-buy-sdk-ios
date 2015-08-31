@@ -56,26 +56,17 @@
 
 - (void)setContentOffset:(CGPoint)offset
 {
-	if (offset.y <= 0) {
-		self.clipsToBounds = NO;
-		self.productImageViewConstraintBottom.constant = 0.0;
-		self.productImageViewConstraintHeight.constant = CGRectGetHeight(self.bounds) + -offset.y;
-	} else {
-		self.clipsToBounds = YES;
-		self.productImageViewConstraintHeight.constant = CGRectGetHeight(self.bounds);
-		self.productImageViewConstraintBottom.constant = offset.y / 2;
-	}
+	self.clipsToBounds = offset.y >= 0;
+	self.productImageViewConstraintBottom.constant = offset.y >= 0 ? offset.y / 2 : 0;
+	self.productImageViewConstraintHeight.constant = offset.y >= 0 ? CGRectGetHeight(self.bounds) : CGRectGetHeight(self.bounds) + -offset.y;
 	
+	self.productImageView.contentMode = UIViewContentModeScaleAspectFit;
 	if (self.productImageView.image && [self.productImageView isPortraitOrSquare]) {
 		CGFloat imageRatio = self.productImageView.image.size.height / self.productImageView.image.size.width;
 		CGFloat imageViewRatio = CGRectGetHeight(self.productImageView.bounds) / CGRectGetWidth(self.productImageView.bounds);
 		if (imageViewRatio >= imageRatio && isnan(imageViewRatio) == NO && isinf(imageViewRatio) == NO) {
 			self.productImageView.contentMode = UIViewContentModeScaleAspectFill;
-		} else {
-			self.productImageView.contentMode = UIViewContentModeScaleAspectFit;
 		}
-	} else {
-		self.productImageView.contentMode = UIViewContentModeScaleAspectFit;
 	}
 }
 
