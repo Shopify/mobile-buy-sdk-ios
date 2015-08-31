@@ -72,11 +72,11 @@
 	BUYCartLineItem *lineItem = [[BUYCartLineItem alloc] initWithVariant:variant];
 	BUYCartLineItem *existingLineItem = [self.lineItemsSet member:lineItem];
 	if (existingLineItem && quantity > 0) {
-		existingLineItem.quantity = [NSDecimalNumber numberWithInteger:quantity];
+		existingLineItem.quantity = (NSDecimalNumber*)[NSDecimalNumber numberWithInteger:quantity];
 	} else if (existingLineItem && quantity == 0) {
 		[self.lineItemsSet removeObject:existingLineItem];
 	} else {
-		lineItem.quantity = [NSDecimalNumber numberWithInteger:quantity];
+		lineItem.quantity = (NSDecimalNumber*)[NSDecimalNumber numberWithInteger:quantity];
 		[self.lineItemsSet addObject:lineItem];
 	}
 }
