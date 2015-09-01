@@ -179,8 +179,10 @@
 		address.city = [contact.postalAddress.city length] ? contact.postalAddress.city : BUYPartialAddressPlaceholder;
 		address.province = contact.postalAddress.state;
 		address.zip = contact.postalAddress.postalCode;
-		address.country = contact.postalAddress.country;
 		address.countryCode = contact.postalAddress.ISOCountryCode;
+		if (address.countryCode == nil) {
+			address.country = contact.postalAddress.country;
+		}
 	}
 
 	address.phone = contact.phoneNumber.stringValue ?: BUYPartialAddressPlaceholder;
