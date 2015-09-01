@@ -54,4 +54,14 @@
  */
 - (void)removeVariant:(BUYProductVariant *)variant;
 
+/**
+ *  Adds a BUYCartLineItem with a set quantity to the BUYCart with the given BUYProductVariant object on it.
+ *  If the associated BUYCartLineItem exists, that BUYCartLineItem's quantity is overriden with the quantity specificed.
+ *  If the quantity is 0 the associated BUYCartLineItem is removed from `lineItems`.
+ *
+ *  @param variant  The BUYProductVariant to add to the BUYCart with a quantity
+ *  @param quantity The quantity for the BUYCartLineItem associated with the BUYProductVariant
+ */
+- (void)setVariant:(BUYProductVariant *)variant withTotalQuantity:(NSInteger)quantity;
+
 @end
