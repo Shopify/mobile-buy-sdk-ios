@@ -140,6 +140,10 @@
 		address.city = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressCityKey);
 		address.province = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressStateKey);
 		address.zip = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressZIPKey);
+		// The Checkout API accepts country OR ISO country code.
+		// We default to the ISO country code because it's more
+		// reliable regardless of locale. Fallback to country if
+		// we do not receive it (iOS 8 sometimes)
 		address.countryCode = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressCountryCodeKey);
 		if (address.countryCode == nil) {
 			address.country = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressCountryKey);
@@ -179,6 +183,10 @@
 		address.city = [contact.postalAddress.city length] ? contact.postalAddress.city : BUYPartialAddressPlaceholder;
 		address.province = contact.postalAddress.state;
 		address.zip = contact.postalAddress.postalCode;
+		// The Checkout API accepts country OR ISO country code.
+		// We default to the ISO country code because it's more
+		// reliable regardless of locale. Fallback to country if
+		// we do not receive it (iOS 8 sometimes)
 		address.countryCode = contact.postalAddress.ISOCountryCode;
 		if (address.countryCode == nil) {
 			address.country = contact.postalAddress.country;
