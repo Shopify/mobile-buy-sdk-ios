@@ -10,14 +10,6 @@
 	<false/>
 	<key>--create-html</key>
 	<true/>
-	<key>--ignore</key>
-	<array>
-		<string>CheckoutAnywhereTests</string>
-		<string>Checkout</string>
-		<string>CheckoutTests</string>
-		<string>docs</string>
-		<string>CheckoutAnywhere/Utils</string>
-	</array>
 	<key>--index-desc</key>
 	<string>docs/index-template.md</string>
 	<key>--install-docset</key>
