@@ -108,10 +108,12 @@
 																	 metrics:nil
 																	   views:NSDictionaryOfVariableBindings(_tableView)]];
 		
-		CGFloat width = MIN(CGRectGetWidth(rect), CGRectGetHeight(rect));
-		if ([product.images count]) {
-			_productViewHeader = [[BUYProductViewHeader alloc] initWithFrame:CGRectMake(0, 0, width, width) theme:theme];
+		CGFloat size = MIN(CGRectGetWidth(rect), CGRectGetHeight(rect));
+		if ([product.images count] > 0) {
+			_productViewHeader = [[BUYProductViewHeader alloc] initWithFrame:CGRectMake(0, 0, size, size) theme:theme];
 			_tableView.tableHeaderView = self.productViewHeader;
+		} else {
+			_tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
 		}
 		
 		_poweredByShopifyLabel = [[UILabel alloc] init];

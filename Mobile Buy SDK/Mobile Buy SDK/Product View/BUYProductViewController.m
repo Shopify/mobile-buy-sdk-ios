@@ -137,10 +137,17 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 - (void)viewDidLayoutSubviews
 {
 	[super viewDidLayoutSubviews];
-	if (CGSizeEqualToSize(self.productView.productViewHeader.collectionView.bounds.size, CGSizeZero) == NO && self.productView.hasSetVariantOnCollectionView == NO) {
-		[self setSelectedProductVariant:self.selectedProductVariant];
-		self.productView.hasSetVariantOnCollectionView = YES;
+	if (self.productView.hasSetVariantOnCollectionView == NO) {
+		if ([self canCollectionViewDrawProductImages] || [self.product.images count] == 0) {
+			[self setSelectedProductVariant:self.selectedProductVariant];
+			self.productView.hasSetVariantOnCollectionView = YES;
+		}
 	}
+}
+
+- (BOOL)canCollectionViewDrawProductImages
+{
+	return [self.product.images count] > 0 && CGSizeEqualToSize(self.productView.productViewHeader.collectionView.bounds.size, CGSizeZero) == NO;
 }
 
 - (void)setupNavigationBarAppearance
