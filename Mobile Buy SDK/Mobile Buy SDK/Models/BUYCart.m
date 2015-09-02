@@ -67,6 +67,20 @@
 	}
 }
 
+- (void)setVariant:(BUYProductVariant *)variant withTotalQuantity:(NSInteger)quantity
+{
+	BUYCartLineItem *lineItem = [[BUYCartLineItem alloc] initWithVariant:variant];
+	BUYCartLineItem *existingLineItem = [self.lineItemsSet member:lineItem];
+	if (existingLineItem && quantity > 0) {
+		existingLineItem.quantity = (NSDecimalNumber*)[NSDecimalNumber numberWithInteger:quantity];
+	} else if (existingLineItem && quantity == 0) {
+		[self.lineItemsSet removeObject:existingLineItem];
+	} else {
+		lineItem.quantity = (NSDecimalNumber*)[NSDecimalNumber numberWithInteger:quantity];
+		[self.lineItemsSet addObject:lineItem];
+	}
+}
+
 #pragma mark - Helpers
 
 - (NSDictionary *)jsonDictionaryForCheckout
