@@ -126,12 +126,14 @@ NSString * const MerchantId = @"";
 {
     __weak CheckoutViewController *welf = self;
     
+    // First, the credit card must be stored on the checkout
     [self addCreditCardToCheckout:^(BOOL success) {
         
         if (success) {
             
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 
+            // upon successfully adding the credit card to the checkout, complete checkout must be called
             [welf.client completeCheckout:welf.checkout completion:^(BUYCheckout *checkout, NSError *error) {
                 
                 if (error == nil && checkout) {

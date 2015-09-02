@@ -6,17 +6,17 @@
 //  Copyright (c) 2015 Shopify. All rights reserved.
 //
 
-#import "MasterViewController.h"
+#import "ProductListViewController.h"
 #import "ShippingRatesTableViewController.h"
 
 @import Buy;
 
-@interface MasterViewController ()
+@interface ProductListViewController ()
 @property BUYClient *client;
 @property NSArray *objects;
 @end
 
-@implementation MasterViewController
+@implementation ProductListViewController
 
 - (void)awakeFromNib {
     [super awakeFromNib];
