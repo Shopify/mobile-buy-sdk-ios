@@ -24,7 +24,7 @@ NSString * const BUYPartialAddressPlaceholder = @"---";
 	return NO;
 }
 
-- (BOOL)isValidAddress
+- (BOOL)isValidAddressForShippingRates
 {
 	BOOL valid = NO;
 	

@@ -110,7 +110,7 @@ const NSTimeInterval PollDelay = 0.5;
 
 - (void)updateCheckoutWithAddressCompletion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion
 {
-	if ([self.checkout.shippingAddress isValidAddress]) {
+	if ([self.checkout.shippingAddress isValidAddressForShippingRates]) {
 		
 		[self.client updateCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
 			if (checkout && error == nil) {

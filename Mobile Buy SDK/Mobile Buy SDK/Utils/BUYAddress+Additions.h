@@ -14,6 +14,6 @@ extern NSString * const BUYPartialAddressPlaceholder;
 
 - (BOOL)isPartialAddress;
 
-- (BOOL)isValidAddress;
+- (BOOL)isValidAddressForShippingRates;
 
 @end
