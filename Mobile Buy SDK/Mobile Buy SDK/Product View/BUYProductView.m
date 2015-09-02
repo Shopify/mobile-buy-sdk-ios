@@ -113,7 +113,7 @@
 			_productViewHeader = [[BUYProductViewHeader alloc] initWithFrame:CGRectMake(0, 0, size, size) theme:theme];
 			_tableView.tableHeaderView = self.productViewHeader;
 		} else {
-			_tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+			_tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)];
 		}
 		
 		_poweredByShopifyLabel = [[UILabel alloc] init];
