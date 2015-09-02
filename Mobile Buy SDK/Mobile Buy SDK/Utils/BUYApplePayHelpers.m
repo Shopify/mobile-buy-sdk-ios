@@ -11,6 +11,7 @@
 #import "BUYCheckout.h"
 #import "BUYApplePayAdditions.h"
 #import "BUYError.h"
+#import "BUYAddress+Additions.h"
 
 const NSTimeInterval PollDelay = 0.5;
 
@@ -96,29 +97,35 @@ const NSTimeInterval PollDelay = 0.5;
 - (void)updateCheckoutWithAddress:(ABRecordRef)address completion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion
 {
 	self.checkout.shippingAddress = [BUYAddress buy_addressFromRecord:address];
-	[self updateCheckoutWithAddressOrContactCompletion:completion];
+	[self updateCheckoutWithAddressCompletion:completion];
 }
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
 - (void)updateCheckoutWithContact:(PKContact*)contact completion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion
 {
 	self.checkout.shippingAddress = [BUYAddress buy_addressFromContact:contact];
-	[self updateCheckoutWithAddressOrContactCompletion:completion];
+	[self updateCheckoutWithAddressCompletion:completion];
 }
 #endif
 
-- (void)updateCheckoutWithAddressOrContactCompletion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion
+- (void)updateCheckoutWithAddressCompletion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion
 {
-	[self.client updateCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
-		if (checkout && error == nil) {
-			self.checkout = checkout;
-			[self getShippingRates:self.checkout completion:completion];
-		}
-		else {
-			self.lastError = error;
-			completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItems]);
-		}
-	}];
+	if ([self.checkout.shippingAddress isValidAddress]) {
+		
+		[self.client updateCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
+			if (checkout && error == nil) {
+				self.checkout = checkout;
+				[self getShippingRates:self.checkout completion:completion];
+			}
+			else {
+				self.lastError = error;
+				completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItems]);
+			}
+		}];
+	}
+	else {
+		completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItems]);
+	}
 }
 
 #pragma mark - internal
