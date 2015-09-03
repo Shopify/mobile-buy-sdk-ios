@@ -50,6 +50,13 @@
 		[[UIBarButtonItem appearanceWhenContainedIn:[BUYNavigationController class], nil] setBackButtonBackgroundImage:[buttonImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 12, 0, 0)]
 																											  forState:UIControlStateNormal
 																											barMetrics:UIBarMetricsDefault];
+		
+		_breadsCrumbsView = [[BUYVariantOptionBreadCrumbsView alloc] init];
+		_breadsCrumbsView.translatesAutoresizingMaskIntoConstraints = NO;
+		[self.view addSubview:_breadsCrumbsView];
+		[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_breadsCrumbsView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_breadsCrumbsView)]];
+		[self.view addConstraint:[NSLayoutConstraint constraintWithItem:_breadsCrumbsView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.navigationBar attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0]];
+		[self.view addConstraint:[NSLayoutConstraint constraintWithItem:_breadsCrumbsView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:20]];
 	}
 	
 	return self;

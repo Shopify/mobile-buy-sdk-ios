@@ -33,6 +33,7 @@
 #import "BUYTheme.h"
 #import "BUYTheme+Additions.h"
 #import "BUYVariantSelectionViewController.h"
+#import "BUYVariantOptionBreadCrumbsView.h"
 
 @interface BUYVariantSelectionViewController () <BUYOptionSelectionDelegate>
 
@@ -112,6 +113,7 @@
 	optionController.isLastOption = [self isLastOption];
 	optionController.currencyFormatter = self.currencyFormatter;
 	optionController.title = option.name;
+	[[(BUYOptionSelectionNavigationController*)self.navigationController breadsCrumbsView] setSelectedBuyOptionValues:self.selectedOptions];
 	return optionController;
 }
 

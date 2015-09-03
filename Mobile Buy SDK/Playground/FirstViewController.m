@@ -30,11 +30,24 @@
 
 @interface FirstViewController ()
 
+@property (nonatomic, strong) BUYClient *client;
+
 @end
 
 @implementation FirstViewController
 
 - (IBAction)buttonAction:(id)sender {
+	self.client = [[BUYClient alloc] initWithShopDomain:@"the-app-boutique.myshopify.com"
+												 apiKey:@"506ede8b60f86fbf86109a762fe8093d"
+											  channelId:@"9060547"];
+	self.client.urlScheme = @"sampleapp://";
+	
+	BUYProductViewController *productViewController = [[BUYProductViewController alloc] initWithClient:self.client];
+	[productViewController loadProduct:@"" completion:^(BOOL success, NSError *error) {
+		if (!error) {
+			[self presentViewController:productViewController animated:YES completion:NULL];
+		}
+	}];
 }
 
 @end
