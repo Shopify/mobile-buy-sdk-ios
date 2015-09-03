@@ -53,13 +53,15 @@
 	UIButton *button = (UIButton*)self.topViewController.navigationItem.leftBarButtonItem.customView;
 	UIImage *oldButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:button.bounds color:darkStyle ? [UIColor whiteColor] : self.theme.tintColor hasShadow:darkStyle == NO];
 	UIImage *newButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:button.bounds color:darkStyle ? self.theme.tintColor : [UIColor whiteColor] hasShadow:darkStyle == NO];
-	CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
-	crossFade.duration = duration;
-	crossFade.fromValue = (id)oldButtonImage.CGImage;
-	crossFade.toValue = (id)newButtonImage.CGImage;
-	crossFade.removedOnCompletion = YES;
-	crossFade.fillMode = kCAFillModeForwards;
-	[button.imageView.layer addAnimation:crossFade forKey:@"contents"];
+	if (duration > 0) {
+		CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
+		crossFade.duration = duration;
+		crossFade.fromValue = (id)oldButtonImage.CGImage;
+		crossFade.toValue = (id)newButtonImage.CGImage;
+		crossFade.removedOnCompletion = YES;
+		crossFade.fillMode = kCAFillModeForwards;
+		[button.imageView.layer addAnimation:crossFade forKey:@"contents"];
+	}
 	[button setImage:newButtonImage forState:UIControlStateNormal];
 }
 
