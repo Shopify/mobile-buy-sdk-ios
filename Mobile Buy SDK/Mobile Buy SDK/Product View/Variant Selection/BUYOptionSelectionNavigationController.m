@@ -90,6 +90,8 @@
 							 [self.breadsCrumbsView layoutIfNeeded];
 						 }
 						 completion:NULL];
+	} else {
+		[self.breadsCrumbsView layoutIfNeeded];
 	}
 }
 
