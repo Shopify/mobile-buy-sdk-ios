@@ -163,6 +163,7 @@
 	[self.selectedOptions removeObjectForKey:option.name];
 	[self.optionValueNames removeLastObject];
 	self.filteredProductVariantsForSelectionOption = controller.filteredProductVariantsForSelectionOption;
+	[[(BUYOptionSelectionNavigationController*)self.navigationController breadsCrumbsView] setSelectedBuyOptionValues:[self.optionValueNames copy]];
 	if ([self isFirstOption]) {
 		[(BUYOptionSelectionNavigationController*)self.navigationController setBreadcrumbsVisible:NO animated:YES];
 	}

@@ -63,7 +63,6 @@
 		[NSLayoutConstraint activateConstraints:@[_breadcrumbsHiddenConstraint]];
 		
 		[self.view addConstraint:[NSLayoutConstraint constraintWithItem:_breadsCrumbsView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.navigationBar attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0]];
-		[self.view addConstraint:[NSLayoutConstraint constraintWithItem:_breadsCrumbsView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:44]];
 	}
 	
 	return self;
@@ -71,6 +70,10 @@
 
 - (void)setBreadcrumbsVisible:(BOOL)visible animated:(BOOL)animated
 {
+	// Check if we need to animate
+	if ((visible && _breadcrumbsVisibleConstraint.isActive) || (visible == NO && _breadcrumbsHiddenConstraint.isActive)) {
+		return;
+	}
 	if (visible) {
 		[NSLayoutConstraint deactivateConstraints:@[_breadcrumbsHiddenConstraint]];
 		[NSLayoutConstraint activateConstraints:@[_breadcrumbsVisibleConstraint]];
@@ -79,8 +82,10 @@
 		[NSLayoutConstraint activateConstraints:@[_breadcrumbsHiddenConstraint]];
 	}
 	if (animated) {
+		// 7 << 16 is an animation curve that copies UINavigationController push/pop which has a decay animation
 		[UIView animateWithDuration:0.3
-							  delay:0 options:(UIViewAnimationOptionBeginFromCurrentState | 7 << 16)
+							  delay:0
+							options:(UIViewAnimationOptionBeginFromCurrentState | 7 << 16)
 						 animations:^{
 							 [self.breadsCrumbsView layoutIfNeeded];
 						 }
