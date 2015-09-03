@@ -179,9 +179,9 @@ NSString * const MerchantId = @"";
     PKPaymentRequest *request = [self paymentRequest];
     
     PKPaymentAuthorizationViewController *paymentController = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:request];
-    paymentController.delegate = self;
  
     self.applePayHelper = [[BUYApplePayHelpers alloc] initWithClient:self.client checkout:self.checkout];
+    paymentController.delegate = self.applePayHelper;
     
     [self presentViewController:paymentController animated:YES completion:nil];
 }
@@ -203,35 +203,6 @@ NSString * const MerchantId = @"";
     
     return paymentRequest;
 }
-
-- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didAuthorizePayment:(PKPayment *)payment completion:(void (^)(PKPaymentAuthorizationStatus status))completion
-{
-    [self.applePayHelper updateAndCompleteCheckoutWithPayment:payment completion:completion];
-}
-
-- (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller
-{
-    [controller dismissViewControllerAnimated:YES completion:nil];
-}
-
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
-- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingMethod:(nonnull PKShippingMethod *)shippingMethod completion:(nonnull void (^)(PKPaymentAuthorizationStatus, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
-#else
-- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingMethod:(PKShippingMethod *)shippingMethod completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *summaryItems))completion
-#endif
-{
-    [self.applePayHelper updateCheckoutWithShippingMethod:shippingMethod completion:completion];
-}
-
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
-- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingAddress:(ABRecordRef)address completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
-#else
-- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingAddress:(ABRecordRef)address completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *shippingMethods, NSArray *summaryItems))completion
-#endif
-{
-    [self.applePayHelper updateCheckoutWithAddress:address completion:completion];
-}
-
 
 # pragma mark - Web checkout
 
