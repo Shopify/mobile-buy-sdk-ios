@@ -25,13 +25,13 @@
 {
 	self = [super init];
 	if (self) {
-		self.backgroundColor = [UIColor colorWithRed:0.89 green:0.89 blue:0.89 alpha:1];
+		self.backgroundColor = [UIColor colorWithRed:0.89f green:0.89f blue:0.89f alpha:1];
 		self.layoutMargins = UIEdgeInsetsMake(kBuyPaddingSmall, kBuyPaddingExtraLarge, kBuyPaddingSmall, kBuyPaddingMedium);
 		
 		_optionOneLabel = [UILabel new];
 		_optionOneLabel.translatesAutoresizingMaskIntoConstraints = NO;
 		_optionOneLabel.font = [BUYTheme variantOptionPriceFont];
-		_optionOneLabel.textColor = [UIColor colorWithRed:0.43 green:0.43 blue:0.43 alpha:1];// [BUYTheme variantPriceTextColor];
+		_optionOneLabel.textColor = [UIColor colorWithRed:0.43f green:0.43f blue:0.43f alpha:1];
 		[self addSubview:_optionOneLabel];
 		
 		_optionTwoLabel = [UILabel new];
