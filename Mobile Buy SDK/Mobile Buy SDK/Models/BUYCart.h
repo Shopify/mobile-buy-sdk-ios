@@ -5,6 +5,24 @@
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
 
 @import Foundation;
 #import "BUYSerializable.h"
@@ -53,5 +71,15 @@
  *  @param variant The BUYProductVariant to remove from the BUYCart or decrease by one quantity
  */
 - (void)removeVariant:(BUYProductVariant *)variant;
+
+/**
+ *  Adds a BUYCartLineItem with a set quantity to the BUYCart with the given BUYProductVariant object on it.
+ *  If the associated BUYCartLineItem exists, that BUYCartLineItem's quantity is overriden with the quantity specificed.
+ *  If the quantity is 0 the associated BUYCartLineItem is removed from `lineItems`.
+ *
+ *  @param variant  The BUYProductVariant to add to the BUYCart with a quantity
+ *  @param quantity The quantity for the BUYCartLineItem associated with the BUYProductVariant
+ */
+- (void)setVariant:(BUYProductVariant *)variant withTotalQuantity:(NSInteger)quantity;
 
 @end

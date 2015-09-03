@@ -1,9 +1,27 @@
 //
 //  BUYApplePayAdditions.m
-//  Checkout
+//  Mobile Buy SDK
 //
-//  Created by Shopify on 2015-02-11.
+//  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 //
 
 @import AddressBook;
@@ -140,7 +158,14 @@
 		address.city = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressCityKey);
 		address.province = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressStateKey);
 		address.zip = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressZIPKey);
-		address.country = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressCountryKey);
+		// The Checkout API accepts country OR ISO country code.
+		// We default to the ISO country code because it's more
+		// reliable regardless of locale. Fallback to country if
+		// we do not receive it (iOS 8 sometimes)
+		address.countryCode = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressCountryCodeKey);
+		if (address.countryCode == nil) {
+			address.country = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressCountryKey);
+		}
 	}
 	CFSafeRelease(allAddresses);
 	CFSafeRelease(addressMultiValue);
@@ -159,5 +184,37 @@
 	
 	return address;
 }
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
++ (BUYAddress *)buy_addressFromContact:(PKContact*)contact
+{
+	BUYAddress *address = [[BUYAddress alloc] init];
+	
+	address.firstName = [contact.name.givenName length] ? contact.name.givenName : BUYPartialAddressPlaceholder;
+	address.lastName = [contact.name.familyName length] ? contact.name.familyName : BUYPartialAddressPlaceholder;
+	
+	if (contact.postalAddress) {
+		// break up the address:
+		NSArray *addressComponents = [contact.postalAddress.street componentsSeparatedByString:@"\n"];
+		address.address1 = [addressComponents[0] length] ? addressComponents[0] : BUYPartialAddressPlaceholder;
+		address.address2 = ([addressComponents count] > 1 && addressComponents[1]) ? addressComponents[1] : nil;
+		address.city = [contact.postalAddress.city length] ? contact.postalAddress.city : BUYPartialAddressPlaceholder;
+		address.province = contact.postalAddress.state;
+		address.zip = contact.postalAddress.postalCode;
+		// The Checkout API accepts country OR ISO country code.
+		// We default to the ISO country code because it's more
+		// reliable regardless of locale. Fallback to country if
+		// we do not receive it (iOS 8 sometimes)
+		address.countryCode = contact.postalAddress.ISOCountryCode;
+		if (address.countryCode == nil) {
+			address.country = contact.postalAddress.country;
+		}
+	}
+
+	address.phone = contact.phoneNumber.stringValue ?: BUYPartialAddressPlaceholder;
+	
+	return address;
+}
+#endif
 
 @end

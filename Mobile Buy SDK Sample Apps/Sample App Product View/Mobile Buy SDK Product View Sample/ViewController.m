@@ -1,9 +1,27 @@
 //
 //  ViewController.m
-//  Mobile Buy SDK Product View Sample
+//  Mobile Buy SDK
 //
-//  Created by David Muzi on 2015-07-16.
-//  Copyright (c) 2015 Shopify. All rights reserved.
+//  Created by Shopify.
+//  Copyright (c) 2015 Shopify Inc. All rights reserved.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 //
 
 #import "ViewController.h"
@@ -18,7 +36,7 @@
 #warning Optionally, to support Apple Pay, enter your merchant ID
 #define MERCHANT_ID @""
 
-@interface ViewController ()
+@interface ViewController () <BUYViewControllerDelegate>
 @property (nonatomic, strong) NSArray *products;
 @property (nonatomic, strong) BUYClient *client;
 
@@ -50,19 +68,12 @@
     }];
 }
 
-- (void)getCheckoutStatusWithURL:(NSURL *)url
-{
-    [self.client getCompletionStatusOfCheckoutURL:url completion:^(BUYStatus status, NSError *error) {
-        NSLog(@"Checkout status: %lu", (unsigned long)status);
-    }];
-}
-
-
 - (BUYProductViewController *)productViewController
 {
     // reusing the same productViewController will prevent unnecessary network calls in subsequent uses
     if (_productViewController == nil) {
         _productViewController = [[BUYProductViewController alloc] initWithClient:self.client];
+        _productViewController.delegate = self;
         _productViewController.merchantId = MERCHANT_ID;
     }
     
@@ -106,6 +117,28 @@
             }
         }];
     }
+}
+
+#pragma mark - BUYViewController delegate methods
+
+- (void)controllerWillCheckoutViaWeb:(BUYViewController *)viewController
+{
+    NSLog(@"Started web checkout");
+}
+
+- (void)controller:(BUYViewController *)controller didDismissWebCheckout:(BUYCheckout *)checkout
+{
+    NSLog(@"web view controller dismissed");
+}
+
+- (void)controller:(BUYViewController *)controller didCompleteCheckout:(BUYCheckout *)checkout status:(BUYStatus)status
+{
+    NSLog(@"web checkout complete: %lu", (unsigned long)status);
+}
+
+- (void)didDismissViewController:(BUYViewController *)viewController
+{
+    NSLog(@"product view controller dismissed");
 }
 
 @end

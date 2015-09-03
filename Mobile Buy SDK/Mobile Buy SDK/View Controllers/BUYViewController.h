@@ -5,6 +5,24 @@
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
 
 @import UIKit;
 @import PassKit;
@@ -85,6 +103,21 @@
  */
 - (void)controller:(BUYViewController *)controller didDismissApplePayControllerWithStatus:(PKPaymentAuthorizationStatus)status forCheckout:(BUYCheckout *)checkout;
 
+/**
+ *  This is called when the SFSafariViewController has been dismissed before checkout completion.
+ *
+ *  @param controller The BUYViewController
+ *  @param checkout   The BUYCheckout
+ */
+- (void)controller:(BUYViewController *)controller didDismissWebCheckout:(BUYCheckout *)checkout;
+
+/**
+ *  The view controller has been dismissed
+ *
+ *  @param controller The BUYViewController
+ */
+- (void)didDismissViewController:(BUYViewController *)controller;
+
 @optional
 
 /**
@@ -152,7 +185,9 @@
 #pragma mark - Apple Pay Overrides
 
 /**
- *  The supported credit card payment networks. As of iOS 8.3: PKPaymentNetworkAmex, PKPaymentNetworkMasterCard and PKPaymentNetworkVisa are the only valid options. 
+ *  The supported credit card payment networks. 
+ *  iOS 8.3: PKPaymentNetworkAmex, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa.
+ *  iOS 9.0: PKPaymentNetworkAmex, PKPaymentNetworkDiscover, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa.
  */
 @property (nonatomic, copy) NSArray *supportedNetworks;
 
@@ -212,5 +247,12 @@
  *  @param status   The status of the BUYCheckout
  */
 - (void)checkoutCompleted:(BUYCheckout *)checkout status:(BUYStatus)status;
+
+/**
+ *  Call this method from the application delegate method openURL:sourceApplication:annotation when returning from a web checkout
+ *
+ *  @param url the NSURL passed in to the app delegate
+ */
++ (void)completeCheckoutFromLaunchURL:(NSURL *)url;
 
 @end
