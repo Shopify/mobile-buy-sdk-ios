@@ -314,8 +314,8 @@ NSString * BUYURLKey = @"url";
 
 - (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller
 {
-	// The checkout is done at this point, it may have succeeded or failed. You are responsible for dealing with failure/success earlier in the steps.
-	[controller dismissViewControllerAnimated:YES completion:^{
+	// The checkout is done at this point, it may have succeeded or failed. You are responsible for dealing with failure/success earlier in the steps.	
+	[self dismissViewControllerAnimated:YES completion:^{
 		// If Apple Pay is dismissed with Cancel we need to clear the reservation time on the products in the checkout
 		if (self.paymentAuthorizationStatus != PKPaymentAuthorizationStatusSuccess) {
 			[self.client removeProductReservationsFromCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
