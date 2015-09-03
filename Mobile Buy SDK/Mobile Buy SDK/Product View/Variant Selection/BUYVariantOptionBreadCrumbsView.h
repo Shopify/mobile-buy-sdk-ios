@@ -10,6 +10,6 @@
 
 @interface BUYVariantOptionBreadCrumbsView : UIView
 
-- (void)setSelectedBuyOptionValues:(NSArray*)
+- (void)setSelectedBuyOptionValues:(NSArray*)optionValues;
 
 @end

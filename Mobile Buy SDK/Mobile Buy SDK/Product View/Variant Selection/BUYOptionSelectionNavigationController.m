@@ -31,6 +31,9 @@
 
 @interface BUYOptionSelectionNavigationController () <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
 
+@property (nonatomic, strong) NSLayoutConstraint *breadcrumbsHiddenConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *breadcrumbsVisibleConstraint;
+
 @end
 
 @implementation BUYOptionSelectionNavigationController
@@ -51,15 +54,38 @@
 																											  forState:UIControlStateNormal
 																											barMetrics:UIBarMetricsDefault];
 		
-		_breadsCrumbsView = [[BUYVariantOptionBreadCrumbsView alloc] init];
+		_breadsCrumbsView = [BUYVariantOptionBreadCrumbsView new];
 		_breadsCrumbsView.translatesAutoresizingMaskIntoConstraints = NO;
 		[self.view addSubview:_breadsCrumbsView];
-		[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_breadsCrumbsView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_breadsCrumbsView)]];
+		[self.view addConstraint:[NSLayoutConstraint constraintWithItem:_breadsCrumbsView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
+		_breadcrumbsVisibleConstraint = [NSLayoutConstraint constraintWithItem:_breadsCrumbsView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0];
+		_breadcrumbsHiddenConstraint = [NSLayoutConstraint constraintWithItem:_breadsCrumbsView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1.0 constant:0];
+		[NSLayoutConstraint activateConstraints:@[_breadcrumbsHiddenConstraint]];
+		
 		[self.view addConstraint:[NSLayoutConstraint constraintWithItem:_breadsCrumbsView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.navigationBar attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0]];
-		[self.view addConstraint:[NSLayoutConstraint constraintWithItem:_breadsCrumbsView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:20]];
+		[self.view addConstraint:[NSLayoutConstraint constraintWithItem:_breadsCrumbsView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:44]];
 	}
 	
 	return self;
+}
+
+- (void)setBreadcrumbsVisible:(BOOL)visible animated:(BOOL)animated
+{
+	if (visible) {
+		[NSLayoutConstraint deactivateConstraints:@[_breadcrumbsHiddenConstraint]];
+		[NSLayoutConstraint activateConstraints:@[_breadcrumbsVisibleConstraint]];
+	} else {
+		[NSLayoutConstraint deactivateConstraints:@[_breadcrumbsVisibleConstraint]];
+		[NSLayoutConstraint activateConstraints:@[_breadcrumbsHiddenConstraint]];
+	}
+	if (animated) {
+		[UIView animateWithDuration:0.3
+							  delay:0 options:(UIViewAnimationOptionBeginFromCurrentState | 7 << 16)
+						 animations:^{
+							 [self.breadsCrumbsView layoutIfNeeded];
+						 }
+						 completion:NULL];
+	}
 }
 
 - (void)setTheme:(BUYTheme *)theme
