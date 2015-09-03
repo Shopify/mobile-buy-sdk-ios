@@ -16,6 +16,11 @@
 #import "NSDecimalNumber+BUYAdditions.h"
 #import "NSDateFormatter+BUYAdditions.h"
 
+#import "BUYPKContact.h"
+#import "BUYNSPersonNameComponents.h"
+#import "BUYCNPostalAddress.h"
+
+
 @interface BUYApplePayAdditionsTest : XCTestCase
 @end
 
@@ -285,47 +290,44 @@
 
 - (void)testAddressFromRecord
 {
-	ABRecordRef person = ABPersonCreate();
-	CFErrorRef error = NULL;
-	ABRecordSetValue(person, kABPersonFirstNameProperty, CFSTR("Bob"), &error);
-	ABRecordSetValue(person, kABPersonLastNameProperty, CFSTR("Banana"), &error);
-	
-	ABMutableMultiValueRef addresses = ABMultiValueCreateMutable(kABMultiDictionaryPropertyType);
-	CFMutableDictionaryRef address = CFDictionaryCreateMutable(kCFAllocatorDefault, 10, nil, nil);
-	CFDictionarySetValue(address, kABPersonAddressStreetKey, CFSTR("150 Elgin Street"));
-	CFDictionarySetValue(address, kABPersonAddressCityKey, CFSTR("Ottawa"));
-	CFDictionarySetValue(address, kABPersonAddressStateKey, CFSTR("Ontario"));
-	CFDictionarySetValue(address, kABPersonAddressZIPKey, CFSTR("K1N5T5"));
-	CFDictionarySetValue(address, kABPersonAddressCountryKey, CFSTR("Canada"));
-	
-	ABMultiValueAddValueAndLabel(addresses, address, CFSTR("Shipping"), nil);
-	CFRelease(address);
-	
-	ABRecordSetValue(person, kABPersonAddressProperty, addresses, &error);
-	CFRelease(addresses);
-	
-	BUYAddress *newAddress = [BUYAddress buy_addressFromRecord:person];
+	BUYAddress *newAddress = [self buyAddressWithTestRecordFullDetails:YES];
 	XCTAssertNotNil(newAddress);
+	XCTAssertEqualObjects(@"Bob", newAddress.firstName);
+	XCTAssertEqualObjects(@"Banana", newAddress.lastName);
 	XCTAssertEqualObjects(@"150 Elgin Street", newAddress.address1);
 	XCTAssertEqualObjects(@"Ottawa", newAddress.city);
 	XCTAssertEqualObjects(@"Ontario", newAddress.province);
 	XCTAssertEqualObjects(@"K1N5T5", newAddress.zip);
-	XCTAssertEqualObjects(@"Canada", newAddress.country);
-	
-	CFRelease(person);
+	XCTAssertNil(newAddress.country);
+	XCTAssertEqualObjects(@"CA", newAddress.countryCode);
+	XCTAssertEqualObjects(@"1-888-746-7439", newAddress.phone);
 }
 
-- (void)testAddressFromRecordWithoutNameOrStreetOrPhone
+- (BUYAddress*)buyAddressWithTestRecordFullDetails:(BOOL)fullDetails
 {
 	ABRecordRef person = ABPersonCreate();
 	CFErrorRef error = NULL;
+	if (fullDetails) {
+		ABRecordSetValue(person, kABPersonFirstNameProperty, CFSTR("Bob"), &error);
+		ABRecordSetValue(person, kABPersonLastNameProperty, CFSTR("Banana"), &error);
+	}
 	
 	ABMutableMultiValueRef addresses = ABMultiValueCreateMutable(kABMultiDictionaryPropertyType);
 	CFMutableDictionaryRef address = CFDictionaryCreateMutable(kCFAllocatorDefault, 10, nil, nil);
+	if (fullDetails) {
+		CFDictionarySetValue(address, kABPersonAddressStreetKey, CFSTR("150 Elgin Street"));
+	}
 	CFDictionarySetValue(address, kABPersonAddressCityKey, CFSTR("Ottawa"));
 	CFDictionarySetValue(address, kABPersonAddressStateKey, CFSTR("Ontario"));
 	CFDictionarySetValue(address, kABPersonAddressZIPKey, CFSTR("K1N5T5"));
 	CFDictionarySetValue(address, kABPersonAddressCountryKey, CFSTR("Canada"));
+	CFDictionarySetValue(address, kABPersonAddressCountryCodeKey, CFSTR("CA"));
+	
+	if (fullDetails) {
+		ABMutableMultiValueRef phoneNumberMultiValue = ABMultiValueCreateMutable(kABMultiStringPropertyType);
+		ABMultiValueAddValueAndLabel(phoneNumberMultiValue, @"1-888-746-7439", kABPersonPhoneMobileLabel, NULL);
+		ABRecordSetValue(person, kABPersonPhoneProperty, phoneNumberMultiValue, nil);
+	}
 	
 	ABMultiValueAddValueAndLabel(addresses, address, CFSTR("Shipping"), nil);
 	CFRelease(address);
@@ -333,23 +335,95 @@
 	ABRecordSetValue(person, kABPersonAddressProperty, addresses, &error);
 	CFRelease(addresses);
 	
-	ABRecordSetValue(person, kABPersonFirstNameProperty, (__bridge CFStringRef)BUYPartialAddressPlaceholder, &error);
-	ABRecordSetValue(person, kABPersonLastNameProperty, (__bridge CFStringRef)BUYPartialAddressPlaceholder, &error);
-
-	ABMutableMultiValueRef phoneNumberMultiValue  = ABMultiValueCreateMutable(kABMultiStringPropertyType);
-	ABMultiValueAddValueAndLabel(phoneNumberMultiValue, (__bridge CFStringRef)BUYPartialAddressPlaceholder, kABPersonPhoneMobileLabel, NULL);
-	ABRecordSetValue(person, kABPersonPhoneProperty, phoneNumberMultiValue, &error);
-	
 	BUYAddress *newAddress = [BUYAddress buy_addressFromRecord:person];
+	
+	CFRelease(person);
+
+	return newAddress;
+}
+
+- (void)testAddressFromRecordWithoutNameOrStreetOrPhone
+{
+	BUYAddress *newAddress = [self buyAddressWithTestRecordFullDetails:NO];
 	XCTAssertNotNil(newAddress);
 	XCTAssertEqualObjects(BUYPartialAddressPlaceholder, newAddress.address1);
 	XCTAssertEqualObjects(@"Ottawa", newAddress.city);
 	XCTAssertEqualObjects(@"Ontario", newAddress.province);
 	XCTAssertEqualObjects(@"K1N5T5", newAddress.zip);
-	XCTAssertEqualObjects(@"Canada", newAddress.country);
+	XCTAssertNil(newAddress.country);
+	XCTAssertEqualObjects(@"CA", newAddress.countryCode);
 	XCTAssertEqualObjects(BUYPartialAddressPlaceholder, newAddress.phone);
-	
-	CFRelease(person);
 }
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
+- (void)testAddressFromContact
+{
+	BUYAddress *newAddress = [self buyAddressWithTestContactFullDetails:YES];
+	
+	XCTAssertNotNil(newAddress);
+	XCTAssertEqualObjects(@"Bob", newAddress.firstName);
+	XCTAssertEqualObjects(@"Banana", newAddress.lastName);
+	XCTAssertEqualObjects(@"150 Elgin Street", newAddress.address1);
+	XCTAssertEqualObjects(@"Ottawa", newAddress.city);
+	XCTAssertEqualObjects(@"Ontario", newAddress.province);
+	XCTAssertEqualObjects(@"K1N5T5", newAddress.zip);
+	XCTAssertEqualObjects(@"Canada", newAddress.country);
+	XCTAssertEqualObjects(@"CA", newAddress.countryCode);
+}
+
+- (BUYAddress*)buyAddressWithTestContactFullDetails:(BOOL)fullDetails
+{
+	BUYPKContact *contact = [[BUYPKContact alloc ] init];
+	BUYCNPostalAddress *postalAddress = [[BUYCNPostalAddress alloc] init];
+	
+	if (fullDetails) {
+		BUYNSPersonNameComponents *personNameComponents = [[BUYNSPersonNameComponents alloc] init];
+		[personNameComponents setGivenName:@"Bob"];
+		[personNameComponents setFamilyName:@"Banana"];
+		[contact setName:personNameComponents];
+		CNPhoneNumber *phoneNumber = [CNPhoneNumber phoneNumberWithStringValue:@"1-888-746-7439"];
+		[contact setPhoneNumber:phoneNumber];
+		[postalAddress setStreet:@"150 Elgin Street"];
+	}
+	
+	[postalAddress setCity:@"Ottawa"];
+	[postalAddress setState:@"Ontario"];
+	[postalAddress setPostalCode:@"K1N5T5"];
+	[postalAddress setCountry:@"Canada"];
+	[postalAddress setISOCountryCode:@"CA"];
+	[contact setPostalAddress:postalAddress];
+	
+	return [BUYAddress buy_addressFromContact:contact];
+}
+
+- (void)testCompareAddressWithContactWithNameOrStreetOrPhone
+{
+	BUYAddress *addressFromRecord = [self buyAddressWithTestRecordFullDetails:YES];
+	BUYAddress *addressFromContact = [self buyAddressWithTestContactFullDetails:YES];
+	[self compareAddressFromRecord:addressFromRecord withAddressFromContact:addressFromContact];
+}
+
+- (void)testCompareAddressWithContactWithoutNameOrStreetOrPhone
+{
+	BUYAddress *addressFromRecord = [self buyAddressWithTestRecordFullDetails:NO];
+	BUYAddress *addressFromContact = [self buyAddressWithTestContactFullDetails:NO];
+	[self compareAddressFromRecord:addressFromRecord withAddressFromContact:addressFromContact];
+}
+
+- (void)compareAddressFromRecord:(BUYAddress*)addressFromRecord withAddressFromContact:(BUYAddress*)addressFromContact {
+	XCTAssertNotNil(addressFromRecord);
+	XCTAssertNotNil(addressFromContact);
+	XCTAssertEqualObjects(addressFromRecord.firstName, addressFromContact.firstName);
+	XCTAssertEqualObjects(addressFromRecord.lastName, addressFromContact.lastName);
+	XCTAssertEqualObjects(addressFromRecord.address1, addressFromContact.address1);
+	XCTAssertEqualObjects(addressFromRecord.address2, addressFromContact.address2);
+	XCTAssertEqualObjects(addressFromRecord.city, addressFromContact.city);
+	XCTAssertEqualObjects(addressFromRecord.province, addressFromContact.province);
+	XCTAssertEqualObjects(addressFromRecord.zip, addressFromContact.zip);
+	XCTAssertEqualObjects(addressFromRecord.country, addressFromContact.country);
+	XCTAssertEqualObjects(addressFromRecord.phone, addressFromContact.phone);
+	XCTAssertNotEqualObjects(addressFromRecord.countryCode, addressFromContact.countryCode);
+}
+#endif
 
 @end

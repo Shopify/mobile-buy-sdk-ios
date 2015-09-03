@@ -5,6 +5,24 @@
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
 
 #import "BUYObject.h"
 #import "BUYSerializable.h"
@@ -139,12 +157,14 @@
 @property (nonatomic, readonly) NSString *shippingRateId;
 
 /**
- *  Discounts applied to the checkout
+ *  A discount added to the checkout
+ *  Only one discount can be added to a checkout. Call `updateCheckout:completion:`
+ *  after adding a discount to apply the discount code to the checkout.
  */
 @property (nonatomic, strong) BUYDiscount *discount;
 
 /**
- *  An array of BUYDiscount objects applied to the checkout
+ *  An array of BUYGiftCard objects applied to the checkout
  */
 @property (nonatomic, strong, readonly) NSArray *giftCards;
 
@@ -207,19 +227,14 @@
 @property (nonatomic, strong, readonly) NSURL *termsOfServiceURL;
 
 /**
- *  The name of the source of the checkout (ie, web, ios)
+ *  The name of the source of the checkout: "mobile_app"
  */
 @property (nonatomic, copy, readonly) NSString *sourceName;
 
 /**
- *  The unique identifier for the source
+ *  The unique identifier for the source: the channelId
  */
 @property (nonatomic, copy, readonly) NSString *sourceIdentifier;
-
-/**
- *  The URL for the source
- */
-@property (nonatomic, strong, readonly) NSURL *sourceURL;
 
 /**
  *  Credit card stored on the checkout

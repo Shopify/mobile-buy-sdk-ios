@@ -2,8 +2,26 @@
 //  BUYApplePayHelpers.m
 //  Mobile Buy SDK
 //
-//  Created by David Muzi on 2015-05-27.
+//  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 //
 
 #import "BUYApplePayHelpers.h"
@@ -11,6 +29,7 @@
 #import "BUYCheckout.h"
 #import "BUYApplePayAdditions.h"
 #import "BUYError.h"
+#import "BUYAddress+Additions.h"
 
 const NSTimeInterval PollDelay = 0.5;
 
@@ -39,6 +58,37 @@ const NSTimeInterval PollDelay = 0.5;
 	
 	return self;
 }
+
+#pragma mark - PKPaymentAuthorizationDelegate methods
+
+- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
+					   didAuthorizePayment:(PKPayment *)payment
+								completion:(void (^)(PKPaymentAuthorizationStatus status))completion
+{
+	[self updateAndCompleteCheckoutWithPayment:payment completion:completion];
+}
+
+
+- (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller
+{
+	[controller dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
+				  didSelectShippingAddress:(ABRecordRef)address
+								completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *shippingMethods, NSArray *summaryItems))completion
+{
+	[self updateCheckoutWithAddress:address completion:completion];
+}
+
+- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
+				   didSelectShippingMethod:(PKShippingMethod *)shippingMethod
+								completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *summaryItems))completion
+{
+	[self updateCheckoutWithShippingMethod:shippingMethod completion:completion];
+}
+
+#pragma mark -
 
 - (void)updateAndCompleteCheckoutWithPayment:(PKPayment *)payment
 								  completion:(void (^)(PKPaymentAuthorizationStatus))completion
@@ -96,16 +146,35 @@ const NSTimeInterval PollDelay = 0.5;
 - (void)updateCheckoutWithAddress:(ABRecordRef)address completion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion
 {
 	self.checkout.shippingAddress = [BUYAddress buy_addressFromRecord:address];
-	[self.client updateCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
-		if (checkout && error == nil) {
-			self.checkout = checkout;
-			[self getShippingRates:self.checkout completion:completion];
-		}
-		else {
-			self.lastError = error;
-			completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItems]);
-		}
-	}];
+	[self updateCheckoutWithAddressCompletion:completion];
+}
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
+- (void)updateCheckoutWithContact:(PKContact*)contact completion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion
+{
+	self.checkout.shippingAddress = [BUYAddress buy_addressFromContact:contact];
+	[self updateCheckoutWithAddressCompletion:completion];
+}
+#endif
+
+- (void)updateCheckoutWithAddressCompletion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion
+{
+	if ([self.checkout.shippingAddress isValidAddressForShippingRates]) {
+		
+		[self.client updateCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
+			if (checkout && error == nil) {
+				self.checkout = checkout;
+				[self getShippingRates:self.checkout completion:completion];
+			}
+			else {
+				self.lastError = error;
+				completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItems]);
+			}
+		}];
+	}
+	else {
+		completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItems]);
+	}
 }
 
 #pragma mark - internal
