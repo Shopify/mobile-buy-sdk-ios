@@ -650,7 +650,7 @@
 	}];
 }
 
-- (void)testCheckoutAnywhereFlowUsingCreditCard
+- (void)testCheckoutFlowUsingCreditCard
 {
 	[self createCart];
 	[self createCheckout];
@@ -663,7 +663,7 @@
 	[self verifyCompletedCheckout];
 }
 
-- (void)testCheckoutAnywhereWithAPartialAddress
+- (void)testCheckoutWithAPartialAddress
 {
 	[self createCart];
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
@@ -699,7 +699,7 @@
 	[self verifyCompletedCheckout];
 }
 
-- (void)testCheckoutAnywhereWithApplicableDiscount
+- (void)testCheckoutCreationWithApplicableDiscount
 {
 	[self createCart];
 	
@@ -726,7 +726,7 @@
 	XCTAssertTrue(_checkout.discount.applicable);
 }
 
-- (void)testCheckoutAnywhereWithInapplicableDiscount
+- (void)testCheckoutCreationWithInapplicableDiscount
 {
 	[self createCart];
 	
@@ -746,7 +746,7 @@
 	}];
 }
 
-- (void)testCheckoutAnywhereWithNonExistentDiscount
+- (void)testCheckoutCreationWithNonExistentDiscount
 {
 	[self createCart];
 	
@@ -765,6 +765,28 @@
 	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
 		XCTAssertNil(error);
 	}];
+}
+
+- (void)testCheckoutUpdateWithApplicableDiscount
+{
+	[self createCart];
+	[self createCheckout];
+	
+	_checkout.discount = [self applicableDiscount];
+	
+	//Create the checkout
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[_checkoutClient updateCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+		XCTAssertNil(error);
+		XCTAssertNotNil(returnedCheckout);
+		_checkout = returnedCheckout;
+		[expectation fulfill];
+	}];
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+	XCTAssertNotNil(_checkout.discount);
+	XCTAssertTrue(_checkout.discount.applicable);
 }
 
 - (void)testIntegration
