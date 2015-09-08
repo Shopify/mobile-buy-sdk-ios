@@ -30,6 +30,7 @@
 #import "BUYProductVariant.h"
 #import "BUYStoreViewController.h"
 #import "BUYError.h"
+#import "BUYOrder.h"
 
 @interface BUYStoreViewController () <WKNavigationDelegate, WKScriptMessageHandler>
 @end
@@ -240,11 +241,11 @@
 	if (status == BUYStatusComplete) {
 		[self.client getCheckout:checkout completion:^(BUYCheckout *updatedCheckout, NSError *error) {
 			dispatch_async(dispatch_get_main_queue(), ^{
-				if (updatedCheckout.orderStatusURL) {
-					[_webView loadRequest:[NSURLRequest requestWithURL:updatedCheckout.orderStatusURL]];
+				if (updatedCheckout.order.statusURL) {
+					[_webView loadRequest:[NSURLRequest requestWithURL:updatedCheckout.order.statusURL]];
 				}
 				else {
-					NSLog(@"Couldn't redirect to thank you page: %@ (url: %@)", updatedCheckout, updatedCheckout.orderStatusURL);
+					NSLog(@"Couldn't redirect to thank you page: %@ (url: %@)", updatedCheckout, updatedCheckout.order.statusURL);
 				}
 			});
 		}];

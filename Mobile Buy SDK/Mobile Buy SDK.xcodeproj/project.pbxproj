@@ -59,6 +59,8 @@
 		90A446251B5EC03F009602AA /* NSDateFormatter+BUYAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 90A446231B5EC03F009602AA /* NSDateFormatter+BUYAdditions.h */; };
 		90A446261B5EC03F009602AA /* NSDateFormatter+BUYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A446241B5EC03F009602AA /* NSDateFormatter+BUYAdditions.m */; };
 		90BBCD731B87B6BA00FCCE51 /* BUYPKContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BBCD701B87B6AB00FCCE51 /* BUYPKContact.m */; };
+		90E83BC41B9F550E00C95A1B /* BUYOrder.h in Headers */ = {isa = PBXBuildFile; fileRef = 90E83BC21B9F550E00C95A1B /* BUYOrder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		90E83BC51B9F550E00C95A1B /* BUYOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E83BC31B9F550E00C95A1B /* BUYOrder.m */; };
 		90F593041B0D5F4C0026B382 /* BUYIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592F81B0D5F4C0026B382 /* BUYIntegrationTest.m */; };
 		90F593051B0D5F4C0026B382 /* BUYApplePayAdditionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592F91B0D5F4C0026B382 /* BUYApplePayAdditionsTest.m */; };
 		90F593061B0D5F4C0026B382 /* BUYCartTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592FA1B0D5F4C0026B382 /* BUYCartTest.m */; };
@@ -305,6 +307,8 @@
 		90BC07F51AE043FD005D1195 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		90BC07F71AE0440F005D1195 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		90E80E461AFBBB68003A9909 /* AppledocSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppledocSettings.plist; path = docs/AppledocSettings.plist; sourceTree = "<group>"; };
+		90E83BC21B9F550E00C95A1B /* BUYOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYOrder.h; sourceTree = "<group>"; };
+		90E83BC31B9F550E00C95A1B /* BUYOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYOrder.m; sourceTree = "<group>"; };
 		90EC38551B598DE1005C6B21 /* Playground.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Playground.entitlements; sourceTree = "<group>"; };
 		90F592EC1B0D5EFE0026B382 /* Mobile Buy SDK Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Mobile Buy SDK Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		90F592EF1B0D5EFE0026B382 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -670,6 +674,8 @@
 				42488B321AB8761A005F21A9 /* BUYGiftCard.h */,
 				42488B331AB8761A005F21A9 /* BUYGiftCard.m */,
 				2AF52A791A700B0A0087DB2C /* BUYImage.h */,
+				90E83BC21B9F550E00C95A1B /* BUYOrder.h */,
+				90E83BC31B9F550E00C95A1B /* BUYOrder.m */,
 				2AF52A7A1A700B0A0087DB2C /* BUYImage.m */,
 				F7FDA16C19C939FF00AF4E93 /* BUYLineItem.h */,
 				F7FDA16D19C939FF00AF4E93 /* BUYLineItem.m */,
@@ -818,6 +824,7 @@
 				BE5DC3A01B71B13700B2BC1E /* NSURL+BUYAdditions.h in Headers */,
 				BEB74A711B5564300005A300 /* BUYProductViewFooter.h in Headers */,
 				BEB74A791B5564790005A300 /* BUYOptionSelectionViewController.h in Headers */,
+				90E83BC41B9F550E00C95A1B /* BUYOrder.h in Headers */,
 				BE9A647D1B503D840033E558 /* Buy.h in Headers */,
 				90A446211B5E8614009602AA /* NSDate+BUYAdditions.h in Headers */,
 				BEB74A281B554BFB0005A300 /* BUYOptionSelectionNavigationController.h in Headers */,
@@ -1057,6 +1064,7 @@
 				BEB74A7E1B5564890005A300 /* BUYVariantSelectionViewController.m in Sources */,
 				BE9A647B1B503D470033E558 /* BUYCheckout+Additions.m in Sources */,
 				BE9A64731B503D2C0033E558 /* NSString+Trim.m in Sources */,
+				90E83BC51B9F550E00C95A1B /* BUYOrder.m in Sources */,
 				BE9A64781B503D3F0033E558 /* BUYAddress+Additions.m in Sources */,
 				BEB74A761B55643E0005A300 /* BUYProductViewHeaderBackgroundImageView.m in Sources */,
 				9078749A1B7276BA0023775B /* BUYProductViewHeaderOverlay.m in Sources */,
