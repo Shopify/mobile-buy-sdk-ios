@@ -31,9 +31,6 @@
 
 @interface BUYOptionSelectionNavigationController () <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
 
-@property (nonatomic, strong) NSLayoutConstraint *breadcrumbsHiddenConstraint;
-@property (nonatomic, strong) NSLayoutConstraint *breadcrumbsVisibleConstraint;
-
 @end
 
 @implementation BUYOptionSelectionNavigationController
@@ -58,41 +55,14 @@
 		_breadsCrumbsView.translatesAutoresizingMaskIntoConstraints = NO;
 		[self.view addSubview:_breadsCrumbsView];
 		[self.view addConstraint:[NSLayoutConstraint constraintWithItem:_breadsCrumbsView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
-		_breadcrumbsVisibleConstraint = [NSLayoutConstraint constraintWithItem:_breadsCrumbsView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0];
-		_breadcrumbsHiddenConstraint = [NSLayoutConstraint constraintWithItem:_breadsCrumbsView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1.0 constant:0];
-		[NSLayoutConstraint activateConstraints:@[_breadcrumbsHiddenConstraint]];
+		_breadsCrumbsView.breadcrumbsVisibleConstraint = [NSLayoutConstraint constraintWithItem:_breadsCrumbsView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0];
+		_breadsCrumbsView.breadcrumbsHiddenConstraint = [NSLayoutConstraint constraintWithItem:_breadsCrumbsView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1.0 constant:0];
+		[NSLayoutConstraint activateConstraints:@[_breadsCrumbsView.breadcrumbsHiddenConstraint]];
 		
 		[self.view addConstraint:[NSLayoutConstraint constraintWithItem:_breadsCrumbsView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.navigationBar attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0]];
 	}
 	
 	return self;
-}
-
-- (void)setBreadcrumbsVisible:(BOOL)visible animated:(BOOL)animated
-{
-	// Check if we need to animate
-	if ((visible && _breadcrumbsVisibleConstraint.isActive) || (visible == NO && _breadcrumbsHiddenConstraint.isActive)) {
-		return;
-	}
-	if (visible) {
-		[NSLayoutConstraint deactivateConstraints:@[_breadcrumbsHiddenConstraint]];
-		[NSLayoutConstraint activateConstraints:@[_breadcrumbsVisibleConstraint]];
-	} else {
-		[NSLayoutConstraint deactivateConstraints:@[_breadcrumbsVisibleConstraint]];
-		[NSLayoutConstraint activateConstraints:@[_breadcrumbsHiddenConstraint]];
-	}
-	if (animated) {
-		// 7 << 16 is an animation curve that copies UINavigationController push/pop which has a decay animation
-		[UIView animateWithDuration:0.3
-							  delay:0
-							options:(UIViewAnimationOptionBeginFromCurrentState | 7 << 16)
-						 animations:^{
-							 [self.breadsCrumbsView layoutIfNeeded];
-						 }
-						 completion:NULL];
-	} else {
-		[self.breadsCrumbsView layoutIfNeeded];
-	}
 }
 
 - (void)setTheme:(BUYTheme *)theme

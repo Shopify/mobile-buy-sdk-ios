@@ -119,11 +119,8 @@
 	optionController.currencyFormatter = self.currencyFormatter;
 	optionController.title = option.name;
 	if (index > 0) {
-		[(BUYOptionSelectionNavigationController*)self.navigationController setBreadcrumbsVisible:YES animated:YES];
 		[[(BUYOptionSelectionNavigationController*)self.navigationController breadsCrumbsView] setSelectedBuyOptionValues:[self.optionValueNames copy]];
 		optionController.tableView.contentInset = optionController.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(optionController.tableView.contentInset.top + CGRectGetHeight([[(BUYOptionSelectionNavigationController*)self.navigationController breadsCrumbsView] bounds]), optionController.tableView.contentInset.left, optionController.tableView.contentInset.bottom, optionController.tableView.contentInset.right);
-	} else {
-		[(BUYOptionSelectionNavigationController*)self.navigationController setBreadcrumbsVisible:NO animated:NO];
 	}
 	return optionController;
 }
@@ -164,9 +161,6 @@
 	[self.optionValueNames removeLastObject];
 	self.filteredProductVariantsForSelectionOption = controller.filteredProductVariantsForSelectionOption;
 	[[(BUYOptionSelectionNavigationController*)self.navigationController breadsCrumbsView] setSelectedBuyOptionValues:[self.optionValueNames copy]];
-	if ([self isFirstOption]) {
-		[(BUYOptionSelectionNavigationController*)self.navigationController setBreadcrumbsVisible:NO animated:YES];
-	}
 }
 
 - (NSArray*)filteredProductVariantsForSelectionOption

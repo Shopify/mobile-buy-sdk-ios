@@ -34,6 +34,4 @@
 @property (nonatomic, assign) BOOL dismissWithCancelAnimation;
 @property (nonatomic, strong) BUYVariantOptionBreadCrumbsView *breadsCrumbsView;
 
-- (void)setBreadcrumbsVisible:(BOOL)visible animated:(BOOL)animated;
-
 @end

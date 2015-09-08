@@ -32,6 +32,7 @@
 		_optionOneLabel.translatesAutoresizingMaskIntoConstraints = NO;
 		_optionOneLabel.font = [BUYTheme variantOptionPriceFont];
 		_optionOneLabel.textColor = [UIColor colorWithRed:0.43f green:0.43f blue:0.43f alpha:1];
+		_optionOneLabel.text = @"Selected: ";
 		[self addSubview:_optionOneLabel];
 		
 		_optionTwoLabel = [UILabel new];
@@ -50,7 +51,7 @@
 		[self addConstraint:[NSLayoutConstraint constraintWithItem:_optionOneLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeadingMargin multiplier:1.0 constant:0]];
 		
 		NSLayoutConstraint *optionOneTrailingConstraint = [NSLayoutConstraint constraintWithItem:_optionOneLabel attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTrailingMargin multiplier:1.0 constant:0];
-		NSLayoutConstraint *optionTwoLeadingConstraintHidden = [NSLayoutConstraint constraintWithItem:_optionOneLabel attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:_optionTwoLabel attribute:NSLayoutAttributeLeading multiplier:2.0 constant:-4];
+		NSLayoutConstraint *optionTwoLeadingConstraintHidden = [NSLayoutConstraint constraintWithItem:_optionOneLabel attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:_optionTwoLabel attribute:NSLayoutAttributeLeading multiplier:1.6 constant:-4];
 		_oneOptionConstraints = @[optionOneTrailingConstraint, optionTwoLeadingConstraintHidden];
 		
 		NSLayoutConstraint *optionTwoLeadingConstraint = [NSLayoutConstraint constraintWithItem:_optionOneLabel attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:_optionTwoLabel attribute:NSLayoutAttributeLeading multiplier:1.0 constant:-4];
@@ -62,16 +63,21 @@
 
 - (void)setSelectedBuyOptionValues:(NSArray*)optionValues
 {
-	if ([optionValues count]) {
-		self.optionOneLabel.text = [NSString stringWithFormat:@"Selected: %@", optionValues[0]];
-		if ([_oneOptionConstraints[0] isActive] == NO && [self.optionTwoLabel.text length] == 0) {
-			[NSLayoutConstraint activateConstraints:_oneOptionConstraints];
-			[self layoutIfNeeded];
-		}
+	if ([optionValues count] == 1) {
+		self.optionOneLabel.text = [NSString stringWithFormat:@"Selected: %@", [optionValues count] > 0 ? optionValues[0] : @""];
 	}
-	if ([self.optionTwoLabel.text length] == 0) {
-		self.optionTwoLabel.text = [optionValues count] > 1 ? [NSString stringWithFormat:@"• %@", optionValues[1]] : nil;
+	if ([self.optionTwoLabel.text length] == 0 && [optionValues count] == 2) {
+		self.optionTwoLabel.text = [optionValues count] > 1 ? [NSString stringWithFormat:@"• %@", optionValues[1]] : @"";
 	}
+
+	if ([optionValues count] > 0) {
+		[NSLayoutConstraint deactivateConstraints:@[_breadcrumbsHiddenConstraint]];
+		[NSLayoutConstraint activateConstraints:@[_breadcrumbsVisibleConstraint]];
+	} else {
+		[NSLayoutConstraint deactivateConstraints:@[_breadcrumbsVisibleConstraint]];
+		[NSLayoutConstraint activateConstraints:@[_breadcrumbsHiddenConstraint]];
+	}
+	
 	if ([optionValues count] > 1) {
 		[NSLayoutConstraint deactivateConstraints:_oneOptionConstraints];
 		[NSLayoutConstraint activateConstraints:_twoOptionsConstraints];
@@ -79,6 +85,10 @@
 		[NSLayoutConstraint deactivateConstraints:_twoOptionsConstraints];
 		[NSLayoutConstraint activateConstraints:_oneOptionConstraints];
 	}
+	
+	// force the need to update layout in the animation block below
+	[self setNeedsLayout];
+	
 	[UIView animateWithDuration:0.3
 						  delay:0
 						options:(UIViewAnimationOptionBeginFromCurrentState | 7 << 16)
@@ -91,8 +101,11 @@
 						 [self layoutIfNeeded];
 					 }
 					 completion:^(BOOL finished) {
-						 if ([_oneOptionConstraints[0] isActive]) {
+						 if ([optionValues count] < 2 && [self.optionTwoLabel.text length] > 0) {
 							 self.optionTwoLabel.text = nil;
+						 }
+						 if ([optionValues count] == 0) {
+							 self.optionOneLabel.text = [NSString stringWithFormat:@"Selected: %@", [optionValues count] > 0 ? optionValues[0] : @""];
 						 }
 					 }];
 }

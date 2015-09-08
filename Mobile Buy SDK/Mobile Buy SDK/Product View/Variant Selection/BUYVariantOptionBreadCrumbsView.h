@@ -10,6 +10,9 @@
 
 @interface BUYVariantOptionBreadCrumbsView : UIView
 
+@property (nonatomic, strong) NSLayoutConstraint *breadcrumbsHiddenConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *breadcrumbsVisibleConstraint;
+
 - (void)setSelectedBuyOptionValues:(NSArray*)optionValues;
 
 @end
