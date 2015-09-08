@@ -6,12 +6,13 @@
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
+#import "BUYTheme.h"
 
-@interface BUYVariantOptionBreadCrumbsView : UIView
+@interface BUYVariantOptionBreadCrumbsView : UIView <BUYThemeable>
 
-@property (nonatomic, strong) NSLayoutConstraint *breadcrumbsHiddenConstraint;
-@property (nonatomic, strong) NSLayoutConstraint *breadcrumbsVisibleConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *hiddenConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *visibleConstraint;
 
 - (void)setSelectedBuyOptionValues:(NSArray*)optionValues;
 
