@@ -706,10 +706,10 @@
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	_checkout.discount = [self applicableDiscount];
 	
-	//Create the checkout
+	// Create the checkout
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[_checkoutClient createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
-		//NOTE: Is this test failing? Make sure that you create the following discounts on your test shop:
+		// NOTE: Is this test failing? Make sure that you create the following discounts on your test shop:
 		//
 		// applicable 	- this should be valid
 		// inapplicable - this should be invalid (i.e expired)
@@ -774,7 +774,7 @@
 	
 	_checkout.discount = [self applicableDiscount];
 	
-	//Create the checkout
+	// Update the checkout
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[_checkoutClient updateCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
