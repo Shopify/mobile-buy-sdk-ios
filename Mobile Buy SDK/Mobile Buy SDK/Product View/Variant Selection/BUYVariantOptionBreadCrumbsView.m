@@ -51,7 +51,7 @@
 		[self addConstraint:[NSLayoutConstraint constraintWithItem:_optionOneLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeadingMargin multiplier:1.0 constant:0]];
 		
 		NSLayoutConstraint *optionOneTrailingConstraint = [NSLayoutConstraint constraintWithItem:_optionOneLabel attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTrailingMargin multiplier:1.0 constant:0];
-		NSLayoutConstraint *optionTwoLeadingConstraintHidden = [NSLayoutConstraint constraintWithItem:_optionOneLabel attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:_optionTwoLabel attribute:NSLayoutAttributeLeading multiplier:1.6 constant:-4];
+		NSLayoutConstraint *optionTwoLeadingConstraintHidden = [NSLayoutConstraint constraintWithItem:_optionOneLabel attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:_optionTwoLabel attribute:NSLayoutAttributeLeading multiplier:1.6f constant:-4];
 		_oneOptionConstraints = @[optionOneTrailingConstraint, optionTwoLeadingConstraintHidden];
 		
 		NSLayoutConstraint *optionTwoLeadingConstraint = [NSLayoutConstraint constraintWithItem:_optionOneLabel attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:_optionTwoLabel attribute:NSLayoutAttributeLeading multiplier:1.0 constant:-4];
