@@ -30,6 +30,8 @@
 
 @interface FirstViewController ()
 
+@property (nonatomic, strong) BUYClient *client;
+
 @end
 
 @implementation FirstViewController

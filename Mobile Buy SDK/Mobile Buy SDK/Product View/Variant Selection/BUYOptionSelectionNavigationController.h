@@ -24,12 +24,14 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 #import "BUYNavigationController.h"
 #import "BUYTheme.h"
+#import "BUYVariantOptionBreadCrumbsView.h"
 
 @interface BUYOptionSelectionNavigationController : BUYNavigationController <BUYThemeable>
 
 @property (nonatomic, assign) BOOL dismissWithCancelAnimation;
+@property (nonatomic, strong) BUYVariantOptionBreadCrumbsView *breadsCrumbsView;
 
 @end
