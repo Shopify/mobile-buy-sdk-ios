@@ -97,11 +97,7 @@
 						  delay:0
 						options:(UIViewAnimationOptionBeginFromCurrentState | 7 << 16)
 					 animations:^{
-						 if ([_twoOptionsConstraints[0] isActive]) {
-							 self.optionTwoLabel.alpha = 1;
-						 } else {
-							 self.optionTwoLabel.alpha = 0;
-						 }
+						 self.optionTwoLabel.alpha = [_twoOptionsConstraints[0] isActive];
 						 [self layoutIfNeeded];
 					 }
 					 completion:^(BOOL finished) {
