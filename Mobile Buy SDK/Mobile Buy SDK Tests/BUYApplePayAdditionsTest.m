@@ -355,7 +355,6 @@
 	XCTAssertEqualObjects(BUYPartialAddressPlaceholder, newAddress.phone);
 }
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
 - (void)testAddressFromContact
 {
 	BUYAddress *newAddress = [self buyAddressWithTestContactFullDetails:YES];
@@ -424,6 +423,5 @@
 	XCTAssertEqualObjects(addressFromRecord.phone, addressFromContact.phone);
 	XCTAssertNotEqualObjects(addressFromRecord.countryCode, addressFromContact.countryCode);
 }
-#endif
 
 @end

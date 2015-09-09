@@ -28,7 +28,6 @@
 #import "BUYNSPersonNameComponents.h"
 #import "BUYCNPostalAddress.h"
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
 @interface BUYPKContact () {
 	BUYNSPersonNameComponents *_name;
 	BUYCNPostalAddress *_postalAddress;
@@ -70,7 +69,3 @@
 }
 
 @end
-#else
-@implementation BUYPKContact
-@end
-#endif
