@@ -366,7 +366,7 @@
 	XCTAssertEqualObjects(@"Ottawa", newAddress.city);
 	XCTAssertEqualObjects(@"Ontario", newAddress.province);
 	XCTAssertEqualObjects(@"K1N5T5", newAddress.zip);
-	XCTAssertEqualObjects(@"Canada", newAddress.country);
+	XCTAssertNil(newAddress.country);
 	XCTAssertEqualObjects(@"CA", newAddress.countryCode);
 }
 
@@ -421,7 +421,7 @@
 	XCTAssertEqualObjects(addressFromRecord.zip, addressFromContact.zip);
 	XCTAssertEqualObjects(addressFromRecord.country, addressFromContact.country);
 	XCTAssertEqualObjects(addressFromRecord.phone, addressFromContact.phone);
-	XCTAssertNotEqualObjects(addressFromRecord.countryCode, addressFromContact.countryCode);
+	XCTAssertEqualObjects(addressFromRecord.countryCode, addressFromContact.countryCode);
 }
 
 @end
