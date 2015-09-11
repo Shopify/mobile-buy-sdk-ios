@@ -43,7 +43,7 @@ class ViewController: UIViewController {
         
         
         client = BUYClient(shopDomain: shopDomain, apiKey: apiKey, channelId: channelId)
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
 
     }
     
@@ -84,7 +84,7 @@ class ViewController: UIViewController {
         let cart = BUYCart()
         cart.addVariant(productVariant!)
         
-        var checkout = BUYCheckout(cart: cart)
+        let checkout = BUYCheckout(cart: cart)
         client.createCheckout(checkout) { (checkout, error) -> Void in
             
             let checkoutURL = checkout.webCheckoutURL

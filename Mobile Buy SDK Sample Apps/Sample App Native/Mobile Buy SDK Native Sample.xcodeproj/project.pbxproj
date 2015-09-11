@@ -129,7 +129,7 @@
 		90070E2A1AF120A6003ED7B6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = Shopify;
 				TargetAttributes = {
 					90070E311AF120A6003ED7B6 = {
@@ -233,6 +233,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -306,6 +307,7 @@
 				INFOPLIST_FILE = "Mobile Buy SDK Native Sample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.mobilebuysdknativesample;
 				PRODUCT_NAME = "Mobile Buy SDK Native Sample";
 				PROVISIONING_PROFILE = "";
 			};
@@ -325,6 +327,7 @@
 				INFOPLIST_FILE = "Mobile Buy SDK Native Sample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.mobilebuysdknativesample;
 				PRODUCT_NAME = "Mobile Buy SDK Native Sample";
 				PROVISIONING_PROFILE = "";
 			};
