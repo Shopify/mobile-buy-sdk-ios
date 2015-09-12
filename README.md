@@ -38,6 +38,6 @@ To run the tests, edit the `Mobile Buy SDK Tests` scheme and add the following a
 * `shop_domain`: Your shop's domain, for example: `abetterlookingshop.myshopify.com`
 * `api_key`: The API provided when setting up the Mobile App channel on Shopify Admin: *https://your_shop_id.myshopify.com/admin/mobile_app/integration*
 * `channel_id`: The Channel ID provided with the API Key above
-* `gift_card_code`, `gift_card_code_2`, `gift_card_code_2`: Three valid [Gift Card](https://docs.shopify.com/manual/your-store/gift-cards) codes for your shop
+* `gift_card_code`, `gift_card_code_2`, `gift_card_code_3`: Three valid [Gift Card](https://docs.shopify.com/manual/your-store/gift-cards) codes for your shop
 * `expired_gift_card_code`: An expired Gift Card code
 * `expired_gift_card_id`: The `product_id` for the expired Gift Card
