@@ -27,6 +27,7 @@
 #import "BUYNavigationController.h"
 #import "BUYImageKit.h"
 #import "BUYTheme+Additions.h"
+#import "BUYProductViewController.h"
 
 @interface BUYNavigationController ()
 @property (nonatomic, strong) BUYTheme *theme;
@@ -93,11 +94,21 @@
 	[[UINavigationBar appearanceWhenContainedIn:[BUYNavigationController class], nil] setTitleTextAttributes:@{ NSForegroundColorAttributeName: [theme navigationBarTitleColor] }];
 }
 
--(UIViewController *)childViewControllerForStatusBarStyle {
-	return self.visibleViewController;
+-(UIViewController *)childViewControllerForStatusBarStyle
+{
+	return [self childViewController];
 }
 
--(UIViewController *)childViewControllerForStatusBarHidden {
+-(UIViewController *)childViewControllerForStatusBarHidden
+{
+	return [self childViewController];
+}
+
+-(UIViewController*)childViewController
+{
+	if ([self.visibleViewController isKindOfClass:[BUYProductViewController class]] == NO) {
+		return self.viewControllers[0];
+	}
 	return self.visibleViewController;
 }
 

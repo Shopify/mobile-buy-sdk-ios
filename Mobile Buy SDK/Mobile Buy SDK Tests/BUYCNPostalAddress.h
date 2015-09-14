@@ -24,7 +24,6 @@
 //  THE SOFTWARE.
 //
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
 @import Contacts;
 
 @interface BUYCNPostalAddress : CNPostalAddress
@@ -37,8 +36,3 @@
 - (void)setISOCountryCode:(NSString*)ISOCountryCode;
 
 @end
-#else
-@import Foundation;
-@interface BUYCNPostalAddress : NSObject
-@end
-#endif

@@ -111,6 +111,16 @@
 	return BUY_RGB(220, 96, 96);
 }
 
+- (UIColor*)variantBreadcrumbsBackground
+{
+	return self.style == BUYThemeStyleDark ? BUY_RGB(13, 13, 13) : BUY_RGB(229, 229, 229);
+}
+
++ (UIColor*)variantBreadcrumbsTextColor
+{
+	return BUY_RGB(140, 140, 140);
+}
+
 #pragma mark - Padding and Sizes
 
 CGFloat const kBuyPaddingSmall = 8.0f;
@@ -164,6 +174,11 @@ CGFloat const kBuyBottomGradientHeightWithoutPageControl = 20.0f;
 + (UIFont*)variantOptionSelectionSelectionVariantOptionFont
 {
 	return [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
+}
+
++ (UIFont*)variantBreadcrumbsFont
+{
+	return [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
 }
 
 + (UIFont*)errorLabelFont

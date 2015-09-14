@@ -185,7 +185,6 @@
 	return address;
 }
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
 + (BUYAddress *)buy_addressFromContact:(PKContact*)contact
 {
 	BUYAddress *address = [[BUYAddress alloc] init];
@@ -215,6 +214,5 @@
 	
 	return address;
 }
-#endif
 
 @end
