@@ -26,7 +26,6 @@
 
 #import "BUYCNPostalAddress.h"
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
 @interface BUYCNPostalAddress () {
 	NSString *_street;
 	NSString *_city;
@@ -101,7 +100,3 @@
 }
 
 @end
-#else
-@implementation BUYCNPostalAddress
-@end
-#endif

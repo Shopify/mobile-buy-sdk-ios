@@ -26,9 +26,8 @@
 
 @import AddressBook;
 @import PassKit;
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
 @import SafariServices;
-#endif
+
 #import "BUYApplePayAdditions.h"
 #import "BUYCart.h"
 #import "BUYClient.h"
@@ -42,10 +41,7 @@ NSString * BUYSafariCallbackURLNotification = @"kBUYSafariCallbackURLNotificatio
 NSString * BUYURLKey = @"url";
 
 
-@interface BUYViewController ()
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
-<SFSafariViewControllerDelegate>
-#endif
+@interface BUYViewController () <SFSafariViewControllerDelegate>
 
 @property (nonatomic, strong) BUYCheckout *checkout;
 @property (nonatomic, strong) BUYApplePayHelpers *applePayHelper;
@@ -70,15 +66,11 @@ NSString * BUYURLKey = @"url";
 - (void)setClient:(BUYClient *)client
 {
 	_client = client;
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
 	if (&PKPaymentNetworkDiscover != NULL) {
 		self.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa, PKPaymentNetworkDiscover];
 	} else {
-#endif
 		self.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa];
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
 	}
-#endif
 }
 
 - (BUYClient*)client
@@ -104,9 +96,9 @@ NSString * BUYURLKey = @"url";
 				[self.delegate controllerFailedToStartApplePayProcess:self];
 			}
 		}
-
+		
 		self.isLoadingShop = NO;
-
+		
 		if (block) block((error == nil), error);
 	}];
 }
@@ -145,7 +137,7 @@ NSString * BUYURLKey = @"url";
 		// since requests are sent serially, this will return before the checkout is created
 		[self loadShopWithCallback:nil];
 	}
-
+	
 	[self handleCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		self.checkout = checkout;
 		
@@ -176,12 +168,12 @@ NSString * BUYURLKey = @"url";
 		}
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveCallbackURLNotification:) name:BUYSafariCallbackURLNotification object:nil];
-
+		
 		[self openWebCheckout:checkout];
 	}
 	else {
 		if ([self.delegate respondsToSelector:@selector(controller:failedToCreateCheckout:)]) {
-            [self.delegate controller:self failedToCreateCheckout:error];
+			[self.delegate controller:self failedToCreateCheckout:error];
 		}
 	}
 }
@@ -222,7 +214,6 @@ NSString * BUYURLKey = @"url";
 
 - (void)openWebCheckout:(BUYCheckout *)checkout
 {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
 	if ([SFSafariViewController class]) {
 		
 		SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:checkout.webCheckoutURL];
@@ -230,12 +221,9 @@ NSString * BUYURLKey = @"url";
 		
 		[self presentViewController:safariViewController animated:YES completion:nil];
 	}
-	else{
+	else {
 		[[UIApplication sharedApplication] openURL:checkout.webCheckoutURL];
 	}
-#else
-	[[UIApplication sharedApplication] openURL:checkout.webCheckoutURL];
-#endif
 }
 
 #pragma mark - Step 2 - Requesting Payment using ApplePay
@@ -298,7 +286,7 @@ NSString * BUYURLKey = @"url";
 					[self.delegate controller:self failedToUpdateCheckout:self.checkout withError:self.applePayHelper.lastError];
 				}
 				break;
-
+				
 			default: {
 				if ([self.delegate respondsToSelector:@selector(controller:didCompleteCheckout:status:)]) {
 					BUYStatus buyStatus = (status == PKPaymentAuthorizationStatusSuccess) ? BUYStatusComplete : BUYStatusFailed;
@@ -307,14 +295,14 @@ NSString * BUYURLKey = @"url";
 			}
 				break;
 		}
-
+		
 		completion(status);
 	}];
 }
 
 - (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller
 {
-	// The checkout is done at this point, it may have succeeded or failed. You are responsible for dealing with failure/success earlier in the steps.	
+	// The checkout is done at this point, it may have succeeded or failed. You are responsible for dealing with failure/success earlier in the steps.
 	[self dismissViewControllerAnimated:YES completion:^{
 		// If Apple Pay is dismissed with Cancel we need to clear the reservation time on the products in the checkout
 		if (self.paymentAuthorizationStatus != PKPaymentAuthorizationStatusSuccess) {
@@ -332,14 +320,9 @@ NSString * BUYURLKey = @"url";
 	}];
 }
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
 - (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingMethod:(nonnull PKShippingMethod *)shippingMethod completion:(nonnull void (^)(PKPaymentAuthorizationStatus, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
-#else
-- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingMethod:(PKShippingMethod *)shippingMethod completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *summaryItems))completion
-#endif
 {
 	[self.applePayHelper updateCheckoutWithShippingMethod:shippingMethod completion:^(PKPaymentAuthorizationStatus status, NSArray *methods) {
-		
 		if (status == PKPaymentAuthorizationStatusInvalidShippingPostalAddress) {
 			if ([self.delegate respondsToSelector:@selector(controller:failedToGetShippingRates:withError:)]) {
 				[self.delegate controller:self failedToGetShippingRates:self.checkout withError:self.applePayHelper.lastError];
@@ -350,15 +333,21 @@ NSString * BUYURLKey = @"url";
 	}];
 }
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
+-(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingAddress:(ABRecordRef)address completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
+{
+	[self.applePayHelper updateCheckoutWithAddress:address completion:^(PKPaymentAuthorizationStatus status, NSArray *shippingMethods, NSArray *summaryItems) {
+		if (status == PKPaymentAuthorizationStatusInvalidShippingPostalAddress) {
+			if ([self.delegate respondsToSelector:@selector(controller:failedToUpdateCheckout:withError:)]) {
+				[self.delegate controller:self failedToUpdateCheckout:self.checkout withError:self.applePayHelper.lastError];
+			}
+		}
+		completion(status, shippingMethods, summaryItems);
+	}];
+}
+
 - (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingContact:(PKContact *)contact completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
 {
 	[self.applePayHelper updateCheckoutWithContact:contact completion:^(PKPaymentAuthorizationStatus status, NSArray *shippingMethods, NSArray *summaryItems) {
-#else
-- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingAddress:(ABRecordRef)address completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *shippingMethods, NSArray *summaryItems))completion
-{
-	[self.applePayHelper updateCheckoutWithAddress:address completion:^(PKPaymentAuthorizationStatus status, NSArray *shippingMethods, NSArray *summaryItems) {
-#endif
 		if (status == PKPaymentAuthorizationStatusInvalidShippingPostalAddress) {
 			if ([self.delegate respondsToSelector:@selector(controller:failedToUpdateCheckout:withError:)]) {
 				[self.delegate controller:self failedToUpdateCheckout:self.checkout withError:self.applePayHelper.lastError];
@@ -392,16 +381,14 @@ NSString * BUYURLKey = @"url";
 
 #pragma mark - Web Checkout delegate methods
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller;
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:BUYSafariCallbackURLNotification object:nil];
-
+	
 	if ([self.delegate respondsToSelector:@selector(controller:didDismissWebCheckout:)]) {
 		[self.delegate controller:self didDismissWebCheckout:self.checkout];
 	}
 }
-#endif
 
 - (void)didReceiveCallbackURLNotification:(NSNotification *)notification
 {

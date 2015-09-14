@@ -24,14 +24,8 @@
 //  THE SOFTWARE.
 //
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
 @import PassKit;
 
 @interface BUYPKContact : PKContact
 
 @end
-#else
-@import Foundation;
-@interface BUYPKContact : NSObject
-@end
-#endif

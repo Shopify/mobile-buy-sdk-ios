@@ -49,6 +49,8 @@
 - (UIColor*)variantOptionNameTextColor;
 + (UIColor*)variantPriceTextColor;
 + (UIColor*)variantSoldOutTextColor;
+- (UIColor*)variantBreadcrumbsBackground;
++ (UIColor*)variantBreadcrumbsTextColor;
 
 // padding and sizes
 extern CGFloat const kBuyPaddingSmall;
@@ -71,6 +73,7 @@ extern CGFloat const kBuyBottomGradientHeightWithoutPageControl;
 + (UIFont*)variantOptionPriceFont;
 + (UIFont*)variantOptionSelectionTitleFont;
 + (UIFont*)variantOptionSelectionSelectionVariantOptionFont;
++ (UIFont*)variantBreadcrumbsFont;
 + (UIFont*)errorLabelFont;
 
 // misc

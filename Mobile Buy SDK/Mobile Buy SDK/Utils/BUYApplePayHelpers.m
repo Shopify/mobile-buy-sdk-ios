@@ -118,13 +118,11 @@ const NSTimeInterval PollDelay = 0.5;
 	[self updateCheckoutWithAddressCompletion:completion];
 }
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
 - (void)updateCheckoutWithContact:(PKContact*)contact completion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion
 {
 	self.checkout.shippingAddress = [BUYAddress buy_addressFromContact:contact];
 	[self updateCheckoutWithAddressCompletion:completion];
 }
-#endif
 
 - (void)updateCheckoutWithAddressCompletion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion
 {
