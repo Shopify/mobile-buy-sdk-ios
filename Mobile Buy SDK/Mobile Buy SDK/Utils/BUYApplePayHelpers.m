@@ -65,7 +65,10 @@ const NSTimeInterval PollDelay = 0.5;
 					   didAuthorizePayment:(PKPayment *)payment
 								completion:(void (^)(PKPaymentAuthorizationStatus status))completion
 {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 	[self updateAndCompleteCheckoutWithPayment:payment completion:completion];
+#pragma GCC diagnostic pop
 }
 
 
@@ -81,12 +84,18 @@ const NSTimeInterval PollDelay = 0.5;
 
 -(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingContact:(PKContact *)contact completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
 {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 	[self updateCheckoutWithContact:contact completion:completion];
+#pragma GCC diagnostic pop
 }
 
 -(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingMethod:(PKShippingMethod *)shippingMethod completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
 {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 	[self updateCheckoutWithShippingMethod:shippingMethod completion:completion];
+#pragma GCC diagnostic pop
 }
 
 #pragma mark -
