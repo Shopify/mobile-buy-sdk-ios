@@ -56,11 +56,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"Apply Discounts";
+    self.title = @"Add Discount or Gift Card(s)";
     self.view.backgroundColor = [UIColor whiteColor];
     
     UIButton *discountButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [discountButton setTitle:@"Apply Discount" forState:UIControlStateNormal];
+    [discountButton setTitle:@"Add a Discount" forState:UIControlStateNormal];
     discountButton.translatesAutoresizingMaskIntoConstraints = NO;
     [discountButton addTarget:self action:@selector(applyDiscount) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:discountButton];
