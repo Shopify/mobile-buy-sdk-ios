@@ -74,16 +74,17 @@ const NSTimeInterval PollDelay = 0.5;
 	[controller dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
-				  didSelectShippingAddress:(ABRecordRef)address
-								completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *shippingMethods, NSArray *summaryItems))completion
+-(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingAddress:(ABRecordRef)address completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
 {
 	[self updateCheckoutWithAddress:address completion:completion];
 }
 
-- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
-				   didSelectShippingMethod:(PKShippingMethod *)shippingMethod
-								completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *summaryItems))completion
+-(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingContact:(PKContact *)contact completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
+{
+	[self updateCheckoutWithContact:contact completion:completion];
+}
+
+-(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingMethod:(PKShippingMethod *)shippingMethod completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
 {
 	[self updateCheckoutWithShippingMethod:shippingMethod completion:completion];
 }
