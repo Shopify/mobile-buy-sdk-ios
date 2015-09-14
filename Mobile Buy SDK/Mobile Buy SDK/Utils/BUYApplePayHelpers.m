@@ -65,34 +65,6 @@ const NSTimeInterval PollDelay = 0.5;
 					   didAuthorizePayment:(PKPayment *)payment
 								completion:(void (^)(PKPaymentAuthorizationStatus status))completion
 {
-	[self updateAndCompleteCheckoutWithPayment:payment completion:completion];
-}
-
-
-- (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller
-{
-	[controller dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
-				  didSelectShippingAddress:(ABRecordRef)address
-								completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *shippingMethods, NSArray *summaryItems))completion
-{
-	[self updateCheckoutWithAddress:address completion:completion];
-}
-
-- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
-				   didSelectShippingMethod:(PKShippingMethod *)shippingMethod
-								completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *summaryItems))completion
-{
-	[self updateCheckoutWithShippingMethod:shippingMethod completion:completion];
-}
-
-#pragma mark -
-
-- (void)updateAndCompleteCheckoutWithPayment:(PKPayment *)payment
-								  completion:(void (^)(PKPaymentAuthorizationStatus))completion
-{
 	// Update the checkout with the rest of the information. Apple has now provided us with a FULL billing address and a FULL shipping address.
 	// We now update the checkout with our new found data so that you can ship the products to the right address, and we collect whatever else we need.
 	
@@ -127,7 +99,25 @@ const NSTimeInterval PollDelay = 0.5;
 	}];
 }
 
-- (void)updateCheckoutWithShippingMethod:(PKShippingMethod *)shippingMethod completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *methods))completion
+
+- (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller
+{
+	[controller dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingAddress:(ABRecordRef)address completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
+{
+	self.checkout.shippingAddress = [BUYAddress buy_addressFromRecord:address];
+	[self updateCheckoutWithAddressCompletion:completion];
+}
+
+-(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingContact:(PKContact *)contact completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
+{
+	self.checkout.shippingAddress = [BUYAddress buy_addressFromContact:contact];
+	[self updateCheckoutWithAddressCompletion:completion];
+}
+
+-(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingMethod:(PKShippingMethod *)shippingMethod completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
 {
 	BUYShippingRate *shippingRate = [self rateForShippingMethod:shippingMethod];
 	self.checkout.shippingRate = shippingRate;
@@ -143,17 +133,7 @@ const NSTimeInterval PollDelay = 0.5;
 	}];
 }
 
-- (void)updateCheckoutWithAddress:(ABRecordRef)address completion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion
-{
-	self.checkout.shippingAddress = [BUYAddress buy_addressFromRecord:address];
-	[self updateCheckoutWithAddressCompletion:completion];
-}
-
-- (void)updateCheckoutWithContact:(PKContact*)contact completion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion
-{
-	self.checkout.shippingAddress = [BUYAddress buy_addressFromContact:contact];
-	[self updateCheckoutWithAddressCompletion:completion];
-}
+#pragma mark -
 
 - (void)updateCheckoutWithAddressCompletion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion
 {
@@ -173,6 +153,31 @@ const NSTimeInterval PollDelay = 0.5;
 	else {
 		completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItems]);
 	}
+}
+
+- (void)updateAndCompleteCheckoutWithPayment:(PKPayment *)payment
+								  completion:(void (^)(PKPaymentAuthorizationStatus))completion
+{
+	// Since we're deprecating this method and the controller is not used in the delegate method, we can pass in a not-null PKPaymentAuthorizationViewController
+	[self paymentAuthorizationViewController:[PKPaymentAuthorizationViewController new] didAuthorizePayment:payment completion:completion];
+}
+
+- (void)updateCheckoutWithShippingMethod:(PKShippingMethod *)shippingMethod completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *methods))completion
+{
+	// Since we're deprecating this method and the controller is not used in the delegate method, we can pass in a not-null PKPaymentAuthorizationViewController
+	[self paymentAuthorizationViewController:[PKPaymentAuthorizationViewController new] didSelectShippingMethod:shippingMethod completion:completion];
+}
+
+- (void)updateCheckoutWithAddress:(ABRecordRef)address completion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion
+{
+	// Since we're deprecating this method and the controller is not used in the delegate method, we can pass in a not-null PKPaymentAuthorizationViewController
+	[self paymentAuthorizationViewController:[PKPaymentAuthorizationViewController new] didSelectShippingAddress:address completion:completion];
+}
+
+- (void)updateCheckoutWithContact:(PKContact*)contact completion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion
+{
+	// Since we're deprecating this method and the controller is not used in the delegate method, we can pass in a not-null PKPaymentAuthorizationViewController
+	[self paymentAuthorizationViewController:[PKPaymentAuthorizationViewController new] didSelectShippingContact:contact completion:completion];
 }
 
 #pragma mark - internal
