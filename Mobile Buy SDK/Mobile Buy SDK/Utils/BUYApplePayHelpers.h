@@ -30,7 +30,7 @@
 @class BUYClient;
 @class BUYCheckout;
 
-@interface BUYApplePayHelpers : NSObject
+@interface BUYApplePayHelpers : NSObject <PKPaymentAuthorizationViewControllerDelegate>
 
 /**
  *  Initializes a helper to support Apple Pay
@@ -51,7 +51,7 @@
 - (void)updateAndCompleteCheckoutWithPayment:(PKPayment *)payment completion:(void (^)(PKPaymentAuthorizationStatus status))completion;
 
 /**
- *  Call this method in the PKPaymentAuthorizationViewControllerDelegate `paymentAuthorizationViewController:didSelectPaymentMethod:completion`
+ *  Call this method in the PKPaymentAuthorizationViewControllerDelegate `paymentAuthorizationViewController:didSelectShippingMethod:completion`
  *
  *  @param shippingMethod The selected shipping method
  *  @param completion     the completion block called after shipping method is updated on the checkout

@@ -59,6 +59,37 @@ const NSTimeInterval PollDelay = 0.5;
 	return self;
 }
 
+#pragma mark - PKPaymentAuthorizationDelegate methods
+
+- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
+					   didAuthorizePayment:(PKPayment *)payment
+								completion:(void (^)(PKPaymentAuthorizationStatus status))completion
+{
+	[self updateAndCompleteCheckoutWithPayment:payment completion:completion];
+}
+
+
+- (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller
+{
+	[controller dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
+				  didSelectShippingAddress:(ABRecordRef)address
+								completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *shippingMethods, NSArray *summaryItems))completion
+{
+	[self updateCheckoutWithAddress:address completion:completion];
+}
+
+- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
+				   didSelectShippingMethod:(PKShippingMethod *)shippingMethod
+								completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *summaryItems))completion
+{
+	[self updateCheckoutWithShippingMethod:shippingMethod completion:completion];
+}
+
+#pragma mark -
+
 - (void)updateAndCompleteCheckoutWithPayment:(PKPayment *)payment
 								  completion:(void (^)(PKPaymentAuthorizationStatus))completion
 {
