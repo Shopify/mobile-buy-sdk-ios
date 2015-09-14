@@ -49,11 +49,11 @@
 	return self;
 }
 
-- (void)updateCloseButtonImageWithDarkStyle:(BOOL)darkStyle duration:(CGFloat)duration
+- (void)updateCloseButtonImageWithTintColor:(BOOL)tintColor duration:(CGFloat)duration
 {
 	UIButton *button = (UIButton*)self.topViewController.navigationItem.leftBarButtonItem.customView;
-	UIImage *oldButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:button.bounds color:darkStyle ? [UIColor whiteColor] : self.theme.tintColor hasShadow:darkStyle == NO];
-	UIImage *newButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:button.bounds color:darkStyle ? self.theme.tintColor : [UIColor whiteColor] hasShadow:darkStyle == NO];
+	UIImage *oldButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:button.bounds color:tintColor ? [UIColor whiteColor] : self.theme.tintColor hasShadow:tintColor == NO];
+	UIImage *newButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:button.bounds color:tintColor ? self.theme.tintColor : [UIColor whiteColor] hasShadow:tintColor == NO];
 	if (duration > 0) {
 		CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
 		crossFade.duration = duration;
@@ -90,7 +90,7 @@
 {
 	_theme = theme;
 	self.navigationBar.barStyle = [theme navigationBarStyle];
-	[self updateCloseButtonImageWithDarkStyle:NO duration:0];
+	[self updateCloseButtonImageWithTintColor:NO duration:0];
 	[[UINavigationBar appearanceWhenContainedIn:[BUYNavigationController class], nil] setTitleTextAttributes:@{ NSForegroundColorAttributeName: [theme navigationBarTitleColor] }];
 }
 
