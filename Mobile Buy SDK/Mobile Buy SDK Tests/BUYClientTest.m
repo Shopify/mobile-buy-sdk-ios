@@ -37,6 +37,13 @@
 
 @implementation BUYClientTest
 
+- (void)setUp {
+	
+	[super setUp];
+	
+	self.client = [[BUYClient_Test alloc] initWithShopDomain:self.shopDomain apiKey:self.apiKey channelId:self.channelId];
+}
+
 - (NSData *)dataForCartFromClient:(BUYClient *)client
 {
 	BUYCart *cart = [[BUYCart alloc] init];
