@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9066573B1BA8B4AC004F6FED /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9066573A1BA8B4AC004F6FED /* Buy.framework */; };
 		BE8B82511B8CF49D00E3F871 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82501B8CF49D00E3F871 /* main.m */; };
 		BE8B82541B8CF49D00E3F871 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82531B8CF49D00E3F871 /* AppDelegate.m */; };
 		BE8B82571B8CF49D00E3F871 /* ProductListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82561B8CF49D00E3F871 /* ProductListViewController.m */; };
 		BE8B825D1B8CF49D00E3F871 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE8B825B1B8CF49D00E3F871 /* Main.storyboard */; };
 		BE8B82621B8CF49D00E3F871 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE8B82601B8CF49D00E3F871 /* LaunchScreen.xib */; };
-		BE8B82781B8CFAD800E3F871 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE8B82771B8CFAD800E3F871 /* Buy.framework */; };
 		BE8B827B1B8CFF0E00E3F871 /* GetShippingRatesOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B827A1B8CFF0E00E3F871 /* GetShippingRatesOperation.m */; };
 		BE8B82921B8E612700E3F871 /* ShippingRatesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82911B8E612700E3F871 /* ShippingRatesTableViewController.m */; };
 		BE8B82951B8E65D700E3F871 /* PreCheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82941B8E65D700E3F871 /* PreCheckoutViewController.m */; };
@@ -22,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9066573A1BA8B4AC004F6FED /* Buy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Buy.framework; path = ../Buy.framework; sourceTree = "<group>"; };
 		BE5E28451B94F5C300D2ECB5 /* Mobile Buy SDK Advanced Sample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Mobile Buy SDK Advanced Sample.entitlements"; sourceTree = "<group>"; };
 		BE8B824B1B8CF49D00E3F871 /* Mobile Buy SDK Advanced Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile Buy SDK Advanced Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE8B824F1B8CF49D00E3F871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -32,7 +33,6 @@
 		BE8B82561B8CF49D00E3F871 /* ProductListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductListViewController.m; sourceTree = "<group>"; };
 		BE8B825C1B8CF49D00E3F871 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BE8B82611B8CF49D00E3F871 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		BE8B82771B8CFAD800E3F871 /* Buy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Buy.framework; path = "../../../../Library/Developer/Xcode/DerivedData/Mobile_Buy_SDK-ewumbdubcjbgvfcrbhbskoeapdfq/Build/Products/Debug-iphoneos/Buy.framework"; sourceTree = "<group>"; };
 		BE8B82791B8CFF0E00E3F871 /* GetShippingRatesOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetShippingRatesOperation.h; sourceTree = "<group>"; };
 		BE8B827A1B8CFF0E00E3F871 /* GetShippingRatesOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetShippingRatesOperation.m; sourceTree = "<group>"; };
 		BE8B82901B8E612700E3F871 /* ShippingRatesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShippingRatesTableViewController.h; sourceTree = "<group>"; };
@@ -51,7 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE8B82781B8CFAD800E3F871 /* Buy.framework in Frameworks */,
+				9066573B1BA8B4AC004F6FED /* Buy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,7 +61,7 @@
 		BE8B82421B8CF49D00E3F871 = {
 			isa = PBXGroup;
 			children = (
-				BE8B82771B8CFAD800E3F871 /* Buy.framework */,
+				9066573A1BA8B4AC004F6FED /* Buy.framework */,
 				BE8B824D1B8CF49D00E3F871 /* Mobile Buy SDK Advanced Sample */,
 				BE8B824C1B8CF49D00E3F871 /* Products */,
 			);
@@ -152,7 +152,7 @@
 		BE8B82431B8CF49D00E3F871 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = Shopify;
 				TargetAttributes = {
 					BE8B824A1B8CF49D00E3F871 = {
@@ -256,6 +256,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -329,6 +330,7 @@
 				INFOPLIST_FILE = "Mobile Buy SDK Advanced Sample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -348,6 +350,7 @@
 				INFOPLIST_FILE = "Mobile Buy SDK Advanced Sample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
