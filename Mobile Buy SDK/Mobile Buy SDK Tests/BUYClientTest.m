@@ -11,6 +11,7 @@
 #import <Buy/Buy.h>
 #import "BUYTestConstants.h"
 #import "BUYAddress+Additions.h"
+#import "BUYClientTestBase.h"
 
 @interface BUYClient ()
 
@@ -31,43 +32,16 @@
 
 @end
 
-@interface BUYClientTest : XCTestCase
+@interface BUYClientTest : BUYClientTestBase
 @end
 
-@implementation BUYClientTest {
-	BUYClient_Test *_client;
-	
-	NSString *shopDomain;
-	NSString *apiKey;
-	NSString *channelId;
-	NSString *giftCardCode;
-	NSString *expiredGiftCardCode;
-	NSString *expiredGiftCardId;
-}
-
-- (void)setUp
-{
-	[super setUp];
-	
-	NSDictionary *environment = [[NSProcessInfo processInfo] environment];
-	shopDomain = environment[kBUYTestDomain];
-	apiKey = environment[kBUYTestAPIKey];
-	channelId = environment[kBUYTestChannelId];
-	giftCardCode = environment[kBUYTestGiftCardCode];
-	expiredGiftCardCode = environment[kBUYTestExpiredGiftCardCode];
-	expiredGiftCardId = environment[kBUYTestExpiredGiftCardID];
-	
-	XCTAssert([shopDomain length] > 0, @"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");
-	XCTAssert([apiKey length] > 0, @"You must provide a valid API Key. This is the API Key of your app.");
-	
-	_client = [[BUYClient_Test alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
-}
+@implementation BUYClientTest
 
 - (NSData *)dataForCartFromClient:(BUYClient *)client
 {
 	BUYCart *cart = [[BUYCart alloc] init];
 	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:cart];
-	NSURLSessionDataTask *task = [client createCheckout:checkout completion:nil];
+	NSURLSessionDataTask *task = [self.client createCheckout:checkout completion:nil];
 	XCTAssertNotNil(task);
 	
 	NSURLRequest *request = task.originalRequest;
@@ -81,14 +55,14 @@
 
 - (void)testCheckoutSerialization
 {
-	NSData *data = [self dataForCartFromClient:_client];
+	NSData *data = [self dataForCartFromClient:self.client];
 	
 	NSDictionary *dict = @{@"checkout":
 							   @{@"line_items": @[],
-								 @"channel_id": channelId,
+								 @"channel_id": self.channelId,
 								 @"source_name": @"mobile_app",
-								 @"source_identifier": _client.channelId,
-								 @"marketing_attribution":@{@"medium": @"iOS", @"source": _client.applicationName}}};
+								 @"source_identifier": self.client.channelId,
+								 @"marketing_attribution":@{@"medium": @"iOS", @"source": self.client.applicationName}}};
 	
 	NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
 	XCTAssertEqualObjects(dict, json);
@@ -99,7 +73,7 @@
 	BUYCart *cart = [[BUYCart alloc] init];
 	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:cart];
 
-	NSURLSessionDataTask *task = [_client createCheckout:checkout completion:nil];
+	NSURLSessionDataTask *task = [self.client createCheckout:checkout completion:nil];
 	NSDictionary *json = [NSJSONSerialization JSONObjectWithData:task.originalRequest.HTTPBody options:0 error:nil];
 	XCTAssertFalse([json[@"checkout"][@"partial_addresses"] boolValue]);
 	
@@ -109,7 +83,7 @@
 	partialAddress.address1 = BUYPartialAddressPlaceholder;
 	
 	checkout.shippingAddress = partialAddress;
-	task = [_client createCheckout:checkout completion:nil];
+	task = [self.client createCheckout:checkout completion:nil];
 	json = [NSJSONSerialization JSONObjectWithData:task.originalRequest.HTTPBody options:0 error:nil];
 
 	XCTAssertTrue([json[@"checkout"][@"partial_addresses"] boolValue]);
@@ -119,7 +93,7 @@
 {
 	BUYCheckout *checkout = [[BUYCheckout alloc] initWithDictionary:@{@"token": @"abcdef", @"payment_due": @0}];
 	
-	NSURLSessionDataTask *task = [_client completeCheckout:checkout completion:nil];
+	NSURLSessionDataTask *task = [self.client completeCheckout:checkout completion:nil];
 	XCTAssertNotNil(task);
 }
 
@@ -127,7 +101,7 @@
 {
 	NSURL *url = [NSURL URLWithString:@"sampleapp://?checkout%5Btoken%5D=377a6afb2c6651b6c42af5547e12bda1"];
 	
-	[_client getCompletionStatusOfCheckoutURL:url completion:^(BUYStatus status, NSError *error) {
+	[self.client getCompletionStatusOfCheckoutURL:url completion:^(BUYStatus status, NSError *error) {
 		// We should not get a callback here
 		XCTFail();
 	}];
@@ -139,7 +113,7 @@
 	
 	NSURL *url = [NSURL URLWithString:@"sampleapp://"];
 	
-	[_client getCompletionStatusOfCheckoutURL:url completion:^(BUYStatus status, NSError *error) {
+	[self.client getCompletionStatusOfCheckoutURL:url completion:^(BUYStatus status, NSError *error) {
 		XCTAssertEqual(status, BUYStatusUnknown);
 		XCTAssertEqual(error.code, BUYShopifyError_InvalidCheckoutObject);
 		[expectation fulfill];
@@ -156,9 +130,9 @@
 	
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-	[_client enableApplePayWithMerchantId:merchantId];
+	[self.client enableApplePayWithMerchantId:merchantId];
 	
-	XCTAssertEqualObjects(merchantId, _client.merchantId);
+	XCTAssertEqualObjects(merchantId, self.client.merchantId);
 #pragma GCC diagnostic pop
 }
 
@@ -187,14 +161,14 @@
 {
 	__block int callbackCount = 0;
 	
-	[_client completeCheckout:nil withApplePayToken:[PKPaymentToken new] completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client completeCheckout:nil withApplePayToken:[PKPaymentToken new] completion:^(BUYCheckout *checkout, NSError *error) {
 		callbackCount++;
 		XCTAssertEqual(error.code, BUYShopifyError_InvalidCheckoutObject);
 	}];
 	
 	BUYCheckout *checkout = [[BUYCheckout alloc] initWithDictionary:@{@"token": @"abcdef", @"payment_due": @0}];
 
-	[_client completeCheckout:checkout withApplePayToken:nil completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client completeCheckout:checkout withApplePayToken:nil completion:^(BUYCheckout *checkout, NSError *error) {
 		callbackCount++;
 		XCTAssertEqual(error.code, BUYShopifyError_NoApplePayTokenSpecified);
 	}];

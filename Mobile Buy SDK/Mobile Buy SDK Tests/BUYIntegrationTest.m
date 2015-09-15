@@ -14,12 +14,12 @@
 #import "BUYAddress+Additions.h"
 #import "BUYCheckout_Private.h"
 #import "BUYClient+Test.h"
+#import "BUYClientTestBase.h"
 
-@interface BUYIntegrationTest : XCTestCase
+@interface BUYIntegrationTest : BUYClientTestBase
 @end
 
 @implementation BUYIntegrationTest {
-	BUYClient *_checkoutClient;
 	
 	NSMutableArray *_products;
 	
@@ -27,38 +27,11 @@
 	BUYCheckout *_checkout;
 	NSArray *_shippingRates;
 	BUYGiftCard *_giftCard;
-	
-	
-	NSString *shopDomain;
-	NSString *apiKey;
-	NSString *channelId;
-	NSString *giftCardCode;
-	NSString *giftCardCode2;
-	NSString *giftCardCode3;
-	NSString *expiredGiftCardCode;
-	NSString *expiredGiftCardId;
 }
 
 - (void)setUp
 {
 	[super setUp];
-	
-	NSDictionary *environment = [[NSProcessInfo processInfo] environment];
-	shopDomain = environment[kBUYTestDomain];
-	apiKey = environment[kBUYTestAPIKey];
-	channelId = environment[kBUYTestChannelId];
-	giftCardCode = environment[kBUYTestGiftCardCode];
-	giftCardCode2 = environment[kBUYTestGiftCardCode2];
-	giftCardCode3 = environment[kBUYTestGiftCardCode3];
-	expiredGiftCardCode = environment[kBUYTestExpiredGiftCardCode];
-	expiredGiftCardId = environment[kBUYTestExpiredGiftCardID];
-	
-	XCTAssert([shopDomain length] > 0, @"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");
-	XCTAssertEqualObjects([shopDomain substringFromIndex:shopDomain.length - 14], @".myshopify.com", @"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");
-	XCTAssert([apiKey length] > 0, @"You must provide a valid API Key.");
-	XCTAssert([channelId length], @"You must provide a valid Channel ID");
-	
-	_checkoutClient = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
 	
 	_products = [[NSMutableArray alloc] init];
 	
@@ -75,7 +48,7 @@
 	while (done == NO) {
 		XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 		
-		[_checkoutClient getProductsPage:currentPage completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+		[self.client getProductsPage:currentPage completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 			done = reachedEnd || error;
 			
 			XCTAssertNil(error, @"There was an error getting your store's products");
@@ -114,7 +87,7 @@
 	_checkout.shippingAddress = [self shippingAddress];
 	_checkout.billingAddress = [self billingAddress];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_checkoutClient createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+	[self.client createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
 		
@@ -136,7 +109,7 @@
 		NSLog(@"Fetching shipping rates...");
 		XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 		
-		[_checkoutClient getShippingRatesForCheckout:_checkout completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
+		[self.client getShippingRatesForCheckout:_checkout completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
 			XCTAssertNil(error);
 			shippingStatus = status;
 			if (shippingStatus == BUYStatusComplete) {
@@ -164,7 +137,7 @@
 	_checkout.email = @"banana@testasaurus.com";
 	_checkout.shippingRate = _shippingRates[0];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_checkoutClient updateCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+	[self.client updateCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
 		XCTAssertNotNil(returnedCheckout.shippingRate.shippingRateIdentifier);
@@ -183,7 +156,7 @@
 	BUYCreditCard *creditCard = [self creditCard];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_checkoutClient storeCreditCard:creditCard checkout:_checkout completion:^(BUYCheckout *returnedCheckout, NSString *paymentSessionId, NSError *error) {
+	[self.client storeCreditCard:creditCard checkout:_checkout completion:^(BUYCheckout *returnedCheckout, NSString *paymentSessionId, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(paymentSessionId);
 		XCTAssertNotNil(returnedCheckout);
@@ -211,7 +184,7 @@
 - (void)completeCheckout
 {
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_checkoutClient completeCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+	[self.client completeCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
 		
@@ -233,7 +206,7 @@
 		NSLog(@"Checking completion status...");
 		XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 		
-		[_checkoutClient getCompletionStatusOfCheckout:_checkout completion:^(BUYStatus status, NSError *error) {
+		[self.client getCompletionStatusOfCheckout:_checkout completion:^(BUYStatus status, NSError *error) {
 			XCTAssertNil(error);
 			checkoutError = error;
 			checkoutStatus = status;
@@ -256,7 +229,7 @@
 {
 	XCTAssertNil(_checkout.orderId);
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_checkoutClient getCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+	[self.client getCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
 		_checkout = returnedCheckout;
@@ -300,13 +273,13 @@
 	XCTAssertEqual(result, NSOrderedSame);
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_checkoutClient applyGiftCardWithCode:giftCardCode toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client applyGiftCardWithCode:self.giftCardCode toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
 		XCTAssertNil(error);
 		_checkout = checkout;
 		_giftCard = _checkout.giftCards[0];
 		XCTAssertNotNil(_giftCard);
-		XCTAssertEqualObjects([giftCardCode substringWithRange:NSMakeRange(giftCardCode.length - 4, 4)], _giftCard.lastCharacters);
+		XCTAssertEqualObjects([self.giftCardCode substringWithRange:NSMakeRange(self.giftCardCode.length - 4, 4)], _giftCard.lastCharacters);
 		
 		NSDecimalNumber *paymentDue = [NSDecimalNumber decimalNumberWithString:@"215.75"];
 		NSComparisonResult result = [_checkout.paymentDue compare:paymentDue];
@@ -329,7 +302,7 @@
 	[self createCheckout];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_checkoutClient applyGiftCardWithCode:@"000" toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client applyGiftCardWithCode:@"000" toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		XCTAssertNotNil(error);
 		XCTAssertEqual(422, error.code);
 		
@@ -350,7 +323,7 @@
 	[self createCheckout];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_checkoutClient applyGiftCardWithCode:expiredGiftCardCode toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client applyGiftCardWithCode:self.expiredGiftCardCode toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		XCTAssertNotNil(error);
 		XCTAssertEqual(422, error.code);
 		
@@ -375,7 +348,7 @@
 	XCTAssertEqual(result, NSOrderedSame);
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_checkoutClient removeGiftCard:giftCard fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client removeGiftCard:giftCard fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
 		XCTAssertNil(error);
 		XCTAssertTrue([checkout.giftCards count] == 0);
@@ -397,7 +370,7 @@
 	
 	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:@{ @"id" : @"000" }];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_checkoutClient removeGiftCard:giftCard fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client removeGiftCard:giftCard fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		XCTAssertNotNil(error);
 		XCTAssertEqual(422, error.code);
 		
@@ -416,9 +389,9 @@
 {
 	[self testApplyingGiftCardToCheckout];
 	
-	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:@{ @"id" : expiredGiftCardId }];
+	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:@{ @"id" : self.expiredGiftCardId }];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_checkoutClient removeGiftCard:giftCard fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client removeGiftCard:giftCard fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		XCTAssertNotNil(error);
 		XCTAssertEqual(422, error.code);
 		
@@ -439,14 +412,14 @@
 	XCTAssertEqual([_checkout.giftCards count], 1);
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_checkoutClient applyGiftCardWithCode:giftCardCode2 toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client applyGiftCardWithCode:self.giftCardCode2 toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
 		XCTAssertNil(error);
 		_checkout = checkout;
 		XCTAssertEqual([_checkout.giftCards count], 2);
 		
 		BUYGiftCard *giftCard2 = _checkout.giftCards[1];
-		XCTAssertEqualObjects([giftCardCode2 substringWithRange:NSMakeRange(giftCardCode2.length - 4, 4)], giftCard2.lastCharacters);
+		XCTAssertEqualObjects([self.giftCardCode2 substringWithRange:NSMakeRange(self.giftCardCode2.length - 4, 4)], giftCard2.lastCharacters);
 		
 		NSDecimalNumber *paymentDue = [NSDecimalNumber decimalNumberWithString:@"205.75"];
 		NSComparisonResult result = [_checkout.paymentDue compare:paymentDue];
@@ -465,14 +438,14 @@
 	XCTAssertEqual([_checkout.giftCards count], 2);
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_checkoutClient applyGiftCardWithCode:giftCardCode3 toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client applyGiftCardWithCode:self.giftCardCode3 toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
 		XCTAssertNil(error);
 		_checkout = checkout;
 		XCTAssertEqual([_checkout.giftCards count], 3);
 		
 		BUYGiftCard *giftCard3 = _checkout.giftCards[2];
-		XCTAssertEqualObjects([giftCardCode3 substringWithRange:NSMakeRange(giftCardCode3.length - 4, 4)], giftCard3.lastCharacters);
+		XCTAssertEqualObjects([self.giftCardCode3 substringWithRange:NSMakeRange(self.giftCardCode3.length - 4, 4)], giftCard3.lastCharacters);
 		
 		NSDecimalNumber *paymentDue = [NSDecimalNumber decimalNumberWithString:@"195.75"];
 		NSComparisonResult result = [_checkout.paymentDue compare:paymentDue];
@@ -493,14 +466,14 @@
 	BUYGiftCard *giftCard2 = _checkout.giftCards[1];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_checkoutClient removeGiftCard:giftCard2 fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client removeGiftCard:giftCard2 fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
 		XCTAssertNil(error);
 		_checkout = checkout;
 		XCTAssertEqual([_checkout.giftCards count], 2);
 		
 		BUYGiftCard *giftCard3 = _checkout.giftCards[1];
-		XCTAssertEqualObjects([giftCardCode3 substringWithRange:NSMakeRange(giftCardCode3.length - 4, 4)], giftCard3.lastCharacters);
+		XCTAssertEqualObjects([self.giftCardCode3 substringWithRange:NSMakeRange(self.giftCardCode3.length - 4, 4)], giftCard3.lastCharacters);
 		
 		NSDecimalNumber *paymentDue = [NSDecimalNumber decimalNumberWithString:@"205.75"];
 		NSComparisonResult result = [_checkout.paymentDue compare:paymentDue];
@@ -521,14 +494,14 @@
 	BUYGiftCard *giftCard1 = _checkout.giftCards[0];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_checkoutClient removeGiftCard:giftCard1 fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client removeGiftCard:giftCard1 fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
 		XCTAssertNil(error);
 		_checkout = checkout;
 		XCTAssertEqual([_checkout.giftCards count], 1);
 		
 		BUYGiftCard *giftCard3 = _checkout.giftCards[0];
-		XCTAssertEqualObjects([giftCardCode3 substringWithRange:NSMakeRange(giftCardCode3.length - 4, 4)], giftCard3.lastCharacters);
+		XCTAssertEqualObjects([self.giftCardCode3 substringWithRange:NSMakeRange(self.giftCardCode3.length - 4, 4)], giftCard3.lastCharacters);
 		
 		NSDecimalNumber *paymentDue = [NSDecimalNumber decimalNumberWithString:@"215.75"];
 		NSComparisonResult result = [_checkout.paymentDue compare:paymentDue];
@@ -549,7 +522,7 @@
 	BUYGiftCard *giftCard3 = _checkout.giftCards[0];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_checkoutClient removeGiftCard:giftCard3 fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client removeGiftCard:giftCard3 fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
 		XCTAssertNil(error);
 		_checkout = checkout;
@@ -572,8 +545,8 @@
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
-	_checkoutClient = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:@"" channelId:nil];
-	[_checkoutClient createCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	self.client = [[BUYClient alloc] initWithShopDomain:self.shopDomain apiKey:@"" channelId:nil];
+	[self.client createCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		XCTAssertNotNil(error);
 		XCTAssertEqualObjects(error.domain, @"shopify");
 		XCTAssertEqual(error.code, 401);
@@ -591,8 +564,8 @@
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
-	_checkoutClient = [[BUYClient alloc] initWithShopDomain:@"asdfdsasdfdsasdfdsadsfowinfaoinfw.myshopify.com" apiKey:apiKey channelId:nil];
-	[_checkoutClient createCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	self.client = [[BUYClient alloc] initWithShopDomain:@"asdfdsasdfdsasdfdsadsfowinfaoinfw.myshopify.com" apiKey:self.apiKey channelId:nil];
+	[self.client createCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		XCTAssertNotNil(error);
 		XCTAssertEqualObjects(error.domain, @"shopify");
 		XCTAssertEqual(error.code, 404);
@@ -611,7 +584,7 @@
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
-	[_checkoutClient createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+	[self.client createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
 		
@@ -625,7 +598,7 @@
 	
 	XCTestExpectation *expectation2 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
-	[_checkoutClient getShippingRatesForCheckout:_checkout completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
+	[self.client getShippingRatesForCheckout:_checkout completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
 		XCTAssertEqual(BUYStatusPreconditionFailed, status);
 		[expectation2 fulfill];
 	}];
@@ -641,7 +614,7 @@
 	checkout.token = @"bananaaaa";
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_checkoutClient getShippingRatesForCheckout:checkout completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
+	[self.client getShippingRatesForCheckout:checkout completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
 		XCTAssertEqual(BUYStatusNotFound, status);
 		[expectation fulfill];
 	}];
@@ -671,7 +644,7 @@
 	
 	//Create the checkout
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_checkoutClient createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+	[self.client createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
 		
@@ -708,7 +681,7 @@
 	
 	//Create the checkout
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_checkoutClient createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+	[self.client createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		//NOTE: Is this test failing? Make sure that you create the following discounts on your test shop:
 		//
 		// applicable 	- this should be valid
@@ -735,7 +708,7 @@
 	
 	//Create the checkout
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_checkoutClient createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+	[self.client createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		XCTAssert(error);
 		XCTAssertEqual(422, error.code); //This is a validation error
 		XCTAssertNil(returnedCheckout);
@@ -755,7 +728,7 @@
 	
 	//Create the checkout
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_checkoutClient createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+	[self.client createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNotNil(error);
 		XCTAssertEqual(error.code, 422);
 		NSDictionary *info = [error userInfo];
@@ -769,16 +742,16 @@
 
 - (void)testIntegration
 {
-	XCTAssertTrue([_checkoutClient testIntegrationWithMerchantId:nil]);
-	XCTAssertTrue([_checkoutClient testIntegrationWithMerchantId:@"merchant.com.shopify.applepay"]);
+	XCTAssertTrue([self.client testIntegrationWithMerchantId:nil]);
+	XCTAssertTrue([self.client testIntegrationWithMerchantId:@"merchant.com.shopify.applepay"]);
 
-	BUYClient *badClient = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:@"asdvfdbfdgasfgdsfg"];
+	BUYClient *badClient = [[BUYClient alloc] initWithShopDomain:self.shopDomain apiKey:self.apiKey channelId:@"asdvfdbfdgasfgdsfg"];
 	XCTAssertFalse([badClient testIntegrationWithMerchantId:nil]);
 	
-	badClient = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:@"sadgsefgsdfgsdfgsdfg" channelId:channelId];
+	badClient = [[BUYClient alloc] initWithShopDomain:self.shopDomain apiKey:@"sadgsefgsdfgsdfgsdfg" channelId:self.channelId];
 	XCTAssertFalse([badClient testIntegrationWithMerchantId:nil]);
 	
-	badClient = [[BUYClient alloc] initWithShopDomain:@"asdvfdbfdgasfgdsfg.myshopify.com" apiKey:apiKey channelId:channelId];
+	badClient = [[BUYClient alloc] initWithShopDomain:@"asdvfdbfdgasfgdsfg.myshopify.com" apiKey:self.apiKey channelId:self.channelId];
 	XCTAssertFalse([badClient testIntegrationWithMerchantId:nil]);
 	
 	XCTAssertFalse([badClient testIntegrationWithMerchantId:@"blah"]);
@@ -858,7 +831,7 @@
 	
 	// Test default reservation time
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_checkoutClient createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+	[self.client createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		
 		XCTAssertNil(error);
 		XCTAssertEqual(300, returnedCheckout.reservationTime.intValue);
@@ -875,7 +848,7 @@
 	// Test reservation time set to zero
 	XCTestExpectation *expectation2 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	_checkout.reservationTime = @0;
-	[_checkoutClient updateCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+	[self.client updateCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		
 		XCTAssertNil(error);
 		XCTAssertEqual(0, returnedCheckout.reservationTime.intValue);
@@ -897,7 +870,7 @@
 	
 	// Expire the checkout
 	XCTestExpectation *expectation2 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_checkoutClient removeProductReservationsFromCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+	[self.client removeProductReservationsFromCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		
 		XCTAssertNil(error);
 		
@@ -917,14 +890,14 @@
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	XCTestExpectation *expectation2 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
-	[_checkoutClient getShop:^(BUYShop *shop, NSError *error) {
+	[self.client getShop:^(BUYShop *shop, NSError *error) {
 		
 		BOOL isMainThread = [NSThread isMainThread];
 		XCTAssertTrue(isMainThread);
 		[expectation fulfill];
 	}];
 	
-	BUYClient *testClient = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
+	BUYClient *testClient = [[BUYClient alloc] initWithShopDomain:self.shopDomain apiKey:self.apiKey channelId:self.channelId];
 	testClient.queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
 	
 	[testClient getShop:^(BUYShop *shop, NSError *error) {
