@@ -9,7 +9,7 @@ test:
       -reporter junit:$CIRCLE_TEST_REPORTS/xcode/results.xml
       -scheme "Mobile Buy SDK Tests"
       -workspace "Mobile Buy SDK.xcworkspace"
-      -sdk iphonesimulator8.3 clean test
+      -sdk iphonesimulator9.0 clean test
 
 experimental:
     notify:
