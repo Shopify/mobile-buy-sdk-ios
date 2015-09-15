@@ -48,12 +48,12 @@
 @property (nonatomic, strong) BUYProductViewHeaderOverlay *productViewHeaderOverlay;
 
 /**
- *  <#Description#>
+ *  Initializer with a frame to setup the product image collection view and theme the header
  *
- *  @param frame <#frame description#>
- *  @param theme <#theme description#>
+ *  @param frame Used for setting up the correct size of the collection view cells
+ *  @param theme The theme for the product view
  *
- *  @return <#return value description#>
+ *  @return The product view header to display in the BUYProductViewController's table view tableHeaderView
  */
 - (instancetype)initWithFrame:(CGRect)frame theme:(BUYTheme*)theme;
 
