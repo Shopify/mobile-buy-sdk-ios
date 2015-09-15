@@ -71,14 +71,62 @@
  *  The footer view containing the Checkout button, and - if enabled - Apple Pay button.
  */
 @property (nonatomic, strong) BUYProductViewFooter *productViewFooter;
+
+/**
+ *  A gradient view that sits at the top of the product images (if available).
+ *  This view is invisible when the navigation bar is visible.
+ */
 @property (nonatomic, strong) BUYGradientView *topGradientView;
+
+/**
+ *  The theme of the product view.
+ */
 @property (nonatomic, weak) BUYTheme *theme;
+
+/**
+ *  Helps determine logic for setting up product images in the BUYProductViewController
+ */
 @property (nonatomic, assign) BOOL hasSetVariantOnCollectionView;
 
+/**
+ *  Initializer for the product view using a rect, product to display and theme
+ *
+ *  @param rect    The rect is needed for the UICollectionView in the BUYProductViewHeader to setup the cell's bounds
+ *  @param product The product to display in the product view. Only used in the initializer to
+ *  @param theme   The theme for the product view
+ *
+ *  @return An instance of the BUYProductView
+ */
 - (instancetype)initWithFrame:(CGRect)rect product:(BUYProduct*)product theme:(BUYTheme*)theme;
+
+/**
+ *  The BUYProductViewController is the UITableViewDelegate, so it receives the UIScrollView delegate method calls. 
+ *  This method allows for forward-handling of these calls to update the product images and other UI elements accordingly.
+ *
+ *  @param scrollView The UIScrollView being scrolled in the BUYProductViewController
+ */
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView;
+
+/**
+ *  Updates the blurred product image behind the table view when the product image change.
+ *
+ *  @param images An array of product images.
+ */
 - (void)updateBackgroundImage:(NSArray *)images;
+
+/**
+ *  An toast error view above the checkout button(s) to use for display of an error when creating a checkout for Apple Pay.
+ *
+ *  @param errorMessage The error message to display.
+ */
 - (void)showErrorWithMessage:(NSString*)errorMessage;
+
+/**
+ *  The inset for the table view and scroll indicator, allowing for custom insets.
+ *
+ *  @param edgeInsets           The edge inset to set for the table view
+ *  @param appendToCurrentInset A flag that allows for adding the edge insets to the current edgeinsets of the table view.
+ */
 - (void)setInsets:(UIEdgeInsets)edgeInsets appendToCurrentInset:(BOOL)appendToCurrentInset;
 
 @end
