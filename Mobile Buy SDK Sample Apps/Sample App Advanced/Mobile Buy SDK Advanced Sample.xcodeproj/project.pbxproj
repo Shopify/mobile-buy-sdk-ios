@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9066573B1BA8B4AC004F6FED /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9066573A1BA8B4AC004F6FED /* Buy.framework */; };
+		9066573C1BA8BC6E004F6FED /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9066573A1BA8B4AC004F6FED /* Buy.framework */; };
+		90A6F42D1BA8BCAC003E7C4F /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90A6F42C1BA8BCAC003E7C4F /* PassKit.framework */; };
 		BE8B82511B8CF49D00E3F871 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82501B8CF49D00E3F871 /* main.m */; };
 		BE8B82541B8CF49D00E3F871 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82531B8CF49D00E3F871 /* AppDelegate.m */; };
 		BE8B82571B8CF49D00E3F871 /* ProductListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82561B8CF49D00E3F871 /* ProductListViewController.m */; };
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		9066573A1BA8B4AC004F6FED /* Buy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Buy.framework; path = ../Buy.framework; sourceTree = "<group>"; };
+		90A6F42C1BA8BCAC003E7C4F /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 		BE5E28451B94F5C300D2ECB5 /* Mobile Buy SDK Advanced Sample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Mobile Buy SDK Advanced Sample.entitlements"; sourceTree = "<group>"; };
 		BE8B824B1B8CF49D00E3F871 /* Mobile Buy SDK Advanced Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile Buy SDK Advanced Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE8B824F1B8CF49D00E3F871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -51,7 +53,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9066573B1BA8B4AC004F6FED /* Buy.framework in Frameworks */,
+				90A6F42D1BA8BCAC003E7C4F /* PassKit.framework in Frameworks */,
+				9066573C1BA8BC6E004F6FED /* Buy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +64,7 @@
 		BE8B82421B8CF49D00E3F871 = {
 			isa = PBXGroup;
 			children = (
+				90A6F42C1BA8BCAC003E7C4F /* PassKit.framework */,
 				9066573A1BA8B4AC004F6FED /* Buy.framework */,
 				BE8B824D1B8CF49D00E3F871 /* Mobile Buy SDK Advanced Sample */,
 				BE8B824C1B8CF49D00E3F871 /* Products */,
