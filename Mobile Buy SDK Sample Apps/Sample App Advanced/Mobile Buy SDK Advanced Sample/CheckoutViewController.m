@@ -32,7 +32,7 @@
 NSString * const CheckoutCallbackNotification = @"CheckoutCallbackNotification";
 NSString * const MerchantId = @"";
 
-@interface CheckoutViewController () <PKPaymentAuthorizationViewControllerDelegate, GetCompletionStatusOperationDelegate>
+@interface CheckoutViewController () <GetCompletionStatusOperationDelegate>
 
 @property (nonatomic, strong) BUYCheckout *checkout;
 @property (nonatomic, strong) BUYClient *client;
