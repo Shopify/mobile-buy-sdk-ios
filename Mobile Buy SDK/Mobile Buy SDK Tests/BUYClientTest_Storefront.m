@@ -384,17 +384,17 @@
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortTitleAscending completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+		XCTAssertNil(error);
+		XCTAssertNotNil(products);
+		XCTAssertGreaterThan([products count], 1);
 		
-		XCTAssertEqual(products.count, 5);
-		NSString *productTitle1 = [products[0] title];
-		NSString *productTitle2 = [products[1] title];
-		NSString *productTitle3 = [products[2] title];
-		NSString *productTitle4 = [products[3] title];
-		NSString *productTitle5 = [products[4] title];
-		XCTAssertEqual([productTitle1 compare:productTitle2], NSOrderedAscending);
-		XCTAssertEqual([productTitle2 compare:productTitle3], NSOrderedAscending);
-		XCTAssertEqual([productTitle3 compare:productTitle4], NSOrderedAscending);
-		XCTAssertEqual([productTitle4 compare:productTitle5], NSOrderedAscending);
+		int index = 0;
+		do {
+			BUYProduct *product = products[index];
+			BUYProduct *productToCompare = products[index + 1];
+			XCTAssertEqual([product.title compare:productToCompare.title], NSOrderedAscending);
+			index++;
+		} while (index < [products count] - 1);
 		
 		[expectation fulfill];
 	}];
@@ -415,16 +415,17 @@
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortTitleDescending completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 		
-		XCTAssertEqual(products.count, 5);
-		NSString *productTitle1 = [products[0] title];
-		NSString *productTitle2 = [products[1] title];
-		NSString *productTitle3 = [products[2] title];
-		NSString *productTitle4 = [products[3] title];
-		NSString *productTitle5 = [products[4] title];
-		XCTAssertEqual([productTitle1 compare:productTitle2], NSOrderedDescending);
-		XCTAssertEqual([productTitle2 compare:productTitle3], NSOrderedDescending);
-		XCTAssertEqual([productTitle3 compare:productTitle4], NSOrderedDescending);
-		XCTAssertEqual([productTitle4 compare:productTitle5], NSOrderedDescending);
+		XCTAssertNil(error);
+		XCTAssertNotNil(products);
+		XCTAssertGreaterThan([products count], 1);
+		
+		int index = 0;
+		do {
+			BUYProduct *product = products[index];
+			BUYProduct *productToCompare = products[index + 1];
+			XCTAssertEqual([product.title compare:productToCompare.title], NSOrderedDescending);
+			index++;
+		} while (index < [products count] - 1);
 		
 		[expectation fulfill];
 	}];
