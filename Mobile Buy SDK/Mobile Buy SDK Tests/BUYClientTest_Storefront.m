@@ -262,7 +262,7 @@
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortCreatedAscending completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 		
-		XCTAssertEqual(products.count, 5);
+		XCTAssertGreaterThan(products.count, 1);
 		
 		// TODO: Fix this test
 		// https://github.com/Shopify/shopify/issues/50547
@@ -294,7 +294,7 @@
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortCreatedDescending completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 		
-		XCTAssertEqual(products.count, 5);
+		XCTAssertGreaterThan(products.count, 1);
 		
 		// TODO: Fix this test
 		// https://github.com/Shopify/shopify/issues/50547
@@ -326,7 +326,7 @@
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortPriceAscending completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 		
-		XCTAssertEqual(products.count, 5);
+		XCTAssertGreaterThan(products.count, 1);
 		
 		BUYProduct *product = (BUYProduct*)products[0];
 		BUYProductVariant *variant = (BUYProductVariant*)product.variants[0];
@@ -358,7 +358,7 @@
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortPriceDescending completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 		
-		XCTAssertEqual(products.count, 5);
+		XCTAssertGreaterThan(products.count, 1);
 		
 		BUYProduct *product = (BUYProduct*)products[0];
 		BUYProductVariant *variant = (BUYProductVariant*)product.variants[0];

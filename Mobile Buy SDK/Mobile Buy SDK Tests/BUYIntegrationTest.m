@@ -74,10 +74,7 @@
 {
 	_cart = [[BUYCart alloc] init];
 	for (BUYProduct *product in _products) {
-		if ([product.productId isEqualToNumber:@458943719]) {
-			[_cart addVariant:product.variants[0]];
-			return;
-		}
+		[_cart addVariant:product.variants[0]];
 	}
 }
 
