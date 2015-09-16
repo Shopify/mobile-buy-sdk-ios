@@ -26,7 +26,6 @@
 
 #import "BUYNSPersonNameComponents.h"
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
 @interface BUYNSPersonNameComponents () {
 	NSString *_givenName;
 	NSString *_familyName;
@@ -57,4 +56,3 @@
 }
 
 @end
-#endif

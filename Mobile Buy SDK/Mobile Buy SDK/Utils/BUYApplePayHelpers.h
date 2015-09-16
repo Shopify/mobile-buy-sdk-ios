@@ -30,7 +30,7 @@
 @class BUYClient;
 @class BUYCheckout;
 
-@interface BUYApplePayHelpers : NSObject
+@interface BUYApplePayHelpers : NSObject <PKPaymentAuthorizationViewControllerDelegate>
 
 /**
  *  Initializes a helper to support Apple Pay
@@ -48,15 +48,15 @@
  *  @param payment    the authorized payment
  *  @param completion completion block thats called after Shopify authorizes the payment
  */
-- (void)updateAndCompleteCheckoutWithPayment:(PKPayment *)payment completion:(void (^)(PKPaymentAuthorizationStatus status))completion;
+- (void)updateAndCompleteCheckoutWithPayment:(PKPayment *)payment completion:(void (^)(PKPaymentAuthorizationStatus status))completion DEPRECATED_MSG_ATTRIBUTE("BUYApplePayHelpers now implements PKPaymentAuthorizationViewControllerDelegate instead");
 
 /**
- *  Call this method in the PKPaymentAuthorizationViewControllerDelegate `paymentAuthorizationViewController:didSelectPaymentMethod:completion`
+ *  Call this method in the PKPaymentAuthorizationViewControllerDelegate `paymentAuthorizationViewController:didSelectShippingMethod:completion`
  *
  *  @param shippingMethod The selected shipping method
  *  @param completion     the completion block called after shipping method is updated on the checkout
  */
-- (void)updateCheckoutWithShippingMethod:(PKShippingMethod *)shippingMethod completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *methods))completion;
+- (void)updateCheckoutWithShippingMethod:(PKShippingMethod *)shippingMethod completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *methods))completion DEPRECATED_MSG_ATTRIBUTE("BUYApplePayHelpers now implements PKPaymentAuthorizationViewControllerDelegate instead");
 
 /**
  *  Call this method in the PKPaymentAuthorizationViewControllerDelegate `paymentAuthorizationViewController:didSelectShippingAddress:completion`
@@ -66,15 +66,13 @@
  */
 - (void)updateCheckoutWithAddress:(ABRecordRef)address completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *shippingMethods, NSArray *summaryItems))completion NS_DEPRECATED_IOS(8_0, 9_0, "Use the CNContact backed `updateCheckoutWithContact:completion:` instead");
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
 /**
  *  Call this method in the PKPaymentAuthorizationViewControllerDelegate `paymentAuthorizationViewController:didSelectShippingAddress:completion`
  *
  *  @param contact    The selected contact
  *  @param completion the completion block called after the shipping address is updated on the checkout
  */
-- (void)updateCheckoutWithContact:(PKContact*)contact completion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion NS_AVAILABLE_IOS(9_0);
-#endif
+- (void)updateCheckoutWithContact:(PKContact*)contact completion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion DEPRECATED_MSG_ATTRIBUTE("BUYApplePayHelpers now implements PKPaymentAuthorizationViewControllerDelegate instead");
 
 /**
  *  The current checkout

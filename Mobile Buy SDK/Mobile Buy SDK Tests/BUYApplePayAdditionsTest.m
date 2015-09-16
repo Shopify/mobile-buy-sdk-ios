@@ -355,7 +355,6 @@
 	XCTAssertEqualObjects(BUYPartialAddressPlaceholder, newAddress.phone);
 }
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000
 - (void)testAddressFromContact
 {
 	BUYAddress *newAddress = [self buyAddressWithTestContactFullDetails:YES];
@@ -367,7 +366,7 @@
 	XCTAssertEqualObjects(@"Ottawa", newAddress.city);
 	XCTAssertEqualObjects(@"Ontario", newAddress.province);
 	XCTAssertEqualObjects(@"K1N5T5", newAddress.zip);
-	XCTAssertEqualObjects(@"Canada", newAddress.country);
+	XCTAssertNil(newAddress.country);
 	XCTAssertEqualObjects(@"CA", newAddress.countryCode);
 }
 
@@ -422,8 +421,7 @@
 	XCTAssertEqualObjects(addressFromRecord.zip, addressFromContact.zip);
 	XCTAssertEqualObjects(addressFromRecord.country, addressFromContact.country);
 	XCTAssertEqualObjects(addressFromRecord.phone, addressFromContact.phone);
-	XCTAssertNotEqualObjects(addressFromRecord.countryCode, addressFromContact.countryCode);
+	XCTAssertEqualObjects(addressFromRecord.countryCode, addressFromContact.countryCode);
 }
-#endif
 
 @end

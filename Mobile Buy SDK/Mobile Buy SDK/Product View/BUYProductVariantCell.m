@@ -130,8 +130,8 @@ CGFloat const buttonWidth = 10.0f;
 	self.disclosureIndicatorImageView.hidden = accessoryType != UITableViewCellAccessoryDisclosureIndicator;
 	if (accessoryType == UITableViewCellAccessoryDisclosureIndicator) {
 		self.selectionStyle = UITableViewCellSelectionStyleDefault;
-		[NSLayoutConstraint activateConstraints:self.disclosureConstraints];
 		[NSLayoutConstraint deactivateConstraints:self.noDisclosureConstraints];
+		[NSLayoutConstraint activateConstraints:self.disclosureConstraints];
 	} else {
 		self.selectionStyle = UITableViewCellSelectionStyleNone;
 		[NSLayoutConstraint deactivateConstraints:self.disclosureConstraints];

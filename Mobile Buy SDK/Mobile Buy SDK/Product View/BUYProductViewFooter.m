@@ -118,11 +118,11 @@
 {
 	self.buyPaymentButton.hidden = !isApplePayAvailable;
 	if (isApplePayAvailable) {
-		[NSLayoutConstraint activateConstraints:self.applePayLayoutConstraints];
 		[NSLayoutConstraint deactivateConstraints:self.checkoutLayoutConstraints];
+		[NSLayoutConstraint activateConstraints:self.applePayLayoutConstraints];
 	} else {
-		[NSLayoutConstraint activateConstraints:self.checkoutLayoutConstraints];
 		[NSLayoutConstraint deactivateConstraints:self.applePayLayoutConstraints];
+		[NSLayoutConstraint activateConstraints:self.checkoutLayoutConstraints];
 	}
 }
 

@@ -50,6 +50,16 @@
 		[[UIBarButtonItem appearanceWhenContainedIn:[BUYNavigationController class], nil] setBackButtonBackgroundImage:[buttonImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 12, 0, 0)]
 																											  forState:UIControlStateNormal
 																											barMetrics:UIBarMetricsDefault];
+		
+		_breadsCrumbsView = [BUYVariantOptionBreadCrumbsView new];
+		_breadsCrumbsView.translatesAutoresizingMaskIntoConstraints = NO;
+		[self.view addSubview:_breadsCrumbsView];
+		[self.view addConstraint:[NSLayoutConstraint constraintWithItem:_breadsCrumbsView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
+		_breadsCrumbsView.visibleConstraint = [NSLayoutConstraint constraintWithItem:_breadsCrumbsView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0];
+		_breadsCrumbsView.hiddenConstraint = [NSLayoutConstraint constraintWithItem:_breadsCrumbsView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1.0 constant:0];
+		[NSLayoutConstraint activateConstraints:@[_breadsCrumbsView.hiddenConstraint]];
+		
+		[self.view addConstraint:[NSLayoutConstraint constraintWithItem:_breadsCrumbsView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.navigationBar attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0]];
 	}
 	
 	return self;
@@ -57,6 +67,7 @@
 
 - (void)setTheme:(BUYTheme *)theme
 {
+	[self.breadsCrumbsView setTheme:theme];
 	self.navigationBar.barStyle = [theme navigationBarStyle];
 	[self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName : [theme navigationBarTitleVariantSelectionColor] }];
 	self.navigationBar.tintColor = theme.tintColor;

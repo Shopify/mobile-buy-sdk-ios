@@ -33,6 +33,7 @@
 #import "BUYTheme.h"
 #import "BUYTheme+Additions.h"
 #import "BUYVariantSelectionViewController.h"
+#import "BUYVariantOptionBreadCrumbsView.h"
 
 @interface BUYVariantSelectionViewController () <BUYOptionSelectionDelegate>
 
@@ -99,6 +100,11 @@
 	return self.product.options.count - 1 == index;
 }
 
+- (BOOL)isFirstOption
+{
+	return [[self.selectedOptions allKeys] count] == 1;
+}
+
 - (BUYOptionSelectionViewController *)nextOptionSelectionController
 {
 	NSUInteger index = [[self.selectedOptions allKeys] count];
@@ -112,6 +118,10 @@
 	optionController.isLastOption = [self isLastOption];
 	optionController.currencyFormatter = self.currencyFormatter;
 	optionController.title = option.name;
+	if (index > 0) {
+		[[(BUYOptionSelectionNavigationController*)self.navigationController breadsCrumbsView] setSelectedBuyOptionValues:[self.optionValueNames copy]];
+		optionController.tableView.contentInset = optionController.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(optionController.tableView.contentInset.top + CGRectGetHeight([[(BUYOptionSelectionNavigationController*)self.navigationController breadsCrumbsView] bounds]), optionController.tableView.contentInset.left, optionController.tableView.contentInset.bottom, optionController.tableView.contentInset.right);
+	}
 	return optionController;
 }
 
@@ -150,6 +160,7 @@
 	[self.selectedOptions removeObjectForKey:option.name];
 	[self.optionValueNames removeLastObject];
 	self.filteredProductVariantsForSelectionOption = controller.filteredProductVariantsForSelectionOption;
+	[[(BUYOptionSelectionNavigationController*)self.navigationController breadsCrumbsView] setSelectedBuyOptionValues:[self.optionValueNames copy]];
 }
 
 - (NSArray*)filteredProductVariantsForSelectionOption
