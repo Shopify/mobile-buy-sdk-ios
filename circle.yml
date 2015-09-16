@@ -4,12 +4,18 @@ machine:
 
 test:
   override:
-    - xctool
-      -reporter pretty
-      -reporter junit:$CIRCLE_TEST_REPORTS/xcode/results.xml
-      -scheme "Mobile Buy SDK Tests"
-      -workspace "Mobile Buy SDK.xcworkspace"
-      -sdk iphonesimulator9.0 clean test
+    - set -o pipefail &&
+      xcodebuild
+        CODE_SIGNING_REQUIRED=NO
+        CODE_SIGN_IDENTITY=
+        PROVISIONING_PROFILE=
+        -sdk iphonesimulator
+        -destination 'platform=iOS Simulator,OS=9.0,name=iPhone 6'
+        -workspace "Mobile Buy SDK.xcworkspace"
+        -scheme "Mobile Buy SDK Tests"
+        clean test |
+      tee $CIRCLE_ARTIFACTS/xcode_raw.log |
+      xcpretty --color --report junit --output $CIRCLE_TEST_REPORTS/xcode/results.xml
 
 experimental:
     notify:
