@@ -163,7 +163,7 @@
 		// reliable regardless of locale. Fallback to country if
 		// we do not receive it (iOS 8 sometimes)
 		address.countryCode = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressCountryCodeKey);
-		if (address.countryCode == nil || [address.countryCode length] == 0) {
+		if ([address.countryCode length] == 0) {
 			address.country = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressCountryKey);
 		}
 	}
