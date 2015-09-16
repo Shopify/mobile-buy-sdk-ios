@@ -59,7 +59,7 @@
 	[self.client getShop:^(BUYShop *shop, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(shop);
-		XCTAssertEqualObjects(shop.name, @"davidmuzi");
+		XCTAssertGreaterThan([shop.name length], 1);
 		
 		[expectation fulfill];
 	}];
@@ -71,17 +71,17 @@
 - (void)testGetProductById
 {
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client getProductById:@"378783139" completion:^(BUYProduct *product, NSError *error) {
+	[self.client getProductById:self.productIds[0] completion:^(BUYProduct *product, NSError *error) {
 
 		XCTAssertNil(error);
 		XCTAssertNotNil(product);
-		XCTAssertEqualObjects(@"App crasher", [product title]);
 		
+		// Test dates
 		NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForPublications];
 		// Integration test might run on a different timezone, so we have to force the timezone to GMT
 		dateFormatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
-		XCTAssertEqual([product.createdAtDate compare:[dateFormatter dateFromString:@"2015-07-28T09:58:24-0400"]], NSOrderedSame);
-		XCTAssertEqual([product.publishedAtDate compare:product.createdAtDate], NSOrderedSame);
+		XCTAssertEqual([product.createdAtDate compare:[NSDate date]], NSOrderedAscending);
+		XCTAssertEqual([product.publishedAtDate compare:[NSDate date]], NSOrderedAscending);
 		XCTAssertNotNil(product.updatedAtDate);
 		
 		[expectation fulfill];
@@ -95,19 +95,24 @@
 {
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 
-	[self.client getProductsByIds:@[@"378783139", @"376722235", @"458943719"] completion:^(NSArray *products, NSError *error) {
+	[self.client getProductsByIds:self.productIds completion:^(NSArray *products, NSError *error) {
 		
 		XCTAssertNil(error);
 		XCTAssertNotNil(products);
-		XCTAssertEqual([products count], 3);
+		XCTAssertGreaterThan([products count], 1);
 		
 		// TODO: Change to test against 
 		NSSortDescriptor *sortByName = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES];
 		NSArray *sortDescriptors = [NSArray arrayWithObject:sortByName];
 		products = [products sortedArrayUsingDescriptors:sortDescriptors];
-		XCTAssertEqualObjects(@"App crasher", [products[0] title]);
-		XCTAssertEqualObjects(@"Pixel", [products[1] title]);
-		XCTAssertEqualObjects(@"Solar powered umbrella", [products[2] title]);
+		int index = 0;
+		do {
+			BUYProduct *product = products[index];
+			BUYProduct *productToCompare = products[index + 1];
+			XCTAssertEqual([product.title compare:productToCompare.title], NSOrderedAscending);
+			index++;
+		} while (index < [products count] - 1);
+
 		[expectation fulfill];
 	}];
 

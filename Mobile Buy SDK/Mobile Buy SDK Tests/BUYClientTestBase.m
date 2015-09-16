@@ -32,6 +32,7 @@
 	self.giftCardCode3 = environment[kBUYTestGiftCardCode3] ?: giftCards[@"valid50"][@"code"];
 	self.expiredGiftCardCode = environment[kBUYTestExpiredGiftCardCode] ?: giftCards[@"expired"][@"code"];
 	self.expiredGiftCardId = environment[kBUYTestExpiredGiftCardID] ?: giftCards[@"expired"][@"id"];
+	self.productIds = jsonConfig[@"product_ids"];
 	
 	XCTAssert([self.shopDomain length] > 0, @"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");
 	XCTAssertEqualObjects([self.shopDomain substringFromIndex:self.shopDomain.length - 14], @".myshopify.com", @"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");

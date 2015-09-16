@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSString *giftCardCode3;
 @property (nonatomic, strong) NSString *expiredGiftCardCode;
 @property (nonatomic, strong) NSString *expiredGiftCardId;
+@property (nonatomic, strong) NSArray *productIds;
 
 @property (nonatomic, strong) BUYClient *client;
 
