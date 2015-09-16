@@ -1,0 +1,48 @@
+{
+	"application_name": "MobileBuyTest",
+	"shop_domain": "",
+	"api_key": "",
+	"channel_id": "",
+	"product_ids": [
+					"",
+					""
+					],
+	"collection_id": "",
+	"gift_cards": {
+		"valid10": {
+			"id": "",
+			"code": "",
+			"value": 0
+		},
+		"valid25": {
+			"id": "",
+			"code": "",
+			"value": 0
+		},
+		"valid50": {
+			"id": "",
+			"code": "",
+			"value": 0
+		},
+		"expired": {
+			"id": "",
+			"code": "",
+			"value": 0
+		},
+		"invalid": {
+			"id": "",
+			"code": "",
+			"value": 0
+		}
+	},
+	"discounts": {
+		"expired": {
+			"code": "",
+			"value": 0
+		},
+		"valid": {
+			"code": "",
+			"value": 0
+		}
+	}
+}

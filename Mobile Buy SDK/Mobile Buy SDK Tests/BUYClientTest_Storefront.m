@@ -13,58 +13,35 @@
 #import "BUYCollection.h"
 #import "BUYCollection+Additions.h"
 #import "NSDateFormatter+BUYAdditions.h"
+#import "BUYClientTestBase.h"
 
-@interface BUYClientTest_Storefront : XCTestCase
+@interface BUYClientTest_Storefront : BUYClientTestBase
 @property (nonatomic, strong) BUYCollection *collection;
 @end
 
-@implementation BUYClientTest_Storefront {
-	BUYClient *_client;
-	
-	NSString *shopDomain;
-	NSString *apiKey;
-	NSString *channelId;
-	NSString *giftCardCode;
-	NSString *expiredGiftCardCode;
-	NSString *expiredGiftCardId;
-}
-
-- (void)setUp
-{
-	[super setUp];
-	
-	NSDictionary *environment = [[NSProcessInfo processInfo] environment];
-	shopDomain = environment[kBUYTestDomain];
-	apiKey = environment[kBUYTestAPIKey];
-	channelId = environment[kBUYTestChannelId];
-	giftCardCode = environment[kBUYTestGiftCardCode];
-	expiredGiftCardCode = environment[kBUYTestExpiredGiftCardCode];
-	expiredGiftCardId = environment[kBUYTestExpiredGiftCardID];
-	
-	_client = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
-}
+@implementation BUYClientTest_Storefront
 
 - (void)testDefaultPageSize
 {
-	XCTAssertEqual(_client.pageSize, 25);
+	XCTAssertEqual(self.client.pageSize, 25);
 }
 
 - (void)testSetPageSizeIsClamped
 {
-	[_client setPageSize:0];
-	XCTAssertEqual(_client.pageSize, 1);
+	[self.client setPageSize:0];
+	XCTAssertEqual(self.client.pageSize, 1);
 	
-	[_client setPageSize:54];
-	XCTAssertEqual(_client.pageSize, 54);
+	[self.client setPageSize:54];
+	XCTAssertEqual(self.client.pageSize, 54);
 	
-	[_client setPageSize:260];
-	XCTAssertEqual(_client.pageSize, 250);
+	[self.client setPageSize:260];
+	XCTAssertEqual(self.client.pageSize, 250);
 }
 
 - (void)testGetProductList
 {
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_client getProductsPage:0 completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+	[self.client getProductsPage:0 completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(products);
 		XCTAssertTrue([products count] > 0);
@@ -79,7 +56,7 @@
 - (void)testGetShop
 {
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_client getShop:^(BUYShop *shop, NSError *error) {
+	[self.client getShop:^(BUYShop *shop, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(shop);
 		XCTAssertEqualObjects(shop.name, @"davidmuzi");
@@ -94,7 +71,7 @@
 - (void)testGetProductById
 {
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_client getProductById:@"378783139" completion:^(BUYProduct *product, NSError *error) {
+	[self.client getProductById:@"378783139" completion:^(BUYProduct *product, NSError *error) {
 
 		XCTAssertNil(error);
 		XCTAssertNotNil(product);
@@ -118,7 +95,7 @@
 {
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 
-	[_client getProductsByIds:@[@"378783139", @"376722235", @"458943719"] completion:^(NSArray *products, NSError *error) {
+	[self.client getProductsByIds:@[@"378783139", @"376722235", @"458943719"] completion:^(NSArray *products, NSError *error) {
 		
 		XCTAssertNil(error);
 		XCTAssertNotNil(products);
@@ -142,7 +119,7 @@
 - (void)testProductRequestError
 {
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_client getProductById:@"asdfdsasdfdsasdfdsasdfjkllkj" completion:^(BUYProduct *product, NSError *error) {
+	[self.client getProductById:@"asdfdsasdfdsasdfdsasdfjkllkj" completion:^(BUYProduct *product, NSError *error) {
 
 		XCTAssertNil(product);
 		XCTAssertEqual(BUYShopifyError_InvalidProductID, error.code);
@@ -156,7 +133,7 @@
 - (void)testProductsRequestError
 {
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_client getProductsByIds:@[@"asdfdsasdfds", @"asdfdsasdfjkllkj"] completion:^(NSArray *products, NSError *error) {
+	[self.client getProductsByIds:@[@"asdfdsasdfds", @"asdfdsasdfjkllkj"] completion:^(NSArray *products, NSError *error) {
 		
 		XCTAssertEqual(BUYShopifyError_InvalidProductID, error.code);
 		XCTAssertEqual(0, products.count);
@@ -170,7 +147,7 @@
 - (void)testCollections
 {
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_client getCollections:^(NSArray *collections, NSError *error) {
+	[self.client getCollections:^(NSArray *collections, NSError *error) {
 		
 		XCTAssertNotNil(collections);
 		XCTAssertNil(error);
@@ -197,7 +174,7 @@
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 
-	[_client getProductsPage:1 inCollection:self.collection.collectionId completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+	[self.client getProductsPage:1 inCollection:self.collection.collectionId completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 	
 		XCTAssertNil(error);
 		XCTAssertNotNil(products);
@@ -232,7 +209,7 @@
 	XCTAssertNotNil(self.collection);
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortCollectionDefault completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+	[self.client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortCollectionDefault completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 
 		XCTAssertNil(error);
 		XCTAssertNotNil(products);
@@ -255,7 +232,7 @@
 	XCTAssertNotNil(self.collection);
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortBestSelling completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+	[self.client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortBestSelling completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 		
 		XCTAssertNil(error);
 		XCTAssertNotNil(products);
@@ -278,7 +255,7 @@
 	XCTAssertNotNil(self.collection);
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortCreatedAscending completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+	[self.client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortCreatedAscending completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 		
 		XCTAssertEqual(products.count, 5);
 		
@@ -310,7 +287,7 @@
 	XCTAssertNotNil(self.collection);
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortCreatedDescending completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+	[self.client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortCreatedDescending completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 		
 		XCTAssertEqual(products.count, 5);
 		
@@ -342,7 +319,7 @@
 	XCTAssertNotNil(self.collection);
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortPriceAscending completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+	[self.client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortPriceAscending completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 		
 		XCTAssertEqual(products.count, 5);
 		
@@ -374,7 +351,7 @@
 	XCTAssertNotNil(self.collection);
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortPriceDescending completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+	[self.client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortPriceDescending completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 		
 		XCTAssertEqual(products.count, 5);
 		
@@ -406,7 +383,7 @@
 	XCTAssertNotNil(self.collection);
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortTitleAscending completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+	[self.client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortTitleAscending completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 		
 		XCTAssertEqual(products.count, 5);
 		NSString *productTitle1 = [products[0] title];
@@ -436,7 +413,7 @@
 	XCTAssertNotNil(self.collection);
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[_client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortTitleDescending completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+	[self.client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:BUYCollectionSortTitleDescending completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 		
 		XCTAssertEqual(products.count, 5);
 		NSString *productTitle1 = [products[0] title];

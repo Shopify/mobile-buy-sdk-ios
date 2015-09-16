@@ -29,6 +29,11 @@
 
 @import Buy;
 
+#warning - Enter your shop domain and API Key
+#define SHOP_DOMAIN @""
+#define API_KEY @""
+#define CHANNEL_ID @""
+
 @interface ProductListViewController ()
 @property BUYClient *client;
 @property NSArray *objects;
@@ -45,9 +50,7 @@
     
     self.title = @"Choose Product";
     
-    self.client = [[BUYClient alloc] initWithShopDomain:@""
-                                                 apiKey:@""
-                                              channelId:@""];
+    self.client = [[BUYClient alloc] initWithShopDomain:SHOP_DOMAIN apiKey:API_KEY channelId:CHANNEL_ID];
 
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [self.client getProductsPage:1 completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
@@ -120,8 +123,8 @@
     address.address2 = @"2nd Floor";
     address.city = @"Ottawa";
     address.company = @"Shopify Inc.";
-    address.firstName = @"Tobi";
-    address.lastName = @"Lütke";
+    address.firstName = @"Egon";
+    address.lastName = @"Spengler";
     address.phone = @"1-555-555-5555";
     address.countryCode = @"CA";
     address.provinceCode = @"ON";
