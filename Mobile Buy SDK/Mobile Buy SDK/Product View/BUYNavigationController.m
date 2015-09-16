@@ -49,7 +49,7 @@
 	return self;
 }
 
-- (void)updateCloseButtonImageWithDarkStyle:(BOOL)tintColor duration:(CGFloat)duration
+- (void)updateCloseButtonImageWithDarkStyle:(BOOL)darkStyle duration:(CGFloat)duration
 {
 	UIButton *button = (UIButton*)self.topViewController.navigationItem.leftBarButtonItem.customView;
 	UIImage *newButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:button.bounds color:tintColor ? self.theme.tintColor : [UIColor whiteColor] hasShadow:tintColor == NO];
