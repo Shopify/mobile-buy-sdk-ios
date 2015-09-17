@@ -368,14 +368,15 @@
 {
 	[self testApplyingGiftCardToCheckout];
 	
+	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
+	
 	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:@{ @"id" : @"000" }];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client removeGiftCard:giftCard fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		XCTAssertNotNil(error);
 		XCTAssertEqual(422, error.code);
 		
-		NSDecimalNumber *paymentDue = [NSDecimalNumber decimalNumberWithString:@"215.75"];
-		NSComparisonResult result = [_checkout.paymentDue compare:paymentDue];
+		NSComparisonResult result = [_checkout.paymentDue compare:originalPaymentDue];
 		XCTAssertEqual(result, NSOrderedSame);
 		
 		[expectation fulfill];
@@ -389,14 +390,15 @@
 {
 	[self testApplyingGiftCardToCheckout];
 	
+	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
+	
 	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:@{ @"id" : self.giftCardIdExpired }];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client removeGiftCard:giftCard fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		XCTAssertNotNil(error);
 		XCTAssertEqual(422, error.code);
 		
-		NSDecimalNumber *paymentDue = [NSDecimalNumber decimalNumberWithString:@"215.75"];
-		NSComparisonResult result = [_checkout.paymentDue compare:paymentDue];
+		NSComparisonResult result = [_checkout.paymentDue compare:originalPaymentDue];
 		XCTAssertEqual(result, NSOrderedSame);
 		
 		[expectation fulfill];
@@ -411,9 +413,11 @@
 	[self testApplyingGiftCardToCheckout];
 	XCTAssertEqual([_checkout.giftCards count], 1);
 	
+	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
+	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client applyGiftCardWithCode:self.giftCardCode2 toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
-		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
+
 		XCTAssertNil(error);
 		_checkout = checkout;
 		XCTAssertEqual([_checkout.giftCards count], 2);
@@ -421,9 +425,8 @@
 		BUYGiftCard *giftCard2 = _checkout.giftCards[1];
 		XCTAssertEqualObjects([self.giftCardCode2 substringWithRange:NSMakeRange(self.giftCardCode2.length - 4, 4)], giftCard2.lastCharacters);
 		
-		NSDecimalNumber *paymentDue = [NSDecimalNumber decimalNumberWithString:@"205.75"];
-		NSComparisonResult result = [_checkout.paymentDue compare:paymentDue];
-		XCTAssertEqual(result, NSOrderedSame);
+		// Ensure the amount before applying the second gift card is greater than the new paymentDue amount
+		XCTAssertGreaterThan([originalPaymentDue integerValue], [_checkout.paymentDue integerValue]);
 		
 		[expectation fulfill];
 	}];
@@ -437,6 +440,8 @@
 	[self testAddingTwoGiftCards];
 	XCTAssertEqual([_checkout.giftCards count], 2);
 	
+	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
+	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client applyGiftCardWithCode:self.giftCardCode3 toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
@@ -447,9 +452,8 @@
 		BUYGiftCard *giftCard3 = _checkout.giftCards[2];
 		XCTAssertEqualObjects([self.giftCardCode3 substringWithRange:NSMakeRange(self.giftCardCode3.length - 4, 4)], giftCard3.lastCharacters);
 		
-		NSDecimalNumber *paymentDue = [NSDecimalNumber decimalNumberWithString:@"195.75"];
-		NSComparisonResult result = [_checkout.paymentDue compare:paymentDue];
-		XCTAssertEqual(result, NSOrderedSame);
+		// Ensure the amount before applying the third gift card is greater than the new paymentDue amount
+		XCTAssertGreaterThan([originalPaymentDue integerValue], [_checkout.paymentDue integerValue]);
 		
 		[expectation fulfill];
 	}];
@@ -465,6 +469,8 @@
 	
 	BUYGiftCard *giftCard2 = _checkout.giftCards[1];
 	
+	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
+	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client removeGiftCard:giftCard2 fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
@@ -475,9 +481,8 @@
 		BUYGiftCard *giftCard3 = _checkout.giftCards[1];
 		XCTAssertEqualObjects([self.giftCardCode3 substringWithRange:NSMakeRange(self.giftCardCode3.length - 4, 4)], giftCard3.lastCharacters);
 		
-		NSDecimalNumber *paymentDue = [NSDecimalNumber decimalNumberWithString:@"205.75"];
-		NSComparisonResult result = [_checkout.paymentDue compare:paymentDue];
-		XCTAssertEqual(result, NSOrderedSame);
+		// Ensure the amount after removing the second gift card is less than the new paymentDue amount
+		XCTAssertLessThan([originalPaymentDue integerValue], [_checkout.paymentDue integerValue]);
 		
 		[expectation fulfill];
 	}];
@@ -493,6 +498,8 @@
 	
 	BUYGiftCard *giftCard1 = _checkout.giftCards[0];
 	
+	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
+	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client removeGiftCard:giftCard1 fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
@@ -503,9 +510,8 @@
 		BUYGiftCard *giftCard3 = _checkout.giftCards[0];
 		XCTAssertEqualObjects([self.giftCardCode3 substringWithRange:NSMakeRange(self.giftCardCode3.length - 4, 4)], giftCard3.lastCharacters);
 		
-		NSDecimalNumber *paymentDue = [NSDecimalNumber decimalNumberWithString:@"215.75"];
-		NSComparisonResult result = [_checkout.paymentDue compare:paymentDue];
-		XCTAssertEqual(result, NSOrderedSame);
+		// Ensure the amount after removing the first gift card is less than the new paymentDue amount
+		XCTAssertLessThan([originalPaymentDue integerValue], [_checkout.paymentDue integerValue]);
 		
 		[expectation fulfill];
 	}];
@@ -521,6 +527,8 @@
 	
 	BUYGiftCard *giftCard3 = _checkout.giftCards[0];
 	
+	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
+	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client removeGiftCard:giftCard3 fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
@@ -528,9 +536,8 @@
 		_checkout = checkout;
 		XCTAssertEqual([_checkout.giftCards count], 0);
 		
-		NSDecimalNumber *paymentDue = [NSDecimalNumber decimalNumberWithString:@"225.75"];
-		NSComparisonResult result = [_checkout.paymentDue compare:paymentDue];
-		XCTAssertEqual(result, NSOrderedSame);
+		// Ensure the amount after removing all gift cards is less than the new paymentDue amount
+		XCTAssertLessThan([originalPaymentDue integerValue], [_checkout.paymentDue integerValue]);
 		
 		[expectation fulfill];
 	}];
@@ -539,7 +546,7 @@
 	}];
 }
 
-- (void)testCheckoutAnywhereWithoutAuthToken
+- (void)testCheckoutWithoutAuthToken
 {
 	[self createCart];
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
@@ -558,7 +565,7 @@
 	}];
 }
 
-- (void)testCheckoutAnywhereWithInvalidShop
+- (void)testCheckoutWithInvalidShop
 {
 	[self createCart];
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
