@@ -667,10 +667,6 @@ NSString * const BUYVersionString = @"1.1.4";
 		
 		BOOL trusted = (resultType == kSecTrustResultUnspecified) || (resultType == kSecTrustResultProceed);
 		
-#ifdef DEBUG
-		trusted |= (resultType == kSecTrustResultInvalid); // TODO: CircleCI is using xctool which does not support Security.framework
-#endif
-		
 		if (trusted) {
 			NSURLCredential *credential = [NSURLCredential credentialForTrust:protectionSpace.serverTrust];
 			completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
