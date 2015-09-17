@@ -836,13 +836,13 @@
 
 - (BUYDiscount *)applicableDiscount
 {
-	BUYDiscount *discount = [[BUYDiscount alloc] initWithCode:@"applicable"];
+	BUYDiscount *discount = [[BUYDiscount alloc] initWithCode:self.discountCodeValid];
 	return discount;
 }
 
 - (BUYDiscount *)inapplicableDiscount
 {
-	BUYDiscount *discount = [[BUYDiscount alloc] initWithCode:@"inapplicable"];
+	BUYDiscount *discount = [[BUYDiscount alloc] initWithCode:self.discountCodeExpired];
 	return discount;
 }
 

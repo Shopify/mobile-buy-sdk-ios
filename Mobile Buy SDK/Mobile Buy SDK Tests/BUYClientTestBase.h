@@ -20,6 +20,8 @@
 @property (nonatomic, strong) NSString *giftCardCodeExpired;
 @property (nonatomic, strong) NSString *giftCardIdExpired;
 @property (nonatomic, strong) NSString *giftCardCodeInvalid;
+@property (nonatomic, strong) NSString *discountCodeValid;
+@property (nonatomic, strong) NSString *discountCodeExpired;
 @property (nonatomic, strong) NSArray *productIds;
 
 @property (nonatomic, strong) BUYClient *client;
