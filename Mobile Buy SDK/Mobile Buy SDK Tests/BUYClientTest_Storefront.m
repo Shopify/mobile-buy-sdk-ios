@@ -130,20 +130,6 @@
 	}];
 }
 
-- (void)testProductsRequestError
-{
-	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client getProductsByIds:@[@"asdfdsasdfds", @"asdfdsasdfjkllkj"] completion:^(NSArray *products, NSError *error) {
-		
-		XCTAssertEqual(BUYShopifyError_InvalidProductID, error.code);
-		XCTAssertEqual(0, products.count);
-		[expectation fulfill];
-	}];
-	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
-		XCTAssertNil(error);
-	}];
-}
-
 - (void)testCollections
 {
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
