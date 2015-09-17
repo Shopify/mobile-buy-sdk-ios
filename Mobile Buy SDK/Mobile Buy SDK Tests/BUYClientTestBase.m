@@ -30,8 +30,9 @@
 	self.giftCardCode = environment[kBUYTestGiftCardCode] ?: giftCards[@"valid10"][@"code"];
 	self.giftCardCode2 = environment[kBUYTestGiftCardCode2] ?: giftCards[@"valid25"][@"code"];
 	self.giftCardCode3 = environment[kBUYTestGiftCardCode3] ?: giftCards[@"valid50"][@"code"];
-	self.expiredGiftCardCode = environment[kBUYTestExpiredGiftCardCode] ?: giftCards[@"expired"][@"code"];
-	self.expiredGiftCardId = environment[kBUYTestExpiredGiftCardID] ?: giftCards[@"expired"][@"id"];
+	self.giftCardCodeInvalid = environment[kBUYTestInvalidGiftCardCode] ?: giftCards[@"invalid"][@"code"];
+	self.giftCardCodeExpired = environment[kBUYTestExpiredGiftCardCode] ?: giftCards[@"expired"][@"code"];
+	self.giftCardIdExpired = environment[kBUYTestExpiredGiftCardID] ?: giftCards[@"expired"][@"id"];
 	self.productIds = jsonConfig[@"product_ids"];
 	
 	XCTAssert([self.shopDomain length] > 0, @"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");
