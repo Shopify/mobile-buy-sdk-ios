@@ -52,18 +52,14 @@
 - (void)updateCloseButtonImageWithTintColor:(BOOL)tintColor duration:(CGFloat)duration
 {
 	UIButton *button = (UIButton*)self.topViewController.navigationItem.leftBarButtonItem.customView;
-	UIImage *oldButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:button.bounds color:tintColor ? [UIColor whiteColor] : self.theme.tintColor hasShadow:tintColor == NO];
-	UIImage *newButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:button.bounds color:tintColor ? self.theme.tintColor : [UIColor whiteColor] hasShadow:tintColor == NO];
-	if (duration > 0) {
-		CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
-		crossFade.duration = duration;
-		crossFade.fromValue = (id)oldButtonImage.CGImage;
-		crossFade.toValue = (id)newButtonImage.CGImage;
-		crossFade.removedOnCompletion = YES;
-		crossFade.fillMode = kCAFillModeForwards;
-		[button.imageView.layer addAnimation:crossFade forKey:@"contents"];
-	}
-	[button setImage:newButtonImage forState:UIControlStateNormal];
+	UIImage *newButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:button.bounds color:darkStyle ? self.theme.tintColor : [UIColor whiteColor] hasShadow:darkStyle == NO];
+	[UIView transitionWithView:button.imageView
+					  duration:duration
+					   options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState)
+					animations:^{
+						[button setImage:newButtonImage forState:UIControlStateNormal];
+					}
+					completion:NULL];
 }
 
 - (void)dismissPopover
