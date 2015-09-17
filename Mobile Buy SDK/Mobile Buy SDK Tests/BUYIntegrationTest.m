@@ -779,6 +779,25 @@
 	XCTAssertFalse([badClient testIntegrationWithMerchantId:@"blah"]);
 }
 
+- (void)testGetCheckoutWithInvalidToken
+{
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+
+	BUYCheckout *badCheckout = [[BUYCheckout alloc] initWithCartToken:@""];
+	badCheckout.token = @"zzzzzzzzzzz";
+	
+	[self.client getCheckout:badCheckout completion:^(BUYCheckout *checkout, NSError *error) {
+		
+		XCTAssertEqual(404, error.code);
+		[expectation fulfill];
+
+	}];
+	
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
 #pragma mark - Test Data
 
 - (BUYAddress *)billingAddress
@@ -843,44 +862,6 @@
 {
 	BUYDiscount *discount = [[BUYDiscount alloc] initWithCode:@"asdfasdfasdfasdf"];
 	return discount;
-}
-
-- (void)testReservationTimeModification
-{
-	[self createCart];
-	
-	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
-	
-	// Test default reservation time
-	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
-		
-		XCTAssertNil(error);
-		XCTAssertEqual(300, returnedCheckout.reservationTime.intValue);
-		
-		_checkout = returnedCheckout;
-		
-		[expectation fulfill];
-	}];
-	
-	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
-		XCTAssertNil(error);
-	}];
-	
-	// Test reservation time set to zero
-	XCTestExpectation *expectation2 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	_checkout.reservationTime = @0;
-	[self.client updateCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
-		
-		XCTAssertNil(error);
-		XCTAssertEqual(0, returnedCheckout.reservationTime.intValue);
-		
-		[expectation2 fulfill];
-	}];
-	
-	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
-		XCTAssertNil(error);
-	}];
 }
 
 - (void)testExpiringCheckout
