@@ -1,6 +1,0 @@
-framework module BuyTV {
-  umbrella header "BuyTV.h"
-
-  export *
-  module * { export * }
-}
