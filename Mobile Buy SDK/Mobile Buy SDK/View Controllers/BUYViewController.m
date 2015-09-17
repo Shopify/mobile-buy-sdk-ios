@@ -272,7 +272,7 @@ NSString * BUYURLKey = @"url";
 
 - (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didAuthorizePayment:(PKPayment *)payment completion:(void (^)(PKPaymentAuthorizationStatus status))completion
 {
-	[self.applePayHelper updateAndCompleteCheckoutWithPayment:payment completion:^(PKPaymentAuthorizationStatus status) {
+	[self.applePayHelper paymentAuthorizationViewController:controller didAuthorizePayment:payment completion:^(PKPaymentAuthorizationStatus status) {
 		self.paymentAuthorizationStatus = status;
 		switch (status) {
 			case PKPaymentAuthorizationStatusFailure:
@@ -322,20 +322,19 @@ NSString * BUYURLKey = @"url";
 
 - (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingMethod:(nonnull PKShippingMethod *)shippingMethod completion:(nonnull void (^)(PKPaymentAuthorizationStatus, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
 {
-	[self.applePayHelper updateCheckoutWithShippingMethod:shippingMethod completion:^(PKPaymentAuthorizationStatus status, NSArray *methods) {
+	[self.applePayHelper paymentAuthorizationViewController:controller didSelectShippingMethod:shippingMethod completion:^(PKPaymentAuthorizationStatus status, NSArray<PKPaymentSummaryItem *> * _Nonnull summaryItems) {
 		if (status == PKPaymentAuthorizationStatusInvalidShippingPostalAddress) {
 			if ([self.delegate respondsToSelector:@selector(controller:failedToGetShippingRates:withError:)]) {
 				[self.delegate controller:self failedToGetShippingRates:self.checkout withError:self.applePayHelper.lastError];
 			}
 		}
-		
-		completion(status, methods);
+		completion(status, summaryItems);
 	}];
 }
 
 -(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingAddress:(ABRecordRef)address completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
 {
-	[self.applePayHelper updateCheckoutWithAddress:address completion:^(PKPaymentAuthorizationStatus status, NSArray *shippingMethods, NSArray *summaryItems) {
+	[self.applePayHelper paymentAuthorizationViewController:controller didSelectShippingAddress:address completion:^(PKPaymentAuthorizationStatus status, NSArray<PKShippingMethod *> * _Nonnull shippingMethods, NSArray<PKPaymentSummaryItem *> * _Nonnull summaryItems) {
 		if (status == PKPaymentAuthorizationStatusInvalidShippingPostalAddress) {
 			if ([self.delegate respondsToSelector:@selector(controller:failedToUpdateCheckout:withError:)]) {
 				[self.delegate controller:self failedToUpdateCheckout:self.checkout withError:self.applePayHelper.lastError];
@@ -347,7 +346,7 @@ NSString * BUYURLKey = @"url";
 
 - (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingContact:(PKContact *)contact completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
 {
-	[self.applePayHelper updateCheckoutWithContact:contact completion:^(PKPaymentAuthorizationStatus status, NSArray *shippingMethods, NSArray *summaryItems) {
+	[self.applePayHelper paymentAuthorizationViewController:controller didSelectShippingContact:contact completion:^(PKPaymentAuthorizationStatus status, NSArray<PKShippingMethod *> * _Nonnull shippingMethods, NSArray<PKPaymentSummaryItem *> * _Nonnull summaryItems) {
 		if (status == PKPaymentAuthorizationStatusInvalidShippingPostalAddress) {
 			if ([self.delegate respondsToSelector:@selector(controller:failedToUpdateCheckout:withError:)]) {
 				[self.delegate controller:self failedToUpdateCheckout:self.checkout withError:self.applePayHelper.lastError];

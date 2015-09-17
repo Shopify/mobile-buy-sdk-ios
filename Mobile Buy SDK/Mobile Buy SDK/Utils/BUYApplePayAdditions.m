@@ -163,7 +163,7 @@
 		// reliable regardless of locale. Fallback to country if
 		// we do not receive it (iOS 8 sometimes)
 		address.countryCode = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressCountryCodeKey);
-		if (address.countryCode == nil) {
+		if ([address.countryCode length] == 0) {
 			address.country = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressCountryKey);
 		}
 	}
@@ -204,7 +204,7 @@
 		// We default to the ISO country code because it's more
 		// reliable regardless of locale. Fallback to country if
 		// we do not receive it (iOS 8 sometimes)
-		address.countryCode = contact.postalAddress.ISOCountryCode;
+		address.countryCode = [contact.postalAddress.ISOCountryCode length] ? contact.postalAddress.ISOCountryCode : nil;
 		if (address.countryCode == nil) {
 			address.country = contact.postalAddress.country;
 		}

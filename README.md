@@ -1,4 +1,7 @@
 [![Circle CI](https://circleci.com/gh/Shopify/mobile-buy-sdk-ios-private.svg?style=svg&circle-token=bc81f8016a1c01955fb98204e59f01c418e02c4c)](https://circleci.com/gh/Shopify/mobile-buy-sdk-ios-private)
+[![Build status](https://badge.buildkite.com/d8fe8aa44d801c6238ab767867e4fb09abe516bb2933b577cc.svg)](https://buildkite.com/shopify/mobile-buy-sdk-ios)
+[![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/Shopify/mobile-buy-sdk-ios-private/blob/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/shopify/mobile-buy-sdk-private.svg)](https://github.com/Shopify/mobile-buy-sdk-ios-private/releases)
 
 # Shopify's Mobile Buy SDK for iOS
 
@@ -37,6 +40,6 @@ To run the tests, edit the `Mobile Buy SDK Tests` scheme and add the following a
 * `shop_domain`: Your shop's domain, for example: `abetterlookingshop.myshopify.com`
 * `api_key`: The API provided when setting up the Mobile App channel on Shopify Admin: *https://your_shop_id.myshopify.com/admin/mobile_app/integration*
 * `channel_id`: The Channel ID provided with the API Key above
-* `gift_card_code`, `gift_card_code_2`, `gift_card_code_2`: Three valid [Gift Card](https://docs.shopify.com/manual/your-store/gift-cards) codes for your shop
+* `gift_card_code`, `gift_card_code_2`, `gift_card_code_3`: Three valid [Gift Card](https://docs.shopify.com/manual/your-store/gift-cards) codes for your shop
 * `expired_gift_card_code`: An expired Gift Card code
 * `expired_gift_card_id`: The `product_id` for the expired Gift Card
