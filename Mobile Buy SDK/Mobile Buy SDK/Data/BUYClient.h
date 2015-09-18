@@ -25,8 +25,9 @@
 //
 
 @import Foundation;
-@import PassKit;
 #import "BUYSerializable.h"
+
+@class PKPaymentToken;
 
 @class BUYCart;
 @class BUYCheckout;
@@ -517,4 +518,4 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
  */
 - (void)enableApplePayWithMerchantId:(NSString *)merchantId __attribute__((deprecated("Set the merchantId on the BUYViewController instead")));
 
-@end
+@end 

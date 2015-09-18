@@ -41,6 +41,10 @@
 #import "BUYCollection.h"
 #import "BUYCollection+Additions.h"
 
+#if __has_include(<PassKit/PassKit.h>)
+@import PassKit;
+#endif
+
 #define kGET @"GET"
 #define kPOST @"POST"
 #define kPATCH @"PATCH"
@@ -51,7 +55,7 @@
 #define kMinSuccessfulStatusCode 200
 #define kMaxSuccessfulStatusCode 299
 
-NSString * const BUYVersionString = @"1.1.4";
+NSString * const BUYVersionString = @"1.1.5";
 
 @interface BUYClient () <NSURLSessionDelegate>
 
@@ -386,7 +390,9 @@ NSString * const BUYVersionString = @"1.1.4";
 
 - (NSURLSessionDataTask *)completeCheckout:(BUYCheckout *)checkout withApplePayToken:(PKPaymentToken *)token completion:(BUYDataCheckoutBlock)block
 {
+	
 	NSURLSessionDataTask *task = nil;
+#if __has_include(<PassKit/PassKit.h>)
 	
 	if ([checkout hasToken] == NO) {
 		block(nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
@@ -406,6 +412,10 @@ NSString * const BUYVersionString = @"1.1.4";
 			block(nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
 		}
 	}
+	
+#elif
+	block(nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_NoApplePayTokenSpecified userInfo:nil]);
+#endif
 	return task;
 }
 
@@ -666,10 +676,6 @@ NSString * const BUYVersionString = @"1.1.4";
 		SecTrustEvaluate(protectionSpace.serverTrust, &resultType);
 		
 		BOOL trusted = (resultType == kSecTrustResultUnspecified) || (resultType == kSecTrustResultProceed);
-		
-#ifdef DEBUG
-		trusted |= (resultType == kSecTrustResultInvalid); // TODO: CircleCI is using xctool which does not support Security.framework
-#endif
 		
 		if (trusted) {
 			NSURLCredential *credential = [NSURLCredential credentialForTrust:protectionSpace.serverTrust];
