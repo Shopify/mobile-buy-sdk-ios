@@ -1,4 +1,4 @@
-[![Build status](https://badge.buildkite.com/d8fe8aa44d801c6238ab767867e4fb09abe516bb2933b577cc.svg)](https://buildkite.com/shopify/mobile-buy-sdk-ios)
+[![Build status](https://badge.buildkite.com/d8fe8aa44d801c6238ab767867e4fb09abe516bb2933b577cc.svg?branch=develop)](https://buildkite.com/shopify/mobile-buy-sdk-ios)
 [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/Shopify/mobile-buy-sdk-ios-private/blob/master/LICENSE)
 [![GitHub release](https://img.shields.io/github/release/shopify/mobile-buy-sdk-private.svg)](https://github.com/Shopify/mobile-buy-sdk-ios-private/releases)
 
