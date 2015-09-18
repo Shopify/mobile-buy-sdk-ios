@@ -41,8 +41,8 @@
 #import "BUYCollection.h"
 #import "BUYCollection+Additions.h"
 
-#ifndef TARGET_OS_TV
-@import PassKit;
+#if __has_include(<PassKit/PassKit.h>)
+#import <PassKit/PassKit.h>;
 #endif
 
 #define kGET @"GET"
@@ -392,7 +392,7 @@ NSString * const BUYVersionString = @"1.1.4";
 {
 	
 	NSURLSessionDataTask *task = nil;
-#ifndef TARGET_OS_TV
+#if __has_include(<PassKit/PassKit.h>)
 	
 	if ([checkout hasToken] == NO) {
 		block(nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
@@ -413,6 +413,8 @@ NSString * const BUYVersionString = @"1.1.4";
 		}
 	}
 	
+#elsif
+	block(nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_NoApplePayTokenSpecified userInfo:nil]);
 #endif
 	return task;
 }
