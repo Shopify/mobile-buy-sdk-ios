@@ -25,8 +25,9 @@
 //
 
 @import Foundation;
-@import PassKit;
 #import "BUYSerializable.h"
+
+@class PKPaymentToken;
 
 @class BUYCart;
 @class BUYCheckout;

@@ -24,7 +24,8 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/Buy.h>
+@import Foundation;
+#import "BUYAddress.h"
 
 extern NSString * const BUYPartialAddressPlaceholder;
 
