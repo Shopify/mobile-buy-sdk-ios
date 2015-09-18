@@ -42,7 +42,7 @@
 #import "BUYCollection+Additions.h"
 
 #if __has_include(<PassKit/PassKit.h>)
-#import <PassKit/PassKit.h>;
+@import PassKit;
 #endif
 
 #define kGET @"GET"
@@ -413,7 +413,7 @@ NSString * const BUYVersionString = @"1.1.4";
 		}
 	}
 	
-#elsif
+#elif
 	block(nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_NoApplePayTokenSpecified userInfo:nil]);
 #endif
 	return task;
