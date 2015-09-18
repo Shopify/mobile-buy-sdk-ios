@@ -34,7 +34,8 @@
 #import "BUYProductVariant.h"
 #import "BUYShippingRate.h"
 #import "BUYTaxLine.h"
-
+#import "BUYMaskedCreditCard.h"
+#import "BUYGiftCard.h"
 #import "NSDecimalNumber+BUYAdditions.h"
 #import "NSString+Trim.h"
 #import "BUYCheckout_Private.h"

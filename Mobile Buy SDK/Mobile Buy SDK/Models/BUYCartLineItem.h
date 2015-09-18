@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/Buy.h>
+#import "BUYLineItem.h"
 
 /**
  *  BUYCartLineItem is a subclass of BUYLineItem that extends the object

@@ -25,6 +25,7 @@
 //
 
 #import "BUYCartLineItem.h"
+#import "BUYProductVariant.h"
 
 @interface BUYCartLineItem ()
 

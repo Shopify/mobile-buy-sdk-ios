@@ -26,6 +26,8 @@
 
 @import AddressBook;
 @import PassKit;
+#import "BUYLineItem.h"
+#import "BUYGiftCard.h"
 #import "BUYApplePayAdditions.h"
 #import "BUYDiscount.h"
 #import "BUYAddress+Additions.h"

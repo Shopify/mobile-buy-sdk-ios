@@ -24,7 +24,8 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/Buy.h>
+@import Foundation;
+#import "BUYObject.h"
 
 /**
  *  Represents a collection of products on the shop

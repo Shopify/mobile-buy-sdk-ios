@@ -187,6 +187,9 @@
 		BEB74A851B5580B20005A300 /* Buy-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = BE9A639D1B500B360033E558 /* Buy-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BEB74A901B55A3D00005A300 /* BUYCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = BEB74A8E1B55A3D00005A300 /* BUYCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BEB74A911B55A3D00005A300 /* BUYCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB74A8F1B55A3D00005A300 /* BUYCollection.m */; };
+		BEB9AE781BA8627B00575F8A /* test_shop_data.json in Resources */ = {isa = PBXBuildFile; fileRef = BEB9AE721BA73E6C00575F8A /* test_shop_data.json */; };
+		BEB9AE7B1BA866D000575F8A /* BUYClientTestBase.h in Sources */ = {isa = PBXBuildFile; fileRef = BEB9AE7A1BA866D000575F8A /* BUYClientTestBase.h */; };
+		BEB9AE7D1BA885E300575F8A /* BUYClientTestBase.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB9AE7C1BA8685600575F8A /* BUYClientTestBase.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -379,6 +382,9 @@
 		BEB74A871B5589C80005A300 /* BUYCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYCollection.m; sourceTree = "<group>"; };
 		BEB74A8E1B55A3D00005A300 /* BUYCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYCollection.h; sourceTree = "<group>"; };
 		BEB74A8F1B55A3D00005A300 /* BUYCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYCollection.m; sourceTree = "<group>"; };
+		BEB9AE721BA73E6C00575F8A /* test_shop_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test_shop_data.json; sourceTree = "<group>"; };
+		BEB9AE7A1BA866D000575F8A /* BUYClientTestBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYClientTestBase.h; sourceTree = "<group>"; };
+		BEB9AE7C1BA8685600575F8A /* BUYClientTestBase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUYClientTestBase.m; sourceTree = "<group>"; };
 		BEEA83E51B0B76C7000C6483 /* BUYOptionValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYOptionValue.h; sourceTree = "<group>"; };
 		BEEA83E61B0B76C7000C6483 /* BUYOptionValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYOptionValue.m; sourceTree = "<group>"; };
 		F70CE40D1A8BF1D90055BEB8 /* BUYApplePayAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BUYApplePayAdditions.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -467,6 +473,8 @@
 				90F592F91B0D5F4C0026B382 /* BUYApplePayAdditionsTest.m */,
 				90F592FA1B0D5F4C0026B382 /* BUYCartTest.m */,
 				90F592FB1B0D5F4C0026B382 /* BUYCheckoutTest.m */,
+				BEB9AE7C1BA8685600575F8A /* BUYClientTestBase.m */,
+				BEB9AE7A1BA866D000575F8A /* BUYClientTestBase.h */,
 				90F592FC1B0D5F4C0026B382 /* BUYClientTest_Storefront.m */,
 				90F592FD1B0D5F4C0026B382 /* BUYClientTest.m */,
 				90F592F81B0D5F4C0026B382 /* BUYIntegrationTest.m */,
@@ -475,6 +483,7 @@
 				90F593001B0D5F4C0026B382 /* BUYTestConstants.h */,
 				906CF1AE1B8B660F001F7D5B /* PKContact Test Objects */,
 				90F592EE1B0D5EFE0026B382 /* Supporting Files */,
+				BEB9AE721BA73E6C00575F8A /* test_shop_data.json */,
 			);
 			path = "Mobile Buy SDK Tests";
 			sourceTree = "<group>";
@@ -871,6 +880,7 @@
 			buildPhases = (
 				90F592E81B0D5EFE0026B382 /* Sources */,
 				90F592E91B0D5EFE0026B382 /* Frameworks */,
+				BEB9AE771BA8626D00575F8A /* Resources */,
 			);
 			buildRules = (
 			);
@@ -992,6 +1002,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BEB9AE771BA8626D00575F8A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BEB9AE781BA8627B00575F8A /* test_shop_data.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1028,6 +1046,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEB9AE7D1BA885E300575F8A /* BUYClientTestBase.m in Sources */,
+				BEB9AE7B1BA866D000575F8A /* BUYClientTestBase.h in Sources */,
 				90F5930A1B0D5F4C0026B382 /* BUYLineItemTest.m in Sources */,
 				90F593061B0D5F4C0026B382 /* BUYCartTest.m in Sources */,
 				90F593051B0D5F4C0026B382 /* BUYApplePayAdditionsTest.m in Sources */,
@@ -1304,7 +1324,7 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Mobile Buy SDK/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "${PROJECT_DIR}/Mobile Buy SDK/Buy.modulemap";
@@ -1331,7 +1351,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Mobile Buy SDK/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "${PROJECT_DIR}/Mobile Buy SDK/Buy.modulemap";
