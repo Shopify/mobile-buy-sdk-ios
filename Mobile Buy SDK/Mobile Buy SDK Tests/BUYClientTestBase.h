@@ -14,6 +14,7 @@
 @property (nonatomic, strong) NSString *shopDomain;
 @property (nonatomic, strong) NSString *apiKey;
 @property (nonatomic, strong) NSString *channelId;
+@property (nonatomic, strong) NSString *merchantId;
 @property (nonatomic, strong) NSString *giftCardCode;
 @property (nonatomic, strong) NSString *giftCardCode2;
 @property (nonatomic, strong) NSString *giftCardCode3;

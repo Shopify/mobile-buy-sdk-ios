@@ -772,7 +772,7 @@
 - (void)testIntegration
 {
 	XCTAssertTrue([self.client testIntegrationWithMerchantId:nil]);
-	XCTAssertTrue([self.client testIntegrationWithMerchantId:@"merchant.com.shopify.applepay"]);
+	XCTAssertTrue([self.client testIntegrationWithMerchantId:self.merchantId]);
 
 	BUYClient *badClient = [[BUYClient alloc] initWithShopDomain:self.shopDomain apiKey:self.apiKey channelId:@"asdvfdbfdgasfgdsfg"];
 	XCTAssertFalse([badClient testIntegrationWithMerchantId:nil]);

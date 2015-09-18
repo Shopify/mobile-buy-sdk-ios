@@ -24,6 +24,7 @@
 	self.shopDomain = environment[kBUYTestDomain] ?: jsonConfig[kBUYTestDomain];
 	self.apiKey = environment[kBUYTestAPIKey] ?: jsonConfig[kBUYTestAPIKey];
 	self.channelId = environment[kBUYTestChannelId] ?: jsonConfig[kBUYTestChannelId];
+	self.merchantId = jsonConfig[@"merchant_id"];
 	
 	NSDictionary *giftCards = jsonConfig[@"gift_cards"];
 	
@@ -33,8 +34,8 @@
 	self.giftCardCodeInvalid = environment[kBUYTestInvalidGiftCardCode] ?: giftCards[@"invalid"][@"code"];
 	self.giftCardCodeExpired = environment[kBUYTestExpiredGiftCardCode] ?: giftCards[@"expired"][@"code"];
 	self.giftCardIdExpired = environment[kBUYTestExpiredGiftCardID] ?: giftCards[@"expired"][@"id"];
-	self.discountCodeValid = jsonConfig[@"valid"][@"code"] ?: @"valid";
-	self.discountCodeExpired = jsonConfig[@"expired"][@"code"] ?: @"expired";
+	self.discountCodeValid = jsonConfig[@"discounts"][@"valid"][@"code"] ?: @"valid";
+	self.discountCodeExpired = jsonConfig[@"discounts"][@"expired"][@"code"] ?: @"expired";
 	self.productIds = jsonConfig[@"product_ids"];
 	
 	XCTAssert([self.shopDomain length] > 0, @"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");
