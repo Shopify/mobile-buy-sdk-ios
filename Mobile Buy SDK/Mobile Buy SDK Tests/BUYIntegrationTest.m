@@ -875,7 +875,7 @@
 {
 	[self createCart];
 	[self createCheckout];
-	XCTAssertEqual(1, [_checkout.lineItems count]);
+	XCTAssertGreaterThanOrEqual([_checkout.lineItems count], 1);
 	XCTAssertEqual(300, _checkout.reservationTime.intValue);
 	
 	// Expire the checkout
@@ -885,7 +885,7 @@
 		XCTAssertNil(error);
 		
 		_checkout = returnedCheckout;
-		XCTAssertEqual(1, [_checkout.lineItems count]);
+		XCTAssertGreaterThanOrEqual([_checkout.lineItems count], 1);
 		XCTAssertEqual(0, _checkout.reservationTime.intValue);
 		[expectation2 fulfill];
 	}];
