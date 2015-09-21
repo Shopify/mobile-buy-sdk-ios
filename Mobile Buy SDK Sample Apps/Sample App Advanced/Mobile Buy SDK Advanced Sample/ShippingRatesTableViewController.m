@@ -27,15 +27,13 @@
 #import "ShippingRatesTableViewController.h"
 #import "GetShippingRatesOperation.h"
 #import "PreCheckoutViewController.h"
-#import "GetShopOperation.h"
-#import "ShippingRateTableViewCell.h"
 
 @import Buy;
 
-@interface ShippingRatesTableViewController () <GetShippingRatesOperationDelegate, GetShopOperationDelegate>
+@interface ShippingRatesTableViewController () <GetShippingRatesOperationDelegate>
 @property (nonatomic, strong) BUYCheckout *checkout;
 @property (nonatomic, strong) BUYClient *client;
-@property (nonatomic, strong) NSNumberFormatter *currencyFormatter;
+
 @property (nonatomic, strong) NSArray *shippingRates;
 @end
 
@@ -61,18 +59,13 @@
     
     self.title = @"Choose Shipping Rate";
     
-    [self.tableView registerClass:[ShippingRateTableViewCell class] forCellReuseIdentifier:@"Cell"];
-    
-    GetShopOperation *shopOperation = [[GetShopOperation alloc] initWithClient:self.client];
-    shopOperation.delegate = self;
-    [[NSOperationQueue mainQueue] addOperation:shopOperation];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     
     GetShippingRatesOperation *shippingOperation = [[GetShippingRatesOperation alloc] initWithClient:self.client withCheckout:self.checkout];
     shippingOperation.delegate = self;
-    [shippingOperation addDependency:shopOperation];
-    [[NSOperationQueue mainQueue] addOperation:shippingOperation];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [[NSOperationQueue mainQueue] addOperation:shippingOperation];
 }
 
 #pragma mark - Table view data source
@@ -87,7 +80,6 @@
     
     BUYShippingRate *shippingRate = self.shippingRates[indexPath.row];
     cell.textLabel.text = shippingRate.title;
-    cell.detailTextLabel.text = [self.currencyFormatter stringFromNumber:shippingRate.price];
     
     return cell;
 }
@@ -110,22 +102,6 @@
         }
         
     }];
-}
-
-#pragma mark - Shop delegate methods
-
--(void)operation:(GetShopOperation *)operation didReceiveShop:(BUYShop *)shop
-{
-    self.currencyFormatter = [[NSNumberFormatter alloc] init];
-    self.currencyFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
-    self.currencyFormatter.currencyCode = shop.currency;
-}
-
--(void)operation:(GetShopOperation *)operation failedToReceiveShop:(NSError *)error
-{
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    
-    NSLog(@"Failed to retrieve shop: %@", error);
 }
 
 #pragma mark - Shipping Rates delegate methods

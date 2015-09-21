@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		902C9B8C1BB06BF300FC456E /* GetShopOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 902C9B8B1BB06BF300FC456E /* GetShopOperation.m */; settings = {ASSET_TAGS = (); }; };
-		902C9B8F1BB0729F00FC456E /* ShippingRateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 902C9B8E1BB0729F00FC456E /* ShippingRateTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		9066573C1BA8BC6E004F6FED /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9066573A1BA8B4AC004F6FED /* Buy.framework */; };
 		90A6F42D1BA8BCAC003E7C4F /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90A6F42C1BA8BCAC003E7C4F /* PassKit.framework */; };
 		BE8B82511B8CF49D00E3F871 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82501B8CF49D00E3F871 /* main.m */; };
@@ -25,10 +23,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		902C9B8A1BB06BF300FC456E /* GetShopOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetShopOperation.h; sourceTree = "<group>"; };
-		902C9B8B1BB06BF300FC456E /* GetShopOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetShopOperation.m; sourceTree = "<group>"; };
-		902C9B8D1BB0729F00FC456E /* ShippingRateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShippingRateTableViewCell.h; sourceTree = "<group>"; };
-		902C9B8E1BB0729F00FC456E /* ShippingRateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShippingRateTableViewCell.m; sourceTree = "<group>"; };
 		9066573A1BA8B4AC004F6FED /* Buy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Buy.framework; path = ../Buy.framework; sourceTree = "<group>"; };
 		90A6F42C1BA8BCAC003E7C4F /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 		BE5E28451B94F5C300D2ECB5 /* Mobile Buy SDK Advanced Sample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Mobile Buy SDK Advanced Sample.entitlements"; sourceTree = "<group>"; };
@@ -117,8 +111,6 @@
 				BE8B82561B8CF49D00E3F871 /* ProductListViewController.m */,
 				BE8B82901B8E612700E3F871 /* ShippingRatesTableViewController.h */,
 				BE8B82911B8E612700E3F871 /* ShippingRatesTableViewController.m */,
-				902C9B8D1BB0729F00FC456E /* ShippingRateTableViewCell.h */,
-				902C9B8E1BB0729F00FC456E /* ShippingRateTableViewCell.m */,
 				BE8B82931B8E65D700E3F871 /* PreCheckoutViewController.h */,
 				BE8B82941B8E65D700E3F871 /* PreCheckoutViewController.m */,
 				BE8B82981B8E72CC00E3F871 /* CheckoutViewController.h */,
@@ -134,8 +126,6 @@
 				BE8B827A1B8CFF0E00E3F871 /* GetShippingRatesOperation.m */,
 				BE948D471B9500DC009AB20B /* GetCompletionStatusOperation.h */,
 				BE948D481B9500DC009AB20B /* GetCompletionStatusOperation.m */,
-				902C9B8A1BB06BF300FC456E /* GetShopOperation.h */,
-				902C9B8B1BB06BF300FC456E /* GetShopOperation.m */,
 			);
 			name = Operations;
 			sourceTree = "<group>";
@@ -218,8 +208,6 @@
 			files = (
 				BE948D491B9500DC009AB20B /* GetCompletionStatusOperation.m in Sources */,
 				BE8B82951B8E65D700E3F871 /* PreCheckoutViewController.m in Sources */,
-				902C9B8C1BB06BF300FC456E /* GetShopOperation.m in Sources */,
-				902C9B8F1BB0729F00FC456E /* ShippingRateTableViewCell.m in Sources */,
 				BE8B829A1B8E72CC00E3F871 /* CheckoutViewController.m in Sources */,
 				BE8B82541B8CF49D00E3F871 /* AppDelegate.m in Sources */,
 				BE8B827B1B8CFF0E00E3F871 /* GetShippingRatesOperation.m in Sources */,
