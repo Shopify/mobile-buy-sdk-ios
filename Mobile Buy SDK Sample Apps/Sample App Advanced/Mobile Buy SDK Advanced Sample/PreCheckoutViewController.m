@@ -218,7 +218,7 @@ typedef NS_ENUM(NSInteger, UITableViewDiscountGiftCardSection) {
 
 - (void)applyGiftCard
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Enter Gift Card Code" message:nil preferredStyle:UIAlertControllerStyleAlert];;
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Enter Gift Card Code" message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
         textField.placeholder = @"Gift Card Code";
