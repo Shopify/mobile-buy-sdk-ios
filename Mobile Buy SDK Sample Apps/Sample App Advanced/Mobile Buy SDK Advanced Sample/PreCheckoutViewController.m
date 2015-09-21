@@ -27,6 +27,13 @@
 #import "PreCheckoutViewController.h"
 #import "CheckoutViewController.h"
 
+typedef NS_ENUM(NSInteger, UITableViewSections) {
+    UITableViewSectionSummaryItems,
+    UITableViewSectionDiscountGiftCard,
+    UITableViewSectionContinue,
+    UITableViewSectionCount
+};
+
 @import Buy;
 
 @interface PreCheckoutViewController ()
@@ -59,31 +66,59 @@
     self.title = @"Add Discount or Gift Card(s)";
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UIButton *discountButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [discountButton setTitle:@"Add a Discount" forState:UIControlStateNormal];
-    discountButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [discountButton addTarget:self action:@selector(applyDiscount) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:discountButton];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     
-    UIButton *giftCardButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [giftCardButton setTitle:@"Apply Gift Card" forState:UIControlStateNormal];
-    giftCardButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [giftCardButton addTarget:self action:@selector(applyGiftCard) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:giftCardButton];
-    
-    UIButton *checkoutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [checkoutButton setTitle:@"Checkout" forState:UIControlStateNormal];
-    checkoutButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [checkoutButton addTarget:self action:@selector(proceedToCheckout) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:checkoutButton];
-    
-    NSDictionary *views = NSDictionaryOfVariableBindings(discountButton, giftCardButton, checkoutButton);
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[discountButton]-|" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[giftCardButton]-|" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[checkoutButton]-|" options:0 metrics:nil views:views]];
+//    UIButton *discountButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    [discountButton setTitle:@"Add a Discount" forState:UIControlStateNormal];
+//    discountButton.translatesAutoresizingMaskIntoConstraints = NO;
+//    [discountButton addTarget:self action:@selector(applyDiscount) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:discountButton];
+//    
+//    UIButton *giftCardButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    [giftCardButton setTitle:@"Apply Gift Card" forState:UIControlStateNormal];
+//    giftCardButton.translatesAutoresizingMaskIntoConstraints = NO;
+//    [giftCardButton addTarget:self action:@selector(applyGiftCard) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:giftCardButton];
+//    
+//    UIButton *checkoutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    [checkoutButton setTitle:@"Checkout" forState:UIControlStateNormal];
+//    checkoutButton.translatesAutoresizingMaskIntoConstraints = NO;
+//    [checkoutButton addTarget:self action:@selector(proceedToCheckout) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:checkoutButton];
+//    
+//    NSDictionary *views = NSDictionaryOfVariableBindings(discountButton, giftCardButton, checkoutButton);
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[discountButton]-|" options:0 metrics:nil views:views]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[giftCardButton]-|" options:0 metrics:nil views:views]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[checkoutButton]-|" options:0 metrics:nil views:views]];
+//
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(100)-[discountButton]-[giftCardButton]-(>=100)-[checkoutButton]-(100)-|" options:0 metrics:nil views:views]];
 
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(100)-[discountButton]-[giftCardButton]-(>=100)-[checkoutButton]-(100)-|" options:0 metrics:nil views:views]];
+}
 
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return UITableViewSectionCount;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    switch (section) {
+        case UITableViewSectionDiscountGiftCard:
+            return 2;
+            break;
+        default:
+            return 1;
+            break;
+    }
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    
+    
+    
+    return cell;
 }
 
 - (void)applyDiscount
