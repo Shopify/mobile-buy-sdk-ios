@@ -14,11 +14,14 @@
 #define kBUYTestAPIKey @"api_key"
 #define kBUYTestChannelId @"channel_id"
 #define kBUYTestMerchantId @"merchant_id"
-#define kBUYTestGiftCardCode @"gift_card_code"
-#define kBUYTestGiftCardCode2 @"gift_card_code_2"
-#define kBUYTestGiftCardCode3 @"gift_card_code_3"
+#define kBUYTestGiftCardCode10 @"gift_card_code_10"
+#define kBUYTestGiftCardCode25 @"gift_card_code_25"
+#define kBUYTestGiftCardCode50 @"gift_card_code_50"
 #define kBUYTestInvalidGiftCardCode @"invalid_gift_card_code"
 #define kBUYTestExpiredGiftCardCode @"expired_gift_card_code"
 #define kBUYTestExpiredGiftCardID @"expired_gift_card_id"
+#define kBUYTestDiscountCodeValid @"discount_valid"
+#define kBUYTestDiscountCodeExpired @"discount_expired"
+#define kBUYTestProductIdsCommaSeparated @"product_ids_comma_separated"
 
 #endif

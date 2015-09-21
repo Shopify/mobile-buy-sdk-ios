@@ -19,24 +19,30 @@
 	NSString *jsonPath = [bundle pathForResource:@"test_shop_data" ofType:@"json"];
 	NSData *jsonData = [NSData dataWithContentsOfFile:jsonPath];
 	NSDictionary *jsonConfig = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
+	jsonConfig = nil;
 	
 	NSDictionary *environment = [[NSProcessInfo processInfo] environment];
 	self.shopDomain = environment[kBUYTestDomain] ?: jsonConfig[kBUYTestDomain];
 	self.apiKey = environment[kBUYTestAPIKey] ?: jsonConfig[kBUYTestAPIKey];
 	self.channelId = environment[kBUYTestChannelId] ?: jsonConfig[kBUYTestChannelId];
-	self.merchantId = jsonConfig[@"merchant_id"];
+	self.merchantId = environment[kBUYTestMerchantId] ?: jsonConfig[kBUYTestMerchantId];
 	
 	NSDictionary *giftCards = jsonConfig[@"gift_cards"];
 	
-	self.giftCardCode = environment[kBUYTestGiftCardCode] ?: giftCards[@"valid10"][@"code"];
-	self.giftCardCode2 = environment[kBUYTestGiftCardCode2] ?: giftCards[@"valid25"][@"code"];
-	self.giftCardCode3 = environment[kBUYTestGiftCardCode3] ?: giftCards[@"valid50"][@"code"];
+	self.giftCardCode = environment[kBUYTestGiftCardCode10] ?: giftCards[@"valid10"][@"code"];
+	self.giftCardCode2 = environment[kBUYTestGiftCardCode25] ?: giftCards[@"valid25"][@"code"];
+	self.giftCardCode3 = environment[kBUYTestGiftCardCode50] ?: giftCards[@"valid50"][@"code"];
 	self.giftCardCodeInvalid = environment[kBUYTestInvalidGiftCardCode] ?: giftCards[@"invalid"][@"code"];
 	self.giftCardCodeExpired = environment[kBUYTestExpiredGiftCardCode] ?: giftCards[@"expired"][@"code"];
 	self.giftCardIdExpired = environment[kBUYTestExpiredGiftCardID] ?: giftCards[@"expired"][@"id"];
-	self.discountCodeValid = jsonConfig[@"discounts"][@"valid"][@"code"] ?: @"valid";
-	self.discountCodeExpired = jsonConfig[@"discounts"][@"expired"][@"code"] ?: @"expired";
-	self.productIds = jsonConfig[@"product_ids"];
+	self.discountCodeValid = environment[kBUYTestDiscountCodeValid] ?: jsonConfig[@"discounts"][@"valid"][@"code"];
+	self.discountCodeExpired = environment[kBUYTestDiscountCodeExpired] ?: jsonConfig[@"discounts"][@"expired"][@"code"];
+	if (environment[kBUYTestProductIdsCommaSeparated]) {
+		NSString *productIdsString = [environment[kBUYTestProductIdsCommaSeparated] stringByReplacingOccurrencesOfString:@" " withString:@""];
+		self.productIds = [productIdsString componentsSeparatedByString:@","];
+	} else {
+		self.productIds = jsonConfig[@"product_ids"];
+	}
 	
 	XCTAssert([self.shopDomain length] > 0, @"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");
 	XCTAssertEqualObjects([self.shopDomain substringFromIndex:self.shopDomain.length - 14], @".myshopify.com", @"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");
