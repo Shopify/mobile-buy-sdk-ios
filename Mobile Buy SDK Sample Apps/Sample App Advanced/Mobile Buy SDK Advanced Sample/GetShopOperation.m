@@ -1,5 +1,5 @@
 //
-//  GetCompletionStatusOperation.m
+//  GetShopOperation.h
 //  Mobile Buy SDK Advanced Sample
 //
 //  Created by Shopify.
@@ -24,30 +24,24 @@
 //  THE SOFTWARE.
 //
 
-#import "GetCompletionStatusOperation.h"
+#import "GetShopOperation.h"
 
-@interface GetCompletionStatusOperation ()
+@interface GetShopOperation ()
 
-@property (nonatomic, strong) BUYCheckout *checkout;
 @property (nonatomic, strong) BUYClient *client;
 @property (nonatomic, assign) BOOL done;
 
-@property (nonatomic) BUYStatus completionStatus;
-
 @end
 
-@implementation GetCompletionStatusOperation
+@implementation GetShopOperation
 
-
-- (instancetype)initWithClient:(BUYClient *)client withCheckout:(BUYCheckout *)checkout;
+- (instancetype)initWithClient:(BUYClient *)client
 {
     NSParameterAssert(client);
-    NSParameterAssert(checkout);
     
     self = [super init];
     
     if (self) {
-        self.checkout = checkout;
         self.client = client;
     }
     
@@ -61,41 +55,26 @@
 
 - (void)main
 {
-    [self pollForCompletionStatus];
+    [self getShop];
 }
 
-- (void)pollForCompletionStatus
+- (void)getShop
 {
-    __block BUYStatus completionStatus = BUYStatusUnknown;
-    
     if (self.isCancelled) {
         return;
     }
     
-    [self.client getCompletionStatusOfCheckout:self.checkout completion:^(BUYStatus status, NSError *error) {
+    [self.client getShop:^(BUYShop *shop, NSError *error) {
         
-        completionStatus = status;
+        [self willChangeValueForKey:@"isFinished"];
+        self.done = YES;
+        [self didChangeValueForKey:@"isFinished"];
         
-        if (status == BUYStatusProcessing) {
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                
-                [self pollForCompletionStatus];
-            });
+        if (error) {
+            [self.delegate operation:self failedToReceiveShop:error];
         }
         else {
-            self.completionStatus = status;
-            
-            [self willChangeValueForKey:@"isFinished"];
-            self.done = YES;
-            [self didChangeValueForKey:@"isFinished"];
-            
-            if (error) {
-                [self.delegate operation:self failedToReceiveCompletionStatus:error];
-            }
-            else {
-                [self.delegate operation:self didReceiveCompletionStatus:status];
-            }
+            [self.delegate operation:self didReceiveShop:shop ];
         }
     }];
 }
