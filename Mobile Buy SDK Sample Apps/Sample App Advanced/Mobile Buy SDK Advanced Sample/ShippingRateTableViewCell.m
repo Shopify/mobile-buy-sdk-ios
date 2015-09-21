@@ -14,6 +14,7 @@
 {
     self = [super initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     return self;
 }
