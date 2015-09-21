@@ -19,7 +19,6 @@
 	NSString *jsonPath = [bundle pathForResource:@"test_shop_data" ofType:@"json"];
 	NSData *jsonData = [NSData dataWithContentsOfFile:jsonPath];
 	NSDictionary *jsonConfig = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
-	jsonConfig = nil;
 	
 	NSDictionary *environment = [[NSProcessInfo processInfo] environment];
 	self.shopDomain = environment[kBUYTestDomain] ?: jsonConfig[kBUYTestDomain];
