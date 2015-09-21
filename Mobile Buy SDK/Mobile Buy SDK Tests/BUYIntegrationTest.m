@@ -43,31 +43,21 @@
 
 - (void)fetchProducts
 {
-	__block BOOL done = NO;
-	NSUInteger currentPage = 0;
-	while (done == NO) {
-		XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-		
-		[self.client getProductsPage:currentPage completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
-			done = reachedEnd || error;
-			
-			XCTAssertNil(error, @"There was an error getting your store's products");
-			XCTAssertNotNil(products, @"Add products to your store for tests to pass");
-			
-			[_products addObjectsFromArray:products];
-			[expectation fulfill];
-		}];
-		
-		if (done == NO) {
-			++currentPage;
-		}
-		
-		[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
-			XCTAssertNil(error);
-		}];
-	}
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
-	NSLog(@"Fetched products (Pages: %d, Count: %d)", (int)(currentPage + 1), (int)[_products count]);
+	[self.client getProductsByIds:self.productIds completion:^(NSArray *products, NSError *error) {
+		
+		XCTAssertNil(error, @"There was an error getting your store's products");
+		XCTAssertNotNil(products, @"Add products to your store for tests to pass");
+		
+		[_products addObjectsFromArray:products];
+		[expectation fulfill];
+	}];
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+	
+	NSLog(@"Fetched products (count: %ld", _products.count);
 }
 
 - (void)createCart
