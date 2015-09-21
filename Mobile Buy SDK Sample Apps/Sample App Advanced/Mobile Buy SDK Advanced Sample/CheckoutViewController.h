@@ -30,7 +30,9 @@
 
 extern NSString * const CheckoutCallbackNotification;
 
-@interface CheckoutViewController : UIViewController
+@interface CheckoutViewController : UITableViewController
+
+@property (nonatomic, strong) NSNumberFormatter *currencyFormatter;
 
 - (instancetype)initWithClient:(BUYClient *)client checkout:(BUYCheckout *)checkout;
 

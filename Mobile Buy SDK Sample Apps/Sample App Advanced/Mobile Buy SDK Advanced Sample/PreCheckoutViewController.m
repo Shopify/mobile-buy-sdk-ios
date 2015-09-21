@@ -27,6 +27,7 @@
 #import "PreCheckoutViewController.h"
 #import "CheckoutViewController.h"
 #import "SummaryItemsTableViewCell.h"
+@import Buy;
 @import PassKit;
 
 typedef NS_ENUM(NSInteger, UITableViewSections) {
@@ -41,8 +42,6 @@ typedef NS_ENUM(NSInteger, UITableViewDiscountGiftCardSection) {
     UITableViewDiscountGiftCardSectionGiftCard,
     UITableViewDiscountGiftCardSectionCount
 };
-
-@import Buy;
 
 @interface PreCheckoutViewController ()
 
@@ -81,6 +80,7 @@ typedef NS_ENUM(NSInteger, UITableViewDiscountGiftCardSection) {
 - (void)setCheckout:(BUYCheckout *)checkout
 {
     _checkout = checkout;
+    // We can take advantage of the PKPaymentSummaryItems used for Apple Pay to display summary items natively in our own checkout
     self.summaryItems = [checkout buy_summaryItems];
 }
 
@@ -258,6 +258,7 @@ typedef NS_ENUM(NSInteger, UITableViewDiscountGiftCardSection) {
 - (void)proceedToCheckout
 {
     CheckoutViewController *checkoutController = [[CheckoutViewController alloc] initWithClient:self.client checkout:self.checkout];
+    checkoutController.currencyFormatter = self.currencyFormatter;
     [self.navigationController pushViewController:checkoutController animated:YES];
 }
 
