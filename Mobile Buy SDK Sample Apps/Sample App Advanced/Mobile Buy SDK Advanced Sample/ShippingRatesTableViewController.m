@@ -63,16 +63,25 @@
     
     [self.tableView registerClass:[ShippingRateTableViewCell class] forCellReuseIdentifier:@"Cell"];
     
+    // Setup both operations to run
     GetShopOperation *shopOperation = [[GetShopOperation alloc] initWithClient:self.client];
     shopOperation.delegate = self;
     [[NSOperationQueue mainQueue] addOperation:shopOperation];
     
     GetShippingRatesOperation *shippingOperation = [[GetShippingRatesOperation alloc] initWithClient:self.client withCheckout:self.checkout];
     shippingOperation.delegate = self;
-    [shippingOperation addDependency:shopOperation];
     [[NSOperationQueue mainQueue] addOperation:shippingOperation];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    // Ensure both operations are completed before we reload the table view
+    NSBlockOperation *blockOperation = [NSBlockOperation blockOperationWithBlock:^{
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        [self.tableView reloadData];
+    }];
+    [blockOperation addDependency:shopOperation];
+    [blockOperation addDependency:shippingOperation];
+    [[NSOperationQueue mainQueue] addOperation:blockOperation];
 }
 
 #pragma mark - Table view data source
@@ -103,6 +112,7 @@
         if (error == nil && checkout) {
             
             PreCheckoutViewController *preCheckoutController = [[PreCheckoutViewController alloc] initWithClient:self.client checkout:checkout];
+            preCheckoutController.currencyFormatter = self.currencyFormatter;
             [self.navigationController pushViewController:preCheckoutController animated:YES];
         }
         else {
@@ -123,8 +133,6 @@
 
 -(void)operation:(GetShopOperation *)operation failedToReceiveShop:(NSError *)error
 {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    
     NSLog(@"Failed to retrieve shop: %@", error);
 }
 
@@ -132,16 +140,11 @@
 
 -(void)operation:(GetShippingRatesOperation *)operation didReceiveShippingRates:(NSArray *)shippingRates
 {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-
     self.shippingRates = shippingRates;
-    [self.tableView reloadData];
 }
 
 -(void)operation:(GetShippingRatesOperation *)operation failedToReceiveShippingRates:(NSError *)error
 {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-
     NSLog(@"Failed to retrieve shipping rates: %@", error);
 }
 

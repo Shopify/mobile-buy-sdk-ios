@@ -1,5 +1,5 @@
 //
-//  ShippingRateTableViewCell.h
+//  SummaryItemsTableViewCell.h
 //  Mobile Buy SDK Advanced Sample
 //
 //  Created by Shopify.
@@ -24,8 +24,8 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
-@interface ShippingRateTableViewCell : UITableViewCell
+@interface SummaryItemsTableViewCell : UITableViewCell
 
 @end

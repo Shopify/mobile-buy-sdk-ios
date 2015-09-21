@@ -1,5 +1,5 @@
 //
-//  ShippingRateTableViewCell.h
+//  SummaryItemsTableViewCell.m
 //  Mobile Buy SDK Advanced Sample
 //
 //  Created by Shopify.
@@ -24,8 +24,16 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+#import "SummaryItemsTableViewCell.h"
 
-@interface ShippingRateTableViewCell : UITableViewCell
+@implementation SummaryItemsTableViewCell
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
+    if (self) {
+    }
+    return self;
+}
 
 @end

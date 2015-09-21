@@ -26,6 +26,8 @@
 
 #import "PreCheckoutViewController.h"
 #import "CheckoutViewController.h"
+#import "SummaryItemsTableViewCell.h"
+@import PassKit;
 
 typedef NS_ENUM(NSInteger, UITableViewSections) {
     UITableViewSectionSummaryItems,
@@ -34,12 +36,19 @@ typedef NS_ENUM(NSInteger, UITableViewSections) {
     UITableViewSectionCount
 };
 
+typedef NS_ENUM(NSInteger, UITableViewDiscountGiftCardSection) {
+    UITableViewDiscountGiftCardSectionDiscount,
+    UITableViewDiscountGiftCardSectionGiftCard,
+    UITableViewDiscountGiftCardSectionCount
+};
+
 @import Buy;
 
 @interface PreCheckoutViewController ()
 
 @property (nonatomic, strong) BUYCheckout *checkout;
 @property (nonatomic, strong) BUYClient *client;
+@property (nonatomic, strong) NSArray *summaryItems;
 
 @end
 
@@ -50,7 +59,7 @@ typedef NS_ENUM(NSInteger, UITableViewSections) {
     NSParameterAssert(client);
     NSParameterAssert(checkout);
     
-    self = [super init];
+    self = [super initWithStyle:UITableViewStyleGrouped];
     
     if (self) {
         self.checkout = checkout;
@@ -64,35 +73,15 @@ typedef NS_ENUM(NSInteger, UITableViewSections) {
     [super viewDidLoad];
     
     self.title = @"Add Discount or Gift Card(s)";
-    self.view.backgroundColor = [UIColor whiteColor];
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
-    
-//    UIButton *discountButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//    [discountButton setTitle:@"Add a Discount" forState:UIControlStateNormal];
-//    discountButton.translatesAutoresizingMaskIntoConstraints = NO;
-//    [discountButton addTarget:self action:@selector(applyDiscount) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:discountButton];
-//    
-//    UIButton *giftCardButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//    [giftCardButton setTitle:@"Apply Gift Card" forState:UIControlStateNormal];
-//    giftCardButton.translatesAutoresizingMaskIntoConstraints = NO;
-//    [giftCardButton addTarget:self action:@selector(applyGiftCard) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:giftCardButton];
-//    
-//    UIButton *checkoutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//    [checkoutButton setTitle:@"Checkout" forState:UIControlStateNormal];
-//    checkoutButton.translatesAutoresizingMaskIntoConstraints = NO;
-//    [checkoutButton addTarget:self action:@selector(proceedToCheckout) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:checkoutButton];
-//    
-//    NSDictionary *views = NSDictionaryOfVariableBindings(discountButton, giftCardButton, checkoutButton);
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[discountButton]-|" options:0 metrics:nil views:views]];
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[giftCardButton]-|" options:0 metrics:nil views:views]];
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[checkoutButton]-|" options:0 metrics:nil views:views]];
-//
-//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(100)-[discountButton]-[giftCardButton]-(>=100)-[checkoutButton]-(100)-|" options:0 metrics:nil views:views]];
+    [self.tableView registerClass:[SummaryItemsTableViewCell class] forCellReuseIdentifier:@"SummaryCell"];
+}
 
+- (void)setCheckout:(BUYCheckout *)checkout
+{
+    _checkout = checkout;
+    self.summaryItems = [checkout buy_summaryItems];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -103,8 +92,10 @@ typedef NS_ENUM(NSInteger, UITableViewSections) {
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     switch (section) {
+        case UITableViewSectionSummaryItems:
+            return [self.summaryItems count];
         case UITableViewSectionDiscountGiftCard:
-            return 2;
+            return UITableViewDiscountGiftCardSectionCount;
             break;
         default:
             return 1;
@@ -114,14 +105,76 @@ typedef NS_ENUM(NSInteger, UITableViewSections) {
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    UITableViewCell *cell;
     
+    switch (indexPath.section) {
+        case UITableViewSectionSummaryItems: {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"SummaryCell" forIndexPath:indexPath];
+            PKPaymentSummaryItem *summaryItem = self.summaryItems[indexPath.row];
+            cell.textLabel.text = summaryItem.label;
+            cell.detailTextLabel.text = [self.currencyFormatter stringFromNumber:summaryItem.amount];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            if (indexPath.row != [self.summaryItems count] - 2) {
+                cell.separatorInset = UIEdgeInsetsMake(0.f, 0.f, 0.f, cell.bounds.size.width);
+            }
+        }
+            break;
+        case UITableViewSectionDiscountGiftCard:
+            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+            cell.separatorInset = UIEdgeInsetsZero;
+            switch (indexPath.row) {
+                case UITableViewDiscountGiftCardSectionDiscount:
+                    cell.textLabel.text = @"Add Discount";
+                    cell.textLabel.textAlignment = NSTextAlignmentCenter;
+                    break;
+                case UITableViewDiscountGiftCardSectionGiftCard:
+                    cell.textLabel.text = @"Apple Gift Card";
+                    cell.textLabel.textAlignment = NSTextAlignmentCenter;
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case UITableViewSectionContinue:
+            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+            cell.textLabel.text = @"Continue";
+            cell.textLabel.textAlignment = NSTextAlignmentCenter;
+            break;
+        default:
+            break;
+    }
     
+    cell.preservesSuperviewLayoutMargins = NO;
+    [cell setLayoutMargins:UIEdgeInsetsZero];
     
     return cell;
 }
 
-- (void)applyDiscount
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.section) {
+        case UITableViewSectionDiscountGiftCard:
+            switch (indexPath.row) {
+                case UITableViewDiscountGiftCardSectionDiscount:
+                    [self addDiscount];
+                    break;
+                case UITableViewDiscountGiftCardSectionGiftCard:
+                    [self applyGiftCard];
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case UITableViewSectionContinue:
+            [self proceedToCheckout];
+            break;
+        default:
+            break;
+    }
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void)addDiscount
 {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Enter Discount Code" message:nil preferredStyle:UIAlertControllerStyleAlert];;
 
@@ -152,6 +205,7 @@ typedef NS_ENUM(NSInteger, UITableViewSections) {
                                                                   
                                                                   NSLog(@"Successfully added discount");
                                                                   self.checkout = checkout;
+                                                                  [self.tableView reloadData];
                                                               }
                                                               else {
                                                                   NSLog(@"Error applying checkout: %@", error);
@@ -190,6 +244,7 @@ typedef NS_ENUM(NSInteger, UITableViewSections) {
                                                                   
                                                                   NSLog(@"Successfully added gift card");
                                                                   self.checkout = checkout;
+                                                                  [self.tableView reloadData];
                                                               }
                                                               else {
                                                                   NSLog(@"Error applying gift card: %@", error);
