@@ -10,6 +10,32 @@ Shopify’s Mobile Buy SDK makes it simple to sell physical products inside your
 
 Please find all documentation on the [Mobile Buy SDK for iOS page](https://docs.shopify.com/mobile-buy-sdk).
 
+### Installation
+
+#### Manual Installation (Project)
+
+1. Drag the `Mobile Buy SDK.xcodeproj` into your existing project
+2. Add the `Buy` target as a `Target Dependancy` in the `Build Phases` of your project's target
+3. Add the `Buy` target in the `Link Binary with Libraries` section in `Build Phases`
+4. Add `@import Buy;` before accessing any API in the Mobile Buy SDK
+
+#### Manual Installation (Framework)
+
+If you would like to not include the Mobile Buy SDK Project within your existing project, you can link directly to the `Buy.framework`.
+
+1.  Open the `Mobile Buy SDK.xcodeproj` and build the `Universal Framework` Target
+2.  Drag the `Buy.framework` that was just created from `Mobile Buy SDK Sample Apps` onto the `Linked Frameworks and Libraries` section for the target you want to add the framework to. Check Copy items if needed so the framework is copied to your project
+3.  In the `Build Settings` tab, add `-all_load` to `Other Linker Flags`.
+4. Add `@import Buy;` before accessing any API in the Mobile Buy SDK
+
+#### CocoaPods
+
+TBD
+
+#### Carthage
+
+TBD
+
 ### Building the SDK
 
 Clone this repo or download as .zip and open `Mobile Buy SDK.xcworkspace`.
@@ -42,3 +68,11 @@ To run the tests, edit the `Mobile Buy SDK Tests` scheme and add the following a
 * `gift_card_code`, `gift_card_code_2`, `gift_card_code_3`: Three valid [Gift Card](https://docs.shopify.com/manual/your-store/gift-cards) codes for your shop
 * `expired_gift_card_code`: An expired Gift Card code
 * `expired_gift_card_id`: The `product_id` for the expired Gift Card
+
+### How Can I Contribute?
+
+We welcome contributions.  Follow the steps in [CONTRIBUTING](CONTRIBUTING.md) file
+
+### Licence 
+
+The Mobile Buy SDK is provided under an MIT Licence.  See the [LICENSE](LICENSE) file
