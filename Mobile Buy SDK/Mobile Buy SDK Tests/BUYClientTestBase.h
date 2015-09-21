@@ -14,11 +14,16 @@
 @property (nonatomic, strong) NSString *shopDomain;
 @property (nonatomic, strong) NSString *apiKey;
 @property (nonatomic, strong) NSString *channelId;
+@property (nonatomic, strong) NSString *merchantId;
 @property (nonatomic, strong) NSString *giftCardCode;
 @property (nonatomic, strong) NSString *giftCardCode2;
 @property (nonatomic, strong) NSString *giftCardCode3;
-@property (nonatomic, strong) NSString *expiredGiftCardCode;
-@property (nonatomic, strong) NSString *expiredGiftCardId;
+@property (nonatomic, strong) NSString *giftCardCodeExpired;
+@property (nonatomic, strong) NSString *giftCardIdExpired;
+@property (nonatomic, strong) NSString *giftCardCodeInvalid;
+@property (nonatomic, strong) NSString *discountCodeValid;
+@property (nonatomic, strong) NSString *discountCodeExpired;
+@property (nonatomic, strong) NSArray *productIds;
 
 @property (nonatomic, strong) BUYClient *client;
 
