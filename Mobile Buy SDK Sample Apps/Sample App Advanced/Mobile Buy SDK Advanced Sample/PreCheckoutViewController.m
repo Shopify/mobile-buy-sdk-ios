@@ -128,7 +128,7 @@ typedef NS_ENUM(NSInteger, UITableViewDiscountGiftCardSection) {
                     cell.textLabel.textAlignment = NSTextAlignmentCenter;
                     break;
                 case UITableViewDiscountGiftCardSectionGiftCard:
-                    cell.textLabel.text = @"Apple Gift Card";
+                    cell.textLabel.text = @"Apply Gift Card";
                     cell.textLabel.textAlignment = NSTextAlignmentCenter;
                     break;
                 default:
