@@ -30,10 +30,7 @@
 #import "ProductViewControllerThemeStyleTableViewCell.h"
 #import "ProductViewControllerThemeTintColorTableViewCell.h"
 
-#warning - Enter your shop domain and API Key
-#define SHOP_DOMAIN @""
-#define API_KEY @""
-#define CHANNEL_ID @""
+#warning - Enter your merchant ID
 // Adding a merchant ID will show Apple Pay in the BUYProductViewController (on supported devices)
 #define MERCHANT_ID @""
 
@@ -80,10 +77,6 @@
     self.themeTintColors = @[[UIColor colorWithRed:0.48f green:0.71f blue:0.36f alpha:1.0f], [UIColor colorWithRed:0.88 green:0.06 blue:0.05 alpha:1], [UIColor colorWithRed:0.02 green:0.54 blue:1 alpha:1]];
     self.themeTintColorSelectedIndex = 0;
     self.showsProductImageBackground = YES;
-    
-    self.client = [[BUYClient alloc] initWithShopDomain:SHOP_DOMAIN
-                                                 apiKey:API_KEY
-                                              channelId:MERCHANT_ID];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
