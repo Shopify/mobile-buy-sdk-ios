@@ -141,7 +141,7 @@
                     break;
                 case 3: {
                     ProductViewControllerToggleTableViewCell *toggleCell = (ProductViewControllerToggleTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"ThemeShowsBackgroundToggleCell" forIndexPath:indexPath];
-                    toggleCell.textLabel.text = @"showsProductImageBackground";
+                    toggleCell.textLabel.text = @"Product Image in Background";
                     [toggleCell.toggleSwitch setOn:self.showsProductImageBackground];
                     [toggleCell.toggleSwitch addTarget:self action:@selector(toggleShowsProductImageBackground:) forControlEvents:UIControlEventValueChanged];
                     cell = toggleCell;
