@@ -8,6 +8,11 @@
 
 #import "BUYClientTestBase.h"
 #import "BUYTestConstants.h"
+#import <OHHTTPStubs/OHHTTPStubs.h>
+
+NSString * const BUYShopDomain_Placeholder = @"test_shop";
+NSString * const BUYAPIKey_Placeholder = @"channel_id";
+NSString * const BUYChannelId_Placeholder = @"api_key";
 
 @implementation BUYClientTestBase
 
@@ -15,6 +20,11 @@
 {
 	[super setUp];
 	
+	[self setupClient];
+}
+
+- (void)setupClient
+{
 	NSBundle *bundle = [NSBundle bundleForClass:[self class]];
 	NSString *jsonPath = [bundle pathForResource:@"test_shop_data" ofType:@"json"];
 	NSData *jsonData = [NSData dataWithContentsOfFile:jsonPath];
@@ -42,13 +52,26 @@
 	} else {
 		self.productIds = jsonConfig[@"product_ids"];
 	}
+
+	if ([self shouldUseMocks] == NO) {
+		
+		self.client = [[BUYClient alloc] initWithShopDomain:self.shopDomain apiKey:self.apiKey channelId:self.channelId];
+	}
+	else {
+		
+		NSLog(@"***** Using Mock Tests *****");
+		
+		self.client = [[BUYClient alloc] initWithShopDomain:BUYShopDomain_Placeholder apiKey:BUYAPIKey_Placeholder channelId:BUYChannelId_Placeholder];
+	}
+}
+
+- (BOOL)shouldUseMocks{
 	
-	XCTAssert([self.shopDomain length] > 0, @"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");
-	XCTAssertEqualObjects([self.shopDomain substringFromIndex:self.shopDomain.length - 14], @".myshopify.com", @"You must provide a valid shop domain. This is your 'shopname.myshopify.com' address.");
-	XCTAssert([self.apiKey length] > 0, @"You must provide a valid API Key.");
-	XCTAssert([self.channelId length], @"You must provide a valid Channel ID");
+	if (!self.shopDomain.length && !self.apiKey.length && !self.channelId.length) {
+		_shouldUseMocks = YES;
+	}
 	
-	self.client = [[BUYClient alloc] initWithShopDomain:self.shopDomain apiKey:self.apiKey channelId:self.channelId];
+	return _shouldUseMocks;
 }
 
 @end
