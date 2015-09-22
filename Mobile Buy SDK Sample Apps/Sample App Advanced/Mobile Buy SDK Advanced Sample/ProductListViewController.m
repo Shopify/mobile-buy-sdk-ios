@@ -70,9 +70,9 @@
     self.themeTintColorSelectedIndex = 0;
     self.showsProductImageBackground = YES;
     
-    self.client = [[BUYClient alloc] initWithShopDomain:@"the-app-boutique.myshopify.com"
-                                                 apiKey:@"506ede8b60f86fbf86109a762fe8093d"
-                                              channelId:@"9060547"];
+    self.client = [[BUYClient alloc] initWithShopDomain:SHOP_DOMAIN
+                                                 apiKey:API_KEY
+                                              channelId:MERCHANT_ID];
     self.merchantId = MERCHANT_ID;
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
