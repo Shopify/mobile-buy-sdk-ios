@@ -32,6 +32,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.textLabel.text = @"Theme Style";
         self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Light", @"Dark"]];
         self.segmentedControl.selectedSegmentIndex = 0;
