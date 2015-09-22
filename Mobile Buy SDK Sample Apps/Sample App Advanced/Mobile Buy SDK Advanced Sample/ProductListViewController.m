@@ -42,6 +42,7 @@
 @property (nonatomic, strong) BUYClient *client;
 @property (nonatomic, strong) BUYCollection *collection;
 @property (nonatomic, strong) NSArray *products;
+@property (nonatomic, strong) NSURLSessionDataTask *collectionTask;
 
 @property (nonatomic, assign) BOOL demoProductViewController;
 @property (nonatomic, assign) BUYThemeStyle themeStyle;
@@ -105,6 +106,11 @@
     }
 }
 
+- (void)dealloc
+{
+    [self.collectionTask cancel];
+}
+
 - (void)presentCollectionSortOptions
 {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Collection Sort" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
@@ -144,7 +150,8 @@
 
 - (void)getCollectionWithSortOrder:(BUYCollectionSort)collectionSort
 {
-    [self.client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:collectionSort completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+    [self.collectionTask cancel];
+    self.collectionTask = [self.client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:collectionSort completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
         if (error == nil && products) {
