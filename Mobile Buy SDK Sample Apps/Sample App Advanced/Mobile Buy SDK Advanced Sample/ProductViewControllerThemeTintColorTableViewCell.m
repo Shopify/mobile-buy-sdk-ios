@@ -1,5 +1,5 @@
 //
-//  SummaryItemsTableViewCell.m
+//  ProductViewControllerThemeTintColorTableViewCell.m
 //  Mobile Buy SDK Advanced Sample
 //
 //  Created by Shopify.
@@ -24,17 +24,19 @@
 //  THE SOFTWARE.
 //
 
-#import "SummaryItemsTableViewCell.h"
+#import "ProductViewControllerThemeTintColorTableViewCell.h"
 
-@implementation SummaryItemsTableViewCell
+@implementation ProductViewControllerThemeTintColorTableViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-    self = [super initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.preservesSuperviewLayoutMargins = NO;
-        [self setLayoutMargins:UIEdgeInsetsZero];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.textLabel.text = @"Theme Tint Color";
+        self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Shopify", @"Red", @"Blue"]];
+        self.segmentedControl.selectedSegmentIndex = 0;
+        self.accessoryView = self.segmentedControl;
     }
     return self;
 }
