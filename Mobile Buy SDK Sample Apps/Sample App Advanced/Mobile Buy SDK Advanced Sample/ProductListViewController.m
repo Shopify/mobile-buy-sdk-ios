@@ -78,7 +78,6 @@
     self.themeTintColorSelectedIndex = 0;
     self.showsProductImageBackground = YES;
     
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     if (self.collection) {
         // If we're presenting with a collection, add the ability to sort
@@ -86,6 +85,7 @@
         self.navigationItem.rightBarButtonItem = sortBarButtonItem;
         [self getCollectionWithSortOrder:BUYCollectionSortCollectionDefault];
     } else {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
         [self.client getProductsPage:1 completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
             
@@ -146,6 +146,7 @@
 - (void)getCollectionWithSortOrder:(BUYCollectionSort)collectionSort
 {
     [self.collectionTask cancel];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     self.collectionTask = [self.client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:collectionSort completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
