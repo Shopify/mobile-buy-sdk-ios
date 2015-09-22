@@ -32,7 +32,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.textLabel.text = @"Demo BUYProductViewController";
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.toggleSwitch = [UISwitch new];
         self.accessoryView = self.toggleSwitch;
     }

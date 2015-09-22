@@ -28,6 +28,7 @@
 #import "ShippingRatesTableViewController.h"
 #import "ProductViewControllerToggleTableViewCell.h"
 #import "ProductViewControllerThemeStyleTableViewCell.h"
+#import "ProductViewControllerThemeTintColorTableViewCell.h"
 
 @import Buy;
 
@@ -35,6 +36,8 @@
 #define SHOP_DOMAIN @""
 #define API_KEY @""
 #define CHANNEL_ID @""
+// Adding a merchant ID will show Apple Pay in the BUYProductViewController (on supported devices)
+#define MERCHANT_ID @""
 
 @interface ProductListViewController ()
 
@@ -43,6 +46,9 @@
 
 @property (nonatomic, assign) BOOL demoProductViewController;
 @property (nonatomic, assign) BUYThemeStyle themeStyle;
+@property (nonatomic, strong) NSArray *themeTintColors;
+@property (nonatomic, assign) NSInteger themeTintColorSelectedIndex;
+@property (nonatomic, assign) BOOL showsProductImageBackground;
 
 @end
 
@@ -51,13 +57,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.tableView registerClass:[ProductViewControllerToggleTableViewCell class] forCellReuseIdentifier:@"ProductViewControllerToggleCell"];
-    [self.tableView registerClass:[ProductViewControllerThemeStyleTableViewCell class] forCellReuseIdentifier:@"ThemeStyleCell"];
-    
     self.title = @"Choose Product";
     
-    self.client = [[BUYClient alloc] initWithShopDomain:SHOP_DOMAIN apiKey:API_KEY channelId:CHANNEL_ID];
-
+    [self.tableView registerClass:[ProductViewControllerToggleTableViewCell class] forCellReuseIdentifier:@"ProductViewControllerToggleCell"];
+    [self.tableView registerClass:[ProductViewControllerThemeStyleTableViewCell class] forCellReuseIdentifier:@"ThemeStyleCell"];
+    [self.tableView registerClass:[ProductViewControllerThemeTintColorTableViewCell class] forCellReuseIdentifier:@"ThemeTintColorCell"];
+    [self.tableView registerClass:[ProductViewControllerToggleTableViewCell class] forCellReuseIdentifier:@"ThemeShowsBackgroundToggleCell"];
+    
+    self.themeTintColors = @[[UIColor colorWithRed:0.48f green:0.71f blue:0.36f alpha:1.0f], [UIColor colorWithRed:0.88 green:0.06 blue:0.05 alpha:1], [UIColor colorWithRed:0.02 green:0.54 blue:1 alpha:1]];
+    self.themeTintColorSelectedIndex = 0;
+    self.showsProductImageBackground = YES;
+    
+    self.client = [[BUYClient alloc] initWithShopDomain:SHOP_DOMAIN
+                                                 apiKey:API_KEY
+                                              channelId:MERCHANT_ID];
+    
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [self.client getProductsPage:1 completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -82,7 +96,11 @@
 {
     switch (section) {
         case 0:
-            return self.demoProductViewController ? 2 : 1;
+            if (self.demoProductViewController) {
+                return 4;
+            } else {
+                return 1;
+            }
             break;
         case 1:
             return self.objects.count;
@@ -101,6 +119,7 @@
             switch (indexPath.row) {
                 case 0: {
                     ProductViewControllerToggleTableViewCell *toggleCell = (ProductViewControllerToggleTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"ProductViewControllerToggleCell" forIndexPath:indexPath];
+                    toggleCell.textLabel.text = @"Demo BUYProductViewController";
                     [toggleCell.toggleSwitch setOn:self.demoProductViewController];
                     [toggleCell.toggleSwitch addTarget:self action:@selector(toggleProductViewControllerDemo:) forControlEvents:UIControlEventValueChanged];
                     cell = toggleCell;
@@ -112,6 +131,22 @@
                     [themeCell.segmentedControl addTarget:self action:@selector(toggleProductViewControllerThemeStyle:) forControlEvents:UIControlEventValueChanged];
                     cell = themeCell;
                 }
+                    break;
+                case 2: {
+                    ProductViewControllerThemeTintColorTableViewCell *themeCell = (ProductViewControllerThemeTintColorTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"ThemeTintColorCell" forIndexPath:indexPath];
+                    themeCell.segmentedControl.selectedSegmentIndex = self.themeTintColorSelectedIndex;
+                    [themeCell.segmentedControl addTarget:self action:@selector(toggleProductViewControllerTintColorSelection:) forControlEvents:UIControlEventValueChanged];
+                    cell = themeCell;
+                }
+                    break;
+                case 3: {
+                    ProductViewControllerToggleTableViewCell *toggleCell = (ProductViewControllerToggleTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"ThemeShowsBackgroundToggleCell" forIndexPath:indexPath];
+                    toggleCell.textLabel.text = @"Product Image in Background";
+                    [toggleCell.toggleSwitch setOn:self.showsProductImageBackground];
+                    [toggleCell.toggleSwitch addTarget:self action:@selector(toggleShowsProductImageBackground:) forControlEvents:UIControlEventValueChanged];
+                    cell = toggleCell;
+                }
+                    break;
                 default:
                     break;
             }
@@ -132,12 +167,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BUYProduct *product = self.objects[indexPath.row];
-    if (self.demoProductViewController) {
-        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-        [self demoProductViewControllerWithProduct:product];
-    } else {
-        [self demoNativeFlowWithProduct:product];
+    if (indexPath.section > 0) {
+        BUYProduct *product = self.objects[indexPath.row];
+        if (self.demoProductViewController) {
+            [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+            [self demoProductViewControllerWithProduct:product];
+        } else {
+            [self demoNativeFlowWithProduct:product];
+        }
     }
 }
 
@@ -174,7 +211,10 @@
 {
     BUYTheme *theme = [BUYTheme new];
     theme.style = self.themeStyle;
+    theme.tintColor = self.themeTintColors[self.themeTintColorSelectedIndex];
+    theme.showsProductImageBackground = self.showsProductImageBackground;
     BUYProductViewController *productViewController = [[BUYProductViewController alloc] initWithClient:self.client theme:theme];
+    productViewController.merchantId = MERCHANT_ID;
     [productViewController loadWithProduct:product completion:^(BOOL success, NSError *error) {
         if (error == nil) {
             [productViewController presentPortraitInViewController:self];
@@ -191,6 +231,16 @@
 - (void)toggleProductViewControllerThemeStyle:(UISegmentedControl*)segmentedControl
 {
     self.themeStyle = segmentedControl.selectedSegmentIndex;
+}
+
+- (void)toggleProductViewControllerTintColorSelection:(UISegmentedControl*)segmentedControl
+{
+    self.themeTintColorSelectedIndex = segmentedControl.selectedSegmentIndex;
+}
+
+- (void)toggleShowsProductImageBackground:(UISwitch*)toggleSwitch
+{
+    self.showsProductImageBackground = toggleSwitch.on;
 }
 
 - (BUYAddress *)address
