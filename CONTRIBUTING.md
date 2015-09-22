@@ -14,7 +14,7 @@
 
 ## Workflow
 
-* Fork the repo and branch off `develop`
+* Fork the repo and branch off of `develop`
 * Create a new branch in your fork
 * If it makes sense, add tests for your code
 * Make sure all tests pass
