@@ -32,6 +32,8 @@
 @property (nonatomic, strong) BUYClient *client;
 @property (nonatomic, assign) BOOL done;
 
+@property (nonatomic, strong) NSURLSessionDataTask *task;
+
 @property (nonatomic) BUYStatus completionStatus;
 
 @end
@@ -59,6 +61,12 @@
     return [super isFinished] && self.done;
 }
 
+- (void)cancel
+{
+    [self.task cancel];
+    [super cancel];
+}
+
 - (void)main
 {
     [self pollForCompletionStatus];
@@ -72,7 +80,7 @@
         return;
     }
     
-    [self.client getCompletionStatusOfCheckout:self.checkout completion:^(BUYStatus status, NSError *error) {
+    self.task = [self.client getCompletionStatusOfCheckout:self.checkout completion:^(BUYStatus status, NSError *error) {
         
         completionStatus = status;
         

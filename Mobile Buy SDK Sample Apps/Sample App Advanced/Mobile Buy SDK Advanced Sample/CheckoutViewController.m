@@ -29,11 +29,12 @@
 #import "SummaryItemsTableViewCell.h"
 @import Buy;
 @import PassKit;
+@import SafariServices;
 
 NSString * const CheckoutCallbackNotification = @"CheckoutCallbackNotification";
 NSString * const MerchantId = @"";
 
-@interface CheckoutViewController () <GetCompletionStatusOperationDelegate>
+@interface CheckoutViewController () <GetCompletionStatusOperationDelegate, SFSafariViewControllerDelegate>
 
 @property (nonatomic, strong) BUYCheckout *checkout;
 @property (nonatomic, strong) BUYClient *client;
@@ -272,8 +273,17 @@ NSString * const MerchantId = @"";
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveCallbackURLNotification:) name:CheckoutCallbackNotification object:nil];
 
-    
-    [[UIApplication sharedApplication] openURL:self.checkout.webCheckoutURL];
+    // On iOS 9+ we should use the SafariViewController to display the checkout in-app
+    if ([SFSafariViewController class]) {
+        
+        SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:self.checkout.webCheckoutURL];
+        safariViewController.delegate = self;
+        
+        [self presentViewController:safariViewController animated:YES completion:nil];
+    }
+    else {
+        [[UIApplication sharedApplication] openURL:self.checkout.webCheckoutURL];
+    }
 }
 
 - (void)didReceiveCallbackURLNotification:(NSNotification *)notification
