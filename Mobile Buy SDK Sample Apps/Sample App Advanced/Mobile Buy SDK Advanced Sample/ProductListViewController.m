@@ -29,7 +29,6 @@
 #import "ProductViewControllerToggleTableViewCell.h"
 #import "ProductViewControllerThemeStyleTableViewCell.h"
 #import "ProductViewControllerThemeTintColorTableViewCell.h"
-@import Buy;
 
 #warning - Enter your shop domain and API Key
 #define SHOP_DOMAIN @""
