@@ -28,7 +28,9 @@
 @class BUYCheckout;
 @class BUYClient;
 
-@interface PreCheckoutViewController : UIViewController
+@interface PreCheckoutViewController : UITableViewController
+
+@property (nonatomic, strong) NSNumberFormatter *currencyFormatter;
 
 - (instancetype)initWithClient:(BUYClient *)client checkout:(BUYCheckout *)checkout;
 

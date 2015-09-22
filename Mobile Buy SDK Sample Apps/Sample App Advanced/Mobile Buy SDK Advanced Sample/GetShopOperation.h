@@ -1,5 +1,5 @@
 //
-//  CheckoutViewController.h
+//  GetShopOperation.h
 //  Mobile Buy SDK Advanced Sample
 //
 //  Created by Shopify.
@@ -24,16 +24,23 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
-@class BUYCheckout;
-@class BUYClient;
+#import <Foundation/Foundation.h>
+@import Buy;
 
-extern NSString * const CheckoutCallbackNotification;
+@class GetShopOperation;
 
-@interface CheckoutViewController : UITableViewController
+@protocol GetShopOperationDelegate <NSObject>
 
-@property (nonatomic, strong) NSNumberFormatter *currencyFormatter;
+- (void)operation:(GetShopOperation *)operation didReceiveShop:(BUYShop*)shop;
 
-- (instancetype)initWithClient:(BUYClient *)client checkout:(BUYCheckout *)checkout;
+- (void)operation:(GetShopOperation *)operation failedToReceiveShop:(NSError *)error;
+
+@end
+
+@interface GetShopOperation : NSOperation
+
+- (instancetype)initWithClient:(BUYClient *)client;
+
+@property (nonatomic, weak) id <GetShopOperationDelegate> delegate;
 
 @end

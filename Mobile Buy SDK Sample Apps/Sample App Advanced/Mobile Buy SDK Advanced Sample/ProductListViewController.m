@@ -26,6 +26,8 @@
 
 #import "ProductListViewController.h"
 #import "ShippingRatesTableViewController.h"
+#import "ProductViewControllerToggleTableViewCell.h"
+#import "ProductViewControllerThemeStyleTableViewCell.h"
 
 @import Buy;
 
@@ -35,18 +37,22 @@
 #define CHANNEL_ID @""
 
 @interface ProductListViewController ()
-@property BUYClient *client;
-@property NSArray *objects;
+
+@property (nonatomic, strong) BUYClient *client;
+@property (nonatomic, strong) NSArray *objects;
+
+@property (nonatomic, assign) BOOL demoProductViewController;
+@property (nonatomic, assign) BUYThemeStyle themeStyle;
+
 @end
 
 @implementation ProductListViewController
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.tableView registerClass:[ProductViewControllerToggleTableViewCell class] forCellReuseIdentifier:@"ProductViewControllerToggleCell"];
+    [self.tableView registerClass:[ProductViewControllerThemeStyleTableViewCell class] forCellReuseIdentifier:@"ThemeStyleCell"];
     
     self.title = @"Choose Product";
     
@@ -55,7 +61,7 @@
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [self.client getProductsPage:1 completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-
+        
         if (error == nil && products) {
             self.objects = products;
             [self.tableView reloadData];
@@ -69,25 +75,74 @@
 #pragma mark - Table View
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.objects.count;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    switch (section) {
+        case 0:
+            return self.demoProductViewController ? 2 : 1;
+            break;
+        case 1:
+            return self.objects.count;
+        default:
+            return 0;
+            break;
+    }
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-
-    BUYProduct *product = self.objects[indexPath.row];
-    cell.textLabel.text = product.title;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell;
+    
+    switch (indexPath.section) {
+        case 0:
+            switch (indexPath.row) {
+                case 0: {
+                    ProductViewControllerToggleTableViewCell *toggleCell = (ProductViewControllerToggleTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"ProductViewControllerToggleCell" forIndexPath:indexPath];
+                    [toggleCell.toggleSwitch setOn:self.demoProductViewController];
+                    [toggleCell.toggleSwitch addTarget:self action:@selector(toggleProductViewControllerDemo:) forControlEvents:UIControlEventValueChanged];
+                    cell = toggleCell;
+                }
+                    break;
+                case 1: {
+                    ProductViewControllerThemeStyleTableViewCell *themeCell = (ProductViewControllerThemeStyleTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"ThemeStyleCell" forIndexPath:indexPath];
+                    themeCell.segmentedControl.selectedSegmentIndex = self.themeStyle;
+                    [themeCell.segmentedControl addTarget:self action:@selector(toggleProductViewControllerThemeStyle:) forControlEvents:UIControlEventValueChanged];
+                    cell = themeCell;
+                }
+                default:
+                    break;
+            }
+            break;
+        case 1: {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+            BUYProduct *product = self.objects[indexPath.row];
+            cell.textLabel.text = product.title;
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BUYProduct *product = self.objects[indexPath.row];
+    if (self.demoProductViewController) {
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+        [self demoProductViewControllerWithProduct:product];
+    } else {
+        [self demoNativeFlowWithProduct:product];
+    }
+}
 
+- (void)demoNativeFlowWithProduct:(BUYProduct*)product
+{
     BUYCart *cart = [[BUYCart alloc] init];
     [cart addVariant:product.variants.firstObject];
     
@@ -99,11 +154,11 @@
     checkout.email = @"banana@testasaurus.com";
     
     self.client.urlScheme = @"advancedsample://";
-
+    
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [self.client createCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-
+        
         if (error == nil && checkout) {
             
             ShippingRatesTableViewController *shippingController = [[ShippingRatesTableViewController alloc] initWithClient:self.client checkout:checkout];
@@ -113,7 +168,29 @@
             NSLog(@"Error creating checkout: %@", error);
         }
     }];
-    
+}
+
+- (void)demoProductViewControllerWithProduct:(BUYProduct*)product
+{
+    BUYTheme *theme = [BUYTheme new];
+    theme.style = self.themeStyle;
+    BUYProductViewController *productViewController = [[BUYProductViewController alloc] initWithClient:self.client theme:theme];
+    [productViewController loadWithProduct:product completion:^(BOOL success, NSError *error) {
+        if (error == nil) {
+            [productViewController presentPortraitInViewController:self];
+        }
+    }];
+}
+
+- (void)toggleProductViewControllerDemo:(UISwitch*)toggleSwitch
+{
+    self.demoProductViewController = toggleSwitch.on;
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)toggleProductViewControllerThemeStyle:(UISegmentedControl*)segmentedControl
+{
+    self.themeStyle = segmentedControl.selectedSegmentIndex;
 }
 
 - (BUYAddress *)address

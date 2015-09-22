@@ -1,5 +1,5 @@
 //
-//  CheckoutViewController.h
+//  ShippingRateTableViewCell.h
 //  Mobile Buy SDK Advanced Sample
 //
 //  Created by Shopify.
@@ -25,15 +25,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@class BUYCheckout;
-@class BUYClient;
 
-extern NSString * const CheckoutCallbackNotification;
-
-@interface CheckoutViewController : UITableViewController
-
-@property (nonatomic, strong) NSNumberFormatter *currencyFormatter;
-
-- (instancetype)initWithClient:(BUYClient *)client checkout:(BUYCheckout *)checkout;
+@interface ShippingRateTableViewCell : UITableViewCell
 
 @end

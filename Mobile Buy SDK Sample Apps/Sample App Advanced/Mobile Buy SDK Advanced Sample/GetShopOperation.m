@@ -1,6 +1,6 @@
 //
-//  ProductView.h
-//  Mobile Buy SDK
+//  GetShopOperation.h
+//  Mobile Buy SDK Advanced Sample
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -24,18 +24,59 @@
 //  THE SOFTWARE.
 //
 
-@import UIKit;
-@import PassKit;
-@import Buy;
+#import "GetShopOperation.h"
 
-@interface ProductView : UIView
+@interface GetShopOperation ()
 
-@property (nonatomic, strong, readonly) UIImageView *productImageView;
-@property (nonatomic, strong, readonly) UILabel *titleLabel;
-@property (nonatomic, strong, readonly) UILabel *priceLabel;
-@property (nonatomic, strong, readonly) BUYPaymentButton *paymentButton;
-@property (nonatomic, strong, readonly) UIButton *checkoutButton;
+@property (nonatomic, strong) BUYClient *client;
+@property (nonatomic, assign) BOOL done;
 
-- (void)showLoading:(BOOL)loading;
+@end
+
+@implementation GetShopOperation
+
+- (instancetype)initWithClient:(BUYClient *)client
+{
+    NSParameterAssert(client);
+    
+    self = [super init];
+    
+    if (self) {
+        self.client = client;
+    }
+    
+    return self;
+}
+
+- (BOOL)isFinished
+{
+    return [super isFinished] && self.done;
+}
+
+- (void)main
+{
+    [self getShop];
+}
+
+- (void)getShop
+{
+    if (self.isCancelled) {
+        return;
+    }
+    
+    [self.client getShop:^(BUYShop *shop, NSError *error) {
+        
+        [self willChangeValueForKey:@"isFinished"];
+        self.done = YES;
+        [self didChangeValueForKey:@"isFinished"];
+        
+        if (error) {
+            [self.delegate operation:self failedToReceiveShop:error];
+        }
+        else {
+            [self.delegate operation:self didReceiveShop:shop ];
+        }
+    }];
+}
 
 @end

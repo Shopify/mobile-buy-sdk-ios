@@ -473,10 +473,10 @@
 				90F592F91B0D5F4C0026B382 /* BUYApplePayAdditionsTest.m */,
 				90F592FA1B0D5F4C0026B382 /* BUYCartTest.m */,
 				90F592FB1B0D5F4C0026B382 /* BUYCheckoutTest.m */,
-				BEB9AE7C1BA8685600575F8A /* BUYClientTestBase.m */,
-				BEB9AE7A1BA866D000575F8A /* BUYClientTestBase.h */,
 				90F592FC1B0D5F4C0026B382 /* BUYClientTest_Storefront.m */,
 				90F592FD1B0D5F4C0026B382 /* BUYClientTest.m */,
+				BEB9AE7A1BA866D000575F8A /* BUYClientTestBase.h */,
+				BEB9AE7C1BA8685600575F8A /* BUYClientTestBase.m */,
 				90F592F81B0D5F4C0026B382 /* BUYIntegrationTest.m */,
 				90F592FE1B0D5F4C0026B382 /* BUYLineItemTest.m */,
 				90F592FF1B0D5F4C0026B382 /* BUYObjectTests.m */,
@@ -1024,7 +1024,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\nFRAMEWORK_NAME=\"Buy\"\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -target \"${FRAMEWORK_NAME}\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -OBJROOT=\"${OBJROOT}\" -sdk iphoneos BUILD_DIR=\"${BUILD_DIR}\" SYMROOT=\"${SYMROOT}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\nxcodebuild -target \"${FRAMEWORK_NAME}\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -OBJROOT=\"${OBJROOT}\" -sdk iphonesimulator BUILD_DIR=\"${BUILD_DIR}\" SYMROOT=\"${SYMROOT}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\n# Step 2. Copy the framework structure (from iphoneos build) to the universal folder\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${FRAMEWORK_NAME}.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n# Step 4. Create universal binary file using lipo and place the combined executable in the copied framework directory\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\"\n\n# Copy the framework to the sample apps folder\nrm -rf \"${SRCROOT}/../Mobile Buy SDK Sample Apps/${FRAMEWORK_NAME}.framework\"\ncp -r \"${UNIVERSAL_OUTPUTFOLDER}/${FRAMEWORK_NAME}.framework\" \"${SRCROOT}/../Mobile Buy SDK Sample Apps\"\n\n";
+			shellScript = "sh \"${SRCROOT}/../Scripts/build_universal.sh\"\n";
 		};
 		90E80E441AFAB0C3003A9909 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

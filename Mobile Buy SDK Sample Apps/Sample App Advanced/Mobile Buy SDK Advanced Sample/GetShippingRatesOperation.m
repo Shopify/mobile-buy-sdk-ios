@@ -65,7 +65,7 @@
     // We then turn our BUYShippingRate objects into PKShippingMethods for Apple to present to the user.
     
     if ([self.checkout requiresShipping] == NO) {
-
+        
         [self willChangeValueForKey:@"isFinished"];
         self.done = YES;
         [self didChangeValueForKey:@"isFinished"];
@@ -73,16 +73,16 @@
         [self.delegate operation:self didReceiveShippingRates:nil];
     }
     else {
-
+        
         [self pollForShippingRates];
-
+        
     }
 }
 
 - (void)pollForShippingRates
 {
     __block BUYStatus shippingStatus = BUYStatusUnknown;
-
+    
     [self.client getShippingRatesForCheckout:self.checkout completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
         
         shippingStatus = status;

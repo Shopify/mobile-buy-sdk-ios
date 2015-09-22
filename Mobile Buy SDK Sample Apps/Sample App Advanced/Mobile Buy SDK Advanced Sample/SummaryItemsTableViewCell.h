@@ -1,6 +1,6 @@
 //
-//  AppDelegate.h
-//  Mobile Buy SDK
+//  SummaryItemsTableViewCell.h
+//  Mobile Buy SDK Advanced Sample
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -24,11 +24,8 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
+@interface SummaryItemsTableViewCell : UITableViewCell
 
 @end
-

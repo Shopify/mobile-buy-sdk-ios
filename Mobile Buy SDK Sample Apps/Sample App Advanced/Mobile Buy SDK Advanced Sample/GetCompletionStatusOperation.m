@@ -73,7 +73,7 @@
     }
     
     [self.client getCompletionStatusOfCheckout:self.checkout completion:^(BUYStatus status, NSError *error) {
-       
+        
         completionStatus = status;
         
         if (status == BUYStatusProcessing) {
@@ -99,6 +99,5 @@
         }
     }];
 }
-
 
 @end

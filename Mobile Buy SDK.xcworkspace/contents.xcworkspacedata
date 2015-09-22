@@ -5,9 +5,6 @@
       location = "group:Mobile Buy SDK/Mobile Buy SDK.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Mobile Buy SDK Sample Apps/Sample App Native/Mobile Buy SDK Native Sample.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:Mobile Buy SDK Sample Apps/Sample App Web/Mobile Buy SDK Web Sample.xcodeproj">
    </FileRef>
    <FileRef
