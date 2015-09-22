@@ -19,4 +19,3 @@
 * If it makes sense, add tests for your code
 * Make sure all tests pass
 * Create a pull request
-* In the description, ping @Shopify/mobile-buy-sdk and ask for a code review.
