@@ -26,8 +26,9 @@
 
 #import "CheckoutViewController.h"
 #import "GetCompletionStatusOperation.h"
-
+#import "SummaryItemsTableViewCell.h"
 @import Buy;
+@import PassKit;
 
 NSString * const CheckoutCallbackNotification = @"CheckoutCallbackNotification";
 NSString * const MerchantId = @"";
@@ -36,7 +37,7 @@ NSString * const MerchantId = @"";
 
 @property (nonatomic, strong) BUYCheckout *checkout;
 @property (nonatomic, strong) BUYClient *client;
-
+@property (nonatomic, strong) NSArray *summaryItems;
 @property (nonatomic, strong) BUYApplePayHelpers *applePayHelper;
 
 @end
@@ -48,7 +49,7 @@ NSString * const MerchantId = @"";
     NSParameterAssert(client);
     NSParameterAssert(checkout);
     
-    self = [super init];
+    self = [super initWithStyle:UITableViewStyleGrouped];
     
     if (self) {
         self.checkout = checkout;
@@ -60,34 +61,77 @@ NSString * const MerchantId = @"";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     self.title = @"Checkout";
-    self.view.backgroundColor = [UIColor whiteColor];
+    
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 164)];
     
     UIButton *creditCardButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [creditCardButton setTitle:@"Checkout with Credit Card" forState:UIControlStateNormal];
+    creditCardButton.backgroundColor = [UIColor colorWithRed:0.48f green:0.71f blue:0.36f alpha:1.0f];
+    creditCardButton.layer.cornerRadius = 6;
+    [creditCardButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     creditCardButton.translatesAutoresizingMaskIntoConstraints = NO;
     [creditCardButton addTarget:self action:@selector(checkoutWithCreditCard) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:creditCardButton];
+    [footerView addSubview:creditCardButton];
     
     UIButton *webCheckoutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [webCheckoutButton setTitle:@"Web Checkout" forState:UIControlStateNormal];
+    webCheckoutButton.backgroundColor = [UIColor colorWithRed:0.48f green:0.71f blue:0.36f alpha:1.0f];
+    webCheckoutButton.layer.cornerRadius = 6;
+    [webCheckoutButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     webCheckoutButton.translatesAutoresizingMaskIntoConstraints = NO;
     [webCheckoutButton addTarget:self action:@selector(checkoutOnWeb) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:webCheckoutButton];
+    [footerView addSubview:webCheckoutButton];
     
     UIButton *applePayButton = [BUYPaymentButton buttonWithType:BUYPaymentButtonTypeBuy style:BUYPaymentButtonStyleBlack];
     applePayButton.translatesAutoresizingMaskIntoConstraints = NO;
     [applePayButton addTarget:self action:@selector(checkoutWithApplePay) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:applePayButton];
+    [footerView addSubview:applePayButton];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(creditCardButton, webCheckoutButton, applePayButton);
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[creditCardButton]-|" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[webCheckoutButton]-|" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[applePayButton]-|" options:0 metrics:nil views:views]];
+    [footerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[creditCardButton]-|" options:0 metrics:nil views:views]];
+    [footerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[webCheckoutButton]-|" options:0 metrics:nil views:views]];
+    [footerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[applePayButton]-|" options:0 metrics:nil views:views]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(100)-[creditCardButton]-[webCheckoutButton]-[applePayButton]" options:0 metrics:nil views:views]];
+    [footerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[creditCardButton(44)]-[webCheckoutButton(==creditCardButton)]-[applePayButton(==creditCardButton)]-|" options:0 metrics:nil views:views]];
+    
+    self.tableView.tableFooterView = footerView;
+    
+    [self.tableView registerClass:[SummaryItemsTableViewCell class] forCellReuseIdentifier:@"SummaryCell"];
+}
+
+- (void)setCheckout:(BUYCheckout *)checkout
+{
+    _checkout = checkout;
+    self.summaryItems = [checkout buy_summaryItems];
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.summaryItems count];
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SummaryCell" forIndexPath:indexPath];
+    PKPaymentSummaryItem *summaryItem = self.summaryItems[indexPath.row];
+    cell.textLabel.text = summaryItem.label;
+    cell.detailTextLabel.text = [self.currencyFormatter stringFromNumber:summaryItem.amount];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    // Only show a line above the last cell
+    if (indexPath.row != [self.summaryItems count] - 2) {
+        cell.separatorInset = UIEdgeInsetsMake(0.f, 0.f, 0.f, cell.bounds.size.width);
+    }
+    cell.preservesSuperviewLayoutMargins = NO;
+    [cell setLayoutMargins:UIEdgeInsetsZero];
+    
+    return cell;
 }
 
 - (void)addCreditCardToCheckout:(void (^)(BOOL success))callback

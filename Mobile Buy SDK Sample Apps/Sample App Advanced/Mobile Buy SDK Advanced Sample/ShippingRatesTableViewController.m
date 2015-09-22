@@ -108,10 +108,9 @@
     self.checkout.shippingRate = shippingRate;
     
     [self.client updateCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
-        
         if (error == nil && checkout) {
-            
             PreCheckoutViewController *preCheckoutController = [[PreCheckoutViewController alloc] initWithClient:self.client checkout:checkout];
+            preCheckoutController.currencyFormatter = self.currencyFormatter;
             [self.navigationController pushViewController:preCheckoutController animated:YES];
         }
         else {
