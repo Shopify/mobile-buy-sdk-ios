@@ -14,7 +14,7 @@ Please find all documentation on the [Mobile Buy SDK for iOS page](https://docs.
 
 Clone this repo or download as .zip and open `Mobile Buy SDK.xcworkspace`.
 
-The workspace includes the Mobile Buy SDK project and the two sample app projects. The sample apps can also be opened outside the workspace with the `.xcodeproj` files found in the sample app folders. However, if you need to use breakpoints or inspect methods in the SDK, run the sample apps from the workspace.
+The workspace includes the Mobile Buy SDK project and the sample app projects. The sample apps can also be opened outside the workspace with the `.xcodeproj` files found in the sample app folders. However, if you need to use breakpoints or inspect methods in the SDK, run the sample apps from the workspace.
 
 ### Mobile Buy SDK Targets and schemes
 
@@ -22,7 +22,7 @@ The Mobile Buy SDK includes a number of targets and schemes:
 
 * **Buy**: This is the Mobile Buy SDK framework. This build is based on the current build configuration. To build a universal framework that can run on a device and on the Simulator and to be included in your app, please refer to the `Universal Framework` target below
 
-* **Universal Framework**: This builds the framework using same `build.sh` script in the `Universal Framework` target and copies the built framework in the `/Mobile Buy SDK Sample Apps` folder. Build this target and scheme if you have made any changes to the framework that you want to test with the sample apps as the sample apps do not build the framework directly but embed the already built framework 
+* **Universal Framework**: This builds the framework using `build_universal.sh` script in the `Universal Framework` target and copies the built framework in the `/Mobile Buy SDK Sample Apps` folder. Build this target if you have made any changes to the framework that you want to test with the sample apps as the sample apps do not build the framework directly but embed the already built framework 
 
 * **Mobile Buy SDK Tests**: Tests for the Mobile Buy SDK framework. See instructions below
 
