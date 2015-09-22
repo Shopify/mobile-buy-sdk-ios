@@ -80,11 +80,11 @@
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self.tableView reloadData];
     }];
-    [blockOperation addDependency:self.shopOperation];
-    [blockOperation addDependency:self.shippingOperation];
+    [blockOperation addDependency:shopOperation];
+    [blockOperation addDependency:shippingOperation];
     [[NSOperationQueue mainQueue] addOperation:blockOperation];
     
-    self.allOperations = [blockOperation, shopOperation, shippingOperation];
+    self.allOperations = @[blockOperation, shopOperation, shippingOperation];
 }
 
 - (void)dealloc
