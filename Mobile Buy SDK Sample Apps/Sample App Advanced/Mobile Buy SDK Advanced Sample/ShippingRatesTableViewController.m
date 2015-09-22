@@ -37,9 +37,7 @@
 @property (nonatomic, strong) BUYClient *client;
 @property (nonatomic, strong) NSNumberFormatter *currencyFormatter;
 @property (nonatomic, strong) NSArray *shippingRates;
-@property (nonatomic, strong) GetShopOperation *shopOperation;
-@property (nonatomic, strong) GetShippingRatesOperation *shippingOperation;
-@property (nonatomic, strong) NSBlockOperation *allOperations;
+@property (nonatomic, strong) NSArray *allOperations;
 @end
 
 @implementation ShippingRatesTableViewController
@@ -67,37 +65,37 @@
     [self.tableView registerClass:[ShippingRateTableViewCell class] forCellReuseIdentifier:@"Cell"];
     
     // Setup both operations to run
-    self.shopOperation = [[GetShopOperation alloc] initWithClient:self.client];
-    self.shopOperation.delegate = self;
-    [[NSOperationQueue mainQueue] addOperation:self.shopOperation];
+    GetShopOperation *shopOperation = [[GetShopOperation alloc] initWithClient:self.client];
+    shopOperation.delegate = self;
+    [[NSOperationQueue mainQueue] addOperation:shopOperation];
     
-    self.shippingOperation = [[GetShippingRatesOperation alloc] initWithClient:self.client withCheckout:self.checkout];
-    self.shippingOperation.delegate = self;
-    [[NSOperationQueue mainQueue] addOperation:self.shippingOperation];
+    GetShippingRatesOperation *shippingOperation = [[GetShippingRatesOperation alloc] initWithClient:self.client withCheckout:self.checkout];
+    shippingOperation.delegate = self;
+    [[NSOperationQueue mainQueue] addOperation:shippingOperation];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     // Ensure both operations are completed before we reload the table view
-    self.allOperations = [NSBlockOperation blockOperationWithBlock:^{
+    NSBlockOperation *blockOperation = [NSBlockOperation blockOperationWithBlock:^{
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self.tableView reloadData];
     }];
-    [self.allOperations addDependency:self.shopOperation];
-    [self.allOperations addDependency:self.shippingOperation];
-    [[NSOperationQueue mainQueue] addOperation:self.allOperations];
+    [blockOperation addDependency:self.shopOperation];
+    [blockOperation addDependency:self.shippingOperation];
+    [[NSOperationQueue mainQueue] addOperation:blockOperation];
+    
+    self.allOperations = [blockOperation, shopOperation, shippingOperation];
 }
 
 - (void)dealloc
 {
-    [self.shopOperation cancel];
-    [self.shippingOperation cancel];
-    [self.allOperations cancel];
+    [self.allOperations makeObjectsPerformSelector:@selector(cancel)];
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return self.shippingRates.count;
 }
 
