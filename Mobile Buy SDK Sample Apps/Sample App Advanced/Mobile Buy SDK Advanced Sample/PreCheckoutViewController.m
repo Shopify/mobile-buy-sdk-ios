@@ -126,15 +126,14 @@ typedef NS_ENUM(NSInteger, UITableViewDiscountGiftCardSection) {
             switch (indexPath.row) {
                 case UITableViewDiscountGiftCardSectionDiscount:
                     cell.textLabel.text = @"Add Discount";
-                    cell.textLabel.textAlignment = NSTextAlignmentCenter;
                     break;
                 case UITableViewDiscountGiftCardSectionGiftCard:
                     cell.textLabel.text = @"Apply Gift Card";
-                    cell.textLabel.textAlignment = NSTextAlignmentCenter;
                     break;
                 default:
                     break;
             }
+            cell.textLabel.textAlignment = NSTextAlignmentCenter;
             break;
         case UITableViewSectionContinue:
             cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
