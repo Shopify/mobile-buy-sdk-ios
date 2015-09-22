@@ -193,7 +193,7 @@ NSString * const MerchantId = @"";
             
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 
-            // upon successfully adding the credit card to the checkout, complete checkout must be called
+            // Upon successfully adding the credit card to the checkout, complete checkout must be called immediately
             [welf.client completeCheckout:welf.checkout completion:^(BUYCheckout *checkout, NSError *error) {
                 
                 if (error == nil && checkout) {
