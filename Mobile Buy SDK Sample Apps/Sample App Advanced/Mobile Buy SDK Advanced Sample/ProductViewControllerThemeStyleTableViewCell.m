@@ -1,6 +1,6 @@
 //
-//  ProductViewController.h
-//  Mobile Buy SDK
+//  ProductViewControllerThemeStyleTableViewCell.m
+//  Mobile Buy SDK Advanced Sample
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -24,12 +24,20 @@
 //  THE SOFTWARE.
 //
 
-@import UIKit;
-@import Buy;
+#import "ProductViewControllerThemeStyleTableViewCell.h"
 
-@interface ProductController : BUYViewController
+@implementation ProductViewControllerThemeStyleTableViewCell
 
-- (instancetype)initWithClient:(BUYClient *)client productId:(NSString *)handle;
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        self.textLabel.text = @"Theme Style";
+        self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Light", @"Dark"]];
+        self.segmentedControl.selectedSegmentIndex = 0;
+        self.accessoryView = self.segmentedControl;
+    }
+    return self;
+}
 
 @end
-

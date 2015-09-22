@@ -1,6 +1,6 @@
 //
-//  main.m
-//  Mobile Buy SDK
+//  ProductViewControllerToggleTableViewCell.m
+//  Mobile Buy SDK Advanced Sample
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -24,11 +24,20 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
-#import "AppDelegate.h"
+#import "ProductViewControllerToggleTableViewCell.h"
 
-int main(int argc, char * argv[]) {
-    @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
+@implementation ProductViewControllerToggleTableViewCell
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        self.textLabel.text = @"Demo BUYProductViewController";
+        self.toggleSwitch = [UISwitch new];
+        self.accessoryView = self.toggleSwitch;
     }
+    return self;
 }
+
+
+@end
