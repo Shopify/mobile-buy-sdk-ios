@@ -31,6 +31,8 @@
 @property (nonatomic, strong) BUYClient *client;
 @property (nonatomic, assign) BOOL done;
 
+@property (nonatomic, strong) NSURLSessionDataTask *task;
+
 @end
 
 @implementation GetShopOperation
@@ -53,18 +55,19 @@
     return [super isFinished] && self.done;
 }
 
-- (void)main
+- (void)cancel
 {
-    [self getShop];
+    [self.task cancel];
+    [super cancel];
 }
 
-- (void)getShop
+- (void)main
 {
     if (self.isCancelled) {
         return;
     }
     
-    [self.client getShop:^(BUYShop *shop, NSError *error) {
+    self.task = [self.client getShop:^(BUYShop *shop, NSError *error) {
         
         [self willChangeValueForKey:@"isFinished"];
         self.done = YES;

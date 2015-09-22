@@ -29,11 +29,12 @@
 #import "SummaryItemsTableViewCell.h"
 @import Buy;
 @import PassKit;
+@import SafariServices;
 
 NSString * const CheckoutCallbackNotification = @"CheckoutCallbackNotification";
 NSString * const MerchantId = @"";
 
-@interface CheckoutViewController () <GetCompletionStatusOperationDelegate>
+@interface CheckoutViewController () <GetCompletionStatusOperationDelegate, SFSafariViewControllerDelegate>
 
 @property (nonatomic, strong) BUYCheckout *checkout;
 @property (nonatomic, strong) BUYClient *client;
@@ -192,7 +193,7 @@ NSString * const MerchantId = @"";
             
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 
-            // upon successfully adding the credit card to the checkout, complete checkout must be called
+            // Upon successfully adding the credit card to the checkout, complete checkout must be called immediately
             [welf.client completeCheckout:welf.checkout completion:^(BUYCheckout *checkout, NSError *error) {
                 
                 if (error == nil && checkout) {
@@ -269,8 +270,17 @@ NSString * const MerchantId = @"";
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveCallbackURLNotification:) name:CheckoutCallbackNotification object:nil];
 
-    
-    [[UIApplication sharedApplication] openURL:self.checkout.webCheckoutURL];
+    // On iOS 9+ we should use the SafariViewController to display the checkout in-app
+    if ([SFSafariViewController class]) {
+        
+        SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:self.checkout.webCheckoutURL];
+        safariViewController.delegate = self;
+        
+        [self presentViewController:safariViewController animated:YES completion:nil];
+    }
+    else {
+        [[UIApplication sharedApplication] openURL:self.checkout.webCheckoutURL];
+    }
 }
 
 - (void)didReceiveCallbackURLNotification:(NSNotification *)notification

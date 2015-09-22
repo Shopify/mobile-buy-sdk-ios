@@ -43,6 +43,7 @@
 
 @property (nonatomic, strong) BUYClient *client;
 @property (nonatomic, strong) NSArray *objects;
+@property (nonatomic, strong) NSURLSessionDataTask *checkoutCreationTask;
 
 @property (nonatomic, assign) BOOL demoProductViewController;
 @property (nonatomic, assign) BUYThemeStyle themeStyle;
@@ -84,6 +85,10 @@
             NSLog(@"Error fetching products: %@", error);
         }
     }];
+}
+
+- (void)dealloc {
+    [self.checkoutCreationTask cancel];
 }
 
 #pragma mark - Table View
@@ -180,6 +185,10 @@
 
 - (void)demoNativeFlowWithProduct:(BUYProduct*)product
 {
+    if (self.checkoutCreationTask.state == NSURLSessionTaskStateRunning) {
+        [self.checkoutCreationTask cancel];
+    }
+    
     BUYCart *cart = [[BUYCart alloc] init];
     [cart addVariant:product.variants.firstObject];
     
@@ -193,7 +202,7 @@
     self.client.urlScheme = @"advancedsample://";
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [self.client createCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
+    self.checkoutCreationTask = [self.client createCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
         if (error == nil && checkout) {
