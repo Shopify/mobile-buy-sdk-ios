@@ -32,6 +32,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.textLabel.text = @"Theme Tint Color";
         self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Shopify", @"Red", @"Blue"]];
         self.segmentedControl.selectedSegmentIndex = 0;

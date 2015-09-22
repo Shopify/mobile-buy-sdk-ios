@@ -32,6 +32,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.toggleSwitch = [UISwitch new];
         self.accessoryView = self.toggleSwitch;
     }

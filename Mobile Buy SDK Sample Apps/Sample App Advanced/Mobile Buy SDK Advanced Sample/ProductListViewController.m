@@ -180,12 +180,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BUYProduct *product = self.objects[indexPath.row];
-    if (self.demoProductViewController) {
-        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-        [self demoProductViewControllerWithProduct:product];
-    } else {
-        [self demoNativeFlowWithProduct:product];
+    if (indexPath.section > 0) {
+        BUYProduct *product = self.objects[indexPath.row];
+        if (self.demoProductViewController) {
+            [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+            [self demoProductViewControllerWithProduct:product];
+        } else {
+            [self demoNativeFlowWithProduct:product];
+        }
     }
 }
 
