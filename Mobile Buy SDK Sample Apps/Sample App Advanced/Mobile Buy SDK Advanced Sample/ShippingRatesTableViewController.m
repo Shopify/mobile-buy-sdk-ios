@@ -59,7 +59,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"Choose Shipping Rate";
+    self.title = @"Shipping Rates";
     
     [self.tableView registerClass:[ShippingRateTableViewCell class] forCellReuseIdentifier:@"Cell"];
     

@@ -1,5 +1,5 @@
 //
-//  MasterViewController.h
+//  CollectionListViewController.h
 //  Mobile Buy SDK Advanced Sample
 //
 //  Created by Shopify.
@@ -25,11 +25,7 @@
 //
 
 @import UIKit;
-@import Buy;
 
-@interface ProductListViewController : UITableViewController
-
-- (instancetype)initWithClient:(BUYClient *)client collection:(BUYCollection*)collection;
+@interface CollectionListViewController : UITableViewController
 
 @end
-

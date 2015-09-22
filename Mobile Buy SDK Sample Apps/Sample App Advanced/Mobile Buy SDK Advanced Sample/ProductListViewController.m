@@ -30,18 +30,14 @@
 #import "ProductViewControllerThemeStyleTableViewCell.h"
 #import "ProductViewControllerThemeTintColorTableViewCell.h"
 
-@import Buy;
-
-#warning - Enter your shop domain and API Key
-#define SHOP_DOMAIN @""
-#define API_KEY @""
-#define CHANNEL_ID @""
+#warning - Enter your merchant ID
 #define MERCHANT_ID @""
 
 @interface ProductListViewController ()
 
 @property (nonatomic, strong) BUYClient *client;
-@property (nonatomic, strong) NSArray *objects;
+@property (nonatomic, strong) BUYCollection *collection;
+@property (nonatomic, strong) NSArray *products;
 @property (nonatomic, strong) NSString *merchantId;
 
 @property (nonatomic, assign) BOOL demoProductViewController;
@@ -55,11 +51,23 @@
 
 @implementation ProductListViewController
 
+- (instancetype)initWithClient:(BUYClient *)client collection:(BUYCollection*)collection
+{
+    NSParameterAssert(client);
+    self = [super initWithStyle:UITableViewStyleGrouped];
+    if (self) {
+        self.client = client;
+        self.collection = collection;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"Choose Product";
+    self.title = @"Products";
     
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     [self.tableView registerClass:[ProductViewControllerToggleTableViewCell class] forCellReuseIdentifier:@"ProductViewControllerToggleCell"];
     [self.tableView registerClass:[ProductViewControllerThemeStyleTableViewCell class] forCellReuseIdentifier:@"ThemeStyleCell"];
     [self.tableView registerClass:[ProductViewControllerThemeTintColorTableViewCell class] forCellReuseIdentifier:@"ThemeTintColorCell"];
@@ -76,11 +84,71 @@
     self.merchantId = MERCHANT_ID;
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [self.client getProductsPage:1 completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+    
+    if (self.collection) {
+        // If we're presenting with a collection, add the ability to sort
+        UIBarButtonItem *sortBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sort" style:UIBarButtonItemStylePlain target:self action:@selector(presentCollectionSortOptions)];
+        self.navigationItem.rightBarButtonItem = sortBarButtonItem;
+        [self getCollectionWithSortOrder:BUYCollectionSortCollectionDefault];
+    } else {
+        [self.client getProductsPage:1 completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+            
+            if (error == nil && products) {
+                self.products = products;
+                [self.tableView reloadData];
+            }
+            else {
+                NSLog(@"Error fetching products: %@", error);
+            }
+        }];
+    }
+}
+
+- (void)presentCollectionSortOptions
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Collection Sort" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"BUYCollectionSortDefault" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self getCollectionWithSortOrder:BUYCollectionSortCollectionDefault];
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"BUYCollectionSortBestSelling" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self getCollectionWithSortOrder:BUYCollectionSortBestSelling];
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"BUYCollectionSortTitleAscending" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self getCollectionWithSortOrder:BUYCollectionSortTitleAscending];
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"BUYCollectionSortTitleDescending" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self getCollectionWithSortOrder:BUYCollectionSortTitleDescending];
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"BUYCollectionSortPriceAscending" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self getCollectionWithSortOrder:BUYCollectionSortPriceAscending];
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"BUYCollectionSortPriceDescending" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self getCollectionWithSortOrder:BUYCollectionSortPriceDescending];
+    }]];
+    
+    /*  Note: The BUYCollectionSortCreatedAscending and BUYCollectionSortCreatedDescending are currently not support
+    [alertController addAction:[UIAlertAction actionWithTitle:@"BUYCollectionSortCreatedAscending" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self getCollectionWithSortOrder:BUYCollectionSortCreatedAscending];
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"BUYCollectionSortCreatedDescending" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self getCollectionWithSortOrder:BUYCollectionSortCreatedDescending];
+    }]];
+     */
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:NULL]];
+    
+    [self presentViewController:alertController animated:YES completion:NULL];
+}
+
+- (void)getCollectionWithSortOrder:(BUYCollectionSort)collectionSort
+{
+    [self.client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:collectionSort completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
         if (error == nil && products) {
-            self.objects = products;
+            self.products = products;
             [self.tableView reloadData];
         }
         else {
@@ -108,7 +176,7 @@
             }
             break;
         case 1:
-            return self.objects.count;
+            return self.products.count;
         default:
             return 0;
             break;
@@ -166,7 +234,8 @@
             break;
         case 1: {
             cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-            BUYProduct *product = self.objects[indexPath.row];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            BUYProduct *product = self.products[indexPath.row];
             cell.textLabel.text = product.title;
         }
             break;
@@ -181,7 +250,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section > 0) {
-        BUYProduct *product = self.objects[indexPath.row];
+        BUYProduct *product = self.products[indexPath.row];
         if (self.demoProductViewController) {
             [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
             [self demoProductViewControllerWithProduct:product];
