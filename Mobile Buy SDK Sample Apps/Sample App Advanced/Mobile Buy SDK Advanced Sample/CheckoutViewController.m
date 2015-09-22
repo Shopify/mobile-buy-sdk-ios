@@ -98,7 +98,6 @@ NSString * const MerchantId = @"";
     
     self.tableView.tableFooterView = footerView;
     
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     [self.tableView registerClass:[SummaryItemsTableViewCell class] forCellReuseIdentifier:@"SummaryCell"];
 }
 
@@ -125,6 +124,7 @@ NSString * const MerchantId = @"";
     cell.textLabel.text = summaryItem.label;
     cell.detailTextLabel.text = [self.currencyFormatter stringFromNumber:summaryItem.amount];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    // Only show a line above the last cell
     if (indexPath.row != [self.summaryItems count] - 2) {
         cell.separatorInset = UIEdgeInsetsMake(0.f, 0.f, 0.f, cell.bounds.size.width);
     }

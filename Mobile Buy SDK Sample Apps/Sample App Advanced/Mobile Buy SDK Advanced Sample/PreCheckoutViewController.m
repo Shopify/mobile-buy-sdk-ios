@@ -114,6 +114,7 @@ typedef NS_ENUM(NSInteger, UITableViewDiscountGiftCardSection) {
             cell.textLabel.text = summaryItem.label;
             cell.detailTextLabel.text = [self.currencyFormatter stringFromNumber:summaryItem.amount];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            // Only show a line above the last cell
             if (indexPath.row != [self.summaryItems count] - 2) {
                 cell.separatorInset = UIEdgeInsetsMake(0.f, 0.f, 0.f, cell.bounds.size.width);
             }
@@ -125,15 +126,14 @@ typedef NS_ENUM(NSInteger, UITableViewDiscountGiftCardSection) {
             switch (indexPath.row) {
                 case UITableViewDiscountGiftCardSectionDiscount:
                     cell.textLabel.text = @"Add Discount";
-                    cell.textLabel.textAlignment = NSTextAlignmentCenter;
                     break;
                 case UITableViewDiscountGiftCardSectionGiftCard:
                     cell.textLabel.text = @"Apply Gift Card";
-                    cell.textLabel.textAlignment = NSTextAlignmentCenter;
                     break;
                 default:
                     break;
             }
+            cell.textLabel.textAlignment = NSTextAlignmentCenter;
             break;
         case UITableViewSectionContinue:
             cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
