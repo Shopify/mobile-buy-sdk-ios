@@ -117,22 +117,22 @@
 {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Collection Sort" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [alertController addAction:[UIAlertAction actionWithTitle:@"BUYCollectionSortDefault" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Default" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self getCollectionWithSortOrder:BUYCollectionSortCollectionDefault];
     }]];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"BUYCollectionSortBestSelling" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Best Selling" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self getCollectionWithSortOrder:BUYCollectionSortBestSelling];
     }]];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"BUYCollectionSortTitleAscending" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Title - Ascending" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self getCollectionWithSortOrder:BUYCollectionSortTitleAscending];
     }]];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"BUYCollectionSortTitleDescending" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Title - Descending" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self getCollectionWithSortOrder:BUYCollectionSortTitleDescending];
     }]];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"BUYCollectionSortPriceAscending" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Price - Ascending" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self getCollectionWithSortOrder:BUYCollectionSortPriceAscending];
     }]];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"BUYCollectionSortPriceDescending" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Price - Descending" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self getCollectionWithSortOrder:BUYCollectionSortPriceDescending];
     }]];
     
