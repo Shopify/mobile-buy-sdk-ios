@@ -28,6 +28,7 @@
 #import "ShippingRatesTableViewController.h"
 #import "ProductViewControllerToggleTableViewCell.h"
 #import "ProductViewControllerThemeStyleTableViewCell.h"
+#import "ProductViewControllerThemeTintColorTableViewCell.h"
 
 @import Buy;
 
@@ -35,14 +36,20 @@
 #define SHOP_DOMAIN @""
 #define API_KEY @""
 #define CHANNEL_ID @""
+#define MERCHANT_ID @""
 
 @interface ProductListViewController ()
 
 @property (nonatomic, strong) BUYClient *client;
 @property (nonatomic, strong) NSArray *objects;
+@property (nonatomic, strong) NSString *merchantId;
 
 @property (nonatomic, assign) BOOL demoProductViewController;
 @property (nonatomic, assign) BUYThemeStyle themeStyle;
+@property (nonatomic, strong) NSArray *themeTintColors;
+@property (nonatomic, assign) NSInteger themeTintColorSelectedIndex;
+@property (nonatomic, assign) BOOL showsProductImageBackground;
+@property (nonatomic, assign) BOOL fakeApplePay;
 
 @end
 
@@ -51,13 +58,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.tableView registerClass:[ProductViewControllerToggleTableViewCell class] forCellReuseIdentifier:@"ProductViewControllerToggleCell"];
-    [self.tableView registerClass:[ProductViewControllerThemeStyleTableViewCell class] forCellReuseIdentifier:@"ThemeStyleCell"];
-    
     self.title = @"Choose Product";
     
-    self.client = [[BUYClient alloc] initWithShopDomain:SHOP_DOMAIN apiKey:API_KEY channelId:CHANNEL_ID];
-
+    [self.tableView registerClass:[ProductViewControllerToggleTableViewCell class] forCellReuseIdentifier:@"ProductViewControllerToggleCell"];
+    [self.tableView registerClass:[ProductViewControllerThemeStyleTableViewCell class] forCellReuseIdentifier:@"ThemeStyleCell"];
+    [self.tableView registerClass:[ProductViewControllerThemeTintColorTableViewCell class] forCellReuseIdentifier:@"ThemeTintColorCell"];
+    [self.tableView registerClass:[ProductViewControllerToggleTableViewCell class] forCellReuseIdentifier:@"ThemeShowsBackgroundToggleCell"];
+    [self.tableView registerClass:[ProductViewControllerToggleTableViewCell class] forCellReuseIdentifier:@"ApplePayToggleCell"];
+    
+    self.themeTintColors = @[[UIColor colorWithRed:0.48f green:0.71f blue:0.36f alpha:1.0f], [UIColor colorWithRed:0.88 green:0.06 blue:0.05 alpha:1], [UIColor colorWithRed:0.02 green:0.54 blue:1 alpha:1]];
+    self.themeTintColorSelectedIndex = 0;
+    self.showsProductImageBackground = YES;
+    
+    self.client = [[BUYClient alloc] initWithShopDomain:@"the-app-boutique.myshopify.com"
+                                                 apiKey:@"506ede8b60f86fbf86109a762fe8093d"
+                                              channelId:@"9060547"];
+    self.merchantId = MERCHANT_ID;
+    
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [self.client getProductsPage:1 completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -82,7 +99,13 @@
 {
     switch (section) {
         case 0:
-            return self.demoProductViewController ? 2 : 1;
+            if (self.demoProductViewController && [self.merchantId length]) {
+                return 4;
+            } else if (self.demoProductViewController) {
+                return 5;
+            } else {
+                return 1;
+            }
             break;
         case 1:
             return self.objects.count;
@@ -101,6 +124,7 @@
             switch (indexPath.row) {
                 case 0: {
                     ProductViewControllerToggleTableViewCell *toggleCell = (ProductViewControllerToggleTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"ProductViewControllerToggleCell" forIndexPath:indexPath];
+                    toggleCell.textLabel.text = @"Demo BUYProductViewController";
                     [toggleCell.toggleSwitch setOn:self.demoProductViewController];
                     [toggleCell.toggleSwitch addTarget:self action:@selector(toggleProductViewControllerDemo:) forControlEvents:UIControlEventValueChanged];
                     cell = toggleCell;
@@ -112,6 +136,30 @@
                     [themeCell.segmentedControl addTarget:self action:@selector(toggleProductViewControllerThemeStyle:) forControlEvents:UIControlEventValueChanged];
                     cell = themeCell;
                 }
+                    break;
+                case 2: {
+                    ProductViewControllerThemeTintColorTableViewCell *themeCell = (ProductViewControllerThemeTintColorTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"ThemeTintColorCell" forIndexPath:indexPath];
+                    themeCell.segmentedControl.selectedSegmentIndex = self.themeTintColorSelectedIndex;
+                    [themeCell.segmentedControl addTarget:self action:@selector(toggleProductViewControllerTintColorSelection:) forControlEvents:UIControlEventValueChanged];
+                    cell = themeCell;
+                }
+                    break;
+                case 3: {
+                    ProductViewControllerToggleTableViewCell *toggleCell = (ProductViewControllerToggleTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"ThemeShowsBackgroundToggleCell" forIndexPath:indexPath];
+                    toggleCell.textLabel.text = @"showsProductImageBackground";
+                    [toggleCell.toggleSwitch setOn:self.showsProductImageBackground];
+                    [toggleCell.toggleSwitch addTarget:self action:@selector(toggleShowsProductImageBackground:) forControlEvents:UIControlEventValueChanged];
+                    cell = toggleCell;
+                }
+                    break;
+                case 4: {
+                    ProductViewControllerToggleTableViewCell *toggleCell = (ProductViewControllerToggleTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"ApplePayToggleCell" forIndexPath:indexPath];
+                    toggleCell.textLabel.text = @"Fake Merchant ID (Apple Pay)";
+                    [toggleCell.toggleSwitch setOn:self.fakeApplePay];
+                    [toggleCell.toggleSwitch addTarget:self action:@selector(toggleFakeApplePay:) forControlEvents:UIControlEventValueChanged];
+                    cell = toggleCell;
+                }
+                    break;
                 default:
                     break;
             }
@@ -174,7 +222,12 @@
 {
     BUYTheme *theme = [BUYTheme new];
     theme.style = self.themeStyle;
+    theme.tintColor = self.themeTintColors[self.themeTintColorSelectedIndex];
+    theme.showsProductImageBackground = self.showsProductImageBackground;
     BUYProductViewController *productViewController = [[BUYProductViewController alloc] initWithClient:self.client theme:theme];
+    if (self.fakeApplePay) {
+        productViewController.merchantId = @"merchant.com.shopify.applepay";
+    }
     [productViewController loadWithProduct:product completion:^(BOOL success, NSError *error) {
         if (error == nil) {
             [productViewController presentPortraitInViewController:self];
@@ -191,6 +244,21 @@
 - (void)toggleProductViewControllerThemeStyle:(UISegmentedControl*)segmentedControl
 {
     self.themeStyle = segmentedControl.selectedSegmentIndex;
+}
+
+- (void)toggleProductViewControllerTintColorSelection:(UISegmentedControl*)segmentedControl
+{
+    self.themeTintColorSelectedIndex = segmentedControl.selectedSegmentIndex;
+}
+
+- (void)toggleShowsProductImageBackground:(UISwitch*)toggleSwitch
+{
+    self.showsProductImageBackground = toggleSwitch.on;
+}
+
+- (void)toggleFakeApplePay:(UISwitch*)toggleSwitch
+{
+    self.fakeApplePay = toggleSwitch.on;
 }
 
 - (BUYAddress *)address

@@ -1,5 +1,5 @@
 //
-//  ProductViewControllerToggleTableViewCell.m
+//  ProductViewControllerThemeTintColorTableViewCell.h
 //  Mobile Buy SDK Advanced Sample
 //
 //  Created by Shopify.
@@ -24,19 +24,10 @@
 //  THE SOFTWARE.
 //
 
-#import "ProductViewControllerToggleTableViewCell.h"
+@import UIKit;
 
-@implementation ProductViewControllerToggleTableViewCell
+@interface ProductViewControllerThemeTintColorTableViewCell : UITableViewCell
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        self.toggleSwitch = [UISwitch new];
-        self.accessoryView = self.toggleSwitch;
-    }
-    return self;
-}
-
+@property (nonatomic, strong) UISegmentedControl *segmentedControl;
 
 @end
