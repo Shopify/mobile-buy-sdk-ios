@@ -631,6 +631,12 @@
 
 - (void)testFetchingShippingRatesWithoutShippingAddressShouldReturnPreconditionFailed
 {
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testFetchingShippingRatesWithoutShippingAddress_1"];
+	}];
+	
 	[self createCart];
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
@@ -647,6 +653,12 @@
 		XCTAssertNil(error);
 	}];
 	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testFetchingShippingRatesWithoutShippingAddress_2"];
+	}];
+	
 	XCTestExpectation *expectation2 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
 	[self.client getShippingRatesForCheckout:_checkout completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
@@ -661,6 +673,12 @@
 
 - (void)testFetchingShippingRatesForInvalidCheckoutShouldReturnNotFound
 {
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testFetchingShippingRatesWithInvalidCheckout_1"];
+	}];
+	
 	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:nil];
 	checkout.token = @"bananaaaa";
 	
