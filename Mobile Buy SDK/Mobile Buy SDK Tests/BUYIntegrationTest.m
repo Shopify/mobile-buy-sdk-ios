@@ -306,7 +306,7 @@
 	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
 		return [self shouldUseMocks];
 	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_5"];
+		return [OHHTTPStubsResponse responseWithKey:@"testApplyingGiftCardToCheckout_2"];
 	}];
 	
 	// Check that we have a checkout with a paymentDue greater than 10
@@ -693,6 +693,12 @@
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	_checkout.shippingAddress = [self partialShippingAddress];
 	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutWithAPartialAddress"];
+	}];
+	
 	//Create the checkout
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
@@ -971,6 +977,12 @@
 	[self createCheckout];
 	XCTAssertGreaterThanOrEqual([_checkout.lineItems count], 1);
 	XCTAssertEqual(300, _checkout.reservationTime.intValue);
+	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testExpiringCheckout_2"];
+	}];
 	
 	// Expire the checkout
 	XCTestExpectation *expectation2 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
