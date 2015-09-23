@@ -490,6 +490,12 @@
 	
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
 	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testApplyingTwoGiftCardsToCheckout_3"];
+	}];
+	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client applyGiftCardWithCode:self.giftCardCode2 toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 
@@ -516,6 +522,12 @@
 	XCTAssertEqual([_checkout.giftCards count], 2);
 	
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
+	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testApplyingThreeGiftCardsToCheckout_4"];
+	}];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client applyGiftCardWithCode:self.giftCardCode3 toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
@@ -546,6 +558,12 @@
 	
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
 	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testRemovingSecondGiftCard_5"];
+	}];
+	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client removeGiftCard:giftCard2 fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
@@ -574,6 +592,12 @@
 	BUYGiftCard *giftCard1 = _checkout.giftCards[0];
 	
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
+	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testRemovingFirstGiftCard_5"];
+	}];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client removeGiftCard:giftCard1 fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
@@ -604,6 +628,12 @@
 	
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
 	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testRemovingAllGiftCards_7"];
+	}];
+	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client removeGiftCard:giftCard3 fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
@@ -616,26 +646,6 @@
 		
 		[expectation fulfill];
 	}];
-	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
-		XCTAssertNil(error);
-	}];
-}
-
-// TODO: NO TEST IN JSON
-- (void)testCheckoutWithoutAuthToken
-{
-	[self createCart];
-	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
-	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	
-	self.client = [[BUYClient alloc] initWithShopDomain:self.shopDomain apiKey:@"" channelId:nil];
-	[self.client createCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
-		XCTAssertNotNil(error);
-		XCTAssertEqualObjects(error.domain, @"shopify");
-		XCTAssertEqual(error.code, 401);
-		[expectation fulfill];
-	}];
-	
 	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
 		XCTAssertNil(error);
 	}];

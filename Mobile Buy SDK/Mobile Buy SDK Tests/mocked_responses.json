@@ -59,43 +59,8 @@
 		"code": 422,
 		"message": "Unprocessable Entity"
 	},
-	"testApplyingThreeGiftCardsToCheckout_0": {
-		"body": "{\"product_publications\":[{\"id\":2626498435,\"product_id\":2096063363,\"channel_id\":26915715,\"created_at\":\"2015-08-19T09:47:37-04:00\",\"updated_at\":\"2015-08-19T09:47:37-04:00\",\"body_html\":\"parsing the driver won't do anything, we need to calculate the online PNG program!\",\"handle\":\"actinian-fur-hat\",\"product_type\":\"enable bricks-and-clicks e-business\",\"title\":\"Actinian Fur Hat\",\"vendor\":\"McCullough Group\",\"published_at\":\"2015-08-19T09:47:37-04:00\",\"published\":true,\"available\":true,\"images\":[{\"id\":4277333187,\"created_at\":\"2015-08-13T14:12:44-04:00\",\"position\":1,\"updated_at\":\"2015-08-13T14:12:44-04:00\",\"product_id\":2096063363,\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0957\\/5792\\/products\\/Kraepelin3.gif?v=1439489564\",\"variant_ids\":[]}],\"options\":[{\"id\":2524801731,\"name\":\"Color or something\",\"product_id\":2096063363,\"position\":1}],\"variants\":[{\"id\":6030700419,\"title\":\"Teal\",\"option_values\":[{\"option_id\":2524801731,\"name\":\"Color or something\",\"value\":\"Teal\"}],\"price\":\"2230.99\",\"compare_at_price\":null,\"grams\":4000,\"requires_shipping\":true,\"sku\":\"\",\"taxable\":false,\"position\":1,\"available\":true}]}]}",
-		"code": 200,
-		"message": "OK"
-	},
-	"testApplyingThreeGiftCardsToCheckout_1": {
-		"body": "{\"checkout\":{\"created_at\":\"2015-09-21T16:19:11-04:00\",\"currency\":\"CAD\",\"customer_id\":null,\"email\":\"test@test.com\",\"location_id\":null,\"order_id\":null,\"requires_shipping\":true,\"reservation_time\":300,\"source_name\":\"mobile_app\",\"source_identifier\":\"26915715\",\"source_url\":null,\"taxes_included\":false,\"token\":\"563f6f47b6a3169339d68b5497fd0fa9\",\"updated_at\":\"2015-09-21T16:19:11-04:00\",\"payment_due\":\"2230.99\",\"payment_url\":\"https:\\/\\/us-west-2-deposit.cs.shopify.com\\/sessions\",\"reservation_time_left\":299,\"subtotal_price\":\"2230.99\",\"total_price\":\"2230.99\",\"total_tax\":\"0.00\",\"order_status_url\":null,\"privacy_policy_url\":null,\"refund_policy_url\":null,\"terms_of_service_url\":null,\"web_url\":\"https:\\/\\/checkout.shopify.com\\/9575792\\/checkouts\\/563f6f47b6a3169339d68b5497fd0fa9\",\"tax_lines\":[],\"line_items\":[{\"id\":\"b68230678fbb6ca9\",\"product_id\":2096063363,\"variant_id\":6030700419,\"sku\":\"\",\"vendor\":\"McCullough Group\",\"title\":\"Actinian Fur Hat\",\"variant_title\":\"Teal\",\"taxable\":false,\"requires_shipping\":true,\"price\":\"2230.99\",\"compare_at_price\":null,\"line_price\":\"2230.99\",\"properties\":{\"size\":\"large\",\"color\":\"red\"},\"quantity\":1,\"grams\":4000,\"fulfillment_service\":\"manual\"}],\"gift_cards\":[],\"shipping_rate\":null,\"shipping_address\":{\"first_name\":\"MobileBuy\",\"last_name\":\"TestBot\",\"phone\":\"1-555-555-5555\",\"company\":\"Shopify Inc.\",\"address1\":\"150 Elgin Street\",\"address2\":\"8th Floor\",\"city\":\"Ottawa\",\"province\":\"Ontario\",\"province_code\":\"ON\",\"country\":\"Canada\",\"country_code\":\"CA\",\"zip\":\"K1N5T5\"},\"credit_card\":null,\"billing_address\":{\"first_name\":\"MobileBuy\",\"last_name\":\"TestBot\",\"phone\":\"1-555-555-5555\",\"company\":\"Shopify Inc.\",\"address1\":\"150 Elgin Street\",\"address2\":\"8th Floor\",\"city\":\"Ottawa\",\"province\":\"Ontario\",\"province_code\":\"ON\",\"country\":\"Canada\",\"country_code\":\"CA\",\"zip\":\"K1N5T5\"},\"discount\":null}}",
-		"code": 201,
-		"message": "Created"
-	},
-	"testApplyingThreeGiftCardsToCheckout_2": {
-		"body": "{\"gift_card\":{\"id\":3741763,\"last_characters\":\"rd11\",\"balance\":\"11.00\",\"amount_used\":\"11.00\",\"checkout\":{\"payment_due\":\"2219.99\"}}}",
-		"code": 201,
-		"message": "Created"
-	},
-	"testApplyingThreeGiftCardsToCheckout_3": {
-		"body": "{\"gift_card\":{\"id\":3741827,\"last_characters\":\"rd25\",\"balance\":\"25.00\",\"amount_used\":\"25.00\",\"checkout\":{\"payment_due\":\"2194.99\"}}}",
-		"code": 201,
-		"message": "Created"
-	},
 	"testApplyingThreeGiftCardsToCheckout_4": {
 		"body": "{\"gift_card\":{\"id\":3741891,\"last_characters\":\"rd50\",\"balance\":\"50.00\",\"amount_used\":\"50.00\",\"checkout\":{\"payment_due\":\"2144.99\"}}}",
-		"code": 201,
-		"message": "Created"
-	},
-	"testApplyingTwoGiftCardsToCheckout_0": {
-		"body": "{\"product_publications\":[{\"id\":2626498435,\"product_id\":2096063363,\"channel_id\":26915715,\"created_at\":\"2015-08-19T09:47:37-04:00\",\"updated_at\":\"2015-08-19T09:47:37-04:00\",\"body_html\":\"parsing the driver won't do anything, we need to calculate the online PNG program!\",\"handle\":\"actinian-fur-hat\",\"product_type\":\"enable bricks-and-clicks e-business\",\"title\":\"Actinian Fur Hat\",\"vendor\":\"McCullough Group\",\"published_at\":\"2015-08-19T09:47:37-04:00\",\"published\":true,\"available\":true,\"images\":[{\"id\":4277333187,\"created_at\":\"2015-08-13T14:12:44-04:00\",\"position\":1,\"updated_at\":\"2015-08-13T14:12:44-04:00\",\"product_id\":2096063363,\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0957\\/5792\\/products\\/Kraepelin3.gif?v=1439489564\",\"variant_ids\":[]}],\"options\":[{\"id\":2524801731,\"name\":\"Color or something\",\"product_id\":2096063363,\"position\":1}],\"variants\":[{\"id\":6030700419,\"title\":\"Teal\",\"option_values\":[{\"option_id\":2524801731,\"name\":\"Color or something\",\"value\":\"Teal\"}],\"price\":\"2230.99\",\"compare_at_price\":null,\"grams\":4000,\"requires_shipping\":true,\"sku\":\"\",\"taxable\":false,\"position\":1,\"available\":true}]}]}",
-		"code": 200,
-		"message": "OK"
-	},
-	"testApplyingTwoGiftCardsToCheckout_1": {
-		"body": "{\"checkout\":{\"created_at\":\"2015-09-21T16:19:12-04:00\",\"currency\":\"CAD\",\"customer_id\":null,\"email\":\"test@test.com\",\"location_id\":null,\"order_id\":null,\"requires_shipping\":true,\"reservation_time\":300,\"source_name\":\"mobile_app\",\"source_identifier\":\"26915715\",\"source_url\":null,\"taxes_included\":false,\"token\":\"e8e8fb41ea690fd13167180cf6679897\",\"updated_at\":\"2015-09-21T16:19:12-04:00\",\"payment_due\":\"2230.99\",\"payment_url\":\"https:\\/\\/us-west-2-deposit.cs.shopify.com\\/sessions\",\"reservation_time_left\":300,\"subtotal_price\":\"2230.99\",\"total_price\":\"2230.99\",\"total_tax\":\"0.00\",\"order_status_url\":null,\"privacy_policy_url\":null,\"refund_policy_url\":null,\"terms_of_service_url\":null,\"web_url\":\"https:\\/\\/checkout.shopify.com\\/9575792\\/checkouts\\/e8e8fb41ea690fd13167180cf6679897\",\"tax_lines\":[],\"line_items\":[{\"id\":\"f1069151093e1de1\",\"product_id\":2096063363,\"variant_id\":6030700419,\"sku\":\"\",\"vendor\":\"McCullough Group\",\"title\":\"Actinian Fur Hat\",\"variant_title\":\"Teal\",\"taxable\":false,\"requires_shipping\":true,\"price\":\"2230.99\",\"compare_at_price\":null,\"line_price\":\"2230.99\",\"properties\":{\"size\":\"large\",\"color\":\"red\"},\"quantity\":1,\"grams\":4000,\"fulfillment_service\":\"manual\"}],\"gift_cards\":[],\"shipping_rate\":null,\"shipping_address\":{\"first_name\":\"MobileBuy\",\"last_name\":\"TestBot\",\"phone\":\"1-555-555-5555\",\"company\":\"Shopify Inc.\",\"address1\":\"150 Elgin Street\",\"address2\":\"8th Floor\",\"city\":\"Ottawa\",\"province\":\"Ontario\",\"province_code\":\"ON\",\"country\":\"Canada\",\"country_code\":\"CA\",\"zip\":\"K1N5T5\"},\"credit_card\":null,\"billing_address\":{\"first_name\":\"MobileBuy\",\"last_name\":\"TestBot\",\"phone\":\"1-555-555-5555\",\"company\":\"Shopify Inc.\",\"address1\":\"150 Elgin Street\",\"address2\":\"8th Floor\",\"city\":\"Ottawa\",\"province\":\"Ontario\",\"province_code\":\"ON\",\"country\":\"Canada\",\"country_code\":\"CA\",\"zip\":\"K1N5T5\"},\"discount\":null}}",
-		"code": 201,
-		"message": "Created"
-	},
-	"testApplyingTwoGiftCardsToCheckout_2": {
-		"body": "{\"gift_card\":{\"id\":3741955,\"last_characters\":\"rd11\",\"balance\":\"11.00\",\"amount_used\":\"11.00\",\"checkout\":{\"payment_due\":\"2219.99\"}}}",
 		"code": 201,
 		"message": "Created"
 	},
@@ -239,43 +204,8 @@
 		"code": 404,
 		"message": "Not Found"
 	},
-	"testRemovingAllGiftCards_0": {
-		"body": "{\"product_publications\":[{\"id\":2626498435,\"product_id\":2096063363,\"channel_id\":26915715,\"created_at\":\"2015-08-19T09:47:37-04:00\",\"updated_at\":\"2015-08-19T09:47:37-04:00\",\"body_html\":\"parsing the driver won't do anything, we need to calculate the online PNG program!\",\"handle\":\"actinian-fur-hat\",\"product_type\":\"enable bricks-and-clicks e-business\",\"title\":\"Actinian Fur Hat\",\"vendor\":\"McCullough Group\",\"published_at\":\"2015-08-19T09:47:37-04:00\",\"published\":true,\"available\":true,\"images\":[{\"id\":4277333187,\"created_at\":\"2015-08-13T14:12:44-04:00\",\"position\":1,\"updated_at\":\"2015-08-13T14:12:44-04:00\",\"product_id\":2096063363,\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0957\\/5792\\/products\\/Kraepelin3.gif?v=1439489564\",\"variant_ids\":[]}],\"options\":[{\"id\":2524801731,\"name\":\"Color or something\",\"product_id\":2096063363,\"position\":1}],\"variants\":[{\"id\":6030700419,\"title\":\"Teal\",\"option_values\":[{\"option_id\":2524801731,\"name\":\"Color or something\",\"value\":\"Teal\"}],\"price\":\"2230.99\",\"compare_at_price\":null,\"grams\":4000,\"requires_shipping\":true,\"sku\":\"\",\"taxable\":false,\"position\":1,\"available\":true}]}]}",
-		"code": 200,
-		"message": "OK"
-	},
-	"testRemovingAllGiftCards_1": {
-		"body": "{\"checkout\":{\"created_at\":\"2015-09-21T16:19:23-04:00\",\"currency\":\"CAD\",\"customer_id\":null,\"email\":\"test@test.com\",\"location_id\":null,\"order_id\":null,\"requires_shipping\":true,\"reservation_time\":300,\"source_name\":\"mobile_app\",\"source_identifier\":\"26915715\",\"source_url\":null,\"taxes_included\":false,\"token\":\"bb5736e921474da16c42a0af16fa5862\",\"updated_at\":\"2015-09-21T16:19:23-04:00\",\"payment_due\":\"2230.99\",\"payment_url\":\"https:\\/\\/us-west-2-deposit.cs.shopify.com\\/sessions\",\"reservation_time_left\":300,\"subtotal_price\":\"2230.99\",\"total_price\":\"2230.99\",\"total_tax\":\"0.00\",\"order_status_url\":null,\"privacy_policy_url\":null,\"refund_policy_url\":null,\"terms_of_service_url\":null,\"web_url\":\"https:\\/\\/checkout.shopify.com\\/9575792\\/checkouts\\/bb5736e921474da16c42a0af16fa5862\",\"tax_lines\":[],\"line_items\":[{\"id\":\"85cf0ce3f67282a3\",\"product_id\":2096063363,\"variant_id\":6030700419,\"sku\":\"\",\"vendor\":\"McCullough Group\",\"title\":\"Actinian Fur Hat\",\"variant_title\":\"Teal\",\"taxable\":false,\"requires_shipping\":true,\"price\":\"2230.99\",\"compare_at_price\":null,\"line_price\":\"2230.99\",\"properties\":{\"size\":\"large\",\"color\":\"red\"},\"quantity\":1,\"grams\":4000,\"fulfillment_service\":\"manual\"}],\"gift_cards\":[],\"shipping_rate\":null,\"shipping_address\":{\"first_name\":\"MobileBuy\",\"last_name\":\"TestBot\",\"phone\":\"1-555-555-5555\",\"company\":\"Shopify Inc.\",\"address1\":\"150 Elgin Street\",\"address2\":\"8th Floor\",\"city\":\"Ottawa\",\"province\":\"Ontario\",\"province_code\":\"ON\",\"country\":\"Canada\",\"country_code\":\"CA\",\"zip\":\"K1N5T5\"},\"credit_card\":null,\"billing_address\":{\"first_name\":\"MobileBuy\",\"last_name\":\"TestBot\",\"phone\":\"1-555-555-5555\",\"company\":\"Shopify Inc.\",\"address1\":\"150 Elgin Street\",\"address2\":\"8th Floor\",\"city\":\"Ottawa\",\"province\":\"Ontario\",\"province_code\":\"ON\",\"country\":\"Canada\",\"country_code\":\"CA\",\"zip\":\"K1N5T5\"},\"discount\":null}}",
-		"code": 201,
-		"message": "Created"
-	},
-	"testRemovingAllGiftCards_2": {
-		"body": "{\"gift_card\":{\"id\":3742083,\"last_characters\":\"rd11\",\"balance\":\"11.00\",\"amount_used\":\"11.00\",\"checkout\":{\"payment_due\":\"2219.99\"}}}",
-		"code": 201,
-		"message": "Created"
-	},
-	"testRemovingAllGiftCards_3": {
-		"body": "{\"gift_card\":{\"id\":3742147,\"last_characters\":\"rd25\",\"balance\":\"25.00\",\"amount_used\":\"25.00\",\"checkout\":{\"payment_due\":\"2194.99\"}}}",
-		"code": 201,
-		"message": "Created"
-	},
-	"testRemovingAllGiftCards_4": {
-		"body": "{\"gift_card\":{\"id\":3742211,\"last_characters\":\"rd50\",\"balance\":\"50.00\",\"amount_used\":\"50.00\",\"checkout\":{\"payment_due\":\"2144.99\"}}}",
-		"code": 201,
-		"message": "Created"
-	},
-	"testRemovingAllGiftCards_5": {
-		"body": "{\"gift_card\":{\"id\":3742083,\"last_characters\":\"rd11\",\"balance\":\"11.00\",\"amount_used\":\"11.00\",\"checkout\":{\"payment_due\":\"2155.99\"}}}",
-		"code": 200,
-		"message": "OK"
-	},
-	"testRemovingAllGiftCards_6": {
-		"body": "{\"gift_card\":{\"id\":3742147,\"last_characters\":\"rd25\",\"balance\":\"25.00\",\"amount_used\":\"25.00\",\"checkout\":{\"payment_due\":\"2180.99\"}}}",
-		"code": 200,
-		"message": "OK"
-	},
 	"testRemovingAllGiftCards_7": {
-		"body": "{\"gift_card\":{\"id\":3742211,\"last_characters\":\"rd50\",\"balance\":\"50.00\",\"amount_used\":\"50.00\",\"checkout\":{\"payment_due\":\"2230.99\"}}}",
+		"body": "{\"gift_card\":{\"id\":3741891,\"last_characters\":\"rd50\",\"balance\":\"50.00\",\"amount_used\":\"50.00\",\"checkout\":{\"payment_due\":\"2230.99\"}}}",
 		"code": 200,
 		"message": "OK"
 	},
@@ -284,33 +214,8 @@
 		"code": 422,
 		"message": "Unprocessable Entity"
 	},
-	"testRemovingFirstGiftCard_0": {
-		"body": "{\"product_publications\":[{\"id\":2626498435,\"product_id\":2096063363,\"channel_id\":26915715,\"created_at\":\"2015-08-19T09:47:37-04:00\",\"updated_at\":\"2015-08-19T09:47:37-04:00\",\"body_html\":\"parsing the driver won't do anything, we need to calculate the online PNG program!\",\"handle\":\"actinian-fur-hat\",\"product_type\":\"enable bricks-and-clicks e-business\",\"title\":\"Actinian Fur Hat\",\"vendor\":\"McCullough Group\",\"published_at\":\"2015-08-19T09:47:37-04:00\",\"published\":true,\"available\":true,\"images\":[{\"id\":4277333187,\"created_at\":\"2015-08-13T14:12:44-04:00\",\"position\":1,\"updated_at\":\"2015-08-13T14:12:44-04:00\",\"product_id\":2096063363,\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0957\\/5792\\/products\\/Kraepelin3.gif?v=1439489564\",\"variant_ids\":[]}],\"options\":[{\"id\":2524801731,\"name\":\"Color or something\",\"product_id\":2096063363,\"position\":1}],\"variants\":[{\"id\":6030700419,\"title\":\"Teal\",\"option_values\":[{\"option_id\":2524801731,\"name\":\"Color or something\",\"value\":\"Teal\"}],\"price\":\"2230.99\",\"compare_at_price\":null,\"grams\":4000,\"requires_shipping\":true,\"sku\":\"\",\"taxable\":false,\"position\":1,\"available\":true}]}]}",
-		"code": 200,
-		"message": "OK"
-	},
-	"testRemovingFirstGiftCard_1": {
-		"body": "{\"checkout\":{\"created_at\":\"2015-09-21T16:19:26-04:00\",\"currency\":\"CAD\",\"customer_id\":null,\"email\":\"test@test.com\",\"location_id\":null,\"order_id\":null,\"requires_shipping\":true,\"reservation_time\":300,\"source_name\":\"mobile_app\",\"source_identifier\":\"26915715\",\"source_url\":null,\"taxes_included\":false,\"token\":\"32b93d2f8d00791712ca30beb20516b0\",\"updated_at\":\"2015-09-21T16:19:26-04:00\",\"payment_due\":\"2230.99\",\"payment_url\":\"https:\\/\\/us-west-2-deposit.cs.shopify.com\\/sessions\",\"reservation_time_left\":299,\"subtotal_price\":\"2230.99\",\"total_price\":\"2230.99\",\"total_tax\":\"0.00\",\"order_status_url\":null,\"privacy_policy_url\":null,\"refund_policy_url\":null,\"terms_of_service_url\":null,\"web_url\":\"https:\\/\\/checkout.shopify.com\\/9575792\\/checkouts\\/32b93d2f8d00791712ca30beb20516b0\",\"tax_lines\":[],\"line_items\":[{\"id\":\"9aac844b8cb2b634\",\"product_id\":2096063363,\"variant_id\":6030700419,\"sku\":\"\",\"vendor\":\"McCullough Group\",\"title\":\"Actinian Fur Hat\",\"variant_title\":\"Teal\",\"taxable\":false,\"requires_shipping\":true,\"price\":\"2230.99\",\"compare_at_price\":null,\"line_price\":\"2230.99\",\"properties\":{\"size\":\"large\",\"color\":\"red\"},\"quantity\":1,\"grams\":4000,\"fulfillment_service\":\"manual\"}],\"gift_cards\":[],\"shipping_rate\":null,\"shipping_address\":{\"first_name\":\"MobileBuy\",\"last_name\":\"TestBot\",\"phone\":\"1-555-555-5555\",\"company\":\"Shopify Inc.\",\"address1\":\"150 Elgin Street\",\"address2\":\"8th Floor\",\"city\":\"Ottawa\",\"province\":\"Ontario\",\"province_code\":\"ON\",\"country\":\"Canada\",\"country_code\":\"CA\",\"zip\":\"K1N5T5\"},\"credit_card\":null,\"billing_address\":{\"first_name\":\"MobileBuy\",\"last_name\":\"TestBot\",\"phone\":\"1-555-555-5555\",\"company\":\"Shopify Inc.\",\"address1\":\"150 Elgin Street\",\"address2\":\"8th Floor\",\"city\":\"Ottawa\",\"province\":\"Ontario\",\"province_code\":\"ON\",\"country\":\"Canada\",\"country_code\":\"CA\",\"zip\":\"K1N5T5\"},\"discount\":null}}",
-		"code": 201,
-		"message": "Created"
-	},
-	"testRemovingFirstGiftCard_2": {
-		"body": "{\"gift_card\":{\"id\":3742275,\"last_characters\":\"rd11\",\"balance\":\"11.00\",\"amount_used\":\"11.00\",\"checkout\":{\"payment_due\":\"2219.99\"}}}",
-		"code": 201,
-		"message": "Created"
-	},
-	"testRemovingFirstGiftCard_3": {
-		"body": "{\"gift_card\":{\"id\":3742339,\"last_characters\":\"rd25\",\"balance\":\"25.00\",\"amount_used\":\"25.00\",\"checkout\":{\"payment_due\":\"2194.99\"}}}",
-		"code": 201,
-		"message": "Created"
-	},
-	"testRemovingFirstGiftCard_4": {
-		"body": "{\"gift_card\":{\"id\":3742403,\"last_characters\":\"rd50\",\"balance\":\"50.00\",\"amount_used\":\"50.00\",\"checkout\":{\"payment_due\":\"2144.99\"}}}",
-		"code": 201,
-		"message": "Created"
-	},
 	"testRemovingFirstGiftCard_5": {
-		"body": "{\"gift_card\":{\"id\":3742275,\"last_characters\":\"rd11\",\"balance\":\"11.00\",\"amount_used\":\"11.00\",\"checkout\":{\"payment_due\":\"2155.99\"}}}",
+		"body": "{\"gift_card\":{\"id\":3741699,\"last_characters\":\"rd11\",\"balance\":\"11.00\",\"amount_used\":\"11.00\",\"checkout\":{\"payment_due\":\"2155.99\"}}}",
 		"code": 200,
 		"message": "OK"
 	},
@@ -334,33 +239,8 @@
 		"code": 422,
 		"message": "Unprocessable Entity"
 	},
-	"testRemovingSecondGiftCard_0": {
-		"body": "{\"product_publications\":[{\"id\":2626498435,\"product_id\":2096063363,\"channel_id\":26915715,\"created_at\":\"2015-08-19T09:47:37-04:00\",\"updated_at\":\"2015-08-19T09:47:37-04:00\",\"body_html\":\"parsing the driver won't do anything, we need to calculate the online PNG program!\",\"handle\":\"actinian-fur-hat\",\"product_type\":\"enable bricks-and-clicks e-business\",\"title\":\"Actinian Fur Hat\",\"vendor\":\"McCullough Group\",\"published_at\":\"2015-08-19T09:47:37-04:00\",\"published\":true,\"available\":true,\"images\":[{\"id\":4277333187,\"created_at\":\"2015-08-13T14:12:44-04:00\",\"position\":1,\"updated_at\":\"2015-08-13T14:12:44-04:00\",\"product_id\":2096063363,\"src\":\"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/0957\\/5792\\/products\\/Kraepelin3.gif?v=1439489564\",\"variant_ids\":[]}],\"options\":[{\"id\":2524801731,\"name\":\"Color or something\",\"product_id\":2096063363,\"position\":1}],\"variants\":[{\"id\":6030700419,\"title\":\"Teal\",\"option_values\":[{\"option_id\":2524801731,\"name\":\"Color or something\",\"value\":\"Teal\"}],\"price\":\"2230.99\",\"compare_at_price\":null,\"grams\":4000,\"requires_shipping\":true,\"sku\":\"\",\"taxable\":false,\"position\":1,\"available\":true}]}]}",
-		"code": 200,
-		"message": "OK"
-	},
-	"testRemovingSecondGiftCard_1": {
-		"body": "{\"checkout\":{\"created_at\":\"2015-09-21T16:19:29-04:00\",\"currency\":\"CAD\",\"customer_id\":null,\"email\":\"test@test.com\",\"location_id\":null,\"order_id\":null,\"requires_shipping\":true,\"reservation_time\":300,\"source_name\":\"mobile_app\",\"source_identifier\":\"26915715\",\"source_url\":null,\"taxes_included\":false,\"token\":\"d4260656055f30f6ea26fab3ed32c8d8\",\"updated_at\":\"2015-09-21T16:19:29-04:00\",\"payment_due\":\"2230.99\",\"payment_url\":\"https:\\/\\/us-west-2-deposit.cs.shopify.com\\/sessions\",\"reservation_time_left\":300,\"subtotal_price\":\"2230.99\",\"total_price\":\"2230.99\",\"total_tax\":\"0.00\",\"order_status_url\":null,\"privacy_policy_url\":null,\"refund_policy_url\":null,\"terms_of_service_url\":null,\"web_url\":\"https:\\/\\/checkout.shopify.com\\/9575792\\/checkouts\\/d4260656055f30f6ea26fab3ed32c8d8\",\"tax_lines\":[],\"line_items\":[{\"id\":\"482b7952b6b1f411\",\"product_id\":2096063363,\"variant_id\":6030700419,\"sku\":\"\",\"vendor\":\"McCullough Group\",\"title\":\"Actinian Fur Hat\",\"variant_title\":\"Teal\",\"taxable\":false,\"requires_shipping\":true,\"price\":\"2230.99\",\"compare_at_price\":null,\"line_price\":\"2230.99\",\"properties\":{\"size\":\"large\",\"color\":\"red\"},\"quantity\":1,\"grams\":4000,\"fulfillment_service\":\"manual\"}],\"gift_cards\":[],\"shipping_rate\":null,\"shipping_address\":{\"first_name\":\"MobileBuy\",\"last_name\":\"TestBot\",\"phone\":\"1-555-555-5555\",\"company\":\"Shopify Inc.\",\"address1\":\"150 Elgin Street\",\"address2\":\"8th Floor\",\"city\":\"Ottawa\",\"province\":\"Ontario\",\"province_code\":\"ON\",\"country\":\"Canada\",\"country_code\":\"CA\",\"zip\":\"K1N5T5\"},\"credit_card\":null,\"billing_address\":{\"first_name\":\"MobileBuy\",\"last_name\":\"TestBot\",\"phone\":\"1-555-555-5555\",\"company\":\"Shopify Inc.\",\"address1\":\"150 Elgin Street\",\"address2\":\"8th Floor\",\"city\":\"Ottawa\",\"province\":\"Ontario\",\"province_code\":\"ON\",\"country\":\"Canada\",\"country_code\":\"CA\",\"zip\":\"K1N5T5\"},\"discount\":null}}",
-		"code": 201,
-		"message": "Created"
-	},
-	"testRemovingSecondGiftCard_2": {
-		"body": "{\"gift_card\":{\"id\":3742531,\"last_characters\":\"rd11\",\"balance\":\"11.00\",\"amount_used\":\"11.00\",\"checkout\":{\"payment_due\":\"2219.99\"}}}",
-		"code": 201,
-		"message": "Created"
-	},
-	"testRemovingSecondGiftCard_3": {
-		"body": "{\"gift_card\":{\"id\":3742595,\"last_characters\":\"rd25\",\"balance\":\"25.00\",\"amount_used\":\"25.00\",\"checkout\":{\"payment_due\":\"2194.99\"}}}",
-		"code": 201,
-		"message": "Created"
-	},
-	"testRemovingSecondGiftCard_4": {
-		"body": "{\"gift_card\":{\"id\":3742659,\"last_characters\":\"rd50\",\"balance\":\"50.00\",\"amount_used\":\"50.00\",\"checkout\":{\"payment_due\":\"2144.99\"}}}",
-		"code": 201,
-		"message": "Created"
-	},
 	"testRemovingSecondGiftCard_5": {
-		"body": "{\"gift_card\":{\"id\":3742595,\"last_characters\":\"rd25\",\"balance\":\"25.00\",\"amount_used\":\"25.00\",\"checkout\":{\"payment_due\":\"2169.99\"}}}",
+		"body": "{\"gift_card\":{\"id\":3742019,\"last_characters\":\"rd25\",\"balance\":\"25.00\",\"amount_used\":\"25.00\",\"checkout\":{\"payment_due\":\"2154\"}}}",
 		"code": 200,
 		"message": "OK"
 	},

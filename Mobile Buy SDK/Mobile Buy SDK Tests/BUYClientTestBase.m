@@ -61,6 +61,8 @@ NSString * const BUYChannelId_Placeholder = @"api_key";
 		self.channelId = BUYChannelId_Placeholder;
 		
 		self.giftCardCode = @"rd11";
+		self.giftCardCode2 = @"rd25";
+		self.giftCardCode3 = @"rd50";
 		self.giftCardCodeExpired = @"1234";
 		self.giftCardCodeExpired = @"gibberish";
 	}
