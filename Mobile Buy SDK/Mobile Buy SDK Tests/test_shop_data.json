@@ -10,17 +10,17 @@
 					],
 	"collection_id": "",
 	"gift_cards": {
-		"valid11": {
+		"ValidGiftCard11": {
 			"id": "",
 			"code": "",
 			"value": 11
 		},
-		"valid25": {
+		"ValidGiftCard25": {
 			"id": "",
 			"code": "",
 			"value": 25
 		},
-		"valid50": {
+		"ValidGiftCard50": {
 			"id": "",
 			"code": "",
 			"value": 50
