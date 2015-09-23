@@ -90,18 +90,21 @@ The Mobile Buy SDK includes a number of targets and schemes:
 
 * **Playground**: This target is a basic app that depends directly on the `Buy` framework target and builds the framework every time using the `Playground` app's build configuration. You may use this app and target to play around with the SDK. Be sure not to check in any changes you may have made in files related to this app
 
-### Integration Tests
+### Unit Tests
 
-To run the Mobile Buy SDK integration tests locally, you will need a Shopify shop that is publicly accessible (not password protected). Please note that the integration tests **will create an order** on that shop. This is to validate that the SDK works properly with Shopify.
+To run the Mobile Buy SDK integration tests against an actual shop, you will need a Shopify shop that is publicly accessible (not password protected). Please note that the integration tests **will create an order** on that shop. This is to validate that the SDK works properly with Shopify.  Modify the **test_shop_data.json** file to contain your shop's credentials and the required product IDs, gift cards, and discounts as necessary.
 
-To run the tests, edit the `Mobile Buy SDK Tests` scheme and add the following arguments to the **Environment Variables**:
+If the credentials in the **test_shop_data.json** are empty, running the integration tests will use using mocked respoonses.  The mocked responses are defined in **mocked_responses.json**.  Do not check in credentials in this file.
+
+Alternatively, you can edit the `Mobile Buy SDK Tests` scheme and add the following arguments to the **Environment Variables**:
 
 * `shop_domain`: Your shop's domain, for example: `abetterlookingshop.myshopify.com`
 * `api_key`: The API provided when setting up the Mobile App channel on Shopify Admin: *https://your_shop_id.myshopify.com/admin/mobile_app/integration*
 * `channel_id`: The Channel ID provided with the API Key above
-* `gift_card_code`, `gift_card_code_2`, `gift_card_code_3`: Three valid [Gift Card](https://docs.shopify.com/manual/your-store/gift-cards) codes for your shop
+* `gift_card_code_10`, `gift_card_code_25`, `gift_card_code_50`: Three valid [Gift Card](https://docs.shopify.com/manual/your-store/gift-cards) codes for your shop
 * `expired_gift_card_code`: An expired Gift Card code
-* `expired_gift_card_id`: The `product_id` for the expired Gift Card
+* `expired_gift_card_id`: The ID for the expired Gift Card
+* `product_ids_comma_separated`: a comma seperated list of product IDs (2 is suitable) to use for the cart
 
 ### How Can I Contribute?
 
