@@ -33,6 +33,8 @@
 @property (nonatomic, strong) BUYClient *client;
 @property (nonatomic, assign) BOOL done;
 
+@property (nonatomic, strong) NSURLSessionDataTask *task;
+
 @property (nonatomic, strong) NSArray *shippingRates;
 
 @end
@@ -59,6 +61,12 @@
     return [super isFinished] && self.done;
 }
 
+- (void)cancel
+{
+    [self.task cancel];
+    [super cancel];
+}
+
 - (void)main
 {
     // We're now fetching the rates from Shopify. This will will calculate shipping rates very similarly to how our web checkout.
@@ -83,7 +91,7 @@
 {
     __block BUYStatus shippingStatus = BUYStatusUnknown;
     
-    [self.client getShippingRatesForCheckout:self.checkout completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
+    self.task = [self.client getShippingRatesForCheckout:self.checkout completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
         
         shippingStatus = status;
         

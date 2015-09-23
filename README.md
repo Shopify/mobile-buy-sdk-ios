@@ -110,6 +110,6 @@ Alternatively, you can edit the `Mobile Buy SDK Tests` scheme and add the follow
 
 We welcome contributions.  Follow the steps in [CONTRIBUTING](CONTRIBUTING.md) file
 
-### Licence 
+### License 
 
 The Mobile Buy SDK is provided under an MIT Licence.  See the [LICENSE](LICENSE) file

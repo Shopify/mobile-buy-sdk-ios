@@ -32,6 +32,9 @@
 {
     self = [super initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.preservesSuperviewLayoutMargins = NO;
+        [self setLayoutMargins:UIEdgeInsetsZero];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }

@@ -37,6 +37,7 @@
 @property (nonatomic, strong) BUYClient *client;
 @property (nonatomic, strong) NSNumberFormatter *currencyFormatter;
 @property (nonatomic, strong) NSArray *shippingRates;
+@property (nonatomic, strong) NSArray *allOperations;
 @end
 
 @implementation ShippingRatesTableViewController
@@ -59,7 +60,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"Choose Shipping Rate";
+    self.title = @"Shipping Rates";
     
     [self.tableView registerClass:[ShippingRateTableViewCell class] forCellReuseIdentifier:@"Cell"];
     
@@ -82,12 +83,19 @@
     [blockOperation addDependency:shopOperation];
     [blockOperation addDependency:shippingOperation];
     [[NSOperationQueue mainQueue] addOperation:blockOperation];
+    
+    self.allOperations = @[blockOperation, shopOperation, shippingOperation];
+}
+
+- (void)dealloc
+{
+    [self.allOperations makeObjectsPerformSelector:@selector(cancel)];
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return self.shippingRates.count;
 }
 

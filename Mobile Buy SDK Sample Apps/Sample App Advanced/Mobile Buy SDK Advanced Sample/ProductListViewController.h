@@ -2,7 +2,6 @@
 //  MasterViewController.h
 //  Mobile Buy SDK Advanced Sample
 //
-//
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
 //
@@ -25,10 +24,12 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
+@import Buy;
 
 @interface ProductListViewController : UITableViewController
 
+- (instancetype)initWithClient:(BUYClient *)client collection:(BUYCollection*)collection;
 
 @end
 

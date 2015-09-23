@@ -1,6 +1,6 @@
 //
-//  main.m
-//  Mobile Buy SDK
+//  ProductViewControllerThemeTintColorTableViewCell.h
+//  Mobile Buy SDK Advanced Sample
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -24,11 +24,10 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
-#import "AppDelegate.h"
+@import UIKit;
 
-int main(int argc, char * argv[]) {
-    @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
-    }
-}
+@interface ProductViewControllerThemeTintColorTableViewCell : UITableViewCell
+
+@property (nonatomic, strong) UISegmentedControl *segmentedControl;
+
+@end

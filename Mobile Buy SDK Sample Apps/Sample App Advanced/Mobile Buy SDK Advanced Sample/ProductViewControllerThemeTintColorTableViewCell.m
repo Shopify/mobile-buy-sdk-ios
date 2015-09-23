@@ -1,6 +1,6 @@
 //
-//  ViewController.h
-//  Mobile Buy SDK
+//  ProductViewControllerThemeTintColorTableViewCell.m
+//  Mobile Buy SDK Advanced Sample
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -24,11 +24,21 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+#import "ProductViewControllerThemeTintColorTableViewCell.h"
 
-@interface ViewController : UITableViewController
+@implementation ProductViewControllerThemeTintColorTableViewCell
 
-- (void)getCheckoutStatusWithURL:(NSURL *)url;
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.textLabel.text = @"Theme Tint Color";
+        self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Shopify", @"Red", @"Blue"]];
+        self.segmentedControl.selectedSegmentIndex = 0;
+        self.accessoryView = self.segmentedControl;
+    }
+    return self;
+}
 
 @end
-
