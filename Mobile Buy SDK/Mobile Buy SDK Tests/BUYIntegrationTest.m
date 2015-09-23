@@ -721,6 +721,12 @@
 {
 	[self createCart];
 	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCreateCheckoutWithValidDiscount_2"];
+	}];
+	
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	_checkout.discount = [self applicableDiscount];
 	
@@ -748,6 +754,12 @@
 {
 	[self createCart];
 	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCreateCheckoutWithExpiredDiscount_1"];
+	}];
+	
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	_checkout.discount = [self inapplicableDiscount];
 	
@@ -767,6 +779,12 @@
 - (void)testCheckoutCreationWithNonExistentDiscount
 {
 	[self createCart];
+	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCreateCheckoutWithNonExistentDiscount_1"];
+	}];
 	
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	_checkout.discount = [self nonExistentDiscount];
@@ -789,6 +807,12 @@
 {
 	[self createCart];
 	[self createCheckout];
+	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCreateCheckoutWithValidDiscount_2"];
+	}];
 	
 	_checkout.discount = [self applicableDiscount];
 	

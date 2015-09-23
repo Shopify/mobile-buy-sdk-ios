@@ -65,8 +65,8 @@ NSString * const BUYChannelId_Placeholder = @"api_key";
 	}
 }
 
-- (BOOL)shouldUseMocks{
-	
+- (BOOL)shouldUseMocks
+{	
 	if (!self.shopDomain.length && !self.apiKey.length && !self.channelId.length) {
 		_shouldUseMocks = YES;
 	}
