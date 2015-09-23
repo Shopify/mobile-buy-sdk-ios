@@ -52,17 +52,18 @@ NSString * const BUYChannelId_Placeholder = @"api_key";
 	} else {
 		self.productIds = jsonConfig[@"product_ids"];
 	}
-
-	if ([self shouldUseMocks] == NO) {
-		
-		self.client = [[BUYClient alloc] initWithShopDomain:self.shopDomain apiKey:self.apiKey channelId:self.channelId];
-	}
-	else {
-		
+	
+	if ([self shouldUseMocks] == YES) {
 		NSLog(@"***** Using Mock Tests *****");
 		
-		self.client = [[BUYClient alloc] initWithShopDomain:BUYShopDomain_Placeholder apiKey:BUYAPIKey_Placeholder channelId:BUYChannelId_Placeholder];
+		self.shopDomain = BUYShopDomain_Placeholder;
+		self.apiKey = BUYAPIKey_Placeholder;
+		self.channelId = BUYChannelId_Placeholder;
+		
+		self.giftCardCode = @"rd11";
 	}
+	
+	self.client = [[BUYClient alloc] initWithShopDomain:self.shopDomain apiKey:self.apiKey channelId:self.channelId];
 }
 
 - (BOOL)shouldUseMocks

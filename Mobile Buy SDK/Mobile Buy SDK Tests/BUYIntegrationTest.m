@@ -315,15 +315,13 @@
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
-	NSString *giftCardCode = [self shouldUseMocks] ? @"rd11" : self.giftCardCode;
-	
-	[self.client applyGiftCardWithCode:giftCardCode toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client applyGiftCardWithCode:self.giftCardCode toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 
 		XCTAssertNil(error);
 		_checkout = checkout;
 		_giftCard = _checkout.giftCards[0];
 		XCTAssertNotNil(_giftCard);
-		XCTAssertEqualObjects([giftCardCode substringWithRange:NSMakeRange(giftCardCode.length - 4, 4)], _giftCard.lastCharacters);
+		XCTAssertEqualObjects([self.giftCardCode substringWithRange:NSMakeRange(self.giftCardCode.length - 4, 4)], _giftCard.lastCharacters);
 		
 		NSDecimalNumber *amountUsed = [NSDecimalNumber decimalNumberWithString:@"11.00"];
 		NSComparisonResult result = [_giftCard.amountUsed compare:amountUsed];
@@ -349,6 +347,12 @@
 	XCTAssertGreaterThan([_checkout.paymentDue integerValue], 1);
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
 	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testApplyingInvalidGiftCardToCheckout_2"];
+	}];
+	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client applyGiftCardWithCode:@"000" toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		XCTAssertNotNil(error);
@@ -370,6 +374,12 @@
 	[self createCheckout];
 	
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
+	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testApplyingInvalidGiftCardToCheckout_2"];
+	}];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client applyGiftCardWithCode:self.giftCardCodeExpired toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
@@ -874,11 +884,6 @@
 
 - (void)testIntegration
 {
-	// If we're running mock tests, use place holders
-	NSString *shopDomain = [self shouldUseMocks] ? BUYShopDomain_Placeholder : self.shopDomain;
-	NSString *apiKey = [self shouldUseMocks] ? BUYAPIKey_Placeholder : self.apiKey;
-	NSString *channelId = [self shouldUseMocks] ? BUYChannelId_Placeholder : self.channelId;
-	
 	XCTAssertTrue([self.client testIntegrationWithMerchantId:nil]);
 	XCTAssertTrue([self.client testIntegrationWithMerchantId:self.merchantId]);
 
@@ -887,7 +892,7 @@
 	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
 		return [OHHTTPStubsResponse responseWithKey:@"testInvalidIntegrationBadChannelId_0"];
 	}];
-	BUYClient *badClient = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:@"asdvfdbfdgasfgdsfg"];
+	BUYClient *badClient = [[BUYClient alloc] initWithShopDomain:self.shopDomain apiKey:self.apiKey channelId:@"asdvfdbfdgasfgdsfg"];
 	XCTAssertFalse([badClient testIntegrationWithMerchantId:nil]);
 	
 	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
@@ -895,7 +900,7 @@
 	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
 		return [OHHTTPStubsResponse responseWithKey:@"testInvalidIntegrationBadApiKey_0"];
 	}];
-	badClient = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:@"sadgsefgsdfgsdfgsdfg" channelId:channelId];
+	badClient = [[BUYClient alloc] initWithShopDomain:self.shopDomain apiKey:@"sadgsefgsdfgsdfgsdfg" channelId:self.channelId];
 	XCTAssertFalse([badClient testIntegrationWithMerchantId:nil]);
 	
 	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
@@ -903,7 +908,7 @@
 	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
 		return [OHHTTPStubsResponse responseWithKey:@"testInvalidIntegrationBadShopUrl_0"];
 	}];
-	badClient = [[BUYClient alloc] initWithShopDomain:@"asdvfdbfdgasfgdsfg.myshopify.com" apiKey:apiKey channelId:channelId];
+	badClient = [[BUYClient alloc] initWithShopDomain:@"asdvfdbfdgasfgdsfg.myshopify.com" apiKey:self.apiKey channelId:self.channelId];
 	XCTAssertFalse([badClient testIntegrationWithMerchantId:nil]);
 	
 	XCTAssertFalse([badClient testIntegrationWithMerchantId:@"blah"]);
