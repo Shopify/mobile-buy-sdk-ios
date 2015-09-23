@@ -196,8 +196,8 @@
 - (BUYAddress *)address
 {
     BUYAddress *address = [[BUYAddress alloc] init];
-    address.address1 = @"126 York Street";
-    address.address2 = @"2nd Floor";
+    address.address1 = @"150 Elgin Street";
+    address.address2 = @"8th Floor";
     address.city = @"Ottawa";
     address.company = @"Shopify Inc.";
     address.firstName = @"Egon";

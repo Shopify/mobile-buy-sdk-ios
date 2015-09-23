@@ -15,6 +15,8 @@
 #import "BUYCheckout_Private.h"
 #import "BUYClient+Test.h"
 #import "BUYClientTestBase.h"
+#import <OHHTTPStubs/OHHTTPStubs.h>
+#import "OHHTTPStubsResponse+Helpers.h"
 
 @interface BUYIntegrationTest : BUYClientTestBase
 @end
@@ -43,6 +45,12 @@
 
 - (void)fetchProducts
 {
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testGetProductPage_0"];
+	}];
+	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
 	[self.client getProductsByIds:self.productIds completion:^(NSArray *products, NSError *error) {
@@ -70,6 +78,12 @@
 
 - (void)createCheckout
 {
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_1"];
+	}];
+	
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	_checkout.shippingAddress = [self shippingAddress];
 	_checkout.billingAddress = [self billingAddress];
@@ -84,12 +98,18 @@
 	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
 		XCTAssertNil(error);
 	}];
-	XCTAssertEqualObjects(_checkout.shippingAddress.address1, @"126 York Street");
+	XCTAssertEqualObjects(_checkout.shippingAddress.address1, @"150 Elgin Street");
 	XCTAssertEqualObjects(_checkout.billingAddress.address1, @"150 Elgin Street");
 }
 
 - (void)fetchShippingRates
 {
+	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_2"];
+	}];
 	__block BUYStatus shippingStatus = BUYStatusUnknown;
 	
 	do {
@@ -121,7 +141,12 @@
 
 - (void)updateCheckout
 {
-	_checkout.email = @"banana@testasaurus.com";
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_3"];
+	}];
+	_checkout.email = @"test@test.com";
 	_checkout.shippingRate = _shippingRates[0];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client updateCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
@@ -135,11 +160,17 @@
 	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
 		XCTAssertNil(error);
 	}];
-	XCTAssertEqualObjects(_checkout.email, @"banana@testasaurus.com");
+	XCTAssertEqualObjects(_checkout.email, @"test@test.com");
 }
 
 - (void)addCreditCardToCheckout
 {
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_4"];
+	}];
+	
 	BUYCreditCard *creditCard = [self creditCard];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
@@ -160,16 +191,22 @@
 {
 	BUYCreditCard *creditCard = [[BUYCreditCard alloc] init];
 	creditCard.number = @"4242424242424242";
-	creditCard.expiryMonth = @"12";
-	creditCard.expiryYear = @"20";
+	creditCard.expiryMonth = @"5";
+	creditCard.expiryYear = @"2020";
 	creditCard.cvv = @"123";
-	creditCard.nameOnCard = @"Dinosaur Banana";
+	creditCard.nameOnCard = @"John Smith";
 	
 	return creditCard;
 }
 
 - (void)completeCheckout
 {
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_5"];
+	}];
+	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client completeCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
@@ -185,6 +222,12 @@
 
 - (void)pollUntilCheckoutIsComplete
 {
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_6"];
+	}];
+	
 	__block BUYStatus checkoutStatus = BUYStatusUnknown;
 	__block NSError *checkoutError = nil;
 	
@@ -214,6 +257,12 @@
 
 - (void)verifyCompletedCheckout
 {
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_7"];
+	}];
+	
 	XCTAssertNil(_checkout.orderId);
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client getCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
@@ -241,11 +290,10 @@
 	XCTAssertEqualObjects(maskedCard.lastName, names.lastObject);
 	
 	XCTAssertEqual(maskedCard.expiryMonth.integerValue, creditCard.expiryMonth.integerValue);
-	XCTAssertEqual(maskedCard.expiryYear.integerValue%2000, creditCard.expiryYear.integerValue);
+	XCTAssertEqual(maskedCard.expiryYear.integerValue, creditCard.expiryYear.integerValue);
 
 	XCTAssertEqualObjects(maskedCard.firstDigits, [creditCard.number substringWithRange:NSMakeRange(0, 6)]);
 	XCTAssertEqualObjects(maskedCard.lastDigits, [creditCard.number substringWithRange:NSMakeRange(12, 4)]);
-
 }
 
 #pragma mark - Tests
@@ -816,8 +864,8 @@
 - (BUYAddress *)shippingAddress
 {
 	BUYAddress *address = [[BUYAddress alloc] init];
-	address.address1 = @"126 York Street";
-	address.address2 = @"2nd Floor";
+	address.address1 = @"150 Elgin Street";
+	address.address2 = @"8th Floor";
 	address.city = @"Ottawa";
 	address.company = @"Shopify Inc.";
 	address.firstName = @"Tobi";
