@@ -34,7 +34,7 @@
 NSString * const CheckoutCallbackNotification = @"CheckoutCallbackNotification";
 NSString * const MerchantId = @"";
 
-@interface CheckoutViewController () <GetCompletionStatusOperationDelegate, SFSafariViewControllerDelegate>
+@interface CheckoutViewController () <GetCompletionStatusOperationDelegate, SFSafariViewControllerDelegate, PKPaymentAuthorizationViewControllerDelegate>
 
 @property (nonatomic, strong) BUYCheckout *checkout;
 @property (nonatomic, strong) BUYClient *client;
@@ -241,7 +241,22 @@ NSString * const MerchantId = @"";
     PKPaymentAuthorizationViewController *paymentController = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:request];
  
     self.applePayHelper = [[BUYApplePayHelpers alloc] initWithClient:self.client checkout:self.checkout];
-    paymentController.delegate = self.applePayHelper;
+    paymentController.delegate = self;
+    
+    /**
+     *  Alternatively we can set the delegate to self.applePayHelper.
+     *  This makes the PKPaymentAuthorizationViewControllerDelegate methods below
+     *  unnecessary as the BUYApplePayHelpers class implements the methods.
+     *  As in the below example implement the PKPaymentAuthorizationViewControllerDelegate
+     *  methods and forward them to the BUYApplePayHelpers class. You are then free to
+     *  intercept the callbacks and add any additional logging and methods calls as you need.
+     *
+     *  If you do not care about any PKPaymentAuthorizationViewControllerDelegate callbacks
+     *  uncomment the code below to let BUYApplePayHelpers take care of automatically.
+     *
+     *  // paymentController.delegate = self.applePayHelper
+     *
+     */
     
     [self presentViewController:paymentController animated:YES completion:nil];
 }
@@ -259,9 +274,42 @@ NSString * const MerchantId = @"";
     [paymentRequest setCurrencyCode:@"USD"];
     
     [paymentRequest setPaymentSummaryItems: [self.checkout buy_summaryItems]];
-
     
     return paymentRequest;
+}
+
+#pragma mark - PKPaymentAuthorizationViewControllerDelegate
+
+- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
+                       didAuthorizePayment:(PKPayment *)payment
+                                completion:(void (^)(PKPaymentAuthorizationStatus status))completion
+{
+    // Add additional methods if needed and forward the callback to BUYApplePayHelpers
+    [self.applePayHelper paymentAuthorizationViewController:controller didAuthorizePayment:payment completion:completion];
+}
+
+- (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller
+{
+    // Add additional methods if needed and forward the callback to BUYApplePayHelpers
+    [self.applePayHelper paymentAuthorizationViewControllerDidFinish:controller];
+}
+
+-(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingAddress:(ABRecordRef)address completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
+{
+    // Add additional methods if needed and forward the callback to BUYApplePayHelpers
+    [self.applePayHelper paymentAuthorizationViewController:controller didSelectShippingAddress:address completion:completion];
+}
+
+-(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingContact:(PKContact *)contact completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
+{
+    // Add additional methods if needed and forward the callback to BUYApplePayHelpers
+    [self paymentAuthorizationViewController:controller didSelectShippingContact:controller completion:completion];
+}
+
+-(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingMethod:(PKShippingMethod *)shippingMethod completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
+{
+    // Add additional methods if needed and forward the callback to BUYApplePayHelpers
+    [self.applePayHelper paymentAuthorizationViewController:controller didSelectShippingMethod:shippingMethod completion:controller];
 }
 
 # pragma mark - Web checkout
