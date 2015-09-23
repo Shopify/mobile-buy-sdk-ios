@@ -310,19 +310,22 @@
 	}];
 	
 	// Check that we have a checkout with a paymentDue greater than 10
-	XCTAssertGreaterThan([_checkout.paymentDue integerValue], 10);
+	XCTAssertGreaterThan([_checkout.paymentDue integerValue], 11);
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client applyGiftCardWithCode:self.giftCardCode toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	
+	NSString *giftCardCode = [self shouldUseMocks] ? @"rd11" : self.giftCardCode;
+	
+	[self.client applyGiftCardWithCode:giftCardCode toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 
 		XCTAssertNil(error);
 		_checkout = checkout;
 		_giftCard = _checkout.giftCards[0];
 		XCTAssertNotNil(_giftCard);
-		XCTAssertEqualObjects([self.giftCardCode substringWithRange:NSMakeRange(self.giftCardCode.length - 4, 4)], _giftCard.lastCharacters);
+		XCTAssertEqualObjects([giftCardCode substringWithRange:NSMakeRange(giftCardCode.length - 4, 4)], _giftCard.lastCharacters);
 		
-		NSDecimalNumber *amountUsed = [NSDecimalNumber decimalNumberWithString:@"10.00"];
+		NSDecimalNumber *amountUsed = [NSDecimalNumber decimalNumberWithString:@"11.00"];
 		NSComparisonResult result = [_giftCard.amountUsed compare:amountUsed];
 		XCTAssertEqual(result, NSOrderedSame);
 		
@@ -590,6 +593,7 @@
 	}];
 }
 
+// TODO: NO TEST IN JSON
 - (void)testCheckoutWithoutAuthToken
 {
 	[self createCart];
@@ -614,6 +618,12 @@
 	[self createCart];
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testInvalidIntegrationBadShopUrl_0"];
+	}];
 	
 	self.client = [[BUYClient alloc] initWithShopDomain:@"asdfdsasdfdsasdfdsadsfowinfaoinfw.myshopify.com" apiKey:self.apiKey channelId:nil];
 	[self.client createCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
@@ -705,6 +715,7 @@
 	[self verifyCompletedCheckout];
 }
 
+// TODO: NO TEST IN JSON: TEST WAS ADDED
 - (void)testCheckoutWithAPartialAddress
 {
 	[self createCart];
