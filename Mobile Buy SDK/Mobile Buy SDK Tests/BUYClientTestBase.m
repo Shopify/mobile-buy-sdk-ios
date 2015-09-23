@@ -61,6 +61,8 @@ NSString * const BUYChannelId_Placeholder = @"api_key";
 		self.channelId = BUYChannelId_Placeholder;
 		
 		self.giftCardCode = @"rd11";
+		self.giftCardCodeExpired = @"1234";
+		self.giftCardCodeExpired = @"gibberish";
 	}
 	
 	self.client = [[BUYClient alloc] initWithShopDomain:self.shopDomain apiKey:self.apiKey channelId:self.channelId];

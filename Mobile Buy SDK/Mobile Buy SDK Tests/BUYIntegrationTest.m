@@ -404,6 +404,12 @@
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
 	NSDecimalNumber *giftCardValue = [giftCard.amountUsed copy];
 	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testRemovingGiftCardFromCheckout_3"];
+	}];
+	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client removeGiftCard:giftCard fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
@@ -427,6 +433,12 @@
 	
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
 	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testRemovingInvalidGiftCardFromCheckout_2"];
+	}];
+	
 	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:@{ @"id" : @"000" }];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client removeGiftCard:giftCard fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
@@ -448,6 +460,12 @@
 	[self testApplyingGiftCardToCheckout];
 	
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
+	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testRemovingExpiredGiftCardFromCheckout_2"];
+	}];
 	
 	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:@{ @"id" : self.giftCardIdExpired }];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
