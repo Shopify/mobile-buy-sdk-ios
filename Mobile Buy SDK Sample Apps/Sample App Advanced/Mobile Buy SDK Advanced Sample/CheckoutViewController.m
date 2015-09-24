@@ -255,8 +255,8 @@ NSString * const MerchantId = @"";
      *  If you keep self as the delegate, you have a chance to intercept the 
      *  PKPaymentAuthorizationViewControllerDelegate callbacks and add any additional logging 
      *  and method calls as you need. Ensure that you forward them to the BUYApplePayHelpers 
-     *  class by calling the delegate methods on BUYApplePayHelpers that already implements 
-     *  the PKPaymentAuthorizationViewControllerDelegate protocal.
+     *  class by calling the delegate methods on BUYApplePayHelpers which already implements 
+     *  the PKPaymentAuthorizationViewControllerDelegate protocol.
      *
      */
     
