@@ -26,11 +26,23 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSInteger, BUYThemeStyle) {
+/**
+ *  The theme style for the BUYProductViewController
+ */
+typedef NS_ENUM(NSInteger, BUYThemeStyle){
+	/**
+	 *  Light theme style, providing light backgrounds and light styled UIVisualEffectViews
+	 */
 	BUYThemeStyleLight,
+	/**
+	 *  Dark theme style, providing dark backgrounds and dark styled UIVisualEffectViews
+	 */
 	BUYThemeStyleDark
 };
 
+/**
+ *  This class provides properties used for theming the BUYProductViewController UI elements.
+ */
 @interface BUYTheme : NSObject
 
 /**

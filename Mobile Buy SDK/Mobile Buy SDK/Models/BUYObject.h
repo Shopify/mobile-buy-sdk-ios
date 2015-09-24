@@ -40,6 +40,10 @@
  */
 @property (nonatomic, strong, readonly) NSNumber *identifier;
 
+/**
+ *  Objects marked as "dirty" are unsynced with Shopify and will
+ *  sync on any calls to Shopify when updating a checkout.
+ */
 @property (nonatomic, readonly, getter=isDirty) BOOL dirty;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
