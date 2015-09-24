@@ -8,10 +8,12 @@
 
 @import UIKit;
 @import XCTest;
+
 #import <Buy/Buy.h>
 #import "BUYTestConstants.h"
 #import "BUYAddress+Additions.h"
 #import "BUYClientTestBase.h"
+#import "BUYCollection+Additions.h"
 
 @interface BUYClient ()
 
@@ -37,9 +39,11 @@
 
 @implementation BUYClientTest
 
-- (void)setUp {
-	
-	[super setUp];
+- (void)setupClient
+{
+	self.shopDomain = BUYShopDomain_Placeholder;
+	self.apiKey = BUYAPIKey_Placeholder;
+	self.channelId = BUYChannelId_Placeholder;
 	
 	self.client = [[BUYClient_Test alloc] initWithShopDomain:self.shopDomain apiKey:self.apiKey channelId:self.channelId];
 }
@@ -181,6 +185,64 @@
 	}];
 	
 	XCTAssertEqual(callbackCount, 2);
+	
+	[self testProductsInCollectionWithSortOrderCollectionDefault];
+}
+
+- (void)testProductsInCollectionWithSortOrderCollectionDefault
+{
+	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortCollectionDefault completion:nil];
+	
+	XCTAssertEqualObjects(task.originalRequest.URL.absoluteString, @"https://test_shop/api/channels/api_key/product_publications.json?collection_id=1&limit=25&page=1&sort_by=collection-default");
+}
+
+- (void)testProductsInCollectionWithSortOrderBestSelling
+{
+	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortBestSelling completion:nil];
+	
+	XCTAssertEqualObjects(task.originalRequest.URL.absoluteString, @"https://test_shop/api/channels/api_key/product_publications.json?collection_id=1&limit=25&page=1&sort_by=best-selling");
+}
+
+- (void)testProductsInCollectionWithSortOrderCreatedAscending
+{
+	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortCreatedAscending completion:nil];
+	
+	XCTAssertEqualObjects(task.originalRequest.URL.absoluteString, @"https://test_shop/api/channels/api_key/product_publications.json?collection_id=1&limit=25&page=1&sort_by=created-ascending");
+}
+
+- (void)testProductsInCollectionWithSortOrderCreatedDescending
+{
+	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortCreatedDescending completion:nil];
+	
+	XCTAssertEqualObjects(task.originalRequest.URL.absoluteString, @"https://test_shop/api/channels/api_key/product_publications.json?collection_id=1&limit=25&page=1&sort_by=created-descending");
+}
+
+- (void)testProductsInCollectionWithSortOrderPriceAscending
+{
+	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortPriceAscending completion:nil];
+	
+	XCTAssertEqualObjects(task.originalRequest.URL.absoluteString, @"https://test_shop/api/channels/api_key/product_publications.json?collection_id=1&limit=25&page=1&sort_by=price-ascending");
+}
+
+- (void)testProductsInCollectionWithSortOrderPriceDescending
+{
+	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortPriceDescending completion:nil];
+	
+	XCTAssertEqualObjects(task.originalRequest.URL.absoluteString, @"https://test_shop/api/channels/api_key/product_publications.json?collection_id=1&limit=25&page=1&sort_by=price-descending");
+}
+
+- (void)testProductsInCollectionWithSortOrderTitleAscending
+{
+	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortTitleAscending completion:nil];
+	
+	XCTAssertEqualObjects(task.originalRequest.URL.absoluteString, @"https://test_shop/api/channels/api_key/product_publications.json?collection_id=1&limit=25&page=1&sort_by=title-ascending");
+}
+
+- (void)testProductsInCollectionWithSortOrderTitleDescending
+{
+	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortTitleDescending completion:nil];
+	
+	XCTAssertEqualObjects(task.originalRequest.URL.absoluteString, @"https://test_shop/api/channels/api_key/product_publications.json?collection_id=1&limit=25&page=1&sort_by=title-descending");
 }
 
 @end
