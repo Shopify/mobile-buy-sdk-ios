@@ -29,13 +29,40 @@
 
 extern float const imageDuration;
 
+/**
+ *  Provides an easy way to asynchronously load images from a URL
+ */
 @interface BUYImageView : UIImageView <BUYThemeable>
 
 @property (nonatomic, assign) BOOL showsActivityIndicator;
 
+/**
+ *  Load an image asynchronously from a URL
+ *
+ *  @param imageURL   The URL to load the image from
+ *  @param completion Completion block returning the image or an error
+ */
 - (void)loadImageWithURL:(NSURL *)imageURL completion:(void (^)(UIImage *image, NSError *error))completion;
+
+/**
+ *  Load an image asynchronously from a URL and animate the transition
+ *
+ *  @param imageURL      The URL to load the image from
+ *  @param animateChange YES to animation the image transition
+ *  @param completion    Completion block returning the image or an error
+ */
 - (void)loadImageWithURL:(NSURL *)imageURL animateChange:(BOOL)animateChange completion:(void (^)(UIImage *image, NSError *error))completion;
+
+/**
+ *  Cancel the current image loading task
+ */
 - (void)cancelImageTask;
+
+/**
+ *  Check if the image is portrait or square - or landscape
+ *
+ *  @return Returns YES if the image is portrait or square, returns NO if the image is landscape
+ */
 - (BOOL)isPortraitOrSquare;
 
 @end

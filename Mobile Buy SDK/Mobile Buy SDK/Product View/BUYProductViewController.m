@@ -395,7 +395,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 			if (self.navigationBar) {
 				CGFloat duration = 0.3f;
 				if (self.navigationBar.alpha != 1 && [self navigationBarThresholdReached] == YES) {
-					[(BUYNavigationController*)self.navigationController updateCloseButtonImageWithDarkStyle:YES duration:duration];
+					[(BUYNavigationController*)self.navigationController updateCloseButtonImageWithTintColor:YES duration:duration];
 					[UIView animateWithDuration:duration
 										  delay:0
 										options:(UIViewAnimationOptionCurveLinear | UIViewKeyframeAnimationOptionBeginFromCurrentState)
@@ -407,7 +407,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 									 completion:NULL];
 				} else if (self.navigationBar.alpha != 0 && [self navigationBarThresholdReached] == NO)  {
 					duration = 0.2f;
-					[(BUYNavigationController*)self.navigationController updateCloseButtonImageWithDarkStyle:NO duration:duration];
+					[(BUYNavigationController*)self.navigationController updateCloseButtonImageWithTintColor:NO duration:duration];
 					[UIView animateWithDuration:duration
 										  delay:0
 										options:(UIViewAnimationOptionCurveLinear | UIViewKeyframeAnimationOptionBeginFromCurrentState)
@@ -421,7 +421,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 				[self.productView.productViewHeader.productViewHeaderOverlay scrollViewDidScroll:scrollView withNavigationBarHeight:CGRectGetHeight(self.navigationBar.bounds)];
 			}
 		} else if (self.productView.productViewHeader == nil && self.navigationBar && self.navigationBar.alpha == 0) {
-			[(BUYNavigationController*)self.navigationController updateCloseButtonImageWithDarkStyle:YES duration:0];
+			[(BUYNavigationController*)self.navigationController updateCloseButtonImageWithTintColor:YES duration:0];
 			self.navigationBar.alpha = 1;
 			self.navigationBarTitle.alpha = 1;
 			[self.productView setInsets:UIEdgeInsetsMake(CGRectGetHeight(self.navigationBar.bounds), 0, 0, 0) appendToCurrentInset:YES];
