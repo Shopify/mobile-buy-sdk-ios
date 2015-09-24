@@ -39,12 +39,17 @@
 
 - (BOOL)isEqual:(id)object
 {
-	if (self == object) return YES;
+	BOOL same = NO;
 	
-	if (![object isKindOfClass:self.class]) return NO;
+	if (self == object) {
+		same = YES;
+	}
+	else if ([object isKindOfClass:self.class]) {
 	
-	BOOL same = ([self.optionId isEqualToNumber:[object optionId]] &&
-				 [self.value isEqualToString:[object value]]);
+		BUYOptionValue *optionValue = (BUYOptionValue *)object;
+		same = ([self.optionId isEqualToNumber:optionValue.optionId] &&
+					 [self.value isEqualToString:optionValue.value]);
+	}
 	
 	return same;
 }
