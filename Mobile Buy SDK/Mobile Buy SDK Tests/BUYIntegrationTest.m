@@ -271,6 +271,8 @@
 		XCTAssertNotNil(returnedCheckout);
 		_checkout = returnedCheckout;
 		XCTAssertNotNil(_checkout.order.orderId);
+		XCTAssertNotNil(_checkout.order.statusURL);
+		XCTAssertNotNil(_checkout.order.name);
 		[expectation fulfill];
 		
 		[self confirmCreditCard];
