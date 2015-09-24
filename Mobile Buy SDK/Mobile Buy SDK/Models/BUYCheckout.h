@@ -31,9 +31,10 @@
 @class BUYCart;
 @class BUYCreditCard;
 @class BUYDiscount;
+@class BUYMaskedCreditCard;
+@class BUYOrder;
 @class BUYShippingRate;
 @class BUYTaxLine;
-@class BUYMaskedCreditCard;
 
 /**
  *  The checkout object. This is the main object that you will interact with when creating orders on Shopify.
@@ -56,11 +57,6 @@
  *  Unique token for a cart which can be used to convert to a checkout
  */
 @property (nonatomic, copy, readonly) NSString *cartToken;
-
-/**
- *  The unique order ID
- */
-@property (nonatomic, copy, readonly) NSNumber *orderId;
 
 /**
  *  States whether or not the fulfillment requires shipping
@@ -169,11 +165,6 @@
 @property (nonatomic, strong, readonly) NSArray *giftCards;
 
 /**
- *  URL for the website showing the order status
- */
-@property (nonatomic, strong, readonly) NSURL *orderStatusURL;
-
-/**
  *  Channel ID where the checkout was created
  */
 @property (nonatomic, strong) NSString *channelId;
@@ -247,6 +238,11 @@
 @property (nonatomic, copy, readonly) NSString *customerId;
 
 /**
+ *  The BUYOrder for a completed checkout
+ */
+@property (nonatomic, strong, readonly) BUYOrder *order;
+
+/**
  *  It is recommended to instantiate a checkout with a cart, or cart token
  *
  *  @return Checkout
@@ -277,5 +273,17 @@
  *  @return YES if the token is valid
  */
 - (BOOL)hasToken;
+
+#pragma mark - Deprecated properties
+
+/**
+ *  The unique order ID
+ */
+@property (nonatomic, copy, readonly) NSNumber *orderId DEPRECATED_MSG_ATTRIBUTE("Available on the BUYOrder object");
+
+/**
+ *  URL for the website showing the order status
+ */
+@property (nonatomic, strong, readonly) NSURL *orderStatusURL DEPRECATED_MSG_ATTRIBUTE("Available on the BUYOrder object");
 
 @end

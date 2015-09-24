@@ -41,6 +41,6 @@
  *
  *  @return YES on success
  */
-- (BOOL)testIntegration __attribute__((deprecated("Use testIntegrationWithMerchantId: instead")));
+- (BOOL)testIntegration DEPRECATED_MSG_ATTRIBUTE("Use testIntegrationWithMerchantId: instead");
 
 @end
