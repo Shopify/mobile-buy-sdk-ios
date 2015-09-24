@@ -24,9 +24,9 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/BUYAddress.h>
 #import <Buy/BUYCart.h>
 #import <Buy/BUYCheckout.h>
+#import <Buy/BUYAddress.h>
 #import <Buy/BUYCreditCard.h>
 #import <Buy/BUYDiscount.h>
 #import <Buy/BUYGiftCard.h>
