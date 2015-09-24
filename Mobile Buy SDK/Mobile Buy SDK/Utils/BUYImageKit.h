@@ -27,9 +27,18 @@
 @import Foundation;
 @import UIKit;
 
+/**
+ *  Image generator for a variety of images using the BUYProductViewController.
+ */
 @interface BUYImageKit : NSObject
 
-// Generated Images
+/**
+ *  Generate a close button for the variant selection navigation bar.
+ *
+ *  @param frame The frame size of the image
+ *
+ *  @return A close button image for the variant selector
+ */
 + (UIImage*)imageOfVariantCloseImageWithFrame: (CGRect)frame;
 + (UIImage*)imageOfPreviousSelectionIndicatorImageWithFrame: (CGRect)frame;
 + (UIImage*)imageOfDisclosureIndicatorImageWithFrame: (CGRect)frame color:(UIColor*)color;
