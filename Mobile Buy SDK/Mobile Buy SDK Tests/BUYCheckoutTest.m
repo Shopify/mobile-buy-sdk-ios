@@ -31,20 +31,20 @@
 
 - (void)testOrderStatusDeserializationWithInvalidURL
 {
-	BUYCheckout *checkout = [[BUYCheckout alloc] initWithDictionary:@{ @"order_status_url" : @"NOT REAL" }];
-	XCTAssertNil([checkout orderStatusURL]);
+	BUYCheckout *checkout = [[BUYCheckout alloc] initWithDictionary:@{ @"order" : @{ @"status_url" : @"NOT REAL" } }];
+	XCTAssertNil(checkout.order.statusURL);
 }
 
 - (void)testOrderStatusDeserializationWithValidURL
 {
-	BUYCheckout *checkout = [[BUYCheckout alloc] initWithDictionary:@{ @"order_status_url" : @"http://www.shopify.com/" }];
-	XCTAssertNotNil([checkout orderStatusURL]);
+	BUYCheckout *checkout = [[BUYCheckout alloc] initWithDictionary:@{ @"order" : @{ @"status_url" : @"http://www.shopify.com/" } }];
+	XCTAssertNotNil(checkout.order.statusURL);
 }
 
 - (void)testOrderStatusDeserializationWithNoURL
 {
 	BUYCheckout *checkout = [[BUYCheckout alloc] initWithDictionary:@{}];
-	XCTAssertNil([checkout orderStatusURL]);
+	XCTAssertNil(checkout.order.statusURL);
 }
 
 - (void)testInitWithCartAddsLineItems
