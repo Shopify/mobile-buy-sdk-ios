@@ -32,12 +32,41 @@
 
 @interface BUYProductViewFooter : UIView
 
+/**
+ *  A footer view for the BUYProductView that includes a checkout button and an Apple Pay button (if available)
+ *
+ *  @param theme The theme for the footer view
+ *
+ *  @return A footer view with a checkout and Apple Pay button
+ */
 - (instancetype)initWithTheme:(BUYTheme *)theme;
 
+/**
+ *  A checkout button themed with the BUYTheme tintColor. 
+ *  This button is used for web checkout
+ */
 @property (nonatomic, strong) BUYCheckoutButton *checkoutButton;
+
+/**
+ *  An Apple Pay button, shown if Apple Pay is enabled and available on the device.
+ *  The BUYPaymentButton is a PKPaymentButton on iOS 8.3 and greater.
+ *  Styled to match the given theme.
+ */
 @property (nonatomic, strong) BUYPaymentButton *buyPaymentButton;
 
+/**
+ *  Sets the Apple Pay visible (or hides it). This updates the layout for the buttons.
+ *
+ *  @param isApplePayAvailable True when the Apple Pay button is visible
+ */
 - (void)setApplePayButtonVisible:(BOOL)isApplePayAvailable;
+
+/**
+ *  Lowers the alpha and disable the buttons if the `available` property on the
+ *  BUYProductVariant is false.
+ *
+ *  @param productVariant The selected product variant that determines availability and functionality of the buttons.
+ */
 - (void)updateButtonsForProductVariant:(BUYProductVariant *)productVariant;
 
 @end

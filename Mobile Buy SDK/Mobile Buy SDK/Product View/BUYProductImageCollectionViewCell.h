@@ -27,12 +27,31 @@
 #import <UIKit/UIKit.h>
 @class BUYImageView;
 
+/**
+ *  A custom collection view cell for the BUYProductViewController's product image(s)
+ */
 @interface BUYProductImageCollectionViewCell : UICollectionViewCell
 
+/**
+ *  The image view containing a product image
+ */
 @property (nonatomic, strong) BUYImageView *productImageView;
+
+/**
+ *  The height to display the product image
+ */
 @property (nonatomic, strong) NSLayoutConstraint *productImageViewConstraintHeight;
+
+/**
+ *  The bottom contraints which takes care of the parallax effect when scrolling up
+ */
 @property (nonatomic, strong) NSLayoutConstraint *productImageViewConstraintBottom;
 
+/**
+ *  Forward the BUYProductViewController's table view scroll content offset to adjust the image height and parallax effect
+ *
+ *  @param offset The current table view content offset
+ */
 - (void)setContentOffset:(CGPoint)offset;
 
 @end

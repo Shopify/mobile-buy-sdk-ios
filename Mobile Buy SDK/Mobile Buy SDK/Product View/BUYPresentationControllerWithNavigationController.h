@@ -29,10 +29,20 @@
 
 @protocol BUYPresentationControllerWithNavigationControllerDelegate;
 
+/**
+ *  Initialized the BUYProductViewController inside a navigation controller (`BUYNavigationController`).
+ */
 @interface BUYPresentationControllerWithNavigationController : UIPresentationController <UIAdaptivePresentationControllerDelegate, BUYThemeable>
 
 @property (nonatomic, weak) id <BUYNavigationControllerDelegate> navigationDelegate;
 
+/**
+ *  The desired presentation style
+ *  iPad:   UIModalPresentationFormSheet
+ *  iPhone: UIModalPresentationFullScreen
+ *
+ *  @return Returns the desired presentation style based on the user interface idiom
+ */
 + (UIModalPresentationStyle)adaptivePresentationStyle;
 
 @end
