@@ -185,7 +185,7 @@
 																		   views:NSDictionaryOfVariableBindings(_topGradientView)]];
 		}
 		
-		_theme = theme;
+		self.theme = theme;
 	}
 	return self;
 }
