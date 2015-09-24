@@ -27,8 +27,16 @@
 #import <UIKit/UIKit.h>
 #import "BUYTheme.h"
 
+/**
+ *  A themed UIButton that includes a UIActivityIndicator
+ */
 @interface BUYCheckoutButton : UIButton <BUYThemeable>
 
+/**
+ *  Show a UIActivityIndicator in place of text while loading
+ *
+ *  @param show Show or hide the UIActivityIndicator
+ */
 - (void)showActivityIndicator:(BOOL)show;
 
 @end

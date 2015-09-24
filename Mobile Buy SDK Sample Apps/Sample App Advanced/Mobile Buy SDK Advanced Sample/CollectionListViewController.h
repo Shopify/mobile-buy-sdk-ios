@@ -1,6 +1,6 @@
 //
-//  ViewController.h
-//  Mobile Buy SDK
+//  CollectionListViewController.h
+//  Mobile Buy SDK Advanced Sample
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -24,11 +24,8 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
-@interface ViewController : UITableViewController
-
-- (void)getCheckoutStatusWithURL:(NSURL *)url;
+@interface CollectionListViewController : UITableViewController
 
 @end
-

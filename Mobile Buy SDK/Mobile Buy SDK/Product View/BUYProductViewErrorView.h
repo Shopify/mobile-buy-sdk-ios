@@ -27,12 +27,33 @@
 #import <UIKit/UIKit.h>
 @class BUYTheme;
 
+/**
+ *  A customer toast error view to use in the BUYProductView.
+ */
 @interface BUYProductViewErrorView : UIView
 
+/**
+ *  The label containing the error message.
+ */
 @property (nonatomic, strong) UILabel *errorLabel;
+
+/**
+ *  The Auto Layout constraint for when the error message is hidden.
+ */
 @property (nonatomic, strong) NSLayoutConstraint *hiddenConstraint;
+
+/**
+ *  The Auto Layout constraint for when the error message is visible.
+ */
 @property (nonatomic, strong) NSLayoutConstraint *visibleConstraint;
 
+/**
+ *  Initializer that create an error view with a theme.
+ *
+ *  @param theme The theme for the error view.
+ *
+ *  @return An error view.
+ */
 - (instancetype)initWithTheme:(BUYTheme*)theme;
 
 @end

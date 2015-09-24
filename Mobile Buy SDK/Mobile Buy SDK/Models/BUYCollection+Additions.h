@@ -29,6 +29,13 @@
 
 @interface BUYCollection (Additions)
 
+/**
+ *  Converts the BUYCollectionSort enum to an API-compatible string for the collection sort parameter
+ *
+ *  @param sort BUYCollectionSort enum
+ *
+ *  @return API-compatible string for the collection sort parameter
+ */
 +(NSString *)sortOrderParameterForCollectionSort:(BUYCollectionSort)sort;
 
 @end
