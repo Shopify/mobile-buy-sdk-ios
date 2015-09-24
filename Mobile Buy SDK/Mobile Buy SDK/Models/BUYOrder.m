@@ -1,5 +1,5 @@
 //
-//  Buy.h
+//  BUYOrder.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,33 +24,25 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/BUYAddress.h>
-#import <Buy/BUYCart.h>
-#import <Buy/BUYCheckout.h>
-#import <Buy/BUYCreditCard.h>
-#import <Buy/BUYDiscount.h>
-#import <Buy/BUYGiftCard.h>
-#import <Buy/BUYLineItem.h>
-#import <Buy/BUYClient.h>
-#import <Buy/BUYClient+Test.h>
-#import <Buy/BUYImage.h>
-#import <Buy/BUYOption.h>
-#import <Buy/BUYOptionValue.h>
-#import <Buy/BUYOrder.h>
-#import <Buy/BUYProduct.h>
-#import <Buy/BUYProductVariant.h>
-#import <Buy/BUYShippingRate.h>
-#import <Buy/BUYShop.h>
-#import <Buy/BUYStoreViewController.h>
-#import <Buy/BUYTaxLine.h>
-#import <Buy/BUYViewController.h>
-#import <Buy/BUYApplePayAdditions.h>
-#import <Buy/BUYApplePayHelpers.h>
-#import <Buy/BUYPaymentButton.h>
-#import <Buy/BUYProductViewController.h>
-#import <Buy/BUYTheme.h>
-#import <Buy/BUYCartLineItem.h>
-#import <Buy/BUYCollection.h>
-#import <Buy/BUYMaskedCreditCard.h>
-#import <Buy/BuyError.h>
-#import <Buy/Buy-Bridging-Header.h>
+#import "BUYOrder.h"
+#import "NSURL+BUYAdditions.h"
+
+@interface BUYOrder ()
+
+@property (nonatomic, copy) NSNumber *orderId;
+@property (nonatomic, strong) NSURL *statusURL;
+@property (nonatomic, strong) NSString *name;
+
+@end
+
+@implementation BUYOrder
+
+- (void)updateWithDictionary:(NSDictionary *)dictionary
+{
+	self.orderId = [dictionary[@"id"] isKindOfClass:[NSNull class]] ? nil : dictionary[@"id"];
+	NSString *statusURLString = dictionary[@"status_url"];
+	self.statusURL = [NSURL buy_urlWithString:statusURLString];
+	self.name = [dictionary[@"name"] isKindOfClass:[NSNull class]] ? nil : dictionary[@"name"];
+}
+
+@end
