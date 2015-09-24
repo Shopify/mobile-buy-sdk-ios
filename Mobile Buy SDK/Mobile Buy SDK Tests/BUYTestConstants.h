@@ -14,7 +14,7 @@
 #define kBUYTestAPIKey @"api_key"
 #define kBUYTestChannelId @"channel_id"
 #define kBUYTestMerchantId @"merchant_id"
-#define kBUYTestGiftCardCode10 @"gift_card_code_10"
+#define kBUYTestGiftCardCode11 @"gift_card_code_11"
 #define kBUYTestGiftCardCode25 @"gift_card_code_25"
 #define kBUYTestGiftCardCode50 @"gift_card_code_50"
 #define kBUYTestInvalidGiftCardCode @"invalid_gift_card_code"
