@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   s.version      = '1.1.5'
   s.summary      = 'Sell with Shopify in iOS apps'
   s.description  = 'Shopify’s Mobile Buy SDK makes it simple to sell physical products inside your mobile app. With a few lines of code, you can connect your app with the Shopify platform and let your users buy your products using Apple Pay or their credit card.'
-  s.homepage     = 'https://docs.shopify.com/mobile-buy-sdk/ios'
+  s.homepage     = 'https://developers.shopify.com/mobile-buy-sdk'
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.author       = 'Shopify Inc.'
   s.platform     = :ios, '8.0'
