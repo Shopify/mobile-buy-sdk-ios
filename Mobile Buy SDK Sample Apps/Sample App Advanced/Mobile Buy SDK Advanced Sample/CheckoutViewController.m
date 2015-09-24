@@ -245,16 +245,18 @@ NSString * const MerchantId = @"";
     
     /**
      *  Alternatively we can set the delegate to self.applePayHelper.
-     *  This makes the PKPaymentAuthorizationViewControllerDelegate methods below
-     *  unnecessary as the BUYApplePayHelpers class implements the methods.
-     *  As in the below example implement the PKPaymentAuthorizationViewControllerDelegate
-     *  methods and forward them to the BUYApplePayHelpers class. You are then free to
-     *  intercept the callbacks and add any additional logging and methods calls as you need.
-     *
      *  If you do not care about any PKPaymentAuthorizationViewControllerDelegate callbacks
-     *  uncomment the code below to let BUYApplePayHelpers take care of automatically.
+     *  uncomment the code below to let BUYApplePayHelpers take care of them automatically.
+     *  You can then also safely remove the PKPaymentAuthorizationViewControllerDelegate 
+     *  methods below.
      *
      *  // paymentController.delegate = self.applePayHelper
+     *
+     *  If you keep self as the delegate, you have a chance to intercept the 
+     *  PKPaymentAuthorizationViewControllerDelegate callbacks and add any additional logging 
+     *  and method calls as you need. Ensure that you forward them to the BUYApplePayHelpers 
+     *  class by calling the delegate methods on BUYApplePayHelpers that already implements 
+     *  the PKPaymentAuthorizationViewControllerDelegate protocal.
      *
      */
     
