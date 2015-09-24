@@ -9,6 +9,10 @@
 @import XCTest;
 #import <Buy/Buy.h>
 
+extern NSString * const BUYShopDomain_Placeholder;
+extern NSString * const BUYAPIKey_Placeholder;
+extern NSString * const BUYChannelId_Placeholder;
+
 @interface BUYClientTestBase : XCTestCase
 
 @property (nonatomic, strong) NSString *shopDomain;
@@ -26,5 +30,7 @@
 @property (nonatomic, strong) NSArray *productIds;
 
 @property (nonatomic, strong) BUYClient *client;
+
+@property (nonatomic, assign) BOOL shouldUseMocks;
 
 @end

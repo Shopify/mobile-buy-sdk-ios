@@ -158,9 +158,9 @@ NSString * const MerchantId = @"";
     BUYCreditCard *creditCard = [[BUYCreditCard alloc] init];
     creditCard.number = @"4242424242424242";
     creditCard.expiryMonth = @"12";
-    creditCard.expiryYear = @"20";
+    creditCard.expiryYear = @"2020";
     creditCard.cvv = @"123";
-    creditCard.nameOnCard = @"Dinosaur Banana";
+    creditCard.nameOnCard = @"John Smith";
     
     return creditCard;
 }

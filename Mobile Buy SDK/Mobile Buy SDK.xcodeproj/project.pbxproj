@@ -59,6 +59,7 @@
 		90A446251B5EC03F009602AA /* NSDateFormatter+BUYAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 90A446231B5EC03F009602AA /* NSDateFormatter+BUYAdditions.h */; };
 		90A446261B5EC03F009602AA /* NSDateFormatter+BUYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A446241B5EC03F009602AA /* NSDateFormatter+BUYAdditions.m */; };
 		90BBCD731B87B6BA00FCCE51 /* BUYPKContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BBCD701B87B6AB00FCCE51 /* BUYPKContact.m */; };
+		90C27AAF1BB2E8F3008AF7A4 /* libOHHTTPStubs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE98DB501BB1ED5500C29564 /* libOHHTTPStubs.a */; };
 		90DE92701B9897B6002EF4DA /* BUYVariantOptionBreadCrumbsView.h in Headers */ = {isa = PBXBuildFile; fileRef = 90DE926E1B9897B6002EF4DA /* BUYVariantOptionBreadCrumbsView.h */; };
 		90DE92711B9897B6002EF4DA /* BUYVariantOptionBreadCrumbsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DE926F1B9897B6002EF4DA /* BUYVariantOptionBreadCrumbsView.m */; };
 		90F593041B0D5F4C0026B382 /* BUYIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592F81B0D5F4C0026B382 /* BUYIntegrationTest.m */; };
@@ -87,7 +88,10 @@
 		BE5DC3641B71022D00B2BC1E /* BUYMaskedCreditCard.m in Sources */ = {isa = PBXBuildFile; fileRef = BE5DC3621B71022D00B2BC1E /* BUYMaskedCreditCard.m */; };
 		BE5DC3A01B71B13700B2BC1E /* NSURL+BUYAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = BE5DC39E1B71B13700B2BC1E /* NSURL+BUYAdditions.h */; };
 		BE5DC3A11B71B13700B2BC1E /* NSURL+BUYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BE5DC39F1B71B13700B2BC1E /* NSURL+BUYAdditions.m */; };
+		BE6C07061BB1E46900BD9F7B /* mocked_responses.json in Resources */ = {isa = PBXBuildFile; fileRef = BE6C07051BB1E46900BD9F7B /* mocked_responses.json */; };
 		BE94966A1B45CD0500B38949 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AB6AB819CFCE6A00115224 /* libstdc++.dylib */; };
+		BE98DB4F1BB1ED3E00C29564 /* OHHTTPStubs in Resources */ = {isa = PBXBuildFile; fileRef = BE98DB4E1BB1ED3E00C29564 /* OHHTTPStubs */; settings = {ASSET_TAGS = (); }; };
+		BE98DB5C1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = BE98DB5B1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.m */; settings = {ASSET_TAGS = (); }; };
 		BE9A643F1B503C2F0033E558 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9A64281B503C2F0033E558 /* Buy.framework */; };
 		BE9A64471B503C8B0033E558 /* BUYClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F7FDA17019C93F6F00AF4E93 /* BUYClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BE9A64481B503C900033E558 /* BUYClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDA17119C93F6F00AF4E93 /* BUYClient.m */; };
@@ -356,6 +360,8 @@
 		BE5DC3621B71022D00B2BC1E /* BUYMaskedCreditCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYMaskedCreditCard.m; sourceTree = "<group>"; };
 		BE5DC39E1B71B13700B2BC1E /* NSURL+BUYAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+BUYAdditions.h"; sourceTree = "<group>"; };
 		BE5DC39F1B71B13700B2BC1E /* NSURL+BUYAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+BUYAdditions.m"; sourceTree = "<group>"; };
+		BE6C07031BB1DE1D00BD9F7B /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = "Mobile Buy SDK Tests/OHHTTPStubs.framework"; sourceTree = "<group>"; };
+		BE6C07051BB1E46900BD9F7B /* mocked_responses.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mocked_responses.json; sourceTree = "<group>"; };
 		BE6C5E701B1CF776003AD9D0 /* BUYCheckout+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BUYCheckout+Additions.h"; sourceTree = "<group>"; };
 		BE6C5E711B1CF776003AD9D0 /* BUYCheckout+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYCheckout+Additions.m"; sourceTree = "<group>"; };
 		BE9496681B45CCF400B38949 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
@@ -365,6 +371,10 @@
 		BE9496B11B4D96D800B38949 /* BUYVariantSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYVariantSelectionViewController.m; sourceTree = "<group>"; };
 		BE9496B61B4D96F100B38949 /* BUYProduct+Options.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BUYProduct+Options.h"; sourceTree = "<group>"; };
 		BE9496B71B4D96F100B38949 /* BUYProduct+Options.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYProduct+Options.m"; sourceTree = "<group>"; };
+		BE98DB4E1BB1ED3E00C29564 /* OHHTTPStubs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = OHHTTPStubs; path = "Mobile Buy SDK Tests/OHHTTPStubs"; sourceTree = "<group>"; };
+		BE98DB501BB1ED5500C29564 /* libOHHTTPStubs.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOHHTTPStubs.a; path = "Mobile Buy SDK Tests/OHHTTPStubs/libOHHTTPStubs.a"; sourceTree = "<group>"; };
+		BE98DB5A1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OHHTTPStubsResponse+Helpers.h"; sourceTree = "<group>"; };
+		BE98DB5B1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OHHTTPStubsResponse+Helpers.m"; sourceTree = "<group>"; };
 		BE9A639D1B500B360033E558 /* Buy-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "Buy-Bridging-Header.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		BE9A64281B503C2F0033E558 /* Buy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Buy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE9A642B1B503C2F0033E558 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -409,6 +419,7 @@
 			files = (
 				BEB74A841B557BBE0005A300 /* Buy.framework in Frameworks */,
 				BE94966A1B45CD0500B38949 /* libstdc++.dylib in Frameworks */,
+				90C27AAF1BB2E8F3008AF7A4 /* libOHHTTPStubs.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,6 +444,9 @@
 		547B8D0CCDB9458C800F1E3C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BE98DB501BB1ED5500C29564 /* libOHHTTPStubs.a */,
+				BE98DB4E1BB1ED3E00C29564 /* OHHTTPStubs */,
+				BE6C07031BB1DE1D00BD9F7B /* OHHTTPStubs.framework */,
 				BE9496681B45CCF400B38949 /* libc++.dylib */,
 				90BC07F71AE0440F005D1195 /* AddressBook.framework */,
 				90BC07F51AE043FD005D1195 /* Foundation.framework */,
@@ -479,7 +493,10 @@
 				90F593001B0D5F4C0026B382 /* BUYTestConstants.h */,
 				906CF1AE1B8B660F001F7D5B /* PKContact Test Objects */,
 				90F592EE1B0D5EFE0026B382 /* Supporting Files */,
+				BE6C07051BB1E46900BD9F7B /* mocked_responses.json */,
 				BEB9AE721BA73E6C00575F8A /* test_shop_data.json */,
+				BE98DB5A1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.h */,
+				BE98DB5B1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.m */,
 			);
 			path = "Mobile Buy SDK Tests";
 			sourceTree = "<group>";
@@ -1000,6 +1017,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BEB9AE781BA8627B00575F8A /* test_shop_data.json in Resources */,
+				BE98DB4F1BB1ED3E00C29564 /* OHHTTPStubs in Resources */,
+				BE6C07061BB1E46900BD9F7B /* mocked_responses.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1052,6 +1071,7 @@
 				90BBCD731B87B6BA00FCCE51 /* BUYPKContact.m in Sources */,
 				906CF1B11B8B66AE001F7D5B /* BUYCNPostalAddress.m in Sources */,
 				906CF1AD1B8B5F7D001F7D5B /* BUYNSPersonNameComponents.m in Sources */,
+				BE98DB5C1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1204,10 +1224,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ENABLE_CODE_COVERAGE = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"\"$(PROJECT_DIR)/Mobile Buy SDK Tests\"/**",
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1218,6 +1240,10 @@
 				INFOPLIST_FILE = "Mobile Buy SDK Tests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(PROJECT_DIR)/Mobile Buy SDK Tests/OHHTTPStubs\"",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -1232,17 +1258,23 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ENABLE_CODE_COVERAGE = NO;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"\"$(PROJECT_DIR)/Mobile Buy SDK Tests\"/**",
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}\"/**";
 				INFOPLIST_FILE = "Mobile Buy SDK Tests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(PROJECT_DIR)/Mobile Buy SDK Tests/OHHTTPStubs\"",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
