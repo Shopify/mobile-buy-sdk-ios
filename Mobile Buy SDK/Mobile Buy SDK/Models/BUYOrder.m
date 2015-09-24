@@ -1,5 +1,5 @@
 //
-//  BUYProductViewErrorView.h
+//  BUYOrder.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,36 +24,25 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
-@class BUYTheme;
+#import "BUYOrder.h"
+#import "NSURL+BUYAdditions.h"
 
-/**
- *  A customer toast error view to use in the BUYProductView.
- */
-@interface BUYProductViewErrorView : UIView
+@interface BUYOrder ()
 
-/**
- *  The label containing the error message.
- */
-@property (nonatomic, strong) UILabel *errorLabel;
+@property (nonatomic, copy) NSNumber *orderId;
+@property (nonatomic, strong) NSURL *statusURL;
+@property (nonatomic, strong) NSString *name;
 
-/**
- *  The Auto Layout constraint for when the error message is hidden.
- */
-@property (nonatomic, strong) NSLayoutConstraint *hiddenConstraint;
+@end
 
-/**
- *  The Auto Layout constraint for when the error message is visible.
- */
-@property (nonatomic, strong) NSLayoutConstraint *visibleConstraint;
+@implementation BUYOrder
 
-/**
- *  Initializer that create an error view with a theme.
- *
- *  @param theme The theme for the error view.
- *
- *  @return An error view.
- */
-- (instancetype)initWithTheme:(BUYTheme*)theme;
+- (void)updateWithDictionary:(NSDictionary *)dictionary
+{
+	self.orderId = [dictionary[@"id"] isKindOfClass:[NSNull class]] ? nil : dictionary[@"id"];
+	NSString *statusURLString = dictionary[@"status_url"];
+	self.statusURL = [NSURL buy_urlWithString:statusURLString];
+	self.name = [dictionary[@"name"] isKindOfClass:[NSNull class]] ? nil : dictionary[@"name"];
+}
 
 @end

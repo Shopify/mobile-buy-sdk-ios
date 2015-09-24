@@ -49,10 +49,10 @@
 	return self;
 }
 
-- (void)updateCloseButtonImageWithDarkStyle:(BOOL)darkStyle duration:(CGFloat)duration
+- (void)updateCloseButtonImageWithTintColor:(BOOL)tintColor duration:(CGFloat)duration
 {
 	UIButton *button = (UIButton*)self.topViewController.navigationItem.leftBarButtonItem.customView;
-	UIImage *newButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:button.bounds color:darkStyle ? self.theme.tintColor : [UIColor whiteColor] hasShadow:darkStyle == NO];
+	UIImage *newButtonImage = [BUYImageKit imageOfProductViewCloseImageWithFrame:button.bounds color:tintColor ? self.theme.tintColor : [UIColor whiteColor] hasShadow:tintColor == NO];
 	[UIView transitionWithView:button.imageView
 					  duration:duration
 					   options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState)
@@ -86,7 +86,7 @@
 {
 	_theme = theme;
 	self.navigationBar.barStyle = [theme navigationBarStyle];
-	[self updateCloseButtonImageWithDarkStyle:NO duration:0];
+	[self updateCloseButtonImageWithTintColor:NO duration:0];
 	[[UINavigationBar appearanceWhenContainedIn:[BUYNavigationController class], nil] setTitleTextAttributes:@{ NSForegroundColorAttributeName: [theme navigationBarTitleColor] }];
 }
 

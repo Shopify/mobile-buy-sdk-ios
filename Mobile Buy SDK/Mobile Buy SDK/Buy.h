@@ -36,6 +36,7 @@
 #import <Buy/BUYImage.h>
 #import <Buy/BUYOption.h>
 #import <Buy/BUYOptionValue.h>
+#import <Buy/BUYOrder.h>
 #import <Buy/BUYProduct.h>
 #import <Buy/BUYProductVariant.h>
 #import <Buy/BUYShippingRate.h>

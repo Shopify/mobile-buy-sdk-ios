@@ -26,9 +26,19 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ *  Easily create a view with a vertical gradient with two colors
+ */
 @interface BUYGradientView : UIView
 
+/**
+ *  The color of the top part of the gradient
+ */
 @property (nonatomic, strong) UIColor *topColor;
+
+/**
+ *  The color of the bottom part of the gradient
+ */
 @property (nonatomic, strong) UIColor *bottomColor;
 
 @end

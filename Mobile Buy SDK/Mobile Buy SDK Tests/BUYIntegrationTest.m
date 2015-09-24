@@ -15,6 +15,8 @@
 #import "BUYCheckout_Private.h"
 #import "BUYClient+Test.h"
 #import "BUYClientTestBase.h"
+#import <OHHTTPStubs/OHHTTPStubs.h>
+#import "OHHTTPStubsResponse+Helpers.h"
 
 @interface BUYIntegrationTest : BUYClientTestBase
 @end
@@ -43,6 +45,12 @@
 
 - (void)fetchProducts
 {
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testGetProductPage_0"];
+	}];
+	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
 	[self.client getProductsByIds:self.productIds completion:^(NSArray *products, NSError *error) {
@@ -70,6 +78,12 @@
 
 - (void)createCheckout
 {
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_1"];
+	}];
+	
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	_checkout.shippingAddress = [self shippingAddress];
 	_checkout.billingAddress = [self billingAddress];
@@ -84,12 +98,18 @@
 	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
 		XCTAssertNil(error);
 	}];
-	XCTAssertEqualObjects(_checkout.shippingAddress.address1, @"126 York Street");
+	XCTAssertEqualObjects(_checkout.shippingAddress.address1, @"150 Elgin Street");
 	XCTAssertEqualObjects(_checkout.billingAddress.address1, @"150 Elgin Street");
 }
 
 - (void)fetchShippingRates
 {
+	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_2"];
+	}];
 	__block BUYStatus shippingStatus = BUYStatusUnknown;
 	
 	do {
@@ -121,7 +141,12 @@
 
 - (void)updateCheckout
 {
-	_checkout.email = @"banana@testasaurus.com";
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_3"];
+	}];
+	_checkout.email = @"test@test.com";
 	_checkout.shippingRate = _shippingRates[0];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client updateCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
@@ -135,11 +160,17 @@
 	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
 		XCTAssertNil(error);
 	}];
-	XCTAssertEqualObjects(_checkout.email, @"banana@testasaurus.com");
+	XCTAssertEqualObjects(_checkout.email, @"test@test.com");
 }
 
 - (void)addCreditCardToCheckout
 {
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_4"];
+	}];
+	
 	BUYCreditCard *creditCard = [self creditCard];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
@@ -160,16 +191,22 @@
 {
 	BUYCreditCard *creditCard = [[BUYCreditCard alloc] init];
 	creditCard.number = @"4242424242424242";
-	creditCard.expiryMonth = @"12";
-	creditCard.expiryYear = @"20";
+	creditCard.expiryMonth = @"5";
+	creditCard.expiryYear = @"2020";
 	creditCard.cvv = @"123";
-	creditCard.nameOnCard = @"Dinosaur Banana";
+	creditCard.nameOnCard = @"John Smith";
 	
 	return creditCard;
 }
 
 - (void)completeCheckout
 {
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_5"];
+	}];
+	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client completeCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
@@ -185,6 +222,12 @@
 
 - (void)pollUntilCheckoutIsComplete
 {
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_6"];
+	}];
+	
 	__block BUYStatus checkoutStatus = BUYStatusUnknown;
 	__block NSError *checkoutError = nil;
 	
@@ -214,13 +257,22 @@
 
 - (void)verifyCompletedCheckout
 {
-	XCTAssertNil(_checkout.orderId);
+	XCTAssertNil(_checkout.order.orderId);
+	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_7"];
+	}];
+	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client getCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
 		_checkout = returnedCheckout;
-		XCTAssertNotNil(_checkout.orderId);
+		XCTAssertNotNil(_checkout.order.orderId);
+		XCTAssertNotNil(_checkout.order.statusURL);
+		XCTAssertNotNil(_checkout.order.name);
 		[expectation fulfill];
 		
 		[self confirmCreditCard];
@@ -228,7 +280,7 @@
 	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
 		XCTAssertNil(error);
 	}];
-	XCTAssertNotNil(_checkout.orderId);
+	XCTAssertNotNil(_checkout.order.orderId);
 }
 
 - (void)confirmCreditCard
@@ -241,11 +293,10 @@
 	XCTAssertEqualObjects(maskedCard.lastName, names.lastObject);
 	
 	XCTAssertEqual(maskedCard.expiryMonth.integerValue, creditCard.expiryMonth.integerValue);
-	XCTAssertEqual(maskedCard.expiryYear.integerValue%2000, creditCard.expiryYear.integerValue);
+	XCTAssertEqual(maskedCard.expiryYear.integerValue, creditCard.expiryYear.integerValue);
 
 	XCTAssertEqualObjects(maskedCard.firstDigits, [creditCard.number substringWithRange:NSMakeRange(0, 6)]);
 	XCTAssertEqualObjects(maskedCard.lastDigits, [creditCard.number substringWithRange:NSMakeRange(12, 4)]);
-
 }
 
 #pragma mark - Tests
@@ -255,11 +306,18 @@
 	[self createCart];
 	[self createCheckout];
 	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testApplyingGiftCardToCheckout_2"];
+	}];
+	
 	// Check that we have a checkout with a paymentDue greater than 10
-	XCTAssertGreaterThan([_checkout.paymentDue integerValue], 10);
+	XCTAssertGreaterThan([_checkout.paymentDue integerValue], 11);
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	
 	[self.client applyGiftCardWithCode:self.giftCardCode toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 
 		XCTAssertNil(error);
@@ -268,7 +326,7 @@
 		XCTAssertNotNil(_giftCard);
 		XCTAssertEqualObjects([self.giftCardCode substringWithRange:NSMakeRange(self.giftCardCode.length - 4, 4)], _giftCard.lastCharacters);
 		
-		NSDecimalNumber *amountUsed = [NSDecimalNumber decimalNumberWithString:@"10.00"];
+		NSDecimalNumber *amountUsed = [NSDecimalNumber decimalNumberWithString:@"11.00"];
 		NSComparisonResult result = [_giftCard.amountUsed compare:amountUsed];
 		XCTAssertEqual(result, NSOrderedSame);
 		
@@ -292,6 +350,12 @@
 	XCTAssertGreaterThan([_checkout.paymentDue integerValue], 1);
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
 	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testApplyingInvalidGiftCardToCheckout_2"];
+	}];
+	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client applyGiftCardWithCode:@"000" toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		XCTAssertNotNil(error);
@@ -313,6 +377,12 @@
 	[self createCheckout];
 	
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
+	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testApplyingInvalidGiftCardToCheckout_2"];
+	}];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client applyGiftCardWithCode:self.giftCardCodeExpired toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
@@ -337,6 +407,12 @@
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
 	NSDecimalNumber *giftCardValue = [giftCard.amountUsed copy];
 	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testRemovingGiftCardFromCheckout_3"];
+	}];
+	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client removeGiftCard:giftCard fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
@@ -360,6 +436,12 @@
 	
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
 	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testRemovingInvalidGiftCardFromCheckout_2"];
+	}];
+	
 	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:@{ @"id" : @"000" }];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client removeGiftCard:giftCard fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
@@ -381,6 +463,12 @@
 	[self testApplyingGiftCardToCheckout];
 	
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
+	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testRemovingExpiredGiftCardFromCheckout_2"];
+	}];
 	
 	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:@{ @"id" : self.giftCardIdExpired }];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
@@ -404,6 +492,12 @@
 	XCTAssertEqual([_checkout.giftCards count], 1);
 	
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
+	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testApplyingTwoGiftCardsToCheckout_3"];
+	}];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client applyGiftCardWithCode:self.giftCardCode2 toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
@@ -431,6 +525,12 @@
 	XCTAssertEqual([_checkout.giftCards count], 2);
 	
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
+	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testApplyingThreeGiftCardsToCheckout_4"];
+	}];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client applyGiftCardWithCode:self.giftCardCode3 toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
@@ -461,6 +561,12 @@
 	
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
 	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testRemovingSecondGiftCard_5"];
+	}];
+	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client removeGiftCard:giftCard2 fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
@@ -489,6 +595,12 @@
 	BUYGiftCard *giftCard1 = _checkout.giftCards[0];
 	
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
+	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testRemovingFirstGiftCard_5"];
+	}];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client removeGiftCard:giftCard1 fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
@@ -519,6 +631,12 @@
 	
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
 	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testRemovingAllGiftCards_7"];
+	}];
+	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client removeGiftCard:giftCard3 fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
@@ -536,30 +654,17 @@
 	}];
 }
 
-- (void)testCheckoutWithoutAuthToken
-{
-	[self createCart];
-	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
-	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	
-	self.client = [[BUYClient alloc] initWithShopDomain:self.shopDomain apiKey:@"" channelId:nil];
-	[self.client createCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
-		XCTAssertNotNil(error);
-		XCTAssertEqualObjects(error.domain, @"shopify");
-		XCTAssertEqual(error.code, 401);
-		[expectation fulfill];
-	}];
-	
-	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
-		XCTAssertNil(error);
-	}];
-}
-
 - (void)testCheckoutWithInvalidShop
 {
 	[self createCart];
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testInvalidIntegrationBadShopUrl_0"];
+	}];
 	
 	self.client = [[BUYClient alloc] initWithShopDomain:@"asdfdsasdfdsasdfdsadsfowinfaoinfw.myshopify.com" apiKey:self.apiKey channelId:nil];
 	[self.client createCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
@@ -577,6 +682,12 @@
 
 - (void)testFetchingShippingRatesWithoutShippingAddressShouldReturnPreconditionFailed
 {
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testFetchingShippingRatesWithoutShippingAddress_1"];
+	}];
+	
 	[self createCart];
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
@@ -593,6 +704,12 @@
 		XCTAssertNil(error);
 	}];
 	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testFetchingShippingRatesWithoutShippingAddress_2"];
+	}];
+	
 	XCTestExpectation *expectation2 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
 	[self.client getShippingRatesForCheckout:_checkout completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
@@ -607,6 +724,12 @@
 
 - (void)testFetchingShippingRatesForInvalidCheckoutShouldReturnNotFound
 {
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testFetchingShippingRatesWithInvalidCheckout_1"];
+	}];
+	
 	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:nil];
 	checkout.token = @"bananaaaa";
 	
@@ -633,11 +756,18 @@
 	[self verifyCompletedCheckout];
 }
 
+// TODO: NO TEST IN JSON: TEST WAS ADDED
 - (void)testCheckoutWithAPartialAddress
 {
 	[self createCart];
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	_checkout.shippingAddress = [self partialShippingAddress];
+	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutWithAPartialAddress"];
+	}];
 	
 	//Create the checkout
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
@@ -673,6 +803,12 @@
 {
 	[self createCart];
 	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCreateCheckoutWithValidDiscount_2"];
+	}];
+	
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	_checkout.discount = [self applicableDiscount];
 	
@@ -700,6 +836,12 @@
 {
 	[self createCart];
 	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCreateCheckoutWithExpiredDiscount_1"];
+	}];
+	
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	_checkout.discount = [self inapplicableDiscount];
 	
@@ -719,6 +861,12 @@
 - (void)testCheckoutCreationWithNonExistentDiscount
 {
 	[self createCart];
+	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCreateCheckoutWithNonExistentDiscount_1"];
+	}];
 	
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	_checkout.discount = [self nonExistentDiscount];
@@ -742,6 +890,12 @@
 	[self createCart];
 	[self createCheckout];
 	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCreateCheckoutWithValidDiscount_2"];
+	}];
+	
 	_checkout.discount = [self applicableDiscount];
 	
 	// Update the checkout
@@ -764,12 +918,27 @@
 	XCTAssertTrue([self.client testIntegrationWithMerchantId:nil]);
 	XCTAssertTrue([self.client testIntegrationWithMerchantId:self.merchantId]);
 
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testInvalidIntegrationBadChannelId_0"];
+	}];
 	BUYClient *badClient = [[BUYClient alloc] initWithShopDomain:self.shopDomain apiKey:self.apiKey channelId:@"asdvfdbfdgasfgdsfg"];
 	XCTAssertFalse([badClient testIntegrationWithMerchantId:nil]);
 	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testInvalidIntegrationBadApiKey_0"];
+	}];
 	badClient = [[BUYClient alloc] initWithShopDomain:self.shopDomain apiKey:@"sadgsefgsdfgsdfgsdfg" channelId:self.channelId];
 	XCTAssertFalse([badClient testIntegrationWithMerchantId:nil]);
 	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testInvalidIntegrationBadShopUrl_0"];
+	}];
 	badClient = [[BUYClient alloc] initWithShopDomain:@"asdvfdbfdgasfgdsfg.myshopify.com" apiKey:self.apiKey channelId:self.channelId];
 	XCTAssertFalse([badClient testIntegrationWithMerchantId:nil]);
 	
@@ -778,6 +947,12 @@
 
 - (void)testGetCheckoutWithInvalidToken
 {
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testGetCheckoutWithInvalidToken_0"];
+	}];
+	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 
 	BUYCheckout *badCheckout = [[BUYCheckout alloc] initWithCartToken:@""];
@@ -816,8 +991,8 @@
 - (BUYAddress *)shippingAddress
 {
 	BUYAddress *address = [[BUYAddress alloc] init];
-	address.address1 = @"126 York Street";
-	address.address2 = @"2nd Floor";
+	address.address1 = @"150 Elgin Street";
+	address.address2 = @"8th Floor";
 	address.city = @"Ottawa";
 	address.company = @"Shopify Inc.";
 	address.firstName = @"Tobi";
@@ -868,6 +1043,12 @@
 	XCTAssertGreaterThanOrEqual([_checkout.lineItems count], 1);
 	XCTAssertEqual(300, _checkout.reservationTime.intValue);
 	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testExpiringCheckout_2"];
+	}];
+	
 	// Expire the checkout
 	XCTestExpectation *expectation2 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client removeProductReservationsFromCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
@@ -887,6 +1068,12 @@
 
 - (void)testCallbackQueue
 {
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testGetShop_0"];
+	}];
+	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	XCTestExpectation *expectation2 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
@@ -897,7 +1084,10 @@
 		[expectation fulfill];
 	}];
 	
-	BUYClient *testClient = [[BUYClient alloc] initWithShopDomain:self.shopDomain apiKey:self.apiKey channelId:self.channelId];
+	NSString *shopDomain = [self shouldUseMocks] ? BUYShopDomain_Placeholder : self.shopDomain;
+	NSString *apiKey = [self shouldUseMocks] ? BUYAPIKey_Placeholder : self.apiKey;
+	NSString *channelId = [self shouldUseMocks] ? BUYChannelId_Placeholder : self.channelId;
+	BUYClient *testClient = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
 	testClient.queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
 	
 	[testClient getShop:^(BUYShop *shop, NSError *error) {

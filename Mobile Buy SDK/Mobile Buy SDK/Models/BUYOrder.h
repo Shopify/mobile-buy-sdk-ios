@@ -1,5 +1,5 @@
 //
-//  BUYProductViewErrorView.h
+//  BUYOrder.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,36 +24,23 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
-@class BUYTheme;
+#import <Buy/Buy.h>
+
+@interface BUYOrder : BUYObject
 
 /**
- *  A customer toast error view to use in the BUYProductView.
+ *  The unique order ID
  */
-@interface BUYProductViewErrorView : UIView
+@property (nonatomic, copy, readonly) NSNumber *orderId;
 
 /**
- *  The label containing the error message.
+ *  URL for the website showing the order status
  */
-@property (nonatomic, strong) UILabel *errorLabel;
+@property (nonatomic, strong, readonly) NSURL *statusURL;
 
 /**
- *  The Auto Layout constraint for when the error message is hidden.
+ *  The customer's order name as represented by a number.
  */
-@property (nonatomic, strong) NSLayoutConstraint *hiddenConstraint;
-
-/**
- *  The Auto Layout constraint for when the error message is visible.
- */
-@property (nonatomic, strong) NSLayoutConstraint *visibleConstraint;
-
-/**
- *  Initializer that create an error view with a theme.
- *
- *  @param theme The theme for the error view.
- *
- *  @return An error view.
- */
-- (instancetype)initWithTheme:(BUYTheme*)theme;
+@property (nonatomic, strong, readonly) NSString *name;
 
 @end
