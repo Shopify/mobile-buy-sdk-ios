@@ -38,7 +38,7 @@ NSString * const BUYChannelId_Placeholder = @"api_key";
 	
 	NSDictionary *giftCards = jsonConfig[@"gift_cards"];
 	
-	self.giftCardCode = environment[kBUYTestGiftCardCode10] ?: giftCards[@"valid11"][@"code"];
+	self.giftCardCode = environment[kBUYTestGiftCardCode11] ?: giftCards[@"valid11"][@"code"];
 	self.giftCardCode2 = environment[kBUYTestGiftCardCode25] ?: giftCards[@"valid25"][@"code"];
 	self.giftCardCode3 = environment[kBUYTestGiftCardCode50] ?: giftCards[@"valid50"][@"code"];
 	self.giftCardCodeInvalid = environment[kBUYTestInvalidGiftCardCode] ?: giftCards[@"invalid"][@"code"];
