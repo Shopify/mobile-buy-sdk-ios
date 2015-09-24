@@ -29,11 +29,26 @@
 @class BUYTheme;
 @class BUYImage;
 
+/**
+ *  A background for the product view that displays the currently displayed
+ *  product or variant image behind a blurry UIVisualEffectView.
+ */
 @interface BUYProductViewHeaderBackgroundImageView : UIView
 
-@property (nonatomic, strong) BUYImageView *productImageView;
-
+/**
+ *  Initializer that takes a BUYTheme
+ *
+ *  @param theme The product view theme
+ *
+ *  @return An instance of BUYProductViewHeaderBackgroundImageView
+ */
 - (instancetype)initWithTheme:(BUYTheme*)theme;
+
+/**
+ *  Set the product image on the image view
+ *
+ *  @param image The currently displayed product or variant image
+ */
 - (void)setBackgroundProductImage:(BUYImage *)image;
 
 @end

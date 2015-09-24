@@ -62,6 +62,9 @@ typedef NS_ENUM(NSInteger, BUYThemeStyle){
 
 @end
 
+/**
+ *  Protocol to enable theming for any class
+ */
 @protocol BUYThemeable <NSObject>
 
 /**

@@ -31,8 +31,21 @@ extern NSString * const BUYPartialAddressPlaceholder;
 
 @interface BUYAddress (Additions)
 
+/**
+ *  Check if the address does not include first and last name 
+ *  and address1 field. This is used to determine whether to
+ *  include a --- placeholder for shipping rates calculations
+ *  in Apple Pay.
+ *
+ *  @return <#return value description#>
+ */
 - (BOOL)isPartialAddress;
 
+/**
+ *  <#Description#>
+ *
+ *  @return <#return value description#>
+ */
 - (BOOL)isValidAddressForShippingRates;
 
 @end
