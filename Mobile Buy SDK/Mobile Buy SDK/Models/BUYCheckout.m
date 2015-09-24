@@ -29,12 +29,13 @@
 #import "BUYCheckout.h"
 #import "BUYDiscount.h"
 #import "BUYLineItem.h"
+#import "BUYMaskedCreditCard.h"
+#import "BUYOrder.h"
 #import "BUYProductVariant.h"
 #import "BUYShippingRate.h"
 #import "BUYTaxLine.h"
 #import "BUYMaskedCreditCard.h"
 #import "BUYGiftCard.h"
-
 #import "NSDecimalNumber+BUYAdditions.h"
 #import "NSString+Trim.h"
 #import "BUYCheckout_Private.h"
@@ -120,7 +121,6 @@
 - (void)updateWithDictionary:(NSDictionary *)dictionary
 {
 	self.email = dictionary[@"email"];
-	self.orderId = [dictionary[@"order_id"] isKindOfClass:[NSNull class]] ? nil : dictionary[@"order_id"];
 	self.token = dictionary[@"token"];
 	self.cartToken = dictionary[@"cart_token"];
 	self.requiresShipping = [dictionary[@"requires_shipping"] boolValue];
@@ -146,8 +146,13 @@
 	self.discount = [BUYDiscount convertObject:dictionary[@"discount"]];
 	self.giftCards = [BUYGiftCard convertJSONArray:dictionary[@"gift_cards"]];
 	
-	NSString *orderStatusURL = dictionary[@"order_status_url"];
-	self.orderStatusURL = [NSURL buy_urlWithString:orderStatusURL];
+	self.order = [BUYOrder convertObject:dictionary[@"order"]];
+	
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+	self.orderId = self.order.orderId;
+	self.orderStatusURL = self.order.statusURL;
+#pragma GCC diagnostic pop
 	
 	self.webCheckoutURL = [NSURL URLWithString:dictionary[@"web_url"]];
 	NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForPublications];
