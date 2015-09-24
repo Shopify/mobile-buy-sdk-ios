@@ -34,7 +34,6 @@
 #import "BUYShippingRate.h"
 #import "BUYShop.h"
 #import "BUYCheckout+Additions.h"
-#import "BUYTestConstants.h"
 #import "BUYCheckout_Private.h"
 #import "NSDecimalNumber+BUYAdditions.h"
 #import "BUYError.h"
@@ -74,13 +73,6 @@ NSString * const BUYVersionString = @"1.1.5";
 
 - (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey channelId:(NSString *)channelId
 {
-	if (shopDomain.length == 0 && apiKey.length == 0 && channelId.length == 0) {
-		NSDictionary *environment = [[NSProcessInfo processInfo] environment];
-		shopDomain = environment[kBUYTestDomain];
-		apiKey = environment[kBUYTestAPIKey];
-		channelId = environment[kBUYTestChannelId];
-	}
-	
 	if (shopDomain.length == 0) {
 		NSException *exception = [NSException exceptionWithName:@"Bad shop domain" reason:@"Please ensure you initialize with a shop domain" userInfo:nil];
 		@throw exception;
