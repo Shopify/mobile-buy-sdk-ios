@@ -7,9 +7,10 @@ Pod::Spec.new do |s|
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.author       = 'Shopify Inc.'
   s.platform     = :ios, '8.0'
-  s.source       = { :git => 'https://github.com/Shopify/mobile-buy-sdk-ios', :tag => '1.1.5' }
-  s.source_files = 'Buy.framework/Versions/Current/**/*.h'
-  s.public_header_files = 'Mobile Buy SDK/Mobile Buy SDK/*'
+  s.source       = { :git => 'https://github.com/Shopify/mobile-buy-sdk-ios-private.git', :tag => '1.1.5' }
+  s.source_files = 'Mobile Buy SDK/Mobile Buy SDK/**/*.{h,m}'
+  s.public_header_files = 'Mobile Buy SDK/Mobile Buy SDK/**/*.{h}'
+  s.module_map   = 'Mobile Buy SDK/Mobile Buy SDK/Buy.modulemap'
   s.frameworks   = 'PassKit'
   s.libraries    = 'c++'
   s.requires_arc = true

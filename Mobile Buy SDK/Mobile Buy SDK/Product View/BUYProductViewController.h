@@ -24,8 +24,9 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/Buy.h>
 #import "BUYTheme.h"
+#import "BUYViewController.h"
+#import "BUYClient.h"
 
 @interface BUYProductViewController : BUYViewController <BUYThemeable>
 

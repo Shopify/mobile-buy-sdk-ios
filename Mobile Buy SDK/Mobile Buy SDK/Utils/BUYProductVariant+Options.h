@@ -24,7 +24,8 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/Buy.h>
+#import "BUYProductVariant.h"
+#import "BUYOptionValue.h"
 
 @interface BUYProductVariant (Options)
 
