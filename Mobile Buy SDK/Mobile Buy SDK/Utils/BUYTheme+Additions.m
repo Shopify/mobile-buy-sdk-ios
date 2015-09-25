@@ -76,11 +76,6 @@
 	return self.style == BUYThemeStyleDark ? BUY_RGB(229, 229, 229) : [UIColor blackColor];
 }
 
-- (UIColor*)navigationBarTitleVariantSelectionOptionsColor
-{
-	return BUY_RGB(140, 140, 140);
-}
-
 - (UIColor*)productTitleColor
 {
 	return self.style == BUYThemeStyleDark ? [UIColor whiteColor] : [UIColor blackColor];
@@ -128,7 +123,6 @@ CGFloat const kBuyPaddingMedium = 12.0f;
 CGFloat const kBuyPaddingLarge = 14.0f;
 CGFloat const kBuyPaddingExtraLarge = 16.0f;
 CGFloat const kBuyTopGradientViewHeight = 114.0f;
-CGFloat const kBuyProductFooterHeight = 60.0f;
 CGFloat const kBuyCheckoutButtonHeight = 44.0f;
 CGFloat const kBuyPageControlHeight = 20.0f;
 CGFloat const kBuyBottomGradientHeightWithPageControl = 42.0f;

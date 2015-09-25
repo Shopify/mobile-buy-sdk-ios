@@ -28,12 +28,17 @@
 #import "BUYTheme.h"
 @class BUYProductVariant;
 
+/**
+ *  Table view cell containing the product title, price and compare-at/sold out text
+ */
 @interface BUYProductHeaderCell : UITableViewCell <BUYThemeable>
 
-@property (nonatomic, strong) UILabel *titleLabel;
-@property (nonatomic, strong) UILabel *priceLabel;
-@property (nonatomic, strong) UILabel *comparePriceLabel;
-
+/**
+ *  Sets the title, price and optionally compare-at/sold out texts
+ *
+ *  @param productVariant    The selected product variant
+ *  @param currencyFormatter The currency formatter for the shop
+ */
 - (void)setProductVariant:(BUYProductVariant *)productVariant withCurrencyFormatter:(NSNumberFormatter*)currencyFormatter;
 
 @end

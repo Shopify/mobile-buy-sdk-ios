@@ -24,13 +24,20 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 #import "BUYTheme.h"
-
 @class BUYProductVariant;
 
+/**
+ *  Table view cell containing the product's variant options
+ */
 @interface BUYProductVariantCell : UITableViewCell <BUYThemeable>
 
-@property (nonatomic, strong) BUYProductVariant *productVariant;
+/**
+ *  Set the options for a product variant
+ *
+ *  @param productVariant The selected product variant
+ */
+- (void)setOptionsForProductVariant:(BUYProductVariant *)productVariant;
 
 @end
