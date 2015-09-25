@@ -28,7 +28,13 @@ If you would like to not include the Mobile Buy SDK Project within your existing
 
 #### CocoaPods
 
-TBD
+Add the following line to your podfile:
+
+```
+pod "Mobile-Buy-SDK"
+```
+
+Then run `pod install`
 
 #### Carthage
 
