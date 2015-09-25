@@ -41,6 +41,12 @@
 	[self fetchProducts];
 }
 
+- (void)tearDown {
+	[super tearDown];
+	
+	[OHHTTPStubs removeAllStubs];
+}
+
 #pragma mark - Helpers
 
 - (void)fetchProducts
