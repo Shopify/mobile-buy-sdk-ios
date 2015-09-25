@@ -317,7 +317,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 		theCell = cell;
 	} else if (indexPath.row == 1 && self.shouldShowVariantSelector) {
 		BUYProductVariantCell *cell = [tableView dequeueReusableCellWithIdentifier:@"variantCell"];
-		cell.productVariant = self.selectedProductVariant;
+		[cell setOptionsForProductVariant:self.selectedProductVariant];
 		cell.accessoryType = self.shouldEnableVariantSelection ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 		self.variantCell = cell;
 		theCell = cell;
@@ -371,7 +371,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 	_selectedProductVariant = selectedProductVariant;
 	if (self.headerCell) {
 		[self.headerCell setProductVariant:selectedProductVariant withCurrencyFormatter:self.currencyFormatter];
-		self.variantCell.productVariant = selectedProductVariant;
+		[self.variantCell setOptionsForProductVariant:self.selectedProductVariant];
 	}
 	if (self.productView.productViewHeader.collectionView) {
 		[self.productView.productViewHeader setImageForSelectedVariant:_selectedProductVariant withImages:self.product.images];

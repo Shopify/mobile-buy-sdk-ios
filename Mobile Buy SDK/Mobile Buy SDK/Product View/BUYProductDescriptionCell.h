@@ -24,11 +24,19 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 #import "BUYTheme.h"
 
+/**
+ *  Table view cell containing the product description
+ */
 @interface BUYProductDescriptionCell : UITableViewCell <BUYThemeable>
 
-@property (nonatomic, copy) NSString *descriptionHTML;
+/**
+ *  Converts the product description from HTML to an attributed string
+ *
+ *  @param html The product's description
+ */
+- (void)setDescriptionHTML:(NSString *)html;
 
 @end

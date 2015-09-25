@@ -31,6 +31,10 @@
 #import "BUYTheme+Additions.h"
 
 @interface BUYProductHeaderCell ()
+
+@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *priceLabel;
+@property (nonatomic, strong) UILabel *comparePriceLabel;
 @property (nonatomic, strong) BUYTheme *theme;
 @property (nonatomic, strong) BUYProductVariant *productVariant;
 
