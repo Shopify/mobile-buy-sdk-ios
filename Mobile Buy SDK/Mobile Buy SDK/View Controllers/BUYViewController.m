@@ -35,7 +35,6 @@
 #import "BUYApplePayHelpers.h"
 #import "BUYDiscount.h"
 #import "BUYShop.h"
-#import "BUYTestConstants.h"
 
 NSString * BUYSafariCallbackURLNotification = @"kBUYSafariCallbackURLNotification";
 NSString * BUYURLKey = @"url";
@@ -101,20 +100,6 @@ NSString * BUYURLKey = @"url";
 		
 		if (block) block((error == nil), error);
 	}];
-}
-
-- (void)setMerchantId:(NSString *)merchantId
-{
-	NSDictionary *environment = [[NSProcessInfo processInfo] environment];
-	NSString *merchId = environment[kBUYTestMerchantId];
-	
-	if (merchId && merchantId.length <= 2) {
-		_merchantId = merchId;
-		NSLog(@"Using environment varianble for merchant ID: %@", merchId);
-	}
-	else {
-		_merchantId = merchantId;
-	}
 }
 
 - (BOOL)isApplePayAvailable

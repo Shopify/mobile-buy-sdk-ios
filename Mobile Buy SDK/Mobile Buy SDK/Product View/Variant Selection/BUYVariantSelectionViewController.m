@@ -34,6 +34,7 @@
 #import "BUYTheme+Additions.h"
 #import "BUYVariantSelectionViewController.h"
 #import "BUYVariantOptionBreadCrumbsView.h"
+#import "BUYOption.h"
 
 @interface BUYVariantSelectionViewController () <BUYOptionSelectionDelegate>
 

@@ -26,6 +26,7 @@
 
 #import "BUYProduct+Options.h"
 #import "BUYProductVariant+Options.h"
+#import "BUYOption.h"
 
 @implementation BUYProduct (Options)
 
