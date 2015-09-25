@@ -8,7 +8,6 @@
 
 #import "BUYClientTestBase.h"
 #import "BUYTestConstants.h"
-#import <OHHTTPStubs/OHHTTPStubs.h>
 
 NSString * const BUYShopDomain_Placeholder = @"test_shop";
 NSString * const BUYAPIKey_Placeholder = @"channel_id";
