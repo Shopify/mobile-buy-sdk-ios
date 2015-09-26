@@ -28,6 +28,14 @@
 
 @interface UIFont (BUYAdditions)
 
+/**
+ *  Class method to allow system fonts to have increased point sizes from the OS default.
+ *
+ *  @param style The text style for the font.
+ *  @param size  A positive value to increase the default font's point size by.
+ *
+ *  @return A system font with an optionally increased point size.
+ */
 + (UIFont *)preferredFontForTextStyle:(NSString *)style increasedPointSize:(CGFloat)size;
 
 @end

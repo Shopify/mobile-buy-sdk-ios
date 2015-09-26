@@ -27,9 +27,28 @@
 @import UIKit;
 @class BUYTheme;
 
+/**
+ *  An overlay + blur effect when the product view scrolls up
+ *  to hide the image view and create a nice transition into
+ *  the navigation bar.
+ */
 @interface BUYProductViewHeaderOverlay : UIView
 
+/**
+ *  Initializer that takes a BUYTheme
+ *
+ *  @param theme The product view theme
+ *
+ *  @return An instance of BUYProductViewHeaderOverlay
+ */
 - (instancetype)initWithTheme:(BUYTheme*)theme;
+
+/**
+ *  Used to determine the current visibility of the effect based on content offset and the navigationbar height.
+ *
+ *  @param scrollView          The product view's table view being scrolled.
+ *  @param navigationBarHeight The navigation bar height so the effect is at 100% when the content reaches the navigation bar's bottom.
+ */
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView withNavigationBarHeight:(CGFloat)navigationBarHeight;
 
 @end

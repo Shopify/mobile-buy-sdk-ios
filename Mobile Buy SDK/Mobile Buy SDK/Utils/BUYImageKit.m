@@ -136,39 +136,6 @@
 	[closeIconPath fill];
 	CGContextRestoreGState(context);
 }
-
-+ (void)drawProductViewBackImageWithFrame: (CGRect)frame
-{
-	//// General Declarations
-	CGContextRef context = UIGraphicsGetCurrentContext();
-	
-	//// Color Declarations
-	UIColor* indicatorShadowColor = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 1];
-	UIColor* indicatorColor2 = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
-	
-	//// Shadow Declarations
-	NSShadow* indicatorDropShadow = [[NSShadow alloc] init];
-	[indicatorDropShadow setShadowColor: [indicatorShadowColor colorWithAlphaComponent: 0.15f]];
-	[indicatorDropShadow setShadowOffset: CGSizeMake(0.1f, 1.1f)];
-	[indicatorDropShadow setShadowBlurRadius: 2];
-	
-	//// Back Indicator Drawing
-	UIBezierPath* backIndicatorPath = UIBezierPath.bezierPath;
-	[backIndicatorPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.10000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.50000f * CGRectGetHeight(frame))];
-	[backIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.80000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.92000f * CGRectGetHeight(frame))];
-	[backIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.93333f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.84000f * CGRectGetHeight(frame))];
-	[backIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.36667f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.50000f * CGRectGetHeight(frame))];
-	[backIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.93333f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.16000f * CGRectGetHeight(frame))];
-	[backIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.80000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.08000f * CGRectGetHeight(frame))];
-	[backIndicatorPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 0.10000f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.50000f * CGRectGetHeight(frame))];
-	[backIndicatorPath closePath];
-	CGContextSaveGState(context);
-	CGContextSetShadowWithColor(context, indicatorDropShadow.shadowOffset, indicatorDropShadow.shadowBlurRadius, [indicatorDropShadow.shadowColor CGColor]);
-	[indicatorColor2 setFill];
-	[backIndicatorPath fill];
-	CGContextRestoreGState(context);
-}
-
 + (void)drawVariantBackImageWithFrame: (CGRect)frame
 {
 	//// Color Declarations
@@ -236,17 +203,6 @@
 	UIGraphicsEndImageContext();
 	
 	return imageOfProductViewCloseImage;
-}
-
-+ (UIImage*)imageOfProductViewBackImageWithFrame: (CGRect)frame
-{
-	UIGraphicsBeginImageContextWithOptions(frame.size, NO, 0.0f);
-	[BUYImageKit drawProductViewBackImageWithFrame: frame];
-	
-	UIImage* imageOfProductViewBackImage = UIGraphicsGetImageFromCurrentImageContext();
-	UIGraphicsEndImageContext();
-	
-	return imageOfProductViewBackImage;
 }
 
 + (UIImage*)imageOfVariantBackImageWithFrame: (CGRect)frame

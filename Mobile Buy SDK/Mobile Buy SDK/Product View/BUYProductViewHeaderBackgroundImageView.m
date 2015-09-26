@@ -30,6 +30,12 @@
 #import "BUYImage.h"
 #import "BUYTheme+Additions.h"
 
+@interface BUYProductViewHeaderBackgroundImageView ()
+
+@property (nonatomic, strong) BUYImageView *productImageView;
+
+@end
+
 @implementation BUYProductViewHeaderBackgroundImageView
 
 - (instancetype)initWithTheme:(BUYTheme*)theme

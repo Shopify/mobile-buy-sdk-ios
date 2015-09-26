@@ -95,10 +95,8 @@ CGFloat const buttonWidth = 10.0f;
 	return self;
 }
 
-- (void)setProductVariant:(BUYProductVariant *)productVariant
+- (void)setOptionsForProductVariant:(BUYProductVariant *)productVariant
 {
-	_productVariant = productVariant;
-
 	NSArray *productOptions = productVariant.options;
 	
 	switch (productVariant.options.count) {

@@ -28,6 +28,12 @@
 
 @interface BUYCheckout (Additions)
 
+/**
+ *  Used for Apple Pay, specifically, to append true for
+ *  the payload to set whether the address(es) are partial.
+ *
+ *  @return A jsonDictionaryForCheckout JSON with optional "checkout.partial_addresses" key.
+ */
 - (NSDictionary *)jsonDictionaryForUpdatingCheckout;
 
 @end

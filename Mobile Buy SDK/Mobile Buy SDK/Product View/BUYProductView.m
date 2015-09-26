@@ -163,9 +163,9 @@
 																	 options:0
 																	 metrics:nil
 																	   views:NSDictionaryOfVariableBindings(_productViewFooter)]];
-		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_productViewFooter(height)]|"
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_productViewFooter]|"
 																	 options:0
-																	 metrics:@{ @"height" : @(kBuyProductFooterHeight) }
+																	 metrics:nil
 																	   views:NSDictionaryOfVariableBindings(_productViewFooter)]];
 		
 		if (_productViewHeader) {
