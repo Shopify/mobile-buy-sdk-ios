@@ -945,7 +945,6 @@
 	[self verifyCompletedCheckout];
 }
 
-// TODO: NO TEST IN JSON: TEST WAS ADDED
 - (void)testCheckoutWithAPartialAddress
 {
 	[self createCart];
