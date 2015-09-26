@@ -33,17 +33,51 @@
 @interface BUYImageKit : NSObject
 
 /**
- *  Generate a close button for the variant selection navigation bar.
+ *  Generates a close button image for the variant selection navigation bar.
  *
  *  @param frame The frame size of the image
  *
- *  @return A close button image for the variant selector
+ *  @return A close button image
  */
 + (UIImage*)imageOfVariantCloseImageWithFrame: (CGRect)frame;
+
+/**
+ *  Generates a checkmark image for use of displaying the previously selected variant
+ *
+ *  @param frame The frame size of the image
+ *
+ *  @return A checkmark for the previous variant selection
+ */
 + (UIImage*)imageOfPreviousSelectionIndicatorImageWithFrame: (CGRect)frame;
+
+/**
+ *  Generates a custom disclosure indicator image
+ *
+ *  @param frame The frame size of the image
+ *  @param color The color for the disclosure indicator
+ *
+ *  @return A disclusore indicator image
+ */
 + (UIImage*)imageOfDisclosureIndicatorImageWithFrame: (CGRect)frame color:(UIColor*)color;
+
+/**
+ *  Generates a close button image for the product view's navigation bar
+ *
+ *  @param frame     The frame size of the image
+ *  @param color     The color for the close button image
+ *  @param hasShadow True if the X should have a drop shadow
+ *
+ *  @return A close button image
+ */
 + (UIImage*)imageOfProductViewCloseImageWithFrame: (CGRect)frame color:(UIColor*)color hasShadow:(BOOL)hasShadow;
-+ (UIImage*)imageOfProductViewBackImageWithFrame: (CGRect)frame;
+
+/**
+ *  Generates a custom back button image for the variant selection navigation bar
+ *
+ *  @param frame The frame size of the image
+ *
+ *  @return A custom back button image
+ */
 + (UIImage*)imageOfVariantBackImageWithFrame: (CGRect)frame;
 
 @end
