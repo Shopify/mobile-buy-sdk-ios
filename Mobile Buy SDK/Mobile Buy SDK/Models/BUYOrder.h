@@ -29,11 +29,6 @@
 @interface BUYOrder : BUYObject
 
 /**
- *  The unique order ID
- */
-@property (nonatomic, copy, readonly) NSNumber *orderId;
-
-/**
  *  URL for the website showing the order status
  */
 @property (nonatomic, strong, readonly) NSURL *statusURL;
