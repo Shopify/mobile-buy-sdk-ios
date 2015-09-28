@@ -24,11 +24,14 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 @class BUYTheme;
 @class BUYOptionValue;
 @class BUYProductVariant;
 
+/**
+ *  A table view cell displaying the option value
+ */
 @interface BUYOptionValueCell : UITableViewCell
 
 @property (nonatomic, strong) BUYOptionValue *optionValue;
