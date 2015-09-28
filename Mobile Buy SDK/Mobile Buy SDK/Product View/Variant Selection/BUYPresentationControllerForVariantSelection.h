@@ -24,10 +24,16 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
+/**
+ *  A presentation controller containing the view controllers for variant selection
+ */
 @interface BUYPresentationControllerForVariantSelection : UIPresentationController
 
+/**
+ *  Blurred effects view that surrounds the variant selection navigation controller 
+ */
 @property (nonatomic, strong) UIVisualEffectView *backgroundView;
 
 @end
