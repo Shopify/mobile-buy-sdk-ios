@@ -76,6 +76,9 @@ typedef void (^BUYCheckoutTypeBlock)(BUYCheckoutType type);
  */
 - (void)reloadHomePage;
 
+/**
+ *  The BUYStoreViewControllerDelegate
+ */
 @property (nonatomic, weak) id <BUYStoreViewControllerDelegate> delegate;
 
 @end

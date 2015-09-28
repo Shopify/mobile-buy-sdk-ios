@@ -28,8 +28,29 @@
 
 @interface NSDecimalNumber (BUYAdditions)
 
+/**
+ *  Converts a string into an NSDecimalNumber or zero (if nil or not a number)
+ *
+ *  @param string The string to convert
+ *
+ *  @return NSDecimalNumber from a string
+ */
 + (NSDecimalNumber*)buy_decimalNumberOrZeroWithString:(NSString*)string;
+
+/**
+ *  Converts a JSON value to an NSDecimalNumber
+ *
+ *  @param valueFromJSON The value to convert
+ *
+ *  @return NSDecimalNumber from a JSON string
+ */
 + (NSDecimalNumber*)buy_decimalNumberFromJSON:(id)valueFromJSON;
+
+/**
+ *  Converts a decimal number to a negative value
+ *
+ *  @return The same decimal number but as a negative
+ */
 - (NSDecimalNumber*)buy_decimalNumberAsNegative;
 
 @end

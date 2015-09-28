@@ -135,8 +135,6 @@
 	self.selectedBackgroundView.backgroundColor = [theme selectedBackgroundColor];
 	self.disclosureIndicatorImageView.image = [BUYImageKit imageOfDisclosureIndicatorImageWithFrame:CGRectMake(0, 0, 10, 16) color:[theme disclosureIndicatorColor]];
 	
-	self.optionValue = optionValue;
-	
 	self.titleLabel.text = optionValue.value;
 	
 	if (productVariant) {

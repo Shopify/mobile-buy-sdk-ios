@@ -26,6 +26,9 @@
 
 @import Contacts;
 
+/**
+ *  In order to create a custom PKContact to use in tests, we need to override this
+ */
 @interface BUYCNPostalAddress : CNPostalAddress
 
 - (void)setStreet:(NSString*)street;
