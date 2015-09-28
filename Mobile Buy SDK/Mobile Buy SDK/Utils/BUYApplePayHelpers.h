@@ -29,6 +29,7 @@
 
 @class BUYClient;
 @class BUYCheckout;
+@class BUYShop;
 
 @interface BUYApplePayHelpers : NSObject <PKPaymentAuthorizationViewControllerDelegate>
 
@@ -41,6 +42,17 @@
  *  @return helper object
  */
 - (instancetype)initWithClient:(BUYClient *)client checkout:(BUYCheckout *)checkout;
+
+/**
+ *  Initializes a helper to support Apple Pay
+ *
+ *  @param client   A configured client
+ *  @param checkout The checkout which is to be completed using Apple Pay
+ *  @param shop     A shop object to alleviate the need for ApplePayHelper to retrieve it via the BUYClient
+ *
+ *  @return helper object
+ */
+- (instancetype)initWithClient:(BUYClient *)client checkout:(BUYCheckout *)checkout shop:(BUYShop *)shop;
 
 /**
  *  Call this method in the PKPaymentAuthorizationViewControllerDelegate `paymentAuthorizationViewController:didAuthorizePayment:completion`
@@ -88,5 +100,10 @@
  *  The last error message
  */
 @property (nonatomic, strong, readonly) NSError *lastError;
+
+/** 
+ *  The shop object
+ */
+@property (nonatomic, strong, readonly) BUYShop *shop;
 
 @end
