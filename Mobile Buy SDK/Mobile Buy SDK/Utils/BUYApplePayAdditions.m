@@ -36,8 +36,8 @@
 
 @implementation BUYCheckout (ApplePay)
 
-- (NSArray *)buy_summaryItems
-{
+- (NSArray *)buy_summaryItemsWithShopName:(NSString *)shopName {
+	
 	BOOL hasDiscount = [self.discount.amount compare:[NSDecimalNumber zero]] == NSOrderedDescending;
 	
 	NSMutableArray *summaryItems = [[NSMutableArray alloc] init];
@@ -54,7 +54,7 @@
 		NSString *discountLabel = [self.discount.code length] > 0 ? [NSString stringWithFormat:@"DISCOUNT (%@)", self.discount.code] : @"DISCOUNT";
 		[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:discountLabel amount:[self.discount.amount buy_decimalNumberAsNegative]]];
 	}
-
+	
 	[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"SUBTOTAL" amount:self.subtotalPrice ?: [NSDecimalNumber zero]]];
 	
 	if ([self.shippingRate.price compare:[NSDecimalNumber zero]] == NSOrderedDescending) {
@@ -72,8 +72,14 @@
 		}
 	}
 	
-	[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"TOTAL" amount:self.paymentDue ?: [NSDecimalNumber zero]]];
+	NSString *itemLabel = shopName ?: @"TOTAL";
+	[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:itemLabel amount:self.paymentDue ?: [NSDecimalNumber zero]]];
 	return summaryItems;
+}
+
+- (NSArray *)buy_summaryItems
+{
+	return [self buy_summaryItemsWithShopName:nil];
 }
 
 @end

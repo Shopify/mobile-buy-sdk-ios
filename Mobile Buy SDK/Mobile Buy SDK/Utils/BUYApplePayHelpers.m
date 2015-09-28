@@ -40,11 +40,18 @@ const NSTimeInterval PollDelay = 0.5;
 @property (nonatomic, strong) NSArray *shippingRates;
 @property (nonatomic, strong) NSError *lastError;
 
+@property (nonatomic, strong) BUYShop *shop;
+
 @end
 
 @implementation BUYApplePayHelpers
 
 - (instancetype)initWithClient:(BUYClient *)client checkout:(BUYCheckout *)checkout
+{
+	return [self initWithClient:client checkout:checkout shop:nil];
+}
+
+- (instancetype)initWithClient:(BUYClient *)client checkout:(BUYCheckout *)checkout shop:(BUYShop *)shop
 {
 	NSParameterAssert(client);
 	NSParameterAssert(checkout);
@@ -54,10 +61,24 @@ const NSTimeInterval PollDelay = 0.5;
 	if (self) {
 		self.client = client;
 		self.checkout = checkout;
+		
+		// We need a shop object to display the business name in the pay sheet
+		if (shop) {
+			self.shop = shop;
+		}
+		else {
+			[self.client getShop:^(BUYShop *shop, NSError *error) {
+				
+				if (shop) {
+					self.shop = shop;
+				}
+			}];
+		}
 	}
 	
 	return self;
 }
+
 
 #pragma mark - PKPaymentAuthorizationDelegate methods
 
@@ -129,7 +150,7 @@ const NSTimeInterval PollDelay = 0.5;
 		else {
 			self.lastError = error;
 		}
-		completion(error == nil ? PKPaymentAuthorizationStatusSuccess : PKPaymentAuthorizationStatusFailure, [self.checkout buy_summaryItems]);
+		completion(error == nil ? PKPaymentAuthorizationStatusSuccess : PKPaymentAuthorizationStatusFailure, [self.checkout buy_summaryItemsWithShopName:self.shop.name]);
 	}];
 }
 
@@ -146,12 +167,12 @@ const NSTimeInterval PollDelay = 0.5;
 			}
 			else {
 				self.lastError = error;
-				completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItems]);
+				completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItemsWithShopName:self.shop.name]);
 			}
 		}];
 	}
 	else {
-		completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItems]);
+		completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItemsWithShopName:self.shop.name]);
 	}
 }
 
@@ -201,7 +222,7 @@ const NSTimeInterval PollDelay = 0.5;
 	// We then turn our BUYShippingRate objects into PKShippingMethods for Apple to present to the user.
 	
 	if ([self.checkout requiresShipping] == NO) {
-		completion(PKPaymentAuthorizationStatusSuccess, nil, [self.checkout buy_summaryItems]);
+		completion(PKPaymentAuthorizationStatusSuccess, nil, [self.checkout buy_summaryItemsWithShopName:self.shop.name]);
 	}
 	else {
 		[self fetchShippingRates:^(PKPaymentAuthorizationStatus status, NSArray *methods, NSArray *summaryItems) {
@@ -212,12 +233,12 @@ const NSTimeInterval PollDelay = 0.5;
 					if (checkout && error == nil) {
 						self.checkout = checkout;
 					}
-					completion(error ? PKPaymentAuthorizationStatusFailure : PKPaymentAuthorizationStatusSuccess, shippingMethods, [self.checkout buy_summaryItems]);
+					completion(error ? PKPaymentAuthorizationStatusFailure : PKPaymentAuthorizationStatusSuccess, shippingMethods, [self.checkout buy_summaryItemsWithShopName:self.shop.name]);
 				}];
 			}
 			else {
 				self.lastError = [NSError errorWithDomain:BUYShopifyError code:BUYShopifyError_NoShippingMethodsToAddress userInfo:nil];
-				completion(status, nil, [self.checkout buy_summaryItems]);
+				completion(status, nil, [self.checkout buy_summaryItemsWithShopName:self.shop.name]);
 			}
 		}];
 	}
@@ -236,7 +257,7 @@ const NSTimeInterval PollDelay = 0.5;
 				shippingStatus = status;
 
 				if (error) {
-					completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItems]);
+					completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItemsWithShopName:self.shop.name]);
 				}
 				else if (shippingStatus == BUYStatusComplete) {
 					self.shippingRates = shippingRates;
@@ -245,11 +266,11 @@ const NSTimeInterval PollDelay = 0.5;
 						// Shipping address not supported
 						self.checkout.shippingRate = nil;
 						if (completion) {
-							completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItems]);
+							completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItemsWithShopName:self.shop.name]);
 						}
 					} else {
 						if (completion) {
-							completion(PKPaymentAuthorizationStatusSuccess, self.shippingRates, [self.checkout buy_summaryItems]);
+							completion(PKPaymentAuthorizationStatusSuccess, self.shippingRates, [self.checkout buy_summaryItemsWithShopName:self.shop.name]);
 						}
 					}
 					

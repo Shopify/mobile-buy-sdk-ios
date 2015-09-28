@@ -34,9 +34,19 @@
 @interface BUYCheckout (ApplePay)
 
 /**
- *  Returns an array of summary items for all ApplePay requests
+ *  Returns an array of summary items for all Apple Pay requests.  Will use 'PAY TOTAL' as the summary label.  Apple recommends
+ *  including the business name in the summary label, so it is recommended to use `buy_summaryItemsWithShopName` instead.
  */
 - (NSArray *)buy_summaryItems;
+
+/**
+ *  Returns an array of summary items for all Apple Pay requests using the shop name in the "PAY" section
+ *
+ *  @param shopName the shops name
+ *
+ *  @return An array of PKPaymentSummaryItems
+ */
+- (NSArray *)buy_summaryItemsWithShopName:(NSString *)shopName;
 
 @end
 
