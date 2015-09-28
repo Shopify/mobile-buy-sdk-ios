@@ -55,7 +55,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 - (void)postCheckoutCompletion:(BUYCheckout *)checkout error:(NSError *)error;
 @end
 
-@interface BUYProductViewController () <BUYThemeable, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, BUYVariantSelectionDelegate, BUYNavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
+@interface BUYProductViewController () <BUYThemeable, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, BUYVariantSelectionDelegate, BUYNavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, PKAddPaymentPassViewControllerDelegate>
 
 @property (nonatomic, strong) NSString *productId;
 @property (nonatomic, strong) BUYProductVariant *selectedProductVariant;
@@ -66,6 +66,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 @property (nonatomic, strong) BUYProduct *product;
 @property (nonatomic, assign) BOOL isLoading;
 @property (nonatomic, strong) NSNumberFormatter *currencyFormatter;
+@property (nonatomic, strong) PKPassLibrary *passLibrary;
 
 // views
 @property (nonatomic, strong) BUYProductView *productView;
@@ -94,6 +95,9 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 		
 		self.modalPresentationStyle = UIModalPresentationCustom;
 		self.transitioningDelegate = self;
+		
+		self.shouldPresentPaymentPassSetupIfCardIsNotPresent = YES;
+		self.passLibrary = [[PKPassLibrary alloc] init];
 		
 		_activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectZero];
 		_activityIndicatorView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -132,7 +136,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 		
 		_productView.tableView.delegate = self;
 		_productView.tableView.dataSource = self;
-		[_productView.productViewFooter setApplePayButtonVisible:self.isApplePayAvailable];
+		[_productView.productViewFooter setApplePayButtonVisible:self.isApplePayAvailableOrShouldShowPaymentPassSetup];
 		[_productView.productViewFooter.buyPaymentButton addTarget:self action:@selector(checkoutWithApplePay) forControlEvents:UIControlEventTouchUpInside];
 		[_productView.productViewFooter.checkoutButton addTarget:self action:@selector(checkoutWithShopify) forControlEvents:UIControlEventTouchUpInside];
 		
@@ -140,6 +144,19 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 		_productView.productViewHeader.collectionView.dataSource = self;
 	}
 	return _productView;
+}
+
+-(void)setShouldPresentPaymentPassSetupIfCardIsNotPresent:(BOOL)shouldPresentPaymentPassSetupIfCardIsNotPresent
+{
+	if (shouldPresentPaymentPassSetupIfCardIsNotPresent == YES && [self.passLibrary isPaymentPassActivationAvailable] && [PKPaymentAuthorizationViewController canMakePayments]) {
+		_shouldPresentPaymentPassSetupIfCardIsNotPresent = shouldPresentPaymentPassSetupIfCardIsNotPresent;
+	} else {
+		_shouldPresentPaymentPassSetupIfCardIsNotPresent = NO;
+	}
+}
+
+- (BOOL)isApplePayAvailableOrShouldShowPaymentPassSetup {
+	return self.isApplePayAvailable ?: self.shouldPresentPaymentPassSetupIfCardIsNotPresent;
 }
 
 - (CGSize)preferredContentSize
@@ -292,7 +309,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 	self.currencyFormatter = [[NSNumberFormatter alloc] init];
 	self.currencyFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
 	self.currencyFormatter.currencyCode = shop.currency;
-	[self.productView.productViewFooter setApplePayButtonVisible:self.isApplePayAvailable];
+	[self.productView.productViewFooter setApplePayButtonVisible:self.isApplePayAvailableOrShouldShowPaymentPassSetup];
 	[self.productView.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
 }
 
@@ -450,8 +467,12 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 
 - (void)checkoutWithApplePay
 {
-	self.checkout = [[BUYCheckout alloc] initWithCart:[self cart]];
-	[self startApplePayCheckout:self.checkout];
+	if (self.isApplePayAvailable) {
+		self.checkout = [[BUYCheckout alloc] initWithCart:[self cart]];
+		[self startApplePayCheckout:self.checkout];
+	} else {
+		[self.passLibrary openPaymentSetup];
+	}
 }
 
 - (void)checkoutWithShopify
@@ -553,5 +574,18 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 	[controller presentViewController:navController animated:YES completion:nil];
 }
 
+#pragma mark - PKAddPaymentPassViewControllerDelegate
+
+-(void)addPaymentPassViewController:(PKAddPaymentPassViewController *)controller didFinishAddingPaymentPass:(PKPaymentPass *)pass error:(NSError *)error
+{
+	[controller dismissViewControllerAnimated:YES completion:^{
+		
+	}];
+}
+
+-(void)addPaymentPassViewController:(PKAddPaymentPassViewController *)controller generateRequestWithCertificateChain:(NSArray<NSData *> *)certificates nonce:(NSData *)nonce nonceSignature:(NSData *)nonceSignature completionHandler:(void (^)(PKAddPaymentPassRequest * _Nonnull))handler
+{
+	
+}
 
 @end

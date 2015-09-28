@@ -76,6 +76,12 @@
 @property (nonatomic, assign, readonly) BOOL isLoading;
 
 /**
+ *  If the merchantId is set and the device support Apple Pay but no credit card is present this allows the user to add a payment pass to the Wallet.
+ *  The user is given the option to add a payment pass or continue with web checkout. Default is set to [PKPaymentAuthorizationViewController canMakePayments]
+ */
+@property (nonatomic, assign) BOOL shouldPresentPaymentPassSetupIfCardIsNotPresent;
+
+/**
  *  This is a convenience method as an alternative to presentViewController: which will force portrait orientation.  This method is only 
  *  required when presenting from a landscape view controller.
  *
