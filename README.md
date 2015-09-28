@@ -14,6 +14,8 @@ Please find all documentation on the [Mobile Buy SDK for iOS page](https://docs.
 
 #### Manual Installation (Project)
 
+<a href="../../releases/latest">Download the latest version</a>.
+
 1. Drag the `Mobile Buy SDK.xcodeproj` into your existing project
 2. Add the `Buy` target as a `Target Dependancy` in the `Build Phases` of your project's target
 3. Add the `Buy` target in the `Link Binary with Libraries` section in `Build Phases`
