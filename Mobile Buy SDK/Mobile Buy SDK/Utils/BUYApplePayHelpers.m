@@ -30,6 +30,7 @@
 #import "BUYApplePayAdditions.h"
 #import "BUYError.h"
 #import "BUYAddress+Additions.h"
+#import "BUYShop.h"
 
 const NSTimeInterval PollDelay = 0.5;
 
