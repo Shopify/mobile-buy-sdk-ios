@@ -226,7 +226,7 @@ NSString * BUYURLKey = @"url";
 	}
 }
 
-#pragma mark - Step 2 - Requesting Payment using ApplePay
+#pragma mark - Step 2 - Requesting Payment using Apple Pay
 
 - (void)requestPayment
 {
