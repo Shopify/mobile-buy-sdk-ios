@@ -145,7 +145,7 @@ NSString * BUYURLKey = @"url";
 			if ([self.delegate respondsToSelector:@selector(controllerWillCheckoutViaApplePay:)]) {
 				[self.delegate controllerWillCheckoutViaApplePay:self];
 			}
-			self.applePayHelper = [[BUYApplePayHelpers alloc] initWithClient:self.client checkout:checkout];
+			self.applePayHelper = [[BUYApplePayHelpers alloc] initWithClient:self.client checkout:checkout shop:self.shop];
 		}
 		[self handleCheckoutCompletion:checkout error:error];
 	}];
@@ -248,7 +248,7 @@ NSString * BUYURLKey = @"url";
 	}
 	
 	PKPaymentRequest *request = [self paymentRequest];
-	request.paymentSummaryItems = [self.checkout buy_summaryItems];
+	request.paymentSummaryItems = [self.checkout buy_summaryItemsWithShopName:self.shop.name];
 	PKPaymentAuthorizationViewController *controller = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:request];
 	if (controller) {
 		controller.delegate = self;

@@ -38,6 +38,15 @@
  */
 - (NSArray *)buy_summaryItems;
 
+/**
+ *  Returns an array of summary items for all ApplePay requests using the shop name in the "PAY" section
+ *
+ *  @param shopName the shops name
+ *
+ *  @return An array of PKPaymentSummaryItems
+ */
+- (NSArray *)buy_summaryItemsWithShopName:(NSString *)shopName;
+
 @end
 
 @interface BUYShippingRate (ApplePay)
