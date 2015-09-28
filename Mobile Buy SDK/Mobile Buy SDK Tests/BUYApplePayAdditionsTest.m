@@ -424,4 +424,17 @@
 	XCTAssertEqualObjects(addressFromRecord.countryCode, addressFromContact.countryCode);
 }
 
+- (void)testUseShopNameInPaymentSummary
+{
+	NSString *shopName = @"My Shop";
+	
+	NSArray *summaryItems = [_checkout buy_summaryItemsWithShopName:shopName];
+	XCTAssertEqual(2, [summaryItems count]);
+	
+	XCTAssertEqualObjects(@"SUBTOTAL", [summaryItems[0] label]);
+	XCTAssertEqualObjects([NSDecimalNumber zero], [summaryItems[0] amount]);
+	XCTAssertEqualObjects(shopName, [summaryItems[1] label]);
+	XCTAssertEqualObjects([NSDecimalNumber zero], [summaryItems[1] amount]);
+}
+
 @end
