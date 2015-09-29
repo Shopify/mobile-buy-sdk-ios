@@ -150,7 +150,7 @@
 	
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-	self.orderId = self.order.orderId;
+	self.orderId = self.order.identifier;
 	self.orderStatusURL = self.order.statusURL;
 #pragma GCC diagnostic pop
 	

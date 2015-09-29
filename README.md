@@ -2,6 +2,7 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/Shopify/mobile-buy-sdk-ios-private/blob/master/LICENSE)
 [![GitHub release](https://img.shields.io/github/release/shopify/mobile-buy-sdk-private.svg)](https://github.com/Shopify/mobile-buy-sdk-ios-private/releases)
 [![Cocoapods](https://img.shields.io/cocoapods/v/mobile-buy-sdk-private.svg)](https://cocoapods.org/pods/mobile-buy-sdk)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 # Mobile Buy SDK for iOS
 

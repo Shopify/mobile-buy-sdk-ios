@@ -39,7 +39,7 @@
 
 - (void)updateWithDictionary:(NSDictionary *)dictionary
 {
-	self.orderId = [dictionary[@"id"] isKindOfClass:[NSNull class]] ? nil : dictionary[@"id"];
+	[super updateWithDictionary:dictionary];
 	NSString *statusURLString = dictionary[@"status_url"];
 	self.statusURL = [NSURL buy_urlWithString:statusURLString];
 	self.name = [dictionary[@"name"] isKindOfClass:[NSNull class]] ? nil : dictionary[@"name"];

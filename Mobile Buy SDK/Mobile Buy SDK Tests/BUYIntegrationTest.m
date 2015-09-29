@@ -263,7 +263,7 @@
 
 - (void)verifyCompletedCheckout
 {
-	XCTAssertNil(_checkout.order.orderId);
+	XCTAssertNil(_checkout.order.identifier);
 	
 	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
 		return [self shouldUseMocks];
@@ -276,7 +276,7 @@
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
 		_checkout = returnedCheckout;
-		XCTAssertNotNil(_checkout.order.orderId);
+		XCTAssertNotNil(_checkout.order.identifier);
 		XCTAssertNotNil(_checkout.order.statusURL);
 		XCTAssertNotNil(_checkout.order.name);
 		[expectation fulfill];
@@ -286,7 +286,6 @@
 	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
 		XCTAssertNil(error);
 	}];
-	XCTAssertNotNil(_checkout.order.orderId);
 }
 
 - (void)confirmCreditCard
