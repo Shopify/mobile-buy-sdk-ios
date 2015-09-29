@@ -30,7 +30,7 @@
 #import "BUYTheme+Additions.h"
 
 /**
- *  A view that contain a varian option name and option value for use to display the selected product variant
+ *  A view that contains a variant option name and option value for use to display the selected product variant
  */
 @interface BUYVariantOptionView : UIView <BUYThemeable>
 
