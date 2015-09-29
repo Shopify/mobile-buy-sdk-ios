@@ -147,7 +147,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 -(void)setShouldPresentPaymentPassSetupIfCardIsNotPresent:(BOOL)shouldPresentPaymentPassSetupIfCardIsNotPresent
 {
 	if (shouldPresentPaymentPassSetupIfCardIsNotPresent == YES &&
-		[PKPaymentAuthorizationViewController canMakePayments]) {
+		[PKAddPaymentPassViewController canAddPaymentPass]) {
 		_shouldPresentPaymentPassSetupIfCardIsNotPresent = shouldPresentPaymentPassSetupIfCardIsNotPresent;
 	} else {
 		_shouldPresentPaymentPassSetupIfCardIsNotPresent = NO;
