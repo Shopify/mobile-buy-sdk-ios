@@ -28,6 +28,14 @@
 
 @interface NSDate (BUYAdditions)
 
+/**
+ *  Calculates the days between two dates
+ *
+ *  @param fromDateTime The from date
+ *  @param toDateTime   The to date
+ *
+ *  @return Numbers of days between the two dates
+ */
 + (NSInteger)daysBetweenDate:(NSDate*)fromDateTime andDate:(NSDate*)toDateTime;
 
 @end

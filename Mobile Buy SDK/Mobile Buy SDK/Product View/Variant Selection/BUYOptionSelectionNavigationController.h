@@ -29,9 +29,19 @@
 #import "BUYTheme.h"
 #import "BUYVariantOptionBreadCrumbsView.h"
 
+/**
+ *  Custom navigation controller for variant option selection
+ */
 @interface BUYOptionSelectionNavigationController : BUYNavigationController <BUYThemeable>
 
+/**
+ *  Used to set whether to dismiss with dropping animation when variant selection is cancelled instead of confirmed
+ */
 @property (nonatomic, assign) BOOL dismissWithCancelAnimation;
+
+/**
+ *  The bread crumbs view for variant option selections
+ */
 @property (nonatomic, strong) BUYVariantOptionBreadCrumbsView *breadsCrumbsView;
 
 @end

@@ -28,7 +28,18 @@
 
 @interface NSDateFormatter (BUYAdditions)
 
+/**
+ *  A date formatter for use for shipping rates
+ *
+ *  @return A date formatter with the following format: yyyy-MM-dd'T'HH:mm:ss.SSSZ
+ */
 + (NSDateFormatter*)dateFormatterForShippingRates;
+
+/**
+ *  A date formatter for use for product publications
+ *
+ *  @return A date formatter with the following format: yyyy-MM-dd'T'HH:mm:ssZ
+ */
 + (NSDateFormatter*)dateFormatterForPublications;
 
 @end

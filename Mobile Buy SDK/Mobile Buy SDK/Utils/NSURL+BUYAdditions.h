@@ -28,6 +28,13 @@
 
 @interface NSURL (BUYAdditions)
 
+/**
+ *  Converts an NSString to a NSURL. Safe to pass in nil.
+ *
+ *  @param string The string to convert
+ *
+ *  @return An NSURL from an NSString
+ */
 + (NSURL *)buy_urlWithString:(NSString *)string;
 
 @end

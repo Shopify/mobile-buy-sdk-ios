@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 /**
  *  The theme style for the BUYProductViewController

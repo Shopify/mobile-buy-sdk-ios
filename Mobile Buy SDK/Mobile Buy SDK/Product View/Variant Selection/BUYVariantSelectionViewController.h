@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @class BUYProduct;
 @class BUYVariantSelectionViewController;
@@ -33,21 +33,57 @@
 
 @protocol BUYVariantSelectionDelegate <NSObject>
 
+/**
+ *  Called when a user selects the last option for a product variant
+ *
+ *  @param controller The displayed variant selection view controller
+ *  @param variant    The selected product variant
+ */
 - (void)variantSelectionController:(BUYVariantSelectionViewController *)controller didSelectVariant:(BUYProductVariant *)variant;
+
+/**
+ *  Called when a user cancels out of the flow
+ *
+ *  @param controller  The displayed variant selection view controller
+ *  @param optionIndex The index matching the option value when the user cancelled selection in the flow
+ */
 - (void)variantSelectionControllerDidCancelVariantSelection:(BUYVariantSelectionViewController *)controller atOptionIndex:(NSUInteger)optionIndex;
 
 @end
 
+/**
+ *  The view controller that manages the option selection view controllers
+ */
 @interface BUYVariantSelectionViewController : UIViewController
 
+/**
+ *  Initalizer that takes a product and theme
+ *
+ *  @param product The product to display variant options for selection
+ *  @param theme   The current theme
+ *
+ *  @return An instance of BUYVariantSelectionViewController
+ */
 - (instancetype)initWithProduct:(BUYProduct *)product theme:(BUYTheme*)theme;
 
+/**
+ *  The product displaying variant option for
+ */
 @property (nonatomic, strong, readonly) BUYProduct *product;
 
+/**
+ *  The current product variant selection in the main product view. This is used to display checkmark throughout the flow to indicate initial current selection
+ */
 @property (nonatomic, strong) BUYProductVariant *selectedProductVariant;
 
+/**
+ *  A currency formatter set to the shop's currency so the price can be displayed for the last variant option
+ */
 @property (nonatomic, weak) NSNumberFormatter *currencyFormatter;
 
+/**
+ *  The delegate that informs the product view of selection or cancellation
+ */
 @property (nonatomic, weak) id <BUYVariantSelectionDelegate> delegate;
 
 @end

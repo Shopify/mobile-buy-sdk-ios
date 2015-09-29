@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 #import "BUYTheme.h"
 
 @class BUYOptionValue;
@@ -32,26 +32,66 @@
 
 @protocol BUYOptionSelectionDelegate <NSObject>
 
+/**
+ *  Called when a user selected an option value
+ *
+ *  @param controller  The BUYOptionSelectionViewController
+ *  @param optionValue The selected BUYOptionValue
+ */
 - (void)optionSelectionController:(BUYOptionSelectionViewController *)controller didSelectOptionValue:(BUYOptionValue *)optionValue;
 
+/**
+ *  Called when a user pops the navigation controller and backs out of the current option
+ *
+ *  @param controller The BUYOptionSelectionViewController
+ */
 - (void)optionSelectionControllerDidBackOutOfChoosingOption:(BUYOptionSelectionViewController *)controller;
 
 @end
 
+/**
+ *  The view controller containing a table view with variant options for selection
+ */
 @interface BUYOptionSelectionViewController : UITableViewController <BUYThemeable>
 
+/**
+ *  Initalizer for the BUYOptionSelectionViewController
+ *
+ *  @param optionValues                              An array of BUYOptionValue objects to display for selection
+ *  @param filteredProductVariantsForSelectionOption An array of BUYProductVariants filtered to the current set selected BUYOptionValue objects
+ *
+ *  @return An instance of the BUYOptionSelectionViewController
+ */
 - (instancetype)initWithOptionValues:(NSArray *)optionValues filteredProductVariantsForSelectionOption:(NSArray*)filteredProductVariantsForSelectionOption;
 
+/**
+ *  Array of BUYOptionValue objects to display for selection
+ */
 @property (nonatomic, strong, readonly) NSArray *optionValues;
 
+/**
+ *  The selected BUYOptionValue
+ */
 @property (nonatomic, strong) BUYOptionValue *selectedOptionValue;
 
+/**
+ *  True when there are no more options to display after the current selection
+ */
 @property (nonatomic, assign) BOOL isLastOption;
 
+/**
+ *  Array of BUYProductVariants filtered to the current set selected BUYOptionValue objects
+ */
 @property (nonatomic, strong, readonly) NSArray *filteredProductVariantsForSelectionOption;
 
+/**
+ *  Currency formatter with the shop's currency
+ */
 @property (nonatomic, weak) NSNumberFormatter *currencyFormatter;
 
+/**
+ *  Delegate to inform about option selections and cancellations
+ */
 @property (nonatomic, weak) id <BUYOptionSelectionDelegate> delegate;
 
 @end

@@ -29,8 +29,16 @@
 #import "BUYTheme.h"
 #import "BUYTheme+Additions.h"
 
+/**
+ *  A view that contains a variant option name and option value for use to display the selected product variant
+ */
 @interface BUYVariantOptionView : UIView <BUYThemeable>
 
+/**
+ *  Sets the text on the labels for the option value
+ *
+ *  @param optionValue The option value to display
+ */
 - (void)setTextForOptionValue:(BUYOptionValue*)optionValue;
 
 @end

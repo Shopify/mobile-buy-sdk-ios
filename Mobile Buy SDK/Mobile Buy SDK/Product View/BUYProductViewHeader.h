@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 @class BUYImageView;
 @class BUYProductVariant;
 @class BUYTheme;
