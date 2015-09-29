@@ -304,6 +304,8 @@
 {
     self.demoProductViewController = toggleSwitch.on;
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    // Add 3D Touch peek and pop for product previewing
     if (self.demoProductViewController == YES && [[UITraitCollection class] respondsToSelector:@selector(traitCollectionWithForceTouchCapability:)] && self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
         [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
     } else if ([[UITraitCollection class] respondsToSelector:@selector(traitCollectionWithForceTouchCapability:)] && self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
