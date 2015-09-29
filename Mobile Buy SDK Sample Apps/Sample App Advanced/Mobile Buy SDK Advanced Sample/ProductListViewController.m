@@ -229,7 +229,7 @@
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             BUYProduct *product = self.products[indexPath.row];
             cell.textLabel.text = product.title;
-            if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+            if ([self.traitCollection respondsToSelector:@selector(traitCollectionWithForceTouchCapability:)] && self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
                 [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
             }
         }
