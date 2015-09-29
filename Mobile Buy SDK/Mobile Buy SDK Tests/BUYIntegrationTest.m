@@ -55,7 +55,6 @@
 	
 	_products = [[NSMutableArray alloc] init];
 	
-	//TODO: This currently does a bunch of API calls. We should add some fixtures to the tests.
 	[self fetchProducts];
 }
 

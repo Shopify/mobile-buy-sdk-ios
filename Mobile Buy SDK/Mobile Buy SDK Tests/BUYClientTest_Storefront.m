@@ -150,7 +150,6 @@
 		XCTAssertNotNil(products);
 		XCTAssertGreaterThan([products count], 1);
 		
-		// TODO: Change to test against 
 		NSSortDescriptor *sortByName = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES];
 		NSArray *sortDescriptors = [NSArray arrayWithObject:sortByName];
 		products = [products sortedArrayUsingDescriptors:sortDescriptors];
