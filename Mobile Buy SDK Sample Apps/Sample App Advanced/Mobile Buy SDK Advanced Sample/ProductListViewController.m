@@ -34,7 +34,7 @@
 // Adding a merchant ID will show Apple Pay in the BUYProductViewController (on supported devices)
 #define MERCHANT_ID @""
 
-@interface ProductListViewController ()
+@interface ProductListViewController () <UIViewControllerPreviewingDelegate>
 
 @property (nonatomic, strong) BUYClient *client;
 @property (nonatomic, strong) BUYCollection *collection;
@@ -77,7 +77,6 @@
     self.themeTintColors = @[[UIColor colorWithRed:0.48f green:0.71f blue:0.36f alpha:1.0f], [UIColor colorWithRed:0.88 green:0.06 blue:0.05 alpha:1], [UIColor colorWithRed:0.02 green:0.54 blue:1 alpha:1]];
     self.themeTintColorSelectedIndex = 0;
     self.showsProductImageBackground = YES;
-    
     
     if (self.collection) {
         // If we're presenting with a collection, add the ability to sort
@@ -288,12 +287,7 @@
 
 - (void)demoProductViewControllerWithProduct:(BUYProduct*)product
 {
-    BUYTheme *theme = [BUYTheme new];
-    theme.style = self.themeStyle;
-    theme.tintColor = self.themeTintColors[self.themeTintColorSelectedIndex];
-    theme.showsProductImageBackground = self.showsProductImageBackground;
-    BUYProductViewController *productViewController = [[BUYProductViewController alloc] initWithClient:self.client theme:theme];
-    productViewController.merchantId = MERCHANT_ID;
+    BUYProductViewController *productViewController = [self productViewController];
     [productViewController loadWithProduct:product completion:^(BOOL success, NSError *error) {
         if (error == nil) {
             [productViewController presentPortraitInViewController:self];
@@ -301,10 +295,28 @@
     }];
 }
 
+-(BUYProductViewController*)productViewController
+{
+    BUYTheme *theme = [BUYTheme new];
+    theme.style = self.themeStyle;
+    theme.tintColor = self.themeTintColors[self.themeTintColorSelectedIndex];
+    theme.showsProductImageBackground = self.showsProductImageBackground;
+    BUYProductViewController *productViewController = [[BUYProductViewController alloc] initWithClient:self.client theme:theme];
+    productViewController.merchantId = MERCHANT_ID;
+    return productViewController;
+}
+
 - (void)toggleProductViewControllerDemo:(UISwitch*)toggleSwitch
 {
     self.demoProductViewController = toggleSwitch.on;
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    // Add 3D Touch peek and pop for product previewing
+    if (self.demoProductViewController == YES && [[UITraitCollection class] respondsToSelector:@selector(traitCollectionWithForceTouchCapability:)] && self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+        [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
+    } else if ([[UITraitCollection class] respondsToSelector:@selector(traitCollectionWithForceTouchCapability:)] && self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+        [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
+    }
 }
 
 - (void)toggleProductViewControllerThemeStyle:(UISegmentedControl*)segmentedControl
@@ -336,6 +348,30 @@
     address.provinceCode = @"ON";
     address.zip = @"K1N5T5";
     return address;
+}
+
+#pragma mark - UIViewControllerPreviewingDelegate
+
+-(UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location
+{
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    if (cell == nil || self.demoProductViewController == NO) {
+        return nil;
+    }
+    
+    BUYProduct *product = self.products[indexPath.row];
+    BUYProductViewController *productViewController = [self productViewController];
+    [productViewController loadWithProduct:product completion:NULL];
+    
+    previewingContext.sourceRect = cell.frame;
+    
+    return productViewController;
+}
+
+-(void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit
+{
+    [self presentViewController:viewControllerToCommit animated:YES completion:NULL];
 }
 
 @end

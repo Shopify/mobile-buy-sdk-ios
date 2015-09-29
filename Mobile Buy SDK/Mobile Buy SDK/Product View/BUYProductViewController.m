@@ -124,7 +124,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 
 - (BUYProductView *)productView
 {
-	if (_productView == nil && self.product != nil) {
+	if (_productView == nil && self.product != nil && self.shop != nil) {
 		_productView = [[BUYProductView alloc] initWithFrame:CGRectMake(0, 0, self.preferredContentSize.width, self.preferredContentSize.height) product:self.product theme:self.theme];
 		_productView.translatesAutoresizingMaskIntoConstraints = NO;
 		_productView.hidden = YES;
@@ -231,7 +231,9 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 - (void)loadProduct:(NSString *)productId completion:(void (^)(BOOL success, NSError *error))completion
 {
 	if (productId == nil) {
-		completion(NO, [NSError errorWithDomain:BUYShopifyError code:BUYShopifyError_NoProductSpecified userInfo:nil]);
+		if (completion) {
+			completion(NO, [NSError errorWithDomain:BUYShopifyError code:BUYShopifyError_NoProductSpecified userInfo:nil]);
+		}
 	}
 	else {
 		self.isLoading = YES;
@@ -246,18 +248,24 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 						self.isLoading = NO;
 						
 						if (error) {
-							completion(NO, error);
+							if (completion) {
+								completion(NO, error);
+							}
 						}
 						else {
 							self.product = product;
-							completion(YES, nil);
+							if (completion) {
+								completion(YES, nil);
+							}
 						}
 					});
 				}];
 			}
 			else {
 				self.isLoading = NO;
-				completion(success, error);
+				if (completion) {
+					completion(success, error);
+				}
 			}
 		}];
 	}
@@ -269,20 +277,23 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 		completion(NO, [NSError errorWithDomain:BUYShopifyError code:BUYShopifyError_NoProductSpecified userInfo:nil]);
 	}
 	else {
-		self.product = product;
-		
 		if (self.shop == nil) {
 			self.isLoading = YES;
 			
 			[self loadShopWithCallback:^(BOOL success, NSError *error) {
-				
+				self.product = product;
 				self.isLoading = NO;
-				completion(success, error);
+				if (completion) {
+					completion(success, error);
+				}
 			}];
 		}
 		else {
+			self.product = product;
 			dispatch_async(dispatch_get_main_queue(), ^{
-				completion(YES, nil);
+				if (completion) {
+					completion(YES, nil);
+				}
 			});
 		}
 	}
@@ -444,7 +455,9 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 			[(BUYNavigationController*)self.navigationController updateCloseButtonImageWithTintColor:YES duration:0];
 			self.navigationBar.alpha = 1;
 			self.navigationBarTitle.alpha = 1;
-			[self.productView setInsets:UIEdgeInsetsMake(CGRectGetHeight(self.navigationBar.bounds), 0, 0, 0) appendToCurrentInset:YES];
+			// When using 3D Touch, the initial height of the navigation bar (without UIStatusBar) doesn't match the final height (with UIStatusBar)
+			// so we're forced to set it manually in case it's not tall enough. Of course, this is only valid for products with no product images.
+			[self.productView setInsets:UIEdgeInsetsMake(MAX(CGRectGetHeight(self.navigationBar.bounds), 64), 0, 0, 0) appendToCurrentInset:YES];
 		}
 	}
 }
