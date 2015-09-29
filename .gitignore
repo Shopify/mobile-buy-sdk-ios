@@ -19,3 +19,4 @@ Pods/
 .DS_Store
 .ruby-version
 *Sample*/Buy.framework
+*-INTERNAL.*
