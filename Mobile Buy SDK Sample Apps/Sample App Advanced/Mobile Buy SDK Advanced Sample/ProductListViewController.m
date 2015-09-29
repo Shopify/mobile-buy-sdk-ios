@@ -34,7 +34,7 @@
 // Adding a merchant ID will show Apple Pay in the BUYProductViewController (on supported devices)
 #define MERCHANT_ID @""
 
-@interface ProductListViewController ()
+@interface ProductListViewController () <UIViewControllerPreviewingDelegate>
 
 @property (nonatomic, strong) BUYClient *client;
 @property (nonatomic, strong) BUYCollection *collection;
@@ -77,7 +77,6 @@
     self.themeTintColors = @[[UIColor colorWithRed:0.48f green:0.71f blue:0.36f alpha:1.0f], [UIColor colorWithRed:0.88 green:0.06 blue:0.05 alpha:1], [UIColor colorWithRed:0.02 green:0.54 blue:1 alpha:1]];
     self.themeTintColorSelectedIndex = 0;
     self.showsProductImageBackground = YES;
-    
     
     if (self.collection) {
         // If we're presenting with a collection, add the ability to sort
@@ -230,6 +229,9 @@
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             BUYProduct *product = self.products[indexPath.row];
             cell.textLabel.text = product.title;
+            if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+                [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
+            }
         }
             break;
             
@@ -336,6 +338,35 @@
     address.provinceCode = @"ON";
     address.zip = @"K1N5T5";
     return address;
+}
+
+#pragma mark - UIViewControllerPreviewingDelegate
+
+-(UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location
+{
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    if (cell == nil || self.demoProductViewController == NO) {
+        return nil;
+    }
+    
+    BUYProduct *product = self.products[indexPath.row];
+    BUYTheme *theme = [BUYTheme new];
+    theme.style = self.themeStyle;
+    theme.tintColor = self.themeTintColors[self.themeTintColorSelectedIndex];
+    theme.showsProductImageBackground = self.showsProductImageBackground;
+    BUYProductViewController *productViewController = [[BUYProductViewController alloc] initWithClient:self.client theme:theme];
+    productViewController.merchantId = MERCHANT_ID;
+    [productViewController loadWithProduct:product completion:NULL];
+    
+    previewingContext.sourceRect = cell.frame;
+    
+    return productViewController;
+}
+
+-(void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit
+{
+    [self presentViewController:viewControllerToCommit animated:YES completion:NULL];
 }
 
 @end
