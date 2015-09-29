@@ -12,7 +12,7 @@
 
 * add a remote to you private repo pointing to the public repo
 	`git remote add public git@github.com:Shopify/mobile-buy-sdk-ios-private.git`
-* squash your commits (rebase) before pushing to the public repo so features are delivered in a single commit
+* [Use rebase to squash your commits](http://gitready.com/advanced/2009/02/10/squashing-commits-with-rebase.html) before pushing to the public repo so features are delivered in a single commit
 
 
 ## Releases
@@ -20,6 +20,4 @@
 * tag the commit with the release version number
 * create a `Release` on github, pointing to the tag
 * run the `Universal Framework` scheme using the `Release` configuration, and zip the contents of `Mobile Buy SDK Sample Apps` folder when complete
-  * upload the zip file buy-sdk-ios-x.y.z.zip and attach it as a binary to the `Release`
-
-
+* upload the zip file buy-sdk-ios-x.y.z.zip and attach it as a binary to the `Release`
