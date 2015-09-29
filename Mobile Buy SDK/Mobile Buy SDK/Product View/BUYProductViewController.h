@@ -77,7 +77,8 @@
 
 /**
  *  If the merchantId is set and the device support Apple Pay but no credit card is present this allows the user to add a payment pass to the Wallet.
- *  The user is given the option to add a payment pass or continue with web checkout. Default is set to [PKPaymentAuthorizationViewController canMakePayments]
+ *  The user is given the option to add a payment pass or continue with web checkout. Default is set to true if 
+ *  [PKPaymentAuthorizationViewController canMakePayments] return true.
  */
 @property (nonatomic, assign) BOOL shouldPresentPaymentPassSetupIfCardIsNotPresent;
 

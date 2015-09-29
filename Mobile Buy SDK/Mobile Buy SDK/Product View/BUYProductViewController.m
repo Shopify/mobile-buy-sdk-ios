@@ -55,7 +55,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 - (void)postCheckoutCompletion:(BUYCheckout *)checkout error:(NSError *)error;
 @end
 
-@interface BUYProductViewController () <BUYThemeable, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, BUYVariantSelectionDelegate, BUYNavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, PKAddPaymentPassViewControllerDelegate>
+@interface BUYProductViewController () <BUYThemeable, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate, BUYVariantSelectionDelegate, BUYNavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (nonatomic, strong) NSString *productId;
 @property (nonatomic, strong) BUYProductVariant *selectedProductVariant;
@@ -66,7 +66,6 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 @property (nonatomic, strong) BUYProduct *product;
 @property (nonatomic, assign) BOOL isLoading;
 @property (nonatomic, strong) NSNumberFormatter *currencyFormatter;
-@property (nonatomic, strong) PKPassLibrary *passLibrary;
 
 // views
 @property (nonatomic, strong) BUYProductView *productView;
@@ -97,7 +96,6 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 		self.transitioningDelegate = self;
 		
 		self.shouldPresentPaymentPassSetupIfCardIsNotPresent = YES;
-		self.passLibrary = [[PKPassLibrary alloc] init];
 		
 		_activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectZero];
 		_activityIndicatorView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -148,7 +146,8 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 
 -(void)setShouldPresentPaymentPassSetupIfCardIsNotPresent:(BOOL)shouldPresentPaymentPassSetupIfCardIsNotPresent
 {
-	if (shouldPresentPaymentPassSetupIfCardIsNotPresent == YES && [self.passLibrary isPaymentPassActivationAvailable] && [PKPaymentAuthorizationViewController canMakePayments]) {
+	if (shouldPresentPaymentPassSetupIfCardIsNotPresent == YES &&
+		[PKPaymentAuthorizationViewController canMakePayments]) {
 		_shouldPresentPaymentPassSetupIfCardIsNotPresent = shouldPresentPaymentPassSetupIfCardIsNotPresent;
 	} else {
 		_shouldPresentPaymentPassSetupIfCardIsNotPresent = NO;
@@ -471,7 +470,12 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 		self.checkout = [[BUYCheckout alloc] initWithCart:[self cart]];
 		[self startApplePayCheckout:self.checkout];
 	} else {
-		[self.passLibrary openPaymentSetup];
+		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"We accept Apple Pay" message:@"You need a credit card added to your Wallet to checkout with Apple Pay" preferredStyle:UIAlertControllerStyleAlert];
+		[alertController addAction:[UIAlertAction actionWithTitle:@"Add in Wallet" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+			[[[PKPassLibrary alloc] init] openPaymentSetup];
+		}]];
+		[alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:NULL]];
+		[self presentViewController:alertController animated:YES completion:NULL];
 	}
 }
 
@@ -572,20 +576,6 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 	navController.navigationDelegate = self;
 	[navController setTheme:self.theme];
 	[controller presentViewController:navController animated:YES completion:nil];
-}
-
-#pragma mark - PKAddPaymentPassViewControllerDelegate
-
--(void)addPaymentPassViewController:(PKAddPaymentPassViewController *)controller didFinishAddingPaymentPass:(PKPaymentPass *)pass error:(NSError *)error
-{
-	[controller dismissViewControllerAnimated:YES completion:^{
-		
-	}];
-}
-
--(void)addPaymentPassViewController:(PKAddPaymentPassViewController *)controller generateRequestWithCertificateChain:(NSArray<NSData *> *)certificates nonce:(NSData *)nonce nonceSignature:(NSData *)nonceSignature completionHandler:(void (^)(PKAddPaymentPassRequest * _Nonnull))handler
-{
-	
 }
 
 @end
