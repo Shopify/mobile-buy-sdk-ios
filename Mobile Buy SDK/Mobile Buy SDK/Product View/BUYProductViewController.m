@@ -134,7 +134,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 		
 		_productView.tableView.delegate = self;
 		_productView.tableView.dataSource = self;
-		[_productView.productViewFooter setApplePayButtonVisible:self.isApplePayAvailableOrShouldShowPaymentPassSetup];
+		[_productView.productViewFooter setApplePayButtonVisible:self.shouldShowApplePayButton];
 		[_productView.productViewFooter.buyPaymentButton addTarget:self action:@selector(checkoutWithApplePay) forControlEvents:UIControlEventTouchUpInside];
 		[_productView.productViewFooter.checkoutButton addTarget:self action:@selector(checkoutWithShopify) forControlEvents:UIControlEventTouchUpInside];
 		
@@ -154,8 +154,9 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 	}
 }
 
-- (BOOL)isApplePayAvailableOrShouldShowPaymentPassSetup {
-	return self.isApplePayAvailable ?: self.shouldPresentPaymentPassSetupIfCardIsNotPresent;
+- (BOOL)shouldShowApplePayButton {
+	return YES;
+//	return self.isApplePayAvailable ?: self.shouldPresentPaymentPassSetupIfCardIsNotPresent;
 }
 
 - (CGSize)preferredContentSize
@@ -308,7 +309,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 	self.currencyFormatter = [[NSNumberFormatter alloc] init];
 	self.currencyFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
 	self.currencyFormatter.currencyCode = shop.currency;
-	[self.productView.productViewFooter setApplePayButtonVisible:self.isApplePayAvailableOrShouldShowPaymentPassSetup];
+	[self.productView.productViewFooter setApplePayButtonVisible:self.shouldShowApplePayButton];
 	[self.productView.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
 }
 
@@ -471,7 +472,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 		[self startApplePayCheckout:self.checkout];
 	} else {
 		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"We accept Apple Pay" message:@"You need a credit card added to your Wallet to checkout with Apple Pay" preferredStyle:UIAlertControllerStyleAlert];
-		[alertController addAction:[UIAlertAction actionWithTitle:@"Add in Wallet" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+		[alertController addAction:[UIAlertAction actionWithTitle:@"Add payment method in Wallet" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 			[[[PKPassLibrary alloc] init] openPaymentSetup];
 		}]];
 		[alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:NULL]];
