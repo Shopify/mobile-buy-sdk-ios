@@ -114,7 +114,6 @@ namespace shopify
 
 - (NSSet *)dirtyProperties
 {
-	//TODO: This will probably be a source of concurrency problems, synchronize around this guy
 	return [NSSet setWithSet:_dirtyProperties];
 }
 
