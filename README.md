@@ -39,7 +39,13 @@ Then run `pod install`
 
 #### Carthage
 
-TBD
+Add the following line to your Cartfile
+
+```
+github "Shopify/mobile-buy-sdk-ios"
+```
+
+Then run 'carthage update`
 
 ### Quick Start
 
