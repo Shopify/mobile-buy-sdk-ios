@@ -287,17 +287,23 @@
 
 - (void)demoProductViewControllerWithProduct:(BUYProduct*)product
 {
+    BUYProductViewController *productViewController = [self productViewController];
+    [productViewController loadWithProduct:product completion:^(BOOL success, NSError *error) {
+        if (error == nil) {
+            [productViewController presentPortraitInViewController:self];
+        }
+    }];
+}
+
+-(BUYProductViewController*)productViewController
+{
     BUYTheme *theme = [BUYTheme new];
     theme.style = self.themeStyle;
     theme.tintColor = self.themeTintColors[self.themeTintColorSelectedIndex];
     theme.showsProductImageBackground = self.showsProductImageBackground;
     BUYProductViewController *productViewController = [[BUYProductViewController alloc] initWithClient:self.client theme:theme];
     productViewController.merchantId = MERCHANT_ID;
-    [productViewController loadWithProduct:product completion:^(BOOL success, NSError *error) {
-        if (error == nil) {
-            [productViewController presentPortraitInViewController:self];
-        }
-    }];
+    return productViewController;
 }
 
 - (void)toggleProductViewControllerDemo:(UISwitch*)toggleSwitch
@@ -355,12 +361,7 @@
     }
     
     BUYProduct *product = self.products[indexPath.row];
-    BUYTheme *theme = [BUYTheme new];
-    theme.style = self.themeStyle;
-    theme.tintColor = self.themeTintColors[self.themeTintColorSelectedIndex];
-    theme.showsProductImageBackground = self.showsProductImageBackground;
-    BUYProductViewController *productViewController = [[BUYProductViewController alloc] initWithClient:self.client theme:theme];
-    productViewController.merchantId = MERCHANT_ID;
+    BUYProductViewController *productViewController = [self productViewController];
     [productViewController loadWithProduct:product completion:NULL];
     
     previewingContext.sourceRect = cell.frame;
