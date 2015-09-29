@@ -34,7 +34,7 @@ If you would like to not include the Mobile Buy SDK Project within your existing
 
 Add the following line to your podfile:
 
-```
+```ruby
 pod "Mobile-Buy-SDK"
 ```
 
@@ -44,20 +44,18 @@ Then run `pod install`
 
 Add the following line to your Cartfile
 
-```
+```ruby
 github "Shopify/mobile-buy-sdk-ios"
 ```
 
-Then run 'carthage update`
+Then run `carthage update`
 
 ### Quick Start
 
 Import the module
 
 ```objc
-
 @import Buy;
-
 ```
 
 Initialize the `BUYClient` with your credentials from the *Mobile App Channel*
