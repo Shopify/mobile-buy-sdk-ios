@@ -305,7 +305,7 @@ NSString * const MerchantId = @"";
 -(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingContact:(PKContact *)contact completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
 {
     // Add additional methods if needed and forward the callback to BUYApplePayHelpers
-    [self paymentAuthorizationViewController:controller didSelectShippingContact:contact completion:completion];
+    [self.applePayHelper paymentAuthorizationViewController:controller didSelectShippingContact:contact completion:completion];
 }
 
 -(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingMethod:(PKShippingMethod *)shippingMethod completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
