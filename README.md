@@ -34,7 +34,7 @@ If you would like to not include the Mobile Buy SDK Project within your existing
 
 Add the following line to your podfile:
 
-```
+```ruby
 pod "Mobile-Buy-SDK"
 ```
 
@@ -44,44 +44,38 @@ Then run `pod install`
 
 Add the following line to your Cartfile
 
-```
+```ruby
 github "Shopify/mobile-buy-sdk-ios"
 ```
 
-Then run 'carthage update`
+Then run `carthage update`
 
 ### Quick Start
 
 Import the module
 
 ```objc
-
-	@import Buy;
-
+@import Buy;
 ```
 
 Initialize the `BUYClient` with your credentials from the *Mobile App Channel*
 
 
 ```objc
-	
-	BUYClient *client = [[BUYClient alloc] initWithShopDomain:@"yourshop.myshopify.com"
-                                       	apiKey:@"aaaaaaaaaaaaaaaaaa"
-                                       	channelId:@"99999"];
-                                       
-	// Fetch your products
-    [self.client getProductsPage:1 completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
-        
-        if (error) {
-            NSLog(@"Error retrieving products: %@", error.userInfo);
-        }
-        else {
-            for (BUYProduct *product in products) {
-                NSLog(@"%@", product.title);
-            }
-        }
-    }];
+BUYClient *client = [[BUYClient alloc] initWithShopDomain:@"yourshop.myshopify.com"
+                                                   apiKey:@"aaaaaaaaaaaaaaaaaa" 
+                                                channelId:@"99999"];
 
+// Fetch your products
+[self.client getProductsPage:1 completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+        if (error) {
+                NSLog(@"Error retrieving products: %@", error.userInfo);
+        } else {
+                for (BUYProduct *product in products) {
+                        NSLog(@"%@", product.title);
+                }
+        }
+}];
 ```
 
 Consult the [Usage Section](https://docs.shopify.com/mobile-buy-sdk/ios/integration-guide/#using-the-mobile-buy-sdk) of the Integration Guide on how to create a cart, and checkout with the SDK.
