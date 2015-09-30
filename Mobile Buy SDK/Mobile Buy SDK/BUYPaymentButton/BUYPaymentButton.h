@@ -32,7 +32,8 @@ typedef NS_ENUM(NSInteger, BUYPaymentButtonStyle) {
 
 typedef NS_ENUM(NSInteger, BUYPaymentButtonType) {
     BUYPaymentButtonTypePlain = 0,
-    BUYPaymentButtonTypeBuy
+    BUYPaymentButtonTypeBuy,
+	BUYPaymentButtonTypeSetup // Only supported for PKPaymentButton
 };
 
 @interface BUYPaymentButton : UIButton
