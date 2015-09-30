@@ -148,10 +148,10 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 {
 	PKPassLibrary *passLibrary = [[PKPassLibrary alloc] init];
 	if (self.allowApplePaySetup == YES &&
-		// Check if the device can add a payment pass
-		[PKAddPaymentPassViewController canAddPaymentPass] &&
 		// Check that it's running iOS 9.0 or above
 		[passLibrary respondsToSelector:@selector(canAddPaymentPassWithPrimaryAccountIdentifier:)] &&
+		// Check if the device can add a payment pass
+		[PKPaymentAuthorizationViewController canMakePayments] &&
 		// Check that Apple Pay is enabled for the merchant
 		[self.merchantId length]) {
 		return YES;
@@ -161,7 +161,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 }
 
 - (BOOL)shouldShowApplePayButton {
-	return self.isApplePayAvailable ?: [self canShowApplePaySetup];
+	return self.isApplePayAvailable ? self.isApplePayAvailable : [self canShowApplePaySetup];
 }
 
 - (CGSize)preferredContentSize
