@@ -35,12 +35,11 @@
 /**
  *  A footer view for the BUYProductView that includes a checkout button and an Apple Pay button (if available)
  *
- *  @param theme             The theme for the footer view
- *  @param showApplePaySetup Show Apple Pay button with 'Set Up Apple Pay' text as determined by the presenter
+ *  @param theme The theme for the footer view
  *
  *  @return A footer view with a checkout and Apple Pay button
  */
-- (instancetype)initWithTheme:(BUYTheme *)theme showApplePaySetup:(BOOL)showApplePaySetup;
+- (instancetype)initWithTheme:(BUYTheme *)theme;
 
 /**
  *  A checkout button themed with the BUYTheme tintColor. 

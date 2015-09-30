@@ -49,7 +49,7 @@
 
 @implementation BUYProductView
 
-- (instancetype)initWithFrame:(CGRect)rect product:(BUYProduct*)product theme:(BUYTheme*)theme shouldShowApplePaySetup:(BOOL)showApplePaySetup
+- (instancetype)initWithFrame:(CGRect)rect product:(BUYProduct*)product theme:(BUYTheme*)theme
 {
 	self = [super initWithFrame:rect];
 	if (self) {
@@ -156,7 +156,7 @@
 																		 constant:0.0];
 		[self addConstraint:_poweredByShopifyLabelConstraint];
 		
-		_productViewFooter = [[BUYProductViewFooter alloc] initWithTheme:theme showApplePaySetup:showApplePaySetup];
+		_productViewFooter = [[BUYProductViewFooter alloc] initWithTheme:theme];
 		_productViewFooter.translatesAutoresizingMaskIntoConstraints = NO;
 		[self addSubview:_productViewFooter];
 		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_productViewFooter]|"

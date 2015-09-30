@@ -125,7 +125,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 - (BUYProductView *)productView
 {
 	if (_productView == nil && self.product != nil && self.shop != nil) {
-		_productView = [[BUYProductView alloc] initWithFrame:CGRectMake(0, 0, self.preferredContentSize.width, self.preferredContentSize.height) product:self.product theme:self.theme shouldShowApplePaySetup:self.shouldPresentPaymentPassSetupIfCardIsNotPresent];
+		_productView = [[BUYProductView alloc] initWithFrame:CGRectMake(0, 0, self.preferredContentSize.width, self.preferredContentSize.height) product:self.product theme:self.theme];
 		_productView.translatesAutoresizingMaskIntoConstraints = NO;
 		_productView.hidden = YES;
 		[self.view addSubview:_productView];
@@ -155,7 +155,8 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 }
 
 - (BOOL)shouldShowApplePayButton {
-	return self.isApplePayAvailable ?: self.shouldPresentPaymentPassSetupIfCardIsNotPresent;
+	return YES;
+//	return self.isApplePayAvailable ?: self.shouldPresentPaymentPassSetupIfCardIsNotPresent;
 }
 
 - (CGSize)preferredContentSize

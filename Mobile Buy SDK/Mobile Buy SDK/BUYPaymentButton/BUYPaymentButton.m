@@ -549,8 +549,6 @@
 			[applePayPath fill];
 		}
 			break;
-		default:
-			break;
 	}
 	
 	UIImage *applePayImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -577,10 +575,6 @@
 		return (BUYPaymentButton*)[ApplePayButton buttonWithType:buttonType
 														   style:buttonStyle];
 	} else {
-		if (buttonType == BUYPaymentButtonTypeSetup) {
-			NSException *exception = [NSException exceptionWithName:@"Not supported" reason:@"A custom BUYPaymentButton does not support the Set Up Apple Pay button type. Use PKPaymentButton." userInfo:nil];
-			@throw exception;
-		}
 		BUYCustomPaymentButton *customPaymentButton = [BUYCustomPaymentButton buttonWithType:UIButtonTypeCustom];
 		[customPaymentButton buttonWithType:buttonType style:buttonStyle];
 		return (BUYPaymentButton*)customPaymentButton;
