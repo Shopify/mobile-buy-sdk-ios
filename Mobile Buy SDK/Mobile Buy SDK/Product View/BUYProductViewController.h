@@ -78,9 +78,9 @@
 /**
  *  If the merchantId is set and the device support Apple Pay but no credit card is present this allows the user to add a payment pass to the Wallet.
  *  The user is given the option to add a payment pass or continue with web checkout. Default is set to true if 
- *  [PKAddPaymentPassViewController canAddPaymentPass] returns true.
+ *  [PKAddPaymentPassViewController canAddPaymentPass] returns true and the app is running iOS 9.0 and above.
  */
-@property (nonatomic, assign) BOOL shouldPresentPaymentPassSetupIfCardIsNotPresent;
+@property (nonatomic, assign) BOOL allowApplePaySetup;
 
 /**
  *  This is a convenience method as an alternative to presentViewController: which will force portrait orientation.  This method is only 
