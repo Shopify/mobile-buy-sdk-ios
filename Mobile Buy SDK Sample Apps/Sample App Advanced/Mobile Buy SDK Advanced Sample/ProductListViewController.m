@@ -80,7 +80,7 @@
     
     if (self.collection) {
         // If we're presenting with a collection, add the ability to sort
-        UIBarButtonItem *sortBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sort" style:UIBarButtonItemStylePlain target:self action:@selector(presentCollectionSortOptions)];
+        UIBarButtonItem *sortBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sort" style:UIBarButtonItemStylePlain target:self action:@selector(presentCollectionSortOptions:)];
         self.navigationItem.rightBarButtonItem = sortBarButtonItem;
         [self getCollectionWithSortOrder:BUYCollectionSortCollectionDefault];
     } else {
@@ -105,7 +105,7 @@
     [self.collectionTask cancel];
 }
 
-- (void)presentCollectionSortOptions
+- (void)presentCollectionSortOptions:(id)sender
 {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Collection Sort" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
@@ -136,6 +136,11 @@
         [self getCollectionWithSortOrder:BUYCollectionSortCreatedDescending];
     }]];
      */
+    
+    if (self.traitCollection.userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+        UIPopoverPresentationController *popPresenter = [alertController popoverPresentationController];
+        popPresenter.barButtonItem = (UIBarButtonItem*)sender;
+    }
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:NULL]];
     
