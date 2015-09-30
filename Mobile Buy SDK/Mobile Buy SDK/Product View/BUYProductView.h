@@ -91,13 +91,14 @@
 /**
  *  Initializer for the product view using a rect, product to display and theme
  *
- *  @param rect    The rect is needed for the UICollectionView in the BUYProductViewHeader to setup the cell's bounds
- *  @param product The product to display in the product view. Only used in the initializer to
- *  @param theme   The theme for the product view
+ *  @param rect              The rect is needed for the UICollectionView in the BUYProductViewHeader to setup the cell's bounds
+ *  @param product           The product to display in the product view. Only used in the initializer to
+ *  @param theme             The theme for the product view
+ *  @param showApplePaySetup Show Apple Pay button with 'Set Up Apple Pay' text as determined by the presenter
  *
  *  @return An instance of the BUYProductView
  */
-- (instancetype)initWithFrame:(CGRect)rect product:(BUYProduct*)product theme:(BUYTheme*)theme;
+- (instancetype)initWithFrame:(CGRect)rect product:(BUYProduct*)product theme:(BUYTheme*)theme shouldShowApplePaySetup:(BOOL)showApplePaySetup;
 
 /**
  *  The BUYProductViewController is the UITableViewDelegate, so it receives the UIScrollView delegate method calls. 
