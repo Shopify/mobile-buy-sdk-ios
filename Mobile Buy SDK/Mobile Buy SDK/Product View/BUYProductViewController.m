@@ -95,7 +95,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 		self.modalPresentationStyle = UIModalPresentationCustom;
 		self.transitioningDelegate = self;
 		
-		self.shouldPresentPaymentPassSetupIfCardIsNotPresent = YES;
+		self.allowApplePaySetup = YES;
 		
 		_activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectZero];
 		_activityIndicatorView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -125,7 +125,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 - (BUYProductView *)productView
 {
 	if (_productView == nil && self.product != nil && self.shop != nil) {
-		_productView = [[BUYProductView alloc] initWithFrame:CGRectMake(0, 0, self.preferredContentSize.width, self.preferredContentSize.height) product:self.product theme:self.theme];
+		_productView = [[BUYProductView alloc] initWithFrame:CGRectMake(0, 0, self.preferredContentSize.width, self.preferredContentSize.height) product:self.product theme:self.theme shouldShowApplePaySetup:self.allowApplePaySetup];
 		_productView.translatesAutoresizingMaskIntoConstraints = NO;
 		_productView.hidden = YES;
 		[self.view addSubview:_productView];
@@ -144,19 +144,24 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 	return _productView;
 }
 
--(void)setShouldPresentPaymentPassSetupIfCardIsNotPresent:(BOOL)shouldPresentPaymentPassSetupIfCardIsNotPresent
+- (BOOL)canShowApplePaySetup
 {
-	if (shouldPresentPaymentPassSetupIfCardIsNotPresent == YES &&
-		[PKAddPaymentPassViewController canAddPaymentPass]) {
-		_shouldPresentPaymentPassSetupIfCardIsNotPresent = shouldPresentPaymentPassSetupIfCardIsNotPresent;
+	PKPassLibrary *passLibrary = [[PKPassLibrary alloc] init];
+	if (self.allowApplePaySetup == YES &&
+		// Check that it's running iOS 9.0 or above
+		[passLibrary respondsToSelector:@selector(canAddPaymentPassWithPrimaryAccountIdentifier:)] &&
+		// Check if the device can add a payment pass
+		[PKPaymentAuthorizationViewController canMakePayments] &&
+		// Check that Apple Pay is enabled for the merchant
+		[self.merchantId length]) {
+		return YES;
 	} else {
-		_shouldPresentPaymentPassSetupIfCardIsNotPresent = NO;
+		return NO;
 	}
 }
 
 - (BOOL)shouldShowApplePayButton {
-	return YES;
-//	return self.isApplePayAvailable ?: self.shouldPresentPaymentPassSetupIfCardIsNotPresent;
+	return self.isApplePayAvailable ? self.isApplePayAvailable : [self canShowApplePaySetup];
 }
 
 - (CGSize)preferredContentSize
@@ -484,12 +489,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 		self.checkout = [[BUYCheckout alloc] initWithCart:[self cart]];
 		[self startApplePayCheckout:self.checkout];
 	} else {
-		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"We accept Apple Pay" message:@"You need a credit card added to your Wallet to checkout with Apple Pay" preferredStyle:UIAlertControllerStyleAlert];
-		[alertController addAction:[UIAlertAction actionWithTitle:@"Add payment method in Wallet" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-			[[[PKPassLibrary alloc] init] openPaymentSetup];
-		}]];
-		[alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:NULL]];
-		[self presentViewController:alertController animated:YES completion:NULL];
+		[[[PKPassLibrary alloc] init] openPaymentSetup];
 	}
 }
 

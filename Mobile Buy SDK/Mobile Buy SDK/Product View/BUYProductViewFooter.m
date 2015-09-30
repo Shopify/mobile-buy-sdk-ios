@@ -24,6 +24,7 @@
 //  THE SOFTWARE.
 //
 
+@import PassKit;
 #import "BUYProductViewFooter.h"
 #import "BUYTheme.h"
 #import "BUYProductVariant.h"
@@ -39,7 +40,7 @@
 
 @implementation BUYProductViewFooter
 
-- (instancetype)initWithTheme:(BUYTheme *)theme;
+- (instancetype)initWithTheme:(BUYTheme *)theme showApplePaySetup:(BOOL)showApplePaySetup
 {
 	self = [super init];
 	if (self) {
@@ -80,7 +81,8 @@
 		self.checkoutButton.layer.cornerRadius = 5;
 		[self.visualEffectView.contentView addSubview:self.checkoutButton];
 		
-		self.buyPaymentButton = [BUYPaymentButton buttonWithType:BUYPaymentButtonTypeBuy style:[theme paymentButtonStyle]];
+		BUYPaymentButtonType buttonType = showApplePaySetup ? BUYPaymentButtonTypeSetup : BUYPaymentButtonTypeBuy;
+		self.buyPaymentButton = [BUYPaymentButton buttonWithType:buttonType style:[self.theme paymentButtonStyle]];
 		self.buyPaymentButton.translatesAutoresizingMaskIntoConstraints = NO;
 		[self.visualEffectView.contentView addSubview:self.buyPaymentButton];
 		
@@ -94,9 +96,9 @@
 		[NSLayoutConstraint deactivateConstraints:self.applePayLayoutConstraints];
 		
 		self.checkoutLayoutConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_checkoutButton]-|"
-																				options:0
-																				metrics:nil
-																				  views:viewsDictionary];
+																				 options:0
+																				 metrics:nil
+																				   views:viewsDictionary];
 		[self addConstraints:self.checkoutLayoutConstraints];
 		[NSLayoutConstraint deactivateConstraints:self.checkoutLayoutConstraints];
 		

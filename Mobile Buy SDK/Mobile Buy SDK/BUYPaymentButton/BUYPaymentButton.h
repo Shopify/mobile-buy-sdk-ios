@@ -25,14 +25,15 @@
 //
 
 typedef NS_ENUM(NSInteger, BUYPaymentButtonStyle) {
-    BUYPaymentButtonStyleWhite = 0,
-    BUYPaymentButtonStyleWhiteOutline,
-    BUYPaymentButtonStyleBlack
+	BUYPaymentButtonStyleWhite = 0,
+	BUYPaymentButtonStyleWhiteOutline,
+	BUYPaymentButtonStyleBlack
 };
 
 typedef NS_ENUM(NSInteger, BUYPaymentButtonType) {
-    BUYPaymentButtonTypePlain = 0,
-    BUYPaymentButtonTypeBuy
+	BUYPaymentButtonTypePlain = 0,
+	BUYPaymentButtonTypeBuy,
+	BUYPaymentButtonTypeSetup NS_ENUM_AVAILABLE_IOS(9_0)
 };
 
 @interface BUYPaymentButton : UIButton

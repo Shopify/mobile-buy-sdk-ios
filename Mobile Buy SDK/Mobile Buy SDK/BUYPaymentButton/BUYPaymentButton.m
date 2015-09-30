@@ -81,7 +81,7 @@
 		case BUYPaymentButtonTypeBuy: {
 			//// Subframes
 			CGRect buyWithApplyPay = CGRectMake(CGRectGetMinX(frame) + (CGRectGetWidth(frame) * 0.09790f + 0.5f), CGRectGetMinY(frame) + (CGRectGetHeight(frame) * 0.25000f - 0.32f) + 0.82f, (CGRectGetWidth(frame) * 0.89055f + 0.15f) - (CGRectGetWidth(frame) * 0.09790f + 0.5f) + 0.35f, (CGRectGetHeight(frame) * 0.75414f + 0.5f) - (CGRectGetHeight(frame) * 0.25000f - 0.32f) - 0.82f);
-
+			
 			//// buyWithApplyPay
 			{
 				//// aPay Drawing
@@ -549,6 +549,8 @@
 			[applePayPath fill];
 		}
 			break;
+		default:
+			break;
 	}
 	
 	UIImage *applePayImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -561,7 +563,7 @@
 	[applePayImage drawAtPoint:CGPointMake(CGRectGetMidX(originalFrame) - CGRectGetMidX(frame), 0)];
 	UIImage *outputImage = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
-
+	
 	return outputImage;
 }
 
