@@ -1,0 +1,319 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BE9A637A1B5007AA0033E558 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9A63791B5007AA0033E558 /* AppDelegate.swift */; };
+		BE9A637C1B5007AA0033E558 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9A637B1B5007AA0033E558 /* ViewController.swift */; };
+		BE9A637F1B5007AA0033E558 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE9A637D1B5007AA0033E558 /* Main.storyboard */; };
+		BE9A63811B5007AA0033E558 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE9A63801B5007AA0033E558 /* Images.xcassets */; };
+		BE9A63841B5007AA0033E558 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE9A63821B5007AA0033E558 /* LaunchScreen.xib */; };
+		BE9A639A1B5008E10033E558 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9A63991B5008E10033E558 /* Buy.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		BE9A63741B5007AA0033E558 /* Mobile Buy SDK Swift Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile Buy SDK Swift Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE9A63781B5007AA0033E558 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BE9A63791B5007AA0033E558 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BE9A637B1B5007AA0033E558 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BE9A637E1B5007AA0033E558 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BE9A63801B5007AA0033E558 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		BE9A63831B5007AA0033E558 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		BE9A63991B5008E10033E558 /* Buy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Buy.framework; path = ../Buy.framework; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BE9A63711B5007AA0033E558 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE9A639A1B5008E10033E558 /* Buy.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BE9A636B1B5007AA0033E558 = {
+			isa = PBXGroup;
+			children = (
+				BE9A63991B5008E10033E558 /* Buy.framework */,
+				BE9A63761B5007AA0033E558 /* Mobile Buy SDK Swift Sample */,
+				BE9A63751B5007AA0033E558 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BE9A63751B5007AA0033E558 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BE9A63741B5007AA0033E558 /* Mobile Buy SDK Swift Sample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BE9A63761B5007AA0033E558 /* Mobile Buy SDK Swift Sample */ = {
+			isa = PBXGroup;
+			children = (
+				BE9A63791B5007AA0033E558 /* AppDelegate.swift */,
+				BE9A637B1B5007AA0033E558 /* ViewController.swift */,
+				BE9A637D1B5007AA0033E558 /* Main.storyboard */,
+				BE9A63801B5007AA0033E558 /* Images.xcassets */,
+				BE9A63821B5007AA0033E558 /* LaunchScreen.xib */,
+				BE9A63771B5007AA0033E558 /* Supporting Files */,
+			);
+			path = "Mobile Buy SDK Swift Sample";
+			sourceTree = "<group>";
+		};
+		BE9A63771B5007AA0033E558 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BE9A63781B5007AA0033E558 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BE9A63731B5007AA0033E558 /* Mobile Buy SDK Swift Sample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BE9A63931B5007AA0033E558 /* Build configuration list for PBXNativeTarget "Mobile Buy SDK Swift Sample" */;
+			buildPhases = (
+				BE9A63701B5007AA0033E558 /* Sources */,
+				BE9A63711B5007AA0033E558 /* Frameworks */,
+				BE9A63721B5007AA0033E558 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Mobile Buy SDK Swift Sample";
+			productName = "Mobile Buy SDK Swift Sample";
+			productReference = BE9A63741B5007AA0033E558 /* Mobile Buy SDK Swift Sample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BE9A636C1B5007AA0033E558 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = Shopify;
+				TargetAttributes = {
+					BE9A63731B5007AA0033E558 = {
+						CreatedOnToolsVersion = 6.4;
+					};
+				};
+			};
+			buildConfigurationList = BE9A636F1B5007AA0033E558 /* Build configuration list for PBXProject "Mobile Buy SDK Swift Sample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BE9A636B1B5007AA0033E558;
+			productRefGroup = BE9A63751B5007AA0033E558 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BE9A63731B5007AA0033E558 /* Mobile Buy SDK Swift Sample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BE9A63721B5007AA0033E558 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE9A637F1B5007AA0033E558 /* Main.storyboard in Resources */,
+				BE9A63841B5007AA0033E558 /* LaunchScreen.xib in Resources */,
+				BE9A63811B5007AA0033E558 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BE9A63701B5007AA0033E558 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE9A637C1B5007AA0033E558 /* ViewController.swift in Sources */,
+				BE9A637A1B5007AA0033E558 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		BE9A637D1B5007AA0033E558 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BE9A637E1B5007AA0033E558 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		BE9A63821B5007AA0033E558 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BE9A63831B5007AA0033E558 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BE9A63911B5007AA0033E558 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BE9A63921B5007AA0033E558 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BE9A63941B5007AA0033E558 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"${PROJECT_DIR}/../**",
+				);
+				INFOPLIST_FILE = "Mobile Buy SDK Swift Sample/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "../Buy.framework/Headers/Buy-Bridging-Header.h";
+			};
+			name = Debug;
+		};
+		BE9A63951B5007AA0033E558 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"${PROJECT_DIR}/../**",
+				);
+				INFOPLIST_FILE = "Mobile Buy SDK Swift Sample/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "../Buy.framework/Headers/Buy-Bridging-Header.h";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BE9A636F1B5007AA0033E558 /* Build configuration list for PBXProject "Mobile Buy SDK Swift Sample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE9A63911B5007AA0033E558 /* Debug */,
+				BE9A63921B5007AA0033E558 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BE9A63931B5007AA0033E558 /* Build configuration list for PBXNativeTarget "Mobile Buy SDK Swift Sample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE9A63941B5007AA0033E558 /* Debug */,
+				BE9A63951B5007AA0033E558 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BE9A636C1B5007AA0033E558 /* Project object */;
+}

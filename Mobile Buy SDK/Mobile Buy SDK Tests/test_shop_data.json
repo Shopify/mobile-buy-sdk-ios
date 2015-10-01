@@ -1,0 +1,49 @@
+{
+	"application_name": "MobileBuyTest",
+	"shop_domain": "",
+	"api_key": "",
+	"channel_id": "",
+	"merchant_id": "",
+	"product_ids": [
+					"",
+					""
+					],
+	"collection_id": "",
+	"gift_cards": {
+		"ValidGiftCard11": {
+			"id": "",
+			"code": "",
+			"value": 11
+		},
+		"ValidGiftCard25": {
+			"id": "",
+			"code": "",
+			"value": 25
+		},
+		"ValidGiftCard50": {
+			"id": "",
+			"code": "",
+			"value": 50
+		},
+		"expired": {
+			"id": "",
+			"code": "",
+			"value": 0
+		},
+		"invalid": {
+			"id": "",
+			"code": "",
+			"value": 0
+		}
+	},
+	"discounts": {
+		"expired": {
+			"code": "",
+			"value": 0
+		},
+		"valid": {
+			"code": "",
+			"value": 0
+		}
+	}
+}
