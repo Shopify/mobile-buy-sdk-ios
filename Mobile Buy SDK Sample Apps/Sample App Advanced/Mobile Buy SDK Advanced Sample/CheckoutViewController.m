@@ -294,6 +294,12 @@ NSString * const MerchantId = @"";
 {
     // Add additional methods if needed and forward the callback to BUYApplePayHelpers
     [self.applePayHelper paymentAuthorizationViewController:controller didAuthorizePayment:payment completion:completion];
+    
+    // Get the completed checkout
+    [self.client getCheckout:self.applePayHelper.checkout completion:^(BUYCheckout *checkout, NSError *error) {
+        NSLog(@"%@", checkout);
+        NSLog(@"%@", error);
+    }];
 }
 
 - (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller
