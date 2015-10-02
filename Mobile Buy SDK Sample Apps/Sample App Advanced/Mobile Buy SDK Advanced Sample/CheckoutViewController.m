@@ -278,10 +278,10 @@ NSString * const MerchantId = @"";
     [paymentRequest setRequiredShippingAddressFields:self.checkout.requiresShipping ? PKAddressFieldAll : PKAddressFieldEmail|PKAddressFieldPhone];
     [paymentRequest setSupportedNetworks:@[PKPaymentNetworkVisa, PKPaymentNetworkMasterCard]];
     [paymentRequest setMerchantCapabilities:PKMerchantCapability3DS];
-    [paymentRequest setCountryCode:@"US"];
-    [paymentRequest setCurrencyCode:@"USD"];
+    [paymentRequest setCountryCode:self.shop.country ?: @"US"];
+    [paymentRequest setCurrencyCode:self.shop.currency ?: @"USD"];
     
-    [paymentRequest setPaymentSummaryItems: [self.checkout buy_summaryItems]];
+    [paymentRequest setPaymentSummaryItems:[self.checkout buy_summaryItemsWithShopName:self.shop.name]];
     
     return paymentRequest;
 }
