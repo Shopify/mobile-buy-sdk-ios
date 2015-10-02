@@ -38,6 +38,7 @@ NSString * const MerchantId = @"";
 
 @property (nonatomic, strong) BUYCheckout *checkout;
 @property (nonatomic, strong) BUYClient *client;
+@property (nonatomic, strong) BUYShop *shop;
 @property (nonatomic, strong) NSArray *summaryItems;
 @property (nonatomic, strong) BUYApplePayHelpers *applePayHelper;
 
@@ -100,6 +101,11 @@ NSString * const MerchantId = @"";
     self.tableView.tableFooterView = footerView;
     
     [self.tableView registerClass:[SummaryItemsTableViewCell class] forCellReuseIdentifier:@"SummaryCell"];
+    
+    // Prefetch the shop object for Apple Pay
+    [self.client getShop:^(BUYShop *shop, NSError *error) {
+        _shop = shop;
+    }];
 }
 
 - (void)setCheckout:(BUYCheckout *)checkout
@@ -239,8 +245,8 @@ NSString * const MerchantId = @"";
     PKPaymentRequest *request = [self paymentRequest];
     
     PKPaymentAuthorizationViewController *paymentController = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:request];
- 
-    self.applePayHelper = [[BUYApplePayHelpers alloc] initWithClient:self.client checkout:self.checkout];
+    
+    self.applePayHelper = [[BUYApplePayHelpers alloc] initWithClient:self.client checkout:self.checkout shop:self.shop];
     paymentController.delegate = self;
     
     /**
