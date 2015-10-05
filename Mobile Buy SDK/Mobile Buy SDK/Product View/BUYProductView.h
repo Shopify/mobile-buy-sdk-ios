@@ -125,9 +125,17 @@
 /**
  *  The inset for the table view and scroll indicator, allowing for custom insets.
  *
- *  @param edgeInsets           The edge inset to set for the table view
+ *  @param edgeInsets           The edge inset to set for the table view.
  *  @param appendToCurrentInset A flag that allows for adding the edge insets to the current edgeinsets of the table view.
  */
 - (void)setInsets:(UIEdgeInsets)edgeInsets appendToCurrentInset:(BOOL)appendToCurrentInset;
+
+/**
+ *  Sets the top inset specifically for when the product view is pushed into a navigation controller stack
+ *  instead of presented modally.
+ *
+ *  @param topInset The inset to use for insetting the product view inside the container.
+ */
+- (void)setTopInset:(CGFloat)topInset;
 
 @end

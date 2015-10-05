@@ -118,6 +118,8 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 															  attribute:NSLayoutAttributeCenterX
 															 multiplier:1.0
 															   constant:0.0]];
+		
+		
 	}
 	return self;
 }
@@ -195,7 +197,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 
 - (void)setupNavigationBarAppearance
 {
-	if (self.navigationBar == nil && _productView) {
+	if (self.navigationBar == nil && _productView && self.presentingViewController != nil) {
 		for (UIView *view in [self.navigationController.navigationBar subviews]) {
 			if (CGRectGetHeight(view.bounds) >= 44) {
 				// Get a reference to the UINavigationBar
@@ -211,6 +213,8 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 		}
 		// Hide the navigation bar
 		[self scrollViewDidScroll:self.productView.tableView];
+	} else if (self.navigationController && _productView && self.presentingViewController == nil) {
+		[self.productView setTopInset:CGRectGetHeight(self.navigationController.navigationBar.bounds) + self.navigationController.topLayoutGuide.length];
 	}
 }
 
