@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.author       = 'Shopify Inc.'
   s.platform     = :ios, '8.0'
-  s.source       = { :git => 'https://github.com/Shopify/mobile-buy-sdk-ios-private.git', :branch => 'task/cocoapods' }
+  s.source       = { :git => 'https://github.com/Shopify/mobile-buy-sdk-ios.git', :branch => 'task/cocoapods' }
   s.source_files = 'Mobile Buy SDK/Mobile Buy SDK/**/*.{h,m,mm}'
   s.exclude_files = 'Mobile Buy SDK/Mobile Buy SDK/Buy.h'
   s.public_header_files = 'Mobile Buy SDK/Mobile Buy SDK/**/*.{h}'
