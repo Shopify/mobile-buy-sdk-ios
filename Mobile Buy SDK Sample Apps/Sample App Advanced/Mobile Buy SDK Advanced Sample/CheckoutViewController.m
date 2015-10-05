@@ -297,8 +297,13 @@ NSString * const MerchantId = @"";
     
     // Get the completed checkout
     [self.client getCheckout:self.applePayHelper.checkout completion:^(BUYCheckout *checkout, NSError *error) {
-        NSLog(@"%@", checkout);
-        NSLog(@"%@", error);
+        if (error) {
+            NSLog(@"Unable to get completed checkout");
+            NSLog(@"%@", error);
+        }
+        if (checkout) {
+            NSLog(@"%@", checkout);
+        }
     }];
 }
 
