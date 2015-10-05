@@ -126,6 +126,7 @@
 																	 options:0
 																	 metrics:nil
 																	   views:NSDictionaryOfVariableBindings(_tableView)]];
+		
 		_topInsetConstraint = [NSLayoutConstraint constraintWithItem:self.tableView
 														   attribute:NSLayoutAttributeTop
 														   relatedBy:NSLayoutRelationEqual
