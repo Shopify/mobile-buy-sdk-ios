@@ -89,6 +89,12 @@
 @property (nonatomic, readonly, assign) BOOL available;
 
 /**
+ *  A categorization that a product can be tagged with, commonly used for filtering and searching. 
+ *  Each tag has a character limit of 255.
+ */
+@property (nonatomic, readonly, copy) NSSet *tags;
+
+/**
  *  The product is published on the current sales channel
  */
 @property (nonatomic, readonly, assign) BOOL published;
