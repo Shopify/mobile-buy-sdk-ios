@@ -387,7 +387,6 @@
 		BEB74A201B554BF20005A300 /* BUYPresentationControllerForVariantSelection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYPresentationControllerForVariantSelection.m; path = "Mobile Buy SDK/Product View/Variant Selection/BUYPresentationControllerForVariantSelection.m"; sourceTree = SOURCE_ROOT; };
 		BEB74A251B554BFB0005A300 /* BUYOptionSelectionNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYOptionSelectionNavigationController.h; path = "Mobile Buy SDK/Product View/Variant Selection/BUYOptionSelectionNavigationController.h"; sourceTree = SOURCE_ROOT; };
 		BEB74A261B554BFB0005A300 /* BUYOptionSelectionNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYOptionSelectionNavigationController.m; path = "Mobile Buy SDK/Product View/Variant Selection/BUYOptionSelectionNavigationController.m"; sourceTree = SOURCE_ROOT; };
-		BEB74A7F1B557A1C0005A300 /* Buy.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; lineEnding = 0; path = Buy.modulemap; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = "xcode.lang.module-map"; };
 		BEB74A861B5589C80005A300 /* BUYCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYCollection.h; sourceTree = "<group>"; };
 		BEB74A871B5589C80005A300 /* BUYCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYCollection.m; sourceTree = "<group>"; };
 		BEB74A8E1B55A3D00005A300 /* BUYCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYCollection.h; sourceTree = "<group>"; };
@@ -660,7 +659,6 @@
 			children = (
 				BE9A639D1B500B360033E558 /* Buy-Bridging-Header.h */,
 				904FB6011AE03D4500EA1758 /* Buy.h */,
-				BEB74A7F1B557A1C0005A300 /* Buy.modulemap */,
 				F773749F19C77E4E0039681C /* Classes */,
 				F773749E19C77E460039681C /* Supporting Files */,
 			);
