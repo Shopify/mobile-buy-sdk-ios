@@ -53,7 +53,7 @@
 	_createdAtDate = [dateFormatter dateFromString:dictionary[@"created_at"]];
 	_updatedAtDate = [dateFormatter dateFromString:dictionary[@"updated_at"]];
 	_publishedAtDate = [dateFormatter dateFromString:dictionary[@"published_at"]];
-	NSArray *tagsArray = [[dictionary[@"tags"] stringByReplacingOccurrencesOfString:@", " withString:@","] componentsSeparatedByString:@","];
+	NSArray *tagsArray = [dictionary[@"tags"] componentsSeparatedByString:@", "];
 	NSSet *tagsSet = [NSSet setWithArray:tagsArray];
 	_tags = [tagsSet copy];
 }
