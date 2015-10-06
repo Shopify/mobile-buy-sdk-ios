@@ -30,7 +30,7 @@ If you would like to not include the Mobile Buy SDK Project within your existing
 
 1.  Open the `Mobile Buy SDK.xcodeproj` and build the `Universal Framework` Target
 2.  Drag the `Buy.framework` that was just created from `Mobile Buy SDK Sample Apps` onto the `Linked Frameworks and Libraries` section for the target you want to add the framework to. Check Copy items if needed so the framework is copied to your project
-3.  In the `Build Settings` tab, add `-all_load` to `Other Linker Flags`.
+3.  In the `Build Settings` tab, add `-all_load` to `Other Linker Flags`
 
 #### CocoaPods
 

@@ -118,6 +118,8 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 															  attribute:NSLayoutAttributeCenterX
 															 multiplier:1.0
 															   constant:0.0]];
+		
+		
 	}
 	return self;
 }
@@ -195,7 +197,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 
 - (void)setupNavigationBarAppearance
 {
-	if (self.navigationBar == nil && _productView) {
+	if (self.navigationBar == nil && _productView && self.presentingViewController != nil) {
 		for (UIView *view in [self.navigationController.navigationBar subviews]) {
 			if (CGRectGetHeight(view.bounds) >= 44) {
 				// Get a reference to the UINavigationBar
@@ -211,6 +213,8 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 		}
 		// Hide the navigation bar
 		[self scrollViewDidScroll:self.productView.tableView];
+	} else if (self.navigationController && _productView && self.presentingViewController == nil) {
+		[self.productView setTopInset:CGRectGetHeight(self.navigationController.navigationBar.bounds) + self.navigationController.topLayoutGuide.length];
 	}
 }
 
@@ -460,9 +464,11 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 			[(BUYNavigationController*)self.navigationController updateCloseButtonImageWithTintColor:YES duration:0];
 			self.navigationBar.alpha = 1;
 			self.navigationBarTitle.alpha = 1;
-			// When using 3D Touch, the initial height of the navigation bar (without UIStatusBar) doesn't match the final height (with UIStatusBar)
-			// so we're forced to set it manually in case it's not tall enough. Of course, this is only valid for products with no product images.
-			[self.productView setInsets:UIEdgeInsetsMake(MAX(CGRectGetHeight(self.navigationBar.bounds), 64), 0, 0, 0) appendToCurrentInset:YES];
+			CGFloat topInset = 0;
+			if (self.presentingViewController) {
+				topInset = CGRectGetHeight([[(UINavigationController*)self.presentingViewController navigationBar] bounds]) + self.presentingViewController.topLayoutGuide.length;
+			}
+			[self.productView setInsets:UIEdgeInsetsMake(topInset, 0, 0, 0) appendToCurrentInset:YES];
 		}
 	}
 }

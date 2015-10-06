@@ -1,21 +1,28 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "B8AB7D59AD74F224C9D65CE20D7D3C30D5100598",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "150992371D08DE0BC2C0F7D24AB62392DB6F1E4C",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "27386CDE6C45B5519FB1AD62B45ACA8C18A2EFF0" : 0,
-    "B8AB7D59AD74F224C9D65CE20D7D3C30D5100598" : 0
+    "150992371D08DE0BC2C0F7D24AB62392DB6F1E4C" : 0,
+    "B8AB7D59AD74F224C9D65CE20D7D3C30D5100598" : 0,
+    "27386CDE6C45B5519FB1AD62B45ACA8C18A2EFF0" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "F65CB188-9FFA-4AD7-8982-12C88FB79C9D",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "27386CDE6C45B5519FB1AD62B45ACA8C18A2EFF0" : "mobile-buy-sdk-private\/Submodules",
-    "B8AB7D59AD74F224C9D65CE20D7D3C30D5100598" : "mobile-buy-sdk-private"
+    "150992371D08DE0BC2C0F7D24AB62392DB6F1E4C" : "mobile-buy-sdk-ios\/",
+    "B8AB7D59AD74F224C9D65CE20D7D3C30D5100598" : "mobile-buy-sdk-private",
+    "27386CDE6C45B5519FB1AD62B45ACA8C18A2EFF0" : "mobile-buy-sdk-private\/Submodules"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "Mobile Buy SDK",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
   "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Mobile Buy SDK.xcworkspace",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:Shopify\/mobile-buy-sdk-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "150992371D08DE0BC2C0F7D24AB62392DB6F1E4C"
+    },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:Shopify\/BUYPaymentButton.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",

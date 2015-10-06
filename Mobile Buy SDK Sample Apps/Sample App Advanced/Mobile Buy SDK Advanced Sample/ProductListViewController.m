@@ -47,6 +47,7 @@
 @property (nonatomic, strong) NSArray *themeTintColors;
 @property (nonatomic, assign) NSInteger themeTintColorSelectedIndex;
 @property (nonatomic, assign) BOOL showsProductImageBackground;
+@property (nonatomic, assign) BOOL presentViewController;
 
 @end
 
@@ -73,10 +74,12 @@
     [self.tableView registerClass:[ProductViewControllerThemeStyleTableViewCell class] forCellReuseIdentifier:@"ThemeStyleCell"];
     [self.tableView registerClass:[ProductViewControllerThemeTintColorTableViewCell class] forCellReuseIdentifier:@"ThemeTintColorCell"];
     [self.tableView registerClass:[ProductViewControllerToggleTableViewCell class] forCellReuseIdentifier:@"ThemeShowsBackgroundToggleCell"];
+    [self.tableView registerClass:[ProductViewControllerToggleTableViewCell class] forCellReuseIdentifier:@"ProductViewControllerPresentViewControllerToggleCell"];
     
     self.themeTintColors = @[[UIColor colorWithRed:0.48f green:0.71f blue:0.36f alpha:1.0f], [UIColor colorWithRed:0.88 green:0.06 blue:0.05 alpha:1], [UIColor colorWithRed:0.02 green:0.54 blue:1 alpha:1]];
     self.themeTintColorSelectedIndex = 0;
     self.showsProductImageBackground = YES;
+    self.presentViewController = YES;
     
     if (self.collection) {
         // If we're presenting with a collection, add the ability to sort
@@ -175,7 +178,7 @@
     switch (section) {
         case 0:
             if (self.demoProductViewController) {
-                return 4;
+                return 5;
             } else {
                 return 1;
             }
@@ -223,6 +226,15 @@
                     [toggleCell.toggleSwitch setOn:self.showsProductImageBackground];
                     [toggleCell.toggleSwitch addTarget:self action:@selector(toggleShowsProductImageBackground:) forControlEvents:UIControlEventValueChanged];
                     cell = toggleCell;
+                }
+                    break;
+                case 4: {
+                    ProductViewControllerToggleTableViewCell *toggleCell = (ProductViewControllerToggleTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"ProductViewControllerPresentViewControllerToggleCell" forIndexPath:indexPath];
+                    toggleCell.textLabel.text = @"Modal Presentation";
+                    [toggleCell.toggleSwitch setOn:self.presentViewController];
+                    [toggleCell.toggleSwitch addTarget:self action:@selector(togglePresentViewController:) forControlEvents:UIControlEventValueChanged];
+                    cell = toggleCell;
+                    
                 }
                     break;
                 default:
@@ -295,7 +307,11 @@
     BUYProductViewController *productViewController = [self productViewController];
     [productViewController loadWithProduct:product completion:^(BOOL success, NSError *error) {
         if (error == nil) {
-            [productViewController presentPortraitInViewController:self];
+            if (self.presentViewController) {
+                [productViewController presentPortraitInViewController:self];
+            } else {
+                [self.navigationController pushViewController:productViewController animated:YES];
+            }
         }
     }];
 }
@@ -339,6 +355,11 @@
     self.showsProductImageBackground = toggleSwitch.on;
 }
 
+- (void)togglePresentViewController:(UISwitch*)toggleSwitch
+{
+    self.presentViewController = toggleSwitch.on;
+}
+
 - (BUYAddress *)address
 {
     BUYAddress *address = [[BUYAddress alloc] init];
@@ -376,7 +397,11 @@
 
 -(void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit
 {
-    [self presentViewController:viewControllerToCommit animated:YES completion:NULL];
+    if (self.presentViewController) {
+        [self presentViewController:viewControllerToCommit animated:YES completion:NULL];
+    } else {
+        [self.navigationController pushViewController:viewControllerToCommit animated:YES];
+    }
 }
 
 @end
