@@ -122,7 +122,7 @@
 
 @implementation BUYAddress (ApplePay)
 
-+ (nullable NSString *)buy_emailFromRecord:(nonnull ABRecordRef)record
++ (nullable NSString *)buy_emailFromRecord:(nullable ABRecordRef)record
 {
 	ABMultiValueRef emailMultiValue = ABRecordCopyValue(record, kABPersonEmailProperty);
 	CFArrayRef allEmails = ABMultiValueCopyArrayOfAllValues(emailMultiValue);
@@ -137,7 +137,7 @@
 	return email;
 }
 
-+ (nonnull BUYAddress *)buy_addressFromRecord:(nonnull ABRecordRef)record
++ (nonnull BUYAddress *)buy_addressFromRecord:(nullable ABRecordRef)record
 {
 	BUYAddress *address = [[BUYAddress alloc] init];
 	
@@ -194,7 +194,7 @@
 	return address;
 }
 
-+ (nonnull BUYAddress *)buy_addressFromContact:(nonnull PKContact*)contact
++ (nonnull BUYAddress *)buy_addressFromContact:(nullable PKContact*)contact
 {
 	BUYAddress *address = [[BUYAddress alloc] init];
 	

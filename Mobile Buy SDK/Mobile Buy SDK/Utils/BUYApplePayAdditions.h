@@ -65,7 +65,7 @@
 
 @interface BUYAddress (ApplePay)
 
-+ (nullable NSString *)buy_emailFromRecord:(nonnull ABRecordRef)record;
++ (nullable NSString *)buy_emailFromRecord:(nullable ABRecordRef)record;
 
 /**
  *  Creates a BUYAddress from an ABRecordRef
@@ -74,7 +74,7 @@
  *
  *  @return The BUYAddress created from an ABRecordRef
  */
-+ (nonnull BUYAddress *)buy_addressFromRecord:(nonnull ABRecordRef)record NS_DEPRECATED_IOS(8_0, 9_0, "Use the CNContact backed `buy_addressFromContact:` instead");
++ (nonnull BUYAddress *)buy_addressFromRecord:(nullable ABRecordRef)record NS_DEPRECATED_IOS(8_0, 9_0, "Use the CNContact backed `buy_addressFromContact:` instead");
 
 /**
  *  Creates a BUYAddress from a PKContact
@@ -83,6 +83,6 @@
  *
  *  @return The BUYAddress created from a PKContact
  */
-+ (nonnull BUYAddress *)buy_addressFromContact:(nonnull PKContact*)contact NS_AVAILABLE_IOS(9_0);
++ (nonnull BUYAddress *)buy_addressFromContact:(nullable PKContact*)contact NS_AVAILABLE_IOS(9_0);
 
 @end
