@@ -27,6 +27,7 @@
 #import "BUYObject.h"
 
 @class BUYProduct;
+@class BUYOptionValue;
 
 /**
  *  A BUYProductVariant is a different version of a product, such as differing sizes or differing colours.
@@ -46,7 +47,7 @@
 /**
  *  Custom properties that a shop owner can use to define BUYProductVariants.
  */
-@property (nonatomic, readonly, copy) NSArray *options;
+@property (nonatomic, readonly, copy) NSArray<BUYOptionValue *> *options;
 
 /**
  *  The price of the BUYProductVariant.
