@@ -39,7 +39,7 @@
 /**
  *  An array of variant ids associated with the image.
  */
-@property (nonatomic, readonly, copy) NSArray *variantIds;
+@property (nonatomic, readonly, copy) NSArray<NSNumber *> *variantIds;
 
 /**
  *  Creation date of the image
