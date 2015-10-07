@@ -47,7 +47,7 @@
 		
 		// Add custom back button
 		UIImage *buttonImage = [[BUYImageKit imageOfVariantBackImageWithFrame:CGRectMake(0, 0, 12, 18)] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-		if ([[UINavigationBar class] respondsToSelector:@selector(appearanceWhenContainedInInstancesOfClasses:)]) {
+		if ([[UIBarButtonItem class] respondsToSelector:@selector(appearanceWhenContainedInInstancesOfClasses:)]) {
 			[[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[BUYNavigationController class]]] setBackButtonBackgroundImage:[buttonImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 12, 0, 0)]
 																																  forState:UIControlStateNormal
 																																barMetrics:UIBarMetricsDefault];
