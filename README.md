@@ -26,7 +26,6 @@ Please find all documentation on the [Mobile Buy SDK for iOS page](https://docs.
 
 See the [Sample Apps](/Mobile Buy SDK Sample Apps/) for an example of Dynamic Framework usage.
 
-
 #### Static Framework Installation
 
 If you would like to not include the Mobile Buy SDK Project within your existing project, you can link directly to the `Buy.framework`.
@@ -42,8 +41,6 @@ Add the following line to your podfile:
 ```ruby
 pod "Mobile-Buy-SDK"
 ```
-
-Then run `pod install`
 
 Then run `pod install`
 
@@ -101,7 +98,7 @@ The workspace includes the Mobile Buy SDK project and the sample app projects. T
 
 The Mobile Buy SDK includes a number of targets and schemes:
 
-* **Buy**: This is the Mobile Buy SDK static framework. This build is based on the current build configuration. To build a universal framework that can run on a device and on the Simulator and to be included in your app, please refer to the `Universal Framework` target below
+* **Buy**: This is the Mobile Buy SDK static framework. This is a fat binary that includes arm and i386 slices. This build is based on the current build configuration. To build a universal framework that can run on a device and on the Simulator and to be included in your app, please refer to the `Universal Framework` target below
 
 * **Buy Dynamic**: This is the Mobile Buy SDK dynamic framework. Please refer to the installation section above.
 
