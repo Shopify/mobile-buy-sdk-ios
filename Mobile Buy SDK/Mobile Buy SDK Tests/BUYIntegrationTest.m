@@ -248,7 +248,7 @@
 	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
 		return [self shouldUseMocks];
 	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_17"];
+		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_14"];
 	}];
 	
 	__block BUYStatus checkoutStatus = BUYStatusUnknown;
@@ -285,7 +285,7 @@
 	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
 		return [self shouldUseMocks];
 	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_18"];
+		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_15"];
 	}];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
