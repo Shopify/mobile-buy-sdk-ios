@@ -479,7 +479,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/**",
 				);
-				OTHER_LDFLAGS = "-all_load";
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.mobilebuysdkwebsample;
 				PRODUCT_NAME = "Mobile Buy SDK Web Sample";
 				PROVISIONING_PROFILE = "";
@@ -512,7 +512,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/**",
 				);
-				OTHER_LDFLAGS = "-all_load";
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.mobilebuysdkwebsample;
 				PRODUCT_NAME = "Mobile Buy SDK Web Sample";
 				PROVISIONING_PROFILE = "";

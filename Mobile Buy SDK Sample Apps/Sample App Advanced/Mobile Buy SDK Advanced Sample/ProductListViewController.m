@@ -67,7 +67,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"Products";
+    if (self.collection) {
+        self.title = self.collection.title;
+    } else {
+        self.title = @"All Products";
+    }
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     [self.tableView registerClass:[ProductViewControllerToggleTableViewCell class] forCellReuseIdentifier:@"ProductViewControllerToggleCell"];
