@@ -1,6 +1,6 @@
 ![Mobile Buy SDK](http://s3.amazonaws.com/shopify-marketing_assets/static/mbsdk-github.png)
 
-[![Build status](https://badge.buildkite.com/d8fe8aa44d801c6238ab767867e4fb09abe516bb2933b577cc.svg?branch=develop)](https://buildkite.com/shopify/mobile-buy-sdk-ios)
+[![Build status](https://badge.buildkite.com/3951692121947fbf7bb06c4b741601fc091efea3fa119a4f88.svg)](https://buildkite.com/shopify/mobile-buy-sdk-ios)
 [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/Shopify/mobile-buy-sdk-ios/blob/master/LICENSE)
 [![GitHub release](https://img.shields.io/github/release/shopify/mobile-buy-sdk-ios.svg)](https://github.com/Shopify/mobile-buy-sdk-ios/releases)
 [![Cocoapods](https://img.shields.io/cocoapods/v/Mobile-Buy-SDK.svg)](https://cocoapods.org/pods/Mobile-Buy-SDK)
