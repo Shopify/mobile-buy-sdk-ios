@@ -398,7 +398,7 @@
 		904606AD1B6BC8D700754173 /* BUYProductImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = BUYProductImageCollectionViewCell.h; path = "Product View/BUYProductImageCollectionViewCell.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		904606AE1B6BC8D700754173 /* BUYProductImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYProductImageCollectionViewCell.m; path = "Product View/BUYProductImageCollectionViewCell.m"; sourceTree = "<group>"; };
 		904FB6001AE03D4500EA1758 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Mobile Buy SDK/Info.plist"; sourceTree = "<group>"; };
-		904FB6011AE03D4500EA1758 /* Buy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Buy.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		904FB6011AE03D4500EA1758 /* Buy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = Buy.h; path = "Mobile Buy SDK/Static Framework/Buy.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		90516C791B4C589A00E35E45 /* BUYProductViewFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = BUYProductViewFooter.h; path = "Product View/BUYProductViewFooter.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		90516C7A1B4C589A00E35E45 /* BUYProductViewFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYProductViewFooter.m; path = "Product View/BUYProductViewFooter.m"; sourceTree = "<group>"; };
 		90516C851B4C6F7000E35E45 /* BUYProductViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = BUYProductViewHeader.h; path = "Product View/BUYProductViewHeader.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -453,6 +453,7 @@
 		90BBCD701B87B6AB00FCCE51 /* BUYPKContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYPKContact.m; sourceTree = "<group>"; };
 		90BC07F51AE043FD005D1195 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		90BC07F71AE0440F005D1195 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		90DA8DF11BC6A82D0027BCB7 /* Buy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Buy.h; sourceTree = "<group>"; };
 		90DE926E1B9897B6002EF4DA /* BUYVariantOptionBreadCrumbsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYVariantOptionBreadCrumbsView.h; sourceTree = "<group>"; };
 		90DE926F1B9897B6002EF4DA /* BUYVariantOptionBreadCrumbsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYVariantOptionBreadCrumbsView.m; sourceTree = "<group>"; };
 		90E80E461AFBBB68003A9909 /* AppledocSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppledocSettings.plist; path = docs/AppledocSettings.plist; sourceTree = "<group>"; };
@@ -517,14 +518,14 @@
 		BE98DB501BB1ED5500C29564 /* libOHHTTPStubs.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOHHTTPStubs.a; path = "Mobile Buy SDK Tests/OHHTTPStubs/libOHHTTPStubs.a"; sourceTree = "<group>"; };
 		BE98DB5A1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OHHTTPStubsResponse+Helpers.h"; sourceTree = "<group>"; };
 		BE98DB5B1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OHHTTPStubsResponse+Helpers.m"; sourceTree = "<group>"; };
-		BE9A639D1B500B360033E558 /* Buy-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "Buy-Bridging-Header.h"; sourceTree = "<group>"; };
+		BE9A639D1B500B360033E558 /* Buy-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "Buy-Bridging-Header.h"; path = "Mobile Buy SDK/Buy-Bridging-Header.h"; sourceTree = "<group>"; };
 		BE9A64281B503C2F0033E558 /* Buy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Buy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEB74A1B1B5490140005A300 /* BUYCheckout_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYCheckout_Private.h; sourceTree = "<group>"; };
 		BEB74A1F1B554BF20005A300 /* BUYPresentationControllerForVariantSelection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYPresentationControllerForVariantSelection.h; path = "Mobile Buy SDK/Product View/Variant Selection/BUYPresentationControllerForVariantSelection.h"; sourceTree = SOURCE_ROOT; };
 		BEB74A201B554BF20005A300 /* BUYPresentationControllerForVariantSelection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYPresentationControllerForVariantSelection.m; path = "Mobile Buy SDK/Product View/Variant Selection/BUYPresentationControllerForVariantSelection.m"; sourceTree = SOURCE_ROOT; };
 		BEB74A251B554BFB0005A300 /* BUYOptionSelectionNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BUYOptionSelectionNavigationController.h; path = "Mobile Buy SDK/Product View/Variant Selection/BUYOptionSelectionNavigationController.h"; sourceTree = SOURCE_ROOT; };
 		BEB74A261B554BFB0005A300 /* BUYOptionSelectionNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYOptionSelectionNavigationController.m; path = "Mobile Buy SDK/Product View/Variant Selection/BUYOptionSelectionNavigationController.m"; sourceTree = SOURCE_ROOT; };
-		BEB74A7F1B557A1C0005A300 /* Buy.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; lineEnding = 0; path = Buy.modulemap; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = "xcode.lang.module-map"; };
+		BEB74A7F1B557A1C0005A300 /* Buy.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; lineEnding = 0; name = Buy.modulemap; path = "Mobile Buy SDK/Static Framework/Buy.modulemap"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = "xcode.lang.module-map"; };
 		BEB74A861B5589C80005A300 /* BUYCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYCollection.h; sourceTree = "<group>"; };
 		BEB74A871B5589C80005A300 /* BUYCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYCollection.m; sourceTree = "<group>"; };
 		BEB74A8E1B55A3D00005A300 /* BUYCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYCollection.h; sourceTree = "<group>"; };
@@ -804,9 +805,6 @@
 		F773743A19C777200039681C /* Mobile Buy SDK */ = {
 			isa = PBXGroup;
 			children = (
-				BE9A639D1B500B360033E558 /* Buy-Bridging-Header.h */,
-				904FB6011AE03D4500EA1758 /* Buy.h */,
-				BEB74A7F1B557A1C0005A300 /* Buy.modulemap */,
 				F773749F19C77E4E0039681C /* Classes */,
 				F773749E19C77E460039681C /* Supporting Files */,
 			);
@@ -906,6 +904,9 @@
 		F773749E19C77E460039681C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BEB74A7F1B557A1C0005A300 /* Buy.modulemap */,
+				BE9A639D1B500B360033E558 /* Buy-Bridging-Header.h */,
+				904FB6011AE03D4500EA1758 /* Buy.h */,
 				F773743619C771D10039681C /* LICENSE */,
 				90B043AF1B0D380D006CA6FC /* README.md */,
 				904FB6001AE03D4500EA1758 /* Info.plist */,
@@ -917,6 +918,7 @@
 		F773749F19C77E4E0039681C /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				90DA8DF11BC6A82D0027BCB7 /* Buy.h */,
 				F7FDA16F19C93F6100AF4E93 /* Data */,
 				F773744419C779C20039681C /* Models */,
 				90FC31AB1B50589800AFAB51 /* Product View */,
