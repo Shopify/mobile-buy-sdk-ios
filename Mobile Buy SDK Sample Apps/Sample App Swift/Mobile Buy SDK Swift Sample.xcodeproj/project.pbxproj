@@ -394,7 +394,7 @@
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_DIR}/../../Mobile Buy SDK/Mobile Buy SDK/Buy-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_DIR}/Mobile Buy SDK Swift Sample/Buy-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -412,7 +412,7 @@
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_DIR}/../../Mobile Buy SDK/Mobile Buy SDK/Buy-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_DIR}/Mobile Buy SDK Swift Sample/Buy-Bridging-Header.h";
 			};
 			name = Release;
 		};

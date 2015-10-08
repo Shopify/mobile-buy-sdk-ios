@@ -61,4 +61,3 @@ FOUNDATION_EXPORT const unsigned char BuyDynamicVersionString[];
 #import <Buy/BUYCollection.h>
 #import <Buy/BUYMaskedCreditCard.h>
 #import <Buy/BUYError.h>
-#import <Buy/Buy-Bridging-Header.h>
