@@ -37,7 +37,7 @@
  *  Returns an array of summary items for all Apple Pay requests.  Will use 'PAY TOTAL' as the summary label.  Apple recommends
  *  including the business name in the summary label, so it is recommended to use `buy_summaryItemsWithShopName` instead.
  */
-- (NSArray *)buy_summaryItems;
+- (nonnull NSArray<PKPaymentSummaryItem *> *)buy_summaryItems;
 
 /**
  *  Returns an array of summary items for all Apple Pay requests using the shop name in the "PAY" section
@@ -46,7 +46,7 @@
  *
  *  @return An array of PKPaymentSummaryItems
  */
-- (NSArray *)buy_summaryItemsWithShopName:(NSString *)shopName;
+- (nonnull NSArray<PKPaymentSummaryItem *> *)buy_summaryItemsWithShopName:(nullable NSString *)shopName;
 
 @end
 
@@ -59,13 +59,13 @@
 *
 *  @return An array of PKShippingMethods
 */
-+ (NSArray *)buy_convertShippingRatesToShippingMethods:(NSArray *)rates;
++ (nonnull NSArray<PKShippingMethod *> *)buy_convertShippingRatesToShippingMethods:(nonnull NSArray<BUYShippingRate *> *)rates;
 
 @end
 
 @interface BUYAddress (ApplePay)
 
-+ (NSString *)buy_emailFromRecord:(ABRecordRef)record;
++ (nullable NSString *)buy_emailFromRecord:(nullable ABRecordRef)record;
 
 /**
  *  Creates a BUYAddress from an ABRecordRef
@@ -74,7 +74,7 @@
  *
  *  @return The BUYAddress created from an ABRecordRef
  */
-+ (BUYAddress *)buy_addressFromRecord:(ABRecordRef)record NS_DEPRECATED_IOS(8_0, 9_0, "Use the CNContact backed `buy_addressFromContact:` instead");
++ (nonnull BUYAddress *)buy_addressFromRecord:(nullable ABRecordRef)record NS_DEPRECATED_IOS(8_0, 9_0, "Use the CNContact backed `buy_addressFromContact:` instead");
 
 /**
  *  Creates a BUYAddress from a PKContact
@@ -83,6 +83,6 @@
  *
  *  @return The BUYAddress created from a PKContact
  */
-+ (BUYAddress *)buy_addressFromContact:(PKContact*)contact NS_AVAILABLE_IOS(9_0);
++ (nonnull BUYAddress *)buy_addressFromContact:(nullable PKContact*)contact NS_AVAILABLE_IOS(9_0);
 
 @end

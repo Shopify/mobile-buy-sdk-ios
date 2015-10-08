@@ -42,7 +42,7 @@
  *  Note: These are different from BUYLineItem objects in that
  *  the line item objects do include the BUYProductVariant.
  */
-@property (nonatomic, strong, readonly) NSArray *lineItems;
+@property (nonatomic, strong, readonly, nonnull) NSArray<BUYCartLineItem *> *lineItems;
 
 /**
  *  Returns true if the cart is acceptable to send to Shopify.
@@ -62,7 +62,7 @@
  *
  *  @param variant The BUYProductVariant to add to the BUYCart or increase by one quantity
  */
-- (void)addVariant:(BUYProductVariant *)variant;
+- (void)addVariant:(nonnull BUYProductVariant *)variant;
 
 /**
  *  Removes the BUYCartLineItem from the BUYCart associated with the given BUYProductVariant object.
@@ -70,7 +70,7 @@
  *
  *  @param variant The BUYProductVariant to remove from the BUYCart or decrease by one quantity
  */
-- (void)removeVariant:(BUYProductVariant *)variant;
+- (void)removeVariant:(nonnull BUYProductVariant *)variant;
 
 /**
  *  Adds a BUYCartLineItem with a set quantity to the BUYCart with the given BUYProductVariant object on it.
@@ -80,6 +80,6 @@
  *  @param variant  The BUYProductVariant to add to the BUYCart with a quantity
  *  @param quantity The quantity for the BUYCartLineItem associated with the BUYProductVariant
  */
-- (void)setVariant:(BUYProductVariant *)variant withTotalQuantity:(NSInteger)quantity;
+- (void)setVariant:(nonnull BUYProductVariant *)variant withTotalQuantity:(NSInteger)quantity;
 
 @end
