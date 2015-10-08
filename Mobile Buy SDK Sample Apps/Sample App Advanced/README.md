@@ -1,13 +1,3 @@
----
-layout: default
-title: Mobile Buy SDK Sample Advanced App
-sidebar_title: Sample advanced app
-
-nav:
-  group: Mobile Buy SDK
-  weight: 8
----
-
 # Mobile Buy SDK Advanced Sample App
 
 The Advanced Sample App demonstrates how to perform several tasks related to creating a checkout.
