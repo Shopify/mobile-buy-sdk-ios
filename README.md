@@ -90,9 +90,9 @@ Consult the [Usage Section](https://docs.shopify.com/mobile-buy-sdk/ios/integrat
 
 ### Building the SDK
 
-Clone this repo or download as .zip and open `Mobile Buy SDK.xcworkspace`.
+Clone this repo or download as .zip and open `Mobile Buy SDK.xcodeproj`.
 
-The workspace includes the Mobile Buy SDK project and the sample app projects. The sample apps can also be opened outside the workspace with the `.xcodeproj` files found in the sample app folders. However, if you need to use breakpoints or inspect methods in the SDK, run the sample apps from the workspace.
+The workspace includes the Mobile Buy SDK project.
 
 ### Mobile Buy SDK Targets and schemes
 
