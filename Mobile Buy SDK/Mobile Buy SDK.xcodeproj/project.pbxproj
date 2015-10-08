@@ -195,6 +195,8 @@
 		90A446261B5EC03F009602AA /* NSDateFormatter+BUYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A446241B5EC03F009602AA /* NSDateFormatter+BUYAdditions.m */; };
 		90BBCD731B87B6BA00FCCE51 /* BUYPKContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BBCD701B87B6AB00FCCE51 /* BUYPKContact.m */; };
 		90C27AAF1BB2E8F3008AF7A4 /* libOHHTTPStubs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE98DB501BB1ED5500C29564 /* libOHHTTPStubs.a */; };
+		90DAEC361BC6E511007555A5 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9A64281B503C2F0033E558 /* Buy.framework */; };
+		90DAEC381BC6E736007555A5 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 901931761BC5BC9100D1134E /* libc++.tbd */; };
 		90DE92701B9897B6002EF4DA /* BUYVariantOptionBreadCrumbsView.h in Headers */ = {isa = PBXBuildFile; fileRef = 90DE926E1B9897B6002EF4DA /* BUYVariantOptionBreadCrumbsView.h */; };
 		90DE92711B9897B6002EF4DA /* BUYVariantOptionBreadCrumbsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DE926F1B9897B6002EF4DA /* BUYVariantOptionBreadCrumbsView.m */; };
 		90E83BC41B9F550E00C95A1B /* BUYOrder.h in Headers */ = {isa = PBXBuildFile; fileRef = 90E83BC21B9F550E00C95A1B /* BUYOrder.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -226,7 +228,6 @@
 		BE5DC3A01B71B13700B2BC1E /* NSURL+BUYAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = BE5DC39E1B71B13700B2BC1E /* NSURL+BUYAdditions.h */; };
 		BE5DC3A11B71B13700B2BC1E /* NSURL+BUYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BE5DC39F1B71B13700B2BC1E /* NSURL+BUYAdditions.m */; };
 		BE6C07061BB1E46900BD9F7B /* mocked_responses.json in Resources */ = {isa = PBXBuildFile; fileRef = BE6C07051BB1E46900BD9F7B /* mocked_responses.json */; };
-		BE94966A1B45CD0500B38949 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F7AB6AB819CFCE6A00115224 /* libstdc++.dylib */; };
 		BE98DB4F1BB1ED3E00C29564 /* OHHTTPStubs in Resources */ = {isa = PBXBuildFile; fileRef = BE98DB4E1BB1ED3E00C29564 /* OHHTTPStubs */; settings = {ASSET_TAGS = (); }; };
 		BE98DB5C1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = BE98DB5B1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.m */; settings = {ASSET_TAGS = (); }; };
 		BE9A643F1B503C2F0033E558 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9A64281B503C2F0033E558 /* Buy.framework */; };
@@ -322,7 +323,6 @@
 		BEB74A7C1B5564840005A300 /* BUYVariantOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90516CA21B4D771400E35E45 /* BUYVariantOptionView.m */; };
 		BEB74A7D1B5564870005A300 /* BUYVariantSelectionViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = BE9496B01B4D96D800B38949 /* BUYVariantSelectionViewController.h */; };
 		BEB74A7E1B5564890005A300 /* BUYVariantSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE9496B11B4D96D800B38949 /* BUYVariantSelectionViewController.m */; };
-		BEB74A841B557BBE0005A300 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9A64281B503C2F0033E558 /* Buy.framework */; };
 		BEB74A901B55A3D00005A300 /* BUYCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = BEB74A8E1B55A3D00005A300 /* BUYCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BEB9AE781BA8627B00575F8A /* test_shop_data.json in Resources */ = {isa = PBXBuildFile; fileRef = BEB9AE721BA73E6C00575F8A /* test_shop_data.json */; };
 		BEB9AE7B1BA866D000575F8A /* BUYClientTestBase.h in Sources */ = {isa = PBXBuildFile; fileRef = BEB9AE7A1BA866D000575F8A /* BUYClientTestBase.h */; };
@@ -330,14 +330,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		BE9A643D1B503C2F0033E558 /* PBXContainerItemProxy */ = {
+		90DAEC341BC6E50B007555A5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F773741519C770CB0039681C /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = BE9A64271B503C2F0033E558;
 			remoteInfo = Buy;
 		};
-		BEB74A821B557BBA0005A300 /* PBXContainerItemProxy */ = {
+		BE9A643D1B503C2F0033E558 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F773741519C770CB0039681C /* Project object */;
 			proxyType = 1;
@@ -562,8 +562,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BEB74A841B557BBE0005A300 /* Buy.framework in Frameworks */,
-				BE94966A1B45CD0500B38949 /* libstdc++.dylib in Frameworks */,
+				90DAEC381BC6E736007555A5 /* libc++.tbd in Frameworks */,
+				90DAEC361BC6E511007555A5 /* Buy.framework in Frameworks */,
 				90C27AAF1BB2E8F3008AF7A4 /* libOHHTTPStubs.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1120,7 +1120,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				BEB74A831B557BBA0005A300 /* PBXTargetDependency */,
+				90DAEC351BC6E50B007555A5 /* PBXTargetDependency */,
 			);
 			name = "Mobile Buy SDK Tests";
 			productName = "Mobile Buy SDK Tests";
@@ -1467,15 +1467,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		90DAEC351BC6E50B007555A5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BE9A64271B503C2F0033E558 /* Buy */;
+			targetProxy = 90DAEC341BC6E50B007555A5 /* PBXContainerItemProxy */;
+		};
 		BE9A643E1B503C2F0033E558 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = BE9A64271B503C2F0033E558 /* Buy */;
 			targetProxy = BE9A643D1B503C2F0033E558 /* PBXContainerItemProxy */;
-		};
-		BEB74A831B557BBA0005A300 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = BE9A64271B503C2F0033E558 /* Buy */;
-			targetProxy = BEB74A821B557BBA0005A300 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1715,7 +1715,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "${PROJECT_DIR}/Mobile Buy SDK/Buy.modulemap";
+				MODULEMAP_FILE = "${PROJECT_DIR}/Mobile Buy SDK/Static Framework/Buy.modulemap";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1742,7 +1742,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "${PROJECT_DIR}/Mobile Buy SDK/Buy.modulemap";
+				MODULEMAP_FILE = "${PROJECT_DIR}/Mobile Buy SDK/Static Framework/Buy.modulemap";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
