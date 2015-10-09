@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "901930E11BC5B9BC00D1134E"
-               BuildableName = "Buy.framework"
-               BlueprintName = "Buy Dynamic"
+               BlueprintIdentifier = "904FB61A1AE03DC500EA1758"
+               BuildableName = "Static Universal Framework"
+               BlueprintName = "Static Universal Framework"
                ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "901930E11BC5B9BC00D1134E"
-            BuildableName = "Buy.framework"
-            BlueprintName = "Buy Dynamic"
+            BlueprintIdentifier = "904FB61A1AE03DC500EA1758"
+            BuildableName = "Static Universal Framework"
+            BlueprintName = "Static Universal Framework"
             ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -63,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "901930E11BC5B9BC00D1134E"
-            BuildableName = "Buy.framework"
-            BlueprintName = "Buy Dynamic"
+            BlueprintIdentifier = "904FB61A1AE03DC500EA1758"
+            BuildableName = "Static Universal Framework"
+            BlueprintName = "Static Universal Framework"
             ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
