@@ -1176,9 +1176,6 @@
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Shopify Inc.";
 				TargetAttributes = {
-					901930E11BC5B9BC00D1134E = {
-						DevelopmentTeam = A7XGC83MZE;
-					};
 					904FB61A1AE03DC500EA1758 = {
 						CreatedOnToolsVersion = 6.3;
 					};
@@ -1190,7 +1187,6 @@
 					};
 					90F7BA671B0D1DAF0067864D = {
 						CreatedOnToolsVersion = 6.3.2;
-						DevelopmentTeam = A7XGC83MZE;
 						SystemCapabilities = {
 							com.apple.OMC = {
 								enabled = 1;
@@ -1199,7 +1195,6 @@
 					};
 					BE9A64271B503C2F0033E558 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = A7XGC83MZE;
 					};
 				};
 			};
