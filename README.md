@@ -100,7 +100,7 @@ The Mobile Buy SDK includes a number of targets and schemes:
 
 * **Buy**: This is the Mobile Buy SDK dynamic framework. Please refer to the installation section above
 
-* **Buy Static** (target only): This is the Mobile Buy SDK static framework. This build is based on the current build configuration. To build a universal framework that can run on a device and on the Simulator and to be included in your app, please refer to the `Universal Framework` target below
+* **Buy Static** (target only): This is the Mobile Buy SDK static framework. This build is based on the current build configuration. To build a universal framework that can run on a device and on the Simulator and to be included in your app, please refer to the `Static Universal Framework` target below
 
 * **Static Universal Framework**: This builds a **static** framework from the `Buy Static` target using the `build_universal.sh` script in the `Static Universal Framework` target and copies the built framework in the `/Mobile Buy SDK Sample Apps` folder. This is a fat binary that includes arm and i386 slices. Build this target if you have made any changes to the framework that you want to test with the sample apps as the sample apps do not build the framework directly but embed the already built framework
 
