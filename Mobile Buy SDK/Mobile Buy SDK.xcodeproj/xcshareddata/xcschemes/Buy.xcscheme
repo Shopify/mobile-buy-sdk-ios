@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BE9A64271B503C2F0033E558"
+               BlueprintIdentifier = "901930E11BC5B9BC00D1134E"
                BuildableName = "Buy.framework"
                BlueprintName = "Buy"
                ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BE9A64271B503C2F0033E558"
+            BlueprintIdentifier = "901930E11BC5B9BC00D1134E"
             BuildableName = "Buy.framework"
             BlueprintName = "Buy"
             ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
@@ -63,7 +63,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BE9A64271B503C2F0033E558"
+            BlueprintIdentifier = "901930E11BC5B9BC00D1134E"
             BuildableName = "Buy.framework"
             BlueprintName = "Buy"
             ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
@@ -71,7 +71,7 @@
       </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Release">
+      buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"

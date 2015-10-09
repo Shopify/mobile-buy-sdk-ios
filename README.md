@@ -30,8 +30,8 @@ See the [Sample Apps](/Mobile Buy SDK Sample Apps/) for an example of Dynamic Fr
 
 If you would like to not include the Mobile Buy SDK Project within your existing project, you can link directly to the `Buy.framework`.
 
-1.  Open the `Mobile Buy SDK.xcodeproj` and build the `Universal Framework` Target
-2.  Drag the `Buy.framework` that was just created from `Mobile Buy SDK Sample Apps` onto the `Linked Frameworks and Libraries` section for the target you want to add the framework to. Check Copy items if needed so the framework is copied to your project
+1.  Open the `Mobile Buy SDK.xcodeproj` and build the `Static Universal Framework` scheme
+2.  Drag the `Buy.framework` that was just created from `Mobile Buy SDK Sample Apps` into the `Linked Frameworks and Libraries` section for the target you want to add the framework to. Check Copy items if needed so the framework is copied to your project
 3.  In the `Build Settings` tab, add `-all_load` to `Other Linker Flags`
 
 #### CocoaPods
@@ -98,17 +98,17 @@ The workspace includes the Mobile Buy SDK project.
 
 The Mobile Buy SDK includes a number of targets and schemes:
 
-* **Buy**: This is the Mobile Buy SDK static framework. This build is based on the current build configuration. To build a universal framework that can run on a device and on the Simulator and to be included in your app, please refer to the `Universal Framework` target below
+* **Buy**: This is the Mobile Buy SDK dynamic framework. Please refer to the installation section above
 
-* **Buy Dynamic**: This is the Mobile Buy SDK dynamic framework. Please refer to the installation section above.
+* **Buy Static** (target only): This is the Mobile Buy SDK static framework. This build is based on the current build configuration. To build a universal framework that can run on a device and on the Simulator and to be included in your app, please refer to the `Universal Framework` target below
 
-* **Universal Framework**: This builds a static framework using `build_universal.sh` script in the `Universal Framework` target and copies the built framework in the `/Mobile Buy SDK Sample Apps` folder. This is a fat binary that includes arm and i386 slices. Build this target if you have made any changes to the framework that you want to test with the sample apps as the sample apps do not build the framework directly but embed the already built framework
+* **Static Universal Framework**: This builds a **static** framework from the `Buy Static` target using the `build_universal.sh` script in the `Static Universal Framework` target and copies the built framework in the `/Mobile Buy SDK Sample Apps` folder. This is a fat binary that includes arm and i386 slices. Build this target if you have made any changes to the framework that you want to test with the sample apps as the sample apps do not build the framework directly but embed the already built framework
 
 * **Mobile Buy SDK Tests**: Tests for the Mobile Buy SDK framework. See instructions below
 
 * **Documentation**: This generates appledoc documentation for the framework
 
-* **Playground**: This target is a basic app that depends directly on the `Buy` framework target and builds the framework every time using the `Playground` app's build configuration. You may use this app and target to play around with the SDK. Be sure not to check in any changes you may have made in files related to this app
+* **Playground**: This is a basic app that depends directly on the `Buy` dynamic framework. You may use this app and target to play around with the SDK. Be sure not to check in any changes you may have made in files related to this app
 
 ### Sample Apps
 

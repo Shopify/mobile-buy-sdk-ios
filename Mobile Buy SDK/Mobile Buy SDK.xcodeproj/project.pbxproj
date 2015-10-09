@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		904FB61A1AE03DC500EA1758 /* Universal Framework */ = {
+		904FB61A1AE03DC500EA1758 /* Static Universal Framework */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 904FB61B1AE03DC500EA1758 /* Build configuration list for PBXAggregateTarget "Universal Framework" */;
+			buildConfigurationList = 904FB61B1AE03DC500EA1758 /* Build configuration list for PBXAggregateTarget "Static Universal Framework" */;
 			buildPhases = (
 				904FB61F1AE03DCF00EA1758 /* ShellScript */,
 			);
 			dependencies = (
 			);
-			name = "Universal Framework";
+			name = "Static Universal Framework";
 			productName = "Mobile Buy SDK-Universal";
 		};
 		90E80E401AFAB0B9003A9909 /* Documentation */ = {
@@ -176,6 +176,8 @@
 		901931691BC5B9BC00D1134E /* BUYProduct.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A7C1A700B0A0087DB2C /* BUYProduct.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9019316A1BC5B9BC00D1134E /* BUYSerializable.h in Headers */ = {isa = PBXBuildFile; fileRef = F76CFF1E19CB7C500079C703 /* BUYSerializable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9019316B1BC5B9BC00D1134E /* BUYProductVariant.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A811A700B0A0087DB2C /* BUYProductVariant.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9035F5FA1BC81D050009DD3B /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 901931701BC5B9BC00D1134E /* Buy.framework */; };
+		9035F5FB1BC81D050009DD3B /* Buy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 901931701BC5B9BC00D1134E /* Buy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		903BCC7C1B7D1C2D00C21FEB /* BUYProductViewErrorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 903BCC7A1B7D1C2D00C21FEB /* BUYProductViewErrorView.h */; };
 		903BCC7D1B7D1C2D00C21FEB /* BUYProductViewErrorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 903BCC7B1B7D1C2D00C21FEB /* BUYProductViewErrorView.m */; };
 		904606AF1B6BC8D700754173 /* BUYProductImageCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 904606AD1B6BC8D700754173 /* BUYProductImageCollectionViewCell.h */; };
@@ -230,7 +232,6 @@
 		BE6C07061BB1E46900BD9F7B /* mocked_responses.json in Resources */ = {isa = PBXBuildFile; fileRef = BE6C07051BB1E46900BD9F7B /* mocked_responses.json */; };
 		BE98DB4F1BB1ED3E00C29564 /* OHHTTPStubs in Resources */ = {isa = PBXBuildFile; fileRef = BE98DB4E1BB1ED3E00C29564 /* OHHTTPStubs */; settings = {ASSET_TAGS = (); }; };
 		BE98DB5C1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = BE98DB5B1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.m */; settings = {ASSET_TAGS = (); }; };
-		BE9A643F1B503C2F0033E558 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9A64281B503C2F0033E558 /* Buy.framework */; };
 		BE9A64471B503C8B0033E558 /* BUYClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F7FDA17019C93F6F00AF4E93 /* BUYClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BE9A64481B503C900033E558 /* BUYClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDA17119C93F6F00AF4E93 /* BUYClient.m */; };
 		BE9A64491B503C940033E558 /* BUYCart.h in Headers */ = {isa = PBXBuildFile; fileRef = F773744719C77A210039681C /* BUYCart.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -330,14 +331,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		90DAEC341BC6E50B007555A5 /* PBXContainerItemProxy */ = {
+		9035F5FE1BC81D280009DD3B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F773741519C770CB0039681C /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = BE9A64271B503C2F0033E558;
-			remoteInfo = Buy;
+			remoteInfo = "Buy Static";
 		};
-		BE9A643D1B503C2F0033E558 /* PBXContainerItemProxy */ = {
+		90DAEC341BC6E50B007555A5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F773741519C770CB0039681C /* Project object */;
 			proxyType = 1;
@@ -353,6 +354,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				9035F5FB1BC81D050009DD3B /* Buy.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -572,7 +574,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE9A643F1B503C2F0033E558 /* Buy.framework in Frameworks */,
+				9035F5FA1BC81D050009DD3B /* Buy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1091,9 +1093,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		901930E11BC5B9BC00D1134E /* Buy Dynamic */ = {
+		901930E11BC5B9BC00D1134E /* Buy */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9019316D1BC5B9BC00D1134E /* Build configuration list for PBXNativeTarget "Buy Dynamic" */;
+			buildConfigurationList = 9019316D1BC5B9BC00D1134E /* Build configuration list for PBXNativeTarget "Buy" */;
 			buildPhases = (
 				901930E21BC5B9BC00D1134E /* Sources */,
 				901931251BC5B9BC00D1134E /* Frameworks */,
@@ -1104,7 +1106,7 @@
 			);
 			dependencies = (
 			);
-			name = "Buy Dynamic";
+			name = Buy;
 			productName = Buy;
 			productReference = 901931701BC5B9BC00D1134E /* Buy.framework */;
 			productType = "com.apple.product-type.framework";
@@ -1139,16 +1141,16 @@
 			buildRules = (
 			);
 			dependencies = (
-				BE9A643E1B503C2F0033E558 /* PBXTargetDependency */,
+				9035F5FF1BC81D280009DD3B /* PBXTargetDependency */,
 			);
 			name = Playground;
 			productName = Playground;
 			productReference = 90F7BA681B0D1DAF0067864D /* Playground.app */;
 			productType = "com.apple.product-type.application";
 		};
-		BE9A64271B503C2F0033E558 /* Buy */ = {
+		BE9A64271B503C2F0033E558 /* Buy Static */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BE9A64411B503C2F0033E558 /* Build configuration list for PBXNativeTarget "Buy" */;
+			buildConfigurationList = BE9A64411B503C2F0033E558 /* Build configuration list for PBXNativeTarget "Buy Static" */;
 			buildPhases = (
 				BE9A64231B503C2F0033E558 /* Sources */,
 				BE9A64241B503C2F0033E558 /* Frameworks */,
@@ -1159,7 +1161,7 @@
 			);
 			dependencies = (
 			);
-			name = Buy;
+			name = "Buy Static";
 			productName = Buy;
 			productReference = BE9A64281B503C2F0033E558 /* Buy.framework */;
 			productType = "com.apple.product-type.framework";
@@ -1174,6 +1176,9 @@
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Shopify Inc.";
 				TargetAttributes = {
+					901930E11BC5B9BC00D1134E = {
+						DevelopmentTeam = A7XGC83MZE;
+					};
 					904FB61A1AE03DC500EA1758 = {
 						CreatedOnToolsVersion = 6.3;
 					};
@@ -1194,6 +1199,7 @@
 					};
 					BE9A64271B503C2F0033E558 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = A7XGC83MZE;
 					};
 				};
 			};
@@ -1210,12 +1216,12 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				904FB61A1AE03DC500EA1758 /* Universal Framework */,
+				904FB61A1AE03DC500EA1758 /* Static Universal Framework */,
 				90E80E401AFAB0B9003A9909 /* Documentation */,
 				90F7BA671B0D1DAF0067864D /* Playground */,
 				90F592EB1B0D5EFE0026B382 /* Mobile Buy SDK Tests */,
-				BE9A64271B503C2F0033E558 /* Buy */,
-				901930E11BC5B9BC00D1134E /* Buy Dynamic */,
+				BE9A64271B503C2F0033E558 /* Buy Static */,
+				901930E11BC5B9BC00D1134E /* Buy */,
 			);
 		};
 /* End PBXProject section */
@@ -1467,15 +1473,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		9035F5FF1BC81D280009DD3B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BE9A64271B503C2F0033E558 /* Buy Static */;
+			targetProxy = 9035F5FE1BC81D280009DD3B /* PBXContainerItemProxy */;
+		};
 		90DAEC351BC6E50B007555A5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = BE9A64271B503C2F0033E558 /* Buy */;
+			target = BE9A64271B503C2F0033E558 /* Buy Static */;
 			targetProxy = 90DAEC341BC6E50B007555A5 /* PBXContainerItemProxy */;
-		};
-		BE9A643E1B503C2F0033E558 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = BE9A64271B503C2F0033E558 /* Buy */;
-			targetProxy = BE9A643D1B503C2F0033E558 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1503,6 +1509,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1521,7 +1528,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = mh_dylib;
 				MODULEMAP_FILE = "";
-				PRODUCT_NAME = Buy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1533,6 +1540,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1548,7 +1556,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = mh_dylib;
 				MODULEMAP_FILE = "";
-				PRODUCT_NAME = Buy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1698,6 +1706,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1716,7 +1725,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "${PROJECT_DIR}/Mobile Buy SDK/Static Framework/Buy.modulemap";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Buy;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1728,6 +1737,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1743,7 +1753,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "${PROJECT_DIR}/Mobile Buy SDK/Static Framework/Buy.modulemap";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Buy;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1836,7 +1846,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9019316D1BC5B9BC00D1134E /* Build configuration list for PBXNativeTarget "Buy Dynamic" */ = {
+		9019316D1BC5B9BC00D1134E /* Build configuration list for PBXNativeTarget "Buy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9019316E1BC5B9BC00D1134E /* Debug */,
@@ -1845,7 +1855,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		904FB61B1AE03DC500EA1758 /* Build configuration list for PBXAggregateTarget "Universal Framework" */ = {
+		904FB61B1AE03DC500EA1758 /* Build configuration list for PBXAggregateTarget "Static Universal Framework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				904FB61C1AE03DC500EA1758 /* Debug */,
@@ -1881,7 +1891,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BE9A64411B503C2F0033E558 /* Build configuration list for PBXNativeTarget "Buy" */ = {
+		BE9A64411B503C2F0033E558 /* Build configuration list for PBXNativeTarget "Buy Static" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BE9A64421B503C2F0033E558 /* Debug */,
