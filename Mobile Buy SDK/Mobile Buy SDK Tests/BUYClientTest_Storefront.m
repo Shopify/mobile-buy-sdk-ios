@@ -245,4 +245,37 @@
 	}];
 }
 
+- (void)testValidTags
+{
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testGetValidTag_0"];
+	}];
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	
+	[self.client getProductsPage:1 completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+		
+		XCTAssertNil(error);
+		XCTAssertNotNil(products);
+		
+		if (products.count > 0) {
+			BUYProduct *product = products[0];
+			if (product.tags) {
+				XCTAssertTrue([product.tags isKindOfClass:[NSSet class]]);
+				for (NSString *tag in [product.tags allObjects]) {
+					XCTAssert([tag isKindOfClass:[NSString class]]);
+				}
+			}
+		}
+		
+		[expectation fulfill];
+	}];
+	
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
 @end

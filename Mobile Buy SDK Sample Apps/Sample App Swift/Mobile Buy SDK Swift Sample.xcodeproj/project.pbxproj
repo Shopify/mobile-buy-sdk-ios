@@ -7,15 +7,76 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BE3437BB1BC5C22C00C71330 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE3437B81BC5C20700C71330 /* Buy.framework */; };
+		BE3437BC1BC5C22C00C71330 /* Buy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BE3437B81BC5C20700C71330 /* Buy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BE9A637A1B5007AA0033E558 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9A63791B5007AA0033E558 /* AppDelegate.swift */; };
 		BE9A637C1B5007AA0033E558 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9A637B1B5007AA0033E558 /* ViewController.swift */; };
 		BE9A637F1B5007AA0033E558 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE9A637D1B5007AA0033E558 /* Main.storyboard */; };
 		BE9A63811B5007AA0033E558 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE9A63801B5007AA0033E558 /* Images.xcassets */; };
 		BE9A63841B5007AA0033E558 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE9A63821B5007AA0033E558 /* LaunchScreen.xib */; };
-		BE9A639A1B5008E10033E558 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9A63991B5008E10033E558 /* Buy.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		BE3437B11BC5C20700C71330 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BE3437A81BC5C20700C71330 /* Mobile Buy SDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 90F7BA681B0D1DAF0067864D;
+			remoteInfo = Playground;
+		};
+		BE3437B31BC5C20700C71330 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BE3437A81BC5C20700C71330 /* Mobile Buy SDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 90F592EC1B0D5EFE0026B382;
+			remoteInfo = "Mobile Buy SDK Tests";
+		};
+		BE3437B51BC5C20700C71330 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BE3437A81BC5C20700C71330 /* Mobile Buy SDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BE9A64281B503C2F0033E558;
+			remoteInfo = Buy;
+		};
+		BE3437B71BC5C20700C71330 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BE3437A81BC5C20700C71330 /* Mobile Buy SDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 901931701BC5B9BC00D1134E;
+			remoteInfo = "Buy Dynamic";
+		};
+		BE3437B91BC5C21300C71330 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BE3437A81BC5C20700C71330 /* Mobile Buy SDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 901930E11BC5B9BC00D1134E;
+			remoteInfo = "Buy Dynamic";
+		};
+		BE3437BD1BC5C22C00C71330 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BE3437A81BC5C20700C71330 /* Mobile Buy SDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 901930E11BC5B9BC00D1134E;
+			remoteInfo = "Buy Dynamic";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BE3437BF1BC5C22C00C71330 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				BE3437BC1BC5C22C00C71330 /* Buy.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		BE3437A81BC5C20700C71330 /* Mobile Buy SDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Mobile Buy SDK.xcodeproj"; path = "../../Mobile Buy SDK/Mobile Buy SDK.xcodeproj"; sourceTree = "<group>"; };
 		BE9A63741B5007AA0033E558 /* Mobile Buy SDK Swift Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile Buy SDK Swift Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE9A63781B5007AA0033E558 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE9A63791B5007AA0033E558 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -23,7 +84,6 @@
 		BE9A637E1B5007AA0033E558 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BE9A63801B5007AA0033E558 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BE9A63831B5007AA0033E558 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		BE9A63991B5008E10033E558 /* Buy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Buy.framework; path = ../Buy.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +91,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE9A639A1B5008E10033E558 /* Buy.framework in Frameworks */,
+				BE3437BB1BC5C22C00C71330 /* Buy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BE3437A91BC5C20700C71330 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BE3437B21BC5C20700C71330 /* Playground.app */,
+				BE3437B41BC5C20700C71330 /* Mobile Buy SDK Tests.xctest */,
+				BE3437B61BC5C20700C71330 /* Buy.framework */,
+				BE3437B81BC5C20700C71330 /* Buy.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		BE9A636B1B5007AA0033E558 = {
 			isa = PBXGroup;
 			children = (
-				BE9A63991B5008E10033E558 /* Buy.framework */,
+				BE3437A81BC5C20700C71330 /* Mobile Buy SDK.xcodeproj */,
 				BE9A63761B5007AA0033E558 /* Mobile Buy SDK Swift Sample */,
 				BE9A63751B5007AA0033E558 /* Products */,
 			);
@@ -86,10 +157,13 @@
 				BE9A63701B5007AA0033E558 /* Sources */,
 				BE9A63711B5007AA0033E558 /* Frameworks */,
 				BE9A63721B5007AA0033E558 /* Resources */,
+				BE3437BF1BC5C22C00C71330 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				BE3437BA1BC5C21300C71330 /* PBXTargetDependency */,
+				BE3437BE1BC5C22C00C71330 /* PBXTargetDependency */,
 			);
 			name = "Mobile Buy SDK Swift Sample";
 			productName = "Mobile Buy SDK Swift Sample";
@@ -122,12 +196,49 @@
 			mainGroup = BE9A636B1B5007AA0033E558;
 			productRefGroup = BE9A63751B5007AA0033E558 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = BE3437A91BC5C20700C71330 /* Products */;
+					ProjectRef = BE3437A81BC5C20700C71330 /* Mobile Buy SDK.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				BE9A63731B5007AA0033E558 /* Mobile Buy SDK Swift Sample */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		BE3437B21BC5C20700C71330 /* Playground.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = Playground.app;
+			remoteRef = BE3437B11BC5C20700C71330 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		BE3437B41BC5C20700C71330 /* Mobile Buy SDK Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Mobile Buy SDK Tests.xctest";
+			remoteRef = BE3437B31BC5C20700C71330 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		BE3437B61BC5C20700C71330 /* Buy.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Buy.framework;
+			remoteRef = BE3437B51BC5C20700C71330 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		BE3437B81BC5C20700C71330 /* Buy.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Buy.framework;
+			remoteRef = BE3437B71BC5C20700C71330 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		BE9A63721B5007AA0033E558 /* Resources */ = {
@@ -153,6 +264,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BE3437BA1BC5C21300C71330 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Buy Dynamic";
+			targetProxy = BE3437B91BC5C21300C71330 /* PBXContainerItemProxy */;
+		};
+		BE3437BE1BC5C22C00C71330 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Buy Dynamic";
+			targetProxy = BE3437BD1BC5C22C00C71330 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		BE9A637D1B5007AA0033E558 /* Main.storyboard */ = {
@@ -267,10 +391,10 @@
 				);
 				INFOPLIST_FILE = "Mobile Buy SDK Swift Sample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-all_load";
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "../Buy.framework/Headers/Buy-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_DIR}/Mobile Buy SDK Swift Sample/Buy-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -285,10 +409,10 @@
 				);
 				INFOPLIST_FILE = "Mobile Buy SDK Swift Sample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-all_load";
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "../Buy.framework/Headers/Buy-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_DIR}/Mobile Buy SDK Swift Sample/Buy-Bridging-Header.h";
 			};
 			name = Release;
 		};

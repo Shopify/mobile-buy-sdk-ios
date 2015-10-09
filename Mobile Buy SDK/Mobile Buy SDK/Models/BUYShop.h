@@ -74,7 +74,7 @@
 /**
  *  A list of two-letter country codes identifying the countries that the shop ships to.
  */
-@property (nonatomic, readonly, copy) NSArray *shipsToCountries;
+@property (nonatomic, readonly, copy) NSArray<NSString *> *shipsToCountries;
 
 /**
  *  The URL for the web storefront

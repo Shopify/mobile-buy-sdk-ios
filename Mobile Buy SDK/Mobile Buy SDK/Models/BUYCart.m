@@ -30,7 +30,7 @@
 
 @interface BUYCart ()
 
-@property (nonatomic, strong) NSMutableSet *lineItemsSet;
+@property (nonatomic, strong, nonnull) NSMutableSet<BUYCartLineItem *> *lineItemsSet;
 
 @end
 
@@ -45,7 +45,7 @@
 	return self;
 }
 
-- (NSArray *)lineItems
+- (nonnull NSArray<BUYCartLineItem *> *)lineItems
 {
 	return [self.lineItemsSet allObjects];
 }
@@ -62,7 +62,7 @@
 
 #pragma mark - Simple Cart Editing
 
-- (void)addVariant:(BUYProductVariant *)variant
+- (void)addVariant:(nonnull BUYProductVariant *)variant
 {
 	BUYCartLineItem *lineItem = [[BUYCartLineItem alloc] initWithVariant:variant];
 	BUYCartLineItem *existingLineItem = [self.lineItemsSet member:lineItem];
@@ -73,7 +73,7 @@
 	}
 }
 
-- (void)removeVariant:(BUYProductVariant *)variant
+- (void)removeVariant:(nonnull BUYProductVariant *)variant
 {
 	BUYCartLineItem *lineItem = [[BUYCartLineItem alloc] initWithVariant:variant];
 	BUYCartLineItem *existingLineItem = [self.lineItemsSet member:lineItem];
@@ -85,7 +85,7 @@
 	}
 }
 
-- (void)setVariant:(BUYProductVariant *)variant withTotalQuantity:(NSInteger)quantity
+- (void)setVariant:(nonnull BUYProductVariant *)variant withTotalQuantity:(NSInteger)quantity
 {
 	BUYCartLineItem *lineItem = [[BUYCartLineItem alloc] initWithVariant:variant];
 	BUYCartLineItem *existingLineItem = [self.lineItemsSet member:lineItem];

@@ -64,19 +64,19 @@
 /**
  *  A list of BUYProductVariant objects, each one representing a slightly different version of the product.
  */
-@property (nonatomic, readonly, copy) NSArray *variants;
+@property (nonatomic, readonly, copy) NSArray<BUYProductVariant *> *variants;
 
 /**
  *  A list of BUYImage objects, each one representing an image associated with the product.
  */
-@property (nonatomic, readonly, copy) NSArray *images;
+@property (nonatomic, readonly, copy) NSArray<BUYImage *> *images;
 
 /**
  *  Custom product property names like "Size", "Color", and "Material".
  *  Products are based on permutations of these options.
  *  A product may have a maximum of 3 options. 255 characters limit each.
  */
-@property (nonatomic, readonly, copy) NSArray *options;
+@property (nonatomic, readonly, copy) NSArray<BUYOption *> *options;
 
 /**
  *  The description of the product, complete with HTML formatting.
@@ -87,6 +87,12 @@
  *  If the product is in stock (see each variant for their specific availability)
  */
 @property (nonatomic, readonly, assign) BOOL available;
+
+/**
+ *  A categorization that a product can be tagged with, commonly used for filtering and searching. 
+ *  Each tag has a character limit of 255.
+ */
+@property (nonatomic, readonly, copy) NSSet<NSString *> *tags;
 
 /**
  *  The product is published on the current sales channel

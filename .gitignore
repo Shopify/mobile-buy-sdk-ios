@@ -1,5 +1,12 @@
-Ibuild/*
-*/Output/*
+# Xcode
+#
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+
+## Build generated
+build/
+DerivedData
+
+## Various settings
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -9,14 +16,16 @@ Ibuild/*
 *.perspectivev3
 !default.perspectivev3
 xcuserdata
+
+## Other
 *.xccheckout
 *.moved-aside
-DerivedData
-*.hmap
-*.ipa
 *.xcuserstate
-Pods/
-.DS_Store
+*.xcscmblueprint
 .ruby-version
 *Sample*/Buy.framework
 *-INTERNAL.*
+
+## Obj-C/Swift specific
+*.hmap
+*.ipa

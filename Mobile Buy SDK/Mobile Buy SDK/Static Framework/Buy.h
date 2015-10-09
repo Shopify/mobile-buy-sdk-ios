@@ -1,5 +1,5 @@
 //
-//  BUYImage.h
+//  Buy.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,41 +24,40 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYObject.h"
+#import <UIKit/UIKit.h>
 
-/**
- *  Products are easier to sell if customers can see pictures of them, which is why there are product images.
- */
-@interface BUYImage : BUYObject
+//! Project version number for BuyDynamic.
+FOUNDATION_EXPORT double BuyDynamicVersionNumber;
 
-/**
- *  Specifies the location of the product image.
- */
-@property (nonatomic, readonly, copy) NSString *src;
+//! Project version string for BuyDynamic.
+FOUNDATION_EXPORT const unsigned char BuyDynamicVersionString[];
 
-/**
- *  An array of variant ids associated with the image.
- */
-@property (nonatomic, readonly, copy) NSArray<NSNumber *> *variantIds;
-
-/**
- *  Creation date of the image
- */
-@property (nonatomic, readonly, copy) NSDate *createdAtDate;
-
-/**
- *  The date the image was last updated
- */
-@property (nonatomic, readonly, copy) NSDate *updatedAtDate;
-
-/**
- *  The position of the image for the product
- */
-@property (nonatomic, readonly, copy) NSNumber *position;
-
-/**
- *  The associated product ID for the image
- */
-@property (nonatomic, readonly, copy) NSNumber *productId;
-
-@end
+#import <Buy/BUYAddress.h>
+#import <Buy/BUYCart.h>
+#import <Buy/BUYCheckout.h>
+#import <Buy/BUYCreditCard.h>
+#import <Buy/BUYDiscount.h>
+#import <Buy/BUYGiftCard.h>
+#import <Buy/BUYLineItem.h>
+#import <Buy/BUYClient.h>
+#import <Buy/BUYClient+Test.h>
+#import <Buy/BUYImage.h>
+#import <Buy/BUYOption.h>
+#import <Buy/BUYOptionValue.h>
+#import <Buy/BUYOrder.h>
+#import <Buy/BUYProduct.h>
+#import <Buy/BUYProductVariant.h>
+#import <Buy/BUYShippingRate.h>
+#import <Buy/BUYShop.h>
+#import <Buy/BUYStoreViewController.h>
+#import <Buy/BUYTaxLine.h>
+#import <Buy/BUYViewController.h>
+#import <Buy/BUYApplePayAdditions.h>
+#import <Buy/BUYApplePayHelpers.h>
+#import <Buy/BUYPaymentButton.h>
+#import <Buy/BUYProductViewController.h>
+#import <Buy/BUYTheme.h>
+#import <Buy/BUYCartLineItem.h>
+#import <Buy/BUYCollection.h>
+#import <Buy/BUYMaskedCreditCard.h>
+#import <Buy/BUYError.h>
