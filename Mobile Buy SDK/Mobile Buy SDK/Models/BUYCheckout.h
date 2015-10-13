@@ -239,6 +239,11 @@
 @property (nonatomic, copy, readonly) NSString *customerId;
 
 /**
+ *  An optional note attached to the order
+ */
+@property (nonatomic, strong) NSString *note;
+
+/**
  *  The BUYOrder for a completed checkout
  */
 @property (nonatomic, strong, readonly) BUYOrder *order;
