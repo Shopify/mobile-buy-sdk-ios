@@ -90,6 +90,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 {
 	self = [super initWithClient:client];
 	if (self) {
+		
 		self.theme = theme? : [[BUYTheme alloc] init];
 		
 		self.modalPresentationStyle = UIModalPresentationCustom;
@@ -177,6 +178,10 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 	[super viewWillAppear:animated];
 	[self setupNavigationBarAppearance];
 	[self.navigationController setNavigationBarHidden:self.isLoading];
+	CGFloat bottomMargin = 0;
+	bottomMargin += self.tabBarController ? CGRectGetHeight(self.tabBarController.tabBar.bounds) : 0;
+	bottomMargin += self.navigationController.isToolbarHidden ? 0 : CGRectGetHeight(self.navigationController.toolbar.bounds);
+	_productView.layoutMargins = UIEdgeInsetsMake(self.productView.layoutMargins.top, self.productView.layoutMargins.left, bottomMargin, self.productView.layoutMargins.right);
 }
 
 - (void)viewDidLayoutSubviews

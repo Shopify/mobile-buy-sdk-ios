@@ -173,7 +173,7 @@
 																	 options:0
 																	 metrics:nil
 																	   views:NSDictionaryOfVariableBindings(_productViewFooter)]];
-		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_productViewFooter]|"
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_productViewFooter]-|"
 																	 options:0
 																	 metrics:nil
 																	   views:NSDictionaryOfVariableBindings(_productViewFooter)]];
@@ -203,7 +203,7 @@
 - (void)layoutSubviews
 {
 	[super layoutSubviews];
-	[self setInsets:UIEdgeInsetsMake(self.tableView.contentInset.top, self.tableView.contentInset.left, CGRectGetHeight(self.productViewFooter.frame), self.tableView.contentInset.right) appendToCurrentInset:NO];
+	[self setInsets:UIEdgeInsetsMake(self.tableView.contentInset.top, self.tableView.contentInset.left, CGRectGetHeight(self.bounds) - CGRectGetMinY(self.productViewFooter.frame), self.tableView.contentInset.right) appendToCurrentInset:NO];
 }
 
 - (void)setTheme:(BUYTheme *)theme
