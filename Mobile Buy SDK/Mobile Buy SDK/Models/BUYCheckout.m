@@ -53,7 +53,7 @@
 
 - (instancetype)initWithCart:(BUYCart *)cart
 {
-	self = [super initWithDictionary:@{}];
+	self = [super init];
 	if (self) {
 		_lineItems = [cart.lineItems copy];
 		[self markPropertyAsDirty:@"lineItems"];

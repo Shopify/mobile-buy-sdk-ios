@@ -264,8 +264,7 @@ const NSTimeInterval PollDelay = 0.5;
 					self.shippingRates = shippingRates;
 					
 					if ([self.shippingRates count] == 0) {
-						// Shipping address not supported
-						self.checkout.shippingRate = nil;
+						// Shipping address is not supported and no shipping rates were returned
 						if (completion) {
 							completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItemsWithShopName:self.shop.name]);
 						}
