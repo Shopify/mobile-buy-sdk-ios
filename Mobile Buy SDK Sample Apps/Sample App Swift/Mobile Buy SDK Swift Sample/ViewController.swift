@@ -25,6 +25,7 @@
 //
 
 import UIKit
+import Buy
 
 class ViewController: UIViewController {
 

@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "904FB61A1AE03DC500EA1758"
-               BuildableName = "Universal Framework"
-               BlueprintName = "Universal Framework"
+               BuildableName = "Static Universal Framework"
+               BlueprintName = "Static Universal Framework"
                ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,8 +46,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "904FB61A1AE03DC500EA1758"
-            BuildableName = "Universal Framework"
-            BlueprintName = "Universal Framework"
+            BuildableName = "Static Universal Framework"
+            BlueprintName = "Static Universal Framework"
             ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -64,8 +64,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "904FB61A1AE03DC500EA1758"
-            BuildableName = "Universal Framework"
-            BlueprintName = "Universal Framework"
+            BuildableName = "Static Universal Framework"
+            BlueprintName = "Static Universal Framework"
             ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

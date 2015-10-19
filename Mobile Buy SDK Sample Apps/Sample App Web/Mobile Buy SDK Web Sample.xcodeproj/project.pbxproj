@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		901931981BC5C63400D1134E /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 901931951BC5C62800D1134E /* Buy.framework */; };
+		901931991BC5C63500D1134E /* Buy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 901931951BC5C62800D1134E /* Buy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		90858EC91B540D1B009D19D7 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90858EC81B540D1B009D19D7 /* PassKit.framework */; };
 		BE1C4E011AE9922100E21624 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDC7A321AE03BA800C4B4FE /* ViewController.m */; };
 		BE7764D61AE5724200C74937 /* CheckoutSelectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE7764D51AE5724200C74937 /* CheckoutSelectionController.m */; };
 		BE7764DB1AE5728E00C74937 /* PAYButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BE7764D81AE5728E00C74937 /* PAYButton.m */; };
 		BE7764DC1AE5728E00C74937 /* CheckoutSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE7764DA1AE5728E00C74937 /* CheckoutSelectionView.m */; };
-		BE9496701B4B0DD200B38949 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F7BA5C1B0D1BE50067864D /* Buy.framework */; };
 		BE9652F41AE563CE00084408 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9652F31AE563CE00084408 /* WebKit.framework */; };
 		BEDC7A2D1AE03BA800C4B4FE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDC7A2C1AE03BA800C4B4FE /* main.m */; };
 		BEDC7A301AE03BA800C4B4FE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDC7A2F1AE03BA800C4B4FE /* AppDelegate.m */; };
@@ -21,9 +22,68 @@
 		BEDC7A3B1AE03BA900C4B4FE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEDC7A391AE03BA800C4B4FE /* LaunchScreen.xib */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		9019318E1BC5C62800D1134E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 901931851BC5C62700D1134E /* Mobile Buy SDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 90F7BA681B0D1DAF0067864D;
+			remoteInfo = Playground;
+		};
+		901931901BC5C62800D1134E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 901931851BC5C62700D1134E /* Mobile Buy SDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 90F592EC1B0D5EFE0026B382;
+			remoteInfo = "Mobile Buy SDK Tests";
+		};
+		901931921BC5C62800D1134E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 901931851BC5C62700D1134E /* Mobile Buy SDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BE9A64281B503C2F0033E558;
+			remoteInfo = Buy;
+		};
+		901931941BC5C62800D1134E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 901931851BC5C62700D1134E /* Mobile Buy SDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 901931701BC5B9BC00D1134E;
+			remoteInfo = "Buy Dynamic";
+		};
+		901931961BC5C62E00D1134E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 901931851BC5C62700D1134E /* Mobile Buy SDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 901930E11BC5B9BC00D1134E;
+			remoteInfo = "Buy Dynamic";
+		};
+		9019319A1BC5C63500D1134E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 901931851BC5C62700D1134E /* Mobile Buy SDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 901930E11BC5B9BC00D1134E;
+			remoteInfo = "Buy Dynamic";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9019319C1BC5C63500D1134E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				901931991BC5C63500D1134E /* Buy.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		901931851BC5C62700D1134E /* Mobile Buy SDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Mobile Buy SDK.xcodeproj"; path = "../../Mobile Buy SDK/Mobile Buy SDK.xcodeproj"; sourceTree = "<group>"; };
 		90858EC81B540D1B009D19D7 /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
-		90F7BA5C1B0D1BE50067864D /* Buy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Buy.framework; path = ../Buy.framework; sourceTree = "<group>"; };
 		BE7764D41AE5724200C74937 /* CheckoutSelectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckoutSelectionController.h; sourceTree = "<group>"; };
 		BE7764D51AE5724200C74937 /* CheckoutSelectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckoutSelectionController.m; sourceTree = "<group>"; };
 		BE7764D71AE5728E00C74937 /* PAYButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAYButton.h; sourceTree = "<group>"; };
@@ -51,7 +111,7 @@
 			files = (
 				90858EC91B540D1B009D19D7 /* PassKit.framework in Frameworks */,
 				BE9652F41AE563CE00084408 /* WebKit.framework in Frameworks */,
-				BE9496701B4B0DD200B38949 /* Buy.framework in Frameworks */,
+				901931981BC5C63400D1134E /* Buy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +126,17 @@
 			);
 			name = Frameworks;
 			path = "Shopify Checkout";
+			sourceTree = "<group>";
+		};
+		901931861BC5C62700D1134E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9019318F1BC5C62800D1134E /* Playground.app */,
+				901931911BC5C62800D1134E /* Mobile Buy SDK Tests.xctest */,
+				901931931BC5C62800D1134E /* Buy.framework */,
+				901931951BC5C62800D1134E /* Buy.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		BE7764DD1AE5729200C74937 /* Payment Selection */ = {
@@ -84,7 +155,7 @@
 		BEDC7A1E1AE03BA800C4B4FE = {
 			isa = PBXGroup;
 			children = (
-				90F7BA5C1B0D1BE50067864D /* Buy.framework */,
+				901931851BC5C62700D1134E /* Mobile Buy SDK.xcodeproj */,
 				90171E981AF0294500BB73DB /* Frameworks */,
 				BEDC7A291AE03BA800C4B4FE /* Mobile Buy SDK Web Sample */,
 				BEDC7A281AE03BA800C4B4FE /* Products */,
@@ -136,10 +207,13 @@
 				BEDC7A241AE03BA800C4B4FE /* Frameworks */,
 				BEDC7A251AE03BA800C4B4FE /* Resources */,
 				BE9572AD1AE5BEF20024968A /* ShellScript */,
+				9019319C1BC5C63500D1134E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				901931971BC5C62E00D1134E /* PBXTargetDependency */,
+				9019319B1BC5C63500D1134E /* PBXTargetDependency */,
 			);
 			name = "Mobile Buy SDK Web Sample";
 			productName = "Shopify Checkout";
@@ -157,7 +231,6 @@
 				TargetAttributes = {
 					BEDC7A261AE03BA800C4B4FE = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = A7XGC83MZE;
 						SystemCapabilities = {
 							com.apple.OMC = {
 								enabled = 1;
@@ -180,12 +253,49 @@
 			mainGroup = BEDC7A1E1AE03BA800C4B4FE;
 			productRefGroup = BEDC7A281AE03BA800C4B4FE /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 901931861BC5C62700D1134E /* Products */;
+					ProjectRef = 901931851BC5C62700D1134E /* Mobile Buy SDK.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				BEDC7A261AE03BA800C4B4FE /* Mobile Buy SDK Web Sample */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		9019318F1BC5C62800D1134E /* Playground.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = Playground.app;
+			remoteRef = 9019318E1BC5C62800D1134E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		901931911BC5C62800D1134E /* Mobile Buy SDK Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Mobile Buy SDK Tests.xctest";
+			remoteRef = 901931901BC5C62800D1134E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		901931931BC5C62800D1134E /* Buy.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Buy.framework;
+			remoteRef = 901931921BC5C62800D1134E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		901931951BC5C62800D1134E /* Buy.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Buy.framework;
+			remoteRef = 901931941BC5C62800D1134E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		BEDC7A251AE03BA800C4B4FE /* Resources */ = {
@@ -231,6 +341,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		901931971BC5C62E00D1134E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Buy Dynamic";
+			targetProxy = 901931961BC5C62E00D1134E /* PBXContainerItemProxy */;
+		};
+		9019319B1BC5C63500D1134E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Buy Dynamic";
+			targetProxy = 9019319A1BC5C63500D1134E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		BEDC7A341AE03BA800C4B4FE /* Main.storyboard */ = {
@@ -355,7 +478,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/**",
 				);
-				OTHER_LDFLAGS = "-all_load";
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.mobilebuysdkwebsample;
 				PRODUCT_NAME = "Mobile Buy SDK Web Sample";
 				PROVISIONING_PROFILE = "";
@@ -388,7 +511,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/**",
 				);
-				OTHER_LDFLAGS = "-all_load";
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.mobilebuysdkwebsample;
 				PRODUCT_NAME = "Mobile Buy SDK Web Sample";
 				PROVISIONING_PROFILE = "";

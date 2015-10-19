@@ -38,6 +38,7 @@ NSString * const MerchantId = @"";
 
 @property (nonatomic, strong) BUYCheckout *checkout;
 @property (nonatomic, strong) BUYClient *client;
+@property (nonatomic, strong) BUYShop *shop;
 @property (nonatomic, strong) NSArray *summaryItems;
 @property (nonatomic, strong) BUYApplePayHelpers *applePayHelper;
 
@@ -100,6 +101,11 @@ NSString * const MerchantId = @"";
     self.tableView.tableFooterView = footerView;
     
     [self.tableView registerClass:[SummaryItemsTableViewCell class] forCellReuseIdentifier:@"SummaryCell"];
+    
+    // Prefetch the shop object for Apple Pay
+    [self.client getShop:^(BUYShop *shop, NSError *error) {
+        _shop = shop;
+    }];
 }
 
 - (void)setCheckout:(BUYCheckout *)checkout
@@ -239,8 +245,8 @@ NSString * const MerchantId = @"";
     PKPaymentRequest *request = [self paymentRequest];
     
     PKPaymentAuthorizationViewController *paymentController = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:request];
- 
-    self.applePayHelper = [[BUYApplePayHelpers alloc] initWithClient:self.client checkout:self.checkout];
+    
+    self.applePayHelper = [[BUYApplePayHelpers alloc] initWithClient:self.client checkout:self.checkout shop:self.shop];
     paymentController.delegate = self;
     
     /**
@@ -272,10 +278,10 @@ NSString * const MerchantId = @"";
     [paymentRequest setRequiredShippingAddressFields:self.checkout.requiresShipping ? PKAddressFieldAll : PKAddressFieldEmail|PKAddressFieldPhone];
     [paymentRequest setSupportedNetworks:@[PKPaymentNetworkVisa, PKPaymentNetworkMasterCard]];
     [paymentRequest setMerchantCapabilities:PKMerchantCapability3DS];
-    [paymentRequest setCountryCode:@"US"];
-    [paymentRequest setCurrencyCode:@"USD"];
+    [paymentRequest setCountryCode:self.shop.country ?: @"US"];
+    [paymentRequest setCurrencyCode:self.shop.currency ?: @"USD"];
     
-    [paymentRequest setPaymentSummaryItems: [self.checkout buy_summaryItems]];
+    [paymentRequest setPaymentSummaryItems:[self.checkout buy_summaryItemsWithShopName:self.shop.name]];
     
     return paymentRequest;
 }
@@ -288,6 +294,17 @@ NSString * const MerchantId = @"";
 {
     // Add additional methods if needed and forward the callback to BUYApplePayHelpers
     [self.applePayHelper paymentAuthorizationViewController:controller didAuthorizePayment:payment completion:completion];
+    
+    // Get the completed checkout
+    [self.client getCheckout:self.applePayHelper.checkout completion:^(BUYCheckout *checkout, NSError *error) {
+        if (error) {
+            NSLog(@"Unable to get completed checkout");
+            NSLog(@"%@", error);
+        }
+        if (checkout) {
+            NSLog(@"%@", checkout);
+        }
+    }];
 }
 
 - (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller

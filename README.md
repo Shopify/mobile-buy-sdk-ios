@@ -1,9 +1,9 @@
 ![Mobile Buy SDK](http://s3.amazonaws.com/shopify-marketing_assets/static/mbsdk-github.png)
 
-[![Build status](https://badge.buildkite.com/d8fe8aa44d801c6238ab767867e4fb09abe516bb2933b577cc.svg?branch=develop)](https://buildkite.com/shopify/mobile-buy-sdk-ios)
+[![Build status](https://badge.buildkite.com/3951692121947fbf7bb06c4b741601fc091efea3fa119a4f88.svg)](https://buildkite.com/shopify/mobile-buy-sdk-ios)
 [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/Shopify/mobile-buy-sdk-ios/blob/master/LICENSE)
 [![GitHub release](https://img.shields.io/github/release/shopify/mobile-buy-sdk-ios.svg)](https://github.com/Shopify/mobile-buy-sdk-ios/releases)
-[![Cocoapods](https://img.shields.io/cocoapods/v/mobile-buy-sdk.svg)](https://cocoapods.org/pods/mobile-buy-sdk)
+[![Cocoapods](https://img.shields.io/cocoapods/v/Mobile-Buy-SDK.svg)](https://cocoapods.org/pods/Mobile-Buy-SDK)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 # Mobile Buy SDK for iOS
@@ -16,21 +16,23 @@ Please find all documentation on the [Mobile Buy SDK for iOS page](https://docs.
 
 ### Installation
 
-#### Manual Installation (Project)
-
 <a href="../../releases/latest">Download the latest version</a>
+
+#### Dynamic Framework Installation
 
 1. Drag the `Mobile Buy SDK.xcodeproj` into your existing project
 2. Add the `Buy` target as a `Target Dependancy` in the `Build Phases` of your project's target
-3. Add the `Buy` target in the `Link Binary with Libraries` section in `Build Phases`
+3. Add the `Buy` (second target on the list is the Dynamic framework) target in the `Embedded Binaries` section in `Build Phases`
 
-#### Manual Installation (Framework)
+See the [Sample Apps](/Mobile Buy SDK Sample Apps/) for an example of Dynamic Framework usage.
+
+#### Static Framework Installation
 
 If you would like to not include the Mobile Buy SDK Project within your existing project, you can link directly to the `Buy.framework`.
 
-1.  Open the `Mobile Buy SDK.xcodeproj` and build the `Universal Framework` Target
-2.  Drag the `Buy.framework` that was just created from `Mobile Buy SDK Sample Apps` onto the `Linked Frameworks and Libraries` section for the target you want to add the framework to. Check Copy items if needed so the framework is copied to your project
-3.  In the `Build Settings` tab, add `-all_load` to `Other Linker Flags`.
+1.  Open the `Mobile Buy SDK.xcodeproj` and build the `Static Universal Framework` scheme
+2.  Drag the `Buy.framework` that was just created from `Mobile Buy SDK Sample Apps` into the `Linked Frameworks and Libraries` section for the target you want to add the framework to. Check Copy items if needed so the framework is copied to your project
+3.  In the `Build Settings` tab, add `-all_load` to `Other Linker Flags`
 
 #### CocoaPods
 
@@ -41,6 +43,10 @@ pod "Mobile-Buy-SDK"
 ```
 
 Then run `pod install`
+
+```objc
+#import "Buy.h"
+```
 
 #### Carthage
 
@@ -84,23 +90,35 @@ Consult the [Usage Section](https://docs.shopify.com/mobile-buy-sdk/ios/integrat
 
 ### Building the SDK
 
-Clone this repo or download as .zip and open `Mobile Buy SDK.xcworkspace`.
+Clone this repo or download as .zip and open `Mobile Buy SDK.xcodeproj`.
 
-The workspace includes the Mobile Buy SDK project and the sample app projects. The sample apps can also be opened outside the workspace with the `.xcodeproj` files found in the sample app folders. However, if you need to use breakpoints or inspect methods in the SDK, run the sample apps from the workspace.
+The workspace includes the Mobile Buy SDK project.
 
 ### Mobile Buy SDK Targets and schemes
 
 The Mobile Buy SDK includes a number of targets and schemes:
 
-* **Buy**: This is the Mobile Buy SDK framework. This build is based on the current build configuration. To build a universal framework that can run on a device and on the Simulator and to be included in your app, please refer to the `Universal Framework` target below
+* **Buy**: This is the Mobile Buy SDK dynamic framework. Please refer to the installation section above
 
-* **Universal Framework**: This builds the framework using `build_universal.sh` script in the `Universal Framework` target and copies the built framework in the `/Mobile Buy SDK Sample Apps` folder. Build this target if you have made any changes to the framework that you want to test with the sample apps as the sample apps do not build the framework directly but embed the already built framework
+* **Buy Static** (target only): This is the Mobile Buy SDK static framework. This build is based on the current build configuration. To build a universal framework that can run on a device and on the Simulator and to be included in your app, please refer to the `Static Universal Framework` target below
+
+* **Static Universal Framework**: This builds a **static** framework from the `Buy Static` target using the `build_universal.sh` script in the `Static Universal Framework` target and copies the built framework in the `/Mobile Buy SDK Sample Apps` folder. This is a fat binary that includes arm and i386 slices. Build this target if you have made any changes to the framework that you want to test with the sample apps as the sample apps do not build the framework directly but embed the already built framework
 
 * **Mobile Buy SDK Tests**: Tests for the Mobile Buy SDK framework. See instructions below
 
 * **Documentation**: This generates appledoc documentation for the framework
 
-* **Playground**: This target is a basic app that depends directly on the `Buy` framework target and builds the framework every time using the `Playground` app's build configuration. You may use this app and target to play around with the SDK. Be sure not to check in any changes you may have made in files related to this app
+* **Playground**: This is a basic app that depends directly on the `Buy` dynamic framework. You may use this app and target to play around with the SDK. Be sure not to check in any changes you may have made in files related to this app
+
+### Sample Apps
+
+The repo includes 3 sample apps. Each sample apps embeds the dynamic framework and includes readme files with more information:
+
+* [Advanced Sample App](/Mobile Buy SDK Sample Apps/Sample App Advanced/README.md)
+* [Swift Sample App](/Mobile Buy SDK Sample Apps/Sample App Swift/README.md)
+* [Web Sample App](/Mobile Buy SDK Sample Apps/Sample App Web/README.md)
+
+We suggest you take a look at the **Advanced Sample App** and test your shop with the sample app before you begin. If you run into any issues, the **Advanced Sample App** is also a great resource for debugging integration issues and checkout.
 
 ### Unit Tests
 

@@ -44,7 +44,11 @@
 	closeButton.frame = CGRectMake(0, 0, 22, 22);
 	UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
 	self.topViewController.navigationItem.leftBarButtonItem = barButtonItem;
-	[[UINavigationBar appearanceWhenContainedIn:[BUYNavigationController class], nil] setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+	if ([[UINavigationBar class] respondsToSelector:@selector(appearanceWhenContainedInInstancesOfClasses:)]) {
+		[[UINavigationBar appearanceWhenContainedInInstancesOfClasses:@[[BUYNavigationController class]]] setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+	} else {
+		[[UINavigationBar appearanceWhenContainedIn:[BUYNavigationController class], nil] setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+	}
 	
 	return self;
 }
@@ -87,7 +91,11 @@
 	_theme = theme;
 	self.navigationBar.barStyle = [theme navigationBarStyle];
 	[self updateCloseButtonImageWithTintColor:NO duration:0];
-	[[UINavigationBar appearanceWhenContainedIn:[BUYNavigationController class], nil] setTitleTextAttributes:@{ NSForegroundColorAttributeName: [theme navigationBarTitleColor] }];
+	if ([[UINavigationBar class] respondsToSelector:@selector(appearanceWhenContainedInInstancesOfClasses:)]) {
+		[[UINavigationBar appearanceWhenContainedInInstancesOfClasses:@[[BUYNavigationController class]]] setTitleTextAttributes:@{ NSForegroundColorAttributeName: [theme navigationBarTitleColor] }];
+	} else {
+		[[UINavigationBar appearanceWhenContainedIn:[BUYNavigationController class], nil] setTitleTextAttributes:@{ NSForegroundColorAttributeName: [theme navigationBarTitleColor] }];
+	}
 }
 
 -(UIViewController *)childViewControllerForStatusBarStyle

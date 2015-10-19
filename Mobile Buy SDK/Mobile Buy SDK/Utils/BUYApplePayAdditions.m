@@ -38,11 +38,11 @@
 
 @implementation BUYCheckout (ApplePay)
 
-- (NSArray *)buy_summaryItemsWithShopName:(NSString *)shopName {
+- (nonnull NSArray<PKPaymentSummaryItem *> *)buy_summaryItemsWithShopName:(nullable NSString *)shopName {
 	
 	BOOL hasDiscount = [self.discount.amount compare:[NSDecimalNumber zero]] == NSOrderedDescending;
 	
-	NSMutableArray *summaryItems = [[NSMutableArray alloc] init];
+	NSMutableArray<PKPaymentSummaryItem *> *summaryItems = [[NSMutableArray alloc] init];
 	
 	if (hasDiscount || [self.lineItems count] > 1) {
 		NSDecimalNumber *lineItemSubtotal = [NSDecimalNumber zero];
@@ -76,10 +76,11 @@
 	
 	NSString *itemLabel = shopName ?: @"TOTAL";
 	[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:itemLabel amount:self.paymentDue ?: [NSDecimalNumber zero]]];
+
 	return summaryItems;
 }
 
-- (NSArray *)buy_summaryItems
+- (nonnull NSArray<PKPaymentSummaryItem *> *)buy_summaryItems
 {
 	return [self buy_summaryItemsWithShopName:nil];
 }
@@ -88,9 +89,9 @@
 
 @implementation BUYShippingRate (ApplePay)
 
-+ (NSArray *)buy_convertShippingRatesToShippingMethods:(NSArray *)rates
++ (nonnull NSArray<PKShippingMethod *> *)buy_convertShippingRatesToShippingMethods:(nonnull NSArray<BUYShippingRate *> *)rates
 {
-	NSMutableArray *shippingMethods = [[NSMutableArray alloc] init];
+	NSMutableArray<PKShippingMethod *> *shippingMethods = [[NSMutableArray alloc] init];
 	for (BUYShippingRate *shippingRate in rates) {
 		PKShippingMethod *shippingMethod = [[PKShippingMethod alloc] init];
 		shippingMethod.label = shippingRate.title;
@@ -121,7 +122,7 @@
 
 @implementation BUYAddress (ApplePay)
 
-+ (NSString *)buy_emailFromRecord:(ABRecordRef)record
++ (nullable NSString *)buy_emailFromRecord:(nullable ABRecordRef)record
 {
 	ABMultiValueRef emailMultiValue = ABRecordCopyValue(record, kABPersonEmailProperty);
 	CFArrayRef allEmails = ABMultiValueCopyArrayOfAllValues(emailMultiValue);
@@ -136,7 +137,7 @@
 	return email;
 }
 
-+ (BUYAddress *)buy_addressFromRecord:(ABRecordRef)record
++ (nonnull BUYAddress *)buy_addressFromRecord:(nullable ABRecordRef)record
 {
 	BUYAddress *address = [[BUYAddress alloc] init];
 	
@@ -193,7 +194,7 @@
 	return address;
 }
 
-+ (BUYAddress *)buy_addressFromContact:(PKContact*)contact
++ (nonnull BUYAddress *)buy_addressFromContact:(nullable PKContact*)contact
 {
 	BUYAddress *address = [[BUYAddress alloc] init];
 	

@@ -35,6 +35,8 @@
 @class BUYOrder;
 @class BUYShippingRate;
 @class BUYTaxLine;
+@class BUYLineItem;
+@class BUYGiftCard;
 
 /**
  *  The checkout object. This is the main object that you will interact with when creating orders on Shopify.
@@ -125,13 +127,12 @@
  *  Note: These are different from BUYCartLineItems in that the line item
  *  objects do not include the BUYProductVariant
  */
-@property (nonatomic, readonly, copy) NSArray *lineItems;
+@property (nonatomic, readonly, copy) NSArray<__kindof BUYLineItem *> *lineItems;
 
 /**
  *  Array of tax line objects on the checkout
  */
-@property (nonatomic, readonly, copy) NSArray *taxLines;
-
+@property (nonatomic, readonly, copy) NSArray<BUYTaxLine *> *taxLines;
 /**
  *  The mailing address associated with the payment method
  */
@@ -162,7 +163,7 @@
 /**
  *  An array of BUYGiftCard objects applied to the checkout
  */
-@property (nonatomic, strong, readonly) NSArray *giftCards;
+@property (nonatomic, strong, readonly) NSArray<BUYGiftCard *> *giftCards;
 
 /**
  *  Channel ID where the checkout was created
@@ -236,6 +237,11 @@
  *  Customer ID associated with the checkout
  */
 @property (nonatomic, copy, readonly) NSString *customerId;
+
+/**
+ *  An optional note attached to the order
+ */
+@property (nonatomic, copy) NSString *note;
 
 /**
  *  The BUYOrder for a completed checkout

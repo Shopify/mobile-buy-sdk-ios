@@ -1,5 +1,5 @@
 //
-//  BUYAddress+Additions.m
+//  Buy.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,37 +24,40 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYAddress+Additions.h"
+#import <UIKit/UIKit.h>
 
-NSString * const BUYPartialAddressPlaceholder = @"---";
+//! Project version number for BuyDynamic.
+FOUNDATION_EXPORT double BuyDynamicVersionNumber;
 
+//! Project version string for BuyDynamic.
+FOUNDATION_EXPORT const unsigned char BuyDynamicVersionString[];
 
-@implementation BUYAddress (Additions)
-
-- (BOOL)isPartialAddress
-{
-	if ([self.address1 isEqualToString:BUYPartialAddressPlaceholder] ||
-		[self.firstName isEqualToString:BUYPartialAddressPlaceholder] ||
-		[self.lastName isEqualToString:BUYPartialAddressPlaceholder]) {
-		return YES;
-	}
-	
-	return NO;
-}
-
-- (BOOL)isValidAddressForShippingRates
-{
-	BOOL valid = NO;
-	
-	if (self.city.length > 0 &&
-		self.zip.length > 0 &&
-		self.province.length > 0 &&
-		(self.country.length > 0 || self.countryCode.length == 2)) {
-	
-		valid = YES;
-	}
-	
-	return valid;
-}
-
-@end
+#import <Buy/BUYAddress.h>
+#import <Buy/BUYCart.h>
+#import <Buy/BUYCheckout.h>
+#import <Buy/BUYCreditCard.h>
+#import <Buy/BUYDiscount.h>
+#import <Buy/BUYGiftCard.h>
+#import <Buy/BUYLineItem.h>
+#import <Buy/BUYClient.h>
+#import <Buy/BUYClient+Test.h>
+#import <Buy/BUYImage.h>
+#import <Buy/BUYOption.h>
+#import <Buy/BUYOptionValue.h>
+#import <Buy/BUYOrder.h>
+#import <Buy/BUYProduct.h>
+#import <Buy/BUYProductVariant.h>
+#import <Buy/BUYShippingRate.h>
+#import <Buy/BUYShop.h>
+#import <Buy/BUYStoreViewController.h>
+#import <Buy/BUYTaxLine.h>
+#import <Buy/BUYViewController.h>
+#import <Buy/BUYApplePayAdditions.h>
+#import <Buy/BUYApplePayHelpers.h>
+#import <Buy/BUYPaymentButton.h>
+#import <Buy/BUYProductViewController.h>
+#import <Buy/BUYTheme.h>
+#import <Buy/BUYCartLineItem.h>
+#import <Buy/BUYCollection.h>
+#import <Buy/BUYMaskedCreditCard.h>
+#import <Buy/BUYError.h>

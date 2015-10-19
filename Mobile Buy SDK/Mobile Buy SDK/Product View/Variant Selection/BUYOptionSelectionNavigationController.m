@@ -47,9 +47,15 @@
 		
 		// Add custom back button
 		UIImage *buttonImage = [[BUYImageKit imageOfVariantBackImageWithFrame:CGRectMake(0, 0, 12, 18)] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-		[[UIBarButtonItem appearanceWhenContainedIn:[BUYNavigationController class], nil] setBackButtonBackgroundImage:[buttonImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 12, 0, 0)]
-																											  forState:UIControlStateNormal
-																											barMetrics:UIBarMetricsDefault];
+		if ([[UIBarButtonItem class] respondsToSelector:@selector(appearanceWhenContainedInInstancesOfClasses:)]) {
+			[[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[BUYNavigationController class]]] setBackButtonBackgroundImage:[buttonImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 12, 0, 0)]
+																																  forState:UIControlStateNormal
+																																barMetrics:UIBarMetricsDefault];
+		} else {
+			[[UIBarButtonItem appearanceWhenContainedIn:[BUYNavigationController class], nil] setBackButtonBackgroundImage:[buttonImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, 12, 0, 0)]
+																												  forState:UIControlStateNormal
+																												barMetrics:UIBarMetricsDefault];
+		}
 		
 		_breadsCrumbsView = [BUYVariantOptionBreadCrumbsView new];
 		_breadsCrumbsView.translatesAutoresizingMaskIntoConstraints = NO;

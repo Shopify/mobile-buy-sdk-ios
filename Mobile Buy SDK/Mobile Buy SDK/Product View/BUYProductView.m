@@ -44,6 +44,7 @@
 @property (nonatomic, strong) UILabel *poweredByShopifyLabel;
 @property (nonatomic, strong) NSLayoutConstraint *poweredByShopifyLabelConstraint;
 @property (nonatomic, strong) BUYProductViewErrorView *errorView;
+@property (nonatomic, strong) NSLayoutConstraint *topInsetConstraint;
 
 @end
 
@@ -121,10 +122,19 @@
 																	 options:0
 																	 metrics:nil
 																	   views:NSDictionaryOfVariableBindings(_tableView)]];
-		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_tableView]|"
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_tableView]|"
 																	 options:0
 																	 metrics:nil
 																	   views:NSDictionaryOfVariableBindings(_tableView)]];
+		
+		_topInsetConstraint = [NSLayoutConstraint constraintWithItem:self.tableView
+														   attribute:NSLayoutAttributeTop
+														   relatedBy:NSLayoutRelationEqual
+															  toItem:self
+														   attribute:NSLayoutAttributeTop
+														  multiplier:1.0
+															constant:0];
+		[self addConstraint:_topInsetConstraint];
 		
 		CGFloat size = MIN(CGRectGetWidth(rect), CGRectGetHeight(rect));
 		if ([product.images count] > 0) {
@@ -163,7 +173,7 @@
 																	 options:0
 																	 metrics:nil
 																	   views:NSDictionaryOfVariableBindings(_productViewFooter)]];
-		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_productViewFooter]|"
+		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_productViewFooter]-|"
 																	 options:0
 																	 metrics:nil
 																	   views:NSDictionaryOfVariableBindings(_productViewFooter)]];
@@ -193,7 +203,7 @@
 - (void)layoutSubviews
 {
 	[super layoutSubviews];
-	[self setInsets:UIEdgeInsetsMake(self.tableView.contentInset.top, self.tableView.contentInset.left, CGRectGetHeight(self.productViewFooter.frame), self.tableView.contentInset.right) appendToCurrentInset:NO];
+	[self setInsets:UIEdgeInsetsMake(self.tableView.contentInset.top, self.tableView.contentInset.left, CGRectGetHeight(self.bounds) - CGRectGetMinY(self.productViewFooter.frame), self.tableView.contentInset.right) appendToCurrentInset:NO];
 }
 
 - (void)setTheme:(BUYTheme *)theme
@@ -233,6 +243,10 @@
 	if (footerViewHeight <= 0) {
 		footerViewHeight = 0;
 	}
+	
+	// Add the top inset for the navigation bar (when pushed in a navigation controller stack, not presented)
+	footerViewHeight += -self.topInsetConstraint.constant;
+	
 	self.footerHeightLayoutConstraint.constant = footerViewHeight;
 	self.footerOffsetLayoutConstraint.constant = -footerViewHeight;
 	
@@ -323,6 +337,11 @@
 	CGFloat bottom = appendToCurrentInset ? self.tableView.contentInset.bottom + edgeInsets.bottom : edgeInsets.bottom;
 	CGFloat right = appendToCurrentInset ? self.tableView.contentInset.right + edgeInsets.right : edgeInsets.right;
 	self.tableView.contentInset = self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(top, left, bottom, right);
+}
+
+- (void)setTopInset:(CGFloat)topInset
+{
+	self.topInsetConstraint.constant = topInset;
 }
 
 @end
