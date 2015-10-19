@@ -57,5 +57,4 @@ NSString * const BUYPartialAddressPlaceholder = @"---";
 	return valid;
 }
 
-
 @end
