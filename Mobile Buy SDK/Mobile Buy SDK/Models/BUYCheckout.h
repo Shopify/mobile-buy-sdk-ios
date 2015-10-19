@@ -241,7 +241,7 @@
 /**
  *  An optional note attached to the order
  */
-@property (nonatomic, strong) NSString *note;
+@property (nonatomic, copy) NSString *note;
 
 /**
  *  The BUYOrder for a completed checkout
