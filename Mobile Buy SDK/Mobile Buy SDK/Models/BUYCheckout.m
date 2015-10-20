@@ -53,7 +53,7 @@
 
 - (instancetype)initWithCart:(BUYCart *)cart
 {
-	self = [super initWithDictionary:@{}];
+	self = [super init];
 	if (self) {
 		_lineItems = [cart.lineItems copy];
 		[self markPropertyAsDirty:@"lineItems"];
@@ -160,6 +160,7 @@
 	self.updatedAtDate = [dateFormatter dateFromString:dictionary[@"updated_at"]];
 	self.creditCard = [BUYMaskedCreditCard convertObject:dictionary[@"credit_card"]];
 	self.customerId = [dictionary[@"customer_id"] copy];
+	self.note = dictionary[@"note"];
 	
 	self.privacyPolicyURL = [NSURL buy_urlWithString:dictionary[@"privacy_policy_url"]];
 	self.refundPolicyURL = [NSURL buy_urlWithString:dictionary[@"refund_policy_url"]];
