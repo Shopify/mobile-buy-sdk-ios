@@ -108,8 +108,6 @@ The Mobile Buy SDK includes a number of targets and schemes:
 
 * **Documentation**: This generates appledoc documentation for the framework
 
-* **Playground**: This is a basic app that depends directly on the `Buy` dynamic framework. You may use this app and target to play around with the SDK. Be sure not to check in any changes you may have made in files related to this app
-
 ### Sample Apps
 
 The repo includes 3 sample apps. Each sample apps embeds the dynamic framework and includes readme files with more information:
