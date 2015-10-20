@@ -41,6 +41,7 @@
 #import "BUYCheckout_Private.h"
 #import "NSDateFormatter+BUYAdditions.h"
 #import "NSURL+BUYAdditions.h"
+#import "NSDictionary+Additions.h"
 
 @implementation BUYCheckout
 
@@ -159,7 +160,7 @@
 	self.createdAtDate = [dateFormatter dateFromString:dictionary[@"created_at"]];
 	self.updatedAtDate = [dateFormatter dateFromString:dictionary[@"updated_at"]];
 	self.creditCard = [BUYMaskedCreditCard convertObject:dictionary[@"credit_card"]];
-	self.customerId = [dictionary[@"customer_id"] copy];
+	self.customerId = [dictionary buy_objectForKey:@"customer_id"];
 	self.note = dictionary[@"note"];
 	
 	self.privacyPolicyURL = [NSURL buy_urlWithString:dictionary[@"privacy_policy_url"]];

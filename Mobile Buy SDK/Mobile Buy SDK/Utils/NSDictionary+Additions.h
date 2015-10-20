@@ -1,5 +1,6 @@
 //
-//  BUYOrder.m
+//  NSDictionary+Additions.h
+//
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,26 +25,17 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYOrder.h"
-#import "NSURL+BUYAdditions.h"
-#import "NSDictionary+Additions.h"
+#import <Foundation/Foundation.h>
 
-@interface BUYOrder ()
+@interface NSDictionary (Additions)
 
-@property (nonatomic, copy) NSNumber *orderId;
-@property (nonatomic, strong) NSURL *statusURL;
-@property (nonatomic, strong) NSString *name;
-
-@end
-
-@implementation BUYOrder
-
-- (void)updateWithDictionary:(NSDictionary *)dictionary
-{
-	[super updateWithDictionary:dictionary];
-	NSString *statusURLString = dictionary[@"status_url"];
-	self.statusURL = [NSURL buy_urlWithString:statusURLString];
-	self.name = [dictionary buy_objectForKey:@"name"];
-}
+/**
+ *  Alernative to objectForKey, where NSNull is replaced with nil
+ *
+ *  @param key The key for which to return the corresponding value.
+ *
+ *  @return The value associated with key
+ */
+- (id)buy_objectForKey:(NSString *)key;
 
 @end

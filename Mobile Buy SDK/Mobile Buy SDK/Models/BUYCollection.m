@@ -27,6 +27,7 @@
 #import "BUYCollection.h"
 #import "NSDateFormatter+BUYAdditions.h"
 #import "NSURL+BUYAdditions.h"	
+#import "NSDictionary+Additions.h"
 
 @interface BUYCollection ()
 @property (nonatomic, strong) NSString *title;
@@ -44,7 +45,7 @@
 	
 	_title = dictionary[@"title"];
 	_htmlDescription = dictionary[@"body_html"];
-	_imageURL = [dictionary[@"image"] isKindOfClass:[NSNull class]] ? nil : [NSURL buy_urlWithString:dictionary[@"image"][@"src"]];
+	_imageURL = [NSURL buy_urlWithString:[dictionary buy_objectForKey:@"image"][@"src"]];
 	_handle = dictionary[@"handle"];
 	_published = [dictionary[@"published"] boolValue];
 	_collectionId = dictionary[@"collection_id"];

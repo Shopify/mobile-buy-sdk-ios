@@ -29,6 +29,7 @@
 #import "BUYProduct.h"
 #import "BUYProductVariant.h"
 #import "NSDateFormatter+BUYAdditions.h"
+#import "NSDictionary+Additions.h"
 
 @implementation BUYProduct
 
@@ -46,7 +47,7 @@
 	}];
 	_images = [BUYImage convertJSONArray:dictionary[@"images"]];
 	_options = [BUYOption convertJSONArray:dictionary[@"options"]];
-	_htmlDescription = [dictionary[@"body_html"] isKindOfClass:[NSNull class]] ? nil : dictionary[@"body_html"];
+	_htmlDescription = [dictionary buy_objectForKey:@"body_html"];
 	_available = [dictionary[@"available"] boolValue];
 	_published = [dictionary[@"published"] boolValue];
 	NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForPublications];
