@@ -26,11 +26,11 @@
 
 #import <UIKit/UIKit.h>
 
-//! Project version number for BuyDynamic.
-FOUNDATION_EXPORT double BuyDynamicVersionNumber;
+//! Project version number for Buy.
+FOUNDATION_EXPORT double BuyVersionNumber;
 
-//! Project version string for BuyDynamic.
-FOUNDATION_EXPORT const unsigned char BuyDynamicVersionString[];
+//! Project version string for Buy.
+FOUNDATION_EXPORT const unsigned char BuyVersionString[];
 
 #import <Buy/BUYAddress.h>
 #import <Buy/BUYCart.h>
