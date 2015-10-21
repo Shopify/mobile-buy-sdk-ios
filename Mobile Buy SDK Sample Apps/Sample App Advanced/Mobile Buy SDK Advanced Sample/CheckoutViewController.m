@@ -175,12 +175,16 @@ NSString * const MerchantId = @"";
 {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Checkout complete" message:nil preferredStyle:UIAlertControllerStyleAlert];;
     
-    [alertController addAction:[UIAlertAction actionWithTitle:@"OK"
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Start over"
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction *action) {
-                                                          
                                                           [self.navigationController popToRootViewControllerAnimated:YES];
-                                                          
+                                                      }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Show order status page"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *action) {
+                                                          SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:self.checkout.order.statusURL];
+                                                          [self presentViewController:safariViewController animated:YES completion:NULL];
                                                       }]];
     
     [self presentViewController:alertController animated:YES completion:nil];
@@ -228,7 +232,7 @@ NSString * const MerchantId = @"";
 
     NSLog(@"Successfully got completion status: %lu", (unsigned long)completionStatus);
     
-    [self showCheckoutConfirmation];
+    [self getCompletedCheckout];
 }
 
 - (void)operation:(GetCompletionStatusOperation *)operation failedToReceiveCompletionStatus:(NSError *)error
@@ -294,17 +298,9 @@ NSString * const MerchantId = @"";
 {
     // Add additional methods if needed and forward the callback to BUYApplePayHelpers
     [self.applePayHelper paymentAuthorizationViewController:controller didAuthorizePayment:payment completion:completion];
-    
-    // Get the completed checkout
-    [self.client getCheckout:self.applePayHelper.checkout completion:^(BUYCheckout *checkout, NSError *error) {
-        if (error) {
-            NSLog(@"Unable to get completed checkout");
-            NSLog(@"%@", error);
-        }
-        if (checkout) {
-            NSLog(@"%@", checkout);
-        }
-    }];
+
+    self.checkout = self.applePayHelper.checkout;
+    [self getCompletedCheckout];
 }
 
 - (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller
@@ -363,9 +359,8 @@ NSString * const MerchantId = @"";
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 
         if (error == nil && status == BUYStatusComplete) {
-            
             NSLog(@"Successfully completed checkout");
-            [welf showCheckoutConfirmation];
+            [welf getCompletedCheckout];
         }
         else {
             NSLog(@"Error completing checkout: %@", error);
@@ -374,4 +369,27 @@ NSString * const MerchantId = @"";
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:CheckoutCallbackNotification object:nil];
 }
+
+- (void)getCompletedCheckout
+{
+    __weak CheckoutViewController *welf = self;
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    [self.client getCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
+        
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+        if (error) {
+            NSLog(@"Unable to get completed checkout");
+            NSLog(@"%@", error);
+        }
+        if (checkout) {
+            welf.checkout = checkout;
+            [welf showCheckoutConfirmation];
+            NSLog(@"%@", checkout);
+        }
+    }];
+}
+
 @end
