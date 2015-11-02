@@ -47,7 +47,7 @@
 	if (hasDiscount || [self.lineItems count] > 1) {
 		NSDecimalNumber *lineItemSubtotal = [NSDecimalNumber zero];
 		for (BUYLineItem *lineItem in self.lineItems) {
-			lineItemSubtotal = [lineItemSubtotal decimalNumberByAdding:lineItem.price];
+			lineItemSubtotal = [lineItemSubtotal decimalNumberByAdding:lineItem.linePrice];
 		}
 		[summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:@"CART TOTAL" amount:lineItemSubtotal]];
 	}
