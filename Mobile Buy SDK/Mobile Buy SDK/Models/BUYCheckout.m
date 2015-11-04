@@ -42,6 +42,7 @@
 #import "NSDateFormatter+BUYAdditions.h"
 #import "NSURL+BUYAdditions.h"
 #import "NSDictionary+Additions.h"
+#import "BUYCheckoutAttribute.h"
 
 @implementation BUYCheckout
 
@@ -146,6 +147,7 @@
 	self.creditCard = [BUYMaskedCreditCard convertObject:dictionary[@"credit_card"]];
 	self.customerId = [dictionary buy_objectForKey:@"customer_id"];
 	self.note = dictionary[@"note"];
+	self.attributes = [BUYCheckoutAttribute convertJSONArray:dictionary[@"attributes"]];
 	
 	self.privacyPolicyURL = [NSURL buy_urlWithString:dictionary[@"privacy_policy_url"]];
 	self.refundPolicyURL = [NSURL buy_urlWithString:dictionary[@"refund_policy_url"]];
@@ -181,12 +183,21 @@
 
 - (NSDictionary *)jsonDictionaryForCheckout
 {
-	//We only need the dirty properties
+	// We only need the dirty properties
 	NSSet *dirtyProperties = [self dirtyProperties];
 	NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
 	for (NSString *dirtyProperty in dirtyProperties) {
 		id value = [self jsonValueForValue:[self valueForKey:dirtyProperty]];
 		json[[BUYCheckout jsonKeyForProperty:dirtyProperty]] = value ?: [NSNull null];
+	}
+	
+	// We need to serialize the attributes as they need to be posted as a dictionary
+	if (json[@"attributes"]) {
+		NSMutableDictionary *attributeDictionary = [[NSMutableDictionary alloc] init];
+		for (NSDictionary *attribute in json[@"attributes"]) {
+			attributeDictionary[[attribute allKeys][0]] = [attribute allValues][0];
+		}
+		json[@"attributes"] = attributeDictionary;
 	}
 	return @{ @"checkout" : json };
 }
