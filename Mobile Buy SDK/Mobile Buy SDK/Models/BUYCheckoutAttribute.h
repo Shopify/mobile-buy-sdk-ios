@@ -1,5 +1,5 @@
 //
-//  Buy.h
+//  BUYCheckoutAttribute.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,41 +24,22 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+#import "BUYObject.h"
+#import "BUYSerializable.h"
 
-//! Project version number for Buy.
-FOUNDATION_EXPORT double BuyVersionNumber;
+/**
+ *  A BUYCheckoutAttribute represents a checkout attributes key and value
+ */
+@interface BUYCheckoutAttribute : BUYObject <BUYSerializable>
 
-//! Project version string for Buy.
-FOUNDATION_EXPORT const unsigned char BuyVersionString[];
+/**
+ *  The attribute name
+ */
+@property (nonatomic, strong, nonnull) NSString *name;
 
-#import <Buy/BUYAddress.h>
-#import <Buy/BUYCart.h>
-#import <Buy/BUYCheckout.h>
-#import <Buy/BUYCheckoutAttribute.h>
-#import <Buy/BUYCreditCard.h>
-#import <Buy/BUYDiscount.h>
-#import <Buy/BUYGiftCard.h>
-#import <Buy/BUYLineItem.h>
-#import <Buy/BUYClient.h>
-#import <Buy/BUYClient+Test.h>
-#import <Buy/BUYImage.h>
-#import <Buy/BUYOption.h>
-#import <Buy/BUYOptionValue.h>
-#import <Buy/BUYOrder.h>
-#import <Buy/BUYProduct.h>
-#import <Buy/BUYProductVariant.h>
-#import <Buy/BUYShippingRate.h>
-#import <Buy/BUYShop.h>
-#import <Buy/BUYStoreViewController.h>
-#import <Buy/BUYTaxLine.h>
-#import <Buy/BUYViewController.h>
-#import <Buy/BUYApplePayAdditions.h>
-#import <Buy/BUYApplePayHelpers.h>
-#import <Buy/BUYPaymentButton.h>
-#import <Buy/BUYProductViewController.h>
-#import <Buy/BUYTheme.h>
-#import <Buy/BUYCartLineItem.h>
-#import <Buy/BUYCollection.h>
-#import <Buy/BUYMaskedCreditCard.h>
-#import <Buy/BUYError.h>
+/**
+ *  The attribute value
+ */
+@property (nonatomic, strong, nonnull) NSString *value;
+
+@end
