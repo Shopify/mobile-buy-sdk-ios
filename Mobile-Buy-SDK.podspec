@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => 'https://github.com/Shopify/mobile-buy-sdk-ios.git', :tag => s.version }
   s.source_files = 'Mobile Buy SDK/Mobile Buy SDK/**/*.{h,m,mm}'
   s.public_header_files = 'Mobile Buy SDK/Mobile Buy SDK/**/*.h'
-  s.exclude_files = 'Mobile Buy SDK/Mobile Buy SDK/Static Framework/*'
+  s.exclude_files = 'Mobile Buy SDK/Mobile Buy SDK/Buy.h'
   s.module_name   = 'Buy'
   s.frameworks   = 'PassKit'
   s.libraries    = 'c++'

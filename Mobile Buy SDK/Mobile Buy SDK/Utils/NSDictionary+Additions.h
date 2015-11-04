@@ -1,5 +1,6 @@
 //
-//  main.m
+//  NSDictionary+Additions.h
+//
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,11 +25,17 @@
 //  THE SOFTWARE.
 //
 
-@import UIKit;
-#import "AppDelegate.h"
+#import <Foundation/Foundation.h>
 
-int main(int argc, char * argv[]) {
-    @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
-    }
-}
+@interface NSDictionary (Additions)
+
+/**
+ *  Alernative to objectForKey, where NSNull is replaced with nil
+ *
+ *  @param key The key for which to return the corresponding value.
+ *
+ *  @return The value associated with key
+ */
+- (id)buy_objectForKey:(NSString *)key;
+
+@end

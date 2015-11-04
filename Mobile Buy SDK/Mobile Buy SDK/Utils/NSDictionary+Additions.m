@@ -1,5 +1,6 @@
 //
-//  FirstViewController.h
+//  NSDictionary+Additions.m
+//
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,9 +25,13 @@
 //  THE SOFTWARE.
 //
 
-@import UIKit;
+#import "NSDictionary+Additions.h"
 
-@interface FirstViewController : UIViewController
+@implementation NSDictionary (Additions)
+
+- (id)buy_objectForKey:(NSString *)key
+{
+	return ([self[key] isKindOfClass:[NSNull class]]) ? nil : self[key];
+}
 
 @end
-
