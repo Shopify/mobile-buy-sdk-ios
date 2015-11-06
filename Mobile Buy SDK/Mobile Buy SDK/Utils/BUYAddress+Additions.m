@@ -26,16 +26,14 @@
 
 #import "BUYAddress+Additions.h"
 
-NSString * const BUYPartialAddressPlaceholder = @"---";
-
 
 @implementation BUYAddress (Additions)
 
 - (BOOL)isPartialAddress
 {
-	if ([self.address1 isEqualToString:BUYPartialAddressPlaceholder] ||
-		[self.firstName isEqualToString:BUYPartialAddressPlaceholder] ||
-		[self.lastName isEqualToString:BUYPartialAddressPlaceholder]) {
+	if (self.address1.length == 0 ||
+		self.firstName.length == 0 ||
+		self.lastName.length == 0) {
 		return YES;
 	}
 	

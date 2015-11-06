@@ -90,6 +90,7 @@ const NSTimeInterval PollDelay = 0.5;
 	// Update the checkout with the rest of the information. Apple has now provided us with a FULL billing address and a FULL shipping address.
 	// We now update the checkout with our new found data so that you can ship the products to the right address, and we collect whatever else we need.
 	
+	self.checkout.partialAddresses = NO;
 	self.checkout.shippingAddress = self.checkout.requiresShipping ? [BUYAddress buy_addressFromRecord:[payment shippingAddress]] : nil;
 	self.checkout.billingAddress = [BUYAddress buy_addressFromRecord:[payment billingAddress]];
 	self.checkout.email = [BUYAddress buy_emailFromRecord:[payment billingAddress]];
@@ -158,7 +159,9 @@ const NSTimeInterval PollDelay = 0.5;
 #pragma mark -
 
 - (void)updateCheckoutWithAddressCompletion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion
-{
+{	
+	self.checkout.partialAddresses = [self.checkout.shippingAddress isPartialAddress];
+	
 	if ([self.checkout.shippingAddress isValidAddressForShippingRates]) {
 		
 		[self.client updateCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
