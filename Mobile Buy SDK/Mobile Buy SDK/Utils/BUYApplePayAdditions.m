@@ -143,14 +143,7 @@
 	
 	//Grab the simple information
 	address.firstName = (__bridge_transfer NSString *)ABRecordCopyValue(record, kABPersonFirstNameProperty);
-	if ([address.firstName length] == 0) {
-		address.firstName = BUYPartialAddressPlaceholder;
-	}
-	
 	address.lastName = (__bridge_transfer NSString *)ABRecordCopyValue(record, kABPersonLastNameProperty);
-	if ([[address lastName] length] == 0) {
-		address.lastName = BUYPartialAddressPlaceholder;
-	}
 	
 	//Grab the address information
 	ABMultiValueRef addressMultiValue = ABRecordCopyValue(record, kABPersonAddressProperty);
@@ -160,10 +153,6 @@
 		
 		//NOTE: We do not receive an address1 line right now via this partial address, as Apple deemds it unimportant to calculate the shipping rates. We get the actual address later on in a later step.
 		address.address1 = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressStreetKey);
-		if (address.address1 == nil) {
-			address.address1 = BUYPartialAddressPlaceholder;
-		}
-		
 		address.city = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressCityKey);
 		address.province = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressStateKey);
 		address.zip = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressZIPKey);
@@ -185,9 +174,7 @@
 	if (allPhoneNumbers && CFArrayGetCount(allPhoneNumbers) > 0) {
 		address.phone = (__bridge NSString *)CFArrayGetValueAtIndex(allPhoneNumbers, 0);
 	}
-	if ([address.phone length] == 0) {
-		address.phone = BUYPartialAddressPlaceholder;
-	}
+
 	CFSafeRelease(phoneMultiValue);
 	CFSafeRelease(allPhoneNumbers);
 	
@@ -198,15 +185,15 @@
 {
 	BUYAddress *address = [[BUYAddress alloc] init];
 	
-	address.firstName = [contact.name.givenName length] ? contact.name.givenName : BUYPartialAddressPlaceholder;
-	address.lastName = [contact.name.familyName length] ? contact.name.familyName : BUYPartialAddressPlaceholder;
+	address.firstName = contact.name.givenName;
+	address.lastName = contact.name.familyName;
 	
 	if (contact.postalAddress) {
 		// break up the address:
 		NSArray *addressComponents = [contact.postalAddress.street componentsSeparatedByString:@"\n"];
-		address.address1 = [addressComponents[0] length] ? addressComponents[0] : BUYPartialAddressPlaceholder;
-		address.address2 = ([addressComponents count] > 1 && addressComponents[1]) ? addressComponents[1] : nil;
-		address.city = [contact.postalAddress.city length] ? contact.postalAddress.city : BUYPartialAddressPlaceholder;
+		address.address1 = addressComponents[0];
+		address.address2 = (addressComponents.count > 1) ? addressComponents[1] : nil;
+		address.city = contact.postalAddress.city;
 		address.province = contact.postalAddress.state;
 		address.zip = contact.postalAddress.postalCode;
 		// The Checkout API accepts country OR ISO country code.
@@ -219,7 +206,7 @@
 		}
 	}
 
-	address.phone = contact.phoneNumber.stringValue ?: BUYPartialAddressPlaceholder;
+	address.phone = contact.phoneNumber.stringValue;
 	
 	return address;
 }
