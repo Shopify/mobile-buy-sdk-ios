@@ -91,11 +91,17 @@ const NSTimeInterval PollDelay = 0.5;
 	// We now update the checkout with our new found data so that you can ship the products to the right address, and we collect whatever else we need.
 	
 	self.checkout.partialAddresses = NO;
-	self.checkout.shippingAddress = self.checkout.requiresShipping ? [BUYAddress buy_addressFromRecord:[payment shippingAddress]] : nil;
-	self.checkout.billingAddress = [BUYAddress buy_addressFromRecord:[payment billingAddress]];
-	self.checkout.email = [BUYAddress buy_emailFromRecord:[payment billingAddress]];
-	if (self.checkout.email == nil) {
-		self.checkout.email = [BUYAddress buy_emailFromRecord:[payment shippingAddress]];
+	if ([payment respondsToSelector:@selector(shippingContact)]) {
+		self.checkout.email = payment.shippingContact.emailAddress;
+		self.checkout.shippingAddress = self.checkout.requiresShipping ? [BUYAddress buy_addressFromContact:payment.shippingContact] : nil;
+	} else {
+		self.checkout.email = [BUYAddress buy_emailFromRecord:payment.shippingAddress];
+		self.checkout.shippingAddress = self.checkout.requiresShipping ? [BUYAddress buy_addressFromRecord:payment.shippingAddress] : nil;
+	}
+	if ([payment respondsToSelector:@selector(billingContact)]) {
+		self.checkout.billingAddress = [BUYAddress buy_addressFromContact:payment.billingContact];
+	} else {
+		self.checkout.billingAddress = [BUYAddress buy_addressFromRecord:payment.billingAddress];
 	}
 	
 	[self.client updateCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
