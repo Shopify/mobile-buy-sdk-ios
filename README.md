@@ -12,7 +12,11 @@ Shopify’s Mobile Buy SDK makes it simple to sell physical products inside your
 
 ### Documentation
 
-Please find all documentation on the [Mobile Buy SDK for iOS page](https://docs.shopify.com/mobile-buy-sdk/ios).
+Official documentation can be found on the [Mobile Buy SDK for iOS page](https://docs.shopify.com/mobile-buy-sdk/ios).
+
+#### API Documentation
+
+API docs can be generated with the `Documentation` scheme or viewed on Cocoadocs: [http://cocoadocs.org/docsets/Mobile-Buy-SDK/](http://cocoadocs.org/docsets/Mobile-Buy-SDK/).
 
 ### Installation
 
