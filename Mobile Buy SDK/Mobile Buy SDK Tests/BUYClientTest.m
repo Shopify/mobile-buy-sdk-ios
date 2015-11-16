@@ -109,7 +109,11 @@
 	checkout = [[BUYCheckout alloc] initWithCart:cart];
 	
 	BUYAddress *partialAddress = [[BUYAddress alloc] init];
-	partialAddress.address1 = BUYPartialAddressPlaceholder;
+	partialAddress.address1 = nil;
+	
+	if ([partialAddress isPartialAddress]) {
+		checkout.partialAddresses = YES;
+	}
 	
 	checkout.shippingAddress = partialAddress;
 	task = [self.client createCheckout:checkout completion:nil];

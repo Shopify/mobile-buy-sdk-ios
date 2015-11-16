@@ -71,7 +71,11 @@
 {
 	if ([self.variants count] == 1) {
 		BUYProductVariant *productVariant = [self.variants firstObject];
-		if ([productVariant.title isEqualToString:@"Default Title"]) {
+		BUYOptionValue *optionValue = [productVariant.options firstObject];
+		NSString *defaultTitleString = @"Default Title";
+		NSString *defaultString = @"Default";
+		if ([productVariant.title isEqualToString:defaultTitleString] &&
+			([optionValue.value isEqualToString:defaultTitleString] || [optionValue.value isEqualToString:defaultString])) {
 			return YES;
 		}
 	}

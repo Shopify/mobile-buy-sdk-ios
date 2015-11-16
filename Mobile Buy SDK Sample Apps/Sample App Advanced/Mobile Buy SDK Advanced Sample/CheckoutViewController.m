@@ -184,10 +184,18 @@ NSString * const MerchantId = @"";
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction *action) {
                                                           SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:self.checkout.order.statusURL];
+                                                          safariViewController.delegate = self;
                                                           [self presentViewController:safariViewController animated:YES completion:NULL];
                                                       }]];
     
     [self presentViewController:alertController animated:YES completion:nil];
+}
+
+#pragma mark - SafariViewControllerDelegate
+
+- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 #pragma mark Native Checkout

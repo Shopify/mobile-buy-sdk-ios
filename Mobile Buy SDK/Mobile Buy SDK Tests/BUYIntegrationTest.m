@@ -997,6 +997,10 @@
 	[self createCart];
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	_checkout.shippingAddress = [self partialShippingAddress];
+
+	if ([_checkout.shippingAddress isPartialAddress]) {
+		_checkout.partialAddresses = YES;
+	}
 	
 	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
 		return [self shouldUseMocks];
@@ -1025,6 +1029,7 @@
 	//Update with full addresses
 	_checkout.shippingAddress = [self shippingAddress];
 	_checkout.billingAddress = [self billingAddress];
+	
 	[self updateCheckout];
 	
 	//We use a credit card here because we're not generating apple pay tokens in the tests
@@ -1242,14 +1247,14 @@
 - (BUYAddress *)partialShippingAddress
 {
 	BUYAddress *address = [[BUYAddress alloc] init];
-	address.address1 = BUYPartialAddressPlaceholder;
+	address.address1 = nil;
 	address.city = @"Ottawa";
-	address.firstName = BUYPartialAddressPlaceholder;
-	address.lastName = BUYPartialAddressPlaceholder;
+	address.firstName = nil;
+	address.lastName = nil;
 	address.countryCode = @"CA";
 	address.provinceCode = @"ON";
 	address.zip = @"K1N5T5";
-	address.phone = BUYPartialAddressPlaceholder;
+	address.phone = nil;
 	return address;
 }
 

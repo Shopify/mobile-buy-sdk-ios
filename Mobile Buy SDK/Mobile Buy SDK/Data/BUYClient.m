@@ -33,7 +33,6 @@
 #import "BUYProduct.h"
 #import "BUYShippingRate.h"
 #import "BUYShop.h"
-#import "BUYCheckout+Additions.h"
 #import "BUYCheckout_Private.h"
 #import "NSDecimalNumber+BUYAdditions.h"
 #import "BUYError.h"
@@ -54,7 +53,7 @@
 #define kMinSuccessfulStatusCode 200
 #define kMaxSuccessfulStatusCode 299
 
-NSString * const BUYVersionString = @"1.2.1";
+NSString * const BUYVersionString = @"1.2.2";
 
 @interface BUYClient () <NSURLSessionDelegate>
 
@@ -252,7 +251,7 @@ NSString * const BUYVersionString = @"1.2.1";
 	// Inject channel and marketing attributions
 	[self configureCheckout:checkout];
 	
-	NSDictionary *json = [checkout jsonDictionaryForUpdatingCheckout];
+	NSDictionary *json = [checkout jsonDictionaryForCheckout];
 	return [self postCheckout:json completion:block];
 }
 
@@ -261,7 +260,7 @@ NSString * const BUYVersionString = @"1.2.1";
 	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCartToken:cartToken];
 	[self configureCheckout:checkout];
 	
-	NSDictionary *json = [checkout jsonDictionaryForUpdatingCheckout];
+	NSDictionary *json = [checkout jsonDictionaryForCheckout];
 	return [self postCheckout:json completion:block];
 }
 
@@ -343,7 +342,7 @@ NSString * const BUYVersionString = @"1.2.1";
 
 - (NSURLSessionDataTask *)updateCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
-	NSDictionary *json = [checkout jsonDictionaryForUpdatingCheckout];
+	NSDictionary *json = [checkout jsonDictionaryForCheckout];
 	NSData *data = [NSJSONSerialization dataWithJSONObject:json options:0 error:nil];
 	
 	NSURLSessionDataTask *task = nil;

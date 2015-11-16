@@ -27,8 +27,6 @@
 @import Foundation;
 #import "BUYAddress.h"
 
-extern NSString * const BUYPartialAddressPlaceholder;
-
 @interface BUYAddress (Additions)
 
 /**

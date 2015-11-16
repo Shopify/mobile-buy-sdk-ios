@@ -255,6 +255,11 @@
 @property (nonatomic, strong, readonly) BUYOrder *order;
 
 /**
+ *  Flag used to inform server that the shipping address is partially filled, suitable to retrieve shipping rates
+ */
+@property (nonatomic, assign) BOOL partialAddresses;
+
+/**
  *  It is recommended to instantiate a checkout with a cart, or cart token
  *
  *  @return Checkout
