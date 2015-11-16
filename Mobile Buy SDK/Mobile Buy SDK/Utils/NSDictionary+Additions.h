@@ -1,5 +1,6 @@
 //
-//  BUYCheckout+Additions.m
+//  NSDictionary+Additions.h
+//
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,20 +25,17 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYCheckout+Additions.h"
-#import "BUYAddress+Additions.h"
+#import <Foundation/Foundation.h>
 
-@implementation BUYCheckout (Additions)
+@interface NSDictionary (Additions)
 
-- (NSDictionary *)jsonDictionaryForUpdatingCheckout
-{
-	NSMutableDictionary *json = [[self jsonDictionaryForCheckout] mutableCopy];
-	
-	if ([self.shippingAddress isPartialAddress]) {
-		json[@"checkout"][@"partial_addresses"] = @YES;
-	}
-	
-	return [json copy];
-}
+/**
+ *  Alernative to objectForKey, where NSNull is replaced with nil
+ *
+ *  @param key The key for which to return the corresponding value.
+ *
+ *  @return The value associated with key
+ */
+- (id)buy_objectForKey:(NSString *)key;
 
 @end

@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		902C9B8C1BB06BF300FC456E /* GetShopOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 902C9B8B1BB06BF300FC456E /* GetShopOperation.m */; settings = {ASSET_TAGS = (); }; };
-		902C9B8F1BB0729F00FC456E /* ShippingRateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 902C9B8E1BB0729F00FC456E /* ShippingRateTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
-		902C9B921BB08FF500FC456E /* SummaryItemsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 902C9B911BB08FF500FC456E /* SummaryItemsTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
-		9079F5F41BB1AAA100CB1B35 /* CollectionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9079F5F31BB1AAA100CB1B35 /* CollectionListViewController.m */; settings = {ASSET_TAGS = (); }; };
+		902C9B8C1BB06BF300FC456E /* GetShopOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 902C9B8B1BB06BF300FC456E /* GetShopOperation.m */; };
+		902C9B8F1BB0729F00FC456E /* ShippingRateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 902C9B8E1BB0729F00FC456E /* ShippingRateTableViewCell.m */; };
+		902C9B921BB08FF500FC456E /* SummaryItemsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 902C9B911BB08FF500FC456E /* SummaryItemsTableViewCell.m */; };
+		9079F5F41BB1AAA100CB1B35 /* CollectionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9079F5F31BB1AAA100CB1B35 /* CollectionListViewController.m */; };
 		90A6F42D1BA8BCAC003E7C4F /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90A6F42C1BA8BCAC003E7C4F /* PassKit.framework */; };
-		90B2623E1BB0A47B006D888F /* ProductViewControllerThemeStyleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B2623D1BB0A47B006D888F /* ProductViewControllerThemeStyleTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
-		90B262411BB0A726006D888F /* ProductViewControllerToggleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B262401BB0A726006D888F /* ProductViewControllerToggleTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
-		90B262441BB18B10006D888F /* ProductViewControllerThemeTintColorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B262431BB18B10006D888F /* ProductViewControllerThemeTintColorTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		90B2623E1BB0A47B006D888F /* ProductViewControllerThemeStyleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B2623D1BB0A47B006D888F /* ProductViewControllerThemeStyleTableViewCell.m */; };
+		90B262411BB0A726006D888F /* ProductViewControllerToggleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B262401BB0A726006D888F /* ProductViewControllerToggleTableViewCell.m */; };
+		90B262441BB18B10006D888F /* ProductViewControllerThemeTintColorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B262431BB18B10006D888F /* ProductViewControllerThemeTintColorTableViewCell.m */; };
 		BE3437A21BC5C19D00C71330 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE34379F1BC5C18400C71330 /* Buy.framework */; };
 		BE3437A31BC5C19D00C71330 /* Buy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BE34379F1BC5C18400C71330 /* Buy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BE8B82511B8CF49D00E3F871 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82501B8CF49D00E3F871 /* main.m */; };
@@ -31,13 +31,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		BE3437981BC5C18400C71330 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BE34378F1BC5C18400C71330 /* Mobile Buy SDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 90F7BA681B0D1DAF0067864D;
-			remoteInfo = Playground;
-		};
 		BE34379A1BC5C18400C71330 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BE34378F1BC5C18400C71330 /* Mobile Buy SDK.xcodeproj */;
@@ -162,7 +155,6 @@
 		BE3437901BC5C18400C71330 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BE3437991BC5C18400C71330 /* Playground.app */,
 				BE34379B1BC5C18400C71330 /* Mobile Buy SDK Tests.xctest */,
 				BE34379D1BC5C18400C71330 /* Buy.framework */,
 				BE34379F1BC5C18400C71330 /* Buy.framework */,
@@ -311,13 +303,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		BE3437991BC5C18400C71330 /* Playground.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = Playground.app;
-			remoteRef = BE3437981BC5C18400C71330 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		BE34379B1BC5C18400C71330 /* Mobile Buy SDK Tests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;

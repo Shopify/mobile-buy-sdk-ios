@@ -26,6 +26,7 @@
 
 #import "BUYOrder.h"
 #import "NSURL+BUYAdditions.h"
+#import "NSDictionary+Additions.h"
 
 @interface BUYOrder ()
 
@@ -42,7 +43,7 @@
 	[super updateWithDictionary:dictionary];
 	NSString *statusURLString = dictionary[@"status_url"];
 	self.statusURL = [NSURL buy_urlWithString:statusURLString];
-	self.name = [dictionary[@"name"] isKindOfClass:[NSNull class]] ? nil : dictionary[@"name"];
+	self.name = [dictionary buy_objectForKey:@"name"];
 }
 
 @end

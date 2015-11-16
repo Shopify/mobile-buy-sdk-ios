@@ -26,6 +26,7 @@
 
 #import "BUYAddress.h"
 #import "NSString+Trim.h"
+#import "NSDictionary+Additions.h"
 
 @implementation BUYAddress
 
@@ -41,8 +42,8 @@
 	
 	self.country = dictionary[@"country"];
 	self.countryCode = dictionary[@"country_code"];
-	self.province = dictionary[@"province"];
-	self.provinceCode = dictionary[@"province_code"];
+	self.province = [dictionary buy_objectForKey:@"province"];
+	self.provinceCode = [dictionary buy_objectForKey:@"province_code"];
 	self.zip = dictionary[@"zip"];
 }
 

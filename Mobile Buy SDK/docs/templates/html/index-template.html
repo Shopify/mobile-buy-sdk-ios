@@ -6,7 +6,6 @@
 	<title>{{page.title}}</title>
 
 	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="/api/mobile-buy-sdk/ios/api/css/style.css">
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
 	{{#strings.appledocData}}<meta name="generator" content="{{tool}} {{version}} (build {{build}})">{{/strings.appledocData}}
 </head>
@@ -57,7 +56,7 @@
 							<h2 class="index-title">{{page.docsTitle}}</h2>
 							<ul>
 								{{#docs}}
-								<li><a href="/api/mobile-buy-sdk/ios/api/{{href}}">{{title}}</a></li>
+								<li><a href="{{href}}">{{title}}</a></li>
 								{{/docs}}
 							</ul>
 						</div>
@@ -68,7 +67,7 @@
 							<h2 class="index-title">{{strings.indexPage.classesTitle}}</h2>
 							<ul>
 								{{#classes}}
-								<li><a href="/api/mobile-buy-sdk/ios/api/{{href}}">{{title}}</a></li>
+								<li><a href="{{href}}">{{title}}</a></li>
 								{{/classes}}
 							</ul>
 						</div>
@@ -80,7 +79,7 @@
 							<h2 class="index-title">{{strings.indexPage.protocolsTitle}}</h2>
 							<ul>
 								{{#protocols}}
-								<li><a href="/api/mobile-buy-sdk/ios/api/{{href}}">{{title}}</a></li>
+								<li><a href="{{href}}">{{title}}</a></li>
 								{{/protocols}}
 							</ul>
 							{{/hasProtocols}}
@@ -89,7 +88,7 @@
 							<h2 class="index-title">{{strings.indexPage.constantsTitle}}</h2>
 							<ul>
 								{{#constants}}
-									<li><a href="/api/mobile-buy-sdk/ios/api/{{href}}">{{title}}</a></li>
+									<li><a href="{{href}}">{{title}}</a></li>
 								{{/constants}}
 							</ul>
 							{{/hasConstants}}
@@ -98,7 +97,7 @@
 							<h2 class="index-title">{{strings.indexPage.categoriesTitle}}</h2>
 							<ul>
 								{{#categories}}
-								<li><a href="/api/mobile-buy-sdk/ios/api/{{href}}">{{title}}</a></li>
+								<li><a href="{{href}}">{{title}}</a></li>
 								{{/categories}}
 							</ul>
 							{{/hasCategories}}
@@ -121,11 +120,10 @@
 		</div>
 	</article>
 
-	<script src="/api/mobile-buy-sdk/ios/api/script.js"></script>
 	<script src="js/script.js"></script>
 </body>
 </html>
 
 Section Navigation
-<li><a href="/api/mobile-buy-sdk/ios/api/hierarchy.html">Hierarchy</a></li>
+<li><a href="hierarchy.html">Hierarchy</a></li>
 EndSection

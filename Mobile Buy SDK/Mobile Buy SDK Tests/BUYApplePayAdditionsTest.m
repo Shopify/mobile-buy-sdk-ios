@@ -364,13 +364,13 @@
 {
 	BUYAddress *newAddress = [self buyAddressWithTestRecordFullDetails:NO];
 	XCTAssertNotNil(newAddress);
-	XCTAssertEqualObjects(BUYPartialAddressPlaceholder, newAddress.address1);
+	XCTAssertEqualObjects(nil, newAddress.address1);
 	XCTAssertEqualObjects(@"Ottawa", newAddress.city);
 	XCTAssertEqualObjects(@"Ontario", newAddress.province);
 	XCTAssertEqualObjects(@"K1N5T5", newAddress.zip);
 	XCTAssertNil(newAddress.country);
 	XCTAssertEqualObjects(@"CA", newAddress.countryCode);
-	XCTAssertEqualObjects(BUYPartialAddressPlaceholder, newAddress.phone);
+	XCTAssertEqualObjects(nil, newAddress.phone);
 }
 
 - (void)testAddressFromContact

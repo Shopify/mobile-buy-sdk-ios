@@ -117,6 +117,8 @@ NSString * BUYURLKey = @"url";
 
 - (void)startApplePayCheckout:(BUYCheckout *)checkout
 {
+	// Default to the failure state, since cancelling a payment would not update the state and thus appear as a success
+	self.paymentAuthorizationStatus = PKPaymentAuthorizationStatusFailure;
 	
 	if (self.shop == nil && self.isLoadingShop == NO) {
 		// since requests are sent serially, this will return before the checkout is created

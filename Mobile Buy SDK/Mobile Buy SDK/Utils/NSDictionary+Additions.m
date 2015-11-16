@@ -1,5 +1,6 @@
 //
-//  BUYCheckout+Additions.h
+//  NSDictionary+Additions.m
+//
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,16 +25,13 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYCheckout.h"
+#import "NSDictionary+Additions.h"
 
-@interface BUYCheckout (Additions)
+@implementation NSDictionary (Additions)
 
-/**
- *  Used for Apple Pay, specifically, to append true for
- *  the payload to set whether the address(es) are partial.
- *
- *  @return A jsonDictionaryForCheckout JSON with optional "checkout.partial_addresses" key.
- */
-- (NSDictionary *)jsonDictionaryForUpdatingCheckout;
+- (id)buy_objectForKey:(NSString *)key
+{
+	return ([self[key] isKindOfClass:[NSNull class]]) ? nil : self[key];
+}
 
 @end
