@@ -43,4 +43,6 @@ Now the `BUYProductViewController` is ready to load a product and be presented i
 }];
 ```
 
-If you have already loaded a product, you can call `loadWithProduct:completion:` instead. For a complete demo, check out the [Advanced Sample App](https://github.com/Shopify/mobile-buy-sdk-ios/tree/master/Mobile Buy SDK Sample Apps/Sample App Advanced/README.md), which demoes UI customization with `BUYTheme` and both modal and navigation controller push presentations.
+If you have already loaded a product, you can call `loadWithProduct:completion:` instead. 
+
+For a complete demo, check out the [Advanced Sample App](https://github.com/Shopify/mobile-buy-sdk-ios/tree/master/Mobile Buy SDK Sample Apps/Sample App Advanced/README.md), which demoes more UI customization with `BUYTheme` and both modal and navigation controller push presentations.
