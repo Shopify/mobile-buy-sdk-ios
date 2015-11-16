@@ -16,7 +16,7 @@ Please find all documentation on the [Mobile Buy SDK for iOS page](https://docs.
 
 ### Installation
 
-<a href="../../releases/latest">Download the latest version</a>
+<a href="https://github.com/Shopify/mobile-buy-sdk-ios/releases/latest">Download the latest version</a>
 
 #### Dynamic Framework Installation
 
@@ -24,7 +24,7 @@ Please find all documentation on the [Mobile Buy SDK for iOS page](https://docs.
 2. Add the `Buy` target as a `Target Dependancy` in the `Build Phases` of your project's target
 3. Add the `Buy` (second target on the list is the Dynamic framework) target in the `Embedded Binaries` section in `Build Phases`
 
-See the [Sample Apps](/Mobile Buy SDK Sample Apps/) for an example of Dynamic Framework usage.
+See the [Sample Apps](https://github.com/Shopify/mobile-buy-sdk-ios/Mobile Buy SDK Sample Apps/) for an example of Dynamic Framework usage.
 
 #### Static Framework Installation
 
@@ -114,9 +114,9 @@ The Mobile Buy SDK includes a number of targets and schemes:
 
 The repo includes 3 sample apps. Each sample apps embeds the dynamic framework and includes readme files with more information:
 
-* [Advanced Sample App](/Mobile Buy SDK Sample Apps/Sample App Advanced/README.md)
-* [Swift Sample App](/Mobile Buy SDK Sample Apps/Sample App Swift/README.md)
-* [Web Sample App](/Mobile Buy SDK Sample Apps/Sample App Web/README.md)
+* [Advanced Sample App](https://github.com/Shopify/mobile-buy-sdk-ios/Mobile Buy SDK Sample Apps/Sample App Advanced/README.md)
+* [Swift Sample App](https://github.com/Shopify/mobile-buy-sdk-ios/Mobile Buy SDK Sample Apps/Sample App Swift/README.md)
+* [Web Sample App](https://github.com/Shopify/mobile-buy-sdk-ios/Mobile Buy SDK Sample Apps/Sample App Web/README.md)
 
 We suggest you take a look at the **Advanced Sample App** and test your shop with the sample app before you begin. If you run into any issues, the **Advanced Sample App** is also a great resource for debugging integration issues and checkout.
 
