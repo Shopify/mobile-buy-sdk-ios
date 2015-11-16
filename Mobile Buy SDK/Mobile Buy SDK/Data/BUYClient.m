@@ -53,7 +53,7 @@
 #define kMinSuccessfulStatusCode 200
 #define kMaxSuccessfulStatusCode 299
 
-NSString * const BUYVersionString = @"1.2.1";
+NSString * const BUYVersionString = @"1.2.2";
 
 @interface BUYClient () <NSURLSessionDelegate>
 
