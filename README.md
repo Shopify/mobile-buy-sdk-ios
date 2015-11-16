@@ -1,4 +1,4 @@
-![Mobile Buy SDK](http://s3.amazonaws.com/shopify-marketing_assets/static/mbsdk-github.png)
+![Mobile Buy SDK](https://raw.github.com/Shopify/mobile-buy-sdk-ios/master/Assets/Mobile_Buy_SDK_Github_banner.png)
 
 [![Build status](https://badge.buildkite.com/3951692121947fbf7bb06c4b741601fc091efea3fa119a4f88.svg)](https://buildkite.com/shopify/mobile-buy-sdk-ios)
 [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/Shopify/mobile-buy-sdk-ios/blob/master/LICENSE)
@@ -121,6 +121,15 @@ The repo includes 3 sample apps. Each sample apps embeds the dynamic framework a
 * [Web Sample App](https://github.com/Shopify/mobile-buy-sdk-ios/tree/master/Mobile Buy SDK Sample Apps/Sample App Web/README.md)
 
 We suggest you take a look at the **Advanced Sample App** and test your shop with the sample app before you begin. If you run into any issues, the **Advanced Sample App** is also a great resource for debugging integration issues and checkout.
+
+### Product View
+
+The SDK includes an easy-to-use product view to make selling simple in any app.
+
+![Product View Screenshot](https://raw.github.com/Shopify/mobile-buy-sdk-ios/master/Assets/Product_View_Screenshot_1.png)
+![Product View Screenshot](https://raw.github.com/Shopify/mobile-buy-sdk-ios/master/Assets/Product_View_Screenshot_2.png)
+
+The [Advanced Sample App](https://github.com/Shopify/mobile-buy-sdk-ios/tree/master/Mobile Buy SDK Sample Apps/Sample App Advanced/) includes a demo of the `BUYProductViewController`. Documentation on how to use the `BUYProductViewController` is also available [here](https://github.com/Shopify/mobile-buy-sdk-ios/tree/master/Mobile Buy SDK Sample Apps/Sample App Advanced/PRODUCT_VIEW_README.md).
 
 ### Unit Tests
 
