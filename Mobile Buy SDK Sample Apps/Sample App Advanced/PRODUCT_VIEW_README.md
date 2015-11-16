@@ -1,8 +1,11 @@
 # Mobile Buy SDK - Product View
 
-The SDK includes an easy-to-use product view to make selling simple in any app.
+The SDK includes an easy-to-use product view to make selling simple in any app. The `BUYProductViewController` displays any product, it's images, price and details and includes a variant selection flow. It will even handle Apple Pay and web checkout automatically:
 
 ![Product View Screenshot](https://raw.github.com/Shopify/mobile-buy-sdk-ios/master/Assets/Product_View_Screenshot_1.png)
+
+You can also theme the `BUYProductViewController` to better match your app and products being displayed:
+
 ![Product View Screenshot](https://raw.github.com/Shopify/mobile-buy-sdk-ios/master/Assets/Product_View_Screenshot_2.png)
 
 Simply initialize the `BUYProductViewController` and present it from any view controller in your app to sell a product from you shop.
