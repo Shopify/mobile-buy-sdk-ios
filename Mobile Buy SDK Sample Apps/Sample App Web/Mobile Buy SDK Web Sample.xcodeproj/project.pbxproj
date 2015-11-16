@@ -23,13 +23,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		9019318E1BC5C62800D1134E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 901931851BC5C62700D1134E /* Mobile Buy SDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 90F7BA681B0D1DAF0067864D;
-			remoteInfo = Playground;
-		};
 		901931901BC5C62800D1134E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 901931851BC5C62700D1134E /* Mobile Buy SDK.xcodeproj */;
@@ -131,7 +124,6 @@
 		901931861BC5C62700D1134E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9019318F1BC5C62800D1134E /* Playground.app */,
 				901931911BC5C62800D1134E /* Mobile Buy SDK Tests.xctest */,
 				901931931BC5C62800D1134E /* Buy.framework */,
 				901931951BC5C62800D1134E /* Buy.framework */,
@@ -267,13 +259,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		9019318F1BC5C62800D1134E /* Playground.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = Playground.app;
-			remoteRef = 9019318E1BC5C62800D1134E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		901931911BC5C62800D1134E /* Mobile Buy SDK Tests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
