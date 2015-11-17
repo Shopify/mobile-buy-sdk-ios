@@ -143,6 +143,8 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 		
 		_productView.productViewHeader.collectionView.delegate = self;
 		_productView.productViewHeader.collectionView.dataSource = self;
+		
+		_productView.layoutMargins = UIEdgeInsetsMake(self.productView.layoutMargins.top, self.productView.layoutMargins.left, self.bottomLayoutGuide.length, self.productView.layoutMargins.right);
 	}
 	return _productView;
 }
@@ -178,10 +180,6 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 	[super viewWillAppear:animated];
 	[self setupNavigationBarAppearance];
 	[self.navigationController setNavigationBarHidden:self.isLoading];
-	CGFloat bottomMargin = 0;
-	bottomMargin += self.tabBarController ? CGRectGetHeight(self.tabBarController.tabBar.bounds) : 0;
-	bottomMargin += self.navigationController.isToolbarHidden ? 0 : CGRectGetHeight(self.navigationController.toolbar.bounds);
-	_productView.layoutMargins = UIEdgeInsetsMake(self.productView.layoutMargins.top, self.productView.layoutMargins.left, bottomMargin, self.productView.layoutMargins.right);
 }
 
 - (void)viewDidLayoutSubviews
