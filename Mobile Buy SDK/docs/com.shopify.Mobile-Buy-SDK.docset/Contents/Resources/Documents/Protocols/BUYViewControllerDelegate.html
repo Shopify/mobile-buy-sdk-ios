@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>BUYViewControllerDelegate Protocol Reference</title>
+
+	<link rel="stylesheet" href="../css/style.css">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
+	<meta name="generator" content="appledoc 2.2.1 (build 1333)">
+</head>
+<body class="appledoc">
+	<header>
+		<div class="container">
+			
+			<h1 id="library-title">
+				<a href="https://www.shopify.com/app-developers/mobile-buy-sdk">Mobile Buy SDK </a>
+			</h1>
+
+			<p id="developer-home">
+				<a href="https://www.shopify.com">Shopify</a>
+			</p>
+			
+		</div>
+	</header>
+
+	<aside>
+		<div class="container">
+			<nav>
+				<ul id="header-buttons" role="toolbar">
+					<li><a href="../index.html">Index</a></li>
+<li><a href="../hierarchy.html">Hierarchy</a></li>
+
+					<li id="on-this-page" role="navigation">
+						<label>
+							On This Page
+
+							<div class="chevron">
+								<div class="chevy chevron-left"></div>
+								<div class="chevy chevron-right"></div>
+							</div>
+
+							<select id="jump-to">
+	<option value="top">Jump To&#133;</option>
+	
+
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+
+	
+	
+
+	
+
+	
+	<optgroup label="Instance Methods">
+		
+		<option value="//api/name/controller:didCompleteCheckout:status:">- controller:didCompleteCheckout:status:</option>
+		
+		<option value="//api/name/controller:didDismissApplePayControllerWithStatus:forCheckout:">- controller:didDismissApplePayControllerWithStatus:forCheckout:</option>
+		
+		<option value="//api/name/controller:didDismissWebCheckout:">- controller:didDismissWebCheckout:</option>
+		
+		<option value="//api/name/controller:failedToCompleteCheckout:withError:">- controller:failedToCompleteCheckout:withError:</option>
+		
+		<option value="//api/name/controller:failedToCreateCheckout:">- controller:failedToCreateCheckout:</option>
+		
+		<option value="//api/name/controller:failedToGetShippingRates:withError:">- controller:failedToGetShippingRates:withError:</option>
+		
+		<option value="//api/name/controller:failedToUpdateCheckout:withError:">- controller:failedToUpdateCheckout:withError:</option>
+		
+		<option value="//api/name/controllerFailedToStartApplePayProcess:">- controllerFailedToStartApplePayProcess:</option>
+		
+		<option value="//api/name/controllerWillCheckoutViaApplePay:">- controllerWillCheckoutViaApplePay:</option>
+		
+		<option value="//api/name/controllerWillCheckoutViaWeb:">- controllerWillCheckoutViaWeb:</option>
+		
+		<option value="//api/name/didDismissViewController:">- didDismissViewController:</option>
+		
+	</optgroup>
+	
+	
+</select>
+						</label>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</aside>
+
+	<article>
+		<div id="overview_contents" class="container">
+			<div id="content">
+				<main role="main">
+					<h1 class="title">BUYViewControllerDelegate Protocol Reference</h1>
+
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<th>Conforms to</th>
+	<td>NSObject</td>
+</tr><tr>
+	<th>Declared in</th>
+	<td>BUYViewController.h</td>
+</tr>
+						</tbody></table></div>
+					
+
+                    
+
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						
+
+						
+						
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/controller:failedToCreateCheckout:" title="controller:failedToCreateCheckout:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/controller:failedToCreateCheckout:">&ndash;&nbsp;controller:failedToCreateCheckout:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>This is called if there is an error in creating the <a href="../Classes/BUYCheckout.html">BUYCheckout</a>. These problems include not being connected to the Internet,
+or if there is a validation error in the checkout.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)controller:(BUYViewController *)<em>controller</em> failedToCreateCheckout:(NSError *)<em>error</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>controller</code></th>
+						<td><p>The <a href="../Classes/BUYViewController.html">BUYViewController</a></p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>error</code></th>
+						<td><p>An NSError describing the failure</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">BUYViewController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/controllerFailedToStartApplePayProcess:" title="controllerFailedToStartApplePayProcess:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/controllerFailedToStartApplePayProcess:">&ndash;&nbsp;controllerFailedToStartApplePayProcess:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>This failure occurs when either the application is not properly configured to handle Apple Pay,
+or if the user does not have any credit cards configured in PassBook or cannot add any credit cards.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)controllerFailedToStartApplePayProcess:(BUYViewController *)<em>controller</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>controller</code></th>
+						<td><p>The <a href="../Classes/BUYViewController.html">BUYViewController</a></p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">BUYViewController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/controller:failedToUpdateCheckout:withError:" title="controller:failedToUpdateCheckout:withError:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/controller:failedToUpdateCheckout:withError:">&ndash;&nbsp;controller:failedToUpdateCheckout:withError:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>This failure occurs whenever an update to <a href="../Classes/BUYCheckout.html">BUYCheckout</a> fails (shipping address, billing address, etc.)</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)controller:(BUYViewController *)<em>controller</em> failedToUpdateCheckout:(BUYCheckout *)<em>checkout</em> withError:(NSError *)<em>error</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>controller</code></th>
+						<td><p>The <a href="../Classes/BUYViewController.html">BUYViewController</a></p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>checkout</code></th>
+						<td><p>The <a href="../Classes/BUYCheckout.html">BUYCheckout</a></p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>error</code></th>
+						<td><p>An NSError describing the failure</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">BUYViewController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/controller:failedToGetShippingRates:withError:" title="controller:failedToGetShippingRates:withError:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/controller:failedToGetShippingRates:withError:">&ndash;&nbsp;controller:failedToGetShippingRates:withError:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>This failure occurs when shipping rates cannot be retrieved.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)controller:(BUYViewController *)<em>controller</em> failedToGetShippingRates:(BUYCheckout *)<em>checkout</em> withError:(NSError *)<em>error</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>controller</code></th>
+						<td><p>The <a href="../Classes/BUYViewController.html">BUYViewController</a></p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>checkout</code></th>
+						<td><p>The <a href="../Classes/BUYCheckout.html">BUYCheckout</a></p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>error</code></th>
+						<td><p>An NSError describing the failure</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">BUYViewController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/controller:failedToCompleteCheckout:withError:" title="controller:failedToCompleteCheckout:withError:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/controller:failedToCompleteCheckout:withError:">&ndash;&nbsp;controller:failedToCompleteCheckout:withError:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>This failure occurs whenever completing a checkout fails.
+This can occur if there is missing payment information or if the shop is improperly configured.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)controller:(BUYViewController *)<em>controller</em> failedToCompleteCheckout:(BUYCheckout *)<em>checkout</em> withError:(NSError *)<em>error</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>controller</code></th>
+						<td><p>The <a href="../Classes/BUYViewController.html">BUYViewController</a></p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>checkout</code></th>
+						<td><p>The <a href="../Classes/BUYCheckout.html">BUYCheckout</a></p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>error</code></th>
+						<td><p>An NSError describing the failure</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">BUYViewController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/controller:didCompleteCheckout:status:" title="controller:didCompleteCheckout:status:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/controller:didCompleteCheckout:status:">&ndash;&nbsp;controller:didCompleteCheckout:status:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>This is called whenever the checkout fully completes, success or failure.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)controller:(BUYViewController *)<em>controller</em> didCompleteCheckout:(BUYCheckout *)<em>checkout</em> status:(BUYStatus)<em>status</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>controller</code></th>
+						<td><p>The <a href="../Classes/BUYViewController.html">BUYViewController</a></p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>checkout</code></th>
+						<td><p>The <a href="../Classes/BUYCheckout.html">BUYCheckout</a></p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>status</code></th>
+						<td><p>Checkout status <a href="../Constants/BUYStatus.html">BUYStatus</a></p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">BUYViewController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/controller:didDismissApplePayControllerWithStatus:forCheckout:" title="controller:didDismissApplePayControllerWithStatus:forCheckout:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/controller:didDismissApplePayControllerWithStatus:forCheckout:">&ndash;&nbsp;controller:didDismissApplePayControllerWithStatus:forCheckout:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>This is called when the Apple Pay Authorization View Controller has been dismissed.
+It will be called if the user cancels Apple Pay or the authorization was successful and the Apple Pay
+payment confirmation was shown to the user.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)controller:(BUYViewController *)<em>controller</em> didDismissApplePayControllerWithStatus:(PKPaymentAuthorizationStatus)<em>status</em> forCheckout:(BUYCheckout *)<em>checkout</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>controller</code></th>
+						<td><p>The <a href="../Classes/BUYViewController.html">BUYViewController</a></p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>checkout</code></th>
+						<td><p>The <a href="../Classes/BUYCheckout.html">BUYCheckout</a></p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection discussion-section">
+				<h4 class="method-subtitle">Discussion</h4>
+				<p>Note: If the PKPaymentAuthorizationStatus is not PKPaymentAuthorizationStatusSuccess we will expire the checkout by
+calling <code>expireCheckout:completion:</code> to release the hold on the product inventory.</p>
+			</div>
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">BUYViewController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/controller:didDismissWebCheckout:" title="controller:didDismissWebCheckout:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/controller:didDismissWebCheckout:">&ndash;&nbsp;controller:didDismissWebCheckout:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>This is called when the SFSafariViewController has been dismissed before checkout completion.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)controller:(BUYViewController *)<em>controller</em> didDismissWebCheckout:(BUYCheckout *)<em>checkout</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>controller</code></th>
+						<td><p>The <a href="../Classes/BUYViewController.html">BUYViewController</a></p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>checkout</code></th>
+						<td><p>The <a href="../Classes/BUYCheckout.html">BUYCheckout</a></p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">BUYViewController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/didDismissViewController:" title="didDismissViewController:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/didDismissViewController:">&ndash;&nbsp;didDismissViewController:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The view controller has been dismissed</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)didDismissViewController:(BUYViewController *)<em>controller</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>controller</code></th>
+						<td><p>The <a href="../Classes/BUYViewController.html">BUYViewController</a></p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">BUYViewController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/controllerWillCheckoutViaWeb:" title="controllerWillCheckoutViaWeb:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/controllerWillCheckoutViaWeb:">&ndash;&nbsp;controllerWillCheckoutViaWeb:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Called when the user chooses to checkout via web checkout which will open Safari</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)controllerWillCheckoutViaWeb:(BUYViewController *)<em>viewController</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>viewController</code></th>
+						<td><p>the view controller</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">BUYViewController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/controllerWillCheckoutViaApplePay:" title="controllerWillCheckoutViaApplePay:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/controllerWillCheckoutViaApplePay:">&ndash;&nbsp;controllerWillCheckoutViaApplePay:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Called when the user chooses to checkout via Apple Pay</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)controllerWillCheckoutViaApplePay:(BUYViewController *)<em>viewController</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>viewController</code></th>
+						<td><p>the view controller</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">BUYViewController.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+					</div>
+					
+					
+
+                    
+                    
+          
+				</main>
+
+				<footer>
+					<div class="footer-copyright">
+						
+						<p class="copyright">Copyright &copy; 2015 Shopify. All rights reserved. Updated: 2015-11-24</p>
+						
+						
+						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</p>
+						
+					</div>
+				</footer>
+			</div>
+		</div>
+	</article>
+
+	<script src="../js/script.js"></script>
+</body>
+</html>
