@@ -250,6 +250,8 @@
 
 /**
  *  Flag used to inform server that the shipping address is partially filled, suitable to retrieve shipping rates
+ *  with partial shipping addresses provided by PKPaymentAuthorizationViewController.
+ *  Note: This should only ever be set to YES. Setting it to NO throws an exception.
  */
 @property (nonatomic, assign) BOOL partialAddresses;
 
