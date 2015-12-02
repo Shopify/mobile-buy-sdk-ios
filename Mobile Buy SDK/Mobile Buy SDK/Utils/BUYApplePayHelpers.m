@@ -89,8 +89,7 @@ const NSTimeInterval PollDelay = 0.5;
 {
 	// Update the checkout with the rest of the information. Apple has now provided us with a FULL billing address and a FULL shipping address.
 	// We now update the checkout with our new found data so that you can ship the products to the right address, and we collect whatever else we need.
-	
-	self.checkout.partialAddresses = NO;
+
 	if ([payment respondsToSelector:@selector(shippingContact)]) {
 		self.checkout.email = payment.shippingContact.emailAddress;
 		self.checkout.shippingAddress = self.checkout.requiresShipping ? [BUYAddress buy_addressFromContact:payment.shippingContact] : nil;
@@ -165,8 +164,13 @@ const NSTimeInterval PollDelay = 0.5;
 #pragma mark -
 
 - (void)updateCheckoutWithAddressCompletion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion
-{	
-	self.checkout.partialAddresses = [self.checkout.shippingAddress isPartialAddress];
+{
+	// This method call is internal to selection of shipping address that are returned as partial from PKPaymentAuthorizationViewController
+	// However, to ensure we never set partialAddresses to NO, we want to guard the setter. Should PKPaymentAuthorizationViewController ever
+	// return a full address through it's delegate method, this will still function since a complete address can be used to calculate shipping rates
+	if ([self.checkout.shippingAddress isPartialAddress] == YES) {
+		self.checkout.partialAddresses = YES;
+	}
 	
 	if ([self.checkout.shippingAddress isValidAddressForShippingRates]) {
 		

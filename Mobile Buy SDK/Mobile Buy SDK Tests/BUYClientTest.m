@@ -101,6 +101,8 @@
 {
 	BUYCart *cart = [[BUYCart alloc] init];
 	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:cart];
+	
+	XCTAssertThrows([checkout setPartialAddresses:NO]);
 
 	NSURLSessionDataTask *task = [self.client createCheckout:checkout completion:nil];
 	NSDictionary *json = [NSJSONSerialization JSONObjectWithData:task.originalRequest.HTTPBody options:0 error:nil];
