@@ -202,6 +202,14 @@
 	return @{ @"checkout" : json };
 }
 
+-(void)setPartialAddresses:(BOOL)partialAddresses
+{
+	if (partialAddresses == NO) {
+		@throw [NSException exceptionWithName:@"partialAddress" reason:@"partialAddresses can only be set to true and should never be set to false on a complete address" userInfo:nil];
+	}
+	_partialAddresses = partialAddresses;
+}
+
 - (BOOL)hasToken
 {
 	return (_token && [_token length] > 0);
