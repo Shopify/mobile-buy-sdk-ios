@@ -538,7 +538,7 @@ NSString * const BUYVersionString = @"1.2.3";
 {
 	NSURLSessionDataTask *task = nil;
 	if ([checkout hasToken]) {
-		NSURLComponents *components = [self URLComponentsForCheckoutsWithToken:checkout.token endPoint:@"shipping_rates.json?checkout" queryItems:@{ }];
+		NSURLComponents *components = [self URLComponentsForCheckoutsWithToken:checkout.token endPoint:@"shipping_rates.json?checkout" queryItems:nil];
 		task = [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			NSArray *shippingRates = nil;
 			if (error == nil && json) {
