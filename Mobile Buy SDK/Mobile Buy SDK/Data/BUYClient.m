@@ -27,17 +27,18 @@
 #import "BUYAddress.h"
 #import "BUYCart.h"
 #import "BUYCheckout.h"
+#import "BUYCheckout_Private.h"
 #import "BUYCreditCard.h"
 #import "BUYClient.h"
+#import "BUYCollection.h"
+#import "BUYCollection+Additions.h"
+#import "BUYError.h"
 #import "BUYGiftCard.h"
 #import "BUYProduct.h"
 #import "BUYShippingRate.h"
 #import "BUYShop.h"
-#import "BUYCheckout_Private.h"
 #import "NSDecimalNumber+BUYAdditions.h"
-#import "BUYError.h"
-#import "BUYCollection.h"
-#import "BUYCollection+Additions.h"
+#import "NSURLComponents+BUYAdditions.h"
 
 #if __has_include(<PassKit/PassKit.h>)
 @import PassKit;
@@ -266,21 +267,8 @@ NSString * const BUYVersionString = @"1.2.3";
 	components.scheme = @"https";
 	components.host = self.shopDomain;
 	components.path = [NSString stringWithFormat:@"/%@", [pathComponents componentsJoinedByString:@"/"]];
-	components.queryItems = [self queryItemsWithNamesAndValues:queryItems];
+	[components setQueryItemsWithDictionary:queryItems];
 	return components;
-}
-
-- (NSArray*)queryItemsWithNamesAndValues:(NSDictionary*)namesAndValues
-{
-	if (namesAndValues) {
-		NSMutableArray *queryItems = [NSMutableArray array];
-		for (NSString *key in [namesAndValues allKeys]) {
-			[queryItems addObject:[[NSURLQueryItem alloc] initWithName:key value:namesAndValues[key]]];
-		}
-		return [queryItems copy];		
-	} else {
-		return nil;
-	}
 }
 
 #pragma mark - Checkout

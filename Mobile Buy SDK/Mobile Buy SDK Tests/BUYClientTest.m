@@ -32,6 +32,7 @@
 #import "BUYAddress+Additions.h"
 #import "BUYClientTestBase.h"
 #import "BUYCollection+Additions.h"
+#import "NSURLComponents+BUYAdditions.h"
 
 @interface BUYClient ()
 
@@ -211,6 +212,16 @@
 	XCTAssertEqual(callbackCount, 2);
 	
 	[self testProductsInCollectionWithSortOrderCollectionDefault];
+}
+
+- (void)testQueryItemsConversion
+{
+	NSDictionary *dictionary = @{@"collection_id" : @"1", @"limit" : @"25", @"page" : @"1", @"sort_by" : @"collection-default"};
+	NSURLComponents *components = [[NSURLComponents alloc] init];
+	[components setQueryItemsWithDictionary:dictionary];
+	NSSet *componentsQueryItems = [NSSet setWithArray:components.queryItems];
+	NSSet *queryItems = [NSSet setWithArray:@[[NSURLQueryItem queryItemWithName:@"collection_id" value:@"1"], [NSURLQueryItem queryItemWithName:@"limit" value:@"25"], [NSURLQueryItem queryItemWithName:@"page" value:@"1"], [NSURLQueryItem queryItemWithName:@"sort_by" value:@"collection-default"]]];
+	XCTAssertEqualObjects(componentsQueryItems, queryItems);
 }
 
 - (void)testProductsInCollectionWithSortOrderCollectionDefault
