@@ -43,6 +43,10 @@
 		900396F71B69563400226B73 /* BUYCollection+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 900396F51B69563400226B73 /* BUYCollection+Additions.m */; };
 		900E7C841B5DA553006F3C81 /* BUYImageKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 900E7C811B5DA32F006F3C81 /* BUYImageKit.h */; };
 		900E7C851B5DA559006F3C81 /* BUYImageKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 900E7C821B5DA32F006F3C81 /* BUYImageKit.m */; };
+		901335461C187E0400410ED0 /* NSURLComponents+BUYAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 901335441C187E0400410ED0 /* NSURLComponents+BUYAdditions.h */; };
+		901335471C187E0400410ED0 /* NSURLComponents+BUYAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 901335441C187E0400410ED0 /* NSURLComponents+BUYAdditions.h */; };
+		901335481C187E0400410ED0 /* NSURLComponents+BUYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 901335451C187E0400410ED0 /* NSURLComponents+BUYAdditions.m */; };
+		901335491C187E0400410ED0 /* NSURLComponents+BUYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 901335451C187E0400410ED0 /* NSURLComponents+BUYAdditions.m */; };
 		901930E31BC5B9BC00D1134E /* BUYApplePayHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = BE33B4EE1B15FF4D0067982B /* BUYApplePayHelpers.m */; };
 		901930E41BC5B9BC00D1134E /* BUYOptionSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE9496AF1B4D96D800B38949 /* BUYOptionSelectionViewController.m */; };
 		901930E51BC5B9BC00D1134E /* BUYVariantOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90516CA21B4D771400E35E45 /* BUYVariantOptionView.m */; };
@@ -370,6 +374,8 @@
 		900396F51B69563400226B73 /* BUYCollection+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYCollection+Additions.m"; sourceTree = "<group>"; };
 		900E7C811B5DA32F006F3C81 /* BUYImageKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYImageKit.h; sourceTree = "<group>"; };
 		900E7C821B5DA32F006F3C81 /* BUYImageKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYImageKit.m; sourceTree = "<group>"; };
+		901335441C187E0400410ED0 /* NSURLComponents+BUYAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLComponents+BUYAdditions.h"; sourceTree = "<group>"; };
+		901335451C187E0400410ED0 /* NSURLComponents+BUYAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLComponents+BUYAdditions.m"; sourceTree = "<group>"; };
 		901931701BC5B9BC00D1134E /* Buy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Buy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		901931761BC5BC9100D1134E /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		903BCC7A1B7D1C2D00C21FEB /* BUYProductViewErrorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = BUYProductViewErrorView.h; path = "Product View/BUYProductViewErrorView.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -807,8 +813,6 @@
 				F70CE40E1A8BF1D90055BEB8 /* BUYApplePayAdditions.m */,
 				BE33B4ED1B15FF4D0067982B /* BUYApplePayHelpers.h */,
 				BE33B4EE1B15FF4D0067982B /* BUYApplePayHelpers.m */,
-				909944471B71B76800C40A33 /* UIFont+BUYAdditions.h */,
-				909944481B71B76800C40A33 /* UIFont+BUYAdditions.m */,
 				900E7C811B5DA32F006F3C81 /* BUYImageKit.h */,
 				900E7C821B5DA32F006F3C81 /* BUYImageKit.m */,
 				BE9496B61B4D96F100B38949 /* BUYProduct+Options.h */,
@@ -823,12 +827,16 @@
 				90A446241B5EC03F009602AA /* NSDateFormatter+BUYAdditions.m */,
 				2AF52A9B1A7011DC0087DB2C /* NSDecimalNumber+BUYAdditions.h */,
 				2AF52A9C1A7011DC0087DB2C /* NSDecimalNumber+BUYAdditions.m */,
+				BE6D05971BD6BA6700772EBB /* NSDictionary+Additions.h */,
+				BE6D05981BD6BA6700772EBB /* NSDictionary+Additions.m */,
 				F76CFF1B19CB7BE30079C703 /* NSString+Trim.h */,
 				F76CFF1C19CB7BE30079C703 /* NSString+Trim.m */,
 				BE5DC39E1B71B13700B2BC1E /* NSURL+BUYAdditions.h */,
 				BE5DC39F1B71B13700B2BC1E /* NSURL+BUYAdditions.m */,
-				BE6D05971BD6BA6700772EBB /* NSDictionary+Additions.h */,
-				BE6D05981BD6BA6700772EBB /* NSDictionary+Additions.m */,
+				901335441C187E0400410ED0 /* NSURLComponents+BUYAdditions.h */,
+				901335451C187E0400410ED0 /* NSURLComponents+BUYAdditions.m */,
+				909944471B71B76800C40A33 /* UIFont+BUYAdditions.h */,
+				909944481B71B76800C40A33 /* UIFont+BUYAdditions.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -896,6 +904,7 @@
 				901931371BC5B9BC00D1134E /* BUYTaxLine.h in Headers */,
 				901931381BC5B9BC00D1134E /* BUYVariantSelectionViewController.h in Headers */,
 				901931391BC5B9BC00D1134E /* BUYOptionValueCell.h in Headers */,
+				901335471C187E0400410ED0 /* NSURLComponents+BUYAdditions.h in Headers */,
 				9019313A1BC5B9BC00D1134E /* BUYImage.h in Headers */,
 				9019313B1BC5B9BC00D1134E /* BUYOptionValue.h in Headers */,
 				9019313C1BC5B9BC00D1134E /* BUYShop.h in Headers */,
@@ -971,6 +980,7 @@
 				BEB74A7D1B5564870005A300 /* BUYVariantSelectionViewController.h in Headers */,
 				BE10079B1B6165EC0031CEE7 /* BUYOptionValueCell.h in Headers */,
 				BE9A64591B503CD40033E558 /* BUYImage.h in Headers */,
+				901335461C187E0400410ED0 /* NSURLComponents+BUYAdditions.h in Headers */,
 				BE9A64681B503D080033E558 /* BUYOptionValue.h in Headers */,
 				BE9A64661B503D010033E558 /* BUYShop.h in Headers */,
 				BE9A644D1B503CA20033E558 /* BUYShippingRate.h in Headers */,
@@ -1190,6 +1200,7 @@
 				901930E31BC5B9BC00D1134E /* BUYApplePayHelpers.m in Sources */,
 				901930E41BC5B9BC00D1134E /* BUYOptionSelectionViewController.m in Sources */,
 				901930E51BC5B9BC00D1134E /* BUYVariantOptionView.m in Sources */,
+				901335491C187E0400410ED0 /* NSURLComponents+BUYAdditions.m in Sources */,
 				901930E61BC5B9BC00D1134E /* BUYPresentationControllerForVariantSelection.m in Sources */,
 				901930E71BC5B9BC00D1134E /* NSDecimalNumber+BUYAdditions.m in Sources */,
 				901930E81BC5B9BC00D1134E /* BUYImage.m in Sources */,
@@ -1284,6 +1295,7 @@
 				BE9A64751B503D370033E558 /* BUYApplePayHelpers.m in Sources */,
 				BEB74A7A1B55647C0005A300 /* BUYOptionSelectionViewController.m in Sources */,
 				BEB74A7C1B5564840005A300 /* BUYVariantOptionView.m in Sources */,
+				901335481C187E0400410ED0 /* NSURLComponents+BUYAdditions.m in Sources */,
 				BEB74A241B554BF20005A300 /* BUYPresentationControllerForVariantSelection.m in Sources */,
 				BE9A64711B503D260033E558 /* NSDecimalNumber+BUYAdditions.m in Sources */,
 				BE9A645A1B503CD90033E558 /* BUYImage.m in Sources */,
