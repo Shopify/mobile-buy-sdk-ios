@@ -195,7 +195,13 @@ NSString * const MerchantId = @"";
 
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller
 {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self getCompletedCheckout:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (self.checkout.order) {
+                [self showCheckoutConfirmation];
+            }
+        });
+    }];
 }
 
 #pragma mark Native Checkout
@@ -240,7 +246,7 @@ NSString * const MerchantId = @"";
 
     NSLog(@"Successfully got completion status: %lu", (unsigned long)completionStatus);
     
-    [self getCompletedCheckout];
+    [self getCompletedCheckout:NULL];
 }
 
 - (void)operation:(GetCompletionStatusOperation *)operation failedToReceiveCompletionStatus:(NSError *)error
@@ -308,7 +314,9 @@ NSString * const MerchantId = @"";
     [self.applePayHelper paymentAuthorizationViewController:controller didAuthorizePayment:payment completion:completion];
 
     self.checkout = self.applePayHelper.checkout;
-    [self getCompletedCheckout];
+    [self getCompletedCheckout:^{
+        
+    }];
 }
 
 - (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller
@@ -359,33 +367,45 @@ NSString * const MerchantId = @"";
     NSURL *url = notification.userInfo[@"url"];
     
     __weak CheckoutViewController *welf = self;
+    
+    void (^completionBlock)() = ^void() {
+        [self.client getCompletionStatusOfCheckoutURL:url completion:^(BUYStatus status, NSError *error) {
+            
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+            
+            if (error == nil && status == BUYStatusComplete) {
+                NSLog(@"Successfully completed checkout");
+                [welf getCompletedCheckout:^{
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self showCheckoutConfirmation];
+                    });
+                }];
+            }
+            else {
+                NSLog(@"Error completing checkout: %@", error);
+            }
+        }];
+    };
+    
+    if ([self.presentedViewController isKindOfClass:[SFSafariViewController class]]) {
+        [self dismissViewControllerAnimated:self.presentedViewController completion:completionBlock];
+    } else {
+        completionBlock();
+    }
 
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-
-    [self.client getCompletionStatusOfCheckoutURL:url completion:^(BUYStatus status, NSError *error) {
-        
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-
-        if (error == nil && status == BUYStatusComplete) {
-            NSLog(@"Successfully completed checkout");
-            [welf getCompletedCheckout];
-        }
-        else {
-            NSLog(@"Error completing checkout: %@", error);
-        }
-    }];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:CheckoutCallbackNotification object:nil];
 }
 
-- (void)getCompletedCheckout
+- (void)getCompletedCheckout:(void (^)(void))completionBlock
 {
     __weak CheckoutViewController *welf = self;
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     [self.client getCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
-        
+
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
         if (error) {
@@ -394,8 +414,11 @@ NSString * const MerchantId = @"";
         }
         if (checkout) {
             welf.checkout = checkout;
-            [welf showCheckoutConfirmation];
             NSLog(@"%@", checkout);
+        }
+        
+        if (completionBlock) {
+            completionBlock();
         }
     }];
 }
