@@ -56,6 +56,9 @@
 
 NSString * const BUYVersionString = @"1.2.3";
 
+static NSString *const kBUYClientPathProductPublications = @"product_publications";
+static NSString *const kBUYClientPathCollectionPublications = @"collection_publications";
+
 @interface BUYClient () <NSURLSessionDelegate>
 
 @property (nonatomic, strong) NSString *shopDomain;
@@ -124,15 +127,15 @@ NSString * const BUYVersionString = @"1.2.3";
 
 - (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page completion:(BUYDataProductListBlock)block
 {
-	NSURLComponents *components = [self URLComponentsForChannelsWithEndPoint:@"product_publications.json"
-																  queryItems:@{@"limit" : [NSString stringWithFormat:@"%lu", (unsigned long)self.pageSize],
-																			   @"page" : [NSString stringWithFormat:@"%lu", (unsigned long)page]}];
+	NSURLComponents *components = [self URLComponentsForChannelsAppendingPath:kBUYClientPathProductPublications
+																   queryItems:@{@"limit" : [NSString stringWithFormat:@"%lu", (unsigned long)self.pageSize],
+																				@"page" : [NSString stringWithFormat:@"%lu", (unsigned long)page]}];
 	
 	return [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		
 		NSArray *products = nil;
 		if (json && error == nil) {
-			products = [BUYProduct convertJSONArray:json[@"product_publications"]];
+			products = [BUYProduct convertJSONArray:json[kBUYClientPathProductPublications]];
 		}
 		block(products, page, [self hasReachedEndOfPage:products] || error, error);
 	}];
@@ -154,14 +157,14 @@ NSString * const BUYVersionString = @"1.2.3";
 
 - (NSURLSessionDataTask *)getProductsByIds:(NSArray *)productIds completion:(BUYDataProductsBlock)block
 {
-	NSURLComponents *components = [self URLComponentsForChannelsWithEndPoint:@"product_publications.json"
-																  queryItems:@{@"product_ids" : [productIds componentsJoinedByString:@","]}];
+	NSURLComponents *components = [self URLComponentsForChannelsAppendingPath:kBUYClientPathProductPublications
+																   queryItems:@{@"product_ids" : [productIds componentsJoinedByString:@","]}];
 	
 	return [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		
 		NSArray *products = nil;
 		if (json && error == nil) {
-			products = [BUYProduct convertJSONArray:json[@"product_publications"]];
+			products = [BUYProduct convertJSONArray:json[kBUYClientPathProductPublications]];
 		}
 		if (error == nil && [products count] == 0) {
 			error = [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidProductID userInfo:@{ NSLocalizedDescriptionKey : @"Product IDs are not valid. Confirm the product IDs on your shop's admin and also ensure that the visibility is on for the Mobile App channel." }];
@@ -172,13 +175,13 @@ NSString * const BUYVersionString = @"1.2.3";
 
 - (NSURLSessionDataTask *)getCollections:(BUYDataCollectionsBlock)block
 {
-	NSURLComponents *components = [self URLComponentsForChannelsWithEndPoint:@"collection_publications.json" queryItems:nil];
+	NSURLComponents *components = [self URLComponentsForChannelsAppendingPath:kBUYClientPathCollectionPublications queryItems:nil];
 	
 	return [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		
 		NSArray *collections = nil;
 		if (json && error == nil) {
-			collections = [BUYCollection convertJSONArray:json[@"collection_publications"]];
+			collections = [BUYCollection convertJSONArray:json[kBUYClientPathCollectionPublications]];
 		}
 		block(collections, error);
 	}];
@@ -193,17 +196,17 @@ NSString * const BUYVersionString = @"1.2.3";
 {
 	NSURLSessionDataTask *task = nil;
 	if (collectionId) {
-		NSURLComponents *components = [self URLComponentsForChannelsWithEndPoint:@"product_publications.json"
-																	  queryItems:@{@"collection_id" : [NSString stringWithFormat:@"%lu", collectionId.longValue],
-																				   @"limit" : [NSString stringWithFormat:@"%lu", (unsigned long)self.pageSize],
-																				   @"page" : [NSString stringWithFormat:@"%lu", (unsigned long)page],
-																				   @"sort_by" : [BUYCollection sortOrderParameterForCollectionSort:sortOrder]}];
+		NSURLComponents *components = [self URLComponentsForChannelsAppendingPath:kBUYClientPathProductPublications
+																	   queryItems:@{@"collection_id" : [NSString stringWithFormat:@"%lu", collectionId.longValue],
+																					@"limit" : [NSString stringWithFormat:@"%lu", (unsigned long)self.pageSize],
+																					@"page" : [NSString stringWithFormat:@"%lu", (unsigned long)page],
+																					@"sort_by" : [BUYCollection sortOrderParameterForCollectionSort:sortOrder]}];
 		
 		task = [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			
 			NSArray *products = nil;
 			if (json && error == nil) {
-				products = [BUYProduct convertJSONArray:json[@"product_publications"]];
+				products = [BUYProduct convertJSONArray:json[kBUYClientPathProductPublications]];
 			}
 			block(products, page, [self hasReachedEndOfPage:products] || error, error);
 		}];
@@ -229,36 +232,34 @@ NSString * const BUYVersionString = @"1.2.3";
 
 #pragma mark - URL Components
 
-- (NSURLComponents *)URLComponentsForChannelsWithEndPoint:(NSString *)endPoint queryItems:(NSDictionary*)queryItems
+- (NSURLComponents *)URLComponentsForChannelsAppendingPath:(NSString *)appendingPath queryItems:(NSDictionary*)queryItems
 {
-	return [self URLComponentsForAPIPath:[NSString stringWithFormat:@"channels/%@", self.channelId] endPoint:endPoint queryItems:queryItems];
+	return [self URLComponentsForAPIPath:[NSString stringWithFormat:@"channels/%@", self.channelId] appendingPath:appendingPath queryItems:queryItems];
 }
 
-- (NSURLComponents *)URLComponentsForCheckoutsWithToken:(NSString *)checkoutToken endPoint:(NSString *)endPoint queryItems:(NSDictionary*)queryItems
+- (NSURLComponents *)URLComponentsForCheckoutsAppendingPath:(NSString *)appendingPath checkoutToken:(NSString *)checkoutToken queryItems:(NSDictionary*)queryItems
 {
-	NSMutableString *apiPath = [NSMutableString stringWithString:@"checkouts"];
+	NSString *apiPath = @"checkouts";
 	if (checkoutToken) {
-		[apiPath appendFormat:@"/%@", checkoutToken];
-	} else {
-		[apiPath appendString:@".json"];
+		apiPath = [NSString pathWithComponents:@[apiPath, checkoutToken]];
 	}
-	return [self URLComponentsForAPIPath:[apiPath copy] endPoint:endPoint queryItems:queryItems];
+	return [self URLComponentsForAPIPath:[apiPath copy] appendingPath:appendingPath queryItems:queryItems];
 }
 
-- (NSURLComponents *)URLComponentsForAPIPath:(NSString *)apiPath endPoint:(NSString *)endPoint queryItems:(NSDictionary*)queryItems
+- (NSURLComponents *)URLComponentsForAPIPath:(NSString *)apiPath appendingPath:(NSString *)appendingPath queryItems:(NSDictionary*)queryItems
 {
 	NSMutableArray *pathComponents = [NSMutableArray array];
-	[pathComponents addObject:@"api"];
+	[pathComponents addObject:@"/api"];
 	[pathComponents addObject:apiPath];
-	if (endPoint) {
-		[pathComponents addObject:endPoint];
+	if (appendingPath) {
+		[pathComponents addObject:appendingPath];
 	}
 	return [self URLComponentsForPathComponents:pathComponents queryItems:queryItems];
 }
 
 - (NSURLComponents *)URLComponentsForShop
 {
-	return [self URLComponentsForPathComponents:@[@"meta.json"] queryItems:nil];
+	return [self URLComponentsForPathComponents:@[@"/meta"] queryItems:nil];
 }
 
 - (NSURLComponents *)URLComponentsForPathComponents:(NSArray*)pathComponents queryItems:(NSDictionary*)queryItems
@@ -266,7 +267,7 @@ NSString * const BUYVersionString = @"1.2.3";
 	NSURLComponents *components = [[NSURLComponents alloc] init];
 	components.scheme = @"https";
 	components.host = self.shopDomain;
-	components.path = [NSString stringWithFormat:@"/%@", [pathComponents componentsJoinedByString:@"/"]];
+	components.path = [[NSString pathWithComponents:pathComponents] stringByAppendingPathExtension:@"json"];
 	[components setQueryItemsWithDictionary:queryItems];
 	return components;
 }
@@ -319,7 +320,7 @@ NSString * const BUYVersionString = @"1.2.3";
 	NSData *data = [NSJSONSerialization dataWithJSONObject:checkoutJSON options:0 error:&error];
 	
 	if (data && error == nil) {
-		NSURLComponents *components = [self URLComponentsForCheckoutsWithToken:nil endPoint:nil queryItems:nil];
+		NSURLComponents *components = [self URLComponentsForCheckoutsAppendingPath:nil checkoutToken:nil queryItems:nil];
 		
 		task = [self postRequestForURL:components.URL body:data completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			[self handleCheckoutResponse:json error:error block:block];
@@ -337,9 +338,9 @@ NSString * const BUYVersionString = @"1.2.3";
 	}
 	else {
 		BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:@{ @"code" : giftCardCode }];
-		NSURLComponents *components = [self URLComponentsForCheckoutsWithToken:checkout.token
-																	  endPoint:@"gift_cards.json"
-																	queryItems:nil];
+		NSURLComponents *components = [self URLComponentsForCheckoutsAppendingPath:@"gift_cards"
+																	 checkoutToken:checkout.token
+																		queryItems:nil];
 		
 		task = [self postRequestForURL:components.URL
 								object:giftCard
@@ -358,7 +359,9 @@ NSString * const BUYVersionString = @"1.2.3";
 {
 	NSURLSessionDataTask *task = nil;
 	if (giftCard.identifier) {
-		NSURLComponents *components = [self URLComponentsForCheckoutsWithToken:checkout.token endPoint:[NSString stringWithFormat:@"gift_cards/%@.json", giftCard.identifier] queryItems:nil];
+		NSURLComponents *components = [self URLComponentsForCheckoutsAppendingPath:[NSString stringWithFormat:@"gift_cards/%@", giftCard.identifier]
+																	 checkoutToken:checkout.token
+																		queryItems:nil];
 		task = [self deleteRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			if (error == nil) {
 				[self updateCheckout:checkout withGiftCardDictionary:json[@"gift_card"] addingGiftCard:NO];
@@ -393,7 +396,9 @@ NSString * const BUYVersionString = @"1.2.3";
 
 - (NSURLSessionDataTask *)getCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
-	NSURLComponents *components = [self URLComponentsForCheckoutsWithToken:checkout.token endPoint:nil queryItems:nil];
+	NSURLComponents *components = [self URLComponentsForCheckoutsAppendingPath:nil
+																 checkoutToken:checkout.token
+																	queryItems:nil];
 	return [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		[self handleCheckoutResponse:json error:error block:block];
 	}];
@@ -406,7 +411,9 @@ NSString * const BUYVersionString = @"1.2.3";
 	
 	NSURLSessionDataTask *task = nil;
 	if ([checkout hasToken]) {
-		NSURLComponents *components = [self URLComponentsForCheckoutsWithToken:checkout.token endPoint:nil queryItems:nil];
+		NSURLComponents *components = [self URLComponentsForCheckoutsAppendingPath:nil
+																	 checkoutToken:checkout.token
+																		queryItems:nil];
 		task = [self patchRequestForURL:components.URL body:data completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			[self handleCheckoutResponse:json error:error block:block];
 		}];
@@ -472,7 +479,9 @@ NSString * const BUYVersionString = @"1.2.3";
 
 - (NSURLSessionDataTask *)checkoutCompletionRequestWithCheckout:(BUYCheckout *)checkout body:(NSData *)body completion:(BUYDataCheckoutBlock)block
 {
-	NSURLComponents *components = [self URLComponentsForCheckoutsWithToken:checkout.token endPoint:@"complete.json" queryItems:nil];
+	NSURLComponents *components = [self URLComponentsForCheckoutsAppendingPath:@"complete"
+																 checkoutToken:checkout.token
+																	queryItems:nil];
 	return [self postRequestForURL:components.URL body:body completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		[self handleCheckoutResponse:json error:error block:block];
 	}];
@@ -513,7 +522,9 @@ NSString * const BUYVersionString = @"1.2.3";
 
 - (NSURLSessionDataTask *)getCompletionStatusOfCheckoutToken:(NSString *)token completion:(BUYDataCheckoutStatusBlock)block
 {
-	NSURLComponents *components = [self URLComponentsForCheckoutsWithToken:token endPoint:@"processing.json" queryItems:nil];
+	NSURLComponents *components = [self URLComponentsForCheckoutsAppendingPath:@"processing"
+																 checkoutToken:token
+																	queryItems:nil];
 	return [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
 		block([BUYClient statusForStatusCode:statusCode error:error], error);
@@ -526,7 +537,7 @@ NSString * const BUYVersionString = @"1.2.3";
 {
 	NSURLSessionDataTask *task = nil;
 	if ([checkout hasToken]) {
-		NSURLComponents *components = [self URLComponentsForCheckoutsWithToken:checkout.token endPoint:@"shipping_rates.json?checkout" queryItems:nil];
+        NSURLComponents *components = [self URLComponentsForCheckoutsAppendingPath:@"shipping_rates" checkoutToken:checkout.token queryItems:@{ @"checkout" : @"" }];
 		task = [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			NSArray *shippingRates = nil;
 			if (error == nil && json) {
