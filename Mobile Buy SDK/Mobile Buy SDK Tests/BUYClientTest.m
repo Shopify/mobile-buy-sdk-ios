@@ -227,6 +227,7 @@
 - (void)testProductsInCollectionWithSortOrderCollectionDefault
 {
 	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortCollectionDefault completion:nil];
+	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
 	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/channels/api_key/product_publications.json");
@@ -238,6 +239,7 @@
 - (void)testProductsInCollectionWithSortOrderBestSelling
 {
 	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortBestSelling completion:nil];
+	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
 	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/channels/api_key/product_publications.json");
@@ -249,6 +251,7 @@
 - (void)testProductsInCollectionWithSortOrderCreatedAscending
 {
 	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortCreatedAscending completion:nil];
+	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
 	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/channels/api_key/product_publications.json");
@@ -260,6 +263,7 @@
 - (void)testProductsInCollectionWithSortOrderCreatedDescending
 {
 	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortCreatedDescending completion:nil];
+	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
 	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/channels/api_key/product_publications.json");
@@ -271,6 +275,7 @@
 - (void)testProductsInCollectionWithSortOrderPriceAscending
 {
 	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortPriceAscending completion:nil];
+	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
 	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/channels/api_key/product_publications.json");
@@ -282,6 +287,7 @@
 - (void)testProductsInCollectionWithSortOrderPriceDescending
 {
 	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortPriceDescending completion:nil];
+	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
 	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/channels/api_key/product_publications.json");
@@ -293,6 +299,7 @@
 - (void)testProductsInCollectionWithSortOrderTitleAscending
 {
 	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortTitleAscending completion:nil];
+	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
 	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/channels/api_key/product_publications.json");
@@ -304,6 +311,7 @@
 - (void)testProductsInCollectionWithSortOrderTitleDescending
 {
 	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortTitleDescending completion:nil];
+	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
 	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/channels/api_key/product_publications.json");
