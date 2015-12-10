@@ -33,7 +33,8 @@
 	if (dictionary) {
 		NSMutableArray *queryItems = [NSMutableArray array];
 		for (NSString *key in [dictionary allKeys]) {
-			[queryItems addObject:[[NSURLQueryItem alloc] initWithName:key value:dictionary[key]]];
+			NSString *value = [dictionary[key] length] ? dictionary[key] : nil;
+			[queryItems addObject:[[NSURLQueryItem alloc] initWithName:key value:value]];
 		}
 		self.queryItems = [queryItems copy];
 	}
