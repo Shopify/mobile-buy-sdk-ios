@@ -141,11 +141,11 @@ NSString * const MerchantId = @"";
 - (void)addCreditCardToCheckout:(void (^)(BOOL success))callback
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-
+    
     [self.client storeCreditCard:[self creditCard] checkout:self.checkout completion:^(BUYCheckout *checkout, NSString *paymentSessionId, NSError *error) {
         
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-
+        
         if (error == nil && checkout) {
             
             NSLog(@"Successfully added credit card to checkout");
@@ -196,11 +196,11 @@ NSString * const MerchantId = @"";
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller
 {
     [self getCompletedCheckout:^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (self.checkout.order) {
+        if (self.checkout.order) {
+            dispatch_async(dispatch_get_main_queue(), ^{
                 [self showCheckoutConfirmation];
-            }
-        });
+            });
+        }
     }];
 }
 
@@ -216,7 +216,7 @@ NSString * const MerchantId = @"";
         if (success) {
             
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-
+            
             // Upon successfully adding the credit card to the checkout, complete checkout must be called immediately
             [welf.client completeCheckout:welf.checkout completion:^(BUYCheckout *checkout, NSError *error) {
                 
@@ -227,7 +227,7 @@ NSString * const MerchantId = @"";
                     
                     GetCompletionStatusOperation *completionOperation = [[GetCompletionStatusOperation alloc] initWithClient:welf.client withCheckout:welf.checkout];
                     completionOperation.delegate = welf;
-
+                    
                     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
                     [[NSOperationQueue mainQueue] addOperation:completionOperation];
                 }
@@ -243,7 +243,7 @@ NSString * const MerchantId = @"";
 - (void)operation:(GetCompletionStatusOperation *)operation didReceiveCompletionStatus:(BUYStatus)completionStatus
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-
+    
     NSLog(@"Successfully got completion status: %lu", (unsigned long)completionStatus);
     
     [self getCompletedCheckout:NULL];
@@ -252,7 +252,7 @@ NSString * const MerchantId = @"";
 - (void)operation:(GetCompletionStatusOperation *)operation failedToReceiveCompletionStatus:(NSError *)error
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-
+    
     NSLog(@"Error getting completion status: %@", error);
 }
 
@@ -271,15 +271,15 @@ NSString * const MerchantId = @"";
      *  Alternatively we can set the delegate to self.applePayHelper.
      *  If you do not care about any PKPaymentAuthorizationViewControllerDelegate callbacks
      *  uncomment the code below to let BUYApplePayHelpers take care of them automatically.
-     *  You can then also safely remove the PKPaymentAuthorizationViewControllerDelegate 
+     *  You can then also safely remove the PKPaymentAuthorizationViewControllerDelegate
      *  methods below.
      *
      *  // paymentController.delegate = self.applePayHelper
      *
-     *  If you keep self as the delegate, you have a chance to intercept the 
-     *  PKPaymentAuthorizationViewControllerDelegate callbacks and add any additional logging 
-     *  and method calls as you need. Ensure that you forward them to the BUYApplePayHelpers 
-     *  class by calling the delegate methods on BUYApplePayHelpers which already implements 
+     *  If you keep self as the delegate, you have a chance to intercept the
+     *  PKPaymentAuthorizationViewControllerDelegate callbacks and add any additional logging
+     *  and method calls as you need. Ensure that you forward them to the BUYApplePayHelpers
+     *  class by calling the delegate methods on BUYApplePayHelpers which already implements
      *  the PKPaymentAuthorizationViewControllerDelegate protocol.
      *
      */
@@ -312,11 +312,9 @@ NSString * const MerchantId = @"";
 {
     // Add additional methods if needed and forward the callback to BUYApplePayHelpers
     [self.applePayHelper paymentAuthorizationViewController:controller didAuthorizePayment:payment completion:completion];
-
+    
     self.checkout = self.applePayHelper.checkout;
-    [self getCompletedCheckout:^{
-        
-    }];
+    [self getCompletedCheckout:NULL];
 }
 
 - (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller
@@ -348,7 +346,7 @@ NSString * const MerchantId = @"";
 - (void)checkoutOnWeb
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveCallbackURLNotification:) name:CheckoutCallbackNotification object:nil];
-
+    
     // On iOS 9+ we should use the SafariViewController to display the checkout in-app
     if ([SFSafariViewController class]) {
         
@@ -366,36 +364,39 @@ NSString * const MerchantId = @"";
 {
     NSURL *url = notification.userInfo[@"url"];
     
-    __weak CheckoutViewController *welf = self;
-    
-    void (^completionBlock)() = ^void() {
-        [self.client getCompletionStatusOfCheckoutURL:url completion:^(BUYStatus status, NSError *error) {
-            
-            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-            
-            if (error == nil && status == BUYStatusComplete) {
-                NSLog(@"Successfully completed checkout");
-                [welf getCompletedCheckout:^{
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self showCheckoutConfirmation];
-                    });
-                }];
-            }
-            else {
-                NSLog(@"Error completing checkout: %@", error);
-            }
-        }];
-    };
-    
     if ([self.presentedViewController isKindOfClass:[SFSafariViewController class]]) {
-        [self dismissViewControllerAnimated:self.presentedViewController completion:completionBlock];
+        [self dismissViewControllerAnimated:self.presentedViewController completion:^{
+            [self getCompletionStatusAndCompletedCheckoutWithURL:url];
+        }];
     } else {
-        completionBlock();
+        [self getCompletionStatusAndCompletedCheckoutWithURL:url];
     }
-
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:CheckoutCallbackNotification object:nil];
+}
+
+- (void)getCompletionStatusAndCompletedCheckoutWithURL:(NSURL*)url
+{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    __weak CheckoutViewController *welf = self;
+    
+    [self.client getCompletionStatusOfCheckoutURL:url completion:^(BUYStatus status, NSError *error) {
+        
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+        if (error == nil && status == BUYStatusComplete) {
+            NSLog(@"Successfully completed checkout");
+            [welf getCompletedCheckout:^{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self showCheckoutConfirmation];
+                });
+            }];
+        }
+        else {
+            NSLog(@"Error completing checkout: %@", error);
+        }
+    }];
 }
 
 - (void)getCompletedCheckout:(void (^)(void))completionBlock
@@ -405,7 +406,7 @@ NSString * const MerchantId = @"";
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     [self.client getCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
-
+        
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
         if (error) {
