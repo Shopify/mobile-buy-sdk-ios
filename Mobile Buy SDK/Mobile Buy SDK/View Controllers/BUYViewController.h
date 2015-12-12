@@ -171,6 +171,36 @@
 @property (nonatomic, assign, readonly) BOOL isApplePayAvailable;
 
 /**
+ *  If the merchantId is set and the device support Apple Pay but no credit card is present this allows the user to add a payment pass to the Wallet.
+ *  The user is given the option to add a payment pass or continue with web checkout. Default is set to true. The Set Up Apple Pay button will, however
+ *  still only show if [PKAddPaymentPassViewController canAddPaymentPass] returns true, merchantId is set and the app is running iOS 9.0 and above.
+ */
+@property (nonatomic, assign) BOOL allowApplePaySetup;
+
+/**
+ *  Whether the device is setup to show the Apple Pay setup sheet.
+ *  `allowApplePaySetup` must be set to YES, and the `merchantId` must also be set in addition to the
+ *  device settings for this method to return YES.
+ *
+ *  @return YES if the Setup Apple Pay button should be shown
+ */
+- (BOOL)canShowApplePaySetup;
+
+/**
+ *  Returns whether the Apple Pay button should be shown
+ *
+ *  @return YES if `isApplePayAvailable` or `canShowApplePaySetup` returns YES
+ */
+- (BOOL)shouldShowApplePayButton;
+
+/**
+ *  Returns whether to show the Apple Pay setup button in place of the Apple Pay buy button
+ *
+ *  @return YES if `isApplePayAvailable` returns NO and `canShowApplePaySetup` returns YES
+ */
+- (BOOL)shouldShowApplePaySetup;
+
+/**
  *  The current checkout object
  */
 @property (nonatomic, strong, readonly) BUYCheckout *checkout;
