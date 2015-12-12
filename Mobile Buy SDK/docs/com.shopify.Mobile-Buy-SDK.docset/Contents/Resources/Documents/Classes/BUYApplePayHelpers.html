@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>BUYApplePayHelpers Class Reference</title>
+
+	<link rel="stylesheet" href="../css/style.css">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
+	<meta name="generator" content="appledoc 2.2.1 (build 1333)">
+</head>
+<body class="appledoc">
+	<header>
+		<div class="container">
+			
+			<h1 id="library-title">
+				<a href="https://www.shopify.com/app-developers/mobile-buy-sdk">Mobile Buy SDK </a>
+			</h1>
+
+			<p id="developer-home">
+				<a href="https://www.shopify.com">Shopify</a>
+			</p>
+			
+		</div>
+	</header>
+
+	<aside>
+		<div class="container">
+			<nav>
+				<ul id="header-buttons" role="toolbar">
+					<li><a href="../index.html">Index</a></li>
+<li><a href="../hierarchy.html">Hierarchy</a></li>
+
+					<li id="on-this-page" role="navigation">
+						<label>
+							On This Page
+
+							<div class="chevron">
+								<div class="chevy chevron-left"></div>
+								<div class="chevy chevron-right"></div>
+							</div>
+
+							<select id="jump-to">
+	<option value="top">Jump To&#133;</option>
+	
+
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+
+	
+	
+	<optgroup label="Properties">
+		
+		<option value="//api/name/checkout">checkout</option>
+		
+		<option value="//api/name/client">client</option>
+		
+		<option value="//api/name/lastError">lastError</option>
+		
+		<option value="//api/name/shop">shop</option>
+		
+	</optgroup>
+	
+
+	
+
+	
+	<optgroup label="Instance Methods">
+		
+		<option value="//api/name/initWithClient:checkout:">- initWithClient:checkout:</option>
+		
+		<option value="//api/name/initWithClient:checkout:shop:">- initWithClient:checkout:shop:</option>
+		
+		<option value="//api/name/updateAndCompleteCheckoutWithPayment:completion:">- updateAndCompleteCheckoutWithPayment:completion:</option>
+		
+		<option value="//api/name/updateCheckoutWithAddress:completion:">- updateCheckoutWithAddress:completion:</option>
+		
+		<option value="//api/name/updateCheckoutWithContact:completion:">- updateCheckoutWithContact:completion:</option>
+		
+		<option value="//api/name/updateCheckoutWithShippingMethod:completion:">- updateCheckoutWithShippingMethod:completion:</option>
+		
+	</optgroup>
+	
+	
+</select>
+						</label>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</aside>
+
+	<article>
+		<div id="overview_contents" class="container">
+			<div id="content">
+				<main role="main">
+					<h1 class="title">BUYApplePayHelpers Class Reference</h1>
+
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<th>Inherits from</th>
+	<td>NSObject</td>
+</tr><tr>
+	<th>Conforms to</th>
+	<td>PKPaymentAuthorizationViewControllerDelegate</td>
+</tr><tr>
+	<th>Declared in</th>
+	<td>BUYApplePayHelpers.h</td>
+</tr>
+						</tbody></table></div>
+					
+
+                    
+
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						
+
+						
+						
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/initWithClient:checkout:" title="initWithClient:checkout:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/initWithClient:checkout:">&ndash;&nbsp;initWithClient:checkout:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Initializes a helper to support Apple Pay</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (instancetype)initWithClient:(BUYClient *)<em>client</em> checkout:(BUYCheckout *)<em>checkout</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>client</code></th>
+						<td><p>A configured <a href="#//api/name/client">client</a></p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>checkout</code></th>
+						<td><p>The <a href="#//api/name/checkout">checkout</a> which is to be completed using Apple Pay</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>helper object</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">BUYApplePayHelpers.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/initWithClient:checkout:shop:" title="initWithClient:checkout:shop:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/initWithClient:checkout:shop:">&ndash;&nbsp;initWithClient:checkout:shop:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Initializes a helper to support Apple Pay</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (instancetype)initWithClient:(BUYClient *)<em>client</em> checkout:(BUYCheckout *)<em>checkout</em> shop:(BUYShop *)<em>shop</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>client</code></th>
+						<td><p>A configured <a href="#//api/name/client">client</a></p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>checkout</code></th>
+						<td><p>The <a href="#//api/name/checkout">checkout</a> which is to be completed using Apple Pay</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>shop</code></th>
+						<td><p>A <a href="#//api/name/shop">shop</a> object to alleviate the need for ApplePayHelper to retrieve it via the <a href="../Classes/BUYClient.html">BUYClient</a></p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+			<div class="method-subsection return">
+				<h4 class="method-subtitle parameter-title">Return Value</h4>
+				<p>helper object</p>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">BUYApplePayHelpers.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/updateAndCompleteCheckoutWithPayment:completion:" title="updateAndCompleteCheckoutWithPayment:completion:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/updateAndCompleteCheckoutWithPayment:completion:">&ndash;&nbsp;updateAndCompleteCheckoutWithPayment:completion:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Call this method in the PKPaymentAuthorizationViewControllerDelegate <code>paymentAuthorizationViewController:didAuthorizePayment:completion</code></p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)updateAndCompleteCheckoutWithPayment:(PKPayment *)<em>payment</em> completion:(void ( ^ ) ( PKPaymentAuthorizationStatus status ))<em>completion</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>payment</code></th>
+						<td><p>the authorized payment</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>completion</code></th>
+						<td><p>completion block thats called after Shopify authorizes the payment</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">BUYApplePayHelpers.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/updateCheckoutWithShippingMethod:completion:" title="updateCheckoutWithShippingMethod:completion:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/updateCheckoutWithShippingMethod:completion:">&ndash;&nbsp;updateCheckoutWithShippingMethod:completion:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Call this method in the PKPaymentAuthorizationViewControllerDelegate <code>paymentAuthorizationViewController:didSelectShippingMethod:completion</code></p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)updateCheckoutWithShippingMethod:(PKShippingMethod *)<em>shippingMethod</em> completion:(void ( ^ ) ( PKPaymentAuthorizationStatus status , NSArray *methods ))<em>completion</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>shippingMethod</code></th>
+						<td><p>The selected shipping method</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>completion</code></th>
+						<td><p>the completion block called after shipping method is updated on the <a href="#//api/name/checkout">checkout</a></p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">BUYApplePayHelpers.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/updateCheckoutWithAddress:completion:" title="updateCheckoutWithAddress:completion:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/updateCheckoutWithAddress:completion:">&ndash;&nbsp;updateCheckoutWithAddress:completion:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Call this method in the PKPaymentAuthorizationViewControllerDelegate <code>paymentAuthorizationViewController:didSelectShippingAddress:completion</code></p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)updateCheckoutWithAddress:(ABRecordRef)<em>address</em> completion:(void ( ^ ) ( PKPaymentAuthorizationStatus status , NSArray *shippingMethods , NSArray *summaryItems ))<em>completion</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>address</code></th>
+						<td><p>The selected shipping address</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>completion</code></th>
+						<td><p>the completion block called after the shipping address is updated on the <a href="#//api/name/checkout">checkout</a></p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">BUYApplePayHelpers.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/updateCheckoutWithContact:completion:" title="updateCheckoutWithContact:completion:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/updateCheckoutWithContact:completion:">&ndash;&nbsp;updateCheckoutWithContact:completion:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Call this method in the PKPaymentAuthorizationViewControllerDelegate <code>paymentAuthorizationViewController:didSelectShippingAddress:completion</code></p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)updateCheckoutWithContact:(PKContact *)<em>contact</em> completion:(void ( ^ ) ( PKPaymentAuthorizationStatus , NSArray *shippingMethods , NSArray *summaryItems ))<em>completion</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>contact</code></th>
+						<td><p>The selected contact</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>completion</code></th>
+						<td><p>the completion block called after the shipping address is updated on the <a href="#//api/name/checkout">checkout</a></p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">BUYApplePayHelpers.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/checkout" title="checkout"></a>
+	<h3 class="method-title"><code><a href="#//api/name/checkout">&nbsp;&nbsp;checkout</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The current checkout</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong, readonly) BUYCheckout *checkout</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">BUYApplePayHelpers.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/client" title="client"></a>
+	<h3 class="method-title"><code><a href="#//api/name/client">&nbsp;&nbsp;client</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The client used to communicate with Shopify</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong, readonly) BUYClient *client</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">BUYApplePayHelpers.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/lastError" title="lastError"></a>
+	<h3 class="method-title"><code><a href="#//api/name/lastError">&nbsp;&nbsp;lastError</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The last error message</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong, readonly) NSError *lastError</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">BUYApplePayHelpers.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/shop" title="shop"></a>
+	<h3 class="method-title"><code><a href="#//api/name/shop">&nbsp;&nbsp;shop</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>The shop object</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong, readonly) BUYShop *shop</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">BUYApplePayHelpers.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+					</div>
+					
+					
+
+                    
+                    
+          
+				</main>
+
+				<footer>
+					<div class="footer-copyright">
+						
+						<p class="copyright">Copyright &copy; 2015 Shopify. All rights reserved. Updated: 2015-11-24</p>
+						
+						
+						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</p>
+						
+					</div>
+				</footer>
+			</div>
+		</div>
+	</article>
+
+	<script src="../js/script.js"></script>
+</body>
+</html>
