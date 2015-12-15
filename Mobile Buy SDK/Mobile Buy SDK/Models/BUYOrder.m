@@ -30,7 +30,6 @@
 
 @interface BUYOrder ()
 
-@property (nonatomic, copy) NSNumber *orderId;
 @property (nonatomic, strong) NSURL *statusURL;
 @property (nonatomic, strong) NSString *name;
 
