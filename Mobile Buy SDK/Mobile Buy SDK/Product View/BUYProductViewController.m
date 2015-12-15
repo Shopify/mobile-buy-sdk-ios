@@ -128,7 +128,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 - (BUYProductView *)productView
 {
 	if (_productView == nil && self.product != nil && self.shop != nil) {
-		_productView = [[BUYProductView alloc] initWithFrame:CGRectMake(0, 0, self.preferredContentSize.width, self.preferredContentSize.height) product:self.product theme:self.theme shouldShowApplePaySetup:self.allowApplePaySetup];
+		_productView = [[BUYProductView alloc] initWithFrame:CGRectMake(0, 0, self.preferredContentSize.width, self.preferredContentSize.height) product:self.product theme:self.theme shouldShowApplePaySetup:self.shouldShowApplePaySetup];
 		_productView.translatesAutoresizingMaskIntoConstraints = NO;
 		_productView.hidden = YES;
 		[self.view addSubview:_productView];
@@ -147,26 +147,6 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 		_productView.layoutMargins = UIEdgeInsetsMake(self.productView.layoutMargins.top, self.productView.layoutMargins.left, self.bottomLayoutGuide.length, self.productView.layoutMargins.right);
 	}
 	return _productView;
-}
-
-- (BOOL)canShowApplePaySetup
-{
-	PKPassLibrary *passLibrary = [[PKPassLibrary alloc] init];
-	if (self.allowApplePaySetup == YES &&
-		// Check that it's running iOS 9.0 or above
-		[passLibrary respondsToSelector:@selector(canAddPaymentPassWithPrimaryAccountIdentifier:)] &&
-		// Check if the device can add a payment pass
-		[PKPaymentAuthorizationViewController canMakePayments] &&
-		// Check that Apple Pay is enabled for the merchant
-		[self.merchantId length]) {
-		return YES;
-	} else {
-		return NO;
-	}
-}
-
-- (BOOL)shouldShowApplePayButton {
-	return self.isApplePayAvailable ? self.isApplePayAvailable : [self canShowApplePaySetup];
 }
 
 - (CGSize)preferredContentSize

@@ -102,6 +102,22 @@ NSString * BUYURLKey = @"url";
 	}];
 }
 
+- (BOOL)canShowApplePaySetup
+{
+	PKPassLibrary *passLibrary = [[PKPassLibrary alloc] init];
+	if (self.allowApplePaySetup == YES &&
+		// Check that it's running iOS 9.0 or above
+		[passLibrary respondsToSelector:@selector(canAddPaymentPassWithPrimaryAccountIdentifier:)] &&
+		// Check if the device can add a payment pass
+		[PKPaymentAuthorizationViewController canMakePayments] &&
+		// Check that Apple Pay is enabled for the merchant
+		[self.merchantId length]) {
+		return YES;
+	} else {
+		return NO;
+	}
+}
+
 - (BOOL)isApplePayAvailable
 {
 	// checks if the client is setup to use Apple Pay
@@ -110,6 +126,15 @@ NSString * BUYURLKey = @"url";
 	return (self.merchantId.length &&
 			[PKPaymentAuthorizationViewController canMakePayments] &&
 			[PKPaymentAuthorizationViewController canMakePaymentsUsingNetworks:self.supportedNetworks]);
+}
+
+- (BOOL)shouldShowApplePayButton {
+	return self.isApplePayAvailable || [self canShowApplePaySetup];
+}
+
+- (BOOL)shouldShowApplePaySetup
+{
+	return self.isApplePayAvailable == NO && [self canShowApplePaySetup];
 }
 
 #pragma mark - Checkout Flow Methods
