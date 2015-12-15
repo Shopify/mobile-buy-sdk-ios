@@ -37,4 +37,17 @@
 	_productId = [dictionary[@"product_id"] copy];
 }
 
+#pragma mark - BUYPersistence
+
+- (NSDictionary *)plistDictionary
+{
+	NSMutableDictionary *dictionary = [[super plistDictionary] mutableCopy];
+	
+	if (self.name)      dictionary[@"name"] = self.name;
+	if (self.position)  dictionary[@"position"] = self.position;
+	if (self.productId) dictionary[@"product_id"] = self.productId;
+	
+	return dictionary;
+}
+
 @end

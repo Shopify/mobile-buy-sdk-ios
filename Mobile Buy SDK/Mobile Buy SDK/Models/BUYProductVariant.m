@@ -27,6 +27,7 @@
 #import "BUYProductVariant.h"
 #import "NSDecimalNumber+BUYAdditions.h"
 #import "BUYOptionValue.h"
+#import "BUYProduct.h"
 
 @implementation BUYProductVariant
 
@@ -48,6 +49,34 @@
 	_position = dictionary[@"position"];
 	
 	_available = [dictionary[@"available"] boolValue];
+}
+
+#pragma mark - BUYPersistence
+
++ (instancetype)instanceWithPlistDictionary:(NSDictionary *)dictionary
+{
+	BUYProductVariant *variant = [super instanceWithPlistDictionary:dictionary];
+	variant.product = [BUYProduct instanceWithPlistDictionary:dictionary[@"product"]];
+	return variant;
+}
+
+- (NSDictionary *)plistDictionary
+{
+	NSMutableDictionary *dictionary = [[super plistDictionary] mutableCopy];
+	
+	if (self.product)           dictionary[@"product"] = [self.product plistDictionary];
+	if (self.title)             dictionary[@"title"] = self.title;
+	if (self.options)           dictionary[@"option_values"] = [self.options valueForKey:@"plistDictionary"];
+	if (self.price)             dictionary[@"price"] = self.price;
+	if (self.compareAtPrice)    dictionary[@"compare_at_price"] = self.compareAtPrice;
+	if (self.grams)             dictionary[@"grams"] = self.grams;
+	if (self.requiresShipping)  dictionary[@"requires_shipping"] = self.requiresShipping;
+	if (self.sku)               dictionary[@"sku"] = self.sku;
+	if (self.taxable)           dictionary[@"taxable"] = self.taxable;
+	if (self.position)          dictionary[@"position"] = self.position;
+	if (self.title)             dictionary[@"available"] = @(self.available);
+	
+	return dictionary;
 }
 
 @end

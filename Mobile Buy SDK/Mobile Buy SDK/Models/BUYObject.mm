@@ -262,4 +262,26 @@ namespace shopify
 	return hash;
 }
 
+#pragma mark - BUYPersistence
+
++ (instancetype)instanceWithPlistDictionary:(NSDictionary *)dictionary
+{
+	if (![dictionary isKindOfClass:[NSDictionary class]]) {
+		return nil;
+	}
+	
+	return [[self alloc] initWithDictionary:dictionary];
+}
+
+- (NSDictionary *)plistDictionary
+{
+	NSMutableDictionary *dictionary = [NSMutableDictionary new];
+	
+	if (self.identifier) {
+		dictionary[@"id"] = self.identifier;
+	}
+	
+	return dictionary;
+}
+
 @end

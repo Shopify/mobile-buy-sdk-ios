@@ -111,4 +111,28 @@
 	return lineItem;
 }
 
+#pragma mark - BUYPersistence
+
+- (NSDictionary *)plistDictionary
+{
+	NSMutableDictionary *dictionary = [[super plistDictionary] mutableCopy];
+	
+	if (self.variantId)             dictionary[@"variant_id"] = self.variantId;
+	if (self.productId)             dictionary[@"product_id"] = self.productId;
+	if (self.title)                 dictionary[@"title"] = self.title;
+	if (self.variantTitle)          dictionary[@"variant_title"] = self.variantTitle;
+	if (self.quantity)              dictionary[@"quantity"] = self.quantity;
+	if (self.price)                 dictionary[@"price"] = self.price;
+	if (self.linePrice)             dictionary[@"line_price"] = self.linePrice;
+	if (self.compareAtPrice)        dictionary[@"compare_at_price"] = self.compareAtPrice;
+	if (self.requiresShipping)      dictionary[@"requires_shipping"] = self.requiresShipping;
+	if (self.sku)                   dictionary[@"sku"] = self.sku;
+	if (self.taxable)               dictionary[@"taxable"] = @(self.taxable);
+	if (self.properties)            dictionary[@"properties"] = self.properties;
+	if (self.grams)                 dictionary[@"grams"] = self.grams;
+	if (self.fulfillmentService)    dictionary[@"fulfillment_service"] = self.fulfillmentService;
+	
+	return dictionary;
+}
+
 @end

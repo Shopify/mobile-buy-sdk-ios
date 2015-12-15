@@ -134,4 +134,18 @@
 	XCTAssertEqual([[_cart lineItems] count], 0);
 }
 
+#pragma mark - BUYPersistence Tests
+
+- (void)testCartPlistSerialization
+{
+	BUYProductVariant *variant = [[BUYProductVariant alloc] initWithDictionary:@{ @"id" : @1 }];
+	BUYProductVariant *variantTwo = [[BUYProductVariant alloc] initWithDictionary:@{ @"id" : @2 }];
+	[_cart setVariant:variant withTotalQuantity:2];
+	[_cart setVariant:variantTwo withTotalQuantity:4];
+	
+	NSDictionary *dictionary = [_cart plistDictionary];
+	BUYCart *newCart = [BUYCart instanceWithPlistDictionary:dictionary];
+	XCTAssertEqualObjects(_cart.lineItems, newCart.lineItems);
+}
+
 @end
