@@ -59,4 +59,33 @@
 	_tags = [tagsSet copy];
 }
 
+#pragma mark - BUYPersistence
+
+- (NSDictionary *)plistDictionary
+{
+	NSMutableDictionary *dictionary = [[super plistDictionary] mutableCopy];
+	
+	if (self.title)             dictionary[@"title"] = self.title;
+	if (self.handle)            dictionary[@"handle"] = self.handle;
+	if (self.productId)         dictionary[@"product_id"] = self.productId;
+	if (self.vendor)            dictionary[@"vendor"] = self.vendor;
+	if (self.productType)       dictionary[@"product_type"] = self.productType;
+	if (self.images)            dictionary[@"images"] = [self.images valueForKey:@"plistDictionary"];
+	if (self.options)           dictionary[@"options"] = [self.options valueForKey:@"plistDictionary"];
+	if (self.htmlDescription)   dictionary[@"body_html"] = self.htmlDescription;
+	if (self.available)         dictionary[@"available"] = @(self.available);
+	if (self.published)         dictionary[@"published"] = @(self.published);
+	
+	// variants is deliberately left out to not create an infinite loop
+	
+	NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForPublications];
+	if (self.createdAtDate)     dictionary[@"created_at"] = [dateFormatter stringFromDate:self.createdAtDate];
+	if (self.updatedAtDate)     dictionary[@"updated_at"] = [dateFormatter stringFromDate:self.updatedAtDate];
+	if (self.publishedAtDate)   dictionary[@"published_at"] = [dateFormatter stringFromDate:self.publishedAtDate];
+	
+	if (self.tags)              dictionary[@"tags"] = [self.tags.allObjects componentsJoinedByString:@", "];
+	
+	return dictionary;
+}
+
 @end

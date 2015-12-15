@@ -115,4 +115,35 @@
 	return cart;
 }
 
+#pragma mark - BUYPersistence
+
++ (instancetype)instanceWithPlistDictionary:(NSDictionary *)dictionary
+{
+	if (![dictionary isKindOfClass:[NSDictionary class]]) {
+		return nil;
+	}
+	
+	BUYCart *cart = [BUYCart new];
+	
+	for (NSDictionary *lineItemDict in dictionary[@"line_items"]) {
+		BUYCartLineItem *lineItem = [BUYCartLineItem instanceWithPlistDictionary:lineItemDict];
+		if (lineItem && lineItem.quantity.integerValue > 0) {
+			[cart setVariant:lineItem.variant withTotalQuantity:lineItem.quantity.integerValue];
+		}
+	}
+	
+	return cart;
+}
+
+- (NSDictionary *)plistDictionary
+{
+	NSMutableDictionary *dictionary = [NSMutableDictionary new];
+	
+	if (self.lineItems) {
+		dictionary[@"line_items"] = [self.lineItems valueForKey:@"plistDictionary"];
+	}
+	
+	return dictionary;
+}
+
 @end

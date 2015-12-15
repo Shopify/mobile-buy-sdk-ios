@@ -25,6 +25,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BUYPersistence.h"
 
 /**
  *  This is the base class for all Shopify model objects.
@@ -33,7 +34,7 @@
  *
  *  You will generally not need to interact with this class directly.
  */
-@interface BUYObject : NSObject
+@interface BUYObject : NSObject <BUYPersistence>
 
 /**
  *  The identifier of any Shopify model object.

@@ -33,6 +33,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		1A6E19A51C20B10700499A0F /* BUYPersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A6E19A41C20B10700499A0F /* BUYPersistence.h */; };
+		1A6E19A61C20B10800499A0F /* BUYPersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A6E19A41C20B10700499A0F /* BUYPersistence.h */; };
 		9003969B1B601DF400226B73 /* BUYCartLineItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 900396991B601DF400226B73 /* BUYCartLineItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9003969C1B601DF400226B73 /* BUYCartLineItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9003969A1B601DF400226B73 /* BUYCartLineItem.m */; };
 		900396AC1B627CB900226B73 /* BUYProductView.h in Headers */ = {isa = PBXBuildFile; fileRef = 900396AA1B627CB900226B73 /* BUYProductView.h */; };
@@ -345,6 +347,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A6E19A41C20B10700499A0F /* BUYPersistence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYPersistence.h; sourceTree = "<group>"; };
 		2A54742D1A0AA61600822409 /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 		2AF52A731A700AC80087DB2C /* BUYRuntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BUYRuntime.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2AF52A741A700AC80087DB2C /* BUYRuntime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BUYRuntime.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -787,6 +790,7 @@
 				BEEA83E61B0B76C7000C6483 /* BUYOptionValue.m */,
 				90E83BC21B9F550E00C95A1B /* BUYOrder.h */,
 				90E83BC31B9F550E00C95A1B /* BUYOrder.m */,
+				1A6E19A41C20B10700499A0F /* BUYPersistence.h */,
 				2AF52A7C1A700B0A0087DB2C /* BUYProduct.h */,
 				2AF52A7D1A700B0A0087DB2C /* BUYProduct.m */,
 				2AF52A811A700B0A0087DB2C /* BUYProductVariant.h */,
@@ -896,6 +900,7 @@
 				9019312F1BC5B9BC00D1134E /* BUYLineItem.h in Headers */,
 				90C856B51BD6B0F300936926 /* Buy.h in Headers */,
 				901931311BC5B9BC00D1134E /* BUYProductViewHeaderOverlay.h in Headers */,
+				1A6E19A61C20B10800499A0F /* BUYPersistence.h in Headers */,
 				901931321BC5B9BC00D1134E /* NSString+Trim.h in Headers */,
 				901931331BC5B9BC00D1134E /* BUYAddress+Additions.h in Headers */,
 				901931341BC5B9BC00D1134E /* BUYViewController.h in Headers */,
@@ -972,6 +977,7 @@
 				BE9A645B1B503CDC0033E558 /* BUYLineItem.h in Headers */,
 				907874991B7276BA0023775B /* BUYProductViewHeaderOverlay.h in Headers */,
 				BE9A64721B503D290033E558 /* NSString+Trim.h in Headers */,
+				1A6E19A51C20B10700499A0F /* BUYPersistence.h in Headers */,
 				BE9A64791B503D420033E558 /* BUYAddress+Additions.h in Headers */,
 				BE9A64801B503D990033E558 /* BUYViewController.h in Headers */,
 				BE9A644F1B503CA90033E558 /* BUYDiscount.h in Headers */,

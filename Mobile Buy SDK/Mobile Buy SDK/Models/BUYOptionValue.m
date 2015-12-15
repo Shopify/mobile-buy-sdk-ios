@@ -61,4 +61,17 @@
 	return hash;
 }
 
+#pragma mark - BUYPersistence
+
+- (NSDictionary *)plistDictionary
+{
+	NSMutableDictionary *dictionary = [[super plistDictionary] mutableCopy];
+	
+	if (self.name)      dictionary[@"name"] = self.name;
+	if (self.value)     dictionary[@"value"] = self.value;
+	if (self.optionId)  dictionary[@"option_id"] = self.optionId;
+	
+	return dictionary;
+}
+
 @end

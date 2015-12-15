@@ -61,4 +61,25 @@
 	return hash;
 }
 
+#pragma mark - BUYPersistence
+
++ (instancetype)instanceWithPlistDictionary:(NSDictionary *)dictionary
+{
+	BUYProductVariant *variant = [BUYProductVariant instanceWithPlistDictionary:dictionary[@"variant"]];
+	BUYCartLineItem *cartLineItem = [[BUYCartLineItem alloc] initWithVariant:variant];
+	[cartLineItem updateWithDictionary:dictionary];
+	return cartLineItem;
+}
+
+- (NSDictionary *)plistDictionary
+{
+	NSMutableDictionary *dictionary = [[super plistDictionary] mutableCopy];
+	
+	if (self.variant) {
+		dictionary[@"variant"] = [self.variant plistDictionary];
+	}
+	
+	return dictionary;
+}
+
 @end

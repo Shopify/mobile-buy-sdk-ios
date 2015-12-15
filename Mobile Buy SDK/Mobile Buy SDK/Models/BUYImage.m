@@ -43,4 +43,22 @@
 	_updatedAtDate = [dateFormatter dateFromString:dictionary[@"updated_at"]];
 }
 
+#pragma mark - BUYPersistence
+
+- (NSDictionary *)plistDictionary
+{
+	NSMutableDictionary *dictionary = [[super plistDictionary] mutableCopy];
+	
+	if (self.src)           dictionary[@"src"] = self.src;
+	if (self.variantIds)    dictionary[@"variant_ids"] = self.variantIds;
+	if (self.productId)     dictionary[@"product_id"] = self.productId;
+	if (self.position)      dictionary[@"position"] = self.position;
+	
+	NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForPublications];
+	if (self.createdAtDate) dictionary[@"created_at"] = [dateFormatter stringFromDate:self.createdAtDate];
+	if (self.updatedAtDate) dictionary[@"updated_at"] = [dateFormatter stringFromDate:self.updatedAtDate];
+	
+	return dictionary;
+}
+
 @end
