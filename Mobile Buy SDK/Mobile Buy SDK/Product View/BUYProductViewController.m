@@ -128,7 +128,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 - (BUYProductView *)productView
 {
 	if (_productView == nil && self.product != nil && self.shop != nil) {
-		_productView = [[BUYProductView alloc] initWithFrame:CGRectMake(0, 0, self.preferredContentSize.width, self.preferredContentSize.height) product:self.product theme:self.theme shouldShowApplePaySetup:self.allowApplePaySetup];
+		_productView = [[BUYProductView alloc] initWithFrame:CGRectMake(0, 0, self.preferredContentSize.width, self.preferredContentSize.height) product:self.product theme:self.theme shouldShowApplePaySetup:self.shouldShowApplePaySetup];
 		_productView.translatesAutoresizingMaskIntoConstraints = NO;
 		_productView.hidden = YES;
 		[self.view addSubview:_productView];
@@ -143,28 +143,10 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 		
 		_productView.productViewHeader.collectionView.delegate = self;
 		_productView.productViewHeader.collectionView.dataSource = self;
+		
+		_productView.layoutMargins = UIEdgeInsetsMake(self.productView.layoutMargins.top, self.productView.layoutMargins.left, self.bottomLayoutGuide.length, self.productView.layoutMargins.right);
 	}
 	return _productView;
-}
-
-- (BOOL)canShowApplePaySetup
-{
-	PKPassLibrary *passLibrary = [[PKPassLibrary alloc] init];
-	if (self.allowApplePaySetup == YES &&
-		// Check that it's running iOS 9.0 or above
-		[passLibrary respondsToSelector:@selector(canAddPaymentPassWithPrimaryAccountIdentifier:)] &&
-		// Check if the device can add a payment pass
-		[PKPaymentAuthorizationViewController canMakePayments] &&
-		// Check that Apple Pay is enabled for the merchant
-		[self.merchantId length]) {
-		return YES;
-	} else {
-		return NO;
-	}
-}
-
-- (BOOL)shouldShowApplePayButton {
-	return self.isApplePayAvailable ? self.isApplePayAvailable : [self canShowApplePaySetup];
 }
 
 - (CGSize)preferredContentSize
@@ -178,10 +160,6 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 	[super viewWillAppear:animated];
 	[self setupNavigationBarAppearance];
 	[self.navigationController setNavigationBarHidden:self.isLoading];
-	CGFloat bottomMargin = 0;
-	bottomMargin += self.tabBarController ? CGRectGetHeight(self.tabBarController.tabBar.bounds) : 0;
-	bottomMargin += self.navigationController.isToolbarHidden ? 0 : CGRectGetHeight(self.navigationController.toolbar.bounds);
-	_productView.layoutMargins = UIEdgeInsetsMake(self.productView.layoutMargins.top, self.productView.layoutMargins.left, bottomMargin, self.productView.layoutMargins.right);
 }
 
 - (void)viewDidLayoutSubviews

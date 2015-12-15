@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>BUYCart Class Reference</title>
+
+	<link rel="stylesheet" href="../css/style.css">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
+	<meta name="generator" content="appledoc 2.2.1 (build 1333)">
+</head>
+<body class="appledoc">
+	<header>
+		<div class="container">
+			
+			<h1 id="library-title">
+				<a href="https://www.shopify.com/app-developers/mobile-buy-sdk">Mobile Buy SDK </a>
+			</h1>
+
+			<p id="developer-home">
+				<a href="https://www.shopify.com">Shopify</a>
+			</p>
+			
+		</div>
+	</header>
+
+	<aside>
+		<div class="container">
+			<nav>
+				<ul id="header-buttons" role="toolbar">
+					<li><a href="../index.html">Index</a></li>
+<li><a href="../hierarchy.html">Hierarchy</a></li>
+
+					<li id="on-this-page" role="navigation">
+						<label>
+							On This Page
+
+							<div class="chevron">
+								<div class="chevy chevron-left"></div>
+								<div class="chevy chevron-right"></div>
+							</div>
+
+							<select id="jump-to">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+
+	
+	
+	<optgroup label="Properties">
+		
+		<option value="//api/name/lineItems">lineItems</option>
+		
+	</optgroup>
+	
+
+	
+
+	
+	<optgroup label="Instance Methods">
+		
+		<option value="//api/name/addVariant:">- addVariant:</option>
+		
+		<option value="//api/name/clearCart">- clearCart</option>
+		
+		<option value="//api/name/isValid">- isValid</option>
+		
+		<option value="//api/name/removeVariant:">- removeVariant:</option>
+		
+		<option value="//api/name/setVariant:withTotalQuantity:">- setVariant:withTotalQuantity:</option>
+		
+	</optgroup>
+	
+	
+</select>
+						</label>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</aside>
+
+	<article>
+		<div id="overview_contents" class="container">
+			<div id="content">
+				<main role="main">
+					<h1 class="title">BUYCart Class Reference</h1>
+
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<th>Inherits from</th>
+	<td>NSObject</td>
+</tr><tr>
+	<th>Conforms to</th>
+	<td>BUYSerializable</td>
+</tr><tr>
+	<th>Declared in</th>
+	<td>BUYCart.h</td>
+</tr>
+						</tbody></table></div>
+					
+
+                    
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>The BUYCart is the starting point for the Checkout API. You are responsible for building a cart, then transforming it
+into a <a href="../Classes/BUYCheckout.html">BUYCheckout</a> using the BUYDataClient.</p>
+					</div>
+					
+					
+
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						
+
+						
+						
+
+						<div class="task-list">
+							<div class="section-method">
+	<a name="//api/name/lineItems" title="lineItems"></a>
+	<h3 class="method-title"><code><a href="#//api/name/lineItems">&nbsp;&nbsp;lineItems</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Array of <a href="../Classes/BUYCartLineItem.html">BUYCartLineItem</a> objects in the cart
+Note: These are different from <a href="../Classes/BUYLineItem.html">BUYLineItem</a> objects in that
+the line item objects do include the <a href="../Classes/BUYProductVariant.html">BUYProductVariant</a>.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>@property (nonatomic, strong, readonly, nonnull) NSArray&lt;BUYCartLineItem*&gt; *lineItems</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">BUYCart.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/isValid" title="isValid"></a>
+	<h3 class="method-title"><code><a href="#//api/name/isValid">&ndash;&nbsp;isValid</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Returns true if the cart is acceptable to send to Shopify.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (BOOL)isValid</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">BUYCart.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/clearCart" title="clearCart"></a>
+	<h3 class="method-title"><code><a href="#//api/name/clearCart">&ndash;&nbsp;clearCart</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Empties the cart and any custom-stored propreties.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)clearCart</code></div>
+
+		    
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">BUYCart.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/addVariant:" title="addVariant:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/addVariant:">&ndash;&nbsp;addVariant:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Adds a <a href="../Classes/BUYCartLineItem.html">BUYCartLineItem</a> to the BUYCart with the given <a href="../Classes/BUYProductVariant.html">BUYProductVariant</a> object on it.
+If the associated <a href="../Classes/BUYCartLineItem.html">BUYCartLineItem</a> exists, that BUYCartLineItem&rsquo;s quantity is increased by one.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)addVariant:(nonnull BUYProductVariant *)<em>variant</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>variant</code></th>
+						<td><p>The <a href="../Classes/BUYProductVariant.html">BUYProductVariant</a> to add to the BUYCart or increase by one quantity</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">BUYCart.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/removeVariant:" title="removeVariant:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/removeVariant:">&ndash;&nbsp;removeVariant:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Removes the <a href="../Classes/BUYCartLineItem.html">BUYCartLineItem</a> from the BUYCart associated with the given <a href="../Classes/BUYProductVariant.html">BUYProductVariant</a> object.
+If the associated <a href="../Classes/BUYCartLineItem.html">BUYCartLineItem</a> exists, that BUYCartLineItem&rsquo;s quantity is decreased by one.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)removeVariant:(nonnull BUYProductVariant *)<em>variant</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>variant</code></th>
+						<td><p>The <a href="../Classes/BUYProductVariant.html">BUYProductVariant</a> to remove from the BUYCart or decrease by one quantity</p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">BUYCart.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div><div class="section-method">
+	<a name="//api/name/setVariant:withTotalQuantity:" title="setVariant:withTotalQuantity:"></a>
+	<h3 class="method-title"><code><a href="#//api/name/setVariant:withTotalQuantity:">&ndash;&nbsp;setVariant:withTotalQuantity:</a></code>
+</h3>
+
+	<div class="method-info">
+		<div class="pointy-thing"></div>
+
+		<div class="method-info-container">
+			
+			
+			<div class="method-subsection brief-description">
+				<p>Adds a <a href="../Classes/BUYCartLineItem.html">BUYCartLineItem</a> with a set quantity to the BUYCart with the given <a href="../Classes/BUYProductVariant.html">BUYProductVariant</a> object on it.
+If the associated <a href="../Classes/BUYCartLineItem.html">BUYCartLineItem</a> exists, that BUYCartLineItem&rsquo;s quantity is overriden with the quantity specificed.
+If the quantity is 0 the associated <a href="../Classes/BUYCartLineItem.html">BUYCartLineItem</a> is removed from <a href="#//api/name/lineItems"><code>lineItems</code></a>.</p>
+			</div>
+			
+		    
+
+			<div class="method-subsection method-declaration"><code>- (void)setVariant:(nonnull BUYProductVariant *)<em>variant</em> withTotalQuantity:(NSInteger)<em>quantity</em></code></div>
+
+		    
+			
+			<div class="method-subsection arguments-section parameters">
+				<h4 class="method-subtitle parameter-title">Parameters</h4>
+				<table class="argument-def parameter-def">
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>variant</code></th>
+						<td><p>The <a href="../Classes/BUYProductVariant.html">BUYProductVariant</a> to add to the BUYCart with a quantity</p></td>
+					</tr>
+				
+					<tr>
+						<th scope="row" class="argument-name"><code>quantity</code></th>
+						<td><p>The quantity for the <a href="../Classes/BUYCartLineItem.html">BUYCartLineItem</a> associated with the <a href="../Classes/BUYProductVariant.html">BUYProductVariant</a></p></td>
+					</tr>
+				
+				</table>
+			</div>
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+			<div class="method-subsection declared-in-section">
+				<h4 class="method-subtitle">Declared In</h4>
+				<p><code class="declared-in-ref">BUYCart.h</code></p>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+						</div>
+						
+					</div>
+					
+					
+
+                    
+                    
+          
+				</main>
+
+				<footer>
+					<div class="footer-copyright">
+						
+						<p class="copyright">Copyright &copy; 2015 Shopify. All rights reserved. Updated: 2015-12-15</p>
+						
+						
+						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</p>
+						
+					</div>
+				</footer>
+			</div>
+		</div>
+	</article>
+
+	<script src="../js/script.js"></script>
+</body>
+</html>

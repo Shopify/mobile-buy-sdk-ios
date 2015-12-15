@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>BUYCheckoutError Constants Reference</title>
+
+	<link rel="stylesheet" href="../css/style.css">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1.4">
+	<meta name="generator" content="appledoc 2.2.1 (build 1333)">
+</head>
+<body class="appledoc">
+	<header>
+		<div class="container">
+			
+			<h1 id="library-title">
+				<a href="https://www.shopify.com/app-developers/mobile-buy-sdk">Mobile Buy SDK </a>
+			</h1>
+
+			<p id="developer-home">
+				<a href="https://www.shopify.com">Shopify</a>
+			</p>
+			
+		</div>
+	</header>
+
+	<aside>
+		<div class="container">
+			<nav>
+				<ul id="header-buttons" role="toolbar">
+					<li><a href="../index.html">Index</a></li>
+<li><a href="../hierarchy.html">Hierarchy</a></li>
+
+					<li id="on-this-page" role="navigation">
+						<label>
+							On This Page
+
+							<div class="chevron">
+								<div class="chevy chevron-left"></div>
+								<div class="chevy chevron-right"></div>
+							</div>
+
+							<select id="jump-to">
+	<option value="top">Jump To&#133;</option>
+	
+
+	
+
+	
+</select>
+						</label>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</aside>
+
+	<article>
+		<div id="overview_contents" class="container">
+			<div id="content">
+				<main role="main">
+					<h1 class="title">BUYCheckoutError Constants Reference</h1>
+
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<th>Declared in</th>
+	<td>BUYError.h</td>
+</tr>
+						</tbody></table></div>
+					
+
+                    
+
+					
+
+                    
+                    <h3 class="subsubtitle method-title">BUYCheckoutError</h3>
+                    
+					
+					<div class="section section-overview">
+                        <p>A collection of enums for error codes specific to the SDK</p>
+					</div>
+					
+					
+                    <div class="section">
+                        <!-- display enum values -->
+                        
+                        <h4 class="method-subtitle">Definition</h4>
+                        <code>typedef NS_ENUM(NSUInteger, BUYCheckoutError ) {<br>
+                            
+                            &nbsp;&nbsp; <a href="">BUYShopifyError_CartFetchError</a>,<br>
+                            
+                            &nbsp;&nbsp; <a href="">BUYShopifyError_NoShippingMethodsToAddress</a>,<br>
+                            
+                            &nbsp;&nbsp; <a href="">BUYShopifyError_NoProductSpecified</a>,<br>
+                            
+                            &nbsp;&nbsp; <a href="">BUYShopifyError_InvalidProductID</a>,<br>
+                            
+                            &nbsp;&nbsp; <a href="">BUYShopifyError_NoCollectionIdSpecified</a>,<br>
+                            
+                            &nbsp;&nbsp; <a href="">BUYShopifyError_NoGiftCardSpecified</a>,<br>
+                            
+                            &nbsp;&nbsp; <a href="">BUYShopifyError_NoCreditCardSpecified</a>,<br>
+                            
+                            &nbsp;&nbsp; <a href="">BUYShopifyError_NoApplePayTokenSpecified</a>,<br>
+                            
+                            &nbsp;&nbsp; <a href="">BUYShopifyError_InvalidCheckoutObject</a>,<br>
+                            
+                            };</code>
+                    
+                    </div>
+                    
+                    <div class="section section-methods">
+                        <h4 class="method-subtitle">Constants</h4>
+                        <dl class="termdef">
+                            
+                            <dt><a name="" title="BUYShopifyError_CartFetchError"></a><code>BUYShopifyError_CartFetchError</code></dt>
+<dd>
+
+
+<p>An error occurred retrieving the cart for an existing web checkout with <a href="../Classes/BUYStoreViewController.html">BUYStoreViewController</a></p>
+
+
+
+
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">BUYError.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="BUYShopifyError_NoShippingMethodsToAddress"></a><code>BUYShopifyError_NoShippingMethodsToAddress</code></dt>
+<dd>
+
+
+<p>No shipping rates are available for the selected address</p>
+
+
+
+
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">BUYError.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="BUYShopifyError_NoProductSpecified"></a><code>BUYShopifyError_NoProductSpecified</code></dt>
+<dd>
+
+
+<p>No product or product ID was provided when loading a product in <a href="../Classes/BUYProductViewController.html">BUYProductViewController</a></p>
+
+
+
+
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">BUYError.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="BUYShopifyError_InvalidProductID"></a><code>BUYShopifyError_InvalidProductID</code></dt>
+<dd>
+
+
+<p>The product ID or IDs provided were invalid for the shop. Check that the product are made visible on the Mobile App channel on /admin.</p>
+
+
+
+
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">BUYError.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="BUYShopifyError_NoCollectionIdSpecified"></a><code>BUYShopifyError_NoCollectionIdSpecified</code></dt>
+<dd>
+
+
+<p>No collection ID was provided when loading a collection</p>
+
+
+
+
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">BUYError.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="BUYShopifyError_NoGiftCardSpecified"></a><code>BUYShopifyError_NoGiftCardSpecified</code></dt>
+<dd>
+
+
+<p>No gift card code was provided when applying a gift card to a checkout</p>
+
+
+
+
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">BUYError.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="BUYShopifyError_NoCreditCardSpecified"></a><code>BUYShopifyError_NoCreditCardSpecified</code></dt>
+<dd>
+
+
+<p>No credit card was provided when calling <code>storeCreditCard:completion:</code></p>
+
+
+
+
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">BUYError.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="BUYShopifyError_NoApplePayTokenSpecified"></a><code>BUYShopifyError_NoApplePayTokenSpecified</code></dt>
+<dd>
+
+
+<p>No Apple Pay token was provided when attempting to complete a checkout using Apple Pay</p>
+
+
+
+
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">BUYError.h</code>.
+	</p>
+	
+</dd>
+                            
+                            <dt><a name="" title="BUYShopifyError_InvalidCheckoutObject"></a><code>BUYShopifyError_InvalidCheckoutObject</code></dt>
+<dd>
+
+
+<p>The checkout is invalid and does not have a checkout token. This generally means the <a href="../Classes/BUYCheckout.html">BUYCheckout</a> object
+has not been synced with Shopify via <code>createCheckout:completion:</code> before making subsequent calls to update
+or complete the checkout</p>
+
+
+
+
+
+    
+	<p>
+		Declared In <code class="declared-in-ref">BUYError.h</code>.
+	</p>
+	
+</dd>
+                            
+                        </dl>
+                    </div>
+                    
+
+                    
+                    
+
+                    
+
+                    
+                    <div class="method-subsection declared-in-section">
+                        <h4 class="method-subtitle">Declared In</h4>
+                        <p><code class="declared-in-ref">BUYError.h</code></p>
+                    </div>
+                    
+                    
+                    
+                    
+          
+				</main>
+
+				<footer>
+					<div class="footer-copyright">
+						
+						<p class="copyright">Copyright &copy; 2015 Shopify. All rights reserved. Updated: 2015-12-15</p>
+						
+						
+						<p class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</p>
+						
+					</div>
+				</footer>
+			</div>
+		</div>
+	</article>
+
+	<script src="../js/script.js"></script>
+</body>
+</html>
