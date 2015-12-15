@@ -54,7 +54,7 @@
 #define kMinSuccessfulStatusCode 200
 #define kMaxSuccessfulStatusCode 299
 
-NSString * const BUYVersionString = @"1.2.3";
+NSString * const BUYVersionString = @"1.2.4";
 
 static NSString *const kBUYClientPathProductPublications = @"product_publications";
 static NSString *const kBUYClientPathCollectionPublications = @"collection_publications";
