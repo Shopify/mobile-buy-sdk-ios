@@ -71,13 +71,6 @@
 	return self;
 }
 
-- (void)setShippingRate:(BUYShippingRate *)shippingRate
-{
-	[self willChangeValueForKey:@"shippingRate"];
-	_shippingRate = shippingRate;
-	[self didChangeValueForKey:@"shippingRate"];
-}
-
 + (NSString *)jsonKeyForProperty:(NSString *)property
 {
 	NSString *key = nil;
