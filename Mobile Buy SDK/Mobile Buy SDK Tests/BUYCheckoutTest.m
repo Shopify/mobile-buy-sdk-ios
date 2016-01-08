@@ -73,17 +73,6 @@
 	XCTAssertTrue([checkout isDirty]);
 }
 
-- (void)testSettingAShippingRateMarksShippingRateIdAsDirty
-{
-	BUYShippingRate *shippingRate = [[BUYShippingRate alloc] initWithDictionary:@{ @"id" : @"banana" }];
-	XCTAssertNil(_checkout.shippingRate);
-	XCTAssertNil(_checkout.shippingRateId);
-	_checkout.shippingRate = shippingRate;
-	XCTAssertEqualObjects(@"banana", _checkout.shippingRateId);
-	
-	XCTAssertTrue([[_checkout dirtyProperties] containsObject:@"shippingRateId"]);
-}
-
 - (void)testDirtyPropertiesAreReturnedInJSON
 {
 	BUYShippingRate *shippingRate = [[BUYShippingRate alloc] initWithDictionary:@{ @"id" : @"banana" }];
@@ -93,12 +82,10 @@
 	_checkout.currency = @"BANANA";
 	NSSet *dirtyProperties = [_checkout dirtyProperties];
 	XCTAssertTrue([dirtyProperties containsObject:@"currency"]);
-	XCTAssertTrue([dirtyProperties containsObject:@"shippingRateId"]);
 	XCTAssertTrue([dirtyProperties containsObject:@"shippingRate"]);
 	
 	NSDictionary *json = [_checkout jsonDictionaryForCheckout];
 	XCTAssertEqualObjects(json[@"checkout"][@"currency"], @"BANANA");
-	XCTAssertEqualObjects(json[@"checkout"][@"shipping_rate_id"], @"banana");
 }
 
 - (void)testRequiresShippingAndIncludesTaxesSerialization

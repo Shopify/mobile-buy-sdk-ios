@@ -149,11 +149,6 @@
 @property (nonatomic, strong) BUYShippingRate *shippingRate;
 
 /**
- *  Shipping rate identifier
- */
-@property (nonatomic, readonly) NSString *shippingRateId;
-
-/**
  *  A discount added to the checkout
  *  Only one discount can be added to a checkout. Call `updateCheckout:completion:`
  *  after adding a discount to apply the discount code to the checkout.

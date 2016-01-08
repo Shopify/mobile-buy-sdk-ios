@@ -71,20 +71,11 @@
 	return self;
 }
 
-- (void)setShippingRateId:(NSString *)shippingRateIdentifier
-{
-	[self willChangeValueForKey:@"shippingRateId"];
-	_shippingRateId = shippingRateIdentifier;
-	[self didChangeValueForKey:@"shippingRateId"];
-}
-
 - (void)setShippingRate:(BUYShippingRate *)shippingRate
 {
 	[self willChangeValueForKey:@"shippingRate"];
 	_shippingRate = shippingRate;
 	[self didChangeValueForKey:@"shippingRate"];
-	
-	[self setShippingRateId:shippingRate.shippingRateIdentifier];
 }
 
 + (NSString *)jsonKeyForProperty:(NSString *)property
