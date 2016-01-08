@@ -46,7 +46,6 @@
 	
 	if (self.city.length > 0 &&
 		self.zip.length > 0 &&
-		self.province.length > 0 &&
 		(self.country.length > 0 || self.countryCode.length == 2)) {
 	
 		valid = YES;
