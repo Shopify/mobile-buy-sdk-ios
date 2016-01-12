@@ -10,6 +10,23 @@
 
 Shopify’s Mobile Buy SDK makes it simple to sell physical products inside your mobile app. With a few lines of code, you can connect your app with the Shopify platform and let your users buy your products using Apple Pay or their credit card.
 
+- [Documentation](#documentation)
+  - [API Documentation](#api-documentation)
+- [Installation](#installation)
+  - [Dynamic Framework Installation](#dynamic-framework-installation)
+  - [Static Framework Installation](#static-framework-installation)
+  - [Cocoapods](#cocoapods)
+  - [Carthage](#carthage)
+- [Quick Start](#quick-start)
+- [Building the SDK](#building-the-sdk)
+- [Mobile Buy SDK Targets and schemes](#mobile-buy-sdk-targets-and-schemes)
+- [Sample Apps](#sample-apps)
+- [Product View](#product-view)
+- [Unit Tests](#unit-tests)
+- [Contributions](#contributions)
+- [Help](#help)
+- [License](#license)
+
 ### Documentation
 
 Official documentation can be found on the [Mobile Buy SDK for iOS page](https://docs.shopify.com/mobile-buy-sdk/ios).
@@ -152,9 +169,13 @@ Alternatively, you can edit the `Mobile Buy SDK Tests` scheme and add the follow
 * `expired_gift_card_id`: The ID for the expired Gift Card
 * `product_ids_comma_separated`: a comma seperated list of product IDs (2 is suitable) to use for the cart
 
-### How Can I Contribute?
+### Contributions
 
-We welcome contributions.  Follow the steps in [CONTRIBUTING](CONTRIBUTING.md) file
+We welcome contributions. Follow the steps in [CONTRIBUTING](CONTRIBUTING.md) file.
+
+### Help
+
+For help, please post questions on our forum, in the Shopify APIs & Technology section: https://ecommerce.shopify.com/c/shopify-apis-and-technology
 
 ### License
 
