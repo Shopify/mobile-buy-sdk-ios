@@ -27,12 +27,13 @@
 #import "CheckoutViewController.h"
 #import "GetCompletionStatusOperation.h"
 #import "SummaryItemsTableViewCell.h"
+#import "ProductListViewController.h"
+
 @import Buy;
 @import PassKit;
 @import SafariServices;
 
 NSString * const CheckoutCallbackNotification = @"CheckoutCallbackNotification";
-NSString * const MerchantId = @"";
 
 @interface CheckoutViewController () <GetCompletionStatusOperationDelegate, SFSafariViewControllerDelegate, PKPaymentAuthorizationViewControllerDelegate>
 
@@ -291,7 +292,7 @@ NSString * const MerchantId = @"";
 {
     PKPaymentRequest *paymentRequest = [[PKPaymentRequest alloc] init];
     
-    [paymentRequest setMerchantIdentifier:MerchantId];
+    [paymentRequest setMerchantIdentifier:MERCHANT_ID];
     [paymentRequest setRequiredBillingAddressFields:PKAddressFieldAll];
     [paymentRequest setRequiredShippingAddressFields:self.checkout.requiresShipping ? PKAddressFieldAll : PKAddressFieldEmail|PKAddressFieldPhone];
     [paymentRequest setSupportedNetworks:@[PKPaymentNetworkVisa, PKPaymentNetworkMasterCard]];
