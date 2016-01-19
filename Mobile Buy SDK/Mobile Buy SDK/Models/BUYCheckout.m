@@ -155,6 +155,11 @@
 	self.sourceIdentifier = dictionary[@"source_identifier"];
 }
 
+- (NSString *)shippingRateId
+{
+	return self.shippingRate.shippingRateIdentifier;
+}
+
 - (id)jsonValueForValue:(id)value
 {
 	id newValue = value;
