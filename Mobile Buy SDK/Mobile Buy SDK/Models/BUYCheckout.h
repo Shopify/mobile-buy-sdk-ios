@@ -149,9 +149,9 @@
 @property (nonatomic, strong) BUYShippingRate *shippingRate;
 
 /**
- *  Shipping rate identifier
- */
-@property (nonatomic, readonly) NSString *shippingRateId;
+*  Shipping rate identifier
+*/
+@property (nonatomic, readonly) NSString *shippingRateId DEPRECATED_MSG_ATTRIBUTE("Use shippingRate.shippingRateIdentifier");
 
 /**
  *  A discount added to the checkout
