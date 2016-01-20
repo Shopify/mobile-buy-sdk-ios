@@ -158,7 +158,6 @@ NSString * BUYURLKey = @"url";
 					[self.delegate controllerFailedToStartApplePayProcess:self];
 				}
 			}
-			NSLog(@"SHOP");
 			dispatch_group_leave(group);
 		}];
 	}
