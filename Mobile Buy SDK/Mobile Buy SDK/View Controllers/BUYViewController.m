@@ -89,12 +89,6 @@ NSString * BUYURLKey = @"url";
 		if (error == nil) {
 			self.shop = shop;
 		}
-		else {
-			
-			if ([self.delegate respondsToSelector:@selector(controllerFailedToStartApplePayProcess:)]) {
-				[self.delegate controllerFailedToStartApplePayProcess:self];
-			}
-		}
 		
 		self.isLoadingShop = NO;
 		
@@ -145,22 +139,65 @@ NSString * BUYURLKey = @"url";
 	// Default to the failure state, since cancelling a payment would not update the state and thus appear as a success
 	self.paymentAuthorizationStatus = PKPaymentAuthorizationStatusFailure;
 	
-	if (self.shop == nil && self.isLoadingShop == NO) {
-		// since requests are sent serially, this will return before the checkout is created
-		[self loadShopWithCallback:nil];
+	/**
+	 *  To perform an Apple Pay checkout, we need both the BUYShop object, and a BUYCheckout
+	 *  We will download both in parallel, and continue with the checkout when they both succeed
+	 */
+	dispatch_group_t group = dispatch_group_create();
+	__block NSError *checkoutError = nil;
+	
+	// download the shop
+	if (self.shop != nil) {
+		dispatch_group_enter(group);
+		[self loadShopWithCallback:^(BOOL success, NSError *error) {
+			
+			if (error) {
+				checkoutError = error;
+				
+				if ([self.delegate respondsToSelector:@selector(controllerFailedToStartApplePayProcess:)]) {
+					[self.delegate controllerFailedToStartApplePayProcess:self];
+				}
+			}
+			dispatch_group_leave(group);
+		}];
 	}
 	
+	// create the checkout on Shopify
+	dispatch_group_enter(group);
 	[self handleCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
-		self.checkout = checkout;
 		
-		if (error == nil) {
+		if (error) {
+			checkoutError = error;
+			
+			if ([self.delegate respondsToSelector:@selector(controller:failedToCreateCheckout:)]) {
+				[self.delegate controller:self failedToCreateCheckout:error];
+			}
+		}
+		else {
+			self.checkout = checkout;
+		}
+
+		dispatch_group_leave(group);
+	}];
+	
+	// When we have both the shop and checkout, we can request the payment with Apple Pay
+	dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+		
+		if (self.checkout && self.shop) {
+			
 			if ([self.delegate respondsToSelector:@selector(controllerWillCheckoutViaApplePay:)]) {
 				[self.delegate controllerWillCheckoutViaApplePay:self];
 			}
-			self.applePayHelper = [[BUYApplePayHelpers alloc] initWithClient:self.client checkout:checkout shop:self.shop];
+			
+			self.applePayHelper = [[BUYApplePayHelpers alloc] initWithClient:self.client checkout:self.checkout shop:self.shop];
+			[self requestPayment];
 		}
-		[self handleCheckoutCompletion:checkout error:error];
-	}];
+		else {
+			if ([self.delegate respondsToSelector:@selector(controller:failedToCreateCheckout:)]) {
+				[self.delegate controller:self failedToCreateCheckout:checkoutError];
+			}
+		}
+	});
 }
 
 - (void)startWebCheckout:(BUYCheckout *)checkout

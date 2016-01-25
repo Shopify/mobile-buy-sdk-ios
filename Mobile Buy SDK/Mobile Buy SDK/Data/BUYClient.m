@@ -90,8 +90,6 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_publi
 		self.queue = dispatch_get_main_queue();
 		
 		NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-		// ensure requests are sent serially
-		config.HTTPMaximumConnectionsPerHost = 1;
 		config.HTTPAdditionalHeaders = @{@"User-Agent": [NSString stringWithFormat:@"Mobile Buy SDK iOS/%@", BUYVersionString]};
 		
 		self.session = [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:nil];
