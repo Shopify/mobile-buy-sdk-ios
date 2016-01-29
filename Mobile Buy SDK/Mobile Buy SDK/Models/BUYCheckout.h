@@ -37,6 +37,7 @@
 @class BUYTaxLine;
 @class BUYLineItem;
 @class BUYGiftCard;
+@class BUYCheckoutAttribute;
 
 /**
  *  The checkout object. This is the main object that you will interact with when creating orders on Shopify.
@@ -242,6 +243,11 @@
  *  An optional note attached to the order
  */
 @property (nonatomic, copy) NSString *note;
+
+/**
+ *  Extra information that is added to the order
+ */
+@property (nonatomic, copy) NSArray <BUYCheckoutAttribute *> *attributes;
 
 /**
  *  The BUYOrder for a completed checkout

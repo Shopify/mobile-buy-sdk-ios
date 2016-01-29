@@ -1,9 +1,9 @@
 //
-//  Buy.h
+//  BUYCheckoutAttribute.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
-//  Copyright (c) 2015 Shopify Inc. All rights reserved.
+//  Copyright (c) 2016 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,37 +24,22 @@
 //  THE SOFTWARE.
 //
 
-/**
- *  Umbrella header used for Cocoapods
- */
+#import "BUYObject.h"
+#import "BUYSerializable.h"
 
-#import "BUYApplePayAdditions.h"
-#import "BUYApplePayHelpers.h"
-#import "BUYAddress.h"
-#import "BUYCart.h"
-#import "BUYCartLineItem.h"
-#import "BUYCheckout.h"
-#import "BUYCheckoutAttribute.h"
-#import "BUYClient+Test.h"
-#import "BUYClient.h"
-#import "BUYCollection.h"
-#import "BUYCreditCard.h"
-#import "BUYDiscount.h"
-#import "BUYError.h"
-#import "BUYGiftCard.h"
-#import "BUYImage.h"
-#import "BUYLineItem.h"
-#import "BUYMaskedCreditCard.h"
-#import "BUYOption.h"
-#import "BUYOptionValue.h"
-#import "BUYOrder.h"
-#import "BUYPaymentButton.h"
-#import "BUYProduct.h"
-#import "BUYProductVariant.h"
-#import "BUYProductViewController.h"
-#import "BUYShippingRate.h"
-#import "BUYShop.h"
-#import "BUYStoreViewController.h"
-#import "BUYTaxLine.h"
-#import "BUYTheme.h"
-#import "BUYViewController.h"
+/**
+ *  A BUYCheckoutAttribute represents a checkout attributes key and value
+ */
+@interface BUYCheckoutAttribute : BUYObject <BUYSerializable>
+
+/**
+ *  The attribute name
+ */
+@property (nonatomic, strong, nonnull) NSString *name;
+
+/**
+ *  The attribute value
+ */
+@property (nonatomic, strong, nonnull) NSString *value;
+
+@end
