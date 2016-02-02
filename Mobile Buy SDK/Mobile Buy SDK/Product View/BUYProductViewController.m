@@ -444,12 +444,13 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 				[self.productView.productViewHeader.productViewHeaderOverlay scrollViewDidScroll:scrollView withNavigationBarHeight:CGRectGetHeight(self.navigationBar.bounds)];
 			}
 		} else if (self.productView.productViewHeader == nil && self.navigationBar && self.navigationBar.alpha == 0) {
+			// If the product view does not contain an image, inset the productView so its not obstructed with the navigation bar
 			[(BUYNavigationController*)self.navigationController updateCloseButtonImageWithTintColor:YES duration:0];
 			self.navigationBar.alpha = 1;
 			self.navigationBarTitle.alpha = 1;
 			CGFloat topInset = 0;
 			if (self.presentingViewController) {
-				topInset = CGRectGetHeight([[(UINavigationController*)self.presentingViewController navigationBar] bounds]) + self.presentingViewController.topLayoutGuide.length;
+				topInset = CGRectGetHeight(self.navigationController.navigationBar.bounds) + self.presentingViewController.topLayoutGuide.length;
 			}
 			[self.productView setInsets:UIEdgeInsetsMake(topInset, 0, 0, 0) appendToCurrentInset:YES];
 		}
