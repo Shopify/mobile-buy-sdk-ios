@@ -88,13 +88,13 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_publi
 		self.channelId = channelId;
 		self.applicationName = [[NSBundle mainBundle] infoDictionary][@"CFBundleName"] ?: @"";
 		self.queue = dispatch_get_main_queue();
-		self.session = [self urlSession];
+		self.session = [self createUrlSession];
 		self.pageSize = 25;
 	}
 	return self;
 }
 
-- (NSURLSession *)urlSession
+- (NSURLSession *)createUrlSession
 {
 	NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
 	
