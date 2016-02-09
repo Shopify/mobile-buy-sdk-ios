@@ -54,7 +54,7 @@
 #define kMinSuccessfulStatusCode 200
 #define kMaxSuccessfulStatusCode 299
 
-NSString * const BUYVersionString = @"1.2.4";
+NSString * const BUYVersionString = @"1.2.5";
 
 static NSString *const kBUYClientPathProductPublications = @"product_publications";
 static NSString *const kBUYClientPathCollectionPublications = @"collection_publications";
@@ -88,14 +88,21 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_publi
 		self.channelId = channelId;
 		self.applicationName = [[NSBundle mainBundle] infoDictionary][@"CFBundleName"] ?: @"";
 		self.queue = dispatch_get_main_queue();
-		
-		NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-		config.HTTPAdditionalHeaders = @{@"User-Agent": [NSString stringWithFormat:@"Mobile Buy SDK iOS/%@", BUYVersionString]};
-		
-		self.session = [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:nil];
+		self.session = [self urlSession];
 		self.pageSize = 25;
 	}
 	return self;
+}
+
+- (NSURLSession *)urlSession
+{
+	NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+	
+	NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+	
+	config.HTTPAdditionalHeaders = @{@"User-Agent": [NSString stringWithFormat:@"Mobile Buy SDK iOS/%@/%@", BUYVersionString, bundleIdentifier]};
+	
+	return [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:nil];
 }
 
 #pragma mark - Storefront
