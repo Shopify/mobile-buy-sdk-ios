@@ -32,7 +32,7 @@ NSString * const BUYShopifyError = @"BUYShopifyError";
 
 - (NSString *)description
 {
-	return [[self userInfo] description];
+	return [NSString stringWithFormat:@"Error code %td: %@", self.code, [self userInfo]];
 }
 
 @end
