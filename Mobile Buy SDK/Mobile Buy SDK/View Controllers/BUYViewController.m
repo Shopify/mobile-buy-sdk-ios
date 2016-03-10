@@ -147,7 +147,7 @@ NSString * BUYURLKey = @"url";
 	__block NSError *checkoutError = nil;
 	
 	// download the shop
-	if (self.shop != nil) {
+	if (self.shop == nil) {
 		dispatch_group_enter(group);
 		[self loadShopWithCallback:^(BOOL success, NSError *error) {
 			
