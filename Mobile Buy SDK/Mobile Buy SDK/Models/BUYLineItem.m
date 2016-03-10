@@ -28,6 +28,7 @@
 #import "BUYProductVariant.h"
 #import "NSDecimalNumber+BUYAdditions.h"
 #import "NSString+Trim.h"
+#import "BUYProduct.h"
 
 @interface BUYLineItem ()
 
@@ -54,6 +55,7 @@
 	self = [super init];
 	if (self) {
 		self.variantId = variant.identifier;
+		self.productId = variant.product.productId;
 		self.quantity = variant ? [NSDecimalNumber one] : [NSDecimalNumber zero];
 		self.price = variant ? [variant price] : [NSDecimalNumber zero];
 		self.title = variant ? [variant title] : @"";
