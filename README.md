@@ -3,7 +3,7 @@
 [![Build status](https://badge.buildkite.com/3951692121947fbf7bb06c4b741601fc091efea3fa119a4f88.svg)](https://buildkite.com/shopify/mobile-buy-sdk-ios)
 [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/Shopify/mobile-buy-sdk-ios/blob/master/LICENSE)
 [![GitHub release](https://img.shields.io/github/release/shopify/mobile-buy-sdk-ios.svg)](https://github.com/Shopify/mobile-buy-sdk-ios/releases)
-[![Cocoapods](https://img.shields.io/cocoapods/v/Mobile-Buy-SDK.svg)](https://cocoapods.org/pods/Mobile-Buy-SDK)
+[![CocoaPods](https://img.shields.io/cocoapods/v/Mobile-Buy-SDK.svg)](https://cocoapods.org/pods/Mobile-Buy-SDK)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 # Mobile Buy SDK for iOS
@@ -15,7 +15,7 @@ Shopify’s Mobile Buy SDK makes it simple to sell physical products inside your
 - [Installation](#installation)
   - [Dynamic Framework Installation](#dynamic-framework-installation)
   - [Static Framework Installation](#static-framework-installation)
-  - [Cocoapods](#cocoapods)
+  - [CocoaPods](#cocoapods)
   - [Carthage](#carthage)
 - [Quick Start](#quick-start)
 - [Building the SDK](#building-the-sdk)
