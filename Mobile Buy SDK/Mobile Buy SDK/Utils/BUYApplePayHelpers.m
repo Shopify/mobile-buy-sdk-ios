@@ -331,7 +331,9 @@ const NSTimeInterval PollDelay = 0.5;
 				[NSThread sleepForTimeInterval:PollDelay];
 			}
 		}
-		completion(checkoutStatus == BUYStatusComplete ? PKPaymentAuthorizationStatusSuccess : PKPaymentAuthorizationStatusFailure);
+		dispatch_async(dispatch_get_main_queue(), ^{
+			completion(checkoutStatus == BUYStatusComplete ? PKPaymentAuthorizationStatusSuccess : PKPaymentAuthorizationStatusFailure);
+		});
 	});
 }
 
