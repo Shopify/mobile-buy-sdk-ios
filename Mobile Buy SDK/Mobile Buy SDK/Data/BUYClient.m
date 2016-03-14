@@ -180,15 +180,23 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_publi
 
 - (NSURLSessionDataTask *)getCollections:(BUYDataCollectionsBlock)block
 {
-	NSURLComponents *components = [self URLComponentsForChannelsAppendingPath:kBUYClientPathCollectionPublications queryItems:nil];
-	
+	return [self getCollectionsPage:1 completion:^(NSArray<BUYCollection *> *collections, NSUInteger page, BOOL reachedEnd, NSError *error) {
+		block(collections, error);
+	}];
+}
+
+- (NSURLSessionDataTask *)getCollectionsPage:(NSUInteger)page completion:(BUYDataCollectionsListBlock)block
+{
+	NSURLComponents *components = [self URLComponentsForChannelsAppendingPath:kBUYClientPathCollectionPublications
+																   queryItems:@{@"limit" : [NSString stringWithFormat:@"%lu", (unsigned long)self.pageSize],
+																				@"page" : [NSString stringWithFormat:@"%lu", (unsigned long)page]}];
 	return [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		
 		NSArray *collections = nil;
 		if (json && error == nil) {
 			collections = [BUYCollection convertJSONArray:json[kBUYClientPathCollectionPublications]];
 		}
-		block(collections, error);
+		block(collections, page, [self hasReachedEndOfPage:collections], error);
 	}];
 }
 
