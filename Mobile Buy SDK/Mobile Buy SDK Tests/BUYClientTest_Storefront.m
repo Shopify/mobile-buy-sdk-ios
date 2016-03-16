@@ -215,6 +215,57 @@
 	}];
 }
 
+- (void)testCollectionsFromFirstPage
+{
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testGetCollection_0"];
+	}];
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[self.client getCollectionsPage:1 completion:^(NSArray<BUYCollection *> *collections, NSUInteger page, BOOL reachedEnd, NSError *error) {
+
+		XCTAssertEqual(1, page);
+		
+		XCTAssertNotNil((collections));
+		XCTAssertNil(error);
+		
+		XCTAssertNotNil([collections.firstObject title]);
+		XCTAssertNotNil([collections.firstObject handle]);
+		XCTAssertNotNil([collections.firstObject collectionId]);
+
+		[expectation fulfill];
+	}];
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
+- (void)testCollectionsFromEmptyPage
+{
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testGetOutOfIndexCollectionPage_0"];
+	}];
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[self.client getCollectionsPage:999 completion:^(NSArray<BUYCollection *> *collections, NSUInteger page, BOOL reachedEnd, NSError *error) {
+		
+		XCTAssertEqual(999, page);
+
+		XCTAssertNotNil((collections));
+		XCTAssert(collections.count == 0);
+		XCTAssertNil(error);
+		
+		[expectation fulfill];
+	}];
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
 - (void)testProductsInCollection
 {
 	if (self.collection == nil) {

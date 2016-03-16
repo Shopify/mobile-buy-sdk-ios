@@ -152,6 +152,14 @@ typedef void (^BUYDataShippingRatesBlock)(NSArray *shippingRates, BUYStatus stat
 typedef void (^BUYDataShopBlock)(BUYShop *shop, NSError *error);
 
 /**
+ *  Return block containing a list of BUYCollection objects and/or an NSError
+ *
+ *  @param collections An array of BUYCollection objects
+ *  @param error       Optional NSError
+ */
+typedef void (^BUYDataCollectionsBlock)(NSArray<BUYCollection *> *collections, NSError *error);
+
+/**
  *  Return block containing a BUYProduct and/or an NSError
  *
  *  @param product A BUYProduct
@@ -165,15 +173,17 @@ typedef void (^BUYDataProductBlock)(BUYProduct *product, NSError *error);
  *  @param products An array of BUYProduct objects
  *  @param error    Optional NSError
  */
-typedef void (^BUYDataProductsBlock)(NSArray *products, NSError *error);
+typedef void (^BUYDataProductsBlock)(NSArray<BUYProduct *> *products, NSError *error);
 
 /**
- *  Return block containing list of collections
+ *  Return block containing a list of BUYCollection objects
  *
  *  @param collections An array of BUYCollection objects
- *  @param error       Optional NSError
+ *  @param page        Index of the page requested
+ *  @param reachedEnd  Boolean indicating whether additional pages exist
+ *  @param error       An optional NSError
  */
-typedef void (^BUYDataCollectionsBlock)(NSArray *collections, NSError *error);
+typedef void (^BUYDataCollectionsListBlock)(NSArray<BUYCollection *> *collections, NSUInteger page, BOOL reachedEnd, NSError *error);
 
 /**
  *  Return block containing a list of BUYProduct objects, the page requested, a boolean to determine whether the end of the list has been reach and/or an optional NSError
@@ -183,7 +193,7 @@ typedef void (^BUYDataCollectionsBlock)(NSArray *collections, NSError *error);
  *  @param reachedEnd Boolean indicating whether additional pages exist
  *  @param error      An optional NSError
  */
-typedef void (^BUYDataProductListBlock)(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error);
+typedef void (^BUYDataProductListBlock)(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error);
 
 /**
  *  Return block containing a list of BUYProductImage objects and/or an NSError
@@ -312,6 +322,16 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
  *  @return The associated NSURLSessionDataTask
  */
 - (NSURLSessionDataTask *)getCollections:(BUYDataCollectionsBlock)block;
+
+/**
+ *  Fetches collections based off page
+ *
+ *  @param page  Index of the page requested
+ *  @param block (^BUYDataCollectionsBlock)(NSArray *collections, NSError *error)
+ *
+ *  @return The associated NSURLSessionDataTask
+ */
+- (NSURLSessionDataTask *)getCollectionsPage:(NSUInteger)page completion:(BUYDataCollectionsListBlock)block;
 
 /**
  *  Fetches the products in the given collection with the collection's 
