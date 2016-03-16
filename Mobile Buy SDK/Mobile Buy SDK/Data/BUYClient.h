@@ -176,10 +176,12 @@ typedef void (^BUYDataProductBlock)(BUYProduct *product, NSError *error);
 typedef void (^BUYDataProductsBlock)(NSArray<BUYProduct *> *products, NSError *error);
 
 /**
- *  Return block containing list of collections
+ *  Return block containing a list of BUYCollection objects
  *
  *  @param collections An array of BUYCollection objects
- *  @param error       Optional NSError
+ *  @param page        Index of the page requested
+ *  @param reachedEnd  Boolean indicating whether additional pages exist
+ *  @param error       An optional NSError
  */
 typedef void (^BUYDataCollectionsListBlock)(NSArray<BUYCollection *> *collections, NSUInteger page, BOOL reachedEnd, NSError *error);
 
