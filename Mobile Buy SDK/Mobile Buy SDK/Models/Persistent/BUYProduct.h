@@ -62,6 +62,11 @@
 @property (nonatomic, readonly, copy) NSString *productType;
 
 /**
+ * A publically accessible link to the product web page
+ */
+@property (nonatomic, strong) NSURL* publicURL;
+
+/**
  *  A list of BUYProductVariant objects, each one representing a slightly different version of the product.
  */
 @property (nonatomic, readonly, copy) NSArray<BUYProductVariant *> *variants;
