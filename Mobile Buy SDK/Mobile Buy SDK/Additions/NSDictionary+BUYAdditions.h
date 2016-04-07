@@ -1,5 +1,5 @@
 //
-//  NSString+Trim.m
+//  NSDictionary+BUYAdditions.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,13 +24,36 @@
 //  THE SOFTWARE.
 //
 
-#import "NSString+Trim.h"
+#import <Foundation/Foundation.h>
+#import "BUYSerializable.h"
+#import "NSArray+BUYAdditions.h"
 
-@implementation NSString (Trim)
+typedef NSString * (^BUYStringMap) (NSString *);
 
-- (NSString*)buy_trim
-{
-	return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-}
+@interface NSDictionary (BUYAdditions) <BUYSerializable>
+
+/**
+ * Return a new dictionary where the objects are used as keys, and vice versa.
+ */
+- (NSDictionary<NSString *, NSString *> *)buy_reverseDictionary;
+
+/**
+ * Return a new dictionary, replacing existing keys with new keys provided by the map block.
+ */
+- (NSDictionary *)buy_dictionaryByMappingKeysWithBlock:(BUYStringMap)map;
+
+/**
+ * Return a new dictionary, replacing existing values with new values provided by the map block.
+ */
+- (NSDictionary *)buy_dictionaryByMappingValuesWithBlock:(BUYObjectMap)map;
+
+/**
+ *  Alernative to objectForKey, where NSNull is replaced with nil
+ *
+ *  @param key The key for which to return the corresponding value.
+ *
+ *  @return The value associated with key
+ */
+- (id)buy_objectForKey:(NSString *)key;
 
 @end

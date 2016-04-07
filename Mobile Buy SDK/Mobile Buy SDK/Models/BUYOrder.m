@@ -26,7 +26,7 @@
 
 #import "BUYOrder.h"
 #import "NSURL+BUYAdditions.h"
-#import "NSDictionary+Additions.h"
+#import "NSDictionary+BUYAdditions.h"
 
 @interface BUYOrder ()
 

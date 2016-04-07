@@ -1,5 +1,5 @@
 //
-//  NSURL+BUYAdditions.h
+//  NSRegularExpression+BUYAdditions.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,17 +24,18 @@
 //  THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
+#import "NSRegularExpression+BUYAdditions.h"
 
-@interface NSURL (BUYAdditions)
+@implementation NSRegularExpression (BUYAdditions)
 
-/**
- *  Converts an NSString to a NSURL. Safe to pass in nil.
- *
- *  @param string The string to convert
- *
- *  @return An NSURL from an NSString
- */
-+ (NSURL *)buy_urlWithString:(NSString *)string;
+- (NSArray *)buy_matchesInString:(NSString *)string
+{
+	return [self matchesInString:string options:0 range:NSMakeRange(0, string.length)];
+}
+
+- (NSTextCheckingResult *)buy_firstMatchInString:(NSString *)string
+{
+	return [self firstMatchInString:string options:0 range:NSMakeRange(0, string.length)];
+}
 
 @end

@@ -1,5 +1,5 @@
 //
-//  NSURL+BUYAdditions.m
+//  NSArray+BUYAdditions.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,20 +24,46 @@
 //  THE SOFTWARE.
 //
 
-#import "NSURL+BUYAdditions.h"
+#import <Foundation/Foundation.h>
 
-@implementation NSURL (BUYAdditions)
+typedef id (^BUYObjectMap) (id);
 
-+ (NSURL *)buy_urlWithString:(NSString *)string
-{
-	NSURL *url = nil;
-	
-	if ([string isKindOfClass:[NSString class]]) {
-		url = [NSURL URLWithString:string];
-	}
-	
-	return url;
-}
+@interface NSArray (BUYAdditions)
 
+/**
+ * Return all but the first object.
+ */
+@property (nonatomic, readonly, getter=buy_tail) NSArray *tail;
+
+/**
+ * Return a copy of the array with objects in in reverse order.
+ */
+@property (nonatomic, readonly, getter=buy_reversedArray) NSArray *reversedArray;
+
+- (NSArray *)buy_map:(BUYObjectMap)block;
+
+@end
+
+@interface NSMutableArray (BUYAdditions)
+
+/**
+ * Reverse the order of the objects in place.
+ */
+- (void)buy_reverse;
+@end
+
+@interface NSObject (BUYModelArrayCreating)
+
+/**
+ * Returns an array form of the object.
+ * Collections are converted to an array. Other objects are wrapped in an array.
+ */
+- (NSArray *)buy_array;
+
+/**
+ * Returns an object initialized with the given array.
+ * Collections convert the array to themselves. Other objects unwrap the array.
+ */
++ (instancetype)buy_convertArray:(NSArray *)array;
 
 @end

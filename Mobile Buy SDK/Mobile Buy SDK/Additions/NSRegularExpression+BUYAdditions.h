@@ -1,6 +1,5 @@
 //
-//  NSDictionary+Additions.m
-//
+//  NSRegularExpression+BUYAdditions.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -25,13 +24,18 @@
 //  THE SOFTWARE.
 //
 
-#import "NSDictionary+Additions.h"
+#import <Foundation/Foundation.h>
 
-@implementation NSDictionary (Additions)
+@interface NSRegularExpression (BUYAdditions)
 
-- (id)buy_objectForKey:(NSString *)key
-{
-	return ([self[key] isKindOfClass:[NSNull class]]) ? nil : self[key];
-}
+/**
+ * Return an array of strings which match the receiver in the given string.
+ */
+- (NSArray *)buy_matchesInString:(NSString *)string;
+
+/**
+ * Return the first match which matches the receiver in the given string.
+ */
+- (NSTextCheckingResult *)buy_firstMatchInString:(NSString *)string;
 
 @end

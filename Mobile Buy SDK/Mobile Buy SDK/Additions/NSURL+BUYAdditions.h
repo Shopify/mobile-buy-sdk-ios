@@ -1,5 +1,5 @@
 //
-//  NSString+Trim.h
+//  NSURL+BUYAdditions.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,18 +24,25 @@
 //  THE SOFTWARE.
 //
 
-@import Foundation;
+#import <Foundation/Foundation.h>
+
+@interface NSURL (BUYAdditions)
 
 /**
- *  Convenience method for easier white space and newline character trimming
+ *  Converts an NSString to a NSURL. Safe to pass in nil.
+ *
+ *  @param string The string to convert
+ *
+ *  @return An NSURL from an NSString
  */
-@interface NSString (Trim)
++ (instancetype)buy_urlWithString:(NSString *)string;
+
 
 /**
-*  Equivalent to `[self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]`
-*
-*  @return NSString without white space and newline characters
-*/
-- (NSString*)buy_trim;
+ * Create an NSURL by updating the file name with the given suffix, preserving other URL properties.
+ *
+ * @return an NSURL object with the updated file name.
+ */
+- (instancetype)buy_URLByAppendingFileBaseNameSuffix:(NSString *)suffix;
 
 @end

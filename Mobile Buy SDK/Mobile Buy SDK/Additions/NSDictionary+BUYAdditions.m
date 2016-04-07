@@ -1,5 +1,5 @@
 //
-//  BUYDiscount.m
+//  NSDictionary+BUYAdditions.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,30 +24,43 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYDiscount.h"
-#import "NSDecimalNumber+BUYAdditions.h"
+#import "NSDictionary+BUYAdditions.h"
 #import "NSString+BUYAdditions.h"
 
-@implementation BUYDiscount
+@implementation NSDictionary (BUYAdditions)
 
-- (instancetype)initWithCode:(NSString *)code
+- (NSDictionary<NSString *, NSString *> *)buy_reverseDictionary
 {
-	return [super initWithDictionary:@{@"code": code ?: @""}];
+	return [NSDictionary dictionaryWithObjects:self.allKeys forKeys:self.allValues];
 }
 
-- (void)updateWithDictionary:(NSDictionary *)dictionary
+- (NSDictionary *)buy_dictionaryByMappingKeysWithBlock:(BUYStringMap)map
 {
-	[super updateWithDictionary:dictionary];
-	self.code = dictionary[@"code"];
-	self.amount = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"amount"]];
-	self.applicable = [dictionary[@"applicable"] boolValue];
+	NSMutableDictionary *result = [NSMutableDictionary dictionary];
+	[self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+		result[(map(key) ?: key)] = self[key];
+	}];
+	return result;
+}
+
+- (NSDictionary *)buy_dictionaryByMappingValuesWithBlock:(BUYObjectMap)map
+{
+	NSMutableDictionary *result = [NSMutableDictionary dictionary];
+	[self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+		id newValue = map(self[key]);
+		result[key] = newValue;
+	}];
+	return result;
+}
+
+- (id)buy_objectForKey:(NSString *)key
+{
+	return ([self[key] isKindOfClass:[NSNull class]]) ? nil : self[key];
 }
 
 - (NSDictionary *)jsonDictionaryForCheckout
 {
-	NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
-	json[@"code"] = [self.code buy_trim] ?: @"";
-	return json;
+	return self;
 }
 
 @end

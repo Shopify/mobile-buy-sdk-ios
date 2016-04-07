@@ -1,5 +1,5 @@
 //
-//  BUYDiscount.m
+//  NSException+BUYAdditions.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,30 +24,18 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYDiscount.h"
-#import "NSDecimalNumber+BUYAdditions.h"
-#import "NSString+BUYAdditions.h"
+#import <Foundation/Foundation.h>
 
-@implementation BUYDiscount
+/**
+ * A macro meant to be used with `@throw` to make it easier to raise the given exception type.
+ */
+#define BUYAbstractMethod() [NSException buy_abstractMethodExceptionForSelector:_cmd class:[self class]]
 
-- (instancetype)initWithCode:(NSString *)code
-{
-	return [super initWithDictionary:@{@"code": code ?: @""}];
-}
+@interface NSException (BUYAdditions)
 
-- (void)updateWithDictionary:(NSDictionary *)dictionary
-{
-	[super updateWithDictionary:dictionary];
-	self.code = dictionary[@"code"];
-	self.amount = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"amount"]];
-	self.applicable = [dictionary[@"applicable"] boolValue];
-}
-
-- (NSDictionary *)jsonDictionaryForCheckout
-{
-	NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
-	json[@"code"] = [self.code buy_trim] ?: @"";
-	return json;
-}
+/**
+ * Return an exception suitable for raising in a method that requires subclasses to override it.
+ */
++ (instancetype)buy_abstractMethodExceptionForSelector:(SEL)selector class:(Class)klass;
 
 @end
