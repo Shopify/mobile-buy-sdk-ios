@@ -27,7 +27,7 @@
 @import UIKit;
 @class BUYImageView;
 @class BUYTheme;
-@class BUYImage;
+@class BUYImageLink;
 
 /**
  *  A background for the product view that displays the currently displayed
@@ -49,6 +49,6 @@
  *
  *  @param image The currently displayed product or variant image
  */
-- (void)setBackgroundProductImage:(BUYImage *)image;
+- (void)setBackgroundProductImage:(BUYImageLink *)image;
 
 @end

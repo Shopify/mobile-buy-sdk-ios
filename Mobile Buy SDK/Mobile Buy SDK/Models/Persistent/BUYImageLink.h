@@ -1,5 +1,5 @@
 //
-//  BUYImage.m
+//  BUYImageLink.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,23 +24,41 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYImage.h"
-#import "NSDateFormatter+BUYAdditions.h"
+#import "BUYObject.h"
 
-@implementation BUYImage
+/**
+ *  Products are easier to sell if customers can see pictures of them, which is why there are product images.
+ */
+@interface BUYImageLink : BUYObject
 
-- (void)updateWithDictionary:(NSDictionary *)dictionary
-{
-	[super updateWithDictionary:dictionary];
-	
-	_src = [dictionary[@"src"] copy];
-	_variantIds = [dictionary[@"variant_ids"] copy];
-	_productId = [dictionary[@"product_id"] copy];
-	_position = [dictionary[@"position"] copy];
-	
-	NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForPublications];
-	_createdAtDate = [dateFormatter dateFromString:dictionary[@"created_at"]];
-	_updatedAtDate = [dateFormatter dateFromString:dictionary[@"updated_at"]];
-}
+/**
+ *  Specifies the location of the product image.
+ */
+@property (nonatomic, readonly, copy) NSString *src;
+
+/**
+ *  An array of variant ids associated with the image.
+ */
+@property (nonatomic, readonly, copy) NSArray<NSNumber *> *variantIds;
+
+/**
+ *  Creation date of the image
+ */
+@property (nonatomic, readonly, copy) NSDate *createdAtDate;
+
+/**
+ *  The date the image was last updated
+ */
+@property (nonatomic, readonly, copy) NSDate *updatedAtDate;
+
+/**
+ *  The position of the image for the product
+ */
+@property (nonatomic, readonly, copy) NSNumber *position;
+
+/**
+ *  The associated product ID for the image
+ */
+@property (nonatomic, readonly, copy) NSNumber *productId;
 
 @end

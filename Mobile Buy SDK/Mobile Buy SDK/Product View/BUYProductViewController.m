@@ -44,7 +44,7 @@
 #import "BUYVariantSelectionViewController.h"
 #import "BUYError.h"
 #import "BUYShop.h"
-#import "BUYImage.h"
+#import "BUYImageLink.h"
 
 CGFloat const BUYMaxProductViewWidth = 414.0; // We max out to the width of the iPhone 6+
 CGFloat const BUYMaxProductViewHeight = 640.0;
@@ -565,7 +565,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
 	BUYProductImageCollectionViewCell *cell = (BUYProductImageCollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-	BUYImage *image = self.product.images[indexPath.row];
+	BUYImageLink *image = self.product.images[indexPath.row];
 	NSURL *url = [NSURL URLWithString:image.src];
 	[cell.productImageView loadImageWithURL:url completion:NULL];
 	[cell setContentOffset:self.productView.tableView.contentOffset];

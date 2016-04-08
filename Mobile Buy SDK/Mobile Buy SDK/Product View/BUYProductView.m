@@ -32,7 +32,7 @@
 #import "BUYProductVariantCell.h"
 #import "BUYProductDescriptionCell.h"
 #import "BUYProductHeaderCell.h"
-#import "BUYImage.h"
+#import "BUYImageLink.h"
 #import "BUYImageView.h"
 #import "BUYProduct.h"
 #import "BUYProductViewErrorView.h"
@@ -225,7 +225,7 @@
 			page = (int)(self.productViewHeader.collectionView.contentOffset.x / self.productViewHeader.collectionView.frame.size.width);
 		}
 		[self.productViewHeader setCurrentPage:page];
-		BUYImage *image = images[page];
+		BUYImageLink *image = images[page];
 		[self.backgroundImageView setBackgroundProductImage:image];
 	}
 }

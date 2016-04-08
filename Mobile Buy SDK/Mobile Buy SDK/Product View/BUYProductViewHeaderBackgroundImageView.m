@@ -27,7 +27,7 @@
 #import "BUYProductViewHeaderBackgroundImageView.h"
 #import "BUYTheme.h"
 #import "BUYImageView.h"
-#import "BUYImage.h"
+#import "BUYImageLink.h"
 #import "BUYTheme+Additions.h"
 
 @interface BUYProductViewHeaderBackgroundImageView ()
@@ -86,7 +86,7 @@
 	return self;
 }
 
-- (void)setBackgroundProductImage:(BUYImage *)image
+- (void)setBackgroundProductImage:(BUYImageLink *)image
 {
 	NSString *string = [image.src stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@".%@", [image.src pathExtension]] withString:[NSString stringWithFormat:@"_small.%@", [image.src pathExtension]]];
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", string]];

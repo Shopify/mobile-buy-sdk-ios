@@ -30,7 +30,7 @@
 @class BUYProductViewFooter;
 @class BUYGradientView;
 @class BUYTheme;
-@class BUYImage;
+@class BUYImageLink;
 @class BUYProduct;
 
 /**

@@ -37,7 +37,7 @@
 #import "BUYCreditCard.h"
 #import "BUYDiscount.h"
 #import "BUYGiftCard.h"
-#import "BUYImage.h"
+#import "BUYImageLink.h"
 #import "BUYLineItem.h"
 #import "BUYMaskedCreditCard.h"
 #import "BUYOption.h"
