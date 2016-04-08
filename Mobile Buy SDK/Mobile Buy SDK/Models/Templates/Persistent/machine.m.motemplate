@@ -1,0 +1,176 @@
+//
+//  _<$managedObjectClassName$>.h
+//  Mobile Buy SDK
+//
+//  Created by Shopify.
+//  Copyright (c) 2015 Shopify Inc. All rights reserved.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
+// DO NOT EDIT. This file is machine-generated and constantly overwritten.
+// Make changes to <$managedObjectClassName$>.m instead.
+
+#import "_<$managedObjectClassName$>.h"
+
+<$if noninheritedAttributes.@count > 0$>
+const struct <$managedObjectClassName$>Attributes <$managedObjectClassName$>Attributes = {<$foreach Attribute noninheritedAttributes do$>
+	.<$Attribute.name$> = @"<$Attribute.name$>",<$endforeach do$>
+};
+<$endif$>
+
+<$if noninheritedRelationships.@count > 0$>
+const struct <$managedObjectClassName$>Relationships <$managedObjectClassName$>Relationships = {<$foreach Relationship noninheritedRelationships do$>
+	.<$Relationship.name$> = @"<$Relationship.name$>",<$endforeach do$>
+};
+<$endif$>
+
+<$if noninheritedFetchedProperties.@count > 0$>
+const struct <$managedObjectClassName$>FetchedProperties <$managedObjectClassName$>FetchedProperties = {<$foreach FetchedProperty noninheritedFetchedProperties do$>
+	.<$FetchedProperty.name$> = @"<$FetchedProperty.name$>",<$endforeach do$>
+};
+<$endif$>
+
+<$if hasUserInfoKeys$>
+const struct <$managedObjectClassName$>UserInfo <$managedObjectClassName$>UserInfo = {<$foreach UserInfo userInfoKeyValues do$>
+	.<$UserInfo.key$> = @"<$UserInfo.value$>",<$endforeach do$>
+};
+<$endif$>
+
+@implementation _<$managedObjectClassName$>
+
++ (NSString *)entityName {
+	return @"<$name$>";
+}
+
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
+	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
+	<$foreach Attribute noninheritedAttributes do$><$if Attribute.hasDefinedAttributeType$><$if Attribute.hasScalarAttributeType$>
+	if ([key isEqualToString:@"<$Attribute.name$>Value"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"<$Attribute.name$>"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}<$endif$><$endif$><$endforeach do$>
+
+	return keyPaths;
+}
+
+#if defined CORE_DATA_PERSISTENCE<$foreach Attribute noninheritedAttributes do$><$if Attribute.hasDefinedAttributeType$>
+- (<$Attribute.objectAttributeType$>)<$Attribute.name$> {
+    [self willAccessValueForKey:@"<$Attribute.name$>"];
+    id value = [self primitiveValueForKey:@"<$Attribute.name$>"];
+    [self didAccessValueForKey:@"<$Attribute.name$>"];
+    return value;
+}
+<$if ! Attribute.isReadonly$>
+- (void)set<$Attribute.name.initialCapitalString$>:(<$Attribute.objectAttributeType$>)value_ {
+    [self willChangeValueForKey:@"<$Attribute.name$>"];
+    [self setPrimitiveValue:value_ forKey:@"<$Attribute.name$>"];
+    [self didChangeValueForKey:@"<$Attribute.name$>"];
+}
+<$endif$><$endif$><$endforeach do$>
+#endif
+<$foreach Attribute noninheritedAttributes do$>
+<$if Attribute.hasDefinedAttributeType$>
+<$if Attribute.hasScalarAttributeType$>
+- (<$Attribute.scalarAttributeType$>)<$Attribute.name$>Value {
+	NSNumber *result = [self <$Attribute.name$>];
+	return [result <$Attribute.scalarAccessorMethodName$>];
+}
+
+<$if ! Attribute.isReadonly$>
+- (void)set<$Attribute.name.initialCapitalString$>Value:(<$Attribute.scalarAttributeType$>)value_ {
+	[self set<$Attribute.name.initialCapitalString$>:<$if TemplateVar.literals$>@(value_)<$else$>[NSNumber <$Attribute.scalarFactoryMethodName$>value_]<$endif$>];
+}
+<$endif$>
+<$endif$>
+<$endif$>
+<$endforeach do$>
+
+<$foreach Relationship noninheritedRelationships do$>
+#if defined CORE_DATA_PERSISTENCE
+@dynamic <$Relationship.name$>;
+#endif
+
+	<$if Relationship.isToMany$>
+- (<$Relationship.mutableCollectionClassName$> *)<$Relationship.name$>Set {
+	[self willAccessValueForKey:@"<$Relationship.name$>"];
+  <$if Relationship.jr_isOrdered$>
+	<$Relationship.mutableCollectionClassName$> *result = (<$Relationship.mutableCollectionClassName$> *)[self mutableOrderedSetValueForKey:@"<$Relationship.name$>"];
+  <$else$>
+	<$Relationship.mutableCollectionClassName$> *result = (<$Relationship.mutableCollectionClassName$> *)[self mutableSetValueForKey:@"<$Relationship.name$>"];
+  <$endif$>
+	[self didAccessValueForKey:@"<$Relationship.name$>"];
+	return result;
+}
+	<$endif$>
+<$endforeach do$>
+
+<$foreach FetchedProperty noninheritedFetchedProperties do$>
+@dynamic <$FetchedProperty.name$>;
+<$endforeach do$>
+<$if TemplateVar.frc$>
+#if TARGET_OS_IPHONE
+<$foreach Relationship noninheritedRelationships do$>
+<$if Relationship.isToMany$>
+- (NSFetchedResultsController *)new<$Relationship.name.initialCapitalString$>FetchedResultsControllerWithSortDescriptors:(NSArray *)sortDescriptors {
+	NSFetchRequest *fetchRequest = [NSFetchRequest new];
+	<$if !TemplateVar.arc$>[fetchRequest autorelease];<$endif$>
+	fetchRequest.entity = [NSEntityDescription entityForName:@"<$Relationship.destinationEntity.name$>" inManagedObjectContext:self.managedObjectContext];
+	fetchRequest.predicate = [NSPredicate predicateWithFormat:@"<$Relationship.inverseRelationship.name$> <$if Relationship.inverseRelationship.isToMany$>CONTAINS<$else$>==<$endif$> %@", self];
+	fetchRequest.sortDescriptors = sortDescriptors;
+	<$if indexedNoninheritedAttributes.@count > 0$>
+	NSArray *indexedIDs = [NSArray arrayWithObjects:<$foreach Attribute indexedNoninheritedAttributes do$>self.<$Attribute.name$>, <$endforeach do$>nil];
+	NSString *cacheName = [NSString stringWithFormat:@"mogenerator.<$managedObjectClassName$>.%@.<$Relationship.name$>.%@", indexedIDs, sortDescriptors];
+	<$endif$>
+	return [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+											   managedObjectContext:self.managedObjectContext
+												 sectionNameKeyPath:nil
+														  cacheName:<$if indexedNoninheritedAttributes.@count > 0$>cacheName<$else$>nil<$endif$>];
+}
+<$endif$>
+<$endforeach do$>
+#endif
+<$endif$>
+@end
+
+#pragma mark -
+
+@implementation BUYModelManager (<$managedObjectClassName$>Inserting)
+
+- (<$managedObjectClassName$> *)insert<$name$>WithJSONDictionary:(NSDictionary *)dictionary
+{
+    return (<$managedObjectClassName$> *)[self buy_objectWithEntityName:@"<$name$>" JSONDictionary:dictionary];
+}
+
+- (NSArray<<$managedObjectClassName$> *> *)insert<$name$>sWithJSONArray:(NSArray <NSDictionary *> *)array
+{
+    return (NSArray<<$managedObjectClassName$> *> *)[self buy_objectsWithEntityName:@"<$name$>" JSONArray:array];
+}
+
+- (NSArray<<$managedObjectClassName$> *> *)all<$name$>Objects
+{
+	return (NSArray<<$managedObjectClassName$> *> *)[self buy_objectsWithEntityName:@"<$name$>" identifiers:nil];
+}
+
+- (<$managedObjectClassName$> *)fetch<$name$>WithIdentifierValue:(int64_t)identifier
+{
+    return (<$managedObjectClassName$> *)[self buy_objectWithEntityName:@"<$name$>" identifier:@(identifier)];
+}
+
+@end
