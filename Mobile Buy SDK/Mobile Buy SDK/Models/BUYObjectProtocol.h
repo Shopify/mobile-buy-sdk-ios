@@ -25,6 +25,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
 @protocol BUYModelManager;
 
@@ -75,7 +76,7 @@
 /**
  * Use the values in the given dictionary to update properties.
  */
-- (void)updateWithJSONDictionary:(NSDictionary *)dictionary;
+- (void)updateWithDictionary:(NSDictionary *)dictionary;
 
 @optional
 

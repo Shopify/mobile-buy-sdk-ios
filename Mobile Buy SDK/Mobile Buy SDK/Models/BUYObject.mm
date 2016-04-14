@@ -25,37 +25,21 @@
 //
 
 #import "BUYObject.h"
+#import "BUYModelManagerProtocol.h"
+#import "BUYObserver.h"
 #import "BUYRuntime.h"
-#import <objc/runtime.h>
-#import <objc/message.h>
+#import "NSDictionary+BUYAdditions.h"
+#import "NSException+BUYAdditions.h"
+#import "NSEntityDescription+BUYAdditions.h"
 
-namespace shopify
-{
-	namespace mobilebuysdk
-	{
-		/**
-		 * Creates and returns a block that is used as the setter method for the persisted subclasses
-		 * The method implementation calls through to its superclasses implementation and then marks
-		 * the attribute as dirty.
-		 */
-		template <typename T>
-		id attribute_setter(NSString *propertyName, SEL selector)
-		{
-			id setterBlock = ^ void (id _self, T value) {
-				// we need to cast objc_msgSend so that the compiler inserts proper type information for the passed in value
-				// not doing so results in strange behaviour (for example, floats never get set)
-				void (*typed_objc_msgSend)(id, SEL, T) = (void (*)(id, SEL, T))objc_msgSend;
-				typed_objc_msgSend(_self, selector, value);
-				[_self markPropertyAsDirty:propertyName];
-			};
-			return setterBlock;
-		}
-	}
-}
+@interface BUYObject ()
+@property (nonatomic, readwrite, weak) id<BUYModelManager> modelManager;
+@property (nonatomic) BUYObserver *dirtyObserver;
+@end
 
-@implementation BUYObject {
-	NSMutableSet *_dirtyProperties;
-}
+@implementation BUYObject
+
+#pragma mark - Deprecated
 
 - (instancetype)init
 {
@@ -64,18 +48,7 @@ namespace shopify
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
-	self = [super init];
-	if (self) {
-		_dirtyProperties = [[NSMutableSet alloc] init];
-		[self updateWithDictionary:dictionary];
-		[self markAsClean];
-	}
-	return self;
-}
-
-- (void)updateWithDictionary:(NSDictionary *)dictionary
-{
-	_identifier = dictionary[@"id"];
+	return [self initWithModelManager:nil JSONDictionary:dictionary];
 }
 
 + (NSArray *)convertJSONArray:(NSArray*)json block:(void (^)(id obj))createdBlock
@@ -109,140 +82,22 @@ namespace shopify
 
 - (BOOL)isDirty
 {
-	return [_dirtyProperties count] > 0;
+	return [self.dirtyObserver hasChanges];
 }
 
 - (NSSet *)dirtyProperties
 {
-	return [NSSet setWithSet:_dirtyProperties];
+	return self.dirtyObserver.changedProperties;
 }
 
 - (void)markPropertyAsDirty:(NSString *)property
 {
-	[_dirtyProperties addObject:property];
+	[self.dirtyObserver markPropertyChanged:property];
 }
 
 - (void)markAsClean
 {
-	[_dirtyProperties removeAllObjects];
-}
-
-+ (id)setterBlockForSelector:(SEL)selector property:(NSString *)property typeEncoding:(const char *)typeEncoding
-{
-	id setterBlock;
-	switch (typeEncoding[0]) {
-		case '@': // object
-		{
-			setterBlock = shopify::mobilebuysdk::attribute_setter<id>(property, selector);
-			break;
-		}
-		case 'B': // C++ style bool/_Bool
-		{
-			setterBlock = shopify::mobilebuysdk::attribute_setter<bool>(property, selector);
-			break;
-		}
-		case 'c': // char
-		{
-			setterBlock = shopify::mobilebuysdk::attribute_setter<char>(property, selector);
-			break;
-		}
-		case 'C': // unsigned char
-		{
-			setterBlock = shopify::mobilebuysdk::attribute_setter<unsigned char>(property, selector);
-			break;
-		}
-		case 'i': // int
-		{
-			setterBlock = shopify::mobilebuysdk::attribute_setter<int>(property, selector);
-			break;
-		}
-		case 'I': // unsigned int
-		{
-			setterBlock = shopify::mobilebuysdk::attribute_setter<unsigned int>(property, selector);
-			break;
-		}
-		case 's': // short
-		{
-			setterBlock = shopify::mobilebuysdk::attribute_setter<short>(property, selector);
-			break;
-		}
-		case 'S': // unsigned short
-		{
-			setterBlock = shopify::mobilebuysdk::attribute_setter<unsigned short>(property, selector);
-			break;
-		}
-		case 'l': // long
-		{
-			setterBlock = shopify::mobilebuysdk::attribute_setter<long>(property, selector);
-			break;
-		}
-		case 'L': // unsigned long
-		{
-			setterBlock = shopify::mobilebuysdk::attribute_setter<unsigned long>(property, selector);
-			break;
-		}
-		case 'q': // long long
-		{
-			setterBlock = shopify::mobilebuysdk::attribute_setter<long long>(property, selector);
-			break;
-		}
-		case 'Q': // unsigned long long
-		{
-			setterBlock = shopify::mobilebuysdk::attribute_setter<unsigned long long>(property, selector);
-			break;
-		}
-		case 'f': // float
-		{
-			setterBlock = shopify::mobilebuysdk::attribute_setter<float>(property, selector);
-			break;
-		}
-		case 'd': // double
-		{
-			setterBlock = shopify::mobilebuysdk::attribute_setter<double>(property, selector);
-			break;
-		}
-	}
-	return setterBlock;
-}
-
-+ (void)wrapProperty:(NSString *)property
-{
-	SEL setter = NSSelectorFromString([NSString stringWithFormat:@"set%@:", [NSString stringWithFormat:@"%@%@",[[property substringToIndex:1] uppercaseString], [property substringFromIndex:1]]]);
-	
-	//Get the setter. don't worry about readonly properties as they're irrelevant for dirty tracking
-	if (setter && [self instancesRespondToSelector:setter]) {
-		Method setterMethod = class_getInstanceMethod(self, setter);
-		IMP setterImpl = method_getImplementation(setterMethod);
-		
-		NSMethodSignature *methodSignature = [self instanceMethodSignatureForSelector:setter];
-		if ([methodSignature numberOfArguments] == 3) {
-			const char *typeEncoding = [methodSignature getArgumentTypeAtIndex:2];
-			SEL newSetter = NSSelectorFromString([NSString stringWithFormat:@"buy_%@", NSStringFromSelector(setter)]);
-			
-			id setterBlock = [self setterBlockForSelector:newSetter property:property typeEncoding:typeEncoding];
-			
-			if (setterBlock) {
-				//Create 'buy_setX:' that uses the existing implementation
-				class_addMethod(self, newSetter, setterImpl, method_getTypeEncoding(setterMethod));
-				
-				//Create a new impmlementation
-				IMP newImpl = imp_implementationWithBlock(setterBlock);
-				
-				//Then attach that implementation to 'setX:'. This way calling 'setX:' calls our implementation, and 'buy_setX:' calls the original implementation.
-				class_replaceMethod(self, setter, newImpl, method_getTypeEncoding(setterMethod));
-			}
-		}
-	}
-}
-
-+ (void)trackDirtyProperties
-{
-	NSSet *properties = class_getBUYProperties(self);
-	for (NSString *property in properties) {
-		if ([property length] > 0) {
-			[self wrapProperty:property];
-		}
-	}
+	[self.dirtyObserver reset];
 }
 
 - (BOOL)isEqual:(id)object
@@ -260,6 +115,108 @@ namespace shopify
 {
 	NSUInteger hash = [self.identifier hash];
 	return hash;
+}
+
+- (void)trackDirtyProperties:(NSArray *)properties
+{
+	self.dirtyObserver = [BUYObserver observeProperties:properties ofObject:self];
+}
+
+#pragma mark - Dynamic JSON Serialization
+
++ (NSArray *)propertyNames
+{
+	static NSMutableDictionary *namesCache;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		namesCache = [NSMutableDictionary dictionary];
+	});
+	
+	NSString *className = NSStringFromClass(self);
+	NSArray *names = namesCache[className];
+	if (names == nil) {
+		NSMutableSet *allNames = [class_getBUYProperties(self) mutableCopy];
+		[allNames removeObject:NSStringFromSelector(@selector(dirtyObserver))];
+		names = [allNames allObjects];
+		namesCache[className] = names;
+	}
+	
+	return names;
+}
+
++ (NSEntityDescription *)entity
+{
+	@throw BUYAbstractMethod();
+}
+
++ (NSString *)entityName
+{
+	@throw BUYAbstractMethod();
+}
+
+- (NSDictionary *)JSONEncodedProperties
+{
+	return self.entity.JSONEncodedProperties;
+}
+
+- (instancetype)initWithModelManager:(id<BUYModelManager>)modelManager JSONDictionary:(NSDictionary *)dictionary
+{
+	self = [super init];
+	if (self) {
+		self.modelManager = modelManager;
+		[self updateWithDictionary:dictionary];
+		if ([[self class] tracksDirtyProperties]) {
+			[self trackDirtyProperties:[[self class] propertyNames]];
+		}
+	}
+	return self;
+}
+
+- (void)updateWithDictionary:(NSDictionary *)dictionary
+{
+	_identifier = dictionary[@"id"];
+	[self markAsClean];
+}
+
+- (NSDictionary *)jsonDictionaryForCheckout
+{
+	return self.JSONDictionary;
+}
+
++ (NSPredicate *)fetchPredicateWithJSON:(NSDictionary *)JSONDictionary
+{
+	return nil;
+}
+
++ (BOOL)isPersistentClass
+{
+	return NO;
+}
+
++ (BOOL)tracksDirtyProperties
+{
+	return NO;
+}
+
+- (NSEntityDescription *)entity
+{
+	return [self.modelManager buy_entityWithName:[[self class] entityName]];
+}
+
+- (NSDictionary *)JSONDictionary
+{
+	// JSON generation starts in `-buy_JSONForObject`.
+	// Both persistent and transient objects go through this interface.
+	return [self.entity buy_JSONForObject:self];
+}
+
+- (void)setJSONDictionary:(NSDictionary *)JSONDictionary
+{
+	// JSON parsing starts in `-buy_updateObject:withJSON:`.
+	// Both persistent and transient objects go through this interface.
+	if ([JSONDictionary count]) {
+		[self.entity buy_updateObject:self withJSON:JSONDictionary];
+	}
 }
 
 @end

@@ -28,13 +28,6 @@
 
 @implementation BUYShop
 
-+ (void)initialize
-{
-	if (self == [BUYShop class]) {
-		[self trackDirtyProperties];
-	}
-}
-
 - (void)updateWithDictionary:(NSDictionary *)dictionary
 {
 	[super updateWithDictionary:dictionary];

@@ -175,11 +175,9 @@
 
 @implementation BUYDirtyTracked
 
-+ (void)initialize
++ (BOOL)tracksDirtyProperties
 {
-	if (self == [BUYDirtyTracked class]) {
-		[self trackDirtyProperties];
-	}
+	return YES;
 }
 
 @end

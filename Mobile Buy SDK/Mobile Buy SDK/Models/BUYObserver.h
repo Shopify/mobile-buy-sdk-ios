@@ -1,5 +1,5 @@
 //
-//  Buy.h
+//  BUYObserver.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,45 +24,20 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
-//! Project version number for Buy.
-FOUNDATION_EXPORT double BuyVersionNumber;
+@interface BUYObserver : NSObject
 
-//! Project version string for Buy.
-FOUNDATION_EXPORT const unsigned char BuyVersionString[];
+@property (nonatomic, readonly) NSObject *object;
+@property (nonatomic, readonly) NSArray *observedProperties;
+@property (nonatomic, readonly) NSSet *changedProperties;
+@property (nonatomic, readonly) BOOL hasChanges;
 
-#import <Buy/BUYAddress.h>
-#import <Buy/BUYCart.h>
-#import <Buy/BUYCartLineItem.h>
-#import <Buy/BUYCheckout.h>
-#import <Buy/BUYCheckoutAttribute.h>
-#import <Buy/BUYCollection.h>
-#import <Buy/BUYCreditCard.h>
-#import <Buy/BUYDiscount.h>
-#import <Buy/BUYGiftCard.h>
-#import <Buy/BUYImageLink.h>
-#import <Buy/BUYLineItem.h>
-#import <Buy/BUYMaskedCreditCard.h>
-#import <Buy/BUYOption.h>
-#import <Buy/BUYOptionValue.h>
-#import <Buy/BUYOrder.h>
-#import <Buy/BUYProduct.h>
-#import <Buy/BUYProductVariant.h>
-#import <Buy/BUYShippingRate.h>
-#import <Buy/BUYShop.h>
-#import <Buy/BUYTaxLine.h>
+- (instancetype)init NS_UNAVAILABLE;
+- (void)markPropertyChanged:(NSString *)property;
+- (void)reset;
+- (void)cancel;
 
-#import <Buy/BUYApplePayAdditions.h>
-#import <Buy/BUYApplePayHelpers.h>
-#import <Buy/BUYClient.h>
-#import <Buy/BUYError.h>
-#import <Buy/BUYModelManagerProtocol.h>
-#import <Buy/BUYObjectProtocol.h>
-#import <Buy/BUYObserver.h>
++ (instancetype)observeProperties:(NSArray<NSString *> *)properties ofObject:(id)object;
 
-#import <Buy/BUYPaymentButton.h>
-#import <Buy/BUYProductViewController.h>
-#import <Buy/BUYStoreViewController.h>
-#import <Buy/BUYTheme.h>
-#import <Buy/BUYViewController.h>
+@end

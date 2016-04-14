@@ -53,6 +53,9 @@
 #import "BUYApplePayHelpers.h"
 #import "BUYClient.h"
 #import "BUYError.h"
+#import "BUYModelManagerProtocol.h"
+#import "BUYObjectProtocol.h"
+#import "BUYObserver.h"
 
 #import "BUYPaymentButton.h"
 #import "BUYProductViewController.h"
