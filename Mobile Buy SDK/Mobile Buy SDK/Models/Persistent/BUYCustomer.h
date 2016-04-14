@@ -1,5 +1,5 @@
 //
-//  Buy.h
+//  _BUYCustomer.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,44 +24,17 @@
 //  THE SOFTWARE.
 //
 
-/**
- *  Umbrella header used for Cocoapods
- */
+#import <Buy/_BUYCustomer.h>
 
-#import "BUYAddress.h"
-#import "BUYCart.h"
-#import "BUYCartLineItem.h"
-#import "BUYCheckout.h"
-#import "BUYCheckoutAttribute.h"
-#import "BUYCollection.h"
-#import "BUYCreditCard.h"
-#import "BUYDiscount.h"
-#import "BUYGiftCard.h"
-#import "BUYImageLink.h"
-#import "BUYLineItem.h"
-#import "BUYMaskedCreditCard.h"
-#import "BUYOption.h"
-#import "BUYOptionValue.h"
-#import "BUYOrder.h"
-#import "BUYProduct.h"
-#import "BUYProductVariant.h"
-#import "BUYShippingRate.h"
-#import "BUYShop.h"
-#import "BUYTaxLine.h"
+@interface BUYCustomer : _BUYCustomer {}
 
-#import "BUYApplePayAdditions.h"
-#import "BUYApplePayHelpers.h"
-#import "BUYClient.h"
-#import "BUYError.h"
-#import "BUYManagedObject.h"
-#import "BUYModelManager.h"
-#import "BUYModelManagerProtocol.h"
-#import "BUYObjectProtocol.h"
-#import "BUYObserver.h"
-#import "BUYShopifyErrorCodes.h"
+@property (nonatomic, readonly) NSSet *addresses;
+@property (readonly) NSString *fullName;
 
-#import "BUYPaymentButton.h"
-#import "BUYProductViewController.h"
-#import "BUYStoreViewController.h"
-#import "BUYTheme.h"
-#import "BUYViewController.h"
+@end
+
+@interface BUYModelManager (BUYCustomer)
+
+- (BUYCustomer *)customerWithJSONDictionary:(NSDictionary *)json;
+
+@end
