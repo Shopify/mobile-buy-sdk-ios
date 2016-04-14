@@ -1,5 +1,5 @@
 //
-//  Buy.h
+//  BUYModelManager.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,47 +24,35 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
-//! Project version number for Buy.
-FOUNDATION_EXPORT double BuyVersionNumber;
-
-//! Project version string for Buy.
-FOUNDATION_EXPORT const unsigned char BuyVersionString[];
-
-#import <Buy/BUYAddress.h>
-#import <Buy/BUYCart.h>
-#import <Buy/BUYCartLineItem.h>
-#import <Buy/BUYCheckout.h>
-#import <Buy/BUYCheckoutAttribute.h>
-#import <Buy/BUYCollection.h>
-#import <Buy/BUYCreditCard.h>
-#import <Buy/BUYDiscount.h>
-#import <Buy/BUYGiftCard.h>
-#import <Buy/BUYImageLink.h>
-#import <Buy/BUYLineItem.h>
-#import <Buy/BUYMaskedCreditCard.h>
-#import <Buy/BUYOption.h>
-#import <Buy/BUYOptionValue.h>
-#import <Buy/BUYOrder.h>
-#import <Buy/BUYProduct.h>
-#import <Buy/BUYProductVariant.h>
-#import <Buy/BUYShippingRate.h>
-#import <Buy/BUYShop.h>
-#import <Buy/BUYTaxLine.h>
-
-#import <Buy/BUYApplePayAdditions.h>
-#import <Buy/BUYApplePayHelpers.h>
-#import <Buy/BUYClient.h>
-#import <Buy/BUYError.h>
-#import <Buy/BUYManagedObject.h>
-#import <Buy/BUYModelManager.h>
+#import <Buy/BUYObject.h>
 #import <Buy/BUYModelManagerProtocol.h>
-#import <Buy/BUYObjectProtocol.h>
-#import <Buy/BUYObserver.h>
 
-#import <Buy/BUYPaymentButton.h>
-#import <Buy/BUYProductViewController.h>
-#import <Buy/BUYStoreViewController.h>
-#import <Buy/BUYTheme.h>
-#import <Buy/BUYViewController.h>
+/**
+ * A basic implementation of the BUYModelManager interface that does no caching. New objects are created using alloc/init.
+ * Provides empty implementations of all the caching methods.
+ */
+@interface BUYModelManager : NSObject<BUYModelManager>
+
+/**
+ * The managed object model describes all the model entities. See the Core Data documentation for more details.
+ */
+@property (nonatomic, strong, readonly) NSManagedObjectModel *model;
+
+- (instancetype)init NS_UNAVAILABLE;
+
+/**
+ *
+ *  @param model The Core Data managed object model for your given model. Should be the Buy model.
+ *
+ *  @return A new model manager object.
+ */
+- (instancetype)initWithModel:(NSManagedObjectModel *)model NS_DESIGNATED_INITIALIZER;
+
+/**
+ * Convenience initializer. Instantiates a model using the -mergedModelFromBundles: method and the Buy.framework as the bundle.
+ */
++ (instancetype)modelManager;
+
+@end
