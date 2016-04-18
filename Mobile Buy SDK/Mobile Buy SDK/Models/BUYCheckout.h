@@ -237,7 +237,7 @@
 /**
  *  Customer ID associated with the checkout
  */
-@property (nonatomic, copy, readonly) NSString *customerId;
+@property (nonatomic, copy, readonly) NSNumber *customerId;
 
 /**
  *  An optional note attached to the order
