@@ -74,11 +74,6 @@
  */
 + (BOOL)tracksDirtyProperties;
 
-/**
- * Use the values in the given dictionary to update properties.
- */
-- (void)updateWithDictionary:(NSDictionary *)dictionary;
-
 @optional
 
 - (instancetype)initWithModelManager:(id<BUYModelManager>)modelManager JSONDictionary:(NSDictionary *)dictionary;

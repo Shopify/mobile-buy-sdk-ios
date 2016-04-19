@@ -1,5 +1,5 @@
 //
-//  BUYOrder.m
+//  _BUYOrder.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -25,24 +25,53 @@
 //
 
 #import "BUYOrder.h"
-#import "NSURL+BUYAdditions.h"
-#import "NSDictionary+BUYAdditions.h"
-
-@interface BUYOrder ()
-
-@property (nonatomic, strong) NSURL *statusURL;
-@property (nonatomic, strong) NSString *name;
-
-@end
+#import "BUYLineItem.h"
 
 @implementation BUYOrder
 
-- (void)updateWithDictionary:(NSDictionary *)dictionary
+- (NSArray *)formatIDsForLineItemsJSON:(NSArray<NSDictionary *> *)lineItems
 {
-	[super updateWithDictionary:dictionary];
-	NSString *statusURLString = dictionary[@"status_url"];
-	self.statusURL = [NSURL buy_urlWithString:statusURLString];
-	self.name = [dictionary buy_objectForKey:@"name"];
+	__block NSMutableArray<NSDictionary *> *mutableLineItems = [NSMutableArray array];
+	[lineItems enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull lineItem, NSUInteger idx, BOOL * _Nonnull stop) {
+		NSNumber *identifier = lineItem[@"id"];
+		NSMutableDictionary *mutableLineItem = [lineItem mutableCopy];
+		if ([identifier isKindOfClass:[NSNumber class]]) {
+			mutableLineItem[@"id"] = identifier.stringValue;
+		}
+		[mutableLineItems addObject:mutableLineItem];
+	}];
+	return mutableLineItems;
+}
+
+- (void)setJSONDictionary:(NSDictionary *)JSONDictionary
+{
+	// TODO: Have API return string IDs for line items instead of numbers
+	NSArray *fulfilledLineItemsJSON = [self formatIDsForLineItemsJSON:JSONDictionary[@"fulfilled_line_items"]];
+	NSArray *unFulfilledLineItemsJSON = [self formatIDsForLineItemsJSON:JSONDictionary[@"unfulfilled_line_items"]];
+	
+	[super setJSONDictionary:JSONDictionary];
+	
+	// Required if core data is not being used
+	if (!self.lineItems) {
+		self.lineItems = [NSOrderedSet orderedSet];
+	}
+	
+	NSArray *fulfilledLineItems = [self.modelManager buy_objectsWithEntityName:[BUYLineItem entityName] JSONArray:fulfilledLineItemsJSON];
+	[fulfilledLineItems makeObjectsPerformSelector:@selector(setFulfilled:) withObject:@YES];
+	NSArray *unfulfilledLineItems = [self.modelManager buy_objectsWithEntityName:[BUYLineItem entityName] JSONArray:unFulfilledLineItemsJSON];
+	
+	[self.lineItemsSet addObjectsFromArray:fulfilledLineItems];
+	[self.lineItemsSet addObjectsFromArray:unfulfilledLineItems];
+}
+
+@end
+
+@implementation BUYModelManager (BUYOrder)
+
+- (NSArray<BUYOrder *> *)ordersWithJSONDictionary:(NSDictionary *)json
+{
+	NSArray *orders = [json objectForKey:@"orders"];
+	return (id)[self buy_objectsWithEntityName:[BUYOrder entityName] JSONArray:orders];
 }
 
 @end

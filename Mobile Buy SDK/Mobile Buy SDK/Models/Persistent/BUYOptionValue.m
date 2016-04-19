@@ -1,5 +1,5 @@
 //
-//  BUYOptionValue.m
+//  _BUYOptionValue.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -28,37 +28,22 @@
 
 @implementation BUYOptionValue
 
-- (void)updateWithDictionary:(NSDictionary *)dictionary
+- (BOOL)isEqualToOptionValue:(BUYOptionValue *)other
 {
-	[super updateWithDictionary:dictionary];
-	
-	_name = [dictionary[@"name"] copy];
-	_value = [dictionary[@"value"] copy];
-	_optionId = [dictionary[@"option_id"] copy];
+	return [other isKindOfClass:[self class]] && [self.name isEqual:other.name] && [self.optionId isEqual:other.optionId];
 }
 
+#if !defined CORE_DATA_PERSISTENCE
 - (BOOL)isEqual:(id)object
 {
-	BOOL same = NO;
-	
-	if (self == object) {
-		same = YES;
-	}
-	else if ([object isKindOfClass:self.class]) {
-	
-		BUYOptionValue *optionValue = (BUYOptionValue *)object;
-		same = ([self.optionId isEqualToNumber:optionValue.optionId] &&
-					 [self.value isEqualToString:optionValue.value]);
-	}
-	
-	return same;
+	return [super isEqual:object] || [self isEqualToOptionValue:object];
 }
 
 - (NSUInteger)hash
 {
-	NSUInteger hash = [self.value hash];
-	hash ^= [self.optionId hash];
-	return hash;
+	NSUInteger hash = self.name.hash;
+	return ((hash << 5) + hash) + self.optionId.hash;
 }
+#endif
 
 @end

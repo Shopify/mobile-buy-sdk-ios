@@ -68,3 +68,16 @@ FOUNDATION_EXPORT const unsigned char BuyVersionString[];
 #import <Buy/BUYStoreViewController.h>
 #import <Buy/BUYTheme.h>
 #import <Buy/BUYViewController.h>
+
+#import <Buy/NSArray+BUYAdditions.h>
+#import <Buy/NSDateFormatter+BUYAdditions.h>
+#import <Buy/NSDecimalNumber+BUYAdditions.h>
+#import <Buy/NSDictionary+BUYAdditions.h>
+#import <Buy/NSDictionary+BUYAdditions.h>
+#import <Buy/NSEntityDescription+BUYAdditions.h>
+#import <Buy/NSException+BUYAdditions.h>
+#import <Buy/NSPropertyDescription+BUYAdditions.h>
+#import <Buy/NSRegularExpression+BUYAdditions.h>
+#import <Buy/NSString+BUYAdditions.h>
+#import <Buy/NSURL+BUYAdditions.h>
+#import <Buy/NSURLComponents+BUYAdditions.h>

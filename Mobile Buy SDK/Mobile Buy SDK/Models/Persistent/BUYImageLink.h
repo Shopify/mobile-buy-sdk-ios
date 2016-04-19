@@ -1,5 +1,5 @@
 //
-//  BUYImageLink.h
+//  _BUYImageLink.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,41 +24,64 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYObject.h"
+#import <Buy/_BUYImageLink.h>
 
-/**
- *  Products are easier to sell if customers can see pictures of them, which is why there are product images.
- */
-@interface BUYImageLink : BUYObject
+@import UIKit;
 
-/**
- *  Specifies the location of the product image.
- */
-@property (nonatomic, readonly, copy) NSString *src;
+// Defines for common maximum image sizes
+typedef NS_ENUM(NSUInteger, BUYImageURLSize) {
+	BUYImageURLSize100x100,
+	BUYImageURLSize160x160,
+	BUYImageURLSize240x240,
+	BUYImageURLSize480x480,
+	BUYImageURLSize600x600,
+	BUYImageURLSize1024x1024,
+	BUYImageURLSize2048x2048
+};
 
-/**
- *  An array of variant ids associated with the image.
- */
-@property (nonatomic, readonly, copy) NSArray<NSNumber *> *variantIds;
+@interface BUYImageLink : _BUYImageLink {}
 
-/**
- *  Creation date of the image
- */
 @property (nonatomic, readonly, copy) NSDate *createdAtDate;
-
-/**
- *  The date the image was last updated
- */
 @property (nonatomic, readonly, copy) NSDate *updatedAtDate;
 
-/**
- *  The position of the image for the product
- */
-@property (nonatomic, readonly, copy) NSNumber *position;
+@property (nonatomic, readonly) NSString *src NS_DEPRECATED_IOS(8_0, 9_0);
+
+@end
+
+
+@interface BUYImageLink (BUYImageSizing)
 
 /**
- *  The associated product ID for the image
+ *  Generates a link to the image with the specified size
+ *
+ *  @param size desired maximum size of the image
+ *
+ *  @return NSURL to the image resourse
  */
-@property (nonatomic, readonly, copy) NSNumber *productId;
+- (NSURL *)imageURLWithSize:(BUYImageURLSize)size;
+
+@end
+
+@interface NSURL (BUYImageSizing)
+
+/**
+ *  Generates a link to the image with the specified size
+ *
+ *  @param size desired maximum size of the image
+ *
+ *  @return NSURL to the image resourse
+ */
+- (instancetype)buy_imageURLWithSize:(BUYImageURLSize)size;
+
+@end
+
+@interface UIView (BUYImageSizing)
+
+/**
+ *  Determines the optimal size for the image for the given view
+ *
+ *  @return the size enum value
+ */
+- (BUYImageURLSize)buy_imageSize;
 
 @end

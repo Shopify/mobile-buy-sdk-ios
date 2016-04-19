@@ -1,5 +1,5 @@
 //
-//  BUYCart.h
+//  _BUYCart.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,25 +24,11 @@
 //  THE SOFTWARE.
 //
 
-@import Foundation;
-#import "BUYSerializable.h"
+#import "_BUYCart.h"
 
-@class BUYLineItem;
-@class BUYCartLineItem;
 @class BUYProductVariant;
 
-/**
- *  The BUYCart is the starting point for the Checkout API. You are responsible for building a cart, then transforming it
- *  into a BUYCheckout using the BUYDataClient.
- */
-@interface BUYCart : NSObject <BUYSerializable>
-
-/**
- *  Array of BUYCartLineItem objects in the cart
- *  Note: These are different from BUYLineItem objects in that
- *  the line item objects do include the BUYProductVariant.
- */
-@property (nonatomic, strong, readonly, nonnull) NSArray<BUYCartLineItem *> *lineItems;
+@interface BUYCart : _BUYCart {}
 
 /**
  *  Returns true if the cart is acceptable to send to Shopify.

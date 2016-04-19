@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10158" systemVersion="15D21" minimumToolsVersion="Xcode 7.0">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
     <entity name="Address" representedClassName="BUYAddress" syncable="YES">
         <attribute name="address1" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
@@ -255,6 +255,7 @@
                 <entry key="documentation" value="The URL Scheme of the host app."/>
             </userInfo>
         </attribute>
+        <relationship name="attributes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CheckoutAttribute" inverseName="checkout" inverseEntity="CheckoutAttribute" syncable="YES"/>
         <relationship name="billingAddress" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Address" syncable="YES"/>
         <relationship name="creditCard" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MaskedCreditCard" inverseName="checkout" inverseEntity="MaskedCreditCard" syncable="YES">
             <userInfo>
@@ -299,6 +300,18 @@
             <entry key="documentation" value="The checkout object. This is the main object that you will interact with when creating orders on Shopify."/>
         </userInfo>
     </entity>
+    <entity name="CheckoutAttribute" representedClassName="BUYCheckoutAttribute" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The attribute value."/>
+            </userInfo>
+        </attribute>
+        <relationship name="checkout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Checkout" inverseName="attributes" inverseEntity="Checkout" syncable="YES"/>
+        <userInfo>
+            <entry key="documentation" value="The attribute name."/>
+        </userInfo>
+    </entity>
     <entity name="Collection" representedClassName="BUYCollection" syncable="YES">
         <attribute name="collectionId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES">
             <userInfo>
@@ -327,7 +340,6 @@
         <attribute name="publishedAt" optional="YES" attributeType="Date" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="The publish date for the collection."/>
-                <entry key="JSONValueTransformer" value="BUYPublicationsDate"/>
             </userInfo>
         </attribute>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES">
@@ -704,7 +716,6 @@
         <attribute name="publishedAt" optional="YES" attributeType="Date" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="The publish date for a product."/>
-                <entry key="JSONValueTransformer" value="BUYPublicationsDate"/>
             </userInfo>
         </attribute>
         <attribute name="tags" optional="YES" attributeType="Transformable" syncable="YES">
@@ -972,12 +983,14 @@
         <memberEntity name="TaxLine"/>
         <memberEntity name="ShippingRate"/>
         <memberEntity name="Address"/>
+        <memberEntity name="CheckoutAttribute"/>
     </configuration>
     <elements>
         <element name="Address" positionX="126" positionY="521" width="128" height="225"/>
         <element name="Cart" positionX="-576" positionY="558" width="128" height="60"/>
         <element name="CartLineItem" positionX="-380" positionY="558" width="128" height="90"/>
-        <element name="Checkout" positionX="333" positionY="442" width="128" height="630"/>
+        <element name="Checkout" positionX="333" positionY="442" width="128" height="645"/>
+        <element name="CheckoutAttribute" positionX="-954" positionY="594" width="128" height="90"/>
         <element name="Collection" positionX="-963" positionY="772" width="128" height="210"/>
         <element name="Customer" positionX="106" positionY="1263" width="128" height="60"/>
         <element name="Discount" positionX="126" positionY="877" width="128" height="105"/>

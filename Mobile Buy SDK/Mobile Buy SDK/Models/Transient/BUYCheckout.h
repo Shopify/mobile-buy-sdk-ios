@@ -1,5 +1,5 @@
 //
-//  BUYCheckout.h
+//  _BUYCheckout.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,275 +24,36 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYObject.h"
-#import "BUYSerializable.h"
+#import <Buy/_BUYCheckout.h>
+#import <Buy/_BUYProductVariant.h>
+#import <Buy/BUYModelManager.h>
 
-@class BUYAddress;
-@class BUYCart;
-@class BUYCreditCard;
-@class BUYDiscount;
-@class BUYMaskedCreditCard;
-@class BUYOrder;
-@class BUYShippingRate;
-@class BUYTaxLine;
-@class BUYLineItem;
-@class BUYGiftCard;
-@class BUYCheckoutAttribute;
+@class BUYCart, BUYCartLineItem, BUYAddress, BUYGiftCard;
 
-/**
- *  The checkout object. This is the main object that you will interact with when creating orders on Shopify.
- *
- *  Note: Do not create a BUYCheckout object directly. Use initWithCart: to transform a BUYCart into a BUYCheckout.
- */
-@interface BUYCheckout : BUYObject <BUYSerializable>
+@interface BUYCheckout : _BUYCheckout {}
 
-/**
- *  The customer's email address
- */
-@property (nonatomic, copy) NSString *email;
+@property (nonatomic, copy) NSNumber *taxesIncluded;
+@property (nonatomic, readonly, copy) NSDate *createdAtDate;
+@property (nonatomic, readonly, copy) NSDate *updatedAtDate;
+@property (nonatomic, readonly, copy) NSDictionary *attributesDictionary;
 
-/**
- *  Unique token for the checkout on Shopify
- */
-@property (nonatomic, copy, readonly) NSString *token;
+@property (nonatomic) BOOL hasToken;
 
-/**
- *  Unique token for a cart which can be used to convert to a checkout
- */
-@property (nonatomic, copy, readonly) NSString *cartToken;
+- (instancetype)initWithCart:(BUYCart *)cart NS_DEPRECATED_IOS(8_0, 9_0, "Use `BUYModelManager` to create new instances of model objects instead");
+- (instancetype)initWithCartToken:(NSString *)token NS_DEPRECATED_IOS(8_0, 9_0, "Use `BUYModelManager` to create new instances of model objects instead");;
 
-/**
- *  States whether or not the fulfillment requires shipping
- */
-@property (nonatomic, assign, readonly) BOOL requiresShipping;
+- (void)updateWithCart:(BUYCart *)cart;
 
-/**
- *  States whether or not the taxes are included in the price
- */
-@property (nonatomic, assign, readonly) BOOL taxesIncluded;
+- (BUYGiftCard *)giftCardWithIdentifier:(NSNumber *)identifier;
+- (void)removeGiftCardWithIdentifier:(NSNumber *)identifier;
 
-/**
- *  The three letter code (ISO 4217) for the currency used for the payment
- */
-@property (nonatomic, copy, readonly) NSString *currency;
+@end
 
-/**
- *  Price of the order before shipping and taxes
- */
-@property (nonatomic, strong, readonly) NSDecimalNumber *subtotalPrice;
+@interface BUYModelManager (BUYCheckoutCreating)
 
-/**
- *  The sum of all the taxes applied to the line items in the order
- */
-@property (nonatomic, strong, readonly) NSDecimalNumber *totalTax;
-
-/**
- *  The sum of all the prices of all the items in the order, taxes and discounts included
- */
-@property (nonatomic, strong, readonly) NSDecimalNumber *totalPrice;
-
-/**
- *  The Payment Session ID associated with a credit card transaction
- */
-@property (nonatomic, strong, readonly) NSString *paymentSessionId;
-
-/**
- *  URL to the payment gateway
- */
-@property (nonatomic, strong, readonly) NSURL *paymentURL;
-
-/**
- *  Reservation time on the checkout in seconds. Setting to @0 and updating the checkout 
- *  will release inventory reserved by the checkout (when product inventory is not infinite).
- *
- *  300 seconds is default and maximum. `reservationTime` is reset to @300 on every
- *  `updateCheckout:completion:` call.
- *
- *  Note: This can also be done with `removeProductReservationsFromCheckout:completion` 
- *  found in the BUYClient.
- */
-@property (nonatomic, strong) NSNumber *reservationTime;
-
-/**
- *  Reservation time remaining on the checkout in seconds
- */
-@property (nonatomic, strong, readonly) NSNumber *reservationTimeLeft;
-
-/**
- *  Amount of payment due on the checkout
- */
-@property (nonatomic, strong, readonly) NSDecimalNumber *paymentDue;
-
-/**
- *  Array of BUYLineItem objects in the checkout
- *  Note: These are different from BUYCartLineItems in that the line item
- *  objects do not include the BUYProductVariant
- */
-@property (nonatomic, readonly, copy) NSArray<__kindof BUYLineItem *> *lineItems;
-
-/**
- *  Array of tax line objects on the checkout
- */
-@property (nonatomic, readonly, copy) NSArray<BUYTaxLine *> *taxLines;
-/**
- *  The mailing address associated with the payment method
- */
-@property (nonatomic, strong) BUYAddress *billingAddress;
-
-/**
- *  The mailing address to where the order will be shipped
- */
-@property (nonatomic, strong) BUYAddress *shippingAddress;
-
-/**
- *  The shipping rate chosen for the checkout
- */
-@property (nonatomic, strong) BUYShippingRate *shippingRate;
-
-/**
-*  Shipping rate identifier
-*/
-@property (nonatomic, readonly) NSString *shippingRateId DEPRECATED_MSG_ATTRIBUTE("Use shippingRate.shippingRateIdentifier");
-
-/**
- *  A discount added to the checkout
- *  Only one discount can be added to a checkout. Call `updateCheckout:completion:`
- *  after adding a discount to apply the discount code to the checkout.
- */
-@property (nonatomic, strong) BUYDiscount *discount;
-
-/**
- *  An array of BUYGiftCard objects applied to the checkout
- */
-@property (nonatomic, strong, readonly) NSArray<BUYGiftCard *> *giftCards;
-
-/**
- *  Attributions for the checkout, containing the application name and platform (defaults to applicationName set 
- *  on the BUYClient, and "iOS" respectively
- */
-@property (nonatomic, strong) NSDictionary *marketingAttribution;
-
-/**
- *  URL which is used for completing checkout.  It is recommended to open the URL in Safari to take
- *  advantage of its autocompletion and credit card capture capabilities
- */
-@property (nonatomic, strong, readonly) NSURL *webCheckoutURL;
-
-/**
- *  The URL Scheme of the host app.  Used to return to the app from the web checkout
- */
-@property (nonatomic, strong) NSString *webReturnToURL;
-
-/**
- *  The button title that will appear after checkout to return to the host app.  Defaults to "Return to 'application'", 
- *  where 'application' is the `applicationName` set on the BUYClient
- */
-@property (nonatomic, strong) NSString *webReturnToLabel;
-
-/**
- *  Creation date of the checkout
- */
-@property (nonatomic, copy, readonly) NSDate *createdAtDate;
-
-/**
- *  Last updated date for the checkout
- */
-@property (nonatomic, copy, readonly) NSDate *updatedAtDate;
-
-/**
- *  The website URL for the privacy policy for the checkout
- */
-@property (nonatomic, strong, readonly) NSURL *privacyPolicyURL;
-
-/**
- *  The website URL for the refund policy for the checkout
- */
-@property (nonatomic, strong, readonly) NSURL *refundPolicyURL;
-
-/**
- *  The website URL for the terms of service for the checkout
- */
-@property (nonatomic, strong, readonly) NSURL *termsOfServiceURL;
-
-/**
- *  The name of the source of the checkout: "mobile_app"
- */
-@property (nonatomic, copy, readonly) NSString *sourceName;
-
-/**
- *  Credit card stored on the checkout
- */
-@property (nonatomic, strong, readonly) BUYMaskedCreditCard *creditCard;
-
-/**
- *  Customer ID associated with the checkout
- */
-@property (nonatomic, copy, readonly) NSString *customerId;
-
-/**
- *  An optional note attached to the order
- */
-@property (nonatomic, copy) NSString *note;
-
-/**
- *  Extra information that is added to the order
- */
-@property (nonatomic, copy) NSArray <BUYCheckoutAttribute *> *attributes;
-
-/**
- *  The BUYOrder for a completed checkout
- */
-@property (nonatomic, strong, readonly) BUYOrder *order;
-
-/**
- *  Flag used to inform server that the shipping address is partially filled, suitable to retrieve shipping rates
- *  with partial shipping addresses provided by PKPaymentAuthorizationViewController.
- *  Note: This should only ever be set to YES. Setting it to NO throws an exception.
- */
-@property (nonatomic, assign) BOOL partialAddresses;
-
-/**
- *  It is recommended to instantiate a checkout with a cart, or cart token
- *
- *  @return Checkout
- */
-- (instancetype)init NS_UNAVAILABLE;
-
-/**
- *  Creates a new checkout
- *
- *  @param cart a Cart with line items on it
- *
- *  @return a checkout object
- */
-- (instancetype)initWithCart:(BUYCart *)cart;
-
-/**
- *  Creates a new checkout
- *
- *  @param cartToken a token for a previously created cart
- *
- *  @return a checkout object
- */
-- (instancetype)initWithCartToken:(NSString *)cartToken;
-
-/**
- *  Helper method to determine if there is a valid token on the checkout
- *
- *  @return YES if the token is valid
- */
-- (BOOL)hasToken;
-
-#pragma mark - Deprecated properties
-
-/**
- *  The unique order ID
- */
-@property (nonatomic, copy, readonly) NSNumber *orderId DEPRECATED_MSG_ATTRIBUTE("Available on the BUYOrder object");
-
-/**
- *  URL for the website showing the order status
- */
-@property (nonatomic, strong, readonly) NSURL *orderStatusURL DEPRECATED_MSG_ATTRIBUTE("Available on the BUYOrder object");
+- (BUYCheckout *)checkout;
+- (BUYCheckout *)checkoutWithCart:(BUYCart *)cart;
+- (BUYCheckout *)checkoutWithVariant:(BUYProductVariant *)productVariant;
+- (BUYCheckout *)checkoutwithCartToken:(NSString *)token;
 
 @end

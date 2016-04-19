@@ -1,5 +1,5 @@
 //
-//  BUYAddress.h
+//  _BUYAddress.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,72 +24,26 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYObject.h"
-#import "BUYSerializable.h"
+#import <Buy/_BUYAddress.h>
+
+@interface BUYAddress : _BUYAddress {}
 
 /**
- *  A BUYAddress represents a shipping or billing address on an order. This will be associated with the customer upon completion.
+ *  Check if the address does not include first and last name
+ *  and address1 field. This is used to determine whether a
+ *  placeholder was set for shipping rates calculations in Apple Pay.
+ *
+ *  @return True if first name, last name or address1 contain placeholders
  */
-@interface BUYAddress : BUYObject <BUYSerializable>
+- (BOOL)isPartialAddress;
 
 /**
- *  The street address of the address.
+ *  Local validation to check that the minimum set of properties required
+ *  to calculate shipping rates are available.
+ *
+ *  @return True if city, zip/postal code, province/state and country or
+ *  country code are set.
  */
-@property (nonatomic, copy) NSString *address1;
-
-/**
- *  An optional additional field for the street address of the address.
- */
-@property (nonatomic, copy) NSString *address2;
-
-/**
- *   The city of the address.
- */
-@property (nonatomic, copy) NSString *city;
-
-/**
- *  The company of the person associated with the address (optional).
- */
-@property (nonatomic, copy) NSString *company;
-
-/**
- *  The first name of the person associated with the payment method.
- */
-@property (nonatomic, copy) NSString *firstName;
-
-/**
- *  The last name of the person associated with the payment method.
- */
-@property (nonatomic, copy) NSString *lastName;
-
-/**
- *  The phone number at the address.
- */
-@property (nonatomic, copy) NSString *phone;
-
-/**
- *  The name of the country of the address.
- */
-@property (nonatomic, copy) NSString *country;
-
-/**
- *  The two-letter code (ISO 3166-1 alpha-2 two-letter country code) for the country of the address.
- */
-@property (nonatomic, copy) NSString *countryCode;
-
-/**
- *  The name of the state or province of the address
- */
-@property (nonatomic, copy) NSString *province;
-
-/**
- *  The two-letter abbreviation of the state or province of the address.
- */
-@property (nonatomic, copy) NSString *provinceCode;
-
-/**
- *  The zip or postal code of the address.
- */
-@property (nonatomic, copy) NSString *zip;
+- (BOOL)isValidAddressForShippingRates;
 
 @end

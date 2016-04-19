@@ -39,7 +39,6 @@ extern NSString * const BUYJSONPropertyKeyUserInfoKey;      // = @"JSONPropertyK
  * The name of a value transformer used to convert to JSON values and back.
  * Uses the value specified in the property's user info dictionary under the "JSONValueTransformer" key.
  *
- * Currently only two transformers are supported: "BUYPublicationsDate" and "BUYShippingRateDate".
  * Currently, only attributes (instances of NSAttributeDescription) use value transformers.
  */
 @property (nonatomic, readonly, getter=buy_JSONValueTransformerName) NSString *JSONValueTransformerName;

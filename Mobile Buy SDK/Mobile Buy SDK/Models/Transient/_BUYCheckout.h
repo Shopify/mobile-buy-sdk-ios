@@ -64,6 +64,7 @@ extern const struct BUYCheckoutAttributes {
 } BUYCheckoutAttributes;
 
 extern const struct BUYCheckoutRelationships {
+	__unsafe_unretained NSString *attributes;
 	__unsafe_unretained NSString *billingAddress;
 	__unsafe_unretained NSString *creditCard;
 	__unsafe_unretained NSString *discount;
@@ -80,6 +81,7 @@ extern const struct BUYCheckoutUserInfo {
 	__unsafe_unretained NSString *documentation;
 } BUYCheckoutUserInfo;
 
+@class BUYCheckoutAttribute;
 @class BUYAddress;
 @class BUYMaskedCreditCard;
 @class BUYDiscount;
@@ -300,6 +302,10 @@ extern const struct BUYCheckoutUserInfo {
  */
 @property (nonatomic, strong) NSURL* webReturnToURL;
 
+@property (nonatomic, strong) NSSet *attributes;
+
+- (NSMutableSet*)attributesSet;
+
 @property (nonatomic, strong) BUYAddress *billingAddress;
 
 /**
@@ -348,6 +354,10 @@ extern const struct BUYCheckoutUserInfo {
 @property (nonatomic, strong) NSSet *taxLines;
 
 - (NSMutableSet*)taxLinesSet;
+
+@end
+
+@interface _BUYCheckout (AttributesCoreDataGeneratedAccessors)
 
 @end
 

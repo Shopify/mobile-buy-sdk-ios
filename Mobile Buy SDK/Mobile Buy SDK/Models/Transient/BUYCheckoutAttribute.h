@@ -24,22 +24,10 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYObject.h"
-#import "BUYSerializable.h"
+#import <Buy/_BUYCheckoutAttribute.h>
 
 /**
  *  A BUYCheckoutAttribute represents a checkout attributes key and value
  */
-@interface BUYCheckoutAttribute : BUYObject <BUYSerializable>
-
-/**
- *  The attribute name
- */
-@property (nonatomic, strong, nonnull) NSString *name;
-
-/**
- *  The attribute value
- */
-@property (nonatomic, strong, nonnull) NSString *value;
-
+@interface BUYCheckoutAttribute : _BUYCheckoutAttribute
 @end

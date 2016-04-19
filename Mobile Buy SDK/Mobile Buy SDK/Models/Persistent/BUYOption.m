@@ -1,5 +1,5 @@
 //
-//  BUYOption.m
+//  _BUYOption.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -27,14 +27,5 @@
 #import "BUYOption.h"
 
 @implementation BUYOption
-
-- (void)updateWithDictionary:(NSDictionary *)dictionary
-{
-	[super updateWithDictionary:dictionary];
-	
-	_name = [dictionary[@"name"] copy];
-	_position = dictionary[@"position"];
-	_productId = [dictionary[@"product_id"] copy];
-}
 
 @end

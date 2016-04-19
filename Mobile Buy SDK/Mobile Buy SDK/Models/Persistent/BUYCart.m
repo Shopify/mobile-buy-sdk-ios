@@ -1,5 +1,5 @@
 //
-//  BUYCart.m
+//  _BUYCart.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -25,94 +25,91 @@
 //
 
 #import "BUYCart.h"
-#import "BUYCartLineItem.h"
-#import "BUYProductVariant.h"
 
-@interface BUYCart ()
-
-@property (nonatomic, strong, nonnull) NSMutableSet<BUYCartLineItem *> *lineItemsSet;
-
-@end
+#import "./BUYCartLineItem.h"
+#import "BUYModelManager.h"
 
 @implementation BUYCart
 
+#if !defined CORE_DATA_PERSISTENCE
 - (instancetype)init
 {
 	self = [super init];
 	if (self) {
-		self.lineItemsSet = [[NSMutableSet alloc] init];
+		self.lineItems = [NSOrderedSet orderedSet];
 	}
 	return self;
 }
 
-- (nonnull NSArray<BUYCartLineItem *> *)lineItems
-{
-	return [self.lineItemsSet allObjects];
-}
-
+#endif
 - (BOOL)isValid
 {
-	return [self.lineItemsSet count] > 0;
+	return [self.lineItems count] > 0;
 }
 
 - (void)clearCart
 {
-	[self.lineItemsSet removeAllObjects];
+	self.lineItems = [NSOrderedSet orderedSet];
 }
 
-#pragma mark - Simple Cart Editing
-
-- (void)addVariant:(nonnull BUYProductVariant *)variant
+- (void)addVariant:(BUYProductVariant *)variant
 {
-	BUYCartLineItem *lineItem = [[BUYCartLineItem alloc] initWithVariant:variant];
-	BUYCartLineItem *existingLineItem = [self.lineItemsSet member:lineItem];
-	if (existingLineItem) {
-		existingLineItem.quantity = [existingLineItem.quantity decimalNumberByAdding:[NSDecimalNumber one]];
-	} else {
-		[self.lineItemsSet addObject:lineItem];
+	[self willChangeValueForKey:BUYCartRelationships.lineItems];
+	
+	BUYCartLineItem *lineItem = [self linetItemForVariant:variant];
+	if (lineItem) {
+		[lineItem incrementQuantity];
 	}
+	else {
+		// quantity is 1 by default
+		[self.lineItemsSet addObject:[self newCartLineItemWithVariant:variant]];
+	}
+	
+	[self didChangeValueForKey:BUYCartRelationships.lineItems];
 }
 
-- (void)removeVariant:(nonnull BUYProductVariant *)variant
+- (void)removeVariant:(BUYProductVariant *)variant
 {
-	BUYCartLineItem *lineItem = [[BUYCartLineItem alloc] initWithVariant:variant];
-	BUYCartLineItem *existingLineItem = [self.lineItemsSet member:lineItem];
-	if (existingLineItem) {
-		existingLineItem.quantity = [existingLineItem.quantity decimalNumberBySubtracting:[NSDecimalNumber one]];
-		if ([[existingLineItem quantity] isEqual:[NSDecimalNumber zero]]) {
-			[self.lineItemsSet removeObject:existingLineItem];
+	[self willChangeValueForKey:BUYCartRelationships.lineItems];
+	
+	BUYCartLineItem *lineItem = [self linetItemForVariant:variant];
+	if (lineItem && [lineItem decrementQuantity].integerValue <= 0) {
+		[self.lineItemsSet removeObject:lineItem];
+	}
+	
+	[self didChangeValueForKey:BUYCartRelationships.lineItems];
+}
+
+- (void)setVariant:(BUYProductVariant *)variant withTotalQuantity:(NSInteger)quantity
+{
+	[self willChangeValueForKey:BUYCartRelationships.lineItems];
+
+	BUYCartLineItem *lineItem = [self linetItemForVariant:variant];
+
+	if (quantity == 0 && lineItem != nil) {
+		[self.lineItemsSet removeObject:lineItem];
+	}
+	else if (quantity > 0) {
+		if (lineItem == nil) {
+			lineItem = [self newCartLineItemWithVariant:variant];
+			[self.lineItemsSet addObject:lineItem];
 		}
+		lineItem.quantity = [NSDecimalNumber decimalNumberWithMantissa:quantity exponent:0 isNegative:NO];
 	}
+	
+	[self didChangeValueForKey:BUYCartRelationships.lineItems];
 }
 
-- (void)setVariant:(nonnull BUYProductVariant *)variant withTotalQuantity:(NSInteger)quantity
+- (BUYCartLineItem *)newCartLineItemWithVariant:(BUYProductVariant *)variant
 {
-	BUYCartLineItem *lineItem = [[BUYCartLineItem alloc] initWithVariant:variant];
-	BUYCartLineItem *existingLineItem = [self.lineItemsSet member:lineItem];
-	if (existingLineItem && quantity > 0) {
-		existingLineItem.quantity = (NSDecimalNumber*)[NSDecimalNumber numberWithInteger:quantity];
-	} else if (existingLineItem && quantity == 0) {
-		[self.lineItemsSet removeObject:existingLineItem];
-	} else {
-		lineItem.quantity = (NSDecimalNumber*)[NSDecimalNumber numberWithInteger:quantity];
-		[self.lineItemsSet addObject:lineItem];
-	}
+	BUYCartLineItem *lineItem = [self.modelManager buy_objectWithEntityName:[BUYCartLineItem entityName] JSONDictionary:nil];
+	lineItem.variant = variant;
+	return lineItem;
 }
 
-#pragma mark - Helpers
-
-- (NSDictionary *)jsonDictionaryForCheckout
+- (BUYCartLineItem *)linetItemForVariant:(BUYProductVariant *)variant
 {
-	NSMutableDictionary *cart = [[NSMutableDictionary alloc] init];
-	NSArray *lineItems = [self lineItems];
-	if ([lineItems count] > 0) {
-		NSMutableArray *lineItemsJson = [[NSMutableArray alloc] init];
-		for (BUYCartLineItem *lineItem in lineItems) {
-			[lineItemsJson addObject:[lineItem jsonDictionaryForCheckout]];
-		}
-		cart[@"line_items"] = lineItemsJson;
-	}
-	return cart;
+	return [[self.lineItems filteredOrderedSetUsingPredicate:[NSPredicate predicateWithFormat:@"variant = %@", variant]] lastObject];
 }
 
 @end

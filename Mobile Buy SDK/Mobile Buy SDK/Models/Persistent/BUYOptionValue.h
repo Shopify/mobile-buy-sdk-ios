@@ -1,5 +1,5 @@
 //
-//  BUYOptionValue.h
+//  _BUYOptionValue.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,24 +24,10 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYObject.h"
+#import <Buy/_BUYOptionValue.h>
 
-@interface BUYOptionValue : BUYObject
+@interface BUYOptionValue : _BUYOptionValue {}
 
-/**
- *  Custom product property names like "Size", "Color", and "Material".
- *  255 characters limit each.
- */
-@property (nonatomic, readonly, copy) NSString *name;
-
-/**
- *  The value of the option
- */
-@property (nonatomic, readonly, strong) NSString *value;
-
-/**
- *  the option identifier
- */
-@property (nonatomic, readonly, strong) NSNumber *optionId;
+- (BOOL)isEqualToOptionValue:(BUYOptionValue *)other;
 
 @end

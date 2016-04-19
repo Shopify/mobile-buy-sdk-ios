@@ -62,6 +62,7 @@ const struct BUYCheckoutAttributes BUYCheckoutAttributes = {
 };
 
 const struct BUYCheckoutRelationships BUYCheckoutRelationships = {
+	.attributes = @"attributes",
 	.billingAddress = @"billingAddress",
 	.creditCard = @"creditCard",
 	.discount = @"discount",
@@ -173,6 +174,12 @@ const struct BUYCheckoutUserInfo BUYCheckoutUserInfo = {
 
 - (void)setReservationTimeLeftValue:(int64_t)value_ {
 	[self setReservationTimeLeft:@(value_)];
+}
+
+- (NSMutableSet*)attributesSet {
+
+	return (NSMutableSet*)[self mutableSetValueForKey:@"attributes"];
+
 }
 
 - (NSMutableOrderedSet*)giftCardsSet {

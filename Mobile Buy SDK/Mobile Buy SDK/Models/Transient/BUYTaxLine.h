@@ -1,5 +1,5 @@
 //
-//  BUYTaxLine.h
+//  _BUYTaxLine.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,27 +24,8 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYObject.h"
-#import "BUYSerializable.h"
+#import <Buy/_BUYTaxLine.h>
 
-/**
- *  BUYTaxLine represents a single tax line on a checkout. Use this to display an itemized list of taxes that a customer is being charged for.
- */
-@interface BUYTaxLine : BUYObject
-
-/**
- *  The amount of tax to be charged.
- */
-@property (nonatomic, strong) NSDecimalNumber *price;
-
-/**
- *  The rate of tax to be applied.
- */
-@property (nonatomic, strong) NSDecimalNumber *rate;
-
-/**
- *  The name of the tax.
- */
-@property (nonatomic, copy) NSString *title;
+@interface BUYTaxLine : _BUYTaxLine {}
 
 @end

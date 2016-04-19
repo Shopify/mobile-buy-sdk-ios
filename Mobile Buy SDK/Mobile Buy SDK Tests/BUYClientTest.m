@@ -29,9 +29,7 @@
 
 #import <Buy/Buy.h>
 #import "BUYTestConstants.h"
-#import "BUYAddress+Additions.h"
 #import "BUYClientTestBase.h"
-#import "BUYCollection+Additions.h"
 #import "NSURLComponents+BUYAdditions.h"
 
 @interface BUYClient ()
@@ -69,7 +67,7 @@
 
 - (NSData *)dataForCartFromClient:(BUYClient *)client
 {
-	BUYCart *cart = [[BUYCart alloc] init];
+	BUYCart *cart = [self cart];
 	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:cart];
 	NSURLSessionDataTask *task = [self.client createCheckout:checkout completion:nil];
 	XCTAssertNotNil(task);
@@ -98,10 +96,10 @@
 
 - (void)testPartialAddressesFlag
 {
-	BUYCart *cart = [[BUYCart alloc] init];
+	BUYCart *cart = [self cart];
 	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:cart];
 	
-	XCTAssertThrows([checkout setPartialAddresses:NO]);
+	XCTAssertThrows([checkout setPartialAddressesValue:NO]);
 
 	NSURLSessionDataTask *task = [self.client createCheckout:checkout completion:nil];
 	NSDictionary *json = [NSJSONSerialization JSONObjectWithData:task.originalRequest.HTTPBody options:0 error:nil];
@@ -109,11 +107,11 @@
 	
 	checkout = [[BUYCheckout alloc] initWithCart:cart];
 	
-	BUYAddress *partialAddress = [[BUYAddress alloc] init];
+	BUYAddress *partialAddress = [self.client.modelManager insertAddressWithJSONDictionary:nil];
 	partialAddress.address1 = nil;
 	
 	if ([partialAddress isPartialAddress]) {
-		checkout.partialAddresses = YES;
+		checkout.partialAddressesValue = YES;
 	}
 	
 	checkout.shippingAddress = partialAddress;
@@ -125,7 +123,7 @@
 
 - (void)testCheckoutPaymentWithOnlyGiftCard
 {
-	BUYCheckout *checkout = [[BUYCheckout alloc] initWithDictionary:@{@"token": @"abcdef", @"payment_due": @0}];
+	BUYCheckout *checkout = [[BUYCheckout alloc] initWithModelManager:self.client.modelManager JSONDictionary:@{@"token": @"abcdef", @"payment_due": @0}];
 	
 	NSURLSessionDataTask *task = [self.client completeCheckout:checkout completion:nil];
 	XCTAssertNotNil(task);
@@ -200,7 +198,7 @@
 		XCTAssertEqual(error.code, BUYShopifyError_InvalidCheckoutObject);
 	}];
 	
-	BUYCheckout *checkout = [[BUYCheckout alloc] initWithDictionary:@{@"token": @"abcdef", @"payment_due": @0}];
+	BUYCheckout *checkout = [[BUYCheckout alloc] initWithModelManager:self.client.modelManager JSONDictionary:@{@"token": @"abcdef", @"payment_due": @0}];
 
 	[self.client completeCheckout:checkout withApplePayToken:nil completion:^(BUYCheckout *checkout, NSError *error) {
 		callbackCount++;
@@ -316,6 +314,11 @@
 	NSSet *requestQueryItems = [NSSet setWithArray:[task.originalRequest.URL.query componentsSeparatedByString:@"&"]];
 	NSSet *queryItems = [NSSet setWithArray:@[@"collection_id=1", @"limit=25", @"page=1", @"sort_by=title-descending"]];
 	XCTAssertEqualObjects(requestQueryItems, queryItems);
+}
+
+- (BUYCart *)cart
+{
+	return [self.client.modelManager insertCartWithJSONDictionary:nil];
 }
 
 @end

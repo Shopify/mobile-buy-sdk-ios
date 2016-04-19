@@ -25,11 +25,11 @@
 //
 
 #import "BUYApplePayHelpers.h"
+#import "BUYApplePayAdditions.h"
 #import "BUYClient.h"
 #import "BUYCheckout.h"
-#import "BUYApplePayAdditions.h"
 #import "BUYError.h"
-#import "BUYAddress+Additions.h"
+#import "BUYModelManager.h"
 #import "BUYShop.h"
 
 const NSTimeInterval PollDelay = 0.5;
@@ -88,19 +88,23 @@ const NSTimeInterval PollDelay = 0.5;
 								completion:(void (^)(PKPaymentAuthorizationStatus status))completion
 {
 	// Update the checkout with the rest of the information. Apple has now provided us with a FULL billing address and a FULL shipping address.
-	// We now update the checkout with our new found data so that you can ship the products to the right address, and we collect whatever else we need.
-
+	// We now update the checkout with our new found data so that you can ship the products to the right address, and we collect whatever else we need.	
 	if ([payment respondsToSelector:@selector(shippingContact)]) {
 		self.checkout.email = payment.shippingContact.emailAddress;
-		self.checkout.shippingAddress = self.checkout.requiresShipping ? [BUYAddress buy_addressFromContact:payment.shippingContact] : nil;
+		if (self.checkout.requiresShipping) {
+			self.checkout.shippingAddress = [self buyAddressWithContact:payment.shippingContact];
+		}
 	} else {
 		self.checkout.email = [BUYAddress buy_emailFromRecord:payment.shippingAddress];
-		self.checkout.shippingAddress = self.checkout.requiresShipping ? [BUYAddress buy_addressFromRecord:payment.shippingAddress] : nil;
+		if (self.checkout.requiresShipping) {
+			self.checkout.shippingAddress = [self buyAddressWithABRecord:payment.shippingAddress];
+		}
 	}
+
 	if ([payment respondsToSelector:@selector(billingContact)]) {
-		self.checkout.billingAddress = [BUYAddress buy_addressFromContact:payment.billingContact];
+		self.checkout.billingAddress = [self buyAddressWithContact:payment.billingContact];
 	} else {
-		self.checkout.billingAddress = [BUYAddress buy_addressFromRecord:payment.billingAddress];
+		self.checkout.billingAddress = [self buyAddressWithABRecord:payment.billingAddress];
 	}
 	
 	[self.client updateCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
@@ -127,6 +131,15 @@ const NSTimeInterval PollDelay = 0.5;
 	}];
 }
 
+- (BUYAddress *)buyAddressWithABRecord:(ABRecordRef)addressRecord
+{
+	return [self.client.modelManager buyAddressWithABRecord:addressRecord];
+}
+
+- (BUYAddress *)buyAddressWithContact:(PKContact *)contact
+{
+	return [self.client.modelManager buyAddressWithContact:contact];
+}
 
 - (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller
 {
@@ -135,13 +148,13 @@ const NSTimeInterval PollDelay = 0.5;
 
 -(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingAddress:(ABRecordRef)address completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
 {
-	self.checkout.shippingAddress = [BUYAddress buy_addressFromRecord:address];
+	self.checkout.shippingAddress = [self buyAddressWithABRecord:address];
 	[self updateCheckoutWithAddressCompletion:completion];
 }
 
 -(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingContact:(PKContact *)contact completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
 {
-	self.checkout.shippingAddress = [BUYAddress buy_addressFromContact:contact];
+	self.checkout.shippingAddress = [self buyAddressWithContact:contact];
 	[self updateCheckoutWithAddressCompletion:completion];
 }
 
@@ -169,7 +182,7 @@ const NSTimeInterval PollDelay = 0.5;
 	// However, to ensure we never set partialAddresses to NO, we want to guard the setter. Should PKPaymentAuthorizationViewController ever
 	// return a full address through it's delegate method, this will still function since a complete address can be used to calculate shipping rates
 	if ([self.checkout.shippingAddress isPartialAddress] == YES) {
-		self.checkout.partialAddresses = YES;
+		self.checkout.partialAddresses = @YES;
 	}
 	
 	if ([self.checkout.shippingAddress isValidAddressForShippingRates]) {
@@ -335,6 +348,25 @@ const NSTimeInterval PollDelay = 0.5;
 			completion(checkoutStatus == BUYStatusComplete ? PKPaymentAuthorizationStatusSuccess : PKPaymentAuthorizationStatusFailure);
 		});
 	});
+}
+
+@end
+
+@implementation BUYModelManager (ApplePay)
+
+
+- (BUYAddress *)buyAddressWithABRecord:(ABRecordRef)addressRecord
+{
+	BUYAddress *address = [self insertAddressWithJSONDictionary:nil];
+	[address updateWithRecord:addressRecord];
+	return address;
+}
+
+- (BUYAddress *)buyAddressWithContact:(PKContact *)contact
+{
+	BUYAddress *address = [self insertAddressWithJSONDictionary:nil];
+	[address updateWithContact:contact];
+	return address;
 }
 
 @end

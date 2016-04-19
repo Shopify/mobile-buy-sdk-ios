@@ -1,5 +1,5 @@
 //
-//  BUYCollection.h
+//  _BUYCollection.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,57 +24,26 @@
 //  THE SOFTWARE.
 //
 
-@import Foundation;
-#import "BUYObject.h"
+#import <Buy/_BUYCollection.h>
+#import "BUYClient.h"
+
+@interface BUYCollection : _BUYCollection {}
+
+@property (nonatomic, readonly) NSDate *createdAtDate NS_DEPRECATED_IOS(8_0, 9_0);
+@property (nonatomic, readonly) NSDate *updatedAtDate NS_DEPRECATED_IOS(8_0, 9_0);
+@property (nonatomic, readonly) NSDate *publishedAtDate NS_DEPRECATED_IOS(8_0, 9_0);
+
+@property (nonatomic, readonly) NSURL *imageURL NS_DEPRECATED_IOS(8_0, 9_0);
+
+@property (nonatomic, readonly) NSString *stringDescription;
 
 /**
- *  Represents a collection of products on the shop
+ *  Converts the BUYCollectionSort enum to an API-compatible string for the collection sort parameter
+ *
+ *  @param sort BUYCollectionSort enum
+ *
+ *  @return API-compatible string for the collection sort parameter
  */
-@interface BUYCollection : BUYObject
-
-/**
- *  The title of the collection
- */
-@property (nonatomic, strong, readonly) NSString *title;
-
-/**
- *  The unique collection ID
- */
-@property (nonatomic, strong, readonly) NSNumber *collectionId;
-
-/**
- *  The html description
- */
-@property (nonatomic, strong, readonly) NSString *htmlDescription;
-
-/**
- *  The collection's image URL
- */
-@property (nonatomic, strong, readonly) NSURL *imageURL;
-
-/**
- *  The handle of the collection
- */
-@property (nonatomic, strong, readonly) NSString *handle;
-
-/**
- *  The state of whether the collection is currently published or not
- */
-@property (nonatomic, assign, readonly) BOOL published;
-
-/**
- *  The creation date for the collection
- */
-@property (nonatomic, readonly, copy) NSDate *createdAtDate;
-
-/**
- *  The updated date for the collection
- */
-@property (nonatomic, readonly, copy) NSDate *updatedAtDate;
-
-/**
- *  The publish date for the collection
- */
-@property (nonatomic, readonly, copy) NSDate *publishedAtDate;
++ (NSString *)sortOrderParameterForCollectionSort:(BUYCollectionSort)sort;
 
 @end

@@ -29,7 +29,6 @@
 #import <Buy/Buy.h>
 #import "BUYTestConstants.h"
 #import "BUYCollection.h"
-#import "NSDateFormatter+BUYAdditions.h"
 #import "BUYClientTestBase.h"
 #import <OHHTTPStubs/OHHTTPStubs.h>
 #import "OHHTTPStubsResponse+Helpers.h"

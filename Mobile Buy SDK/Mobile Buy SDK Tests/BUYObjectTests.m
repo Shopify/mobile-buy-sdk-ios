@@ -50,77 +50,33 @@
 @property (nonatomic, readonly) NSArray *array;
 @property (nonatomic, readonly) NSMutableArray *mutableArray;
 
+- (NSArray *)propertyNames;
+
 @end
 
 @interface BUYObjectSubclass : BUYObject
+@property (nonatomic, strong) NSNumber *identifier;
 @end
 
 @interface BUYObjectTests : XCTestCase
+@property (nonatomic, strong) BUYModelManager *modelManager;
+@end
+
+@interface BUYModelManager (BUYDirtyTracked)
++ (BUYModelManager *)testModelManager;
 @end
 
 @implementation BUYObjectTests
 
-- (void)testInitWithDictionaryParsesIdentifier
+- (void)setUp
 {
-	BUYObject *object = [[BUYObject alloc] initWithDictionary:@{ @"id" : @5 }];
-	XCTAssert([object isDirty] == NO);
-	XCTAssertEqual(@5, [object identifier]);
-}
-
-- (void)testInitWithDictionaryWithoutIdentifier
-{
-	BUYObject *object = [[BUYObject alloc] initWithDictionary:@{}];
-	XCTAssertNil([object identifier]);
-}
-
-- (void)testConvertObject
-{
-	BUYObject *object = [BUYObject convertObject:@{ @"id" : @10 }];
-	XCTAssertNotNil(object);
-	XCTAssertEqual(@10, [object identifier]);
-}
-
-- (void)testConvertObjectWorksWithSubclasses
-{
-	BUYObject *object = [BUYObjectSubclass convertObject:@{ @"id" : @10 }];
-	XCTAssertNotNil(object);
-	XCTAssertTrue([object isKindOfClass:[BUYObjectSubclass class]]);
-	XCTAssertEqual(@10, [object identifier]);
-}
-
-- (void)testConvertJSONArrayWithEmptyArray
-{
-	NSArray *json = @[];
-	XCTAssertEqual(0, [[BUYObject convertJSONArray:json] count]);
-}
-
-- (void)testConvertJSONArrayCreatesObjectOfClass
-{
-	NSArray *json = @[@{ @"id" : @5 }, @{ @"id" : @7 }];
-	NSArray *convertedArray = [BUYObject convertJSONArray:json];
-	XCTAssertEqual(2, [convertedArray count]);
-	XCTAssertTrue([convertedArray[0] isKindOfClass:[BUYObject class]]);
-	XCTAssertTrue([convertedArray[1] isKindOfClass:[BUYObject class]]);
-	XCTAssertEqualObjects(@5, [convertedArray[0] identifier]);
-	XCTAssertEqualObjects(@7, [convertedArray[1] identifier]);
-}
-
-- (void)testConvertJSONArrayWithCreatedBlock
-{
-	NSArray *json = @[@{ @"id" : @5 }, @{ @"id" : @6 }, @{ @"id" : @7 }];
-	__block NSUInteger numberOfInvokes = 0;
-	NSArray *convertedArray = [BUYObject convertJSONArray:json block:^(id obj) {
-		XCTAssertTrue([obj isKindOfClass:[BUYObject class]]);
-		++numberOfInvokes;
-	}];
-	XCTAssertNotNil(convertedArray);
-	XCTAssertEqual([json count], [convertedArray count]);
-	XCTAssertEqual([json count], numberOfInvokes);
+	[super setUp];
+	self.modelManager = [BUYModelManager testModelManager];
 }
 
 - (void)testDirtyTracking
 {
-	BUYDirtyTracked *object = [[BUYDirtyTracked alloc] init];
+	BUYDirtyTracked *object = [self dirtyTrackedObject];
 	object.s = @"short property name test";
 	object.dirtyObjectValue = @"Banana";
 	object.dirtyBooleanValue = true;
@@ -136,19 +92,14 @@
 	object.dirtyUnsignedLongLongValue = 1234123412341234;
 	object.dirtyFloatValue = 0.5f;
 	object.dirtyDoubleValue = 0.5;
-	NSSet *expected = [NSSet setWithArray:@[@"s", @"dirtyObjectValue", @"dirtyBooleanValue", @"dirtyCharacterValue",
-											@"dirtyUnsignedCharValue", @"dirtyIntegerValue", @"dirtyUnsignedIntegerValue",
-											@"dirtyShortValue", @"dirtyUnsignedShortValue", @"dirtyLongValue",
-											@"dirtyUnsignedLongValue", @"dirtyLongLongValue", @"dirtyUnsignedLongLongValue",
-											@"dirtyFloatValue", @"dirtyDoubleValue"]];
+	NSSet *expected = [NSSet setWithArray:[object propertyNames]];
 	NSSet *actual = [object dirtyProperties];
-	XCTAssert([expected isEqual:actual]);
-	XCTAssertEqual([actual count], [expected count]);
+	XCTAssertEqualObjects(actual, expected);
 }
 
 - (void)testIsDirtyReturnsFalseWhenClean
 {
-	BUYDirtyTracked *object = [[BUYDirtyTracked alloc] init];
+	BUYDirtyTracked *object = [self dirtyTrackedObject];
 	XCTAssert([object isDirty] == NO);
 	object.dirtyObjectValue = @"Banana";
 	[object markAsClean];
@@ -157,16 +108,21 @@
 
 - (void)testIsDirtyReturnsTrueWhenDirty
 {
-	BUYDirtyTracked *object = [[BUYDirtyTracked alloc] init];
+	BUYDirtyTracked *object = [self dirtyTrackedObject];
 	object.dirtyObjectValue = @"Banana";
 	XCTAssert([object isDirty]);
 }
 
 - (void)testMarkAsClean
 {
-	BUYDirtyTracked *object = [[BUYDirtyTracked alloc] init];
+	BUYDirtyTracked *object = [self dirtyTrackedObject];
 	object.dirtyObjectValue = @"Banana";
 	XCTAssert([object dirtyProperties]);
+}
+
+- (BUYDirtyTracked *)dirtyTrackedObject
+{
+	return [[BUYDirtyTracked alloc] initWithModelManager:nil JSONDictionary:nil];
 }
 
 @end
@@ -180,7 +136,44 @@
 	return YES;
 }
 
++ (NSString *)entityName
+{
+	return nil;
+}
+
+// Overriding private BUYObject class method to avoid need for entity
+- (NSArray *)propertyNames
+{
+	return @[@"s", @"dirtyObjectValue", @"dirtyBooleanValue", @"dirtyCharacterValue",
+			 @"dirtyUnsignedCharValue", @"dirtyIntegerValue", @"dirtyUnsignedIntegerValue",
+			 @"dirtyShortValue", @"dirtyUnsignedShortValue", @"dirtyLongValue",
+			 @"dirtyUnsignedLongValue", @"dirtyLongLongValue", @"dirtyUnsignedLongLongValue",
+			 @"dirtyFloatValue", @"dirtyDoubleValue"];
+}
+
 @end
 
 @implementation BUYObjectSubclass
+
++ (NSString *)entityName
+{
+	return @"ObjectSubclass";
+}
+
+@end
+
+@implementation BUYModelManager (BUYDirtyTracked)
+
++ (BUYModelManager *)testModelManager
+{
+	static dispatch_once_t onceToken;
+	static BUYModelManager *modelManager;
+	dispatch_once(&onceToken, ^{
+		NSManagedObjectModel *model = [NSManagedObjectModel mergedModelFromBundles:@[[NSBundle bundleForClass:self]]];
+		modelManager = [[BUYModelManager alloc] initWithModel:model];
+	});
+	
+	return modelManager;
+}
+
 @end

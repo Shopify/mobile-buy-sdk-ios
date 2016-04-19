@@ -67,22 +67,8 @@
 
 + (nullable NSString *)buy_emailFromRecord:(nullable ABRecordRef)record;
 
-/**
- *  Creates a BUYAddress from an ABRecordRef
- *
- *  @param record ABRecordRef to create a BUYAddress from
- *
- *  @return The BUYAddress created from an ABRecordRef
- */
-+ (nonnull BUYAddress *)buy_addressFromRecord:(nullable ABRecordRef)record NS_DEPRECATED_IOS(8_0, 9_0, "Use the CNContact backed `buy_addressFromContact:` instead");
+- (void)updateWithRecord:(nullable ABRecordRef)record NS_DEPRECATED_IOS(8_0, 9_0, "Use the CNContact backed `updateWithContact:` instead");
 
-/**
- *  Creates a BUYAddress from a PKContact
- *
- *  @param contact PKContact to create a BUYAddress from
- *
- *  @return The BUYAddress created from a PKContact
- */
-+ (nonnull BUYAddress *)buy_addressFromContact:(nullable PKContact*)contact NS_AVAILABLE_IOS(9_0);
+- (void)updateWithContact:(nullable PKContact*)contact NS_AVAILABLE_IOS(9_0);
 
 @end

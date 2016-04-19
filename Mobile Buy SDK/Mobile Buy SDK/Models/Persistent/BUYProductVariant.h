@@ -1,5 +1,5 @@
 //
-//  BUYProductVariant.h
+//  _BUYProductVariant.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,72 +24,29 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYObject.h"
+#import <Buy/_BUYProductVariant.h>
 
-@class BUYProduct;
 @class BUYOptionValue;
 
-/**
- *  A BUYProductVariant is a different version of a product, such as differing sizes or differing colours.
- */
-@interface BUYProductVariant : BUYObject
+@interface BUYProductVariant : _BUYProductVariant {}
 
 /**
- *  The BUYProduct associated this BUYProductVariant
+ *  Returns the option value for the given name
+ *
+ *  @param optionName name of the option
+ *
+ *  @return the option value
  */
-@property (nonatomic, strong) BUYProduct *product;
+- (BUYOptionValue *)optionValueForName:(NSString *)optionName;
 
 /**
- *  The title of the BUYProductVariant.
+ *  Filters array of product variants filtered based on a selected option value
+ *
+ *  @param productVariants BUYProductVariant objects to filter
+ *  @param optionValue     The option value to filter with
+ *
+ *  @return A filtered copy of the original array
  */
-@property (nonatomic, readonly, copy) NSString *title;
-
-/**
- *  Custom properties that a shop owner can use to define BUYProductVariants.
- */
-@property (nonatomic, readonly, copy) NSArray<BUYOptionValue *> *options;
-
-/**
- *  The price of the BUYProductVariant.
- */
-@property (nonatomic, readonly, strong) NSDecimalNumber *price;
-
-/**
- *  The competitor's prices for the same item.
- */
-@property (nonatomic, readonly, strong) NSDecimalNumber *compareAtPrice;
-
-/**
- *  The weight of the BUYProductVariant in grams.
- */
-@property (nonatomic, readonly, strong) NSDecimalNumber *grams;
-
-/**
- *  Specifies whether or not a customer needs to provide a shipping address when placing an order for this BUYProductVariant.
- *  Valid values are:
- *  true: Customer needs to supply a shipping address.
- *  false: Customer does not need to supply a shipping address.
- */
-@property (nonatomic, readonly, strong) NSNumber *requiresShipping;
-
-/**
- *  A unique identifier for the product in the shop.
- */
-@property (nonatomic, readonly, strong) NSString *sku;
-
-/**
- *  Specifies whether or not a tax is charged when the BUYProductVariant is sold.
- */
-@property (nonatomic, readonly, strong) NSNumber *taxable;
-
-/**
- *  The order of the BUYProductVariant in the list of product variants. 1 is the first position.
- */
-@property (nonatomic, readonly, strong) NSNumber *position;
-
-/**
- *  If the variant is in stock
- */
-@property (nonatomic, readonly, assign) BOOL available;
++ (NSArray *)filterProductVariants:(NSArray *)productVariants forOptionValue:(BUYOptionValue *)optionValue;
 
 @end

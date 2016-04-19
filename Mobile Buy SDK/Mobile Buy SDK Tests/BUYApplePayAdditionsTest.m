@@ -28,11 +28,8 @@
 @import PassKit;
 @import UIKit;
 @import XCTest;
+
 #import <Buy/Buy.h>
-#import "BUYAddress+Additions.h"
-#import "BUYCheckout_Private.h"
-#import "NSDecimalNumber+BUYAdditions.h"
-#import "NSDateFormatter+BUYAdditions.h"
 
 #import "BUYPKContact.h"
 #import "BUYNSPersonNameComponents.h"
@@ -44,11 +41,18 @@
 
 @implementation BUYApplePayAdditionsTest {
 	BUYCheckout *_checkout;
+	BUYModelManager *_modelManager;
 }
 
 - (void)setUp
 {
+	_modelManager = [BUYModelManager modelManager];
 	_checkout = [[BUYCheckout alloc] initWithCart:nil];
+}
+
+- (void)tearDown
+{
+	_modelManager = nil;
 }
 
 #pragma mark - BUYCheckout Apple Pay additions
@@ -67,7 +71,7 @@
 - (void)testFullSummaryItems
 {
 	_checkout.subtotalPrice = [NSDecimalNumber one];
-	_checkout.shippingRate = [[BUYShippingRate alloc] initWithDictionary:@{ @"price" : @"2.00" }];
+	_checkout.shippingRate = [[BUYShippingRate alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"price" : @"2.00" }];
 	_checkout.totalTax = [NSDecimalNumber decimalNumberWithString:@"1.00"];
 	_checkout.paymentDue = [NSDecimalNumber decimalNumberWithString:@"4.00"];
 	
@@ -87,7 +91,7 @@
 - (void)testSummaryItemsWithShippingRate
 {
 	_checkout.subtotalPrice = [NSDecimalNumber one];
-	_checkout.shippingRate = [[BUYShippingRate alloc] initWithDictionary:@{ @"price" : @"2.00" }];
+	_checkout.shippingRate = [[BUYShippingRate alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"price" : @"2.00" }];
 	_checkout.paymentDue = [NSDecimalNumber decimalNumberWithString:@"3.00"];
 	
 	NSArray *summaryItems = [_checkout buy_summaryItems];
@@ -104,7 +108,7 @@
 - (void)testSummaryItemsWithFreeShippingAndTaxesShouldNotShowShippingOrTaxes
 {
 	_checkout.subtotalPrice = [NSDecimalNumber one];
-	_checkout.shippingRate = [[BUYShippingRate alloc] initWithDictionary:@{ @"price" : @"0.00" }];
+	_checkout.shippingRate = [[BUYShippingRate alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"price" : @"0.00" }];
 	_checkout.totalTax = [NSDecimalNumber zero];
 	_checkout.paymentDue = [NSDecimalNumber decimalNumberWithString:@"3.00"];
 	
@@ -120,13 +124,12 @@
 - (void)testSummaryItemsWithZeroDiscount
 {
 	_checkout.subtotalPrice = [NSDecimalNumber one];
-	_checkout.shippingRate = [[BUYShippingRate alloc] initWithDictionary:@{ @"price" : @"0.00" }];
+	_checkout.shippingRate = [[BUYShippingRate alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"price" : @"0.00" }];
 	_checkout.totalTax = [NSDecimalNumber zero];
 	_checkout.paymentDue = [NSDecimalNumber decimalNumberWithString:@"3.00"];
-	BUYDiscount *discount = [[BUYDiscount alloc] init];
-	discount.code = @"BANANA";
+	BUYDiscount *discount = [_modelManager discountWithCode:@"BANANA"];
 	discount.amount = [NSDecimalNumber zero];
-	discount.applicable = YES;
+	discount.applicableValue = YES;
 	_checkout.discount = discount;
 	
 	NSArray *summaryItems = [_checkout buy_summaryItems];
@@ -141,13 +144,12 @@
 - (void)testSummaryItemsWithNonZeroDiscount
 {
 	_checkout.subtotalPrice = [NSDecimalNumber one];
-	_checkout.shippingRate = [[BUYShippingRate alloc] initWithDictionary:@{ @"price" : @"0.00" }];
+	_checkout.shippingRate = [[BUYShippingRate alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"price" : @"0.00" }];
 	_checkout.totalTax = [NSDecimalNumber zero];
 	_checkout.paymentDue = [NSDecimalNumber decimalNumberWithString:@"2.00"];
-	BUYDiscount *discount = [[BUYDiscount alloc] init];
-	discount.code = @"BANANA";
+	BUYDiscount *discount = [_modelManager discountWithCode:@"BANANA"];
 	discount.amount = [NSDecimalNumber one];
-	discount.applicable = YES;
+	discount.applicableValue = YES;
 	_checkout.discount = discount;
 	
 	NSArray *summaryItems = [_checkout buy_summaryItems];
@@ -165,13 +167,12 @@
 - (void)testSummaryItemsWithNonZeroCodelessDiscount
 {
 	_checkout.subtotalPrice = [NSDecimalNumber one];
-	_checkout.shippingRate = [[BUYShippingRate alloc] initWithDictionary:@{ @"price" : @"0.00" }];
+	_checkout.shippingRate = [[BUYShippingRate alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"price" : @"0.00" }];
 	_checkout.totalTax = [NSDecimalNumber zero];
 	_checkout.paymentDue = [NSDecimalNumber decimalNumberWithString:@"2.00"];
-	BUYDiscount *discount = [[BUYDiscount alloc] init];
-	discount.code = @"";
+	BUYDiscount *discount = [_modelManager discountWithCode:@""];
 	discount.amount = [NSDecimalNumber one];
-	discount.applicable = YES;
+	discount.applicableValue = YES;
 	_checkout.discount = discount;
 	
 	NSArray *summaryItems = [_checkout buy_summaryItems];
@@ -189,17 +190,16 @@
 - (void)testSummaryItemsWithGiftCard
 {
 	_checkout.subtotalPrice = [NSDecimalNumber decimalNumberWithString:@"12.00"];
-	_checkout.shippingRate = [[BUYShippingRate alloc] initWithDictionary:@{ @"price" : @"0.00" }];
+	_checkout.shippingRate = [[BUYShippingRate alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"price" : @"0.00" }];
 	_checkout.totalTax = [NSDecimalNumber zero];
 	_checkout.paymentDue = [NSDecimalNumber decimalNumberWithString:@"2.00"];
-	BUYDiscount *discount = [[BUYDiscount alloc] init];
-	discount.code = @"";
+	BUYDiscount *discount = [_modelManager discountWithCode:@""];
 	discount.amount = [NSDecimalNumber one];
-	discount.applicable = YES;
+	discount.applicableValue = YES;
 	_checkout.discount = discount;
 	
-	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:@{ @"amount_used" : [NSDecimalNumber decimalNumberWithString:@"10.00"], @"balance" : [NSDecimalNumber decimalNumberWithString:@"10.00"], @"last_characters" : @"1234" }];
-	_checkout.giftCards = @[giftCard];
+	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"amount_used" : [NSDecimalNumber decimalNumberWithString:@"10.00"], @"balance" : [NSDecimalNumber decimalNumberWithString:@"10.00"], @"last_characters" : @"1234" }];
+	[[_checkout giftCardsSet] addObject:giftCard];
 	
 	NSArray *summaryItems = [_checkout buy_summaryItems];
 	XCTAssertEqual(5, [summaryItems count]);
@@ -227,15 +227,15 @@
 	NSDate *lastDate = [self dateWithoutTime:[NSDate dateWithTimeIntervalSinceNow:day]];
 	NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForShippingRates];
 	
-	BUYShippingRate *rate1 = [[BUYShippingRate alloc] initWithDictionary:@{@"price" : @"5.00", @"id" : @"1234", @"title" : @"Banana", @"delivery_range" : @[[dateFormatter stringFromDate:firstDate], [dateFormatter stringFromDate:lastDate]]}];
+	BUYShippingRate *rate1 = [[BUYShippingRate alloc] initWithModelManager:_modelManager JSONDictionary:@{@"price" : @"5.00", @"id" : @"1234", @"title" : @"Banana", @"delivery_range" : @[[dateFormatter stringFromDate:firstDate], [dateFormatter stringFromDate:lastDate]]}];
 	
 	firstDate = [self dateWithoutTime:[NSDate dateWithTimeIntervalSinceNow:day * 3]];
 	lastDate = [self dateWithoutTime:[NSDate dateWithTimeIntervalSinceNow:day * 5]];
-	BUYShippingRate *rate2 = [[BUYShippingRate alloc] initWithDictionary:@{@"price" : @"3.00", @"id" : @"5678", @"title" : @"Dinosaur", @"delivery_range" : @[[dateFormatter stringFromDate:firstDate], [dateFormatter stringFromDate:lastDate]]}];
+	BUYShippingRate *rate2 = [[BUYShippingRate alloc] initWithModelManager:_modelManager JSONDictionary:@{@"price" : @"3.00", @"id" : @"5678", @"title" : @"Dinosaur", @"delivery_range" : @[[dateFormatter stringFromDate:firstDate], [dateFormatter stringFromDate:lastDate]]}];
 	
 	firstDate = [self dateWithoutTime:[NSDate dateWithTimeIntervalSinceNow:day * 10]];
 	lastDate = [self dateWithoutTime:[NSDate dateWithTimeIntervalSinceNow:day * 12]];
-	BUYShippingRate *rate3 = [[BUYShippingRate alloc] initWithDictionary:@{@"price" : @"19.00", @"id" : @"1357", @"title" : @"Bulldozer", @"delivery_range" : @[[dateFormatter stringFromDate:firstDate], [dateFormatter stringFromDate:lastDate]]}];
+	BUYShippingRate *rate3 = [[BUYShippingRate alloc] initWithModelManager:_modelManager JSONDictionary:@{@"price" : @"19.00", @"id" : @"1357", @"title" : @"Bulldozer", @"delivery_range" : @[[dateFormatter stringFromDate:firstDate], [dateFormatter stringFromDate:lastDate]]}];
 	
 	NSArray *shippingMethods = [BUYShippingRate buy_convertShippingRatesToShippingMethods:@[rate1, rate2, rate3]];
 	XCTAssertEqual(3, [shippingMethods count]);
@@ -353,7 +353,7 @@
 	ABRecordSetValue(person, kABPersonAddressProperty, addresses, &error);
 	CFRelease(addresses);
 	
-	BUYAddress *newAddress = [BUYAddress buy_addressFromRecord:person];
+	BUYAddress *newAddress = [_modelManager buyAddressWithABRecord:person];
 	
 	CFRelease(person);
 
@@ -410,7 +410,7 @@
 	[postalAddress setISOCountryCode:@"CA"];
 	[contact setPostalAddress:postalAddress];
 	
-	return [BUYAddress buy_addressFromContact:contact];
+	return [_modelManager buyAddressWithContact:contact];
 }
 
 - (void)testCompareAddressWithContactWithNameOrStreetOrPhone

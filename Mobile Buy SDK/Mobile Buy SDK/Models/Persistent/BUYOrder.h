@@ -1,5 +1,5 @@
 //
-//  BUYOrder.h
+//  _BUYOrder.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,18 +24,15 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYObject.h"
+#import <Buy/_BUYOrder.h>
 
-@interface BUYOrder : BUYObject
-
-/**
- *  URL for the website showing the order status
- */
-@property (nonatomic, strong, readonly) NSURL *statusURL;
-
-/**
- *  The customer's order name as represented by a number.
- */
-@property (nonatomic, strong, readonly) NSString *name;
+@interface BUYOrder : _BUYOrder {}
 
 @end
+
+@interface BUYModelManager (BUYOrder)
+
+- (NSArray<BUYOrder *> *)ordersWithJSONDictionary:(NSDictionary *)json;
+
+@end
+

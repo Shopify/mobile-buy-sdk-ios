@@ -24,20 +24,22 @@
 //  THE SOFTWARE.
 //
 
+#import "BUYClient_Internal.h"
+
 #import "BUYAddress.h"
 #import "BUYCart.h"
 #import "BUYCheckout.h"
-#import "BUYCheckout_Private.h"
 #import "BUYCreditCard.h"
-#import "BUYClient.h"
 #import "BUYCollection.h"
-#import "BUYCollection+Additions.h"
 #import "BUYError.h"
 #import "BUYGiftCard.h"
+#import "BUYModelManager.h"
+#import "BUYOrder.h"
 #import "BUYProduct.h"
 #import "BUYShippingRate.h"
 #import "BUYShop.h"
 #import "NSDecimalNumber+BUYAdditions.h"
+#import "NSDictionary+BUYAdditions.h"
 #import "NSURLComponents+BUYAdditions.h"
 
 #if __has_include(<PassKit/PassKit.h>)
@@ -47,17 +49,21 @@
 #define kGET @"GET"
 #define kPOST @"POST"
 #define kPATCH @"PATCH"
+#define kPUT @"PUT"
 #define kDELETE @"DELETE"
 
 #define kJSONType @"application/json"
-#define kShopifyError @"shopify"
 #define kMinSuccessfulStatusCode 200
 #define kMaxSuccessfulStatusCode 299
 
-NSString * const BUYVersionString = @"1.2.6";
+NSString * const BUYVersionString = @"1.3";
+
+NSString *const kShopifyError = @"shopify";
 
 static NSString *const kBUYClientPathProductPublications = @"product_listings";
 static NSString *const kBUYClientPathCollectionPublications = @"collection_listings";
+
+NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token";
 
 @interface BUYClient () <NSURLSessionDelegate>
 
@@ -83,18 +89,19 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_listi
 	
 	self = [super init];
 	if (self) {
+		self.modelManager = [BUYModelManager modelManager];
 		self.shopDomain = shopDomain;
 		self.apiKey = apiKey;
 		self.appId = appId;
 		self.applicationName = [[NSBundle mainBundle] infoDictionary][@"CFBundleName"] ?: @"";
 		self.queue = dispatch_get_main_queue();
-		self.session = [self createUrlSession];
+		self.session = [self urlSession];
 		self.pageSize = 25;
 	}
 	return self;
 }
 
-- (NSURLSession *)createUrlSession
+- (NSURLSession *)urlSession
 {
 	NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
 	
@@ -124,7 +131,7 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_listi
 	return [self getRequestForURL:shopComponents.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		BUYShop *shop = nil;
 		if (json && error == nil) {
-			shop = [[BUYShop alloc] initWithDictionary:json];
+			shop = [self.modelManager insertShopWithJSONDictionary:json];
 		}
 		block(shop, error);
 	}];
@@ -140,7 +147,7 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_listi
 		
 		NSArray *products = nil;
 		if (json && error == nil) {
-			products = [BUYProduct convertJSONArray:json[kBUYClientPathProductPublications]];
+			products = [self.modelManager insertProductsWithJSONArray:json[kBUYClientPathProductPublications]];
 		}
 		block(products, page, [self hasReachedEndOfPage:products] || error, error);
 	}];
@@ -169,7 +176,7 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_listi
 		
 		NSArray *products = nil;
 		if (json && error == nil) {
-			products = [BUYProduct convertJSONArray:json[kBUYClientPathProductPublications]];
+			products = [self.modelManager insertProductsWithJSONArray:json[kBUYClientPathProductPublications]];
 		}
 		if (error == nil && [products count] == 0) {
 			error = [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidProductID userInfo:@{ NSLocalizedDescriptionKey : @"Product IDs are not valid. Confirm the product IDs on your shop's admin and also ensure that the visibility is on for the Mobile App channel." }];
@@ -194,7 +201,7 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_listi
 		
 		NSArray *collections = nil;
 		if (json && error == nil) {
-			collections = [BUYCollection convertJSONArray:json[kBUYClientPathCollectionPublications]];
+			collections = [self.modelManager buy_objectsWithEntityName:[BUYCollection entityName] JSONArray:json[kBUYClientPathCollectionPublications]];
 		}
 		block(collections, page, [self hasReachedEndOfPage:collections], error);
 	}];
@@ -219,7 +226,7 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_listi
 			
 			NSArray *products = nil;
 			if (json && error == nil) {
-				products = [BUYProduct convertJSONArray:json[kBUYClientPathProductPublications]];
+				products = [self.modelManager buy_objectsWithEntityName:[BUYProduct entityName] JSONArray:json[kBUYClientPathProductPublications]];
 			}
 			block(products, page, [self hasReachedEndOfPage:products] || error, error);
 		}];
@@ -291,7 +298,7 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_listi
 {
 	BUYCheckout *checkout = nil;
 	if (error == nil) {
-		checkout = [[BUYCheckout alloc] initWithDictionary:json[@"checkout"]];
+		checkout = [self.modelManager insertCheckoutWithJSONDictionary:json[@"checkout"]];
 	}
 	block(checkout, error);
 }
@@ -301,7 +308,7 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_listi
 	checkout.marketingAttribution = @{@"medium": @"iOS", @"source": self.applicationName};
 	checkout.sourceName = @"mobile_app";
 	if (self.urlScheme || checkout.webReturnToURL) {
-		checkout.webReturnToURL = checkout.webReturnToURL ?: self.urlScheme;
+		checkout.webReturnToURL = checkout.webReturnToURL ?: [NSURL URLWithString:self.urlScheme];
 		checkout.webReturnToLabel = checkout.webReturnToLabel ?: [@"Return to " stringByAppendingString:self.applicationName];
 	}
 }
@@ -317,7 +324,7 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_listi
 
 - (NSURLSessionDataTask *)createCheckoutWithCartToken:(NSString *)cartToken completion:(BUYDataCheckoutBlock)block
 {
-	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCartToken:cartToken];
+	BUYCheckout *checkout = [self.modelManager checkoutwithCartToken:cartToken];
 	[self configureCheckout:checkout];
 	
 	NSDictionary *json = [checkout jsonDictionaryForCheckout];
@@ -348,7 +355,7 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_listi
 		block(nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_NoGiftCardSpecified userInfo:nil]);
 	}
 	else {
-		BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:@{ @"code" : giftCardCode }];
+		BUYGiftCard *giftCard = [self.modelManager giftCardWithCode:giftCardCode];
 		NSURLComponents *components = [self URLComponentsForCheckoutsAppendingPath:@"gift_cards"
 																	 checkoutToken:checkout.token
 																		queryItems:nil];
@@ -389,14 +396,13 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_listi
 
 - (void)updateCheckout:(BUYCheckout *)checkout withGiftCardDictionary:(NSDictionary *)giftCardDictionary addingGiftCard:(BOOL)addingGiftCard
 {
-	NSMutableArray *giftCardArray = [NSMutableArray arrayWithArray:checkout.giftCards];
-	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:giftCardDictionary];
 	if (addingGiftCard) {
-		[giftCardArray addObject:giftCard];
+		BUYGiftCard *giftCard = [self.modelManager insertGiftCardWithJSONDictionary:giftCardDictionary];
+		[checkout.giftCardsSet addObject:giftCard];
 	} else {
-		[giftCardArray removeObject:giftCard];
+		[checkout removeGiftCardWithIdentifier:giftCardDictionary[@"id"]];
 	}
-	checkout.giftCards = [giftCardArray copy];
+	
 	checkout.paymentDue = [NSDecimalNumber buy_decimalNumberFromJSON:giftCardDictionary[@"checkout"][@"payment_due"]];
 
 	// Marking the checkout as clean. The properties we have updated above we don't need to re-sync with Shopify.
@@ -552,7 +558,7 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_listi
 		task = [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			NSArray *shippingRates = nil;
 			if (error == nil && json) {
-				shippingRates = [BUYShippingRate convertJSONArray:json[@"shipping_rates"]];
+				shippingRates = [self.modelManager insertShippingRatesWithJSONArray:json[@"shipping_rates"]];
 			}
 			
 			NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
@@ -567,7 +573,7 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_listi
 
 #pragma mark - Payments
 
-- (NSURLSessionDataTask *)storeCreditCard:(id <BUYSerializable>)creditCard checkout:(BUYCheckout *)checkout completion:(BUYDataCreditCardBlock)block
+- (NSURLSessionDataTask *)storeCreditCard:(BUYCreditCard *)creditCard checkout:(BUYCheckout *)checkout completion:(BUYDataCreditCardBlock)block
 {
 	NSURLSessionDataTask *task = nil;
 	

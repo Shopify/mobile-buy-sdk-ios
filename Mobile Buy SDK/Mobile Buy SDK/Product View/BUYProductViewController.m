@@ -28,7 +28,7 @@
 #import "BUYImageView.h"
 #import "BUYOptionSelectionNavigationController.h"
 #import "BUYPresentationControllerWithNavigationController.h"
-#import "BUYProduct+Options.h"
+#import "BUYProduct.h"
 #import "BUYProductViewController.h"
 #import "BUYImageKit.h"
 #import "BUYProductView.h"
@@ -397,8 +397,9 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 		[self.variantCell setOptionsForProductVariant:self.selectedProductVariant];
 	}
 	if (self.productView.productViewHeader.collectionView) {
-		[self.productView.productViewHeader setImageForSelectedVariant:_selectedProductVariant withImages:self.product.images];
-		[self.productView updateBackgroundImage:self.product.images];
+		NSArray *images = self.product.images.array;
+		[self.productView.productViewHeader setImageForSelectedVariant:_selectedProductVariant withImages:images];
+		[self.productView updateBackgroundImage:images];
 	}
 	if (self.productView.productViewFooter) {
 		[self.productView.productViewFooter updateButtonsForProductVariant:selectedProductVariant];
@@ -460,7 +461,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
 	if ([scrollView isKindOfClass:[UICollectionView class]]) {
-		[self.productView updateBackgroundImage:self.product.images];
+		[self.productView updateBackgroundImage:self.product.images.array];
 	}
 }
 
@@ -468,7 +469,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 
 - (BUYCart *)cart
 {
-	BUYCart *cart = [[BUYCart alloc] init];
+	BUYCart *cart = [self.client.modelManager insertCartWithJSONDictionary:nil];
 	[cart addVariant:self.selectedProductVariant];
 	return cart;
 }

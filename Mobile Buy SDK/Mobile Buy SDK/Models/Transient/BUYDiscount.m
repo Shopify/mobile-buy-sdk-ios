@@ -1,5 +1,5 @@
 //
-//  BUYDiscount.m
+//  _BUYDiscount.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -25,29 +25,24 @@
 //
 
 #import "BUYDiscount.h"
-#import "NSDecimalNumber+BUYAdditions.h"
-#import "NSString+BUYAdditions.h"
+#import "NSEntityDescription+BUYAdditions.h"
 
 @implementation BUYDiscount
 
-- (instancetype)initWithCode:(NSString *)code
+- (NSDictionary *)JSONEncodedProperties
 {
-	return [super initWithDictionary:@{@"code": code ?: @""}];
+	return [self.entity.JSONEncodedProperties dictionaryWithValuesForKeys:@[@"code"]];
 }
 
-- (void)updateWithDictionary:(NSDictionary *)dictionary
-{
-	[super updateWithDictionary:dictionary];
-	self.code = dictionary[@"code"];
-	self.amount = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"amount"]];
-	self.applicable = [dictionary[@"applicable"] boolValue];
-}
+@end
 
-- (NSDictionary *)jsonDictionaryForCheckout
+@implementation BUYModelManager (BUYDiscountCreating)
+
+- (BUYDiscount *)discountWithCode:(NSString *)code
 {
-	NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
-	json[@"code"] = [self.code buy_trim] ?: @"";
-	return json;
+	BUYDiscount *discount = [self buy_objectWithEntityName:[BUYDiscount entityName] JSONDictionary:nil];
+	discount.code = code ?: @"";
+	return discount;
 }
 
 @end

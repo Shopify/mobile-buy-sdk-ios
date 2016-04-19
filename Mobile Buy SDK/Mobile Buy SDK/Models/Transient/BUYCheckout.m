@@ -1,5 +1,5 @@
 //
-//  BUYCheckout.m
+//  _BUYCheckout.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,192 +24,166 @@
 //  THE SOFTWARE.
 //
 
+#import "BUYCheckout.h"
+
 #import "BUYAddress.h"
 #import "BUYCart.h"
-#import "BUYCheckout.h"
-#import "BUYCheckout_Private.h"
-#import "BUYDiscount.h"
-#import "BUYLineItem.h"
-#import "BUYMaskedCreditCard.h"
-#import "BUYOrder.h"
-#import "BUYProductVariant.h"
-#import "BUYShippingRate.h"
-#import "BUYTaxLine.h"
-#import "BUYMaskedCreditCard.h"
-#import "BUYGiftCard.h"
-#import "NSDecimalNumber+BUYAdditions.h"
-#import "NSString+BUYAdditions.h"
-#import "NSDateFormatter+BUYAdditions.h"
-#import "NSURL+BUYAdditions.h"
-#import "NSDictionary+BUYAdditions.h"
 #import "BUYCheckoutAttribute.h"
+#import "BUYGiftCard.h"
+#import "BUYLineItem.h"
+#import "BUYShippingRate.h"
+
+#import "NSArray+BUYAdditions.h"
+#import "NSEntityDescription+BUYAdditions.h"
 
 @implementation BUYCheckout
+
++ (NSSet *)keyPathsForValuesAffectingAttributesDictionary
+{
+	return [NSSet setWithObject:BUYCheckoutRelationships.attributes];
+}
+
+- (NSDictionary *)attributesDictionary
+{
+	NSArray *attributesArray = [self.attributes allObjects];
+	NSArray *objects = [attributesArray valueForKey:BUYCheckoutAttributeAttributes.value];
+	NSArray *keys = [attributesArray valueForKey:BUYCheckoutAttributeAttributes.name];
+	return [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+}
 
 + (BOOL)tracksDirtyProperties
 {
 	return YES;
 }
 
-- (instancetype)initWithCart:(BUYCart *)cart
+- (BOOL)hasToken
+{
+	return [self.token length] > 0;
+}
+
+- (void)setShippingRate:(BUYShippingRate *)shippingRate
+{
+	[super setShippingRate:shippingRate];
+	self.shippingRateId = shippingRate.shippingRateIdentifier;
+}
+-(void)setPartialAddresses:(NSNumber *)partialAddresses
+{
+	if (partialAddresses.boolValue == NO) {
+		@throw [NSException exceptionWithName:@"partialAddress" reason:@"partialAddresses can only be set to true and should never be set to false on a complete address" userInfo:nil];
+	}
+	[ super setPartialAddresses:partialAddresses];
+}
+
+
+/**
+ * We must initialize to-many relationships to ensure that
+ * -mutableSetValueForKey: works properly. e.g. -giftCardsSet
+ */
+#if !defined CORE_DATA_PERSISTENCE
+- (instancetype)init
 {
 	self = [super init];
 	if (self) {
-		_lineItems = [cart.lineItems copy];
-		[self markPropertyAsDirty:@"lineItems"];
+		self.attributes = [NSSet set];
+		self.giftCards = [NSOrderedSet orderedSet];
+		self.lineItems = [NSOrderedSet orderedSet];
+		self.taxLines = [NSSet set];
+		[self markAsClean];
 	}
 	return self;
 }
+#endif
 
-- (instancetype)initWithCartToken:(NSString *)cartToken
+- (instancetype)initWithCart:(BUYCart *)cart
 {
-	self = [super initWithDictionary:@{@"cart_token" : cartToken}];
+	self = [self initWithModelManager:cart.modelManager JSONDictionary:nil];
 	if (self) {
-		[self markPropertyAsDirty:@"cartToken"];
+		[self updateWithCart:cart];
 	}
 	return self;
 }
 
-+ (NSString *)jsonKeyForProperty:(NSString *)property
+- (instancetype)initWithCartToken:(NSString *)token
 {
-	NSString *key = nil;
-	if ([property isEqual:@"identifier"]) {
-		key = @"id";
+	self = [self initWithModelManager:nil JSONDictionary:nil];
+	if (self) {
+		self.cartToken = token;
 	}
-	else {
-		static NSCharacterSet *kUppercaseCharacters = nil;
-		static dispatch_once_t onceToken;
-		dispatch_once(&onceToken, ^{
-			kUppercaseCharacters = [NSCharacterSet uppercaseLetterCharacterSet];
-		});
-		
-		if ([property containsString:@"URL"]) {
-			property = [property stringByReplacingOccurrencesOfString:@"URL" withString:@"Url"];
-		}
-		
-		NSMutableString *output = [NSMutableString string];
-		for (NSInteger i = 0; i < [property length]; ++i) {
-			unichar c = [property characterAtIndex:i];
-			if ([kUppercaseCharacters characterIsMember:c]) {
-				[output appendFormat:@"_%@", [[NSString stringWithCharacters:&c length:1] lowercaseString]];
-			}
-			else {
-				[output appendFormat:@"%C", c];
-			}
-		}
-		key = output;
-	}
-	return key;
+	return self;
 }
 
-- (void)updateWithDictionary:(NSDictionary *)dictionary
+- (void)updateWithCart:(BUYCart *)cart
 {
-	self.email = dictionary[@"email"];
-	self.token = dictionary[@"token"];
-	self.cartToken = dictionary[@"cart_token"];
-	self.requiresShipping = [dictionary[@"requires_shipping"] boolValue];
-	self.taxesIncluded = [dictionary[@"taxes_included"] boolValue];
-	self.currency = dictionary[@"currency"];
-	self.subtotalPrice = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"subtotal_price"]];
-	self.totalTax = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"total_tax"]];
-	self.totalPrice = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"total_price"]];
-	self.paymentDue = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"payment_due"]];
-	
-	self.paymentSessionId = dictionary[@"payment_session_id"];
-	NSString *paymentURLString = dictionary[@"payment_url"];
-	self.paymentURL = paymentURLString ? [NSURL URLWithString:paymentURLString] : nil;
-	self.reservationTime = dictionary[@"reservation_time"];
-	self.reservationTimeLeft = dictionary[@"reservation_time_left"];
-	
-	_lineItems = [BUYLineItem convertJSONArray:dictionary[@"line_items"]];
-	_taxLines = [BUYTaxLine convertJSONArray:dictionary[@"tax_lines"]];
-	
-	self.billingAddress = [BUYAddress convertObject:dictionary[@"billing_address"]];
-	self.shippingAddress = [BUYAddress convertObject:dictionary[@"shipping_address"]];
-	self.shippingRate = [BUYShippingRate convertObject:dictionary[@"shipping_rate"]];
-	self.discount = [BUYDiscount convertObject:dictionary[@"discount"]];
-	self.giftCards = [BUYGiftCard convertJSONArray:dictionary[@"gift_cards"]];
-	
-	self.order = [BUYOrder convertObject:dictionary[@"order"]];
-	
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-	self.orderId = self.order.identifier;
-	self.orderStatusURL = self.order.statusURL;
-#pragma GCC diagnostic pop
-	
-	self.webCheckoutURL = [NSURL URLWithString:dictionary[@"web_url"]];
-	NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForPublications];
-	self.createdAtDate = [dateFormatter dateFromString:dictionary[@"created_at"]];
-	self.updatedAtDate = [dateFormatter dateFromString:dictionary[@"updated_at"]];
-	self.creditCard = [BUYMaskedCreditCard convertObject:dictionary[@"credit_card"]];
-	self.customerId = [dictionary buy_objectForKey:@"customer_id"];
-	self.note = dictionary[@"note"];
-	self.attributes = [BUYCheckoutAttribute convertJSONArray:dictionary[@"attributes"]];
-	
-	self.privacyPolicyURL = [NSURL buy_urlWithString:dictionary[@"privacy_policy_url"]];
-	self.refundPolicyURL = [NSURL buy_urlWithString:dictionary[@"refund_policy_url"]];
-	self.termsOfServiceURL = [NSURL buy_urlWithString:dictionary[@"terms_of_service_url"]];
-	
-	self.sourceName = dictionary[@"source_name"];
+	NSArray *lineItems = [[cart.lineItems array] buy_map:^id(BUYCartLineItem *cartLineItem) {
+		return [[BUYLineItem alloc] initWithCartLineItem:cartLineItem];
+	}];
+	self.lineItems = [NSOrderedSet orderedSetWithArray:lineItems];
 }
 
-- (NSString *)shippingRateId
-{
-	return self.shippingRate.shippingRateIdentifier;
-}
+#pragma mark - BUYObject
 
-- (id)jsonValueForValue:(id)value
+
+
+- (NSDictionary *)JSONEncodedProperties
 {
-	id newValue = value;
-	if ([value conformsToProtocol:@protocol(BUYSerializable)]) {
-		newValue = [(id <BUYSerializable>)value jsonDictionaryForCheckout];
-	}
-	else if ([value isKindOfClass:[NSArray class]]) {
-		NSMutableArray *newArray = [[NSMutableArray alloc] init];
-		for (id arrayValue in value) {
-			[newArray addObject:[self jsonValueForValue:arrayValue]];
-		}
-		newValue = newArray;
-	}
-	else if ([value isKindOfClass:[NSString class]]) {
-		newValue = [value buy_trim];
-	}
-	return newValue;
+	//We only need the dirty properties
+	return [[super JSONEncodedProperties] dictionaryWithValuesForKeys:[self.dirtyProperties allObjects]];
 }
 
 - (NSDictionary *)jsonDictionaryForCheckout
 {
-	// We only need the dirty properties
-	NSSet *dirtyProperties = [self dirtyProperties];
-	NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
-	for (NSString *dirtyProperty in dirtyProperties) {
-		id value = [self jsonValueForValue:[self valueForKey:dirtyProperty]];
-		json[[BUYCheckout jsonKeyForProperty:dirtyProperty]] = value ?: [NSNull null];
-	}
-	
-	// We need to serialize the attributes as they need to be posted as a dictionary
-	if (json[@"attributes"]) {
-		NSMutableDictionary *attributeDictionary = [[NSMutableDictionary alloc] init];
-		for (NSDictionary *attribute in json[@"attributes"]) {
-			attributeDictionary[[attribute allKeys][0]] = [attribute allValues][0];
-		}
-		json[@"attributes"] = attributeDictionary;
-	}
+	NSMutableDictionary *json = [self.JSONDictionary mutableCopy];
+	json[@"attributes"] = self.attributesDictionary;
 	return @{ @"checkout" : json };
 }
 
--(void)setPartialAddresses:(BOOL)partialAddresses
+#pragma mark - Gift Card management
+
+- (BUYGiftCard *)giftCardWithIdentifier:(NSNumber *)identifier
 {
-	if (partialAddresses == NO) {
-		@throw [NSException exceptionWithName:@"partialAddress" reason:@"partialAddresses can only be set to true and should never be set to false on a complete address" userInfo:nil];
-	}
-	_partialAddresses = partialAddresses;
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier = %@", identifier];
+	return [[self.giftCards filteredOrderedSetUsingPredicate:predicate] firstObject];
 }
 
-- (BOOL)hasToken
+- (void)removeGiftCardWithIdentifier:(NSNumber *)identifier
 {
-	return (_token && [_token length] > 0);
+	BUYGiftCard *giftCard = [self giftCardWithIdentifier:identifier];
+	if (giftCard) {
+		[self.giftCardsSet removeObject:giftCard];
+	}
+}
+
+@end
+
+@implementation BUYModelManager (BUYCheckoutCreating)
+
+- (BUYCheckout *)checkout
+{
+	return [self checkoutWithCart:[self insertCartWithJSONDictionary:nil]];
+}
+
+- (BUYCheckout *)checkoutWithCart:(BUYCart *)cart
+{
+	BUYCheckout *checkout = [self insertCheckoutWithJSONDictionary:nil];
+	[checkout updateWithCart:cart];
+	return checkout;
+}
+
+- (BUYCheckout *)checkoutWithVariant:(BUYProductVariant *)productVariant
+{
+	BUYCheckout *checkout = [self insertCheckoutWithJSONDictionary:nil];
+	
+	BUYLineItem *lineItem = [self lineItemWithVariant:productVariant];
+	checkout.lineItems = [NSOrderedSet orderedSetWithObject:lineItem];
+	
+	return checkout;
+}
+
+- (BUYCheckout *)checkoutwithCartToken:(NSString *)token
+{
+	BUYCheckout *checkout = [self insertCheckoutWithJSONDictionary:nil];
+	checkout.cartToken = token;
+	return checkout;
 }
 
 @end
