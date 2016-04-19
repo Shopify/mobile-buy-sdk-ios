@@ -56,14 +56,14 @@
 
 NSString * const BUYVersionString = @"1.2.6";
 
-static NSString *const kBUYClientPathProductPublications = @"product_publications";
-static NSString *const kBUYClientPathCollectionPublications = @"collection_publications";
+static NSString *const kBUYClientPathProductPublications = @"product_listings";
+static NSString *const kBUYClientPathCollectionPublications = @"collection_listings";
 
 @interface BUYClient () <NSURLSessionDelegate>
 
 @property (nonatomic, strong) NSString *shopDomain;
 @property (nonatomic, strong) NSString *apiKey;
-@property (nonatomic, strong) NSString *channelId;
+@property (nonatomic, strong) NSString *appId;
 
 @property (nonatomic, strong) NSURLSession *session;
 @property (nonatomic, strong) NSString *merchantId;
@@ -74,7 +74,7 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_publi
 
 - (instancetype)init { return nil; }
 
-- (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey channelId:(NSString *)channelId
+- (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey appId:(NSString *)appId
 {
 	if (shopDomain.length == 0) {
 		NSException *exception = [NSException exceptionWithName:@"Bad shop domain" reason:@"Please ensure you initialize with a shop domain" userInfo:nil];
@@ -85,7 +85,7 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_publi
 	if (self) {
 		self.shopDomain = shopDomain;
 		self.apiKey = apiKey;
-		self.channelId = channelId;
+		self.appId = appId;
 		self.applicationName = [[NSBundle mainBundle] infoDictionary][@"CFBundleName"] ?: @"";
 		self.queue = dispatch_get_main_queue();
 		self.session = [self createUrlSession];
@@ -247,7 +247,7 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_publi
 
 - (NSURLComponents *)URLComponentsForChannelsAppendingPath:(NSString *)appendingPath queryItems:(NSDictionary*)queryItems
 {
-	return [self URLComponentsForAPIPath:[NSString stringWithFormat:@"channels/%@", self.channelId] appendingPath:appendingPath queryItems:queryItems];
+	return [self URLComponentsForAPIPath:[NSString stringWithFormat:@"apps/%@", self.appId] appendingPath:appendingPath queryItems:queryItems];
 }
 
 - (NSURLComponents *)URLComponentsForCheckoutsAppendingPath:(NSString *)appendingPath checkoutToken:(NSString *)checkoutToken queryItems:(NSDictionary*)queryItems
@@ -298,10 +298,9 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_publi
 
 - (void)configureCheckout:(BUYCheckout *)checkout
 {
-	checkout.channelId = self.channelId;
 	checkout.marketingAttribution = @{@"medium": @"iOS", @"source": self.applicationName};
 	checkout.sourceName = @"mobile_app";
-	checkout.sourceIdentifier = checkout.channelId;
+	checkout.sourceIdentifier = self.appId;
 	if (self.urlScheme || checkout.webReturnToURL) {
 		checkout.webReturnToURL = checkout.webReturnToURL ?: self.urlScheme;
 		checkout.webReturnToLabel = checkout.webReturnToLabel ?: [@"Return to " stringByAppendingString:self.applicationName];

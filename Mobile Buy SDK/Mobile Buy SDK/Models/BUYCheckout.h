@@ -167,11 +167,6 @@
 @property (nonatomic, strong, readonly) NSArray<BUYGiftCard *> *giftCards;
 
 /**
- *  Channel ID where the checkout was created
- */
-@property (nonatomic, strong) NSString *channelId;
-
-/**
  *  Attributions for the checkout, containing the application name and platform (defaults to applicationName set 
  *  on the BUYClient, and "iOS" respectively
  */
@@ -225,7 +220,7 @@
 @property (nonatomic, copy, readonly) NSString *sourceName;
 
 /**
- *  The unique identifier for the source: the channelId
+ *  The unique identifier for the source: the appId
  */
 @property (nonatomic, copy, readonly) NSString *sourceIdentifier;
 

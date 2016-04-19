@@ -37,7 +37,7 @@
 {
 	NSLog(@"Remove this call once integration succeeds.  This should never be called in production code!!");
 	
-	NSString *urlString = [NSString stringWithFormat:@"https://%@/mobile_app/verify?api_key=%@&channel_id=%@", self.shopDomain, self.apiKey, self.channelId];
+	NSString *urlString = [NSString stringWithFormat:@"https://%@/mobile_app/verify?api_key=%@&channel_id=%@", self.shopDomain, self.apiKey, self.appId];
 	
 	if (merchantId.length > 0) {
 		urlString = [urlString stringByAppendingFormat:@"&merchant_id=%@", merchantId];
