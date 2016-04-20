@@ -154,7 +154,6 @@
 	self.termsOfServiceURL = [NSURL buy_urlWithString:dictionary[@"terms_of_service_url"]];
 	
 	self.sourceName = dictionary[@"source_name"];
-	self.sourceIdentifier = dictionary[@"source_identifier"];
 }
 
 - (NSString *)shippingRateId

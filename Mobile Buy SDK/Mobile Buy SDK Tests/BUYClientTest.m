@@ -90,7 +90,6 @@
 	NSDictionary *dict = @{@"checkout":
 							   @{@"line_items": @[],
 								 @"source_name": @"mobile_app",
-								 @"source_identifier": self.client.appId,
 								 @"marketing_attribution":@{@"medium": @"iOS", @"source": self.client.applicationName}}};
 	
 	NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];

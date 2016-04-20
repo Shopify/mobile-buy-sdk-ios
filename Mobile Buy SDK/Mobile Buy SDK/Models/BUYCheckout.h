@@ -220,11 +220,6 @@
 @property (nonatomic, copy, readonly) NSString *sourceName;
 
 /**
- *  The unique identifier for the source: the appId
- */
-@property (nonatomic, copy, readonly) NSString *sourceIdentifier;
-
-/**
  *  Credit card stored on the checkout
  */
 @property (nonatomic, strong, readonly) BUYMaskedCreditCard *creditCard;

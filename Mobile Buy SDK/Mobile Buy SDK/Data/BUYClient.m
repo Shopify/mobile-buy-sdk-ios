@@ -300,7 +300,6 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_listi
 {
 	checkout.marketingAttribution = @{@"medium": @"iOS", @"source": self.applicationName};
 	checkout.sourceName = @"mobile_app";
-	checkout.sourceIdentifier = self.appId;
 	if (self.urlScheme || checkout.webReturnToURL) {
 		checkout.webReturnToURL = checkout.webReturnToURL ?: self.urlScheme;
 		checkout.webReturnToLabel = checkout.webReturnToLabel ?: [@"Return to " stringByAppendingString:self.applicationName];

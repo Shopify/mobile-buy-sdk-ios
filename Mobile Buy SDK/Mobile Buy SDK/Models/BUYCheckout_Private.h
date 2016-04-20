@@ -53,5 +53,4 @@
 @property (nonatomic, strong) NSURL *refundPolicyURL;
 @property (nonatomic, strong) NSURL *termsOfServiceURL;
 @property (nonatomic, copy) NSString *sourceName;
-@property (nonatomic, copy) NSString *sourceIdentifier;
 @end
