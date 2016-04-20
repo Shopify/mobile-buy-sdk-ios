@@ -40,12 +40,7 @@
 		numberHandler = [[NSDecimalNumberHandler alloc] initWithRoundingMode:NSRoundBankers scale:12 raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:NO];
 	});
 	
-	NSDecimalNumber *decimalNumber = [valueFromJSON buy_decimalNumber];
-	if (decimalNumber == nil) {
-		NSLog(@"Could not create decimal value: %@", valueFromJSON);
-	}
-	
-	return [decimalNumber decimalNumberByRoundingAccordingToBehavior:numberHandler];
+	return [[valueFromJSON buy_decimalNumber] decimalNumberByRoundingAccordingToBehavior:numberHandler];
 }
 
 - (NSDecimalNumber*)buy_decimalNumberAsNegative
