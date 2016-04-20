@@ -31,7 +31,6 @@
 #import "BUYTestConstants.h"
 #import "BUYAddress+Additions.h"
 #import "BUYCheckout_Private.h"
-#import "BUYClient+Test.h"
 #import "BUYClientTestBase.h"
 #import <OHHTTPStubs/OHHTTPStubs.h>
 #import "OHHTTPStubsResponse+Helpers.h"
@@ -1151,38 +1150,6 @@
 	}];
 	XCTAssertNotNil(_checkout.discount);
 	XCTAssertTrue(_checkout.discount.applicable);
-}
-
-- (void)testIntegration
-{
-	XCTAssertTrue([self.client testIntegrationWithMerchantId:nil]);
-	XCTAssertTrue([self.client testIntegrationWithMerchantId:self.merchantId]);
-
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testInvalidIntegrationBadChannelId_0"];
-	}];
-	BUYClient *badClient = [[BUYClient alloc] initWithShopDomain:self.shopDomain apiKey:self.apiKey appId:@"asdvfdbfdgasfgdsfg"];
-	XCTAssertFalse([badClient testIntegrationWithMerchantId:nil]);
-	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testInvalidIntegrationBadApiKey_0"];
-	}];
-	badClient = [[BUYClient alloc] initWithShopDomain:self.shopDomain apiKey:@"sadgsefgsdfgsdfgsdfg" appId:self.appId];
-	XCTAssertFalse([badClient testIntegrationWithMerchantId:nil]);
-	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testInvalidIntegrationBadShopUrl_0"];
-	}];
-	badClient = [[BUYClient alloc] initWithShopDomain:@"asdvfdbfdgasfgdsfg.myshopify.com" apiKey:self.apiKey appId:self.appId];
-	XCTAssertFalse([badClient testIntegrationWithMerchantId:nil]);
-	
-	XCTAssertFalse([badClient testIntegrationWithMerchantId:@"blah"]);
 }
 
 - (void)testGetCheckoutWithInvalidToken
