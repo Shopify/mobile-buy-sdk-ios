@@ -1,9 +1,9 @@
 //
-//  BUYError.m
+//  BUYCheckoutAttribute.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
-//  Copyright (c) 2015 Shopify Inc. All rights reserved.
+//  Copyright (c) 2016 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,15 +24,22 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYError.h"
+#import "BUYObject.h"
+#import "BUYSerializable.h"
 
-NSString * const BUYShopifyError = @"BUYShopifyError";
+/**
+ *  A BUYCheckoutAttribute represents a checkout attributes key and value
+ */
+@interface BUYCheckoutAttribute : BUYObject <BUYSerializable>
 
-@implementation BUYError
+/**
+ *  The attribute name
+ */
+@property (nonatomic, strong, nonnull) NSString *name;
 
-- (NSString *)description
-{
-	return [NSString stringWithFormat:@"Error code %td: %@", self.code, [self userInfo]];
-}
+/**
+ *  The attribute value
+ */
+@property (nonatomic, strong, nonnull) NSString *value;
 
 @end

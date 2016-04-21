@@ -125,6 +125,37 @@
 	XCTAssertEqualObjects(_checkout.billingAddress.address1, @"150 Elgin Street");
 }
 
+- (void)testCheckoutAttributesAndNotes
+{
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_1"];
+	}];
+	
+	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
+
+	NSString *note = @"Order note";
+	_checkout.note = note;
+	NSArray *attributes = @[ [[BUYCheckoutAttribute alloc] initWithDictionary:@{ @"name" : @"attribute1", @"value" : @"value1" }], [[BUYCheckoutAttribute alloc] initWithDictionary:@{ @"name" : @"attribute2", @"value" : @"value2" }] ];
+	_checkout.attributes = attributes;
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[self.client createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+		XCTAssertNil(error);
+		XCTAssertNotNil(returnedCheckout);
+		
+		XCTAssertEqualObjects(returnedCheckout.note, note);
+		XCTAssertEqualObjects(returnedCheckout.attributes, attributes);
+		
+		_checkout = returnedCheckout;
+		[expectation fulfill];
+	}];
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
 - (void)fetchShippingRates
 {
 	

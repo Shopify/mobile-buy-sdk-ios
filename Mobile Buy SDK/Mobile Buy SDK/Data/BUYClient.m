@@ -54,7 +54,7 @@
 #define kMinSuccessfulStatusCode 200
 #define kMaxSuccessfulStatusCode 299
 
-NSString * const BUYVersionString = @"1.2.4";
+NSString * const BUYVersionString = @"1.2.6";
 
 static NSString *const kBUYClientPathProductPublications = @"product_publications";
 static NSString *const kBUYClientPathCollectionPublications = @"collection_publications";
@@ -88,14 +88,21 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_publi
 		self.channelId = channelId;
 		self.applicationName = [[NSBundle mainBundle] infoDictionary][@"CFBundleName"] ?: @"";
 		self.queue = dispatch_get_main_queue();
-		
-		NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-		config.HTTPAdditionalHeaders = @{@"User-Agent": [NSString stringWithFormat:@"Mobile Buy SDK iOS/%@", BUYVersionString]};
-		
-		self.session = [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:nil];
+		self.session = [self createUrlSession];
 		self.pageSize = 25;
 	}
 	return self;
+}
+
+- (NSURLSession *)createUrlSession
+{
+	NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+	
+	NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+	
+	config.HTTPAdditionalHeaders = @{@"User-Agent": [NSString stringWithFormat:@"Mobile Buy SDK iOS/%@/%@", BUYVersionString, bundleIdentifier]};
+	
+	return [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:nil];
 }
 
 #pragma mark - Storefront
@@ -173,15 +180,23 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_publi
 
 - (NSURLSessionDataTask *)getCollections:(BUYDataCollectionsBlock)block
 {
-	NSURLComponents *components = [self URLComponentsForChannelsAppendingPath:kBUYClientPathCollectionPublications queryItems:nil];
-	
+	return [self getCollectionsPage:1 completion:^(NSArray<BUYCollection *> *collections, NSUInteger page, BOOL reachedEnd, NSError *error) {
+		block(collections, error);
+	}];
+}
+
+- (NSURLSessionDataTask *)getCollectionsPage:(NSUInteger)page completion:(BUYDataCollectionsListBlock)block
+{
+	NSURLComponents *components = [self URLComponentsForChannelsAppendingPath:kBUYClientPathCollectionPublications
+																   queryItems:@{@"limit" : [NSString stringWithFormat:@"%lu", (unsigned long)self.pageSize],
+																				@"page" : [NSString stringWithFormat:@"%lu", (unsigned long)page]}];
 	return [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		
 		NSArray *collections = nil;
 		if (json && error == nil) {
 			collections = [BUYCollection convertJSONArray:json[kBUYClientPathCollectionPublications]];
 		}
-		block(collections, error);
+		block(collections, page, [self hasReachedEndOfPage:collections], error);
 	}];
 }
 

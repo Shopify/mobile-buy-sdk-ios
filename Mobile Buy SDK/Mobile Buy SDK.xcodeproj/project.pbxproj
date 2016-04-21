@@ -178,6 +178,10 @@
 		901931691BC5B9BC00D1134E /* BUYProduct.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A7C1A700B0A0087DB2C /* BUYProduct.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9019316A1BC5B9BC00D1134E /* BUYSerializable.h in Headers */ = {isa = PBXBuildFile; fileRef = F76CFF1E19CB7C500079C703 /* BUYSerializable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9019316B1BC5B9BC00D1134E /* BUYProductVariant.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A811A700B0A0087DB2C /* BUYProductVariant.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9032F2DA1BE9457A00BB9EEF /* BUYCheckoutAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 9032F2D81BE9457A00BB9EEF /* BUYCheckoutAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9032F2DB1BE9457A00BB9EEF /* BUYCheckoutAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 9032F2D81BE9457A00BB9EEF /* BUYCheckoutAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9032F2DC1BE9457A00BB9EEF /* BUYCheckoutAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 9032F2D91BE9457A00BB9EEF /* BUYCheckoutAttribute.m */; };
+		9032F2DD1BE9457A00BB9EEF /* BUYCheckoutAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 9032F2D91BE9457A00BB9EEF /* BUYCheckoutAttribute.m */; };
 		903BCC7C1B7D1C2D00C21FEB /* BUYProductViewErrorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 903BCC7A1B7D1C2D00C21FEB /* BUYProductViewErrorView.h */; };
 		903BCC7D1B7D1C2D00C21FEB /* BUYProductViewErrorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 903BCC7B1B7D1C2D00C21FEB /* BUYProductViewErrorView.m */; };
 		904606AF1B6BC8D700754173 /* BUYProductImageCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 904606AD1B6BC8D700754173 /* BUYProductImageCollectionViewCell.h */; };
@@ -328,11 +332,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		90DAEC341BC6E50B007555A5 /* PBXContainerItemProxy */ = {
+		9032F2D61BE93F3D00BB9EEF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F773741519C770CB0039681C /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = BE9A64271B503C2F0033E558;
+			remoteGlobalIDString = 901930E11BC5B9BC00D1134E;
 			remoteInfo = Buy;
 		};
 		90E78A4C1BD58F0C005D16C3 /* PBXContainerItemProxy */ = {
@@ -378,6 +382,8 @@
 		901335451C187E0400410ED0 /* NSURLComponents+BUYAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLComponents+BUYAdditions.m"; sourceTree = "<group>"; };
 		901931701BC5B9BC00D1134E /* Buy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Buy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		901931761BC5BC9100D1134E /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		9032F2D81BE9457A00BB9EEF /* BUYCheckoutAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYCheckoutAttribute.h; sourceTree = "<group>"; };
+		9032F2D91BE9457A00BB9EEF /* BUYCheckoutAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYCheckoutAttribute.m; sourceTree = "<group>"; };
 		903BCC7A1B7D1C2D00C21FEB /* BUYProductViewErrorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = BUYProductViewErrorView.h; path = "Product View/BUYProductViewErrorView.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		903BCC7B1B7D1C2D00C21FEB /* BUYProductViewErrorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYProductViewErrorView.m; path = "Product View/BUYProductViewErrorView.m"; sourceTree = "<group>"; };
 		904606AD1B6BC8D700754173 /* BUYProductImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = BUYProductImageCollectionViewCell.h; path = "Product View/BUYProductImageCollectionViewCell.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -761,6 +767,8 @@
 				BEB74A1B1B5490140005A300 /* BUYCheckout_Private.h */,
 				F773749419C77C260039681C /* BUYCheckout.h */,
 				F773749519C77C260039681C /* BUYCheckout.m */,
+				9032F2D81BE9457A00BB9EEF /* BUYCheckoutAttribute.h */,
+				9032F2D91BE9457A00BB9EEF /* BUYCheckoutAttribute.m */,
 				BEB74A8E1B55A3D00005A300 /* BUYCollection.h */,
 				9089CC5D1BB48D06009726D6 /* BUYCollection.m */,
 				900396F41B69563400226B73 /* BUYCollection+Additions.h */,
@@ -941,6 +949,7 @@
 				9019315B1BC5B9BC00D1134E /* BUYImageKit.h in Headers */,
 				9019315C1BC5B9BC00D1134E /* BUYCollection+Additions.h in Headers */,
 				9019315D1BC5B9BC00D1134E /* NSDateFormatter+BUYAdditions.h in Headers */,
+				9032F2DB1BE9457A00BB9EEF /* BUYCheckoutAttribute.h in Headers */,
 				9019315E1BC5B9BC00D1134E /* BUYError.h in Headers */,
 				9019315F1BC5B9BC00D1134E /* BUYProductHeaderCell.h in Headers */,
 				901931601BC5B9BC00D1134E /* BUYProductViewErrorView.h in Headers */,
@@ -1017,6 +1026,7 @@
 				900E7C841B5DA553006F3C81 /* BUYImageKit.h in Headers */,
 				900396F61B69563400226B73 /* BUYCollection+Additions.h in Headers */,
 				90A446251B5EC03F009602AA /* NSDateFormatter+BUYAdditions.h in Headers */,
+				9032F2DA1BE9457A00BB9EEF /* BUYCheckoutAttribute.h in Headers */,
 				BE47340F1B66C4EF00AA721A /* BUYError.h in Headers */,
 				BEB74A6D1B5564200005A300 /* BUYProductHeaderCell.h in Headers */,
 				903BCC7C1B7D1C2D00C21FEB /* BUYProductViewErrorView.h in Headers */,
@@ -1065,7 +1075,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				90DAEC351BC6E50B007555A5 /* PBXTargetDependency */,
+				9032F2D71BE93F3D00BB9EEF /* PBXTargetDependency */,
 			);
 			name = "Mobile Buy SDK Tests";
 			productName = "Mobile Buy SDK Tests";
@@ -1244,6 +1254,7 @@
 				9019310E1BC5B9BC00D1134E /* BUYProduct.m in Sources */,
 				9019310F1BC5B9BC00D1134E /* BUYImageView.m in Sources */,
 				901931101BC5B9BC00D1134E /* BUYProductHeaderCell.m in Sources */,
+				9032F2DD1BE9457A00BB9EEF /* BUYCheckoutAttribute.m in Sources */,
 				901931111BC5B9BC00D1134E /* BUYCartLineItem.m in Sources */,
 				901931121BC5B9BC00D1134E /* BUYMaskedCreditCard.m in Sources */,
 				901931131BC5B9BC00D1134E /* BUYCheckout.m in Sources */,
@@ -1339,6 +1350,7 @@
 				BE9A64621B503CF40033E558 /* BUYProduct.m in Sources */,
 				BEB74A781B55646F0005A300 /* BUYImageView.m in Sources */,
 				BEB74A6E1B5564230005A300 /* BUYProductHeaderCell.m in Sources */,
+				9032F2DC1BE9457A00BB9EEF /* BUYCheckoutAttribute.m in Sources */,
 				9003969C1B601DF400226B73 /* BUYCartLineItem.m in Sources */,
 				BE5DC3641B71022D00B2BC1E /* BUYMaskedCreditCard.m in Sources */,
 				BE9A644C1B503C9F0033E558 /* BUYCheckout.m in Sources */,
@@ -1365,10 +1377,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		90DAEC351BC6E50B007555A5 /* PBXTargetDependency */ = {
+		9032F2D71BE93F3D00BB9EEF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = BE9A64271B503C2F0033E558 /* Buy Static */;
-			targetProxy = 90DAEC341BC6E50B007555A5 /* PBXContainerItemProxy */;
+			target = 901930E11BC5B9BC00D1134E /* Buy */;
+			targetProxy = 9032F2D61BE93F3D00BB9EEF /* PBXContainerItemProxy */;
 		};
 		90E78A4D1BD58F0C005D16C3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1384,7 +1396,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1.2.4;
+				CURRENT_PROJECT_VERSION = 1.2.6;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1417,7 +1429,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1.2.4;
+				CURRENT_PROJECT_VERSION = 1.2.6;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1540,7 +1552,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1.2.4;
+				CURRENT_PROJECT_VERSION = 1.2.6;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1573,7 +1585,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1.2.4;
+				CURRENT_PROJECT_VERSION = 1.2.6;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;

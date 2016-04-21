@@ -1,9 +1,9 @@
 //
-//  BUYError.m
+//  BUYCheckoutAttribute.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
-//  Copyright (c) 2015 Shopify Inc. All rights reserved.
+//  Copyright (c) 2016 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,15 +24,36 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYError.h"
+#import "BUYCheckoutAttribute.h"
 
-NSString * const BUYShopifyError = @"BUYShopifyError";
+@implementation BUYCheckoutAttribute
 
-@implementation BUYError
-
-- (NSString *)description
+- (void)updateWithDictionary:(NSDictionary *)dictionary
 {
-	return [NSString stringWithFormat:@"Error code %td: %@", self.code, [self userInfo]];
+	self.name = dictionary[@"name"];
+	self.value = dictionary[@"value"];
+}
+
+- (NSDictionary *)jsonDictionaryForCheckout
+{
+	return @{ self.name : self.value };
+}
+
+- (BOOL)isEqual:(id)object
+{
+	BOOL same = NO;
+	if (self == object) {
+		same = YES;
+	} else if ([object isKindOfClass:self.class]) {
+		BUYCheckoutAttribute *attribute = (BUYCheckoutAttribute *)object;
+		same = ([self.name isEqualToString:attribute.name] && [self.value isEqualToString:attribute.value]);
+	}
+	return same;
+}
+
+- (NSUInteger)hash
+{
+	return [self.name hash] ^ [self.value hash];
 }
 
 @end
