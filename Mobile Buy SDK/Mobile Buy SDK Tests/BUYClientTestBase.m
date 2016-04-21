@@ -28,8 +28,8 @@
 #import "BUYTestConstants.h"
 
 NSString * const BUYShopDomain_Placeholder = @"test_shop";
-NSString * const BUYAPIKey_Placeholder = @"channel_id";
-NSString * const BUYAppId_Placeholder = @"api_key";
+NSString * const BUYAPIKey_Placeholder = @"api_key";
+NSString * const BUYAppId_Placeholder = @"app_id";
 
 @implementation BUYClientTestBase
 

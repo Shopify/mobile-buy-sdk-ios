@@ -228,7 +228,7 @@
 	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
-	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/apps/api_key/product_listings.json");
+	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/apps/app_id/product_listings.json");
 	NSSet *requestQueryItems = [NSSet setWithArray:[task.originalRequest.URL.query componentsSeparatedByString:@"&"]];
 	NSSet *queryItems = [NSSet setWithArray:@[@"collection_id=1", @"limit=25", @"page=1", @"sort_by=collection-default"]];
 	XCTAssertEqualObjects(requestQueryItems, queryItems);
@@ -240,7 +240,7 @@
 	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
-	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/apps/api_key/product_listings.json");
+	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/apps/app_id/product_listings.json");
 	NSSet *requestQueryItems = [NSSet setWithArray:[task.originalRequest.URL.query componentsSeparatedByString:@"&"]];
 	NSSet *queryItems = [NSSet setWithArray:@[@"collection_id=1", @"limit=25", @"page=1", @"sort_by=best-selling"]];
 	XCTAssertEqualObjects(requestQueryItems, queryItems);
@@ -252,7 +252,7 @@
 	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
-	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/apps/api_key/product_listings.json");
+	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/apps/app_id/product_listings.json");
 	NSSet *requestQueryItems = [NSSet setWithArray:[task.originalRequest.URL.query componentsSeparatedByString:@"&"]];
 	NSSet *queryItems = [NSSet setWithArray:@[@"collection_id=1", @"limit=25", @"page=1", @"sort_by=created-ascending"]];
 	XCTAssertEqualObjects(requestQueryItems, queryItems);
@@ -264,7 +264,7 @@
 	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
-	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/apps/api_key/product_listings.json");
+	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/apps/app_id/product_listings.json");
 	NSSet *requestQueryItems = [NSSet setWithArray:[task.originalRequest.URL.query componentsSeparatedByString:@"&"]];
 	NSSet *queryItems = [NSSet setWithArray:@[@"collection_id=1", @"limit=25", @"page=1", @"sort_by=created-descending"]];
 	XCTAssertEqualObjects(requestQueryItems, queryItems);
@@ -276,7 +276,7 @@
 	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
-	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/apps/api_key/product_listings.json");
+	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/apps/app_id/product_listings.json");
 	NSSet *requestQueryItems = [NSSet setWithArray:[task.originalRequest.URL.query componentsSeparatedByString:@"&"]];
 	NSSet *queryItems = [NSSet setWithArray:@[@"collection_id=1", @"limit=25", @"page=1", @"sort_by=price-ascending"]];
 	XCTAssertEqualObjects(requestQueryItems, queryItems);
@@ -288,7 +288,7 @@
 	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
-	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/apps/api_key/product_listings.json");
+	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/apps/app_id/product_listings.json");
 	NSSet *requestQueryItems = [NSSet setWithArray:[task.originalRequest.URL.query componentsSeparatedByString:@"&"]];
 	NSSet *queryItems = [NSSet setWithArray:@[@"collection_id=1", @"limit=25", @"page=1", @"sort_by=price-descending"]];
 	XCTAssertEqualObjects(requestQueryItems, queryItems);
@@ -300,7 +300,7 @@
 	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
-	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/apps/api_key/product_listings.json");
+	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/apps/app_id/product_listings.json");
 	NSSet *requestQueryItems = [NSSet setWithArray:[task.originalRequest.URL.query componentsSeparatedByString:@"&"]];
 	NSSet *queryItems = [NSSet setWithArray:@[@"collection_id=1", @"limit=25", @"page=1", @"sort_by=title-ascending"]];
 	XCTAssertEqualObjects(requestQueryItems, queryItems);
@@ -312,7 +312,7 @@
 	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
-	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/apps/api_key/product_listings.json");
+	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/apps/app_id/product_listings.json");
 	NSSet *requestQueryItems = [NSSet setWithArray:[task.originalRequest.URL.query componentsSeparatedByString:@"&"]];
 	NSSet *queryItems = [NSSet setWithArray:@[@"collection_id=1", @"limit=25", @"page=1", @"sort_by=title-descending"]];
 	XCTAssertEqualObjects(requestQueryItems, queryItems);
