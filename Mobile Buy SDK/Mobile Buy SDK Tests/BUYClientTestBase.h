@@ -29,13 +29,13 @@
 
 extern NSString * const BUYShopDomain_Placeholder;
 extern NSString * const BUYAPIKey_Placeholder;
-extern NSString * const BUYChannelId_Placeholder;
+extern NSString * const BUYAppId_Placeholder;
 
 @interface BUYClientTestBase : XCTestCase
 
 @property (nonatomic, strong) NSString *shopDomain;
 @property (nonatomic, strong) NSString *apiKey;
-@property (nonatomic, strong) NSString *channelId;
+@property (nonatomic, strong) NSString *appId;
 @property (nonatomic, strong) NSString *merchantId;
 @property (nonatomic, strong) NSString *giftCardCode;
 @property (nonatomic, strong) NSString *giftCardCode2;

@@ -30,7 +30,7 @@
 // These should be defined as environment variables in your scheme, or in the CI machine
 #define kBUYTestDomain @"shop_domain"
 #define kBUYTestAPIKey @"api_key"
-#define kBUYTestChannelId @"channel_id"
+#define kBUYTestAppId @"app_id"
 #define kBUYTestMerchantId @"merchant_id"
 #define kBUYTestGiftCardCode11 @"gift_card_code_11"
 #define kBUYTestGiftCardCode25 @"gift_card_code_25"

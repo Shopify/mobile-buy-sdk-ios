@@ -31,7 +31,6 @@
 #import "BUYTestConstants.h"
 #import "BUYAddress+Additions.h"
 #import "BUYCheckout_Private.h"
-#import "BUYClient+Test.h"
 #import "BUYClientTestBase.h"
 #import <OHHTTPStubs/OHHTTPStubs.h>
 #import "OHHTTPStubsResponse+Helpers.h"
@@ -902,7 +901,7 @@
 		return [OHHTTPStubsResponse responseWithKey:@"testInvalidIntegrationBadShopUrl_0"];
 	}];
 	
-	self.client = [[BUYClient alloc] initWithShopDomain:@"asdfdsasdfdsasdfdsadsfowinfaoinfw.myshopify.com" apiKey:self.apiKey channelId:nil];
+	self.client = [[BUYClient alloc] initWithShopDomain:@"asdfdsasdfdsasdfdsadsfowinfaoinfw.myshopify.com" apiKey:self.apiKey appId:nil];
 	[self.client createCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		XCTAssertNotNil(error);
 		XCTAssertEqualObjects(error.domain, @"shopify");
@@ -1153,38 +1152,6 @@
 	XCTAssertTrue(_checkout.discount.applicable);
 }
 
-- (void)testIntegration
-{
-	XCTAssertTrue([self.client testIntegrationWithMerchantId:nil]);
-	XCTAssertTrue([self.client testIntegrationWithMerchantId:self.merchantId]);
-
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testInvalidIntegrationBadChannelId_0"];
-	}];
-	BUYClient *badClient = [[BUYClient alloc] initWithShopDomain:self.shopDomain apiKey:self.apiKey channelId:@"asdvfdbfdgasfgdsfg"];
-	XCTAssertFalse([badClient testIntegrationWithMerchantId:nil]);
-	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testInvalidIntegrationBadApiKey_0"];
-	}];
-	badClient = [[BUYClient alloc] initWithShopDomain:self.shopDomain apiKey:@"sadgsefgsdfgsdfgsdfg" channelId:self.channelId];
-	XCTAssertFalse([badClient testIntegrationWithMerchantId:nil]);
-	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testInvalidIntegrationBadShopUrl_0"];
-	}];
-	badClient = [[BUYClient alloc] initWithShopDomain:@"asdvfdbfdgasfgdsfg.myshopify.com" apiKey:self.apiKey channelId:self.channelId];
-	XCTAssertFalse([badClient testIntegrationWithMerchantId:nil]);
-	
-	XCTAssertFalse([badClient testIntegrationWithMerchantId:@"blah"]);
-}
-
 - (void)testGetCheckoutWithInvalidToken
 {
 	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
@@ -1326,8 +1293,8 @@
 	
 	NSString *shopDomain = [self shouldUseMocks] ? BUYShopDomain_Placeholder : self.shopDomain;
 	NSString *apiKey = [self shouldUseMocks] ? BUYAPIKey_Placeholder : self.apiKey;
-	NSString *channelId = [self shouldUseMocks] ? BUYChannelId_Placeholder : self.channelId;
-	BUYClient *testClient = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:apiKey channelId:channelId];
+	NSString *appId = [self shouldUseMocks] ? BUYAppId_Placeholder : self.appId;
+	BUYClient *testClient = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:apiKey appId:appId];
 	testClient.queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
 	
 	[testClient getShop:^(BUYShop *shop, NSError *error) {
