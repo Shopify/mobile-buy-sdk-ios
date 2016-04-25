@@ -1,5 +1,5 @@
 //
-//  NSURL+BUYAdditions.h
+//  BUYURLAdditionsTests.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,17 +24,22 @@
 //  THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
+#import <XCTest/XCTest.h>
+#import "NSURL+BUYAdditions.h"
 
-@interface NSURL (BUYAdditions)
+@interface BUYURLAdditionsTests : XCTestCase
 
-/**
- *  Converts an NSString to a NSURL. Safe to pass in nil.
- *
- *  @param string The string to convert
- *
- *  @return An NSURL from an NSString
- */
-+ (NSURL *)buy_urlWithString:(NSString *)string;
+@end
+
+@implementation BUYURLAdditionsTests
+
+- (void)testAppendBasenameSuffix
+{
+	NSString *string = @"http://shopify.com/file.txt";
+	NSURL *url = [NSURL URLWithString:string];
+	NSURL *expected = [NSURL URLWithString:@"http://shopify.com/file_big.txt"];
+	NSURL *actual = [url buy_URLByAppendingFileBaseNameSuffix:@"_big"];
+	XCTAssertEqualObjects(actual, expected);
+}
 
 @end

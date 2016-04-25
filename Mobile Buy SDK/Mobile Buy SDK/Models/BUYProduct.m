@@ -29,7 +29,7 @@
 #import "BUYProduct.h"
 #import "BUYProductVariant.h"
 #import "NSDateFormatter+BUYAdditions.h"
-#import "NSDictionary+Additions.h"
+#import "NSDictionary+BUYAdditions.h"
 
 @implementation BUYProduct
 

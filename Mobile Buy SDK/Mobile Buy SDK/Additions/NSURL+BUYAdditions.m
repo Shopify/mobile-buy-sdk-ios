@@ -1,5 +1,5 @@
 //
-//  BUYDiscount.m
+//  NSURL+BUYAdditions.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,30 +24,27 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYDiscount.h"
-#import "NSDecimalNumber+BUYAdditions.h"
+#import "NSURL+BUYAdditions.h"
 #import "NSString+BUYAdditions.h"
 
-@implementation BUYDiscount
+@implementation NSURL (BUYAdditions)
 
-- (instancetype)initWithCode:(NSString *)code
++ (instancetype)buy_urlWithString:(NSString *)string
 {
-	return [super initWithDictionary:@{@"code": code ?: @""}];
+	NSURL *url = nil;
+	
+	if ([string isKindOfClass:[NSString class]]) {
+		url = [NSURL URLWithString:string];
+	}
+	
+	return url;
 }
 
-- (void)updateWithDictionary:(NSDictionary *)dictionary
+- (instancetype)buy_URLByAppendingFileBaseNameSuffix:(NSString *)suffix
 {
-	[super updateWithDictionary:dictionary];
-	self.code = dictionary[@"code"];
-	self.amount = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"amount"]];
-	self.applicable = [dictionary[@"applicable"] boolValue];
-}
-
-- (NSDictionary *)jsonDictionaryForCheckout
-{
-	NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
-	json[@"code"] = [self.code buy_trim] ?: @"";
-	return json;
+	NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
+	components.path = [components.path buy_stringByAppendingBaseFileNameSuffix:suffix];
+	return [components URL];
 }
 
 @end

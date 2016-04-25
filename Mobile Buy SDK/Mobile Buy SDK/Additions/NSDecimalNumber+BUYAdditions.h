@@ -1,5 +1,5 @@
 //
-//  BUYDiscount.m
+//  NSDecimalNumber+BUYAdditions.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,30 +24,24 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYDiscount.h"
-#import "NSDecimalNumber+BUYAdditions.h"
-#import "NSString+BUYAdditions.h"
+@import Foundation;
 
-@implementation BUYDiscount
+@interface NSDecimalNumber (BUYAdditions)
 
-- (instancetype)initWithCode:(NSString *)code
-{
-	return [super initWithDictionary:@{@"code": code ?: @""}];
-}
+/**
+ *  Converts a JSON value to an NSDecimalNumber
+ *
+ *  @param valueFromJSON The value to convert
+ *
+ *  @return NSDecimalNumber from a JSON string
+ */
++ (NSDecimalNumber*)buy_decimalNumberFromJSON:(id)valueFromJSON;
 
-- (void)updateWithDictionary:(NSDictionary *)dictionary
-{
-	[super updateWithDictionary:dictionary];
-	self.code = dictionary[@"code"];
-	self.amount = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"amount"]];
-	self.applicable = [dictionary[@"applicable"] boolValue];
-}
-
-- (NSDictionary *)jsonDictionaryForCheckout
-{
-	NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
-	json[@"code"] = [self.code buy_trim] ?: @"";
-	return json;
-}
+/**
+ *  Converts a decimal number to a negative value
+ *
+ *  @return The same decimal number but as a negative
+ */
+- (NSDecimalNumber*)buy_decimalNumberAsNegative;
 
 @end

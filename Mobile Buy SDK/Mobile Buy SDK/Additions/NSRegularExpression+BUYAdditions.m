@@ -1,5 +1,5 @@
 //
-//  BUYDiscount.m
+//  NSRegularExpression+BUYAdditions.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,30 +24,18 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYDiscount.h"
-#import "NSDecimalNumber+BUYAdditions.h"
-#import "NSString+BUYAdditions.h"
+#import "NSRegularExpression+BUYAdditions.h"
 
-@implementation BUYDiscount
+@implementation NSRegularExpression (BUYAdditions)
 
-- (instancetype)initWithCode:(NSString *)code
+- (NSArray *)buy_matchesInString:(NSString *)string
 {
-	return [super initWithDictionary:@{@"code": code ?: @""}];
+	return [self matchesInString:string options:0 range:NSMakeRange(0, string.length)];
 }
 
-- (void)updateWithDictionary:(NSDictionary *)dictionary
+- (NSTextCheckingResult *)buy_firstMatchInString:(NSString *)string
 {
-	[super updateWithDictionary:dictionary];
-	self.code = dictionary[@"code"];
-	self.amount = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"amount"]];
-	self.applicable = [dictionary[@"applicable"] boolValue];
-}
-
-- (NSDictionary *)jsonDictionaryForCheckout
-{
-	NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
-	json[@"code"] = [self.code buy_trim] ?: @"";
-	return json;
+	return [self firstMatchInString:string options:0 range:NSMakeRange(0, string.length)];
 }
 
 @end

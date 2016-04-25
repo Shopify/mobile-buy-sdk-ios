@@ -25,8 +25,8 @@
 //
 
 #import "BUYAddress.h"
-#import "NSString+Trim.h"
-#import "NSDictionary+Additions.h"
+#import "NSString+BUYAdditions.h"
+#import "NSDictionary+BUYAdditions.h"
 
 @implementation BUYAddress
 

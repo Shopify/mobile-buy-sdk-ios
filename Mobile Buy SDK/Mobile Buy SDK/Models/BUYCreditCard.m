@@ -25,7 +25,7 @@
 //
 
 #import "BUYCreditCard.h"
-#import "NSString+Trim.h"
+#import "NSString+BUYAdditions.h"
 
 @implementation BUYCreditCard
 

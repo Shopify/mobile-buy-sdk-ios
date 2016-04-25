@@ -27,7 +27,7 @@
 #import "BUYCollection.h"
 #import "NSDateFormatter+BUYAdditions.h"
 #import "NSURL+BUYAdditions.h"	
-#import "NSDictionary+Additions.h"
+#import "NSDictionary+BUYAdditions.h"
 
 @interface BUYCollection ()
 @property (nonatomic, strong) NSString *title;

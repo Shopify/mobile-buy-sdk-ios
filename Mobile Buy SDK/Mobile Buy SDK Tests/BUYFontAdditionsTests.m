@@ -1,5 +1,5 @@
 //
-//  NSString+Trim.h
+//  BUYFontAdditionsTests.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,18 +24,27 @@
 //  THE SOFTWARE.
 //
 
-@import Foundation;
+#import <XCTest/XCTest.h>
+#import "UIFont+BUYAdditions.h"
 
-/**
- *  Convenience method for easier white space and newline character trimming
- */
-@interface NSString (Trim)
+@interface BUYFontAdditionsTests : XCTestCase
 
-/**
-*  Equivalent to `[self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]`
-*
-*  @return NSString without white space and newline characters
-*/
-- (NSString*)buy_trim;
+@end
+
+@implementation BUYFontAdditionsTests
+
+- (void)testIncreasedFontSize
+{
+	static CGFloat const increase = 2.0;
+	UIFont *font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+	CGFloat newSize = font.pointSize + increase;
+	
+	NSMutableDictionary *attributes = [font.fontDescriptor.fontAttributes mutableCopy];
+	attributes[UIFontDescriptorSizeAttribute] = @(newSize);
+
+	UIFont *expected = [UIFont fontWithDescriptor:[UIFontDescriptor fontDescriptorWithFontAttributes:attributes] size:newSize];
+	UIFont *actual = [UIFont preferredFontForTextStyle:UIFontTextStyleBody increasedPointSize:increase];
+	XCTAssertEqualObjects(actual, expected);
+}
 
 @end

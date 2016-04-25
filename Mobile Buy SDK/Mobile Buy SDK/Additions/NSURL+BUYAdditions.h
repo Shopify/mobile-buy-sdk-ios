@@ -1,5 +1,5 @@
 //
-//  BUYDiscount.m
+//  NSURL+BUYAdditions.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,30 +24,25 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYDiscount.h"
-#import "NSDecimalNumber+BUYAdditions.h"
-#import "NSString+BUYAdditions.h"
+#import <Foundation/Foundation.h>
 
-@implementation BUYDiscount
+@interface NSURL (BUYAdditions)
 
-- (instancetype)initWithCode:(NSString *)code
-{
-	return [super initWithDictionary:@{@"code": code ?: @""}];
-}
+/**
+ *  Converts an NSString to a NSURL. Safe to pass in nil.
+ *
+ *  @param string The string to convert
+ *
+ *  @return An NSURL from an NSString
+ */
++ (instancetype)buy_urlWithString:(NSString *)string;
 
-- (void)updateWithDictionary:(NSDictionary *)dictionary
-{
-	[super updateWithDictionary:dictionary];
-	self.code = dictionary[@"code"];
-	self.amount = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"amount"]];
-	self.applicable = [dictionary[@"applicable"] boolValue];
-}
 
-- (NSDictionary *)jsonDictionaryForCheckout
-{
-	NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
-	json[@"code"] = [self.code buy_trim] ?: @"";
-	return json;
-}
+/**
+ * Create an NSURL by updating the file name with the given suffix, preserving other URL properties.
+ *
+ * @return an NSURL object with the updated file name.
+ */
+- (instancetype)buy_URLByAppendingFileBaseNameSuffix:(NSString *)suffix;
 
 @end
