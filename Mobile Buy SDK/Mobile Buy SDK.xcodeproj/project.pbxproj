@@ -87,6 +87,7 @@
 		84980F2A1CB75AC200CFAB58 /* BUYObjectProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 84980F281CB75AC200CFAB58 /* BUYObjectProtocol.h */; };
 		84980F2C1CB75B5E00CFAB58 /* BUYModelManagerProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 84980F2B1CB75B5E00CFAB58 /* BUYModelManagerProtocol.h */; };
 		84980F2D1CB75B5E00CFAB58 /* BUYModelManagerProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 84980F2B1CB75B5E00CFAB58 /* BUYModelManagerProtocol.h */; };
+		8491104A1CCEA85C00E53B93 /* BUYObserverTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 849110461CCEA85C00E53B93 /* BUYObserverTests.m */; };
 		84980F291CB75AC200CFAB58 /* BUYObjectProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 84980F281CB75AC200CFAB58 /* BUYObjectProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84980F2A1CB75AC200CFAB58 /* BUYObjectProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 84980F281CB75AC200CFAB58 /* BUYObjectProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84980F2C1CB75B5E00CFAB58 /* BUYModelManagerProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 84980F2B1CB75B5E00CFAB58 /* BUYModelManagerProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -465,6 +466,7 @@
 		8491103F1CCE9DFB00E53B93 /* BUYPropertyDescriptionAdditionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYPropertyDescriptionAdditionsTests.m; sourceTree = "<group>"; };
 		849110411CCE9E0A00E53B93 /* BUYEntityDescriptionAdditionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYEntityDescriptionAdditionsTests.m; sourceTree = "<group>"; };
 		849110431CCE9F3F00E53B93 /* BUYTransformerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYTransformerTests.m; sourceTree = "<group>"; };
+		849110461CCEA85C00E53B93 /* BUYObserverTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYObserverTests.m; sourceTree = "<group>"; };
 		84980F281CB75AC200CFAB58 /* BUYObjectProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYObjectProtocol.h; sourceTree = "<group>"; };
 		84980F2B1CB75B5E00CFAB58 /* BUYModelManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYModelManagerProtocol.h; sourceTree = "<group>"; };
 		84980F2E1CB75C2900CFAB58 /* NSEntityDescription+BUYAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSEntityDescription+BUYAdditions.h"; sourceTree = "<group>"; };
@@ -832,6 +834,7 @@
 				90F592F81B0D5F4C0026B382 /* BUYIntegrationTest.m */,
 				90F592FE1B0D5F4C0026B382 /* BUYLineItemTest.m */,
 				90F592FF1B0D5F4C0026B382 /* BUYObjectTests.m */,
+				849110461CCEA85C00E53B93 /* BUYObserverTests.m */,
 				8491103F1CCE9DFB00E53B93 /* BUYPropertyDescriptionAdditionsTests.m */,
 				8491102F1CCE708900E53B93 /* BUYRegularExpressionAdditionsTests.m */,
 				849110301CCE708900E53B93 /* BUYStringAdditionsTests.m */,
@@ -1525,6 +1528,7 @@
 				849110331CCE708900E53B93 /* BUYStringAdditionsTests.m in Sources */,
 				906CF1B11B8B66AE001F7D5B /* BUYCNPostalAddress.m in Sources */,
 				8491103C1CCE731900E53B93 /* BUYURLAdditionsTests.m in Sources */,
+				8491104A1CCEA85C00E53B93 /* BUYObserverTests.m in Sources */,
 				849110401CCE9DFB00E53B93 /* BUYPropertyDescriptionAdditionsTests.m in Sources */,
 				906CF1AD1B8B5F7D001F7D5B /* BUYNSPersonNameComponents.m in Sources */,
 				BE98DB5C1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.m in Sources */,
