@@ -80,6 +80,9 @@
 		8491103A1CCE718100E53B93 /* BUYExceptionAdditionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 849110391CCE718100E53B93 /* BUYExceptionAdditionsTests.m */; };
 		8491103C1CCE731900E53B93 /* BUYURLAdditionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8491103B1CCE731900E53B93 /* BUYURLAdditionsTests.m */; };
 		8491103E1CCE988600E53B93 /* BUYFontAdditionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8491103D1CCE988600E53B93 /* BUYFontAdditionsTests.m */; };
+		849110401CCE9DFB00E53B93 /* BUYPropertyDescriptionAdditionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8491103F1CCE9DFB00E53B93 /* BUYPropertyDescriptionAdditionsTests.m */; };
+		849110421CCE9E0A00E53B93 /* BUYEntityDescriptionAdditionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 849110411CCE9E0A00E53B93 /* BUYEntityDescriptionAdditionsTests.m */; };
+		849110441CCE9F3F00E53B93 /* BUYTransformerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 849110431CCE9F3F00E53B93 /* BUYTransformerTests.m */; };
 		84980F291CB75AC200CFAB58 /* BUYObjectProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 84980F281CB75AC200CFAB58 /* BUYObjectProtocol.h */; };
 		84980F2A1CB75AC200CFAB58 /* BUYObjectProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 84980F281CB75AC200CFAB58 /* BUYObjectProtocol.h */; };
 		84980F2C1CB75B5E00CFAB58 /* BUYModelManagerProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 84980F2B1CB75B5E00CFAB58 /* BUYModelManagerProtocol.h */; };
@@ -443,6 +446,9 @@
 		849110391CCE718100E53B93 /* BUYExceptionAdditionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYExceptionAdditionsTests.m; sourceTree = "<group>"; };
 		8491103B1CCE731900E53B93 /* BUYURLAdditionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYURLAdditionsTests.m; sourceTree = "<group>"; };
 		8491103D1CCE988600E53B93 /* BUYFontAdditionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYFontAdditionsTests.m; sourceTree = "<group>"; };
+		8491103F1CCE9DFB00E53B93 /* BUYPropertyDescriptionAdditionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYPropertyDescriptionAdditionsTests.m; sourceTree = "<group>"; };
+		849110411CCE9E0A00E53B93 /* BUYEntityDescriptionAdditionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYEntityDescriptionAdditionsTests.m; sourceTree = "<group>"; };
+		849110431CCE9F3F00E53B93 /* BUYTransformerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYTransformerTests.m; sourceTree = "<group>"; };
 		84980F281CB75AC200CFAB58 /* BUYObjectProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYObjectProtocol.h; sourceTree = "<group>"; };
 		84980F2B1CB75B5E00CFAB58 /* BUYModelManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYModelManagerProtocol.h; sourceTree = "<group>"; };
 		84980F2E1CB75C2900CFAB58 /* NSEntityDescription+BUYAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSEntityDescription+BUYAdditions.h"; sourceTree = "<group>"; };
@@ -798,14 +804,17 @@
 				BEB9AE7A1BA866D000575F8A /* BUYClientTestBase.h */,
 				BEB9AE7C1BA8685600575F8A /* BUYClientTestBase.m */,
 				849110341CCE70CE00E53B93 /* BUYDictionaryAdditionsTests.m */,
+				849110411CCE9E0A00E53B93 /* BUYEntityDescriptionAdditionsTests.m */,
 				849110391CCE718100E53B93 /* BUYExceptionAdditionsTests.m */,
 				8491103D1CCE988600E53B93 /* BUYFontAdditionsTests.m */,
 				90F592F81B0D5F4C0026B382 /* BUYIntegrationTest.m */,
 				90F592FE1B0D5F4C0026B382 /* BUYLineItemTest.m */,
 				90F592FF1B0D5F4C0026B382 /* BUYObjectTests.m */,
+				8491103F1CCE9DFB00E53B93 /* BUYPropertyDescriptionAdditionsTests.m */,
 				8491102F1CCE708900E53B93 /* BUYRegularExpressionAdditionsTests.m */,
 				849110301CCE708900E53B93 /* BUYStringAdditionsTests.m */,
 				90F593001B0D5F4C0026B382 /* BUYTestConstants.h */,
+				849110431CCE9F3F00E53B93 /* BUYTransformerTests.m */,
 				8491103B1CCE731900E53B93 /* BUYURLAdditionsTests.m */,
 				BE6C07051BB1E46900BD9F7B /* mocked_responses.json */,
 				BE98DB5A1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.h */,
@@ -1462,8 +1471,9 @@
 			files = (
 				BEB9AE7D1BA885E300575F8A /* BUYClientTestBase.m in Sources */,
 				8491103E1CCE988600E53B93 /* BUYFontAdditionsTests.m in Sources */,
-				BEB9AE7B1BA866D000575F8A /* BUYClientTestBase.h in Sources */,
+				849110421CCE9E0A00E53B93 /* BUYEntityDescriptionAdditionsTests.m in Sources */,
 				8491103A1CCE718100E53B93 /* BUYExceptionAdditionsTests.m in Sources */,
+				849110441CCE9F3F00E53B93 /* BUYTransformerTests.m in Sources */,
 				849110351CCE70CE00E53B93 /* BUYDictionaryAdditionsTests.m in Sources */,
 				90F5930A1B0D5F4C0026B382 /* BUYLineItemTest.m in Sources */,
 				849110321CCE708900E53B93 /* BUYRegularExpressionAdditionsTests.m in Sources */,
@@ -1478,6 +1488,7 @@
 				849110331CCE708900E53B93 /* BUYStringAdditionsTests.m in Sources */,
 				906CF1B11B8B66AE001F7D5B /* BUYCNPostalAddress.m in Sources */,
 				8491103C1CCE731900E53B93 /* BUYURLAdditionsTests.m in Sources */,
+				849110401CCE9DFB00E53B93 /* BUYPropertyDescriptionAdditionsTests.m in Sources */,
 				906CF1AD1B8B5F7D001F7D5B /* BUYNSPersonNameComponents.m in Sources */,
 				BE98DB5C1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.m in Sources */,
 				849110311CCE708900E53B93 /* BUYArrayAdditionsTests.m in Sources */,
