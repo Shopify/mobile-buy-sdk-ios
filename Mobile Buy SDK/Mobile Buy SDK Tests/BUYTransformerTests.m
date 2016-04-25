@@ -1,5 +1,5 @@
 //
-//  BUYModelTransformerTests.m
+//  BUYTransformerTests.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -26,13 +26,17 @@
 
 #import <XCTest/XCTest.h>
 
+#import "BUYDateTransformer.h"
+#import "BUYDecimalNumberTransformer.h"
 #import "BUYFlatCollectionTransformer.h"
+#import "BUYIdentityTransformer.h"
+#import "BUYURLTransformer.h"
 
-@interface BUYModelTransformerTests : XCTestCase
+@interface BUYTransformerTests : XCTestCase
 
 @end
 
-@implementation BUYModelTransformerTests
+@implementation BUYTransformerTests
 
 - (void)testIdentityTransformer {
 
@@ -51,7 +55,7 @@
 	
 	id value = [NSDecimalNumber decimalNumberWithMantissa:256 exponent:-2 isNegative:NO];
 	id string = @"2.56";
-	NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:@"BUYDecimalNumber"];
+	NSValueTransformer *transformer = [[BUYDecimalNumberTransformer alloc] init];
 	
 	id expected = string;
 	id actual = [transformer transformedValue:value];
@@ -64,7 +68,7 @@
 
 - (void)testPublicationDateTransformer {
 	
-	NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:@"BUYPublicationsDate"];
+	NSValueTransformer *transformer = [BUYDateTransformer dateTransformerWithFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"];
 	
 	NSDate *value = [self dateForTransformerTestingWithMilliseconds:0];
 	NSString *string = @"1970-06-21T08:11:59-0400";
@@ -80,7 +84,7 @@
 
 - (void)testShippingDateTransformer {
 	
-	NSValueTransformer *transformer = [NSValueTransformer valueTransformerForName:@"BUYShippingRateDate"];
+	NSValueTransformer *transformer = [BUYDateTransformer dateTransformerWithFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
 	
 	NSDate *value = [self dateForTransformerTestingWithMilliseconds:543];
 	NSString *string = @"1970-06-21T08:11:59.543-0400";
@@ -111,7 +115,7 @@
 
 - (void)testFlatArrayTransformer {
 	
-	NSValueTransformer *elementTransformer = [NSValueTransformer valueTransformerForName:@"BUYURL"];
+	NSValueTransformer *elementTransformer = [[BUYURLTransformer alloc] init];
 	NSValueTransformer *arrayTransformer = [BUYFlatCollectionTransformer arrayTransformerWithElementTransformer:elementTransformer separator:@"||"];
 	
 	NSString *URLString1 = @"http://www.shopify.com";
@@ -178,7 +182,7 @@
 }
 
 - (NSValueTransformer *)identityTransformer {
-	return [NSValueTransformer valueTransformerForName:@"BUYIdentity"];
+	return [[BUYIdentityTransformer alloc] init];
 }
 
 @end
