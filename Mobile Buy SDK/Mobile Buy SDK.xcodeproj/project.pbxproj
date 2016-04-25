@@ -73,6 +73,12 @@
 		841ADE241CB6C942000004B0 /* NSURLComponents+BUYAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 841ADDFD1CB6C942000004B0 /* NSURLComponents+BUYAdditions.h */; };
 		841ADE251CB6C942000004B0 /* NSURLComponents+BUYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 841ADDFE1CB6C942000004B0 /* NSURLComponents+BUYAdditions.m */; };
 		841ADE261CB6C942000004B0 /* NSURLComponents+BUYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 841ADDFE1CB6C942000004B0 /* NSURLComponents+BUYAdditions.m */; };
+		849110311CCE708900E53B93 /* BUYArrayAdditionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8491102E1CCE708900E53B93 /* BUYArrayAdditionsTests.m */; };
+		849110321CCE708900E53B93 /* BUYRegularExpressionAdditionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8491102F1CCE708900E53B93 /* BUYRegularExpressionAdditionsTests.m */; };
+		849110331CCE708900E53B93 /* BUYStringAdditionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 849110301CCE708900E53B93 /* BUYStringAdditionsTests.m */; };
+		849110351CCE70CE00E53B93 /* BUYDictionaryAdditionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 849110341CCE70CE00E53B93 /* BUYDictionaryAdditionsTests.m */; };
+		8491103A1CCE718100E53B93 /* BUYExceptionAdditionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 849110391CCE718100E53B93 /* BUYExceptionAdditionsTests.m */; };
+		8491103C1CCE731900E53B93 /* BUYURLAdditionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8491103B1CCE731900E53B93 /* BUYURLAdditionsTests.m */; };
 		9003969B1B601DF400226B73 /* BUYCartLineItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 900396991B601DF400226B73 /* BUYCartLineItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9003969C1B601DF400226B73 /* BUYCartLineItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9003969A1B601DF400226B73 /* BUYCartLineItem.m */; };
 		900396AC1B627CB900226B73 /* BUYProductView.h in Headers */ = {isa = PBXBuildFile; fileRef = 900396AA1B627CB900226B73 /* BUYProductView.h */; };
@@ -394,6 +400,12 @@
 		841ADDFC1CB6C942000004B0 /* NSURL+BUYAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+BUYAdditions.m"; sourceTree = "<group>"; };
 		841ADDFD1CB6C942000004B0 /* NSURLComponents+BUYAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLComponents+BUYAdditions.h"; sourceTree = "<group>"; };
 		841ADDFE1CB6C942000004B0 /* NSURLComponents+BUYAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLComponents+BUYAdditions.m"; sourceTree = "<group>"; };
+		8491102E1CCE708900E53B93 /* BUYArrayAdditionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYArrayAdditionsTests.m; sourceTree = "<group>"; };
+		8491102F1CCE708900E53B93 /* BUYRegularExpressionAdditionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYRegularExpressionAdditionsTests.m; sourceTree = "<group>"; };
+		849110301CCE708900E53B93 /* BUYStringAdditionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYStringAdditionsTests.m; sourceTree = "<group>"; };
+		849110341CCE70CE00E53B93 /* BUYDictionaryAdditionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYDictionaryAdditionsTests.m; sourceTree = "<group>"; };
+		849110391CCE718100E53B93 /* BUYExceptionAdditionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYExceptionAdditionsTests.m; sourceTree = "<group>"; };
+		8491103B1CCE731900E53B93 /* BUYURLAdditionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYURLAdditionsTests.m; sourceTree = "<group>"; };
 		900396991B601DF400226B73 /* BUYCartLineItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYCartLineItem.h; sourceTree = "<group>"; };
 		9003969A1B601DF400226B73 /* BUYCartLineItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYCartLineItem.m; sourceTree = "<group>"; };
 		900396AA1B627CB900226B73 /* BUYProductView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = BUYProductView.h; path = "Product View/BUYProductView.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -640,22 +652,28 @@
 			isa = PBXGroup;
 			children = (
 				90F592F91B0D5F4C0026B382 /* BUYApplePayAdditionsTest.m */,
+				8491102E1CCE708900E53B93 /* BUYArrayAdditionsTests.m */,
 				90F592FA1B0D5F4C0026B382 /* BUYCartTest.m */,
 				90F592FB1B0D5F4C0026B382 /* BUYCheckoutTest.m */,
 				90F592FC1B0D5F4C0026B382 /* BUYClientTest_Storefront.m */,
 				90F592FD1B0D5F4C0026B382 /* BUYClientTest.m */,
 				BEB9AE7A1BA866D000575F8A /* BUYClientTestBase.h */,
 				BEB9AE7C1BA8685600575F8A /* BUYClientTestBase.m */,
+				849110341CCE70CE00E53B93 /* BUYDictionaryAdditionsTests.m */,
+				849110391CCE718100E53B93 /* BUYExceptionAdditionsTests.m */,
 				90F592F81B0D5F4C0026B382 /* BUYIntegrationTest.m */,
 				90F592FE1B0D5F4C0026B382 /* BUYLineItemTest.m */,
 				90F592FF1B0D5F4C0026B382 /* BUYObjectTests.m */,
+				8491102F1CCE708900E53B93 /* BUYRegularExpressionAdditionsTests.m */,
+				849110301CCE708900E53B93 /* BUYStringAdditionsTests.m */,
 				90F593001B0D5F4C0026B382 /* BUYTestConstants.h */,
-				906CF1AE1B8B660F001F7D5B /* PKContact Test Objects */,
-				90F592EE1B0D5EFE0026B382 /* Supporting Files */,
+				8491103B1CCE731900E53B93 /* BUYURLAdditionsTests.m */,
 				BE6C07051BB1E46900BD9F7B /* mocked_responses.json */,
-				BEB9AE721BA73E6C00575F8A /* test_shop_data.json */,
 				BE98DB5A1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.h */,
 				BE98DB5B1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.m */,
+				906CF1AE1B8B660F001F7D5B /* PKContact Test Objects */,
+				90F592EE1B0D5EFE0026B382 /* Supporting Files */,
+				BEB9AE721BA73E6C00575F8A /* test_shop_data.json */,
 			);
 			path = "Mobile Buy SDK Tests";
 			sourceTree = "<group>";
@@ -956,8 +974,6 @@
 				901931471BC5B9BC00D1134E /* BUYPaymentButton.h in Headers */,
 				901931481BC5B9BC00D1134E /* BUYImageView.h in Headers */,
 				901931491BC5B9BC00D1134E /* BUYGiftCard.h in Headers */,
-				BE6D059A1BD6BA6700772EBB /* NSDictionary+Additions.h in Headers */,
-				9019314A1BC5B9BC00D1134E /* BUYClient+Test.h in Headers */,
 				9019314B1BC5B9BC00D1134E /* BUYNavigationController.h in Headers */,
 				9019314D1BC5B9BC00D1134E /* BUYVariantOptionBreadCrumbsView.h in Headers */,
 				9019314E1BC5B9BC00D1134E /* BUYProductViewFooter.h in Headers */,
@@ -1037,8 +1053,6 @@
 				BE9A64821B503DAD0033E558 /* BUYPaymentButton.h in Headers */,
 				BEB74A771B55646D0005A300 /* BUYImageView.h in Headers */,
 				BE9A64571B503CCC0033E558 /* BUYGiftCard.h in Headers */,
-				BE6D05991BD6BA6700772EBB /* NSDictionary+Additions.h in Headers */,
-				BE2E1D3A1B5E8663009610DA /* BUYClient+Test.h in Headers */,
 				BEB74A671B55640C0005A300 /* BUYNavigationController.h in Headers */,
 				90DE92701B9897B6002EF4DA /* BUYVariantOptionBreadCrumbsView.h in Headers */,
 				BEB74A711B5564300005A300 /* BUYProductViewFooter.h in Headers */,
@@ -1296,7 +1310,6 @@
 				841ADE221CB6C942000004B0 /* NSURL+BUYAdditions.m in Sources */,
 				901931161BC5B9BC00D1134E /* BUYShippingRate.m in Sources */,
 				841ADE061CB6C942000004B0 /* NSDate+BUYAdditions.m in Sources */,
-				901931171BC5B9BC00D1134E /* BUYClient+Test.m in Sources */,
 				901931181BC5B9BC00D1134E /* BUYGradientView.m in Sources */,
 				901931191BC5B9BC00D1134E /* BUYViewController.m in Sources */,
 				9019311A1BC5B9BC00D1134E /* BUYImageKit.m in Sources */,
@@ -1319,7 +1332,10 @@
 			files = (
 				BEB9AE7D1BA885E300575F8A /* BUYClientTestBase.m in Sources */,
 				BEB9AE7B1BA866D000575F8A /* BUYClientTestBase.h in Sources */,
+				8491103A1CCE718100E53B93 /* BUYExceptionAdditionsTests.m in Sources */,
+				849110351CCE70CE00E53B93 /* BUYDictionaryAdditionsTests.m in Sources */,
 				90F5930A1B0D5F4C0026B382 /* BUYLineItemTest.m in Sources */,
+				849110321CCE708900E53B93 /* BUYRegularExpressionAdditionsTests.m in Sources */,
 				90F593061B0D5F4C0026B382 /* BUYCartTest.m in Sources */,
 				90F593051B0D5F4C0026B382 /* BUYApplePayAdditionsTest.m in Sources */,
 				90F593071B0D5F4C0026B382 /* BUYCheckoutTest.m in Sources */,
@@ -1328,9 +1344,12 @@
 				90F593041B0D5F4C0026B382 /* BUYIntegrationTest.m in Sources */,
 				90F593081B0D5F4C0026B382 /* BUYClientTest_Storefront.m in Sources */,
 				90BBCD731B87B6BA00FCCE51 /* BUYPKContact.m in Sources */,
+				849110331CCE708900E53B93 /* BUYStringAdditionsTests.m in Sources */,
 				906CF1B11B8B66AE001F7D5B /* BUYCNPostalAddress.m in Sources */,
+				8491103C1CCE731900E53B93 /* BUYURLAdditionsTests.m in Sources */,
 				906CF1AD1B8B5F7D001F7D5B /* BUYNSPersonNameComponents.m in Sources */,
 				BE98DB5C1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.m in Sources */,
+				849110311CCE708900E53B93 /* BUYArrayAdditionsTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1395,7 +1414,6 @@
 				841ADE211CB6C942000004B0 /* NSURL+BUYAdditions.m in Sources */,
 				BE9A644E1B503CA60033E558 /* BUYShippingRate.m in Sources */,
 				841ADE051CB6C942000004B0 /* NSDate+BUYAdditions.m in Sources */,
-				BE2E1D3B1B5E8663009610DA /* BUYClient+Test.m in Sources */,
 				BEB74A661B5564030005A300 /* BUYGradientView.m in Sources */,
 				BE9A64811B503D9E0033E558 /* BUYViewController.m in Sources */,
 				900E7C851B5DA559006F3C81 /* BUYImageKit.m in Sources */,

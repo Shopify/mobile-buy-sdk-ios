@@ -170,7 +170,7 @@ static NSSet *acronyms;
 
 - (NSString *)buy_stringByReplacingBaseFileName:(NSString *)newName
 {
-	if (self.lastPathComponent.length > self.baseFileName.length) {
+	if (self.pathExtension.length > 0) {
 		newName = [newName stringByAppendingPathExtension:self.pathExtension];
 	}
 	return [self.directory stringByAppendingPathComponent:newName];
