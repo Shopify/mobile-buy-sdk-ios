@@ -83,10 +83,6 @@
 		849110401CCE9DFB00E53B93 /* BUYPropertyDescriptionAdditionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8491103F1CCE9DFB00E53B93 /* BUYPropertyDescriptionAdditionsTests.m */; };
 		849110421CCE9E0A00E53B93 /* BUYEntityDescriptionAdditionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 849110411CCE9E0A00E53B93 /* BUYEntityDescriptionAdditionsTests.m */; };
 		849110441CCE9F3F00E53B93 /* BUYTransformerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 849110431CCE9F3F00E53B93 /* BUYTransformerTests.m */; };
-		84980F291CB75AC200CFAB58 /* BUYObjectProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 84980F281CB75AC200CFAB58 /* BUYObjectProtocol.h */; };
-		84980F2A1CB75AC200CFAB58 /* BUYObjectProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 84980F281CB75AC200CFAB58 /* BUYObjectProtocol.h */; };
-		84980F2C1CB75B5E00CFAB58 /* BUYModelManagerProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 84980F2B1CB75B5E00CFAB58 /* BUYModelManagerProtocol.h */; };
-		84980F2D1CB75B5E00CFAB58 /* BUYModelManagerProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 84980F2B1CB75B5E00CFAB58 /* BUYModelManagerProtocol.h */; };
 		8491104A1CCEA85C00E53B93 /* BUYObserverTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 849110461CCEA85C00E53B93 /* BUYObserverTests.m */; };
 		84980F291CB75AC200CFAB58 /* BUYObjectProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 84980F281CB75AC200CFAB58 /* BUYObjectProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84980F2A1CB75AC200CFAB58 /* BUYObjectProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 84980F281CB75AC200CFAB58 /* BUYObjectProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
