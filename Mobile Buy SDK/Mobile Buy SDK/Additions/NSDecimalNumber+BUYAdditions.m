@@ -32,11 +32,6 @@
 
 @implementation NSDecimalNumber (BUYAdditions)
 
-+ (NSDecimalNumber*)buy_decimalNumberOrZeroWithString:(NSString*)string
-{
-	return string.length ? string.decimalNumber : [NSDecimalNumber zero];
-}
-
 + (NSDecimalNumber*)buy_decimalNumberFromJSON:(id)valueFromJSON
 {
 	static NSDecimalNumberHandler *numberHandler;

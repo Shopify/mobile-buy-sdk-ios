@@ -29,15 +29,6 @@
 @interface NSDecimalNumber (BUYAdditions)
 
 /**
- *  Converts a string into an NSDecimalNumber or zero (if nil or not a number)
- *
- *  @param string The string to convert
- *
- *  @return NSDecimalNumber from a string
- */
-+ (NSDecimalNumber*)buy_decimalNumberOrZeroWithString:(NSString*)string;
-
-/**
  *  Converts a JSON value to an NSDecimalNumber
  *
  *  @param valueFromJSON The value to convert
