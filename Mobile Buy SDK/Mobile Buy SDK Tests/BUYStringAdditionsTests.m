@@ -166,4 +166,57 @@ static NSString * const CAMELCaseString = @"CAMELCaseString";
 	XCTAssertEqualObjects(actual, expected, @"camel case string was incorrect");
 }
 
+- (void)testReplacingFileName
+{
+	NSString *path = @"/path/to/file.txt";
+	NSString *expected = @"/path/to/other_file.txt";
+	NSString *actual = [path buy_stringByReplacingBaseFileName:@"other_file"];
+	XCTAssertEqualObjects(actual, expected);
+}
+
+- (void)testReplacingDirectory
+{
+	NSString *path = @"/path/to/file.txt";
+	NSString *expected = @"/directory_2/file.txt";
+	NSString *actual = [path buy_stringByReplacingDirectory:@"/directory_2"];
+	XCTAssertEqualObjects(actual, expected);
+}
+
+- (void)testStrippingHTML
+{
+	NSString *rawHTML = @"<!DOCTYPE html>\
+	<html>\
+	<body>\
+	\
+	<h1>My First Heading</h1>\
+	\
+	<p>My first paragraph.</p>\
+	\
+	</body>\
+	</html>";
+
+	NSString *expected = @"My First Heading\nMy first paragraph.\n";
+	NSString *actual = [rawHTML buy_stringByStrippingHTML];
+	XCTAssertEqualObjects(actual, expected);
+}
+
+- (void)testAttributeStringWithLineSpacing
+{
+	NSString *string = @"Hello, world";
+	NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+	style.lineSpacing = 2.0;
+	style.alignment = NSTextAlignmentCenter;
+	NSAttributedString *expected = [[NSAttributedString alloc] initWithString:string attributes:@{ NSParagraphStyleAttributeName : style }];
+	NSAttributedString *actual = [string buy_attributedStringWithLineSpacing:2.0 textAlignment:NSTextAlignmentCenter];
+	XCTAssertEqualObjects(actual, expected);
+}
+
+- (void)testTrim
+{
+	NSString *string = @" \t\n Hello \t\n";
+	NSString *expected = @"Hello";
+	NSString *actual = [string buy_trim];
+	XCTAssertEqualObjects(actual, expected);
+}
+
 @end
