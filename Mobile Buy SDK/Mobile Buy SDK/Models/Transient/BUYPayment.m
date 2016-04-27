@@ -39,10 +39,6 @@
 	NSDateFormatter *formatter = [NSDateFormatter dateFormatterForPublications];
 	
 	_amount         = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"amount"]];
-	_amountIn       = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"amount_in"]];
-	_amountOut      = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"amount_out"]];
-	_amountRounding = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"amount_rounding"]];
-	
 	_createdAt      = [formatter dateFromString:[dictionary buy_objectForKey:@"created_at"]];
 	
 	_authorization  = [dictionary buy_objectForKey:@"authorization"];

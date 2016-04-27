@@ -31,62 +31,47 @@
 @interface BUYPayment : BUYObject
 
 /**
- *  The total amount reported in the `BUYCheckout` object
+ *  The amount charged or that will be charged to the customer.
  */
 @property (nonatomic, strong, readonly) NSDecimalNumber *amount;
 
 /**
- *  TODO:
- */
-@property (nonatomic, strong, readonly) NSDecimalNumber *amountIn;
-
-/**
- *  TODO:
- */
-@property (nonatomic, strong, readonly) NSDecimalNumber *amountOut;
-
-/**
- *  TODO:
- */
-@property (nonatomic, strong, readonly) NSDecimalNumber *amountRounding;
-
-/**
- *  TODO:
+ * The authorization number returned by the payment provider
  */
 @property (nonatomic, strong, readonly) NSString *authorization;
 
 /**
- * Creation date of the payment
+ * The date and time when the checkout was created. The API returns this value in ISO 8601 format.
  */
 @property (nonatomic, strong, readonly) NSDate *createdAt;
 
 /**
- * Three-letter currency code used for this payment
+ * The currency used to complete the transaction.
  */
 @property (nonatomic, strong, readonly) NSString *currency;
 
 /**
- * The error code, if one occured, for this payment
+ * The error code returned by the payment provider.
  */
 @property (nonatomic, strong, readonly) NSNumber *errorCode;
 
 /**
- *  TODO:
+ * The gateway used by shopify to complete the transaction.
  */
 @property (nonatomic, strong, readonly) NSString *gateway;
 
 /**
- *  TODO:
+ * The kind of authorization. Can be either an authorization or a sale.
  */
 @property (nonatomic, strong, readonly) NSString *kind;
 
 /**
- * A short message describing the status of the operation
+ * An informative message returned by the payment provider.
  */
 @property (nonatomic, strong, readonly) NSString *message;
 
 /**
- * A status for the operation
+ * The status of the transaction. Can be either a 'success' or a 'failure'.
  */
 @property (nonatomic, strong, readonly) NSString *status;
 
@@ -96,7 +81,7 @@
 @property (nonatomic, strong, readonly) BUYCheckout *checkout;
 
 /**
- *  TODO:
+ * Indicates if the transaction was a test or not.
  */
 @property (nonatomic, assign, readonly) BOOL isTest;
 
