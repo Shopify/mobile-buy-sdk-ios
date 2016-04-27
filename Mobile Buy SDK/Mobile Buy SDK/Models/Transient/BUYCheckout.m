@@ -122,8 +122,6 @@
 
 #pragma mark - BUYObject
 
-
-
 - (NSDictionary *)JSONEncodedProperties
 {
 	//We only need the dirty properties
@@ -133,7 +131,9 @@
 - (NSDictionary *)jsonDictionaryForCheckout
 {
 	NSMutableDictionary *json = [self.JSONDictionary mutableCopy];
-	json[@"attributes"] = self.attributesDictionary;
+	if (self.attributes.count > 0) {
+		json[@"attributes"] = self.attributesDictionary;
+	}
 	return @{ @"checkout" : json };
 }
 
