@@ -26,6 +26,7 @@
 
 #import "BUYApplePayHelpers.h"
 #import "BUYClient.h"
+#import "BUYPayment.h"
 #import "BUYCheckout.h"
 #import "BUYApplePayAdditions.h"
 #import "BUYError.h"
@@ -108,11 +109,10 @@ const NSTimeInterval PollDelay = 0.5;
 			self.checkout = checkout;
 			
 			//Now that the checkout is up to date, call complete.
-			[self.client completeCheckout:checkout withApplePayToken:payment.token completion:^(BUYCheckout *checkout, NSError *error) {
-				if (checkout && error == nil) {
-					self.checkout = checkout;
-					
-					[self pollUntilCheckoutIsComplete:self.checkout completion:completion];
+			[self.client completeCheckout:checkout withApplePayToken:payment.token completion:^(BUYPayment *payment, NSError *error) {
+				if (payment && payment.checkout && error == nil) {
+					self.checkout = payment.checkout;
+					completion(PKPaymentAuthorizationStatusSuccess);
 				}
 				else {
 					self.lastError = error;
@@ -307,34 +307,6 @@ const NSTimeInterval PollDelay = 0.5;
 	self.checkout.shippingRate = shippingRate;
 	
 	[self.client updateCheckout:self.checkout completion:block];
-}
-
-- (void)pollUntilCheckoutIsComplete:(BUYCheckout *)checkout completion:(void (^)(PKPaymentAuthorizationStatus status))completion
-{
-	// Poll until done. At this point, we've sent the payment information to the Payment Gateway for your shop, and we're waiting for it to come back.
-	// This is sometimes a slow process, so we need to poll until we've received confirmation that money has been authorized or captured.
-	
-	__block BUYStatus checkoutStatus = BUYStatusUnknown;
-	
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-		dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-		
-		while (checkout.token && checkoutStatus != BUYStatusFailed && checkoutStatus != BUYStatusComplete) {
-			[self.client getCompletionStatusOfCheckout:self.checkout completion:^(BUYStatus status, NSError *error) {
-				checkoutStatus = status;
-				self.lastError = error;
-				dispatch_semaphore_signal(semaphore);
-			}];
-			dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-			
-			if (checkoutStatus != BUYStatusComplete) {
-				[NSThread sleepForTimeInterval:PollDelay];
-			}
-		}
-		dispatch_async(dispatch_get_main_queue(), ^{
-			completion(checkoutStatus == BUYStatusComplete ? PKPaymentAuthorizationStatusSuccess : PKPaymentAuthorizationStatusFailure);
-		});
-	});
 }
 
 @end

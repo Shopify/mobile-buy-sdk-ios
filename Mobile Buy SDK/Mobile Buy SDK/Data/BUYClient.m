@@ -34,6 +34,7 @@
 #import "BUYCollection+Additions.h"
 #import "BUYError.h"
 #import "BUYGiftCard.h"
+#import "BUYPayment.h"
 #import "BUYProduct.h"
 #import "BUYShippingRate.h"
 #import "BUYShop.h"
@@ -296,6 +297,15 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_listi
 	block(checkout, error);
 }
 
+- (void)handlePaymentResponse:(NSDictionary *)json error:(NSError *)error block:(BUYDataPaymentBlock)block
+{
+	BUYPayment *payment = nil;
+	if (error == nil) {
+		payment = [[BUYPayment alloc] initWithDictionary:json[@"payment"]];
+	}
+	block(payment, error);
+}
+
 - (void)configureCheckout:(BUYCheckout *)checkout
 {
 	checkout.marketingAttribution = @{@"medium": @"iOS", @"source": self.applicationName};
@@ -432,7 +442,7 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_listi
 	return task;
 }
 
-- (NSURLSessionDataTask*)completeCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
+- (NSURLSessionDataTask*)completeCheckout:(BUYCheckout *)checkout completion:(BUYDataPaymentBlock)block
 {
 	NSURLSessionDataTask *task = nil;
 	
@@ -442,7 +452,13 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_listi
 		NSError *error = nil;
 		
 		if (checkout.paymentSessionId.length > 0) {
-			NSDictionary *paymentJson = @{ @"payment_session_id" : checkout.paymentSessionId };
+			NSDictionary *paymentJson = @{
+										  @"payment" : @{
+												  @"source" : @{
+														  @"session_id" : checkout.paymentSessionId,
+														  },
+												  },
+										  };
 			data = [NSJSONSerialization dataWithJSONObject:paymentJson options:0 error:&error];
 		}
 		
@@ -457,7 +473,7 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_listi
 	return task;
 }
 
-- (NSURLSessionDataTask *)completeCheckout:(BUYCheckout *)checkout withApplePayToken:(PKPaymentToken *)token completion:(BUYDataCheckoutBlock)block
+- (NSURLSessionDataTask *)completeCheckout:(BUYCheckout *)checkout withApplePayToken:(PKPaymentToken *)token completion:(BUYDataPaymentBlock)block
 {
 	
 	NSURLSessionDataTask *task = nil;
@@ -488,13 +504,13 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_listi
 	return task;
 }
 
-- (NSURLSessionDataTask *)checkoutCompletionRequestWithCheckout:(BUYCheckout *)checkout body:(NSData *)body completion:(BUYDataCheckoutBlock)block
+- (NSURLSessionDataTask *)checkoutCompletionRequestWithCheckout:(BUYCheckout *)checkout body:(NSData *)body completion:(BUYDataPaymentBlock)block
 {
-	NSURLComponents *components = [self URLComponentsForCheckoutsAppendingPath:@"complete"
+	NSURLComponents *components = [self URLComponentsForCheckoutsAppendingPath:@"payments"
 																 checkoutToken:checkout.token
 																	queryItems:nil];
 	return [self postRequestForURL:components.URL body:body completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		[self handleCheckoutResponse:json error:error block:block];
+		[self handlePaymentResponse:json error:error block:block];
 	}];
 }
 
@@ -534,15 +550,9 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_listi
 		block(nil, nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_NoCreditCardSpecified userInfo:nil]);
 	}
 	else {
-		NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
-		json[@"token"] = checkout.token;
-		json[@"credit_card"] = [creditCard jsonDictionaryForCheckout];
-		if (checkout.billingAddress) {
-			json[@"billing_address"] = [checkout.billingAddress jsonDictionaryForCheckout];
-		}
 		
 		NSError *error = nil;
-		NSData *data = [NSJSONSerialization dataWithJSONObject:@{ @"checkout" : json } options:0 error:&error];
+		NSData *data = [NSJSONSerialization dataWithJSONObject:[creditCard jsonDictionaryForCheckout] options:0 error:&error];
 		if (data && error == nil) {
 			task = [self postPaymentRequestWithCheckout:checkout body:data completion:block];
 		}

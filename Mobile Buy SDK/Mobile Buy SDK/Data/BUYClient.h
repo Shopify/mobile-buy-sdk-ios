@@ -33,6 +33,7 @@
 @class BUYCheckout;
 @class BUYCreditCard;
 @class BUYGiftCard;
+@class BUYPayment;
 @class BUYProduct;
 @class BUYProductVariant;
 @class BUYShop;
@@ -125,6 +126,14 @@ typedef void (^BUYDataCreditCardBlock)(BUYCheckout *checkout, NSString *paymentS
  *  @param error    Optional NSError
  */
 typedef void (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
+
+/**
+ *  Return block containing a BUYPayment and/or an NSError
+ *
+ *  @param payment  The returned BUYPayment
+ *  @param error    Optional NSError
+ */
+typedef void (^BUYDataPaymentBlock)(BUYPayment *payment, NSError *error);
 
 /**
  *  Return block containing a BUYCheckout, a BUYStatus and/or an NSError
@@ -443,7 +452,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
  *
  *  @return The associated NSURLSessionDataTask
  */
-- (NSURLSessionDataTask *)completeCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
+- (NSURLSessionDataTask *)completeCheckout:(BUYCheckout *)checkout completion:(BUYDataPaymentBlock)block;
 
 /**
  */
@@ -461,7 +470,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
  *
  *  @return The associated NSURLSessionDataTask
  */
-- (NSURLSessionDataTask *)completeCheckout:(BUYCheckout *)checkout withApplePayToken:(PKPaymentToken *)token completion:(BUYDataCheckoutBlock)block;
+- (NSURLSessionDataTask *)completeCheckout:(BUYCheckout *)checkout withApplePayToken:(PKPaymentToken *)token completion:(BUYDataPaymentBlock)block;
 
 #pragma mark - Shipping Rates
 
