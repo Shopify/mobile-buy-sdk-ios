@@ -119,6 +119,8 @@
 		849810971CB7E07900CFAB58 /* BUYFlatCollectionTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 849810901CB7E07900CFAB58 /* BUYFlatCollectionTransformer.h */; };
 		849810981CB7E07900CFAB58 /* BUYFlatCollectionTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 849810911CB7E07900CFAB58 /* BUYFlatCollectionTransformer.m */; };
 		849810991CB7E07900CFAB58 /* BUYFlatCollectionTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 849810911CB7E07900CFAB58 /* BUYFlatCollectionTransformer.m */; };
+		84CA59BC1CD1378100B2A956 /* BUYTestModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84CA59BA1CD1378100B2A956 /* BUYTestModel.xcdatamodeld */; };
+		84CA59C01CD1609400B2A956 /* TestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CA59BF1CD1609400B2A956 /* TestModel.m */; };
 		9003969B1B601DF400226B73 /* BUYCartLineItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 900396991B601DF400226B73 /* BUYCartLineItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9003969C1B601DF400226B73 /* BUYCartLineItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9003969A1B601DF400226B73 /* BUYCartLineItem.m */; };
 		900396AC1B627CB900226B73 /* BUYProductView.h in Headers */ = {isa = PBXBuildFile; fileRef = 900396AA1B627CB900226B73 /* BUYProductView.h */; };
@@ -467,6 +469,9 @@
 		8498108F1CB7E07900CFAB58 /* BUYDeliveryRangeTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYDeliveryRangeTransformer.m; sourceTree = "<group>"; };
 		849810901CB7E07900CFAB58 /* BUYFlatCollectionTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYFlatCollectionTransformer.h; sourceTree = "<group>"; };
 		849810911CB7E07900CFAB58 /* BUYFlatCollectionTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYFlatCollectionTransformer.m; sourceTree = "<group>"; };
+		84CA59BB1CD1378100B2A956 /* BUYTestModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BUYTestModel.xcdatamodel; sourceTree = "<group>"; };
+		84CA59BE1CD1609400B2A956 /* TestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestModel.h; sourceTree = "<group>"; };
+		84CA59BF1CD1609400B2A956 /* TestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestModel.m; sourceTree = "<group>"; };
 		900396991B601DF400226B73 /* BUYCartLineItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYCartLineItem.h; sourceTree = "<group>"; };
 		9003969A1B601DF400226B73 /* BUYCartLineItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYCartLineItem.m; sourceTree = "<group>"; };
 		900396AA1B627CB900226B73 /* BUYProductView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = BUYProductView.h; path = "Product View/BUYProductView.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -795,6 +800,7 @@
 		90F592ED1B0D5EFE0026B382 /* Mobile Buy SDK Tests */ = {
 			isa = PBXGroup;
 			children = (
+				84CA59BA1CD1378100B2A956 /* BUYTestModel.xcdatamodeld */,
 				90F592F91B0D5F4C0026B382 /* BUYApplePayAdditionsTest.m */,
 				8491102E1CCE708900E53B93 /* BUYArrayAdditionsTests.m */,
 				90F592FA1B0D5F4C0026B382 /* BUYCartTest.m */,
@@ -822,6 +828,8 @@
 				906CF1AE1B8B660F001F7D5B /* PKContact Test Objects */,
 				90F592EE1B0D5EFE0026B382 /* Supporting Files */,
 				BEB9AE721BA73E6C00575F8A /* test_shop_data.json */,
+				84CA59BE1CD1609400B2A956 /* TestModel.h */,
+				84CA59BF1CD1609400B2A956 /* TestModel.m */,
 			);
 			path = "Mobile Buy SDK Tests";
 			sourceTree = "<group>";
@@ -1487,8 +1495,10 @@
 				90BBCD731B87B6BA00FCCE51 /* BUYPKContact.m in Sources */,
 				849110331CCE708900E53B93 /* BUYStringAdditionsTests.m in Sources */,
 				906CF1B11B8B66AE001F7D5B /* BUYCNPostalAddress.m in Sources */,
+				84CA59BC1CD1378100B2A956 /* BUYTestModel.xcdatamodeld in Sources */,
 				8491103C1CCE731900E53B93 /* BUYURLAdditionsTests.m in Sources */,
 				849110401CCE9DFB00E53B93 /* BUYPropertyDescriptionAdditionsTests.m in Sources */,
+				84CA59C01CD1609400B2A956 /* TestModel.m in Sources */,
 				906CF1AD1B8B5F7D001F7D5B /* BUYNSPersonNameComponents.m in Sources */,
 				BE98DB5C1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.m in Sources */,
 				849110311CCE708900E53B93 /* BUYArrayAdditionsTests.m in Sources */,
@@ -1948,6 +1958,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		84CA59BA1CD1378100B2A956 /* BUYTestModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				84CA59BB1CD1378100B2A956 /* BUYTestModel.xcdatamodel */,
+			);
+			currentVersion = 84CA59BB1CD1378100B2A956 /* BUYTestModel.xcdatamodel */;
+			path = BUYTestModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = F773741519C770CB0039681C /* Project object */;
 }

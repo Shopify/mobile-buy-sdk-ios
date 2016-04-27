@@ -25,6 +25,7 @@
 //
 
 #import "BUYDateTransformer.h"
+#import "NSDateFormatter+BUYAdditions.h"
 
 NSString * const BUYDateTransformerName = @"BUYDate";
 
@@ -33,6 +34,13 @@ NSString * const BUYDateTransformerName = @"BUYDate";
 @end
 
 @implementation BUYDateTransformer
+
+- (instancetype)init
+{
+	NSDateFormatter *formatter = [NSDateFormatter dateFormatterForPublications];
+	formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+	return [self initWithDateFormatter:formatter];
+}
 
 - (instancetype)initWithDateFormatter:(NSDateFormatter *)formatter
 {

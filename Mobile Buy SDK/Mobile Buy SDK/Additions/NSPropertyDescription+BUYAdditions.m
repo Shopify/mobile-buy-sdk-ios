@@ -65,6 +65,7 @@ static NSString * const BUYAttributeValueClassNameKey = @"attributeValueClassNam
 		[NSValueTransformer setValueTransformer:[[BUYIdentityTransformer alloc] init] forName:BUYIdentityTransformerName];
 		
 		// attribute type transformers
+		[NSValueTransformer setValueTransformer:[[BUYDateTransformer alloc] init] forName:BUYDateTransformerName];
 		[NSValueTransformer setValueTransformer:[[BUYDecimalNumberTransformer alloc] init] forName:BUYDecimalNumberTransformerName];
 		
 		// value type transformers
