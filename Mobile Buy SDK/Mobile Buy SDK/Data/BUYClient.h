@@ -463,27 +463,6 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
  */
 - (NSURLSessionDataTask *)completeCheckout:(BUYCheckout *)checkout withApplePayToken:(PKPaymentToken *)token completion:(BUYDataCheckoutBlock)block;
 
-/**
- *  Retrieve the status of a BUYCheckout. This checks the status of the current payment processing job for the provided checkout.
- *  Once the job is complete (status == BUYStatusComplete), you can retrieve the completed order by calling `getCheckout:completion`
- *
- *  @param checkout The BUYCheckout to retrieve completion status for
- *  @param block    (^BUYDataCheckoutStatusBlock)(BUYCheckout *checkout, BUYStatus status, NSError *error);
- *
- *  @return The associated NSURLSessionDataTask
- */
-- (NSURLSessionDataTask *)getCompletionStatusOfCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutStatusBlock)block;
-
-/**
- *  Retrieve the status of a checkout given a URL obtained in the UIApplicationDelegate method `application:sourceApplication:annotation`
- *
- *  @param url   The URL resource used to open the application
- *  @param block    (^BUYDataCheckoutStatusBlock)(BUYCheckout *checkout, BUYStatus status, NSError *error);
- *
- *  @return The associated NSURLSessionDataTask
- */
-- (NSURLSessionDataTask *)getCompletionStatusOfCheckoutURL:(NSURL *)url completion:(BUYDataCheckoutStatusBlock)block;
-
 #pragma mark - Shipping Rates
 
 /**
