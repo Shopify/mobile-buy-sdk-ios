@@ -39,45 +39,6 @@
 
 @implementation BUYObject
 
-#pragma mark - Deprecated
-
-- (instancetype)init
-{
-	return [self initWithModelManager:nil JSONDictionary:nil];
-}
-
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary
-{
-	return [self initWithModelManager:nil JSONDictionary:dictionary];
-}
-
-+ (NSArray *)convertJSONArray:(NSArray*)json block:(void (^)(id obj))createdBlock
-{
-	NSMutableArray *objects = [[NSMutableArray alloc] init];
-	for (NSDictionary *jsonObject in json) {
-		BUYObject *obj = [[self alloc] initWithDictionary:jsonObject];
-		[objects addObject:obj];
-		if (createdBlock) {
-			createdBlock(obj);
-		}
-	}
-	return objects;
-}
-
-+ (NSArray *)convertJSONArray:(NSArray*)json
-{
-	return [self convertJSONArray:json block:nil];
-}
-
-+ (instancetype)convertObject:(id)object
-{
-	BUYObject *convertedObject = nil;
-	if (!(object == nil || [object isKindOfClass:[NSNull class]])) {
-		convertedObject = [[self alloc] initWithDictionary:object];
-	}
-	return convertedObject;
-}
-
 #pragma mark - Dirty Property Tracking
 
 - (BOOL)isDirty
