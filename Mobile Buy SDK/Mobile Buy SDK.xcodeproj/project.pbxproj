@@ -244,8 +244,8 @@
 		90F593091B0D5F4C0026B382 /* BUYClientTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592FD1B0D5F4C0026B382 /* BUYClientTest.m */; };
 		90F5930A1B0D5F4C0026B382 /* BUYLineItemTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592FE1B0D5F4C0026B382 /* BUYLineItemTest.m */; };
 		90F5930B1B0D5F4C0026B382 /* BUYObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592FF1B0D5F4C0026B382 /* BUYObjectTests.m */; };
-		9A6715EE1CD0009C001348C7 /* BUYPayment.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A6715EC1CD0009C001348C7 /* BUYPayment.h */; };
-		9A6715EF1CD0009C001348C7 /* BUYPayment.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A6715EC1CD0009C001348C7 /* BUYPayment.h */; };
+		9A6715EE1CD0009C001348C7 /* BUYPayment.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A6715EC1CD0009C001348C7 /* BUYPayment.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9A6715EF1CD0009C001348C7 /* BUYPayment.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A6715EC1CD0009C001348C7 /* BUYPayment.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A6715F01CD0009C001348C7 /* BUYPayment.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6715ED1CD0009C001348C7 /* BUYPayment.m */; };
 		9A6715F11CD0009C001348C7 /* BUYPayment.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6715ED1CD0009C001348C7 /* BUYPayment.m */; };
 		BE1007951B6038150031CEE7 /* BUYProductVariant+Options.h in Headers */ = {isa = PBXBuildFile; fileRef = BE1007931B6038150031CEE7 /* BUYProductVariant+Options.h */; };
