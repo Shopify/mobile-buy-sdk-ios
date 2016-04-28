@@ -35,6 +35,7 @@
 #import "BUYCheckoutAttribute.h"
 #import "BUYCollection.h"
 #import "BUYCreditCard.h"
+#import "BUYCustomer.h"
 #import "BUYDiscount.h"
 #import "BUYGiftCard.h"
 #import "BUYImage.h"
