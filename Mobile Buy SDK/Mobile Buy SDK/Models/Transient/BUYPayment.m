@@ -1,5 +1,5 @@
 //
-//  Buy.h
+//  BUYPayment.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,43 +24,34 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+#import "BUYPayment.h"
+#import "BUYCheckout.h"
+#import "NSDecimalNumber+BUYAdditions.h"
+#import "NSDateFormatter+BUYAdditions.h"
+#import "NSDictionary+BUYAdditions.h"
 
-//! Project version number for Buy.
-FOUNDATION_EXPORT double BuyVersionNumber;
+@implementation BUYPayment
 
-//! Project version string for Buy.
-FOUNDATION_EXPORT const unsigned char BuyVersionString[];
+- (void)updateWithDictionary:(NSDictionary *)dictionary
+{
+	[super updateWithDictionary:dictionary];
+	
+	NSDateFormatter *formatter = [NSDateFormatter dateFormatterForPublications];
+	
+	_amount         = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"amount"]];
+	_createdAt      = [formatter dateFromString:[dictionary buy_objectForKey:@"created_at"]];
+	
+	_authorization  = [dictionary buy_objectForKey:@"authorization"];
+	_currency       = [dictionary buy_objectForKey:@"currency"];
+	_errorCode      = [dictionary buy_objectForKey:@"error_code"];
+	_gateway        = [dictionary buy_objectForKey:@"gateway"];
+	_kind           = [dictionary buy_objectForKey:@"kind"];
+	_message        = [dictionary buy_objectForKey:@"message"];
+	_status         = [dictionary buy_objectForKey:@"status"];
+	
+	_checkout       = [BUYCheckout convertObject:dictionary[@"checkout"]];
+	
+	_isTest         = [[dictionary buy_objectForKey:@"test"] boolValue];
+}
 
-#import <Buy/BUYAddress.h>
-#import <Buy/BUYCart.h>
-#import <Buy/BUYCartLineItem.h>
-#import <Buy/BUYCheckout.h>
-#import <Buy/BUYCheckoutAttribute.h>
-#import <Buy/BUYCollection.h>
-#import <Buy/BUYCreditCard.h>
-#import <Buy/BUYDiscount.h>
-#import <Buy/BUYGiftCard.h>
-#import <Buy/BUYImage.h>
-#import <Buy/BUYLineItem.h>
-#import <Buy/BUYMaskedCreditCard.h>
-#import <Buy/BUYOption.h>
-#import <Buy/BUYOptionValue.h>
-#import <Buy/BUYOrder.h>
-#import <Buy/BUYPayment.h>
-#import <Buy/BUYProduct.h>
-#import <Buy/BUYProductVariant.h>
-#import <Buy/BUYShippingRate.h>
-#import <Buy/BUYShop.h>
-#import <Buy/BUYTaxLine.h>
-
-#import <Buy/BUYApplePayAdditions.h>
-#import <Buy/BUYApplePayHelpers.h>
-#import <Buy/BUYClient.h>
-#import <Buy/BUYError.h>
-
-#import <Buy/BUYPaymentButton.h>
-#import <Buy/BUYProductViewController.h>
-#import <Buy/BUYStoreViewController.h>
-#import <Buy/BUYTheme.h>
-#import <Buy/BUYViewController.h>
+@end

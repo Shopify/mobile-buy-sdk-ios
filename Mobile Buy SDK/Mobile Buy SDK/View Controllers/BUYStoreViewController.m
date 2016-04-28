@@ -238,22 +238,16 @@
 
 - (void)checkoutCompleted:(BUYCheckout *)checkout status:(BUYStatus)status
 {
-	if (status == BUYStatusComplete) {
-		[self.client getCheckout:checkout completion:^(BUYCheckout *updatedCheckout, NSError *error) {
-			dispatch_async(dispatch_get_main_queue(), ^{
-				if (updatedCheckout.order.statusURL) {
-					[_webView loadRequest:[NSURLRequest requestWithURL:updatedCheckout.order.statusURL]];
-				}
-				else {
-					NSLog(@"Couldn't redirect to thank you page: %@ (url: %@)", updatedCheckout, updatedCheckout.order.statusURL);
-				}
-			});
-		}];
-	}
-	else {
-		NSError *error = [NSError errorWithDomain:BUYShopifyError code:status userInfo:@{@"checkout": checkout}];
-		[self.delegate controller:self failedToCompleteCheckout:checkout withError:error];
-	}
+	[self.client getCheckout:checkout completion:^(BUYCheckout *updatedCheckout, NSError *error) {
+		dispatch_async(dispatch_get_main_queue(), ^{
+			if (updatedCheckout.order.statusURL) {
+				[_webView loadRequest:[NSURLRequest requestWithURL:updatedCheckout.order.statusURL]];
+			}
+			else {
+				NSLog(@"Couldn't redirect to thank you page: %@ (url: %@)", updatedCheckout, updatedCheckout.order.statusURL);
+			}
+		});
+	}];
 }
 
 #pragma mark - Web View Configuration

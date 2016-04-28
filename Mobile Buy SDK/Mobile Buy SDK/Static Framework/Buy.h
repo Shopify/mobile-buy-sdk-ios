@@ -43,6 +43,7 @@
 #import "BUYOption.h"
 #import "BUYOptionValue.h"
 #import "BUYOrder.h"
+#import "BUYPayment.h"
 #import "BUYProduct.h"
 #import "BUYProductVariant.h"
 #import "BUYShippingRate.h"

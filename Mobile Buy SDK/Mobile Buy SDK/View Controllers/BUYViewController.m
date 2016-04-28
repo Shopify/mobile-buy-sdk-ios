@@ -440,14 +440,8 @@ NSString * BUYURLKey = @"url";
 
 - (void)didReceiveCallbackURLNotification:(NSNotification *)notification
 {
-	NSURL *url = notification.userInfo[BUYURLKey];
-	
-	[self.client getCompletionStatusOfCheckoutURL:url completion:^(BUYStatus status, NSError *error) {
-		
-		[self checkoutCompleted:_checkout status:status];
-		
-		[[NSNotificationCenter defaultCenter] removeObserver:self name:BUYSafariCallbackURLNotification object:nil];
-	}];
+	[self checkoutCompleted:_checkout status:BUYStatusComplete];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:BUYSafariCallbackURLNotification object:nil];
 	
 	if (self.presentedViewController) {
 		[self dismissViewControllerAnimated:YES completion:nil];

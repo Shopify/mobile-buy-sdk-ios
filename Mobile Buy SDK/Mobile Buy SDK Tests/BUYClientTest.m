@@ -131,33 +131,6 @@
 	XCTAssertNotNil(task);
 }
 
-- (void)testCheckoutURLParsing
-{
-	NSURL *url = [NSURL URLWithString:@"sampleapp://?checkout%5Btoken%5D=377a6afb2c6651b6c42af5547e12bda1"];
-	
-	[self.client getCompletionStatusOfCheckoutURL:url completion:^(BUYStatus status, NSError *error) {
-		// We should not get a callback here
-		XCTFail();
-	}];
-}
-
-- (void)testCheckoutBadURLParsing
-{
-	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	
-	NSURL *url = [NSURL URLWithString:@"sampleapp://"];
-	
-	[self.client getCompletionStatusOfCheckoutURL:url completion:^(BUYStatus status, NSError *error) {
-		XCTAssertEqual(status, BUYStatusUnknown);
-		XCTAssertEqual(error.code, BUYShopifyError_InvalidCheckoutObject);
-		[expectation fulfill];
-	}];
-	
-	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
-		XCTAssertNil(error);
-	}];
-}
-
 - (void)testMerchantId
 {
 	NSString *merchantId = @"com.merchant.id";
@@ -195,14 +168,14 @@
 {
 	__block int callbackCount = 0;
 	
-	[self.client completeCheckout:nil withApplePayToken:[PKPaymentToken new] completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client completeCheckout:nil withApplePayToken:[PKPaymentToken new] completion:^(BUYPayment *payment, NSError *error) {
 		callbackCount++;
 		XCTAssertEqual(error.code, BUYShopifyError_InvalidCheckoutObject);
 	}];
 	
 	BUYCheckout *checkout = [[BUYCheckout alloc] initWithDictionary:@{@"token": @"abcdef", @"payment_due": @0}];
 
-	[self.client completeCheckout:checkout withApplePayToken:nil completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client completeCheckout:checkout withApplePayToken:nil completion:^(BUYPayment *payment, NSError *error) {
 		callbackCount++;
 		XCTAssertEqual(error.code, BUYShopifyError_NoApplePayTokenSpecified);
 	}];
