@@ -552,7 +552,7 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_listi
 	else {
 		
 		NSError *error = nil;
-		NSData *data = [NSJSONSerialization dataWithJSONObject:[creditCard jsonDictionaryForCheckout] options:0 error:&error];
+		NSData *data = [NSJSONSerialization dataWithJSONObject:@{ @"credit_card" : [creditCard jsonDictionaryForCheckout] } options:0 error:&error];
 		if (data && error == nil) {
 			task = [self postPaymentRequestWithCheckout:checkout body:data completion:block];
 		}
