@@ -26,6 +26,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class NSEntityDescription;
+
 @protocol BUYModelManager;
 
 /**
@@ -71,11 +73,6 @@
  * Conforming classes should override to specify whether to use dirty tracking to restrict generated JSON to only changed values.
  */
 + (BOOL)tracksDirtyProperties;
-
-/**
- * Use the values in the given dictionary to update properties.
- */
-- (void)updateWithJSONDictionary:(NSDictionary *)dictionary;
 
 @optional
 
