@@ -487,7 +487,13 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_listi
 	}
 	else {
 		NSString *tokenString = [[NSString alloc] initWithData:token.paymentData encoding:NSUTF8StringEncoding];
-		NSDictionary *paymentJson = @{ @"payment_token" : @{ @"payment_data" : tokenString, @"type" : @"apple_pay" }};
+		NSDictionary *paymentJson = @{
+									  @"payment" : @{
+											  @"source" : @{
+													  @"token" : tokenString,
+													  },
+											  },
+									  };
 		NSError *error = nil;
 		NSData *data = [NSJSONSerialization dataWithJSONObject:paymentJson options:0 error:&error];
 		if (data && error == nil) {
