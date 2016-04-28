@@ -272,6 +272,12 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
  */
 @property (nonatomic, strong) NSString *urlScheme;
 
+/**
+ *  Allows the client to hold onto the customer token
+ *
+ *  @param token The token received from the create and login callbacks
+ */
+@property (strong, nonatomic) NSString *customerToken;
 
 #pragma mark - Storefront
 
