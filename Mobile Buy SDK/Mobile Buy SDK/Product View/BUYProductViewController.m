@@ -44,6 +44,7 @@
 #import "BUYVariantSelectionViewController.h"
 #import "BUYError.h"
 #import "BUYShop.h"
+#import "BUYShopifyErrorCodes.h"
 #import "BUYImage.h"
 
 CGFloat const BUYMaxProductViewWidth = 414.0; // We max out to the width of the iPhone 6+

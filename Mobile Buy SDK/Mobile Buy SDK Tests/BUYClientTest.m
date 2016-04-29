@@ -33,6 +33,7 @@
 #import "BUYClientTestBase.h"
 #import "BUYCollection+Additions.h"
 #import "NSURLComponents+BUYAdditions.h"
+#import "BUYShopifyErrorCodes.h"
 
 @interface BUYClient ()
 

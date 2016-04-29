@@ -37,6 +37,7 @@
 #import "BUYProduct.h"
 #import "BUYShippingRate.h"
 #import "BUYShop.h"
+#import "BUYShopifyErrorCodes.h"
 #import "NSDecimalNumber+BUYAdditions.h"
 #import "NSURLComponents+BUYAdditions.h"
 
@@ -632,9 +633,9 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_listi
 	return status;
 }
 
-- (BUYError *)errorFromJSON:(NSDictionary *)errorDictionary statusCode:(NSInteger)statusCode
+- (NSError *)errorFromJSON:(NSDictionary *)errorDictionary statusCode:(NSInteger)statusCode
 {
-	return [[BUYError alloc] initWithDomain:kShopifyError code:statusCode userInfo:errorDictionary];
+	return [[NSError alloc] initWithDomain:kShopifyError code:statusCode userInfo:errorDictionary];
 }
 
 - (NSURLSessionDataTask *)requestForURL:(NSURL *)url method:(NSString *)method object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler

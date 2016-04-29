@@ -1,5 +1,5 @@
 //
-//  BUYError.h
+//  BUYError+BUYAdditions.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,16 +24,13 @@
 //  THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
+#import "BUYError.h"
 
-@interface BUYError : NSObject
+@interface BUYError (Checkout)
++ (NSArray<BUYError *> *)errorsFromCheckoutJSON:(NSDictionary *)json;
+@property (readonly) NSString *quantityRemainingMessage;
+@end
 
-@property (nonatomic, copy) NSString *key;
-
-- (instancetype)initWithKey:(NSString *)key json:(NSDictionary *)json;
-
-@property (nonatomic, copy) NSString *code;
-@property (nonatomic, copy) NSString *message;
-@property (nonatomic, copy) NSDictionary<NSString *, NSString *> *options;
-
+@interface BUYError (Customer)
++ (NSArray<BUYError *> *)errorsFromSignUpJSON:(NSDictionary *)json;
 @end

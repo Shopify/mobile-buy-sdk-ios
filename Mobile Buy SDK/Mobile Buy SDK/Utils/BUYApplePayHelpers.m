@@ -31,6 +31,7 @@
 #import "BUYError.h"
 #import "BUYAddress+Additions.h"
 #import "BUYShop.h"
+#import "BUYShopifyErrorCodes.h"
 
 const NSTimeInterval PollDelay = 0.5;
 
