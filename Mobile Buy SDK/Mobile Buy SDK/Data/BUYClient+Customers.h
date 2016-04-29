@@ -12,8 +12,6 @@
 @class BUYOrder;
 @class BUYAccountCredentials;
 
-NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token";
-
 /**
  *  Return block containing a BUYCustomer object for an existing customer of the shop
  *

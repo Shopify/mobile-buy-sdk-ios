@@ -48,6 +48,7 @@
 #define kGET @"GET"
 #define kPOST @"POST"
 #define kPATCH @"PATCH"
+#define kPUT @"PUT"
 #define kDELETE @"DELETE"
 
 #define kJSONType @"application/json"
@@ -59,6 +60,8 @@ NSString * const BUYVersionString = @"1.2.6";
 
 static NSString *const kBUYClientPathProductPublications = @"product_listings";
 static NSString *const kBUYClientPathCollectionPublications = @"collection_listings";
+
+NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token";
 
 @interface BUYClient () <NSURLSessionDelegate>
 
@@ -664,6 +667,10 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_listi
 	[request addValue:kJSONType forHTTPHeaderField:@"Content-Type"];
 	[request addValue:kJSONType forHTTPHeaderField:@"Accept"];
 	
+	if (self.customerToken) {
+		[request addValue:self.customerToken forHTTPHeaderField:BUYClientCustomerAccessToken];
+	}
+	
 	request.HTTPMethod = method;
 	NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
 		NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
@@ -713,6 +720,11 @@ static NSString *const kBUYClientPathCollectionPublications = @"collection_listi
 - (NSURLSessionDataTask *)postRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
 	return [self requestForURL:url method:kPOST object:object completionHandler:completionHandler];
+}
+
+- (NSURLSessionDataTask *)putRequestForURL:(NSURL *)url body:(NSData *)body completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
+{
+	return [self requestForURL:url method:kPUT body:body completionHandler:completionHandler];
 }
 
 - (NSURLSessionDataTask *)postRequestForURL:(NSURL *)url body:(NSData *)body completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler

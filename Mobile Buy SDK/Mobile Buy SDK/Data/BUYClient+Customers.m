@@ -44,7 +44,7 @@
 {
 	NSURLComponents *components = [self URLComponentsForCustomerWithID:customerID];
 	return [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		block((json && !error ? [[BUYCustomer alloc] initWithDictionary:json] : nil), error);
+		block((json && !error ? [[BUYCustomer alloc] initWithDictionary:json[@"customer"]] : nil), error);
 	}];
 }
 
@@ -75,7 +75,7 @@
 				}];
 			}
 			else {
-				block([[BUYCustomer alloc] initWithDictionary:json], self.customerToken, error);
+				block([[BUYCustomer alloc] initWithDictionary:json[@"customer"]], self.customerToken, error);
 			}
 		}
 		else {

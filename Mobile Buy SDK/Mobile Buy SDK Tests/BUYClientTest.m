@@ -34,6 +34,10 @@
 #import "BUYCollection+Additions.h"
 #import "NSURLComponents+BUYAdditions.h"
 #import "BUYShopifyErrorCodes.h"
+#import "BUYAccountCredentials.h"
+#import "BUYClient+Customers.h"
+
+NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
 @interface BUYClient ()
 
@@ -317,6 +321,123 @@
 	NSSet *requestQueryItems = [NSSet setWithArray:[task.originalRequest.URL.query componentsSeparatedByString:@"&"]];
 	NSSet *queryItems = [NSSet setWithArray:@[@"collection_id=1", @"limit=25", @"page=1", @"sort_by=title-descending"]];
 	XCTAssertEqualObjects(requestQueryItems, queryItems);
+}
+
+#pragma mark - Customer Tests -
+
+- (void)testCustomerCreationURL
+{
+	BUYAccountCredentialItem *firstName = [BUYAccountCredentialItem itemWithKey:@"first_name" value:@"michael"];
+	BUYAccountCredentialItem *lastName = [BUYAccountCredentialItem itemWithKey:@"last_name" value:@"scott"];
+	BUYAccountCredentialItem *email = [BUYAccountCredentialItem itemWithKey:@"email" value:@"fake@example.com"];
+	BUYAccountCredentialItem *password = [BUYAccountCredentialItem itemWithKey:@"password" value:@"password"];
+	BUYAccountCredentialItem *passwordConfirmation = [BUYAccountCredentialItem itemWithKey:@"password_confirmation" value:@"password"];
+	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:@[firstName, lastName, email, password, passwordConfirmation]];
+	
+	NSURLSessionDataTask *task = [self.client createCustomerWithCredentials:credentials callback:nil];
+	
+	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
+	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/customers.json");
+	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"POST");
+	
+	NSError *error = nil;
+	NSDictionary *payload = [NSJSONSerialization JSONObjectWithData:task.originalRequest.HTTPBody options:0 error:&error];
+	
+	XCTAssertNil(error);
+	NSDictionary *dict = @{@"customer": @{
+								   @"first_name": firstName.value,
+								   @"last_name": lastName.value,
+								   @"email": email.value,
+								   @"password": password.value,
+								   @"password_confirmation": passwordConfirmation.value}};
+	XCTAssertEqualObjects(payload, dict);
+}
+
+- (void)testLoginCustomerURL
+{
+	BUYAccountCredentialItem *email = [BUYAccountCredentialItem itemWithKey:@"email" value:@"fake@example.com"];
+	BUYAccountCredentialItem *password = [BUYAccountCredentialItem itemWithKey:@"password" value:@"password"];
+	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:@[email, password]];
+	NSURLSessionDataTask *task = [self.client loginCustomerWithCredentials:credentials callback:nil];
+	
+	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
+	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/customers/customer_token.json");
+	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"POST");
+	
+	NSError *error = nil;
+	NSDictionary *payload = [NSJSONSerialization JSONObjectWithData:task.originalRequest.HTTPBody options:0 error:&error];
+	
+	XCTAssertNil(error);
+	NSDictionary *dict = @{@"customer": @{@"email": email.value, @"password": password.value}};
+	XCTAssertEqualObjects(payload, dict);
+}
+
+- (void)testGetCustomerURL
+{
+	NSURLSessionDataTask *task = [self.client getCustomerWithID:nil callback:nil];
+	
+	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
+	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/customers.json");
+	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
+	
+	XCTAssertEqualObjects(self.client.customerToken, task.originalRequest.allHTTPHeaderFields[BUYClientCustomerAccessToken]);
+}
+
+- (void)testGetOrdersForCustomerURL
+{
+	NSURLSessionDataTask *task = [self.client getOrdersForCustomerWithCallback:nil];
+	
+	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
+	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/customers/orders.json");
+	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
+	
+	XCTAssertEqualObjects(self.client.customerToken, task.originalRequest.allHTTPHeaderFields[BUYClientCustomerAccessToken]);
+}
+
+- (void)testCustomerRecovery
+{
+	NSString *email = @"fake@example.com";
+	NSURLSessionDataTask *task = [self.client recoverPasswordForCustomer:email callback:nil];
+	
+	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
+	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/customers/recover.json");
+	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"POST");
+	
+	NSError *error = nil;
+	NSDictionary *payload = [NSJSONSerialization JSONObjectWithData:task.originalRequest.HTTPBody options:0 error:&error];
+	
+	XCTAssertNil(error);
+	NSDictionary *dict = @{@"email": email};
+	XCTAssertEqualObjects(payload, dict);
+}
+
+- (void)testTokenRenewal
+{
+	self.client.customerToken = nil;
+	
+	NSURLSessionDataTask *task = [self.client renewCustomerTokenWithID:nil callback:^(NSString *token, NSError *error) {}];
+	XCTAssertNil(task); // task should be nil if no customer token was set on the client
+	
+	self.client.customerToken = BUYFakeCustomerToken;
+	task = [self.client renewCustomerTokenWithID:@"1" callback:nil];
+	
+	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
+	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/customers/1/customer_token/renew.json");
+	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"PUT");
+}
+
+- (void)testCustomerActivation
+{
+	BUYAccountCredentialItem *passwordItem = [BUYAccountCredentialItem itemWithKey:@"password" value:@"12345"];
+	BUYAccountCredentialItem *passwordConfItem = [BUYAccountCredentialItem itemWithKey:@"password_confirmation" value:@"12345"];
+	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:@[passwordItem, passwordConfItem]];
+	NSString *customerID = @"12345";
+	NSString *customerToken = @"12345";
+	NSURLSessionDataTask *task = [self.client activateCustomerWithCredentials:credentials customerID:customerID customerToken:customerToken callback:nil];
+	
+	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
+	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/customers/12345/activate.json");
+	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"PUT");
 }
 
 @end
