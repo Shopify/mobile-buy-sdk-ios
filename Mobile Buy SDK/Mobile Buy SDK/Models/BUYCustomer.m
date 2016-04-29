@@ -10,7 +10,16 @@
 
 @implementation BUYCustomer
 
-- (void)updateWithDictionary:(NSDictionary *)dictionary {
+- (NSString *)fullName
+{
+	if (self.firstName.length > 0 || self.lastName.length > 0) {
+		return [NSString stringWithFormat:@"%@ %@", self.firstName, self.lastName];
+	}
+	return @"";
+}
+
+- (void)updateWithDictionary:(NSDictionary *)dictionary
+{
 	[super updateWithDictionary:dictionary];
 	
 	_taxExempt           = dictionary[@"tax_exempt"];

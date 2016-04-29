@@ -24,6 +24,8 @@
 
 @property (nonatomic, strong) NSString *lastName;
 
+@property (nonatomic, strong, readonly) NSString *fullName;
+
 @property (nonatomic, strong) NSNumber *lastOrderID;
 
 @property (nonatomic, strong) NSString *lastOrderName;
