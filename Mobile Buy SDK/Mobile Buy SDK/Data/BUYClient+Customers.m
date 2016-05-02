@@ -201,7 +201,7 @@
 
 - (NSURLComponents *)URLComponentsForCustomers
 {
-	return [self customerURLComponents];
+	return [self customerURLComponentsAppendingPath:nil];
 }
 
 - (NSURLComponents *)URLComponentsForCustomerWithID:(NSString *)customerID
@@ -245,11 +245,6 @@
 }
 
 #pragma mark - Convenience methods
-
-- (NSURLComponents *)customerURLComponents
-{
-	return [self customerURLComponentsAppendingPath:nil];
-}
 
 - (NSURLComponents *)customerURLComponentsAppendingPath:(NSString *)path
 {
