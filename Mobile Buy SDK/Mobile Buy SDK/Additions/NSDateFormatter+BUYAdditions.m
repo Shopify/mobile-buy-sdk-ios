@@ -31,14 +31,14 @@
 + (NSDateFormatter*)dateFormatterForShippingRates
 {
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	[dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.SSSZ";
 	return dateFormatter;
 }
 
 + (NSDateFormatter*)dateFormatterForPublications
 {
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	[dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"];
+	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
 	return dateFormatter;
 }
 
