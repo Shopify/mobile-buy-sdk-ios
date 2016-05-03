@@ -25,13 +25,29 @@
 //
 
 import UIKit
+import Buy
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
+    
+    /* ---------------------------------
+     ** Configure store credentials to
+     ** use with your specific store.
+     */
+    let shopDomain: String = ""
+    let apiKey:     String = ""
+    let channedID:  String = ""
+    
+    private(set) var client: BUYClient!
 
+    // ----------------------------------
+    //  MARK: - Application Launch -
+    //
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    
+        self.client = BUYClient(shopDomain: self.shopDomain, apiKey: self.apiKey, channelId: self.channedID)
         
         return true
     }

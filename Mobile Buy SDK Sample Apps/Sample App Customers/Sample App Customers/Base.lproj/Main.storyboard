@@ -147,10 +147,10 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="nAI-12-jzv"/>
+                                                    <exclude reference="QDy-z0-mcC"/>
                                                     <exclude reference="inJ-eq-9u3"/>
                                                     <exclude reference="n1e-Lv-fQW"/>
-                                                    <exclude reference="QDy-z0-mcC"/>
+                                                    <exclude reference="nAI-12-jzv"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -225,9 +225,9 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
+                                                    <exclude reference="MvX-Xq-k5G"/>
                                                     <exclude reference="tnj-em-LRX"/>
                                                     <exclude reference="w6s-34-Ifr"/>
-                                                    <exclude reference="MvX-Xq-k5G"/>
                                                     <exclude reference="xNO-ya-GKB"/>
                                                 </mask>
                                             </variation>
@@ -258,9 +258,9 @@
                                             <variation key="default">
                                                 <mask key="constraints">
                                                     <exclude reference="2gh-AA-eQz"/>
+                                                    <exclude reference="4XW-e1-z9H"/>
                                                     <exclude reference="YJy-3Q-kdV"/>
                                                     <exclude reference="yWO-bT-zAD"/>
-                                                    <exclude reference="4XW-e1-z9H"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>

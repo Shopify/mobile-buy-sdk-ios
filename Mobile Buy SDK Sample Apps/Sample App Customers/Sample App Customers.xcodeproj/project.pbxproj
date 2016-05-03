@@ -14,7 +14,54 @@
 		9A9C03111CD8F9AC00AE79BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A9C030F1CD8F9AC00AE79BD /* LaunchScreen.storyboard */; };
 		9A9C031C1CD8FC6A00AE79BD /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C031B1CD8FC6A00AE79BD /* AccountViewController.swift */; };
 		9A9C031E1CD8FD2300AE79BD /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C031D1CD8FD2300AE79BD /* SignupViewController.swift */; };
+		9A9C03361CD9205C00AE79BD /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A9C032D1CD9203600AE79BD /* Buy.framework */; };
+		9A9C03381CD9206600AE79BD /* Buy.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9A9C032D1CD9203600AE79BD /* Buy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9A9C033B1CD921D700AE79BD /* BUYClient+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C033A1CD921D700AE79BD /* BUYClient+Extensions.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9A9C03281CD9203600AE79BD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A9C03201CD9203600AE79BD /* Mobile Buy SDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 90F592EC1B0D5EFE0026B382;
+			remoteInfo = "Mobile Buy SDK Tests";
+		};
+		9A9C032A1CD9203600AE79BD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A9C03201CD9203600AE79BD /* Mobile Buy SDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BE9A64281B503C2F0033E558;
+			remoteInfo = "Buy Static";
+		};
+		9A9C032C1CD9203600AE79BD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A9C03201CD9203600AE79BD /* Mobile Buy SDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 901931701BC5B9BC00D1134E;
+			remoteInfo = Buy;
+		};
+		9A9C032F1CD9205600AE79BD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A9C03201CD9203600AE79BD /* Mobile Buy SDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 901930E11BC5B9BC00D1134E;
+			remoteInfo = Buy;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9A9C03371CD9206000AE79BD /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9A9C03381CD9206600AE79BD /* Buy.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		9A9C03031CD8F9AC00AE79BD /* Sample App Customers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sample App Customers.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -26,6 +73,8 @@
 		9A9C03121CD8F9AC00AE79BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A9C031B1CD8FC6A00AE79BD /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		9A9C031D1CD8FD2300AE79BD /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		9A9C03201CD9203600AE79BD /* Mobile Buy SDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Mobile Buy SDK.xcodeproj"; path = "../../Mobile Buy SDK/Mobile Buy SDK.xcodeproj"; sourceTree = "<group>"; };
+		9A9C033A1CD921D700AE79BD /* BUYClient+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BUYClient+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A9C03361CD9205C00AE79BD /* Buy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +92,7 @@
 		9A9C02FA1CD8F9AC00AE79BD = {
 			isa = PBXGroup;
 			children = (
+				9A9C031F1CD9202900AE79BD /* SDK */,
 				9A9C03051CD8F9AC00AE79BD /* Sample App Customers */,
 				9A9C03191CD8FA0200AE79BD /* Supporting Files */,
 				9A9C03041CD8F9AC00AE79BD /* Products */,
@@ -60,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				9A9C03061CD8F9AC00AE79BD /* AppDelegate.swift */,
+				9A9C03391CD920F600AE79BD /* Extensions */,
 				9A9C031A1CD8FA0C00AE79BD /* View Controllers */,
 				9A9C030A1CD8F9AC00AE79BD /* Main.storyboard */,
 			);
@@ -87,6 +139,32 @@
 			name = "View Controllers";
 			sourceTree = "<group>";
 		};
+		9A9C031F1CD9202900AE79BD /* SDK */ = {
+			isa = PBXGroup;
+			children = (
+				9A9C03201CD9203600AE79BD /* Mobile Buy SDK.xcodeproj */,
+			);
+			name = SDK;
+			sourceTree = "<group>";
+		};
+		9A9C03211CD9203600AE79BD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9A9C03291CD9203600AE79BD /* Mobile Buy SDK Tests.xctest */,
+				9A9C032B1CD9203600AE79BD /* Buy.framework */,
+				9A9C032D1CD9203600AE79BD /* Buy.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9A9C03391CD920F600AE79BD /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				9A9C033A1CD921D700AE79BD /* BUYClient+Extensions.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -97,10 +175,12 @@
 				9A9C02FF1CD8F9AC00AE79BD /* Sources */,
 				9A9C03001CD8F9AC00AE79BD /* Frameworks */,
 				9A9C03011CD8F9AC00AE79BD /* Resources */,
+				9A9C03371CD9206000AE79BD /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				9A9C03301CD9205600AE79BD /* PBXTargetDependency */,
 			);
 			name = "Sample App Customers";
 			productName = "Sample App Customers";
@@ -133,12 +213,42 @@
 			mainGroup = 9A9C02FA1CD8F9AC00AE79BD;
 			productRefGroup = 9A9C03041CD8F9AC00AE79BD /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 9A9C03211CD9203600AE79BD /* Products */;
+					ProjectRef = 9A9C03201CD9203600AE79BD /* Mobile Buy SDK.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				9A9C03021CD8F9AC00AE79BD /* Sample App Customers */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		9A9C03291CD9203600AE79BD /* Mobile Buy SDK Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Mobile Buy SDK Tests.xctest";
+			remoteRef = 9A9C03281CD9203600AE79BD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9A9C032B1CD9203600AE79BD /* Buy.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Buy.framework;
+			remoteRef = 9A9C032A1CD9203600AE79BD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9A9C032D1CD9203600AE79BD /* Buy.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Buy.framework;
+			remoteRef = 9A9C032C1CD9203600AE79BD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		9A9C03011CD8F9AC00AE79BD /* Resources */ = {
@@ -160,12 +270,21 @@
 			files = (
 				9A9C03091CD8F9AC00AE79BD /* LoginViewController.swift in Sources */,
 				9A9C03071CD8F9AC00AE79BD /* AppDelegate.swift in Sources */,
+				9A9C033B1CD921D700AE79BD /* BUYClient+Extensions.swift in Sources */,
 				9A9C031C1CD8FC6A00AE79BD /* AccountViewController.swift in Sources */,
 				9A9C031E1CD8FD2300AE79BD /* SignupViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9A9C03301CD9205600AE79BD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Buy;
+			targetProxy = 9A9C032F1CD9205600AE79BD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		9A9C030A1CD8F9AC00AE79BD /* Main.storyboard */ = {
@@ -311,6 +430,7 @@
 				9A9C03171CD8F9AC00AE79BD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
