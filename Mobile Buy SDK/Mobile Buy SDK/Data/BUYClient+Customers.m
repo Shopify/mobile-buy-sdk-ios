@@ -70,7 +70,7 @@
 {
 	NSURLComponents *components = [self URLComponentsForCustomers];
 	return [self postRequestForURL:components.URL object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		if (json && error == nil) {
+		if (json && !error) {
 			[self createTokenForCustomerWithCredentials:credentials customerJSON:json callback:block];
 		}
 		else {
@@ -83,11 +83,11 @@
 {
 	NSURLComponents *components = [self URLComponentsForCustomerLogin];
 	return [self postRequestForURL:components.URL object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		if (json && error == nil) {
+		if (json && !error) {
 			BUYAuthenticatedResponse *authenticatedResponse = [BUYAuthenticatedResponse responseFromJSON:json];
 			self.customerToken = authenticatedResponse.accessToken;
 			
-			if (customerJSON == nil) {
+			if (!customerJSON) {
 				[self getCustomerWithID:authenticatedResponse.customerID callback:^(BUYCustomer *customer, NSError *error) {
 					block(customer, self.customerToken, error);
 				}];
@@ -114,7 +114,9 @@
 	return [self postRequestForURL:components.URL object:@{@"email": email} completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		
 		NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
-		error = error ?: [self extractErrorFromResponse:response json:json];
+		if (!error) {
+			error = [self extractErrorFromResponse:response json:json];
+		}
 		
 		block(statusCode, error);
 	}];
@@ -128,12 +130,14 @@
 		return [self putRequestForURL:components.URL body:nil completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			
 			NSString *accessToken = nil;
-			if (json && error == nil) {
+			if (json && !error) {
 				BUYAuthenticatedResponse *authenticatedResponse = [BUYAuthenticatedResponse responseFromJSON:json];
 				accessToken = authenticatedResponse.accessToken;
 			}
 			
-			error = error ?: [self extractErrorFromResponse:response json:json];
+			if (!error) {
+				error = [self extractErrorFromResponse:response json:json];
+			}
 			
 			block(accessToken, error);
 		}];
@@ -150,7 +154,7 @@
 	NSData *data = [NSJSONSerialization dataWithJSONObject:credentials.JSONRepresentation options:0 error:nil];
 	
 	return [self putRequestForURL:components.URL body:data completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		if (json && error == nil) {
+		if (json && !error) {
 			BUYAccountCredentialItem *emailItem = [BUYAccountCredentialItem itemWithKey:@"email" value:json[@"customer"][@"email"]];
 			credentials[@"email"] = emailItem;
 			[self loginCustomerWithCredentials:credentials callback:block];
@@ -167,7 +171,7 @@
 	NSData *data = [NSJSONSerialization dataWithJSONObject:credentials.JSONRepresentation options:0 error:nil];
 	
 	return [self putRequestForURL:components.URL body:data completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		if (json && error == nil) {
+		if (json && !error) {
 			BUYAccountCredentialItem *emailItem = [BUYAccountCredentialItem itemWithKey:@"email" value:json[@"customer"][@"email"]];
 			credentials[@"email"] = emailItem;
 			[self loginCustomerWithCredentials:credentials callback:block];
@@ -183,7 +187,7 @@
 	NSURLComponents *components = [self URLComponentsForCustomerOrders];
 	return [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		NSArray *ordersJSON = json[@"orders"];
-		if (!error && ordersJSON) {
+		if (ordersJSON && !error) {
 			
 			NSMutableArray *container = [NSMutableArray new];
 			for (NSDictionary *orderJSON in ordersJSON) {

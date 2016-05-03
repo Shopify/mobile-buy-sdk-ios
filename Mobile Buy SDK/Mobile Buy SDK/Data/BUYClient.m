@@ -127,7 +127,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	
 	return [self getRequestForURL:shopComponents.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		BUYShop *shop = nil;
-		if (json && error == nil) {
+		if (json && !error) {
 			shop = [[BUYShop alloc] initWithDictionary:json];
 		}
 		block(shop, error);
@@ -143,7 +143,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	return [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		
 		NSArray *products = nil;
-		if (json && error == nil) {
+		if (json && !error) {
 			products = [BUYProduct convertJSONArray:json[kBUYClientPathProductPublications]];
 		}
 		block(products, page, [self hasReachedEndOfPage:products] || error, error);
@@ -153,10 +153,10 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 - (NSURLSessionDataTask *)getProductById:(NSString *)productId completion:(BUYDataProductBlock)block;
 {
 	return [self getProductsByIds:@[productId] completion:^(NSArray *products, NSError *error) {
-		if ([products count]) {
+		if (products.count > 0) {
 			block(products[0], error);
 		} else {
-			if (error == nil && [products count] == 0) {
+			if (!error) {
 				error = [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidProductID userInfo:@{ NSLocalizedDescriptionKey : @"Product ID is not valid. Confirm the product ID on your shop's admin and also ensure that the visibility is on for the Mobile App channel." }];
 			}
 			block(nil, error);
@@ -172,10 +172,10 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	return [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		
 		NSArray *products = nil;
-		if (json && error == nil) {
+		if (json && !error) {
 			products = [BUYProduct convertJSONArray:json[kBUYClientPathProductPublications]];
 		}
-		if (error == nil && [products count] == 0) {
+		if (!error && products.count == 0) {
 			error = [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidProductID userInfo:@{ NSLocalizedDescriptionKey : @"Product IDs are not valid. Confirm the product IDs on your shop's admin and also ensure that the visibility is on for the Mobile App channel." }];
 		}
 		block(products, error);
@@ -197,7 +197,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	return [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		
 		NSArray *collections = nil;
-		if (json && error == nil) {
+		if (json && !error) {
 			collections = [BUYCollection convertJSONArray:json[kBUYClientPathCollectionPublications]];
 		}
 		block(collections, page, [self hasReachedEndOfPage:collections], error);
@@ -222,7 +222,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 		task = [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			
 			NSArray *products = nil;
-			if (json && error == nil) {
+			if (json && !error) {
 				products = [BUYProduct convertJSONArray:json[kBUYClientPathProductPublications]];
 			}
 			block(products, page, [self hasReachedEndOfPage:products] || error, error);
@@ -294,7 +294,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 - (void)handleCheckoutResponse:(NSDictionary *)json error:(NSError *)error block:(BUYDataCheckoutBlock)block
 {
 	BUYCheckout *checkout = nil;
-	if (error == nil) {
+	if (!error) {
 		checkout = [[BUYCheckout alloc] initWithDictionary:json[@"checkout"]];
 	}
 	block(checkout, error);
@@ -334,7 +334,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	NSError *error = nil;
 	NSData *data = [NSJSONSerialization dataWithJSONObject:checkoutJSON options:0 error:&error];
 	
-	if (data && error == nil) {
+	if (data && !error) {
 		NSURLComponents *components = [self URLComponentsForCheckoutsAppendingPath:nil checkoutToken:nil queryItems:nil];
 		
 		task = [self postRequestForURL:components.URL body:data completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
@@ -360,7 +360,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 		task = [self postRequestForURL:components.URL
 								object:giftCard
 					 completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-						 if (error == nil) {
+						 if (!error) {
 							 [self updateCheckout:checkout withGiftCardDictionary:json[@"gift_card"] addingGiftCard:YES];
 						 }
 						 block(checkout, error);
@@ -378,7 +378,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 																	 checkoutToken:checkout.token
 																		queryItems:nil];
 		task = [self deleteRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-			if (error == nil) {
+			if (!error) {
 				[self updateCheckout:checkout withGiftCardDictionary:json[@"gift_card"] addingGiftCard:NO];
 			}
 			block(checkout, error);
@@ -450,7 +450,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 			data = [NSJSONSerialization dataWithJSONObject:paymentJson options:0 error:&error];
 		}
 		
-		if ((data && error == nil) || (checkout.paymentDue && checkout.paymentDue.floatValue == 0)) {
+		if ((data && !error) || (checkout.paymentDue && checkout.paymentDue.floatValue == 0)) {
 			task = [self checkoutCompletionRequestWithCheckout:checkout body:data completion:block];
 		}
 	}
@@ -470,7 +470,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	if ([checkout hasToken] == NO) {
 		block(nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
 	}
-	else if (token == nil) {
+	else if (!token) {
 		block(nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_NoApplePayTokenSpecified userInfo:nil]);
 	}
 	else {
@@ -478,7 +478,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 		NSDictionary *paymentJson = @{ @"payment_token" : @{ @"payment_data" : tokenString, @"type" : @"apple_pay" }};
 		NSError *error = nil;
 		NSData *data = [NSJSONSerialization dataWithJSONObject:paymentJson options:0 error:&error];
-		if (data && error == nil) {
+		if (data && !error) {
 			task = [self checkoutCompletionRequestWithCheckout:checkout body:data completion:block];
 		}
 		else {
@@ -555,7 +555,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
         NSURLComponents *components = [self URLComponentsForCheckoutsAppendingPath:@"shipping_rates" checkoutToken:checkout.token queryItems:@{ @"checkout" : @"" }];
 		task = [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			NSArray *shippingRates = nil;
-			if (error == nil && json) {
+			if (json && !error) {
 				shippingRates = [BUYShippingRate convertJSONArray:json[@"shipping_rates"]];
 			}
 			
@@ -578,7 +578,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	if ([checkout hasToken] == NO) {
 		block(nil, nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
 	}
-	else if (creditCard == nil) {
+	else if (!creditCard) {
 		block(nil, nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_NoCreditCardSpecified userInfo:nil]);
 	}
 	else {
@@ -591,7 +591,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 		
 		NSError *error = nil;
 		NSData *data = [NSJSONSerialization dataWithJSONObject:@{ @"checkout" : json } options:0 error:&error];
-		if (data && error == nil) {
+		if (data && !error) {
 			task = [self postPaymentRequestWithCheckout:checkout body:data completion:block];
 		}
 		else {
@@ -647,7 +647,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	NSError *error = nil;
 	NSData *data = [NSJSONSerialization dataWithJSONObject:json options:0 error:&error];
 	NSURLSessionDataTask *task = nil;
-	if (error == nil && data) {
+	if (data && !error) {
 		task = [self requestForURL:url method:method body:data completionHandler:completionHandler];
 	}
 	return task;
@@ -683,7 +683,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 		}
 		else {
 			//2 is the minimum amount of data {} for a JSON Object. Just ignore anything less.
-			if ((error == nil || failedValidation) && [data length] > 2) {
+			if ((!error || failedValidation) && [data length] > 2) {
 				id jsonData = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
 				json = [jsonData isKindOfClass:[NSDictionary class]] ? jsonData : nil;
 			}
@@ -704,7 +704,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 {
 	return [self requestForURL:checkout.paymentURL method:kPOST body:body completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		NSString *paymentSessionId = nil;
-		if (error == nil) {
+		if (!error) {
 			paymentSessionId = json[@"id"];
 			checkout.paymentSessionId = paymentSessionId;
 		}
