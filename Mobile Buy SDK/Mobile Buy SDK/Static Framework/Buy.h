@@ -33,6 +33,9 @@
 #import "BUYCartLineItem.h"
 #import "BUYCheckout.h"
 #import "BUYCheckoutAttribute.h"
+#import "BUYClient+Test.h"
+#import "BUYClient.h"
+#import "BUYClient+Customers.h"
 #import "BUYCollection.h"
 #import "BUYCreditCard.h"
 #import "BUYCustomer.h"
@@ -52,7 +55,6 @@
 
 #import "BUYApplePayAdditions.h"
 #import "BUYApplePayHelpers.h"
-#import "BUYClient.h"
 #import "BUYError.h"
 
 #import "BUYPaymentButton.h"

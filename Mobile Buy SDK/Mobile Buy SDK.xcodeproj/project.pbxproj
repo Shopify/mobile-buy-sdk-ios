@@ -248,8 +248,8 @@
 		9A3B2DCA1CD27D5B00BFF49C /* BUYCustomer.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A3B2DC71CD27D5B00BFF49C /* BUYCustomer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A3B2DCB1CD27D5B00BFF49C /* BUYCustomer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3B2DC81CD27D5B00BFF49C /* BUYCustomer.m */; };
 		9A3B2DCC1CD27D5B00BFF49C /* BUYCustomer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3B2DC81CD27D5B00BFF49C /* BUYCustomer.m */; };
-		9A3B2DCF1CD2822F00BFF49C /* BUYClient+Customers.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A3B2DCD1CD2822F00BFF49C /* BUYClient+Customers.h */; };
-		9A3B2DD01CD2822F00BFF49C /* BUYClient+Customers.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A3B2DCD1CD2822F00BFF49C /* BUYClient+Customers.h */; };
+		9A3B2DCF1CD2822F00BFF49C /* BUYClient+Customers.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A3B2DCD1CD2822F00BFF49C /* BUYClient+Customers.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9A3B2DD01CD2822F00BFF49C /* BUYClient+Customers.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A3B2DCD1CD2822F00BFF49C /* BUYClient+Customers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A3B2DD11CD2822F00BFF49C /* BUYClient+Customers.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3B2DCE1CD2822F00BFF49C /* BUYClient+Customers.m */; };
 		9A3B2DD21CD2822F00BFF49C /* BUYClient+Customers.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3B2DCE1CD2822F00BFF49C /* BUYClient+Customers.m */; };
 		9A3B2DD51CD2829900BFF49C /* BUYAccountCredentials.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A3B2DD31CD2829900BFF49C /* BUYAccountCredentials.h */; };
