@@ -20,7 +20,7 @@
 @property (nonatomic, strong) TestModelManager *modelManager;
 @end
 
-@class Leaf, Nest;
+@class Leaf, Nest, Root;
 
 @interface Bird : TestModel
 @property (nonatomic) NSNumber *identifier;
@@ -34,6 +34,10 @@
 @property (nonatomic) Nest *nest;
 @end
 
+@interface Forest : TestModel
+@property (nonatomic) NSSet<Root *> *trees;
+@end
+
 @interface Leaf : TestModel
 @property (nonatomic) NSDate *date;
 @property (nonatomic) NSSet<NSString *> *tags;
@@ -42,6 +46,7 @@
 @interface Nest : TestModel
 @property (nonatomic) NSNumber *eggCount;
 @property (nonatomic) Bird *bird;
+@property (nonatomic) Branch *branch;
 @end
 
 @interface Root : TestModel
@@ -49,4 +54,6 @@
 @property (nonatomic) NSDecimalNumber *age;
 @property (nonatomic) NSString *name;
 @property (nonatomic) NSURL *url;
+@property (nonatomic) NSSet<Branch *> *branches;
+@property (nonatomic) Forest *forest;
 @end

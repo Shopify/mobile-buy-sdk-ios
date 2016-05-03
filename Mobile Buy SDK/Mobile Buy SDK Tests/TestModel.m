@@ -122,6 +122,11 @@
 	return NO;
 }
 
+- (BOOL)isEqual:(id)object
+{
+	return [super isEqual:object] || [object isMemberOfClass:[self class]];
+}
+
 @end
 
 #pragma mark - Models
@@ -135,16 +140,113 @@
 	return bird;
 }
 
+- (BOOL)isEqual:(Bird *)otherModel
+{
+	return ([super isEqual:otherModel] &&
+			[self.identifier isEqual:otherModel.identifier] &&
+			[self.colour isEqualToString:otherModel.colour]);
+}
+
+- (NSUInteger)hash
+{
+	NSUInteger hash = self.identifier.hash;
+	hash = (hash << 5) ^ self.colour.hash;
+	return hash;
+}
+
 @end
 
 @implementation Branch
+
+- (BOOL)isEqual:(Branch *)otherModel
+{
+	return ([super isEqual:otherModel] &&
+			[self.ornaments isEqual:otherModel.ornaments] &&
+			[self.leaves isEqual:otherModel.leaves]);
+}
+
+- (NSUInteger)hash
+{
+	NSUInteger hash = self.ornaments.hash;
+	hash = (hash << 5) ^ self.leaves.hash;
+	return hash;
+}
+
+@end
+
+@implementation Forest
+
+- (BOOL)isEqual:(Forest *)object
+{
+    return ([super isEqual:object] &&
+            [self.trees isEqual:object.trees]);
+}
+
+- (NSUInteger)hash
+{
+    return self.trees.hash;
+}
+
 @end
 
 @implementation Leaf
+
+- (BOOL)isEqual:(Leaf *)object
+{
+	return ([super isEqual:object] &&
+			[self.date isEqual:object.date] &&
+			[self.tags isEqual:object.tags]);
+}
+
+- (NSUInteger)hash
+{
+	NSUInteger hash = self.date.hash;
+	hash = (hash << 5) ^ self.tags.hash;
+	return hash;
+}
+
 @end
 
 @implementation Nest
+
+- (BOOL)isEqual:(Nest *)object
+{
+	return ([super isEqual:object] &&
+			[self.eggCount isEqual:object.eggCount] &&
+			((self.bird == nil && object.bird == nil) || [self.bird isEqual:object.bird]));
+}
+
+- (NSUInteger)hash
+{
+	NSUInteger hash = self.eggCount.hash;
+	if (self.bird) {
+		hash = (hash << 5) ^ self.bird.hash;
+	}
+	return hash;
+}
+
 @end
 
 @implementation Root
+
+- (BOOL)isEqual:(Root *)object
+{
+	return ([super isEqual:object] &&
+			[self.identifier isEqual:object.identifier] &&
+			[self.age isEqual:object.age] &&
+			[self.name isEqual:object.name] &&
+			[self.url isEqual:object.url] &&
+			[self.branches isEqual:object.branches]);
+}
+
+- (NSUInteger)hash
+{
+	NSUInteger hash = self.identifier.hash;
+	hash = (hash << 5) ^ self.age.hash;
+	hash = (hash << 5) ^ self.name.hash;
+	hash = (hash << 5) ^ self.url.hash;
+	hash = (hash << 5) ^ self.branches.hash;
+	return hash;
+}
+
 @end

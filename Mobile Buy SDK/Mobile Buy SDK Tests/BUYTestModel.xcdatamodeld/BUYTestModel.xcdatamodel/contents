@@ -3,7 +3,12 @@
     <entity name="Bird" representedClassName="Bird" syncable="YES">
         <attribute name="colour" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <relationship name="nests" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Nest" inverseName="bird" inverseEntity="Nest" syncable="YES"/>
+        <relationship name="nests" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Nest" inverseName="bird" inverseEntity="Nest" syncable="YES">
+            <userInfo>
+                <entry key="JSONPropertyKey" value="nest_ids"/>
+                <entry key="key" value="value"/>
+            </userInfo>
+        </relationship>
     </entity>
     <entity name="Branch" representedClassName="Branch" syncable="YES">
         <attribute name="ornaments" optional="YES" attributeType="Transformable" syncable="YES">
@@ -15,6 +20,12 @@
         <relationship name="leaves" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Leaf" inverseName="branch" inverseEntity="Leaf" syncable="YES"/>
         <relationship name="nest" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Nest" inverseName="branch" inverseEntity="Nest" syncable="YES"/>
         <relationship name="root" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Root" inverseName="branches" inverseEntity="Root" syncable="YES"/>
+    </entity>
+    <entity name="Forest" syncable="YES">
+        <relationship name="trees" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Root" inverseName="forest" inverseEntity="Root" syncable="YES"/>
+        <userInfo>
+            <entry key="private" value="YES"/>
+        </userInfo>
     </entity>
     <entity name="Leaf" representedClassName="Leaf" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES">
@@ -50,12 +61,14 @@
             </userInfo>
         </attribute>
         <relationship name="branches" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Branch" inverseName="root" inverseEntity="Branch" syncable="YES"/>
+        <relationship name="forest" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Forest" inverseName="trees" inverseEntity="Forest" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Root" positionX="-63" positionY="-18" width="128" height="120"/>
-        <element name="Branch" positionX="-63" positionY="0" width="128" height="105"/>
-        <element name="Leaf" positionX="-45" positionY="18" width="128" height="90"/>
-        <element name="Bird" positionX="-36" positionY="45" width="128" height="90"/>
-        <element name="Nest" positionX="-27" positionY="54" width="128" height="90"/>
+        <element name="Bird" positionX="151" positionY="111" width="128" height="90"/>
+        <element name="Branch" positionX="-288" positionY="-3" width="128" height="105"/>
+        <element name="Leaf" positionX="-72" positionY="-18" width="128" height="90"/>
+        <element name="Nest" positionX="-72" positionY="126" width="128" height="90"/>
+        <element name="Root" positionX="-504" positionY="-18" width="128" height="133"/>
+        <element name="Forest" positionX="-477" positionY="137" width="128" height="58"/>
     </elements>
 </model>

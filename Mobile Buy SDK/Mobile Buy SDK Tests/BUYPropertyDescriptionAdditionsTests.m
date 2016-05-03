@@ -38,6 +38,10 @@ static NSString * const LeafEntity = @"Leaf";
 static NSString * const NestEntity = @"Nest";
 static NSString * const BirdEntity = @"Bird";
 
+@interface NSIndexSet (BUYTestAdditions)
++ (instancetype)indexSetWithIndexes:(NSArray *)indexes;
+@end
+
 @interface BUYPropertyDescriptionAdditionsTests : XCTestCase
 @property (nonatomic) NSManagedObjectModel *model;
 @property (nonatomic) TestModelManager *modelManager;
@@ -183,29 +187,68 @@ static NSString * const BirdEntity = @"Bird";
 {
 	Branch *branch = [self.modelManager buy_objectWithEntityName:BranchEntity JSONDictionary:nil];
 	NSRelationshipDescription *leafRelationship = [self relationshipWithName:@"leaves" forEntity:BranchEntity];
-	id json = @[
-				@{
-					@"date" : @"2001-01-21T00:00:00 +0000",
-					@"tags" : @"test one two"
-					},
-				@{
-					@"date" : @"2010-06-11T00:00:00 +0000",
-					@"tags" : @"phone"
-					},
-				@{
-					@"date" : @"2013-11-03T00:00:00 +0000",
-					@"tags" : @"song tune album"
-					},
-				];
-	NSSet *object = [leafRelationship buy_valueForJSON:json object:branch];
-	XCTAssertTrue([object isKindOfClass:[NSSet class]]);
-	XCTAssertTrue([[object anyObject] isKindOfClass:[Leaf class]]);
-	NSSet *expected = [NSSet setWithObjects:
-					   [NSSet setWithObjects:@"test", @"one", @"two", nil],
-					   [NSSet setWithObjects:@"phone", nil],
-					   [NSSet setWithObjects:@"song", @"tune", @"album", nil],
-					   nil];
-	XCTAssertEqualObjects(expected, [object valueForKey:@"tags"]);
+	
+	// Semi-random leaf objects
+	branch.leaves = [NSSet setWithArray:@[[self leafWithDate:[self dateWithComponents:[self november4_1605]] tags:[self tagsWithIndexes:@[@1, @5, @11]]],
+										  [self leafWithDate:[self dateWithComponents:[self november4_1605]] tags:[self tagsWithIndexes:@[@9]]],
+										  [self leafWithDate:[self dateWithComponents:[self november4_1605]] tags:[self tagsWithIndexes:@[@12, @0, @8, @4]]]]];
+	id json = [leafRelationship buy_JSONForValue:branch.leaves];
+	id actual = [leafRelationship buy_valueForJSON:json object:branch];
+	XCTAssertEqualObjects(actual, branch.leaves);
+}
+
+- (Leaf *)leafWithDate:(NSDate *)date tags:(NSSet *)tags
+{
+	Leaf *leaf = [self.modelManager buy_objectWithEntityName:[Leaf entityName] JSONDictionary:nil];
+	leaf.date = date;
+	leaf.tags = tags;
+	return leaf;
+}
+
+- (NSSet *)tagsWithIndexes:(NSArray *)indexes
+{
+	static NSArray *tags;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		tags = @[@"one", @"two", @"three", @"hot", @"urgent", @"important", @"red", @"green", @"blue", @"animal", @"vegetable", @"mineral", @"fungus"];
+	});
+	return [NSSet setWithArray:[tags objectsAtIndexes:[NSIndexSet indexSetWithIndexes:indexes]]];
+}
+
+- (NSDate *)dateWithComponents:(NSDateComponents *)components
+{
+	return [[NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian] dateFromComponents:components];
+}
+
+- (NSDateComponents *)november4_1605
+{
+	NSDateComponents *components = [[NSDateComponents alloc] init];
+	components.year = 1605;
+	components.month = 11;
+	components.day = 4;
+	return components;
+}
+
+- (NSDateComponents *)june21_1970
+{
+	NSDateComponents *components = [[NSDateComponents alloc] init];
+	components.year = 1970;
+	components.month = 6;
+	components.day = 21;
+	return components;
+}
+
+@end
+
+@implementation NSIndexSet (BUYTestAdditions)
+
++ (instancetype)indexSetWithIndexes:(NSArray *)indexes
+{
+	NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
+	for (NSNumber *index in indexes) {
+		[indexSet addIndex:index.unsignedIntegerValue];
+	}
+	return indexSet;
 }
 
 @end
