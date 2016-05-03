@@ -26,6 +26,8 @@
 
 #import "BUYObject.h"
 
+@class BUYAddress;
+
 @interface BUYCustomer : BUYObject
 
 /**
@@ -117,5 +119,15 @@
  * The date and time when the customer information was updated. The API returns this value in ISO 8601 format.
  */
 @property (nonatomic, strong) NSDate *updatedAt;
+
+/**
+ * An array of addresses for the customer.
+ */
+@property (nonatomic, strong) NSArray<BUYAddress *> *addresses;
+
+/**
+ * The default address for the customer.
+ */
+@property (nonatomic, strong) BUYAddress *defaultAddress;
 
 @end

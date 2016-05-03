@@ -25,6 +25,7 @@
 //
 
 #import "BUYCustomer.h"
+#import "BUYAddress.h"
 
 @implementation BUYCustomer
 
@@ -56,6 +57,8 @@
 	_totalSpent          = dictionary[@"total_spent"];
 	_createdAt           = dictionary[@"created_at"];
 	_updatedAt           = dictionary[@"updated_at"];
+	_addresses           = [BUYAddress convertJSONArray:dictionary[@"addresses"]];
+	_defaultAddress      = [BUYAddress convertObject:dictionary[@"default_address"]];
 }
 
 @end
