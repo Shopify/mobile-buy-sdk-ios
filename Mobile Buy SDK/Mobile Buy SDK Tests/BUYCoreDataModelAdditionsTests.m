@@ -29,6 +29,8 @@
 
 #import "BUYFlatCollectionTransformer.h"
 #import "BUYDateTransformer.h"
+#import "BUYIdentityTransformer.h"
+#import "NSEntityDescription+BUYAdditions.h"
 #import "NSPropertyDescription+BUYAdditions.h"
 #import "TestModel.h"
 
@@ -42,16 +44,16 @@ static NSString * const BirdEntity = @"Bird";
 + (instancetype)indexSetWithIndexes:(NSArray *)indexes;
 @end
 
-@interface BUYPropertyDescriptionAdditionsTests : XCTestCase
+@interface BUYCoreDataModelAdditionsTests : XCTestCase
 @property (nonatomic) NSManagedObjectModel *model;
 @property (nonatomic) TestModelManager *modelManager;
 @end
 
-@implementation BUYPropertyDescriptionAdditionsTests
+@implementation BUYCoreDataModelAdditionsTests
 
 + (void)initialize
 {
-	if (self == [BUYPropertyDescriptionAdditionsTests class]) {
+	if (self == [BUYCoreDataModelAdditionsTests class]) {
 		[NSValueTransformer setValueTransformer:[BUYFlatCollectionTransformer arrayTransformer] forName:@"Array"];
 		[NSValueTransformer setValueTransformer:[BUYFlatCollectionTransformer setTransformer] forName:@"Set"];
 	}
@@ -85,6 +87,7 @@ static NSString * const BirdEntity = @"Bird";
 - (void)testJSONTransformerName
 {
 	XCTAssertEqualObjects(BUYDateTransformerName, [self attributeWithName:@"date" forEntity:LeafEntity].JSONValueTransformerName);
+	XCTAssertEqualObjects(BUYIdentityTransformerName, [self attributeWithName:@"identifier" forEntity:RootEntity].JSONValueTransformerName);
 }
 
 - (void)testJSONPropertyKey
@@ -95,6 +98,20 @@ static NSString * const BirdEntity = @"Bird";
 - (void)testJSONValueTransformer
 {
 	XCTAssertEqualObjects([BUYFlatCollectionTransformer class], [[self attributeWithName:@"tags" forEntity:LeafEntity].JSONValueTransformer class]);
+}
+
+- (void)testNilAttribute
+{
+	NSAttributeDescription *idAttribute = [self attributeWithName:@"identifier" forEntity:RootEntity];
+	XCTAssertNil([idAttribute buy_JSONForValue:nil]);
+	XCTAssertEqualObjects([idAttribute buy_valueForJSON:nil object:nil], [NSNull null]);
+}
+
+- (void)testNullAttribute
+{
+	NSAttributeDescription *idAttribute = [self attributeWithName:@"identifier" forEntity:RootEntity];
+	XCTAssertEqualObjects([idAttribute buy_JSONForValue:[NSNull null]], [NSNull null]);
+	XCTAssertEqualObjects([idAttribute buy_valueForJSON:[NSNull null] object:nil], [NSNull null]);
 }
 
 - (void)testInteger
@@ -162,6 +179,20 @@ static NSString * const BirdEntity = @"Bird";
 	XCTAssertEqualObjects(actual, tags);
 }
 
+- (void)testNilRelationship
+{
+	Branch *branch = [self.modelManager buy_objectWithEntityName:BranchEntity JSONDictionary:nil];
+	NSRelationshipDescription *nestRelationship = [self relationshipWithName:@"nest" forEntity:BranchEntity];
+	XCTAssertNil([nestRelationship buy_valueForJSON:nil object:branch]);
+}
+
+- (void)testNullRelationship
+{
+	Branch *branch = [self.modelManager buy_objectWithEntityName:BranchEntity JSONDictionary:nil];
+	NSRelationshipDescription *nestRelationship = [self relationshipWithName:@"nest" forEntity:BranchEntity];
+	XCTAssertNil([nestRelationship buy_valueForJSON:[NSNull null] object:branch]);
+}
+
 - (void)testRelationship
 {
 	Branch *branch = [self.modelManager buy_objectWithEntityName:BranchEntity JSONDictionary:nil];
@@ -190,11 +221,24 @@ static NSString * const BirdEntity = @"Bird";
 	
 	// Semi-random leaf objects
 	branch.leaves = [NSSet setWithArray:@[[self leafWithDate:[self dateWithComponents:[self november4_1605]] tags:[self tagsWithIndexes:@[@1, @5, @11]]],
-										  [self leafWithDate:[self dateWithComponents:[self november4_1605]] tags:[self tagsWithIndexes:@[@9]]],
-										  [self leafWithDate:[self dateWithComponents:[self november4_1605]] tags:[self tagsWithIndexes:@[@12, @0, @8, @4]]]]];
+										  [self leafWithDate:[self dateWithComponents:[self june21_1970]] tags:[self tagsWithIndexes:@[@9]]],
+										  [self leafWithDate:[self dateWithComponents:[self jan1_2000]] tags:[self tagsWithIndexes:@[@12, @0, @8, @4]]]]];
 	id json = [leafRelationship buy_JSONForValue:branch.leaves];
 	id actual = [leafRelationship buy_valueForJSON:json object:branch];
 	XCTAssertEqualObjects(actual, branch.leaves);
+}
+
+- (void)testEntityIsPrivate
+{
+	NSEntityDescription *forestEntity = [self entityForName:[Forest entityName]];
+	XCTAssertTrue([forestEntity buy_isPrivate]);
+}
+
+- (void)testFetchedProperty
+{
+	NSFetchedPropertyDescription *fetchedProperty = [[NSFetchedPropertyDescription alloc] init];
+	XCTAssertNil([fetchedProperty buy_valueForJSON:nil object:nil]);
+	XCTAssertNil([fetchedProperty buy_JSONForValue:nil]);
 }
 
 - (Leaf *)leafWithDate:(NSDate *)date tags:(NSSet *)tags
@@ -235,6 +279,16 @@ static NSString * const BirdEntity = @"Bird";
 	components.year = 1970;
 	components.month = 6;
 	components.day = 21;
+	return components;
+}
+
+- (NSDateComponents *)jan1_2000
+{
+	NSDateComponents *components = [[NSDateComponents alloc] init];
+	components.year = 2000;
+	components.month = 1;
+	components.day = 1;
+	components.second = 1;
 	return components;
 }
 
