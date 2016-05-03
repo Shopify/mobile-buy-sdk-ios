@@ -1,5 +1,5 @@
 //
-//  BUYSerializable.h
+//  NSRegularExpression+BUYAdditions.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,14 +24,18 @@
 //  THE SOFTWARE.
 //
 
-@import Foundation;
+#import "NSRegularExpression+BUYAdditions.h"
 
-@protocol BUYSerializable <NSObject>
+@implementation NSRegularExpression (BUYAdditions)
 
-- (NSDictionary *)jsonDictionaryForCheckout;
+- (NSArray *)buy_matchesInString:(NSString *)string
+{
+	return [self matchesInString:string options:0 range:NSMakeRange(0, string.length)];
+}
 
-@end
-
-@interface NSDictionary (BUYSerializable) <BUYSerializable>
+- (NSTextCheckingResult *)buy_firstMatchInString:(NSString *)string
+{
+	return [self firstMatchInString:string options:0 range:NSMakeRange(0, string.length)];
+}
 
 @end

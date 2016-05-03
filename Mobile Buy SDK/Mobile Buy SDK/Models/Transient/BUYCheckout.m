@@ -27,6 +27,7 @@
 #import "BUYAddress.h"
 #import "BUYCart.h"
 #import "BUYCheckout.h"
+#import "BUYCheckout_Private.h"
 #import "BUYDiscount.h"
 #import "BUYLineItem.h"
 #import "BUYMaskedCreditCard.h"
@@ -37,11 +38,10 @@
 #import "BUYMaskedCreditCard.h"
 #import "BUYGiftCard.h"
 #import "NSDecimalNumber+BUYAdditions.h"
-#import "NSString+Trim.h"
-#import "BUYCheckout_Private.h"
+#import "NSString+BUYAdditions.h"
 #import "NSDateFormatter+BUYAdditions.h"
 #import "NSURL+BUYAdditions.h"
-#import "NSDictionary+Additions.h"
+#import "NSDictionary+BUYAdditions.h"
 #import "BUYCheckoutAttribute.h"
 
 @implementation BUYCheckout
@@ -154,7 +154,6 @@
 	self.termsOfServiceURL = [NSURL buy_urlWithString:dictionary[@"terms_of_service_url"]];
 	
 	self.sourceName = dictionary[@"source_name"];
-	self.sourceIdentifier = dictionary[@"source_identifier"];
 }
 
 - (NSString *)shippingRateId

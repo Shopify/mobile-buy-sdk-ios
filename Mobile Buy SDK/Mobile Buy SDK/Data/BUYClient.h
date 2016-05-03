@@ -78,6 +78,8 @@ typedef NS_ENUM(NSUInteger, BUYCollectionSort) {
 
 extern NSString * const BUYVersionString;
 
+extern NSString * const BUYClientCustomerAccessToken;
+
 /**
  *  A BUYStatus is associated with the completion of an enqueued job on Shopify.
  *  BUYStatus is equal is HTTP status codes returned from the server
@@ -225,11 +227,11 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
  *
  *  @param shopDomain The Shop Domain i.e. abetterlookingshop.myshopify.com
  *  @param apiKey     The API key provided via the Mobile SDK Channel on Shopify Admin
- *  @param channelId  The Channel ID provided on Shopify Admin
+ *  @param appId      The App ID provided on Shopify Admin
  *
  *  @return An instance of BUYDataClient
  */
-- (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey channelId:(NSString *)channelId NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey appId:(NSString *)appId NS_DESIGNATED_INITIALIZER;
 
 /**
  *  Queue where callbacks will be called
@@ -255,7 +257,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
 /**
  *  The Channel ID set using the initializer
  */
-@property (nonatomic, strong, readonly) NSString *channelId;
+@property (nonatomic, strong, readonly) NSString *appId;
 
 /**
  *  The Merchant ID is used for Apple Pay and set using `enableApplePayWithMerchantId:`
@@ -272,6 +274,12 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
  */
 @property (nonatomic, strong) NSString *urlScheme;
 
+/**
+ *  Allows the client to hold onto the customer token
+ *
+ *  @param token The token received from the create and login callbacks
+ */
+@property (strong, nonatomic) NSString *customerToken;
 
 #pragma mark - Storefront
 

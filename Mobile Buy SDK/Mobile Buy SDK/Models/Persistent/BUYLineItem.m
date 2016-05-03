@@ -27,7 +27,7 @@
 #import "BUYLineItem.h"
 #import "BUYProductVariant.h"
 #import "NSDecimalNumber+BUYAdditions.h"
-#import "NSString+Trim.h"
+#import "NSString+BUYAdditions.h"
 #import "BUYProduct.h"
 
 @interface BUYLineItem ()

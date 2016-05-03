@@ -1,5 +1,5 @@
 //
-//  BUYOrder.m
+//  BUYDiscount.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,25 +24,30 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYOrder.h"
-#import "NSURL+BUYAdditions.h"
-#import "NSDictionary+Additions.h"
+#import "BUYDiscount.h"
+#import "NSDecimalNumber+BUYAdditions.h"
+#import "NSString+BUYAdditions.h"
 
-@interface BUYOrder ()
+@implementation BUYDiscount
 
-@property (nonatomic, strong) NSURL *statusURL;
-@property (nonatomic, strong) NSString *name;
-
-@end
-
-@implementation BUYOrder
+- (instancetype)initWithCode:(NSString *)code
+{
+	return [super initWithDictionary:@{@"code": code ?: @""}];
+}
 
 - (void)updateWithDictionary:(NSDictionary *)dictionary
 {
 	[super updateWithDictionary:dictionary];
-	NSString *statusURLString = dictionary[@"status_url"];
-	self.statusURL = [NSURL buy_urlWithString:statusURLString];
-	self.name = [dictionary buy_objectForKey:@"name"];
+	self.code = dictionary[@"code"];
+	self.amount = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"amount"]];
+	self.applicable = [dictionary[@"applicable"] boolValue];
+}
+
+- (NSDictionary *)jsonDictionaryForCheckout
+{
+	NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
+	json[@"code"] = [self.code buy_trim] ?: @"";
+	return json;
 }
 
 @end

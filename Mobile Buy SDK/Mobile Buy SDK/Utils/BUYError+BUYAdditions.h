@@ -1,5 +1,5 @@
 //
-//  BUYClient+Test.m
+//  BUYError+BUYAdditions.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,34 +24,13 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYClient+Test.h"
+#import "BUYError.h"
 
-@implementation BUYClient (Test)
+@interface BUYError (Checkout)
++ (NSArray<BUYError *> *)errorsFromCheckoutJSON:(NSDictionary *)json;
+@property (readonly) NSString *quantityRemainingMessage;
+@end
 
-- (BOOL)testIntegration
-{
-	return [self testIntegrationWithMerchantId:self.merchantId];
-}
-
-- (BOOL)testIntegrationWithMerchantId:(NSString *)merchantId;
-{
-	NSLog(@"Remove this call once integration succeeds.  This should never be called in production code!!");
-	
-	NSString *urlString = [NSString stringWithFormat:@"https://%@/mobile_app/verify?api_key=%@&channel_id=%@", self.shopDomain, self.apiKey, self.channelId];
-	
-	if (merchantId.length > 0) {
-		urlString = [urlString stringByAppendingFormat:@"&merchant_id=%@", merchantId];
-	}
-	
-	NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-	NSHTTPURLResponse *response = nil;
-	NSError *error = nil;
-	
-	[NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-	
-	BOOL success = (error == nil && response.statusCode == 200);
-	
-	return success;
-}
-
+@interface BUYError (Customer)
++ (NSArray<BUYError *> *)errorsFromSignUpJSON:(NSDictionary *)json;
 @end

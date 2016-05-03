@@ -1,6 +1,5 @@
 //
-//  NSDictionary+Additions.m
-//
+//  BUYCollection.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -25,13 +24,36 @@
 //  THE SOFTWARE.
 //
 
-#import "NSDictionary+Additions.h"
+#import "BUYCollection.h"
+#import "NSDateFormatter+BUYAdditions.h"
+#import "NSURL+BUYAdditions.h"	
+#import "NSDictionary+BUYAdditions.h"
 
-@implementation NSDictionary (Additions)
+@interface BUYCollection ()
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *htmlDescription;
+@property (nonatomic, strong) NSString *handle;
+@property (nonatomic, assign) BOOL published;
+@property (nonatomic, strong) NSNumber *collectionId;
+@end
 
-- (id)buy_objectForKey:(NSString *)key
+@implementation BUYCollection
+
+- (void)updateWithDictionary:(NSDictionary *)dictionary
 {
-	return ([self[key] isKindOfClass:[NSNull class]]) ? nil : self[key];
+	[super updateWithDictionary:dictionary];
+	
+	_title = dictionary[@"title"];
+	_htmlDescription = dictionary[@"body_html"];
+	_imageURL = [NSURL buy_urlWithString:[dictionary buy_objectForKey:@"image"][@"src"]];
+	_handle = dictionary[@"handle"];
+	_published = [dictionary[@"published"] boolValue];
+	_collectionId = dictionary[@"collection_id"];
+	
+	NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForPublications];
+	_createdAtDate = [dateFormatter dateFromString:dictionary[@"created_at"]];
+	_updatedAtDate = [dateFormatter dateFromString:dictionary[@"updated_at"]];
+	_publishedAtDate = [dateFormatter dateFromString:dictionary[@"published_at"]];
 }
 
 @end

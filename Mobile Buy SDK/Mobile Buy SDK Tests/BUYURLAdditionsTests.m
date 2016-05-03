@@ -1,5 +1,5 @@
 //
-//  BUYDiscount.m
+//  BUYURLAdditionsTests.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,30 +24,22 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYDiscount.h"
-#import "NSDecimalNumber+BUYAdditions.h"
-#import "NSString+trim.h"
+#import <XCTest/XCTest.h>
+#import "NSURL+BUYAdditions.h"
 
-@implementation BUYDiscount
+@interface BUYURLAdditionsTests : XCTestCase
 
-- (instancetype)initWithCode:(NSString *)code
+@end
+
+@implementation BUYURLAdditionsTests
+
+- (void)testAppendBasenameSuffix
 {
-	return [super initWithDictionary:@{@"code": code ?: @""}];
-}
-
-- (void)updateWithDictionary:(NSDictionary *)dictionary
-{
-	[super updateWithDictionary:dictionary];
-	self.code = dictionary[@"code"];
-	self.amount = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"amount"]];
-	self.applicable = [dictionary[@"applicable"] boolValue];
-}
-
-- (NSDictionary *)jsonDictionaryForCheckout
-{
-	NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
-	json[@"code"] = [self.code buy_trim] ?: @"";
-	return json;
+	NSString *string = @"http://shopify.com/file.txt";
+	NSURL *url = [NSURL URLWithString:string];
+	NSURL *expected = [NSURL URLWithString:@"http://shopify.com/file_big.txt"];
+	NSURL *actual = [url buy_URLByAppendingFileBaseNameSuffix:@"_big"];
+	XCTAssertEqualObjects(actual, expected);
 }
 
 @end

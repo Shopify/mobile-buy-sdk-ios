@@ -1,5 +1,5 @@
 //
-//  BUYSerializable.h
+//  NSException+BUYAdditions.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,14 +24,18 @@
 //  THE SOFTWARE.
 //
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 
-@protocol BUYSerializable <NSObject>
+/**
+ * A macro meant to be used with `@throw` to make it easier to raise the given exception type.
+ */
+#define BUYAbstractMethod() [NSException buy_abstractMethodExceptionForSelector:_cmd class:[self class]]
 
-- (NSDictionary *)jsonDictionaryForCheckout;
+@interface NSException (BUYAdditions)
 
-@end
-
-@interface NSDictionary (BUYSerializable) <BUYSerializable>
+/**
+ * Return an exception suitable for raising in a method that requires subclasses to override it.
+ */
++ (instancetype)buy_abstractMethodExceptionForSelector:(SEL)selector class:(Class)klass;
 
 @end

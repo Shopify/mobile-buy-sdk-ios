@@ -1,6 +1,5 @@
 //
-//  NSDictionary+Additions.h
-//
+//  NSException+BUYAdditions.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -25,17 +24,14 @@
 //  THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
+#import "NSException+BUYAdditions.h"
 
-@interface NSDictionary (Additions)
+@implementation NSException (BUYAdditions)
 
-/**
- *  Alernative to objectForKey, where NSNull is replaced with nil
- *
- *  @param key The key for which to return the corresponding value.
- *
- *  @return The value associated with key
- */
-- (id)buy_objectForKey:(NSString *)key;
++ (instancetype)buy_abstractMethodExceptionForSelector:(SEL)selector class:(Class)class
+{
+	NSString *reason = [NSString stringWithFormat:@"Concrete method not implemented. Please implement %@ in %@", NSStringFromSelector(selector), NSStringFromClass(class)];
+	return [NSException exceptionWithName:@"Abstract Method Invocation Exception" reason:reason userInfo:nil];
+}
 
 @end

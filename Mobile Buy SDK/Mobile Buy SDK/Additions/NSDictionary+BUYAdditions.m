@@ -1,5 +1,5 @@
 //
-//  BUYSerializable.h
+//  NSDictionary+BUYAdditions.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,14 +24,43 @@
 //  THE SOFTWARE.
 //
 
-@import Foundation;
+#import "NSDictionary+BUYAdditions.h"
+#import "NSString+BUYAdditions.h"
 
-@protocol BUYSerializable <NSObject>
+@implementation NSDictionary (BUYAdditions)
 
-- (NSDictionary *)jsonDictionaryForCheckout;
+- (NSDictionary<NSString *, NSString *> *)buy_reverseDictionary
+{
+	return [NSDictionary dictionaryWithObjects:self.allKeys forKeys:self.allValues];
+}
 
-@end
+- (NSDictionary *)buy_dictionaryByMappingKeysWithBlock:(BUYStringMap)map
+{
+	NSMutableDictionary *result = [NSMutableDictionary dictionary];
+	[self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+		result[(map(key) ?: key)] = self[key];
+	}];
+	return result;
+}
 
-@interface NSDictionary (BUYSerializable) <BUYSerializable>
+- (NSDictionary *)buy_dictionaryByMappingValuesWithBlock:(BUYObjectMap)map
+{
+	NSMutableDictionary *result = [NSMutableDictionary dictionary];
+	[self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+		id newValue = map(self[key]);
+		result[key] = newValue;
+	}];
+	return result;
+}
+
+- (id)buy_objectForKey:(NSString *)key
+{
+	return ([self[key] isKindOfClass:[NSNull class]]) ? nil : self[key];
+}
+
+- (NSDictionary *)jsonDictionaryForCheckout
+{
+	return self;
+}
 
 @end

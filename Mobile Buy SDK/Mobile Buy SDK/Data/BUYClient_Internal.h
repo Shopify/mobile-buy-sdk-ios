@@ -1,5 +1,5 @@
 //
-//  NSURL+BUYAdditions.h
+//  BUYClient_Internal.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,17 +24,19 @@
 //  THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
+#import "BUYClient.h"
+#import "BUYSerializable.h"
 
-@interface NSURL (BUYAdditions)
+static NSString *const kShopifyError = @"shopify";
 
-/**
- *  Converts an NSString to a NSURL. Safe to pass in nil.
- *
- *  @param string The string to convert
- *
- *  @return An NSURL from an NSString
- */
-+ (NSURL *)buy_urlWithString:(NSString *)string;
+@interface BUYClient (Internal)
+
+- (NSURLSessionDataTask *)postRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
+- (NSURLSessionDataTask *)putRequestForURL:(NSURL *)url body:(NSData *)body completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
+- (NSURLSessionDataTask *)getRequestForURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
+
+- (NSURLSessionDataTask *)requestForURL:(NSURL *)url method:(NSString *)method body:(NSData *)body additionalHeaders:(NSDictionary *)headers completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
+- (NSURLComponents *)URLComponentsForAPIPath:(NSString *)apiPath appendingPath:(NSString *)appendingPath queryItems:(NSDictionary*)queryItems;
+- (NSError *)extractErrorFromResponse:(NSURLResponse *)response json:(NSDictionary *)json;
 
 @end

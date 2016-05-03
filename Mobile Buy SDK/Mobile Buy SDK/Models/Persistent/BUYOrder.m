@@ -1,5 +1,5 @@
 //
-//  BUYSerializable.h
+//  BUYOrder.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,14 +24,25 @@
 //  THE SOFTWARE.
 //
 
-@import Foundation;
+#import "BUYOrder.h"
+#import "NSURL+BUYAdditions.h"
+#import "NSDictionary+BUYAdditions.h"
 
-@protocol BUYSerializable <NSObject>
+@interface BUYOrder ()
 
-- (NSDictionary *)jsonDictionaryForCheckout;
+@property (nonatomic, strong) NSURL *statusURL;
+@property (nonatomic, strong) NSString *name;
 
 @end
 
-@interface NSDictionary (BUYSerializable) <BUYSerializable>
+@implementation BUYOrder
+
+- (void)updateWithDictionary:(NSDictionary *)dictionary
+{
+	[super updateWithDictionary:dictionary];
+	NSString *statusURLString = dictionary[@"status_url"];
+	self.statusURL = [NSURL buy_urlWithString:statusURLString];
+	self.name = [dictionary buy_objectForKey:@"name"];
+}
 
 @end

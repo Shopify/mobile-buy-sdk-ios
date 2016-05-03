@@ -1,5 +1,5 @@
 //
-//  BUYCollection.m
+//  NSRegularExpression+BUYAdditions.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,36 +24,18 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYCollection.h"
-#import "NSDateFormatter+BUYAdditions.h"
-#import "NSURL+BUYAdditions.h"	
-#import "NSDictionary+Additions.h"
+#import <Foundation/Foundation.h>
 
-@interface BUYCollection ()
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *htmlDescription;
-@property (nonatomic, strong) NSString *handle;
-@property (nonatomic, assign) BOOL published;
-@property (nonatomic, strong) NSNumber *collectionId;
-@end
+@interface NSRegularExpression (BUYAdditions)
 
-@implementation BUYCollection
+/**
+ * Return an array of strings which match the receiver in the given string.
+ */
+- (NSArray *)buy_matchesInString:(NSString *)string;
 
-- (void)updateWithDictionary:(NSDictionary *)dictionary
-{
-	[super updateWithDictionary:dictionary];
-	
-	_title = dictionary[@"title"];
-	_htmlDescription = dictionary[@"body_html"];
-	_imageURL = [NSURL buy_urlWithString:[dictionary buy_objectForKey:@"image"][@"src"]];
-	_handle = dictionary[@"handle"];
-	_published = [dictionary[@"published"] boolValue];
-	_collectionId = dictionary[@"collection_id"];
-	
-	NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForPublications];
-	_createdAtDate = [dateFormatter dateFromString:dictionary[@"created_at"]];
-	_updatedAtDate = [dateFormatter dateFromString:dictionary[@"updated_at"]];
-	_publishedAtDate = [dateFormatter dateFromString:dictionary[@"published_at"]];
-}
+/**
+ * Return the first match which matches the receiver in the given string.
+ */
+- (NSTextCheckingResult *)buy_firstMatchInString:(NSString *)string;
 
 @end

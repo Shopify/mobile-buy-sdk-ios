@@ -28,6 +28,7 @@
  *  Umbrella header used for Cocoapods
  */
 
+#import "BUYAccountCredentials.h"
 #import "BUYApplePayAdditions.h"
 #import "BUYApplePayHelpers.h"
 #import "BUYAddress.h"
@@ -37,10 +38,11 @@
 #import "BUYCheckoutAttribute.h"
 #import "BUYClient+Test.h"
 #import "BUYClient.h"
+#import "BUYClient+Customers.h"
 #import "BUYCollection.h"
 #import "BUYCreditCard.h"
+#import "BUYCustomer.h"
 #import "BUYDiscount.h"
-#import "BUYError.h"
 #import "BUYGiftCard.h"
 #import "BUYImage.h"
 #import "BUYLineItem.h"
@@ -48,13 +50,16 @@
 #import "BUYOption.h"
 #import "BUYOptionValue.h"
 #import "BUYOrder.h"
-#import "BUYPaymentButton.h"
 #import "BUYProduct.h"
 #import "BUYProductVariant.h"
-#import "BUYProductViewController.h"
 #import "BUYShippingRate.h"
 #import "BUYShop.h"
-#import "BUYStoreViewController.h"
 #import "BUYTaxLine.h"
+
+#import "BUYError.h"
+
+#import "BUYPaymentButton.h"
+#import "BUYProductViewController.h"
+#import "BUYStoreViewController.h"
 #import "BUYTheme.h"
 #import "BUYViewController.h"

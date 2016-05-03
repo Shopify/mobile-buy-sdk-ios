@@ -1,5 +1,5 @@
 //
-//  BUYSerializable.h
+//  BUYFontAdditionsTests.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,14 +24,27 @@
 //  THE SOFTWARE.
 //
 
-@import Foundation;
+#import <XCTest/XCTest.h>
+#import "UIFont+BUYAdditions.h"
 
-@protocol BUYSerializable <NSObject>
-
-- (NSDictionary *)jsonDictionaryForCheckout;
+@interface BUYFontAdditionsTests : XCTestCase
 
 @end
 
-@interface NSDictionary (BUYSerializable) <BUYSerializable>
+@implementation BUYFontAdditionsTests
+
+- (void)testIncreasedFontSize
+{
+	static CGFloat const increase = 2.0;
+	UIFont *font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+	CGFloat newSize = font.pointSize + increase;
+	
+	NSMutableDictionary *attributes = [font.fontDescriptor.fontAttributes mutableCopy];
+	attributes[UIFontDescriptorSizeAttribute] = @(newSize);
+
+	UIFont *expected = [UIFont fontWithDescriptor:[UIFontDescriptor fontDescriptorWithFontAttributes:attributes] size:newSize];
+	UIFont *actual = [UIFont preferredFontForTextStyle:UIFontTextStyleBody increasedPointSize:increase];
+	XCTAssertEqualObjects(actual, expected);
+}
 
 @end

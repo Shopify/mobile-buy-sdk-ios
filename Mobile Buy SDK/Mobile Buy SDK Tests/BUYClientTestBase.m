@@ -28,8 +28,8 @@
 #import "BUYTestConstants.h"
 
 NSString * const BUYShopDomain_Placeholder = @"test_shop";
-NSString * const BUYAPIKey_Placeholder = @"channel_id";
-NSString * const BUYChannelId_Placeholder = @"api_key";
+NSString * const BUYAPIKey_Placeholder = @"api_key";
+NSString * const BUYAppId_Placeholder = @"app_id";
 
 @implementation BUYClientTestBase
 
@@ -50,8 +50,11 @@ NSString * const BUYChannelId_Placeholder = @"api_key";
 	NSDictionary *environment = [[NSProcessInfo processInfo] environment];
 	self.shopDomain = environment[kBUYTestDomain] ?: jsonConfig[kBUYTestDomain];
 	self.apiKey = environment[kBUYTestAPIKey] ?: jsonConfig[kBUYTestAPIKey];
-	self.channelId = environment[kBUYTestChannelId] ?: jsonConfig[kBUYTestChannelId];
+	self.appId = environment[kBUYTestAppId] ?: jsonConfig[kBUYTestAppId];
 	self.merchantId = environment[kBUYTestMerchantId] ?: jsonConfig[kBUYTestMerchantId];
+	
+	self.customerEmail = environment[kBUYTestEmail] ?: jsonConfig[kBUYTestEmail];
+	self.customerPassword = environment[kBUYTestPassword] ?: jsonConfig[kBUYTestPassword];
 	
 	NSDictionary *giftCards = jsonConfig[@"gift_cards"];
 	
@@ -67,6 +70,10 @@ NSString * const BUYChannelId_Placeholder = @"api_key";
 		NSString *productIdsString = [environment[kBUYTestProductIdsCommaSeparated] stringByReplacingOccurrencesOfString:@" " withString:@""];
 		self.productIds = [productIdsString componentsSeparatedByString:@","];
 	} else {
+		self.variantUntrackedId = jsonConfig[@"variants"][@"variant_untracked_id"];
+		self.variantInventory1Id = jsonConfig[@"variants"][@"variant_inventory1_id"];
+		self.variantSoldOutId = jsonConfig[@"variants"][@"variant_soldout_id"];
+		
 		self.productIds = jsonConfig[@"product_ids"];
 	}
 	
@@ -75,7 +82,7 @@ NSString * const BUYChannelId_Placeholder = @"api_key";
 		
 		self.shopDomain = BUYShopDomain_Placeholder;
 		self.apiKey = BUYAPIKey_Placeholder;
-		self.channelId = BUYChannelId_Placeholder;
+		self.appId = BUYAppId_Placeholder;
 		
 		self.giftCardCode = @"rd11";
 		self.giftCardCode2 = @"rd25";
@@ -84,12 +91,12 @@ NSString * const BUYChannelId_Placeholder = @"api_key";
 		self.giftCardCodeExpired = @"gibberish";
 	}
 	
-	self.client = [[BUYClient alloc] initWithShopDomain:self.shopDomain apiKey:self.apiKey channelId:self.channelId];
+	self.client = [[BUYClient alloc] initWithShopDomain:self.shopDomain apiKey:self.apiKey appId:self.appId];
 }
 
 - (BOOL)shouldUseMocks
 {	
-	if (!self.shopDomain.length && !self.apiKey.length && !self.channelId.length) {
+	if (!self.shopDomain.length && !self.apiKey.length && !self.appId.length) {
 		_shouldUseMocks = YES;
 	}
 	

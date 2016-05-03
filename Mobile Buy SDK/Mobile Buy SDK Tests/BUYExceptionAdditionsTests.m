@@ -1,5 +1,5 @@
 //
-//  NSURL+BUYAdditions.m
+//  BUYExceptionAdditionsTests.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,20 +24,29 @@
 //  THE SOFTWARE.
 //
 
-#import "NSURL+BUYAdditions.h"
+#import <XCTest/XCTest.h>
+#import "NSException+BUYAdditions.h"
 
-@implementation NSURL (BUYAdditions)
+@interface BUYExceptionAdditionsTests : XCTestCase
 
-+ (NSURL *)buy_urlWithString:(NSString *)string
+@end
+
+@implementation BUYExceptionAdditionsTests
+
+- (void)abstractMethod
 {
-	NSURL *url = nil;
-	
-	if ([string isKindOfClass:[NSString class]]) {
-		url = [NSURL URLWithString:string];
-	}
-	
-	return url;
+	@throw BUYAbstractMethod();
 }
 
+- (void)testAbstractMethodException
+{
+	@try {
+		[self abstractMethod];
+		XCTFail();
+	}
+	@catch (NSException *exception) {
+		XCTAssertNotNil(exception);
+	}
+}
 
 @end

@@ -1,5 +1,5 @@
 //
-//  BUYSerializable.h
+//  NSDecimalNumber+BUYAdditions.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -26,12 +26,22 @@
 
 @import Foundation;
 
-@protocol BUYSerializable <NSObject>
+@interface NSDecimalNumber (BUYAdditions)
 
-- (NSDictionary *)jsonDictionaryForCheckout;
+/**
+ *  Converts a JSON value to an NSDecimalNumber
+ *
+ *  @param valueFromJSON The value to convert
+ *
+ *  @return NSDecimalNumber from a JSON string
+ */
++ (NSDecimalNumber*)buy_decimalNumberFromJSON:(id)valueFromJSON;
 
-@end
-
-@interface NSDictionary (BUYSerializable) <BUYSerializable>
+/**
+ *  Converts a decimal number to a negative value
+ *
+ *  @return The same decimal number but as a negative
+ */
+- (NSDecimalNumber*)buy_decimalNumberAsNegative;
 
 @end

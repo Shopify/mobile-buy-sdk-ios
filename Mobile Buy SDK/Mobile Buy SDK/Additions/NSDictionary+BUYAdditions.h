@@ -1,5 +1,5 @@
 //
-//  BUYClient+Test.h
+//  NSDictionary+BUYAdditions.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,23 +24,36 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYClient.h"
+#import <Foundation/Foundation.h>
+#import "BUYSerializable.h"
+#import "NSArray+BUYAdditions.h"
 
-@interface BUYClient (Test)
+typedef NSString * (^BUYStringMap) (NSString *);
 
-/**
- *  Test the integration with your shop.  This should not be shipped in production code.  This is a syncronous network call.
- *  @param merchantId the merchant ID setup for Apple Pay in the Integration page of the Mobile Channel
- *
- *  @return YES on success
- */
-- (BOOL)testIntegrationWithMerchantId:(NSString *)merchantId;
+@interface NSDictionary (BUYAdditions) <BUYSerializable>
 
 /**
- *   Test the integration with your shop.  This should not be shipped in production code.  This is a syncronous network call.
- *
- *  @return YES on success
+ * Return a new dictionary where the objects are used as keys, and vice versa.
  */
-- (BOOL)testIntegration DEPRECATED_MSG_ATTRIBUTE("Use testIntegrationWithMerchantId: instead");
+- (NSDictionary<NSString *, NSString *> *)buy_reverseDictionary;
+
+/**
+ * Return a new dictionary, replacing existing keys with new keys provided by the map block.
+ */
+- (NSDictionary *)buy_dictionaryByMappingKeysWithBlock:(BUYStringMap)map;
+
+/**
+ * Return a new dictionary, replacing existing values with new values provided by the map block.
+ */
+- (NSDictionary *)buy_dictionaryByMappingValuesWithBlock:(BUYObjectMap)map;
+
+/**
+ *  Alernative to objectForKey, where NSNull is replaced with nil
+ *
+ *  @param key The key for which to return the corresponding value.
+ *
+ *  @return The value associated with key
+ */
+- (id)buy_objectForKey:(NSString *)key;
 
 @end

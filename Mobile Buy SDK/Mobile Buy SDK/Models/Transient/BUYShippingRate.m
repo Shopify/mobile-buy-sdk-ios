@@ -26,7 +26,7 @@
 
 #import "BUYShippingRate.h"
 #import "NSDecimalNumber+BUYAdditions.h"
-#import "NSString+Trim.h"
+#import "NSString+BUYAdditions.h"
 #import "NSDateFormatter+BUYAdditions.h"
 
 @interface BUYShippingRate ()

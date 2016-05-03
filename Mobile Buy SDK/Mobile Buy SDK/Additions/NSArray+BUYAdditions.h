@@ -1,5 +1,5 @@
 //
-//  NSDecimalNumber+BUYAdditions.h
+//  NSArray+BUYAdditions.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,33 +24,46 @@
 //  THE SOFTWARE.
 //
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 
-@interface NSDecimalNumber (BUYAdditions)
+typedef id (^BUYObjectMap) (id);
 
-/**
- *  Converts a string into an NSDecimalNumber or zero (if nil or not a number)
- *
- *  @param string The string to convert
- *
- *  @return NSDecimalNumber from a string
- */
-+ (NSDecimalNumber*)buy_decimalNumberOrZeroWithString:(NSString*)string;
+@interface NSArray (BUYAdditions)
 
 /**
- *  Converts a JSON value to an NSDecimalNumber
- *
- *  @param valueFromJSON The value to convert
- *
- *  @return NSDecimalNumber from a JSON string
+ * Return all but the first object.
  */
-+ (NSDecimalNumber*)buy_decimalNumberFromJSON:(id)valueFromJSON;
+@property (nonatomic, readonly, getter=buy_tail) NSArray *tail;
 
 /**
- *  Converts a decimal number to a negative value
- *
- *  @return The same decimal number but as a negative
+ * Return a copy of the array with objects in in reverse order.
  */
-- (NSDecimalNumber*)buy_decimalNumberAsNegative;
+@property (nonatomic, readonly, getter=buy_reversedArray) NSArray *reversedArray;
+
+- (NSArray *)buy_map:(BUYObjectMap)block;
+
+@end
+
+@interface NSMutableArray (BUYAdditions)
+
+/**
+ * Reverse the order of the objects in place.
+ */
+- (void)buy_reverse;
+@end
+
+@interface NSObject (BUYModelArrayCreating)
+
+/**
+ * Returns an array form of the object.
+ * Collections are converted to an array. Other objects are wrapped in an array.
+ */
+- (NSArray *)buy_array;
+
+/**
+ * Returns an object initialized with the given array.
+ * Collections convert the array to themselves. Other objects unwrap the array.
+ */
++ (instancetype)buy_convertArray:(NSArray *)array;
 
 @end

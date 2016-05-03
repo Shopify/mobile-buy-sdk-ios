@@ -1,5 +1,5 @@
 //
-//  BUYSerializable.h
+//  NSURL+BUYAdditions.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,14 +24,27 @@
 //  THE SOFTWARE.
 //
 
-@import Foundation;
+#import "NSURL+BUYAdditions.h"
+#import "NSString+BUYAdditions.h"
 
-@protocol BUYSerializable <NSObject>
+@implementation NSURL (BUYAdditions)
 
-- (NSDictionary *)jsonDictionaryForCheckout;
++ (instancetype)buy_urlWithString:(NSString *)string
+{
+	NSURL *url = nil;
+	
+	if ([string isKindOfClass:[NSString class]]) {
+		url = [NSURL URLWithString:string];
+	}
+	
+	return url;
+}
 
-@end
-
-@interface NSDictionary (BUYSerializable) <BUYSerializable>
+- (instancetype)buy_URLByAppendingFileBaseNameSuffix:(NSString *)suffix
+{
+	NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
+	components.path = [components.path buy_stringByAppendingBaseFileNameSuffix:suffix];
+	return [components URL];
+}
 
 @end

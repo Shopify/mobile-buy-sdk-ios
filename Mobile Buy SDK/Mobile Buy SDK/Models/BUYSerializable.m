@@ -1,5 +1,5 @@
 //
-//  NSString+Trim.m
+//  BUYSerializable.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,13 +24,12 @@
 //  THE SOFTWARE.
 //
 
-#import "NSString+Trim.h"
+#import "BUYSerializable.h"
 
-@implementation NSString (Trim)
+@implementation NSDictionary (BUYSerializable)
 
-- (NSString*)buy_trim
-{
-	return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+- (NSDictionary *)jsonDictionaryForCheckout {
+	return self;
 }
 
 @end

@@ -1,5 +1,5 @@
 //
-//  BUYSerializable.h
+//  NSURL+BUYAdditions.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,14 +24,25 @@
 //  THE SOFTWARE.
 //
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 
-@protocol BUYSerializable <NSObject>
+@interface NSURL (BUYAdditions)
 
-- (NSDictionary *)jsonDictionaryForCheckout;
+/**
+ *  Converts an NSString to a NSURL. Safe to pass in nil.
+ *
+ *  @param string The string to convert
+ *
+ *  @return An NSURL from an NSString
+ */
++ (instancetype)buy_urlWithString:(NSString *)string;
 
-@end
 
-@interface NSDictionary (BUYSerializable) <BUYSerializable>
+/**
+ * Create an NSURL by updating the file name with the given suffix, preserving other URL properties.
+ *
+ * @return an NSURL object with the updated file name.
+ */
+- (instancetype)buy_URLByAppendingFileBaseNameSuffix:(NSString *)suffix;
 
 @end
