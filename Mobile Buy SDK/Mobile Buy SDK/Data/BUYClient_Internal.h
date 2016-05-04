@@ -1,5 +1,5 @@
 //
-//  BUYSerializable.h
+//  BUYClient_Internal.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,14 +24,19 @@
 //  THE SOFTWARE.
 //
 
-@import Foundation;
+#import "BUYClient.h"
+#import "BUYSerializable.h"
 
-@protocol BUYSerializable <NSObject>
+static NSString *const kShopifyError = @"shopify";
 
-- (NSDictionary *)jsonDictionaryForCheckout;
+@interface BUYClient (Internal)
 
-@end
+- (NSURLSessionDataTask *)postRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
+- (NSURLSessionDataTask *)putRequestForURL:(NSURL *)url body:(NSData *)body completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
+- (NSURLSessionDataTask *)getRequestForURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
 
-@interface NSDictionary (BUYSerializable) <BUYSerializable>
+- (NSURLSessionDataTask *)requestForURL:(NSURL *)url method:(NSString *)method body:(NSData *)body additionalHeaders:(NSDictionary *)headers completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
+- (NSURLComponents *)URLComponentsForAPIPath:(NSString *)apiPath appendingPath:(NSString *)appendingPath queryItems:(NSDictionary*)queryItems;
+- (NSError *)extractErrorFromResponse:(NSURLResponse *)response json:(NSDictionary *)json;
 
 @end

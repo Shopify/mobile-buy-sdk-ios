@@ -1,5 +1,5 @@
 //
-//  BUYSerializable.h
+//  BUYError+BUYAdditions.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,14 +24,13 @@
 //  THE SOFTWARE.
 //
 
-@import Foundation;
+#import "BUYError.h"
 
-@protocol BUYSerializable <NSObject>
-
-- (NSDictionary *)jsonDictionaryForCheckout;
-
+@interface BUYError (Checkout)
++ (NSArray<BUYError *> *)errorsFromCheckoutJSON:(NSDictionary *)json;
+@property (readonly) NSString *quantityRemainingMessage;
 @end
 
-@interface NSDictionary (BUYSerializable) <BUYSerializable>
-
+@interface BUYError (Customer)
++ (NSArray<BUYError *> *)errorsFromSignUpJSON:(NSDictionary *)json;
 @end

@@ -1,5 +1,5 @@
 //
-//  BUYSerializable.h
+//  BUYSerializable.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,14 +24,12 @@
 //  THE SOFTWARE.
 //
 
-@import Foundation;
+#import "BUYSerializable.h"
 
-@protocol BUYSerializable <NSObject>
+@implementation NSDictionary (BUYSerializable)
 
-- (NSDictionary *)jsonDictionaryForCheckout;
-
-@end
-
-@interface NSDictionary (BUYSerializable) <BUYSerializable>
+- (NSDictionary *)jsonDictionaryForCheckout {
+	return self;
+}
 
 @end
