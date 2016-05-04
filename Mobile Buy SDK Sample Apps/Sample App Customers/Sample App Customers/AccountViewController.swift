@@ -28,6 +28,9 @@ import UIKit
 
 class AccountViewController: UIViewController {
     
+    @IBOutlet weak var loginContainerView:  UIView!
+    @IBOutlet weak var signupContainerView: UIView!
+    
     private var loginViewController:  LoginViewController!
     private var signupViewController: SignupViewController!
 
@@ -64,8 +67,8 @@ class AccountViewController: UIViewController {
     //  MARK: - Updates -
     //
     private func updateSelectedIndex(index: Int) {
-        self.loginViewController.view.hidden  = (index != 0)
-        self.signupViewController.view.hidden = (index == 0)
+        self.loginContainerView.hidden  = (index != 0)
+        self.signupContainerView.hidden = (index == 0)
     }
     
     // ----------------------------------

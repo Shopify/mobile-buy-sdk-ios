@@ -75,6 +75,10 @@
                             </connections>
                         </segmentedControl>
                     </navigationItem>
+                    <connections>
+                        <outlet property="loginContainerView" destination="KZD-y5-2e3" id="g1r-NW-TfQ"/>
+                        <outlet property="signupContainerView" destination="ZAC-pf-9Yj" id="GGw-ff-lV9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="twZ-kb-vHr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -265,12 +269,44 @@
                                             </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="WZx-ob-4he">
+                                        <rect key="frame" x="0.0" y="123" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WZx-ob-4he" id="m2b-6M-mwt">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kkr-5N-h4x">
+                                                    <rect key="frame" x="15" y="12" width="570" height="20"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="kkr-5N-h4x" secondAttribute="bottom" id="4LO-ro-Pti"/>
+                                                <constraint firstItem="kkr-5N-h4x" firstAttribute="leading" secondItem="m2b-6M-mwt" secondAttribute="leadingMargin" constant="15" id="FWQ-QU-fMw"/>
+                                                <constraint firstItem="kkr-5N-h4x" firstAttribute="top" secondItem="m2b-6M-mwt" secondAttribute="topMargin" id="Hrj-zw-AbS"/>
+                                                <constraint firstAttribute="trailing" secondItem="kkr-5N-h4x" secondAttribute="trailing" constant="15" id="Pu2-VK-LWY"/>
+                                                <constraint firstItem="kkr-5N-h4x" firstAttribute="leading" secondItem="m2b-6M-mwt" secondAttribute="leading" constant="15" id="ePW-gB-2WY"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="kkr-5N-h4x" secondAttribute="trailing" constant="15" id="r6Z-0o-7LZ"/>
+                                                <constraint firstItem="kkr-5N-h4x" firstAttribute="centerY" secondItem="m2b-6M-mwt" secondAttribute="centerY" id="uTV-eb-CEs"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="4LO-ro-Pti"/>
+                                                    <exclude reference="r6Z-0o-7LZ"/>
+                                                    <exclude reference="FWQ-QU-fMw"/>
+                                                    <exclude reference="Hrj-zw-AbS"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection id="XYD-jG-PaH">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="0w1-5E-3cV" style="IBUITableViewCellStyleDefault" id="81f-nB-Sh2">
-                                        <rect key="frame" x="0.0" y="159" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="203" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="81f-nB-Sh2" id="Mls-GG-NsX">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>

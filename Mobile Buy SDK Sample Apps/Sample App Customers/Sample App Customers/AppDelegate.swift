@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     
-        self.client = BUYClient(shopDomain: self.shopDomain, apiKey: self.apiKey, channelId: self.channedID)
+        self.client = BUYClient(shopDomain: self.shopDomain, apiKey: self.apiKey, appId: self.appID)
         
         return true
     }
