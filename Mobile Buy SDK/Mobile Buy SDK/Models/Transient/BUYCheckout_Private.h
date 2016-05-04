@@ -48,7 +48,7 @@
 @property (nonatomic, copy) NSDate *updatedAtDate;
 @property (nonatomic, strong) BUYMaskedCreditCard *creditCard;
 @property (nonatomic, strong) BUYOrder *order;
-@property (nonatomic, copy) NSString *customerId;
+@property (nonatomic, copy) NSNumber *customerId;
 @property (nonatomic, strong) NSURL *privacyPolicyURL;
 @property (nonatomic, strong) NSURL *refundPolicyURL;
 @property (nonatomic, strong) NSURL *termsOfServiceURL;

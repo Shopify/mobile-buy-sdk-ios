@@ -5,10 +5,17 @@
 	"channel_id": "",
 	"app_id": "",
 	"merchant_id": "",
+	"customer_email": "",
+	"customer_password": "",
 	"product_ids": [
 					"",
 					""
 					],
+	"variants": {
+		"variant_untracked_id": "",
+		"variant_inventory1_id": "",
+		"variant_soldout_id": ""
+	},
 	"collection_id": "",
 	"gift_cards": {
 		"ValidGiftCard11": {
