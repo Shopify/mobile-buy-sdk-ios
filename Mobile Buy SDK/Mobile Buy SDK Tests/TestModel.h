@@ -20,11 +20,12 @@
 @property (nonatomic, strong) TestModelManager *modelManager;
 @end
 
-@class Leaf, Nest, Root;
+@class Leaf, Nest, Researcher, Root;
 
 @interface Bird : TestModel
 @property (nonatomic) NSNumber *identifier;
 @property (nonatomic) NSString *colour;
+@property (nonatomic) NSSet<Researcher *> *researchers;
 + (instancetype)birdWithIdentifier:(NSNumber *)identifier;
 @end
 
@@ -47,6 +48,11 @@
 @property (nonatomic) NSNumber *eggCount;
 @property (nonatomic) Bird *bird;
 @property (nonatomic) Branch *branch;
+@end
+
+@interface Researcher : TestModel
+@property (nonatomic) NSString *name;
+@property (nonatomic) NSSet<Bird *> *birds;
 @end
 
 @interface Root : TestModel

@@ -34,11 +34,12 @@
 #import "NSPropertyDescription+BUYAdditions.h"
 #import "TestModel.h"
 
-static NSString * const RootEntity = @"Root";
+static NSString * const BirdEntity = @"Bird";
 static NSString * const BranchEntity = @"Branch";
 static NSString * const LeafEntity = @"Leaf";
 static NSString * const NestEntity = @"Nest";
-static NSString * const BirdEntity = @"Bird";
+static NSString * const ResearchEntity = @"Researcher";
+static NSString * const RootEntity = @"Root";
 
 @interface NSIndexSet (BUYTestAdditions)
 + (instancetype)indexSetWithIndexes:(NSArray *)indexes;
@@ -226,6 +227,13 @@ static NSString * const BirdEntity = @"Bird";
 	id json = [leafRelationship buy_JSONForValue:branch.leaves];
 	id actual = [leafRelationship buy_valueForJSON:json object:branch];
 	XCTAssertEqualObjects(actual, branch.leaves);
+}
+
+- (void)testManyToManyRelationship
+{
+	Researcher *researcher = [self.modelManager buy_objectWithEntityName:ResearchEntity JSONDictionary:nil];
+	NSRelationshipDescription *researchersRelationship = [self relationshipWithName:@"researchers" forEntity:BirdEntity];
+	XCTAssertNil([researchersRelationship buy_JSONForValue:[NSSet setWithObject:researcher]]);
 }
 
 - (void)testEntityIsPrivate

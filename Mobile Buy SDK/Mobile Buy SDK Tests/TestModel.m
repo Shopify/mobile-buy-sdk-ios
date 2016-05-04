@@ -200,9 +200,7 @@
 
 - (NSUInteger)hash
 {
-	NSUInteger hash = self.date.hash;
-	hash = (hash << 5) ^ self.tags.hash;
-	return hash;
+	return (self.date.hash << 5) ^ self.tags.hash;
 }
 
 @end
@@ -218,11 +216,22 @@
 
 - (NSUInteger)hash
 {
-	NSUInteger hash = self.eggCount.hash;
-	if (self.bird) {
-		hash = (hash << 5) ^ self.bird.hash;
-	}
-	return hash;
+	return (self.branch.hash << 5) ^ (7231UL + self.eggCount.unsignedIntegerValue);
+}
+
+@end
+
+@implementation Researcher
+
+- (BOOL)isEqual:(Researcher *)object
+{
+	return ([super isEqual:object] &&
+			[self.name isEqual:object.name]);
+}
+
+- (NSUInteger)hash
+{
+	return self.name.hash;
 }
 
 @end
@@ -241,12 +250,7 @@
 
 - (NSUInteger)hash
 {
-	NSUInteger hash = self.identifier.hash;
-	hash = (hash << 5) ^ self.age.hash;
-	hash = (hash << 5) ^ self.name.hash;
-	hash = (hash << 5) ^ self.url.hash;
-	hash = (hash << 5) ^ self.branches.hash;
-	return hash;
+	return self.identifier.hash;
 }
 
 @end

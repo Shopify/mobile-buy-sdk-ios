@@ -200,14 +200,6 @@ static NSString *JSONValueTransformerNameForAttributeType(NSAttributeType type)
 // model -> JSON
 - (id)buy_JSONForObject:(NSObject<BUYObject> *)object
 {
-	// JSON generation for a relationship depends on the rules defined in the model.
-	// The model can explicitly specify using an `id` encoding.
-	// Alternately, if the relationship is compatible, encode the entire object.
-	// We do not encode related objects unless three conditions are satisfied:
-	// 1. the relationship is not many-to-many
-	// 2. the inverse relationship is not an ownership relationship
-	//    (this is inferred from the `NSCascadeDeleteRule` used by owning objects)
-	// 3. the relationship is to a "private" entity (not known to the API)
 	id json = nil;
 	if (!self.inverseRelationship || self.inverseRelationship.allowsInverseEncoding) {
 		json = [self.destinationEntity buy_JSONForObject:object];
@@ -238,8 +230,7 @@ static NSString *JSONValueTransformerNameForAttributeType(NSAttributeType type)
 // (ordered)set (of models) -> JSON
 - (NSArray *)buy_JSONForCollection:(id)collection
 {
-	NSArray *array = [self buy_arrayForCollection:collection];
-	return [self.destinationEntity buy_JSONForArray:array];
+	return [self.destinationEntity buy_JSONForArray:[self buy_arrayForCollection:collection]];
 }
 
 #pragma mark - Property Additions Overrides
@@ -250,30 +241,37 @@ static NSString *JSONValueTransformerNameForAttributeType(NSAttributeType type)
 	// The logic for decoding JSON is slightly different for to-one and to-many relationships.
 	
 	// NOTE: by default, without a caching system, inverse relationships are not supported.
+	id value = nil;
 	if ([JSON buy_isValidObject]) {
 		if (self.isToMany) {
-			return [self buy_collectionForJSON:JSON modelManager:object.modelManager];
+			value = [self buy_collectionForJSON:JSON modelManager:object.modelManager];
 		}
 		else {
-			return [self buy_objectForJSON:JSON modelManager:object.modelManager];
+			value = [self buy_objectForJSON:JSON modelManager:object.modelManager];
 		}
 	}
-	else {
-		return nil;
-	}
+	return value;
 }
 
 - (id)buy_JSONForValue:(id)value
 {
+	// JSON generation for a relationship depends on the rules defined in the model.
+	// The model can explicitly specify using an `id` encoding.
+	// Alternately, if the relationship is compatible, encode the entire object.
+	// We do not encode related objects unless three conditions are satisfied:
+	// 1. the relationship is not many-to-many
+	// 2. the inverse relationship is not an ownership relationship
+	//    (this is inferred from the `NSCascadeDeleteRule` used by owning objects)
+	// 3. the relationship is to a "private" entity (not known to the API)
 	id json = nil;
 	if (self.encodesIdInJSON) {
 		json = [value valueForKey:NSStringFromSelector(@selector(identifier))];
 	}
-	else if (self.toMany && ! self.manyToMany) {
-		json = [self buy_JSONForCollection:value];
-	}
-	else {
+	else if (!self.toMany) {
 		json = [self buy_JSONForObject:value];
+	}
+	else if (!self.manyToMany) {
+		json = [self buy_JSONForCollection:value];
 	}
 	return json;
 }
