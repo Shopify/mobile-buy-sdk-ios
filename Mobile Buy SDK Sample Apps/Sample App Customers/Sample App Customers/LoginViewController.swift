@@ -25,16 +25,42 @@
 //
 
 import UIKit
+import Buy
 
 class LoginViewController: UITableViewController {
 
+    @IBOutlet weak var emailField:    UITextField!
+    @IBOutlet weak var passwordField: UITextField!
+    
+    var email:    String { return self.emailField.text    ?? "" }
+    var password: String { return self.passwordField.text ?? "" }
+    
     // ----------------------------------
-    //  MARK: - View Loading -
+    //  MARK: - Actions -
     //
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    private func loginUser() {
+        let credentials  = BUYAccountCredentials(items: [
+            BUYAccountCredentialItem(emailWithValue: self.email),
+            BUYAccountCredentialItem(passwordWithValue: self.password),
+        ])
         
-        
+        BUYClient.sharedClient.loginCustomerWithCredentials(credentials) { (customer, token, error) in
+            print("Customer: \(customer), Token: \(token), Error: \(error)")
+        }
+    }
+    
+    // ----------------------------------
+    //  MARK: - UITableViewDelegate -
+    //
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 1 {
+            
+            if !self.email.isEmpty &&
+                !self.password.isEmpty {
+                
+                self.loginUser()
+            }
+        }
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 }
-

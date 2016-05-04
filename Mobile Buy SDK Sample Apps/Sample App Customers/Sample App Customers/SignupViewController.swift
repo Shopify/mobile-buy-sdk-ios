@@ -29,12 +29,50 @@ import Buy
 
 class SignupViewController: UITableViewController {
 
+    @IBOutlet weak var firstNameField:       UITextField!
+    @IBOutlet weak var lastNameField:        UITextField!
+    @IBOutlet weak var emailField:           UITextField!
+    @IBOutlet weak var passwordField:        UITextField!
+    @IBOutlet weak var passwordConfirmField: UITextField!
+    
+    var firstName:       String { return self.firstNameField.text ?? "" }
+    var lastName:        String { return self.lastNameField.text  ?? "" }
+    var email:           String { return self.emailField.text     ?? "" }
+    var password:        String { return self.passwordField.text  ?? "" }
+    var passwordConfirm: String { return self.passwordField.text  ?? "" }
+    
     // ----------------------------------
-    //  MARK: - View Loading -
+    //  MARK: - Actions -
     //
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    private func createUser() {
+        let credentials = BUYAccountCredentials(items: [
+            BUYAccountCredentialItem(firstNameWithValue: self.firstName),
+            BUYAccountCredentialItem(firstNameWithValue: self.lastName),
+            BUYAccountCredentialItem(emailWithValue: self.email),
+            BUYAccountCredentialItem(passwordWithValue: self.password),
+            BUYAccountCredentialItem(passwordConfirmationWithValue: self.passwordConfirm),
+        ])
         
-        
+        BUYClient.sharedClient.createCustomerWithCredentials(credentials) { (customer, token, error) in
+            print("Customer: \(customer), Token: \(token), Error: \(error)")
+        }
+    }
+    
+    // ----------------------------------
+    //  MARK: - UITableViewDelegate -
+    //
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 1 {
+            
+            if !self.email.isEmpty &&
+                !self.password.isEmpty &&
+                !self.firstName.isEmpty &&
+                !self.lastName.isEmpty &&
+                !self.passwordConfirm.isEmpty {
+                
+                self.createUser()
+            }
+        }
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 }
