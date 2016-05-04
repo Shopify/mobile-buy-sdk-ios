@@ -46,11 +46,11 @@ class SignupViewController: UITableViewController {
     //
     private func createUser() {
         let credentials = BUYAccountCredentials(items: [
-            BUYAccountCredentialItem(firstNameWithValue: self.firstName),
-            BUYAccountCredentialItem(firstNameWithValue: self.lastName),
-            BUYAccountCredentialItem(emailWithValue: self.email),
-            BUYAccountCredentialItem(passwordWithValue: self.password),
-            BUYAccountCredentialItem(passwordConfirmationWithValue: self.passwordConfirm),
+            BUYAccountCredentialItem(firstName: self.firstName),
+            BUYAccountCredentialItem(lastName: self.lastName),
+            BUYAccountCredentialItem(email: self.email),
+            BUYAccountCredentialItem(password: self.password),
+            BUYAccountCredentialItem(passwordConfirmation: self.passwordConfirm),
         ])
         
         BUYClient.sharedClient.createCustomerWithCredentials(credentials) { (customer, token, error) in

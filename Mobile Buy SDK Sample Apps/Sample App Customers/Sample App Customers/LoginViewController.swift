@@ -40,8 +40,8 @@ class LoginViewController: UITableViewController {
     //
     private func loginUser() {
         let credentials  = BUYAccountCredentials(items: [
-            BUYAccountCredentialItem(emailWithValue: self.email),
-            BUYAccountCredentialItem(passwordWithValue: self.password),
+            BUYAccountCredentialItem(email: self.email),
+            BUYAccountCredentialItem(password: self.password),
         ])
         
         BUYClient.sharedClient.loginCustomerWithCredentials(credentials) { (customer, token, error) in
