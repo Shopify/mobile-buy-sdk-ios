@@ -25,40 +25,53 @@
 //
 
 #import <Foundation/Foundation.h>
-
-/**
- *   Intended for storing a collection of credential items representing individual values
- */
-
-@class BUYAccountCredentialItem;
-@interface BUYAccountCredentials : NSObject
-
 NS_ASSUME_NONNULL_BEGIN
 
-+ (BUYAccountCredentials *)credentialsWithItems:(NSArray<BUYAccountCredentialItem *> *)items;
-+ (BUYAccountCredentials *)credentialsWithItemKeys:(NSArray<NSString *> *)keys;
+extern NSString * const BUYAccountFirstNameKey;
+extern NSString * const BUYAccountLastNameKey;
+extern NSString * const BUYAccountEmailKey;
+extern NSString * const BUYAccountPasswordKey;
+extern NSString * const BUYAccountPasswordConfirmationKey;
 
-@property (readonly) NSDictionary *JSONRepresentation;
-@property (nonatomic, readonly, getter=isValid) BOOL valid;
+@class BUYAccountCredentialItem;
 
-- (BUYAccountCredentialItem *)objectForKeyedSubscript:(NSString *)key;
-- (void)setObject:(BUYAccountCredentialItem *)obj forKeyedSubscript:(NSString *)key;
+/**
+ * Encapsulates user's credentials represented by BUYAccountCredentialItem
+ * objects.
+ */
+@interface BUYAccountCredentials : NSObject
+
+@property (nonatomic, assign, readonly, getter=isValid) BOOL valid;
+@property (nonatomic, strong, readonly) NSDictionary *JSONRepresentation;
+
++ (BUYAccountCredentials *)credentialsWithItems:(nullable NSArray<BUYAccountCredentialItem *> *)items;
+- (instancetype)initWithItems:(nullable NSArray<BUYAccountCredentialItem *> *)items;
+
+- (void)setCredentialItems:(NSArray<BUYAccountCredentialItem *> *)items;
+- (void)setCredentialItem:(BUYAccountCredentialItem *)item;
 
 @end
 
 
 /**
- *  Represents a key and KVC-validatable value
+ * Represents a single for user's credentials such as 
+ * email or password.
  */
-
 @interface BUYAccountCredentialItem : NSObject
 
+@property (nonatomic, assign, readonly, getter=isValid) BOOL valid;
+@property (nonatomic, strong, readonly) NSString *key;
+@property (nonatomic, strong, readonly) NSString *value;
+
++ (instancetype)itemEmailWithValue:(NSString *)value;
++ (instancetype)itemFirstNameWithValue:(NSString *)value;
++ (instancetype)itemLastNameWithValue:(NSString *)value;
++ (instancetype)itemPasswordWithValue:(NSString *)value;
++ (instancetype)itemPasswordConfirmationWithValue:(NSString *)value;
+
 + (instancetype)itemWithKey:(NSString *)key value:(NSString *)value;
-
-@property (nonatomic, getter=isValid) BOOL valid;
-@property (nonatomic, strong) NSString *key;
-@property (nonatomic, strong) NSString *value;
-
-NS_ASSUME_NONNULL_END
+- (instancetype)initWithKey:(NSString *)key value:(NSString *)value;
 
 @end
+
+NS_ASSUME_NONNULL_END
