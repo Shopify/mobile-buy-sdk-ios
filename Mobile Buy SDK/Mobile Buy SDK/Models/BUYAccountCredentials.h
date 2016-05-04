@@ -27,12 +27,6 @@
 #import <Foundation/Foundation.h>
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSString * const BUYAccountFirstNameKey;
-extern NSString * const BUYAccountLastNameKey;
-extern NSString * const BUYAccountEmailKey;
-extern NSString * const BUYAccountPasswordKey;
-extern NSString * const BUYAccountPasswordConfirmationKey;
-
 @class BUYAccountCredentialItem;
 
 /**
@@ -41,16 +35,16 @@ extern NSString * const BUYAccountPasswordConfirmationKey;
  */
 @interface BUYAccountCredentials : NSObject
 
+@property (nonatomic, strong, readonly) NSArray<BUYAccountCredentialItem *> *items;
+
 @property (nonatomic, assign, readonly) NSUInteger count;
 @property (nonatomic, assign, readonly, getter=isValid) BOOL valid;
 @property (nonatomic, strong, readonly) NSDictionary *JSONRepresentation;
 
-+ (BUYAccountCredentials *)credentials;
-+ (BUYAccountCredentials *)credentialsWithItems:(nullable NSArray<BUYAccountCredentialItem *> *)items;
-- (instancetype)initWithItems:(nullable NSArray<BUYAccountCredentialItem *> *)items;
++ (BUYAccountCredentials *)credentialsWithItems:(NSArray<BUYAccountCredentialItem *> *)items;
+- (instancetype)initWithItems:(NSArray<BUYAccountCredentialItem *> *)items;
 
-- (void)setCredentialItems:(NSArray<BUYAccountCredentialItem *> *)items;
-- (void)setCredentialItem:(BUYAccountCredentialItem *)item;
+- (BUYAccountCredentials *)credentialsByAddingItems:(NSArray<BUYAccountCredentialItem *> *)items;
 
 @end
 
@@ -65,14 +59,11 @@ extern NSString * const BUYAccountPasswordConfirmationKey;
 @property (nonatomic, strong, readonly) NSString *key;
 @property (nonatomic, strong, readonly) NSString *value;
 
-+ (instancetype)itemEmailWithValue:(NSString *)value;
-+ (instancetype)itemFirstNameWithValue:(NSString *)value;
-+ (instancetype)itemLastNameWithValue:(NSString *)value;
-+ (instancetype)itemPasswordWithValue:(NSString *)value;
-+ (instancetype)itemPasswordConfirmationWithValue:(NSString *)value;
-
-+ (instancetype)itemWithKey:(NSString *)key value:(NSString *)value;
-- (instancetype)initWithKey:(NSString *)key value:(NSString *)value;
++ (instancetype)itemWithEmail:(NSString *)value;
++ (instancetype)itemWithFirstName:(NSString *)value;
++ (instancetype)itemWithLastName:(NSString *)value;
++ (instancetype)itemWithPassword:(NSString *)value;
++ (instancetype)itemWithPasswordConfirmation:(NSString *)value;
 
 @end
 

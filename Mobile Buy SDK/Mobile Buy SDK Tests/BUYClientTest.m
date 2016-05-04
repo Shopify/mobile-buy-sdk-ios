@@ -327,12 +327,13 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
 - (void)testCustomerCreationURL
 {
-	BUYAccountCredentialItem *firstName = [BUYAccountCredentialItem itemWithKey:@"first_name" value:@"michael"];
-	BUYAccountCredentialItem *lastName = [BUYAccountCredentialItem itemWithKey:@"last_name" value:@"scott"];
-	BUYAccountCredentialItem *email = [BUYAccountCredentialItem itemWithKey:@"email" value:@"fake@example.com"];
-	BUYAccountCredentialItem *password = [BUYAccountCredentialItem itemWithKey:@"password" value:@"password"];
-	BUYAccountCredentialItem *passwordConfirmation = [BUYAccountCredentialItem itemWithKey:@"password_confirmation" value:@"password"];
-	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:@[firstName, lastName, email, password, passwordConfirmation]];
+	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:@[
+																					   [BUYAccountCredentialItem itemWithFirstName:@"michael"],
+																					   [BUYAccountCredentialItem itemWithLastName:@"scott"],
+																					   [BUYAccountCredentialItem itemWithEmail:@"fake@example.com"],
+																					   [BUYAccountCredentialItem itemWithPassword:@"password"],
+																					   [BUYAccountCredentialItem itemWithPasswordConfirmation:@"password"],
+																					   ]];
 	
 	NSURLSessionDataTask *task = [self.client createCustomerWithCredentials:credentials callback:nil];
 	
@@ -345,19 +346,21 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 	
 	XCTAssertNil(error);
 	NSDictionary *dict = @{@"customer": @{
-								   @"first_name": firstName.value,
-								   @"last_name": lastName.value,
-								   @"email": email.value,
-								   @"password": password.value,
-								   @"password_confirmation": passwordConfirmation.value}};
+								   @"first_name": @"michael",
+								   @"last_name": @"scott",
+								   @"email": @"fake@example.com",
+								   @"password": @"password",
+								   @"password_confirmation": @"password"
+								   }};
 	XCTAssertEqualObjects(payload, dict);
 }
 
 - (void)testLoginCustomerURL
 {
-	BUYAccountCredentialItem *email = [BUYAccountCredentialItem itemWithKey:@"email" value:@"fake@example.com"];
-	BUYAccountCredentialItem *password = [BUYAccountCredentialItem itemWithKey:@"password" value:@"password"];
-	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:@[email, password]];
+	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:@[
+																					   [BUYAccountCredentialItem itemWithEmail:@"fake@example.com"],
+																					   [BUYAccountCredentialItem itemWithPassword:@"password"],
+																					   ]];
 	NSURLSessionDataTask *task = [self.client loginCustomerWithCredentials:credentials callback:nil];
 	
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
@@ -368,7 +371,10 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 	NSDictionary *payload = [NSJSONSerialization JSONObjectWithData:task.originalRequest.HTTPBody options:0 error:&error];
 	
 	XCTAssertNil(error);
-	NSDictionary *dict = @{@"customer": @{@"email": email.value, @"password": password.value}};
+	NSDictionary *dict = @{@"customer": @{
+								   @"email": @"fake@example.com",
+								   @"password": @"password",
+								   }};
 	XCTAssertEqualObjects(payload, dict);
 }
 
@@ -428,9 +434,11 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
 - (void)testCustomerActivation
 {
-	BUYAccountCredentialItem *passwordItem = [BUYAccountCredentialItem itemWithKey:@"password" value:@"12345"];
-	BUYAccountCredentialItem *passwordConfItem = [BUYAccountCredentialItem itemWithKey:@"password_confirmation" value:@"12345"];
-	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:@[passwordItem, passwordConfItem]];
+	
+	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:@[
+																					   [BUYAccountCredentialItem itemWithPassword:@"12345"],
+																					   [BUYAccountCredentialItem itemWithPasswordConfirmation:@"12345"],
+																					   ]];
 	NSString *customerID = @"12345";
 	NSString *customerToken = @"12345";
 	NSURLSessionDataTask *task = [self.client activateCustomerWithCredentials:credentials customerID:customerID customerToken:customerToken callback:nil];

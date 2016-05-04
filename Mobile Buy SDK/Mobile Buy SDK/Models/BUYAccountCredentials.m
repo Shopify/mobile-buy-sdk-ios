@@ -26,26 +26,22 @@
 
 #import "BUYAccountCredentials.h"
 
-NSString * const BUYAccountFirstNameKey            = @"first_name";
-NSString * const BUYAccountLastNameKey             = @"last_name";
-NSString * const BUYAccountEmailKey                = @"email";
-NSString * const BUYAccountPasswordKey             = @"password";
-NSString * const BUYAccountPasswordConfirmationKey = @"password_confirmation";
+static NSString * const BUYAccountFirstNameKey            = @"first_name";
+static NSString * const BUYAccountLastNameKey             = @"last_name";
+static NSString * const BUYAccountEmailKey                = @"email";
+static NSString * const BUYAccountPasswordKey             = @"password";
+static NSString * const BUYAccountPasswordConfirmationKey = @"password_confirmation";
 
 #pragma mark - BUYAccountCredentials -
 @interface BUYAccountCredentials()
 
-@property (strong, nonatomic) NSMutableDictionary<NSString *, BUYAccountCredentialItem *> *items;
+@property (strong, nonatomic) NSDictionary<NSString *, BUYAccountCredentialItem *> *credentialItems;
 
 @end
 
 @implementation BUYAccountCredentials
 
-+ (BUYAccountCredentials *)credentials
-{
-	return [BUYAccountCredentials credentialsWithItems:nil];
-}
-
+#pragma mark - Init -
 + (BUYAccountCredentials *)credentialsWithItems:(NSArray<BUYAccountCredentialItem *> *)items
 {
 	return [[BUYAccountCredentials alloc] initWithItems:items];
@@ -56,24 +52,38 @@ NSString * const BUYAccountPasswordConfirmationKey = @"password_confirmation";
 	self = [super init];
 	if (self) {
 		
-		_items = [NSMutableDictionary new];
-		if (items.count > 0) {
-			[self setCredentialItems:items];
+		NSMutableDictionary *container = [NSMutableDictionary new];
+		for (BUYAccountCredentialItem *item in items) {
+			container[item.key] = item;
 		}
+		_credentialItems = [container copy];
 	}
 	return self;
 }
 
+#pragma mark - Adding Items -
+- (BUYAccountCredentials *)credentialsByAddingItems:(NSArray<BUYAccountCredentialItem *> *)items
+{
+	NSMutableArray *container = [self.items mutableCopy];
+	[container addObjectsFromArray:items];
+	return [BUYAccountCredentials credentialsWithItems:container];
+}
+
 #pragma mark - Accessors -
+- (NSArray<BUYAccountCredentialItem *> *)items
+{
+	return self.credentialItems.allValues;
+}
+
 - (NSUInteger)count
 {
-	return self.items.count;
+	return self.credentialItems.count;
 }
 
 - (BOOL)isValid
 {
 	__block BOOL valid = YES;
-	[self.items enumerateKeysAndObjectsUsingBlock:^(NSString *key, BUYAccountCredentialItem *item, BOOL * _Nonnull stop) {
+	[self.credentialItems enumerateKeysAndObjectsUsingBlock:^(NSString *key, BUYAccountCredentialItem *item, BOOL * _Nonnull stop) {
 		if (!item.isValid) {
 			valid = NO;
 			*stop = YES;
@@ -82,25 +92,11 @@ NSString * const BUYAccountPasswordConfirmationKey = @"password_confirmation";
 	return valid;
 }
 
-- (void)setCredentialItems:(NSArray<BUYAccountCredentialItem *> *)items
-{
-	NSAssert(items, @"BUYAccountCredentialItem array cannot be nil.");
-	for (BUYAccountCredentialItem *item in items) {
-		[self setCredentialItem:item];
-	}
-}
-
-- (void)setCredentialItem:(BUYAccountCredentialItem *)item
-{
-	NSAssert(item, @"BUYAccountCredentialItem cannot be nil.");
-	self.items[item.key] = item;
-}
-
 #pragma mark - Serialization -
 - (NSDictionary *)JSONRepresentation
 {
 	__block NSMutableDictionary *customer = [NSMutableDictionary dictionary];
-	[self.items enumerateKeysAndObjectsUsingBlock:^(NSString *key, BUYAccountCredentialItem *obj, BOOL *stop) {
+	[self.credentialItems enumerateKeysAndObjectsUsingBlock:^(NSString *key, BUYAccountCredentialItem *obj, BOOL *stop) {
 		customer[key] = obj.value;
 	}];
 	return @{ @"customer": customer };
@@ -112,27 +108,27 @@ NSString * const BUYAccountPasswordConfirmationKey = @"password_confirmation";
 @implementation BUYAccountCredentialItem
 
 #pragma mark - Init -
-+ (instancetype)itemEmailWithValue:(NSString *)value
++ (instancetype)itemWithEmail:(NSString *)value
 {
 	return [BUYAccountCredentialItem itemWithKey:BUYAccountEmailKey value:value];
 }
 
-+ (instancetype)itemFirstNameWithValue:(NSString *)value
++ (instancetype)itemWithFirstName:(NSString *)value
 {
 	return [BUYAccountCredentialItem itemWithKey:BUYAccountFirstNameKey value:value];
 }
 
-+ (instancetype)itemLastNameWithValue:(NSString *)value
++ (instancetype)itemWithLastName:(NSString *)value
 {
 	return [BUYAccountCredentialItem itemWithKey:BUYAccountLastNameKey value:value];
 }
 
-+ (instancetype)itemPasswordWithValue:(NSString *)value
++ (instancetype)itemWithPassword:(NSString *)value
 {
 	return [BUYAccountCredentialItem itemWithKey:BUYAccountPasswordKey value:value];
 }
 
-+ (instancetype)itemPasswordConfirmationWithValue:(NSString *)value
++ (instancetype)itemWithPasswordConfirmation:(NSString *)value
 {
 	return [BUYAccountCredentialItem itemWithKey:BUYAccountPasswordConfirmationKey value:value];
 }

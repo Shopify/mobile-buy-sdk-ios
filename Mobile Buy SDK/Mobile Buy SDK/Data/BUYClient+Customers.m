@@ -156,10 +156,8 @@
 	return [self putRequestForURL:components.URL body:data completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		NSString *email = json[@"customer"][@"email"];
 		if (email && !error) {
-			BUYAccountCredentialItem *emailItem = [BUYAccountCredentialItem itemEmailWithValue:email];
-			[credentials setCredentialItem:emailItem];
-			
-			[self loginCustomerWithCredentials:credentials callback:block];
+			BUYAccountCredentialItem *emailItem = [BUYAccountCredentialItem itemWithEmail:email];
+			[self loginCustomerWithCredentials:[credentials credentialsByAddingItems:@[emailItem]] callback:block];
 		}
 		else {
 			block(nil, nil, error);
@@ -175,10 +173,8 @@
 	return [self putRequestForURL:components.URL body:data completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		NSString *email = json[@"customer"][@"email"];
 		if (email && !error) {
-			BUYAccountCredentialItem *emailItem = [BUYAccountCredentialItem itemEmailWithValue:email];
-			[credentials setCredentialItem:emailItem];
-			
-			[self loginCustomerWithCredentials:credentials callback:block];
+			BUYAccountCredentialItem *emailItem = [BUYAccountCredentialItem itemWithEmail:email];
+			[self loginCustomerWithCredentials:[credentials credentialsByAddingItems:@[emailItem]] callback:block];
 		}
 		else {
 			block(nil, nil, error);

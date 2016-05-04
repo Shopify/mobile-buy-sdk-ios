@@ -35,7 +35,7 @@
 
 #pragma mark - Init -
 - (void)testInitWithoutItems {
-	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:nil];
+	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:@[]];
 	XCTAssertNotNil(credentials);
 	XCTAssertEqual(credentials.count, 0);
 }
@@ -60,49 +60,26 @@
 }
 
 #pragma mark - Mutation -
-- (void)testAddingUniqueItems {
+- (void)testExtendingCredentials {
+	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:[self sampleWithValidItems]];
+	XCTAssertEqual(credentials.count, 2);
 	
-	BUYAccountCredentials *credentials = [BUYAccountCredentials credentials];
-	XCTAssertEqual(credentials.count, 0);
-	
-	[credentials setCredentialItem:[self emailItem]];
-	XCTAssertEqual(credentials.count, 1);
-	
-	[credentials setCredentialItems:@[
-									  [self passwordItem],
-									  [self passwordConfirmationItem],
-									  ]];
-	XCTAssertEqual(credentials.count, 3);
-}
-
-- (void)testAddingDuplicateItems {
-	
-	/* ----------------------------------
-	 * A duplicate item is considered the
-	 * same based on the item key, not
-	 * the value.
-	 */
-	
-	BUYAccountCredentials *credentials = [BUYAccountCredentials credentials];
-	XCTAssertEqual(credentials.count, 0);
-	
-	[credentials setCredentialItem:[BUYAccountCredentialItem itemEmailWithValue:@"john@appleseed.com"]];
-	XCTAssertEqual(credentials.count, 1);
-	
-	[credentials setCredentialItem:[BUYAccountCredentialItem itemEmailWithValue:@"john@doe.com"]];
-	XCTAssertEqual(credentials.count, 1);
+	credentials = [credentials credentialsByAddingItems:@[
+														  [BUYAccountCredentialItem itemWithFirstName:@"John"],
+														  [BUYAccountCredentialItem itemWithLastName:@"Doe"],
+														  ]];
+	XCTAssertEqual(credentials.count, 4);
 }
 
 #pragma mark - Serialization -
 - (void)testJSONSerialization {
-	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:[self sampleWithValidItems]];
-	[credentials setCredentialItems:@[
-									  [BUYAccountCredentialItem itemEmailWithValue:@"john@doe.com"],
-									  [BUYAccountCredentialItem itemFirstNameWithValue:@"John"],
-									  [BUYAccountCredentialItem itemLastNameWithValue:@"Doe"],
-									  [BUYAccountCredentialItem itemPasswordWithValue:@"pass"],
-									  [BUYAccountCredentialItem itemPasswordConfirmationWithValue:@"pass"],
-									  ]];
+	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:@[
+																					   [BUYAccountCredentialItem itemWithEmail:@"john@doe.com"],
+																					   [BUYAccountCredentialItem itemWithFirstName:@"John"],
+																					   [BUYAccountCredentialItem itemWithLastName:@"Doe"],
+																					   [BUYAccountCredentialItem itemWithPassword:@"pass"],
+																					   [BUYAccountCredentialItem itemWithPasswordConfirmation:@"pass"],
+																					   ]];
 	
 	NSDictionary *json     = [credentials JSONRepresentation];
 	NSDictionary *customer = json[@"customer"];
@@ -110,27 +87,27 @@
 	XCTAssertNotNil(json);
 	XCTAssertEqual(json.count, 1);
 	XCTAssertNotNil(customer);
-	XCTAssertEqual(customer[BUYAccountEmailKey], @"john@doe.com");
-	XCTAssertEqual(customer[BUYAccountFirstNameKey], @"John");
-	XCTAssertEqual(customer[BUYAccountLastNameKey], @"Doe");
-	XCTAssertEqual(customer[BUYAccountPasswordKey], @"pass");
-	XCTAssertEqual(customer[BUYAccountPasswordConfirmationKey], @"pass");
+	XCTAssertEqual(customer[@"email"], @"john@doe.com");
+	XCTAssertEqual(customer[@"first_name"], @"John");
+	XCTAssertEqual(customer[@"last_name"], @"Doe");
+	XCTAssertEqual(customer[@"password"], @"pass");
+	XCTAssertEqual(customer[@"password_confirmation"], @"pass");
 }
 
 #pragma mark - Utilities -
 - (BUYAccountCredentialItem *)emailItem
 {
-	return [BUYAccountCredentialItem itemEmailWithValue:@"john@smith.com"];
+	return [BUYAccountCredentialItem itemWithEmail:@"john@smith.com"];
 }
 
 - (BUYAccountCredentialItem *)passwordItem
 {
-	return [BUYAccountCredentialItem itemPasswordWithValue:@"password"];
+	return [BUYAccountCredentialItem itemWithPassword:@"password"];
 }
 
 - (BUYAccountCredentialItem *)passwordConfirmationItem
 {
-	return [BUYAccountCredentialItem itemPasswordConfirmationWithValue:@"password"];
+	return [BUYAccountCredentialItem itemWithPasswordConfirmation:@"password"];
 }
 
 - (NSArray *)sampleWithValidItems {
@@ -143,8 +120,8 @@
 - (NSArray *)sampleWithInvalidItems {
 	NSMutableArray *items = [NSMutableArray new];
 	[items addObject:[self emailItem]];
-	[items addObject:[BUYAccountCredentialItem itemPasswordWithValue:@""]];
-	[items addObject:[BUYAccountCredentialItem itemPasswordConfirmationWithValue:@""]];
+	[items addObject:[BUYAccountCredentialItem itemWithPassword:@""]];
+	[items addObject:[BUYAccountCredentialItem itemWithPasswordConfirmation:@""]];
 	return items;
 }
 
