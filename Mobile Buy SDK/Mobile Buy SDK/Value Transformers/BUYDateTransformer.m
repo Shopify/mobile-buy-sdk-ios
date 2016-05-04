@@ -1,5 +1,5 @@
 //
-//  BUYDateFormatter.m
+//  BUYDateTransformer.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,22 +24,58 @@
 //  THE SOFTWARE.
 //
 
+#import "BUYDateTransformer.h"
 #import "NSDateFormatter+BUYAdditions.h"
 
-@implementation NSDateFormatter (BUYAdditions)
+NSString * const BUYDateTransformerName = @"BUYDate";
 
-+ (NSDateFormatter*)dateFormatterForShippingRates
+@interface BUYDateTransformer ()
+@property (nonatomic, strong) NSDateFormatter *dateFormatter;
+@end
+
+@implementation BUYDateTransformer
+
+- (instancetype)init
 {
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-	return dateFormatter;
+	NSDateFormatter *formatter = [NSDateFormatter dateFormatterForPublications];
+	formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+	return [self initWithDateFormatter:formatter];
 }
 
-+ (NSDateFormatter*)dateFormatterForPublications
+- (instancetype)initWithDateFormatter:(NSDateFormatter *)formatter
 {
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
-	return dateFormatter;
+	self = [super init];
+	if (self) {
+		self.dateFormatter = formatter;
+	}
+	return self;
+}
+
+- (NSString *)transformedValue:(NSDate *)value
+{
+	return [self.dateFormatter stringFromDate:value];
+}
+
+- (NSDate *)reverseTransformedValue:(NSString *)value
+{
+	return [self.dateFormatter dateFromString:value];
+}
+
++ (instancetype)dateTransformerWithFormat:(NSString *)format
+{
+	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+	[formatter setDateFormat:format];
+	return [[self alloc] initWithDateFormatter:formatter];
+}
+
++ (BOOL)allowsReverseTransformation
+{
+	return YES;
+}
+
++ (Class)transformedValueClass
+{
+	return [NSString class];
 }
 
 @end

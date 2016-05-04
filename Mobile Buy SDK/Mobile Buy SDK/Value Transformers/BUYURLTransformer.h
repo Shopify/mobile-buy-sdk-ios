@@ -1,5 +1,5 @@
 //
-//  BUYDateFormatter.m
+//  BUYURLTransformer.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,22 +24,12 @@
 //  THE SOFTWARE.
 //
 
-#import "NSDateFormatter+BUYAdditions.h"
+#import <Foundation/Foundation.h>
 
-@implementation NSDateFormatter (BUYAdditions)
+extern NSString * const BUYURLTransformerName; // = @"BUYURL";
 
-+ (NSDateFormatter*)dateFormatterForShippingRates
-{
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-	return dateFormatter;
-}
-
-+ (NSDateFormatter*)dateFormatterForPublications
-{
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
-	return dateFormatter;
-}
-
+/**
+ * Transforms a URL object into a string and back.
+ */
+@interface BUYURLTransformer : NSValueTransformer
 @end

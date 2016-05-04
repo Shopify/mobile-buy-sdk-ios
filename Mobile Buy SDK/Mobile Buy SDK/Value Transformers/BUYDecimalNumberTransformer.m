@@ -1,5 +1,5 @@
 //
-//  BUYDateFormatter.m
+//  BUYDecimalNumberTransformer.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,22 +24,31 @@
 //  THE SOFTWARE.
 //
 
-#import "NSDateFormatter+BUYAdditions.h"
+#import "BUYDecimalNumberTransformer.h"
+#import "NSDecimalNumber+BUYAdditions.h"
 
-@implementation NSDateFormatter (BUYAdditions)
+NSString * const BUYDecimalNumberTransformerName = @"BUYDecimalNumber";
 
-+ (NSDateFormatter*)dateFormatterForShippingRates
+@implementation BUYDecimalNumberTransformer
+
++ (Class)transformedValueClass
 {
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-	return dateFormatter;
+	return [NSString class];
 }
 
-+ (NSDateFormatter*)dateFormatterForPublications
++ (BOOL)allowsReverseTransformation
 {
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
-	return dateFormatter;
+	return YES;
+}
+
+- (id)transformedValue:(NSDecimalNumber *)value
+{
+	return [value stringValue];
+}
+
+- (id)reverseTransformedValue:(id)value
+{
+	return [NSDecimalNumber buy_decimalNumberFromJSON:value];
 }
 
 @end

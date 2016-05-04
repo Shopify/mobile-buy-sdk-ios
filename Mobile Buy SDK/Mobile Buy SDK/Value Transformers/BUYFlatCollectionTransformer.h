@@ -1,5 +1,5 @@
 //
-//  BUYDateFormatter.m
+//  BUYFlatCollectionTransformer.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,22 +24,23 @@
 //  THE SOFTWARE.
 //
 
-#import "NSDateFormatter+BUYAdditions.h"
+#import <Foundation/Foundation.h>
 
-@implementation NSDateFormatter (BUYAdditions)
+/**
+ * Transforms an array of objects into a string with given separator.
+ */
+@interface BUYFlatCollectionTransformer : NSValueTransformer
++ (instancetype)arrayTransformerWithElementTransformer:(NSValueTransformer *)elementTransformer separator:(NSString *)separator;
++ (instancetype)setTransformerWithElementTransformer:(NSValueTransformer *)elementTransformer separator:(NSString *)separator;
++ (instancetype)orderedSetTransformerWithElementTransformer:(NSValueTransformer *)elementTransformer separator:(NSString *)separator;
 
-+ (NSDateFormatter*)dateFormatterForShippingRates
-{
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-	return dateFormatter;
-}
+/**
+ * Default to using the identity transformer and a space as separator.
+ */
++ (instancetype)arrayTransformer;
++ (instancetype)setTransformer;
 
-+ (NSDateFormatter*)dateFormatterForPublications
-{
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
-	return dateFormatter;
-}
++ (instancetype)arrayTransformerWithSeparator:(NSString *)separator;
++ (instancetype)setTransformerWithSeparator:(NSString *)separator;
 
 @end
