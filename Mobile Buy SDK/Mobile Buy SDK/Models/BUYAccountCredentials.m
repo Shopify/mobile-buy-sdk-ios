@@ -41,6 +41,11 @@ NSString * const BUYAccountPasswordConfirmationKey = @"password_confirmation";
 
 @implementation BUYAccountCredentials
 
++ (BUYAccountCredentials *)credentials
+{
+	return [BUYAccountCredentials credentialsWithItems:nil];
+}
+
 + (BUYAccountCredentials *)credentialsWithItems:(NSArray<BUYAccountCredentialItem *> *)items
 {
 	return [[BUYAccountCredentials alloc] initWithItems:items];
@@ -60,6 +65,11 @@ NSString * const BUYAccountPasswordConfirmationKey = @"password_confirmation";
 }
 
 #pragma mark - Accessors -
+- (NSUInteger)count
+{
+	return self.items.count;
+}
+
 - (BOOL)isValid
 {
 	__block BOOL valid = YES;
@@ -104,27 +114,27 @@ NSString * const BUYAccountPasswordConfirmationKey = @"password_confirmation";
 #pragma mark - Init -
 + (instancetype)itemEmailWithValue:(NSString *)value
 {
-	return [[BUYAccountCredentialItem alloc] initWithKey:BUYAccountEmailKey value:value];
+	return [BUYAccountCredentialItem itemWithKey:BUYAccountEmailKey value:value];
 }
 
 + (instancetype)itemFirstNameWithValue:(NSString *)value
 {
-	return [[BUYAccountCredentialItem alloc] initWithKey:BUYAccountFirstNameKey value:value];
+	return [BUYAccountCredentialItem itemWithKey:BUYAccountFirstNameKey value:value];
 }
 
 + (instancetype)itemLastNameWithValue:(NSString *)value
 {
-	return [[BUYAccountCredentialItem alloc] initWithKey:BUYAccountLastNameKey value:value];
+	return [BUYAccountCredentialItem itemWithKey:BUYAccountLastNameKey value:value];
 }
 
 + (instancetype)itemPasswordWithValue:(NSString *)value
 {
-	return [[BUYAccountCredentialItem alloc] initWithKey:BUYAccountPasswordKey value:value];
+	return [BUYAccountCredentialItem itemWithKey:BUYAccountPasswordKey value:value];
 }
 
 + (instancetype)itemPasswordConfirmationWithValue:(NSString *)value
 {
-	return [[BUYAccountCredentialItem alloc] initWithKey:BUYAccountPasswordConfirmationKey value:value];
+	return [BUYAccountCredentialItem itemWithKey:BUYAccountPasswordConfirmationKey value:value];
 }
 
 + (instancetype)itemWithKey:(NSString *)key value:(NSString *)value

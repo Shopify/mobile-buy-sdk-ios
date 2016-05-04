@@ -41,9 +41,11 @@ extern NSString * const BUYAccountPasswordConfirmationKey;
  */
 @interface BUYAccountCredentials : NSObject
 
+@property (nonatomic, assign, readonly) NSUInteger count;
 @property (nonatomic, assign, readonly, getter=isValid) BOOL valid;
 @property (nonatomic, strong, readonly) NSDictionary *JSONRepresentation;
 
++ (BUYAccountCredentials *)credentials;
 + (BUYAccountCredentials *)credentialsWithItems:(nullable NSArray<BUYAccountCredentialItem *> *)items;
 - (instancetype)initWithItems:(nullable NSArray<BUYAccountCredentialItem *> *)items;
 
