@@ -29,8 +29,8 @@ import Buy
 
 class LoginViewController: UITableViewController {
 
-    @IBOutlet weak var emailField:    UITextField!
-    @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet private weak var emailField:    UITextField!
+    @IBOutlet private weak var passwordField: UITextField!
     
     var email:    String { return self.emailField.text    ?? "" }
     var password: String { return self.passwordField.text ?? "" }

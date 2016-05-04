@@ -29,11 +29,11 @@ import Buy
 
 class SignupViewController: UITableViewController {
 
-    @IBOutlet weak var firstNameField:       UITextField!
-    @IBOutlet weak var lastNameField:        UITextField!
-    @IBOutlet weak var emailField:           UITextField!
-    @IBOutlet weak var passwordField:        UITextField!
-    @IBOutlet weak var passwordConfirmField: UITextField!
+    @IBOutlet private weak var firstNameField:       UITextField!
+    @IBOutlet private weak var lastNameField:        UITextField!
+    @IBOutlet private weak var emailField:           UITextField!
+    @IBOutlet private weak var passwordField:        UITextField!
+    @IBOutlet private weak var passwordConfirmField: UITextField!
     
     var firstName:       String { return self.firstNameField.text ?? "" }
     var lastName:        String { return self.lastNameField.text  ?? "" }
@@ -62,7 +62,7 @@ class SignupViewController: UITableViewController {
     //  MARK: - UITableViewDelegate -
     //
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 1 {
+        if indexPath.section == 2 {
             
             if !self.email.isEmpty &&
                 !self.password.isEmpty &&
