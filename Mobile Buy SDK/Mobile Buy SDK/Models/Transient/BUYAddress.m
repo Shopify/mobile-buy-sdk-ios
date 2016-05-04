@@ -32,19 +32,19 @@
 
 - (void)updateWithDictionary:(NSDictionary *)dictionary
 {
-	self.address1 = dictionary[@"address1"];
-	self.address2 = dictionary[@"address2"];
-	self.city = dictionary[@"city"];
-	self.company = dictionary[@"company"];
-	self.firstName = dictionary[@"first_name"];
-	self.lastName = dictionary[@"last_name"];
-	self.phone = dictionary[@"phone"];
+	self.address1 = [dictionary buy_objectForKey:@"address1"];
+	self.address2 = [dictionary buy_objectForKey:@"address2"];
+	self.city = [dictionary buy_objectForKey:@"city"];
+	self.company = [dictionary buy_objectForKey:@"company"];
+	self.firstName = [dictionary buy_objectForKey:@"first_name"];
+	self.lastName = [dictionary buy_objectForKey:@"last_name"];
+	self.phone = [dictionary buy_objectForKey:@"phone"];
 	
-	self.country = dictionary[@"country"];
-	self.countryCode = dictionary[@"country_code"];
+	self.country = [dictionary buy_objectForKey:@"country"];
+	self.countryCode = [dictionary buy_objectForKey:@"country_code"];
 	self.province = [dictionary buy_objectForKey:@"province"];
 	self.provinceCode = [dictionary buy_objectForKey:@"province_code"];
-	self.zip = dictionary[@"zip"];
+	self.zip = [dictionary buy_objectForKey:@"zip"];
 }
 
 - (NSDictionary *)jsonDictionaryForCheckout

@@ -1,5 +1,5 @@
 //
-//  BUYDateFormatter.m
+//  BUYClient_Internal.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,22 +24,19 @@
 //  THE SOFTWARE.
 //
 
-#import "NSDateFormatter+BUYAdditions.h"
+#import "BUYClient.h"
+#import "BUYSerializable.h"
 
-@implementation NSDateFormatter (BUYAdditions)
+static NSString *const kShopifyError = @"shopify";
 
-+ (NSDateFormatter*)dateFormatterForShippingRates
-{
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-	return dateFormatter;
-}
+@interface BUYClient (Internal)
 
-+ (NSDateFormatter*)dateFormatterForPublications
-{
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
-	return dateFormatter;
-}
+- (NSURLSessionDataTask *)postRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
+- (NSURLSessionDataTask *)putRequestForURL:(NSURL *)url body:(NSData *)body completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
+- (NSURLSessionDataTask *)getRequestForURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
+
+- (NSURLSessionDataTask *)requestForURL:(NSURL *)url method:(NSString *)method body:(NSData *)body additionalHeaders:(NSDictionary *)headers completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
+- (NSURLComponents *)URLComponentsForAPIPath:(NSString *)apiPath appendingPath:(NSString *)appendingPath queryItems:(NSDictionary*)queryItems;
+- (NSError *)extractErrorFromResponse:(NSURLResponse *)response json:(NSDictionary *)json;
 
 @end

@@ -78,6 +78,8 @@ typedef NS_ENUM(NSUInteger, BUYCollectionSort) {
 
 extern NSString * const BUYVersionString;
 
+extern NSString * const BUYClientCustomerAccessToken;
+
 /**
  *  A BUYStatus is associated with the completion of an enqueued job on Shopify.
  *  BUYStatus is equal is HTTP status codes returned from the server
@@ -272,6 +274,12 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
  */
 @property (nonatomic, strong) NSString *urlScheme;
 
+/**
+ *  Allows the client to hold onto the customer token
+ *
+ *  @param token The token received from the create and login callbacks
+ */
+@property (strong, nonatomic) NSString *customerToken;
 
 #pragma mark - Storefront
 

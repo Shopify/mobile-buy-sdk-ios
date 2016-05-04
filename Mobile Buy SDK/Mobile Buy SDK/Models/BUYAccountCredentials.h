@@ -1,9 +1,9 @@
 //
-//  BUYDateFormatter.m
+//  BUYAccountCredentials.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
-//  Copyright (c) 2015 Shopify Inc. All rights reserved.
+//  Copyright (c) 2016 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,22 +24,41 @@
 //  THE SOFTWARE.
 //
 
-#import "NSDateFormatter+BUYAdditions.h"
+#import <Foundation/Foundation.h>
 
-@implementation NSDateFormatter (BUYAdditions)
+/**
+ *   Intended for storing a collection of credential items representing individual values
+ */
 
-+ (NSDateFormatter*)dateFormatterForShippingRates
-{
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-	return dateFormatter;
-}
+@class BUYAccountCredentialItem;
+@interface BUYAccountCredentials : NSObject
 
-+ (NSDateFormatter*)dateFormatterForPublications
-{
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
-	return dateFormatter;
-}
+NS_ASSUME_NONNULL_BEGIN
+
++ (BUYAccountCredentials *)credentialsWithItems:(NSArray<BUYAccountCredentialItem *> *)items;
++ (BUYAccountCredentials *)credentialsWithItemKeys:(NSArray<NSString *> *)keys;
+
+@property (readonly) NSDictionary *JSONRepresentation;
+@property (nonatomic, readonly, getter=isValid) BOOL valid;
+
+- (BUYAccountCredentialItem *)objectForKeyedSubscript:(NSString *)key;
+- (void)setObject:(BUYAccountCredentialItem *)obj forKeyedSubscript:(NSString *)key;
+
+@end
+
+
+/**
+ *  Represents a key and KVC-validatable value
+ */
+
+@interface BUYAccountCredentialItem : NSObject
+
++ (instancetype)itemWithKey:(NSString *)key value:(NSString *)value;
+
+@property (nonatomic, getter=isValid) BOOL valid;
+@property (nonatomic, strong) NSString *key;
+@property (nonatomic, strong) NSString *value;
+
+NS_ASSUME_NONNULL_END
 
 @end
