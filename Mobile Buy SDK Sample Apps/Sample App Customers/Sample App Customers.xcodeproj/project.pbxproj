@@ -10,7 +10,6 @@
 		9A102CEE1CDAA6080026CC43 /* ActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A102CED1CDAA6080026CC43 /* ActionCell.swift */; };
 		9A102CF01CDB7C0F0026CC43 /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A102CEF1CDB7C0F0026CC43 /* OrdersViewController.swift */; };
 		9A102CFE1CDB86920026CC43 /* OrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A102CFC1CDB86920026CC43 /* OrderCell.swift */; };
-		9A102CFF1CDB86920026CC43 /* OrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A102CFD1CDB86920026CC43 /* OrderCell.xib */; };
 		9A9C03071CD8F9AC00AE79BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C03061CD8F9AC00AE79BD /* AppDelegate.swift */; };
 		9A9C03091CD8F9AC00AE79BD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C03081CD8F9AC00AE79BD /* LoginViewController.swift */; };
 		9A9C030C1CD8F9AC00AE79BD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A9C030A1CD8F9AC00AE79BD /* Main.storyboard */; };
@@ -71,7 +70,6 @@
 		9A102CED1CDAA6080026CC43 /* ActionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionCell.swift; sourceTree = "<group>"; };
 		9A102CEF1CDB7C0F0026CC43 /* OrdersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
 		9A102CFC1CDB86920026CC43 /* OrderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderCell.swift; sourceTree = "<group>"; };
-		9A102CFD1CDB86920026CC43 /* OrderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderCell.xib; sourceTree = "<group>"; };
 		9A9C03031CD8F9AC00AE79BD /* Sample App Customers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sample App Customers.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A9C03061CD8F9AC00AE79BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9A9C03081CD8F9AC00AE79BD /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -100,19 +98,10 @@
 		9A102CE81CDAA5F00026CC43 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				9A102D001CDB86960026CC43 /* Order */,
+				9A102CFC1CDB86920026CC43 /* OrderCell.swift */,
 				9A102CED1CDAA6080026CC43 /* ActionCell.swift */,
 			);
 			name = Cells;
-			sourceTree = "<group>";
-		};
-		9A102D001CDB86960026CC43 /* Order */ = {
-			isa = PBXGroup;
-			children = (
-				9A102CFC1CDB86920026CC43 /* OrderCell.swift */,
-				9A102CFD1CDB86920026CC43 /* OrderCell.xib */,
-			);
-			name = Order;
 			sourceTree = "<group>";
 		};
 		9A9C02FA1CD8F9AC00AE79BD = {
@@ -285,7 +274,6 @@
 			files = (
 				9A9C03111CD8F9AC00AE79BD /* LaunchScreen.storyboard in Resources */,
 				9A9C030E1CD8F9AC00AE79BD /* Assets.xcassets in Resources */,
-				9A102CFF1CDB86920026CC43 /* OrderCell.xib in Resources */,
 				9A9C030C1CD8F9AC00AE79BD /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
