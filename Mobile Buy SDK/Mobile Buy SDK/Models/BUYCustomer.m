@@ -26,6 +26,7 @@
 
 #import "BUYCustomer.h"
 #import "BUYAddress.h"
+#import "NSDateFormatter+BUYAdditions.h"
 
 @implementation BUYCustomer
 
@@ -41,6 +42,8 @@
 {
 	[super updateWithDictionary:dictionary];
 	
+	NSDateFormatter *formatter = [NSDateFormatter dateFormatterForPublications];
+	
 	_taxExempt           = dictionary[@"tax_exempt"];
 	_verifiedEmail       = dictionary[@"verified_email"];
 	_acceptsMarketing    = dictionary[@"accepts_marketing"];
@@ -55,8 +58,8 @@
 	_tags                = dictionary[@"tags"];
 	_ordersCount         = dictionary[@"orders_count"];
 	_totalSpent          = dictionary[@"total_spent"];
-	_createdAt           = dictionary[@"created_at"];
-	_updatedAt           = dictionary[@"updated_at"];
+	_createdAt           = [formatter dateFromString:dictionary[@"created_at"]];
+	_updatedAt           = [formatter dateFromString:dictionary[@"updated_at"]];
 	_addresses           = [BUYAddress convertJSONArray:dictionary[@"addresses"]];
 	_defaultAddress      = [BUYAddress convertObject:dictionary[@"default_address"]];
 }
