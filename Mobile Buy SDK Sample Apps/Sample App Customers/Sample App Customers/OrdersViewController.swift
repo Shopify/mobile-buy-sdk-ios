@@ -1,5 +1,5 @@
 //
-//  ActionCell.swift
+//  OrdersViewController.swift
 //  Sample App Customers
 //
 //  Created by Shopify.
@@ -25,20 +25,31 @@
 //
 
 import UIKit
+import Buy
 
-class ActionCell: UITableViewCell {
+class OrdersViewController: UIViewController {
+
+    @IBOutlet private weak var tableView: UITableView!
     
-    @IBOutlet private weak var actionLabel: UILabel!
-    @IBOutlet private weak var loader:      UIActivityIndicatorView!
+    private var orders = [BUYOrder]()
+    
+    // ----------------------------------
+    //  MARK: - View Loading -
+    //
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
-    var loading: Bool {
-        get {
-            return self.actionLabel.hidden
-        }
-        set {
-            self.actionLabel.hidden = newValue
-            self.loader.hidden      = !newValue
+        self.loadOrders()
+    }
+    
+    private func loadOrders() {
+        BUYClient.sharedClient.getOrdersForCustomerWithCallback { (orders, error) in
+            if let orders = orders {
+                self.orders = orders
+                self.tableView.reloadData()
+            } else {
+                print("Could not fetch orders: \(error)")
+            }
         }
     }
-
 }

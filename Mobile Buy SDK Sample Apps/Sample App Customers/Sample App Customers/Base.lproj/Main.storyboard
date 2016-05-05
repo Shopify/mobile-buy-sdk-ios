@@ -78,6 +78,7 @@
                     <connections>
                         <outlet property="loginContainerView" destination="KZD-y5-2e3" id="g1r-NW-TfQ"/>
                         <outlet property="signupContainerView" destination="ZAC-pf-9Yj" id="GGw-ff-lV9"/>
+                        <segue destination="gsn-tk-U20" kind="show" id="cw5-XQ-PCc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="twZ-kb-vHr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -214,6 +215,46 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bEz-wx-yz5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1227" y="2046"/>
+        </scene>
+        <!--Orders-->
+        <scene sceneID="Kny-Kh-xPd">
+            <objects>
+                <viewController id="gsn-tk-U20" customClass="OrdersViewController" customModule="Sample_App_Customers" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="A7z-xl-YN2"/>
+                        <viewControllerLayoutGuide type="bottom" id="61m-HD-4Dc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nv0-Ew-4s3">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0Fn-mj-l5t">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="gsn-tk-U20" id="I04-cV-mh5"/>
+                                    <outlet property="delegate" destination="gsn-tk-U20" id="nwo-WG-rYn"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="0Fn-mj-l5t" firstAttribute="top" secondItem="nv0-Ew-4s3" secondAttribute="top" id="Iad-q1-O8p"/>
+                            <constraint firstItem="0Fn-mj-l5t" firstAttribute="leading" secondItem="nv0-Ew-4s3" secondAttribute="leading" id="jEu-Qy-BFt"/>
+                            <constraint firstAttribute="trailing" secondItem="0Fn-mj-l5t" secondAttribute="trailing" id="q11-1O-evS"/>
+                            <constraint firstItem="61m-HD-4Dc" firstAttribute="top" secondItem="0Fn-mj-l5t" secondAttribute="bottom" id="qka-hB-mCa"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Orders" id="QJf-qx-qvw">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="Iio-Wf-I5q"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="0Fn-mj-l5t" id="ZFj-eI-hKE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lWE-gv-HEA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2262" y="1317"/>
         </scene>
         <!--Signup View Controller-->
         <scene sceneID="Uio-b8-HRq">
