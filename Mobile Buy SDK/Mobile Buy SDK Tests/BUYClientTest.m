@@ -335,7 +335,9 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 																					   [BUYAccountCredentialItem itemWithPasswordConfirmation:@"password"],
 																					   ]];
 	
-	NSURLSessionDataTask *task = [self.client createCustomerWithCredentials:credentials callback:nil];
+	NSURLSessionDataTask *task = [self.client createCustomerWithCredentials:credentials callback:^(BUYCustomer * _Nullable customer, NSString * _Nullable token, NSError * _Nullable error) {
+		
+	}];
 	
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/customers.json");
@@ -361,7 +363,9 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 																					   [BUYAccountCredentialItem itemWithEmail:@"fake@example.com"],
 																					   [BUYAccountCredentialItem itemWithPassword:@"password"],
 																					   ]];
-	NSURLSessionDataTask *task = [self.client loginCustomerWithCredentials:credentials callback:nil];
+	NSURLSessionDataTask *task = [self.client loginCustomerWithCredentials:credentials callback:^(BUYCustomer * _Nullable customer, NSString * _Nullable token, NSError * _Nullable error) {
+		
+	}];
 	
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/customers/customer_token.json");
@@ -380,7 +384,9 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
 - (void)testGetCustomerURL
 {
-	NSURLSessionDataTask *task = [self.client getCustomerWithID:nil callback:nil];
+	NSURLSessionDataTask *task = [self.client getCustomerWithID:@"" callback:^(BUYCustomer * _Nullable customer, NSError * _Nullable error) {
+		
+	}];
 	
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/customers.json");
@@ -391,7 +397,9 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
 - (void)testGetOrdersForCustomerURL
 {
-	NSURLSessionDataTask *task = [self.client getOrdersForCustomerWithCallback:nil];
+	NSURLSessionDataTask *task = [self.client getOrdersForCustomerWithCallback:^(NSArray<BUYOrder *> * _Nullable orders, NSError * _Nullable error) {
+		
+	}];
 	
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/customers/orders.json");
@@ -403,7 +411,9 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 - (void)testCustomerRecovery
 {
 	NSString *email = @"fake@example.com";
-	NSURLSessionDataTask *task = [self.client recoverPasswordForCustomer:email callback:nil];
+	NSURLSessionDataTask *task = [self.client recoverPasswordForCustomer:email callback:^(BUYStatus status, NSError *error) {
+		
+	}];
 	
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/customers/recover.json");
@@ -421,11 +431,13 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 {
 	self.client.customerToken = nil;
 	
-	NSURLSessionDataTask *task = [self.client renewCustomerTokenWithID:nil callback:^(NSString *token, NSError *error) {}];
+	NSURLSessionDataTask *task = [self.client renewCustomerTokenWithID:@"" callback:^(NSString *token, NSError *error) {}];
 	XCTAssertNil(task); // task should be nil if no customer token was set on the client
 	
 	self.client.customerToken = BUYFakeCustomerToken;
-	task = [self.client renewCustomerTokenWithID:@"1" callback:nil];
+	task = [self.client renewCustomerTokenWithID:@"1" callback:^(NSString * _Nullable token, NSError * _Nullable error) {
+		
+	}];
 	
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/customers/1/customer_token/renew.json");
@@ -441,7 +453,9 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 																					   ]];
 	NSString *customerID = @"12345";
 	NSString *customerToken = @"12345";
-	NSURLSessionDataTask *task = [self.client activateCustomerWithCredentials:credentials customerID:customerID customerToken:customerToken callback:nil];
+	NSURLSessionDataTask *task = [self.client activateCustomerWithCredentials:credentials customerID:customerID customerToken:customerToken callback:^(BUYCustomer * _Nullable customer, NSString * _Nullable token, NSError * _Nullable error) {
+		
+	}];
 	
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/customers/12345/activate.json");
