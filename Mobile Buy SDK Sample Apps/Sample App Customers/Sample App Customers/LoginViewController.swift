@@ -58,8 +58,16 @@ class LoginViewController: UITableViewController {
         BUYClient.sharedClient.loginCustomerWithCredentials(credentials) { (customer, token, error) in
             self.actionCell.loading = false
             
+            if let _ = customer {
+                self.clear()
+            }
             print("Customer: \(customer), Token: \(token), Error: \(error)")
         }
+    }
+    
+    private func clear() {
+        self.emailField.text     = ""
+        self.passwordField.text  = ""
     }
     
     // ----------------------------------

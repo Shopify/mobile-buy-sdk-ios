@@ -36,11 +36,11 @@ class SignupViewController: UITableViewController {
     @IBOutlet private weak var passwordConfirmField: UITextField!
     @IBOutlet private weak var actionCell:           ActionCell!
     
-    var firstName:       String { return self.firstNameField.text ?? "" }
-    var lastName:        String { return self.lastNameField.text  ?? "" }
-    var email:           String { return self.emailField.text     ?? "" }
-    var password:        String { return self.passwordField.text  ?? "" }
-    var passwordConfirm: String { return self.passwordField.text  ?? "" }
+    var firstName:       String { return self.firstNameField.text       ?? "" }
+    var lastName:        String { return self.lastNameField.text        ?? "" }
+    var email:           String { return self.emailField.text           ?? "" }
+    var password:        String { return self.passwordField.text        ?? "" }
+    var passwordConfirm: String { return self.passwordConfirmField.text ?? "" }
     
     // ----------------------------------
     //  MARK: - View Loading -
@@ -67,8 +67,19 @@ class SignupViewController: UITableViewController {
         BUYClient.sharedClient.createCustomerWithCredentials(credentials) { (customer, token, error) in
             self.actionCell.loading = false
             
+            if let _ = customer {
+                self.clear()
+            }
             print("Customer: \(customer), Token: \(token), Error: \(error)")
         }
+    }
+    
+    private func clear() {
+        self.firstNameField.text        = ""
+        self.lastNameField.text         = ""
+        self.emailField.text            = ""
+        self.passwordField.text         = ""
+        self.passwordConfirmField.text  = ""
     }
     
     // ----------------------------------
