@@ -25,24 +25,48 @@
 //
 
 #import "BUYOrder.h"
+#import "BUYAddress.h"
+#import "BUYLineItem.h"
+#import "BUYShippingRate.h"
 #import "NSURL+BUYAdditions.h"
 #import "NSDictionary+BUYAdditions.h"
-
-@interface BUYOrder ()
-
-@property (nonatomic, strong) NSURL *statusURL;
-@property (nonatomic, strong) NSString *name;
-
-@end
+#import "NSDateFormatter+BUYAdditions.h"
+#import "NSDecimalNumber+BUYAdditions.h"
 
 @implementation BUYOrder
 
 - (void)updateWithDictionary:(NSDictionary *)dictionary
 {
 	[super updateWithDictionary:dictionary];
-	NSString *statusURLString = dictionary[@"status_url"];
-	self.statusURL = [NSURL buy_urlWithString:statusURLString];
-	self.name = [dictionary buy_objectForKey:@"name"];
+	
+	NSDateFormatter *formatter = [NSDateFormatter dateFormatterForPublications];
+	
+	_cancelled            = [[dictionary buy_objectForKey:@"cancelled"] boolValue];
+	_fulfillmentAborted   = [[dictionary buy_objectForKey:@"fulfillment_aborted"] boolValue];
+	
+	_name                 = [dictionary buy_objectForKey:@"name"];
+	_cancelReason         = [dictionary buy_objectForKey:@"cancel_reason"];
+	_currency             = [dictionary buy_objectForKey:@"currency"];
+	_financialStatus      = [dictionary buy_objectForKey:@"financial_status"];
+	_fulfillmentStatus    = [dictionary buy_objectForKey:@"fulfillment_status"];
+	_orderNumber          = [dictionary buy_objectForKey:@"order_number"];
+	
+	_statusURL            = [NSURL buy_urlWithString:dictionary[@"status_url"]];
+	_customerURL          = [NSURL buy_urlWithString:dictionary[@"customer_url"]];
+	_orderStatusURL       = [NSURL buy_urlWithString:dictionary[@"order_status_url"]];
+	
+	_cancelledAt          = [formatter dateFromString:[dictionary buy_objectForKey:@"cancelled_at"]];
+	_processedAt          = [formatter dateFromString:[dictionary buy_objectForKey:@"processed_at"]];
+	
+	_billingAddress       = [BUYAddress convertObject:[dictionary buy_objectForKey:@"billing_address"]];
+	_shippingAddress      = [BUYAddress convertObject:[dictionary buy_objectForKey:@"shipping_address"]];
+	_shippingRates        = [BUYShippingRate convertJSONArray:[dictionary buy_objectForKey:@"shipping_methods"]];
+	_fulfilledLineItems   = [BUYLineItem convertJSONArray:dictionary[@"fulfilled_line_items"]];
+	_unfulfilledLineItems = [BUYLineItem convertJSONArray:dictionary[@"unfulfilled_line_items"]];
+	
+	_discountSavings      = [NSDecimalNumber buy_decimalNumberFromJSON:[dictionary buy_objectForKey:@"discount_savings"]];
+	_subtotalPrice        = [NSDecimalNumber buy_decimalNumberFromJSON:[dictionary buy_objectForKey:@"subtotal_price"]];
+	_totalPrice           = [NSDecimalNumber buy_decimalNumberFromJSON:[dictionary buy_objectForKey:@"total_price"]];
 }
 
 @end
