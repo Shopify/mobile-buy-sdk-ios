@@ -27,7 +27,7 @@
         <!--Account View Controller-->
         <scene sceneID="8Y7-Xy-RCG">
             <objects>
-                <viewController id="iKH-Ul-gfD" customClass="AccountViewController" customModule="Sample_App_Customers" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="iKH-Ul-gfD" customClass="AccountViewController" customModule="Sample_App_Customers" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KVq-0R-CoC"/>
                         <viewControllerLayoutGuide type="bottom" id="KYl-xu-h2G"/>

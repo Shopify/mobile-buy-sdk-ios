@@ -33,15 +33,6 @@ class AccountViewController: UIViewController {
     
     private var loginViewController:  LoginViewController!
     private var signupViewController: SignupViewController!
-
-    // ----------------------------------
-    //  MARK: - View Loading -
-    //
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        self.automaticallyAdjustsScrollViewInsets = false
-    }
     
     // ----------------------------------
     //  MARK: - Segue -
