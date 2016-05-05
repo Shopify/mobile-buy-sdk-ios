@@ -9,7 +9,8 @@
 /* Begin PBXBuildFile section */
 		9A102CEE1CDAA6080026CC43 /* ActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A102CED1CDAA6080026CC43 /* ActionCell.swift */; };
 		9A102CF01CDB7C0F0026CC43 /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A102CEF1CDB7C0F0026CC43 /* OrdersViewController.swift */; };
-		9A102CFE1CDB86920026CC43 /* OrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A102CFC1CDB86920026CC43 /* OrderCell.swift */; };
+		9A102CFE1CDB86920026CC43 /* LineItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A102CFC1CDB86920026CC43 /* LineItemCell.swift */; };
+		9A102D111CDBCD320026CC43 /* AuthenticationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A102D101CDBCD320026CC43 /* AuthenticationDelegate.swift */; };
 		9A9C03071CD8F9AC00AE79BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C03061CD8F9AC00AE79BD /* AppDelegate.swift */; };
 		9A9C03091CD8F9AC00AE79BD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C03081CD8F9AC00AE79BD /* LoginViewController.swift */; };
 		9A9C030C1CD8F9AC00AE79BD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A9C030A1CD8F9AC00AE79BD /* Main.storyboard */; };
@@ -69,7 +70,8 @@
 /* Begin PBXFileReference section */
 		9A102CED1CDAA6080026CC43 /* ActionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionCell.swift; sourceTree = "<group>"; };
 		9A102CEF1CDB7C0F0026CC43 /* OrdersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
-		9A102CFC1CDB86920026CC43 /* OrderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderCell.swift; sourceTree = "<group>"; };
+		9A102CFC1CDB86920026CC43 /* LineItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineItemCell.swift; sourceTree = "<group>"; };
+		9A102D101CDBCD320026CC43 /* AuthenticationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationDelegate.swift; sourceTree = "<group>"; };
 		9A9C03031CD8F9AC00AE79BD /* Sample App Customers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sample App Customers.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A9C03061CD8F9AC00AE79BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9A9C03081CD8F9AC00AE79BD /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -98,10 +100,18 @@
 		9A102CE81CDAA5F00026CC43 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				9A102CFC1CDB86920026CC43 /* OrderCell.swift */,
+				9A102CFC1CDB86920026CC43 /* LineItemCell.swift */,
 				9A102CED1CDAA6080026CC43 /* ActionCell.swift */,
 			);
 			name = Cells;
+			sourceTree = "<group>";
+		};
+		9A102D0F1CDBCD210026CC43 /* Protcols */ = {
+			isa = PBXGroup;
+			children = (
+				9A102D101CDBCD320026CC43 /* AuthenticationDelegate.swift */,
+			);
+			name = Protcols;
 			sourceTree = "<group>";
 		};
 		9A9C02FA1CD8F9AC00AE79BD = {
@@ -126,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				9A9C03061CD8F9AC00AE79BD /* AppDelegate.swift */,
+				9A102D0F1CDBCD210026CC43 /* Protcols */,
 				9A9C03391CD920F600AE79BD /* Extensions */,
 				9A102CE81CDAA5F00026CC43 /* Cells */,
 				9A9C031A1CD8FA0C00AE79BD /* View Controllers */,
@@ -290,8 +301,9 @@
 				9A9C033B1CD921D700AE79BD /* BUYClient+Extensions.swift in Sources */,
 				9A102CF01CDB7C0F0026CC43 /* OrdersViewController.swift in Sources */,
 				9A102CEE1CDAA6080026CC43 /* ActionCell.swift in Sources */,
+				9A102D111CDBCD320026CC43 /* AuthenticationDelegate.swift in Sources */,
 				9A9C031C1CD8FC6A00AE79BD /* AccountViewController.swift in Sources */,
-				9A102CFE1CDB86920026CC43 /* OrderCell.swift in Sources */,
+				9A102CFE1CDB86920026CC43 /* LineItemCell.swift in Sources */,
 				9A9C031E1CD8FD2300AE79BD /* SignupViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -25,6 +25,7 @@
 //
 
 import UIKit
+import Buy
 
 class AccountViewController: UIViewController {
     
@@ -40,10 +41,12 @@ class AccountViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segue.identifier {
         case let login where login == "loginSegue":
-            self.loginViewController  = segue.destinationViewController as! LoginViewController
+            self.loginViewController = segue.destinationViewController as! LoginViewController
+            self.loginViewController.delegate = self
             
         case let signup where signup == "signupSegue":
             self.signupViewController = segue.destinationViewController as! SignupViewController
+            self.signupViewController.delegate = self
             
         default:
             break
@@ -67,5 +70,21 @@ class AccountViewController: UIViewController {
     //
     @IBAction func segmentAction(sender: UISegmentedControl) {
         self.updateSelectedIndex(sender.selectedSegmentIndex)
+    }
+}
+
+// ----------------------------------
+//  MARK: - AuthenticationDelegate -
+//
+extension AccountViewController: AuthenticationDelegate {
+    func authenticationDidSucceedForCustomer(customer: BUYCustomer, withToken token: String) {
+        
+        if let orders = self.storyboard?.instantiateViewControllerWithIdentifier("ordersViewController") {
+            self.navigationController?.pushViewController(orders, animated: true)
+        }
+    }
+    
+    func authenticationDidFailWithError(error: NSError?) {
+        print("Failed to authenticate customer: \(error)")
     }
 }

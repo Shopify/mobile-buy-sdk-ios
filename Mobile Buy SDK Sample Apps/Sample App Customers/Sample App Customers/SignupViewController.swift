@@ -29,6 +29,8 @@ import Buy
 
 class SignupViewController: UITableViewController {
 
+    weak var delegate: AuthenticationDelegate?
+    
     @IBOutlet private weak var firstNameField:       UITextField!
     @IBOutlet private weak var lastNameField:        UITextField!
     @IBOutlet private weak var emailField:           UITextField!
@@ -36,11 +38,11 @@ class SignupViewController: UITableViewController {
     @IBOutlet private weak var passwordConfirmField: UITextField!
     @IBOutlet private weak var actionCell:           ActionCell!
     
-    var firstName:       String { return self.firstNameField.text       ?? "" }
-    var lastName:        String { return self.lastNameField.text        ?? "" }
-    var email:           String { return self.emailField.text           ?? "" }
-    var password:        String { return self.passwordField.text        ?? "" }
-    var passwordConfirm: String { return self.passwordConfirmField.text ?? "" }
+    private var firstName:       String { return self.firstNameField.text       ?? "" }
+    private var lastName:        String { return self.lastNameField.text        ?? "" }
+    private var email:           String { return self.emailField.text           ?? "" }
+    private var password:        String { return self.passwordField.text        ?? "" }
+    private var passwordConfirm: String { return self.passwordConfirmField.text ?? "" }
     
     // ----------------------------------
     //  MARK: - View Loading -
@@ -67,10 +69,13 @@ class SignupViewController: UITableViewController {
         BUYClient.sharedClient.createCustomerWithCredentials(credentials) { (customer, token, error) in
             self.actionCell.loading = false
             
-            if let _ = customer {
+            if let customer = customer,
+                let token = token {
                 self.clear()
+                self.delegate?.authenticationDidSucceedForCustomer(customer, withToken: token)
+            } else {
+                self.delegate?.authenticationDidFailWithError(error)
             }
-            print("Customer: \(customer), Token: \(token), Error: \(error)")
         }
     }
     

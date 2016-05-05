@@ -29,12 +29,14 @@ import Buy
 
 class LoginViewController: UITableViewController {
 
+    weak var delegate: AuthenticationDelegate?
+    
     @IBOutlet private weak var emailField:    UITextField!
     @IBOutlet private weak var passwordField: UITextField!
     @IBOutlet private weak var actionCell:    ActionCell!
     
-    var email:    String { return self.emailField.text    ?? "" }
-    var password: String { return self.passwordField.text ?? "" }
+    private var email:    String { return self.emailField.text    ?? "" }
+    private var password: String { return self.passwordField.text ?? "" }
     
     // ----------------------------------
     //  MARK: - View Loading -
@@ -58,10 +60,13 @@ class LoginViewController: UITableViewController {
         BUYClient.sharedClient.loginCustomerWithCredentials(credentials) { (customer, token, error) in
             self.actionCell.loading = false
             
-            if let _ = customer {
+            if let customer = customer,
+                let token = token {
                 self.clear()
+                self.delegate?.authenticationDidSucceedForCustomer(customer, withToken: token)
+            } else {
+                self.delegate?.authenticationDidFailWithError(error)
             }
-            print("Customer: \(customer), Token: \(token), Error: \(error)")
         }
     }
     

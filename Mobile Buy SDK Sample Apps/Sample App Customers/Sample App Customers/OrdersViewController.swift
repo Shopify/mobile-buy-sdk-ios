@@ -33,6 +33,13 @@ class OrdersViewController: UIViewController {
     
     private var orders = [BUYOrder]()
     
+    private let dateFormatter: NSDateFormatter = {
+        let f       = NSDateFormatter()
+        f.dateStyle = .MediumStyle
+        f.timeStyle = .NoStyle
+        return f
+    }()
+    
     // ----------------------------------
     //  MARK: - View Loading -
     //
@@ -51,5 +58,50 @@ class OrdersViewController: UIViewController {
                 print("Could not fetch orders: \(error)")
             }
         }
+    }
+}
+
+// ----------------------------------
+//  MARK: - UITableViewDataSource -
+//
+extension OrdersViewController: UITableViewDataSource {
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return self.orders.count
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.orders[section].lineItems.count
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let order = self.orders[section]
+        return "\(self.dateFormatter.stringFromDate(order.processedAt)) - \(order.name)"
+    }
+    
+    func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        let order = self.orders[section]
+        return "Order total: $\(order.totalPrice) \(order.currency)"
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! LineItemCell
+        let lineItem = self.orders[indexPath.section].lineItems[indexPath.row]
+        
+        cell.setLineItem(lineItem)
+        
+        return cell
+    }
+}
+
+// ----------------------------------
+//  MARK: - BUYOrder -
+//
+extension BUYOrder {
+    
+    var lineItems: [BUYLineItem] {
+        var items = self.fulfilledLineItems
+        items.appendContentsOf(self.unfulfilledLineItems)
+        return items
     }
 }

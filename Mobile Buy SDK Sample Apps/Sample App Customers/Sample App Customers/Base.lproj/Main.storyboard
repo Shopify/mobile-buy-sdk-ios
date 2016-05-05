@@ -219,7 +219,7 @@
         <!--Orders-->
         <scene sceneID="Kny-Kh-xPd">
             <objects>
-                <viewController id="gsn-tk-U20" customClass="OrdersViewController" customModule="Sample_App_Customers" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ordersViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gsn-tk-U20" customClass="OrdersViewController" customModule="Sample_App_Customers" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="A7z-xl-YN2"/>
                         <viewControllerLayoutGuide type="bottom" id="61m-HD-4Dc"/>
@@ -228,9 +228,53 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0Fn-mj-l5t">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="70" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="0Fn-mj-l5t">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="70" id="6md-wi-AGU" customClass="LineItemCell" customModule="Sample_App_Customers" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="114" width="600" height="70"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6md-wi-AGU" id="vsD-MK-pMi">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="69"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cool Shoes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yKe-Oz-Zb0">
+                                                    <rect key="frame" x="15" y="15" width="88" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Model B Shoe with red laces" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iif-N0-Vdu">
+                                                    <rect key="frame" x="15" y="36" width="183" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="755" verticalCompressionResistancePriority="755" text="$843.84" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tc7-8s-fgw">
+                                                    <rect key="frame" x="518" y="24" width="67" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.39108031988143921" green="0.71921610832214355" blue="0.21925181150436401" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="iif-N0-Vdu" firstAttribute="top" secondItem="yKe-Oz-Zb0" secondAttribute="bottom" id="2TM-j7-I0x"/>
+                                                <constraint firstItem="tc7-8s-fgw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yKe-Oz-Zb0" secondAttribute="trailing" constant="15" id="HtJ-bo-lzd"/>
+                                                <constraint firstAttribute="trailing" secondItem="tc7-8s-fgw" secondAttribute="trailing" constant="15" id="QkA-Ok-IlL"/>
+                                                <constraint firstItem="tc7-8s-fgw" firstAttribute="centerY" secondItem="vsD-MK-pMi" secondAttribute="centerY" id="Rzi-Md-fU4"/>
+                                                <constraint firstItem="yKe-Oz-Zb0" firstAttribute="centerY" secondItem="vsD-MK-pMi" secondAttribute="centerY" constant="-9" id="Xd9-l2-t22"/>
+                                                <constraint firstItem="tc7-8s-fgw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iif-N0-Vdu" secondAttribute="trailing" constant="15" id="s76-v4-jWb"/>
+                                                <constraint firstItem="iif-N0-Vdu" firstAttribute="leading" secondItem="yKe-Oz-Zb0" secondAttribute="leading" id="wXD-0W-DDz"/>
+                                                <constraint firstItem="yKe-Oz-Zb0" firstAttribute="leading" secondItem="vsD-MK-pMi" secondAttribute="leadingMargin" constant="7" id="ysW-l5-ayq"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="priceLabel" destination="tc7-8s-fgw" id="Icp-Z6-TGU"/>
+                                            <outlet property="subtitleLabel" destination="iif-N0-Vdu" id="5ap-bO-jbP"/>
+                                            <outlet property="titleLabel" destination="yKe-Oz-Zb0" id="CXd-S3-dnM"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="gsn-tk-U20" id="I04-cV-mh5"/>
                                     <outlet property="delegate" destination="gsn-tk-U20" id="nwo-WG-rYn"/>
