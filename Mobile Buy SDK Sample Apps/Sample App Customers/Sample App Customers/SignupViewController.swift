@@ -57,6 +57,8 @@ class SignupViewController: UITableViewController {
     //  MARK: - Actions -
     //
     private func createUser() {
+        guard !self.actionCell.loading else { return }
+        
         let credentials = BUYAccountCredentials(items: [
             BUYAccountCredentialItem(firstName: self.firstName),
             BUYAccountCredentialItem(lastName: self.lastName),

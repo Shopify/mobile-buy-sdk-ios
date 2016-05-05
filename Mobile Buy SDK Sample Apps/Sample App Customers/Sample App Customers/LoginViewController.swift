@@ -51,6 +51,8 @@ class LoginViewController: UITableViewController {
     //  MARK: - Actions -
     //
     private func loginUser() {
+        guard !self.actionCell.loading else { return }
+        
         let credentials  = BUYAccountCredentials(items: [
             BUYAccountCredentialItem(email: self.email),
             BUYAccountCredentialItem(password: self.password),

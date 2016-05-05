@@ -85,6 +85,6 @@ extension AccountViewController: AuthenticationDelegate {
     }
     
     func authenticationDidFailWithError(error: NSError?) {
-        print("Failed to authenticate customer: \(error)")
+        UIAlertView(title: "Error", message: error?.localizedDescription, delegate: nil, cancelButtonTitle: "OK").show()
     }
 }
