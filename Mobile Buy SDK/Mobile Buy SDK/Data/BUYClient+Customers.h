@@ -25,6 +25,7 @@
 //
 
 #import "BUYClient.h"
+NS_ASSUME_NONNULL_BEGIN
 
 @class BUYCustomer;
 @class BUYOrder;
@@ -36,7 +37,7 @@
  *  @param customer A BUYCustomer
  *  @param error    An optional NSError
  */
-typedef void (^BUYDataCustomerBlock)(BUYCustomer *customer, NSError *error);
+typedef void (^BUYDataCustomerBlock)(BUYCustomer * _Nullable customer, NSError * _Nullable error);
 
 /**
  *  Return block containing a customer auth token
@@ -45,7 +46,7 @@ typedef void (^BUYDataCustomerBlock)(BUYCustomer *customer, NSError *error);
  *  @param token    An authentication token to retrieve the customer later.  Store this token securely on the device.
  *  @param error    An optional NSError
  */
-typedef void (^BUYDataCustomerTokenBlock)(BUYCustomer *customer, NSString *token, NSError *error);
+typedef void (^BUYDataCustomerTokenBlock)(BUYCustomer * _Nullable customer, NSString * _Nullable token, NSError * _Nullable error);
 
 /**
  *  Return block containing a customer auth token
@@ -53,7 +54,7 @@ typedef void (^BUYDataCustomerTokenBlock)(BUYCustomer *customer, NSString *token
  *  @param token    An authentication token to retrieve the customer later.  Store this token securely on the device.
  *  @param error    An optional NSError
  */
-typedef void (^BUYDataTokenBlock)(NSString *token, NSError *error);
+typedef void (^BUYDataTokenBlock)(NSString * _Nullable token, NSError * _Nullable error);
 
 /**
  *  Return block containing an array of BUYOrders
@@ -61,7 +62,7 @@ typedef void (^BUYDataTokenBlock)(NSString *token, NSError *error);
  *  @param orders An array of BUYOrders
  *  @param error  An optional NSError
  */
-typedef void (^BUYDataOrdersBlock)(NSArray <BUYOrder*> *orders, NSError *error);
+typedef void (^BUYDataOrdersBlock)(NSArray <BUYOrder*> * _Nullable orders, NSError * _Nullable error);
 
 
 @interface BUYClient (Customers)
@@ -163,3 +164,5 @@ typedef void (^BUYDataOrdersBlock)(NSArray <BUYOrder*> *orders, NSError *error);
 - (NSURLSessionDataTask *)getOrdersForCustomerWithCallback:(BUYDataOrdersBlock)block;
 
 @end
+
+NS_ASSUME_NONNULL_END
