@@ -290,7 +290,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Orders" id="QJf-qx-qvw">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="Iio-Wf-I5q"/>
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="Iio-Wf-I5q">
+                            <connections>
+                                <action selector="logoutAction:" destination="gsn-tk-U20" id="7BT-DV-iXS"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="0Fn-mj-l5t" id="ZFj-eI-hKE"/>

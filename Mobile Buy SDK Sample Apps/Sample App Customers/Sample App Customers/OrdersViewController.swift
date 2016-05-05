@@ -59,6 +59,13 @@ class OrdersViewController: UIViewController {
             }
         }
     }
+    
+    // ----------------------------------
+    //  MARK: - UI Actions -
+    //
+    @IBAction func logoutAction(sender: AnyObject) {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
 }
 
 // ----------------------------------
