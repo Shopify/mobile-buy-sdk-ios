@@ -1,5 +1,5 @@
 //
-//  Buy.h
+//  BUYObserver.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,47 +24,20 @@
 //  THE SOFTWARE.
 //
 
-/**
- *  Umbrella header used for Cocoapods
- */
+#import <Foundation/Foundation.h>
 
-#import "BUYAccountCredentials.h"
-#import "BUYApplePayAdditions.h"
-#import "BUYApplePayHelpers.h"
-#import "BUYAddress.h"
-#import "BUYCart.h"
-#import "BUYCartLineItem.h"
-#import "BUYCheckout.h"
-#import "BUYCheckoutAttribute.h"
-#import "BUYClient+Test.h"
-#import "BUYClient.h"
-#import "BUYClient+Customers.h"
-#import "BUYCollection.h"
-#import "BUYCreditCard.h"
-#import "BUYCustomer.h"
-#import "BUYDiscount.h"
-#import "BUYGiftCard.h"
-#import "BUYImageLink.h"
-#import "BUYLineItem.h"
-#import "BUYMaskedCreditCard.h"
-#import "BUYOption.h"
-#import "BUYOptionValue.h"
-#import "BUYOrder.h"
-#import "BUYProduct.h"
-#import "BUYProductVariant.h"
-#import "BUYShippingRate.h"
-#import "BUYShop.h"
-#import "BUYTaxLine.h"
+@interface BUYObserver : NSObject
 
-#import "BUYError.h"
-#import "BUYManagedObject.h"
-#import "BUYModelManager.h"
-#import "BUYModelManagerProtocol.h"
-#import "BUYObjectProtocol.h"
-#import "BUYObserver.h"
+@property (nonatomic, readonly) NSObject *object;
+@property (nonatomic, readonly) NSArray *observedProperties;
+@property (nonatomic, readonly) NSSet *changedProperties;
+@property (nonatomic, readonly) BOOL hasChanges;
 
-#import "BUYPaymentButton.h"
-#import "BUYProductViewController.h"
-#import "BUYStoreViewController.h"
-#import "BUYTheme.h"
-#import "BUYViewController.h"
+- (instancetype)init NS_UNAVAILABLE;
+- (void)markPropertyChanged:(NSString *)property;
+- (void)reset;
+- (void)cancel;
+
++ (instancetype)observeProperties:(NSArray<NSString *> *)properties ofObject:(id)object;
+
+@end

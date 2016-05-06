@@ -46,11 +46,9 @@
 
 @implementation BUYCheckout
 
-+ (void)initialize
++ (BOOL)tracksDirtyProperties
 {
-	if (self == [BUYCheckout class]) {
-		[self trackDirtyProperties];
-	}
+	return YES;
 }
 
 - (instancetype)initWithCart:(BUYCart *)cart

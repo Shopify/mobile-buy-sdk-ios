@@ -27,7 +27,7 @@
 #import "BUYObject.h"
 
 @class BUYProductVariant;
-@class BUYImage;
+@class BUYImageLink;
 @class BUYOption;
 
 /**
@@ -67,9 +67,9 @@
 @property (nonatomic, readonly, copy) NSArray<BUYProductVariant *> *variants;
 
 /**
- *  A list of BUYImage objects, each one representing an image associated with the product.
+ *  A list of BUYImageLink objects, each one representing an image associated with the product.
  */
-@property (nonatomic, readonly, copy) NSArray<BUYImage *> *images;
+@property (nonatomic, readonly, copy) NSArray<BUYImageLink *> *images;
 
 /**
  *  Custom product property names like "Size", "Color", and "Material".

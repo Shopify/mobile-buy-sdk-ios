@@ -1,5 +1,5 @@
 //
-//  Buy.h
+//  BUYManagedObject.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,47 +24,43 @@
 //  THE SOFTWARE.
 //
 
+#import <CoreData/CoreData.h>
+
+#import <Buy/BUYObject.h>
+
+#if defined CORE_DATA_PERSISTENCE
+
+#define BUYCachedObject BUYManagedObject
+
 /**
- *  Umbrella header used for Cocoapods
+ *  This is the base class for all Shopify persistent model objects.
+ *  This class takes care of convertion .json responses into
+ *  the associated subclass.
+ *
+ *  You will generally not need to interact with this class directly.
  */
 
-#import "BUYAccountCredentials.h"
-#import "BUYApplePayAdditions.h"
-#import "BUYApplePayHelpers.h"
-#import "BUYAddress.h"
-#import "BUYCart.h"
-#import "BUYCartLineItem.h"
-#import "BUYCheckout.h"
-#import "BUYCheckoutAttribute.h"
-#import "BUYClient+Test.h"
-#import "BUYClient.h"
-#import "BUYClient+Customers.h"
-#import "BUYCollection.h"
-#import "BUYCreditCard.h"
-#import "BUYCustomer.h"
-#import "BUYDiscount.h"
-#import "BUYGiftCard.h"
-#import "BUYImageLink.h"
-#import "BUYLineItem.h"
-#import "BUYMaskedCreditCard.h"
-#import "BUYOption.h"
-#import "BUYOptionValue.h"
-#import "BUYOrder.h"
-#import "BUYProduct.h"
-#import "BUYProductVariant.h"
-#import "BUYShippingRate.h"
-#import "BUYShop.h"
-#import "BUYTaxLine.h"
+@interface BUYManagedObject : NSManagedObject<BUYObject>
 
-#import "BUYError.h"
-#import "BUYManagedObject.h"
-#import "BUYModelManager.h"
-#import "BUYModelManagerProtocol.h"
-#import "BUYObjectProtocol.h"
-#import "BUYObserver.h"
+- (nonnull instancetype)init NS_UNAVAILABLE;
 
-#import "BUYPaymentButton.h"
-#import "BUYProductViewController.h"
-#import "BUYStoreViewController.h"
-#import "BUYTheme.h"
-#import "BUYViewController.h"
+@end
+
+#else
+
+#define BUYCachedObject BUYObject
+
+/**
+ * Key-value coding API defined in NSManagedObject which is used by mogenerator generated accessors.
+ * When persistence is not implemented, will/didAccess do nothing; primitive KVC maps to normal KVC.
+ */
+@interface BUYObject (BUYManagedObjectConformance)
+
+- (void)willAccessValueForKey:(nonnull NSString *)key;
+- (void)didAccessValueForKey:(nonnull NSString *)key;
+
+- (nullable id)primitiveValueForKey:(nonnull NSString *)key;
+- (void)setPrimitiveValue:(nullable id)value forKey:(nonnull NSString *)key;
+
+@end
+#endif

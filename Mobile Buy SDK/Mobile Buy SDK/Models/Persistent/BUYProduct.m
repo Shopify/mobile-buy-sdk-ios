@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYImage.h"
+#import "BUYImageLink.h"
 #import "BUYOption.h"
 #import "BUYProduct.h"
 #import "BUYProductVariant.h"
@@ -45,7 +45,7 @@
 	_variants = [BUYProductVariant convertJSONArray:dictionary[@"variants"] block:^(BUYProductVariant *variant) {
 		variant.product = self;
 	}];
-	_images = [BUYImage convertJSONArray:dictionary[@"images"]];
+	_images = [BUYImageLink convertJSONArray:dictionary[@"images"]];
 	_options = [BUYOption convertJSONArray:dictionary[@"options"]];
 	_htmlDescription = [dictionary buy_objectForKey:@"body_html"];
 	_available = [dictionary[@"available"] boolValue];

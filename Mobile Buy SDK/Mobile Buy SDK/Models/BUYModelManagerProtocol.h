@@ -26,6 +26,8 @@
 
 #import <CoreData/CoreData.h>
 
+@protocol BUYObject;
+
 /**
  * A protocol for defining an object that can store and retrieve model objects from a data store or other cache.
  */

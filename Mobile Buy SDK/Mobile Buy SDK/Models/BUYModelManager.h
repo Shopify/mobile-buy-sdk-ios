@@ -1,5 +1,5 @@
 //
-//  BUYImage.m
+//  BUYModelManager.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,23 +24,33 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYImage.h"
-#import "NSDateFormatter+BUYAdditions.h"
+#import <Foundation/Foundation.h>
 
-@implementation BUYImage
+#import <Buy/BUYObject.h>
+#import <Buy/BUYModelManagerProtocol.h>
 
-- (void)updateWithDictionary:(NSDictionary *)dictionary
-{
-	[super updateWithDictionary:dictionary];
-	
-	_src = [dictionary[@"src"] copy];
-	_variantIds = [dictionary[@"variant_ids"] copy];
-	_productId = [dictionary[@"product_id"] copy];
-	_position = [dictionary[@"position"] copy];
-	
-	NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForPublications];
-	_createdAtDate = [dateFormatter dateFromString:dictionary[@"created_at"]];
-	_updatedAtDate = [dateFormatter dateFromString:dictionary[@"updated_at"]];
-}
+/**
+ * A basic implementation of the BUYModelManager interface that does no caching. New objects are created using alloc/init.
+ * Provides empty implementations of all the caching methods.
+ */
+@interface BUYModelManager : NSObject<BUYModelManager>
+
+/**
+ * The managed object model describes all the model entities. See the Core Data documentation for more details.
+ */
+@property (nonatomic, strong, readonly) NSManagedObjectModel *model;
+
+/**
+ *
+ *  @param model The Core Data managed object model for your given model. Should be the Buy model.
+ *
+ *  @return A new model manager object.
+ */
+- (instancetype)initWithManagedObjectModel:(NSManagedObjectModel *)model NS_DESIGNATED_INITIALIZER;
+
+/**
+ * Convenience initializer. Instantiates a model using the -mergedModelFromBundles: method and the Buy.framework as the bundle.
+ */
++ (instancetype)modelManager;
 
 @end

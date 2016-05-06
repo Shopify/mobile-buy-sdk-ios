@@ -1,5 +1,5 @@
 //
-//  Buy.h
+//  BUYImageLink.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,47 +24,23 @@
 //  THE SOFTWARE.
 //
 
-/**
- *  Umbrella header used for Cocoapods
- */
-
-#import "BUYAccountCredentials.h"
-#import "BUYApplePayAdditions.h"
-#import "BUYApplePayHelpers.h"
-#import "BUYAddress.h"
-#import "BUYCart.h"
-#import "BUYCartLineItem.h"
-#import "BUYCheckout.h"
-#import "BUYCheckoutAttribute.h"
-#import "BUYClient+Test.h"
-#import "BUYClient.h"
-#import "BUYClient+Customers.h"
-#import "BUYCollection.h"
-#import "BUYCreditCard.h"
-#import "BUYCustomer.h"
-#import "BUYDiscount.h"
-#import "BUYGiftCard.h"
 #import "BUYImageLink.h"
-#import "BUYLineItem.h"
-#import "BUYMaskedCreditCard.h"
-#import "BUYOption.h"
-#import "BUYOptionValue.h"
-#import "BUYOrder.h"
-#import "BUYProduct.h"
-#import "BUYProductVariant.h"
-#import "BUYShippingRate.h"
-#import "BUYShop.h"
-#import "BUYTaxLine.h"
+#import "NSDateFormatter+BUYAdditions.h"
 
-#import "BUYError.h"
-#import "BUYManagedObject.h"
-#import "BUYModelManager.h"
-#import "BUYModelManagerProtocol.h"
-#import "BUYObjectProtocol.h"
-#import "BUYObserver.h"
+@implementation BUYImageLink
 
-#import "BUYPaymentButton.h"
-#import "BUYProductViewController.h"
-#import "BUYStoreViewController.h"
-#import "BUYTheme.h"
-#import "BUYViewController.h"
+- (void)updateWithDictionary:(NSDictionary *)dictionary
+{
+	[super updateWithDictionary:dictionary];
+	
+	_src = [dictionary[@"src"] copy];
+	_variantIds = [dictionary[@"variant_ids"] copy];
+	_productId = [dictionary[@"product_id"] copy];
+	_position = [dictionary[@"position"] copy];
+	
+	NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForPublications];
+	_createdAtDate = [dateFormatter dateFromString:dictionary[@"created_at"]];
+	_updatedAtDate = [dateFormatter dateFromString:dictionary[@"updated_at"]];
+}
+
+@end

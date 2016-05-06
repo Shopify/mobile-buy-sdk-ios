@@ -26,6 +26,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import <Buy/BUYObjectProtocol.h>
+
 /**
  *  This is the base class for all Shopify model objects.
  *  This class takes care of convertion .json responses into
@@ -33,7 +35,7 @@
  *
  *  You will generally not need to interact with this class directly.
  */
-@interface BUYObject : NSObject
+@interface BUYObject : NSObject<BUYObject>
 
 /**
  *  The identifier of any Shopify model object.
@@ -59,6 +61,5 @@
 - (NSSet *)dirtyProperties;
 - (void)markPropertyAsDirty:(NSString *)property;
 - (void)markAsClean;
-+ (void)trackDirtyProperties;
 
 @end

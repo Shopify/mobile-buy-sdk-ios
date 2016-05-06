@@ -1,5 +1,5 @@
 //
-//  BUYImage.h
+//  BUYImageLink.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -29,7 +29,7 @@
 /**
  *  Products are easier to sell if customers can see pictures of them, which is why there are product images.
  */
-@interface BUYImage : BUYObject
+@interface BUYImageLink : BUYObject
 
 /**
  *  Specifies the location of the product image.

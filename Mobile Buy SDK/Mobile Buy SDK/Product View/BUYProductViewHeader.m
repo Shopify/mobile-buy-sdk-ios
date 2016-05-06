@@ -28,7 +28,7 @@
 #import "BUYImageView.h"
 #import "BUYGradientView.h"
 #import "BUYProductImageCollectionViewCell.h"
-#import "BUYImage.h"
+#import "BUYImageLink.h"
 #import "BUYProductVariant.h"
 #import "BUYTheme.h"
 #import "BUYTheme+Additions.h"
@@ -206,7 +206,7 @@
 {
 	[self setNumberOfPages:[images count]];
 	if (CGSizeEqualToSize(self.collectionView.contentSize, CGSizeZero) == NO) {
-		[images enumerateObjectsUsingBlock:^(BUYImage *image, NSUInteger i, BOOL *stop) {
+		[images enumerateObjectsUsingBlock:^(BUYImageLink *image, NSUInteger i, BOOL *stop) {
 			for (NSNumber *variantId in image.variantIds) {
 				if ([variantId isEqualToNumber:productVariant.identifier]) {
 					[self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
