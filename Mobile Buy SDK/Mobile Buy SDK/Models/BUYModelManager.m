@@ -64,7 +64,12 @@ NSString * const BUYPublicationsDateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
 	});
 }
 
-- (instancetype)initWithModel:(NSManagedObjectModel *)model
+- (instancetype)init
+{
+    return [self initWithManagedObjectModel:[NSManagedObjectModel mergedModelFromBundles:@[[NSBundle bundleForClass:[self class]]]]];
+}
+
+- (instancetype)initWithManagedObjectModel:(NSManagedObjectModel *)model
 {
 	self = [super init];
 	if (self) {
@@ -75,7 +80,7 @@ NSString * const BUYPublicationsDateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
 
 + (instancetype)modelManager
 {
-	return [[self alloc] initWithModel:[NSManagedObjectModel mergedModelFromBundles:@[[NSBundle bundleForClass:[BUYObject class]]]]];
+	return [[self alloc] init];
 }
 
 - (NSEntityDescription *)buy_entityWithName:(NSString *)entityName

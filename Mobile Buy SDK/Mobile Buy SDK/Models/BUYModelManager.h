@@ -40,15 +40,13 @@
  */
 @property (nonatomic, strong, readonly) NSManagedObjectModel *model;
 
-- (instancetype)init NS_UNAVAILABLE;
-
 /**
  *
  *  @param model The Core Data managed object model for your given model. Should be the Buy model.
  *
  *  @return A new model manager object.
  */
-- (instancetype)initWithModel:(NSManagedObjectModel *)model NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithManagedObjectModel:(NSManagedObjectModel *)model NS_DESIGNATED_INITIALIZER;
 
 /**
  * Convenience initializer. Instantiates a model using the -mergedModelFromBundles: method and the Buy.framework as the bundle.
