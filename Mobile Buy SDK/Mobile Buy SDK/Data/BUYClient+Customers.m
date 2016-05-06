@@ -159,10 +159,10 @@
 	NSData *data = [NSJSONSerialization dataWithJSONObject:credentials.JSONRepresentation options:0 error:nil];
 	
 	return [self putRequestForURL:components.URL body:data completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		if (json && !error) {
-			BUYAccountCredentialItem *emailItem = [BUYAccountCredentialItem itemWithKey:@"email" value:json[@"customer"][@"email"]];
-			credentials[@"email"] = emailItem;
-			[self loginCustomerWithCredentials:credentials callback:block];
+		NSString *email = json[@"customer"][@"email"];
+		if (email && !error) {
+			BUYAccountCredentialItem *emailItem = [BUYAccountCredentialItem itemWithEmail:email];
+			[self loginCustomerWithCredentials:[credentials credentialsByAddingItems:@[emailItem]] callback:block];
 		}
 		else {
 			block(nil, nil, error);
@@ -176,10 +176,10 @@
 	NSData *data = [NSJSONSerialization dataWithJSONObject:credentials.JSONRepresentation options:0 error:nil];
 	
 	return [self putRequestForURL:components.URL body:data completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		if (json && !error) {
-			BUYAccountCredentialItem *emailItem = [BUYAccountCredentialItem itemWithKey:@"email" value:json[@"customer"][@"email"]];
-			credentials[@"email"] = emailItem;
-			[self loginCustomerWithCredentials:credentials callback:block];
+		NSString *email = json[@"customer"][@"email"];
+		if (email && !error) {
+			BUYAccountCredentialItem *emailItem = [BUYAccountCredentialItem itemWithEmail:email];
+			[self loginCustomerWithCredentials:[credentials credentialsByAddingItems:@[emailItem]] callback:block];
 		}
 		else {
 			block(nil, nil, error);

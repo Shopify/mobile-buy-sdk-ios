@@ -1,5 +1,5 @@
 //
-//  _BUYOrder.h
+//  BUYOrder.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.

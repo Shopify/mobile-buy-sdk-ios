@@ -56,9 +56,9 @@
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
-	BUYAccountCredentialItem *emailItem = [BUYAccountCredentialItem itemWithKey:@"email" value:self.customerEmail];
-	BUYAccountCredentialItem *passwordItem = [BUYAccountCredentialItem itemWithKey:@"password" value:self.customerPassword];
-	BUYAccountCredentialItem *passwordConfItem = [BUYAccountCredentialItem itemWithKey:@"password_confirmation" value:self.customerPassword];
+	BUYAccountCredentialItem *emailItem = [BUYAccountCredentialItem itemWithEmail:self.customerEmail];
+	BUYAccountCredentialItem *passwordItem = [BUYAccountCredentialItem itemWithPassword:self.customerPassword];
+	BUYAccountCredentialItem *passwordConfItem = [BUYAccountCredentialItem itemWithPasswordConfirmation:self.customerPassword];
 	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:@[emailItem, passwordItem, passwordConfItem]];
 	
 	[self.client createCustomerWithCredentials:credentials callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
@@ -93,9 +93,9 @@
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
-	BUYAccountCredentialItem *emailItem = [BUYAccountCredentialItem itemWithKey:@"email" value:@"a"];
-	BUYAccountCredentialItem *passwordItem = [BUYAccountCredentialItem itemWithKey:@"password" value:@"b"];
-	BUYAccountCredentialItem *passwordConfItem = [BUYAccountCredentialItem itemWithKey:@"password_confirmation" value:@"c"];
+	BUYAccountCredentialItem *emailItem = [BUYAccountCredentialItem itemWithEmail:@"a"];
+	BUYAccountCredentialItem *passwordItem = [BUYAccountCredentialItem itemWithPassword:@"b"];
+	BUYAccountCredentialItem *passwordConfItem = [BUYAccountCredentialItem itemWithPasswordConfirmation:@"c"];
 	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:@[emailItem, passwordItem, passwordConfItem]];
 	
 	[self.client createCustomerWithCredentials:credentials callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
@@ -135,8 +135,8 @@
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
-	BUYAccountCredentialItem *emailItem = [BUYAccountCredentialItem itemWithKey:@"email" value:self.customerEmail];
-	BUYAccountCredentialItem *passwordItem = [BUYAccountCredentialItem itemWithKey:@"password" value:self.customerPassword];
+	BUYAccountCredentialItem *emailItem = [BUYAccountCredentialItem itemWithEmail:self.customerEmail];
+	BUYAccountCredentialItem *passwordItem = [BUYAccountCredentialItem itemWithPassword:self.customerPassword];
 	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:@[emailItem, passwordItem]];
 	
 	[self.client loginCustomerWithCredentials:credentials callback:^(BUYCustomer *customer, NSString *token, NSError *error) {

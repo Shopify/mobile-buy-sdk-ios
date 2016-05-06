@@ -399,6 +399,29 @@
 		90F593091B0D5F4C0026B382 /* BUYClientTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592FD1B0D5F4C0026B382 /* BUYClientTest.m */; };
 		90F5930A1B0D5F4C0026B382 /* BUYLineItemTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592FE1B0D5F4C0026B382 /* BUYLineItemTest.m */; };
 		90F5930B1B0D5F4C0026B382 /* BUYObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592FF1B0D5F4C0026B382 /* BUYObjectTests.m */; };
+		9A3B2DC91CD27D5B00BFF49C /* BUYCustomer.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A3B2DC71CD27D5B00BFF49C /* BUYCustomer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9A3B2DCA1CD27D5B00BFF49C /* BUYCustomer.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A3B2DC71CD27D5B00BFF49C /* BUYCustomer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9A3B2DCB1CD27D5B00BFF49C /* BUYCustomer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3B2DC81CD27D5B00BFF49C /* BUYCustomer.m */; };
+		9A3B2DCC1CD27D5B00BFF49C /* BUYCustomer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3B2DC81CD27D5B00BFF49C /* BUYCustomer.m */; };
+		9A3B2DCF1CD2822F00BFF49C /* BUYClient+Customers.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A3B2DCD1CD2822F00BFF49C /* BUYClient+Customers.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9A3B2DD01CD2822F00BFF49C /* BUYClient+Customers.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A3B2DCD1CD2822F00BFF49C /* BUYClient+Customers.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9A3B2DD11CD2822F00BFF49C /* BUYClient+Customers.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3B2DCE1CD2822F00BFF49C /* BUYClient+Customers.m */; };
+		9A3B2DD21CD2822F00BFF49C /* BUYClient+Customers.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3B2DCE1CD2822F00BFF49C /* BUYClient+Customers.m */; };
+		9A3B2DD51CD2829900BFF49C /* BUYAccountCredentials.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A3B2DD31CD2829900BFF49C /* BUYAccountCredentials.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9A3B2DD61CD2829900BFF49C /* BUYAccountCredentials.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A3B2DD31CD2829900BFF49C /* BUYAccountCredentials.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9A3B2DD71CD2829900BFF49C /* BUYAccountCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3B2DD41CD2829900BFF49C /* BUYAccountCredentials.m */; };
+		9A3B2DD81CD2829900BFF49C /* BUYAccountCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3B2DD41CD2829900BFF49C /* BUYAccountCredentials.m */; };
+		9A3B2DDA1CD282DA00BFF49C /* BUYClient_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A3B2DD91CD282DA00BFF49C /* BUYClient_Internal.h */; };
+		9A3B2DDB1CD282DA00BFF49C /* BUYClient_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A3B2DD91CD282DA00BFF49C /* BUYClient_Internal.h */; };
+		9A3B2DDD1CD28D7300BFF49C /* BUYSerializable.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3B2DDC1CD28D6F00BFF49C /* BUYSerializable.m */; };
+		9A3B2DDE1CD28D7300BFF49C /* BUYSerializable.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3B2DDC1CD28D6F00BFF49C /* BUYSerializable.m */; };
+		9A3B2DE01CD28E9900BFF49C /* BUYShopifyErrorCodes.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A3B2DDF1CD28E9900BFF49C /* BUYShopifyErrorCodes.h */; };
+		9A3B2DE11CD28E9900BFF49C /* BUYShopifyErrorCodes.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A3B2DDF1CD28E9900BFF49C /* BUYShopifyErrorCodes.h */; };
+		9A6B03791CDA5D4F0054C26E /* BUYAccountCredentialsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6B03781CDA5D4F0054C26E /* BUYAccountCredentialsTests.m */; };
+		9A9C03431CD9369400AE79BD /* BUYCheckout_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A9C03421CD9369400AE79BD /* BUYCheckout_Private.h */; };
+		9A9C03441CD9369600AE79BD /* BUYCheckout_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A9C03421CD9369400AE79BD /* BUYCheckout_Private.h */; };
+		BE1007951B6038150031CEE7 /* BUYProductVariant+Options.h in Headers */ = {isa = PBXBuildFile; fileRef = BE1007931B6038150031CEE7 /* BUYProductVariant+Options.h */; };
+		BE1007961B6038150031CEE7 /* BUYProductVariant+Options.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1007941B6038150031CEE7 /* BUYProductVariant+Options.m */; };
 		BE10079B1B6165EC0031CEE7 /* BUYOptionValueCell.h in Headers */ = {isa = PBXBuildFile; fileRef = BE1007991B6165EC0031CEE7 /* BUYOptionValueCell.h */; };
 		BE10079C1B6165EC0031CEE7 /* BUYOptionValueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BE10079A1B6165EC0031CEE7 /* BUYOptionValueCell.m */; };
 		BE47340F1B66C4EF00AA721A /* BUYError.h in Headers */ = {isa = PBXBuildFile; fileRef = BE47340D1B66C4EF00AA721A /* BUYError.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -732,6 +755,21 @@
 		90F593001B0D5F4C0026B382 /* BUYTestConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYTestConstants.h; sourceTree = "<group>"; };
 		90FC31A61B50371600AFAB51 /* BUYProductViewHeaderBackgroundImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = BUYProductViewHeaderBackgroundImageView.h; path = "Product View/BUYProductViewHeaderBackgroundImageView.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		90FC31A71B50371600AFAB51 /* BUYProductViewHeaderBackgroundImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BUYProductViewHeaderBackgroundImageView.m; path = "Product View/BUYProductViewHeaderBackgroundImageView.m"; sourceTree = "<group>"; };
+		9A3B2DC71CD27D5B00BFF49C /* BUYCustomer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYCustomer.h; sourceTree = "<group>"; };
+		9A3B2DC81CD27D5B00BFF49C /* BUYCustomer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYCustomer.m; sourceTree = "<group>"; };
+		9A3B2DCD1CD2822F00BFF49C /* BUYClient+Customers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BUYClient+Customers.h"; sourceTree = "<group>"; };
+		9A3B2DCE1CD2822F00BFF49C /* BUYClient+Customers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYClient+Customers.m"; sourceTree = "<group>"; };
+		9A3B2DD31CD2829900BFF49C /* BUYAccountCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYAccountCredentials.h; sourceTree = "<group>"; };
+		9A3B2DD41CD2829900BFF49C /* BUYAccountCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYAccountCredentials.m; sourceTree = "<group>"; };
+		9A3B2DD91CD282DA00BFF49C /* BUYClient_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYClient_Internal.h; sourceTree = "<group>"; };
+		9A3B2DDC1CD28D6F00BFF49C /* BUYSerializable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BUYSerializable.m; sourceTree = "<group>"; };
+		9A3B2DDF1CD28E9900BFF49C /* BUYShopifyErrorCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYShopifyErrorCodes.h; sourceTree = "<group>"; };
+		9A3B2DE81CD2990E00BFF49C /* BUYError+BUYAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BUYError+BUYAdditions.h"; sourceTree = "<group>"; };
+		9A3B2DE91CD2990E00BFF49C /* BUYError+BUYAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYError+BUYAdditions.m"; sourceTree = "<group>"; };
+		9A6B03781CDA5D4F0054C26E /* BUYAccountCredentialsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYAccountCredentialsTests.m; sourceTree = "<group>"; };
+		9A9C03421CD9369400AE79BD /* BUYCheckout_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYCheckout_Private.h; sourceTree = "<group>"; };
+		BE1007931B6038150031CEE7 /* BUYProductVariant+Options.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BUYProductVariant+Options.h"; sourceTree = "<group>"; };
+		BE1007941B6038150031CEE7 /* BUYProductVariant+Options.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYProductVariant+Options.m"; sourceTree = "<group>"; };
 		BE1007991B6165EC0031CEE7 /* BUYOptionValueCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYOptionValueCell.h; sourceTree = "<group>"; };
 		BE10079A1B6165EC0031CEE7 /* BUYOptionValueCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYOptionValueCell.m; sourceTree = "<group>"; };
 		BE1C4DF31AE98FBB00E21624 /* BUYStoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BUYStoreViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -1006,6 +1044,7 @@
 			children = (
 				90F592F91B0D5F4C0026B382 /* BUYApplePayAdditionsTest.m */,
 				8491102E1CCE708900E53B93 /* BUYArrayAdditionsTests.m */,
+				9A6B03781CDA5D4F0054C26E /* BUYAccountCredentialsTests.m */,
 				90F592FA1B0D5F4C0026B382 /* BUYCartTest.m */,
 				90F592FB1B0D5F4C0026B382 /* BUYCheckoutTest.m */,
 				8498DCBF1CDD208200BD12A8 /* BUYClientTest_Customer.m */,
@@ -1825,6 +1864,8 @@
 				849110331CCE708900E53B93 /* BUYStringAdditionsTests.m in Sources */,
 				906CF1B11B8B66AE001F7D5B /* BUYCNPostalAddress.m in Sources */,
 				8498DCD01CDD208200BD12A8 /* TestModel.m in Sources */,
+				84CA59BC1CD1378100B2A956 /* BUYTestModel.xcdatamodeld in Sources */,
+				9A6B03791CDA5D4F0054C26E /* BUYAccountCredentialsTests.m in Sources */,
 				8491103C1CCE731900E53B93 /* BUYURLAdditionsTests.m in Sources */,
 				8491104A1CCEA85C00E53B93 /* BUYObserverTests.m in Sources */,
 				8498DCCB1CDD208200BD12A8 /* BUYCoreDataModelAdditionsTests.m in Sources */,
