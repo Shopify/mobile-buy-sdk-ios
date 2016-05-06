@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      */
     let shopDomain: String = ""
     let apiKey:     String = ""
-    let channedID:  String = ""
+    let appID:      String = ""
     
     private(set) var client: BUYClient!
 
