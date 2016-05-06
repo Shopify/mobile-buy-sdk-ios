@@ -85,6 +85,8 @@ extension AccountViewController: AuthenticationDelegate {
     }
     
     func authenticationDidFailWithError(error: NSError?) {
-        UIAlertView(title: "Error", message: error?.localizedDescription, delegate: nil, cancelButtonTitle: "OK").show()
+        let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
 }

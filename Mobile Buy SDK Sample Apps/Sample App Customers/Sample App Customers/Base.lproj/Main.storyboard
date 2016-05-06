@@ -78,7 +78,7 @@
                     <connections>
                         <outlet property="loginContainerView" destination="KZD-y5-2e3" id="g1r-NW-TfQ"/>
                         <outlet property="signupContainerView" destination="ZAC-pf-9Yj" id="GGw-ff-lV9"/>
-                        <segue destination="gsn-tk-U20" kind="show" id="cw5-XQ-PCc"/>
+                        <segue destination="gsn-tk-U20" kind="show" identifier="ordersSegue" id="cw5-XQ-PCc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="twZ-kb-vHr" userLabel="First Responder" sceneMemberID="firstResponder"/>
