@@ -40,11 +40,11 @@ class AccountViewController: UIViewController {
     //
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segue.identifier {
-        case let login where login == "loginSegue":
+        case .Some("loginSegue"):
             self.loginViewController = segue.destinationViewController as! LoginViewController
             self.loginViewController.delegate = self
             
-        case let signup where signup == "signupSegue":
+        case .Some("signupSegue"):
             self.signupViewController = segue.destinationViewController as! SignupViewController
             self.signupViewController.delegate = self
             
