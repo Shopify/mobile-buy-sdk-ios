@@ -170,7 +170,7 @@
 	static BUYModelManager *modelManager;
 	dispatch_once(&onceToken, ^{
 		NSManagedObjectModel *model = [NSManagedObjectModel mergedModelFromBundles:@[[NSBundle bundleForClass:self]]];
-		modelManager = [[BUYModelManager alloc] initWithModel:model];
+		modelManager = [[BUYModelManager alloc] initWithManagedObjectModel:model];
 	});
 	
 	return modelManager;

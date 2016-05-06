@@ -31,3 +31,7 @@
 - (NSDictionary *)jsonDictionaryForCheckout;
 
 @end
+
+@interface NSDictionary (BUYSerializable) <BUYSerializable>
+
+@end

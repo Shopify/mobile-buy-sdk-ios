@@ -32,6 +32,7 @@ FOUNDATION_EXPORT double BuyVersionNumber;
 //! Project version string for Buy.
 FOUNDATION_EXPORT const unsigned char BuyVersionString[];
 
+#import <Buy/BUYAccountCredentials.h>
 #import <Buy/BUYAddress.h>
 #import <Buy/BUYCart.h>
 #import <Buy/BUYCartLineItem.h>
@@ -39,6 +40,7 @@ FOUNDATION_EXPORT const unsigned char BuyVersionString[];
 #import <Buy/BUYCheckoutAttribute.h>
 #import <Buy/BUYCollection.h>
 #import <Buy/BUYCreditCard.h>
+#import <Buy/BUYCustomer.h>
 #import <Buy/BUYDiscount.h>
 #import <Buy/BUYGiftCard.h>
 #import <Buy/BUYImageLink.h>
@@ -56,12 +58,15 @@ FOUNDATION_EXPORT const unsigned char BuyVersionString[];
 #import <Buy/BUYApplePayAdditions.h>
 #import <Buy/BUYApplePayHelpers.h>
 #import <Buy/BUYClient.h>
+#import <Buy/BUYClient+Customers.h>
 #import <Buy/BUYError.h>
+#import <Buy/BUYError+BUYAdditions.h>
 #import <Buy/BUYManagedObject.h>
 #import <Buy/BUYModelManager.h>
 #import <Buy/BUYModelManagerProtocol.h>
 #import <Buy/BUYObjectProtocol.h>
 #import <Buy/BUYObserver.h>
+#import <Buy/BUYShopifyErrorCodes.h>
 
 #import <Buy/BUYPaymentButton.h>
 #import <Buy/BUYProductViewController.h>

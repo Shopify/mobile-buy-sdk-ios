@@ -67,11 +67,11 @@ static NSString * const BUYDateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
 		[NSValueTransformer setValueTransformer:[[BUYIdentityTransformer alloc] init] forName:BUYIdentityTransformerName];
 		
 		// attribute type transformers
+		[NSValueTransformer setValueTransformer:[[BUYDateTransformer alloc] init] forName:BUYDateTransformerName];
 		[NSValueTransformer setValueTransformer:[[BUYDecimalNumberTransformer alloc] init] forName:BUYDecimalNumberTransformerName];
 		
 		// value type transformers
 		[NSValueTransformer setValueTransformer:[[BUYURLTransformer alloc] init] forName:BUYURLTransformerName];
-		[NSValueTransformer setValueTransformer:[BUYDateTransformer dateTransformerWithFormat:BUYDateFormat] forName:BUYDateTransformerName];
 	});
 	return self.userInfo[BUYJSONValueTransformerUserInfoKey];
 }
@@ -166,21 +166,26 @@ static NSString *JSONValueTransformerNameForAttributeType(NSAttributeType type)
 
 @implementation NSRelationshipDescription (BUYAdditions)
 
+#pragma mark - Helpers
+
 - (NSString *)encodesIdSuffix
 {
 	return (self.isToMany ? @"_ids" : @"_id");
 }
 
-- (BOOL)buy_encodesIdInJSON
-{
-	return [self.JSONPropertyKey hasSuffix:[self encodesIdSuffix]];
-}
-
+// array -> (ordered)set
 - (id)buy_transformArray:(NSArray<id<BUYObject>> *)array
 {
 	return self.isOrdered ? [NSOrderedSet orderedSetWithArray:array] : [NSSet setWithArray:array];
 }
 
+// (ordered)set -> array
+- (NSArray *)buy_arrayForCollection:(id)collection
+{
+	return self.ordered ? [collection array] : [collection allObjects];
+}
+
+// JSON -> model
 - (id)buy_objectForJSON:(id)JSON modelManager:(id<BUYModelManager>)modelManager
 {
 	NSString *entityName = self.destinationEntity.name;
@@ -194,7 +199,18 @@ static NSString *JSONValueTransformerNameForAttributeType(NSAttributeType type)
 	}
 }
 
-- (id)buy_collectionForJSON:(NSArray *)JSON object:(id<BUYObject>)object
+// model -> JSON
+- (id)buy_JSONForObject:(NSObject<BUYObject> *)object
+{
+	id json = nil;
+	if (!self.inverseRelationship || self.inverseRelationship.allowsInverseEncoding) {
+		json = [self.destinationEntity buy_JSONForObject:object];
+	}
+	return json;
+}
+
+// JSON -> (ordered)set (of models)
+- (id)buy_collectionForJSON:(NSArray *)JSON modelManager:(id<BUYModelManager>)modelManager
 {
 	NSString *entityName = self.destinationEntity.name;
 	NSArray<id<BUYObject>> *array;
@@ -203,16 +219,23 @@ static NSString *JSONValueTransformerNameForAttributeType(NSAttributeType type)
 	// Otherwise, let the object context decide how to resolve the objects and update them.
 	// If device caching is not provided, this will return nothing.
 	if (self.encodesIdInJSON) {
-		array = [object.modelManager buy_objectsWithEntityName:entityName identifiers:JSON];
+		array = [modelManager buy_objectsWithEntityName:entityName identifiers:JSON];
 	}
 	else {
-		array = [object.modelManager buy_objectsWithEntityName:entityName JSONArray:JSON];
+		array = [modelManager buy_objectsWithEntityName:entityName JSONArray:JSON];
 	}
 	
 	// Transform the array to the correct container type (`NSSet` or `NSOrderedSet`).
 	return [self buy_transformArray:array];
 }
 
+// (ordered)set (of models) -> JSON
+- (NSArray *)buy_JSONForCollection:(id)collection
+{
+	return [self.destinationEntity buy_JSONForArray:[self buy_arrayForCollection:collection]];
+}
+
+#pragma mark - Property Additions Overrides
 
 - (id)buy_valueForJSON:(id)JSON object:(id<BUYObject>)object
 {
@@ -220,40 +243,19 @@ static NSString *JSONValueTransformerNameForAttributeType(NSAttributeType type)
 	// The logic for decoding JSON is slightly different for to-one and to-many relationships.
 	
 	// NOTE: by default, without a caching system, inverse relationships are not supported.
-	if (JSON && ![JSON isEqual:[NSNull null]]) {
+	id value = nil;
+	if ([JSON buy_isValidObject]) {
 		if (self.isToMany) {
-			return [self buy_collectionForJSON:JSON object:object];
+			value = [self buy_collectionForJSON:JSON modelManager:object.modelManager];
 		}
 		else {
-			return [self buy_objectForJSON:JSON modelManager:object.modelManager];
+			value = [self buy_objectForJSON:JSON modelManager:object.modelManager];
 		}
 	}
-	else {
-		return nil;
-	}
+	return value;
 }
 
 - (id)buy_JSONForValue:(id)value
-{
-	return self.toMany ? [self buy_JSONForCollection:value] : [self buy_JSONForObject:value];
-}
-
-- (NSArray *)buy_JSONForCollection:(id)collection
-{
-	if (self.manyToMany) {
-		return nil;
-	}
-	
-	NSArray *array = [self buy_arrayForCollection:collection];
-	return self.encodesIdInJSON ? [array valueForKey:@"identifier"] : [self.destinationEntity buy_JSONForArray:array];
-}
-
-- (NSArray *)buy_arrayForCollection:(id)collection
-{
-	return self.ordered ? [collection array] : [collection allObjects];
-}
-
-- (id)buy_JSONForObject:(NSObject<BUYObject> *)object
 {
 	// JSON generation for a relationship depends on the rules defined in the model.
 	// The model can explicitly specify using an `id` encoding.
@@ -263,15 +265,24 @@ static NSString *JSONValueTransformerNameForAttributeType(NSAttributeType type)
 	// 2. the inverse relationship is not an ownership relationship
 	//    (this is inferred from the `NSCascadeDeleteRule` used by owning objects)
 	// 3. the relationship is to a "private" entity (not known to the API)
+	id json = nil;
 	if (self.encodesIdInJSON) {
-		return [[object valueForKey:self.name] identifier];
+		json = [value valueForKey:NSStringFromSelector(@selector(identifier))];
 	}
-	else if (!self.inverseRelationship || self.inverseRelationship.allowsInverseEncoding) {
-		return [self.destinationEntity buy_JSONForObject:object];
+	else if (!self.toMany) {
+		json = [self buy_JSONForObject:value];
 	}
-	else {
-		return nil;
+	else if (!self.manyToMany) {
+		json = [self buy_JSONForCollection:value];
 	}
+	return json;
+}
+
+#pragma mark - Properties
+
+- (BOOL)buy_encodesIdInJSON
+{
+	return [self.JSONPropertyKey hasSuffix:[self encodesIdSuffix]];
 }
 
 - (BOOL)buy_isManyToMany
@@ -295,7 +306,7 @@ static NSString *JSONValueTransformerNameForAttributeType(NSAttributeType type)
 	return nil;
 }
 
-- (id)buy_reverseTransformedJSONValue:(id)value
+- (id)buy_JSONForValue:(id)value
 {
 	return nil;
 }
@@ -304,8 +315,6 @@ static NSString *JSONValueTransformerNameForAttributeType(NSAttributeType type)
 
 #pragma mark -
 
-// We could be really clever here and use an algorithm for string transformation
-// but it's not worth it right now.
 @implementation NSObject (BUYValueTransforming)
 
 + (NSString *)buy_JSONValueTransformerName

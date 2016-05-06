@@ -32,6 +32,7 @@
 #import "BUYClientTestBase.h"
 #import <OHHTTPStubs/OHHTTPStubs.h>
 #import "OHHTTPStubsResponse+Helpers.h"
+#import "BUYShopifyErrorCodes.h"
 
 @interface BUYClientTest_Storefront : BUYClientTestBase
 @property (nonatomic, strong) BUYCollection *collection;

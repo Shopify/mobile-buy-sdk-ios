@@ -1,5 +1,5 @@
 //
-//  _BUYCheckout.h
+//  BUYCheckout.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.

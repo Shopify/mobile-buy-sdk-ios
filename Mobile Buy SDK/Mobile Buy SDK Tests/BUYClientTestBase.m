@@ -53,6 +53,9 @@ NSString * const BUYAppId_Placeholder = @"app_id";
 	self.appId = environment[kBUYTestAppId] ?: jsonConfig[kBUYTestAppId];
 	self.merchantId = environment[kBUYTestMerchantId] ?: jsonConfig[kBUYTestMerchantId];
 	
+	self.customerEmail = environment[kBUYTestEmail] ?: jsonConfig[kBUYTestEmail];
+	self.customerPassword = environment[kBUYTestPassword] ?: jsonConfig[kBUYTestPassword];
+	
 	NSDictionary *giftCards = jsonConfig[@"gift_cards"];
 	
 	self.giftCardCode = environment[kBUYTestGiftCardCode11] ?: giftCards[@"valid11"][@"code"];
@@ -67,6 +70,10 @@ NSString * const BUYAppId_Placeholder = @"app_id";
 		NSString *productIdsString = [environment[kBUYTestProductIdsCommaSeparated] stringByReplacingOccurrencesOfString:@" " withString:@""];
 		self.productIds = [productIdsString componentsSeparatedByString:@","];
 	} else {
+		self.variantUntrackedId = jsonConfig[@"variants"][@"variant_untracked_id"];
+		self.variantInventory1Id = jsonConfig[@"variants"][@"variant_inventory1_id"];
+		self.variantSoldOutId = jsonConfig[@"variants"][@"variant_soldout_id"];
+		
 		self.productIds = jsonConfig[@"product_ids"];
 	}
 	

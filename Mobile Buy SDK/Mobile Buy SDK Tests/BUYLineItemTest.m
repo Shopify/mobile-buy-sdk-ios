@@ -78,7 +78,7 @@
 
 - (void)testJsonDictionaryShouldShowAllProperties
 {
-	BUYProductVariant *variant = [[BUYProductVariant alloc] initWithModelManager:[BUYModelManager modelManager] JSONDictionary:@{ @"id" : @5 }];
+	BUYProductVariant *variant = [[BUYProductVariant alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"id" : @5 }];
 	_lineItem = [[BUYLineItem alloc] initWithVariant:variant];
 	_lineItem.quantity = [NSDecimalNumber decimalNumberWithString:@"3"];
 	_lineItem.price = [NSDecimalNumber decimalNumberWithString:@"5.55"];
@@ -93,7 +93,7 @@
 
 - (void)testUpdatingFromJsonShouldUpdateAllValues
 {
-	BUYLineItem *lineItem = [[BUYLineItem alloc] initWithModelManager:[BUYModelManager modelManager] JSONDictionary:@{ @"id" : @"5", @"price" : @"5.99", @"quantity" : @5, @"requires_shipping" : @YES, @"title" : @"banana" }];
+	BUYLineItem *lineItem = [[BUYLineItem alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"id" : @"5", @"price" : @"5.99", @"quantity" : @5, @"requires_shipping" : @YES, @"title" : @"banana" }];
 	XCTAssertEqualObjects(@"5", lineItem.identifier);
 	XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"5.99"], lineItem.price);
 	XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"5"], lineItem.quantity);

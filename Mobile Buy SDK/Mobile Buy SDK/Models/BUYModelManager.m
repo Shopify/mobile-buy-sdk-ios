@@ -55,7 +55,12 @@ NSString * const BUYProductTagsTransformerName = @"BUYProductTags";
 	});
 }
 
-- (instancetype)initWithModel:(NSManagedObjectModel *)model
+- (instancetype)init
+{
+    return [self initWithManagedObjectModel:[NSManagedObjectModel mergedModelFromBundles:@[[NSBundle bundleForClass:[self class]]]]];
+}
+
+- (instancetype)initWithManagedObjectModel:(NSManagedObjectModel *)model
 {
 	self = [super init];
 	if (self) {
@@ -66,7 +71,7 @@ NSString * const BUYProductTagsTransformerName = @"BUYProductTags";
 
 + (instancetype)modelManager
 {
-	return [[self alloc] initWithModel:[NSManagedObjectModel mergedModelFromBundles:@[[NSBundle bundleForClass:[BUYObject class]]]]];
+	return [[self alloc] init];
 }
 
 - (NSEntityDescription *)buy_entityWithName:(NSString *)entityName

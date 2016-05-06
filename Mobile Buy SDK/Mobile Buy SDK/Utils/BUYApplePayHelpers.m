@@ -25,12 +25,14 @@
 //
 
 #import "BUYApplePayHelpers.h"
+#import "BUYAddress.h"
 #import "BUYApplePayAdditions.h"
 #import "BUYClient.h"
 #import "BUYCheckout.h"
 #import "BUYError.h"
 #import "BUYModelManager.h"
 #import "BUYShop.h"
+#import "BUYShopifyErrorCodes.h"
 
 const NSTimeInterval PollDelay = 0.5;
 

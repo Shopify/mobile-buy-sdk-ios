@@ -1,5 +1,5 @@
 //
-//  _BUYAddress.m
+//  BUYAddress.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -42,8 +42,8 @@
 	}
 	
 	return NO;
-}
-
+	}
+	
 - (BOOL)isValidAddressForShippingRates
 {
 	BOOL valid = NO;
@@ -55,7 +55,7 @@
 		
 		valid = YES;
 	}
-	
+
 	return valid;
 }
 

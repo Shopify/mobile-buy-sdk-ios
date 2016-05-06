@@ -25,8 +25,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 #import <Buy/BUYSerializable.h>
+
+@class NSEntityDescription;
 
 @protocol BUYModelManager;
 
