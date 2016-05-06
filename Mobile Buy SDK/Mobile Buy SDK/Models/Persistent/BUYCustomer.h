@@ -28,7 +28,6 @@
 
 @interface BUYCustomer : _BUYCustomer {}
 
-@property (nonatomic, readonly) NSSet *addresses;
 @property (readonly) NSString *fullName;
 
 @end

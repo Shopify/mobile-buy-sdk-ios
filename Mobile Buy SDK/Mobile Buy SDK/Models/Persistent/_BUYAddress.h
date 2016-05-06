@@ -26,9 +26,9 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
 // Make changes to BUYAddress.h instead.
 
-#import "BUYObject.h"
+#import <Buy/BUYManagedObject.h>
 
-#import <Buy/BUYModelManager.h>
+#import "BUYModelManager.h"
 
 extern const struct BUYAddressAttributes {
 	__unsafe_unretained NSString *address1;
@@ -45,9 +45,15 @@ extern const struct BUYAddressAttributes {
 	__unsafe_unretained NSString *zip;
 } BUYAddressAttributes;
 
+extern const struct BUYAddressRelationships {
+	__unsafe_unretained NSString *customer;
+} BUYAddressRelationships;
+
 extern const struct BUYAddressUserInfo {
 	__unsafe_unretained NSString *documentation;
 } BUYAddressUserInfo;
+
+@class BUYCustomer;
 
 @class BUYAddress;
 @interface BUYModelManager (BUYAddressInserting)
@@ -60,8 +66,7 @@ extern const struct BUYAddressUserInfo {
 /**
  * A BUYAddress represents a shipping or billing address on an order. This will be associated with the customer upon completion.
  */
-@interface _BUYAddress : BUYObject
-
+@interface _BUYAddress : BUYCachedObject
 + (NSString *)entityName;
 
 /**
@@ -124,5 +129,49 @@ extern const struct BUYAddressUserInfo {
  */
 @property (nonatomic, strong) NSString* zip;
 
+@property (nonatomic, strong) BUYCustomer *customer;
+
 @end
 
+@interface _BUYAddress (CoreDataGeneratedPrimitiveAccessors)
+
+- (NSString*)primitiveAddress1;
+- (void)setPrimitiveAddress1:(NSString*)value;
+
+- (NSString*)primitiveAddress2;
+- (void)setPrimitiveAddress2:(NSString*)value;
+
+- (NSString*)primitiveCity;
+- (void)setPrimitiveCity:(NSString*)value;
+
+- (NSString*)primitiveCompany;
+- (void)setPrimitiveCompany:(NSString*)value;
+
+- (NSString*)primitiveCountry;
+- (void)setPrimitiveCountry:(NSString*)value;
+
+- (NSString*)primitiveCountryCode;
+- (void)setPrimitiveCountryCode:(NSString*)value;
+
+- (NSString*)primitiveFirstName;
+- (void)setPrimitiveFirstName:(NSString*)value;
+
+- (NSString*)primitiveLastName;
+- (void)setPrimitiveLastName:(NSString*)value;
+
+- (NSString*)primitivePhone;
+- (void)setPrimitivePhone:(NSString*)value;
+
+- (NSString*)primitiveProvince;
+- (void)setPrimitiveProvince:(NSString*)value;
+
+- (NSString*)primitiveProvinceCode;
+- (void)setPrimitiveProvinceCode:(NSString*)value;
+
+- (NSString*)primitiveZip;
+- (void)setPrimitiveZip:(NSString*)value;
+
+- (BUYCustomer *)primitiveCustomer;
+- (void)setPrimitiveCustomer:(BUYCustomer *)value;
+
+@end

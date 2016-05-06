@@ -48,6 +48,11 @@ const struct BUYCustomerAttributes BUYCustomerAttributes = {
 	.verifiedEmail = @"verifiedEmail",
 };
 
+const struct BUYCustomerRelationships BUYCustomerRelationships = {
+	.addresses = @"addresses",
+	.defaultAddres = @"defaultAddres",
+};
+
 @implementation _BUYCustomer
 
 + (NSString *)entityName {
@@ -382,6 +387,23 @@ const struct BUYCustomerAttributes BUYCustomerAttributes = {
 - (void)setVerifiedEmailValue:(BOOL)value_ {
 	[self setVerifiedEmail:@(value_)];
 }
+
+#if defined CORE_DATA_PERSISTENCE
+@dynamic addresses;
+#endif
+
+- (NSMutableSet *)addressesSet {
+	[self willAccessValueForKey:@"addresses"];
+
+	NSMutableSet *result = (NSMutableSet *)[self mutableSetValueForKey:@"addresses"];
+
+	[self didAccessValueForKey:@"addresses"];
+	return result;
+}
+
+#if defined CORE_DATA_PERSISTENCE
+@dynamic defaultAddres;
+#endif
 
 @end
 

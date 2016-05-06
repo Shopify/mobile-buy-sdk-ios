@@ -50,6 +50,14 @@ extern const struct BUYCustomerAttributes {
 	__unsafe_unretained NSString *verifiedEmail;
 } BUYCustomerAttributes;
 
+extern const struct BUYCustomerRelationships {
+	__unsafe_unretained NSString *addresses;
+	__unsafe_unretained NSString *defaultAddres;
+} BUYCustomerRelationships;
+
+@class BUYAddress;
+@class BUYAddress;
+
 @class BUYCustomer;
 @interface BUYModelManager (BUYCustomerInserting)
 - (NSArray<BUYCustomer *> *)allCustomerObjects;
@@ -123,6 +131,15 @@ extern const struct BUYCustomerAttributes {
 - (BOOL)verifiedEmailValue;
 - (void)setVerifiedEmailValue:(BOOL)value_;
 
+@property (nonatomic, strong) NSSet *addresses;
+- (NSMutableSet *)addressesSet;
+
+@property (nonatomic, strong) BUYAddress *defaultAddres;
+
+@end
+
+@interface _BUYCustomer (AddressesCoreDataGeneratedAccessors)
+
 @end
 
 @interface _BUYCustomer (CoreDataGeneratedPrimitiveAccessors)
@@ -177,5 +194,11 @@ extern const struct BUYCustomerAttributes {
 
 - (NSNumber*)primitiveVerifiedEmail;
 - (void)setPrimitiveVerifiedEmail:(NSNumber*)value;
+
+- (NSMutableSet *)primitiveAddresses;
+- (void)setPrimitiveAddresses:(NSMutableSet *)value;
+
+- (BUYAddress *)primitiveDefaultAddres;
+- (void)setPrimitiveDefaultAddres:(BUYAddress *)value;
 
 @end

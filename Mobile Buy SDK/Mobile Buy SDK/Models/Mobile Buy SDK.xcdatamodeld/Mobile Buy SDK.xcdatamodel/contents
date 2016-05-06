@@ -61,6 +61,7 @@
                 <entry key="documentation" value="The zip or postal code of the address."/>
             </userInfo>
         </attribute>
+        <relationship name="customer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Customer" inverseName="addresses" inverseEntity="Customer" syncable="YES"/>
         <userInfo>
             <entry key="documentation" value="A BUYAddress represents a shipping or billing address on an order. This will be associated with the customer upon completion."/>
         </userInfo>
@@ -376,6 +377,8 @@
         <attribute name="totalSpent" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="verifiedEmail" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="addresses" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Address" inverseName="customer" inverseEntity="Address" syncable="YES"/>
+        <relationship name="defaultAddres" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Address" syncable="YES"/>
     </entity>
     <entity name="Discount" representedClassName="BUYDiscount" syncable="YES">
         <attribute name="amount" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
@@ -974,6 +977,7 @@
         <memberEntity name="Shop"/>
         <memberEntity name="LineItem"/>
         <memberEntity name="Order"/>
+        <memberEntity name="Address"/>
     </configuration>
     <configuration name="transient">
         <memberEntity name="Checkout"/>
@@ -982,17 +986,16 @@
         <memberEntity name="Discount"/>
         <memberEntity name="TaxLine"/>
         <memberEntity name="ShippingRate"/>
-        <memberEntity name="Address"/>
         <memberEntity name="CheckoutAttribute"/>
     </configuration>
     <elements>
-        <element name="Address" positionX="126" positionY="521" width="128" height="225"/>
+        <element name="Address" positionX="126" positionY="521" width="128" height="240"/>
         <element name="Cart" positionX="-576" positionY="558" width="128" height="60"/>
         <element name="CartLineItem" positionX="-380" positionY="558" width="128" height="90"/>
         <element name="Checkout" positionX="333" positionY="442" width="128" height="645"/>
         <element name="CheckoutAttribute" positionX="-954" positionY="594" width="128" height="90"/>
         <element name="Collection" positionX="-963" positionY="772" width="128" height="210"/>
-        <element name="Customer" positionX="106" positionY="1263" width="128" height="60"/>
+        <element name="Customer" positionX="106" positionY="1263" width="128" height="330"/>
         <element name="Discount" positionX="126" positionY="877" width="128" height="105"/>
         <element name="GiftCard" positionX="531" positionY="862" width="128" height="135"/>
         <element name="ImageLink" positionX="-1161" positionY="832" width="128" height="165"/>
