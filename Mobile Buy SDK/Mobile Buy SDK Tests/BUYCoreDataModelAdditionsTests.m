@@ -42,7 +42,7 @@ static NSString * const ResearchEntity = @"Researcher";
 static NSString * const RootEntity = @"Root";
 
 @interface NSIndexSet (BUYTestAdditions)
-+ (instancetype)indexSetWithIndexes:(NSArray *)indexes;
++ (instancetype)buy_indexSetWithIndexes:(NSArray *)indexes;
 @end
 
 @interface BUYCoreDataModelAdditionsTests : XCTestCase
@@ -264,7 +264,7 @@ static NSString * const RootEntity = @"Root";
 	dispatch_once(&onceToken, ^{
 		tags = @[@"one", @"two", @"three", @"hot", @"urgent", @"important", @"red", @"green", @"blue", @"animal", @"vegetable", @"mineral", @"fungus"];
 	});
-	return [NSSet setWithArray:[tags objectsAtIndexes:[NSIndexSet indexSetWithIndexes:indexes]]];
+	return [NSSet setWithArray:[tags objectsAtIndexes:[NSIndexSet buy_indexSetWithIndexes:indexes]]];
 }
 
 - (NSDate *)dateWithComponents:(NSDateComponents *)components
@@ -304,7 +304,7 @@ static NSString * const RootEntity = @"Root";
 
 @implementation NSIndexSet (BUYTestAdditions)
 
-+ (instancetype)indexSetWithIndexes:(NSArray *)indexes
++ (instancetype)buy_indexSetWithIndexes:(NSArray *)indexes
 {
 	NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
 	for (NSNumber *index in indexes) {
