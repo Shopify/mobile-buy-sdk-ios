@@ -33,7 +33,8 @@
 
 @implementation BUYOptionValueTests
 
-- (void)testInitWithValidData {
+- (void)testInitWithValidData
+{
 	NSDictionary *json    = [self jsonWithID:@84935 optionID:@749];
 	BUYOptionValue *value = [[BUYOptionValue alloc] initWithDictionary:json];
 	
@@ -44,7 +45,8 @@
 	XCTAssertEqualObjects(value.optionId,   json[@"option_id"]);
 }
 
-- (void)testEqualOptions {
+- (void)testEqualOptions
+{
 	BUYOptionValue *value1 = [self optionValueWithID:@123 optionID:@321];
 	BUYOptionValue *value2 = [self optionValueWithID:@123 optionID:@321];
 	
@@ -53,7 +55,8 @@
 	XCTAssertEqual(value1.hash, value2.hash);
 }
 
-- (void)testIdenticalOptions {
+- (void)testIdenticalOptions
+{
 	BUYOptionValue *value1 = [self optionValueWithID:@123 optionID:@321];
 	BUYOptionValue *value2 = value1;
 	
@@ -62,11 +65,14 @@
 }
 
 #pragma mark - Convenience -
-- (BUYOptionValue *)optionValueWithID:(NSNumber *)identifier optionID:(NSNumber *)optionID {
+
+- (BUYOptionValue *)optionValueWithID:(NSNumber *)identifier optionID:(NSNumber *)optionID
+{
 	return [[BUYOptionValue alloc] initWithDictionary:[self jsonWithID:identifier optionID:optionID]];
 }
 
-- (NSDictionary *)jsonWithID:(NSNumber *)identifier optionID:(NSNumber *)optionID {
+- (NSDictionary *)jsonWithID:(NSNumber *)identifier optionID:(NSNumber *)optionID
+{
 	return @{
 			 @"id"        : @19483,
 			 @"name"      : @"option1",

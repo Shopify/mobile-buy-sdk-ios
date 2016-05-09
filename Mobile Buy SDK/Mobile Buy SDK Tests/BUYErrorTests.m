@@ -33,7 +33,8 @@
 
 @implementation BUYErrorTests
 
-- (void)testInitWithValidData {
+- (void)testInitWithValidData
+{
 	NSDictionary *options = @{
 							  @"option1" : @432,
 							  @"option2" : @"string",
@@ -53,7 +54,8 @@
 	XCTAssertEqualObjects(error.options, json[@"options"]);
 }
 
-- (void)testDescription {
+- (void)testDescription
+{
 	BUYError *error = [[BUYError alloc] initWithKey:@"testKey" json:@{ @"message" : @"some-message" }];
 	XCTAssertEqualObjects(error.description, @"testKey some-message");
 }
