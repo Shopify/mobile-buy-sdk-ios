@@ -146,11 +146,11 @@ We can now use the credentials object to login the customer.
 Creating a customer account is very similar to login flow but requres a little more info in the credentials object.
 ```objc
 NSArray *credentialItems = @[
-								 [BUYAccountCredentialItem itemWithFirstName:@"John"],
-								 [BUYAccountCredentialItem itemWithLastName:@"Smith"],
-								 [BUYAccountCredentialItem itemWithEmail:@"john.smith@gmail.com"],
-								 [BUYAccountCredentialItem itemWithPassword:@"password"],
-								 [BUYAccountCredentialItem itemWithPasswordConfirmation:@"password"],
+							 [BUYAccountCredentialItem itemWithFirstName:@"John"],
+							 [BUYAccountCredentialItem itemWithLastName:@"Smith"],
+							 [BUYAccountCredentialItem itemWithEmail:@"john.smith@gmail.com"],
+							 [BUYAccountCredentialItem itemWithPassword:@"password"],
+							 [BUYAccountCredentialItem itemWithPasswordConfirmation:@"password"],
 							];
 BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:credentialItems];
 ```
