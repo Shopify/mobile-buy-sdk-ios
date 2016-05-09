@@ -1,5 +1,5 @@
 //
-//  _BUYCustomer.m
+//  BUYErrorTests.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,27 +24,40 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYCustomer.h"
+#import <XCTest/XCTest.h>
+#import "BUYError.h"
 
-@implementation BUYCustomer
-
-@synthesize addresses=_addresses;
-
-- (NSString *)fullName
-{
-	if (self.firstName.length > 0 || self.lastName.length > 0) {
-		return [NSString stringWithFormat:@"%@ %@", self.firstName, self.lastName];
-	}
-	return @"";
-}
+@interface BUYErrorTests : XCTestCase
 
 @end
 
-@implementation BUYModelManager (BUYCustomer)
+@implementation BUYErrorTests
 
-- (BUYCustomer *)customerWithJSONDictionary:(NSDictionary *)json
+- (void)testInitWithValidData
 {
-	NSDictionary *customerDictionary = [json objectForKey:@"customer"];
-	return (id)[self buy_objectWithEntityName:[BUYCustomer entityName] JSONDictionary:customerDictionary];
+	NSDictionary *options = @{
+							  @"option1" : @432,
+							  @"option2" : @"string",
+							  };
+	
+	NSDictionary *json = @{
+						   @"code"    : @123,
+						   @"message" : @"someError",
+						   @"options" : options,
+						   };
+	
+	BUYError *error = [[BUYError alloc] initWithKey:@"testKey" json:json];
+	XCTAssertNotNil(error);
+	XCTAssertEqualObjects(error.key,     @"testKey");
+	XCTAssertEqualObjects(error.code,    json[@"code"]);
+	XCTAssertEqualObjects(error.message, json[@"message"]);
+	XCTAssertEqualObjects(error.options, json[@"options"]);
 }
+
+- (void)testDescription
+{
+	BUYError *error = [[BUYError alloc] initWithKey:@"testKey" json:@{ @"message" : @"some-message" }];
+	XCTAssertEqualObjects(error.description, @"testKey some-message");
+}
+
 @end
