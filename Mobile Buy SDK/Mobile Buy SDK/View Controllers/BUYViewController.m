@@ -35,10 +35,7 @@
 #import "BUYApplePayHelpers.h"
 #import "BUYDiscount.h"
 #import "BUYShop.h"
-
-NSString * BUYSafariCallbackURLNotification = @"kBUYSafariCallbackURLNotification";
-NSString * BUYURLKey = @"url";
-
+#import "BUYWebCheckoutPaymentProvider.h"
 
 @interface BUYViewController () <SFSafariViewControllerDelegate>
 

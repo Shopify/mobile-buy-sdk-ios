@@ -57,8 +57,14 @@ FOUNDATION_EXPORT const unsigned char BuyVersionString[];
 
 #import <Buy/BUYApplePayAdditions.h>
 #import <Buy/BUYApplePayHelpers.h>
+#import <Buy/BUYApplePayPaymentProvider.h>
+#import <Buy/BUYPaymentController.h>
+#import <Buy/BUYPaymentProvider.h>
+#import <Buy/BUYWebCheckoutPaymentProvider.h>
+
 #import <Buy/BUYClient.h>
 #import <Buy/BUYClient+Customers.h>
+#import <Buy/BUYClient+Checkout.h>
 #import <Buy/BUYError.h>
 #import <Buy/BUYError+BUYAdditions.h>
 #import <Buy/BUYManagedObject.h>
@@ -75,6 +81,7 @@ FOUNDATION_EXPORT const unsigned char BuyVersionString[];
 #import <Buy/BUYViewController.h>
 
 #import <Buy/NSArray+BUYAdditions.h>
+#import <Buy/NSDate+BUYAdditions.h>
 #import <Buy/NSDateFormatter+BUYAdditions.h>
 #import <Buy/NSDecimalNumber+BUYAdditions.h>
 #import <Buy/NSDictionary+BUYAdditions.h>
