@@ -127,7 +127,7 @@ Consult the [Usage Section](https://docs.shopify.com/mobile-buy-sdk/ios/integrat
 You can allow customers to login with their existing account using the SDK. First, we'll need to create the `BUYAccountCredentials` object used to pass authentication credentials to the server.
 ```objc
 NSArray *credentialItems = @[
-						     [BUYAccountCredentialItem itemWithEmail:@"user@email.com"],
+						     [BUYAccountCredentialItem itemWithEmail:@"john.smith@gmail.com"],
 							 [BUYAccountCredentialItem itemWithPassword:@"password"],
 							];
 BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:credentialItems];
