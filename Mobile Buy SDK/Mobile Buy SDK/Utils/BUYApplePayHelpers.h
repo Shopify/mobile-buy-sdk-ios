@@ -27,6 +27,9 @@
 @import Foundation;
 @import PassKit;
 
+#import <Buy/BUYModelManager.h>
+
+@class BUYAddress;
 @class BUYClient;
 @class BUYCheckout;
 @class BUYShop;
@@ -60,7 +63,7 @@
  *  @param payment    the authorized payment
  *  @param completion completion block thats called after Shopify authorizes the payment
  */
-- (void)updateAndCompleteCheckoutWithPayment:(PKPayment *)payment completion:(void (^)(PKPaymentAuthorizationStatus status))completion DEPRECATED_MSG_ATTRIBUTE("BUYApplePayHelpers now implements PKPaymentAuthorizationViewControllerDelegate instead");
+- (void)updateAndCompleteCheckoutWithPayment:(PKPayment *)payment completion:(void (^)(PKPaymentAuthorizationStatus status))completion NS_DEPRECATED_IOS(8_0, 9_0, "Use `PKPaymentAuthorizationViewControllerDelegate` instead");
 
 /**
  *  Call this method in the PKPaymentAuthorizationViewControllerDelegate `paymentAuthorizationViewController:didSelectShippingMethod:completion`
@@ -68,7 +71,7 @@
  *  @param shippingMethod The selected shipping method
  *  @param completion     the completion block called after shipping method is updated on the checkout
  */
-- (void)updateCheckoutWithShippingMethod:(PKShippingMethod *)shippingMethod completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *methods))completion DEPRECATED_MSG_ATTRIBUTE("BUYApplePayHelpers now implements PKPaymentAuthorizationViewControllerDelegate instead");
+- (void)updateCheckoutWithShippingMethod:(PKShippingMethod *)shippingMethod completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *methods))completion NS_DEPRECATED_IOS(8_0, 9_0, "Use `PKPaymentAuthorizationViewControllerDelegate` instead");
 
 /**
  *  Call this method in the PKPaymentAuthorizationViewControllerDelegate `paymentAuthorizationViewController:didSelectShippingAddress:completion`
@@ -84,7 +87,7 @@
  *  @param contact    The selected contact
  *  @param completion the completion block called after the shipping address is updated on the checkout
  */
-- (void)updateCheckoutWithContact:(PKContact*)contact completion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion DEPRECATED_MSG_ATTRIBUTE("BUYApplePayHelpers now implements PKPaymentAuthorizationViewControllerDelegate instead");
+- (void)updateCheckoutWithContact:(PKContact*)contact completion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion NS_DEPRECATED_IOS(8_0, 9_0, "Use `PKPaymentAuthorizationViewControllerDelegate` instead");
 
 /**
  *  The current checkout
@@ -105,5 +108,27 @@
  *  The shop object
  */
 @property (nonatomic, strong, readonly) BUYShop *shop;
+
+@end
+
+@interface BUYModelManager (ApplePay)
+
+/**
+ *  Creates a BUYAddress from an ABRecordRef
+ *
+ *  @param record ABRecordRef to create a BUYAddress from
+ *
+ *  @return The BUYAddress created from an ABRecordRef
+ */
+- (BUYAddress *)buyAddressWithABRecord:(ABRecordRef)addressRecord NS_DEPRECATED_IOS(8_0, 9_0, "Use the CNContact backed `buyAddressWithContact:` instead");
+
+/**
+ *  Creates a BUYAddress from a PKContact
+ *
+ *  @param contact PKContact to create a BUYAddress from
+ *
+ *  @return The BUYAddress created from a PKContact
+ */
+- (BUYAddress *)buyAddressWithContact:(PKContact *)contact NS_AVAILABLE_IOS(9_0);
 
 @end

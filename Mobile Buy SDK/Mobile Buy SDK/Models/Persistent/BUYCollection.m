@@ -1,5 +1,5 @@
 //
-//  BUYCollection.m
+//  _BUYCollection.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -25,35 +25,64 @@
 //
 
 #import "BUYCollection.h"
-#import "NSDateFormatter+BUYAdditions.h"
-#import "NSURL+BUYAdditions.h"	
-#import "NSDictionary+BUYAdditions.h"
-
-@interface BUYCollection ()
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *htmlDescription;
-@property (nonatomic, strong) NSString *handle;
-@property (nonatomic, assign) BOOL published;
-@property (nonatomic, strong) NSNumber *collectionId;
-@end
+#import "BUYImageLink.h"
+#import "NSString+BUYAdditions.h"
 
 @implementation BUYCollection
+@synthesize stringDescription=_stringDescription;
 
-- (void)updateWithDictionary:(NSDictionary *)dictionary
+- (NSDate *)createdAtDate
 {
-	[super updateWithDictionary:dictionary];
-	
-	_title = dictionary[@"title"];
-	_htmlDescription = dictionary[@"body_html"];
-	_imageURL = [NSURL buy_urlWithString:[dictionary buy_objectForKey:@"image"][@"src"]];
-	_handle = dictionary[@"handle"];
-	_published = [dictionary[@"published"] boolValue];
-	_collectionId = dictionary[@"collection_id"];
-	
-	NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForPublications];
-	_createdAtDate = [dateFormatter dateFromString:dictionary[@"created_at"]];
-	_updatedAtDate = [dateFormatter dateFromString:dictionary[@"updated_at"]];
-	_publishedAtDate = [dateFormatter dateFromString:dictionary[@"published_at"]];
+	return self.createdAt;
+}
+
+- (NSDate *)updatedAtDate
+{
+	return self.updatedAt;
+}
+
+- (NSDate *)publishedAtDate
+{
+	return self.publishedAt;
+}
+
+- (NSURL *)imageURL
+{
+	return self.image.sourceURL;
+}
+
+- (void)updateStringDescription
+{
+	// Force early cache of this value to prevent spooky behaviour
+	_stringDescription = [[self.htmlDescription buy_stringByStrippingHTML] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
+
+- (void)setJSONDictionary:(NSDictionary *)JSONDictionary
+{
+	[super setJSONDictionary:JSONDictionary];
+	[self updateStringDescription];
+}
+
++ (NSString *)sortOrderParameterForCollectionSort:(BUYCollectionSort)sort
+{
+	switch (sort) {
+		case BUYCollectionSortBestSelling:
+			return @"best-selling";
+		case BUYCollectionSortCreatedAscending:
+			return @"created-ascending";
+		case BUYCollectionSortCreatedDescending:
+			return @"created-descending";
+		case BUYCollectionSortPriceAscending:
+			return @"price-ascending";
+		case BUYCollectionSortPriceDescending:
+			return @"price-descending";
+		case BUYCollectionSortTitleAscending:
+			return @"title-ascending";
+		case BUYCollectionSortTitleDescending:
+			return @"title-descending";
+		default:
+			return @"collection-default";
+	}
 }
 
 @end

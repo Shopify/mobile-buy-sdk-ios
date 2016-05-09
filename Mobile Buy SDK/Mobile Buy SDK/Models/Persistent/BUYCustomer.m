@@ -1,5 +1,5 @@
 //
-//  BUYCustomer.m
+//  _BUYCustomer.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -25,10 +25,10 @@
 //
 
 #import "BUYCustomer.h"
-#import "BUYAddress.h"
-#import "NSDateFormatter+BUYAdditions.h"
 
 @implementation BUYCustomer
+
+@synthesize addresses=_addresses;
 
 - (NSString *)fullName
 {
@@ -38,30 +38,13 @@
 	return @"";
 }
 
-- (void)updateWithDictionary:(NSDictionary *)dictionary
-{
-	[super updateWithDictionary:dictionary];
-	
-	NSDateFormatter *formatter = [NSDateFormatter dateFormatterForPublications];
-	
-	_taxExempt           = dictionary[@"tax_exempt"];
-	_verifiedEmail       = dictionary[@"verified_email"];
-	_acceptsMarketing    = dictionary[@"accepts_marketing"];
-	_customerState       = dictionary[@"customer_state"];
-	_email               = dictionary[@"email"];
-	_firstName           = dictionary[@"first_name"];
-	_lastName            = dictionary[@"last_name"];
-	_lastOrderID         = dictionary[@"last_order_id"];
-	_lastOrderName       = dictionary[@"last_order_name"];
-	_multipassIdentifier = dictionary[@"multipass_identifier"];
-	_note                = dictionary[@"note"];
-	_tags                = dictionary[@"tags"];
-	_ordersCount         = dictionary[@"orders_count"];
-	_totalSpent          = dictionary[@"total_spent"];
-	_createdAt           = [formatter dateFromString:dictionary[@"created_at"]];
-	_updatedAt           = [formatter dateFromString:dictionary[@"updated_at"]];
-	_addresses           = [BUYAddress convertJSONArray:dictionary[@"addresses"]];
-	_defaultAddress      = [BUYAddress convertObject:dictionary[@"default_address"]];
-}
+@end
 
+@implementation BUYModelManager (BUYCustomer)
+
+- (BUYCustomer *)customerWithJSONDictionary:(NSDictionary *)json
+{
+	NSDictionary *customerDictionary = [json objectForKey:@"customer"];
+	return (id)[self buy_objectWithEntityName:[BUYCustomer entityName] JSONDictionary:customerDictionary];
+}
 @end

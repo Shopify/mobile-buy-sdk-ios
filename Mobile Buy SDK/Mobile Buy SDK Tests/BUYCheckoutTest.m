@@ -26,12 +26,15 @@
 
 @import UIKit;
 @import XCTest;
+
 #import <Buy/Buy.h>
-#import "BUYCheckout_Private.h"
+#import "BUYCheckout.h"
+
 @interface BUYCheckoutTest : XCTestCase
 @end
 
 @implementation BUYCheckoutTest {
+	BUYModelManager *_modelManager;
 	BUYCheckout *_checkout;
 	BUYCart *_cart;
 	BUYProductVariant *_variant;
@@ -41,27 +44,28 @@
 - (void)setUp
 {
 	[super setUp];
-	_cart = [[BUYCart alloc] init];
-	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
-	_variant = [[BUYProductVariant alloc] initWithDictionary:@{ @"id" : @1 }];
+	_modelManager = [BUYModelManager modelManager];
+	_cart = [_modelManager insertCartWithJSONDictionary:nil];
+	_checkout = [_modelManager checkoutWithCart:_cart];
+	_variant = [[BUYProductVariant alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"id" : @1 }];
 	_discountDictionary = @{ @"code" : @"abcd1234", @"amount" : @"5.00", @"applicable" : @true };
 }
 
 - (void)testOrderStatusDeserializationWithInvalidURL
 {
-	BUYCheckout *checkout = [[BUYCheckout alloc] initWithDictionary:@{ @"order" : @{ @"status_url" : @"NOT REAL" } }];
+	BUYCheckout *checkout = [[BUYCheckout alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"order" : @{ @"status_url" : @"NOT REAL" } }];
 	XCTAssertNil(checkout.order.statusURL);
 }
 
 - (void)testOrderStatusDeserializationWithValidURL
 {
-	BUYCheckout *checkout = [[BUYCheckout alloc] initWithDictionary:@{ @"order" : @{ @"status_url" : @"http://www.shopify.com/" } }];
+	BUYCheckout *checkout = [[BUYCheckout alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"order" : @{ @"status_url" : @"http://www.shopify.com/" } }];
 	XCTAssertNotNil(checkout.order.statusURL);
 }
 
 - (void)testOrderStatusDeserializationWithNoURL
 {
-	BUYCheckout *checkout = [[BUYCheckout alloc] initWithDictionary:@{}];
+	BUYCheckout *checkout = [[BUYCheckout alloc] initWithModelManager:_modelManager JSONDictionary:@{}];
 	XCTAssertNil(checkout.order.statusURL);
 }
 
@@ -73,25 +77,47 @@
 	XCTAssertTrue([checkout isDirty]);
 }
 
+- (void)testCheckoutWithVariant
+{
+	BUYCheckout *checkout = [_modelManager checkoutWithVariant:_variant];
+	XCTAssertNotNil(checkout);
+	XCTAssertGreaterThanOrEqual([checkout.lineItems count], 1);
+	BUYLineItem *lineItem = checkout.lineItems[0];
+	XCTAssertEqual(_variant.identifier, lineItem.variantId);
+}
+
+- (void)testSettingAShippingRateMarksShippingRateIdAsDirty
+{
+	BUYShippingRate *shippingRate = [[BUYShippingRate alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"id" : @"banana" }];
+	XCTAssertNil(_checkout.shippingRate);
+	XCTAssertNil(_checkout.shippingRateId);
+	_checkout.shippingRate = shippingRate;
+	XCTAssertEqualObjects(@"banana", _checkout.shippingRateId);
+	
+	XCTAssertTrue([[_checkout dirtyProperties] containsObject:@"shippingRateId"]);
+}
+
 - (void)testDirtyPropertiesAreReturnedInJSON
 {
-	BUYShippingRate *shippingRate = [[BUYShippingRate alloc] initWithDictionary:@{ @"id" : @"banana" }];
+	BUYShippingRate *shippingRate = [[BUYShippingRate alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"id" : @"banana" }];
 	[_checkout markAsClean];
 	
 	_checkout.shippingRate = shippingRate;
 	_checkout.currency = @"BANANA";
 	NSSet *dirtyProperties = [_checkout dirtyProperties];
 	XCTAssertTrue([dirtyProperties containsObject:@"currency"]);
+	XCTAssertTrue([dirtyProperties containsObject:@"shippingRateId"]);
 	XCTAssertTrue([dirtyProperties containsObject:@"shippingRate"]);
 	
 	NSDictionary *json = [_checkout jsonDictionaryForCheckout];
 	XCTAssertEqualObjects(json[@"checkout"][@"currency"], @"BANANA");
+	XCTAssertEqualObjects(json[@"checkout"][@"shipping_rate_id"], @"banana");
 }
 
 - (void)testRequiresShippingAndIncludesTaxesSerialization
 {
-	_checkout.requiresShipping = YES;
-	_checkout.taxesIncluded = YES;
+	_checkout.requiresShippingValue = YES;
+	_checkout.includesTaxesValue = YES;
 	NSDictionary *jsonDictionary = [_checkout jsonDictionaryForCheckout][@"checkout"];
 	XCTAssertEqualObjects(@YES, jsonDictionary[@"requires_shipping"]);
 	XCTAssertEqualObjects(@YES, jsonDictionary[@"taxes_included"]);
@@ -99,16 +125,16 @@
 
 - (void)testDiscountDeserialization
 {
-	BUYDiscount *discount = [[BUYDiscount alloc] initWithDictionary: _discountDictionary];
+	BUYDiscount *discount = [[BUYDiscount alloc] initWithModelManager:_modelManager JSONDictionary: _discountDictionary];
 	XCTAssertEqualObjects(@"abcd1234", discount.code);
 	XCTAssertEqualObjects(@5.00, discount.amount);
-	XCTAssertEqual(true, discount.applicable);
+	XCTAssertEqual(true, discount.applicableValue);
 }
 
 - (void)testDiscountSerialization
 {
 	NSDictionary *jsonDict = @{ @"code": @"abcd1234" };
-	BUYDiscount *discount = [[BUYDiscount alloc] initWithDictionary:_discountDictionary];
+	BUYDiscount *discount = [[BUYDiscount alloc] initWithModelManager:_modelManager JSONDictionary:_discountDictionary];
 	XCTAssertEqualObjects(jsonDict, [discount jsonDictionaryForCheckout]);
 }
 
@@ -125,21 +151,21 @@
 
 - (void)testEmptyCheckoutsDoNotRequireShipping
 {
-	_checkout = [[BUYCheckout alloc] initWithDictionary:@{}];
+	_checkout = [[BUYCheckout alloc] initWithModelManager:_modelManager JSONDictionary:@{}];
 	XCTAssertFalse([_checkout requiresShipping]);
 }
 
 - (void)testCheckoutsWithoutItemsThatRequireShipping
 {
-	_checkout = [[BUYCheckout alloc] initWithDictionary:@{ @"requires_shipping" : @1 }];
+	_checkout = [[BUYCheckout alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"requires_shipping" : @1 }];
 	XCTAssertTrue([_checkout requiresShipping]);
 }
 
 - (void)testTaxLineDeserialization
 {
-	BUYTaxLine *taxLine = [[BUYTaxLine alloc] initWithDictionary:@{@"price": @"0.29",
-																   @"rate": @"0.13",
-																   @"title": @"HST"}];
+	BUYTaxLine *taxLine = [[BUYTaxLine alloc] initWithModelManager:_modelManager JSONDictionary:@{@"price": @"0.29",
+																								  @"rate": @"0.13",
+																								  @"title": @"HST"}];
 	XCTAssertEqualObjects(@0.29, taxLine.price);
 	XCTAssertEqualObjects(@0.13, taxLine.rate);
 	XCTAssertEqualObjects(@"HST", taxLine.title);

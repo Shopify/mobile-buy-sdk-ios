@@ -33,33 +33,32 @@
 
 @implementation BUYCartTest {
 	BUYCart *_cart;
+	BUYModelManager *_modelManager;
 }
 
 - (void)setUp
 {
 	[super setUp];
-	
-	_cart = [[BUYCart alloc] init];
+	_modelManager = [BUYModelManager modelManager];
+	_cart = [_modelManager insertCartWithJSONDictionary:nil];
+}
+
+- (void)tearDown
+{
+	_cart = nil;
+	_modelManager = nil;
 }
 
 #pragma mark - Serialization Tests
 
-- (void)testJsonDictionaryShouldBeEmptyWhenNothingIsSet
-{
-	NSDictionary *json = [_cart jsonDictionaryForCheckout];
-	XCTAssertNotNil(json);
-	XCTAssertEqual(0, [json count]);
-}
-
 - (void)testCartShouldBeInvalidWhenEmpty
 {
-	BUYCart *cart = [[BUYCart alloc] init];
-	XCTAssertFalse([cart isValid]);
+	XCTAssertFalse([_cart isValid]);
 }
 
 - (void)testAddVariantWillAddALineItem
 {
-	BUYProductVariant *variant = [[BUYProductVariant alloc] initWithDictionary:@{ @"id" : @1 }];
+	BUYProductVariant *variant = [[BUYProductVariant alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"id" : @1 }];
 	[_cart addVariant:variant];
 	XCTAssertEqual([[_cart lineItems] count], 1);
 	XCTAssertEqualObjects([[_cart lineItems][0] variantId], variant.identifier);
@@ -67,10 +66,10 @@
 
 - (void)testAddingTwoDifferentVariantsWillAddDifferentLineItems
 {
-	BUYProductVariant *variant = [[BUYProductVariant alloc] initWithDictionary:@{ @"id" : @1 }];
+	BUYProductVariant *variant = [[BUYProductVariant alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"id" : @1 }];
 	[_cart addVariant:variant];
 	
-	BUYProductVariant *variant2 = [[BUYProductVariant alloc] initWithDictionary:@{ @"id" : @2 }];
+	BUYProductVariant *variant2 = [[BUYProductVariant alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"id" : @2 }];
 	[_cart addVariant:variant2];
 	
 	XCTAssertEqual([[_cart lineItems] count], 2);
@@ -78,7 +77,7 @@
 
 - (void)testAddingAVariantOfTheSameTypeWillNotAddAnotherLineItem
 {
-	BUYProductVariant *variant = [[BUYProductVariant alloc] initWithDictionary:@{ @"id" : @1 }];
+	BUYProductVariant *variant = [[BUYProductVariant alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"id" : @1 }];
 	[_cart addVariant:variant];
 	[_cart addVariant:variant];
 	XCTAssertEqual([[_cart lineItems] count], 1);
@@ -88,7 +87,7 @@
 
 - (void)testRemovingAVariantDecrementsQuantity
 {
-	BUYProductVariant *variant = [[BUYProductVariant alloc] initWithDictionary:@{ @"id" : @1 }];
+	BUYProductVariant *variant = [[BUYProductVariant alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"id" : @1 }];
 	[_cart addVariant:variant];
 	[_cart addVariant:variant];
 	[_cart removeVariant:variant];
@@ -97,7 +96,7 @@
 
 - (void)testRemovingAllVariantsOfASingleTypeRemovesItsLineItem
 {
-	BUYProductVariant *variant = [[BUYProductVariant alloc] initWithDictionary:@{ @"id" : @1 }];
+	BUYProductVariant *variant = [[BUYProductVariant alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"id" : @1 }];
 	[_cart addVariant:variant];
 	[_cart removeVariant:variant];
 	XCTAssertEqual([[_cart lineItems] count], 0);
@@ -105,8 +104,8 @@
 
 - (void)testSetVariantWithQuantity
 {
-	BUYProductVariant *variant = [[BUYProductVariant alloc] initWithDictionary:@{ @"id" : @1 }];
-	BUYProductVariant *variantTwo = [[BUYProductVariant alloc] initWithDictionary:@{ @"id" : @2 }];
+	BUYProductVariant *variant = [[BUYProductVariant alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"id" : @1 }];
+	BUYProductVariant *variantTwo = [[BUYProductVariant alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"id" : @2 }];
 	
 	[_cart setVariant:variant withTotalQuantity:2];
 	XCTAssertEqual([[_cart lineItems] count], 1);

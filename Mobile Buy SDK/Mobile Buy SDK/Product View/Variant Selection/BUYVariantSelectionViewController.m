@@ -28,13 +28,14 @@
 #import "BUYOptionSelectionNavigationController.h"
 #import "BUYOptionSelectionViewController.h"
 #import "BUYPresentationControllerForVariantSelection.h"
-#import "BUYProduct+Options.h"
-#import "BUYProductVariant+Options.h"
+#import "BUYProduct.h"
+#import "BUYProductVariant.h"
 #import "BUYTheme.h"
 #import "BUYTheme+Additions.h"
 #import "BUYVariantSelectionViewController.h"
 #import "BUYVariantOptionBreadCrumbsView.h"
 #import "BUYOption.h"
+#import "BUYOptionValue.h"
 
 @interface BUYVariantSelectionViewController () <BUYOptionSelectionDelegate>
 

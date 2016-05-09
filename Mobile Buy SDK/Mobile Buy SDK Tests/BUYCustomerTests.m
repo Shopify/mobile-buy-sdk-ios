@@ -1,5 +1,5 @@
 //
-//  BUYProduct+Options.h
+//  BUYCustomerTests.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,33 +24,41 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYProduct.h"
 
-@interface BUYProduct (Options)
+#import <XCTest/XCTest.h>
+#import "BUYCustomer.h"
 
-/**
- *  Get the option values available for the given option
- *
- *  @param option the option
- *
- *  @return array of BUYOptionValues
- */
-- (NSArray *)valuesForOption:(BUYOption *)option variants:(NSArray *)variants;
+@interface BUYCustomerTests : XCTestCase
 
-/**
- *  Determine the variant given an array of options
- *
- *  @param options array of option values
- *
- *  @return the product variant matching the set of options
- */
-- (BUYProductVariant *)variantWithOptions:(NSArray *)options;
+@end
 
-/**
- *  Determine if the variant is a default variant automatically created by Shopify
- *
- *  @return YES if its a default variant
- */
-- (BOOL)isDefaultVariant;
+@implementation BUYCustomerTests
+
+- (BUYCustomer *)createTestCustomer
+{
+	BUYCustomer *customer = [BUYCustomer new];
+	customer.firstName = @"Brent";
+	customer.lastName = @"Gulanowski";
+	return customer;
+}
+
+- (void)testFullName
+{
+	BUYCustomer *customer = [self createTestCustomer];
+	XCTAssertEqualObjects(customer.fullName, @"Brent Gulanowski");
+}
+
+- (void)testJSONRepresentation
+{
+	BUYModelManager *modelManager = [BUYModelManager modelManager];
+	NSDictionary *JSON = @{  @"customer": @{
+							   @"first_name": @"Brent",
+							   @"last_name": @"Gulanowski"
+							   }};
+	BUYCustomer *jsonCustomer = [modelManager customerWithJSONDictionary:JSON];
+	NSDictionary *actualJSON = jsonCustomer.JSONDictionary;
+	
+	XCTAssertEqualObjects(JSON[@"customer"], actualJSON);
+}
 
 @end

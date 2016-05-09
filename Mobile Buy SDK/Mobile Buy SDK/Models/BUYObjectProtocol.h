@@ -25,6 +25,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Buy/BUYSerializable.h>
 
 @class NSEntityDescription;
 
@@ -34,7 +35,7 @@
  * The BUYObject protocol is adopted by the common superclasses of both persistent and transient model classes.
  *
  */
-@protocol BUYObject <NSObject>
+@protocol BUYObject <BUYSerializable>
 
 @property (nonatomic, readonly, weak) id<BUYModelManager> modelManager;
 

@@ -29,8 +29,7 @@
 
 #import <Buy/Buy.h>
 #import "BUYTestConstants.h"
-#import "BUYAddress+Additions.h"
-#import "BUYCheckout_Private.h"
+#import "BUYCheckout.h"
 #import "BUYClientTestBase.h"
 #import <OHHTTPStubs/OHHTTPStubs.h>
 #import "OHHTTPStubsResponse+Helpers.h"
@@ -40,6 +39,8 @@
 
 @implementation BUYIntegrationTest {
 	
+	BUYModelManager *_modelManager;
+
 	NSMutableArray *_products;
 	
 	BUYCart *_cart;
@@ -52,6 +53,7 @@
 {
 	[super setUp];
 	
+	_modelManager = [BUYModelManager modelManager];
 	_products = [[NSMutableArray alloc] init];
 	
 	[self fetchProducts];
@@ -87,12 +89,12 @@
 		XCTAssertNil(error);
 	}];
 	
-	NSLog(@"Fetched products (count: %ld", _products.count);
+	NSLog(@"Fetched products (count: %tu", _products.count);
 }
 
 - (void)createCart
 {
-	_cart = [[BUYCart alloc] init];
+	_cart = [_modelManager insertCartWithJSONDictionary:nil];
 	for (BUYProduct *product in _products) {
 		[_cart addVariant:product.variants[0]];
 	}
@@ -132,20 +134,22 @@
 		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_1"];
 	}];
 	
+	[self createCart];
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 
 	NSString *note = @"Order note";
 	_checkout.note = note;
-	NSArray *attributes = @[ [[BUYCheckoutAttribute alloc] initWithDictionary:@{ @"name" : @"attribute1", @"value" : @"value1" }], [[BUYCheckoutAttribute alloc] initWithDictionary:@{ @"name" : @"attribute2", @"value" : @"value2" }] ];
-	_checkout.attributes = attributes;
-	
+	NSArray *attributes = @[ [[BUYCheckoutAttribute alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"name" : @"attribute1", @"value" : @"value1" }],
+							 [[BUYCheckoutAttribute alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"name" : @"attribute2", @"value" : @"value2" }] ];
+	_checkout.attributes = [NSSet setWithArray:attributes];
+	 
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
 		
 		XCTAssertEqualObjects(returnedCheckout.note, note);
-		XCTAssertEqualObjects(returnedCheckout.attributes, attributes);
+		XCTAssertEqualObjects(returnedCheckout.attributes, _checkout.attributes);
 		
 		_checkout = returnedCheckout;
 		[expectation fulfill];
@@ -509,7 +513,7 @@
 		return [OHHTTPStubsResponse responseWithKey:@"testRemovingInvalidGiftCardFromCheckout_2"];
 	}];
 	
-	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:@{ @"id" : @"000" }];
+	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"id" : @"000" }];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client removeGiftCard:giftCard fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		XCTAssertNotNil(error);
@@ -537,7 +541,7 @@
 		return [OHHTTPStubsResponse responseWithKey:@"testRemovingExpiredGiftCardFromCheckout_2"];
 	}];
 	
-	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:@{ @"id" : self.giftCardIdExpired }];
+	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"id" : self.giftCardIdExpired }];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client removeGiftCard:giftCard fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		XCTAssertNotNil(error);
@@ -998,7 +1002,7 @@
 	_checkout.shippingAddress = [self partialShippingAddress];
 
 	if ([_checkout.shippingAddress isPartialAddress]) {
-		_checkout.partialAddresses = YES;
+		_checkout.partialAddressesValue = YES;
 	}
 	
 	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
@@ -1181,7 +1185,7 @@
 
 - (BUYAddress *)billingAddress
 {
-	BUYAddress *address = [[BUYAddress alloc] init];
+	BUYAddress *address = [_modelManager insertAddressWithJSONDictionary:nil];
 	address.address1 = @"150 Elgin Street";
 	address.address2 = @"8th Floor";
 	address.city = @"Ottawa";
@@ -1197,7 +1201,7 @@
 
 - (BUYAddress *)shippingAddress
 {
-	BUYAddress *address = [[BUYAddress alloc] init];
+	BUYAddress *address = [_modelManager insertAddressWithJSONDictionary:nil];
 	address.address1 = @"150 Elgin Street";
 	address.address2 = @"8th Floor";
 	address.city = @"Ottawa";
@@ -1213,7 +1217,7 @@
 
 - (BUYAddress *)partialShippingAddress
 {
-	BUYAddress *address = [[BUYAddress alloc] init];
+	BUYAddress *address = [_modelManager insertAddressWithJSONDictionary:nil];
 	address.address1 = nil;
 	address.city = @"Ottawa";
 	address.firstName = nil;
@@ -1227,20 +1231,17 @@
 
 - (BUYDiscount *)applicableDiscount
 {
-	BUYDiscount *discount = [[BUYDiscount alloc] initWithCode:self.discountCodeValid];
-	return discount;
+	return [_modelManager discountWithCode:self.discountCodeValid];
 }
 
 - (BUYDiscount *)inapplicableDiscount
 {
-	BUYDiscount *discount = [[BUYDiscount alloc] initWithCode:self.discountCodeExpired];
-	return discount;
+	return [_modelManager discountWithCode:self.discountCodeExpired];
 }
 
 - (BUYDiscount *)nonExistentDiscount
 {
-	BUYDiscount *discount = [[BUYDiscount alloc] initWithCode:@"asdfasdfasdfasdf"];
-	return discount;
+	return [_modelManager discountWithCode:@"asdfasdfasdfasdf"];
 }
 
 - (void)testExpiringCheckout
@@ -1248,6 +1249,8 @@
 	[self createCart];
 	[self createCheckout];
 	XCTAssertGreaterThanOrEqual([_checkout.lineItems count], 1);
+	XCTAssertNotNil(_checkout.reservationTime);
+	XCTAssertTrue([_checkout.reservationTime isKindOfClass:[NSNumber class]]);
 	XCTAssertEqual(300, _checkout.reservationTime.intValue);
 	
 	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {

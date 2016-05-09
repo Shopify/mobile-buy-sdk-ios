@@ -1,5 +1,5 @@
 //
-//  BUYCollection+Additions.m
+//  _BUYCustomer.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,30 +24,16 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYCollection+Additions.h"
+#import <Buy/_BUYCustomer.h>
 
-@implementation BUYCollection (Additions)
+@interface BUYCustomer : _BUYCustomer {}
 
-+(NSString *)sortOrderParameterForCollectionSort:(BUYCollectionSort)sort
-{
-	switch (sort) {
-		case BUYCollectionSortBestSelling:
-			return @"best-selling";
-		case BUYCollectionSortCreatedAscending:
-			return @"created-ascending";
-		case BUYCollectionSortCreatedDescending:
-			return @"created-descending";
-		case BUYCollectionSortPriceAscending:
-			return @"price-ascending";
-		case BUYCollectionSortPriceDescending:
-			return @"price-descending";
-		case BUYCollectionSortTitleAscending:
-			return @"title-ascending";
-		case BUYCollectionSortTitleDescending:
-			return @"title-descending";
-		default:
-			return @"collection-default";
-	}
-}
+@property (readonly) NSString *fullName;
+
+@end
+
+@interface BUYModelManager (BUYCustomer)
+
+- (BUYCustomer *)customerWithJSONDictionary:(NSDictionary *)json;
 
 @end

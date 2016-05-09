@@ -1,5 +1,5 @@
 //
-//  BUYImageLink.m
+//  _BUYImageLink.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -25,22 +25,104 @@
 //
 
 #import "BUYImageLink.h"
-#import "NSDateFormatter+BUYAdditions.h"
+#import "NSString+BUYAdditions.h"
+#import "NSURL+BUYAdditions.h"
 
 @implementation BUYImageLink
 
-- (void)updateWithDictionary:(NSDictionary *)dictionary
+- (NSDate *)createdAtDate
 {
-	[super updateWithDictionary:dictionary];
+	return self.createdAt;
+}
+
+- (NSDate *)updatedAtDate
+{
+	return self.updatedAt;
+}
+
+- (NSString *)src
+{
+    return self.sourceURL.absoluteString;
+}
+
+@end
+
+@implementation BUYImageLink (BUYImageSizing)
+
+- (NSURL *)imageURLWithSize:(BUYImageURLSize)size
+{
+	return [self.sourceURL buy_imageURLWithSize:size];
+}
+
++ (NSString *)keyForImageSize:(BUYImageURLSize)size
+{
+	NSString *sizeKey = nil;
 	
-	_src = [dictionary[@"src"] copy];
-	_variantIds = [dictionary[@"variant_ids"] copy];
-	_productId = [dictionary[@"product_id"] copy];
-	_position = [dictionary[@"position"] copy];
+	switch (size) {
+		case BUYImageURLSize100x100:
+			sizeKey = @"_small";
+			break;
+			
+		case BUYImageURLSize160x160:
+			sizeKey = @"_compact";
+			break;
+			
+		case BUYImageURLSize240x240:
+			sizeKey = @"_medium";
+			break;
+			
+		case BUYImageURLSize480x480:
+			sizeKey = @"_large";
+			break;
+			
+		case BUYImageURLSize600x600:
+			sizeKey = @"_grande";
+			break;
+			
+		case BUYImageURLSize1024x1024:
+			sizeKey = @"_1024x1024";
+			break;
+			
+		case BUYImageURLSize2048x2048:
+			sizeKey = @"_2048x2048";
+			break;
+	}
 	
-	NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForPublications];
-	_createdAtDate = [dateFormatter dateFromString:dictionary[@"created_at"]];
-	_updatedAtDate = [dateFormatter dateFromString:dictionary[@"updated_at"]];
+	return sizeKey;
+}
+
+@end
+
+#pragma mark -
+
+@implementation NSURL (BUYImageSizing)
+
+- (instancetype)buy_imageURLWithSize:(BUYImageURLSize)size
+{
+	return [self buy_URLByAppendingFileBaseNameSuffix:[BUYImageLink keyForImageSize:size]];
+}
+
+@end
+
+#pragma mark -
+
+@implementation UIView (BUYImageSizing)
+
+- (BUYImageURLSize)buy_imageSize
+{
+	CGFloat scale = [[UIScreen mainScreen] scale];
+	CGFloat maxDimension = MAX(CGRectGetHeight(self.bounds), CGRectGetWidth(self.bounds));
+	
+	CGFloat pixelSize = scale * maxDimension;
+	
+	if (pixelSize <= 100.0) return BUYImageURLSize100x100;
+	if (pixelSize <= 160.0) return BUYImageURLSize160x160;
+	if (pixelSize <= 240.0) return BUYImageURLSize240x240;
+	if (pixelSize <= 480.0) return BUYImageURLSize480x480;
+	if (pixelSize <= 600.0) return BUYImageURLSize600x600;
+	if (pixelSize <= 1024.0) return BUYImageURLSize1024x1024;
+	
+	return BUYImageURLSize2048x2048;
 }
 
 @end

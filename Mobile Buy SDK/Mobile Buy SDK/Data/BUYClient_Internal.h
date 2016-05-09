@@ -27,7 +27,7 @@
 #import "BUYClient.h"
 #import "BUYSerializable.h"
 
-static NSString *const kShopifyError = @"shopify";
+extern NSString *const kShopifyError;
 
 @interface BUYClient (Internal)
 

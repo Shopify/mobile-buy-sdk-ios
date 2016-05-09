@@ -1,5 +1,5 @@
 //
-//  BUYProductVariant+Options.m
+//  BUYCollectionTests.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,32 +24,23 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYProductVariant+Options.h"
+#import <XCTest/XCTest.h>
+#import "BUYCollection.h"
+#import "BUYModelManager.h"
 
-@implementation BUYProductVariant (Options)
+@interface BUYCollectionTests : XCTestCase
+@end
 
-- (BUYOptionValue *)optionValueForName:(NSString *)optionName
+@implementation BUYCollectionTests
+
+- (void)testStringDescriptionGetsCreated
 {
-	for (BUYOptionValue *value in self.options) {
-		if ([value.name isEqualToString:optionName]) {
-			return value;
-		}
-	}
+	BUYModelManager *modelManager = [BUYModelManager modelManager];
+	BUYCollection *collection = [modelManager insertCollectionWithJSONDictionary:nil];
+	XCTAssertNil(collection.stringDescription);
 	
-	return nil;
-}
-
-+ (NSArray *)filterProductVariants:(NSArray *)productVariants forOptionValue:(BUYOptionValue *)optionValue
-{
-	NSMutableArray *filteredArray = [NSMutableArray new];
-	for (BUYProductVariant *variant in productVariants) {
-		for (BUYOptionValue *opValue in variant.options) {
-			if ([opValue isEqual:optionValue]) {
-				[filteredArray addObject:variant];
-			}
-		}
-	}
-	return [filteredArray copy];
+	collection.JSONDictionary = @{ @"html_description" : @"<meta>super</meta> duper <b>collection</b>" };
+	XCTAssertEqualObjects(collection.stringDescription, @"super duper collection");
 }
 
 @end

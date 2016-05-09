@@ -32,25 +32,30 @@
 @end
 
 @implementation BUYLineItemTest {
+	BUYProductVariant *_variant;
 	BUYLineItem *_lineItem;
+	BUYModelManager *_modelManager;
 }
 
 - (void)setUp
 {
 	[super setUp];
-	_lineItem = [[BUYLineItem alloc] init];
+
+	_modelManager = [BUYModelManager modelManager];
+	_variant = [[BUYProductVariant alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"id" : @1, @"requires_shipping" : @YES }];
+	_lineItem = [[BUYLineItem alloc] initWithVariant:_variant];
+}
+
+- (void)tearDown
+{
+	_modelManager = nil;
 }
 
 - (void)testInitRespectsVariantShippingFlag
 {
-	XCTAssertFalse([[_lineItem requiresShipping] boolValue]);
-	
-	BUYProductVariant *variant = [[BUYProductVariant alloc] initWithDictionary:@{ @"id" : @1, @"requires_shipping" : @YES }];
-	_lineItem = [[BUYLineItem alloc] initWithVariant:variant];
 	XCTAssertTrue([[_lineItem requiresShipping] boolValue]);
-	
-	BUYLineItem *newLineItem = [[BUYLineItem alloc] initWithVariant:variant];
-	XCTAssertTrue([[newLineItem requiresShipping] boolValue]);
+	_variant.requiresShipping = @NO;
+	XCTAssertTrue([[_lineItem requiresShipping] boolValue]);
 }
 
 #pragma mark - Serialization Tests
@@ -59,13 +64,13 @@
 {
 	NSDictionary *json = [_lineItem jsonDictionaryForCheckout];
 	XCTAssertNotNil(json);
-	XCTAssertEqualObjects([NSDecimalNumber zero], json[@"price"]);
-	XCTAssertEqualObjects([NSDecimalNumber zero], json[@"quantity"]);
+	XCTAssertEqualObjects(@"0", json[@"price"]);
+	XCTAssertEqualObjects(@"1", json[@"quantity"]);
 }
 
 - (void)testJsonDictionaryDoesntIncludeVariantsWithoutIds
 {
-	_lineItem = [[BUYLineItem alloc] initWithVariant:nil];
+	_lineItem = [_modelManager lineItemWithVariant:nil];
 	NSDictionary *json = [_lineItem jsonDictionaryForCheckout];
 	XCTAssertNotNil(json);
 	XCTAssertNil(json[@"variant_id"]);
@@ -73,7 +78,7 @@
 
 - (void)testJsonDictionaryShouldShowAllProperties
 {
-	BUYProductVariant *variant = [[BUYProductVariant alloc] initWithDictionary:@{ @"id" : @5 }];
+	BUYProductVariant *variant = [[BUYProductVariant alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"id" : @5 }];
 	_lineItem = [[BUYLineItem alloc] initWithVariant:variant];
 	_lineItem.quantity = [NSDecimalNumber decimalNumberWithString:@"3"];
 	_lineItem.price = [NSDecimalNumber decimalNumberWithString:@"5.55"];
@@ -81,17 +86,15 @@
 	
 	NSDictionary *json = [_lineItem jsonDictionaryForCheckout];
 	XCTAssertEqualObjects(@5, json[@"variant_id"]);
-	XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"3"], json[@"quantity"]);
-	XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"5.55"], json[@"price"]);
+	XCTAssertEqualObjects(@"3", json[@"quantity"]);
+	XCTAssertEqualObjects(@"5.55", json[@"price"]);
 	XCTAssertEqualObjects(@"banana", json[@"title"]);
 }
 
 - (void)testUpdatingFromJsonShouldUpdateAllValues
 {
-	XCTAssertFalse([[_lineItem requiresShipping] boolValue]);
-	
-	BUYLineItem *lineItem = [[BUYLineItem alloc] initWithDictionary:@{ @"id" : @5, @"price" : @"5.99", @"quantity" : @5, @"requires_shipping" : @YES, @"title" : @"banana" }];
-	XCTAssertEqualObjects(@5, lineItem.lineItemIdentifier);
+	BUYLineItem *lineItem = [[BUYLineItem alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"id" : @"5", @"price" : @"5.99", @"quantity" : @5, @"requires_shipping" : @YES, @"title" : @"banana" }];
+	XCTAssertEqualObjects(@"5", lineItem.identifier);
 	XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"5.99"], lineItem.price);
 	XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"5"], lineItem.quantity);
 	XCTAssertEqualObjects(@"banana", lineItem.title);

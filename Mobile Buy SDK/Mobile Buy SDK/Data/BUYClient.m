@@ -24,21 +24,23 @@
 //  THE SOFTWARE.
 //
 
+#import "BUYClient_Internal.h"
+
 #import "BUYAddress.h"
 #import "BUYCart.h"
 #import "BUYCheckout.h"
-#import "BUYCheckout_Private.h"
 #import "BUYCreditCard.h"
-#import "BUYClient.h"
 #import "BUYCollection.h"
-#import "BUYCollection+Additions.h"
 #import "BUYError.h"
 #import "BUYGiftCard.h"
+#import "BUYModelManager.h"
+#import "BUYOrder.h"
 #import "BUYProduct.h"
 #import "BUYShippingRate.h"
 #import "BUYShop.h"
 #import "BUYShopifyErrorCodes.h"
 #import "NSDecimalNumber+BUYAdditions.h"
+#import "NSDictionary+BUYAdditions.h"
 #import "NSURLComponents+BUYAdditions.h"
 
 #if __has_include(<PassKit/PassKit.h>)
@@ -52,11 +54,12 @@
 #define kDELETE @"DELETE"
 
 #define kJSONType @"application/json"
-#define kShopifyError @"shopify"
 #define kMinSuccessfulStatusCode 200
 #define kMaxSuccessfulStatusCode 299
 
-NSString * const BUYVersionString = @"1.2.6";
+NSString * const BUYVersionString = @"1.3";
+
+NSString *const kShopifyError = @"shopify";
 
 static NSString *const kBUYClientPathProductPublications = @"product_listings";
 static NSString *const kBUYClientPathCollectionPublications = @"collection_listings";
@@ -87,18 +90,19 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	
 	self = [super init];
 	if (self) {
+		self.modelManager = [BUYModelManager modelManager];
 		self.shopDomain = shopDomain;
 		self.apiKey = apiKey;
 		self.appId = appId;
 		self.applicationName = [[NSBundle mainBundle] infoDictionary][@"CFBundleName"] ?: @"";
 		self.queue = dispatch_get_main_queue();
-		self.session = [self createUrlSession];
+		self.session = [self urlSession];
 		self.pageSize = 25;
 	}
 	return self;
 }
 
-- (NSURLSession *)createUrlSession
+- (NSURLSession *)urlSession
 {
 	NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
 	
@@ -128,7 +132,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	return [self getRequestForURL:shopComponents.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		BUYShop *shop = nil;
 		if (json && !error) {
-			shop = [[BUYShop alloc] initWithDictionary:json];
+			shop = [self.modelManager insertShopWithJSONDictionary:json];
 		}
 		block(shop, error);
 	}];
@@ -144,7 +148,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 		
 		NSArray *products = nil;
 		if (json && !error) {
-			products = [BUYProduct convertJSONArray:json[kBUYClientPathProductPublications]];
+			products = [self.modelManager insertProductsWithJSONArray:json[kBUYClientPathProductPublications]];
 		}
 		block(products, page, [self hasReachedEndOfPage:products] || error, error);
 	}];
@@ -173,7 +177,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 		
 		NSArray *products = nil;
 		if (json && !error) {
-			products = [BUYProduct convertJSONArray:json[kBUYClientPathProductPublications]];
+			products = [self.modelManager insertProductsWithJSONArray:json[kBUYClientPathProductPublications]];
 		}
 		if (!error && products.count == 0) {
 			error = [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidProductID userInfo:@{ NSLocalizedDescriptionKey : @"Product IDs are not valid. Confirm the product IDs on your shop's admin and also ensure that the visibility is on for the Mobile App channel." }];
@@ -198,7 +202,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 		
 		NSArray *collections = nil;
 		if (json && !error) {
-			collections = [BUYCollection convertJSONArray:json[kBUYClientPathCollectionPublications]];
+			collections = [self.modelManager buy_objectsWithEntityName:[BUYCollection entityName] JSONArray:json[kBUYClientPathCollectionPublications]];
 		}
 		block(collections, page, [self hasReachedEndOfPage:collections], error);
 	}];
@@ -223,7 +227,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 			
 			NSArray *products = nil;
 			if (json && !error) {
-				products = [BUYProduct convertJSONArray:json[kBUYClientPathProductPublications]];
+				products = [self.modelManager buy_objectsWithEntityName:[BUYProduct entityName] JSONArray:json[kBUYClientPathProductPublications]];
 			}
 			block(products, page, [self hasReachedEndOfPage:products] || error, error);
 		}];
@@ -295,7 +299,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 {
 	BUYCheckout *checkout = nil;
 	if (!error) {
-		checkout = [[BUYCheckout alloc] initWithDictionary:json[@"checkout"]];
+		checkout = [self.modelManager insertCheckoutWithJSONDictionary:json[@"checkout"]];
 	}
 	block(checkout, error);
 }
@@ -305,7 +309,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	checkout.marketingAttribution = @{@"medium": @"iOS", @"source": self.applicationName};
 	checkout.sourceName = @"mobile_app";
 	if (self.urlScheme || checkout.webReturnToURL) {
-		checkout.webReturnToURL = checkout.webReturnToURL ?: self.urlScheme;
+		checkout.webReturnToURL = checkout.webReturnToURL ?: [NSURL URLWithString:self.urlScheme];
 		checkout.webReturnToLabel = checkout.webReturnToLabel ?: [@"Return to " stringByAppendingString:self.applicationName];
 	}
 }
@@ -321,7 +325,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)createCheckoutWithCartToken:(NSString *)cartToken completion:(BUYDataCheckoutBlock)block
 {
-	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCartToken:cartToken];
+	BUYCheckout *checkout = [self.modelManager checkoutwithCartToken:cartToken];
 	[self configureCheckout:checkout];
 	
 	NSDictionary *json = [checkout jsonDictionaryForCheckout];
@@ -352,7 +356,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 		block(nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_NoGiftCardSpecified userInfo:nil]);
 	}
 	else {
-		BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:@{ @"code" : giftCardCode }];
+		BUYGiftCard *giftCard = [self.modelManager giftCardWithCode:giftCardCode];
 		NSURLComponents *components = [self URLComponentsForCheckoutsAppendingPath:@"gift_cards"
 																	 checkoutToken:checkout.token
 																		queryItems:nil];
@@ -393,14 +397,13 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (void)updateCheckout:(BUYCheckout *)checkout withGiftCardDictionary:(NSDictionary *)giftCardDictionary addingGiftCard:(BOOL)addingGiftCard
 {
-	NSMutableArray *giftCardArray = [NSMutableArray arrayWithArray:checkout.giftCards];
-	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithDictionary:giftCardDictionary];
 	if (addingGiftCard) {
-		[giftCardArray addObject:giftCard];
+		BUYGiftCard *giftCard = [self.modelManager insertGiftCardWithJSONDictionary:giftCardDictionary];
+		[checkout.giftCardsSet addObject:giftCard];
 	} else {
-		[giftCardArray removeObject:giftCard];
+		[checkout removeGiftCardWithIdentifier:giftCardDictionary[@"id"]];
 	}
-	checkout.giftCards = [giftCardArray copy];
+	
 	checkout.paymentDue = [NSDecimalNumber buy_decimalNumberFromJSON:giftCardDictionary[@"checkout"][@"payment_due"]];
 
 	// Marking the checkout as clean. The properties we have updated above we don't need to re-sync with Shopify.
@@ -556,7 +559,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 		task = [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			NSArray *shippingRates = nil;
 			if (json && !error) {
-				shippingRates = [BUYShippingRate convertJSONArray:json[@"shipping_rates"]];
+				shippingRates = [self.modelManager insertShippingRatesWithJSONArray:json[@"shipping_rates"]];
 			}
 			
 			NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
@@ -571,7 +574,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 #pragma mark - Payments
 
-- (NSURLSessionDataTask *)storeCreditCard:(id <BUYSerializable>)creditCard checkout:(BUYCheckout *)checkout completion:(BUYDataCreditCardBlock)block
+- (NSURLSessionDataTask *)storeCreditCard:(BUYCreditCard *)creditCard checkout:(BUYCheckout *)checkout completion:(BUYDataCreditCardBlock)block
 {
 	NSURLSessionDataTask *task = nil;
 	

@@ -1,5 +1,5 @@
 //
-//  BUYProductVariant+Options.h
+//  _BUYAddress.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,28 +24,26 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYProductVariant.h"
-#import "BUYOptionValue.h"
+#import <Buy/_BUYAddress.h>
 
-@interface BUYProductVariant (Options)
-
-/**
- *  Returns the option value for the given name
- *
- *  @param optionName name of the option
- *
- *  @return the option value
- */
-- (BUYOptionValue *)optionValueForName:(NSString *)optionName;
+@interface BUYAddress : _BUYAddress {}
 
 /**
- *  Filters array of product variants filtered based on a selected option value
+ *  Check if the address does not include first and last name
+ *  and address1 field. This is used to determine whether a
+ *  placeholder was set for shipping rates calculations in Apple Pay.
  *
- *  @param productVariants BUYProductVariant objects to filter
- *  @param optionValue     The option value to filter with
- *
- *  @return A filtered copy of the original array
+ *  @return True if first name, last name or address1 contain placeholders
  */
-+ (NSArray *)filterProductVariants:(NSArray *)productVariants forOptionValue:(BUYOptionValue *)optionValue;
+- (BOOL)isPartialAddress;
+
+/**
+ *  Local validation to check that the minimum set of properties required
+ *  to calculate shipping rates are available.
+ *
+ *  @return True if city, zip/postal code, province/state and country or
+ *  country code are set.
+ */
+- (BOOL)isValidAddressForShippingRates;
 
 @end

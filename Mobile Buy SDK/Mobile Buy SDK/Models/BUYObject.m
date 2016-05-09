@@ -39,45 +39,6 @@
 
 @implementation BUYObject
 
-#pragma mark - Deprecated
-
-- (instancetype)init
-{
-	return [self initWithDictionary:nil];
-}
-
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary
-{
-	return [self initWithModelManager:nil JSONDictionary:dictionary];
-}
-
-+ (NSArray *)convertJSONArray:(NSArray*)json block:(void (^)(id obj))createdBlock
-{
-	NSMutableArray *objects = [[NSMutableArray alloc] init];
-	for (NSDictionary *jsonObject in json) {
-		BUYObject *obj = [[self alloc] initWithDictionary:jsonObject];
-		[objects addObject:obj];
-		if (createdBlock) {
-			createdBlock(obj);
-		}
-	}
-	return objects;
-}
-
-+ (NSArray *)convertJSONArray:(NSArray*)json
-{
-	return [self convertJSONArray:json block:nil];
-}
-
-+ (instancetype)convertObject:(id)object
-{
-	BUYObject *convertedObject = nil;
-	if (!(object == nil || [object isKindOfClass:[NSNull class]])) {
-		convertedObject = [[self alloc] initWithDictionary:object];
-	}
-	return convertedObject;
-}
-
 #pragma mark - Dirty Property Tracking
 
 - (BOOL)isDirty
@@ -100,23 +61,6 @@
 	[self.dirtyObserver reset];
 }
 
-- (BOOL)isEqual:(id)object
-{
-	if (self == object) return YES;
-	
-	if (![object isKindOfClass:self.class]) return NO;
-	
-	BOOL same = ([self.identifier isEqual:((BUYObject*)object).identifier]);
-	
-	return same;
-}
-
-- (NSUInteger)hash
-{
-	NSUInteger hash = [self.identifier hash];
-	return hash;
-}
-
 - (void)trackDirtyProperties:(NSArray *)properties
 {
 	self.dirtyObserver = [BUYObserver observeProperties:properties ofObject:self];
@@ -124,29 +68,14 @@
 
 #pragma mark - Dynamic JSON Serialization
 
-+ (NSArray *)propertyNames
+- (NSArray *)propertyNames
 {
-	static NSMutableDictionary *namesCache;
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		namesCache = [NSMutableDictionary dictionary];
-	});
-	
-	NSString *className = NSStringFromClass(self);
-	NSArray *names = namesCache[className];
-	if (names == nil) {
-		NSMutableSet *allNames = [class_getBUYProperties(self) mutableCopy];
-		[allNames removeObject:NSStringFromSelector(@selector(dirtyObserver))];
-		names = [allNames allObjects];
-		namesCache[className] = names;
-	}
-	
-	return names;
+	return [self.entity.JSONEncodedProperties allKeys];
 }
 
-+ (NSEntityDescription *)entity
+- (NSEntityDescription *)entity
 {
-	@throw BUYAbstractMethod();
+	return [self.modelManager buy_entityWithName:[[self class] entityName]];
 }
 
 + (NSString *)entityName
@@ -161,21 +90,15 @@
 
 - (instancetype)initWithModelManager:(id<BUYModelManager>)modelManager JSONDictionary:(NSDictionary *)dictionary
 {
-	self = [super init];
+	self = [self init];
 	if (self) {
 		self.modelManager = modelManager;
-		[self updateWithDictionary:dictionary];
+		self.JSONDictionary = dictionary;
 		if ([[self class] tracksDirtyProperties]) {
-			[self trackDirtyProperties:[[self class] propertyNames]];
+			[self trackDirtyProperties:[self propertyNames]];
 		}
 	}
 	return self;
-}
-
-- (void)updateWithDictionary:(NSDictionary *)dictionary
-{
-	_identifier = dictionary[@"id"];
-	[self markAsClean];
 }
 
 - (NSDictionary *)jsonDictionaryForCheckout
@@ -196,11 +119,6 @@
 + (BOOL)tracksDirtyProperties
 {
 	return NO;
-}
-
-- (NSEntityDescription *)entity
-{
-	return [self.modelManager buy_entityWithName:[[self class] entityName]];
 }
 
 - (NSDictionary *)JSONDictionary

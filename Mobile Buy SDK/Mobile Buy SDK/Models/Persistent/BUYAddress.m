@@ -1,5 +1,5 @@
 //
-//  BUYCollection+Additions.h
+//  BUYAddress.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,18 +24,39 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYCollection.h"
-#import "BUYClient.h"
+#import "BUYAddress.h"
 
-@interface BUYCollection (Additions)
+@implementation BUYAddress
 
-/**
- *  Converts the BUYCollectionSort enum to an API-compatible string for the collection sort parameter
- *
- *  @param sort BUYCollectionSort enum
- *
- *  @return API-compatible string for the collection sort parameter
- */
-+(NSString *)sortOrderParameterForCollectionSort:(BUYCollectionSort)sort;
+-(NSString *)countryCode
+{
+	return [[super countryCode] uppercaseString];
+}
+
+- (BOOL)isPartialAddress
+{
+	if (self.address1.length == 0 ||
+		self.firstName.length == 0 ||
+		self.lastName.length == 0) {
+		return YES;
+	}
+	
+	return NO;
+	}
+	
+- (BOOL)isValidAddressForShippingRates
+{
+	BOOL valid = NO;
+	
+	if (self.city.length > 0 &&
+		self.zip.length > 0 &&
+		self.province.length > 0 &&
+		(self.country.length > 0 || self.countryCode.length == 2)) {
+		
+		valid = YES;
+	}
+
+	return valid;
+}
 
 @end

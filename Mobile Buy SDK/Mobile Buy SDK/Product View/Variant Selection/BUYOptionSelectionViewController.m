@@ -25,7 +25,6 @@
 //
 
 #import "BUYImageKit.h"
-#import "BUYProduct+Options.h"
 #import "BUYOptionSelectionViewController.h"
 #import "BUYOptionValue.h"
 #import "BUYOptionValueCell.h"

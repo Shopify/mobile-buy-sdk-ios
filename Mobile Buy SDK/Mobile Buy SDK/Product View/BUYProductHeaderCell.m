@@ -105,7 +105,7 @@
 		self.priceLabel.text = [currencyFormatter stringFromNumber:productVariant.price];
 	}
 	
-	if (productVariant.available == YES && productVariant.compareAtPrice) {
+	if (productVariant.available.boolValue && productVariant.compareAtPrice) {
 		NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:[currencyFormatter stringFromNumber:productVariant.compareAtPrice]
 																			   attributes:@{NSStrikethroughStyleAttributeName: @(NSUnderlineStyleSingle)}];
 		self.comparePriceLabel.attributedText = attributedString;

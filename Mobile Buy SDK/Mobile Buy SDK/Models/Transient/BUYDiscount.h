@@ -1,5 +1,5 @@
 //
-//  BUYDiscount.h
+//  _BUYDiscount.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,36 +24,12 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYObject.h"
-#import "BUYSerializable.h"
+#import <Buy/_BUYDiscount.h>
+#import <Buy/BUYModelManager.h>
 
-/**
- *   BUYDiscount represents a discount that is applied to the BUYCheckout.
- */
-@interface BUYDiscount : BUYObject <BUYSerializable>
+@interface BUYDiscount : _BUYDiscount {}
+@end
 
-/**
- *  The unique identifier for the discount code.
- */
-@property (nonatomic, copy) NSString *code;
-
-/**
- *  The amount that is deducted from `paymentDue` on BUYCheckout.
- */
-@property (nonatomic, strong) NSDecimalNumber *amount;
-
-/**
- *  Whether this discount code can be applied to the checkout.
- */
-@property (nonatomic, assign) BOOL applicable;
-
-/**
- *  Created a BUYDiscount with a code
- *
- *  @param code The discount code
- *
- *  @return BUYDiscount object
- */
-- (instancetype)initWithCode:(NSString *)code;
-
+@interface BUYModelManager (BUYDiscountCreating)
+- (BUYDiscount *)discountWithCode:(NSString *)code;
 @end

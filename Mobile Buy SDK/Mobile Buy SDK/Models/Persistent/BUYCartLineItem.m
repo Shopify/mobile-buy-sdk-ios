@@ -1,5 +1,5 @@
 //
-//  BUYCartLineItem.m
+//  _BUYCartLineItem.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -26,39 +26,81 @@
 
 #import "BUYCartLineItem.h"
 #import "BUYProductVariant.h"
-
-@interface BUYCartLineItem ()
-
-@property (nonatomic, strong) BUYProductVariant *variant;
-
-@end
+#import "BUYModelManager.h"
 
 @implementation BUYCartLineItem
 
-- (instancetype)initWithVariant:(BUYProductVariant *)variant
+#if defined CORE_DATA_PERSISTENCE
+- (void)awakeFromInsert
 {
-	self = [super initWithVariant:variant];
+	self.quantity = [NSDecimalNumber one];
+}
+#else
+- (instancetype)init
+{
+	self = [super init];
 	if (self) {
-		self.variant = variant;
+		self.quantity = [NSDecimalNumber one];
 	}
 	return self;
 }
+#endif
 
-- (BOOL)isEqual:(id)object
++ (NSSet *)keyPathsForValuesAffectingLinePrice
 {
-	if (self == object) return YES;
-	
-	if (![object isKindOfClass:self.class]) return NO;
-	
-	BOOL same = ([self.identifier isEqual:((BUYObject*)object).identifier]) || [self.variantId isEqual:((BUYCartLineItem*)object).variant.identifier];
-
-	return same;
+	NSString *variantPriceKeyPath = [@[BUYCartLineItemRelationships.variant, BUYProductVariantAttributes.price] componentsJoinedByString:@"."];
+	return [NSSet setWithObjects:BUYCartLineItemAttributes.quantity, variantPriceKeyPath, nil];
 }
 
-- (NSUInteger)hash
+- (NSNumber *)variantId
 {
-	NSUInteger hash = [self.identifier hash];
-	return hash;
+	return self.variant.identifier;
+}
+
+- (NSDecimalNumber *)linePrice
+{
+	return [self.quantity decimalNumberByMultiplyingBy:self.variant.price];
+}
+
+- (NSDecimalNumber *)addQuantity:(NSDecimalNumber *)amount
+{
+	NSDecimalNumber *quantity = [self.quantity decimalNumberByAdding:amount];
+	self.quantity = quantity;
+	return quantity;
+}
+
+- (NSDecimalNumber *)subtractQuantity:(NSDecimalNumber *)amount
+{
+	NSDecimalNumber *quantity = self.quantity ?: [NSDecimalNumber zero];
+	if ([quantity compare:amount] == NSOrderedDescending) {
+		quantity = [quantity decimalNumberBySubtracting:amount];
+	}
+	else {
+		quantity = [NSDecimalNumber zero];
+	}
+	self.quantity = quantity;
+	return quantity;
+}
+
+- (NSDecimalNumber *)incrementQuantity
+{
+	return [self addQuantity:[NSDecimalNumber one]];
+}
+
+- (NSDecimalNumber *)decrementQuantity
+{
+	return [self subtractQuantity:[NSDecimalNumber one]];
+}
+
+@end
+
+@implementation BUYModelManager (BUYCartLineItemCreation)
+
+- (BUYCartLineItem *)cartLineItemWithVariant:(BUYProductVariant *)variant
+{
+	BUYCartLineItem *lineItem = [self insertCartLineItemWithJSONDictionary:nil];
+	lineItem.variant = variant;
+	return lineItem;
 }
 
 @end

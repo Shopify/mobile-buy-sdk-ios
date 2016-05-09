@@ -1,5 +1,5 @@
 //
-//  BUYCartLineItem.h
+//  _BUYCartLineItem.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,23 +24,48 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYLineItem.h"
+#import <Buy/_BUYCartLineItem.h>
 
 /**
- *  BUYCartLineItem is a subclass of BUYLineItem that extends the object
- *  by exposing the BUYProductVariant that the line item was initialized with
- *  using `initWithVariant:`.
- *
- *  Note that this object is only used for a BUYCart and line item objects on
- *  BUYCheckout are represented by BUYLineItem objects that only contain the
- *  variant ID (if created from a BUYProductVariant).
+ * Newly inserted `CartLineItem`s have an initial quantity of 1.
  */
-@interface BUYCartLineItem : BUYLineItem
+
+@interface BUYCartLineItem : _BUYCartLineItem {}
 
 /**
- *  The BUYProductVariant object associated with the line item
- *  when created using the preferred `initWithVariant:` initializer.
+ * Convenience method for access the identifier of the underlying variant.
  */
-@property (nonatomic, strong, readonly) BUYProductVariant *variant;
+- (NSNumber *)variantId;
+
+/**
+ * The variant price times the quantity.
+ */
+@property (nonatomic, readonly) NSDecimalNumber *linePrice;
+
+/**
+ * Add the amount to the current quantity.
+ */
+- (NSDecimalNumber *)addQuantity:(NSDecimalNumber *)amount;
+
+/**
+ * Subtract the amount from the current quantity.
+ */
+- (NSDecimalNumber *)subtractQuantity:(NSDecimalNumber *)amount;
+
+/**
+ * Add 1 to the existing quantity;
+ */
+- (NSDecimalNumber *)incrementQuantity;
+
+/**
+ * Subtract 1 from the existing quantity.
+ */
+- (NSDecimalNumber *)decrementQuantity;
+
+@end
+
+@interface BUYModelManager (BUYCartLineItemCreation)
+
+- (BUYCartLineItem *)cartLineItemWithVariant:(BUYProductVariant *)variant;
 
 @end

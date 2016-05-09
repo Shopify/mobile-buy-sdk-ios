@@ -31,15 +31,25 @@
 
 @end
 
-@implementation BUYOptionValueTests
+@implementation BUYOptionValueTests {
+	BUYModelManager *_modelManager;
+}
+
+- (instancetype)initWithInvocation:(NSInvocation *)invocation
+{
+	self = [super initWithInvocation:invocation];
+	if (self) {
+		_modelManager = [BUYModelManager modelManager];
+	}
+	return self;
+}
 
 - (void)testInitWithValidData
 {
-	NSDictionary *json    = [self jsonWithID:@84935 optionID:@749];
-	BUYOptionValue *value = [[BUYOptionValue alloc] initWithDictionary:json];
+	NSDictionary *json    = [self jsonWithOptionID:@749];
+	BUYOptionValue *value = [self optionValueWithOptionID:@749];
 	
 	XCTAssertNotNil(value);
-	XCTAssertEqualObjects(value.identifier, json[@"id"]);
 	XCTAssertEqualObjects(value.name,       json[@"name"]);
 	XCTAssertEqualObjects(value.value,      json[@"value"]);
 	XCTAssertEqualObjects(value.optionId,   json[@"option_id"]);
@@ -47,8 +57,8 @@
 
 - (void)testEqualOptions
 {
-	BUYOptionValue *value1 = [self optionValueWithID:@123 optionID:@321];
-	BUYOptionValue *value2 = [self optionValueWithID:@123 optionID:@321];
+	BUYOptionValue *value1 = [self optionValueWithOptionID:@321];
+	BUYOptionValue *value2 = [self optionValueWithOptionID:@321];
 	
 	XCTAssertNotEqual(value1, value2); // Pointer comparison, different objects
 	XCTAssertEqualObjects(value1, value2);
@@ -57,7 +67,7 @@
 
 - (void)testIdenticalOptions
 {
-	BUYOptionValue *value1 = [self optionValueWithID:@123 optionID:@321];
+	BUYOptionValue *value1 = [self optionValueWithOptionID:@321];
 	BUYOptionValue *value2 = value1;
 	
 	XCTAssertEqual(value1, value2);
@@ -66,15 +76,14 @@
 
 #pragma mark - Convenience -
 
-- (BUYOptionValue *)optionValueWithID:(NSNumber *)identifier optionID:(NSNumber *)optionID
+- (BUYOptionValue *)optionValueWithOptionID:(NSNumber *)optionID
 {
-	return [[BUYOptionValue alloc] initWithDictionary:[self jsonWithID:identifier optionID:optionID]];
+	return [_modelManager buy_objectWithEntityName:[BUYOptionValue entityName] JSONDictionary:[self jsonWithOptionID:optionID]];
 }
 
-- (NSDictionary *)jsonWithID:(NSNumber *)identifier optionID:(NSNumber *)optionID
+- (NSDictionary *)jsonWithOptionID:(NSNumber *)optionID
 {
 	return @{
-			 @"id"        : @19483,
 			 @"name"      : @"option1",
 			 @"value"     : @"value1",
 			 @"option_id" : @543,

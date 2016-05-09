@@ -34,15 +34,10 @@
 #import "NSEntityDescription+BUYAdditions.h"
 #import "NSPropertyDescription+BUYAdditions.h"
 
-// Custom value transformer names
-NSString * const BUYPublicationsDateTransformerName = @"BUYPublicationsDate";
-
 // Structured value transformer names
 NSString * const BUYDeliveryRangeTransformerName = @"BUYDeliveryRange";
 NSString * const BUYFlatArrayTransformerName = @"BUYFlatArray";
 NSString * const BUYProductTagsTransformerName = @"BUYProductTags";
-
-NSString * const BUYPublicationsDateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
 
 @interface BUYModelManager ()
 @property (nonatomic, strong) NSManagedObjectModel *model;
@@ -54,10 +49,6 @@ NSString * const BUYPublicationsDateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
 {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		// specialty type transformers
-		[NSValueTransformer setValueTransformer:[BUYDateTransformer dateTransformerWithFormat:BUYPublicationsDateFormat] forName:BUYPublicationsDateTransformerName];
-		
-		// specialty collection transformers
 		[NSValueTransformer setValueTransformer:[[BUYDeliveryRangeTransformer alloc] init] forName:BUYDeliveryRangeTransformerName];
 		[NSValueTransformer setValueTransformer:[BUYFlatCollectionTransformer arrayTransformer] forName:BUYFlatArrayTransformerName];
 		[NSValueTransformer setValueTransformer:[BUYFlatCollectionTransformer setTransformerWithSeparator:@", "] forName:BUYProductTagsTransformerName];

@@ -1,5 +1,5 @@
 //
-//  BUYProductVariant.m
+//  _BUYProductVariant.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -25,29 +25,32 @@
 //
 
 #import "BUYProductVariant.h"
-#import "NSDecimalNumber+BUYAdditions.h"
 #import "BUYOptionValue.h"
 
 @implementation BUYProductVariant
 
-- (void)updateWithDictionary:(NSDictionary *)dictionary
+- (BUYOptionValue *)optionValueForName:(NSString *)optionName
 {
-	[super updateWithDictionary:dictionary];
+	for (BUYOptionValue *value in self.options) {
+		if ([value.name isEqualToString:optionName]) {
+			return value;
+		}
+	}
 	
-	_title = [dictionary[@"title"] copy];
-	
-	_options = [BUYOptionValue convertJSONArray:dictionary[@"option_values"]];
-	
-	_price = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"price"]];
-	_compareAtPrice = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"compare_at_price"]];
-	_grams = [NSDecimalNumber buy_decimalNumberFromJSON:dictionary[@"grams"]];
-	
-	_requiresShipping = dictionary[@"requires_shipping"];
-	_sku = dictionary[@"sku"];
-	_taxable = dictionary[@"taxable"];
-	_position = dictionary[@"position"];
-	
-	_available = [dictionary[@"available"] boolValue];
+	return nil;
+}
+
++ (NSArray *)filterProductVariants:(NSArray *)productVariants forOptionValue:(BUYOptionValue *)optionValue
+{
+	NSMutableArray *filteredArray = [NSMutableArray new];
+	for (BUYProductVariant *variant in productVariants) {
+		for (BUYOptionValue *opValue in variant.options) {
+			if ([opValue isEqual:optionValue]) {
+				[filteredArray addObject:variant];
+			}
+		}
+	}
+	return [filteredArray copy];
 }
 
 @end

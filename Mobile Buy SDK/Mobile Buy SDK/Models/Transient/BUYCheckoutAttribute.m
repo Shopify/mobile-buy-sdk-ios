@@ -28,17 +28,6 @@
 
 @implementation BUYCheckoutAttribute
 
-- (void)updateWithDictionary:(NSDictionary *)dictionary
-{
-	self.name = dictionary[@"name"];
-	self.value = dictionary[@"value"];
-}
-
-- (NSDictionary *)jsonDictionaryForCheckout
-{
-	return @{ self.name : self.value };
-}
-
 - (BOOL)isEqual:(id)object
 {
 	BOOL same = NO;

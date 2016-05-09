@@ -1,5 +1,5 @@
 //
-//  BUYGiftCard.h
+//  _BUYGiftCard.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,30 +24,15 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYObject.h"
-#import "BUYSerializable.h"
+#import <Buy/_BUYGiftCard.h>
+#import <Buy/BUYModelManager.h>
 
-@interface BUYGiftCard : BUYObject <BUYSerializable>
+@interface BUYGiftCard : _BUYGiftCard {}
 
-/**
- *  The gift card code. This is only used when applying a gift card and 
- *  is not visible on a BUYCheckout object synced with Shopify.
- */
-@property (nonatomic, readonly, copy) NSString *code;
+@end
 
-/**
- *  The last characters of the applied gift card code.
- */
-@property (nonatomic, readonly, copy) NSString *lastCharacters;
+@interface BUYModelManager (BUYGiftCardCreation)
 
-/**
- *  The amount left on the gift card after being applied to this checkout.
- */
-@property (nonatomic, readonly, strong) NSDecimalNumber *balance;
-
-/**
- *  The amount of the gift card used by this checkout.
- */
-@property (nonatomic, readonly, strong) NSDecimalNumber *amountUsed;
+- (BUYGiftCard *)giftCardWithCode:(NSString *)code;
 
 @end

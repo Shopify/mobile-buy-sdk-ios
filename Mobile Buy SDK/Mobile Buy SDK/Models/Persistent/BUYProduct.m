@@ -1,5 +1,5 @@
 //
-//  BUYProduct.m
+//  _BUYProduct.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,39 +24,94 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYImageLink.h"
-#import "BUYOption.h"
 #import "BUYProduct.h"
+#import "BUYModelManager.h"
+#import "BUYOption.h"
+#import "BUYOptionValue.h"
 #import "BUYProductVariant.h"
-#import "NSDateFormatter+BUYAdditions.h"
-#import "NSDictionary+BUYAdditions.h"
+#import "NSString+BUYAdditions.h"
 
 @implementation BUYProduct
 
-- (void)updateWithDictionary:(NSDictionary *)dictionary
+@synthesize stringDescription=_stringDescription;
+
+- (NSDate *)createdAtDate
 {
-	[super updateWithDictionary:dictionary];
+	return self.createdAt;
+}
+
+- (NSDate *)updatedAtDate
+{
+	return self.updatedAt;
+}
+
+- (NSDate *)publishedAtDate
+{
+	return self.publishedAt;
+}
+
+- (NSString *)stringDescription
+{
+	if (nil == _stringDescription) {
+		_stringDescription = [self.htmlDescription buy_stringByStrippingHTML];
+	}
+	return _stringDescription;
+}
+
+@end
+
+@implementation BUYProduct (Options)
+
+- (NSArray *)valuesForOption:(BUYOption *)option variants:(NSArray *)variants
+{
+	NSMutableOrderedSet *set = [NSMutableOrderedSet new];
 	
-	_title = [dictionary[@"title"] copy];
-	_handle = [dictionary[@"handle"] copy];
-	_productId = [dictionary[@"product_id"] copy];
-	_vendor = [dictionary[@"vendor"] copy];
-	_productType = [dictionary[@"product_type"] copy];
-	_variants = [BUYProductVariant convertJSONArray:dictionary[@"variants"] block:^(BUYProductVariant *variant) {
-		variant.product = self;
-	}];
-	_images = [BUYImageLink convertJSONArray:dictionary[@"images"]];
-	_options = [BUYOption convertJSONArray:dictionary[@"options"]];
-	_htmlDescription = [dictionary buy_objectForKey:@"body_html"];
-	_available = [dictionary[@"available"] boolValue];
-	_published = [dictionary[@"published"] boolValue];
-	NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterForPublications];
-	_createdAtDate = [dateFormatter dateFromString:dictionary[@"created_at"]];
-	_updatedAtDate = [dateFormatter dateFromString:dictionary[@"updated_at"]];
-	_publishedAtDate = [dateFormatter dateFromString:dictionary[@"published_at"]];
-	NSArray *tagsArray = [dictionary[@"tags"] componentsSeparatedByString:@", "];
-	NSSet *tagsSet = [NSSet setWithArray:tagsArray];
-	_tags = [tagsSet copy];
+	for (BUYProductVariant *variant in variants) {
+		BUYOptionValue *optionValue = [variant optionValueForName:option.name];
+		[set addObject:optionValue];
+	}
+	
+	return [set array];
+}
+
+- (BUYProductVariant *)variantWithOptions:(NSArray *)options
+{
+	BUYProductVariant *variant = nil;
+	
+	for (BUYProductVariant *aVariant in self.variants) {
+		
+		BOOL match = YES;
+		
+		for (BUYOptionValue *value in options) {
+			
+			BUYOptionValue *optionValue = [aVariant optionValueForName:value.name];
+			if (![optionValue isEqual:value]) {
+				match = NO;
+				break;
+			}
+		}
+		
+		if (match) {
+			variant = aVariant;
+		}
+	}
+	
+	return variant;
+}
+
+- (BOOL)isDefaultVariant
+{
+	if ([self.variants count] == 1) {
+		BUYProductVariant *productVariant = [self.variants firstObject];
+		BUYOptionValue *optionValue = [productVariant.options anyObject];
+		NSString *defaultTitleString = @"Default Title";
+		NSString *defaultString = @"Default";
+		if ([productVariant.title isEqualToString:defaultTitleString] &&
+			([optionValue.value isEqualToString:defaultTitleString] || [optionValue.value isEqualToString:defaultString])) {
+			return YES;
+		}
+	}
+	return NO;
 }
 
 @end

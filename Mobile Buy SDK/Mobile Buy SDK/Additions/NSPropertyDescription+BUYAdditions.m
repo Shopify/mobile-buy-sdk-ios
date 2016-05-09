@@ -46,6 +46,8 @@ NSString * const BUYJSONPropertyKeyUserInfoKey = @"JSONPropertyKey";
 // This is defined by mogenerator
 static NSString * const BUYAttributeValueClassNameKey = @"attributeValueClassName";
 
+static NSString * const BUYDateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
+
 #pragma mark -
 
 @interface NSObject (BUYValueTransforming)

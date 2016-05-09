@@ -62,7 +62,11 @@
 {
 	NSURLComponents *components = [self URLComponentsForCustomerWithID:customerID];
 	return [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		block((json && !error ? [[BUYCustomer alloc] initWithDictionary:json[@"customer"]] : nil), error);
+		BUYCustomer *customer = nil;
+		if (json && !error) {
+			customer = [self.modelManager customerWithJSONDictionary:json];
+		}
+		block(customer, error);
 	}];
 }
 
@@ -93,7 +97,8 @@
 				}];
 			}
 			else {
-				block([[BUYCustomer alloc] initWithDictionary:json[@"customer"]], self.customerToken, error);
+				BUYCustomer *customer = [self.modelManager customerWithJSONDictionary:json[@"customer"]];
+				block(customer, self.customerToken, error);
 			}
 		}
 		else {
@@ -186,15 +191,9 @@
 {
 	NSURLComponents *components = [self URLComponentsForCustomerOrders];
 	return [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		NSArray *ordersJSON = json[@"orders"];
-		if (ordersJSON && !error) {
-			
-			NSMutableArray *container = [NSMutableArray new];
-			for (NSDictionary *orderJSON in ordersJSON) {
-				[container addObject:[[BUYOrder alloc] initWithDictionary:orderJSON]];
-			}
-			block([container copy], error);
-			
+		if (json && !error) {
+			NSArray *orders = [self.modelManager ordersWithJSONDictionary:json];
+			block(orders, error);
 		} else {
 			block(nil, error);
 		}

@@ -75,6 +75,11 @@
 	return self;
 }
 
+- (NSDictionary *)jsonDictionaryForCheckout
+{
+	return self.JSONDictionary;
+}
+
 - (NSDictionary *)JSONDictionary
 {
 	return [self.entity buy_JSONForObject:self];

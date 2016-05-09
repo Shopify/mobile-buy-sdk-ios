@@ -25,10 +25,10 @@
 //
 
 @import Foundation;
-#import "BUYSerializable.h"
 
 @class PKPaymentToken;
 
+@class BUYAccountCredentials;
 @class BUYCart;
 @class BUYCheckout;
 @class BUYCreditCard;
@@ -37,6 +37,8 @@
 @class BUYProductVariant;
 @class BUYShop;
 @class BUYCollection;
+@class BUYOrder;
+@class BUYModelManager;
 
 /**
  *  The sort order for products in a collection
@@ -178,12 +180,10 @@ typedef void (^BUYDataProductBlock)(BUYProduct *product, NSError *error);
 typedef void (^BUYDataProductsBlock)(NSArray<BUYProduct *> *products, NSError *error);
 
 /**
- *  Return block containing a list of BUYCollection objects
+ *  Return block containing list of collections
  *
  *  @param collections An array of BUYCollection objects
- *  @param page        Index of the page requested
- *  @param reachedEnd  Boolean indicating whether additional pages exist
- *  @param error       An optional NSError
+ *  @param error       Optional NSError
  */
 typedef void (^BUYDataCollectionsListBlock)(NSArray<BUYCollection *> *collections, NSUInteger page, BOOL reachedEnd, NSError *error);
 
@@ -234,6 +234,11 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
 - (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey appId:(NSString *)appId NS_DESIGNATED_INITIALIZER;
 
 /**
+ *
+ */
+@property (nonatomic, strong) BUYModelManager *modelManager;
+
+/**
  *  Queue where callbacks will be called
  *  defaults to main queue
  */
@@ -262,7 +267,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
 /**
  *  The Merchant ID is used for Apple Pay and set using `enableApplePayWithMerchantId:`
  */
-@property (nonatomic, strong, readonly) NSString *merchantId DEPRECATED_MSG_ATTRIBUTE("Set the `merchantId` on a BUYViewController subclass");
+@property (nonatomic, strong, readonly) NSString *merchantId NS_DEPRECATED_IOS(8_0, 9_0, "Set the `merchantId` on a BUYViewController subclass instead");
 
 /**
  *  Application name to attribute orders to.  Defaults to app bundle name (CFBundleName)
@@ -523,7 +528,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
  *
  *  @return The associated NSURLSessionDataTask
  */
-- (NSURLSessionDataTask *)storeCreditCard:(id <BUYSerializable>)creditCard checkout:(BUYCheckout *)checkout completion:(BUYDataCreditCardBlock)block;
+- (NSURLSessionDataTask *)storeCreditCard:(BUYCreditCard *)creditCard checkout:(BUYCheckout *)checkout completion:(BUYDataCreditCardBlock)block;
 
 /**
  *  Convenience method to release all product inventory reservations by setting its 
@@ -544,6 +549,6 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
  *
  *  @param merchantId The Merchant ID generated on Shopify Admin
  */
-- (void)enableApplePayWithMerchantId:(NSString *)merchantId DEPRECATED_MSG_ATTRIBUTE("Set the merchantId on a BUYViewController subclass instead");
+- (void)enableApplePayWithMerchantId:(NSString *)merchantId NS_DEPRECATED_IOS(8_0, 9_0, "Set the merchantId on a `BUYViewController` subclass instead");
 
 @end 

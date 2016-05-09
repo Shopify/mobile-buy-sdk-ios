@@ -1,5 +1,5 @@
 //
-//  BUYOrder.m
+//  _BUYOrder.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -25,48 +25,53 @@
 //
 
 #import "BUYOrder.h"
-#import "BUYAddress.h"
 #import "BUYLineItem.h"
-#import "BUYShippingRate.h"
-#import "NSURL+BUYAdditions.h"
-#import "NSDictionary+BUYAdditions.h"
-#import "NSDateFormatter+BUYAdditions.h"
-#import "NSDecimalNumber+BUYAdditions.h"
 
 @implementation BUYOrder
 
-- (void)updateWithDictionary:(NSDictionary *)dictionary
+- (NSArray *)formatIDsForLineItemsJSON:(NSArray<NSDictionary *> *)lineItems
 {
-	[super updateWithDictionary:dictionary];
+	__block NSMutableArray<NSDictionary *> *mutableLineItems = [NSMutableArray array];
+	[lineItems enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull lineItem, NSUInteger idx, BOOL * _Nonnull stop) {
+		NSNumber *identifier = lineItem[@"id"];
+		NSMutableDictionary *mutableLineItem = [lineItem mutableCopy];
+		if ([identifier isKindOfClass:[NSNumber class]]) {
+			mutableLineItem[@"id"] = identifier.stringValue;
+		}
+		[mutableLineItems addObject:mutableLineItem];
+	}];
+	return mutableLineItems;
+}
+
+- (void)setJSONDictionary:(NSDictionary *)JSONDictionary
+{
+	// TODO: Have API return string IDs for line items instead of numbers
+	NSArray *fulfilledLineItemsJSON = [self formatIDsForLineItemsJSON:JSONDictionary[@"fulfilled_line_items"]];
+	NSArray *unFulfilledLineItemsJSON = [self formatIDsForLineItemsJSON:JSONDictionary[@"unfulfilled_line_items"]];
 	
-	NSDateFormatter *formatter = [NSDateFormatter dateFormatterForPublications];
+	[super setJSONDictionary:JSONDictionary];
 	
-	_cancelled            = [[dictionary buy_objectForKey:@"cancelled"] boolValue];
-	_fulfillmentAborted   = [[dictionary buy_objectForKey:@"fulfillment_aborted"] boolValue];
+	// Required if core data is not being used
+	if (!self.lineItems) {
+		self.lineItems = [NSOrderedSet orderedSet];
+	}
 	
-	_name                 = [dictionary buy_objectForKey:@"name"];
-	_cancelReason         = [dictionary buy_objectForKey:@"cancel_reason"];
-	_currency             = [dictionary buy_objectForKey:@"currency"];
-	_financialStatus      = [dictionary buy_objectForKey:@"financial_status"];
-	_fulfillmentStatus    = [dictionary buy_objectForKey:@"fulfillment_status"];
-	_orderNumber          = [dictionary buy_objectForKey:@"order_number"];
+	NSArray *fulfilledLineItems = [self.modelManager buy_objectsWithEntityName:[BUYLineItem entityName] JSONArray:fulfilledLineItemsJSON];
+	[fulfilledLineItems makeObjectsPerformSelector:@selector(setFulfilled:) withObject:@YES];
+	NSArray *unfulfilledLineItems = [self.modelManager buy_objectsWithEntityName:[BUYLineItem entityName] JSONArray:unFulfilledLineItemsJSON];
 	
-	_statusURL            = [NSURL buy_urlWithString:dictionary[@"status_url"]];
-	_customerURL          = [NSURL buy_urlWithString:dictionary[@"customer_url"]];
-	_orderStatusURL       = [NSURL buy_urlWithString:dictionary[@"order_status_url"]];
-	
-	_cancelledAt          = [formatter dateFromString:[dictionary buy_objectForKey:@"cancelled_at"]];
-	_processedAt          = [formatter dateFromString:[dictionary buy_objectForKey:@"processed_at"]];
-	
-	_billingAddress       = [BUYAddress convertObject:[dictionary buy_objectForKey:@"billing_address"]];
-	_shippingAddress      = [BUYAddress convertObject:[dictionary buy_objectForKey:@"shipping_address"]];
-	_shippingRates        = [BUYShippingRate convertJSONArray:[dictionary buy_objectForKey:@"shipping_methods"]];
-	_fulfilledLineItems   = [BUYLineItem convertJSONArray:dictionary[@"fulfilled_line_items"]];
-	_unfulfilledLineItems = [BUYLineItem convertJSONArray:dictionary[@"unfulfilled_line_items"]];
-	
-	_discountSavings      = [NSDecimalNumber buy_decimalNumberFromJSON:[dictionary buy_objectForKey:@"discount_savings"]];
-	_subtotalPrice        = [NSDecimalNumber buy_decimalNumberFromJSON:[dictionary buy_objectForKey:@"subtotal_price"]];
-	_totalPrice           = [NSDecimalNumber buy_decimalNumberFromJSON:[dictionary buy_objectForKey:@"total_price"]];
+	[self.lineItemsSet addObjectsFromArray:fulfilledLineItems];
+	[self.lineItemsSet addObjectsFromArray:unfulfilledLineItems];
+}
+
+@end
+
+@implementation BUYModelManager (BUYOrder)
+
+- (NSArray<BUYOrder *> *)ordersWithJSONDictionary:(NSDictionary *)json
+{
+	NSArray *orders = [json objectForKey:@"orders"];
+	return (id)[self buy_objectsWithEntityName:[BUYOrder entityName] JSONArray:orders];
 }
 
 @end
