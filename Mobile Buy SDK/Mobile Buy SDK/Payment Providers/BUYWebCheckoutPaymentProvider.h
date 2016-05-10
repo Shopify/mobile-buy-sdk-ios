@@ -27,9 +27,11 @@
 #import <Foundation/Foundation.h>
 #import "BUYPaymentProvider.h"
 
-extern NSString * _Nonnull BUYSafariCallbackURLNotification;
-extern NSString * _Nonnull BUYURLKey;
-extern NSString * _Nonnull const BUYWebPaymentProviderId;
+NS_ASSUME_NONNULL_BEGIN
+
+extern NSString * BUYSafariCallbackURLNotification;
+extern NSString * BUYURLKey;
+extern NSString * const BUYWebPaymentProviderId;
 
 @interface BUYWebCheckoutPaymentProvider : NSObject <BUYPaymentProvider>
 
@@ -40,7 +42,9 @@ extern NSString * _Nonnull const BUYWebPaymentProviderId;
  *
  *  @return an instance of `BUYWebCheckoutPaymentProvider`
  */
-- (instancetype _Nullable)initWithClient:(BUYClient * _Nonnull)client NS_DESIGNATED_INITIALIZER;
-- (instancetype _Nullable)init NS_UNAVAILABLE;
+- (instancetype)initWithClient:(BUYClient *)client NS_DESIGNATED_INITIALIZER;
+- (instancetype)init NS_UNAVAILABLE;
 
 @end
+
+NS_ASSUME_NONNULL_END

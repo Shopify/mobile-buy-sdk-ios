@@ -26,8 +26,12 @@
 
 #import <Buy/Buy.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface BUYClient (Checkout)
 
 - (NSURLSessionDataTask *)handleCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)completion;
 
 @end
+
+NS_ASSUME_NONNULL_END

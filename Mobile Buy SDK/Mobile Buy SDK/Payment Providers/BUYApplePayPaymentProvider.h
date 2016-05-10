@@ -27,7 +27,9 @@
 @import UIKit;
 #import "BUYPaymentProvider.h"
 
-extern NSString *const _Nonnull BUYApplePayPaymentProviderId;
+NS_ASSUME_NONNULL_BEGIN
+
+extern NSString *const BUYApplePayPaymentProviderId;
 
 @class BUYClient;
 
@@ -41,20 +43,20 @@ extern NSString *const _Nonnull BUYApplePayPaymentProviderId;
  *
  *  @return an instance of `BUYApplePayPaymentProvider`
  */
-- (instancetype _Nullable)initWithClient:(BUYClient * _Nonnull)client merchantID:(NSString * _Nonnull)merchantID NS_DESIGNATED_INITIALIZER;
-- (instancetype _Nullable)init NS_UNAVAILABLE;
+- (instancetype)initWithClient:(BUYClient *)client merchantID:(NSString *)merchantID NS_DESIGNATED_INITIALIZER;
+- (instancetype)init NS_UNAVAILABLE;
 
 /**
  *  The supported credit card payment networks.  Default values:
  *  iOS 8.3: PKPaymentNetworkAmex, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa.
  *  iOS 9.0: PKPaymentNetworkAmex, PKPaymentNetworkDiscover, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa.
  */
-@property (nonatomic, copy) NSArray * _Nonnull supportedNetworks;
+@property (nonatomic, copy) NSArray * supportedNetworks;
 
 /**
  *  The merchant ID required for Apple Pay
  */
-@property (nonatomic, copy, readonly) NSString * _Nonnull merchantID;
+@property (nonatomic, copy, readonly) NSString * merchantID;
 
 /**
  *  If the merchantId is set and the device support Apple Pay but no credit card is present this allows the user to add a payment pass to the Wallet.
@@ -73,3 +75,5 @@ extern NSString *const _Nonnull BUYApplePayPaymentProviderId;
 - (BOOL)canShowApplePaySetup;
 
 @end
+
+NS_ASSUME_NONNULL_END

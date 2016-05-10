@@ -28,6 +28,8 @@
 
 #import "BUYClient.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class BUYCheckout;
 @protocol BUYPaymentProvider;
 
@@ -86,7 +88,7 @@ extern NSString *const BUYPaymentProviderDidCompleteCheckoutNotificationKey;
  *  @param provider   the `BUYPaymentProvider`
  *  @param error    the optional `NSError`
  */
-- (void)paymentProvider:(id <BUYPaymentProvider>)provider didFailCheckoutWithError:(NSError *)error;
+- (void)paymentProvider:(id <BUYPaymentProvider>)provider didFailCheckoutWithError:(NSError * _Nullable)error;
 
 /**
  *  Called when the checkout has completed
@@ -139,3 +141,5 @@ extern NSString *const BUYPaymentProviderDidCompleteCheckoutNotificationKey;
 @property (nonatomic, weak) id <BUYPaymentProviderDelegate> delegate;
 
 @end
+
+NS_ASSUME_NONNULL_END

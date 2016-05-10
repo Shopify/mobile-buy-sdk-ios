@@ -27,6 +27,8 @@
 @import Foundation;
 #import "BUYPaymentProvider.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface BUYPaymentController : NSObject
 
 /**
@@ -50,7 +52,7 @@
  *
  *  @return The payment provider matching the given identifier
  */
-- (id <BUYPaymentProvider>)providerForType:(NSString *)type;
+- (id <BUYPaymentProvider> _Nullable)providerForType:(NSString *)type;
 
 /**
  *  Start a checkout
@@ -61,3 +63,5 @@
 - (void)startCheckout:(BUYCheckout *)checkout withProviderType:(NSString *)typeIdentifier;
 
 @end
+
+NS_ASSUME_NONNULL_END
