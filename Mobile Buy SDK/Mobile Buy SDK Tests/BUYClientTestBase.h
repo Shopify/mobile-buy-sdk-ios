@@ -30,7 +30,6 @@
 extern NSString * const BUYShopDomain_Placeholder;
 extern NSString * const BUYAPIKey_Placeholder;
 extern NSString * const BUYAppId_Placeholder;
-extern NSString * const BUYChannelId_Placeholder;
 extern NSString * const BUYFakeCustomerToken;
 
 @interface BUYClientTestBase : XCTestCase
