@@ -96,20 +96,77 @@ Initialize the `BUYClient` with your credentials from the *Mobile App Channel*
 BUYClient *client = [[BUYClient alloc] initWithShopDomain:@"yourshop.myshopify.com"
                                                    apiKey:@"aaaaaaaaaaaaaaaaaa"
                                                 channelId:@"99999"];
+```
 
-// Fetch your products
-[self.client getProductsPage:1 completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
-        if (error) {
-                NSLog(@"Error retrieving products: %@", error.userInfo);
-        } else {
-                for (BUYProduct *product in products) {
-                        NSLog(@"%@", product.title);
-                }
-        }
+### Storefront API
+After initializing the client with valid shop credentials, you can begin fetching collections.
+```objc
+[client getCollections:^(NSArray<BUYCollection *> *collections, NSError *error) {
+	if (collections && !error) {
+		// Do something with collections
+	} else {
+		NSLog(@"Error fetching collections: %@", error.userInfo);
+	}
+}];
+```
+Having a collection, we can then retrieve an array of products within that collection:
+```objc
+BUYCollection *collection = collections.firstObject;
+
+[client getProductsPage:0 inCollection:collection.collectionId completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+	if (products && !error) {
+		// Do something with products
+	} else {
+		NSLog(@"Error fetching products in collection %@: %@", collection.collectionId, error.userInfo);
+	}
 }];
 ```
 
-Consult the [Usage Section](https://docs.shopify.com/mobile-buy-sdk/ios/integration-guide/#using-the-mobile-buy-sdk) of the Integration Guide on how to create a cart, and checkout with the SDK.
+### Customer API
+##### Customer Login
+You can allow customers to login with their existing account using the SDK. First, we'll need to create the `BUYAccountCredentials` object used to pass authentication credentials to the server.
+```objc
+NSArray *credentialItems = @[
+						     [BUYAccountCredentialItem itemWithEmail:@"john.smith@gmail.com"],
+							 [BUYAccountCredentialItem itemWithPassword:@"password"],
+							];
+BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:credentialItems];
+```
+We can now use the credentials object to login the customer.
+```objc
+[client loginCustomerWithCredentials:credentials callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
+	if (customer && token && !error) {
+		// Do something with customer and store token for future requests
+	} else {
+		NSLog(@"Failed to login customer: %@", error.userInfo);
+	}
+}];
+```
+##### Customer Creation
+Creating a customer account is very similar to login flow but requres a little more info in the credentials object.
+```objc
+NSArray *credentialItems = @[
+							 [BUYAccountCredentialItem itemWithFirstName:@"John"],
+							 [BUYAccountCredentialItem itemWithLastName:@"Smith"],
+							 [BUYAccountCredentialItem itemWithEmail:@"john.smith@gmail.com"],
+							 [BUYAccountCredentialItem itemWithPassword:@"password"],
+							 [BUYAccountCredentialItem itemWithPasswordConfirmation:@"password"],
+							];
+BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:credentialItems];
+```
+After we obtain the customers first name, last name and password confirmation in addition to the email and password fields, we can create an account.
+```objc
+[client createCustomerWithCredentials:credentials callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
+	if (customer && token && !error) {
+		// Do something with customer and store token for future requests
+	} else {
+		NSLog(@"Failed to create customer: %@", error.userInfo);
+	}
+}];
+```
+
+### Integration Guide
+Consult the [Usage Section](https://docs.shopify.com/mobile-buy-sdk/ios/integration-guide/#using-the-mobile-buy-sdk) of the Integration Guide on how to create a cart, checkout and more with the SDK.
 
 ### Building the SDK
 
