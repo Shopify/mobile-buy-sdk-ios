@@ -5,8 +5,8 @@
 	"channel_id": "",
 	"app_id": "",
 	"merchant_id": "",
-	"customer_email": "",
-	"customer_password": "",
+	"customer_email": "asd@asd.com",
+	"customer_password": "asdasd",
 	"product_ids": [
 					"",
 					""
