@@ -1,6 +1,6 @@
 //
-//  MasterViewController.h
-//  Mobile Buy SDK Advanced Sample
+//  CheckoutButton.h
+//  Mobile Buy SDK
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -25,11 +25,31 @@
 //
 
 @import UIKit;
-@import Buy;
 
-@interface ProductListViewController : UITableViewController
+/**
+ *  A themed UIButton that includes a UIActivityIndicator
+ */
+@interface CheckoutButton : UIButton
 
-- (instancetype)initWithClient:(BUYClient *)client collection:(BUYCollection*)collection;
+/**
+ *  Creates a checkout button with UIButtonTypeSystem which inherits its color from the superview's tintColor
+ *
+ *  @return A CheckoutButton with UIButtonTypeSystem
+ */
++(instancetype)checkoutButton;
+
+/**
+ *  Show a UIActivityIndicator in place of text while loading
+ *
+ *  @param show Show or hide the UIActivityIndicator
+ */
+- (void)showActivityIndicator:(BOOL)show;
+
+/**
+ *  Sets the button text color
+ *
+ *  @param color The color for the button
+ */
+- (void)setTextColor:(UIColor*)color UI_APPEARANCE_SELECTOR;
 
 @end
-

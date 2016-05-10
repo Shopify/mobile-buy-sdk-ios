@@ -1,6 +1,6 @@
 //
-//  MasterViewController.h
-//  Mobile Buy SDK Advanced Sample
+//  ErrorView.h
+//  Mobile Buy SDK
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -25,11 +25,29 @@
 //
 
 @import UIKit;
-@import Buy;
 
-@interface ProductListViewController : UITableViewController
+/**
+ *  A customer toast error view to use in the ProductView.
+ */
+@interface ErrorView : UIView
 
-- (instancetype)initWithClient:(BUYClient *)client collection:(BUYCollection*)collection;
+/**
+ *  The label containing the error message.
+ */
+@property (nonatomic, strong) UILabel *errorLabel;
+
+/**
+ *  The Auto Layout constraint for when the error message is hidden.
+ */
+@property (nonatomic, strong) NSLayoutConstraint *hiddenConstraint;
+
+/**
+ *  The Auto Layout constraint for when the error message is visible.
+ */
+@property (nonatomic, strong) NSLayoutConstraint *visibleConstraint;
+
+- (void)setOverlayColor:(UIColor*)color UI_APPEARANCE_SELECTOR;
+
+- (void)presentErrorViewWithMessage:(NSString *)errorMessage completion:(void (^)(void))callback;
 
 @end
-

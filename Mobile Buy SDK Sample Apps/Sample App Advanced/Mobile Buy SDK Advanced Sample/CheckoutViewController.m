@@ -27,13 +27,10 @@
 #import "CheckoutViewController.h"
 #import "GetCompletionStatusOperation.h"
 #import "SummaryItemsTableViewCell.h"
-#import "ProductListViewController.h"
-
-@import Buy;
-@import PassKit;
-@import SafariServices;
+#import "UIButton+PaymentButton.h"
 
 NSString * const CheckoutCallbackNotification = @"CheckoutCallbackNotification";
+NSString * const MerchantId = @"";
 
 @interface CheckoutViewController () <GetCompletionStatusOperationDelegate, SFSafariViewControllerDelegate, PKPaymentAuthorizationViewControllerDelegate>
 
@@ -87,7 +84,7 @@ NSString * const CheckoutCallbackNotification = @"CheckoutCallbackNotification";
     [webCheckoutButton addTarget:self action:@selector(checkoutOnWeb) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:webCheckoutButton];
     
-    UIButton *applePayButton = [BUYPaymentButton buttonWithType:BUYPaymentButtonTypeBuy style:BUYPaymentButtonStyleBlack];
+    UIButton *applePayButton = [UIButton paymentButtonWithType:PaymentButtonTypeBuy style:PaymentButtonStyleBlack];
     applePayButton.translatesAutoresizingMaskIntoConstraints = NO;
     [applePayButton addTarget:self action:@selector(checkoutWithApplePay) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:applePayButton];
@@ -292,7 +289,7 @@ NSString * const CheckoutCallbackNotification = @"CheckoutCallbackNotification";
 {
     PKPaymentRequest *paymentRequest = [[PKPaymentRequest alloc] init];
     
-    [paymentRequest setMerchantIdentifier:MERCHANT_ID];
+    [paymentRequest setMerchantIdentifier:MerchantId];
     [paymentRequest setRequiredBillingAddressFields:PKAddressFieldAll];
     [paymentRequest setRequiredShippingAddressFields:self.checkout.requiresShipping ? PKAddressFieldAll : PKAddressFieldEmail|PKAddressFieldPhone];
     [paymentRequest setSupportedNetworks:@[PKPaymentNetworkVisa, PKPaymentNetworkMasterCard]];

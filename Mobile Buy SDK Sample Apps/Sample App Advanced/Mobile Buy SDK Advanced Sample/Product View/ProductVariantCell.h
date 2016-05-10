@@ -1,6 +1,6 @@
 //
-//  MasterViewController.h
-//  Mobile Buy SDK Advanced Sample
+//  ProductVariantCell.h
+//  Mobile Buy SDK
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -27,9 +27,18 @@
 @import UIKit;
 @import Buy;
 
-@interface ProductListViewController : UITableViewController
+/**
+ *  Table view cell containing the product's variant options
+ */
+@interface ProductVariantCell : UITableViewCell
 
-- (instancetype)initWithClient:(BUYClient *)client collection:(BUYCollection*)collection;
+/**
+ *  Set the options for a product variant
+ *
+ *  @param productVariant The selected product variant
+ */
+- (void)setOptionsForProductVariant:(BUYProductVariant *)productVariant;
+
+- (void)setSelectedBackgroundViewBackgroundColor:(UIColor *)selectedBackgroundViewBackgroundColor UI_APPEARANCE_SELECTOR;
 
 @end
-

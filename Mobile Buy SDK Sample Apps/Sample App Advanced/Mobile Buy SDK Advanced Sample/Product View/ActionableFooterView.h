@@ -1,6 +1,6 @@
 //
-//  MasterViewController.h
-//  Mobile Buy SDK Advanced Sample
+//  ActionableFooterView.h
+//  Mobile Buy SDK
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -25,11 +25,29 @@
 //
 
 @import UIKit;
-@import Buy;
+#import "CheckoutButton.h"
+#import "UIButton+PaymentButton.h"
 
-@interface ProductListViewController : UITableViewController
+@interface ActionableFooterView : UIView
 
-- (instancetype)initWithClient:(BUYClient *)client collection:(BUYCollection*)collection;
+- (void)setApplePayAvailable:(BOOL)applePayAvailable requiresSetup:(BOOL)requiresSetup;
+
+@property (nonatomic, readonly) CheckoutButton *actionButton;
+
+/**
+ *  On iOS 8.3+ this will be a PKPaymentButton
+ */
+@property (nonatomic, readonly) UIButton *paymentButton;
+
+@property (nonatomic) BOOL buttonsEnabled;
+
+/**
+ *  A view which sits above the buttons.
+ *  Can be used to add a description or other content to the footer.
+ */
+@property (nonatomic, readonly) UIView *extensionView;
+
+@property (nonatomic) PaymentButtonStyle paymentButtonStyle UI_APPEARANCE_SELECTOR;
+@property (nonatomic) UIColor *separatorColor UI_APPEARANCE_SELECTOR;
 
 @end
-

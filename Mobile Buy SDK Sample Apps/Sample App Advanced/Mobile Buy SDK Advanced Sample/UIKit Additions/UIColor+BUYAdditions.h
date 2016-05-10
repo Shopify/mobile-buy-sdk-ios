@@ -1,6 +1,6 @@
 //
-//  MasterViewController.h
-//  Mobile Buy SDK Advanced Sample
+//  UIColor+BUYAdditions.h
+//  Mobile Buy SDK
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -25,11 +25,35 @@
 //
 
 @import UIKit;
-@import Buy;
 
-@interface ProductListViewController : UITableViewController
+#define BUY_RGB(r, g, b) BUY_RGBA(r, g, b, 1)
+#define BUY_RGBA(r, g, b, a) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a]
 
-- (instancetype)initWithClient:(BUYClient *)client collection:(BUYCollection*)collection;
+@interface UIColor (BUYAdditions)
+
+/**
+ *  Check if the color is light (brightness of colors combined less than .5)
+ *  Supports RGB and grey space colors
+ *
+ *  @return Returns true if the color is light
+ */
+- (BOOL)isLightColor;
+
+/**
+ *  Creates a UIColor from a hex value
+ *
+ *  @param hex the hex value to convert to a UIColor
+ *
+ *  @return A UIColor object
+ */
++ (UIColor*)colorWithHex:(NSInteger)hex;
++ (UIColor*)colorWithHexString:(NSString *)hexString;
+
+/**
+ *  Creates a string representing the hex value for the color
+ *
+ *  @return String representing the hex value
+ */
+- (NSString *)hexString;
 
 @end
-

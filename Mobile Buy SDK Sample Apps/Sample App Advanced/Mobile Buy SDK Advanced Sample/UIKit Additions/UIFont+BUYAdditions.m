@@ -1,6 +1,6 @@
 //
-//  MasterViewController.h
-//  Mobile Buy SDK Advanced Sample
+//  BUYFont.m
+//  Mobile Buy SDK
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -24,12 +24,14 @@
 //  THE SOFTWARE.
 //
 
-@import UIKit;
-@import Buy;
+#import "UIFont+BUYAdditions.h"
 
-@interface ProductListViewController : UITableViewController
+@implementation UIFont (BUYAdditions)
 
-- (instancetype)initWithClient:(BUYClient *)client collection:(BUYCollection*)collection;
++ (UIFont *)preferredFontForTextStyle:(NSString *)style increasedPointSize:(CGFloat)size
+{
+	UIFontDescriptor *descriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:style];
+	return [UIFont fontWithDescriptor:descriptor size:descriptor.pointSize + size];
+}
 
 @end
-

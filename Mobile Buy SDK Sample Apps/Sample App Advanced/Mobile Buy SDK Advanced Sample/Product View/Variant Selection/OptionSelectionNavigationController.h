@@ -1,6 +1,6 @@
 //
-//  MasterViewController.h
-//  Mobile Buy SDK Advanced Sample
+//  OptionSelectionNavigationController.h
+//  Mobile Buy SDK
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -25,11 +25,22 @@
 //
 
 @import UIKit;
-@import Buy;
+#import "NavigationController.h"
+#import "OptionBreadCrumbsView.h"
 
-@interface ProductListViewController : UITableViewController
+/**
+ *  Custom navigation controller for variant option selection
+ */
+@interface OptionSelectionNavigationController : NavigationController
 
-- (instancetype)initWithClient:(BUYClient *)client collection:(BUYCollection*)collection;
+/**
+ *  Used to set whether to dismiss with dropping animation when variant selection is cancelled instead of confirmed
+ */
+@property (nonatomic, assign) BOOL dismissWithCancelAnimation;
+
+/**
+ *  The bread crumbs view for variant option selections
+ */
+@property (nonatomic, strong) OptionBreadCrumbsView *breadsCrumbsView;
 
 @end
-

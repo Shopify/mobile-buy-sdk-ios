@@ -7,6 +7,42 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		842799661CB31498003AD0CE /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842799651CB31498003AD0CE /* PaymentViewController.m */; };
+		847612671CAB047600AB17AA /* DisclosureIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 847612251CAB047600AB17AA /* DisclosureIndicatorView.m */; };
+		847612681CAB047600AB17AA /* Theme+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 847612271CAB047600AB17AA /* Theme+Additions.m */; };
+		847612691CAB047600AB17AA /* Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 847612291CAB047600AB17AA /* Theme.m */; };
+		8476126A1CAB047600AB17AA /* VisualEffectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8476122B1CAB047600AB17AA /* VisualEffectView.m */; };
+		8476126C1CAB047600AB17AA /* ActionableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 847612301CAB047600AB17AA /* ActionableFooterView.m */; };
+		8476126D1CAB047600AB17AA /* ActionableFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 847612311CAB047600AB17AA /* ActionableFooterView.xib */; };
+		8476126E1CAB047600AB17AA /* CheckoutButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 847612331CAB047600AB17AA /* CheckoutButton.m */; };
+		8476126F1CAB047600AB17AA /* ErrorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 847612351CAB047600AB17AA /* ErrorView.m */; };
+		847612701CAB047600AB17AA /* GradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 847612371CAB047600AB17AA /* GradientView.m */; };
+		847612711CAB047600AB17AA /* AsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 847612391CAB047600AB17AA /* AsyncImageView.m */; };
+		847612721CAB047600AB17AA /* ProductViewPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8476123B1CAB047600AB17AA /* ProductViewPresentationController.m */; };
+		847612731CAB047600AB17AA /* ProductDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8476123D1CAB047600AB17AA /* ProductDescriptionCell.m */; };
+		847612741CAB047600AB17AA /* ProductHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8476123F1CAB047600AB17AA /* ProductHeaderCell.m */; };
+		847612751CAB047600AB17AA /* ProductImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 847612411CAB047600AB17AA /* ProductImageCell.m */; };
+		847612761CAB047600AB17AA /* ProductVariantCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 847612431CAB047600AB17AA /* ProductVariantCell.m */; };
+		847612771CAB047600AB17AA /* ProductView.m in Sources */ = {isa = PBXBuildFile; fileRef = 847612451CAB047600AB17AA /* ProductView.m */; };
+		847612781CAB047600AB17AA /* ProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847612471CAB047600AB17AA /* ProductViewController.m */; };
+		8476127A1CAB047600AB17AA /* ProductViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8476124A1CAB047600AB17AA /* ProductViewHeader.m */; };
+		8476127B1CAB047600AB17AA /* HeaderBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8476124C1CAB047600AB17AA /* HeaderBackgroundView.m */; };
+		8476127C1CAB047600AB17AA /* HeaderOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8476124E1CAB047600AB17AA /* HeaderOverlayView.m */; };
+		8476127D1CAB047600AB17AA /* ProductViewNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847612501CAB047600AB17AA /* ProductViewNavigationController.m */; };
+		8476127E1CAB047600AB17AA /* OptionSelectionNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847612531CAB047600AB17AA /* OptionSelectionNavigationController.m */; };
+		8476127F1CAB047600AB17AA /* OptionSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847612551CAB047600AB17AA /* OptionSelectionViewController.m */; };
+		847612801CAB047600AB17AA /* OptionValueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 847612571CAB047600AB17AA /* OptionValueCell.m */; };
+		847612811CAB047600AB17AA /* VariantSelectionPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847612591CAB047600AB17AA /* VariantSelectionPresentationController.m */; };
+		847612821CAB047600AB17AA /* OptionBreadCrumbsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8476125B1CAB047600AB17AA /* OptionBreadCrumbsView.m */; };
+		847612831CAB047600AB17AA /* VariantOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8476125D1CAB047600AB17AA /* VariantOptionView.m */; };
+		847612841CAB047600AB17AA /* VariantSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8476125F1CAB047600AB17AA /* VariantSelectionViewController.m */; };
+		847612961CAB059100AB17AA /* ImageKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 847612911CAB059100AB17AA /* ImageKit.m */; };
+		847612971CAB059100AB17AA /* UIButton+PaymentButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 847612931CAB059100AB17AA /* UIButton+PaymentButton.m */; };
+		847612981CAB059100AB17AA /* UIImage+PaymentButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 847612951CAB059100AB17AA /* UIImage+PaymentButton.m */; };
+		847612A01CAB05BE00AB17AA /* UIColor+BUYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8476129B1CAB05BE00AB17AA /* UIColor+BUYAdditions.m */; };
+		847612A11CAB05BE00AB17AA /* UIFont+BUYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8476129D1CAB05BE00AB17AA /* UIFont+BUYAdditions.m */; };
+		847612A21CAB05BE00AB17AA /* UIImage+BUYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8476129F1CAB05BE00AB17AA /* UIImage+BUYAdditions.m */; };
+		84BA52EE1CB2E83C00AB1560 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BA52ED1CB2E83C00AB1560 /* NavigationController.m */; };
 		902C9B8C1BB06BF300FC456E /* GetShopOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 902C9B8B1BB06BF300FC456E /* GetShopOperation.m */; };
 		902C9B8F1BB0729F00FC456E /* ShippingRateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 902C9B8E1BB0729F00FC456E /* ShippingRateTableViewCell.m */; };
 		902C9B921BB08FF500FC456E /* SummaryItemsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 902C9B911BB08FF500FC456E /* SummaryItemsTableViewCell.m */; };
@@ -83,6 +119,77 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		842799641CB31498003AD0CE /* PaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentViewController.h; sourceTree = "<group>"; };
+		842799651CB31498003AD0CE /* PaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentViewController.m; sourceTree = "<group>"; };
+		847612241CAB047600AB17AA /* DisclosureIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisclosureIndicatorView.h; sourceTree = "<group>"; };
+		847612251CAB047600AB17AA /* DisclosureIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisclosureIndicatorView.m; sourceTree = "<group>"; };
+		847612261CAB047600AB17AA /* Theme+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Theme+Additions.h"; sourceTree = "<group>"; };
+		847612271CAB047600AB17AA /* Theme+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Theme+Additions.m"; sourceTree = "<group>"; };
+		847612281CAB047600AB17AA /* Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
+		847612291CAB047600AB17AA /* Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Theme.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		8476122A1CAB047600AB17AA /* VisualEffectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisualEffectView.h; sourceTree = "<group>"; };
+		8476122B1CAB047600AB17AA /* VisualEffectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisualEffectView.m; sourceTree = "<group>"; };
+		8476122F1CAB047600AB17AA /* ActionableFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ActionableFooterView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		847612301CAB047600AB17AA /* ActionableFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ActionableFooterView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		847612311CAB047600AB17AA /* ActionableFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionableFooterView.xib; sourceTree = "<group>"; };
+		847612321CAB047600AB17AA /* CheckoutButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CheckoutButton.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		847612331CAB047600AB17AA /* CheckoutButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CheckoutButton.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		847612341CAB047600AB17AA /* ErrorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ErrorView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		847612351CAB047600AB17AA /* ErrorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ErrorView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		847612361CAB047600AB17AA /* GradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientView.h; sourceTree = "<group>"; };
+		847612371CAB047600AB17AA /* GradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientView.m; sourceTree = "<group>"; };
+		847612381CAB047600AB17AA /* AsyncImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncImageView.h; sourceTree = "<group>"; };
+		847612391CAB047600AB17AA /* AsyncImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncImageView.m; sourceTree = "<group>"; };
+		8476123A1CAB047600AB17AA /* ProductViewPresentationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductViewPresentationController.h; sourceTree = "<group>"; };
+		8476123B1CAB047600AB17AA /* ProductViewPresentationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductViewPresentationController.m; sourceTree = "<group>"; };
+		8476123C1CAB047600AB17AA /* ProductDescriptionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductDescriptionCell.h; sourceTree = "<group>"; };
+		8476123D1CAB047600AB17AA /* ProductDescriptionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductDescriptionCell.m; sourceTree = "<group>"; };
+		8476123E1CAB047600AB17AA /* ProductHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductHeaderCell.h; sourceTree = "<group>"; };
+		8476123F1CAB047600AB17AA /* ProductHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductHeaderCell.m; sourceTree = "<group>"; };
+		847612401CAB047600AB17AA /* ProductImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductImageCell.h; sourceTree = "<group>"; };
+		847612411CAB047600AB17AA /* ProductImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductImageCell.m; sourceTree = "<group>"; };
+		847612421CAB047600AB17AA /* ProductVariantCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductVariantCell.h; sourceTree = "<group>"; };
+		847612431CAB047600AB17AA /* ProductVariantCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductVariantCell.m; sourceTree = "<group>"; };
+		847612441CAB047600AB17AA /* ProductView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ProductView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		847612451CAB047600AB17AA /* ProductView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ProductView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		847612461CAB047600AB17AA /* ProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductViewController.h; sourceTree = "<group>"; };
+		847612471CAB047600AB17AA /* ProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ProductViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		847612491CAB047600AB17AA /* ProductViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ProductViewHeader.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		8476124A1CAB047600AB17AA /* ProductViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductViewHeader.m; sourceTree = "<group>"; };
+		8476124B1CAB047600AB17AA /* HeaderBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderBackgroundView.h; sourceTree = "<group>"; };
+		8476124C1CAB047600AB17AA /* HeaderBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderBackgroundView.m; sourceTree = "<group>"; };
+		8476124D1CAB047600AB17AA /* HeaderOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderOverlayView.h; sourceTree = "<group>"; };
+		8476124E1CAB047600AB17AA /* HeaderOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderOverlayView.m; sourceTree = "<group>"; };
+		8476124F1CAB047600AB17AA /* ProductViewNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductViewNavigationController.h; sourceTree = "<group>"; };
+		847612501CAB047600AB17AA /* ProductViewNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductViewNavigationController.m; sourceTree = "<group>"; };
+		847612521CAB047600AB17AA /* OptionSelectionNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionSelectionNavigationController.h; sourceTree = "<group>"; };
+		847612531CAB047600AB17AA /* OptionSelectionNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionSelectionNavigationController.m; sourceTree = "<group>"; };
+		847612541CAB047600AB17AA /* OptionSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionSelectionViewController.h; sourceTree = "<group>"; };
+		847612551CAB047600AB17AA /* OptionSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionSelectionViewController.m; sourceTree = "<group>"; };
+		847612561CAB047600AB17AA /* OptionValueCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionValueCell.h; sourceTree = "<group>"; };
+		847612571CAB047600AB17AA /* OptionValueCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionValueCell.m; sourceTree = "<group>"; };
+		847612581CAB047600AB17AA /* VariantSelectionPresentationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VariantSelectionPresentationController.h; sourceTree = "<group>"; };
+		847612591CAB047600AB17AA /* VariantSelectionPresentationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VariantSelectionPresentationController.m; sourceTree = "<group>"; };
+		8476125A1CAB047600AB17AA /* OptionBreadCrumbsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionBreadCrumbsView.h; sourceTree = "<group>"; };
+		8476125B1CAB047600AB17AA /* OptionBreadCrumbsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionBreadCrumbsView.m; sourceTree = "<group>"; };
+		8476125C1CAB047600AB17AA /* VariantOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VariantOptionView.h; sourceTree = "<group>"; };
+		8476125D1CAB047600AB17AA /* VariantOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VariantOptionView.m; sourceTree = "<group>"; };
+		8476125E1CAB047600AB17AA /* VariantSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VariantSelectionViewController.h; sourceTree = "<group>"; };
+		8476125F1CAB047600AB17AA /* VariantSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VariantSelectionViewController.m; sourceTree = "<group>"; };
+		847612901CAB059100AB17AA /* ImageKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageKit.h; sourceTree = "<group>"; };
+		847612911CAB059100AB17AA /* ImageKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageKit.m; sourceTree = "<group>"; };
+		847612921CAB059100AB17AA /* UIButton+PaymentButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+PaymentButton.h"; sourceTree = "<group>"; };
+		847612931CAB059100AB17AA /* UIButton+PaymentButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "UIButton+PaymentButton.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		847612941CAB059100AB17AA /* UIImage+PaymentButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+PaymentButton.h"; sourceTree = "<group>"; };
+		847612951CAB059100AB17AA /* UIImage+PaymentButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+PaymentButton.m"; sourceTree = "<group>"; };
+		8476129A1CAB05BE00AB17AA /* UIColor+BUYAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+BUYAdditions.h"; sourceTree = "<group>"; };
+		8476129B1CAB05BE00AB17AA /* UIColor+BUYAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+BUYAdditions.m"; sourceTree = "<group>"; };
+		8476129C1CAB05BE00AB17AA /* UIFont+BUYAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+BUYAdditions.h"; sourceTree = "<group>"; };
+		8476129D1CAB05BE00AB17AA /* UIFont+BUYAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+BUYAdditions.m"; sourceTree = "<group>"; };
+		8476129E1CAB05BE00AB17AA /* UIImage+BUYAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+BUYAdditions.h"; sourceTree = "<group>"; };
+		8476129F1CAB05BE00AB17AA /* UIImage+BUYAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+BUYAdditions.m"; sourceTree = "<group>"; };
+		84BA52EC1CB2E83C00AB1560 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
+		84BA52ED1CB2E83C00AB1560 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		902C9B8A1BB06BF300FC456E /* GetShopOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetShopOperation.h; sourceTree = "<group>"; };
 		902C9B8B1BB06BF300FC456E /* GetShopOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetShopOperation.m; sourceTree = "<group>"; };
 		902C9B8D1BB0729F00FC456E /* ShippingRateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ShippingRateTableViewCell.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -135,6 +242,121 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		847612231CAB047600AB17AA /* Appearance */ = {
+			isa = PBXGroup;
+			children = (
+				847612261CAB047600AB17AA /* Theme+Additions.h */,
+				847612271CAB047600AB17AA /* Theme+Additions.m */,
+				847612281CAB047600AB17AA /* Theme.h */,
+				847612291CAB047600AB17AA /* Theme.m */,
+				8476122A1CAB047600AB17AA /* VisualEffectView.h */,
+				8476122B1CAB047600AB17AA /* VisualEffectView.m */,
+			);
+			path = Appearance;
+			sourceTree = "<group>";
+		};
+		8476122E1CAB047600AB17AA /* Product View */ = {
+			isa = PBXGroup;
+			children = (
+				8476122F1CAB047600AB17AA /* ActionableFooterView.h */,
+				847612301CAB047600AB17AA /* ActionableFooterView.m */,
+				847612311CAB047600AB17AA /* ActionableFooterView.xib */,
+				847612381CAB047600AB17AA /* AsyncImageView.h */,
+				847612391CAB047600AB17AA /* AsyncImageView.m */,
+				847612321CAB047600AB17AA /* CheckoutButton.h */,
+				847612331CAB047600AB17AA /* CheckoutButton.m */,
+				847612241CAB047600AB17AA /* DisclosureIndicatorView.h */,
+				847612251CAB047600AB17AA /* DisclosureIndicatorView.m */,
+				847612341CAB047600AB17AA /* ErrorView.h */,
+				847612351CAB047600AB17AA /* ErrorView.m */,
+				847612361CAB047600AB17AA /* GradientView.h */,
+				847612371CAB047600AB17AA /* GradientView.m */,
+				8476124B1CAB047600AB17AA /* HeaderBackgroundView.h */,
+				8476124C1CAB047600AB17AA /* HeaderBackgroundView.m */,
+				8476124D1CAB047600AB17AA /* HeaderOverlayView.h */,
+				8476124E1CAB047600AB17AA /* HeaderOverlayView.m */,
+				8476123C1CAB047600AB17AA /* ProductDescriptionCell.h */,
+				8476123D1CAB047600AB17AA /* ProductDescriptionCell.m */,
+				8476123E1CAB047600AB17AA /* ProductHeaderCell.h */,
+				8476123F1CAB047600AB17AA /* ProductHeaderCell.m */,
+				847612401CAB047600AB17AA /* ProductImageCell.h */,
+				847612411CAB047600AB17AA /* ProductImageCell.m */,
+				847612421CAB047600AB17AA /* ProductVariantCell.h */,
+				847612431CAB047600AB17AA /* ProductVariantCell.m */,
+				847612441CAB047600AB17AA /* ProductView.h */,
+				847612451CAB047600AB17AA /* ProductView.m */,
+				847612461CAB047600AB17AA /* ProductViewController.h */,
+				847612471CAB047600AB17AA /* ProductViewController.m */,
+				847612491CAB047600AB17AA /* ProductViewHeader.h */,
+				8476124A1CAB047600AB17AA /* ProductViewHeader.m */,
+				8476124F1CAB047600AB17AA /* ProductViewNavigationController.h */,
+				847612501CAB047600AB17AA /* ProductViewNavigationController.m */,
+				8476123A1CAB047600AB17AA /* ProductViewPresentationController.h */,
+				8476123B1CAB047600AB17AA /* ProductViewPresentationController.m */,
+				847612511CAB047600AB17AA /* Variant Selection */,
+				847612601CAB047600AB17AA /* View Controllers */,
+			);
+			path = "Product View";
+			sourceTree = "<group>";
+		};
+		847612511CAB047600AB17AA /* Variant Selection */ = {
+			isa = PBXGroup;
+			children = (
+				8476125A1CAB047600AB17AA /* OptionBreadCrumbsView.h */,
+				8476125B1CAB047600AB17AA /* OptionBreadCrumbsView.m */,
+				847612521CAB047600AB17AA /* OptionSelectionNavigationController.h */,
+				847612531CAB047600AB17AA /* OptionSelectionNavigationController.m */,
+				847612541CAB047600AB17AA /* OptionSelectionViewController.h */,
+				847612551CAB047600AB17AA /* OptionSelectionViewController.m */,
+				847612561CAB047600AB17AA /* OptionValueCell.h */,
+				847612571CAB047600AB17AA /* OptionValueCell.m */,
+				8476125C1CAB047600AB17AA /* VariantOptionView.h */,
+				8476125D1CAB047600AB17AA /* VariantOptionView.m */,
+				847612581CAB047600AB17AA /* VariantSelectionPresentationController.h */,
+				847612591CAB047600AB17AA /* VariantSelectionPresentationController.m */,
+				8476125E1CAB047600AB17AA /* VariantSelectionViewController.h */,
+				8476125F1CAB047600AB17AA /* VariantSelectionViewController.m */,
+			);
+			path = "Variant Selection";
+			sourceTree = "<group>";
+		};
+		847612601CAB047600AB17AA /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				842799641CB31498003AD0CE /* PaymentViewController.h */,
+				842799651CB31498003AD0CE /* PaymentViewController.m */,
+				84BA52EC1CB2E83C00AB1560 /* NavigationController.h */,
+				84BA52ED1CB2E83C00AB1560 /* NavigationController.m */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		8476128F1CAB059100AB17AA /* PaymentButton */ = {
+			isa = PBXGroup;
+			children = (
+				847612901CAB059100AB17AA /* ImageKit.h */,
+				847612911CAB059100AB17AA /* ImageKit.m */,
+				847612921CAB059100AB17AA /* UIButton+PaymentButton.h */,
+				847612931CAB059100AB17AA /* UIButton+PaymentButton.m */,
+				847612941CAB059100AB17AA /* UIImage+PaymentButton.h */,
+				847612951CAB059100AB17AA /* UIImage+PaymentButton.m */,
+			);
+			path = PaymentButton;
+			sourceTree = "<group>";
+		};
+		847612991CAB05BE00AB17AA /* UIKit Additions */ = {
+			isa = PBXGroup;
+			children = (
+				8476129A1CAB05BE00AB17AA /* UIColor+BUYAdditions.h */,
+				8476129B1CAB05BE00AB17AA /* UIColor+BUYAdditions.m */,
+				8476129C1CAB05BE00AB17AA /* UIFont+BUYAdditions.h */,
+				8476129D1CAB05BE00AB17AA /* UIFont+BUYAdditions.m */,
+				8476129E1CAB05BE00AB17AA /* UIImage+BUYAdditions.h */,
+				8476129F1CAB05BE00AB17AA /* UIImage+BUYAdditions.m */,
+			);
+			path = "UIKit Additions";
+			sourceTree = "<group>";
+		};
 		90B262451BB18BEF006D888F /* Table View Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,9 +377,9 @@
 		BE3437901BC5C18400C71330 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BE34379B1BC5C18400C71330 /* Mobile Buy SDK Tests.xctest */,
-				BE34379D1BC5C18400C71330 /* Buy.framework */,
 				BE34379F1BC5C18400C71330 /* Buy.framework */,
+				BE34379D1BC5C18400C71330 /* Buy.framework */,
+				BE34379B1BC5C18400C71330 /* Mobile Buy SDK Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -183,15 +405,19 @@
 		BE8B824D1B8CF49D00E3F871 /* Mobile Buy SDK Advanced Sample */ = {
 			isa = PBXGroup;
 			children = (
-				BE5E28451B94F5C300D2ECB5 /* Mobile Buy SDK Advanced Sample.entitlements */,
-				BE8B82971B8E6A7100E3F871 /* Operations */,
-				BE8B82961B8E6A6900E3F871 /* View Controllers */,
-				BE948D4C1B95087A009AB20B /* Images.xcassets */,
 				BE8B82521B8CF49D00E3F871 /* AppDelegate.h */,
 				BE8B82531B8CF49D00E3F871 /* AppDelegate.m */,
-				BE8B825B1B8CF49D00E3F871 /* Main.storyboard */,
+				847612231CAB047600AB17AA /* Appearance */,
+				8476128F1CAB059100AB17AA /* PaymentButton */,
+				BE948D4C1B95087A009AB20B /* Images.xcassets */,
 				BE8B82601B8CF49D00E3F871 /* LaunchScreen.xib */,
+				BE8B825B1B8CF49D00E3F871 /* Main.storyboard */,
+				BE5E28451B94F5C300D2ECB5 /* Mobile Buy SDK Advanced Sample.entitlements */,
+				BE8B82971B8E6A7100E3F871 /* Operations */,
+				8476122E1CAB047600AB17AA /* Product View */,
 				BE8B824E1B8CF49D00E3F871 /* Supporting Files */,
+				847612991CAB05BE00AB17AA /* UIKit Additions */,
+				BE8B82961B8E6A6900E3F871 /* View Controllers */,
 			);
 			path = "Mobile Buy SDK Advanced Sample";
 			sourceTree = "<group>";
@@ -331,6 +557,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8476126D1CAB047600AB17AA /* ActionableFooterView.xib in Resources */,
 				BE948D4D1B95087A009AB20B /* Images.xcassets in Resources */,
 				BE8B825D1B8CF49D00E3F871 /* Main.storyboard in Resources */,
 				BE8B82621B8CF49D00E3F871 /* LaunchScreen.xib in Resources */,
@@ -344,21 +571,56 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				847612A01CAB05BE00AB17AA /* UIColor+BUYAdditions.m in Sources */,
+				847612A11CAB05BE00AB17AA /* UIFont+BUYAdditions.m in Sources */,
 				BE948D491B9500DC009AB20B /* GetCompletionStatusOperation.m in Sources */,
+				8476127B1CAB047600AB17AA /* HeaderBackgroundView.m in Sources */,
 				BE8B82951B8E65D700E3F871 /* PreCheckoutViewController.m in Sources */,
+				8476127F1CAB047600AB17AA /* OptionSelectionViewController.m in Sources */,
+				8476127C1CAB047600AB17AA /* HeaderOverlayView.m in Sources */,
+				8476127A1CAB047600AB17AA /* ProductViewHeader.m in Sources */,
+				847612841CAB047600AB17AA /* VariantSelectionViewController.m in Sources */,
 				90B2623E1BB0A47B006D888F /* ProductViewControllerThemeStyleTableViewCell.m in Sources */,
+				847612801CAB047600AB17AA /* OptionValueCell.m in Sources */,
+				847612821CAB047600AB17AA /* OptionBreadCrumbsView.m in Sources */,
 				902C9B921BB08FF500FC456E /* SummaryItemsTableViewCell.m in Sources */,
+				8476127D1CAB047600AB17AA /* ProductViewNavigationController.m in Sources */,
+				8476126F1CAB047600AB17AA /* ErrorView.m in Sources */,
+				847612811CAB047600AB17AA /* VariantSelectionPresentationController.m in Sources */,
+				847612781CAB047600AB17AA /* ProductViewController.m in Sources */,
+				8476126A1CAB047600AB17AA /* VisualEffectView.m in Sources */,
+				847612721CAB047600AB17AA /* ProductViewPresentationController.m in Sources */,
 				902C9B8C1BB06BF300FC456E /* GetShopOperation.m in Sources */,
+				847612731CAB047600AB17AA /* ProductDescriptionCell.m in Sources */,
+				8476126C1CAB047600AB17AA /* ActionableFooterView.m in Sources */,
 				902C9B8F1BB0729F00FC456E /* ShippingRateTableViewCell.m in Sources */,
 				BE8B829A1B8E72CC00E3F871 /* CheckoutViewController.m in Sources */,
+				847612681CAB047600AB17AA /* Theme+Additions.m in Sources */,
+				847612831CAB047600AB17AA /* VariantOptionView.m in Sources */,
+				847612981CAB059100AB17AA /* UIImage+PaymentButton.m in Sources */,
+				8476126E1CAB047600AB17AA /* CheckoutButton.m in Sources */,
+				8476127E1CAB047600AB17AA /* OptionSelectionNavigationController.m in Sources */,
+				847612971CAB059100AB17AA /* UIButton+PaymentButton.m in Sources */,
+				847612761CAB047600AB17AA /* ProductVariantCell.m in Sources */,
+				847612691CAB047600AB17AA /* Theme.m in Sources */,
+				847612701CAB047600AB17AA /* GradientView.m in Sources */,
 				90B262441BB18B10006D888F /* ProductViewControllerThemeTintColorTableViewCell.m in Sources */,
 				90B262411BB0A726006D888F /* ProductViewControllerToggleTableViewCell.m in Sources */,
+				847612961CAB059100AB17AA /* ImageKit.m in Sources */,
+				847612A21CAB05BE00AB17AA /* UIImage+BUYAdditions.m in Sources */,
+				847612771CAB047600AB17AA /* ProductView.m in Sources */,
 				9079F5F41BB1AAA100CB1B35 /* CollectionListViewController.m in Sources */,
 				BE8B82541B8CF49D00E3F871 /* AppDelegate.m in Sources */,
 				BE8B827B1B8CFF0E00E3F871 /* GetShippingRatesOperation.m in Sources */,
+				842799661CB31498003AD0CE /* PaymentViewController.m in Sources */,
+				847612671CAB047600AB17AA /* DisclosureIndicatorView.m in Sources */,
 				BE8B82571B8CF49D00E3F871 /* ProductListViewController.m in Sources */,
 				BE8B82511B8CF49D00E3F871 /* main.m in Sources */,
 				BE8B82921B8E612700E3F871 /* ShippingRatesTableViewController.m in Sources */,
+				847612711CAB047600AB17AA /* AsyncImageView.m in Sources */,
+				84BA52EE1CB2E83C00AB1560 /* NavigationController.m in Sources */,
+				847612751CAB047600AB17AA /* ProductImageCell.m in Sources */,
+				847612741CAB047600AB17AA /* ProductHeaderCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

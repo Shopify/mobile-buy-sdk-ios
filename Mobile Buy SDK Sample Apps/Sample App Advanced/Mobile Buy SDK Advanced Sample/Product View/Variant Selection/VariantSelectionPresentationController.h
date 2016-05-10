@@ -1,6 +1,6 @@
 //
-//  MasterViewController.h
-//  Mobile Buy SDK Advanced Sample
+//  VariantSelectionPresentationController.h
+//  Mobile Buy SDK
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -25,11 +25,15 @@
 //
 
 @import UIKit;
-@import Buy;
 
-@interface ProductListViewController : UITableViewController
+/**
+ *  A presentation controller containing the view controllers for variant selection
+ */
+@interface VariantSelectionPresentationController : UIPresentationController
 
-- (instancetype)initWithClient:(BUYClient *)client collection:(BUYCollection*)collection;
+/**
+ *  Blurred effects view that surrounds the variant selection navigation controller 
+ */
+@property (nonatomic, strong) UIVisualEffectView *backgroundView;
 
 @end
-

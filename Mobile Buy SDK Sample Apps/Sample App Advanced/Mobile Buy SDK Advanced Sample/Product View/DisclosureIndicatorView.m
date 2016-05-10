@@ -1,6 +1,6 @@
 //
-//  MasterViewController.h
-//  Mobile Buy SDK Advanced Sample
+//  DisclosureIndicatorView.m
+//  Mobile Buy SDK
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -24,12 +24,18 @@
 //  THE SOFTWARE.
 //
 
-@import UIKit;
-@import Buy;
+#import "DisclosureIndicatorView.h"
+#import "ImageKit.h"
 
-@interface ProductListViewController : UITableViewController
+@implementation DisclosureIndicatorView
 
-- (instancetype)initWithClient:(BUYClient *)client collection:(BUYCollection*)collection;
+- (instancetype)init
+{
+	self = [super init];
+	if (self) {
+		self.image = [[ImageKit imageOfDisclosureIndicatorImageWithFrame:CGRectMake(0, 0, 10, 16) color:[UIColor blackColor]] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+	}
+	return self;
+}
 
 @end
-
