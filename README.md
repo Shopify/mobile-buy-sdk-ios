@@ -121,7 +121,7 @@ BUYCollection *collection = collections.firstObject;
 	}
 }];
 ```
-Consult the [Usage Section](https://docs.shopify.com/mobile-buy-sdk/ios/integration-guide/#using-the-mobile-buy-sdk) of the Integration Guide on how to create a cart, and checkout with the SDK.
+
 ### Customer API
 ##### Customer Login
 You can allow customers to login with their existing account using the SDK. First, we'll need to create the `BUYAccountCredentials` object used to pass authentication credentials to the server.
@@ -164,6 +164,9 @@ After we obtain the customers first name, last name and password confirmation in
 	}
 }];
 ```
+
+### Integration Guide
+Consult the [Usage Section](https://docs.shopify.com/mobile-buy-sdk/ios/integration-guide/#using-the-mobile-buy-sdk) of the Integration Guide on how to create a cart, checkout and more with the SDK.
 
 ### Building the SDK
 
