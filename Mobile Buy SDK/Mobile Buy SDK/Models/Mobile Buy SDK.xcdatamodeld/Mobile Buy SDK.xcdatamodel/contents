@@ -157,11 +157,6 @@
                 <entry key="documentation" value="Amount of payment due on the checkout."/>
             </userInfo>
         </attribute>
-        <attribute name="paymentSessionId" optional="YES" attributeType="String" syncable="YES">
-            <userInfo>
-                <entry key="documentation" value="The Payment Session ID associated with a credit card transaction."/>
-            </userInfo>
-        </attribute>
         <attribute name="paymentURL" optional="YES" attributeType="Transformable" valueTransformerName="" syncable="YES">
             <userInfo>
                 <entry key="attributeValueClassName" value="NSURL"/>
@@ -992,7 +987,7 @@
         <element name="Address" positionX="126" positionY="521" width="128" height="240"/>
         <element name="Cart" positionX="-576" positionY="558" width="128" height="60"/>
         <element name="CartLineItem" positionX="-380" positionY="558" width="128" height="90"/>
-        <element name="Checkout" positionX="333" positionY="442" width="128" height="645"/>
+        <element name="Checkout" positionX="333" positionY="442" width="128" height="630"/>
         <element name="CheckoutAttribute" positionX="-954" positionY="594" width="128" height="90"/>
         <element name="Collection" positionX="-963" positionY="772" width="128" height="210"/>
         <element name="Customer" positionX="106" positionY="1263" width="128" height="330"/>
