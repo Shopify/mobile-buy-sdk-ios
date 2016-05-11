@@ -463,14 +463,10 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)getCompletionStatusOfCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutStatusBlock)block
 {
-	NSURLSessionDataTask *task = nil;
-	if ([checkout hasToken]) {
-		task = [self getCompletionStatusOfCheckoutToken:checkout.token completion:block];
-	}
-	else {
-		block(BUYStatusUnknown, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
-	}
-	return task;
+	NSAssert(checkout, @"Failed to get completetion status of checkout. Checkout must not be nil");
+	NSAssert([checkout hasToken], @"Failed to get complete status of checkout. Checkout must have a valid token associated with it/");
+	
+	return [self getCompletionStatusOfCheckoutToken:checkout.token completion:block];
 }
 
 - (NSURLSessionDataTask *)getCompletionStatusOfCheckoutURL:(NSURL *)url completion:(BUYDataCheckoutStatusBlock)block
