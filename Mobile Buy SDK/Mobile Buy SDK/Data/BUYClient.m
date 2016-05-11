@@ -439,7 +439,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	
 	NSData *data = nil;
 	if (paymentToken) {
-		data = [NSJSONSerialization dataWithJSONObject:[paymentToken jsonRepresentation] options:0 error:nil];
+		data = [NSJSONSerialization dataWithJSONObject:[paymentToken JSONDictionary] options:0 error:nil];
 	}
 	
 	BOOL isFree = (checkout.paymentDue && checkout.paymentDue.floatValue == 0);

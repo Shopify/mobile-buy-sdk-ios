@@ -26,6 +26,6 @@
 
 @protocol BUYPaymentToken <NSObject>
 
-- (NSDictionary *)jsonRepresentation;
+- (NSDictionary *)JSONDictionary;
 
 @end

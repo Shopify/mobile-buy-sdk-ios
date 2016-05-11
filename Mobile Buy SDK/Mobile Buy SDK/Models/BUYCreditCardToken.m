@@ -43,7 +43,7 @@
 
 #pragma mark - BUYPaymentSessionProvider -
 
-- (NSDictionary *)jsonRepresentation
+- (NSDictionary *)JSONDictionary
 {
 	return @{
 			 @"payment_session_id" : self.paymentSessionID,
