@@ -30,12 +30,14 @@
 #import "BUYCart.h"
 #import "BUYCheckout.h"
 #import "BUYCreditCard.h"
+#import "BUYCreditCardSessionProvider.h"
 #import "BUYCollection.h"
 #import "BUYError.h"
 #import "BUYGiftCard.h"
 #import "BUYModelManager.h"
 #import "BUYOrder.h"
 #import "BUYProduct.h"
+#import "BUYPaymentSessionProvider.h"
 #import "BUYShippingRate.h"
 #import "BUYShop.h"
 #import "BUYShopifyErrorCodes.h"
@@ -439,59 +441,30 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	return task;
 }
 
-- (NSURLSessionDataTask*)completeCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
+- (NSURLSessionDataTask*)completeCheckout:(BUYCheckout *)checkout sessionProvider:(id<BUYPaymentSessionProvider>)sessionProvider completion:(BUYDataCheckoutBlock)block
 {
+	NSAssert(sessionProvider, @"Failed to complete checkout. BUYPaymentSessionProvider must not be nil.");
+	NSAssert(checkout, @"Failed to complete checkout. BUYCheckout must not be nil");
+	
 	NSURLSessionDataTask *task = nil;
 	
 	if ([checkout hasToken]) {
 		
+		BOOL isFree = (checkout.paymentDue && checkout.paymentDue.floatValue == 0);
+		
 		NSData *data = nil;
-		NSError *error = nil;
-		
-		if (checkout.paymentSessionId.length > 0) {
-			NSDictionary *paymentJson = @{ @"payment_session_id" : checkout.paymentSessionId };
-			data = [NSJSONSerialization dataWithJSONObject:paymentJson options:0 error:&error];
+		if ([sessionProvider hasPaymentSessionID]) {
+			data = [NSJSONSerialization dataWithJSONObject:[sessionProvider jsonRepresentation] options:0 error:nil];
 		}
 		
-		if ((data && !error) || (checkout.paymentDue && checkout.paymentDue.floatValue == 0)) {
+		if (data || isFree) {
 			task = [self checkoutCompletionRequestWithCheckout:checkout body:data completion:block];
 		}
-	}
-	else {
+		
+	} else {
 		block(nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
 	}
 	
-	return task;
-}
-
-- (NSURLSessionDataTask *)completeCheckout:(BUYCheckout *)checkout withApplePayToken:(PKPaymentToken *)token completion:(BUYDataCheckoutBlock)block
-{
-	
-	NSURLSessionDataTask *task = nil;
-#if __has_include(<PassKit/PassKit.h>)
-	
-	if ([checkout hasToken] == NO) {
-		block(nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
-	}
-	else if (!token) {
-		block(nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_NoApplePayTokenSpecified userInfo:nil]);
-	}
-	else {
-		NSString *tokenString = [[NSString alloc] initWithData:token.paymentData encoding:NSUTF8StringEncoding];
-		NSDictionary *paymentJson = @{ @"payment_token" : @{ @"payment_data" : tokenString, @"type" : @"apple_pay" }};
-		NSError *error = nil;
-		NSData *data = [NSJSONSerialization dataWithJSONObject:paymentJson options:0 error:&error];
-		if (data && !error) {
-			task = [self checkoutCompletionRequestWithCheckout:checkout body:data completion:block];
-		}
-		else {
-			block(nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
-		}
-	}
-	
-#elif
-	block(nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_NoApplePayTokenSpecified userInfo:nil]);
-#endif
 	return task;
 }
 
@@ -574,34 +547,30 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 #pragma mark - Payments
 
-- (NSURLSessionDataTask *)storeCreditCard:(BUYCreditCard *)creditCard checkout:(BUYCheckout *)checkout completion:(BUYDataCreditCardBlock)block
+- (NSURLSessionDataTask *)storeCreditCard:(BUYCreditCard *)creditCard checkout:(BUYCheckout *)checkout completion:(BUYDataCreditCardBlock)completion
 {
-	NSURLSessionDataTask *task = nil;
+	NSAssert(checkout, @"Failed to store credit card. No checkout provided.");
+	NSAssert(checkout.token, @"Failed to store credit card. No checkout token provided.");
+	NSAssert(creditCard, @"Failed to store credit card. No credit card provided.");
 	
-	if ([checkout hasToken] == NO) {
-		block(nil, nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
+	NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
+	json[@"token"]            = checkout.token;
+	json[@"credit_card"]      = [creditCard jsonDictionaryForCheckout];
+	if (checkout.billingAddress) {
+		json[@"billing_address"] = [checkout.billingAddress jsonDictionaryForCheckout];
 	}
-	else if (!creditCard) {
-		block(nil, nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_NoCreditCardSpecified userInfo:nil]);
-	}
-	else {
-		NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
-		json[@"token"] = checkout.token;
-		json[@"credit_card"] = [creditCard jsonDictionaryForCheckout];
-		if (checkout.billingAddress) {
-			json[@"billing_address"] = [checkout.billingAddress jsonDictionaryForCheckout];
-		}
+	
+	NSData *data = [NSJSONSerialization dataWithJSONObject:@{ @"checkout" : json } options:0 error:nil];
+	if (data) {
+		return [self postPaymentRequestWithCheckout:checkout body:data completion:^(BUYCheckout *checkout, NSString *paymentSessionId, NSError *error) {
+			id<BUYPaymentSessionProvider> provider = [[BUYCreditCardSessionProvider alloc] initWithPaymentSessionID:paymentSessionId];
+			completion(checkout, provider, error);
+		}];
 		
-		NSError *error = nil;
-		NSData *data = [NSJSONSerialization dataWithJSONObject:@{ @"checkout" : json } options:0 error:&error];
-		if (data && !error) {
-			task = [self postPaymentRequestWithCheckout:checkout body:data completion:block];
-		}
-		else {
-			block(nil, nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
-		}
+	} else {
+		completion(nil, nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
+		return nil;
 	}
-	return task;
 }
 
 - (NSURLSessionDataTask *)removeProductReservationsFromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
@@ -703,7 +672,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	return task;
 }
 
-- (NSURLSessionDataTask *)postPaymentRequestWithCheckout:(BUYCheckout *)checkout body:(NSData *)body completion:(BUYDataCreditCardBlock)block
+- (NSURLSessionDataTask *)postPaymentRequestWithCheckout:(BUYCheckout *)checkout body:(NSData *)body completion:(void (^)(BUYCheckout *checkout, NSString *paymentSessionId, NSError *error))block
 {
 	return [self requestForURL:checkout.paymentURL method:kPOST body:body completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		NSString *paymentSessionId = nil;

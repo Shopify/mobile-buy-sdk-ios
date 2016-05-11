@@ -40,6 +40,8 @@
 @class BUYOrder;
 @class BUYModelManager;
 
+@protocol BUYPaymentSessionProvider;
+
 /**
  *  The sort order for products in a collection
  */
@@ -114,13 +116,13 @@ typedef NS_ENUM(NSUInteger, BUYStatus) {
 };
 
 /**
- *  Return block containing a BUYCheckout, Payment Session ID and/or an NSError
+ *  Return block containing a BUYCheckout, id<BUYPaymentSessionProvider> and/or an NSError
  *
  *  @param checkout         The returned BUYCheckout
- *  @param paymentSessionId The Payment Session ID associated with a credit card transaction
+ *  @param sessionProvider  An opaque session provider type that wraps necessary credentials for payment
  *  @param error            Optional NSError
  */
-typedef void (^BUYDataCreditCardBlock)(BUYCheckout *checkout, NSString *paymentSessionId, NSError *error);
+typedef void (^BUYDataCreditCardBlock)(BUYCheckout *checkout, id<BUYPaymentSessionProvider> sessionProvider, NSError *error);
 
 /**
  *  Return block containing a BUYCheckout and/or an NSError
@@ -444,7 +446,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
 - (NSURLSessionDataTask *)updateCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
 
 /**
- *  Finalizes the BUYCheckout and charges the credit card.
+ *  Finalizes the BUYCheckout and charges the payment provider (ex: Credi Card, Apple Pay, etc).
  *  This enqueues a completion job on Shopify and returns immediately.
  *  You must get the job's status by calling checkCompletionStatusOfCheckout:block
  *
@@ -456,25 +458,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
  *
  *  @return The associated NSURLSessionDataTask
  */
-- (NSURLSessionDataTask *)completeCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
-
-/**
- */
-/**
- *  Finalizes the checkout and charges the credit card associated with the payment token from PassKit (Apple Pay).
- *  This only enqueues a completion job, and will return immediately.
- *  You must get the job's status by calling checkCompletionStatusOfCheckout:block
- *
- *  Note: There's no guarantee that the BUYCheckout returned will be the same as the one that is passed in.
- *  We recommended using the BUYCheckout returned in the block.
- *
- *  @param checkout The BUYCheckout to complete
- *  @param token    The PKPaymentToken
- *  @param block    (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
- *
- *  @return The associated NSURLSessionDataTask
- */
-- (NSURLSessionDataTask *)completeCheckout:(BUYCheckout *)checkout withApplePayToken:(PKPaymentToken *)token completion:(BUYDataCheckoutBlock)block;
+- (NSURLSessionDataTask*)completeCheckout:(BUYCheckout *)checkout sessionProvider:(id<BUYPaymentSessionProvider>)sessionProvider completion:(BUYDataCheckoutBlock)block;
 
 /**
  *  Retrieve the status of a BUYCheckout. This checks the status of the current payment processing job for the provided checkout.
