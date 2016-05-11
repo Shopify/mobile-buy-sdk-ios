@@ -444,27 +444,18 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 - (NSURLSessionDataTask*)completeCheckout:(BUYCheckout *)checkout paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block
 {
 	NSAssert(checkout, @"Failed to complete checkout. Checkout must not be nil");
+	NSAssert([checkout hasToken], @"Failed to complete checkout. Checkout must have a valid token associated with it/");
 	
-	NSURLSessionDataTask *task = nil;
-	
-	if ([checkout hasToken]) {
-		
-		BOOL isFree = (checkout.paymentDue && checkout.paymentDue.floatValue == 0);
-		
-		NSData *data = nil;
-		if (paymentToken) {
-			data = [NSJSONSerialization dataWithJSONObject:[paymentToken jsonRepresentation] options:0 error:nil];
-		}
-		
-		if (data || isFree) {
-			task = [self checkoutCompletionRequestWithCheckout:checkout body:data completion:block];
-		}
-		
-	} else {
-		block(nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
+	NSData *data = nil;
+	if (paymentToken) {
+		data = [NSJSONSerialization dataWithJSONObject:[paymentToken jsonRepresentation] options:0 error:nil];
 	}
 	
-	return task;
+	BOOL isFree = (checkout.paymentDue && checkout.paymentDue.floatValue == 0);
+	
+	NSAssert(data || isFree, @"Failed to complete checkout. Checkout must have a payment token or have a payment value equal to $0.00");
+	
+	return [self checkoutCompletionRequestWithCheckout:checkout body:data completion:block];
 }
 
 - (NSURLSessionDataTask *)checkoutCompletionRequestWithCheckout:(BUYCheckout *)checkout body:(NSData *)body completion:(BUYDataCheckoutBlock)block
