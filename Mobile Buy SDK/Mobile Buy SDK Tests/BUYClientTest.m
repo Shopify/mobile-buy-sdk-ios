@@ -34,6 +34,7 @@
 #import "BUYShopifyErrorCodes.h"
 #import "BUYAccountCredentials.h"
 #import "BUYClient+Customers.h"
+#import "BUYApplePayToken.h"
 
 NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
@@ -130,7 +131,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 {
 	BUYCheckout *checkout = [[BUYCheckout alloc] initWithModelManager:self.client.modelManager JSONDictionary:@{@"token": @"abcdef", @"payment_due": @0}];
 	
-	NSURLSessionDataTask *task = [self.client completeCheckout:checkout completion:nil];
+	NSURLSessionDataTask *task = [self.client completeCheckout:checkout paymentToken:nil completion:nil];
 	XCTAssertNotNil(task);
 }
 
@@ -196,23 +197,15 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
 - (void)testCheckoutWithApplePayToken
 {
-	__block int callbackCount = 0;
-	
-	[self.client completeCheckout:nil withApplePayToken:[PKPaymentToken new] completion:^(BUYCheckout *checkout, NSError *error) {
-		callbackCount++;
-		XCTAssertEqual(error.code, BUYShopifyError_InvalidCheckoutObject);
-	}];
-	
-	BUYCheckout *checkout = [[BUYCheckout alloc] initWithModelManager:self.client.modelManager JSONDictionary:@{@"token": @"abcdef", @"payment_due": @0}];
+	id<BUYPaymentToken> token = [[BUYApplePayToken alloc] initWithPaymentToken:[PKPaymentToken new]];
+	XCTAssertThrows(
+		[self.client completeCheckout:nil paymentToken:token completion:nil]
+	);
 
-	[self.client completeCheckout:checkout withApplePayToken:nil completion:^(BUYCheckout *checkout, NSError *error) {
-		callbackCount++;
-		XCTAssertEqual(error.code, BUYShopifyError_NoApplePayTokenSpecified);
-	}];
-	
-	XCTAssertEqual(callbackCount, 2);
-	
-	[self testProductsInCollectionWithSortOrderCollectionDefault];
+	BUYCheckout *checkout = [[BUYCheckout alloc] initWithModelManager:self.client.modelManager JSONDictionary:@{@"token": @"abcdef", @"payment_due": @0}];
+	XCTAssertNoThrow(
+		[self.client completeCheckout:checkout paymentToken:nil completion:nil]
+	);
 }
 
 - (void)testQueryItemsConversion

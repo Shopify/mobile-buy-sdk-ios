@@ -220,7 +220,7 @@
 	XCTAssertEqualObjects(_checkout.email, @"test@test.com");
 }
 
-- (void)addCreditCardToCheckout
+- (id<BUYPaymentToken>)addCreditCardToCheckout
 {
 	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
 		return [self shouldUseMocks];
@@ -229,19 +229,23 @@
 	}];
 	
 	BUYCreditCard *creditCard = [self creditCard];
+	__block id<BUYPaymentToken> token = nil;
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client storeCreditCard:creditCard checkout:_checkout completion:^(BUYCheckout *returnedCheckout, NSString *paymentSessionId, NSError *error) {
+	[self.client storeCreditCard:creditCard checkout:_checkout completion:^(BUYCheckout *returnedCheckout, id<BUYPaymentToken> paymentToken, NSError *error) {
 		XCTAssertNil(error);
-		XCTAssertNotNil(paymentSessionId);
+		XCTAssertNotNil(paymentToken);
 		XCTAssertNotNil(returnedCheckout);
 		
 		_checkout = returnedCheckout;
+		token = paymentToken;
 		[expectation fulfill];
 	}];
 	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
 		XCTAssertNil(error);
 	}];
+	
+	return token;
 }
 
 - (BUYCreditCard *)creditCard
@@ -256,7 +260,7 @@
 	return creditCard;
 }
 
-- (void)completeCheckout
+- (void)completeCheckoutWithToken:(id<BUYPaymentToken>)paymentToken
 {
 	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
 		return [self shouldUseMocks];
@@ -265,7 +269,7 @@
 	}];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client completeCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+	[self.client completeCheckout:_checkout paymentToken:paymentToken completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
 		
@@ -988,8 +992,9 @@
 	[self createCheckout];
 	[self fetchShippingRates];
 	[self updateCheckout];
-	[self addCreditCardToCheckout];
-	[self completeCheckout];
+	
+	id<BUYPaymentToken> token = [self addCreditCardToCheckout];
+	[self completeCheckoutWithToken:token];
 	
 	[self pollUntilCheckoutIsComplete];
 	[self verifyCompletedCheckout];
@@ -1036,8 +1041,9 @@
 	[self updateCheckout];
 	
 	//We use a credit card here because we're not generating apple pay tokens in the tests
-	[self addCreditCardToCheckout];
-	[self completeCheckout];
+	id<BUYPaymentToken> token = [self addCreditCardToCheckout];
+	[self completeCheckoutWithToken:token];
+	
 	[self pollUntilCheckoutIsComplete];
 	[self verifyCompletedCheckout];
 }
