@@ -1,5 +1,5 @@
 //
-//  BUYCreditCardSessionProvider.h
+//  BUYApplePayToken.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -27,10 +27,12 @@
 #import <Foundation/Foundation.h>
 #import "BUYPaymentSessionProvider.h"
 
-@interface BUYCreditCardSessionProvider : NSObject <BUYPaymentSessionProvider>
+@class PKPaymentToken;
 
-@property (nonatomic, strong, readonly) NSString *paymentSessionID;
+@interface BUYApplePayToken : NSObject <BUYPaymentToken>
 
-- (instancetype)initWithPaymentSessionID:(NSString *)paymentSessionID;
+@property (nonatomic, strong, readonly) PKPaymentToken *paymentToken;
+
+- (instancetype)initWithPaymentToken:(PKPaymentToken *)paymentToken;
 
 @end

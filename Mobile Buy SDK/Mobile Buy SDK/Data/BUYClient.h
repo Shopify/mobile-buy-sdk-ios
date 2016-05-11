@@ -40,7 +40,7 @@
 @class BUYOrder;
 @class BUYModelManager;
 
-@protocol BUYPaymentSessionProvider;
+@protocol BUYPaymentToken;
 
 /**
  *  The sort order for products in a collection
@@ -118,11 +118,11 @@ typedef NS_ENUM(NSUInteger, BUYStatus) {
 /**
  *  Return block containing a BUYCheckout, id<BUYPaymentSessionProvider> and/or an NSError
  *
- *  @param checkout         The returned BUYCheckout
- *  @param sessionProvider  An opaque session provider type that wraps necessary credentials for payment
- *  @param error            Optional NSError
+ *  @param checkout      The returned BUYCheckout
+ *  @param paymentToken  An opaque payment token type that wraps necessary credentials for payment
+ *  @param error         Optional NSError
  */
-typedef void (^BUYDataCreditCardBlock)(BUYCheckout *checkout, id<BUYPaymentSessionProvider> sessionProvider, NSError *error);
+typedef void (^BUYDataCreditCardBlock)(BUYCheckout *checkout, id<BUYPaymentToken> paymentToken, NSError *error);
 
 /**
  *  Return block containing a BUYCheckout and/or an NSError
@@ -453,12 +453,13 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
  *  Note: There's no guarantee that the BUYCheckout returned will be the same as the one that is passed in.
  *  We recommended using the BUYCheckout returned in the block.
  *
- *  @param checkout The BUYCheckout to complete
- *  @param block    (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
+ *  @param checkout      The BUYCheckout to complete
+ *  @param paymentToken  Opaque payment token object
+ *  @param block         (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
  *
  *  @return The associated NSURLSessionDataTask
  */
-- (NSURLSessionDataTask*)completeCheckout:(BUYCheckout *)checkout sessionProvider:(id<BUYPaymentSessionProvider>)sessionProvider completion:(BUYDataCheckoutBlock)block;
+- (NSURLSessionDataTask*)completeCheckout:(BUYCheckout *)checkout paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block;
 
 /**
  *  Retrieve the status of a BUYCheckout. This checks the status of the current payment processing job for the provided checkout.

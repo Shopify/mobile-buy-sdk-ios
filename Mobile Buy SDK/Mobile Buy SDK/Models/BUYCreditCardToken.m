@@ -1,5 +1,5 @@
 //
-//  BUYApplePaySessionProvider.m
+//  BUYCreditCardToken.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,43 +24,27 @@
 //  THE SOFTWARE.
 //
 
-#if __has_include(<PassKit/PassKit.h>)
-#import <PassKit/PassKit.h>
-#endif
+#import "BUYCreditCardToken.h"
 
-#import "BUYApplePaySessionProvider.h"
-
-@implementation BUYApplePaySessionProvider
+@implementation BUYCreditCardToken
 
 #pragma mark - Init -
 
-- (instancetype)initWithPaymentToken:(PKPaymentToken *)paymentToken
+- (instancetype)initWithPaymentSessionID:(NSString *)paymentSessionID
 {
 	self = [super init];
 	if (self) {
-		_paymentToken = paymentToken;
+		_paymentSessionID = paymentSessionID;
 	}
 	return self;
 }
 
-- (NSString *)paymentTokenString {
-	return [[NSString alloc] initWithData:self.paymentToken.paymentData encoding:NSUTF8StringEncoding];
-}
-
 #pragma mark - BUYPaymentSessionProvider -
-
-- (BOOL)hasPaymentSessionID
-{
-	return self.paymentToken.paymentData.length > 0;
-}
 
 - (NSDictionary *)jsonRepresentation
 {
 	return @{
-			 @"payment_token" : @{
-					 @"type"         : @"apple_pay",
-					 @"payment_data" : [self paymentTokenString],
-					 },
+			 @"payment_session_id" : self.paymentSessionID,
 			 };
 }
 

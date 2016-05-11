@@ -1,5 +1,5 @@
 //
-//  BUYPaymentSessionProvider.h
+//  BUYPaymentToken.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,9 +24,8 @@
 //  THE SOFTWARE.
 //
 
-@protocol BUYPaymentSessionProvider <NSObject>
+@protocol BUYPaymentToken <NSObject>
 
-- (BOOL)hasPaymentSessionID;
 - (NSDictionary *)jsonRepresentation;
 
 @end

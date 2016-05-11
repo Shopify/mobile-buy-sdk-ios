@@ -30,7 +30,7 @@
 #import "BUYCart.h"
 #import "BUYCheckout.h"
 #import "BUYCreditCard.h"
-#import "BUYCreditCardSessionProvider.h"
+#import "BUYCreditCardToken.h"
 #import "BUYCollection.h"
 #import "BUYError.h"
 #import "BUYGiftCard.h"
@@ -441,10 +441,9 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	return task;
 }
 
-- (NSURLSessionDataTask*)completeCheckout:(BUYCheckout *)checkout sessionProvider:(id<BUYPaymentSessionProvider>)sessionProvider completion:(BUYDataCheckoutBlock)block
+- (NSURLSessionDataTask*)completeCheckout:(BUYCheckout *)checkout paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block
 {
-	NSAssert(sessionProvider, @"Failed to complete checkout. BUYPaymentSessionProvider must not be nil.");
-	NSAssert(checkout, @"Failed to complete checkout. BUYCheckout must not be nil");
+	NSAssert(checkout, @"Failed to complete checkout. Checkout must not be nil");
 	
 	NSURLSessionDataTask *task = nil;
 	
@@ -453,8 +452,8 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 		BOOL isFree = (checkout.paymentDue && checkout.paymentDue.floatValue == 0);
 		
 		NSData *data = nil;
-		if ([sessionProvider hasPaymentSessionID]) {
-			data = [NSJSONSerialization dataWithJSONObject:[sessionProvider jsonRepresentation] options:0 error:nil];
+		if (paymentToken) {
+			data = [NSJSONSerialization dataWithJSONObject:[paymentToken jsonRepresentation] options:0 error:nil];
 		}
 		
 		if (data || isFree) {
@@ -563,7 +562,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	NSData *data = [NSJSONSerialization dataWithJSONObject:@{ @"checkout" : json } options:0 error:nil];
 	if (data) {
 		return [self postPaymentRequestWithCheckout:checkout body:data completion:^(BUYCheckout *checkout, NSString *paymentSessionId, NSError *error) {
-			id<BUYPaymentSessionProvider> provider = [[BUYCreditCardSessionProvider alloc] initWithPaymentSessionID:paymentSessionId];
+			id<BUYPaymentToken> provider = [[BUYCreditCardToken alloc] initWithPaymentSessionID:paymentSessionId];
 			completion(checkout, provider, error);
 		}];
 		
