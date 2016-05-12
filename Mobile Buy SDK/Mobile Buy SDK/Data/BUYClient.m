@@ -346,10 +346,9 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)postCheckout:(NSDictionary *)checkoutJSON completion:(BUYDataCheckoutBlock)block
 {
-	NSData *data = [NSJSONSerialization dataWithJSONObject:checkoutJSON options:0 error:nil];
 	NSURLComponents *components = [self URLComponentsForCheckoutsAppendingPath:nil checkoutToken:nil queryItems:nil];
 	
-	return [self postRequestForURL:components.URL body:data completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self postRequestForURL:components.URL object:checkoutJSON completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		[self handleCheckoutResponse:json error:error block:block];
 	}];
 }
@@ -435,24 +434,15 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 {
 	BUYAssertCheckout(checkout);
 	
-	NSData *data = nil;
-	if (paymentToken) {
-		data = [NSJSONSerialization dataWithJSONObject:[paymentToken JSONDictionary] options:0 error:nil];
-	}
-	
 	BOOL isFree = (checkout.paymentDue && checkout.paymentDue.floatValue == 0);
 	
-	BUYAssert(data || isFree, @"Failed to complete checkout. Checkout must have a payment token or have a payment value equal to $0.00");
+	BUYAssert(paymentToken || isFree, @"Failed to complete checkout. Checkout must have a payment token or have a payment value equal to $0.00");
 	
-	return [self checkoutCompletionRequestWithCheckout:checkout body:data completion:block];
-}
-
-- (NSURLSessionDataTask *)checkoutCompletionRequestWithCheckout:(BUYCheckout *)checkout body:(NSData *)body completion:(BUYDataCheckoutBlock)block
-{
 	NSURLComponents *components = [self URLComponentsForCheckoutsAppendingPath:@"complete"
 																 checkoutToken:checkout.token
 																	queryItems:nil];
-	return [self postRequestForURL:components.URL body:body completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	
+	return [self postRequestForURL:components.URL object:[paymentToken JSONDictionary] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		[self handleCheckoutResponse:json error:error block:block];
 	}];
 }
@@ -648,11 +638,6 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 - (NSURLSessionDataTask *)putRequestForURL:(NSURL *)url object:(id<BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
 	return [self requestForURL:url method:kPUT object:object completionHandler:completionHandler];
-}
-
-- (NSURLSessionDataTask *)postRequestForURL:(NSURL *)url body:(NSData *)body completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
-{
-	return [self requestForURL:url method:kPOST body:body completionHandler:completionHandler];
 }
 
 - (NSURLSessionDataTask *)patchRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
