@@ -556,14 +556,12 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)requestForURL:(NSURL *)url method:(NSString *)method object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
-	NSDictionary *json = [object jsonDictionaryForCheckout];
-	NSError *error = nil;
-	NSData *data = [NSJSONSerialization dataWithJSONObject:json options:0 error:&error];
-	NSURLSessionDataTask *task = nil;
-	if (data && !error) {
-		task = [self requestForURL:url method:method body:data completionHandler:completionHandler];
-	}
-	return task;
+	NSAssert(object, @"Failed to perform request. id<BUYSerializable> must not be nil.");
+	
+	NSData *data = [NSJSONSerialization dataWithJSONObject:[object jsonDictionaryForCheckout] options:0 error:nil];	
+	NSAssert(data, @"Failed to perform request. Could not serialize object. Possibly invalid object.");
+	
+	return [self requestForURL:url method:method body:data completionHandler:completionHandler];
 }
 
 - (void)startTask:(NSURLSessionDataTask *)task
