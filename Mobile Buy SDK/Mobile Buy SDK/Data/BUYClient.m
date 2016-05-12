@@ -515,7 +515,6 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)storeCreditCard:(BUYCreditCard *)creditCard checkout:(BUYCheckout *)checkout completion:(BUYDataCreditCardBlock)completion
 {
-	NSAssert(checkout, @"Failed to store credit card. No checkout provided.");
 	NSAssert(checkout.token, @"Failed to store credit card. No checkout token provided.");
 	NSAssert(creditCard, @"Failed to store credit card. No credit card provided.");
 	
@@ -527,13 +526,10 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	}
 	
 	NSData *data = [NSJSONSerialization dataWithJSONObject:@{ @"checkout" : json } options:0 error:nil];
-	if (data) {
-		return [self postPaymentRequestWithCheckout:checkout body:data completion:completion];
-		
-	} else {
-		completion(nil, nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
-		return nil;
-	}
+	
+	NSAssert(data, @"Failed to store credit card. Unable to serialize JSON payload. Possibly invalid credit card object.");
+	
+	return [self postPaymentRequestWithCheckout:checkout body:data completion:completion];
 }
 
 - (NSURLSessionDataTask *)removeProductReservationsFromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
