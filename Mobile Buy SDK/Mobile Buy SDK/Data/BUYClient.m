@@ -86,7 +86,10 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey appId:(NSString *)appId
 {
-	NSAssert(shopDomain.length > 0, @"Bad shop domain. Please ensure you initialize with a shop domain");
+	NSAssert(shopDomain.length > 0, @"Bad shop domain. Please ensure you initialize with a shop domain.");
+	NSAssert(apiKey.length > 0,     @"Bad API key. Please ensure you initialize with a valid API key.");
+	NSAssert(appId.length > 0,      @"Bad app ID. Please ensure you initialize with a valid App ID.");
+	
 	self = [super init];
 	if (self) {
 		self.modelManager = [BUYModelManager modelManager];
@@ -558,7 +561,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 {
 	NSAssert(object, @"Failed to perform request. id<BUYSerializable> must not be nil.");
 	
-	NSData *data = [NSJSONSerialization dataWithJSONObject:[object jsonDictionaryForCheckout] options:0 error:nil];	
+	NSData *data = [NSJSONSerialization dataWithJSONObject:[object jsonDictionaryForCheckout] options:0 error:nil];
 	NSAssert(data, @"Failed to perform request. Could not serialize object. Possibly invalid object.");
 	
 	return [self requestForURL:url method:method body:data completionHandler:completionHandler];
