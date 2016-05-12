@@ -45,10 +45,6 @@
 #import "NSDictionary+BUYAdditions.h"
 #import "NSURLComponents+BUYAdditions.h"
 
-#if __has_include(<PassKit/PassKit.h>)
-@import PassKit;
-#endif
-
 #define kGET @"GET"
 #define kPOST @"POST"
 #define kPATCH @"PATCH"
