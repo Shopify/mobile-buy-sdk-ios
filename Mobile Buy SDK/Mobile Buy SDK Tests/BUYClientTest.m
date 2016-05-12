@@ -147,19 +147,11 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
 - (void)testCheckoutBadURLParsing
 {
-	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	
 	NSURL *url = [NSURL URLWithString:@"sampleapp://"];
 	
-	[self.client getCompletionStatusOfCheckoutURL:url completion:^(BUYStatus status, NSError *error) {
-		XCTAssertEqual(status, BUYStatusUnknown);
-		XCTAssertEqual(error.code, BUYShopifyError_InvalidCheckoutObject);
-		[expectation fulfill];
-	}];
-	
-	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
-		XCTAssertNil(error);
-	}];
+	XCTAssertThrows(
+		[self.client getCompletionStatusOfCheckoutURL:url completion:nil]
+	);
 }
 
 - (void)testMerchantId
