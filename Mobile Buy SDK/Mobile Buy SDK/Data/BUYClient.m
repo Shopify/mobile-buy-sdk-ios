@@ -221,30 +221,24 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId sortOrder:(BUYCollectionSort)sortOrder completion:(BUYDataProductListBlock)block
 {
-	NSURLSessionDataTask *task = nil;
-	if (collectionId) {
-		NSURLComponents *components = [self URLComponentsForChannelsAppendingPath:kBUYClientPathProductPublications
-																	   queryItems:@{
-																					@"collection_id" : collectionId.stringValue,
-																					@"limit" : @(self.pageSize).stringValue,
-																					@"page" : @(page).stringValue,
-																					@"sort_by" : [BUYCollection sortOrderParameterForCollectionSort:sortOrder]
-																					}];
-		
-		task = [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-			
-			NSArray *products = nil;
-			if (json && !error) {
-				products = [self.modelManager buy_objectsWithEntityName:[BUYProduct entityName] JSONArray:json[kBUYClientPathProductPublications]];
-			}
-			block(products, page, [self hasReachedEndOfPage:products] || error, error);
-		}];
-	}
-	else {
-		block(nil, 0, NO, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_NoCollectionIdSpecified userInfo:nil]);
-	}
+	NSAssert(collectionId, @"Failed to get products page. Invalid collectionID.");
 	
-	return task;
+	NSURLComponents *components = [self URLComponentsForChannelsAppendingPath:kBUYClientPathProductPublications
+																   queryItems:@{
+																				@"collection_id" : collectionId.stringValue,
+																				@"limit" : @(self.pageSize).stringValue,
+																				@"page" : @(page).stringValue,
+																				@"sort_by" : [BUYCollection sortOrderParameterForCollectionSort:sortOrder]
+																				}];
+	
+	return [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+		
+		NSArray *products = nil;
+		if (json && !error) {
+			products = [self.modelManager buy_objectsWithEntityName:[BUYProduct entityName] JSONArray:json[kBUYClientPathProductPublications]];
+		}
+		block(products, page, [self hasReachedEndOfPage:products] || error, error);
+	}];
 }
 
 #pragma mark - Helpers
