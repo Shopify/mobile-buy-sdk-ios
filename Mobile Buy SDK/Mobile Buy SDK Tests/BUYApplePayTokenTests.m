@@ -44,7 +44,7 @@ static NSString * const BUYTestingToken = @"7fc9b0e9-ed1c-4d77-9bac-78c904aa03c1
 
 + (instancetype)validToken {
 	BUYApplePayTestToken *token = [BUYApplePayTestToken new];
-	token->_testData            = [BUYTestingToken dataUsingEncoding:NSUTF8StringEncoding];
+	token.testData              = [BUYTestingToken dataUsingEncoding:NSUTF8StringEncoding];
 	return token;
 }
 
