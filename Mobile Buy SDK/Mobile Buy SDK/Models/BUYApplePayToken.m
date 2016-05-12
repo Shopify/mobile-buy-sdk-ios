@@ -37,9 +37,10 @@
 
 - (instancetype)initWithPaymentToken:(PKPaymentToken *)paymentToken
 {
+	BUYAssert(paymentToken.paymentData.length > 0, @"Failed to initialize BUYApplePayToken. Invalid or nil paymentToken.");
+	
 	self = [super init];
 	if (self) {
-		BUYAssert(paymentToken.paymentData.length > 0, @"Failed to initialize BUYApplePayToken. Invalid or nil paymentToken.");
 		_paymentToken = paymentToken;
 	}
 	return self;
