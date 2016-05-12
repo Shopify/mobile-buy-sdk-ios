@@ -336,19 +336,14 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)postCheckout:(NSDictionary *)checkoutJSON completion:(BUYDataCheckoutBlock)block
 {
-	NSURLSessionDataTask *task = nil;
-	NSError *error = nil;
-	NSData *data = [NSJSONSerialization dataWithJSONObject:checkoutJSON options:0 error:&error];
+	NSData *data = [NSJSONSerialization dataWithJSONObject:checkoutJSON options:0 error:nil];
+	NSAssert(data, @"Failed to post checkout. Could not serialize JSON payload. Possibly invalid checkout object.");
 	
-	if (data && !error) {
-		NSURLComponents *components = [self URLComponentsForCheckoutsAppendingPath:nil checkoutToken:nil queryItems:nil];
-		
-		task = [self postRequestForURL:components.URL body:data completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-			[self handleCheckoutResponse:json error:error block:block];
-		}];
-	}
+	NSURLComponents *components = [self URLComponentsForCheckoutsAppendingPath:nil checkoutToken:nil queryItems:nil];
 	
-	return task;
+	return [self postRequestForURL:components.URL body:data completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+		[self handleCheckoutResponse:json error:error block:block];
+	}];
 }
 
 - (NSURLSessionDataTask *)applyGiftCardWithCode:(NSString *)giftCardCode toCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
