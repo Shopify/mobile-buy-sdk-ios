@@ -25,6 +25,7 @@
 //
 
 #import "BUYAccountCredentials.h"
+#import "BUYAssert.h"
 
 static NSString * const BUYAccountFirstNameKey            = @"first_name";
 static NSString * const BUYAccountLastNameKey             = @"last_name";
@@ -142,7 +143,7 @@ static NSString * const BUYAccountPasswordConfirmationKey = @"password_confirmat
 {
 	self = [super init];
 	if (self) {
-		NSAssert(value, @"Cannot initialize BUYAccountCredentialItem with nil value.");
+		BUYAssert(value, @"Cannot initialize BUYAccountCredentialItem with nil value.");
 		
 		_key   = key;
 		_value = value;

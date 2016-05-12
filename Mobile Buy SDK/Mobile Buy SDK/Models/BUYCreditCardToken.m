@@ -24,6 +24,7 @@
 //  THE SOFTWARE.
 //
 
+#import "BUYAssert.h"
 #import "BUYCreditCardToken.h"
 
 @implementation BUYCreditCardToken
@@ -34,7 +35,7 @@
 {
 	self = [super init];
 	if (self) {
-		NSAssert(paymentSessionID.length > 0, @"Failed to initialize BUYCreditCardToken. Invalid or nil payment session ID.");
+		BUYAssert(paymentSessionID.length > 0, @"Failed to initialize BUYCreditCardToken. Invalid or nil payment session ID.");
 		
 		_paymentSessionID = paymentSessionID;
 	}

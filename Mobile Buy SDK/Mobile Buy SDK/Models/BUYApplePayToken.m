@@ -28,6 +28,7 @@
 #import <PassKit/PassKit.h>
 #endif
 
+#import "BUYAssert.h"
 #import "BUYApplePayToken.h"
 
 @implementation BUYApplePayToken
@@ -38,7 +39,7 @@
 {
 	self = [super init];
 	if (self) {
-		NSAssert(paymentToken.paymentData.length > 0, @"Failed to initialize BUYApplePayToken. Invalid or nil paymentToken.");
+		BUYAssert(paymentToken.paymentData.length > 0, @"Failed to initialize BUYApplePayToken. Invalid or nil paymentToken.");
 		_paymentToken = paymentToken;
 	}
 	return self;
