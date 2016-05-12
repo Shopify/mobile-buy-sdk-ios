@@ -419,13 +419,10 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 {
 	BUYAssertCheckout(checkout);
 	
-	NSDictionary *json = [checkout jsonDictionaryForCheckout];
-	NSData *data = [NSJSONSerialization dataWithJSONObject:json options:0 error:nil];
-	
 	NSURLComponents *components = [self URLComponentsForCheckoutsAppendingPath:nil
 																 checkoutToken:checkout.token
 																	queryItems:nil];
-	return [self patchRequestForURL:components.URL body:data completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self patchRequestForURL:components.URL object:checkout completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		[self handleCheckoutResponse:json error:error block:block];
 	}];
 }
