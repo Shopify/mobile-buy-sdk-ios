@@ -87,11 +87,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey appId:(NSString *)appId
 {
-	if (shopDomain.length == 0) {
-		NSException *exception = [NSException exceptionWithName:@"Bad shop domain" reason:@"Please ensure you initialize with a shop domain" userInfo:nil];
-		@throw exception;
-	}
-	
+	NSAssert(shopDomain.length > 0, @"Bad shop domain. Please ensure you initialize with a shop domain");
 	self = [super init];
 	if (self) {
 		self.modelManager = [BUYModelManager modelManager];
