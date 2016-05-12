@@ -26,6 +26,7 @@
 
 #import "BUYClient_Internal.h"
 
+#import "BUYAssert.h"
 #import "BUYAddress.h"
 #import "BUYCart.h"
 #import "BUYCheckout.h"
@@ -55,7 +56,7 @@
 #define kMinSuccessfulStatusCode 200
 #define kMaxSuccessfulStatusCode 299
 
-#define BUYAssertCheckout(checkout) NSAssert([(checkout) hasToken], @"Checkout assertion failed. Checkout must have a valid token associated with it.")
+#define BUYAssertCheckout(checkout) BUYAssert([(checkout) hasToken], @"Checkout assertion failed. Checkout must have a valid token associated with it.")
 
 NSString * const BUYVersionString = @"1.3";
 
