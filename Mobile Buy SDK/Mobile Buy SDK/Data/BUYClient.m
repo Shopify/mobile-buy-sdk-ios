@@ -461,30 +461,26 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)getCompletionStatusOfCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutStatusBlock)block
 {
-	NSAssert([checkout hasToken], @"Failed to get complete status of checkout. Checkout must have a valid token associated with it.");
+	NSAssert([checkout hasToken], @"Failed to get completion status of checkout. Checkout must have a valid token associated with it.");
 	
 	return [self getCompletionStatusOfCheckoutToken:checkout.token completion:block];
 }
 
 - (NSURLSessionDataTask *)getCompletionStatusOfCheckoutURL:(NSURL *)url completion:(BUYDataCheckoutStatusBlock)block
 {
-	NSString *token = nil;
-	
 	NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+	
+	NSString *token = nil;
 	for (NSURLQueryItem *item in components.queryItems) {
-		
 		if ([item.name isEqualToString:@"checkout[token]"]) {
 			token = item.value;
+			break;
 		}
 	}
 	
-	if (token) {
-		return [self getCompletionStatusOfCheckoutToken:token completion:block];
-	}
-	else {
-		block(BUYStatusUnknown, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
-		return nil;
-	}
+	NSAssert(token, @"Failed to get completion status of checkout. Checkout URL must have a valid token associated with it.");
+	
+	return [self getCompletionStatusOfCheckoutToken:token completion:block];
 }
 
 - (NSURLSessionDataTask *)getCompletionStatusOfCheckoutToken:(NSString *)token completion:(BUYDataCheckoutStatusBlock)block
