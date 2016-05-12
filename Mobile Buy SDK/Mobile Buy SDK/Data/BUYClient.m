@@ -498,23 +498,17 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)getShippingRatesForCheckout:(BUYCheckout *)checkout completion:(BUYDataShippingRatesBlock)block
 {
-	NSURLSessionDataTask *task = nil;
-	if ([checkout hasToken]) {
-        NSURLComponents *components = [self URLComponentsForCheckoutsAppendingPath:@"shipping_rates" checkoutToken:checkout.token queryItems:@{ @"checkout" : @"" }];
-		task = [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-			NSArray *shippingRates = nil;
-			if (json && !error) {
-				shippingRates = [self.modelManager insertShippingRatesWithJSONArray:json[@"shipping_rates"]];
-			}
-			
-			NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
-			block(shippingRates, [BUYClient statusForStatusCode:statusCode error:error], error);
-		}];
-	}
-	else {
-		block(nil, BUYStatusUnknown, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
-	}
-	return task;
+	NSAssert([checkout hasToken], @"Failed to get completion status of checkout. Checkout must have a valid token associated with it.");
+	NSURLComponents *components = [self URLComponentsForCheckoutsAppendingPath:@"shipping_rates" checkoutToken:checkout.token queryItems:@{ @"checkout" : @"" }];
+	return [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+		NSArray *shippingRates = nil;
+		if (json && !error) {
+			shippingRates = [self.modelManager insertShippingRatesWithJSONArray:json[@"shipping_rates"]];
+		}
+		
+		NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
+		block(shippingRates, [BUYClient statusForStatusCode:statusCode error:error], error);
+	}];
 }
 
 #pragma mark - Payments
