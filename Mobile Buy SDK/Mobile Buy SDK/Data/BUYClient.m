@@ -555,6 +555,33 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	return [[NSError alloc] initWithDomain:kShopifyError code:statusCode userInfo:errorDictionary];
 }
 
+#pragma mark - Convenience Requests
+
+- (NSURLSessionDataTask *)getRequestForURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
+{
+	return [self requestForURL:url method:kGET object:nil completionHandler:completionHandler];
+}
+
+- (NSURLSessionDataTask *)postRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
+{
+	return [self requestForURL:url method:kPOST object:object completionHandler:completionHandler];
+}
+
+- (NSURLSessionDataTask *)putRequestForURL:(NSURL *)url object:(id<BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
+{
+	return [self requestForURL:url method:kPUT object:object completionHandler:completionHandler];
+}
+
+- (NSURLSessionDataTask *)patchRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
+{
+	return [self requestForURL:url method:kPATCH object:object completionHandler:completionHandler];
+}
+
+- (NSURLSessionDataTask *)deleteRequestForURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
+{
+	return [self requestForURL:url method:kDELETE object:nil completionHandler:completionHandler];
+}
+
 #pragma mark - Generic Requests
 
 - (void)startTask:(NSURLSessionDataTask *)task
@@ -618,38 +645,6 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	}];
 	[self startTask:task];
 	return task;
-}
-
-#pragma mark - Convenience Requests
-
-- (NSURLSessionDataTask *)getRequestForURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
-{
-	return [self requestForURL:url method:kGET body:nil completionHandler:completionHandler];
-}
-
-- (NSURLSessionDataTask *)postRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
-{
-	return [self requestForURL:url method:kPOST object:object completionHandler:completionHandler];
-}
-
-- (NSURLSessionDataTask *)putRequestForURL:(NSURL *)url object:(id<BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
-{
-	return [self requestForURL:url method:kPUT object:object completionHandler:completionHandler];
-}
-
-- (NSURLSessionDataTask *)patchRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
-{
-	return [self requestForURL:url method:kPATCH object:object completionHandler:completionHandler];
-}
-
-- (NSURLSessionDataTask *)patchRequestForURL:(NSURL *)url body:(NSData *)body completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
-{
-	return [self requestForURL:url method:kPATCH body:body completionHandler:completionHandler];
-}
-
-- (NSURLSessionDataTask *)deleteRequestForURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
-{
-	return [self requestForURL:url method:kDELETE body:nil completionHandler:completionHandler];
 }
 
 #pragma mark - NSURLSessionTaskDelegate
