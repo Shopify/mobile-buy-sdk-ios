@@ -583,10 +583,10 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)requestForURL:(NSURL *)url method:(NSString *)method object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
-	BUYAssert(object, @"Failed to perform request. id<BUYSerializable> must not be nil.");
-	
-	NSData *data = [NSJSONSerialization dataWithJSONObject:[object jsonDictionaryForCheckout] options:0 error:nil];
-	BUYAssert(data, @"Failed to perform request. Could not serialize object. Possibly invalid object.");
+	NSData *data = nil;
+	if (object) {
+		data = [NSJSONSerialization dataWithJSONObject:[object jsonDictionaryForCheckout] options:0 error:nil];
+	}
 	
 	return [self requestForURL:url method:method body:data completionHandler:completionHandler];
 }
@@ -645,9 +645,9 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	return [self requestForURL:url method:kPOST object:object completionHandler:completionHandler];
 }
 
-- (NSURLSessionDataTask *)putRequestForURL:(NSURL *)url body:(NSData *)body completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
+- (NSURLSessionDataTask *)putRequestForURL:(NSURL *)url object:(id<BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
-	return [self requestForURL:url method:kPUT body:body completionHandler:completionHandler];
+	return [self requestForURL:url method:kPUT object:object completionHandler:completionHandler];
 }
 
 - (NSURLSessionDataTask *)postRequestForURL:(NSURL *)url body:(NSData *)body completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler

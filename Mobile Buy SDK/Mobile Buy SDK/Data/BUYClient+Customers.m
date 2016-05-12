@@ -132,7 +132,7 @@
 	if (self.customerToken) {
 		NSURLComponents *components = [self URLComponentsForTokenRenewalWithID:customerID];
 		
-		return [self putRequestForURL:components.URL body:nil completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+		return [self putRequestForURL:components.URL object:nil completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			
 			NSString *accessToken = nil;
 			if (json && !error) {
@@ -156,9 +156,8 @@
 - (NSURLSessionDataTask *)activateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID customerToken:(NSString *)customerToken callback:(BUYDataCustomerTokenBlock)block
 {
 	NSURLComponents *components = [self URLComponentsForCustomerActivationWithID:customerID customerToken:customerToken];
-	NSData *data = [NSJSONSerialization dataWithJSONObject:credentials.JSONRepresentation options:0 error:nil];
 	
-	return [self putRequestForURL:components.URL body:data completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self putRequestForURL:components.URL object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		NSString *email = json[@"customer"][@"email"];
 		if (email && !error) {
 			BUYAccountCredentialItem *emailItem = [BUYAccountCredentialItem itemWithEmail:email];
@@ -173,9 +172,8 @@
 - (NSURLSessionDataTask *)resetPasswordWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID customerToken:(NSString *)customerToken callback:(BUYDataCustomerTokenBlock)block
 {
 	NSURLComponents *components = [self URLComponentsForCustomerPasswordResetWithCustomerID:customerID customerToken:customerToken];
-	NSData *data = [NSJSONSerialization dataWithJSONObject:credentials.JSONRepresentation options:0 error:nil];
 	
-	return [self putRequestForURL:components.URL body:data completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self putRequestForURL:components.URL object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		NSString *email = json[@"customer"][@"email"];
 		if (email && !error) {
 			BUYAccountCredentialItem *emailItem = [BUYAccountCredentialItem itemWithEmail:email];
