@@ -78,9 +78,9 @@ typedef NS_ENUM(NSUInteger, BUYCollectionSort) {
 	BUYCollectionSortCreatedDescending
 };
 
-extern NSString * const BUYVersionString;
+extern NSString * _Nonnull const BUYVersionString;
 
-extern NSString * const BUYClientCustomerAccessToken;
+extern NSString * _Nonnull const BUYClientCustomerAccessToken;
 
 /**
  *  A BUYStatus is associated with the completion of an enqueued job on Shopify.
@@ -120,7 +120,7 @@ typedef NS_ENUM(NSUInteger, BUYStatus) {
  *  @param paymentToken  An opaque payment token type that wraps necessary credentials for payment
  *  @param error         Optional NSError
  */
-typedef void (^BUYDataCreditCardBlock)(BUYCheckout *checkout, id<BUYPaymentToken> paymentToken, NSError *error);
+typedef void (^BUYDataCreditCardBlock)(BUYCheckout * _Nullable checkout, id<BUYPaymentToken> _Nullable paymentToken, NSError * _Nullable error);
 
 /**
  *  Return block containing a BUYCheckout and/or an NSError
@@ -128,7 +128,7 @@ typedef void (^BUYDataCreditCardBlock)(BUYCheckout *checkout, id<BUYPaymentToken
  *  @param checkout The returned BUYCheckout
  *  @param error    Optional NSError
  */
-typedef void (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
+typedef void (^BUYDataCheckoutBlock)(BUYCheckout * _Nullable checkout, NSError * _Nullable error);
 
 /**
  *  Return block containing a BUYCheckout, a BUYStatus and/or an NSError
@@ -136,7 +136,7 @@ typedef void (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
  *  @param status   A BUYStatus specifying the requested job's completion status
  *  @param error    Optional NSError
  */
-typedef void (^BUYDataCheckoutStatusBlock)(BUYStatus status, NSError *error);
+typedef void (^BUYDataCheckoutStatusBlock)(BUYStatus status, NSError * _Nullable error);
 
 /**
  *  Return block containing BUYShippingRate objects, a BUYStatus and/or an NSError
@@ -145,7 +145,7 @@ typedef void (^BUYDataCheckoutStatusBlock)(BUYStatus status, NSError *error);
  *  @param status        A BUYStatus specifying the requested job's completion status
  *  @param error         Optional NSError
  */
-typedef void (^BUYDataShippingRatesBlock)(NSArray *shippingRates, BUYStatus status, NSError *error);
+typedef void (^BUYDataShippingRatesBlock)(NSArray * _Nullable shippingRates, BUYStatus status, NSError * _Nullable error);
 
 /**
  *  Return block containing a BUYShop and/or an NSError
@@ -153,7 +153,7 @@ typedef void (^BUYDataShippingRatesBlock)(NSArray *shippingRates, BUYStatus stat
  *  @param shop  A BUYShop object
  *  @param error Optional NSError
  */
-typedef void (^BUYDataShopBlock)(BUYShop *shop, NSError *error);
+typedef void (^BUYDataShopBlock)(BUYShop * _Nullable shop, NSError * _Nullable error);
 
 /**
  *  Return block containing a list of BUYCollection objects and/or an NSError
@@ -161,7 +161,7 @@ typedef void (^BUYDataShopBlock)(BUYShop *shop, NSError *error);
  *  @param collections An array of BUYCollection objects
  *  @param error       Optional NSError
  */
-typedef void (^BUYDataCollectionsBlock)(NSArray<BUYCollection *> *collections, NSError *error);
+typedef void (^BUYDataCollectionsBlock)(NSArray<BUYCollection *> * _Nullable collections, NSError * _Nullable error);
 
 /**
  *  Return block containing a BUYProduct and/or an NSError
@@ -169,7 +169,7 @@ typedef void (^BUYDataCollectionsBlock)(NSArray<BUYCollection *> *collections, N
  *  @param product A BUYProduct
  *  @param error   Optional NSError
  */
-typedef void (^BUYDataProductBlock)(BUYProduct *product, NSError *error);
+typedef void (^BUYDataProductBlock)(BUYProduct * _Nullable product, NSError * _Nullable error);
 
 /**
  *  Return block containing a list of BUYProduct objects and/or an NSError
@@ -177,7 +177,7 @@ typedef void (^BUYDataProductBlock)(BUYProduct *product, NSError *error);
  *  @param products An array of BUYProduct objects
  *  @param error    Optional NSError
  */
-typedef void (^BUYDataProductsBlock)(NSArray<BUYProduct *> *products, NSError *error);
+typedef void (^BUYDataProductsBlock)(NSArray<BUYProduct *> * _Nullable products, NSError * _Nullable error);
 
 /**
  *  Return block containing list of collections
@@ -185,7 +185,7 @@ typedef void (^BUYDataProductsBlock)(NSArray<BUYProduct *> *products, NSError *e
  *  @param collections An array of BUYCollection objects
  *  @param error       Optional NSError
  */
-typedef void (^BUYDataCollectionsListBlock)(NSArray<BUYCollection *> *collections, NSUInteger page, BOOL reachedEnd, NSError *error);
+typedef void (^BUYDataCollectionsListBlock)(NSArray<BUYCollection *> * _Nullable collections, NSUInteger page, BOOL reachedEnd, NSError * _Nullable error);
 
 /**
  *  Return block containing a list of BUYProduct objects, the page requested, a boolean to determine whether the end of the list has been reach and/or an optional NSError
@@ -195,7 +195,7 @@ typedef void (^BUYDataCollectionsListBlock)(NSArray<BUYCollection *> *collection
  *  @param reachedEnd Boolean indicating whether additional pages exist
  *  @param error      An optional NSError
  */
-typedef void (^BUYDataProductListBlock)(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error);
+typedef void (^BUYDataProductListBlock)(NSArray<BUYProduct *> * _Nullable products, NSUInteger page, BOOL reachedEnd, NSError * _Nullable error);
 
 /**
  *  Return block containing a list of BUYProductImage objects and/or an NSError
@@ -203,7 +203,7 @@ typedef void (^BUYDataProductListBlock)(NSArray<BUYProduct *> *products, NSUInte
  *  @param images An array of BUYProductImage objects
  *  @param error  An optional NSError
  */
-typedef void (^BUYDataImagesListBlock)(NSArray *images, NSError *error);
+typedef void (^BUYDataImagesListBlock)(NSArray * _Nullable images, NSError * _Nullable error);
 
 /**
  *  Return block containing a BUYGiftCard
@@ -211,7 +211,7 @@ typedef void (^BUYDataImagesListBlock)(NSArray *images, NSError *error);
  *  @param giftCard A BUYGiftCard
  *  @param error    An optional NSError
  */
-typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
+typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError * _Nullable error);
 
 /**
  The BUYDataClient provides all requests needed to perform request on the Shopify Checkout API.
@@ -219,6 +219,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
  and completing Checkouts.
  */
 @interface BUYClient : NSObject
+NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init NS_UNAVAILABLE;
 
@@ -236,13 +237,13 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
 /**
  *
  */
-@property (nonatomic, strong) BUYModelManager *modelManager;
+@property (nonatomic, strong, nonnull) BUYModelManager *modelManager;
 
 /**
  *  Queue where callbacks will be called
  *  defaults to main queue
  */
-@property (nonatomic, strong) dispatch_queue_t queue;
+@property (nonatomic, strong, nonnull) dispatch_queue_t queue;
 
 /**
  *  The page size for any paged request. This can range from 1-250.  Default is 25
@@ -252,39 +253,39 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
 /**
  *  The shop domain set using the initializer
  */
-@property (nonatomic, strong, readonly) NSString *shopDomain;
+@property (nonatomic, strong, readonly, nonnull) NSString *shopDomain;
 
 /**
  *  The API Key set using the initializer
  */
-@property (nonatomic, strong, readonly) NSString *apiKey;
+@property (nonatomic, strong, readonly, nonnull) NSString *apiKey;
 
 /**
  *  The Channel ID set using the initializer
  */
-@property (nonatomic, strong, readonly) NSString *appId;
+@property (nonatomic, strong, readonly, nonnull) NSString *appId;
 
 /**
  *  The Merchant ID is used for Apple Pay and set using `enableApplePayWithMerchantId:`
  */
-@property (nonatomic, strong, readonly) NSString *merchantId NS_DEPRECATED_IOS(8_0, 9_0, "Set the `merchantId` on a BUYViewController subclass instead");
+@property (nonatomic, strong, readonly, nullable) NSString *merchantId NS_DEPRECATED_IOS(8_0, 9_0, "Set the `merchantId` on a BUYViewController subclass instead");
 
 /**
  *  Application name to attribute orders to.  Defaults to app bundle name (CFBundleName)
  */
-@property (nonatomic, strong) NSString *applicationName;
+@property (nonatomic, strong, nonnull) NSString *applicationName;
 
 /**
  * The applications URLScheme, used to return to the application after a complete web checkout. Ex. @"storeApp://"
  */
-@property (nonatomic, strong) NSString *urlScheme;
+@property (nonatomic, strong, nullable) NSString *urlScheme;
 
 /**
  *  Allows the client to hold onto the customer token
  *
  *  @param token The token received from the create and login callbacks
  */
-@property (strong, nonatomic) NSString *customerToken;
+@property (strong, nonatomic, nullable) NSString *customerToken;
 
 #pragma mark - Storefront
 
@@ -452,12 +453,12 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
  *  We recommended using the BUYCheckout returned in the block.
  *
  *  @param checkout      The BUYCheckout to complete
- *  @param paymentToken  Opaque payment token object
+ *  @param paymentToken  Opaque payment token object. May be nil if the total checkout amount is equal to $0.00
  *  @param block         (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
  *
  *  @return The associated NSURLSessionDataTask
  */
-- (NSURLSessionDataTask *)completeCheckout:(BUYCheckout *)checkout paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block;
+- (NSURLSessionDataTask *)completeCheckout:(BUYCheckout *)checkout paymentToken:(_Nullable id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block;
 
 /**
  *  Retrieve the status of a BUYCheckout. This checks the status of the current payment processing job for the provided checkout.
@@ -534,4 +535,5 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard *giftCard, NSError *error);
  */
 - (void)enableApplePayWithMerchantId:(NSString *)merchantId NS_DEPRECATED_IOS(8_0, 9_0, "Set the merchantId on a `BUYViewController` subclass instead");
 
+NS_ASSUME_NONNULL_END
 @end 

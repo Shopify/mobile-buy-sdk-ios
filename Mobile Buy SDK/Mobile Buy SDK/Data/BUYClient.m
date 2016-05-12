@@ -160,6 +160,8 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)getProductById:(NSString *)productId completion:(BUYDataProductBlock)block;
 {
+	NSAssert(productId, @"Failed to get product by ID. Product ID must not be nil.");
+	
 	return [self getProductsByIds:@[productId] completion:^(NSArray *products, NSError *error) {
 		if (products.count > 0) {
 			block(products[0], error);
@@ -174,6 +176,8 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)getProductsByIds:(NSArray *)productIds completion:(BUYDataProductsBlock)block
 {
+	NSAssert(productIds, @"Failed to get product by IDs. Product IDs array must not be nil.");
+	
 	NSURLComponents *components = [self URLComponentsForChannelsAppendingPath:kBUYClientPathProductPublications
 																   queryItems:@{
 																				@"product_ids" : [productIds componentsJoinedByString:@","]
@@ -320,6 +324,8 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)createCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
+	NSAssert(checkout, @"Failed to create checkout. Invalid checkout object.");
+	
 	// Inject channel and marketing attributions
 	[self configureCheckout:checkout];
 	
@@ -329,6 +335,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)createCheckoutWithCartToken:(NSString *)cartToken completion:(BUYDataCheckoutBlock)block
 {
+	NSAssert(cartToken, @"Failed to create checkout. Invalid cart token");
 	BUYCheckout *checkout = [self.modelManager checkoutwithCartToken:cartToken];
 	[self configureCheckout:checkout];
 	
@@ -350,6 +357,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)applyGiftCardWithCode:(NSString *)giftCardCode toCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
+	BUYAssertCheckout(checkout);
 	NSAssert(giftCardCode.length > 0, @"Failed to apply gift card code. Invalid gift card code.");
 	
 	BUYGiftCard *giftCard = [self.modelManager giftCardWithCode:giftCardCode];
@@ -367,6 +375,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)removeGiftCard:(BUYGiftCard *)giftCard fromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
+	BUYAssertCheckout(checkout);
 	NSAssert(giftCard.identifier, @"Failed to remove gift card. Gift card must have a valid identifier.");
 	
 	NSURLComponents *components = [self URLComponentsForCheckoutsAppendingPath:[NSString stringWithFormat:@"gift_cards/%@", giftCard.identifier]
@@ -399,6 +408,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)getCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
+	BUYAssertCheckout(checkout);
 	NSURLComponents *components = [self URLComponentsForCheckoutsAppendingPath:nil
 																 checkoutToken:checkout.token
 																	queryItems:nil];
