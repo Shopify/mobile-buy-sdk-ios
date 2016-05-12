@@ -348,27 +348,19 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)applyGiftCardWithCode:(NSString *)giftCardCode toCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
-	NSURLSessionDataTask *task = nil;
-	if (giftCardCode.length == 0) {
-		block(nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_NoGiftCardSpecified userInfo:nil]);
-	}
-	else {
-		BUYGiftCard *giftCard = [self.modelManager giftCardWithCode:giftCardCode];
-		NSURLComponents *components = [self URLComponentsForCheckoutsAppendingPath:@"gift_cards"
-																	 checkoutToken:checkout.token
-																		queryItems:nil];
-		
-		task = [self postRequestForURL:components.URL
-								object:giftCard
-					 completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-						 if (!error) {
-							 [self updateCheckout:checkout withGiftCardDictionary:json[@"gift_card"] addingGiftCard:YES];
-						 }
-						 block(checkout, error);
-					 }];
-	}
+	NSAssert(giftCardCode.length > 0, @"Failed to apply gift card code. Invalid gift card code.");
 	
-	return task;
+	BUYGiftCard *giftCard = [self.modelManager giftCardWithCode:giftCardCode];
+	NSURLComponents *components = [self URLComponentsForCheckoutsAppendingPath:@"gift_cards"
+																 checkoutToken:checkout.token
+																	queryItems:nil];
+	
+	return [self postRequestForURL:components.URL object:giftCard completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+		if (json && !error) {
+			[self updateCheckout:checkout withGiftCardDictionary:json[@"gift_card"] addingGiftCard:YES];
+		}
+		block(checkout, error);
+	}];
 }
 
 - (NSURLSessionDataTask *)removeGiftCard:(BUYGiftCard *)giftCard fromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
