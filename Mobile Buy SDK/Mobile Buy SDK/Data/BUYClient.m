@@ -523,11 +523,13 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 		json[@"billing_address"] = [checkout.billingAddress jsonDictionaryForCheckout];
 	}
 	
-	NSData *data = [NSJSONSerialization dataWithJSONObject:@{ @"checkout" : json } options:0 error:nil];
-	
-	BUYAssert(data, @"Failed to store credit card. Unable to serialize JSON payload. Possibly invalid credit card object.");
-	
-	return [self postPaymentRequestWithCheckout:checkout body:data completion:completion];
+	return [self postRequestForURL:checkout.paymentURL object:@{ @"checkout" : json } completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+		id<BUYPaymentToken> token = nil;
+		if (!error) {
+			token = [[BUYCreditCardToken alloc] initWithPaymentSessionID:json[@"id"]];
+		}
+		completion(checkout, token, error);
+	}];
 }
 
 - (NSURLSessionDataTask *)removeProductReservationsFromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
@@ -538,7 +540,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	return [self updateCheckout:checkout completion:block];
 }
 
-#pragma mark - Helpers
+#pragma mark - Error
 
 + (BUYStatus)statusForStatusCode:(NSUInteger)statusCode error:(NSError *)error
 {
@@ -566,6 +568,19 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	return [[NSError alloc] initWithDomain:kShopifyError code:statusCode userInfo:errorDictionary];
 }
 
+#pragma mark - Generic Requests
+
+- (void)startTask:(NSURLSessionDataTask *)task
+{
+	[task resume];
+}
+
+- (NSString *)authorizationHeader
+{
+	NSData *data = [_apiKey dataUsingEncoding:NSUTF8StringEncoding];
+	return [NSString stringWithFormat:@"%@ %@", @"Basic", [data base64EncodedStringWithOptions:0]];
+}
+
 - (NSURLSessionDataTask *)requestForURL:(NSURL *)url method:(NSString *)method object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
 	BUYAssert(object, @"Failed to perform request. id<BUYSerializable> must not be nil.");
@@ -574,11 +589,6 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	BUYAssert(data, @"Failed to perform request. Could not serialize object. Possibly invalid object.");
 	
 	return [self requestForURL:url method:method body:data completionHandler:completionHandler];
-}
-
-- (void)startTask:(NSURLSessionDataTask *)task
-{
-	[task resume];
 }
 
 - (NSURLSessionDataTask *)requestForURL:(NSURL *)url method:(NSString *)method body:(NSData *)body completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
@@ -623,16 +633,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	return task;
 }
 
-- (NSURLSessionDataTask *)postPaymentRequestWithCheckout:(BUYCheckout *)checkout body:(NSData *)body completion:(BUYDataCreditCardBlock)block
-{
-	return [self requestForURL:checkout.paymentURL method:kPOST body:body completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		id<BUYPaymentToken> token = nil;
-		if (!error) {
-			token = [[BUYCreditCardToken alloc] initWithPaymentSessionID:json[@"id"]];
-		}
-		block(checkout, token, error);
-	}];
-}
+#pragma mark - Convenience Requests
 
 - (NSURLSessionDataTask *)getRequestForURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
@@ -667,12 +668,6 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 - (NSURLSessionDataTask *)deleteRequestForURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
 	return [self requestForURL:url method:kDELETE body:nil completionHandler:completionHandler];
-}
-
-- (NSString *)authorizationHeader
-{
-	NSData *data = [_apiKey dataUsingEncoding:NSUTF8StringEncoding];
-	return [NSString stringWithFormat:@"%@ %@", @"Basic", [data base64EncodedStringWithOptions:0]];
 }
 
 #pragma mark - NSURLSessionTaskDelegate
