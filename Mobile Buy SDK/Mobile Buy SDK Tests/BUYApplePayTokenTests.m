@@ -27,35 +27,10 @@
 #import <XCTest/XCTest.h>
 #import <PassKit/PassKit.h>
 #import "BUYApplePayToken.h"
-
-static NSString * const BUYTestingToken = @"7fc9b0e9-ed1c-4d77-9bac-78c904aa03c1";
+#import "BUYApplePayTestToken.h"
 
 @interface BUYApplePayToken (Private)
 - (NSString *)paymentTokenString;
-@end
-
-@interface BUYApplePayTestToken : PKPaymentToken
-
-@property (strong, nonatomic) NSData *testData;
-
-@end
-
-@implementation BUYApplePayTestToken
-
-+ (instancetype)validToken {
-	BUYApplePayTestToken *token = [BUYApplePayTestToken new];
-	token.testData              = [BUYTestingToken dataUsingEncoding:NSUTF8StringEncoding];
-	return token;
-}
-
-+ (instancetype)invalidToken {
-	return [BUYApplePayTestToken new];
-}
-
-- (NSData *)paymentData {
-	return  _testData;
-}
-
 @end
 
 @interface BUYApplePayTokenTests : XCTestCase

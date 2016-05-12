@@ -48,7 +48,7 @@
 	return [[NSString alloc] initWithData:self.paymentToken.paymentData encoding:NSUTF8StringEncoding];
 }
 
-#pragma mark - BUYPaymentSessionProvider -
+#pragma mark - BUYPaymentToken -
 
 - (NSDictionary *)JSONDictionary
 {

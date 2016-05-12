@@ -1,5 +1,5 @@
 //
-//  BUYApplePayToken.h
+//  BUYApplePayTestToken.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,15 +24,28 @@
 //  THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
-#import "BUYPaymentToken.h"
+#import "BUYApplePayTestToken.h"
 
-@class PKPaymentToken;
+@interface BUYApplePayTestToken ()
 
-@interface BUYApplePayToken : NSObject <BUYPaymentToken>
+@property (strong, nonatomic) NSData *testData;
 
-@property (nonatomic, strong, readonly) PKPaymentToken *paymentToken;
+@end
 
-- (instancetype)initWithPaymentToken:(PKPaymentToken *)paymentToken;
+@implementation BUYApplePayTestToken
+
++ (instancetype)validToken {
+	BUYApplePayTestToken *token = [BUYApplePayTestToken new];
+	token.testData              = [BUYTestingToken dataUsingEncoding:NSUTF8StringEncoding];
+	return token;
+}
+
++ (instancetype)invalidToken {
+	return [BUYApplePayTestToken new];
+}
+
+- (NSData *)paymentData {
+	return  _testData;
+}
 
 @end

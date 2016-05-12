@@ -25,7 +25,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BUYPaymentSessionProvider.h"
+#import "BUYPaymentToken.h"
 
 @interface BUYCreditCardToken : NSObject <BUYPaymentToken>
 

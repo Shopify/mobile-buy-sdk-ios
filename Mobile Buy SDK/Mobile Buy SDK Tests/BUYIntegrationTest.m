@@ -993,8 +993,7 @@
 	[self fetchShippingRates];
 	[self updateCheckout];
 	
-	id<BUYPaymentToken> token = [self addCreditCardToCheckout];
-	[self completeCheckoutWithToken:token];
+	[self completeCheckoutWithToken:[self addCreditCardToCheckout]];
 	
 	[self pollUntilCheckoutIsComplete];
 	[self verifyCompletedCheckout];

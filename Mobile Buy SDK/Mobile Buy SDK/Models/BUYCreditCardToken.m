@@ -41,7 +41,7 @@
 	return self;
 }
 
-#pragma mark - BUYPaymentSessionProvider -
+#pragma mark - BUYPaymentToken -
 
 - (NSDictionary *)JSONDictionary
 {

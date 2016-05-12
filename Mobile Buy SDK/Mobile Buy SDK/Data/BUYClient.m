@@ -37,7 +37,7 @@
 #import "BUYModelManager.h"
 #import "BUYOrder.h"
 #import "BUYProduct.h"
-#import "BUYPaymentSessionProvider.h"
+#import "BUYPaymentToken.h"
 #import "BUYShippingRate.h"
 #import "BUYShop.h"
 #import "BUYShopifyErrorCodes.h"

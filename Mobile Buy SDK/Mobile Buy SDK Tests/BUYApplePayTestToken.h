@@ -1,5 +1,5 @@
 //
-//  BUYApplePayToken.h
+//  BUYApplePayTestToken.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -25,14 +25,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BUYPaymentToken.h"
+#import <PassKit/PassKit.h>
 
-@class PKPaymentToken;
+static NSString * const BUYTestingToken = @"7fc9b0e9-ed1c-4d77-9bac-78c904aa03c1";
 
-@interface BUYApplePayToken : NSObject <BUYPaymentToken>
+@interface BUYApplePayTestToken : PKPaymentToken
 
-@property (nonatomic, strong, readonly) PKPaymentToken *paymentToken;
-
-- (instancetype)initWithPaymentToken:(PKPaymentToken *)paymentToken;
++ (instancetype)validToken;
++ (instancetype)invalidToken;
 
 @end

@@ -35,6 +35,7 @@
 #import "BUYAccountCredentials.h"
 #import "BUYClient+Customers.h"
 #import "BUYApplePayToken.h"
+#import "BUYApplePayTestToken.h"
 
 NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
@@ -189,7 +190,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
 - (void)testCheckoutWithApplePayToken
 {
-	id<BUYPaymentToken> token = [[BUYApplePayToken alloc] initWithPaymentToken:[PKPaymentToken new]];
+	id<BUYPaymentToken> token = [[BUYApplePayToken alloc] initWithPaymentToken:[BUYApplePayTestToken validToken]];
 	XCTAssertThrows(
 		[self.client completeCheckout:[BUYCheckout new] paymentToken:token completion:^(BUYCheckout *checkout, NSError *error) {}]
 	);

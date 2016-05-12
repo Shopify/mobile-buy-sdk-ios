@@ -114,7 +114,7 @@ typedef NS_ENUM(NSUInteger, BUYStatus) {
 };
 
 /**
- *  Return block containing a BUYCheckout, id<BUYPaymentSessionProvider> and/or an NSError
+ *  Return block containing a BUYCheckout, id<BUYPaymentToken> and/or an NSError
  *
  *  @param checkout      The returned BUYCheckout
  *  @param paymentToken  An opaque payment token type that wraps necessary credentials for payment
@@ -445,7 +445,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURLSessionDataTask *)updateCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
 
 /**
- *  Finalizes the BUYCheckout and charges the payment provider (ex: Credi Card, Apple Pay, etc).
+ *  Finalizes the BUYCheckout and charges the payment provider (ex: Credit Card, Apple Pay, etc).
  *  This enqueues a completion job on Shopify and returns immediately.
  *  You must get the job's status by calling checkCompletionStatusOfCheckout:block
  *
