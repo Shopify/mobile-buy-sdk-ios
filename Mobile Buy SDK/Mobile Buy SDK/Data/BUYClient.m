@@ -59,6 +59,8 @@
 #define kMinSuccessfulStatusCode 200
 #define kMaxSuccessfulStatusCode 299
 
+#define BUYAssertCheckout(checkout) NSAssert([(checkout) hasToken], @"Checkout assertion failed. Checkout must have a valid token associated with it.")
+
 NSString * const BUYVersionString = @"1.3";
 
 NSString *const kShopifyError = @"shopify";
@@ -420,7 +422,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)updateCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
-	NSAssert([checkout hasToken], @"Failed to update checkout. Checkout must have a valid token associated with it.");
+	BUYAssertCheckout(checkout);
 	
 	NSDictionary *json = [checkout jsonDictionaryForCheckout];
 	NSData *data = [NSJSONSerialization dataWithJSONObject:json options:0 error:nil];
@@ -435,7 +437,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask*)completeCheckout:(BUYCheckout *)checkout paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block
 {
-	NSAssert([checkout hasToken], @"Failed to complete checkout. Checkout must have a valid token associated with it.");
+	BUYAssertCheckout(checkout);
 	
 	NSData *data = nil;
 	if (paymentToken) {
@@ -461,7 +463,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)getCompletionStatusOfCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutStatusBlock)block
 {
-	NSAssert([checkout hasToken], @"Failed to get completion status of checkout. Checkout must have a valid token associated with it.");
+	BUYAssertCheckout(checkout);
 	
 	return [self getCompletionStatusOfCheckoutToken:checkout.token completion:block];
 }
@@ -498,7 +500,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)getShippingRatesForCheckout:(BUYCheckout *)checkout completion:(BUYDataShippingRatesBlock)block
 {
-	NSAssert([checkout hasToken], @"Failed to get completion status of checkout. Checkout must have a valid token associated with it.");
+	BUYAssertCheckout(checkout);
 	NSURLComponents *components = [self URLComponentsForCheckoutsAppendingPath:@"shipping_rates" checkoutToken:checkout.token queryItems:@{ @"checkout" : @"" }];
 	return [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		NSArray *shippingRates = nil;
@@ -515,7 +517,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)storeCreditCard:(BUYCreditCard *)creditCard checkout:(BUYCheckout *)checkout completion:(BUYDataCreditCardBlock)completion
 {
-	NSAssert(checkout.token, @"Failed to store credit card. No checkout token provided.");
+	BUYAssertCheckout(checkout);
 	NSAssert(creditCard, @"Failed to store credit card. No credit card provided.");
 	
 	NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
@@ -534,14 +536,10 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)removeProductReservationsFromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
-	NSURLSessionDataTask *task = nil;
-	if ([checkout hasToken]) {
-		checkout.reservationTime = @0;
-		task = [self updateCheckout:checkout completion:block];
-	} else {
-		block(checkout, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCheckoutObject userInfo:nil]);
-	}
-	return task;
+	BUYAssertCheckout(checkout);
+	
+	checkout.reservationTime = @0;
+	return [self updateCheckout:checkout completion:block];
 }
 
 #pragma mark - Helpers
