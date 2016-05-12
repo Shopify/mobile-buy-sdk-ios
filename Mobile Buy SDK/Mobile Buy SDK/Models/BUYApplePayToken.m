@@ -38,6 +38,7 @@
 {
 	self = [super init];
 	if (self) {
+		NSAssert(paymentToken.paymentData.length > 0, @"Failed to initialize BUYApplePayToken. Invalid or nil paymentToken.");
 		_paymentToken = paymentToken;
 	}
 	return self;

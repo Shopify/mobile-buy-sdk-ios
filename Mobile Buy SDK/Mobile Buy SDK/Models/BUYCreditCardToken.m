@@ -34,7 +34,7 @@
 {
 	self = [super init];
 	if (self) {
-		NSAssert(paymentSessionID, @"Failed to initialize BUYCreditCardToken. Invalid or nil payment session ID.");
+		NSAssert(paymentSessionID.length > 0, @"Failed to initialize BUYCreditCardToken. Invalid or nil payment session ID.");
 		
 		_paymentSessionID = paymentSessionID;
 	}
