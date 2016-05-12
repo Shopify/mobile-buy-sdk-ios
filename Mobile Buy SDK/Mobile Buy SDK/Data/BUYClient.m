@@ -141,8 +141,10 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 - (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page completion:(BUYDataProductListBlock)block
 {
 	NSURLComponents *components = [self URLComponentsForChannelsAppendingPath:kBUYClientPathProductPublications
-																   queryItems:@{@"limit" : [NSString stringWithFormat:@"%lu", (unsigned long)self.pageSize],
-																				@"page" : [NSString stringWithFormat:@"%lu", (unsigned long)page]}];
+																   queryItems:@{
+																				@"limit" : @(self.pageSize).stringValue,
+																				@"page"  : @(page).stringValue,
+																				}];
 	
 	return [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		
@@ -171,7 +173,9 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 - (NSURLSessionDataTask *)getProductsByIds:(NSArray *)productIds completion:(BUYDataProductsBlock)block
 {
 	NSURLComponents *components = [self URLComponentsForChannelsAppendingPath:kBUYClientPathProductPublications
-																   queryItems:@{@"product_ids" : [productIds componentsJoinedByString:@","]}];
+																   queryItems:@{
+																				@"product_ids" : [productIds componentsJoinedByString:@","]
+																				}];
 	
 	return [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		
@@ -196,8 +200,10 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 - (NSURLSessionDataTask *)getCollectionsPage:(NSUInteger)page completion:(BUYDataCollectionsListBlock)block
 {
 	NSURLComponents *components = [self URLComponentsForChannelsAppendingPath:kBUYClientPathCollectionPublications
-																   queryItems:@{@"limit" : [NSString stringWithFormat:@"%lu", (unsigned long)self.pageSize],
-																				@"page" : [NSString stringWithFormat:@"%lu", (unsigned long)page]}];
+																   queryItems:@{
+																				@"limit" : @(self.pageSize).stringValue,
+																				@"page"  : @(page).stringValue,
+																				}];
 	return [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		
 		NSArray *collections = nil;
@@ -218,10 +224,12 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	NSURLSessionDataTask *task = nil;
 	if (collectionId) {
 		NSURLComponents *components = [self URLComponentsForChannelsAppendingPath:kBUYClientPathProductPublications
-																	   queryItems:@{@"collection_id" : [NSString stringWithFormat:@"%lu", collectionId.longValue],
-																					@"limit" : [NSString stringWithFormat:@"%lu", (unsigned long)self.pageSize],
-																					@"page" : [NSString stringWithFormat:@"%lu", (unsigned long)page],
-																					@"sort_by" : [BUYCollection sortOrderParameterForCollectionSort:sortOrder]}];
+																	   queryItems:@{
+																					@"collection_id" : collectionId.stringValue,
+																					@"limit" : @(self.pageSize).stringValue,
+																					@"page" : @(page).stringValue,
+																					@"sort_by" : [BUYCollection sortOrderParameterForCollectionSort:sortOrder]
+																					}];
 		
 		task = [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			
