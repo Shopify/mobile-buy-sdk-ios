@@ -83,7 +83,10 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 @implementation BUYClient
 
-- (instancetype)init { return nil; }
+- (instancetype)init {
+	NSAssert(NO, @"BUYClient must be initialized using the designated initializer.");
+	return nil;
+}
 
 - (instancetype)initWithShopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey appId:(NSString *)appId
 {
