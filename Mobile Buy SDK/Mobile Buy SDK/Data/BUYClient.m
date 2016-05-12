@@ -347,8 +347,6 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 - (NSURLSessionDataTask *)postCheckout:(NSDictionary *)checkoutJSON completion:(BUYDataCheckoutBlock)block
 {
 	NSData *data = [NSJSONSerialization dataWithJSONObject:checkoutJSON options:0 error:nil];
-	NSAssert(data, @"Failed to post checkout. Could not serialize JSON payload. Possibly invalid checkout object.");
-	
 	NSURLComponents *components = [self URLComponentsForCheckoutsAppendingPath:nil checkoutToken:nil queryItems:nil];
 	
 	return [self postRequestForURL:components.URL body:data completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
