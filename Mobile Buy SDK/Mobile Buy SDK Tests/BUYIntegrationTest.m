@@ -517,7 +517,7 @@
 		return [OHHTTPStubsResponse responseWithKey:@"testRemovingInvalidGiftCardFromCheckout_2"];
 	}];
 	
-	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"id" : @"000" }];
+	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"id" : @(000) }];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client removeGiftCard:giftCard fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		XCTAssertNotNil(error);

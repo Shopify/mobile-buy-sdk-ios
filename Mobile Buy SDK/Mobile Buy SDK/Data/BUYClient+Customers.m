@@ -31,6 +31,7 @@
 #import "BUYAccountCredentials.h"
 #import "BUYOrder.h"
 #import "BUYShopifyErrorCodes.h"
+#import "BUYRouter.h"
 
 @interface BUYAuthenticatedResponse : NSObject
 + (BUYAuthenticatedResponse *)responseFromJSON:(NSDictionary *)json;
@@ -60,8 +61,8 @@
 
 - (NSURLSessionDataTask *)getCustomerWithID:(NSString *)customerID callback:(BUYDataCustomerBlock)block
 {
-	NSURLComponents *components = [self URLComponentsForCustomerWithID:customerID];
-	return [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	BUYRoute *route = [self.router routeForCustomersWithID:customerID];
+	return [self getRequestForURL:route.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		BUYCustomer *customer = nil;
 		if (json && !error) {
 			customer = [self.modelManager customerWithJSONDictionary:json];
@@ -72,8 +73,8 @@
 
 - (NSURLSessionDataTask *)createCustomerWithCredentials:(BUYAccountCredentials *)credentials callback:(BUYDataCustomerTokenBlock)block
 {
-	NSURLComponents *components = [self URLComponentsForCustomers];
-	return [self postRequestForURL:components.URL object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	BUYRoute *route = [self.router routeForCustomers];
+	return [self postRequestForURL:route.URL object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		if (json && !error) {
 			[self createTokenForCustomerWithCredentials:credentials customerJSON:json callback:block];
 		}
@@ -85,8 +86,8 @@
 
 - (NSURLSessionDataTask *)createTokenForCustomerWithCredentials:(BUYAccountCredentials *)credentials customerJSON:(NSDictionary *)customerJSON callback:(BUYDataCustomerTokenBlock)block
 {
-	NSURLComponents *components = [self URLComponentsForCustomerLogin];
-	return [self postRequestForURL:components.URL object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	BUYRoute *route = [self.router routeForCustomersToken];
+	return [self postRequestForURL:route.URL object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		if (json && !error) {
 			BUYAuthenticatedResponse *authenticatedResponse = [BUYAuthenticatedResponse responseFromJSON:json];
 			self.customerToken = authenticatedResponse.accessToken;
@@ -114,9 +115,8 @@
 
 - (NSURLSessionDataTask *)recoverPasswordForCustomer:(NSString *)email callback:(BUYDataCheckoutStatusBlock)block
 {
-	NSURLComponents *components = [self URLComponentsForPasswordReset];
-	
-	return [self postRequestForURL:components.URL object:@{@"email": email} completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	BUYRoute *route = [self.router routeForCustomersPasswordRecovery];
+	return [self postRequestForURL:route.URL object:@{@"email": email} completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		
 		NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
 		if (!error) {
@@ -130,9 +130,9 @@
 - (NSURLSessionDataTask *)renewCustomerTokenWithID:(NSString *)customerID callback:(BUYDataTokenBlock)block
 {
 	if (self.customerToken) {
-		NSURLComponents *components = [self URLComponentsForTokenRenewalWithID:customerID];
+		BUYRoute *route = [self.router routeForCustomersTokenRenewalWithID:customerID];
 		
-		return [self putRequestForURL:components.URL object:nil completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+		return [self putRequestForURL:route.URL object:nil completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			
 			NSString *accessToken = nil;
 			if (json && !error) {
@@ -155,9 +155,12 @@
 
 - (NSURLSessionDataTask *)activateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID customerToken:(NSString *)customerToken callback:(BUYDataCustomerTokenBlock)block
 {
-	NSURLComponents *components = [self URLComponentsForCustomerActivationWithID:customerID customerToken:customerToken];
+	BUYRoute *route  = [self.router routeForCustomersActivationWithID:customerID];
+	route.queryItems = @{
+						 @"token": customerToken,
+						 };
 	
-	return [self putRequestForURL:components.URL object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self putRequestForURL:route.URL object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		NSString *email = json[@"customer"][@"email"];
 		if (email && !error) {
 			BUYAccountCredentialItem *emailItem = [BUYAccountCredentialItem itemWithEmail:email];
@@ -171,9 +174,12 @@
 
 - (NSURLSessionDataTask *)resetPasswordWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID customerToken:(NSString *)customerToken callback:(BUYDataCustomerTokenBlock)block
 {
-	NSURLComponents *components = [self URLComponentsForCustomerPasswordResetWithCustomerID:customerID customerToken:customerToken];
+	BUYRoute *route  = [self.router routeForCustomersPasswordResetWithID:customerID];
+	route.queryItems = @{
+						 @"token": customerToken,
+						 };
 	
-	return [self putRequestForURL:components.URL object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self putRequestForURL:route.URL object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		NSString *email = json[@"customer"][@"email"];
 		if (email && !error) {
 			BUYAccountCredentialItem *emailItem = [BUYAccountCredentialItem itemWithEmail:email];
@@ -187,8 +193,8 @@
 
 - (NSURLSessionDataTask *)getOrdersForCustomerWithCallback:(BUYDataOrdersBlock)block
 {
-	NSURLComponents *components = [self URLComponentsForCustomerOrders];
-	return [self getRequestForURL:components.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	BUYRoute *route = [self.router routeForCustomersOrders];
+	return [self getRequestForURL:route.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		if (json && !error) {
 			NSArray *orders = [self.modelManager ordersWithJSONDictionary:json];
 			block(orders, error);
@@ -196,70 +202,6 @@
 			block(nil, error);
 		}
 	}];
-}
-
-#pragma mark - URL Formatting
-
-- (NSURLComponents *)URLComponentsForCustomers
-{
-	return [self customerURLComponentsAppendingPath:nil];
-}
-
-- (NSURLComponents *)URLComponentsForCustomerWithID:(NSString *)customerID
-{
-	return [self customerURLComponentsAppendingPath:customerID];
-}
-
-- (NSURLComponents *)URLComponentsForCustomerLogin
-{
-	return [self customerURLComponentsAppendingPath:@"customer_token"];
-}
-
-- (NSURLComponents *)URLComponentsForCustomerActivationWithID:(NSString *)customerID customerToken:(NSString *)customerToken
-{
-	NSDictionary *queryItems = @{ @"token": customerToken };
-	NSString *path = [NSString stringWithFormat:@"%@/activate", customerID];
-	return [self customerURLComponentsAppendingPath:path queryItems:queryItems];
-}
-
-- (NSURLComponents *)URLComponentsForCustomerPasswordResetWithCustomerID:(NSString *)customerID customerToken:(NSString *)customerToken
-{
-	NSDictionary *queryItems = @{ @"token": customerToken };
-	NSString *path = [NSString stringWithFormat:@"%@/reset", customerID];
-	return [self customerURLComponentsAppendingPath:path queryItems:queryItems];
-}
-
-- (NSURLComponents *)URLComponentsForPasswordReset
-{
-	return [self customerURLComponentsAppendingPath:@"recover" queryItems:nil];
-}
-
-- (NSURLComponents *)URLComponentsForTokenRenewalWithID:(NSString *)customerID
-{
-	NSString *path = [NSString stringWithFormat:@"%@/customer_token/renew", customerID];
-	return [self customerURLComponentsAppendingPath:path queryItems:nil];
-}
-
-- (NSURLComponents *)URLComponentsForCustomerOrders
-{
-	return [self customerURLComponentsAppendingPath:@"orders" queryItems:nil];
-}
-
-#pragma mark - Convenience methods
-
-- (NSURLComponents *)customerURLComponentsAppendingPath:(NSString *)path
-{
-	return [self customerURLComponentsAppendingPath:path queryItems:nil];
-}
-
-- (NSURLComponents *)customerURLComponentsAppendingPath:(NSString *)path queryItems:(NSDictionary *)queryItems
-{
-	return [self URLComponentsForAPIPath:@"customers" appendingPath:path queryItems:queryItems];
-}
-
-- (NSString *)accessTokenFromHeaders:(NSDictionary *)headers
-{
-	return [headers valueForKey:BUYClientCustomerAccessToken];
 }
 
 @end
