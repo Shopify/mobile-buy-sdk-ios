@@ -252,7 +252,7 @@
 
 - (BUYRoute *)routeForCheckoutsAction:(NSString *)action withToken:(NSString *)token
 {
-	return [[[self routeForCheckouts] appendPath:action] appendPath:token];
+	return [[[self routeForCheckouts] appendPath:token] appendPath:action];
 }
 
 @end
