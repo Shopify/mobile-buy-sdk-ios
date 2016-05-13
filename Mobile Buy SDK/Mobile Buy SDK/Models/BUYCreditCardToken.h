@@ -1,5 +1,5 @@
 //
-//  BUYClient_Internal.h
+//  BUYCreditCardToken.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,19 +24,13 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYClient.h"
-#import "BUYSerializable.h"
+#import <Foundation/Foundation.h>
+#import "BUYPaymentToken.h"
 
-extern NSString *const kShopifyError;
+@interface BUYCreditCardToken : NSObject <BUYPaymentToken>
 
-@interface BUYClient (Internal)
+@property (nonatomic, strong, readonly) NSString *paymentSessionID;
 
-- (NSURLSessionDataTask *)postRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
-- (NSURLSessionDataTask *)putRequestForURL:(NSURL *)url object:(id<BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
-- (NSURLSessionDataTask *)getRequestForURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
-
-- (NSURLComponents *)URLComponentsForAPIPath:(NSString *)apiPath appendingPath:(NSString *)appendingPath queryItems:(NSDictionary*)queryItems;
-
-- (NSError *)errorFromJSON:(NSDictionary *)json response:(NSURLResponse *)response;
+- (instancetype)initWithPaymentSessionID:(NSString *)paymentSessionID;
 
 @end

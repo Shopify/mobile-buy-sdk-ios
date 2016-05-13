@@ -40,7 +40,6 @@ const struct BUYCheckoutAttributes BUYCheckoutAttributes = {
 	.note = @"note",
 	.partialAddresses = @"partialAddresses",
 	.paymentDue = @"paymentDue",
-	.paymentSessionId = @"paymentSessionId",
 	.paymentURL = @"paymentURL",
 	.privacyPolicyURL = @"privacyPolicyURL",
 	.refundPolicyURL = @"refundPolicyURL",

@@ -1,5 +1,5 @@
 //
-//  BUYClient_Internal.h
+//  BUYApplePayTestToken.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,19 +24,14 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYClient.h"
-#import "BUYSerializable.h"
+#import <Foundation/Foundation.h>
+#import <PassKit/PassKit.h>
 
-extern NSString *const kShopifyError;
+static NSString * const BUYTestingToken = @"7fc9b0e9-ed1c-4d77-9bac-78c904aa03c1";
 
-@interface BUYClient (Internal)
+@interface BUYApplePayTestToken : PKPaymentToken
 
-- (NSURLSessionDataTask *)postRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
-- (NSURLSessionDataTask *)putRequestForURL:(NSURL *)url object:(id<BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
-- (NSURLSessionDataTask *)getRequestForURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
-
-- (NSURLComponents *)URLComponentsForAPIPath:(NSString *)apiPath appendingPath:(NSString *)appendingPath queryItems:(NSDictionary*)queryItems;
-
-- (NSError *)errorFromJSON:(NSDictionary *)json response:(NSURLResponse *)response;
++ (instancetype)validToken;
++ (instancetype)invalidToken;
 
 @end

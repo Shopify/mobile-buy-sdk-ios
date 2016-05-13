@@ -1,5 +1,5 @@
 //
-//  BUYClient_Internal.h
+//  BUYApplePayToken.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,19 +24,42 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYClient.h"
-#import "BUYSerializable.h"
+#if __has_include(<PassKit/PassKit.h>)
+#import <PassKit/PassKit.h>
+#endif
 
-extern NSString *const kShopifyError;
+#import "BUYAssert.h"
+#import "BUYApplePayToken.h"
 
-@interface BUYClient (Internal)
+@implementation BUYApplePayToken
 
-- (NSURLSessionDataTask *)postRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
-- (NSURLSessionDataTask *)putRequestForURL:(NSURL *)url object:(id<BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
-- (NSURLSessionDataTask *)getRequestForURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
+#pragma mark - Init -
 
-- (NSURLComponents *)URLComponentsForAPIPath:(NSString *)apiPath appendingPath:(NSString *)appendingPath queryItems:(NSDictionary*)queryItems;
+- (instancetype)initWithPaymentToken:(PKPaymentToken *)paymentToken
+{
+	BUYAssert(paymentToken.paymentData.length > 0, @"Failed to initialize BUYApplePayToken. Invalid or nil paymentToken.");
+	
+	self = [super init];
+	if (self) {
+		_paymentToken = paymentToken;
+	}
+	return self;
+}
 
-- (NSError *)errorFromJSON:(NSDictionary *)json response:(NSURLResponse *)response;
+- (NSString *)paymentTokenString {
+	return [[NSString alloc] initWithData:self.paymentToken.paymentData encoding:NSUTF8StringEncoding];
+}
+
+#pragma mark - BUYPaymentToken -
+
+- (NSDictionary *)JSONDictionary
+{
+	return @{
+			 @"payment_token" : @{
+					 @"type"         : @"apple_pay",
+					 @"payment_data" : [self paymentTokenString],
+					 },
+			 };
+}
 
 @end

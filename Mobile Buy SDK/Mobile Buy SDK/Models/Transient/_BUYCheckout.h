@@ -42,7 +42,6 @@ extern const struct BUYCheckoutAttributes {
 	__unsafe_unretained NSString *note;
 	__unsafe_unretained NSString *partialAddresses;
 	__unsafe_unretained NSString *paymentDue;
-	__unsafe_unretained NSString *paymentSessionId;
 	__unsafe_unretained NSString *paymentURL;
 	__unsafe_unretained NSString *privacyPolicyURL;
 	__unsafe_unretained NSString *refundPolicyURL;
@@ -192,11 +191,6 @@ extern const struct BUYCheckoutUserInfo {
  * Amount of payment due on the checkout.
  */
 @property (nonatomic, strong) NSDecimalNumber* paymentDue;
-
-/**
- * The Payment Session ID associated with a credit card transaction.
- */
-@property (nonatomic, strong) NSString* paymentSessionId;
 
 /**
  * URL to the payment gateway.

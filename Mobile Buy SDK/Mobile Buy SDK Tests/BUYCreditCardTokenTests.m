@@ -1,5 +1,5 @@
 //
-//  BUYClient_Internal.h
+//  BUYCreditCardTokenTests.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,19 +24,31 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYClient.h"
-#import "BUYSerializable.h"
+#import <XCTest/XCTest.h>
+#import "BUYCreditCardToken.h"
 
-extern NSString *const kShopifyError;
+@interface BUYCreditCardTokenTests : XCTestCase
 
-@interface BUYClient (Internal)
+@end
 
-- (NSURLSessionDataTask *)postRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
-- (NSURLSessionDataTask *)putRequestForURL:(NSURL *)url object:(id<BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
-- (NSURLSessionDataTask *)getRequestForURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
+@implementation BUYCreditCardTokenTests
 
-- (NSURLComponents *)URLComponentsForAPIPath:(NSString *)apiPath appendingPath:(NSString *)appendingPath queryItems:(NSDictionary*)queryItems;
+- (void)testInitWithValidSessionID {
+	BUYCreditCardToken *token = [[BUYCreditCardToken alloc] initWithPaymentSessionID:@"token"];
+	XCTAssertNotNil(token);
+}
 
-- (NSError *)errorFromJSON:(NSDictionary *)json response:(NSURLResponse *)response;
+- (void)testInitWithInvalidSessionID {
+	XCTAssertThrows([[BUYCreditCardToken alloc] initWithPaymentSessionID:nil]);
+	XCTAssertThrows([[BUYCreditCardToken alloc] initWithPaymentSessionID:@""]);
+}
+
+- (void)testJSONConversion {
+	BUYCreditCardToken *token = [[BUYCreditCardToken alloc] initWithPaymentSessionID:@"token"];
+	NSDictionary *json        = @{
+								  @"payment_session_id" : @"token",
+								  };
+	XCTAssertEqualObjects(token.JSONDictionary, json);
+}
 
 @end

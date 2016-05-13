@@ -64,6 +64,7 @@
 #import "BUYObserver.h"
 #import "BUYShopifyErrorCodes.h"
 
+#import "BUYPaymentToken.h"
 #import "BUYPaymentButton.h"
 #import "BUYProductViewController.h"
 #import "BUYStoreViewController.h"

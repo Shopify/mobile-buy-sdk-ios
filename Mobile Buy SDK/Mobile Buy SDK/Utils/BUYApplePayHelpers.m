@@ -33,6 +33,7 @@
 #import "BUYModelManager.h"
 #import "BUYShop.h"
 #import "BUYShopifyErrorCodes.h"
+#import "BUYApplePayToken.h"
 
 const NSTimeInterval PollDelay = 0.5;
 
@@ -113,8 +114,10 @@ const NSTimeInterval PollDelay = 0.5;
 		if (checkout && error == nil) {
 			self.checkout = checkout;
 			
+			id<BUYPaymentToken> token = [[BUYApplePayToken alloc] initWithPaymentToken:payment.token];
+			
 			//Now that the checkout is up to date, call complete.
-			[self.client completeCheckout:checkout withApplePayToken:payment.token completion:^(BUYCheckout *checkout, NSError *error) {
+			[self.client completeCheckout:checkout paymentToken:token completion:^(BUYCheckout *checkout, NSError *error) {
 				if (checkout && error == nil) {
 					self.checkout = checkout;
 					

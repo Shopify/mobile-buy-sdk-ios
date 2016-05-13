@@ -1,5 +1,5 @@
 //
-//  BUYClient_Internal.h
+//  BUYApplePayTokenTests.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,19 +24,41 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYClient.h"
-#import "BUYSerializable.h"
+#import <XCTest/XCTest.h>
+#import <PassKit/PassKit.h>
+#import "BUYApplePayToken.h"
+#import "BUYApplePayTestToken.h"
 
-extern NSString *const kShopifyError;
+@interface BUYApplePayToken (Private)
+- (NSString *)paymentTokenString;
+@end
 
-@interface BUYClient (Internal)
+@interface BUYApplePayTokenTests : XCTestCase
 
-- (NSURLSessionDataTask *)postRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
-- (NSURLSessionDataTask *)putRequestForURL:(NSURL *)url object:(id<BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
-- (NSURLSessionDataTask *)getRequestForURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
+@end
 
-- (NSURLComponents *)URLComponentsForAPIPath:(NSString *)apiPath appendingPath:(NSString *)appendingPath queryItems:(NSDictionary*)queryItems;
+@implementation BUYApplePayTokenTests
 
-- (NSError *)errorFromJSON:(NSDictionary *)json response:(NSURLResponse *)response;
+- (void)testInitWithValidSessionID {
+	BUYApplePayToken *token = [[BUYApplePayToken alloc] initWithPaymentToken:[BUYApplePayTestToken validToken]];
+	XCTAssertNotNil(token);
+	XCTAssertEqualObjects(BUYTestingToken, [token paymentTokenString]);
+}
+
+- (void)testInitWithInvalidSessionID {
+	XCTAssertThrows([[BUYApplePayToken alloc] initWithPaymentToken:nil]);
+	XCTAssertThrows([[BUYApplePayToken alloc] initWithPaymentToken:[BUYApplePayTestToken invalidToken]]);
+}
+
+- (void)testJSONConversion {
+	BUYApplePayToken *token = [[BUYApplePayToken alloc] initWithPaymentToken:[BUYApplePayTestToken validToken]];
+	NSDictionary *json        = @{
+								  @"payment_token" : @{
+										  @"type"         : @"apple_pay",
+										  @"payment_data" : BUYTestingToken,
+										  },
+								  };
+	XCTAssertEqualObjects(token.JSONDictionary, json);
+}
 
 @end

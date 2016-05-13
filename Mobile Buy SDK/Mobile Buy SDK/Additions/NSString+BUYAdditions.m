@@ -24,6 +24,7 @@
 //  THE SOFTWARE.
 //
 
+#import "BUYAssert.h"
 #import "NSString+BUYAdditions.h"
 #import "NSArray+BUYAdditions.h"
 #import "NSRegularExpression+BUYAdditions.h"
@@ -140,7 +141,7 @@ static NSSet *acronyms;
 
 - (NSString *)buy_reversedString
 {
-	NSAssert([self canBeConvertedToEncoding:NSUTF8StringEncoding], @"Unable to reverse string; requires a string that can be encoded in UTF8");
+	BUYAssert([self canBeConvertedToEncoding:NSUTF8StringEncoding], @"Unable to reverse string; requires a string that can be encoded in UTF8");
 
 	const char *str = [self UTF8String];
 	unsigned long len = strlen(str);

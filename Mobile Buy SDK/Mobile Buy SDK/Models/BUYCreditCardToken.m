@@ -1,5 +1,5 @@
 //
-//  BUYClient_Internal.h
+//  BUYCreditCardToken.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,19 +24,31 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYClient.h"
-#import "BUYSerializable.h"
+#import "BUYAssert.h"
+#import "BUYCreditCardToken.h"
 
-extern NSString *const kShopifyError;
+@implementation BUYCreditCardToken
 
-@interface BUYClient (Internal)
+#pragma mark - Init -
 
-- (NSURLSessionDataTask *)postRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
-- (NSURLSessionDataTask *)putRequestForURL:(NSURL *)url object:(id<BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
-- (NSURLSessionDataTask *)getRequestForURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
+- (instancetype)initWithPaymentSessionID:(NSString *)paymentSessionID
+{
+	BUYAssert(paymentSessionID.length > 0, @"Failed to initialize BUYCreditCardToken. Invalid or nil payment session ID.");
+	
+	self = [super init];
+	if (self) {
+		_paymentSessionID = paymentSessionID;
+	}
+	return self;
+}
 
-- (NSURLComponents *)URLComponentsForAPIPath:(NSString *)apiPath appendingPath:(NSString *)appendingPath queryItems:(NSDictionary*)queryItems;
+#pragma mark - BUYPaymentToken -
 
-- (NSError *)errorFromJSON:(NSDictionary *)json response:(NSURLResponse *)response;
+- (NSDictionary *)JSONDictionary
+{
+	return @{
+			 @"payment_session_id" : self.paymentSessionID,
+			 };
+}
 
 @end
