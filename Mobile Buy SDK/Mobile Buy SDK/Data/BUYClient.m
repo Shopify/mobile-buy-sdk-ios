@@ -612,7 +612,9 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 			json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
 		}
 		
-		if (!error) {
+		NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
+		BOOL isSuccessful    = (statusCode / 100) == 2;
+		if (!isSuccessful && !error) { // Only generate error if request failed
 			error = [self errorFromJSON:json response:response];
 		}
 		
