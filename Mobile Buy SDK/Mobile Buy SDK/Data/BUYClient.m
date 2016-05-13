@@ -38,6 +38,7 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 
 @property (nonatomic, strong) NSURLSession *session;
 @property (nonatomic, strong) NSString *merchantId;
+@property (nonatomic, strong) BUYRouter *router;
 
 @end
 
@@ -58,6 +59,7 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 	
 	self = [super init];
 	if (self) {
+		self.router = [[BUYRouter alloc] initWithShopDomain:shopDomain appID:appId];
 		self.modelManager = [BUYModelManager modelManager];
 		self.shopDomain = shopDomain;
 		self.apiKey = apiKey;

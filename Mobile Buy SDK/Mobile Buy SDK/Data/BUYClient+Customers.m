@@ -33,6 +33,7 @@
 #import "BUYAuthenticatedResponse.h"
 #import "BUYOrder.h"
 #import "BUYShopifyErrorCodes.h"
+#import "BUYRouter.h"
 
 @implementation BUYClient (Customers)
 
@@ -96,7 +97,6 @@
 {
 	NSURL *route = [self urlForCustomersPasswordRecovery];
 	return [self postRequestForURL:route object:@{@"email": email} completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		
 		NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
 		if (!error) {
 			error = [self errorFromJSON:json response:response];
@@ -112,7 +112,6 @@
 		NSURL *route = [self urlForCustomersTokenRenewalWithID:customerID];
 		
 		return [self putRequestForURL:route object:nil completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-			
 			NSString *accessToken = nil;
 			if (json && !error) {
 				BUYAuthenticatedResponse *authenticatedResponse = [BUYAuthenticatedResponse responseWithJSON:json];
