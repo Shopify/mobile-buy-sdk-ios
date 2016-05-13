@@ -132,9 +132,14 @@
 
 #pragma mark - API -
 
+- (BUYRoute *)routeForShopDomain
+{
+	return [BUYRoute routeWithFormat:@"https://%@", self.shopDomain];
+}
+
 - (BUYRoute *)routeForAPI
 {
-	return [BUYRoute routeWithFormat:@"https://%@/api/", self.shopDomain];
+	return [[self routeForShopDomain] appendPath:@"/api"];
 }
 
 - (BUYRoute *)routeForApps
@@ -146,7 +151,7 @@
 
 - (BUYRoute *)routeForShop
 {
-	return [[self routeForAPI] appendPath:@"/meta"];
+	return [[self routeForShopDomain] appendPath:@"/meta"];
 }
 
 - (BUYRoute *)routeForProductListings
@@ -193,12 +198,12 @@
 
 - (BUYRoute *)routeForCheckoutsUsingGiftCardWithToken:(NSString *)token
 {
-	return [[[self routeForCheckouts] appendPath:@"/gift_cards"] appendPath:token];
+	return [[[self routeForCheckouts] appendPath:token] appendPath:@"/gift_cards"];
 }
 
 - (BUYRoute *)routeForCheckoutsUsingGiftCard:(NSNumber *)giftCardID token:(NSString *)token
 {
-	return [[[self routeForCheckoutsUsingGiftCard] appendIdentifier:giftCardID] appendPath:token];
+	return [[self routeForCheckoutsUsingGiftCardWithToken:token] appendIdentifier:giftCardID];
 }
 
 #pragma mark - Customers -
