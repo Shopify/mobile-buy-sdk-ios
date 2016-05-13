@@ -64,6 +64,7 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 		self.appId = appId;
 		self.applicationName = [[NSBundle mainBundle] infoDictionary][@"CFBundleName"] ?: @"";
 		self.queue = dispatch_get_main_queue();
+		self.requestQueue = [NSOperationQueue new];
 		self.session = [self urlSession];
 		self.pageSize = 25;
 	}
@@ -80,7 +81,7 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 	
 	config.HTTPAdditionalHeaders = @{@"User-Agent": [NSString stringWithFormat:@"Mobile Buy SDK iOS/%@/%@", BUYClientVersionString, bundleIdentifier]};
 	
-	return [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:nil];
+	return [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:self.requestQueue];
 }
 
 - (void)setPageSize:(NSUInteger)pageSize
@@ -149,9 +150,9 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 
 #pragma mark - Generic Requests
 
-- (void)startTask:(NSURLSessionDataTask *)task
+- (void)startTask:(BUYRequestOperation *)task
 {
-	[task resume];
+	[self.requestQueue addOperation:task];
 }
 
 - (NSString *)authorizationHeader
@@ -176,26 +177,15 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 	}
 	
 	request.HTTPMethod = method;
-	NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-		
-		NSDictionary *json = nil;
-		if (data.length > 2) { // 2 is the minimum amount of data {} for a JSON Object. Just ignore anything less.
-			json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-		}
-		
-		NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
-		BOOL isSuccessful    = (statusCode / 100) == 2;
-		if (!isSuccessful && !error) { // Only generate error if request failed
-			error = [self errorFromJSON:json response:response];
-		}
-		
+	
+	BUYRequestOperation *operation = [[BUYRequestOperation alloc] initWithSession:self.session request:request payload:object completion:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		dispatch_async(self.queue, ^{
 			completionHandler(json, response, error);
 		});
 	}];
 	
-	[self startTask:task];
-	return task;
+	[self startTask:operation];
+	return (id)operation;
 }
 
 #pragma mark - NSURLSessionTaskDelegate

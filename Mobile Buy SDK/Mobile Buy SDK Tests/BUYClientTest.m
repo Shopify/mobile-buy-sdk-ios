@@ -37,6 +37,7 @@
 #import "BUYClient+Internal.h"
 #import "BUYApplePayToken.h"
 #import "BUYApplePayTestToken.h"
+#import "BUYRequestOperation.h"
 
 NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
@@ -46,7 +47,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
 @implementation BUYClient_Test
 
-- (void)startTask:(NSURLSessionDataTask *)task
+- (void)startTask:(BUYRequestOperation *)task
 {
 	// Do nothing
 }
