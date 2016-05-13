@@ -591,18 +591,10 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)requestForURL:(NSURL *)url method:(NSString *)method object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
-	NSData *data = nil;
-	if (object) {
-		data = [NSJSONSerialization dataWithJSONObject:[object jsonDictionaryForCheckout] options:0 error:nil];
-	}
-	
-	return [self requestForURL:url method:method body:data completionHandler:completionHandler];
-}
-
-- (NSURLSessionDataTask *)requestForURL:(NSURL *)url method:(NSString *)method body:(NSData *)body completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
-{
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-	request.HTTPBody = body;
+	if (object) {
+		request.HTTPBody = [NSJSONSerialization dataWithJSONObject:[object jsonDictionaryForCheckout] options:0 error:nil];
+	}
 	
 	[request addValue:[self authorizationHeader] forHTTPHeaderField:@"Authorization"];
 	[request addValue:kJSONType forHTTPHeaderField:@"Content-Type"];
