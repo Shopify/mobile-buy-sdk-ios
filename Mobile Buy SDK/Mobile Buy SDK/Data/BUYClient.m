@@ -540,19 +540,13 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	return status;
 }
 
-- (NSError *)errorFromJSON:(NSDictionary *)errorDictionary statusCode:(NSInteger)statusCode
+- (NSError *)errorFromJSON:(NSDictionary *)json response:(NSURLResponse *)response
 {
-	return [[NSError alloc] initWithDomain:kShopifyError code:statusCode userInfo:errorDictionary];
-}
-
-- (NSError *)extractErrorFromResponse:(NSURLResponse *)response json:(NSDictionary *)json
-{
-	NSError *error = nil;
 	NSInteger statusCode = [((NSHTTPURLResponse *) response) statusCode];
 	if (statusCode < kMinSuccessfulStatusCode || statusCode > kMaxSuccessfulStatusCode) {
-		error = [NSError errorWithDomain:NSURLErrorDomain code:statusCode userInfo:json];
+		return [[NSError alloc] initWithDomain:kShopifyError code:statusCode userInfo:json];
 	}
-	return error;
+	return nil;
 }
 
 #pragma mark - Convenience Requests
@@ -620,29 +614,21 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	
 	request.HTTPMethod = method;
 	NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-		NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
-		NSDictionary *json = nil;
-		BOOL unauthorized = statusCode == 401;
-		BOOL failedValidation = statusCode == 422;
 		
-		if (unauthorized) {
-			error = [[NSError alloc] initWithDomain:kShopifyError code:statusCode userInfo:nil];
+		NSDictionary *json = nil;
+		if (data.length > 2) { // 2 is the minimum amount of data {} for a JSON Object. Just ignore anything less.
+			json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
 		}
-		else {
-			//2 is the minimum amount of data {} for a JSON Object. Just ignore anything less.
-			if ((!error || failedValidation) && [data length] > 2) {
-				id jsonData = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-				json = [jsonData isKindOfClass:[NSDictionary class]] ? jsonData : nil;
-			}
-			
-			if (statusCode < kMinSuccessfulStatusCode || statusCode > kMaxSuccessfulStatusCode) {
-				error = [self errorFromJSON:json statusCode:statusCode];
-			}
+		
+		if (!error) {
+			error = [self errorFromJSON:json response:response];
 		}
+		
 		dispatch_async(self.queue, ^{
 			completionHandler(json, response, error);
 		});
 	}];
+	
 	[self startTask:task];
 	return task;
 }

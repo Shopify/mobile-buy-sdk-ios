@@ -37,6 +37,7 @@ extern NSString *const kShopifyError;
 
 - (NSURLSessionDataTask *)requestForURL:(NSURL *)url method:(NSString *)method body:(NSData *)body additionalHeaders:(NSDictionary *)headers completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
 - (NSURLComponents *)URLComponentsForAPIPath:(NSString *)apiPath appendingPath:(NSString *)appendingPath queryItems:(NSDictionary*)queryItems;
-- (NSError *)extractErrorFromResponse:(NSURLResponse *)response json:(NSDictionary *)json;
+
+- (NSError *)errorFromJSON:(NSDictionary *)json response:(NSURLResponse *)response;
 
 @end

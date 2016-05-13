@@ -120,7 +120,7 @@
 		
 		NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
 		if (!error) {
-			error = [self extractErrorFromResponse:response json:json];
+			error = [self errorFromJSON:json response:response];
 		}
 		
 		block(statusCode, error);
@@ -141,7 +141,7 @@
 			}
 			
 			if (!error) {
-				error = [self extractErrorFromResponse:response json:json];
+				error = [self errorFromJSON:json response:response];
 			}
 			
 			block(accessToken, error);
