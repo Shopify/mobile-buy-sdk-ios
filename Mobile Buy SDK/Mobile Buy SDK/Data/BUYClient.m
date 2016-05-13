@@ -80,6 +80,8 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 @implementation BUYClient
 
+#pragma mark - Init
+
 - (instancetype)init {
 	BUYAssert(NO, @"BUYClient must be initialized using the designated initializer.");
 	return nil;
@@ -246,18 +248,6 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 		}
 		block(products, page, [self hasReachedEndOfPage:products] || error, error);
 	}];
-}
-
-#pragma mark - Helpers
-
-- (NSError *)extractErrorFromResponse:(NSURLResponse *)response json:(NSDictionary *)json
-{
-	NSError *error = nil;
-	NSInteger statusCode = [((NSHTTPURLResponse *) response) statusCode];
-	if (statusCode < kMinSuccessfulStatusCode || statusCode > kMaxSuccessfulStatusCode) {
-		error = [NSError errorWithDomain:NSURLErrorDomain code:statusCode userInfo:json];
-	}
-	return error;
 }
 
 #pragma mark - URL Components
@@ -553,6 +543,16 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 - (NSError *)errorFromJSON:(NSDictionary *)errorDictionary statusCode:(NSInteger)statusCode
 {
 	return [[NSError alloc] initWithDomain:kShopifyError code:statusCode userInfo:errorDictionary];
+}
+
+- (NSError *)extractErrorFromResponse:(NSURLResponse *)response json:(NSDictionary *)json
+{
+	NSError *error = nil;
+	NSInteger statusCode = [((NSHTTPURLResponse *) response) statusCode];
+	if (statusCode < kMinSuccessfulStatusCode || statusCode > kMaxSuccessfulStatusCode) {
+		error = [NSError errorWithDomain:NSURLErrorDomain code:statusCode userInfo:json];
+	}
+	return error;
 }
 
 #pragma mark - Convenience Requests
