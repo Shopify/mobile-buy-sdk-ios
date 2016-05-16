@@ -58,6 +58,40 @@
 	[self waitForExpectationsWithTimeout:3.0 handler:nil];
 }
 
+#pragma mark - Data Tests -
+
+- (void)testSuccessfulRequest
+{
+	NSDictionary *payload = @{
+							  @"name"           : @"Water",
+							  @"type"           : @"liquid",
+							  @"melting_point"  : @0.0,
+							  };
+	
+	NSData *payloadData           = [NSJSONSerialization dataWithJSONObject:payload options:0 error:nil];
+	OHHTTPStubsResponse *response = [OHHTTPStubsResponse responseWithData:payloadData statusCode:200 headers:nil];
+	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+		return YES;
+	} withStubResponse:^OHHTTPStubsResponse * (NSURLRequest *request) {
+		return response;
+	}];
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:@"Expect successful operation"];
+	BUYRequestOperation *operation = [self operationFulfillingExpectation:expectation responseCompletion:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		
+		XCTAssertNotNil(json);
+		XCTAssertNotNil(response);
+		XCTAssertNil(error);
+		
+		XCTAssertEqualObjects(json, payload);
+		XCTAssertEqual(response.statusCode, 200);
+	}];
+	
+	[self.queue addOperation:operation];
+	[self waitForExpectationsWithTimeout:3.0 handler:nil];
+}
+
 #pragma mark - Dependency Tests -
 
 - (void)testSerialSuccessfulDependencies
@@ -102,18 +136,25 @@
 	
 	XCTestExpectation *expectation3 = [self expectationWithDescription:@"Expect operation 3"];
 	BUYRequestOperation *operation3 = [self operationFulfillingExpectation:expectation3 completion:^{
-		[container appendString:@"2"];
+		[container appendString:@"3"];
 	}];
 	
+	XCTestExpectation *expectation4 = [self expectationWithDescription:@"Expect operation 4"];
+	BUYRequestOperation *operation4 = [self operationFulfillingExpectation:expectation4 completion:^{
+		[container appendString:@"4"];
+	}];
+	
+	[operation4 addDependency:operation3];
 	[operation3 addDependency:operation1];
 	[operation3 addDependency:operation2];
 	
+	[self.queue addOperation:operation4];
 	[self.queue addOperation:operation3];
 	[self.queue addOperation:operation2];
 	[self.queue addOperation:operation1];
 	
 	[self waitForExpectationsWithTimeout:10.0 handler:nil];
-	XCTAssertEqualObjects(container, @"112");
+	XCTAssertEqualObjects(container, @"1134");
 }
 
 - (void)testCancellationBeforeExecution
@@ -176,10 +217,19 @@
 
 - (BUYRequestOperation *)operationFulfillingExpectation:(XCTestExpectation *)expectation completion:(dispatch_block_t)completion
 {
+	return [self operationFulfillingExpectation:expectation responseCompletion:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+		if (completion) {
+			completion();
+		}
+	}];
+}
+
+- (BUYRequestOperation *)operationFulfillingExpectation:(XCTestExpectation *)expectation responseCompletion:(void(^)(NSDictionary *json, NSHTTPURLResponse *response, NSError *error))completion
+{
 	BUYRequestOperation *operation = [BUYRequestOperation operationWithSession:self.session request:self.request payload:nil completion:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		[self asyncMain:^{
 			if (completion) {
-				completion();
+				completion(json, (id)response, error);
 			}
 			[expectation fulfill];
 		}];
