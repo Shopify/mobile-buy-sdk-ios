@@ -10,4 +10,7 @@
 
 @interface BUYOperation : NSOperation
 
+- (void)startExecution;
+- (void)finishExecution;
+
 @end

@@ -44,6 +44,9 @@ NSString * const kShopifyError = @"shopify";
 @implementation BUYRequestOperation
 
 #pragma mark - Init -
++ (instancetype)operationWithSession:(NSURLSession *)session request:(NSURLRequest *)request payload:(id<BUYSerializable>)payload completion:(BUYRequestOperationCompletion)completion {
+	return [[[self class] alloc] initWithSession:session request:request payload:payload completion:completion];
+}
 
 - (instancetype)initWithSession:(NSURLSession *)session request:(NSURLRequest *)request payload:(id<BUYSerializable>)payload completion:(BUYRequestOperationCompletion)completion
 {
@@ -60,34 +63,32 @@ NSString * const kShopifyError = @"shopify";
 
 - (void)finishWithJSON:(id)JSON response:(NSHTTPURLResponse *)response
 {
-	[self setExecuting:NO];
+	[self finishExecution];
 	self.completion(JSON, response, nil);
 }
 
 - (void)finishWithError:(NSError *)error response:(NSHTTPURLResponse *)response
 {
-	[self setExecuting:NO];
+	[self finishExecution];
 	self.completion(nil, response, error);
 }
 
 - (void)finishByCancellation
 {
-	[self setFinished:YES];
-	[self setExecuting:NO];
+	[self finishExecution];
 }
 
 #pragma mark - Start -
 
-- (void)start
+- (void)startExecution
 {
-	[super start];
-	
 	if (self.isCancelled) {
 		[self finishByCancellation];
 		return;
 	}
 	
-	[self setExecuting:YES];
+	[super startExecution];
+	
 	NSURLSessionDataTask *task = [self.session dataTaskWithRequest:self.originalRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
 		
 		if (self.isCancelled) {
@@ -113,18 +114,5 @@ NSString * const kShopifyError = @"shopify";
 	
 	[task resume];
 }
-
-#pragma mark - BUYRequestMethod -
-
-//static inline NSString * BUYRequestMethodString(BUYRequestMethod method)
-//{
-//	switch (method) {
-//		case BUYRequestMethodGET:    return @"GET";
-//		case BUYRequestMethodPOST:   return @"POST";
-//		case BUYRequestMethodPATCH:  return @"PATCH";
-//		case BUYRequestMethodPUT:    return @"PUT";
-//		case BUYRequestMethodDELETE: return @"DELETE";
-//	}
-//}
 
 @end

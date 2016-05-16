@@ -96,7 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Queue where on which all request operation are executed
  */
-@property (nonatomic, strong, nonnull) NSOperationQueue *requestQueue;
+@property (nonatomic, strong, readonly, nonnull) NSOperationQueue *requestQueue;
 
 /**
  *  Queue where callbacks will be called

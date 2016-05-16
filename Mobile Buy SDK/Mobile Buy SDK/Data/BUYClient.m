@@ -32,12 +32,7 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 
 @interface BUYClient () <NSURLSessionDelegate>
 
-@property (nonatomic, strong) NSString *shopDomain;
-@property (nonatomic, strong) NSString *apiKey;
-@property (nonatomic, strong) NSString *appId;
-
 @property (nonatomic, strong) NSURLSession *session;
-@property (nonatomic, strong) NSString *merchantId;
 
 @end
 
@@ -58,15 +53,15 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 	
 	self = [super init];
 	if (self) {
-		self.modelManager = [BUYModelManager modelManager];
-		self.shopDomain = shopDomain;
-		self.apiKey = apiKey;
-		self.appId = appId;
-		self.applicationName = [[NSBundle mainBundle] infoDictionary][@"CFBundleName"] ?: @"";
-		self.queue = dispatch_get_main_queue();
-		self.requestQueue = [NSOperationQueue new];
-		self.session = [self urlSession];
-		self.pageSize = 25;
+		_modelManager = [BUYModelManager modelManager];
+		_shopDomain = shopDomain;
+		_apiKey = apiKey;
+		_appId = appId;
+		_applicationName = [[NSBundle mainBundle] infoDictionary][@"CFBundleName"] ?: @"";
+		_queue = dispatch_get_main_queue();
+		_requestQueue = [NSOperationQueue new];
+		_session = [self urlSession];
+		_pageSize = 25;
 	}
 	return self;
 }
@@ -219,7 +214,7 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 
 - (void)enableApplePayWithMerchantId:(NSString *)merchantId
 {
-	self.merchantId = merchantId;
+	_merchantId = merchantId;
 }
 
 @end
