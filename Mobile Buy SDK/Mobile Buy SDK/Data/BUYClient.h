@@ -27,6 +27,7 @@
 @import Foundation;
 
 @class BUYModelManager;
+@class BUYRequestOperation;
 
 /**
  *  A BUYStatus is associated with the completion of an enqueued job on Shopify.
