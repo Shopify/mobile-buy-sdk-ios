@@ -92,6 +92,39 @@
 	[self waitForExpectationsWithTimeout:3.0 handler:nil];
 }
 
+- (void)testFailedRequest
+{
+	NSDictionary *errorPayload = @{
+								   @"error" : @{
+										   @"reason" : @"Invalid length of name",
+										   @"field"  : @"username",
+										   },
+								   };
+	
+	NSData *payloadData           = [NSJSONSerialization dataWithJSONObject:errorPayload options:0 error:nil];
+	OHHTTPStubsResponse *response = [OHHTTPStubsResponse responseWithData:payloadData statusCode:400 headers:nil];
+	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+		return YES;
+	} withStubResponse:^OHHTTPStubsResponse * (NSURLRequest *request) {
+		return response;
+	}];
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:@"Expect failed operation"];
+	BUYRequestOperation *operation = [self operationFulfillingExpectation:expectation responseCompletion:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		
+		XCTAssertNil(json);
+		XCTAssertNotNil(response);
+		XCTAssertNotNil(error);
+		
+		XCTAssertEqualObjects(error.userInfo, errorPayload);
+		XCTAssertEqual(response.statusCode, 400);
+	}];
+	
+	[self.queue addOperation:operation];
+	[self waitForExpectationsWithTimeout:3.0 handler:nil];
+}
+
 #pragma mark - Dependency Tests -
 
 - (void)testSerialSuccessfulDependencies
