@@ -100,8 +100,8 @@ NSString *const BUYApplePayPaymentProviderId = @"BUYApplePayPaymentProviderId";
 	[self.client getShop:^(BUYShop *theShop, NSError *error) {
 		
 		if (error) {
-			if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailCheckoutWithError:)]) {
-				[self.delegate paymentProvider:self didFailCheckoutWithError:error];
+			if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailWithError:)]) {
+				[self.delegate paymentProvider:self didFailWithError:error];
 			}
 			[[NSNotificationCenter defaultCenter] postNotificationName:BUYPaymentProviderDidFailCheckoutNotificationKey object:self];
 		}
@@ -115,8 +115,8 @@ NSString *const BUYApplePayPaymentProviderId = @"BUYApplePayPaymentProviderId";
 	dispatch_group_enter(group);
 	[self.client handleCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		if (error) {
-			if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailCheckoutWithError:)]) {
-				[self.delegate paymentProvider:self didFailCheckoutWithError:error];
+			if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailWithError:)]) {
+				[self.delegate paymentProvider:self didFailWithError:error];
 			}
 			[[NSNotificationCenter defaultCenter] postNotificationName:BUYPaymentProviderDidFailCheckoutNotificationKey object:self];
 		}
@@ -181,8 +181,8 @@ NSString *const BUYApplePayPaymentProviderId = @"BUYApplePayPaymentProviderId";
 		[self.delegate paymentProvider:self wantsControllerPresented:controller];
 	}
 	else {
-		if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailCheckoutWithError:)]) {
-			[self.delegate paymentProvider:self didFailCheckoutWithError:nil];
+		if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailWithError:)]) {
+			[self.delegate paymentProvider:self didFailWithError:nil];
 		}
 		[[NSNotificationCenter defaultCenter] postNotificationName:BUYPaymentProviderDidFailCheckoutNotificationKey object:self];
 	}
@@ -225,15 +225,15 @@ NSString *const BUYApplePayPaymentProviderId = @"BUYApplePayPaymentProviderId";
 		self.paymentAuthorizationStatus = status;
 		switch (status) {
 			case PKPaymentAuthorizationStatusFailure:
-				if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailCheckoutWithError:)]) {
-					[self.delegate paymentProvider:self didFailCheckoutWithError:self.applePayHelper.lastError];
+				if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailWithError:)]) {
+					[self.delegate paymentProvider:self didFailWithError:self.applePayHelper.lastError];
 				}
 				[[NSNotificationCenter defaultCenter] postNotificationName:BUYPaymentProviderDidFailCheckoutNotificationKey object:self];
 				break;
 				
 			case PKPaymentAuthorizationStatusInvalidShippingPostalAddress:
-				if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailToUpdateCheckoutWithError:)]) {
-					[self.delegate paymentProvider:self didFailToUpdateCheckoutWithError:self.applePayHelper.lastError];
+				if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailWithError:)]) {
+					[self.delegate paymentProvider:self didFailWithError:self.applePayHelper.lastError];
 				}
 				[[NSNotificationCenter defaultCenter] postNotificationName:BUYPaymentProviderDidFailToUpdateCheckoutNotificationKey object:self];
 				break;
@@ -263,8 +263,8 @@ NSString *const BUYApplePayPaymentProviderId = @"BUYApplePayPaymentProviderId";
 {
 	[self.applePayHelper paymentAuthorizationViewController:controller didSelectShippingMethod:shippingMethod completion:^(PKPaymentAuthorizationStatus status, NSArray<PKPaymentSummaryItem *> * _Nonnull summaryItems) {
 		if (status == PKPaymentAuthorizationStatusInvalidShippingPostalAddress) {
-			if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailToUpdateCheckoutWithError:)]) {
-				[self.delegate paymentProvider:self didFailToUpdateCheckoutWithError:self.applePayHelper.lastError];
+			if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailWithError:)]) {
+				[self.delegate paymentProvider:self didFailWithError:self.applePayHelper.lastError];
 			}
 			[[NSNotificationCenter defaultCenter] postNotificationName:BUYPaymentProviderDidFailToUpdateCheckoutNotificationKey object:self];
 		}
@@ -276,8 +276,8 @@ NSString *const BUYApplePayPaymentProviderId = @"BUYApplePayPaymentProviderId";
 {
 	[self.applePayHelper paymentAuthorizationViewController:controller didSelectShippingAddress:address completion:^(PKPaymentAuthorizationStatus status, NSArray<PKShippingMethod *> * _Nonnull shippingMethods, NSArray<PKPaymentSummaryItem *> * _Nonnull summaryItems) {
 		if (status == PKPaymentAuthorizationStatusInvalidShippingPostalAddress) {
-			if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailToUpdateCheckoutWithError:)]) {
-				[self.delegate paymentProvider:self didFailToUpdateCheckoutWithError:self.applePayHelper.lastError];
+			if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailWithError:)]) {
+				[self.delegate paymentProvider:self didFailWithError:self.applePayHelper.lastError];
 			}
 			[[NSNotificationCenter defaultCenter] postNotificationName:BUYPaymentProviderDidFailToUpdateCheckoutNotificationKey object:self];
 		}
@@ -289,8 +289,8 @@ NSString *const BUYApplePayPaymentProviderId = @"BUYApplePayPaymentProviderId";
 {
 	[self.applePayHelper paymentAuthorizationViewController:controller didSelectShippingContact:contact completion:^(PKPaymentAuthorizationStatus status, NSArray<PKShippingMethod *> * _Nonnull shippingMethods, NSArray<PKPaymentSummaryItem *> * _Nonnull summaryItems) {
 		if (status == PKPaymentAuthorizationStatusInvalidShippingPostalAddress) {
-			if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailToUpdateCheckoutWithError:)]) {
-				[self.delegate paymentProvider:self didFailToUpdateCheckoutWithError:self.applePayHelper.lastError];
+			if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailWithError:)]) {
+				[self.delegate paymentProvider:self didFailWithError:self.applePayHelper.lastError];
 			}
 			[[NSNotificationCenter defaultCenter] postNotificationName:BUYPaymentProviderDidFailToUpdateCheckoutNotificationKey object:self];
 		}

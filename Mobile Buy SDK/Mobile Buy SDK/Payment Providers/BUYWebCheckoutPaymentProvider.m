@@ -128,8 +128,8 @@ static NSString *const WebCheckoutCustomerAccessToken = @"customer_access_token"
 		[self openWebCheckout:checkout];
 	}
 	else {
-		if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailCheckoutWithError:)]) {
-			[self.delegate paymentProvider:self didFailCheckoutWithError:error];
+		if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailWithError:)]) {
+			[self.delegate paymentProvider:self didFailWithError:error];
 		}
 		[[NSNotificationCenter defaultCenter] postNotificationName:BUYPaymentProviderDidFailCheckoutNotificationKey object:self];
 		
