@@ -180,7 +180,7 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 	}];
 	
 	[self startTask:operation];
-	return (id)operation;
+	return operation;
 }
 
 #pragma mark - NSURLSessionTaskDelegate

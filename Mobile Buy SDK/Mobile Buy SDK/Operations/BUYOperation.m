@@ -95,7 +95,6 @@ typedef NS_ENUM(NSUInteger, BUYOperationState) {
 	[self willChangeValueForKey:newPath];
 	[self willChangeValueForKey:oldPath];
 	_state = state;
-	NSLog(@"Setting state");
 	[self didChangeValueForKey:oldPath];
 	[self didChangeValueForKey:newPath];
 	
@@ -112,13 +111,11 @@ typedef NS_ENUM(NSUInteger, BUYOperationState) {
 - (void)startExecution
 {
 	self.state = BUYOperationStateExecuting;
-	NSLog(@"Started operation");
 }
 
 - (void)finishExecution
 {
 	self.state = BUYOperationStateFinished;
-	NSLog(@"Finished operation");
 }
 
 #pragma mark - State -
