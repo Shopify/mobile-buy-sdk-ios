@@ -25,6 +25,7 @@
 //
 
 #import "BUYClient_Internal.h"
+#import "BUYClient+Routing.h"
 
 #import "BUYAssert.h"
 #import "BUYAddress.h"
@@ -45,7 +46,6 @@
 #import "NSDecimalNumber+BUYAdditions.h"
 #import "NSDictionary+BUYAdditions.h"
 #import "NSURLComponents+BUYAdditions.h"
-#import "BUYRouter.h"
 
 #define kGET @"GET"
 #define kPOST @"POST"
@@ -76,7 +76,6 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 @property (nonatomic, strong) NSURLSession *session;
 @property (nonatomic, strong) NSString *merchantId;
-@property (nonatomic, strong) BUYRouter *router;
 
 @end
 
@@ -97,7 +96,6 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	
 	self = [super init];
 	if (self) {
-		self.router = [[BUYRouter alloc] initWithShopDomain:shopDomain appID:appId];
 		self.modelManager = [BUYModelManager modelManager];
 		self.shopDomain = shopDomain;
 		self.apiKey = apiKey;
@@ -135,7 +133,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)getShop:(BUYDataShopBlock)block
 {
-	return [self getRequestForURL:[self.router routeForShop].URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self getRequestForURL:[self routeForShop] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		BUYShop *shop = nil;
 		if (json && !error) {
 			shop = [self.modelManager insertShopWithJSONDictionary:json];
@@ -146,13 +144,12 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page completion:(BUYDataProductListBlock)block
 {
-	BUYRoute *route  = [self.router routeForProductListings];
-	route.queryItems = @{
-						 @"limit" : @(self.pageSize),
-						 @"page"  : @(page),
-						 };
+	NSURL *route  = [self routeForProductListingsWithParameters:@{
+																  @"limit" : @(self.pageSize),
+																  @"page"  : @(page),
+																  }];
 	
-	return [self getRequestForURL:route.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		
 		NSArray *products = nil;
 		if (json && !error) {
@@ -182,12 +179,11 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 {
 	BUYAssert(productIds, @"Failed to get product by IDs. Product IDs array must not be nil.");
 	
-	BUYRoute *route  = [self.router routeForProductListings];
-	route.queryItems = @{
-						 @"product_ids" : [productIds componentsJoinedByString:@","],
-						 };
+	NSURL *route  = [self routeForProductListingsWithParameters:@{
+																  @"product_ids" : [productIds componentsJoinedByString:@","],
+																  }];
 	
-	return [self getRequestForURL:route.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		
 		NSArray *products = nil;
 		if (json && !error) {
@@ -209,13 +205,12 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)getCollectionsPage:(NSUInteger)page completion:(BUYDataCollectionsListBlock)block
 {
-	BUYRoute *route  = [self.router routeForCollectionListings];
-	route.queryItems = @{
-						 @"limit" : @(self.pageSize),
-						 @"page"  : @(page),
-						 };
+	NSURL *route  = [self routeForCollectionListingsWithParameters:@{
+																	 @"limit" : @(self.pageSize),
+																	 @"page"  : @(page),
+																	 }];
 	
-	return [self getRequestForURL:route.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		
 		NSArray *collections = nil;
 		if (json && !error) {
@@ -234,15 +229,14 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 {
 	BUYAssert(collectionId, @"Failed to get products page. Invalid collectionID.");
 	
-	BUYRoute *route  = [self.router routeForProductListings];
-	route.queryItems = @{
-						 @"collection_id" : collectionId,
-						 @"limit"         : @(self.pageSize),
-						 @"page"          : @(page),
-						 @"sort_by"       : [BUYCollection sortOrderParameterForCollectionSort:sortOrder]
-						 };
+	NSURL *route  = [self routeForProductListingsWithParameters:@{
+																  @"collection_id" : collectionId,
+																  @"limit"         : @(self.pageSize),
+																  @"page"          : @(page),
+																  @"sort_by"       : [BUYCollection sortOrderParameterForCollectionSort:sortOrder]
+																  }];
 	
-	return [self getRequestForURL:route.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		
 		NSArray *products = nil;
 		if (json && !error) {
@@ -296,7 +290,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)postCheckout:(NSDictionary *)checkoutJSON completion:(BUYDataCheckoutBlock)block
 {
-	return [self postRequestForURL:[self.router routeForCheckouts].URL object:checkoutJSON completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self postRequestForURL:[self routeForCheckouts] object:checkoutJSON completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		[self handleCheckoutResponse:json error:error block:block];
 	}];
 }
@@ -307,9 +301,9 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	BUYAssert(giftCardCode.length > 0, @"Failed to apply gift card code. Invalid gift card code.");
 	
 	BUYGiftCard *giftCard = [self.modelManager giftCardWithCode:giftCardCode];
-	BUYRoute *route = [self.router routeForCheckoutsUsingGiftCardWithToken:checkout.token];
+	NSURL *route = [self routeForCheckoutsUsingGiftCardWithToken:checkout.token];
 	
-	return [self postRequestForURL:route.URL object:giftCard completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self postRequestForURL:route object:giftCard completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		if (json && !error) {
 			[self updateCheckout:checkout withGiftCardDictionary:json[@"gift_card"] addingGiftCard:YES];
 		}
@@ -322,8 +316,8 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	BUYAssertCheckout(checkout);
 	BUYAssert(giftCard.identifier, @"Failed to remove gift card. Gift card must have a valid identifier.");
 	
-	BUYRoute *route = [self.router routeForCheckoutsUsingGiftCard:giftCard.identifier token:checkout.token];
-	return [self deleteRequestForURL:route.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	NSURL *route = [self routeForCheckoutsUsingGiftCard:giftCard.identifier token:checkout.token];
+	return [self deleteRequestForURL:route completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		if (!error) {
 			[self updateCheckout:checkout withGiftCardDictionary:json[@"gift_card"] addingGiftCard:NO];
 		}
@@ -352,8 +346,8 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 {
 	BUYAssertCheckout(checkout);
 	
-	BUYRoute *route = [self.router routeForCheckoutsWithToken:checkout.token];
-	return [self getRequestForURL:route.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	NSURL *route = [self routeForCheckoutsWithToken:checkout.token];
+	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		[self handleCheckoutResponse:json error:error block:block];
 	}];
 }
@@ -362,8 +356,8 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 {
 	BUYAssertCheckout(checkout);
 	
-	BUYRoute *route = [self.router routeForCheckoutsWithToken:checkout.token];
-	return [self patchRequestForURL:route.URL object:checkout completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	NSURL *route = [self routeForCheckoutsWithToken:checkout.token];
+	return [self patchRequestForURL:route object:checkout completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		[self handleCheckoutResponse:json error:error block:block];
 	}];
 }
@@ -376,8 +370,8 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	
 	BUYAssert(paymentToken || isFree, @"Failed to complete checkout. Checkout must have a payment token or have a payment value equal to $0.00");
 	
-	BUYRoute *route = [self.router routeForCheckoutsCompletionWithToken:checkout.token];
-	return [self postRequestForURL:route.URL object:[paymentToken JSONDictionary] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	NSURL *route = [self routeForCheckoutsCompletionWithToken:checkout.token];
+	return [self postRequestForURL:route object:[paymentToken JSONDictionary] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		[self handleCheckoutResponse:json error:error block:block];
 	}];
 }
@@ -408,8 +402,8 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)getCompletionStatusOfCheckoutToken:(NSString *)token completion:(BUYDataCheckoutStatusBlock)block
 {
-	BUYRoute *route = [self.router routeForCheckoutsProcessingWithToken:token];
-	return [self getRequestForURL:route.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	NSURL *route = [self routeForCheckoutsProcessingWithToken:token];
+	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
 		block([BUYClient statusForStatusCode:statusCode error:error], error);
 	}];
@@ -421,12 +415,11 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 {
 	BUYAssertCheckout(checkout);
 	
-	BUYRoute *route  = [self.router routeForCheckoutsShippingRatesWithToken:checkout.token];
-	route.queryItems = @{
-						 @"checkout" : @"",
-						 };
+	NSURL *route  = [self routeForCheckoutsShippingRatesWithToken:checkout.token parameters:@{
+																							  @"checkout" : @"",
+																							  }];
 	
-	return [self getRequestForURL:route.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		NSArray *shippingRates = nil;
 		if (json && !error) {
 			shippingRates = [self.modelManager insertShippingRatesWithJSONArray:json[@"shipping_rates"]];

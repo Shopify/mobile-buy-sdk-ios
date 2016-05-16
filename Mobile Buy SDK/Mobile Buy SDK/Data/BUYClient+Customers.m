@@ -26,12 +26,12 @@
 
 #import "BUYClient+Customers.h"
 #import "BUYClient_Internal.h"
+#import "BUYClient+Routing.h"
 #import "NSDateFormatter+BUYAdditions.h"
 #import "BUYCustomer.h"
 #import "BUYAccountCredentials.h"
 #import "BUYOrder.h"
 #import "BUYShopifyErrorCodes.h"
-#import "BUYRouter.h"
 
 @interface BUYAuthenticatedResponse : NSObject
 + (BUYAuthenticatedResponse *)responseFromJSON:(NSDictionary *)json;
@@ -61,8 +61,8 @@
 
 - (NSURLSessionDataTask *)getCustomerWithID:(NSString *)customerID callback:(BUYDataCustomerBlock)block
 {
-	BUYRoute *route = [self.router routeForCustomersWithID:customerID];
-	return [self getRequestForURL:route.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	NSURL *route = [self routeForCustomersWithID:customerID];
+	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		BUYCustomer *customer = nil;
 		if (json && !error) {
 			customer = [self.modelManager customerWithJSONDictionary:json];
@@ -73,8 +73,8 @@
 
 - (NSURLSessionDataTask *)createCustomerWithCredentials:(BUYAccountCredentials *)credentials callback:(BUYDataCustomerTokenBlock)block
 {
-	BUYRoute *route = [self.router routeForCustomers];
-	return [self postRequestForURL:route.URL object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	NSURL *route = [self routeForCustomers];
+	return [self postRequestForURL:route object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		if (json && !error) {
 			[self createTokenForCustomerWithCredentials:credentials customerJSON:json callback:block];
 		}
@@ -86,8 +86,8 @@
 
 - (NSURLSessionDataTask *)createTokenForCustomerWithCredentials:(BUYAccountCredentials *)credentials customerJSON:(NSDictionary *)customerJSON callback:(BUYDataCustomerTokenBlock)block
 {
-	BUYRoute *route = [self.router routeForCustomersToken];
-	return [self postRequestForURL:route.URL object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	NSURL *route = [self routeForCustomersToken];
+	return [self postRequestForURL:route object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		if (json && !error) {
 			BUYAuthenticatedResponse *authenticatedResponse = [BUYAuthenticatedResponse responseFromJSON:json];
 			self.customerToken = authenticatedResponse.accessToken;
@@ -115,8 +115,8 @@
 
 - (NSURLSessionDataTask *)recoverPasswordForCustomer:(NSString *)email callback:(BUYDataCheckoutStatusBlock)block
 {
-	BUYRoute *route = [self.router routeForCustomersPasswordRecovery];
-	return [self postRequestForURL:route.URL object:@{@"email": email} completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	NSURL *route = [self routeForCustomersPasswordRecovery];
+	return [self postRequestForURL:route object:@{@"email": email} completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		
 		NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
 		if (!error) {
@@ -130,9 +130,9 @@
 - (NSURLSessionDataTask *)renewCustomerTokenWithID:(NSString *)customerID callback:(BUYDataTokenBlock)block
 {
 	if (self.customerToken) {
-		BUYRoute *route = [self.router routeForCustomersTokenRenewalWithID:customerID];
+		NSURL *route = [self routeForCustomersTokenRenewalWithID:customerID];
 		
-		return [self putRequestForURL:route.URL object:nil completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+		return [self putRequestForURL:route object:nil completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			
 			NSString *accessToken = nil;
 			if (json && !error) {
@@ -155,12 +155,11 @@
 
 - (NSURLSessionDataTask *)activateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID customerToken:(NSString *)customerToken callback:(BUYDataCustomerTokenBlock)block
 {
-	BUYRoute *route  = [self.router routeForCustomersActivationWithID:customerID];
-	route.queryItems = @{
-						 @"token": customerToken,
-						 };
+	NSURL *route  = [self routeForCustomersActivationWithID:customerID parameters:@{
+																					@"token": customerToken,
+																					}];
 	
-	return [self putRequestForURL:route.URL object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self putRequestForURL:route object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		NSString *email = json[@"customer"][@"email"];
 		if (email && !error) {
 			BUYAccountCredentialItem *emailItem = [BUYAccountCredentialItem itemWithEmail:email];
@@ -174,12 +173,11 @@
 
 - (NSURLSessionDataTask *)resetPasswordWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID customerToken:(NSString *)customerToken callback:(BUYDataCustomerTokenBlock)block
 {
-	BUYRoute *route  = [self.router routeForCustomersPasswordResetWithID:customerID];
-	route.queryItems = @{
-						 @"token": customerToken,
-						 };
+	NSURL *route  = [self routeForCustomersPasswordResetWithID:customerID parameters:@{
+																					   @"token": customerToken,
+																					   }];
 	
-	return [self putRequestForURL:route.URL object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self putRequestForURL:route object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		NSString *email = json[@"customer"][@"email"];
 		if (email && !error) {
 			BUYAccountCredentialItem *emailItem = [BUYAccountCredentialItem itemWithEmail:email];
@@ -193,8 +191,8 @@
 
 - (NSURLSessionDataTask *)getOrdersForCustomerWithCallback:(BUYDataOrdersBlock)block
 {
-	BUYRoute *route = [self.router routeForCustomersOrders];
-	return [self getRequestForURL:route.URL completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	NSURL *route = [self routeForCustomersOrders];
+	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		if (json && !error) {
 			NSArray *orders = [self.modelManager ordersWithJSONDictionary:json];
 			block(orders, error);
