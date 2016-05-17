@@ -63,9 +63,6 @@ NSString * const BUYVersionString = @"1.3";
 
 NSString *const kShopifyError = @"shopify";
 
-static NSString *const kBUYClientPathProductPublications = @"product_listings";
-static NSString *const kBUYClientPathCollectionPublications = @"collection_listings";
-
 NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token";
 
 @interface BUYClient () <NSURLSessionDelegate>
@@ -108,6 +105,8 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	return self;
 }
 
+#pragma mark - Accessors -
+
 - (NSURLSession *)urlSession
 {
 	NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -119,131 +118,9 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	return [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:nil];
 }
 
-#pragma mark - Storefront
-
 - (void)setPageSize:(NSUInteger)pageSize
 {
 	_pageSize = MAX(MIN(pageSize, 250), 1);
-}
-
-- (BOOL)hasReachedEndOfPage:(NSArray *)lastFetchedObjects
-{
-	return [lastFetchedObjects count] < self.pageSize;
-}
-
-- (NSURLSessionDataTask *)getShop:(BUYDataShopBlock)block
-{
-	return [self getRequestForURL:[self routeForShop] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		BUYShop *shop = nil;
-		if (json && !error) {
-			shop = [self.modelManager insertShopWithJSONDictionary:json];
-		}
-		block(shop, error);
-	}];
-}
-
-- (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page completion:(BUYDataProductListBlock)block
-{
-	NSURL *route  = [self routeForProductListingsWithParameters:@{
-																  @"limit" : @(self.pageSize),
-																  @"page"  : @(page),
-																  }];
-	
-	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		
-		NSArray *products = nil;
-		if (json && !error) {
-			products = [self.modelManager insertProductsWithJSONArray:json[kBUYClientPathProductPublications]];
-		}
-		block(products, page, [self hasReachedEndOfPage:products] || error, error);
-	}];
-}
-
-- (NSURLSessionDataTask *)getProductById:(NSString *)productId completion:(BUYDataProductBlock)block;
-{
-	BUYAssert(productId, @"Failed to get product by ID. Product ID must not be nil.");
-	
-	return [self getProductsByIds:@[productId] completion:^(NSArray *products, NSError *error) {
-		if (products.count > 0) {
-			block(products[0], error);
-		} else {
-			if (!error) {
-				error = [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidProductID userInfo:@{ NSLocalizedDescriptionKey : @"Product ID is not valid. Confirm the product ID on your shop's admin and also ensure that the visibility is on for the Mobile App channel." }];
-			}
-			block(nil, error);
-		}
-	}];
-}
-
-- (NSURLSessionDataTask *)getProductsByIds:(NSArray *)productIds completion:(BUYDataProductsBlock)block
-{
-	BUYAssert(productIds, @"Failed to get product by IDs. Product IDs array must not be nil.");
-	
-	NSURL *route  = [self routeForProductListingsWithParameters:@{
-																  @"product_ids" : [productIds componentsJoinedByString:@","],
-																  }];
-	
-	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		
-		NSArray *products = nil;
-		if (json && !error) {
-			products = [self.modelManager insertProductsWithJSONArray:json[kBUYClientPathProductPublications]];
-		}
-		if (!error && products.count == 0) {
-			error = [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidProductID userInfo:@{ NSLocalizedDescriptionKey : @"Product IDs are not valid. Confirm the product IDs on your shop's admin and also ensure that the visibility is on for the Mobile App channel." }];
-		}
-		block(products, error);
-	}];
-}
-
-- (NSURLSessionDataTask *)getCollections:(BUYDataCollectionsBlock)block
-{
-	return [self getCollectionsPage:1 completion:^(NSArray<BUYCollection *> *collections, NSUInteger page, BOOL reachedEnd, NSError *error) {
-		block(collections, error);
-	}];
-}
-
-- (NSURLSessionDataTask *)getCollectionsPage:(NSUInteger)page completion:(BUYDataCollectionsListBlock)block
-{
-	NSURL *route  = [self routeForCollectionListingsWithParameters:@{
-																	 @"limit" : @(self.pageSize),
-																	 @"page"  : @(page),
-																	 }];
-	
-	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		
-		NSArray *collections = nil;
-		if (json && !error) {
-			collections = [self.modelManager buy_objectsWithEntityName:[BUYCollection entityName] JSONArray:json[kBUYClientPathCollectionPublications]];
-		}
-		block(collections, page, [self hasReachedEndOfPage:collections], error);
-	}];
-}
-
-- (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId completion:(BUYDataProductListBlock)block
-{
-	return [self getProductsPage:page inCollection:collectionId sortOrder:BUYCollectionSortCollectionDefault completion:block];
-}
-
-- (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId sortOrder:(BUYCollectionSort)sortOrder completion:(BUYDataProductListBlock)block
-{
-	BUYAssert(collectionId, @"Failed to get products page. Invalid collectionID.");
-	
-	NSURL *route  = [self routeForProductListingsWithParameters:@{
-																  @"collection_id" : collectionId,
-																  @"limit"         : @(self.pageSize),
-																  @"page"          : @(page),
-																  @"sort_by"       : [BUYCollection sortOrderParameterForCollectionSort:sortOrder]
-																  }];
-	
-	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		
-		NSArray *products = nil;
-		if (json && !error) {
-			products = [self.modelManager buy_objectsWithEntityName:[BUYProduct entityName] JSONArray:json[kBUYClientPathProductPublications]];
-		}
-		block(products, page, [self hasReachedEndOfPage:products] || error, error);
-	}];
 }
 
 #pragma mark - Checkout

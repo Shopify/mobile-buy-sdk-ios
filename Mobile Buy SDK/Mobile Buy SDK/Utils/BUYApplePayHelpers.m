@@ -28,6 +28,7 @@
 #import "BUYAddress.h"
 #import "BUYApplePayAdditions.h"
 #import "BUYClient.h"
+#import "BUYClient+Storefront.h"
 #import "BUYCheckout.h"
 #import "BUYError.h"
 #import "BUYModelManager.h"
