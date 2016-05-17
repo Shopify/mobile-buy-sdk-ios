@@ -355,6 +355,7 @@
 		9A0B0C791CEB5BBD0037D68F /* BUYAuthenticatedResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0B0C761CEB5BBD0037D68F /* BUYAuthenticatedResponse.h */; };
 		9A0B0C7A1CEB5BBD0037D68F /* BUYAuthenticatedResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C771CEB5BBD0037D68F /* BUYAuthenticatedResponse.m */; };
 		9A0B0C7B1CEB5BBD0037D68F /* BUYAuthenticatedResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C771CEB5BBD0037D68F /* BUYAuthenticatedResponse.m */; };
+		9A0B0C831CEB981C0037D68F /* BUYClient+RoutingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C821CEB981C0037D68F /* BUYClient+RoutingTests.m */; };
 		9A102D1B1CDD1F960026CC43 /* BUYErrorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A102D1A1CDD1F960026CC43 /* BUYErrorTests.m */; };
 		9A102D1E1CDD25980026CC43 /* BUYOptionValueTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A102D1D1CDD25980026CC43 /* BUYOptionValueTests.m */; };
 		9A47CEFD1CE39F6000A6D5BA /* BUYCreditCardToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A47CEFB1CE39F5B00A6D5BA /* BUYCreditCardToken.m */; };
@@ -637,6 +638,7 @@
 		9A0B0C711CEB52B90037D68F /* BUYClient+Checkout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYClient+Checkout.m"; sourceTree = "<group>"; };
 		9A0B0C761CEB5BBD0037D68F /* BUYAuthenticatedResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYAuthenticatedResponse.h; sourceTree = "<group>"; };
 		9A0B0C771CEB5BBD0037D68F /* BUYAuthenticatedResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYAuthenticatedResponse.m; sourceTree = "<group>"; };
+		9A0B0C821CEB981C0037D68F /* BUYClient+RoutingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYClient+RoutingTests.m"; sourceTree = "<group>"; };
 		9A102D1A1CDD1F960026CC43 /* BUYErrorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYErrorTests.m; sourceTree = "<group>"; };
 		9A102D1D1CDD25980026CC43 /* BUYOptionValueTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYOptionValueTests.m; sourceTree = "<group>"; };
 		9A47CEF81CE39EC200A6D5BA /* BUYPaymentToken.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUYPaymentToken.h; sourceTree = "<group>"; };
@@ -935,6 +937,7 @@
 				90F592FB1B0D5F4C0026B382 /* BUYCheckoutTest.m */,
 				8498DCBF1CDD208200BD12A8 /* BUYClientTest_Customer.m */,
 				90F592FC1B0D5F4C0026B382 /* BUYClientTest_Storefront.m */,
+				9A0B0C821CEB981C0037D68F /* BUYClient+RoutingTests.m */,
 				90F592FD1B0D5F4C0026B382 /* BUYClientTest.m */,
 				BEB9AE7A1BA866D000575F8A /* BUYClientTestBase.h */,
 				BEB9AE7C1BA8685600575F8A /* BUYClientTestBase.m */,
@@ -1647,6 +1650,7 @@
 				849110441CCE9F3F00E53B93 /* BUYTransformerTests.m in Sources */,
 				8498DCCC1CDD208200BD12A8 /* BUYCustomerTests.m in Sources */,
 				8498DCCE1CDD208200BD12A8 /* BUYOrderTests.m in Sources */,
+				9A0B0C831CEB981C0037D68F /* BUYClient+RoutingTests.m in Sources */,
 				849110351CCE70CE00E53B93 /* BUYDictionaryAdditionsTests.m in Sources */,
 				90F5930A1B0D5F4C0026B382 /* BUYLineItemTest.m in Sources */,
 				8498DCCA1CDD208200BD12A8 /* BUYCollectionTests.m in Sources */,
