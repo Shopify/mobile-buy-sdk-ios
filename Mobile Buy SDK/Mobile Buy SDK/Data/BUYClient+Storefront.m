@@ -84,7 +84,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 			block(products[0], error);
 		} else {
 			if (!error) {
-				error = [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidProductID userInfo:@{ NSLocalizedDescriptionKey : @"Product ID is not valid. Confirm the product ID on your shop's admin and also ensure that the visibility is on for the Mobile App channel." }];
+				error = [NSError errorWithDomain:BUYShopifyErrorDomain code:BUYShopifyError_InvalidProductID userInfo:@{ NSLocalizedDescriptionKey : @"Product ID is not valid. Confirm the product ID on your shop's admin and also ensure that the visibility is on for the Mobile App channel." }];
 			}
 			block(nil, error);
 		}
@@ -106,7 +106,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 			products = [self.modelManager insertProductsWithJSONArray:json[BUYProductsKey]];
 		}
 		if (!error && products.count == 0) {
-			error = [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidProductID userInfo:@{ NSLocalizedDescriptionKey : @"Product IDs are not valid. Confirm the product IDs on your shop's admin and also ensure that the visibility is on for the Mobile App channel." }];
+			error = [NSError errorWithDomain:BUYShopifyErrorDomain code:BUYShopifyError_InvalidProductID userInfo:@{ NSLocalizedDescriptionKey : @"Product IDs are not valid. Confirm the product IDs on your shop's admin and also ensure that the visibility is on for the Mobile App channel." }];
 		}
 		block(products, error);
 	}];

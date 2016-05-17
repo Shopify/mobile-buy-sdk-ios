@@ -348,7 +348,7 @@
 		9A0B0C6E1CEB4D300037D68F /* BUYClient+Storefront.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C6B1CEB4D300037D68F /* BUYClient+Storefront.m */; };
 		9A0B0C6F1CEB4D300037D68F /* BUYClient+Storefront.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C6B1CEB4D300037D68F /* BUYClient+Storefront.m */; };
 		9A0B0C721CEB52B90037D68F /* BUYClient+Checkout.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0B0C701CEB52B90037D68F /* BUYClient+Checkout.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9A0B0C731CEB52B90037D68F /* BUYClient+Checkout.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0B0C701CEB52B90037D68F /* BUYClient+Checkout.h */; };
+		9A0B0C731CEB52B90037D68F /* BUYClient+Checkout.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0B0C701CEB52B90037D68F /* BUYClient+Checkout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A0B0C741CEB52B90037D68F /* BUYClient+Checkout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C711CEB52B90037D68F /* BUYClient+Checkout.m */; };
 		9A0B0C751CEB52B90037D68F /* BUYClient+Checkout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C711CEB52B90037D68F /* BUYClient+Checkout.m */; };
 		9A102D1B1CDD1F960026CC43 /* BUYErrorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A102D1A1CDD1F960026CC43 /* BUYErrorTests.m */; };

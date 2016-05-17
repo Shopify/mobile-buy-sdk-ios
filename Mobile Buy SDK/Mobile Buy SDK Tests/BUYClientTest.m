@@ -34,16 +34,11 @@
 #import "BUYShopifyErrorCodes.h"
 #import "BUYAccountCredentials.h"
 #import "BUYClient+Customers.h"
+#import "BUYClient+Internal.h"
 #import "BUYApplePayToken.h"
 #import "BUYApplePayTestToken.h"
 
 NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
-
-@interface BUYClient ()
-
-+ (BUYStatus)statusForStatusCode:(NSUInteger)statusCode error:(NSError *)error;
-
-@end
 
 @interface BUYClient_Test : BUYClient
 
@@ -169,22 +164,22 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
 - (void)testStatusCodeConversions
 {
-	BUYStatus status = [BUYClient statusForStatusCode:412 error:nil];
+	BUYStatus status = [self.client statusForStatusCode:412 error:nil];
 	XCTAssertEqual(BUYStatusPreconditionFailed, status);
 	
-	status = [BUYClient statusForStatusCode:404 error:nil];
+	status = [self.client statusForStatusCode:404 error:nil];
 	XCTAssertEqual(BUYStatusNotFound, status);
 	
-	status = [BUYClient statusForStatusCode:0 error:[NSError errorWithDomain:@"" code:-1 userInfo:nil]];
+	status = [self.client statusForStatusCode:0 error:[NSError errorWithDomain:@"" code:-1 userInfo:nil]];
 	XCTAssertEqual(BUYStatusFailed, status);
 	
-	status = [BUYClient statusForStatusCode:424 error:nil];
+	status = [self.client statusForStatusCode:424 error:nil];
 	XCTAssertEqual(BUYStatusFailed, status);
 	
-	status = [BUYClient statusForStatusCode:202 error:nil];
+	status = [self.client statusForStatusCode:202 error:nil];
 	XCTAssertEqual(BUYStatusProcessing, status);
 	
-	status = [BUYClient statusForStatusCode:200 error:nil];
+	status = [self.client statusForStatusCode:200 error:nil];
 	XCTAssertEqual(BUYStatusComplete, status);
 }
 

@@ -26,19 +26,7 @@
 
 @import Foundation;
 
-@class BUYAccountCredentials;
-@class BUYCart;
-@class BUYCheckout;
-@class BUYCreditCard;
-@class BUYGiftCard;
-@class BUYProduct;
-@class BUYProductVariant;
-@class BUYShop;
-@class BUYCollection;
-@class BUYOrder;
 @class BUYModelManager;
-
-@protocol BUYPaymentToken;
 
 /**
  *  The sort order for products in a collection
@@ -77,10 +65,6 @@ typedef NS_ENUM(NSUInteger, BUYCollectionSort) {
 	 */
 	BUYCollectionSortCreatedDescending
 };
-
-extern NSString * _Nonnull const BUYVersionString;
-
-extern NSString * _Nonnull const BUYClientCustomerAccessToken;
 
 /**
  *  A BUYStatus is associated with the completion of an enqueued job on Shopify.
@@ -204,5 +188,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)enableApplePayWithMerchantId:(NSString *)merchantId NS_DEPRECATED_IOS(8_0, 9_0, "Set the merchantId on a `BUYViewController` subclass instead");
 
+@end
+
 NS_ASSUME_NONNULL_END
-@end 

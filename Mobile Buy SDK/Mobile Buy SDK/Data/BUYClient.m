@@ -25,42 +25,10 @@
 //
 
 #import "BUYClient+Internal.h"
-#import "BUYClient+Routing.h"
-
 #import "BUYAssert.h"
-#import "BUYAddress.h"
-#import "BUYCart.h"
-#import "BUYCheckout.h"
-#import "BUYCreditCard.h"
-#import "BUYCreditCardToken.h"
-#import "BUYCollection.h"
-#import "BUYError.h"
-#import "BUYGiftCard.h"
 #import "BUYModelManager.h"
-#import "BUYOrder.h"
-#import "BUYProduct.h"
-#import "BUYShippingRate.h"
-#import "BUYShop.h"
-#import "BUYShopifyErrorCodes.h"
-#import "NSDecimalNumber+BUYAdditions.h"
-#import "NSDictionary+BUYAdditions.h"
-#import "NSURLComponents+BUYAdditions.h"
 
-#define kGET @"GET"
-#define kPOST @"POST"
-#define kPATCH @"PATCH"
-#define kPUT @"PUT"
-#define kDELETE @"DELETE"
-
-#define kJSONType @"application/json"
-#define kMinSuccessfulStatusCode 200
-#define kMaxSuccessfulStatusCode 299
-
-NSString * const BUYVersionString = @"1.3";
-
-NSString *const kShopifyError = @"shopify";
-
-NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token";
+static NSString * const BUYClientJSONMimeType = @"application/json";
 
 @interface BUYClient () <NSURLSessionDelegate>
 
@@ -110,7 +78,7 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	
 	NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
 	
-	config.HTTPAdditionalHeaders = @{@"User-Agent": [NSString stringWithFormat:@"Mobile Buy SDK iOS/%@/%@", BUYVersionString, bundleIdentifier]};
+	config.HTTPAdditionalHeaders = @{@"User-Agent": [NSString stringWithFormat:@"Mobile Buy SDK iOS/%@/%@", BUYClientVersionString, bundleIdentifier]};
 	
 	return [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:nil];
 }
@@ -146,8 +114,8 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 - (NSError *)errorFromJSON:(NSDictionary *)json response:(NSURLResponse *)response
 {
 	NSInteger statusCode = [((NSHTTPURLResponse *) response) statusCode];
-	if (statusCode < kMinSuccessfulStatusCode || statusCode > kMaxSuccessfulStatusCode) {
-		return [[NSError alloc] initWithDomain:kShopifyError code:statusCode userInfo:json];
+	if ((int)(statusCode / 100.0) != 2) { // If not a 2xx response code
+		return [[NSError alloc] initWithDomain:BUYShopifyErrorDomain code:statusCode userInfo:json];
 	}
 	return nil;
 }
@@ -156,27 +124,27 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 
 - (NSURLSessionDataTask *)getRequestForURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
-	return [self requestForURL:url method:kGET object:nil completionHandler:completionHandler];
+	return [self requestForURL:url method:@"GET" object:nil completionHandler:completionHandler];
 }
 
 - (NSURLSessionDataTask *)postRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
-	return [self requestForURL:url method:kPOST object:object completionHandler:completionHandler];
+	return [self requestForURL:url method:@"POST" object:object completionHandler:completionHandler];
 }
 
 - (NSURLSessionDataTask *)putRequestForURL:(NSURL *)url object:(id<BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
-	return [self requestForURL:url method:kPUT object:object completionHandler:completionHandler];
+	return [self requestForURL:url method:@"PUT" object:object completionHandler:completionHandler];
 }
 
 - (NSURLSessionDataTask *)patchRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
-	return [self requestForURL:url method:kPATCH object:object completionHandler:completionHandler];
+	return [self requestForURL:url method:@"PATCH" object:object completionHandler:completionHandler];
 }
 
 - (NSURLSessionDataTask *)deleteRequestForURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
-	return [self requestForURL:url method:kDELETE object:nil completionHandler:completionHandler];
+	return [self requestForURL:url method:@"DELETE" object:nil completionHandler:completionHandler];
 }
 
 #pragma mark - Generic Requests
@@ -200,8 +168,8 @@ NSString *const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token
 	}
 	
 	[request addValue:[self authorizationHeader] forHTTPHeaderField:@"Authorization"];
-	[request addValue:kJSONType forHTTPHeaderField:@"Content-Type"];
-	[request addValue:kJSONType forHTTPHeaderField:@"Accept"];
+	[request addValue:BUYClientJSONMimeType forHTTPHeaderField:@"Content-Type"];
+	[request addValue:BUYClientJSONMimeType forHTTPHeaderField:@"Accept"];
 	
 	if (self.customerToken) {
 		[request addValue:self.customerToken forHTTPHeaderField:BUYClientCustomerAccessToken];

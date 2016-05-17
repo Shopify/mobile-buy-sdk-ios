@@ -148,7 +148,7 @@
 		}];
 	}
 	else {
-		block(nil, [NSError errorWithDomain:kShopifyError code:BUYShopifyError_InvalidCustomerToken userInfo:nil]);
+		block(nil, [NSError errorWithDomain:BUYShopifyErrorDomain code:BUYShopifyError_InvalidCustomerToken userInfo:nil]);
 		return nil;
 	}
 }

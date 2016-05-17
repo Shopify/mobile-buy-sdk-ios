@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class BUYCheckout;
 @class BUYShippingRate;
 @class BUYGiftCard;
+@class BUYCreditCard;
 
 @protocol BUYPaymentToken;
 

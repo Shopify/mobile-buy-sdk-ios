@@ -27,7 +27,9 @@
 #import "BUYClient.h"
 #import "BUYSerializable.h"
 
-extern NSString *const kShopifyError;
+static NSString * const BUYShopifyErrorDomain = @"shopify";
+static NSString * const BUYClientVersionString = @"1.3";
+static NSString * const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token";
 
 @interface BUYClient (Internal)
 
