@@ -25,8 +25,6 @@
 //
 
 #import "BUYClient+Internal.h"
-#import "BUYClient+Routing.h"
-
 #import "BUYAssert.h"
 #import "BUYModelManager.h"
 
