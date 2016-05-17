@@ -57,11 +57,6 @@ typedef NS_ENUM(NSUInteger, BUYOperationState) {
 	return YES;
 }
 
-- (BOOL)isConcurrent
-{
-	return YES;
-}
-
 #pragma mark - Accessors -
 - (BOOL)isExecuting
 {
