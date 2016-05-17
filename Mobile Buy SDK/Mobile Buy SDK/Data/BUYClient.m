@@ -58,7 +58,7 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 		_apiKey = apiKey;
 		_appId = appId;
 		_applicationName = [[NSBundle mainBundle] infoDictionary][@"CFBundleName"] ?: @"";
-		_queue = dispatch_get_main_queue();
+		_callbackQueue = [NSOperationQueue mainQueue];
 		_requestQueue = [NSOperationQueue new];
 		_session = [self urlSession];
 		_pageSize = 25;
@@ -174,9 +174,9 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 	request.HTTPMethod = method;
 	
 	BUYRequestOperation *operation = [[BUYRequestOperation alloc] initWithSession:self.session request:request payload:object completion:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		dispatch_async(self.queue, ^{
+		[self.callbackQueue addOperationWithBlock:^{
 			completionHandler(json, response, error);
-		});
+		}];
 	}];
 	
 	[self startTask:operation];

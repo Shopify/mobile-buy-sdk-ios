@@ -95,15 +95,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nonnull) BUYModelManager *modelManager;
 
 /**
- *  Queue where on which all request operation are executed
+ *  Queue on which all request operation are executed
  */
 @property (nonatomic, strong, readonly, nonnull) NSOperationQueue *requestQueue;
 
 /**
- *  Queue where callbacks will be called
- *  defaults to main queue
+ *  Queue on which network completion callbacks will be executed
  */
-@property (nonatomic, strong, nonnull) dispatch_queue_t queue;
+@property (nonatomic, strong, nonnull) NSOperationQueue *callbackQueue;
 
 /**
  *  The page size for any paged request. This can range from 1-250.  Default is 25

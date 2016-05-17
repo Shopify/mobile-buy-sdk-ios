@@ -1303,7 +1303,7 @@
 	NSString *apiKey = [self shouldUseMocks] ? BUYAPIKey_Placeholder : self.apiKey;
 	NSString *appId = [self shouldUseMocks] ? BUYAppId_Placeholder : self.appId;
 	BUYClient *testClient = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:apiKey appId:appId];
-	testClient.queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+	testClient.callbackQueue = [NSOperationQueue new];
 	
 	[testClient getShop:^(BUYShop *shop, NSError *error) {
 		BOOL isMainThread = [NSThread isMainThread];
