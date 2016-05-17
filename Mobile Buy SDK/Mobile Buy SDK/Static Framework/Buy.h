@@ -41,6 +41,7 @@
 #import "BUYClient+Customers.h"
 #import "BUYClient+Storefront.h"
 #import "BUYClient+Checkout.h"
+#import "BUYRequestOperation.h"
 #import "BUYCollection.h"
 #import "BUYCreditCard.h"
 #import "BUYCustomer.h"
