@@ -88,12 +88,12 @@ extension OrdersViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         let order = self.orders[section]
-        return "Order total: $\(order.totalPrice) \(order.currency)"
+        return "Order total: $\(order.totalPrice)"
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! LineItemCell
-        let lineItem = self.orders[indexPath.section].lineItems[indexPath.row]
+        let lineItem = self.orders[indexPath.section].lineItemsArray[indexPath.row]
         
         cell.setLineItem(lineItem)
         
@@ -106,9 +106,7 @@ extension OrdersViewController: UITableViewDataSource {
 //
 extension BUYOrder {
     
-    var lineItems: [BUYLineItem] {
-        var items = self.fulfilledLineItems
-        items.appendContentsOf(self.unfulfilledLineItems)
-        return items
+    var lineItemsArray: [BUYLineItem] {
+        return self.lineItems.array as! [BUYLineItem]
     }
 }
