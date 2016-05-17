@@ -126,9 +126,9 @@ typedef void (^BUYDataProductListBlock)(NSArray<BUYProduct *> * _Nullable produc
  *
  *  @param block (^BUYDataShopBlock)(BUYShop *shop, NSError *error);
  *
- *  @return The associated NSURLSessionDataTask
+ *  @return The associated BUYRequestOperation
  */
-- (NSURLSessionDataTask *)getShop:(BUYDataShopBlock)block;
+- (BUYRequestOperation *)getShop:(BUYDataShopBlock)block;
 
 /**
  *  Fetches a single page of products for the shop.
@@ -136,9 +136,9 @@ typedef void (^BUYDataProductListBlock)(NSArray<BUYProduct *> * _Nullable produc
  *  @param page  Page to request. Pages start at 1.
  *  @param block (^BUYDataProductListBlock)(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error);
  *
- *  @return The associated NSURLSessionDataTask
+ *  @return The associated BUYRequestOperation
  */
-- (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page completion:(BUYDataProductListBlock)block;
+- (BUYRequestOperation *)getProductsPage:(NSUInteger)page completion:(BUYDataProductListBlock)block;
 
 /**
  *  Fetches a single product by the ID of the product.
@@ -146,9 +146,9 @@ typedef void (^BUYDataProductListBlock)(NSArray<BUYProduct *> * _Nullable produc
  *  @param productId Product ID
  *  @param block     (^BUYDataProductBlock)(BUYProduct *product, NSError *error);
  *
- *  @return The associated NSURLSessionDataTask
+ *  @return The associated BUYRequestOperation
  */
-- (NSURLSessionDataTask *)getProductById:(NSString *)productId completion:(BUYDataProductBlock)block;
+- (BUYRequestOperation *)getProductById:(NSString *)productId completion:(BUYDataProductBlock)block;
 
 /**
  *  Fetches a list of product by the ID of each product.
@@ -156,18 +156,18 @@ typedef void (^BUYDataProductListBlock)(NSArray<BUYProduct *> * _Nullable produc
  *  @param productIds An array of `NSString` objects with Product IDs to fetch
  *  @param block      (^BUYDataProductsBlock)(NSArray *products, NSError *error);
  *
- *  @return The associated NSURLSessionDataTask
+ *  @return The associated BUYRequestOperation
  */
-- (NSURLSessionDataTask *)getProductsByIds:(NSArray *)productIds completion:(BUYDataProductsBlock)block;
+- (BUYRequestOperation *)getProductsByIds:(NSArray *)productIds completion:(BUYDataProductsBlock)block;
 
 /**
  *  Fetches the collections on the shop
  *
  *  @param block (^BUYDataCollectionsBlock)(NSArray *collections, NSError *error)
  *
- *  @return The associated NSURLSessionDataTask
+ *  @return The associated BUYRequestOperation
  */
-- (NSURLSessionDataTask *)getCollections:(BUYDataCollectionsBlock)block;
+- (BUYRequestOperation *)getCollections:(BUYDataCollectionsBlock)block;
 
 /**
  *  Fetches collections based off page
@@ -175,9 +175,9 @@ typedef void (^BUYDataProductListBlock)(NSArray<BUYProduct *> * _Nullable produc
  *  @param page  Index of the page requested
  *  @param block (^BUYDataCollectionsBlock)(NSArray *collections, NSError *error)
  *
- *  @return The associated NSURLSessionDataTask
+ *  @return The associated BUYRequestOperation
  */
-- (NSURLSessionDataTask *)getCollectionsPage:(NSUInteger)page completion:(BUYDataCollectionsListBlock)block;
+- (BUYRequestOperation *)getCollectionsPage:(NSUInteger)page completion:(BUYDataCollectionsListBlock)block;
 
 /**
  *  Fetches the products in the given collection with the collection's
@@ -187,9 +187,9 @@ typedef void (^BUYDataProductListBlock)(NSArray<BUYProduct *> * _Nullable produc
  *  @param collectionId The `collectionId` found in the BUYCollection object to fetch the products from
  *  @param block        (NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error)
  *
- *  @return the associated NSURLSessionDataTask
+ *  @return the associated BUYRequestOperation
  */
-- (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId completion:(BUYDataProductListBlock)block;
+- (BUYRequestOperation *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId completion:(BUYDataProductListBlock)block;
 
 /**
  *  Fetches the products in the given collection with a given sort order
@@ -199,9 +199,9 @@ typedef void (^BUYDataProductListBlock)(NSArray<BUYProduct *> * _Nullable produc
  *  @param sortOrder    The sort order that overrides the default collection sort order
  *  @param block        (NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error)
  *
- *  @return the associated NSURLSessionDataTask
+ *  @return the associated BUYRequestOperation
  */
-- (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId sortOrder:(BUYCollectionSort)sortOrder completion:(BUYDataProductListBlock)block;
+- (BUYRequestOperation *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId sortOrder:(BUYCollectionSort)sortOrder completion:(BUYDataProductListBlock)block;
 
 @end
 

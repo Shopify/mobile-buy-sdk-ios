@@ -27,6 +27,7 @@
 #import "BUYClient+Internal.h"
 #import "BUYAssert.h"
 #import "BUYModelManager.h"
+#import "BUYRequestOperation.h"
 
 static NSString * const BUYClientJSONMimeType = @"application/json";
 

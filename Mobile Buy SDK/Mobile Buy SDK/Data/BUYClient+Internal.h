@@ -33,12 +33,12 @@ static NSString * const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Acce
 
 @interface BUYClient (Internal)
 
-- (NSURLSessionDataTask *)getRequestForURL:(NSURL *)url    completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
-- (NSURLSessionDataTask *)deleteRequestForURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
+- (BUYRequestOperation *)getRequestForURL:(NSURL *)url    completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
+- (BUYRequestOperation *)deleteRequestForURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
 
-- (NSURLSessionDataTask *)postRequestForURL:(NSURL *)url  object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
-- (NSURLSessionDataTask *)putRequestForURL:(NSURL *)url   object:(id<BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
-- (NSURLSessionDataTask *)patchRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
+- (BUYRequestOperation *)postRequestForURL:(NSURL *)url  object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
+- (BUYRequestOperation *)putRequestForURL:(NSURL *)url   object:(id<BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
+- (BUYRequestOperation *)patchRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
 
 - (BUYStatus)statusForStatusCode:(NSUInteger)statusCode error:(NSError *)error;
 - (NSError *)errorFromJSON:(NSDictionary *)json response:(NSURLResponse *)response;
