@@ -29,11 +29,7 @@
 
 extern NSString *const kShopifyError;
 
-@class BUYRouter;
-
 @interface BUYClient (Internal)
-
-@property (nonatomic, strong) BUYRouter *router;
 
 - (NSURLSessionDataTask *)postRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
 - (NSURLSessionDataTask *)putRequestForURL:(NSURL *)url object:(id<BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
