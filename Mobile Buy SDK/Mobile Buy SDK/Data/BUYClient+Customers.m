@@ -25,7 +25,7 @@
 //
 
 #import "BUYClient+Customers.h"
-#import "BUYClient_Internal.h"
+#import "BUYClient+Internal.h"
 #import "BUYClient+Routing.h"
 #import "NSDateFormatter+BUYAdditions.h"
 #import "BUYCustomer.h"

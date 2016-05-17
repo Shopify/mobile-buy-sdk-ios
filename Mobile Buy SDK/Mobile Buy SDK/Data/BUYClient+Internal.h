@@ -1,5 +1,5 @@
 //
-//  BUYClient_Internal.h
+//  BUYClient+Internal.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
