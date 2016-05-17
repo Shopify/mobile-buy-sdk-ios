@@ -28,10 +28,6 @@
 
 #pragma mark - NSURL (Private Routing) -
 
-@interface NSURL (PrivateRouting)
-
-@end
-
 @implementation NSURL (PrivateRouting)
 
 + (instancetype)URLWithFormat:(NSString *)format, ...
