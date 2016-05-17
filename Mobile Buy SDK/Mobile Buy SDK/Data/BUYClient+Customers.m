@@ -30,30 +30,9 @@
 #import "NSDateFormatter+BUYAdditions.h"
 #import "BUYCustomer.h"
 #import "BUYAccountCredentials.h"
+#import "BUYAuthenticatedResponse.h"
 #import "BUYOrder.h"
 #import "BUYShopifyErrorCodes.h"
-
-@interface BUYAuthenticatedResponse : NSObject
-+ (BUYAuthenticatedResponse *)responseFromJSON:(NSDictionary *)json;
-@property (nonatomic, copy) NSString *accessToken;
-@property (nonatomic, copy) NSDate *expiry;
-@property (nonatomic, copy) NSString *customerID;
-@end
-
-@implementation BUYAuthenticatedResponse
-
-+ (BUYAuthenticatedResponse *)responseFromJSON:(NSDictionary *)json
-{
-	BUYAuthenticatedResponse *response = [BUYAuthenticatedResponse new];
-	NSDictionary *access = json[@"customer_access_token"];
-	response.accessToken = access[@"access_token"];
-	NSDateFormatter *formatter = [NSDateFormatter dateFormatterForPublications];
-	response.expiry = [formatter dateFromString:access[@"expires_at"]];
-	response.customerID = [NSString stringWithFormat:@"%@", access[@"customer_id"]];
-	return response;
-}
-
-@end
 
 @implementation BUYClient (Customers)
 
@@ -89,7 +68,7 @@
 	NSURL *route = [self routeForCustomersToken];
 	return [self postRequestForURL:route object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		if (json && !error) {
-			BUYAuthenticatedResponse *authenticatedResponse = [BUYAuthenticatedResponse responseFromJSON:json];
+			BUYAuthenticatedResponse *authenticatedResponse = [BUYAuthenticatedResponse responseWithJSON:json];
 			self.customerToken = authenticatedResponse.accessToken;
 			
 			if (!customerJSON) {
@@ -136,7 +115,7 @@
 			
 			NSString *accessToken = nil;
 			if (json && !error) {
-				BUYAuthenticatedResponse *authenticatedResponse = [BUYAuthenticatedResponse responseFromJSON:json];
+				BUYAuthenticatedResponse *authenticatedResponse = [BUYAuthenticatedResponse responseWithJSON:json];
 				accessToken = authenticatedResponse.accessToken;
 			}
 			
