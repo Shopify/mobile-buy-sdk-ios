@@ -654,6 +654,8 @@
 		9A0B0C6B1CEB4D300037D68F /* BUYClient+Storefront.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYClient+Storefront.m"; sourceTree = "<group>"; };
 		9A0B0C701CEB52B90037D68F /* BUYClient+Checkout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BUYClient+Checkout.h"; sourceTree = "<group>"; };
 		9A0B0C711CEB52B90037D68F /* BUYClient+Checkout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYClient+Checkout.m"; sourceTree = "<group>"; };
+		9A0B0C761CEB5BBD0037D68F /* BUYAuthenticatedResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYAuthenticatedResponse.h; sourceTree = "<group>"; };
+		9A0B0C771CEB5BBD0037D68F /* BUYAuthenticatedResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYAuthenticatedResponse.m; sourceTree = "<group>"; };
 		9A102D1A1CDD1F960026CC43 /* BUYErrorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYErrorTests.m; sourceTree = "<group>"; };
 		9A102D1D1CDD25980026CC43 /* BUYOptionValueTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYOptionValueTests.m; sourceTree = "<group>"; };
 		9A47CEF81CE39EC200A6D5BA /* BUYPaymentToken.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BUYPaymentToken.h; sourceTree = "<group>"; };
@@ -1263,6 +1265,7 @@
 				9019315F1BC5B9BC00D1134E /* BUYProductHeaderCell.h in Headers */,
 				901931601BC5B9BC00D1134E /* BUYProductViewErrorView.h in Headers */,
 				901931611BC5B9BC00D1134E /* BUYClient.h in Headers */,
+				901931631BC5B9BC00D1134E /* BUYGradientView.h in Headers */,
 				9A0B0C791CEB5BBD0037D68F /* BUYAuthenticatedResponse.h in Headers */,
 				849810971CB7E07900CFAB58 /* BUYFlatCollectionTransformer.h in Headers */,
 				901931641BC5B9BC00D1134E /* BUYCartLineItem.h in Headers */,
@@ -1368,6 +1371,7 @@
 				BEB74A6D1B5564200005A300 /* BUYProductHeaderCell.h in Headers */,
 				903BCC7C1B7D1C2D00C21FEB /* BUYProductViewErrorView.h in Headers */,
 				BE9A64471B503C8B0033E558 /* BUYClient.h in Headers */,
+				BEB74A651B5563FF0005A300 /* BUYGradientView.h in Headers */,
 				9A0B0C781CEB5BBD0037D68F /* BUYAuthenticatedResponse.h in Headers */,
 				849810961CB7E07900CFAB58 /* BUYFlatCollectionTransformer.h in Headers */,
 				9003969B1B601DF400226B73 /* BUYCartLineItem.h in Headers */,
