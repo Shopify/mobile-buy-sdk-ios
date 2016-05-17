@@ -31,10 +31,14 @@ extern NSString *const kShopifyError;
 
 @interface BUYClient (Internal)
 
-- (NSURLSessionDataTask *)postRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
-- (NSURLSessionDataTask *)putRequestForURL:(NSURL *)url object:(id<BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
-- (NSURLSessionDataTask *)getRequestForURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
+- (NSURLSessionDataTask *)getRequestForURL:(NSURL *)url    completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
+- (NSURLSessionDataTask *)deleteRequestForURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
 
+- (NSURLSessionDataTask *)postRequestForURL:(NSURL *)url  object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
+- (NSURLSessionDataTask *)putRequestForURL:(NSURL *)url   object:(id<BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
+- (NSURLSessionDataTask *)patchRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
+
+- (BUYStatus)statusForStatusCode:(NSUInteger)statusCode error:(NSError *)error;
 - (NSError *)errorFromJSON:(NSDictionary *)json response:(NSURLResponse *)response;
 
 @end

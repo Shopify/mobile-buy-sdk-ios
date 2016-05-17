@@ -31,6 +31,7 @@
 #import "BUYApplePayAdditions.h"
 #import "BUYCart.h"
 #import "BUYClient+Storefront.h"
+#import "BUYClient+Checkout.h"
 #import "BUYViewController.h"
 #import "BUYApplePayHelpers.h"
 #import "BUYDiscount.h"

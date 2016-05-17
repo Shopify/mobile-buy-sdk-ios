@@ -33,6 +33,7 @@
 #import "BUYOrder.h"
 #import "BUYShopifyErrorCodes.h"
 #import "BUYClient+Storefront.h"
+#import "BUYClient+Checkout.h"
 
 @interface BUYStoreViewController () <WKNavigationDelegate, WKScriptMessageHandler>
 @end

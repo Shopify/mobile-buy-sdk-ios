@@ -113,7 +113,7 @@
 	return [self createTokenForCustomerWithCredentials:credentials customerJSON:nil callback:block];
 }
 
-- (NSURLSessionDataTask *)recoverPasswordForCustomer:(NSString *)email callback:(BUYDataCheckoutStatusBlock)block
+- (NSURLSessionDataTask *)recoverPasswordForCustomer:(NSString *)email callback:(BUYDataStatusBlock)block
 {
 	NSURL *route = [self routeForCustomersPasswordRecovery];
 	return [self postRequestForURL:route object:@{@"email": email} completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
