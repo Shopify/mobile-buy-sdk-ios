@@ -137,22 +137,22 @@
 
 - (NSURL *)routeForCheckoutsWithToken:(NSString *)token
 {
-	return [self routeForCheckoutsAction:@"" withToken:token];
+	return [self _routeForCheckoutsAction:@"" withToken:token];
 }
 
 - (NSURL *)routeForCheckoutsProcessingWithToken:(NSString *)token
 {
-	return [self routeForCheckoutsAction:@"/processing" withToken:token];
+	return [self _routeForCheckoutsAction:@"/processing" withToken:token];
 }
 
 - (NSURL *)routeForCheckoutsCompletionWithToken:(NSString *)token
 {
-	return [self routeForCheckoutsAction:@"/complete" withToken:token];
+	return [self _routeForCheckoutsAction:@"/complete" withToken:token];
 }
 
 - (NSURL *)routeForCheckoutsShippingRatesWithToken:(NSString *)token parameters:(NSDictionary *)parameters
 {
-	return [[[self routeForCheckoutsAction:@"/shipping_rates" withToken:token] appendExtension] appendParameters:parameters];
+	return [[self _routeForCheckoutsAction:@"/shipping_rates" withToken:token] appendParameters:parameters];
 }
 
 - (NSURL *)routeForCheckoutsUsingGiftCard
@@ -214,7 +214,7 @@
 
 #pragma mark - Utilities -
 
-- (NSURL *)routeForCheckoutsAction:(NSString *)action withToken:(NSString *)token
+- (NSURL *)_routeForCheckoutsAction:(NSString *)action withToken:(NSString *)token
 {
 	return [[[[self routeForCheckouts] appendPath:token] appendPath:action] appendExtension];
 }
