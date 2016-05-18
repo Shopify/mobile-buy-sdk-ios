@@ -29,44 +29,6 @@
 @class BUYModelManager;
 
 /**
- *  The sort order for products in a collection
- */
-typedef NS_ENUM(NSUInteger, BUYCollectionSort) {
-	/**
-	 *  Sort products by best selling using the order set in the shop's admin
-	 */
-	BUYCollectionSortCollectionDefault,
-	/**
-	 *  Sort products by best selling
-	 */
-	BUYCollectionSortBestSelling,
-	/**
-	 *  Sort products by title, ascending
-	 */
-	BUYCollectionSortTitleAscending,
-	/**
-	 *  Sort products by title, descending
-	 */
-	BUYCollectionSortTitleDescending,
-	/**
-	 *  Sort products by price (first variant), ascending
-	 */
-	BUYCollectionSortPriceAscending,
-	/**
-	 *  Sort products by price (first variant), descending
-	 */
-	BUYCollectionSortPriceDescending,
-	/**
-	 *  Sort products by creation date, ascending
-	 */
-	BUYCollectionSortCreatedAscending,
-	/**
-	 *  Sort products by creation date, descending
-	 */
-	BUYCollectionSortCreatedDescending
-};
-
-/**
  *  A BUYStatus is associated with the completion of an enqueued job on Shopify.
  *  BUYStatus is equal is HTTP status codes returned from the server
  */
