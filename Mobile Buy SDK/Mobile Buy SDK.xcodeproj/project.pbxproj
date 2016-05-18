@@ -359,6 +359,8 @@
 		9A0B0C7A1CEB5BBD0037D68F /* BUYAuthenticatedResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C771CEB5BBD0037D68F /* BUYAuthenticatedResponse.m */; };
 		9A0B0C7B1CEB5BBD0037D68F /* BUYAuthenticatedResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C771CEB5BBD0037D68F /* BUYAuthenticatedResponse.m */; };
 		9A0B0C831CEB981C0037D68F /* BUYClient+RoutingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C821CEB981C0037D68F /* BUYClient+RoutingTests.m */; };
+		9A0B0CA21CECC1BC0037D68F /* BUYClient+Checkout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C711CEB52B90037D68F /* BUYClient+Checkout.m */; };
+		9A0B0CA31CECC1BD0037D68F /* BUYClient+Checkout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C711CEB52B90037D68F /* BUYClient+Checkout.m */; };
 		9A102D1B1CDD1F960026CC43 /* BUYErrorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A102D1A1CDD1F960026CC43 /* BUYErrorTests.m */; };
 		9A102D1E1CDD25980026CC43 /* BUYOptionValueTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A102D1D1CDD25980026CC43 /* BUYOptionValueTests.m */; };
 		9A47CEFD1CE39F6000A6D5BA /* BUYCreditCardToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A47CEFB1CE39F5B00A6D5BA /* BUYCreditCardToken.m */; };
@@ -1603,6 +1605,7 @@
 				84B0A7331CE10ED900253EB0 /* BUYApplePayPaymentProvider.m in Sources */,
 				841ADE021CB6C942000004B0 /* NSArray+BUYAdditions.m in Sources */,
 				901930EC1BC5B9BC00D1134E /* BUYError.m in Sources */,
+				9A0B0CA21CECC1BC0037D68F /* BUYClient+Checkout.m in Sources */,
 				841ADE0E1CB6C942000004B0 /* NSDecimalNumber+BUYAdditions.m in Sources */,
 				84DD12AE1CC63FE600A2442D /* _BUYProductVariant.m in Sources */,
 				84B0A7211CDD261100253EB0 /* BUYSerializable.m in Sources */,
@@ -1742,6 +1745,7 @@
 				84B0A7321CE10ED900253EB0 /* BUYApplePayPaymentProvider.m in Sources */,
 				841ADE011CB6C942000004B0 /* NSArray+BUYAdditions.m in Sources */,
 				BE4734101B66C4EF00AA721A /* BUYError.m in Sources */,
+				9A0B0CA31CECC1BD0037D68F /* BUYClient+Checkout.m in Sources */,
 				841ADE0D1CB6C942000004B0 /* NSDecimalNumber+BUYAdditions.m in Sources */,
 				84DD12961CC63FE600A2442D /* _BUYProductVariant.m in Sources */,
 				84B0A7201CDD261100253EB0 /* BUYSerializable.m in Sources */,
