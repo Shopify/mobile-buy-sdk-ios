@@ -1,9 +1,9 @@
 //
-//  _BUYCollection.h
+//  BUYAuthenticatedResponse.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
-//  Copyright (c) 2015 Shopify Inc. All rights reserved.
+//  Copyright (c) 2016 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,26 +24,14 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/_BUYCollection.h>
-#import "BUYClient+Storefront.h"
+#import <Foundation/Foundation.h>
 
-@interface BUYCollection : _BUYCollection {}
+@interface BUYAuthenticatedResponse : NSObject
 
-@property (nonatomic, readonly) NSDate *createdAtDate NS_DEPRECATED_IOS(8_0, 9_0);
-@property (nonatomic, readonly) NSDate *updatedAtDate NS_DEPRECATED_IOS(8_0, 9_0);
-@property (nonatomic, readonly) NSDate *publishedAtDate NS_DEPRECATED_IOS(8_0, 9_0);
+@property (nonatomic, copy, readonly) NSString *accessToken;
+@property (nonatomic, copy, readonly) NSDate *expiry;
+@property (nonatomic, copy, readonly) NSString *customerID;
 
-@property (nonatomic, readonly) NSURL *imageURL NS_DEPRECATED_IOS(8_0, 9_0);
-
-@property (nonatomic, readonly) NSString *stringDescription;
-
-/**
- *  Converts the BUYCollectionSort enum to an API-compatible string for the collection sort parameter
- *
- *  @param sort BUYCollectionSort enum
- *
- *  @return API-compatible string for the collection sort parameter
- */
-+ (NSString *)sortOrderParameterForCollectionSort:(BUYCollectionSort)sort;
++ (BUYAuthenticatedResponse *)responseWithJSON:(NSDictionary *)json;
 
 @end

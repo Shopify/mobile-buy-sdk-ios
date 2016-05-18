@@ -113,7 +113,7 @@ typedef void (^BUYDataOrdersBlock)(NSArray <BUYOrder*> * _Nullable orders, NSErr
  *
  *  @return the associated NSURLSessionDataTask
  */
-- (NSURLSessionDataTask *)recoverPasswordForCustomer:(NSString *)email callback:(BUYDataCheckoutStatusBlock)block;
+- (NSURLSessionDataTask *)recoverPasswordForCustomer:(NSString *)email callback:(BUYDataStatusBlock)block;
 
 /**
  *  PUT /api/customers/:customer_id/customer_token/renew

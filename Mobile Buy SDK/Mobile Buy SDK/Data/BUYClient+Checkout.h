@@ -1,0 +1,228 @@
+//
+//  BUYClient+Checkout.h
+//  Mobile Buy SDK
+//
+//  Created by Shopify.
+//  Copyright (c) 2015 Shopify Inc. All rights reserved.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
+
+#import "BUYClient.h"
+NS_ASSUME_NONNULL_BEGIN
+
+@class BUYCheckout;
+@class BUYShippingRate;
+@class BUYGiftCard;
+@class BUYCreditCard;
+
+@protocol BUYPaymentToken;
+
+/**
+ *  Return block containing a BUYCheckout, id<BUYPaymentToken> and/or an NSError
+ *
+ *  @param checkout      The returned BUYCheckout
+ *  @param paymentToken  An opaque payment token type that wraps necessary credentials for payment
+ *  @param error         Optional NSError
+ */
+typedef void (^BUYDataCreditCardBlock)(BUYCheckout * _Nullable checkout, id<BUYPaymentToken> _Nullable paymentToken, NSError * _Nullable error);
+
+/**
+ *  Return block containing a BUYCheckout and/or an NSError
+ *
+ *  @param checkout The returned BUYCheckout
+ *  @param error    Optional NSError
+ */
+typedef void (^BUYDataCheckoutBlock)(BUYCheckout * _Nullable checkout, NSError * _Nullable error);
+
+/**
+ *  Return block containing BUYShippingRate objects, a BUYStatus and/or an NSError
+ *
+ *  @param shippingRates Array of SHKShippingRates
+ *  @param status        A BUYStatus specifying the requested job's completion status
+ *  @param error         Optional NSError
+ */
+typedef void (^BUYDataShippingRatesBlock)(NSArray<BUYShippingRate *> * _Nullable shippingRates, BUYStatus status, NSError * _Nullable error);
+
+/**
+ *  Return block containing a BUYGiftCard
+ *
+ *  @param giftCard A BUYGiftCard
+ *  @param error    An optional NSError
+ */
+typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError * _Nullable error);
+
+@interface BUYClient (Checkout)
+
+/**
+ *  Builds a checkout on Shopify. The checkout object is used to prepare an order
+ *
+ *  @param checkout BUYCheckout to create on Shopify
+ *  @param block    (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
+ *
+ *  @return The associated NSURLSessionDataTask
+ */
+- (NSURLSessionDataTask *)createCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
+
+/**
+ *  Builds a checkout on Shopify using a Cart Token from an existing cart on your Shopify store's storefront.
+ *  The BUYCheckout object is used to prepare an order.
+ *
+ *  @param cartToken Cart Token associated with an existing BUYCheckout on Shopify
+ *  @param block     (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
+ *
+ *  @return The associated NSURLSessionDataTask
+ */
+- (NSURLSessionDataTask *)createCheckoutWithCartToken:(NSString *)cartToken completion:(BUYDataCheckoutBlock)block;
+
+/**
+ *  Applies a gift card code to the checkout.
+ *
+ *  @param giftCardCode The gift card code to apply on an existing checkout on Shopify. Note: This is not the same as the gift card identifier.
+ *  @param checkout     An existing BUYCheckout on Shopify
+ *  @param block        (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
+ *
+ *  @return The associated NSURLSessionDataTask
+ */
+- (NSURLSessionDataTask *)applyGiftCardWithCode:(NSString *)giftCardCode toCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
+
+/**
+ *  Removes a gift card from the checkout.
+ *
+ *  @param giftCardCode The BUYGiftCard identifier to remove on an existing checkout on Shopify.
+ *  @param checkout     An existing BUYCheckout on Shopify
+ *  @param block        (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
+ *
+ *  @return The associated NSURLSessionDataTask
+ */
+- (NSURLSessionDataTask *)removeGiftCard:(BUYGiftCard *)giftCard fromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
+
+/**
+ *  Retrieves an updated version of a BUYCheckout from Shopify.
+ *
+ *  Note: There's no guarantee that the BUYCheckout returned will be the same as the one that is passed in.
+ *  We recommended using the BUYCheckout returned in the block.
+ *
+ *  @param checkout The BUYCheckout to retrieve (updated) from Shopify
+ *  @param block    (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
+ *
+ *  @return The associated NSURLSessionDataTask
+ */
+- (NSURLSessionDataTask *)getCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
+
+/**
+ *  Updates a given BUYCheckout on Shopify.
+ *
+ *  Note: There's no guarantee that the BUYCheckout returned will be the same as the one that is passed in.
+ *  We recommended using the BUYCheckout returned in the block.
+ *
+ *  Note: A BUYCheckout object with an `orderId` is a completed checkout.
+ *
+ *  @param checkout The BUYCheckout to updated on Shopify
+ *  @param block    (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
+ *
+ *  @return The associated NSURLSessionDataTask
+ */
+- (NSURLSessionDataTask *)updateCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
+
+/**
+ *  Finalizes the BUYCheckout and charges the payment provider (ex: Credit Card, Apple Pay, etc).
+ *  This enqueues a completion job on Shopify and returns immediately.
+ *  You must get the job's status by calling checkCompletionStatusOfCheckout:block
+ *
+ *  Note: There's no guarantee that the BUYCheckout returned will be the same as the one that is passed in.
+ *  We recommended using the BUYCheckout returned in the block.
+ *
+ *  @param checkout      The BUYCheckout to complete
+ *  @param paymentToken  Opaque payment token object. May be nil if the total checkout amount is equal to $0.00
+ *  @param block         (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
+ *
+ *  @return The associated NSURLSessionDataTask
+ */
+- (NSURLSessionDataTask *)completeCheckout:(BUYCheckout *)checkout paymentToken:(_Nullable id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block;
+
+/**
+ *  Retrieve the status of a BUYCheckout. This checks the status of the current payment processing job for the provided checkout.
+ *  Once the job is complete (status == BUYStatusComplete), you can retrieve the completed order by calling `getCheckout:completion`
+ *
+ *  @param checkout The BUYCheckout to retrieve completion status for
+ *  @param block    (^BUYDataStatusBlock)(BUYCheckout *checkout, BUYStatus status, NSError *error);
+ *
+ *  @return The associated NSURLSessionDataTask
+ */
+- (NSURLSessionDataTask *)getCompletionStatusOfCheckout:(BUYCheckout *)checkout completion:(BUYDataStatusBlock)block;
+
+/**
+ *  Retrieve the status of a checkout given a URL obtained in the UIApplicationDelegate method `application:sourceApplication:annotation`
+ *
+ *  @param url   The URL resource used to open the application
+ *  @param block    (^BUYDataStatusBlock)(BUYCheckout *checkout, BUYStatus status, NSError *error);
+ *
+ *  @return The associated NSURLSessionDataTask
+ */
+- (NSURLSessionDataTask *)getCompletionStatusOfCheckoutURL:(NSURL *)url completion:(BUYDataStatusBlock)block;
+
+#pragma mark - Shipping Rates
+
+/**
+ *  Retrieves a list of applicable shipping rates for a given BUYCheckout.
+ *  Add the preferred/selected BUYShippingRate to BUYCheckout, then update BUYCheckout
+ *
+ *  @param checkout The BUYCheckout to retrieve shipping rates for
+ *  @param block    (^BUYDataShippingRatesBlock)(NSArray *shippingRates, BUYStatus status, NSError *error);
+ *
+ *  @return The associated NSURLSessionDataTask
+ */
+- (NSURLSessionDataTask *)getShippingRatesForCheckout:(BUYCheckout *)checkout completion:(BUYDataShippingRatesBlock)block;
+
+#pragma mark - Payment Management
+
+/**
+ *  Prepares a credit card for usage during the checkout process. This sends it to Shopify's secure servers.
+ *  Note: Storing the token does not charge the associated card (credit or otherwise).
+ *  The card will be charged upon finalizing the checkout (`completeCheckout:completion:`)
+ *
+ *  You MUST call `completeCheckout:completion:` after this call and receiving a `paymentSessionId`.
+ *  The `paymentSessionId` on the `BUYCheckout` object is not persisted on `updateCheckout:completion:` calls.
+ *
+ *  @param creditCard BUYCreditCard to prepare for usage
+ *  @param checkout   The BUYCheckout associated to the purchase.
+ *                    The `billingAddress` stored on the BUYCheckout object is optional and recommended and
+ *                    used (if provided) to help with fraud checking.
+ *  @param block      (^BUYDataCreditCardBlock)(BUYCheckout *checkout, NSString *paymentSessionId, NSError *error);
+ *
+ *  @return The associated NSURLSessionDataTask
+ */
+- (NSURLSessionDataTask *)storeCreditCard:(BUYCreditCard *)creditCard checkout:(BUYCheckout *)checkout completion:(BUYDataCreditCardBlock)block;
+
+/**
+ *  Convenience method to release all product inventory reservations by setting its
+ *  `reservationTime` to `@0` and calls `updateCheckout:completion`. We recommend creating
+ *  a new BUYCheckout object from a BUYCart for further API calls.
+ *
+ *  @param checkout The BUYCheckout to expire
+ *  @param block    (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
+ *
+ *  @return The associated NSURLSessionDataTask
+ */
+- (NSURLSessionDataTask *)removeProductReservationsFromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
+
+@end
+
+NS_ASSUME_NONNULL_END

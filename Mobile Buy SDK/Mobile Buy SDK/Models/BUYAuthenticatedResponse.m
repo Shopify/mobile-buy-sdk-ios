@@ -1,9 +1,9 @@
 //
-//  BUYClient_Internal.h
+//  BUYAuthenticatedResponse.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
-//  Copyright (c) 2015 Shopify Inc. All rights reserved.
+//  Copyright (c) 2016 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,19 +24,28 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYClient.h"
-#import "BUYSerializable.h"
+#import "BUYAuthenticatedResponse.h"
+#import "NSDateFormatter+BUYAdditions.h"
 
-extern NSString *const kShopifyError;
+@implementation BUYAuthenticatedResponse
 
-@interface BUYClient (Internal)
++ (BUYAuthenticatedResponse *)responseWithJSON:(NSDictionary *)json
+{
+	return [[[self class] alloc] initWithJSON:json];
+}
 
-- (NSURLSessionDataTask *)postRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
-- (NSURLSessionDataTask *)putRequestForURL:(NSURL *)url object:(id<BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
-- (NSURLSessionDataTask *)getRequestForURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
-
-- (NSURLComponents *)URLComponentsForAPIPath:(NSString *)apiPath appendingPath:(NSString *)appendingPath queryItems:(NSDictionary*)queryItems;
-
-- (NSError *)errorFromJSON:(NSDictionary *)json response:(NSURLResponse *)response;
+- (instancetype)initWithJSON:(NSDictionary *)json
+{
+	self = [super init];
+	if (self) {
+		NSDateFormatter *formatter = [NSDateFormatter dateFormatterForPublications];
+		NSDictionary *access       = json[@"customer_access_token"];
+		
+		_accessToken = access[@"access_token"];
+		_expiry      = [formatter dateFromString:access[@"expires_at"]];
+		_customerID  = [NSString stringWithFormat:@"%@", access[@"customer_id"]];
+	}
+	return self;
+}
 
 @end

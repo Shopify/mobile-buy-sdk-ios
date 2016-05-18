@@ -44,7 +44,7 @@ extern NSString * const BUYFakeCustomerToken;
 @property (nonatomic, strong) NSString *giftCardCode2;
 @property (nonatomic, strong) NSString *giftCardCode3;
 @property (nonatomic, strong) NSString *giftCardCodeExpired;
-@property (nonatomic, strong) NSString *giftCardIdExpired;
+@property (nonatomic, strong) NSNumber *giftCardIdExpired;
 @property (nonatomic, strong) NSString *giftCardCodeInvalid;
 @property (nonatomic, strong) NSString *discountCodeValid;
 @property (nonatomic, strong) NSString *discountCodeExpired;

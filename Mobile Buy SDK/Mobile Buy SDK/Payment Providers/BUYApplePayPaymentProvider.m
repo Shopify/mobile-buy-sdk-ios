@@ -31,7 +31,7 @@
 #import "BUYApplePayHelpers.h"
 #import "BUYApplePayAdditions.h"
 #import "BUYShop.h"
-#import "BUYClient+Checkout.h"
+#import "BUYClient+CheckoutHelpers.h"
 
 NSString *const BUYApplePayPaymentProviderId = @"BUYApplePayPaymentProviderId";
 
