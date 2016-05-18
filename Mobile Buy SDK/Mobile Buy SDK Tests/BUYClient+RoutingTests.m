@@ -53,92 +53,92 @@
 	NSDictionary *parameters = @{ @"param" : @"value" };
 	
 	XCTAssertEqualObjects(
-						  [self.client routeForAPI].absoluteString,
+						  [self.client urlForAPI].absoluteString,
 						  @"https://_DOMAIN_/api"
 						  );
 	
 	XCTAssertEqualObjects(
-						  [self.client routeForApps].absoluteString,
+						  [self.client urlForApps].absoluteString,
 						  @"https://_DOMAIN_/api/apps/_APP_ID_"
 						  );
 	
 	XCTAssertEqualObjects(
-						  [self.client routeForShop].absoluteString,
+						  [self.client urlForShop].absoluteString,
 						  @"https://_DOMAIN_/meta.json"
 						  );
 	XCTAssertEqualObjects(
-						  [self.client routeForProductListingsWithParameters:parameters].absoluteString,
+						  [self.client urlForProductListingsWithParameters:parameters].absoluteString,
 						  @"https://_DOMAIN_/api/apps/_APP_ID_/product_listings.json?param=value"
 						  );
 	XCTAssertEqualObjects(
-						  [self.client routeForCollectionListingsWithParameters:parameters].absoluteString,
+						  [self.client urlForCollectionListingsWithParameters:parameters].absoluteString,
 						  @"https://_DOMAIN_/api/apps/_APP_ID_/collection_listings.json?param=value"
 						  );
 	
 	XCTAssertEqualObjects(
-						  [self.client routeForCheckouts].absoluteString,
+						  [self.client urlForCheckouts].absoluteString,
 						  @"https://_DOMAIN_/api/checkouts.json"
 						  );
 	XCTAssertEqualObjects(
-						  [self.client routeForCheckoutsWithToken:token].absoluteString,
+						  [self.client urlForCheckoutsWithToken:token].absoluteString,
 						  @"https://_DOMAIN_/api/checkouts/_TOKEN_.json"
 						  );
 	XCTAssertEqualObjects(
-						  [self.client routeForCheckoutsProcessingWithToken:token].absoluteString,
+						  [self.client urlForCheckoutsProcessingWithToken:token].absoluteString,
 						  @"https://_DOMAIN_/api/checkouts/_TOKEN_/processing.json"
 						  );
 	XCTAssertEqualObjects(
-						  [self.client routeForCheckoutsCompletionWithToken:token].absoluteString,
+						  [self.client urlForCheckoutsCompletionWithToken:token].absoluteString,
 						  @"https://_DOMAIN_/api/checkouts/_TOKEN_/complete.json"
 						  );
 	XCTAssertEqualObjects(
-						  [self.client routeForCheckoutsShippingRatesWithToken:token parameters:parameters].absoluteString,
+						  [self.client urlForCheckoutsShippingRatesWithToken:token parameters:parameters].absoluteString,
 						  @"https://_DOMAIN_/api/checkouts/_TOKEN_/shipping_rates.json?param=value"
 						  );
 	
 	XCTAssertEqualObjects(
-						  [self.client routeForCheckoutsUsingGiftCard].absoluteString,
+						  [self.client urlForCheckoutsUsingGiftCard].absoluteString,
 						  @"https://_DOMAIN_/api/checkouts/gift_cards.json"
 						  );
 	XCTAssertEqualObjects(
-						  [self.client routeForCheckoutsUsingGiftCardWithToken:token].absoluteString,
+						  [self.client urlForCheckoutsUsingGiftCardWithToken:token].absoluteString,
 						  @"https://_DOMAIN_/api/checkouts/_TOKEN_/gift_cards.json"
 						  );
 	XCTAssertEqualObjects(
-						  [self.client routeForCheckoutsUsingGiftCard:@999 token:token].absoluteString,
+						  [self.client urlForCheckoutsUsingGiftCard:@999 token:token].absoluteString,
 						  @"https://_DOMAIN_/api/checkouts/_TOKEN_/gift_cards/999.json"
 						  );
 	
 	XCTAssertEqualObjects(
-						  [self.client routeForCustomers].absoluteString,
+						  [self.client urlForCustomers].absoluteString,
 						  @"https://_DOMAIN_/api/customers.json"
 						  );
 	XCTAssertEqualObjects(
-						  [self.client routeForCustomersOrders].absoluteString,
+						  [self.client urlForCustomersOrders].absoluteString,
 						  @"https://_DOMAIN_/api/customers/orders.json"
 						  );
 	XCTAssertEqualObjects(
-						  [self.client routeForCustomersWithID:identifier].absoluteString,
+						  [self.client urlForCustomersWithID:identifier].absoluteString,
 						  @"https://_DOMAIN_/api/customers/_ID_.json"
 						  );
 	XCTAssertEqualObjects(
-						  [self.client routeForCustomersActivationWithID:identifier parameters:parameters].absoluteString,
+						  [self.client urlForCustomersActivationWithID:identifier parameters:parameters].absoluteString,
 						  @"https://_DOMAIN_/api/customers/_ID_/activate.json?param=value"
 						  );
 	XCTAssertEqualObjects(
-						  [self.client routeForCustomersToken].absoluteString,
+						  [self.client urlForCustomersToken].absoluteString,
 						  @"https://_DOMAIN_/api/customers/customer_token.json"
 						  );
 	XCTAssertEqualObjects(
-						  [self.client routeForCustomersTokenRenewalWithID:identifier].absoluteString,
+						  [self.client urlForCustomersTokenRenewalWithID:identifier].absoluteString,
 						  @"https://_DOMAIN_/api/customers/_ID_/customer_token/renew.json"
 						  );
 	XCTAssertEqualObjects(
-						  [self.client routeForCustomersPasswordRecovery].absoluteString,
+						  [self.client urlForCustomersPasswordRecovery].absoluteString,
 						  @"https://_DOMAIN_/api/customers/recover.json"
 						  );
 	XCTAssertEqualObjects(
-						  [self.client routeForCustomersPasswordResetWithID:identifier parameters:parameters].absoluteString,
+						  [self.client urlForCustomersPasswordResetWithID:identifier parameters:parameters].absoluteString,
 						  @"https://_DOMAIN_/api/customers/_ID_/reset.json?param=value"
 						  );
 }

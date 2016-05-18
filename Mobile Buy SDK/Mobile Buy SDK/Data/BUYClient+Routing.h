@@ -28,30 +28,30 @@
 
 @interface BUYClient (Routing)
 
-- (NSURL *)routeForAPI;
-- (NSURL *)routeForApps;
+- (NSURL *)urlForAPI;
+- (NSURL *)urlForApps;
 
-- (NSURL *)routeForShop;
-- (NSURL *)routeForProductListingsWithParameters:(NSDictionary *)parameters;
-- (NSURL *)routeForCollectionListingsWithParameters:(NSDictionary *)parameters;
+- (NSURL *)urlForShop;
+- (NSURL *)urlForProductListingsWithParameters:(NSDictionary *)parameters;
+- (NSURL *)urlForCollectionListingsWithParameters:(NSDictionary *)parameters;
 
-- (NSURL *)routeForCheckouts;
-- (NSURL *)routeForCheckoutsWithToken:(NSString *)token;
-- (NSURL *)routeForCheckoutsProcessingWithToken:(NSString *)token;
-- (NSURL *)routeForCheckoutsCompletionWithToken:(NSString *)token;
-- (NSURL *)routeForCheckoutsShippingRatesWithToken:(NSString *)token parameters:(NSDictionary *)parameters;
+- (NSURL *)urlForCheckouts;
+- (NSURL *)urlForCheckoutsWithToken:(NSString *)token;
+- (NSURL *)urlForCheckoutsProcessingWithToken:(NSString *)token;
+- (NSURL *)urlForCheckoutsCompletionWithToken:(NSString *)token;
+- (NSURL *)urlForCheckoutsShippingRatesWithToken:(NSString *)token parameters:(NSDictionary *)parameters;
 
-- (NSURL *)routeForCheckoutsUsingGiftCard;
-- (NSURL *)routeForCheckoutsUsingGiftCardWithToken:(NSString *)token;
-- (NSURL *)routeForCheckoutsUsingGiftCard:(NSNumber *)giftCardID token:(NSString *)token;
+- (NSURL *)urlForCheckoutsUsingGiftCard;
+- (NSURL *)urlForCheckoutsUsingGiftCardWithToken:(NSString *)token;
+- (NSURL *)urlForCheckoutsUsingGiftCard:(NSNumber *)giftCardID token:(NSString *)token;
 
-- (NSURL *)routeForCustomers;
-- (NSURL *)routeForCustomersOrders;
-- (NSURL *)routeForCustomersWithID:(NSString *)identifier;
-- (NSURL *)routeForCustomersActivationWithID:(NSString *)identifier parameters:(NSDictionary *)parameters;
-- (NSURL *)routeForCustomersToken;
-- (NSURL *)routeForCustomersTokenRenewalWithID:(NSString *)customerID;
-- (NSURL *)routeForCustomersPasswordRecovery;
-- (NSURL *)routeForCustomersPasswordResetWithID:(NSString *)identifier parameters:(NSDictionary *)parameters;
+- (NSURL *)urlForCustomers;
+- (NSURL *)urlForCustomersOrders;
+- (NSURL *)urlForCustomersWithID:(NSString *)identifier;
+- (NSURL *)urlForCustomersActivationWithID:(NSString *)identifier parameters:(NSDictionary *)parameters;
+- (NSURL *)urlForCustomersToken;
+- (NSURL *)urlForCustomersTokenRenewalWithID:(NSString *)customerID;
+- (NSURL *)urlForCustomersPasswordRecovery;
+- (NSURL *)urlForCustomersPasswordResetWithID:(NSString *)identifier parameters:(NSDictionary *)parameters;
 
 @end

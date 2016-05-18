@@ -49,7 +49,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 
 - (NSURLSessionDataTask *)getShop:(BUYDataShopBlock)block
 {
-	return [self getRequestForURL:[self routeForShop] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self getRequestForURL:[self urlForShop] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		BUYShop *shop = nil;
 		if (json && !error) {
 			shop = [self.modelManager insertShopWithJSONDictionary:json];
@@ -60,7 +60,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 
 - (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page completion:(BUYDataProductListBlock)block
 {
-	NSURL *route  = [self routeForProductListingsWithParameters:@{
+	NSURL *route  = [self urlForProductListingsWithParameters:@{
 																  @"limit" : @(self.pageSize),
 																  @"page"  : @(page),
 																  }];
@@ -95,7 +95,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 {
 	BUYAssert(productIds, @"Failed to get product by IDs. Product IDs array must not be nil.");
 	
-	NSURL *route  = [self routeForProductListingsWithParameters:@{
+	NSURL *route  = [self urlForProductListingsWithParameters:@{
 																  @"product_ids" : [productIds componentsJoinedByString:@","],
 																  }];
 	
@@ -121,7 +121,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 
 - (NSURLSessionDataTask *)getCollectionsPage:(NSUInteger)page completion:(BUYDataCollectionsListBlock)block
 {
-	NSURL *route  = [self routeForCollectionListingsWithParameters:@{
+	NSURL *route  = [self urlForCollectionListingsWithParameters:@{
 																	 @"limit" : @(self.pageSize),
 																	 @"page"  : @(page),
 																	 }];
@@ -145,7 +145,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 {
 	BUYAssert(collectionId, @"Failed to get products page. Invalid collectionID.");
 	
-	NSURL *route  = [self routeForProductListingsWithParameters:@{
+	NSURL *route  = [self urlForProductListingsWithParameters:@{
 																  @"collection_id" : collectionId,
 																  @"limit"         : @(self.pageSize),
 																  @"page"          : @(page),

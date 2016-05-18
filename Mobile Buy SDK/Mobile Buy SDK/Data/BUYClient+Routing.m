@@ -92,127 +92,127 @@
 
 #pragma mark - API -
 
-- (NSURL *)routeForShopDomain
+- (NSURL *)urlForShopDomain
 {
 	return [NSURL URLWithFormat:@"https://%@", self.shopDomain];
 }
 
-- (NSURL *)routeForAPI
+- (NSURL *)urlForAPI
 {
-	return [[self routeForShopDomain] appendPath:@"/api"];
+	return [[self urlForShopDomain] appendPath:@"/api"];
 }
 
-- (NSURL *)routeForApps
+- (NSURL *)urlForApps
 {
-	return [[self routeForAPI] appendFormat:@"/apps/%@", self.appId];
+	return [[self urlForAPI] appendFormat:@"/apps/%@", self.appId];
 }
 
 #pragma mark - Storefront -
 
-- (NSURL *)routeForShop
+- (NSURL *)urlForShop
 {
-	return [[[self routeForShopDomain] appendPath:@"/meta"] appendExtension];
+	return [[[self urlForShopDomain] appendPath:@"/meta"] appendExtension];
 }
 
-- (NSURL *)routeForProductListingsWithParameters:(NSDictionary *)parameters
+- (NSURL *)urlForProductListingsWithParameters:(NSDictionary *)parameters
 {
-	return [[[[self routeForApps] appendPath:@"/product_listings"] appendExtension] appendParameters:parameters];
+	return [[[[self urlForApps] appendPath:@"/product_listings"] appendExtension] appendParameters:parameters];
 }
 
-- (NSURL *)routeForCollectionListingsWithParameters:(NSDictionary *)parameters
+- (NSURL *)urlForCollectionListingsWithParameters:(NSDictionary *)parameters
 {
-	return [[[[self routeForApps] appendPath:@"/collection_listings"] appendExtension] appendParameters:parameters];
+	return [[[[self urlForApps] appendPath:@"/collection_listings"] appendExtension] appendParameters:parameters];
 }
 
 #pragma mark - Checkout -
 
-- (NSURL *)routeForCheckouts
+- (NSURL *)urlForCheckouts
 {
-	return [[[self routeForAPI] appendPath:@"/checkouts"] appendExtension];
+	return [[[self urlForAPI] appendPath:@"/checkouts"] appendExtension];
 }
 
-- (NSURL *)routeForCheckoutsWithToken:(NSString *)token
+- (NSURL *)urlForCheckoutsWithToken:(NSString *)token
 {
-	return [self _routeForCheckoutsAction:@"" withToken:token];
+	return [self _urlForCheckoutsAction:@"" withToken:token];
 }
 
-- (NSURL *)routeForCheckoutsProcessingWithToken:(NSString *)token
+- (NSURL *)urlForCheckoutsProcessingWithToken:(NSString *)token
 {
-	return [self _routeForCheckoutsAction:@"/processing" withToken:token];
+	return [self _urlForCheckoutsAction:@"/processing" withToken:token];
 }
 
-- (NSURL *)routeForCheckoutsCompletionWithToken:(NSString *)token
+- (NSURL *)urlForCheckoutsCompletionWithToken:(NSString *)token
 {
-	return [self _routeForCheckoutsAction:@"/complete" withToken:token];
+	return [self _urlForCheckoutsAction:@"/complete" withToken:token];
 }
 
-- (NSURL *)routeForCheckoutsShippingRatesWithToken:(NSString *)token parameters:(NSDictionary *)parameters
+- (NSURL *)urlForCheckoutsShippingRatesWithToken:(NSString *)token parameters:(NSDictionary *)parameters
 {
-	return [[self _routeForCheckoutsAction:@"/shipping_rates" withToken:token] appendParameters:parameters];
+	return [[self _urlForCheckoutsAction:@"/shipping_rates" withToken:token] appendParameters:parameters];
 }
 
-- (NSURL *)routeForCheckoutsUsingGiftCard
+- (NSURL *)urlForCheckoutsUsingGiftCard
 {
-	return [[[self routeForCheckouts] appendPath:@"/gift_cards"] appendExtension];
+	return [[[self urlForCheckouts] appendPath:@"/gift_cards"] appendExtension];
 }
 
-- (NSURL *)routeForCheckoutsUsingGiftCardWithToken:(NSString *)token
+- (NSURL *)urlForCheckoutsUsingGiftCardWithToken:(NSString *)token
 {
-	return [[[[self routeForCheckouts] appendPath:token] appendPath:@"/gift_cards"] appendExtension];
+	return [[[[self urlForCheckouts] appendPath:token] appendPath:@"/gift_cards"] appendExtension];
 }
 
-- (NSURL *)routeForCheckoutsUsingGiftCard:(NSNumber *)giftCardID token:(NSString *)token
+- (NSURL *)urlForCheckoutsUsingGiftCard:(NSNumber *)giftCardID token:(NSString *)token
 {
-	return [[[self routeForCheckoutsUsingGiftCardWithToken:token] appendIdentifier:giftCardID] appendExtension];
+	return [[[self urlForCheckoutsUsingGiftCardWithToken:token] appendIdentifier:giftCardID] appendExtension];
 }
 
 #pragma mark - Customers -
 
-- (NSURL *)routeForCustomers
+- (NSURL *)urlForCustomers
 {
-	return [[[self routeForAPI] appendPath:@"/customers"] appendExtension];
+	return [[[self urlForAPI] appendPath:@"/customers"] appendExtension];
 }
 
-- (NSURL *)routeForCustomersOrders
+- (NSURL *)urlForCustomersOrders
 {
-	return [[[self routeForCustomers] appendPath:@"/orders"] appendExtension];
+	return [[[self urlForCustomers] appendPath:@"/orders"] appendExtension];
 }
 
-- (NSURL *)routeForCustomersWithID:(NSString *)identifier
+- (NSURL *)urlForCustomersWithID:(NSString *)identifier
 {
-	return [[[self routeForCustomers] appendPath:identifier] appendExtension];
+	return [[[self urlForCustomers] appendPath:identifier] appendExtension];
 }
 
-- (NSURL *)routeForCustomersActivationWithID:(NSString *)identifier parameters:(NSDictionary *)parameters
+- (NSURL *)urlForCustomersActivationWithID:(NSString *)identifier parameters:(NSDictionary *)parameters
 {
-	return [[[[self routeForCustomersWithID:identifier] appendPath:@"/activate"] appendParameters:parameters] appendExtension];
+	return [[[[self urlForCustomersWithID:identifier] appendPath:@"/activate"] appendParameters:parameters] appendExtension];
 }
 
-- (NSURL *)routeForCustomersToken
+- (NSURL *)urlForCustomersToken
 {
-	return [[[self routeForCustomers] appendPath:@"/customer_token"] appendExtension];
+	return [[[self urlForCustomers] appendPath:@"/customer_token"] appendExtension];
 }
 
-- (NSURL *)routeForCustomersTokenRenewalWithID:(NSString *)customerID
+- (NSURL *)urlForCustomersTokenRenewalWithID:(NSString *)customerID
 {
-	return [[[self routeForCustomersWithID:customerID] appendPath:@"/customer_token/renew"] appendExtension];
+	return [[[self urlForCustomersWithID:customerID] appendPath:@"/customer_token/renew"] appendExtension];
 }
 
-- (NSURL *)routeForCustomersPasswordRecovery
+- (NSURL *)urlForCustomersPasswordRecovery
 {
-	return [[[self routeForCustomers] appendPath:@"/recover"] appendExtension];
+	return [[[self urlForCustomers] appendPath:@"/recover"] appendExtension];
 }
 
-- (NSURL *)routeForCustomersPasswordResetWithID:(NSString *)identifier parameters:(NSDictionary *)parameters
+- (NSURL *)urlForCustomersPasswordResetWithID:(NSString *)identifier parameters:(NSDictionary *)parameters
 {
-	return [[[[self routeForCustomersWithID:identifier] appendPath:@"/reset"] appendExtension] appendParameters:parameters];
+	return [[[[self urlForCustomersWithID:identifier] appendPath:@"/reset"] appendExtension] appendParameters:parameters];
 }
 
 #pragma mark - Utilities -
 
-- (NSURL *)_routeForCheckoutsAction:(NSString *)action withToken:(NSString *)token
+- (NSURL *)_urlForCheckoutsAction:(NSString *)action withToken:(NSString *)token
 {
-	return [[[[self routeForCheckouts] appendPath:token] appendPath:action] appendExtension];
+	return [[[[self urlForCheckouts] appendPath:token] appendPath:action] appendExtension];
 }
 
 @end

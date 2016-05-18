@@ -40,7 +40,7 @@
 
 - (NSURLSessionDataTask *)getCustomerWithID:(NSString *)customerID callback:(BUYDataCustomerBlock)block
 {
-	NSURL *route = [self routeForCustomersWithID:customerID];
+	NSURL *route = [self urlForCustomersWithID:customerID];
 	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		BUYCustomer *customer = nil;
 		if (json && !error) {
@@ -52,7 +52,7 @@
 
 - (NSURLSessionDataTask *)createCustomerWithCredentials:(BUYAccountCredentials *)credentials callback:(BUYDataCustomerTokenBlock)block
 {
-	NSURL *route = [self routeForCustomers];
+	NSURL *route = [self urlForCustomers];
 	return [self postRequestForURL:route object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		if (json && !error) {
 			[self createTokenForCustomerWithCredentials:credentials customerJSON:json callback:block];
@@ -65,7 +65,7 @@
 
 - (NSURLSessionDataTask *)createTokenForCustomerWithCredentials:(BUYAccountCredentials *)credentials customerJSON:(NSDictionary *)customerJSON callback:(BUYDataCustomerTokenBlock)block
 {
-	NSURL *route = [self routeForCustomersToken];
+	NSURL *route = [self urlForCustomersToken];
 	return [self postRequestForURL:route object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		if (json && !error) {
 			BUYAuthenticatedResponse *authenticatedResponse = [BUYAuthenticatedResponse responseWithJSON:json];
@@ -94,7 +94,7 @@
 
 - (NSURLSessionDataTask *)recoverPasswordForCustomer:(NSString *)email callback:(BUYDataStatusBlock)block
 {
-	NSURL *route = [self routeForCustomersPasswordRecovery];
+	NSURL *route = [self urlForCustomersPasswordRecovery];
 	return [self postRequestForURL:route object:@{@"email": email} completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		
 		NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
@@ -109,7 +109,7 @@
 - (NSURLSessionDataTask *)renewCustomerTokenWithID:(NSString *)customerID callback:(BUYDataTokenBlock)block
 {
 	if (self.customerToken) {
-		NSURL *route = [self routeForCustomersTokenRenewalWithID:customerID];
+		NSURL *route = [self urlForCustomersTokenRenewalWithID:customerID];
 		
 		return [self putRequestForURL:route object:nil completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 			
@@ -134,7 +134,7 @@
 
 - (NSURLSessionDataTask *)activateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID customerToken:(NSString *)customerToken callback:(BUYDataCustomerTokenBlock)block
 {
-	NSURL *route  = [self routeForCustomersActivationWithID:customerID parameters:@{
+	NSURL *route  = [self urlForCustomersActivationWithID:customerID parameters:@{
 																					@"token": customerToken,
 																					}];
 	
@@ -152,7 +152,7 @@
 
 - (NSURLSessionDataTask *)resetPasswordWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID customerToken:(NSString *)customerToken callback:(BUYDataCustomerTokenBlock)block
 {
-	NSURL *route  = [self routeForCustomersPasswordResetWithID:customerID parameters:@{
+	NSURL *route  = [self urlForCustomersPasswordResetWithID:customerID parameters:@{
 																					   @"token": customerToken,
 																					   }];
 	
@@ -170,7 +170,7 @@
 
 - (NSURLSessionDataTask *)getOrdersForCustomerWithCallback:(BUYDataOrdersBlock)block
 {
-	NSURL *route = [self routeForCustomersOrders];
+	NSURL *route = [self urlForCustomersOrders];
 	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		if (json && !error) {
 			NSArray *orders = [self.modelManager ordersWithJSONDictionary:json];
