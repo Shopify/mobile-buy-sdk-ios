@@ -1,5 +1,5 @@
 //
-//  BUYClient+Checkout.m
+//  BUYClient+CheckoutHelpers.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -28,7 +28,7 @@
 
 @implementation BUYClient (CheckoutHelpers)
 
-- (NSURLSessionDataTask *)handleCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)completion
+- (BUYRequestOperation *)handleCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)completion
 {
 	if ([checkout hasToken]) {
 		return [self updateCheckout:checkout completion:completion];

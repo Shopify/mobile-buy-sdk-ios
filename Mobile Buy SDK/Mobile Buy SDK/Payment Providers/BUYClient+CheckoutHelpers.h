@@ -1,5 +1,5 @@
 //
-//  BUYClient+Checkout.h
+//  BUYClient+CheckoutHelpers.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
