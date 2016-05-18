@@ -72,11 +72,6 @@
 #import "BUYShopifyErrorCodes.h"
 
 #import "BUYPaymentToken.h"
-#import "BUYPaymentButton.h"
-#import "BUYProductViewController.h"
-#import "BUYStoreViewController.h"
-#import "BUYTheme.h"
-#import "BUYViewController.h"
 
 #import "NSArray+BUYAdditions.h"
 #import "NSDateFormatter+BUYAdditions.h"

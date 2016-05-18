@@ -25,10 +25,18 @@
 //
 
 #import "ProductListViewController.h"
+#import "ProductViewController.h"
+#import "Theme.h"
 #import "ShippingRatesTableViewController.h"
 #import "ProductViewControllerToggleTableViewCell.h"
 #import "ProductViewControllerThemeStyleTableViewCell.h"
 #import "ProductViewControllerThemeTintColorTableViewCell.h"
+
+#import <Buy/Buy.h>
+
+//#warning - Enter your merchant ID
+// Adding a merchant ID will show Apple Pay in the BUYProductViewController (on supported devices)
+#define MERCHANT_ID @""
 
 @interface ProductListViewController () <UIViewControllerPreviewingDelegate>
 
@@ -39,7 +47,7 @@
 @property (nonatomic, strong) NSURLSessionDataTask *checkoutCreationTask;
 
 @property (nonatomic, assign) BOOL demoProductViewController;
-@property (nonatomic, assign) BUYThemeStyle themeStyle;
+@property (nonatomic, assign) ThemeStyle themeStyle;
 @property (nonatomic, strong) NSArray *themeTintColors;
 @property (nonatomic, assign) NSInteger themeTintColorSelectedIndex;
 @property (nonatomic, assign) BOOL showsProductImageBackground;
@@ -275,7 +283,7 @@
         [self.checkoutCreationTask cancel];
     }
     
-    BUYCart *cart = [[BUYCart alloc] init];
+    BUYCart *cart = [self.client.modelManager insertCartWithJSONDictionary:nil];
     [cart addVariant:product.variants.firstObject];
     
     BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:cart];
@@ -304,7 +312,7 @@
 
 - (void)demoProductViewControllerWithProduct:(BUYProduct*)product
 {
-    BUYProductViewController *productViewController = [self productViewController];
+    ProductViewController *productViewController = [self productViewController];
     [productViewController loadWithProduct:product completion:^(BOOL success, NSError *error) {
         if (error == nil) {
             if (self.presentViewController) {
@@ -316,13 +324,13 @@
     }];
 }
 
--(BUYProductViewController*)productViewController
+-(ProductViewController*)productViewController
 {
-    BUYTheme *theme = [BUYTheme new];
+    Theme *theme = [Theme new];
     theme.style = self.themeStyle;
     theme.tintColor = self.themeTintColors[self.themeTintColorSelectedIndex];
     theme.showsProductImageBackground = self.showsProductImageBackground;
-    BUYProductViewController *productViewController = [[BUYProductViewController alloc] initWithClient:self.client theme:theme];
+    ProductViewController *productViewController = [[ProductViewController alloc] initWithClient:self.client theme:theme];
     productViewController.merchantId = MERCHANT_ID;
     return productViewController;
 }
@@ -362,7 +370,7 @@
 
 - (BUYAddress *)address
 {
-    BUYAddress *address = [[BUYAddress alloc] init];
+    BUYAddress *address = [self.client.modelManager insertAddressWithJSONDictionary:nil];
     address.address1 = @"150 Elgin Street";
     address.address2 = @"8th Floor";
     address.city = @"Ottawa";
@@ -387,7 +395,7 @@
     }
     
     BUYProduct *product = self.products[indexPath.row];
-    BUYProductViewController *productViewController = [self productViewController];
+    ProductViewController *productViewController = [self productViewController];
     [productViewController loadWithProduct:product completion:NULL];
     
     previewingContext.sourceRect = cell.frame;

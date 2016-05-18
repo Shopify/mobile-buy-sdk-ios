@@ -1,6 +1,6 @@
 //
-//  MasterViewController.h
-//  Mobile Buy SDK Advanced Sample
+//  VisualEffectView.h
+//  Mobile Buy SDK
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -25,11 +25,9 @@
 //
 
 @import UIKit;
-@import Buy;
 
-@interface ProductListViewController : UITableViewController
+@interface VisualEffectView : UIVisualEffectView
 
-- (instancetype)initWithClient:(BUYClient *)client collection:(BUYCollection*)collection;
+- (void)setBlurEffectStyle:(UIBlurEffectStyle)blurEffectStyle UI_APPEARANCE_SELECTOR;
 
 @end
-

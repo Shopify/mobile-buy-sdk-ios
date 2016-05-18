@@ -75,11 +75,6 @@ FOUNDATION_EXPORT const unsigned char BuyVersionString[];
 #import <Buy/BUYShopifyErrorCodes.h>
 
 #import <Buy/BUYPaymentToken.h>
-#import <Buy/BUYPaymentButton.h>
-#import <Buy/BUYProductViewController.h>
-#import <Buy/BUYStoreViewController.h>
-#import <Buy/BUYTheme.h>
-#import <Buy/BUYViewController.h>
 
 #import <Buy/NSArray+BUYAdditions.h>
 #import <Buy/NSDate+BUYAdditions.h>

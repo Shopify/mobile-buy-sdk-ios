@@ -1,6 +1,6 @@
 //
-//  MasterViewController.h
-//  Mobile Buy SDK Advanced Sample
+//  HeaderOverlayView.h
+//  Mobile Buy SDK
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -25,11 +25,22 @@
 //
 
 @import UIKit;
-@import Buy;
 
-@interface ProductListViewController : UITableViewController
+/**
+ *  An overlay + blur effect when the product view scrolls up
+ *  to hide the image view and create a nice transition into
+ *  the navigation bar.
+ */
+@interface HeaderOverlayView : UIView
 
-- (instancetype)initWithClient:(BUYClient *)client collection:(BUYCollection*)collection;
+@property (nonatomic) UIColor *overlayBackgroundColor UI_APPEARANCE_SELECTOR;
+
+/**
+ *  Used to determine the current visibility of the effect based on content offset and the navigationbar height.
+ *
+ *  @param scrollView          The product view's table view being scrolled.
+ *  @param navigationBarHeight The navigation bar height so the effect is at 100% when the content reaches the navigation bar's bottom.
+ */
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView withNavigationBarHeight:(CGFloat)navigationBarHeight;
 
 @end
-

@@ -1,6 +1,6 @@
 //
-//  MasterViewController.h
-//  Mobile Buy SDK Advanced Sample
+//  BUYPaymentButton.h
+//  Mobile Buy SDK
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -24,12 +24,20 @@
 //  THE SOFTWARE.
 //
 
-@import UIKit;
-@import Buy;
+typedef NS_ENUM(NSInteger, BUYPaymentButtonStyle) {
+	BUYPaymentButtonStyleWhite = 0,
+	BUYPaymentButtonStyleWhiteOutline,
+	BUYPaymentButtonStyleBlack
+};
 
-@interface ProductListViewController : UITableViewController
+typedef NS_ENUM(NSInteger, BUYPaymentButtonType) {
+	BUYPaymentButtonTypePlain = 0,
+	BUYPaymentButtonTypeBuy,
+	BUYPaymentButtonTypeSetup NS_ENUM_AVAILABLE_IOS(9_0)
+};
 
-- (instancetype)initWithClient:(BUYClient *)client collection:(BUYCollection*)collection;
+@interface BUYPaymentButton : UIButton
+
++ (instancetype)buttonWithType:(BUYPaymentButtonType)buttonType style:(BUYPaymentButtonStyle)buttonStyle;
 
 @end
-

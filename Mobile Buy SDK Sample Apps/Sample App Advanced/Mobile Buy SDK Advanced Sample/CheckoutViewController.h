@@ -25,8 +25,9 @@
 //
 
 @import UIKit;
-@class BUYCheckout;
-@class BUYClient;
+@import Buy;
+@import PassKit;
+@import SafariServices;
 
 extern NSString * const CheckoutCallbackNotification;
 

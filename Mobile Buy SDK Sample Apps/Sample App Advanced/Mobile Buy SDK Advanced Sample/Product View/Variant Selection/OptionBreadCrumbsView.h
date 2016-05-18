@@ -1,6 +1,6 @@
 //
-//  MasterViewController.h
-//  Mobile Buy SDK Advanced Sample
+//  OptionBreadCrumbsView.h
+//  Mobile Buy SDK
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -25,11 +25,32 @@
 //
 
 @import UIKit;
-@import Buy;
 
-@interface ProductListViewController : UITableViewController
+/**
+ *  A view containing the current selection of variant option values that sits below the navigation controller for the variant selection.
+ */
+@interface OptionBreadCrumbsView : UIView
 
-- (instancetype)initWithClient:(BUYClient *)client collection:(BUYCollection*)collection;
+/**
+ *  Auto Layout constraint for setting the bread crumbs as hidden
+ */
+@property (nonatomic, strong) NSLayoutConstraint *hiddenConstraint;
+
+/**
+ *  Auto Layout constraint for setting the bread crumbs as visible
+ */
+@property (nonatomic, strong) NSLayoutConstraint *visibleConstraint;
+
+/**
+ *  Sets the text on the labels and animates the view and the labels
+ *
+ *  @param optionValues The current selection (may be empty) of option values
+ */
+- (void)setSelectedBuyOptionValues:(NSArray*)optionValues;
+
+/**
+ *  The color of the labels
+ */
+-(void)setVariantOptionTextColor:(UIColor*)color UI_APPEARANCE_SELECTOR;
 
 @end
-

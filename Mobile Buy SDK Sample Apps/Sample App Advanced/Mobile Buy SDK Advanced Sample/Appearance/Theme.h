@@ -1,6 +1,6 @@
 //
-//  MasterViewController.h
-//  Mobile Buy SDK Advanced Sample
+//  Theme.h
+//  Mobile Buy SDK
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -25,11 +25,42 @@
 //
 
 @import UIKit;
-@import Buy;
 
-@interface ProductListViewController : UITableViewController
+/**
+ *  The theme style for the BUYProductViewController
+ */
+typedef NS_ENUM(NSInteger, ThemeStyle) {
+	/**
+	 *  Light theme style, providing light backgrounds and light styled UIVisualEffectViews
+	 */
+	ThemeStyleLight,
+	/**
+	 *  Dark theme style, providing dark backgrounds and dark styled UIVisualEffectViews
+	 */
+	ThemeStyleDark
+};
 
-- (instancetype)initWithClient:(BUYClient *)client collection:(BUYCollection*)collection;
+/**
+ *  This class provides properties used for theming the BUYProductViewController UI elements.
+ */
+@interface Theme : NSObject
+
+/**
+ *  Used for the highlight color. Default is the tintColor of the app's keyWindow if not nil,
+ *  other falls back to a "Shopify green" color
+ */
+@property (nonatomic, strong) UIColor *tintColor;
+
+/**
+ *  Theme style for the views
+ */
+@property (nonatomic, assign) ThemeStyle style;
+
+/**
+ *  Determines whether a blurred scaled-up product image should appear behind the product details. Default is YES
+ */
+@property (nonatomic, assign) BOOL showsProductImageBackground;
+
+- (void)styleProductViewController;
 
 @end
-

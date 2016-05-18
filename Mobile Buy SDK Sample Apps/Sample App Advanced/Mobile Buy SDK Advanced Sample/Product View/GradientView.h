@@ -1,6 +1,6 @@
 //
-//  MasterViewController.h
-//  Mobile Buy SDK Advanced Sample
+//  GradientView.h
+//  Mobile Buy SDK
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -25,11 +25,20 @@
 //
 
 @import UIKit;
-@import Buy;
 
-@interface ProductListViewController : UITableViewController
+/**
+ *  Easily create a view with a vertical gradient with two colors
+ */
+@interface GradientView : UIView
 
-- (instancetype)initWithClient:(BUYClient *)client collection:(BUYCollection*)collection;
+/**
+ *  The color of the top part of the gradient
+ */
+@property (nonatomic, strong) UIColor *topColor;
+
+/**
+ *  The color of the bottom part of the gradient
+ */
+@property (nonatomic, strong) UIColor *bottomColor;
 
 @end
-

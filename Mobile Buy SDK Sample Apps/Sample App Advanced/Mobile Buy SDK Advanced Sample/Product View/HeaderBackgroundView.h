@@ -1,6 +1,6 @@
 //
-//  MasterViewController.h
-//  Mobile Buy SDK Advanced Sample
+//  HeaderBackgroundView.h
+//  Mobile Buy SDK
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -25,11 +25,20 @@
 //
 
 @import UIKit;
-@import Buy;
+@class AsyncImageView;
+@class BUYImageLink;
 
-@interface ProductListViewController : UITableViewController
+/**
+ *  A background for the product view that displays the currently displayed
+ *  product or variant image behind a blurry UIVisualEffectView.
+ */
+@interface HeaderBackgroundView : UIView
 
-- (instancetype)initWithClient:(BUYClient *)client collection:(BUYCollection*)collection;
+/**
+ *  Set the product image on the image view
+ *
+ *  @param image The currently displayed product or variant image
+ */
+- (void)setBackgroundProductImage:(BUYImageLink *)image;
 
 @end
-

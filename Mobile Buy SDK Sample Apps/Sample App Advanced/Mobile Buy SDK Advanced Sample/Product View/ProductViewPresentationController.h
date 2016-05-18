@@ -1,6 +1,6 @@
 //
-//  MasterViewController.h
-//  Mobile Buy SDK Advanced Sample
+//  ProductViewPresentationController.h
+//  Mobile Buy SDK
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -25,11 +25,25 @@
 //
 
 @import UIKit;
-@import Buy;
 
-@interface ProductListViewController : UITableViewController
+@protocol ProductViewNavigationControllerDelegate;
 
-- (instancetype)initWithClient:(BUYClient *)client collection:(BUYCollection*)collection;
+/**
+ *  Initialized the BUYProductViewController inside a navigation controller (`ProductViewNavigationController`).
+ */
+@interface ProductViewPresentationController : UIPresentationController <UIAdaptivePresentationControllerDelegate>
+
+@property (nonatomic, weak) id <ProductViewNavigationControllerDelegate> navigationDelegate;
+
+/**
+ *  The desired presentation style
+ *  iPad:   UIModalPresentationFormSheet
+ *  iPhone: UIModalPresentationFullScreen
+ *
+ *  @return Returns the desired presentation style based on the user interface idiom
+ */
++ (UIModalPresentationStyle)adaptivePresentationStyle;
 
 @end
+
 

@@ -1,6 +1,6 @@
 //
-//  MasterViewController.h
-//  Mobile Buy SDK Advanced Sample
+//  UIImage+BUYAdditions.h
+//  Mobile Buy SDK
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -24,12 +24,11 @@
 //  THE SOFTWARE.
 //
 
-@import UIKit;
-@import Buy;
+#import <UIKit/UIKit.h>
 
-@interface ProductListViewController : UITableViewController
+@interface UIImage (BUYAdditions)
 
-- (instancetype)initWithClient:(BUYClient *)client collection:(BUYCollection*)collection;
++ (UIImage *)templateButtonBackgroundImage;
++ (UIImage *)templateImageWithFill:(UIColor *)fill stroke:(UIColor *)stroke edgeInsets:(UIEdgeInsets)edgeInsets;
 
 @end
-

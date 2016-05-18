@@ -1,6 +1,6 @@
 //
-//  MasterViewController.h
-//  Mobile Buy SDK Advanced Sample
+//  NavigationController.h
+//  Mobile Buy SDK
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -25,11 +25,13 @@
 //
 
 @import UIKit;
-@import Buy;
 
-@interface ProductListViewController : UITableViewController
+/**
+ *  A custom navigation controller used in the BUYProductViewController, adding a close button and the ability to theme the navigation bar
+ */
+@interface NavigationController : UINavigationController
 
-- (instancetype)initWithClient:(BUYClient *)client collection:(BUYCollection*)collection;
+@property (nonatomic) BOOL automaticallyMasksSeparator;
 
 @end
 

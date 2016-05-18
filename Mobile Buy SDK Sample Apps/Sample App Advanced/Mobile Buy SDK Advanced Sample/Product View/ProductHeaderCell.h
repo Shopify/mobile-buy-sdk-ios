@@ -1,6 +1,6 @@
 //
-//  MasterViewController.h
-//  Mobile Buy SDK Advanced Sample
+//  ProductHeaderCell.h
+//  Mobile Buy SDK
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -27,9 +27,19 @@
 @import UIKit;
 @import Buy;
 
-@interface ProductListViewController : UITableViewController
+/**
+ *  Table view cell containing the product title, price and compare-at/sold out text
+ */
+@interface ProductHeaderCell : UITableViewCell
 
-- (instancetype)initWithClient:(BUYClient *)client collection:(BUYCollection*)collection;
+/**
+ *  Sets the title, price and optionally compare-at/sold out texts
+ *
+ *  @param productVariant    The selected product variant
+ *  @param currencyFormatter The currency formatter for the shop
+ */
+- (void)setProductVariant:(BUYProductVariant *)productVariant withCurrencyFormatter:(NSNumberFormatter*)currencyFormatter;
+
+- (void)setProductTitleColor:(UIColor*)color UI_APPEARANCE_SELECTOR;
 
 @end
-

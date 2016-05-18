@@ -1,6 +1,6 @@
 //
-//  MasterViewController.h
-//  Mobile Buy SDK Advanced Sample
+//  UIImage+PaymentButton.h
+//  Mobile Buy SDK
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -23,13 +23,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
+#import <UIKit/UIKit.h>
+#import "UIButton+PaymentButton.h"
 
-@import UIKit;
-@import Buy;
-
-@interface ProductListViewController : UITableViewController
-
-- (instancetype)initWithClient:(BUYClient *)client collection:(BUYCollection*)collection;
-
+@interface UIImage (PaymentButton)
++ (UIImage *)paymentButtonImageWithFrame:(CGRect)originalFrame style:(PaymentButtonStyle)style type:(PaymentButtonType)type;
 @end
-

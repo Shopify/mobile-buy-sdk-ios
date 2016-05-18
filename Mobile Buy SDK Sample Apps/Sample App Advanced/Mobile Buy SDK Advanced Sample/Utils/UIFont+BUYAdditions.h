@@ -1,6 +1,6 @@
 //
-//  MasterViewController.h
-//  Mobile Buy SDK Advanced Sample
+//  BUYFont.h
+//  Mobile Buy SDK
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -25,11 +25,17 @@
 //
 
 @import UIKit;
-@import Buy;
 
-@interface ProductListViewController : UITableViewController
+@interface UIFont (BUYAdditions)
 
-- (instancetype)initWithClient:(BUYClient *)client collection:(BUYCollection*)collection;
+/**
+ *  Class method to allow system fonts to have increased point sizes from the OS default.
+ *
+ *  @param style The text style for the font.
+ *  @param size  A positive value to increase the default font's point size by.
+ *
+ *  @return A system font with an optionally increased point size.
+ */
++ (UIFont *)preferredFontForTextStyle:(NSString *)style increasedPointSize:(CGFloat)size;
 
 @end
-

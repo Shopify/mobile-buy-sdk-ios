@@ -1,6 +1,6 @@
 //
-//  MasterViewController.h
-//  Mobile Buy SDK Advanced Sample
+//  OptionValueCell.h
+//  Mobile Buy SDK
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -27,9 +27,26 @@
 @import UIKit;
 @import Buy;
 
-@interface ProductListViewController : UITableViewController
+/**
+ *  A table view cell displaying the option value
+ */
+@interface OptionValueCell : UITableViewCell
 
-- (instancetype)initWithClient:(BUYClient *)client collection:(BUYCollection*)collection;
+/**
+ *  Image view containing a checkmark for current option value selection
+ */
+@property (nonatomic, strong) UIImageView *selectedImageView;
+
+/**
+ *  Sets the option value and adds additional values such as price/sold out text based on the product variant's available
+ *
+ *  @param optionValue       The option value to display
+ *  @param productVariant    The product variant matching the option value
+ *  @param currencyFormatter A formatter with the shop's currency
+ */
+- (void)setOptionValue:(BUYOptionValue *)optionValue productVariant:(BUYProductVariant*)productVariant currencyFormatter:(NSNumberFormatter*)currencyFormatter;
+
+- (void)setSelectedBackgroundViewBackgroundColor:(UIColor *)selectedBackgroundViewBackgroundColor UI_APPEARANCE_SELECTOR;
 
 @end
 

@@ -1,6 +1,6 @@
 //
-//  MasterViewController.h
-//  Mobile Buy SDK Advanced Sample
+//  VariantOptionView.h
+//  Mobile Buy SDK
 //
 //  Created by Shopify.
 //  Copyright (c) 2015 Shopify Inc. All rights reserved.
@@ -25,11 +25,20 @@
 //
 
 @import UIKit;
-@import Buy;
+@class BUYOptionValue;
 
-@interface ProductListViewController : UITableViewController
+/**
+ *  A view that contains a variant option name and option value for use to display the selected product variant
+ */
+@interface VariantOptionView : UIView
 
-- (instancetype)initWithClient:(BUYClient *)client collection:(BUYCollection*)collection;
+/**
+ *  Sets the text on the labels for the option value
+ *
+ *  @param optionValue The option value to display
+ */
+- (void)setTextForOptionValue:(BUYOptionValue*)optionValue;
+
+- (void)setOptionNameTextColor:(UIColor*)color UI_APPEARANCE_SELECTOR;
 
 @end
-
