@@ -51,6 +51,7 @@
 		90B2623E1BB0A47B006D888F /* ProductViewControllerThemeStyleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B2623D1BB0A47B006D888F /* ProductViewControllerThemeStyleTableViewCell.m */; };
 		90B262411BB0A726006D888F /* ProductViewControllerToggleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B262401BB0A726006D888F /* ProductViewControllerToggleTableViewCell.m */; };
 		90B262441BB18B10006D888F /* ProductViewControllerThemeTintColorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B262431BB18B10006D888F /* ProductViewControllerThemeTintColorTableViewCell.m */; };
+		9A0B0C871CEC8F370037D68F /* BUYPaymentButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C861CEC8F370037D68F /* BUYPaymentButton.m */; };
 		BE3437A21BC5C19D00C71330 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE34379F1BC5C18400C71330 /* Buy.framework */; };
 		BE3437A31BC5C19D00C71330 /* Buy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BE34379F1BC5C18400C71330 /* Buy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BE8B82511B8CF49D00E3F871 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82501B8CF49D00E3F871 /* main.m */; };
@@ -205,6 +206,8 @@
 		90B262401BB0A726006D888F /* ProductViewControllerToggleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductViewControllerToggleTableViewCell.m; sourceTree = "<group>"; };
 		90B262421BB18B10006D888F /* ProductViewControllerThemeTintColorTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductViewControllerThemeTintColorTableViewCell.h; sourceTree = "<group>"; };
 		90B262431BB18B10006D888F /* ProductViewControllerThemeTintColorTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductViewControllerThemeTintColorTableViewCell.m; sourceTree = "<group>"; };
+		9A0B0C851CEC8F370037D68F /* BUYPaymentButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYPaymentButton.h; sourceTree = "<group>"; };
+		9A0B0C861CEC8F370037D68F /* BUYPaymentButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYPaymentButton.m; sourceTree = "<group>"; };
 		BE34378F1BC5C18400C71330 /* Mobile Buy SDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Mobile Buy SDK.xcodeproj"; path = "../../Mobile Buy SDK/Mobile Buy SDK.xcodeproj"; sourceTree = "<group>"; };
 		BE5E28451B94F5C300D2ECB5 /* Mobile Buy SDK Advanced Sample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Mobile Buy SDK Advanced Sample.entitlements"; sourceTree = "<group>"; };
 		BE8B824B1B8CF49D00E3F871 /* Mobile Buy SDK Advanced Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile Buy SDK Advanced Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -334,6 +337,8 @@
 		8476128F1CAB059100AB17AA /* PaymentButton */ = {
 			isa = PBXGroup;
 			children = (
+				9A0B0C851CEC8F370037D68F /* BUYPaymentButton.h */,
+				9A0B0C861CEC8F370037D68F /* BUYPaymentButton.m */,
 				847612901CAB059100AB17AA /* ImageKit.h */,
 				847612911CAB059100AB17AA /* ImageKit.m */,
 				847612921CAB059100AB17AA /* UIButton+PaymentButton.h */,
@@ -377,9 +382,9 @@
 		BE3437901BC5C18400C71330 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BE34379F1BC5C18400C71330 /* Buy.framework */,
-				BE34379D1BC5C18400C71330 /* Buy.framework */,
 				BE34379B1BC5C18400C71330 /* Mobile Buy SDK Tests.xctest */,
+				BE34379D1BC5C18400C71330 /* Buy.framework */,
+				BE34379F1BC5C18400C71330 /* Buy.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -577,6 +582,7 @@
 				8476127B1CAB047600AB17AA /* HeaderBackgroundView.m in Sources */,
 				BE8B82951B8E65D700E3F871 /* PreCheckoutViewController.m in Sources */,
 				8476127F1CAB047600AB17AA /* OptionSelectionViewController.m in Sources */,
+				9A0B0C871CEC8F370037D68F /* BUYPaymentButton.m in Sources */,
 				8476127C1CAB047600AB17AA /* HeaderOverlayView.m in Sources */,
 				8476127A1CAB047600AB17AA /* ProductViewHeader.m in Sources */,
 				847612841CAB047600AB17AA /* VariantSelectionViewController.m in Sources */,
