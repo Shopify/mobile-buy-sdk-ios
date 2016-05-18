@@ -52,6 +52,8 @@
 		90B262411BB0A726006D888F /* ProductViewControllerToggleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B262401BB0A726006D888F /* ProductViewControllerToggleTableViewCell.m */; };
 		90B262441BB18B10006D888F /* ProductViewControllerThemeTintColorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B262431BB18B10006D888F /* ProductViewControllerThemeTintColorTableViewCell.m */; };
 		9A0B0C871CEC8F370037D68F /* BUYPaymentButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C861CEC8F370037D68F /* BUYPaymentButton.m */; };
+		9A0B0C921CEC90D40037D68F /* BUYImageKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C8F1CEC90D40037D68F /* BUYImageKit.m */; };
+		9A0B0C931CEC90D40037D68F /* UIFont+BUYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C911CEC90D40037D68F /* UIFont+BUYAdditions.m */; };
 		BE3437A21BC5C19D00C71330 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE34379F1BC5C18400C71330 /* Buy.framework */; };
 		BE3437A31BC5C19D00C71330 /* Buy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BE34379F1BC5C18400C71330 /* Buy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BE8B82511B8CF49D00E3F871 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82501B8CF49D00E3F871 /* main.m */; };
@@ -208,6 +210,10 @@
 		90B262431BB18B10006D888F /* ProductViewControllerThemeTintColorTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductViewControllerThemeTintColorTableViewCell.m; sourceTree = "<group>"; };
 		9A0B0C851CEC8F370037D68F /* BUYPaymentButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYPaymentButton.h; sourceTree = "<group>"; };
 		9A0B0C861CEC8F370037D68F /* BUYPaymentButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYPaymentButton.m; sourceTree = "<group>"; };
+		9A0B0C8E1CEC90D40037D68F /* BUYImageKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYImageKit.h; sourceTree = "<group>"; };
+		9A0B0C8F1CEC90D40037D68F /* BUYImageKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYImageKit.m; sourceTree = "<group>"; };
+		9A0B0C901CEC90D40037D68F /* UIFont+BUYAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+BUYAdditions.h"; sourceTree = "<group>"; };
+		9A0B0C911CEC90D40037D68F /* UIFont+BUYAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+BUYAdditions.m"; sourceTree = "<group>"; };
 		BE34378F1BC5C18400C71330 /* Mobile Buy SDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Mobile Buy SDK.xcodeproj"; path = "../../Mobile Buy SDK/Mobile Buy SDK.xcodeproj"; sourceTree = "<group>"; };
 		BE5E28451B94F5C300D2ECB5 /* Mobile Buy SDK Advanced Sample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Mobile Buy SDK Advanced Sample.entitlements"; sourceTree = "<group>"; };
 		BE8B824B1B8CF49D00E3F871 /* Mobile Buy SDK Advanced Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile Buy SDK Advanced Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -379,6 +385,17 @@
 			name = "Table View Cells";
 			sourceTree = "<group>";
 		};
+		9A0B0C8D1CEC90D40037D68F /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				9A0B0C8E1CEC90D40037D68F /* BUYImageKit.h */,
+				9A0B0C8F1CEC90D40037D68F /* BUYImageKit.m */,
+				9A0B0C901CEC90D40037D68F /* UIFont+BUYAdditions.h */,
+				9A0B0C911CEC90D40037D68F /* UIFont+BUYAdditions.m */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		BE3437901BC5C18400C71330 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -412,6 +429,7 @@
 			children = (
 				BE8B82521B8CF49D00E3F871 /* AppDelegate.h */,
 				BE8B82531B8CF49D00E3F871 /* AppDelegate.m */,
+				9A0B0C8D1CEC90D40037D68F /* Utils */,
 				847612231CAB047600AB17AA /* Appearance */,
 				8476128F1CAB059100AB17AA /* PaymentButton */,
 				BE948D4C1B95087A009AB20B /* Images.xcassets */,
@@ -602,11 +620,13 @@
 				902C9B8F1BB0729F00FC456E /* ShippingRateTableViewCell.m in Sources */,
 				BE8B829A1B8E72CC00E3F871 /* CheckoutViewController.m in Sources */,
 				847612681CAB047600AB17AA /* Theme+Additions.m in Sources */,
+				9A0B0C931CEC90D40037D68F /* UIFont+BUYAdditions.m in Sources */,
 				847612831CAB047600AB17AA /* VariantOptionView.m in Sources */,
 				847612981CAB059100AB17AA /* UIImage+PaymentButton.m in Sources */,
 				8476126E1CAB047600AB17AA /* CheckoutButton.m in Sources */,
 				8476127E1CAB047600AB17AA /* OptionSelectionNavigationController.m in Sources */,
 				847612971CAB059100AB17AA /* UIButton+PaymentButton.m in Sources */,
+				9A0B0C921CEC90D40037D68F /* BUYImageKit.m in Sources */,
 				847612761CAB047600AB17AA /* ProductVariantCell.m in Sources */,
 				847612691CAB047600AB17AA /* Theme.m in Sources */,
 				847612701CAB047600AB17AA /* GradientView.m in Sources */,

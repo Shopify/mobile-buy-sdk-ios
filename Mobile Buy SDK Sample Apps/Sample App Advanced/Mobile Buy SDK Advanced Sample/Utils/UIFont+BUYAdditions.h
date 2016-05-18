@@ -1,5 +1,5 @@
 //
-//  BUYFontAdditionsTests.m
+//  BUYFont.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,27 +24,18 @@
 //  THE SOFTWARE.
 //
 
-#import <XCTest/XCTest.h>
-#import "UIFont+BUYAdditions.h"
+@import UIKit;
 
-@interface BUYFontAdditionsTests : XCTestCase
+@interface UIFont (BUYAdditions)
 
-@end
-
-@implementation BUYFontAdditionsTests
-
-- (void)testIncreasedFontSize
-{
-	static CGFloat const increase = 2.0;
-	UIFont *font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-	CGFloat newSize = font.pointSize + increase;
-	
-	NSMutableDictionary *attributes = [font.fontDescriptor.fontAttributes mutableCopy];
-	attributes[UIFontDescriptorSizeAttribute] = @(newSize);
-
-	UIFont *expected = [UIFont fontWithDescriptor:[UIFontDescriptor fontDescriptorWithFontAttributes:attributes] size:newSize];
-	UIFont *actual = [UIFont preferredFontForTextStyle:UIFontTextStyleBody increasedPointSize:increase];
-	XCTAssertEqualObjects(actual, expected);
-}
+/**
+ *  Class method to allow system fonts to have increased point sizes from the OS default.
+ *
+ *  @param style The text style for the font.
+ *  @param size  A positive value to increase the default font's point size by.
+ *
+ *  @return A system font with an optionally increased point size.
+ */
++ (UIFont *)preferredFontForTextStyle:(NSString *)style increasedPointSize:(CGFloat)size;
 
 @end
