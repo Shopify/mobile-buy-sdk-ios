@@ -29,6 +29,8 @@
 
 NSString * const kShopifyError = @"shopify";
 
+typedef void (^BUYRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResponse *response, NSError *error);
+
 #pragma mark - NSURLResponse -
 @interface NSHTTPURLResponse (Conveniece)
 
@@ -56,6 +58,7 @@ NSString * const kShopifyError = @"shopify";
 @interface BUYRequestOperation ()
 
 @property (strong, nonatomic) BUYRequestOperationCompletion completion;
+@property (strong, nonatomic) NSURLSessionDataTask *runningTask;
 
 @end
 
@@ -91,28 +94,77 @@ NSString * const kShopifyError = @"shopify";
 	self.completion(nil, response, error);
 }
 
-- (void)finishByCancellation
-{
-	[self finishExecution];
-}
-
 #pragma mark - Start -
 
 - (void)startExecution
 {
 	if (self.isCancelled) {
-		[self finishByCancellation];
 		return;
 	}
 	
 	[super startExecution];
 	
-	NSURLSessionDataTask *task = [self.session dataTaskWithRequest:self.originalRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+	NSURLRequest *request      = self.originalRequest;
+	NSURLSessionDataTask *task = [self requestUsingPollingIfNeeded:request completion:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		if (response.successful) {
+			[self finishWithJSON:json response:response];
+		} else {
+			[self finishWithError:error response:response];
+		}
+	}];
+	[self locked:^{
+		self.runningTask = task;
+	}];
+	[task resume];
+}
+
+- (void)cancelExecution
+{
+	[super cancelExecution];
+	
+	__block NSURLSessionDataTask *task = nil;
+	[self locked:^{
+		task = self.runningTask;
+	}];
+	[task cancel];
+}
+
+#pragma mark - Requests -
+
+- (NSURLSessionDataTask *)requestUsingPollingIfNeeded:(NSURLRequest *)request completion:(BUYRequestJSONCompletion)completion
+{
+	if (self.isCancelled) {
+		return nil;
+	}
+	
+	return [self request:request completion:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		
 		if (self.isCancelled) {
-			[self finishByCancellation];
 			return;
 		}
+		
+		/* ---------------------------------
+		 * If a polling handler is provided
+		 * and it returns YES for continue
+		 * polling, we recursively continue
+		 * the polling process.
+		 */
+		if (self.pollingHandler && self.pollingHandler(json, response, error)) {
+			NSURLSessionDataTask *task = [self requestUsingPollingIfNeeded:request completion:completion];
+			[self locked:^{
+				self.runningTask = task;
+			}];
+			[task resume];
+			
+		} else {
+			completion(json, response, error);
+		}
+	}];
+}
+
+- (NSURLSessionDataTask *)request:(NSURLRequest *)request completion:(BUYRequestJSONCompletion)completion
+{
+	NSURLSessionDataTask *task = [self.session dataTaskWithRequest:self.originalRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
 		
 		NSDictionary *json = nil;
 		if (data.length > 2) { // 2 is the minimum amount of data {} for a JSON Object. Just ignore anything less.
@@ -120,17 +172,13 @@ NSString * const kShopifyError = @"shopify";
 		}
 		
 		NSHTTPURLResponse *httpResponse = (id)response;
-		if (httpResponse.successful) {
-			[self finishWithJSON:json response:httpResponse];
-		} else {
-			if (!error) {
-				error = [[NSError alloc] initWithDomain:kShopifyError code:httpResponse.statusCode userInfo:json];
-			}
-			[self finishWithError:error response:httpResponse];
+		if (!httpResponse.successful && !error) {
+			error = [[NSError alloc] initWithDomain:kShopifyError code:httpResponse.statusCode userInfo:json];
 		}
+		
+		completion(json, httpResponse, error);
 	}];
-	
-	[task resume];
+	return task;
 }
 
 @end

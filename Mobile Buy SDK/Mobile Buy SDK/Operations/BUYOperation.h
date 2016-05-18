@@ -28,7 +28,10 @@
 
 @interface BUYOperation : NSOperation
 
+- (void)locked:(dispatch_block_t)lockedBlock;
+
 - (void)startExecution;
 - (void)finishExecution;
+- (void)cancelExecution;
 
 @end

@@ -70,6 +70,13 @@ typedef NS_ENUM(NSUInteger, BUYOperationState) {
 
 #pragma mark - Setters -
 
+- (void)locked:(dispatch_block_t)lockedBlock
+{
+	[self.lock lock];
+	lockedBlock();
+	[self.lock unlock];
+}
+
 - (void)setState:(BUYOperationState)state
 {
 	[self.lock lock];
@@ -102,6 +109,12 @@ typedef NS_ENUM(NSUInteger, BUYOperationState) {
 	[self startExecution];
 }
 
+- (void)cancel
+{
+	[super cancel];
+	[self cancelExecution];
+}
+
 #pragma mark - Execution -
 - (void)startExecution
 {
@@ -111,6 +124,11 @@ typedef NS_ENUM(NSUInteger, BUYOperationState) {
 - (void)finishExecution
 {
 	self.state = BUYOperationStateFinished;
+}
+
+- (void)cancelExecution
+{
+	[self finishExecution];
 }
 
 #pragma mark - State -
