@@ -9,6 +9,7 @@
 #import <XCTest/XCTest.h>
 #import <OHHTTPStubs/OHHTTPStubs.h>
 #import "BUYRequestOperation.h"
+#import "BUYClient.h"
 
 @interface BUYRequestOperationTests : XCTestCase
 
@@ -69,7 +70,7 @@
 							  };
 	
 	NSData *payloadData           = [NSJSONSerialization dataWithJSONObject:payload options:0 error:nil];
-	OHHTTPStubsResponse *response = [OHHTTPStubsResponse responseWithData:payloadData statusCode:200 headers:nil];
+	OHHTTPStubsResponse *response = [OHHTTPStubsResponse responseWithData:payloadData statusCode:BUYStatusComplete headers:nil];
 	
 	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
 		return YES;
@@ -85,7 +86,7 @@
 		XCTAssertNil(error);
 		
 		XCTAssertEqualObjects(json, payload);
-		XCTAssertEqual(response.statusCode, 200);
+		XCTAssertEqual(response.statusCode, BUYStatusComplete);
 	}];
 	
 	[self.queue addOperation:operation];
@@ -102,7 +103,7 @@
 								   };
 	
 	NSData *payloadData           = [NSJSONSerialization dataWithJSONObject:errorPayload options:0 error:nil];
-	OHHTTPStubsResponse *response = [OHHTTPStubsResponse responseWithData:payloadData statusCode:400 headers:nil];
+	OHHTTPStubsResponse *response = [OHHTTPStubsResponse responseWithData:payloadData statusCode:BUYStatusFailed headers:nil];
 	
 	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
 		return YES;
@@ -118,7 +119,7 @@
 		XCTAssertNotNil(error);
 		
 		XCTAssertEqualObjects(error.userInfo, errorPayload);
-		XCTAssertEqual(response.statusCode, 400);
+		XCTAssertEqual(response.statusCode, BUYStatusFailed);
 	}];
 	
 	[self.queue addOperation:operation];
@@ -190,6 +191,44 @@
 	XCTAssertEqualObjects(container, @"1134");
 }
 
+- (void)testPollingActivatedWithHandler
+{
+	[self stubRequestsWithDelay:0.1 status:BUYStatusProcessing];
+	
+	XCTestExpectation *completion  = [self expectationWithDescription:@"Should complete after polling"];
+	BUYRequestOperation *operation = [self operationFulfillingExpectation:nil completion:^{
+		[completion fulfill];
+	}];
+	
+	__block int pollCount = 0;
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:@"Should stop polling at 10 iterations"];
+	operation.pollingHandler = ^BOOL (NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		
+		[self stubRequestsWithDelay:0.1 status:BUYStatusProcessing];
+		
+		XCTAssertNotNil(json);
+		XCTAssertNotNil(response);
+		XCTAssertNil(error);
+		
+		if (response.statusCode == BUYStatusComplete) {
+			[expectation fulfill];
+		}
+		
+		if (response.statusCode == BUYStatusProcessing) {
+			pollCount += 1;
+			if (pollCount == 10) {
+				[self stubRequestsWithDelay:0.1 status:BUYStatusComplete];
+			}
+			return YES;
+		}
+		return NO;
+	};
+	
+	[self.queue addOperation:operation];
+	[self waitForExpectationsWithTimeout:5.0 handler:nil];
+}
+
 - (void)testCancellationBeforeExecution
 {
 	[self stubRequests];
@@ -223,6 +262,32 @@
 	[self waitForExpectationsWithTimeout:4.0 handler:nil];
 }
 
+- (void)testCancellationDuringPolling
+{
+	[self stubRequestsWithDelay:0.1 status:BUYStatusProcessing];
+	
+	BUYRequestOperation *operation = [self operationFulfillingExpectation:nil completion:^{
+		XCTAssert(NO, @"Operation should not call completion if cancelled.");
+	}];
+	
+	__block int pollCount = 0;
+	
+	operation.pollingHandler = ^BOOL (NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		pollCount += 1;
+		return YES;
+	};
+	
+	[self.queue addOperation:operation];
+	
+	[self after:0.5 block:^{
+		[operation cancel];
+	}];
+	
+	[self createExpectationDelay:1.0 block:YES];
+	
+	XCTAssertTrue(pollCount < 5);
+}
+
 #pragma mark - Convenience -
 
 - (void)asyncMain:(dispatch_block_t)block
@@ -239,13 +304,22 @@
 {
 	[self createExpectationDelay:1.0];
 }
+	 
+ - (void)createExpectationDelay:(NSTimeInterval)delay
+ {
+	[self createExpectationDelay:delay block:NO];
+ }
 
-- (void)createExpectationDelay:(NSTimeInterval)delay
+ - (void)createExpectationDelay:(NSTimeInterval)delay block:(BOOL)block
 {
 	XCTestExpectation *expectation = [self expectationWithDescription:@"Delay"];
 	[self after:delay block:^{
 		[expectation fulfill];
 	}];
+	
+	if (block) {
+		[self waitForExpectationsWithTimeout:delay + 0.1 handler:nil];
+	}
 }
 
 - (BUYRequestOperation *)operationFulfillingExpectation:(XCTestExpectation *)expectation completion:(dispatch_block_t)completion
@@ -280,13 +354,18 @@
 
 - (void)stubRequestsWithDelay:(NSTimeInterval)delay
 {
+	[self stubRequestsWithDelay:delay status:BUYStatusProcessing];
+}
+
+- (void)stubRequestsWithDelay:(NSTimeInterval)delay status:(int)status
+{
 	NSDictionary *payload = @{
 							  @"first_name" : @"John",
 							  @"last_name"  : @"Smith",
 							  };
 	
 	NSData *payloadData           = [NSJSONSerialization dataWithJSONObject:payload options:0 error:nil];
-	OHHTTPStubsResponse *response = [OHHTTPStubsResponse responseWithData:payloadData statusCode:200 headers:nil];
+	OHHTTPStubsResponse *response = [OHHTTPStubsResponse responseWithData:payloadData statusCode:status headers:nil];
 	response.requestTime          = delay;
 	
 	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {

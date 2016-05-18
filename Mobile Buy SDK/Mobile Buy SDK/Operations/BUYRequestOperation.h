@@ -29,14 +29,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol BUYSerializable;
 
-typedef void (^BUYRequestOperationCompletion)(NSDictionary * _Nullable json, NSURLResponse * _Nullable response, NSError * _Nullable error);
-typedef BOOL (^BUYRequestOperationPollingHandler)(NSDictionary * _Nullable json, NSURLResponse * _Nullable response, NSError * _Nullable error);
+typedef void (^BUYRequestOperationCompletion)(NSDictionary * _Nullable json, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error);
+typedef BOOL (^BUYRequestOperationPollingHandler)(NSDictionary * _Nullable json, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error);
 
 @interface BUYRequestOperation : BUYOperation
 
 @property (strong, nonatomic, readonly, nonnull) NSURLSession *session;
 @property (strong, nonatomic, readonly, nonnull) NSURLRequest *originalRequest;
-@property (strong, nonatomic, readonly, nullable) BUYRequestOperationPollingHandler pollingHandler;
+
+@property (strong, nonatomic, nullable) BUYRequestOperationPollingHandler pollingHandler;
 
 + (instancetype)operationWithSession:(NSURLSession *)session request:(NSURLRequest *)request payload:(id<BUYSerializable> _Nullable)payload completion:(BUYRequestOperationCompletion)completion;
 
