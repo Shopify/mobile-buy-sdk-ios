@@ -26,7 +26,7 @@
 
 #import "BUYWebCheckoutPaymentProvider.h"
 #import "BUYCheckout.h"
-#import "BUYClient+Checkout.h"
+#import "BUYClient+CheckoutHelpers.h"
 
 @import SafariServices;
 
