@@ -80,7 +80,7 @@ extern NSString *const BUYPaymentProviderDidCompleteCheckoutNotificationKey;
  *  @param provider   the `BUYPaymentProvider`
  *  @param error    the optional `NSError`
  */
-- (void)paymentProvider:(id <BUYPaymentProvider>)provider didFailWithError:(NSError *)error;
+- (void)paymentProvider:(id <BUYPaymentProvider>)provider didFailWithError:(nullable NSError *)error;
 
 /**
  *  Called when the checkout has completed
