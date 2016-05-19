@@ -73,6 +73,8 @@ typedef void (^BUYRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResponse *
 {
 	self = [super init];
 	if (self) {
+		self.pollingInterval = 0.3;
+		
 		_session         = session;
 		_originalRequest = request;
 		_completion      = completion;
@@ -144,9 +146,16 @@ typedef void (^BUYRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResponse *
 		 * the polling process.
 		 */
 		if (self.pollingHandler && self.pollingHandler(json, response, error)) {
-			NSURLSessionDataTask *task = [self requestUsingPollingIfNeeded:request completion:completion];
-			self.runningTask = task;
-			[task resume];
+
+			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.pollingInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+				if (self.isCancelled) {
+					return;
+				}
+				
+				NSURLSessionDataTask *task = [self requestUsingPollingIfNeeded:request completion:completion];
+				self.runningTask = task;
+				[task resume];
+			});
 			
 		} else {
 			completion(json, response, error);
