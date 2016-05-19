@@ -164,7 +164,9 @@
 }
 
 - (BUYOperation *)completeCheckout:(BUYCheckout *)checkout paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block {
-	return [[BUYCheckoutOperation alloc] initWithClient:self checkout:checkout token:paymentToken completion:block];
+	BUYCheckoutOperation *operation = [[BUYCheckoutOperation alloc] initWithClient:self checkout:checkout token:paymentToken completion:block];
+	[self startOperation:operation];
+	return operation;
 }
 
 - (BUYRequestOperation *)beginCheckout:(BUYCheckout *)checkout paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block

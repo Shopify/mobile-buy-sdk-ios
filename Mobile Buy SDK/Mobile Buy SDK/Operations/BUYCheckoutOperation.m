@@ -36,6 +36,8 @@
 - (BUYRequestOperation *)getCompletionStatusOfCheckoutToken:(NSString *)token start:(BOOL)start completion:(BUYDataStatusBlock)block;
 - (BUYRequestOperation *)getCheckout:(BUYCheckout *)checkout start:(BOOL)start completion:(BUYDataCheckoutBlock)block;
 
+- (void)startOperation:(BUYOperation *)operation;
+
 @end
 
 @interface BUYCheckoutOperation ()
@@ -44,7 +46,7 @@
 @property (strong, nonatomic, readonly) id<BUYPaymentToken> token;
 @property (strong, nonatomic, readonly) BUYCheckoutOperationCompletion completion;
 
-@property (strong, nonatomic, readonly) NSArray *operations;
+@property (strong, nonatomic) BUYRequestOperation *currentOperation;
 
 @end
 
@@ -87,48 +89,84 @@
 
 - (void)startExecution
 {
+	if (self.isCancelled) {
+		return;
+	}
+	
 	[super startExecution];
 	
 	__weak typeof(self) weakSelf = self;
 	
-	BUYRequestOperation *beginOperation = [self.client beginCheckout:self.checkout paymentToken:self.token completion:^(BUYCheckout *checkout, NSError *error) {
-		if (weakSelf.isCancelled || !checkout) {
-			[weakSelf cancel];
+	BUYRequestOperation *beginOperation = [weakSelf.client beginCheckout:weakSelf.checkout paymentToken:weakSelf.token completion:^(BUYCheckout *checkout, NSError *error) {
+		if (weakSelf.isCancelled) {
 			return;
 		}
-	}];
-	
-	BUYRequestOperation *pollingOperation = [self.client getCompletionStatusOfCheckoutToken:self.checkout.token start:NO completion:^(BUYStatus status, NSError *error) {
-		if (weakSelf.isCancelled || status != BUYStatusComplete) {
-			[weakSelf cancel];
+		
+		if (!checkout) {
+			[weakSelf finishWithError:error];
 			return;
 		}
+		
+		BUYRequestOperation *pollOperation = [weakSelf.client getCompletionStatusOfCheckoutToken:weakSelf.checkout.token start:NO completion:^(BUYStatus status, NSError *error) {
+			if (weakSelf.isCancelled) {
+				return;
+			}
+			
+			if (status != BUYStatusComplete) {
+				[weakSelf finishWithError:error];
+				return;
+			}
+			
+			BUYRequestOperation *getOperation = [weakSelf.client getCheckout:weakSelf.checkout start:NO completion:^(BUYCheckout *checkout, NSError *error) {
+				if (weakSelf.isCancelled) {
+					return;
+				}
+				
+				if (checkout) {
+					[weakSelf finishWithCheckout:checkout];
+				} else {
+					[weakSelf finishWithError:error];
+				}
+			}];
+			
+			// Update current operation
+			[weakSelf locked:^{
+				weakSelf.currentOperation = getOperation;
+			}];
+			NSLog(@"Getting completed checkout.");
+			[weakSelf.client startOperation:getOperation];
+			
+		}];
+		pollOperation.pollingHandler = ^BOOL (NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+			NSLog(@"Polling checkout...");
+			return response.statusCode == BUYStatusProcessing;
+		};
+		
+		// Update current operation
+		[weakSelf locked:^{
+			weakSelf.currentOperation = pollOperation;
+		}];
+		NSLog(@"Starting checkout status polling.");
+		[weakSelf.client startOperation:pollOperation];
 	}];
-	pollingOperation.pollingHandler = ^BOOL (NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
-		return response.statusCode == BUYStatusProcessing;
-	};
 	
-	BUYRequestOperation *getOperation = [self.client getCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
-		if (weakSelf.isCancelled || !checkout) {
-			[weakSelf cancel];
-			return;
-		}
-	}];
-	
-	
+	// Update current operation
 	[self locked:^{
-		_operations = @[beginOperation, pollingOperation, getOperation];
+		self.currentOperation = beginOperation;
 	}];
-	[self.client.requestQueue addOperations:self.operations waitUntilFinished:NO];
+	NSLog(@"Starting checkout.");
+	[self.client startOperation:beginOperation];
 }
 
 - (void)cancelExecution
 {
 	[super cancelExecution];
 	
-	for (NSOperation *operation in self.operations) {
-		[operation cancel];
-	}
+	__block BUYRequestOperation *currentOperation = nil;
+	[self locked:^{
+		currentOperation = self.currentOperation;
+	}];
+	[currentOperation cancel];
 }
 
 @end

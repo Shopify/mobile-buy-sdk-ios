@@ -173,9 +173,9 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 
 #pragma mark - Generic Requests
 
-- (void)startTask:(BUYRequestOperation *)task
+- (void)startOperation:(BUYOperation *)operation
 {
-	[self.requestQueue addOperation:task];
+	[self.requestQueue addOperation:operation];
 }
 
 - (NSString *)authorizationHeader
@@ -213,7 +213,7 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 	}];
 	
 	if (start) {
-		[self startTask:operation];
+		[self startOperation:operation];
 	}
 	return operation;
 }

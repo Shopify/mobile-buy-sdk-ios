@@ -47,7 +47,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
 @implementation BUYClient_Test
 
-- (void)startTask:(BUYRequestOperation *)task
+- (void)startOperation:(BUYOperation *)operation
 {
 	// Do nothing
 }
@@ -128,7 +128,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 {
 	BUYCheckout *checkout = [[BUYCheckout alloc] initWithModelManager:self.client.modelManager JSONDictionary:@{@"token": @"abcdef", @"payment_due": @0}];
 	
-	BUYRequestOperation *task = [self.client completeCheckout:checkout paymentToken:nil completion:^(BUYCheckout *checkout, NSError *error) {}];
+	BUYOperation *task = [self.client completeCheckout:checkout paymentToken:nil completion:^(BUYCheckout *checkout, NSError *error) {}];
 	XCTAssertNotNil(task);
 }
 

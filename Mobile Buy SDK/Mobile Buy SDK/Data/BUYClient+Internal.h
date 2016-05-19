@@ -52,4 +52,6 @@ typedef void (^BUYClientRequestJSONCompletion)(NSDictionary *json, NSURLResponse
 - (BUYStatus)statusForStatusCode:(NSUInteger)statusCode error:(NSError *)error;
 - (NSError *)errorFromJSON:(NSDictionary *)json response:(NSURLResponse *)response;
 
+- (void)startOperation:(BUYOperation *)operation;
+
 @end
