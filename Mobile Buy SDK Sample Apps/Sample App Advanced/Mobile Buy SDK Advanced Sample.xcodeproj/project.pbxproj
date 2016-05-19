@@ -39,9 +39,8 @@
 		847612961CAB059100AB17AA /* ImageKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 847612911CAB059100AB17AA /* ImageKit.m */; };
 		847612971CAB059100AB17AA /* UIButton+PaymentButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 847612931CAB059100AB17AA /* UIButton+PaymentButton.m */; };
 		847612981CAB059100AB17AA /* UIImage+PaymentButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 847612951CAB059100AB17AA /* UIImage+PaymentButton.m */; };
-		847612A01CAB05BE00AB17AA /* UIColor+BUYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8476129B1CAB05BE00AB17AA /* UIColor+BUYAdditions.m */; };
-		847612A11CAB05BE00AB17AA /* UIFont+BUYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8476129D1CAB05BE00AB17AA /* UIFont+BUYAdditions.m */; };
-		847612A21CAB05BE00AB17AA /* UIImage+BUYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8476129F1CAB05BE00AB17AA /* UIImage+BUYAdditions.m */; };
+		847612A11CAB05BE00AB17AA /* UIFont+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8476129D1CAB05BE00AB17AA /* UIFont+Additions.m */; };
+		847612A21CAB05BE00AB17AA /* UIImage+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8476129F1CAB05BE00AB17AA /* UIImage+Additions.m */; };
 		84BA52EE1CB2E83C00AB1560 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BA52ED1CB2E83C00AB1560 /* NavigationController.m */; };
 		902C9B8C1BB06BF300FC456E /* GetShopOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 902C9B8B1BB06BF300FC456E /* GetShopOperation.m */; };
 		902C9B8F1BB0729F00FC456E /* ShippingRateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 902C9B8E1BB0729F00FC456E /* ShippingRateTableViewCell.m */; };
@@ -52,6 +51,7 @@
 		B2C560B91CEE36C00015AA40 /* ProductViewControllerThemeStyleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C560B41CEE36C00015AA40 /* ProductViewControllerThemeStyleTableViewCell.m */; };
 		B2C560BA1CEE36C00015AA40 /* ProductViewControllerThemeTintColorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C560B61CEE36C00015AA40 /* ProductViewControllerThemeTintColorTableViewCell.m */; };
 		B2C560BB1CEE36C00015AA40 /* ProductViewControllerToggleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C560B81CEE36C00015AA40 /* ProductViewControllerToggleTableViewCell.m */; };
+		B2C560C21CEE39180015AA40 /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C560C11CEE39180015AA40 /* UIColor+Additions.m */; };
 		BE3437A21BC5C19D00C71330 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE34379F1BC5C18400C71330 /* Buy.framework */; };
 		BE3437A31BC5C19D00C71330 /* Buy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BE34379F1BC5C18400C71330 /* Buy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BE8B82511B8CF49D00E3F871 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82501B8CF49D00E3F871 /* main.m */; };
@@ -183,12 +183,10 @@
 		847612931CAB059100AB17AA /* UIButton+PaymentButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "UIButton+PaymentButton.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		847612941CAB059100AB17AA /* UIImage+PaymentButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+PaymentButton.h"; sourceTree = "<group>"; };
 		847612951CAB059100AB17AA /* UIImage+PaymentButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+PaymentButton.m"; sourceTree = "<group>"; };
-		8476129A1CAB05BE00AB17AA /* UIColor+BUYAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+BUYAdditions.h"; sourceTree = "<group>"; };
-		8476129B1CAB05BE00AB17AA /* UIColor+BUYAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+BUYAdditions.m"; sourceTree = "<group>"; };
-		8476129C1CAB05BE00AB17AA /* UIFont+BUYAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+BUYAdditions.h"; sourceTree = "<group>"; };
-		8476129D1CAB05BE00AB17AA /* UIFont+BUYAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+BUYAdditions.m"; sourceTree = "<group>"; };
-		8476129E1CAB05BE00AB17AA /* UIImage+BUYAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+BUYAdditions.h"; sourceTree = "<group>"; };
-		8476129F1CAB05BE00AB17AA /* UIImage+BUYAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+BUYAdditions.m"; sourceTree = "<group>"; };
+		8476129C1CAB05BE00AB17AA /* UIFont+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+Additions.h"; sourceTree = "<group>"; };
+		8476129D1CAB05BE00AB17AA /* UIFont+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+Additions.m"; sourceTree = "<group>"; };
+		8476129E1CAB05BE00AB17AA /* UIImage+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Additions.h"; sourceTree = "<group>"; };
+		8476129F1CAB05BE00AB17AA /* UIImage+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Additions.m"; sourceTree = "<group>"; };
 		84BA52EC1CB2E83C00AB1560 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		84BA52ED1CB2E83C00AB1560 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		902C9B8A1BB06BF300FC456E /* GetShopOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetShopOperation.h; sourceTree = "<group>"; };
@@ -208,6 +206,8 @@
 		B2C560B61CEE36C00015AA40 /* ProductViewControllerThemeTintColorTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductViewControllerThemeTintColorTableViewCell.m; path = "Product View/ProductViewControllerThemeTintColorTableViewCell.m"; sourceTree = "<group>"; };
 		B2C560B71CEE36C00015AA40 /* ProductViewControllerToggleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductViewControllerToggleTableViewCell.h; path = "Product View/ProductViewControllerToggleTableViewCell.h"; sourceTree = "<group>"; };
 		B2C560B81CEE36C00015AA40 /* ProductViewControllerToggleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductViewControllerToggleTableViewCell.m; path = "Product View/ProductViewControllerToggleTableViewCell.m"; sourceTree = "<group>"; };
+		B2C560C01CEE39180015AA40 /* UIColor+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Additions.h"; sourceTree = "<group>"; };
+		B2C560C11CEE39180015AA40 /* UIColor+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Additions.m"; sourceTree = "<group>"; };
 		BE34378F1BC5C18400C71330 /* Mobile Buy SDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Mobile Buy SDK.xcodeproj"; path = "../../Mobile Buy SDK/Mobile Buy SDK.xcodeproj"; sourceTree = "<group>"; };
 		BE5E28451B94F5C300D2ECB5 /* Mobile Buy SDK Advanced Sample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Mobile Buy SDK Advanced Sample.entitlements"; sourceTree = "<group>"; };
 		BE8B824B1B8CF49D00E3F871 /* Mobile Buy SDK Advanced Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile Buy SDK Advanced Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -352,12 +352,12 @@
 		847612991CAB05BE00AB17AA /* UIKit Additions */ = {
 			isa = PBXGroup;
 			children = (
-				8476129A1CAB05BE00AB17AA /* UIColor+BUYAdditions.h */,
-				8476129B1CAB05BE00AB17AA /* UIColor+BUYAdditions.m */,
-				8476129C1CAB05BE00AB17AA /* UIFont+BUYAdditions.h */,
-				8476129D1CAB05BE00AB17AA /* UIFont+BUYAdditions.m */,
-				8476129E1CAB05BE00AB17AA /* UIImage+BUYAdditions.h */,
-				8476129F1CAB05BE00AB17AA /* UIImage+BUYAdditions.m */,
+				B2C560C01CEE39180015AA40 /* UIColor+Additions.h */,
+				B2C560C11CEE39180015AA40 /* UIColor+Additions.m */,
+				8476129C1CAB05BE00AB17AA /* UIFont+Additions.h */,
+				8476129D1CAB05BE00AB17AA /* UIFont+Additions.m */,
+				8476129E1CAB05BE00AB17AA /* UIImage+Additions.h */,
+				8476129F1CAB05BE00AB17AA /* UIImage+Additions.m */,
 			);
 			path = "UIKit Additions";
 			sourceTree = "<group>";
@@ -576,8 +576,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				847612A01CAB05BE00AB17AA /* UIColor+BUYAdditions.m in Sources */,
-				847612A11CAB05BE00AB17AA /* UIFont+BUYAdditions.m in Sources */,
+				847612A11CAB05BE00AB17AA /* UIFont+Additions.m in Sources */,
 				BE948D491B9500DC009AB20B /* GetCompletionStatusOperation.m in Sources */,
 				8476127B1CAB047600AB17AA /* HeaderBackgroundView.m in Sources */,
 				BE8B82951B8E65D700E3F871 /* PreCheckoutViewController.m in Sources */,
@@ -585,6 +584,7 @@
 				9A0B0C871CEC8F370037D68F /* BUYPaymentButton.m in Sources */,
 				8476127C1CAB047600AB17AA /* HeaderOverlayView.m in Sources */,
 				B2C560BA1CEE36C00015AA40 /* ProductViewControllerThemeTintColorTableViewCell.m in Sources */,
+				B2C560C21CEE39180015AA40 /* UIColor+Additions.m in Sources */,
 				8476127A1CAB047600AB17AA /* ProductViewHeader.m in Sources */,
 				847612841CAB047600AB17AA /* VariantSelectionViewController.m in Sources */,
 				847612801CAB047600AB17AA /* OptionValueCell.m in Sources */,
@@ -612,7 +612,7 @@
 				847612691CAB047600AB17AA /* Theme.m in Sources */,
 				847612701CAB047600AB17AA /* GradientView.m in Sources */,
 				847612961CAB059100AB17AA /* ImageKit.m in Sources */,
-				847612A21CAB05BE00AB17AA /* UIImage+BUYAdditions.m in Sources */,
+				847612A21CAB05BE00AB17AA /* UIImage+Additions.m in Sources */,
 				847612771CAB047600AB17AA /* ProductView.m in Sources */,
 				9079F5F41BB1AAA100CB1B35 /* CollectionListViewController.m in Sources */,
 				BE8B82541B8CF49D00E3F871 /* AppDelegate.m in Sources */,

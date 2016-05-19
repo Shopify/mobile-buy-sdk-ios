@@ -1,5 +1,5 @@
 //
-//  UIImage+BUYAdditions.h
+//  BUYFont+Additions.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,11 +24,14 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+#import "UIFont+Additions.h"
 
-@interface UIImage (BUYAdditions)
+@implementation UIFont (Additions)
 
-+ (UIImage *)templateButtonBackgroundImage;
-+ (UIImage *)templateImageWithFill:(UIColor *)fill stroke:(UIColor *)stroke edgeInsets:(UIEdgeInsets)edgeInsets;
++ (UIFont *)preferredFontForTextStyle:(NSString *)style increasedPointSize:(CGFloat)size
+{
+	UIFontDescriptor *descriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:style];
+	return [UIFont fontWithDescriptor:descriptor size:descriptor.pointSize + size];
+}
 
 @end

@@ -25,7 +25,7 @@
 //
 
 #import "ProductHeaderCell.h"
-#import "UIFont+BUYAdditions.h"
+#import "UIFont+Additions.h"
 #import "Theme+Additions.h"
 
 @interface ProductHeaderCell ()

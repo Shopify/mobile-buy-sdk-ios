@@ -1,5 +1,5 @@
 //
-//  BUYFont.h
+//  Font+Additions.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -26,7 +26,7 @@
 
 @import UIKit;
 
-@interface UIFont (BUYAdditions)
+@interface UIFont (Additions)
 
 /**
  *  Class method to allow system fonts to have increased point sizes from the OS default.

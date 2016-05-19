@@ -1,5 +1,5 @@
 //
-//  BUYFont.m
+//  UIColor+Additions.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,14 +24,36 @@
 //  THE SOFTWARE.
 //
 
-#import "UIFont+BUYAdditions.h"
+@import UIKit;
 
-@implementation UIFont (BUYAdditions)
+#define BUY_RGB(r, g, b) BUY_RGBA(r, g, b, 1)
+#define BUY_RGBA(r, g, b, a) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a]
 
-+ (UIFont *)preferredFontForTextStyle:(NSString *)style increasedPointSize:(CGFloat)size
-{
-	UIFontDescriptor *descriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:style];
-	return [UIFont fontWithDescriptor:descriptor size:descriptor.pointSize + size];
-}
+@interface UIColor (Additions)
+
+/**
+ *  Check if the color is light (brightness of colors combined less than .5)
+ *  Supports RGB and grey space colors
+ *
+ *  @return Returns true if the color is light
+ */
+- (BOOL)isLightColor;
+
+/**
+ *  Creates a UIColor from a hex value
+ *
+ *  @param hex the hex value to convert to a UIColor
+ *
+ *  @return A UIColor object
+ */
++ (UIColor*)colorWithHex:(NSInteger)hex;
++ (UIColor*)colorWithHexString:(NSString *)hexString;
+
+/**
+ *  Creates a string representing the hex value for the color
+ *
+ *  @return String representing the hex value
+ */
+- (NSString *)hexString;
 
 @end
