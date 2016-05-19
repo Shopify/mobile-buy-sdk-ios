@@ -133,12 +133,10 @@
 			[weakSelf locked:^{
 				weakSelf.currentOperation = getOperation;
 			}];
-			NSLog(@"Getting completed checkout.");
 			[weakSelf.client startOperation:getOperation];
 			
 		}];
 		pollOperation.pollingHandler = ^BOOL (NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
-			NSLog(@"Polling checkout...");
 			return response.statusCode == BUYStatusProcessing;
 		};
 		
@@ -146,7 +144,6 @@
 		[weakSelf locked:^{
 			weakSelf.currentOperation = pollOperation;
 		}];
-		NSLog(@"Starting checkout status polling.");
 		[weakSelf.client startOperation:pollOperation];
 	}];
 	
@@ -154,7 +151,6 @@
 	[self locked:^{
 		self.currentOperation = beginOperation;
 	}];
-	NSLog(@"Starting checkout.");
 	[self.client startOperation:beginOperation];
 }
 

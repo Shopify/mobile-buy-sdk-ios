@@ -31,6 +31,7 @@
 #import "BUYTestConstants.h"
 #import "BUYCheckout.h"
 #import "BUYClientTestBase.h"
+#import "BUYClient+Routing.h"
 #import <OHHTTPStubs/OHHTTPStubs.h>
 #import "OHHTTPStubsResponse+Helpers.h"
 
@@ -167,33 +168,20 @@
 	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
 		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_2"];
 	}];
-	__block BUYStatus shippingStatus = BUYStatusUnknown;
 	
-	do {
-		NSLog(@"Fetching shipping rates...");
-		XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[self.client getShippingRatesForCheckout:_checkout completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
+		XCTAssertNil(error);
+		XCTAssertEqual(status, BUYStatusComplete);
 		
-		[self.client getShippingRatesForCheckout:_checkout completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
-			XCTAssertNil(error);
-			shippingStatus = status;
-			if (shippingStatus == BUYStatusComplete) {
-				XCTAssertNotNil(returnedShippingRates);
-				_shippingRates = returnedShippingRates;
-			}
-			[expectation fulfill];
-		}];
+		XCTAssertNotNil(shippingRates);
+		XCTAssertTrue([shippingRates count] > 0);
 		
-		[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
-			XCTAssertNil(error);
-		}];
-		
-		if (shippingStatus == BUYStatusProcessing) {
-			[NSThread sleepForTimeInterval:0.5f];
-		}
-	} while (shippingStatus == BUYStatusProcessing);
+		_shippingRates = shippingRates;
+		[expectation fulfill];
+	}];
 	
-	XCTAssertTrue([_shippingRates count] > 0);
-	XCTAssertEqual(shippingStatus, BUYStatusComplete);
+	[self waitForExpectationsWithTimeout:10.0 handler:nil];
 }
 
 - (void)updateCheckout
@@ -265,7 +253,17 @@
 	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
 		return [self shouldUseMocks];
 	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_5"];
+		NSString *path = request.URL.absoluteString.lastPathComponent;
+		if ([path isEqualToString:[self.client urlForCheckoutsCompletionWithToken:_checkout.token].lastPathComponent]) {
+			return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_5"];
+			
+		} else if ([path isEqualToString:[self.client urlForCheckoutsProcessingWithToken:_checkout.token].lastPathComponent]) {
+			return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_14"];
+			
+		} else if ([path isEqualToString:[self.client urlForCheckoutsWithToken:_checkout.token].lastPathComponent]) {
+			return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_15"];
+		}
+		return [OHHTTPStubsResponse responseWithData:[NSData new] statusCode:500 headers:nil];;
 	}];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
@@ -283,7 +281,7 @@
 		
 		[self confirmCreditCard];
 	}];
-	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+	[self waitForExpectationsWithTimeout:10000 handler:^(NSError *error) {
 		XCTAssertNil(error);
 	}];
 }

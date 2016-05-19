@@ -27,6 +27,7 @@
 #import "BUYClient+Checkout.h"
 #import "BUYClient+Internal.h"
 #import "BUYClient+Routing.h"
+#import "BUYRequestOperation.h"
 #import "BUYCheckoutOperation.h"
 #import "BUYAddress.h"
 #import "BUYCheckout.h"
@@ -226,7 +227,7 @@
 																							  @"checkout" : @"",
 																							  }];
 	
-	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	BUYRequestOperation *operation = [self getRequestForURL:route start:NO completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		NSArray *shippingRates = nil;
 		if (json && !error) {
 			shippingRates = [self.modelManager insertShippingRatesWithJSONArray:json[@"shipping_rates"]];
@@ -235,6 +236,13 @@
 		NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
 		block(shippingRates, [self statusForStatusCode:statusCode error:error], error);
 	}];
+	
+	operation.pollingHandler = ^BOOL(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		return response.statusCode == BUYStatusProcessing;
+	};
+	
+	[self startOperation:operation];
+	return operation;
 }
 
 #pragma mark - Payments -

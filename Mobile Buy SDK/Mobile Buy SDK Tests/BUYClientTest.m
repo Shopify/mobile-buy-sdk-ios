@@ -184,19 +184,6 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 	XCTAssertEqual(BUYStatusComplete, status);
 }
 
-- (void)testCheckoutWithApplePayToken
-{
-	id<BUYPaymentToken> token = [[BUYApplePayToken alloc] initWithPaymentToken:[BUYApplePayTestToken validToken]];
-	XCTAssertThrows(
-		[self.client completeCheckout:[BUYCheckout new] paymentToken:token completion:^(BUYCheckout *checkout, NSError *error) {}]
-	);
-
-	BUYCheckout *checkout = [[BUYCheckout alloc] initWithModelManager:self.client.modelManager JSONDictionary:@{@"token": @"abcdef", @"payment_due": @0}];
-	XCTAssertNoThrow(
-		[self.client completeCheckout:checkout paymentToken:nil completion:^(BUYCheckout *checkout, NSError *error) {}]
-	);
-}
-
 - (void)testQueryItemsConversion
 {
 	NSDictionary *dictionary = @{@"collection_id" : @"1", @"limit" : @"25", @"page" : @"1", @"sort_by" : @"collection-default"};
