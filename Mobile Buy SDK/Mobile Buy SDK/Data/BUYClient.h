@@ -27,6 +27,7 @@
 @import Foundation;
 
 @class BUYModelManager;
+@class BUYOperation;
 @class BUYRequestOperation;
 
 /**

@@ -153,9 +153,9 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
  *  @param paymentToken  Opaque payment token object. May be nil if the total checkout amount is equal to $0.00
  *  @param block         (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
  *
- *  @return The associated BUYRequestOperation
+ *  @return The associated BUYOperation
  */
-- (BUYRequestOperation *)completeCheckout:(BUYCheckout *)checkout paymentToken:(_Nullable id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block;
+- (BUYOperation *)completeCheckout:(BUYCheckout *)checkout paymentToken:(_Nullable id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block;
 
 /**
  *  Retrieve the status of a BUYCheckout. This checks the status of the current payment processing job for the provided checkout.

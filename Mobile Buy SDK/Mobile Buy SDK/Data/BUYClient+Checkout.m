@@ -27,6 +27,7 @@
 #import "BUYClient+Checkout.h"
 #import "BUYClient+Internal.h"
 #import "BUYClient+Routing.h"
+#import "BUYCheckoutOperation.h"
 #import "BUYAddress.h"
 #import "BUYCheckout.h"
 #import "BUYGiftCard.h"
@@ -40,6 +41,8 @@
 #define BUYAssertCheckout(checkout) BUYAssert([(checkout) hasToken], @"Checkout assertion failed. Checkout must have a valid token associated with it.")
 
 @implementation BUYClient (Checkout)
+
+#pragma mark - API -
 
 - (void)handleCheckoutResponse:(NSDictionary *)json error:(NSError *)error block:(BUYDataCheckoutBlock)block
 {
@@ -137,10 +140,15 @@
 
 - (BUYRequestOperation *)getCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
+	return [self getCheckout:checkout start:YES completion:block];
+}
+
+- (BUYRequestOperation *)getCheckout:(BUYCheckout *)checkout start:(BOOL)start completion:(BUYDataCheckoutBlock)block
+{
 	BUYAssertCheckout(checkout);
 	
 	NSURL *route = [self urlForCheckoutsWithToken:checkout.token];
-	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self getRequestForURL:route start:start completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		[self handleCheckoutResponse:json error:error block:block];
 	}];
 }
@@ -155,7 +163,11 @@
 	}];
 }
 
-- (BUYRequestOperation*)completeCheckout:(BUYCheckout *)checkout paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block
+- (BUYOperation *)completeCheckout:(BUYCheckout *)checkout paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block {
+	return [[BUYCheckoutOperation alloc] initWithClient:self checkout:checkout token:paymentToken completion:block];
+}
+
+- (BUYRequestOperation *)beginCheckout:(BUYCheckout *)checkout paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block
 {
 	BUYAssertCheckout(checkout);
 	
@@ -164,7 +176,7 @@
 	BUYAssert(paymentToken || isFree, @"Failed to complete checkout. Checkout must have a payment token or have a payment value equal to $0.00");
 	
 	NSURL *route = [self urlForCheckoutsCompletionWithToken:checkout.token];
-	return [self postRequestForURL:route object:[paymentToken JSONDictionary] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self postRequestForURL:route object:[paymentToken JSONDictionary] start:NO completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		[self handleCheckoutResponse:json error:error block:block];
 	}];
 }
@@ -173,7 +185,7 @@
 {
 	BUYAssertCheckout(checkout);
 	
-	return [self getCompletionStatusOfCheckoutToken:checkout.token completion:block];
+	return [self getCompletionStatusOfCheckoutToken:checkout.token start:YES completion:block];
 }
 
 - (BUYRequestOperation *)getCompletionStatusOfCheckoutURL:(NSURL *)url completion:(BUYDataStatusBlock)block
@@ -190,19 +202,19 @@
 	
 	BUYAssert(token, @"Failed to get completion status of checkout. Checkout URL must have a valid token associated with it.");
 	
-	return [self getCompletionStatusOfCheckoutToken:token completion:block];
+	return [self getCompletionStatusOfCheckoutToken:token start:YES completion:block];
 }
 
-- (BUYRequestOperation *)getCompletionStatusOfCheckoutToken:(NSString *)token completion:(BUYDataStatusBlock)block
+- (BUYRequestOperation *)getCompletionStatusOfCheckoutToken:(NSString *)token start:(BOOL)start completion:(BUYDataStatusBlock)block
 {
 	NSURL *route = [self urlForCheckoutsProcessingWithToken:token];
-	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self getRequestForURL:route start:start completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
 		block([self statusForStatusCode:statusCode error:error], error);
 	}];
 }
 
-#pragma mark - Shipping Rates
+#pragma mark - Shipping Rates -
 
 - (BUYRequestOperation *)getShippingRatesForCheckout:(BUYCheckout *)checkout completion:(BUYDataShippingRatesBlock)block
 {
@@ -223,7 +235,7 @@
 	}];
 }
 
-#pragma mark - Payments
+#pragma mark - Payments -
 
 - (BUYRequestOperation *)storeCreditCard:(BUYCreditCard *)creditCard checkout:(BUYCheckout *)checkout completion:(BUYDataCreditCardBlock)completion
 {

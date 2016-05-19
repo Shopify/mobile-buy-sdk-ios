@@ -117,31 +117,58 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 	return nil;
 }
 
+#pragma mark - Auto Starting Convenience Requests
+
+- (BUYRequestOperation *)getRequestForURL:(NSURL *)url completionHandler:(BUYClientRequestJSONCompletion)completionHandler
+{
+	return [self getRequestForURL:url start:YES completionHandler:completionHandler];
+}
+
+- (BUYRequestOperation *)postRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(BUYClientRequestJSONCompletion)completionHandler
+{
+	return [self postRequestForURL:url object:object start:YES completionHandler:completionHandler];
+}
+
+- (BUYRequestOperation *)putRequestForURL:(NSURL *)url object:(id<BUYSerializable>)object completionHandler:(BUYClientRequestJSONCompletion)completionHandler
+{
+	return [self putRequestForURL:url object:object start:YES completionHandler:completionHandler];
+}
+
+- (BUYRequestOperation *)patchRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(BUYClientRequestJSONCompletion)completionHandler
+{
+	return [self patchRequestForURL:url object:object start:YES completionHandler:completionHandler];
+}
+
+- (BUYRequestOperation *)deleteRequestForURL:(NSURL *)url completionHandler:(BUYClientRequestJSONCompletion)completionHandler
+{
+	return [self deleteRequestForURL:url start:YES completionHandler:completionHandler];
+}
+
 #pragma mark - Convenience Requests
 
-- (BUYRequestOperation *)getRequestForURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
+- (BUYRequestOperation *)getRequestForURL:(NSURL *)url start:(BOOL)start completionHandler:(BUYClientRequestJSONCompletion)completionHandler
 {
-	return [self requestForURL:url method:@"GET" object:nil completionHandler:completionHandler];
+	return [self requestForURL:url method:@"GET" object:nil start:start completionHandler:completionHandler];
 }
 
-- (BUYRequestOperation *)postRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
+- (BUYRequestOperation *)postRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object start:(BOOL)start completionHandler:(BUYClientRequestJSONCompletion)completionHandler
 {
-	return [self requestForURL:url method:@"POST" object:object completionHandler:completionHandler];
+	return [self requestForURL:url method:@"POST" object:object start:start completionHandler:completionHandler];
 }
 
-- (BUYRequestOperation *)putRequestForURL:(NSURL *)url object:(id<BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
+- (BUYRequestOperation *)putRequestForURL:(NSURL *)url object:(id<BUYSerializable>)object start:(BOOL)start completionHandler:(BUYClientRequestJSONCompletion)completionHandler
 {
-	return [self requestForURL:url method:@"PUT" object:object completionHandler:completionHandler];
+	return [self requestForURL:url method:@"PUT" object:object start:start completionHandler:completionHandler];
 }
 
-- (BUYRequestOperation *)patchRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
+- (BUYRequestOperation *)patchRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object start:(BOOL)start completionHandler:(BUYClientRequestJSONCompletion)completionHandler
 {
-	return [self requestForURL:url method:@"PATCH" object:object completionHandler:completionHandler];
+	return [self requestForURL:url method:@"PATCH" object:object start:start completionHandler:completionHandler];
 }
 
-- (BUYRequestOperation *)deleteRequestForURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
+- (BUYRequestOperation *)deleteRequestForURL:(NSURL *)url start:(BOOL)start completionHandler:(BUYClientRequestJSONCompletion)completionHandler
 {
-	return [self requestForURL:url method:@"DELETE" object:nil completionHandler:completionHandler];
+	return [self requestForURL:url method:@"DELETE" object:nil start:start completionHandler:completionHandler];
 }
 
 #pragma mark - Generic Requests
@@ -157,7 +184,12 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 	return [NSString stringWithFormat:@"%@ %@", @"Basic", [data base64EncodedStringWithOptions:0]];
 }
 
-- (BUYRequestOperation *)requestForURL:(NSURL *)url method:(NSString *)method object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
+- (BUYRequestOperation *)requestForURL:(NSURL *)url method:(NSString *)method object:(id <BUYSerializable>)object completionHandler:(BUYClientRequestJSONCompletion)completionHandler
+{
+	return [self requestForURL:url method:method object:object start:YES completionHandler:completionHandler];
+}
+
+- (BUYRequestOperation *)requestForURL:(NSURL *)url method:(NSString *)method object:(id <BUYSerializable>)object start:(BOOL)start completionHandler:(BUYClientRequestJSONCompletion)completionHandler
 {
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
 	if (object) {
@@ -180,7 +212,9 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 		}];
 	}];
 	
-	[self startTask:operation];
+	if (start) {
+		[self startTask:operation];
+	}
 	return operation;
 }
 
