@@ -26,7 +26,7 @@
 
 @import PassKit;
 #import "CheckoutButton.h"
-#import "UIImage+BUYAdditions.h"
+#import "UIImage+Additions.h"
 #import "UIImage+PaymentButton.h"
 #import "UIButton+PaymentButton.h"
 

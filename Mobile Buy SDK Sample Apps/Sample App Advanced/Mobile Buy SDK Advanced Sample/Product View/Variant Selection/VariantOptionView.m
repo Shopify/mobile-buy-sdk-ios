@@ -29,7 +29,7 @@
 
 #import "Theme+Additions.h"
 #import "VariantOptionView.h"
-#import "UIFont+BUYAdditions.h"
+#import "UIFont+Additions.h"
 
 @interface VariantOptionView ()
 

@@ -25,8 +25,8 @@
 //
 
 #import "CheckoutButton.h"
-#import "UIColor+BUYAdditions.h"
-#import "UIImage+BUYAdditions.h"
+#import "UIColor+Additions.h"
+#import "UIImage+Additions.h"
 
 @interface CheckoutButton ()
 

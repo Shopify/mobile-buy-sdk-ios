@@ -1,5 +1,5 @@
 //
-//  BUYFont.h
+//  UIColor+Additions.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -26,16 +26,34 @@
 
 @import UIKit;
 
-@interface UIFont (BUYAdditions)
+#define BUY_RGB(r, g, b) BUY_RGBA(r, g, b, 1)
+#define BUY_RGBA(r, g, b, a) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a]
+
+@interface UIColor (Additions)
 
 /**
- *  Class method to allow system fonts to have increased point sizes from the OS default.
+ *  Check if the color is light (brightness of colors combined less than .5)
+ *  Supports RGB and grey space colors
  *
- *  @param style The text style for the font.
- *  @param size  A positive value to increase the default font's point size by.
- *
- *  @return A system font with an optionally increased point size.
+ *  @return Returns true if the color is light
  */
-+ (UIFont *)preferredFontForTextStyle:(NSString *)style increasedPointSize:(CGFloat)size;
+- (BOOL)isLightColor;
+
+/**
+ *  Creates a UIColor from a hex value
+ *
+ *  @param hex the hex value to convert to a UIColor
+ *
+ *  @return A UIColor object
+ */
++ (UIColor*)colorWithHex:(NSInteger)hex;
++ (UIColor*)colorWithHexString:(NSString *)hexString;
+
+/**
+ *  Creates a string representing the hex value for the color
+ *
+ *  @return String representing the hex value
+ */
+- (NSString *)hexString;
 
 @end

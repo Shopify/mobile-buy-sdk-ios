@@ -1,5 +1,5 @@
 //
-//  BUYPaymentButton.m
+//  PaymentButton.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -25,25 +25,25 @@
 //
 
 @import PassKit;
-#import "BUYPaymentButton.h"
+#import "PaymentButton.h"
 
-@interface BUYCustomPaymentButton : UIButton
+@interface CustomPaymentButton : UIButton
 
-@property (nonatomic, assign) BUYPaymentButtonType customButtonType;
-@property (nonatomic, assign) BUYPaymentButtonStyle customButtonStyle;
+@property (nonatomic, assign) PaymentButtonType customButtonType;
+@property (nonatomic, assign) PaymentButtonStyle customButtonStyle;
 
-- (void)buttonWithType:(BUYPaymentButtonType)customButtonType style:(BUYPaymentButtonStyle)customButtonStyle;
+- (void)buttonWithType:(PaymentButtonType)customButtonType style:(PaymentButtonStyle)customButtonStyle;
 
 @end
 
-@implementation BUYCustomPaymentButton
+@implementation CustomPaymentButton
 
-- (void)buttonWithType:(BUYPaymentButtonType)customButtonType style:(BUYPaymentButtonStyle)customButtonStyle {
+- (void)buttonWithType:(PaymentButtonType)customButtonType style:(PaymentButtonStyle)customButtonStyle {
 	self.customButtonType = customButtonType;
 	self.customButtonStyle = customButtonStyle;
 	self.layer.cornerRadius = 6;
 	self.clipsToBounds = YES;
-	if (self.customButtonStyle == BUYPaymentButtonStyleWhiteOutline) {
+	if (self.customButtonStyle == PaymentButtonStyleWhiteOutline) {
 		self.layer.borderColor = [[UIColor blackColor] CGColor];
 		self.layer.borderWidth = 1;
 	}
@@ -62,7 +62,7 @@
 	UIColor *backgroundColor = [UIColor whiteColor];
 	UIColor *foregroundColor = [UIColor blackColor];
 	
-	if (self.customButtonStyle == BUYPaymentButtonStyleBlack) {
+	if (self.customButtonStyle == PaymentButtonStyleBlack) {
 		backgroundColor = [UIColor blackColor];
 		foregroundColor = [UIColor whiteColor];
 	}
@@ -78,7 +78,7 @@
 	[foregroundColor setFill];
 	
 	switch (self.customButtonType) {
-		case BUYPaymentButtonTypeBuy: {
+		case PaymentButtonTypeBuy: {
 			//// Subframes
 			CGRect buyWithApplyPay = CGRectMake(CGRectGetMinX(frame) + (CGRectGetWidth(frame) * 0.09790f + 0.5f), CGRectGetMinY(frame) + (CGRectGetHeight(frame) * 0.25000f - 0.32f) + 0.82f, (CGRectGetWidth(frame) * 0.89055f + 0.15f) - (CGRectGetWidth(frame) * 0.09790f + 0.5f) + 0.35f, (CGRectGetHeight(frame) * 0.75414f + 0.5f) - (CGRectGetHeight(frame) * 0.25000f - 0.32f) - 0.82f);
 			
@@ -413,7 +413,7 @@
 			}
 		}
 			break;
-		case BUYPaymentButtonTypePlain: {
+		case PaymentButtonTypePlain: {
 			//// applePay Drawing
 			UIBezierPath* applePayPath = UIBezierPath.bezierPath;
 			[applePayPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 0.65968f * CGRectGetWidth(frame), CGRectGetMinY(frame) + 0.37344f * CGRectGetHeight(frame))];
@@ -569,17 +569,17 @@
 
 @end
 
-@implementation BUYPaymentButton
+@implementation PaymentButton
 
-+ (instancetype)buttonWithType:(BUYPaymentButtonType)buttonType style:(BUYPaymentButtonStyle)buttonStyle {
++ (instancetype)buttonWithType:(PaymentButtonType)buttonType style:(PaymentButtonStyle)buttonStyle {
 	Class ApplePayButton = NSClassFromString(@"PKPaymentButton");
 	if (ApplePayButton) {
-		return (BUYPaymentButton*)[ApplePayButton buttonWithType:buttonType
+		return (PaymentButton*)[ApplePayButton buttonWithType:buttonType
 														   style:buttonStyle];
 	} else {
-		BUYCustomPaymentButton *customPaymentButton = [BUYCustomPaymentButton buttonWithType:UIButtonTypeCustom];
+		CustomPaymentButton *customPaymentButton = [CustomPaymentButton buttonWithType:UIButtonTypeCustom];
 		[customPaymentButton buttonWithType:buttonType style:buttonStyle];
-		return (BUYPaymentButton*)customPaymentButton;
+		return (PaymentButton*)customPaymentButton;
 	}
 }
 

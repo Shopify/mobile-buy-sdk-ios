@@ -1,5 +1,5 @@
 //
-//  BUYFont.h
+//  BUYFont+Additions.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,18 +24,14 @@
 //  THE SOFTWARE.
 //
 
-@import UIKit;
+#import "UIFont+Additions.h"
 
-@interface UIFont (BUYAdditions)
+@implementation UIFont (Additions)
 
-/**
- *  Class method to allow system fonts to have increased point sizes from the OS default.
- *
- *  @param style The text style for the font.
- *  @param size  A positive value to increase the default font's point size by.
- *
- *  @return A system font with an optionally increased point size.
- */
-+ (UIFont *)preferredFontForTextStyle:(NSString *)style increasedPointSize:(CGFloat)size;
++ (UIFont *)preferredFontForTextStyle:(NSString *)style increasedPointSize:(CGFloat)size
+{
+	UIFontDescriptor *descriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:style];
+	return [UIFont fontWithDescriptor:descriptor size:descriptor.pointSize + size];
+}
 
 @end

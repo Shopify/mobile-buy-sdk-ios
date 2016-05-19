@@ -1,5 +1,5 @@
 //
-//  UIColor+BUYAdditions.m
+//  UIColor+Additions.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,9 +24,9 @@
 //  THE SOFTWARE.
 //
 
-#import "UIColor+BUYAdditions.h"
+#import "UIColor+Additions.h"
 
-@implementation UIColor (BUYAdditions)
+@implementation UIColor (Additions)
 
 -(BOOL)isLightColor
 {

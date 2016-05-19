@@ -24,12 +24,12 @@
 //  THE SOFTWARE.
 //
 
-#import "UIImage+BUYAdditions.h"
+#import "UIImage+Additions.h"
 
 static const CGFloat kDefaultCornerRadius = 4.0f;
 static const CGFloat kDefaultStrokWidth = 1.0f;
 
-@implementation UIImage (BUYAdditions)
+@implementation UIImage (Additions)
 
 + (UIImage *)templateButtonBackgroundImage
 {

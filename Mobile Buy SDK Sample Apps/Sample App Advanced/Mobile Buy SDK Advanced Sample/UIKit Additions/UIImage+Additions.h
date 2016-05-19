@@ -1,5 +1,5 @@
 //
-//  BUYPaymentButton.h
+//  UIImage+Additions.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,20 +24,11 @@
 //  THE SOFTWARE.
 //
 
-typedef NS_ENUM(NSInteger, BUYPaymentButtonStyle) {
-	BUYPaymentButtonStyleWhite = 0,
-	BUYPaymentButtonStyleWhiteOutline,
-	BUYPaymentButtonStyleBlack
-};
+#import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSInteger, BUYPaymentButtonType) {
-	BUYPaymentButtonTypePlain = 0,
-	BUYPaymentButtonTypeBuy,
-	BUYPaymentButtonTypeSetup NS_ENUM_AVAILABLE_IOS(9_0)
-};
+@interface UIImage (Additions)
 
-@interface BUYPaymentButton : UIButton
-
-+ (instancetype)buttonWithType:(BUYPaymentButtonType)buttonType style:(BUYPaymentButtonStyle)buttonStyle;
++ (UIImage *)templateButtonBackgroundImage;
++ (UIImage *)templateImageWithFill:(UIColor *)fill stroke:(UIColor *)stroke edgeInsets:(UIEdgeInsets)edgeInsets;
 
 @end

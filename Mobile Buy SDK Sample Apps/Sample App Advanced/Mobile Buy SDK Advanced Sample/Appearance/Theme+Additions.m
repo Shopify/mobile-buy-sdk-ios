@@ -25,8 +25,8 @@
 //
 
 #import "Theme+Additions.h"
-#import "UIFont+BUYAdditions.h"
-#import "UIColor+BUYAdditions.h"
+#import "UIFont+Additions.h"
+#import "UIColor+Additions.h"
 
 @implementation Theme (Additions)
 

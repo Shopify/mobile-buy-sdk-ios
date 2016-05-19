@@ -41,7 +41,7 @@
 #import "Theme+Additions.h"
 #import "VariantOptionView.h"
 #import "VisualEffectView.h"
-#import "UIColor+BUYAdditions.h"
+#import "UIColor+Additions.h"
 #import "CheckoutButton.h"
 
 @implementation Theme

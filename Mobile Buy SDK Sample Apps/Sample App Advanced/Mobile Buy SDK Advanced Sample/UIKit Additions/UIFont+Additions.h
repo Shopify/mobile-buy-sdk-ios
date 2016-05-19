@@ -1,5 +1,5 @@
 //
-//  BUYPaymentButton.h
+//  Font+Additions.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,20 +24,18 @@
 //  THE SOFTWARE.
 //
 
-typedef NS_ENUM(NSInteger, BUYPaymentButtonStyle) {
-	BUYPaymentButtonStyleWhite = 0,
-	BUYPaymentButtonStyleWhiteOutline,
-	BUYPaymentButtonStyleBlack
-};
+@import UIKit;
 
-typedef NS_ENUM(NSInteger, BUYPaymentButtonType) {
-	BUYPaymentButtonTypePlain = 0,
-	BUYPaymentButtonTypeBuy,
-	BUYPaymentButtonTypeSetup NS_ENUM_AVAILABLE_IOS(9_0)
-};
+@interface UIFont (Additions)
 
-@interface BUYPaymentButton : UIButton
-
-+ (instancetype)buttonWithType:(BUYPaymentButtonType)buttonType style:(BUYPaymentButtonStyle)buttonStyle;
+/**
+ *  Class method to allow system fonts to have increased point sizes from the OS default.
+ *
+ *  @param style The text style for the font.
+ *  @param size  A positive value to increase the default font's point size by.
+ *
+ *  @return A system font with an optionally increased point size.
+ */
++ (UIFont *)preferredFontForTextStyle:(NSString *)style increasedPointSize:(CGFloat)size;
 
 @end
