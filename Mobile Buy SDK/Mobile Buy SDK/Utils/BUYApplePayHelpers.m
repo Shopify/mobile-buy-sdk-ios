@@ -51,11 +51,6 @@ const NSTimeInterval PollDelay = 0.5;
 
 @implementation BUYApplePayHelpers
 
-- (instancetype)initWithClient:(BUYClient *)client checkout:(BUYCheckout *)checkout
-{
-	return [self initWithClient:client checkout:checkout shop:nil];
-}
-
 - (instancetype)initWithClient:(BUYClient *)client checkout:(BUYCheckout *)checkout shop:(BUYShop *)shop
 {
 	NSParameterAssert(client);
@@ -66,24 +61,11 @@ const NSTimeInterval PollDelay = 0.5;
 	if (self) {
 		self.client = client;
 		self.checkout = checkout;
-		
-		// We need a shop object to display the business name in the pay sheet
-		if (shop) {
-			self.shop = shop;
-		}
-		else {
-			[self.client getShop:^(BUYShop *shop, NSError *error) {
-				
-				if (shop) {
-					self.shop = shop;
-				}
-			}];
-		}
+		self.shop = shop;
 	}
 	
 	return self;
 }
-
 
 #pragma mark - PKPaymentAuthorizationDelegate methods
 

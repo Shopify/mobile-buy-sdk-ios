@@ -34,17 +34,9 @@
 @class BUYCheckout;
 @class BUYShop;
 
-@interface BUYApplePayHelpers : NSObject <PKPaymentAuthorizationViewControllerDelegate>
+NS_ASSUME_NONNULL_BEGIN
 
-/**
- *  Initializes a helper to support Apple Pay
- *
- *  @param client   A configured client
- *  @param checkout The checkout which is to be completed using Apple Pay
- *
- *  @return helper object
- */
-- (instancetype)initWithClient:(BUYClient *)client checkout:(BUYCheckout *)checkout;
+@interface BUYApplePayHelpers : NSObject <PKPaymentAuthorizationViewControllerDelegate>
 
 /**
  *  Initializes a helper to support Apple Pay
@@ -132,3 +124,5 @@
 - (BUYAddress *)buyAddressWithContact:(PKContact *)contact NS_AVAILABLE_IOS(9_0);
 
 @end
+
+NS_ASSUME_NONNULL_END
