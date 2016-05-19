@@ -281,7 +281,7 @@
 		
 		[self confirmCreditCard];
 	}];
-	[self waitForExpectationsWithTimeout:10000 handler:^(NSError *error) {
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
 		XCTAssertNil(error);
 	}];
 }
