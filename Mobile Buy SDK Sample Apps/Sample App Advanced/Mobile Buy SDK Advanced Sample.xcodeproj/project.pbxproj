@@ -47,7 +47,7 @@
 		902C9B921BB08FF500FC456E /* SummaryItemsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 902C9B911BB08FF500FC456E /* SummaryItemsTableViewCell.m */; };
 		9079F5F41BB1AAA100CB1B35 /* CollectionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9079F5F31BB1AAA100CB1B35 /* CollectionListViewController.m */; };
 		90A6F42D1BA8BCAC003E7C4F /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90A6F42C1BA8BCAC003E7C4F /* PassKit.framework */; };
-		9A0B0C871CEC8F370037D68F /* BUYPaymentButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C861CEC8F370037D68F /* BUYPaymentButton.m */; };
+		9A0B0C871CEC8F370037D68F /* PaymentButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C861CEC8F370037D68F /* PaymentButton.m */; };
 		B2C560B91CEE36C00015AA40 /* ProductViewControllerThemeStyleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C560B41CEE36C00015AA40 /* ProductViewControllerThemeStyleTableViewCell.m */; };
 		B2C560BA1CEE36C00015AA40 /* ProductViewControllerThemeTintColorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C560B61CEE36C00015AA40 /* ProductViewControllerThemeTintColorTableViewCell.m */; };
 		B2C560BB1CEE36C00015AA40 /* ProductViewControllerToggleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C560B81CEE36C00015AA40 /* ProductViewControllerToggleTableViewCell.m */; };
@@ -198,8 +198,8 @@
 		9079F5F21BB1AAA100CB1B35 /* CollectionListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionListViewController.h; sourceTree = "<group>"; };
 		9079F5F31BB1AAA100CB1B35 /* CollectionListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionListViewController.m; sourceTree = "<group>"; };
 		90A6F42C1BA8BCAC003E7C4F /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
-		9A0B0C851CEC8F370037D68F /* BUYPaymentButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYPaymentButton.h; sourceTree = "<group>"; };
-		9A0B0C861CEC8F370037D68F /* BUYPaymentButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYPaymentButton.m; sourceTree = "<group>"; };
+		9A0B0C851CEC8F370037D68F /* PaymentButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentButton.h; sourceTree = "<group>"; };
+		9A0B0C861CEC8F370037D68F /* PaymentButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentButton.m; sourceTree = "<group>"; };
 		B2C560B31CEE36C00015AA40 /* ProductViewControllerThemeStyleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductViewControllerThemeStyleTableViewCell.h; path = "Product View/ProductViewControllerThemeStyleTableViewCell.h"; sourceTree = "<group>"; };
 		B2C560B41CEE36C00015AA40 /* ProductViewControllerThemeStyleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductViewControllerThemeStyleTableViewCell.m; path = "Product View/ProductViewControllerThemeStyleTableViewCell.m"; sourceTree = "<group>"; };
 		B2C560B51CEE36C00015AA40 /* ProductViewControllerThemeTintColorTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductViewControllerThemeTintColorTableViewCell.h; path = "Product View/ProductViewControllerThemeTintColorTableViewCell.h"; sourceTree = "<group>"; };
@@ -337,8 +337,8 @@
 		8476128F1CAB059100AB17AA /* PaymentButton */ = {
 			isa = PBXGroup;
 			children = (
-				9A0B0C851CEC8F370037D68F /* BUYPaymentButton.h */,
-				9A0B0C861CEC8F370037D68F /* BUYPaymentButton.m */,
+				9A0B0C851CEC8F370037D68F /* PaymentButton.h */,
+				9A0B0C861CEC8F370037D68F /* PaymentButton.m */,
 				847612901CAB059100AB17AA /* ImageKit.h */,
 				847612911CAB059100AB17AA /* ImageKit.m */,
 				847612921CAB059100AB17AA /* UIButton+PaymentButton.h */,
@@ -581,7 +581,7 @@
 				8476127B1CAB047600AB17AA /* HeaderBackgroundView.m in Sources */,
 				BE8B82951B8E65D700E3F871 /* PreCheckoutViewController.m in Sources */,
 				8476127F1CAB047600AB17AA /* OptionSelectionViewController.m in Sources */,
-				9A0B0C871CEC8F370037D68F /* BUYPaymentButton.m in Sources */,
+				9A0B0C871CEC8F370037D68F /* PaymentButton.m in Sources */,
 				8476127C1CAB047600AB17AA /* HeaderOverlayView.m in Sources */,
 				B2C560BA1CEE36C00015AA40 /* ProductViewControllerThemeTintColorTableViewCell.m in Sources */,
 				B2C560C21CEE39180015AA40 /* UIColor+Additions.m in Sources */,
