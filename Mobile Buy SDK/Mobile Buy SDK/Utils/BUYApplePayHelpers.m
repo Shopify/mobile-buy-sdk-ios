@@ -191,31 +191,6 @@ const NSTimeInterval PollDelay = 0.5;
 	}
 }
 
-- (void)updateAndCompleteCheckoutWithPayment:(PKPayment *)payment
-								  completion:(void (^)(PKPaymentAuthorizationStatus))completion
-{
-	// Since we're deprecating this method and the controller is not used in the delegate method, we can pass in a not-null PKPaymentAuthorizationViewController
-	[self paymentAuthorizationViewController:[PKPaymentAuthorizationViewController new] didAuthorizePayment:payment completion:completion];
-}
-
-- (void)updateCheckoutWithShippingMethod:(PKShippingMethod *)shippingMethod completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *methods))completion
-{
-	// Since we're deprecating this method and the controller is not used in the delegate method, we can pass in a not-null PKPaymentAuthorizationViewController
-	[self paymentAuthorizationViewController:[PKPaymentAuthorizationViewController new] didSelectShippingMethod:shippingMethod completion:completion];
-}
-
-- (void)updateCheckoutWithAddress:(ABRecordRef)address completion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion
-{
-	// Since we're deprecating this method and the controller is not used in the delegate method, we can pass in a not-null PKPaymentAuthorizationViewController
-	[self paymentAuthorizationViewController:[PKPaymentAuthorizationViewController new] didSelectShippingAddress:address completion:completion];
-}
-
-- (void)updateCheckoutWithContact:(PKContact*)contact completion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion
-{
-	// Since we're deprecating this method and the controller is not used in the delegate method, we can pass in a not-null PKPaymentAuthorizationViewController
-	[self paymentAuthorizationViewController:[PKPaymentAuthorizationViewController new] didSelectShippingContact:contact completion:completion];
-}
-
 #pragma mark - internal
 
 - (BUYShippingRate *)rateForShippingMethod:(PKShippingMethod *)method
