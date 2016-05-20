@@ -25,16 +25,15 @@
 //
 
 #import "BUYApplePayHelpers.h"
-#import "BUYAddress.h"
 #import "BUYApplePayAdditions.h"
+#import "BUYApplePayToken.h"
 #import "BUYClient+Checkout.h"
 #import "BUYClient+Storefront.h"
 #import "BUYCheckout.h"
 #import "BUYError.h"
-#import "BUYModelManager.h"
+#import "BUYModelManager+ApplePay.h"
 #import "BUYShop.h"
 #import "BUYShopifyErrorCodes.h"
-#import "BUYApplePayToken.h"
 
 const NSTimeInterval PollDelay = 0.5;
 
@@ -311,25 +310,6 @@ const NSTimeInterval PollDelay = 0.5;
 			completion(checkoutStatus == BUYStatusComplete ? PKPaymentAuthorizationStatusSuccess : PKPaymentAuthorizationStatusFailure);
 		});
 	});
-}
-
-@end
-
-@implementation BUYModelManager (ApplePay)
-
-
-- (BUYAddress *)buyAddressWithABRecord:(ABRecordRef)addressRecord
-{
-	BUYAddress *address = [self insertAddressWithJSONDictionary:nil];
-	[address updateWithRecord:addressRecord];
-	return address;
-}
-
-- (BUYAddress *)buyAddressWithContact:(PKContact *)contact
-{
-	BUYAddress *address = [self insertAddressWithJSONDictionary:nil];
-	[address updateWithContact:contact];
-	return address;
 }
 
 @end
