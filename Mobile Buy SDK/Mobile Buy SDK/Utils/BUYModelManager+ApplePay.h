@@ -7,8 +7,9 @@
 //
 
 #import <Buy/BUYModelManager.h>
-@class BUYAddress;
 @import PassKit;
+
+@class BUYAddress;
 
 @interface BUYModelManager (ApplePay)
 
