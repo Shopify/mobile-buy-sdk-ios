@@ -90,14 +90,14 @@ const NSTimeInterval PollDelay = 0.5;
 	
 	[self.client updateCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		if (checkout && error == nil) {
-			self.checkout = checkout;
+			_checkout = checkout;
 			
 			id<BUYPaymentToken> token = [[BUYApplePayToken alloc] initWithPaymentToken:payment.token];
 			
 			//Now that the checkout is up to date, call complete.
 			[self.client completeCheckout:checkout paymentToken:token completion:^(BUYCheckout *checkout, NSError *error) {
 				if (checkout && error == nil) {
-					self.checkout = checkout;
+					_checkout = checkout;
 					
 					[self pollUntilCheckoutIsComplete:self.checkout completion:completion];
 				}
