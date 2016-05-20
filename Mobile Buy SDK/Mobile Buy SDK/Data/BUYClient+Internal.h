@@ -25,6 +25,7 @@
 //
 
 #import "BUYClient.h"
+#import "BUYClient+Checkout.h"
 #import "BUYSerializable.h"
 
 static NSString * const BUYShopifyErrorDomain = @"shopify";
@@ -53,5 +54,17 @@ typedef void (^BUYClientRequestJSONCompletion)(NSDictionary *json, NSURLResponse
 - (NSError *)errorFromJSON:(NSDictionary *)json response:(NSURLResponse *)response;
 
 - (void)startOperation:(BUYOperation *)operation;
+
+@end
+
+@class BUYCheckout;
+
+@protocol BUYPaymentToken;
+
+@interface BUYClient (PrivateCheckout)
+
+- (BUYRequestOperation *)beginCheckout:(BUYCheckout *)checkout paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block;
+- (BUYRequestOperation *)getCompletionStatusOfCheckoutToken:(NSString *)token start:(BOOL)start completion:(BUYDataStatusBlock)block;
+- (BUYRequestOperation *)getCheckout:(BUYCheckout *)checkout start:(BOOL)start completion:(BUYDataCheckoutBlock)block;
 
 @end

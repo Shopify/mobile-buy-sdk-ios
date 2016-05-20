@@ -26,19 +26,10 @@
 
 #import "BUYCheckoutOperation.h"
 #import "BUYClient+Checkout.h"
+#import "BUYClient+Internal.h"
 #import "BUYPaymentToken.h"
 #import "BUYCheckout.h"
 #import "BUYRequestOperation.h"
-
-@interface BUYClient (PrivateCheckout)
-
-- (BUYRequestOperation *)beginCheckout:(BUYCheckout *)checkout paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block;
-- (BUYRequestOperation *)getCompletionStatusOfCheckoutToken:(NSString *)token start:(BOOL)start completion:(BUYDataStatusBlock)block;
-- (BUYRequestOperation *)getCheckout:(BUYCheckout *)checkout start:(BOOL)start completion:(BUYDataCheckoutBlock)block;
-
-- (void)startOperation:(BUYOperation *)operation;
-
-@end
 
 @interface BUYCheckoutOperation ()
 
