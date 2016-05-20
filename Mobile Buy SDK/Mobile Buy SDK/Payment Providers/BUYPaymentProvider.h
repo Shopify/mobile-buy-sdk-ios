@@ -75,20 +75,12 @@ extern NSString *const BUYPaymentProviderDidCompleteCheckoutNotificationKey;
 - (void)paymentProviderDidDismissCheckout:(id <BUYPaymentProvider>)provider;
 
 /**
- *  Called when a checkout failed to update
+ *  Called when a checkout payment operation has failed
  *
  *  @param provider   the `BUYPaymentProvider`
  *  @param error    the optional `NSError`
  */
-- (void)paymentProvider:(id <BUYPaymentProvider>)provider didFailToUpdateCheckoutWithError:(NSError *)error;
-
-/**
- *  Called when the checkout failed
- *
- *  @param provider   the `BUYPaymentProvider`
- *  @param error    the optional `NSError`
- */
-- (void)paymentProvider:(id <BUYPaymentProvider>)provider didFailCheckoutWithError:(NSError * _Nullable)error;
+- (void)paymentProvider:(id <BUYPaymentProvider>)provider didFailWithError:(nullable NSError *)error;
 
 /**
  *  Called when the checkout has completed

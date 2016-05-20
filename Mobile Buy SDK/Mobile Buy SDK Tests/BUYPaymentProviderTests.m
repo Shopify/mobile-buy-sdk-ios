@@ -240,7 +240,7 @@
 {
 }
 
-- (void)paymentProvider:(id <BUYPaymentProvider>)provider didFailCheckoutWithError:(NSError *)error;
+- (void)paymentProvider:(id <BUYPaymentProvider>)provider didFailWithError:(NSError *)error;
 {
 	if (self.expectations[@"failedCheckout"]) {
 		[self.expectations[@"failedCheckout"] fulfill];

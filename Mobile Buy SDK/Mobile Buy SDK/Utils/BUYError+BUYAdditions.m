@@ -25,26 +25,49 @@
 //
 
 #import "BUYError+BUYAdditions.h"
+#import "NSArray+BUYAdditions.h"
+
+@interface NSDictionary (BUYCheckoutErrorParsing)
+- (NSDictionary *)buy_errorsDictionary;
+- (NSDictionary *)buy_checkoutErrorsDictionary;
+- (NSArray *)buy_lineItemErrors;
+@end
+
+@implementation NSDictionary (BUYCheckoutErrorParsing)
+
+- (NSDictionary *)buy_errorsDictionary
+{
+	NSDictionary *errorsDictionary = self[@"errors"];
+	return [errorsDictionary isKindOfClass:[NSDictionary class]] ? errorsDictionary : nil;
+}
+
+- (NSDictionary *)buy_checkoutErrorsDictionary
+{
+	NSDictionary *checkoutErrorsDictionary = [self buy_errorsDictionary][@"checkout"];
+	return [checkoutErrorsDictionary isKindOfClass:[NSDictionary class]] ? checkoutErrorsDictionary : nil;
+}
+
+- (NSArray *)buy_lineItemErrors
+{
+	NSArray *lineItemErrors = [self buy_checkoutErrorsDictionary][@"line_items"];
+	return [lineItemErrors isKindOfClass:[NSArray class]] ? lineItemErrors : nil;
+}
+
+@end
 
 @implementation BUYError (Checkout)
 
 + (NSArray<BUYError *> *)errorsFromCheckoutJSON:(NSDictionary *)json
 {
-	NSArray *lineItems = json[@"errors"][@"checkout"][@"line_items"];
-	NSMutableArray *errors = [NSMutableArray array];
-	
-	for (NSDictionary<NSString *, NSArray *> *lineItem in lineItems) {
-		if (lineItem == (id)[NSNull null]) {
-			[errors addObject:lineItem];
-		}
-		else {
-			for (NSString *key in lineItem.allKeys) {
-				NSDictionary *reason = [lineItem[key] firstObject];
-				[errors addObject:[[BUYError alloc] initWithKey:key json:reason]];
-			};
-		}
-	};
-	return errors;
+	return [[json buy_lineItemErrors] buy_map:^id(NSDictionary<NSString *, NSArray *> *lineItemError) {
+		return [lineItemError isKindOfClass:[NSDictionary class]] ? [self errorWithJSONDictionary:lineItemError] : [NSNull null];
+	}];
+}
+
++ (BUYError *)errorWithJSONDictionary:(NSDictionary<NSString *, NSArray *> *)dictionary
+{
+	NSString *key = dictionary.allKeys.firstObject;
+	return [[self alloc] initWithKey:key json:dictionary[key].firstObject];
 }
 
 - (NSString *)quantityRemainingMessage
