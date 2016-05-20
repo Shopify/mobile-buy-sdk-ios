@@ -63,9 +63,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSError *lastError;
 
 /** 
- *  The shop object
+ *  The shop name
  */
-@property (nonatomic, strong, readonly) BUYShop *shop;
+@property (nonatomic, strong, readonly) NSString *shopName;
 
 @end
 
