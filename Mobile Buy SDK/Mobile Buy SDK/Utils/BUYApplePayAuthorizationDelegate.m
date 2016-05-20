@@ -1,5 +1,5 @@
 //
-//  BUYApplePayPaymentControllerDelegate.m
+//  BUYApplePayAuthorizationDelegate.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYApplePayPaymentControllerDelegate.h"
+#import "BUYApplePayAuthorizationDelegate.h"
 #import "BUYApplePayAdditions.h"
 #import "BUYApplePayToken.h"
 #import "BUYClient+Checkout.h"
@@ -37,20 +37,20 @@
 
 const NSTimeInterval PollDelay = 0.5;
 
-@interface BUYApplePayPaymentControllerDelegate ()
+@interface BUYApplePayAuthorizationDelegate ()
 @property (nonatomic, strong) BUYCheckout *checkout;
 @property (nonatomic, strong) BUYClient *client;
 
 @property (nonatomic, strong) NSArray *shippingRates;
 @property (nonatomic, strong) NSError *lastError;
 
-@property (nonatomic, strong) BUYShop *shop;
+@property (nonatomic, strong) NSString *shopName;
 
 @end
 
-@implementation BUYApplePayPaymentControllerDelegate
+@implementation BUYApplePayAuthorizationDelegate
 
-- (instancetype)initWithClient:(BUYClient *)client checkout:(BUYCheckout *)checkout shop:(BUYShop *)shop
+- (instancetype)initWithClient:(BUYClient *)client checkout:(BUYCheckout *)checkout shopName:(NSString *)shopName
 {
 	NSParameterAssert(client);
 	NSParameterAssert(checkout);
@@ -60,7 +60,7 @@ const NSTimeInterval PollDelay = 0.5;
 	if (self) {
 		self.client = client;
 		self.checkout = checkout;
-		self.shop = shop;
+		self.shopName = shopName;
 	}
 	
 	return self;
