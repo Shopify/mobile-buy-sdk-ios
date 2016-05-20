@@ -39,8 +39,6 @@ const NSTimeInterval PollDelay = 0.5;
 
 @interface BUYApplePayAuthorizationDelegate ()
 
-@property (nonatomic, strong) BUYCheckout *checkout;
-
 @property (nonatomic, strong) NSArray *shippingRates;
 @property (nonatomic, strong) NSError *lastError;
 
@@ -150,7 +148,7 @@ const NSTimeInterval PollDelay = 0.5;
 	
 	[self.client updateCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		if (checkout && error == nil) {
-			self.checkout = checkout;
+			_checkout = checkout;
 		}
 		else {
 			self.lastError = error;
@@ -174,7 +172,7 @@ const NSTimeInterval PollDelay = 0.5;
 		
 		[self.client updateCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
 			if (checkout && error == nil) {
-				self.checkout = checkout;
+				_checkout = checkout;
 				[self getShippingRates:self.checkout completion:completion];
 			}
 			else {
@@ -218,7 +216,7 @@ const NSTimeInterval PollDelay = 0.5;
 			if ([shippingMethods count] > 0) {
 				[self selectShippingMethod:shippingMethods[0] completion:^(BUYCheckout *checkout, NSError *error) {
 					if (checkout && error == nil) {
-						self.checkout = checkout;
+						_checkout = checkout;
 					}
 					completion(error ? PKPaymentAuthorizationStatusFailure : PKPaymentAuthorizationStatusSuccess, shippingMethods, [self.checkout buy_summaryItemsWithShopName:self.shopName]);
 				}];
