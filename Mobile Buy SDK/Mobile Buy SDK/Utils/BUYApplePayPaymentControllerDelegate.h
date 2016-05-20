@@ -1,5 +1,5 @@
 //
-//  BUYApplePayHelpers.h
+//  BUYApplePayPaymentControllerDelegate.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -25,6 +25,7 @@
 //
 
 @import Foundation;
+@import PassKit;
 
 @class BUYClient;
 @class BUYCheckout;
@@ -32,7 +33,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BUYApplePayHelpers : NSObject <PKPaymentAuthorizationViewControllerDelegate>
+@interface BUYApplePayPaymentControllerDelegate : NSObject <PKPaymentAuthorizationViewControllerDelegate>
 
 /**
  *  Initializes a helper to support Apple Pay

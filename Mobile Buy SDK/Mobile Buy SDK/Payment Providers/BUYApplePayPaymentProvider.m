@@ -28,7 +28,7 @@
 
 #import "BUYApplePayPaymentProvider.h"
 #import "BUYCheckout.h"
-#import "BUYApplePayHelpers.h"
+#import "BUYApplePayPaymentControllerDelegate.h"
 #import "BUYApplePayAdditions.h"
 #import "BUYShop.h"
 #import "BUYClient+CheckoutHelpers.h"
@@ -38,7 +38,7 @@ NSString *const BUYApplePayPaymentProviderId = @"BUYApplePayPaymentProviderId";
 @interface BUYApplePayPaymentProvider () <PKPaymentAuthorizationViewControllerDelegate>
 
 @property (nonatomic, strong) BUYShop *shop;
-@property (nonatomic, strong) BUYApplePayHelpers *applePayHelper;
+@property (nonatomic, strong) BUYApplePayPaymentControllerDelegate *applePayHelper;
 @property (nonatomic, strong) BUYCheckout *checkout;
 @property (nonatomic, assign) PKPaymentAuthorizationStatus paymentAuthorizationStatus;
 @property (nonatomic, strong) BUYClient *client;
@@ -171,7 +171,7 @@ NSString *const BUYApplePayPaymentProviderId = @"BUYApplePayPaymentProviderId";
 
 - (void)proceedWithApplePay
 {
-	self.applePayHelper = [[BUYApplePayHelpers alloc] initWithClient:self.client checkout:self.checkout shop:self.shop];
+	self.applePayHelper = [[BUYApplePayPaymentControllerDelegate alloc] initWithClient:self.client checkout:self.checkout shop:self.shop];
 
 	PKPaymentRequest *request = [self paymentRequest];
 	request.paymentSummaryItems = [self.checkout buy_summaryItemsWithShopName:self.shop.name];
