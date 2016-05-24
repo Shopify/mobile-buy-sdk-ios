@@ -27,6 +27,7 @@
 #import "BUYApplePayAuthorizationDelegate.h"
 #import "BUYApplePayAdditions.h"
 #import "BUYApplePayToken.h"
+#import "BUYAssert.h"
 #import "BUYClient+Checkout.h"
 #import "BUYClient+Storefront.h"
 #import "BUYCheckout.h"
@@ -48,9 +49,9 @@ const NSTimeInterval PollDelay = 0.5;
 
 - (instancetype)initWithClient:(BUYClient *)client checkout:(BUYCheckout *)checkout shopName:(NSString *)shopName
 {
-	NSParameterAssert(client);
-	NSParameterAssert(checkout);
-	NSParameterAssert(shopName);
+	BUYAssert(client, @"Failed to initialize BUYApplePayAuthorizationDelegate. Client must not be nil.");
+	BUYAssert(checkout, @"Failed to initialize BUYApplePayAuthorizationDelegate. Checkout must not be nil.");
+	BUYAssert(shopName, @"Failed to initialize BUYApplePayAuthorizationDelegate. Shop name must not be nil.");
 	
 	self = [super init];
 	
