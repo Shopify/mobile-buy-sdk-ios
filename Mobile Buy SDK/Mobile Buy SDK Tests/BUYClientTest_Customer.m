@@ -162,7 +162,7 @@
 		[self.client logoutCustomerID:customer.identifier.stringValue callback:^(BUYStatus status, NSError * _Nullable error) {
 			
 			XCTAssertNil(error);
-			XCTAssertEqual(status, BUYStatusComplete);
+			XCTAssertEqual(status, 204);
 			
 			[expectation fulfill];
 		}];
@@ -220,7 +220,7 @@
 {
 	BUYAccountCredentialItem *email     = [BUYAccountCredentialItem itemWithEmail:self.customerEmail];
 	BUYAccountCredentialItem *password  = [BUYAccountCredentialItem itemWithPassword:self.customerPassword];
-	BUYAccountCredentialItem *password2 = [BUYAccountCredentialItem itemWithPassword:self.customerPassword];
+	BUYAccountCredentialItem *password2 = [BUYAccountCredentialItem itemWithPasswordConfirmation:self.customerPassword];
 	return [BUYAccountCredentials credentialsWithItems:@[email, password, password2]];
 }
 
