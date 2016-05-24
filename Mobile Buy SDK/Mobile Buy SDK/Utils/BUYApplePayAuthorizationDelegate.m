@@ -50,6 +50,7 @@ const NSTimeInterval PollDelay = 0.5;
 {
 	NSParameterAssert(client);
 	NSParameterAssert(checkout);
+	NSParameterAssert(shopName);
 	
 	self = [super init];
 	
