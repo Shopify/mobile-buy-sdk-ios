@@ -37,7 +37,7 @@
 @property (strong, nonatomic, readonly) id<BUYPaymentToken> token;
 @property (strong, nonatomic, readonly) BUYCheckoutOperationCompletion completion;
 
-@property (strong, nonatomic) BUYRequestOperation *currentOperation;
+@property (strong, atomic) BUYRequestOperation *currentOperation;
 
 @end
 
@@ -120,10 +120,8 @@
 				}
 			}];
 			
-			// Update current operation
-			[weakSelf locked:^{
-				weakSelf.currentOperation = getOperation;
-			}];
+			weakSelf.currentOperation = getOperation;
+			
 			[weakSelf.client startOperation:getOperation];
 			
 		}];
@@ -131,29 +129,21 @@
 			return response.statusCode == BUYStatusProcessing;
 		};
 		
-		// Update current operation
-		[weakSelf locked:^{
-			weakSelf.currentOperation = pollOperation;
-		}];
+		weakSelf.currentOperation = pollOperation;
+		
 		[weakSelf.client startOperation:pollOperation];
 	}];
 	
 	// Update current operation
-	[self locked:^{
-		self.currentOperation = beginOperation;
-	}];
+	self.currentOperation = beginOperation;
+	
 	[self.client startOperation:beginOperation];
 }
 
 - (void)cancelExecution
 {
 	[super cancelExecution];
-	
-	__block BUYRequestOperation *currentOperation = nil;
-	[self locked:^{
-		currentOperation = self.currentOperation;
-	}];
-	[currentOperation cancel];
+	[self.currentOperation cancel];
 }
 
 @end
