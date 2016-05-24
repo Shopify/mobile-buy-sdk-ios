@@ -108,11 +108,10 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 	return status;
 }
 
-- (NSError *)errorFromJSON:(NSDictionary *)json response:(NSURLResponse *)response
+- (NSError *)errorFromJSON:(NSDictionary *)json response:(NSHTTPURLResponse *)response
 {
-	NSInteger statusCode = [((NSHTTPURLResponse *) response) statusCode];
-	if ((int)(statusCode / 100.0) != 2) { // If not a 2xx response code
-		return [[NSError alloc] initWithDomain:BUYShopifyErrorDomain code:statusCode userInfo:json];
+	if ((int)(response.statusCode / 100.0) != 2) { // If not a 2xx response code
+		return [[NSError alloc] initWithDomain:BUYShopifyErrorDomain code:response.statusCode userInfo:json];
 	}
 	return nil;
 }
@@ -206,7 +205,12 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 	
 	request.HTTPMethod = method;
 	
-	BUYRequestOperation *operation = [[BUYRequestOperation alloc] initWithSession:self.session request:request payload:object completion:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	BUYRequestOperation *operation = [[BUYRequestOperation alloc] initWithSession:self.session request:request payload:object completion:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		
+		if (!error) {
+			error = [self errorFromJSON:json response:response];
+		}
+		
 		[self.callbackQueue addOperationWithBlock:^{
 			completionHandler(json, response, error);
 		}];

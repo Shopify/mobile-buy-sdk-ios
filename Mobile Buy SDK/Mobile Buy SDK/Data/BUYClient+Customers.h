@@ -105,6 +105,18 @@ typedef void (^BUYDataOrdersBlock)(NSArray <BUYOrder*> * _Nullable orders, NSErr
 - (BUYRequestOperation *)loginCustomerWithCredentials:(BUYAccountCredentials *)credentials callback:(BUYDataCustomerTokenBlock)block;
 
 /**
+ *  DELETE /api/customers/:customer_id/customer_token
+ *  Logs out an existing customer
+ *  Expects a customerID string
+ *
+ *  @param customer A customerID represented by a string
+ *  @param block    (BUYStatus status, NSError *error)
+ *
+ *  @return The associated BUYRequestOperation
+ */
+- (BUYRequestOperation *)logoutCustomerID:(NSString *)customerID callback:(BUYDataStatusBlock)block;
+
+/**
  *  POST /api/customers/recover
  *  Sends email for password recovery to an existing customer
  *

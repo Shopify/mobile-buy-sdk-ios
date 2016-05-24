@@ -49,7 +49,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 
 - (BUYRequestOperation *)getShop:(BUYDataShopBlock)block
 {
-	return [self getRequestForURL:[self urlForShop] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self getRequestForURL:[self urlForShop] completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		BUYShop *shop = nil;
 		if (json && !error) {
 			shop = [self.modelManager insertShopWithJSONDictionary:json];
@@ -65,7 +65,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 																  @"page"  : @(page),
 																  }];
 	
-	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		
 		NSArray *products = nil;
 		if (json && !error) {
@@ -99,7 +99,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 																  @"product_ids" : [productIds componentsJoinedByString:@","],
 																  }];
 	
-	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		
 		NSArray *products = nil;
 		if (json && !error) {
@@ -126,7 +126,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 																	 @"page"  : @(page),
 																	 }];
 	
-	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		
 		NSArray *collections = nil;
 		if (json && !error) {
@@ -152,7 +152,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 																  @"sort_by"       : [BUYCollection sortOrderParameterForCollectionSort:sortOrder]
 																  }];
 	
-	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		
 		NSArray *products = nil;
 		if (json && !error) {

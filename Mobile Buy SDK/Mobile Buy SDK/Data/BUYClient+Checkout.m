@@ -87,7 +87,7 @@
 
 - (BUYRequestOperation *)postCheckout:(NSDictionary *)checkoutJSON completion:(BUYDataCheckoutBlock)block
 {
-	return [self postRequestForURL:[self urlForCheckouts] object:checkoutJSON completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self postRequestForURL:[self urlForCheckouts] object:checkoutJSON completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		[self handleCheckoutResponse:json error:error block:block];
 	}];
 }
@@ -100,7 +100,7 @@
 	BUYGiftCard *giftCard = [self.modelManager giftCardWithCode:giftCardCode];
 	NSURL *route = [self urlForCheckoutsUsingGiftCardWithToken:checkout.token];
 	
-	return [self postRequestForURL:route object:giftCard completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self postRequestForURL:route object:giftCard completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		if (json && !error) {
 			[self updateCheckout:checkout withGiftCardDictionary:json[@"gift_card"] addingGiftCard:YES];
 		}
@@ -114,7 +114,7 @@
 	BUYAssert(giftCard.identifier, @"Failed to remove gift card. Gift card must have a valid identifier.");
 	
 	NSURL *route = [self urlForCheckoutsUsingGiftCard:giftCard.identifier token:checkout.token];
-	return [self deleteRequestForURL:route completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self deleteRequestForURL:route completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		if (!error) {
 			[self updateCheckout:checkout withGiftCardDictionary:json[@"gift_card"] addingGiftCard:NO];
 		}
@@ -149,7 +149,7 @@
 	BUYAssertCheckout(checkout);
 	
 	NSURL *route = [self urlForCheckoutsWithToken:checkout.token];
-	return [self getRequestForURL:route start:start completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self getRequestForURL:route start:start completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		[self handleCheckoutResponse:json error:error block:block];
 	}];
 }
@@ -159,7 +159,7 @@
 	BUYAssertCheckout(checkout);
 	
 	NSURL *route = [self urlForCheckoutsWithToken:checkout.token];
-	return [self patchRequestForURL:route object:checkout completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self patchRequestForURL:route object:checkout completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		[self handleCheckoutResponse:json error:error block:block];
 	}];
 }
@@ -179,7 +179,7 @@
 	BUYAssert(paymentToken || isFree, @"Failed to complete checkout. Checkout must have a payment token or have a payment value equal to $0.00");
 	
 	NSURL *route = [self urlForCheckoutsCompletionWithToken:checkout.token];
-	return [self postRequestForURL:route object:[paymentToken JSONDictionary] start:NO completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self postRequestForURL:route object:[paymentToken JSONDictionary] start:NO completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		[self handleCheckoutResponse:json error:error block:block];
 	}];
 }
@@ -211,9 +211,8 @@
 - (BUYRequestOperation *)getCompletionStatusOfCheckoutToken:(NSString *)token start:(BOOL)start completion:(BUYDataStatusBlock)block
 {
 	NSURL *route = [self urlForCheckoutsProcessingWithToken:token];
-	return [self getRequestForURL:route start:start completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
-		NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
-		block([self statusForStatusCode:statusCode error:error], error);
+	return [self getRequestForURL:route start:start completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		block([self statusForStatusCode:response.statusCode error:error], error);
 	}];
 }
 
@@ -227,14 +226,13 @@
 																							  @"checkout" : @"",
 																							  }];
 	
-	BUYRequestOperation *operation = [self getRequestForURL:route start:NO completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	BUYRequestOperation *operation = [self getRequestForURL:route start:NO completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		NSArray *shippingRates = nil;
 		if (json && !error) {
 			shippingRates = [self.modelManager insertShippingRatesWithJSONArray:json[@"shipping_rates"]];
 		}
 		
-		NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
-		block(shippingRates, [self statusForStatusCode:statusCode error:error], error);
+		block(shippingRates, [self statusForStatusCode:response.statusCode error:error], error);
 	}];
 	
 	operation.pollingHandler = ^BOOL(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
@@ -259,7 +257,7 @@
 		json[@"billing_address"] = [checkout.billingAddress jsonDictionaryForCheckout];
 	}
 	
-	return [self postRequestForURL:checkout.paymentURL object:@{ @"checkout" : json } completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self postRequestForURL:checkout.paymentURL object:@{ @"checkout" : json } completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		id<BUYPaymentToken> token = nil;
 		if (!error) {
 			token = [[BUYCreditCardToken alloc] initWithPaymentSessionID:json[@"id"]];
