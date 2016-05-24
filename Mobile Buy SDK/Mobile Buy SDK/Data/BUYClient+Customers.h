@@ -144,12 +144,12 @@ typedef void (^BUYDataOrdersBlock)(NSArray <BUYOrder*> * _Nullable orders, NSErr
  *
  *  @param credentials   Credentials containing a password and password confirmation
  *  @param customerID    ID of customer being activated
- *  @param customerToken Token contained in activation URL
+ *  @param token         Token contained in activation URL
  *  @param block         (BUYCustomer *customer, NSString *token, NSError *error)
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)activateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID customerToken:(NSString *)customerToken callback:(BUYDataCustomerTokenBlock)block;
+- (BUYRequestOperation *)activateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID token:(NSString *)token callback:(BUYDataCustomerTokenBlock)block;
 
 /**
  *  PUT /api/customers/:customer_id/reset
@@ -157,12 +157,12 @@ typedef void (^BUYDataOrdersBlock)(NSArray <BUYOrder*> * _Nullable orders, NSErr
  *
  *  @param credentials   Credentials containing a password and password confirmation
  *  @param customerID    ID of customer resetting password
- *  @param customerToken Token contained in reset URL
+ *  @param token         Token contained in reset URL
  *  @param block         (BUYCustomer *customer, NSString *token, NSError *error)
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)resetPasswordWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID customerToken:(NSString *)customerToken callback:(BUYDataCustomerTokenBlock)block;
+- (BUYRequestOperation *)resetPasswordWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID token:(NSString *)token callback:(BUYDataCustomerTokenBlock)block;
 
 /**
  *  GET /api/customers/:customer_id/orders

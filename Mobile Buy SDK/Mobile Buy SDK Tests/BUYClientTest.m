@@ -426,8 +426,8 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 					   ];
 	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:items];
 	NSString *customerID = @"12345";
-	NSString *customerToken = @"12345";
-	BUYRequestOperation *task = [self.client activateCustomerWithCredentials:credentials customerID:customerID customerToken:customerToken callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
+	NSString *token      = @"12345";
+	BUYRequestOperation *task = [self.client activateCustomerWithCredentials:credentials customerID:customerID token:token callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
 		
 	}];
 	

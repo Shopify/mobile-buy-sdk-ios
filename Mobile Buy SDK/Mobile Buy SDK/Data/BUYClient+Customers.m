@@ -129,11 +129,9 @@
 	}
 }
 
-- (BUYRequestOperation *)activateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID customerToken:(NSString *)customerToken callback:(BUYDataCustomerTokenBlock)block
+- (BUYRequestOperation *)activateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID token:(NSString *)token callback:(BUYDataCustomerTokenBlock)block
 {
-	NSURL *route  = [self urlForCustomersActivationWithID:customerID parameters:@{
-																					@"token": customerToken,
-																					}];
+	NSURL *route = [self urlForCustomersActivationWithID:customerID parameters:@{ @"token": token }];
 	
 	return [self putRequestForURL:route object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		NSString *email = json[@"customer"][@"email"];
@@ -147,11 +145,9 @@
 	}];
 }
 
-- (BUYRequestOperation *)resetPasswordWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID customerToken:(NSString *)customerToken callback:(BUYDataCustomerTokenBlock)block
+- (BUYRequestOperation *)resetPasswordWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID token:(NSString *)token callback:(BUYDataCustomerTokenBlock)block
 {
-	NSURL *route  = [self urlForCustomersPasswordResetWithID:customerID parameters:@{
-																					   @"token": customerToken,
-																					   }];
+	NSURL *route = [self urlForCustomersPasswordResetWithID:customerID parameters:@{ @"token": token }];
 	
 	return [self putRequestForURL:route object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		NSString *email = json[@"customer"][@"email"];
