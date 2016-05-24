@@ -40,6 +40,8 @@ const NSTimeInterval PollDelay = 0.5;
 
 @interface BUYApplePayAuthorizationDelegate ()
 
+@property (nonatomic, strong) BUYCheckout *checkout;
+
 @property (nonatomic, strong) NSArray *shippingRates;
 @property (nonatomic, strong) NSError *lastError;
 
@@ -92,14 +94,14 @@ const NSTimeInterval PollDelay = 0.5;
 	
 	[self.client updateCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		if (checkout && error == nil) {
-			_checkout = checkout;
+			self.checkout = checkout;
 			
 			id<BUYPaymentToken> token = [[BUYApplePayToken alloc] initWithPaymentToken:payment.token];
 			
 			//Now that the checkout is up to date, call complete.
 			[self.client completeCheckout:checkout paymentToken:token completion:^(BUYCheckout *checkout, NSError *error) {
 				if (checkout && error == nil) {
-					_checkout = checkout;
+					self.checkout = checkout;
 					
 					[self pollUntilCheckoutIsComplete:self.checkout completion:completion];
 				}
@@ -150,7 +152,7 @@ const NSTimeInterval PollDelay = 0.5;
 	
 	[self.client updateCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		if (checkout && error == nil) {
-			_checkout = checkout;
+			self.checkout = checkout;
 		}
 		else {
 			self.lastError = error;
@@ -174,7 +176,7 @@ const NSTimeInterval PollDelay = 0.5;
 		
 		[self.client updateCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
 			if (checkout && error == nil) {
-				_checkout = checkout;
+				self.checkout = checkout;
 				[self getShippingRates:self.checkout completion:completion];
 			}
 			else {
@@ -218,7 +220,7 @@ const NSTimeInterval PollDelay = 0.5;
 			if ([shippingMethods count] > 0) {
 				[self selectShippingMethod:shippingMethods[0] completion:^(BUYCheckout *checkout, NSError *error) {
 					if (checkout && error == nil) {
-						_checkout = checkout;
+						self.checkout = checkout;
 					}
 					completion(error ? PKPaymentAuthorizationStatusFailure : PKPaymentAuthorizationStatusSuccess, shippingMethods, [self.checkout buy_summaryItemsWithShopName:self.shopName]);
 				}];
