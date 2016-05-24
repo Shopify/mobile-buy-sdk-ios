@@ -153,4 +153,38 @@
 	}];
 }
 
+- (void)testCustomerLogout
+{
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCustomerLogin"];
+	}];
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	
+	BUYAccountCredentialItem *emailItem = [BUYAccountCredentialItem itemWithEmail:self.customerEmail];
+	BUYAccountCredentialItem *passwordItem = [BUYAccountCredentialItem itemWithPassword:self.customerPassword];
+	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:@[emailItem, passwordItem]];
+
+	[self.client loginCustomerWithCredentials:credentials callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
+		
+		[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+			return [self shouldUseMocks];
+		} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+			return [OHHTTPStubsResponse responseWithKey:@"testCustomerLogout"];
+		}];
+		
+		[self.client logoutCustomerID:customer.identifier.stringValue callback:^(BUYStatus status, NSError * _Nullable error) {
+			
+			XCTAssertNil(error);
+			XCTAssertEqual(status, BUYStatusComplete);
+			
+			[expectation fulfill];
+		}];
+	}];
+	
+	[self waitForExpectationsWithTimeout:10000 handler:nil];
+}
+
 @end

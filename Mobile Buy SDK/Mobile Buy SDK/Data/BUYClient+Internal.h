@@ -28,7 +28,7 @@
 #import "BUYClient+Checkout.h"
 #import "BUYSerializable.h"
 
-static NSString * const BUYShopifyErrorDomain = @"shopify";
+static NSString * const BUYShopifyErrorDomain = @"BUYShopifyErrorDomain";
 static NSString * const BUYClientVersionString = @"1.3";
 static NSString * const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token";
 

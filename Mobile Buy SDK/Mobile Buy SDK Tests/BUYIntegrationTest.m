@@ -853,7 +853,7 @@
 	self.client = [[BUYClient alloc] initWithShopDomain:@"asdfdsasdfdsasdfdsadsfowinfaoinfw.myshopify.com" apiKey:self.apiKey appId:@"88234"];
 	[self.client createCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		XCTAssertNotNil(error);
-		XCTAssertEqualObjects(error.domain, @"shopify");
+		XCTAssertEqualObjects(error.domain, @"BUYShopifyErrorDomain");
 		XCTAssertEqual(error.code, 404);
 		[expectation fulfill];
 		

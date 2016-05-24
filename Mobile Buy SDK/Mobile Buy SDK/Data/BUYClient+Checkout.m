@@ -48,7 +48,7 @@
 - (void)handleCheckoutResponse:(NSDictionary *)json error:(NSError *)error block:(BUYDataCheckoutBlock)block
 {
 	BUYCheckout *checkout = nil;
-	if (!error) {
+	if (json && !error) {
 		checkout = [self.modelManager insertCheckoutWithJSONDictionary:json[@"checkout"]];
 	}
 	block(checkout, error);
