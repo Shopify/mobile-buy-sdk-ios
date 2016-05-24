@@ -57,8 +57,7 @@ typedef void (^BUYRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResponse *
 
 @interface BUYRequestOperation ()
 
-@property (strong, nonatomic) BUYRequestOperationCompletion completion;
-@property (strong, nonatomic) NSURLSessionDataTask *runningTask;
+@property (strong, atomic) NSURLSessionDataTask *runningTask;
 
 @end
 
@@ -112,21 +111,15 @@ typedef void (^BUYRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResponse *
 			[self finishWithError:error response:response];
 		}
 	}];
-	[self locked:^{
-		self.runningTask = task;
-	}];
+	
+	self.runningTask = task;
 	[task resume];
 }
 
 - (void)cancelExecution
 {
 	[super cancelExecution];
-	
-	__block NSURLSessionDataTask *task = nil;
-	[self locked:^{
-		task = self.runningTask;
-	}];
-	[task cancel];
+	[self.runningTask cancel];
 }
 
 #pragma mark - Requests -
@@ -151,9 +144,7 @@ typedef void (^BUYRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResponse *
 		 */
 		if (self.pollingHandler && self.pollingHandler(json, response, error)) {
 			NSURLSessionDataTask *task = [self requestUsingPollingIfNeeded:request completion:completion];
-			[self locked:^{
-				self.runningTask = task;
-			}];
+			self.runningTask = task;
 			[task resume];
 			
 		} else {

@@ -33,22 +33,22 @@ typedef NS_ENUM(NSUInteger, BUYOperationState) {
 
 @interface BUYOperation ()
 
-@property (nonatomic, assign) BUYOperationState state;
-@property (nonatomic, strong) NSLock *lock;
+@property (atomic, assign) BUYOperationState state;
 
 @end
 
 @implementation BUYOperation
 
-#pragma mark - Init -
+#pragma mark - KVO -
 
-- (instancetype)init
++ (NSSet *)keyPathsForValuesAffectingIsExecuting
 {
-	self = [super init];
-	if (self) {
-		_lock = [NSLock new];
-	}
-	return self;
+	return [NSSet setWithObject:@"state"];
+}
+
++ (NSSet *)keyPathsForValuesAffectingIsFinished
+{
+	return [NSSet setWithObject:@"state"];
 }
 
 #pragma mark - Concurrent -
@@ -66,41 +66,6 @@ typedef NS_ENUM(NSUInteger, BUYOperationState) {
 - (BOOL)isFinished
 {
 	return self.state == BUYOperationStateFinished;
-}
-
-#pragma mark - Setters -
-
-- (void)locked:(dispatch_block_t)lockedBlock
-{
-	[self.lock lock];
-	lockedBlock();
-	[self.lock unlock];
-}
-
-- (void)setState:(BUYOperationState)state
-{
-	[self.lock lock];
-	
-	NSString *oldPath = BUYOperationStateKeyPath(self.state);
-	NSString *newPath = BUYOperationStateKeyPath(state);
-	
-	/* ----------------------------------
-	 * We avoid changing state if the new
-	 * state is the same or the operation
-	 * has been cancelled.
-	 */
-	if ([oldPath isEqualToString:newPath] || self.isCancelled) {
-		[self.lock unlock];
-		return;
-	}
-	
-	[self willChangeValueForKey:newPath];
-	[self willChangeValueForKey:oldPath];
-	_state = state;
-	[self didChangeValueForKey:oldPath];
-	[self didChangeValueForKey:newPath];
-	
-	[self.lock unlock];
 }
 
 #pragma mark - Start -
@@ -128,18 +93,7 @@ typedef NS_ENUM(NSUInteger, BUYOperationState) {
 
 - (void)cancelExecution
 {
-	[self finishExecution];
-}
-
-#pragma mark - State -
-
-static inline NSString * BUYOperationStateKeyPath(BUYOperationState state)
-{
-	switch (state) {
-		case BUYOperationStateFinished:  return @"isFinished";
-		case BUYOperationStateExecuting: return @"isExecuting";
-	}
-	return @"";
+	
 }
 
 @end
