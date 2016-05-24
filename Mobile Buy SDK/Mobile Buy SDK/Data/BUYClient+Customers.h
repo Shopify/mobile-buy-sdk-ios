@@ -152,6 +152,18 @@ typedef void (^BUYDataOrdersBlock)(NSArray <BUYOrder*> * _Nullable orders, NSErr
 - (BUYRequestOperation *)activateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID token:(NSString *)token callback:(BUYDataCustomerTokenBlock)block;
 
 /**
+ *  PUT /api/customers/:customer_id
+ *  Update customer credentials represented by BUYAccountCredentials object
+ *
+ *  @param credentials   Credentials containing a password and password confirmation
+ *  @param customerID    ID of customer being activated
+ *  @param block         (BUYCustomer *customer, NSError *error)
+ *
+ *  @return The associated BUYRequestOperation
+ */
+- (BUYRequestOperation *)updateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID callback:(BUYDataCustomerBlock)block;
+
+/**
  *  PUT /api/customers/:customer_id/reset
  *  Resets an existing customer's password
  *

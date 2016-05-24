@@ -40,11 +40,15 @@
 
 @implementation BUYClientTest_Customer
 
+#pragma mark - Tear Down -
+
 - (void)tearDown
 {
 	[super tearDown];
 	[OHHTTPStubs removeAllStubs];
 }
+
+#pragma mark - Creation -
 
 - (void)testCustomerDuplicateEmail
 {
@@ -55,13 +59,7 @@
 	}];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	
-	BUYAccountCredentialItem *emailItem = [BUYAccountCredentialItem itemWithEmail:self.customerEmail];
-	BUYAccountCredentialItem *passwordItem = [BUYAccountCredentialItem itemWithPassword:self.customerPassword];
-	BUYAccountCredentialItem *passwordConfItem = [BUYAccountCredentialItem itemWithPasswordConfirmation:self.customerPassword];
-	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:@[emailItem, passwordItem, passwordConfItem]];
-	
-	[self.client createCustomerWithCredentials:credentials callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
+	[self.client createCustomerWithCredentials:[self credentialsForCreation] callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
 		
 		XCTAssertNil(customer);
 		XCTAssertNotNil(error);
@@ -92,13 +90,7 @@
 	}];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	
-	BUYAccountCredentialItem *emailItem = [BUYAccountCredentialItem itemWithEmail:@"a"];
-	BUYAccountCredentialItem *passwordItem = [BUYAccountCredentialItem itemWithPassword:@"b"];
-	BUYAccountCredentialItem *passwordConfItem = [BUYAccountCredentialItem itemWithPasswordConfirmation:@"c"];
-	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:@[emailItem, passwordItem, passwordConfItem]];
-	
-	[self.client createCustomerWithCredentials:credentials callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
+	[self.client createCustomerWithCredentials:[self credentialsForFailure] callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
 		
 		XCTAssertNil(customer);
 		XCTAssertNotNil(error);
@@ -125,6 +117,8 @@
 	}];
 }
 
+#pragma mark - Auth -
+
 - (void)testCustomerLogin
 {
 	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
@@ -134,12 +128,7 @@
 	}];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	
-	BUYAccountCredentialItem *emailItem = [BUYAccountCredentialItem itemWithEmail:self.customerEmail];
-	BUYAccountCredentialItem *passwordItem = [BUYAccountCredentialItem itemWithPassword:self.customerPassword];
-	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:@[emailItem, passwordItem]];
-	
-	[self.client loginCustomerWithCredentials:credentials callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
+	[self.client loginCustomerWithCredentials:[self credentialsForLogin] callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
 		
 		XCTAssertNil(error);
 		XCTAssertNotNil(customer);
@@ -162,12 +151,7 @@
 	}];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	
-	BUYAccountCredentialItem *emailItem = [BUYAccountCredentialItem itemWithEmail:self.customerEmail];
-	BUYAccountCredentialItem *passwordItem = [BUYAccountCredentialItem itemWithPassword:self.customerPassword];
-	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:@[emailItem, passwordItem]];
-
-	[self.client loginCustomerWithCredentials:credentials callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
+	[self.client loginCustomerWithCredentials:[self credentialsForLogin] callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
 		
 		[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
 			return [self shouldUseMocks];
@@ -185,6 +169,67 @@
 	}];
 	
 	[self waitForExpectationsWithTimeout:10000 handler:nil];
+}
+
+#pragma mark - Update -
+
+- (void)testCustomerUpdate
+{
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCustomerLogin"];
+	}];
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	
+	BUYAccountCredentialItem *email    = [BUYAccountCredentialItem itemWithEmail:self.customerEmail];
+	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:@[email]];
+	
+	[self.client loginCustomerWithCredentials:[self credentialsForLogin] callback:^(BUYCustomer * _Nullable customer, NSString * _Nullable token, NSError * _Nullable error) {
+		
+		[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+			return [self shouldUseMocks];
+		} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+			return [OHHTTPStubsResponse responseWithKey:@"testCustomerLogin"];
+		}];
+		
+		[self.client updateCustomerWithCredentials:credentials customerID:customer.identifier.stringValue callback:^(BUYCustomer *customer, NSError *error) {
+			
+			XCTAssertNil(error);
+			XCTAssertNotNil(customer);
+			XCTAssertEqualObjects(customer.email, self.customerEmail);
+			
+			[expectation fulfill];
+		}];
+	}];
+	
+	[self waitForExpectationsWithTimeout:10 handler:nil];
+}
+
+#pragma mark - Credentials -
+
+- (BUYAccountCredentials *)credentialsForLogin
+{
+	BUYAccountCredentialItem *email    = [BUYAccountCredentialItem itemWithEmail:self.customerEmail];
+	BUYAccountCredentialItem *password = [BUYAccountCredentialItem itemWithPassword:self.customerPassword];
+	return [BUYAccountCredentials credentialsWithItems:@[email, password]];
+}
+
+- (BUYAccountCredentials *)credentialsForCreation
+{
+	BUYAccountCredentialItem *email     = [BUYAccountCredentialItem itemWithEmail:self.customerEmail];
+	BUYAccountCredentialItem *password  = [BUYAccountCredentialItem itemWithPassword:self.customerPassword];
+	BUYAccountCredentialItem *password2 = [BUYAccountCredentialItem itemWithPassword:self.customerPassword];
+	return [BUYAccountCredentials credentialsWithItems:@[email, password, password2]];
+}
+
+- (BUYAccountCredentials *)credentialsForFailure
+{
+	BUYAccountCredentialItem *email     = [BUYAccountCredentialItem itemWithEmail:@"a"];
+	BUYAccountCredentialItem *password  = [BUYAccountCredentialItem itemWithPassword:@"b"];
+	BUYAccountCredentialItem *password2 = [BUYAccountCredentialItem itemWithPasswordConfirmation:@"c"];
+	return [BUYAccountCredentials credentialsWithItems:@[email, password, password2]];
 }
 
 @end

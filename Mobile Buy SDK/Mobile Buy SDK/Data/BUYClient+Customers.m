@@ -145,6 +145,18 @@
 	}];
 }
 
+- (BUYRequestOperation *)updateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID callback:(BUYDataCustomerBlock)block
+{
+	NSURL *route = [self urlForCustomersWithID:customerID];
+	return [self putRequestForURL:route object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		BUYCustomer *customer = nil;
+		if (json && !error) {
+			customer = [self.modelManager customerWithJSONDictionary:json];
+		}
+		block(customer, error);
+	}];
+}
+
 - (BUYRequestOperation *)resetPasswordWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID token:(NSString *)token callback:(BUYDataCustomerTokenBlock)block
 {
 	NSURL *route = [self urlForCustomersPasswordResetWithID:customerID parameters:@{ @"token": token }];
