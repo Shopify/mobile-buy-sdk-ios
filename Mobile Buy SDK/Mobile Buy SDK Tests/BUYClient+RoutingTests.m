@@ -130,6 +130,10 @@
 						  @"https://_DOMAIN_/api/customers/customer_token.json"
 						  );
 	XCTAssertEqualObjects(
+						  [self.client urlForCustomersTokenWithID:identifier].absoluteString,
+						  @"https://_DOMAIN_/api/customers/_ID_/customer_token.json"
+						  );
+	XCTAssertEqualObjects(
 						  [self.client urlForCustomersTokenRenewalWithID:identifier].absoluteString,
 						  @"https://_DOMAIN_/api/customers/_ID_/customer_token/renew.json"
 						  );
