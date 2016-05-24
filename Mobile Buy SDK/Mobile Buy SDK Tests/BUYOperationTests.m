@@ -66,10 +66,10 @@
 	
 	[operation cancel];
 	XCTAssertTrue(operation.isCancelled);
-	XCTAssertTrue(operation.isFinished);
+	XCTAssertFalse(operation.isFinished);
 	
 	[operation cancelExecution];
-	XCTAssertTrue(operation.isFinished);
+	XCTAssertFalse(operation.isFinished); // State isn't changed if operation is cancelled
 }
 
 @end
