@@ -31,6 +31,8 @@
 
 @import SafariServices;
 
+Class SafariViewControllerClass;
+
 NSString * BUYSafariCallbackURLNotification = @"kBUYSafariCallbackURLNotification";
 NSString * BUYURLKey = @"url";
 NSString * const BUYWebPaymentProviderId = @"BUYWebPaymentProviderId";
@@ -41,9 +43,6 @@ static NSString *const WebCheckoutCustomerAccessToken = @"customer_access_token"
 
 @property (nonatomic, strong) BUYCheckout *checkout;
 @property (nonatomic, strong) BUYClient *client;
-@property (nonatomic, strong) Class webClass;
-
-- (instancetype)initWithClient:(BUYClient *)client webClass:(Class)webClass NS_DESIGNATED_INITIALIZER;
 
 @end
 
@@ -51,22 +50,27 @@ static NSString *const WebCheckoutCustomerAccessToken = @"customer_access_token"
 
 @synthesize delegate;
 
+#pragma mark - Initialize -
+
++ (void)initialize
+{
+	/* ----------------------------------
+	 * Used in tests to set a fake / mock
+	 * SFSafariViewController to avoid
+	 * instantiating a real one.
+	 */
+	SafariViewControllerClass = [SFSafariViewController class];
+}
+
 #pragma mark - Init -
 
 - (instancetype)initWithClient:(BUYClient *)client
 {
-	return [self initWithClient:client webClass:[SFSafariViewController class]];
-}
-
-- (instancetype)initWithClient:(BUYClient *)client webClass:(Class)webClass
-{
 	BUYAssert(client, @"Failed to initialize BUYWebCheckoutPaymentProvider, client must not be nil.");
-	BUYAssert([webClass isSubclassOfClass:[SFSafariViewController class]], @"Failed to initialize BUYWebCheckoutPaymentProvider, webClass must not be nil and be a subclass of SFSafariViewController.");
 	
 	self = [super init];
 	if (self) {
-		_client   = client;
-		_webClass = webClass;
+		_client = client;
 	}
 	return self;
 }
@@ -159,9 +163,9 @@ static NSString *const WebCheckoutCustomerAccessToken = @"customer_access_token"
 - (void)openWebCheckout:(BUYCheckout *)checkout
 {
 	NSURL *checkoutURL = [self authenticatedWebCheckoutURL:checkout.webCheckoutURL];
-	if (self.webClass) {
+	if (SafariViewControllerClass) {
 		
-		SFSafariViewController *safariViewController = [[self.webClass alloc] initWithURL:checkoutURL];
+		SFSafariViewController *safariViewController = [[SafariViewControllerClass alloc] initWithURL:checkoutURL];
 		safariViewController.delegate = self;
 		[self.delegate paymentProvider:self wantsControllerPresented:safariViewController];
 	}

@@ -26,35 +26,14 @@
 
 #import "BUYFakeSafariController.h"
 
-#pragma mark - Delegator -
-
-@interface BUYFakeDelegator : NSObject
-
-@property (weak, nonatomic) id delegate;
-
-@end
-
-@implementation BUYFakeDelegator
-
-@end
-
-#pragma mark - Fake Controller -
-
-@interface BUYFakeSafariController ()
-
-@end
-
 @implementation BUYFakeSafariController
 
 - (instancetype)initWithURL:(NSURL *)URL {
 	return [self initWithURL:URL entersReaderIfAvailable:YES];
 }
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wobjc-designated-initializers"
 - (instancetype)initWithURL:(NSURL *)URL entersReaderIfAvailable:(BOOL)entersReaderIfAvailable {
-	return (id)[[BUYFakeDelegator alloc] init];
+	return (id)[[[self class] alloc] init];
 }
-#pragma clang diagnostic pop
 
 @end

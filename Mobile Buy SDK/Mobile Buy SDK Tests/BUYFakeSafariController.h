@@ -24,8 +24,10 @@
 //  THE SOFTWARE.
 //
 
-#import <SafariServices/SafariServices.h>
+#import <Foundation/Foundation.h>
 
-@interface BUYFakeSafariController : SFSafariViewController
+@interface BUYFakeSafariController : NSObject
+
+@property (weak, nonatomic) id delegate;
 
 @end

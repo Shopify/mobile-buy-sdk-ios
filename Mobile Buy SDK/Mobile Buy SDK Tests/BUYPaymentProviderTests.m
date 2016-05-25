@@ -17,12 +17,10 @@
 #import "BUYFakeSafariController.h"
 #import <OHHTTPStubs/OHHTTPStubs.h>
 
+extern Class SafariViewControllerClass;
+
 @interface BUYPaymentController (Private)
 - (id <BUYPaymentProvider>)providerForType:(NSString *)type;
-@end
-
-@interface BUYWebCheckoutPaymentProvider (Private)
-- (instancetype)initWithClient:(BUYClient *)client webClass:(Class)webClass;
 @end
 
 @interface BUYPaymentProviderTests : XCTestCase <BUYPaymentProviderDelegate>
@@ -39,6 +37,15 @@
 	[super setUp];
 	self.modelManager = [BUYModelManager modelManager];
 	self.expectations = [@{} mutableCopy];
+	
+	/* ---------------------------------
+	 * We need to kick off the provider
+	 * class initialization before setting
+	 * the fake safari controller to
+	 * prevent it getting overriden.
+	 */
+	[BUYWebCheckoutPaymentProvider class];
+	SafariViewControllerClass = [BUYFakeSafariController class];
 }
 
 - (void)tearDown
@@ -162,7 +169,7 @@
 {
 	[self mockRequests];
 	
-	BUYWebCheckoutPaymentProvider *webProvider = [[BUYWebCheckoutPaymentProvider alloc] initWithClient:self.client webClass:[BUYFakeSafariController class]];
+	BUYWebCheckoutPaymentProvider *webProvider = [[BUYWebCheckoutPaymentProvider alloc] initWithClient:self.client];
 	webProvider.delegate = self;
 	
 	self.expectations[@"presentController"] = [self expectationWithDescription:NSStringFromSelector(_cmd)];

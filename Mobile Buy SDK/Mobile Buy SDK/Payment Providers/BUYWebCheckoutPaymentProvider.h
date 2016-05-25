@@ -42,7 +42,7 @@ extern NSString * const BUYWebPaymentProviderId;
  *
  *  @return an instance of `BUYWebCheckoutPaymentProvider`
  */
-- (instancetype)initWithClient:(BUYClient *)client;
+- (instancetype)initWithClient:(BUYClient *)client NS_DESIGNATED_INITIALIZER;
 - (instancetype)init NS_UNAVAILABLE;
 
 @end
