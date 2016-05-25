@@ -27,8 +27,11 @@
 #import "BUYWebCheckoutPaymentProvider.h"
 #import "BUYCheckout.h"
 #import "BUYClient+CheckoutHelpers.h"
+#import "BUYAssert.h"
 
 @import SafariServices;
+
+Class SafariViewControllerClass;
 
 NSString * BUYSafariCallbackURLNotification = @"kBUYSafariCallbackURLNotification";
 NSString * BUYURLKey = @"url";
@@ -37,31 +40,59 @@ NSString * const BUYWebPaymentProviderId = @"BUYWebPaymentProviderId";
 static NSString *const WebCheckoutCustomerAccessToken = @"customer_access_token";
 
 @interface BUYWebCheckoutPaymentProvider () <SFSafariViewControllerDelegate>
+
 @property (nonatomic, strong) BUYCheckout *checkout;
 @property (nonatomic, strong) BUYClient *client;
+
 @end
 
 @implementation BUYWebCheckoutPaymentProvider
 
 @synthesize delegate;
 
+#pragma mark - Initialize -
+
++ (void)initialize
+{
+	/* ----------------------------------
+	 * Used in tests to set a fake / mock
+	 * SFSafariViewController to avoid
+	 * instantiating a real one.
+	 */
+	SafariViewControllerClass = [SFSafariViewController class];
+}
+
+#pragma mark - Init -
+
 - (instancetype)initWithClient:(BUYClient *)client
 {
-	NSParameterAssert(client);
+	BUYAssert(client, @"Failed to initialize BUYWebCheckoutPaymentProvider, client must not be nil.");
 	
 	self = [super init];
-	
 	if (self) {
 		_client = client;
 	}
-	
 	return self;
+}
+
+#pragma mark - Accessors -
+
+- (BOOL)isAvailable
+{
+	return YES;
 }
 
 - (BOOL)isInProgress
 {
 	return (self.checkout != nil);
 }
+
+- (NSString *)identifier
+{
+	return BUYWebPaymentProviderId;
+}
+
+#pragma mark - Equality -
 
 - (NSUInteger)hash
 {
@@ -73,10 +104,7 @@ static NSString *const WebCheckoutCustomerAccessToken = @"customer_access_token"
 	return ([object isKindOfClass:[self class]] && [self.identifier isEqual:[object identifier]]);
 }
 
-- (NSString *)identifier
-{
-	return BUYWebPaymentProviderId;
-}
+#pragma mark - Checkout -
 
 - (void)startCheckout:(BUYCheckout *)checkout
 {	
@@ -108,11 +136,6 @@ static NSString *const WebCheckoutCustomerAccessToken = @"customer_access_token"
 	self.checkout = nil;
 }
 
-- (BOOL)isAvailable
-{
-	return YES;
-}
-
 - (void)postCheckoutCompletion:(BUYCheckout *)checkout error:(NSError *)error
 {
 	if (self.checkout && error == nil) {
@@ -140,9 +163,9 @@ static NSString *const WebCheckoutCustomerAccessToken = @"customer_access_token"
 - (void)openWebCheckout:(BUYCheckout *)checkout
 {
 	NSURL *checkoutURL = [self authenticatedWebCheckoutURL:checkout.webCheckoutURL];
-	if ([SFSafariViewController class]) {
+	if (SafariViewControllerClass) {
 		
-		SFSafariViewController *safariViewController = [[SFSafariViewController alloc] initWithURL:checkoutURL];
+		SFSafariViewController *safariViewController = [[SafariViewControllerClass alloc] initWithURL:checkoutURL];
 		safariViewController.delegate = self;
 		[self.delegate paymentProvider:self wantsControllerPresented:safariViewController];
 	}
@@ -163,7 +186,7 @@ static NSString *const WebCheckoutCustomerAccessToken = @"customer_access_token"
 	return authenticatedComponents.URL;
 }
 
-#pragma mark - Web Checkout delegate methods
+#pragma mark - Web Checkout Delegate Methods -
 
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller;
 {

@@ -14,9 +14,12 @@
 #import "BUYWebCheckoutPaymentProvider.h"
 #import "BUYClientTestBase.h"
 #import "BUYPaymentController.h"
+#import "BUYFakeSafariController.h"
 #import <OHHTTPStubs/OHHTTPStubs.h>
 
-@interface BUYPaymentController ()
+extern Class SafariViewControllerClass;
+
+@interface BUYPaymentController (Private)
 - (id <BUYPaymentProvider>)providerForType:(NSString *)type;
 @end
 
@@ -34,6 +37,15 @@
 	[super setUp];
 	self.modelManager = [BUYModelManager modelManager];
 	self.expectations = [@{} mutableCopy];
+	
+	/* ---------------------------------
+	 * We need to kick off the provider
+	 * class initialization before setting
+	 * the fake safari controller to
+	 * prevent it getting overriden.
+	 */
+	[BUYWebCheckoutPaymentProvider class];
+	SafariViewControllerClass = [BUYFakeSafariController class];
 }
 
 - (void)tearDown
