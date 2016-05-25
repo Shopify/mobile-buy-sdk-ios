@@ -1,5 +1,5 @@
 //
-//  BUYClient+CheckoutHelpers.h
+//  BUYRequestOperation.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,13 +24,24 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/Buy.h>
-
+#import "BUYOperation.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BUYClient (CheckoutHelpers)
+@protocol BUYSerializable;
 
-- (NSURLSessionDataTask *)handleCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)completion;
+typedef void (^BUYRequestOperationCompletion)(NSDictionary * _Nullable json, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error);
+typedef BOOL (^BUYRequestOperationPollingHandler)(NSDictionary * _Nullable json, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error);
+
+@interface BUYRequestOperation : BUYOperation
+
+@property (strong, nonatomic, readonly, nonnull) NSURLSession *session;
+@property (strong, nonatomic, readonly, nonnull) NSURLRequest *originalRequest;
+
+@property (strong, nonatomic, nullable) BUYRequestOperationPollingHandler pollingHandler;
+
++ (instancetype)operationWithSession:(NSURLSession *)session request:(NSURLRequest *)request payload:(id<BUYSerializable> _Nullable)payload completion:(BUYRequestOperationCompletion)completion;
+
+- (instancetype)initWithSession:(NSURLSession *)session request:(NSURLRequest *)request payload:(id<BUYSerializable> _Nullable)payload completion:(BUYRequestOperationCompletion)completion;
 
 @end
 

@@ -29,18 +29,11 @@
  */
 
 #import "BUYAccountCredentials.h"
-#import "BUYApplePayAdditions.h"
-#import "BUYApplePayHelpers.h"
 #import "BUYAddress.h"
 #import "BUYCart.h"
 #import "BUYCartLineItem.h"
 #import "BUYCheckout.h"
 #import "BUYCheckoutAttribute.h"
-#import "BUYClient+Test.h"
-#import "BUYClient.h"
-#import "BUYClient+Customers.h"
-#import "BUYClient+Storefront.h"
-#import "BUYClient+Checkout.h"
 #import "BUYCollection.h"
 #import "BUYCreditCard.h"
 #import "BUYCustomer.h"
@@ -58,6 +51,7 @@
 #import "BUYShop.h"
 #import "BUYTaxLine.h"
 
+#import "BUYApplePayAdditions.h"
 #import "BUYApplePayHelpers.h"
 #import "BUYApplePayPaymentProvider.h"
 #import "BUYPaymentController.h"
@@ -67,6 +61,8 @@
 #import "BUYClient.h"
 #import "BUYClient+Customers.h"
 #import "BUYClient+Checkout.h"
+#import "BUYClient+Storefront.h"
+#import "BUYRequestOperation.h"
 #import "BUYError.h"
 #import "BUYError+BUYAdditions.h"
 #import "BUYManagedObject.h"
@@ -79,6 +75,7 @@
 #import "BUYPaymentToken.h"
 
 #import "NSArray+BUYAdditions.h"
+#import "NSDate+BUYAdditions.h"
 #import "NSDateFormatter+BUYAdditions.h"
 #import "NSDecimalNumber+BUYAdditions.h"
 #import "NSDictionary+BUYAdditions.h"

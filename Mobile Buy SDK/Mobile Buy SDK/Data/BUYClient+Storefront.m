@@ -47,7 +47,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 
 #pragma mark - API -
 
-- (NSURLSessionDataTask *)getShop:(BUYDataShopBlock)block
+- (BUYRequestOperation *)getShop:(BUYDataShopBlock)block
 {
 	return [self getRequestForURL:[self urlForShop] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
 		BUYShop *shop = nil;
@@ -58,7 +58,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	}];
 }
 
-- (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page completion:(BUYDataProductListBlock)block
+- (BUYRequestOperation *)getProductsPage:(NSUInteger)page completion:(BUYDataProductListBlock)block
 {
 	NSURL *route  = [self urlForProductListingsWithParameters:@{
 																  @"limit" : @(self.pageSize),
@@ -75,7 +75,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	}];
 }
 
-- (NSURLSessionDataTask *)getProductById:(NSString *)productId completion:(BUYDataProductBlock)block;
+- (BUYRequestOperation *)getProductById:(NSString *)productId completion:(BUYDataProductBlock)block;
 {
 	BUYAssert(productId, @"Failed to get product by ID. Product ID must not be nil.");
 	
@@ -91,7 +91,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	}];
 }
 
-- (NSURLSessionDataTask *)getProductsByIds:(NSArray *)productIds completion:(BUYDataProductsBlock)block
+- (BUYRequestOperation *)getProductsByIds:(NSArray *)productIds completion:(BUYDataProductsBlock)block
 {
 	BUYAssert(productIds, @"Failed to get product by IDs. Product IDs array must not be nil.");
 	
@@ -112,14 +112,14 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	}];
 }
 
-- (NSURLSessionDataTask *)getCollections:(BUYDataCollectionsBlock)block
+- (BUYRequestOperation *)getCollections:(BUYDataCollectionsBlock)block
 {
 	return [self getCollectionsPage:1 completion:^(NSArray<BUYCollection *> *collections, NSUInteger page, BOOL reachedEnd, NSError *error) {
 		block(collections, error);
 	}];
 }
 
-- (NSURLSessionDataTask *)getCollectionsPage:(NSUInteger)page completion:(BUYDataCollectionsListBlock)block
+- (BUYRequestOperation *)getCollectionsPage:(NSUInteger)page completion:(BUYDataCollectionsListBlock)block
 {
 	NSURL *route  = [self urlForCollectionListingsWithParameters:@{
 																	 @"limit" : @(self.pageSize),
@@ -136,12 +136,12 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	}];
 }
 
-- (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId completion:(BUYDataProductListBlock)block
+- (BUYRequestOperation *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId completion:(BUYDataProductListBlock)block
 {
 	return [self getProductsPage:page inCollection:collectionId sortOrder:BUYCollectionSortCollectionDefault completion:block];
 }
 
-- (NSURLSessionDataTask *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId sortOrder:(BUYCollectionSort)sortOrder completion:(BUYDataProductListBlock)block
+- (BUYRequestOperation *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId sortOrder:(BUYCollectionSort)sortOrder completion:(BUYDataProductListBlock)block
 {
 	BUYAssert(collectionId, @"Failed to get products page. Invalid collectionID.");
 	

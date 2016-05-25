@@ -1,5 +1,5 @@
 //
-//  BUYClient+CheckoutHelpers.h
+//  BUYOperation.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,14 +24,12 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/Buy.h>
+#import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
+@interface BUYOperation : NSOperation
 
-@interface BUYClient (CheckoutHelpers)
-
-- (NSURLSessionDataTask *)handleCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)completion;
+- (void)startExecution;
+- (void)finishExecution;
+- (void)cancelExecution;
 
 @end
-
-NS_ASSUME_NONNULL_END

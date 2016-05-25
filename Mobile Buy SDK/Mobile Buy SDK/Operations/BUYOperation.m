@@ -1,5 +1,5 @@
 //
-//  BUYClient+CheckoutHelpers.h
+//  BUYOperation.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,14 +24,76 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/Buy.h>
+#import "BUYOperation.h"
 
-NS_ASSUME_NONNULL_BEGIN
+typedef NS_ENUM(NSUInteger, BUYOperationState) {
+	BUYOperationStateExecuting = 1,
+	BUYOperationStateFinished  = 2,
+};
 
-@interface BUYClient (CheckoutHelpers)
+@interface BUYOperation ()
 
-- (NSURLSessionDataTask *)handleCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)completion;
+@property (atomic, assign) BUYOperationState state;
 
 @end
 
-NS_ASSUME_NONNULL_END
+@implementation BUYOperation
+
+#pragma mark - KVO -
+
++ (NSSet *)keyPathsForValuesAffectingIsExecuting
+{
+	return [NSSet setWithObject:@"state"];
+}
+
++ (NSSet *)keyPathsForValuesAffectingIsFinished
+{
+	return [NSSet setWithObject:@"state"];
+}
+
+#pragma mark - Concurrent -
+- (BOOL)isAsynchronous
+{
+	return YES;
+}
+
+#pragma mark - Accessors -
+- (BOOL)isExecuting
+{
+	return self.state == BUYOperationStateExecuting;
+}
+
+- (BOOL)isFinished
+{
+	return self.state == BUYOperationStateFinished;
+}
+
+#pragma mark - Start -
+- (void)start
+{
+	[self startExecution];
+}
+
+- (void)cancel
+{
+	[super cancel];
+	[self cancelExecution];
+}
+
+#pragma mark - Execution -
+- (void)startExecution
+{
+	self.state = BUYOperationStateExecuting;
+}
+
+- (void)finishExecution
+{
+	self.state = BUYOperationStateFinished;
+}
+
+- (void)cancelExecution
+{
+	
+}
+
+@end

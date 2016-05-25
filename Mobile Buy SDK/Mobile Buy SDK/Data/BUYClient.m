@@ -27,17 +27,13 @@
 #import "BUYClient+Internal.h"
 #import "BUYAssert.h"
 #import "BUYModelManager.h"
+#import "BUYRequestOperation.h"
 
 static NSString * const BUYClientJSONMimeType = @"application/json";
 
 @interface BUYClient () <NSURLSessionDelegate>
 
-@property (nonatomic, strong) NSString *shopDomain;
-@property (nonatomic, strong) NSString *apiKey;
-@property (nonatomic, strong) NSString *appId;
-
 @property (nonatomic, strong) NSURLSession *session;
-@property (nonatomic, strong) NSString *merchantId;
 
 @end
 
@@ -58,14 +54,15 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 	
 	self = [super init];
 	if (self) {
-		self.modelManager = [BUYModelManager modelManager];
-		self.shopDomain = shopDomain;
-		self.apiKey = apiKey;
-		self.appId = appId;
-		self.applicationName = [[NSBundle mainBundle] infoDictionary][@"CFBundleName"] ?: @"";
-		self.queue = dispatch_get_main_queue();
-		self.session = [self urlSession];
-		self.pageSize = 25;
+		_modelManager = [BUYModelManager modelManager];
+		_shopDomain = shopDomain;
+		_apiKey = apiKey;
+		_appId = appId;
+		_applicationName = [[NSBundle mainBundle] infoDictionary][@"CFBundleName"] ?: @"";
+		_callbackQueue = [NSOperationQueue mainQueue];
+		_requestQueue = [NSOperationQueue new];
+		_session = [self urlSession];
+		_pageSize = 25;
 	}
 	return self;
 }
@@ -80,7 +77,7 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 	
 	config.HTTPAdditionalHeaders = @{@"User-Agent": [NSString stringWithFormat:@"Mobile Buy SDK iOS/%@/%@", BUYClientVersionString, bundleIdentifier]};
 	
-	return [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:nil];
+	return [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:self.requestQueue];
 }
 
 - (void)setPageSize:(NSUInteger)pageSize
@@ -122,36 +119,36 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 
 #pragma mark - Convenience Requests
 
-- (NSURLSessionDataTask *)getRequestForURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
+- (BUYRequestOperation *)getRequestForURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
 	return [self requestForURL:url method:@"GET" object:nil completionHandler:completionHandler];
 }
 
-- (NSURLSessionDataTask *)postRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
+- (BUYRequestOperation *)postRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
 	return [self requestForURL:url method:@"POST" object:object completionHandler:completionHandler];
 }
 
-- (NSURLSessionDataTask *)putRequestForURL:(NSURL *)url object:(id<BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
+- (BUYRequestOperation *)putRequestForURL:(NSURL *)url object:(id<BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
 	return [self requestForURL:url method:@"PUT" object:object completionHandler:completionHandler];
 }
 
-- (NSURLSessionDataTask *)patchRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
+- (BUYRequestOperation *)patchRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
 	return [self requestForURL:url method:@"PATCH" object:object completionHandler:completionHandler];
 }
 
-- (NSURLSessionDataTask *)deleteRequestForURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
+- (BUYRequestOperation *)deleteRequestForURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
 	return [self requestForURL:url method:@"DELETE" object:nil completionHandler:completionHandler];
 }
 
 #pragma mark - Generic Requests
 
-- (void)startTask:(NSURLSessionDataTask *)task
+- (void)startTask:(BUYRequestOperation *)task
 {
-	[task resume];
+	[self.requestQueue addOperation:task];
 }
 
 - (NSString *)authorizationHeader
@@ -160,7 +157,7 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 	return [NSString stringWithFormat:@"%@ %@", @"Basic", [data base64EncodedStringWithOptions:0]];
 }
 
-- (NSURLSessionDataTask *)requestForURL:(NSURL *)url method:(NSString *)method object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
+- (BUYRequestOperation *)requestForURL:(NSURL *)url method:(NSString *)method object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler
 {
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
 	if (object) {
@@ -176,26 +173,15 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 	}
 	
 	request.HTTPMethod = method;
-	NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-		
-		NSDictionary *json = nil;
-		if (data.length > 2) { // 2 is the minimum amount of data {} for a JSON Object. Just ignore anything less.
-			json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-		}
-		
-		NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
-		BOOL isSuccessful    = (statusCode / 100) == 2;
-		if (!isSuccessful && !error) { // Only generate error if request failed
-			error = [self errorFromJSON:json response:response];
-		}
-		
-		dispatch_async(self.queue, ^{
+	
+	BUYRequestOperation *operation = [[BUYRequestOperation alloc] initWithSession:self.session request:request payload:object completion:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+		[self.callbackQueue addOperationWithBlock:^{
 			completionHandler(json, response, error);
-		});
+		}];
 	}];
 	
-	[self startTask:task];
-	return task;
+	[self startTask:operation];
+	return operation;
 }
 
 #pragma mark - NSURLSessionTaskDelegate
@@ -229,7 +215,7 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 
 - (void)enableApplePayWithMerchantId:(NSString *)merchantId
 {
-	self.merchantId = merchantId;
+	_merchantId = merchantId;
 }
 
 @end

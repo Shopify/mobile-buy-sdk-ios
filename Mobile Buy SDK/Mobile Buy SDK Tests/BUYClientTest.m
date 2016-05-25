@@ -37,6 +37,7 @@
 #import "BUYClient+Internal.h"
 #import "BUYApplePayToken.h"
 #import "BUYApplePayTestToken.h"
+#import "BUYRequestOperation.h"
 
 NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
@@ -46,7 +47,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
 @implementation BUYClient_Test
 
-- (void)startTask:(NSURLSessionDataTask *)task
+- (void)startTask:(BUYRequestOperation *)task
 {
 	// Do nothing
 }
@@ -71,7 +72,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 {
 	BUYCart *cart = [self cart];
 	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:cart];
-	NSURLSessionDataTask *task = [self.client createCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {}];
+	BUYRequestOperation *task = [self.client createCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {}];
 	XCTAssertNotNil(task);
 	
 	NSURLRequest *request = task.originalRequest;
@@ -103,7 +104,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 	
 	XCTAssertThrows([checkout setPartialAddressesValue:NO]);
 
-	NSURLSessionDataTask *task = [self.client createCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {}];
+	BUYRequestOperation *task = [self.client createCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {}];
 	NSDictionary *json = [NSJSONSerialization JSONObjectWithData:task.originalRequest.HTTPBody options:0 error:nil];
 	XCTAssertFalse([json[@"checkout"][@"partial_addresses"] boolValue]);
 	
@@ -127,7 +128,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 {
 	BUYCheckout *checkout = [[BUYCheckout alloc] initWithModelManager:self.client.modelManager JSONDictionary:@{@"token": @"abcdef", @"payment_due": @0}];
 	
-	NSURLSessionDataTask *task = [self.client completeCheckout:checkout paymentToken:nil completion:^(BUYCheckout *checkout, NSError *error) {}];
+	BUYRequestOperation *task = [self.client completeCheckout:checkout paymentToken:nil completion:^(BUYCheckout *checkout, NSError *error) {}];
 	XCTAssertNotNil(task);
 }
 
@@ -208,7 +209,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
 - (void)testProductsInCollectionWithSortOrderCollectionDefault
 {
-	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortCollectionDefault completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {}];
+	BUYRequestOperation *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortCollectionDefault completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {}];
 	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
@@ -220,7 +221,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
 - (void)testProductsInCollectionWithSortOrderBestSelling
 {
-	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortBestSelling completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {}];
+	BUYRequestOperation *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortBestSelling completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {}];
 	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
@@ -232,7 +233,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
 - (void)testProductsInCollectionWithSortOrderCreatedAscending
 {
-	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortCreatedAscending completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {}];
+	BUYRequestOperation *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortCreatedAscending completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {}];
 	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
@@ -244,7 +245,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
 - (void)testProductsInCollectionWithSortOrderCreatedDescending
 {
-	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortCreatedDescending completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {}];
+	BUYRequestOperation *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortCreatedDescending completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {}];
 	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
@@ -256,7 +257,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
 - (void)testProductsInCollectionWithSortOrderPriceAscending
 {
-	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortPriceAscending completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {}];
+	BUYRequestOperation *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortPriceAscending completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {}];
 	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
@@ -268,7 +269,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
 - (void)testProductsInCollectionWithSortOrderPriceDescending
 {
-	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortPriceDescending completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {}];
+	BUYRequestOperation *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortPriceDescending completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {}];
 	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
@@ -280,7 +281,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
 - (void)testProductsInCollectionWithSortOrderTitleAscending
 {
-	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortTitleAscending completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {}];
+	BUYRequestOperation *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortTitleAscending completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {}];
 	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
@@ -292,7 +293,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
 - (void)testProductsInCollectionWithSortOrderTitleDescending
 {
-	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortTitleDescending completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {}];
+	BUYRequestOperation *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortTitleDescending completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {}];
 	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
@@ -320,7 +321,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 					   ];
 	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:items];
 	
-	NSURLSessionDataTask *task = [self.client createCustomerWithCredentials:credentials callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
+	BUYRequestOperation *task = [self.client createCustomerWithCredentials:credentials callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
 		
 	}];
 	
@@ -349,7 +350,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 					   [BUYAccountCredentialItem itemWithPassword:@"password"],
 					   ];
 	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:items];
-	NSURLSessionDataTask *task = [self.client loginCustomerWithCredentials:credentials callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
+	BUYRequestOperation *task = [self.client loginCustomerWithCredentials:credentials callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
 		
 	}];
 	
@@ -370,7 +371,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
 - (void)testGetCustomerURL
 {
-	NSURLSessionDataTask *task = [self.client getCustomerWithID:@"" callback:^(BUYCustomer *customer, NSError *error) {
+	BUYRequestOperation *task = [self.client getCustomerWithID:@"" callback:^(BUYCustomer *customer, NSError *error) {
 		
 	}];
 	
@@ -383,7 +384,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
 - (void)testGetOrdersForCustomerURL
 {
-	NSURLSessionDataTask *task = [self.client getOrdersForCustomerWithCallback:^(NSArray<BUYOrder *> *orders, NSError *error) {
+	BUYRequestOperation *task = [self.client getOrdersForCustomerWithCallback:^(NSArray<BUYOrder *> *orders, NSError *error) {
 		
 	}];
 	
@@ -397,7 +398,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 - (void)testCustomerRecovery
 {
 	NSString *email = @"fake@example.com";
-	NSURLSessionDataTask *task = [self.client recoverPasswordForCustomer:email callback:^(BUYStatus status, NSError *error) {
+	BUYRequestOperation *task = [self.client recoverPasswordForCustomer:email callback:^(BUYStatus status, NSError *error) {
 		
 	}];
 	
@@ -417,7 +418,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 {
 	self.client.customerToken = nil;
 	
-	NSURLSessionDataTask *task = [self.client renewCustomerTokenWithID:@"" callback:^(NSString *token, NSError *error) {}];
+	BUYRequestOperation *task = [self.client renewCustomerTokenWithID:@"" callback:^(NSString *token, NSError *error) {}];
 	XCTAssertNil(task); // task should be nil if no customer token was set on the client
 	
 	self.client.customerToken = BUYFakeCustomerToken;
@@ -439,7 +440,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:items];
 	NSString *customerID = @"12345";
 	NSString *customerToken = @"12345";
-	NSURLSessionDataTask *task = [self.client activateCustomerWithCredentials:credentials customerID:customerID customerToken:customerToken callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
+	BUYRequestOperation *task = [self.client activateCustomerWithCredentials:credentials customerID:customerID customerToken:customerToken callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
 		
 	}];
 	
