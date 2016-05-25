@@ -124,10 +124,8 @@
 		8498DCAD1CDD1B2F00BD12A8 /* BUYError+BUYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8498DCA81CDD1B1C00BD12A8 /* BUYError+BUYAdditions.m */; };
 		8498DCAE1CDD1B2F00BD12A8 /* BUYError+BUYAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 8498DCA71CDD1B1C00BD12A8 /* BUYError+BUYAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8498DCAF1CDD1B2F00BD12A8 /* BUYError+BUYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8498DCA81CDD1B1C00BD12A8 /* BUYError+BUYAdditions.m */; };
-		8498DCB31CDD1B5400BD12A8 /* BUYClient+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 8498DCB01CDD1B4A00BD12A8 /* BUYClient+Internal.h */; };
 		8498DCB41CDD1B5400BD12A8 /* BUYClient+Customers.h in Headers */ = {isa = PBXBuildFile; fileRef = 8498DCB11CDD1B4A00BD12A8 /* BUYClient+Customers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8498DCB51CDD1B5400BD12A8 /* BUYClient+Customers.m in Sources */ = {isa = PBXBuildFile; fileRef = 8498DCB21CDD1B4A00BD12A8 /* BUYClient+Customers.m */; };
-		8498DCB61CDD1B5400BD12A8 /* BUYClient+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 8498DCB01CDD1B4A00BD12A8 /* BUYClient+Internal.h */; };
 		8498DCB71CDD1B5400BD12A8 /* BUYClient+Customers.h in Headers */ = {isa = PBXBuildFile; fileRef = 8498DCB11CDD1B4A00BD12A8 /* BUYClient+Customers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8498DCB81CDD1B5400BD12A8 /* BUYClient+Customers.m in Sources */ = {isa = PBXBuildFile; fileRef = 8498DCB21CDD1B4A00BD12A8 /* BUYClient+Customers.m */; };
 		8498DCBB1CDD1FA400BD12A8 /* BUYAccountCredentials.h in Headers */ = {isa = PBXBuildFile; fileRef = 8498DCB91CDD1FA400BD12A8 /* BUYAccountCredentials.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1349,8 +1347,6 @@
 				84980F521CB7616900CFAB58 /* BUYDecimalNumberTransformer.h in Headers */,
 				BE5DC3631B71022D00B2BC1E /* BUYMaskedCreditCard.h in Headers */,
 				90C856B61BD6B0F400936926 /* Buy.h in Headers */,
-				8498DCB31CDD1B5400BD12A8 /* BUYClient+Internal.h in Headers */,
-				8498DCB31CDD1B5400BD12A8 /* BUYClient+Internal.h in Headers */,
 				841ADE0F1CB6C942000004B0 /* NSDictionary+BUYAdditions.h in Headers */,
 				841ADE1F1CB6C942000004B0 /* NSURL+BUYAdditions.h in Headers */,
 				B2653EC31CEF55CC0012D57D /* BUYModelManager+ApplePay.h in Headers */,
