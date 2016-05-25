@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param paymentToken  An opaque payment token type that wraps necessary credentials for payment
  *  @param error         Optional NSError
  */
-typedef void (^BUYDataCreditCardBlock)(BUYCheckout * _Nullable checkout, id<BUYPaymentToken> _Nullable paymentToken, NSError * _Nullable error);
+typedef void (^BUYDataCreditCardBlock)(id<BUYPaymentToken> _Nullable paymentToken, NSError * _Nullable error);
 
 /**
  *  Return block containing a BUYCheckout and/or an NSError

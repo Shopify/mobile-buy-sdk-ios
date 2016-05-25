@@ -220,12 +220,10 @@
 	__block id<BUYPaymentToken> token = nil;
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client storeCreditCard:creditCard checkout:_checkout completion:^(BUYCheckout *returnedCheckout, id<BUYPaymentToken> paymentToken, NSError *error) {
+	[self.client storeCreditCard:creditCard checkout:_checkout completion:^(id<BUYPaymentToken> paymentToken, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(paymentToken);
-		XCTAssertNotNil(returnedCheckout);
 		
-		_checkout = returnedCheckout;
 		token = paymentToken;
 		[expectation fulfill];
 	}];

@@ -264,7 +264,7 @@
 		if (!error) {
 			token = [[BUYCreditCardToken alloc] initWithPaymentSessionID:json[@"id"]];
 		}
-		completion(checkout, token, error);
+		completion(token, error);
 	}];
 }
 
