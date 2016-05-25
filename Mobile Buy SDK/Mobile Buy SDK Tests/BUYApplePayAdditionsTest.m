@@ -34,7 +34,7 @@
 #import "BUYPKContact.h"
 #import "BUYNSPersonNameComponents.h"
 #import "BUYCNPostalAddress.h"
-
+#import "BUYModelManager+ApplePay.h"
 
 @interface BUYApplePayAdditionsTest : XCTestCase
 @end

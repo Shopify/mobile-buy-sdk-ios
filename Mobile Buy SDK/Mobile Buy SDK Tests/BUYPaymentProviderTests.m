@@ -67,7 +67,7 @@
 	NSURLComponents *components = [NSURLComponents componentsWithURL:request.URL resolvingAgainstBaseURL:NO];
 	
 	if ([components.path isEqualToString:@"/meta.json"]) {
-		return [OHHTTPStubsResponse responseWithJSONObject:@{@"id": @"123", @"country": @"US", @"currency": @"USD"} statusCode:200 headers:nil];
+		return [OHHTTPStubsResponse responseWithJSONObject:@{@"id": @"123", @"name": @"test_shop", @"country": @"US", @"currency": @"USD"} statusCode:200 headers:nil];
 	}
 	else if ([components.path isEqualToString:@"/api/checkouts.json"]) {
 		return [OHHTTPStubsResponse responseWithJSONObject:@{@"checkout":@{@"payment_due": @(99), @"web_checkout_url": @"https://example.com"}} statusCode:200 headers:nil];

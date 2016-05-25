@@ -1,5 +1,5 @@
 //
-//  BUYApplePayHelpers.m
+//  BUYApplePayAuthorizationDelegate.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,66 +24,47 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYApplePayHelpers.h"
-#import "BUYAddress.h"
+#import "BUYApplePayAuthorizationDelegate.h"
 #import "BUYApplePayAdditions.h"
+#import "BUYApplePayToken.h"
+#import "BUYAssert.h"
 #import "BUYClient+Checkout.h"
 #import "BUYClient+Storefront.h"
 #import "BUYCheckout.h"
 #import "BUYError.h"
-#import "BUYModelManager.h"
+#import "BUYModelManager+ApplePay.h"
 #import "BUYShop.h"
 #import "BUYShopifyErrorCodes.h"
-#import "BUYApplePayToken.h"
 
 const NSTimeInterval PollDelay = 0.5;
 
-@interface BUYApplePayHelpers ()
+@interface BUYApplePayAuthorizationDelegate ()
+
 @property (nonatomic, strong) BUYCheckout *checkout;
-@property (nonatomic, strong) BUYClient *client;
 
 @property (nonatomic, strong) NSArray *shippingRates;
 @property (nonatomic, strong) NSError *lastError;
 
-@property (nonatomic, strong) BUYShop *shop;
-
 @end
 
-@implementation BUYApplePayHelpers
+@implementation BUYApplePayAuthorizationDelegate
 
-- (instancetype)initWithClient:(BUYClient *)client checkout:(BUYCheckout *)checkout
+- (instancetype)initWithClient:(BUYClient *)client checkout:(BUYCheckout *)checkout shopName:(NSString *)shopName
 {
-	return [self initWithClient:client checkout:checkout shop:nil];
-}
-
-- (instancetype)initWithClient:(BUYClient *)client checkout:(BUYCheckout *)checkout shop:(BUYShop *)shop
-{
-	NSParameterAssert(client);
-	NSParameterAssert(checkout);
+	BUYAssert(client, @"Failed to initialize BUYApplePayAuthorizationDelegate. Client must not be nil.");
+	BUYAssert(checkout, @"Failed to initialize BUYApplePayAuthorizationDelegate. Checkout must not be nil.");
+	BUYAssert(shopName, @"Failed to initialize BUYApplePayAuthorizationDelegate. Shop name must not be nil.");
 	
 	self = [super init];
 	
 	if (self) {
-		self.client = client;
-		self.checkout = checkout;
-		
-		// We need a shop object to display the business name in the pay sheet
-		if (shop) {
-			self.shop = shop;
-		}
-		else {
-			[self.client getShop:^(BUYShop *shop, NSError *error) {
-				
-				if (shop) {
-					self.shop = shop;
-				}
-			}];
-		}
+		_client = client;
+		_checkout = checkout;
+		_shopName = shopName;
 	}
 	
 	return self;
 }
-
 
 #pragma mark - PKPaymentAuthorizationDelegate methods
 
@@ -176,7 +157,7 @@ const NSTimeInterval PollDelay = 0.5;
 		else {
 			self.lastError = error;
 		}
-		completion(error == nil ? PKPaymentAuthorizationStatusSuccess : PKPaymentAuthorizationStatusFailure, [self.checkout buy_summaryItemsWithShopName:self.shop.name]);
+		completion(error == nil ? PKPaymentAuthorizationStatusSuccess : PKPaymentAuthorizationStatusFailure, [self.checkout buy_summaryItemsWithShopName:self.shopName]);
 	}];
 }
 
@@ -200,38 +181,13 @@ const NSTimeInterval PollDelay = 0.5;
 			}
 			else {
 				self.lastError = error;
-				completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItemsWithShopName:self.shop.name]);
+				completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItemsWithShopName:self.shopName]);
 			}
 		}];
 	}
 	else {
-		completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItemsWithShopName:self.shop.name]);
+		completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItemsWithShopName:self.shopName]);
 	}
-}
-
-- (void)updateAndCompleteCheckoutWithPayment:(PKPayment *)payment
-								  completion:(void (^)(PKPaymentAuthorizationStatus))completion
-{
-	// Since we're deprecating this method and the controller is not used in the delegate method, we can pass in a not-null PKPaymentAuthorizationViewController
-	[self paymentAuthorizationViewController:[PKPaymentAuthorizationViewController new] didAuthorizePayment:payment completion:completion];
-}
-
-- (void)updateCheckoutWithShippingMethod:(PKShippingMethod *)shippingMethod completion:(void (^)(PKPaymentAuthorizationStatus status, NSArray *methods))completion
-{
-	// Since we're deprecating this method and the controller is not used in the delegate method, we can pass in a not-null PKPaymentAuthorizationViewController
-	[self paymentAuthorizationViewController:[PKPaymentAuthorizationViewController new] didSelectShippingMethod:shippingMethod completion:completion];
-}
-
-- (void)updateCheckoutWithAddress:(ABRecordRef)address completion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion
-{
-	// Since we're deprecating this method and the controller is not used in the delegate method, we can pass in a not-null PKPaymentAuthorizationViewController
-	[self paymentAuthorizationViewController:[PKPaymentAuthorizationViewController new] didSelectShippingAddress:address completion:completion];
-}
-
-- (void)updateCheckoutWithContact:(PKContact*)contact completion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion
-{
-	// Since we're deprecating this method and the controller is not used in the delegate method, we can pass in a not-null PKPaymentAuthorizationViewController
-	[self paymentAuthorizationViewController:[PKPaymentAuthorizationViewController new] didSelectShippingContact:contact completion:completion];
 }
 
 #pragma mark - internal
@@ -255,7 +211,7 @@ const NSTimeInterval PollDelay = 0.5;
 	// We then turn our BUYShippingRate objects into PKShippingMethods for Apple to present to the user.
 	
 	if ([self.checkout requiresShipping] == NO) {
-		completion(PKPaymentAuthorizationStatusSuccess, nil, [self.checkout buy_summaryItemsWithShopName:self.shop.name]);
+		completion(PKPaymentAuthorizationStatusSuccess, nil, [self.checkout buy_summaryItemsWithShopName:self.shopName]);
 	}
 	else {
 		[self fetchShippingRates:^(PKPaymentAuthorizationStatus status, NSArray *methods, NSArray *summaryItems) {
@@ -266,12 +222,12 @@ const NSTimeInterval PollDelay = 0.5;
 					if (checkout && error == nil) {
 						self.checkout = checkout;
 					}
-					completion(error ? PKPaymentAuthorizationStatusFailure : PKPaymentAuthorizationStatusSuccess, shippingMethods, [self.checkout buy_summaryItemsWithShopName:self.shop.name]);
+					completion(error ? PKPaymentAuthorizationStatusFailure : PKPaymentAuthorizationStatusSuccess, shippingMethods, [self.checkout buy_summaryItemsWithShopName:self.shopName]);
 				}];
 			}
 			else {
 				self.lastError = [NSError errorWithDomain:BUYShopifyError code:BUYShopifyError_NoShippingMethodsToAddress userInfo:nil];
-				completion(status, nil, [self.checkout buy_summaryItemsWithShopName:self.shop.name]);
+				completion(status, nil, [self.checkout buy_summaryItemsWithShopName:self.shopName]);
 			}
 		}];
 	}
@@ -290,7 +246,7 @@ const NSTimeInterval PollDelay = 0.5;
 				shippingStatus = status;
 
 				if (error) {
-					completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItemsWithShopName:self.shop.name]);
+					completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItemsWithShopName:self.shopName]);
 				}
 				else if (shippingStatus == BUYStatusComplete) {
 					self.shippingRates = shippingRates;
@@ -298,11 +254,11 @@ const NSTimeInterval PollDelay = 0.5;
 					if ([self.shippingRates count] == 0) {
 						// Shipping address is not supported and no shipping rates were returned
 						if (completion) {
-							completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItemsWithShopName:self.shop.name]);
+							completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItemsWithShopName:self.shopName]);
 						}
 					} else {
 						if (completion) {
-							completion(PKPaymentAuthorizationStatusSuccess, self.shippingRates, [self.checkout buy_summaryItemsWithShopName:self.shop.name]);
+							completion(PKPaymentAuthorizationStatusSuccess, self.shippingRates, [self.checkout buy_summaryItemsWithShopName:self.shopName]);
 						}
 					}
 					
@@ -354,25 +310,6 @@ const NSTimeInterval PollDelay = 0.5;
 			completion(checkoutStatus == BUYStatusComplete ? PKPaymentAuthorizationStatusSuccess : PKPaymentAuthorizationStatusFailure);
 		});
 	});
-}
-
-@end
-
-@implementation BUYModelManager (ApplePay)
-
-
-- (BUYAddress *)buyAddressWithABRecord:(ABRecordRef)addressRecord
-{
-	BUYAddress *address = [self insertAddressWithJSONDictionary:nil];
-	[address updateWithRecord:addressRecord];
-	return address;
-}
-
-- (BUYAddress *)buyAddressWithContact:(PKContact *)contact
-{
-	BUYAddress *address = [self insertAddressWithJSONDictionary:nil];
-	[address updateWithContact:contact];
-	return address;
 }
 
 @end
