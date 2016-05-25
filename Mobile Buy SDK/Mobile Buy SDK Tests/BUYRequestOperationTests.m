@@ -45,7 +45,7 @@
 {
     [super setUp];
 	
-	self.request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://www.google.com"]];
+	self.request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://www.shopify.com"]];
 	self.queue   = [NSOperationQueue new];
 	self.session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:self.queue];
 }
@@ -220,7 +220,7 @@
 	
 	__block int pollCount = 0;
 	
-	XCTestExpectation *expectation = [self expectationWithDescription:@"Should stop polling at 10 iterations"];
+	XCTestExpectation *expectation = [self expectationWithDescription:@"Should stop polling at 2 iterations"];
 	operation.pollingHandler = ^BOOL (NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		
 		[self stubRequestsWithDelay:0.1 status:BUYStatusProcessing];
@@ -235,7 +235,7 @@
 		
 		if (response.statusCode == BUYStatusProcessing) {
 			pollCount += 1;
-			if (pollCount == 10) {
+			if (pollCount == 2) {
 				[self stubRequestsWithDelay:0.1 status:BUYStatusComplete];
 			}
 			return YES;
