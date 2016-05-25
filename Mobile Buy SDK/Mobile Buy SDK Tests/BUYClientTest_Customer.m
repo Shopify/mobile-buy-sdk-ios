@@ -168,7 +168,7 @@
 		}];
 	}];
 	
-	[self waitForExpectationsWithTimeout:10000 handler:nil];
+	[self waitForExpectationsWithTimeout:10 handler:nil];
 }
 
 #pragma mark - Update -
