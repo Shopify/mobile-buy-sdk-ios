@@ -379,6 +379,7 @@
 		B2653EC51CEF55CC0012D57D /* BUYModelManager+ApplePay.m in Sources */ = {isa = PBXBuildFile; fileRef = B2653EC21CEF55CC0012D57D /* BUYModelManager+ApplePay.m */; };
 		B2653EC61CEF55CC0012D57D /* BUYModelManager+ApplePay.m in Sources */ = {isa = PBXBuildFile; fileRef = B2653EC21CEF55CC0012D57D /* BUYModelManager+ApplePay.m */; };
 		B2653EC71CEF55CC0012D57D /* BUYModelManager+ApplePay.m in Sources */ = {isa = PBXBuildFile; fileRef = B2653EC21CEF55CC0012D57D /* BUYModelManager+ApplePay.m */; };
+		9ABBCCA11CF5C9D10075B0C5 /* BUYFakeSafariController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ABBCCA01CF5C9D10075B0C5 /* BUYFakeSafariController.m */; };
 		BE47340F1B66C4EF00AA721A /* BUYError.h in Headers */ = {isa = PBXBuildFile; fileRef = BE47340D1B66C4EF00AA721A /* BUYError.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BE4734101B66C4EF00AA721A /* BUYError.m in Sources */ = {isa = PBXBuildFile; fileRef = BE47340E1B66C4EF00AA721A /* BUYError.m */; };
 		BE5DC3631B71022D00B2BC1E /* BUYMaskedCreditCard.h in Headers */ = {isa = PBXBuildFile; fileRef = BE5DC3611B71022D00B2BC1E /* BUYMaskedCreditCard.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -659,6 +660,10 @@
 		B2653EC21CEF55CC0012D57D /* BUYModelManager+ApplePay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYModelManager+ApplePay.m"; sourceTree = "<group>"; };
 		BE33B4ED1B15FF4D0067982B /* BUYApplePayAuthorizationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYApplePayAuthorizationDelegate.h; sourceTree = "<group>"; };
 		BE33B4EE1B15FF4D0067982B /* BUYApplePayAuthorizationDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYApplePayAuthorizationDelegate.m; sourceTree = "<group>"; };
+		9ABBCC9F1CF5C9D10075B0C5 /* BUYFakeSafariController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYFakeSafariController.h; sourceTree = "<group>"; };
+		9ABBCCA01CF5C9D10075B0C5 /* BUYFakeSafariController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYFakeSafariController.m; sourceTree = "<group>"; };
+		BE33B4ED1B15FF4D0067982B /* BUYApplePayHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYApplePayHelpers.h; sourceTree = "<group>"; };
+		BE33B4EE1B15FF4D0067982B /* BUYApplePayHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYApplePayHelpers.m; sourceTree = "<group>"; };
 		BE47340D1B66C4EF00AA721A /* BUYError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYError.h; sourceTree = "<group>"; };
 		BE47340E1B66C4EF00AA721A /* BUYError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYError.m; sourceTree = "<group>"; };
 		BE5DC3611B71022D00B2BC1E /* BUYMaskedCreditCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYMaskedCreditCard.h; sourceTree = "<group>"; };
@@ -1019,6 +1024,8 @@
 			children = (
 				9A47CF1E1CE50EBB00A6D5BA /* BUYApplePayTestToken.h */,
 				9A47CF1F1CE50EBB00A6D5BA /* BUYApplePayTestToken.m */,
+				9ABBCC9F1CF5C9D10075B0C5 /* BUYFakeSafariController.h */,
+				9ABBCCA01CF5C9D10075B0C5 /* BUYFakeSafariController.m */,
 			);
 			name = "Test Objects";
 			sourceTree = "<group>";
@@ -1643,6 +1650,7 @@
 				8498DCCC1CDD208200BD12A8 /* BUYCustomerTests.m in Sources */,
 				B2653EC51CEF55CC0012D57D /* BUYModelManager+ApplePay.m in Sources */,
 				8498DCCE1CDD208200BD12A8 /* BUYOrderTests.m in Sources */,
+				9ABBCCA11CF5C9D10075B0C5 /* BUYFakeSafariController.m in Sources */,
 				9A0B0C831CEB981C0037D68F /* BUYClient+RoutingTests.m in Sources */,
 				849110351CCE70CE00E53B93 /* BUYDictionaryAdditionsTests.m in Sources */,
 				90F5930A1B0D5F4C0026B382 /* BUYLineItemTest.m in Sources */,

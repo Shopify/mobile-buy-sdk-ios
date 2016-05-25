@@ -14,10 +14,15 @@
 #import "BUYWebCheckoutPaymentProvider.h"
 #import "BUYClientTestBase.h"
 #import "BUYPaymentController.h"
+#import "BUYFakeSafariController.h"
 #import <OHHTTPStubs/OHHTTPStubs.h>
 
-@interface BUYPaymentController ()
+@interface BUYPaymentController (Private)
 - (id <BUYPaymentProvider>)providerForType:(NSString *)type;
+@end
+
+@interface BUYWebCheckoutPaymentProvider (Private)
+- (instancetype)initWithClient:(BUYClient *)client webClass:(Class)webClass;
 @end
 
 @interface BUYPaymentProviderTests : XCTestCase <BUYPaymentProviderDelegate>
@@ -157,7 +162,7 @@
 {
 	[self mockRequests];
 	
-	BUYWebCheckoutPaymentProvider *webProvider = [[BUYWebCheckoutPaymentProvider alloc] initWithClient:self.client];
+	BUYWebCheckoutPaymentProvider *webProvider = [[BUYWebCheckoutPaymentProvider alloc] initWithClient:self.client webClass:[BUYFakeSafariController class]];
 	webProvider.delegate = self;
 	
 	self.expectations[@"presentController"] = [self expectationWithDescription:NSStringFromSelector(_cmd)];

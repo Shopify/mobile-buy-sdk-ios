@@ -1,5 +1,5 @@
 //
-//  BUYWebCheckoutPaymentProvider.h
+//  BUYFakeSafariController.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,27 +24,8 @@
 //  THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
-#import "BUYPaymentProvider.h"
+#import <SafariServices/SafariServices.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
-extern NSString * BUYSafariCallbackURLNotification;
-extern NSString * BUYURLKey;
-extern NSString * const BUYWebPaymentProviderId;
-
-@interface BUYWebCheckoutPaymentProvider : NSObject <BUYPaymentProvider>
-
-/**
- *  Web payment provider
- *
- *  @param client a `BUYClient`
- *
- *  @return an instance of `BUYWebCheckoutPaymentProvider`
- */
-- (instancetype)initWithClient:(BUYClient *)client;
-- (instancetype)init NS_UNAVAILABLE;
+@interface BUYFakeSafariController : SFSafariViewController
 
 @end
-
-NS_ASSUME_NONNULL_END

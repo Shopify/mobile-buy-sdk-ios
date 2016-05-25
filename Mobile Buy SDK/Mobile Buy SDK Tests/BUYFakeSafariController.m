@@ -1,5 +1,5 @@
 //
-//  BUYWebCheckoutPaymentProvider.h
+//  BUYFakeSafariController.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,27 +24,37 @@
 //  THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
-#import "BUYPaymentProvider.h"
+#import "BUYFakeSafariController.h"
 
-NS_ASSUME_NONNULL_BEGIN
+#pragma mark - Delegator -
 
-extern NSString * BUYSafariCallbackURLNotification;
-extern NSString * BUYURLKey;
-extern NSString * const BUYWebPaymentProviderId;
+@interface BUYFakeDelegator : NSObject
 
-@interface BUYWebCheckoutPaymentProvider : NSObject <BUYPaymentProvider>
-
-/**
- *  Web payment provider
- *
- *  @param client a `BUYClient`
- *
- *  @return an instance of `BUYWebCheckoutPaymentProvider`
- */
-- (instancetype)initWithClient:(BUYClient *)client;
-- (instancetype)init NS_UNAVAILABLE;
+@property (weak, nonatomic) id delegate;
 
 @end
 
-NS_ASSUME_NONNULL_END
+@implementation BUYFakeDelegator
+
+@end
+
+#pragma mark - Fake Controller -
+
+@interface BUYFakeSafariController ()
+
+@end
+
+@implementation BUYFakeSafariController
+
+- (instancetype)initWithURL:(NSURL *)URL {
+	return [self initWithURL:URL entersReaderIfAvailable:YES];
+}
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wobjc-designated-initializers"
+- (instancetype)initWithURL:(NSURL *)URL entersReaderIfAvailable:(BOOL)entersReaderIfAvailable {
+	return (id)[[BUYFakeDelegator alloc] init];
+}
+#pragma clang diagnostic pop
+
+@end
