@@ -31,7 +31,6 @@
 #import "BUYModelManager.h"
 
 extern const struct BUYCollectionAttributes {
-	__unsafe_unretained NSString *collectionId;
 	__unsafe_unretained NSString *createdAt;
 	__unsafe_unretained NSString *handle;
 	__unsafe_unretained NSString *htmlDescription;
@@ -68,15 +67,6 @@ extern const struct BUYCollectionUserInfo {
 @interface _BUYCollection : BUYCachedObject
 + (NSString *)entityName;
 
-/**
- * The unique collection ID in the channel.
- */
-@property (nonatomic, strong) NSNumber* collectionId;
-
-@property (atomic) int64_t collectionIdValue;
-- (int64_t)collectionIdValue;
-- (void)setCollectionIdValue:(int64_t)value_;
-
 @property (nonatomic, strong) NSDate* createdAt;
 
 /**
@@ -91,6 +81,9 @@ extern const struct BUYCollectionUserInfo {
  */
 @property (nonatomic, strong) NSString* htmlDescription;
 
+/**
+ * Maps to collection_id in the JSON
+ */
 @property (nonatomic, strong) NSNumber* identifier;
 
 @property (atomic) int64_t identifierValue;
@@ -140,9 +133,6 @@ extern const struct BUYCollectionUserInfo {
 @end
 
 @interface _BUYCollection (CoreDataGeneratedPrimitiveAccessors)
-
-- (NSNumber*)primitiveCollectionId;
-- (void)setPrimitiveCollectionId:(NSNumber*)value;
 
 - (NSDate*)primitiveCreatedAt;
 - (void)setPrimitiveCreatedAt:(NSDate*)value;

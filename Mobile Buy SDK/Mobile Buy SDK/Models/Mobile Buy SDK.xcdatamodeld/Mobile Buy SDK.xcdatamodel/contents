@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15F34" minimumToolsVersion="Xcode 7.0">
     <entity name="Address" representedClassName="BUYAddress" syncable="YES">
         <attribute name="address1" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
@@ -314,11 +314,6 @@
         </userInfo>
     </entity>
     <entity name="Collection" representedClassName="BUYCollection" syncable="YES">
-        <attribute name="collectionId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES">
-            <userInfo>
-                <entry key="documentation" value="The unique collection ID in the channel."/>
-            </userInfo>
-        </attribute>
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="handle" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
@@ -332,7 +327,12 @@
                 <entry key="JSONPropertyKey" value="body_html"/>
             </userInfo>
         </attribute>
-        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="Maps to collection_id in the JSON"/>
+                <entry key="JSONPropertyKey" value="collection_id"/>
+            </userInfo>
+        </attribute>
         <attribute name="published" optional="YES" attributeType="Boolean" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="The state of whether the collection is currently published or not."/>
@@ -694,10 +694,10 @@
                 <entry key="JSONPropertyKey" value="body_html"/>
             </userInfo>
         </attribute>
-        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
-        <attribute name="productId" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES">
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES">
             <userInfo>
-                <entry key="documentation" value="The channel product ID."/>
+                <entry key="documentation" value="Maps to product_id in the JSON"/>
+                <entry key="JSONPropertyKey" value="product_id"/>
             </userInfo>
         </attribute>
         <attribute name="productType" optional="YES" attributeType="String" syncable="YES">
@@ -994,7 +994,7 @@
         <element name="CartLineItem" positionX="-380" positionY="558" width="128" height="90"/>
         <element name="Checkout" positionX="333" positionY="442" width="128" height="630"/>
         <element name="CheckoutAttribute" positionX="-954" positionY="594" width="128" height="90"/>
-        <element name="Collection" positionX="-963" positionY="772" width="128" height="210"/>
+        <element name="Collection" positionX="-963" positionY="772" width="128" height="195"/>
         <element name="Customer" positionX="106" positionY="1263" width="128" height="330"/>
         <element name="Discount" positionX="126" positionY="877" width="128" height="105"/>
         <element name="GiftCard" positionX="531" positionY="862" width="128" height="135"/>
@@ -1004,7 +1004,7 @@
         <element name="Option" positionX="-576" positionY="907" width="128" height="105"/>
         <element name="OptionValue" positionX="-387" positionY="907" width="128" height="105"/>
         <element name="Order" positionX="682" positionY="922" width="128" height="180"/>
-        <element name="Product" positionX="-765" positionY="712" width="128" height="315"/>
+        <element name="Product" positionX="-765" positionY="712" width="128" height="300"/>
         <element name="ProductVariant" positionX="-182" positionY="787" width="128" height="240"/>
         <element name="ShippingRate" positionX="531" positionY="1035" width="128" height="135"/>
         <element name="Shop" positionX="-279" positionY="450" width="128" height="255"/>

@@ -34,7 +34,6 @@ const struct BUYProductAttributes BUYProductAttributes = {
 	.handle = @"handle",
 	.htmlDescription = @"htmlDescription",
 	.identifier = @"identifier",
-	.productId = @"productId",
 	.productType = @"productType",
 	.publicURL = @"publicURL",
 	.published = @"published",
@@ -72,11 +71,6 @@ const struct BUYProductUserInfo BUYProductUserInfo = {
 	}
 	if ([key isEqualToString:@"identifierValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"identifier"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
-	if ([key isEqualToString:@"productIdValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"productId"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -153,19 +147,6 @@ const struct BUYProductUserInfo BUYProductUserInfo = {
     [self willChangeValueForKey:@"identifier"];
     [self setPrimitiveValue:value_ forKey:@"identifier"];
     [self didChangeValueForKey:@"identifier"];
-}
-
-- (NSNumber*)productId {
-    [self willAccessValueForKey:@"productId"];
-    id value = [self primitiveValueForKey:@"productId"];
-    [self didAccessValueForKey:@"productId"];
-    return value;
-}
-
-- (void)setProductId:(NSNumber*)value_ {
-    [self willChangeValueForKey:@"productId"];
-    [self setPrimitiveValue:value_ forKey:@"productId"];
-    [self didChangeValueForKey:@"productId"];
 }
 
 - (NSString*)productType {
@@ -290,15 +271,6 @@ const struct BUYProductUserInfo BUYProductUserInfo = {
 
 - (void)setIdentifierValue:(int64_t)value_ {
 	[self setIdentifier:@(value_)];
-}
-
-- (int64_t)productIdValue {
-	NSNumber *result = [self productId];
-	return [result longLongValue];
-}
-
-- (void)setProductIdValue:(int64_t)value_ {
-	[self setProductId:@(value_)];
 }
 
 - (BOOL)publishedValue {

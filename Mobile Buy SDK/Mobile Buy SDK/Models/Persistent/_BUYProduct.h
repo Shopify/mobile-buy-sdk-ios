@@ -36,7 +36,6 @@ extern const struct BUYProductAttributes {
 	__unsafe_unretained NSString *handle;
 	__unsafe_unretained NSString *htmlDescription;
 	__unsafe_unretained NSString *identifier;
-	__unsafe_unretained NSString *productId;
 	__unsafe_unretained NSString *productType;
 	__unsafe_unretained NSString *publicURL;
 	__unsafe_unretained NSString *published;
@@ -107,20 +106,14 @@ extern const struct BUYProductUserInfo {
  */
 @property (nonatomic, strong) NSString* htmlDescription;
 
+/**
+ * Maps to product_id in the JSON
+ */
 @property (nonatomic, strong) NSNumber* identifier;
 
 @property (atomic) int64_t identifierValue;
 - (int64_t)identifierValue;
 - (void)setIdentifierValue:(int64_t)value_;
-
-/**
- * The channel product ID.
- */
-@property (nonatomic, strong) NSNumber* productId;
-
-@property (atomic) int64_t productIdValue;
-- (int64_t)productIdValue;
-- (void)setProductIdValue:(int64_t)value_;
 
 /**
  * A categorization that a product can be tagged with, commonly used for filtering and searching.
@@ -253,9 +246,6 @@ extern const struct BUYProductUserInfo {
 
 - (NSNumber*)primitiveIdentifier;
 - (void)setPrimitiveIdentifier:(NSNumber*)value;
-
-- (NSNumber*)primitiveProductId;
-- (void)setPrimitiveProductId:(NSNumber*)value;
 
 - (NSString*)primitiveProductType;
 - (void)setPrimitiveProductType:(NSString*)value;
