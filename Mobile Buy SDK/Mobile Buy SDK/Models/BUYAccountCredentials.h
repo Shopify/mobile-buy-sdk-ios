@@ -55,9 +55,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface BUYAccountCredentialItem : NSObject
 
-@property (nonatomic, assign, readonly, getter=isValid) BOOL valid;
+@property (nonatomic, assign, getter=isValid) BOOL valid;
 @property (nonatomic, strong, readonly) NSString *key;
-@property (nonatomic, strong, readonly) NSString *value;
+@property (nonatomic, strong) NSString *value;
 
 + (instancetype)itemWithEmail:(NSString *)value;
 + (instancetype)itemWithFirstName:(NSString *)value;
