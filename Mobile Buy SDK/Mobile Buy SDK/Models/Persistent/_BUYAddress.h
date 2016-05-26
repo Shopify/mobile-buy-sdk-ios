@@ -38,6 +38,7 @@ extern const struct BUYAddressAttributes {
 	__unsafe_unretained NSString *country;
 	__unsafe_unretained NSString *countryCode;
 	__unsafe_unretained NSString *firstName;
+	__unsafe_unretained NSString *identifier;
 	__unsafe_unretained NSString *lastName;
 	__unsafe_unretained NSString *phone;
 	__unsafe_unretained NSString *province;
@@ -105,6 +106,15 @@ extern const struct BUYAddressUserInfo {
 @property (nonatomic, strong) NSString* firstName;
 
 /**
+ * Unique identifier for the address
+ */
+@property (nonatomic, strong) NSNumber* identifier;
+
+@property (atomic) int64_t identifierValue;
+- (int64_t)identifierValue;
+- (void)setIdentifierValue:(int64_t)value_;
+
+/**
  * The last name of the person associated with the payment method.
  */
 @property (nonatomic, strong) NSString* lastName;
@@ -155,6 +165,9 @@ extern const struct BUYAddressUserInfo {
 
 - (NSString*)primitiveFirstName;
 - (void)setPrimitiveFirstName:(NSString*)value;
+
+- (NSNumber*)primitiveIdentifier;
+- (void)setPrimitiveIdentifier:(NSNumber*)value;
 
 - (NSString*)primitiveLastName;
 - (void)setPrimitiveLastName:(NSString*)value;

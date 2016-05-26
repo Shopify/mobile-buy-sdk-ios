@@ -36,6 +36,11 @@
                 <entry key="documentation" value="The first name of the person associated with the payment method."/>
             </userInfo>
         </attribute>
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="Unique identifier for the address"/>
+            </userInfo>
+        </attribute>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="The last name of the person associated with the payment method."/>
@@ -984,7 +989,7 @@
         <memberEntity name="CheckoutAttribute"/>
     </configuration>
     <elements>
-        <element name="Address" positionX="126" positionY="521" width="128" height="240"/>
+        <element name="Address" positionX="126" positionY="521" width="128" height="255"/>
         <element name="Cart" positionX="-576" positionY="558" width="128" height="60"/>
         <element name="CartLineItem" positionX="-380" positionY="558" width="128" height="90"/>
         <element name="Checkout" positionX="333" positionY="442" width="128" height="630"/>

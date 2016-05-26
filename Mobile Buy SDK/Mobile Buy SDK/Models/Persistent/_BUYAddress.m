@@ -36,6 +36,7 @@ const struct BUYAddressAttributes BUYAddressAttributes = {
 	.country = @"country",
 	.countryCode = @"countryCode",
 	.firstName = @"firstName",
+	.identifier = @"identifier",
 	.lastName = @"lastName",
 	.phone = @"phone",
 	.province = @"province",
@@ -59,6 +60,12 @@ const struct BUYAddressUserInfo BUYAddressUserInfo = {
 
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
+
+	if ([key isEqualToString:@"identifierValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"identifier"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 
 	return keyPaths;
 }
@@ -155,6 +162,19 @@ const struct BUYAddressUserInfo BUYAddressUserInfo = {
     [self didChangeValueForKey:@"firstName"];
 }
 
+- (NSNumber*)identifier {
+    [self willAccessValueForKey:@"identifier"];
+    id value = [self primitiveValueForKey:@"identifier"];
+    [self didAccessValueForKey:@"identifier"];
+    return value;
+}
+
+- (void)setIdentifier:(NSNumber*)value_ {
+    [self willChangeValueForKey:@"identifier"];
+    [self setPrimitiveValue:value_ forKey:@"identifier"];
+    [self didChangeValueForKey:@"identifier"];
+}
+
 - (NSString*)lastName {
     [self willAccessValueForKey:@"lastName"];
     id value = [self primitiveValueForKey:@"lastName"];
@@ -221,6 +241,15 @@ const struct BUYAddressUserInfo BUYAddressUserInfo = {
 }
 
 #endif
+
+- (int64_t)identifierValue {
+	NSNumber *result = [self identifier];
+	return [result longLongValue];
+}
+
+- (void)setIdentifierValue:(int64_t)value_ {
+	[self setIdentifier:@(value_)];
+}
 
 #if defined CORE_DATA_PERSISTENCE
 @dynamic customer;
