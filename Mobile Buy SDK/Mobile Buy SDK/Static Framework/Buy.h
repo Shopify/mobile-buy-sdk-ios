@@ -59,6 +59,7 @@
 #import "BUYWebCheckoutPaymentProvider.h"
 
 #import "BUYClient.h"
+#import "BUYClient+Address.h"
 #import "BUYClient+Customers.h"
 #import "BUYClient+Checkout.h"
 #import "BUYClient+Storefront.h"
