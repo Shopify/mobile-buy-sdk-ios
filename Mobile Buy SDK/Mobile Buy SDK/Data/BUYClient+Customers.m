@@ -36,7 +36,7 @@
 
 @implementation BUYClient (Customers)
 
-#pragma mark - Customer
+#pragma mark - Getting -
 
 - (BUYRequestOperation *)getCustomerWithID:(NSString *)customerID callback:(BUYDataCustomerBlock)block
 {
@@ -50,6 +50,8 @@
 	}];
 }
 
+#pragma mark - Customer -
+
 - (BUYRequestOperation *)createCustomerWithCredentials:(BUYAccountCredentials *)credentials callback:(BUYDataCustomerTokenBlock)block
 {
 	NSURL *route = [self urlForCustomers];
@@ -61,72 +63,6 @@
 			block(nil, nil, error);
 		}
 	}];
-}
-
-- (BUYRequestOperation *)createTokenForCustomerWithCredentials:(BUYAccountCredentials *)credentials customerJSON:(NSDictionary *)customerJSON callback:(BUYDataCustomerTokenBlock)block
-{
-	NSURL *route = [self urlForCustomersToken];
-	return [self postRequestForURL:route object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
-		if (json && !error) {
-			BUYAuthenticatedResponse *authenticatedResponse = [BUYAuthenticatedResponse responseWithJSON:json];
-			self.customerToken = authenticatedResponse.accessToken;
-			
-			if (!customerJSON) {
-				[self getCustomerWithID:authenticatedResponse.customerID callback:^(BUYCustomer *customer, NSError *error) {
-					block(customer, self.customerToken, error);
-				}];
-			}
-			else {
-				BUYCustomer *customer = [self.modelManager customerWithJSONDictionary:json[@"customer"]];
-				block(customer, self.customerToken, error);
-			}
-		}
-		else {
-			block(nil, nil, error);
-		}
-	}];
-}
-
-- (BUYRequestOperation *)logoutCustomerID:(NSString *)customerID callback:(BUYDataStatusBlock)block
-{
-	NSURL *route = [self urlForCustomersTokenWithID:customerID];
-	return [self deleteRequestForURL:route completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
-		block(response.statusCode, error);
-	}];
-}
-
-- (BUYRequestOperation *)loginCustomerWithCredentials:(BUYAccountCredentials *)credentials callback:(BUYDataCustomerTokenBlock)block
-{
-	return [self createTokenForCustomerWithCredentials:credentials customerJSON:nil callback:block];
-}
-
-- (BUYRequestOperation *)recoverPasswordForCustomer:(NSString *)email callback:(BUYDataStatusBlock)block
-{
-	NSURL *route = [self urlForCustomersPasswordRecovery];
-	return [self postRequestForURL:route object:@{@"email": email} completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
-		block(response.statusCode, error);
-	}];
-}
-
-- (BUYRequestOperation *)renewCustomerTokenWithID:(NSString *)customerID callback:(BUYDataTokenBlock)block
-{
-	if (self.customerToken) {
-		NSURL *route = [self urlForCustomersTokenRenewalWithID:customerID];
-		
-		return [self putRequestForURL:route object:nil completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
-			NSString *accessToken = nil;
-			if (json && !error) {
-				BUYAuthenticatedResponse *authenticatedResponse = [BUYAuthenticatedResponse responseWithJSON:json];
-				accessToken = authenticatedResponse.accessToken;
-			}
-			
-			block(accessToken, error);
-		}];
-	}
-	else {
-		block(nil, [NSError errorWithDomain:BUYShopifyErrorDomain code:BUYShopifyError_InvalidCustomerToken userInfo:nil]);
-		return nil;
-	}
 }
 
 - (BUYRequestOperation *)activateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID token:(NSString *)token callback:(BUYDataCustomerTokenBlock)block
@@ -173,6 +109,54 @@
 	}];
 }
 
+#pragma mark - Token -
+
+- (BUYRequestOperation *)renewCustomerTokenWithID:(NSString *)customerID callback:(BUYDataTokenBlock)block
+{
+	if (self.customerToken) {
+		NSURL *route = [self urlForCustomersTokenRenewalWithID:customerID];
+		
+		return [self putRequestForURL:route object:nil completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+			NSString *accessToken = nil;
+			if (json && !error) {
+				BUYAuthenticatedResponse *authenticatedResponse = [BUYAuthenticatedResponse responseWithJSON:json];
+				accessToken = authenticatedResponse.accessToken;
+			}
+			
+			block(accessToken, error);
+		}];
+	}
+	else {
+		block(nil, [NSError errorWithDomain:BUYShopifyErrorDomain code:BUYShopifyError_InvalidCustomerToken userInfo:nil]);
+		return nil;
+	}
+}
+
+#pragma mark - Login -
+
+- (BUYRequestOperation *)logoutCustomerID:(NSString *)customerID callback:(BUYDataStatusBlock)block
+{
+	NSURL *route = [self urlForCustomersTokenWithID:customerID];
+	return [self deleteRequestForURL:route completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		block(response.statusCode, error);
+	}];
+}
+
+- (BUYRequestOperation *)loginCustomerWithCredentials:(BUYAccountCredentials *)credentials callback:(BUYDataCustomerTokenBlock)block
+{
+	return [self createTokenForCustomerWithCredentials:credentials customerJSON:nil callback:block];
+}
+
+- (BUYRequestOperation *)recoverPasswordForCustomer:(NSString *)email callback:(BUYDataStatusBlock)block
+{
+	NSURL *route = [self urlForCustomersPasswordRecovery];
+	return [self postRequestForURL:route object:@{@"email": email} completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		block(response.statusCode, error);
+	}];
+}
+
+#pragma mark - Orders -
+
 - (BUYRequestOperation *)getOrdersForCustomerWithCallback:(BUYDataOrdersBlock)block
 {
 	NSURL *route = [self urlForCustomersOrders];
@@ -182,6 +166,32 @@
 			block(orders, error);
 		} else {
 			block(nil, error);
+		}
+	}];
+}
+
+#pragma mark - Helpers -
+
+- (BUYRequestOperation *)createTokenForCustomerWithCredentials:(BUYAccountCredentials *)credentials customerJSON:(NSDictionary *)customerJSON callback:(BUYDataCustomerTokenBlock)block
+{
+	NSURL *route = [self urlForCustomersToken];
+	return [self postRequestForURL:route object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		if (json && !error) {
+			BUYAuthenticatedResponse *authenticatedResponse = [BUYAuthenticatedResponse responseWithJSON:json];
+			self.customerToken = authenticatedResponse.accessToken;
+			
+			if (!customerJSON) {
+				[self getCustomerWithID:authenticatedResponse.customerID callback:^(BUYCustomer *customer, NSError *error) {
+					block(customer, self.customerToken, error);
+				}];
+			}
+			else {
+				BUYCustomer *customer = [self.modelManager customerWithJSONDictionary:json[@"customer"]];
+				block(customer, self.customerToken, error);
+			}
+		}
+		else {
+			block(nil, nil, error);
 		}
 	}];
 }
