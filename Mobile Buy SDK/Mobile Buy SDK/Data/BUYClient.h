@@ -126,11 +126,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly, nonnull) NSString *appId;
 
 /**
- *  The Merchant ID is used for Apple Pay and set using `enableApplePayWithMerchantId:`
- */
-@property (nonatomic, strong, readonly, nullable) NSString *merchantId NS_DEPRECATED_IOS(8_0, 9_0, "Set the `merchantId` on a BUYViewController subclass instead");
-
-/**
  *  Application name to attribute orders to.  Defaults to app bundle name (CFBundleName)
  */
 @property (nonatomic, strong, nonnull) NSString *applicationName;
@@ -146,15 +141,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param token The token received from the create and login callbacks
  */
 @property (strong, nonatomic, nullable) NSString *customerToken;
-
-#pragma mark - Deprecated methods
-
-/**
- *  Enable Apple Pay by calling this method with the Merchant ID provided via Apple Pay setup in the Mobile SDK Channel on Shopify Admin
- *
- *  @param merchantId The Merchant ID generated on Shopify Admin
- */
-- (void)enableApplePayWithMerchantId:(NSString *)merchantId NS_DEPRECATED_IOS(8_0, 9_0, "Set the merchantId on a `BUYViewController` subclass instead");
 
 @end
 

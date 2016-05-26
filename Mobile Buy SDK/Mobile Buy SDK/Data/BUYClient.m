@@ -236,11 +236,4 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 	}
 }
 
-#pragma mark - Deprecations
-
-- (void)enableApplePayWithMerchantId:(NSString *)merchantId
-{
-	_merchantId = merchantId;
-}
-
 @end
