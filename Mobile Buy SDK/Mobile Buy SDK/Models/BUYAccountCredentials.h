@@ -27,6 +27,12 @@
 #import <Foundation/Foundation.h>
 NS_ASSUME_NONNULL_BEGIN
 
+OBJC_EXTERN NSString * const BUYAccountFirstNameKey;
+OBJC_EXTERN NSString * const BUYAccountLastNameKey;
+OBJC_EXTERN NSString * const BUYAccountEmailKey;
+OBJC_EXTERN NSString * const BUYAccountPasswordKey;
+OBJC_EXTERN NSString * const BUYAccountPasswordConfirmationKey;
+
 @class BUYAccountCredentialItem;
 
 /**

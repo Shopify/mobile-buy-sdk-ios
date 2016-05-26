@@ -87,11 +87,11 @@
 	XCTAssertNotNil(json);
 	XCTAssertEqual(json.count, 1);
 	XCTAssertNotNil(customer);
-	XCTAssertEqual(customer[@"email"], @"john@doe.com");
-	XCTAssertEqual(customer[@"first_name"], @"John");
-	XCTAssertEqual(customer[@"last_name"], @"Doe");
-	XCTAssertEqual(customer[@"password"], @"pass");
-	XCTAssertEqual(customer[@"password_confirmation"], @"pass");
+	XCTAssertEqual(customer[BUYAccountEmailKey], @"john@doe.com");
+	XCTAssertEqual(customer[BUYAccountFirstNameKey], @"John");
+	XCTAssertEqual(customer[BUYAccountLastNameKey], @"Doe");
+	XCTAssertEqual(customer[BUYAccountPasswordKey], @"pass");
+	XCTAssertEqual(customer[BUYAccountPasswordConfirmationKey], @"pass");
 }
 
 #pragma mark - Utilities -
