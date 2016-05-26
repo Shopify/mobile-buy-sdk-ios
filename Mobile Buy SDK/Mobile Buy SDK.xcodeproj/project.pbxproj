@@ -157,8 +157,8 @@
 		84B0A73B1CE10ED900253EB0 /* BUYWebCheckoutPaymentProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 84B0A72E1CE10ED900253EB0 /* BUYWebCheckoutPaymentProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84B0A73C1CE10ED900253EB0 /* BUYWebCheckoutPaymentProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B0A72F1CE10ED900253EB0 /* BUYWebCheckoutPaymentProvider.m */; };
 		84B0A73D1CE10ED900253EB0 /* BUYWebCheckoutPaymentProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B0A72F1CE10ED900253EB0 /* BUYWebCheckoutPaymentProvider.m */; };
-		84B0A7401CE10F8100253EB0 /* BUYClient+CheckoutHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 84B0A73E1CE10F8100253EB0 /* BUYClient+CheckoutHelpers.h */; };
-		84B0A7411CE10F8100253EB0 /* BUYClient+CheckoutHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 84B0A73E1CE10F8100253EB0 /* BUYClient+CheckoutHelpers.h */; };
+		84B0A7401CE10F8100253EB0 /* BUYClient+CheckoutHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 84B0A73E1CE10F8100253EB0 /* BUYClient+CheckoutHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		84B0A7411CE10F8100253EB0 /* BUYClient+CheckoutHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 84B0A73E1CE10F8100253EB0 /* BUYClient+CheckoutHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84B0A7421CE10F8100253EB0 /* BUYClient+CheckoutHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B0A73F1CE10F8100253EB0 /* BUYClient+CheckoutHelpers.m */; };
 		84B0A7431CE10F8100253EB0 /* BUYClient+CheckoutHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B0A73F1CE10F8100253EB0 /* BUYClient+CheckoutHelpers.m */; };
 		84CD7C2D1CC65D5A00B6EE61 /* _BUYCheckoutAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 84CD7C2B1CC65D5500B6EE61 /* _BUYCheckoutAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
