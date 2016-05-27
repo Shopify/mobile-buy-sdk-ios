@@ -32,6 +32,7 @@ NSString * const kShopifyError = @"shopify";
 typedef void (^BUYRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResponse *response, NSError *error);
 
 #pragma mark - NSURLResponse -
+
 @interface NSHTTPURLResponse (Convenience)
 
 @property (assign, nonatomic, readonly) BOOL successful;
@@ -40,17 +41,11 @@ typedef void (^BUYRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResponse *
 
 @implementation NSHTTPURLResponse (Convenience)
 
-- (BOOL)successful {
+- (BOOL)successful
+{
 	return ((NSUInteger)(self.statusCode / 100)) == 2;
 }
 
-@end
-
-#pragma mark - BUYOperation Private -
-
-@interface BUYOperation (Private)
-- (void)setExecuting:(BOOL)executing;
-- (void)setFinished:(BOOL)finished;
 @end
 
 #pragma mark - BUYRequestOperation -
@@ -65,7 +60,9 @@ typedef void (^BUYRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResponse *
 @implementation BUYRequestOperation
 
 #pragma mark - Init -
-+ (instancetype)operationWithSession:(NSURLSession *)session request:(NSURLRequest *)request payload:(id<BUYSerializable>)payload completion:(BUYRequestOperationCompletion)completion {
+
++ (instancetype)operationWithSession:(NSURLSession *)session request:(NSURLRequest *)request payload:(id<BUYSerializable>)payload completion:(BUYRequestOperationCompletion)completion
+{
 	return [[[self class] alloc] initWithSession:session request:request payload:payload completion:completion];
 }
 
