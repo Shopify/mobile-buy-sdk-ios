@@ -34,24 +34,6 @@
 
 @implementation BUYLineItem
 
-/**
- *  Have model manager responsible for instantiation, and allow deprecated
- *  initializers for backwards compatability
- */
-- (instancetype)initWithCartLineItem:(BUYCartLineItem *)cartLineItem
-{
-	BUYLineItem *lineItem = [[BUYLineItem alloc] initWithModelManager:cartLineItem.modelManager JSONDictionary:nil];
-	[lineItem updateWithLineItem:cartLineItem];
-	return lineItem;
-}
-
-- (instancetype)initWithVariant:(BUYProductVariant *)variant
-{
-	BUYLineItem *lineItem = [[BUYLineItem alloc] initWithModelManager:variant.modelManager JSONDictionary:nil];
-	[lineItem updateWithVariant:variant];
-	return lineItem;
-}
-
 - (void)updateWithVariant:(BUYProductVariant *)variant
 {
 	self.variantId = variant.identifier;
@@ -67,11 +49,6 @@
 {
 	[self updateWithVariant:lineItem.variant];
 	self.quantity = lineItem.quantity;
-}
-
-- (NSString *)lineItemIdentifier
-{
-	return self.identifier;
 }
 
 @end
