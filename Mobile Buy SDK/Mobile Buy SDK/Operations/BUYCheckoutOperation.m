@@ -37,7 +37,7 @@
 @property (strong, nonatomic, readonly) id<BUYPaymentToken> token;
 @property (strong, nonatomic, readonly) BUYCheckoutOperationCompletion completion;
 
-@property (strong, atomic) BUYRequestOperation *currentOperation;
+@property (strong, atomic) NSArray *operations;
 
 @end
 
@@ -66,12 +66,22 @@
 
 - (void)finishWithCheckout:(BUYCheckout *)checkout
 {
+	if (self.isCancelled) {
+		return;
+	}
+	
 	[self finishExecution];
 	self.completion(checkout, nil);
 }
 
 - (void)finishWithError:(NSError *)error
 {
+	if (self.isCancelled) {
+		return;
+	}
+	
+	[self cancelAllOperations];
+	
 	[self finishExecution];
 	self.completion(nil, error);
 }
@@ -86,64 +96,78 @@
 	
 	[super startExecution];
 	
-	__weak typeof(self) weakSelf = self;
+	BUYRequestOperation *beginOperation = [self createBeginOperation];
+	BUYRequestOperation *pollOperation  = [self createPollOperation];
+	BUYRequestOperation *getOperation   = [self createGetOperation];
 	
-	BUYRequestOperation *beginOperation = [weakSelf.client beginCheckout:weakSelf.checkout paymentToken:weakSelf.token completion:^(BUYCheckout *checkout, NSError *error) {
-		if (weakSelf.isCancelled) {
-			return;
-		}
-		
-		if (!checkout) {
-			[weakSelf finishWithError:error];
-			return;
-		}
-		
-		BUYRequestOperation *pollOperation = [weakSelf.client getCompletionStatusOfCheckoutToken:weakSelf.checkout.token start:NO completion:^(BUYStatus status, NSError *error) {
-			if (weakSelf.isCancelled) {
-				return;
-			}
-			
-			if (status != BUYStatusComplete) {
-				[weakSelf finishWithError:error];
-				return;
-			}
-			
-			BUYRequestOperation *getOperation = [weakSelf.client getCheckout:weakSelf.checkout start:NO completion:^(BUYCheckout *checkout, NSError *error) {
-				if (weakSelf.isCancelled) {
-					return;
-				}
-				
-				if (checkout) {
-					[weakSelf finishWithCheckout:checkout];
-				} else {
-					[weakSelf finishWithError:error];
-				}
-			}];
-			
-			weakSelf.currentOperation = getOperation;
-			
-			[weakSelf.client startOperation:getOperation];
-			
-		}];
-		pollOperation.pollingHandler = ^BOOL (NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
-			return response.statusCode == BUYStatusProcessing;
-		};
-		
-		weakSelf.currentOperation = pollOperation;
-		
-		[weakSelf.client startOperation:pollOperation];
-	}];
+	[pollOperation addDependency:beginOperation];
+	[getOperation addDependency:pollOperation];
 	
-	// Update current operation
-	self.currentOperation = beginOperation;
+	self.operations = @[
+						beginOperation,
+						pollOperation,
+						getOperation,
+						];
 	
-	[self.client startOperation:beginOperation];
+	[self startAllOperations];
 }
 
 - (void)cancelExecution
 {
 	[super cancelExecution];
-	[self.currentOperation cancel];
+	[self cancelAllOperations];
+}
+
+#pragma mark - Start / Stop -
+
+- (void)startAllOperations
+{
+	for (BUYRequestOperation *operation in self.operations) {
+		[self.client startOperation:operation];
+	}
+}
+
+- (void)cancelAllOperations
+{
+	for (BUYRequestOperation *operation in self.operations) {
+		[operation cancel];
+	}
+}
+
+#pragma mark - Operations -
+
+- (BUYRequestOperation *)createBeginOperation
+{
+	return [self.client beginCheckout:self.checkout paymentToken:self.token completion:^(BUYCheckout *checkout, NSError *error) {
+		if (!checkout) {
+			[self finishWithError:error];
+		}
+	}];
+}
+
+- (BUYRequestOperation *)createPollOperation
+{
+	BUYRequestOperation *operation =[self.client getCompletionStatusOfCheckoutToken:self.checkout.token start:NO completion:^(BUYStatus status, NSError *error) {
+		if (status != BUYStatusComplete) {
+			[self finishWithError:error];
+		}
+	}];
+	operation.pollingHandler = ^BOOL (NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		return response.statusCode == BUYStatusProcessing;
+	};
+	
+	return operation;
+}
+
+- (BUYRequestOperation *)createGetOperation
+{
+	return [self.client getCheckout:self.checkout start:NO completion:^(BUYCheckout *checkout, NSError *error) {
+		if (checkout) {
+			[self finishWithCheckout:checkout];
+		} else {
+			[self finishWithError:error];
+		}
+	}];
 }
 
 @end
