@@ -61,4 +61,9 @@
  */
 - (void)buy_updateObject:(id<BUYObject>)object withJSON:(NSDictionary *)JSON;
 
+/**
+ *  Convenience to access JSONPropertyKey for the "identifier" attribute
+ */
+@property (strong, nonatomic, readonly) NSString *JSONIdentifierKey;
+
 @end
