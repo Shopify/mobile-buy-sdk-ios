@@ -181,7 +181,7 @@
 		
 		XCTAssertNotNil([collections.firstObject title]);
 		XCTAssertNotNil([collections.firstObject handle]);
-		XCTAssertNotNil([collections.firstObject collectionId]);
+		XCTAssertNotNil([collections.firstObject identifier]);
 
 		self.collection = collections.firstObject;
 		[expectation fulfill];
@@ -205,7 +205,7 @@
 		
 		XCTAssertNotNil([collections.firstObject title]);
 		XCTAssertNotNil([collections.firstObject handle]);
-		XCTAssertNotNil([collections.firstObject collectionId]);
+		XCTAssertNotNil([collections.firstObject identifier]);
 
 		[expectation fulfill];
 	}];
@@ -246,7 +246,7 @@
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 
-	[self.client getProductsPage:1 inCollection:self.collection.collectionId completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+	[self.client getProductsPage:1 inCollection:self.collection.identifier completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 	
 		XCTAssertNil(error);
 		XCTAssertNotNil(products);
