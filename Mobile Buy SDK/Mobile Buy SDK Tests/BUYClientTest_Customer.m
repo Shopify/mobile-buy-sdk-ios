@@ -221,15 +221,16 @@
 	[self createAddress];
 	[self getAddress];
 	[self updateAddress];
+	[self deleteAddress];
 }
 
 - (void)createAddress
 {
-	//	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-	//		return [self shouldUseMocks];
-	//	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-	//		return [OHHTTPStubsResponse responseWithKey:@"testCustomerDuplicateEmail"];
-	//	}];
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCustomerAddressGet1"];
+	}];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
@@ -263,11 +264,11 @@
 
 - (void)getAddress
 {
-	//	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-	//		return [self shouldUseMocks];
-	//	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-	//		return [OHHTTPStubsResponse responseWithKey:@"testCustomerDuplicateEmail"];
-	//	}];
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCustomerAddressGet1"];
+	}];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client getAddressWithID:self.createdAddress.identifier forCustomerID:self.customer.identifier.stringValue callback:^(BUYAddress * _Nullable address, NSError * _Nullable error) {
@@ -284,17 +285,17 @@
 
 - (void)updateAddress
 {
-	//	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-	//		return [self shouldUseMocks];
-	//	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-	//		return [OHHTTPStubsResponse responseWithKey:@"testCustomerDuplicateEmail"];
-	//	}];
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCustomerAddressGet2"];
+	}];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
 	BUYAddress *modifiedAddress = [self addressByModyfyingAddress:self.createdAddress];
 	
-	[self.client  updateAddress:modifiedAddress forCustomerID:self.customer.identifier.stringValue callback:^(BUYAddress * _Nullable returnedAddress, NSError * _Nullable error) {
+	[self.client updateAddress:modifiedAddress forCustomerID:self.customer.identifier.stringValue callback:^(BUYAddress * _Nullable returnedAddress, NSError * _Nullable error) {
 		
 		XCTAssertNotNil(returnedAddress);
 		XCTAssertNil(error);
@@ -317,16 +318,16 @@
 
 - (void)deleteAddress
 {
-	//	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-	//		return [self shouldUseMocks];
-	//	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-	//		return [OHHTTPStubsResponse responseWithKey:@"testCustomerDuplicateEmail"];
-	//	}];
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:@"testCustomerAddressDelete"];
+	}];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client  deleteAddress:self.createdAddress forCustomerID:self.customer.identifier.stringValue callback:^(BUYStatus status, NSError * _Nullable error) {
 		
-		XCTAssertEqual(status, BUYStatusComplete);
+		XCTAssertEqual(status, 204);
 		XCTAssertNil(error);
 		
 		[expectation fulfill];
