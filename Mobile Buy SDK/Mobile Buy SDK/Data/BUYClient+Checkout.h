@@ -70,6 +70,8 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
 
 @interface BUYClient (Checkout)
 
+#pragma mark - Checkout -
+
 /**
  *  Builds a checkout on Shopify. The checkout object is used to prepare an order
  *
@@ -92,41 +94,6 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
 - (BUYRequestOperation *)createCheckoutWithCartToken:(NSString *)cartToken completion:(BUYDataCheckoutBlock)block;
 
 /**
- *  Applies a gift card code to the checkout.
- *
- *  @param giftCardCode The gift card code to apply on an existing checkout on Shopify. Note: This is not the same as the gift card identifier.
- *  @param checkout     An existing BUYCheckout on Shopify
- *  @param block        (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
- *
- *  @return The associated BUYRequestOperation
- */
-- (BUYRequestOperation *)applyGiftCardWithCode:(NSString *)giftCardCode toCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
-
-/**
- *  Removes a gift card from the checkout.
- *
- *  @param giftCardCode The BUYGiftCard identifier to remove on an existing checkout on Shopify.
- *  @param checkout     An existing BUYCheckout on Shopify
- *  @param block        (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
- *
- *  @return The associated BUYRequestOperation
- */
-- (BUYRequestOperation *)removeGiftCard:(BUYGiftCard *)giftCard fromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
-
-/**
- *  Retrieves an updated version of a BUYCheckout from Shopify.
- *
- *  Note: There's no guarantee that the BUYCheckout returned will be the same as the one that is passed in.
- *  We recommended using the BUYCheckout returned in the block.
- *
- *  @param checkout The BUYCheckout to retrieve (updated) from Shopify
- *  @param block    (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
- *
- *  @return The associated BUYRequestOperation
- */
-- (BUYRequestOperation *)getCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
-
-/**
  *  Updates a given BUYCheckout on Shopify.
  *
  *  Note: There's no guarantee that the BUYCheckout returned will be the same as the one that is passed in.
@@ -140,6 +107,19 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
  *  @return The associated BUYRequestOperation
  */
 - (BUYRequestOperation *)updateCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
+
+/**
+ *  Retrieves an updated version of a BUYCheckout from Shopify.
+ *
+ *  Note: There's no guarantee that the BUYCheckout returned will be the same as the one that is passed in.
+ *  We recommended using the BUYCheckout returned in the block.
+ *
+ *  @param checkout The BUYCheckout to retrieve (updated) from Shopify
+ *  @param block    (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
+ *
+ *  @return The associated BUYRequestOperation
+ */
+- (BUYRequestOperation *)getCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
 
 /**
  *  Finalizes the BUYCheckout and charges the payment provider (ex: Credit Card, Apple Pay, etc).
@@ -178,7 +158,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
  */
 - (BUYRequestOperation *)getCompletionStatusOfCheckoutURL:(NSURL *)url completion:(BUYDataStatusBlock)block;
 
-#pragma mark - Shipping Rates
+#pragma mark - Shipping Rates -
 
 /**
  *  Retrieves a list of applicable shipping rates for a given BUYCheckout.
@@ -191,7 +171,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
  */
 - (BUYRequestOperation *)getShippingRatesForCheckout:(BUYCheckout *)checkout completion:(BUYDataShippingRatesBlock)block;
 
-#pragma mark - Payment Management
+#pragma mark - Cards -
 
 /**
  *  Prepares a credit card for usage during the checkout process. This sends it to Shopify's secure servers.
@@ -210,6 +190,30 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
  *  @return The associated BUYRequestOperation
  */
 - (BUYRequestOperation *)storeCreditCard:(BUYCreditCard *)creditCard checkout:(BUYCheckout *)checkout completion:(BUYDataCreditCardBlock)block;
+
+/**
+ *  Applies a gift card code to the checkout.
+ *
+ *  @param giftCardCode The gift card code to apply on an existing checkout on Shopify. Note: This is not the same as the gift card identifier.
+ *  @param checkout     An existing BUYCheckout on Shopify
+ *  @param block        (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
+ *
+ *  @return The associated BUYRequestOperation
+ */
+- (BUYRequestOperation *)applyGiftCardWithCode:(NSString *)giftCardCode toCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
+
+/**
+ *  Removes a gift card from the checkout.
+ *
+ *  @param giftCardCode The BUYGiftCard identifier to remove on an existing checkout on Shopify.
+ *  @param checkout     An existing BUYCheckout on Shopify
+ *  @param block        (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
+ *
+ *  @return The associated BUYRequestOperation
+ */
+- (BUYRequestOperation *)removeGiftCard:(BUYGiftCard *)giftCard fromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
+
+#pragma mark - Reservations -
 
 /**
  *  Convenience method to release all product inventory reservations by setting its

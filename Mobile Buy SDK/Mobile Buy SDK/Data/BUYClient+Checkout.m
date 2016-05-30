@@ -43,26 +43,7 @@
 
 @implementation BUYClient (Checkout)
 
-#pragma mark - API -
-
-- (void)handleCheckoutResponse:(NSDictionary *)json error:(NSError *)error block:(BUYDataCheckoutBlock)block
-{
-	BUYCheckout *checkout = nil;
-	if (json && !error) {
-		checkout = [self.modelManager insertCheckoutWithJSONDictionary:json[@"checkout"]];
-	}
-	block(checkout, error);
-}
-
-- (void)configureCheckout:(BUYCheckout *)checkout
-{
-	checkout.marketingAttribution = @{@"medium": @"iOS", @"source": self.applicationName};
-	checkout.sourceName = @"mobile_app";
-	if (self.urlScheme || checkout.webReturnToURL) {
-		checkout.webReturnToURL = checkout.webReturnToURL ?: [NSURL URLWithString:self.urlScheme];
-		checkout.webReturnToLabel = checkout.webReturnToLabel ?: [@"Return to " stringByAppendingString:self.applicationName];
-	}
-}
+#pragma mark - Checkout -
 
 - (BUYRequestOperation *)createCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
@@ -85,58 +66,14 @@
 	return [self postCheckout:json completion:block];
 }
 
-- (BUYRequestOperation *)postCheckout:(NSDictionary *)checkoutJSON completion:(BUYDataCheckoutBlock)block
+- (BUYRequestOperation *)updateCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
-	return [self postRequestForURL:[self urlForCheckouts] object:checkoutJSON completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+	BUYAssertCheckout(checkout);
+	
+	NSURL *route = [self urlForCheckoutsWithToken:checkout.token];
+	return [self patchRequestForURL:route object:checkout completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		[self handleCheckoutResponse:json error:error block:block];
 	}];
-}
-
-- (BUYRequestOperation *)applyGiftCardWithCode:(NSString *)giftCardCode toCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
-{
-	BUYAssertCheckout(checkout);
-	BUYAssert(giftCardCode.length > 0, @"Failed to apply gift card code. Invalid gift card code.");
-	
-	BUYGiftCard *giftCard = [self.modelManager giftCardWithCode:giftCardCode];
-	NSURL *url = [self urlForCheckoutsUsingGiftCardWithToken:checkout.token];
-	
-	return [self postRequestForURL:url object:giftCard completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
-		if (json && !error) {
-			[self updateCheckout:checkout withGiftCardDictionary:json[@"gift_card"] addingGiftCard:YES];
-		}
-		block(checkout, error);
-	}];
-}
-
-- (BUYRequestOperation *)removeGiftCard:(BUYGiftCard *)giftCard fromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
-{
-	BUYAssertCheckout(checkout);
-	BUYAssert(giftCard.identifier, @"Failed to remove gift card. Gift card must have a valid identifier.");
-	
-	NSURL *url = [self urlForCheckoutsUsingGiftCard:giftCard.identifier token:checkout.token];
-	return [self deleteRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
-		if (!error) {
-			[self updateCheckout:checkout withGiftCardDictionary:json[@"gift_card"] addingGiftCard:NO];
-		}
-		block(checkout, error);
-	}];
-}
-
-- (void)updateCheckout:(BUYCheckout *)checkout withGiftCardDictionary:(NSDictionary *)giftCardDictionary addingGiftCard:(BOOL)addingGiftCard
-{
-	if (addingGiftCard) {
-		BUYGiftCard *giftCard = [self.modelManager insertGiftCardWithJSONDictionary:giftCardDictionary];
-		[checkout.giftCardsSet addObject:giftCard];
-	} else {
-		[checkout removeGiftCardWithIdentifier:giftCardDictionary[@"id"]];
-	}
-	
-	checkout.paymentDue = [NSDecimalNumber buy_decimalNumberFromJSON:giftCardDictionary[@"checkout"][@"payment_due"]];
-	
-	// Marking the checkout as clean. The properties we have updated above we don't need to re-sync with Shopify.
-	// There's also an issue with gift cards where syncing the gift card JSON won't work since the update endpoint
-	// doesn't accept the gift card without a gift card code (which we do not have).
-	[checkout markAsClean];
 }
 
 - (BUYRequestOperation *)getCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
@@ -154,34 +91,10 @@
 	}];
 }
 
-- (BUYRequestOperation *)updateCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
-{
-	BUYAssertCheckout(checkout);
-	
-	NSURL *url = [self urlForCheckoutsWithToken:checkout.token];
-	return [self patchRequestForURL:url object:checkout completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
-		[self handleCheckoutResponse:json error:error block:block];
-	}];
-}
-
 - (BUYOperation *)completeCheckout:(BUYCheckout *)checkout paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block {
 	BUYCheckoutOperation *operation = [[BUYCheckoutOperation alloc] initWithClient:self checkout:checkout token:paymentToken completion:block];
 	[self startOperation:operation];
 	return operation;
-}
-
-- (BUYRequestOperation *)beginCheckout:(BUYCheckout *)checkout paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block
-{
-	BUYAssertCheckout(checkout);
-	
-	BOOL isFree = (checkout.paymentDue && checkout.paymentDue.floatValue == 0);
-	
-	BUYAssert(paymentToken || isFree, @"Failed to complete checkout. Checkout must have a payment token or have a payment value equal to $0.00");
-	
-	NSURL *url = [self urlForCheckoutsCompletionWithToken:checkout.token];
-	return [self postRequestForURL:url object:[paymentToken JSONDictionary] start:NO completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
-		[self handleCheckoutResponse:json error:error block:block];
-	}];
 }
 
 - (BUYRequestOperation *)getCompletionStatusOfCheckout:(BUYCheckout *)checkout completion:(BUYDataStatusBlock)block
@@ -208,12 +121,71 @@
 	return [self getCompletionStatusOfCheckoutToken:token start:YES completion:block];
 }
 
+#pragma mark - Checkout Helpers -
+
+- (BUYRequestOperation *)beginCheckout:(BUYCheckout *)checkout paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block
+{
+	BUYAssertCheckout(checkout);
+	
+	BOOL isFree = (checkout.paymentDue && checkout.paymentDue.floatValue == 0);
+	
+	BUYAssert(paymentToken || isFree, @"Failed to complete checkout. Checkout must have a payment token or have a payment value equal to $0.00");
+	
+	NSURL *route = [self urlForCheckoutsCompletionWithToken:checkout.token];
+	return [self postRequestForURL:route object:[paymentToken JSONDictionary] start:NO completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		[self handleCheckoutResponse:json error:error block:block];
+	}];
+}
+
 - (BUYRequestOperation *)getCompletionStatusOfCheckoutToken:(NSString *)token start:(BOOL)start completion:(BUYDataStatusBlock)block
 {
 	NSURL *url = [self urlForCheckoutsProcessingWithToken:token];
 	return [self getRequestForURL:url start:start completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		block([self statusForStatusCode:response.statusCode error:error], error);
 	}];
+}
+
+- (BUYRequestOperation *)postCheckout:(NSDictionary *)checkoutJSON completion:(BUYDataCheckoutBlock)block
+{
+	return [self postRequestForURL:[self urlForCheckouts] object:checkoutJSON completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		[self handleCheckoutResponse:json error:error block:block];
+	}];
+}
+
+- (void)configureCheckout:(BUYCheckout *)checkout
+{
+	checkout.marketingAttribution = @{@"medium": @"iOS", @"source": self.applicationName};
+	checkout.sourceName = @"mobile_app";
+	if (self.urlScheme || checkout.webReturnToURL) {
+		checkout.webReturnToURL = checkout.webReturnToURL ?: [NSURL URLWithString:self.urlScheme];
+		checkout.webReturnToLabel = checkout.webReturnToLabel ?: [@"Return to " stringByAppendingString:self.applicationName];
+	}
+}
+
+- (void)handleCheckoutResponse:(NSDictionary *)json error:(NSError *)error block:(BUYDataCheckoutBlock)block
+{
+	BUYCheckout *checkout = nil;
+	if (json && !error) {
+		checkout = [self.modelManager insertCheckoutWithJSONDictionary:json[@"checkout"]];
+	}
+	block(checkout, error);
+}
+
+- (void)updateCheckout:(BUYCheckout *)checkout withGiftCardDictionary:(NSDictionary *)giftCardDictionary addingGiftCard:(BOOL)addingGiftCard
+{
+	if (addingGiftCard) {
+		BUYGiftCard *giftCard = [self.modelManager insertGiftCardWithJSONDictionary:giftCardDictionary];
+		[checkout.giftCardsSet addObject:giftCard];
+	} else {
+		[checkout removeGiftCardWithIdentifier:giftCardDictionary[@"id"]];
+	}
+	
+	checkout.paymentDue = [NSDecimalNumber buy_decimalNumberFromJSON:giftCardDictionary[@"checkout"][@"payment_due"]];
+	
+	// Marking the checkout as clean. The properties we have updated above we don't need to re-sync with Shopify.
+	// There's also an issue with gift cards where syncing the gift card JSON won't work since the update endpoint
+	// doesn't accept the gift card without a gift card code (which we do not have).
+	[checkout markAsClean];
 }
 
 #pragma mark - Shipping Rates -
@@ -243,7 +215,7 @@
 	return operation;
 }
 
-#pragma mark - Payments -
+#pragma mark - Cards -
 
 - (BUYRequestOperation *)storeCreditCard:(BUYCreditCard *)creditCard checkout:(BUYCheckout *)checkout completion:(BUYDataCreditCardBlock)completion
 {
@@ -265,6 +237,38 @@
 		completion(token, error);
 	}];
 }
+
+- (BUYRequestOperation *)applyGiftCardWithCode:(NSString *)giftCardCode toCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
+{
+	BUYAssertCheckout(checkout);
+	BUYAssert(giftCardCode.length > 0, @"Failed to apply gift card code. Invalid gift card code.");
+	
+	BUYGiftCard *giftCard = [self.modelManager giftCardWithCode:giftCardCode];
+	NSURL *route = [self urlForCheckoutsUsingGiftCardWithToken:checkout.token];
+	
+	return [self postRequestForURL:route object:giftCard completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		if (json && !error) {
+			[self updateCheckout:checkout withGiftCardDictionary:json[@"gift_card"] addingGiftCard:YES];
+		}
+		block(checkout, error);
+	}];
+}
+
+- (BUYRequestOperation *)removeGiftCard:(BUYGiftCard *)giftCard fromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
+{
+	BUYAssertCheckout(checkout);
+	BUYAssert(giftCard.identifier, @"Failed to remove gift card. Gift card must have a valid identifier.");
+	
+	NSURL *route = [self urlForCheckoutsUsingGiftCard:giftCard.identifier token:checkout.token];
+	return [self deleteRequestForURL:route completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		if (!error) {
+			[self updateCheckout:checkout withGiftCardDictionary:json[@"gift_card"] addingGiftCard:NO];
+		}
+		block(checkout, error);
+	}];
+}
+
+#pragma mark - Reservations -
 
 - (BUYRequestOperation *)removeProductReservationsFromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
