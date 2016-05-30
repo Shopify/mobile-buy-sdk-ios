@@ -325,7 +325,7 @@
 	}];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client  deleteAddress:self.createdAddress forCustomerID:self.customer.identifier.stringValue callback:^(BUYStatus status, NSError * _Nullable error) {
+	[self.client  deleteAddressWithID:self.createdAddress.identifier forCustomerID:self.customer.identifier.stringValue callback:^(BUYStatus status, NSError * _Nullable error) {
 		
 		XCTAssertEqual(status, 204);
 		XCTAssertNil(error);

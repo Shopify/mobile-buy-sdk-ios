@@ -83,11 +83,11 @@
 	}];
 }
 
-- (BUYRequestOperation *)deleteAddress:(BUYAddress *)address forCustomerID:(NSString *)customerID callback:(BUYDataStatusBlock)block
+- (BUYRequestOperation *)deleteAddressWithID:(NSNumber *)addressID forCustomerID:(NSString *)customerID callback:(BUYDataStatusBlock)block
 {
-	BUYAssert(address.identifier, @"Failed to update address. Address must have a valid identifier.");
+	BUYAssert(addressID, @"Failed to update address. Address must have a valid identifier.");
 	
-	NSURL *route = [self urlForCustomersAddressWithID:customerID addressID:address.identifier];
+	NSURL *route = [self urlForCustomersAddressWithID:customerID addressID:addressID];
 	return [self deleteRequestForURL:route completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		block(response.statusCode, error);
 	}];

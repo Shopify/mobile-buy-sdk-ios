@@ -98,13 +98,13 @@ typedef void (^BUYDataAddressBlock)(BUYAddress * _Nullable address, NSError * _N
  *  DELETE /api/customers/:customer_id/addresses/:id
  *  Delete the customer address
  *
- *  @param address    Address to delete
+ *  @param addressID  Address ID to delete
  *  @param customerID Customer ID for which to delete the address
  *  @param block      (BUYStatus status, NSError *error)
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)deleteAddress:(BUYAddress *)address forCustomerID:(NSString *)customerID callback:(BUYDataStatusBlock)block;
+- (BUYRequestOperation *)deleteAddressWithID:(NSNumber *)addressID forCustomerID:(NSString *)customerID callback:(BUYDataStatusBlock)block;
 
 @end
 
