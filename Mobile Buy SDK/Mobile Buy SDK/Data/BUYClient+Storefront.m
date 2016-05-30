@@ -112,13 +112,6 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	}];
 }
 
-- (BUYRequestOperation *)getCollections:(BUYDataCollectionsBlock)block
-{
-	return [self getCollectionsPage:1 completion:^(NSArray<BUYCollection *> *collections, NSUInteger page, BOOL reachedEnd, NSError *error) {
-		block(collections, error);
-	}];
-}
-
 - (BUYRequestOperation *)getCollectionsPage:(NSUInteger)page completion:(BUYDataCollectionsListBlock)block
 {
 	NSURL *url  = [self urlForCollectionListingsWithParameters:@{

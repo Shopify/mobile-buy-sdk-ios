@@ -174,7 +174,7 @@
 	[OHHTTPStubs stubUsingResponseWithKey:@"testGetCollection_0" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client getCollections:^(NSArray *collections, NSError *error) {
+	[self.client getCollectionsPage:1 completion:^(NSArray<BUYCollection *> *collections, NSUInteger page, BOOL reachedEnd, NSError * _Nullable error) {
 		
 		XCTAssertNotNil(collections);
 		XCTAssertNil(error);
