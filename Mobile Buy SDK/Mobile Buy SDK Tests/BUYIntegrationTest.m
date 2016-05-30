@@ -1025,7 +1025,7 @@
 	
 	// Expire the checkout
 	XCTestExpectation *expectation2 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client removeProductReservationsFromCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+	[self.client removeProductReservationsFromCheckoutWithToken:_checkout.token completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		
 		XCTAssertNil(error);
 		

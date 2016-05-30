@@ -39,7 +39,8 @@
 #import "BUYPaymentToken.h"
 #import "NSDecimalNumber+BUYAdditions.h"
 
-#define BUYAssertCheckout(checkout) BUYAssert([(checkout) hasToken], @"Checkout assertion failed. Checkout must have a valid token associated with it.")
+#define BUYAssertToken(checkoutToken) BUYAssert((checkoutToken), @"Checkout assertion failed. Checkout must have a valid token associated with it.")
+#define BUYAssertCheckout(checkout)   BUYAssert([(checkout) hasToken], @"Checkout assertion failed. Checkout must have a valid token associated with it.")
 
 @implementation BUYClient (Checkout)
 
@@ -270,11 +271,14 @@
 
 #pragma mark - Reservations -
 
-- (BUYRequestOperation *)removeProductReservationsFromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
+- (BUYRequestOperation *)removeProductReservationsFromCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataCheckoutBlock)block
 {
-	BUYAssertCheckout(checkout);
+	BUYAssertToken(checkoutToken);
 	
+	BUYCheckout *checkout    = [[BUYCheckout alloc] initWithModelManager:self.modelManager JSONDictionary:@{}];
 	checkout.reservationTime = @0;
+	checkout.token           = checkoutToken;
+	
 	return [self updateCheckout:checkout completion:block];
 }
 

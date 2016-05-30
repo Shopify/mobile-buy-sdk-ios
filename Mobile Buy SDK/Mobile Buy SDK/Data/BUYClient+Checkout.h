@@ -220,12 +220,12 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
  *  `reservationTime` to `@0` and calls `updateCheckout:completion`. We recommend creating
  *  a new BUYCheckout object from a BUYCart for further API calls.
  *
- *  @param checkout The BUYCheckout to expire
- *  @param block    (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
+ *  @param checkoutToken The checkout token for which to expire
+ *  @param block         (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)removeProductReservationsFromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
+- (BUYRequestOperation *)removeProductReservationsFromCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataCheckoutBlock)block;
 
 @end
 
