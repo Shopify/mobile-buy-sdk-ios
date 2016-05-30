@@ -97,7 +97,7 @@ typedef void (^BUYRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResponse *
 
 - (void)startExecution
 {
-	if (self.isCancelled) {
+	if (self.cancelled) {
 		return;
 	}
 	
@@ -126,13 +126,13 @@ typedef void (^BUYRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResponse *
 
 - (NSURLSessionDataTask *)requestUsingPollingIfNeeded:(NSURLRequest *)request completion:(BUYRequestJSONCompletion)completion
 {
-	if (self.isCancelled) {
+	if (self.cancelled) {
 		return nil;
 	}
 	
 	return [self request:request completion:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		
-		if (self.isCancelled) {
+		if (self.cancelled) {
 			return;
 		}
 		
@@ -145,7 +145,7 @@ typedef void (^BUYRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResponse *
 		if (self.pollingHandler && self.pollingHandler(json, response, error)) {
 
 			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.pollingInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-				if (self.isCancelled) {
+				if (self.cancelled) {
 					return;
 				}
 				

@@ -66,7 +66,7 @@
 
 - (void)finishWithCheckout:(BUYCheckout *)checkout
 {
-	if (self.isCancelled) {
+	if (self.cancelled) {
 		return;
 	}
 	
@@ -76,7 +76,7 @@
 
 - (void)finishWithError:(NSError *)error
 {
-	if (self.isCancelled) {
+	if (self.cancelled) {
 		return;
 	}
 	
@@ -90,7 +90,7 @@
 
 - (void)startExecution
 {
-	if (self.isCancelled) {
+	if (self.cancelled) {
 		return;
 	}
 	

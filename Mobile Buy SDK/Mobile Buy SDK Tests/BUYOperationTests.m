@@ -49,11 +49,11 @@
 	XCTAssertTrue(operation.isReady);
 	
 	[operation start];
-	XCTAssertTrue(operation.isExecuting);
+	XCTAssertTrue(operation.executing);
 	
 	[operation finishExecution];
 	XCTAssertTrue(operation.isFinished);
-	XCTAssertFalse(operation.isCancelled);
+	XCTAssertFalse(operation.cancelled);
 }
 
 - (void)testCancelledExecutionFlow
@@ -62,10 +62,10 @@
 	XCTAssertTrue(operation.isReady);
 	
 	[operation start];
-	XCTAssertTrue(operation.isExecuting);
+	XCTAssertTrue(operation.executing);
 	
 	[operation cancel];
-	XCTAssertTrue(operation.isCancelled);
+	XCTAssertTrue(operation.cancelled);
 	XCTAssertFalse(operation.isFinished);
 	
 	[operation cancelExecution];
