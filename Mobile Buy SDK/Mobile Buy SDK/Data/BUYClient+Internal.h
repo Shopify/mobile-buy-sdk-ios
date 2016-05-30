@@ -25,22 +25,46 @@
 //
 
 #import "BUYClient.h"
+#import "BUYClient+Checkout.h"
 #import "BUYSerializable.h"
 
 static NSString * const BUYShopifyErrorDomain = @"shopify";
 static NSString * const BUYClientVersionString = @"1.3";
 static NSString * const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token";
 
+typedef void (^BUYClientRequestJSONCompletion)(NSDictionary *json, NSURLResponse *response, NSError *error);
+
 @interface BUYClient (Internal)
 
-- (BUYRequestOperation *)getRequestForURL:(NSURL *)url    completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
-- (BUYRequestOperation *)deleteRequestForURL:(NSURL *)url completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
+- (BUYRequestOperation *)getRequestForURL:(NSURL *)url    completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
+- (BUYRequestOperation *)deleteRequestForURL:(NSURL *)url completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
 
-- (BUYRequestOperation *)postRequestForURL:(NSURL *)url  object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
-- (BUYRequestOperation *)putRequestForURL:(NSURL *)url   object:(id<BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
-- (BUYRequestOperation *)patchRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(void (^)(NSDictionary *json, NSURLResponse *response, NSError *error))completionHandler;
+- (BUYRequestOperation *)postRequestForURL:(NSURL *)url  object:(id <BUYSerializable>)object completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
+- (BUYRequestOperation *)putRequestForURL:(NSURL *)url   object:(id<BUYSerializable>)object  completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
+- (BUYRequestOperation *)patchRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
+
+- (BUYRequestOperation *)getRequestForURL:(NSURL *)url    start:(BOOL)start completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
+- (BUYRequestOperation *)deleteRequestForURL:(NSURL *)url start:(BOOL)start completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
+
+- (BUYRequestOperation *)postRequestForURL:(NSURL *)url  object:(id <BUYSerializable>)object start:(BOOL)start completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
+- (BUYRequestOperation *)putRequestForURL:(NSURL *)url   object:(id<BUYSerializable>)object  start:(BOOL)start completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
+- (BUYRequestOperation *)patchRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object start:(BOOL)start completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
 
 - (BUYStatus)statusForStatusCode:(NSUInteger)statusCode error:(NSError *)error;
 - (NSError *)errorFromJSON:(NSDictionary *)json response:(NSURLResponse *)response;
+
+- (void)startOperation:(BUYOperation *)operation;
+
+@end
+
+@class BUYCheckout;
+
+@protocol BUYPaymentToken;
+
+@interface BUYClient (PrivateCheckout)
+
+- (BUYRequestOperation *)beginCheckout:(BUYCheckout *)checkout paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block;
+- (BUYRequestOperation *)getCompletionStatusOfCheckoutToken:(NSString *)token start:(BOOL)start completion:(BUYDataStatusBlock)block;
+- (BUYRequestOperation *)getCheckout:(BUYCheckout *)checkout start:(BOOL)start completion:(BUYDataCheckoutBlock)block;
 
 @end

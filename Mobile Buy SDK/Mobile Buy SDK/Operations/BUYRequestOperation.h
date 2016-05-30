@@ -34,6 +34,8 @@ typedef BOOL (^BUYRequestOperationPollingHandler)(NSDictionary * _Nullable json,
 
 @interface BUYRequestOperation : BUYOperation
 
+@property (assign, atomic) NSTimeInterval pollingInterval;
+
 @property (strong, nonatomic, readonly, nonnull) NSURLSession *session;
 @property (strong, nonatomic, readonly, nonnull) NSURLRequest *originalRequest;
 

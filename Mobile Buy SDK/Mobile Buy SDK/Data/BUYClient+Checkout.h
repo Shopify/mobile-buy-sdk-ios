@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param paymentToken  An opaque payment token type that wraps necessary credentials for payment
  *  @param error         Optional NSError
  */
-typedef void (^BUYDataCreditCardBlock)(BUYCheckout * _Nullable checkout, id<BUYPaymentToken> _Nullable paymentToken, NSError * _Nullable error);
+typedef void (^BUYDataCreditCardBlock)(id<BUYPaymentToken> _Nullable paymentToken, NSError * _Nullable error);
 
 /**
  *  Return block containing a BUYCheckout and/or an NSError
@@ -153,9 +153,9 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
  *  @param paymentToken  Opaque payment token object. May be nil if the total checkout amount is equal to $0.00
  *  @param block         (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
  *
- *  @return The associated BUYRequestOperation
+ *  @return The associated BUYOperation
  */
-- (BUYRequestOperation *)completeCheckout:(BUYCheckout *)checkout paymentToken:(_Nullable id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block;
+- (BUYOperation *)completeCheckout:(BUYCheckout *)checkout paymentToken:(_Nullable id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block;
 
 /**
  *  Retrieve the status of a BUYCheckout. This checks the status of the current payment processing job for the provided checkout.

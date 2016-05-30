@@ -47,7 +47,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
 @implementation BUYClient_Test
 
-- (void)startTask:(BUYRequestOperation *)task
+- (void)startOperation:(BUYOperation *)operation
 {
 	// Do nothing
 }
@@ -128,7 +128,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 {
 	BUYCheckout *checkout = [[BUYCheckout alloc] initWithModelManager:self.client.modelManager JSONDictionary:@{@"token": @"abcdef", @"payment_due": @0}];
 	
-	BUYRequestOperation *task = [self.client completeCheckout:checkout paymentToken:nil completion:^(BUYCheckout *checkout, NSError *error) {}];
+	BUYOperation *task = [self.client completeCheckout:checkout paymentToken:nil completion:^(BUYCheckout *checkout, NSError *error) {}];
 	XCTAssertNotNil(task);
 }
 
@@ -182,19 +182,6 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 	
 	status = [self.client statusForStatusCode:200 error:nil];
 	XCTAssertEqual(BUYStatusComplete, status);
-}
-
-- (void)testCheckoutWithApplePayToken
-{
-	id<BUYPaymentToken> token = [[BUYApplePayToken alloc] initWithPaymentToken:[BUYApplePayTestToken validToken]];
-	XCTAssertThrows(
-		[self.client completeCheckout:[BUYCheckout new] paymentToken:token completion:^(BUYCheckout *checkout, NSError *error) {}]
-	);
-
-	BUYCheckout *checkout = [[BUYCheckout alloc] initWithModelManager:self.client.modelManager JSONDictionary:@{@"token": @"abcdef", @"payment_due": @0}];
-	XCTAssertNoThrow(
-		[self.client completeCheckout:checkout paymentToken:nil completion:^(BUYCheckout *checkout, NSError *error) {}]
-	);
 }
 
 - (void)testQueryItemsConversion

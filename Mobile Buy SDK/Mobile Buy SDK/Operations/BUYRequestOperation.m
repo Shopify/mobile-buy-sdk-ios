@@ -32,6 +32,7 @@ NSString * const kShopifyError = @"shopify";
 typedef void (^BUYRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResponse *response, NSError *error);
 
 #pragma mark - NSURLResponse -
+
 @interface NSHTTPURLResponse (Convenience)
 
 @property (assign, nonatomic, readonly) BOOL successful;
@@ -40,17 +41,11 @@ typedef void (^BUYRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResponse *
 
 @implementation NSHTTPURLResponse (Convenience)
 
-- (BOOL)successful {
+- (BOOL)successful
+{
 	return ((NSUInteger)(self.statusCode / 100)) == 2;
 }
 
-@end
-
-#pragma mark - BUYOperation Private -
-
-@interface BUYOperation (Private)
-- (void)setExecuting:(BOOL)executing;
-- (void)setFinished:(BOOL)finished;
 @end
 
 #pragma mark - BUYRequestOperation -
@@ -65,7 +60,9 @@ typedef void (^BUYRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResponse *
 @implementation BUYRequestOperation
 
 #pragma mark - Init -
-+ (instancetype)operationWithSession:(NSURLSession *)session request:(NSURLRequest *)request payload:(id<BUYSerializable>)payload completion:(BUYRequestOperationCompletion)completion {
+
++ (instancetype)operationWithSession:(NSURLSession *)session request:(NSURLRequest *)request payload:(id<BUYSerializable>)payload completion:(BUYRequestOperationCompletion)completion
+{
 	return [[[self class] alloc] initWithSession:session request:request payload:payload completion:completion];
 }
 
@@ -73,6 +70,8 @@ typedef void (^BUYRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResponse *
 {
 	self = [super init];
 	if (self) {
+		self.pollingInterval = 0.3;
+		
 		_session         = session;
 		_originalRequest = request;
 		_completion      = completion;
@@ -98,7 +97,7 @@ typedef void (^BUYRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResponse *
 
 - (void)startExecution
 {
-	if (self.isCancelled) {
+	if (self.cancelled) {
 		return;
 	}
 	
@@ -127,13 +126,13 @@ typedef void (^BUYRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResponse *
 
 - (NSURLSessionDataTask *)requestUsingPollingIfNeeded:(NSURLRequest *)request completion:(BUYRequestJSONCompletion)completion
 {
-	if (self.isCancelled) {
+	if (self.cancelled) {
 		return nil;
 	}
 	
 	return [self request:request completion:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		
-		if (self.isCancelled) {
+		if (self.cancelled) {
 			return;
 		}
 		
@@ -144,9 +143,16 @@ typedef void (^BUYRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResponse *
 		 * the polling process.
 		 */
 		if (self.pollingHandler && self.pollingHandler(json, response, error)) {
-			NSURLSessionDataTask *task = [self requestUsingPollingIfNeeded:request completion:completion];
-			self.runningTask = task;
-			[task resume];
+
+			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.pollingInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+				if (self.cancelled) {
+					return;
+				}
+				
+				NSURLSessionDataTask *task = [self requestUsingPollingIfNeeded:request completion:completion];
+				self.runningTask = task;
+				[task resume];
+			});
 			
 		} else {
 			completion(json, response, error);

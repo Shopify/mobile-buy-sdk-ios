@@ -31,6 +31,7 @@
 #import "BUYTestConstants.h"
 #import "BUYCheckout.h"
 #import "BUYClientTestBase.h"
+#import "BUYClient+Routing.h"
 #import <OHHTTPStubs/OHHTTPStubs.h>
 #import "OHHTTPStubsResponse+Helpers.h"
 
@@ -167,33 +168,20 @@
 	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
 		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_2"];
 	}];
-	__block BUYStatus shippingStatus = BUYStatusUnknown;
 	
-	do {
-		NSLog(@"Fetching shipping rates...");
-		XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[self.client getShippingRatesForCheckout:_checkout completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
+		XCTAssertNil(error);
+		XCTAssertEqual(status, BUYStatusComplete);
 		
-		[self.client getShippingRatesForCheckout:_checkout completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
-			XCTAssertNil(error);
-			shippingStatus = status;
-			if (shippingStatus == BUYStatusComplete) {
-				XCTAssertNotNil(returnedShippingRates);
-				_shippingRates = returnedShippingRates;
-			}
-			[expectation fulfill];
-		}];
+		XCTAssertNotNil(shippingRates);
+		XCTAssertTrue([shippingRates count] > 0);
 		
-		[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
-			XCTAssertNil(error);
-		}];
-		
-		if (shippingStatus == BUYStatusProcessing) {
-			[NSThread sleepForTimeInterval:0.5f];
-		}
-	} while (shippingStatus == BUYStatusProcessing);
+		_shippingRates = shippingRates;
+		[expectation fulfill];
+	}];
 	
-	XCTAssertTrue([_shippingRates count] > 0);
-	XCTAssertEqual(shippingStatus, BUYStatusComplete);
+	[self waitForExpectationsWithTimeout:10.0 handler:nil];
 }
 
 - (void)updateCheckout
@@ -232,12 +220,10 @@
 	__block id<BUYPaymentToken> token = nil;
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client storeCreditCard:creditCard checkout:_checkout completion:^(BUYCheckout *returnedCheckout, id<BUYPaymentToken> paymentToken, NSError *error) {
+	[self.client storeCreditCard:creditCard checkout:_checkout completion:^(id<BUYPaymentToken> paymentToken, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(paymentToken);
-		XCTAssertNotNil(returnedCheckout);
 		
-		_checkout = returnedCheckout;
 		token = paymentToken;
 		[expectation fulfill];
 	}];
@@ -265,75 +251,30 @@
 	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
 		return [self shouldUseMocks];
 	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_5"];
+		NSString *path = request.URL.absoluteString.lastPathComponent;
+		if ([path isEqualToString:[self.client urlForCheckoutsCompletionWithToken:_checkout.token].lastPathComponent]) {
+			return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_5"];
+			
+		} else if ([path isEqualToString:[self.client urlForCheckoutsProcessingWithToken:_checkout.token].lastPathComponent]) {
+			return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_14"];
+			
+		} else if ([path isEqualToString:[self.client urlForCheckoutsWithToken:_checkout.token].lastPathComponent]) {
+			return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_15"];
+		}
+		return [OHHTTPStubsResponse responseWithData:[NSData new] statusCode:500 headers:nil];;
 	}];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client completeCheckout:_checkout paymentToken:paymentToken completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
+		XCTAssertNotNil(returnedCheckout.order);
+		XCTAssertNotNil(returnedCheckout.order.identifier);
+		XCTAssertNotNil(returnedCheckout.order.statusURL);
+		XCTAssertNotNil(returnedCheckout.order.name);
 		
 		_checkout = returnedCheckout;
-		[expectation fulfill];
-	}];
-	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
-		XCTAssertNil(error);
-	}];
-}
-
-- (void)pollUntilCheckoutIsComplete
-{
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_14"];
-	}];
-	
-	__block BUYStatus checkoutStatus = BUYStatusUnknown;
-	__block NSError *checkoutError = nil;
-	
-	while (_checkout.token && checkoutStatus != BUYStatusFailed && checkoutStatus != BUYStatusComplete) {
 		
-		NSLog(@"Checking completion status...");
-		XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-		
-		[self.client getCompletionStatusOfCheckout:_checkout completion:^(BUYStatus status, NSError *error) {
-			XCTAssertNil(error);
-			checkoutError = error;
-			checkoutStatus = status;
-			[expectation fulfill];
-		}];
-		
-		[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
-			XCTAssertNil(error);
-		}];
-		
-		if (checkoutStatus != BUYStatusComplete) {
-			[NSThread sleepForTimeInterval:0.5f];
-		}
-	}
-	XCTAssertNil(checkoutError);
-	XCTAssertEqual(checkoutStatus, BUYStatusComplete);
-}
-
-- (void)verifyCompletedCheckout
-{
-	XCTAssertNil(_checkout.order.identifier);
-	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_15"];
-	}];
-	
-	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client getCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
-		XCTAssertNil(error);
-		XCTAssertNotNil(returnedCheckout);
-		_checkout = returnedCheckout;
-		XCTAssertNotNil(_checkout.order.identifier);
-		XCTAssertNotNil(_checkout.order.statusURL);
-		XCTAssertNotNil(_checkout.order.name);
 		[expectation fulfill];
 		
 		[self confirmCreditCard];
@@ -994,9 +935,6 @@
 	[self updateCheckout];
 	
 	[self completeCheckoutWithToken:[self addCreditCardToCheckout]];
-	
-	[self pollUntilCheckoutIsComplete];
-	[self verifyCompletedCheckout];
 }
 
 - (void)testCheckoutWithAPartialAddress
@@ -1042,9 +980,6 @@
 	//We use a credit card here because we're not generating apple pay tokens in the tests
 	id<BUYPaymentToken> token = [self addCreditCardToCheckout];
 	[self completeCheckoutWithToken:token];
-	
-	[self pollUntilCheckoutIsComplete];
-	[self verifyCompletedCheckout];
 }
 
 - (void)testCheckoutCreationWithApplicableDiscount

@@ -1,5 +1,5 @@
 //
-//  BUYOperationTests.m
+//  BUYCheckoutOperation.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,52 +24,23 @@
 //  THE SOFTWARE.
 //
 
-#import <XCTest/XCTest.h>
 #import "BUYOperation.h"
+NS_ASSUME_NONNULL_BEGIN
 
-@interface BUYOperationTests : XCTestCase
+@class BUYClient;
+@class BUYCheckout;
 
-@end
+@protocol BUYPaymentToken;
 
-@implementation BUYOperationTests
+typedef void (^BUYCheckoutOperationCompletion)(BUYCheckout * _Nullable checkout, NSError * _Nullable error);
 
-#pragma mark - Init -
+@interface BUYCheckoutOperation : BUYOperation
 
-- (void)testInit
-{
-	BUYOperation *operation = [[BUYOperation alloc] init];
-	XCTAssertNotNil(operation);
-}
+@property (strong, nonatomic, readonly, nonnull) BUYClient *client;
 
-#pragma mark - State -
-
-- (void)testNormalExecutionFlow
-{
-	BUYOperation *operation = [[BUYOperation alloc] init];
-	XCTAssertTrue(operation.isReady);
-	
-	[operation start];
-	XCTAssertTrue(operation.executing);
-	
-	[operation finishExecution];
-	XCTAssertTrue(operation.isFinished);
-	XCTAssertFalse(operation.cancelled);
-}
-
-- (void)testCancelledExecutionFlow
-{
-	BUYOperation *operation = [[BUYOperation alloc] init];
-	XCTAssertTrue(operation.isReady);
-	
-	[operation start];
-	XCTAssertTrue(operation.executing);
-	
-	[operation cancel];
-	XCTAssertTrue(operation.cancelled);
-	XCTAssertFalse(operation.isFinished);
-	
-	[operation cancelExecution];
-	XCTAssertFalse(operation.isFinished); // State isn't changed if operation is cancelled
-}
++ (instancetype)operationWithClient:(BUYClient *)client checkout:(BUYCheckout *)checkout token:(id<BUYPaymentToken>)token completion:(BUYCheckoutOperationCompletion)completion;
+- (instancetype)initWithClient:(BUYClient *)client checkout:(BUYCheckout *)checkout token:(id<BUYPaymentToken>)token completion:(BUYCheckoutOperationCompletion)completion;
 
 @end
+
+NS_ASSUME_NONNULL_END
