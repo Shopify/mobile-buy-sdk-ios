@@ -77,16 +77,16 @@
 	}];
 }
 
-- (BUYRequestOperation *)getCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
+- (BUYRequestOperation *)getCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataCheckoutBlock)block
 {
-	return [self getCheckout:checkout start:YES completion:block];
+	return [self getCheckoutWithToken:checkoutToken start:YES completion:block];
 }
 
-- (BUYRequestOperation *)getCheckout:(BUYCheckout *)checkout start:(BOOL)start completion:(BUYDataCheckoutBlock)block
+- (BUYRequestOperation *)getCheckoutWithToken:(NSString *)checkoutToken start:(BOOL)start completion:(BUYDataCheckoutBlock)block
 {
-	BUYAssertCheckout(checkout);
+	BUYAssertToken(checkoutToken);
 	
-	NSURL *url = [self urlForCheckoutsWithToken:checkout.token];
+	NSURL *url = [self urlForCheckoutsWithToken:checkoutToken];
 	return [self getRequestForURL:url start:start completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		[self handleCheckoutResponse:json error:error block:block];
 	}];

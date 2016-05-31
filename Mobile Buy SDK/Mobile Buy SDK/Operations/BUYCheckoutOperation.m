@@ -161,7 +161,7 @@
 
 - (BUYRequestOperation *)createGetOperation
 {
-	return [self.client getCheckout:self.checkout start:NO completion:^(BUYCheckout *checkout, NSError *error) {
+	return [self.client getCheckoutWithToken:self.checkout.token start:NO completion:^(BUYCheckout *checkout, NSError *error) {
 		if (checkout) {
 			[self finishWithCheckout:checkout];
 		} else {

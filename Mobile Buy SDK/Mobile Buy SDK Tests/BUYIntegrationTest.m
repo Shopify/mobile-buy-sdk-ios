@@ -933,11 +933,7 @@
 	[OHHTTPStubs stubUsingResponseWithKey:@"testGetCheckoutWithInvalidToken_0" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-
-	BUYCheckout *badCheckout = [[BUYCheckout alloc] initWithCartToken:@""];
-	badCheckout.token = @"zzzzzzzzzzz";
-	
-	[self.client getCheckout:badCheckout completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client getCheckoutWithToken:@"zzzzzzzzzzz" completion:^(BUYCheckout *checkout, NSError *error) {
 		
 		XCTAssertEqual(404, error.code);
 		[expectation fulfill];

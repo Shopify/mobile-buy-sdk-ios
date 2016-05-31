@@ -109,17 +109,17 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
 - (BUYRequestOperation *)updateCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
 
 /**
- *  Retrieves an updated version of a BUYCheckout from Shopify.
+ *  Retrieves an updated BUYCheckout.
  *
  *  Note: There's no guarantee that the BUYCheckout returned will be the same as the one that is passed in.
  *  We recommended using the BUYCheckout returned in the block.
  *
- *  @param checkout The BUYCheckout to retrieve (updated) from Shopify
- *  @param block    (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
+ *  @param checkoutToken The checkout token for which to retrieve the updated checkout
+ *  @param block         (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)getCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
+- (BUYRequestOperation *)getCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataCheckoutBlock)block;
 
 /**
  *  Finalizes the BUYCheckout and charges the payment provider (ex: Credit Card, Apple Pay, etc).
