@@ -118,16 +118,20 @@
 						  @"https://_DOMAIN_/api/customers/orders.json"
 						  );
 	XCTAssertEqualObjects(
+						  [self.client urlForCustomersToken].absoluteString,
+						  @"https://_DOMAIN_/api/customers/customer_token.json"
+						  );
+	XCTAssertEqualObjects(
+						  [self.client urlForCustomersPasswordRecovery].absoluteString,
+						  @"https://_DOMAIN_/api/customers/recover.json"
+						  );
+	XCTAssertEqualObjects(
 						  [self.client urlForCustomersWithID:identifier].absoluteString,
 						  @"https://_DOMAIN_/api/customers/_ID_.json"
 						  );
 	XCTAssertEqualObjects(
 						  [self.client urlForCustomersActivationWithID:identifier parameters:parameters].absoluteString,
 						  @"https://_DOMAIN_/api/customers/_ID_/activate.json?param=value"
-						  );
-	XCTAssertEqualObjects(
-						  [self.client urlForCustomersToken].absoluteString,
-						  @"https://_DOMAIN_/api/customers/customer_token.json"
 						  );
 	XCTAssertEqualObjects(
 						  [self.client urlForCustomersTokenWithID:identifier].absoluteString,
@@ -138,12 +142,17 @@
 						  @"https://_DOMAIN_/api/customers/_ID_/customer_token/renew.json"
 						  );
 	XCTAssertEqualObjects(
-						  [self.client urlForCustomersPasswordRecovery].absoluteString,
-						  @"https://_DOMAIN_/api/customers/recover.json"
-						  );
-	XCTAssertEqualObjects(
 						  [self.client urlForCustomersPasswordResetWithID:identifier parameters:parameters].absoluteString,
 						  @"https://_DOMAIN_/api/customers/_ID_/reset.json?param=value"
+						  );
+	
+	XCTAssertEqualObjects(
+						  [self.client urlForCustomersAddressesWithID:identifier].absoluteString,
+						  @"https://_DOMAIN_/api/customers/_ID_/addresses.json"
+						  );
+	XCTAssertEqualObjects(
+						  [self.client urlForCustomersAddressWithID:identifier addressID:@999].absoluteString,
+						  @"https://_DOMAIN_/api/customers/_ID_/addresses/999.json"
 						  );
 }
 
