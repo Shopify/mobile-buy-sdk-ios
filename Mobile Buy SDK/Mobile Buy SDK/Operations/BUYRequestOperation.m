@@ -169,23 +169,13 @@ typedef void (^BUYRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResponse *
 		}
 		
 		NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-		if (!error) {
-			error = [self errorFromJSON:json response:httpResponse];
+		if (!error && !httpResponse.successful) {
+			error = [[NSError alloc] initWithDomain:BUYShopifyErrorDomain code:httpResponse.statusCode userInfo:json];
 		}
 		
 		completion(json, httpResponse, error);
 	}];
 	return task;
-}
-
-#pragma mark - Error -
-
-- (NSError *)errorFromJSON:(NSDictionary *)json response:(NSHTTPURLResponse *)response
-{
-	if ((int)(response.statusCode / 100.0) != 2) { // If not a 2xx response code
-		return [[NSError alloc] initWithDomain:BUYShopifyErrorDomain code:response.statusCode userInfo:json];
-	}
-	return nil;
 }
 
 @end
