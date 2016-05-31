@@ -31,7 +31,8 @@
 #import "BUYApplePayAuthorizationDelegate.h"
 #import "BUYApplePayAdditions.h"
 #import "BUYShop.h"
-#import "BUYClient+CheckoutHelpers.h"
+#import "BUYClient+Checkout.h"
+#import "BUYClient+Storefront.h"
 
 NSString *const BUYApplePayPaymentProviderId = @"BUYApplePayPaymentProviderId";
 
@@ -113,7 +114,7 @@ NSString *const BUYApplePayPaymentProviderId = @"BUYApplePayPaymentProviderId";
 	}];
 	
 	dispatch_group_enter(group);
-	[self.client handleCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client updateOrCreateCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		if (error) {
 			if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailWithError:)]) {
 				[self.delegate paymentProvider:self didFailWithError:error];

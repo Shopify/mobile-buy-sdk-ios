@@ -26,7 +26,7 @@
 
 #import "BUYWebCheckoutPaymentProvider.h"
 #import "BUYCheckout.h"
-#import "BUYClient+CheckoutHelpers.h"
+#import "BUYClient+Checkout.h"
 #import "BUYAssert.h"
 
 @import SafariServices;
@@ -114,7 +114,7 @@ static NSString *const WebCheckoutCustomerAccessToken = @"customer_access_token"
 	
 	self.checkout = checkout;
 	
-	[self.client handleCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client updateOrCreateCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		[self postCheckoutCompletion:checkout error:error];
 	}];
 }

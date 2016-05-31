@@ -62,7 +62,6 @@
 #import "BUYClient+Address.h"
 #import "BUYClient+Customers.h"
 #import "BUYClient+Checkout.h"
-#import "BUYClient+CheckoutHelpers.h"
 #import "BUYClient+Storefront.h"
 
 #import "BUYRequestOperation.h"

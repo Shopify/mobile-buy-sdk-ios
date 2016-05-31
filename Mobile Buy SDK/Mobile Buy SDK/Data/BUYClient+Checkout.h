@@ -71,6 +71,16 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
 @interface BUYClient (Checkout)
 
 /**
+ *  Updates or create a checkout based on wether or not it has a token
+ *
+ *  @param checkout   BUYCheckout to create or update
+ *  @param completion (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error)
+ *
+ *  @return The associated BUYRequestOperation
+ */
+- (BUYRequestOperation *)updateOrCreateCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)completion;
+
+/**
  *  Builds a checkout on Shopify. The checkout object is used to prepare an order
  *
  *  @param checkout BUYCheckout to create on Shopify
