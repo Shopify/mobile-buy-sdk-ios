@@ -193,6 +193,11 @@
 	return [[[self urlForCustomers] appendPath:@"/customer_token"] appendExtension];
 }
 
+- (NSURL *)urlForCustomersTokenWithID:(NSString *)customerID
+{
+	return [[[self urlForCustomersWithID:customerID] appendPath:@"/customer_token"] appendExtension];
+}
+
 - (NSURL *)urlForCustomersTokenRenewalWithID:(NSString *)customerID
 {
 	return [[[self urlForCustomersWithID:customerID] appendPath:@"/customer_token/renew"] appendExtension];

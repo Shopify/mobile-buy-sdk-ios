@@ -26,8 +26,7 @@
 
 #import "BUYRequestOperation.h"
 #import "BUYSerializable.h"
-
-NSString * const kShopifyError = @"shopify";
+#import "BUYClient+Internal.h"
 
 typedef void (^BUYRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResponse *response, NSError *error);
 
@@ -169,9 +168,9 @@ typedef void (^BUYRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResponse *
 			json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
 		}
 		
-		NSHTTPURLResponse *httpResponse = (id)response;
-		if (!httpResponse.successful && !error) {
-			error = [[NSError alloc] initWithDomain:kShopifyError code:httpResponse.statusCode userInfo:json];
+		NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+		if (!error && !httpResponse.successful) {
+			error = [[NSError alloc] initWithDomain:BUYShopifyErrorDomain code:httpResponse.statusCode userInfo:json];
 		}
 		
 		completion(json, httpResponse, error);

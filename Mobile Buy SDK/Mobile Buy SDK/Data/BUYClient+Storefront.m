@@ -49,7 +49,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 
 - (BUYRequestOperation *)getShop:(BUYDataShopBlock)block
 {
-	return [self getRequestForURL:[self urlForShop] completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self getRequestForURL:[self urlForShop] completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		BUYShop *shop = nil;
 		if (json && !error) {
 			shop = [self.modelManager insertShopWithJSONDictionary:json];
@@ -60,12 +60,12 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 
 - (BUYRequestOperation *)getProductsPage:(NSUInteger)page completion:(BUYDataProductListBlock)block
 {
-	NSURL *route  = [self urlForProductListingsWithParameters:@{
+	NSURL *url  = [self urlForProductListingsWithParameters:@{
 																  @"limit" : @(self.pageSize),
 																  @"page"  : @(page),
 																  }];
 	
-	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		
 		NSArray *products = nil;
 		if (json && !error) {
@@ -95,11 +95,11 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 {
 	BUYAssert(productIds, @"Failed to get product by IDs. Product IDs array must not be nil.");
 	
-	NSURL *route  = [self urlForProductListingsWithParameters:@{
+	NSURL *url  = [self urlForProductListingsWithParameters:@{
 																  @"product_ids" : [productIds componentsJoinedByString:@","],
 																  }];
 	
-	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		
 		NSArray *products = nil;
 		if (json && !error) {
@@ -121,12 +121,12 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 
 - (BUYRequestOperation *)getCollectionsPage:(NSUInteger)page completion:(BUYDataCollectionsListBlock)block
 {
-	NSURL *route  = [self urlForCollectionListingsWithParameters:@{
+	NSURL *url  = [self urlForCollectionListingsWithParameters:@{
 																	 @"limit" : @(self.pageSize),
 																	 @"page"  : @(page),
 																	 }];
 	
-	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		
 		NSArray *collections = nil;
 		if (json && !error) {
@@ -145,14 +145,14 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 {
 	BUYAssert(collectionId, @"Failed to get products page. Invalid collectionID.");
 	
-	NSURL *route  = [self urlForProductListingsWithParameters:@{
+	NSURL *url  = [self urlForProductListingsWithParameters:@{
 																  @"collection_id" : collectionId,
 																  @"limit"         : @(self.pageSize),
 																  @"page"          : @(page),
 																  @"sort_by"       : [BUYCollection sortOrderParameterForCollectionSort:sortOrder]
 																  }];
 	
-	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		
 		NSArray *products = nil;
 		if (json && !error) {

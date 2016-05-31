@@ -65,11 +65,7 @@
 
 - (void)testGetProductList
 {
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testGetProducts_0"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testGetProducts_0" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client getProductsPage:0 completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
@@ -86,11 +82,7 @@
 
 - (void)testGetShop
 {
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testGetShop_0"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testGetShop_0" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client getShop:^(BUYShop *shop, NSError *error) {
@@ -107,11 +99,7 @@
 
 - (void)testGetProductById
 {
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testGetProduct_0"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testGetProduct_0" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client getProductById:self.productIds[0] completion:^(BUYProduct *product, NSError *error) {
@@ -136,11 +124,7 @@
 
 - (void)testGetMultipleProductByIds
 {
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testGetProducts_0"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testGetProducts_0" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 
@@ -171,11 +155,7 @@
 
 - (void)testProductRequestError
 {
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testGetNonexistentProduct_0"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testGetNonexistentProduct_0" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client getProductById:@"asdfdsasdfdsasdfdsasdfjkllkj" completion:^(BUYProduct *product, NSError *error) {
@@ -191,11 +171,7 @@
 
 - (void)testCollections
 {
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testGetCollection_0"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testGetCollection_0" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client getCollections:^(NSArray *collections, NSError *error) {
@@ -217,11 +193,7 @@
 
 - (void)testCollectionsFromFirstPage
 {
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testGetCollection_0"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testGetCollection_0" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client getCollectionsPage:1 completion:^(NSArray<BUYCollection *> *collections, NSUInteger page, BOOL reachedEnd, NSError *error) {
@@ -244,11 +216,7 @@
 
 - (void)testCollectionsFromEmptyPage
 {
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testGetOutOfIndexCollectionPage_0"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testGetOutOfIndexCollectionPage_0" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client getCollectionsPage:999 completion:^(NSArray<BUYCollection *> *collections, NSUInteger page, BOOL reachedEnd, NSError *error) {
@@ -274,11 +242,7 @@
 	
 	XCTAssertNotNil(self.collection);
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testGetProductsInCollection_0"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testGetProductsInCollection_0" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 
@@ -298,11 +262,7 @@
 
 - (void)testValidTags
 {
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testGetValidTag_0"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testGetValidTag_0" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	

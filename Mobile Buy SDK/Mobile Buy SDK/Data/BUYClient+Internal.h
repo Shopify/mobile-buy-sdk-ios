@@ -28,11 +28,11 @@
 #import "BUYClient+Checkout.h"
 #import "BUYSerializable.h"
 
-static NSString * const BUYShopifyErrorDomain = @"shopify";
+static NSString * const BUYShopifyErrorDomain = @"BUYShopifyErrorDomain";
 static NSString * const BUYClientVersionString = @"1.3";
 static NSString * const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token";
 
-typedef void (^BUYClientRequestJSONCompletion)(NSDictionary *json, NSURLResponse *response, NSError *error);
+typedef void (^BUYClientRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResponse *response, NSError *error);
 
 @interface BUYClient (Internal)
 
@@ -51,7 +51,6 @@ typedef void (^BUYClientRequestJSONCompletion)(NSDictionary *json, NSURLResponse
 - (BUYRequestOperation *)patchRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object start:(BOOL)start completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
 
 - (BUYStatus)statusForStatusCode:(NSUInteger)statusCode error:(NSError *)error;
-- (NSError *)errorFromJSON:(NSDictionary *)json response:(NSURLResponse *)response;
 
 - (void)startOperation:(BUYOperation *)operation;
 

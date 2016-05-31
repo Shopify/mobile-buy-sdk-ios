@@ -50,6 +50,7 @@
 - (NSURL *)urlForCustomersWithID:(NSString *)identifier;
 - (NSURL *)urlForCustomersActivationWithID:(NSString *)identifier parameters:(NSDictionary *)parameters;
 - (NSURL *)urlForCustomersToken;
+- (NSURL *)urlForCustomersTokenWithID:(NSString *)customerID;
 - (NSURL *)urlForCustomersTokenRenewalWithID:(NSString *)customerID;
 - (NSURL *)urlForCustomersPasswordRecovery;
 - (NSURL *)urlForCustomersPasswordResetWithID:(NSString *)identifier parameters:(NSDictionary *)parameters;

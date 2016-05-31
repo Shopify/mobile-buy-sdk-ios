@@ -54,7 +54,7 @@
 
 - (void)testInit
 {
-	BUYRequestOperation *operation = [BUYRequestOperation operationWithSession:self.session request:self.request payload:nil completion:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	BUYRequestOperation *operation = [BUYRequestOperation operationWithSession:self.session request:self.request payload:nil completion:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		// We don't start the session
 	}];
 									  
@@ -357,7 +357,7 @@
 
 - (BUYRequestOperation *)operationFulfillingExpectation:(XCTestExpectation *)expectation completion:(dispatch_block_t)completion
 {
-	return [self operationFulfillingExpectation:expectation responseCompletion:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	return [self operationFulfillingExpectation:expectation responseCompletion:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		if (completion) {
 			completion();
 		}
@@ -366,7 +366,7 @@
 
 - (BUYRequestOperation *)operationFulfillingExpectation:(XCTestExpectation *)expectation responseCompletion:(void(^)(NSDictionary *json, NSHTTPURLResponse *response, NSError *error))completion
 {
-	BUYRequestOperation *operation = [BUYRequestOperation operationWithSession:self.session request:self.request payload:nil completion:^(NSDictionary *json, NSURLResponse *response, NSError *error) {
+	BUYRequestOperation *operation = [BUYRequestOperation operationWithSession:self.session request:self.request payload:nil completion:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		[self asyncMain:^{
 			if (completion) {
 				completion(json, (id)response, error);

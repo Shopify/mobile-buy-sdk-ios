@@ -67,6 +67,8 @@ typedef void (^BUYDataOrdersBlock)(NSArray <BUYOrder*> * _Nullable orders, NSErr
 
 @interface BUYClient (Customers)
 
+#pragma mark - Getting -
+
 /**
  *  GET /api/customers/:customer_id
  *  Gets an existing customer
@@ -77,6 +79,8 @@ typedef void (^BUYDataOrdersBlock)(NSArray <BUYOrder*> * _Nullable orders, NSErr
  *  @return The associated BUYRequestOperation
  */
 - (BUYRequestOperation *)getCustomerWithID:(NSString *)customerID callback:(BUYDataCustomerBlock)block;
+
+#pragma mark - Customer -
 
 /**
  *  POST /api/customers
@@ -93,27 +97,44 @@ typedef void (^BUYDataOrdersBlock)(NSArray <BUYOrder*> * _Nullable orders, NSErr
 - (BUYRequestOperation *)createCustomerWithCredentials:(BUYAccountCredentials *)credentials callback:(BUYDataCustomerTokenBlock)block;
 
 /**
- *  POST /api/customers/customer_token
- *  Logs in an existing customer
- *  Expects email and password
+ *  PUT /api/customers/:customer_id/activate
+ *  Activates an unactivated customer
  *
- *  @param credentials Credentials object containing items for required fields
- *  @param block    (BUYCustomer *customer, NSString *token, NSError *error)
+ *  @param credentials   Credentials containing a password and password confirmation
+ *  @param customerID    ID of customer being activated
+ *  @param token         Token contained in activation URL
+ *  @param block         (BUYCustomer *customer, NSString *token, NSError *error)
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)loginCustomerWithCredentials:(BUYAccountCredentials *)credentials callback:(BUYDataCustomerTokenBlock)block;
+- (BUYRequestOperation *)activateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID token:(NSString *)token callback:(BUYDataCustomerTokenBlock)block;
 
 /**
- *  POST /api/customers/recover
- *  Sends email for password recovery to an existing customer
+ *  PUT /api/customers/:customer_id
+ *  Update customer credentials represented by BUYAccountCredentials object
  *
- *  @param email Email to send the password reset to
- *  @param block (BUYStatus status, NSError *error)
+ *  @param credentials   Credentials containing a password and password confirmation
+ *  @param customerID    ID of customer being activated
+ *  @param block         (BUYCustomer *customer, NSError *error)
  *
- *  @return the associated BUYRequestOperation
+ *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)recoverPasswordForCustomer:(NSString *)email callback:(BUYDataStatusBlock)block;
+- (BUYRequestOperation *)updateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID callback:(BUYDataCustomerBlock)block;
+
+/**
+ *  PUT /api/customers/:customer_id/reset
+ *  Resets an existing customer's password
+ *
+ *  @param credentials   Credentials containing a password and password confirmation
+ *  @param customerID    ID of customer resetting password
+ *  @param token         Token contained in reset URL
+ *  @param block         (BUYCustomer *customer, NSString *token, NSError *error)
+ *
+ *  @return The associated BUYRequestOperation
+ */
+- (BUYRequestOperation *)resetPasswordWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID token:(NSString *)token callback:(BUYDataCustomerTokenBlock)block;
+
+#pragma mark - Token -
 
 /**
  *  PUT /api/customers/:customer_id/customer_token/renew
@@ -126,31 +147,44 @@ typedef void (^BUYDataOrdersBlock)(NSArray <BUYOrder*> * _Nullable orders, NSErr
  */
 - (BUYRequestOperation *)renewCustomerTokenWithID:(NSString *)customerID callback:(BUYDataTokenBlock)block;
 
-/**
- *  PUT /api/customers/:customer_id/activate
- *  Activates an unactivated customer
- *
- *  @param credentials   Credentials containing a password and password confirmation
- *  @param customerID    ID of customer being activated
- *  @param customerToken Token contained in activation URL
- *  @param block         (BUYCustomer *customer, NSString *token, NSError *error)
- *
- *  @return The associated BUYRequestOperation
- */
-- (BUYRequestOperation *)activateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID customerToken:(NSString *)customerToken callback:(BUYDataCustomerTokenBlock)block;
+#pragma mark - Login -
 
 /**
- *  PUT /api/customers/:customer_id/reset
- *  Resets an existing customer's password
+ *  POST /api/customers/customer_token
+ *  Logs in an existing customer
+ *  Expects email and password
  *
- *  @param credentials   Credentials containing a password and password confirmation
- *  @param customerID    ID of customer resetting password
- *  @param customerToken Token contained in reset URL
- *  @param block         (BUYCustomer *customer, NSString *token, NSError *error)
+ *  @param credentials Credentials object containing items for required fields
+ *  @param block    (BUYCustomer *customer, NSString *token, NSError *error)
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)resetPasswordWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID customerToken:(NSString *)customerToken callback:(BUYDataCustomerTokenBlock)block;
+- (BUYRequestOperation *)loginCustomerWithCredentials:(BUYAccountCredentials *)credentials callback:(BUYDataCustomerTokenBlock)block;
+
+/**
+ *  DELETE /api/customers/:customer_id/customer_token
+ *  Logs out an existing customer
+ *  Expects a customerID string
+ *
+ *  @param customer A customerID represented by a string
+ *  @param block    (BUYStatus status, NSError *error)
+ *
+ *  @return The associated BUYRequestOperation
+ */
+- (BUYRequestOperation *)logoutCustomerID:(NSString *)customerID callback:(BUYDataStatusBlock)block;
+
+/**
+ *  POST /api/customers/recover
+ *  Sends email for password recovery to an existing customer
+ *
+ *  @param email Email to send the password reset to
+ *  @param block (BUYStatus status, NSError *error)
+ *
+ *  @return the associated BUYRequestOperation
+ */
+- (BUYRequestOperation *)recoverPasswordForCustomer:(NSString *)email callback:(BUYDataStatusBlock)block;
+
+#pragma mark - Orders -
 
 /**
  *  GET /api/customers/:customer_id/orders

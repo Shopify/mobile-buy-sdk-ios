@@ -70,11 +70,7 @@
 
 - (void)fetchProducts
 {
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testGetProductPage_0"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testGetProductPage_0" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
@@ -103,11 +99,7 @@
 
 - (void)createCheckout
 {
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_1"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testCheckoutFlowUsingCreditCard_1" useMocks:[self shouldUseMocks]];
 	
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	_checkout.shippingAddress = [self shippingAddress];
@@ -129,11 +121,7 @@
 
 - (void)testCheckoutAttributesAndNotes
 {
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_1"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testCheckoutFlowUsingCreditCard_1" useMocks:[self shouldUseMocks]];
 	
 	[self createCart];
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
@@ -163,11 +151,7 @@
 - (void)fetchShippingRates
 {
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_2"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testCheckoutFlowUsingCreditCard_2" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client getShippingRatesForCheckout:_checkout completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
@@ -186,11 +170,7 @@
 
 - (void)updateCheckout
 {
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_3"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testCheckoutFlowUsingCreditCard_3" useMocks:[self shouldUseMocks]];
 	_checkout.email = @"test@test.com";
 	_checkout.shippingRate = _shippingRates[0];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
@@ -210,11 +190,7 @@
 
 - (id<BUYPaymentToken>)addCreditCardToCheckout
 {
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutFlowUsingCreditCard_4"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testCheckoutFlowUsingCreditCard_4" useMocks:[self shouldUseMocks]];
 	
 	BUYCreditCard *creditCard = [self creditCard];
 	__block id<BUYPaymentToken> token = nil;
@@ -307,11 +283,7 @@
 	[self createCart];
 	[self createCheckout];
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testApplyingGiftCardToCheckout_2"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testApplyingGiftCardToCheckout_2" useMocks:[self shouldUseMocks]];
 	
 	[self applyGiftCardToCheckout];
 }
@@ -356,11 +328,7 @@
 	XCTAssertGreaterThan([_checkout.paymentDue integerValue], 1);
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testApplyingInvalidGiftCardToCheckout_2"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testApplyingInvalidGiftCardToCheckout_2" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client applyGiftCardWithCode:@"000" toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
@@ -384,11 +352,7 @@
 	
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testApplyingInvalidGiftCardToCheckout_2"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testApplyingInvalidGiftCardToCheckout_2" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client applyGiftCardWithCode:self.giftCardCodeExpired toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
@@ -410,11 +374,7 @@
 	[self createCart];
 	[self createCheckout];
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testRemovingGiftCardFromCheckout_2"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testRemovingGiftCardFromCheckout_2" useMocks:[self shouldUseMocks]];
 	
 	[self applyGiftCardToCheckout];
 	
@@ -423,11 +383,7 @@
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
 	NSDecimalNumber *giftCardValue = [giftCard.amountUsed copy];
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testRemovingGiftCardFromCheckout_3"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testRemovingGiftCardFromCheckout_3" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client removeGiftCard:giftCard fromCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
@@ -452,11 +408,7 @@
 	
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testRemovingInvalidGiftCardFromCheckout_2"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testRemovingInvalidGiftCardFromCheckout_2" useMocks:[self shouldUseMocks]];
 	
 	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"id" : @(000) }];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
@@ -480,11 +432,7 @@
 	
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testRemovingExpiredGiftCardFromCheckout_2"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testRemovingExpiredGiftCardFromCheckout_2" useMocks:[self shouldUseMocks]];
 	
 	BUYGiftCard *giftCard = [[BUYGiftCard alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"id" : self.giftCardIdExpired }];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
@@ -507,21 +455,13 @@
 	[self createCart];
 	[self createCheckout];
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testApplyingTwoGiftCardsToCheckout_2"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testApplyingTwoGiftCardsToCheckout_2" useMocks:[self shouldUseMocks]];
 	
 	[self applyGiftCardToCheckout];
 	
 	XCTAssertEqual([_checkout.giftCards count], 1);
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testApplyingTwoGiftCardsToCheckout_3"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testApplyingTwoGiftCardsToCheckout_3" useMocks:[self shouldUseMocks]];
 	
 	[self applyGiftCardTwoToCheckout];
 }
@@ -555,31 +495,19 @@
 	[self createCart];
 	[self createCheckout];
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testApplyingThreeGiftCardsToCheckout_2"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testApplyingThreeGiftCardsToCheckout_2" useMocks:[self shouldUseMocks]];
 	
 	[self applyGiftCardToCheckout];
 	
 	XCTAssertEqual([_checkout.giftCards count], 1);
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testApplyingThreeGiftCardsToCheckout_3"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testApplyingThreeGiftCardsToCheckout_3" useMocks:[self shouldUseMocks]];
 	
 	[self applyGiftCardTwoToCheckout];
 	
 	XCTAssertEqual([_checkout.giftCards count], 2);
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testApplyingThreeGiftCardsToCheckout_4"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testApplyingThreeGiftCardsToCheckout_4" useMocks:[self shouldUseMocks]];
 	
 	[self applyGiftCardThreeToCheckout];
 }
@@ -613,41 +541,25 @@
 	[self createCart];
 	[self createCheckout];
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testRemovingSecondGiftCard_2"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testRemovingSecondGiftCard_2" useMocks:[self shouldUseMocks]];
 	
 	[self applyGiftCardToCheckout];
 	
 	XCTAssertEqual([_checkout.giftCards count], 1);
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testRemovingSecondGiftCard_3"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testRemovingSecondGiftCard_3" useMocks:[self shouldUseMocks]];
 	
 	[self applyGiftCardTwoToCheckout];
 	
 	XCTAssertEqual([_checkout.giftCards count], 2);
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testRemovingSecondGiftCard_4"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testRemovingSecondGiftCard_4" useMocks:[self shouldUseMocks]];
 	
 	[self applyGiftCardThreeToCheckout];
 	
 	XCTAssertEqual([_checkout.giftCards count], 3);
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testRemovingSecondGiftCard_5"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testRemovingSecondGiftCard_5" useMocks:[self shouldUseMocks]];
 	
 	[self removeSecondGiftCard];
 }
@@ -681,51 +593,31 @@
 	[self createCart];
 	[self createCheckout];
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testRemovingFirstGiftCard_2"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testRemovingFirstGiftCard_2" useMocks:[self shouldUseMocks]];
 	
 	[self applyGiftCardToCheckout];
 	
 	XCTAssertEqual([_checkout.giftCards count], 1);
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testRemovingFirstGiftCard_3"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testRemovingFirstGiftCard_3" useMocks:[self shouldUseMocks]];
 	
 	[self applyGiftCardTwoToCheckout];
 	
 	XCTAssertEqual([_checkout.giftCards count], 2);
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testRemovingFirstGiftCard_4"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testRemovingFirstGiftCard_4" useMocks:[self shouldUseMocks]];
 	
 	[self applyGiftCardThreeToCheckout];
 	
 	XCTAssertEqual([_checkout.giftCards count], 3);
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testRemovingFirstGiftCard_5"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testRemovingFirstGiftCard_5" useMocks:[self shouldUseMocks]];
 
 	[self removeSecondGiftCard];
 	
 	XCTAssertEqual([_checkout.giftCards count], 2);
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testRemovingFirstGiftCard_6"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testRemovingFirstGiftCard_6" useMocks:[self shouldUseMocks]];
 	
 	[self removeFirstGiftCard];
 }
@@ -760,59 +652,35 @@
 	[self createCart];
 	[self createCheckout];
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testRemovingAllGiftCards_2"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testRemovingAllGiftCards_2" useMocks:[self shouldUseMocks]];
 	
 	[self applyGiftCardToCheckout];
 	
 	XCTAssertEqual([_checkout.giftCards count], 1);
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testRemovingAllGiftCards_3"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testRemovingAllGiftCards_3" useMocks:[self shouldUseMocks]];
 	
 	[self applyGiftCardTwoToCheckout];
 	
 	XCTAssertEqual([_checkout.giftCards count], 2);
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testRemovingAllGiftCards_4"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testRemovingAllGiftCards_4" useMocks:[self shouldUseMocks]];
 	
 	[self applyGiftCardThreeToCheckout];
 	
 	XCTAssertEqual([_checkout.giftCards count], 3);
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testRemovingAllGiftCards_5"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testRemovingAllGiftCards_5" useMocks:[self shouldUseMocks]];
 	
 	[self removeSecondGiftCard];
 	
 	XCTAssertEqual([_checkout.giftCards count], 2);
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testRemovingAllGiftCards_6"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testRemovingAllGiftCards_6" useMocks:[self shouldUseMocks]];
 	
 	[self removeFirstGiftCard];
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testRemovingAllGiftCards_7"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testRemovingAllGiftCards_7" useMocks:[self shouldUseMocks]];
 	
 	[self removeAllGiftCards];
 }
@@ -844,16 +712,12 @@
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testInvalidIntegrationBadShopUrl_0"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testInvalidIntegrationBadShopUrl_0" useMocks:[self shouldUseMocks]];
 	
 	self.client = [[BUYClient alloc] initWithShopDomain:@"asdfdsasdfdsasdfdsadsfowinfaoinfw.myshopify.com" apiKey:self.apiKey appId:@"88234"];
 	[self.client createCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		XCTAssertNotNil(error);
-		XCTAssertEqualObjects(error.domain, @"shopify");
+		XCTAssertEqualObjects(error.domain, @"BUYShopifyErrorDomain");
 		XCTAssertEqual(error.code, 404);
 		[expectation fulfill];
 		
@@ -866,11 +730,7 @@
 
 - (void)testFetchingShippingRatesWithoutShippingAddressShouldReturnPreconditionFailed
 {
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testFetchingShippingRatesWithoutShippingAddress_1"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testFetchingShippingRatesWithoutShippingAddress_1" useMocks:[self shouldUseMocks]];
 	
 	[self createCart];
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
@@ -888,11 +748,7 @@
 		XCTAssertNil(error);
 	}];
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testFetchingShippingRatesWithoutShippingAddress_2"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testFetchingShippingRatesWithoutShippingAddress_2" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation2 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
@@ -908,11 +764,7 @@
 
 - (void)testFetchingShippingRatesForInvalidCheckoutShouldReturnNotFound
 {
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testFetchingShippingRatesWithInvalidCheckout_1"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testFetchingShippingRatesWithInvalidCheckout_1" useMocks:[self shouldUseMocks]];
 	
 	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:nil];
 	checkout.token = @"bananaaaa";
@@ -947,11 +799,7 @@
 		_checkout.partialAddressesValue = YES;
 	}
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testCheckoutWithAPartialAddress"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testCheckoutWithAPartialAddress" useMocks:[self shouldUseMocks]];
 	
 	//Create the checkout
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
@@ -986,11 +834,7 @@
 {
 	[self createCart];
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testCreateCheckoutWithValidDiscount_1"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testCreateCheckoutWithValidDiscount_1" useMocks:[self shouldUseMocks]];
 	
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	_checkout.discount = [self applicableDiscount];
@@ -1019,11 +863,7 @@
 {
 	[self createCart];
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testCreateCheckoutWithExpiredDiscount_1"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testCreateCheckoutWithExpiredDiscount_1" useMocks:[self shouldUseMocks]];
 	
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	_checkout.discount = [self inapplicableDiscount];
@@ -1045,11 +885,7 @@
 {
 	[self createCart];
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testCreateCheckoutWithNonExistentDiscount_1"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testCreateCheckoutWithNonExistentDiscount_1" useMocks:[self shouldUseMocks]];
 	
 	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
 	_checkout.discount = [self nonExistentDiscount];
@@ -1073,11 +909,7 @@
 	[self createCart];
 	[self createCheckout];
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testCreateCheckoutWithValidDiscount_1"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testCreateCheckoutWithValidDiscount_1" useMocks:[self shouldUseMocks]];
 	
 	_checkout.discount = [self applicableDiscount];
 	
@@ -1098,11 +930,7 @@
 
 - (void)testGetCheckoutWithInvalidToken
 {
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testGetCheckoutWithInvalidToken_0"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testGetCheckoutWithInvalidToken_0" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 
@@ -1193,11 +1021,7 @@
 	XCTAssertTrue([_checkout.reservationTime isKindOfClass:[NSNumber class]]);
 	XCTAssertEqual(300, _checkout.reservationTime.intValue);
 	
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testExpiringCheckout_2"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testExpiringCheckout_2" useMocks:[self shouldUseMocks]];
 	
 	// Expire the checkout
 	XCTestExpectation *expectation2 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
@@ -1218,11 +1042,7 @@
 
 - (void)testCallbackQueue
 {
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testGetShop_0"];
-	}];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testGetShop_0" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	XCTestExpectation *expectation2 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
