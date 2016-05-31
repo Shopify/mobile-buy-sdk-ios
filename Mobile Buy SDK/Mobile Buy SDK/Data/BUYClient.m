@@ -34,7 +34,7 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 @interface BUYClient () <NSURLSessionDelegate>
 
 @property (nonatomic, strong) NSURLSession *session;
-@property (nonatomic, strong) NSOperationQueue *networkQueue;
+@property (nonatomic, strong) NSOperationQueue *requestQueue;
 
 @end
 
@@ -62,7 +62,6 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 		
 		_callbackQueue = [NSOperationQueue mainQueue];
 		_requestQueue  = [NSOperationQueue new];
-		_networkQueue  = [NSOperationQueue new];
 		
 		_session       = [self urlSession];
 		_pageSize      = 25;
@@ -96,7 +95,7 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 	NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
 	config.HTTPAdditionalHeaders      = [self additionalHeaders];
 	
-	return [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:self.networkQueue];
+	return [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:nil];
 }
 
 - (void)setPageSize:(NSUInteger)pageSize

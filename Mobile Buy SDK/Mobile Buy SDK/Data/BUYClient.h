@@ -96,11 +96,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nonnull) BUYModelManager *modelManager;
 
 /**
- *  Queue on which all request operation are executed
- */
-@property (nonatomic, strong, readonly, nonnull) NSOperationQueue *requestQueue;
-
-/**
  *  Queue on which network completion callbacks will be executed
  */
 @property (nonatomic, strong, nonnull) NSOperationQueue *callbackQueue;
