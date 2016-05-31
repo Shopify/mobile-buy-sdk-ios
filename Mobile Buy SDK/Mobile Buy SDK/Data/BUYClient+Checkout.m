@@ -191,13 +191,13 @@
 
 #pragma mark - Shipping Rates -
 
-- (BUYRequestOperation *)getShippingRatesForCheckout:(BUYCheckout *)checkout completion:(BUYDataShippingRatesBlock)block
+- (BUYRequestOperation *)getShippingRatesForCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataShippingRatesBlock)block
 {
-	BUYAssertCheckout(checkout);
+	BUYAssertToken(checkoutToken);
 	
-	NSURL *url  = [self urlForCheckoutsShippingRatesWithToken:checkout.token parameters:@{
-																							  @"checkout" : @"",
-																							  }];
+	NSURL *url  = [self urlForCheckoutsShippingRatesWithToken:checkoutToken parameters:@{
+																						  @"checkout" : @"",
+																						  }];
 	
 	BUYRequestOperation *operation = [self getRequestForURL:url start:NO completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		NSArray *shippingRates = nil;

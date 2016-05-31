@@ -242,7 +242,7 @@ const NSTimeInterval PollDelay = 0.5;
 		dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 		__block BUYStatus shippingStatus = BUYStatusUnknown;
 		do {
-			[self.client getShippingRatesForCheckout:self.checkout completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
+			[self.client getShippingRatesForCheckoutWithToken:self.checkout.token completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
 				shippingStatus = status;
 
 				if (error) {

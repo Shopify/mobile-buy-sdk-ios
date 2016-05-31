@@ -161,15 +161,15 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
 #pragma mark - Shipping Rates -
 
 /**
- *  Retrieves a list of applicable shipping rates for a given BUYCheckout.
+ *  Retrieves a list of applicable shipping rates for a given checkout token.
  *  Add the preferred/selected BUYShippingRate to BUYCheckout, then update BUYCheckout
  *
- *  @param checkout The BUYCheckout to retrieve shipping rates for
- *  @param block    (^BUYDataShippingRatesBlock)(NSArray *shippingRates, BUYStatus status, NSError *error);
+ *  @param checkoutToken The checkout token for which to retrieve shipping rates
+ *  @param block         (^BUYDataShippingRatesBlock)(NSArray *shippingRates, BUYStatus status, NSError *error);
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)getShippingRatesForCheckout:(BUYCheckout *)checkout completion:(BUYDataShippingRatesBlock)block;
+- (BUYRequestOperation *)getShippingRatesForCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataShippingRatesBlock)block;
 
 #pragma mark - Cards -
 

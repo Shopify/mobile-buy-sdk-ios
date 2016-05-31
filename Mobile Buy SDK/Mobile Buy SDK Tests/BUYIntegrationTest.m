@@ -154,7 +154,7 @@
 	[OHHTTPStubs stubUsingResponseWithKey:@"testCheckoutFlowUsingCreditCard_2" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client getShippingRatesForCheckout:_checkout completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
+	[self.client getShippingRatesForCheckoutWithToken:_checkout.token completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertEqual(status, BUYStatusComplete);
 		
@@ -752,7 +752,7 @@
 	
 	XCTestExpectation *expectation2 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
-	[self.client getShippingRatesForCheckout:_checkout completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
+	[self.client getShippingRatesForCheckoutWithToken:_checkout.token completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
 		XCTAssertEqual(BUYStatusPreconditionFailed, status);
 		[expectation2 fulfill];
 	}];
@@ -770,7 +770,7 @@
 	checkout.token = @"bananaaaa";
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client getShippingRatesForCheckout:checkout completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
+	[self.client getShippingRatesForCheckoutWithToken:checkout.token completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
 		XCTAssertEqual(BUYStatusNotFound, status);
 		[expectation fulfill];
 	}];
