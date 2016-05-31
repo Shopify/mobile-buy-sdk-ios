@@ -147,7 +147,7 @@
 
 - (BUYRequestOperation *)createPollOperation
 {
-	BUYRequestOperation *operation =[self.client getCompletionStatusOfCheckoutToken:self.checkout.token start:NO completion:^(BUYStatus status, NSError *error) {
+	BUYRequestOperation *operation =[self.client getCompletionStatusOfCheckoutWithToken:self.checkout.token start:NO completion:^(BUYStatus status, NSError *error) {
 		if (status != BUYStatusComplete) {
 			[self finishWithError:error];
 		}

@@ -295,7 +295,7 @@ const NSTimeInterval PollDelay = 0.5;
 		dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 		
 		while (checkout.token && checkoutStatus != BUYStatusFailed && checkoutStatus != BUYStatusComplete) {
-			[self.client getCompletionStatusOfCheckout:self.checkout completion:^(BUYStatus status, NSError *error) {
+			[self.client getCompletionStatusOfCheckoutWithToken:self.checkout.token completion:^(BUYStatus status, NSError *error) {
 				checkoutStatus = status;
 				self.lastError = error;
 				dispatch_semaphore_signal(semaphore);
