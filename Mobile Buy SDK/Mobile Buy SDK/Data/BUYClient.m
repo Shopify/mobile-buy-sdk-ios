@@ -34,6 +34,7 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 @interface BUYClient () <NSURLSessionDelegate>
 
 @property (nonatomic, strong) NSURLSession *session;
+@property (nonatomic, strong) NSOperationQueue *requestQueue;
 
 @end
 
@@ -54,17 +55,37 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 	
 	self = [super init];
 	if (self) {
-		_modelManager = [BUYModelManager modelManager];
-		_shopDomain = shopDomain;
-		_apiKey = apiKey;
-		_appId = appId;
-		_applicationName = [[NSBundle mainBundle] infoDictionary][@"CFBundleName"] ?: @"";
+		_modelManager  = [BUYModelManager modelManager];
+		_shopDomain    = shopDomain;
+		_apiKey        = apiKey;
+		_appId         = appId;
+		
 		_callbackQueue = [NSOperationQueue mainQueue];
-		_requestQueue = [NSOperationQueue new];
-		_session = [self urlSession];
-		_pageSize = 25;
+		_requestQueue  = [NSOperationQueue new];
+		
+		_session       = [self urlSession];
+		_pageSize      = 25;
 	}
 	return self;
+}
+
+#pragma mark - Headers -
+
+- (NSString *)applicationName
+{
+	return [[NSBundle mainBundle] infoDictionary][@"CFBundleName"] ?: @"";
+}
+
+- (NSString *)bundleIdentifier
+{
+	return [[NSBundle mainBundle] bundleIdentifier];
+}
+
+- (NSDictionary *)additionalHeaders
+{
+	return @{
+			 @"User-Agent": [NSString stringWithFormat:@"Mobile Buy SDK iOS/%@/%@", BUYClientVersionString, [self bundleIdentifier]]
+			 };
 }
 
 #pragma mark - Accessors -
@@ -72,12 +93,9 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 - (NSURLSession *)urlSession
 {
 	NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+	config.HTTPAdditionalHeaders      = [self additionalHeaders];
 	
-	NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
-	
-	config.HTTPAdditionalHeaders = @{@"User-Agent": [NSString stringWithFormat:@"Mobile Buy SDK iOS/%@/%@", BUYClientVersionString, bundleIdentifier]};
-	
-	return [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:self.requestQueue];
+	return [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:nil];
 }
 
 - (void)setPageSize:(NSUInteger)pageSize
@@ -89,23 +107,20 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 
 - (BUYStatus)statusForStatusCode:(NSUInteger)statusCode error:(NSError *)error
 {
-	BUYStatus status = BUYStatusUnknown;
-	if (statusCode == BUYStatusPreconditionFailed) {
-		status = BUYStatusPreconditionFailed;
+	switch ((BUYStatus)statusCode) {
+		case BUYStatusPreconditionFailed: return BUYStatusPreconditionFailed;
+		case BUYStatusNotFound:           return BUYStatusNotFound;
+		case BUYStatusFailed:             return BUYStatusFailed;
+		case BUYStatusProcessing:	      return BUYStatusProcessing;
+		case BUYStatusComplete:           return BUYStatusComplete;
+		default: {
+			if (error) {
+				return BUYStatusFailed;
+			} else {
+				return BUYStatusUnknown;
+			}
+		}
 	}
-	else if (statusCode == BUYStatusNotFound) {
-		status = BUYStatusNotFound;
-	}
-	else if (error || statusCode == BUYStatusFailed) {
-		status = BUYStatusFailed;
-	}
-	else if (statusCode == BUYStatusProcessing) {
-		status = BUYStatusProcessing;
-	}
-	else if (statusCode == BUYStatusComplete) {
-		status = BUYStatusComplete;
-	}
-	return status;
 }
 
 - (NSError *)errorFromJSON:(NSDictionary *)json response:(NSURLResponse *)response
