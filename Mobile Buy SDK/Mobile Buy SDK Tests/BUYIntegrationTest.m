@@ -241,7 +241,7 @@
 	}];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client completeCheckout:_checkout paymentToken:paymentToken completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+	[self.client completeCheckoutWithToken:_checkout.token paymentToken:paymentToken completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
 		XCTAssertNotNil(returnedCheckout.order);

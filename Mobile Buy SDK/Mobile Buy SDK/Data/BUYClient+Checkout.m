@@ -92,8 +92,9 @@
 	}];
 }
 
-- (BUYOperation *)completeCheckout:(BUYCheckout *)checkout paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block {
-	BUYCheckoutOperation *operation = [[BUYCheckoutOperation alloc] initWithClient:self checkout:checkout token:paymentToken completion:block];
+- (BUYOperation *)completeCheckoutWithToken:(NSString *)checkoutToken paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block
+{
+	BUYCheckoutOperation *operation = [[BUYCheckoutOperation alloc] initWithClient:self checkoutToken:checkoutToken token:paymentToken completion:block];
 	[self startOperation:operation];
 	return operation;
 }
@@ -123,15 +124,11 @@
 
 #pragma mark - Checkout Helpers -
 
-- (BUYRequestOperation *)beginCheckout:(BUYCheckout *)checkout paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block
+- (BUYRequestOperation *)beginCheckoutWithToken:(NSString *)checkoutToken paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block
 {
-	BUYAssertCheckout(checkout);
+	BUYAssertToken(checkoutToken);
 	
-	BOOL isFree = (checkout.paymentDue && checkout.paymentDue.floatValue == 0);
-	
-	BUYAssert(paymentToken || isFree, @"Failed to complete checkout. Checkout must have a payment token or have a payment value equal to $0.00");
-	
-	NSURL *route = [self urlForCheckoutsCompletionWithToken:checkout.token];
+	NSURL *route = [self urlForCheckoutsCompletionWithToken:checkoutToken];
 	return [self postRequestForURL:route object:[paymentToken JSONDictionary] start:NO completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		[self handleCheckoutResponse:json error:error block:block];
 	}];

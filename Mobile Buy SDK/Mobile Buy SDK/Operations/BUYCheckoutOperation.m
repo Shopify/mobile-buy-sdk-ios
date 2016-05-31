@@ -28,12 +28,11 @@
 #import "BUYClient+Checkout.h"
 #import "BUYClient+Internal.h"
 #import "BUYPaymentToken.h"
-#import "BUYCheckout.h"
 #import "BUYRequestOperation.h"
 
 @interface BUYCheckoutOperation ()
 
-@property (strong, nonatomic, readonly) BUYCheckout *checkout;
+@property (strong, nonatomic, readonly) NSString *checkoutToken;
 @property (strong, nonatomic, readonly) id<BUYPaymentToken> token;
 @property (strong, nonatomic, readonly) BUYCheckoutOperationCompletion completion;
 
@@ -45,19 +44,19 @@
 
 #pragma mark - Init -
 
-+ (instancetype)operationWithClient:(BUYClient *)client checkout:(BUYCheckout *)checkout token:(id<BUYPaymentToken>)token completion:(BUYCheckoutOperationCompletion)completion
++ (instancetype)operationWithClient:(BUYClient *)client checkoutToken:(NSString *)checkoutToken token:(id<BUYPaymentToken>)token completion:(BUYCheckoutOperationCompletion)completion
 {
-	return [[[self class] alloc] initWithClient:client checkout:checkout token:token completion:completion];
+	return [[[self class] alloc] initWithClient:client checkoutToken:checkoutToken token:token completion:completion];
 }
 
-- (instancetype)initWithClient:(BUYClient *)client checkout:(BUYCheckout *)checkout token:(id<BUYPaymentToken>)token completion:(BUYCheckoutOperationCompletion)completion
+- (instancetype)initWithClient:(BUYClient *)client checkoutToken:(NSString *)checkoutToken token:(id<BUYPaymentToken>)token completion:(BUYCheckoutOperationCompletion)completion
 {
 	self = [super init];
 	if (self) {
-		_client     = client;
-		_checkout   = checkout;
-		_token      = token;
-		_completion = completion;
+		_client        = client;
+		_token         = token;
+		_completion    = completion;
+		_checkoutToken = checkoutToken;
 	}
 	return self;
 }
@@ -138,7 +137,7 @@
 
 - (BUYRequestOperation *)createBeginOperation
 {
-	return [self.client beginCheckout:self.checkout paymentToken:self.token completion:^(BUYCheckout *checkout, NSError *error) {
+	return [self.client beginCheckoutWithToken:self.checkoutToken paymentToken:self.token completion:^(BUYCheckout *checkout, NSError *error) {
 		if (!checkout) {
 			[self finishWithError:error];
 		}
@@ -147,7 +146,7 @@
 
 - (BUYRequestOperation *)createPollOperation
 {
-	BUYRequestOperation *operation =[self.client getCompletionStatusOfCheckoutWithToken:self.checkout.token start:NO completion:^(BUYStatus status, NSError *error) {
+	BUYRequestOperation *operation =[self.client getCompletionStatusOfCheckoutWithToken:self.checkoutToken start:NO completion:^(BUYStatus status, NSError *error) {
 		if (status != BUYStatusComplete) {
 			[self finishWithError:error];
 		}
@@ -161,7 +160,7 @@
 
 - (BUYRequestOperation *)createGetOperation
 {
-	return [self.client getCheckoutWithToken:self.checkout.token start:NO completion:^(BUYCheckout *checkout, NSError *error) {
+	return [self.client getCheckoutWithToken:self.checkoutToken start:NO completion:^(BUYCheckout *checkout, NSError *error) {
 		if (checkout) {
 			[self finishWithCheckout:checkout];
 		} else {

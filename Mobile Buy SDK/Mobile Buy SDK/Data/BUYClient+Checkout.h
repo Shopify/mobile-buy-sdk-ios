@@ -119,20 +119,20 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
 - (BUYRequestOperation *)getCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataCheckoutBlock)block;
 
 /**
- *  Finalizes the BUYCheckout and charges the payment provider (ex: Credit Card, Apple Pay, etc).
+ *  Finalizes the BUYCheckout associated with the token and charges the payment provider (ex: Credit Card, Apple Pay, etc).
  *  This enqueues a completion job on Shopify and returns immediately.
  *  You must get the job's status by calling checkCompletionStatusOfCheckout:block
  *
  *  Note: There's no guarantee that the BUYCheckout returned will be the same as the one that is passed in.
  *  We recommended using the BUYCheckout returned in the block.
  *
- *  @param checkout      The BUYCheckout to complete
+ *  @param checkoutToken The checkout token for which to complete checkout. May be nil if the total checkout amount is equal to $0.00 
  *  @param paymentToken  Opaque payment token object. May be nil if the total checkout amount is equal to $0.00
  *  @param block         (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
  *
  *  @return The associated BUYOperation
  */
-- (BUYOperation *)completeCheckout:(BUYCheckout *)checkout paymentToken:(_Nullable id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block;
+- (BUYOperation *)completeCheckoutWithToken:(nullable NSString *)checkoutToken paymentToken:(_Nullable id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block;
 
 /**
  *  Retrieve the status of a checkout with token. This checks the status of the current payment processing job for the provided checkout.
