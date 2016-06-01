@@ -99,7 +99,7 @@ const NSTimeInterval PollDelay = 0.5;
 			id<BUYPaymentToken> token = [[BUYApplePayToken alloc] initWithPaymentToken:payment.token];
 			
 			//Now that the checkout is up to date, call complete.
-			[self.client completeCheckoutWithToken:checkout.token paymentToken:token completion:^(BUYCheckout *checkout, NSError *error) {
+			[self.client completeCheckoutForToken:checkout.token paymentToken:token completion:^(BUYCheckout *checkout, NSError *error) {
 				if (checkout && error == nil) {
 					self.checkout = checkout;
 					
@@ -242,7 +242,7 @@ const NSTimeInterval PollDelay = 0.5;
 		dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 		__block BUYStatus shippingStatus = BUYStatusUnknown;
 		do {
-			[self.client getShippingRatesForCheckoutWithToken:self.checkout.token completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
+			[self.client getShippingRatesForCheckoutForToken:self.checkout.token completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
 				shippingStatus = status;
 
 				if (error) {
@@ -295,7 +295,7 @@ const NSTimeInterval PollDelay = 0.5;
 		dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 		
 		while (checkout.token && checkoutStatus != BUYStatusFailed && checkoutStatus != BUYStatusComplete) {
-			[self.client getCompletionStatusOfCheckoutWithToken:self.checkout.token completion:^(BUYStatus status, NSError *error) {
+			[self.client getCompletionStatusOfCheckoutForToken:self.checkout.token completion:^(BUYStatus status, NSError *error) {
 				checkoutStatus = status;
 				self.lastError = error;
 				dispatch_semaphore_signal(semaphore);
