@@ -24,7 +24,8 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/Buy.h>
+@import Buy;
+
 #import "CheckoutViewController.h"
 #import "SummaryItemsTableViewCell.h"
 #import "UIButton+PaymentButton.h"
@@ -138,14 +139,8 @@ NSString * const MerchantId = @"";
 
 - (void)addCreditCardToCheckout:(void (^)(BOOL success, id<BUYPaymentToken> token))callback
 {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    
     [self.client storeCreditCard:[self creditCard] checkout:self.checkout completion:^(id<BUYPaymentToken> token, NSError *error) {
-        
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        
         if (error == nil && token) {
-            
             NSLog(@"Successfully added credit card to checkout");
         }
         else {
@@ -201,40 +196,23 @@ NSString * const MerchantId = @"";
     }];
 }
 
-#pragma mark Native Checkout
+#pragma mark - Native Checkout
 
 - (void)checkoutWithCreditCard
 {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
     __weak CheckoutViewController *welf = self;
     
     // First, the credit card must be stored on the checkout
     [self addCreditCardToCheckout:^(BOOL success, id<BUYPaymentToken> token) {
         
         if (success) {
-            
-            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-            
-            // Upon successfully adding the credit card to the checkout, complete checkout must be called immediately
             [welf.client completeCheckout:welf.checkout paymentToken:token completion:^(BUYCheckout *checkout, NSError *error) {
                 
                 if (error == nil && checkout) {
-                    
                     NSLog(@"Successfully completed checkout");
                     welf.checkout = checkout;
-                    
-                    NSOperation *completionOperation = [welf.client getCompletionStatusOfCheckout:checkout completion:^(BUYStatus status, NSError * _Nullable error) {
-                        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-                        if (error) {
-                            NSLog(@"Error getting completion status: %@", error);
-                        }
-                        else {
-                            NSLog(@"Successfully got completion status: %lu", (unsigned long)status);
-                            [welf getCompletedCheckout:NULL];
-                        }
-                    }];
-                    
-                    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-                    [[NSOperationQueue mainQueue] addOperation:completionOperation];
                 }
                 else {
                     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];

@@ -351,8 +351,8 @@
 		9A0B0C831CEB981C0037D68F /* BUYClient+RoutingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C821CEB981C0037D68F /* BUYClient+RoutingTests.m */; };
 		9A0B0CA21CECC1BC0037D68F /* BUYClient+Checkout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C711CEB52B90037D68F /* BUYClient+Checkout.m */; };
 		9A0B0CA31CECC1BD0037D68F /* BUYClient+Checkout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C711CEB52B90037D68F /* BUYClient+Checkout.m */; };
-		9A0B0CA71CED0A860037D68F /* BUYCheckoutOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0B0CA51CED0A860037D68F /* BUYCheckoutOperation.h */; };
-		9A0B0CA81CED0A860037D68F /* BUYCheckoutOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0B0CA51CED0A860037D68F /* BUYCheckoutOperation.h */; };
+		9A0B0CA71CED0A860037D68F /* BUYCheckoutOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0B0CA51CED0A860037D68F /* BUYCheckoutOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9A0B0CA81CED0A860037D68F /* BUYCheckoutOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0B0CA51CED0A860037D68F /* BUYCheckoutOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A0B0CA91CED0A860037D68F /* BUYCheckoutOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0CA61CED0A860037D68F /* BUYCheckoutOperation.m */; };
 		9A0B0CAA1CED0A860037D68F /* BUYCheckoutOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0CA61CED0A860037D68F /* BUYCheckoutOperation.m */; };
 		9A102D1B1CDD1F960026CC43 /* BUYErrorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A102D1A1CDD1F960026CC43 /* BUYErrorTests.m */; };
