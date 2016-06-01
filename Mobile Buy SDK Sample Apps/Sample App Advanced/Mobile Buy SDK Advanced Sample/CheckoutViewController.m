@@ -26,20 +26,19 @@
 
 #import <Buy/Buy.h>
 #import "CheckoutViewController.h"
-#import "GetCompletionStatusOperation.h"
 #import "SummaryItemsTableViewCell.h"
 #import "UIButton+PaymentButton.h"
 
 NSString * const CheckoutCallbackNotification = @"CheckoutCallbackNotification";
 NSString * const MerchantId = @"";
 
-@interface CheckoutViewController () <GetCompletionStatusOperationDelegate, SFSafariViewControllerDelegate, PKPaymentAuthorizationViewControllerDelegate>
+@interface CheckoutViewController () <SFSafariViewControllerDelegate, PKPaymentAuthorizationViewControllerDelegate>
 
 @property (nonatomic, strong) BUYCheckout *checkout;
 @property (nonatomic, strong) BUYClient *client;
 @property (nonatomic, strong) BUYShop *shop;
 @property (nonatomic, strong) NSArray *summaryItems;
-@property (nonatomic, strong) BUYApplePayHelpers *applePayHelper;
+@property (nonatomic, strong) BUYApplePayAuthorizationDelegate *applePayHelper;
 
 @end
 
@@ -141,20 +140,19 @@ NSString * const MerchantId = @"";
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    [self.client storeCreditCard:[self creditCard] checkout:self.checkout completion:^(BUYCheckout *checkout, id<BUYPaymentToken> token, NSError *error) {
+    [self.client storeCreditCard:[self creditCard] checkout:self.checkout completion:^(id<BUYPaymentToken> token, NSError *error) {
         
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
-        if (error == nil && checkout) {
+        if (error == nil && token) {
             
             NSLog(@"Successfully added credit card to checkout");
-            self.checkout = checkout;
         }
         else {
             NSLog(@"Error applying credit card: %@", error);
         }
         
-        callback(error == nil && checkout, token);
+        callback(error == nil && token, token);
     }];
 }
 
@@ -224,8 +222,16 @@ NSString * const MerchantId = @"";
                     NSLog(@"Successfully completed checkout");
                     welf.checkout = checkout;
                     
-                    GetCompletionStatusOperation *completionOperation = [[GetCompletionStatusOperation alloc] initWithClient:welf.client withCheckout:welf.checkout];
-                    completionOperation.delegate = welf;
+                    NSOperation *completionOperation = [welf.client getCompletionStatusOfCheckout:checkout completion:^(BUYStatus status, NSError * _Nullable error) {
+                        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+                        if (error) {
+                            NSLog(@"Error getting completion status: %@", error);
+                        }
+                        else {
+                            NSLog(@"Successfully got completion status: %lu", (unsigned long)status);
+                            [welf getCompletedCheckout:NULL];
+                        }
+                    }];
                     
                     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
                     [[NSOperationQueue mainQueue] addOperation:completionOperation];
@@ -239,22 +245,6 @@ NSString * const MerchantId = @"";
     }];
 }
 
-- (void)operation:(GetCompletionStatusOperation *)operation didReceiveCompletionStatus:(BUYStatus)completionStatus
-{
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    
-    NSLog(@"Successfully got completion status: %lu", (unsigned long)completionStatus);
-    
-    [self getCompletedCheckout:NULL];
-}
-
-- (void)operation:(GetCompletionStatusOperation *)operation failedToReceiveCompletionStatus:(NSError *)error
-{
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    
-    NSLog(@"Error getting completion status: %@", error);
-}
-
 #pragma mark - Apple Pay Checkout
 
 - (void)checkoutWithApplePay
@@ -263,7 +253,7 @@ NSString * const MerchantId = @"";
     
     PKPaymentAuthorizationViewController *paymentController = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:request];
     
-    self.applePayHelper = [[BUYApplePayHelpers alloc] initWithClient:self.client checkout:self.checkout shop:self.shop];
+    self.applePayHelper = [[BUYApplePayAuthorizationDelegate alloc] initWithClient:self.client checkout:self.checkout shopName:self.shop.name];
     paymentController.delegate = self;
     
     /**
