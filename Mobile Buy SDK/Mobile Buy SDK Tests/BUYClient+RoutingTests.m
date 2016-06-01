@@ -114,16 +114,20 @@
 						  @"https://_DOMAIN_/api/customers.json"
 						  );
 	XCTAssertEqualObjects(
-						  [self.client urlForCustomersOrders].absoluteString,
-						  @"https://_DOMAIN_/api/customers/orders.json"
-						  );
-	XCTAssertEqualObjects(
 						  [self.client urlForCustomersToken].absoluteString,
 						  @"https://_DOMAIN_/api/customers/customer_token.json"
 						  );
 	XCTAssertEqualObjects(
 						  [self.client urlForCustomersPasswordRecovery].absoluteString,
 						  @"https://_DOMAIN_/api/customers/recover.json"
+						  );
+	XCTAssertEqualObjects(
+						  [self.client urlForCustomersOrdersWithID:identifier].absoluteString,
+						  @"https://_DOMAIN_/api/customers/_ID_/orders.json"
+						  );
+	XCTAssertEqualObjects(
+						  [self.client urlForCustomersOrdersWithID:identifier orderID:@99].absoluteString,
+						  @"https://_DOMAIN_/api/customers/_ID_/orders/99.json"
 						  );
 	XCTAssertEqualObjects(
 						  [self.client urlForCustomersWithID:identifier].absoluteString,

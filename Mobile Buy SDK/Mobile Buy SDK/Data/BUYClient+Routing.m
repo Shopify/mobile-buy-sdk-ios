@@ -173,11 +173,6 @@
 	return [[[self urlForAPI] appendPath:@"/customers"] appendExtension];
 }
 
-- (NSURL *)urlForCustomersOrders
-{
-	return [[[self urlForCustomers] appendPath:@"/orders"] appendExtension];
-}
-
 - (NSURL *)urlForCustomersToken
 {
 	return [[[self urlForCustomers] appendPath:@"/customer_token"] appendExtension];
@@ -193,6 +188,16 @@
 - (NSURL *)urlForCustomersWithID:(NSString *)identifier
 {
 	return [[[self urlForCustomers] appendPath:identifier] appendExtension];
+}
+
+- (NSURL *)urlForCustomersOrdersWithID:(NSString *)identifier
+{
+	return [[[self urlForCustomersWithID:identifier] appendPath:@"/orders"] appendExtension];
+}
+
+- (NSURL *)urlForCustomersOrdersWithID:(NSString *)identifier orderID:(NSNumber *)orderID
+{
+	return [[[self urlForCustomersOrdersWithID:identifier] appendIdentifier:orderID] appendExtension];
 }
 
 - (NSURL *)urlForCustomersActivationWithID:(NSString *)identifier parameters:(NSDictionary *)parameters

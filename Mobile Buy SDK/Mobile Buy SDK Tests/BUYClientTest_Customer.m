@@ -57,11 +57,11 @@
 
 - (void)loginDefaultCustomer
 {
-	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-		return [self shouldUseMocks];
-	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-		return [OHHTTPStubsResponse responseWithKey:@"testCustomerLogin"];
-	}];
+	if (self.customer) {
+		return;
+	}
+	
+	[OHHTTPStubs stubUsingResponseWithKey:@"testCustomerLogin" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client loginCustomerWithCredentials:[self credentialsForLogin] callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
@@ -150,23 +150,57 @@
 
 - (void)testCustomerLogout
 {
-	[OHHTTPStubs stubUsingResponseWithKey:@"testCustomerLogin" useMocks:[self shouldUseMocks]];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testCustomerLogout" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client loginCustomerWithCredentials:[self credentialsForLogin] callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
+	[self.client logoutCustomerID:self.customer.identifier.stringValue callback:^(BUYStatus status, NSError * _Nullable error) {
 		
-		[OHHTTPStubs stubUsingResponseWithKey:@"testCustomerLogout" useMocks:[self shouldUseMocks]];
+		XCTAssertNil(error);
+		XCTAssertEqual(status, 204);
 		
-		[self.client logoutCustomerID:customer.identifier.stringValue callback:^(BUYStatus status, NSError * _Nullable error) {
-			
-			XCTAssertNil(error);
-			XCTAssertEqual(status, 204);
-			
-			[expectation fulfill];
-		}];
+		[expectation fulfill];
 	}];
 	
 	[self waitForExpectationsWithTimeout:10 handler:nil];
+}
+
+#pragma mark - Orders -
+
+- (void)testCustomerOrders
+{
+	[OHHTTPStubs stubUsingResponseWithKey:@"testCustomerGetOrders" useMocks:[self shouldUseMocks]];
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[self.client getOrdersForCustomerWithID:self.customer.identifier.stringValue callback:^(NSArray<BUYOrder *> * _Nullable orders, NSError * _Nullable error) {
+		
+		XCTAssertNotNil(orders);
+		XCTAssertNil(error);
+		
+		XCTAssertTrue(orders.count > 0);
+		XCTAssertTrue([orders.firstObject isKindOfClass:[BUYOrder class]]);
+		
+		[expectation fulfill];
+	}];
+	
+	[self waitForExpectationsWithTimeout:10.0 handler:nil];
+}
+
+- (void)testCustomerOrderWithID
+{
+	[OHHTTPStubs stubUsingResponseWithKey:@"testCustomerGetOrder" useMocks:[self shouldUseMocks]];
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[self.client getOrderWithID:self.customerOrderIDs.firstObject customerID:self.customer.identifier.stringValue callback:^(BUYOrder * _Nullable order, NSError * _Nullable error) {
+		
+		XCTAssertNotNil(order);
+		XCTAssertNil(error);
+		
+		XCTAssertTrue([order isKindOfClass:[BUYOrder class]]);
+		
+		[expectation fulfill];
+	}];
+	
+	[self waitForExpectationsWithTimeout:10.0 handler:nil];
 }
 
 #pragma mark - Update -

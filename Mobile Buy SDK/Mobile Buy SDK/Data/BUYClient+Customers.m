@@ -157,13 +157,26 @@
 
 #pragma mark - Orders -
 
-- (BUYRequestOperation *)getOrdersForCustomerWithCallback:(BUYDataOrdersBlock)block
+- (BUYRequestOperation *)getOrdersForCustomerWithID:(NSString *)customerID callback:(BUYDataOrdersBlock)block
 {
-	NSURL *url = [self urlForCustomersOrders];
+	NSURL *url = [self urlForCustomersOrdersWithID:customerID];
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		if (json && !error) {
 			NSArray *orders = [self.modelManager ordersWithJSONDictionary:json];
 			block(orders, error);
+		} else {
+			block(nil, error);
+		}
+	}];
+}
+
+- (BUYRequestOperation *)getOrderWithID:(NSNumber *)orderID customerID:(NSString *)customerID callback:(BUYDataOrderBlock)block
+{
+	NSURL *url = [self urlForCustomersOrdersWithID:customerID orderID:orderID];
+	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		if (json && !error) {
+			BUYOrder *order = [self.modelManager orderWithJSONDictionary:json];
+			block(order, error);
 		} else {
 			block(nil, error);
 		}

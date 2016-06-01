@@ -34,6 +34,7 @@
 #define kBUYTestMerchantId @"merchant_id"
 #define kBUYTestEmail @"customer_email"
 #define kBUYTestPassword @"customer_password"
+#define kBUYTestOrderIds @"customer_order_ids"
 #define kBUYTestGiftCardCode11 @"gift_card_code_11"
 #define kBUYTestGiftCardCode25 @"gift_card_code_25"
 #define kBUYTestGiftCardCode50 @"gift_card_code_50"
