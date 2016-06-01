@@ -168,23 +168,6 @@
 	block(checkout, error);
 }
 
-- (void)updateCheckout:(BUYCheckout *)checkout withGiftCardDictionary:(NSDictionary *)giftCardDictionary addingGiftCard:(BOOL)addingGiftCard
-{
-	if (addingGiftCard) {
-		BUYGiftCard *giftCard = [self.modelManager insertGiftCardWithJSONDictionary:giftCardDictionary];
-		[checkout.giftCardsSet addObject:giftCard];
-	} else {
-		[checkout removeGiftCardWithIdentifier:giftCardDictionary[@"id"]];
-	}
-	
-	checkout.paymentDue = [NSDecimalNumber buy_decimalNumberFromJSON:giftCardDictionary[@"checkout"][@"payment_due"]];
-	
-	// Marking the checkout as clean. The properties we have updated above we don't need to re-sync with Shopify.
-	// There's also an issue with gift cards where syncing the gift card JSON won't work since the update endpoint
-	// doesn't accept the gift card without a gift card code (which we do not have).
-	[checkout markAsClean];
-}
-
 #pragma mark - Shipping Rates -
 
 - (BUYRequestOperation *)getShippingRatesForCheckoutForToken:(NSString *)checkoutToken completion:(BUYDataShippingRatesBlock)block
@@ -245,7 +228,18 @@
 	
 	return [self postRequestForURL:route object:giftCard completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		if (json && !error) {
-			[self updateCheckout:checkout withGiftCardDictionary:json[@"gift_card"] addingGiftCard:YES];
+			
+			NSDictionary *giftCardJSON = json[@"gift_card"];
+			BUYGiftCard *giftCard      = [self.modelManager insertGiftCardWithJSONDictionary:giftCardJSON];
+			
+			/* ---------------------------------
+			 * We have to update a copy of the
+			 * checkout that was passed in with
+			 * a new 'paymentDue' value and the
+			 * gift card.
+			 */
+			checkout.JSONDictionary = giftCardJSON[@"checkout"];
+			[checkout addGiftCard:giftCard];
 		}
 		block(checkout, error);
 	}];
@@ -258,8 +252,19 @@
 	
 	NSURL *route = [self urlForCheckoutsUsingGiftCard:giftCard.identifier token:checkout.token];
 	return [self deleteRequestForURL:route completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
-		if (!error) {
-			[self updateCheckout:checkout withGiftCardDictionary:json[@"gift_card"] addingGiftCard:NO];
+		if (json && !error) {
+			
+			NSDictionary *giftCardJSON = json[@"gift_card"];
+			NSNumber *giftCardID       = giftCardJSON[@"id"];
+			
+			/* ---------------------------------
+			 * We have to update a copy of the
+			 * checkout that was passed in with
+			 * a new 'paymentDue' value and the
+			 * gift card.
+			 */
+			checkout.JSONDictionary = giftCardJSON[@"checkout"];
+			[checkout removeGiftCardWithIdentifier:giftCardID];
 		}
 		block(checkout, error);
 	}];

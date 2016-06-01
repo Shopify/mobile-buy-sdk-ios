@@ -145,6 +145,11 @@
 	return [[self.giftCards filteredOrderedSetUsingPredicate:predicate] firstObject];
 }
 
+- (void)addGiftCard:(BUYGiftCard *)giftCard
+{
+	[self.giftCardsSet addObject:giftCard];
+}
+
 - (void)removeGiftCardWithIdentifier:(NSNumber *)identifier
 {
 	BUYGiftCard *giftCard = [self giftCardWithIdentifier:identifier];
