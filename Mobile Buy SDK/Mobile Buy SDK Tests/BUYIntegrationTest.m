@@ -296,7 +296,7 @@
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
-	[self.client applyGiftCardWithCode:self.giftCardCode toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client applyGiftCardCode:self.giftCardCode toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		
 		XCTAssertNil(error);
 		_checkout = checkout;
@@ -331,7 +331,7 @@
 	[OHHTTPStubs stubUsingResponseWithKey:@"testApplyingInvalidGiftCardToCheckout_2" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client applyGiftCardWithCode:@"000" toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client applyGiftCardCode:@"000" toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		XCTAssertNotNil(error);
 		XCTAssertEqual(422, error.code);
 		
@@ -355,7 +355,7 @@
 	[OHHTTPStubs stubUsingResponseWithKey:@"testApplyingInvalidGiftCardToCheckout_2" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client applyGiftCardWithCode:self.giftCardCodeExpired toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client applyGiftCardCode:self.giftCardCodeExpired toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		XCTAssertNotNil(error);
 		XCTAssertEqual(422, error.code);
 		
@@ -471,7 +471,7 @@
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client applyGiftCardWithCode:self.giftCardCode2 toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client applyGiftCardCode:self.giftCardCode2 toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		
 		XCTAssertNil(error);
 		_checkout = checkout;
@@ -517,7 +517,7 @@
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client applyGiftCardWithCode:self.giftCardCode3 toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client applyGiftCardCode:self.giftCardCode3 toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
 		XCTAssertNil(error);
 		_checkout = checkout;

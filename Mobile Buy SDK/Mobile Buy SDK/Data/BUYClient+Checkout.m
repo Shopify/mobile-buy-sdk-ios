@@ -235,7 +235,7 @@
 	}];
 }
 
-- (BUYRequestOperation *)applyGiftCardWithCode:(NSString *)giftCardCode toCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
+- (BUYRequestOperation *)applyGiftCardCode:(NSString *)giftCardCode toCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
 	BUYAssertCheckout(checkout);
 	BUYAssert(giftCardCode.length > 0, @"Failed to apply gift card code. Invalid gift card code.");

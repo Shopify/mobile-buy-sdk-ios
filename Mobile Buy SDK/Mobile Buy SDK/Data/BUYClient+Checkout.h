@@ -197,7 +197,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)applyGiftCardWithCode:(NSString *)giftCardCode toCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
+- (BUYRequestOperation *)applyGiftCardCode:(NSString *)giftCardCode toCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
 
 /**
  *  Removes a gift card from the checkout.
