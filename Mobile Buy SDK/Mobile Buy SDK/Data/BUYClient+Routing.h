@@ -36,13 +36,13 @@
 - (NSURL *)urlForCollectionListingsWithParameters:(NSDictionary *)parameters;
 
 - (NSURL *)urlForCheckouts;
-- (NSURL *)urlForCheckoutsForToken:(NSString *)token;
-- (NSURL *)urlForCheckoutsProcessingForToken:(NSString *)token;
-- (NSURL *)urlForCheckoutsCompletionForToken:(NSString *)token;
-- (NSURL *)urlForCheckoutsShippingRatesForToken:(NSString *)token parameters:(NSDictionary *)parameters;
+- (NSURL *)urlForCheckoutsWithToken:(NSString *)token;
+- (NSURL *)urlForCheckoutsProcessingWithToken:(NSString *)token;
+- (NSURL *)urlForCheckoutsCompletionWithToken:(NSString *)token;
+- (NSURL *)urlForCheckoutsShippingRatesWithToken:(NSString *)token parameters:(NSDictionary *)parameters;
 
 - (NSURL *)urlForCheckoutsUsingGiftCard;
-- (NSURL *)urlForCheckoutsUsingGiftCardForToken:(NSString *)token;
+- (NSURL *)urlForCheckoutsUsingGiftCardWithToken:(NSString *)token;
 - (NSURL *)urlForCheckoutsUsingGiftCard:(NSNumber *)giftCardID token:(NSString *)token;
 
 - (NSURL *)urlForCustomers;

@@ -131,24 +131,24 @@
 	return [[[self urlForAPI] appendPath:@"/checkouts"] appendExtension];
 }
 
-- (NSURL *)urlForCheckoutsForToken:(NSString *)token
+- (NSURL *)urlForCheckoutsWithToken:(NSString *)token
 {
-	return [self _urlForCheckoutsAction:@"" forToken:token];
+	return [self _urlForCheckoutsAction:@"" withToken:token];
 }
 
-- (NSURL *)urlForCheckoutsProcessingForToken:(NSString *)token
+- (NSURL *)urlForCheckoutsProcessingWithToken:(NSString *)token
 {
-	return [self _urlForCheckoutsAction:@"/processing" forToken:token];
+	return [self _urlForCheckoutsAction:@"/processing" withToken:token];
 }
 
-- (NSURL *)urlForCheckoutsCompletionForToken:(NSString *)token
+- (NSURL *)urlForCheckoutsCompletionWithToken:(NSString *)token
 {
-	return [self _urlForCheckoutsAction:@"/complete" forToken:token];
+	return [self _urlForCheckoutsAction:@"/complete" withToken:token];
 }
 
-- (NSURL *)urlForCheckoutsShippingRatesForToken:(NSString *)token parameters:(NSDictionary *)parameters
+- (NSURL *)urlForCheckoutsShippingRatesWithToken:(NSString *)token parameters:(NSDictionary *)parameters
 {
-	return [[self _urlForCheckoutsAction:@"/shipping_rates" forToken:token] appendParameters:parameters];
+	return [[self _urlForCheckoutsAction:@"/shipping_rates" withToken:token] appendParameters:parameters];
 }
 
 - (NSURL *)urlForCheckoutsUsingGiftCard
@@ -156,14 +156,14 @@
 	return [[[self urlForCheckouts] appendPath:@"/gift_cards"] appendExtension];
 }
 
-- (NSURL *)urlForCheckoutsUsingGiftCardForToken:(NSString *)token
+- (NSURL *)urlForCheckoutsUsingGiftCardWithToken:(NSString *)token
 {
 	return [[[[self urlForCheckouts] appendPath:token] appendPath:@"/gift_cards"] appendExtension];
 }
 
 - (NSURL *)urlForCheckoutsUsingGiftCard:(NSNumber *)giftCardID token:(NSString *)token
 {
-	return [[[self urlForCheckoutsUsingGiftCardForToken:token] appendIdentifier:giftCardID] appendExtension];
+	return [[[self urlForCheckoutsUsingGiftCardWithToken:token] appendIdentifier:giftCardID] appendExtension];
 }
 
 #pragma mark - Customers -
@@ -229,7 +229,7 @@
 
 #pragma mark - Utilities -
 
-- (NSURL *)_urlForCheckoutsAction:(NSString *)action forToken:(NSString *)token
+- (NSURL *)_urlForCheckoutsAction:(NSString *)action withToken:(NSString *)token
 {
 	return [[[[self urlForCheckouts] appendPath:token] appendPath:action] appendExtension];
 }

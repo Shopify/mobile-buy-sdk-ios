@@ -116,7 +116,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)getCheckoutForToken:(NSString *)checkoutToken completion:(BUYDataCheckoutBlock)block;
+- (BUYRequestOperation *)getCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataCheckoutBlock)block;
 
 /**
  *  Finalizes the BUYCheckout associated with the token and charges the payment provider (ex: Credit Card, Apple Pay, etc).
@@ -132,7 +132,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
  *
  *  @return The associated BUYOperation
  */
-- (BUYOperation *)completeCheckoutForToken:(nullable NSString *)checkoutToken paymentToken:(_Nullable id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block;
+- (BUYOperation *)completeCheckoutWithToken:(nullable NSString *)checkoutToken paymentToken:(_Nullable id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block;
 
 /**
  *  Retrieve the status of a checkout with token. This checks the status of the current payment processing job for the provided checkout.
@@ -143,7 +143,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)getCompletionStatusOfCheckoutForToken:(NSString *)checkoutToken completion:(BUYDataStatusBlock)block;
+- (BUYRequestOperation *)getCompletionStatusOfCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataStatusBlock)block;
 
 /**
  *  Retrieve the status of a checkout given a URL obtained in the UIApplicationDelegate method `application:sourceApplication:annotation`
@@ -166,7 +166,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)getShippingRatesForCheckoutForToken:(NSString *)checkoutToken completion:(BUYDataShippingRatesBlock)block;
+- (BUYRequestOperation *)getShippingRatesForCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataShippingRatesBlock)block;
 
 #pragma mark - Cards -
 
@@ -222,7 +222,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)removeProductReservationsFromCheckoutForToken:(NSString *)checkoutToken completion:(BUYDataCheckoutBlock)block;
+- (BUYRequestOperation *)removeProductReservationsFromCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataCheckoutBlock)block;
 
 @end
 

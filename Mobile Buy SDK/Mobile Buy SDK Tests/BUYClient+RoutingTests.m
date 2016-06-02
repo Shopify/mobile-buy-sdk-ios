@@ -80,19 +80,19 @@
 						  @"https://_DOMAIN_/api/checkouts.json"
 						  );
 	XCTAssertEqualObjects(
-						  [self.client urlForCheckoutsForToken:token].absoluteString,
+						  [self.client urlForCheckoutsWithToken:token].absoluteString,
 						  @"https://_DOMAIN_/api/checkouts/_TOKEN_.json"
 						  );
 	XCTAssertEqualObjects(
-						  [self.client urlForCheckoutsProcessingForToken:token].absoluteString,
+						  [self.client urlForCheckoutsProcessingWithToken:token].absoluteString,
 						  @"https://_DOMAIN_/api/checkouts/_TOKEN_/processing.json"
 						  );
 	XCTAssertEqualObjects(
-						  [self.client urlForCheckoutsCompletionForToken:token].absoluteString,
+						  [self.client urlForCheckoutsCompletionWithToken:token].absoluteString,
 						  @"https://_DOMAIN_/api/checkouts/_TOKEN_/complete.json"
 						  );
 	XCTAssertEqualObjects(
-						  [self.client urlForCheckoutsShippingRatesForToken:token parameters:parameters].absoluteString,
+						  [self.client urlForCheckoutsShippingRatesWithToken:token parameters:parameters].absoluteString,
 						  @"https://_DOMAIN_/api/checkouts/_TOKEN_/shipping_rates.json?param=value"
 						  );
 	
@@ -101,7 +101,7 @@
 						  @"https://_DOMAIN_/api/checkouts/gift_cards.json"
 						  );
 	XCTAssertEqualObjects(
-						  [self.client urlForCheckoutsUsingGiftCardForToken:token].absoluteString,
+						  [self.client urlForCheckoutsUsingGiftCardWithToken:token].absoluteString,
 						  @"https://_DOMAIN_/api/checkouts/_TOKEN_/gift_cards.json"
 						  );
 	XCTAssertEqualObjects(
