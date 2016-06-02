@@ -36,23 +36,23 @@ typedef void (^BUYClientRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResp
 
 @interface BUYClient (Internal)
 
-- (BUYRequestOperation *)getRequestForURL:(NSURL *)url    completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
-- (BUYRequestOperation *)deleteRequestForURL:(NSURL *)url completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
+- (NSOperation *)getRequestForURL:(NSURL *)url    completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
+- (NSOperation *)deleteRequestForURL:(NSURL *)url completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
 
-- (BUYRequestOperation *)postRequestForURL:(NSURL *)url  object:(id <BUYSerializable>)object completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
-- (BUYRequestOperation *)putRequestForURL:(NSURL *)url   object:(id<BUYSerializable>)object  completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
-- (BUYRequestOperation *)patchRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
+- (NSOperation *)postRequestForURL:(NSURL *)url  object:(id <BUYSerializable>)object completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
+- (NSOperation *)putRequestForURL:(NSURL *)url   object:(id<BUYSerializable>)object  completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
+- (NSOperation *)patchRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
 
-- (BUYRequestOperation *)getRequestForURL:(NSURL *)url    start:(BOOL)start completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
-- (BUYRequestOperation *)deleteRequestForURL:(NSURL *)url start:(BOOL)start completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
+- (NSOperation *)getRequestForURL:(NSURL *)url    start:(BOOL)start completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
+- (NSOperation *)deleteRequestForURL:(NSURL *)url start:(BOOL)start completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
 
-- (BUYRequestOperation *)postRequestForURL:(NSURL *)url  object:(id <BUYSerializable>)object start:(BOOL)start completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
-- (BUYRequestOperation *)putRequestForURL:(NSURL *)url   object:(id<BUYSerializable>)object  start:(BOOL)start completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
-- (BUYRequestOperation *)patchRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object start:(BOOL)start completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
+- (NSOperation *)postRequestForURL:(NSURL *)url  object:(id <BUYSerializable>)object start:(BOOL)start completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
+- (NSOperation *)putRequestForURL:(NSURL *)url   object:(id<BUYSerializable>)object  start:(BOOL)start completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
+- (NSOperation *)patchRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object start:(BOOL)start completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
 
 - (BUYStatus)statusForStatusCode:(NSUInteger)statusCode error:(NSError *)error;
 
-- (void)startOperation:(BUYOperation *)operation;
+- (void)startOperation:(NSOperation *)operation;
 
 @end
 
@@ -62,8 +62,8 @@ typedef void (^BUYClientRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResp
 
 @interface BUYClient (PrivateCheckout)
 
-- (BUYRequestOperation *)beginCheckoutWithToken:(NSString *)checkoutToken paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block;
-- (BUYRequestOperation *)getCompletionStatusOfCheckoutWithToken:(NSString *)token start:(BOOL)start completion:(BUYDataStatusBlock)block;
-- (BUYRequestOperation *)getCheckoutWithToken:(NSString *)checkoutToken start:(BOOL)start completion:(BUYDataCheckoutBlock)block;
+- (NSOperation *)beginCheckoutWithToken:(NSString *)checkoutToken paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block;
+- (NSOperation *)getCompletionStatusOfCheckoutWithToken:(NSString *)token start:(BOOL)start completion:(BUYDataStatusBlock)block;
+- (NSOperation *)getCheckoutWithToken:(NSString *)checkoutToken start:(BOOL)start completion:(BUYDataCheckoutBlock)block;
 
 @end

@@ -47,7 +47,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 
 #pragma mark - API -
 
-- (BUYRequestOperation *)getShop:(BUYDataShopBlock)block
+- (NSOperation *)getShop:(BUYDataShopBlock)block
 {
 	return [self getRequestForURL:[self urlForShop] completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		BUYShop *shop = nil;
@@ -58,7 +58,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	}];
 }
 
-- (BUYRequestOperation *)getProductsPage:(NSUInteger)page completion:(BUYDataProductListBlock)block
+- (NSOperation *)getProductsPage:(NSUInteger)page completion:(BUYDataProductListBlock)block
 {
 	NSURL *url  = [self urlForProductListingsWithParameters:@{
 															  @"limit" : @(self.pageSize),
@@ -75,7 +75,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	}];
 }
 
-- (BUYRequestOperation *)getProductByHandle:(NSString *)handle completion:(BUYDataProductBlock)block
+- (NSOperation *)getProductByHandle:(NSString *)handle completion:(BUYDataProductBlock)block
 {
 	BUYAssert(handle, @"Failed to get product by handle. Product handle must not be nil.");
 	
@@ -94,7 +94,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	}];
 }
 
-- (BUYRequestOperation *)getProductById:(NSString *)productId completion:(BUYDataProductBlock)block
+- (NSOperation *)getProductById:(NSString *)productId completion:(BUYDataProductBlock)block
 {
 	BUYAssert(productId, @"Failed to get product by ID. Product ID must not be nil.");
 	
@@ -103,7 +103,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	}];
 }
 
-- (BUYRequestOperation *)getProductsByIds:(NSArray *)productIds completion:(BUYDataProductsBlock)block
+- (NSOperation *)getProductsByIds:(NSArray *)productIds completion:(BUYDataProductsBlock)block
 {
 	BUYAssert(productIds, @"Failed to get product by IDs. Product IDs array must not be nil.");
 	
@@ -124,7 +124,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	}];
 }
 
-- (BUYRequestOperation *)getCollectionsPage:(NSUInteger)page completion:(BUYDataCollectionsListBlock)block
+- (NSOperation *)getCollectionsPage:(NSUInteger)page completion:(BUYDataCollectionsListBlock)block
 {
 	NSURL *url  = [self urlForCollectionListingsWithParameters:@{
 																 @"limit" : @(self.pageSize),
@@ -141,12 +141,12 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	}];
 }
 
-- (BUYRequestOperation *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId completion:(BUYDataProductListBlock)block
+- (NSOperation *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId completion:(BUYDataProductListBlock)block
 {
 	return [self getProductsPage:page inCollection:collectionId sortOrder:BUYCollectionSortCollectionDefault completion:block];
 }
 
-- (BUYRequestOperation *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId sortOrder:(BUYCollectionSort)sortOrder completion:(BUYDataProductListBlock)block
+- (NSOperation *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId sortOrder:(BUYCollectionSort)sortOrder completion:(BUYDataProductListBlock)block
 {
 	BUYAssert(collectionId, @"Failed to get products page. Invalid collectionID.");
 	

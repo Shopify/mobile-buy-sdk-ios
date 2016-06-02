@@ -38,7 +38,7 @@
 
 #pragma mark - Getting -
 
-- (BUYRequestOperation *)getCustomerWithID:(NSString *)customerID callback:(BUYDataCustomerBlock)block
+- (NSOperation *)getCustomerWithID:(NSString *)customerID callback:(BUYDataCustomerBlock)block
 {
 	NSURL *url = [self urlForCustomersWithID:customerID];
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
@@ -52,7 +52,7 @@
 
 #pragma mark - Customer -
 
-- (BUYRequestOperation *)createCustomerWithCredentials:(BUYAccountCredentials *)credentials callback:(BUYDataCustomerTokenBlock)block
+- (NSOperation *)createCustomerWithCredentials:(BUYAccountCredentials *)credentials callback:(BUYDataCustomerTokenBlock)block
 {
 	NSURL *url = [self urlForCustomers];
 	return [self postRequestForURL:url object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
@@ -65,7 +65,7 @@
 	}];
 }
 
-- (BUYRequestOperation *)activateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID token:(NSString *)token callback:(BUYDataCustomerTokenBlock)block
+- (NSOperation *)activateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID token:(NSString *)token callback:(BUYDataCustomerTokenBlock)block
 {
 	NSURL *url = [self urlForCustomersActivationWithID:customerID parameters:@{ @"token": token }];
 	
@@ -81,7 +81,7 @@
 	}];
 }
 
-- (BUYRequestOperation *)updateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID callback:(BUYDataCustomerBlock)block
+- (NSOperation *)updateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID callback:(BUYDataCustomerBlock)block
 {
 	NSURL *url = [self urlForCustomersWithID:customerID];
 	return [self putRequestForURL:url object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
@@ -93,7 +93,7 @@
 	}];
 }
 
-- (BUYRequestOperation *)resetPasswordWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID token:(NSString *)token callback:(BUYDataCustomerTokenBlock)block
+- (NSOperation *)resetPasswordWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID token:(NSString *)token callback:(BUYDataCustomerTokenBlock)block
 {
 	NSURL *url = [self urlForCustomersPasswordResetWithID:customerID parameters:@{ @"token": token }];
 	
@@ -111,7 +111,7 @@
 
 #pragma mark - Token -
 
-- (BUYRequestOperation *)renewCustomerTokenWithID:(NSString *)customerID callback:(BUYDataTokenBlock)block
+- (NSOperation *)renewCustomerTokenWithID:(NSString *)customerID callback:(BUYDataTokenBlock)block
 {
 	if (self.customerToken) {
 		NSURL *url = [self urlForCustomersTokenRenewalWithID:customerID];
@@ -134,7 +134,7 @@
 
 #pragma mark - Login -
 
-- (BUYRequestOperation *)logoutCustomerID:(NSString *)customerID callback:(BUYDataStatusBlock)block
+- (NSOperation *)logoutCustomerID:(NSString *)customerID callback:(BUYDataStatusBlock)block
 {
 	NSURL *url = [self urlForCustomersTokenWithID:customerID];
 	return [self deleteRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
@@ -142,12 +142,12 @@
 	}];
 }
 
-- (BUYRequestOperation *)loginCustomerWithCredentials:(BUYAccountCredentials *)credentials callback:(BUYDataCustomerTokenBlock)block
+- (NSOperation *)loginCustomerWithCredentials:(BUYAccountCredentials *)credentials callback:(BUYDataCustomerTokenBlock)block
 {
 	return [self createTokenForCustomerWithCredentials:credentials customerJSON:nil callback:block];
 }
 
-- (BUYRequestOperation *)recoverPasswordForCustomer:(NSString *)email callback:(BUYDataStatusBlock)block
+- (NSOperation *)recoverPasswordForCustomer:(NSString *)email callback:(BUYDataStatusBlock)block
 {
 	NSURL *url = [self urlForCustomersPasswordRecovery];
 	return [self postRequestForURL:url object:@{@"email": email} completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
@@ -157,7 +157,7 @@
 
 #pragma mark - Orders -
 
-- (BUYRequestOperation *)getOrdersForCustomerWithID:(NSString *)customerID callback:(BUYDataOrdersBlock)block
+- (NSOperation *)getOrdersForCustomerWithID:(NSString *)customerID callback:(BUYDataOrdersBlock)block
 {
 	NSURL *url = [self urlForCustomersOrdersWithID:customerID];
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
@@ -170,7 +170,7 @@
 	}];
 }
 
-- (BUYRequestOperation *)getOrderWithID:(NSNumber *)orderID customerID:(NSString *)customerID callback:(BUYDataOrderBlock)block
+- (NSOperation *)getOrderWithID:(NSNumber *)orderID customerID:(NSString *)customerID callback:(BUYDataOrderBlock)block
 {
 	NSURL *url = [self urlForCustomersOrdersWithID:customerID orderID:orderID];
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
@@ -185,7 +185,7 @@
 
 #pragma mark - Helpers -
 
-- (BUYRequestOperation *)createTokenForCustomerWithCredentials:(BUYAccountCredentials *)credentials customerJSON:(NSDictionary *)customerJSON callback:(BUYDataCustomerTokenBlock)block
+- (NSOperation *)createTokenForCustomerWithCredentials:(BUYAccountCredentials *)credentials customerJSON:(NSDictionary *)customerJSON callback:(BUYDataCustomerTokenBlock)block
 {
 	NSURL *url = [self urlForCustomersToken];
 	return [self postRequestForURL:url object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {

@@ -47,7 +47,7 @@
 #pragma mark - Checkout -
 
 
-- (BUYRequestOperation *)updateOrCreateCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)completion
+- (NSOperation *)updateOrCreateCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)completion
 {
 	if ([checkout hasToken]) {
 		return [self updateCheckout:checkout completion:completion];
@@ -56,7 +56,7 @@
 	}
 }
 
-- (BUYRequestOperation *)createCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
+- (NSOperation *)createCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
 	BUYAssert(checkout, @"Failed to create checkout. Invalid checkout object.");
 	
@@ -67,7 +67,7 @@
 	return [self postCheckout:json completion:block];
 }
 
-- (BUYRequestOperation *)createCheckoutWithCartToken:(NSString *)cartToken completion:(BUYDataCheckoutBlock)block
+- (NSOperation *)createCheckoutWithCartToken:(NSString *)cartToken completion:(BUYDataCheckoutBlock)block
 {
 	BUYAssert(cartToken, @"Failed to create checkout. Invalid cart token");
 	BUYCheckout *checkout = [self.modelManager checkoutwithCartToken:cartToken];
@@ -77,7 +77,7 @@
 	return [self postCheckout:json completion:block];
 }
 
-- (BUYRequestOperation *)updateCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
+- (NSOperation *)updateCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
 	BUYAssertCheckout(checkout);
 	
@@ -87,12 +87,12 @@
 	}];
 }
 
-- (BUYRequestOperation *)getCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataCheckoutBlock)block
+- (NSOperation *)getCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataCheckoutBlock)block
 {
 	return [self getCheckoutWithToken:checkoutToken start:YES completion:block];
 }
 
-- (BUYRequestOperation *)getCheckoutWithToken:(NSString *)checkoutToken start:(BOOL)start completion:(BUYDataCheckoutBlock)block
+- (NSOperation *)getCheckoutWithToken:(NSString *)checkoutToken start:(BOOL)start completion:(BUYDataCheckoutBlock)block
 {
 	BUYAssertToken(checkoutToken);
 	
@@ -109,13 +109,13 @@
 	return operation;
 }
 
-- (BUYRequestOperation *)getCompletionStatusOfCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataStatusBlock)block
+- (NSOperation *)getCompletionStatusOfCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataStatusBlock)block
 {
 	BUYAssertToken(checkoutToken);
 	return [self getCompletionStatusOfCheckoutWithToken:checkoutToken start:YES completion:block];
 }
 
-- (BUYRequestOperation *)getCompletionStatusOfCheckoutURL:(NSURL *)url completion:(BUYDataStatusBlock)block
+- (NSOperation *)getCompletionStatusOfCheckoutURL:(NSURL *)url completion:(BUYDataStatusBlock)block
 {
 	NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
 	
@@ -134,7 +134,7 @@
 
 #pragma mark - Checkout Helpers -
 
-- (BUYRequestOperation *)beginCheckoutWithToken:(NSString *)checkoutToken paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block
+- (NSOperation *)beginCheckoutWithToken:(NSString *)checkoutToken paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block
 {
 	BUYAssertToken(checkoutToken);
 	
@@ -144,7 +144,7 @@
 	}];
 }
 
-- (BUYRequestOperation *)getCompletionStatusOfCheckoutWithToken:(NSString *)token start:(BOOL)start completion:(BUYDataStatusBlock)block
+- (NSOperation *)getCompletionStatusOfCheckoutWithToken:(NSString *)token start:(BOOL)start completion:(BUYDataStatusBlock)block
 {
 	NSURL *url = [self urlForCheckoutsProcessingWithToken:token];
 	return [self getRequestForURL:url start:start completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
@@ -152,7 +152,7 @@
 	}];
 }
 
-- (BUYRequestOperation *)postCheckout:(NSDictionary *)checkoutJSON completion:(BUYDataCheckoutBlock)block
+- (NSOperation *)postCheckout:(NSDictionary *)checkoutJSON completion:(BUYDataCheckoutBlock)block
 {
 	return [self postRequestForURL:[self urlForCheckouts] object:checkoutJSON completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		[self handleCheckoutResponse:json error:error block:block];
@@ -180,7 +180,7 @@
 
 #pragma mark - Shipping Rates -
 
-- (BUYRequestOperation *)getShippingRatesForCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataShippingRatesBlock)block
+- (NSOperation *)getShippingRatesForCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataShippingRatesBlock)block
 {
 	BUYAssertToken(checkoutToken);
 	
@@ -188,7 +188,7 @@
 																						  @"checkout" : @"",
 																						  }];
 	
-	BUYRequestOperation *operation = [self getRequestForURL:url start:NO completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+	BUYRequestOperation *operation = (BUYRequestOperation *)[self getRequestForURL:url start:NO completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		NSArray *shippingRates = nil;
 		if (json && !error) {
 			shippingRates = [self.modelManager insertShippingRatesWithJSONArray:json[@"shipping_rates"]];
@@ -207,7 +207,7 @@
 
 #pragma mark - Cards -
 
-- (BUYRequestOperation *)storeCreditCard:(BUYCreditCard *)creditCard checkout:(BUYCheckout *)checkout completion:(BUYDataCreditCardBlock)completion
+- (NSOperation *)storeCreditCard:(BUYCreditCard *)creditCard checkout:(BUYCheckout *)checkout completion:(BUYDataCreditCardBlock)completion
 {
 	BUYAssertCheckout(checkout);
 	BUYAssert(creditCard, @"Failed to store credit card. No credit card provided.");
@@ -228,7 +228,7 @@
 	}];
 }
 
-- (BUYRequestOperation *)applyGiftCardCode:(NSString *)giftCardCode toCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
+- (NSOperation *)applyGiftCardCode:(NSString *)giftCardCode toCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
 	BUYAssertCheckout(checkout);
 	BUYAssert(giftCardCode.length > 0, @"Failed to apply gift card code. Invalid gift card code.");
@@ -255,7 +255,7 @@
 	}];
 }
 
-- (BUYRequestOperation *)removeGiftCard:(BUYGiftCard *)giftCard fromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
+- (NSOperation *)removeGiftCard:(BUYGiftCard *)giftCard fromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
 	BUYAssertCheckout(checkout);
 	BUYAssert(giftCard.identifier, @"Failed to remove gift card. Gift card must have a valid identifier.");
@@ -282,7 +282,7 @@
 
 #pragma mark - Reservations -
 
-- (BUYRequestOperation *)removeProductReservationsFromCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataCheckoutBlock)block
+- (NSOperation *)removeProductReservationsFromCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataCheckoutBlock)block
 {
 	BUYAssertToken(checkoutToken);
 	
