@@ -1168,9 +1168,9 @@
 			isa = PBXGroup;
 			children = (
 				90DA8DF11BC6A82D0027BCB7 /* Buy.h */,
+				F7FDA16F19C93F6100AF4E93 /* Client */,
 				9A585C011CE6440B001F20F0 /* Operations */,
 				841ADDEA1CB6C942000004B0 /* Additions */,
-				F7FDA16F19C93F6100AF4E93 /* Data */,
 				F773744419C779C20039681C /* Models */,
 				84B0A7281CE10ED900253EB0 /* Payment Providers */,
 				F773744519C779C20039681C /* Utils */,
@@ -1179,7 +1179,7 @@
 			name = Classes;
 			sourceTree = "<group>";
 		};
-		F7FDA16F19C93F6100AF4E93 /* Data */ = {
+		F7FDA16F19C93F6100AF4E93 /* Client */ = {
 			isa = PBXGroup;
 			children = (
 				8498DCB01CDD1B4A00BD12A8 /* BUYClient+Internal.h */,
@@ -1196,6 +1196,7 @@
 				9A807E811CF74EBE00023160 /* BUYClient+Address.h */,
 				9A807E821CF74EBE00023160 /* BUYClient+Address.m */,
 			);
+			name = Client;
 			path = Data;
 			sourceTree = "<group>";
 		};
