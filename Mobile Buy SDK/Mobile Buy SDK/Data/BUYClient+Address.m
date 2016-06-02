@@ -45,7 +45,7 @@
 	}];
 }
 
-- (BUYRequestOperation *)getAddressWithID:(NSNumber *)addressID forCustomerID:(NSString *)customerID callback:(BUYDataAddressBlock)block
+- (BUYRequestOperation *)getAddressWithID:(NSNumber *)addressID customerID:(NSString *)customerID callback:(BUYDataAddressBlock)block
 {
 	NSURL *route = [self urlForCustomersAddressWithID:customerID addressID:addressID];
 	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
@@ -57,7 +57,7 @@
 	}];
 }
 
-- (BUYRequestOperation *)createAddress:(BUYAddress *)address forCustomerID:(NSString *)customerID callback:(BUYDataAddressBlock)block
+- (BUYRequestOperation *)createAddress:(BUYAddress *)address customerID:(NSString *)customerID callback:(BUYDataAddressBlock)block
 {
 	NSURL *route = [self urlForCustomersAddressesWithID:customerID];
 	return [self postRequestForURL:route object:@{ @"address" : address.JSONDictionary } completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
@@ -69,7 +69,7 @@
 	}];
 }
 
-- (BUYRequestOperation *)updateAddress:(BUYAddress *)address forCustomerID:(NSString *)customerID callback:(BUYDataAddressBlock)block
+- (BUYRequestOperation *)updateAddress:(BUYAddress *)address customerID:(NSString *)customerID callback:(BUYDataAddressBlock)block
 {
 	BUYAssert(address.identifier, @"Failed to update address. Address must have a valid identifier.");
 	
@@ -83,7 +83,7 @@
 	}];
 }
 
-- (BUYRequestOperation *)deleteAddressWithID:(NSNumber *)addressID forCustomerID:(NSString *)customerID callback:(BUYDataStatusBlock)block
+- (BUYRequestOperation *)deleteAddressWithID:(NSNumber *)addressID customerID:(NSString *)customerID callback:(BUYDataStatusBlock)block
 {
 	BUYAssert(addressID, @"Failed to update address. Address must have a valid identifier.");
 	

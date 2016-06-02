@@ -68,7 +68,7 @@ typedef void (^BUYDataAddressBlock)(BUYAddress * _Nullable address, NSError * _N
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)getAddressWithID:(NSNumber *)addressID forCustomerID:(NSString *)customerID callback:(BUYDataAddressBlock)block;
+- (BUYRequestOperation *)getAddressWithID:(NSNumber *)addressID customerID:(NSString *)customerID callback:(BUYDataAddressBlock)block;
 
 /**
  *  POST /api/customers/:customer_id/addresses
@@ -80,7 +80,7 @@ typedef void (^BUYDataAddressBlock)(BUYAddress * _Nullable address, NSError * _N
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)createAddress:(BUYAddress *)address forCustomerID:(NSString *)customerID callback:(BUYDataAddressBlock)block;
+- (BUYRequestOperation *)createAddress:(BUYAddress *)address customerID:(NSString *)customerID callback:(BUYDataAddressBlock)block;
 
 /**
  *  PUT /api/customers/:customer_id/addresses/:id
@@ -92,7 +92,7 @@ typedef void (^BUYDataAddressBlock)(BUYAddress * _Nullable address, NSError * _N
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)updateAddress:(BUYAddress *)address forCustomerID:(NSString *)customerID callback:(BUYDataAddressBlock)block;
+- (BUYRequestOperation *)updateAddress:(BUYAddress *)address customerID:(NSString *)customerID callback:(BUYDataAddressBlock)block;
 
 /**
  *  DELETE /api/customers/:customer_id/addresses/:id
@@ -104,7 +104,7 @@ typedef void (^BUYDataAddressBlock)(BUYAddress * _Nullable address, NSError * _N
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)deleteAddressWithID:(NSNumber *)addressID forCustomerID:(NSString *)customerID callback:(BUYDataStatusBlock)block;
+- (BUYRequestOperation *)deleteAddressWithID:(NSNumber *)addressID customerID:(NSString *)customerID callback:(BUYDataStatusBlock)block;
 
 @end
 
