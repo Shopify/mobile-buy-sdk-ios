@@ -208,7 +208,7 @@ NSString * const MerchantId = @"";
     [self addCreditCardToCheckout:^(BOOL success, id<BUYPaymentToken> token) {
         
         if (success) {
-            [welf.client completeCheckout:welf.checkout paymentToken:token completion:^(BUYCheckout *checkout, NSError *error) {
+            [welf.client completeCheckoutWithToken:welf.checkout.token paymentToken:token completion:^(BUYCheckout *checkout, NSError *error) {
                 
                 if (error == nil && checkout) {
                     NSLog(@"Successfully completed checkout");
@@ -372,7 +372,7 @@ NSString * const MerchantId = @"";
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    [self.client getCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
+    [self.client getCheckoutWithToken:self.checkout.token completion:^(BUYCheckout *checkout, NSError *error) {
         
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         

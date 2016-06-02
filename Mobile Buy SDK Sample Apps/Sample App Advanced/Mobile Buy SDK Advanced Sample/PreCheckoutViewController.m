@@ -237,7 +237,7 @@ typedef NS_ENUM(NSInteger, UITableViewDiscountGiftCardSection) {
                                                           
                                                           [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 
-                                                          [self.client applyGiftCardWithCode:[alertController.textFields[0] text] toCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
+                                                          [self.client applyGiftCardCode:[alertController.textFields[0] text] toCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
                                                               
                                                               [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 

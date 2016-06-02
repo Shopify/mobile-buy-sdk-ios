@@ -88,7 +88,7 @@
 
 - (void)getShippingRates
 {
-    [self.client getShippingRatesForCheckout:self.checkout completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
+    [self.client getShippingRatesForCheckoutWithToken:self.checkout.token completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
         if ([shippingRates count] > 0 && !error) {
             [self didGetShippingRates:shippingRates];
         }
