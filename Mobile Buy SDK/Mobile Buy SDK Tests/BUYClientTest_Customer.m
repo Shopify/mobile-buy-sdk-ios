@@ -236,7 +236,7 @@
 	
 	BUYAddress *address = [self address];
 	
-	[self.client createAddress:address forCustomerID:self.customer.identifier.stringValue callback:^(BUYAddress * _Nullable returnedAddress, NSError * _Nullable error) {
+	[self.client createAddress:address customerID:self.customer.identifier.stringValue callback:^(BUYAddress * _Nullable returnedAddress, NSError * _Nullable error) {
 		
 		[OHHTTPStubs stubUsingResponseWithKey:@"testCustomerLogin" useMocks:[self shouldUseMocks]];
 		
@@ -271,7 +271,7 @@
 	}];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client getAddressWithID:self.createdAddress.identifier forCustomerID:self.customer.identifier.stringValue callback:^(BUYAddress * _Nullable address, NSError * _Nullable error) {
+	[self.client getAddressWithID:self.createdAddress.identifier customerID:self.customer.identifier.stringValue callback:^(BUYAddress * _Nullable address, NSError * _Nullable error) {
 		
 		XCTAssertNotNil(address);
 		XCTAssertNil(error);
@@ -295,7 +295,7 @@
 	
 	BUYAddress *modifiedAddress = [self addressByModyfyingAddress:self.createdAddress];
 	
-	[self.client updateAddress:modifiedAddress forCustomerID:self.customer.identifier.stringValue callback:^(BUYAddress * _Nullable returnedAddress, NSError * _Nullable error) {
+	[self.client updateAddress:modifiedAddress customerID:self.customer.identifier.stringValue callback:^(BUYAddress * _Nullable returnedAddress, NSError * _Nullable error) {
 		
 		XCTAssertNotNil(returnedAddress);
 		XCTAssertNil(error);
@@ -325,7 +325,7 @@
 	}];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client  deleteAddress:self.createdAddress forCustomerID:self.customer.identifier.stringValue callback:^(BUYStatus status, NSError * _Nullable error) {
+	[self.client  deleteAddressWithID:self.createdAddress.identifier customerID:self.customer.identifier.stringValue callback:^(BUYStatus status, NSError * _Nullable error) {
 		
 		XCTAssertEqual(status, 204);
 		XCTAssertNil(error);

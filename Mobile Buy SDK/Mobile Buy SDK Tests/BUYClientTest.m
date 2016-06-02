@@ -126,9 +126,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
 - (void)testCheckoutPaymentWithOnlyGiftCard
 {
-	BUYCheckout *checkout = [[BUYCheckout alloc] initWithModelManager:self.client.modelManager JSONDictionary:@{@"token": @"abcdef", @"payment_due": @0}];
-	
-	BUYOperation *task = [self.client completeCheckout:checkout paymentToken:nil completion:^(BUYCheckout *checkout, NSError *error) {}];
+	BUYOperation *task = [self.client completeCheckoutWithToken:@"abcdef" paymentToken:nil completion:^(BUYCheckout *checkout, NSError *error) {}];
 	XCTAssertNotNil(task);
 }
 

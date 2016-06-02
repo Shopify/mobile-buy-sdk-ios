@@ -70,6 +70,8 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
 
 @interface BUYClient (Checkout)
 
+#pragma mark - Checkout -
+
 /**
  *  Updates or create a checkout based on wether or not it has a token
  *
@@ -102,41 +104,6 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
 - (BUYRequestOperation *)createCheckoutWithCartToken:(NSString *)cartToken completion:(BUYDataCheckoutBlock)block;
 
 /**
- *  Applies a gift card code to the checkout.
- *
- *  @param giftCardCode The gift card code to apply on an existing checkout on Shopify. Note: This is not the same as the gift card identifier.
- *  @param checkout     An existing BUYCheckout on Shopify
- *  @param block        (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
- *
- *  @return The associated BUYRequestOperation
- */
-- (BUYRequestOperation *)applyGiftCardWithCode:(NSString *)giftCardCode toCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
-
-/**
- *  Removes a gift card from the checkout.
- *
- *  @param giftCardCode The BUYGiftCard identifier to remove on an existing checkout on Shopify.
- *  @param checkout     An existing BUYCheckout on Shopify
- *  @param block        (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
- *
- *  @return The associated BUYRequestOperation
- */
-- (BUYRequestOperation *)removeGiftCard:(BUYGiftCard *)giftCard fromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
-
-/**
- *  Retrieves an updated version of a BUYCheckout from Shopify.
- *
- *  Note: There's no guarantee that the BUYCheckout returned will be the same as the one that is passed in.
- *  We recommended using the BUYCheckout returned in the block.
- *
- *  @param checkout The BUYCheckout to retrieve (updated) from Shopify
- *  @param block    (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
- *
- *  @return The associated BUYRequestOperation
- */
-- (BUYRequestOperation *)getCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
-
-/**
  *  Updates a given BUYCheckout on Shopify.
  *
  *  Note: There's no guarantee that the BUYCheckout returned will be the same as the one that is passed in.
@@ -152,31 +119,41 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
 - (BUYRequestOperation *)updateCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
 
 /**
- *  Finalizes the BUYCheckout and charges the payment provider (ex: Credit Card, Apple Pay, etc).
+ *  Retrieves an updated BUYCheckout.
+ *
+ *  @param checkoutToken The checkout token for which to retrieve the updated checkout
+ *  @param block         (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
+ *
+ *  @return The associated BUYRequestOperation
+ */
+- (BUYRequestOperation *)getCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataCheckoutBlock)block;
+
+/**
+ *  Finalizes the BUYCheckout associated with the token and charges the payment provider (ex: Credit Card, Apple Pay, etc).
  *  This enqueues a completion job on Shopify and returns immediately.
  *  You must get the job's status by calling checkCompletionStatusOfCheckout:block
  *
  *  Note: There's no guarantee that the BUYCheckout returned will be the same as the one that is passed in.
  *  We recommended using the BUYCheckout returned in the block.
  *
- *  @param checkout      The BUYCheckout to complete
+ *  @param checkoutToken The checkout token for which to complete checkout. May be nil if the total checkout amount is equal to $0.00 
  *  @param paymentToken  Opaque payment token object. May be nil if the total checkout amount is equal to $0.00
  *  @param block         (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
  *
  *  @return The associated BUYOperation
  */
-- (BUYOperation *)completeCheckout:(BUYCheckout *)checkout paymentToken:(_Nullable id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block;
+- (BUYOperation *)completeCheckoutWithToken:(nullable NSString *)checkoutToken paymentToken:(_Nullable id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block;
 
 /**
- *  Retrieve the status of a BUYCheckout. This checks the status of the current payment processing job for the provided checkout.
+ *  Retrieve the status of a checkout with token. This checks the status of the current payment processing job for the provided checkout.
  *  Once the job is complete (status == BUYStatusComplete), you can retrieve the completed order by calling `getCheckout:completion`
  *
- *  @param checkout The BUYCheckout to retrieve completion status for
- *  @param block    (^BUYDataStatusBlock)(BUYCheckout *checkout, BUYStatus status, NSError *error);
+ *  @param checkoutToken  The checkout token for which to retrieve completion status
+ *  @param block          (^BUYDataStatusBlock)(BUYCheckout *checkout, BUYStatus status, NSError *error);
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)getCompletionStatusOfCheckout:(BUYCheckout *)checkout completion:(BUYDataStatusBlock)block;
+- (BUYRequestOperation *)getCompletionStatusOfCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataStatusBlock)block;
 
 /**
  *  Retrieve the status of a checkout given a URL obtained in the UIApplicationDelegate method `application:sourceApplication:annotation`
@@ -188,20 +165,20 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
  */
 - (BUYRequestOperation *)getCompletionStatusOfCheckoutURL:(NSURL *)url completion:(BUYDataStatusBlock)block;
 
-#pragma mark - Shipping Rates
+#pragma mark - Shipping Rates -
 
 /**
- *  Retrieves a list of applicable shipping rates for a given BUYCheckout.
+ *  Retrieves a list of applicable shipping rates for a given checkout token.
  *  Add the preferred/selected BUYShippingRate to BUYCheckout, then update BUYCheckout
  *
- *  @param checkout The BUYCheckout to retrieve shipping rates for
- *  @param block    (^BUYDataShippingRatesBlock)(NSArray *shippingRates, BUYStatus status, NSError *error);
+ *  @param checkoutToken The checkout token for which to retrieve shipping rates
+ *  @param block         (^BUYDataShippingRatesBlock)(NSArray *shippingRates, BUYStatus status, NSError *error);
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)getShippingRatesForCheckout:(BUYCheckout *)checkout completion:(BUYDataShippingRatesBlock)block;
+- (BUYRequestOperation *)getShippingRatesForCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataShippingRatesBlock)block;
 
-#pragma mark - Payment Management
+#pragma mark - Cards -
 
 /**
  *  Prepares a credit card for usage during the checkout process. This sends it to Shopify's secure servers.
@@ -222,16 +199,40 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
 - (BUYRequestOperation *)storeCreditCard:(BUYCreditCard *)creditCard checkout:(BUYCheckout *)checkout completion:(BUYDataCreditCardBlock)block;
 
 /**
+ *  Applies a gift card code to the checkout.
+ *
+ *  @param giftCardCode The gift card code to apply on an existing checkout on Shopify. Note: This is not the same as the gift card identifier.
+ *  @param checkout     An existing BUYCheckout on Shopify
+ *  @param block        (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
+ *
+ *  @return The associated BUYRequestOperation
+ */
+- (BUYRequestOperation *)applyGiftCardCode:(NSString *)giftCardCode toCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
+
+/**
+ *  Removes a gift card from the checkout.
+ *
+ *  @param giftCardCode The BUYGiftCard identifier to remove on an existing checkout on Shopify.
+ *  @param checkout     An existing BUYCheckout on Shopify
+ *  @param block        (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
+ *
+ *  @return The associated BUYRequestOperation
+ */
+- (BUYRequestOperation *)removeGiftCard:(BUYGiftCard *)giftCard fromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
+
+#pragma mark - Reservations -
+
+/**
  *  Convenience method to release all product inventory reservations by setting its
  *  `reservationTime` to `@0` and calls `updateCheckout:completion`. We recommend creating
  *  a new BUYCheckout object from a BUYCart for further API calls.
  *
- *  @param checkout The BUYCheckout to expire
- *  @param block    (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
+ *  @param checkoutToken The checkout token for which to expire
+ *  @param block         (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)removeProductReservationsFromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
+- (BUYRequestOperation *)removeProductReservationsFromCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataCheckoutBlock)block;
 
 @end
 

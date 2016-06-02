@@ -62,8 +62,8 @@ typedef void (^BUYClientRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResp
 
 @interface BUYClient (PrivateCheckout)
 
-- (BUYRequestOperation *)beginCheckout:(BUYCheckout *)checkout paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block;
-- (BUYRequestOperation *)getCompletionStatusOfCheckoutToken:(NSString *)token start:(BOOL)start completion:(BUYDataStatusBlock)block;
-- (BUYRequestOperation *)getCheckout:(BUYCheckout *)checkout start:(BOOL)start completion:(BUYDataCheckoutBlock)block;
+- (BUYRequestOperation *)beginCheckoutWithToken:(NSString *)checkoutToken paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block;
+- (BUYRequestOperation *)getCompletionStatusOfCheckoutWithToken:(NSString *)token start:(BOOL)start completion:(BUYDataStatusBlock)block;
+- (BUYRequestOperation *)getCheckoutWithToken:(NSString *)checkoutToken start:(BOOL)start completion:(BUYDataCheckoutBlock)block;
 
 @end

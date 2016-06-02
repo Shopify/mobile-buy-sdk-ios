@@ -154,7 +154,7 @@
 	[OHHTTPStubs stubUsingResponseWithKey:@"testCheckoutFlowUsingCreditCard_2" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client getShippingRatesForCheckout:_checkout completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
+	[self.client getShippingRatesForCheckoutWithToken:_checkout.token completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertEqual(status, BUYStatusComplete);
 		
@@ -241,7 +241,7 @@
 	}];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client completeCheckout:_checkout paymentToken:paymentToken completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+	[self.client completeCheckoutWithToken:_checkout.token paymentToken:paymentToken completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(returnedCheckout);
 		XCTAssertNotNil(returnedCheckout.order);
@@ -296,7 +296,7 @@
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
-	[self.client applyGiftCardWithCode:self.giftCardCode toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client applyGiftCardCode:self.giftCardCode toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		
 		XCTAssertNil(error);
 		_checkout = checkout;
@@ -331,7 +331,7 @@
 	[OHHTTPStubs stubUsingResponseWithKey:@"testApplyingInvalidGiftCardToCheckout_2" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client applyGiftCardWithCode:@"000" toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client applyGiftCardCode:@"000" toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		XCTAssertNotNil(error);
 		XCTAssertEqual(422, error.code);
 		
@@ -355,7 +355,7 @@
 	[OHHTTPStubs stubUsingResponseWithKey:@"testApplyingInvalidGiftCardToCheckout_2" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client applyGiftCardWithCode:self.giftCardCodeExpired toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client applyGiftCardCode:self.giftCardCodeExpired toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		XCTAssertNotNil(error);
 		XCTAssertEqual(422, error.code);
 		
@@ -471,7 +471,7 @@
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client applyGiftCardWithCode:self.giftCardCode2 toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client applyGiftCardCode:self.giftCardCode2 toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		
 		XCTAssertNil(error);
 		_checkout = checkout;
@@ -517,7 +517,7 @@
 	NSDecimalNumber *originalPaymentDue = [_checkout.paymentDue copy];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client applyGiftCardWithCode:self.giftCardCode3 toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client applyGiftCardCode:self.giftCardCode3 toCheckout:_checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		//NOTE: Is this test failing? Make sure that you have configured giftCardCode above
 		XCTAssertNil(error);
 		_checkout = checkout;
@@ -752,7 +752,7 @@
 	
 	XCTestExpectation *expectation2 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
-	[self.client getShippingRatesForCheckout:_checkout completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
+	[self.client getShippingRatesForCheckoutWithToken:_checkout.token completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
 		XCTAssertEqual(BUYStatusPreconditionFailed, status);
 		[expectation2 fulfill];
 	}];
@@ -770,7 +770,7 @@
 	checkout.token = @"bananaaaa";
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client getShippingRatesForCheckout:checkout completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
+	[self.client getShippingRatesForCheckoutWithToken:checkout.token completion:^(NSArray *returnedShippingRates, BUYStatus status, NSError *error) {
 		XCTAssertEqual(BUYStatusNotFound, status);
 		[expectation fulfill];
 	}];
@@ -933,11 +933,7 @@
 	[OHHTTPStubs stubUsingResponseWithKey:@"testGetCheckoutWithInvalidToken_0" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-
-	BUYCheckout *badCheckout = [[BUYCheckout alloc] initWithCartToken:@""];
-	badCheckout.token = @"zzzzzzzzzzz";
-	
-	[self.client getCheckout:badCheckout completion:^(BUYCheckout *checkout, NSError *error) {
+	[self.client getCheckoutWithToken:@"zzzzzzzzzzz" completion:^(BUYCheckout *checkout, NSError *error) {
 		
 		XCTAssertEqual(404, error.code);
 		[expectation fulfill];
@@ -1025,7 +1021,7 @@
 	
 	// Expire the checkout
 	XCTestExpectation *expectation2 = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client removeProductReservationsFromCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
+	[self.client removeProductReservationsFromCheckoutWithToken:_checkout.token completion:^(BUYCheckout *returnedCheckout, NSError *error) {
 		
 		XCTAssertNil(error);
 		

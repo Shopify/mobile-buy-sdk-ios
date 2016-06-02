@@ -45,6 +45,7 @@
 - (void)updateWithCart:(BUYCart *)cart;
 
 - (BUYGiftCard *)giftCardWithIdentifier:(NSNumber *)identifier;
+- (void)addGiftCard:(BUYGiftCard *)giftCard;
 - (void)removeGiftCardWithIdentifier:(NSNumber *)identifier;
 
 @end
