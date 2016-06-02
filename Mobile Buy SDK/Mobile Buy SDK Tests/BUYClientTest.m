@@ -30,7 +30,6 @@
 #import <Buy/Buy.h>
 #import "BUYTestConstants.h"
 #import "BUYClientTestBase.h"
-#import "NSURLComponents+BUYAdditions.h"
 #import "BUYShopifyErrorCodes.h"
 #import "BUYAccountCredentials.h"
 #import "BUYClient+Customers.h"
@@ -168,16 +167,6 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 	
 	status = [self.client statusForStatusCode:200 error:nil];
 	XCTAssertEqual(BUYStatusComplete, status);
-}
-
-- (void)testQueryItemsConversion
-{
-	NSDictionary *dictionary = @{@"collection_id" : @"1", @"limit" : @"25", @"page" : @"1", @"sort_by" : @"collection-default"};
-	NSURLComponents *components = [[NSURLComponents alloc] init];
-	[components setQueryItemsWithDictionary:dictionary];
-	NSSet *componentsQueryItems = [NSSet setWithArray:components.queryItems];
-	NSSet *queryItems = [NSSet setWithArray:@[[NSURLQueryItem queryItemWithName:@"collection_id" value:@"1"], [NSURLQueryItem queryItemWithName:@"limit" value:@"25"], [NSURLQueryItem queryItemWithName:@"page" value:@"1"], [NSURLQueryItem queryItemWithName:@"sort_by" value:@"collection-default"]]];
-	XCTAssertEqualObjects(componentsQueryItems, queryItems);
 }
 
 - (void)testProductsInCollectionWithSortOrderCollectionDefault

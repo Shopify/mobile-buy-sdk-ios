@@ -90,4 +90,3 @@ FOUNDATION_EXPORT const unsigned char BuyVersionString[];
 #import <Buy/NSRegularExpression+BUYAdditions.h>
 #import <Buy/NSString+BUYAdditions.h>
 #import <Buy/NSURL+BUYAdditions.h>
-#import <Buy/NSURLComponents+BUYAdditions.h>
