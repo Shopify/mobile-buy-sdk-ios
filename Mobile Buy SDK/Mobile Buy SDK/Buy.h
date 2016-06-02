@@ -67,7 +67,6 @@ FOUNDATION_EXPORT const unsigned char BuyVersionString[];
 #import <Buy/BUYClient+Customers.h>
 #import <Buy/BUYClient+Checkout.h>
 #import <Buy/BUYClient+Storefront.h>
-#import <Buy/BUYRequestOperation.h>
 #import <Buy/BUYError.h>
 #import <Buy/BUYError+BUYAdditions.h>
 #import <Buy/BUYManagedObject.h>
@@ -91,4 +90,3 @@ FOUNDATION_EXPORT const unsigned char BuyVersionString[];
 #import <Buy/NSRegularExpression+BUYAdditions.h>
 #import <Buy/NSString+BUYAdditions.h>
 #import <Buy/NSURL+BUYAdditions.h>
-#import <Buy/NSURLComponents+BUYAdditions.h>

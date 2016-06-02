@@ -74,7 +74,7 @@
 	
 	[operation start];
 	
-	[self waitForExpectationsWithTimeout:3.0 handler:nil];
+	[self waitForExpectationsWithTimeout:3.0 handler:^(NSError *error) {}];
 }
 
 #pragma mark - Data Tests -
@@ -108,7 +108,7 @@
 	}];
 	
 	[self.queue addOperation:operation];
-	[self waitForExpectationsWithTimeout:3.0 handler:nil];
+	[self waitForExpectationsWithTimeout:3.0 handler:^(NSError *error) {}];
 }
 
 - (void)testFailedRequest
@@ -141,7 +141,7 @@
 	}];
 	
 	[self.queue addOperation:operation];
-	[self waitForExpectationsWithTimeout:3.0 handler:nil];
+	[self waitForExpectationsWithTimeout:3.0 handler:^(NSError *error) {}];
 }
 
 #pragma mark - Dependency Tests -
@@ -166,7 +166,7 @@
 	[self.queue addOperation:operation2];
 	[self.queue addOperation:operation1];
 	
-	[self waitForExpectationsWithTimeout:10.0 handler:nil];
+	[self waitForExpectationsWithTimeout:10.0 handler:^(NSError *error) {}];
 	XCTAssertEqualObjects(container, @"12");
 }
 
@@ -205,7 +205,7 @@
 	[self.queue addOperation:operation2];
 	[self.queue addOperation:operation1];
 	
-	[self waitForExpectationsWithTimeout:10.0 handler:nil];
+	[self waitForExpectationsWithTimeout:10.0 handler:^(NSError *error) {}];
 	XCTAssertEqualObjects(container, @"1134");
 }
 
@@ -244,7 +244,7 @@
 	};
 	
 	[self.queue addOperation:operation];
-	[self waitForExpectationsWithTimeout:5.0 handler:nil];
+	[self waitForExpectationsWithTimeout:5.0 handler:^(NSError *error) {}];
 }
 
 - (void)testCancellationBeforeExecution
@@ -260,7 +260,7 @@
 	[self.queue addOperation:operation];
 	[operation cancel];
 	
-	[self waitForExpectationsWithTimeout:3.0 handler:nil];
+	[self waitForExpectationsWithTimeout:3.0 handler:^(NSError *error) {}];
 }
 
 - (void)testCancellationDuringExecution
@@ -277,7 +277,7 @@
 		[operation cancel];
 	}];
 	
-	[self waitForExpectationsWithTimeout:4.0 handler:nil];
+	[self waitForExpectationsWithTimeout:4.0 handler:^(NSError *error) {}];
 }
 
 - (void)testCancellationWithoutQueue
@@ -292,7 +292,7 @@
 	[operation cancel];
 	
 	[self createExpectationDelay];
-	[self waitForExpectationsWithTimeout:4.0 handler:nil];
+	[self waitForExpectationsWithTimeout:4.0 handler:^(NSError *error) {}];
 }
 
 - (void)testCancellationDuringPolling
@@ -351,7 +351,7 @@
 	}];
 	
 	if (block) {
-		[self waitForExpectationsWithTimeout:delay + 0.1 handler:nil];
+		[self waitForExpectationsWithTimeout:delay + 0.1 handler:^(NSError *error) {}];
 	}
 }
 

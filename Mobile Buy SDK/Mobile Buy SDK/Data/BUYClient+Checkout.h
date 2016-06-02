@@ -80,7 +80,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)updateOrCreateCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)completion;
+- (NSOperation *)updateOrCreateCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)completion;
 
 /**
  *  Builds a checkout on Shopify. The checkout object is used to prepare an order
@@ -90,7 +90,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)createCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
+- (NSOperation *)createCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
 
 /**
  *  Builds a checkout on Shopify using a Cart Token from an existing cart on your Shopify store's storefront.
@@ -101,7 +101,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)createCheckoutWithCartToken:(NSString *)cartToken completion:(BUYDataCheckoutBlock)block;
+- (NSOperation *)createCheckoutWithCartToken:(NSString *)cartToken completion:(BUYDataCheckoutBlock)block;
 
 /**
  *  Updates a given BUYCheckout on Shopify.
@@ -116,7 +116,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)updateCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
+- (NSOperation *)updateCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
 
 /**
  *  Retrieves an updated BUYCheckout.
@@ -126,7 +126,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)getCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataCheckoutBlock)block;
+- (NSOperation *)getCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataCheckoutBlock)block;
 
 /**
  *  Finalizes the BUYCheckout associated with the token and charges the payment provider (ex: Credit Card, Apple Pay, etc).
@@ -153,7 +153,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)getCompletionStatusOfCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataStatusBlock)block;
+- (NSOperation *)getCompletionStatusOfCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataStatusBlock)block;
 
 /**
  *  Retrieve the status of a checkout given a URL obtained in the UIApplicationDelegate method `application:sourceApplication:annotation`
@@ -163,7 +163,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)getCompletionStatusOfCheckoutURL:(NSURL *)url completion:(BUYDataStatusBlock)block;
+- (NSOperation *)getCompletionStatusOfCheckoutURL:(NSURL *)url completion:(BUYDataStatusBlock)block;
 
 #pragma mark - Shipping Rates -
 
@@ -176,7 +176,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)getShippingRatesForCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataShippingRatesBlock)block;
+- (NSOperation *)getShippingRatesForCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataShippingRatesBlock)block;
 
 #pragma mark - Cards -
 
@@ -196,7 +196,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)storeCreditCard:(BUYCreditCard *)creditCard checkout:(BUYCheckout *)checkout completion:(BUYDataCreditCardBlock)block;
+- (NSOperation *)storeCreditCard:(BUYCreditCard *)creditCard checkout:(BUYCheckout *)checkout completion:(BUYDataCreditCardBlock)block;
 
 /**
  *  Applies a gift card code to the checkout.
@@ -207,7 +207,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)applyGiftCardCode:(NSString *)giftCardCode toCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
+- (NSOperation *)applyGiftCardCode:(NSString *)giftCardCode toCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
 
 /**
  *  Removes a gift card from the checkout.
@@ -218,7 +218,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)removeGiftCard:(BUYGiftCard *)giftCard fromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
+- (NSOperation *)removeGiftCard:(BUYGiftCard *)giftCard fromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
 
 #pragma mark - Reservations -
 
@@ -232,7 +232,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)removeProductReservationsFromCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataCheckoutBlock)block;
+- (NSOperation *)removeProductReservationsFromCheckoutWithToken:(NSString *)checkoutToken completion:(BUYDataCheckoutBlock)block;
 
 @end
 

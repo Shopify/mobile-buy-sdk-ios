@@ -33,7 +33,7 @@
 
 @implementation BUYClient (Address)
 
-- (BUYRequestOperation *)getAddressesForCustomerID:(NSString *)customerID callback:(BUYDataAddressesBlock)block
+- (NSOperation *)getAddressesForCustomerID:(NSString *)customerID callback:(BUYDataAddressesBlock)block
 {
 	NSURL *route = [self urlForCustomersAddressesWithID:customerID];
 	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
@@ -45,7 +45,7 @@
 	}];
 }
 
-- (BUYRequestOperation *)getAddressWithID:(NSNumber *)addressID customerID:(NSString *)customerID callback:(BUYDataAddressBlock)block
+- (NSOperation *)getAddressWithID:(NSNumber *)addressID customerID:(NSString *)customerID callback:(BUYDataAddressBlock)block
 {
 	NSURL *route = [self urlForCustomersAddressWithID:customerID addressID:addressID];
 	return [self getRequestForURL:route completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
@@ -57,7 +57,7 @@
 	}];
 }
 
-- (BUYRequestOperation *)createAddress:(BUYAddress *)address customerID:(NSString *)customerID callback:(BUYDataAddressBlock)block
+- (NSOperation *)createAddress:(BUYAddress *)address customerID:(NSString *)customerID callback:(BUYDataAddressBlock)block
 {
 	NSURL *route = [self urlForCustomersAddressesWithID:customerID];
 	return [self postRequestForURL:route object:@{ @"address" : address.JSONDictionary } completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
@@ -69,7 +69,7 @@
 	}];
 }
 
-- (BUYRequestOperation *)updateAddress:(BUYAddress *)address customerID:(NSString *)customerID callback:(BUYDataAddressBlock)block
+- (NSOperation *)updateAddress:(BUYAddress *)address customerID:(NSString *)customerID callback:(BUYDataAddressBlock)block
 {
 	BUYAssert(address.identifier, @"Failed to update address. Address must have a valid identifier.");
 	
@@ -83,7 +83,7 @@
 	}];
 }
 
-- (BUYRequestOperation *)deleteAddressWithID:(NSNumber *)addressID customerID:(NSString *)customerID callback:(BUYDataStatusBlock)block
+- (NSOperation *)deleteAddressWithID:(NSNumber *)addressID customerID:(NSString *)customerID callback:(BUYDataStatusBlock)block
 {
 	BUYAssert(addressID, @"Failed to update address. Address must have a valid identifier.");
 	

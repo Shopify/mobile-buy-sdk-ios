@@ -95,9 +95,9 @@
 	
 	[super startExecution];
 	
-	BUYRequestOperation *beginOperation = [self createBeginOperation];
-	BUYRequestOperation *pollOperation  = [self createPollOperation];
-	BUYRequestOperation *getOperation   = [self createGetOperation];
+	NSOperation *beginOperation = [self createBeginOperation];
+	NSOperation *pollOperation  = [self createPollOperation];
+	NSOperation *getOperation   = [self createGetOperation];
 	
 	[pollOperation addDependency:beginOperation];
 	[getOperation addDependency:pollOperation];
@@ -135,7 +135,7 @@
 
 #pragma mark - Operations -
 
-- (BUYRequestOperation *)createBeginOperation
+- (NSOperation *)createBeginOperation
 {
 	return [self.client beginCheckoutWithToken:self.checkoutToken paymentToken:self.token completion:^(BUYCheckout *checkout, NSError *error) {
 		if (!checkout) {
@@ -144,9 +144,9 @@
 	}];
 }
 
-- (BUYRequestOperation *)createPollOperation
+- (NSOperation *)createPollOperation
 {
-	BUYRequestOperation *operation =[self.client getCompletionStatusOfCheckoutWithToken:self.checkoutToken start:NO completion:^(BUYStatus status, NSError *error) {
+	BUYRequestOperation *operation = (BUYRequestOperation *)[self.client getCompletionStatusOfCheckoutWithToken:self.checkoutToken start:NO completion:^(BUYStatus status, NSError *error) {
 		if (status != BUYStatusComplete) {
 			[self finishWithError:error];
 		}
@@ -158,7 +158,7 @@
 	return operation;
 }
 
-- (BUYRequestOperation *)createGetOperation
+- (NSOperation *)createGetOperation
 {
 	return [self.client getCheckoutWithToken:self.checkoutToken start:NO completion:^(BUYCheckout *checkout, NSError *error) {
 		if (checkout) {

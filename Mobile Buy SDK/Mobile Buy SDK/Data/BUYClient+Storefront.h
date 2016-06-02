@@ -128,7 +128,7 @@ typedef void (^BUYDataProductListBlock)(NSArray<BUYProduct *> * _Nullable produc
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)getShop:(BUYDataShopBlock)block;
+- (NSOperation *)getShop:(BUYDataShopBlock)block;
 
 /**
  *  Fetches a single page of products for the shop.
@@ -138,7 +138,7 @@ typedef void (^BUYDataProductListBlock)(NSArray<BUYProduct *> * _Nullable produc
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)getProductsPage:(NSUInteger)page completion:(BUYDataProductListBlock)block;
+- (NSOperation *)getProductsPage:(NSUInteger)page completion:(BUYDataProductListBlock)block;
 
 /**
  *  Fetches a single product by the handle of the product.
@@ -148,7 +148,7 @@ typedef void (^BUYDataProductListBlock)(NSArray<BUYProduct *> * _Nullable produc
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)getProductByHandle:(NSString *)handle completion:(BUYDataProductBlock)block;
+- (NSOperation *)getProductByHandle:(NSString *)handle completion:(BUYDataProductBlock)block;
 
 /**
  *  Fetches a single product by the ID of the product.
@@ -158,7 +158,7 @@ typedef void (^BUYDataProductListBlock)(NSArray<BUYProduct *> * _Nullable produc
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)getProductById:(NSString *)productId completion:(BUYDataProductBlock)block;
+- (NSOperation *)getProductById:(NSString *)productId completion:(BUYDataProductBlock)block;
 
 /**
  *  Fetches a list of product by the ID of each product.
@@ -168,7 +168,7 @@ typedef void (^BUYDataProductListBlock)(NSArray<BUYProduct *> * _Nullable produc
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)getProductsByIds:(NSArray<NSString *> *)productIds completion:(BUYDataProductsBlock)block;
+- (NSOperation *)getProductsByIds:(NSArray<NSString *> *)productIds completion:(BUYDataProductsBlock)block;
 
 /**
  *  Fetches collections based off page
@@ -178,7 +178,7 @@ typedef void (^BUYDataProductListBlock)(NSArray<BUYProduct *> * _Nullable produc
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)getCollectionsPage:(NSUInteger)page completion:(BUYDataCollectionsListBlock)block;
+- (NSOperation *)getCollectionsPage:(NSUInteger)page completion:(BUYDataCollectionsListBlock)block;
 
 /**
  *  Fetches the products in the given collection with the collection's
@@ -190,7 +190,7 @@ typedef void (^BUYDataProductListBlock)(NSArray<BUYProduct *> * _Nullable produc
  *
  *  @return the associated BUYRequestOperation
  */
-- (BUYRequestOperation *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId completion:(BUYDataProductListBlock)block;
+- (NSOperation *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId completion:(BUYDataProductListBlock)block;
 
 /**
  *  Fetches the products in the given collection with a given sort order
@@ -202,7 +202,7 @@ typedef void (^BUYDataProductListBlock)(NSArray<BUYProduct *> * _Nullable produc
  *
  *  @return the associated BUYRequestOperation
  */
-- (BUYRequestOperation *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId sortOrder:(BUYCollectionSort)sortOrder completion:(BUYDataProductListBlock)block;
+- (NSOperation *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId sortOrder:(BUYCollectionSort)sortOrder completion:(BUYDataProductListBlock)block;
 
 @end
 

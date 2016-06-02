@@ -64,7 +64,6 @@
 #import "BUYClient+Checkout.h"
 #import "BUYClient+Storefront.h"
 
-#import "BUYRequestOperation.h"
 #import "BUYError.h"
 #import "BUYError+BUYAdditions.h"
 #import "BUYManagedObject.h"
@@ -88,4 +87,3 @@
 #import "NSRegularExpression+BUYAdditions.h"
 #import "NSString+BUYAdditions.h"
 #import "NSURL+BUYAdditions.h"
-#import "NSURLComponents+BUYAdditions.h"
