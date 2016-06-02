@@ -56,15 +56,6 @@
 - (instancetype)initWithClient:(BUYClient *)client cart:(BUYCart *)cart;
 
 /**
- *  Loads the product details
- *
- *  @param productId  the product ID for the item to display
- *  @param completion a block to be called on completion of the loading of the product details. Will be called on the main thread.
- *  Upon success, the view controller should be presented modally
- */
-- (void)loadProduct:(NSString *)productId completion:(void (^)(BOOL success, NSError *error))completion;
-
-/**
  *  Alternative method when setting the product (and optionally, shop) directly on the view controller
  *
  *  @param product  the product to display

@@ -64,10 +64,8 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 @property (nonatomic, assign) BOOL shouldEnableVariantSelection;
 @property (nonatomic, assign) BOOL shouldShowDescription;
 @property (nonatomic, strong) BUYProduct *product;
-@property (nonatomic, assign) BOOL isLoading;
 @property (nonatomic, strong) NSNumberFormatter *currencyFormatter;
 @property (nonatomic, weak) BUYCart *cart;
-@property (nonatomic, assign) BOOL isLoadingShop;
 
 // views
 @property (nonatomic, strong) ProductView *productView;
@@ -154,37 +152,6 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 	self.view.backgroundColor = [UIColor whiteColor];
 }
 
-- (ProductView *)productView
-{
-	if (_productView == nil && self.product != nil && self.shop != nil) {
-		_productView = [[ProductView alloc] initWithFrame:CGRectMake(0, 0, self.preferredContentSize.width, self.preferredContentSize.height) product:self.product shouldShowApplePaySetup:self.shouldShowApplePaySetup];
-		_productView.translatesAutoresizingMaskIntoConstraints = NO;
-		_productView.hidden = YES;
-		[self.view addSubview:_productView];
-		[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_productView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_productView)]];
-		[self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_productView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_productView)]];
-		
-		_productView.tableView.delegate = self;
-		_productView.tableView.dataSource = self;
-		[_productView.productViewFooter setApplePayAvailable:self.shouldShowApplePayButton requiresSetup:self.shouldShowApplePaySetup];
-		[_productView.productViewFooter.paymentButton addTarget:self action:@selector(checkoutWithApplePay) forControlEvents:UIControlEventTouchUpInside];
-		
-		if (self.cart) {
-			[_productView.productViewFooter.actionButton setTitle:NSLocalizedString(@"Add to Cart", nil) forState:UIControlStateNormal];
-			[_productView.productViewFooter.actionButton addTarget:self action:@selector(addSelectedVariantToCart) forControlEvents:UIControlEventTouchUpInside];
-		}
-		else {
-			[_productView.productViewFooter.actionButton addTarget:self action:@selector(checkoutWithShopify) forControlEvents:UIControlEventTouchUpInside];
-		}
-		
-		_productView.productViewHeader.collectionView.delegate = self;
-		_productView.productViewHeader.collectionView.dataSource = self;
-		
-		_productView.layoutMargins = UIEdgeInsetsMake(self.productView.layoutMargins.top, self.productView.layoutMargins.left, self.bottomLayoutGuide.length, self.productView.layoutMargins.right);
-	}
-	return _productView;
-}
-
 - (CGSize)preferredContentSize
 {
 	return CGSizeMake(MIN(BUYMaxProductViewWidth, self.view.bounds.size.width),
@@ -246,55 +213,15 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 	return presentationController;
 }
 
-- (void)loadProduct:(NSString *)productId completion:(void (^)(BOOL success, NSError *error))completion
+- (void)loadWithProduct:(BUYProduct *)product completion:(void (^)(BOOL success, NSError *error))completion
 {
-	if (productId == nil) {
-		if (completion) {
-			completion(NO, [NSError errorWithDomain:BUYShopifyError code:BUYShopifyError_NoProductSpecified userInfo:nil]);
-		}
-	} else {
-		self.isLoading = YES;
-		
-		[self getShopWithCallback:^(BOOL success, NSError *error) {
-			if (success) {
-				self.productId = productId;
-				
-				[self.client getProductById:productId completion:^(BUYProduct *product, NSError *error) {
-					dispatch_async(dispatch_get_main_queue(), ^{
-						if (error) {
-							if (completion) {
-								completion(NO, error);
-							}
-						} else {
-							self.product = product;
-							if (completion) {
-								completion(YES, nil);
-							}
-						}
-					});
-				}];
-			} else {
-				self.isLoading = NO;
-				if (completion) {
-					completion(success, error);
-				}
-			}
-		}];
-	}
-}
+    self.product = product;
 
-- (void)loadWithProduct:(BUYProduct *)product completion:(void (^)(BOOL success, NSError *error))completion;
-{
 	if (product == nil) {
 		completion(NO, [NSError errorWithDomain:BUYShopifyError code:BUYShopifyError_NoProductSpecified userInfo:nil]);
 	} else {
-		self.isLoading = YES;
-		
 		if (self.shop == nil) {
 			[self getShopWithCallback:^(BOOL success, NSError *error) {
-				if (success) {
-					self.product = product;
-				}
 				if (completion) {
 					completion(success, error);
 				}
@@ -313,20 +240,17 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 - (void)getShopWithCallback:(void (^)(BOOL, NSError *))block
 {
 	// fetch shop details for the currency and country codes
-	self.isLoadingShop = YES;
 	[self.client getShop:^(BUYShop *shop, NSError *error) {
 		
 		if (error == nil) {
 			self.shop = shop;
+            [self createProductView];
 		}
 		else {
-			
 			if ([self.delegate respondsToSelector:@selector(controllerFailedToStartApplePayProcess:)]) {
 				[self.delegate controllerFailedToStartApplePayProcess:self];
 			}
 		}
-		
-		self.isLoadingShop = NO;
 		
 		if (block) block((error == nil), error);
 	}];
@@ -334,16 +258,12 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 
 - (void)setProduct:(BUYProduct *)product
 {
-	self.isLoading = NO;
 	_product = product;
-	self.navigationItem.title = _product.title;
+    
 	self.selectedProductVariant = [_product.variants firstObject];
 	self.shouldShowVariantSelector = [_product isDefaultVariant] == NO;
 	self.shouldEnableVariantSelection = self.shouldShowVariantSelector && [_product.variants count] > 1;
 	self.shouldShowDescription = ([_product.htmlDescription length] == 0) == NO;
-	self.productView.hidden = NO;
-	[self setupNavigationBarAppearance];
-	[self.activityIndicatorView stopAnimating];
 	[self setNeedsStatusBarAppearanceUpdate];
 	if (self.presentingViewController) {
 		[self.navigationController setNavigationBarHidden:NO];
@@ -362,8 +282,39 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 	self.currencyFormatter = [[NSNumberFormatter alloc] init];
 	self.currencyFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
 	self.currencyFormatter.currencyCode = shop.currency;
-	[self.productView.productViewFooter setApplePayAvailable:self.shouldShowApplePaySetup requiresSetup:self.shouldShowApplePaySetup];
-	[self.productView.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (void)createProductView
+{
+    _productView = [[ProductView alloc] initWithFrame:CGRectMake(0, 0, self.preferredContentSize.width, self.preferredContentSize.height) product:self.product shouldShowApplePaySetup:self.shouldShowApplePaySetup];
+    _productView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:_productView];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_productView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_productView)]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_productView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_productView)]];
+    
+    _productView.tableView.delegate = self;
+    _productView.tableView.dataSource = self;
+    [_productView.productViewFooter setApplePayAvailable:self.shouldShowApplePayButton requiresSetup:self.shouldShowApplePaySetup];
+    [_productView.productViewFooter.paymentButton addTarget:self action:@selector(checkoutWithApplePay) forControlEvents:UIControlEventTouchUpInside];
+    
+    if (self.cart) {
+        [_productView.productViewFooter.actionButton setTitle:NSLocalizedString(@"Add to Cart", nil) forState:UIControlStateNormal];
+        [_productView.productViewFooter.actionButton addTarget:self action:@selector(addSelectedVariantToCart) forControlEvents:UIControlEventTouchUpInside];
+    }
+    else {
+        [_productView.productViewFooter.actionButton setTitle:NSLocalizedString(@"Check Out", nil) forState:UIControlStateNormal];
+        [_productView.productViewFooter.actionButton addTarget:self action:@selector(checkoutWithShopify) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    _productView.productViewHeader.collectionView.delegate = self;
+    _productView.productViewHeader.collectionView.dataSource = self;
+    
+    _productView.layoutMargins = UIEdgeInsetsMake(self.productView.layoutMargins.top, self.productView.layoutMargins.left, self.bottomLayoutGuide.length, self.productView.layoutMargins.right);
+    [_productView.productViewFooter setApplePayAvailable:self.shouldShowApplePaySetup requiresSetup:self.shouldShowApplePaySetup];
+    [_productView.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+
+    self.navigationItem.title = _product.title;
+    [self setupNavigationBarAppearance];
 }
 
 #pragma mark - Table view data source
@@ -549,9 +500,9 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-	if (self.navigationController.navigationBar.barStyle == UIBarStyleBlack || ([self navigationBarThresholdReached] == NO && self.isLoading == NO && self.productView.productViewHeader)) {
+	if (self.navigationController.navigationBar.barStyle == UIBarStyleBlack || ([self navigationBarThresholdReached] == NO && self.productView.productViewHeader)) {
 		return UIStatusBarStyleLightContent;
-	} else if (self.isLoading == YES && self.navigationController.navigationBar.barStyle == UIBarStyleBlack && self.productView.productViewHeader) {
+	} else if (self.navigationController.navigationBar.barStyle == UIBarStyleBlack && self.productView.productViewHeader) {
 		return UIStatusBarStyleLightContent;
 	} else {
 		return UIStatusBarStyleDefault;
