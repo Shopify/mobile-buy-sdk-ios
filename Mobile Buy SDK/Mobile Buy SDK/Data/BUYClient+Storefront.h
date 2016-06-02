@@ -141,6 +141,16 @@ typedef void (^BUYDataProductListBlock)(NSArray<BUYProduct *> * _Nullable produc
 - (BUYRequestOperation *)getProductsPage:(NSUInteger)page completion:(BUYDataProductListBlock)block;
 
 /**
+ *  Fetches a single product by the handle of the product.
+ *
+ *  @param handle  Product handle
+ *  @param block   (^BUYDataProductBlock)(BUYProduct *product, NSError *error);
+ *
+ *  @return The associated BUYRequestOperation
+ */
+- (BUYRequestOperation *)getProductByHandle:(NSString *)handle completion:(BUYDataProductBlock)block;
+
+/**
  *  Fetches a single product by the ID of the product.
  *
  *  @param productId Product ID

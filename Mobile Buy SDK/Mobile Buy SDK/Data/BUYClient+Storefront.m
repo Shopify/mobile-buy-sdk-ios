@@ -61,9 +61,9 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 - (BUYRequestOperation *)getProductsPage:(NSUInteger)page completion:(BUYDataProductListBlock)block
 {
 	NSURL *url  = [self urlForProductListingsWithParameters:@{
-																  @"limit" : @(self.pageSize),
-																  @"page"  : @(page),
-																  }];
+															  @"limit" : @(self.pageSize),
+															  @"page"  : @(page),
+															  }];
 	
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		
@@ -75,19 +75,31 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	}];
 }
 
-- (BUYRequestOperation *)getProductById:(NSString *)productId completion:(BUYDataProductBlock)block;
+- (BUYRequestOperation *)getProductByHandle:(NSString *)handle completion:(BUYDataProductBlock)block
+{
+	BUYAssert(handle, @"Failed to get product by handle. Product handle must not be nil.");
+	
+	NSURL *url = [self urlForProductListingsWithParameters:@{ @"handle" : handle }];
+	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		
+		BUYProduct *product = nil;
+		if (json && !error) {
+			product = [self.modelManager insertProductsWithJSONArray:json[BUYProductsKey]].firstObject;
+		}
+		
+		if (!product && !error) {
+			error = [self productsError];
+		}
+		block(product, error);
+	}];
+}
+
+- (BUYRequestOperation *)getProductById:(NSString *)productId completion:(BUYDataProductBlock)block
 {
 	BUYAssert(productId, @"Failed to get product by ID. Product ID must not be nil.");
 	
 	return [self getProductsByIds:@[productId] completion:^(NSArray *products, NSError *error) {
-		if (products.count > 0) {
-			block(products[0], error);
-		} else {
-			if (!error) {
-				error = [NSError errorWithDomain:BUYShopifyErrorDomain code:BUYShopifyError_InvalidProductID userInfo:@{ NSLocalizedDescriptionKey : @"Product ID is not valid. Confirm the product ID on your shop's admin and also ensure that the visibility is on for the Mobile App channel." }];
-			}
-			block(nil, error);
-		}
+		block(products.firstObject, error);
 	}];
 }
 
@@ -96,8 +108,8 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	BUYAssert(productIds, @"Failed to get product by IDs. Product IDs array must not be nil.");
 	
 	NSURL *url  = [self urlForProductListingsWithParameters:@{
-																  @"product_ids" : [productIds componentsJoinedByString:@","],
-																  }];
+															  @"product_ids" : [productIds componentsJoinedByString:@","],
+															  }];
 	
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		
@@ -106,7 +118,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 			products = [self.modelManager insertProductsWithJSONArray:json[BUYProductsKey]];
 		}
 		if (!error && products.count == 0) {
-			error = [NSError errorWithDomain:BUYShopifyErrorDomain code:BUYShopifyError_InvalidProductID userInfo:@{ NSLocalizedDescriptionKey : @"Product IDs are not valid. Confirm the product IDs on your shop's admin and also ensure that the visibility is on for the Mobile App channel." }];
+			error = [self productsError];
 		}
 		block(products, error);
 	}];
@@ -115,9 +127,9 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 - (BUYRequestOperation *)getCollectionsPage:(NSUInteger)page completion:(BUYDataCollectionsListBlock)block
 {
 	NSURL *url  = [self urlForCollectionListingsWithParameters:@{
-																	 @"limit" : @(self.pageSize),
-																	 @"page"  : @(page),
-																	 }];
+																 @"limit" : @(self.pageSize),
+																 @"page"  : @(page),
+																 }];
 	
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		
@@ -139,11 +151,11 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	BUYAssert(collectionId, @"Failed to get products page. Invalid collectionID.");
 	
 	NSURL *url  = [self urlForProductListingsWithParameters:@{
-																  @"collection_id" : collectionId,
-																  @"limit"         : @(self.pageSize),
-																  @"page"          : @(page),
-																  @"sort_by"       : [BUYCollection sortOrderParameterForCollectionSort:sortOrder]
-																  }];
+															  @"collection_id" : collectionId,
+															  @"limit"         : @(self.pageSize),
+															  @"page"          : @(page),
+															  @"sort_by"       : [BUYCollection sortOrderParameterForCollectionSort:sortOrder]
+															  }];
 	
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		
@@ -153,6 +165,13 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 		}
 		block(products, page, [self hasReachedEndOfPage:products] || error, error);
 	}];
+}
+
+#pragma mark - Helpers -
+
+- (NSError *)productsError
+{
+	return [NSError errorWithDomain:BUYShopifyErrorDomain code:BUYShopifyError_InvalidProductID userInfo:@{ NSLocalizedDescriptionKey : @"Product identifier(s) / handle is not valid. Confirm the product identifier(s) / handle in your shop's admin and ensure that the visibility is ON for the Mobile App channel." }];
 }
 
 @end

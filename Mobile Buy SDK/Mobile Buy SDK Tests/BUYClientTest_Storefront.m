@@ -97,6 +97,25 @@
 	}];
 }
 
+- (void)testGetProductByHandle
+{
+	[OHHTTPStubs stubUsingResponseWithKey:@"testGetProduct_0" useMocks:[self shouldUseMocks]];
+	
+	NSString *handle = @"actinian-fur-hat";
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[self.client getProductByHandle:handle completion:^(BUYProduct *product, NSError *error) {
+		
+		XCTAssertNil(error);
+		XCTAssertNotNil(product);
+		XCTAssertEqualObjects(product.handle, handle);
+		
+		[expectation fulfill];
+	}];
+	
+	[self waitForExpectationsWithTimeout:10 handler:nil];
+}
+
 - (void)testGetProductById
 {
 	[OHHTTPStubs stubUsingResponseWithKey:@"testGetProduct_0" useMocks:[self shouldUseMocks]];
