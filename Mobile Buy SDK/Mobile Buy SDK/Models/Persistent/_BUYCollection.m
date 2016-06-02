@@ -29,7 +29,6 @@
 #import "_BUYCollection.h"
 
 const struct BUYCollectionAttributes BUYCollectionAttributes = {
-	.collectionId = @"collectionId",
 	.createdAt = @"createdAt",
 	.handle = @"handle",
 	.htmlDescription = @"htmlDescription",
@@ -58,11 +57,6 @@ const struct BUYCollectionUserInfo BUYCollectionUserInfo = {
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
-	if ([key isEqualToString:@"collectionIdValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"collectionId"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
 	if ([key isEqualToString:@"identifierValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"identifier"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -78,19 +72,6 @@ const struct BUYCollectionUserInfo BUYCollectionUserInfo = {
 }
 
 #if defined CORE_DATA_PERSISTENCE
-- (NSNumber*)collectionId {
-    [self willAccessValueForKey:@"collectionId"];
-    id value = [self primitiveValueForKey:@"collectionId"];
-    [self didAccessValueForKey:@"collectionId"];
-    return value;
-}
-
-- (void)setCollectionId:(NSNumber*)value_ {
-    [self willChangeValueForKey:@"collectionId"];
-    [self setPrimitiveValue:value_ forKey:@"collectionId"];
-    [self didChangeValueForKey:@"collectionId"];
-}
-
 - (NSDate*)createdAt {
     [self willAccessValueForKey:@"createdAt"];
     id value = [self primitiveValueForKey:@"createdAt"];
@@ -196,15 +177,6 @@ const struct BUYCollectionUserInfo BUYCollectionUserInfo = {
 }
 
 #endif
-
-- (int64_t)collectionIdValue {
-	NSNumber *result = [self collectionId];
-	return [result longLongValue];
-}
-
-- (void)setCollectionIdValue:(int64_t)value_ {
-	[self setCollectionId:@(value_)];
-}
 
 - (int64_t)identifierValue {
 	NSNumber *result = [self identifier];

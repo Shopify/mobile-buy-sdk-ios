@@ -64,6 +64,16 @@
 	}
 }
 
+
+- (BUYRequestOperation *)updateOrCreateCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)completion
+{
+	if ([checkout hasToken]) {
+		return [self updateCheckout:checkout completion:completion];
+	} else {
+		return [self createCheckout:checkout completion:completion];
+	}
+}
+
 - (BUYRequestOperation *)createCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block
 {
 	BUYAssert(checkout, @"Failed to create checkout. Invalid checkout object.");

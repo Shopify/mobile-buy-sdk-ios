@@ -309,11 +309,11 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 	
 	XCTAssertNil(error);
 	NSDictionary *dict = @{@"customer": @{
-								   @"first_name": @"michael",
-								   @"last_name": @"scott",
-								   @"email": @"fake@example.com",
-								   @"password": @"password",
-								   @"password_confirmation": @"password"
+								   BUYAccountFirstNameKey: @"michael",
+								   BUYAccountLastNameKey: @"scott",
+								   BUYAccountEmailKey: @"fake@example.com",
+								   BUYAccountPasswordKey: @"password",
+								   BUYAccountPasswordConfirmationKey: @"password"
 								   }};
 	XCTAssertEqualObjects(payload, dict);
 }

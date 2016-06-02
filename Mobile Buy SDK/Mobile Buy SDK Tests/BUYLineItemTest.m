@@ -43,7 +43,7 @@
 
 	_modelManager = [BUYModelManager modelManager];
 	_variant = [[BUYProductVariant alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"id" : @1, @"requires_shipping" : @YES }];
-	_lineItem = [[BUYLineItem alloc] initWithVariant:_variant];
+	_lineItem = [_modelManager lineItemWithVariant:_variant];
 }
 
 - (void)tearDown
@@ -79,7 +79,7 @@
 - (void)testJsonDictionaryShouldShowAllProperties
 {
 	BUYProductVariant *variant = [[BUYProductVariant alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"id" : @5 }];
-	_lineItem = [[BUYLineItem alloc] initWithVariant:variant];
+	_lineItem = [_modelManager lineItemWithVariant:variant];
 	_lineItem.quantity = [NSDecimalNumber decimalNumberWithString:@"3"];
 	_lineItem.price = [NSDecimalNumber decimalNumberWithString:@"5.55"];
 	_lineItem.title = @"banana";

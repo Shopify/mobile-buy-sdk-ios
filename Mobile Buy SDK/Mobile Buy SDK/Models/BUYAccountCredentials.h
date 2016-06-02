@@ -27,6 +27,12 @@
 #import <Foundation/Foundation.h>
 NS_ASSUME_NONNULL_BEGIN
 
+OBJC_EXTERN NSString * const BUYAccountFirstNameKey;
+OBJC_EXTERN NSString * const BUYAccountLastNameKey;
+OBJC_EXTERN NSString * const BUYAccountEmailKey;
+OBJC_EXTERN NSString * const BUYAccountPasswordKey;
+OBJC_EXTERN NSString * const BUYAccountPasswordConfirmationKey;
+
 @class BUYAccountCredentialItem;
 
 /**
@@ -55,9 +61,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface BUYAccountCredentialItem : NSObject
 
-@property (nonatomic, assign, readonly, getter=isValid) BOOL valid;
+@property (nonatomic, assign, getter=isValid) BOOL valid;
 @property (nonatomic, strong, readonly) NSString *key;
-@property (nonatomic, strong, readonly) NSString *value;
+@property (nonatomic, strong) NSString *value;
 
 + (instancetype)itemWithEmail:(NSString *)value;
 + (instancetype)itemWithFirstName:(NSString *)value;

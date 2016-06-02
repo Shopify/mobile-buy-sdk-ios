@@ -27,11 +27,11 @@
 #import "BUYAccountCredentials.h"
 #import "BUYAssert.h"
 
-static NSString * const BUYAccountFirstNameKey            = @"first_name";
-static NSString * const BUYAccountLastNameKey             = @"last_name";
-static NSString * const BUYAccountEmailKey                = @"email";
-static NSString * const BUYAccountPasswordKey             = @"password";
-static NSString * const BUYAccountPasswordConfirmationKey = @"password_confirmation";
+NSString * const BUYAccountFirstNameKey            = @"first_name";
+NSString * const BUYAccountLastNameKey             = @"last_name";
+NSString * const BUYAccountEmailKey                = @"email";
+NSString * const BUYAccountPasswordKey             = @"password";
+NSString * const BUYAccountPasswordConfirmationKey = @"password_confirmation";
 
 #pragma mark - BUYAccountCredentials -
 @interface BUYAccountCredentials()

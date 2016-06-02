@@ -31,10 +31,8 @@
 
 @interface BUYLineItem : _BUYLineItem {}
 
-- (instancetype)initWithVariant:(BUYProductVariant *)variant NS_DEPRECATED_IOS(8_0, 9_0, "Use `BUYModelManager` to create new instances of model objects instead");
-- (instancetype)initWithCartLineItem:(BUYCartLineItem *)cartLineItem NS_DEPRECATED_IOS(8_0, 9_0, "Use `BUYModelManager` to create new instances of model objects instead");
-
-@property (readonly) NSString *lineItemIdentifier NS_DEPRECATED_IOS(8_0, 9_0);
+- (void)updateWithVariant:(BUYProductVariant *)variant;
+- (void)updateWithLineItem:(BUYCartLineItem *)lineItem;
 
 @end
 

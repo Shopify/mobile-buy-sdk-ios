@@ -177,4 +177,11 @@
 	[object setValuesForKeysWithDictionary:results];
 }
 
+
+- (NSString *)JSONIdentifierKey
+{
+	NSAttributeDescription *attributeDescription = self.attributesByName[@"identifier"];
+	return attributeDescription.JSONPropertyKey ?: @"id";
+}
+
 @end

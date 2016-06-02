@@ -186,7 +186,7 @@
 				}];
 			}
 			else {
-				BUYCustomer *customer = [self.modelManager customerWithJSONDictionary:json[@"customer"]];
+				BUYCustomer *customer = [self.modelManager customerWithJSONDictionary:customerJSON];
 				block(customer, self.customerToken, error);
 			}
 		}
