@@ -192,9 +192,7 @@
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client getOrderWithID:self.customerOrderIDs.firstObject customerID:self.customer.identifier.stringValue callback:^(BUYOrder * _Nullable order, NSError * _Nullable error) {
 		
-		XCTAssertNotNil(order);
 		XCTAssertNil(error);
-		
 		XCTAssertTrue([order isKindOfClass:[BUYOrder class]]);
 		
 		[expectation fulfill];
