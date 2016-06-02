@@ -161,7 +161,7 @@
 		[expectation fulfill];
 	}];
 	
-	[self waitForExpectationsWithTimeout:10 handler:nil];
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {}];
 }
 
 #pragma mark - Orders -
@@ -182,7 +182,7 @@
 		[expectation fulfill];
 	}];
 	
-	[self waitForExpectationsWithTimeout:10.0 handler:nil];
+	[self waitForExpectationsWithTimeout:10.0 handler:^(NSError *error) {}];
 }
 
 - (void)testCustomerOrderWithID
@@ -198,7 +198,7 @@
 		[expectation fulfill];
 	}];
 	
-	[self waitForExpectationsWithTimeout:10.0 handler:nil];
+	[self waitForExpectationsWithTimeout:10.0 handler:^(NSError *error) {}];
 }
 
 #pragma mark - Update -
@@ -221,7 +221,7 @@
 		[expectation fulfill];
 	}];
 	
-	[self waitForExpectationsWithTimeout:10 handler:nil];
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {}];
 }
 
 #pragma mark - Address -
@@ -245,7 +245,7 @@
 		[expectation fulfill];
 	}];
 	
-	[self waitForExpectationsWithTimeout:10 handler:nil];
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {}];
 }
 
 - (void)testAddressCRUD
@@ -291,7 +291,7 @@
 	}];
 
 	
-	[self waitForExpectationsWithTimeout:10 handler:nil];
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {}];
 }
 
 - (void)getAddress
@@ -312,7 +312,7 @@
 		[expectation fulfill];
 	}];
 	
-	[self waitForExpectationsWithTimeout:10 handler:nil];
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {}];
 }
 
 - (void)updateAddress
@@ -345,7 +345,7 @@
 		[expectation fulfill];
 	}];
 	
-	[self waitForExpectationsWithTimeout:10 handler:nil];
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {}];
 }
 
 - (void)deleteAddress
@@ -365,7 +365,7 @@
 		[expectation fulfill];
 	}];
 	
-	[self waitForExpectationsWithTimeout:10 handler:nil];
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {}];
 }
 
 #pragma mark - Address -
