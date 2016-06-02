@@ -169,7 +169,20 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 	XCTAssertEqual(BUYStatusComplete, status);
 }
 
-- (void)testProductsInCollectionWithSortOrderCollectionDefault
+- (void)testSortConversion
+{
+	XCTAssertEqualObjects([BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortBestSelling],       @"best-selling");
+	XCTAssertEqualObjects([BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortCreatedAscending],  @"created-ascending");
+	XCTAssertEqualObjects([BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortCreatedDescending], @"created-descending");
+	XCTAssertEqualObjects([BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortPriceAscending],    @"price-ascending");
+	XCTAssertEqualObjects([BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortPriceDescending],   @"price-descending");
+	XCTAssertEqualObjects([BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortTitleAscending],    @"title-ascending");
+	XCTAssertEqualObjects([BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortTitleDescending],   @"title-descending");
+	XCTAssertEqualObjects([BUYCollection sortOrderParameterForCollectionSort:999],                                @"collection-default");
+	XCTAssertEqualObjects([BUYCollection sortOrderParameterForCollectionSort:0],                                  @"collection-default");
+}
+
+- (void)testProductsInCollection
 {
 	BUYRequestOperation *task = (BUYRequestOperation *)[self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortCollectionDefault completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {}];
 	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
@@ -178,90 +191,6 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/apps/app_id/product_listings.json");
 	NSSet *requestQueryItems = [NSSet setWithArray:[task.originalRequest.URL.query componentsSeparatedByString:@"&"]];
 	NSSet *queryItems = [NSSet setWithArray:@[@"collection_id=1", @"limit=25", @"page=1", @"sort_by=collection-default"]];
-	XCTAssertEqualObjects(requestQueryItems, queryItems);
-}
-
-- (void)testProductsInCollectionWithSortOrderBestSelling
-{
-	BUYRequestOperation *task = (BUYRequestOperation *)[self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortBestSelling completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {}];
-	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
-	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
-	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
-	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/apps/app_id/product_listings.json");
-	NSSet *requestQueryItems = [NSSet setWithArray:[task.originalRequest.URL.query componentsSeparatedByString:@"&"]];
-	NSSet *queryItems = [NSSet setWithArray:@[@"collection_id=1", @"limit=25", @"page=1", @"sort_by=best-selling"]];
-	XCTAssertEqualObjects(requestQueryItems, queryItems);
-}
-
-- (void)testProductsInCollectionWithSortOrderCreatedAscending
-{
-	BUYRequestOperation *task = (BUYRequestOperation *)[self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortCreatedAscending completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {}];
-	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
-	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
-	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
-	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/apps/app_id/product_listings.json");
-	NSSet *requestQueryItems = [NSSet setWithArray:[task.originalRequest.URL.query componentsSeparatedByString:@"&"]];
-	NSSet *queryItems = [NSSet setWithArray:@[@"collection_id=1", @"limit=25", @"page=1", @"sort_by=created-ascending"]];
-	XCTAssertEqualObjects(requestQueryItems, queryItems);
-}
-
-- (void)testProductsInCollectionWithSortOrderCreatedDescending
-{
-	BUYRequestOperation *task = (BUYRequestOperation *)[self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortCreatedDescending completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {}];
-	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
-	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
-	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
-	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/apps/app_id/product_listings.json");
-	NSSet *requestQueryItems = [NSSet setWithArray:[task.originalRequest.URL.query componentsSeparatedByString:@"&"]];
-	NSSet *queryItems = [NSSet setWithArray:@[@"collection_id=1", @"limit=25", @"page=1", @"sort_by=created-descending"]];
-	XCTAssertEqualObjects(requestQueryItems, queryItems);
-}
-
-- (void)testProductsInCollectionWithSortOrderPriceAscending
-{
-	BUYRequestOperation *task = (BUYRequestOperation *)[self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortPriceAscending completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {}];
-	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
-	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
-	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
-	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/apps/app_id/product_listings.json");
-	NSSet *requestQueryItems = [NSSet setWithArray:[task.originalRequest.URL.query componentsSeparatedByString:@"&"]];
-	NSSet *queryItems = [NSSet setWithArray:@[@"collection_id=1", @"limit=25", @"page=1", @"sort_by=price-ascending"]];
-	XCTAssertEqualObjects(requestQueryItems, queryItems);
-}
-
-- (void)testProductsInCollectionWithSortOrderPriceDescending
-{
-	BUYRequestOperation *task = (BUYRequestOperation *)[self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortPriceDescending completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {}];
-	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
-	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
-	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
-	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/apps/app_id/product_listings.json");
-	NSSet *requestQueryItems = [NSSet setWithArray:[task.originalRequest.URL.query componentsSeparatedByString:@"&"]];
-	NSSet *queryItems = [NSSet setWithArray:@[@"collection_id=1", @"limit=25", @"page=1", @"sort_by=price-descending"]];
-	XCTAssertEqualObjects(requestQueryItems, queryItems);
-}
-
-- (void)testProductsInCollectionWithSortOrderTitleAscending
-{
-	BUYRequestOperation *task = (BUYRequestOperation *)[self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortTitleAscending completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {}];
-	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
-	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
-	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
-	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/apps/app_id/product_listings.json");
-	NSSet *requestQueryItems = [NSSet setWithArray:[task.originalRequest.URL.query componentsSeparatedByString:@"&"]];
-	NSSet *queryItems = [NSSet setWithArray:@[@"collection_id=1", @"limit=25", @"page=1", @"sort_by=title-ascending"]];
-	XCTAssertEqualObjects(requestQueryItems, queryItems);
-}
-
-- (void)testProductsInCollectionWithSortOrderTitleDescending
-{
-	BUYRequestOperation *task = (BUYRequestOperation *)[self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortTitleDescending completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {}];
-	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
-	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
-	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
-	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/apps/app_id/product_listings.json");
-	NSSet *requestQueryItems = [NSSet setWithArray:[task.originalRequest.URL.query componentsSeparatedByString:@"&"]];
-	NSSet *queryItems = [NSSet setWithArray:@[@"collection_id=1", @"limit=25", @"page=1", @"sort_by=title-descending"]];
 	XCTAssertEqualObjects(requestQueryItems, queryItems);
 }
 
