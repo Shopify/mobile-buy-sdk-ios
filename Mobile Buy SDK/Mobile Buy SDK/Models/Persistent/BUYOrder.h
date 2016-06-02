@@ -32,6 +32,7 @@
 
 @interface BUYModelManager (BUYOrder)
 
+- (BUYOrder *)orderWithJSONDictionary:(NSDictionary *)json;
 - (NSArray<BUYOrder *> *)ordersWithJSONDictionary:(NSDictionary *)json;
 
 @end

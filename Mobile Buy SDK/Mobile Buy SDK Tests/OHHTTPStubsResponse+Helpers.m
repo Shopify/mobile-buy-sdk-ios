@@ -55,11 +55,6 @@
 
 @implementation OHHTTPStubs (Buy)
 
-+ (void)stubUsingResponseWithKey:(NSString *)key
-{
-	[self stubUsingResponseWithKey:key useMocks:YES];
-}
-
 + (void)stubUsingResponseWithKey:(NSString *)key useMocks:(BOOL)useMocks
 {
 	if (useMocks) {

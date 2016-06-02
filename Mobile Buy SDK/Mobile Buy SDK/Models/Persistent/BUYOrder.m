@@ -68,6 +68,11 @@
 
 @implementation BUYModelManager (BUYOrder)
 
+- (BUYOrder *)orderWithJSONDictionary:(NSDictionary *)json
+{
+	return (id)[self buy_objectWithEntityName:[BUYOrder entityName] JSONDictionary:json];
+}
+
 - (NSArray<BUYOrder *> *)ordersWithJSONDictionary:(NSDictionary *)json
 {
 	NSArray *orders = [json objectForKey:@"orders"];

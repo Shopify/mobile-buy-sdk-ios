@@ -26,6 +26,7 @@
 
 #import "BUYClientTestBase.h"
 #import "BUYTestConstants.h"
+#import "NSArray+BUYAdditions.h"
 
 NSString * const BUYShopDomain_Placeholder = @"test_shop";
 NSString * const BUYAPIKey_Placeholder = @"api_key";
@@ -55,6 +56,7 @@ NSString * const BUYAppId_Placeholder = @"app_id";
 	
 	self.customerEmail = environment[kBUYTestEmail] ?: jsonConfig[kBUYTestEmail];
 	self.customerPassword = environment[kBUYTestPassword] ?: jsonConfig[kBUYTestPassword];
+	self.customerOrderIDs = environment[kBUYTestOrderIds] ?: jsonConfig[kBUYTestOrderIds];
 	
 	NSDictionary *giftCards = jsonConfig[@"gift_cards"];
 	

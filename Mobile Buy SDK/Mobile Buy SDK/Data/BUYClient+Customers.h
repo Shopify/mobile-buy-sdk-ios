@@ -64,6 +64,14 @@ typedef void (^BUYDataTokenBlock)(NSString * _Nullable token, NSError * _Nullabl
  */
 typedef void (^BUYDataOrdersBlock)(NSArray <BUYOrder*> * _Nullable orders, NSError * _Nullable error);
 
+/**
+ *  Return block containing a BUYOrder
+ *
+ *  @param order  A BUYOrder
+ *  @param error  An optional NSError
+ */
+typedef void (^BUYDataOrderBlock)(BUYOrder * _Nullable order, NSError * _Nullable error);
+
 
 @interface BUYClient (Customers)
 
@@ -190,12 +198,24 @@ typedef void (^BUYDataOrdersBlock)(NSArray <BUYOrder*> * _Nullable orders, NSErr
  *  GET /api/customers/:customer_id/orders
  *  Gets orders for a given customer
  *
- *  @param token An auth token retrieved from customer creation or customer login API
- *  @param block    (NSArray <BUYOrder*> *orders, NSError *error)
+ *  @param customerID A customer ID for which to retrieve the order
+ *  @param block      (NSArray <BUYOrder*> *orders, NSError *error)
  *
  *  @return The associated BUYRequestOperation
  */
-- (BUYRequestOperation *)getOrdersForCustomerWithCallback:(BUYDataOrdersBlock)block;
+- (BUYRequestOperation *)getOrdersForCustomerWithID:(NSString *)customerID callback:(BUYDataOrdersBlock)block;
+
+/**
+ *  GET /api/customers/:customer_id/orders/:id
+ *  Gets order with a given identifier
+ *
+ *  @param customerID A customer ID for which to retrieve the order
+ *  @param orderID    An order ID to retrieve
+ *  @param block      (NSArray <BUYOrder*> *orders, NSError *error)
+ *
+ *  @return The associated BUYRequestOperation
+ */
+- (BUYRequestOperation *)getOrderWithID:(NSNumber *)orderID customerID:(NSString *)customerID callback:(BUYDataOrderBlock)block;
 
 @end
 

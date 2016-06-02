@@ -34,7 +34,6 @@
 
 @interface OHHTTPStubs (Buy)
 
-+ (void)stubUsingResponseWithKey:(NSString *)key;
 + (void)stubUsingResponseWithKey:(NSString *)key useMocks:(BOOL)useMocks;
 
 @end

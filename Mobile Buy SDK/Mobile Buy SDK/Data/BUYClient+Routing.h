@@ -46,10 +46,11 @@
 - (NSURL *)urlForCheckoutsUsingGiftCard:(NSNumber *)giftCardID token:(NSString *)token;
 
 - (NSURL *)urlForCustomers;
-- (NSURL *)urlForCustomersOrders;
 - (NSURL *)urlForCustomersToken;
 - (NSURL *)urlForCustomersPasswordRecovery;
 
+- (NSURL *)urlForCustomersOrdersWithID:(NSString *)identifier;
+- (NSURL *)urlForCustomersOrdersWithID:(NSString *)identifier orderID:(NSNumber *)orderID;
 - (NSURL *)urlForCustomersWithID:(NSString *)identifier;
 - (NSURL *)urlForCustomersActivationWithID:(NSString *)identifier parameters:(NSDictionary *)parameters;
 - (NSURL *)urlForCustomersTokenWithID:(NSString *)customerID;

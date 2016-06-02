@@ -357,12 +357,12 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
 - (void)testGetOrdersForCustomerURL
 {
-	BUYRequestOperation *task = [self.client getOrdersForCustomerWithCallback:^(NSArray<BUYOrder *> *orders, NSError *error) {
+	BUYRequestOperation *task = [self.client getOrdersForCustomerWithID:@"99" callback:^(NSArray<BUYOrder *> *orders, NSError *error) {
 		
 	}];
 	
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
-	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/customers/orders.json");
+	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/customers/99/orders.json");
 	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
 	
 	XCTAssertEqualObjects(self.client.customerToken, task.originalRequest.allHTTPHeaderFields[BUYClientCustomerAccessToken]);
