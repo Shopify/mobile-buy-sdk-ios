@@ -243,10 +243,10 @@
 			BUYGiftCard *giftCard      = [self.modelManager insertGiftCardWithJSONDictionary:giftCardJSON];
 			
 			/* ---------------------------------
-			 * We have to update a copy of the
-			 * checkout that was passed in with
-			 * a new 'paymentDue' value and the
-			 * gift card.
+			 * We have to update the checkout 
+			 * that was passed in with a new 
+			 * 'paymentDue' value and the gift 
+			 * card.
 			 */
 			checkout.JSONDictionary = giftCardJSON[@"checkout"];
 			[checkout addGiftCard:giftCard];
@@ -268,10 +268,10 @@
 			NSNumber *giftCardID       = giftCardJSON[@"id"];
 			
 			/* ---------------------------------
-			 * We have to update a copy of the
-			 * checkout that was passed in with
-			 * a new 'paymentDue' value and the
-			 * gift card.
+			 * We have to update the checkout
+			 * that was passed in with a new
+			 * 'paymentDue' value and the gift
+			 * card.
 			 */
 			checkout.JSONDictionary = giftCardJSON[@"checkout"];
 			[checkout removeGiftCardWithIdentifier:giftCardID];
