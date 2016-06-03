@@ -70,7 +70,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 - (NSData *)dataForCartFromClient:(BUYClient *)client
 {
 	BUYCart *cart = [self cart];
-	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:cart];
+	BUYCheckout *checkout = [[BUYCheckout alloc] initWithModelManager:cart.modelManager cart:cart];
 	BUYRequestOperation *task = (BUYRequestOperation *)[self.client createCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {}];
 	XCTAssertNotNil(task);
 	
@@ -99,7 +99,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 - (void)testPartialAddressesFlag
 {
 	BUYCart *cart = [self cart];
-	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:cart];
+	BUYCheckout *checkout = [[BUYCheckout alloc] initWithModelManager:cart.modelManager cart:cart];
 	
 	XCTAssertThrows([checkout setPartialAddressesValue:NO]);
 
@@ -107,7 +107,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 	NSDictionary *json = [NSJSONSerialization JSONObjectWithData:task.originalRequest.HTTPBody options:0 error:nil];
 	XCTAssertFalse([json[@"checkout"][@"partial_addresses"] boolValue]);
 	
-	checkout = [[BUYCheckout alloc] initWithCart:cart];
+	checkout = [[BUYCheckout alloc] initWithModelManager:cart.modelManager cart:cart];
 	
 	BUYAddress *partialAddress = [self.client.modelManager insertAddressWithJSONDictionary:nil];
 	partialAddress.address1 = nil;

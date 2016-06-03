@@ -94,18 +94,18 @@
 }
 #endif
 
-- (instancetype)initWithCart:(BUYCart *)cart
+- (instancetype)initWithModelManager:(id<BUYModelManager>)modelManager cart:(BUYCart *)cart
 {
-	self = [self initWithModelManager:cart.modelManager JSONDictionary:nil];
+	self = [self initWithModelManager:modelManager JSONDictionary:nil];
 	if (self) {
 		[self updateWithCart:cart];
 	}
 	return self;
 }
 
-- (instancetype)initWithCartToken:(NSString *)token
+- (instancetype)initWithModelManager:(id<BUYModelManager>)modelManager cartToken:(NSString *)token
 {
-	self = [self initWithModelManager:nil JSONDictionary:nil];
+	self = [self initWithModelManager:modelManager JSONDictionary:nil];
 	if (self) {
 		self.cartToken = token;
 	}
