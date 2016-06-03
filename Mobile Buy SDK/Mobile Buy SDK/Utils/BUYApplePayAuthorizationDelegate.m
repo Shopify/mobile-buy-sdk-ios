@@ -74,12 +74,23 @@ const NSTimeInterval PollDelay = 0.5;
 {
 	// Update the checkout with the rest of the information. Apple has now provided us with a FULL billing address and a FULL shipping address.
 	// We now update the checkout with our new found data so that you can ship the products to the right address, and we collect whatever else we need.	
-	self.checkout.email = payment.shippingContact.emailAddress;
-	if (self.checkout.requiresShipping) {
-		self.checkout.shippingAddress = [self buyAddressWithContact:payment.shippingContact];
+	if ([payment respondsToSelector:@selector(shippingContact)]) {
+		self.checkout.email = payment.shippingContact.emailAddress;
+		if (self.checkout.requiresShipping) {
+			self.checkout.shippingAddress = [self buyAddressWithContact:payment.shippingContact];
+		}
+	} else {
+		self.checkout.email = [BUYAddress buy_emailFromRecord:payment.shippingAddress];
+		if (self.checkout.requiresShipping) {
+			self.checkout.shippingAddress = [self buyAddressWithABRecord:payment.shippingAddress];
+		}
 	}
 
-	self.checkout.billingAddress = [self buyAddressWithContact:payment.billingContact];
+	if ([payment respondsToSelector:@selector(billingContact)]) {
+		self.checkout.billingAddress = [self buyAddressWithContact:payment.billingContact];
+	} else {
+		self.checkout.billingAddress = [self buyAddressWithABRecord:payment.billingAddress];
+	}
 	
 	[self.client updateCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
 		if (checkout && error == nil) {
@@ -107,6 +118,11 @@ const NSTimeInterval PollDelay = 0.5;
 	}];
 }
 
+- (BUYAddress *)buyAddressWithABRecord:(ABRecordRef)addressRecord
+{
+	return [self.client.modelManager buyAddressWithABRecord:addressRecord];
+}
+
 - (BUYAddress *)buyAddressWithContact:(PKContact *)contact
 {
 	return [self.client.modelManager buyAddressWithContact:contact];
@@ -115,6 +131,12 @@ const NSTimeInterval PollDelay = 0.5;
 - (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller
 {
 	[controller dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingAddress:(ABRecordRef)address completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
+{
+	self.checkout.shippingAddress = [self buyAddressWithABRecord:address];
+	[self updateCheckoutWithAddressCompletion:completion];
 }
 
 -(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingContact:(PKContact *)contact completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
