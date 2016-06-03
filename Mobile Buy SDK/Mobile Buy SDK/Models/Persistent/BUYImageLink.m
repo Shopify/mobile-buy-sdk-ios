@@ -40,11 +40,6 @@
 	return self.updatedAt;
 }
 
-- (NSString *)src
-{
-    return self.sourceURL.absoluteString;
-}
-
 @end
 
 @implementation BUYImageLink (BUYImageSizing)
