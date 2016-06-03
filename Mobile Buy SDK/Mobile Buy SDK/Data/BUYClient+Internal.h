@@ -29,7 +29,7 @@
 #import "BUYSerializable.h"
 
 static NSString * const BUYShopifyErrorDomain = @"BUYShopifyErrorDomain";
-static NSString * const BUYClientVersionString = @"1.3";
+static NSString * const BUYClientVersionString = @"2.0";
 static NSString * const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token";
 
 typedef void (^BUYClientRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResponse *response, NSError *error);
