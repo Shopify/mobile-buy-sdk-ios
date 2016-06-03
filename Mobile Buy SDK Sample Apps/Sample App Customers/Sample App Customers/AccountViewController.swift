@@ -79,7 +79,8 @@ class AccountViewController: UIViewController {
 extension AccountViewController: AuthenticationDelegate {
     func authenticationDidSucceedForCustomer(customer: BUYCustomer, withToken token: String) {
         
-        if let orders = self.storyboard?.instantiateViewControllerWithIdentifier("ordersViewController") {
+        if let orders = self.storyboard?.instantiateViewControllerWithIdentifier("ordersViewController") as? OrdersViewController {
+            orders.customer = customer
             self.navigationController?.pushViewController(orders, animated: true)
         }
     }

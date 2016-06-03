@@ -28,6 +28,8 @@ import UIKit
 import Buy
 
 class OrdersViewController: UIViewController {
+    
+    var customer: BUYCustomer!
 
     @IBOutlet private weak var tableView: UITableView!
     
@@ -50,7 +52,7 @@ class OrdersViewController: UIViewController {
     }
     
     private func loadOrders() {
-        BUYClient.sharedClient.getOrdersForCustomerWithCallback { (orders, error) in
+        BUYClient.sharedClient.getOrdersForCustomerWithID(String(self.customer.identifier)) { (orders, error) in
             if let orders = orders {
                 self.orders = orders
                 self.tableView.reloadData()
