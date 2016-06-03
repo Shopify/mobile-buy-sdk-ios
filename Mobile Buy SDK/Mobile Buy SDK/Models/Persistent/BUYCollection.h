@@ -29,12 +29,6 @@
 
 @interface BUYCollection : _BUYCollection {}
 
-@property (nonatomic, readonly) NSDate *createdAtDate NS_DEPRECATED_IOS(8_0, 9_0);
-@property (nonatomic, readonly) NSDate *updatedAtDate NS_DEPRECATED_IOS(8_0, 9_0);
-@property (nonatomic, readonly) NSDate *publishedAtDate NS_DEPRECATED_IOS(8_0, 9_0);
-
-@property (nonatomic, readonly) NSURL *imageURL NS_DEPRECATED_IOS(8_0, 9_0);
-
 @property (nonatomic, readonly) NSString *stringDescription;
 
 /**
