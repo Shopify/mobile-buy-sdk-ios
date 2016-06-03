@@ -71,20 +71,35 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 
 #pragma mark - Headers -
 
-- (NSString *)applicationName
+- (NSBundle *)sdkBundle
 {
-	return [[NSBundle mainBundle] infoDictionary][@"CFBundleName"] ?: @"";
+	return [NSBundle bundleForClass:[self class]];
 }
 
-- (NSString *)bundleIdentifier
+- (NSString *)sdkVersion
 {
-	return [[NSBundle mainBundle] bundleIdentifier];
+	return [[self sdkBundle] objectForInfoDictionaryKey:(id)kCFBundleVersionKey] ?: @"";
+}
+
+- (NSBundle *)appBundle
+{
+	return [NSBundle mainBundle];
+}
+
+- (NSString *)applicationName
+{
+	return [[self appBundle] objectForInfoDictionaryKey:(id)kCFBundleNameKey] ?: @"";
+}
+
+- (NSString *)appBundleIdentifier
+{
+	return [[self appBundle] bundleIdentifier];
 }
 
 - (NSDictionary *)additionalHeaders
 {
 	return @{
-			 @"User-Agent": [NSString stringWithFormat:@"Mobile Buy SDK iOS/%@/%@", BUYClientVersionString, [self bundleIdentifier]]
+			 @"User-Agent": [NSString stringWithFormat:@"Mobile Buy SDK iOS/%@/%@", [self sdkVersion], [self appBundleIdentifier]]
 			 };
 }
 

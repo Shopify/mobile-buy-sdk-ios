@@ -121,7 +121,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly, nonnull) NSString *appId;
 
 /**
- *  Application name to attribute orders to.  Defaults to app bundle name (CFBundleName)
+ *  Application name to attribute orders to.  Uses the app bundle name from info.plist (CFBundleName)
  */
 @property (nonatomic, strong, nonnull) NSString *applicationName;
 
