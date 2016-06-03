@@ -43,8 +43,8 @@
 @property (nonatomic, strong) BUYClient *client;
 @property (nonatomic, strong) BUYCollection *collection;
 @property (nonatomic, strong) NSArray *products;
-@property (nonatomic, strong) NSURLSessionDataTask *collectionTask;
-@property (nonatomic, strong) NSURLSessionDataTask *checkoutCreationTask;
+@property (nonatomic, strong) NSOperation *collectionOperation;
+@property (nonatomic, strong) NSOperation *checkoutCreationOperation;
 
 @property (nonatomic, assign) BOOL demoProductViewController;
 @property (nonatomic, assign) ThemeStyle themeStyle;
@@ -112,8 +112,8 @@
 
 - (void)dealloc
 {
-    [self.checkoutCreationTask cancel];
-    [self.collectionTask cancel];
+    [self.checkoutCreationOperation cancel];
+    [self.collectionOperation cancel];
 }
 
 - (void)presentCollectionSortOptions:(id)sender
@@ -160,9 +160,9 @@
 
 - (void)getCollectionWithSortOrder:(BUYCollectionSort)collectionSort
 {
-    [self.collectionTask cancel];
+    [self.collectionOperation cancel];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    self.collectionTask = [self.client getProductsPage:1 inCollection:self.collection.collectionId sortOrder:collectionSort completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+    self.collectionOperation = [self.client getProductsPage:1 inCollection:self.collection.identifier sortOrder:collectionSort completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
         if (error == nil && products) {
@@ -279,8 +279,8 @@
 
 - (void)demoNativeFlowWithProduct:(BUYProduct*)product
 {
-    if (self.checkoutCreationTask.state == NSURLSessionTaskStateRunning) {
-        [self.checkoutCreationTask cancel];
+    if (self.checkoutCreationOperation.executing) {
+        [self.checkoutCreationOperation cancel];
     }
     
     BUYCart *cart = [self.client.modelManager insertCartWithJSONDictionary:nil];
@@ -296,7 +296,7 @@
     self.client.urlScheme = @"advancedsample://";
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    self.checkoutCreationTask = [self.client createCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
+    self.checkoutCreationOperation = [self.client createCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
         if (error == nil && checkout) {

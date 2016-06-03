@@ -54,7 +54,7 @@
                                                   appId:APP_ID];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [self.client getCollections:^(NSArray *collections, NSError *error) {
+    [self.client getCollectionsPage:1 completion:^(NSArray *collections, NSUInteger page, BOOL reachedEnd, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
         if (error == nil && collections) {

@@ -70,7 +70,7 @@ static void *kObservationContext = &kObservationContext;
 
 - (UIScrollView *)scrollView
 {
-	UIView *view = self.topViewController.view;
+    UIView *view = [self.topViewController isViewLoaded] ? self.topViewController.view : nil;
 	if ([view isKindOfClass:[UIScrollView class]]) {
 		return (id)view;
 	} else {
