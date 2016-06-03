@@ -30,7 +30,7 @@
 
 - (BOOL)isEqualToOptionValue:(BUYOptionValue *)other
 {
-	return [other isKindOfClass:[self class]] && [self.name isEqual:other.name] && [self.optionId isEqual:other.optionId];
+	return [other isKindOfClass:[self class]] && [self.name isEqual:other.name] && [self.value isEqual:other.value];
 }
 
 #if !defined CORE_DATA_PERSISTENCE
@@ -42,7 +42,7 @@
 - (NSUInteger)hash
 {
 	NSUInteger hash = self.name.hash;
-	return ((hash << 5) + hash) + self.optionId.hash;
+	return ((hash << 5) + hash) + self.value.hash;
 }
 #endif
 
