@@ -70,7 +70,6 @@
 #import "BUYModelManager.h"
 #import "BUYModelManagerProtocol.h"
 #import "BUYObjectProtocol.h"
-#import "BUYObserver.h"
 #import "BUYShopifyErrorCodes.h"
 
 #import "BUYPaymentToken.h"

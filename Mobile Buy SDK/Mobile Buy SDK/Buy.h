@@ -73,7 +73,6 @@ FOUNDATION_EXPORT const unsigned char BuyVersionString[];
 #import <Buy/BUYModelManager.h>
 #import <Buy/BUYModelManagerProtocol.h>
 #import <Buy/BUYObjectProtocol.h>
-#import <Buy/BUYObserver.h>
 #import <Buy/BUYShopifyErrorCodes.h>
 
 #import <Buy/BUYPaymentToken.h>

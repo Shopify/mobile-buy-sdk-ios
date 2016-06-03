@@ -109,6 +109,9 @@
 		84D73C081CDD194D000F978A /* _BUYAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D73BFF1CDD1931000F978A /* _BUYAddress.m */; };
 		84D73C091CDD194D000F978A /* BUYAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D73C011CDD1931000F978A /* BUYAddress.m */; };
 		84D915441CC0359700D334FB /* BUYObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 84D915411CC0359700D334FB /* BUYObserver.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		84D915431CC0359700D334FB /* BUYObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 84D915411CC0359700D334FB /* BUYObserver.h */; };
+		84D915441CC0359700D334FB /* BUYObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 84D915411CC0359700D334FB /* BUYObserver.h */; };
+		84D915451CC0359700D334FB /* BUYObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D915421CC0359700D334FB /* BUYObserver.m */; };
 		84D915461CC0359700D334FB /* BUYObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D915421CC0359700D334FB /* BUYObserver.m */; };
 		84D9154C1CC03F1600D334FB /* BUYManagedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 84D915471CC03F1600D334FB /* BUYManagedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84D9154E1CC03F1600D334FB /* BUYManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D915481CC03F1600D334FB /* BUYManagedObject.m */; };
