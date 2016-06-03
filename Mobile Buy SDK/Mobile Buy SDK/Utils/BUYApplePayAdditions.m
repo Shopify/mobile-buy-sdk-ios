@@ -24,7 +24,6 @@
 //  THE SOFTWARE.
 //
 
-@import AddressBook;
 @import PassKit;
 #import "BUYLineItem.h"
 #import "BUYGiftCard.h"
@@ -120,61 +119,6 @@
 @end
 
 @implementation BUYAddress (ApplePay)
-
-+ (nullable NSString *)buy_emailFromRecord:(nullable ABRecordRef)record
-{
-	ABMultiValueRef emailMultiValue = ABRecordCopyValue(record, kABPersonEmailProperty);
-	CFArrayRef allEmails = ABMultiValueCopyArrayOfAllValues(emailMultiValue);
-	
-	NSString *email = nil;
-	if (allEmails && CFArrayGetCount(allEmails)) {
-		email = (__bridge NSString *)CFArrayGetValueAtIndex(allEmails, 0);
-	}
-	CFSafeRelease(allEmails);
-	CFSafeRelease(emailMultiValue);
-	
-	return email;
-}
-
-- (void)updateWithRecord:(nullable ABRecordRef)record
-{
-	//Grab the simple information
-	self.firstName = (__bridge_transfer NSString *)ABRecordCopyValue(record, kABPersonFirstNameProperty);
-	self.lastName = (__bridge_transfer NSString *)ABRecordCopyValue(record, kABPersonLastNameProperty);
-	
-	//Grab the address information
-	ABMultiValueRef addressMultiValue = ABRecordCopyValue(record, kABPersonAddressProperty);
-	CFArrayRef allAddresses = ABMultiValueCopyArrayOfAllValues(addressMultiValue);
-	if (allAddresses && CFArrayGetCount(allAddresses) > 0) {
-		CFDictionaryRef firstAddress = CFArrayGetValueAtIndex(allAddresses, 0);
-		
-		//NOTE: We do not receive an address1 line right now via this partial address, as Apple deemds it unimportant to calculate the shipping rates. We get the actual address later on in a later step.
-		self.address1 = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressStreetKey);
-		self.city = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressCityKey);
-		self.province = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressStateKey);
-		self.zip = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressZIPKey);
-		// The Checkout API accepts country OR ISO country code.
-		// We default to the ISO country code because it's more
-		// reliable regardless of locale. Fallback to country if
-		// we do not receive it (iOS 8 sometimes)
-		self.countryCode = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressCountryCodeKey);
-		if ([self.countryCode length] == 0) {
-			self.country = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressCountryKey);
-		}
-	}
-	CFSafeRelease(allAddresses);
-	CFSafeRelease(addressMultiValue);
-	
-	//Grab the phone number information
-	ABMultiValueRef phoneMultiValue = ABRecordCopyValue(record, kABPersonPhoneProperty);
-	CFArrayRef allPhoneNumbers = ABMultiValueCopyArrayOfAllValues(phoneMultiValue);
-	if (allPhoneNumbers && CFArrayGetCount(allPhoneNumbers) > 0) {
-		self.phone = (__bridge NSString *)CFArrayGetValueAtIndex(allPhoneNumbers, 0);
-	}
-
-	CFSafeRelease(phoneMultiValue);
-	CFSafeRelease(allPhoneNumbers);
-}
 
 - (void)updateWithContact:(nullable PKContact*)contact
 {

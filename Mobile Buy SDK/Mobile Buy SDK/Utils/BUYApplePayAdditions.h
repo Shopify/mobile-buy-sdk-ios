@@ -65,10 +65,6 @@
 
 @interface BUYAddress (ApplePay)
 
-+ (nullable NSString *)buy_emailFromRecord:(nullable ABRecordRef)record;
-
-- (void)updateWithRecord:(nullable ABRecordRef)record NS_DEPRECATED_IOS(8_0, 9_0, "Use the CNContact backed `updateWithContact:` instead");
-
 - (void)updateWithContact:(nullable PKContact*)contact NS_AVAILABLE_IOS(9_0);
 
 @end

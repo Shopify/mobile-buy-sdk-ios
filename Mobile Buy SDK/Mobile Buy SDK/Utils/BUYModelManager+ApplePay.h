@@ -32,15 +32,6 @@
 @interface BUYModelManager (ApplePay)
 
 /**
- *  Creates a BUYAddress from an ABRecordRef
- *
- *  @param record ABRecordRef to create a BUYAddress from
- *
- *  @return The BUYAddress created from an ABRecordRef
- */
-- (BUYAddress *)buyAddressWithABRecord:(ABRecordRef)addressRecord NS_DEPRECATED_IOS(8_0, 9_0, "Use the CNContact backed `buyAddressWithContact:` instead");
-
-/**
  *  Creates a BUYAddress from a PKContact
  *
  *  @param contact PKContact to create a BUYAddress from

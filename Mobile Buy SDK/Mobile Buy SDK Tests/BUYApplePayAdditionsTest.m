@@ -24,7 +24,6 @@
 //  THE SOFTWARE.
 //
 
-@import AddressBook;
 @import PassKit;
 @import UIKit;
 @import XCTest;
@@ -276,118 +275,6 @@
 
 #pragma mark - BUYAddress Apple Pay additions
 
-- (void)testEmailFromRecord
-{
-	ABRecordRef person = ABPersonCreate();
-	CFErrorRef error = NULL;
-	ABRecordSetValue(person, kABPersonFirstNameProperty, CFSTR("Bob"), &error);
-	ABRecordSetValue(person, kABPersonLastNameProperty, CFSTR("Banana"), &error);
-	
-	ABMutableMultiValueRef emails = ABMultiValueCreateMutable(kABStringPropertyType);
-	ABMultiValueAddValueAndLabel(emails, CFSTR("bob@banana.com"), CFSTR("work"), nil);
-	ABMultiValueAddValueAndLabel(emails, CFSTR("dino@banana.com"), CFSTR("home"), nil);
-	ABRecordSetValue(person, kABPersonEmailProperty, emails, &error);
-	CFRelease(emails);
-	
-	XCTAssertEqualObjects(@"bob@banana.com", [BUYAddress buy_emailFromRecord:person]);
-	
-	CFRelease(person);
-}
-
-- (void)testEmailFromRecordWithoutAnEmail
-{
-	ABRecordRef person = ABPersonCreate();
-	CFErrorRef error = NULL;
-	ABRecordSetValue(person, kABPersonFirstNameProperty, CFSTR("Bob"), &error);
-	ABRecordSetValue(person, kABPersonLastNameProperty, CFSTR("Banana"), &error);
-	
-	XCTAssertNil([BUYAddress buy_emailFromRecord:person]);
-	
-	CFRelease(person);
-}
-
-- (void)testAddressFromRecord
-{
-	BUYAddress *newAddress = [self buyAddressWithTestRecordFullDetails:YES];
-	XCTAssertNotNil(newAddress);
-	XCTAssertEqualObjects(@"Bob", newAddress.firstName);
-	XCTAssertEqualObjects(@"Banana", newAddress.lastName);
-	XCTAssertEqualObjects(@"150 Elgin Street", newAddress.address1);
-	XCTAssertEqualObjects(@"Ottawa", newAddress.city);
-	XCTAssertEqualObjects(@"Ontario", newAddress.province);
-	XCTAssertEqualObjects(@"K1N5T5", newAddress.zip);
-	XCTAssertNil(newAddress.country);
-	XCTAssertEqualObjects(@"CA", newAddress.countryCode);
-	XCTAssertEqualObjects(@"1-888-746-7439", newAddress.phone);
-}
-
-- (BUYAddress*)buyAddressWithTestRecordFullDetails:(BOOL)fullDetails
-{
-	ABRecordRef person = ABPersonCreate();
-	CFErrorRef error = NULL;
-	if (fullDetails) {
-		ABRecordSetValue(person, kABPersonFirstNameProperty, CFSTR("Bob"), &error);
-		ABRecordSetValue(person, kABPersonLastNameProperty, CFSTR("Banana"), &error);
-	}
-	
-	ABMutableMultiValueRef addresses = ABMultiValueCreateMutable(kABMultiDictionaryPropertyType);
-	CFMutableDictionaryRef address = CFDictionaryCreateMutable(kCFAllocatorDefault, 10, nil, nil);
-	if (fullDetails) {
-		CFDictionarySetValue(address, kABPersonAddressStreetKey, CFSTR("150 Elgin Street"));
-	}
-	CFDictionarySetValue(address, kABPersonAddressCityKey, CFSTR("Ottawa"));
-	CFDictionarySetValue(address, kABPersonAddressStateKey, CFSTR("Ontario"));
-	CFDictionarySetValue(address, kABPersonAddressZIPKey, CFSTR("K1N5T5"));
-	CFDictionarySetValue(address, kABPersonAddressCountryKey, CFSTR("Canada"));
-	CFDictionarySetValue(address, kABPersonAddressCountryCodeKey, CFSTR("CA"));
-	
-	if (fullDetails) {
-		ABMutableMultiValueRef phoneNumberMultiValue = ABMultiValueCreateMutable(kABMultiStringPropertyType);
-		ABMultiValueAddValueAndLabel(phoneNumberMultiValue, @"1-888-746-7439", kABPersonPhoneMobileLabel, NULL);
-		ABRecordSetValue(person, kABPersonPhoneProperty, phoneNumberMultiValue, nil);
-	}
-	
-	ABMultiValueAddValueAndLabel(addresses, address, CFSTR("Shipping"), nil);
-	CFRelease(address);
-	
-	ABRecordSetValue(person, kABPersonAddressProperty, addresses, &error);
-	CFRelease(addresses);
-	
-	BUYAddress *newAddress = [_modelManager buyAddressWithABRecord:person];
-	
-	CFRelease(person);
-
-	return newAddress;
-}
-
-- (void)testAddressFromRecordWithoutNameOrStreetOrPhone
-{
-	BUYAddress *newAddress = [self buyAddressWithTestRecordFullDetails:NO];
-	XCTAssertNotNil(newAddress);
-	XCTAssertEqualObjects(nil, newAddress.address1);
-	XCTAssertEqualObjects(@"Ottawa", newAddress.city);
-	XCTAssertEqualObjects(@"Ontario", newAddress.province);
-	XCTAssertEqualObjects(@"K1N5T5", newAddress.zip);
-	XCTAssertNil(newAddress.country);
-	XCTAssertEqualObjects(@"CA", newAddress.countryCode);
-	XCTAssertEqualObjects(nil, newAddress.phone);
-}
-
-- (void)testAddressFromContact
-{
-	BUYAddress *newAddress = [self buyAddressWithTestContactFullDetails:YES];
-	
-	XCTAssertNotNil(newAddress);
-	XCTAssertEqualObjects(@"Bob", newAddress.firstName);
-	XCTAssertEqualObjects(@"Banana", newAddress.lastName);
-	XCTAssertEqualObjects(@"150 Elgin Street", newAddress.address1);
-	XCTAssertEqualObjects(@"Ottawa", newAddress.city);
-	XCTAssertEqualObjects(@"Ontario", newAddress.province);
-	XCTAssertEqualObjects(@"K1N5T5", newAddress.zip);
-	XCTAssertNil(newAddress.country);
-	XCTAssertEqualObjects(@"CA", newAddress.countryCode);
-}
-
 - (BUYAddress*)buyAddressWithTestContactFullDetails:(BOOL)fullDetails
 {
 	BUYPKContact *contact = [[BUYPKContact alloc ] init];
@@ -411,20 +298,6 @@
 	[contact setPostalAddress:postalAddress];
 	
 	return [_modelManager buyAddressWithContact:contact];
-}
-
-- (void)testCompareAddressWithContactWithNameOrStreetOrPhone
-{
-	BUYAddress *addressFromRecord = [self buyAddressWithTestRecordFullDetails:YES];
-	BUYAddress *addressFromContact = [self buyAddressWithTestContactFullDetails:YES];
-	[self compareAddressFromRecord:addressFromRecord withAddressFromContact:addressFromContact];
-}
-
-- (void)testCompareAddressWithContactWithoutNameOrStreetOrPhone
-{
-	BUYAddress *addressFromRecord = [self buyAddressWithTestRecordFullDetails:NO];
-	BUYAddress *addressFromContact = [self buyAddressWithTestContactFullDetails:NO];
-	[self compareAddressFromRecord:addressFromRecord withAddressFromContact:addressFromContact];
 }
 
 - (void)compareAddressFromRecord:(BUYAddress*)addressFromRecord withAddressFromContact:(BUYAddress*)addressFromContact {

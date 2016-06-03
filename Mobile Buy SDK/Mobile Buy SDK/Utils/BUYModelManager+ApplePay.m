@@ -30,13 +30,6 @@
 
 @implementation BUYModelManager (ApplePay)
 
-- (BUYAddress *)buyAddressWithABRecord:(ABRecordRef)addressRecord
-{
-	BUYAddress *address = [self insertAddressWithJSONDictionary:nil];
-	[address updateWithRecord:addressRecord];
-	return address;
-}
-
 - (BUYAddress *)buyAddressWithContact:(PKContact *)contact
 {
 	BUYAddress *address = [self insertAddressWithJSONDictionary:nil];
