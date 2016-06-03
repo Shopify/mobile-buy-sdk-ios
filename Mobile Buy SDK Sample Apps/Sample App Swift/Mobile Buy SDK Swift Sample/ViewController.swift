@@ -37,13 +37,15 @@ class ViewController: UIViewController {
     let channelId = ""
     let productId = ""
     
+    let modelManager = BUYModelManager()
+    
     var productVariant: BUYProductVariant?
     let client: BUYClient
     
     required init(coder aDecoder: NSCoder) {
         
         
-        client = BUYClient(shopDomain: shopDomain, apiKey: apiKey, channelId: channelId)
+        client = BUYClient(shopDomain: shopDomain, apiKey: apiKey, appId: appId)
         super.init(coder: aDecoder)!
 
     }
@@ -54,17 +56,15 @@ class ViewController: UIViewController {
         
         
         client.getProductById(productId) { (product, error) -> Void in
-            self.titleLabel.text = product.title
             
-            if let variants = product.variants as? [BUYProductVariant] {
-                self.productVariant = variants.first
-            }
+            self.titleLabel.text = product?.title
+            self.productVariant = product?.variants.objectAtIndex(0) as! BUYProductVariant?
             
             if (product != nil && error == nil) {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
                     
-                    let images = product.images as NSArray
-                    let buyImage = images.firstObject as! BUYImage
+                    let images = product?.images
+                    let buyImage = images?.firstObject as! BUYImageLink
                     let url = NSURL(string: buyImage.src!)
                     
                     let data = NSData(contentsOfURL: url!)
@@ -82,18 +82,17 @@ class ViewController: UIViewController {
     @IBAction func didTapCheckout(sender: UIButton) {
         
         // Create the checkout
-        let cart = BUYCart()
+        let cart = modelManager.buy_objectWithEntityName(BUYCart.entityName(), JSONDictionary: nil) as! BUYCart
         cart.addVariant(productVariant!)
         
         let checkout = BUYCheckout(cart: cart)
         client.createCheckout(checkout) { (checkout, error) -> Void in
             
-            let checkoutURL = checkout.webCheckoutURL
-            
-            if (UIApplication.sharedApplication().canOpenURL(checkoutURL)) {
-                UIApplication.sharedApplication().openURL(checkoutURL)
+            if let checkoutURL = checkout?.webCheckoutURL {
+                if (UIApplication.sharedApplication().canOpenURL(checkoutURL)) {
+                    UIApplication.sharedApplication().openURL(checkoutURL)
+                }
             }
-            
         }
         
     }
