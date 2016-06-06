@@ -33,6 +33,23 @@
 @property (nonatomic, readonly, copy) NSDate *publishedAtDate;
 @property (nonatomic, readonly, copy) NSString *stringDescription;
 
+/**
+ * An array of BUYImageLink objects, each one representing an image associated with the product.
+ */
+- (NSArray<BUYImageLink *> *)imagesArray;
+
+/**
+ * Custom product property names like "Size", "Color", and "Material".
+ *
+ * An array of BUYOption objects. Products are based on permutations of these options. A product may have a maximum of 3 options. 255 characters limit each.
+ */
+- (NSArray<BUYOption *> *)optionsArray;
+
+/**
+ * An array of BUYProductVariant objects, each one representing a slightly different version of the product.
+ */
+- (NSArray<BUYProductVariant *> *)variantsArray;
+
 @end
 
 @interface BUYProduct (Options)
