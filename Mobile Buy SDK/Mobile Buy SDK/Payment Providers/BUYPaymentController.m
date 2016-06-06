@@ -38,6 +38,29 @@ NSString *const BUYPaymentProviderDidCompleteCheckoutNotificationKey = @"BUYPaym
 
 @implementation BUYPaymentController
 
+#pragma mark - Accessors -
+
+- (NSSet <id <BUYPaymentProvider>> *)providers
+{
+	return [self.mutableProviders copy];
+}
+
+- (NSArray< id<BUYPaymentProvider> > *)providersArray
+{
+	return self.mutableProviders.array;
+}
+
+- (NSMutableOrderedSet *)mutableProviders
+{
+	if (_mutableProviders == nil) {
+		_mutableProviders = [[NSMutableOrderedSet alloc] init];
+	}
+	
+	return _mutableProviders;
+}
+
+#pragma mark - Tasks -
+
 - (void)startCheckout:(BUYCheckout *)checkout withProviderType:(NSString *)typeIdentifier;
 {
 	id <BUYPaymentProvider> provider = [self providerForType:typeIdentifier];
@@ -51,20 +74,6 @@ NSString *const BUYPaymentProviderDidCompleteCheckoutNotificationKey = @"BUYPaym
 	}
 	
 	[self.mutableProviders addObject:paymentProvider];
-}
-
-- (NSSet <id <BUYPaymentProvider>> *)providers
-{
-	return [self.mutableProviders copy];
-}
-
-- (NSMutableOrderedSet *)mutableProviders
-{
-	if (_mutableProviders == nil) {
-		_mutableProviders = [[NSMutableOrderedSet alloc] init];
-	}
-	
-	return _mutableProviders;
 }
 
 - (id <BUYPaymentProvider>)providerForType:(NSString *)type
