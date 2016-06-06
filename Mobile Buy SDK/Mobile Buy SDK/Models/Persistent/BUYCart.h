@@ -27,8 +27,16 @@
 #import "_BUYCart.h"
 
 @class BUYProductVariant;
+@class BUYLineItem;
 
 @interface BUYCart : _BUYCart {}
+
+/**
+ * Array of BUYCartLineItem objects in the cart
+ *
+ * These are different from BUYLineItem objects. The line item objects do include the BUYProductVariant.
+ */
+- (nonnull NSArray<BUYCartLineItem *> *)lineItemsArray;
 
 /**
  *  Returns true if the cart is acceptable to send to Shopify.
