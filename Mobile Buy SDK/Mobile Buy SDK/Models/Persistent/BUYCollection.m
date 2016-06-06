@@ -30,6 +30,8 @@
 
 @implementation BUYCollection
 
+@synthesize stringDescription = _stringDescription;
+
 - (void)updateStringDescription
 {
 	// Force early cache of this value to prevent spooky behaviour
