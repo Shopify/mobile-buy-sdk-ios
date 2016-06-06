@@ -32,6 +32,11 @@
 
 @synthesize stringDescription = _stringDescription;
 
+- (NSArray<BUYProduct *> *)productsArray
+{
+	return self.products.array;
+}
+
 - (void)updateStringDescription
 {
 	// Force early cache of this value to prevent spooky behaviour

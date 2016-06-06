@@ -31,6 +31,8 @@
 
 @property (nonatomic, readonly) NSString *stringDescription;
 
+- (NSArray<BUYProduct *> *)productsArray;
+
 /**
  *  Converts the BUYCollectionSort enum to an API-compatible string for the collection sort parameter
  *
