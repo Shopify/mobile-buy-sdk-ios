@@ -9,8 +9,8 @@ FRAMEWORK_FILE="${FRAMEWORK_NAME}.framework"
 TARGET_NAME="Buy"
 
 # Build Device and Simulator versions
-xcodebuild -target "${TARGET_NAME}" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -OBJROOT="${OBJROOT}" -sdk iphoneos BUILD_DIR="${BUILD_DIR}" SYMROOT="${SYMROOT}" BUILD_ROOT="${BUILD_ROOT}" MACH_O_TYPE=staticlib clean build
-xcodebuild -target "${TARGET_NAME}" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -OBJROOT="${OBJROOT}" -sdk iphonesimulator BUILD_DIR="${BUILD_DIR}" SYMROOT="${SYMROOT}" BUILD_ROOT="${BUILD_ROOT}" MACH_O_TYPE=staticlib clean build
+xcodebuild -target "${TARGET_NAME}" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos        OBJROOT="${OBJROOT}" BUILD_DIR="${BUILD_DIR}" SYMROOT="${SYMROOT}" BUILD_ROOT="${BUILD_ROOT}" MACH_O_TYPE=staticlib clean build
+xcodebuild -target "${TARGET_NAME}" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphonesimulator OBJROOT="${OBJROOT}" BUILD_DIR="${BUILD_DIR}" SYMROOT="${SYMROOT}" BUILD_ROOT="${BUILD_ROOT}" MACH_O_TYPE=staticlib clean build
 
 # make sure the output directory exists
 mkdir -p "${UNIVERSAL_OUTPUTFOLDER}"
