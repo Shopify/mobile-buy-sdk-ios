@@ -66,7 +66,8 @@
 	[super setShippingRate:shippingRate];
 	self.shippingRateId = shippingRate.shippingRateIdentifier;
 }
--(void)setPartialAddresses:(NSNumber *)partialAddresses
+
+- (void)setPartialAddresses:(NSNumber *)partialAddresses
 {
 	if (partialAddresses.boolValue == NO) {
 		@throw [NSException exceptionWithName:@"partialAddress" reason:@"partialAddresses can only be set to true and should never be set to false on a complete address" userInfo:nil];
@@ -74,6 +75,7 @@
 	[ super setPartialAddresses:partialAddresses];
 }
 
+#pragma mark - Init -
 
 /**
  * We must initialize to-many relationships to ensure that
@@ -112,6 +114,20 @@
 	return self;
 }
 
+#pragma mark - Accessors -
+
+- (NSArray<BUYGiftCard *> *)giftCardsArray
+{
+	return self.giftCards.array;
+}
+
+- (NSArray<BUYCartLineItem *> *)lineItemsArray
+{
+	return self.lineItems.array;
+}
+
+#pragma mark - Update -
+
 - (void)updateWithCart:(BUYCart *)cart
 {
 	NSArray *lineItems = [[cart.lineItems array] buy_map:^id(BUYCartLineItem *cartLineItem) {
@@ -122,7 +138,7 @@
 	self.lineItems = [NSOrderedSet orderedSetWithArray:lineItems];
 }
 
-#pragma mark - BUYObject
+#pragma mark - BUYObject -
 
 - (NSDictionary *)JSONEncodedProperties
 {
@@ -139,7 +155,7 @@
 	return @{ @"checkout" : json };
 }
 
-#pragma mark - Gift Card management
+#pragma mark - Gift Card management -
 
 - (BUYGiftCard *)giftCardWithIdentifier:(NSNumber *)identifier
 {

@@ -42,6 +42,9 @@
 - (instancetype)initWithModelManager:(id<BUYModelManager>)modelManager cart:(BUYCart *)cart;
 - (instancetype)initWithModelManager:(id<BUYModelManager>)modelManager cartToken:(NSString *)token;
 
+- (NSArray<BUYGiftCard *> *)giftCardsArray;
+- (NSArray<BUYCartLineItem *> *)lineItemsArray;
+
 - (void)updateWithCart:(BUYCart *)cart;
 
 - (BUYGiftCard *)giftCardWithIdentifier:(NSNumber *)identifier;
