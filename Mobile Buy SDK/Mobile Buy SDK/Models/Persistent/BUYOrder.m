@@ -29,6 +29,11 @@
 
 @implementation BUYOrder
 
+- (NSArray<BUYLineItem *> *)lineItemsArray
+{
+	return self.lineItems.array;
+}
+
 - (NSArray *)formatIDsForLineItemsJSON:(NSArray<NSDictionary *> *)lineItems
 {
 	__block NSMutableArray<NSDictionary *> *mutableLineItems = [NSMutableArray array];
