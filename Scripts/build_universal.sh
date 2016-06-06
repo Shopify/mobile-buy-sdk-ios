@@ -1,23 +1,25 @@
 #!/bin/sh
 
-UNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal
-TARGET_NAME="Buy Static"
+UNIVERSAL_OUTPUTFOLDER="${BUILD_DIR}/${CONFIGURATION}-universal"
+IPHONE_OUTPUTFOLDER="${BUILD_DIR}/${CONFIGURATION}-iphoneos"
+SIMULATOR_OUTPUTFOLDER="${BUILD_DIR}/${CONFIGURATION}-iphonesimulator"
+
 FRAMEWORK_NAME="Buy"
+FRAMEWORK_FILE="${FRAMEWORK_NAME}.framework"
+TARGET_NAME="Buy"
+
+# Build Device and Simulator versions
+xcodebuild -target "${TARGET_NAME}" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos        OBJROOT="${OBJROOT}" BUILD_DIR="${BUILD_DIR}" SYMROOT="${SYMROOT}" BUILD_ROOT="${BUILD_ROOT}" MACH_O_TYPE=staticlib clean build
+xcodebuild -target "${TARGET_NAME}" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphonesimulator OBJROOT="${OBJROOT}" BUILD_DIR="${BUILD_DIR}" SYMROOT="${SYMROOT}" BUILD_ROOT="${BUILD_ROOT}" MACH_O_TYPE=staticlib clean build
 
 # make sure the output directory exists
 mkdir -p "${UNIVERSAL_OUTPUTFOLDER}"
 
-# Build Device and Simulator versions
-xcodebuild -target "${TARGET_NAME}" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -OBJROOT="${OBJROOT}" -sdk iphoneos BUILD_DIR="${BUILD_DIR}" SYMROOT="${SYMROOT}" BUILD_ROOT="${BUILD_ROOT}" clean build
-xcodebuild -target "${TARGET_NAME}" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -OBJROOT="${OBJROOT}" -sdk iphonesimulator BUILD_DIR="${BUILD_DIR}" SYMROOT="${SYMROOT}" BUILD_ROOT="${BUILD_ROOT}" clean build
-
 # Copy the framework structure (from iphoneos build) to the universal folder
-cp -R "${BUILD_DIR}/${CONFIGURATION}-iphoneos/${FRAMEWORK_NAME}.framework" "${UNIVERSAL_OUTPUTFOLDER}/"
+cp -R "${IPHONE_OUTPUTFOLDER}/${FRAMEWORK_FILE}" "${UNIVERSAL_OUTPUTFOLDER}/"
 
 # Create universal binary file using lipo and place the combined executable in the copied framework directory
-lipo -create -output "${UNIVERSAL_OUTPUTFOLDER}/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}" "${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}" "${BUILD_DIR}/${CONFIGURATION}-iphoneos/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}"
+lipo -create -output "${UNIVERSAL_OUTPUTFOLDER}/${FRAMEWORK_FILE}/${FRAMEWORK_NAME}" "${SIMULATOR_OUTPUTFOLDER}/${FRAMEWORK_FILE}/${FRAMEWORK_NAME}" "${IPHONE_OUTPUTFOLDER}/${FRAMEWORK_FILE}/${FRAMEWORK_NAME}"
 
-# Copy the framework to the sample apps folder
-rm -rf "${SRCROOT}/../Mobile Buy SDK Sample Apps/${TARGET_NAME}.framework"
-cp -r "${UNIVERSAL_OUTPUTFOLDER}/${FRAMEWORK_NAME}.framework" "${SRCROOT}/../Mobile Buy SDK Sample Apps"
-
+# Open product in Finder
+open "${UNIVERSAL_OUTPUTFOLDER}"
