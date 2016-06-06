@@ -44,8 +44,6 @@ typedef NS_ENUM(NSUInteger, BUYImageURLSize) {
 @property (nonatomic, readonly, copy) NSDate *createdAtDate;
 @property (nonatomic, readonly, copy) NSDate *updatedAtDate;
 
-@property (nonatomic, readonly) NSString *src NS_DEPRECATED_IOS(8_0, 9_0);
-
 @end
 
 

@@ -39,8 +39,8 @@
 
 @property (nonatomic) BOOL hasToken;
 
-- (instancetype)initWithCart:(BUYCart *)cart NS_DEPRECATED_IOS(8_0, 9_0, "Use `BUYModelManager` to create new instances of model objects instead");
-- (instancetype)initWithCartToken:(NSString *)token NS_DEPRECATED_IOS(8_0, 9_0, "Use `BUYModelManager` to create new instances of model objects instead");;
+- (instancetype)initWithModelManager:(id<BUYModelManager>)modelManager cart:(BUYCart *)cart;
+- (instancetype)initWithModelManager:(id<BUYModelManager>)modelManager cartToken:(NSString *)token;
 
 - (void)updateWithCart:(BUYCart *)cart;
 

@@ -72,7 +72,7 @@
 - (void)testInitWithCartAddsLineItems
 {
 	[_cart addVariant:_variant];
-	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:_cart];
+	BUYCheckout *checkout = [[BUYCheckout alloc] initWithModelManager:_modelManager cart:_cart];
 	XCTAssertEqual([[checkout lineItems] count], [[_cart lineItems] count]);
 	XCTAssertTrue([checkout isDirty]);
 }
@@ -140,7 +140,7 @@
 
 - (void)testHasToken
 {
-	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:_cart];
+	BUYCheckout *checkout = [[BUYCheckout alloc] initWithModelManager:_modelManager cart:_cart];
 	checkout.token = nil;
 	XCTAssertFalse([checkout hasToken]);
 	checkout.token = @"";

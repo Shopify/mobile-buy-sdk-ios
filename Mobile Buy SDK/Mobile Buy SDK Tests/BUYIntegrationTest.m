@@ -101,7 +101,7 @@
 {
 	[OHHTTPStubs stubUsingResponseWithKey:@"testCheckoutFlowUsingCreditCard_1" useMocks:[self shouldUseMocks]];
 	
-	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
+	_checkout = [[BUYCheckout alloc] initWithModelManager:_modelManager cart:_cart];
 	_checkout.shippingAddress = [self shippingAddress];
 	_checkout.billingAddress = [self billingAddress];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
@@ -124,7 +124,7 @@
 	[OHHTTPStubs stubUsingResponseWithKey:@"testCheckoutFlowUsingCreditCard_1" useMocks:[self shouldUseMocks]];
 	
 	[self createCart];
-	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
+	_checkout = [[BUYCheckout alloc] initWithModelManager:_modelManager cart:_cart];
 
 	NSString *note = @"Order note";
 	_checkout.note = note;
@@ -709,7 +709,7 @@
 - (void)testCheckoutWithInvalidShop
 {
 	[self createCart];
-	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
+	_checkout = [[BUYCheckout alloc] initWithModelManager:_modelManager cart:_cart];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
 	[OHHTTPStubs stubUsingResponseWithKey:@"testInvalidIntegrationBadShopUrl_0" useMocks:[self shouldUseMocks]];
@@ -733,7 +733,7 @@
 	[OHHTTPStubs stubUsingResponseWithKey:@"testFetchingShippingRatesWithoutShippingAddress_1" useMocks:[self shouldUseMocks]];
 	
 	[self createCart];
-	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
+	_checkout = [[BUYCheckout alloc] initWithModelManager:_modelManager cart:_cart];
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
 	[self.client createCheckout:_checkout completion:^(BUYCheckout *returnedCheckout, NSError *error) {
@@ -766,7 +766,7 @@
 {
 	[OHHTTPStubs stubUsingResponseWithKey:@"testFetchingShippingRatesWithInvalidCheckout_1" useMocks:[self shouldUseMocks]];
 	
-	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:nil];
+	BUYCheckout *checkout = [[BUYCheckout alloc] initWithModelManager:_modelManager cart:nil];
 	checkout.token = @"bananaaaa";
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
@@ -792,7 +792,7 @@
 - (void)testCheckoutWithAPartialAddress
 {
 	[self createCart];
-	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
+	_checkout = [[BUYCheckout alloc] initWithModelManager:_modelManager cart:_cart];
 	_checkout.shippingAddress = [self partialShippingAddress];
 
 	if ([_checkout.shippingAddress isPartialAddress]) {
@@ -836,7 +836,7 @@
 	
 	[OHHTTPStubs stubUsingResponseWithKey:@"testCreateCheckoutWithValidDiscount_1" useMocks:[self shouldUseMocks]];
 	
-	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
+	_checkout = [[BUYCheckout alloc] initWithModelManager:_modelManager cart:_cart];
 	_checkout.discount = [self applicableDiscount];
 	
 	// Create the checkout
@@ -865,7 +865,7 @@
 	
 	[OHHTTPStubs stubUsingResponseWithKey:@"testCreateCheckoutWithExpiredDiscount_1" useMocks:[self shouldUseMocks]];
 	
-	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
+	_checkout = [[BUYCheckout alloc] initWithModelManager:_modelManager cart:_cart];
 	_checkout.discount = [self inapplicableDiscount];
 	
 	//Create the checkout
@@ -887,7 +887,7 @@
 	
 	[OHHTTPStubs stubUsingResponseWithKey:@"testCreateCheckoutWithNonExistentDiscount_1" useMocks:[self shouldUseMocks]];
 	
-	_checkout = [[BUYCheckout alloc] initWithCart:_cart];
+	_checkout = [[BUYCheckout alloc] initWithModelManager:_modelManager cart:_cart];
 	_checkout.discount = [self nonExistentDiscount];
 	
 	//Create the checkout

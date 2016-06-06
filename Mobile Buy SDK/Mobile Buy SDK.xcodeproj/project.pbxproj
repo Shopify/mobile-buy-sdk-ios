@@ -109,6 +109,9 @@
 		84D73C081CDD194D000F978A /* _BUYAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D73BFF1CDD1931000F978A /* _BUYAddress.m */; };
 		84D73C091CDD194D000F978A /* BUYAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D73C011CDD1931000F978A /* BUYAddress.m */; };
 		84D915441CC0359700D334FB /* BUYObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 84D915411CC0359700D334FB /* BUYObserver.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		84D915431CC0359700D334FB /* BUYObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 84D915411CC0359700D334FB /* BUYObserver.h */; };
+		84D915441CC0359700D334FB /* BUYObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 84D915411CC0359700D334FB /* BUYObserver.h */; };
+		84D915451CC0359700D334FB /* BUYObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D915421CC0359700D334FB /* BUYObserver.m */; };
 		84D915461CC0359700D334FB /* BUYObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D915421CC0359700D334FB /* BUYObserver.m */; };
 		84D9154C1CC03F1600D334FB /* BUYManagedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 84D915471CC03F1600D334FB /* BUYManagedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84D9154E1CC03F1600D334FB /* BUYManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D915481CC03F1600D334FB /* BUYManagedObject.m */; };
@@ -1422,7 +1425,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1.2.6;
+				CURRENT_PROJECT_VERSION = 2.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1454,7 +1457,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1.2.6;
+				CURRENT_PROJECT_VERSION = 2.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1662,13 +1665,45 @@
 			};
 			name = "Debug-core-data";
 		};
+		B2AE98381CED035700FB0C5D /* Debug-core-data */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 2.0;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/Mobile Buy SDK/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "${PROJECT_DIR}/Mobile Buy SDK/Static Framework/Buy.modulemap";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = Buy;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = "Debug-core-data";
+		};
 		B2AE98391CED035700FB0C5D /* Debug-core-data */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1.2.6;
+				CURRENT_PROJECT_VERSION = 2.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1779,6 +1814,35 @@
 			};
 			name = "Release-core-data";
 		};
+		B2AE98441CED036F00FB0C5D /* Release-core-data */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 2.0;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Mobile Buy SDK/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "${PROJECT_DIR}/Mobile Buy SDK/Static Framework/Buy.modulemap";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = Buy;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = "Release-core-data";
+		};
 		B2AE98451CED036F00FB0C5D /* Release-core-data */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1786,7 +1850,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1.2.6;
+				CURRENT_PROJECT_VERSION = 2.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1807,6 +1871,65 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = "Release-core-data";
+		};
+		BE9A64421B503C2F0033E558 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 2.0;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/Mobile Buy SDK/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "${PROJECT_DIR}/Mobile Buy SDK/Static Framework/Buy.modulemap";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = Buy;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		BE9A64431B503C2F0033E558 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 2.0;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Mobile Buy SDK/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "${PROJECT_DIR}/Mobile Buy SDK/Static Framework/Buy.modulemap";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = Buy;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
 		};
 		F773742C19C770CB0039681C /* Debug */ = {
 			isa = XCBuildConfiguration;

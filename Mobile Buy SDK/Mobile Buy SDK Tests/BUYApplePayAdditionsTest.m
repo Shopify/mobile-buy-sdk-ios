@@ -47,7 +47,7 @@
 - (void)setUp
 {
 	_modelManager = [BUYModelManager modelManager];
-	_checkout = [[BUYCheckout alloc] initWithCart:nil];
+	_checkout = [[BUYCheckout alloc] initWithModelManager:_modelManager cart:nil];
 }
 
 - (void)tearDown

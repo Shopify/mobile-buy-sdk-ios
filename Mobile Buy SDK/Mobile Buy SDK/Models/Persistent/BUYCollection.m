@@ -29,27 +29,6 @@
 #import "NSString+BUYAdditions.h"
 
 @implementation BUYCollection
-@synthesize stringDescription=_stringDescription;
-
-- (NSDate *)createdAtDate
-{
-	return self.createdAt;
-}
-
-- (NSDate *)updatedAtDate
-{
-	return self.updatedAt;
-}
-
-- (NSDate *)publishedAtDate
-{
-	return self.publishedAt;
-}
-
-- (NSURL *)imageURL
-{
-	return self.image.sourceURL;
-}
 
 - (void)updateStringDescription
 {
