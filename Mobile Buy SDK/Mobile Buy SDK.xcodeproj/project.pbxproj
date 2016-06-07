@@ -85,7 +85,7 @@
 		8498DCB81CDD1B5400BD12A8 /* BUYClient+Customers.m in Sources */ = {isa = PBXBuildFile; fileRef = 8498DCB21CDD1B4A00BD12A8 /* BUYClient+Customers.m */; };
 		8498DCBC1CDD1FA400BD12A8 /* BUYAccountCredentials.h in Headers */ = {isa = PBXBuildFile; fileRef = 8498DCB91CDD1FA400BD12A8 /* BUYAccountCredentials.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8498DCBE1CDD1FA400BD12A8 /* BUYAccountCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 8498DCBA1CDD1FA400BD12A8 /* BUYAccountCredentials.m */; };
-		8498DCC91CDD208200BD12A8 /* BUYClientTest_Customer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8498DCBF1CDD208200BD12A8 /* BUYClientTest_Customer.m */; };
+		8498DCC91CDD208200BD12A8 /* BUYClient+CustomerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8498DCBF1CDD208200BD12A8 /* BUYClient+CustomerTests.m */; };
 		8498DCCA1CDD208200BD12A8 /* BUYCollectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8498DCC01CDD208200BD12A8 /* BUYCollectionTests.m */; };
 		8498DCCB1CDD208200BD12A8 /* BUYCoreDataModelAdditionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8498DCC11CDD208200BD12A8 /* BUYCoreDataModelAdditionsTests.m */; };
 		8498DCCC1CDD208200BD12A8 /* BUYCustomerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8498DCC21CDD208200BD12A8 /* BUYCustomerTests.m */; };
@@ -108,10 +108,7 @@
 		84D73C051CDD1945000F978A /* BUYAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 84D73C001CDD1931000F978A /* BUYAddress.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84D73C081CDD194D000F978A /* _BUYAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D73BFF1CDD1931000F978A /* _BUYAddress.m */; };
 		84D73C091CDD194D000F978A /* BUYAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D73C011CDD1931000F978A /* BUYAddress.m */; };
-		84D915441CC0359700D334FB /* BUYObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 84D915411CC0359700D334FB /* BUYObserver.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		84D915431CC0359700D334FB /* BUYObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 84D915411CC0359700D334FB /* BUYObserver.h */; };
 		84D915441CC0359700D334FB /* BUYObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 84D915411CC0359700D334FB /* BUYObserver.h */; };
-		84D915451CC0359700D334FB /* BUYObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D915421CC0359700D334FB /* BUYObserver.m */; };
 		84D915461CC0359700D334FB /* BUYObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D915421CC0359700D334FB /* BUYObserver.m */; };
 		84D9154C1CC03F1600D334FB /* BUYManagedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 84D915471CC03F1600D334FB /* BUYManagedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84D9154E1CC03F1600D334FB /* BUYManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D915481CC03F1600D334FB /* BUYManagedObject.m */; };
@@ -217,7 +214,7 @@
 		90F593051B0D5F4C0026B382 /* BUYApplePayAdditionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592F91B0D5F4C0026B382 /* BUYApplePayAdditionsTest.m */; };
 		90F593061B0D5F4C0026B382 /* BUYCartTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592FA1B0D5F4C0026B382 /* BUYCartTest.m */; };
 		90F593071B0D5F4C0026B382 /* BUYCheckoutTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592FB1B0D5F4C0026B382 /* BUYCheckoutTest.m */; };
-		90F593081B0D5F4C0026B382 /* BUYClientTest_Storefront.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592FC1B0D5F4C0026B382 /* BUYClientTest_Storefront.m */; };
+		90F593081B0D5F4C0026B382 /* BUYClient+StorefrontTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592FC1B0D5F4C0026B382 /* BUYClient+StorefrontTests.m */; };
 		90F593091B0D5F4C0026B382 /* BUYClientTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592FD1B0D5F4C0026B382 /* BUYClientTest.m */; };
 		90F5930A1B0D5F4C0026B382 /* BUYLineItemTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592FE1B0D5F4C0026B382 /* BUYLineItemTest.m */; };
 		90F5930B1B0D5F4C0026B382 /* BUYObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F592FF1B0D5F4C0026B382 /* BUYObjectTests.m */; };
@@ -352,7 +349,7 @@
 		8498DCB21CDD1B4A00BD12A8 /* BUYClient+Customers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYClient+Customers.m"; sourceTree = "<group>"; };
 		8498DCB91CDD1FA400BD12A8 /* BUYAccountCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYAccountCredentials.h; sourceTree = "<group>"; };
 		8498DCBA1CDD1FA400BD12A8 /* BUYAccountCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYAccountCredentials.m; sourceTree = "<group>"; };
-		8498DCBF1CDD208200BD12A8 /* BUYClientTest_Customer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYClientTest_Customer.m; sourceTree = "<group>"; };
+		8498DCBF1CDD208200BD12A8 /* BUYClient+CustomerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYClient+CustomerTests.m"; sourceTree = "<group>"; };
 		8498DCC01CDD208200BD12A8 /* BUYCollectionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYCollectionTests.m; sourceTree = "<group>"; };
 		8498DCC11CDD208200BD12A8 /* BUYCoreDataModelAdditionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYCoreDataModelAdditionsTests.m; sourceTree = "<group>"; };
 		8498DCC21CDD208200BD12A8 /* BUYCustomerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYCustomerTests.m; sourceTree = "<group>"; };
@@ -457,7 +454,7 @@
 		90F592F91B0D5F4C0026B382 /* BUYApplePayAdditionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYApplePayAdditionsTest.m; sourceTree = "<group>"; };
 		90F592FA1B0D5F4C0026B382 /* BUYCartTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYCartTest.m; sourceTree = "<group>"; };
 		90F592FB1B0D5F4C0026B382 /* BUYCheckoutTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYCheckoutTest.m; sourceTree = "<group>"; };
-		90F592FC1B0D5F4C0026B382 /* BUYClientTest_Storefront.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYClientTest_Storefront.m; sourceTree = "<group>"; };
+		90F592FC1B0D5F4C0026B382 /* BUYClient+StorefrontTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYClient+StorefrontTests.m"; sourceTree = "<group>"; };
 		90F592FD1B0D5F4C0026B382 /* BUYClientTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYClientTest.m; sourceTree = "<group>"; };
 		90F592FE1B0D5F4C0026B382 /* BUYLineItemTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYLineItemTest.m; sourceTree = "<group>"; };
 		90F592FF1B0D5F4C0026B382 /* BUYObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYObjectTests.m; sourceTree = "<group>"; };
@@ -760,48 +757,16 @@
 		90F592ED1B0D5EFE0026B382 /* Mobile Buy SDK Tests */ = {
 			isa = PBXGroup;
 			children = (
-				9A47CF1D1CE50EAB00A6D5BA /* Test Objects */,
-				9A0B0C611CE9F8310037D68F /* Operation Tests */,
-				9A47CF0B1CE4D6A500A6D5BA /* Payment Session Providers */,
-				9A102D1C1CDD257D0026CC43 /* Models Tests */,
-				90F592F91B0D5F4C0026B382 /* BUYApplePayAdditionsTest.m */,
-				8491102E1CCE708900E53B93 /* BUYArrayAdditionsTests.m */,
-				9A6B03781CDA5D4F0054C26E /* BUYAccountCredentialsTests.m */,
-				90F592FA1B0D5F4C0026B382 /* BUYCartTest.m */,
-				90F592FB1B0D5F4C0026B382 /* BUYCheckoutTest.m */,
-				8498DCBF1CDD208200BD12A8 /* BUYClientTest_Customer.m */,
-				90F592FC1B0D5F4C0026B382 /* BUYClientTest_Storefront.m */,
-				9A0B0C821CEB981C0037D68F /* BUYClient+RoutingTests.m */,
-				90F592FD1B0D5F4C0026B382 /* BUYClientTest.m */,
-				BEB9AE7A1BA866D000575F8A /* BUYClientTestBase.h */,
-				BEB9AE7C1BA8685600575F8A /* BUYClientTestBase.m */,
-				8498DCC01CDD208200BD12A8 /* BUYCollectionTests.m */,
-				8498DCC11CDD208200BD12A8 /* BUYCoreDataModelAdditionsTests.m */,
-				8498DCC21CDD208200BD12A8 /* BUYCustomerTests.m */,
-				849110341CCE70CE00E53B93 /* BUYDictionaryAdditionsTests.m */,
-				849110391CCE718100E53B93 /* BUYExceptionAdditionsTests.m */,
-				90F592F81B0D5F4C0026B382 /* BUYIntegrationTest.m */,
-				90F592FE1B0D5F4C0026B382 /* BUYLineItemTest.m */,
-				8498DCC31CDD208200BD12A8 /* BUYModelManagerTests.m */,
-				90F592FF1B0D5F4C0026B382 /* BUYObjectTests.m */,
-				849110461CCEA85C00E53B93 /* BUYObserverTests.m */,
-				8498DCC41CDD208200BD12A8 /* BUYOrderTests.m */,
-				8443E2D01CE2917500EA08D4 /* BUYPaymentProviderTests.m */,
-				8491102F1CCE708900E53B93 /* BUYRegularExpressionAdditionsTests.m */,
-				849110301CCE708900E53B93 /* BUYStringAdditionsTests.m */,
 				90F593001B0D5F4C0026B382 /* BUYTestConstants.h */,
-				8498DCC51CDD208200BD12A8 /* BUYTestModel.xcdatamodeld */,
-				849110431CCE9F3F00E53B93 /* BUYTransformerTests.m */,
-				8491103B1CCE731900E53B93 /* BUYURLAdditionsTests.m */,
-				BE6C07051BB1E46900BD9F7B /* mocked_responses.json */,
-				BE98DB5A1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.h */,
-				BE98DB5B1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.m */,
-				84B0A71D1CDD253A00253EB0 /* orders.json */,
-				906CF1AE1B8B660F001F7D5B /* PKContact Test Objects */,
+				9ABC8D091D070E0E0049CFDA /* Helpers */,
+				9A47CF1D1CE50EAB00A6D5BA /* Test Objects */,
+				9ABC8D081D070DC10049CFDA /* Client Tests */,
+				9A0B0C611CE9F8310037D68F /* Operation Tests */,
+				9A47CF0B1CE4D6A500A6D5BA /* Payment Tests */,
+				9A102D1C1CDD257D0026CC43 /* Models Tests */,
+				9ABC8D061D070CF80049CFDA /* Addition Tests */,
+				9ABC8D071D070D1C0049CFDA /* Core Data Tests */,
 				90F592EE1B0D5EFE0026B382 /* Supporting Files */,
-				BEB9AE721BA73E6C00575F8A /* test_shop_data.json */,
-				8498DCC71CDD208200BD12A8 /* TestModel.h */,
-				8498DCC81CDD208200BD12A8 /* TestModel.m */,
 			);
 			path = "Mobile Buy SDK Tests";
 			sourceTree = "<group>";
@@ -809,6 +774,9 @@
 		90F592EE1B0D5EFE0026B382 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BE6C07051BB1E46900BD9F7B /* mocked_responses.json */,
+				BEB9AE721BA73E6C00575F8A /* test_shop_data.json */,
+				84B0A71D1CDD253A00253EB0 /* orders.json */,
 				90F592EF1B0D5EFE0026B382 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -835,8 +803,16 @@
 		9A102D1C1CDD257D0026CC43 /* Models Tests */ = {
 			isa = PBXGroup;
 			children = (
+				9A6B03781CDA5D4F0054C26E /* BUYAccountCredentialsTests.m */,
+				90F592FA1B0D5F4C0026B382 /* BUYCartTest.m */,
+				90F592FB1B0D5F4C0026B382 /* BUYCheckoutTest.m */,
+				8498DCC21CDD208200BD12A8 /* BUYCustomerTests.m */,
+				90F592FE1B0D5F4C0026B382 /* BUYLineItemTest.m */,
+				849110461CCEA85C00E53B93 /* BUYObserverTests.m */,
+				8498DCC41CDD208200BD12A8 /* BUYOrderTests.m */,
 				9A102D1D1CDD25980026CC43 /* BUYOptionValueTests.m */,
 				9A102D1A1CDD1F960026CC43 /* BUYErrorTests.m */,
+				8498DCC01CDD208200BD12A8 /* BUYCollectionTests.m */,
 			);
 			name = "Models Tests";
 			sourceTree = "<group>";
@@ -852,18 +828,21 @@
 			name = "Payment Session Providers";
 			sourceTree = "<group>";
 		};
-		9A47CF0B1CE4D6A500A6D5BA /* Payment Session Providers */ = {
+		9A47CF0B1CE4D6A500A6D5BA /* Payment Tests */ = {
 			isa = PBXGroup;
 			children = (
 				9A47CF0C1CE4D6C600A6D5BA /* BUYCreditCardTokenTests.m */,
 				9A47CF0E1CE4D7A800A6D5BA /* BUYApplePayTokenTests.m */,
+				8443E2D01CE2917500EA08D4 /* BUYPaymentProviderTests.m */,
+				90F592F91B0D5F4C0026B382 /* BUYApplePayAdditionsTest.m */,
 			);
-			name = "Payment Session Providers";
+			name = "Payment Tests";
 			sourceTree = "<group>";
 		};
 		9A47CF1D1CE50EAB00A6D5BA /* Test Objects */ = {
 			isa = PBXGroup;
 			children = (
+				906CF1AE1B8B660F001F7D5B /* PKContact Test Objects */,
 				9A47CF1E1CE50EBB00A6D5BA /* BUYApplePayTestToken.h */,
 				9A47CF1F1CE50EBB00A6D5BA /* BUYApplePayTestToken.m */,
 				9ABBCC9F1CF5C9D10075B0C5 /* BUYFakeSafariController.h */,
@@ -882,6 +861,56 @@
 				9A0B0CAB1CEDDBD80037D68F /* Aggregate */,
 			);
 			path = Operations;
+			sourceTree = "<group>";
+		};
+		9ABC8D061D070CF80049CFDA /* Addition Tests */ = {
+			isa = PBXGroup;
+			children = (
+				8498DCC11CDD208200BD12A8 /* BUYCoreDataModelAdditionsTests.m */,
+				849110341CCE70CE00E53B93 /* BUYDictionaryAdditionsTests.m */,
+				849110391CCE718100E53B93 /* BUYExceptionAdditionsTests.m */,
+				8491102F1CCE708900E53B93 /* BUYRegularExpressionAdditionsTests.m */,
+				849110301CCE708900E53B93 /* BUYStringAdditionsTests.m */,
+				8491103B1CCE731900E53B93 /* BUYURLAdditionsTests.m */,
+				8491102E1CCE708900E53B93 /* BUYArrayAdditionsTests.m */,
+			);
+			name = "Addition Tests";
+			sourceTree = "<group>";
+		};
+		9ABC8D071D070D1C0049CFDA /* Core Data Tests */ = {
+			isa = PBXGroup;
+			children = (
+				8498DCC51CDD208200BD12A8 /* BUYTestModel.xcdatamodeld */,
+				8498DCC71CDD208200BD12A8 /* TestModel.h */,
+				8498DCC81CDD208200BD12A8 /* TestModel.m */,
+				90F592FF1B0D5F4C0026B382 /* BUYObjectTests.m */,
+				8498DCC31CDD208200BD12A8 /* BUYModelManagerTests.m */,
+				849110431CCE9F3F00E53B93 /* BUYTransformerTests.m */,
+			);
+			name = "Core Data Tests";
+			sourceTree = "<group>";
+		};
+		9ABC8D081D070DC10049CFDA /* Client Tests */ = {
+			isa = PBXGroup;
+			children = (
+				90F592F81B0D5F4C0026B382 /* BUYIntegrationTest.m */,
+				8498DCBF1CDD208200BD12A8 /* BUYClient+CustomerTests.m */,
+				90F592FC1B0D5F4C0026B382 /* BUYClient+StorefrontTests.m */,
+				9A0B0C821CEB981C0037D68F /* BUYClient+RoutingTests.m */,
+				90F592FD1B0D5F4C0026B382 /* BUYClientTest.m */,
+				BEB9AE7A1BA866D000575F8A /* BUYClientTestBase.h */,
+				BEB9AE7C1BA8685600575F8A /* BUYClientTestBase.m */,
+			);
+			name = "Client Tests";
+			sourceTree = "<group>";
+		};
+		9ABC8D091D070E0E0049CFDA /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				BE98DB5A1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.h */,
+				BE98DB5B1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.m */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 		F773741419C770CB0039681C = {
@@ -1375,7 +1404,7 @@
 				9A47CF201CE50EBB00A6D5BA /* BUYApplePayTestToken.m in Sources */,
 				90F593061B0D5F4C0026B382 /* BUYCartTest.m in Sources */,
 				90F593051B0D5F4C0026B382 /* BUYApplePayAdditionsTest.m in Sources */,
-				8498DCC91CDD208200BD12A8 /* BUYClientTest_Customer.m in Sources */,
+				8498DCC91CDD208200BD12A8 /* BUYClient+CustomerTests.m in Sources */,
 				9A47CF0D1CE4D6C600A6D5BA /* BUYCreditCardTokenTests.m in Sources */,
 				90F593071B0D5F4C0026B382 /* BUYCheckoutTest.m in Sources */,
 				90F593091B0D5F4C0026B382 /* BUYClientTest.m in Sources */,
@@ -1383,7 +1412,7 @@
 				8443E2D11CE2917500EA08D4 /* BUYPaymentProviderTests.m in Sources */,
 				90F593041B0D5F4C0026B382 /* BUYIntegrationTest.m in Sources */,
 				9A102D1B1CDD1F960026CC43 /* BUYErrorTests.m in Sources */,
-				90F593081B0D5F4C0026B382 /* BUYClientTest_Storefront.m in Sources */,
+				90F593081B0D5F4C0026B382 /* BUYClient+StorefrontTests.m in Sources */,
 				90BBCD731B87B6BA00FCCE51 /* BUYPKContact.m in Sources */,
 				9A47CF0F1CE4D7A800A6D5BA /* BUYApplePayTokenTests.m in Sources */,
 				849110331CCE708900E53B93 /* BUYStringAdditionsTests.m in Sources */,
@@ -1665,38 +1694,6 @@
 			};
 			name = "Debug-core-data";
 		};
-		B2AE98381CED035700FB0C5D /* Debug-core-data */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2.0;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "$(SRCROOT)/Mobile Buy SDK/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "${PROJECT_DIR}/Mobile Buy SDK/Static Framework/Buy.modulemap";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = Buy;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = "Debug-core-data";
-		};
 		B2AE98391CED035700FB0C5D /* Debug-core-data */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1814,35 +1811,6 @@
 			};
 			name = "Release-core-data";
 		};
-		B2AE98441CED036F00FB0C5D /* Release-core-data */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2.0;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/Mobile Buy SDK/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "${PROJECT_DIR}/Mobile Buy SDK/Static Framework/Buy.modulemap";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = Buy;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = "Release-core-data";
-		};
 		B2AE98451CED036F00FB0C5D /* Release-core-data */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1871,65 +1839,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = "Release-core-data";
-		};
-		BE9A64421B503C2F0033E558 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2.0;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "$(SRCROOT)/Mobile Buy SDK/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "${PROJECT_DIR}/Mobile Buy SDK/Static Framework/Buy.modulemap";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = Buy;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		BE9A64431B503C2F0033E558 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2.0;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/Mobile Buy SDK/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "${PROJECT_DIR}/Mobile Buy SDK/Static Framework/Buy.modulemap";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = Buy;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
 		};
 		F773742C19C770CB0039681C /* Debug */ = {
 			isa = XCBuildConfiguration;
