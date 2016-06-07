@@ -25,6 +25,7 @@
 //
 
 #import <Foundation/Foundation.h>
+NS_ASSUME_NONNULL_BEGIN
 
 /**
  * Transforms an array of objects into a string with given separator.
@@ -44,3 +45,5 @@
 + (instancetype)setTransformerWithSeparator:(NSString *)separator;
 
 @end
+
+NS_ASSUME_NONNULL_END

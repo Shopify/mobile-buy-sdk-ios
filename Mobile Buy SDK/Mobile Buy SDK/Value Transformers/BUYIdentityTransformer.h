@@ -25,6 +25,7 @@
 //
 
 #import <Foundation/Foundation.h>
+NS_ASSUME_NONNULL_BEGIN
 
 extern NSString * const BUYIdentityTransformerName; //  = @"BUYIdentity";
 
@@ -34,3 +35,5 @@ extern NSString * const BUYIdentityTransformerName; //  = @"BUYIdentity";
 @interface BUYIdentityTransformer : NSValueTransformer
 
 @end
+
+NS_ASSUME_NONNULL_END
