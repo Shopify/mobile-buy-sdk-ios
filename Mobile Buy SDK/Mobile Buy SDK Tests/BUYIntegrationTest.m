@@ -766,7 +766,7 @@
 {
 	[OHHTTPStubs stubUsingResponseWithKey:@"testFetchingShippingRatesWithInvalidCheckout_1" useMocks:[self shouldUseMocks]];
 	
-	BUYCheckout *checkout = [[BUYCheckout alloc] initWithModelManager:_modelManager cart:nil];
+	BUYCheckout *checkout = [[BUYCheckout alloc] initWithModelManager:_modelManager cart:[BUYCart new]];
 	checkout.token = @"bananaaaa";
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];

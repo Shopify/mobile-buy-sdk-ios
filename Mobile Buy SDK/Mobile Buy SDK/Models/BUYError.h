@@ -25,15 +25,17 @@
 //
 
 #import <Foundation/Foundation.h>
+NS_ASSUME_NONNULL_BEGIN
 
 @interface BUYError : NSObject
 
-@property (nonatomic, copy) NSString *key;
+@property (nonatomic, nonnull,  copy, readonly) NSString *key;
+@property (nonatomic, nullable, copy, readonly) NSString *code;
+@property (nonatomic, nullable, copy, readonly) NSString *message;
+@property (nonatomic, nullable, copy, readonly) NSDictionary<NSString *, NSString *> *options;
 
 - (instancetype)initWithKey:(NSString *)key json:(NSDictionary *)json;
 
-@property (nonatomic, copy) NSString *code;
-@property (nonatomic, copy) NSString *message;
-@property (nonatomic, copy) NSDictionary<NSString *, NSString *> *options;
-
 @end
+
+NS_ASSUME_NONNULL_END

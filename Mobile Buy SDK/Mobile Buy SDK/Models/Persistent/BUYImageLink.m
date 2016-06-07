@@ -51,39 +51,15 @@
 
 + (NSString *)keyForImageSize:(BUYImageURLSize)size
 {
-	NSString *sizeKey = nil;
-	
 	switch (size) {
-		case BUYImageURLSize100x100:
-			sizeKey = @"_small";
-			break;
-			
-		case BUYImageURLSize160x160:
-			sizeKey = @"_compact";
-			break;
-			
-		case BUYImageURLSize240x240:
-			sizeKey = @"_medium";
-			break;
-			
-		case BUYImageURLSize480x480:
-			sizeKey = @"_large";
-			break;
-			
-		case BUYImageURLSize600x600:
-			sizeKey = @"_grande";
-			break;
-			
-		case BUYImageURLSize1024x1024:
-			sizeKey = @"_1024x1024";
-			break;
-			
-		case BUYImageURLSize2048x2048:
-			sizeKey = @"_2048x2048";
-			break;
+		case BUYImageURLSize100x100:   return @"_small";
+		case BUYImageURLSize160x160:   return @"_compact";
+		case BUYImageURLSize240x240:   return @"_medium";
+		case BUYImageURLSize480x480:   return @"_large";
+		case BUYImageURLSize600x600:   return @"_grande";
+		case BUYImageURLSize1024x1024: return @"_1024x1024";
+		case BUYImageURLSize2048x2048: return @"_2048x2048";
 	}
-	
-	return sizeKey;
 }
 
 @end

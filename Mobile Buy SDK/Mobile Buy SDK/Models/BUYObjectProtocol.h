@@ -25,7 +25,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Buy/BUYSerializable.h>
+#import "BUYSerializable.h"
+NS_ASSUME_NONNULL_BEGIN
 
 @class NSEntityDescription;
 
@@ -37,12 +38,12 @@
  */
 @protocol BUYObject <BUYSerializable>
 
-@property (nonatomic, readonly, weak) id<BUYModelManager> modelManager;
+@property (nonatomic, readonly, nullable, weak) id<BUYModelManager> modelManager;
 
 /**
  * Transient model objects need an entity for introspection.
  */
-@property (nonatomic, readonly, weak) NSEntityDescription *entity;
+@property (nonatomic, readonly, nullable, weak) NSEntityDescription *entity;
 
 /**
  * A dictionary of @{ NSString : NSPropertyDescription } where the keys are property names.
@@ -63,7 +64,7 @@
 /**
  * A predicate composed of values from the JSON. For objects that do not have an "identifier"/"id" property.
  */
-+ (NSPredicate *)fetchPredicateWithJSON:(NSDictionary *)JSONDictionary;
++ (nullable NSPredicate *)fetchPredicateWithJSON:(NSDictionary *)JSONDictionary;
 
 /**
  * Persistent classes return YES; transient classes return NO.
@@ -77,6 +78,8 @@
 
 @optional
 
-- (instancetype)initWithModelManager:(id<BUYModelManager>)modelManager JSONDictionary:(NSDictionary *)dictionary;
+- (instancetype)initWithModelManager:(id<BUYModelManager>)modelManager JSONDictionary:(nullable NSDictionary *)dictionary;
 
 @end
+
+NS_ASSUME_NONNULL_END
