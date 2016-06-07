@@ -24,8 +24,12 @@
 //  THE SOFTWARE.
 //
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol BUYPaymentToken <NSObject>
 
 - (NSDictionary *)JSONDictionary;
 
 @end
+
+NS_ASSUME_NONNULL_END

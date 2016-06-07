@@ -24,12 +24,12 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/_BUYCartLineItem.h>
+#import "_BUYCartLineItem.h"
+NS_ASSUME_NONNULL_BEGIN
 
 /**
  * Newly inserted `CartLineItem`s have an initial quantity of 1.
  */
-
 @interface BUYCartLineItem : _BUYCartLineItem {}
 
 /**
@@ -69,3 +69,5 @@
 - (BUYCartLineItem *)cartLineItemWithVariant:(BUYProductVariant *)variant;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -25,6 +25,7 @@
 //
 
 #import <CoreData/CoreData.h>
+NS_ASSUME_NONNULL_BEGIN
 
 @protocol BUYObject;
 
@@ -52,7 +53,7 @@
  *
  *  @return A new or existing model object.
  */
-- (id<BUYObject>)buy_objectWithEntityName:(NSString *)entityName JSONDictionary:(NSDictionary *)JSON;
+- (id<BUYObject>)buy_objectWithEntityName:(NSString *)entityName JSONDictionary:(nullable NSDictionary *)JSON;
 - (NSArray<id<BUYObject>> *)buy_objectsWithEntityName:(NSString *)entityName JSONArray:(NSArray *)JSON;
 
 /**
@@ -64,7 +65,7 @@
  *
  *  @return An object from the cache matching the provided identifier, or nil if no matching object is found.
  */
-- (id<BUYObject>)buy_objectWithEntityName:(NSString *)entityName identifier:(NSNumber *)identifier;
+- (nullable id<BUYObject>)buy_objectWithEntityName:(NSString *)entityName identifier:(NSNumber *)identifier;
 
 /**
  *  Find all the objects in the cache matching the provided identifiers.
@@ -74,7 +75,7 @@
  *
  *  @return An array of objects from the cache matching the provided identifiers, if any.
  */
-- (NSArray<id<BUYObject>> *)buy_objectsWithEntityName:(NSString *)entityName identifiers:(NSArray *)identifiers;
+- (NSArray<id<BUYObject>> *)buy_objectsWithEntityName:(NSString *)entityName identifiers:(nullable NSArray *)identifiers;
 
 /**
  * If there is a local cache available, and the object is cached, it is flushed from the cache. Depending on the type of
@@ -109,3 +110,5 @@
 - (BOOL)buy_purgeObjectsWithEntityName:(NSString *)entityName matchingPredicate:(NSPredicate *)predicate;
 
 @end
+
+NS_ASSUME_NONNULL_END

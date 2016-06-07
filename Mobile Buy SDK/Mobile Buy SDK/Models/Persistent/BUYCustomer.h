@@ -24,11 +24,12 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/_BUYCustomer.h>
+#import "_BUYCustomer.h"
+NS_ASSUME_NONNULL_BEGIN
 
 @interface BUYCustomer : _BUYCustomer {}
 
-@property (readonly) NSString *fullName;
+@property (nonatomic, strong, readonly) NSString *fullName;
 
 @end
 
@@ -37,3 +38,5 @@
 - (BUYCustomer *)customerWithJSONDictionary:(NSDictionary *)json;
 
 @end
+
+NS_ASSUME_NONNULL_END

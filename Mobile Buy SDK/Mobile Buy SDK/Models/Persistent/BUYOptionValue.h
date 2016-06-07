@@ -24,10 +24,13 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/_BUYOptionValue.h>
+#import "_BUYOptionValue.h"
+NS_ASSUME_NONNULL_BEGIN
 
 @interface BUYOptionValue : _BUYOptionValue {}
 
-- (BOOL)isEqualToOptionValue:(BUYOptionValue *)other;
+- (BOOL)isEqualToOptionValue:(nullable BUYOptionValue *)other;
 
 @end
+
+NS_ASSUME_NONNULL_END

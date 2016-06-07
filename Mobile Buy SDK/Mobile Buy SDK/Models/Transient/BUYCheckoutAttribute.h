@@ -24,10 +24,14 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/_BUYCheckoutAttribute.h>
+#import "_BUYCheckoutAttribute.h"
+NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  A BUYCheckoutAttribute represents a checkout attributes key and value
  */
 @interface BUYCheckoutAttribute : _BUYCheckoutAttribute
+
 @end
+
+NS_ASSUME_NONNULL_END

@@ -26,10 +26,11 @@
 
 #import <Buy/_BUYCollection.h>
 #import <Buy/BUYClient+Storefront.h>
+NS_ASSUME_NONNULL_BEGIN
 
 @interface BUYCollection : _BUYCollection {}
 
-@property (nonatomic, readonly) NSString *stringDescription;
+@property (nonatomic, nullable, readonly) NSString *stringDescription;
 
 - (NSArray<BUYProduct *> *)productsArray;
 
@@ -43,3 +44,5 @@
 + (NSString *)sortOrderParameterForCollectionSort:(BUYCollectionSort)sort;
 
 @end
+
+NS_ASSUME_NONNULL_END

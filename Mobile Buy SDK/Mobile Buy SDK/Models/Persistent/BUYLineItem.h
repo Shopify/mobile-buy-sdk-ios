@@ -24,10 +24,13 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/_BUYLineItem.h>
-#import <Buy/BUYModelManager.h>
+#import "_BUYLineItem.h"
+#import "BUYModelManager.h"
+NS_ASSUME_NONNULL_BEGIN
 
-@class BUYCartLineItem, BUYProductVariant;
+@class BUYCartLineItem;
+@class BUYProductVariant;
+@class BUYCartLineItem;
 
 @interface BUYLineItem : _BUYLineItem {}
 
@@ -36,11 +39,11 @@
 
 @end
 
-@class BUYCartLineItem;
-
 @interface BUYModelManager (BUYLineItemCreation)
 
 - (BUYLineItem *)lineItemWithVariant:(BUYProductVariant *)variant;
 - (BUYLineItem *)lineItemWithCartLineItem:(BUYCartLineItem *)cartLineItem;
 
 @end
+
+NS_ASSUME_NONNULL_END
