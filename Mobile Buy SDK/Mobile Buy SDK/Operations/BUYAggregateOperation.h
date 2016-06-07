@@ -1,5 +1,5 @@
 //
-//  BUYCheckoutOperation.h
+//  BUYAggregateOperation.h
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,20 +24,16 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/BUYAggregateOperation.h>
-#import <Buy/BUYStatusOperation.h>
-NS_ASSUME_NONNULL_BEGIN
+#import "BUYOperation.h"
 
-@class BUYClient;
-@class BUYCheckout;
+@interface BUYAggregateOperation : BUYOperation
 
-@protocol BUYPaymentToken;
+@property (strong, atomic) NSArray<NSOperation *> *operations;
 
-@interface BUYCheckoutOperation : BUYAggregateOperation
++ (instancetype)operationWithQueue:(NSOperationQueue *)queue operations:(NSArray<NSOperation *> *)operations;
+- (instancetype)initWithQueue:(NSOperationQueue *)queue operations:(NSArray<NSOperation *> *)operations;
 
-+ (instancetype)operationWithClient:(BUYClient *)client checkoutToken:(NSString *)checkoutToken token:(id<BUYPaymentToken>)token completion:(BUYCheckoutOperationCompletion)completion;
-- (instancetype)initWithClient:(BUYClient *)client checkoutToken:(NSString *)checkoutToken token:(id<BUYPaymentToken>)token completion:(BUYCheckoutOperationCompletion)completion;
+- (void)finishWithObject:(id)object;
+- (void)finishWithError:(NSError *)error;
 
 @end
-
-NS_ASSUME_NONNULL_END
