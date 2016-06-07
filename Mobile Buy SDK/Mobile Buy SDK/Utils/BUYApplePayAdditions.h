@@ -30,6 +30,7 @@
 #import <Buy/BUYCheckout.h>
 #import <Buy/BUYShippingRate.h>
 #import <Buy/BUYAddress.h>
+NS_ASSUME_NONNULL_BEGIN
 
 @interface BUYCheckout (ApplePay)
 
@@ -37,7 +38,7 @@
  *  Returns an array of summary items for all Apple Pay requests.  Will use 'PAY TOTAL' as the summary label.  Apple recommends
  *  including the business name in the summary label, so it is recommended to use `buy_summaryItemsWithShopName` instead.
  */
-- (nonnull NSArray<PKPaymentSummaryItem *> *)buy_summaryItems;
+- (NSArray<PKPaymentSummaryItem *> *)buy_summaryItems;
 
 /**
  *  Returns an array of summary items for all Apple Pay requests using the shop name in the "PAY" section
@@ -46,7 +47,7 @@
  *
  *  @return An array of PKPaymentSummaryItems
  */
-- (nonnull NSArray<PKPaymentSummaryItem *> *)buy_summaryItemsWithShopName:(nullable NSString *)shopName;
+- (NSArray<PKPaymentSummaryItem *> *)buy_summaryItemsWithShopName:(nullable NSString *)shopName;
 
 @end
 
@@ -59,7 +60,7 @@
 *
 *  @return An array of PKShippingMethods
 */
-+ (nonnull NSArray<PKShippingMethod *> *)buy_convertShippingRatesToShippingMethods:(nonnull NSArray<BUYShippingRate *> *)rates;
++ (NSArray<PKShippingMethod *> *)buy_convertShippingRatesToShippingMethods:(NSArray<BUYShippingRate *> *)rates;
 
 @end
 
@@ -72,3 +73,5 @@
 - (void)updateWithContact:(nullable PKContact*)contact NS_AVAILABLE_IOS(9_0);
 
 @end
+
+NS_ASSUME_NONNULL_END
