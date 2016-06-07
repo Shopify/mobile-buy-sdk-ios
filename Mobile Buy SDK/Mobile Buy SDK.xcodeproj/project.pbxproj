@@ -722,11 +722,11 @@
 		84B0A7281CE10ED900253EB0 /* Payment Providers */ = {
 			isa = PBXGroup;
 			children = (
-				84B0A7291CE10ED900253EB0 /* BUYApplePayPaymentProvider.h */,
-				84B0A72A1CE10ED900253EB0 /* BUYApplePayPaymentProvider.m */,
+				84B0A72D1CE10ED900253EB0 /* BUYPaymentProvider.h */,
 				84B0A72B1CE10ED900253EB0 /* BUYPaymentController.h */,
 				84B0A72C1CE10ED900253EB0 /* BUYPaymentController.m */,
-				84B0A72D1CE10ED900253EB0 /* BUYPaymentProvider.h */,
+				84B0A7291CE10ED900253EB0 /* BUYApplePayPaymentProvider.h */,
+				84B0A72A1CE10ED900253EB0 /* BUYApplePayPaymentProvider.m */,
 				84B0A72E1CE10ED900253EB0 /* BUYWebCheckoutPaymentProvider.h */,
 				84B0A72F1CE10ED900253EB0 /* BUYWebCheckoutPaymentProvider.m */,
 			);
