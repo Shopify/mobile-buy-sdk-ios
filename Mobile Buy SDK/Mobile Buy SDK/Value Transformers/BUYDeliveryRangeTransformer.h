@@ -25,6 +25,7 @@
 //
 
 #import <Foundation/Foundation.h>
+NS_ASSUME_NONNULL_BEGIN
 
 extern NSString * const BUYShippingRateDateTransformerName; // = @"BUYShippingRateDate";
 extern NSString * const BUYShippingRateDateFormat; // = @"yyyy-MM-dd'T'HH:mm:ss.SSSZ";
@@ -32,3 +33,5 @@ extern NSString * const BUYShippingRateDateFormat; // = @"yyyy-MM-dd'T'HH:mm:ss.
 @interface BUYDeliveryRangeTransformer : NSValueTransformer
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -25,6 +25,7 @@
 //
 
 #import <Foundation/Foundation.h>
+NS_ASSUME_NONNULL_BEGIN
 
 extern NSString * const BUYURLTransformerName; // = @"BUYURL";
 
@@ -32,4 +33,7 @@ extern NSString * const BUYURLTransformerName; // = @"BUYURL";
  * Transforms a URL object into a string and back.
  */
 @interface BUYURLTransformer : NSValueTransformer
+
 @end
+
+NS_ASSUME_NONNULL_END
