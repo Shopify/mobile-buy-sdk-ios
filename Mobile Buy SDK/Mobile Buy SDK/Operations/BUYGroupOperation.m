@@ -25,6 +25,7 @@
 //
 
 #import "BUYGroupOperation.h"
+#import "NSArray+BUYAdditions.h"
 
 @interface BUYGroupOperation ()
 
@@ -96,14 +97,12 @@
 
 - (void)linkDependencies
 {
-	if (self.operations.count > 1) {
-		int i = (int)self.operations.count - 1;
-		while (i > 0) {
-			NSOperation *latter = self.operations[i];
-			NSOperation *former = self.operations[i - 1];
-			
+	NSArray *tail = [self.operations buy_tail];
+	if (tail.count > 0) {
+		NSOperation *former = self.operations.firstObject;
+		for (NSOperation *latter in tail) {
 			[latter addDependency:former];
-			i--;
+			former = latter;
 		}
 	}
 }
