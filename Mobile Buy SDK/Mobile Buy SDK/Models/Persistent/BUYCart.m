@@ -40,8 +40,13 @@
 	}
 	return self;
 }
-
 #endif
+
+- (nonnull NSArray<BUYCartLineItem *> *)lineItemsArray
+{
+	return self.lineItems.array;
+}
+
 - (BOOL)isValid
 {
 	return [self.lineItems count] > 0;

@@ -28,6 +28,8 @@
 
 @interface BUYOrder : _BUYOrder {}
 
+- (NSArray<BUYLineItem *> *)lineItemsArray;
+
 @end
 
 @interface BUYModelManager (BUYOrder)

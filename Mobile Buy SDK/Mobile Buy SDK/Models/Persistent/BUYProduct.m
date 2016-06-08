@@ -58,6 +58,21 @@
 	return _stringDescription;
 }
 
+- (NSArray<BUYImageLink *> *)imagesArray
+{
+	return self.images.array;
+}
+
+- (NSArray<BUYOption *> *)optionsArray
+{
+	return self.options.array;
+}
+
+- (NSArray<BUYProductVariant *> *)variantsArray
+{
+	return self.variants.array;
+}
+
 @end
 
 @implementation BUYProduct (Options)

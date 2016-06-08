@@ -37,6 +37,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSOrderedSet <id <BUYPaymentProvider>> *providers;
 
 /**
+ *  The registered payment providers
+ */
+- (NSArray< id<BUYPaymentProvider> > *)providersArray;
+
+/**
  *  Register a payment provider
  *
  *  @param paymentProvider a payment provider
