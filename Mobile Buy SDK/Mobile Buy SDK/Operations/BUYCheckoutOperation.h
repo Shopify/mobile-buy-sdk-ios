@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/BUYAggregateOperation.h>
+#import <Buy/BUYGroupOperation.h>
 #import <Buy/BUYStatusOperation.h>
 NS_ASSUME_NONNULL_BEGIN
 
@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol BUYPaymentToken;
 
-@interface BUYCheckoutOperation : BUYAggregateOperation
+@interface BUYCheckoutOperation : BUYGroupOperation
 
 + (instancetype)operationWithClient:(BUYClient *)client checkoutToken:(NSString *)checkoutToken token:(id<BUYPaymentToken>)token completion:(BUYCheckoutOperationCompletion)completion;
 - (instancetype)initWithClient:(BUYClient *)client checkoutToken:(NSString *)checkoutToken token:(id<BUYPaymentToken>)token completion:(BUYCheckoutOperationCompletion)completion;

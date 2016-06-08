@@ -1,5 +1,5 @@
 //
-//  BUYAggregateOperation.m
+//  BUYGroupOperation.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,19 +24,19 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYAggregateOperation.h"
+#import "BUYGroupOperation.h"
 
-@interface BUYAggregateOperation ()
+@interface BUYGroupOperation ()
 
 @property (weak, nonatomic) NSOperationQueue *queue;
 
 @end
 
-@implementation BUYAggregateOperation
+@implementation BUYGroupOperation
 
 #pragma mark - Init -
 
-+ (instancetype)aggregateOperationWithRequestQueue:(NSOperationQueue *)queue operations:(NSArray<NSOperation *> *)operations
++ (instancetype)groupOperationWithRequestQueue:(NSOperationQueue *)queue operations:(NSArray<NSOperation *> *)operations
 {
 	return [[[self class] alloc] initWithRequestQueue:queue operations:operations];
 }

@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYAggregateOperation.h"
+#import "BUYGroupOperation.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @class BUYCheckout;
@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^BUYCheckoutOperationCompletion)(BUYCheckout * _Nullable checkout, NSError * _Nullable error);
 
-@interface BUYStatusOperation : BUYAggregateOperation
+@interface BUYStatusOperation : BUYGroupOperation
 
 + (instancetype)operationWithClient:(BUYClient *)client checkoutToken:(NSString *)checkoutToken completion:(BUYCheckoutOperationCompletion)completion;
 - (instancetype)initWithClient:(BUYClient *)client checkoutToken:(NSString *)checkoutToken completion:(BUYCheckoutOperationCompletion)completion;
