@@ -26,7 +26,7 @@
 
 @import UIKit;
 
-#import "BUYClient.h"
+#import <Buy/BUYClient.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

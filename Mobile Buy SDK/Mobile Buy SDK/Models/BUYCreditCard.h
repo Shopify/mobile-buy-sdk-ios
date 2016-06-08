@@ -25,7 +25,7 @@
 //
 
 @import Foundation;
-#import "BUYSerializable.h"
+#import <Buy/BUYSerializable.h>
 
 /**
  *  This represents raw credit card data that the user is posting. You MUST discard this object as soon as it has been posted

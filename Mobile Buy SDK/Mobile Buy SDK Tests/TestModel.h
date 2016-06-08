@@ -25,8 +25,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BUYObjectProtocol.h"
-#import "BUYModelManagerProtocol.h"
+#import <Buy/BUYObjectProtocol.h>
+#import <Buy/BUYModelManagerProtocol.h>
 
 @class NSManagedObjectModel;
 

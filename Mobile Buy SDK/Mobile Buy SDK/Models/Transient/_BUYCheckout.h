@@ -26,7 +26,7 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
 // Make changes to BUYCheckout.h instead.
 
-#import "BUYObject.h"
+#import <Buy/BUYObject.h>
 
 #import <Buy/BUYModelManager.h>
 

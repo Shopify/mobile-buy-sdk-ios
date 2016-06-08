@@ -27,10 +27,10 @@
 // Make changes to <$managedObjectClassName$>.h instead.
 
 <$if hasCustomSuperentity$><$if hasSuperentity$>#import <Buy/<$customSuperentity$>.h>
-<$else$><$if hasCustomBaseCaseImport$>#import <$baseClassImport$><$else$>#import "<$customSuperentity$>.h"<$endif$><$endif$><$endif$>
+<$else$><$if hasCustomBaseCaseImport$>#import <$baseClassImport$><$else$>#import <Buy/<$customSuperentity$>.h><$endif$><$endif$><$endif$>
 
 <$if hasAdditionalHeaderFile$>
-#import "<$additionalHeaderFileName$>"
+#import <Buy/<$additionalHeaderFileName$>>
 <$endif$>
 #import <Buy/BUYModelManager.h>
 
