@@ -153,7 +153,7 @@
 	}];
 }
 
-- (NSOperation *)pollCompletionStatusAndGetCheckoutWithToken:(NSString *)token start:(BOOL)start completion:(BUYDataCheckoutBlock)block
+- (NSOperation *)pollCompletionStatusAndGetCheckoutWithToken:(NSString *)token start:(BOOL)start completion:(BUYCheckoutStatusOperationCompletion)block
 {
 	BUYStatusOperation *operation = [BUYStatusOperation operationWithClient:self checkoutToken:token completion:block];
 	if (start) {

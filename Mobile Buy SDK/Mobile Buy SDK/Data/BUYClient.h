@@ -25,49 +25,11 @@
 //
 
 @import Foundation;
+#import "BUYClientTypes.h"
 
 @class BUYModelManager;
 @class BUYOperation;
 @class BUYRequestOperation;
-
-/**
- *  A BUYStatus is associated with the completion of an enqueued job on Shopify.
- *  BUYStatus is equal is HTTP status codes returned from the server
- */
-typedef NS_ENUM(NSUInteger, BUYStatus) {
-	/**
-	 *  The job is complete
-	 */
-	BUYStatusComplete = 200,
-	/**
-	 *  The job is still processing
-	 */
-	BUYStatusProcessing = 202,
-	/**
-	 *  The job is not found, please check the identifier
-	 */
-	BUYStatusNotFound = 404,
-	/**
-	 *  The precondition given in one or more of the request-header fields evaluated to false when it was tested on the server.
-	 */
-	BUYStatusPreconditionFailed = 412,
-	/**
-	 *  The request failed, refer to an NSError for details
-	 */
-	BUYStatusFailed = 424,
-	/**
-	 *  The status is unknown
-	 */
-	BUYStatusUnknown
-};
-
-/**
- *  Return block containing a BUYCheckout, a BUYStatus and/or an NSError
- *
- *  @param status   A BUYStatus specifying the requested job's completion status
- *  @param error    Optional NSError
- */
-typedef void (^BUYDataStatusBlock)(BUYStatus status, NSError * _Nullable error);
 
 /**
  The BUYDataClient provides all requests needed to perform request on the Shopify Checkout API.

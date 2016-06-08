@@ -26,6 +26,7 @@
 
 #import <Buy/BUYGroupOperation.h>
 #import <Buy/BUYStatusOperation.h>
+#import <Buy/BUYClientTypes.h>
 NS_ASSUME_NONNULL_BEGIN
 
 @class BUYClient;
