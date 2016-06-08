@@ -42,9 +42,9 @@
 }
 #endif
 
-- (nonnull NSArray<BUYCartLineItem *> *)lineItemsArray
+- (NSArray<BUYCartLineItem *> *)lineItemsArray
 {
-	return self.lineItems.array;
+	return self.lineItems.array ?: @[];
 }
 
 - (BOOL)isValid

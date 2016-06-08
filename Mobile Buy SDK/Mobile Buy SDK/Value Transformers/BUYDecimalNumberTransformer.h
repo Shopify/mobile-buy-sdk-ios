@@ -25,6 +25,7 @@
 //
 
 #import <Foundation/Foundation.h>
+NS_ASSUME_NONNULL_BEGIN
 
 extern NSString * const BUYDecimalNumberTransformerName; // = @"BUYDecimalNumber";
 
@@ -32,4 +33,7 @@ extern NSString * const BUYDecimalNumberTransformerName; // = @"BUYDecimalNumber
  * Transforms a decimal number object into a string and back.
  */
 @interface BUYDecimalNumberTransformer : NSValueTransformer
+
 @end
+
+NS_ASSUME_NONNULL_END

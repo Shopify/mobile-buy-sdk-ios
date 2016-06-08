@@ -32,7 +32,7 @@
 {
 	self = [super init];
 	if (self) {
-		self.key = key;
+		_key = [key copy];
 		[self setValuesForKeysWithDictionary:json];
 	}
 	return self;

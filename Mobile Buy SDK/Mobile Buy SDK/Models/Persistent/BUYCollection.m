@@ -34,7 +34,7 @@
 
 - (NSArray<BUYProduct *> *)productsArray
 {
-	return self.products.array;
+	return self.products.array ?: @[];
 }
 
 - (void)updateStringDescription

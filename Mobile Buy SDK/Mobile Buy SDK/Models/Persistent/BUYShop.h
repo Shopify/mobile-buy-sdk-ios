@@ -24,8 +24,11 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/_BUYShop.h>
+#import "_BUYShop.h"
+NS_ASSUME_NONNULL_BEGIN
 
 @interface BUYShop : _BUYShop {}
 
 @end
+
+NS_ASSUME_NONNULL_END

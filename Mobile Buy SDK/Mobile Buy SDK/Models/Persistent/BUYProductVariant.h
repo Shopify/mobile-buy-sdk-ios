@@ -24,7 +24,8 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/_BUYProductVariant.h>
+#import "_BUYProductVariant.h"
+NS_ASSUME_NONNULL_BEGIN
 
 @class BUYOptionValue;
 
@@ -37,7 +38,7 @@
  *
  *  @return the option value
  */
-- (BUYOptionValue *)optionValueForName:(NSString *)optionName;
+- (nullable BUYOptionValue *)optionValueForName:(NSString *)optionName;
 
 /**
  *  Filters array of product variants filtered based on a selected option value
@@ -50,3 +51,5 @@
 + (NSArray *)filterProductVariants:(NSArray *)productVariants forOptionValue:(BUYOptionValue *)optionValue;
 
 @end
+
+NS_ASSUME_NONNULL_END

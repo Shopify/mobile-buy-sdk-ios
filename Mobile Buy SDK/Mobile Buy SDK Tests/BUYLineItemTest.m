@@ -70,7 +70,7 @@
 
 - (void)testJsonDictionaryDoesntIncludeVariantsWithoutIds
 {
-	_lineItem = [_modelManager lineItemWithVariant:nil];
+	_lineItem = [_modelManager lineItemWithVariant:[BUYProductVariant new]];
 	NSDictionary *json = [_lineItem jsonDictionaryForCheckout];
 	XCTAssertNotNil(json);
 	XCTAssertNil(json[@"variant_id"]);

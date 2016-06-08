@@ -25,6 +25,7 @@
 //
 
 #import <Foundation/Foundation.h>
+NS_ASSUME_NONNULL_BEGIN
 
 extern NSString * const BUYDateTransformerName; // = @"BUYDate";
 
@@ -32,5 +33,9 @@ extern NSString * const BUYDateTransformerName; // = @"BUYDate";
  * Transforms a date object into a string and back using the provided format string.
  */
 @interface BUYDateTransformer : NSValueTransformer
+
 + (instancetype)dateTransformerWithFormat:(NSString *)format;
+
 @end
+
+NS_ASSUME_NONNULL_END

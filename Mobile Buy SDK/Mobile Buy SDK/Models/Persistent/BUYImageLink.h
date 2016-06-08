@@ -24,9 +24,9 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/_BUYImageLink.h>
-
 @import UIKit;
+#import "_BUYImageLink.h"
+NS_ASSUME_NONNULL_BEGIN
 
 // Defines for common maximum image sizes
 typedef NS_ENUM(NSUInteger, BUYImageURLSize) {
@@ -83,3 +83,5 @@ typedef NS_ENUM(NSUInteger, BUYImageURLSize) {
 - (BUYImageURLSize)buy_imageSize;
 
 @end
+
+NS_ASSUME_NONNULL_END
