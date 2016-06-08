@@ -29,6 +29,7 @@
 #import "BUYClient+Routing.h"
 #import "BUYRequestOperation.h"
 #import "BUYCheckoutOperation.h"
+#import "BUYStatusOperation.h"
 #import "BUYAddress.h"
 #import "BUYCheckout.h"
 #import "BUYGiftCard.h"
@@ -104,7 +105,7 @@
 
 - (BUYOperation *)completeCheckoutWithToken:(NSString *)checkoutToken paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block
 {
-	BUYCheckoutOperation *operation = [[BUYCheckoutOperation alloc] initWithClient:self checkoutToken:checkoutToken token:paymentToken completion:block];
+	BUYCheckoutOperation *operation = [BUYCheckoutOperation operationWithClient:self checkoutToken:checkoutToken token:paymentToken completion:block];
 	[self startOperation:operation];
 	return operation;
 }
@@ -150,6 +151,15 @@
 	return [self getRequestForURL:url start:start completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		block([self statusForStatusCode:response.statusCode error:error], error);
 	}];
+}
+
+- (NSOperation *)pollCompletionStatusAndGetCheckoutWithToken:(NSString *)token start:(BOOL)start completion:(BUYDataCheckoutBlock)block
+{
+	BUYStatusOperation *operation = [BUYStatusOperation operationWithClient:self checkoutToken:token completion:block];
+	if (start) {
+		[self startOperation:operation];
+	}
+	return operation;
 }
 
 - (NSOperation *)postCheckout:(NSDictionary *)checkoutJSON completion:(BUYDataCheckoutBlock)block

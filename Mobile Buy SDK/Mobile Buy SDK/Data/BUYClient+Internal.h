@@ -35,6 +35,10 @@ typedef void (^BUYClientRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResp
 
 @interface BUYClient (Internal)
 
+@property (nonatomic, strong) NSOperationQueue *requestQueue;
+
+- (NSOperation *)pollCompletionStatusAndGetCheckoutWithToken:(NSString *)token start:(BOOL)start completion:(BUYDataCheckoutBlock)block;
+
 - (NSOperation *)getRequestForURL:(NSURL *)url    completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
 - (NSOperation *)deleteRequestForURL:(NSURL *)url completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
 

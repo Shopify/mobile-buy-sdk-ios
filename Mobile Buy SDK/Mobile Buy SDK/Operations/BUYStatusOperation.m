@@ -1,5 +1,5 @@
 //
-//  BUYCheckoutOperation.m
+//  BUYStatusOperation.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,41 +24,53 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYCheckoutOperation.h"
+#import "BUYStatusOperation.h"
 #import "BUYClient+Checkout.h"
 #import "BUYClient+Internal.h"
-#import "BUYPaymentToken.h"
 #import "BUYRequestOperation.h"
-#import "BUYStatusOperation.h"
 
-@interface BUYCheckoutOperation ()
+@interface BUYStatusOperation ()
 
 @property (strong, nonatomic, readonly) BUYClient *client;
 @property (strong, nonatomic, readonly) NSString *checkoutToken;
-@property (strong, nonatomic, readonly) id<BUYPaymentToken> token;
 @property (strong, nonatomic, readonly) BUYCheckoutOperationCompletion completion;
 
 @end
 
-@implementation BUYCheckoutOperation
+@implementation BUYStatusOperation
 
 #pragma mark - Init -
 
-+ (instancetype)operationWithClient:(BUYClient *)client checkoutToken:(NSString *)checkoutToken token:(id<BUYPaymentToken>)token completion:(BUYCheckoutOperationCompletion)completion
++ (instancetype)operationWithClient:(BUYClient *)client checkoutToken:(NSString *)checkoutToken completion:(BUYCheckoutOperationCompletion)completion
 {
-	return [[[self class] alloc] initWithClient:client checkoutToken:checkoutToken token:token completion:completion];
+	return [[[self class] alloc] initWithClient:client checkoutToken:checkoutToken completion:completion];
 }
 
-- (instancetype)initWithClient:(BUYClient *)client checkoutToken:(NSString *)checkoutToken token:(id<BUYPaymentToken>)token completion:(BUYCheckoutOperationCompletion)completion
+- (instancetype)initWithClient:(BUYClient *)client checkoutToken:(NSString *)checkoutToken completion:(BUYCheckoutOperationCompletion)completion
 {
 	self = [super initWithRequestQueue:client.requestQueue operations:nil];
 	if (self) {
 		_client        = client;
-		_token         = token;
 		_completion    = completion;
 		_checkoutToken = checkoutToken;
 	}
 	return self;
+}
+
+#pragma mark - Execution -
+
+- (void)startExecution
+{
+	if (self.cancelled) {
+		return;
+	}
+	
+	self.operations = @[
+						[self createPollOperation],
+						[self createGetOperation],
+						];
+	
+	[super startExecution];
 }
 
 #pragma mark - Finishing -
@@ -83,36 +95,25 @@
 	self.completion(nil, error);
 }
 
-#pragma mark - Execution -
-
-- (void)startExecution
-{
-	if (self.cancelled) {
-		return;
-	}
-	
-	self.operations = @[
-						[self createBeginOperation],
-						[self createStatusOperation],
-						];
-	
-	[super startExecution];
-}
-
 #pragma mark - Operations -
 
-- (NSOperation *)createBeginOperation
+- (NSOperation *)createPollOperation
 {
-	return [self.client beginCheckoutWithToken:self.checkoutToken paymentToken:self.token completion:^(BUYCheckout *checkout, NSError *error) {
-		if (!checkout) {
+	BUYRequestOperation *operation = (BUYRequestOperation *)[self.client getCompletionStatusOfCheckoutWithToken:self.checkoutToken start:NO completion:^(BUYStatus status, NSError *error) {
+		if (status != BUYStatusComplete) {
 			[self finishWithError:error];
 		}
 	}];
+	operation.pollingHandler = ^BOOL (NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		return response.statusCode == BUYStatusProcessing;
+	};
+	
+	return operation;
 }
 
-- (NSOperation *)createStatusOperation
+- (NSOperation *)createGetOperation
 {
-	return [self.client pollCompletionStatusAndGetCheckoutWithToken:self.checkoutToken start:NO completion:^(BUYCheckout *checkout, NSError *error) {
+	return [self.client getCheckoutWithToken:self.checkoutToken start:NO completion:^(BUYCheckout *checkout, NSError *error) {
 		if (checkout) {
 			[self finishWithObject:checkout];
 		} else {
