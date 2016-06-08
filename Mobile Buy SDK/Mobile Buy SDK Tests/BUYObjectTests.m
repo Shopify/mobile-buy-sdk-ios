@@ -122,7 +122,7 @@
 
 - (BUYDirtyTracked *)dirtyTrackedObject
 {
-	return [[BUYDirtyTracked alloc] initWithModelManager:nil JSONDictionary:nil];
+	return [[BUYDirtyTracked alloc] initWithModelManager:[BUYModelManager modelManager] JSONDictionary:nil];
 }
 
 @end

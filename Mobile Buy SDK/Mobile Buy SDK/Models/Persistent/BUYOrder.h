@@ -25,6 +25,7 @@
 //
 
 #import <Buy/_BUYOrder.h>
+NS_ASSUME_NONNULL_BEGIN
 
 @interface BUYOrder : _BUYOrder {}
 
@@ -38,4 +39,6 @@
 - (NSArray<BUYOrder *> *)ordersWithJSONDictionary:(NSDictionary *)json;
 
 @end
+
+NS_ASSUME_NONNULL_END
 

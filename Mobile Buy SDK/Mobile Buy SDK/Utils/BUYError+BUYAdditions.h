@@ -25,12 +25,20 @@
 //
 
 #import <Buy/BUYError.h>
+NS_ASSUME_NONNULL_BEGIN
 
 @interface BUYError (Checkout)
-+ (NSArray<BUYError *> *)errorsFromCheckoutJSON:(NSDictionary *)json;
+
 @property (readonly) NSString *quantityRemainingMessage;
+
++ (nullable NSArray<BUYError *> *)errorsFromCheckoutJSON:(NSDictionary *)json;
+
 @end
 
 @interface BUYError (Customer)
+
 + (NSArray<BUYError *> *)errorsFromSignUpJSON:(NSDictionary *)json;
+
 @end
+
+NS_ASSUME_NONNULL_END

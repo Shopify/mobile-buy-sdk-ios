@@ -25,12 +25,14 @@
 //
 
 #import <Buy/_BUYProduct.h>
+NS_ASSUME_NONNULL_BEGIN
 
 @interface BUYProduct : _BUYProduct {}
 
 @property (nonatomic, readonly, copy) NSDate *createdAtDate;
 @property (nonatomic, readonly, copy) NSDate *updatedAtDate;
 @property (nonatomic, readonly, copy) NSDate *publishedAtDate;
+
 @property (nonatomic, readonly, copy) NSString *stringDescription;
 
 /**
@@ -70,7 +72,7 @@
  *
  *  @return the product variant matching the set of options
  */
-- (BUYProductVariant *)variantWithOptions:(NSArray *)options;
+- (nullable BUYProductVariant *)variantWithOptions:(NSArray *)options;
 
 /**
  *  Determine if the variant is a default variant automatically created by Shopify
@@ -80,3 +82,5 @@
 - (BOOL)isDefaultVariant;
 
 @end
+
+NS_ASSUME_NONNULL_END

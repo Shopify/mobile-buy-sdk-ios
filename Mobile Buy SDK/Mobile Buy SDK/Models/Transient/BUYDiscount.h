@@ -26,10 +26,15 @@
 
 #import <Buy/_BUYDiscount.h>
 #import <Buy/BUYModelManager.h>
+NS_ASSUME_NONNULL_BEGIN
 
 @interface BUYDiscount : _BUYDiscount {}
 @end
 
 @interface BUYModelManager (BUYDiscountCreating)
-- (BUYDiscount *)discountWithCode:(NSString *)code;
+
+- (BUYDiscount *)discountWithCode:(nullable NSString *)code;
+
 @end
+
+NS_ASSUME_NONNULL_END

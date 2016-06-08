@@ -25,9 +25,9 @@
 //
 
 #import <Foundation/Foundation.h>
-
 #import <Buy/BUYObjectProtocol.h>
 #import <Buy/BUYModelManagerProtocol.h>
+NS_ASSUME_NONNULL_BEGIN
 
 @interface BUYObject : NSObject<BUYObject>
 
@@ -37,8 +37,10 @@
  */
 @property (nonatomic, readonly, getter=isDirty) BOOL dirty;
 
-- (NSSet *)dirtyProperties;
+- (nullable NSSet *)dirtyProperties;
 - (void)markPropertyAsDirty:(NSString *)property;
 - (void)markAsClean;
 
 @end
+
+NS_ASSUME_NONNULL_END

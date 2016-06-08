@@ -60,17 +60,17 @@
 
 - (NSArray<BUYImageLink *> *)imagesArray
 {
-	return self.images.array;
+	return self.images.array ?: @[];
 }
 
 - (NSArray<BUYOption *> *)optionsArray
 {
-	return self.options.array;
+	return self.options.array ?: @[];
 }
 
 - (NSArray<BUYProductVariant *> *)variantsArray
 {
-	return self.variants.array;
+	return self.variants.array ?: @[];
 }
 
 @end

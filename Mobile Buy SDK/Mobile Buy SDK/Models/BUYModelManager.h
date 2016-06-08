@@ -25,9 +25,9 @@
 //
 
 #import <Foundation/Foundation.h>
-
 #import <Buy/BUYObject.h>
 #import <Buy/BUYModelManagerProtocol.h>
+NS_ASSUME_NONNULL_BEGIN
 
 /**
  * A basic implementation of the BUYModelManager interface that does no caching. New objects are created using alloc/init.
@@ -54,3 +54,5 @@
 + (instancetype)modelManager;
 
 @end
+
+NS_ASSUME_NONNULL_END

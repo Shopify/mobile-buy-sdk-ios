@@ -31,7 +31,7 @@
 
 - (NSArray<BUYLineItem *> *)lineItemsArray
 {
-	return self.lineItems.array;
+	return self.lineItems.array ?: @[];
 }
 
 - (NSArray *)formatIDsForLineItemsJSON:(NSArray<NSDictionary *> *)lineItems

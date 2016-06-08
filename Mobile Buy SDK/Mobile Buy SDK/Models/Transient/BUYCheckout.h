@@ -27,12 +27,12 @@
 #import <Buy/_BUYCheckout.h>
 #import <Buy/_BUYProductVariant.h>
 #import <Buy/BUYModelManager.h>
+NS_ASSUME_NONNULL_BEGIN
 
 @class BUYCart, BUYCartLineItem, BUYAddress, BUYGiftCard;
 
 @interface BUYCheckout : _BUYCheckout {}
 
-@property (nonatomic, copy) NSNumber *taxesIncluded;
 @property (nonatomic, readonly, copy) NSDate *createdAtDate;
 @property (nonatomic, readonly, copy) NSDate *updatedAtDate;
 @property (nonatomic, readonly, copy) NSDictionary *attributesDictionary;
@@ -47,7 +47,7 @@
 
 - (void)updateWithCart:(BUYCart *)cart;
 
-- (BUYGiftCard *)giftCardWithIdentifier:(NSNumber *)identifier;
+- (nullable BUYGiftCard *)giftCardWithIdentifier:(NSNumber *)identifier;
 - (void)addGiftCard:(BUYGiftCard *)giftCard;
 - (void)removeGiftCardWithIdentifier:(NSNumber *)identifier;
 
@@ -61,3 +61,5 @@
 - (BUYCheckout *)checkoutwithCartToken:(NSString *)token;
 
 @end
+
+NS_ASSUME_NONNULL_END

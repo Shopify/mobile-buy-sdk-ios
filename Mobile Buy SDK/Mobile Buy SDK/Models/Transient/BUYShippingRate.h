@@ -25,7 +25,10 @@
 //
 
 #import <Buy/_BUYShippingRate.h>
+NS_ASSUME_NONNULL_BEGIN
 
 @interface BUYShippingRate : _BUYShippingRate {}
 
 @end
+
+NS_ASSUME_NONNULL_END

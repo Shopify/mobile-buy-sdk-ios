@@ -25,8 +25,8 @@
 //
 
 #import <CoreData/CoreData.h>
-
 #import <Buy/BUYObject.h>
+NS_ASSUME_NONNULL_BEGIN
 
 #if defined CORE_DATA_PERSISTENCE
 
@@ -42,7 +42,7 @@
 
 @interface BUYManagedObject : NSManagedObject<BUYObject>
 
-- (nonnull instancetype)init NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 
 @end
 
@@ -56,11 +56,13 @@
  */
 @interface BUYObject (BUYManagedObjectConformance)
 
-- (void)willAccessValueForKey:(nonnull NSString *)key;
-- (void)didAccessValueForKey:(nonnull NSString *)key;
+- (void)willAccessValueForKey:(NSString *)key;
+- (void)didAccessValueForKey:(NSString *)key;
 
-- (nullable id)primitiveValueForKey:(nonnull NSString *)key;
-- (void)setPrimitiveValue:(nullable id)value forKey:(nonnull NSString *)key;
+- (nullable id)primitiveValueForKey:(NSString *)key;
+- (void)setPrimitiveValue:(nullable id)value forKey:(NSString *)key;
 
 @end
 #endif
+
+NS_ASSUME_NONNULL_END

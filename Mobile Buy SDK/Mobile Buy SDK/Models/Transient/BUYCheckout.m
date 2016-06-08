@@ -118,12 +118,12 @@
 
 - (NSArray<BUYGiftCard *> *)giftCardsArray
 {
-	return self.giftCards.array;
+	return self.giftCards.array ?: @[];
 }
 
 - (NSArray<BUYCartLineItem *> *)lineItemsArray
 {
-	return self.lineItems.array;
+	return self.lineItems.array ?: @[];
 }
 
 #pragma mark - Update -

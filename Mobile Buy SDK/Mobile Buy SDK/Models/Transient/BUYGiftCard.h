@@ -26,6 +26,7 @@
 
 #import <Buy/_BUYGiftCard.h>
 #import <Buy/BUYModelManager.h>
+NS_ASSUME_NONNULL_BEGIN
 
 @interface BUYGiftCard : _BUYGiftCard {}
 
@@ -36,3 +37,5 @@
 - (BUYGiftCard *)giftCardWithCode:(NSString *)code;
 
 @end
+
+NS_ASSUME_NONNULL_END

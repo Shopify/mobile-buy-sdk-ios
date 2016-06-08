@@ -24,8 +24,9 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/BUYModelManager.h>
 @import PassKit;
+#import <Buy/BUYModelManager.h>
+NS_ASSUME_NONNULL_BEGIN
 
 @class BUYAddress;
 
@@ -50,3 +51,5 @@
 - (BUYAddress *)buyAddressWithContact:(PKContact *)contact NS_AVAILABLE_IOS(9_0);
 
 @end
+
+NS_ASSUME_NONNULL_END
