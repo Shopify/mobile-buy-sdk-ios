@@ -30,8 +30,8 @@
 
 @property (strong, atomic) NSArray<NSOperation *> *operations;
 
-+ (instancetype)operationWithQueue:(NSOperationQueue *)queue operations:(NSArray<NSOperation *> *)operations;
-- (instancetype)initWithQueue:(NSOperationQueue *)queue operations:(NSArray<NSOperation *> *)operations;
++ (instancetype)aggregateOperationWithRequestQueue:(NSOperationQueue *)queue operations:(NSArray<NSOperation *> *)operations;
+- (instancetype)initWithRequestQueue:(NSOperationQueue *)queue operations:(NSArray<NSOperation *> *)operations;
 
 - (void)finishWithObject:(id)object;
 - (void)finishWithError:(NSError *)error;

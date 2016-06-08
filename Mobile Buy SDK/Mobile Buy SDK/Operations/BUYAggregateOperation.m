@@ -28,7 +28,7 @@
 
 @interface BUYAggregateOperation ()
 
-@property (strong, nonatomic) NSOperationQueue *queue;
+@property (weak, nonatomic) NSOperationQueue *queue;
 
 @end
 
@@ -36,12 +36,12 @@
 
 #pragma mark - Init -
 
-+ (instancetype)operationWithQueue:(NSOperationQueue *)queue operations:(NSArray<NSOperation *> *)operations
++ (instancetype)aggregateOperationWithRequestQueue:(NSOperationQueue *)queue operations:(NSArray<NSOperation *> *)operations
 {
-	return [[[self class] alloc] initWithQueue:queue operations:operations];
+	return [[[self class] alloc] initWithRequestQueue:queue operations:operations];
 }
 
-- (instancetype)initWithQueue:(NSOperationQueue *)queue operations:(NSArray<NSOperation *> *)operations
+- (instancetype)initWithRequestQueue:(NSOperationQueue *)queue operations:(NSArray<NSOperation *> *)operations
 {
 	self = [super init];
 	if (self) {

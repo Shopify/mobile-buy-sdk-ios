@@ -51,7 +51,7 @@
 
 - (instancetype)initWithClient:(BUYClient *)client checkoutToken:(NSString *)checkoutToken token:(id<BUYPaymentToken>)token completion:(BUYCheckoutOperationCompletion)completion
 {
-	self = [super initWithQueue:client.requestQueue operations:nil];
+	self = [super initWithRequestQueue:client.requestQueue operations:nil];
 	if (self) {
 		_client        = client;
 		_token         = token;
