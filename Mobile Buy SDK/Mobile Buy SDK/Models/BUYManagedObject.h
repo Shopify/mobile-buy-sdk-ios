@@ -25,7 +25,7 @@
 //
 
 #import <CoreData/CoreData.h>
-#import "BUYObject.h"
+#import <Buy/BUYObject.h>
 NS_ASSUME_NONNULL_BEGIN
 
 #if defined CORE_DATA_PERSISTENCE

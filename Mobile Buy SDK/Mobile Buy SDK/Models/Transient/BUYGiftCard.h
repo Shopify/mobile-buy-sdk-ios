@@ -24,8 +24,8 @@
 //  THE SOFTWARE.
 //
 
-#import "_BUYGiftCard.h"
-#import "BUYModelManager.h"
+#import <Buy/_BUYGiftCard.h>
+#import <Buy/BUYModelManager.h>
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BUYGiftCard : _BUYGiftCard {}

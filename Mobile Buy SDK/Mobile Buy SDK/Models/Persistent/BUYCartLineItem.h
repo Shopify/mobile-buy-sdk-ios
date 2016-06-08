@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import "_BUYCartLineItem.h"
+#import <Buy/_BUYCartLineItem.h>
 NS_ASSUME_NONNULL_BEGIN
 
 /**

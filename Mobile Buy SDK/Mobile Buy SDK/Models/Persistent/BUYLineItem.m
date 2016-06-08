@@ -28,7 +28,6 @@
 //
 
 #import "BUYLineItem.h"
-
 #import "BUYCartLineItem.h"
 #import "BUYProductVariant.h"
 

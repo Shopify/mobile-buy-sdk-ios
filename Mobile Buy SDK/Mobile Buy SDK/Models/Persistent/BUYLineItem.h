@@ -24,8 +24,8 @@
 //  THE SOFTWARE.
 //
 
-#import "_BUYLineItem.h"
-#import "BUYModelManager.h"
+#import <Buy/_BUYLineItem.h>
+#import <Buy/BUYModelManager.h>
 NS_ASSUME_NONNULL_BEGIN
 
 @class BUYCartLineItem;

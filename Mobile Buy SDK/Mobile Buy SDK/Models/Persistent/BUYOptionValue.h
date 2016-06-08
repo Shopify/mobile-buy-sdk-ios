@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import "_BUYOptionValue.h"
+#import <Buy/_BUYOptionValue.h>
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BUYOptionValue : _BUYOptionValue {}

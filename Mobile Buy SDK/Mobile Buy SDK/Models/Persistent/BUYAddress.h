@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import "_BUYAddress.h"
+#import <Buy/_BUYAddress.h>
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BUYAddress : _BUYAddress {}

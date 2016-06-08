@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import "_BUYOrder.h"
+#import <Buy/_BUYOrder.h>
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BUYOrder : _BUYOrder {}

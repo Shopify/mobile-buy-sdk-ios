@@ -24,9 +24,9 @@
 //  THE SOFTWARE.
 //
 
-#import "_BUYCheckout.h"
-#import "_BUYProductVariant.h"
-#import "BUYModelManager.h"
+#import <Buy/_BUYCheckout.h>
+#import <Buy/_BUYProductVariant.h>
+#import <Buy/BUYModelManager.h>
 NS_ASSUME_NONNULL_BEGIN
 
 @class BUYCart, BUYCartLineItem, BUYAddress, BUYGiftCard;

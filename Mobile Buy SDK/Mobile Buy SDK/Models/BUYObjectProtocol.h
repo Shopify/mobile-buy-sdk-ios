@@ -25,7 +25,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BUYSerializable.h"
+#import <Buy/BUYSerializable.h>
 NS_ASSUME_NONNULL_BEGIN
 
 @class NSEntityDescription;

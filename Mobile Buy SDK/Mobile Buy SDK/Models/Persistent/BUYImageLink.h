@@ -25,7 +25,7 @@
 //
 
 @import UIKit;
-#import "_BUYImageLink.h"
+#import <Buy/_BUYImageLink.h>
 NS_ASSUME_NONNULL_BEGIN
 
 // Defines for common maximum image sizes

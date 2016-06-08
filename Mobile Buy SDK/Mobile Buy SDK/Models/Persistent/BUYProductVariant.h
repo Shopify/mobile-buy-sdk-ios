@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import "_BUYProductVariant.h"
+#import <Buy/_BUYProductVariant.h>
 NS_ASSUME_NONNULL_BEGIN
 
 @class BUYOptionValue;
