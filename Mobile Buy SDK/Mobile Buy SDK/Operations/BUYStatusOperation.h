@@ -26,11 +26,10 @@
 
 #import "BUYGroupOperation.h"
 #import "BUYClient.h"
+#import "BUYClientTypes.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @class BUYCheckout;
-
-typedef void (^BUYCheckoutStatusOperationCompletion)(BUYStatus status, BUYCheckout * _Nullable checkout, NSError * _Nullable error);
 
 @interface BUYStatusOperation : BUYGroupOperation
 

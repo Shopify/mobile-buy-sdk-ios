@@ -58,6 +58,7 @@
 #import "BUYPaymentProvider.h"
 #import "BUYWebCheckoutPaymentProvider.h"
 
+#import "BUYClientTypes.h"
 #import "BUYClient.h"
 #import "BUYClient+Address.h"
 #import "BUYClient+Customers.h"

@@ -250,6 +250,7 @@
 		9A6C1D421D07485F00BFF4F9 /* BUYStatusOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6C1D401D07485F00BFF4F9 /* BUYStatusOperation.m */; };
 		9A6C1D451D0749FC00BFF4F9 /* BUYGroupOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A6C1D431D0749FC00BFF4F9 /* BUYGroupOperation.h */; };
 		9A6C1D461D0749FC00BFF4F9 /* BUYGroupOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6C1D441D0749FC00BFF4F9 /* BUYGroupOperation.m */; };
+		9A6C1DC41D089E4700BFF4F9 /* BUYClientTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A6C1DC31D089E4700BFF4F9 /* BUYClientTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A7652C31CF487BD00220E4B /* BUYOperationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7652C21CF487BD00220E4B /* BUYOperationTests.m */; };
 		9A807E841CF74EBE00023160 /* BUYClient+Address.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A807E811CF74EBE00023160 /* BUYClient+Address.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A807E861CF74EBE00023160 /* BUYClient+Address.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A807E821CF74EBE00023160 /* BUYClient+Address.m */; };
@@ -496,6 +497,7 @@
 		9A6C1D401D07485F00BFF4F9 /* BUYStatusOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYStatusOperation.m; sourceTree = "<group>"; };
 		9A6C1D431D0749FC00BFF4F9 /* BUYGroupOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYGroupOperation.h; sourceTree = "<group>"; };
 		9A6C1D441D0749FC00BFF4F9 /* BUYGroupOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYGroupOperation.m; sourceTree = "<group>"; };
+		9A6C1DC31D089E4700BFF4F9 /* BUYClientTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYClientTypes.h; sourceTree = "<group>"; };
 		9A7652C21CF487BD00220E4B /* BUYOperationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYOperationTests.m; sourceTree = "<group>"; };
 		9A807E811CF74EBE00023160 /* BUYClient+Address.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BUYClient+Address.h"; sourceTree = "<group>"; };
 		9A807E821CF74EBE00023160 /* BUYClient+Address.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYClient+Address.m"; sourceTree = "<group>"; };
@@ -1038,6 +1040,7 @@
 			isa = PBXGroup;
 			children = (
 				8498DCB01CDD1B4A00BD12A8 /* BUYClient+Internal.h */,
+				9A6C1DC31D089E4700BFF4F9 /* BUYClientTypes.h */,
 				F7FDA17019C93F6F00AF4E93 /* BUYClient.h */,
 				F7FDA17119C93F6F00AF4E93 /* BUYClient.m */,
 				9A0B0C641CEA703E0037D68F /* BUYClient+Routing.h */,
@@ -1147,6 +1150,7 @@
 				9A585C0B1CE6440B001F20F0 /* BUYOperation.h in Headers */,
 				9A0B0C791CEB5BBD0037D68F /* BUYAuthenticatedResponse.h in Headers */,
 				849810971CB7E07900CFAB58 /* BUYFlatCollectionTransformer.h in Headers */,
+				9A6C1DC41D089E4700BFF4F9 /* BUYClientTypes.h in Headers */,
 				901931641BC5B9BC00D1134E /* BUYCartLineItem.h in Headers */,
 				8498DCAE1CDD1B2F00BD12A8 /* BUYError+BUYAdditions.h in Headers */,
 				901931661BC5B9BC00D1134E /* BUYCheckout.h in Headers */,
