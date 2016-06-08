@@ -112,7 +112,7 @@
 
 - (NSOperation *)createStatusOperation
 {
-	return [self.client pollCompletionStatusAndGetCheckoutWithToken:self.checkoutToken start:NO completion:^(BUYCheckout *checkout, NSError *error) {
+	return [self.client pollCompletionStatusAndGetCheckoutWithToken:self.checkoutToken start:NO completion:^(BUYStatus status, BUYCheckout *checkout, NSError *error) {
 		if (checkout) {
 			[self finishWithObject:checkout];
 		} else {
