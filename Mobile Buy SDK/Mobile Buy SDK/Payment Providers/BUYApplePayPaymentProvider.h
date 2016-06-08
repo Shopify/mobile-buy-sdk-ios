@@ -25,7 +25,7 @@
 //
 
 @import UIKit;
-#import "BUYPaymentProvider.h"
+#import <Buy/BUYPaymentProvider.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

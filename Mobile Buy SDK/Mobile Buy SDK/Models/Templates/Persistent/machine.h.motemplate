@@ -29,9 +29,9 @@
 #import <Buy/BUYManagedObject.h>
 
 <$if hasAdditionalHeaderFile$>
-#import "<$additionalHeaderFileName$>"
+#import <Buy/<$additionalHeaderFileName$>>
 <$endif$>
-#import "BUYModelManager.h"
+#import <Buy/BUYModelManager.h>
 
 <$if noninheritedAttributes.@count > 0$>
 extern const struct <$managedObjectClassName$>Attributes {<$foreach Attribute noninheritedAttributes do$>

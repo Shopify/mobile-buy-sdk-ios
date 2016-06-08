@@ -28,7 +28,7 @@
 
 #import <Buy/BUYManagedObject.h>
 
-#import "BUYModelManager.h"
+#import <Buy/BUYModelManager.h>
 
 extern const struct BUYOptionValueAttributes {
 	__unsafe_unretained NSString *name;

@@ -25,7 +25,7 @@
 //
 
 #import <Buy/_BUYCollection.h>
-#import "BUYClient+Storefront.h"
+#import <Buy/BUYClient+Storefront.h>
 
 @interface BUYCollection : _BUYCollection {}
 

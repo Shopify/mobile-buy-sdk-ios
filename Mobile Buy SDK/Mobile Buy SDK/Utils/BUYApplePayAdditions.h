@@ -27,9 +27,9 @@
 @import Foundation;
 @import PassKit;
 
-#import "BUYCheckout.h"
-#import "BUYShippingRate.h"
-#import "BUYAddress.h"
+#import <Buy/BUYCheckout.h>
+#import <Buy/BUYShippingRate.h>
+#import <Buy/BUYAddress.h>
 
 @interface BUYCheckout (ApplePay)
 

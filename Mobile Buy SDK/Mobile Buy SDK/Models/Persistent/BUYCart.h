@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import "_BUYCart.h"
+#import <Buy/_BUYCart.h>
 
 @class BUYProductVariant;
 @class BUYLineItem;

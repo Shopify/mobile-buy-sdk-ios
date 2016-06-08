@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYError.h"
+#import <Buy/BUYError.h>
 
 @interface BUYError (Checkout)
 + (NSArray<BUYError *> *)errorsFromCheckoutJSON:(NSDictionary *)json;
