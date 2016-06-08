@@ -33,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol BUYPaymentToken;
 
+typedef void (^BUYCheckoutOperationCompletion)(BUYCheckout * _Nullable checkout, NSError * _Nullable error);
+
 @interface BUYCheckoutOperation : BUYGroupOperation
 
 + (instancetype)operationWithClient:(BUYClient *)client checkoutToken:(NSString *)checkoutToken token:(id<BUYPaymentToken>)token completion:(BUYCheckoutOperationCompletion)completion;

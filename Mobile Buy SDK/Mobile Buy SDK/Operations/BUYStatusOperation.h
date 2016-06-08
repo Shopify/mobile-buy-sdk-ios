@@ -25,17 +25,17 @@
 //
 
 #import "BUYGroupOperation.h"
+#import "BUYClient.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @class BUYCheckout;
-@class BUYClient;
 
-typedef void (^BUYCheckoutOperationCompletion)(BUYCheckout * _Nullable checkout, NSError * _Nullable error);
+typedef void (^BUYCheckoutStatusOperationCompletion)(BUYStatus status, BUYCheckout * _Nullable checkout, NSError * _Nullable error);
 
 @interface BUYStatusOperation : BUYGroupOperation
 
-+ (instancetype)operationWithClient:(BUYClient *)client checkoutToken:(NSString *)checkoutToken completion:(BUYCheckoutOperationCompletion)completion;
-- (instancetype)initWithClient:(BUYClient *)client checkoutToken:(NSString *)checkoutToken completion:(BUYCheckoutOperationCompletion)completion;
++ (instancetype)operationWithClient:(BUYClient *)client checkoutToken:(NSString *)checkoutToken completion:(BUYCheckoutStatusOperationCompletion)completion;
+- (instancetype)initWithClient:(BUYClient *)client checkoutToken:(NSString *)checkoutToken completion:(BUYCheckoutStatusOperationCompletion)completion;
 
 @end
 

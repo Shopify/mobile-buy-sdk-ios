@@ -33,7 +33,9 @@
 
 @property (strong, nonatomic, readonly) BUYClient *client;
 @property (strong, nonatomic, readonly) NSString *checkoutToken;
-@property (strong, nonatomic, readonly) BUYCheckoutOperationCompletion completion;
+@property (strong, nonatomic, readonly) BUYCheckoutStatusOperationCompletion completion;
+
+- (void)finishWithError:(NSError *)error NS_UNAVAILABLE;
 
 @end
 
@@ -41,12 +43,12 @@
 
 #pragma mark - Init -
 
-+ (instancetype)operationWithClient:(BUYClient *)client checkoutToken:(NSString *)checkoutToken completion:(BUYCheckoutOperationCompletion)completion
++ (instancetype)operationWithClient:(BUYClient *)client checkoutToken:(NSString *)checkoutToken completion:(BUYCheckoutStatusOperationCompletion)completion
 {
 	return [[[self class] alloc] initWithClient:client checkoutToken:checkoutToken completion:completion];
 }
 
-- (instancetype)initWithClient:(BUYClient *)client checkoutToken:(NSString *)checkoutToken completion:(BUYCheckoutOperationCompletion)completion
+- (instancetype)initWithClient:(BUYClient *)client checkoutToken:(NSString *)checkoutToken completion:(BUYCheckoutStatusOperationCompletion)completion
 {
 	self = [super initWithRequestQueue:client.requestQueue operations:nil];
 	if (self) {
@@ -82,17 +84,17 @@
 	if (self.cancelled) {
 		return;
 	}
-	self.completion(object, nil);
+	self.completion(BUYStatusComplete, object, nil);
 }
 
-- (void)finishWithError:(NSError *)error
+- (void)finishWithStatus:(BUYStatus)status error:(NSError *)error
 {
 	[super finishWithError:error];
 	
 	if (self.cancelled) {
 		return;
 	}
-	self.completion(nil, error);
+	self.completion(status, nil, error);
 }
 
 #pragma mark - Operations -
@@ -101,7 +103,7 @@
 {
 	BUYRequestOperation *operation = (BUYRequestOperation *)[self.client getCompletionStatusOfCheckoutWithToken:self.checkoutToken start:NO completion:^(BUYStatus status, NSError *error) {
 		if (status != BUYStatusComplete) {
-			[self finishWithError:error];
+			[self finishWithStatus:status error:error];
 		}
 	}];
 	operation.pollingHandler = ^BOOL (NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
@@ -117,7 +119,7 @@
 		if (checkout) {
 			[self finishWithObject:checkout];
 		} else {
-			[self finishWithError:error];
+			[self finishWithStatus:BUYStatusComplete error:error]; // Assumed because the polling operation has to success for us to get here
 		}
 	}];
 }

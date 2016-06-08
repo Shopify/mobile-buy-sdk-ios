@@ -155,7 +155,9 @@
 
 - (NSOperation *)pollCompletionStatusAndGetCheckoutWithToken:(NSString *)token start:(BOOL)start completion:(BUYDataCheckoutBlock)block
 {
-	BUYStatusOperation *operation = [BUYStatusOperation operationWithClient:self checkoutToken:token completion:block];
+	BUYStatusOperation *operation = [BUYStatusOperation operationWithClient:self checkoutToken:token completion:^(BUYStatus status, BUYCheckout *checkout, NSError *error) {
+		block(checkout, error);
+	}];
 	if (start) {
 		[self startOperation:operation];
 	}
