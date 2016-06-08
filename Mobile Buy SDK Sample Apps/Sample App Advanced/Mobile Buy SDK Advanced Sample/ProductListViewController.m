@@ -286,7 +286,7 @@
     BUYCart *cart = [self.client.modelManager insertCartWithJSONDictionary:nil];
     [cart addVariant:product.variants.firstObject];
     
-    BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:cart];
+    BUYCheckout *checkout = [[BUYCheckout alloc] initWithModelManager:cart.modelManager cart:cart];
     
     // Apply billing and shipping address, as well as email to the checkout
     checkout.shippingAddress = [self address];
