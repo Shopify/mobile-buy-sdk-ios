@@ -107,7 +107,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return YES if the purge was successful. NO if there was a problem.
  */
-- (BOOL)buy_purgeObjectsWithEntityName:(NSString *)entityName matchingPredicate:(NSPredicate *)predicate;
+- (BOOL)buy_purgeObjectsWithEntityName:(NSString *)entityName matchingPredicate:(nullable NSPredicate *)predicate;
 
 @end
 
