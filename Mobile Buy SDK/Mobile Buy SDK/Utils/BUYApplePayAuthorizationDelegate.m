@@ -38,7 +38,7 @@
 
 const NSTimeInterval PollDelay = 0.5;
 
-typedef void (^AddressUpdateCompletion)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems);
+typedef void (^AddressUpdateCompletion)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull);
 
 @interface BUYApplePayAuthorizationDelegate ()
 
@@ -132,13 +132,13 @@ typedef void (^AddressUpdateCompletion)(PKPaymentAuthorizationStatus, NSArray *s
 	[controller dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingAddress:(ABRecordRef)address completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
+-(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingAddress:(ABRecordRef)address completion:(AddressUpdateCompletion)completion
 {
 	self.checkout.shippingAddress = [self buyAddressWithABRecord:address];
 	[self updateCheckoutWithAddressCompletion:completion];
 }
 
--(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingContact:(PKContact *)contact completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
+-(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingContact:(PKContact *)contact completion:(AddressUpdateCompletion)completion
 {
 	self.checkout.shippingAddress = [self buyAddressWithContact:contact];
 	[self updateCheckoutWithAddressCompletion:completion];
@@ -184,12 +184,12 @@ typedef void (^AddressUpdateCompletion)(PKPaymentAuthorizationStatus, NSArray *s
 				[self updateShippingRatesCompletion:completion];
 			}
 			else {
-				completion(PKPaymentAuthorizationStatusSuccess, nil, [self.checkout buy_summaryItemsWithShopName:self.shopName]);
+				completion(PKPaymentAuthorizationStatusSuccess, @[], [self.checkout buy_summaryItemsWithShopName:self.shopName]);
 			}
 		}];
 	}
 	else {
-		completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItemsWithShopName:self.shopName]);
+		completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, @[], [self.checkout buy_summaryItemsWithShopName:self.shopName]);
 	}
 }
 
@@ -211,7 +211,7 @@ typedef void (^AddressUpdateCompletion)(PKPaymentAuthorizationStatus, NSArray *s
 			
 		} else {
 			self.lastError = [NSError errorWithDomain:BUYShopifyError code:BUYShopifyError_NoShippingMethodsToAddress userInfo:nil];
-			completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItemsWithShopName:self.shopName]);
+			completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, @[], [self.checkout buy_summaryItemsWithShopName:self.shopName]);
 		}
 	}];
 }
