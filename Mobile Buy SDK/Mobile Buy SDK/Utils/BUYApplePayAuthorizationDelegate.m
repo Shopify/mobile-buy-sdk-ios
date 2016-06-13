@@ -38,6 +38,8 @@
 
 const NSTimeInterval PollDelay = 0.5;
 
+typedef void (^AddressUpdateCompletion)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems);
+
 @interface BUYApplePayAuthorizationDelegate ()
 
 @property (nonatomic, strong) BUYCheckout *checkout;
@@ -160,7 +162,7 @@ const NSTimeInterval PollDelay = 0.5;
 
 #pragma mark -
 
-- (void)updateCheckoutWithAddressCompletion:(void (^)(PKPaymentAuthorizationStatus, NSArray *shippingMethods, NSArray *summaryItems))completion
+- (void)updateCheckoutWithAddressCompletion:(AddressUpdateCompletion)completion
 {
 	// This method call is internal to selection of shipping address that are returned as partial from PKPaymentAuthorizationViewController
 	// However, to ensure we never set partialAddresses to NO, we want to guard the setter. Should PKPaymentAuthorizationViewController ever
@@ -170,51 +172,48 @@ const NSTimeInterval PollDelay = 0.5;
 	}
 	
 	if ([self.checkout.shippingAddress isValidAddressForShippingRates]) {
-		
-		[self.client updateCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
-			if (checkout && error == nil) {
+ 		[self.client updateCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
+			if (checkout && !error) {
 				self.checkout = checkout;
-				
-				if ([self.checkout requiresShipping] == NO) {
-					completion(PKPaymentAuthorizationStatusSuccess, nil, [self.checkout buy_summaryItemsWithShopName:self.shopName]);
-				} else {
-					
-					self.shippingRates = @[];
-					[self.client getShippingRatesForCheckoutWithToken:self.checkout.token completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
-						
-						self.shippingRates = shippingRates;
-						if (shippingRates) {
-							
-							NSArray *shippingMethods = [BUYShippingRate buy_convertShippingRatesToShippingMethods:shippingRates];
-							if (shippingMethods.count > 0) {
-								
-								[self selectShippingMethod:shippingMethods[0] completion:^(BUYCheckout *checkout, NSError *error) {
-									if (checkout && error == nil) {
-										self.checkout = checkout;
-									}
-									completion(error ? PKPaymentAuthorizationStatusFailure : PKPaymentAuthorizationStatusSuccess, shippingMethods, [self.checkout buy_summaryItemsWithShopName:self.shopName]);
-								}];
-								
-							} else {
-								self.lastError = [NSError errorWithDomain:BUYShopifyError code:BUYShopifyError_NoShippingMethodsToAddress userInfo:nil];
-								completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItemsWithShopName:self.shopName]);
-							}
-							
-						} else {
-							completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItemsWithShopName:self.shopName]);
-						}
-					}];
-				}
-				
-			} else {
+			}
+			else if (error) {
 				self.lastError = error;
-				completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItemsWithShopName:self.shopName]);
+			}
+			if (checkout.requiresShipping) {
+				self.shippingRates = @[];
+				[self updateShippingRatesCompletion:completion];
+			}
+			else {
+				completion(PKPaymentAuthorizationStatusSuccess, nil, [self.checkout buy_summaryItemsWithShopName:self.shopName]);
 			}
 		}];
 	}
 	else {
 		completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItemsWithShopName:self.shopName]);
 	}
+}
+
+- (void)updateShippingRatesCompletion:(AddressUpdateCompletion)completion
+{
+	[self.client getShippingRatesForCheckoutWithToken:self.checkout.token completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
+		
+		self.shippingRates = shippingRates;
+		NSArray *shippingMethods = [BUYShippingRate buy_convertShippingRatesToShippingMethods:shippingRates];
+		
+		if (shippingMethods.count > 0) {
+			
+			[self selectShippingMethod:shippingMethods[0] completion:^(BUYCheckout *checkout, NSError *error) {
+				if (checkout && !error) {
+					self.checkout = checkout;
+				}
+				completion(error ? PKPaymentAuthorizationStatusFailure : PKPaymentAuthorizationStatusSuccess, shippingMethods, [self.checkout buy_summaryItemsWithShopName:self.shopName]);
+			}];
+			
+		} else {
+			self.lastError = [NSError errorWithDomain:BUYShopifyError code:BUYShopifyError_NoShippingMethodsToAddress userInfo:nil];
+			completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, nil, [self.checkout buy_summaryItemsWithShopName:self.shopName]);
+		}
+	}];
 }
 
 #pragma mark - Internal -
