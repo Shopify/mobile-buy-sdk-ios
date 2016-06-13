@@ -135,13 +135,17 @@ typedef void (^AddressUpdateCompletion)(PKPaymentAuthorizationStatus, NSArray<PK
 -(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingAddress:(ABRecordRef)address completion:(AddressUpdateCompletion)completion
 {
 	self.checkout.shippingAddress = [self buyAddressWithABRecord:address];
-	[self updateCheckoutWithAddressCompletion:completion];
+	if ([self.checkout.shippingAddress isValidAddressForShippingRates]) {
+		[self updateCheckoutWithAddressCompletion:completion];
+	}
 }
 
 -(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingContact:(PKContact *)contact completion:(AddressUpdateCompletion)completion
 {
 	self.checkout.shippingAddress = [self buyAddressWithContact:contact];
-	[self updateCheckoutWithAddressCompletion:completion];
+	if ([self.checkout.shippingAddress isValidAddressForShippingRates]) {
+		[self updateCheckoutWithAddressCompletion:completion];
+	}
 }
 
 -(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingMethod:(PKShippingMethod *)shippingMethod completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
@@ -171,26 +175,21 @@ typedef void (^AddressUpdateCompletion)(PKPaymentAuthorizationStatus, NSArray<PK
 		self.checkout.partialAddresses = @YES;
 	}
 	
-	if ([self.checkout.shippingAddress isValidAddressForShippingRates]) {
- 		[self.client updateCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
-			if (checkout && !error) {
-				self.checkout = checkout;
-			}
-			else if (error) {
-				self.lastError = error;
-			}
-			if (checkout.requiresShipping) {
-				self.shippingRates = @[];
-				[self updateShippingRatesCompletion:completion];
-			}
-			else {
-				completion(PKPaymentAuthorizationStatusSuccess, @[], [self.checkout buy_summaryItemsWithShopName:self.shopName]);
-			}
-		}];
-	}
-	else {
-		completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, @[], [self.checkout buy_summaryItemsWithShopName:self.shopName]);
-	}
+	[self.client updateCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
+		if (checkout && !error) {
+			self.checkout = checkout;
+		}
+		else if (error) {
+			self.lastError = error;
+		}
+		if (checkout.requiresShipping) {
+			self.shippingRates = @[];
+			[self updateShippingRatesCompletion:completion];
+		}
+		else {
+			completion(PKPaymentAuthorizationStatusSuccess, @[], [self.checkout buy_summaryItemsWithShopName:self.shopName]);
+		}
+	}];
 }
 
 - (void)updateShippingRatesCompletion:(AddressUpdateCompletion)completion
