@@ -4,7 +4,7 @@ The Advanced Sample App demonstrates how to perform several tasks related to cre
 
 - Fetch collections
 - Fetch products
-- Optionally present using the `BUYProductViewController`
+- Optionally present using the `ProductViewController`
 - Create a checkout
 - Apply shipping rate
 - Apply gift cards and discounts
@@ -35,7 +35,7 @@ The Advanced Sample App demonstrates several tasks that can be performed using t
 
 ###### `ProductListViewController`
 * Fetches the products and displays them in a list
-* Can present a product using the `BUYProductViewController` and demo the theme settings on the controller, or
+* Can present a product using the `ProductViewController` and demo the theme settings on the controller, or
 * Creates a checkout with the selected product and pushes to the `ShippingRatesTableViewController`
 
 ###### `ShippingRatesTableViewController`
