@@ -277,7 +277,7 @@
 		[operation cancel];
 	}];
 	
-	[self waitForExpectationsWithTimeout:4.0 handler:^(NSError *error) {}];
+	[self waitForExpectationsWithTimeout:5.0 handler:^(NSError *error) {}];
 }
 
 - (void)testCancellationWithoutQueue
