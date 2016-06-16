@@ -29,16 +29,16 @@
 
 #import <Buy/Buy.h>
 #import "BUYTestConstants.h"
-#import "BUYAddress+Additions.h"
 #import "BUYClientTestBase.h"
-#import "BUYCollection+Additions.h"
-#import "NSURLComponents+BUYAdditions.h"
+#import "BUYShopifyErrorCodes.h"
+#import "BUYAccountCredentials.h"
+#import "BUYClient+Customers.h"
+#import "BUYClient+Internal.h"
+#import "BUYApplePayToken.h"
+#import "BUYApplePayTestToken.h"
+#import "BUYRequestOperation.h"
 
-@interface BUYClient ()
-
-+ (BUYStatus)statusForStatusCode:(NSUInteger)statusCode error:(NSError *)error;
-
-@end
+NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
 @interface BUYClient_Test : BUYClient
 
@@ -46,7 +46,7 @@
 
 @implementation BUYClient_Test
 
-- (void)startTask:(NSURLSessionDataTask *)task
+- (void)startOperation:(NSOperation *)operation
 {
 	// Do nothing
 }
@@ -62,16 +62,16 @@
 {
 	self.shopDomain = BUYShopDomain_Placeholder;
 	self.apiKey = BUYAPIKey_Placeholder;
-	self.channelId = BUYChannelId_Placeholder;
+	self.appId = BUYAppId_Placeholder;
 	
-	self.client = [[BUYClient_Test alloc] initWithShopDomain:self.shopDomain apiKey:self.apiKey channelId:self.channelId];
+	self.client = [[BUYClient_Test alloc] initWithShopDomain:self.shopDomain apiKey:self.apiKey appId:self.appId];
 }
 
 - (NSData *)dataForCartFromClient:(BUYClient *)client
 {
-	BUYCart *cart = [[BUYCart alloc] init];
-	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:cart];
-	NSURLSessionDataTask *task = [self.client createCheckout:checkout completion:nil];
+	BUYCart *cart = [self cart];
+	BUYCheckout *checkout = [[BUYCheckout alloc] initWithModelManager:cart.modelManager cart:cart];
+	BUYRequestOperation *task = (BUYRequestOperation *)[self.client createCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {}];
 	XCTAssertNotNil(task);
 	
 	NSURLRequest *request = task.originalRequest;
@@ -89,9 +89,7 @@
 	
 	NSDictionary *dict = @{@"checkout":
 							   @{@"line_items": @[],
-								 @"channel_id": self.channelId,
 								 @"source_name": @"mobile_app",
-								 @"source_identifier": self.client.channelId,
 								 @"marketing_attribution":@{@"medium": @"iOS", @"source": self.client.applicationName}}};
 	
 	NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
@@ -100,26 +98,26 @@
 
 - (void)testPartialAddressesFlag
 {
-	BUYCart *cart = [[BUYCart alloc] init];
-	BUYCheckout *checkout = [[BUYCheckout alloc] initWithCart:cart];
+	BUYCart *cart = [self cart];
+	BUYCheckout *checkout = [[BUYCheckout alloc] initWithModelManager:cart.modelManager cart:cart];
 	
-	XCTAssertThrows([checkout setPartialAddresses:NO]);
+	XCTAssertThrows([checkout setPartialAddressesValue:NO]);
 
-	NSURLSessionDataTask *task = [self.client createCheckout:checkout completion:nil];
+	BUYRequestOperation *task = (BUYRequestOperation *)[self.client createCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {}];
 	NSDictionary *json = [NSJSONSerialization JSONObjectWithData:task.originalRequest.HTTPBody options:0 error:nil];
 	XCTAssertFalse([json[@"checkout"][@"partial_addresses"] boolValue]);
 	
-	checkout = [[BUYCheckout alloc] initWithCart:cart];
+	checkout = [[BUYCheckout alloc] initWithModelManager:cart.modelManager cart:cart];
 	
-	BUYAddress *partialAddress = [[BUYAddress alloc] init];
+	BUYAddress *partialAddress = [self.client.modelManager insertAddressWithJSONDictionary:nil];
 	partialAddress.address1 = nil;
 	
 	if ([partialAddress isPartialAddress]) {
-		checkout.partialAddresses = YES;
+		checkout.partialAddressesValue = YES;
 	}
 	
 	checkout.shippingAddress = partialAddress;
-	task = [self.client createCheckout:checkout completion:nil];
+	task = (BUYRequestOperation *)[self.client createCheckout:checkout completion:^(BUYCheckout *checkout, NSError *error) {}];
 	json = [NSJSONSerialization JSONObjectWithData:task.originalRequest.HTTPBody options:0 error:nil];
 
 	XCTAssertTrue([json[@"checkout"][@"partial_addresses"] boolValue]);
@@ -127,9 +125,7 @@
 
 - (void)testCheckoutPaymentWithOnlyGiftCard
 {
-	BUYCheckout *checkout = [[BUYCheckout alloc] initWithDictionary:@{@"token": @"abcdef", @"payment_due": @0}];
-	
-	NSURLSessionDataTask *task = [self.client completeCheckout:checkout completion:nil];
+	BUYOperation *task = [self.client completeCheckoutWithToken:@"abcdef" paymentToken:nil completion:^(BUYCheckout *checkout, NSError *error) {}];
 	XCTAssertNotNil(task);
 }
 
@@ -145,179 +141,203 @@
 
 - (void)testCheckoutBadURLParsing
 {
-	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	
 	NSURL *url = [NSURL URLWithString:@"sampleapp://"];
 	
-	[self.client getCompletionStatusOfCheckoutURL:url completion:^(BUYStatus status, NSError *error) {
-		XCTAssertEqual(status, BUYStatusUnknown);
-		XCTAssertEqual(error.code, BUYShopifyError_InvalidCheckoutObject);
-		[expectation fulfill];
-	}];
-	
-	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
-		XCTAssertNil(error);
-	}];
-}
-
-- (void)testMerchantId
-{
-	NSString *merchantId = @"com.merchant.id";
-	
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-	[self.client enableApplePayWithMerchantId:merchantId];
-	
-	XCTAssertEqualObjects(merchantId, self.client.merchantId);
-#pragma GCC diagnostic pop
+	XCTAssertThrows(
+		[self.client getCompletionStatusOfCheckoutURL:url completion:^(BUYStatus status, NSError *error) {}]
+	);
 }
 
 - (void)testStatusCodeConversions
 {
-	BUYStatus status = [BUYClient statusForStatusCode:412 error:nil];
+	BUYStatus status = [self.client statusForStatusCode:412 error:nil];
 	XCTAssertEqual(BUYStatusPreconditionFailed, status);
 	
-	status = [BUYClient statusForStatusCode:404 error:nil];
+	status = [self.client statusForStatusCode:404 error:nil];
 	XCTAssertEqual(BUYStatusNotFound, status);
 	
-	status = [BUYClient statusForStatusCode:0 error:[NSError errorWithDomain:@"" code:-1 userInfo:nil]];
+	status = [self.client statusForStatusCode:0 error:[NSError errorWithDomain:@"" code:-1 userInfo:nil]];
 	XCTAssertEqual(BUYStatusFailed, status);
 	
-	status = [BUYClient statusForStatusCode:424 error:nil];
+	status = [self.client statusForStatusCode:424 error:nil];
 	XCTAssertEqual(BUYStatusFailed, status);
 	
-	status = [BUYClient statusForStatusCode:202 error:nil];
+	status = [self.client statusForStatusCode:202 error:nil];
 	XCTAssertEqual(BUYStatusProcessing, status);
 	
-	status = [BUYClient statusForStatusCode:200 error:nil];
+	status = [self.client statusForStatusCode:200 error:nil];
 	XCTAssertEqual(BUYStatusComplete, status);
 }
 
-- (void)testCheckoutWithApplePayToken
+- (void)testSortConversion
 {
-	__block int callbackCount = 0;
-	
-	[self.client completeCheckout:nil withApplePayToken:[PKPaymentToken new] completion:^(BUYCheckout *checkout, NSError *error) {
-		callbackCount++;
-		XCTAssertEqual(error.code, BUYShopifyError_InvalidCheckoutObject);
-	}];
-	
-	BUYCheckout *checkout = [[BUYCheckout alloc] initWithDictionary:@{@"token": @"abcdef", @"payment_due": @0}];
-
-	[self.client completeCheckout:checkout withApplePayToken:nil completion:^(BUYCheckout *checkout, NSError *error) {
-		callbackCount++;
-		XCTAssertEqual(error.code, BUYShopifyError_NoApplePayTokenSpecified);
-	}];
-	
-	XCTAssertEqual(callbackCount, 2);
-	
-	[self testProductsInCollectionWithSortOrderCollectionDefault];
+	XCTAssertEqualObjects([BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortBestSelling],       @"best-selling");
+	XCTAssertEqualObjects([BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortCreatedAscending],  @"created-ascending");
+	XCTAssertEqualObjects([BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortCreatedDescending], @"created-descending");
+	XCTAssertEqualObjects([BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortPriceAscending],    @"price-ascending");
+	XCTAssertEqualObjects([BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortPriceDescending],   @"price-descending");
+	XCTAssertEqualObjects([BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortTitleAscending],    @"title-ascending");
+	XCTAssertEqualObjects([BUYCollection sortOrderParameterForCollectionSort:BUYCollectionSortTitleDescending],   @"title-descending");
+	XCTAssertEqualObjects([BUYCollection sortOrderParameterForCollectionSort:999],                                @"collection-default");
+	XCTAssertEqualObjects([BUYCollection sortOrderParameterForCollectionSort:0],                                  @"collection-default");
 }
 
-- (void)testQueryItemsConversion
+- (void)testProductsInCollection
 {
-	NSDictionary *dictionary = @{@"collection_id" : @"1", @"limit" : @"25", @"page" : @"1", @"sort_by" : @"collection-default"};
-	NSURLComponents *components = [[NSURLComponents alloc] init];
-	[components setQueryItemsWithDictionary:dictionary];
-	NSSet *componentsQueryItems = [NSSet setWithArray:components.queryItems];
-	NSSet *queryItems = [NSSet setWithArray:@[[NSURLQueryItem queryItemWithName:@"collection_id" value:@"1"], [NSURLQueryItem queryItemWithName:@"limit" value:@"25"], [NSURLQueryItem queryItemWithName:@"page" value:@"1"], [NSURLQueryItem queryItemWithName:@"sort_by" value:@"collection-default"]]];
-	XCTAssertEqualObjects(componentsQueryItems, queryItems);
-}
-
-- (void)testProductsInCollectionWithSortOrderCollectionDefault
-{
-	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortCollectionDefault completion:nil];
+	BUYRequestOperation *task = (BUYRequestOperation *)[self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortCollectionDefault completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {}];
 	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
-	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/channels/api_key/product_publications.json");
+	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/apps/app_id/product_listings.json");
 	NSSet *requestQueryItems = [NSSet setWithArray:[task.originalRequest.URL.query componentsSeparatedByString:@"&"]];
 	NSSet *queryItems = [NSSet setWithArray:@[@"collection_id=1", @"limit=25", @"page=1", @"sort_by=collection-default"]];
 	XCTAssertEqualObjects(requestQueryItems, queryItems);
 }
 
-- (void)testProductsInCollectionWithSortOrderBestSelling
+- (BUYCart *)cart
 {
-	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortBestSelling completion:nil];
-	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
-	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
-	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
-	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/channels/api_key/product_publications.json");
-	NSSet *requestQueryItems = [NSSet setWithArray:[task.originalRequest.URL.query componentsSeparatedByString:@"&"]];
-	NSSet *queryItems = [NSSet setWithArray:@[@"collection_id=1", @"limit=25", @"page=1", @"sort_by=best-selling"]];
-	XCTAssertEqualObjects(requestQueryItems, queryItems);
+	return [self.client.modelManager insertCartWithJSONDictionary:nil];
 }
 
-- (void)testProductsInCollectionWithSortOrderCreatedAscending
+#pragma mark - Customer Tests -
+
+- (void)testCustomerCreationURL
 {
-	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortCreatedAscending completion:nil];
-	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
+	NSArray *items = @[
+					   [BUYAccountCredentialItem itemWithFirstName:@"michael"],
+					   [BUYAccountCredentialItem itemWithLastName:@"scott"],
+					   [BUYAccountCredentialItem itemWithEmail:@"fake@example.com"],
+					   [BUYAccountCredentialItem itemWithPassword:@"password"],
+					   [BUYAccountCredentialItem itemWithPasswordConfirmation:@"password"],
+					   ];
+	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:items];
+	
+	BUYRequestOperation *task = (BUYRequestOperation *)[self.client createCustomerWithCredentials:credentials callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
+		
+	}];
+	
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
-	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
-	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/channels/api_key/product_publications.json");
-	NSSet *requestQueryItems = [NSSet setWithArray:[task.originalRequest.URL.query componentsSeparatedByString:@"&"]];
-	NSSet *queryItems = [NSSet setWithArray:@[@"collection_id=1", @"limit=25", @"page=1", @"sort_by=created-ascending"]];
-	XCTAssertEqualObjects(requestQueryItems, queryItems);
+	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/customers.json");
+	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"POST");
+	
+	NSError *error = nil;
+	NSDictionary *payload = [NSJSONSerialization JSONObjectWithData:task.originalRequest.HTTPBody options:0 error:&error];
+	
+	XCTAssertNil(error);
+	NSDictionary *dict = @{@"customer": @{
+								   BUYAccountFirstNameKey: @"michael",
+								   BUYAccountLastNameKey: @"scott",
+								   BUYAccountEmailKey: @"fake@example.com",
+								   BUYAccountPasswordKey: @"password",
+								   BUYAccountPasswordConfirmationKey: @"password"
+								   }};
+	XCTAssertEqualObjects(payload, dict);
 }
 
-- (void)testProductsInCollectionWithSortOrderCreatedDescending
+- (void)testLoginCustomerURL
 {
-	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortCreatedDescending completion:nil];
-	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
+	NSArray *items = @[
+					   [BUYAccountCredentialItem itemWithEmail:@"fake@example.com"],
+					   [BUYAccountCredentialItem itemWithPassword:@"password"],
+					   ];
+	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:items];
+	BUYRequestOperation *task = (BUYRequestOperation *)[self.client loginCustomerWithCredentials:credentials callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
+		
+	}];
+	
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
-	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
-	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/channels/api_key/product_publications.json");
-	NSSet *requestQueryItems = [NSSet setWithArray:[task.originalRequest.URL.query componentsSeparatedByString:@"&"]];
-	NSSet *queryItems = [NSSet setWithArray:@[@"collection_id=1", @"limit=25", @"page=1", @"sort_by=created-descending"]];
-	XCTAssertEqualObjects(requestQueryItems, queryItems);
+	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/customers/customer_token.json");
+	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"POST");
+	
+	NSError *error = nil;
+	NSDictionary *payload = [NSJSONSerialization JSONObjectWithData:task.originalRequest.HTTPBody options:0 error:&error];
+	
+	XCTAssertNil(error);
+	NSDictionary *dict = @{@"customer": @{
+								   @"email": @"fake@example.com",
+								   @"password": @"password",
+								   }};
+	XCTAssertEqualObjects(payload, dict);
 }
 
-- (void)testProductsInCollectionWithSortOrderPriceAscending
+- (void)testGetCustomerURL
 {
-	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortPriceAscending completion:nil];
-	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
+	BUYRequestOperation *task = (BUYRequestOperation *)[self.client getCustomerWithID:@"" callback:^(BUYCustomer *customer, NSError *error) {
+		
+	}];
+	
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
-	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
-	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/channels/api_key/product_publications.json");
-	NSSet *requestQueryItems = [NSSet setWithArray:[task.originalRequest.URL.query componentsSeparatedByString:@"&"]];
-	NSSet *queryItems = [NSSet setWithArray:@[@"collection_id=1", @"limit=25", @"page=1", @"sort_by=price-ascending"]];
-	XCTAssertEqualObjects(requestQueryItems, queryItems);
+	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/customers.json");
+	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
+	
+	XCTAssertEqualObjects(self.client.customerToken, task.originalRequest.allHTTPHeaderFields[BUYClientCustomerAccessToken]);
 }
 
-- (void)testProductsInCollectionWithSortOrderPriceDescending
+- (void)testGetOrdersForCustomerURL
 {
-	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortPriceDescending completion:nil];
-	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
+	BUYRequestOperation *task = (BUYRequestOperation *)[self.client getOrdersForCustomerWithID:@"99" callback:^(NSArray<BUYOrder *> *orders, NSError *error) {
+		
+	}];
+	
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
-	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
-	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/channels/api_key/product_publications.json");
-	NSSet *requestQueryItems = [NSSet setWithArray:[task.originalRequest.URL.query componentsSeparatedByString:@"&"]];
-	NSSet *queryItems = [NSSet setWithArray:@[@"collection_id=1", @"limit=25", @"page=1", @"sort_by=price-descending"]];
-	XCTAssertEqualObjects(requestQueryItems, queryItems);
+	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/customers/99/orders.json");
+	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
+	
+	XCTAssertEqualObjects(self.client.customerToken, task.originalRequest.allHTTPHeaderFields[BUYClientCustomerAccessToken]);
 }
 
-- (void)testProductsInCollectionWithSortOrderTitleAscending
+- (void)testCustomerRecovery
 {
-	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortTitleAscending completion:nil];
-	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
+	NSString *email = @"fake@example.com";
+	BUYRequestOperation *task = (BUYRequestOperation *)[self.client recoverPasswordForCustomer:email callback:^(BUYStatus status, NSError *error) {
+		
+	}];
+	
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
-	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
-	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/channels/api_key/product_publications.json");
-	NSSet *requestQueryItems = [NSSet setWithArray:[task.originalRequest.URL.query componentsSeparatedByString:@"&"]];
-	NSSet *queryItems = [NSSet setWithArray:@[@"collection_id=1", @"limit=25", @"page=1", @"sort_by=title-ascending"]];
-	XCTAssertEqualObjects(requestQueryItems, queryItems);
+	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/customers/recover.json");
+	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"POST");
+	
+	NSError *error = nil;
+	NSDictionary *payload = [NSJSONSerialization JSONObjectWithData:task.originalRequest.HTTPBody options:0 error:&error];
+	
+	XCTAssertNil(error);
+	NSDictionary *dict = @{@"email": email};
+	XCTAssertEqualObjects(payload, dict);
 }
 
-- (void)testProductsInCollectionWithSortOrderTitleDescending
+- (void)testTokenRenewal
 {
-	NSURLSessionDataTask *task = [self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortTitleDescending completion:nil];
-	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
+	self.client.customerToken = nil;
+	
+	BUYRequestOperation *task = (BUYRequestOperation *)[self.client renewCustomerTokenWithID:@"" callback:^(NSString *token, NSError *error) {}];
+	XCTAssertNil(task); // task should be nil if no customer token was set on the client
+	
+	self.client.customerToken = BUYFakeCustomerToken;
+	task = (BUYRequestOperation *)[self.client renewCustomerTokenWithID:@"1" callback:^(NSString *token, NSError *error) {
+		
+	}];
+	
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
-	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
-	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/channels/api_key/product_publications.json");
-	NSSet *requestQueryItems = [NSSet setWithArray:[task.originalRequest.URL.query componentsSeparatedByString:@"&"]];
-	NSSet *queryItems = [NSSet setWithArray:@[@"collection_id=1", @"limit=25", @"page=1", @"sort_by=title-descending"]];
-	XCTAssertEqualObjects(requestQueryItems, queryItems);
+	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/customers/1/customer_token/renew.json");
+	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"PUT");
+}
+
+- (void)testCustomerActivation
+{
+	NSArray *items = @[
+					   [BUYAccountCredentialItem itemWithPassword:@"12345"],
+					   [BUYAccountCredentialItem itemWithPasswordConfirmation:@"12345"],
+					   ];
+	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:items];
+	NSString *customerID = @"12345";
+	NSString *token      = @"12345";
+	BUYRequestOperation *task = (BUYRequestOperation *)[self.client activateCustomerWithCredentials:credentials customerID:customerID token:token callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
+		
+	}];
+	
+	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
+	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/customers/12345/activate.json");
+	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"PUT");
 }
 
 @end

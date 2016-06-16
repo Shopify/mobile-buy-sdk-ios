@@ -1,18 +1,18 @@
 # Mobile Buy SDK - Product View
 
-The SDK includes an easy-to-use product view to make selling simple in any app. The `BUYProductViewController` displays any product, it's images, price and details and includes a variant selection flow. It will even handle Apple Pay and web checkout automatically:
+The SDK includes an easy-to-use product view to make selling simple in any app. The `ProductViewController` displays any product, it's images, price and details and includes a variant selection flow. It will even handle Apple Pay and web checkout automatically:
 
 ![Product View Screenshot](https://raw.github.com/Shopify/mobile-buy-sdk-ios/master/Assets/Product_View_Screenshot_1.png)
 
-You can also theme the `BUYProductViewController` to better match your app and products being displayed:
+You can also theme the `ProductViewController` to better match your app and products being displayed:
 
 ![Product View Screenshot](https://raw.github.com/Shopify/mobile-buy-sdk-ios/master/Assets/Product_View_Screenshot_2.png)
 
-Simply initialize the `BUYProductViewController` and present it from any view controller in your app to sell a product from you shop.
+Simply initialize the `ProductViewController` and present it from any view controller in your app to sell a product from you shop.
 
 ### Getting started
 
-The `BUYProductViewController` needs a `BUYClient` setup with your shop's credentials to work, so first create a `BUYClient` object:
+The `ProductViewController` needs a `BUYClient` setup with your shop's credentials to work, so first create a `BUYClient` object:
 
 ```objc
 BUYClient *client = [[BUYClient alloc] initWithShopDomain:@"yourshop.myshopify.com"
@@ -20,7 +20,7 @@ BUYClient *client = [[BUYClient alloc] initWithShopDomain:@"yourshop.myshopify.c
                                                 channelId:@"99999"];
 ```
 
-Now, create a `BUYProductViewController` with the `BUYClient`, and optionally add Apple Pay and a custom theme.
+Now, create a `ProductViewController` with the `BUYClient`, and optionally add Apple Pay and a custom theme.
 
 ```objc
 // Optionally customize the UI:
@@ -28,13 +28,13 @@ BUYTheme *theme = [[BUYTheme alloc] init];
 theme.style = BUYThemeStyleLight;
 theme.tintColor = [UIColor redColor];
 
-BUYProductViewController *productViewController = [[BUYProductViewController alloc] initWithClient:self.client theme:theme];
+ProductViewController *productViewController = [[ProductViewController alloc] initWithClient:self.client theme:theme];
 
 // Optionally enable Apple Pay:
 productViewController.merchantId = @"MERCHANT_ID";
 ```
 
-Now the `BUYProductViewController` is ready to load a product and be presented in your app:
+Now the `ProductViewController` is ready to load a product and be presented in your app:
 
 ```objc
 [productViewController loadProduct:@"PRODUCT_ID" completion:^(BOOL success, NSError *error) {

@@ -53,7 +53,7 @@ typedef NS_ENUM(NSInteger, UITableViewDiscountGiftCardSection) {
 
 @implementation PreCheckoutViewController
 
-- (instancetype)initWithClient:(BUYClient *)client checkout:(BUYCheckout *)checkout;
+- (instancetype)initWithClient:(BUYClient *)client checkout:(BUYCheckout *)checkout
 {
     NSParameterAssert(client);
     NSParameterAssert(checkout);
@@ -68,7 +68,8 @@ typedef NS_ENUM(NSInteger, UITableViewDiscountGiftCardSection) {
     return self;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     self.title = @"Add Discount or Gift Card(s)";
@@ -192,7 +193,7 @@ typedef NS_ENUM(NSInteger, UITableViewDiscountGiftCardSection) {
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction *action) {
                                                           
-                                                          BUYDiscount *discount = [[BUYDiscount alloc] initWithCode:[alertController.textFields[0] text]];
+                                                          BUYDiscount *discount = [self.client.modelManager discountWithCode:[alertController.textFields[0] text]];
                                                           self.checkout.discount = discount;
                                                           
                                                           [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
@@ -236,7 +237,7 @@ typedef NS_ENUM(NSInteger, UITableViewDiscountGiftCardSection) {
                                                           
                                                           [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 
-                                                          [self.client applyGiftCardWithCode:[alertController.textFields[0] text] toCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
+                                                          [self.client applyGiftCardCode:[alertController.textFields[0] text] toCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
                                                               
                                                               [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 

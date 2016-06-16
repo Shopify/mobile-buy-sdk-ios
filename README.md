@@ -95,21 +95,78 @@ Initialize the `BUYClient` with your credentials from the *Mobile App Channel*
 ```objc
 BUYClient *client = [[BUYClient alloc] initWithShopDomain:@"yourshop.myshopify.com"
                                                    apiKey:@"aaaaaaaaaaaaaaaaaa"
-                                                channelId:@"99999"];
+                                                    appId:@"99999"];
+```
 
-// Fetch your products
-[self.client getProductsPage:1 completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
-        if (error) {
-                NSLog(@"Error retrieving products: %@", error.userInfo);
-        } else {
-                for (BUYProduct *product in products) {
-                        NSLog(@"%@", product.title);
-                }
-        }
+### Storefront API
+After initializing the client with valid shop credentials, you can begin fetching collections.
+```objc
+[client getCollectionsPage:1 completion:^(NSArray<BUYCollection *> *collections, NSError *error) {
+	if (collections && !error) {
+		// Do something with collections
+	} else {
+		NSLog(@"Error fetching collections: %@", error.userInfo);
+	}
+}];
+```
+Having a collection, we can then retrieve an array of products within that collection:
+```objc
+BUYCollection *collection = collections.firstObject;
+
+[client getProductsPage:1 inCollection:collection.collectionId completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+	if (products && !error) {
+		// Do something with products
+	} else {
+		NSLog(@"Error fetching products in collection %@: %@", collection.collectionId, error.userInfo);
+	}
 }];
 ```
 
-Consult the [Usage Section](https://docs.shopify.com/mobile-buy-sdk/ios/integration-guide/#using-the-mobile-buy-sdk) of the Integration Guide on how to create a cart, and checkout with the SDK.
+### Customer API
+##### Customer Login
+You can allow customers to login with their existing account using the SDK. First, we'll need to create the `BUYAccountCredentials` object used to pass authentication credentials to the server.
+```objc
+NSArray *credentialItems = @[
+						     [BUYAccountCredentialItem itemWithEmail:@"john.smith@gmail.com"],
+							 [BUYAccountCredentialItem itemWithPassword:@"password"],
+							];
+BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:credentialItems];
+```
+We can now use the credentials object to login the customer.
+```objc
+[client loginCustomerWithCredentials:credentials callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
+	if (customer && token && !error) {
+		// Do something with customer and store token for future requests
+	} else {
+		NSLog(@"Failed to login customer: %@", error.userInfo);
+	}
+}];
+```
+##### Customer Creation
+Creating a customer account is very similar to login flow but requres a little more info in the credentials object.
+```objc
+NSArray *credentialItems = @[
+							 [BUYAccountCredentialItem itemWithFirstName:@"John"],
+							 [BUYAccountCredentialItem itemWithLastName:@"Smith"],
+							 [BUYAccountCredentialItem itemWithEmail:@"john.smith@gmail.com"],
+							 [BUYAccountCredentialItem itemWithPassword:@"password"],
+							 [BUYAccountCredentialItem itemWithPasswordConfirmation:@"password"],
+							];
+BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:credentialItems];
+```
+After we obtain the customers first name, last name and password confirmation in addition to the email and password fields, we can create an account.
+```objc
+[client createCustomerWithCredentials:credentials callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
+	if (customer && token && !error) {
+		// Do something with customer and store token for future requests
+	} else {
+		NSLog(@"Failed to create customer: %@", error.userInfo);
+	}
+}];
+```
+
+### Integration Guide
+Consult the [Usage Section](https://docs.shopify.com/mobile-buy-sdk/ios/integration-guide/#using-the-mobile-buy-sdk) of the Integration Guide on how to create a cart, checkout and more with the SDK.
 
 ### Building the SDK
 
@@ -123,9 +180,7 @@ The Mobile Buy SDK includes a number of targets and schemes:
 
 * **Buy**: This is the Mobile Buy SDK dynamic framework. Please refer to the installation section above
 
-* **Buy Static** (target only): This is the Mobile Buy SDK static framework. This build is based on the current build configuration. To build a universal framework that can run on a device and on the Simulator and to be included in your app, please refer to the `Static Universal Framework` target below
-
-* **Static Universal Framework**: This builds a **static** framework from the `Buy Static` target using the `build_universal.sh` script in the `Static Universal Framework` target and copies the built framework in the `/Mobile Buy SDK Sample Apps` folder. This is a fat binary that includes arm and i386 slices. Build this target if you have made any changes to the framework that you want to test with the sample apps as the sample apps do not build the framework directly but embed the already built framework
+* **Static Universal Framework**: This builds a **static** framework from the `Buy` target using the `build_universal.sh` script in the `Static Universal Framework` target and copies the built framework in the `/Mobile Buy SDK Sample Apps` folder. This is a fat binary that includes arm and i386 slices. Build this target if you have made any changes to the framework that you want to test with the sample apps as the sample apps do not build the framework directly but embed the already built framework
 
 * **Mobile Buy SDK Tests**: Tests for the Mobile Buy SDK framework. See instructions below
 
@@ -137,33 +192,33 @@ The repo includes 3 sample apps. Each sample apps embeds the dynamic framework a
 
 * [Advanced Sample App](https://github.com/Shopify/mobile-buy-sdk-ios/tree/master/Mobile Buy SDK Sample Apps/Sample App Advanced/README.md)
 * [Swift Sample App](https://github.com/Shopify/mobile-buy-sdk-ios/tree/master/Mobile Buy SDK Sample Apps/Sample App Swift/README.md)
-* [Web Sample App](https://github.com/Shopify/mobile-buy-sdk-ios/tree/master/Mobile Buy SDK Sample Apps/Sample App Web/README.md)
+* [Customers Sample App](https://github.com/Shopify/mobile-buy-sdk-ios/tree/master/Mobile Buy SDK Sample Apps/Sample App Customers/README.md)
 
 We suggest you take a look at the **Advanced Sample App** and test your shop with the sample app before you begin. If you run into any issues, the **Advanced Sample App** is also a great resource for debugging integration issues and checkout.
 
 ### Product View
 
-The SDK includes an easy-to-use product view to make selling simple in any app. The `BUYProductViewController` displays any product, it's images, price and details and includes a variant selection flow. It will even handle Apple Pay and web checkout automatically:
+The Advanced Sample App includes an easy-to-use product view to make selling simple in any app. The `ProductViewController` displays any product, it's images, price and details and includes a variant selection flow. It will even handle Apple Pay and web checkout automatically:
 
 ![Product View Screenshot](https://raw.github.com/Shopify/mobile-buy-sdk-ios/master/Assets/Product_View_Screenshot_1.png)
 
-You can also theme the `BUYProductViewController` to better match your app and products being displayed:
+You can also theme the `ProductViewController` to better match your app and products being displayed:
 
 ![Product View Screenshot](https://raw.github.com/Shopify/mobile-buy-sdk-ios/master/Assets/Product_View_Screenshot_2.png)
 
-The [Advanced Sample App](https://github.com/Shopify/mobile-buy-sdk-ios/tree/master/Mobile Buy SDK Sample Apps/Sample App Advanced/) includes a demo of the `BUYProductViewController`. Documentation on how to use the `BUYProductViewController` is also available [here](https://github.com/Shopify/mobile-buy-sdk-ios/tree/master/Mobile Buy SDK Sample Apps/Sample App Advanced/PRODUCT_VIEW_README.md).
+The [Advanced Sample App](https://github.com/Shopify/mobile-buy-sdk-ios/tree/master/Mobile Buy SDK Sample Apps/Sample App Advanced/) includes a demo of the `ProductViewController`. Documentation on how to use the `ProductViewController` is also available [here](https://github.com/Shopify/mobile-buy-sdk-ios/tree/master/Mobile Buy SDK Sample Apps/Sample App Advanced/PRODUCT_VIEW_README.md).
 
 ### Unit Tests
 
 To run the Mobile Buy SDK integration tests against an actual shop, you will need a Shopify shop that is publicly accessible (not password protected). Please note that the integration tests **will create an order** on that shop. This is to validate that the SDK works properly with Shopify.  Modify the **test_shop_data.json** file to contain your shop's credentials and the required product IDs, gift cards, and discounts as necessary.
 
-If the credentials in the **test_shop_data.json** are empty, running the integration tests will use using mocked respoonses.  The mocked responses are defined in **mocked_responses.json**.  Do not check in credentials in this file.
+If the credentials in the **test_shop_data.json** are empty, running the integration tests will use mocked respoonses.  The mocked responses are defined in **mocked_responses.json**.  Do not check in credentials in this file.
 
 Alternatively, you can edit the `Mobile Buy SDK Tests` scheme and add the following arguments to the **Environment Variables**:
 
 * `shop_domain`: Your shop's domain, for example: `abetterlookingshop.myshopify.com`
 * `api_key`: The API provided when setting up the Mobile App channel on Shopify Admin: *https://your_shop_id.myshopify.com/admin/mobile_app/integration*
-* `channel_id`: The Channel ID provided with the API Key above
+* `app_id`: The App ID provided with the API Key above
 * `gift_card_code_11`, `gift_card_code_25`, `gift_card_code_50`: Three valid [Gift Card](https://docs.shopify.com/manual/your-store/gift-cards) codes for your shop
 * `expired_gift_card_code`: An expired Gift Card code
 * `expired_gift_card_id`: The ID for the expired Gift Card

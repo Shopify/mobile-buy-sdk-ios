@@ -26,8 +26,14 @@
 
 #import <OHHTTPStubs/OHHTTPStubs.h>
 
-@interface OHHTTPStubsResponse (Helpers)
+@interface OHHTTPStubsResponse (Buy)
 
 + (instancetype)responseWithKey:(NSString *)key;
+
+@end
+
+@interface OHHTTPStubs (Buy)
+
++ (void)stubUsingResponseWithKey:(NSString *)key useMocks:(BOOL)useMocks;
 
 @end
