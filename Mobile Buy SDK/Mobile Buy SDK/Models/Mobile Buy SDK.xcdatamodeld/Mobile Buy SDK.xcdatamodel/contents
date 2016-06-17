@@ -550,7 +550,7 @@
                 <entry key="documentation" value="Inverse of Checkout.lineItem."/>
             </userInfo>
         </relationship>
-        <relationship name="order" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Order" inverseName="lineItems" inverseEntity="Order" syncable="YES"/>
+        <relationship name="order" optional="YES" maxCount="1" deletionRule="Deny" destinationEntity="Order" inverseName="lineItems" inverseEntity="Order" syncable="YES"/>
         <userInfo>
             <entry key="documentation" value="This represents a BUYLineItem on a BUYCart or on a BUYCheckout."/>
         </userInfo>
@@ -665,7 +665,7 @@
                 <entry key="documentation" value="Inverse of Checkout.order."/>
             </userInfo>
         </relationship>
-        <relationship name="lineItems" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="LineItem" inverseName="order" inverseEntity="LineItem" syncable="YES"/>
+        <relationship name="lineItems" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="LineItem" inverseName="order" inverseEntity="LineItem" syncable="YES"/>
         <userInfo>
             <entry key="attributeValueClassName" value="URL"/>
             <entry key="documentation" value="URL for the website showing the order status, doesn't require a customer token."/>

@@ -28,8 +28,6 @@
 
 @implementation BUYCustomer
 
-@synthesize addresses=_addresses;
-
 - (NSString *)fullName
 {
 	if (self.firstName.length > 0 || self.lastName.length > 0) {
