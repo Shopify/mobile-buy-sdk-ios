@@ -43,6 +43,7 @@
 @interface Bird : TestModel
 @property (nonatomic) NSNumber *identifier;
 @property (nonatomic) NSString *colour;
+@property (nonatomic) NSSet<Nest *> *nests;
 @property (nonatomic) NSSet<Researcher *> *researchers;
 + (instancetype)birdWithIdentifier:(NSNumber *)identifier;
 @end
@@ -58,6 +59,7 @@
 @end
 
 @interface Leaf : TestModel
+@property (nonatomic) Branch *branch;
 @property (nonatomic) NSDate *date;
 @property (nonatomic) NSSet<NSString *> *tags;
 @end

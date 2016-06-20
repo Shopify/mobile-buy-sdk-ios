@@ -199,8 +199,9 @@ static NSString * const RootEntity = @"Root";
 	Branch *branch = [self.modelManager buy_objectWithEntityName:BranchEntity JSONDictionary:nil];
 	NSRelationshipDescription *nestRelationship = [self relationshipWithName:@"nest" forEntity:BranchEntity];
 	NSDictionary *expected = @{ @"egg_count" : @2 };
-	id<BUYObject> object = [nestRelationship buy_valueForJSON:expected object:branch];
-	NSDictionary *actual = [nestRelationship buy_JSONForValue:object];
+	Nest *nest = [nestRelationship buy_valueForJSON:expected object:branch];
+	XCTAssertEqual(branch, [nest branch]);
+	NSDictionary *actual = [nestRelationship buy_JSONForValue:nest];
 	XCTAssertEqualObjects(actual, expected);
 }
 
@@ -209,9 +210,9 @@ static NSString * const RootEntity = @"Root";
 	Branch *branch = [self.modelManager buy_objectWithEntityName:BranchEntity JSONDictionary:nil];
 	NSRelationshipDescription *nestRelationship = [self relationshipWithName:@"nest" forEntity:BranchEntity];
 	NSDictionary *json = @{ @"bird_id" : @501 };
-	id object = [nestRelationship buy_valueForJSON:json object:branch];
-	XCTAssertEqualObjects(@501, [[object bird] identifier]);
-	id actual = [nestRelationship buy_JSONForValue:object];
+	Nest *nest = [nestRelationship buy_valueForJSON:json object:branch];
+	XCTAssertEqualObjects(@501, [[nest bird] identifier]);
+	id actual = [nestRelationship buy_JSONForValue:nest];
 	XCTAssertEqualObjects(actual, json);
 }
 
@@ -225,7 +226,10 @@ static NSString * const RootEntity = @"Root";
 										  [self leafWithDate:[self dateWithComponents:[self june21_1970]] tags:[self tagsWithIndexes:@[@9]]],
 										  [self leafWithDate:[self dateWithComponents:[self jan1_2000]] tags:[self tagsWithIndexes:@[@12, @0, @8, @4]]]]];
 	id json = [leafRelationship buy_JSONForValue:branch.leaves];
-	id actual = [leafRelationship buy_valueForJSON:json object:branch];
+	NSSet<Leaf *> *actual = [leafRelationship buy_valueForJSON:json object:branch];
+	for (Leaf *leaf in actual) {
+		XCTAssertEqualObjects(leaf.branch, branch);
+	}
 	XCTAssertEqualObjects(actual, branch.leaves);
 }
 

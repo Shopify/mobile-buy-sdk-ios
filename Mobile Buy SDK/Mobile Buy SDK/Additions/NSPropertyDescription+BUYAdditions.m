@@ -186,17 +186,24 @@ static NSString *JSONValueTransformerNameForAttributeType(NSAttributeType type)
 }
 
 // JSON -> model
-- (id)buy_objectForJSON:(id)JSON modelManager:(id<BUYModelManager>)modelManager
+- (id)buy_objectForJSON:(id)JSON object:(id<BUYObject>)object
 {
+	id result;
 	NSString *entityName = self.destinationEntity.name;
 	// If we are expecting an object `id` the object should already exist.
 	// Otherwise let the object context decide how to resolve the object and update it.
 	if (self.encodesIdInJSON) {
-		return [modelManager buy_objectWithEntityName:entityName identifier:JSON];
+		result = [object.modelManager buy_objectWithEntityName:entityName identifier:JSON];
 	}
 	else {
-		return [modelManager buy_objectWithEntityName:entityName JSONDictionary:JSON];
+		result = [object.modelManager buy_objectWithEntityName:entityName JSONDictionary:JSON];
 	}
+#if !CORE_DATA_PERSISTENCE
+	if (self.inverseRelationship && !self.inverseRelationship.isToMany) {
+		[result setValue:object forKey:self.inverseRelationship.name];
+	}
+#endif
+	return result;
 }
 
 // model -> JSON
@@ -210,7 +217,7 @@ static NSString *JSONValueTransformerNameForAttributeType(NSAttributeType type)
 }
 
 // JSON -> (ordered)set (of models)
-- (id)buy_collectionForJSON:(NSArray *)JSON modelManager:(id<BUYModelManager>)modelManager
+- (id)buy_collectionForJSON:(NSArray *)JSON object:(id<BUYObject>)object
 {
 	NSString *entityName = self.destinationEntity.name;
 	NSArray<id<BUYObject>> *array;
@@ -219,10 +226,18 @@ static NSString *JSONValueTransformerNameForAttributeType(NSAttributeType type)
 	// Otherwise, let the object context decide how to resolve the objects and update them.
 	// If device caching is not provided, this will return nothing.
 	if (self.encodesIdInJSON) {
-		array = [modelManager buy_objectsWithEntityName:entityName identifiers:JSON];
+		array = [object.modelManager buy_objectsWithEntityName:entityName identifiers:JSON];
 	}
 	else {
-		array = [modelManager buy_objectsWithEntityName:entityName JSONArray:JSON];
+		array = [object.modelManager buy_objectsWithEntityName:entityName JSONArray:JSON];
+#if !CORE_DATA_PERSISTENCE
+		if (self.inverseRelationship && !self.inverseRelationship.isToMany) {
+			NSString *inverseKey = self.inverseRelationship.name;
+			for (id related in array) {
+				[related setValue:object forKey:inverseKey];
+			}
+		}
+#endif
 	}
 	
 	// Transform the array to the correct container type (`NSSet` or `NSOrderedSet`).
@@ -246,10 +261,10 @@ static NSString *JSONValueTransformerNameForAttributeType(NSAttributeType type)
 	id value = nil;
 	if ([JSON buy_isValidObject]) {
 		if (self.isToMany) {
-			value = [self buy_collectionForJSON:JSON modelManager:object.modelManager];
+			value = [self buy_collectionForJSON:JSON object:object];
 		}
 		else {
-			value = [self buy_objectForJSON:JSON modelManager:object.modelManager];
+			value = [self buy_objectForJSON:JSON object:object];
 		}
 	}
 	return value;
