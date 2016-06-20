@@ -66,7 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BUYAddress (ApplePay)
 
-+ (nullable NSString *)buy_emailFromRecord:(nullable ABRecordRef)record;
++ (nullable NSString *)buy_emailFromRecord:(nullable ABRecordRef)record NS_DEPRECATED_IOS(8_0, 9_0, "Use the `emailAddress` from the PKContact object instead");
 
 - (void)updateWithRecord:(nullable ABRecordRef)record NS_DEPRECATED_IOS(8_0, 9_0, "Use the CNContact backed `updateWithContact:` instead");
 
