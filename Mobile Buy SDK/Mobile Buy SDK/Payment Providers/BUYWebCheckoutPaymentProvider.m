@@ -108,7 +108,7 @@ static NSString *const WebCheckoutCustomerAccessToken = @"customer_access_token"
 
 - (void)startCheckout:(BUYCheckout *)checkout
 {	
-	if (self.isInProgress) {
+	if (self.isInProgress && ![checkout.token isEqual:self.checkout.token]) {
 		[[NSException exceptionWithName:NSInternalInconsistencyException reason:[NSString stringWithFormat:@"Asked to start checkout; but checkout has already started in %@", self] userInfo:nil] raise];
 	}
 	
