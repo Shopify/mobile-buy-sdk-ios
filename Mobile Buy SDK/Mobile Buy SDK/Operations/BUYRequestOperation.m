@@ -82,14 +82,14 @@ typedef void (^BUYRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResponse *
 
 - (void)finishWithJSON:(id)JSON response:(NSHTTPURLResponse *)response
 {
-	[self finishExecution];
 	self.completion(JSON, response, nil);
+	[self finishExecution];
 }
 
 - (void)finishWithError:(NSError *)error response:(NSHTTPURLResponse *)response
 {
-	[self finishExecution];
 	self.completion(nil, response, error);
+	[self finishExecution];
 }
 
 #pragma mark - Start -
