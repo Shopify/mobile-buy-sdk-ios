@@ -70,84 +70,12 @@ const struct BUYImageLinkUserInfo BUYImageLinkUserInfo = {
 }
 
 #if defined CORE_DATA_PERSISTENCE
-- (NSDate*)createdAt {
-    [self willAccessValueForKey:@"createdAt"];
-    id value = [self primitiveValueForKey:@"createdAt"];
-    [self didAccessValueForKey:@"createdAt"];
-    return value;
-}
-
-- (void)setCreatedAt:(NSDate*)value_ {
-    [self willChangeValueForKey:@"createdAt"];
-    [self setPrimitiveValue:value_ forKey:@"createdAt"];
-    [self didChangeValueForKey:@"createdAt"];
-}
-
-- (NSNumber*)identifier {
-    [self willAccessValueForKey:@"identifier"];
-    id value = [self primitiveValueForKey:@"identifier"];
-    [self didAccessValueForKey:@"identifier"];
-    return value;
-}
-
-- (void)setIdentifier:(NSNumber*)value_ {
-    [self willChangeValueForKey:@"identifier"];
-    [self setPrimitiveValue:value_ forKey:@"identifier"];
-    [self didChangeValueForKey:@"identifier"];
-}
-
-- (NSNumber*)position {
-    [self willAccessValueForKey:@"position"];
-    id value = [self primitiveValueForKey:@"position"];
-    [self didAccessValueForKey:@"position"];
-    return value;
-}
-
-- (void)setPosition:(NSNumber*)value_ {
-    [self willChangeValueForKey:@"position"];
-    [self setPrimitiveValue:value_ forKey:@"position"];
-    [self didChangeValueForKey:@"position"];
-}
-
-- (NSURL*)sourceURL {
-    [self willAccessValueForKey:@"sourceURL"];
-    id value = [self primitiveValueForKey:@"sourceURL"];
-    [self didAccessValueForKey:@"sourceURL"];
-    return value;
-}
-
-- (void)setSourceURL:(NSURL*)value_ {
-    [self willChangeValueForKey:@"sourceURL"];
-    [self setPrimitiveValue:value_ forKey:@"sourceURL"];
-    [self didChangeValueForKey:@"sourceURL"];
-}
-
-- (NSDate*)updatedAt {
-    [self willAccessValueForKey:@"updatedAt"];
-    id value = [self primitiveValueForKey:@"updatedAt"];
-    [self didAccessValueForKey:@"updatedAt"];
-    return value;
-}
-
-- (void)setUpdatedAt:(NSDate*)value_ {
-    [self willChangeValueForKey:@"updatedAt"];
-    [self setPrimitiveValue:value_ forKey:@"updatedAt"];
-    [self didChangeValueForKey:@"updatedAt"];
-}
-
-- (NSArray*)variantIds {
-    [self willAccessValueForKey:@"variantIds"];
-    id value = [self primitiveValueForKey:@"variantIds"];
-    [self didAccessValueForKey:@"variantIds"];
-    return value;
-}
-
-- (void)setVariantIds:(NSArray*)value_ {
-    [self willChangeValueForKey:@"variantIds"];
-    [self setPrimitiveValue:value_ forKey:@"variantIds"];
-    [self didChangeValueForKey:@"variantIds"];
-}
-
+@dynamic createdAt;
+@dynamic identifier;
+@dynamic position;
+@dynamic sourceURL;
+@dynamic updatedAt;
+@dynamic variantIds;
 #endif
 
 - (int64_t)identifierValue {

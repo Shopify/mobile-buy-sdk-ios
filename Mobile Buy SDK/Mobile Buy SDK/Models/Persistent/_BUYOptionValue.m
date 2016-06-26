@@ -57,45 +57,9 @@ const struct BUYOptionValueRelationships BUYOptionValueRelationships = {
 }
 
 #if defined CORE_DATA_PERSISTENCE
-- (NSString*)name {
-    [self willAccessValueForKey:@"name"];
-    id value = [self primitiveValueForKey:@"name"];
-    [self didAccessValueForKey:@"name"];
-    return value;
-}
-
-- (void)setName:(NSString*)value_ {
-    [self willChangeValueForKey:@"name"];
-    [self setPrimitiveValue:value_ forKey:@"name"];
-    [self didChangeValueForKey:@"name"];
-}
-
-- (NSNumber*)optionId {
-    [self willAccessValueForKey:@"optionId"];
-    id value = [self primitiveValueForKey:@"optionId"];
-    [self didAccessValueForKey:@"optionId"];
-    return value;
-}
-
-- (void)setOptionId:(NSNumber*)value_ {
-    [self willChangeValueForKey:@"optionId"];
-    [self setPrimitiveValue:value_ forKey:@"optionId"];
-    [self didChangeValueForKey:@"optionId"];
-}
-
-- (NSString*)value {
-    [self willAccessValueForKey:@"value"];
-    id value = [self primitiveValueForKey:@"value"];
-    [self didAccessValueForKey:@"value"];
-    return value;
-}
-
-- (void)setValue:(NSString*)value_ {
-    [self willChangeValueForKey:@"value"];
-    [self setPrimitiveValue:value_ forKey:@"value"];
-    [self didChangeValueForKey:@"value"];
-}
-
+@dynamic name;
+@dynamic optionId;
+@dynamic value;
 #endif
 
 - (int64_t)optionIdValue {

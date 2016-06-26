@@ -55,19 +55,7 @@ const struct BUYCartLineItemUserInfo BUYCartLineItemUserInfo = {
 }
 
 #if defined CORE_DATA_PERSISTENCE
-- (NSDecimalNumber*)quantity {
-    [self willAccessValueForKey:@"quantity"];
-    id value = [self primitiveValueForKey:@"quantity"];
-    [self didAccessValueForKey:@"quantity"];
-    return value;
-}
-
-- (void)setQuantity:(NSDecimalNumber*)value_ {
-    [self willChangeValueForKey:@"quantity"];
-    [self setPrimitiveValue:value_ forKey:@"quantity"];
-    [self didChangeValueForKey:@"quantity"];
-}
-
+@dynamic quantity;
 #endif
 
 #if defined CORE_DATA_PERSISTENCE

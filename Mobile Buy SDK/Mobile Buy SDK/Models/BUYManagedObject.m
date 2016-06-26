@@ -33,6 +33,7 @@
 #import "NSPropertyDescription+BUYAdditions.h"
 
 #import <CoreData/CoreData.h>
+#import <objc/runtime.h>
 
 #if defined CORE_DATA_PERSISTENCE
 
@@ -89,6 +90,83 @@ return self.entity.JSONEncodedProperties;
 - (NSDictionary *)jsonDictionaryForCheckout
 {
 	return self.JSONDictionary;
+}
+
+#pragma mark - Dynamic Property Accessor Resolution
+
+NS_INLINE NSString *KeyForSelector(SEL selector, BOOL *isSetter)
+{
+	NSString *name = NSStringFromSelector(selector);
+	BOOL setter = [name hasPrefix:@"set"];
+	if (isSetter) {
+		*isSetter = setter;
+	}
+	return setter ? [[name substringWithRange:NSMakeRange(3, name.length - 4)] lowercaseString] : name;
+}
+
+- (BOOL)respondsToSelector:(SEL)selector
+{
+	return [super respondsToSelector:selector] || [self isPropertyAccessor:selector];
+}
+
+static NSMutableDictionary *signatureCache;
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)selector
+{
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		signatureCache = [NSMutableDictionary dictionary];
+	});
+	
+	NSString *selectorName = NSStringFromSelector(selector);
+	NSMethodSignature *signature = signatureCache[selectorName];
+	
+	if (!signature) {
+		SEL substituteSelector = [selectorName hasPrefix:@"set"] ? @selector(setPrimitiveValue:forKey:) : @selector(primitiveValueForKey:);
+		signatureCache[selectorName] = signature = [super methodSignatureForSelector:substituteSelector];
+	}
+
+	return signature;
+}
+
+- (void)forwardInvocation:(NSInvocation *)anInvocation
+{
+	BOOL isSetter = NO;
+	NSString *key = KeyForSelector(anInvocation.selector, &isSetter);
+	id value = nil;
+	if (isSetter) {
+		[anInvocation getArgument:&value atIndex:2];
+		[self setValue:value forPropertyKey:key];
+	}
+	else {
+		value = [self valueForPropertyKey:key];
+		[anInvocation setReturnValue:&value];
+	}
+}
+
+- (BOOL)isPropertyAccessor:(SEL)selector
+{
+	return (signatureCache[NSStringFromSelector(selector)] || [self hasPropertyForKey:KeyForSelector(selector, NULL)]);
+}
+
+- (BOOL)hasPropertyForKey:(NSString *)key
+{
+	return class_getProperty([self class], [key UTF8String]) != NULL;
+}
+
+- (id)valueForPropertyKey:(NSString *)key
+{
+	[self willAccessValueForKey:key];
+	id value = [self primitiveValueForKey:key];
+	[self didAccessValueForKey:key];
+	return value;
+}
+
+- (void)setValue:(id)value forPropertyKey:(NSString *)key
+{
+	[self willChangeValueForKey:key];
+	[self setPrimitiveValue:value forKey:key];
+	[self didChangeValueForKey:key];
 }
 
 @end

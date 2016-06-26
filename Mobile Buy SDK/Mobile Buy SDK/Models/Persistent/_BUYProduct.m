@@ -83,162 +83,18 @@ const struct BUYProductUserInfo BUYProductUserInfo = {
 }
 
 #if defined CORE_DATA_PERSISTENCE
-- (NSNumber*)available {
-    [self willAccessValueForKey:@"available"];
-    id value = [self primitiveValueForKey:@"available"];
-    [self didAccessValueForKey:@"available"];
-    return value;
-}
-
-- (void)setAvailable:(NSNumber*)value_ {
-    [self willChangeValueForKey:@"available"];
-    [self setPrimitiveValue:value_ forKey:@"available"];
-    [self didChangeValueForKey:@"available"];
-}
-
-- (NSDate*)createdAt {
-    [self willAccessValueForKey:@"createdAt"];
-    id value = [self primitiveValueForKey:@"createdAt"];
-    [self didAccessValueForKey:@"createdAt"];
-    return value;
-}
-
-- (void)setCreatedAt:(NSDate*)value_ {
-    [self willChangeValueForKey:@"createdAt"];
-    [self setPrimitiveValue:value_ forKey:@"createdAt"];
-    [self didChangeValueForKey:@"createdAt"];
-}
-
-- (NSString*)handle {
-    [self willAccessValueForKey:@"handle"];
-    id value = [self primitiveValueForKey:@"handle"];
-    [self didAccessValueForKey:@"handle"];
-    return value;
-}
-
-- (void)setHandle:(NSString*)value_ {
-    [self willChangeValueForKey:@"handle"];
-    [self setPrimitiveValue:value_ forKey:@"handle"];
-    [self didChangeValueForKey:@"handle"];
-}
-
-- (NSString*)htmlDescription {
-    [self willAccessValueForKey:@"htmlDescription"];
-    id value = [self primitiveValueForKey:@"htmlDescription"];
-    [self didAccessValueForKey:@"htmlDescription"];
-    return value;
-}
-
-- (void)setHtmlDescription:(NSString*)value_ {
-    [self willChangeValueForKey:@"htmlDescription"];
-    [self setPrimitiveValue:value_ forKey:@"htmlDescription"];
-    [self didChangeValueForKey:@"htmlDescription"];
-}
-
-- (NSNumber*)identifier {
-    [self willAccessValueForKey:@"identifier"];
-    id value = [self primitiveValueForKey:@"identifier"];
-    [self didAccessValueForKey:@"identifier"];
-    return value;
-}
-
-- (void)setIdentifier:(NSNumber*)value_ {
-    [self willChangeValueForKey:@"identifier"];
-    [self setPrimitiveValue:value_ forKey:@"identifier"];
-    [self didChangeValueForKey:@"identifier"];
-}
-
-- (NSString*)productType {
-    [self willAccessValueForKey:@"productType"];
-    id value = [self primitiveValueForKey:@"productType"];
-    [self didAccessValueForKey:@"productType"];
-    return value;
-}
-
-- (void)setProductType:(NSString*)value_ {
-    [self willChangeValueForKey:@"productType"];
-    [self setPrimitiveValue:value_ forKey:@"productType"];
-    [self didChangeValueForKey:@"productType"];
-}
-
-- (NSNumber*)published {
-    [self willAccessValueForKey:@"published"];
-    id value = [self primitiveValueForKey:@"published"];
-    [self didAccessValueForKey:@"published"];
-    return value;
-}
-
-- (void)setPublished:(NSNumber*)value_ {
-    [self willChangeValueForKey:@"published"];
-    [self setPrimitiveValue:value_ forKey:@"published"];
-    [self didChangeValueForKey:@"published"];
-}
-
-- (NSDate*)publishedAt {
-    [self willAccessValueForKey:@"publishedAt"];
-    id value = [self primitiveValueForKey:@"publishedAt"];
-    [self didAccessValueForKey:@"publishedAt"];
-    return value;
-}
-
-- (void)setPublishedAt:(NSDate*)value_ {
-    [self willChangeValueForKey:@"publishedAt"];
-    [self setPrimitiveValue:value_ forKey:@"publishedAt"];
-    [self didChangeValueForKey:@"publishedAt"];
-}
-
-- (NSSet*)tags {
-    [self willAccessValueForKey:@"tags"];
-    id value = [self primitiveValueForKey:@"tags"];
-    [self didAccessValueForKey:@"tags"];
-    return value;
-}
-
-- (void)setTags:(NSSet*)value_ {
-    [self willChangeValueForKey:@"tags"];
-    [self setPrimitiveValue:value_ forKey:@"tags"];
-    [self didChangeValueForKey:@"tags"];
-}
-
-- (NSString*)title {
-    [self willAccessValueForKey:@"title"];
-    id value = [self primitiveValueForKey:@"title"];
-    [self didAccessValueForKey:@"title"];
-    return value;
-}
-
-- (void)setTitle:(NSString*)value_ {
-    [self willChangeValueForKey:@"title"];
-    [self setPrimitiveValue:value_ forKey:@"title"];
-    [self didChangeValueForKey:@"title"];
-}
-
-- (NSDate*)updatedAt {
-    [self willAccessValueForKey:@"updatedAt"];
-    id value = [self primitiveValueForKey:@"updatedAt"];
-    [self didAccessValueForKey:@"updatedAt"];
-    return value;
-}
-
-- (void)setUpdatedAt:(NSDate*)value_ {
-    [self willChangeValueForKey:@"updatedAt"];
-    [self setPrimitiveValue:value_ forKey:@"updatedAt"];
-    [self didChangeValueForKey:@"updatedAt"];
-}
-
-- (NSString*)vendor {
-    [self willAccessValueForKey:@"vendor"];
-    id value = [self primitiveValueForKey:@"vendor"];
-    [self didAccessValueForKey:@"vendor"];
-    return value;
-}
-
-- (void)setVendor:(NSString*)value_ {
-    [self willChangeValueForKey:@"vendor"];
-    [self setPrimitiveValue:value_ forKey:@"vendor"];
-    [self didChangeValueForKey:@"vendor"];
-}
-
+@dynamic available;
+@dynamic createdAt;
+@dynamic handle;
+@dynamic htmlDescription;
+@dynamic identifier;
+@dynamic productType;
+@dynamic published;
+@dynamic publishedAt;
+@dynamic tags;
+@dynamic title;
+@dynamic updatedAt;
+@dynamic vendor;
 #endif
 
 - (BOOL)availableValue {

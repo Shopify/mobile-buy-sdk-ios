@@ -66,45 +66,9 @@ const struct BUYOptionUserInfo BUYOptionUserInfo = {
 }
 
 #if defined CORE_DATA_PERSISTENCE
-- (NSNumber*)identifier {
-    [self willAccessValueForKey:@"identifier"];
-    id value = [self primitiveValueForKey:@"identifier"];
-    [self didAccessValueForKey:@"identifier"];
-    return value;
-}
-
-- (void)setIdentifier:(NSNumber*)value_ {
-    [self willChangeValueForKey:@"identifier"];
-    [self setPrimitiveValue:value_ forKey:@"identifier"];
-    [self didChangeValueForKey:@"identifier"];
-}
-
-- (NSString*)name {
-    [self willAccessValueForKey:@"name"];
-    id value = [self primitiveValueForKey:@"name"];
-    [self didAccessValueForKey:@"name"];
-    return value;
-}
-
-- (void)setName:(NSString*)value_ {
-    [self willChangeValueForKey:@"name"];
-    [self setPrimitiveValue:value_ forKey:@"name"];
-    [self didChangeValueForKey:@"name"];
-}
-
-- (NSNumber*)position {
-    [self willAccessValueForKey:@"position"];
-    id value = [self primitiveValueForKey:@"position"];
-    [self didAccessValueForKey:@"position"];
-    return value;
-}
-
-- (void)setPosition:(NSNumber*)value_ {
-    [self willChangeValueForKey:@"position"];
-    [self setPrimitiveValue:value_ forKey:@"position"];
-    [self didChangeValueForKey:@"position"];
-}
-
+@dynamic identifier;
+@dynamic name;
+@dynamic position;
 #endif
 
 - (int64_t)identifierValue {
