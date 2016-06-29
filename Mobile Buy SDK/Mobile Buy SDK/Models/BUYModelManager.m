@@ -39,6 +39,11 @@ NSString * const BUYDeliveryRangeTransformerName = @"BUYDeliveryRange";
 NSString * const BUYFlatArrayTransformerName = @"BUYFlatArray";
 NSString * const BUYProductTagsTransformerName = @"BUYProductTags";
 
+@interface NSBundle (BUYAdditions)
++ (instancetype)frameworkBundle;
++ (instancetype)resourcesBundle;
+@end
+
 @interface BUYModelManager ()
 @property (nonatomic, strong) NSManagedObjectModel *model;
 @end
@@ -57,7 +62,7 @@ NSString * const BUYProductTagsTransformerName = @"BUYProductTags";
 
 - (instancetype)init
 {
-    return [self initWithManagedObjectModel:[NSManagedObjectModel mergedModelFromBundles:@[[NSBundle bundleForClass:[self class]]]]];
+    return [self initWithManagedObjectModel:[NSManagedObjectModel mergedModelFromBundles:@[[NSBundle resourcesBundle]]]];
 }
 
 - (instancetype)initWithManagedObjectModel:(NSManagedObjectModel *)model
@@ -117,6 +122,29 @@ NSString * const BUYProductTagsTransformerName = @"BUYProductTags";
 - (BOOL)buy_purgeObjectsWithEntityName:(NSString *)entityName matchingPredicate:(NSPredicate *)predicate
 {
 	return YES;
+}
+
+@end
+
+@implementation NSBundle (BUYAdditions)
+
++ (instancetype)frameworkBundle
+{
+	return [NSBundle bundleForClass:[BUYModelManager class]];
+}
+
++ (NSURL *)resourcesBundleURL
+{
+	return [[self frameworkBundle] URLForResource:@"Buy" withExtension:@"bundle"];
+}
+
++ (instancetype)resourcesBundle
+{
+#if COCOAPODS
+	return [NSBundle bundleWithURL:[self resourcesBundleURL]];
+#else
+	return [self frameworkBundle];
+#endif
 }
 
 @end
