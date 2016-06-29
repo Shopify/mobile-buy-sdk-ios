@@ -447,7 +447,6 @@
 		90BBCD701B87B6AB00FCCE51 /* BUYPKContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYPKContact.m; sourceTree = "<group>"; };
 		90BC07F51AE043FD005D1195 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		90BC07F71AE0440F005D1195 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
-		90C856B71BD6B19D00936926 /* Buy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Buy.h; path = "Mobile Buy SDK/Static Framework/Buy.h"; sourceTree = "<group>"; };
 		90C856B81BD6B19D00936926 /* Buy.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = Buy.modulemap; path = "Mobile Buy SDK/Static Framework/Buy.modulemap"; sourceTree = "<group>"; };
 		90DA8DF11BC6A82D0027BCB7 /* Buy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Buy.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		90E80E461AFBBB68003A9909 /* AppledocSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppledocSettings.plist; path = docs/AppledocSettings.plist; sourceTree = "<group>"; };
@@ -1011,7 +1010,6 @@
 		F773749E19C77E460039681C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				90C856B71BD6B19D00936926 /* Buy.h */,
 				90C856B81BD6B19D00936926 /* Buy.modulemap */,
 				F773743619C771D10039681C /* LICENSE */,
 				90B043AF1B0D380D006CA6FC /* README.md */,
