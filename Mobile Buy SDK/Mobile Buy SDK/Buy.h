@@ -26,12 +26,7 @@
 
 #import <UIKit/UIKit.h>
 
-//! Project version number for Buy.
-FOUNDATION_EXPORT double BuyVersionNumber;
-
-//! Project version string for Buy.
-FOUNDATION_EXPORT const unsigned char BuyVersionString[];
-
+// Model types
 #import <Buy/BUYAccountCredentials.h>
 #import <Buy/BUYAddress.h>
 #import <Buy/BUYCart.h>
@@ -49,12 +44,24 @@ FOUNDATION_EXPORT const unsigned char BuyVersionString[];
 #import <Buy/BUYOption.h>
 #import <Buy/BUYOptionValue.h>
 #import <Buy/BUYOrder.h>
+#import <Buy/BUYPaymentToken.h>
 #import <Buy/BUYProduct.h>
 #import <Buy/BUYProductVariant.h>
 #import <Buy/BUYShippingRate.h>
 #import <Buy/BUYShop.h>
 #import <Buy/BUYTaxLine.h>
 
+// Model support
+#import <Buy/BUYError.h>
+#import <Buy/BUYError+BUYAdditions.h>
+#import <Buy/BUYManagedObject.h>
+#import <Buy/BUYModelManager.h>
+#import <Buy/BUYModelManagerProtocol.h>
+#import <Buy/BUYObject.h>
+#import <Buy/BUYObjectProtocol.h>
+#import <Buy/BUYShopifyErrorCodes.h>
+
+// Checkout support
 #import <Buy/BUYApplePayAdditions.h>
 #import <Buy/BUYApplePayAuthorizationDelegate.h>
 #import <Buy/BUYApplePayPaymentProvider.h>
@@ -62,31 +69,25 @@ FOUNDATION_EXPORT const unsigned char BuyVersionString[];
 #import <Buy/BUYPaymentProvider.h>
 #import <Buy/BUYWebCheckoutPaymentProvider.h>
 
+// Client API
 #import <Buy/BUYClientTypes.h>
 #import <Buy/BUYClient.h>
 #import <Buy/BUYClient+Address.h>
 #import <Buy/BUYClient+Customers.h>
 #import <Buy/BUYClient+Checkout.h>
 #import <Buy/BUYClient+Storefront.h>
-#import <Buy/BUYError.h>
-#import <Buy/BUYError+BUYAdditions.h>
-#import <Buy/BUYManagedObject.h>
-#import <Buy/BUYModelManager.h>
-#import <Buy/BUYModelManagerProtocol.h>
-#import <Buy/BUYObjectProtocol.h>
-#import <Buy/BUYShopifyErrorCodes.h>
 
-#import <Buy/BUYPaymentToken.h>
-
+// Foundation extensions
 #import <Buy/NSArray+BUYAdditions.h>
 #import <Buy/NSDate+BUYAdditions.h>
 #import <Buy/NSDateFormatter+BUYAdditions.h>
 #import <Buy/NSDecimalNumber+BUYAdditions.h>
 #import <Buy/NSDictionary+BUYAdditions.h>
-#import <Buy/NSDictionary+BUYAdditions.h>
-#import <Buy/NSEntityDescription+BUYAdditions.h>
 #import <Buy/NSException+BUYAdditions.h>
-#import <Buy/NSPropertyDescription+BUYAdditions.h>
-#import <Buy/NSRegularExpression+BUYAdditions.h>
 #import <Buy/NSString+BUYAdditions.h>
 #import <Buy/NSURL+BUYAdditions.h>
+
+// Core Data extensions
+#import <Buy/NSEntityDescription+BUYAdditions.h>
+#import <Buy/NSPropertyDescription+BUYAdditions.h>
+#import <Buy/NSRegularExpression+BUYAdditions.h>

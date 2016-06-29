@@ -28,6 +28,7 @@
  *  Umbrella header used for Cocoapods
  */
 
+// Model types
 #import "BUYAccountCredentials.h"
 #import "BUYAddress.h"
 #import "BUYCart.h"
@@ -45,19 +46,32 @@
 #import "BUYOption.h"
 #import "BUYOptionValue.h"
 #import "BUYOrder.h"
+#import "BUYPaymentToken.h"
 #import "BUYProduct.h"
 #import "BUYProductVariant.h"
 #import "BUYShippingRate.h"
 #import "BUYShop.h"
 #import "BUYTaxLine.h"
 
+// Model support
+#import "BUYError.h"
+#import "BUYError+BUYAdditions.h"
+#import "BUYManagedObject.h"
+#import "BUYModelManager.h"
+#import "BUYModelManagerProtocol.h"
+#import "BUYObject.h"
+#import "BUYObjectProtocol.h"
+#import "BUYShopifyErrorCodes.h"
+
+// Checkout support
 #import "BUYApplePayAdditions.h"
-#import "BUYApplePayHelpers.h"
+#import "BUYApplePayAuthorizationDelegate.h"
 #import "BUYApplePayPaymentProvider.h"
 #import "BUYPaymentController.h"
 #import "BUYPaymentProvider.h"
 #import "BUYWebCheckoutPaymentProvider.h"
 
+// Client API
 #import "BUYClientTypes.h"
 #import "BUYClient.h"
 #import "BUYClient+Address.h"
@@ -65,25 +79,17 @@
 #import "BUYClient+Checkout.h"
 #import "BUYClient+Storefront.h"
 
-#import "BUYError.h"
-#import "BUYError+BUYAdditions.h"
-#import "BUYManagedObject.h"
-#import "BUYModelManager.h"
-#import "BUYModelManagerProtocol.h"
-#import "BUYObjectProtocol.h"
-#import "BUYShopifyErrorCodes.h"
-
-#import "BUYPaymentToken.h"
-
+// Foundation extensions
 #import "NSArray+BUYAdditions.h"
 #import "NSDate+BUYAdditions.h"
 #import "NSDateFormatter+BUYAdditions.h"
 #import "NSDecimalNumber+BUYAdditions.h"
 #import "NSDictionary+BUYAdditions.h"
-#import "NSDictionary+BUYAdditions.h"
-#import "NSEntityDescription+BUYAdditions.h"
 #import "NSException+BUYAdditions.h"
-#import "NSPropertyDescription+BUYAdditions.h"
-#import "NSRegularExpression+BUYAdditions.h"
 #import "NSString+BUYAdditions.h"
 #import "NSURL+BUYAdditions.h"
+
+// Core Data extensions
+#import "NSEntityDescription+BUYAdditions.h"
+#import "NSPropertyDescription+BUYAdditions.h"
+#import "NSRegularExpression+BUYAdditions.h"
