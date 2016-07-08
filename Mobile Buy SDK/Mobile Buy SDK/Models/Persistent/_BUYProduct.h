@@ -37,7 +37,6 @@ extern const struct BUYProductAttributes {
 	__unsafe_unretained NSString *htmlDescription;
 	__unsafe_unretained NSString *identifier;
 	__unsafe_unretained NSString *productType;
-	__unsafe_unretained NSString *publicURL;
 	__unsafe_unretained NSString *published;
 	__unsafe_unretained NSString *publishedAt;
 	__unsafe_unretained NSString *tags;
@@ -61,8 +60,6 @@ extern const struct BUYProductUserInfo {
 @class BUYImageLink;
 @class BUYOption;
 @class BUYProductVariant;
-
-@class NSURL;
 
 @class NSSet;
 
@@ -119,11 +116,6 @@ extern const struct BUYProductUserInfo {
  * A categorization that a product can be tagged with, commonly used for filtering and searching.
  */
 @property (nonatomic, strong) NSString* productType;
-
-/**
- * A publically accessible link to the product web page
- */
-@property (nonatomic, strong) NSURL* publicURL;
 
 /**
  * The product is published on the current sales channel.
@@ -249,9 +241,6 @@ extern const struct BUYProductUserInfo {
 
 - (NSString*)primitiveProductType;
 - (void)setPrimitiveProductType:(NSString*)value;
-
-- (NSURL*)primitivePublicURL;
-- (void)setPrimitivePublicURL:(NSURL*)value;
 
 - (NSNumber*)primitivePublished;
 - (void)setPrimitivePublished:(NSNumber*)value;

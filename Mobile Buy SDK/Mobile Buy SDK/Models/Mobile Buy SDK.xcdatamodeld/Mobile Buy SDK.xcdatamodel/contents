@@ -705,12 +705,6 @@
                 <entry key="documentation" value="A categorization that a product can be tagged with, commonly used for filtering and searching."/>
             </userInfo>
         </attribute>
-        <attribute name="publicURL" optional="YES" attributeType="Transformable" syncable="YES">
-            <userInfo>
-                <entry key="attributeValueClassName" value="NSURL"/>
-                <entry key="documentation" value="A publically accessible link to the product web page"/>
-            </userInfo>
-        </attribute>
         <attribute name="published" optional="YES" attributeType="Boolean" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="The product is published on the current sales channel."/>
@@ -1004,7 +998,7 @@
         <element name="Option" positionX="-576" positionY="907" width="128" height="105"/>
         <element name="OptionValue" positionX="-387" positionY="907" width="128" height="105"/>
         <element name="Order" positionX="682" positionY="922" width="128" height="180"/>
-        <element name="Product" positionX="-765" positionY="712" width="128" height="300"/>
+        <element name="Product" positionX="-765" positionY="712" width="128" height="285"/>
         <element name="ProductVariant" positionX="-182" positionY="787" width="128" height="240"/>
         <element name="ShippingRate" positionX="531" positionY="1035" width="128" height="135"/>
         <element name="Shop" positionX="-279" positionY="450" width="128" height="255"/>

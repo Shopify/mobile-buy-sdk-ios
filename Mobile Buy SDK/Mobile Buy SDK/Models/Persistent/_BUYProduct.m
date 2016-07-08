@@ -35,7 +35,6 @@ const struct BUYProductAttributes BUYProductAttributes = {
 	.htmlDescription = @"htmlDescription",
 	.identifier = @"identifier",
 	.productType = @"productType",
-	.publicURL = @"publicURL",
 	.published = @"published",
 	.publishedAt = @"publishedAt",
 	.tags = @"tags",
@@ -160,19 +159,6 @@ const struct BUYProductUserInfo BUYProductUserInfo = {
     [self willChangeValueForKey:@"productType"];
     [self setPrimitiveValue:value_ forKey:@"productType"];
     [self didChangeValueForKey:@"productType"];
-}
-
-- (NSURL*)publicURL {
-    [self willAccessValueForKey:@"publicURL"];
-    id value = [self primitiveValueForKey:@"publicURL"];
-    [self didAccessValueForKey:@"publicURL"];
-    return value;
-}
-
-- (void)setPublicURL:(NSURL*)value_ {
-    [self willChangeValueForKey:@"publicURL"];
-    [self setPrimitiveValue:value_ forKey:@"publicURL"];
-    [self didChangeValueForKey:@"publicURL"];
 }
 
 - (NSNumber*)published {
