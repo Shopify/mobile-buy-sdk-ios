@@ -95,20 +95,10 @@ extension OrdersViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! LineItemCell
-        let lineItem = self.orders[indexPath.section].arrayOfLineItems[indexPath.row]
+        let lineItem = self.orders[indexPath.section].lineItemsArray()[indexPath.row]
         
         cell.setLineItem(lineItem)
         
         return cell
-    }
-}
-
-// ----------------------------------
-//  MARK: - BUYOrder -
-//
-extension BUYOrder {
-    
-    var arrayOfLineItems: [BUYLineItem] {
-        return self.lineItems.array as! [BUYLineItem]
     }
 }
