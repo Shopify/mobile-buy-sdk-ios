@@ -71,20 +71,9 @@ const struct <$managedObjectClassName$>UserInfo <$managedObjectClassName$>UserIn
 }
 
 #if defined CORE_DATA_PERSISTENCE<$foreach Attribute noninheritedAttributes do$><$if Attribute.hasDefinedAttributeType$>
-- (<$Attribute.objectAttributeType$>)<$Attribute.name$> {
-    [self willAccessValueForKey:@"<$Attribute.name$>"];
-    id value = [self primitiveValueForKey:@"<$Attribute.name$>"];
-    [self didAccessValueForKey:@"<$Attribute.name$>"];
-    return value;
-}
-<$if ! Attribute.isReadonly$>
-- (void)set<$Attribute.name.initialCapitalString$>:(<$Attribute.objectAttributeType$>)value_ {
-    [self willChangeValueForKey:@"<$Attribute.name$>"];
-    [self setPrimitiveValue:value_ forKey:@"<$Attribute.name$>"];
-    [self didChangeValueForKey:@"<$Attribute.name$>"];
-}
-<$endif$><$endif$><$endforeach do$>
+@dynamic <$Attribute.name$>;<$endif$><$endforeach$>
 #endif
+
 <$foreach Attribute noninheritedAttributes do$>
 <$if Attribute.hasDefinedAttributeType$>
 <$if Attribute.hasScalarAttributeType$>

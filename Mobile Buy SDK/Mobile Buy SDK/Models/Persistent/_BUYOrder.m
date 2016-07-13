@@ -67,97 +67,13 @@ const struct BUYOrderUserInfo BUYOrderUserInfo = {
 }
 
 #if defined CORE_DATA_PERSISTENCE
-- (NSNumber*)identifier {
-    [self willAccessValueForKey:@"identifier"];
-    id value = [self primitiveValueForKey:@"identifier"];
-    [self didAccessValueForKey:@"identifier"];
-    return value;
-}
-
-- (void)setIdentifier:(NSNumber*)value_ {
-    [self willChangeValueForKey:@"identifier"];
-    [self setPrimitiveValue:value_ forKey:@"identifier"];
-    [self didChangeValueForKey:@"identifier"];
-}
-
-- (NSString*)name {
-    [self willAccessValueForKey:@"name"];
-    id value = [self primitiveValueForKey:@"name"];
-    [self didAccessValueForKey:@"name"];
-    return value;
-}
-
-- (void)setName:(NSString*)value_ {
-    [self willChangeValueForKey:@"name"];
-    [self setPrimitiveValue:value_ forKey:@"name"];
-    [self didChangeValueForKey:@"name"];
-}
-
-- (NSURL*)orderStatusURL {
-    [self willAccessValueForKey:@"orderStatusURL"];
-    id value = [self primitiveValueForKey:@"orderStatusURL"];
-    [self didAccessValueForKey:@"orderStatusURL"];
-    return value;
-}
-
-- (void)setOrderStatusURL:(NSURL*)value_ {
-    [self willChangeValueForKey:@"orderStatusURL"];
-    [self setPrimitiveValue:value_ forKey:@"orderStatusURL"];
-    [self didChangeValueForKey:@"orderStatusURL"];
-}
-
-- (NSDate*)processedAt {
-    [self willAccessValueForKey:@"processedAt"];
-    id value = [self primitiveValueForKey:@"processedAt"];
-    [self didAccessValueForKey:@"processedAt"];
-    return value;
-}
-
-- (void)setProcessedAt:(NSDate*)value_ {
-    [self willChangeValueForKey:@"processedAt"];
-    [self setPrimitiveValue:value_ forKey:@"processedAt"];
-    [self didChangeValueForKey:@"processedAt"];
-}
-
-- (NSURL*)statusURL {
-    [self willAccessValueForKey:@"statusURL"];
-    id value = [self primitiveValueForKey:@"statusURL"];
-    [self didAccessValueForKey:@"statusURL"];
-    return value;
-}
-
-- (void)setStatusURL:(NSURL*)value_ {
-    [self willChangeValueForKey:@"statusURL"];
-    [self setPrimitiveValue:value_ forKey:@"statusURL"];
-    [self didChangeValueForKey:@"statusURL"];
-}
-
-- (NSDecimalNumber*)subtotalPrice {
-    [self willAccessValueForKey:@"subtotalPrice"];
-    id value = [self primitiveValueForKey:@"subtotalPrice"];
-    [self didAccessValueForKey:@"subtotalPrice"];
-    return value;
-}
-
-- (void)setSubtotalPrice:(NSDecimalNumber*)value_ {
-    [self willChangeValueForKey:@"subtotalPrice"];
-    [self setPrimitiveValue:value_ forKey:@"subtotalPrice"];
-    [self didChangeValueForKey:@"subtotalPrice"];
-}
-
-- (NSDecimalNumber*)totalPrice {
-    [self willAccessValueForKey:@"totalPrice"];
-    id value = [self primitiveValueForKey:@"totalPrice"];
-    [self didAccessValueForKey:@"totalPrice"];
-    return value;
-}
-
-- (void)setTotalPrice:(NSDecimalNumber*)value_ {
-    [self willChangeValueForKey:@"totalPrice"];
-    [self setPrimitiveValue:value_ forKey:@"totalPrice"];
-    [self didChangeValueForKey:@"totalPrice"];
-}
-
+@dynamic identifier;
+@dynamic name;
+@dynamic orderStatusURL;
+@dynamic processedAt;
+@dynamic statusURL;
+@dynamic subtotalPrice;
+@dynamic totalPrice;
 #endif
 
 - (int64_t)identifierValue {

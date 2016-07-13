@@ -72,110 +72,14 @@ const struct BUYCollectionUserInfo BUYCollectionUserInfo = {
 }
 
 #if defined CORE_DATA_PERSISTENCE
-- (NSDate*)createdAt {
-    [self willAccessValueForKey:@"createdAt"];
-    id value = [self primitiveValueForKey:@"createdAt"];
-    [self didAccessValueForKey:@"createdAt"];
-    return value;
-}
-
-- (void)setCreatedAt:(NSDate*)value_ {
-    [self willChangeValueForKey:@"createdAt"];
-    [self setPrimitiveValue:value_ forKey:@"createdAt"];
-    [self didChangeValueForKey:@"createdAt"];
-}
-
-- (NSString*)handle {
-    [self willAccessValueForKey:@"handle"];
-    id value = [self primitiveValueForKey:@"handle"];
-    [self didAccessValueForKey:@"handle"];
-    return value;
-}
-
-- (void)setHandle:(NSString*)value_ {
-    [self willChangeValueForKey:@"handle"];
-    [self setPrimitiveValue:value_ forKey:@"handle"];
-    [self didChangeValueForKey:@"handle"];
-}
-
-- (NSString*)htmlDescription {
-    [self willAccessValueForKey:@"htmlDescription"];
-    id value = [self primitiveValueForKey:@"htmlDescription"];
-    [self didAccessValueForKey:@"htmlDescription"];
-    return value;
-}
-
-- (void)setHtmlDescription:(NSString*)value_ {
-    [self willChangeValueForKey:@"htmlDescription"];
-    [self setPrimitiveValue:value_ forKey:@"htmlDescription"];
-    [self didChangeValueForKey:@"htmlDescription"];
-}
-
-- (NSNumber*)identifier {
-    [self willAccessValueForKey:@"identifier"];
-    id value = [self primitiveValueForKey:@"identifier"];
-    [self didAccessValueForKey:@"identifier"];
-    return value;
-}
-
-- (void)setIdentifier:(NSNumber*)value_ {
-    [self willChangeValueForKey:@"identifier"];
-    [self setPrimitiveValue:value_ forKey:@"identifier"];
-    [self didChangeValueForKey:@"identifier"];
-}
-
-- (NSNumber*)published {
-    [self willAccessValueForKey:@"published"];
-    id value = [self primitiveValueForKey:@"published"];
-    [self didAccessValueForKey:@"published"];
-    return value;
-}
-
-- (void)setPublished:(NSNumber*)value_ {
-    [self willChangeValueForKey:@"published"];
-    [self setPrimitiveValue:value_ forKey:@"published"];
-    [self didChangeValueForKey:@"published"];
-}
-
-- (NSDate*)publishedAt {
-    [self willAccessValueForKey:@"publishedAt"];
-    id value = [self primitiveValueForKey:@"publishedAt"];
-    [self didAccessValueForKey:@"publishedAt"];
-    return value;
-}
-
-- (void)setPublishedAt:(NSDate*)value_ {
-    [self willChangeValueForKey:@"publishedAt"];
-    [self setPrimitiveValue:value_ forKey:@"publishedAt"];
-    [self didChangeValueForKey:@"publishedAt"];
-}
-
-- (NSString*)title {
-    [self willAccessValueForKey:@"title"];
-    id value = [self primitiveValueForKey:@"title"];
-    [self didAccessValueForKey:@"title"];
-    return value;
-}
-
-- (void)setTitle:(NSString*)value_ {
-    [self willChangeValueForKey:@"title"];
-    [self setPrimitiveValue:value_ forKey:@"title"];
-    [self didChangeValueForKey:@"title"];
-}
-
-- (NSDate*)updatedAt {
-    [self willAccessValueForKey:@"updatedAt"];
-    id value = [self primitiveValueForKey:@"updatedAt"];
-    [self didAccessValueForKey:@"updatedAt"];
-    return value;
-}
-
-- (void)setUpdatedAt:(NSDate*)value_ {
-    [self willChangeValueForKey:@"updatedAt"];
-    [self setPrimitiveValue:value_ forKey:@"updatedAt"];
-    [self didChangeValueForKey:@"updatedAt"];
-}
-
+@dynamic createdAt;
+@dynamic handle;
+@dynamic htmlDescription;
+@dynamic identifier;
+@dynamic published;
+@dynamic publishedAt;
+@dynamic title;
+@dynamic updatedAt;
 #endif
 
 - (int64_t)identifierValue {

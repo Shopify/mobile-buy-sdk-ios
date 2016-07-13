@@ -59,9 +59,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)willAccessValueForKey:(NSString *)key;
 - (void)didAccessValueForKey:(NSString *)key;
 
-- (nullable id)primitiveValueForKey:(NSString *)key;
-- (void)setPrimitiveValue:(nullable id)value forKey:(NSString *)key;
-
 @end
 #endif
 

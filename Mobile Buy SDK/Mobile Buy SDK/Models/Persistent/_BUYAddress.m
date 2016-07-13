@@ -71,175 +71,19 @@ const struct BUYAddressUserInfo BUYAddressUserInfo = {
 }
 
 #if defined CORE_DATA_PERSISTENCE
-- (NSString*)address1 {
-    [self willAccessValueForKey:@"address1"];
-    id value = [self primitiveValueForKey:@"address1"];
-    [self didAccessValueForKey:@"address1"];
-    return value;
-}
-
-- (void)setAddress1:(NSString*)value_ {
-    [self willChangeValueForKey:@"address1"];
-    [self setPrimitiveValue:value_ forKey:@"address1"];
-    [self didChangeValueForKey:@"address1"];
-}
-
-- (NSString*)address2 {
-    [self willAccessValueForKey:@"address2"];
-    id value = [self primitiveValueForKey:@"address2"];
-    [self didAccessValueForKey:@"address2"];
-    return value;
-}
-
-- (void)setAddress2:(NSString*)value_ {
-    [self willChangeValueForKey:@"address2"];
-    [self setPrimitiveValue:value_ forKey:@"address2"];
-    [self didChangeValueForKey:@"address2"];
-}
-
-- (NSString*)city {
-    [self willAccessValueForKey:@"city"];
-    id value = [self primitiveValueForKey:@"city"];
-    [self didAccessValueForKey:@"city"];
-    return value;
-}
-
-- (void)setCity:(NSString*)value_ {
-    [self willChangeValueForKey:@"city"];
-    [self setPrimitiveValue:value_ forKey:@"city"];
-    [self didChangeValueForKey:@"city"];
-}
-
-- (NSString*)company {
-    [self willAccessValueForKey:@"company"];
-    id value = [self primitiveValueForKey:@"company"];
-    [self didAccessValueForKey:@"company"];
-    return value;
-}
-
-- (void)setCompany:(NSString*)value_ {
-    [self willChangeValueForKey:@"company"];
-    [self setPrimitiveValue:value_ forKey:@"company"];
-    [self didChangeValueForKey:@"company"];
-}
-
-- (NSString*)country {
-    [self willAccessValueForKey:@"country"];
-    id value = [self primitiveValueForKey:@"country"];
-    [self didAccessValueForKey:@"country"];
-    return value;
-}
-
-- (void)setCountry:(NSString*)value_ {
-    [self willChangeValueForKey:@"country"];
-    [self setPrimitiveValue:value_ forKey:@"country"];
-    [self didChangeValueForKey:@"country"];
-}
-
-- (NSString*)countryCode {
-    [self willAccessValueForKey:@"countryCode"];
-    id value = [self primitiveValueForKey:@"countryCode"];
-    [self didAccessValueForKey:@"countryCode"];
-    return value;
-}
-
-- (void)setCountryCode:(NSString*)value_ {
-    [self willChangeValueForKey:@"countryCode"];
-    [self setPrimitiveValue:value_ forKey:@"countryCode"];
-    [self didChangeValueForKey:@"countryCode"];
-}
-
-- (NSString*)firstName {
-    [self willAccessValueForKey:@"firstName"];
-    id value = [self primitiveValueForKey:@"firstName"];
-    [self didAccessValueForKey:@"firstName"];
-    return value;
-}
-
-- (void)setFirstName:(NSString*)value_ {
-    [self willChangeValueForKey:@"firstName"];
-    [self setPrimitiveValue:value_ forKey:@"firstName"];
-    [self didChangeValueForKey:@"firstName"];
-}
-
-- (NSNumber*)identifier {
-    [self willAccessValueForKey:@"identifier"];
-    id value = [self primitiveValueForKey:@"identifier"];
-    [self didAccessValueForKey:@"identifier"];
-    return value;
-}
-
-- (void)setIdentifier:(NSNumber*)value_ {
-    [self willChangeValueForKey:@"identifier"];
-    [self setPrimitiveValue:value_ forKey:@"identifier"];
-    [self didChangeValueForKey:@"identifier"];
-}
-
-- (NSString*)lastName {
-    [self willAccessValueForKey:@"lastName"];
-    id value = [self primitiveValueForKey:@"lastName"];
-    [self didAccessValueForKey:@"lastName"];
-    return value;
-}
-
-- (void)setLastName:(NSString*)value_ {
-    [self willChangeValueForKey:@"lastName"];
-    [self setPrimitiveValue:value_ forKey:@"lastName"];
-    [self didChangeValueForKey:@"lastName"];
-}
-
-- (NSString*)phone {
-    [self willAccessValueForKey:@"phone"];
-    id value = [self primitiveValueForKey:@"phone"];
-    [self didAccessValueForKey:@"phone"];
-    return value;
-}
-
-- (void)setPhone:(NSString*)value_ {
-    [self willChangeValueForKey:@"phone"];
-    [self setPrimitiveValue:value_ forKey:@"phone"];
-    [self didChangeValueForKey:@"phone"];
-}
-
-- (NSString*)province {
-    [self willAccessValueForKey:@"province"];
-    id value = [self primitiveValueForKey:@"province"];
-    [self didAccessValueForKey:@"province"];
-    return value;
-}
-
-- (void)setProvince:(NSString*)value_ {
-    [self willChangeValueForKey:@"province"];
-    [self setPrimitiveValue:value_ forKey:@"province"];
-    [self didChangeValueForKey:@"province"];
-}
-
-- (NSString*)provinceCode {
-    [self willAccessValueForKey:@"provinceCode"];
-    id value = [self primitiveValueForKey:@"provinceCode"];
-    [self didAccessValueForKey:@"provinceCode"];
-    return value;
-}
-
-- (void)setProvinceCode:(NSString*)value_ {
-    [self willChangeValueForKey:@"provinceCode"];
-    [self setPrimitiveValue:value_ forKey:@"provinceCode"];
-    [self didChangeValueForKey:@"provinceCode"];
-}
-
-- (NSString*)zip {
-    [self willAccessValueForKey:@"zip"];
-    id value = [self primitiveValueForKey:@"zip"];
-    [self didAccessValueForKey:@"zip"];
-    return value;
-}
-
-- (void)setZip:(NSString*)value_ {
-    [self willChangeValueForKey:@"zip"];
-    [self setPrimitiveValue:value_ forKey:@"zip"];
-    [self didChangeValueForKey:@"zip"];
-}
-
+@dynamic address1;
+@dynamic address2;
+@dynamic city;
+@dynamic company;
+@dynamic country;
+@dynamic countryCode;
+@dynamic firstName;
+@dynamic identifier;
+@dynamic lastName;
+@dynamic phone;
+@dynamic province;
+@dynamic provinceCode;
+@dynamic zip;
 #endif
 
 - (int64_t)identifierValue {

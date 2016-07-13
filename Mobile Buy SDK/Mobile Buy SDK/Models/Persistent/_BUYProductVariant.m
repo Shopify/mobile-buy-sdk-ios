@@ -90,136 +90,16 @@ const struct BUYProductVariantUserInfo BUYProductVariantUserInfo = {
 }
 
 #if defined CORE_DATA_PERSISTENCE
-- (NSNumber*)available {
-    [self willAccessValueForKey:@"available"];
-    id value = [self primitiveValueForKey:@"available"];
-    [self didAccessValueForKey:@"available"];
-    return value;
-}
-
-- (void)setAvailable:(NSNumber*)value_ {
-    [self willChangeValueForKey:@"available"];
-    [self setPrimitiveValue:value_ forKey:@"available"];
-    [self didChangeValueForKey:@"available"];
-}
-
-- (NSDecimalNumber*)compareAtPrice {
-    [self willAccessValueForKey:@"compareAtPrice"];
-    id value = [self primitiveValueForKey:@"compareAtPrice"];
-    [self didAccessValueForKey:@"compareAtPrice"];
-    return value;
-}
-
-- (void)setCompareAtPrice:(NSDecimalNumber*)value_ {
-    [self willChangeValueForKey:@"compareAtPrice"];
-    [self setPrimitiveValue:value_ forKey:@"compareAtPrice"];
-    [self didChangeValueForKey:@"compareAtPrice"];
-}
-
-- (NSDecimalNumber*)grams {
-    [self willAccessValueForKey:@"grams"];
-    id value = [self primitiveValueForKey:@"grams"];
-    [self didAccessValueForKey:@"grams"];
-    return value;
-}
-
-- (void)setGrams:(NSDecimalNumber*)value_ {
-    [self willChangeValueForKey:@"grams"];
-    [self setPrimitiveValue:value_ forKey:@"grams"];
-    [self didChangeValueForKey:@"grams"];
-}
-
-- (NSNumber*)identifier {
-    [self willAccessValueForKey:@"identifier"];
-    id value = [self primitiveValueForKey:@"identifier"];
-    [self didAccessValueForKey:@"identifier"];
-    return value;
-}
-
-- (void)setIdentifier:(NSNumber*)value_ {
-    [self willChangeValueForKey:@"identifier"];
-    [self setPrimitiveValue:value_ forKey:@"identifier"];
-    [self didChangeValueForKey:@"identifier"];
-}
-
-- (NSNumber*)position {
-    [self willAccessValueForKey:@"position"];
-    id value = [self primitiveValueForKey:@"position"];
-    [self didAccessValueForKey:@"position"];
-    return value;
-}
-
-- (void)setPosition:(NSNumber*)value_ {
-    [self willChangeValueForKey:@"position"];
-    [self setPrimitiveValue:value_ forKey:@"position"];
-    [self didChangeValueForKey:@"position"];
-}
-
-- (NSDecimalNumber*)price {
-    [self willAccessValueForKey:@"price"];
-    id value = [self primitiveValueForKey:@"price"];
-    [self didAccessValueForKey:@"price"];
-    return value;
-}
-
-- (void)setPrice:(NSDecimalNumber*)value_ {
-    [self willChangeValueForKey:@"price"];
-    [self setPrimitiveValue:value_ forKey:@"price"];
-    [self didChangeValueForKey:@"price"];
-}
-
-- (NSNumber*)requiresShipping {
-    [self willAccessValueForKey:@"requiresShipping"];
-    id value = [self primitiveValueForKey:@"requiresShipping"];
-    [self didAccessValueForKey:@"requiresShipping"];
-    return value;
-}
-
-- (void)setRequiresShipping:(NSNumber*)value_ {
-    [self willChangeValueForKey:@"requiresShipping"];
-    [self setPrimitiveValue:value_ forKey:@"requiresShipping"];
-    [self didChangeValueForKey:@"requiresShipping"];
-}
-
-- (NSString*)sku {
-    [self willAccessValueForKey:@"sku"];
-    id value = [self primitiveValueForKey:@"sku"];
-    [self didAccessValueForKey:@"sku"];
-    return value;
-}
-
-- (void)setSku:(NSString*)value_ {
-    [self willChangeValueForKey:@"sku"];
-    [self setPrimitiveValue:value_ forKey:@"sku"];
-    [self didChangeValueForKey:@"sku"];
-}
-
-- (NSNumber*)taxable {
-    [self willAccessValueForKey:@"taxable"];
-    id value = [self primitiveValueForKey:@"taxable"];
-    [self didAccessValueForKey:@"taxable"];
-    return value;
-}
-
-- (void)setTaxable:(NSNumber*)value_ {
-    [self willChangeValueForKey:@"taxable"];
-    [self setPrimitiveValue:value_ forKey:@"taxable"];
-    [self didChangeValueForKey:@"taxable"];
-}
-
-- (NSString*)title {
-    [self willAccessValueForKey:@"title"];
-    id value = [self primitiveValueForKey:@"title"];
-    [self didAccessValueForKey:@"title"];
-    return value;
-}
-
-- (void)setTitle:(NSString*)value_ {
-    [self willChangeValueForKey:@"title"];
-    [self setPrimitiveValue:value_ forKey:@"title"];
-    [self didChangeValueForKey:@"title"];
-}
-
+@dynamic available;
+@dynamic compareAtPrice;
+@dynamic grams;
+@dynamic identifier;
+@dynamic position;
+@dynamic price;
+@dynamic requiresShipping;
+@dynamic sku;
+@dynamic taxable;
+@dynamic title;
 #endif
 
 - (BOOL)availableValue {
