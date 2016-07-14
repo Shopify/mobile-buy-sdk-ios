@@ -119,6 +119,16 @@ typedef void (^BUYDataCollectionsListBlock)(NSArray<BUYCollection *> * _Nullable
  */
 typedef void (^BUYDataProductListBlock)(NSArray<BUYProduct *> * _Nullable products, NSUInteger page, BOOL reachedEnd, NSError * _Nullable error);
 
+/**
+ *  Return block containing a list of tags
+ *
+ *  @param tags       An array of tag titles
+ *  @param page       Index of the page requested
+ *  @param reachedEnd Boolean indicating whether additional pages exist
+ *  @param error      An optional NSError
+ */
+typedef void (^BUYDataTagsListBlock)(NSArray <NSString *> * _Nullable tags, NSUInteger page, BOOL reachedEnd, NSError * _Nullable error);
+
 @interface BUYClient (Storefront)
 
 /**
@@ -169,6 +179,39 @@ typedef void (^BUYDataProductListBlock)(NSArray<BUYProduct *> * _Nullable produc
  *  @return The associated BUYRequestOperation
  */
 - (NSOperation *)getProductsByIds:(NSArray<NSString *> *)productIds completion:(BUYDataProductsBlock)block;
+
+/**
+ *  Gets the list of tags for all products
+ *
+ *  @param page  Page to request. Pages start at 1.
+ *  @param block (^BUYDataTagsListBlock)(NSArray <NSString *> * _Nullable tags, NSUInteger page, BOOL reachedEnd, NSError * _Nullable error)
+ *
+ *  @return The associated NSOperation
+ */
+- (NSOperation *)getProductTagsPage:(NSUInteger)page completion:(BUYDataTagsListBlock)block;
+
+/**
+ *  Get the set of products that contain the tags provided
+ *
+ *  @param page  Page to request. Pages start at 1.
+ *  @param tags  an array of tags which each product must contain
+ *  @param block (^BUYDataProductListBlock)(NSArray<BUYProduct *> * _Nullable products, NSUInteger page, BOOL reachedEnd, NSError * _Nullable error)
+ *
+ *  @return The associated NSOperation
+ */
+- (NSOperation *)getProductsPage:(NSUInteger)page withTags:(NSArray <NSString *> *)tags completion:(BUYDataProductListBlock)block;
+
+/**
+ *  Get the set of products that contain the tags provided within the given collection
+ *
+ *  @param page  Page to request. Pages start at 1.
+ *  @param tags  an array of tags which each product must contain
+ *  @param collectionId The `collectionId` found in the BUYCollection object to fetch the products from
+ *  @param block (^BUYDataProductListBlock)(NSArray<BUYProduct *> * _Nullable products, NSUInteger page, BOOL reachedEnd, NSError * _Nullable error)
+ *
+ *  @return The associated NSOperation
+ */
+- (NSOperation *)getProductsPage:(NSUInteger)page withTags:(NSArray <NSString *> *)tags inCollection:(nullable NSNumber *)collectionId completion:(BUYDataProductListBlock)block;
 
 /**
  *  Fetches collections based off page
