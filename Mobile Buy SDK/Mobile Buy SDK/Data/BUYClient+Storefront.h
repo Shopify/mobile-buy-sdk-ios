@@ -191,29 +191,6 @@ typedef void (^BUYDataTagsListBlock)(NSArray <NSString *> * _Nullable tags, NSUI
 - (NSOperation *)getProductTagsPage:(NSUInteger)page completion:(BUYDataTagsListBlock)block;
 
 /**
- *  Get the set of products that contain the tags provided
- *
- *  @param page  Page to request. Pages start at 1.
- *  @param tags  an array of tags which each product must contain
- *  @param block (^BUYDataProductListBlock)(NSArray<BUYProduct *> * _Nullable products, NSUInteger page, BOOL reachedEnd, NSError * _Nullable error)
- *
- *  @return The associated NSOperation
- */
-- (NSOperation *)getProductsPage:(NSUInteger)page withTags:(NSArray <NSString *> *)tags completion:(BUYDataProductListBlock)block;
-
-/**
- *  Get the set of products that contain the tags provided within the given collection
- *
- *  @param page  Page to request. Pages start at 1.
- *  @param tags  an array of tags which each product must contain
- *  @param collectionId The `collectionId` found in the BUYCollection object to fetch the products from
- *  @param block (^BUYDataProductListBlock)(NSArray<BUYProduct *> * _Nullable products, NSUInteger page, BOOL reachedEnd, NSError * _Nullable error)
- *
- *  @return The associated NSOperation
- */
-- (NSOperation *)getProductsPage:(NSUInteger)page withTags:(NSArray <NSString *> *)tags inCollection:(nullable NSNumber *)collectionId completion:(BUYDataProductListBlock)block;
-
-/**
  *  Fetches collections based off page
  *
  *  @param page  Index of the page requested
@@ -239,13 +216,14 @@ typedef void (^BUYDataTagsListBlock)(NSArray <NSString *> * _Nullable tags, NSUI
  *  Fetches the products in the given collection with a given sort order
  *
  *  @param page         Index of the page requested
+ *  @param tags  an array of tags which each product must contain
  *  @param collectionId The `collectionId` found in the BUYCollection object to fetch the products from
  *  @param sortOrder    The sort order that overrides the default collection sort order
  *  @param block        (NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error)
  *
  *  @return the associated BUYRequestOperation
  */
-- (NSOperation *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId sortOrder:(BUYCollectionSort)sortOrder completion:(BUYDataProductListBlock)block;
+- (NSOperation *)getProductsPage:(NSUInteger)page withTags:(nullable NSArray <NSString *> *)tags inCollection:(nullable NSNumber *)collectionId sortOrder:(BUYCollectionSort)sortOrder completion:(BUYDataProductListBlock)block;
 
 @end
 
