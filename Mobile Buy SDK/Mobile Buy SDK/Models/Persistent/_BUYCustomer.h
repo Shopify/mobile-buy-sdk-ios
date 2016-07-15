@@ -52,7 +52,7 @@ extern const struct BUYCustomerAttributes {
 
 extern const struct BUYCustomerRelationships {
 	__unsafe_unretained NSString *addresses;
-	__unsafe_unretained NSString *defaultAddres;
+	__unsafe_unretained NSString *defaultAddress;
 } BUYCustomerRelationships;
 
 @class BUYAddress;
@@ -134,7 +134,7 @@ extern const struct BUYCustomerRelationships {
 @property (nonatomic, strong) NSSet *addresses;
 - (NSMutableSet *)addressesSet;
 
-@property (nonatomic, strong) BUYAddress *defaultAddres;
+@property (nonatomic, strong) BUYAddress *defaultAddress;
 
 @end
 
@@ -198,7 +198,7 @@ extern const struct BUYCustomerRelationships {
 - (NSMutableSet *)primitiveAddresses;
 - (void)setPrimitiveAddresses:(NSMutableSet *)value;
 
-- (BUYAddress *)primitiveDefaultAddres;
-- (void)setPrimitiveDefaultAddres:(BUYAddress *)value;
+- (BUYAddress *)primitiveDefaultAddress;
+- (void)setPrimitiveDefaultAddress:(BUYAddress *)value;
 
 @end

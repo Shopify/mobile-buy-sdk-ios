@@ -378,7 +378,7 @@
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="verifiedEmail" optional="YES" attributeType="Boolean" syncable="YES"/>
         <relationship name="addresses" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Address" inverseName="customer" inverseEntity="Address" syncable="YES"/>
-        <relationship name="defaultAddres" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Address" syncable="YES"/>
+        <relationship name="defaultAddress" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Address" syncable="YES"/>
     </entity>
     <entity name="Discount" representedClassName="BUYDiscount" syncable="YES">
         <attribute name="amount" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES">

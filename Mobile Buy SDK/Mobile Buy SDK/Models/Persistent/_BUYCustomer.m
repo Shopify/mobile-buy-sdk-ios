@@ -50,7 +50,7 @@ const struct BUYCustomerAttributes BUYCustomerAttributes = {
 
 const struct BUYCustomerRelationships BUYCustomerRelationships = {
 	.addresses = @"addresses",
-	.defaultAddres = @"defaultAddres",
+	.defaultAddress = @"defaultAddress",
 };
 
 @implementation _BUYCustomer
@@ -198,7 +198,7 @@ const struct BUYCustomerRelationships BUYCustomerRelationships = {
 }
 
 #if defined CORE_DATA_PERSISTENCE
-@dynamic defaultAddres;
+@dynamic defaultAddress;
 #endif
 
 @end
