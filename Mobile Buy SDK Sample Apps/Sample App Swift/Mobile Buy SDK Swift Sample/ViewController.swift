@@ -29,63 +29,50 @@ import Buy
 
 class ViewController: UIViewController {
 
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var imageView: UIImageView!
-
-    let shopDomain = ""
-    let apiKey = ""
-    let channelId = ""
-    let productId = ""
-    
-    let modelManager = BUYModelManager()
+    @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private var imageView: UIImageView!
     
     var productVariant: BUYProductVariant?
     let client: BUYClient
     
     required init(coder aDecoder: NSCoder) {
         
-        
-        client = BUYClient(shopDomain: shopDomain, apiKey: apiKey, appId: appId)
+        client = BUYClient(shopDomain: Config.shopDomain, apiKey: Config.apiKey, appId: Config.appId)
         super.init(coder: aDecoder)!
-
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
-        
-        client.getProductById(productId) { (product, error) -> Void in
+        client.getProductById(Config.productId) { (product, error) in
             
-            self.titleLabel.text = product?.title
-            self.productVariant = product?.variants.objectAtIndex(0) as! BUYProductVariant?
+            guard let product = product else { return }
             
-            if (product != nil && error == nil) {
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-                    
-                    let images = product?.images
-                    let buyImage = images?.firstObject as! BUYImageLink
-                    let url = NSURL(string: buyImage.src!)
-                    
-                    let data = NSData(contentsOfURL: url!)
-                    let image = UIImage(data: data!)
-                    
-                    dispatch_async(dispatch_get_main_queue()) {
-                        
-                        self.imageView.image = image
-                    }
+            self.titleLabel.text = product.title
+            self.productVariant = product.variantsArray().first
+            
+            guard let buyImage = product.images?.firstObject as? BUYImageLink else { return }
+
+            NSURLSession.sharedSession().dataTaskWithURL(buyImage.sourceURL) { (data, response, error) in
+                
+                guard let data = data else { return }
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    let image = UIImage(data: data)
+                    self.imageView.image = image
                 }
-            }
+            }.resume()
         }
     }
     
     @IBAction func didTapCheckout(sender: UIButton) {
         
         // Create the checkout
-        let cart = modelManager.buy_objectWithEntityName(BUYCart.entityName(), JSONDictionary: nil) as! BUYCart
+        let cart = client.modelManager.buy_objectWithEntityName(BUYCart.entityName(), JSONDictionary: nil) as! BUYCart
         cart.addVariant(productVariant!)
         
-        let checkout = BUYCheckout(cart: cart)
+        let checkout = client.modelManager.checkoutWithCart(cart)
+        
         client.createCheckout(checkout) { (checkout, error) -> Void in
             
             if let checkoutURL = checkout?.webCheckoutURL {
@@ -94,7 +81,6 @@ class ViewController: UIViewController {
                 }
             }
         }
-        
     }
 }
 

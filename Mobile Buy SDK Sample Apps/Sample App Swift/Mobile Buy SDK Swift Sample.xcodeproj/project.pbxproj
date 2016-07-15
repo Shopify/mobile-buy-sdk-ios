@@ -7,13 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BE3437BB1BC5C22C00C71330 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE3437B81BC5C20700C71330 /* Buy.framework */; };
-		BE3437BC1BC5C22C00C71330 /* Buy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BE3437B81BC5C20700C71330 /* Buy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BE9A637A1B5007AA0033E558 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9A63791B5007AA0033E558 /* AppDelegate.swift */; };
 		BE9A637C1B5007AA0033E558 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9A637B1B5007AA0033E558 /* ViewController.swift */; };
 		BE9A637F1B5007AA0033E558 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE9A637D1B5007AA0033E558 /* Main.storyboard */; };
 		BE9A63811B5007AA0033E558 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE9A63801B5007AA0033E558 /* Images.xcassets */; };
 		BE9A63841B5007AA0033E558 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE9A63821B5007AA0033E558 /* LaunchScreen.xib */; };
+		BEDEFF541D3823180090AFA1 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDEFF531D3823180090AFA1 /* Config.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,13 +29,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = BE9A64281B503C2F0033E558;
 			remoteInfo = Buy;
-		};
-		BE3437B71BC5C20700C71330 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BE3437A81BC5C20700C71330 /* Mobile Buy SDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 901931701BC5B9BC00D1134E;
-			remoteInfo = "Buy Dynamic";
 		};
 		BE3437B91BC5C21300C71330 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -61,7 +53,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				BE3437BC1BC5C22C00C71330 /* Buy.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -77,6 +68,7 @@
 		BE9A637E1B5007AA0033E558 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BE9A63801B5007AA0033E558 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BE9A63831B5007AA0033E558 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		BEDEFF531D3823180090AFA1 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,7 +76,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE3437BB1BC5C22C00C71330 /* Buy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,9 +85,8 @@
 		BE3437A91BC5C20700C71330 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BE3437B41BC5C20700C71330 /* Mobile Buy SDK Tests.xctest */,
 				BE3437B61BC5C20700C71330 /* Buy.framework */,
-				BE3437B81BC5C20700C71330 /* Buy.framework */,
+				BE3437B41BC5C20700C71330 /* Mobile Buy SDK Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -123,6 +113,7 @@
 			children = (
 				BE9A63791B5007AA0033E558 /* AppDelegate.swift */,
 				BE9A637B1B5007AA0033E558 /* ViewController.swift */,
+				BEDEFF531D3823180090AFA1 /* Config.swift */,
 				BE9A637D1B5007AA0033E558 /* Main.storyboard */,
 				BE9A63801B5007AA0033E558 /* Images.xcassets */,
 				BE9A63821B5007AA0033E558 /* LaunchScreen.xib */,
@@ -216,13 +207,6 @@
 			remoteRef = BE3437B51BC5C20700C71330 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		BE3437B81BC5C20700C71330 /* Buy.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Buy.framework;
-			remoteRef = BE3437B71BC5C20700C71330 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -245,6 +229,7 @@
 			files = (
 				BE9A637C1B5007AA0033E558 /* ViewController.swift in Sources */,
 				BE9A637A1B5007AA0033E558 /* AppDelegate.swift in Sources */,
+				BEDEFF541D3823180090AFA1 /* Config.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

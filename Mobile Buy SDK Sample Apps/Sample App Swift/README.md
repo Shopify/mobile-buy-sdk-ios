@@ -4,12 +4,12 @@ The Swift sample app demonstrates how to use the SDK within a Swift app. The app
 
 ### Getting started
 
-First, add your shop domain, API key and Channel ID to the `ViewController.swift`.
+First, add your shop domain, API key and App ID to the `Config.swift`.
 
 ```swift
 let shopDomain = ""
 let apiKey = ""
-let channelId = ""
+let appId = ""
 let productId = ""
 ```
 
