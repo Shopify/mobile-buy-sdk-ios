@@ -208,7 +208,6 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 					   [BUYAccountCredentialItem itemWithLastName:@"scott"],
 					   [BUYAccountCredentialItem itemWithEmail:@"fake@example.com"],
 					   [BUYAccountCredentialItem itemWithPassword:@"password"],
-					   [BUYAccountCredentialItem itemWithPasswordConfirmation:@"password"],
 					   ];
 	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:items];
 	
@@ -229,7 +228,6 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 								   BUYAccountLastNameKey: @"scott",
 								   BUYAccountEmailKey: @"fake@example.com",
 								   BUYAccountPasswordKey: @"password",
-								   BUYAccountPasswordConfirmationKey: @"password"
 								   }};
 	XCTAssertEqualObjects(payload, dict);
 }
@@ -325,8 +323,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 - (void)testCustomerActivation
 {
 	NSArray *items = @[
-					   [BUYAccountCredentialItem itemWithPassword:@"12345"],
-					   [BUYAccountCredentialItem itemWithPasswordConfirmation:@"12345"],
+					   [BUYAccountCredentialItem itemWithPassword:@"12345"]
 					   ];
 	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:items];
 	NSString *customerID = @"12345";

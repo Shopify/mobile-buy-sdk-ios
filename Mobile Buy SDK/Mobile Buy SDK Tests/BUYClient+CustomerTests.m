@@ -120,16 +120,12 @@
 		XCTAssertNotNil(error);
 		
 		NSArray<BUYError *> *errors = [BUYError errorsFromSignUpJSON:error.userInfo];
-		XCTAssertEqual(errors.count, 3);
+		XCTAssertEqual(errors.count, 2);
 
 		BUYError *emailError = errors[0];
 		XCTAssertEqualObjects(emailError.code, @"invalid");
 		
-		BUYError *passwordConfError = errors[1];
-		XCTAssertEqualObjects(passwordConfError.code, @"confirmation");
-		XCTAssertEqualObjects(passwordConfError.options[@"attribute"], @"Password");
-		
-		BUYError *passwordError = errors[2];
+		BUYError *passwordError = errors[1];
 		XCTAssertEqualObjects(passwordError.code, @"too_short");
 		XCTAssertEqualObjects(passwordError.options[@"count"], @5);
 
@@ -412,16 +408,14 @@
 {
 	BUYAccountCredentialItem *email     = [BUYAccountCredentialItem itemWithEmail:self.customerEmail];
 	BUYAccountCredentialItem *password  = [BUYAccountCredentialItem itemWithPassword:self.customerPassword];
-	BUYAccountCredentialItem *password2 = [BUYAccountCredentialItem itemWithPasswordConfirmation:self.customerPassword];
-	return [BUYAccountCredentials credentialsWithItems:@[email, password, password2]];
+	return [BUYAccountCredentials credentialsWithItems:@[email, password]];
 }
 
 - (BUYAccountCredentials *)credentialsForFailure
 {
 	BUYAccountCredentialItem *email     = [BUYAccountCredentialItem itemWithEmail:@"a"];
 	BUYAccountCredentialItem *password  = [BUYAccountCredentialItem itemWithPassword:@"b"];
-	BUYAccountCredentialItem *password2 = [BUYAccountCredentialItem itemWithPasswordConfirmation:@"c"];
-	return [BUYAccountCredentials credentialsWithItems:@[email, password, password2]];
+	return [BUYAccountCredentials credentialsWithItems:@[email, password]];
 }
 
 @end

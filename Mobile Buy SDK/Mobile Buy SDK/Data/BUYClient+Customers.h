@@ -93,7 +93,7 @@ typedef void (^BUYDataOrderBlock)(BUYOrder * _Nullable order, NSError * _Nullabl
 /**
  *  POST /api/customers
  *  Creates a new customer
- *  Expects first name, last name, email, password, and password confirmation
+ *  Expects first name, last name, email, and password
  *
  *  @param credentials Credentials object containing items for required fields
  *  @param block       (BUYCustomer *customer, NSString *token, NSError *error)
@@ -108,7 +108,7 @@ typedef void (^BUYDataOrderBlock)(BUYOrder * _Nullable order, NSError * _Nullabl
  *  PUT /api/customers/:customer_id/activate
  *  Activates an unactivated customer
  *
- *  @param credentials   Credentials containing a password and password confirmation
+ *  @param credentials   Credentials containing a password
  *  @param customerID    ID of customer being activated
  *  @param token         Token contained in activation URL
  *  @param block         (BUYCustomer *customer, NSString *token, NSError *error)
@@ -121,7 +121,7 @@ typedef void (^BUYDataOrderBlock)(BUYOrder * _Nullable order, NSError * _Nullabl
  *  PUT /api/customers/:customer_id
  *  Update customer credentials represented by BUYAccountCredentials object
  *
- *  @param credentials   Credentials containing a password and password confirmation
+ *  @param credentials   Credentials containing a password
  *  @param customerID    ID of customer being activated
  *  @param block         (BUYCustomer *customer, NSError *error)
  *
@@ -133,7 +133,7 @@ typedef void (^BUYDataOrderBlock)(BUYOrder * _Nullable order, NSError * _Nullabl
  *  PUT /api/customers/:customer_id/reset
  *  Resets an existing customer's password
  *
- *  @param credentials   Credentials containing a password and password confirmation
+ *  @param credentials   Credentials containing a password
  *  @param customerID    ID of customer resetting password
  *  @param token         Token contained in reset URL
  *  @param block         (BUYCustomer *customer, NSString *token, NSError *error)
