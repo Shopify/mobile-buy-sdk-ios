@@ -158,7 +158,7 @@ typedef void (^BUYDataProductListBlock)(NSArray<BUYProduct *> * _Nullable produc
  *
  *  @return The associated BUYRequestOperation
  */
-- (NSOperation *)getProductById:(NSString *)productId completion:(BUYDataProductBlock)block;
+- (NSOperation *)getProductById:(NSNumber *)productId completion:(BUYDataProductBlock)block;
 
 /**
  *  Fetches a list of product by the ID of each product.
@@ -168,7 +168,7 @@ typedef void (^BUYDataProductListBlock)(NSArray<BUYProduct *> * _Nullable produc
  *
  *  @return The associated BUYRequestOperation
  */
-- (NSOperation *)getProductsByIds:(NSArray<NSString *> *)productIds completion:(BUYDataProductsBlock)block;
+- (NSOperation *)getProductsByIds:(NSArray<NSNumber *> *)productIds completion:(BUYDataProductsBlock)block;
 
 /**
  *  Fetches collections based off page

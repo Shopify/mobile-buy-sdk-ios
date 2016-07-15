@@ -177,7 +177,7 @@
 	[OHHTTPStubs stubUsingResponseWithKey:@"testGetNonexistentProduct_0" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client getProductById:@"asdfdsasdfdsasdfdsasdfjkllkj" completion:^(BUYProduct *product, NSError *error) {
+	[self.client getProductById:@123456 completion:^(BUYProduct *product, NSError *error) {
 
 		XCTAssertNil(product);
 		XCTAssertEqual(BUYShopifyError_InvalidProductID, error.code);
