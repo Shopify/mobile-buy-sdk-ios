@@ -30,5 +30,5 @@ struct Config {
     static let shopDomain = ""
     static let apiKey = ""
     static let appId = ""
-    static let productId = ""
+    static let productId = 0
 }

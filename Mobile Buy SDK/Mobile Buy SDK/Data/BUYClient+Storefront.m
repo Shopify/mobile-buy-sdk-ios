@@ -94,7 +94,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	}];
 }
 
-- (NSOperation *)getProductById:(NSString *)productId completion:(BUYDataProductBlock)block
+- (NSOperation *)getProductById:(NSNumber *)productId completion:(BUYDataProductBlock)block
 {
 	BUYAssert(productId, @"Failed to get product by ID. Product ID must not be nil.");
 	
