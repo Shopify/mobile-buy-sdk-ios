@@ -26,28 +26,44 @@
 
 #import "OHHTTPStubsResponse+Helpers.h"
 
-static NSDictionary *JSONMock;
+@implementation OHHTTPStubsResponse (Buy)
 
-@implementation OHHTTPStubsResponse (Helpers)
++ (NSDictionary *)mockResponses
+{
+	static NSDictionary *dictionary = nil;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		NSBundle *bundle   = [NSBundle bundleForClass:[self class]];
+		NSString *jsonPath = [bundle pathForResource:@"mocked_responses" ofType:@"json"];
+		NSData *jsonData   = [NSData dataWithContentsOfFile:jsonPath];
+		dictionary = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
+	});
+	return dictionary;
+}
 
 + (instancetype)responseWithKey:(NSString *)key
 {
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		
-		NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-		NSString *jsonPath = [bundle pathForResource:@"mocked_responses" ofType:@"json"];
-		NSData *jsonData = [NSData dataWithContentsOfFile:jsonPath];
-		JSONMock = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
-	});
-	
-	
-	NSDictionary *json = JSONMock[key];
-	NSData *data = [json[@"body"] dataUsingEncoding:NSUTF8StringEncoding];
-	int code = [json[@"code"] intValue];
+	NSDictionary *mocks = [self mockResponses];
+	NSDictionary *json  = mocks[key];
+	NSData *data        = [json[@"body"] dataUsingEncoding:NSUTF8StringEncoding];
+	int code            = [json[@"code"] intValue];
 	
 	return [OHHTTPStubsResponse responseWithData:data statusCode:code headers:nil];
 }
 
+@end
+
+@implementation OHHTTPStubs (Buy)
+
++ (void)stubUsingResponseWithKey:(NSString *)key useMocks:(BOOL)useMocks
+{
+	if (useMocks) {
+		[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+			return YES;
+		} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+			return [OHHTTPStubsResponse responseWithKey:key];
+		}];
+	}
+}
 
 @end

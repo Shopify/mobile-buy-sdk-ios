@@ -24,24 +24,22 @@
 //  THE SOFTWARE.
 //
 
-#import "CheckoutViewController.h"
-#import "GetCompletionStatusOperation.h"
-#import "SummaryItemsTableViewCell.h"
-#import "ProductListViewController.h"
-
 @import Buy;
-@import PassKit;
-@import SafariServices;
+
+#import "CheckoutViewController.h"
+#import "SummaryItemsTableViewCell.h"
+#import "UIButton+PaymentButton.h"
 
 NSString * const CheckoutCallbackNotification = @"CheckoutCallbackNotification";
+NSString * const MerchantId = @"";
 
-@interface CheckoutViewController () <GetCompletionStatusOperationDelegate, SFSafariViewControllerDelegate, PKPaymentAuthorizationViewControllerDelegate>
+@interface CheckoutViewController () <SFSafariViewControllerDelegate, PKPaymentAuthorizationViewControllerDelegate>
 
 @property (nonatomic, strong) BUYCheckout *checkout;
 @property (nonatomic, strong) BUYClient *client;
 @property (nonatomic, strong) BUYShop *shop;
 @property (nonatomic, strong) NSArray *summaryItems;
-@property (nonatomic, strong) BUYApplePayHelpers *applePayHelper;
+@property (nonatomic, strong) BUYApplePayAuthorizationDelegate *applePayHelper;
 
 @end
 
@@ -87,7 +85,7 @@ NSString * const CheckoutCallbackNotification = @"CheckoutCallbackNotification";
     [webCheckoutButton addTarget:self action:@selector(checkoutOnWeb) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:webCheckoutButton];
     
-    UIButton *applePayButton = [BUYPaymentButton buttonWithType:BUYPaymentButtonTypeBuy style:BUYPaymentButtonStyleBlack];
+    UIButton *applePayButton = [UIButton paymentButtonWithType:PaymentButtonTypeBuy style:PaymentButtonStyleBlack];
     applePayButton.translatesAutoresizingMaskIntoConstraints = NO;
     [applePayButton addTarget:self action:@selector(checkoutWithApplePay) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:applePayButton];
@@ -139,24 +137,17 @@ NSString * const CheckoutCallbackNotification = @"CheckoutCallbackNotification";
     return cell;
 }
 
-- (void)addCreditCardToCheckout:(void (^)(BOOL success))callback
+- (void)addCreditCardToCheckout:(void (^)(BOOL success, id<BUYPaymentToken> token))callback
 {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    
-    [self.client storeCreditCard:[self creditCard] checkout:self.checkout completion:^(BUYCheckout *checkout, NSString *paymentSessionId, NSError *error) {
-        
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        
-        if (error == nil && checkout) {
-            
+    [self.client storeCreditCard:[self creditCard] checkout:self.checkout completion:^(id<BUYPaymentToken> token, NSError *error) {
+        if (error == nil && token) {
             NSLog(@"Successfully added credit card to checkout");
-            self.checkout = checkout;
         }
         else {
             NSLog(@"Error applying credit card: %@", error);
         }
         
-        callback(error == nil && checkout);
+        callback(error == nil && token, token);
     }];
 }
 
@@ -205,32 +196,23 @@ NSString * const CheckoutCallbackNotification = @"CheckoutCallbackNotification";
     }];
 }
 
-#pragma mark Native Checkout
+#pragma mark - Native Checkout
 
 - (void)checkoutWithCreditCard
 {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+
     __weak CheckoutViewController *welf = self;
     
     // First, the credit card must be stored on the checkout
-    [self addCreditCardToCheckout:^(BOOL success) {
+    [self addCreditCardToCheckout:^(BOOL success, id<BUYPaymentToken> token) {
         
         if (success) {
-            
-            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-            
-            // Upon successfully adding the credit card to the checkout, complete checkout must be called immediately
-            [welf.client completeCheckout:welf.checkout completion:^(BUYCheckout *checkout, NSError *error) {
+            [welf.client completeCheckoutWithToken:welf.checkout.token paymentToken:token completion:^(BUYCheckout *checkout, NSError *error) {
                 
                 if (error == nil && checkout) {
-                    
                     NSLog(@"Successfully completed checkout");
                     welf.checkout = checkout;
-                    
-                    GetCompletionStatusOperation *completionOperation = [[GetCompletionStatusOperation alloc] initWithClient:welf.client withCheckout:welf.checkout];
-                    completionOperation.delegate = welf;
-                    
-                    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-                    [[NSOperationQueue mainQueue] addOperation:completionOperation];
                 }
                 else {
                     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -241,22 +223,6 @@ NSString * const CheckoutCallbackNotification = @"CheckoutCallbackNotification";
     }];
 }
 
-- (void)operation:(GetCompletionStatusOperation *)operation didReceiveCompletionStatus:(BUYStatus)completionStatus
-{
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    
-    NSLog(@"Successfully got completion status: %lu", (unsigned long)completionStatus);
-    
-    [self getCompletedCheckout:NULL];
-}
-
-- (void)operation:(GetCompletionStatusOperation *)operation failedToReceiveCompletionStatus:(NSError *)error
-{
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    
-    NSLog(@"Error getting completion status: %@", error);
-}
-
 #pragma mark - Apple Pay Checkout
 
 - (void)checkoutWithApplePay
@@ -265,7 +231,7 @@ NSString * const CheckoutCallbackNotification = @"CheckoutCallbackNotification";
     
     PKPaymentAuthorizationViewController *paymentController = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:request];
     
-    self.applePayHelper = [[BUYApplePayHelpers alloc] initWithClient:self.client checkout:self.checkout shop:self.shop];
+    self.applePayHelper = [[BUYApplePayAuthorizationDelegate alloc] initWithClient:self.client checkout:self.checkout shopName:self.shop.name];
     paymentController.delegate = self;
     
     /**
@@ -292,7 +258,7 @@ NSString * const CheckoutCallbackNotification = @"CheckoutCallbackNotification";
 {
     PKPaymentRequest *paymentRequest = [[PKPaymentRequest alloc] init];
     
-    [paymentRequest setMerchantIdentifier:MERCHANT_ID];
+    [paymentRequest setMerchantIdentifier:MerchantId];
     [paymentRequest setRequiredBillingAddressFields:PKAddressFieldAll];
     [paymentRequest setRequiredShippingAddressFields:self.checkout.requiresShipping ? PKAddressFieldAll : PKAddressFieldEmail|PKAddressFieldPhone];
     [paymentRequest setSupportedNetworks:@[PKPaymentNetworkVisa, PKPaymentNetworkMasterCard]];
@@ -406,7 +372,7 @@ NSString * const CheckoutCallbackNotification = @"CheckoutCallbackNotification";
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    [self.client getCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
+    [self.client getCheckoutWithToken:self.checkout.token completion:^(BUYCheckout *checkout, NSError *error) {
         
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         

@@ -31,7 +31,7 @@
 #warning - Enter your shop domain and API Key
 #define SHOP_DOMAIN @""
 #define API_KEY @""
-#define CHANNEL_ID @""
+#define APP_ID @""
 
 @interface CollectionListViewController ()
 
@@ -51,10 +51,10 @@
     
     self.client = [[BUYClient alloc] initWithShopDomain:SHOP_DOMAIN
                                                  apiKey:API_KEY
-                                              channelId:CHANNEL_ID];
+                                                  appId:APP_ID];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [self.client getCollections:^(NSArray *collections, NSError *error) {
+    [self.client getCollectionsPage:1 completion:^(NSArray *collections, NSUInteger page, BOOL reachedEnd, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
         if (error == nil && collections) {

@@ -30,7 +30,6 @@
 #import "BUYGiftCard.h"
 #import "BUYApplePayAdditions.h"
 #import "BUYDiscount.h"
-#import "BUYAddress+Additions.h"
 #import "NSDecimalNumber+BUYAdditions.h"
 #import "NSDate+BUYAdditions.h"
 
@@ -137,13 +136,11 @@
 	return email;
 }
 
-+ (nonnull BUYAddress *)buy_addressFromRecord:(nullable ABRecordRef)record
+- (void)updateWithRecord:(nullable ABRecordRef)record
 {
-	BUYAddress *address = [[BUYAddress alloc] init];
-	
 	//Grab the simple information
-	address.firstName = (__bridge_transfer NSString *)ABRecordCopyValue(record, kABPersonFirstNameProperty);
-	address.lastName = (__bridge_transfer NSString *)ABRecordCopyValue(record, kABPersonLastNameProperty);
+	self.firstName = (__bridge_transfer NSString *)ABRecordCopyValue(record, kABPersonFirstNameProperty);
+	self.lastName = (__bridge_transfer NSString *)ABRecordCopyValue(record, kABPersonLastNameProperty);
 	
 	//Grab the address information
 	ABMultiValueRef addressMultiValue = ABRecordCopyValue(record, kABPersonAddressProperty);
@@ -152,17 +149,17 @@
 		CFDictionaryRef firstAddress = CFArrayGetValueAtIndex(allAddresses, 0);
 		
 		//NOTE: We do not receive an address1 line right now via this partial address, as Apple deemds it unimportant to calculate the shipping rates. We get the actual address later on in a later step.
-		address.address1 = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressStreetKey);
-		address.city = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressCityKey);
-		address.province = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressStateKey);
-		address.zip = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressZIPKey);
+		self.address1 = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressStreetKey);
+		self.city = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressCityKey);
+		self.province = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressStateKey);
+		self.zip = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressZIPKey);
 		// The Checkout API accepts country OR ISO country code.
 		// We default to the ISO country code because it's more
 		// reliable regardless of locale. Fallback to country if
 		// we do not receive it (iOS 8 sometimes)
-		address.countryCode = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressCountryCodeKey);
-		if ([address.countryCode length] == 0) {
-			address.country = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressCountryKey);
+		self.countryCode = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressCountryCodeKey);
+		if ([self.countryCode length] == 0) {
+			self.country = (__bridge NSString *)CFDictionaryGetValue(firstAddress, kABPersonAddressCountryKey);
 		}
 	}
 	CFSafeRelease(allAddresses);
@@ -172,43 +169,37 @@
 	ABMultiValueRef phoneMultiValue = ABRecordCopyValue(record, kABPersonPhoneProperty);
 	CFArrayRef allPhoneNumbers = ABMultiValueCopyArrayOfAllValues(phoneMultiValue);
 	if (allPhoneNumbers && CFArrayGetCount(allPhoneNumbers) > 0) {
-		address.phone = (__bridge NSString *)CFArrayGetValueAtIndex(allPhoneNumbers, 0);
+		self.phone = (__bridge NSString *)CFArrayGetValueAtIndex(allPhoneNumbers, 0);
 	}
 
 	CFSafeRelease(phoneMultiValue);
 	CFSafeRelease(allPhoneNumbers);
-	
-	return address;
 }
 
-+ (nonnull BUYAddress *)buy_addressFromContact:(nullable PKContact*)contact
+- (void)updateWithContact:(nullable PKContact*)contact
 {
-	BUYAddress *address = [[BUYAddress alloc] init];
-	
-	address.firstName = contact.name.givenName;
-	address.lastName = contact.name.familyName;
+	self.firstName = contact.name.givenName;
+	self.lastName = contact.name.familyName;
 	
 	if (contact.postalAddress) {
 		// break up the address:
 		NSArray *addressComponents = [contact.postalAddress.street componentsSeparatedByString:@"\n"];
-		address.address1 = addressComponents[0];
-		address.address2 = (addressComponents.count > 1) ? addressComponents[1] : nil;
-		address.city = contact.postalAddress.city;
-		address.province = contact.postalAddress.state;
-		address.zip = contact.postalAddress.postalCode;
+		self.address1 = addressComponents[0];
+		self.address2 = (addressComponents.count > 1) ? addressComponents[1] : nil;
+		self.city = contact.postalAddress.city;
+		self.province = contact.postalAddress.state;
+		self.zip = contact.postalAddress.postalCode;
 		// The Checkout API accepts country OR ISO country code.
 		// We default to the ISO country code because it's more
 		// reliable regardless of locale. Fallback to country if
 		// we do not receive it (iOS 8 sometimes)
-		address.countryCode = [contact.postalAddress.ISOCountryCode length] ? contact.postalAddress.ISOCountryCode : nil;
-		if (address.countryCode == nil) {
-			address.country = contact.postalAddress.country;
+		self.countryCode = [contact.postalAddress.ISOCountryCode length] ? contact.postalAddress.ISOCountryCode : nil;
+		if (self.countryCode == nil) {
+			self.country = contact.postalAddress.country;
 		}
 	}
 
-	address.phone = contact.phoneNumber.stringValue;
-	
-	return address;
+	self.phone = contact.phoneNumber.stringValue;
 }
 
 @end

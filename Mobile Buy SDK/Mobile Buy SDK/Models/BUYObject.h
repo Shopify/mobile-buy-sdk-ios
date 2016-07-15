@@ -25,20 +25,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Buy/BUYObjectProtocol.h>
+#import <Buy/BUYModelManagerProtocol.h>
+NS_ASSUME_NONNULL_BEGIN
 
-/**
- *  This is the base class for all Shopify model objects.
- *  This class takes care of convertion .json responses into
- *  the associated subclass.
- *
- *  You will generally not need to interact with this class directly.
- */
-@interface BUYObject : NSObject
-
-/**
- *  The identifier of any Shopify model object.
- */
-@property (nonatomic, strong, readonly) NSNumber *identifier;
+@interface BUYObject : NSObject<BUYObject>
 
 /**
  *  Objects marked as "dirty" are unsynced with Shopify and will
@@ -46,19 +37,10 @@
  */
 @property (nonatomic, readonly, getter=isDirty) BOOL dirty;
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
-- (void)updateWithDictionary:(NSDictionary *)dictionary;
-
-+ (NSArray *)convertJSONArray:(NSArray *)json block:(void (^)(id obj))createdBlock;
-+ (NSArray *)convertJSONArray:(NSArray *)json;
-
-+ (instancetype)convertObject:(id)object;
-
-#pragma mark - Dirty Property Tracking
-
-- (NSSet *)dirtyProperties;
+- (nullable NSSet *)dirtyProperties;
 - (void)markPropertyAsDirty:(NSString *)property;
 - (void)markAsClean;
-+ (void)trackDirtyProperties;
 
 @end
+
+NS_ASSUME_NONNULL_END
