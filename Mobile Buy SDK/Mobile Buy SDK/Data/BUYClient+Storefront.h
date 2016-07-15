@@ -216,14 +216,14 @@ typedef void (^BUYDataTagsListBlock)(NSArray <NSString *> * _Nullable tags, NSUI
  *  Fetches the products in the given collection with a given sort order
  *
  *  @param page         Index of the page requested
- *  @param tags  an array of tags which each product must contain
  *  @param collectionId The `collectionId` found in the BUYCollection object to fetch the products from
+ *  @param tags			An array of tags which each product must contain
  *  @param sortOrder    The sort order that overrides the default collection sort order
  *  @param block        (NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error)
  *
  *  @return the associated BUYRequestOperation
  */
-- (NSOperation *)getProductsPage:(NSUInteger)page withTags:(nullable NSArray <NSString *> *)tags inCollection:(nullable NSNumber *)collectionId sortOrder:(BUYCollectionSort)sortOrder completion:(BUYDataProductListBlock)block;
+- (NSOperation *)getProductsPage:(NSUInteger)page inCollection:(nullable NSNumber *)collectionId withTags:(nullable NSArray <NSString *> *)tags sortOrder:(BUYCollectionSort)sortOrder completion:(BUYDataProductListBlock)block;
 
 @end
 

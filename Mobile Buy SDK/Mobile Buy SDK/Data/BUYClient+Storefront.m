@@ -160,10 +160,10 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 
 - (NSOperation *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId completion:(BUYDataProductListBlock)block
 {
-	return [self getProductsPage:page withTags:nil inCollection:collectionId sortOrder:BUYCollectionSortCollectionDefault completion:block];
+	return [self getProductsPage:page inCollection:collectionId withTags:nil sortOrder:BUYCollectionSortCollectionDefault completion:block];
 }
 
-- (NSOperation *)getProductsPage:(NSUInteger)page withTags:(NSArray <NSString *> *)tags inCollection:(NSNumber *)collectionId sortOrder:(BUYCollectionSort)sortOrder completion:(BUYDataProductListBlock)block
+- (NSOperation *)getProductsPage:(NSUInteger)page inCollection:(nullable NSNumber *)collectionId withTags:(nullable NSArray <NSString *> *)tags sortOrder:(BUYCollectionSort)sortOrder completion:(BUYDataProductListBlock)block
 {
 	NSMutableDictionary *params = @{
 									@"limit"         : @(self.pageSize),
