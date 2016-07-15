@@ -55,7 +55,7 @@
 
 - (void)testValidationWithInvalidItems {
 	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:[self sampleWithInvalidItems]];
-	XCTAssertEqual(credentials.count, 3);
+	XCTAssertEqual(credentials.count, 2);
 	XCTAssertFalse(credentials.isValid);
 }
 
@@ -78,7 +78,6 @@
 																					   [BUYAccountCredentialItem itemWithFirstName:@"John"],
 																					   [BUYAccountCredentialItem itemWithLastName:@"Doe"],
 																					   [BUYAccountCredentialItem itemWithPassword:@"pass"],
-																					   [BUYAccountCredentialItem itemWithPasswordConfirmation:@"pass"],
 																					   ]];
 	
 	NSDictionary *json     = [credentials JSONRepresentation];
@@ -91,7 +90,6 @@
 	XCTAssertEqual(customer[BUYAccountFirstNameKey], @"John");
 	XCTAssertEqual(customer[BUYAccountLastNameKey], @"Doe");
 	XCTAssertEqual(customer[BUYAccountPasswordKey], @"pass");
-	XCTAssertEqual(customer[BUYAccountPasswordConfirmationKey], @"pass");
 }
 
 #pragma mark - Utilities -
@@ -105,11 +103,6 @@
 	return [BUYAccountCredentialItem itemWithPassword:@"password"];
 }
 
-- (BUYAccountCredentialItem *)passwordConfirmationItem
-{
-	return [BUYAccountCredentialItem itemWithPasswordConfirmation:@"password"];
-}
-
 - (NSArray *)sampleWithValidItems {
 	NSMutableArray *items = [NSMutableArray new];
 	[items addObject:[self emailItem]];
@@ -121,7 +114,6 @@
 	NSMutableArray *items = [NSMutableArray new];
 	[items addObject:[self emailItem]];
 	[items addObject:[BUYAccountCredentialItem itemWithPassword:@""]];
-	[items addObject:[BUYAccountCredentialItem itemWithPasswordConfirmation:@""]];
 	return items;
 }
 

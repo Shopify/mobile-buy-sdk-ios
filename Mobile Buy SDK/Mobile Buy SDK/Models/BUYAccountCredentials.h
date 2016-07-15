@@ -31,7 +31,6 @@ OBJC_EXTERN NSString * const BUYAccountFirstNameKey;
 OBJC_EXTERN NSString * const BUYAccountLastNameKey;
 OBJC_EXTERN NSString * const BUYAccountEmailKey;
 OBJC_EXTERN NSString * const BUYAccountPasswordKey;
-OBJC_EXTERN NSString * const BUYAccountPasswordConfirmationKey;
 
 @class BUYAccountCredentialItem;
 
@@ -69,7 +68,6 @@ OBJC_EXTERN NSString * const BUYAccountPasswordConfirmationKey;
 + (instancetype)itemWithFirstName:(NSString *)value;
 + (instancetype)itemWithLastName:(NSString *)value;
 + (instancetype)itemWithPassword:(NSString *)value;
-+ (instancetype)itemWithPasswordConfirmation:(NSString *)value;
 
 @end
 

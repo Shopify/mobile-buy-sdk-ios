@@ -149,12 +149,11 @@ NSArray *credentialItems = @[
 							 [BUYAccountCredentialItem itemWithFirstName:@"John"],
 							 [BUYAccountCredentialItem itemWithLastName:@"Smith"],
 							 [BUYAccountCredentialItem itemWithEmail:@"john.smith@gmail.com"],
-							 [BUYAccountCredentialItem itemWithPassword:@"password"],
-							 [BUYAccountCredentialItem itemWithPasswordConfirmation:@"password"],
+							 [BUYAccountCredentialItem itemWithPassword:@"password"]
 							];
 BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:credentialItems];
 ```
-After we obtain the customers first name, last name and password confirmation in addition to the email and password fields, we can create an account.
+After we obtain the customers first name, last name and password in addition to the email and password fields, we can create an account.
 ```objc
 [client createCustomerWithCredentials:credentials callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
 	if (customer && token && !error) {

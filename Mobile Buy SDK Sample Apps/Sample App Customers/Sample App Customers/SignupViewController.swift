@@ -63,8 +63,7 @@ class SignupViewController: UITableViewController {
             BUYAccountCredentialItem(firstName: self.firstName),
             BUYAccountCredentialItem(lastName: self.lastName),
             BUYAccountCredentialItem(email: self.email),
-            BUYAccountCredentialItem(password: self.password),
-            BUYAccountCredentialItem(passwordConfirmation: self.passwordConfirm),
+            BUYAccountCredentialItem(password: self.password)
         ])
         
         self.actionCell.loading = true

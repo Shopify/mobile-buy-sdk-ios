@@ -31,7 +31,6 @@ NSString * const BUYAccountFirstNameKey            = @"first_name";
 NSString * const BUYAccountLastNameKey             = @"last_name";
 NSString * const BUYAccountEmailKey                = @"email";
 NSString * const BUYAccountPasswordKey             = @"password";
-NSString * const BUYAccountPasswordConfirmationKey = @"password_confirmation";
 
 #pragma mark - BUYAccountCredentials -
 @interface BUYAccountCredentials()
@@ -127,11 +126,6 @@ NSString * const BUYAccountPasswordConfirmationKey = @"password_confirmation";
 + (instancetype)itemWithPassword:(NSString *)value
 {
 	return [BUYAccountCredentialItem itemWithKey:BUYAccountPasswordKey value:value];
-}
-
-+ (instancetype)itemWithPasswordConfirmation:(NSString *)value
-{
-	return [BUYAccountCredentialItem itemWithKey:BUYAccountPasswordConfirmationKey value:value];
 }
 
 + (instancetype)itemWithKey:(NSString *)key value:(NSString *)value
