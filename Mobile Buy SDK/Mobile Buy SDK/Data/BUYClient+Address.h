@@ -56,7 +56,7 @@ typedef void (^BUYDataAddressBlock)(BUYAddress * _Nullable address, NSError * _N
  *
  *  @return The associated BUYRequestOperation
  */
-- (NSOperation *)getAddressesForCustomerID:(NSString *)customerID callback:(BUYDataAddressesBlock)block;
+- (NSOperation *)getAddressesForCustomerID:(NSNumber *)customerID callback:(BUYDataAddressesBlock)block;
 
 /**
  *  GET /api/customers/:customer_id/addresses/:id
@@ -68,7 +68,7 @@ typedef void (^BUYDataAddressBlock)(BUYAddress * _Nullable address, NSError * _N
  *
  *  @return The associated BUYRequestOperation
  */
-- (NSOperation *)getAddressWithID:(NSNumber *)addressID customerID:(NSString *)customerID callback:(BUYDataAddressBlock)block;
+- (NSOperation *)getAddressWithID:(NSNumber *)addressID customerID:(NSNumber *)customerID callback:(BUYDataAddressBlock)block;
 
 /**
  *  POST /api/customers/:customer_id/addresses
@@ -80,7 +80,7 @@ typedef void (^BUYDataAddressBlock)(BUYAddress * _Nullable address, NSError * _N
  *
  *  @return The associated BUYRequestOperation
  */
-- (NSOperation *)createAddress:(BUYAddress *)address customerID:(NSString *)customerID callback:(BUYDataAddressBlock)block;
+- (NSOperation *)createAddress:(BUYAddress *)address customerID:(NSNumber *)customerID callback:(BUYDataAddressBlock)block;
 
 /**
  *  PUT /api/customers/:customer_id/addresses/:id
@@ -92,7 +92,7 @@ typedef void (^BUYDataAddressBlock)(BUYAddress * _Nullable address, NSError * _N
  *
  *  @return The associated BUYRequestOperation
  */
-- (NSOperation *)updateAddress:(BUYAddress *)address customerID:(NSString *)customerID callback:(BUYDataAddressBlock)block;
+- (NSOperation *)updateAddress:(BUYAddress *)address customerID:(NSNumber *)customerID callback:(BUYDataAddressBlock)block;
 
 /**
  *  DELETE /api/customers/:customer_id/addresses/:id
@@ -104,7 +104,7 @@ typedef void (^BUYDataAddressBlock)(BUYAddress * _Nullable address, NSError * _N
  *
  *  @return The associated BUYRequestOperation
  */
-- (NSOperation *)deleteAddressWithID:(NSNumber *)addressID customerID:(NSString *)customerID callback:(BUYDataStatusBlock)block;
+- (NSOperation *)deleteAddressWithID:(NSNumber *)addressID customerID:(NSNumber *)customerID callback:(BUYDataStatusBlock)block;
 
 @end
 

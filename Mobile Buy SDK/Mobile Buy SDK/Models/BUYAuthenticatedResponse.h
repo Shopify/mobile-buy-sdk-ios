@@ -30,7 +30,7 @@
 
 @property (nonatomic, copy, readonly) NSString *accessToken;
 @property (nonatomic, copy, readonly) NSDate *expiry;
-@property (nonatomic, copy, readonly) NSString *customerID;
+@property (nonatomic, copy, readonly) NSNumber *customerID;
 
 + (BUYAuthenticatedResponse *)responseWithJSON:(NSDictionary *)json;
 

@@ -43,7 +43,7 @@
 		
 		_accessToken = access[@"access_token"];
 		_expiry      = [formatter dateFromString:access[@"expires_at"]];
-		_customerID  = [NSString stringWithFormat:@"%@", access[@"customer_id"]];
+		_customerID  = [NSNumber numberWithLong: [access[@"customer_id"] longValue]];
 	}
 	return self;
 }
