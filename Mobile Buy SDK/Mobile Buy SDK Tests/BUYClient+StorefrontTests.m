@@ -308,4 +308,21 @@
 	}];
 }
 
+- (void)testGettingTags
+{
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	
+	[self.client getProductTagsPage:1 completion:^(NSArray *tags, NSUInteger page, BOOL end, NSError *error){
+		
+		XCTAssertNil(error);
+		XCTAssertNotNil(tags);
+		
+		[expectation fulfill];
+	}];
+	
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
 @end

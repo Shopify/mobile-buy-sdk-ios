@@ -124,6 +124,11 @@
 	return [[[[self urlForApps] appendPath:@"/collection_listings"] appendExtension] appendParameters:parameters];
 }
 
+- (NSURL *)urlForProductTagsWithParameters:(NSDictionary *)parameters
+{
+	return [[[[self urlForApps] appendPath:@"/product_listings/tags"] appendExtension] appendParameters:parameters];;
+}
+
 #pragma mark - Checkout -
 
 - (NSURL *)urlForCheckouts

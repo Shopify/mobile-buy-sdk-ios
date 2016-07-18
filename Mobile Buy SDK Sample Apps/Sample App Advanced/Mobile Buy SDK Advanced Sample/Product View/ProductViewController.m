@@ -269,7 +269,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 		[self.navigationController setNavigationBarHidden:NO];
 	}
 	
-	if (self.product.publicURL) {
+	if (self.URLForSharing) {
 		UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareLink)];
 		NSArray *rightButtons = [@[rightButton] arrayByAddingObjectsFromArray:self.navigationItem.rightBarButtonItems];
 		self.navigationItem.rightBarButtonItems = rightButtons;
@@ -584,7 +584,8 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 
 - (NSURL *)URLForSharing
 {
-	return self.product.publicURL;
+    NSString *urlString = [NSString stringWithFormat:@"%@/products/%@",self.shop.domain, self.product.handle];
+	return [NSURL URLWithString:urlString];
 }
 
 - (UIImage *)ImageForSharing

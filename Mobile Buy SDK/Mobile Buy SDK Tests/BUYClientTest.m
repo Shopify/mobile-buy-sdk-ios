@@ -184,7 +184,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
 - (void)testProductsInCollection
 {
-	BUYRequestOperation *task = (BUYRequestOperation *)[self.client getProductsPage:1 inCollection:@1 sortOrder:BUYCollectionSortCollectionDefault completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {}];
+	BUYRequestOperation *task = (BUYRequestOperation *)[self.client getProductsPage:1 inCollection:@1 withTags:nil sortOrder:BUYCollectionSortCollectionDefault completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {}];
 	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
 	XCTAssertEqualObjects(task.originalRequest.URL.host, @"test_shop");
