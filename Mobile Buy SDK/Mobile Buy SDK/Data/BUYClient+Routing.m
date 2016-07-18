@@ -190,49 +190,49 @@
 
 #pragma mark - Customer With ID -
 
-- (NSURL *)urlForCustomersWithID:(NSString *)identifier
+- (NSURL *)urlForCustomersWithID:(NSNumber *)identifier
 {
-	return [[[self urlForCustomers] appendPath:identifier] appendExtension];
+	return [[[self urlForCustomers] appendPath:identifier.description] appendExtension];
 }
 
-- (NSURL *)urlForCustomersOrdersWithID:(NSString *)identifier
+- (NSURL *)urlForCustomersOrdersWithID:(NSNumber *)identifier
 {
 	return [[[self urlForCustomersWithID:identifier] appendPath:@"/orders"] appendExtension];
 }
 
-- (NSURL *)urlForCustomersOrdersWithID:(NSString *)identifier orderID:(NSNumber *)orderID
+- (NSURL *)urlForCustomersOrdersWithID:(NSNumber *)identifier orderID:(NSNumber *)orderID
 {
 	return [[[self urlForCustomersOrdersWithID:identifier] appendIdentifier:orderID] appendExtension];
 }
 
-- (NSURL *)urlForCustomersActivationWithID:(NSString *)identifier parameters:(NSDictionary *)parameters
+- (NSURL *)urlForCustomersActivationWithID:(NSNumber *)identifier parameters:(NSDictionary *)parameters
 {
 	return [[[[self urlForCustomersWithID:identifier] appendPath:@"/activate"] appendParameters:parameters] appendExtension];
 }
 
-- (NSURL *)urlForCustomersTokenWithID:(NSString *)customerID
+- (NSURL *)urlForCustomersTokenWithID:(NSNumber *)customerID
 {
 	return [[[self urlForCustomersWithID:customerID] appendPath:@"/customer_token"] appendExtension];
 }
 
-- (NSURL *)urlForCustomersTokenRenewalWithID:(NSString *)customerID
+- (NSURL *)urlForCustomersTokenRenewalWithID:(NSNumber *)customerID
 {
 	return [[[self urlForCustomersWithID:customerID] appendPath:@"/customer_token/renew"] appendExtension];
 }
 
-- (NSURL *)urlForCustomersPasswordResetWithID:(NSString *)identifier parameters:(NSDictionary *)parameters
+- (NSURL *)urlForCustomersPasswordResetWithID:(NSNumber *)identifier parameters:(NSDictionary *)parameters
 {
 	return [[[[self urlForCustomersWithID:identifier] appendPath:@"/reset"] appendExtension] appendParameters:parameters];
 }
 
 #pragma mark - Customer Addresses -
 
-- (NSURL *)urlForCustomersAddressesWithID:(NSString *)customerID
+- (NSURL *)urlForCustomersAddressesWithID:(NSNumber *)customerID
 {
 	return [[[self urlForCustomersWithID:customerID] appendPath:@"/addresses"] appendExtension];
 }
 
-- (NSURL *)urlForCustomersAddressWithID:(NSString *)customerID addressID:(NSNumber *)addressID
+- (NSURL *)urlForCustomersAddressWithID:(NSNumber *)customerID addressID:(NSNumber *)addressID
 {
 	return [[[[self urlForCustomersWithID:customerID] appendPath:@"/addresses"] appendIdentifier:addressID] appendExtension];
 }

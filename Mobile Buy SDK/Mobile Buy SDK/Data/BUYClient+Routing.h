@@ -50,15 +50,15 @@
 - (NSURL *)urlForCustomersToken;
 - (NSURL *)urlForCustomersPasswordRecovery;
 
-- (NSURL *)urlForCustomersOrdersWithID:(NSString *)identifier;
-- (NSURL *)urlForCustomersOrdersWithID:(NSString *)identifier orderID:(NSNumber *)orderID;
-- (NSURL *)urlForCustomersWithID:(NSString *)identifier;
-- (NSURL *)urlForCustomersActivationWithID:(NSString *)identifier parameters:(NSDictionary *)parameters;
-- (NSURL *)urlForCustomersTokenWithID:(NSString *)customerID;
-- (NSURL *)urlForCustomersTokenRenewalWithID:(NSString *)customerID;
-- (NSURL *)urlForCustomersPasswordResetWithID:(NSString *)identifier parameters:(NSDictionary *)parameters;
+- (NSURL *)urlForCustomersOrdersWithID:(NSNumber *)customerID;
+- (NSURL *)urlForCustomersOrdersWithID:(NSNumber *)customerID orderID:(NSNumber *)orderID;
+- (NSURL *)urlForCustomersWithID:(NSNumber *)customerID;
+- (NSURL *)urlForCustomersActivationWithID:(NSNumber *)customerID parameters:(NSDictionary *)parameters;
+- (NSURL *)urlForCustomersTokenWithID:(NSNumber *)customerID;
+- (NSURL *)urlForCustomersTokenRenewalWithID:(NSNumber *)customerID;
+- (NSURL *)urlForCustomersPasswordResetWithID:(NSNumber *)customerID parameters:(NSDictionary *)parameters;
 
-- (NSURL *)urlForCustomersAddressesWithID:(NSString *)customerID;
-- (NSURL *)urlForCustomersAddressWithID:(NSString *)customerID addressID:(NSNumber *)addressID;
+- (NSURL *)urlForCustomersAddressesWithID:(NSNumber *)customerID;
+- (NSURL *)urlForCustomersAddressWithID:(NSNumber *)customerID addressID:(NSNumber *)addressID;
 
 @end

@@ -38,7 +38,7 @@
 
 #pragma mark - Getting -
 
-- (NSOperation *)getCustomerWithID:(NSString *)customerID callback:(BUYDataCustomerBlock)block
+- (NSOperation *)getCustomerWithID:(NSNumber *)customerID callback:(BUYDataCustomerBlock)block
 {
 	NSURL *url = [self urlForCustomersWithID:customerID];
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
@@ -65,7 +65,7 @@
 	}];
 }
 
-- (NSOperation *)activateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID token:(NSString *)token callback:(BUYDataCustomerTokenBlock)block
+- (NSOperation *)activateCustomer:(NSNumber *)customerID token:(NSString *)token credentials:(BUYAccountCredentials *)credentials callback:(BUYDataCustomerTokenBlock)block;
 {
 	NSURL *url = [self urlForCustomersActivationWithID:customerID parameters:@{ @"token": token }];
 	
@@ -81,7 +81,7 @@
 	}];
 }
 
-- (NSOperation *)updateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID callback:(BUYDataCustomerBlock)block
+- (NSOperation *)updateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSNumber *)customerID callback:(BUYDataCustomerBlock)block
 {
 	NSURL *url = [self urlForCustomersWithID:customerID];
 	return [self putRequestForURL:url object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
@@ -93,7 +93,19 @@
 	}];
 }
 
-- (NSOperation *)resetPasswordWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID token:(NSString *)token callback:(BUYDataCustomerTokenBlock)block
+- (NSOperation *)updateCustomer:(BUYCustomer *)customer callback:(BUYDataCustomerBlock)block
+{
+	NSURL *url = [self urlForCustomersWithID:customer.identifier];
+	return [self putRequestForURL:url object:@{@"customer": customer.JSONDictionary} completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		BUYCustomer *customer = nil;
+		if (json && !error) {
+			customer = [self.modelManager customerWithJSONDictionary:json];
+		}
+		block(customer, error);
+	}];
+}
+
+- (NSOperation *)resetPasswordForCustomerID:(NSNumber *)customerID token:(NSString *)token credentials:(BUYAccountCredentials *)credentials callback:(BUYDataCustomerTokenBlock)block;
 {
 	NSURL *url = [self urlForCustomersPasswordResetWithID:customerID parameters:@{ @"token": token }];
 	
@@ -111,7 +123,7 @@
 
 #pragma mark - Token -
 
-- (NSOperation *)renewCustomerTokenWithID:(NSString *)customerID callback:(BUYDataTokenBlock)block
+- (NSOperation *)renewCustomerTokenWithID:(NSNumber *)customerID callback:(BUYDataTokenBlock)block
 {
 	if (self.customerToken) {
 		NSURL *url = [self urlForCustomersTokenRenewalWithID:customerID];
@@ -134,7 +146,7 @@
 
 #pragma mark - Login -
 
-- (NSOperation *)logoutCustomerID:(NSString *)customerID callback:(BUYDataStatusBlock)block
+- (NSOperation *)logoutCustomerID:(NSNumber *)customerID callback:(BUYDataStatusBlock)block
 {
 	NSURL *url = [self urlForCustomersTokenWithID:customerID];
 	return [self deleteRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
@@ -157,7 +169,7 @@
 
 #pragma mark - Orders -
 
-- (NSOperation *)getOrdersForCustomerWithID:(NSString *)customerID callback:(BUYDataOrdersBlock)block
+- (NSOperation *)getOrdersForCustomerWithID:(NSNumber *)customerID callback:(BUYDataOrdersBlock)block
 {
 	NSURL *url = [self urlForCustomersOrdersWithID:customerID];
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
@@ -170,7 +182,7 @@
 	}];
 }
 
-- (NSOperation *)getOrderWithID:(NSNumber *)orderID customerID:(NSString *)customerID callback:(BUYDataOrderBlock)block
+- (NSOperation *)getOrderWithID:(NSNumber *)orderID customerID:(NSNumber *)customerID callback:(BUYDataOrderBlock)block
 {
 	NSURL *url = [self urlForCustomersOrdersWithID:customerID orderID:orderID];
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
