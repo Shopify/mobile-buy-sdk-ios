@@ -65,7 +65,7 @@
 	}];
 }
 
-- (NSOperation *)activateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID token:(NSString *)token callback:(BUYDataCustomerTokenBlock)block
+- (NSOperation *)activateCustomer:(NSNumber *)customerID token:(NSString *)token credentials:(BUYAccountCredentials *)credentials callback:(BUYDataCustomerTokenBlock)block;
 {
 	NSURL *url = [self urlForCustomersActivationWithID:customerID parameters:@{ @"token": token }];
 	
@@ -105,7 +105,7 @@
 	}];
 }
 
-- (NSOperation *)resetPasswordWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSNumber *)customerID token:(NSString *)token callback:(BUYDataCustomerTokenBlock)block
+- (NSOperation *)resetPasswordForCustomerID:(NSNumber *)customerID token:(NSString *)token credentials:(BUYAccountCredentials *)credentials callback:(BUYDataCustomerTokenBlock)block;
 {
 	NSURL *url = [self urlForCustomersPasswordResetWithID:customerID parameters:@{ @"token": token }];
 	

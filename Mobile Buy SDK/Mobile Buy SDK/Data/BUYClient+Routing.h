@@ -53,7 +53,7 @@
 - (NSURL *)urlForCustomersOrdersWithID:(NSNumber *)customerID;
 - (NSURL *)urlForCustomersOrdersWithID:(NSNumber *)customerID orderID:(NSNumber *)orderID;
 - (NSURL *)urlForCustomersWithID:(NSNumber *)customerID;
-- (NSURL *)urlForCustomersActivationWithID:(NSString *)customerID parameters:(NSDictionary *)parameters;
+- (NSURL *)urlForCustomersActivationWithID:(NSNumber *)customerID parameters:(NSDictionary *)parameters;
 - (NSURL *)urlForCustomersTokenWithID:(NSNumber *)customerID;
 - (NSURL *)urlForCustomersTokenRenewalWithID:(NSNumber *)customerID;
 - (NSURL *)urlForCustomersPasswordResetWithID:(NSNumber *)customerID parameters:(NSDictionary *)parameters;
