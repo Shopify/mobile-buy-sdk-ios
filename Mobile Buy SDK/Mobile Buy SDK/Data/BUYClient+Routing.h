@@ -34,6 +34,7 @@
 - (NSURL *)urlForShop;
 - (NSURL *)urlForProductListingsWithParameters:(NSDictionary *)parameters;
 - (NSURL *)urlForCollectionListingsWithParameters:(NSDictionary *)parameters;
+- (NSURL *)urlForProductTagsWithParameters:(NSDictionary *)parameters;
 
 - (NSURL *)urlForCheckouts;
 - (NSURL *)urlForCheckoutsWithToken:(NSString *)token;

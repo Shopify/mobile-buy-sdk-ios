@@ -119,6 +119,16 @@ typedef void (^BUYDataCollectionsListBlock)(NSArray<BUYCollection *> * _Nullable
  */
 typedef void (^BUYDataProductListBlock)(NSArray<BUYProduct *> * _Nullable products, NSUInteger page, BOOL reachedEnd, NSError * _Nullable error);
 
+/**
+ *  Return block containing a list of tags
+ *
+ *  @param tags       An array of tag titles
+ *  @param page       Index of the page requested
+ *  @param reachedEnd Boolean indicating whether additional pages exist
+ *  @param error      An optional NSError
+ */
+typedef void (^BUYDataTagsListBlock)(NSArray <NSString *> * _Nullable tags, NSUInteger page, BOOL reachedEnd, NSError * _Nullable error);
+
 @interface BUYClient (Storefront)
 
 /**
@@ -171,6 +181,16 @@ typedef void (^BUYDataProductListBlock)(NSArray<BUYProduct *> * _Nullable produc
 - (NSOperation *)getProductsByIds:(NSArray<NSNumber *> *)productIds completion:(BUYDataProductsBlock)block;
 
 /**
+ *  Gets the list of tags for all products
+ *
+ *  @param page  Page to request. Pages start at 1.
+ *  @param block (^BUYDataTagsListBlock)(NSArray <NSString *> * _Nullable tags, NSUInteger page, BOOL reachedEnd, NSError * _Nullable error)
+ *
+ *  @return The associated NSOperation
+ */
+- (NSOperation *)getProductTagsPage:(NSUInteger)page completion:(BUYDataTagsListBlock)block;
+
+/**
  *  Fetches collections based off page
  *
  *  @param page  Index of the page requested
@@ -197,12 +217,13 @@ typedef void (^BUYDataProductListBlock)(NSArray<BUYProduct *> * _Nullable produc
  *
  *  @param page         Index of the page requested
  *  @param collectionId The `collectionId` found in the BUYCollection object to fetch the products from
+ *  @param tags			An array of tags which each product must contain
  *  @param sortOrder    The sort order that overrides the default collection sort order
  *  @param block        (NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error)
  *
  *  @return the associated BUYRequestOperation
  */
-- (NSOperation *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId sortOrder:(BUYCollectionSort)sortOrder completion:(BUYDataProductListBlock)block;
+- (NSOperation *)getProductsPage:(NSUInteger)page inCollection:(nullable NSNumber *)collectionId withTags:(nullable NSArray <NSString *> *)tags sortOrder:(BUYCollectionSort)sortOrder completion:(BUYDataProductListBlock)block;
 
 @end
 

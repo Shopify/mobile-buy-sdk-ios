@@ -124,6 +124,23 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	}];
 }
 
+- (NSOperation *)getProductTagsPage:(NSUInteger)page completion:(BUYDataTagsListBlock)block
+{
+	NSURL *url  = [self urlForProductTagsWithParameters:@{
+														  @"limit" : @(self.pageSize),
+														  @"page"  : @(page),
+														  }];
+	
+	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		
+		NSArray *tags = nil;
+		if (json && !error) {
+			tags = [json[@"tags"] valueForKey:@"title"];
+		}
+		block(tags, [self hasReachedEndOfPage:tags], page, error);
+	}];
+}
+
 - (NSOperation *)getCollectionsPage:(NSUInteger)page completion:(BUYDataCollectionsListBlock)block
 {
 	NSURL *url  = [self urlForCollectionListingsWithParameters:@{
@@ -143,19 +160,26 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 
 - (NSOperation *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId completion:(BUYDataProductListBlock)block
 {
-	return [self getProductsPage:page inCollection:collectionId sortOrder:BUYCollectionSortCollectionDefault completion:block];
+	return [self getProductsPage:page inCollection:collectionId withTags:nil sortOrder:BUYCollectionSortCollectionDefault completion:block];
 }
 
-- (NSOperation *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId sortOrder:(BUYCollectionSort)sortOrder completion:(BUYDataProductListBlock)block
+- (NSOperation *)getProductsPage:(NSUInteger)page inCollection:(nullable NSNumber *)collectionId withTags:(nullable NSArray <NSString *> *)tags sortOrder:(BUYCollectionSort)sortOrder completion:(BUYDataProductListBlock)block
 {
-	BUYAssert(collectionId, @"Failed to get products page. Invalid collectionID.");
+	NSMutableDictionary *params = @{
+									@"limit"         : @(self.pageSize),
+									@"page"          : @(page),
+									@"sort_by"       : [BUYCollection sortOrderParameterForCollectionSort:sortOrder]
+									}.mutableCopy;
 	
-	NSURL *url  = [self urlForProductListingsWithParameters:@{
-															  @"collection_id" : collectionId,
-															  @"limit"         : @(self.pageSize),
-															  @"page"          : @(page),
-															  @"sort_by"       : [BUYCollection sortOrderParameterForCollectionSort:sortOrder]
-															  }];
+	if (tags) {
+		params[@"tags"] = [tags componentsJoinedByString:@","];
+	}
+	
+	if (collectionId) {
+		params[@"collection_id"] = collectionId;
+	}
+	
+	NSURL *url  = [self urlForProductListingsWithParameters:params];
 	
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		
