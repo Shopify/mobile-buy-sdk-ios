@@ -49,6 +49,7 @@
 - (NSURL *)urlForCustomers;
 - (NSURL *)urlForCustomersToken;
 - (NSURL *)urlForCustomersPasswordRecovery;
+- (NSURL *)urlForLoggedInCustomer;
 
 - (NSURL *)urlForCustomersOrdersWithID:(NSString *)identifier;
 - (NSURL *)urlForCustomersOrdersWithID:(NSString *)identifier orderID:(NSNumber *)orderID;

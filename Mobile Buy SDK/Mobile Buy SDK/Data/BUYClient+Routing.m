@@ -25,6 +25,7 @@
 //
 
 #import "BUYClient+Routing.h"
+#import "BUYCustomerToken.h"
 
 #pragma mark - NSURL (Private Routing) -
 
@@ -186,6 +187,11 @@
 - (NSURL *)urlForCustomersPasswordRecovery
 {
 	return [[[self urlForCustomers] appendPath:@"/recover"] appendExtension];
+}
+
+- (NSURL *)urlForLoggedInCustomer
+{
+	return [self urlForCustomersWithID:self.customerToken.customerID];
 }
 
 #pragma mark - Customer With ID -

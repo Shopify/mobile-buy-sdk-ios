@@ -27,9 +27,10 @@
 #import <Buy/BUYClient.h>
 NS_ASSUME_NONNULL_BEGIN
 
-@class BUYCustomer;
-@class BUYOrder;
 @class BUYAccountCredentials;
+@class BUYCustomer;
+@class BUYCustomerToken;
+@class BUYOrder;
 
 /**
  *  Return block containing a BUYCustomer object for an existing customer of the shop
@@ -46,7 +47,7 @@ typedef void (^BUYDataCustomerBlock)(BUYCustomer * _Nullable customer, NSError *
  *  @param token    An authentication token to retrieve the customer later.  Store this token securely on the device.
  *  @param error    An optional NSError
  */
-typedef void (^BUYDataCustomerTokenBlock)(BUYCustomer * _Nullable customer, NSString * _Nullable token, NSError * _Nullable error);
+typedef void (^BUYDataCustomerTokenBlock)(BUYCustomer * _Nullable customer, BUYCustomerToken * _Nullable token, NSError * _Nullable error);
 
 /**
  *  Return block containing a customer auth token
@@ -86,7 +87,7 @@ typedef void (^BUYDataOrderBlock)(BUYOrder * _Nullable order, NSError * _Nullabl
  *
  *  @return The associated BUYRequestOperation
  */
-- (NSOperation *)getCustomerWithID:(NSString *)customerID callback:(BUYDataCustomerBlock)block;
+- (NSOperation *)getCustomerCallback:(BUYDataCustomerBlock)block;
 
 #pragma mark - Customer -
 
@@ -127,7 +128,7 @@ typedef void (^BUYDataOrderBlock)(BUYOrder * _Nullable order, NSError * _Nullabl
  *
  *  @return The associated BUYRequestOperation
  */
-- (NSOperation *)updateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID callback:(BUYDataCustomerBlock)block;
+- (NSOperation *)updateCustomerWithCredentials:(BUYAccountCredentials *)credentials callback:(BUYDataCustomerBlock)block;
 
 /**
  *  PUT /api/customers/:customer_id/reset
@@ -153,7 +154,7 @@ typedef void (^BUYDataOrderBlock)(BUYOrder * _Nullable order, NSError * _Nullabl
  *
  *  @return the associated BUYRequestOperation
  */
-- (NSOperation *)renewCustomerTokenWithID:(NSString *)customerID callback:(BUYDataTokenBlock)block;
+- (NSOperation *)renewCustomerTokenCallback:(BUYDataTokenBlock)block;
 
 #pragma mark - Login -
 
@@ -179,7 +180,7 @@ typedef void (^BUYDataOrderBlock)(BUYOrder * _Nullable order, NSError * _Nullabl
  *
  *  @return The associated BUYRequestOperation
  */
-- (NSOperation *)logoutCustomerID:(NSString *)customerID callback:(BUYDataStatusBlock)block;
+- (NSOperation *)logoutCustomerCallback:(BUYDataStatusBlock)block;
 
 /**
  *  POST /api/customers/recover
@@ -203,7 +204,7 @@ typedef void (^BUYDataOrderBlock)(BUYOrder * _Nullable order, NSError * _Nullabl
  *
  *  @return The associated BUYRequestOperation
  */
-- (NSOperation *)getOrdersForCustomerWithID:(NSString *)customerID callback:(BUYDataOrdersBlock)block;
+- (NSOperation *)getOrdersForCustomerCallback:(BUYDataOrdersBlock)block;
 
 /**
  *  GET /api/customers/:customer_id/orders/:id
@@ -215,7 +216,7 @@ typedef void (^BUYDataOrderBlock)(BUYOrder * _Nullable order, NSError * _Nullabl
  *
  *  @return The associated BUYRequestOperation
  */
-- (NSOperation *)getOrderWithID:(NSNumber *)orderID customerID:(NSString *)customerID callback:(BUYDataOrderBlock)block;
+- (NSOperation *)getOrderWithID:(NSNumber *)orderID callback:(BUYDataOrderBlock)block;
 
 @end
 
