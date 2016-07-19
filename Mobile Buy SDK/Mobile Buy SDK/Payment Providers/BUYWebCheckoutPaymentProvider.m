@@ -27,6 +27,7 @@
 #import "BUYWebCheckoutPaymentProvider.h"
 #import "BUYCheckout.h"
 #import "BUYClient+Checkout.h"
+#import "BUYCustomerToken.h"
 #import "BUYAssert.h"
 
 @import SafariServices;
@@ -176,11 +177,11 @@ static NSString *const WebCheckoutCustomerAccessToken = @"customer_access_token"
 
 - (NSURL *)authenticatedWebCheckoutURL:(NSURL *)url
 {
-	NSString *customerToken = self.client.customerToken;
-	if (!customerToken.length) {
+	NSString *accessToken = self.client.customerToken.accessToken;
+	if (!accessToken.length) {
 		return url;
 	}
-	NSURLQueryItem *item = [NSURLQueryItem queryItemWithName:WebCheckoutCustomerAccessToken value:customerToken];
+	NSURLQueryItem *item = [NSURLQueryItem queryItemWithName:WebCheckoutCustomerAccessToken value:accessToken];
 	NSURLComponents *authenticatedComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:YES];
 	authenticatedComponents.queryItems = authenticatedComponents.queryItems ? [authenticatedComponents.queryItems arrayByAddingObject:item] : @[item];
 	return authenticatedComponents.URL;

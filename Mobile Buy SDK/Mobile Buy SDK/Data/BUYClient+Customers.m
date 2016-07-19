@@ -119,7 +119,7 @@
 		return [self putRequestForURL:url object:nil completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 			NSString *accessToken = nil;
 			if (json && !error) {
-				BUYCustomerToken *authenticatedResponse = [BUYCustomerToken responseWithJSON:json];
+				BUYCustomerToken *authenticatedResponse = [BUYCustomerToken customerTokenWithJSON:json];
 				accessToken = authenticatedResponse.accessToken;
 			}
 			
@@ -191,16 +191,16 @@
 	return [self postRequestForURL:url object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		if (json && !error) {
 			BUYCustomerToken *authenticatedResponse = [BUYCustomerToken customerTokenWithJSON:json];
-			self.customerToken = authenticatedResponse.accessToken;
+			self.customerToken = authenticatedResponse;
 			
 			if (!customerJSON) {
 				[self getCustomerWithID:authenticatedResponse.customerID callback:^(BUYCustomer *customer, NSError *error) {
-					block(customer, self.customerToken, error);
+					block(customer, self.customerToken.accessToken, error);
 				}];
 			}
 			else {
 				BUYCustomer *customer = [self.modelManager customerWithJSONDictionary:customerJSON];
-				block(customer, self.customerToken, error);
+				block(customer, self.customerToken.accessToken, error);
 			}
 		}
 		else {

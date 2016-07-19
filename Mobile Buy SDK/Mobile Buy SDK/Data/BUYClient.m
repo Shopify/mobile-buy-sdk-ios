@@ -26,6 +26,7 @@
 
 #import "BUYClient+Internal.h"
 #import "BUYAssert.h"
+#import "BUYCustomerToken.h"
 #import "BUYModelManager.h"
 #import "BUYRequestOperation.h"
 
@@ -222,7 +223,7 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 	[request addValue:BUYClientJSONMimeType forHTTPHeaderField:@"Accept"];
 	
 	if (self.customerToken) {
-		[request addValue:self.customerToken forHTTPHeaderField:BUYClientCustomerAccessToken];
+		[request addValue:self.customerToken.accessToken forHTTPHeaderField:BUYClientCustomerAccessToken];
 	}
 	
 	request.HTTPMethod = method;
