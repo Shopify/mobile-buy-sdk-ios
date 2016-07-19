@@ -212,11 +212,21 @@ typedef void (^BUYDataTagsListBlock)(NSArray <NSString *> * _Nullable tags, NSUI
  *  Fetches collections based off page
  *
  *  @param page  Index of the page requested
- *  @param block (^BUYDataCollectionsBlock)(NSArray *collections, NSError *error)
+ *  @param block (^BUYDataCollectionsListBlock)(NSArray *collections, int page, BOOL reachedEnd, NSError *error)
  *
  *  @return The associated operation
  */
 - (NSOperation *)getCollectionsPage:(NSUInteger)page completion:(BUYDataCollectionsListBlock)block;
+
+/**
+ *  Fetches collections by IDs
+ *
+ *  @param collectionIds An array of `NSString` objects representing collection IDs
+ *  @param block (^BUYDataCollectionsBlock)(NSArray *collections, NSError *error)
+ *
+ *  @return The associated BUYRequestOperation
+ */
+- (NSOperation *)getCollectionsByIds:(NSArray<NSString *> *)collectionIds completion:(BUYDataCollectionsBlock)block;
 
 /**
  *  Fetches the products in the given collection with the collection's
