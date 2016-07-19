@@ -190,7 +190,7 @@
 	NSURL *url = [self urlForCustomersToken];
 	return [self postRequestForURL:url object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		if (json && !error) {
-			BUYCustomerToken *authenticatedResponse = [BUYCustomerToken responseWithJSON:json];
+			BUYCustomerToken *authenticatedResponse = [BUYCustomerToken customerTokenWithJSON:json];
 			self.customerToken = authenticatedResponse.accessToken;
 			
 			if (!customerJSON) {

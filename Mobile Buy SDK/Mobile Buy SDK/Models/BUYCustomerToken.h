@@ -31,7 +31,8 @@
 @property (nonatomic, copy, readonly) NSString *accessToken;
 @property (nonatomic, copy, readonly) NSDate *expiry;
 @property (nonatomic, copy, readonly) NSString *customerID;
+@property (nonatomic, copy, readonly) NSDictionary *JSONDictionary;
 
-+ (BUYCustomerToken *)responseWithJSON:(NSDictionary *)json;
++ (BUYCustomerToken *)customerTokenWithJSON:(NSDictionary *)json;
 
 @end

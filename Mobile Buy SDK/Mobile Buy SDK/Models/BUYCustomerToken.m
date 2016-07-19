@@ -27,9 +27,14 @@
 #import "BUYCustomerToken.h"
 #import "NSDateFormatter+BUYAdditions.h"
 
+static NSString * const customerAccessTokenKey = @"customer_access_token";
+static NSString * const accessTokenKey = @"access_token";
+static NSString * const expiresAtKey = @"expires_at";
+static NSString * const customerIDKey = @"customer_id";
+
 @implementation BUYCustomerToken
 
-+ (BUYCustomerToken *)responseWithJSON:(NSDictionary *)json
++ (BUYCustomerToken *)customerTokenWithJSON:(NSDictionary *)json
 {
 	return [[[self class] alloc] initWithJSON:json];
 }
@@ -39,13 +44,23 @@
 	self = [super init];
 	if (self) {
 		NSDateFormatter *formatter = [NSDateFormatter dateFormatterForPublications];
-		NSDictionary *access       = json[@"customer_access_token"];
+		NSDictionary *access       = json[customerAccessTokenKey];
 		
-		_accessToken = access[@"access_token"];
-		_expiry      = [formatter dateFromString:access[@"expires_at"]];
-		_customerID  = [NSString stringWithFormat:@"%@", access[@"customer_id"]];
+		_accessToken = access[accessTokenKey];
+		_expiry      = [formatter dateFromString:access[expiresAtKey]];
+		_customerID  = [NSString stringWithFormat:@"%@", access[customerIDKey]];
 	}
 	return self;
+}
+
+- (NSDictionary *)JSONDictionary
+{
+	NSDateFormatter *formatter = [NSDateFormatter dateFormatterForPublications];
+	return @{
+			 accessTokenKey : _accessToken,
+			 expiresAtKey : [formatter stringFromDate:_expiry],
+			 customerIDKey : _customerID
+			 };
 }
 
 @end
