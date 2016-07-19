@@ -30,7 +30,7 @@
 #import "NSDateFormatter+BUYAdditions.h"
 #import "BUYCustomer.h"
 #import "BUYAccountCredentials.h"
-#import "BUYAuthenticatedResponse.h"
+#import "BUYCustomerToken.h"
 #import "BUYOrder.h"
 #import "BUYShopifyErrorCodes.h"
 
@@ -119,7 +119,7 @@
 		return [self putRequestForURL:url object:nil completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 			NSString *accessToken = nil;
 			if (json && !error) {
-				BUYAuthenticatedResponse *authenticatedResponse = [BUYAuthenticatedResponse responseWithJSON:json];
+				BUYCustomerToken *authenticatedResponse = [BUYCustomerToken responseWithJSON:json];
 				accessToken = authenticatedResponse.accessToken;
 			}
 			
@@ -190,7 +190,7 @@
 	NSURL *url = [self urlForCustomersToken];
 	return [self postRequestForURL:url object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		if (json && !error) {
-			BUYAuthenticatedResponse *authenticatedResponse = [BUYAuthenticatedResponse responseWithJSON:json];
+			BUYCustomerToken *authenticatedResponse = [BUYCustomerToken responseWithJSON:json];
 			self.customerToken = authenticatedResponse.accessToken;
 			
 			if (!customerJSON) {

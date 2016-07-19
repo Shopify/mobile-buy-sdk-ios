@@ -226,8 +226,8 @@
 		9A0B0C6D1CEB4D300037D68F /* BUYClient+Storefront.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0B0C6A1CEB4D300037D68F /* BUYClient+Storefront.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A0B0C6F1CEB4D300037D68F /* BUYClient+Storefront.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C6B1CEB4D300037D68F /* BUYClient+Storefront.m */; };
 		9A0B0C731CEB52B90037D68F /* BUYClient+Checkout.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0B0C701CEB52B90037D68F /* BUYClient+Checkout.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9A0B0C791CEB5BBD0037D68F /* BUYAuthenticatedResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0B0C761CEB5BBD0037D68F /* BUYAuthenticatedResponse.h */; };
-		9A0B0C7B1CEB5BBD0037D68F /* BUYAuthenticatedResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C771CEB5BBD0037D68F /* BUYAuthenticatedResponse.m */; };
+		9A0B0C791CEB5BBD0037D68F /* BUYCustomerToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0B0C761CEB5BBD0037D68F /* BUYCustomerToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9A0B0C7B1CEB5BBD0037D68F /* BUYCustomerToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C771CEB5BBD0037D68F /* BUYCustomerToken.m */; };
 		9A0B0C831CEB981C0037D68F /* BUYClient+RoutingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C821CEB981C0037D68F /* BUYClient+RoutingTests.m */; };
 		9A0B0CA21CECC1BC0037D68F /* BUYClient+Checkout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C711CEB52B90037D68F /* BUYClient+Checkout.m */; };
 		9A0B0CA81CED0A860037D68F /* BUYCheckoutOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0B0CA51CED0A860037D68F /* BUYCheckoutOperation.h */; };
@@ -470,8 +470,8 @@
 		9A0B0C6B1CEB4D300037D68F /* BUYClient+Storefront.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYClient+Storefront.m"; sourceTree = "<group>"; };
 		9A0B0C701CEB52B90037D68F /* BUYClient+Checkout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BUYClient+Checkout.h"; sourceTree = "<group>"; };
 		9A0B0C711CEB52B90037D68F /* BUYClient+Checkout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYClient+Checkout.m"; sourceTree = "<group>"; };
-		9A0B0C761CEB5BBD0037D68F /* BUYAuthenticatedResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYAuthenticatedResponse.h; sourceTree = "<group>"; };
-		9A0B0C771CEB5BBD0037D68F /* BUYAuthenticatedResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYAuthenticatedResponse.m; sourceTree = "<group>"; };
+		9A0B0C761CEB5BBD0037D68F /* BUYCustomerToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYCustomerToken.h; sourceTree = "<group>"; };
+		9A0B0C771CEB5BBD0037D68F /* BUYCustomerToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYCustomerToken.m; sourceTree = "<group>"; };
 		9A0B0C821CEB981C0037D68F /* BUYClient+RoutingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYClient+RoutingTests.m"; sourceTree = "<group>"; };
 		9A0B0CA51CED0A860037D68F /* BUYCheckoutOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYCheckoutOperation.h; sourceTree = "<group>"; };
 		9A0B0CA61CED0A860037D68F /* BUYCheckoutOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYCheckoutOperation.m; sourceTree = "<group>"; };
@@ -960,8 +960,8 @@
 		F773744419C779C20039681C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				9A0B0C761CEB5BBD0037D68F /* BUYAuthenticatedResponse.h */,
-				9A0B0C771CEB5BBD0037D68F /* BUYAuthenticatedResponse.m */,
+				9A0B0C761CEB5BBD0037D68F /* BUYCustomerToken.h */,
+				9A0B0C771CEB5BBD0037D68F /* BUYCustomerToken.m */,
 				8498DCB91CDD1FA400BD12A8 /* BUYAccountCredentials.h */,
 				8498DCBA1CDD1FA400BD12A8 /* BUYAccountCredentials.m */,
 				F77374AA19C796BD0039681C /* BUYCreditCard.h */,
@@ -1146,7 +1146,7 @@
 				9A0B0CA81CED0A860037D68F /* BUYCheckoutOperation.h in Headers */,
 				901931611BC5B9BC00D1134E /* BUYClient.h in Headers */,
 				9A585C0B1CE6440B001F20F0 /* BUYOperation.h in Headers */,
-				9A0B0C791CEB5BBD0037D68F /* BUYAuthenticatedResponse.h in Headers */,
+				9A0B0C791CEB5BBD0037D68F /* BUYCustomerToken.h in Headers */,
 				849810971CB7E07900CFAB58 /* BUYFlatCollectionTransformer.h in Headers */,
 				9A6C1DC41D089E4700BFF4F9 /* BUYClientTypes.h in Headers */,
 				901931641BC5B9BC00D1134E /* BUYCartLineItem.h in Headers */,
@@ -1332,7 +1332,7 @@
 				9A0B0CAA1CED0A860037D68F /* BUYCheckoutOperation.m in Sources */,
 				84B0A7211CDD261100253EB0 /* BUYSerializable.m in Sources */,
 				9A47CEFE1CE39F6100A6D5BA /* BUYCreditCardToken.m in Sources */,
-				9A0B0C7B1CEB5BBD0037D68F /* BUYAuthenticatedResponse.m in Sources */,
+				9A0B0C7B1CEB5BBD0037D68F /* BUYCustomerToken.m in Sources */,
 				901930F21BC5B9BC00D1134E /* BUYOrder.m in Sources */,
 				849810991CB7E07900CFAB58 /* BUYFlatCollectionTransformer.m in Sources */,
 				84DD12A41CC63FE600A2442D /* _BUYLineItem.m in Sources */,

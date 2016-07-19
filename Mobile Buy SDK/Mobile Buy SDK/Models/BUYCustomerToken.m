@@ -1,5 +1,5 @@
 //
-//  BUYAuthenticatedResponse.h
+//  BUYCustomerToken.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,14 +24,28 @@
 //  THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
+#import "BUYCustomerToken.h"
+#import "NSDateFormatter+BUYAdditions.h"
 
-@interface BUYAuthenticatedResponse : NSObject
+@implementation BUYCustomerToken
 
-@property (nonatomic, copy, readonly) NSString *accessToken;
-@property (nonatomic, copy, readonly) NSDate *expiry;
-@property (nonatomic, copy, readonly) NSString *customerID;
++ (BUYCustomerToken *)responseWithJSON:(NSDictionary *)json
+{
+	return [[[self class] alloc] initWithJSON:json];
+}
 
-+ (BUYAuthenticatedResponse *)responseWithJSON:(NSDictionary *)json;
+- (instancetype)initWithJSON:(NSDictionary *)json
+{
+	self = [super init];
+	if (self) {
+		NSDateFormatter *formatter = [NSDateFormatter dateFormatterForPublications];
+		NSDictionary *access       = json[@"customer_access_token"];
+		
+		_accessToken = access[@"access_token"];
+		_expiry      = [formatter dateFromString:access[@"expires_at"]];
+		_customerID  = [NSString stringWithFormat:@"%@", access[@"customer_id"]];
+	}
+	return self;
+}
 
 @end

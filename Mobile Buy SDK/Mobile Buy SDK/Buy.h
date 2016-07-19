@@ -36,6 +36,7 @@
 #import <Buy/BUYCollection.h>
 #import <Buy/BUYCreditCard.h>
 #import <Buy/BUYCustomer.h>
+#import <Buy/BUYCustomerToken.h>
 #import <Buy/BUYDiscount.h>
 #import <Buy/BUYGiftCard.h>
 #import <Buy/BUYImageLink.h>
