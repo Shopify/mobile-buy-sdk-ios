@@ -118,13 +118,12 @@
 		NSURL *url = [self urlForCustomersTokenRenewal];
 		
 		return [self putRequestForURL:url object:nil completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
-			NSString *accessToken = nil;
+			BUYCustomerToken *customerToken = nil;
 			if (json && !error) {
-				BUYCustomerToken *customerToken = [BUYCustomerToken customerTokenWithJSON:json];
-				accessToken = customerToken.accessToken;
+				customerToken = [BUYCustomerToken customerTokenWithJSONDictionary:json];
 			}
 			
-			block(accessToken, error);
+			block(customerToken, error);
 		}];
 	}
 	else {

@@ -55,7 +55,7 @@ typedef void (^BUYDataCustomerTokenBlock)(BUYCustomer * _Nullable customer, BUYC
  *  @param token    An authentication token to retrieve the customer later.  Store this token securely on the device.
  *  @param error    An optional NSError
  */
-typedef void (^BUYDataTokenBlock)(NSString * _Nullable token, NSError * _Nullable error);
+typedef void (^BUYDataTokenBlock)(BUYCustomerToken * _Nullable token, NSError * _Nullable error);
 
 /**
  *  Return block containing an array of BUYOrders
