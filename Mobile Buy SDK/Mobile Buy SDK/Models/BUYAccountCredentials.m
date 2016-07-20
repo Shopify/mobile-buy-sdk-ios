@@ -75,6 +75,11 @@ NSString * const BUYAccountPasswordKey             = @"password";
 	return self.credentialItems.allValues;
 }
 
+- (BUYAccountCredentialItem *)credentialItemForKey:(NSString *)key
+{
+	return _credentialItems[key];
+}
+
 - (NSUInteger)count
 {
 	return self.credentialItems.count;
