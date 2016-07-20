@@ -116,7 +116,7 @@ typedef void (^BUYDataOrderBlock)(BUYOrder * _Nullable order, NSError * _Nullabl
  *
  *  @return The associated BUYRequestOperation
  */
-- (NSOperation *)activateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID token:(NSString *)token callback:(BUYDataCustomerTokenBlock)block;
+- (NSOperation *)activateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSNumber *)customerID token:(NSString *)token callback:(BUYDataCustomerTokenBlock)block;
 
 /**
  *  PUT /api/customers/:customer_id
@@ -141,7 +141,7 @@ typedef void (^BUYDataOrderBlock)(BUYOrder * _Nullable order, NSError * _Nullabl
  *
  *  @return The associated BUYRequestOperation
  */
-- (NSOperation *)resetPasswordWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID token:(NSString *)token callback:(BUYDataCustomerTokenBlock)block;
+- (NSOperation *)resetPasswordWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSNumber *)customerID token:(NSString *)token callback:(BUYDataCustomerTokenBlock)block;
 
 #pragma mark - Token -
 

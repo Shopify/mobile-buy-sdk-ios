@@ -342,7 +342,7 @@
 					   [BUYAccountCredentialItem itemWithPassword:@"12345"]
 					   ];
 	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:items];
-	NSString *customerID = @"12345";
+	NSNumber *customerID = @12345;
 	NSString *token      = @"12345";
 	BUYRequestOperation *task = (BUYRequestOperation *)[self.client activateCustomerWithCredentials:credentials customerID:customerID token:token callback:^(BUYCustomer *customer, BUYCustomerToken *token, NSError *error) {
 		
