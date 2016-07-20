@@ -65,7 +65,7 @@ class LoginViewController: UITableViewController {
             if let customer = customer,
                 let token = token {
                 self.clear()
-                self.delegate?.authenticationDidSucceedForCustomer(customer, withToken: token)
+                self.delegate?.authenticationDidSucceedForCustomer(customer, withToken: token.accessToken)
             } else {
                 self.delegate?.authenticationDidFailWithError(error)
             }

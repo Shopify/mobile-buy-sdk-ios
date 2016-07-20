@@ -52,7 +52,7 @@ class OrdersViewController: UIViewController {
     }
     
     private func loadOrders() {
-        BUYClient.sharedClient.getOrdersForCustomerWithID(String(self.customer.identifier)) { (orders, error) in
+        BUYClient.sharedClient.getOrdersForCustomerCallback { (orders, error) in
             if let orders = orders {
                 self.orders = orders
                 self.tableView.reloadData()
