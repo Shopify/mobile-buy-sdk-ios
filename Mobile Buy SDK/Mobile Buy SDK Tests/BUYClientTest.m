@@ -322,12 +322,12 @@
 {
 	self.client.customerToken = nil;
 	
-	BUYRequestOperation *task = (BUYRequestOperation *)[self.client renewCustomerTokenCallback:^(NSString *token, NSError *error) {}];
+	BUYRequestOperation *task = (BUYRequestOperation *)[self.client renewCustomerTokenCallback:^(BUYCustomerToken *token, NSError *error) {}];
 	XCTAssertNil(task); // task should be nil if no customer token was set on the client
 	
 	
 	self.client.customerToken = [[BUYCustomerToken alloc] initWithCustomerID:@1 accessToken:@"fake_token" expiry:[NSDate dateWithTimeIntervalSinceNow:3600]];
-	task = (BUYRequestOperation *)[self.client renewCustomerTokenCallback:^(NSString *token, NSError *error) {
+	task = (BUYRequestOperation *)[self.client renewCustomerTokenCallback:^(BUYCustomerToken *token, NSError *error) {
 		
 	}];
 	
