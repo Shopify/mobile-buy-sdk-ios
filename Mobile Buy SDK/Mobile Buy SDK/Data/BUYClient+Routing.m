@@ -233,14 +233,14 @@
 
 #pragma mark - Customer Addresses -
 
-- (NSURL *)urlForCustomersAddressesWithID:(NSString *)customerID
+- (NSURL *)urlForCustomersAddresses
 {
-	return [[[self urlForCustomersWithID:customerID] appendPath:@"/addresses"] appendExtension];
+	return [[[self urlForLoggedInCustomer] appendPath:@"/addresses"] appendExtension];
 }
 
-- (NSURL *)urlForCustomersAddressWithID:(NSString *)customerID addressID:(NSNumber *)addressID
+- (NSURL *)urlForCustomersAddressWithAddressID:(NSNumber *)addressID
 {
-	return [[[[self urlForCustomersWithID:customerID] appendPath:@"/addresses"] appendIdentifier:addressID] appendExtension];
+	return [[[[self urlForLoggedInCustomer] appendPath:@"/addresses"] appendIdentifier:addressID] appendExtension];
 }
 
 #pragma mark - Utilities -
