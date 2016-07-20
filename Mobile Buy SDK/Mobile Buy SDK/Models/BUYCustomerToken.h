@@ -35,6 +35,6 @@
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithCustomerID:(NSNumber *)customerID accessToken:(NSString *)accessToken expiry:(NSDate *)expiry;
-+ (BUYCustomerToken *)customerTokenWithJSON:(NSDictionary *)json;
++ (BUYCustomerToken *)customerTokenWithJSONDictionary:(NSDictionary *)json;
 
 @end

@@ -26,6 +26,7 @@
 
 #import "BUYCustomerToken.h"
 #import "NSDateFormatter+BUYAdditions.h"
+#import "NSDictionary+BUYAdditions.h"
 
 static NSString * const customerAccessTokenKey = @"customer_access_token";
 static NSString * const accessTokenKey = @"access_token";
@@ -36,6 +37,10 @@ static NSString * const customerIDKey = @"customer_id";
 
 - (instancetype)initWithCustomerID:(NSNumber *)customerID accessToken:(NSString *)accessToken expiry:(NSDate *)expiry
 {
+	NSParameterAssert(customerID);
+	NSParameterAssert(accessToken);
+	NSParameterAssert(expiry);
+	
 	self = [super init];
 	if (self) {
 		_customerID  = customerID;
@@ -45,7 +50,7 @@ static NSString * const customerIDKey = @"customer_id";
 	return self;
 }
 
-+ (BUYCustomerToken *)customerTokenWithJSON:(NSDictionary *)json
++ (BUYCustomerToken *)customerTokenWithJSONDictionary:(NSDictionary *)json
 {
 	return [[self alloc] initWithJSON:json];
 }
@@ -53,7 +58,7 @@ static NSString * const customerIDKey = @"customer_id";
 - (instancetype)initWithJSON:(NSDictionary *)json
 {
 	NSDateFormatter *formatter = [NSDateFormatter dateFormatterForPublications];
-	NSDictionary *access       = json[customerAccessTokenKey];
+	NSDictionary *access       = json[customerAccessTokenKey] ?: json;
 	
 	NSNumber *customerID  = access[customerIDKey];
 	NSString *accessToken = access[accessTokenKey];
