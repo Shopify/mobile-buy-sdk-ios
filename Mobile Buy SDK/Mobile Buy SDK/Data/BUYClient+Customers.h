@@ -82,7 +82,6 @@ typedef void (^BUYDataOrderBlock)(BUYOrder * _Nullable order, NSError * _Nullabl
  *  GET /api/customers/:customer_id
  *  Gets an existing customer
  *
- *  @param customerID A customer ID retrieved from either customer creation or login
  *  @param block      (BUYCustomer *customer, NSError *error)
  *
  *  @return The associated BUYRequestOperation
@@ -123,7 +122,6 @@ typedef void (^BUYDataOrderBlock)(BUYOrder * _Nullable order, NSError * _Nullabl
  *  Update customer credentials represented by BUYAccountCredentials object
  *
  *  @param credentials   Credentials containing a password
- *  @param customerID    ID of customer being activated
  *  @param block         (BUYCustomer *customer, NSError *error)
  *
  *  @return The associated BUYRequestOperation
@@ -149,7 +147,6 @@ typedef void (^BUYDataOrderBlock)(BUYOrder * _Nullable order, NSError * _Nullabl
  *  PUT /api/customers/:customer_id/customer_token/renew
  *  Renews an existing customer's token
  *
- *  @param customerID ID of customer renewing token
  *  @param block      (NSString *token, NSError *error)
  *
  *  @return the associated BUYRequestOperation
@@ -173,9 +170,7 @@ typedef void (^BUYDataOrderBlock)(BUYOrder * _Nullable order, NSError * _Nullabl
 /**
  *  DELETE /api/customers/:customer_id/customer_token
  *  Logs out an existing customer
- *  Expects a customerID string
  *
- *  @param customer A customerID represented by a string
  *  @param block    (BUYStatus status, NSError *error)
  *
  *  @return The associated BUYRequestOperation
@@ -199,7 +194,6 @@ typedef void (^BUYDataOrderBlock)(BUYOrder * _Nullable order, NSError * _Nullabl
  *  GET /api/customers/:customer_id/orders
  *  Gets orders for a given customer
  *
- *  @param customerID A customer ID for which to retrieve the order
  *  @param block      (NSArray <BUYOrder*> *orders, NSError *error)
  *
  *  @return The associated BUYRequestOperation
@@ -210,7 +204,6 @@ typedef void (^BUYDataOrderBlock)(BUYOrder * _Nullable order, NSError * _Nullabl
  *  GET /api/customers/:customer_id/orders/:id
  *  Gets order with a given identifier
  *
- *  @param customerID A customer ID for which to retrieve the order
  *  @param orderID    An order ID to retrieve
  *  @param block      (NSArray <BUYOrder*> *orders, NSError *error)
  *
