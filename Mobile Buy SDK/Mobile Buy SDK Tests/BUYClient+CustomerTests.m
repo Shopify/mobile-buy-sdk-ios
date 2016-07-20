@@ -64,7 +64,7 @@
 	[OHHTTPStubs stubUsingResponseWithKey:@"testCustomerLogin" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client loginCustomerWithCredentials:[self credentialsForLogin] callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
+	[self.client loginCustomerWithCredentials:[self credentialsForLogin] callback:^(BUYCustomer *customer, BUYCustomerToken *token, NSError *error) {
 		
 		XCTAssertNil(error);
 		XCTAssertNotNil(customer);
@@ -87,7 +87,7 @@
 	[OHHTTPStubs stubUsingResponseWithKey:@"testCustomerDuplicateEmail" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client createCustomerWithCredentials:[self credentialsForCreation] callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
+	[self.client createCustomerWithCredentials:[self credentialsForCreation] callback:^(BUYCustomer *customer, BUYCustomerToken *token, NSError *error) {
 		
 		XCTAssertNil(customer);
 		XCTAssertNotNil(error);
@@ -114,7 +114,7 @@
 	[OHHTTPStubs stubUsingResponseWithKey:@"testCustomerInvalidEmailPassword" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client createCustomerWithCredentials:[self credentialsForFailure] callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
+	[self.client createCustomerWithCredentials:[self credentialsForFailure] callback:^(BUYCustomer *customer, BUYCustomerToken *token, NSError *error) {
 		
 		XCTAssertNil(customer);
 		XCTAssertNotNil(error);
@@ -149,7 +149,7 @@
 	[OHHTTPStubs stubUsingResponseWithKey:@"testCustomerLogout" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client logoutCustomerID:self.customer.identifier.stringValue callback:^(BUYStatus status, NSError * _Nullable error) {
+	[self.client logoutCustomerCallback:^(BUYStatus status, NSError * _Nullable error) {
 		
 		XCTAssertNil(error);
 		XCTAssertEqual(status, 204);
@@ -167,7 +167,7 @@
 	[OHHTTPStubs stubUsingResponseWithKey:@"testCustomerGetOrders" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client getOrdersForCustomerWithID:self.customer.identifier.stringValue callback:^(NSArray<BUYOrder *> * _Nullable orders, NSError * _Nullable error) {
+	[self.client getOrdersForCustomerCallback:^(NSArray<BUYOrder *> * _Nullable orders, NSError * _Nullable error) {
 		
 		XCTAssertNotNil(orders);
 		XCTAssertNil(error);
@@ -186,7 +186,7 @@
 	[OHHTTPStubs stubUsingResponseWithKey:@"testCustomerGetOrder" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client getOrderWithID:self.customerOrderIDs.firstObject customerID:self.customer.identifier.stringValue callback:^(BUYOrder * _Nullable order, NSError * _Nullable error) {
+	[self.client getOrderWithID:self.customerOrderIDs.firstObject callback:^(BUYOrder * _Nullable order, NSError * _Nullable error) {
 		
 		XCTAssertNil(error);
 		XCTAssertTrue([order isKindOfClass:[BUYOrder class]]);
@@ -208,7 +208,7 @@
 	BUYAccountCredentialItem *email    = [BUYAccountCredentialItem itemWithEmail:self.customerEmail];
 	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:@[email]];
 	
-	[self.client updateCustomerWithCredentials:credentials customerID:self.customer.identifier.stringValue callback:^(BUYCustomer *customer, NSError *error) {
+	[self.client updateCustomerWithCredentials:credentials callback:^(BUYCustomer *customer, NSError *error) {
 		
 		XCTAssertNil(error);
 		XCTAssertNotNil(customer);
@@ -231,7 +231,7 @@
 	}];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client  getAddressesForCustomerID:self.customer.identifier.stringValue callback:^(NSArray<BUYAddress *> * _Nullable addresses, NSError * _Nullable error) {
+	[self.client  getAddressesCallback:^(NSArray<BUYAddress *> * _Nullable addresses, NSError * _Nullable error) {
 		
 		XCTAssertNotNil(addresses);
 		XCTAssertTrue(addresses.count > 0);
@@ -264,7 +264,7 @@
 	
 	BUYAddress *address = [self address];
 	
-	[self.client createAddress:address customerID:self.customer.identifier.stringValue callback:^(BUYAddress * _Nullable returnedAddress, NSError * _Nullable error) {
+	[self.client createAddress:address callback:^(BUYAddress * _Nullable returnedAddress, NSError * _Nullable error) {
 		
 		[OHHTTPStubs stubUsingResponseWithKey:@"testCustomerLogin" useMocks:[self shouldUseMocks]];
 		
@@ -299,7 +299,7 @@
 	}];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client getAddressWithID:self.createdAddress.identifier customerID:self.customer.identifier.stringValue callback:^(BUYAddress * _Nullable address, NSError * _Nullable error) {
+	[self.client getAddressWithID:self.createdAddress.identifier callback:^(BUYAddress * _Nullable address, NSError * _Nullable error) {
 		
 		XCTAssertNotNil(address);
 		XCTAssertNil(error);
@@ -323,7 +323,7 @@
 	
 	BUYAddress *modifiedAddress = [self addressByModyfyingAddress:self.createdAddress];
 	
-	[self.client updateAddress:modifiedAddress customerID:self.customer.identifier.stringValue callback:^(BUYAddress * _Nullable returnedAddress, NSError * _Nullable error) {
+	[self.client updateAddress:modifiedAddress callback:^(BUYAddress * _Nullable returnedAddress, NSError * _Nullable error) {
 		
 		XCTAssertNotNil(returnedAddress);
 		XCTAssertNil(error);
@@ -353,7 +353,7 @@
 	}];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client  deleteAddressWithID:self.createdAddress.identifier customerID:self.customer.identifier.stringValue callback:^(BUYStatus status, NSError * _Nullable error) {
+	[self.client  deleteAddressWithID:self.createdAddress.identifier callback:^(BUYStatus status, NSError * _Nullable error) {
 		
 		XCTAssertEqual(status, 204);
 		XCTAssertNil(error);

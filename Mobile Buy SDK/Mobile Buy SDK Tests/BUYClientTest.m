@@ -38,8 +38,6 @@
 #import "BUYApplePayTestToken.h"
 #import "BUYRequestOperation.h"
 
-NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
-
 @interface BUYClient_Test : BUYClient
 
 @end
@@ -57,6 +55,23 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 @end
 
 @implementation BUYClientTest
+
+- (void)setUp
+{
+	[super setUp];
+	self.client.customerToken = [self customerTokenForTesting];
+}
+
+- (void)tearDown
+{
+	self.client.customerToken = nil;
+	[super tearDown];
+}
+
+- (BUYCustomerToken *)customerTokenForTesting
+{
+	return [[BUYCustomerToken alloc] initWithCustomerID:@1 accessToken:@"" expiry:[NSDate dateWithTimeIntervalSinceNow:3600]];
+}
 
 - (void)setupClient
 {
@@ -211,7 +226,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 					   ];
 	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:items];
 	
-	BUYRequestOperation *task = (BUYRequestOperation *)[self.client createCustomerWithCredentials:credentials callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
+	BUYRequestOperation *task = (BUYRequestOperation *)[self.client createCustomerWithCredentials:credentials callback:^(BUYCustomer *customer, BUYCustomerToken *token, NSError *error) {
 		
 	}];
 	
@@ -239,7 +254,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 					   [BUYAccountCredentialItem itemWithPassword:@"password"],
 					   ];
 	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:items];
-	BUYRequestOperation *task = (BUYRequestOperation *)[self.client loginCustomerWithCredentials:credentials callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
+	BUYRequestOperation *task = (BUYRequestOperation *)[self.client loginCustomerWithCredentials:credentials callback:^(BUYCustomer *customer, BUYCustomerToken *token, NSError *error) {
 		
 	}];
 	
@@ -260,28 +275,28 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 
 - (void)testGetCustomerURL
 {
-	BUYRequestOperation *task = (BUYRequestOperation *)[self.client getCustomerWithID:@"" callback:^(BUYCustomer *customer, NSError *error) {
-		
+	BUYRequestOperation *task = (BUYRequestOperation *)[self.client getCustomerCallback:^(BUYCustomer *customer, NSError *error) {
+	
 	}];
 	
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
-	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/customers.json");
+	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/customers/1.json");
 	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
 	
-	XCTAssertEqualObjects(self.client.customerToken, task.originalRequest.allHTTPHeaderFields[BUYClientCustomerAccessToken]);
+	XCTAssertEqualObjects(self.client.customerToken.accessToken, task.originalRequest.allHTTPHeaderFields[BUYClientCustomerAccessToken]);
 }
 
 - (void)testGetOrdersForCustomerURL
 {
-	BUYRequestOperation *task = (BUYRequestOperation *)[self.client getOrdersForCustomerWithID:@"99" callback:^(NSArray<BUYOrder *> *orders, NSError *error) {
-		
+	BUYRequestOperation *task = (BUYRequestOperation *)[self.client getOrdersForCustomerCallback:^(NSArray<BUYOrder *> *orders, NSError *error) {
+	
 	}];
 	
 	XCTAssertEqualObjects(task.originalRequest.URL.scheme, @"https");
-	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/customers/99/orders.json");
+	XCTAssertEqualObjects(task.originalRequest.URL.path, @"/api/customers/1/orders.json");
 	XCTAssertEqualObjects(task.originalRequest.HTTPMethod, @"GET");
 	
-	XCTAssertEqualObjects(self.client.customerToken, task.originalRequest.allHTTPHeaderFields[BUYClientCustomerAccessToken]);
+	XCTAssertEqualObjects(self.client.customerToken.accessToken, task.originalRequest.allHTTPHeaderFields[BUYClientCustomerAccessToken]);
 }
 
 - (void)testCustomerRecovery
@@ -307,11 +322,12 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 {
 	self.client.customerToken = nil;
 	
-	BUYRequestOperation *task = (BUYRequestOperation *)[self.client renewCustomerTokenWithID:@"" callback:^(NSString *token, NSError *error) {}];
+	BUYRequestOperation *task = (BUYRequestOperation *)[self.client renewCustomerTokenCallback:^(NSString *token, NSError *error) {}];
 	XCTAssertNil(task); // task should be nil if no customer token was set on the client
 	
-	self.client.customerToken = BUYFakeCustomerToken;
-	task = (BUYRequestOperation *)[self.client renewCustomerTokenWithID:@"1" callback:^(NSString *token, NSError *error) {
+	
+	self.client.customerToken = [[BUYCustomerToken alloc] initWithCustomerID:@1 accessToken:@"fake_token" expiry:[NSDate dateWithTimeIntervalSinceNow:3600]];
+	task = (BUYRequestOperation *)[self.client renewCustomerTokenCallback:^(NSString *token, NSError *error) {
 		
 	}];
 	
@@ -328,7 +344,7 @@ NSString * const BUYFakeCustomerToken = @"dsfasdgafdg";
 	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:items];
 	NSString *customerID = @"12345";
 	NSString *token      = @"12345";
-	BUYRequestOperation *task = (BUYRequestOperation *)[self.client activateCustomerWithCredentials:credentials customerID:customerID token:token callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
+	BUYRequestOperation *task = (BUYRequestOperation *)[self.client activateCustomerWithCredentials:credentials customerID:customerID token:token callback:^(BUYCustomer *customer, BUYCustomerToken *token, NSError *error) {
 		
 	}];
 	
