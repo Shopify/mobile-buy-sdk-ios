@@ -197,6 +197,23 @@
 	[self waitForExpectationsWithTimeout:10.0 handler:^(NSError *error) {}];
 }
 
+- (void)testCustomerUpdate
+{
+	[OHHTTPStubs stubUsingResponseWithKey:@"testCustomerLogin" useMocks:[self shouldUseMocks]];
+
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+
+	[self.client updateCustomer:_customer callback:^(BUYCustomer * _Nullable customer, NSError * _Nullable error) {
+
+		XCTAssertNil(error);
+		XCTAssertNotNil(customer);
+ 
+		[expectation fulfill];
+ 	}];
+
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {}];
+}
+
 #pragma mark - Address -
 
 - (void)testGetAddresses
