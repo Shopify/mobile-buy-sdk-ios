@@ -82,10 +82,10 @@
 	}];
 }
 
-- (NSOperation *)updateCustomerWithCredentials:(BUYAccountCredentials *)credentials callback:(BUYDataCustomerBlock)block
+- (NSOperation *)updateCustomer:(BUYCustomer *)customer callback:(BUYDataCustomerBlock)block
 {
-	NSURL *url = [self urlForLoggedInCustomer];
-	return [self putRequestForURL:url object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+	NSURL *url = [self urlForCustomersWithID:customer.identifier.stringValue];
+	return [self putRequestForURL:url object:@{@"customer": customer.JSONDictionary} completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		BUYCustomer *customer = nil;
 		if (json && !error) {
 			customer = [self.modelManager customerWithJSONDictionary:json];
