@@ -25,6 +25,7 @@
 //
 
 #import "BUYClient+Routing.h"
+#import "BUYCustomerToken.h"
 
 #pragma mark - NSURL (Private Routing) -
 
@@ -188,6 +189,16 @@
 	return [[[self urlForCustomers] appendPath:@"/recover"] appendExtension];
 }
 
+- (NSURL *)urlForLoggedInCustomer
+{
+	return [self urlForCustomersWithID:[self.customerToken.customerID stringValue]];
+}
+
+- (NSURL *)urlForLoggedInCustomerToken
+{
+	return [[[self urlForLoggedInCustomer] appendPath:@"/customer_token"] appendExtension];
+}
+
 #pragma mark - Customer With ID -
 
 - (NSURL *)urlForCustomersWithID:(NSString *)identifier
@@ -195,14 +206,14 @@
 	return [[[self urlForCustomers] appendPath:identifier] appendExtension];
 }
 
-- (NSURL *)urlForCustomersOrdersWithID:(NSString *)identifier
+- (NSURL *)urlForCustomersOrders
 {
-	return [[[self urlForCustomersWithID:identifier] appendPath:@"/orders"] appendExtension];
+	return [[[self urlForLoggedInCustomer] appendPath:@"/orders"] appendExtension];
 }
 
-- (NSURL *)urlForCustomersOrdersWithID:(NSString *)identifier orderID:(NSNumber *)orderID
+- (NSURL *)urlForCustomersOrdersWithOrderID:(NSNumber *)orderID
 {
-	return [[[self urlForCustomersOrdersWithID:identifier] appendIdentifier:orderID] appendExtension];
+	return [[[self urlForCustomersOrders] appendIdentifier:orderID] appendExtension];
 }
 
 - (NSURL *)urlForCustomersActivationWithID:(NSString *)identifier parameters:(NSDictionary *)parameters
@@ -210,14 +221,9 @@
 	return [[[[self urlForCustomersWithID:identifier] appendPath:@"/activate"] appendParameters:parameters] appendExtension];
 }
 
-- (NSURL *)urlForCustomersTokenWithID:(NSString *)customerID
+- (NSURL *)urlForCustomersTokenRenewal
 {
-	return [[[self urlForCustomersWithID:customerID] appendPath:@"/customer_token"] appendExtension];
-}
-
-- (NSURL *)urlForCustomersTokenRenewalWithID:(NSString *)customerID
-{
-	return [[[self urlForCustomersWithID:customerID] appendPath:@"/customer_token/renew"] appendExtension];
+	return [[[self urlForLoggedInCustomer] appendPath:@"/customer_token/renew"] appendExtension];
 }
 
 - (NSURL *)urlForCustomersPasswordResetWithID:(NSString *)identifier parameters:(NSDictionary *)parameters
@@ -227,14 +233,14 @@
 
 #pragma mark - Customer Addresses -
 
-- (NSURL *)urlForCustomersAddressesWithID:(NSString *)customerID
+- (NSURL *)urlForCustomersAddresses
 {
-	return [[[self urlForCustomersWithID:customerID] appendPath:@"/addresses"] appendExtension];
+	return [[[self urlForLoggedInCustomer] appendPath:@"/addresses"] appendExtension];
 }
 
-- (NSURL *)urlForCustomersAddressWithID:(NSString *)customerID addressID:(NSNumber *)addressID
+- (NSURL *)urlForCustomersAddressWithAddressID:(NSNumber *)addressID
 {
-	return [[[[self urlForCustomersWithID:customerID] appendPath:@"/addresses"] appendIdentifier:addressID] appendExtension];
+	return [[[[self urlForLoggedInCustomer] appendPath:@"/addresses"] appendIdentifier:addressID] appendExtension];
 }
 
 #pragma mark - Utilities -

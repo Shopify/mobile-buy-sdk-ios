@@ -983,25 +983,25 @@
         <memberEntity name="CheckoutAttribute"/>
     </configuration>
     <elements>
-        <element name="Address" positionX="126" positionY="521" width="128" height="255"/>
-        <element name="Cart" positionX="-576" positionY="558" width="128" height="60"/>
-        <element name="CartLineItem" positionX="-380" positionY="558" width="128" height="90"/>
-        <element name="Checkout" positionX="333" positionY="442" width="128" height="630"/>
-        <element name="CheckoutAttribute" positionX="-954" positionY="594" width="128" height="90"/>
-        <element name="Collection" positionX="-963" positionY="772" width="128" height="195"/>
-        <element name="Customer" positionX="106" positionY="1263" width="128" height="330"/>
-        <element name="Discount" positionX="126" positionY="877" width="128" height="105"/>
-        <element name="GiftCard" positionX="531" positionY="862" width="128" height="135"/>
-        <element name="ImageLink" positionX="-1161" positionY="832" width="128" height="165"/>
-        <element name="LineItem" positionX="-18" positionY="727" width="128" height="315"/>
-        <element name="MaskedCreditCard" positionX="531" positionY="693" width="128" height="150"/>
-        <element name="Option" positionX="-576" positionY="907" width="128" height="105"/>
-        <element name="OptionValue" positionX="-387" positionY="907" width="128" height="105"/>
-        <element name="Order" positionX="682" positionY="922" width="128" height="180"/>
-        <element name="Product" positionX="-765" positionY="712" width="128" height="285"/>
-        <element name="ProductVariant" positionX="-182" positionY="787" width="128" height="240"/>
-        <element name="ShippingRate" positionX="531" positionY="1035" width="128" height="135"/>
-        <element name="Shop" positionX="-279" positionY="450" width="128" height="255"/>
-        <element name="TaxLine" positionX="126" positionY="1026" width="128" height="133"/>
+        <element name="Address" positionX="-990" positionY="1444" width="128" height="255"/>
+        <element name="Cart" positionX="-1192" positionY="978" width="128" height="60"/>
+        <element name="CartLineItem" positionX="-987" positionY="1183" width="128" height="90"/>
+        <element name="Checkout" positionX="-765" positionY="1072" width="128" height="630"/>
+        <element name="CheckoutAttribute" positionX="-990" positionY="1332" width="128" height="90"/>
+        <element name="Collection" positionX="-1588" positionY="1063" width="128" height="195"/>
+        <element name="Customer" positionX="-1190" positionY="1359" width="128" height="330"/>
+        <element name="Discount" positionX="-551" positionY="1377" width="128" height="105"/>
+        <element name="GiftCard" positionX="-540" positionY="1492" width="128" height="135"/>
+        <element name="ImageLink" positionX="-1786" positionY="1108" width="128" height="165"/>
+        <element name="LineItem" positionX="-353" positionY="1342" width="128" height="315"/>
+        <element name="MaskedCreditCard" positionX="-567" positionY="1218" width="128" height="150"/>
+        <element name="Option" positionX="-1588" positionY="1287" width="128" height="105"/>
+        <element name="OptionValue" positionX="-1390" positionY="894" width="128" height="105"/>
+        <element name="Order" positionX="-549" positionY="1647" width="128" height="180"/>
+        <element name="Product" positionX="-1390" positionY="1018" width="128" height="300"/>
+        <element name="ProductVariant" positionX="-1192" positionY="1063" width="128" height="240"/>
+        <element name="ShippingRate" positionX="-569" positionY="1836" width="128" height="135"/>
+        <element name="Shop" positionX="-1786" positionY="843" width="128" height="255"/>
+        <element name="TaxLine" positionX="-990" positionY="1737" width="128" height="133"/>
     </elements>
 </model>

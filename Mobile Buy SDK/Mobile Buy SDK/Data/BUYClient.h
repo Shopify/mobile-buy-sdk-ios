@@ -25,8 +25,9 @@
 //
 
 @import Foundation;
-#import "BUYClientTypes.h"
+#import <Buy/BUYClientTypes.h>
 
+@class BUYCustomerToken;
 @class BUYModelManager;
 @class BUYOperation;
 @class BUYRequestOperation;
@@ -97,7 +98,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param token The token received from the create and login callbacks
  */
-@property (strong, nonatomic, nullable) NSString *customerToken;
+@property (strong, nonatomic, nullable) BUYCustomerToken *customerToken;
 
 @end
 

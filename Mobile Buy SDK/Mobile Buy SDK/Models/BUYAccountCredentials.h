@@ -48,6 +48,7 @@ OBJC_EXTERN NSString * const BUYAccountPasswordKey;
 
 + (BUYAccountCredentials *)credentialsWithItems:(NSArray<BUYAccountCredentialItem *> *)items;
 - (instancetype)initWithItems:(NSArray<BUYAccountCredentialItem *> *)items;
+- (BUYAccountCredentialItem *)credentialItemForKey:(NSString *)key;
 
 - (BUYAccountCredentials *)credentialsByAddingItems:(NSArray<BUYAccountCredentialItem *> *)items;
 

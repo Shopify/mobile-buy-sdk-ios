@@ -26,6 +26,7 @@
 
 #import <XCTest/XCTest.h>
 #import "BUYClient+Routing.h"
+#import "BUYCustomerToken.h"
 
 @interface BUYClient_RoutingTests : XCTestCase
 
@@ -42,13 +43,14 @@
     [super setUp];
 	
 	self.client = [[BUYClient alloc] initWithShopDomain:@"_DOMAIN_" apiKey:@"_API_KEY_" appId:@"_APP_ID_"];
+	self.client.customerToken = [[BUYCustomerToken alloc] initWithCustomerID:@1 accessToken:@"token" expiry:[NSDate date]];
 }
 
 #pragma mark - Test Routes -
 
 - (void)testRoutes
 {
-	NSString *identifier     = @"_ID_";
+	NSString *identifier     = @"1";
 	NSString *token          = @"_TOKEN_";
 	NSDictionary *parameters = @{ @"param" : @"value" };
 	
@@ -122,41 +124,37 @@
 						  @"https://_DOMAIN_/api/customers/recover.json"
 						  );
 	XCTAssertEqualObjects(
-						  [self.client urlForCustomersOrdersWithID:identifier].absoluteString,
-						  @"https://_DOMAIN_/api/customers/_ID_/orders.json"
+						  [self.client urlForCustomersOrders].absoluteString,
+						  @"https://_DOMAIN_/api/customers/1/orders.json"
 						  );
 	XCTAssertEqualObjects(
-						  [self.client urlForCustomersOrdersWithID:identifier orderID:@99].absoluteString,
-						  @"https://_DOMAIN_/api/customers/_ID_/orders/99.json"
+						  [self.client urlForCustomersOrdersWithOrderID:@99].absoluteString,
+						  @"https://_DOMAIN_/api/customers/1/orders/99.json"
 						  );
 	XCTAssertEqualObjects(
 						  [self.client urlForCustomersWithID:identifier].absoluteString,
-						  @"https://_DOMAIN_/api/customers/_ID_.json"
+						  @"https://_DOMAIN_/api/customers/1.json"
 						  );
 	XCTAssertEqualObjects(
 						  [self.client urlForCustomersActivationWithID:identifier parameters:parameters].absoluteString,
-						  @"https://_DOMAIN_/api/customers/_ID_/activate.json?param=value"
+						  @"https://_DOMAIN_/api/customers/1/activate.json?param=value"
 						  );
 	XCTAssertEqualObjects(
-						  [self.client urlForCustomersTokenWithID:identifier].absoluteString,
-						  @"https://_DOMAIN_/api/customers/_ID_/customer_token.json"
-						  );
-	XCTAssertEqualObjects(
-						  [self.client urlForCustomersTokenRenewalWithID:identifier].absoluteString,
-						  @"https://_DOMAIN_/api/customers/_ID_/customer_token/renew.json"
+						  [self.client urlForCustomersTokenRenewal].absoluteString,
+						  @"https://_DOMAIN_/api/customers/1/customer_token/renew.json"
 						  );
 	XCTAssertEqualObjects(
 						  [self.client urlForCustomersPasswordResetWithID:identifier parameters:parameters].absoluteString,
-						  @"https://_DOMAIN_/api/customers/_ID_/reset.json?param=value"
+						  @"https://_DOMAIN_/api/customers/1/reset.json?param=value"
 						  );
 	
 	XCTAssertEqualObjects(
-						  [self.client urlForCustomersAddressesWithID:identifier].absoluteString,
-						  @"https://_DOMAIN_/api/customers/_ID_/addresses.json"
+						  [self.client urlForCustomersAddresses].absoluteString,
+						  @"https://_DOMAIN_/api/customers/1/addresses.json"
 						  );
 	XCTAssertEqualObjects(
-						  [self.client urlForCustomersAddressWithID:identifier addressID:@999].absoluteString,
-						  @"https://_DOMAIN_/api/customers/_ID_/addresses/999.json"
+						  [self.client urlForCustomersAddressWithAddressID:@999].absoluteString,
+						  @"https://_DOMAIN_/api/customers/1/addresses/999.json"
 						  );
 }
 

@@ -27,9 +27,10 @@
 #import <Buy/BUYClient.h>
 NS_ASSUME_NONNULL_BEGIN
 
-@class BUYCustomer;
-@class BUYOrder;
 @class BUYAccountCredentials;
+@class BUYCustomer;
+@class BUYCustomerToken;
+@class BUYOrder;
 
 /**
  *  Return block containing a BUYCustomer object for an existing customer of the shop
@@ -46,7 +47,7 @@ typedef void (^BUYDataCustomerBlock)(BUYCustomer * _Nullable customer, NSError *
  *  @param token    An authentication token to retrieve the customer later.  Store this token securely on the device.
  *  @param error    An optional NSError
  */
-typedef void (^BUYDataCustomerTokenBlock)(BUYCustomer * _Nullable customer, NSString * _Nullable token, NSError * _Nullable error);
+typedef void (^BUYDataCustomerTokenBlock)(BUYCustomer * _Nullable customer, BUYCustomerToken * _Nullable token, NSError * _Nullable error);
 
 /**
  *  Return block containing a customer auth token
@@ -54,7 +55,7 @@ typedef void (^BUYDataCustomerTokenBlock)(BUYCustomer * _Nullable customer, NSSt
  *  @param token    An authentication token to retrieve the customer later.  Store this token securely on the device.
  *  @param error    An optional NSError
  */
-typedef void (^BUYDataTokenBlock)(NSString * _Nullable token, NSError * _Nullable error);
+typedef void (^BUYDataTokenBlock)(BUYCustomerToken * _Nullable token, NSError * _Nullable error);
 
 /**
  *  Return block containing an array of BUYOrders
@@ -81,12 +82,11 @@ typedef void (^BUYDataOrderBlock)(BUYOrder * _Nullable order, NSError * _Nullabl
  *  GET /api/customers/:customer_id
  *  Gets an existing customer
  *
- *  @param customerID A customer ID retrieved from either customer creation or login
  *  @param block      (BUYCustomer *customer, NSError *error)
  *
  *  @return The associated BUYRequestOperation
  */
-- (NSOperation *)getCustomerWithID:(NSString *)customerID callback:(BUYDataCustomerBlock)block;
+- (NSOperation *)getCustomerCallback:(BUYDataCustomerBlock)block;
 
 #pragma mark - Customer -
 
@@ -115,19 +115,18 @@ typedef void (^BUYDataOrderBlock)(BUYOrder * _Nullable order, NSError * _Nullabl
  *
  *  @return The associated BUYRequestOperation
  */
-- (NSOperation *)activateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID token:(NSString *)token callback:(BUYDataCustomerTokenBlock)block;
+- (NSOperation *)activateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSNumber *)customerID token:(NSString *)token callback:(BUYDataCustomerTokenBlock)block;
 
 /**
  *  PUT /api/customers/:customer_id
  *  Update customer credentials represented by BUYAccountCredentials object
  *
  *  @param credentials   Credentials containing a password
- *  @param customerID    ID of customer being activated
  *  @param block         (BUYCustomer *customer, NSError *error)
  *
  *  @return The associated BUYRequestOperation
  */
-- (NSOperation *)updateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID callback:(BUYDataCustomerBlock)block;
+- (NSOperation *)updateCustomerWithCredentials:(BUYAccountCredentials *)credentials callback:(BUYDataCustomerBlock)block;
 
 /**
  *  PUT /api/customers/:customer_id/reset
@@ -140,7 +139,7 @@ typedef void (^BUYDataOrderBlock)(BUYOrder * _Nullable order, NSError * _Nullabl
  *
  *  @return The associated BUYRequestOperation
  */
-- (NSOperation *)resetPasswordWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID token:(NSString *)token callback:(BUYDataCustomerTokenBlock)block;
+- (NSOperation *)resetPasswordWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSNumber *)customerID token:(NSString *)token callback:(BUYDataCustomerTokenBlock)block;
 
 #pragma mark - Token -
 
@@ -148,12 +147,11 @@ typedef void (^BUYDataOrderBlock)(BUYOrder * _Nullable order, NSError * _Nullabl
  *  PUT /api/customers/:customer_id/customer_token/renew
  *  Renews an existing customer's token
  *
- *  @param customerID ID of customer renewing token
  *  @param block      (NSString *token, NSError *error)
  *
  *  @return the associated BUYRequestOperation
  */
-- (NSOperation *)renewCustomerTokenWithID:(NSString *)customerID callback:(BUYDataTokenBlock)block;
+- (NSOperation *)renewCustomerTokenCallback:(BUYDataTokenBlock)block;
 
 #pragma mark - Login -
 
@@ -172,14 +170,12 @@ typedef void (^BUYDataOrderBlock)(BUYOrder * _Nullable order, NSError * _Nullabl
 /**
  *  DELETE /api/customers/:customer_id/customer_token
  *  Logs out an existing customer
- *  Expects a customerID string
  *
- *  @param customer A customerID represented by a string
  *  @param block    (BUYStatus status, NSError *error)
  *
  *  @return The associated BUYRequestOperation
  */
-- (NSOperation *)logoutCustomerID:(NSString *)customerID callback:(BUYDataStatusBlock)block;
+- (NSOperation *)logoutCustomerCallback:(BUYDataStatusBlock)block;
 
 /**
  *  POST /api/customers/recover
@@ -198,24 +194,22 @@ typedef void (^BUYDataOrderBlock)(BUYOrder * _Nullable order, NSError * _Nullabl
  *  GET /api/customers/:customer_id/orders
  *  Gets orders for a given customer
  *
- *  @param customerID A customer ID for which to retrieve the order
  *  @param block      (NSArray <BUYOrder*> *orders, NSError *error)
  *
  *  @return The associated BUYRequestOperation
  */
-- (NSOperation *)getOrdersForCustomerWithID:(NSString *)customerID callback:(BUYDataOrdersBlock)block;
+- (NSOperation *)getOrdersForCustomerCallback:(BUYDataOrdersBlock)block;
 
 /**
  *  GET /api/customers/:customer_id/orders/:id
  *  Gets order with a given identifier
  *
- *  @param customerID A customer ID for which to retrieve the order
  *  @param orderID    An order ID to retrieve
  *  @param block      (NSArray <BUYOrder*> *orders, NSError *error)
  *
  *  @return The associated BUYRequestOperation
  */
-- (NSOperation *)getOrderWithID:(NSNumber *)orderID customerID:(NSString *)customerID callback:(BUYDataOrderBlock)block;
+- (NSOperation *)getOrderWithID:(NSNumber *)orderID callback:(BUYDataOrderBlock)block;
 
 @end
 

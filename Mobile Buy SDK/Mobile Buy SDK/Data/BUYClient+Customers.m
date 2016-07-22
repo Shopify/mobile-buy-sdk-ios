@@ -27,20 +27,21 @@
 #import "BUYClient+Customers.h"
 #import "BUYClient+Internal.h"
 #import "BUYClient+Routing.h"
-#import "NSDateFormatter+BUYAdditions.h"
-#import "BUYCustomer.h"
+
 #import "BUYAccountCredentials.h"
-#import "BUYAuthenticatedResponse.h"
+#import "BUYCustomer.h"
+#import "BUYCustomerToken.h"
 #import "BUYOrder.h"
 #import "BUYShopifyErrorCodes.h"
+#import "NSDateFormatter+BUYAdditions.h"
 
 @implementation BUYClient (Customers)
 
 #pragma mark - Getting -
 
-- (NSOperation *)getCustomerWithID:(NSString *)customerID callback:(BUYDataCustomerBlock)block
+- (NSOperation *)getCustomerCallback:(BUYDataCustomerBlock)block
 {
-	NSURL *url = [self urlForCustomersWithID:customerID];
+	NSURL *url = [self urlForLoggedInCustomer];
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		BUYCustomer *customer = nil;
 		if (json && !error) {
@@ -65,9 +66,9 @@
 	}];
 }
 
-- (NSOperation *)activateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID token:(NSString *)token callback:(BUYDataCustomerTokenBlock)block
+- (NSOperation *)activateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSNumber *)customerID token:(NSString *)token callback:(BUYDataCustomerTokenBlock)block
 {
-	NSURL *url = [self urlForCustomersActivationWithID:customerID parameters:@{ @"token": token }];
+	NSURL *url = [self urlForCustomersActivationWithID:customerID.stringValue parameters:@{ @"token": token }];
 	
 	return [self putRequestForURL:url object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		NSString *email = json[@"customer"][@"email"];
@@ -81,9 +82,9 @@
 	}];
 }
 
-- (NSOperation *)updateCustomerWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID callback:(BUYDataCustomerBlock)block
+- (NSOperation *)updateCustomerWithCredentials:(BUYAccountCredentials *)credentials callback:(BUYDataCustomerBlock)block
 {
-	NSURL *url = [self urlForCustomersWithID:customerID];
+	NSURL *url = [self urlForLoggedInCustomer];
 	return [self putRequestForURL:url object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		BUYCustomer *customer = nil;
 		if (json && !error) {
@@ -93,9 +94,9 @@
 	}];
 }
 
-- (NSOperation *)resetPasswordWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSString *)customerID token:(NSString *)token callback:(BUYDataCustomerTokenBlock)block
+- (NSOperation *)resetPasswordWithCredentials:(BUYAccountCredentials *)credentials customerID:(NSNumber *)customerID token:(NSString *)token callback:(BUYDataCustomerTokenBlock)block
 {
-	NSURL *url = [self urlForCustomersPasswordResetWithID:customerID parameters:@{ @"token": token }];
+	NSURL *url = [self urlForCustomersPasswordResetWithID:customerID.stringValue parameters:@{ @"token": token }];
 	
 	return [self putRequestForURL:url object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		NSString *email = json[@"customer"][@"email"];
@@ -111,19 +112,18 @@
 
 #pragma mark - Token -
 
-- (NSOperation *)renewCustomerTokenWithID:(NSString *)customerID callback:(BUYDataTokenBlock)block
+- (NSOperation *)renewCustomerTokenCallback:(BUYDataTokenBlock)block
 {
 	if (self.customerToken) {
-		NSURL *url = [self urlForCustomersTokenRenewalWithID:customerID];
+		NSURL *url = [self urlForCustomersTokenRenewal];
 		
 		return [self putRequestForURL:url object:nil completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
-			NSString *accessToken = nil;
+			BUYCustomerToken *customerToken = nil;
 			if (json && !error) {
-				BUYAuthenticatedResponse *authenticatedResponse = [BUYAuthenticatedResponse responseWithJSON:json];
-				accessToken = authenticatedResponse.accessToken;
+				customerToken = [BUYCustomerToken customerTokenWithJSONDictionary:json];
 			}
 			
-			block(accessToken, error);
+			block(customerToken, error);
 		}];
 	}
 	else {
@@ -134,9 +134,9 @@
 
 #pragma mark - Login -
 
-- (NSOperation *)logoutCustomerID:(NSString *)customerID callback:(BUYDataStatusBlock)block
+- (NSOperation *)logoutCustomerCallback:(BUYDataStatusBlock)block
 {
-	NSURL *url = [self urlForCustomersTokenWithID:customerID];
+	NSURL *url = [self urlForLoggedInCustomerToken];
 	return [self deleteRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		block(response.statusCode, error);
 	}];
@@ -157,9 +157,9 @@
 
 #pragma mark - Orders -
 
-- (NSOperation *)getOrdersForCustomerWithID:(NSString *)customerID callback:(BUYDataOrdersBlock)block
+- (NSOperation *)getOrdersForCustomerCallback:(BUYDataOrdersBlock)block
 {
-	NSURL *url = [self urlForCustomersOrdersWithID:customerID];
+	NSURL *url = [self urlForCustomersOrders];
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		if (json && !error) {
 			NSArray *orders = [self.modelManager ordersWithJSONDictionary:json];
@@ -170,9 +170,9 @@
 	}];
 }
 
-- (NSOperation *)getOrderWithID:(NSNumber *)orderID customerID:(NSString *)customerID callback:(BUYDataOrderBlock)block
+- (NSOperation *)getOrderWithID:(NSNumber *)orderID callback:(BUYDataOrderBlock)block
 {
-	NSURL *url = [self urlForCustomersOrdersWithID:customerID orderID:orderID];
+	NSURL *url = [self urlForCustomersOrdersWithOrderID:orderID];
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		if (json && !error) {
 			BUYOrder *order = [self.modelManager orderWithJSONDictionary:json];
@@ -190,11 +190,9 @@
 	NSURL *url = [self urlForCustomersToken];
 	return [self postRequestForURL:url object:credentials.JSONRepresentation completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		if (json && !error) {
-			BUYAuthenticatedResponse *authenticatedResponse = [BUYAuthenticatedResponse responseWithJSON:json];
-			self.customerToken = authenticatedResponse.accessToken;
-			
+			self.customerToken = [BUYCustomerToken customerTokenWithJSONDictionary:json];
 			if (!customerJSON) {
-				[self getCustomerWithID:authenticatedResponse.customerID callback:^(BUYCustomer *customer, NSError *error) {
+				[self getCustomerCallback:^(BUYCustomer *customer, NSError *error) {
 					block(customer, self.customerToken, error);
 				}];
 			}

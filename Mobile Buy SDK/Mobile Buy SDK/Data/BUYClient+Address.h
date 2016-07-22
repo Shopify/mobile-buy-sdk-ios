@@ -51,60 +51,55 @@ typedef void (^BUYDataAddressBlock)(BUYAddress * _Nullable address, NSError * _N
  *  GET /api/customers/:customer_id/addresses
  *  Fetch all customer addresses
  *
- *  @param customerID Customer ID for which to fetch all address
  *  @param block      (NSArray<BUYAddress *> *addresses, NSError *error)
  *
  *  @return The associated BUYRequestOperation
  */
-- (NSOperation *)getAddressesForCustomerID:(NSString *)customerID callback:(BUYDataAddressesBlock)block;
+- (NSOperation *)getAddressesCallback:(BUYDataAddressesBlock)block;
 
 /**
  *  GET /api/customers/:customer_id/addresses/:id
  *  Fetch a customer address by ID
  *
  *  @param addressID  Identifier of the address to fetch
- *  @param customerID Customer ID for which to fetch the address
  *  @param block      (BUYAddress *address, NSError *error)
  *
  *  @return The associated BUYRequestOperation
  */
-- (NSOperation *)getAddressWithID:(NSNumber *)addressID customerID:(NSString *)customerID callback:(BUYDataAddressBlock)block;
+- (NSOperation *)getAddressWithID:(NSNumber *)addressID callback:(BUYDataAddressBlock)block;
 
 /**
  *  POST /api/customers/:customer_id/addresses
  *  Creates a new customer address
  *
  *  @param address  Address to create
- *  @param customer Customer ID for which to create the address
  *  @param block    (BUYAddress *address, NSError *error)
  *
  *  @return The associated BUYRequestOperation
  */
-- (NSOperation *)createAddress:(BUYAddress *)address customerID:(NSString *)customerID callback:(BUYDataAddressBlock)block;
+- (NSOperation *)createAddress:(BUYAddress *)address callback:(BUYDataAddressBlock)block;
 
 /**
  *  PUT /api/customers/:customer_id/addresses/:id
  *  Updates the customer address
  *
  *  @param address    Address to update, containing updated values
- *  @param customerID Customer ID for which to update the address
  *  @param block      (BUYAddress *address, NSError *error)
  *
  *  @return The associated BUYRequestOperation
  */
-- (NSOperation *)updateAddress:(BUYAddress *)address customerID:(NSString *)customerID callback:(BUYDataAddressBlock)block;
+- (NSOperation *)updateAddress:(BUYAddress *)address callback:(BUYDataAddressBlock)block;
 
 /**
  *  DELETE /api/customers/:customer_id/addresses/:id
  *  Delete the customer address
  *
  *  @param addressID  Address ID to delete
- *  @param customerID Customer ID for which to delete the address
  *  @param block      (BUYStatus status, NSError *error)
  *
  *  @return The associated BUYRequestOperation
  */
-- (NSOperation *)deleteAddressWithID:(NSNumber *)addressID customerID:(NSString *)customerID callback:(BUYDataStatusBlock)block;
+- (NSOperation *)deleteAddressWithID:(NSNumber *)addressID callback:(BUYDataStatusBlock)block;
 
 @end
 
