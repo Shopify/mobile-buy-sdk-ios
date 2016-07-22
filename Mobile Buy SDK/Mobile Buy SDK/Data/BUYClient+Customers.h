@@ -119,14 +119,13 @@ typedef void (^BUYDataOrderBlock)(BUYOrder * _Nullable order, NSError * _Nullabl
 
 /**
  *  PUT /api/customers/:customer_id
- *  Update customer credentials represented by BUYAccountCredentials object
  *
- *  @param credentials   Credentials containing a password
- *  @param block         (BUYCustomer *customer, NSError *error)
+ *  @param customer		the customer object to update
+ *  @param block        (BUYCustomer *customer, NSError *error)
  *
  *  @return The associated BUYRequestOperation
  */
-- (NSOperation *)updateCustomerWithCredentials:(BUYAccountCredentials *)credentials callback:(BUYDataCustomerBlock)block;
+- (NSOperation *)updateCustomer:(BUYCustomer *)customer callback:(BUYDataCustomerBlock)block;
 
 /**
  *  PUT /api/customers/:customer_id/reset

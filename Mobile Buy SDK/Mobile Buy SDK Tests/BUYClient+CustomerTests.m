@@ -197,29 +197,6 @@
 	[self waitForExpectationsWithTimeout:10.0 handler:^(NSError *error) {}];
 }
 
-#pragma mark - Update -
-
-- (void)testCustomerUpdate
-{
-	[OHHTTPStubs stubUsingResponseWithKey:@"testCustomerLogin" useMocks:[self shouldUseMocks]];
-
-	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	
-	BUYAccountCredentialItem *email    = [BUYAccountCredentialItem itemWithEmail:self.customerEmail];
-	BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:@[email]];
-	
-	[self.client updateCustomerWithCredentials:credentials callback:^(BUYCustomer *customer, NSError *error) {
-		
-		XCTAssertNil(error);
-		XCTAssertNotNil(customer);
-		XCTAssertEqualObjects(customer.email, self.customerEmail);
-		
-		[expectation fulfill];
-	}];
-	
-	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {}];
-}
-
 #pragma mark - Address -
 
 - (void)testGetAddresses
