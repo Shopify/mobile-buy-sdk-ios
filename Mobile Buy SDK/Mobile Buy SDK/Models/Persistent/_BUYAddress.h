@@ -39,6 +39,7 @@ extern const struct BUYAddressAttributes {
 	__unsafe_unretained NSString *countryCode;
 	__unsafe_unretained NSString *firstName;
 	__unsafe_unretained NSString *identifier;
+	__unsafe_unretained NSString *isDefault;
 	__unsafe_unretained NSString *lastName;
 	__unsafe_unretained NSString *phone;
 	__unsafe_unretained NSString *province;
@@ -115,6 +116,17 @@ extern const struct BUYAddressUserInfo {
 - (void)setIdentifierValue:(int64_t)value_;
 
 /**
+ * Whether the address is the owning customer's default address.
+ *
+ * Maps to "default" key in JSON.
+ */
+@property (nonatomic, strong) NSNumber* isDefault;
+
+@property (atomic) BOOL isDefaultValue;
+- (BOOL)isDefaultValue;
+- (void)setIsDefaultValue:(BOOL)value_;
+
+/**
  * The last name of the person associated with the payment method.
  */
 @property (nonatomic, strong) NSString* lastName;
@@ -168,6 +180,9 @@ extern const struct BUYAddressUserInfo {
 
 - (NSNumber*)primitiveIdentifier;
 - (void)setPrimitiveIdentifier:(NSNumber*)value;
+
+- (NSNumber*)primitiveIsDefault;
+- (void)setPrimitiveIsDefault:(NSNumber*)value;
 
 - (NSString*)primitiveLastName;
 - (void)setPrimitiveLastName:(NSString*)value;

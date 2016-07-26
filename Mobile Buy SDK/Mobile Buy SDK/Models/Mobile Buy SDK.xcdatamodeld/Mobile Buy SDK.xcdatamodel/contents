@@ -41,6 +41,13 @@
                 <entry key="documentation" value="Unique identifier for the address"/>
             </userInfo>
         </attribute>
+        <attribute name="isDefault" optional="YES" attributeType="Boolean" syncable="YES">
+            <userInfo>
+                <entry key="discussion" value="Maps to &quot;default&quot; key in JSON."/>
+                <entry key="documentation" value="Whether the address is the owning customer's default address."/>
+                <entry key="JSONPropertyKey" value="default"/>
+            </userInfo>
+        </attribute>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="The last name of the person associated with the payment method."/>
@@ -983,7 +990,7 @@
         <memberEntity name="CheckoutAttribute"/>
     </configuration>
     <elements>
-        <element name="Address" positionX="-990" positionY="1444" width="128" height="255"/>
+        <element name="Address" positionX="-990" positionY="1444" width="128" height="270"/>
         <element name="Cart" positionX="-1192" positionY="978" width="128" height="60"/>
         <element name="CartLineItem" positionX="-987" positionY="1183" width="128" height="90"/>
         <element name="Checkout" positionX="-765" positionY="1072" width="128" height="630"/>
