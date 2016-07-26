@@ -253,6 +253,26 @@
 	}];
 }
 
+- (void)testCollectionHandle
+{
+	[OHHTTPStubs stubUsingResponseWithKey:@"testGetCollection_0" useMocks:[self shouldUseMocks]];
+	
+    XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self.client getCollectionByHandle:@"frontpage" completion:^(BUYCollection * _Nullable collection, NSError * _Nullable error) {
+        
+        XCTAssertNotNil(collection);
+        XCTAssertEqualObjects(@"Frontpage", collection.title);
+		XCTAssertEqualObjects(@109931075, collection.identifier);
+        XCTAssertNil(error);
+        
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+        XCTAssertNil(error);
+    }];
+}
+
 - (void)testProductsInCollection
 {
 	if (self.collection == nil) {
