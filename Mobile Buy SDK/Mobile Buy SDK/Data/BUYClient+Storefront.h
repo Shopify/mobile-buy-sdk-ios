@@ -144,7 +144,7 @@ typedef void (^BUYDataTagsListBlock)(NSArray <NSString *> * _Nullable tags, NSUI
  *
  *  @param block (^BUYDataShopBlock)(BUYShop *shop, NSError *error);
  *
- *  @return The associated BUYRequestOperation
+ *  @return The associated operation
  */
 - (NSOperation *)getShop:(BUYDataShopBlock)block;
 
@@ -154,7 +154,7 @@ typedef void (^BUYDataTagsListBlock)(NSArray <NSString *> * _Nullable tags, NSUI
  *  @param page  Page to request. Pages start at 1.
  *  @param block (^BUYDataProductListBlock)(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error);
  *
- *  @return The associated BUYRequestOperation
+ *  @return The associated operation
  */
 - (NSOperation *)getProductsPage:(NSUInteger)page completion:(BUYDataProductListBlock)block;
 
@@ -164,7 +164,7 @@ typedef void (^BUYDataTagsListBlock)(NSArray <NSString *> * _Nullable tags, NSUI
  *  @param handle  Product handle
  *  @param block   (^BUYDataProductBlock)(BUYProduct *product, NSError *error);
  *
- *  @return The associated BUYRequestOperation
+ *  @return The associated operation
  */
 - (NSOperation *)getProductByHandle:(NSString *)handle completion:(BUYDataProductBlock)block;
 
@@ -174,7 +174,7 @@ typedef void (^BUYDataTagsListBlock)(NSArray <NSString *> * _Nullable tags, NSUI
  *  @param productId Product ID
  *  @param block     (^BUYDataProductBlock)(BUYProduct *product, NSError *error);
  *
- *  @return The associated BUYRequestOperation
+ *  @return The associated operation
  */
 - (NSOperation *)getProductById:(NSNumber *)productId completion:(BUYDataProductBlock)block;
 
@@ -184,7 +184,7 @@ typedef void (^BUYDataTagsListBlock)(NSArray <NSString *> * _Nullable tags, NSUI
  *  @param productIds An array of `NSString` objects with Product IDs to fetch
  *  @param block      (^BUYDataProductsBlock)(NSArray *products, NSError *error);
  *
- *  @return The associated BUYRequestOperation
+ *  @return The associated operation
  */
 - (NSOperation *)getProductsByIds:(NSArray<NSNumber *> *)productIds completion:(BUYDataProductsBlock)block;
 
@@ -214,7 +214,7 @@ typedef void (^BUYDataTagsListBlock)(NSArray <NSString *> * _Nullable tags, NSUI
  *  @param page  Index of the page requested
  *  @param block (^BUYDataCollectionsBlock)(NSArray *collections, NSError *error)
  *
- *  @return The associated BUYRequestOperation
+ *  @return The associated operation
  */
 - (NSOperation *)getCollectionsPage:(NSUInteger)page completion:(BUYDataCollectionsListBlock)block;
 
@@ -226,7 +226,7 @@ typedef void (^BUYDataTagsListBlock)(NSArray <NSString *> * _Nullable tags, NSUI
  *  @param collectionId The `collectionId` found in the BUYCollection object to fetch the products from
  *  @param block        (NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error)
  *
- *  @return the associated BUYRequestOperation
+ *  @return the associated operation
  */
 - (NSOperation *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId completion:(BUYDataProductListBlock)block;
 
@@ -239,7 +239,7 @@ typedef void (^BUYDataTagsListBlock)(NSArray <NSString *> * _Nullable tags, NSUI
  *  @param sortOrder    The sort order that overrides the default collection sort order
  *  @param block        (NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error)
  *
- *  @return the associated BUYRequestOperation
+ *  @return the associated operation
  */
 - (NSOperation *)getProductsPage:(NSUInteger)page inCollection:(nullable NSNumber *)collectionId withTags:(nullable NSArray <NSString *> *)tags sortOrder:(BUYCollectionSort)sortOrder completion:(BUYDataProductListBlock)block;
 
