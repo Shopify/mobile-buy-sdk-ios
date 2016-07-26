@@ -78,6 +78,14 @@ typedef NS_ENUM(NSUInteger, BUYCollectionSort) {
 typedef void (^BUYDataShopBlock)(BUYShop * _Nullable shop, NSError * _Nullable error);
 
 /**
+ *  Return block containing a BUYCollection object and/or an NSError
+ *
+ *  @param collection  A BUYCollection object.
+ *  @param error       Optional NSError
+ */
+typedef void (^BUYDataCollectionBlock)(BUYCollection* _Nullable collection, NSError * _Nullable error);
+
+/**
  *  Return block containing a list of BUYCollection objects and/or an NSError
  *
  *  @param collections An array of BUYCollection objects
@@ -189,6 +197,16 @@ typedef void (^BUYDataTagsListBlock)(NSArray <NSString *> * _Nullable tags, NSUI
  *  @return The associated NSOperation
  */
 - (NSOperation *)getProductTagsPage:(NSUInteger)page completion:(BUYDataTagsListBlock)block;
+
+/**
+ *  Fetch a single collection by the handle of the collection.
+ *
+ *  @param handle Collection handle
+ *  @param block  (^BUYDataCollectionBlock)(BUYCollection* _Nullable collection, NSError * _Nullable error)
+ *
+ *  @return The associated operation.
+ */
+- (NSOperation *)getCollectionByHandle:(NSString *)handle completion:(BUYDataCollectionBlock)block;
 
 /**
  *  Fetches collections based off page
