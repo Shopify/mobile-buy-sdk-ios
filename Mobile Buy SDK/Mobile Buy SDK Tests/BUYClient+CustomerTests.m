@@ -232,6 +232,9 @@
 		XCTAssertTrue([addresses.firstObject isKindOfClass:[BUYAddress class]]);
 		XCTAssertNil(error);
 		
+		NSArray *defaultAddresses = [addresses filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isDefault == 1"]];
+		XCTAssertEqual(1, defaultAddresses.count);
+		
 		[expectation fulfill];
 	}];
 	

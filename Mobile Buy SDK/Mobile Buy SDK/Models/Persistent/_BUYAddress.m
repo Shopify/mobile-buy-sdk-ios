@@ -37,6 +37,7 @@ const struct BUYAddressAttributes BUYAddressAttributes = {
 	.countryCode = @"countryCode",
 	.firstName = @"firstName",
 	.identifier = @"identifier",
+	.isDefault = @"isDefault",
 	.lastName = @"lastName",
 	.phone = @"phone",
 	.province = @"province",
@@ -66,6 +67,11 @@ const struct BUYAddressUserInfo BUYAddressUserInfo = {
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
+	if ([key isEqualToString:@"isDefaultValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"isDefault"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 
 	return keyPaths;
 }
@@ -79,6 +85,7 @@ const struct BUYAddressUserInfo BUYAddressUserInfo = {
 @dynamic countryCode;
 @dynamic firstName;
 @dynamic identifier;
+@dynamic isDefault;
 @dynamic lastName;
 @dynamic phone;
 @dynamic province;
@@ -93,6 +100,15 @@ const struct BUYAddressUserInfo BUYAddressUserInfo = {
 
 - (void)setIdentifierValue:(int64_t)value_ {
 	[self setIdentifier:@(value_)];
+}
+
+- (BOOL)isDefaultValue {
+	NSNumber *result = [self isDefault];
+	return [result boolValue];
+}
+
+- (void)setIsDefaultValue:(BOOL)value_ {
+	[self setIsDefault:@(value_)];
 }
 
 #if defined CORE_DATA_PERSISTENCE
