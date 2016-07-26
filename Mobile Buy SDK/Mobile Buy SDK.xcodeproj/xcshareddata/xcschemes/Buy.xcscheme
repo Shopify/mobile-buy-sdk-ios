@@ -28,7 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "90F592EB1B0D5EFE0026B382"
+               BuildableName = "Mobile Buy SDK Tests.xctest"
+               BlueprintName = "Mobile Buy SDK Tests"
+               ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "901930E11BC5B9BC00D1134E"
+            BuildableName = "Buy.framework"
+            BlueprintName = "Buy"
+            ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>

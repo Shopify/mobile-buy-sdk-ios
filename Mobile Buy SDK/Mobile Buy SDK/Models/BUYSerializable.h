@@ -24,10 +24,17 @@
 //  THE SOFTWARE.
 //
 
-@import Foundation;
+#import <Foundation/Foundation.h>
+NS_ASSUME_NONNULL_BEGIN
 
 @protocol BUYSerializable <NSObject>
 
 - (NSDictionary *)jsonDictionaryForCheckout;
 
 @end
+
+@interface NSDictionary (BUYSerializable) <BUYSerializable>
+
+@end
+
+NS_ASSUME_NONNULL_END

@@ -29,23 +29,31 @@
 
 extern NSString * const BUYShopDomain_Placeholder;
 extern NSString * const BUYAPIKey_Placeholder;
-extern NSString * const BUYChannelId_Placeholder;
+extern NSString * const BUYAppId_Placeholder;
+extern NSString * const BUYFakeCustomerToken;
 
 @interface BUYClientTestBase : XCTestCase
 
 @property (nonatomic, strong) NSString *shopDomain;
 @property (nonatomic, strong) NSString *apiKey;
-@property (nonatomic, strong) NSString *channelId;
+@property (nonatomic, strong) NSString *appId;
 @property (nonatomic, strong) NSString *merchantId;
+@property (nonatomic, strong) NSString *customerEmail;
+@property (nonatomic, strong) NSString *customerPassword;
 @property (nonatomic, strong) NSString *giftCardCode;
 @property (nonatomic, strong) NSString *giftCardCode2;
 @property (nonatomic, strong) NSString *giftCardCode3;
 @property (nonatomic, strong) NSString *giftCardCodeExpired;
-@property (nonatomic, strong) NSString *giftCardIdExpired;
+@property (nonatomic, strong) NSNumber *giftCardIdExpired;
 @property (nonatomic, strong) NSString *giftCardCodeInvalid;
 @property (nonatomic, strong) NSString *discountCodeValid;
 @property (nonatomic, strong) NSString *discountCodeExpired;
+
+@property (nonatomic, strong) NSArray<NSNumber *> *customerOrderIDs;
 @property (nonatomic, strong) NSArray *productIds;
+@property (nonatomic, strong) NSNumber *variantUntrackedId;
+@property (nonatomic, strong) NSNumber *variantInventory1Id;
+@property (nonatomic, strong) NSNumber *variantSoldOutId;
 
 @property (nonatomic, strong) BUYClient *client;
 

@@ -1,0 +1,1014 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15F34" minimumToolsVersion="Xcode 7.0">
+    <entity name="Address" representedClassName="BUYAddress" syncable="YES">
+        <attribute name="address1" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The street address of the address."/>
+            </userInfo>
+        </attribute>
+        <attribute name="address2" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="An optional additional field for the street address of the address."/>
+            </userInfo>
+        </attribute>
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The city of the address."/>
+            </userInfo>
+        </attribute>
+        <attribute name="company" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The company of the person associated with the address (optional)."/>
+            </userInfo>
+        </attribute>
+        <attribute name="country" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The name of the country of the address."/>
+            </userInfo>
+        </attribute>
+        <attribute name="countryCode" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The two-letter code (ISO 3166-1 alpha-2 two-letter country code) for the country of the address."/>
+            </userInfo>
+        </attribute>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The first name of the person associated with the payment method."/>
+            </userInfo>
+        </attribute>
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="Unique identifier for the address"/>
+            </userInfo>
+        </attribute>
+        <attribute name="isDefault" optional="YES" attributeType="Boolean" syncable="YES">
+            <userInfo>
+                <entry key="discussion" value="Maps to &quot;default&quot; key in JSON."/>
+                <entry key="documentation" value="Whether the address is the owning customer's default address."/>
+                <entry key="JSONPropertyKey" value="default"/>
+            </userInfo>
+        </attribute>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The last name of the person associated with the payment method."/>
+            </userInfo>
+        </attribute>
+        <attribute name="phone" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The phone number at the address."/>
+            </userInfo>
+        </attribute>
+        <attribute name="province" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The name of the state or province of the address"/>
+            </userInfo>
+        </attribute>
+        <attribute name="provinceCode" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The two-letter abbreviation of the state or province of the address."/>
+            </userInfo>
+        </attribute>
+        <attribute name="zip" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The zip or postal code of the address."/>
+            </userInfo>
+        </attribute>
+        <relationship name="customer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Customer" inverseName="addresses" inverseEntity="Customer" syncable="YES"/>
+        <userInfo>
+            <entry key="documentation" value="A BUYAddress represents a shipping or billing address on an order. This will be associated with the customer upon completion."/>
+        </userInfo>
+    </entity>
+    <entity name="Cart" representedClassName="BUYCart" syncable="YES">
+        <relationship name="lineItems" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="CartLineItem" inverseName="cart" inverseEntity="CartLineItem" syncable="YES">
+            <userInfo>
+                <entry key="discussion" value="These are different from BUYLineItem objects. The line item objects do include the BUYProductVariant."/>
+                <entry key="documentation" value="Array of BUYCartLineItem objects in the cart"/>
+            </userInfo>
+        </relationship>
+        <userInfo>
+            <entry key="discussion" value="The BUYCart is the starting point for the Checkout API. You are responsible for building a cart, then transforming it into a BUYCheckout using the BUYDataClient. Private to app."/>
+            <entry key="documentation" value="A collection of products the user intends to purchase."/>
+            <entry key="private" value="YES"/>
+        </userInfo>
+    </entity>
+    <entity name="CartLineItem" representedClassName="BUYCartLineItem" syncable="YES">
+        <attribute name="quantity" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The quantity of the line item."/>
+            </userInfo>
+        </attribute>
+        <relationship name="cart" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Cart" inverseName="lineItems" inverseEntity="Cart" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The inverse relationship of Cart.lineItems."/>
+            </userInfo>
+        </relationship>
+        <relationship name="variant" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProductVariant" inverseName="cartLineItems" inverseEntity="ProductVariant" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The BUYProductVariant object associated with the line item when created using the preferred `initWithVariant:` initializer."/>
+            </userInfo>
+        </relationship>
+        <userInfo>
+            <entry key="documentation" value="A line item that references a product variant. Private to app."/>
+            <entry key="private" value="YES"/>
+        </userInfo>
+    </entity>
+    <entity name="Checkout" representedClassName="BUYCheckout" syncable="YES">
+        <attribute name="cartToken" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="Unique token for a cart which can be used to convert to a checkout"/>
+            </userInfo>
+        </attribute>
+        <attribute name="channelId" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="Channel ID where the checkout was created."/>
+            </userInfo>
+        </attribute>
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="currency" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The three letter code (ISO 4217) for the currency used for the payment."/>
+            </userInfo>
+        </attribute>
+        <attribute name="customerId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="Customer ID associated with the checkout."/>
+            </userInfo>
+        </attribute>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The customer's email address."/>
+            </userInfo>
+        </attribute>
+        <attribute name="includesTaxes" optional="YES" attributeType="Boolean" syncable="YES">
+            <userInfo>
+                <entry key="discussion" value="Maps to &quot;taxes_included&quot; in JSON."/>
+                <entry key="documentation" value="States whether or not the taxes are included in the price."/>
+                <entry key="JSONPropertyKey" value="taxes_included"/>
+            </userInfo>
+        </attribute>
+        <attribute name="marketingAttribution" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="attributeValueClassName" value="NSDictionary"/>
+                <entry key="discussion" value="Contains the application name and platform (defaults to applicationName set on the BUYClient, and &quot;iOS&quot; respectively."/>
+                <entry key="documentation" value="Attributions for the checkout."/>
+            </userInfo>
+        </attribute>
+        <attribute name="note" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="An optional note attached to the order."/>
+            </userInfo>
+        </attribute>
+        <attribute name="partialAddresses" optional="YES" attributeType="Boolean" syncable="YES">
+            <userInfo>
+                <entry key="discussion" value="Suitable to retrieve shipping rates."/>
+                <entry key="documentation" value="Informs server that the shipping address is partially filled with address info provided by PKPaymentAuthorizationViewController. Should only ever be YES. Setting to NO will throw an exception."/>
+            </userInfo>
+        </attribute>
+        <attribute name="paymentDue" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="Amount of payment due on the checkout."/>
+            </userInfo>
+        </attribute>
+        <attribute name="paymentURL" optional="YES" attributeType="Transformable" valueTransformerName="" syncable="YES">
+            <userInfo>
+                <entry key="attributeValueClassName" value="NSURL"/>
+                <entry key="documentation" value="URL to the payment gateway."/>
+                <entry key="JSONValueTransformer" value="BUYURL"/>
+            </userInfo>
+        </attribute>
+        <attribute name="privacyPolicyURL" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="attributeValueClassName" value="NSURL"/>
+                <entry key="documentation" value="The website URL for the privacy policy for the checkout."/>
+            </userInfo>
+        </attribute>
+        <attribute name="refundPolicyURL" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="attributeValueClassName" value="NSURL"/>
+                <entry key="documentation" value="The website URL for the refund policy for the checkout."/>
+            </userInfo>
+        </attribute>
+        <attribute name="requiresShipping" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="States whether or not the fulfillment requires shipping"/>
+            </userInfo>
+        </attribute>
+        <attribute name="reservationTime" optional="YES" attributeType="Integer 32" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="discussion" value="Setting to zero and updating the checkout will release inventory reserved by the checkout (when product inventory is not infinite). 300 seconds is default and maximum. `reservationTime` is reset to @300 on every `updateCheckout:completion:` call. This can also be done with  `removeProductReservationsFromCheckout:completion` found in the BUYClient."/>
+                <entry key="documentation" value="Reservation time on the checkout in seconds."/>
+            </userInfo>
+        </attribute>
+        <attribute name="reservationTimeLeft" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="Reservation time remaining on the checkout in seconds."/>
+            </userInfo>
+        </attribute>
+        <attribute name="shippingRateId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sourceIdentifier" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The unique identifier for the source: the channelId."/>
+            </userInfo>
+        </attribute>
+        <attribute name="sourceName" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The name of the source of the checkout: &quot;mobile_app&quot;."/>
+            </userInfo>
+        </attribute>
+        <attribute name="subtotalPrice" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="Price of the order before shipping and taxes."/>
+            </userInfo>
+        </attribute>
+        <attribute name="termsOfServiceURL" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="attributeValueClassName" value="NSURL"/>
+                <entry key="documentation" value="The website URL for the terms of service for the checkout."/>
+            </userInfo>
+        </attribute>
+        <attribute name="token" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="Unique token for the checkout on Shopify."/>
+            </userInfo>
+        </attribute>
+        <attribute name="totalPrice" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The sum of all the prices of all the items in the order, taxes and discounts included."/>
+            </userInfo>
+        </attribute>
+        <attribute name="totalTax" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The sum of all the taxes applied to the line items in the order."/>
+            </userInfo>
+        </attribute>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="webCheckoutURL" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="attributeValueClassName" value="NSURL"/>
+                <entry key="discussion" value="It is recommended to open the URL in Safari to take advantage of its autocompletion and credit card capture capabilities."/>
+                <entry key="documentation" value="URL which is used for completing checkout."/>
+                <entry key="JSONPropertyKey" value="web_url"/>
+            </userInfo>
+        </attribute>
+        <attribute name="webReturnToLabel" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="discussion" value="Defaults to &quot;Return to 'application'&quot;, where 'application' is the `applicationName` set on the BUYClient."/>
+                <entry key="documentation" value="The button title that will appear after checkout to return to the host app."/>
+            </userInfo>
+        </attribute>
+        <attribute name="webReturnToURL" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="attributeValueClassName" value="NSURL"/>
+                <entry key="discussion" value="Used to return to the app from the web checkout."/>
+                <entry key="documentation" value="The URL Scheme of the host app."/>
+            </userInfo>
+        </attribute>
+        <relationship name="attributes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CheckoutAttribute" inverseName="checkout" inverseEntity="CheckoutAttribute" syncable="YES"/>
+        <relationship name="billingAddress" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Address" syncable="YES"/>
+        <relationship name="creditCard" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MaskedCreditCard" inverseName="checkout" inverseEntity="MaskedCreditCard" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="Credit card stored on the checkout."/>
+            </userInfo>
+        </relationship>
+        <relationship name="discount" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Discount" inverseName="checkout" inverseEntity="Discount" syncable="YES">
+            <userInfo>
+                <entry key="discussion" value="Only one discount can be added to a checkout. Call `updateCheckout:completion:` after adding a discount to apply the discount code to the checkout."/>
+                <entry key="documentation" value="A discount added to the checkout."/>
+            </userInfo>
+        </relationship>
+        <relationship name="giftCards" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="GiftCard" inverseName="redemptions" inverseEntity="GiftCard" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="An array of BUYGiftCard objects applied to the checkout."/>
+            </userInfo>
+        </relationship>
+        <relationship name="lineItems" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="LineItem" inverseName="checkout" inverseEntity="LineItem" syncable="YES">
+            <userInfo>
+                <entry key="discussion" value="These are different from BUYCartLineItems in that the line item objects do not include the BUYProductVariant."/>
+                <entry key="documentation" value="Array of BUYLineItem objects in the checkout."/>
+            </userInfo>
+        </relationship>
+        <relationship name="order" optional="YES" maxCount="1" deletionRule="Deny" destinationEntity="Order" inverseName="checkout" inverseEntity="Order" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The BUYOrder for a completed checkout."/>
+            </userInfo>
+        </relationship>
+        <relationship name="shippingAddress" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Address" syncable="YES"/>
+        <relationship name="shippingRate" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ShippingRate" inverseName="checkout" inverseEntity="ShippingRate" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The shipping rate chosen for the checkout."/>
+            </userInfo>
+        </relationship>
+        <relationship name="taxLines" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TaxLine" inverseName="checkout" inverseEntity="TaxLine" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="Array of tax line objects on the checkout."/>
+            </userInfo>
+        </relationship>
+        <userInfo>
+            <entry key="discussion" value="Do not create a BUYCheckout object directly. Use initWithCart: to transform a BUYCart into a BUYCheckout."/>
+            <entry key="documentation" value="The checkout object. This is the main object that you will interact with when creating orders on Shopify."/>
+        </userInfo>
+    </entity>
+    <entity name="CheckoutAttribute" representedClassName="BUYCheckoutAttribute" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The attribute value."/>
+            </userInfo>
+        </attribute>
+        <relationship name="checkout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Checkout" inverseName="attributes" inverseEntity="Checkout" syncable="YES"/>
+        <userInfo>
+            <entry key="documentation" value="The attribute name."/>
+        </userInfo>
+    </entity>
+    <entity name="Collection" representedClassName="BUYCollection" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="handle" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The handle of the collection."/>
+            </userInfo>
+        </attribute>
+        <attribute name="htmlDescription" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="discussion" value="Maps to &quot;body_html&quot; in JSON."/>
+                <entry key="documentation" value="The html description."/>
+                <entry key="JSONPropertyKey" value="body_html"/>
+            </userInfo>
+        </attribute>
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="Maps to collection_id in the JSON"/>
+                <entry key="JSONPropertyKey" value="collection_id"/>
+            </userInfo>
+        </attribute>
+        <attribute name="published" optional="YES" attributeType="Boolean" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The state of whether the collection is currently published or not."/>
+            </userInfo>
+        </attribute>
+        <attribute name="publishedAt" optional="YES" attributeType="Date" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The publish date for the collection."/>
+            </userInfo>
+        </attribute>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The title of the collection."/>
+            </userInfo>
+        </attribute>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="image" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ImageLink" inverseName="collection" inverseEntity="ImageLink" syncable="YES"/>
+        <relationship name="products" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Product" inverseName="collections" inverseEntity="Product" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="Inverse of Product.collections."/>
+            </userInfo>
+        </relationship>
+        <userInfo>
+            <entry key="documentation" value="Represents a collection of products on the shop."/>
+        </userInfo>
+    </entity>
+    <entity name="Customer" representedClassName="BUYCustomer" syncable="YES">
+        <attribute name="acceptsMarketing" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="customerState" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastOrderID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="lastOrderName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="multipassIdentifier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="note" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ordersCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="tags" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="taxExempt" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="totalSpent" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="verifiedEmail" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="addresses" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Address" inverseName="customer" inverseEntity="Address" syncable="YES"/>
+        <relationship name="defaultAddress" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Address" syncable="YES"/>
+    </entity>
+    <entity name="Discount" representedClassName="BUYDiscount" syncable="YES">
+        <attribute name="amount" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The amount that is deducted from `paymentDue` on BUYCheckout."/>
+            </userInfo>
+        </attribute>
+        <attribute name="applicable" optional="YES" attributeType="Boolean" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="Whether this discount code can be applied to the checkout."/>
+            </userInfo>
+        </attribute>
+        <attribute name="code" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The unique identifier for the discount code."/>
+            </userInfo>
+        </attribute>
+        <relationship name="checkout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Checkout" inverseName="discount" inverseEntity="Checkout" syncable="YES">
+            <userInfo>
+                <entry key="description" value="Inverse of Checkout.discount."/>
+            </userInfo>
+        </relationship>
+        <userInfo>
+            <entry key="documentation" value="BUYDiscount represents a discount that is applied to the BUYCheckout."/>
+        </userInfo>
+    </entity>
+    <entity name="GiftCard" representedClassName="BUYGiftCard" syncable="YES">
+        <attribute name="amountUsed" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The amount of the gift card used by this checkout."/>
+            </userInfo>
+        </attribute>
+        <attribute name="balance" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The amount left on the gift card after being applied to this checkout."/>
+            </userInfo>
+        </attribute>
+        <attribute name="code" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="discussion" value="This is only used when applying a gift card and is not visible on a BUYCheckout object synced with Shopify."/>
+                <entry key="documentation" value="The gift card code."/>
+            </userInfo>
+        </attribute>
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="lastCharacters" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The last characters of the applied gift card code."/>
+            </userInfo>
+        </attribute>
+        <relationship name="redemptions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Checkout" inverseName="giftCards" inverseEntity="Checkout" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="Inverse of Checkout.giftCard."/>
+            </userInfo>
+        </relationship>
+        <userInfo>
+            <entry key="documentation" value="A gift card redeemed as payment on the checkout."/>
+        </userInfo>
+    </entity>
+    <entity name="ImageLink" representedClassName="BUYImageLink" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="position" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The position of the image for the product."/>
+            </userInfo>
+        </attribute>
+        <attribute name="sourceURL" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="attributeValueClassName" value="NSURL"/>
+                <entry key="discussion" value="Maps to &quot;src&quot; in JSON."/>
+                <entry key="documentation" value="Specifies the location of the product image."/>
+                <entry key="JSONPropertyKey" value="src"/>
+            </userInfo>
+        </attribute>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="variantIds" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="attributeValueClassName" value="NSArray"/>
+            </userInfo>
+        </attribute>
+        <relationship name="collection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Collection" inverseName="image" inverseEntity="Collection" syncable="YES"/>
+        <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Product" inverseName="images" inverseEntity="Product" syncable="YES">
+            <userInfo>
+                <entry key="discussion" value="Maps to &quot;product_id&quot; in JSON."/>
+                <entry key="documentation" value="Inverse of Product.images."/>
+                <entry key="JSONPropertyKey" value="product_id"/>
+            </userInfo>
+        </relationship>
+        <userInfo>
+            <entry key="documentation" value="A link to an image representing a product or collection."/>
+        </userInfo>
+    </entity>
+    <entity name="LineItem" representedClassName="BUYLineItem" syncable="YES">
+        <attribute name="compareAtPrice" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The competitor's prices for the same item."/>
+            </userInfo>
+        </attribute>
+        <attribute name="fulfilled" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="fulfillmentService" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="Service provider who is doing the fulfillment."/>
+            </userInfo>
+        </attribute>
+        <attribute name="grams" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The weight of the BUYProductVariant in grams."/>
+            </userInfo>
+        </attribute>
+        <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="linePrice" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The line price of the item (price * quantity)."/>
+            </userInfo>
+        </attribute>
+        <attribute name="price" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="discussion" value="This price does not need to match the product variant."/>
+                <entry key="documentation" value="The price of the BUYLineItem."/>
+            </userInfo>
+        </attribute>
+        <attribute name="productId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="properties" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="attributeValueClassName" value="NSDictionary"/>
+                <entry key="documentation" value="Custom properties set on the line item."/>
+            </userInfo>
+        </attribute>
+        <attribute name="quantity" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The quantity of the BUYLineItem."/>
+            </userInfo>
+        </attribute>
+        <attribute name="requiresShipping" optional="YES" attributeType="Boolean" syncable="YES">
+            <userInfo>
+                <entry key="discussion" value="This needs to match the product variant."/>
+                <entry key="documentation" value="Whether this BUYLineItem requires shipping."/>
+            </userInfo>
+        </attribute>
+        <attribute name="sku" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The unique SKU for the line item."/>
+            </userInfo>
+        </attribute>
+        <attribute name="taxable" optional="YES" attributeType="Boolean" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="Whether the line item is taxable."/>
+            </userInfo>
+        </attribute>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="discussion" value="The title does not need to match the product variant."/>
+                <entry key="documentation" value="The title of the BUYLineItem."/>
+            </userInfo>
+        </attribute>
+        <attribute name="variantId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES">
+            <userInfo>
+                <entry key="discussion" value="Keep a reference to a cart or products if you wish to display information for product variants in a BUYCheckout."/>
+                <entry key="documentation" value="BUYProductVariant identifer."/>
+            </userInfo>
+        </attribute>
+        <attribute name="variantTitle" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The title for the variant in the line item."/>
+            </userInfo>
+        </attribute>
+        <relationship name="checkout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Checkout" inverseName="lineItems" inverseEntity="Checkout" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="Inverse of Checkout.lineItem."/>
+            </userInfo>
+        </relationship>
+        <relationship name="order" optional="YES" maxCount="1" deletionRule="Deny" destinationEntity="Order" inverseName="lineItems" inverseEntity="Order" syncable="YES"/>
+        <userInfo>
+            <entry key="documentation" value="This represents a BUYLineItem on a BUYCart or on a BUYCheckout."/>
+        </userInfo>
+    </entity>
+    <entity name="MaskedCreditCard" representedClassName="BUYMaskedCreditCard" syncable="YES">
+        <attribute name="expiryMonth" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The two digits representing the month the card expires."/>
+            </userInfo>
+        </attribute>
+        <attribute name="expiryYear" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The year the card expires."/>
+            </userInfo>
+        </attribute>
+        <attribute name="firstDigits" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The first digits of credit card number."/>
+            </userInfo>
+        </attribute>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The first name on the credit card."/>
+            </userInfo>
+        </attribute>
+        <attribute name="lastDigits" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The last digits of credit card number."/>
+            </userInfo>
+        </attribute>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The last name on the credit card."/>
+            </userInfo>
+        </attribute>
+        <relationship name="checkout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Checkout" inverseName="creditCard" inverseEntity="Checkout" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="Inverse of Checkout.creditCard."/>
+            </userInfo>
+        </relationship>
+        <userInfo>
+            <entry key="documentation" value="This represents a masked credit card that has been applied to a checkout."/>
+            <entry key="Transient" value="YES"/>
+        </userInfo>
+    </entity>
+    <entity name="Option" representedClassName="BUYOption" syncable="YES">
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" maxValueString="255" syncable="YES">
+            <userInfo>
+                <entry key="discussion" value="255 characters limit each."/>
+                <entry key="documentation" value="Custom product property names like &quot;Size&quot;, &quot;Color&quot;, and &quot;Material&quot;."/>
+            </userInfo>
+        </attribute>
+        <attribute name="position" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The order in which the option should optionally appear."/>
+            </userInfo>
+        </attribute>
+        <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Product" inverseName="options" inverseEntity="Product" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="Inverse of Product.options."/>
+                <entry key="JSONPropertyKey" value="product_id"/>
+            </userInfo>
+        </relationship>
+        <userInfo>
+            <entry key="documentation" value="The associated product for this option."/>
+        </userInfo>
+    </entity>
+    <entity name="OptionValue" representedClassName="BUYOptionValue" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" maxValueString="255" syncable="YES">
+            <userInfo>
+                <entry key="discussion" value="The same as the name of the owning option. 255 characters max."/>
+                <entry key="documentation" value="Custom product property names like &quot;Size&quot;, &quot;Color&quot;, and &quot;Material&quot;."/>
+            </userInfo>
+        </attribute>
+        <attribute name="optionId" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="String" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="discussion" value="For example, &quot;Small&quot;, &quot;Medium&quot; or &quot;Large&quot;."/>
+                <entry key="documentation" value="The value of the option."/>
+            </userInfo>
+        </attribute>
+        <relationship name="variants" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ProductVariant" inverseName="options" inverseEntity="ProductVariant" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="Inverse of ProductVariant.optionValue."/>
+            </userInfo>
+        </relationship>
+    </entity>
+    <entity name="Order" representedClassName="BUYOrder" syncable="YES">
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The customer's order name as represented by a number."/>
+            </userInfo>
+        </attribute>
+        <attribute name="orderStatusURL" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="attributeValueClassName" value="NSURL"/>
+                <entry key="documentation" value="URL for the website showing the order status."/>
+            </userInfo>
+        </attribute>
+        <attribute name="processedAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="statusURL" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="attributeValueClassName" value="NSURL"/>
+            </userInfo>
+        </attribute>
+        <attribute name="subtotalPrice" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="totalPrice" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="checkout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Checkout" inverseName="order" inverseEntity="Checkout" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="Inverse of Checkout.order."/>
+            </userInfo>
+        </relationship>
+        <relationship name="lineItems" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="LineItem" inverseName="order" inverseEntity="LineItem" syncable="YES"/>
+        <userInfo>
+            <entry key="attributeValueClassName" value="URL"/>
+            <entry key="documentation" value="URL for the website showing the order status, doesn't require a customer token."/>
+        </userInfo>
+    </entity>
+    <entity name="Product" representedClassName="BUYProduct" syncable="YES">
+        <attribute name="available" optional="YES" attributeType="Boolean" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="If the product is in stock. See each variant for their specific availability."/>
+            </userInfo>
+        </attribute>
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The creation date for a product."/>
+            </userInfo>
+        </attribute>
+        <attribute name="handle" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The handle of the product. Can be used to construct links to the web page for the product."/>
+            </userInfo>
+        </attribute>
+        <attribute name="htmlDescription" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="discussion" value="Maps to &quot;body_html&quot; in JSON."/>
+                <entry key="documentation" value="The description of the product, complete with HTML formatting."/>
+                <entry key="JSONPropertyKey" value="body_html"/>
+            </userInfo>
+        </attribute>
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="Maps to product_id in the JSON"/>
+                <entry key="JSONPropertyKey" value="product_id"/>
+            </userInfo>
+        </attribute>
+        <attribute name="productType" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="A categorization that a product can be tagged with, commonly used for filtering and searching."/>
+            </userInfo>
+        </attribute>
+        <attribute name="published" optional="YES" attributeType="Boolean" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The product is published on the current sales channel."/>
+            </userInfo>
+        </attribute>
+        <attribute name="publishedAt" optional="YES" attributeType="Date" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The publish date for a product."/>
+            </userInfo>
+        </attribute>
+        <attribute name="tags" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="attributeValueClassName" value="NSSet"/>
+                <entry key="discussion" value="Commonly used for filtering and searching. Each tag has a imit of 255 characters."/>
+                <entry key="documentation" value="A categorization that a product can be tagged with."/>
+                <entry key="JSONValueTransformer" value="BUYProductTags"/>
+            </userInfo>
+        </attribute>
+        <attribute name="title" optional="YES" attributeType="String" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="discussion" value="In a shop's catalog, clicking on a product's title takes you to that product's page. On a product's page, the product's title typically appears in a large font."/>
+                <entry key="documentation" value="The name of the product."/>
+            </userInfo>
+        </attribute>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The updated date for a product."/>
+            </userInfo>
+        </attribute>
+        <attribute name="vendor" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The name of the vendor of the product."/>
+            </userInfo>
+        </attribute>
+        <relationship name="collections" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Collection" inverseName="products" inverseEntity="Collection" syncable="YES">
+            <userInfo>
+                <entry key="discussion" value="Maps to &quot;collection_ids&quot; in JSON."/>
+                <entry key="documentation" value="The collections in which this product appears."/>
+                <entry key="JSONPropertyKey" value="collection_ids"/>
+            </userInfo>
+        </relationship>
+        <relationship name="images" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="ImageLink" inverseName="product" inverseEntity="ImageLink" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="A list of BUYImageLink objects, each one representing an image associated with the product."/>
+            </userInfo>
+        </relationship>
+        <relationship name="options" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Option" inverseName="product" inverseEntity="Option" syncable="YES">
+            <userInfo>
+                <entry key="discussion" value="Products are based on permutations of these options. A product may have a maximum of 3 options. 255 characters limit each."/>
+                <entry key="documentation" value="Custom product property names like &quot;Size&quot;, &quot;Color&quot;, and &quot;Material&quot;."/>
+            </userInfo>
+        </relationship>
+        <relationship name="variants" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="ProductVariant" inverseName="product" inverseEntity="ProductVariant" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="A list of BUYProductVariant objects, each one representing a slightly different version of the product."/>
+            </userInfo>
+        </relationship>
+        <userInfo>
+            <entry key="documentation" value="A BUYProduct is an individual item for sale in a Shopify shop."/>
+        </userInfo>
+    </entity>
+    <entity name="ProductVariant" representedClassName="BUYProductVariant" syncable="YES">
+        <attribute name="available" optional="YES" attributeType="Boolean" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="If the variant is in stock."/>
+            </userInfo>
+        </attribute>
+        <attribute name="compareAtPrice" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The competitor's prices for the same item."/>
+            </userInfo>
+        </attribute>
+        <attribute name="grams" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The weight of the BUYProductVariant in grams."/>
+            </userInfo>
+        </attribute>
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="position" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The order of the BUYProductVariant in the list of product variants. 1 is the first position."/>
+            </userInfo>
+        </attribute>
+        <attribute name="price" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The price of the BUYProductVariant."/>
+            </userInfo>
+        </attribute>
+        <attribute name="requiresShipping" optional="YES" attributeType="Boolean" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="Whether or not a customer needs to provide a shipping address when placing an order for this BUYProductVariant."/>
+            </userInfo>
+        </attribute>
+        <attribute name="sku" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="A unique identifier for the product in the shop."/>
+            </userInfo>
+        </attribute>
+        <attribute name="taxable" optional="YES" attributeType="Boolean" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="Specifies whether or not a tax is charged when the BUYProductVariant is sold."/>
+            </userInfo>
+        </attribute>
+        <attribute name="title" optional="YES" attributeType="String" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The title of the BUYProductVariant."/>
+            </userInfo>
+        </attribute>
+        <relationship name="cartLineItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CartLineItem" inverseName="variant" inverseEntity="CartLineItem" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="Inverse of CartLineItem.variant."/>
+            </userInfo>
+        </relationship>
+        <relationship name="options" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="OptionValue" inverseName="variants" inverseEntity="OptionValue" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="Custom properties that a shop owner can use to define BUYProductVariants."/>
+                <entry key="JSONPropertyKey" value="option_values"/>
+            </userInfo>
+        </relationship>
+        <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Product" inverseName="variants" inverseEntity="Product" syncable="YES"/>
+        <userInfo>
+            <entry key="documentation" value="A BUYProductVariant is a different version of a product, such as differing sizes or differing colours."/>
+        </userInfo>
+    </entity>
+    <entity name="ShippingRate" representedClassName="BUYShippingRate" syncable="YES">
+        <attribute name="deliveryRange" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="attributeValueClassName" value="NSArray"/>
+                <entry key="documentation" value="One or two NSDate objects of the potential delivery dates."/>
+                <entry key="JSONValueTransformer" value="BUYDeliveryRange"/>
+            </userInfo>
+        </attribute>
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="price" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The price of this shipping method."/>
+            </userInfo>
+        </attribute>
+        <attribute name="shippingRateIdentifier" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="A reference to the shipping method."/>
+                <entry key="JSONPropertyKey" value="id"/>
+            </userInfo>
+        </attribute>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The shipping method name."/>
+            </userInfo>
+        </attribute>
+        <relationship name="checkout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Checkout" inverseName="shippingRate" inverseEntity="Checkout" syncable="YES"/>
+        <userInfo>
+            <entry key="documentation" value="BUYShippingRate represents the amount that the merchant is charging a customer for shipping to the specified address."/>
+            <entry key="Transient" value="YES"/>
+        </userInfo>
+    </entity>
+    <entity name="Shop" representedClassName="BUYShop" syncable="YES">
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The city in which the shop is located."/>
+            </userInfo>
+        </attribute>
+        <attribute name="country" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The country in which the shop is located."/>
+            </userInfo>
+        </attribute>
+        <attribute name="currency" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The three-letter code for the currency that the shop accepts."/>
+            </userInfo>
+        </attribute>
+        <attribute name="domain" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The shop's domain."/>
+            </userInfo>
+        </attribute>
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="moneyFormat" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="A string representing the way currency is formatted when the currency isn't specified."/>
+            </userInfo>
+        </attribute>
+        <attribute name="myShopifyURL" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="attributeValueClassName" value="NSURL"/>
+                <entry key="discussion" value="Maps to &quot;myshopify_domain&quot; in JSON."/>
+                <entry key="documentation" value="The shop's 'myshopify.com' domain."/>
+                <entry key="JSONPropertyKey" value="myshopify_domain"/>
+            </userInfo>
+        </attribute>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The name of the shop."/>
+            </userInfo>
+        </attribute>
+        <attribute name="province" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The shop's normalized province or state name."/>
+            </userInfo>
+        </attribute>
+        <attribute name="publishedCollectionsCount" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="publishedProductsCount" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="shipsToCountries" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="attributeValueClassName" value="NSArray"/>
+                <entry key="documentation" value="A list of two-letter country codes identifying the countries that the shop ships to."/>
+            </userInfo>
+        </attribute>
+        <attribute name="shopDescription" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="discussion" value="Maps to &quot;description&quot; in JSON."/>
+                <entry key="documentation" value="The shop's description."/>
+                <entry key="JSONPropertyKey" value="description"/>
+            </userInfo>
+        </attribute>
+        <attribute name="shopURL" optional="YES" attributeType="Transformable" syncable="YES">
+            <userInfo>
+                <entry key="attributeValueClassName" value="NSURL"/>
+                <entry key="JSONPropertyKey" value="url"/>
+            </userInfo>
+        </attribute>
+        <userInfo>
+            <entry key="documentation" value="The BUYShop object is a collection of the general settings and information about the shop."/>
+        </userInfo>
+    </entity>
+    <entity name="TaxLine" representedClassName="BUYTaxLine" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="price" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The amount of tax to be charged."/>
+            </userInfo>
+        </attribute>
+        <attribute name="rate" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The rate of tax to be applied."/>
+            </userInfo>
+        </attribute>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="The name of the tax."/>
+            </userInfo>
+        </attribute>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="checkout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Checkout" inverseName="taxLines" inverseEntity="Checkout" syncable="YES">
+            <userInfo>
+                <entry key="documentation" value="Inverse of Checkout.taxLines."/>
+            </userInfo>
+        </relationship>
+        <userInfo>
+            <entry key="documentation" value="BUYTaxLine represents a single tax line on a checkout. Use this to display an itemized list of taxes that a customer is being charged for."/>
+            <entry key="Transient" value="YES"/>
+        </userInfo>
+    </entity>
+    <configuration name="persistent">
+        <memberEntity name="Cart"/>
+        <memberEntity name="CartLineItem"/>
+        <memberEntity name="Collection"/>
+        <memberEntity name="Customer"/>
+        <memberEntity name="ImageLink"/>
+        <memberEntity name="Option"/>
+        <memberEntity name="OptionValue"/>
+        <memberEntity name="Product"/>
+        <memberEntity name="ProductVariant"/>
+        <memberEntity name="Shop"/>
+        <memberEntity name="LineItem"/>
+        <memberEntity name="Order"/>
+        <memberEntity name="Address"/>
+    </configuration>
+    <configuration name="transient">
+        <memberEntity name="Checkout"/>
+        <memberEntity name="MaskedCreditCard"/>
+        <memberEntity name="GiftCard"/>
+        <memberEntity name="Discount"/>
+        <memberEntity name="TaxLine"/>
+        <memberEntity name="ShippingRate"/>
+        <memberEntity name="CheckoutAttribute"/>
+    </configuration>
+    <elements>
+        <element name="Address" positionX="-990" positionY="1444" width="128" height="270"/>
+        <element name="Cart" positionX="-1192" positionY="978" width="128" height="60"/>
+        <element name="CartLineItem" positionX="-987" positionY="1183" width="128" height="90"/>
+        <element name="Checkout" positionX="-765" positionY="1072" width="128" height="630"/>
+        <element name="CheckoutAttribute" positionX="-990" positionY="1332" width="128" height="90"/>
+        <element name="Collection" positionX="-1588" positionY="1063" width="128" height="195"/>
+        <element name="Customer" positionX="-1190" positionY="1359" width="128" height="330"/>
+        <element name="Discount" positionX="-551" positionY="1377" width="128" height="105"/>
+        <element name="GiftCard" positionX="-540" positionY="1492" width="128" height="135"/>
+        <element name="ImageLink" positionX="-1786" positionY="1108" width="128" height="165"/>
+        <element name="LineItem" positionX="-353" positionY="1342" width="128" height="315"/>
+        <element name="MaskedCreditCard" positionX="-567" positionY="1218" width="128" height="150"/>
+        <element name="Option" positionX="-1588" positionY="1287" width="128" height="105"/>
+        <element name="OptionValue" positionX="-1390" positionY="894" width="128" height="105"/>
+        <element name="Order" positionX="-549" positionY="1647" width="128" height="180"/>
+        <element name="Product" positionX="-1390" positionY="1018" width="128" height="300"/>
+        <element name="ProductVariant" positionX="-1192" positionY="1063" width="128" height="240"/>
+        <element name="ShippingRate" positionX="-569" positionY="1836" width="128" height="135"/>
+        <element name="Shop" positionX="-1786" positionY="843" width="128" height="255"/>
+        <element name="TaxLine" positionX="-990" positionY="1737" width="128" height="133"/>
+    </elements>
+</model>

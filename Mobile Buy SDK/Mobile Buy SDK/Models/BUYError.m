@@ -26,13 +26,21 @@
 
 #import "BUYError.h"
 
-NSString * const BUYShopifyError = @"BUYShopifyError";
-
 @implementation BUYError
+
+- (instancetype)initWithKey:(NSString *)key json:(NSDictionary *)json
+{
+	self = [super init];
+	if (self) {
+		_key = [key copy];
+		[self setValuesForKeysWithDictionary:json];
+	}
+	return self;
+}
 
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"Error code %td: %@", self.code, [self userInfo]];
+	return [NSString stringWithFormat:@"%@ %@", self.key, self.message];
 }
 
 @end

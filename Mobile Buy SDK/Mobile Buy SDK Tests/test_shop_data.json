@@ -3,11 +3,19 @@
 	"shop_domain": "",
 	"api_key": "",
 	"channel_id": "",
+	"app_id": "",
 	"merchant_id": "",
+	"customer_email": "asd@asd.com",
+	"customer_password": "asdasd",
 	"product_ids": [
 					"",
 					""
 					],
+	"variants": {
+		"variant_untracked_id": "",
+		"variant_inventory1_id": "",
+		"variant_soldout_id": ""
+	},
 	"collection_id": "",
 	"gift_cards": {
 		"ValidGiftCard11": {
