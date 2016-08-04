@@ -60,8 +60,19 @@
 	if (self.customer) {
 		return;
 	}
-	
-	[OHHTTPStubs stubUsingResponseWithKey:@"testCustomerLogin" useMocks:[self shouldUseMocks]];
+
+	if ([self shouldUseMocks]) {
+		__block BOOL didGetCustomerToken;
+		[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+			return YES;
+		} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+			if (!didGetCustomerToken) {
+				didGetCustomerToken = YES;
+				return [OHHTTPStubsResponse responseWithKey:@"testCustomerToken"];
+			}
+			return [OHHTTPStubsResponse responseWithKey:@"testCustomerLogin"];
+		}];
+	}
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client loginCustomerWithCredentials:[self credentialsForLogin] callback:^(BUYCustomer *customer, BUYCustomerToken *token, NSError *error) {
@@ -225,7 +236,7 @@
 	}];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client  getAddressesCallback:^(NSArray<BUYAddress *> * _Nullable addresses, NSError * _Nullable error) {
+	[self.client getAddressesCallback:^(NSArray<BUYAddress *> * _Nullable addresses, NSError * _Nullable error) {
 		
 		XCTAssertNotNil(addresses);
 		XCTAssertTrue(addresses.count > 0);
