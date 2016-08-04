@@ -60,19 +60,17 @@
 	if (self.customer) {
 		return;
 	}
-
-	if ([self shouldUseMocks]) {
-		__block BOOL didGetCustomerToken;
-		[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-			return YES;
-		} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-			if (!didGetCustomerToken) {
-				didGetCustomerToken = YES;
-				return [OHHTTPStubsResponse responseWithKey:@"testCustomerToken"];
-			}
+	
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		if ([request.URL.lastPathComponent isEqualToString:@"customer_token.json"]) {
+			return [OHHTTPStubsResponse responseWithKey:@"testCustomerToken"];
+		} else {
 			return [OHHTTPStubsResponse responseWithKey:@"testCustomerLogin"];
-		}];
-	}
+		}
+	}];
+	
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client loginCustomerWithCredentials:[self credentialsForLogin] callback:^(BUYCustomer *customer, BUYCustomerToken *token, NSError *error) {
@@ -132,14 +130,14 @@
 		
 		NSArray<BUYError *> *errors = [BUYError errorsFromSignUpJSON:error.userInfo];
 		XCTAssertEqual(errors.count, 2);
-
+		
 		BUYError *emailError = errors[0];
 		XCTAssertEqualObjects(emailError.code, @"invalid");
 		
 		BUYError *passwordError = errors[1];
 		XCTAssertEqualObjects(passwordError.code, @"too_short");
 		XCTAssertEqualObjects(passwordError.options[@"count"], @5);
-
+		
 		[expectation fulfill];
 	}];
 	
@@ -211,17 +209,17 @@
 - (void)testCustomerUpdate
 {
 	[OHHTTPStubs stubUsingResponseWithKey:@"testCustomerLogin" useMocks:[self shouldUseMocks]];
-
+	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-
+	
 	[self.client updateCustomer:_customer callback:^(BUYCustomer * _Nullable customer, NSError * _Nullable error) {
-
+		
 		XCTAssertNil(error);
 		XCTAssertNotNil(customer);
- 
+		
 		[expectation fulfill];
- 	}];
-
+	}];
+	
 	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {}];
 }
 
@@ -293,7 +291,7 @@
 		
 		[expectation fulfill];
 	}];
-
+	
 	
 	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {}];
 }

@@ -57,13 +57,11 @@
 
 + (void)stubUsingResponseWithKey:(NSString *)key useMocks:(BOOL)useMocks
 {
-	if (useMocks) {
-		[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
-			return YES;
-		} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
-			return [OHHTTPStubsResponse responseWithKey:key];
-		}];
-	}
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return useMocks;
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		return [OHHTTPStubsResponse responseWithKey:key];
+	}];
 }
 
 @end
