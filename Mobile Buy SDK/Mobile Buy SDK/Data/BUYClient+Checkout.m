@@ -103,7 +103,7 @@
 	}];
 }
 
-- (BUYOperation *)completeCheckoutWithToken:(NSString *)checkoutToken paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block
+- (NSOperation *)completeCheckoutWithToken:(NSString *)checkoutToken paymentToken:(id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block
 {
 	BUYCheckoutOperation *operation = [BUYCheckoutOperation operationWithClient:self checkoutToken:checkoutToken token:paymentToken completion:block];
 	[self startOperation:operation];
