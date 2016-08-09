@@ -140,7 +140,7 @@
 
 - (void)testCheckoutPaymentWithOnlyGiftCard
 {
-	BUYOperation *task = [self.client completeCheckoutWithToken:@"abcdef" paymentToken:nil completion:^(BUYCheckout *checkout, NSError *error) {}];
+	NSOperation *task = [self.client completeCheckoutWithToken:@"abcdef" paymentToken:nil completion:^(BUYCheckout *checkout, NSError *error) {}];
 	XCTAssertNotNil(task);
 }
 

@@ -330,6 +330,8 @@
 
 - (void)testGettingTags
 {
+	[OHHTTPStubs stubUsingResponseWithKey:@"testTags" useMocks:[self shouldUseMocks]];
+	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
 	[self.client getProductTagsPage:1 completion:^(NSArray *tags, NSUInteger page, BOOL end, NSError *error){

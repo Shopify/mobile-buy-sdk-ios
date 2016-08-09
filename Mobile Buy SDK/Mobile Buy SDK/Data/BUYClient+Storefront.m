@@ -137,7 +137,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 		if (json && !error) {
 			tags = [json[@"tags"] valueForKey:@"title"];
 		}
-		block(tags, [self hasReachedEndOfPage:tags], page, error);
+		block(tags, page, [self hasReachedEndOfPage:tags], error);
 	}];
 }
 
@@ -170,6 +170,20 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 			collections = [self.modelManager buy_objectsWithEntityName:[BUYCollection entityName] JSONArray:json[BUYCollectionsKey]];
 		}
 		block(collections, page, [self hasReachedEndOfPage:collections], error);
+	}];
+}
+
+- (NSOperation *)getCollectionsByIds:(NSArray<NSString *> *)collectionIds completion:(BUYDataCollectionsBlock)block
+{
+	NSURL *url = [self urlForCollectionListingsWithParameters:@{
+																@"collection_ids": [collectionIds componentsJoinedByString:@","],
+																}];
+	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		NSArray *collections = nil;
+		if (json && !error) {
+			collections = [self.modelManager buy_objectsWithEntityName:[BUYCollection entityName] JSONArray:json[BUYCollectionsKey]];
+		}
+		block(collections, error);
 	}];
 }
 
