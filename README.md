@@ -101,7 +101,7 @@ BUYClient *client = [[BUYClient alloc] initWithShopDomain:@"yourshop.myshopify.c
 ### Storefront API
 After initializing the client with valid shop credentials, you can begin fetching collections.
 ```objc
-[client getCollectionsPage:1 completion:^(NSArray<BUYCollection *> *collections, NSError *error) {
+[client getCollectionsPage:1 completion:^(NSArray<BUYCollection *> *collections, NSUInteger page, BOOL reachedEnd, NSError *error) {
 	if (collections && !error) {
 		// Do something with collections
 	} else {
