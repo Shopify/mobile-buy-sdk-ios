@@ -293,7 +293,7 @@
 
 - (void)testCollectionsFromIDsSmallPageSize
 {
-	[OHHTTPStubs stubUsingResponseWithKey:@"testGetCollectionsByIdsPaginated" useMocks:[self shouldUseMocks]];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testGetCollectionsByIdsSmallPageSize" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
@@ -301,6 +301,27 @@
 	[self.client getCollectionsByIds:self.collectionIds page:1 completion:^(NSArray<BUYCollection *> * _Nullable collections, NSError * _Nullable error) {
 		
 		XCTAssertTrue(collections.count == 1);
+		XCTAssertNil(error);
+		
+		[expectation fulfill];
+	}];
+	
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
+- (void)testCollectionsFromIDsInvalidPageNumber
+{
+	[OHHTTPStubs stubUsingResponseWithKey:@"testGetCollectionsByIdsInvalidPageNumber" useMocks:[self shouldUseMocks]];
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	
+	self.client.pageSize = 1;
+	NSInteger lastPage = (NSInteger)ceil(self.collectionIds.count / self.client.pageSize);
+	[self.client getCollectionsByIds:self.collectionIds page:lastPage + 1 completion:^(NSArray<BUYCollection *> * _Nullable collections, NSError * _Nullable error) {
+		
+		XCTAssertTrue(collections.count == 0);
 		XCTAssertNil(error);
 		
 		[expectation fulfill];
