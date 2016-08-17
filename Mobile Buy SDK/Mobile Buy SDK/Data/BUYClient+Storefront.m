@@ -173,11 +173,6 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	}];
 }
 
-- (NSOperation *)getCollectionsByIds:(NSArray<NSString *> *)collectionIds completion:(BUYDataCollectionsBlock)block
-{
-	return [self getCollectionsByIds:collectionIds page:0 completion:block];
-}
-
 - (NSOperation *)getCollectionsByIds:(NSArray<NSString *> *)collectionIds page:(NSUInteger)page completion:(BUYDataCollectionsBlock)block
 {
 	NSURL *url = [self urlForCollectionListingsWithParameters:@{

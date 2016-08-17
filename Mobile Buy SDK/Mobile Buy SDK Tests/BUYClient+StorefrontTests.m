@@ -275,10 +275,10 @@
 
 - (void)testCollectionsFromIDs
 {
-	[OHHTTPStubs stubUsingResponseWithKey:@"testGetCollectionByIds" useMocks:[self shouldUseMocks]];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testGetCollectionsByIds" useMocks:[self shouldUseMocks]];
 
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client getCollectionsByIds:self.collectionIds completion:^(NSArray<BUYCollection *> * _Nullable collections, NSError * _Nullable error) {
+	[self.client getCollectionsByIds:self.collectionIds page:1 completion:^(NSArray<BUYCollection *> * _Nullable collections, NSError * _Nullable error) {
 		
 		XCTAssertTrue(collections.count == self.collectionIds.count);
 		XCTAssertNil(error);
@@ -291,9 +291,9 @@
 	}];
 }
 
-- (void)testCollectionsFromIDsPageSize
+- (void)testCollectionsFromIDsSmallPageSize
 {
-	[OHHTTPStubs stubUsingResponseWithKey:@"testGetCollectionByIdsPaginated" useMocks:[self shouldUseMocks]];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testGetCollectionsByIdsPaginated" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
