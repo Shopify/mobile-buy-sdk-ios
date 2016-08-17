@@ -273,6 +273,44 @@
     }];
 }
 
+- (void)testCollectionsFromIDs
+{
+	[OHHTTPStubs stubUsingResponseWithKey:@"testGetCollectionByIds" useMocks:[self shouldUseMocks]];
+
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[self.client getCollectionsByIds:self.collectionIds completion:^(NSArray<BUYCollection *> * _Nullable collections, NSError * _Nullable error) {
+		
+		XCTAssertTrue(collections.count == self.collectionIds.count);
+		XCTAssertNil(error);
+		
+		[expectation fulfill];
+	}];
+	
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
+- (void)testCollectionsFromIDsPageSize
+{
+	[OHHTTPStubs stubUsingResponseWithKey:@"testGetCollectionByIdsPaginated" useMocks:[self shouldUseMocks]];
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	
+	self.client.pageSize = 1;
+	[self.client getCollectionsByIds:self.collectionIds page:1 completion:^(NSArray<BUYCollection *> * _Nullable collections, NSError * _Nullable error) {
+		
+		XCTAssertTrue(collections.count == 1);
+		XCTAssertNil(error);
+		
+		[expectation fulfill];
+	}];
+	
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
 - (void)testProductsInCollection
 {
 	if (self.collection == nil) {

@@ -229,6 +229,17 @@ typedef void (^BUYDataTagsListBlock)(NSArray <NSString *> * _Nullable tags, NSUI
 - (NSOperation *)getCollectionsByIds:(NSArray<NSString *> *)collectionIds completion:(BUYDataCollectionsBlock)block;
 
 /**
+ *  Fetches collections by IDs
+ *
+ *  @param collectionIds An array of `NSString` objects representing collection IDs
+ *  @param page  Index of the page requested
+ *  @param block (^BUYDataCollectionsBlock)(NSArray *collections, NSError *error)
+ *
+ *  @return The associated BUYRequestOperation
+ */
+- (NSOperation *)getCollectionsByIds:(NSArray<NSString *> *)collectionIds page:(NSUInteger)page completion:(BUYDataCollectionsBlock)block;
+
+/**
  *  Fetches the products in the given collection with the collection's
  *  default sort order set in the shop's admin
  *

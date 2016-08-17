@@ -78,6 +78,7 @@ NSString * const BUYAppId_Placeholder = @"app_id";
 		
 		self.productIds = jsonConfig[@"product_ids"];
 	}
+	self.collectionIds = jsonConfig[@"collection_ids"];
 	
 	if ([self shouldUseMocks] == YES) {
 		NSLog(@"***** Using Mock Tests *****");
