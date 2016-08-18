@@ -44,5 +44,6 @@
 #define kBUYTestDiscountCodeValid @"discount_valid"
 #define kBUYTestDiscountCodeExpired @"discount_expired"
 #define kBUYTestProductIdsCommaSeparated @"product_ids_comma_separated"
+#define kBUYTestCollectionIds @"collection_ids"
 
 #endif

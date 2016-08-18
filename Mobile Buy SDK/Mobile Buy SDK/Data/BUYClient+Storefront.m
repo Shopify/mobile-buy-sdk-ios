@@ -173,6 +173,22 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	}];
 }
 
+- (NSOperation *)getCollectionsByIds:(NSArray<NSString *> *)collectionIds page:(NSUInteger)page completion:(BUYDataCollectionsBlock)block
+{
+	NSURL *url = [self urlForCollectionListingsWithParameters:@{
+																@"collection_ids": [collectionIds componentsJoinedByString:@","],
+																@"limit" : @(self.pageSize),
+																@"page"  : @(page),
+																}];
+	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		NSArray *collections = nil;
+		if (json && !error) {
+			collections = [self.modelManager buy_objectsWithEntityName:[BUYCollection entityName] JSONArray:json[BUYCollectionsKey]];
+		}
+		block(collections, error);
+	}];
+}
+
 - (NSOperation *)getProductsPage:(NSUInteger)page inCollection:(NSNumber *)collectionId completion:(BUYDataProductListBlock)block
 {
 	return [self getProductsPage:page inCollection:collectionId withTags:nil sortOrder:BUYCollectionSortCollectionDefault completion:block];

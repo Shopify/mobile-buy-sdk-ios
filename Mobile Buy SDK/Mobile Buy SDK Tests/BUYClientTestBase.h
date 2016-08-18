@@ -51,6 +51,7 @@ extern NSString * const BUYFakeCustomerToken;
 
 @property (nonatomic, strong) NSArray<NSNumber *> *customerOrderIDs;
 @property (nonatomic, strong) NSArray *productIds;
+@property (nonatomic, strong) NSArray *collectionIds;
 @property (nonatomic, strong) NSNumber *variantUntrackedId;
 @property (nonatomic, strong) NSNumber *variantInventory1Id;
 @property (nonatomic, strong) NSNumber *variantSoldOutId;
