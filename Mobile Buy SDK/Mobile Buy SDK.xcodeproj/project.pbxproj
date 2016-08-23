@@ -676,7 +676,6 @@
 		9ABBCCA01CF5C9D10075B0C5 /* BUYFakeSafariController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYFakeSafariController.m; sourceTree = "<group>"; };
 		B231C7211D6C90F1006CCED1 /* BuyTV.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuyTV.h; sourceTree = "<group>"; };
 		B231C7231D6C90F1006CCED1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B293BC051D6C939D0041BA14 /* Buy copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Buy copy-Info.plist"; path = "/Users/gabrieloc/Documents/Shopify/MiniBuy/Mobile Buy SDK/Mobile Buy SDK/Buy copy-Info.plist"; sourceTree = "<absolute>"; };
 		B293BC0C1D6C96B90041BA14 /* BuyTV.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; name = BuyTV.modulemap; path = "Mobile Buy SDK/Static Framework/BuyTV.modulemap"; sourceTree = "<group>"; };
 		B293BC171D6C98E30041BA14 /* BuyTV.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BuyTV.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B293BCE91D6C9CC20041BA14 /* BUYApplePayAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYApplePayAdditions.h; sourceTree = "<group>"; };
@@ -1130,7 +1129,6 @@
 				B231C7201D6C90F1006CCED1 /* BuyTV */,
 				F773741E19C770CB0039681C /* Products */,
 				547B8D0CCDB9458C800F1E3C /* Frameworks */,
-				B293BC051D6C939D0041BA14 /* Buy copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 1;
