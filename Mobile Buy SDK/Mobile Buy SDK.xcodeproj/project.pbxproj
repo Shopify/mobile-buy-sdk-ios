@@ -337,19 +337,18 @@
 		B293BC7E1D6C9A9D0041BA14 /* BUYFlatCollectionTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 849810911CB7E07900CFAB58 /* BUYFlatCollectionTransformer.m */; };
 		B293BC7F1D6C9A9D0041BA14 /* BUYIdentityTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 84980F4B1CB7613700CFAB58 /* BUYIdentityTransformer.m */; };
 		B293BC801D6C9A9D0041BA14 /* BUYURLTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 84980F571CB7617500CFAB58 /* BUYURLTransformer.m */; };
-		B293BC811D6C9AB10041BA14 /* BUYClient+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 8498DCB01CDD1B4A00BD12A8 /* BUYClient+Internal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B293BC821D6C9AB10041BA14 /* BUYClientTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A6C1DC31D089E4700BFF4F9 /* BUYClientTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B293BC831D6C9AB10041BA14 /* BUYClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F7FDA17019C93F6F00AF4E93 /* BUYClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B293BC841D6C9AB10041BA14 /* BUYClient+Routing.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0B0C641CEA703E0037D68F /* BUYClient+Routing.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B293BC841D6C9AB10041BA14 /* BUYClient+Routing.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0B0C641CEA703E0037D68F /* BUYClient+Routing.h */; };
 		B293BC851D6C9AB10041BA14 /* BUYClient+Storefront.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0B0C6A1CEB4D300037D68F /* BUYClient+Storefront.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B293BC861D6C9AB10041BA14 /* BUYClient+Checkout.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0B0C701CEB52B90037D68F /* BUYClient+Checkout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B293BC871D6C9AB10041BA14 /* BUYClient+Customers.h in Headers */ = {isa = PBXBuildFile; fileRef = 8498DCB11CDD1B4A00BD12A8 /* BUYClient+Customers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B293BC881D6C9AB10041BA14 /* BUYClient+Address.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A807E811CF74EBE00023160 /* BUYClient+Address.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B293BC891D6C9AB10041BA14 /* BUYOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A585C041CE6440B001F20F0 /* BUYOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B293BC891D6C9AB10041BA14 /* BUYOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A585C041CE6440B001F20F0 /* BUYOperation.h */; };
 		B293BC8A1D6C9AB10041BA14 /* BUYRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A585C111CE65811001F20F0 /* BUYRequestOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B293BC8B1D6C9AB10041BA14 /* BUYGroupOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A6C1D431D0749FC00BFF4F9 /* BUYGroupOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B293BC8C1D6C9AB10041BA14 /* BUYStatusOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A6C1D3F1D07485F00BFF4F9 /* BUYStatusOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B293BC8D1D6C9AB10041BA14 /* BUYCheckoutOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0B0CA51CED0A860037D68F /* BUYCheckoutOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B293BC8D1D6C9AB10041BA14 /* BUYCheckoutOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0B0CA51CED0A860037D68F /* BUYCheckoutOperation.h */; };
 		B293BC8E1D6C9AB10041BA14 /* NSArray+BUYAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 841ADDEB1CB6C942000004B0 /* NSArray+BUYAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B293BC8F1D6C9AB10041BA14 /* NSDate+BUYAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 841ADDED1CB6C942000004B0 /* NSDate+BUYAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B293BC901D6C9AB10041BA14 /* NSDateFormatter+BUYAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 841ADDEF1CB6C942000004B0 /* NSDateFormatter+BUYAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -370,7 +369,7 @@
 		B293BC9F1D6C9AB10041BA14 /* BUYObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A931A7010B20087DB2C /* BUYObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B293BCA01D6C9AB20041BA14 /* BUYObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 84D915411CC0359700D334FB /* BUYObserver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B293BCA11D6C9AB20041BA14 /* BUYSerializable.h in Headers */ = {isa = PBXBuildFile; fileRef = F76CFF1E19CB7C500079C703 /* BUYSerializable.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B293BCA21D6C9AB20041BA14 /* BUYCreditCardToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A47CEFA1CE39F5B00A6D5BA /* BUYCreditCardToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B293BCA21D6C9AB20041BA14 /* BUYCreditCardToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A47CEFA1CE39F5B00A6D5BA /* BUYCreditCardToken.h */; };
 		B293BCA41D6C9AB20041BA14 /* _BUYAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = 84D73BFE1CDD1931000F978A /* _BUYAddress.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B293BCA51D6C9AB20041BA14 /* _BUYCart.h in Headers */ = {isa = PBXBuildFile; fileRef = 84D9155A1CC0416800D334FB /* _BUYCart.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B293BCA61D6C9AB20041BA14 /* _BUYCartLineItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 84D9155C1CC0416800D334FB /* _BUYCartLineItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -413,21 +412,22 @@
 		B293BCCB1D6C9AB20041BA14 /* BUYTaxLine.h in Headers */ = {isa = PBXBuildFile; fileRef = 90AFAA5C1B011EA600F21C23 /* BUYTaxLine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B293BCCC1D6C9AB20041BA14 /* BUYPaymentProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 84B0A72D1CE10ED900253EB0 /* BUYPaymentProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B293BCCD1D6C9AB20041BA14 /* BUYPaymentController.h in Headers */ = {isa = PBXBuildFile; fileRef = 84B0A72B1CE10ED900253EB0 /* BUYPaymentController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B293BCD01D6C9AB20041BA14 /* BUYAssert.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A47CF211CE5112A00A6D5BA /* BUYAssert.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B293BCD41D6C9AB20041BA14 /* BUYError+BUYAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 8498DCA71CDD1B1C00BD12A8 /* BUYError+BUYAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B293BCD51D6C9AB20041BA14 /* BUYRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A731A700AC80087DB2C /* BUYRuntime.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B293BCD61D6C9AB20041BA14 /* BUYShopifyErrorCodes.h in Headers */ = {isa = PBXBuildFile; fileRef = 8498DCA91CDD1B1C00BD12A8 /* BUYShopifyErrorCodes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B293BCD71D6C9AB20041BA14 /* BUYDateTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 84980F5C1CB7617E00CFAB58 /* BUYDateTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B293BCD81D6C9AB20041BA14 /* BUYDecimalNumberTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 84980F501CB7616900CFAB58 /* BUYDecimalNumberTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B293BCD91D6C9AB20041BA14 /* BUYDeliveryRangeTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 8498108E1CB7E07900CFAB58 /* BUYDeliveryRangeTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B293BCD91D6C9AB20041BA14 /* BUYDeliveryRangeTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 8498108E1CB7E07900CFAB58 /* BUYDeliveryRangeTransformer.h */; };
 		B293BCDA1D6C9AB20041BA14 /* BUYFlatCollectionTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 849810901CB7E07900CFAB58 /* BUYFlatCollectionTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B293BCDB1D6C9AB20041BA14 /* BUYIdentityTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 84980F4A1CB7613700CFAB58 /* BUYIdentityTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B293BCDC1D6C9AB20041BA14 /* BUYURLTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 84980F561CB7617500CFAB58 /* BUYURLTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B293BCE31D6C9B9B0041BA14 /* BUYApplePayPaymentProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B0A72A1CE10ED900253EB0 /* BUYApplePayPaymentProvider.m */; };
-		B293BCED1D6C9CC20041BA14 /* BUYApplePayAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = B293BCE91D6C9CC20041BA14 /* BUYApplePayAdditions.h */; };
+		B293BCED1D6C9CC20041BA14 /* BUYApplePayAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = B293BCE91D6C9CC20041BA14 /* BUYApplePayAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B293BCEE1D6C9CC20041BA14 /* BUYApplePayAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B293BCEA1D6C9CC20041BA14 /* BUYApplePayAdditions.m */; };
 		B293BCEF1D6C9CC20041BA14 /* BUYModelManager+ApplePay.h in Headers */ = {isa = PBXBuildFile; fileRef = B293BCEB1D6C9CC20041BA14 /* BUYModelManager+ApplePay.h */; };
 		B293BCF01D6C9CC20041BA14 /* BUYModelManager+ApplePay.m in Sources */ = {isa = PBXBuildFile; fileRef = B293BCEC1D6C9CC20041BA14 /* BUYModelManager+ApplePay.m */; };
+		B293BCF51D6C9E2C0041BA14 /* BuyTV.h in Headers */ = {isa = PBXBuildFile; fileRef = B231C7211D6C90F1006CCED1 /* BuyTV.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B293BCF61D6C9E940041BA14 /* BUYAssert.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A47CF211CE5112A00A6D5BA /* BUYAssert.h */; };
 		BE6C07061BB1E46900BD9F7B /* mocked_responses.json in Resources */ = {isa = PBXBuildFile; fileRef = BE6C07051BB1E46900BD9F7B /* mocked_responses.json */; };
 		BE98DB4F1BB1ED3E00C29564 /* OHHTTPStubs in Resources */ = {isa = PBXBuildFile; fileRef = BE98DB4E1BB1ED3E00C29564 /* OHHTTPStubs */; };
 		BE98DB5C1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = BE98DB5B1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.m */; };
@@ -1364,11 +1364,11 @@
 			files = (
 				B293BC2A1D6C99940041BA14 /* BUYImageLink.h in Headers */,
 				B293BC231D6C994F0041BA14 /* BUYProduct.h in Headers */,
-				B293BC811D6C9AB10041BA14 /* BUYClient+Internal.h in Headers */,
 				B293BC821D6C9AB10041BA14 /* BUYClientTypes.h in Headers */,
 				B293BC831D6C9AB10041BA14 /* BUYClient.h in Headers */,
 				B293BC841D6C9AB10041BA14 /* BUYClient+Routing.h in Headers */,
 				B293BC851D6C9AB10041BA14 /* BUYClient+Storefront.h in Headers */,
+				B293BCF61D6C9E940041BA14 /* BUYAssert.h in Headers */,
 				B293BC861D6C9AB10041BA14 /* BUYClient+Checkout.h in Headers */,
 				B293BC871D6C9AB10041BA14 /* BUYClient+Customers.h in Headers */,
 				B293BC881D6C9AB10041BA14 /* BUYClient+Address.h in Headers */,
@@ -1440,7 +1440,6 @@
 				B293BCCB1D6C9AB20041BA14 /* BUYTaxLine.h in Headers */,
 				B293BCCC1D6C9AB20041BA14 /* BUYPaymentProvider.h in Headers */,
 				B293BCCD1D6C9AB20041BA14 /* BUYPaymentController.h in Headers */,
-				B293BCD01D6C9AB20041BA14 /* BUYAssert.h in Headers */,
 				B293BCD41D6C9AB20041BA14 /* BUYError+BUYAdditions.h in Headers */,
 				B293BCD51D6C9AB20041BA14 /* BUYRuntime.h in Headers */,
 				B293BCD61D6C9AB20041BA14 /* BUYShopifyErrorCodes.h in Headers */,
@@ -1451,6 +1450,7 @@
 				B293BCDB1D6C9AB20041BA14 /* BUYIdentityTransformer.h in Headers */,
 				B293BCDC1D6C9AB20041BA14 /* BUYURLTransformer.h in Headers */,
 				B293BC2C1D6C99AA0041BA14 /* _BUYProduct.h in Headers */,
+				B293BCF51D6C9E2C0041BA14 /* BuyTV.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
