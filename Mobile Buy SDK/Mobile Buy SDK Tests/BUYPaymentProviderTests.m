@@ -27,6 +27,8 @@
 @import XCTest;
 @import Buy;
 
+#import "BUYApplePayPaymentProvider.h"
+#import "BUYWebCheckoutPaymentProvider.h"
 #import "BUYClientTestBase.h"
 #import "BUYFakeSafariController.h"
 
