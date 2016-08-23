@@ -45,7 +45,7 @@
 
 @implementation ProductView
 
-- (instancetype)initWithFrame:(CGRect)rect product:(BUYProduct*)product shouldShowApplePaySetup:(BOOL)showApplePaySetup
+- (instancetype)initWithFrame:(CGRect)rect product:(BUYProduct*)product
 {
 	self = [super initWithFrame:rect];
 	if (self) {

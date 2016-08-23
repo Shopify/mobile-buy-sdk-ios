@@ -87,11 +87,10 @@
  *  @param rect              The rect is needed for the UICollectionView in the ProductViewHeader to setup the cell's bounds
  *  @param product           The product to display in the product view. Only used in the initializer to
  *  @param theme             The theme for the product view
- *  @param showApplePaySetup Show Apple Pay button with 'Set Up Apple Pay' text as determined by the presenter
  *
  *  @return An instance of the ProductView
  */
-- (instancetype)initWithFrame:(CGRect)rect product:(BUYProduct*)product shouldShowApplePaySetup:(BOOL)showApplePaySetup;
+- (instancetype)initWithFrame:(CGRect)rect product:(BUYProduct*)product;
 
 /**
  *  The BUYProductViewController is the UITableViewDelegate, so it receives the UIScrollView delegate method calls. 
