@@ -428,6 +428,7 @@
 		B293BCF01D6C9CC20041BA14 /* BUYModelManager+ApplePay.m in Sources */ = {isa = PBXBuildFile; fileRef = B293BCEC1D6C9CC20041BA14 /* BUYModelManager+ApplePay.m */; };
 		B293BCF51D6C9E2C0041BA14 /* BuyTV.h in Headers */ = {isa = PBXBuildFile; fileRef = B231C7211D6C90F1006CCED1 /* BuyTV.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B293BCF61D6C9E940041BA14 /* BUYAssert.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A47CF211CE5112A00A6D5BA /* BUYAssert.h */; };
+		B293BCF71D6CA5D50041BA14 /* Mobile Buy SDK.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84D915561CC040C300D334FB /* Mobile Buy SDK.xcdatamodeld */; };
 		BE6C07061BB1E46900BD9F7B /* mocked_responses.json in Resources */ = {isa = PBXBuildFile; fileRef = BE6C07051BB1E46900BD9F7B /* mocked_responses.json */; };
 		BE98DB4F1BB1ED3E00C29564 /* OHHTTPStubs in Resources */ = {isa = PBXBuildFile; fileRef = BE98DB4E1BB1ED3E00C29564 /* OHHTTPStubs */; };
 		BE98DB5C1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = BE98DB5B1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.m */; };
@@ -1846,6 +1847,7 @@
 				B293BC701D6C9A9D0041BA14 /* BUYMaskedCreditCard.m in Sources */,
 				B293BC711D6C9A9D0041BA14 /* BUYShippingRate.m in Sources */,
 				B293BC721D6C9A9D0041BA14 /* BUYTaxLine.m in Sources */,
+				B293BCF71D6CA5D50041BA14 /* Mobile Buy SDK.xcdatamodeld in Sources */,
 				B293BC731D6C9A9D0041BA14 /* BUYPaymentController.m in Sources */,
 				B293BC791D6C9A9D0041BA14 /* BUYError+BUYAdditions.m in Sources */,
 				B293BC7A1D6C9A9D0041BA14 /* BUYRuntime.m in Sources */,
