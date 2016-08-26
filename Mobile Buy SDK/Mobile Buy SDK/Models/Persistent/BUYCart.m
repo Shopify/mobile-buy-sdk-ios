@@ -107,7 +107,7 @@
 
 - (BUYCartLineItem *)newCartLineItemWithVariant:(BUYProductVariant *)variant
 {
-	BUYCartLineItem *lineItem = [self.modelManager buy_objectWithEntityName:[BUYCartLineItem entityName] JSONDictionary:nil];
+	BUYCartLineItem *lineItem = (BUYCartLineItem *)[self.modelManager buy_objectWithEntityName:[BUYCartLineItem entityName] JSONDictionary:nil];
 	lineItem.variant = variant;
 	return lineItem;
 }

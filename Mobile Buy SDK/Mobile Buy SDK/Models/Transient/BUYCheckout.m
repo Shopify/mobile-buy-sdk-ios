@@ -131,7 +131,7 @@
 - (void)updateWithCart:(BUYCart *)cart
 {
 	NSArray *lineItems = [[cart.lineItems array] buy_map:^id(BUYCartLineItem *cartLineItem) {
-		BUYLineItem *lineItem = [self.modelManager buy_objectWithEntityName:[BUYLineItem entityName] JSONDictionary:nil];
+		BUYLineItem *lineItem = (BUYLineItem *)[self.modelManager buy_objectWithEntityName:[BUYLineItem entityName] JSONDictionary:nil];
 		[lineItem updateWithLineItem:cartLineItem];
 		return lineItem;
 	}];

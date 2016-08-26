@@ -150,7 +150,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		BUYCollection *collection = nil;
 		if (json && !error) {
-			collection = [self.modelManager buy_objectWithEntityName:[BUYCollection entityName] JSONDictionary:json[BUYCollectionsKey][0]];
+			collection = (BUYCollection *)[self.modelManager buy_objectWithEntityName:[BUYCollection entityName] JSONDictionary:json[BUYCollectionsKey][0]];
 		}
 		block(collection, error);
 	}];
