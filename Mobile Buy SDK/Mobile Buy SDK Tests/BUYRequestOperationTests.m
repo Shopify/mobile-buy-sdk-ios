@@ -271,13 +271,17 @@
 		XCTAssert(NO, @"Operation should not call completion if cancelled.");
 	}];
 	
-	[self createExpectationDelay:3.0];
 	[self.queue addOperation:operation];
+	XCTestExpectation *expectation = [self expectationWithDescription:@"Should stop polling at 2 iterations"];
 	[self after:1.0 block:^{
+		XCTAssertFalse(operation.finished);
+		XCTAssertFalse(operation.cancelled);
 		[operation cancel];
+		[expectation fulfill];
+		XCTAssertTrue(operation.cancelled);
 	}];
 	
-	[self waitForExpectationsWithTimeout:10.0 handler:^(NSError *error) {}];
+	[self waitForExpectationsWithTimeout:5.0 handler:^(NSError *error) {}];
 }
 
 - (void)testCancellationWithoutQueue
