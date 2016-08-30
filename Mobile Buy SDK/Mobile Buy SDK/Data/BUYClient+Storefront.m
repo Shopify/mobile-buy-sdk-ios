@@ -126,10 +126,20 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 
 - (NSOperation *)getProductTagsPage:(NSUInteger)page completion:(BUYDataTagsListBlock)block
 {
-	NSURL *url  = [self urlForProductTagsWithParameters:@{
-														  @"limit" : @(self.pageSize),
-														  @"page"  : @(page),
-														  }];
+	return [self getProductTagsInCollection:@"" page:page completion:block];
+}
+
+- (NSOperation *)getProductTagsInCollection:(NSString *)collectionId page:(NSUInteger)page completion:(BUYDataTagsListBlock)block
+{
+	NSMutableDictionary *params = @{
+									@"limit" : @(self.pageSize),
+									@"page"  : @(page),
+									}.mutableCopy;
+	if (collectionId.length) {
+		params[@"collection_id"] = collectionId;
+	}
+	
+	NSURL *url  = [self urlForProductTagsWithParameters:params];
 	
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		
