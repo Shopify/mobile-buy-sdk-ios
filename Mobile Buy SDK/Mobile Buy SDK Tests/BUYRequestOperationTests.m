@@ -265,7 +265,7 @@
 
 - (void)testCancellationDuringExecution
 {
-	[self stubRequestsWithDelay:2.0];
+	[self stubRequestsWithDelay:0.01];
 	
 	BUYRequestOperation *operation = [self operationFulfillingExpectation:nil completion:^{
 		XCTAssert(NO, @"Operation should not call completion if cancelled.");
@@ -273,7 +273,7 @@
 	
 	[self.queue addOperation:operation];
 	XCTestExpectation *expectation = [self expectationWithDescription:@"Should stop polling at 2 iterations"];
-	[self after:1.0 block:^{
+	[self after:0.001 block:^{
 		XCTAssertFalse(operation.finished);
 		XCTAssertFalse(operation.cancelled);
 		[operation cancel];
