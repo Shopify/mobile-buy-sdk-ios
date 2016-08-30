@@ -50,6 +50,15 @@
 	self.session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:self.queue];
 }
 
+- (void)tearDown
+{
+	[super tearDown];
+	
+	self.request = nil;
+	self.queue = nil;
+	self.session = nil;
+}
+
 #pragma mark - Tests -
 
 - (void)testInit
@@ -265,19 +274,23 @@
 
 - (void)testCancellationDuringExecution
 {
-	[self stubRequestsWithDelay:2.0];
+	[self stubRequestsWithDelay:0.01];
 	
 	BUYRequestOperation *operation = [self operationFulfillingExpectation:nil completion:^{
 		XCTAssert(NO, @"Operation should not call completion if cancelled.");
 	}];
 	
-	[self createExpectationDelay:3.0];
 	[self.queue addOperation:operation];
-	[self after:1.0 block:^{
+	XCTestExpectation *expectation = [self expectationWithDescription:@"Should stop polling at 2 iterations"];
+	[self after:0.001 block:^{
+		XCTAssertFalse(operation.finished);
+		XCTAssertFalse(operation.cancelled);
 		[operation cancel];
+		[expectation fulfill];
+		XCTAssertTrue(operation.cancelled);
 	}];
 	
-	[self waitForExpectationsWithTimeout:10.0 handler:^(NSError *error) {}];
+	[self waitForExpectationsWithTimeout:5.0 handler:^(NSError *error) {}];
 }
 
 - (void)testCancellationWithoutQueue
@@ -305,20 +318,22 @@
 	
 	__block int pollCount = 0;
 	
+	__weak BUYRequestOperation *weakOp = operation;
+	
 	operation.pollingHandler = ^BOOL (NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		pollCount += 1;
+		if (pollCount == 3) {
+			[weakOp cancel];
+		}
 		return YES;
 	};
 	
 	[self.queue addOperation:operation];
 	
-	[self after:0.5 block:^{
-		[operation cancel];
-	}];
-	
 	[self createExpectationDelay:1.0 block:YES];
 	
 	XCTAssertTrue(pollCount < 5);
+	XCTAssertTrue(operation.cancelled);
 }
 
 #pragma mark - Convenience -
