@@ -24,9 +24,9 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/BUYClient.h>
-#import <Buy/BUYClient+Checkout.h>
-#import <Buy/BUYSerializable.h>
+#import "BUYClient.h"
+#import "BUYClient+Checkout.h"
+#import "BUYSerializable.h"
 
 static NSString * const BUYShopifyErrorDomain = @"BUYShopifyErrorDomain";
 static NSString * const BUYClientCustomerAccessToken = @"X-Shopify-Customer-Access-Token";

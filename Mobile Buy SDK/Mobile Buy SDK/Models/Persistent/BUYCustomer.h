@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/_BUYCustomer.h>
+#import "_BUYCustomer.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BUYCustomer : _BUYCustomer {}

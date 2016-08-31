@@ -26,9 +26,9 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
 // Make changes to BUYImageLink.h instead.
 
-#import <Buy/BUYManagedObject.h>
+#import "BUYManagedObject.h"
 
-#import <Buy/BUYModelManager.h>
+#import "BUYModelManager.h"
 
 extern const struct BUYImageLinkAttributes {
 	__unsafe_unretained NSString *createdAt;

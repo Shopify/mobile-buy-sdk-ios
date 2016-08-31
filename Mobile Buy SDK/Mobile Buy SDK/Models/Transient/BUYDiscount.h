@@ -24,8 +24,8 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/_BUYDiscount.h>
-#import <Buy/BUYModelManager.h>
+#import "_BUYDiscount.h"
+#import "BUYModelManager.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BUYDiscount : _BUYDiscount {}
