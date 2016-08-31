@@ -156,6 +156,21 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	}];
 }
 
+- (NSOperation *)getCollectionsByHandles:(NSArray *)handles completion:(BUYDataCollectionsBlock)block
+{
+	NSURL *url = [self urlForCollectionListingsWithParameters:@{
+																@"handle" : [handles componentsJoinedByString:@","],
+																}];
+	
+	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		NSArray *collections = nil;
+		if (json && !error) {
+			collections = [self.modelManager buy_objectsWithEntityName:[BUYCollection entityName] JSONArray:json[BUYCollectionsKey]];
+		}
+		block(collections, error);
+	}];
+}
+
 - (NSOperation *)getCollectionsPage:(NSUInteger)page completion:(BUYDataCollectionsListBlock)block
 {
 	NSURL *url  = [self urlForCollectionListingsWithParameters:@{
