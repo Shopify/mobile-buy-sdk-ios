@@ -123,7 +123,7 @@
 		XCTAssertNotNil(error);
 		
 		NSArray<BUYError *> *errors = [BUYError errorsFromSignUpJSON:error.userInfo];
-		XCTAssertEqual(errors.count, 3);
+		XCTAssertEqual(errors.count, 2);
 		
 		BUYError *emailError = errors[0];
 		XCTAssertEqualObjects(emailError.code, @"invalid");
