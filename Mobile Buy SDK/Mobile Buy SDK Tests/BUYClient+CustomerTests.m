@@ -153,9 +153,9 @@
 			XCTAssertNotNil(customer);
 			XCTAssertNil(error);
 			
-			XCTAssertEqual(customer.firstName, [credentials credentialItemForKey:BUYAccountFirstNameKey].value);
-			XCTAssertEqual(customer.lastName, [credentials credentialItemForKey:BUYAccountLastNameKey].value);
-			XCTAssertEqual(customer.email, [credentials credentialItemForKey:BUYAccountEmailKey].value);
+			XCTAssertEqualObjects(customer.firstName, [credentials credentialItemForKey:BUYAccountFirstNameKey].value);
+			XCTAssertEqualObjects(customer.lastName, [credentials credentialItemForKey:BUYAccountLastNameKey].value);
+			XCTAssertEqualObjects(customer.email, [credentials credentialItemForKey:BUYAccountEmailKey].value);
 		}
 		
 		[expectation fulfill];
@@ -446,7 +446,7 @@
 {
 	BUYAccountCredentialItem *first		= [BUYAccountCredentialItem itemWithFirstName:@"Bob"];
 	BUYAccountCredentialItem *last		= [BUYAccountCredentialItem itemWithLastName:@"Sacamano"];
-	BUYAccountCredentialItem *email     = [BUYAccountCredentialItem itemWithEmail:[self randomStringWithLength:8]];
+	BUYAccountCredentialItem *email     = [BUYAccountCredentialItem itemWithEmail:[[self randomStringWithLength:8] stringByAppendingString:@"@email.com"]];
 	BUYAccountCredentialItem *password  = [BUYAccountCredentialItem itemWithPassword:@"12345"];
 	return [BUYAccountCredentials credentialsWithItems:@[first, last, email, password]];
 }
