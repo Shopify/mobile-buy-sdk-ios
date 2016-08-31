@@ -26,9 +26,9 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
 // Make changes to BUYProduct.h instead.
 
-#import <Buy/BUYManagedObject.h>
+#import "BUYManagedObject.h"
 
-#import <Buy/BUYModelManager.h>
+#import "BUYModelManager.h"
 
 extern const struct BUYProductAttributes {
 	__unsafe_unretained NSString *available;

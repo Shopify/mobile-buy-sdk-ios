@@ -25,8 +25,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Buy/BUYSerializable.h>
-#import <Buy/NSArray+BUYAdditions.h>
+#import "BUYSerializable.h"
+#import "NSArray+BUYAdditions.h"
 
 typedef NSString * (^BUYStringMap) (NSString *);
 

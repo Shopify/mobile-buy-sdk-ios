@@ -25,10 +25,10 @@
 //
 
 @import XCTest;
+@import Buy;
+
 #import "BUYClientTestBase.h"
-#import "BUYClient+Customers.h"
-#import "BUYAccountCredentials.h"
-#import "BUYError+BUYAdditions.h"
+
 #import <OHHTTPStubs/OHHTTPStubs.h>
 #import "OHHTTPStubsResponse+Helpers.h"
 

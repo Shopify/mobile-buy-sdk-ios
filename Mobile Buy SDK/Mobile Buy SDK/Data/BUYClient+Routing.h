@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/BUYClient.h>
+#import "BUYClient.h"
 
 @interface BUYClient (Routing)
 

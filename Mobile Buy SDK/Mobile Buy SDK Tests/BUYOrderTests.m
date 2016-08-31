@@ -24,8 +24,8 @@
 //  THE SOFTWARE.
 //
 
-#import <XCTest/XCTest.h>
-#import "BUYOrder.h"
+@import XCTest;
+@import Buy;
 
 @interface BUYOrderTests : XCTestCase
 @property (nonatomic, readonly) NSArray<BUYOrder *> *orders;

@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/_BUYCheckoutAttribute.h>
+#import "_BUYCheckoutAttribute.h"
 NS_ASSUME_NONNULL_BEGIN
 
 /**

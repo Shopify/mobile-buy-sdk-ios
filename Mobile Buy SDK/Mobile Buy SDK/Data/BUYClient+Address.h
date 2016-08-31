@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/BUYClient+Customers.h>
+#import "BUYClient+Customers.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @class BUYAddress;

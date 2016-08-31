@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/BUYClient.h>
+#import "BUYClient.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @class BUYCheckout;

@@ -25,8 +25,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Buy/BUYObject.h>
-#import <Buy/BUYModelManagerProtocol.h>
+#import "BUYObject.h"
+#import "BUYModelManagerProtocol.h"
 NS_ASSUME_NONNULL_BEGIN
 
 /**

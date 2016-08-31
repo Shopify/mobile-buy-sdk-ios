@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/_BUYTaxLine.h>
+#import "_BUYTaxLine.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BUYTaxLine : _BUYTaxLine {}

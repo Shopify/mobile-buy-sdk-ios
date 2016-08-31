@@ -26,12 +26,12 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
 // Make changes to <$managedObjectClassName$>.h instead.
 
-#import <Buy/BUYManagedObject.h>
+#import "BUYManagedObject.h"
 
 <$if hasAdditionalHeaderFile$>
-#import <Buy/<$additionalHeaderFileName$>>
+#import "<$additionalHeaderFileName$>"
 <$endif$>
-#import <Buy/BUYModelManager.h>
+#import "BUYModelManager.h"
 
 <$if noninheritedAttributes.@count > 0$>
 extern const struct <$managedObjectClassName$>Attributes {<$foreach Attribute noninheritedAttributes do$>

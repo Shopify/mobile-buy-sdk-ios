@@ -24,8 +24,10 @@
 //  THE SOFTWARE.
 //
 
-#import <XCTest/XCTest.h>
-#import <PassKit/PassKit.h>
+@import PassKit;
+@import XCTest;
+@import Buy;
+
 #import "BUYApplePayToken.h"
 #import "BUYApplePayTestToken.h"
 

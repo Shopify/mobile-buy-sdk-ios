@@ -25,7 +25,7 @@
 //
 
 @import Foundation;
-#import <Buy/BUYClientTypes.h>
+#import "BUYClientTypes.h"
 
 @class BUYCustomerToken;
 @class BUYModelManager;

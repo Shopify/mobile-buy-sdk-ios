@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/_BUYCart.h>
+#import "_BUYCart.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @class BUYProductVariant;

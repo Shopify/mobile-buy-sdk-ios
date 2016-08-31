@@ -24,10 +24,12 @@
 //  THE SOFTWARE.
 //
 
-#import <XCTest/XCTest.h>
-#import <OHHTTPStubs/OHHTTPStubs.h>
+@import XCTest;
+@import Buy;
+
 #import "BUYRequestOperation.h"
-#import "BUYClient.h"
+
+#import <OHHTTPStubs/OHHTTPStubs.h>
 
 @interface BUYRequestOperationTests : XCTestCase
 
