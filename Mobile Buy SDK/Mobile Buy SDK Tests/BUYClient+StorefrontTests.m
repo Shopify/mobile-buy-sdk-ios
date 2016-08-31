@@ -26,13 +26,13 @@
 
 @import UIKit;
 @import XCTest;
-#import <Buy/Buy.h>
-#import "BUYTestConstants.h"
-#import "BUYCollection.h"
+@import Buy;
+
 #import "BUYClientTestBase.h"
+#import "BUYTestConstants.h"
+
 #import <OHHTTPStubs/OHHTTPStubs.h>
 #import "OHHTTPStubsResponse+Helpers.h"
-#import "BUYShopifyErrorCodes.h"
 
 @interface BUYClientTest_Storefront : BUYClientTestBase
 @property (nonatomic, strong) BUYCollection *collection;

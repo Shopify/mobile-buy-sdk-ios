@@ -24,23 +24,9 @@
 //  THE SOFTWARE.
 //
 
-#import <XCTest/XCTest.h>
-
-#import "BUYManagedObject.h"
-
-#import "BUYCollection.h"
-//#import "BUYCustomer.h"
-#import "BUYProduct.h"
-#import "BUYProductVariant.h"
-#import "BUYShop.h"
-
-#import "BUYAddress.h"
-#import "BUYCheckout.h"
-#import "BUYLineItem.h"
-
-#import "BUYModelManager.h"
-
-#import <CoreData/CoreData.h>
+@import CoreData;
+@import XCTest;
+@import Buy;
 
 @interface BUYModelManager (buymodel_tests)
 - (BUYCollection *)newTestCollection;

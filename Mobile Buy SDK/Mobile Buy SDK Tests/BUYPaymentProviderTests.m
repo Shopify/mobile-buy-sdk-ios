@@ -25,14 +25,11 @@
 //
 
 @import XCTest;
+@import Buy;
 
-#import <Buy/Buy.h>
-
-#import "BUYApplePayPaymentProvider.h"
-#import "BUYWebCheckoutPaymentProvider.h"
 #import "BUYClientTestBase.h"
-#import "BUYPaymentController.h"
 #import "BUYFakeSafariController.h"
+
 #import <OHHTTPStubs/OHHTTPStubs.h>
 
 extern Class SafariViewControllerClass;

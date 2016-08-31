@@ -24,8 +24,8 @@
 //  THE SOFTWARE.
 //
 
-#import <XCTest/XCTest.h>
-#import "NSRegularExpression+BUYAdditions.h"
+@import XCTest;
+@import Buy;
 
 @interface BUYRegularExpressionAdditionsTests : XCTestCase
 

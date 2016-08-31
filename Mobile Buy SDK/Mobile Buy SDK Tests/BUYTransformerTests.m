@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import <XCTest/XCTest.h>
+@import XCTest;
 
 #import "BUYDateTransformer.h"
 #import "BUYDecimalNumberTransformer.h"

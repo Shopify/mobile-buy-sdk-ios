@@ -24,14 +24,14 @@
 //  THE SOFTWARE.
 //
 
-#import <XCTest/XCTest.h>
-#import <CoreData/CoreData.h>
+@import XCTest;
+@import CoreData;
+@import Buy;
 
-#import "BUYFlatCollectionTransformer.h"
 #import "BUYDateTransformer.h"
+#import "BUYFlatCollectionTransformer.h"
 #import "BUYIdentityTransformer.h"
-#import "NSEntityDescription+BUYAdditions.h"
-#import "NSPropertyDescription+BUYAdditions.h"
+
 #import "TestModel.h"
 
 static NSString * const BirdEntity = @"Bird";

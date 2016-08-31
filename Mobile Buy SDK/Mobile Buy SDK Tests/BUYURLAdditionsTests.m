@@ -24,8 +24,8 @@
 //  THE SOFTWARE.
 //
 
-#import <XCTest/XCTest.h>
-#import "NSURL+BUYAdditions.h"
+@import XCTest;
+@import Buy;
 
 @interface BUYURLAdditionsTests : XCTestCase
 

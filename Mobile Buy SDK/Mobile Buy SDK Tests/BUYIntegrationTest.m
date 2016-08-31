@@ -26,12 +26,13 @@
 
 @import UIKit;
 @import XCTest;
+@import Buy;
 
-#import <Buy/Buy.h>
-#import "BUYTestConstants.h"
-#import "BUYCheckout.h"
-#import "BUYClientTestBase.h"
 #import "BUYClient+Routing.h"
+
+#import "BUYTestConstants.h"
+#import "BUYClientTestBase.h"
+
 #import <OHHTTPStubs/OHHTTPStubs.h>
 #import "OHHTTPStubsResponse+Helpers.h"
 

@@ -28,8 +28,7 @@
 @import PassKit;
 @import UIKit;
 @import XCTest;
-
-#import <Buy/Buy.h>
+@import Buy;
 
 #import "BUYPKContact.h"
 #import "BUYNSPersonNameComponents.h"
