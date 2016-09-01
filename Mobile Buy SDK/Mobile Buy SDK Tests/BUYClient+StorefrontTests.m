@@ -387,13 +387,32 @@
 	}];
 }
 
-- (void)testGettingTags
+- (void)testGetAllTags
 {
-	[OHHTTPStubs stubUsingResponseWithKey:@"testTags" useMocks:[self shouldUseMocks]];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testGetAllTags" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
 	[self.client getProductTagsPage:1 completion:^(NSArray *tags, NSUInteger page, BOOL end, NSError *error){
+		
+		XCTAssertNil(error);
+		XCTAssertNotNil(tags);
+		
+		[expectation fulfill];
+	}];
+	
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
+- (void)testGetTagsByCollection
+{
+	[OHHTTPStubs stubUsingResponseWithKey:@"testGetTagsByCollection" useMocks:[self shouldUseMocks]];
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	
+	[self.client getProductTagsInCollection:self.collectionIds[0] page:1 completion:^(NSArray *tags, NSUInteger page, BOOL end, NSError *error){
 		
 		XCTAssertNil(error);
 		XCTAssertNotNil(tags);

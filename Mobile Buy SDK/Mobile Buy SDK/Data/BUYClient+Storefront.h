@@ -199,6 +199,17 @@ typedef void (^BUYDataTagsListBlock)(NSArray <NSString *> * _Nullable tags, NSUI
 - (NSOperation *)getProductTagsPage:(NSUInteger)page completion:(BUYDataTagsListBlock)block;
 
 /**
+*  Gets product tags by collection ID
+*
+*  @param collectionId Collection ID to get tags by
+*  @param page			Page to request. Pages start at 1.
+*  @param block		(^BUYDataTagsListBlock)(NSArray <NSString *> * _Nullable tags, NSUInteger page, BOOL reachedEnd, NSError * _Nullable error)
+*
+*  @return The associated NSOperation
+*/
+- (NSOperation *)getProductTagsInCollection:(NSString *)collectionId page:(NSUInteger)page completion:(BUYDataTagsListBlock)block;
+
+/**
  *  Fetch a single collection by the handle of the collection.
  *
  *  @param handle Collection handle
