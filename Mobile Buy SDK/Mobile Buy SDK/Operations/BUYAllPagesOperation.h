@@ -26,6 +26,7 @@ typedef void (^BUYAllPagesCompletion) (id results, NSError *error);
 
 + (instancetype)fetchAllCollectionsWithClient:(BUYClient *)client completion:(BUYAllPagesCompletion)completion;
 + (instancetype)fetchAllProductsWithClient:(BUYClient *)client completion:(BUYAllPagesCompletion)completion;
++ (instancetype)fetchAllProductsWithClient:(BUYClient *)client collectionId:(NSNumber *)collectionId completion:(BUYAllPagesCompletion)completion;
 + (instancetype)fetchAllTagsWithClient:(BUYClient *)client completion:(BUYAllPagesCompletion)completion;
 
 @end

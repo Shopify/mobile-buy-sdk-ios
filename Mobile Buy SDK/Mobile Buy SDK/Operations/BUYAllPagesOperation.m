@@ -101,6 +101,13 @@
 	} completion:completion];
 }
 
++ (instancetype)fetchAllProductsWithClient:(BUYClient *)client collectionId:(NSNumber *)collectionId completion:(BUYAllPagesCompletion)completion
+{
+	return [[BUYAllPagesOperation alloc] initWithClient:client block:^(NSUInteger page, BUYFetchPageCompletion completion) {
+		return [client getProductsPage:page inCollection:collectionId completion:(BUYDataProductListBlock)completion];
+	} completion:completion];
+}
+
 + (instancetype)fetchAllTagsWithClient:(BUYClient *)client completion:(BUYAllPagesCompletion)completion
 {
 	return [[BUYAllPagesOperation alloc] initWithClient:client block:^(NSUInteger page, BUYFetchPageCompletion completion) {
