@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSOperation *currentOperation;
 @property (nonatomic, strong) NSMutableArray *cumulativeResults;
 @property (nonatomic, strong) NSError *error;
+@property (nonatomic) NSUInteger currentPage;
 
 @end
 
@@ -39,31 +40,32 @@
 
 - (void)startExecution
 {
-	if (self.cancelled) {
-		return;
-	}
+	self.currentPage = 1;
 	self.currentOperation = [self operationForPage:1];
 	[super startExecution];
 }
 
 - (NSOperation *)operationForPage:(NSUInteger)page
 {
+	if (self.cancelled) {
+		return nil;
+	}
 	__weak typeof (self) welf = self;
-	return _fetchBlock(1, ^(NSArray *results, NSUInteger page, BOOL reachedEnd, NSError *error) {
-		typeof (welf) sself = welf;
+	return _fetchBlock(page, ^(NSArray *results, NSUInteger page, BOOL reachedEnd, NSError *error) {
 		if (error) {
-			sself.error = error;
+			welf.error = error;
 		}
 		else {
 			if (results.count > 0) {
-				[sself.cumulativeResults addObjectsFromArray:results];
+				[welf.cumulativeResults addObjectsFromArray:results];
 			}
 			if (reachedEnd) {
-				sself.currentOperation = nil;
-				[sself finishExecution];
+				welf.currentOperation = nil;
+				[welf finishExecution];
 			}
 			else {
-				self.currentOperation = [sself operationForPage:page + 1];
+				self.currentPage = page + 1;
+				self.currentOperation = [welf operationForPage:page + 1];
 			}
 		}
 	});
@@ -77,12 +79,9 @@
 
 - (void)finishExecution
 {
-	if (self.cancelled) {
-		return;
+	if (!self.cancelled && _completion != nil) {
+		_completion([self.cumulativeResults copy], self.error);
 	}
-	
-	_completion([self.cumulativeResults copy], self.error);
-	
 	[super finishExecution];
 }
 

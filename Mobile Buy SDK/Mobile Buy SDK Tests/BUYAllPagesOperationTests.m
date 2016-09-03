@@ -10,6 +10,7 @@
 
 #import "BUYAllPagesOperation.h"
 #import "BUYClientTestBase.h"
+#import "BUYObserver.h"
 
 @interface BUYAllPagesOperationTests : BUYClientTestBase
 
@@ -31,9 +32,10 @@
 	[super tearDown];
 }
 
-- (void)testOne
+- (void)testGetAllTags
 {
-	XCTestExpectation *expectation = [self expectationWithDescription:@"hello"];
+	self.client.pageSize = 2;
+	XCTestExpectation *expectation = [self expectationWithDescription:CmdString()];
 	[self.queue addOperation:[BUYAllPagesOperation fetchAllTagsWithClient:self.client completion:^(NSArray *results, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(results);
@@ -41,6 +43,28 @@
 		[expectation fulfill];
 	}]];
 	[self waitForExpectationsWithTimeout:10.0 handler:nil];
+}
+
+- (void)testGetAllTagsAndCancel
+{
+	self.client.pageSize = 2;
+	BUYAllPagesOperation *operation = [BUYAllPagesOperation fetchAllTagsWithClient:self.client completion:^(NSArray *results, NSError *error) {
+		XCTFail();
+	}];
+	XCTestExpectation *expectation = [self expectationWithDescription:CmdString()];
+	BUYObserver *observer = [BUYObserver observeProperties:@[@"currentPage", @"cancelled"] ofObject:operation];
+	observer.changeBlock = ^(BUYObserver *observer, NSString *property) {
+		if (operation.currentPage == 2) {
+			[operation cancel];
+			[observer cancel];
+			[expectation fulfill];
+		}
+	};
+	[self.queue addOperation:operation];
+	[self waitForExpectationsWithTimeout:5.0 handler:nil];
+	XCTAssertTrue(operation.cancelled);
+	NSOperation *pageOp = (NSOperation *)[operation valueForKey:@"currentOperation"];
+	XCTAssertNil(pageOp);
 }
 
 @end

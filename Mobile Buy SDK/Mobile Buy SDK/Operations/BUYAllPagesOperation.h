@@ -18,6 +18,10 @@ typedef void (^BUYAllPagesCompletion) (id results, NSError *error);
 
 @interface BUYAllPagesOperation : BUYOperation
 
+@property (nonatomic, strong, readonly) NSMutableArray *cumulativeResults;
+@property (nonatomic, strong, readonly) NSError *error;
+@property (nonatomic, readonly) NSUInteger currentPage;
+
 - (instancetype)initWithClient:(BUYClient *)client block:(BUYFetchPageBlock)block completion:(BUYAllPagesCompletion)completion;
 
 + (instancetype)fetchAllCollectionsWithClient:(BUYClient *)client completion:(BUYAllPagesCompletion)completion;
