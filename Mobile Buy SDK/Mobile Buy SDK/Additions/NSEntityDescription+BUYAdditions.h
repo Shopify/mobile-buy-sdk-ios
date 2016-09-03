@@ -44,7 +44,7 @@
 /**
  * Signifies whether this entity is private to the app (not used by the endpoint).
  */
-- (BOOL)buy_isPrivate;
+@property (nonatomic, readonly, getter=buy_isPrivate) BOOL private;
 
 /**
  * Generate JSON, recursively, from the provided model object.

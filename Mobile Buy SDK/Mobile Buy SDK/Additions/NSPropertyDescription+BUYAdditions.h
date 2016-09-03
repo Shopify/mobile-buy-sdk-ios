@@ -87,8 +87,14 @@ extern NSString * const BUYJSONPropertyKeyUserInfoKey;      // = @"JSONPropertyK
 
 /**
  * YES if the delete rule is not Cascading and the entity is not private.
+ * Deprecated. Use ownsDestination on the source relationship when encoding.
  */
-@property (nonatomic, readonly, getter=buy_allowsInverseEncoding) BOOL allowsInverseEncoding;
+@property (nonatomic, readonly, getter=buy_allowsInverseEncoding) BOOL allowsInverseEncoding DEPRECATED_ATTRIBUTE;
+
+/**
+ * YES if the delete rule is Cascading and the destination entity is not private.
+ */
+@property (nonatomic, readonly, getter=buy_ownsDestination) BOOL ownsDestination;
 
 /**
  * YES if this relationship and its inverse are both toMany
