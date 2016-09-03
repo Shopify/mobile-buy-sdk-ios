@@ -287,7 +287,7 @@ static NSString *JSONValueTransformerNameForAttributeType(NSAttributeType type)
 	else if (!self.toMany) {
 		json = [self buy_JSONForObject:value];
 	}
-	else if (!self.manyToMany) {
+	else if (!self.manyToMany || self.inverseRelationship.allowsInverseEncoding) {
 		json = [self buy_JSONForCollection:value];
 	}
 	return json;
