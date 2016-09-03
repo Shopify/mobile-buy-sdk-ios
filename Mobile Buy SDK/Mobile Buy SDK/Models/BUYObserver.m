@@ -102,6 +102,9 @@ static void * kBUYObserverContext = &kBUYObserverContext;
 - (void)markPropertyChanged:(NSString *)property
 {
 	[self addChangedPropertiesObject:property];
+	if (_changeBlock) {
+		_changeBlock(self, property);
+	}
 }
 
 - (BOOL)hasChanges
