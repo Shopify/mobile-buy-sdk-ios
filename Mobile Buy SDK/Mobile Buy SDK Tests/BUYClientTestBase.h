@@ -27,6 +27,9 @@
 @import XCTest;
 @import Buy;
 
+#define SelString(_sel) NSStringFromSelector(@selector(_sel))
+#define CmdString() NSStringFromSelector(_cmd)
+
 extern NSString * const BUYShopDomain_Placeholder;
 extern NSString * const BUYAPIKey_Placeholder;
 extern NSString * const BUYAppId_Placeholder;

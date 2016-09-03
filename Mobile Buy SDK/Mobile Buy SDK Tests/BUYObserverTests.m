@@ -74,4 +74,17 @@
 	XCTAssertEqual(weakTarget, nil);
 }
 
+- (void)testObserverBlock
+{
+	Target *target = [[Target alloc] init];
+	BUYObserver *observer = [BUYObserver observeProperties:@[@"name"] ofObject:target];
+	__block BOOL blockInvoked = NO;
+	observer.changeBlock = ^(BUYObserver *observer, NSString *property) {
+		XCTAssertEqualObjects(property, @"name");
+		blockInvoked = YES;
+	};
+	target.name = @"Name";
+	XCTAssertTrue(blockInvoked);
+}
+
 @end

@@ -26,12 +26,17 @@
 
 #import <Foundation/Foundation.h>
 
+@class BUYObserver;
+
+typedef void (^BUYObserverDidChangeBlock) (BUYObserver *observer, NSString *property);
+
 @interface BUYObserver : NSObject
 
 @property (nonatomic, readonly) NSObject *object;
 @property (nonatomic, readonly) NSArray *observedProperties;
 @property (nonatomic, readonly) NSSet *changedProperties;
 @property (nonatomic, readonly) BOOL hasChanges;
+@property (nonatomic, copy) BUYObserverDidChangeBlock changeBlock;
 
 - (instancetype)init NS_UNAVAILABLE;
 - (void)markPropertyChanged:(NSString *)property;
