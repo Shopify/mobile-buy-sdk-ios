@@ -68,8 +68,9 @@
 
 - (NSDictionary *)buy_JSONEncodedProperties
 {
-	NSMutableDictionary *properties = [NSMutableDictionary dictionaryWithDictionary:[self attributesByName]];
-	[properties addEntriesFromDictionary:[self relationshipsByName]];
+	NSMutableDictionary *properties = [NSMutableDictionary dictionaryWithDictionary:self.attributesByName];
+	NSDictionary *relationships = [self.relationshipsByName buy_dictionaryByFilteringValuesWithPredicate:[NSPredicate predicateWithFormat:@"manyToMany == NO"]];
+	[properties addEntriesFromDictionary:relationships];
 	return properties;
 }
 
