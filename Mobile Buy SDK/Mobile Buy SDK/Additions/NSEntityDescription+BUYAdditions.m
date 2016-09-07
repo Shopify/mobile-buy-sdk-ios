@@ -151,6 +151,22 @@
 	return results;
 }
 
+- (NSDictionary *)buy_JSONEncodedPropertiesForObject:(NSObject<BUYObject> *)object
+{
+	static NSMutableDictionary<NSString *, NSDictionary *> *cachedProperties;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		cachedProperties = [NSMutableDictionary dictionary];
+	});
+	
+	NSDictionary *properties = cachedProperties[self.name];
+	if (nil == properties) {
+		properties = object.JSONEncodedProperties;
+		cachedProperties[self.name] = properties;
+	}
+	return properties;
+}
+
 - (NSArray *)buy_JSONForArray:(NSArray<NSObject<BUYObject> *> *)array
 {
 	return [array buy_map:^(NSObject<BUYObject> *object) {
