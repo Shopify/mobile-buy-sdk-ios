@@ -51,7 +51,34 @@
 
 - (id<BUYObject>)buy_objectWithEntityName:(NSString *)entityName JSONDictionary:(NSDictionary *)JSON
 {
-	return [(id)[[self managedModelClassForEntityName:entityName] alloc] initWithModelManager:self JSONDictionary:JSON];
+	id<BUYObject> object = [(id)[[self managedModelClassForEntityName:entityName] alloc] initWithModelManager:self JSONDictionary:JSON];
+	[self updateRelationshipsForObject:object];
+	return object;
+}
+
+- (void)updateRelationshipsForObject:(NSObject<BUYObject> *)object
+{
+	for (NSRelationshipDescription *relationship in object.entity.relationshipsByName.allValues) {
+		if (relationship.toMany) {
+			id collection = [object valueForKey:relationship.name];
+			NSString *inverseName = relationship.inverseRelationship.name;
+			if (relationship.inverseRelationship.toMany) {
+				for (NSObject<BUYObject>*related in collection) {
+					if(relationship.inverseRelationship.ordered) {
+						[related setValue:[NSMutableOrderedSet orderedSetWithObject:object] forKey:inverseName];
+					}
+					else {
+						[related setValue:[NSSet setWithObject:object] forKey:inverseName];
+					}
+				}
+			}
+			else {
+				for (NSObject<BUYObject>*related in collection) {
+					[related setValue:object forKey:inverseName];
+				}
+			}
+		}
+	}
 }
 
 - (NSArray<id<BUYObject>> *)buy_objectsWithEntityName:(NSString *)entityName JSONArray:(NSArray *)JSON {
@@ -100,7 +127,7 @@
 
 - (NSDictionary *)JSONDictionary
 {
-	return [self.entity buy_JSONForObject:self];
+	return [self.entity buy_JSONForObject:self inRelationship:nil];
 }
 
 - (void)setJSONDictionary:(NSDictionary *)JSONDictionary
