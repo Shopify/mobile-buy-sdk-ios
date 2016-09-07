@@ -360,6 +360,7 @@
         <relationship name="products" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Product" inverseName="collections" inverseEntity="Product" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="Inverse of Product.collections."/>
+                <entry key="JSONPropertyKey" value="product_ids"/>
             </userInfo>
         </relationship>
         <userInfo>

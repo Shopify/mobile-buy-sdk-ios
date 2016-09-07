@@ -211,7 +211,7 @@ static NSString *JSONValueTransformerNameForAttributeType(NSAttributeType type)
 {
 	id json = nil;
 	if (!self.inverseRelationship || self.inverseRelationship.allowsInverseEncoding) {
-		json = [self.destinationEntity buy_JSONForObject:object];
+		json = [self.destinationEntity buy_JSONForObject:object inRelationship:self];
 	}
 	return json;
 }
@@ -247,7 +247,7 @@ static NSString *JSONValueTransformerNameForAttributeType(NSAttributeType type)
 // (ordered)set (of models) -> JSON
 - (NSArray *)buy_JSONForCollection:(id)collection
 {
-	return [self.destinationEntity buy_JSONForArray:[self buy_arrayForCollection:collection]];
+	return [self.destinationEntity buy_JSONForArray:[self buy_arrayForCollection:collection] inRelationship:self];
 }
 
 #pragma mark - Property Additions Overrides

@@ -49,12 +49,12 @@
 /**
  * Generate JSON, recursively, from the provided model object.
  */
-- (NSDictionary *)buy_JSONForObject:(id<BUYObject>)object;
+- (NSDictionary *)buy_JSONForObject:(id<BUYObject>)object inRelationship:(NSRelationshipDescription *)relationship;
 
 /**
  * Generate JSON, recursively, for each model in the provided array.
  */
-- (NSArray *)buy_JSONForArray:(NSArray<NSObject<BUYObject> *> *)array;
+- (NSArray *)buy_JSONForArray:(NSArray<NSObject<BUYObject> *> *)array inRelationship:(NSRelationshipDescription *)relationship;
 
 /**
  * Update the properties of the given model object, and child objects, using the given JSON dictionary.

@@ -69,7 +69,7 @@
 - (NSDictionary *)buy_JSONEncodedProperties
 {
 	NSMutableDictionary *properties = [NSMutableDictionary dictionaryWithDictionary:self.attributesByName];
-	NSDictionary *relationships = [self.relationshipsByName buy_dictionaryByFilteringValuesWithPredicate:[NSPredicate predicateWithFormat:@"manyToMany == NO"]];
+	NSDictionary *relationships = [self.relationshipsByName buy_dictionaryByFilteringValuesWithPredicate:[NSPredicate predicateWithFormat:@"buy_isManyToMany == NO"]];
 	[properties addEntriesFromDictionary:relationships];
 	return properties;
 }
@@ -127,7 +127,7 @@
 
 #pragma mark - Object-Plist transformation
 
-- (NSDictionary *)buy_JSONForObject:(NSObject<BUYObject> *)object
+- (NSDictionary *)buy_JSONForObject:(NSObject<BUYObject> *)object inRelationship:(NSRelationshipDescription *)relationship
 {
 	BUYAssert([self isEqual:[object entity]], @"%@ entity cannot decode %@ objects", self.name, [object entity].name);
 	
@@ -136,6 +136,9 @@
 	
 	NSMutableDictionary *results = [NSMutableDictionary dictionary];
 	[object.JSONEncodedProperties enumerateKeysAndObjectsUsingBlock:^(NSString *propertyName, NSPropertyDescription *property, BOOL *stop) {
+		if (property == relationship.inverseRelationship) {
+			return;
+		}
 		id value = [object valueForKey:propertyName];
 		if (value) {
 			// Each property is responsible for knowing how to generate JSON for its value
@@ -151,7 +154,7 @@
 	return results;
 }
 
-- (NSDictionary *)buy_JSONEncodedPropertiesForObject:(NSObject<BUYObject> *)object
+- (NSDictionary *)buy_JSONEncodedPropertiesForObject:(NSObject<BUYObject> *)object inRelationship:(NSRelationshipDescription *)relationship
 {
 	static NSMutableDictionary<NSString *, NSDictionary *> *cachedProperties;
 	static dispatch_once_t onceToken;
@@ -161,16 +164,17 @@
 	
 	NSDictionary *properties = cachedProperties[self.name];
 	if (nil == properties) {
-		properties = object.JSONEncodedProperties;
+		NSPredicate *predate = [NSPredicate predicateWithFormat:@"%K != %@", NSStringFromSelector(@selector(name)), relationship.name];
+		properties = [object.JSONEncodedProperties buy_dictionaryByFilteringValuesWithPredicate:predate];
 		cachedProperties[self.name] = properties;
 	}
 	return properties;
 }
 
-- (NSArray *)buy_JSONForArray:(NSArray<NSObject<BUYObject> *> *)array
+- (NSArray *)buy_JSONForArray:(NSArray<NSObject<BUYObject> *> *)array inRelationship:(NSRelationshipDescription *)relationship
 {
 	return [array buy_map:^(NSObject<BUYObject> *object) {
-		return [self buy_JSONForObject:object];
+		return [self buy_JSONForObject:object inRelationship:relationship];
 	}];
 }
 

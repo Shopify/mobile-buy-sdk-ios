@@ -125,7 +125,7 @@
 {
 	// JSON generation starts in `-buy_JSONForObject`.
 	// Both persistent and transient objects go through this interface.
-	return [self.entity buy_JSONForObject:self];
+	return [self.entity buy_JSONForObject:self inRelationship:nil];
 }
 
 - (void)setJSONDictionary:(NSDictionary *)JSONDictionary
