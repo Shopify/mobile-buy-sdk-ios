@@ -284,11 +284,11 @@ static NSString *JSONValueTransformerNameForAttributeType(NSAttributeType type)
 	if (self.encodesIdInJSON) {
 		json = [value valueForKey:NSStringFromSelector(@selector(identifier))];
 	}
-	else if (!self.toMany) {
-		json = [self buy_JSONForObject:value];
-	}
-	else if (!self.manyToMany) {
+	else if (self.toMany) {
 		json = [self buy_JSONForCollection:value];
+	}
+	else {
+		json = [self buy_JSONForObject:value];
 	}
 	return json;
 }
