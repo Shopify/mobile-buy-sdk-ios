@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 typedef NS_ENUM(NSUInteger, BUYCollectionSort) {
 	/**
-	 *  Sort products by best selling using the order set in the shop's admin
+	 *  Sort products by using the order set in the shop's admin when set to "Manually"
 	 */
 	BUYCollectionSortCollectionDefault,
 	/**
