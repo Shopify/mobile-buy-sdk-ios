@@ -56,4 +56,9 @@ typedef NSString * (^BUYStringMap) (NSString *);
  */
 - (id)buy_objectForKey:(NSString *)key;
 
+/**
+ *  Strip all the entries from the dictionary that contain a Null value
+ */
+- (NSDictionary *)buy_removeNulls;
+
 @end

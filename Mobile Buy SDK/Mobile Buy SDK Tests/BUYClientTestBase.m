@@ -26,6 +26,7 @@
 
 #import "BUYClientTestBase.h"
 #import "NSArray+BUYAdditions.h"
+#import "NSDictionary+BUYAdditions.h"
 
 NSString * const kBUYTestEmail = @"customer_email";
 NSString * const kBUYTestPassword = @"customer_password";
@@ -45,30 +46,54 @@ NSString * const BUYShopDomain_Placeholder = @"test_shop";
 NSString * const BUYAPIKey_Placeholder = @"api_key";
 NSString * const BUYAppId_Placeholder = @"app_id";
 
-static NSString *BUYDomainName = @"SHOP_DOMAIN";
-static NSString *BUYAPIKeyName = @"API_KEY";
-static NSString *BUYAppIDName = @"APP_ID";
-static NSString *BUYMerchantIDName = @"MERCHANT_ID";
+static NSString *BUYDomainName = @"domain";
+static NSString *BUYAPIKeyName = @"api_key";
+static NSString *BUYAppIDName = @"app_id";
+static NSString *BUYMerchantIDName = @"merchant_id";
 
 @interface BUYClientTestBase ()
 @property (nonatomic, readwrite) BOOL shouldUseMocks;
-@property (nonatomic, readwrite) NSDictionary *shopConfiguration;
+
++ (NSDictionary *)testShopConfig;
 @end
 
 @implementation BUYClientTestBase
 
-- (NSString *)apiKeyFromEnvironment
-{
-	return [[NSProcessInfo processInfo] environment][BUYAPIKeyName];
-}
-
-- (NSDictionary *)shopConfiguration
++ (NSDictionary *)JSONFromFile:(NSString *)fileName
 {
 	NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-	NSString *jsonPath = [bundle pathForResource:@"test_shop_data" ofType:@"json"];
+	NSString *jsonPath = [bundle pathForResource:fileName ofType:@"json"];
 	NSData *jsonData = [NSData dataWithContentsOfFile:jsonPath];
 	
 	return [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
+}
+
++ (NSDictionary *)configFromEnvironment
+{
+	NSDictionary *environment = [[NSProcessInfo processInfo] environment];
+	NSArray *configKeys = @[BUYDomainName, BUYAPIKeyName, BUYAppIDName, BUYMerchantIDName];
+	NSDictionary *config = [[environment dictionaryWithValuesForKeys:configKeys] buy_removeNulls];
+	return config.count == configKeys.count ? config : nil;
+}
+
++ (NSDictionary *)testShopConfig
+{
+	static NSDictionary *testShopConfig;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		testShopConfig = [self configFromEnvironment] ?: [self JSONFromFile:@"test_shop_config"];
+	});
+	return testShopConfig;
+}
+
++ (NSDictionary *)testShopData
+{
+	static NSDictionary *testShopData;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		testShopData = [self JSONFromFile:@"test_shop_data"];
+	});
+	return testShopData;
 }
 
 - (void)setUp
@@ -79,24 +104,21 @@ static NSString *BUYMerchantIDName = @"MERCHANT_ID";
 
 - (void)setupClient
 {
-	NSDictionary *environment = [[NSProcessInfo processInfo] environment];
+	NSDictionary *testShopConfig = [BUYClientTestBase testShopConfig];
+	NSDictionary *testShopData = [BUYClientTestBase testShopData];
 
-	NSDictionary *configuration = self.shopConfiguration;
-	
-	self.customerEmail = configuration[@"customer_email"];
-	self.customerPassword = configuration[@"customer_password"];
-
-	self.shopDomain = environment[BUYDomainName];
-
-	if (self.shopDomain.length > 0) {
+	if (testShopConfig.count > 0) {
 		
-		self.apiKey = environment[BUYAPIKeyName];
-		self.appId = environment[BUYAppIDName];
-		self.merchantId = environment[BUYMerchantIDName];
+		self.shopDomain = testShopConfig[BUYDomainName];
+		self.apiKey = testShopConfig[BUYAPIKeyName];
+		self.appId = testShopConfig[BUYAppIDName];
+		self.merchantId = testShopConfig[BUYMerchantIDName];
 
 		NSAssert(self.apiKey.length > 0, @"Missing API Key");
 		NSAssert(self.appId.length > 0, @"Missing App ID");
 		NSAssert(self.merchantId.length > 0, @"Missing Merchant ID");
+		
+		NSLog(@"Shop domain: %@; API key: %@; App ID: %@; Merchant ID: %@", self.shopDomain, self.apiKey, self.appId, self.merchantId);
 	}
 	else {
 
@@ -113,9 +135,11 @@ static NSString *BUYMerchantIDName = @"MERCHANT_ID";
 		self.giftCardCodeExpired = @"gibberish";
 	}
 	
-	self.customerOrderIDs = configuration[kBUYTestOrderIds];
+	self.customerEmail = testShopData[@"customer_email"];
+	self.customerPassword = testShopData[@"customer_password"];
+	self.customerOrderIDs = testShopData[kBUYTestOrderIds];
 	
-	NSDictionary *giftCards = configuration[@"gift_cards"];
+	NSDictionary *giftCards = testShopData[@"gift_cards"];
 	
 	self.giftCardCode = giftCards[@"valid11"][@"code"];
 	self.giftCardCode2 = giftCards[@"valid25"][@"code"];
@@ -124,11 +148,12 @@ static NSString *BUYMerchantIDName = @"MERCHANT_ID";
 	
 	self.giftCardCodeInvalid = giftCards[@"invalid"][@"code"];
 	self.giftCardIdExpired = giftCards[@"expired"][@"id"];
-	self.discountCodeValid = configuration[@"discounts"][@"valid"][@"code"];
-	self.discountCodeExpired = configuration[@"discounts"][@"expired"][@"code"];
 	
-	self.productIds = configuration[@"product_ids"];
-	self.collectionIds = configuration[@"collection_ids"];
+	self.discountCodeValid = testShopData[@"discounts"][@"valid"][@"code"];
+	self.discountCodeExpired = testShopData[@"discounts"][@"expired"][@"code"];
+	
+	self.productIds = testShopData[@"product_ids"];
+	self.collectionIds = testShopData[@"collection_ids"];
 
 	self.client = [[BUYClient alloc] initWithShopDomain:self.shopDomain apiKey:self.apiKey appId:self.appId];
 }
