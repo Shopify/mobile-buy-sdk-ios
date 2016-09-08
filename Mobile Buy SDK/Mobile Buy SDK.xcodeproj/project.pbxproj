@@ -1277,7 +1277,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "bash \"${PROJECT_DIR}/../Scripts/generate_models.sh\"";
+			shellScript = "$SHELL \"${PROJECT_DIR}/../Scripts/generate_models.sh\"";
 		};
 		904FB61F1AE03DCF00EA1758 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
