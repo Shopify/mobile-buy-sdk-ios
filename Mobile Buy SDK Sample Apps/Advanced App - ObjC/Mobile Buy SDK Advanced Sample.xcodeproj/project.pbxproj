@@ -41,6 +41,8 @@
 		847612981CAB059100AB17AA /* UIImage+PaymentButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 847612951CAB059100AB17AA /* UIImage+PaymentButton.m */; };
 		847612A11CAB05BE00AB17AA /* UIFont+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8476129D1CAB05BE00AB17AA /* UIFont+Additions.m */; };
 		847612A21CAB05BE00AB17AA /* UIImage+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8476129F1CAB05BE00AB17AA /* UIImage+Additions.m */; };
+		84A772431D81A2640018D4F5 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE34379D1BC5C18400C71330 /* Buy.framework */; };
+		84A772441D81A2640018D4F5 /* Buy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BE34379D1BC5C18400C71330 /* Buy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		84BA52EE1CB2E83C00AB1560 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BA52ED1CB2E83C00AB1560 /* NavigationController.m */; };
 		902C9B8F1BB0729F00FC456E /* ShippingRateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 902C9B8E1BB0729F00FC456E /* ShippingRateTableViewCell.m */; };
 		902C9B921BB08FF500FC456E /* SummaryItemsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 902C9B911BB08FF500FC456E /* SummaryItemsTableViewCell.m */; };
@@ -51,8 +53,6 @@
 		B2C560BA1CEE36C00015AA40 /* ProductViewControllerThemeTintColorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C560B61CEE36C00015AA40 /* ProductViewControllerThemeTintColorTableViewCell.m */; };
 		B2C560BB1CEE36C00015AA40 /* ProductViewControllerToggleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C560B81CEE36C00015AA40 /* ProductViewControllerToggleTableViewCell.m */; };
 		B2C560C21CEE39180015AA40 /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C560C11CEE39180015AA40 /* UIColor+Additions.m */; };
-		BE3437A21BC5C19D00C71330 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE34379F1BC5C18400C71330 /* Buy.framework */; };
-		BE3437A31BC5C19D00C71330 /* Buy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BE34379F1BC5C18400C71330 /* Buy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BE8B82511B8CF49D00E3F871 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82501B8CF49D00E3F871 /* main.m */; };
 		BE8B82541B8CF49D00E3F871 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82531B8CF49D00E3F871 /* AppDelegate.m */; };
 		BE8B82571B8CF49D00E3F871 /* ProductListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82561B8CF49D00E3F871 /* ProductListViewController.m */; };
@@ -65,6 +65,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		84A772451D81A2640018D4F5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BE34378F1BC5C18400C71330 /* Mobile Buy SDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 901930E11BC5B9BC00D1134E;
+			remoteInfo = Buy;
+		};
 		BE34379A1BC5C18400C71330 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BE34378F1BC5C18400C71330 /* Mobile Buy SDK.xcodeproj */;
@@ -78,13 +85,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = BE9A64281B503C2F0033E558;
 			remoteInfo = Buy;
-		};
-		BE34379E1BC5C18400C71330 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BE34378F1BC5C18400C71330 /* Mobile Buy SDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 901931701BC5B9BC00D1134E;
-			remoteInfo = "Buy Dynamic";
 		};
 		BE3437A01BC5C18F00C71330 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -109,7 +109,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				BE3437A31BC5C19D00C71330 /* Buy.framework in Embed Frameworks */,
+				84A772441D81A2640018D4F5 /* Buy.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -229,7 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				90A6F42D1BA8BCAC003E7C4F /* PassKit.framework in Frameworks */,
-				BE3437A21BC5C19D00C71330 /* Buy.framework in Frameworks */,
+				84A772431D81A2640018D4F5 /* Buy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,9 +373,8 @@
 		BE3437901BC5C18400C71330 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BE34379B1BC5C18400C71330 /* Mobile Buy SDK Tests.xctest */,
 				BE34379D1BC5C18400C71330 /* Buy.framework */,
-				BE34379F1BC5C18400C71330 /* Buy.framework */,
+				BE34379B1BC5C18400C71330 /* Mobile Buy SDK Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -461,6 +460,7 @@
 			dependencies = (
 				BE3437A11BC5C18F00C71330 /* PBXTargetDependency */,
 				BE3437A51BC5C19D00C71330 /* PBXTargetDependency */,
+				84A772461D81A2640018D4F5 /* PBXTargetDependency */,
 			);
 			name = "Mobile Buy SDK Advanced Sample";
 			productName = "Mobile Buy SDK Advanced Sample";
@@ -523,13 +523,6 @@
 			fileType = wrapper.framework;
 			path = Buy.framework;
 			remoteRef = BE34379C1BC5C18400C71330 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		BE34379F1BC5C18400C71330 /* Buy.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Buy.framework;
-			remoteRef = BE34379E1BC5C18400C71330 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -607,6 +600,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		84A772461D81A2640018D4F5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Buy;
+			targetProxy = 84A772451D81A2640018D4F5 /* PBXContainerItemProxy */;
+		};
 		BE3437A11BC5C18F00C71330 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Buy Dynamic";
