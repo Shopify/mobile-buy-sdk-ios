@@ -1,57 +1,55 @@
 {
 	"application_name": "MobileBuyTest",
-	"shop_domain": "",
-	"api_key": "",
-	"channel_id": "",
-	"app_id": "",
-	"merchant_id": "",
 	"customer_email": "asd@asd.com",
 	"customer_password": "asdasd",
-	"product_ids": [
-					"",
-					""
-					],
-	"variants": {
-		"variant_untracked_id": "",
-		"variant_inventory1_id": "",
-		"variant_soldout_id": ""
-	},
-	"collection_id": "",
+	"customer_id": 2773005510,
+	"customer_order_ids": [3005863686],
 	"gift_cards": {
-		"ValidGiftCard11": {
-			"id": "",
-			"code": "",
+		"valid11": {
+			"id": 8366979,
+			"code": "ValidGiftCard11",
 			"value": 11
 		},
-		"ValidGiftCard25": {
-			"id": "",
-			"code": "",
+		"valid25": {
+			"id": 7441155,
+			"code": "ValidGiftCard25",
 			"value": 25
 		},
-		"ValidGiftCard50": {
-			"id": "",
-			"code": "",
+		"valid50": {
+			"id": 7438695,
+			"code": "ValidGiftCard50",
 			"value": 50
 		},
 		"expired": {
-			"id": "",
-			"code": "",
-			"value": 0
+			"id": 7438723,
+			"code": "ExpiredGiftCard25",
+			"value": 25
 		},
 		"invalid": {
-			"id": "",
-			"code": "",
-			"value": 0
+			"id": 42424242,
+			"code": "InvalidGiftCard42",
+			"value": 42
 		}
 	},
 	"discounts": {
 		"expired": {
-			"code": "",
-			"value": 0
+			"code": "expired_discount",
+			"value": 1
 		},
 		"valid": {
-			"code": "",
-			"value": 0
+			"code": "12_dollar_discount",
+			"value": 12
 		}
-	}
+	},
+	"product_ids": [
+					"2096060931",
+					"2096063363",
+					"2096062275",
+					"2096057987"
+					],
+	"collection_ids": [
+					   "109931075",
+					   "320178950",
+					   "320179206"
+					   ],
 }
