@@ -12,12 +12,12 @@ The Advanced Sample App demonstrates how to perform several tasks related to cre
 
 ### Getting started
 
-First, add your shop domain, API key and Channel ID to the `CollectionListViewController.m` macros.
+First, add your shop domain, API key and App ID to the `CollectionListViewController.m` macros.
 
 ```objc
 #define SHOP_DOMAIN @"<shop_domain>"
 #define API_KEY @"<api_key>"
-#define CHANNEL_ID @"<channel_id>"
+#define APP_ID @"<app_id>"
 ```
 
 
