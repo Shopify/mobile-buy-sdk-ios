@@ -39,9 +39,7 @@ const struct BUYCustomerAttributes BUYCustomerAttributes = {
 	.lastOrderID = @"lastOrderID",
 	.lastOrderName = @"lastOrderName",
 	.multipassIdentifier = @"multipassIdentifier",
-	.note = @"note",
 	.ordersCount = @"ordersCount",
-	.tags = @"tags",
 	.taxExempt = @"taxExempt",
 	.totalSpent = @"totalSpent",
 	.updatedAt = @"updatedAt",
@@ -112,9 +110,7 @@ const struct BUYCustomerRelationships BUYCustomerRelationships = {
 @dynamic lastOrderID;
 @dynamic lastOrderName;
 @dynamic multipassIdentifier;
-@dynamic note;
 @dynamic ordersCount;
-@dynamic tags;
 @dynamic taxExempt;
 @dynamic totalSpent;
 @dynamic updatedAt;
