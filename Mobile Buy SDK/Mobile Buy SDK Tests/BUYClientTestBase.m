@@ -83,6 +83,9 @@ static NSString *BUYMerchantIDName = @"merchant_id";
 	dispatch_once(&onceToken, ^{
 		testShopConfig = [self configFromEnvironment] ?: [self JSONFromFile:@"test_shop_config"];
 	});
+	if (testShopConfig.count == 0) {
+		NSLog(@"***** Using Mock Tests *****");
+	}
 	return testShopConfig;
 }
 
@@ -117,12 +120,8 @@ static NSString *BUYMerchantIDName = @"merchant_id";
 		NSAssert(self.apiKey.length > 0, @"Missing API Key");
 		NSAssert(self.appId.length > 0, @"Missing App ID");
 		NSAssert(self.merchantId.length > 0, @"Missing Merchant ID");
-		
-		NSLog(@"Shop domain: %@; API key: %@; App ID: %@; Merchant ID: %@", self.shopDomain, self.apiKey, self.appId, self.merchantId);
 	}
 	else {
-
-		NSLog(@"***** Using Mock Tests *****");
 		self.shouldUseMocks = YES;
 		
 		self.shopDomain = BUYShopDomain_Placeholder;
