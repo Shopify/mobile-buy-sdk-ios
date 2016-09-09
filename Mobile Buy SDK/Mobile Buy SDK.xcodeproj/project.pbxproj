@@ -153,6 +153,7 @@
 		84DD12CC1CC63FEE00A2442D /* _BUYTaxLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D915B51CC0417700D334FB /* _BUYTaxLine.m */; };
 		84DD12CF1CC6401400A2442D /* BUYCustomer.h in Headers */ = {isa = PBXBuildFile; fileRef = 84D915721CC0416800D334FB /* BUYCustomer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84DD12D01CC6401400A2442D /* BUYCustomer.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D915731CC0416800D334FB /* BUYCustomer.m */; };
+		84E61D171D81FEC90091B4A6 /* test_shop_config.json in Resources */ = {isa = PBXBuildFile; fileRef = 84E61D161D81FEC90091B4A6 /* test_shop_config.json */; };
 		901930E31BC5B9BC00D1134E /* BUYApplePayAuthorizationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BE33B4EE1B15FF4D0067982B /* BUYApplePayAuthorizationDelegate.m */; };
 		901930E81BC5B9BC00D1134E /* BUYImageLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A7A1A700B0A0087DB2C /* BUYImageLink.m */; };
 		901930E91BC5B9BC00D1134E /* BUYProductVariant.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A821A700B0A0087DB2C /* BUYProductVariant.m */; };
@@ -424,6 +425,7 @@
 		84D915B31CC0417700D334FB /* _BUYShippingRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _BUYShippingRate.m; sourceTree = "<group>"; };
 		84D915B41CC0417700D334FB /* _BUYTaxLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _BUYTaxLine.h; sourceTree = "<group>"; };
 		84D915B51CC0417700D334FB /* _BUYTaxLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _BUYTaxLine.m; sourceTree = "<group>"; };
+		84E61D161D81FEC90091B4A6 /* test_shop_config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test_shop_config.json; sourceTree = "<group>"; };
 		900396991B601DF400226B73 /* BUYCartLineItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYCartLineItem.h; sourceTree = "<group>"; };
 		9003969A1B601DF400226B73 /* BUYCartLineItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYCartLineItem.m; sourceTree = "<group>"; };
 		901931701BC5B9BC00D1134E /* Buy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Buy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -783,6 +785,7 @@
 		90F592EE1B0D5EFE0026B382 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				84E61D161D81FEC90091B4A6 /* test_shop_config.json */,
 				BE6C07051BB1E46900BD9F7B /* mocked_responses.json */,
 				BEB9AE721BA73E6C00575F8A /* test_shop_data.json */,
 				84B0A71D1CDD253A00253EB0 /* orders.json */,
@@ -1256,6 +1259,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BEB9AE781BA8627B00575F8A /* test_shop_data.json in Resources */,
+				84E61D171D81FEC90091B4A6 /* test_shop_config.json in Resources */,
 				BE98DB4F1BB1ED3E00C29564 /* OHHTTPStubs in Resources */,
 				84B0A71E1CDD253A00253EB0 /* orders.json in Resources */,
 				BE6C07061BB1E46900BD9F7B /* mocked_responses.json in Resources */,
@@ -1277,7 +1281,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "bash \"${PROJECT_DIR}/../Scripts/generate_models.sh\"";
+			shellScript = "$SHELL \"${PROJECT_DIR}/../Scripts/generate_models.sh\"";
 		};
 		904FB61F1AE03DCF00EA1758 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

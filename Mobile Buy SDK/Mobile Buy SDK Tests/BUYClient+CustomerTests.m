@@ -454,7 +454,7 @@
 - (BUYAccountCredentials *)credentialsForFailure
 {
 	BUYAccountCredentialItem *email     = [BUYAccountCredentialItem itemWithEmail:@"apple"];
-	BUYAccountCredentialItem *password  = [BUYAccountCredentialItem itemWithPassword:@"banana"];
+	BUYAccountCredentialItem *password  = [BUYAccountCredentialItem itemWithPassword:@"ba"];
 	return [BUYAccountCredentials credentialsWithItems:@[email, password]];
 }
 
