@@ -39,8 +39,6 @@
  */
 @property (nonatomic, readonly) UIButton *paymentButton;
 
-@property (nonatomic) BOOL buttonsEnabled;
-
 /**
  *  A view which sits above the buttons.
  *  Can be used to add a description or other content to the footer.

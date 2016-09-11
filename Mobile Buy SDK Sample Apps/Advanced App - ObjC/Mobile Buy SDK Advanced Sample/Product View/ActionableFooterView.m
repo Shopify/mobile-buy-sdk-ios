@@ -93,13 +93,6 @@
 	[self setNeedsUpdateConstraints];
 }
 
-- (void)setButtonsEnabled:(BOOL)buttonsEnabled
-{
-	self.actionButton.enabled = buttonsEnabled;
-	self.paymentButton.enabled = buttonsEnabled;
-	self.paymentButton.alpha = buttonsEnabled ? 1.0f : 0.5f;
-}
-
 - (void)updateConstraints
 {
 	if (self.applePayAvailable) {
