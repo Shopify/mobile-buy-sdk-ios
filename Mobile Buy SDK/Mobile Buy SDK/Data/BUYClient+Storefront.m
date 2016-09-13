@@ -124,6 +124,21 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	}];
 }
 
+- (NSOperation *)getProductsByTags:(NSArray<NSString *> *)tags completion:(BUYDataProductsBlock)block
+{
+	NSURL *url = [self urlForProductListingsWithParameters:@{
+															 @"tags": [tags componentsJoinedByString:@","],
+															 }];
+	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		
+		NSArray *products;
+		if (json && !error) {
+			products = [self.modelManager insertProductsWithJSONArray:json[BUYProductsKey]];
+		}
+		block(products, error);
+	}];
+}
+
 - (NSOperation *)getProductTagsPage:(NSUInteger)page completion:(BUYDataTagsListBlock)block
 {
 	return [self getProductTagsInCollection:@"" page:page completion:block];
