@@ -137,7 +137,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 		if (json && !error) {
 			tags = [json[@"tags"] valueForKey:@"title"];
 		}
-		block(tags, [self hasReachedEndOfPage:tags], page, error);
+		block(tags, page, [self hasReachedEndOfPage:tags], error);
 	}];
 }
 
