@@ -365,7 +365,7 @@
 
 - (void)testProductsByTags
 {
-//	[OHHTTPStubs stubUsingResponseWithKey:@"testGetValidTag_0" useMocks:[self shouldUseMocks]];
+	[OHHTTPStubs stubUsingResponseWithKey:@"testGetProductsByTags" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
@@ -373,16 +373,10 @@
 		
 		XCTAssertNil(error);
 		XCTAssertNotNil(products);
+		XCTAssertEqual(products.count, 1);
 		
-		if (products.count > 0) {
-			BUYProduct *product = products[0];
-			if (product.tags) {
-				XCTAssertTrue([product.tags isKindOfClass:[NSSet class]]);
-				for (NSString *tag in [product.tags allObjects]) {
-					XCTAssert([tag isKindOfClass:[NSString class]]);
-				}
-			}
-		}
+		BUYProduct *product = products[0];
+		XCTAssertTrue([[NSSet setWithArray:self.tags] isSubsetOfSet:product.tags]);
 		
 		[expectation fulfill];
 	}];

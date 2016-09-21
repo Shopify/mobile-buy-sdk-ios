@@ -127,7 +127,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 - (NSOperation *)getProductsByTags:(NSArray<NSString *> *)tags completion:(BUYDataProductsBlock)block
 {
 	NSURL *url = [self urlForProductListingsWithParameters:@{
-															 @"tags": [tags componentsJoinedByString:@","],
+															 @"tag": [tags componentsJoinedByString:@","],
 															 }];
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		
