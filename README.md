@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/Shopify/mobile-buy-sdk-ios.png?label=ready&title=Ready)](https://waffle.io/Shopify/mobile-buy-sdk-ios)
 ![Mobile Buy SDK](https://raw.github.com/Shopify/mobile-buy-sdk-ios/master/Assets/Mobile_Buy_SDK_Github_banner.png)
 
 [![Build status](https://badge.buildkite.com/3951692121947fbf7bb06c4b741601fc091efea3fa119a4f88.svg)](https://buildkite.com/shopify/mobile-buy-sdk-ios)
