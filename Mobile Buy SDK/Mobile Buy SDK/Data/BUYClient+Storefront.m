@@ -67,10 +67,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		
-		NSArray *products = nil;
-		if (json && !error) {
-			products = [self.modelManager insertProductsWithJSONArray:json[BUYProductsKey]];
-		}
+		NSArray *products = [self productsFromJSON:json error:error];
 		block(products, page, [self hasReachedEndOfPage:products] || error, error);
 	}];
 }
@@ -82,10 +79,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	NSURL *url = [self urlForProductListingsWithParameters:@{ @"handle" : handle }];
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		
-		BUYProduct *product = nil;
-		if (json && !error) {
-			product = [self.modelManager insertProductsWithJSONArray:json[BUYProductsKey]].firstObject;
-		}
+		BUYProduct *product = [self productsFromJSON:json error:error].firstObject;
 		
 		if (!product && !error) {
 			error = [self productsError];
@@ -113,10 +107,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		
-		NSArray *products = nil;
-		if (json && !error) {
-			products = [self.modelManager insertProductsWithJSONArray:json[BUYProductsKey]];
-		}
+		NSArray *products = [self productsFromJSON:json error:error];
 		if (!error && products.count == 0) {
 			error = [self productsError];
 		}
@@ -124,19 +115,24 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	}];
 }
 
-- (NSOperation *)getProductsByTags:(NSArray<NSString *> *)tags completion:(BUYDataProductsBlock)block
+- (NSOperation *)getProductsByTags:(NSArray<NSString *> *)tags page:(NSUInteger)page completion:(BUYDataProductsBlock)block
 {
 	NSURL *url = [self urlForProductListingsWithParameters:@{
-															 @"tag": [tags componentsJoinedByString:@","],
+															 @"tag":	[tags componentsJoinedByString:@","],
+															 @"page":	@(page),
 															 }];
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		
-		NSArray *products;
-		if (json && !error) {
-			products = [self.modelManager insertProductsWithJSONArray:json[BUYProductsKey]];
-		}
-		block(products, error);
+		block([self productsFromJSON:json error:error], error);
 	}];
+}
+
+- (NSArray<BUYProduct *> *)productsFromJSON:(NSDictionary *)json error:(NSError *)error
+{
+	if (json && !error) {
+		return [self.modelManager insertProductsWithJSONArray:json[BUYProductsKey]];
+	}
+	return nil;
 }
 
 - (NSOperation *)getProductTagsPage:(NSUInteger)page completion:(BUYDataTagsListBlock)block

@@ -369,7 +369,7 @@
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
-	[self.client getProductsByTags:self.tags completion:^(NSArray *products, NSError *error) {
+	[self.client getProductsByTags:self.tags page:1 completion:^(NSArray *products, NSError *error) {
 		
 		XCTAssertNil(error);
 		XCTAssertNotNil(products);

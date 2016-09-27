@@ -192,11 +192,12 @@ typedef void (^BUYDataTagsListBlock)(NSArray <NSString *> * _Nullable tags, NSUI
  *  Fetches a list of products by a list of tags
  *
  *  @param tags  An array of tags. Represents a subset of tags on a product (AND)
+ *  @param page  Page to request. Pages start at 1.
  *  @param block (^BUYDataProductsBlock)(NSArray *products, NSError *error);
  *
  *  @return The associated operation
  */
-- (NSOperation *)getProductsByTags:(NSArray<NSString *> *)tags completion:(BUYDataProductsBlock)block;
+- (NSOperation *)getProductsByTags:(NSArray<NSString *> *)tags page:(NSUInteger)page completion:(BUYDataProductsBlock)block;
 
 /**
  *  Gets the list of tags for all products
