@@ -224,7 +224,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 									}.mutableCopy;
 	
 	if (tags) {
-		params[@"tags"] = [tags componentsJoinedByString:@","];
+		params[@"tag"] = [tags componentsJoinedByString:@","];
 	}
 	
 	if (collectionId) {
