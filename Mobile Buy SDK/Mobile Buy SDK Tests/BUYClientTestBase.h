@@ -53,6 +53,8 @@ extern NSString * const BUYFakeCustomerToken;
 @property (nonatomic, strong) NSArray *productIds;
 @property (nonatomic, strong) NSArray *collectionIds;
 
+@property (nonatomic, strong) NSArray<NSString *> *tags;
+
 @property (nonatomic, strong) BUYClient *client;
 
 @property (nonatomic, readonly) BOOL shouldUseMocks;

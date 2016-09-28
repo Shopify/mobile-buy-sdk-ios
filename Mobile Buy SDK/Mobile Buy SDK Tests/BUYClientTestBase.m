@@ -41,6 +41,7 @@ NSString * const kBUYTestDiscountCodeValid = @"discount_valid";
 NSString * const kBUYTestDiscountCodeExpired = @"discount_expired";
 NSString * const kBUYTestProductIdsCommaSeparated = @"product_ids_comma_separated";
 NSString * const kBUYTestCollectionIds = @"collection_ids";
+NSString * const kBUYTestTags = @"tags";
 
 NSString * const BUYShopDomain_Placeholder = @"test_shop";
 NSString * const BUYAPIKey_Placeholder = @"api_key";
@@ -153,6 +154,8 @@ static NSString *BUYMerchantIDName = @"merchant_id";
 	
 	self.productIds = testShopData[@"product_ids"];
 	self.collectionIds = testShopData[@"collection_ids"];
+	
+	self.tags = testShopData[kBUYTestTags];
 
 	self.client = [[BUYClient alloc] initWithShopDomain:self.shopDomain apiKey:self.apiKey appId:self.appId];
 }

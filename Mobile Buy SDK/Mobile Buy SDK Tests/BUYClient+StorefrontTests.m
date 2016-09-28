@@ -363,6 +363,29 @@
 	}];
 }
 
+- (void)testProductsByTags
+{
+	[OHHTTPStubs stubUsingResponseWithKey:@"testGetProductsByTags" useMocks:[self shouldUseMocks]];
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	
+	[self.client getProductsByTags:self.tags page:1 completion:^(NSArray *products, NSError *error) {
+		
+		XCTAssertNil(error);
+		XCTAssertNotNil(products);
+		XCTAssertEqual(products.count, 1);
+		
+		BUYProduct *product = products[0];
+		XCTAssertTrue([[NSSet setWithArray:self.tags] isSubsetOfSet:product.tags]);
+		
+		[expectation fulfill];
+	}];
+	
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
 - (void)testValidTags
 {
 	[OHHTTPStubs stubUsingResponseWithKey:@"testGetValidTag_0" useMocks:[self shouldUseMocks]];

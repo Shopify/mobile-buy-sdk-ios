@@ -36,7 +36,7 @@
 
 - (NSArray<BUYOrder *> *)orders
 {
-	return (id)[[BUYModelManager modelManager] buy_objectsWithEntityName:[BUYOrder entityName] JSONArray:self.JSON[@"orders"]];
+	return [[BUYModelManager modelManager] buy_objectsWithEntityName:[BUYOrder entityName] JSONArray:self.JSON[@"orders"]];
 }
 
 - (NSDictionary *)JSON
