@@ -116,7 +116,27 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 
 - (void)setPageSize:(NSUInteger)pageSize
 {
-	_pageSize = MAX(MIN(pageSize, 250), 1);
+	_pageSize = [self clampedPageSize:pageSize];
+}
+
+- (NSInteger)clampedPageSize:(NSInteger)size
+{
+	return MAX(MIN(size, 250), 1);
+}
+
+- (void)setProductPageSize:(NSUInteger)productPageSize
+{
+	_productPageSize = [self clampedPageSize:productPageSize];
+}
+
+- (void)setCollectionPageSize:(NSUInteger)collectionPageSize
+{
+	_collectionPageSize = [self clampedPageSize:collectionPageSize];
+}
+
+- (void)setProductTagPageSize:(NSUInteger)productTagPageSize
+{
+	_productTagPageSize = [self clampedPageSize:productTagPageSize];
 }
 
 #pragma mark - Error
