@@ -25,6 +25,7 @@ xcuserdata
 .ruby-version
 *Sample*/Buy.framework
 *-INTERNAL.*
+.DS_Store
 
 ## Obj-C/Swift specific
 *.hmap
