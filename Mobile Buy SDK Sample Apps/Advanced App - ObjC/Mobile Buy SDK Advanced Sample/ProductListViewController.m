@@ -162,7 +162,9 @@
 {
     [self.collectionOperation cancel];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    self.collectionOperation = [self.client getProductsPage:1 withTags:nil inCollection:self.collection.identifier sortOrder:collectionSort completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+    
+    self.collectionOperation = [self.client getProductsPage:1 inCollection:self.collection.identifier withTags:nil sortOrder:collectionSort completion:^(NSArray<BUYProduct *> * _Nullable products, NSUInteger page, BOOL reachedEnd, NSError * _Nullable error) {
+        
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
         if (error == nil && products) {

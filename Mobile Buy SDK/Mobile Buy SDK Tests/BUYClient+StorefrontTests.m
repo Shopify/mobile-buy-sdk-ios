@@ -285,7 +285,7 @@
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 
-	[self.client getProductsPage:1 inCollection:self.collection.identifier completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+	[self.client getProductsPage:1 inCollection:self.collection.identifier withTags:@[@"cotton", @"summer"] sortOrder:BUYCollectionSortCollectionDefault completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
 	
 		XCTAssertNil(error);
 		XCTAssertNotNil(products);
