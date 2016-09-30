@@ -203,14 +203,15 @@ static NSString *const WebCheckoutCustomerAccessToken = @"customer_access_token"
 		if ([self.delegate respondsToSelector:@selector(paymentProvider:didCompleteCheckout:withStatus:)]) {
 			[self.delegate paymentProvider:self didCompleteCheckout:self.checkout withStatus:status];
 		}
-		[[NSNotificationCenter defaultCenter] postNotificationName:BUYPaymentProviderDidCompleteCheckoutNotificationKey object:self];
 		
+		[[NSNotificationCenter defaultCenter] postNotificationName:BUYPaymentProviderDidCompleteCheckoutNotificationKey object:self];
 		[[NSNotificationCenter defaultCenter] removeObserver:self name:BUYSafariCallbackURLNotification object:nil];
+		
+		self.checkout = nil;
 	}];
 	
 	[self.delegate paymentProviderWantsControllerDismissed:self];
 	
-	self.checkout = nil;
 }
 
 @end
