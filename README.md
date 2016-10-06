@@ -101,7 +101,7 @@ BUYClient *client = [[BUYClient alloc] initWithShopDomain:@"yourshop.myshopify.c
 ### Storefront API
 After initializing the client with valid shop credentials, you can begin fetching collections.
 ```objc
-[client getCollectionsPage:1 completion:^(NSArray<BUYCollection *> *collections, NSUInteger page, BOOL reachedEnd, NSError *error) {
+[client getCollectionsPage:1 completion:^(NSArray<BUYCollection *> * _Nullable collections, NSUInteger page, BOOL reachedEnd, NSError * _Nullable error) {
 	if (collections && !error) {
 		// Do something with collections
 	} else {
@@ -113,11 +113,11 @@ Having a collection, we can then retrieve an array of products within that colle
 ```objc
 BUYCollection *collection = collections.firstObject;
 
-[client getProductsPage:1 inCollection:collection.collectionId completion:^(NSArray<BUYProduct *> *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
+[client getProductsPage:1 inCollection:collection.identifier completion:^(NSArray<BUYProduct *> * _Nullable products, NSUInteger page, BOOL reachedEnd, NSError * _Nullable error) {
 	if (products && !error) {
 		// Do something with products
 	} else {
-		NSLog(@"Error fetching products in collection %@: %@", collection.collectionId, error.userInfo);
+		NSLog(@"Error fetching products in collection %@: %@", collection.identifier, error.userInfo);
 	}
 }];
 ```
@@ -134,7 +134,7 @@ BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems
 ```
 We can now use the credentials object to login the customer.
 ```objc
-[client loginCustomerWithCredentials:credentials callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
+[client loginCustomerWithCredentials:credentials callback:^(BUYCustomer * _Nullable customer, BUYCustomerToken * _Nullable token, NSError * _Nullable error) {
 	if (customer && token && !error) {
 		// Do something with customer and store token for future requests
 	} else {
@@ -155,7 +155,7 @@ BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems
 ```
 After we obtain the customers first name, last name and password in addition to the email and password fields, we can create an account.
 ```objc
-[client createCustomerWithCredentials:credentials callback:^(BUYCustomer *customer, NSString *token, NSError *error) {
+[client createCustomerWithCredentials:credentials callback:^(BUYCustomer * _Nullable customer, BUYCustomerToken * _Nullable token, NSError * _Nullable error) {
 	if (customer && token && !error) {
 		// Do something with customer and store token for future requests
 	} else {
