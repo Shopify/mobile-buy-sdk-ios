@@ -38,13 +38,6 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 
 @implementation BUYClient (Storefront)
 
-#pragma mark - Utilities -
-
-- (BOOL)hasReachedEndOfPage:(NSArray *)lastFetchedObjects
-{
-	return [lastFetchedObjects count] < self.pageSize;
-}
-
 #pragma mark - API -
 
 - (NSOperation *)getShop:(BUYDataShopBlock)block
@@ -61,14 +54,14 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 - (NSOperation *)getProductsPage:(NSUInteger)page completion:(BUYDataProductListBlock)block
 {
 	NSURL *url  = [self urlForProductListingsWithParameters:@{
-															  @"limit" : @(self.pageSize),
+															  @"limit" : @(self.productPageSize),
 															  @"page"  : @(page),
 															  }];
 	
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		
 		NSArray *products = [self productsFromJSON:json error:error];
-		block(products, page, [self hasReachedEndOfPage:products] || error, error);
+		block(products, page, [self isLastPageOfProducts:products] || error, error);
 	}];
 }
 
@@ -143,7 +136,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 - (NSOperation *)getProductTagsInCollection:(NSString *)collectionId page:(NSUInteger)page completion:(BUYDataTagsListBlock)block
 {
 	NSMutableDictionary *params = @{
-									@"limit" : @(self.pageSize),
+									@"limit" : @(self.productTagPageSize),
 									@"page"  : @(page),
 									}.mutableCopy;
 	if (collectionId.length) {
@@ -158,7 +151,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 		if (json && !error) {
 			tags = [json[@"tags"] valueForKey:@"title"];
 		}
-		block(tags, page, [self hasReachedEndOfPage:tags], error);
+		block(tags, page, [self isLastPageOfProducts:tags], error);
 	}];
 }
 
@@ -180,7 +173,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 - (NSOperation *)getCollectionsPage:(NSUInteger)page completion:(BUYDataCollectionsListBlock)block
 {
 	NSURL *url  = [self urlForCollectionListingsWithParameters:@{
-																 @"limit" : @(self.pageSize),
+																 @"limit" : @(self.collectionPageSize),
 																 @"page"  : @(page),
 																 }];
 	
@@ -190,7 +183,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 		if (json && !error) {
 			collections = [self.modelManager buy_objectsWithEntityName:[BUYCollection entityName] JSONArray:json[BUYCollectionsKey]];
 		}
-		block(collections, page, [self hasReachedEndOfPage:collections], error);
+		block(collections, page, [self isLastPageOfProducts:collections], error);
 	}];
 }
 
@@ -198,7 +191,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 {
 	NSURL *url = [self urlForCollectionListingsWithParameters:@{
 																@"collection_ids": [collectionIds componentsJoinedByString:@","],
-																@"limit" : @(self.pageSize),
+																@"limit" : @(self.collectionPageSize),
 																@"page"  : @(page),
 																}];
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
@@ -218,7 +211,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 - (NSOperation *)getProductsPage:(NSUInteger)page inCollection:(nullable NSNumber *)collectionId withTags:(nullable NSArray <NSString *> *)tags sortOrder:(BUYCollectionSort)sortOrder completion:(BUYDataProductListBlock)block
 {
 	NSMutableDictionary *params = @{
-									@"limit"         : @(self.pageSize),
+									@"limit"         : @(self.productPageSize),
 									@"page"          : @(page),
 									@"sort_by"       : [BUYCollection sortOrderParameterForCollectionSort:sortOrder]
 									}.mutableCopy;
@@ -239,11 +232,16 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 		if (json && !error) {
 			products = [self.modelManager buy_objectsWithEntityName:[BUYProduct entityName] JSONArray:json[BUYProductsKey]];
 		}
-		block(products, page, [self hasReachedEndOfPage:products] || error, error);
+		block(products, page, [self isLastPageOfProducts:products] || error, error);
 	}];
 }
 
 #pragma mark - Helpers -
+
+- (BOOL)isLastPageOfProducts:(NSArray *)lastFetchedObjects
+{
+	return [lastFetchedObjects count] < self.productPageSize;
+}
 
 - (NSError *)productsError
 {

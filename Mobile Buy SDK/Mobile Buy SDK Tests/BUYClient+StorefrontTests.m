@@ -48,19 +48,31 @@
 
 - (void)testDefaultPageSize
 {
-	XCTAssertEqual(self.client.pageSize, 25);
+	XCTAssertEqual(self.client.collectionPageSize, 25);
 }
 
 - (void)testSetPageSizeIsClamped
 {
-	[self.client setPageSize:0];
-	XCTAssertEqual(self.client.pageSize, 1);
+	[self.client setProductPageSize:0];
+	[self.client setCollectionPageSize:0];
+	[self.client setProductTagPageSize:0];
+	XCTAssertEqual(self.client.productPageSize, 1);
+	XCTAssertEqual(self.client.collectionPageSize, 1);
+	XCTAssertEqual(self.client.productTagPageSize, 1);
 	
-	[self.client setPageSize:54];
-	XCTAssertEqual(self.client.pageSize, 54);
+	[self.client setProductPageSize:54];
+	[self.client setCollectionPageSize:54];
+	[self.client setProductTagPageSize:54];
+	XCTAssertEqual(self.client.productPageSize, 54);
+	XCTAssertEqual(self.client.collectionPageSize, 54);
+	XCTAssertEqual(self.client.productTagPageSize, 54);
 	
-	[self.client setPageSize:260];
-	XCTAssertEqual(self.client.pageSize, 250);
+	[self.client setProductPageSize:999];
+	[self.client setCollectionPageSize:999];
+	[self.client setProductTagPageSize:999];
+	XCTAssertEqual(self.client.productPageSize, 250);
+	XCTAssertEqual(self.client.collectionPageSize, 250);
+	XCTAssertEqual(self.client.productTagPageSize, 250);
 }
 
 - (void)testGetProductList
@@ -302,7 +314,7 @@
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
-	self.client.pageSize = 1;
+	self.client.collectionPageSize = 1;
 	[self.client getCollectionsByIds:self.collectionIds page:1 completion:^(NSArray<BUYCollection *> * _Nullable collections, NSError * _Nullable error) {
 		
 		XCTAssertEqual(collections.count, 1L);
@@ -322,8 +334,8 @@
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	
-	self.client.pageSize = 1;
-	NSInteger lastPage = (NSInteger)ceil(self.collectionIds.count / self.client.pageSize);
+	self.client.collectionPageSize = 1;
+	NSInteger lastPage = (NSInteger)ceil(self.collectionIds.count / self.client.collectionPageSize);
 	[self.client getCollectionsByIds:self.collectionIds page:lastPage + 1 completion:^(NSArray<BUYCollection *> * _Nullable collections, NSError * _Nullable error) {
 		
 		XCTAssertTrue(collections.count == 0);

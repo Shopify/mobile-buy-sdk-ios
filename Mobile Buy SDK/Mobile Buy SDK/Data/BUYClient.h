@@ -66,7 +66,22 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  The page size for any paged request. This can range from 1-250.  Default is 25
  */
-@property (nonatomic, assign) NSUInteger pageSize;
+@property (nonatomic, assign) NSUInteger pageSize DEPRECATED_ATTRIBUTE;
+
+/**
+ *	The page size for product requests. This can range from 1-250. Default is 25.
+ */
+@property (nonatomic, assign) NSUInteger productPageSize;
+
+/**
+ *	The page size for collection requests. This can range from 1-250. Default is 25.
+ */
+@property (nonatomic, assign) NSUInteger collectionPageSize;
+
+/**
+ *	The page size for tag requests. This can range from 1-250. Default is 25.
+ */
+@property (nonatomic, assign) NSUInteger productTagPageSize;
 
 /**
  *  The shop domain set using the initializer
