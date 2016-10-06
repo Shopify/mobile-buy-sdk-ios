@@ -66,6 +66,10 @@ static NSString * const BUYClientJSONMimeType = @"application/json";
 		
 		_session       = [self urlSession];
 		_pageSize      = 25;
+		
+		_productPageSize = 25;
+		_collectionPageSize = 25;
+		_productTagPageSize = 25;
 	}
 	return self;
 }
