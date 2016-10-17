@@ -31,12 +31,12 @@ class LoginViewController: UITableViewController {
 
     weak var delegate: AuthenticationDelegate?
     
-    @IBOutlet private weak var emailField:    UITextField!
-    @IBOutlet private weak var passwordField: UITextField!
-    @IBOutlet private weak var actionCell:    ActionCell!
+    @IBOutlet fileprivate weak var emailField:    UITextField!
+    @IBOutlet fileprivate weak var passwordField: UITextField!
+    @IBOutlet fileprivate weak var actionCell:    ActionCell!
     
-    private var email:    String { return self.emailField.text    ?? "" }
-    private var password: String { return self.passwordField.text ?? "" }
+    fileprivate var email:    String { return self.emailField.text    ?? "" }
+    fileprivate var password: String { return self.passwordField.text ?? "" }
     
     // ----------------------------------
     //  MARK: - View Loading -
@@ -50,7 +50,7 @@ class LoginViewController: UITableViewController {
     // ----------------------------------
     //  MARK: - Actions -
     //
-    private func loginUser() {
+    fileprivate func loginUser() {
         guard !self.actionCell.loading else { return }
         
         let credentials  = BUYAccountCredentials(items: [
@@ -59,7 +59,7 @@ class LoginViewController: UITableViewController {
         ])
         
         self.actionCell.loading = true
-        BUYClient.sharedClient.loginCustomerWithCredentials(credentials) { (customer, token, error) in
+        BUYClient.sharedClient.loginCustomer(with: credentials) { (customer, token, error) in
             self.actionCell.loading = false
             
             if let customer = customer,
@@ -67,12 +67,12 @@ class LoginViewController: UITableViewController {
                 self.clear()
                 self.delegate?.authenticationDidSucceedForCustomer(customer, withToken: token.accessToken)
             } else {
-                self.delegate?.authenticationDidFailWithError(error)
+                self.delegate?.authenticationDidFailWithError(error as NSError?)
             }
         }
     }
     
-    private func clear() {
+    fileprivate func clear() {
         self.emailField.text     = ""
         self.passwordField.text  = ""
     }
@@ -80,8 +80,8 @@ class LoginViewController: UITableViewController {
     // ----------------------------------
     //  MARK: - UITableViewDelegate -
     //
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 1 {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath as NSIndexPath).section == 1 {
             
             if !self.email.isEmpty &&
                 !self.password.isEmpty {
@@ -89,6 +89,6 @@ class LoginViewController: UITableViewController {
                 self.loginUser()
             }
         }
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

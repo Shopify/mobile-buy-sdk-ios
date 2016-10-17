@@ -28,16 +28,16 @@ import UIKit
 
 class ActionCell: UITableViewCell {
     
-    @IBOutlet private weak var actionLabel: UILabel!
-    @IBOutlet private weak var loader:      UIActivityIndicatorView!
+    @IBOutlet fileprivate weak var actionLabel: UILabel!
+    @IBOutlet fileprivate weak var loader:      UIActivityIndicatorView!
 
     var loading: Bool {
         get {
-            return self.actionLabel.hidden
+            return self.actionLabel.isHidden
         }
         set {
-            self.actionLabel.hidden = newValue
-            self.loader.hidden      = !newValue
+            self.actionLabel.isHidden = newValue
+            self.loader.isHidden      = !newValue
         }
     }
 

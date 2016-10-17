@@ -29,16 +29,16 @@ import Buy
 
 class LineItemCell: UITableViewCell {
     
-    @IBOutlet private weak var titleLabel:    UILabel!
-    @IBOutlet private weak var subtitleLabel: UILabel!
-    @IBOutlet private weak var priceLabel:    UILabel!
+    @IBOutlet fileprivate weak var titleLabel:    UILabel!
+    @IBOutlet fileprivate weak var subtitleLabel: UILabel!
+    @IBOutlet fileprivate weak var priceLabel:    UILabel!
 
     // ----------------------------------
     //  MARK: - Setters -
     //
-    func setLineItem(item: BUYLineItem) {
+    func setLineItem(_ item: BUYLineItem) {
         self.titleLabel.text    = item.title
         self.subtitleLabel.text = item.variantTitle
-        self.priceLabel.text    = "$\(item.linePrice)"
+        self.priceLabel.text    = "$\(item.linePrice!)"
     }
 }
