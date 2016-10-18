@@ -28,8 +28,8 @@ import UIKit
 
 class ActionCell: UITableViewCell {
     
-    @IBOutlet fileprivate weak var actionLabel: UILabel!
-    @IBOutlet fileprivate weak var loader:      UIActivityIndicatorView!
+    @IBOutlet private weak var actionLabel: UILabel!
+    @IBOutlet private weak var loader:      UIActivityIndicatorView!
 
     var loading: Bool {
         get {

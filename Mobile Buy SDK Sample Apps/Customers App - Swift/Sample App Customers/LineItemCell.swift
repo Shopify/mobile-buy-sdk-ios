@@ -29,9 +29,9 @@ import Buy
 
 class LineItemCell: UITableViewCell {
     
-    @IBOutlet fileprivate weak var titleLabel:    UILabel!
-    @IBOutlet fileprivate weak var subtitleLabel: UILabel!
-    @IBOutlet fileprivate weak var priceLabel:    UILabel!
+    @IBOutlet private weak var titleLabel:    UILabel!
+    @IBOutlet private weak var subtitleLabel: UILabel!
+    @IBOutlet private weak var priceLabel:    UILabel!
 
     // ----------------------------------
     //  MARK: - Setters -

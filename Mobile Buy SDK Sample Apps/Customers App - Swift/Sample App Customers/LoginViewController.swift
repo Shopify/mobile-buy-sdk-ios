@@ -31,9 +31,9 @@ class LoginViewController: UITableViewController {
 
     weak var delegate: AuthenticationDelegate?
     
-    @IBOutlet fileprivate weak var emailField:    UITextField!
-    @IBOutlet fileprivate weak var passwordField: UITextField!
-    @IBOutlet fileprivate weak var actionCell:    ActionCell!
+    @IBOutlet private weak var emailField:    UITextField!
+    @IBOutlet private weak var passwordField: UITextField!
+    @IBOutlet private weak var actionCell:    ActionCell!
     
     fileprivate var email:    String { return self.emailField.text    ?? "" }
     fileprivate var password: String { return self.passwordField.text ?? "" }

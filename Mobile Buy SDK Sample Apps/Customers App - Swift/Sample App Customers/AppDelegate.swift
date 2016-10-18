@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let apiKey:     String = ""
     let appID:      String = ""
 
-    fileprivate(set) var client: BUYClient!
+    private(set) var client: BUYClient!
 
     // ----------------------------------
     //  MARK: - Application Launch -
