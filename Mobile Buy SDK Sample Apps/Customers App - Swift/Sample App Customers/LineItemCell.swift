@@ -36,9 +36,9 @@ class LineItemCell: UITableViewCell {
     // ----------------------------------
     //  MARK: - Setters -
     //
-    func setLineItem(item: BUYLineItem) {
+    func setLineItem(_ item: BUYLineItem) {
         self.titleLabel.text    = item.title
         self.subtitleLabel.text = item.variantTitle
-        self.priceLabel.text    = "$\(item.linePrice)"
+        self.priceLabel.text    = "$\(item.linePrice!)"
     }
 }

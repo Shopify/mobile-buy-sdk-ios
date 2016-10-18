@@ -31,13 +31,6 @@
 			remoteGlobalIDString = 90F592EC1B0D5EFE0026B382;
 			remoteInfo = "Mobile Buy SDK Tests";
 		};
-		9A9C032A1CD9203600AE79BD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9A9C03201CD9203600AE79BD /* Mobile Buy SDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BE9A64281B503C2F0033E558;
-			remoteInfo = "Buy Static";
-		};
 		9A9C032C1CD9203600AE79BD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9A9C03201CD9203600AE79BD /* Mobile Buy SDK.xcodeproj */;
@@ -178,9 +171,8 @@
 		9A9C03211CD9203600AE79BD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9A9C03291CD9203600AE79BD /* Mobile Buy SDK Tests.xctest */,
-				9A9C032B1CD9203600AE79BD /* Buy.framework */,
 				9A9C032D1CD9203600AE79BD /* Buy.framework */,
+				9A9C03291CD9203600AE79BD /* Mobile Buy SDK Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -227,6 +219,7 @@
 				TargetAttributes = {
 					9A9C03021CD8F9AC00AE79BD = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -260,13 +253,6 @@
 			fileType = wrapper.cfbundle;
 			path = "Mobile Buy SDK Tests.xctest";
 			remoteRef = 9A9C03281CD9203600AE79BD /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9A9C032B1CD9203600AE79BD /* Buy.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Buy.framework;
-			remoteRef = 9A9C032A1CD9203600AE79BD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		9A9C032D1CD9203600AE79BD /* Buy.framework */ = {
@@ -431,6 +417,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.Sample-App-Customers";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -444,6 +431,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.Sample-App-Customers";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

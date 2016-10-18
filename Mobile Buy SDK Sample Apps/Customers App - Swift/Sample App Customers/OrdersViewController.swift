@@ -33,12 +33,12 @@ class OrdersViewController: UIViewController {
 
     @IBOutlet private weak var tableView: UITableView!
     
-    private var orders = [BUYOrder]()
+    fileprivate var orders = [BUYOrder]()
     
-    private let dateFormatter: NSDateFormatter = {
-        let f       = NSDateFormatter()
-        f.dateStyle = .MediumStyle
-        f.timeStyle = .NoStyle
+    fileprivate let dateFormatter: DateFormatter = {
+        let f       = DateFormatter()
+        f.dateStyle = .medium
+        f.timeStyle = .none
         return f
     }()
     
@@ -65,8 +65,8 @@ class OrdersViewController: UIViewController {
     // ----------------------------------
     //  MARK: - UI Actions -
     //
-    @IBAction func logoutAction(sender: AnyObject) {
-        self.navigationController?.popViewControllerAnimated(true)
+    @IBAction func logoutAction(_ sender: AnyObject) {
+        _ = self.navigationController?.popViewController(animated: true)
     }
 }
 
@@ -75,27 +75,27 @@ class OrdersViewController: UIViewController {
 //
 extension OrdersViewController: UITableViewDataSource {
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return self.orders.count
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.orders[section].lineItems.count
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let order = self.orders[section]
-        return "\(self.dateFormatter.stringFromDate(order.processedAt)) - \(order.name)"
+        return "\(self.dateFormatter.string(from: order.processedAt)) - \(order.name!)"
     }
     
-    func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         let order = self.orders[section]
-        return "Order total: $\(order.totalPrice)"
+        return "Order total: $\(order.totalPrice!)"
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! LineItemCell
-        let lineItem = self.orders[indexPath.section].lineItemsArray()[indexPath.row]
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! LineItemCell
+        let lineItem = self.orders[(indexPath as NSIndexPath).section].lineItemsArray()[(indexPath as NSIndexPath).row]
         
         cell.setLineItem(lineItem)
         

@@ -38,14 +38,14 @@ class AccountViewController: UIViewController {
     // ----------------------------------
     //  MARK: - Segue -
     //
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
-        case .Some("loginSegue"):
-            self.loginViewController = segue.destinationViewController as! LoginViewController
+        case .some("loginSegue"):
+            self.loginViewController = segue.destination as! LoginViewController
             self.loginViewController.delegate = self
             
-        case .Some("signupSegue"):
-            self.signupViewController = segue.destinationViewController as! SignupViewController
+        case .some("signupSegue"):
+            self.signupViewController = segue.destination as! SignupViewController
             self.signupViewController.delegate = self
             
         default:
@@ -60,15 +60,15 @@ class AccountViewController: UIViewController {
     // ----------------------------------
     //  MARK: - Updates -
     //
-    private func updateSelectedIndex(index: Int) {
-        self.loginContainerView.hidden  = (index != 0)
-        self.signupContainerView.hidden = (index == 0)
+    private func updateSelectedIndex(_ index: Int) {
+        self.loginContainerView.isHidden  = (index != 0)
+        self.signupContainerView.isHidden = (index == 0)
     }
     
     // ----------------------------------
     //  MARK: - UI Actions -
     //
-    @IBAction func segmentAction(sender: UISegmentedControl) {
+    @IBAction func segmentAction(_ sender: UISegmentedControl) {
         self.updateSelectedIndex(sender.selectedSegmentIndex)
     }
 }
@@ -77,17 +77,17 @@ class AccountViewController: UIViewController {
 //  MARK: - AuthenticationDelegate -
 //
 extension AccountViewController: AuthenticationDelegate {
-    func authenticationDidSucceedForCustomer(customer: BUYCustomer, withToken token: String) {
+    func authenticationDidSucceedForCustomer(_ customer: BUYCustomer, withToken token: String) {
         
-        if let orders = self.storyboard?.instantiateViewControllerWithIdentifier("ordersViewController") as? OrdersViewController {
+        if let orders = self.storyboard?.instantiateViewController(withIdentifier: "ordersViewController") as? OrdersViewController {
             orders.customer = customer
             self.navigationController?.pushViewController(orders, animated: true)
         }
     }
     
-    func authenticationDidFailWithError(error: NSError?) {
-        let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+    func authenticationDidFailWithError(_ error: NSError?) {
+        let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }

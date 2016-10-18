@@ -59,7 +59,7 @@ class LoginViewController: UITableViewController {
         ])
         
         self.actionCell.loading = true
-        BUYClient.sharedClient.loginCustomerWithCredentials(credentials) { (customer, token, error) in
+        BUYClient.sharedClient.loginCustomer(with: credentials) { (customer, token, error) in
             self.actionCell.loading = false
             
             if let customer = customer,
@@ -67,7 +67,7 @@ class LoginViewController: UITableViewController {
                 self.clear()
                 self.delegate?.authenticationDidSucceedForCustomer(customer, withToken: token.accessToken)
             } else {
-                self.delegate?.authenticationDidFailWithError(error)
+                self.delegate?.authenticationDidFailWithError(error as NSError?)
             }
         }
     }
@@ -80,8 +80,8 @@ class LoginViewController: UITableViewController {
     // ----------------------------------
     //  MARK: - UITableViewDelegate -
     //
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 1 {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath as NSIndexPath).section == 1 {
             
             if !self.email.isEmpty &&
                 !self.password.isEmpty {
@@ -89,6 +89,6 @@ class LoginViewController: UITableViewController {
                 self.loginUser()
             }
         }
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

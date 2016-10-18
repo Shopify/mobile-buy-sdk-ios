@@ -39,13 +39,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let shopDomain: String = ""
     let apiKey:     String = ""
     let appID:      String = ""
-    
+
     private(set) var client: BUYClient!
 
     // ----------------------------------
     //  MARK: - Application Launch -
     //
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     
         self.client = BUYClient(shopDomain: self.shopDomain, apiKey: self.apiKey, appId: self.appID)
         
