@@ -31,7 +31,7 @@ class OrdersViewController: UIViewController {
     
     var customer: BUYCustomer!
 
-    @IBOutlet fileprivate weak var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView!
     
     fileprivate var orders = [BUYOrder]()
     
@@ -51,7 +51,7 @@ class OrdersViewController: UIViewController {
         self.loadOrders()
     }
     
-    fileprivate func loadOrders() {
+    private func loadOrders() {
         BUYClient.sharedClient.getOrdersForCustomerCallback { (orders, error) in
             if let orders = orders {
                 self.orders = orders

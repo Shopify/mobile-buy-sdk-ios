@@ -31,18 +31,18 @@ class SignupViewController: UITableViewController {
 
     weak var delegate: AuthenticationDelegate?
     
-    @IBOutlet fileprivate weak var firstNameField:       UITextField!
-    @IBOutlet fileprivate weak var lastNameField:        UITextField!
-    @IBOutlet fileprivate weak var emailField:           UITextField!
-    @IBOutlet fileprivate weak var passwordField:        UITextField!
-    @IBOutlet fileprivate weak var passwordConfirmField: UITextField!
-    @IBOutlet fileprivate weak var actionCell:           ActionCell!
+    @IBOutlet private weak var firstNameField:       UITextField!
+    @IBOutlet private weak var lastNameField:        UITextField!
+    @IBOutlet private weak var emailField:           UITextField!
+    @IBOutlet private weak var passwordField:        UITextField!
+    @IBOutlet private weak var passwordConfirmField: UITextField!
+    @IBOutlet private weak var actionCell:           ActionCell!
     
-    fileprivate var firstName:       String { return self.firstNameField.text       ?? "" }
-    fileprivate var lastName:        String { return self.lastNameField.text        ?? "" }
-    fileprivate var email:           String { return self.emailField.text           ?? "" }
-    fileprivate var password:        String { return self.passwordField.text        ?? "" }
-    fileprivate var passwordConfirm: String { return self.passwordConfirmField.text ?? "" }
+    private var firstName:       String { return self.firstNameField.text       ?? "" }
+    private var lastName:        String { return self.lastNameField.text        ?? "" }
+    private var email:           String { return self.emailField.text           ?? "" }
+    private var password:        String { return self.passwordField.text        ?? "" }
+    private var passwordConfirm: String { return self.passwordConfirmField.text ?? "" }
     
     // ----------------------------------
     //  MARK: - View Loading -
@@ -56,7 +56,7 @@ class SignupViewController: UITableViewController {
     // ----------------------------------
     //  MARK: - Actions -
     //
-    fileprivate func createUser() {
+    private func createUser() {
         guard !self.actionCell.loading else { return }
         
         let credentials = BUYAccountCredentials(items: [
@@ -80,7 +80,7 @@ class SignupViewController: UITableViewController {
         }
     }
     
-    fileprivate func clear() {
+    private func clear() {
         self.firstNameField.text        = ""
         self.lastNameField.text         = ""
         self.emailField.text            = ""

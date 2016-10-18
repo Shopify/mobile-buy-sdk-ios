@@ -35,8 +35,8 @@ class LoginViewController: UITableViewController {
     @IBOutlet private weak var passwordField: UITextField!
     @IBOutlet private weak var actionCell:    ActionCell!
     
-    fileprivate var email:    String { return self.emailField.text    ?? "" }
-    fileprivate var password: String { return self.passwordField.text ?? "" }
+    private var email:    String { return self.emailField.text    ?? "" }
+    private var password: String { return self.passwordField.text ?? "" }
     
     // ----------------------------------
     //  MARK: - View Loading -
@@ -50,7 +50,7 @@ class LoginViewController: UITableViewController {
     // ----------------------------------
     //  MARK: - Actions -
     //
-    fileprivate func loginUser() {
+    private func loginUser() {
         guard !self.actionCell.loading else { return }
         
         let credentials  = BUYAccountCredentials(items: [
@@ -72,7 +72,7 @@ class LoginViewController: UITableViewController {
         }
     }
     
-    fileprivate func clear() {
+    private func clear() {
         self.emailField.text     = ""
         self.passwordField.text  = ""
     }
