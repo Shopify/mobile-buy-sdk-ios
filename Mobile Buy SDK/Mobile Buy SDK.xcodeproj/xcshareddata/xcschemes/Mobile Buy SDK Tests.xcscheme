@@ -37,17 +37,6 @@
                BlueprintName = "Mobile Buy SDK Tests"
                ReferencedContainer = "container:Mobile Buy SDK.xcodeproj">
             </BuildableReference>
-            <SkippedTests>
-               <Test
-                  Identifier = "BUYRequestOperationTests/testCancellationBeforeExecution">
-               </Test>
-               <Test
-                  Identifier = "BUYRequestOperationTests/testCancellationDuringPolling">
-               </Test>
-               <Test
-                  Identifier = "BUYRequestOperationTests/testCancellationWithoutQueue">
-               </Test>
-            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>

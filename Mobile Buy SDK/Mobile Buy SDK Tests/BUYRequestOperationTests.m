@@ -332,7 +332,7 @@
 	
 	[self.queue addOperation:operation];
 	
-	[self createExpectationDelay:1.0 block:YES];
+	[self createExpectationDelay:10.0 block:YES];
 	
 	XCTAssertTrue(pollCount < 5);
 	XCTAssertTrue(operation.cancelled);
