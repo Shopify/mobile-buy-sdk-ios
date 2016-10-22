@@ -268,8 +268,8 @@
 	
 	[self createExpectationDelay];
 	
-	[self.queue addOperation:operation];
 	[operation cancel];
+	[self.queue addOperation:operation];
 	
 	[self waitForExpectationsWithTimeout:3.0 handler:nil];
 }
