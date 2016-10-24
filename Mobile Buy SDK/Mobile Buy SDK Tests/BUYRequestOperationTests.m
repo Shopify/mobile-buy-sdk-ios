@@ -268,8 +268,8 @@
 	
 	[self createExpectationDelay];
 	
-	[self.queue addOperation:operation];
 	[operation cancel];
+	[self.queue addOperation:operation];
 	
 	[self waitForExpectationsWithTimeout:3.0 handler:nil];
 }
@@ -332,7 +332,7 @@
 	
 	[self.queue addOperation:operation];
 	
-	[self createExpectationDelay:1.0 block:YES];
+	[self createExpectationDelay:3.0 block:YES];
 	
 	XCTAssertTrue(pollCount < 5);
 	XCTAssertTrue(operation.cancelled);
