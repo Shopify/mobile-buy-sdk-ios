@@ -73,6 +73,20 @@
 	return self.variants.array ?: @[];
 }
 
+- (void)setJSONDictionary:(NSDictionary *)JSONDictionary
+{
+	[super setJSONDictionary:JSONDictionary];
+	[self updateMinimumPrice];
+}
+
+- (void)updateMinimumPrice
+{
+	NSDecimalNumber *newMinimumPrice = [self.variants valueForKeyPath:@"@min.price"];
+	if (![self.minimumPrice isEqual:newMinimumPrice]) {
+		self.minimumPrice = newMinimumPrice;
+	}
+}
+
 @end
 
 @implementation BUYProduct (Options)
