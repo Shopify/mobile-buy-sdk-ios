@@ -35,6 +35,19 @@
 
 @synthesize stringDescription=_stringDescription;
 
+- (void)setVariants:(NSOrderedSet *)variants
+{
+	[self willChangeValueForKey:BUYProductRelationships.variants];
+	NSMutableOrderedSet *primitiveVariants = [self primitiveVariants];
+	[primitiveVariants removeAllObjects];
+	if (variants.count) {
+		[primitiveVariants unionOrderedSet:variants];
+	}
+	[super setPrimitiveVariants:variants.mutableCopy];
+	[self updateMinimumPrice];
+	[self didChangeValueForKey:BUYProductRelationships.variants];
+}
+
 - (NSDate *)createdAtDate
 {
 	return self.createdAt;
@@ -71,6 +84,20 @@
 - (NSArray<BUYProductVariant *> *)variantsArray
 {
 	return self.variants.array ?: @[];
+}
+
+- (void)updateMinimumPrice
+{
+	NSDecimalNumber *newMinimumPrice = [self.variants valueForKeyPath:@"@min.price"];
+	if (![self.minimumPrice isEqual:newMinimumPrice]) {
+		self.minimumPrice = newMinimumPrice;
+	}
+}
+
+- (void)willSave
+{
+	[super willSave];
+	[self updateMinimumPrice];
 }
 
 @end
