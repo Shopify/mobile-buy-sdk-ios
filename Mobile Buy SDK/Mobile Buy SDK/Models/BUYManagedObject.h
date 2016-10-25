@@ -58,6 +58,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)willAccessValueForKey:(NSString *)key;
 - (void)didAccessValueForKey:(NSString *)key;
+- (void)willSave;
+- (void)didSave;
 
 @end
 #endif

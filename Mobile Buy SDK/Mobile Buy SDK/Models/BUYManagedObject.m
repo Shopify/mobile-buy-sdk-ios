@@ -176,5 +176,7 @@ static NSMutableDictionary *signatureCache;
 @implementation BUYObject (BUYManagedObjectConformance)
 - (void)willAccessValueForKey:(NSString *)key {}
 - (void)didAccessValueForKey:(NSString *)key {}
+- (void)willSave {}
+- (void)didSave {}
 @end
 #endif
