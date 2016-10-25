@@ -36,6 +36,7 @@ extern const struct BUYProductAttributes {
 	__unsafe_unretained NSString *handle;
 	__unsafe_unretained NSString *htmlDescription;
 	__unsafe_unretained NSString *identifier;
+	__unsafe_unretained NSString *minimumPrice;
 	__unsafe_unretained NSString *productType;
 	__unsafe_unretained NSString *published;
 	__unsafe_unretained NSString *publishedAt;
@@ -111,6 +112,8 @@ extern const struct BUYProductUserInfo {
 @property (atomic) int64_t identifierValue;
 - (int64_t)identifierValue;
 - (void)setIdentifierValue:(int64_t)value_;
+
+@property (nonatomic, strong) NSDecimalNumber* minimumPrice;
 
 /**
  * A categorization that a product can be tagged with, commonly used for filtering and searching.
@@ -238,6 +241,9 @@ extern const struct BUYProductUserInfo {
 
 - (NSNumber*)primitiveIdentifier;
 - (void)setPrimitiveIdentifier:(NSNumber*)value;
+
+- (NSDecimalNumber*)primitiveMinimumPrice;
+- (void)setPrimitiveMinimumPrice:(NSDecimalNumber*)value;
 
 - (NSString*)primitiveProductType;
 - (void)setPrimitiveProductType:(NSString*)value;
