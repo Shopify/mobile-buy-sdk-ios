@@ -27,7 +27,6 @@
 #import "BUYObject.h"
 #import "BUYModelManagerProtocol.h"
 #import "BUYObserver.h"
-#import "BUYRuntime.h"
 #import "NSDictionary+BUYAdditions.h"
 #import "NSException+BUYAdditions.h"
 #import "NSEntityDescription+BUYAdditions.h"
