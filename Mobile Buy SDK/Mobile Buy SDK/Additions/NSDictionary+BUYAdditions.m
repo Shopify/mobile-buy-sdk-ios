@@ -37,7 +37,7 @@
 - (NSDictionary *)buy_dictionaryByMappingKeysWithBlock:(BUYStringMap)map
 {
 	NSMutableDictionary *result = [NSMutableDictionary dictionary];
-	[self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+	[self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
 		result[(map(key) ?: key)] = self[key];
 	}];
 	return result;
@@ -46,9 +46,20 @@
 - (NSDictionary *)buy_dictionaryByMappingValuesWithBlock:(BUYObjectMap)map
 {
 	NSMutableDictionary *result = [NSMutableDictionary dictionary];
-	[self enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+	[self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
 		id newValue = map(self[key]);
 		result[key] = newValue;
+	}];
+	return result;
+}
+
+- (NSDictionary *)buy_dictionaryByFilteringValuesWithPredicate:(NSPredicate *)predicate
+{
+	NSMutableDictionary *result = [NSMutableDictionary dictionary];
+	[self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+		if ([predicate evaluateWithObject:obj]) {
+			result[key] = obj;
+		}
 	}];
 	return result;
 }

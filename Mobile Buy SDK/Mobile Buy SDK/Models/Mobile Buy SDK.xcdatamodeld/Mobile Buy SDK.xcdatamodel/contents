@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15F34" minimumToolsVersion="Xcode 7.0">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15G1004" minimumToolsVersion="Xcode 7.0">
     <entity name="Address" representedClassName="BUYAddress" syncable="YES">
         <attribute name="address1" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
@@ -360,6 +360,7 @@
         <relationship name="products" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Product" inverseName="collections" inverseEntity="Product" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="Inverse of Product.collections."/>
+                <entry key="JSONPropertyKey" value="product_ids"/>
             </userInfo>
         </relationship>
         <userInfo>
@@ -1006,7 +1007,7 @@
         <element name="OptionValue" positionX="-1390" positionY="894" width="128" height="105"/>
         <element name="Order" positionX="-549" positionY="1647" width="128" height="180"/>
         <element name="Product" positionX="-1390" positionY="1018" width="128" height="300"/>
-        <element name="ProductVariant" positionX="-1192" positionY="1063" width="128" height="240"/>
+        <element name="ProductVariant" positionX="-1192" positionY="1063" width="128" height="238"/>
         <element name="ShippingRate" positionX="-569" positionY="1836" width="128" height="135"/>
         <element name="Shop" positionX="-1786" positionY="843" width="128" height="255"/>
         <element name="TaxLine" positionX="-990" positionY="1737" width="128" height="133"/>

@@ -48,6 +48,11 @@ typedef NSString * (^BUYStringMap) (NSString *);
 - (NSDictionary *)buy_dictionaryByMappingValuesWithBlock:(BUYObjectMap)map;
 
 /**
+ *  Return a new dictionary containing key/value pairs where the value matches the predicate.
+ */
+- (NSDictionary *)buy_dictionaryByFilteringValuesWithPredicate:(NSPredicate *)predicate;
+
+/**
  *  Alernative to objectForKey, where NSNull is replaced with nil
  *
  *  @param key The key for which to return the corresponding value.

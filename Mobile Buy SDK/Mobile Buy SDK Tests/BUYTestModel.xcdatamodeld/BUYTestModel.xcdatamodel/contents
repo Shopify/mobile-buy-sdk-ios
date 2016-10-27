@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15G1004" minimumToolsVersion="Xcode 7.0">
     <entity name="Bird" representedClassName="Bird" syncable="YES">
         <attribute name="colour" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
@@ -74,7 +74,7 @@
         <element name="Forest" positionX="-718" positionY="57" width="128" height="58"/>
         <element name="Leaf" positionX="-72" positionY="-18" width="128" height="90"/>
         <element name="Nest" positionX="-72" positionY="126" width="128" height="90"/>
+        <element name="Researcher" positionX="369" positionY="141" width="128" height="75"/>
         <element name="Root" positionX="-504" positionY="-18" width="128" height="133"/>
-        <element name="Researcher" positionX="-288" positionY="81" width="128" height="75"/>
     </elements>
 </model>

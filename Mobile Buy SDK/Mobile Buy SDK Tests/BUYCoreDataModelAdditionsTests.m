@@ -235,9 +235,24 @@ static NSString * const RootEntity = @"Root";
 
 - (void)testManyToManyRelationship
 {
-	Researcher *researcher = [self.modelManager buy_objectWithEntityName:ResearchEntity JSONDictionary:nil];
+	NSDictionary *birdJSON = @{
+							   @"id" : @1,
+							   @"colour" : @"red"
+							   };
+	NSDictionary *researcherJSON = @{
+									 @"name" : @"Bob",
+									 @"birds" : @[ birdJSON ]
+									 };
+	Researcher *researcher = [self.modelManager buy_objectWithEntityName:ResearchEntity JSONDictionary:researcherJSON];
+	
+	XCTAssertNotNil(researcher.birds.anyObject.researchers.anyObject);
+	
 	NSRelationshipDescription *researchersRelationship = [self relationshipWithName:@"researchers" forEntity:BirdEntity];
-	XCTAssertNil([researchersRelationship buy_JSONForValue:[NSSet setWithObject:researcher]]);
+	NSArray *actual = [researchersRelationship buy_JSONForValue:[NSSet setWithObject:researcher]];
+	NSArray *expected = @[
+						  @{ @"name" : @"Bob" }
+						  ];
+	XCTAssertEqualObjects(actual, expected);
 }
 
 - (void)testEntityIsPrivate
