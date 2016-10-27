@@ -148,12 +148,15 @@
 {
 	if ([self.variants count] == 1) {
 		BUYProductVariant *productVariant = [self.variants firstObject];
-		BUYOptionValue *optionValue = [productVariant.options anyObject];
-		NSString *defaultTitleString = @"Default Title";
-		NSString *defaultString = @"Default";
-		if ([productVariant.title isEqualToString:defaultTitleString] &&
-			([optionValue.value isEqualToString:defaultTitleString] || [optionValue.value isEqualToString:defaultString])) {
-			return YES;
+		if ([productVariant.options count] == 1) {
+			BUYOptionValue *optionValue = [productVariant.options anyObject];
+			NSString *defaultTitleString = @"Default Title";
+			NSString *defaultString = @"Default";
+			NSString *titleString = @"Title";
+			if ([optionValue.name isEqualToString:titleString] &&
+				([optionValue.value isEqualToString:defaultTitleString] || [optionValue.value isEqualToString:defaultString])) {
+				return YES;
+			}
 		}
 	}
 	return NO;
