@@ -41,9 +41,7 @@ extern const struct BUYCustomerAttributes {
 	__unsafe_unretained NSString *lastOrderID;
 	__unsafe_unretained NSString *lastOrderName;
 	__unsafe_unretained NSString *multipassIdentifier;
-	__unsafe_unretained NSString *note;
 	__unsafe_unretained NSString *ordersCount;
-	__unsafe_unretained NSString *tags;
 	__unsafe_unretained NSString *taxExempt;
 	__unsafe_unretained NSString *totalSpent;
 	__unsafe_unretained NSString *updatedAt;
@@ -105,15 +103,11 @@ extern const struct BUYCustomerRelationships {
 
 @property (nonatomic, strong) NSString* multipassIdentifier;
 
-@property (nonatomic, strong) NSString* note;
-
 @property (nonatomic, strong) NSNumber* ordersCount;
 
 @property (atomic) int16_t ordersCountValue;
 - (int16_t)ordersCountValue;
 - (void)setOrdersCountValue:(int16_t)value_;
-
-@property (nonatomic, strong) NSString* tags;
 
 @property (nonatomic, strong) NSNumber* taxExempt;
 
@@ -174,14 +168,8 @@ extern const struct BUYCustomerRelationships {
 - (NSString*)primitiveMultipassIdentifier;
 - (void)setPrimitiveMultipassIdentifier:(NSString*)value;
 
-- (NSString*)primitiveNote;
-- (void)setPrimitiveNote:(NSString*)value;
-
 - (NSNumber*)primitiveOrdersCount;
 - (void)setPrimitiveOrdersCount:(NSNumber*)value;
-
-- (NSString*)primitiveTags;
-- (void)setPrimitiveTags:(NSString*)value;
 
 - (NSNumber*)primitiveTaxExempt;
 - (void)setPrimitiveTaxExempt:(NSNumber*)value;
