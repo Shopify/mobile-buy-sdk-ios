@@ -31,6 +31,13 @@
 #import "BUYProductVariant.h"
 #import "NSString+BUYAdditions.h"
 
+@interface BUYProduct ()
+
+- (void)updateMinimumPrice;
+- (void)updateMinimumCompareAtPrice;
+
+@end
+
 @implementation BUYProduct
 
 @synthesize stringDescription=_stringDescription;
@@ -77,6 +84,7 @@
 {
 	[super setJSONDictionary:JSONDictionary];
 	[self updateMinimumPrice];
+	[self updateMinimumCompareAtPrice];
 }
 
 - (void)updateMinimumPrice
@@ -84,6 +92,14 @@
 	NSDecimalNumber *newMinimumPrice = [self.variants valueForKeyPath:@"@min.price"];
 	if (![self.minimumPrice isEqual:newMinimumPrice]) {
 		self.minimumPrice = newMinimumPrice;
+	}
+}
+
+- (void)updateMinimumCompareAtPrice
+{
+	NSDecimalNumber *newMinimumCompareAt = [self.variants valueForKeyPath:@"@min.compareAtPrice"];
+	if (![self.minimumCompareAtPrice isEqual:newMinimumCompareAt]) {
+		self.minimumCompareAtPrice = newMinimumCompareAt;
 	}
 }
 

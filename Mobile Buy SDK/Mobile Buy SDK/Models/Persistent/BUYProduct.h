@@ -52,11 +52,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSArray<BUYProductVariant *> *)variantsArray;
 
-/**
- * Fetch the prices from variants and cache the lowest price on minimumPrice.
- */
-- (void)updateMinimumPrice;
-
 @end
 
 @interface BUYProduct (Options)
