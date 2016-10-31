@@ -242,7 +242,7 @@ NSString *const BUYApplePayPaymentProviderId = @"BUYApplePayPaymentProviderId";
 			default:
 				break;
 		}
-		
+		self.checkout = self.applePayAuthorizationDelegate.checkout;
 		completion(status);
 	}];
 }
