@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15F34" minimumToolsVersion="Xcode 7.0">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11232" systemVersion="15G1004" minimumToolsVersion="Xcode 7.0" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="Address" representedClassName="BUYAddress" syncable="YES">
         <attribute name="address1" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
@@ -36,12 +36,12 @@
                 <entry key="documentation" value="The first name of the person associated with the payment method."/>
             </userInfo>
         </attribute>
-        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES">
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="Unique identifier for the address"/>
             </userInfo>
         </attribute>
-        <attribute name="isDefault" optional="YES" attributeType="Boolean" syncable="YES">
+        <attribute name="isDefault" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES">
             <userInfo>
                 <entry key="discussion" value="Maps to &quot;default&quot; key in JSON."/>
                 <entry key="documentation" value="Whether the address is the owning customer's default address."/>
@@ -123,13 +123,13 @@
                 <entry key="documentation" value="Channel ID where the checkout was created."/>
             </userInfo>
         </attribute>
-        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="currency" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="The three letter code (ISO 4217) for the currency used for the payment."/>
             </userInfo>
         </attribute>
-        <attribute name="customerId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES">
+        <attribute name="customerId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="Customer ID associated with the checkout."/>
             </userInfo>
@@ -139,7 +139,7 @@
                 <entry key="documentation" value="The customer's email address."/>
             </userInfo>
         </attribute>
-        <attribute name="includesTaxes" optional="YES" attributeType="Boolean" syncable="YES">
+        <attribute name="includesTaxes" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES">
             <userInfo>
                 <entry key="discussion" value="Maps to &quot;taxes_included&quot; in JSON."/>
                 <entry key="documentation" value="States whether or not the taxes are included in the price."/>
@@ -158,7 +158,7 @@
                 <entry key="documentation" value="An optional note attached to the order."/>
             </userInfo>
         </attribute>
-        <attribute name="partialAddresses" optional="YES" attributeType="Boolean" syncable="YES">
+        <attribute name="partialAddresses" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES">
             <userInfo>
                 <entry key="discussion" value="Suitable to retrieve shipping rates."/>
                 <entry key="documentation" value="Informs server that the shipping address is partially filled with address info provided by PKPaymentAuthorizationViewController. Should only ever be YES. Setting to NO will throw an exception."/>
@@ -188,18 +188,18 @@
                 <entry key="documentation" value="The website URL for the refund policy for the checkout."/>
             </userInfo>
         </attribute>
-        <attribute name="requiresShipping" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES">
+        <attribute name="requiresShipping" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="States whether or not the fulfillment requires shipping"/>
             </userInfo>
         </attribute>
-        <attribute name="reservationTime" optional="YES" attributeType="Integer 32" defaultValueString="0.0" syncable="YES">
+        <attribute name="reservationTime" optional="YES" attributeType="Integer 32" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES">
             <userInfo>
                 <entry key="discussion" value="Setting to zero and updating the checkout will release inventory reserved by the checkout (when product inventory is not infinite). 300 seconds is default and maximum. `reservationTime` is reset to @300 on every `updateCheckout:completion:` call. This can also be done with  `removeProductReservationsFromCheckout:completion` found in the BUYClient."/>
                 <entry key="documentation" value="Reservation time on the checkout in seconds."/>
             </userInfo>
         </attribute>
-        <attribute name="reservationTimeLeft" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES">
+        <attribute name="reservationTimeLeft" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="Reservation time remaining on the checkout in seconds."/>
             </userInfo>
@@ -241,7 +241,7 @@
                 <entry key="documentation" value="The sum of all the taxes applied to the line items in the order."/>
             </userInfo>
         </attribute>
-        <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="webCheckoutURL" optional="YES" attributeType="Transformable" syncable="YES">
             <userInfo>
                 <entry key="attributeValueClassName" value="NSURL"/>
@@ -321,7 +321,7 @@
         </userInfo>
     </entity>
     <entity name="Collection" representedClassName="BUYCollection" syncable="YES">
-        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="handle" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="The handle of the collection."/>
@@ -334,18 +334,18 @@
                 <entry key="JSONPropertyKey" value="body_html"/>
             </userInfo>
         </attribute>
-        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES">
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" indexed="YES" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="Maps to collection_id in the JSON"/>
                 <entry key="JSONPropertyKey" value="collection_id"/>
             </userInfo>
         </attribute>
-        <attribute name="published" optional="YES" attributeType="Boolean" syncable="YES">
+        <attribute name="published" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="The state of whether the collection is currently published or not."/>
             </userInfo>
         </attribute>
-        <attribute name="publishedAt" optional="YES" attributeType="Date" syncable="YES">
+        <attribute name="publishedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="The publish date for the collection."/>
             </userInfo>
@@ -355,7 +355,7 @@
                 <entry key="documentation" value="The title of the collection."/>
             </userInfo>
         </attribute>
-        <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="image" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ImageLink" inverseName="collection" inverseEntity="ImageLink" syncable="YES"/>
         <relationship name="products" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Product" inverseName="collections" inverseEntity="Product" syncable="YES">
             <userInfo>
@@ -367,23 +367,23 @@
         </userInfo>
     </entity>
     <entity name="Customer" representedClassName="BUYCustomer" syncable="YES">
-        <attribute name="acceptsMarketing" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="customerState" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="acceptsMarketing" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="customerState" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="lastOrderID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="lastOrderID" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="lastOrderName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="multipassIdentifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="note" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="ordersCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="ordersCount" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="tags" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="taxExempt" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="taxExempt" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="totalSpent" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="verifiedEmail" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="verifiedEmail" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="addresses" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Address" inverseName="customer" inverseEntity="Address" syncable="YES"/>
         <relationship name="defaultAddress" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Address" syncable="YES"/>
     </entity>
@@ -393,7 +393,7 @@
                 <entry key="documentation" value="The amount that is deducted from `paymentDue` on BUYCheckout."/>
             </userInfo>
         </attribute>
-        <attribute name="applicable" optional="YES" attributeType="Boolean" syncable="YES">
+        <attribute name="applicable" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="Whether this discount code can be applied to the checkout."/>
             </userInfo>
@@ -429,7 +429,7 @@
                 <entry key="documentation" value="The gift card code."/>
             </userInfo>
         </attribute>
-        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="lastCharacters" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="The last characters of the applied gift card code."/>
@@ -445,9 +445,9 @@
         </userInfo>
     </entity>
     <entity name="ImageLink" representedClassName="BUYImageLink" syncable="YES">
-        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
-        <attribute name="position" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
+        <attribute name="position" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="The position of the image for the product."/>
             </userInfo>
@@ -460,7 +460,7 @@
                 <entry key="JSONPropertyKey" value="src"/>
             </userInfo>
         </attribute>
-        <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="variantIds" optional="YES" attributeType="Transformable" syncable="YES">
             <userInfo>
                 <entry key="attributeValueClassName" value="NSArray"/>
@@ -484,7 +484,7 @@
                 <entry key="documentation" value="The competitor's prices for the same item."/>
             </userInfo>
         </attribute>
-        <attribute name="fulfilled" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="fulfilled" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="fulfillmentService" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="Service provider who is doing the fulfillment."/>
@@ -507,7 +507,7 @@
                 <entry key="documentation" value="The price of the BUYLineItem."/>
             </userInfo>
         </attribute>
-        <attribute name="productId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="productId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="properties" optional="YES" attributeType="Transformable" syncable="YES">
             <userInfo>
                 <entry key="attributeValueClassName" value="NSDictionary"/>
@@ -519,7 +519,7 @@
                 <entry key="documentation" value="The quantity of the BUYLineItem."/>
             </userInfo>
         </attribute>
-        <attribute name="requiresShipping" optional="YES" attributeType="Boolean" syncable="YES">
+        <attribute name="requiresShipping" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES">
             <userInfo>
                 <entry key="discussion" value="This needs to match the product variant."/>
                 <entry key="documentation" value="Whether this BUYLineItem requires shipping."/>
@@ -530,7 +530,7 @@
                 <entry key="documentation" value="The unique SKU for the line item."/>
             </userInfo>
         </attribute>
-        <attribute name="taxable" optional="YES" attributeType="Boolean" syncable="YES">
+        <attribute name="taxable" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="Whether the line item is taxable."/>
             </userInfo>
@@ -541,7 +541,7 @@
                 <entry key="documentation" value="The title of the BUYLineItem."/>
             </userInfo>
         </attribute>
-        <attribute name="variantId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES">
+        <attribute name="variantId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES">
             <userInfo>
                 <entry key="discussion" value="Keep a reference to a cart or products if you wish to display information for product variants in a BUYCheckout."/>
                 <entry key="documentation" value="BUYProductVariant identifer."/>
@@ -563,12 +563,12 @@
         </userInfo>
     </entity>
     <entity name="MaskedCreditCard" representedClassName="BUYMaskedCreditCard" syncable="YES">
-        <attribute name="expiryMonth" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES">
+        <attribute name="expiryMonth" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="The two digits representing the month the card expires."/>
             </userInfo>
         </attribute>
-        <attribute name="expiryYear" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES">
+        <attribute name="expiryYear" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="The year the card expires."/>
             </userInfo>
@@ -604,14 +604,14 @@
         </userInfo>
     </entity>
     <entity name="Option" representedClassName="BUYOption" syncable="YES">
-        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" maxValueString="255" syncable="YES">
             <userInfo>
                 <entry key="discussion" value="255 characters limit each."/>
                 <entry key="documentation" value="Custom product property names like &quot;Size&quot;, &quot;Color&quot;, and &quot;Material&quot;."/>
             </userInfo>
         </attribute>
-        <attribute name="position" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES">
+        <attribute name="position" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="The order in which the option should optionally appear."/>
             </userInfo>
@@ -633,7 +633,7 @@
                 <entry key="documentation" value="Custom product property names like &quot;Size&quot;, &quot;Color&quot;, and &quot;Material&quot;."/>
             </userInfo>
         </attribute>
-        <attribute name="optionId" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="optionId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
         <attribute name="value" optional="YES" attributeType="String" indexed="YES" syncable="YES">
             <userInfo>
                 <entry key="discussion" value="For example, &quot;Small&quot;, &quot;Medium&quot; or &quot;Large&quot;."/>
@@ -647,7 +647,7 @@
         </relationship>
     </entity>
     <entity name="Order" representedClassName="BUYOrder" syncable="YES">
-        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="The customer's order name as represented by a number."/>
@@ -659,7 +659,7 @@
                 <entry key="documentation" value="URL for the website showing the order status."/>
             </userInfo>
         </attribute>
-        <attribute name="processedAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="processedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="statusURL" optional="YES" attributeType="Transformable" syncable="YES">
             <userInfo>
                 <entry key="attributeValueClassName" value="NSURL"/>
@@ -679,12 +679,12 @@
         </userInfo>
     </entity>
     <entity name="Product" representedClassName="BUYProduct" syncable="YES">
-        <attribute name="available" optional="YES" attributeType="Boolean" syncable="YES">
+        <attribute name="available" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="If the product is in stock. See each variant for their specific availability."/>
             </userInfo>
         </attribute>
-        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="The creation date for a product."/>
             </userInfo>
@@ -701,23 +701,25 @@
                 <entry key="JSONPropertyKey" value="body_html"/>
             </userInfo>
         </attribute>
-        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES">
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" indexed="YES" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="Maps to product_id in the JSON"/>
                 <entry key="JSONPropertyKey" value="product_id"/>
             </userInfo>
         </attribute>
+        <attribute name="minimumCompareAtPrice" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="minimumPrice" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
         <attribute name="productType" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="A categorization that a product can be tagged with, commonly used for filtering and searching."/>
             </userInfo>
         </attribute>
-        <attribute name="published" optional="YES" attributeType="Boolean" syncable="YES">
+        <attribute name="published" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="The product is published on the current sales channel."/>
             </userInfo>
         </attribute>
-        <attribute name="publishedAt" optional="YES" attributeType="Date" syncable="YES">
+        <attribute name="publishedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="The publish date for a product."/>
             </userInfo>
@@ -736,7 +738,7 @@
                 <entry key="documentation" value="The name of the product."/>
             </userInfo>
         </attribute>
-        <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES">
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="The updated date for a product."/>
             </userInfo>
@@ -774,7 +776,7 @@
         </userInfo>
     </entity>
     <entity name="ProductVariant" representedClassName="BUYProductVariant" syncable="YES">
-        <attribute name="available" optional="YES" attributeType="Boolean" syncable="YES">
+        <attribute name="available" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="If the variant is in stock."/>
             </userInfo>
@@ -789,8 +791,8 @@
                 <entry key="documentation" value="The weight of the BUYProductVariant in grams."/>
             </userInfo>
         </attribute>
-        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
-        <attribute name="position" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES">
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
+        <attribute name="position" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="The order of the BUYProductVariant in the list of product variants. 1 is the first position."/>
             </userInfo>
@@ -800,7 +802,7 @@
                 <entry key="documentation" value="The price of the BUYProductVariant."/>
             </userInfo>
         </attribute>
-        <attribute name="requiresShipping" optional="YES" attributeType="Boolean" syncable="YES">
+        <attribute name="requiresShipping" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="Whether or not a customer needs to provide a shipping address when placing an order for this BUYProductVariant."/>
             </userInfo>
@@ -810,7 +812,7 @@
                 <entry key="documentation" value="A unique identifier for the product in the shop."/>
             </userInfo>
         </attribute>
-        <attribute name="taxable" optional="YES" attributeType="Boolean" syncable="YES">
+        <attribute name="taxable" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="Specifies whether or not a tax is charged when the BUYProductVariant is sold."/>
             </userInfo>
@@ -844,7 +846,7 @@
                 <entry key="JSONValueTransformer" value="BUYDeliveryRange"/>
             </userInfo>
         </attribute>
-        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
         <attribute name="price" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="The price of this shipping method."/>
@@ -888,7 +890,7 @@
                 <entry key="documentation" value="The shop's domain."/>
             </userInfo>
         </attribute>
-        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="identifier" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="moneyFormat" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="A string representing the way currency is formatted when the currency isn't specified."/>
@@ -912,8 +914,8 @@
                 <entry key="documentation" value="The shop's normalized province or state name."/>
             </userInfo>
         </attribute>
-        <attribute name="publishedCollectionsCount" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="publishedProductsCount" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="publishedCollectionsCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="publishedProductsCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="shipsToCountries" optional="YES" attributeType="Transformable" syncable="YES">
             <userInfo>
                 <entry key="attributeValueClassName" value="NSArray"/>
@@ -938,7 +940,7 @@
         </userInfo>
     </entity>
     <entity name="TaxLine" representedClassName="BUYTaxLine" syncable="YES">
-        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="price" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="The amount of tax to be charged."/>
@@ -954,7 +956,7 @@
                 <entry key="documentation" value="The name of the tax."/>
             </userInfo>
         </attribute>
-        <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="checkout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Checkout" inverseName="taxLines" inverseEntity="Checkout" syncable="YES">
             <userInfo>
                 <entry key="documentation" value="Inverse of Checkout.taxLines."/>
@@ -1005,7 +1007,7 @@
         <element name="Option" positionX="-1588" positionY="1287" width="128" height="105"/>
         <element name="OptionValue" positionX="-1390" positionY="894" width="128" height="105"/>
         <element name="Order" positionX="-549" positionY="1647" width="128" height="180"/>
-        <element name="Product" positionX="-1390" positionY="1018" width="128" height="300"/>
+        <element name="Product" positionX="-1390" positionY="1018" width="128" height="315"/>
         <element name="ProductVariant" positionX="-1192" positionY="1063" width="128" height="240"/>
         <element name="ShippingRate" positionX="-569" positionY="1836" width="128" height="135"/>
         <element name="Shop" positionX="-1786" positionY="843" width="128" height="255"/>

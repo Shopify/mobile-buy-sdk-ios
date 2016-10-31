@@ -34,6 +34,8 @@ const struct BUYProductAttributes BUYProductAttributes = {
 	.handle = @"handle",
 	.htmlDescription = @"htmlDescription",
 	.identifier = @"identifier",
+	.minimumCompareAtPrice = @"minimumCompareAtPrice",
+	.minimumPrice = @"minimumPrice",
 	.productType = @"productType",
 	.published = @"published",
 	.publishedAt = @"publishedAt",
@@ -88,6 +90,8 @@ const struct BUYProductUserInfo BUYProductUserInfo = {
 @dynamic handle;
 @dynamic htmlDescription;
 @dynamic identifier;
+@dynamic minimumCompareAtPrice;
+@dynamic minimumPrice;
 @dynamic productType;
 @dynamic published;
 @dynamic publishedAt;
