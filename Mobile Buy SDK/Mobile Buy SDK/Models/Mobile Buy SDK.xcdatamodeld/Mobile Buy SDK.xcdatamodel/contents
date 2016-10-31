@@ -707,6 +707,7 @@
                 <entry key="JSONPropertyKey" value="product_id"/>
             </userInfo>
         </attribute>
+        <attribute name="minimumCompareAtPrice" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
         <attribute name="minimumPrice" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
         <attribute name="productType" optional="YES" attributeType="String" syncable="YES">
             <userInfo>
@@ -1006,7 +1007,7 @@
         <element name="Option" positionX="-1588" positionY="1287" width="128" height="105"/>
         <element name="OptionValue" positionX="-1390" positionY="894" width="128" height="105"/>
         <element name="Order" positionX="-549" positionY="1647" width="128" height="180"/>
-        <element name="Product" positionX="-1390" positionY="1018" width="128" height="300"/>
+        <element name="Product" positionX="-1390" positionY="1018" width="128" height="315"/>
         <element name="ProductVariant" positionX="-1192" positionY="1063" width="128" height="240"/>
         <element name="ShippingRate" positionX="-569" positionY="1836" width="128" height="135"/>
         <element name="Shop" positionX="-1786" positionY="843" width="128" height="255"/>

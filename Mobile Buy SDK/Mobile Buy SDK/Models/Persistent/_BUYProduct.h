@@ -36,6 +36,7 @@ extern const struct BUYProductAttributes {
 	__unsafe_unretained NSString *handle;
 	__unsafe_unretained NSString *htmlDescription;
 	__unsafe_unretained NSString *identifier;
+	__unsafe_unretained NSString *minimumCompareAtPrice;
 	__unsafe_unretained NSString *minimumPrice;
 	__unsafe_unretained NSString *productType;
 	__unsafe_unretained NSString *published;
@@ -112,6 +113,8 @@ extern const struct BUYProductUserInfo {
 @property (atomic) int64_t identifierValue;
 - (int64_t)identifierValue;
 - (void)setIdentifierValue:(int64_t)value_;
+
+@property (nonatomic, strong) NSDecimalNumber* minimumCompareAtPrice;
 
 @property (nonatomic, strong) NSDecimalNumber* minimumPrice;
 
@@ -241,6 +244,9 @@ extern const struct BUYProductUserInfo {
 
 - (NSNumber*)primitiveIdentifier;
 - (void)setPrimitiveIdentifier:(NSNumber*)value;
+
+- (NSDecimalNumber*)primitiveMinimumCompareAtPrice;
+- (void)setPrimitiveMinimumCompareAtPrice:(NSDecimalNumber*)value;
 
 - (NSDecimalNumber*)primitiveMinimumPrice;
 - (void)setPrimitiveMinimumPrice:(NSDecimalNumber*)value;
