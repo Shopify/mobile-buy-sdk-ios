@@ -35,35 +35,33 @@
 # pragma mark - Default Variant Checker Tests
 
 - (void)testDefaultVariantCheckerWithCorrectOptionValues {
-	BUYModelManager *model = [BUYModelManager modelManager];
-	BUYProduct *product = [[BUYProduct alloc] init];
-	BUYProductVariant *variant = [[BUYProductVariant alloc] initWithModelManager:model
-																  JSONDictionary:@{ @"id" : @1}];
-	
-	BUYOptionValue *option = [model buy_objectWithEntityName:[BUYOptionValue entityName] JSONDictionary:@{
-																										  @"name"      : @"Title",
-																										  @"value"     : @"Default",
-																										  @"option_id" : @1,
-																										  }];
-	variant.options = [[NSSet alloc] initWithArray:@[option]];
-	product.variants = [[NSOrderedSet alloc] initWithArray:@[variant]];
-	XCTAssertTrue([product isDefaultVariant]);
+	[self testDefaultVariantCheckerWithName:@"Title" andValue:@"Default" withOptionID:@1 isValid:YES];
+	[self testDefaultVariantCheckerWithName:@"Title" andValue:@"Default Title" withOptionID:@1 isValid:YES];
 }
 
 - (void)testDefaultVariantCheckerWithIncorrectOptionValues {
+	[self testDefaultVariantCheckerWithName:@"name1" andValue:@"value1" withOptionID:@1 isValid:NO];
+}
+
+- (void)testDefaultVariantCheckerWithName:(NSString *)name andValue:(NSString *)value withOptionID:(NSNumber *)option_id isValid:(BOOL)valid {
 	BUYModelManager *model = [BUYModelManager modelManager];
 	BUYProduct *product = [[BUYProduct alloc] init];
 	BUYProductVariant *variant = [[BUYProductVariant alloc] initWithModelManager:model
 																  JSONDictionary:@{ @"id" : @1}];
 	
 	BUYOptionValue *option = [model buy_objectWithEntityName:[BUYOptionValue entityName] JSONDictionary:@{
-																										  @"name"      : @"name1",
-																										  @"value"     : @"value1",
-																										  @"option_id" : @1,
-																										}];
+																										  @"name"      : name,
+																										  @"value"     : value,
+																										  @"option_id" : option_id,
+																										  }];
 	variant.options = [[NSSet alloc] initWithArray:@[option]];
 	product.variants = [[NSOrderedSet alloc] initWithArray:@[variant]];
-	XCTAssertFalse([product isDefaultVariant]);
+	
+	if (valid) {
+		XCTAssertTrue([product isDefaultVariant]);
+	} else {
+		XCTAssertFalse([product isDefaultVariant]);
+	}
 }
 
 - (void)testDefaultVariantCheckerWithEmptyProduct {
