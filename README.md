@@ -212,7 +212,7 @@ To run the Mobile Buy SDK integration tests against an actual shop, you will nee
 
 If the credentials in the **test_shop_config.json** are empty, running the integration tests will use mocked respoonses.  The mocked responses are defined in **mocked_responses.json**.  Do not check in credentials in this file.
 
-Example test_shop_config.json
+Example `test_shop_config.json`
 ```
 {	
 	"domain":"yourshop.myshopify.com",
