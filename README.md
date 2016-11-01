@@ -210,7 +210,17 @@ The [Advanced Sample App](https://github.com/Shopify/mobile-buy-sdk-ios/tree/mas
 
 To run the Mobile Buy SDK integration tests against an actual shop, you will need a Shopify shop that is publicly accessible (not password protected). Please note that the integration tests **will create an order** on that shop. This is to validate that the SDK works properly with Shopify.  Modify the **test_shop_data.json** file to contain your shop's credentials and the required product IDs, gift cards, and discounts as necessary.
 
-If the credentials in the **test_shop_data.json** are empty, running the integration tests will use mocked respoonses.  The mocked responses are defined in **mocked_responses.json**.  Do not check in credentials in this file.
+If the credentials in the **test_shop_config.json** are empty, running the integration tests will use mocked respoonses.  The mocked responses are defined in **mocked_responses.json**.  Do not check in credentials in this file.
+
+Example `test_shop_config.json`
+```
+{	
+	"domain":"yourshop.myshopify.com",
+	"api_key":"abc123",
+	"app_id":"8",
+	"merchant_id":"merchant.com.yourcompany.app"
+}
+```
 
 Alternatively, you can edit the `Mobile Buy SDK Tests` scheme and add the following arguments to the **Environment Variables**:
 
