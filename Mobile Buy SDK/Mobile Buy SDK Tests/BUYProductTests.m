@@ -35,15 +35,15 @@
 # pragma mark - Default Variant Checker Tests
 
 - (void)testDefaultVariantCheckerWithCorrectOptionValues {
-	[self testDefaultVariantCheckerWithName:@"Title" andValue:@"Default" withOptionID:@1 isValid:YES];
-	[self testDefaultVariantCheckerWithName:@"Title" andValue:@"Default Title" withOptionID:@1 isValid:YES];
+	XCTAssertTrue([self isDefaultVariantWithName:@"Title" value:@"Default" optionID:@1]);
+	XCTAssertTrue([self isDefaultVariantWithName:@"Title" value:@"Default Title" optionID:@1]);
 }
 
 - (void)testDefaultVariantCheckerWithIncorrectOptionValues {
-	[self testDefaultVariantCheckerWithName:@"name1" andValue:@"value1" withOptionID:@1 isValid:NO];
+	XCTAssertFalse([self isDefaultVariantWithName:@"name1" value:@"value1" optionID:@1]);
 }
 
-- (void)testDefaultVariantCheckerWithName:(NSString *)name andValue:(NSString *)value withOptionID:(NSNumber *)option_id isValid:(BOOL)valid {
+- (BOOL)isDefaultVariantWithName:(NSString *)name value:(NSString *)value optionID:(NSNumber *)option_id {
 	BUYModelManager *model = [BUYModelManager modelManager];
 	BUYProduct *product = [[BUYProduct alloc] init];
 	BUYProductVariant *variant = [[BUYProductVariant alloc] initWithModelManager:model
@@ -57,11 +57,7 @@
 	variant.options = [[NSSet alloc] initWithArray:@[option]];
 	product.variants = [[NSOrderedSet alloc] initWithArray:@[variant]];
 	
-	if (valid) {
-		XCTAssertTrue([product isDefaultVariant]);
-	} else {
-		XCTAssertFalse([product isDefaultVariant]);
-	}
+	return [product isDefaultVariant];
 }
 
 - (void)testDefaultVariantCheckerWithEmptyProduct {
