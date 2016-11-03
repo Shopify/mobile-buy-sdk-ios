@@ -31,6 +31,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)isEqualToOptionValue:(nullable BUYOptionValue *)other;
 
+/**
+ *	Checks the name and value to determine if it's a default BUYOptionValue.
+ *
+ *	@return YES if name and value match defaults, else NO
+ */
+- (BOOL)isDefault;
+
 @end
 
 NS_ASSUME_NONNULL_END

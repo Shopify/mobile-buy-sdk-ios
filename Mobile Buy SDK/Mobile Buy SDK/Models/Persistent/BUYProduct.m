@@ -31,10 +31,6 @@
 #import "BUYProductVariant.h"
 #import "NSString+BUYAdditions.h"
 
-static NSString *const defaultTitleString = @"Default Title";
-static NSString *const defaultString = @"Default";
-static NSString *const titleString = @"Title";
-
 @interface BUYProduct ()
 
 - (void)updateMinimumPrice;
@@ -152,12 +148,9 @@ static NSString *const titleString = @"Title";
 {
 	if ([self.variants count] == 1) {
 		BUYProductVariant *productVariant = [self.variants firstObject];
-		if ([productVariant.options count] == 1) {
+		if ([productVariant isDefault]) {
 			BUYOptionValue *optionValue = [productVariant.options anyObject];
-			if ([optionValue.name isEqualToString:titleString] &&
-				([optionValue.value isEqualToString:defaultTitleString] || [optionValue.value isEqualToString:defaultString])) {
-				return YES;
-			}
+			return [optionValue isDefault];
 		}
 	}
 	return NO;

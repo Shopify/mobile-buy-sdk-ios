@@ -53,4 +53,8 @@
 	return [filteredArray copy];
 }
 
+- (BOOL)isDefault {
+	return [self.options count] == 1;
+}
+
 @end

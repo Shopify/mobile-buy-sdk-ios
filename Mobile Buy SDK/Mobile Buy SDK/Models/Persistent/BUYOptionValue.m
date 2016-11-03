@@ -26,11 +26,21 @@
 
 #import "BUYOptionValue.h"
 
+static NSString *const defaultTitleString = @"Default Title";
+static NSString *const defaultString = @"Default";
+static NSString *const titleString = @"Title";
+
 @implementation BUYOptionValue
 
 - (BOOL)isEqualToOptionValue:(BUYOptionValue *)other
 {
 	return [other isKindOfClass:[self class]] && [self.name isEqual:other.name] && [self.value isEqual:other.value];
+}
+
+- (BOOL)isDefault
+{
+	return [self.name isEqualToString:titleString] &&
+	([self.value isEqualToString:defaultTitleString] || [self.value isEqualToString:defaultString]);
 }
 
 #if !defined CORE_DATA_PERSISTENCE

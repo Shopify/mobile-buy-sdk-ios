@@ -50,6 +50,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (NSArray *)filterProductVariants:(NSArray *)productVariants forOptionValue:(BUYOptionValue *)optionValue;
 
+/**
+ *	Checks the number of options within this product variant.
+ *
+ *	@return YES if only one option, else NO
+ */
+- (BOOL)isDefault;
+
 @end
 
 NS_ASSUME_NONNULL_END
