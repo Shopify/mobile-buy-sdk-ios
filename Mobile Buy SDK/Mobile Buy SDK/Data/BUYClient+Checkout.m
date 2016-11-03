@@ -297,7 +297,7 @@
 {
 	BUYAssertCheckout(checkout);
 	
-	checkout.discount = [self.modelManager discountWithCode:@""];
+	checkout.discount = [self.modelManager discountWithCode:nil];
 }
 
 #pragma mark - Reservations -
