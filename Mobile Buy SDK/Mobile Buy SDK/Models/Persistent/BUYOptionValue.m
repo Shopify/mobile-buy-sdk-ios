@@ -31,6 +31,7 @@ static NSString *const defaultString = @"Default";
 static NSString *const titleString = @"Title";
 
 @implementation BUYOptionValue
+@synthesize isDefault;
 
 - (BOOL)isEqualToOptionValue:(BUYOptionValue *)other
 {

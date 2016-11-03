@@ -105,7 +105,7 @@
 																										  @"value"     : value,
 																										  @"option_id" : option_id,
 																										  }];
-	return [option isDefault];
+	return option.isDefault;
 }
 
 @end

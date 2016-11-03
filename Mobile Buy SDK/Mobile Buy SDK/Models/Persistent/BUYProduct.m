@@ -148,10 +148,7 @@
 {
 	if ([self.variants count] == 1) {
 		BUYProductVariant *productVariant = [self.variants firstObject];
-		if ([productVariant isDefault]) {
-			BUYOptionValue *optionValue = [productVariant.options anyObject];
-			return [optionValue isDefault];
-		}
+		return productVariant.isDefault;
 	}
 	return NO;
 }

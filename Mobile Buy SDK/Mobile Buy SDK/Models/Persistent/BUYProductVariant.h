@@ -31,6 +31,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BUYProductVariant : _BUYProductVariant {}
 
+@property (nonatomic, readonly) BOOL isDefault;
+
 /**
  *  Returns the option value for the given name
  *
@@ -49,13 +51,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return A filtered copy of the original array
  */
 + (NSArray *)filterProductVariants:(NSArray *)productVariants forOptionValue:(BUYOptionValue *)optionValue;
-
-/**
- *	Checks the number of options within this product variant.
- *
- *	@return YES if only one option, else NO
- */
-- (BOOL)isDefault;
 
 @end
 

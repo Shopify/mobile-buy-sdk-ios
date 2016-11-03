@@ -38,21 +38,21 @@
 	BUYProductVariant *variant1 = [[BUYProductVariant alloc] initWithModelManager:model
 																  JSONDictionary:@{ @"id" : @1}];
 	BUYOptionValue *option1 = [model buy_objectWithEntityName:[BUYOptionValue entityName] JSONDictionary:@{
-																										  @"name"      : @"test",
-																										  @"value"     : @"test",
+																										  @"name"      : @"Title",
+																										  @"value"     : @"Default",
 																										  @"option_id" : @1,
 																										  }];
 	variant1.options = [[NSSet alloc] initWithArray:@[option1]];
-	XCTAssertTrue([variant1 isDefault]);
+	XCTAssertTrue(variant1.isDefault);
 	
 	BUYOptionValue *option2 = [model buy_objectWithEntityName:[BUYOptionValue entityName] JSONDictionary:@{
-																										   @"name"      : @"test2",
-																										   @"value"     : @"test2",
+																										   @"name"      : @"Title",
+																										   @"value"     : @"Default Title",
 																										   @"option_id" : @12,
 																										   }];
 	;
 	variant1.options = [[NSSet alloc] initWithArray:@[option1, option2]];
-	XCTAssertFalse([variant1 isDefault]);
+	XCTAssertFalse(variant1.isDefault);
 }
 
 @end
