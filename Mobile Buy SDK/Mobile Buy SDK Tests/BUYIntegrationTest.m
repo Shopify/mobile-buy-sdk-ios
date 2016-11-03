@@ -929,6 +929,37 @@
 	XCTAssertTrue(_checkout.discount.applicable);
 }
 
+- (void)testRemovingDiscountFromCheckout
+{
+	[self createCart];
+	[self createCheckout];
+	
+	[OHHTTPStubs stubUsingResponseWithKey:@"testCreateCheckoutWithValidDiscount_1" useMocks:[self shouldUseMocks]];
+	
+	_checkout.discount = [self applicableDiscount];
+	
+	__weak BUYClient *weakClient = self.client;
+	
+	// Create the checkout
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[self.client createCheckout:_checkout completion:^(BUYCheckout *oldCheckout, NSError *error) {
+		XCTAssertNil(error);
+		XCTAssertNotNil(oldCheckout);
+		[weakClient removeDiscountFromCheckout:oldCheckout];
+		[weakClient updateCheckout:oldCheckout completion:^(BUYCheckout * _Nullable returnedCheckout, NSError * _Nullable error) {
+			XCTAssertNil(error);
+			XCTAssertNotNil(returnedCheckout);
+			XCTAssertNil(returnedCheckout.discount);
+			_checkout = returnedCheckout;
+			[expectation fulfill];
+		}];
+	}];
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+	XCTAssertNil(_checkout.discount);
+}
+
 - (void)testGetCheckoutWithInvalidToken
 {
 	[OHHTTPStubs stubUsingResponseWithKey:@"testGetCheckoutWithInvalidToken_0" useMocks:[self shouldUseMocks]];
