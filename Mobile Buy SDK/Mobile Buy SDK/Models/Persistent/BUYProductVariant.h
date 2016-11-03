@@ -31,6 +31,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BUYProductVariant : _BUYProductVariant {}
 
+@property (nonatomic, readonly) BOOL isDefault;
+
 /**
  *  Returns the option value for the given name
  *

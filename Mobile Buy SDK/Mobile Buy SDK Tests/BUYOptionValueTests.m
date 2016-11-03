@@ -74,6 +74,14 @@
 	XCTAssertTrue([value1 isEqual:value2]);
 }
 
+- (void)testIfOptionValueIsDefault
+{
+	XCTAssertTrue([self isDefaultOptionValueWithName:@"Title" value:@"Default" optionID:@1]);
+	XCTAssertTrue([self isDefaultOptionValueWithName:@"Title" value:@"Default Title" optionID:@1]);
+	
+	XCTAssertFalse([self isDefaultOptionValueWithName:@"name" value:@"value" optionID:@1]);
+}
+
 #pragma mark - Convenience -
 
 - (BUYOptionValue *)optionValueWithOptionID:(NSNumber *)optionID
@@ -88,6 +96,16 @@
 			 @"value"     : @"value1",
 			 @"option_id" : @543,
 			 };
+}
+
+- (BOOL)isDefaultOptionValueWithName:(NSString *)name value:(NSString *)value optionID:(NSNumber *)option_id
+{
+	BUYOptionValue *option = [_modelManager buy_objectWithEntityName:[BUYOptionValue entityName] JSONDictionary:@{
+																										  @"name"      : name,
+																										  @"value"     : value,
+																										  @"option_id" : option_id,
+																										  }];
+	return option.isDefault;
 }
 
 @end

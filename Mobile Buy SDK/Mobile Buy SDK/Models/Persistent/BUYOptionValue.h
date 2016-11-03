@@ -29,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BUYOptionValue : _BUYOptionValue {}
 
+@property (nonatomic, readonly) BOOL isDefault;
+
 - (BOOL)isEqualToOptionValue:(nullable BUYOptionValue *)other;
 
 @end

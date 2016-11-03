@@ -28,6 +28,7 @@
 #import "BUYOptionValue.h"
 
 @implementation BUYProductVariant
+@synthesize isDefault;
 
 - (BUYOptionValue *)optionValueForName:(NSString *)optionName
 {
@@ -51,6 +52,10 @@
 		}
 	}
 	return [filteredArray copy];
+}
+
+- (BOOL)isDefault {
+	return ([self.options count] == 1 && [(BUYOptionValue *)[self.options anyObject] isDefault]);
 }
 
 @end
