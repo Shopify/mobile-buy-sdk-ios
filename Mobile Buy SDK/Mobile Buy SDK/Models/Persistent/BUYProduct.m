@@ -146,11 +146,7 @@
 
 - (BOOL)isDefaultVariant
 {
-	if ([self.variants count] == 1) {
-		BUYProductVariant *productVariant = [self.variants firstObject];
-		return productVariant.isDefault;
-	}
-	return NO;
+	return ([self.variants count] == 1 && [(BUYProductVariant *)self.variants.firstObject isDefault]);
 }
 
 @end
