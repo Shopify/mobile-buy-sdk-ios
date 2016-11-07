@@ -29,6 +29,7 @@
 #import "BUYAddress.h"
 #import "BUYCart.h"
 #import "BUYCheckoutAttribute.h"
+#import "BUYDiscount.h"
 #import "BUYGiftCard.h"
 #import "BUYLineItem.h"
 #import "BUYShippingRate.h"
@@ -174,6 +175,13 @@
 	if (giftCard) {
 		[self.giftCardsSet removeObject:giftCard];
 	}
+}
+
+- (void)setDiscountCode:(nullable NSString *)code
+{
+	BUYDiscount *discount = (BUYDiscount *)[self.modelManager buy_objectWithEntityName:[BUYDiscount entityName] JSONDictionary:nil];
+	discount.code = code ?: @"";
+	self.discount = discount;
 }
 
 @end

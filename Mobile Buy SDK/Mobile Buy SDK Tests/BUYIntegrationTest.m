@@ -945,7 +945,7 @@
 	[self.client createCheckout:_checkout completion:^(BUYCheckout *oldCheckout, NSError *error) {
 		XCTAssertNil(error);
 		XCTAssertNotNil(oldCheckout);
-		[weakClient removeDiscountFromCheckout:oldCheckout];
+		[oldCheckout setDiscountCode:nil];
 		[weakClient updateCheckout:oldCheckout completion:^(BUYCheckout * _Nullable returnedCheckout, NSError * _Nullable error) {
 			XCTAssertNil(error);
 			XCTAssertNotNil(returnedCheckout);

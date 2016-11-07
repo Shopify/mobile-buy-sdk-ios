@@ -220,13 +220,6 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
  */
 - (NSOperation *)removeGiftCard:(BUYGiftCard *)giftCard fromCheckout:(BUYCheckout *)checkout completion:(BUYDataCheckoutBlock)block;
 
-/**
- *	Removes the discount from the checkout.
- *
- *  @param checkout An existing BUYCheckout on Shopify
- */
-- (void)removeDiscountFromCheckout:(BUYCheckout *)checkout;
-
 #pragma mark - Reservations -
 
 /**

@@ -34,7 +34,6 @@
 #import "BUYCheckoutOperation.h"
 #import "BUYCreditCard.h"
 #import "BUYCreditCardToken.h"
-#import "BUYDiscount.h"
 #import "BUYGiftCard.h"
 #import "BUYPaymentToken.h"
 #import "BUYRequestOperation.h"
@@ -291,13 +290,6 @@
 		}
 		block(checkout, error);
 	}];
-}
-
-- (void)removeDiscountFromCheckout:(BUYCheckout *)checkout
-{
-	BUYAssertCheckout(checkout);
-	
-	checkout.discount = [self.modelManager discountWithCode:nil];
 }
 
 #pragma mark - Reservations -
