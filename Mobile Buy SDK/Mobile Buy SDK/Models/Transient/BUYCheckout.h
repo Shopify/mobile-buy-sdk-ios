@@ -50,6 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable BUYGiftCard *)giftCardWithIdentifier:(NSNumber *)identifier;
 - (void)addGiftCard:(BUYGiftCard *)giftCard;
 - (void)removeGiftCardWithIdentifier:(NSNumber *)identifier;
+- (void)setDiscountCode:(nullable NSString *)code;
 
 @end
 

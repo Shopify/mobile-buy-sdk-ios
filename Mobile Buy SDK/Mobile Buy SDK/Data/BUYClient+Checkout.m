@@ -27,17 +27,19 @@
 #import "BUYClient+Checkout.h"
 #import "BUYClient+Internal.h"
 #import "BUYClient+Routing.h"
-#import "BUYRequestOperation.h"
-#import "BUYCheckoutOperation.h"
-#import "BUYStatusOperation.h"
+
 #import "BUYAddress.h"
+#import "BUYAssert.h"
 #import "BUYCheckout.h"
-#import "BUYGiftCard.h"
-#import "BUYShippingRate.h"
+#import "BUYCheckoutOperation.h"
 #import "BUYCreditCard.h"
 #import "BUYCreditCardToken.h"
-#import "BUYAssert.h"
+#import "BUYGiftCard.h"
 #import "BUYPaymentToken.h"
+#import "BUYRequestOperation.h"
+#import "BUYShippingRate.h"
+#import "BUYStatusOperation.h"
+
 #import "NSDecimalNumber+BUYAdditions.h"
 
 #define BUYAssertToken(checkoutToken) BUYAssert((checkoutToken), @"Checkout assertion failed. Checkout must have a valid token associated with it.")
