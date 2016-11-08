@@ -195,7 +195,7 @@ NSString *const BUYApplePayPaymentProviderId = @"BUYApplePayPaymentProviderId";
 	
 	[paymentRequest setMerchantIdentifier:self.merchantID];
 	[paymentRequest setRequiredBillingAddressFields:PKAddressFieldAll];
-	[paymentRequest setRequiredShippingAddressFields:[self.checkout.requiresShipping integerValue] ? PKAddressFieldAll : PKAddressFieldEmail|PKAddressFieldPhone];
+	[paymentRequest setRequiredShippingAddressFields:self.checkout.requiresShippingValue ? PKAddressFieldAll : PKAddressFieldEmail|PKAddressFieldPhone];
 	[paymentRequest setSupportedNetworks:self.supportedNetworks];
 	[paymentRequest setMerchantCapabilities:PKMerchantCapability3DS];
 	[paymentRequest setCountryCode:self.shop.country];
