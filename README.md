@@ -204,7 +204,7 @@ You can also theme the `ProductViewController` to better match your app and prod
 
 ![Product View Screenshot](https://raw.github.com/Shopify/mobile-buy-sdk-ios/master/Assets/Product_View_Screenshot_2.png)
 
-The [Advanced Sample App](https://github.com/Shopify/mobile-buy-sdk-ios/tree/master/Mobile Buy SDK Sample Apps/Sample App Advanced/) includes a demo of the `ProductViewController`. Documentation on how to use the `ProductViewController` is also available [here](https://github.com/Shopify/mobile-buy-sdk-ios/tree/master/Mobile Buy SDK Sample Apps/Sample App Advanced/PRODUCT_VIEW_README.md).
+The [Advanced Sample App](https://github.com/Shopify/mobile-buy-sdk-ios/tree/master/Mobile Buy SDK Sample Apps/Advanced App - ObjC/README.md) includes a demo of the `ProductViewController`. Documentation on how to use the `ProductViewController` is also available [here](https://github.com/Shopify/mobile-buy-sdk-ios/tree/master/Mobile Buy SDK Sample Apps/Advanced App - ObjC/PRODUCT_VIEW_README.md).
 
 ### Unit Tests
 
