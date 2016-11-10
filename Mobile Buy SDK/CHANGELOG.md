@@ -38,6 +38,7 @@ Tasks
 * Update Customer Sample App to use Swift 3 #371
 * Re-enables some disabled tests and correct order of cancel before execution test #373
 * Updates the `README` with correct info on running the unit tests #391
+* Add missing parameter documentation for collection callback block #404
 
 Build Settings
 * Use recommended setting from Xcode #312
