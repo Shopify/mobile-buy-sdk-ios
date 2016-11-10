@@ -992,7 +992,7 @@
         <memberEntity name="CheckoutAttribute"/>
     </configuration>
     <elements>
-        <element name="Address" positionX="-990" positionY="1444" width="128" height="270"/>
+        <element name="Address" positionX="-990" positionY="1437" width="128" height="270"/>
         <element name="Cart" positionX="-1192" positionY="978" width="128" height="60"/>
         <element name="CartLineItem" positionX="-987" positionY="1183" width="128" height="90"/>
         <element name="Checkout" positionX="-765" positionY="1072" width="128" height="630"/>
@@ -1009,7 +1009,7 @@
         <element name="Order" positionX="-549" positionY="1647" width="128" height="180"/>
         <element name="Product" positionX="-1390" positionY="1018" width="128" height="315"/>
         <element name="ProductVariant" positionX="-1192" positionY="1063" width="128" height="240"/>
-        <element name="ShippingRate" positionX="-569" positionY="1836" width="128" height="135"/>
+        <element name="ShippingRate" positionX="-569" positionY="1836" width="128" height="120"/>
         <element name="Shop" positionX="-1786" positionY="843" width="128" height="255"/>
         <element name="TaxLine" positionX="-990" positionY="1737" width="128" height="133"/>
     </elements>

@@ -189,8 +189,9 @@ The Mobile Buy SDK includes a number of targets and schemes:
 
 The repo includes 2 sample apps. Each sample apps embeds the dynamic framework and includes readme files with more information:
 
-* [Advanced Sample App](https://github.com/Shopify/mobile-buy-sdk-ios/tree/master/Mobile Buy SDK Sample Apps/Advanced App - ObjC/README.md)
-* [Customers Sample App](https://github.com/Shopify/mobile-buy-sdk-ios/tree/master/Mobile Buy SDK Sample Apps/Customers App - Swift/README.md)
+* [Advanced Sample App - Objective C](https://github.com/Shopify/mobile-buy-sdk-ios/tree/develop/Mobile%20Buy%20SDK%20Sample%20Apps/Advanced%20App%20-%20ObjC)
+* [Customers Sample App - Swift](https://github.com/Shopify/mobile-buy-sdk-ios/tree/develop/Mobile%20Buy%20SDK%20Sample%20Apps/Customers%20App%20-%20Swift)
+
 
 We suggest you take a look at the **Advanced Sample App** and test your shop with the sample app before you begin. If you run into any issues, the **Advanced Sample App** is also a great resource for debugging integration issues and checkout.
 

@@ -32,7 +32,6 @@
 
 extern const struct BUYShippingRateAttributes {
 	__unsafe_unretained NSString *deliveryRange;
-	__unsafe_unretained NSString *identifier;
 	__unsafe_unretained NSString *price;
 	__unsafe_unretained NSString *shippingRateIdentifier;
 	__unsafe_unretained NSString *title;
@@ -70,12 +69,6 @@ extern const struct BUYShippingRateUserInfo {
  * One or two NSDate objects of the potential delivery dates.
  */
 @property (nonatomic, strong) NSArray* deliveryRange;
-
-@property (nonatomic, strong) NSNumber* identifier;
-
-@property (atomic) int64_t identifierValue;
-- (int64_t)identifierValue;
-- (void)setIdentifierValue:(int64_t)value_;
 
 /**
  * The price of this shipping method.
