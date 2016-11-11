@@ -429,6 +429,7 @@
 		B8A357621DD6277E00FDD7BD /* BUYCheckoutOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0B0CA51CED0A860037D68F /* BUYCheckoutOperation.h */; };
 		B8A357631DD6278300FDD7BD /* BUYOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A585C041CE6440B001F20F0 /* BUYOperation.h */; };
 		B8A357641DD6278B00FDD7BD /* BUYFlatCollectionTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 849810901CB7E07900CFAB58 /* BUYFlatCollectionTransformer.h */; };
+		B8A357651DD6515D00FDD7BD /* Buy.h in Headers */ = {isa = PBXBuildFile; fileRef = 90DA8DF11BC6A82D0027BCB7 /* Buy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BE6C07061BB1E46900BD9F7B /* mocked_responses.json in Resources */ = {isa = PBXBuildFile; fileRef = BE6C07051BB1E46900BD9F7B /* mocked_responses.json */; };
 		BE98DB4F1BB1ED3E00C29564 /* OHHTTPStubs in Resources */ = {isa = PBXBuildFile; fileRef = BE98DB4E1BB1ED3E00C29564 /* OHHTTPStubs */; };
 		BE98DB5C1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = BE98DB5B1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.m */; };
@@ -1288,6 +1289,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8A357651DD6515D00FDD7BD /* Buy.h in Headers */,
 				84DD129B1CC63FE600A2442D /* _BUYCartLineItem.h in Headers */,
 				84DD12AF1CC63FE600A2442D /* _BUYShop.h in Headers */,
 				84DD12C71CC63FEE00A2442D /* _BUYMaskedCreditCard.h in Headers */,
