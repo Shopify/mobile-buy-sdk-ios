@@ -63,7 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Start a checkout
  *
  *  @param checkout the `BUYCheckout` to start
- *  @param type     the type of payment provider to use
+ *  @param typeIdentifier     the type of payment provider to use
  */
 - (void)startCheckout:(BUYCheckout *)checkout withProviderType:(NSString *)typeIdentifier;
 
