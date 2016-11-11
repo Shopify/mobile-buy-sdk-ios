@@ -37,7 +37,6 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Return block containing a BUYCheckout, id<BUYPaymentToken> and/or an NSError
  *
- *  @param checkout      The returned BUYCheckout
  *  @param paymentToken  An opaque payment token type that wraps necessary credentials for payment
  *  @param error         Optional NSError
  */
@@ -212,7 +211,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
 /**
  *  Removes a gift card from the checkout.
  *
- *  @param giftCardCode The BUYGiftCard identifier to remove on an existing checkout on Shopify.
+ *  @param giftCard The BUYGiftCard identifier to remove on an existing checkout on Shopify.
  *  @param checkout     An existing BUYCheckout on Shopify
  *  @param block        (^BUYDataCheckoutBlock)(BUYCheckout *checkout, NSError *error);
  *
