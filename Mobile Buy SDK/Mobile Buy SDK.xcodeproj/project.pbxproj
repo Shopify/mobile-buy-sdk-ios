@@ -258,8 +258,6 @@
 		B2653EC51CEF55CC0012D57D /* BUYModelManager+ApplePay.m in Sources */ = {isa = PBXBuildFile; fileRef = B2653EC21CEF55CC0012D57D /* BUYModelManager+ApplePay.m */; };
 		B2653EC71CEF55CC0012D57D /* BUYModelManager+ApplePay.m in Sources */ = {isa = PBXBuildFile; fileRef = B2653EC21CEF55CC0012D57D /* BUYModelManager+ApplePay.m */; };
 		B8851BE81DCBBA8E0004BAEA /* BUYProductVariantTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B8851BE71DCBBA8E0004BAEA /* BUYProductVariantTests.m */; };
-		B8A356A21DD6112C00FDD7BD /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8A356991DD6112C00FDD7BD /* Buy.framework */; };
-		B8A356A71DD6112C00FDD7BD /* BuyTVTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B8A356A61DD6112C00FDD7BD /* BuyTVTests.m */; };
 		B8A356A91DD6112C00FDD7BD /* Buy.h in Headers */ = {isa = PBXBuildFile; fileRef = B8A3569B1DD6112C00FDD7BD /* Buy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B8A356B41DD611E500FDD7BD /* BUYClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDA17119C93F6F00AF4E93 /* BUYClient.m */; };
 		B8A356B51DD611E500FDD7BD /* BUYClient+Routing.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C651CEA703E0037D68F /* BUYClient+Routing.m */; };
@@ -452,13 +450,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 901930E11BC5B9BC00D1134E;
 			remoteInfo = Buy;
-		};
-		B8A356A31DD6112C00FDD7BD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F773741519C770CB0039681C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B8A356981DD6112C00FDD7BD;
-			remoteInfo = BuyTV;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -689,9 +680,6 @@
 		B8A356991DD6112C00FDD7BD /* Buy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Buy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8A3569B1DD6112C00FDD7BD /* Buy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Buy.h; sourceTree = "<group>"; };
 		B8A3569C1DD6112C00FDD7BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B8A356A11DD6112C00FDD7BD /* BuyTVTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BuyTVTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B8A356A61DD6112C00FDD7BD /* BuyTVTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BuyTVTests.m; sourceTree = "<group>"; };
-		B8A356A81DD6112C00FDD7BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE33B4ED1B15FF4D0067982B /* BUYApplePayAuthorizationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYApplePayAuthorizationDelegate.h; sourceTree = "<group>"; };
 		BE33B4EE1B15FF4D0067982B /* BUYApplePayAuthorizationDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYApplePayAuthorizationDelegate.m; sourceTree = "<group>"; };
 		BE47340D1B66C4EF00AA721A /* BUYError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYError.h; sourceTree = "<group>"; };
@@ -750,14 +738,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B8A3569E1DD6112C00FDD7BD /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B8A356A21DD6112C00FDD7BD /* Buy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1142,15 +1122,6 @@
 			path = BuyTV;
 			sourceTree = "<group>";
 		};
-		B8A356A51DD6112C00FDD7BD /* BuyTVTests */ = {
-			isa = PBXGroup;
-			children = (
-				B8A356A61DD6112C00FDD7BD /* BuyTVTests.m */,
-				B8A356A81DD6112C00FDD7BD /* Info.plist */,
-			);
-			path = BuyTVTests;
-			sourceTree = "<group>";
-		};
 		F773741419C770CB0039681C = {
 			isa = PBXGroup;
 			children = (
@@ -1160,7 +1131,6 @@
 				F773743A19C777200039681C /* Mobile Buy SDK */,
 				90F592ED1B0D5EFE0026B382 /* Mobile Buy SDK Tests */,
 				B8A3569A1DD6112C00FDD7BD /* BuyTV */,
-				B8A356A51DD6112C00FDD7BD /* BuyTVTests */,
 				F773741E19C770CB0039681C /* Products */,
 				547B8D0CCDB9458C800F1E3C /* Frameworks */,
 			);
@@ -1173,7 +1143,6 @@
 				90F592EC1B0D5EFE0026B382 /* Mobile Buy SDK Tests.xctest */,
 				901931701BC5B9BC00D1134E /* Buy.framework */,
 				B8A356991DD6112C00FDD7BD /* Buy.framework */,
-				B8A356A11DD6112C00FDD7BD /* BuyTVTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1541,24 +1510,6 @@
 			productReference = B8A356991DD6112C00FDD7BD /* Buy.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		B8A356A01DD6112C00FDD7BD /* BuyTVTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B8A356B31DD6112C00FDD7BD /* Build configuration list for PBXNativeTarget "BuyTVTests" */;
-			buildPhases = (
-				B8A3569D1DD6112C00FDD7BD /* Sources */,
-				B8A3569E1DD6112C00FDD7BD /* Frameworks */,
-				B8A3569F1DD6112C00FDD7BD /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B8A356A41DD6112C00FDD7BD /* PBXTargetDependency */,
-			);
-			name = BuyTVTests;
-			productName = BuyTVTests;
-			productReference = B8A356A11DD6112C00FDD7BD /* BuyTVTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1582,10 +1533,6 @@
 						CreatedOnToolsVersion = 8.1;
 						ProvisioningStyle = Automatic;
 					};
-					B8A356A01DD6112C00FDD7BD = {
-						CreatedOnToolsVersion = 8.1;
-						ProvisioningStyle = Automatic;
-					};
 				};
 			};
 			buildConfigurationList = F773741819C770CB0039681C /* Build configuration list for PBXProject "Mobile Buy SDK" */;
@@ -1606,7 +1553,6 @@
 				904FB61A1AE03DC500EA1758 /* Static Universal Framework */,
 				90E80E401AFAB0B9003A9909 /* Documentation */,
 				B8A356981DD6112C00FDD7BD /* BuyTV */,
-				B8A356A01DD6112C00FDD7BD /* BuyTVTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1620,13 +1566,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		B8A356971DD6112C00FDD7BD /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B8A3569F1DD6112C00FDD7BD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1923,14 +1862,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B8A3569D1DD6112C00FDD7BD /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B8A356A71DD6112C00FDD7BD /* BuyTVTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1943,11 +1874,6 @@
 			isa = PBXTargetDependency;
 			target = 901930E11BC5B9BC00D1134E /* Buy */;
 			targetProxy = 90E78A4C1BD58F0C005D16C3 /* PBXContainerItemProxy */;
-		};
-		B8A356A41DD6112C00FDD7BD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B8A356981DD6112C00FDD7BD /* BuyTV */;
-			targetProxy = B8A356A31DD6112C00FDD7BD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2477,80 +2403,6 @@
 			};
 			name = "Release-core-data";
 		};
-		B8A356AE1DD6112C00FDD7BD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Mobile Buy SDK Tests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.BuyTVTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				TVOS_DEPLOYMENT_TARGET = 10.0;
-			};
-			name = Debug;
-		};
-		B8A356AF1DD6112C00FDD7BD /* Debug-core-data */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Mobile Buy SDK Tests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.BuyTVTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				TVOS_DEPLOYMENT_TARGET = 10.0;
-			};
-			name = "Debug-core-data";
-		};
-		B8A356B01DD6112C00FDD7BD /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Mobile Buy SDK Tests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.BuyTVTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				TVOS_DEPLOYMENT_TARGET = 10.0;
-			};
-			name = Release;
-		};
-		B8A356B11DD6112C00FDD7BD /* Release-core-data */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Mobile Buy SDK Tests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.BuyTVTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				TVOS_DEPLOYMENT_TARGET = 10.0;
-			};
-			name = "Release-core-data";
-		};
 		F773742C19C770CB0039681C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2696,17 +2548,6 @@
 				B8A356AB1DD6112C00FDD7BD /* Debug-core-data */,
 				B8A356AC1DD6112C00FDD7BD /* Release */,
 				B8A356AD1DD6112C00FDD7BD /* Release-core-data */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B8A356B31DD6112C00FDD7BD /* Build configuration list for PBXNativeTarget "BuyTVTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B8A356AE1DD6112C00FDD7BD /* Debug */,
-				B8A356AF1DD6112C00FDD7BD /* Debug-core-data */,
-				B8A356B01DD6112C00FDD7BD /* Release */,
-				B8A356B11DD6112C00FDD7BD /* Release-core-data */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
