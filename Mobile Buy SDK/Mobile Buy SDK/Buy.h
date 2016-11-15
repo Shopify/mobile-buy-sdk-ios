@@ -26,7 +26,7 @@
 
 #import <UIKit/UIKit.h>
 
-#ifdef OS_TARGET_IPHONE 
+#if TARGET_OS_IOS
 	#import "BUYApplePayAdditions.h"
 	#import "BUYApplePayAuthorizationDelegate.h"
 	#import "BUYApplePayPaymentProvider.h"
