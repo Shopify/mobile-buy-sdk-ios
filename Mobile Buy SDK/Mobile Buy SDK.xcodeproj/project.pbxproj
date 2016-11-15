@@ -258,7 +258,7 @@
 		B2653EC51CEF55CC0012D57D /* BUYModelManager+ApplePay.m in Sources */ = {isa = PBXBuildFile; fileRef = B2653EC21CEF55CC0012D57D /* BUYModelManager+ApplePay.m */; };
 		B2653EC71CEF55CC0012D57D /* BUYModelManager+ApplePay.m in Sources */ = {isa = PBXBuildFile; fileRef = B2653EC21CEF55CC0012D57D /* BUYModelManager+ApplePay.m */; };
 		B8851BE81DCBBA8E0004BAEA /* BUYProductVariantTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B8851BE71DCBBA8E0004BAEA /* BUYProductVariantTests.m */; };
-		B8A356A91DD6112C00FDD7BD /* Buy.h in Headers */ = {isa = PBXBuildFile; fileRef = B8A3569B1DD6112C00FDD7BD /* Buy.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B88927A21DDB9B8B00096CD5 /* Buy.h in Headers */ = {isa = PBXBuildFile; fileRef = 90DA8DF11BC6A82D0027BCB7 /* Buy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B8A356B41DD611E500FDD7BD /* BUYClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDA17119C93F6F00AF4E93 /* BUYClient.m */; };
 		B8A356B51DD611E500FDD7BD /* BUYClient+Routing.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C651CEA703E0037D68F /* BUYClient+Routing.m */; };
 		B8A356B61DD611E500FDD7BD /* BUYClient+Storefront.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C6B1CEB4D300037D68F /* BUYClient+Storefront.m */; };
@@ -678,7 +678,6 @@
 		B8851BE71DCBBA8E0004BAEA /* BUYProductVariantTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYProductVariantTests.m; sourceTree = "<group>"; };
 		B89659A41DD292D500AF7FC9 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		B8A356991DD6112C00FDD7BD /* Buy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Buy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B8A3569B1DD6112C00FDD7BD /* Buy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Buy.h; sourceTree = "<group>"; };
 		BE33B4ED1B15FF4D0067982B /* BUYApplePayAuthorizationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYApplePayAuthorizationDelegate.h; sourceTree = "<group>"; };
 		BE33B4EE1B15FF4D0067982B /* BUYApplePayAuthorizationDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYApplePayAuthorizationDelegate.m; sourceTree = "<group>"; };
 		BE47340D1B66C4EF00AA721A /* BUYError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYError.h; sourceTree = "<group>"; };
@@ -1115,7 +1114,6 @@
 		B8A3569A1DD6112C00FDD7BD /* BuyTV */ = {
 			isa = PBXGroup;
 			children = (
-				B8A3569B1DD6112C00FDD7BD /* Buy.h */,
 			);
 			path = BuyTV;
 			sourceTree = "<group>";
@@ -1359,7 +1357,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B8A356A91DD6112C00FDD7BD /* Buy.h in Headers */,
 				B8A3570F1DD61F2000FDD7BD /* _BUYShop.h in Headers */,
 				B8A357101DD61F9F00FDD7BD /* _BUYCheckout.h in Headers */,
 				B8A357131DD61FB600FDD7BD /* _BUYTaxLine.h in Headers */,
@@ -1432,6 +1429,7 @@
 				B8A357281DD6213600FDD7BD /* BUYClient+Storefront.h in Headers */,
 				B8A357271DD6212F00FDD7BD /* BUYShopifyErrorCodes.h in Headers */,
 				B8A357261DD6212900FDD7BD /* BUYLineItem.h in Headers */,
+				B88927A21DDB9B8B00096CD5 /* Buy.h in Headers */,
 				B8A357641DD6278B00FDD7BD /* BUYFlatCollectionTransformer.h in Headers */,
 				B8A357631DD6278300FDD7BD /* BUYOperation.h in Headers */,
 				B8A357621DD6277E00FDD7BD /* BUYCheckoutOperation.h in Headers */,
