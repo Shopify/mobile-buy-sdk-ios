@@ -679,7 +679,6 @@
 		B89659A41DD292D500AF7FC9 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		B8A356991DD6112C00FDD7BD /* Buy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Buy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8A3569B1DD6112C00FDD7BD /* Buy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Buy.h; sourceTree = "<group>"; };
-		B8A3569C1DD6112C00FDD7BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE33B4ED1B15FF4D0067982B /* BUYApplePayAuthorizationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYApplePayAuthorizationDelegate.h; sourceTree = "<group>"; };
 		BE33B4EE1B15FF4D0067982B /* BUYApplePayAuthorizationDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYApplePayAuthorizationDelegate.m; sourceTree = "<group>"; };
 		BE47340D1B66C4EF00AA721A /* BUYError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYError.h; sourceTree = "<group>"; };
@@ -1117,7 +1116,6 @@
 			isa = PBXGroup;
 			children = (
 				B8A3569B1DD6112C00FDD7BD /* Buy.h */,
-				B8A3569C1DD6112C00FDD7BD /* Info.plist */,
 			);
 			path = BuyTV;
 			sourceTree = "<group>";
@@ -2292,7 +2290,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = BuyTV/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Mobile Buy SDK/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "$SRCROOT/Mobile Buy SDK/Static Framework/Buy.modulemap";
@@ -2323,7 +2321,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = BuyTV/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Mobile Buy SDK/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "$SRCROOT/Mobile Buy SDK/Static Framework/Buy.modulemap";
@@ -2355,7 +2353,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = BuyTV/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Mobile Buy SDK/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "$SRCROOT/Mobile Buy SDK/Static Framework/Buy.modulemap";
@@ -2387,7 +2385,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = BuyTV/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Mobile Buy SDK/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "$SRCROOT/Mobile Buy SDK/Static Framework/Buy.modulemap";
