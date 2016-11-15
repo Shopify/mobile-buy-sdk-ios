@@ -26,6 +26,13 @@
 
 #import <UIKit/UIKit.h>
 
+#ifdef OS_TARGET_IPHONE 
+	#import "BUYApplePayAdditions.h"
+	#import "BUYApplePayAuthorizationDelegate.h"
+	#import "BUYApplePayPaymentProvider.h"
+	#import "BUYWebCheckoutPaymentProvider.h"
+#endif
+
 // Model types
 #import "BUYAccountCredentials.h"
 #import "BUYAddress.h"
@@ -63,12 +70,8 @@
 #import "BUYShopifyErrorCodes.h"
 
 // Checkout support
-#import "BUYApplePayAdditions.h"
-#import "BUYApplePayAuthorizationDelegate.h"
-#import "BUYApplePayPaymentProvider.h"
 #import "BUYPaymentController.h"
 #import "BUYPaymentProvider.h"
-#import "BUYWebCheckoutPaymentProvider.h"
 
 // Client API
 #import "BUYClientTypes.h"
