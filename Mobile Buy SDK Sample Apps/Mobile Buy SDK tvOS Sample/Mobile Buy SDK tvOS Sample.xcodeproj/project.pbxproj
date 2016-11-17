@@ -7,11 +7,58 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B8289BE91DDE03E6001D5AEC /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8289BE81DDE03E6001D5AEC /* Buy.framework */; };
+		B8289BEA1DDE03E6001D5AEC /* Buy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B8289BE81DDE03E6001D5AEC /* Buy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B8627DC31DDDFC8A00327C18 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8627DC21DDDFC8A00327C18 /* AppDelegate.swift */; };
 		B8627DC51DDDFC8A00327C18 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8627DC41DDDFC8A00327C18 /* ViewController.swift */; };
 		B8627DC81DDDFC8A00327C18 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8627DC61DDDFC8A00327C18 /* Main.storyboard */; };
 		B8627DCA1DDDFC8A00327C18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8627DC91DDDFC8A00327C18 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B8289BE71DDE03E6001D5AEC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B8627DD11DDDFE0500327C18 /* Mobile Buy SDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B8A356991DD6112C00FDD7BD;
+			remoteInfo = BuyTV;
+		};
+		B8289BEB1DDE03E6001D5AEC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B8627DD11DDDFE0500327C18 /* Mobile Buy SDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = B8A356981DD6112C00FDD7BD;
+			remoteInfo = BuyTV;
+		};
+		B8627DD81DDDFE0500327C18 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B8627DD11DDDFE0500327C18 /* Mobile Buy SDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 901931701BC5B9BC00D1134E;
+			remoteInfo = Buy;
+		};
+		B8627DDA1DDDFE0500327C18 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B8627DD11DDDFE0500327C18 /* Mobile Buy SDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 90F592EC1B0D5EFE0026B382;
+			remoteInfo = "Mobile Buy SDK Tests";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B8289BED1DDE03E6001D5AEC /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B8289BEA1DDE03E6001D5AEC /* Buy.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		B8627DBF1DDDFC8A00327C18 /* Mobile Buy SDK tvOS Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile Buy SDK tvOS Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -20,6 +67,7 @@
 		B8627DC71DDDFC8A00327C18 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B8627DC91DDDFC8A00327C18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B8627DCB1DDDFC8A00327C18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B8627DD11DDDFE0500327C18 /* Mobile Buy SDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Mobile Buy SDK.xcodeproj"; path = "../../Mobile Buy SDK/Mobile Buy SDK.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8289BE91DDE03E6001D5AEC /* Buy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -36,6 +85,7 @@
 		B8627DB61DDDFC8A00327C18 = {
 			isa = PBXGroup;
 			children = (
+				B8627DD11DDDFE0500327C18 /* Mobile Buy SDK.xcodeproj */,
 				B8627DC11DDDFC8A00327C18 /* Mobile Buy SDK tvOS Sample */,
 				B8627DC01DDDFC8A00327C18 /* Products */,
 			);
@@ -61,6 +111,16 @@
 			path = "Mobile Buy SDK tvOS Sample";
 			sourceTree = "<group>";
 		};
+		B8627DD21DDDFE0500327C18 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B8627DD91DDDFE0500327C18 /* Buy.framework */,
+				B8627DDB1DDDFE0500327C18 /* Mobile Buy SDK Tests.xctest */,
+				B8289BE81DDE03E6001D5AEC /* Buy.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,10 +131,12 @@
 				B8627DBB1DDDFC8A00327C18 /* Sources */,
 				B8627DBC1DDDFC8A00327C18 /* Frameworks */,
 				B8627DBD1DDDFC8A00327C18 /* Resources */,
+				B8289BED1DDE03E6001D5AEC /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				B8289BEC1DDE03E6001D5AEC /* PBXTargetDependency */,
 			);
 			name = "Mobile Buy SDK tvOS Sample";
 			productName = "Mobile Buy SDK tvOS Sample";
@@ -108,12 +170,42 @@
 			mainGroup = B8627DB61DDDFC8A00327C18;
 			productRefGroup = B8627DC01DDDFC8A00327C18 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = B8627DD21DDDFE0500327C18 /* Products */;
+					ProjectRef = B8627DD11DDDFE0500327C18 /* Mobile Buy SDK.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				B8627DBE1DDDFC8A00327C18 /* Mobile Buy SDK tvOS Sample */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		B8289BE81DDE03E6001D5AEC /* Buy.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Buy.framework;
+			remoteRef = B8289BE71DDE03E6001D5AEC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B8627DD91DDDFE0500327C18 /* Buy.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Buy.framework;
+			remoteRef = B8627DD81DDDFE0500327C18 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B8627DDB1DDDFE0500327C18 /* Mobile Buy SDK Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Mobile Buy SDK Tests.xctest";
+			remoteRef = B8627DDA1DDDFE0500327C18 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		B8627DBD1DDDFC8A00327C18 /* Resources */ = {
@@ -138,6 +230,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B8289BEC1DDE03E6001D5AEC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = BuyTV;
+			targetProxy = B8289BEB1DDE03E6001D5AEC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		B8627DC61DDDFC8A00327C18 /* Main.storyboard */ = {
@@ -287,6 +387,7 @@
 				B8627DD01DDDFC8A00327C18 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
