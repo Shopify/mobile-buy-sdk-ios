@@ -1,6 +1,6 @@
 //
 //  BUYClient+Extensions.swift
-//  Mobile Buy SDK tvOS Sample
+//  Mobile Buy SDK tvOS Sample App
 //
 //  Created by Shopify.
 //  Copyright (c) 2016 Shopify Inc. All rights reserved.
