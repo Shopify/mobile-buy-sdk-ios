@@ -62,7 +62,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B8627DBF1DDDFC8A00327C18 /* Mobile Buy SDK tvOS Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile Buy SDK tvOS Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8627DBF1DDDFC8A00327C18 /* Mobile Buy SDK tvOS Sample App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile Buy SDK tvOS Sample App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8627DC21DDDFC8A00327C18 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B8627DC41DDDFC8A00327C18 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B8627DC71DDDFC8A00327C18 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -96,7 +96,7 @@
 		B8627DC01DDDFC8A00327C18 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B8627DBF1DDDFC8A00327C18 /* Mobile Buy SDK tvOS Sample.app */,
+				B8627DBF1DDDFC8A00327C18 /* Mobile Buy SDK tvOS Sample App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -127,9 +127,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B8627DBE1DDDFC8A00327C18 /* Mobile Buy SDK tvOS Sample */ = {
+		B8627DBE1DDDFC8A00327C18 /* Mobile Buy SDK tvOS Sample App */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B8627DCE1DDDFC8A00327C18 /* Build configuration list for PBXNativeTarget "Mobile Buy SDK tvOS Sample" */;
+			buildConfigurationList = B8627DCE1DDDFC8A00327C18 /* Build configuration list for PBXNativeTarget "Mobile Buy SDK tvOS Sample App" */;
 			buildPhases = (
 				B8627DBB1DDDFC8A00327C18 /* Sources */,
 				B8627DBC1DDDFC8A00327C18 /* Frameworks */,
@@ -141,9 +141,9 @@
 			dependencies = (
 				B8289BEC1DDE03E6001D5AEC /* PBXTargetDependency */,
 			);
-			name = "Mobile Buy SDK tvOS Sample";
+			name = "Mobile Buy SDK tvOS Sample App";
 			productName = "Mobile Buy SDK tvOS Sample";
-			productReference = B8627DBF1DDDFC8A00327C18 /* Mobile Buy SDK tvOS Sample.app */;
+			productReference = B8627DBF1DDDFC8A00327C18 /* Mobile Buy SDK tvOS Sample App.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -162,7 +162,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B8627DBA1DDDFC8A00327C18 /* Build configuration list for PBXProject "Mobile Buy SDK tvOS Sample" */;
+			buildConfigurationList = B8627DBA1DDDFC8A00327C18 /* Build configuration list for PBXProject "Mobile Buy SDK tvOS Sample App" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -181,7 +181,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				B8627DBE1DDDFC8A00327C18 /* Mobile Buy SDK tvOS Sample */,
+				B8627DBE1DDDFC8A00327C18 /* Mobile Buy SDK tvOS Sample App */,
 			);
 		};
 /* End PBXProject section */
@@ -375,7 +375,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B8627DBA1DDDFC8A00327C18 /* Build configuration list for PBXProject "Mobile Buy SDK tvOS Sample" */ = {
+		B8627DBA1DDDFC8A00327C18 /* Build configuration list for PBXProject "Mobile Buy SDK tvOS Sample App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B8627DCC1DDDFC8A00327C18 /* Debug */,
@@ -384,7 +384,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B8627DCE1DDDFC8A00327C18 /* Build configuration list for PBXNativeTarget "Mobile Buy SDK tvOS Sample" */ = {
+		B8627DCE1DDDFC8A00327C18 /* Build configuration list for PBXNativeTarget "Mobile Buy SDK tvOS Sample App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B8627DCF1DDDFC8A00327C18 /* Debug */,
