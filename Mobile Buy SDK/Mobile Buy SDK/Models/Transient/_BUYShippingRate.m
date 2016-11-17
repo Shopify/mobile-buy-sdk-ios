@@ -30,7 +30,6 @@
 
 const struct BUYShippingRateAttributes BUYShippingRateAttributes = {
 	.deliveryRange = @"deliveryRange",
-	.identifier = @"identifier",
 	.price = @"price",
 	.shippingRateIdentifier = @"shippingRateIdentifier",
 	.title = @"title",
@@ -54,22 +53,7 @@ const struct BUYShippingRateUserInfo BUYShippingRateUserInfo = {
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
-	if ([key isEqualToString:@"identifierValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"identifier"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
-
 	return keyPaths;
-}
-
-- (int64_t)identifierValue {
-	NSNumber *result = [self identifier];
-	return [result longLongValue];
-}
-
-- (void)setIdentifierValue:(int64_t)value_ {
-	[self setIdentifier:@(value_)];
 }
 
 @end
