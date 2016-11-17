@@ -24,8 +24,8 @@
 //  THE SOFTWARE.
 //
 
-#import <XCTest/XCTest.h>
-#import "BUYError.h"
+@import XCTest;
+@import Buy;
 
 @interface BUYErrorTests : XCTestCase
 

@@ -286,7 +286,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
 
 - (void)createProductView
 {
-    _productView = [[ProductView alloc] initWithFrame:CGRectMake(0, 0, self.preferredContentSize.width, self.preferredContentSize.height) product:self.product shouldShowApplePaySetup:self.shouldShowApplePaySetup];
+    _productView = [[ProductView alloc] initWithFrame:CGRectMake(0, 0, self.preferredContentSize.width, self.preferredContentSize.height) product:self.product];
     _productView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:_productView];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_productView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_productView)]];
@@ -310,7 +310,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
     _productView.productViewHeader.collectionView.dataSource = self;
     
     _productView.layoutMargins = UIEdgeInsetsMake(self.productView.layoutMargins.top, self.productView.layoutMargins.left, self.bottomLayoutGuide.length, self.productView.layoutMargins.right);
-    [_productView.productViewFooter setApplePayAvailable:self.shouldShowApplePaySetup requiresSetup:self.shouldShowApplePaySetup];
+
     [_productView.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
 
     self.navigationItem.title = _product.title;

@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/BUYClient.h>
+#import "BUYClient.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @class BUYCheckout;
@@ -142,7 +142,7 @@ typedef void (^BUYDataGiftCardBlock)(BUYGiftCard * _Nullable giftCard, NSError *
  *
  *  @return The associated BUYOperation
  */
-- (BUYOperation *)completeCheckoutWithToken:(nullable NSString *)checkoutToken paymentToken:(_Nullable id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block;
+- (NSOperation *)completeCheckoutWithToken:(nullable NSString *)checkoutToken paymentToken:(_Nullable id<BUYPaymentToken>)paymentToken completion:(BUYDataCheckoutBlock)block;
 
 /**
  *  Retrieve the status of a checkout with token. This checks the status of the current payment processing job for the provided checkout.

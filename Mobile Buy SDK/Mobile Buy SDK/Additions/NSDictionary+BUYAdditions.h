@@ -25,8 +25,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Buy/BUYSerializable.h>
-#import <Buy/NSArray+BUYAdditions.h>
+#import "BUYSerializable.h"
+#import "NSArray+BUYAdditions.h"
 
 typedef NSString * (^BUYStringMap) (NSString *);
 
@@ -55,5 +55,10 @@ typedef NSString * (^BUYStringMap) (NSString *);
  *  @return The value associated with key
  */
 - (id)buy_objectForKey:(NSString *)key;
+
+/**
+ *  Strip all the entries from the dictionary that contain a Null value
+ */
+- (NSDictionary *)buy_removeNulls;
 
 @end

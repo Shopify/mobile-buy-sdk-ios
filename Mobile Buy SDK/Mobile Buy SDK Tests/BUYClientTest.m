@@ -26,17 +26,15 @@
 
 @import UIKit;
 @import XCTest;
+@import Buy;
 
-#import <Buy/Buy.h>
+#import "BUYApplePayToken.h"
+#import "BUYClient+Internal.h"
+#import "BUYRequestOperation.h"
+
 #import "BUYTestConstants.h"
 #import "BUYClientTestBase.h"
-#import "BUYShopifyErrorCodes.h"
-#import "BUYAccountCredentials.h"
-#import "BUYClient+Customers.h"
-#import "BUYClient+Internal.h"
-#import "BUYApplePayToken.h"
 #import "BUYApplePayTestToken.h"
-#import "BUYRequestOperation.h"
 
 @interface BUYClient_Test : BUYClient
 
@@ -140,7 +138,7 @@
 
 - (void)testCheckoutPaymentWithOnlyGiftCard
 {
-	BUYOperation *task = [self.client completeCheckoutWithToken:@"abcdef" paymentToken:nil completion:^(BUYCheckout *checkout, NSError *error) {}];
+	NSOperation *task = [self.client completeCheckoutWithToken:@"abcdef" paymentToken:nil completion:^(BUYCheckout *checkout, NSError *error) {}];
 	XCTAssertNotNil(task);
 }
 

@@ -24,7 +24,8 @@
 //  THE SOFTWARE.
 //
 
-#import <XCTest/XCTest.h>
+@import XCTest;
+
 #import "BUYOperation.h"
 
 @interface BUYOperationTests : XCTestCase

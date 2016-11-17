@@ -26,9 +26,9 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
 // Make changes to BUYProduct.h instead.
 
-#import <Buy/BUYManagedObject.h>
+#import "BUYManagedObject.h"
 
-#import <Buy/BUYModelManager.h>
+#import "BUYModelManager.h"
 
 extern const struct BUYProductAttributes {
 	__unsafe_unretained NSString *available;
@@ -36,6 +36,8 @@ extern const struct BUYProductAttributes {
 	__unsafe_unretained NSString *handle;
 	__unsafe_unretained NSString *htmlDescription;
 	__unsafe_unretained NSString *identifier;
+	__unsafe_unretained NSString *minimumCompareAtPrice;
+	__unsafe_unretained NSString *minimumPrice;
 	__unsafe_unretained NSString *productType;
 	__unsafe_unretained NSString *published;
 	__unsafe_unretained NSString *publishedAt;
@@ -111,6 +113,10 @@ extern const struct BUYProductUserInfo {
 @property (atomic) int64_t identifierValue;
 - (int64_t)identifierValue;
 - (void)setIdentifierValue:(int64_t)value_;
+
+@property (nonatomic, strong) NSDecimalNumber* minimumCompareAtPrice;
+
+@property (nonatomic, strong) NSDecimalNumber* minimumPrice;
 
 /**
  * A categorization that a product can be tagged with, commonly used for filtering and searching.
@@ -238,6 +244,12 @@ extern const struct BUYProductUserInfo {
 
 - (NSNumber*)primitiveIdentifier;
 - (void)setPrimitiveIdentifier:(NSNumber*)value;
+
+- (NSDecimalNumber*)primitiveMinimumCompareAtPrice;
+- (void)setPrimitiveMinimumCompareAtPrice:(NSDecimalNumber*)value;
+
+- (NSDecimalNumber*)primitiveMinimumPrice;
+- (void)setPrimitiveMinimumPrice:(NSDecimalNumber*)value;
 
 - (NSString*)primitiveProductType;
 - (void)setPrimitiveProductType:(NSString*)value;

@@ -25,10 +25,10 @@
 //
 
 @import XCTest;
+@import Buy;
+
 #import "BUYClientTestBase.h"
-#import "BUYClient+Customers.h"
-#import "BUYAccountCredentials.h"
-#import "BUYError+BUYAdditions.h"
+
 #import <OHHTTPStubs/OHHTTPStubs.h>
 #import "OHHTTPStubsResponse+Helpers.h"
 
@@ -43,12 +43,6 @@
 
 #pragma mark - Lifecycle -
 
-- (void)setUp
-{
-	[super setUp];
-	[self loginDefaultCustomer];
-}
-
 - (void)tearDown
 {
 	[super tearDown];
@@ -61,7 +55,16 @@
 		return;
 	}
 	
-	[OHHTTPStubs stubUsingResponseWithKey:@"testCustomerLogin" useMocks:[self shouldUseMocks]];
+	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
+		return [self shouldUseMocks];
+	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
+		if ([request.URL.lastPathComponent isEqualToString:@"customer_token.json"]) {
+			return [OHHTTPStubsResponse responseWithKey:@"testCustomerToken"];
+		} else {
+			return [OHHTTPStubsResponse responseWithKey:@"testCustomerLogin"];
+		}
+	}];
+	
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
 	[self.client loginCustomerWithCredentials:[self credentialsForLogin] callback:^(BUYCustomer *customer, BUYCustomerToken *token, NSError *error) {
@@ -87,7 +90,7 @@
 	[OHHTTPStubs stubUsingResponseWithKey:@"testCustomerDuplicateEmail" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client createCustomerWithCredentials:[self credentialsForCreation] callback:^(BUYCustomer *customer, BUYCustomerToken *token, NSError *error) {
+	[self.client createCustomerWithCredentials:[self credentialsForLogin] callback:^(BUYCustomer *customer, BUYCustomerToken *token, NSError *error) {
 		
 		XCTAssertNil(customer);
 		XCTAssertNotNil(error);
@@ -121,14 +124,40 @@
 		
 		NSArray<BUYError *> *errors = [BUYError errorsFromSignUpJSON:error.userInfo];
 		XCTAssertEqual(errors.count, 2);
-
+		
 		BUYError *emailError = errors[0];
 		XCTAssertEqualObjects(emailError.code, @"invalid");
 		
 		BUYError *passwordError = errors[1];
 		XCTAssertEqualObjects(passwordError.code, @"too_short");
 		XCTAssertEqualObjects(passwordError.options[@"count"], @5);
+		
+		[expectation fulfill];
+	}];
+	
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError * _Nullable error) {
+		XCTAssertNil(error);
+	}];
+}
 
+- (void)testCustomerCreation
+{
+	BUYAccountCredentials *credentials = [self credentialsForCreation];
+	
+	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+	[self.client createCustomerWithCredentials:credentials callback:^(BUYCustomer *customer, BUYCustomerToken *token, NSError *error) {
+		
+		// Since this tests relies on randomly generated data, we can't use mocked responses
+		
+		if ([self shouldUseMocks] == false) {
+			XCTAssertNotNil(customer);
+			XCTAssertNil(error);
+			
+			XCTAssertEqualObjects(customer.firstName, [credentials credentialItemForKey:BUYAccountFirstNameKey].value);
+			XCTAssertEqualObjects(customer.lastName, [credentials credentialItemForKey:BUYAccountLastNameKey].value);
+			XCTAssertEqualObjects(customer.email, [credentials credentialItemForKey:BUYAccountEmailKey].value);
+		}
+		
 		[expectation fulfill];
 	}];
 	
@@ -146,6 +175,8 @@
 
 - (void)testCustomerLogout
 {
+	[self loginDefaultCustomer];
+
 	[OHHTTPStubs stubUsingResponseWithKey:@"testCustomerLogout" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
@@ -164,6 +195,8 @@
 
 - (void)testCustomerOrders
 {
+	[self loginDefaultCustomer];
+
 	[OHHTTPStubs stubUsingResponseWithKey:@"testCustomerGetOrders" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
@@ -183,6 +216,8 @@
 
 - (void)testCustomerOrderWithID
 {
+	[self loginDefaultCustomer];
+
 	[OHHTTPStubs stubUsingResponseWithKey:@"testCustomerGetOrder" useMocks:[self shouldUseMocks]];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
@@ -199,18 +234,20 @@
 
 - (void)testCustomerUpdate
 {
+	[self loginDefaultCustomer];
+
 	[OHHTTPStubs stubUsingResponseWithKey:@"testCustomerLogin" useMocks:[self shouldUseMocks]];
-
+	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-
+	
 	[self.client updateCustomer:_customer callback:^(BUYCustomer * _Nullable customer, NSError * _Nullable error) {
-
+		
 		XCTAssertNil(error);
 		XCTAssertNotNil(customer);
- 
+		
 		[expectation fulfill];
- 	}];
-
+	}];
+	
 	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {}];
 }
 
@@ -218,6 +255,8 @@
 
 - (void)testGetAddresses
 {
+	[self loginDefaultCustomer];
+
 	[OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest * _Nonnull request) {
 		return [self shouldUseMocks];
 	} withStubResponse:^OHHTTPStubsResponse * _Nonnull(NSURLRequest * _Nonnull request) {
@@ -225,7 +264,7 @@
 	}];
 	
 	XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-	[self.client  getAddressesCallback:^(NSArray<BUYAddress *> * _Nullable addresses, NSError * _Nullable error) {
+	[self.client getAddressesCallback:^(NSArray<BUYAddress *> * _Nullable addresses, NSError * _Nullable error) {
 		
 		XCTAssertNotNil(addresses);
 		XCTAssertTrue(addresses.count > 0);
@@ -243,6 +282,8 @@
 
 - (void)testAddressCRUD
 {
+	[self loginDefaultCustomer];
+
 	[self createAddress];
 	[self getAddress];
 	[self updateAddress];
@@ -282,7 +323,7 @@
 		
 		[expectation fulfill];
 	}];
-
+	
 	
 	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {}];
 }
@@ -403,9 +444,11 @@
 
 - (BUYAccountCredentials *)credentialsForCreation
 {
-	BUYAccountCredentialItem *email     = [BUYAccountCredentialItem itemWithEmail:self.customerEmail];
-	BUYAccountCredentialItem *password  = [BUYAccountCredentialItem itemWithPassword:self.customerPassword];
-	return [BUYAccountCredentials credentialsWithItems:@[email, password]];
+	BUYAccountCredentialItem *first		= [BUYAccountCredentialItem itemWithFirstName:@"Bob"];
+	BUYAccountCredentialItem *last		= [BUYAccountCredentialItem itemWithLastName:@"Sacamano"];
+	BUYAccountCredentialItem *email     = [BUYAccountCredentialItem itemWithEmail:[[self randomStringWithLength:8] stringByAppendingString:@"@email.com"]];
+	BUYAccountCredentialItem *password  = [BUYAccountCredentialItem itemWithPassword:@"12345"];
+	return [BUYAccountCredentials credentialsWithItems:@[first, last, email, password]];
 }
 
 - (BUYAccountCredentials *)credentialsForFailure
@@ -413,6 +456,14 @@
 	BUYAccountCredentialItem *email     = [BUYAccountCredentialItem itemWithEmail:@"apple"];
 	BUYAccountCredentialItem *password  = [BUYAccountCredentialItem itemWithPassword:@"ba"];
 	return [BUYAccountCredentials credentialsWithItems:@[email, password]];
+}
+
+#pragma mark - Conveniences -
+
+- (NSString *)randomStringWithLength:(NSInteger)length
+{
+	NSString *UUID = [[NSUUID UUID] UUIDString];
+	return [UUID substringToIndex:length - 1];
 }
 
 @end

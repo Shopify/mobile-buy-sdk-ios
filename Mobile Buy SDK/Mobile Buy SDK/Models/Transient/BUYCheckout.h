@@ -24,9 +24,9 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/_BUYCheckout.h>
-#import <Buy/_BUYProductVariant.h>
-#import <Buy/BUYModelManager.h>
+#import "_BUYCheckout.h"
+#import "_BUYProductVariant.h"
+#import "BUYModelManager.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @class BUYCart, BUYCartLineItem, BUYAddress, BUYGiftCard;
@@ -50,6 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable BUYGiftCard *)giftCardWithIdentifier:(NSNumber *)identifier;
 - (void)addGiftCard:(BUYGiftCard *)giftCard;
 - (void)removeGiftCardWithIdentifier:(NSNumber *)identifier;
+- (void)setDiscountCode:(nullable NSString *)code;
 
 @end
 

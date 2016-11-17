@@ -25,7 +25,7 @@
 //
 
 @import XCTest;
-#import <Buy/Buy.h>
+@import Buy;
 
 extern NSString * const BUYShopDomain_Placeholder;
 extern NSString * const BUYAPIKey_Placeholder;
@@ -51,12 +51,12 @@ extern NSString * const BUYFakeCustomerToken;
 
 @property (nonatomic, strong) NSArray<NSNumber *> *customerOrderIDs;
 @property (nonatomic, strong) NSArray *productIds;
-@property (nonatomic, strong) NSNumber *variantUntrackedId;
-@property (nonatomic, strong) NSNumber *variantInventory1Id;
-@property (nonatomic, strong) NSNumber *variantSoldOutId;
+@property (nonatomic, strong) NSArray *collectionIds;
+
+@property (nonatomic, strong) NSArray<NSString *> *tags;
 
 @property (nonatomic, strong) BUYClient *client;
 
-@property (nonatomic, assign) BOOL shouldUseMocks;
+@property (nonatomic, readonly) BOOL shouldUseMocks;
 
 @end

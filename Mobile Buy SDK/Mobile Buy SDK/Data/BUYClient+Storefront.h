@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/BUYClient.h>
+#import "BUYClient.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @class BUYShop;
@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 typedef NS_ENUM(NSUInteger, BUYCollectionSort) {
 	/**
-	 *  Sort products by best selling using the order set in the shop's admin
+	 *  Sort products by using the order set in the shop's admin when set to "Manually"
 	 */
 	BUYCollectionSortCollectionDefault,
 	/**
@@ -112,8 +112,10 @@ typedef void (^BUYDataProductsBlock)(NSArray<BUYProduct *> * _Nullable products,
 /**
  *  Return block containing list of collections
  *
- *  @param collections An array of BUYCollection objects
- *  @param error       Optional NSError
+ *  @param collections	An array of BUYCollection objects
+ *  @param page			Index of the page requested
+ *  @param reachedEnd	Boolean indicating whether additional pages exist
+ *  @param error		Optional NSError
  */
 typedef void (^BUYDataCollectionsListBlock)(NSArray<BUYCollection *> * _Nullable collections, NSUInteger page, BOOL reachedEnd, NSError * _Nullable error);
 
@@ -179,14 +181,25 @@ typedef void (^BUYDataTagsListBlock)(NSArray <NSString *> * _Nullable tags, NSUI
 - (NSOperation *)getProductById:(NSNumber *)productId completion:(BUYDataProductBlock)block;
 
 /**
- *  Fetches a list of product by the ID of each product.
+ *  Fetches a list of products by the ID of each product.
  *
- *  @param productIds An array of `NSString` objects with Product IDs to fetch
+ *  @param productIds An array of `NSNumber` objects with Product IDs to fetch
  *  @param block      (^BUYDataProductsBlock)(NSArray *products, NSError *error);
  *
  *  @return The associated operation
  */
 - (NSOperation *)getProductsByIds:(NSArray<NSNumber *> *)productIds completion:(BUYDataProductsBlock)block;
+
+/**
+ *  Fetches a list of products by a list of tags
+ *
+ *  @param tags  An array of tags. Represents a subset of tags on a product (AND)
+ *  @param page  Page to request. Pages start at 1.
+ *  @param block (^BUYDataProductsBlock)(NSArray *products, NSError *error);
+ *
+ *  @return The associated operation
+ */
+- (NSOperation *)getProductsByTags:(NSArray<NSString *> *)tags page:(NSUInteger)page completion:(BUYDataProductsBlock)block;
 
 /**
  *  Gets the list of tags for all products
@@ -197,6 +210,17 @@ typedef void (^BUYDataTagsListBlock)(NSArray <NSString *> * _Nullable tags, NSUI
  *  @return The associated NSOperation
  */
 - (NSOperation *)getProductTagsPage:(NSUInteger)page completion:(BUYDataTagsListBlock)block;
+
+/**
+*  Gets product tags by collection ID
+*
+*  @param collectionId Collection ID to get tags by
+*  @param page			Page to request. Pages start at 1.
+*  @param block		(^BUYDataTagsListBlock)(NSArray <NSString *> * _Nullable tags, NSUInteger page, BOOL reachedEnd, NSError * _Nullable error)
+*
+*  @return The associated NSOperation
+*/
+- (NSOperation *)getProductTagsInCollection:(NSString *)collectionId page:(NSUInteger)page completion:(BUYDataTagsListBlock)block;
 
 /**
  *  Fetch a single collection by the handle of the collection.
@@ -212,11 +236,22 @@ typedef void (^BUYDataTagsListBlock)(NSArray <NSString *> * _Nullable tags, NSUI
  *  Fetches collections based off page
  *
  *  @param page  Index of the page requested
- *  @param block (^BUYDataCollectionsBlock)(NSArray *collections, NSError *error)
+ *  @param block (^BUYDataCollectionsListBlock)(NSArray *collections, int page, BOOL reachedEnd, NSError *error)
  *
  *  @return The associated operation
  */
 - (NSOperation *)getCollectionsPage:(NSUInteger)page completion:(BUYDataCollectionsListBlock)block;
+
+/**
+ *  Fetches collections by IDs
+ *
+ *  @param collectionIds An array of `NSString` objects representing collection IDs
+ *  @param page  Index of the page requested
+ *  @param block (^BUYDataCollectionsBlock)(NSArray *collections, NSError *error)
+ *
+ *  @return The associated BUYRequestOperation
+ */
+- (NSOperation *)getCollectionsByIds:(NSArray<NSString *> *)collectionIds page:(NSUInteger)page completion:(BUYDataCollectionsBlock)block;
 
 /**
  *  Fetches the products in the given collection with the collection's

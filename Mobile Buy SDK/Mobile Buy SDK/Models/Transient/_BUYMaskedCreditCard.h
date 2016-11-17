@@ -26,9 +26,9 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
 // Make changes to BUYMaskedCreditCard.h instead.
 
-#import <Buy/BUYObject.h>
+#import "BUYObject.h"
 
-#import <Buy/BUYModelManager.h>
+#import "BUYModelManager.h"
 
 extern const struct BUYMaskedCreditCardAttributes {
 	__unsafe_unretained NSString *expiryMonth;

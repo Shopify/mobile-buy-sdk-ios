@@ -67,12 +67,12 @@
 }
 
 - (BOOL)shouldShowApplePayButton {
-	return self.applePayPaymentProvider.available || [self canShowApplePaySetup];
+	return [self isApplePayAvailable] || [self canShowApplePaySetup];
 }
 
 - (BOOL)shouldShowApplePaySetup
 {
-	return self.applePayPaymentProvider.available == NO && [self canShowApplePaySetup];
+	return [self isApplePayAvailable] == NO && [self canShowApplePaySetup];
 }
 
 #pragma mark - Payment

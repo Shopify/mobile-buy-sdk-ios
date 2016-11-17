@@ -25,7 +25,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Buy/BUYPaymentToken.h>
+#import "BUYPaymentToken.h"
 
 @class PKPaymentToken;
 

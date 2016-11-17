@@ -52,6 +52,7 @@
 		841ADE201CB6C942000004B0 /* NSURL+BUYAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 841ADDFB1CB6C942000004B0 /* NSURL+BUYAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		841ADE221CB6C942000004B0 /* NSURL+BUYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 841ADDFC1CB6C942000004B0 /* NSURL+BUYAdditions.m */; };
 		8443E2D11CE2917500EA08D4 /* BUYPaymentProviderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8443E2D01CE2917500EA08D4 /* BUYPaymentProviderTests.m */; };
+		847D12881DC7CA5C000958B4 /* BUYProductTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D12871DC7CA5C000958B4 /* BUYProductTests.m */; };
 		849110311CCE708900E53B93 /* BUYArrayAdditionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8491102E1CCE708900E53B93 /* BUYArrayAdditionsTests.m */; };
 		849110321CCE708900E53B93 /* BUYRegularExpressionAdditionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8491102F1CCE708900E53B93 /* BUYRegularExpressionAdditionsTests.m */; };
 		849110331CCE708900E53B93 /* BUYStringAdditionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 849110301CCE708900E53B93 /* BUYStringAdditionsTests.m */; };
@@ -153,6 +154,7 @@
 		84DD12CC1CC63FEE00A2442D /* _BUYTaxLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D915B51CC0417700D334FB /* _BUYTaxLine.m */; };
 		84DD12CF1CC6401400A2442D /* BUYCustomer.h in Headers */ = {isa = PBXBuildFile; fileRef = 84D915721CC0416800D334FB /* BUYCustomer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84DD12D01CC6401400A2442D /* BUYCustomer.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D915731CC0416800D334FB /* BUYCustomer.m */; };
+		84E61D171D81FEC90091B4A6 /* test_shop_config.json in Resources */ = {isa = PBXBuildFile; fileRef = 84E61D161D81FEC90091B4A6 /* test_shop_config.json */; };
 		901930E31BC5B9BC00D1134E /* BUYApplePayAuthorizationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BE33B4EE1B15FF4D0067982B /* BUYApplePayAuthorizationDelegate.m */; };
 		901930E81BC5B9BC00D1134E /* BUYImageLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A7A1A700B0A0087DB2C /* BUYImageLink.m */; };
 		901930E91BC5B9BC00D1134E /* BUYProductVariant.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A821A700B0A0087DB2C /* BUYProductVariant.m */; };
@@ -164,7 +166,6 @@
 		901931031BC5B9BC00D1134E /* BUYOptionValue.m in Sources */ = {isa = PBXBuildFile; fileRef = BEEA83E61B0B76C7000C6483 /* BUYOptionValue.m */; };
 		901931041BC5B9BC00D1134E /* BUYApplePayAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F70CE40E1A8BF1D90055BEB8 /* BUYApplePayAdditions.m */; };
 		901931061BC5B9BC00D1134E /* BUYDiscount.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AFAA691B0139DE00F21C23 /* BUYDiscount.m */; };
-		901931081BC5B9BC00D1134E /* BUYRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A741A700AC80087DB2C /* BUYRuntime.m */; };
 		901931091BC5B9BC00D1134E /* BUYCart.m in Sources */ = {isa = PBXBuildFile; fileRef = F773744819C77A210039681C /* BUYCart.m */; };
 		9019310C1BC5B9BC00D1134E /* BUYGiftCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 42488B331AB8761A005F21A9 /* BUYGiftCard.m */; };
 		9019310E1BC5B9BC00D1134E /* BUYProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A7D1A700B0A0087DB2C /* BUYProduct.m */; };
@@ -192,7 +193,6 @@
 		901931491BC5B9BC00D1134E /* BUYGiftCard.h in Headers */ = {isa = PBXBuildFile; fileRef = 42488B321AB8761A005F21A9 /* BUYGiftCard.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		901931501BC5B9BC00D1134E /* BUYOrder.h in Headers */ = {isa = PBXBuildFile; fileRef = 90E83BC21B9F550E00C95A1B /* BUYOrder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		901931571BC5B9BC00D1134E /* BUYObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A931A7010B20087DB2C /* BUYObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		901931581BC5B9BC00D1134E /* BUYRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A731A700AC80087DB2C /* BUYRuntime.h */; };
 		901931591BC5B9BC00D1134E /* BUYCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = BEB74A8E1B55A3D00005A300 /* BUYCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9019315E1BC5B9BC00D1134E /* BUYError.h in Headers */ = {isa = PBXBuildFile; fileRef = BE47340D1B66C4EF00AA721A /* BUYError.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		901931611BC5B9BC00D1134E /* BUYClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F7FDA17019C93F6F00AF4E93 /* BUYClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -258,6 +258,7 @@
 		B2653EC41CEF55CC0012D57D /* BUYModelManager+ApplePay.h in Headers */ = {isa = PBXBuildFile; fileRef = B2653EC11CEF55CC0012D57D /* BUYModelManager+ApplePay.h */; };
 		B2653EC51CEF55CC0012D57D /* BUYModelManager+ApplePay.m in Sources */ = {isa = PBXBuildFile; fileRef = B2653EC21CEF55CC0012D57D /* BUYModelManager+ApplePay.m */; };
 		B2653EC71CEF55CC0012D57D /* BUYModelManager+ApplePay.m in Sources */ = {isa = PBXBuildFile; fileRef = B2653EC21CEF55CC0012D57D /* BUYModelManager+ApplePay.m */; };
+		B8851BE81DCBBA8E0004BAEA /* BUYProductVariantTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B8851BE71DCBBA8E0004BAEA /* BUYProductVariantTests.m */; };
 		BE6C07061BB1E46900BD9F7B /* mocked_responses.json in Resources */ = {isa = PBXBuildFile; fileRef = BE6C07051BB1E46900BD9F7B /* mocked_responses.json */; };
 		BE98DB4F1BB1ED3E00C29564 /* OHHTTPStubs in Resources */ = {isa = PBXBuildFile; fileRef = BE98DB4E1BB1ED3E00C29564 /* OHHTTPStubs */; };
 		BE98DB5C1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = BE98DB5B1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.m */; };
@@ -284,8 +285,6 @@
 
 /* Begin PBXFileReference section */
 		2A54742D1A0AA61600822409 /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
-		2AF52A731A700AC80087DB2C /* BUYRuntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BUYRuntime.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		2AF52A741A700AC80087DB2C /* BUYRuntime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BUYRuntime.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2AF52A791A700B0A0087DB2C /* BUYImageLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BUYImageLink.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2AF52A7A1A700B0A0087DB2C /* BUYImageLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BUYImageLink.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2AF52A7C1A700B0A0087DB2C /* BUYProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BUYProduct.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -320,6 +319,7 @@
 		841ADDFC1CB6C942000004B0 /* NSURL+BUYAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+BUYAdditions.m"; sourceTree = "<group>"; };
 		8443E2D01CE2917500EA08D4 /* BUYPaymentProviderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYPaymentProviderTests.m; sourceTree = "<group>"; };
 		8465CF441CC13CFE0010B2E6 /* Templates */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Templates; sourceTree = "<group>"; };
+		847D12871DC7CA5C000958B4 /* BUYProductTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYProductTests.m; sourceTree = "<group>"; };
 		8491102E1CCE708900E53B93 /* BUYArrayAdditionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYArrayAdditionsTests.m; sourceTree = "<group>"; };
 		8491102F1CCE708900E53B93 /* BUYRegularExpressionAdditionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYRegularExpressionAdditionsTests.m; sourceTree = "<group>"; };
 		849110301CCE708900E53B93 /* BUYStringAdditionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYStringAdditionsTests.m; sourceTree = "<group>"; };
@@ -424,6 +424,7 @@
 		84D915B31CC0417700D334FB /* _BUYShippingRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _BUYShippingRate.m; sourceTree = "<group>"; };
 		84D915B41CC0417700D334FB /* _BUYTaxLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _BUYTaxLine.h; sourceTree = "<group>"; };
 		84D915B51CC0417700D334FB /* _BUYTaxLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _BUYTaxLine.m; sourceTree = "<group>"; };
+		84E61D161D81FEC90091B4A6 /* test_shop_config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test_shop_config.json; sourceTree = "<group>"; };
 		900396991B601DF400226B73 /* BUYCartLineItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYCartLineItem.h; sourceTree = "<group>"; };
 		9003969A1B601DF400226B73 /* BUYCartLineItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYCartLineItem.m; sourceTree = "<group>"; };
 		901931701BC5B9BC00D1134E /* Buy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Buy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -504,6 +505,8 @@
 		9ABBCCA01CF5C9D10075B0C5 /* BUYFakeSafariController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYFakeSafariController.m; sourceTree = "<group>"; };
 		B2653EC11CEF55CC0012D57D /* BUYModelManager+ApplePay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BUYModelManager+ApplePay.h"; sourceTree = "<group>"; };
 		B2653EC21CEF55CC0012D57D /* BUYModelManager+ApplePay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BUYModelManager+ApplePay.m"; sourceTree = "<group>"; };
+		B8851BE71DCBBA8E0004BAEA /* BUYProductVariantTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYProductVariantTests.m; sourceTree = "<group>"; };
+		B89659A41DD292D500AF7FC9 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		BE33B4ED1B15FF4D0067982B /* BUYApplePayAuthorizationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYApplePayAuthorizationDelegate.h; sourceTree = "<group>"; };
 		BE33B4EE1B15FF4D0067982B /* BUYApplePayAuthorizationDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYApplePayAuthorizationDelegate.m; sourceTree = "<group>"; };
 		BE47340D1B66C4EF00AA721A /* BUYError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYError.h; sourceTree = "<group>"; };
@@ -783,6 +786,7 @@
 		90F592EE1B0D5EFE0026B382 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				84E61D161D81FEC90091B4A6 /* test_shop_config.json */,
 				BE6C07051BB1E46900BD9F7B /* mocked_responses.json */,
 				BEB9AE721BA73E6C00575F8A /* test_shop_data.json */,
 				84B0A71D1CDD253A00253EB0 /* orders.json */,
@@ -826,6 +830,8 @@
 				9A102D1D1CDD25980026CC43 /* BUYOptionValueTests.m */,
 				9A102D1A1CDD1F960026CC43 /* BUYErrorTests.m */,
 				8498DCC01CDD208200BD12A8 /* BUYCollectionTests.m */,
+				847D12871DC7CA5C000958B4 /* BUYProductTests.m */,
+				B8851BE71DCBBA8E0004BAEA /* BUYProductVariantTests.m */,
 			);
 			name = "Models Tests";
 			sourceTree = "<group>";
@@ -929,6 +935,7 @@
 		F773741419C770CB0039681C = {
 			isa = PBXGroup;
 			children = (
+				B89659A41DD292D500AF7FC9 /* CHANGELOG.md */,
 				90E80E451AFBBB59003A9909 /* docs */,
 				84D915551CC0400500D334FB /* Scripts */,
 				F773743A19C777200039681C /* Mobile Buy SDK */,
@@ -1000,8 +1007,6 @@
 				B2653EC21CEF55CC0012D57D /* BUYModelManager+ApplePay.m */,
 				8498DCA71CDD1B1C00BD12A8 /* BUYError+BUYAdditions.h */,
 				8498DCA81CDD1B1C00BD12A8 /* BUYError+BUYAdditions.m */,
-				2AF52A731A700AC80087DB2C /* BUYRuntime.h */,
-				2AF52A741A700AC80087DB2C /* BUYRuntime.m */,
 				8498DCA91CDD1B1C00BD12A8 /* BUYShopifyErrorCodes.h */,
 			);
 			path = Utils;
@@ -1134,7 +1139,6 @@
 				84D9154C1CC03F1600D334FB /* BUYManagedObject.h in Headers */,
 				84DD12CF1CC6401400A2442D /* BUYCustomer.h in Headers */,
 				901931571BC5B9BC00D1134E /* BUYObject.h in Headers */,
-				901931581BC5B9BC00D1134E /* BUYRuntime.h in Headers */,
 				901931591BC5B9BC00D1134E /* BUYCollection.h in Headers */,
 				84D915441CC0359700D334FB /* BUYObserver.h in Headers */,
 				84980F5F1CB7617E00CFAB58 /* BUYDateTransformer.h in Headers */,
@@ -1256,6 +1260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BEB9AE781BA8627B00575F8A /* test_shop_data.json in Resources */,
+				84E61D171D81FEC90091B4A6 /* test_shop_config.json in Resources */,
 				BE98DB4F1BB1ED3E00C29564 /* OHHTTPStubs in Resources */,
 				84B0A71E1CDD253A00253EB0 /* orders.json in Resources */,
 				BE6C07061BB1E46900BD9F7B /* mocked_responses.json in Resources */,
@@ -1277,7 +1282,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "bash \"${PROJECT_DIR}/../Scripts/generate_models.sh\"";
+			shellScript = "$SHELL \"${PROJECT_DIR}/../Scripts/generate_models.sh\"";
 		};
 		904FB61F1AE03DCF00EA1758 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1354,7 +1359,6 @@
 				9A0B0C5D1CE662EC0037D68F /* BUYRequestOperation.m in Sources */,
 				84DD129A1CC63FE600A2442D /* _BUYCart.m in Sources */,
 				841ADE0A1CB6C942000004B0 /* NSDateFormatter+BUYAdditions.m in Sources */,
-				901931081BC5B9BC00D1134E /* BUYRuntime.m in Sources */,
 				84DD12C21CC63FEE00A2442D /* _BUYCheckout.m in Sources */,
 				901931091BC5B9BC00D1134E /* BUYCart.m in Sources */,
 				84B0A73D1CE10ED900253EB0 /* BUYWebCheckoutPaymentProvider.m in Sources */,
@@ -1436,9 +1440,11 @@
 				849110331CCE708900E53B93 /* BUYStringAdditionsTests.m in Sources */,
 				906CF1B11B8B66AE001F7D5B /* BUYCNPostalAddress.m in Sources */,
 				8498DCD01CDD208200BD12A8 /* TestModel.m in Sources */,
+				B8851BE81DCBBA8E0004BAEA /* BUYProductVariantTests.m in Sources */,
 				9A6B03791CDA5D4F0054C26E /* BUYAccountCredentialsTests.m in Sources */,
 				8491103C1CCE731900E53B93 /* BUYURLAdditionsTests.m in Sources */,
 				9A102D1E1CDD25980026CC43 /* BUYOptionValueTests.m in Sources */,
+				847D12881DC7CA5C000958B4 /* BUYProductTests.m in Sources */,
 				8491104A1CCEA85C00E53B93 /* BUYObserverTests.m in Sources */,
 				8498DCCB1CDD208200BD12A8 /* BUYCoreDataModelAdditionsTests.m in Sources */,
 				906CF1AD1B8B5F7D001F7D5B /* BUYNSPersonNameComponents.m in Sources */,
@@ -1472,7 +1478,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2.0;
+				CURRENT_PROJECT_VERSION = 2.1.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1505,7 +1511,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2.0;
+				CURRENT_PROJECT_VERSION = 2.1.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1622,6 +1628,7 @@
 		B2AE98341CED035700FB0C5D /* Debug-core-data */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1682,7 +1689,6 @@
 		B2AE98371CED035700FB0C5D /* Debug-core-data */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1717,10 +1723,9 @@
 		B2AE98391CED035700FB0C5D /* Debug-core-data */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2.0;
+				CURRENT_PROJECT_VERSION = 2.1.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1750,6 +1755,7 @@
 		B2AE98401CED036F00FB0C5D /* Release-core-data */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1803,7 +1809,6 @@
 		B2AE98431CED036F00FB0C5D /* Release-core-data */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ENABLE_CODE_COVERAGE = NO;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -1835,11 +1840,10 @@
 		B2AE98451CED036F00FB0C5D /* Release-core-data */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2.0;
+				CURRENT_PROJECT_VERSION = 2.1.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;

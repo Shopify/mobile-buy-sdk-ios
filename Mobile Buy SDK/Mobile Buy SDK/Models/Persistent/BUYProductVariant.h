@@ -24,12 +24,14 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/_BUYProductVariant.h>
+#import "_BUYProductVariant.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @class BUYOptionValue;
 
 @interface BUYProductVariant : _BUYProductVariant {}
+
+@property (nonatomic, readonly) BOOL isDefault;
 
 /**
  *  Returns the option value for the given name

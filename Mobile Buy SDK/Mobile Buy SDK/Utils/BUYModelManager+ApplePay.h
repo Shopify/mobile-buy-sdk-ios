@@ -25,7 +25,7 @@
 //
 
 @import PassKit;
-#import <Buy/BUYModelManager.h>
+#import "BUYModelManager.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @class BUYAddress;

@@ -63,4 +63,15 @@
 	return self;
 }
 
+- (NSDictionary *)buy_removeNulls
+{
+	NSMutableDictionary *result = [NSMutableDictionary dictionary];
+	[self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+		if (obj && obj != [NSNull null]) {
+			result[key] = obj;
+		}
+	}];
+	return result;
+}
+
 @end

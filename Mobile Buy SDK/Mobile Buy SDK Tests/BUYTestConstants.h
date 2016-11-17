@@ -24,25 +24,17 @@
 //  THE SOFTWARE.
 //
 
-#ifndef Buy_BUYTestConstants_h
-#define Buy_BUYTestConstants_h
-
 // These should be defined as environment variables in your scheme, or in the CI machine
-#define kBUYTestDomain @"shop_domain"
-#define kBUYTestAPIKey @"api_key"
-#define kBUYTestAppId @"app_id"
-#define kBUYTestMerchantId @"merchant_id"
-#define kBUYTestEmail @"customer_email"
-#define kBUYTestPassword @"customer_password"
-#define kBUYTestOrderIds @"customer_order_ids"
-#define kBUYTestGiftCardCode11 @"gift_card_code_11"
-#define kBUYTestGiftCardCode25 @"gift_card_code_25"
-#define kBUYTestGiftCardCode50 @"gift_card_code_50"
-#define kBUYTestInvalidGiftCardCode @"invalid_gift_card_code"
-#define kBUYTestExpiredGiftCardCode @"expired_gift_card_code"
-#define kBUYTestExpiredGiftCardID @"expired_gift_card_id"
-#define kBUYTestDiscountCodeValid @"discount_valid"
-#define kBUYTestDiscountCodeExpired @"discount_expired"
-#define kBUYTestProductIdsCommaSeparated @"product_ids_comma_separated"
-
-#endif
+extern NSString * const kBUYTestEmail;
+extern NSString * const kBUYTestPassword;
+extern NSString * const kBUYTestOrderIds;
+extern NSString * const kBUYTestGiftCardCode11;
+extern NSString * const kBUYTestGiftCardCode25;
+extern NSString * const kBUYTestGiftCardCode50;
+extern NSString * const kBUYTestInvalidGiftCardCode;
+extern NSString * const kBUYTestExpiredGiftCardCode;
+extern NSString * const kBUYTestExpiredGiftCardID;
+extern NSString * const kBUYTestDiscountCodeValid;
+extern NSString * const kBUYTestDiscountCodeExpired;
+extern NSString * const kBUYTestProductIdsCommaSeparated;
+extern NSString * const kBUYTestCollectionIds;

@@ -24,8 +24,8 @@
 //  THE SOFTWARE.
 //
 
-#import <XCTest/XCTest.h>
-#import "NSDictionary+BUYAdditions.h"
+@import XCTest;
+@import Buy;
 
 @interface BUYDictionaryAdditionsTests : XCTestCase
 

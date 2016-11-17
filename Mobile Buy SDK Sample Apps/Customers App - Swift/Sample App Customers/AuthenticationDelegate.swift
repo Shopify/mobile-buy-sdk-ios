@@ -28,6 +28,6 @@ import Foundation
 import Buy
 
 protocol AuthenticationDelegate: class {
-    func authenticationDidSucceedForCustomer(customer: BUYCustomer, withToken token: String)
-    func authenticationDidFailWithError(error: NSError?)
+    func authenticationDidSucceedForCustomer(_ customer: BUYCustomer, withToken token: String)
+    func authenticationDidFailWithError(_ error: NSError?)
 }

@@ -1,5 +1,5 @@
 //
-//  BUYCheckoutAttribute.h
+//  BUYProductVariantTests.m
 //  Mobile Buy SDK
 //
 //  Created by Shopify.
@@ -24,14 +24,35 @@
 //  THE SOFTWARE.
 //
 
-#import "_BUYCheckoutAttribute.h"
-NS_ASSUME_NONNULL_BEGIN
+@import XCTest;
+@import Buy;
 
-/**
- *  A BUYCheckoutAttribute represents a checkout attributes key and value
- */
-@interface BUYCheckoutAttribute : _BUYCheckoutAttribute
-
+@interface BUYProductVariantTests : XCTestCase
 @end
 
-NS_ASSUME_NONNULL_END
+@implementation BUYProductVariantTests
+
+- (void)testIfProductVariantIsDefault
+{
+	BUYModelManager *model = [BUYModelManager modelManager];
+	BUYProductVariant *variant1 = [[BUYProductVariant alloc] initWithModelManager:model
+																  JSONDictionary:@{ @"id" : @1}];
+	BUYOptionValue *option1 = [model buy_objectWithEntityName:[BUYOptionValue entityName] JSONDictionary:@{
+																										  @"name"      : @"Title",
+																										  @"value"     : @"Default",
+																										  @"option_id" : @1,
+																										  }];
+	variant1.options = [[NSSet alloc] initWithArray:@[option1]];
+	XCTAssertTrue(variant1.isDefault);
+	
+	BUYOptionValue *option2 = [model buy_objectWithEntityName:[BUYOptionValue entityName] JSONDictionary:@{
+																										   @"name"      : @"Title",
+																										   @"value"     : @"Default Title",
+																										   @"option_id" : @12,
+																										   }];
+	;
+	variant1.options = [[NSSet alloc] initWithArray:@[option1, option2]];
+	XCTAssertFalse(variant1.isDefault);
+}
+
+@end

@@ -38,13 +38,6 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 
 @implementation BUYClient (Storefront)
 
-#pragma mark - Utilities -
-
-- (BOOL)hasReachedEndOfPage:(NSArray *)lastFetchedObjects
-{
-	return [lastFetchedObjects count] < self.pageSize;
-}
-
 #pragma mark - API -
 
 - (NSOperation *)getShop:(BUYDataShopBlock)block
@@ -61,17 +54,14 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 - (NSOperation *)getProductsPage:(NSUInteger)page completion:(BUYDataProductListBlock)block
 {
 	NSURL *url  = [self urlForProductListingsWithParameters:@{
-															  @"limit" : @(self.pageSize),
+															  @"limit" : @(self.productPageSize),
 															  @"page"  : @(page),
 															  }];
 	
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		
-		NSArray *products = nil;
-		if (json && !error) {
-			products = [self.modelManager insertProductsWithJSONArray:json[BUYProductsKey]];
-		}
-		block(products, page, [self hasReachedEndOfPage:products] || error, error);
+		NSArray *products = [self productsFromJSON:json error:error];
+		block(products, page, [self isLastPageOfProducts:products] || error, error);
 	}];
 }
 
@@ -82,10 +72,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	NSURL *url = [self urlForProductListingsWithParameters:@{ @"handle" : handle }];
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		
-		BUYProduct *product = nil;
-		if (json && !error) {
-			product = [self.modelManager insertProductsWithJSONArray:json[BUYProductsKey]].firstObject;
-		}
+		BUYProduct *product = [self productsFromJSON:json error:error].firstObject;
 		
 		if (!product && !error) {
 			error = [self productsError];
@@ -113,10 +100,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		
-		NSArray *products = nil;
-		if (json && !error) {
-			products = [self.modelManager insertProductsWithJSONArray:json[BUYProductsKey]];
-		}
+		NSArray *products = [self productsFromJSON:json error:error];
 		if (!error && products.count == 0) {
 			error = [self productsError];
 		}
@@ -124,12 +108,42 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	}];
 }
 
+- (NSOperation *)getProductsByTags:(NSArray<NSString *> *)tags page:(NSUInteger)page completion:(BUYDataProductsBlock)block
+{
+	NSURL *url = [self urlForProductListingsWithParameters:@{
+															 @"tag":	[tags componentsJoinedByString:@","],
+															 @"page":	@(page),
+															 }];
+	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		
+		block([self productsFromJSON:json error:error], error);
+	}];
+}
+
+- (NSArray<BUYProduct *> *)productsFromJSON:(NSDictionary *)json error:(NSError *)error
+{
+	if (json && !error) {
+		return [self.modelManager insertProductsWithJSONArray:json[BUYProductsKey]];
+	}
+	return nil;
+}
+
 - (NSOperation *)getProductTagsPage:(NSUInteger)page completion:(BUYDataTagsListBlock)block
 {
-	NSURL *url  = [self urlForProductTagsWithParameters:@{
-														  @"limit" : @(self.pageSize),
-														  @"page"  : @(page),
-														  }];
+	return [self getProductTagsInCollection:@"" page:page completion:block];
+}
+
+- (NSOperation *)getProductTagsInCollection:(NSString *)collectionId page:(NSUInteger)page completion:(BUYDataTagsListBlock)block
+{
+	NSMutableDictionary *params = @{
+									@"limit" : @(self.productTagPageSize),
+									@"page"  : @(page),
+									}.mutableCopy;
+	if (collectionId.length) {
+		params[@"collection_id"] = collectionId;
+	}
+	
+	NSURL *url  = [self urlForProductTagsWithParameters:params];
 	
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		
@@ -137,7 +151,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 		if (json && !error) {
 			tags = [json[@"tags"] valueForKey:@"title"];
 		}
-		block(tags, page, [self hasReachedEndOfPage:tags], error);
+		block(tags, page, [self isLastPageOfProducts:tags], error);
 	}];
 }
 
@@ -150,7 +164,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
 		BUYCollection *collection = nil;
 		if (json && !error) {
-			collection = [self.modelManager buy_objectWithEntityName:[BUYCollection entityName] JSONDictionary:json[BUYCollectionsKey][0]];
+			collection = (BUYCollection *)[self.modelManager buy_objectWithEntityName:[BUYCollection entityName] JSONDictionary:json[BUYCollectionsKey][0]];
 		}
 		block(collection, error);
 	}];
@@ -159,7 +173,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 - (NSOperation *)getCollectionsPage:(NSUInteger)page completion:(BUYDataCollectionsListBlock)block
 {
 	NSURL *url  = [self urlForCollectionListingsWithParameters:@{
-																 @"limit" : @(self.pageSize),
+																 @"limit" : @(self.collectionPageSize),
 																 @"page"  : @(page),
 																 }];
 	
@@ -169,7 +183,23 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 		if (json && !error) {
 			collections = [self.modelManager buy_objectsWithEntityName:[BUYCollection entityName] JSONArray:json[BUYCollectionsKey]];
 		}
-		block(collections, page, [self hasReachedEndOfPage:collections], error);
+		block(collections, page, [self isLastPageOfProducts:collections], error);
+	}];
+}
+
+- (NSOperation *)getCollectionsByIds:(NSArray<NSString *> *)collectionIds page:(NSUInteger)page completion:(BUYDataCollectionsBlock)block
+{
+	NSURL *url = [self urlForCollectionListingsWithParameters:@{
+																@"collection_ids": [collectionIds componentsJoinedByString:@","],
+																@"limit" : @(self.collectionPageSize),
+																@"page"  : @(page),
+																}];
+	return [self getRequestForURL:url completionHandler:^(NSDictionary *json, NSHTTPURLResponse *response, NSError *error) {
+		NSArray *collections = nil;
+		if (json && !error) {
+			collections = [self.modelManager buy_objectsWithEntityName:[BUYCollection entityName] JSONArray:json[BUYCollectionsKey]];
+		}
+		block(collections, error);
 	}];
 }
 
@@ -181,7 +211,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 - (NSOperation *)getProductsPage:(NSUInteger)page inCollection:(nullable NSNumber *)collectionId withTags:(nullable NSArray <NSString *> *)tags sortOrder:(BUYCollectionSort)sortOrder completion:(BUYDataProductListBlock)block
 {
 	NSMutableDictionary *params = @{
-									@"limit"         : @(self.pageSize),
+									@"limit"         : @(self.productPageSize),
 									@"page"          : @(page),
 									@"sort_by"       : [BUYCollection sortOrderParameterForCollectionSort:sortOrder]
 									}.mutableCopy;
@@ -202,11 +232,16 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 		if (json && !error) {
 			products = [self.modelManager buy_objectsWithEntityName:[BUYProduct entityName] JSONArray:json[BUYProductsKey]];
 		}
-		block(products, page, [self hasReachedEndOfPage:products] || error, error);
+		block(products, page, [self isLastPageOfProducts:products] || error, error);
 	}];
 }
 
 #pragma mark - Helpers -
+
+- (BOOL)isLastPageOfProducts:(NSArray *)lastFetchedObjects
+{
+	return [lastFetchedObjects count] < self.productPageSize;
+}
 
 - (NSError *)productsError
 {

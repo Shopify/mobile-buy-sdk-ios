@@ -24,8 +24,8 @@
 //  THE SOFTWARE.
 //
 
-#import <XCTest/XCTest.h>
-#import "NSString+BUYAdditions.h"
+@import XCTest;
+@import Buy;
 
 @interface BUYStringAdditionsTests : XCTestCase
 

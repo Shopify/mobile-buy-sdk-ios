@@ -31,6 +31,13 @@
 #import "BUYProductVariant.h"
 #import "NSString+BUYAdditions.h"
 
+@interface BUYProduct ()
+
+- (void)updateMinimumPrice;
+- (void)updateMinimumCompareAtPrice;
+
+@end
+
 @implementation BUYProduct
 
 @synthesize stringDescription=_stringDescription;
@@ -71,6 +78,29 @@
 - (NSArray<BUYProductVariant *> *)variantsArray
 {
 	return self.variants.array ?: @[];
+}
+
+- (void)setJSONDictionary:(NSDictionary *)JSONDictionary
+{
+	[super setJSONDictionary:JSONDictionary];
+	[self updateMinimumPrice];
+	[self updateMinimumCompareAtPrice];
+}
+
+- (void)updateMinimumPrice
+{
+	NSDecimalNumber *newMinimumPrice = [self.variants valueForKeyPath:@"@min.price"];
+	if (![self.minimumPrice isEqual:newMinimumPrice]) {
+		self.minimumPrice = newMinimumPrice;
+	}
+}
+
+- (void)updateMinimumCompareAtPrice
+{
+	NSDecimalNumber *newMinimumCompareAt = [self.variants valueForKeyPath:@"@min.compareAtPrice"];
+	if (![self.minimumCompareAtPrice isEqual:newMinimumCompareAt]) {
+		self.minimumCompareAtPrice = newMinimumCompareAt;
+	}
 }
 
 @end
@@ -116,17 +146,7 @@
 
 - (BOOL)isDefaultVariant
 {
-	if ([self.variants count] == 1) {
-		BUYProductVariant *productVariant = [self.variants firstObject];
-		BUYOptionValue *optionValue = [productVariant.options anyObject];
-		NSString *defaultTitleString = @"Default Title";
-		NSString *defaultString = @"Default";
-		if ([productVariant.title isEqualToString:defaultTitleString] &&
-			([optionValue.value isEqualToString:defaultTitleString] || [optionValue.value isEqualToString:defaultString])) {
-			return YES;
-		}
-	}
-	return NO;
+	return ([self.variants count] == 1 && [(BUYProductVariant *)self.variants.firstObject isDefault]);
 }
 
 @end

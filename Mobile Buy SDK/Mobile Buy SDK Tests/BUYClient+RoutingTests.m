@@ -24,9 +24,10 @@
 //  THE SOFTWARE.
 //
 
-#import <XCTest/XCTest.h>
+@import XCTest;
+@import Buy;
+
 #import "BUYClient+Routing.h"
-#import "BUYCustomerToken.h"
 
 @interface BUYClient_RoutingTests : XCTestCase
 

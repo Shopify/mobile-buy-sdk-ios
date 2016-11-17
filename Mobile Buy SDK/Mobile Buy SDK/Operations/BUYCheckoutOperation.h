@@ -24,9 +24,9 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/BUYGroupOperation.h>
-#import <Buy/BUYStatusOperation.h>
-#import <Buy/BUYClientTypes.h>
+#import "BUYGroupOperation.h"
+#import "BUYStatusOperation.h"
+#import "BUYClientTypes.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @class BUYClient;

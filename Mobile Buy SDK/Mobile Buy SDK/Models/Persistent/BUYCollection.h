@@ -24,8 +24,8 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/_BUYCollection.h>
-#import <Buy/BUYClient+Storefront.h>
+#import "_BUYCollection.h"
+#import "BUYClient+Storefront.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BUYCollection : _BUYCollection {}

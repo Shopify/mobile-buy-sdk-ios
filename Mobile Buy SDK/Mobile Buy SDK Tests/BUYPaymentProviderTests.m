@@ -25,14 +25,13 @@
 //
 
 @import XCTest;
+@import Buy;
 
-#import <Buy/Buy.h>
-
-#import "BUYApplePayPaymentProvider.h"
-#import "BUYWebCheckoutPaymentProvider.h"
 #import "BUYClientTestBase.h"
-#import "BUYPaymentController.h"
 #import "BUYFakeSafariController.h"
+#import "BUYApplePayAuthorizationDelegate.h"
+#import "BUYClientTestBase.h"
+
 #import <OHHTTPStubs/OHHTTPStubs.h>
 
 extern Class SafariViewControllerClass;
@@ -41,7 +40,7 @@ extern Class SafariViewControllerClass;
 - (id <BUYPaymentProvider>)providerForType:(NSString *)type;
 @end
 
-@interface BUYPaymentProviderTests : XCTestCase <BUYPaymentProviderDelegate>
+@interface BUYPaymentProviderTests : BUYClientTestBase <BUYPaymentProviderDelegate>
 
 @property (nonatomic) NSMutableDictionary <NSString *, XCTestExpectation *> *expectations;
 @property (nonatomic) BUYModelManager *modelManager;
@@ -70,11 +69,6 @@ extern Class SafariViewControllerClass;
 {
 	[super tearDown];
 	[OHHTTPStubs removeAllStubs];
-}
-
-- (BUYClient *)client
-{
-	return [[BUYClient alloc] initWithShopDomain:BUYShopDomain_Placeholder apiKey:BUYAPIKey_Placeholder appId:BUYAppId_Placeholder];
 }
 
 - (BUYCheckout *)checkout
@@ -171,6 +165,25 @@ extern Class SafariViewControllerClass;
 	[applePay startCheckout:self.checkout];
 	
 	[self waitForExpectationsWithTimeout:1 handler:^(NSError *error) {
+		XCTAssertNil(error);
+	}];
+}
+
+- (void)testUpdatedCheckoutAfterApplePayPaymentAuthorized
+{
+	XCTestExpectation *expectationForPaymentAuth = [self expectationWithDescription:@"Apple Pay Authorized"];
+	BUYProductVariant *variant = [[BUYProductVariant alloc] initWithModelManager:_modelManager JSONDictionary:@{ @"id" : @7522060675 }];
+	BUYCheckout *checkout = [_modelManager checkoutWithVariant:variant];
+	[self.client createCheckout:checkout completion:^(BUYCheckout * _Nullable checkout, NSError * _Nullable error) {
+		BUYApplePayAuthorizationDelegate *applePayDelegate = [[BUYApplePayAuthorizationDelegate alloc] initWithClient:self.client checkout:checkout shopName:@"Testing"];
+		PKPaymentAuthorizationViewController *controller = [[PKPaymentAuthorizationViewController alloc] init];
+		PKPayment *fakePayment = [[PKPayment alloc] init];
+		[applePayDelegate paymentAuthorizationViewController:controller didAuthorizePayment:fakePayment completion:^(PKPaymentAuthorizationStatus status) {
+			[expectationForPaymentAuth fulfill];
+			XCTAssertNotNil(applePayDelegate.checkout);
+		}];
+	}];
+	[self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
 		XCTAssertNil(error);
 	}];
 }

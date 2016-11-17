@@ -24,8 +24,8 @@
 //  THE SOFTWARE.
 //
 
-#import <XCTest/XCTest.h>
-#import "NSException+BUYAdditions.h"
+@import XCTest;
+@import Buy;
 
 @interface BUYExceptionAdditionsTests : XCTestCase
 

@@ -26,9 +26,9 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
 // Make changes to BUYShippingRate.h instead.
 
-#import <Buy/BUYObject.h>
+#import "BUYObject.h"
 
-#import <Buy/BUYModelManager.h>
+#import "BUYModelManager.h"
 
 extern const struct BUYShippingRateAttributes {
 	__unsafe_unretained NSString *deliveryRange;

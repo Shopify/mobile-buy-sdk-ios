@@ -33,11 +33,11 @@ class ActionCell: UITableViewCell {
 
     var loading: Bool {
         get {
-            return self.actionLabel.hidden
+            return self.actionLabel.isHidden
         }
         set {
-            self.actionLabel.hidden = newValue
-            self.loader.hidden      = !newValue
+            self.actionLabel.isHidden = newValue
+            self.loader.isHidden      = !newValue
         }
     }
 

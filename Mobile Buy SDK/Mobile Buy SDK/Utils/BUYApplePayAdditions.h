@@ -27,9 +27,9 @@
 @import Foundation;
 @import PassKit;
 
-#import <Buy/BUYCheckout.h>
-#import <Buy/BUYShippingRate.h>
-#import <Buy/BUYAddress.h>
+#import "BUYCheckout.h"
+#import "BUYShippingRate.h"
+#import "BUYAddress.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BUYCheckout (ApplePay)

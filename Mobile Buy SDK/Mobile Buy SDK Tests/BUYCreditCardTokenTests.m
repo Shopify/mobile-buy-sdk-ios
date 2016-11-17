@@ -24,7 +24,9 @@
 //  THE SOFTWARE.
 //
 
-#import <XCTest/XCTest.h>
+@import XCTest;
+@import Buy;
+
 #import "BUYCreditCardToken.h"
 
 @interface BUYCreditCardTokenTests : XCTestCase

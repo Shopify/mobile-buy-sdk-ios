@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#import <Buy/_<$managedObjectClassName$>.h>
+#import "_<$managedObjectClassName$>.h"
 
 @interface <$managedObjectClassName$> : _<$managedObjectClassName$> {}
 
