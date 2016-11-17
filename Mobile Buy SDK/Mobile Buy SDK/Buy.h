@@ -63,12 +63,15 @@
 #import "BUYShopifyErrorCodes.h"
 
 // Checkout support
+#import "BUYPaymentController.h"
+#import "BUYPaymentProvider.h"
+
+#if TARGET_OS_IOS
 #import "BUYApplePayAdditions.h"
 #import "BUYApplePayAuthorizationDelegate.h"
 #import "BUYApplePayPaymentProvider.h"
-#import "BUYPaymentController.h"
-#import "BUYPaymentProvider.h"
 #import "BUYWebCheckoutPaymentProvider.h"
+#endif
 
 // Client API
 #import "BUYClientTypes.h"
