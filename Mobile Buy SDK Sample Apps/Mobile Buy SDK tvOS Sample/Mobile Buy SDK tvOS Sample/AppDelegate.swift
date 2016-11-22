@@ -40,14 +40,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let shopDomain: String = ""
     let apiKey:     String = ""
     let appID:      String = ""
-    
-    private(set) var client: BUYClient!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        self.client = BUYClient(shopDomain: self.shopDomain, apiKey: self.apiKey, appId: self.appID)
+        let client = BUYClient(shopDomain: self.shopDomain, apiKey: self.apiKey, appId: self.appID)
         
-        let dataProvider = DataProvider(client: self.client)
+        let dataProvider = DataProvider(client: client)
         
         guard let vc = window?.rootViewController
             as? DataProviderSetter
