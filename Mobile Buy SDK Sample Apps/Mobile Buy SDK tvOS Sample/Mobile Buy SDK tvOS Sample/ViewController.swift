@@ -26,7 +26,9 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, DataProviderSetter {
+    
+    var dataProvider: DataProvider!
 
     override func viewDidLoad() {
         super.viewDidLoad()

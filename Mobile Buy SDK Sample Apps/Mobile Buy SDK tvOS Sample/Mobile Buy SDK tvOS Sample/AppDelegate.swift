@@ -47,6 +47,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.client = BUYClient(shopDomain: self.shopDomain, apiKey: self.apiKey, appId: self.appID)
         
+        let dataProvider = DataProvider(client: self.client)
+        
+        guard let vc = window?.rootViewController
+            as? DataProviderSetter
+            else { fatalError("Wrong View Controller Type") }
+        vc.dataProvider = dataProvider
+        
         return true
     }
 }
