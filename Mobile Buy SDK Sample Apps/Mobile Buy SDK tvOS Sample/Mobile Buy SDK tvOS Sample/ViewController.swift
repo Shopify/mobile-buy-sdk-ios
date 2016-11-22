@@ -37,24 +37,15 @@ class ViewController: UIViewController, DataProviderSetter {
         super.viewDidLoad()
         self.collections = Collections(collectionView: self.collectionView, dataProvider: self.dataProvider)
     }
-    
-    // this function is just here to demonstrate focus for the collection view
-    // will remove once product cells are in this
-    func getRandomColor() -> UIColor {
-        let randomRed: CGFloat = CGFloat(drand48())
-        let randomGreen: CGFloat = CGFloat(drand48())
-        let randomBlue: CGFloat = CGFloat(drand48())
-        
-        return UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1.0)
-    }
 }
 
 extension ViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewContainerCell.reuseIdentifier, for: indexPath)
-        cell.backgroundColor = self.getRandomColor()
-        return cell
+        let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewContainerCell.reuseIdentifier, for: indexPath) as? CollectionViewContainerCell
+        let collection = self.collections[indexPath.section] as BUYCollection
+        cell?.configure(title: collection.title)
+        return cell!
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
