@@ -46,6 +46,10 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="ebA-qN-rc4"/>
                                 </connections>
                             </collectionView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="vz0-qo-wxt">
+                                <rect key="frame" x="746" y="20" width="429" height="165"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -54,4 +58,7 @@
             </objects>
         </scene>
     </scenes>
+    <resources>
+        <image name="Logo" width="1000" height="285"/>
+    </resources>
 </document>
