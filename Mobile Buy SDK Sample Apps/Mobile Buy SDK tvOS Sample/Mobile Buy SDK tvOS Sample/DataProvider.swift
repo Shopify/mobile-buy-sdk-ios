@@ -28,8 +28,8 @@ import Foundation
 import Buy
 
 public protocol DataProviderDelegate: class {
-    func dataProviderDidFinishDownloadingCollections(_dataProvider: DataProvider, collections: Array<Any>)
-    func dataProviderDidFinishDownloadingProducts(_dataProvider: DataProvider, collection: NSNumber, products: Array<Any>)
+    func dataProviderDidFinishDownloadingCollections(_dataProvider: DataProvider, collections: Array<BUYCollection>)
+    func dataProviderDidFinishDownloadingProducts(_dataProvider: DataProvider, collection: NSNumber, products: Array<BUYProduct>)
 }
 
 protocol DataProviderSetter: class {
