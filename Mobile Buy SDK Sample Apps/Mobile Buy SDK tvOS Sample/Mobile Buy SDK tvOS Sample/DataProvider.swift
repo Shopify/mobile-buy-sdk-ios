@@ -32,6 +32,10 @@ public protocol DataProviderDelegate: class {
     func dataProviderDidFinishDownloadingProducts(_dataProvider: DataProvider, collection: NSNumber, products: Array<Any>)
 }
 
+protocol DataProviderSetter: class {
+    var dataProvider: DataProvider!{get set}
+}
+
 public class DataProvider {
     
     private(set) var client : BUYClient!
