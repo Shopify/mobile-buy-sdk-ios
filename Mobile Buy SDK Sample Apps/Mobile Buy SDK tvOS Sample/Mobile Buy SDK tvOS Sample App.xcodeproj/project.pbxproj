@@ -14,6 +14,7 @@
 		B8627DC81DDDFC8A00327C18 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8627DC61DDDFC8A00327C18 /* Main.storyboard */; };
 		B8627DCA1DDDFC8A00327C18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8627DC91DDDFC8A00327C18 /* Assets.xcassets */; };
 		B88FA0631DE36FA20008CC83 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88FA0621DE36FA20008CC83 /* DataProvider.swift */; };
+		B89C34451DE49F3400E88C6A /* CollectionViewContainerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C34441DE49F3400E88C6A /* CollectionViewContainerCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		B8627DCB1DDDFC8A00327C18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B8627DD11DDDFE0500327C18 /* Mobile Buy SDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Mobile Buy SDK.xcodeproj"; path = "../../Mobile Buy SDK/Mobile Buy SDK.xcodeproj"; sourceTree = "<group>"; };
 		B88FA0621DE36FA20008CC83 /* DataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
+		B89C34441DE49F3400E88C6A /* CollectionViewContainerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewContainerCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 				B8627DC91DDDFC8A00327C18 /* Assets.xcassets */,
 				B8627DCB1DDDFC8A00327C18 /* Info.plist */,
 				B88FA0621DE36FA20008CC83 /* DataProvider.swift */,
+				B89C34441DE49F3400E88C6A /* CollectionViewContainerCell.swift */,
 			);
 			path = "Mobile Buy SDK tvOS Sample";
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 			files = (
 				B8627DC51DDDFC8A00327C18 /* ViewController.swift in Sources */,
 				B8627DC31DDDFC8A00327C18 /* AppDelegate.swift in Sources */,
+				B89C34451DE49F3400E88C6A /* CollectionViewContainerCell.swift in Sources */,
 				B88FA0631DE36FA20008CC83 /* DataProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
