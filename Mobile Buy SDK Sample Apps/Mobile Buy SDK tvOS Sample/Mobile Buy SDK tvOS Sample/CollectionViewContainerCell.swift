@@ -29,5 +29,9 @@ import UIKit
 class CollectionViewContainerCell: UICollectionViewCell {
     
     static let reuseIdentifier = "CollectionViewContainerCell"
+    @IBOutlet weak var titleLabel: UILabel!
     
+    func configure(title: String) {
+        self.titleLabel.text = title
+    }
 }
