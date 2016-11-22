@@ -17,6 +17,7 @@
 		B89C34451DE49F3400E88C6A /* CollectionViewContainerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C34441DE49F3400E88C6A /* CollectionViewContainerCell.swift */; };
 		B89C344B1DE5DDC600E88C6A /* Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C344A1DE5DDC600E88C6A /* Collections.swift */; };
 		B89C34511DE5DDD100E88C6A /* Products.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C34501DE5DDD100E88C6A /* Products.swift */; };
+		B89C34471DE4C59100E88C6A /* ProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C34461DE4C59100E88C6A /* ProductCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,7 @@
 		B89C34441DE49F3400E88C6A /* CollectionViewContainerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewContainerCell.swift; sourceTree = "<group>"; };
 		B89C344A1DE5DDC600E88C6A /* Collections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Collections.swift; sourceTree = "<group>"; };
 		B89C34501DE5DDD100E88C6A /* Products.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Products.swift; sourceTree = "<group>"; };
+		B89C34461DE4C59100E88C6A /* ProductCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 				B89C34441DE49F3400E88C6A /* CollectionViewContainerCell.swift */,
 				B89C344A1DE5DDC600E88C6A /* Collections.swift */,
 				B89C34501DE5DDD100E88C6A /* Products.swift */,
+				B89C34461DE4C59100E88C6A /* ProductCollectionViewCell.swift */,
 			);
 			path = "Mobile Buy SDK tvOS Sample";
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 			files = (
 				B8627DC51DDDFC8A00327C18 /* ViewController.swift in Sources */,
 				B8627DC31DDDFC8A00327C18 /* AppDelegate.swift in Sources */,
+				B89C34471DE4C59100E88C6A /* ProductCollectionViewCell.swift in Sources */,
 				B89C34451DE49F3400E88C6A /* CollectionViewContainerCell.swift in Sources */,
 				B89C34511DE5DDD100E88C6A /* Products.swift in Sources */,
 				B88FA0631DE36FA20008CC83 /* DataProvider.swift in Sources */,
