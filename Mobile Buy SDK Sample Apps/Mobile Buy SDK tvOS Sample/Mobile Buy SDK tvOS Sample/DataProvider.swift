@@ -27,11 +27,6 @@
 import Foundation
 import Buy
 
-public protocol DataProviderDelegate: class {
-    func dataProviderDidFinishDownloadingCollections(_dataProvider: DataProvider, collections: Array<BUYCollection>)
-    func dataProviderDidFinishDownloadingProducts(_dataProvider: DataProvider, collection: NSNumber, products: Array<BUYProduct>)
-}
-
 protocol DataProviderSetter: class {
     var dataProvider: DataProvider!{get set}
 }
@@ -39,45 +34,42 @@ protocol DataProviderSetter: class {
 public class DataProvider {
     
     private(set) var client : BUYClient!
-    weak var delegate: DataProviderDelegate?
     
     var collections: [BUYCollection] = []
-    var products: [NSNumber: Array<BUYProduct>] = [:]
+    var products: [NSNumber: [BUYProduct]] = [:]
     
     public required init(client: BUYClient) {
         self.client = client
     }
     
-    public func getCollections() {
+    public func getCollections(completion: @escaping ([BUYCollection]) -> Void) -> Operation {
         if self.collections.count > 0 {
-            self.delegate?.dataProviderDidFinishDownloadingCollections(_dataProvider: self, collections: self.collections)
-        } else {
-            self.downloadCollections()
+            completion(self.collections)
         }
+        return self.downloadCollections(completion: completion)
     }
-    
-    public func getProducts(collection: BUYCollection) {
+
+    public func getProducts(collection: BUYCollection, completion: @escaping ([BUYProduct]) -> Void) -> Operation {
         let identifier = collection.identifier as NSNumber
         let collectionProducts = products[identifier]
         
         if (collectionProducts?.count)! > 0 {
-            self.delegate?.dataProviderDidFinishDownloadingProducts(_dataProvider: self, collection: identifier, products: collectionProducts!)
-        } else {
-            self.downloadProducts(collection: identifier)
+            completion(collectionProducts!)
         }
+        return self.downloadProducts(collection: identifier, completion:completion)
     }
     
-    private func downloadCollections() {
-        self.client.getCollectionsPage(1) { [weak self] (collections, page, reachedEnd, error) in
+    private func downloadCollections(completion: @escaping([BUYCollection]) -> Void) -> Operation {
+        return self.client.getCollectionsPage(1) { [weak self] (collections, page, reachedEnd, error) in
             self?.collections = collections!
-            self?.delegate?.dataProviderDidFinishDownloadingCollections(_dataProvider: self!, collections: collections!)
+            completion(collections!)
         }
     }
     
-    private func downloadProducts(collection: NSNumber) {
-        self.client.getProductsPage(1, inCollection: collection) { [weak self] (products, page, reachedEnd, error) in
+    private func downloadProducts(collection: NSNumber, completion: @escaping([BUYProduct]) -> Void) -> Operation {
+        return self.client.getProductsPage(1, inCollection: collection) { [weak self] (products, page, reachedEnd, error) in
             self?.products[collection] = products
-            self?.delegate?.dataProviderDidFinishDownloadingProducts(_dataProvider: self!, collection: collection, products: products!)
+            completion(products!)
         }
     }
 }

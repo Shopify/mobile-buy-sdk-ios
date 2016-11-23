@@ -25,19 +25,17 @@
 //
 
 import UIKit
-import Buy
 
 class ViewController: UIViewController, DataProviderSetter {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var collections: Array<BUYCollection> = []
+    var collections: Collections!
     var dataProvider: DataProvider!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.dataProvider.delegate = self
-        self.dataProvider.getCollections()
+        self.collections = Collections(collectionView: self.collectionView, dataProvider: self.dataProvider)
     }
     
     // this function is just here to demonstrate focus for the collection view
@@ -51,17 +49,6 @@ class ViewController: UIViewController, DataProviderSetter {
     }
 }
 
-extension ViewController: DataProviderDelegate {
-    
-    func dataProviderDidFinishDownloadingCollections(_dataProvider: DataProvider, collections: Array<BUYCollection>) {
-        self.collections = collections
-        self.collectionView.reloadData()
-    }
-    
-    func dataProviderDidFinishDownloadingProducts(_dataProvider: DataProvider, collection: NSNumber, products: Array<BUYProduct>) {
-    }
-}
-
 extension ViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -71,7 +58,7 @@ extension ViewController: UICollectionViewDataSource {
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return self.collections.count
+        return self.collections.count()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
