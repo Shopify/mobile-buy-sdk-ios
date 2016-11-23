@@ -27,11 +27,10 @@
 import Foundation
 import Buy
 
-class Products {
+class Products: BaseOperation {
     
     private var collection: BUYCollection?
     private var products: [BUYProduct] = []
-    private var productsOperation: Operation?
     
     weak var collectionView: UICollectionView!
  
@@ -46,14 +45,11 @@ class Products {
         return self.products.count
     }
     
-    func stopOperation() {
-        self.productsOperation?.cancel()
-    }
-    
     private func getProducts (collection: BUYCollection) {
-        self.productsOperation = self.dataProvider.getProducts(collection: collection) { (products) in
+        let operation = self.dataProvider.getProducts(collection: collection) { (products) in
             self.products = products
             self.collectionView.reloadData()
         }
+        self.setCurrentOperation(operation: operation)
     }
 }

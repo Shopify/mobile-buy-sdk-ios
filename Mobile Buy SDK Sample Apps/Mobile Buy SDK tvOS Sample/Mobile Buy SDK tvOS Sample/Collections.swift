@@ -27,10 +27,9 @@
 import Foundation
 import Buy
 
-class Collections: NSObject {
+class Collections: BaseOperation {
     
     fileprivate var collections: [BUYCollection] = []
-    private var collectionOperation: Operation?
 
     var dataProvider: DataProvider!
     
@@ -40,10 +39,11 @@ class Collections: NSObject {
     }
     
     func getCollections(completion: @escaping () -> Void) {
-        self.collectionOperation = self.dataProvider.getCollections { (collections) in
+        let operation = self.dataProvider.getCollections { (collections) in
             self.collections = collections
             completion()
         }
+        self.setCurrentOperation(operation: operation)
     }
 }
 
