@@ -35,24 +35,10 @@ class ViewController: UIViewController, DataProviderSetter {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.collections = Collections(collectionView: self.collectionView, dataProvider: self.dataProvider)
-    }
-}
-
-extension ViewController: UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewContainerCell.reuseIdentifier, for: indexPath) as? CollectionViewContainerCell
-        let collection = self.collections[indexPath.section] as BUYCollection
-        cell?.configure(title: collection.title)
-        return cell!
-    }
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return self.collections.count()
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        self.collections = Collections(dataProvider: self.dataProvider)
+        self.collectionView.dataSource = self.collections
+        self.collections.getCollections { 
+            self.collectionView.reloadData()
+        }
     }
 }
