@@ -27,29 +27,40 @@
 import Foundation
 import Buy
 
-class Collections {
+class Collections: NSObject {
     
-    private var collections: [BUYCollection] = []
+    fileprivate var collections: [BUYCollection] = []
     private var collectionOperation: Operation?
-    
-    weak var collectionView: UICollectionView!
+
     var dataProvider: DataProvider!
     
-    public init(collectionView: UICollectionView, dataProvider: DataProvider) {
-        self.collectionView = collectionView
+    init(dataProvider: DataProvider) {
+        super.init()
         self.dataProvider = dataProvider
-        
-        getCollections()
     }
     
-    func count() -> Int {
+    func getCollections(completion: @escaping () -> Void) {
+        self.collectionOperation = self.dataProvider.getCollections { (collections) in
+            self.collections = collections
+            completion()
+        }
+    }
+}
+
+extension Collections: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewContainerCell.reuseIdentifier, for: indexPath) as? CollectionViewContainerCell
+        let collection = self.collections[indexPath.section] as BUYCollection
+        cell?.configure(title: collection.title)
+        return cell!
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return self.collections.count
     }
     
-    private func getCollections() {
-        self.collectionOperation = self.dataProvider.getCollections { [weak self] (collections) in
-            self?.collections = collections
-            self?.collectionView.reloadData()
-        }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
     }
 }
