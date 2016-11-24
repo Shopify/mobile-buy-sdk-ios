@@ -33,7 +33,14 @@ class CollectionViewContainerCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    func configure(title: String) {
+    var products: ProductsViewModel!
+
+    func configure(viewModel: ProductsViewModel, title: String) {
+        self.products = viewModel
+        self.collectionView.dataSource = self.products
         self.titleLabel.text = title
+        self.products.getProducts {
+            self.collectionView.reloadData()
+        }
     }
 }

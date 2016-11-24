@@ -51,7 +51,8 @@ extension CollectionsViewModel: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewContainerCell.reuseIdentifier, for: indexPath) as? CollectionViewContainerCell
         let collection = self.collections[indexPath.section] as BUYCollection
-        cell?.configure(title: collection.title)
+        let productsViewModel = ProductsViewModel(collection: collection, dataProvider: self.dataProvider)
+        cell?.configure(viewModel: productsViewModel, title: collection.title)
         return cell!
     }
     
