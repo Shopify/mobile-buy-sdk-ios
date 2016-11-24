@@ -51,10 +51,9 @@ public class DataProvider {
 
     public func getProducts(collection: BUYCollection, completion: @escaping ([BUYProduct]) -> Void) -> Operation {
         let identifier = collection.identifier as NSNumber
-        let collectionProducts = products[identifier]
         
-        if (collectionProducts?.count)! > 0 {
-            completion(collectionProducts!)
+        if let collectionProducts = products[identifier] {
+            completion(collectionProducts)
         }
         return self.downloadProducts(collection: identifier, completion:completion)
     }

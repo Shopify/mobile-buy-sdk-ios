@@ -64,7 +64,7 @@ extension ProductsViewModel: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionViewCell.reuseIdentifier, for: indexPath) as? ProductCollectionViewCell
         let product = self.products[indexPath.row] as BUYProduct
-        cell?.configure(product: product)
+        cell?.configure(title: product.title)
         return cell!
     }
 }
