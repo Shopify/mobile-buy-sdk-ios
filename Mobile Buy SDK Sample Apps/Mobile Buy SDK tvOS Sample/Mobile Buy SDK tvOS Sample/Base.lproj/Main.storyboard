@@ -55,7 +55,7 @@
                                                         <inset key="sectionInset" minX="50" minY="0.0" maxX="50" maxY="0.0"/>
                                                     </collectionViewFlowLayout>
                                                     <cells>
-                                                        <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="" id="smx-ww-K6h">
+                                                        <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProductCollectionViewCell" id="smx-ww-K6h" customClass="ProductCollectionViewCell" customModule="Mobile_Buy_SDK_tvOS_Sample_App" customModuleProvider="target">
                                                             <rect key="frame" x="50" y="11" width="250" height="300"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -77,8 +77,8 @@
                                                                 </subviews>
                                                             </view>
                                                             <connections>
-                                                                <outlet property="imageView" destination="g4J-FO-cjw" id="maf-VF-HTk"/>
-                                                                <outlet property="label" destination="DbE-i5-3Us" id="hZM-iF-XGQ"/>
+                                                                <outlet property="productImage" destination="g4J-FO-cjw" id="Acl-ke-XVS"/>
+                                                                <outlet property="productTitleLabel" destination="DbE-i5-3Us" id="S0r-sr-TQT"/>
                                                             </connections>
                                                         </collectionViewCell>
                                                     </cells>
