@@ -28,4 +28,40 @@ import UIKit
 
 class ProductCollectionViewCell: UICollectionViewCell {
     
+    static let reuseIdentifier = "ProductCollectionViewCell"
+    
+    @IBOutlet weak var productImage: UIImageView!
+    @IBOutlet weak var productTitleLabel: UILabel!
+    
+    override func awakeFromNib() {
+        self.productImage.adjustsImageWhenAncestorFocused = true
+        self.productImage.clipsToBounds = false
+        
+        self.productTitleLabel.alpha = 0
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.productTitleLabel.alpha = 0
+    }
+    
+    func configure(title: String) {
+        self.productTitleLabel.text = title
+    }
+    
+    override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+        /*
+         Update the label's alpha value using the `UIFocusAnimationCoordinator`.
+         This will ensure all animations run alongside each other when the focus
+         changes.
+         */
+        coordinator.addCoordinatedAnimations({
+            if self.isFocused {
+                self.productTitleLabel.alpha = 1.0
+            }
+            else {
+                self.productTitleLabel.alpha = 0.0
+            }
+        }, completion: nil)
+    }
 }
