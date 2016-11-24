@@ -29,8 +29,8 @@ import Buy
 
 class Products: BaseOperation {
     
-    private var collection: BUYCollection?
-    private var products: [BUYProduct] = []
+    private var collection: BUYCollection!
+    fileprivate var products: [BUYProduct] = []
     
     weak var collectionView: UICollectionView!
  
@@ -41,15 +41,30 @@ class Products: BaseOperation {
         self.dataProvider = dataProvider
     }
     
-    func count() -> Int {
+    func getProducts (completion: @escaping () -> Void) {
+        let operation = self.dataProvider.getProducts(collection: self.collection) { (products) in
+            self.products = products
+            completion()
+        }
+        self.setCurrentOperation(operation: operation)
+    }
+}
+
+
+extension Products: UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.products.count
     }
     
-    private func getProducts (collection: BUYCollection) {
-        let operation = self.dataProvider.getProducts(collection: collection) { (products) in
-            self.products = products
-            self.collectionView.reloadData()
-        }
-        self.setCurrentOperation(operation: operation)
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionViewCell.reuseIdentifier, for: indexPath) as? ProductCollectionViewCell
+        let product = self.products[indexPath.row] as BUYProduct
+        cell?.configure(product: product)
+        return cell!
     }
 }
