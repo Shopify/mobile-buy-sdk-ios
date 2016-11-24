@@ -1,5 +1,5 @@
 //
-//  Collections.swift
+//  ProductsViewModel.swift
 //  Mobile Buy SDK tvOS Sample App
 //
 //  Created by Shopify.
@@ -27,40 +27,44 @@
 import Foundation
 import Buy
 
-class Collections: BaseOperation {
+class ProductsViewModel: BaseOperation {
     
-    fileprivate var collections: [BUYCollection] = []
-
+    private var collection: BUYCollection!
+    fileprivate var products: [BUYProduct] = []
+    
+    weak var collectionView: UICollectionView!
+ 
     var dataProvider: DataProvider!
     
-    init(dataProvider: DataProvider) {
-        super.init()
+    init(collection: BUYCollection, dataProvider: DataProvider) {
+        self.collection = collection
         self.dataProvider = dataProvider
     }
     
-    func getCollections(completion: @escaping () -> Void) {
-        let operation = self.dataProvider.getCollections { (collections) in
-            self.collections = collections
+    func getProducts (completion: @escaping () -> Void) {
+        let operation = self.dataProvider.getProducts(collection: self.collection) { (products) in
+            self.products = products
             completion()
         }
         self.setCurrentOperation(operation: operation)
     }
 }
 
-extension Collections: UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewContainerCell.reuseIdentifier, for: indexPath) as? CollectionViewContainerCell
-        let collection = self.collections[indexPath.section] as BUYCollection
-        cell?.configure(title: collection.title)
-        return cell!
-    }
+
+extension ProductsViewModel: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return self.collections.count
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return self.products.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionViewCell.reuseIdentifier, for: indexPath) as? ProductCollectionViewCell
+        let product = self.products[indexPath.row] as BUYProduct
+        cell?.configure(product: product)
+        return cell!
     }
 }
