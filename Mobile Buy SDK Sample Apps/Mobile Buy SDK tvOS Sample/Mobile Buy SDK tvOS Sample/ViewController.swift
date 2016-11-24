@@ -30,12 +30,12 @@ class ViewController: UIViewController, DataProviderSetter {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var collections: Collections!
+    var collections: CollectionsViewModel!
     var dataProvider: DataProvider!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.collections = Collections(dataProvider: self.dataProvider)
+        self.collections = CollectionsViewModel(dataProvider: self.dataProvider)
         self.collectionView.dataSource = self.collections
         self.collections.getCollections { 
             self.collectionView.reloadData()
