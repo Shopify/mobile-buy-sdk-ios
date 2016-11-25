@@ -66,6 +66,8 @@ extension ProductsViewModel: UICollectionViewDataSource {
         let product = self.products[indexPath.row] as BUYProduct
         if product.imagesArray().count > 0 {
             cell?.productImage.load(product.imagesArray().first, animateChange: true, completion: nil)
+        } else {
+            cell?.productImage.image = UIImage(named: "Logo")
         }
         cell?.configure(title: product.title)
         return cell!
