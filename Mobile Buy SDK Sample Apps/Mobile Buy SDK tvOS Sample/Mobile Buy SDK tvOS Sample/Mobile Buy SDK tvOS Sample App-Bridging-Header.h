@@ -1,6 +1,6 @@
 //
-//  ProductCollectionViewCell.swift
-//  Mobile Buy SDK tvOS Sample App
+//  Mobile Buy SDK tvOS Sample App-Bridging-Header.h
+//  Mobile Buy SDK
 //
 //  Created by Shopify.
 //  Copyright (c) 2016 Shopify Inc. All rights reserved.
@@ -24,34 +24,4 @@
 //  THE SOFTWARE.
 //
 
-import UIKit
-
-class ProductCollectionViewCell: UICollectionViewCell {
-    
-    static let reuseIdentifier = "ProductCollectionViewCell"
-    
-    @IBOutlet weak var productImage: AsyncImageView!
-    @IBOutlet weak var productTitleLabel: UILabel!
-    
-    override func awakeFromNib() {
-        self.productImage.adjustsImageWhenAncestorFocused = true
-        self.productImage.clipsToBounds = false
-        
-        self.productTitleLabel.alpha = 0
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        self.productTitleLabel.alpha = 0
-    }
-    
-    func configure(title: String) {
-        self.productTitleLabel.text = title
-    }
-    
-    override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
-        coordinator.addCoordinatedAnimations({
-            self.productTitleLabel.alpha = self.isFocused ? 1.0 : 0.0
-        }, completion: nil)
-    }
-}
+#import "AsyncImageView.h"
