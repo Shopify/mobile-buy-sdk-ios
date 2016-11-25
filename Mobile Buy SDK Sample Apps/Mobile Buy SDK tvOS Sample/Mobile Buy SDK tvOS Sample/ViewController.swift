@@ -28,18 +28,40 @@ import UIKit
 
 class ViewController: UIViewController, DataProviderSetter {
     
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    var collections: Collections!
     var dataProvider: DataProvider!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        self.collections = Collections(collectionView: self.collectionView, dataProvider: self.dataProvider)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    // this function is just here to demonstrate focus for the collection view
+    // will remove once product cells are in this
+    func getRandomColor() -> UIColor {
+        let randomRed: CGFloat = CGFloat(drand48())
+        let randomGreen: CGFloat = CGFloat(drand48())
+        let randomBlue: CGFloat = CGFloat(drand48())
+        
+        return UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1.0)
     }
-
-
 }
 
+extension ViewController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewContainerCell.reuseIdentifier, for: indexPath)
+        cell.backgroundColor = self.getRandomColor()
+        return cell
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return self.collections.count()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+}
