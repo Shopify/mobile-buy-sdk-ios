@@ -43,6 +43,8 @@ class ProductCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.productTitleLabel.alpha = 0
+        self.productImage.cancelImageTask()
+        self.productImage.image = nil
     }
     
     func configure(title: String) {
