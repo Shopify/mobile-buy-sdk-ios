@@ -35,11 +35,19 @@ public class DataProvider {
     
     private(set) var client : BUYClient!
     
+    var shop: BUYShop
     var collections: [BUYCollection] = []
     var products: [NSNumber: [BUYProduct]] = [:]
     
     public required init(client: BUYClient) {
         self.client = client
+        self.shop = BUYShop()
+    }
+    
+    private func updateShop() {
+        self.client.getShop {(shop, error) in
+            self.shop = shop!
+        }
     }
     
     public func getCollections(completion: @escaping ([BUYCollection]) -> Void) -> Operation {
@@ -56,6 +64,13 @@ public class DataProvider {
             completion(collectionProducts)
         }
         return self.downloadProducts(collection: identifier, completion:completion)
+    }
+    
+    public func getCurrencyFormatter() -> NumberFormatter {
+        let currencyFormatter = NumberFormatter()
+        currencyFormatter.numberStyle = NumberFormatter.Style.currency
+        currencyFormatter.currencyCode = self.shop.currency
+        return currencyFormatter
     }
     
     private func downloadCollections(completion: @escaping([BUYCollection]) -> Void) -> Operation {
