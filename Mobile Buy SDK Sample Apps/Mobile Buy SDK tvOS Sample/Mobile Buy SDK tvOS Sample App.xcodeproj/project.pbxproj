@@ -19,6 +19,8 @@
 		B89C344B1DE5DDC600E88C6A /* CollectionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C344A1DE5DDC600E88C6A /* CollectionsViewModel.swift */; };
 		B89C34511DE5DDD100E88C6A /* ProductsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C34501DE5DDD100E88C6A /* ProductsViewModel.swift */; };
 		B89C34581DE633CF00E88C6A /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C34571DE633CF00E88C6A /* BaseViewModel.swift */; };
+		B89C34581DE633CF00E88C6A /* BaseOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C34571DE633CF00E88C6A /* BaseOperation.swift */; };
+		B89C346A1DE88DF100E88C6A /* AsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B89C34691DE88DF100E88C6A /* AsyncImageView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +82,10 @@
 		B89C344A1DE5DDC600E88C6A /* CollectionsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionsViewModel.swift; sourceTree = "<group>"; };
 		B89C34501DE5DDD100E88C6A /* ProductsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsViewModel.swift; sourceTree = "<group>"; };
 		B89C34571DE633CF00E88C6A /* BaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		B89C34571DE633CF00E88C6A /* BaseOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseOperation.swift; sourceTree = "<group>"; };
+		B89C34671DE88DF100E88C6A /* Mobile Buy SDK tvOS Sample App-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mobile Buy SDK tvOS Sample App-Bridging-Header.h"; sourceTree = "<group>"; };
+		B89C34681DE88DF100E88C6A /* AsyncImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncImageView.h; sourceTree = "<group>"; };
+		B89C34691DE88DF100E88C6A /* AsyncImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncImageView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +120,8 @@
 		B8627DC11DDDFC8A00327C18 /* Mobile Buy SDK tvOS Sample */ = {
 			isa = PBXGroup;
 			children = (
+				B89C34681DE88DF100E88C6A /* AsyncImageView.h */,
+				B89C34691DE88DF100E88C6A /* AsyncImageView.m */,
 				B8627DC21DDDFC8A00327C18 /* AppDelegate.swift */,
 				B8627DC41DDDFC8A00327C18 /* ViewController.swift */,
 				B8627DC61DDDFC8A00327C18 /* Main.storyboard */,
@@ -125,6 +133,8 @@
 				B89C34501DE5DDD100E88C6A /* ProductsViewModel.swift */,
 				B89C34461DE4C59100E88C6A /* ProductCollectionViewCell.swift */,
 				B89C34571DE633CF00E88C6A /* BaseViewModel.swift */,
+				B89C34571DE633CF00E88C6A /* BaseOperation.swift */,
+				B89C34671DE88DF100E88C6A /* Mobile Buy SDK tvOS Sample App-Bridging-Header.h */,
 			);
 			path = "Mobile Buy SDK tvOS Sample";
 			sourceTree = "<group>";
@@ -173,6 +183,7 @@
 				TargetAttributes = {
 					B8627DBE1DDDFC8A00327C18 = {
 						CreatedOnToolsVersion = 8.1;
+						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -243,6 +254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8627DC51DDDFC8A00327C18 /* ViewController.swift in Sources */,
+				B89C346A1DE88DF100E88C6A /* AsyncImageView.m in Sources */,
 				B8627DC31DDDFC8A00327C18 /* AppDelegate.swift in Sources */,
 				B89C34471DE4C59100E88C6A /* ProductCollectionViewCell.swift in Sources */,
 				B89C34451DE49F3400E88C6A /* CollectionViewContainerCell.swift in Sources */,
@@ -371,10 +383,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "Mobile Buy SDK tvOS Sample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.Mobile-Buy-SDK-tvOS-Sample";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Mobile Buy SDK tvOS Sample/Mobile Buy SDK tvOS Sample App-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -384,10 +399,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "Mobile Buy SDK tvOS Sample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.Mobile-Buy-SDK-tvOS-Sample";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Mobile Buy SDK tvOS Sample/Mobile Buy SDK tvOS Sample App-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
