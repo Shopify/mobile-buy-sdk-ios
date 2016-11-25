@@ -42,3 +42,10 @@ class ViewController: UIViewController, DataProviderSetter {
         }
     }
 }
+
+extension ViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, canFocusItemAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+}
