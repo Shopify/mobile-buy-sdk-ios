@@ -69,6 +69,7 @@ extension ProductsViewModel: UICollectionViewDataSource {
         } else {
             cell?.productImage.image = UIImage(named: "Logo")
         }
+        cell?.productImage.backgroundColor = UIColor.clear
         cell?.configure(title: product.title)
         return cell!
     }
