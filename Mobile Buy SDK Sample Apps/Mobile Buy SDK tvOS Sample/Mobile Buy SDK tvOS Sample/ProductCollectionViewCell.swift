@@ -45,6 +45,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
         self.productTitleLabel.alpha = 0
         self.productImage.cancelImageTask()
         self.productImage.image = nil
+        self.productImage.backgroundColor = UIColor.gray
     }
     
     func configure(title: String) {
