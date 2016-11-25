@@ -30,7 +30,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier = "ProductCollectionViewCell"
     
-    @IBOutlet weak var productImage: UIImageView!
+    @IBOutlet weak var productImage: AsyncImageView!
     @IBOutlet weak var productTitleLabel: UILabel!
     
     override func awakeFromNib() {

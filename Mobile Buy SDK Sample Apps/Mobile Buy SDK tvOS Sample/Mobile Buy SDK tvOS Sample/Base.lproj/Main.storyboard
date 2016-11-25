@@ -62,7 +62,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="250" height="300"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <imageView opaque="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFill" fixedFrame="YES" adjustsImageWhenAncestorFocused="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g4J-FO-cjw">
+                                                                    <imageView opaque="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFill" fixedFrame="YES" adjustsImageWhenAncestorFocused="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g4J-FO-cjw" customClass="AsyncImageView">
                                                                         <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -77,7 +77,7 @@
                                                                 </subviews>
                                                             </view>
                                                             <connections>
-                                                                <outlet property="productImage" destination="g4J-FO-cjw" id="Acl-ke-XVS"/>
+                                                                <outlet property="productImage" destination="g4J-FO-cjw" id="128-FK-zh9"/>
                                                                 <outlet property="productTitleLabel" destination="DbE-i5-3Us" id="S0r-sr-TQT"/>
                                                             </connections>
                                                         </collectionViewCell>
