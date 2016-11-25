@@ -32,29 +32,34 @@ class ProductCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var productImage: AsyncImageView!
     @IBOutlet weak var productTitleLabel: UILabel!
+    @IBOutlet weak var productPriceLabel: UILabel!
     
     override func awakeFromNib() {
         self.productImage.adjustsImageWhenAncestorFocused = true
         self.productImage.clipsToBounds = false
         
         self.productTitleLabel.alpha = 0
+        self.productPriceLabel.alpha = 0
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         self.productTitleLabel.alpha = 0
+        self.productPriceLabel.alpha = 0
         self.productImage.cancelImageTask()
         self.productImage.image = nil
         self.productImage.backgroundColor = UIColor.gray
     }
     
-    func configure(title: String) {
+    func configure(price: String, title: String) {
+        self.productPriceLabel.text = price
         self.productTitleLabel.text = title
     }
     
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         coordinator.addCoordinatedAnimations({
-            self.productTitleLabel.alpha = self.isFocused ? 1.0 : 0.0
+        	self.productTitleLabel.alpha = self.isFocused ? 1.0 : 0.0
+        	self.productPriceLabel.alpha = self.isFocused ? 1.0 : 0.0
         }, completion: nil)
     }
 }
