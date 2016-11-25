@@ -69,8 +69,9 @@ extension ProductsViewModel: UICollectionViewDataSource {
         } else {
             cell?.productImage.image = UIImage(named: "Logo")
         }
+        let priceString = String(format: "%@", self.dataProvider.getCurrencyFormatter().string(from: product.minimumPrice)!)
         cell?.productImage.backgroundColor = UIColor.clear
-        cell?.configure(title: product.title)
+        cell?.configure(price: priceString, title: product.title)
         return cell!
     }
 }
