@@ -144,7 +144,15 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xKp-Oh-FI7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2137" y="88"/>
+            <point key="canvasLocation" x="2131" y="70"/>
+        </scene>
+        <!--Page View Controller-->
+        <scene sceneID="dBc-Hd-cms">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="2KV-Te-QMO" customClass="PageViewController" customModule="Mobile_Buy_SDK_tvOS_Sample_App" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yt8-qA-I94" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4193" y="70"/>
         </scene>
     </scenes>
     <resources>
