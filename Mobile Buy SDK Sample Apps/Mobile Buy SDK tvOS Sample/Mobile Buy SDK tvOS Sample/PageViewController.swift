@@ -25,3 +25,7 @@
 //
 
 import Foundation
+
+class PageViewController: UIPageViewController {
+    
+}
