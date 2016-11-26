@@ -25,3 +25,7 @@
 //
 
 import Foundation
+
+class ProductImageViewController: UIViewController {
+    
+}
