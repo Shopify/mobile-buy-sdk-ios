@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="tvOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -116,6 +117,34 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+        </scene>
+        <!--Product Image View Controller-->
+        <scene sceneID="bRr-hp-2nz">
+            <objects>
+                <viewController id="YaX-At-aOl" customClass="ProductImageViewController" customModule="Mobile_Buy_SDK_tvOS_Sample_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="t0B-6v-JqA"/>
+                        <viewControllerLayoutGuide type="bottom" id="dcC-dV-6NC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qA5-rN-aov">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ukO-xJ-tLo" customClass="AsyncImageView">
+                                <rect key="frame" x="0.0" y="0.0" width="1940" height="1080"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ukO-xJ-tLo" secondAttribute="trailing" constant="-20" id="C9l-AM-YB9"/>
+                            <constraint firstItem="ukO-xJ-tLo" firstAttribute="top" secondItem="t0B-6v-JqA" secondAttribute="bottom" id="OFg-LG-UCf"/>
+                            <constraint firstItem="dcC-dV-6NC" firstAttribute="top" secondItem="ukO-xJ-tLo" secondAttribute="bottom" id="WBi-mw-5sW"/>
+                            <constraint firstItem="ukO-xJ-tLo" firstAttribute="leading" secondItem="qA5-rN-aov" secondAttribute="leadingMargin" constant="-20" id="tHF-nM-uvw"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xKp-Oh-FI7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2137" y="88"/>
         </scene>
     </scenes>
     <resources>
