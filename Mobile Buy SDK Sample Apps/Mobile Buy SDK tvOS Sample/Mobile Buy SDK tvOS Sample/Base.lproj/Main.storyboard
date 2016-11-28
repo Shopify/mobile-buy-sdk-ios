@@ -63,7 +63,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="200" height="410"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <imageView opaque="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFill" fixedFrame="YES" adjustsImageWhenAncestorFocused="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g4J-FO-cjw" customClass="AsyncImageView">
+                                                                    <imageView opaque="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFill" fixedFrame="YES" image="Placeholder" adjustsImageWhenAncestorFocused="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g4J-FO-cjw" customClass="AsyncImageView">
                                                                         <rect key="frame" x="0.0" y="0.0" width="200" height="298"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -79,7 +79,7 @@
                                                                         <rect key="frame" x="0.0" y="390" width="200" height="21"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                                                        <color key="textColor" red="0.64284348487854004" green="0.82591694593429565" blue="0.31947064399719238" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="textColor" red="0.72540017326636941" green="0.92726133045206216" blue="0.36671949236509788" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                 </subviews>
@@ -165,5 +165,6 @@
     </scenes>
     <resources>
         <image name="Logo" width="1000" height="285"/>
+        <image name="Placeholder" width="200" height="298"/>
     </resources>
 </document>
