@@ -46,6 +46,29 @@ class ViewController: UIViewController, DataProviderSetter {
 extension ViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, canFocusItemAt indexPath: IndexPath) -> Bool {
+        if collectionView != self.collectionView {
+            return true
+        }
         return false
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView != self.collectionView {
+            let cell = collectionView.cellForItem(at: indexPath) as! ProductCollectionViewCell
+            if cell.productItem.productImages.count > 0 {
+                let pageViewController = PageViewController(product: cell.productItem)
+                self.present(pageViewController, animated: true, completion: nil)
+            } else {
+                let title = "Oops!"
+                let message = "Looks like this product has no images"
+                let acceptButtonTitle = NSLocalizedString("OK", comment: "")
+                let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                let okayAction = UIAlertAction(title: acceptButtonTitle, style: .default, handler: nil)
+                alertController.addAction(okayAction)
+                
+                present(alertController, animated: true, completion: nil)
+
+            }
+        }
     }
 }
