@@ -1,5 +1,5 @@
 //
-//  BaseOperation.swift
+//  ProductImageViewController.swift
 //  Mobile Buy SDK tvOS Sample App
 //
 //  Created by Shopify.
@@ -26,15 +26,15 @@
 
 import Foundation
 
-class BaseOperation: NSObject {
+class ProductImageViewController: UIViewController {
     
-    private var operation: Operation!
+    static let identifier = "ProductImageViewController"
     
-    func setCurrentOperation(operation: Operation) {
-        if self.operation != nil {
-            self.operation.cancel()
-        }
-        
-        self.operation = operation
+    @IBOutlet weak var productImageView: AsyncImageView!
+    
+    var imageItem: ImageItem!
+    
+    func configure(imageItem: ImageItem) {
+        self.imageItem = imageItem
     }
 }

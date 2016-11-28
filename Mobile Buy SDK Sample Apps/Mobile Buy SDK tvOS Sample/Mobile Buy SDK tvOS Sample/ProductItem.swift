@@ -1,5 +1,5 @@
 //
-//  BaseOperation.swift
+//  ProductItem.swift
 //  Mobile Buy SDK tvOS Sample App
 //
 //  Created by Shopify.
@@ -25,16 +25,13 @@
 //
 
 import Foundation
+import Buy
 
-class BaseOperation: NSObject {
+class ProductItem: NSObject {
     
-    private var operation: Operation!
+    var productImages = [BUYImageLink]()
     
-    func setCurrentOperation(operation: Operation) {
-        if self.operation != nil {
-            self.operation.cancel()
-        }
-        
-        self.operation = operation
+    required init(images:[BUYImageLink]) {
+        self.productImages = images
     }
 }
