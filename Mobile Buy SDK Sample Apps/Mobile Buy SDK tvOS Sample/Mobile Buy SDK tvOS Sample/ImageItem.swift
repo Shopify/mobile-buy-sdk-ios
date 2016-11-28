@@ -1,5 +1,5 @@
 //
-//  PageViewController.swift
+//  ImageItem.swift
 //  Mobile Buy SDK tvOS Sample App
 //
 //  Created by Shopify.
@@ -25,7 +25,14 @@
 //
 
 import Foundation
+import Buy
 
-class PageViewController: UIPageViewController {
+class ImageItem: NSObject {
     
+    var imageLink: BUYImageLink!
+    
+    required init(image: BUYImageLink) {
+        self.imageLink = image
+    }
+
 }
