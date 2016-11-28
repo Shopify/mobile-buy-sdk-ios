@@ -89,7 +89,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource {
     
     private func indexOfImageItem(forViewController viewController: UIViewController) -> Int {
         guard let viewController = viewController as? ProductImageViewController else { fatalError("Unexpected view controller type in page view controller.") }
-        guard let viewControllerIndex = productImages.index(of: viewController.imageItem.imageLink) else { fatalError("View controller's data item not found.") }
+        guard let viewControllerIndex = productImages.index(of: viewController.imageItem.imageLink) else { fatalError("View controller's image item not found.") }
         
         return viewControllerIndex
     }
