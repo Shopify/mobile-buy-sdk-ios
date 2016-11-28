@@ -1,5 +1,5 @@
 //
-//  ProductImageViewController.swift
+//  ProductItem.swift
 //  Mobile Buy SDK tvOS Sample App
 //
 //  Created by Shopify.
@@ -25,16 +25,13 @@
 //
 
 import Foundation
+import Buy
 
-class ProductImageViewController: UIViewController {
+class ProductItem: NSObject {
     
-    static let identifier = "ProductImageViewController"
+    var productImages = [BUYImageLink]()
     
-    @IBOutlet weak var productImageView: AsyncImageView!
-    
-    var imageItem: ImageItem!
-    
-    func configure(imageItem: ImageItem) {
-        self.imageItem = imageItem
+    required init(images:[BUYImageLink]) {
+        self.productImages = images
     }
 }
