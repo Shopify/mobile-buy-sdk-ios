@@ -67,7 +67,7 @@ extension ProductsViewModel: UICollectionViewDataSource {
         if product.imagesArray().count > 0 {
             cell.productImage.load(product.imagesArray().first, animateChange: true, completion: nil)
         } else {
-            cell.productImage.image = UIImage(named: "Logo")
+            cell.productImage.image = UIImage(named: "Placeholder")
         }
         let productItem = ProductItem(images: product.imagesArray())
         let priceString = String(format: "%@", self.dataProvider.getCurrencyFormatter().string(from: product.minimumPrice)!)
