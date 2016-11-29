@@ -56,12 +56,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
          changes.
          */
         coordinator.addCoordinatedAnimations({
-            if self.isFocused {
-                self.productTitleLabel.alpha = 1.0
-            }
-            else {
-                self.productTitleLabel.alpha = 0.0
-            }
+            self.productTitleLabel.alpha = self.isFocused ? 1.0 : 0.0
         }, completion: nil)
     }
 }
