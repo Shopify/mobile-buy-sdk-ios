@@ -50,11 +50,6 @@ class ProductCollectionViewCell: UICollectionViewCell {
     }
     
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
-        /*
-         Update the label's alpha value using the `UIFocusAnimationCoordinator`.
-         This will ensure all animations run alongside each other when the focus
-         changes.
-         */
         coordinator.addCoordinatedAnimations({
             self.productTitleLabel.alpha = self.isFocused ? 1.0 : 0.0
         }, completion: nil)
