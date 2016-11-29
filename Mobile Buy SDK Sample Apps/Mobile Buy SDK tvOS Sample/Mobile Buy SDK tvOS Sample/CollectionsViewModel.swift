@@ -49,11 +49,11 @@ class CollectionsViewModel: BaseViewModel {
 extension CollectionsViewModel: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewContainerCell.reuseIdentifier, for: indexPath) as? CollectionViewContainerCell
-        let collection = self.collections[indexPath.section] as BUYCollection
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewContainerCell.reuseIdentifier, for: indexPath) as! CollectionViewContainerCell
+        let collection = self.collections[indexPath.section]
         let productsViewModel = ProductsViewModel(collection: collection, dataProvider: self.dataProvider)
-        cell?.configure(viewModel: productsViewModel, title: collection.title)
-        return cell!
+        cell.configure(viewModel: productsViewModel, title: collection.title)
+        return cell
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
