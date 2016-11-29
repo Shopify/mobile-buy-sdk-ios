@@ -18,7 +18,7 @@
 		B89C34471DE4C59100E88C6A /* ProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C34461DE4C59100E88C6A /* ProductCollectionViewCell.swift */; };
 		B89C344B1DE5DDC600E88C6A /* CollectionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C344A1DE5DDC600E88C6A /* CollectionsViewModel.swift */; };
 		B89C34511DE5DDD100E88C6A /* ProductsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C34501DE5DDD100E88C6A /* ProductsViewModel.swift */; };
-		B89C34581DE633CF00E88C6A /* BaseOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C34571DE633CF00E88C6A /* BaseOperation.swift */; };
+		B89C34581DE633CF00E88C6A /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C34571DE633CF00E88C6A /* BaseViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,7 +79,7 @@
 		B89C34461DE4C59100E88C6A /* ProductCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCollectionViewCell.swift; sourceTree = "<group>"; };
 		B89C344A1DE5DDC600E88C6A /* CollectionsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionsViewModel.swift; sourceTree = "<group>"; };
 		B89C34501DE5DDD100E88C6A /* ProductsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsViewModel.swift; sourceTree = "<group>"; };
-		B89C34571DE633CF00E88C6A /* BaseOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseOperation.swift; sourceTree = "<group>"; };
+		B89C34571DE633CF00E88C6A /* BaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,7 +124,7 @@
 				B89C344A1DE5DDC600E88C6A /* CollectionsViewModel.swift */,
 				B89C34501DE5DDD100E88C6A /* ProductsViewModel.swift */,
 				B89C34461DE4C59100E88C6A /* ProductCollectionViewCell.swift */,
-				B89C34571DE633CF00E88C6A /* BaseOperation.swift */,
+				B89C34571DE633CF00E88C6A /* BaseViewModel.swift */,
 			);
 			path = "Mobile Buy SDK tvOS Sample";
 			sourceTree = "<group>";
@@ -247,7 +247,7 @@
 				B89C34471DE4C59100E88C6A /* ProductCollectionViewCell.swift in Sources */,
 				B89C34451DE49F3400E88C6A /* CollectionViewContainerCell.swift in Sources */,
 				B89C34511DE5DDD100E88C6A /* ProductsViewModel.swift in Sources */,
-				B89C34581DE633CF00E88C6A /* BaseOperation.swift in Sources */,
+				B89C34581DE633CF00E88C6A /* BaseViewModel.swift in Sources */,
 				B88FA0631DE36FA20008CC83 /* DataProvider.swift in Sources */,
 				B89C344B1DE5DDC600E88C6A /* CollectionsViewModel.swift in Sources */,
 			);

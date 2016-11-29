@@ -27,7 +27,7 @@
 import Foundation
 import Buy
 
-class ProductsViewModel: BaseOperation {
+class ProductsViewModel: BaseViewModel {
     
     private var collection: BUYCollection!
     fileprivate var products: [BUYProduct] = []
