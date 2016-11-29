@@ -55,6 +55,13 @@
                                                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                         <inset key="sectionInset" minX="50" minY="0.0" maxX="50" maxY="0.0"/>
                                                     </collectionViewFlowLayout>
+                                                    <label key="backgroundView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Whoops! It looks like this collections has no products." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="C7j-Ye-C3h">
+                                                        <rect key="frame" x="0.0" y="0.0" width="1920" height="426"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                     <cells>
                                                         <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProductCollectionViewCell" id="smx-ww-K6h" customClass="ProductCollectionViewCell" customModule="Mobile_Buy_SDK_tvOS_Sample_App" customModuleProvider="target">
                                                             <rect key="frame" x="50" y="8" width="200" height="410"/>
@@ -63,7 +70,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="200" height="410"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <imageView opaque="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFill" fixedFrame="YES" image="Placeholder" adjustsImageWhenAncestorFocused="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g4J-FO-cjw" customClass="AsyncImageView">
+                                                                    <imageView opaque="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFill" fixedFrame="YES" adjustsImageWhenAncestorFocused="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g4J-FO-cjw" customClass="AsyncImageView">
                                                                         <rect key="frame" x="0.0" y="0.0" width="200" height="298"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -99,6 +106,7 @@
                                         </view>
                                         <connections>
                                             <outlet property="collectionView" destination="1nr-K0-P7V" id="XWW-34-86k"/>
+                                            <outlet property="emptyCollectionViewLabel" destination="C7j-Ye-C3h" id="FLr-t4-t2f"/>
                                             <outlet property="titleLabel" destination="DJt-oj-fF7" id="rdC-hN-kI3"/>
                                         </connections>
                                     </collectionViewCell>
@@ -157,7 +165,7 @@
         <!--Page View Controller-->
         <scene sceneID="dBc-Hd-cms">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="2KV-Te-QMO" customClass="PageViewController" customModule="Mobile_Buy_SDK_tvOS_Sample_App" customModuleProvider="target" sceneMemberID="viewController"/>
+                <pageViewController storyboardIdentifier="PageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="2KV-Te-QMO" customClass="PageViewController" customModule="Mobile_Buy_SDK_tvOS_Sample_App" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yt8-qA-I94" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4193" y="70"/>
@@ -165,6 +173,5 @@
     </scenes>
     <resources>
         <image name="Logo" width="1000" height="285"/>
-        <image name="Placeholder" width="200" height="298"/>
     </resources>
 </document>
