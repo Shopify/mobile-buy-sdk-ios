@@ -207,6 +207,7 @@ typedef void (^ShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArray<P
 		PKPaymentAuthorizationController *controller = [[PKPaymentAuthorizationController alloc] initWithPaymentRequest:request];
 		if (controller) {
 			controller.delegate = self;
+			[self.delegate paymentProvider:self wantsPaymentControllerPresented:controller];
 		}
 		else {
 			if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailWithError:)]) {

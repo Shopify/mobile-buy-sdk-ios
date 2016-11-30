@@ -264,6 +264,11 @@ extern Class SafariViewControllerClass;
 	[self.expectations[@"presentController"] fulfill];
 }
 
+- (void)paymentProvider:(id<BUYPaymentProvider>)provider wantsPaymentControllerPresented:(PKPaymentAuthorizationController *)controller
+{
+	[self.expectations[@"presentController"] fulfill];
+}
+
 - (void)paymentProviderWantsControllerDismissed:(id <BUYPaymentProvider>)provider
 {
 	

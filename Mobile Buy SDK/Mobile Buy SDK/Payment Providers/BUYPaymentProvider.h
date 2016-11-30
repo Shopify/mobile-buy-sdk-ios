@@ -25,6 +25,7 @@
 //
 
 @import UIKit;
+@import PassKit;
 
 #import "BUYClient.h"
 
@@ -50,6 +51,14 @@ extern NSString *const BUYPaymentProviderDidCompleteCheckoutNotificationKey;
  *  @param controller the `UIViewController` to be presented
  */
 - (void)paymentProvider:(id <BUYPaymentProvider>)provider wantsControllerPresented:(UIViewController *)controller;
+
+/**
+ *  Called when a controller needs to be presented
+ *
+ *  @param provider   the `BUYPaymentProvider`
+ *  @param controller the `PKPaymentAuthorizationController` to be presented
+ */
+- (void)paymentProvider:(id <BUYPaymentProvider>)provider wantsPaymentControllerPresented:(PKPaymentAuthorizationController *)controller;
 
 /**
  *  Called when the view controller
