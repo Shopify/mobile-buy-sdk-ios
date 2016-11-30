@@ -65,13 +65,13 @@ extension ProductsViewModel: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionViewCell.reuseIdentifier, for: indexPath) as! ProductCollectionViewCell
         let product = self.products[indexPath.row] as BUYProduct
         if product.imagesArray().count > 0 {
-            cell?.productImage.load(product.imagesArray().first, animateChange: true, completion: nil)
+            cell.productImage.load(product.imagesArray().first, animateChange: true, completion: nil)
         } else {
-            cell?.productImage.image = UIImage(named: "Logo")
+            cell.productImage.image = UIImage(named: "Logo")
         }
         let priceString = String(format: "%@", self.dataProvider.getCurrencyFormatter().string(from: product.minimumPrice)!)
-        cell?.productImage.backgroundColor = UIColor.clear
-        cell?.configure(price: priceString, title: product.title)
-        return cell!
+        cell.productImage.backgroundColor = UIColor.clear
+        cell.configure(price: priceString, title: product.title)
+        return cell
     }
 }

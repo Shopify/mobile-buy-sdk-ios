@@ -19,7 +19,6 @@
 		B89C344B1DE5DDC600E88C6A /* CollectionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C344A1DE5DDC600E88C6A /* CollectionsViewModel.swift */; };
 		B89C34511DE5DDD100E88C6A /* ProductsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C34501DE5DDD100E88C6A /* ProductsViewModel.swift */; };
 		B89C34581DE633CF00E88C6A /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C34571DE633CF00E88C6A /* BaseViewModel.swift */; };
-		B89C34581DE633CF00E88C6A /* BaseOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C34571DE633CF00E88C6A /* BaseOperation.swift */; };
 		B89C346A1DE88DF100E88C6A /* AsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B89C34691DE88DF100E88C6A /* AsyncImageView.m */; };
 /* End PBXBuildFile section */
 
@@ -82,7 +81,6 @@
 		B89C344A1DE5DDC600E88C6A /* CollectionsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionsViewModel.swift; sourceTree = "<group>"; };
 		B89C34501DE5DDD100E88C6A /* ProductsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsViewModel.swift; sourceTree = "<group>"; };
 		B89C34571DE633CF00E88C6A /* BaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
-		B89C34571DE633CF00E88C6A /* BaseOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseOperation.swift; sourceTree = "<group>"; };
 		B89C34671DE88DF100E88C6A /* Mobile Buy SDK tvOS Sample App-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mobile Buy SDK tvOS Sample App-Bridging-Header.h"; sourceTree = "<group>"; };
 		B89C34681DE88DF100E88C6A /* AsyncImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncImageView.h; sourceTree = "<group>"; };
 		B89C34691DE88DF100E88C6A /* AsyncImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncImageView.m; sourceTree = "<group>"; };
@@ -133,7 +131,6 @@
 				B89C34501DE5DDD100E88C6A /* ProductsViewModel.swift */,
 				B89C34461DE4C59100E88C6A /* ProductCollectionViewCell.swift */,
 				B89C34571DE633CF00E88C6A /* BaseViewModel.swift */,
-				B89C34571DE633CF00E88C6A /* BaseOperation.swift */,
 				B89C34671DE88DF100E88C6A /* Mobile Buy SDK tvOS Sample App-Bridging-Header.h */,
 			);
 			path = "Mobile Buy SDK tvOS Sample";
