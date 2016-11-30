@@ -33,7 +33,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BUYApplePayAuthorizationDelegate : NSObject <PKPaymentAuthorizationViewControllerDelegate>
+@interface BUYApplePayAuthorizationDelegate : NSObject <PKPaymentAuthorizationViewControllerDelegate, PKPaymentAuthorizationControllerDelegate>
 
 /**
  *  Initializes a helper to support Apple Pay
