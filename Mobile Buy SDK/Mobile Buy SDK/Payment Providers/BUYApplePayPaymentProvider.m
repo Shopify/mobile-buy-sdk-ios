@@ -36,7 +36,10 @@
 
 NSString *const BUYApplePayPaymentProviderId = @"BUYApplePayPaymentProviderId";
 
-@interface BUYApplePayPaymentProvider () <PKPaymentAuthorizationViewControllerDelegate>
+typedef void (^AddressUpdateCompletion)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull);
+typedef void (^ShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArray<PKPaymentSummaryItem *> * _Nonnull);
+
+@interface BUYApplePayPaymentProvider () <PKPaymentAuthorizationViewControllerDelegate, PKPaymentAuthorizationControllerDelegate>
 
 @property (nonatomic, strong) BUYShop *shop;
 @property (nonatomic, strong) BUYApplePayAuthorizationDelegate *applePayAuthorizationDelegate;
@@ -218,36 +221,33 @@ NSString *const BUYApplePayPaymentProviderId = @"BUYApplePayPaymentProviderId";
 	return _supportedNetworks;
 }
 
-#pragma mark - PKPaymentAuthorizationViewControllerDelegate Methods
+#pragma mark - PKPaymentAuthorization Helper Methods
 
-- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didAuthorizePayment:(PKPayment *)payment completion:(void (^)(PKPaymentAuthorizationStatus status))completion
+- (void)handleAuthorizedPaymentCompletionWithStatus:(PKPaymentAuthorizationStatus)status
 {
-	[self.applePayAuthorizationDelegate paymentAuthorizationViewController:controller didAuthorizePayment:payment completion:^(PKPaymentAuthorizationStatus status) {
-		self.paymentAuthorizationStatus = status;
-		switch (status) {
-			case PKPaymentAuthorizationStatusFailure:
-				if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailWithError:)]) {
-					[self.delegate paymentProvider:self didFailWithError:self.applePayAuthorizationDelegate.lastError];
-				}
-				[[NSNotificationCenter defaultCenter] postNotificationName:BUYPaymentProviderDidFailCheckoutNotificationKey object:self];
-				break;
-				
-			case PKPaymentAuthorizationStatusInvalidShippingPostalAddress:
-				if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailWithError:)]) {
-					[self.delegate paymentProvider:self didFailWithError:self.applePayAuthorizationDelegate.lastError];
-				}
-				[[NSNotificationCenter defaultCenter] postNotificationName:BUYPaymentProviderDidFailToUpdateCheckoutNotificationKey object:self];
-				break;
-				
-			default:
-				break;
-		}
-		self.checkout = self.applePayAuthorizationDelegate.checkout;
-		completion(status);
-	}];
+	self.paymentAuthorizationStatus = status;
+	switch (status) {
+		case PKPaymentAuthorizationStatusFailure:
+			if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailWithError:)]) {
+				[self.delegate paymentProvider:self didFailWithError:self.applePayAuthorizationDelegate.lastError];
+			}
+			[[NSNotificationCenter defaultCenter] postNotificationName:BUYPaymentProviderDidFailCheckoutNotificationKey object:self];
+			break;
+			
+		case PKPaymentAuthorizationStatusInvalidShippingPostalAddress:
+			if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailWithError:)]) {
+				[self.delegate paymentProvider:self didFailWithError:self.applePayAuthorizationDelegate.lastError];
+			}
+			[[NSNotificationCenter defaultCenter] postNotificationName:BUYPaymentProviderDidFailToUpdateCheckoutNotificationKey object:self];
+			break;
+			
+		default:
+			break;
+	}
+	self.checkout = self.applePayAuthorizationDelegate.checkout;
 }
 
-- (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller
+- (void)paymentAuthorizationDidFinish
 {
 	[self.delegate paymentProviderWantsControllerDismissed:self];
 	
@@ -260,9 +260,34 @@ NSString *const BUYApplePayPaymentProviderId = @"BUYApplePayPaymentProviderId";
 	self.inProgress = NO;
 }
 
-- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingMethod:(nonnull PKShippingMethod *)shippingMethod completion:(nonnull void (^)(PKPaymentAuthorizationStatus, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
+- (void)paymentAuthorizationDidUpdateAddressWithStatus:(PKPaymentAuthorizationStatus)status
 {
-	[self.applePayAuthorizationDelegate paymentAuthorizationViewController:controller didSelectShippingMethod:shippingMethod completion:^(PKPaymentAuthorizationStatus status, NSArray<PKPaymentSummaryItem *> * _Nonnull summaryItems) {
+	if (status == PKPaymentAuthorizationStatusInvalidShippingPostalAddress) {
+		if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailWithError:)]) {
+			[self.delegate paymentProvider:self didFailWithError:self.applePayAuthorizationDelegate.lastError];
+		}
+		[[NSNotificationCenter defaultCenter] postNotificationName:BUYPaymentProviderDidFailToUpdateCheckoutNotificationKey object:self];
+	}
+}
+
+#pragma mark - PKPaymentAuthorizationControllerDelegate Methods
+
+- (void)paymentAuthorizationController:(PKPaymentAuthorizationController *)controller didAuthorizePayment:(PKPayment *)payment completion:(void (^)(PKPaymentAuthorizationStatus))completion
+{
+	[self.applePayAuthorizationDelegate paymentAuthorizationController:controller didAuthorizePayment:payment completion:^(PKPaymentAuthorizationStatus status) {
+		[self handleAuthorizedPaymentCompletionWithStatus:status];
+		completion(status);
+	}];
+}
+
+- (void)paymentAuthorizationControllerDidFinish:(PKPaymentAuthorizationController *)controller
+{
+	[self paymentAuthorizationDidFinish];
+}
+
+- (void)paymentAuthorizationController:(PKPaymentAuthorizationController *)controller didSelectShippingMethod:(PKShippingMethod *)shippingMethod completion:(ShippingMethodCompletion)completion
+{
+	[self.applePayAuthorizationDelegate paymentAuthorizationController:controller didSelectShippingMethod:shippingMethod completion:^(PKPaymentAuthorizationStatus status, NSArray<PKPaymentSummaryItem *> * _Nonnull summaryItems) {
 		if (status == PKPaymentAuthorizationStatusInvalidShippingPostalAddress) {
 			if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailWithError:)]) {
 				[self.delegate paymentProvider:self didFailWithError:self.applePayAuthorizationDelegate.lastError];
@@ -273,28 +298,49 @@ NSString *const BUYApplePayPaymentProviderId = @"BUYApplePayPaymentProviderId";
 	}];
 }
 
--(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingAddress:(ABRecordRef)address completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
+- (void)paymentAuthorizationController:(PKPaymentAuthorizationController *)controller didSelectShippingContact:(PKContact *)contact completion:(AddressUpdateCompletion)completion
 {
-	[self.applePayAuthorizationDelegate paymentAuthorizationViewController:controller didSelectShippingAddress:address completion:^(PKPaymentAuthorizationStatus status, NSArray<PKShippingMethod *> * _Nonnull shippingMethods, NSArray<PKPaymentSummaryItem *> * _Nonnull summaryItems) {
-		if (status == PKPaymentAuthorizationStatusInvalidShippingPostalAddress) {
-			if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailWithError:)]) {
-				[self.delegate paymentProvider:self didFailWithError:self.applePayAuthorizationDelegate.lastError];
-			}
-			[[NSNotificationCenter defaultCenter] postNotificationName:BUYPaymentProviderDidFailToUpdateCheckoutNotificationKey object:self];
-		}
+	[self.applePayAuthorizationDelegate paymentAuthorizationController:controller didSelectShippingContact:contact completion:^(PKPaymentAuthorizationStatus status, NSArray<PKShippingMethod *> * _Nonnull shippingMethods, NSArray<PKPaymentSummaryItem *> * _Nonnull summaryItems) {
+		[self paymentAuthorizationDidUpdateAddressWithStatus:status];
 		completion(status, shippingMethods, summaryItems);
 	}];
 }
 
-- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingContact:(PKContact *)contact completion:(void (^)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull))completion
+#pragma mark - PKPaymentAuthorizationViewControllerDelegate Methods
+
+- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didAuthorizePayment:(PKPayment *)payment completion:(void (^)(PKPaymentAuthorizationStatus status))completion
+{
+	[self.applePayAuthorizationDelegate paymentAuthorizationViewController:controller didAuthorizePayment:payment completion:^(PKPaymentAuthorizationStatus status) {
+		[self handleAuthorizedPaymentCompletionWithStatus:status];
+		completion(status);
+	}];
+}
+
+- (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller
+{
+	[self paymentAuthorizationDidFinish];
+}
+
+- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingMethod:(nonnull PKShippingMethod *)shippingMethod completion:(ShippingMethodCompletion)completion
+{
+	[self.applePayAuthorizationDelegate paymentAuthorizationViewController:controller didSelectShippingMethod:shippingMethod completion:^(PKPaymentAuthorizationStatus status, NSArray<PKPaymentSummaryItem *> * _Nonnull summaryItems) {
+		[self paymentAuthorizationDidUpdateAddressWithStatus:status];
+		completion(status, summaryItems);
+	}];
+}
+
+-(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingAddress:(ABRecordRef)address completion:(AddressUpdateCompletion)completion
+{
+	[self.applePayAuthorizationDelegate paymentAuthorizationViewController:controller didSelectShippingAddress:address completion:^(PKPaymentAuthorizationStatus status, NSArray<PKShippingMethod *> * _Nonnull shippingMethods, NSArray<PKPaymentSummaryItem *> * _Nonnull summaryItems) {
+		[self paymentAuthorizationDidUpdateAddressWithStatus:status];
+		completion(status, shippingMethods, summaryItems);
+	}];
+}
+
+- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingContact:(PKContact *)contact completion:(AddressUpdateCompletion)completion
 {
 	[self.applePayAuthorizationDelegate paymentAuthorizationViewController:controller didSelectShippingContact:contact completion:^(PKPaymentAuthorizationStatus status, NSArray<PKShippingMethod *> * _Nonnull shippingMethods, NSArray<PKPaymentSummaryItem *> * _Nonnull summaryItems) {
-		if (status == PKPaymentAuthorizationStatusInvalidShippingPostalAddress) {
-			if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailWithError:)]) {
-				[self.delegate paymentProvider:self didFailWithError:self.applePayAuthorizationDelegate.lastError];
-			}
-			[[NSNotificationCenter defaultCenter] postNotificationName:BUYPaymentProviderDidFailToUpdateCheckoutNotificationKey object:self];
-		}
+		[self paymentAuthorizationDidUpdateAddressWithStatus:status];
 		completion(status, shippingMethods, summaryItems);
 	}];
 }
