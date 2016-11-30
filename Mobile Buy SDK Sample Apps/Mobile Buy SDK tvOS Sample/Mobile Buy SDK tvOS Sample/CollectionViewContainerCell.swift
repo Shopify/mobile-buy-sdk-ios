@@ -46,9 +46,7 @@ class CollectionViewContainerCell: UICollectionViewCell {
         self.collectionView.dataSource = self.products
         self.titleLabel.text = title
         self.products.getProducts {
-            if self.products.hasProducts {
-                self.emptyCollectionViewLabel.isHidden = true
-            }
+            self.emptyCollectionViewLabel.isHidden = self.products.hasProducts
             self.collectionView.reloadData()
         }
     }
