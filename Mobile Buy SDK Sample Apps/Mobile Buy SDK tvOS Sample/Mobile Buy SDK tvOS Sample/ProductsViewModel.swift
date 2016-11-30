@@ -1,5 +1,5 @@
 //
-//  Products.swift
+//  ProductsViewModel.swift
 //  Mobile Buy SDK tvOS Sample App
 //
 //  Created by Shopify.
@@ -27,11 +27,10 @@
 import Foundation
 import Buy
 
-class Products {
+class ProductsViewModel: BaseViewModel {
     
-    private var collection: BUYCollection?
-    private var products: [BUYProduct] = []
-    private var productsOperation: Operation?
+    private var collection: BUYCollection!
+    fileprivate var products: [BUYProduct] = []
     
     weak var collectionView: UICollectionView!
  
@@ -42,18 +41,30 @@ class Products {
         self.dataProvider = dataProvider
     }
     
-    func count() -> Int {
+    func getProducts (completion: @escaping () -> Void) {
+        let operation = self.dataProvider.getProducts(collection: self.collection) { (products) in
+            self.products = products
+            completion()
+        }
+        self.setCurrentOperation(operation: operation)
+    }
+}
+
+
+extension ProductsViewModel: UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.products.count
     }
     
-    func stopOperation() {
-        self.productsOperation?.cancel()
-    }
-    
-    private func getProducts (collection: BUYCollection) {
-        self.productsOperation = self.dataProvider.getProducts(collection: collection) { (products) in
-            self.products = products
-            self.collectionView.reloadData()
-        }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionViewCell.reuseIdentifier, for: indexPath) as! ProductCollectionViewCell
+        let product = self.products[indexPath.row] as BUYProduct
+        cell.configure(title: product.title)
+        return cell
     }
 }

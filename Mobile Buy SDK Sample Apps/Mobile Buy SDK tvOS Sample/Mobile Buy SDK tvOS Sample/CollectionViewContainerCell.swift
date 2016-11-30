@@ -30,4 +30,17 @@ class CollectionViewContainerCell: UICollectionViewCell {
     
     static let reuseIdentifier = "CollectionViewContainerCell"
     
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    var products: ProductsViewModel!
+
+    func configure(viewModel: ProductsViewModel, title: String) {
+        self.products = viewModel
+        self.collectionView.dataSource = self.products
+        self.titleLabel.text = title
+        self.products.getProducts {
+            self.collectionView.reloadData()
+        }
+    }
 }

@@ -1,5 +1,5 @@
 //
-//  Collections.swift
+//  ProductCollectionViewCell.swift
 //  Mobile Buy SDK tvOS Sample App
 //
 //  Created by Shopify.
@@ -24,32 +24,34 @@
 //  THE SOFTWARE.
 //
 
-import Foundation
-import Buy
+import UIKit
 
-class Collections {
+class ProductCollectionViewCell: UICollectionViewCell {
     
-    private var collections: [BUYCollection] = []
-    private var collectionOperation: Operation?
+    static let reuseIdentifier = "ProductCollectionViewCell"
     
-    weak var collectionView: UICollectionView!
-    var dataProvider: DataProvider!
+    @IBOutlet weak var productImage: UIImageView!
+    @IBOutlet weak var productTitleLabel: UILabel!
     
-    public init(collectionView: UICollectionView, dataProvider: DataProvider) {
-        self.collectionView = collectionView
-        self.dataProvider = dataProvider
+    override func awakeFromNib() {
+        self.productImage.adjustsImageWhenAncestorFocused = true
+        self.productImage.clipsToBounds = false
         
-        getCollections()
+        self.productTitleLabel.alpha = 0
     }
     
-    func count() -> Int {
-        return self.collections.count
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.productTitleLabel.alpha = 0
     }
     
-    private func getCollections() {
-        self.collectionOperation = self.dataProvider.getCollections { [weak self] (collections) in
-            self?.collections = collections
-            self?.collectionView.reloadData()
-        }
+    func configure(title: String) {
+        self.productTitleLabel.text = title
+    }
+    
+    override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+        coordinator.addCoordinatedAnimations({
+            self.productTitleLabel.alpha = self.isFocused ? 1.0 : 0.0
+        }, completion: nil)
     }
 }

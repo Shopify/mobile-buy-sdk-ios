@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  BaseViewModel.swift
 //  Mobile Buy SDK tvOS Sample App
 //
 //  Created by Shopify.
@@ -24,28 +24,17 @@
 //  THE SOFTWARE.
 //
 
-import UIKit
+import Foundation
 
-class ViewController: UIViewController, DataProviderSetter {
+class BaseViewModel: NSObject {
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    private var operation: Operation!
     
-    var collections: CollectionsViewModel!
-    var dataProvider: DataProvider!
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.collections = CollectionsViewModel(dataProvider: self.dataProvider)
-        self.collectionView.dataSource = self.collections
-        self.collections.getCollections { 
-            self.collectionView.reloadData()
+    func setCurrentOperation(operation: Operation) {
+        if self.operation != nil {
+            self.operation.cancel()
         }
-    }
-}
-
-extension ViewController: UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, canFocusItemAt indexPath: IndexPath) -> Bool {
-        return false
+        
+        self.operation = operation
     }
 }
