@@ -62,12 +62,12 @@ extension ProductsViewModel: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return (self.products.count > 0) ? self.products.count : 1
+        return hasProducts ? self.products.count : 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionViewCell.reuseIdentifier, for: indexPath) as! ProductCollectionViewCell
-        if products.count > 0 {
+        if hasProducts {
             let product = self.products[indexPath.row] as BUYProduct
             if product.imagesArray().count > 0 {
                 cell.productImage.load(product.imagesArray().first, animateChange: true, completion: nil)
