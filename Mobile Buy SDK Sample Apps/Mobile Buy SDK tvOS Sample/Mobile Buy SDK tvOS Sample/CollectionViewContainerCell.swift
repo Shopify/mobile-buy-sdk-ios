@@ -32,14 +32,21 @@ class CollectionViewContainerCell: UICollectionViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var emptyCollectionViewLabel: UILabel!
     
     var products: ProductsViewModel!
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.emptyCollectionViewLabel.isHidden = false
+    }
+    
     func configure(viewModel: ProductsViewModel, title: String) {
         self.products = viewModel
         self.collectionView.dataSource = self.products
         self.titleLabel.text = title
         self.products.getProducts {
+            self.emptyCollectionViewLabel.isHidden = self.products.hasProducts
             self.collectionView.reloadData()
         }
     }
