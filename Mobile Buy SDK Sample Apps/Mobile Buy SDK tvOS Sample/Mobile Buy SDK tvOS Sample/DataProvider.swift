@@ -42,11 +42,14 @@ public class DataProvider {
     public required init(client: BUYClient) {
         self.client = client
         self.shop = BUYShop()
+        self.updateShop()
     }
     
     private func updateShop() {
         self.client.getShop {(shop, error) in
-            self.shop = shop!
+            if ((shop) != nil) {
+                self.shop = shop!
+            }
         }
     }
     
