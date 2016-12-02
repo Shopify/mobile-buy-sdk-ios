@@ -429,6 +429,7 @@
 		B8A357641DD6278B00FDD7BD /* BUYFlatCollectionTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 849810901CB7E07900CFAB58 /* BUYFlatCollectionTransformer.h */; };
 		B8A357651DD6515D00FDD7BD /* Buy.h in Headers */ = {isa = PBXBuildFile; fileRef = 90DA8DF11BC6A82D0027BCB7 /* Buy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B8A797511DD9FC9200476E5B /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 901931701BC5B9BC00D1134E /* Buy.framework */; };
+		B8BB14541DF1E2EE00F45BBB /* BuyWatch.h in Headers */ = {isa = PBXBuildFile; fileRef = B8BB14521DF1E2EE00F45BBB /* BuyWatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BE6C07061BB1E46900BD9F7B /* mocked_responses.json in Resources */ = {isa = PBXBuildFile; fileRef = BE6C07051BB1E46900BD9F7B /* mocked_responses.json */; };
 		BE98DB4F1BB1ED3E00C29564 /* OHHTTPStubs in Resources */ = {isa = PBXBuildFile; fileRef = BE98DB4E1BB1ED3E00C29564 /* OHHTTPStubs */; };
 		BE98DB5C1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = BE98DB5B1BB1F4D000C29564 /* OHHTTPStubsResponse+Helpers.m */; };
@@ -678,6 +679,9 @@
 		B8851BE71DCBBA8E0004BAEA /* BUYProductVariantTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYProductVariantTests.m; sourceTree = "<group>"; };
 		B89659A41DD292D500AF7FC9 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		B8A356991DD6112C00FDD7BD /* Buy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Buy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8BB14501DF1E2EE00F45BBB /* BuyWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BuyWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8BB14521DF1E2EE00F45BBB /* BuyWatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuyWatch.h; sourceTree = "<group>"; };
+		B8BB14531DF1E2EE00F45BBB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE33B4ED1B15FF4D0067982B /* BUYApplePayAuthorizationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYApplePayAuthorizationDelegate.h; sourceTree = "<group>"; };
 		BE33B4EE1B15FF4D0067982B /* BUYApplePayAuthorizationDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUYApplePayAuthorizationDelegate.m; sourceTree = "<group>"; };
 		BE47340D1B66C4EF00AA721A /* BUYError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUYError.h; sourceTree = "<group>"; };
@@ -733,6 +737,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		B8A356951DD6112C00FDD7BD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B8BB144C1DF1E2EE00F45BBB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1118,6 +1129,15 @@
 			path = BuyTV;
 			sourceTree = "<group>";
 		};
+		B8BB14511DF1E2EE00F45BBB /* BuyWatch */ = {
+			isa = PBXGroup;
+			children = (
+				B8BB14521DF1E2EE00F45BBB /* BuyWatch.h */,
+				B8BB14531DF1E2EE00F45BBB /* Info.plist */,
+			);
+			path = BuyWatch;
+			sourceTree = "<group>";
+		};
 		F773741419C770CB0039681C = {
 			isa = PBXGroup;
 			children = (
@@ -1127,6 +1147,7 @@
 				F773743A19C777200039681C /* Mobile Buy SDK */,
 				90F592ED1B0D5EFE0026B382 /* Mobile Buy SDK Tests */,
 				B8A3569A1DD6112C00FDD7BD /* BuyTV */,
+				B8BB14511DF1E2EE00F45BBB /* BuyWatch */,
 				F773741E19C770CB0039681C /* Products */,
 				547B8D0CCDB9458C800F1E3C /* Frameworks */,
 			);
@@ -1139,6 +1160,7 @@
 				90F592EC1B0D5EFE0026B382 /* Mobile Buy SDK Tests.xctest */,
 				901931701BC5B9BC00D1134E /* Buy.framework */,
 				B8A356991DD6112C00FDD7BD /* Buy.framework */,
+				B8BB14501DF1E2EE00F45BBB /* BuyWatch.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1448,6 +1470,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B8BB144D1DF1E2EE00F45BBB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8BB14541DF1E2EE00F45BBB /* BuyWatch.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -1506,6 +1536,24 @@
 			productReference = B8A356991DD6112C00FDD7BD /* Buy.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		B8BB144F1DF1E2EE00F45BBB /* BuyWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B8BB14591DF1E2EE00F45BBB /* Build configuration list for PBXNativeTarget "BuyWatch" */;
+			buildPhases = (
+				B8BB144B1DF1E2EE00F45BBB /* Sources */,
+				B8BB144C1DF1E2EE00F45BBB /* Frameworks */,
+				B8BB144D1DF1E2EE00F45BBB /* Headers */,
+				B8BB144E1DF1E2EE00F45BBB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BuyWatch;
+			productName = BuyWatch;
+			productReference = B8BB14501DF1E2EE00F45BBB /* BuyWatch.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1529,6 +1577,10 @@
 						CreatedOnToolsVersion = 8.1;
 						ProvisioningStyle = Automatic;
 					};
+					B8BB144F1DF1E2EE00F45BBB = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = F773741819C770CB0039681C /* Build configuration list for PBXProject "Mobile Buy SDK" */;
@@ -1549,6 +1601,7 @@
 				904FB61A1AE03DC500EA1758 /* Static Universal Framework */,
 				90E80E401AFAB0B9003A9909 /* Documentation */,
 				B8A356981DD6112C00FDD7BD /* BuyTV */,
+				B8BB144F1DF1E2EE00F45BBB /* BuyWatch */,
 			);
 		};
 /* End PBXProject section */
@@ -1562,6 +1615,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		B8A356971DD6112C00FDD7BD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B8BB144E1DF1E2EE00F45BBB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1855,6 +1915,13 @@
 				B8A356E31DD6125500FDD7BD /* _BUYAddress.m in Sources */,
 				B8A356EF1DD6125500FDD7BD /* _BUYShop.m in Sources */,
 				B8A356C51DD6120100FDD7BD /* NSException+BUYModelAdditions.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B8BB144B1DF1E2EE00F45BBB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2399,6 +2466,120 @@
 			};
 			name = "Release-core-data";
 		};
+		B8BB14551DF1E2EE00F45BBB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = BuyWatch/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.BuyWatch;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Debug;
+		};
+		B8BB14561DF1E2EE00F45BBB /* Debug-core-data */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = BuyWatch/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.BuyWatch;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = "Debug-core-data";
+		};
+		B8BB14571DF1E2EE00F45BBB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = BuyWatch/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.BuyWatch;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Release;
+		};
+		B8BB14581DF1E2EE00F45BBB /* Release-core-data */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = BuyWatch/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.BuyWatch;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = "Release-core-data";
+		};
 		F773742C19C770CB0039681C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2547,6 +2728,16 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		B8BB14591DF1E2EE00F45BBB /* Build configuration list for PBXNativeTarget "BuyWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B8BB14551DF1E2EE00F45BBB /* Debug */,
+				B8BB14561DF1E2EE00F45BBB /* Debug-core-data */,
+				B8BB14571DF1E2EE00F45BBB /* Release */,
+				B8BB14581DF1E2EE00F45BBB /* Release-core-data */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		F773741819C770CB0039681C /* Build configuration list for PBXProject "Mobile Buy SDK" */ = {
 			isa = XCConfigurationList;
