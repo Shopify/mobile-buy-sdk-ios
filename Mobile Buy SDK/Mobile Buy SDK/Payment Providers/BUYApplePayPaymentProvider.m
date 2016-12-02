@@ -34,8 +34,6 @@
 #import "BUYClient+Checkout.h"
 #import "BUYClient+Storefront.h"
 
-#define SYSTEM_VERSION_LESS_THAN(v)    ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
-
 NSString *const BUYApplePayPaymentProviderId = @"BUYApplePayPaymentProviderId";
 
 typedef void (^AddressUpdateCompletion)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull);
@@ -157,16 +155,11 @@ typedef void (^ShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArray<P
 	// checks if device hardware is capable of using Apple Pay
 	// checks if the device has a payment card setup
 	
-	if (SYSTEM_VERSION_LESS_THAN(@"10.0")) {
-		return (self.merchantID.length &&
-				[PKPaymentAuthorizationViewController canMakePayments] &&
-				[PKPaymentAuthorizationViewController canMakePaymentsUsingNetworks:self.supportedNetworks]);
-	}
-	
+	Class PaymentClass = [self applePayController];
 	return (self.merchantID.length &&
-			[PKPaymentAuthorizationController canMakePayments] &&
-			[PKPaymentAuthorizationController canMakePaymentsUsingNetworks:self.supportedNetworks]);
-	}
+			[PaymentClass canMakePayments] &&
+			[PaymentClass canMakePaymentsUsingNetworks:self.supportedNetworks]);
+}
 
 - (BOOL)canShowApplePaySetup
 {
@@ -174,11 +167,8 @@ typedef void (^ShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArray<P
 	if ([passLibrary respondsToSelector:@selector(canAddPaymentPassWithPrimaryAccountIdentifier:)] &&
 		// Check if the device can add a payment pass
 		[self.merchantID length]) {
-		if (SYSTEM_VERSION_LESS_THAN(@"10.0")) {
-			return [PKPaymentAuthorizationViewController canMakePayments];
-		} else {
-			return [PKPaymentAuthorizationController canMakePayments];
-		}
+		Class PaymentClass = [self applePayController];
+		return [PaymentClass canMakePayments];
 	} else {
 		return NO;
 	}
@@ -190,32 +180,26 @@ typedef void (^ShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArray<P
 
 	PKPaymentRequest *request = [self paymentRequest];
 	request.paymentSummaryItems = [self.checkout buy_summaryItemsWithShopName:self.shop.name];
-	if (SYSTEM_VERSION_LESS_THAN(@"10.0")) {
-		PKPaymentAuthorizationViewController *controller = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:request];
-		if (controller) {
-			controller.delegate = self;
+	
+	Class PaymentClass = [self applePayController];
+	id controller = [[PaymentClass alloc] initWithPaymentRequest:request];
+	if (controller) {
+		[controller setDelegate:self];
+		if ([PaymentClass isSubclassOfClass:[PKPaymentAuthorizationController class]]) {
+			if ([self.delegate respondsToSelector:@selector(paymentProvider:wantsPaymentControllerPresented:)]) {
+				[self.delegate paymentProvider:self wantsPaymentControllerPresented:controller];
+			} else {
+				[controller presentWithCompletion:nil];
+			}
+		} else {
 			[self.delegate paymentProvider:self wantsControllerPresented:controller];
 		}
-		else {
-			if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailWithError:)]) {
-				[self.delegate paymentProvider:self didFailWithError:nil];
-			}
-			[[NSNotificationCenter defaultCenter] postNotificationName:BUYPaymentProviderDidFailCheckoutNotificationKey object:self];
+	}
+	else {
+		if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailWithError:)]) {
+			[self.delegate paymentProvider:self didFailWithError:nil];
 		}
-
-	} else {
-		PKPaymentAuthorizationController *controller = [[PKPaymentAuthorizationController alloc] initWithPaymentRequest:request];
-		if (controller) {
-			controller.delegate = self;
-			[self.delegate paymentProvider:self wantsPaymentControllerPresented:controller];
-		}
-		else {
-			if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailWithError:)]) {
-				[self.delegate paymentProvider:self didFailWithError:nil];
-			}
-			[[NSNotificationCenter defaultCenter] postNotificationName:BUYPaymentProviderDidFailCheckoutNotificationKey object:self];
-		}
-
+		[[NSNotificationCenter defaultCenter] postNotificationName:BUYPaymentProviderDidFailCheckoutNotificationKey object:self];
 	}
 }
 
@@ -246,6 +230,11 @@ typedef void (^ShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArray<P
 	}
 	
 	return _supportedNetworks;
+}
+
+- (Class)applePayController
+{
+	return ([PKPaymentAuthorizationController class]) ?: [PKPaymentAuthorizationViewController class];
 }
 
 #pragma mark - PKPaymentAuthorization Helper Methods
