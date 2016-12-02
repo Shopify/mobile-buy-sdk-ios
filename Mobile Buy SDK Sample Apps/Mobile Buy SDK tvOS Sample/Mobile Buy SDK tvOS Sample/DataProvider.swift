@@ -35,20 +35,18 @@ public class DataProvider {
     
     private(set) var client : BUYClient!
     
-    var shop: BUYShop
+    var shop: BUYShop? = nil
     var collections: [BUYCollection] = []
     var products: [NSNumber: [BUYProduct]] = [:]
     
     public required init(client: BUYClient) {
         self.client = client
-        self.shop = BUYShop()
-        self.updateShop()
     }
     
     private func updateShop() {
         self.client.getShop {(shop, error) in
-            if ((shop) != nil) {
-                self.shop = shop!
+            if let shop = shop {
+                self.shop = shop;
             }
         }
     }
@@ -72,7 +70,7 @@ public class DataProvider {
     public func getCurrencyFormatter() -> NumberFormatter {
         let currencyFormatter = NumberFormatter()
         currencyFormatter.numberStyle = NumberFormatter.Style.currency
-        currencyFormatter.currencyCode = self.shop.currency
+        currencyFormatter.currencyCode = self.shop?.currency
         return currencyFormatter
     }
     
