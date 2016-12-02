@@ -53,14 +53,6 @@ extern NSString *const BUYPaymentProviderDidCompleteCheckoutNotificationKey;
 - (void)paymentProvider:(id <BUYPaymentProvider>)provider wantsControllerPresented:(UIViewController *)controller;
 
 /**
- *  Called when a controller needs to be presented
- *
- *  @param provider   the `BUYPaymentProvider`
- *  @param controller the `PKPaymentAuthorizationController` to be presented
- */
-- (void)paymentProvider:(id <BUYPaymentProvider>)provider wantsPaymentControllerPresented:(PKPaymentAuthorizationController *)controller;
-
-/**
  *  Called when the view controller
  *
  *  @param provider   the `BUYPaymentProvider`
@@ -68,6 +60,14 @@ extern NSString *const BUYPaymentProviderDidCompleteCheckoutNotificationKey;
 - (void)paymentProviderWantsControllerDismissed:(id <BUYPaymentProvider>)provider;
 
 @optional
+
+/**
+ *  Called when a controller needs to be presented
+ *
+ *  @param provider   the `BUYPaymentProvider`
+ *  @param controller the `PKPaymentAuthorizationController` to be presented
+ */
+- (void)paymentProvider:(id <BUYPaymentProvider>)provider wantsPaymentControllerPresented:(PKPaymentAuthorizationController *)controller NS_AVAILABLE_IOS(10_0);
 
 /**
  *  Called when the checkout process has started
