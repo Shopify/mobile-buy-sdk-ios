@@ -62,7 +62,10 @@ extern NSString *const BUYPaymentProviderDidCompleteCheckoutNotificationKey;
 @optional
 
 /**
- *  Called when a controller needs to be presented
+ *  Called when a PKPaymentAuthorizationController needs to be presented. If this method is implemented, also
+ *  call `presentWithCompletion:` on the controller and specify completion.
+ *
+ *  PKPaymentAuthorizationController is only available in iOS 10.0+. For older versions, use PKPaymentAuthorizationViewController.
  *
  *  @param provider   the `BUYPaymentProvider`
  *  @param controller the `PKPaymentAuthorizationController` to be presented
