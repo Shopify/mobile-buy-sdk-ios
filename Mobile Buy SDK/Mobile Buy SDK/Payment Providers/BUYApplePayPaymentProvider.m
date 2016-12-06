@@ -36,8 +36,8 @@
 
 NSString *const BUYApplePayPaymentProviderId = @"BUYApplePayPaymentProviderId";
 
-typedef void (^AddressUpdateCompletion)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull);
-typedef void (^ShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArray<PKPaymentSummaryItem *> * _Nonnull);
+typedef void (^BUYAddressUpdateCompletion)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull);
+typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArray<PKPaymentSummaryItem *> * _Nonnull);
 
 @interface BUYApplePayPaymentProvider () <PKPaymentAuthorizationViewControllerDelegate, PKPaymentAuthorizationControllerDelegate>
 
@@ -301,7 +301,7 @@ typedef void (^ShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArray<P
 	[self paymentAuthorizationDidFinish];
 }
 
-- (void)paymentAuthorizationController:(PKPaymentAuthorizationController *)controller didSelectShippingMethod:(PKShippingMethod *)shippingMethod completion:(ShippingMethodCompletion)completion
+- (void)paymentAuthorizationController:(PKPaymentAuthorizationController *)controller didSelectShippingMethod:(PKShippingMethod *)shippingMethod completion:(BUYShippingMethodCompletion)completion
 {
 	[self.applePayAuthorizationDelegate paymentAuthorizationController:controller didSelectShippingMethod:shippingMethod completion:^(PKPaymentAuthorizationStatus status, NSArray<PKPaymentSummaryItem *> * _Nonnull summaryItems) {
 		if (status == PKPaymentAuthorizationStatusInvalidShippingPostalAddress) {
@@ -314,7 +314,7 @@ typedef void (^ShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArray<P
 	}];
 }
 
-- (void)paymentAuthorizationController:(PKPaymentAuthorizationController *)controller didSelectShippingContact:(PKContact *)contact completion:(AddressUpdateCompletion)completion
+- (void)paymentAuthorizationController:(PKPaymentAuthorizationController *)controller didSelectShippingContact:(PKContact *)contact completion:(BUYAddressUpdateCompletion)completion
 {
 	[self.applePayAuthorizationDelegate paymentAuthorizationController:controller didSelectShippingContact:contact completion:^(PKPaymentAuthorizationStatus status, NSArray<PKShippingMethod *> * _Nonnull shippingMethods, NSArray<PKPaymentSummaryItem *> * _Nonnull summaryItems) {
 		[self paymentAuthorizationDidUpdateAddressWithStatus:status];
@@ -337,7 +337,7 @@ typedef void (^ShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArray<P
 	[self paymentAuthorizationDidFinish];
 }
 
-- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingMethod:(nonnull PKShippingMethod *)shippingMethod completion:(ShippingMethodCompletion)completion
+- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingMethod:(nonnull PKShippingMethod *)shippingMethod completion:(BUYShippingMethodCompletion)completion
 {
 	[self.applePayAuthorizationDelegate paymentAuthorizationViewController:controller didSelectShippingMethod:shippingMethod completion:^(PKPaymentAuthorizationStatus status, NSArray<PKPaymentSummaryItem *> * _Nonnull summaryItems) {
 		[self paymentAuthorizationDidUpdateAddressWithStatus:status];
@@ -345,7 +345,7 @@ typedef void (^ShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArray<P
 	}];
 }
 
--(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingAddress:(ABRecordRef)address completion:(AddressUpdateCompletion)completion
+-(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingAddress:(ABRecordRef)address completion:(BUYAddressUpdateCompletion)completion
 {
 	[self.applePayAuthorizationDelegate paymentAuthorizationViewController:controller didSelectShippingAddress:address completion:^(PKPaymentAuthorizationStatus status, NSArray<PKShippingMethod *> * _Nonnull shippingMethods, NSArray<PKPaymentSummaryItem *> * _Nonnull summaryItems) {
 		[self paymentAuthorizationDidUpdateAddressWithStatus:status];
@@ -353,7 +353,7 @@ typedef void (^ShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArray<P
 	}];
 }
 
-- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingContact:(PKContact *)contact completion:(AddressUpdateCompletion)completion
+- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didSelectShippingContact:(PKContact *)contact completion:(BUYAddressUpdateCompletion)completion
 {
 	[self.applePayAuthorizationDelegate paymentAuthorizationViewController:controller didSelectShippingContact:contact completion:^(PKPaymentAuthorizationStatus status, NSArray<PKShippingMethod *> * _Nonnull shippingMethods, NSArray<PKPaymentSummaryItem *> * _Nonnull summaryItems) {
 		[self paymentAuthorizationDidUpdateAddressWithStatus:status];
