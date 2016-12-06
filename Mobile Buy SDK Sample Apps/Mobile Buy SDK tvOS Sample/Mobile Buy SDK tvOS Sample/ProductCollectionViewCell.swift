@@ -34,6 +34,8 @@ class ProductCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var productTitleLabel: UILabel!
     @IBOutlet weak var productPriceLabel: UILabel!
     
+    var productItem:ProductItem!
+    
     override func awakeFromNib() {
         self.productImage.adjustsImageWhenAncestorFocused = true
         self.productImage.clipsToBounds = false
@@ -48,10 +50,10 @@ class ProductCollectionViewCell: UICollectionViewCell {
         self.productPriceLabel.alpha = 0
         self.productImage.cancelImageTask()
         self.productImage.image = nil
-        self.productImage.backgroundColor = UIColor.gray
     }
     
-    func configure(price: String, title: String) {
+    func configure(item: ProductItem, price: String, title: String) {
+        self.productItem = item
         self.productPriceLabel.text = price
         self.productTitleLabel.text = title
     }

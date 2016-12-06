@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="tvOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -62,10 +63,10 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="200" height="410"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <imageView opaque="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFill" fixedFrame="YES" adjustsImageWhenAncestorFocused="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g4J-FO-cjw" customClass="AsyncImageView">
+                                                                    <imageView opaque="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFill" fixedFrame="YES" image="Placeholder" adjustsImageWhenAncestorFocused="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g4J-FO-cjw" customClass="AsyncImageView">
                                                                         <rect key="frame" x="0.0" y="0.0" width="200" height="298"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DbE-i5-3Us">
                                                                         <rect key="frame" x="0.0" y="329" width="200" height="61"/>
@@ -78,7 +79,7 @@
                                                                         <rect key="frame" x="0.0" y="390" width="200" height="21"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                                                        <color key="textColor" red="0.64284348487854004" green="0.82591694593429565" blue="0.31947064399719238" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="textColor" red="0.7533692917212782" green="0.97393804365003167" blue="0.38649725183213457" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                 </subviews>
@@ -90,6 +91,9 @@
                                                             </connections>
                                                         </collectionViewCell>
                                                     </cells>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="BYZ-38-t0r" id="Jmn-Vj-ITJ"/>
+                                                    </connections>
                                                 </collectionView>
                                             </subviews>
                                         </view>
@@ -117,8 +121,50 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
+        <!--Product Image View Controller-->
+        <scene sceneID="bRr-hp-2nz">
+            <objects>
+                <viewController storyboardIdentifier="ProductImageViewController" id="YaX-At-aOl" customClass="ProductImageViewController" customModule="Mobile_Buy_SDK_tvOS_Sample_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="t0B-6v-JqA"/>
+                        <viewControllerLayoutGuide type="bottom" id="dcC-dV-6NC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qA5-rN-aov">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ukO-xJ-tLo" customClass="AsyncImageView">
+                                <rect key="frame" x="0.0" y="0.0" width="1940" height="1080"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ukO-xJ-tLo" secondAttribute="trailing" constant="-20" id="C9l-AM-YB9"/>
+                            <constraint firstItem="ukO-xJ-tLo" firstAttribute="top" secondItem="t0B-6v-JqA" secondAttribute="bottom" id="OFg-LG-UCf"/>
+                            <constraint firstItem="ukO-xJ-tLo" firstAttribute="centerY" secondItem="qA5-rN-aov" secondAttribute="centerY" id="RqY-C5-wNn"/>
+                            <constraint firstItem="dcC-dV-6NC" firstAttribute="top" secondItem="ukO-xJ-tLo" secondAttribute="bottom" id="WBi-mw-5sW"/>
+                            <constraint firstItem="ukO-xJ-tLo" firstAttribute="leading" secondItem="qA5-rN-aov" secondAttribute="leadingMargin" constant="-20" id="tHF-nM-uvw"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="productImageView" destination="ukO-xJ-tLo" id="QhH-Ij-oOy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xKp-Oh-FI7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2131" y="70"/>
+        </scene>
+        <!--Page View Controller-->
+        <scene sceneID="dBc-Hd-cms">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="2KV-Te-QMO" customClass="PageViewController" customModule="Mobile_Buy_SDK_tvOS_Sample_App" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yt8-qA-I94" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4193" y="70"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Logo" width="1000" height="285"/>
+        <image name="Placeholder" width="200" height="298"/>
     </resources>
 </document>

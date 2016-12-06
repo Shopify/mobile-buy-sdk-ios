@@ -13,13 +13,17 @@
 		B8627DC51DDDFC8A00327C18 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8627DC41DDDFC8A00327C18 /* ViewController.swift */; };
 		B8627DC81DDDFC8A00327C18 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8627DC61DDDFC8A00327C18 /* Main.storyboard */; };
 		B8627DCA1DDDFC8A00327C18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8627DC91DDDFC8A00327C18 /* Assets.xcassets */; };
+		B8691DE21DEA391300ACB45C /* ProductImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8691DE11DEA391300ACB45C /* ProductImageViewController.swift */; };
+		B8691DE81DEA397F00ACB45C /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8691DE71DEA397F00ACB45C /* PageViewController.swift */; };
+		B8691DF01DECAA3900ACB45C /* ProductItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8691DEF1DECAA3900ACB45C /* ProductItem.swift */; };
+		B8691DF21DECAD6C00ACB45C /* ImageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8691DF11DECAD6C00ACB45C /* ImageItem.swift */; };
 		B88FA0631DE36FA20008CC83 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88FA0621DE36FA20008CC83 /* DataProvider.swift */; };
 		B89C34451DE49F3400E88C6A /* CollectionViewContainerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C34441DE49F3400E88C6A /* CollectionViewContainerCell.swift */; };
 		B89C34471DE4C59100E88C6A /* ProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C34461DE4C59100E88C6A /* ProductCollectionViewCell.swift */; };
 		B89C344B1DE5DDC600E88C6A /* CollectionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C344A1DE5DDC600E88C6A /* CollectionsViewModel.swift */; };
 		B89C34511DE5DDD100E88C6A /* ProductsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C34501DE5DDD100E88C6A /* ProductsViewModel.swift */; };
-		B89C34581DE633CF00E88C6A /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C34571DE633CF00E88C6A /* BaseViewModel.swift */; };
 		B89C346A1DE88DF100E88C6A /* AsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B89C34691DE88DF100E88C6A /* AsyncImageView.m */; };
+		B8BB14431DF0C7BD00F45BBB /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BB14421DF0C7BD00F45BBB /* BaseViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,15 +79,19 @@
 		B8627DC91DDDFC8A00327C18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B8627DCB1DDDFC8A00327C18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B8627DD11DDDFE0500327C18 /* Mobile Buy SDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Mobile Buy SDK.xcodeproj"; path = "../../Mobile Buy SDK/Mobile Buy SDK.xcodeproj"; sourceTree = "<group>"; };
+		B8691DE11DEA391300ACB45C /* ProductImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductImageViewController.swift; sourceTree = "<group>"; };
+		B8691DE71DEA397F00ACB45C /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		B8691DEF1DECAA3900ACB45C /* ProductItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductItem.swift; sourceTree = "<group>"; };
+		B8691DF11DECAD6C00ACB45C /* ImageItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageItem.swift; sourceTree = "<group>"; };
 		B88FA0621DE36FA20008CC83 /* DataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		B89C34441DE49F3400E88C6A /* CollectionViewContainerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewContainerCell.swift; sourceTree = "<group>"; };
 		B89C34461DE4C59100E88C6A /* ProductCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCollectionViewCell.swift; sourceTree = "<group>"; };
 		B89C344A1DE5DDC600E88C6A /* CollectionsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionsViewModel.swift; sourceTree = "<group>"; };
 		B89C34501DE5DDD100E88C6A /* ProductsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsViewModel.swift; sourceTree = "<group>"; };
-		B89C34571DE633CF00E88C6A /* BaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		B89C34671DE88DF100E88C6A /* Mobile Buy SDK tvOS Sample App-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mobile Buy SDK tvOS Sample App-Bridging-Header.h"; sourceTree = "<group>"; };
 		B89C34681DE88DF100E88C6A /* AsyncImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncImageView.h; sourceTree = "<group>"; };
 		B89C34691DE88DF100E88C6A /* AsyncImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncImageView.m; sourceTree = "<group>"; };
+		B8BB14421DF0C7BD00F45BBB /* BaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +126,7 @@
 		B8627DC11DDDFC8A00327C18 /* Mobile Buy SDK tvOS Sample */ = {
 			isa = PBXGroup;
 			children = (
+				B8BB14421DF0C7BD00F45BBB /* BaseViewModel.swift */,
 				B89C34681DE88DF100E88C6A /* AsyncImageView.h */,
 				B89C34691DE88DF100E88C6A /* AsyncImageView.m */,
 				B8627DC21DDDFC8A00327C18 /* AppDelegate.swift */,
@@ -130,8 +139,11 @@
 				B89C344A1DE5DDC600E88C6A /* CollectionsViewModel.swift */,
 				B89C34501DE5DDD100E88C6A /* ProductsViewModel.swift */,
 				B89C34461DE4C59100E88C6A /* ProductCollectionViewCell.swift */,
-				B89C34571DE633CF00E88C6A /* BaseViewModel.swift */,
 				B89C34671DE88DF100E88C6A /* Mobile Buy SDK tvOS Sample App-Bridging-Header.h */,
+				B8691DE11DEA391300ACB45C /* ProductImageViewController.swift */,
+				B8691DE71DEA397F00ACB45C /* PageViewController.swift */,
+				B8691DEF1DECAA3900ACB45C /* ProductItem.swift */,
+				B8691DF11DECAD6C00ACB45C /* ImageItem.swift */,
 			);
 			path = "Mobile Buy SDK tvOS Sample";
 			sourceTree = "<group>";
@@ -250,13 +262,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8691DE21DEA391300ACB45C /* ProductImageViewController.swift in Sources */,
+				B8691DF01DECAA3900ACB45C /* ProductItem.swift in Sources */,
 				B8627DC51DDDFC8A00327C18 /* ViewController.swift in Sources */,
+				B8691DE81DEA397F00ACB45C /* PageViewController.swift in Sources */,
 				B89C346A1DE88DF100E88C6A /* AsyncImageView.m in Sources */,
 				B8627DC31DDDFC8A00327C18 /* AppDelegate.swift in Sources */,
 				B89C34471DE4C59100E88C6A /* ProductCollectionViewCell.swift in Sources */,
+				B8BB14431DF0C7BD00F45BBB /* BaseViewModel.swift in Sources */,
 				B89C34451DE49F3400E88C6A /* CollectionViewContainerCell.swift in Sources */,
 				B89C34511DE5DDD100E88C6A /* ProductsViewModel.swift in Sources */,
-				B89C34581DE633CF00E88C6A /* BaseViewModel.swift in Sources */,
+				B8691DF21DECAD6C00ACB45C /* ImageItem.swift in Sources */,
 				B88FA0631DE36FA20008CC83 /* DataProvider.swift in Sources */,
 				B89C344B1DE5DDC600E88C6A /* CollectionsViewModel.swift in Sources */,
 			);
