@@ -103,7 +103,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource {
             let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             guard let controller = storyboard.instantiateViewController(withIdentifier: ProductImageViewController.identifier) as? ProductImageViewController
                 else { fatalError("Unable to instantiate a ProductImageViewController.") }
-            controller.loadView()
+            controller.loadViewIfNeeded()
             controller.configure(imageItem: ImageItem(image: image))
             controller.productImageView.load(image, animateChange: true, completion: nil)
             
