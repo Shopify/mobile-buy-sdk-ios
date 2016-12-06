@@ -25,6 +25,7 @@
 //
 
 @import UIKit;
+@import PassKit;
 
 #import "BUYClient.h"
 
@@ -59,6 +60,17 @@ extern NSString *const BUYPaymentProviderDidCompleteCheckoutNotificationKey;
 - (void)paymentProviderWantsControllerDismissed:(id <BUYPaymentProvider>)provider;
 
 @optional
+
+/**
+ *  Called when a PKPaymentAuthorizationController needs to be presented. If this method is implemented, also
+ *  call `presentWithCompletion:` on the controller and specify completion.
+ *
+ *  PKPaymentAuthorizationController is only available in iOS 10.0+. For older versions, use PKPaymentAuthorizationViewController.
+ *
+ *  @param provider   the `BUYPaymentProvider`
+ *  @param controller the `PKPaymentAuthorizationController` to be presented
+ */
+- (void)paymentProvider:(id <BUYPaymentProvider>)provider wantsPaymentControllerPresented:(PKPaymentAuthorizationController *)controller NS_AVAILABLE_IOS(10_0);
 
 /**
  *  Called when the checkout process has started
