@@ -30,11 +30,15 @@ import Buy
 class ProductsViewModel: BaseViewModel {
     
     private var collection: BUYCollection!
-    fileprivate var products: [BUYProduct] = []
+    fileprivate var products: [BUYProduct?] = []
     
     weak var collectionView: UICollectionView!
  
     var dataProvider: DataProvider!
+    
+    var hasProducts: Bool {
+        return self.products.count > 0
+    }
     
     init(collection: BUYCollection, dataProvider: DataProvider) {
         self.collection = collection
@@ -58,20 +62,27 @@ extension ProductsViewModel: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.products.count
+        return hasProducts ? self.products.count : 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionViewCell.reuseIdentifier, for: indexPath) as! ProductCollectionViewCell
-        let product = self.products[indexPath.row] as BUYProduct
-        if product.imagesArray().count > 0 {
-            cell.productImage.load(product.imagesArray().first, animateChange: true, completion: nil)
+        if hasProducts {
+            if let product = self.products[indexPath.row] {
+                if let image = product.imagesArray().first {
+                    cell.productImage.load(image, animateChange: true, completion: nil)
+                } else {
+                    cell.productImage.image = UIImage(named: "Placeholder")
+                }
+                let productItem = ProductItem(images: product.imagesArray())
+                let priceString = self.dataProvider.getCurrencyFormatter().string(from: product.minimumPrice)!
+                cell.productImage.backgroundColor = UIColor.clear
+                cell.configure(item: productItem, price: priceString, title: product.title)
+
+            }
         } else {
-            cell.productImage.image = UIImage(named: "Placeholder")
+            cell.configure(item: ProductItem(images: []), price: "", title: "")
         }
-        let productItem = ProductItem(images: product.imagesArray())
-        let priceString = String(format: "%@", self.dataProvider.getCurrencyFormatter().string(from: product.minimumPrice)!)
-        cell.configure(item: productItem, price: priceString, title: product.title)
         return cell
     }
 }
