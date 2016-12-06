@@ -183,24 +183,7 @@ typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArra
 	
 	Class PaymentClass = [self applePayController];
 	id controller = [[PaymentClass alloc] initWithPaymentRequest:request];
-	if (controller) {
-		[controller setDelegate:self];
-		if ([PaymentClass isSubclassOfClass:[PKPaymentAuthorizationController class]]) {
-			if ([self.delegate respondsToSelector:@selector(paymentProvider:wantsPaymentControllerPresented:)]) {
-				[self.delegate paymentProvider:self wantsPaymentControllerPresented:controller];
-			} else {
-				[controller presentWithCompletion:nil];
-			}
-		} else {
-			[self.delegate paymentProvider:self wantsControllerPresented:controller];
-		}
-	}
-	else {
-		if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailWithError:)]) {
-			[self.delegate paymentProvider:self didFailWithError:nil];
-		}
-		[[NSNotificationCenter defaultCenter] postNotificationName:BUYPaymentProviderDidFailCheckoutNotificationKey object:self];
-	}
+	[self presentPaymentController:controller withApplePayControllerClass:PaymentClass];
 }
 
 - (PKPaymentRequest *)paymentRequest
@@ -283,6 +266,27 @@ typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArra
 			[self.delegate paymentProvider:self didFailWithError:self.applePayAuthorizationDelegate.lastError];
 		}
 		[[NSNotificationCenter defaultCenter] postNotificationName:BUYPaymentProviderDidFailToUpdateCheckoutNotificationKey object:self];
+	}
+}
+
+- (void)presentPaymentController:(id)controller withApplePayControllerClass:(Class)applePayControllerClass {
+	if (controller) {
+		[controller setDelegate:self];
+		if ([applePayControllerClass isSubclassOfClass:[PKPaymentAuthorizationController class]]) {
+			if ([self.delegate respondsToSelector:@selector(paymentProvider:wantsPaymentControllerPresented:)]) {
+				[self.delegate paymentProvider:self wantsPaymentControllerPresented:controller];
+			} else {
+				[controller presentWithCompletion:nil];
+			}
+		} else {
+			[self.delegate paymentProvider:self wantsControllerPresented:controller];
+		}
+	}
+	else {
+		if ([self.delegate respondsToSelector:@selector(paymentProvider:didFailWithError:)]) {
+			[self.delegate paymentProvider:self didFailWithError:nil];
+		}
+		[[NSNotificationCenter defaultCenter] postNotificationName:BUYPaymentProviderDidFailCheckoutNotificationKey object:self];
 	}
 }
 
