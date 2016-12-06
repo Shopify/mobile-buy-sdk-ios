@@ -155,7 +155,7 @@ typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArra
 	// checks if device hardware is capable of using Apple Pay
 	// checks if the device has a payment card setup
 	
-	Class PaymentClass = [self applePayController];
+	Class PaymentClass = [self applePayControllerClass];
 	return (self.merchantID.length &&
 			[PaymentClass canMakePayments] &&
 			[PaymentClass canMakePaymentsUsingNetworks:self.supportedNetworks]);
@@ -167,7 +167,7 @@ typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArra
 	if ([passLibrary respondsToSelector:@selector(canAddPaymentPassWithPrimaryAccountIdentifier:)] &&
 		// Check if the device can add a payment pass
 		[self.merchantID length]) {
-		Class PaymentClass = [self applePayController];
+		Class PaymentClass = [self applePayControllerClass];
 		return [PaymentClass canMakePayments];
 	} else {
 		return NO;
@@ -181,7 +181,7 @@ typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArra
 	PKPaymentRequest *request = [self paymentRequest];
 	request.paymentSummaryItems = [self.checkout buy_summaryItemsWithShopName:self.shop.name];
 	
-	Class PaymentClass = [self applePayController];
+	Class PaymentClass = [self applePayControllerClass];
 	id controller = [[PaymentClass alloc] initWithPaymentRequest:request];
 	[self presentPaymentController:controller withApplePayControllerClass:PaymentClass];
 }
@@ -215,7 +215,7 @@ typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArra
 	return _supportedNetworks;
 }
 
-- (Class)applePayController
+- (Class)applePayControllerClass
 {
 	return ([PKPaymentAuthorizationController class]) ?: [PKPaymentAuthorizationViewController class];
 }
