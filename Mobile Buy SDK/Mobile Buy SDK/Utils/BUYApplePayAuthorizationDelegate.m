@@ -38,8 +38,8 @@
 
 const NSTimeInterval PollDelay = 0.5;
 
-typedef void (^AddressUpdateCompletion)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull);
-typedef void (^ShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArray<PKPaymentSummaryItem *> * _Nonnull);
+typedef void (^BUYAddressUpdateCompletion)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull);
+typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArray<PKPaymentSummaryItem *> * _Nonnull);
 
 @interface BUYApplePayAuthorizationDelegate ()
 
@@ -84,14 +84,14 @@ typedef void (^ShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArray<P
 
 - (void)paymentAuthorizationController:(PKPaymentAuthorizationController *)controller
 			  didSelectShippingContact:(PKContact *)contact
-							completion:(AddressUpdateCompletion)completion
+							completion:(BUYAddressUpdateCompletion)completion
 {
 	[self paymentAuthorizationDidSelectShippingContact:contact completion:completion];
 }
 
 - (void)paymentAuthorizationController:(PKPaymentAuthorizationController *)controller
 			   didSelectShippingMethod:(PKShippingMethod *)shippingMethod
-							completion:(ShippingMethodCompletion)completion
+							completion:(BUYShippingMethodCompletion)completion
 {
 	[self paymentAuthorizationDidSelectShippingMethod:shippingMethod completion:completion];
 }
@@ -123,7 +123,7 @@ typedef void (^ShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArray<P
 
 -(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
 				 didSelectShippingAddress:(ABRecordRef)address
-							   completion:(AddressUpdateCompletion)completion
+							   completion:(BUYAddressUpdateCompletion)completion
 {
 	self.checkout.shippingAddress = [self buyAddressWithABRecord:address];
 	if ([self.checkout.shippingAddress isValidAddressForShippingRates]) {
@@ -133,14 +133,14 @@ typedef void (^ShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArray<P
 
 -(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
 				 didSelectShippingContact:(PKContact *)contact
-							   completion:(AddressUpdateCompletion)completion
+							   completion:(BUYAddressUpdateCompletion)completion
 {
 	[self paymentAuthorizationDidSelectShippingContact:contact completion:completion];
 }
 
 -(void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
 				  didSelectShippingMethod:(PKShippingMethod *)shippingMethod
-							   completion:(ShippingMethodCompletion)completion
+							   completion:(BUYShippingMethodCompletion)completion
 {
 	[self paymentAuthorizationDidSelectShippingMethod:shippingMethod completion:completion];
 }
@@ -195,7 +195,7 @@ typedef void (^ShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArray<P
 }
 
 - (void)paymentAuthorizationDidSelectShippingContact:(PKContact *)contact
-										  completion:(AddressUpdateCompletion)completion
+										  completion:(BUYAddressUpdateCompletion)completion
 {
 	self.checkout.shippingAddress = [self buyAddressWithContact:contact];
 	if ([self.checkout.shippingAddress isValidAddressForShippingRates]) {
@@ -204,7 +204,7 @@ typedef void (^ShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArray<P
 }
 
 - (void)paymentAuthorizationDidSelectShippingMethod:(PKShippingMethod *)shippingMethod
-										 completion:(ShippingMethodCompletion)completion
+										 completion:(BUYShippingMethodCompletion)completion
 {
 	BUYShippingRate *shippingRate = [self rateForShippingMethod:shippingMethod];
 	self.checkout.shippingRate = shippingRate;
@@ -220,7 +220,7 @@ typedef void (^ShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArray<P
 	}];
 }
 
-- (void)updateCheckoutWithAddressCompletion:(AddressUpdateCompletion)completion
+- (void)updateCheckoutWithAddressCompletion:(BUYAddressUpdateCompletion)completion
 {
 	// This method call is internal to selection of shipping address that are returned as partial from PKPaymentAuthorizationViewController
 	// However, to ensure we never set partialAddresses to NO, we want to guard the setter. Should PKPaymentAuthorizationViewController ever
@@ -246,7 +246,7 @@ typedef void (^ShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArray<P
 	}];
 }
 
-- (void)updateShippingRatesCompletion:(AddressUpdateCompletion)completion
+- (void)updateShippingRatesCompletion:(BUYAddressUpdateCompletion)completion
 {
 	[self.client getShippingRatesForCheckoutWithToken:self.checkout.token completion:^(NSArray *shippingRates, BUYStatus status, NSError *error) {
 		
