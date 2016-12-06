@@ -47,6 +47,8 @@ typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArra
 @property (nonatomic, assign) PKPaymentAuthorizationStatus paymentAuthorizationStatus;
 @property (nonatomic, strong) BUYClient *client;
 
+@property (nonatomic) Class applePayControllerClass;
+
 @property (nonatomic, assign) BOOL inProgress;
 
 @end
@@ -66,6 +68,7 @@ typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArra
 		_client = client;
 		_merchantID = merchantID;
 		_allowApplePaySetup = YES;
+		_applePayControllerClass = ([PKPaymentAuthorizationController class]) ?: [PKPaymentAuthorizationViewController class];
 	}
 	
 	return self;
@@ -154,11 +157,10 @@ typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArra
 	// checks if the client is setup to use Apple Pay
 	// checks if device hardware is capable of using Apple Pay
 	// checks if the device has a payment card setup
-	
-	Class PaymentClass = [self applePayControllerClass];
+
 	return (self.merchantID.length &&
-			[PaymentClass canMakePayments] &&
-			[PaymentClass canMakePaymentsUsingNetworks:self.supportedNetworks]);
+			[self canMakePayments] &&
+			[self canMakePaymentsUsingNetworks:self.supportedNetworks]);
 }
 
 - (BOOL)canShowApplePaySetup
@@ -167,11 +169,20 @@ typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArra
 	if ([passLibrary respondsToSelector:@selector(canAddPaymentPassWithPrimaryAccountIdentifier:)] &&
 		// Check if the device can add a payment pass
 		[self.merchantID length]) {
-		Class PaymentClass = [self applePayControllerClass];
-		return [PaymentClass canMakePayments];
+		return [self canMakePayments];
 	} else {
 		return NO;
 	}
+}
+
+- (BOOL)canMakePayments
+{
+	return [self.applePayControllerClass canMakePayments];
+}
+
+- (BOOL)canMakePaymentsUsingNetworks:(NSArray<PKPaymentNetwork> *)supportedNetworks
+{
+	return [self.applePayControllerClass canMakePaymentsUsingNetworks:supportedNetworks];
 }
 
 - (void)proceedWithApplePay
@@ -181,9 +192,8 @@ typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArra
 	PKPaymentRequest *request = [self paymentRequest];
 	request.paymentSummaryItems = [self.checkout buy_summaryItemsWithShopName:self.shop.name];
 	
-	Class PaymentClass = [self applePayControllerClass];
-	id controller = [[PaymentClass alloc] initWithPaymentRequest:request];
-	[self presentPaymentController:controller withApplePayControllerClass:PaymentClass];
+	id controller = [[self.applePayControllerClass alloc] initWithPaymentRequest:request];
+	[self presentPaymentController:controller];
 }
 
 - (PKPaymentRequest *)paymentRequest
@@ -213,11 +223,6 @@ typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArra
 	}
 	
 	return _supportedNetworks;
-}
-
-- (Class)applePayControllerClass
-{
-	return ([PKPaymentAuthorizationController class]) ?: [PKPaymentAuthorizationViewController class];
 }
 
 #pragma mark - PKPaymentAuthorization Helper Methods
@@ -269,10 +274,11 @@ typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArra
 	}
 }
 
-- (void)presentPaymentController:(id)controller withApplePayControllerClass:(Class)applePayControllerClass {
+- (void)presentPaymentController:(id)controller
+{
 	if (controller) {
 		[controller setDelegate:self];
-		if ([applePayControllerClass isSubclassOfClass:[PKPaymentAuthorizationController class]]) {
+		if ([self.applePayControllerClass isSubclassOfClass:[PKPaymentAuthorizationController class]]) {
 			if ([self.delegate respondsToSelector:@selector(paymentProvider:wantsPaymentControllerPresented:)]) {
 				[self.delegate paymentProvider:self wantsPaymentControllerPresented:controller];
 			} else {
