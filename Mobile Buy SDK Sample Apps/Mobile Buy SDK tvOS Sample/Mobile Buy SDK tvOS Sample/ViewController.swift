@@ -41,6 +41,13 @@ class ViewController: UIViewController, DataProviderSetter {
             self.collectionView.reloadData()
         }
     }
+    
+    func createAlert(alertTitle: String, buttonTitle:String, message: String) -> UIAlertController {
+        let alertController = UIAlertController(title: alertTitle, message: message, preferredStyle: .alert)
+        let buttonAction = UIAlertAction(title: buttonTitle, style: .default, handler: nil)
+        alertController.addAction(buttonAction)
+        return alertController
+    }
 }
 
 extension ViewController: UICollectionViewDelegate {
@@ -62,12 +69,8 @@ extension ViewController: UICollectionViewDelegate {
                 let title = "Oops!"
                 let message = "Looks like this product has no images"
                 let acceptButtonTitle = NSLocalizedString("OK", comment: "")
-                let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-                let okayAction = UIAlertAction(title: acceptButtonTitle, style: .default, handler: nil)
-                alertController.addAction(okayAction)
-                
+                let alertController = self.createAlert(alertTitle: title, buttonTitle: acceptButtonTitle, message: message)
                 present(alertController, animated: true, completion: nil)
-
             }
         }
     }
