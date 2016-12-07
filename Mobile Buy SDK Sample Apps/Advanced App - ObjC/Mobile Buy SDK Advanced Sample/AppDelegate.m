@@ -27,6 +27,7 @@
 
 #import "AppDelegate.h"
 #import "CheckoutViewController.h"
+#import "OptimizelySDKiOS.h"
 
 @interface AppDelegate ()
 
@@ -37,6 +38,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    OPTLYManager *optlyManager = [OPTLYManager initWithBuilderBlock:^(OPTLYManagerBuilder * _Nullable builder) {
+        builder.projectId = @"";
+    }];
+    [optlyManager initializeClientWithCallback:^(NSError * _Nullable error, OPTLYClient * _Nullable client) {
+        OPTLYVariation *variation = [client activateExperiment:@"home_sorting_logic" userId:@"user1"];
+    }];
     return YES;
 }
 
