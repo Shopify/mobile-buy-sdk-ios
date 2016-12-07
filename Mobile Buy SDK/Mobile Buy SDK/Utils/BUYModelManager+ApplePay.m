@@ -30,12 +30,14 @@
 
 @implementation BUYModelManager (ApplePay)
 
+#if !TARGET_OS_WATCH
 - (BUYAddress *)buyAddressWithABRecord:(ABRecordRef)addressRecord
 {
 	BUYAddress *address = [self insertAddressWithJSONDictionary:nil];
 	[address updateWithRecord:addressRecord];
 	return address;
 }
+#endif
 
 - (BUYAddress *)buyAddressWithContact:(PKContact *)contact
 {
