@@ -25,7 +25,6 @@
 //
 
 #import "BUYCollection.h"
-#import "BUYImageLink.h"
 #import "NSString+BUYAdditions.h"
 
 @implementation BUYCollection
