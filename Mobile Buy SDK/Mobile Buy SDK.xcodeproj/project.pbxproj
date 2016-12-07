@@ -2820,6 +2820,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "$SRCROOT/Mobile Buy SDK/Static Framework/Buy.modulemap";
+				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.BuyWatch;
 				PRODUCT_NAME = Buy;
 				SDKROOT = watchos;
@@ -2849,6 +2850,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "$SRCROOT/Mobile Buy SDK/Static Framework/Buy.modulemap";
+				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.BuyWatch;
 				PRODUCT_NAME = Buy;
 				SDKROOT = watchos;
@@ -2879,6 +2881,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "$SRCROOT/Mobile Buy SDK/Static Framework/Buy.modulemap";
+				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.BuyWatch;
 				PRODUCT_NAME = Buy;
 				SDKROOT = watchos;
@@ -2909,6 +2912,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "$SRCROOT/Mobile Buy SDK/Static Framework/Buy.modulemap";
+				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.BuyWatch;
 				PRODUCT_NAME = Buy;
 				SDKROOT = watchos;
