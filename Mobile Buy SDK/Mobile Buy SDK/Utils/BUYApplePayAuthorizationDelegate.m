@@ -24,8 +24,8 @@
 //  THE SOFTWARE.
 //
 
-#import "BUYApplePayAuthorizationDelegate.h"
 #import "BUYApplePayAdditions.h"
+#import "BUYApplePayAuthorizationDelegate.h"
 #import "BUYApplePayToken.h"
 #import "BUYAssert.h"
 #import "BUYClient+Checkout.h"
@@ -96,7 +96,12 @@ typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArra
 	[self paymentAuthorizationDidSelectShippingMethod:shippingMethod completion:completion];
 }
 
+- (BUYAddress *)buyAddressWithContact:(PKContact *)contact
+{
+	return [self.client.modelManager buyAddressWithContact:contact];
+}
 
+#if !TARGET_OS_WATCH
 #pragma mark - PKPaymentAuthorizationViewControllerDelegate methods
 
 - (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
@@ -104,16 +109,6 @@ typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArra
 								completion:(void (^)(PKPaymentAuthorizationStatus status))completion
 {
 	[self paymentAuthorizationDidAuthorizePayment:payment completion:completion];
-}
-
-- (BUYAddress *)buyAddressWithABRecord:(ABRecordRef)addressRecord
-{
-	return [self.client.modelManager buyAddressWithABRecord:addressRecord];
-}
-
-- (BUYAddress *)buyAddressWithContact:(PKContact *)contact
-{
-	return [self.client.modelManager buyAddressWithContact:contact];
 }
 
 - (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller
@@ -145,6 +140,13 @@ typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArra
 	[self paymentAuthorizationDidSelectShippingMethod:shippingMethod completion:completion];
 }
 
+- (BUYAddress *)buyAddressWithABRecord:(ABRecordRef)addressRecord
+{
+	return [self.client.modelManager buyAddressWithABRecord:addressRecord];
+}
+
+#endif
+
 #pragma mark -
 
 - (void)paymentAuthorizationDidAuthorizePayment:(PKPayment *)payment
@@ -158,16 +160,20 @@ typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArra
 			self.checkout.shippingAddress = [self buyAddressWithContact:payment.shippingContact];
 		}
 	} else {
+		#if !TARGET_OS_WATCH
 		self.checkout.email = [BUYAddress buy_emailFromRecord:payment.shippingAddress];
 		if (self.checkout.requiresShipping) {
 			self.checkout.shippingAddress = [self buyAddressWithABRecord:payment.shippingAddress];
 		}
+		#endif
 	}
 	
 	if ([payment respondsToSelector:@selector(billingContact)]) {
 		self.checkout.billingAddress = [self buyAddressWithContact:payment.billingContact];
 	} else {
+		#if !TARGET_OS_WATCH
 		self.checkout.billingAddress = [self buyAddressWithABRecord:payment.billingAddress];
+		#endif
 	}
 	
 	[self.client updateCheckout:self.checkout completion:^(BUYCheckout *checkout, NSError *error) {
