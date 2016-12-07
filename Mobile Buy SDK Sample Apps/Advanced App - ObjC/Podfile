@@ -6,5 +6,5 @@ target 'Mobile Buy SDK Advanced Sample' do
   # use_frameworks!
 
   # Pods for Mobile Buy SDK Advanced Sample
-  pod 'OptimizelySDKiOS', '=0.2.1-alpha1'
+  pod 'OptimizelySDKiOS', '=0.2.1-alpha2'
 end
