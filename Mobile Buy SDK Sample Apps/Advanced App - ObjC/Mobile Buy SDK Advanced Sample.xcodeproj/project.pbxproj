@@ -53,6 +53,13 @@
 		B2C560BA1CEE36C00015AA40 /* ProductViewControllerThemeTintColorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C560B61CEE36C00015AA40 /* ProductViewControllerThemeTintColorTableViewCell.m */; };
 		B2C560BB1CEE36C00015AA40 /* ProductViewControllerToggleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C560B81CEE36C00015AA40 /* ProductViewControllerToggleTableViewCell.m */; };
 		B2C560C21CEE39180015AA40 /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C560C11CEE39180015AA40 /* UIColor+Additions.m */; };
+		B54727951DF77EC0001229D7 /* libOptimizelySDKCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B54727941DF77EC0001229D7 /* libOptimizelySDKCore.a */; };
+		B54727971DF77ED1001229D7 /* libJSONModel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B54727961DF77ED1001229D7 /* libJSONModel.a */; };
+		B5AE0F591DF88E3C0069B1D0 /* libFMDB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5AE0F541DF88E3C0069B1D0 /* libFMDB.a */; };
+		B5AE0F5A1DF88E3C0069B1D0 /* libOptimizelySDKDatafileManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5AE0F551DF88E3C0069B1D0 /* libOptimizelySDKDatafileManager.a */; };
+		B5AE0F5B1DF88E3C0069B1D0 /* libOptimizelySDKEventDispatcher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5AE0F561DF88E3C0069B1D0 /* libOptimizelySDKEventDispatcher.a */; };
+		B5AE0F5C1DF88E3C0069B1D0 /* libOptimizelySDKShared.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5AE0F571DF88E3C0069B1D0 /* libOptimizelySDKShared.a */; };
+		B5AE0F5D1DF88E3C0069B1D0 /* libOptimizelySDKUserProfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5AE0F581DF88E3C0069B1D0 /* libOptimizelySDKUserProfile.a */; };
 		BE8B82511B8CF49D00E3F871 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82501B8CF49D00E3F871 /* main.m */; };
 		BE8B82541B8CF49D00E3F871 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82531B8CF49D00E3F871 /* AppDelegate.m */; };
 		BE8B82571B8CF49D00E3F871 /* ProductListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82561B8CF49D00E3F871 /* ProductListViewController.m */; };
@@ -62,6 +69,7 @@
 		BE8B82951B8E65D700E3F871 /* PreCheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82941B8E65D700E3F871 /* PreCheckoutViewController.m */; };
 		BE8B829A1B8E72CC00E3F871 /* CheckoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82991B8E72CC00E3F871 /* CheckoutViewController.m */; };
 		BE948D4D1B95087A009AB20B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE948D4C1B95087A009AB20B /* Images.xcassets */; };
+		E1B1629EFE8CC184420508E8 /* libPods-Mobile Buy SDK Advanced Sample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6370CA3A3B4631F3AC258FA4 /* libPods-Mobile Buy SDK Advanced Sample.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +125,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6370CA3A3B4631F3AC258FA4 /* libPods-Mobile Buy SDK Advanced Sample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Mobile Buy SDK Advanced Sample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		67BE607078C7E7B986B374B1 /* Pods-Mobile Buy SDK Advanced Sample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mobile Buy SDK Advanced Sample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mobile Buy SDK Advanced Sample/Pods-Mobile Buy SDK Advanced Sample.debug.xcconfig"; sourceTree = "<group>"; };
+		82DC38878E0802691730258B /* Pods-Mobile Buy SDK Advanced Sample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mobile Buy SDK Advanced Sample.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mobile Buy SDK Advanced Sample/Pods-Mobile Buy SDK Advanced Sample.release.xcconfig"; sourceTree = "<group>"; };
 		842799641CB31498003AD0CE /* PaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentViewController.h; sourceTree = "<group>"; };
 		842799651CB31498003AD0CE /* PaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentViewController.m; sourceTree = "<group>"; };
 		847612241CAB047600AB17AA /* DisclosureIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisclosureIndicatorView.h; sourceTree = "<group>"; };
@@ -203,6 +214,13 @@
 		B2C560B81CEE36C00015AA40 /* ProductViewControllerToggleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductViewControllerToggleTableViewCell.m; path = "Product View/ProductViewControllerToggleTableViewCell.m"; sourceTree = "<group>"; };
 		B2C560C01CEE39180015AA40 /* UIColor+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Additions.h"; sourceTree = "<group>"; };
 		B2C560C11CEE39180015AA40 /* UIColor+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Additions.m"; sourceTree = "<group>"; };
+		B54727941DF77EC0001229D7 /* libOptimizelySDKCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOptimizelySDKCore.a; path = "../../../../../Library/Developer/Xcode/DerivedData/Mobile_Buy_SDK_Advanced_Sample-gqiwprugscsyqhacgrguqdddajuc/Build/Products/Debug-iphonesimulator/OptimizelySDKCore/libOptimizelySDKCore.a"; sourceTree = "<group>"; };
+		B54727961DF77ED1001229D7 /* libJSONModel.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJSONModel.a; path = "../../../../../Library/Developer/Xcode/DerivedData/Mobile_Buy_SDK_Advanced_Sample-gqiwprugscsyqhacgrguqdddajuc/Build/Products/Debug-iphonesimulator/JSONModel/libJSONModel.a"; sourceTree = "<group>"; };
+		B5AE0F541DF88E3C0069B1D0 /* libFMDB.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFMDB.a; path = "Pods/../build/Debug-iphoneos/FMDB/libFMDB.a"; sourceTree = "<group>"; };
+		B5AE0F551DF88E3C0069B1D0 /* libOptimizelySDKDatafileManager.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOptimizelySDKDatafileManager.a; path = "Pods/../build/Debug-iphoneos/OptimizelySDKDatafileManager/libOptimizelySDKDatafileManager.a"; sourceTree = "<group>"; };
+		B5AE0F561DF88E3C0069B1D0 /* libOptimizelySDKEventDispatcher.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOptimizelySDKEventDispatcher.a; path = "Pods/../build/Debug-iphoneos/OptimizelySDKEventDispatcher/libOptimizelySDKEventDispatcher.a"; sourceTree = "<group>"; };
+		B5AE0F571DF88E3C0069B1D0 /* libOptimizelySDKShared.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOptimizelySDKShared.a; path = "Pods/../build/Debug-iphoneos/OptimizelySDKShared/libOptimizelySDKShared.a"; sourceTree = "<group>"; };
+		B5AE0F581DF88E3C0069B1D0 /* libOptimizelySDKUserProfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOptimizelySDKUserProfile.a; path = "Pods/../build/Debug-iphoneos/OptimizelySDKUserProfile/libOptimizelySDKUserProfile.a"; sourceTree = "<group>"; };
 		BE34378F1BC5C18400C71330 /* Mobile Buy SDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Mobile Buy SDK.xcodeproj"; path = "../../Mobile Buy SDK/Mobile Buy SDK.xcodeproj"; sourceTree = "<group>"; };
 		BE5E28451B94F5C300D2ECB5 /* Mobile Buy SDK Advanced Sample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Mobile Buy SDK Advanced Sample.entitlements"; sourceTree = "<group>"; };
 		BE8B824B1B8CF49D00E3F871 /* Mobile Buy SDK Advanced Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile Buy SDK Advanced Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -228,14 +246,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5AE0F591DF88E3C0069B1D0 /* libFMDB.a in Frameworks */,
+				B5AE0F5A1DF88E3C0069B1D0 /* libOptimizelySDKDatafileManager.a in Frameworks */,
+				B5AE0F5B1DF88E3C0069B1D0 /* libOptimizelySDKEventDispatcher.a in Frameworks */,
+				B5AE0F5C1DF88E3C0069B1D0 /* libOptimizelySDKShared.a in Frameworks */,
+				B5AE0F5D1DF88E3C0069B1D0 /* libOptimizelySDKUserProfile.a in Frameworks */,
+				B54727971DF77ED1001229D7 /* libJSONModel.a in Frameworks */,
+				B54727951DF77EC0001229D7 /* libOptimizelySDKCore.a in Frameworks */,
 				90A6F42D1BA8BCAC003E7C4F /* PassKit.framework in Frameworks */,
 				84A772431D81A2640018D4F5 /* Buy.framework in Frameworks */,
+				E1B1629EFE8CC184420508E8 /* libPods-Mobile Buy SDK Advanced Sample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F147547D275FCACBC557DEF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B5AE0F541DF88E3C0069B1D0 /* libFMDB.a */,
+				B5AE0F551DF88E3C0069B1D0 /* libOptimizelySDKDatafileManager.a */,
+				B5AE0F561DF88E3C0069B1D0 /* libOptimizelySDKEventDispatcher.a */,
+				B5AE0F571DF88E3C0069B1D0 /* libOptimizelySDKShared.a */,
+				B5AE0F581DF88E3C0069B1D0 /* libOptimizelySDKUserProfile.a */,
+				B54727961DF77ED1001229D7 /* libJSONModel.a */,
+				B54727941DF77EC0001229D7 /* libOptimizelySDKCore.a */,
+				6370CA3A3B4631F3AC258FA4 /* libPods-Mobile Buy SDK Advanced Sample.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		847612231CAB047600AB17AA /* Appearance */ = {
 			isa = PBXGroup;
 			children = (
@@ -370,6 +411,15 @@
 			name = "Table View Cells";
 			sourceTree = "<group>";
 		};
+		AA71717F69B8A6D270708CF2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				67BE607078C7E7B986B374B1 /* Pods-Mobile Buy SDK Advanced Sample.debug.xcconfig */,
+				82DC38878E0802691730258B /* Pods-Mobile Buy SDK Advanced Sample.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		BE3437901BC5C18400C71330 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -386,6 +436,8 @@
 				90A6F42C1BA8BCAC003E7C4F /* PassKit.framework */,
 				BE8B824D1B8CF49D00E3F871 /* Mobile Buy SDK Advanced Sample */,
 				BE8B824C1B8CF49D00E3F871 /* Products */,
+				AA71717F69B8A6D270708CF2 /* Pods */,
+				4F147547D275FCACBC557DEF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -450,10 +502,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BE8B82711B8CF49D00E3F871 /* Build configuration list for PBXNativeTarget "Mobile Buy SDK Advanced Sample" */;
 			buildPhases = (
+				A3F3626EC61890227A3AD8D9 /* [CP] Check Pods Manifest.lock */,
 				BE8B82471B8CF49D00E3F871 /* Sources */,
 				BE8B82481B8CF49D00E3F871 /* Frameworks */,
 				BE8B82491B8CF49D00E3F871 /* Resources */,
 				BE3437A61BC5C19D00C71330 /* Embed Frameworks */,
+				36874E58318A71D317392086 /* [CP] Embed Pods Frameworks */,
+				807255C1ECADCF9579DAE6FE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -540,6 +595,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		36874E58318A71D317392086 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mobile Buy SDK Advanced Sample/Pods-Mobile Buy SDK Advanced Sample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		807255C1ECADCF9579DAE6FE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mobile Buy SDK Advanced Sample/Pods-Mobile Buy SDK Advanced Sample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A3F3626EC61890227A3AD8D9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BE8B82471B8CF49D00E3F871 /* Sources */ = {
@@ -720,6 +823,7 @@
 		};
 		BE8B82721B8CF49D00E3F871 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 67BE607078C7E7B986B374B1 /* Pods-Mobile Buy SDK Advanced Sample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Mobile Buy SDK Advanced Sample/Mobile Buy SDK Advanced Sample.entitlements";
@@ -732,6 +836,14 @@
 				);
 				INFOPLIST_FILE = "Mobile Buy SDK Advanced Sample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/FMDB",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/OptimizelySDKDatafileManager",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/OptimizelySDKEventDispatcher",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/OptimizelySDKShared",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/OptimizelySDKUserProfile",
+				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -742,6 +854,7 @@
 		};
 		BE8B82731B8CF49D00E3F871 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 82DC38878E0802691730258B /* Pods-Mobile Buy SDK Advanced Sample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Mobile Buy SDK Advanced Sample/Mobile Buy SDK Advanced Sample.entitlements";
@@ -754,6 +867,14 @@
 				);
 				INFOPLIST_FILE = "Mobile Buy SDK Advanced Sample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/FMDB",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/OptimizelySDKDatafileManager",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/OptimizelySDKEventDispatcher",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/OptimizelySDKShared",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/OptimizelySDKUserProfile",
+				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";

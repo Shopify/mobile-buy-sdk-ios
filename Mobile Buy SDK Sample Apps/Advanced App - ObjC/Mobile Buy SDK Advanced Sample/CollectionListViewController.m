@@ -29,9 +29,9 @@
 #import "ProductListViewController.h"
 
 #warning - Enter your shop domain and API Key
-#define SHOP_DOMAIN @""
+#define SHOP_DOMAIN @"argyle-bliss.myshopify.com"
 #define API_KEY @""
-#define APP_ID @""
+#define APP_ID @"8"
 
 @interface CollectionListViewController ()
 
