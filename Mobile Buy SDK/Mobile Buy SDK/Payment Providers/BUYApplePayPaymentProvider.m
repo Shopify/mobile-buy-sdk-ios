@@ -39,7 +39,11 @@ NSString *const BUYApplePayPaymentProviderId = @"BUYApplePayPaymentProviderId";
 typedef void (^BUYAddressUpdateCompletion)(PKPaymentAuthorizationStatus, NSArray<PKShippingMethod *> * _Nonnull, NSArray<PKPaymentSummaryItem *> * _Nonnull);
 typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArray<PKPaymentSummaryItem *> * _Nonnull);
 
+#if TARGET_OS_WATCH
+@interface BUYApplePayPaymentProvider () <PKPaymentAuthorizationControllerDelegate>
+#else
 @interface BUYApplePayPaymentProvider () <PKPaymentAuthorizationViewControllerDelegate, PKPaymentAuthorizationControllerDelegate>
+#endif
 
 @property (nonatomic, strong) BUYShop *shop;
 @property (nonatomic, strong) BUYApplePayAuthorizationDelegate *applePayAuthorizationDelegate;
@@ -68,7 +72,11 @@ typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArra
 		_client = client;
 		_merchantID = merchantID;
 		_allowApplePaySetup = YES;
+		#if TARGET_OS_WATCH
+		_applePayControllerClass = [PKPaymentAuthorizationController class];
+		#else
 		_applePayControllerClass = ([PKPaymentAuthorizationController class]) ?: [PKPaymentAuthorizationViewController class];
+		#endif
 	}
 	
 	return self;
@@ -214,12 +222,15 @@ typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArra
 - (NSArray *)supportedNetworks
 {
 	if (_supportedNetworks == nil) {
-		
+		#if TARGET_OS_WATCH
+		self.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa, PKPaymentNetworkDiscover];
+		#else
 		if (&PKPaymentNetworkDiscover != NULL) {
 			self.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa, PKPaymentNetworkDiscover];
 		} else {
 			self.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa];
 		}
+		#endif
 	}
 	
 	return _supportedNetworks;
@@ -285,7 +296,9 @@ typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArra
 				[controller presentWithCompletion:nil];
 			}
 		} else {
+			#if !TARGET_OS_WATCH
 			[self.delegate paymentProvider:self wantsControllerPresented:controller];
+			#endif
 		}
 	}
 	else {
@@ -332,6 +345,7 @@ typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArra
 	}];
 }
 
+#if !TARGET_OS_WATCH
 #pragma mark - PKPaymentAuthorizationViewControllerDelegate Methods
 
 - (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didAuthorizePayment:(PKPayment *)payment completion:(void (^)(PKPaymentAuthorizationStatus status))completion
@@ -370,5 +384,6 @@ typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArra
 		completion(status, shippingMethods, summaryItems);
 	}];
 }
+#endif
 
 @end
