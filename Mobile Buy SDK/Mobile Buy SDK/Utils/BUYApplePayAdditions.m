@@ -24,8 +24,12 @@
 //  THE SOFTWARE.
 //
 
-@import AddressBook;
 @import PassKit;
+
+#if !TARGET_OS_WATCH
+@import AddressBook;
+#endif
+
 #import "BUYLineItem.h"
 #import "BUYGiftCard.h"
 #import "BUYApplePayAdditions.h"
@@ -121,6 +125,7 @@
 
 @implementation BUYAddress (ApplePay)
 
+#if !TARGET_OS_WATCH
 + (nullable NSString *)buy_emailFromRecord:(nullable ABRecordRef)record
 {
 	ABMultiValueRef emailMultiValue = ABRecordCopyValue(record, kABPersonEmailProperty);
@@ -175,6 +180,7 @@
 	CFSafeRelease(phoneMultiValue);
 	CFSafeRelease(allPhoneNumbers);
 }
+#endif
 
 - (void)updateWithContact:(nullable PKContact*)contact
 {
