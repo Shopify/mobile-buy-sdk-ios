@@ -30,11 +30,10 @@
 #import "OptimizelySDKiOS.h"
 
 @interface AppDelegate ()
-
+@property(nonatomic, strong, readwrite) OPTLYClient *client;
 @end
 
 @implementation AppDelegate
-
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
@@ -42,7 +41,7 @@
         builder.projectId = @"";
     }];
     [optlyManager initializeClientWithCallback:^(NSError * _Nullable error, OPTLYClient * _Nullable client) {
-        OPTLYVariation *variation = [client activateExperiment:@"home_sorting_logic" userId:@"user1"];
+        self.client = client;
     }];
     return YES;
 }

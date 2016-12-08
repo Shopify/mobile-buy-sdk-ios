@@ -31,6 +31,7 @@
 #import "ProductViewControllerToggleTableViewCell.h"
 #import "ProductViewControllerThemeStyleTableViewCell.h"
 #import "ProductViewControllerThemeTintColorTableViewCell.h"
+#import "AppDelegate.h"
 
 #import <Buy/Buy.h>
 
@@ -93,7 +94,25 @@
         // If we're presenting with a collection, add the ability to sort
         UIBarButtonItem *sortBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sort" style:UIBarButtonItemStylePlain target:self action:@selector(presentCollectionSortOptions:)];
         self.navigationItem.rightBarButtonItem = sortBarButtonItem;
-        [self getCollectionWithSortOrder:BUYCollectionSortCollectionDefault];
+        
+        AppDelegate *appDelegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
+        
+        NSArray *users = @[@"user11",@"user22"];
+        
+
+        NSInteger index = arc4random() % [users count];
+        OPTLYVariation *var = [appDelegate.client activateExperiment:@"test-0-21" userId:users[index]];
+        if([var.variationKey isEqualToString:@"var1"]){
+            [self getCollectionWithSortOrder:BUYCollectionSortPriceDescending];
+            [appDelegate.client trackEvent:@"visit_view_1" userId:users[index]];
+        } else if([var.variationKey isEqualToString:@"control1"]){
+            [self getCollectionWithSortOrder:BUYCollectionSortCollectionDefault];
+        } else {
+            [self getCollectionWithSortOrder:BUYCollectionSortCollectionDefault];
+        }
+//        
+//        
+//        [self getCollectionWithSortOrder:BUYCollectionSortCollectionDefault];
     } else {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
         [self.client getProductsPage:1 completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
