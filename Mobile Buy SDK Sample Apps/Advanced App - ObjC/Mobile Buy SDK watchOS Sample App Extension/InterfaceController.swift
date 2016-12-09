@@ -27,7 +27,6 @@
 import WatchKit
 import Foundation
 
-
 class InterfaceController: WKInterfaceController {
 
     @IBOutlet var productsTable: WKInterfaceTable!
@@ -35,7 +34,13 @@ class InterfaceController: WKInterfaceController {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
-        // Configure interface objects here.
+        productsTable.setNumberOfRows(5, withRowType: "ProductRow")
+        
+        for index in 0..<5 {
+            if let controller = productsTable.rowController(at: index) as? ProductRowController {
+                controller.configure(image: UIImage.init(named: "temp")!, title: "testing")
+            }
+        }
     }
     
     override func willActivate() {
