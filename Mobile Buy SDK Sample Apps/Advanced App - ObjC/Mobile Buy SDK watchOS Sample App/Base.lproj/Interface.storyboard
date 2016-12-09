@@ -16,7 +16,7 @@
                     <items>
                         <table alignment="left" id="xyc-95-Fah">
                             <items>
-                                <tableRow id="8oh-Cq-MI8">
+                                <tableRow identifier="ProductRow" id="8oh-Cq-MI8" customClass="ProductRowController" customModule="Mobile_Buy_SDK_watchOS_Sample_App_Extension">
                                     <group key="rootItem" width="1" height="107" alignment="left" layout="vertical" spacing="6" id="NTR-iN-6aY">
                                         <items>
                                             <imageView width="136" height="62" alignment="left" contentMode="scaleAspectFit" id="BDZ-0f-66j"/>
@@ -24,6 +24,10 @@
                                         </items>
                                         <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="4"/>
                                     </group>
+                                    <connections>
+                                        <outlet property="productImage" destination="BDZ-0f-66j" id="l0N-2g-YFb"/>
+                                        <outlet property="productTitle" destination="M8S-Td-NeD" id="ABY-ad-H5E"/>
+                                    </connections>
                                 </tableRow>
                             </items>
                         </table>
