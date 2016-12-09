@@ -20,9 +20,14 @@
                                     <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" spacing="6" id="NTR-iN-6aY">
                                         <items>
                                             <imageView width="1" height="62" alignment="left" contentMode="scaleAspectFit" id="BDZ-0f-66j"/>
-                                            <label width="1" alignment="left" numberOfLines="2" id="M8S-Td-NeD"/>
+                                            <group width="1" alignment="left" id="kTC-4d-o9s">
+                                                <items>
+                                                    <label width="1" alignment="left" numberOfLines="2" id="M8S-Td-NeD"/>
+                                                </items>
+                                                <edgeInsets key="margins" left="6" right="6" top="0.0" bottom="0.0"/>
+                                            </group>
                                         </items>
-                                        <edgeInsets key="margins" left="0.0" right="0.0" top="4" bottom="4"/>
+                                        <edgeInsets key="margins" left="0.0" right="0.0" top="4" bottom="0.0"/>
                                     </group>
                                     <connections>
                                         <outlet property="productImage" destination="BDZ-0f-66j" id="l0N-2g-YFb"/>
