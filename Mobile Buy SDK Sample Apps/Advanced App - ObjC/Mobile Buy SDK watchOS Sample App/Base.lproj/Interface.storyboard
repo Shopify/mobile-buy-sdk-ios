@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
-    <device id="watch38" orientation="portrait">
+    <device id="watch42" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -17,12 +17,12 @@
                         <table alignment="left" id="xyc-95-Fah">
                             <items>
                                 <tableRow identifier="ProductRow" id="8oh-Cq-MI8" customClass="ProductRowController" customModule="Mobile_Buy_SDK_watchOS_Sample_App_Extension">
-                                    <group key="rootItem" width="1" height="107" alignment="left" layout="vertical" spacing="6" id="NTR-iN-6aY">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" spacing="6" id="NTR-iN-6aY">
                                         <items>
-                                            <imageView width="136" height="62" alignment="left" contentMode="scaleAspectFit" id="BDZ-0f-66j"/>
-                                            <label width="132" height="36" alignment="left" id="M8S-Td-NeD"/>
+                                            <imageView width="1" height="62" alignment="left" contentMode="scaleAspectFit" id="BDZ-0f-66j"/>
+                                            <label width="1" alignment="left" numberOfLines="2" id="M8S-Td-NeD"/>
                                         </items>
-                                        <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="4"/>
+                                        <edgeInsets key="margins" left="0.0" right="0.0" top="4" bottom="4"/>
                                     </group>
                                     <connections>
                                         <outlet property="productImage" destination="BDZ-0f-66j" id="l0N-2g-YFb"/>
@@ -37,7 +37,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="220" y="345"/>
+            <point key="canvasLocation" x="219.69230769230771" y="344.79487179487182"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">
