@@ -25,7 +25,47 @@
 //
 
 import Foundation
+import Buy
 
 public class DataProvider {
+    
+    private(set) var client : BUYClient!
+    
+    var shop: BUYShop? = nil
+    var products: [BUYProduct] = []
+    
+    public required init(shopDomain: String, apiKey: String, appId: String) {
+        self.client = BUYClient(shopDomain: shopDomain, apiKey: apiKey, appId: appId)
+    }
+    
+    private func updateShop() {
+        self.client.getShop {(shop, error) in
+            if let shop = shop {
+                self.shop = shop;
+            }
+        }
+    }
+
+    public func getProducts(completion: @escaping ([BUYProduct]) -> Void) -> Operation {
+        if self.products.count > 0 {
+            completion(self.products)
+        }
+        return self.downloadProducts(completion:completion)
+    }
+    
+    public func getCurrencyFormatter() -> NumberFormatter {
+        let currencyFormatter = NumberFormatter()
+        currencyFormatter.numberStyle = NumberFormatter.Style.currency
+        currencyFormatter.currencyCode = self.shop?.currency
+        return currencyFormatter
+    }
+    
+    private func downloadProducts(completion: @escaping([BUYProduct]) -> Void) -> Operation {
+        return self.client.getProductsPage(1, completion: { [weak self] (products, page, reachedEnd, error) in
+            self?.products = products!
+            completion(products!)
+        })
+    }
+
     
 }
