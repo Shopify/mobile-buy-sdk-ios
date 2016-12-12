@@ -44,6 +44,7 @@ extern NSString *const BUYPaymentProviderDidCompleteCheckoutNotificationKey;
 
 @required
 
+#if !TARGET_OS_WATCH
 /**
  *  Called when a view controller needs to be presented
  *
@@ -51,6 +52,7 @@ extern NSString *const BUYPaymentProviderDidCompleteCheckoutNotificationKey;
  *  @param controller the `UIViewController` to be presented
  */
 - (void)paymentProvider:(id <BUYPaymentProvider>)provider wantsControllerPresented:(UIViewController *)controller;
+#endif
 
 /**
  *  Called when the view controller
