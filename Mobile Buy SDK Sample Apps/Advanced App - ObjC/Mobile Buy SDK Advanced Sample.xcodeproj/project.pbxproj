@@ -1074,6 +1074,7 @@
 				B86CCAB11DF9A2DA00F46EDE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B86CCABA1DF9A2DA00F46EDE /* Build configuration list for PBXNativeTarget "Mobile Buy SDK watchOS Sample App" */ = {
 			isa = XCConfigurationList;
@@ -1082,6 +1083,7 @@
 				B86CCAAF1DF9A2DA00F46EDE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BE8B82461B8CF49D00E3F871 /* Build configuration list for PBXProject "Mobile Buy SDK Advanced Sample" */ = {
 			isa = XCConfigurationList;
