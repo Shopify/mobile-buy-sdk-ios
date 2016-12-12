@@ -1,0 +1,66 @@
+//
+//  CollectionsViewModel.swift
+//  Mobile Buy SDK tvOS Sample App
+//
+//  Created by Shopify.
+//  Copyright (c) 2016 Shopify Inc. All rights reserved.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
+
+import Foundation
+import Buy
+
+class CollectionsViewModel: BaseViewModel {
+    
+    fileprivate var collections: [BUYCollection] = []
+
+    var dataProvider: DataProvider!
+    
+    init(dataProvider: DataProvider) {
+        self.dataProvider = dataProvider
+    }
+    
+    func getCollections(completion: @escaping () -> Void) {
+        let operation = self.dataProvider.getCollections { (collections) in
+            self.collections = collections
+            completion()
+        }
+        self.setCurrentOperation(operation: operation)
+    }
+}
+
+extension CollectionsViewModel: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewContainerCell.reuseIdentifier, for: indexPath) as! CollectionViewContainerCell
+        let collection = self.collections[indexPath.section]
+        let productsViewModel = ProductsViewModel(collection: collection, dataProvider: self.dataProvider)
+        cell.configure(viewModel: productsViewModel, title: collection.title)
+        return cell
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return self.collections.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+}
