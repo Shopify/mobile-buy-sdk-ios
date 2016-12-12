@@ -76,7 +76,7 @@ let appID:      String = "<app_id>"
 * Used to abstract model objects from views and view controllers
 * Currently only contains a single image object buy more metadata can be added depending on use case 
 
-All commits associated to this PR have been approved in the following PRs:
+All commits associated to the tvOS app have been approved in the following PRs:
 - PR #411 
 - PR #420 
 - PR #421 
