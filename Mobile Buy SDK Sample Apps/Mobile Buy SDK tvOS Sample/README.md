@@ -89,3 +89,4 @@ All commits associated to the tvOS app have been approved in the following PRs:
 - PR #445 
 - PR #446 
 - PR #449 
+- PR #453
