@@ -63,6 +63,8 @@
 		B86CCAAD1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = B86CCA8F1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App.app */; };
 		B86CCABD1DFAF39300F46EDE /* ProductRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86CCABC1DFAF39300F46EDE /* ProductRowController.swift */; };
 		B86CCACA1DFF39AC00F46EDE /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86CCAC91DFF39AC00F46EDE /* DataProvider.swift */; };
+		B86CCACE1DFF3CA200F46EDE /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B86CCACD1DFF3CA200F46EDE /* Buy.framework */; };
+		B86CCACF1DFF3CA200F46EDE /* Buy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B86CCACD1DFF3CA200F46EDE /* Buy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BE8B82511B8CF49D00E3F871 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82501B8CF49D00E3F871 /* main.m */; };
 		BE8B82541B8CF49D00E3F871 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82531B8CF49D00E3F871 /* AppDelegate.m */; };
 		BE8B82571B8CF49D00E3F871 /* ProductListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82561B8CF49D00E3F871 /* ProductListViewController.m */; };
@@ -102,6 +104,20 @@
 			proxyType = 2;
 			remoteGlobalIDString = B8A356991DD6112C00FDD7BD;
 			remoteInfo = BuyTV;
+		};
+		B86CCACC1DFF3CA200F46EDE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BE34378F1BC5C18400C71330 /* Mobile Buy SDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B8BB14501DF1E2EE00F45BBB;
+			remoteInfo = BuyWatch;
+		};
+		B86CCAD01DFF3CA200F46EDE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BE34378F1BC5C18400C71330 /* Mobile Buy SDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = B8BB144F1DF1E2EE00F45BBB;
+			remoteInfo = BuyWatch;
 		};
 		BE34379A1BC5C18400C71330 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -154,6 +170,17 @@
 				B86CCAAD1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B86CCAD21DFF3CA200F46EDE /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B86CCACF1DFF3CA200F46EDE /* Buy.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		BE3437A61BC5C19D00C71330 /* Embed Frameworks */ = {
@@ -294,6 +321,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B86CCACE1DFF3CA200F46EDE /* Buy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,6 +510,7 @@
 				BE34379D1BC5C18400C71330 /* Buy.framework */,
 				BE34379B1BC5C18400C71330 /* Mobile Buy SDK Tests.xctest */,
 				B86CCAB71DF9A2DA00F46EDE /* Buy.framework */,
+				B86CCACD1DFF3CA200F46EDE /* Buy.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -581,10 +610,12 @@
 				B86CCA971DF9A2DA00F46EDE /* Sources */,
 				B86CCA981DF9A2DA00F46EDE /* Frameworks */,
 				B86CCA991DF9A2DA00F46EDE /* Resources */,
+				B86CCAD21DFF3CA200F46EDE /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				B86CCAD11DFF3CA200F46EDE /* PBXTargetDependency */,
 			);
 			name = "Mobile Buy SDK watchOS Sample App Extension";
 			productName = "Mobile Buy SDK watchOS Sample App Extension";
@@ -674,6 +705,13 @@
 			fileType = wrapper.framework;
 			path = Buy.framework;
 			remoteRef = B86CCAB61DF9A2DA00F46EDE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B86CCACD1DFF3CA200F46EDE /* Buy.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Buy.framework;
+			remoteRef = B86CCACC1DFF3CA200F46EDE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		BE34379B1BC5C18400C71330 /* Mobile Buy SDK Tests.xctest */ = {
@@ -808,6 +846,11 @@
 			isa = PBXTargetDependency;
 			target = B86CCA8E1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App */;
 			targetProxy = B86CCAAB1DF9A2DA00F46EDE /* PBXContainerItemProxy */;
+		};
+		B86CCAD11DFF3CA200F46EDE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = BuyWatch;
+			targetProxy = B86CCAD01DFF3CA200F46EDE /* PBXContainerItemProxy */;
 		};
 		BE3437A11BC5C18F00C71330 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
