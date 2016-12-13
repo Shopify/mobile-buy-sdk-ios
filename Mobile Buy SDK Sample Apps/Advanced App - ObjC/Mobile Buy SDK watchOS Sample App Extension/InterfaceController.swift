@@ -27,19 +27,32 @@
 import WatchKit
 import Foundation
 
-class InterfaceController: WKInterfaceController, DataProviderSetter {
+class InterfaceController: WKInterfaceController {
 
+    /* ---------------------------------
+     ** Configure store credentials to
+     ** use with your specific store.
+     */
+    let shopDomain: String = ""
+    let apiKey:     String = ""
+    let appID:      String = ""
+    
+    @IBOutlet var loadingLabel: WKInterfaceLabel!
     @IBOutlet var productsTable: WKInterfaceTable!
     var dataProvider: DataProvider!
+    var productsModel: ProductsModel!
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        
-        productsTable.setNumberOfRows(5, withRowType: "ProductRow")
-        
-        for index in 0..<5 {
-            if let controller = productsTable.rowController(at: index) as? ProductRowController {
-                controller.configure(image: UIImage.init(named: "temp")!, title: "testing")
+        self.dataProvider = DataProvider(shopDomain: self.shopDomain, apiKey: self.apiKey, appId: self.appID)
+        self.productsModel = ProductsModel(dataProvider: self.dataProvider)
+        self.productsModel.getProducts {
+            self.productsTable.setNumberOfRows(self.productsModel.numberOfProducts, withRowType: "ProductRow")
+            self.loadingLabel.setHidden(true)
+            for index in 0..<self.productsModel.numberOfProducts {
+                if let controller = self.productsTable.rowController(at: index) as? ProductRowController {
+                    self.productsModel.configure(controller: controller, index: index)
+                }
             }
         }
     }

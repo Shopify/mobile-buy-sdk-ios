@@ -32,6 +32,10 @@ class ProductsModel: BaseModel {
     fileprivate var products: [BUYProduct?] = []
     var dataProvider: DataProvider!
     
+    var numberOfProducts: Int {
+        return self.products.count
+    }
+    
     init(dataProvider: DataProvider) {
         self.dataProvider = dataProvider
     }
@@ -42,5 +46,20 @@ class ProductsModel: BaseModel {
             completion()
         }
         self.setCurrentOperation(operation: operation)
+    }
+    
+    func configure(controller: ProductRowController, index: Int) {
+        let product = products[index]
+        
+        if let image = product?.imagesArray().first {
+            let session = URLSession.shared.dataTask(with: image.sourceURL, completionHandler: { (data, urlResponse, error) in
+                controller.productImage.setImageData(data)
+            })
+            session.resume()
+        } else {
+            controller.productImage.setImage(UIImage.init(named: "temp"))
+        }
+
+        controller.configure(title: (product?.title)!)
     }
 }
