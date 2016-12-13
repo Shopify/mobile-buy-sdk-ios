@@ -50,7 +50,7 @@ class ProductsModel: BaseModel {
     
     func configure(controller: ProductRowController, index: Int) {
         let product = products[index]
-        
+        let priceString = self.dataProvider.getCurrencyFormatter().string(from: (product?.minimumPrice)!)!
         if let image = product?.imagesArray().first {
             let session = URLSession.shared.dataTask(with: image.sourceURL, completionHandler: { (data, urlResponse, error) in
                 controller.productImage.setImageData(data)
@@ -60,6 +60,6 @@ class ProductsModel: BaseModel {
             controller.productImage.setImage(UIImage.init(named: "temp"))
         }
 
-        controller.configure(title: (product?.title)!)
+        controller.configure(price: priceString, title: (product?.title)!)
     }
 }
