@@ -52,7 +52,7 @@ class ProductsModel: BaseModel {
         let product = products[index]
         let priceString = self.dataProvider.getCurrencyFormatter().string(from: (product?.minimumPrice)!)!
         if let image = product?.imagesArray().first {
-            let session = URLSession.shared.dataTask(with: image.sourceURL, completionHandler: { (data, urlResponse, error) in
+            let session = URLSession.shared.dataTask(with: image.imageURL(with: .size480x480), completionHandler: { (data, urlResponse, error) in
                 controller.productImage.setImageData(data)
             })
             session.resume()
