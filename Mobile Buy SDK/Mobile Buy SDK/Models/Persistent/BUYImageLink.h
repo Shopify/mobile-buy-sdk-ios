@@ -73,6 +73,7 @@ typedef NS_ENUM(NSUInteger, BUYImageURLSize) {
 
 @end
 
+#if !TARGET_OS_WATCH
 @interface UIView (BUYImageSizing)
 
 /**
@@ -83,5 +84,6 @@ typedef NS_ENUM(NSUInteger, BUYImageURLSize) {
 - (BUYImageURLSize)buy_imageSize;
 
 @end
+#endif
 
 NS_ASSUME_NONNULL_END
