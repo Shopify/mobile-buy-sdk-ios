@@ -1,5 +1,5 @@
 //
-//  ProductsModel.swift
+//  BaseModel.swift
 //  Mobile Buy SDK Advanced Sample
 //
 //  Created by Shopify.
@@ -25,8 +25,16 @@
 //
 
 import Foundation
-import Buy
 
-class ProductsModel: BaseModel {
+class BaseModel: NSObject {
     
+    private var operation: Operation!
+    
+    func setCurrentOperation(operation: Operation) {
+        if self.operation != nil {
+            self.operation.cancel()
+        }
+        
+        self.operation = operation
+    }
 }
