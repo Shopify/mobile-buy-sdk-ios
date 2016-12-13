@@ -28,8 +28,19 @@ import WatchKit
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
+    /* ---------------------------------
+     ** Configure store credentials to
+     ** use with your specific store.
+     */
+    let shopDomain: String = ""
+    let apiKey:     String = ""
+    let appID:      String = ""
+    
     func applicationDidFinishLaunching() {
-        // Perform any final initialization of your application.
+        
+        guard let initialController = WKExtension.shared().rootInterfaceController as? DataProviderSetter
+            else { fatalError("Wrong Controller Type") }
+        initialController.dataProvider = DataProvider(shopDomain: self.shopDomain, apiKey: self.apiKey, appId: self.appID)
     }
 
     func applicationDidBecomeActive() {

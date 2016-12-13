@@ -27,22 +27,13 @@
 import WatchKit
 import Foundation
 
-class InterfaceController: WKInterfaceController {
-    
-    /* ---------------------------------
-     ** Configure store credentials to
-     ** use with your specific store.
-     */
-    let shopDomain: String = ""
-    let apiKey:     String = ""
-    let appID:      String = ""
+class InterfaceController: WKInterfaceController, DataProviderSetter {
 
     @IBOutlet var productsTable: WKInterfaceTable!
     var dataProvider: DataProvider!
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        self.dataProvider = DataProvider(shopDomain: self.shopDomain, apiKey: self.apiKey, appId: self.appID)
         
         productsTable.setNumberOfRows(5, withRowType: "ProductRow")
         
