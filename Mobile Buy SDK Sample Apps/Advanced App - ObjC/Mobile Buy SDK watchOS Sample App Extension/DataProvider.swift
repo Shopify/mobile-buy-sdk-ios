@@ -27,10 +27,6 @@
 import Foundation
 import Buy
 
-protocol DataProviderSetter: class {
-    var dataProvider: DataProvider!{get set}
-}
-
 public class DataProvider {
     
     private(set) var client : BUYClient!
