@@ -36,6 +36,8 @@ public class DataProvider {
     
     public required init(shopDomain: String, apiKey: String, appId: String) {
         self.client = BUYClient(shopDomain: shopDomain, apiKey: apiKey, appId: appId)
+        self.client.productPageSize = 5
+        self.updateShop()
     }
     
     private func updateShop() {
