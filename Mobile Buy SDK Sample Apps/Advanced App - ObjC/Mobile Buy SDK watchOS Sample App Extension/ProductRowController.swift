@@ -29,9 +29,11 @@ import Foundation
 
 class ProductRowController: NSObject {
     @IBOutlet var productImage: WKInterfaceImage!
+    @IBOutlet var productPrice: WKInterfaceLabel!
     @IBOutlet var productTitle: WKInterfaceLabel!
     
-    func configure(title: String) {
+    func configure(price: String, title: String) {
+        self.productPrice.setText(price)
         self.productTitle.setText(title)
     }
 }
