@@ -29,4 +29,18 @@ import Buy
 
 class ProductsModel: BaseModel {
     
+    fileprivate var products: [BUYProduct?] = []
+    var dataProvider: DataProvider!
+    
+    init(dataProvider: DataProvider) {
+        self.dataProvider = dataProvider
+    }
+    
+    func getProducts (completion: @escaping () -> Void) {
+        let operation = self.dataProvider.getProducts() { (products) in
+            self.products = products
+            completion()
+        }
+        self.setCurrentOperation(operation: operation)
+    }
 }
