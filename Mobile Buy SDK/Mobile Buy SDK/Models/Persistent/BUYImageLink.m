@@ -77,6 +77,7 @@
 
 #pragma mark -
 
+#if !TARGET_OS_WATCH
 @implementation UIView (BUYImageSizing)
 
 - (BUYImageURLSize)buy_imageSize
@@ -97,3 +98,4 @@
 }
 
 @end
+#endif

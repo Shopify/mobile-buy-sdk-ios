@@ -257,6 +257,10 @@
 		B2653EC41CEF55CC0012D57D /* BUYModelManager+ApplePay.h in Headers */ = {isa = PBXBuildFile; fileRef = B2653EC11CEF55CC0012D57D /* BUYModelManager+ApplePay.h */; };
 		B2653EC51CEF55CC0012D57D /* BUYModelManager+ApplePay.m in Sources */ = {isa = PBXBuildFile; fileRef = B2653EC21CEF55CC0012D57D /* BUYModelManager+ApplePay.m */; };
 		B2653EC71CEF55CC0012D57D /* BUYModelManager+ApplePay.m in Sources */ = {isa = PBXBuildFile; fileRef = B2653EC21CEF55CC0012D57D /* BUYModelManager+ApplePay.m */; };
+		B82F5DB51E00726200CC5376 /* _BUYImageLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 84D915621CC0416800D334FB /* _BUYImageLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B82F5DB61E00726200CC5376 /* BUYImageLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AF52A791A700B0A0087DB2C /* BUYImageLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B82F5DB71E00727000CC5376 /* _BUYImageLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D915631CC0416800D334FB /* _BUYImageLink.m */; };
+		B82F5DB81E00727000CC5376 /* BUYImageLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF52A7A1A700B0A0087DB2C /* BUYImageLink.m */; };
 		B8851BE81DCBBA8E0004BAEA /* BUYProductVariantTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B8851BE71DCBBA8E0004BAEA /* BUYProductVariantTests.m */; };
 		B88927A21DDB9B8B00096CD5 /* Buy.h in Headers */ = {isa = PBXBuildFile; fileRef = 90DA8DF11BC6A82D0027BCB7 /* Buy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B8A356B41DD611E500FDD7BD /* BUYClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FDA17119C93F6F00AF4E93 /* BUYClient.m */; };
@@ -1636,6 +1640,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B82F5DB51E00726200CC5376 /* _BUYImageLink.h in Headers */,
+				B82F5DB61E00726200CC5376 /* BUYImageLink.h in Headers */,
 				B8CB19FF1DF84E55009C0FB3 /* Buy.h in Headers */,
 				B8CB1A001DF84E55009C0FB3 /* BUYClientTypes.h in Headers */,
 				B8CB1A011DF84E55009C0FB3 /* BUYClient.h in Headers */,
@@ -2174,6 +2180,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B82F5DB71E00727000CC5376 /* _BUYImageLink.m in Sources */,
+				B82F5DB81E00727000CC5376 /* BUYImageLink.m in Sources */,
 				B8CB195C1DF84E0E009C0FB3 /* BUYClient.m in Sources */,
 				B8CB195D1DF84E0E009C0FB3 /* BUYClient+Routing.m in Sources */,
 				B8CB195E1DF84E0E009C0FB3 /* BUYClient+Storefront.m in Sources */,

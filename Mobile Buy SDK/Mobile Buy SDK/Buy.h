@@ -39,6 +39,7 @@
 #import "BUYCustomerToken.h"
 #import "BUYDiscount.h"
 #import "BUYGiftCard.h"
+#import "BUYImageLink.h"
 #import "BUYLineItem.h"
 #import "BUYMaskedCreditCard.h"
 #import "BUYOption.h"
@@ -50,10 +51,6 @@
 #import "BUYShippingRate.h"
 #import "BUYShop.h"
 #import "BUYTaxLine.h"
-
-#if !TARGET_OS_WATCH
-#import "BUYImageLink.h"
-#endif
 
 // Model support
 #import "BUYError.h"
