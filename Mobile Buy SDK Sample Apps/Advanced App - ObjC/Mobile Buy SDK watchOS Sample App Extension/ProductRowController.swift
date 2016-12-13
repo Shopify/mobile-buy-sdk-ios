@@ -31,8 +31,7 @@ class ProductRowController: NSObject {
     @IBOutlet var productImage: WKInterfaceImage!
     @IBOutlet var productTitle: WKInterfaceLabel!
     
-    func configure(image: UIImage, title: String) {
-        self.productImage.setImage(image)
+    func configure(title: String) {
         self.productTitle.setText(title)
     }
 }

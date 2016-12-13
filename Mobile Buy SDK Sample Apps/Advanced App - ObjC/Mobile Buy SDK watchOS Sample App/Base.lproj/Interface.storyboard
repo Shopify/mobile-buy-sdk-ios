@@ -36,8 +36,12 @@
                                 </tableRow>
                             </items>
                         </table>
+                        <label alignment="center" verticalAlignment="center" text="Loading Products..." id="CBE-Bj-YJX">
+                            <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </label>
                     </items>
                     <connections>
+                        <outlet property="loadingLabel" destination="CBE-Bj-YJX" id="RMm-DM-7h9"/>
                         <outlet property="productsTable" destination="xyc-95-Fah" id="eWV-DX-ejA"/>
                     </connections>
                 </controller>
