@@ -48,18 +48,30 @@ class ProductsModel: BaseModel {
         self.setCurrentOperation(operation: operation)
     }
     
-    func configure(controller: ProductRowController, index: Int) {
+    func configure(row: ProductRowController, index: Int) {
         let product = products[index]
         let priceString = self.dataProvider.getCurrencyFormatter().string(from: (product?.minimumPrice)!)!
         if let image = product?.imagesArray().first {
             let session = URLSession.shared.dataTask(with: image.imageURL(with: .size480x480), completionHandler: { (data, urlResponse, error) in
-                controller.productImage.setImageData(data)
+                row.productImage.setImageData(data)
             })
             session.resume()
         } else {
-            controller.productImage.setImage(UIImage.init(named: "temp"))
+            row.productImage.setImage(UIImage.init(named: "temp"))
         }
 
-        controller.configure(price: priceString, title: (product?.title)!)
+        row.configure(price: priceString, title: (product?.title)!)
+    }
+    
+    func configure(interfaceController: ProductDetailsInterfaceController, index: Int) {
+        let product = products[index]
+        if let image = product?.imagesArray().first {
+            let session = URLSession.shared.dataTask(with: image.imageURL(with: .size480x480), completionHandler: { (data, urlResponse, error) in
+                interfaceController.productImage.setImageData(data)
+            })
+            session.resume()
+        } else {
+            interfaceController.productImage.setImage(UIImage.init(named: "temp"))
+        }
     }
 }

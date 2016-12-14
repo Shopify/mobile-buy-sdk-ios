@@ -51,7 +51,7 @@ class InterfaceController: WKInterfaceController {
             self.loadingLabel.setHidden(true)
             for index in 0..<self.productsModel.numberOfProducts {
                 if let controller = self.productsTable.rowController(at: index) as? ProductRowController {
-                    self.productsModel.configure(controller: controller, index: index)
+                    self.productsModel.configure(row: controller, index: index)
                 }
             }
         }
