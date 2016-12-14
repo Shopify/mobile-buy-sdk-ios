@@ -17,6 +17,8 @@
                         <group width="1" alignment="left" layout="vertical" id="fWb-ZJ-8mQ">
                             <items>
                                 <imageView height="140" alignment="center" contentMode="scaleAspectFit" id="8Rx-By-NN0"/>
+                                <separator alignment="left" id="bT6-jf-tgc"/>
+                                <paymentButton width="1" alignment="left" id="KAx-WR-l8J"/>
                                 <separator alignment="left" id="83O-zo-I7d"/>
                             </items>
                         </group>
