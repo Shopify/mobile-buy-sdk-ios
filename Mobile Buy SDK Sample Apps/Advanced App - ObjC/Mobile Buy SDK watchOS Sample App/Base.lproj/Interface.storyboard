@@ -16,7 +16,7 @@
                     <items>
                         <group width="1" alignment="left" layout="vertical" id="fWb-ZJ-8mQ">
                             <items>
-                                <imageView height="140" alignment="left" id="8Rx-By-NN0"/>
+                                <imageView height="140" alignment="center" contentMode="scaleAspectFit" id="8Rx-By-NN0"/>
                                 <separator alignment="left" id="83O-zo-I7d"/>
                             </items>
                         </group>
