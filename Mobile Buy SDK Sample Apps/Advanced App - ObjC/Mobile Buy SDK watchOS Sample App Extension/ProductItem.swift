@@ -1,5 +1,5 @@
 //
-//  ProductDetailsInterfaceController.swift
+//  ProductItem.swift
 //  Mobile Buy SDK Advanced Sample
 //
 //  Created by Shopify.
@@ -25,18 +25,18 @@
 //
 
 import Foundation
-import WatchKit
 
-class ProductDetailsInterfaceController: WKInterfaceController {
+class ProductItem {
     
-    var productItem: ProductItem!
+    var index: Int = 0
+    var productsModel: ProductsModel!
     
-    @IBOutlet var productImage: WKInterfaceImage!
+    init(index: Int, productsModel: ProductsModel) {
+        self.index = index
+        self.productsModel = productsModel
+    }
     
-    override func awake(withContext context: Any?) {
-        if let product = context as? ProductItem {
-            self.productItem = product
-            self.productItem.configure(controller: self)
-        }
+    func configure(controller: ProductDetailsInterfaceController) {
+        self.productsModel.configure(interfaceController: controller, index: self.index)
     }
 }
