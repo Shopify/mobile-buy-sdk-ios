@@ -36,6 +36,10 @@ class ProductDetailsInterfaceController: WKInterfaceController {
     
     var productItem: ProductItem!
     
+    @IBAction func pickerAction(_ value: Int) {
+        self.productPriceLabel.setText(self.productItem.variantPrice(index: value))
+    }
+    
     override func awake(withContext context: Any?) {
         if let product = context as? ProductItem {
             self.productItem = product

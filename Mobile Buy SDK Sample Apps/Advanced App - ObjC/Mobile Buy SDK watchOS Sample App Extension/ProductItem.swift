@@ -41,6 +41,10 @@ class ProductItem {
         self.product = product
     }
     
+    func variantPrice(index: Int) -> String {
+        return self.price(variant: self.variants[index])
+    }
+    
     func configure(controller: ProductDetailsInterfaceController) {
         self.productsModel.configure(interfaceController: controller, index: self.index)
 
@@ -50,6 +54,7 @@ class ProductItem {
             self.variants = self.product.variantsArray()
             let caption = String(format: "%@:", (self.product.optionsArray().first?.name)!)
             controller.productOptionLabel.setText(caption)
+            controller.productPriceLabel.setText(self.price(variant: self.variants[0]))
             self.configure(picker: controller.variantPicker, variants: self.variants)
         }
 
@@ -63,5 +68,9 @@ class ProductItem {
             pickerItems.append(pickerItem)
         }
         picker.setItems(pickerItems)
+    }
+    
+    private func price(variant: BUYProductVariant?) -> String {
+        return self.productsModel.dataProvider.getCurrencyFormatter().string(from: (variant!.price)!)!
     }
 }
