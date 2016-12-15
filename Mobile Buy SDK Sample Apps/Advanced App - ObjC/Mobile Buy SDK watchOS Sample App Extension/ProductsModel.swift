@@ -69,6 +69,7 @@ class ProductsModel: BaseModel {
     
     func configure(interfaceController: ProductDetailsInterfaceController, index: Int) {
         let product = products[index]
+        interfaceController.setTitle(product?.title)
         if let image = product?.imagesArray().first {
             let session = URLSession.shared.dataTask(with: image.imageURL(with: .size480x480), completionHandler: { (data, urlResponse, error) in
                 interfaceController.productImage.setImageData(data)
