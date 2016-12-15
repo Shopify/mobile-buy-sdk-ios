@@ -69,6 +69,7 @@
 		B86CCACA1DFF39AC00F46EDE /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86CCAC91DFF39AC00F46EDE /* DataProvider.swift */; };
 		B86CCACE1DFF3CA200F46EDE /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B86CCACD1DFF3CA200F46EDE /* Buy.framework */; };
 		B86CCACF1DFF3CA200F46EDE /* Buy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B86CCACD1DFF3CA200F46EDE /* Buy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B8DA1BC61E033F6100CE947E /* ApplePayHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DA1BC51E033F6100CE947E /* ApplePayHandler.swift */; };
 		BE8B82511B8CF49D00E3F871 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82501B8CF49D00E3F871 /* main.m */; };
 		BE8B82541B8CF49D00E3F871 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82531B8CF49D00E3F871 /* AppDelegate.m */; };
 		BE8B82571B8CF49D00E3F871 /* ProductListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82561B8CF49D00E3F871 /* ProductListViewController.m */; };
@@ -304,6 +305,7 @@
 		B86CCAAA1DF9A2DA00F46EDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B86CCABC1DFAF39300F46EDE /* ProductRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductRowController.swift; sourceTree = "<group>"; };
 		B86CCAC91DFF39AC00F46EDE /* DataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
+		B8DA1BC51E033F6100CE947E /* ApplePayHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplePayHandler.swift; sourceTree = "<group>"; };
 		BE34378F1BC5C18400C71330 /* Mobile Buy SDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Mobile Buy SDK.xcodeproj"; path = "../../Mobile Buy SDK/Mobile Buy SDK.xcodeproj"; sourceTree = "<group>"; };
 		BE5E28451B94F5C300D2ECB5 /* Mobile Buy SDK Advanced Sample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Mobile Buy SDK Advanced Sample.entitlements"; sourceTree = "<group>"; };
 		BE8B824B1B8CF49D00E3F871 /* Mobile Buy SDK Advanced Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile Buy SDK Advanced Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -504,6 +506,7 @@
 				B812BE1E1E003DC700ED6FEC /* BaseModel.swift */,
 				B82F5DC91E01898200CC5376 /* ProductDetailsInterfaceController.swift */,
 				B82F5DD01E0190CA00CC5376 /* ProductItem.swift */,
+				B8DA1BC51E033F6100CE947E /* ApplePayHandler.swift */,
 			);
 			path = "Mobile Buy SDK watchOS Sample App Extension";
 			sourceTree = "<group>";
@@ -778,6 +781,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8DA1BC61E033F6100CE947E /* ApplePayHandler.swift in Sources */,
 				B86CCAA71DF9A2DA00F46EDE /* NotificationController.swift in Sources */,
 				B812BE181E003D5C00ED6FEC /* ProductsModel.swift in Sources */,
 				B812BE1F1E003DC700ED6FEC /* BaseModel.swift in Sources */,
