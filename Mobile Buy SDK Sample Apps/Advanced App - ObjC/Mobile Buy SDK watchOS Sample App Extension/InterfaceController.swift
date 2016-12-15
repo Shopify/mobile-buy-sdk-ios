@@ -33,9 +33,10 @@ class InterfaceController: WKInterfaceController {
      ** Configure store credentials to
      ** use with your specific store.
      */
-    let shopDomain: String = ""
-    let apiKey:     String = ""
-    let appID:      String = ""
+    let shopDomain:     String = ""
+    let apiKey:         String = ""
+    let appID:          String = ""
+    let merchant_id:    String = ""
     
     @IBOutlet var loadingLabel: WKInterfaceLabel!
     @IBOutlet var productsTable: WKInterfaceTable!
