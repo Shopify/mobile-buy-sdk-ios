@@ -40,6 +40,10 @@ class ProductsModel: BaseModel {
         self.dataProvider = dataProvider
     }
     
+    func getProduct(index: Int) -> BUYProduct {
+        return self.products[index]!
+    }
+    
     func getProducts (completion: @escaping () -> Void) {
         let operation = self.dataProvider.getProducts() { (products) in
             self.products = products

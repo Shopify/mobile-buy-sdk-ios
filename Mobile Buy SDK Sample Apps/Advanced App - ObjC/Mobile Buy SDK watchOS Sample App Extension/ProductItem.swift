@@ -25,18 +25,41 @@
 //
 
 import Foundation
+import Buy
+import WatchKit
 
 class ProductItem {
     
     var index: Int = 0
+    var product: BUYProduct!
     var productsModel: ProductsModel!
+    var variants: [BUYProductVariant?] = []
     
-    init(index: Int, productsModel: ProductsModel) {
+    init(index: Int, product:BUYProduct, productsModel: ProductsModel) {
         self.index = index
         self.productsModel = productsModel
+        self.product = product
     }
     
     func configure(controller: ProductDetailsInterfaceController) {
         self.productsModel.configure(interfaceController: controller, index: self.index)
+        self.configure(picker: controller.variantPicker)
+    }
+    
+    func configure(picker:WKInterfacePicker) {
+        if self.product.optionsArray().count > 1 {
+            picker.setHidden(true)
+        } else {
+            self.variants = self.product.variantsArray()
+            let caption = self.product.optionsArray().first?.name
+            var pickerItems: [WKPickerItem] = []
+            for index in 0..<variants.count {
+                let pickerItem = WKPickerItem()
+                pickerItem.title = self.variants[index]?.title
+                pickerItem.caption = caption
+                pickerItems.append(pickerItem)
+            }
+            picker.setItems(pickerItems)
+        }
     }
 }
