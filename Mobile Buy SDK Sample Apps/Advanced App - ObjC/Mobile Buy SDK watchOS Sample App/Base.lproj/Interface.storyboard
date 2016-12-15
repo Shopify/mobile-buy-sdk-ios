@@ -39,10 +39,11 @@
                                     </items>
                                     <edgeInsets key="margins" left="4" right="0.0" top="0.0" bottom="0.0"/>
                                 </group>
-                                <paymentButton width="1" alignment="left" id="KAx-WR-l8J"/>
-                                <separator alignment="left" id="83O-zo-I7d"/>
+                                <paymentButton width="0.97999999999999998" alignment="center" id="KAx-WR-l8J"/>
                             </items>
+                            <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="2"/>
                         </group>
+                        <separator alignment="left" id="83O-zo-I7d"/>
                         <group width="1" alignment="left" verticalAlignment="bottom" id="Yu1-rV-U6T">
                             <items>
                                 <imageView width="36" height="36" alignment="left" image="Handoff" id="A5U-Df-RUc"/>
@@ -50,13 +51,15 @@
                                     <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
                                 </label>
                             </items>
-                            <edgeInsets key="margins" left="2" right="0.0" top="0.0" bottom="0.0"/>
+                            <edgeInsets key="margins" left="2" right="0.0" top="4" bottom="0.0"/>
                         </group>
                     </items>
                     <connections>
+                        <outlet property="applePayButton" destination="KAx-WR-l8J" id="xfl-mL-jI7"/>
                         <outlet property="productImage" destination="8Rx-By-NN0" id="hSs-vc-5aR"/>
                         <outlet property="productOptionLabel" destination="KHI-ug-vow" id="tvT-bN-Gkq"/>
                         <outlet property="productPriceLabel" destination="Zqj-pm-JqS" id="T9G-hy-gTN"/>
+                        <outlet property="topSeparator" destination="bT6-jf-tgc" id="GDB-Je-agF"/>
                         <outlet property="variantPicker" destination="Bjr-jS-tm1" id="YcZ-Rj-MFO"/>
                     </connections>
                 </controller>

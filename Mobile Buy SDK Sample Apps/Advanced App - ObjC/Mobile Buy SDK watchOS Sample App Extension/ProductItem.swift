@@ -49,7 +49,9 @@ class ProductItem {
         self.productsModel.configure(interfaceController: controller, index: self.index)
 
         if self.product.optionsArray().count > 1 {
+            controller.applePayButton.setHidden(true)
             controller.variantPicker.setHidden(true)
+            controller.topSeparator.setHidden(true)
         } else {
             self.variants = self.product.variantsArray()
             let caption = String(format: "%@:", (self.product.optionsArray().first?.name)!)
