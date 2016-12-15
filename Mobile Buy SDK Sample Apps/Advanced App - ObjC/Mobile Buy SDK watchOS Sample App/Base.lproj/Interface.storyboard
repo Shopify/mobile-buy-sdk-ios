@@ -18,7 +18,20 @@
                             <items>
                                 <imageView height="140" alignment="center" contentMode="scaleAspectFit" id="8Rx-By-NN0"/>
                                 <separator alignment="left" id="bT6-jf-tgc"/>
-                                <picker height="75" alignment="left" focusStyle="sequence" id="Bjr-jS-tm1"/>
+                                <group width="1" alignment="left" id="vhP-n0-Gm9">
+                                    <items>
+                                        <label width="0.90000000000000002" alignment="left" id="KHI-ug-vow">
+                                            <fontDescription key="font" type="system" pointSize="13"/>
+                                        </label>
+                                    </items>
+                                    <edgeInsets key="margins" left="4" right="0.0" top="0.0" bottom="0.0"/>
+                                </group>
+                                <picker height="50" alignment="left" focusStyle="stack" id="Bjr-jS-tm1"/>
+                                <group width="1" alignment="left" id="5oW-oD-kLP">
+                                    <items>
+                                        <label alignment="left" id="Zqj-pm-JqS"/>
+                                    </items>
+                                </group>
                                 <paymentButton width="1" alignment="left" id="KAx-WR-l8J"/>
                                 <separator alignment="left" id="83O-zo-I7d"/>
                             </items>
@@ -35,6 +48,8 @@
                     </items>
                     <connections>
                         <outlet property="productImage" destination="8Rx-By-NN0" id="hSs-vc-5aR"/>
+                        <outlet property="productOptionLabel" destination="KHI-ug-vow" id="tvT-bN-Gkq"/>
+                        <outlet property="productPriceLabel" destination="Zqj-pm-JqS" id="T9G-hy-gTN"/>
                         <outlet property="variantPicker" destination="Bjr-jS-tm1" id="YcZ-Rj-MFO"/>
                     </connections>
                 </controller>

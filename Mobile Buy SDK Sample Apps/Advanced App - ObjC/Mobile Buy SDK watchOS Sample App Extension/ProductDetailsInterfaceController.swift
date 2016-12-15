@@ -30,6 +30,8 @@ import WatchKit
 class ProductDetailsInterfaceController: WKInterfaceController {
 
     @IBOutlet var productImage: WKInterfaceImage!
+    @IBOutlet var productOptionLabel: WKInterfaceLabel!
+    @IBOutlet var productPriceLabel: WKInterfaceLabel!
     @IBOutlet var variantPicker: WKInterfacePicker!
     
     var productItem: ProductItem!
