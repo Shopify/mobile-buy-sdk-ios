@@ -28,10 +28,12 @@ import Foundation
 import WatchKit
 
 class ProductDetailsInterfaceController: WKInterfaceController {
-
+    
+    @IBOutlet var applePayButton: WKInterfacePaymentButton!
     @IBOutlet var productImage: WKInterfaceImage!
     @IBOutlet var productOptionLabel: WKInterfaceLabel!
     @IBOutlet var productPriceLabel: WKInterfaceLabel!
+    @IBOutlet var topSeparator: WKInterfaceSeparator!
     @IBOutlet var variantPicker: WKInterfacePicker!
     
     var productItem: ProductItem!
