@@ -39,7 +39,11 @@
                                     </items>
                                     <edgeInsets key="margins" left="4" right="0.0" top="0.0" bottom="0.0"/>
                                 </group>
-                                <paymentButton width="0.97999999999999998" alignment="center" id="KAx-WR-l8J"/>
+                                <paymentButton width="0.97999999999999998" alignment="center" id="KAx-WR-l8J">
+                                    <connections>
+                                        <action selector="checkoutWithApplePay" destination="NN8-cs-SYQ" id="AHN-ZS-npQ"/>
+                                    </connections>
+                                </paymentButton>
                             </items>
                             <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="2"/>
                         </group>

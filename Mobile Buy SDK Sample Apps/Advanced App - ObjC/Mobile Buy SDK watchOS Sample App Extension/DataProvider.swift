@@ -34,7 +34,10 @@ public class DataProvider {
     var shop: BUYShop? = nil
     var products: [BUYProduct] = []
     
-    public required init(shopDomain: String, apiKey: String, appId: String) {
+    var merchantId = ""
+    
+    public required init(shopDomain: String, apiKey: String, appId: String, merchantId: String) {
+        self.merchantId = merchantId
         self.client = BUYClient(shopDomain: shopDomain, apiKey: apiKey, appId: appId)
         self.client.productPageSize = 5
         self.updateShop()
@@ -46,6 +49,10 @@ public class DataProvider {
                 self.shop = shop;
             }
         }
+    }
+    
+    public func getClient() -> BUYClient {
+        return self.client
     }
 
     public func getProducts(completion: @escaping ([BUYProduct]) -> Void) -> Operation {

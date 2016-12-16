@@ -36,10 +36,16 @@ class ProductDetailsInterfaceController: WKInterfaceController {
     @IBOutlet var topSeparator: WKInterfaceSeparator!
     @IBOutlet var variantPicker: WKInterfacePicker!
     
+    var applePayHandler: ApplePayHandler!
     var productItem: ProductItem!
     
     @IBAction func pickerAction(_ value: Int) {
         self.productPriceLabel.setText(self.productItem.variantPrice(index: value))
+    }
+    
+    @IBAction func checkoutWithApplePay() {
+        self.applePayHandler = ApplePayHandler(dataProvider: self.productItem.productsModel.dataProvider)
+        self.applePayHandler.checkoutWithApplePay(variant: productItem.variant(atIndex: 0))
     }
     
     override func awake(withContext context: Any?) {
