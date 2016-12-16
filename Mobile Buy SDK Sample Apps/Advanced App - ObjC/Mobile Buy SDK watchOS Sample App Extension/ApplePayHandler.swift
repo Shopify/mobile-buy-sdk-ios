@@ -26,17 +26,21 @@
 
 import Foundation
 import Buy
+import WatchKit
 
 class ApplePayHandler: NSObject, BUYPaymentProviderDelegate {
     
     var checkout: BUYCheckout!
     var dataProvider: DataProvider!
+    var interfaceController: WKInterfaceController!
     var paymentController: BUYPaymentController!
     var paymentProvider: BUYApplePayPaymentProvider!
     
-    init(dataProvider: DataProvider) {
+    init(dataProvider: DataProvider, interfaceController: WKInterfaceController) {
         super.init()
         self.dataProvider = dataProvider
+        self.interfaceController = interfaceController
+        self.interfaceController.pushController(withName: "LoadingInterfaceController", context: nil)
         self.paymentController = BUYPaymentController.init()
         self.setupPaymentProvider()
     }
@@ -72,6 +76,7 @@ class ApplePayHandler: NSObject, BUYPaymentProviderDelegate {
     }
     
     func paymentProviderWantsControllerDismissed(_ provider: BUYPaymentProvider) {
+        self.interfaceController.pop()
     }
     
     func paymentProvider(_ provider: BUYPaymentProvider, wantsPaymentControllerPresented controller: PKPaymentAuthorizationController) {
