@@ -44,7 +44,7 @@ class ProductDetailsInterfaceController: WKInterfaceController {
     }
     
     @IBAction func checkoutWithApplePay() {
-        self.applePayHandler = ApplePayHandler(dataProvider: self.productItem.productsModel.dataProvider)
+        self.applePayHandler = ApplePayHandler(dataProvider: self.productItem.productsModel.dataProvider, interfaceController: self)
         self.applePayHandler.checkoutWithApplePay(variant: productItem.variant(atIndex: 0))
     }
     
