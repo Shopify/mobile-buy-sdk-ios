@@ -27,6 +27,10 @@
 import WatchKit
 import Foundation
 
+public struct Constants {
+    static let handoffActivityType = "com.shopify.Mobile-Buy-SDK-Advanced-Sample.view.product"
+}
+
 class InterfaceController: WKInterfaceController {
 
     /* ---------------------------------
