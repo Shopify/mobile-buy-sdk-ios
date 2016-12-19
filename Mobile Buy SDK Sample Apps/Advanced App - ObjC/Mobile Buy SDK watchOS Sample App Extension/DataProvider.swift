@@ -27,10 +27,6 @@
 import Foundation
 import Buy
 
-protocol DataProviderSetter: class {
-    var dataProvider: DataProvider!{get set}
-}
-
 public class DataProvider {
     
     private(set) var client : BUYClient!
@@ -40,6 +36,8 @@ public class DataProvider {
     
     public required init(shopDomain: String, apiKey: String, appId: String) {
         self.client = BUYClient(shopDomain: shopDomain, apiKey: apiKey, appId: appId)
+        self.client.productPageSize = 5
+        self.updateShop()
     }
     
     private func updateShop() {

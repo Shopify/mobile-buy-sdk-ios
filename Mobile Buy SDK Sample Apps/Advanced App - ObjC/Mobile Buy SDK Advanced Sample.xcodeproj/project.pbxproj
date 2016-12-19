@@ -53,6 +53,8 @@
 		B2C560BA1CEE36C00015AA40 /* ProductViewControllerThemeTintColorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C560B61CEE36C00015AA40 /* ProductViewControllerThemeTintColorTableViewCell.m */; };
 		B2C560BB1CEE36C00015AA40 /* ProductViewControllerToggleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C560B81CEE36C00015AA40 /* ProductViewControllerToggleTableViewCell.m */; };
 		B2C560C21CEE39180015AA40 /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C560C11CEE39180015AA40 /* UIColor+Additions.m */; };
+		B812BE181E003D5C00ED6FEC /* ProductsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B812BE171E003D5C00ED6FEC /* ProductsModel.swift */; };
+		B812BE1F1E003DC700ED6FEC /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B812BE1E1E003DC700ED6FEC /* BaseModel.swift */; };
 		B86CCA931DF9A2DA00F46EDE /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B86CCA911DF9A2DA00F46EDE /* Interface.storyboard */; };
 		B86CCA951DF9A2DA00F46EDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B86CCA941DF9A2DA00F46EDE /* Assets.xcassets */; };
 		B86CCA9C1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B86CCA9B1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -283,6 +285,8 @@
 		B2C560B81CEE36C00015AA40 /* ProductViewControllerToggleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductViewControllerToggleTableViewCell.m; path = "Product View/ProductViewControllerToggleTableViewCell.m"; sourceTree = "<group>"; };
 		B2C560C01CEE39180015AA40 /* UIColor+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Additions.h"; sourceTree = "<group>"; };
 		B2C560C11CEE39180015AA40 /* UIColor+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Additions.m"; sourceTree = "<group>"; };
+		B812BE171E003D5C00ED6FEC /* ProductsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsModel.swift; sourceTree = "<group>"; };
+		B812BE1E1E003DC700ED6FEC /* BaseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
 		B86CCA8F1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile Buy SDK watchOS Sample App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B86CCA921DF9A2DA00F46EDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		B86CCA941DF9A2DA00F46EDE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -492,6 +496,8 @@
 				B86CCAA01DF9A2DA00F46EDE /* Supporting Files */,
 				B86CCABC1DFAF39300F46EDE /* ProductRowController.swift */,
 				B86CCAC91DFF39AC00F46EDE /* DataProvider.swift */,
+				B812BE171E003D5C00ED6FEC /* ProductsModel.swift */,
+				B812BE1E1E003DC700ED6FEC /* BaseModel.swift */,
 			);
 			path = "Mobile Buy SDK watchOS Sample App Extension";
 			sourceTree = "<group>";
@@ -767,6 +773,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B86CCAA71DF9A2DA00F46EDE /* NotificationController.swift in Sources */,
+				B812BE181E003D5C00ED6FEC /* ProductsModel.swift in Sources */,
+				B812BE1F1E003DC700ED6FEC /* BaseModel.swift in Sources */,
 				B86CCAA51DF9A2DA00F46EDE /* ExtensionDelegate.swift in Sources */,
 				B86CCACA1DFF39AC00F46EDE /* DataProvider.swift in Sources */,
 				B86CCABD1DFAF39300F46EDE /* ProductRowController.swift in Sources */,

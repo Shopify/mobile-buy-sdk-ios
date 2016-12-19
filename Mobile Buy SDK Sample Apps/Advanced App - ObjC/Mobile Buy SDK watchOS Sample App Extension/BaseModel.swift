@@ -1,5 +1,5 @@
 //
-//  ProductRowController.swift
+//  BaseModel.swift
 //  Mobile Buy SDK Advanced Sample
 //
 //  Created by Shopify.
@@ -24,16 +24,17 @@
 //  THE SOFTWARE.
 //
 
-import WatchKit
 import Foundation
 
-class ProductRowController: NSObject {
-    @IBOutlet var productImage: WKInterfaceImage!
-    @IBOutlet var productPrice: WKInterfaceLabel!
-    @IBOutlet var productTitle: WKInterfaceLabel!
+class BaseModel: NSObject {
     
-    func configure(price: String, title: String) {
-        self.productPrice.setText(price)
-        self.productTitle.setText(title)
+    private var operation: Operation!
+    
+    func setCurrentOperation(operation: Operation) {
+        if self.operation != nil {
+            self.operation.cancel()
+        }
+        
+        self.operation = operation
     }
 }
