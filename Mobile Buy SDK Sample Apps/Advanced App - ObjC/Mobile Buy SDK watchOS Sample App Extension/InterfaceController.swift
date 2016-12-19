@@ -27,9 +27,10 @@
 import WatchKit
 import Foundation
 
-class InterfaceController: WKInterfaceController {
+class InterfaceController: WKInterfaceController, DataProviderSetter {
 
     @IBOutlet var productsTable: WKInterfaceTable!
+    var dataProvider: DataProvider!
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)

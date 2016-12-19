@@ -39,7 +39,6 @@
 #import "BUYCustomerToken.h"
 #import "BUYDiscount.h"
 #import "BUYGiftCard.h"
-#import "BUYImageLink.h"
 #import "BUYLineItem.h"
 #import "BUYMaskedCreditCard.h"
 #import "BUYOption.h"
@@ -51,6 +50,10 @@
 #import "BUYShippingRate.h"
 #import "BUYShop.h"
 #import "BUYTaxLine.h"
+
+#if !TARGET_OS_WATCH
+#import "BUYImageLink.h"
+#endif
 
 // Model support
 #import "BUYError.h"
@@ -66,10 +69,13 @@
 #import "BUYPaymentController.h"
 #import "BUYPaymentProvider.h"
 
-#if TARGET_OS_IOS
+#if !TARGET_OS_TV
 #import "BUYApplePayAdditions.h"
 #import "BUYApplePayAuthorizationDelegate.h"
 #import "BUYApplePayPaymentProvider.h"
+#endif
+
+#if TARGET_OS_IOS
 #import "BUYWebCheckoutPaymentProvider.h"
 #endif
 
