@@ -78,5 +78,6 @@ class ProductsModel: BaseModel {
         } else {
             interfaceController.productImage.setImage(UIImage.init(named: "temp"))
         }
+        interfaceController.updateUserActivity(Constants.handoffActivityType, userInfo: ["product": product?.identifier!], webpageURL: nil)
     }
 }
