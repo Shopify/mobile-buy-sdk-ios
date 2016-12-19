@@ -1,6 +1,6 @@
 //
-//  InterfaceController.swift
-//  Mobile Buy SDK watchOS Sample App Extension
+//  ProductRowController.swift
+//  Mobile Buy SDK Advanced Sample
 //
 //  Created by Shopify.
 //  Copyright (c) 2016 Shopify Inc. All rights reserved.
@@ -27,30 +27,12 @@
 import WatchKit
 import Foundation
 
-class InterfaceController: WKInterfaceController {
-
-    @IBOutlet var productsTable: WKInterfaceTable!
+class ProductRowController: NSObject {
+    @IBOutlet var productImage: WKInterfaceImage!
+    @IBOutlet var productTitle: WKInterfaceLabel!
     
-    override func awake(withContext context: Any?) {
-        super.awake(withContext: context)
-        
-        productsTable.setNumberOfRows(5, withRowType: "ProductRow")
-        
-        for index in 0..<5 {
-            if let controller = productsTable.rowController(at: index) as? ProductRowController {
-                controller.configure(image: UIImage.init(named: "temp")!, title: "testing")
-            }
-        }
+    func configure(image: UIImage, title: String) {
+        self.productImage.setImage(image)
+        self.productTitle.setText(title)
     }
-    
-    override func willActivate() {
-        // This method is called when watch view controller is about to be visible to user
-        super.willActivate()
-    }
-    
-    override func didDeactivate() {
-        // This method is called when watch view controller is no longer visible
-        super.didDeactivate()
-    }
-
 }

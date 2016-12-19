@@ -1,16 +1,48 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch42" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11055"/>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11508"/>
     </dependencies>
     <scenes>
-        <!--Interface Controller-->
+        <!--Shopify-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModuleProvider="target"/>
+                <controller title="Shopify" id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Mobile_Buy_SDK_watchOS_Sample_App" customModuleProvider="target">
+                    <items>
+                        <table alignment="left" id="xyc-95-Fah">
+                            <items>
+                                <tableRow identifier="ProductRow" id="8oh-Cq-MI8" customClass="ProductRowController" customModule="Mobile_Buy_SDK_watchOS_Sample_App_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" radius="8" spacing="6" id="NTR-iN-6aY">
+                                        <items>
+                                            <imageView width="1" height="62" alignment="left" contentMode="scaleAspectFit" id="BDZ-0f-66j"/>
+                                            <group width="1" alignment="left" id="kTC-4d-o9s">
+                                                <items>
+                                                    <label width="1" alignment="left" numberOfLines="2" id="M8S-Td-NeD"/>
+                                                </items>
+                                                <edgeInsets key="margins" left="6" right="6" top="0.0" bottom="0.0"/>
+                                            </group>
+                                        </items>
+                                        <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="productImage" destination="BDZ-0f-66j" id="l0N-2g-YFb"/>
+                                        <outlet property="productTitle" destination="M8S-Td-NeD" id="ABY-ad-H5E"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                    <connections>
+                        <outlet property="productsTable" destination="xyc-95-Fah" id="eWV-DX-ejA"/>
+                    </connections>
+                </controller>
             </objects>
-            <point key="canvasLocation" x="220" y="345"/>
+            <point key="canvasLocation" x="219.69230769230771" y="344.79487179487182"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">
@@ -31,9 +63,10 @@
         <!--Notification Controller-->
         <scene sceneID="ZPc-GJ-vnh">
             <objects>
-                <controller id="4sK-HA-Art" customClass="NotificationController" customModuleProvider="target"/>
+                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="Mobile_Buy_SDK_watchOS_Sample_App" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="468" y="643"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="0.48746770620346069" green="0.7228664755821228" blue="0.36244720220565796" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

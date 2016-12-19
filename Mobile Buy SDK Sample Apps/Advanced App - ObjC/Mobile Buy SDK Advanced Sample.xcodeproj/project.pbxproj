@@ -61,6 +61,7 @@
 		B86CCAA71DF9A2DA00F46EDE /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86CCAA61DF9A2DA00F46EDE /* NotificationController.swift */; };
 		B86CCAA91DF9A2DA00F46EDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B86CCAA81DF9A2DA00F46EDE /* Assets.xcassets */; };
 		B86CCAAD1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = B86CCA8F1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App.app */; };
+		B86CCABD1DFAF39300F46EDE /* ProductRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86CCABC1DFAF39300F46EDE /* ProductRowController.swift */; };
 		BE8B82511B8CF49D00E3F871 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82501B8CF49D00E3F871 /* main.m */; };
 		BE8B82541B8CF49D00E3F871 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82531B8CF49D00E3F871 /* AppDelegate.m */; };
 		BE8B82571B8CF49D00E3F871 /* ProductListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82561B8CF49D00E3F871 /* ProductListViewController.m */; };
@@ -265,6 +266,7 @@
 		B86CCAA61DF9A2DA00F46EDE /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		B86CCAA81DF9A2DA00F46EDE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B86CCAAA1DF9A2DA00F46EDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B86CCABC1DFAF39300F46EDE /* ProductRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductRowController.swift; sourceTree = "<group>"; };
 		BE34378F1BC5C18400C71330 /* Mobile Buy SDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Mobile Buy SDK.xcodeproj"; path = "../../Mobile Buy SDK/Mobile Buy SDK.xcodeproj"; sourceTree = "<group>"; };
 		BE5E28451B94F5C300D2ECB5 /* Mobile Buy SDK Advanced Sample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Mobile Buy SDK Advanced Sample.entitlements"; sourceTree = "<group>"; };
 		BE8B824B1B8CF49D00E3F871 /* Mobile Buy SDK Advanced Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile Buy SDK Advanced Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -458,6 +460,7 @@
 				B86CCAA81DF9A2DA00F46EDE /* Assets.xcassets */,
 				B86CCAAA1DF9A2DA00F46EDE /* Info.plist */,
 				B86CCAA01DF9A2DA00F46EDE /* Supporting Files */,
+				B86CCABC1DFAF39300F46EDE /* ProductRowController.swift */,
 			);
 			path = "Mobile Buy SDK watchOS Sample App Extension";
 			sourceTree = "<group>";
@@ -724,6 +727,7 @@
 			files = (
 				B86CCAA71DF9A2DA00F46EDE /* NotificationController.swift in Sources */,
 				B86CCAA51DF9A2DA00F46EDE /* ExtensionDelegate.swift in Sources */,
+				B86CCABD1DFAF39300F46EDE /* ProductRowController.swift in Sources */,
 				B86CCAA31DF9A2DA00F46EDE /* InterfaceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1070,6 +1074,7 @@
 				B86CCAB11DF9A2DA00F46EDE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B86CCABA1DF9A2DA00F46EDE /* Build configuration list for PBXNativeTarget "Mobile Buy SDK watchOS Sample App" */ = {
 			isa = XCConfigurationList;
@@ -1078,6 +1083,7 @@
 				B86CCAAF1DF9A2DA00F46EDE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BE8B82461B8CF49D00E3F871 /* Build configuration list for PBXProject "Mobile Buy SDK Advanced Sample" */ = {
 			isa = XCConfigurationList;
