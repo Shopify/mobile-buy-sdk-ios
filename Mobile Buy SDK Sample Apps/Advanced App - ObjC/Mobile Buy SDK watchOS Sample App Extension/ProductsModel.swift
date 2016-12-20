@@ -44,6 +44,9 @@ class ProductsModel: BaseModel {
         return self.products[index]!
     }
     
+    /// Fetches an array of BUYProduct objects using the DataProvider
+    ///
+    /// - Parameter completion: optional completion handler for when product fetching is finished
     func getProducts (completion: @escaping () -> Void) {
         let operation = self.dataProvider.getProducts() { (products) in
             self.products = products
@@ -52,6 +55,11 @@ class ProductsModel: BaseModel {
         self.setCurrentOperation(operation: operation)
     }
     
+    /// Configures the given ProductRowController based on its index
+    ///
+    /// - Parameters:
+    ///   - row: the ProductRowController that needs configuration
+    ///   - index: index of the row controller
     func configure(row: ProductRowController, index: Int) {
         let product = products[index]
         let priceString = self.dataProvider.getCurrencyFormatter().string(from: (product?.minimumPrice)!)!
@@ -67,6 +75,11 @@ class ProductsModel: BaseModel {
         row.configure(price: priceString, title: (product?.title)!)
     }
     
+    /// Configures the given ProductDetailsInterfaceController based on its product index
+    ///
+    /// - Parameters:
+    ///   - interfaceController: the ProductDetailsInterfaceController that needs configuration
+    ///   - index: the index of the product it's representing
     func configure(interfaceController: ProductDetailsInterfaceController, index: Int) {
         let product = products[index]
         interfaceController.setTitle(product?.title)
