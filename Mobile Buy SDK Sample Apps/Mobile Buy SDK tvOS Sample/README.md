@@ -60,7 +60,7 @@ let appID:      String = "<app_id>"
 ###### `ProductsViewModel.swift`
 * Subclasses `BaseViewModel`
 * Interacts with `DataProvider` to download products of its collection
-* Dequques `ProductCollectionViewCell`, initializes `ProductItem` and configures the cell with the `ProductItem`, price and title
+* Dequeues `ProductCollectionViewCell`, initializes `ProductItem` and configures the cell with the `ProductItem`, price and title
 
 
 ### Other
