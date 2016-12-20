@@ -68,7 +68,7 @@ class InterfaceController: WKInterfaceController {
     }
     
     override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
-        let product = ProductItem(index: rowIndex, productsModel: self.productsModel)
+        let product = ProductItem(index: rowIndex, product: self.productsModel.getProduct(index: rowIndex), productsModel: self.productsModel)
         self.pushController(withName: "ProductDetailsInterfaceController", context: product)
     }
 

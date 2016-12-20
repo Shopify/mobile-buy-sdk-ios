@@ -29,9 +29,18 @@ import WatchKit
 
 class ProductDetailsInterfaceController: WKInterfaceController {
     
+    @IBOutlet var applePayButton: WKInterfacePaymentButton!
+    @IBOutlet var productImage: WKInterfaceImage!
+    @IBOutlet var productOptionLabel: WKInterfaceLabel!
+    @IBOutlet var productPriceLabel: WKInterfaceLabel!
+    @IBOutlet var topSeparator: WKInterfaceSeparator!
+    @IBOutlet var variantPicker: WKInterfacePicker!
+    
     var productItem: ProductItem!
     
-    @IBOutlet var productImage: WKInterfaceImage!
+    @IBAction func pickerAction(_ value: Int) {
+        self.productPriceLabel.setText(self.productItem.variantPrice(index: value))
+    }
     
     override func awake(withContext context: Any?) {
         if let product = context as? ProductItem {

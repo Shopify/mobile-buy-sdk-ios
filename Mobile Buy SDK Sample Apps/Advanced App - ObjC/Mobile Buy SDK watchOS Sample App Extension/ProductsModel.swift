@@ -40,6 +40,10 @@ class ProductsModel: BaseModel {
         self.dataProvider = dataProvider
     }
     
+    func getProduct(index: Int) -> BUYProduct {
+        return self.products[index]!
+    }
+    
     func getProducts (completion: @escaping () -> Void) {
         let operation = self.dataProvider.getProducts() { (products) in
             self.products = products
@@ -65,6 +69,7 @@ class ProductsModel: BaseModel {
     
     func configure(interfaceController: ProductDetailsInterfaceController, index: Int) {
         let product = products[index]
+        interfaceController.setTitle(product?.title)
         if let image = product?.imagesArray().first {
             let session = URLSession.shared.dataTask(with: image.imageURL(with: .size480x480), completionHandler: { (data, urlResponse, error) in
                 interfaceController.productImage.setImageData(data)
