@@ -30,10 +30,11 @@ import WatchKit
 
 class ProductItem {
     
-    var index: Int = 0
-    var product: BUYProduct!
+    private var index: Int = 0
+    private var product: BUYProduct!
+    private var variants: [BUYProductVariant?] = []
+    
     var productsModel: ProductsModel!
-    var variants: [BUYProductVariant?] = []
     
     init(index: Int, product: BUYProduct, productsModel: ProductsModel) {
         self.index = index
@@ -41,14 +42,25 @@ class ProductItem {
         self.product = product
     }
     
+    /// Returns the variant price given the index of the variant picker
+    ///
+    /// - Parameter index: index of the variant picker
+    /// - Returns: the String representation of the price of the variant using the currency formatter
     func variantPrice(index: Int) -> String {
         return self.price(variant: self.variants[index])
     }
     
+    /// Returns the BUYProductVariant given the index of the variant picker
+    ///
+    /// - Parameter atIndex: index of the variant picker
+    /// - Returns: the `BUYProductVariant`
     func variant(atIndex: Int) -> BUYProductVariant {
         return self.variants[atIndex]!
     }
     
+    /// Configures the `ProductDetailsInterfaceController`
+    ///
+    /// - Parameter controller: the `ProductDetailsInterfaceController` that needs configuration
     func configure(controller: ProductDetailsInterfaceController) {
         self.productsModel.configure(interfaceController: controller, index: self.index)
 
@@ -66,7 +78,12 @@ class ProductItem {
 
     }
     
-    func configure(picker: WKInterfacePicker, variants: [BUYProductVariant?]) {
+    /// Configures the `WKInterfacePicker`
+    ///
+    /// - Parameters:
+    ///   - picker: the `WKInterfacePicker` that needs configuration
+    ///   - variants: the variants that need to be added to the picker
+    private func configure(picker: WKInterfacePicker, variants: [BUYProductVariant?]) {
         var pickerItems: [WKPickerItem] = []
         for index in 0..<variants.count {
             let pickerItem = WKPickerItem()
@@ -76,6 +93,10 @@ class ProductItem {
         picker.setItems(pickerItems)
     }
     
+    /// Returns the String representation of the price of the given variant
+    ///
+    /// - Parameter variant: the `BUYProductVariant`
+    /// - Returns: the String representation of the price using the currency formatter
     private func price(variant: BUYProductVariant?) -> String {
         return self.productsModel.dataProvider.getCurrencyFormatter().string(from: (variant!.price)!)!
     }
