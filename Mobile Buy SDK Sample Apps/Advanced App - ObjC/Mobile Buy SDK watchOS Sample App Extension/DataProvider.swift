@@ -43,6 +43,7 @@ public class DataProvider {
         self.updateShop()
     }
     
+    /// Update the BUYShop for this DataProvider
     private func updateShop() {
         self.client.getShop {(shop, error) in
             if let shop = shop {
@@ -55,6 +56,10 @@ public class DataProvider {
         return self.client
     }
 
+    /// Fetches an array of BUYProducts and returns them in the completion handler
+    ///
+    /// - Parameter completion: completion handler through which products are returned
+    /// - Returns: an Operation, can be cancelled at any time
     public func getProducts(completion: @escaping ([BUYProduct]) -> Void) -> Operation {
         if self.products.count > 0 {
             completion(self.products)
@@ -62,6 +67,9 @@ public class DataProvider {
         return self.downloadProducts(completion:completion)
     }
     
+    /// Creates a NumberFormatter which then gets configured to represent the currency code of the shop
+    ///
+    /// - Returns: a NumberFormatter which is used for formatting currency
     public func getCurrencyFormatter() -> NumberFormatter {
         let currencyFormatter = NumberFormatter()
         currencyFormatter.numberStyle = NumberFormatter.Style.currency
@@ -69,12 +77,14 @@ public class DataProvider {
         return currencyFormatter
     }
     
+    /// Fetches an array of BUYProducts by using the BUYClient and returns them in the completion handler
+    ///
+    /// - Parameter completion: completion handler through which products are returned
+    /// - Returns: an Operation, can be cancelled at any time
     private func downloadProducts(completion: @escaping([BUYProduct]) -> Void) -> Operation {
         return self.client.getProductsPage(1, completion: { [weak self] (products, page, reachedEnd, error) in
             self?.products = products!
             completion(products!)
         })
     }
-
-    
 }
