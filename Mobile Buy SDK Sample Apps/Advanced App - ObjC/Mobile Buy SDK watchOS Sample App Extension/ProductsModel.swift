@@ -61,7 +61,7 @@ class ProductsModel: BaseModel {
             })
             session.resume()
         } else {
-            row.productImage.setImage(UIImage.init(named: "temp"))
+            row.productImage.setImage(UIImage.init(named: "Placeholder"))
         }
 
         row.configure(price: priceString, title: (product?.title)!)
@@ -76,7 +76,7 @@ class ProductsModel: BaseModel {
             })
             session.resume()
         } else {
-            interfaceController.productImage.setImage(UIImage.init(named: "temp"))
+            interfaceController.productImage.setImage(UIImage.init(named: "Placeholder"))
         }
         interfaceController.updateUserActivity(Constants.handoffActivityType, userInfo: ["product": product?.identifier as Any], webpageURL: nil)
     }
