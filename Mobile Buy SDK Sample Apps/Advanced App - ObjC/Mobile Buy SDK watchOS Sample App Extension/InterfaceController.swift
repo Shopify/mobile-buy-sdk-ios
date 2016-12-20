@@ -51,7 +51,7 @@ class InterfaceController: WKInterfaceController {
             self.loadingLabel.setHidden(true)
             for index in 0..<self.productsModel.numberOfProducts {
                 if let controller = self.productsTable.rowController(at: index) as? ProductRowController {
-                    self.productsModel.configure(controller: controller, index: index)
+                    self.productsModel.configure(row: controller, index: index)
                 }
             }
         }
@@ -65,6 +65,11 @@ class InterfaceController: WKInterfaceController {
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
+    }
+    
+    override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
+        let product = ProductItem(index: rowIndex, productsModel: self.productsModel)
+        self.pushController(withName: "ProductDetailsInterfaceController", context: product)
     }
 
 }

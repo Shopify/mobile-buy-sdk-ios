@@ -9,6 +9,36 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11508"/>
     </dependencies>
     <scenes>
+        <!--ProductDetailsInterfaceController-->
+        <scene sceneID="xBJ-vm-vha">
+            <objects>
+                <controller identifier="ProductDetailsInterfaceController" id="NN8-cs-SYQ" customClass="ProductDetailsInterfaceController" customModule="Mobile_Buy_SDK_watchOS_Sample_App_Extension">
+                    <items>
+                        <group width="1" alignment="left" layout="vertical" id="fWb-ZJ-8mQ">
+                            <items>
+                                <imageView height="140" alignment="center" contentMode="scaleAspectFit" id="8Rx-By-NN0"/>
+                                <separator alignment="left" id="bT6-jf-tgc"/>
+                                <paymentButton width="1" alignment="left" id="KAx-WR-l8J"/>
+                                <separator alignment="left" id="83O-zo-I7d"/>
+                            </items>
+                        </group>
+                        <group width="1" alignment="left" verticalAlignment="bottom" id="Yu1-rV-U6T">
+                            <items>
+                                <imageView width="36" height="36" alignment="left" image="Handoff" id="A5U-Df-RUc"/>
+                                <label alignment="left" text="View details on your iPhone." numberOfLines="2" id="NMp-9x-gsM">
+                                    <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                </label>
+                            </items>
+                            <edgeInsets key="margins" left="2" right="0.0" top="0.0" bottom="0.0"/>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="productImage" destination="8Rx-By-NN0" id="hSs-vc-5aR"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="467" y="354"/>
+        </scene>
         <!--Shopify-->
         <scene sceneID="aou-V4-d1y">
             <objects>
