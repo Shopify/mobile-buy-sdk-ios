@@ -36,10 +36,18 @@ class ProductDetailsInterfaceController: WKInterfaceController {
     @IBOutlet var topSeparator: WKInterfaceSeparator!
     @IBOutlet var variantPicker: WKInterfacePicker!
     
+    var applePayHandler: ApplePayHandler!
+    var pickerIndex: Int = 0
     var productItem: ProductItem!
     
     @IBAction func pickerAction(_ value: Int) {
         self.productPriceLabel.setText(self.productItem.variantPrice(index: value))
+        self.pickerIndex = value
+    }
+    
+    @IBAction func checkoutWithApplePay() {
+        self.applePayHandler = ApplePayHandler(dataProvider: self.productItem.productsModel.dataProvider, interfaceController: self)
+        self.applePayHandler.checkoutWithApplePay(variant: productItem.variant(atIndex: self.pickerIndex))
     }
     
     override func awake(withContext context: Any?) {
@@ -47,5 +55,9 @@ class ProductDetailsInterfaceController: WKInterfaceController {
             self.productItem = product
             self.productItem.configure(controller: self)
         }
+    }
+    
+    override func willDisappear() {
+        self.invalidateUserActivity()
     }
 }

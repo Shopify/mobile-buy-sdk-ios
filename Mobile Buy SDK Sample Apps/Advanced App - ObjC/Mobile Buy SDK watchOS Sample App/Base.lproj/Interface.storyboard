@@ -39,7 +39,11 @@
                                     </items>
                                     <edgeInsets key="margins" left="4" right="0.0" top="0.0" bottom="0.0"/>
                                 </group>
-                                <paymentButton width="0.97999999999999998" alignment="center" id="KAx-WR-l8J"/>
+                                <paymentButton width="0.97999999999999998" alignment="center" id="KAx-WR-l8J">
+                                    <connections>
+                                        <action selector="checkoutWithApplePay" destination="NN8-cs-SYQ" id="AHN-ZS-npQ"/>
+                                    </connections>
+                                </paymentButton>
                             </items>
                             <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="2"/>
                         </group>
@@ -64,7 +68,18 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="467" y="354"/>
+            <point key="canvasLocation" x="467" y="312"/>
+        </scene>
+        <!--LoadingInterfaceController-->
+        <scene sceneID="fyM-kz-O3m">
+            <objects>
+                <controller identifier="LoadingInterfaceController" id="mSn-8R-FXz">
+                    <items>
+                        <imageView width="0.29999999999999999" height="0.29999999999999999" alignment="center" verticalAlignment="center" image="frame" contentMode="scaleAspectFit" id="rSv-bD-f73"/>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="716.61538461538464" y="256.74358974358978"/>
         </scene>
         <!--Shopify-->
         <scene sceneID="aou-V4-d1y">
@@ -109,7 +124,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="219.69230769230771" y="344.79487179487182"/>
+            <point key="canvasLocation" x="220" y="257"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">

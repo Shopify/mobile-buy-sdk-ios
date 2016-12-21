@@ -45,6 +45,10 @@ class ProductItem {
         return self.price(variant: self.variants[index])
     }
     
+    func variant(atIndex: Int) -> BUYProductVariant {
+        return self.variants[atIndex]!
+    }
+    
     func configure(controller: ProductDetailsInterfaceController) {
         self.productsModel.configure(interfaceController: controller, index: self.index)
 
