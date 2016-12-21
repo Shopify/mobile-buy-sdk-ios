@@ -27,6 +27,10 @@
 import WatchKit
 import Foundation
 
+public struct Constants {
+    static let handoffActivityType = "com.shopify.Mobile-Buy-SDK-Advanced-Sample.view.product"
+}
+
 class InterfaceController: WKInterfaceController {
 
     /* ---------------------------------
@@ -45,6 +49,7 @@ class InterfaceController: WKInterfaceController {
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
+        self.invalidateUserActivity()
         self.dataProvider = DataProvider(shopDomain: self.shopDomain, apiKey: self.apiKey, appId: self.appID, merchantId: self.merchant_id)
         self.productsModel = ProductsModel(dataProvider: self.dataProvider)
         self.productsModel.getProducts {

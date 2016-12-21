@@ -26,6 +26,7 @@
 
 @import Buy;
 #import "CollectionListViewController.h"
+#import "ProductViewController.h"
 #import "ProductListViewController.h"
 
 #warning - Enter your shop domain and API Key
@@ -108,6 +109,29 @@
     }
     ProductListViewController *productListViewController = [[ProductListViewController alloc] initWithClient:self.client collection:collection];
     [self.navigationController pushViewController:productListViewController animated:YES];
+}
+
+- (void)restoreUserActivityState:(NSUserActivity *)activity
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    NSNumber *productId = activity.userInfo[@"product"];
+    if (productId) {
+        [self.client getProductById:productId completion:^(BUYProduct * _Nullable product, NSError * _Nullable error) {
+            if (!error) {
+                Theme *theme = [Theme new];
+                theme.style = 0;
+                theme.tintColor = [UIColor colorWithRed:0.48f green:0.71f blue:0.36f alpha:1.0f];
+                theme.showsProductImageBackground = YES;
+                ProductViewController *productViewController = [[ProductViewController alloc] initWithClient:self.client theme:theme];
+                productViewController.merchantId = MERCHANT_ID;
+                [productViewController loadWithProduct:product completion:^(BOOL success, NSError *error) {
+                    if (error == nil) {
+                        [self.navigationController pushViewController:productViewController animated:YES];
+                    }
+                }];
+            }
+        }];
+    }
 }
 
 @end
