@@ -156,13 +156,13 @@ typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArra
 	// We now update the checkout with our new found data so that you can ship the products to the right address, and we collect whatever else we need.
 	if ([payment respondsToSelector:@selector(shippingContact)]) {
 		self.checkout.email = payment.shippingContact.emailAddress;
-		if (self.checkout.requiresShipping) {
+		if ([self.checkout.requiresShipping boolValue]) {
 			self.checkout.shippingAddress = [self buyAddressWithContact:payment.shippingContact];
 		}
 	} else {
 		#if !TARGET_OS_WATCH
 		self.checkout.email = [BUYAddress buy_emailFromRecord:payment.shippingAddress];
-		if (self.checkout.requiresShipping) {
+		if ([self.checkout.requiresShipping boolValue]) {
 			self.checkout.shippingAddress = [self buyAddressWithABRecord:payment.shippingAddress];
 		}
 		#endif
@@ -242,7 +242,7 @@ typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArra
 		else if (error) {
 			self.lastError = error;
 		}
-		if (checkout.requiresShipping) {
+		if ([checkout.requiresShipping boolValue]) {
 			self.shippingRates = @[];
 			[self updateShippingRatesCompletion:completion];
 		}
