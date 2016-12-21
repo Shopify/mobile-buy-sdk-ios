@@ -56,4 +56,8 @@ class ProductDetailsInterfaceController: WKInterfaceController {
             self.productItem.configure(controller: self)
         }
     }
+    
+    override func willDisappear() {
+        self.invalidateUserActivity()
+    }
 }
