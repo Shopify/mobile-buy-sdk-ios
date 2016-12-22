@@ -33,14 +33,18 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BUYApplePayAuthorizationDelegate : NSObject <PKPaymentAuthorizationViewControllerDelegate>
+#if TARGET_OS_WATCH
+@interface BUYApplePayAuthorizationDelegate : NSObject <PKPaymentAuthorizationControllerDelegate>
+#else
+@interface BUYApplePayAuthorizationDelegate : NSObject <PKPaymentAuthorizationViewControllerDelegate, PKPaymentAuthorizationControllerDelegate>
+#endif
 
 /**
  *  Initializes a helper to support Apple Pay
  *
  *  @param client   A configured client
  *  @param checkout The checkout which is to be completed using Apple Pay
- *  @param shop     A shop object to alleviate the need for ApplePayHelper to retrieve it via the BUYClient
+ *  @param shopName A shop object to alleviate the need for ApplePayHelper to retrieve it via the BUYClient
  *
  *  @return helper object
  */

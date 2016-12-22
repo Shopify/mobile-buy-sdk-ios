@@ -53,6 +53,23 @@
 		B2C560BA1CEE36C00015AA40 /* ProductViewControllerThemeTintColorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C560B61CEE36C00015AA40 /* ProductViewControllerThemeTintColorTableViewCell.m */; };
 		B2C560BB1CEE36C00015AA40 /* ProductViewControllerToggleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C560B81CEE36C00015AA40 /* ProductViewControllerToggleTableViewCell.m */; };
 		B2C560C21CEE39180015AA40 /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C560C11CEE39180015AA40 /* UIColor+Additions.m */; };
+		B812BE181E003D5C00ED6FEC /* ProductsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B812BE171E003D5C00ED6FEC /* ProductsModel.swift */; };
+		B812BE1F1E003DC700ED6FEC /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B812BE1E1E003DC700ED6FEC /* BaseModel.swift */; };
+		B82F5DCA1E01898200CC5376 /* ProductDetailsInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82F5DC91E01898200CC5376 /* ProductDetailsInterfaceController.swift */; };
+		B82F5DD11E0190CA00CC5376 /* ProductItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82F5DD01E0190CA00CC5376 /* ProductItem.swift */; };
+		B86CCA931DF9A2DA00F46EDE /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B86CCA911DF9A2DA00F46EDE /* Interface.storyboard */; };
+		B86CCA951DF9A2DA00F46EDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B86CCA941DF9A2DA00F46EDE /* Assets.xcassets */; };
+		B86CCA9C1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B86CCA9B1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B86CCAA31DF9A2DA00F46EDE /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86CCAA21DF9A2DA00F46EDE /* InterfaceController.swift */; };
+		B86CCAA51DF9A2DA00F46EDE /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86CCAA41DF9A2DA00F46EDE /* ExtensionDelegate.swift */; };
+		B86CCAA71DF9A2DA00F46EDE /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86CCAA61DF9A2DA00F46EDE /* NotificationController.swift */; };
+		B86CCAA91DF9A2DA00F46EDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B86CCAA81DF9A2DA00F46EDE /* Assets.xcassets */; };
+		B86CCAAD1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = B86CCA8F1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App.app */; };
+		B86CCABD1DFAF39300F46EDE /* ProductRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86CCABC1DFAF39300F46EDE /* ProductRowController.swift */; };
+		B86CCACA1DFF39AC00F46EDE /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86CCAC91DFF39AC00F46EDE /* DataProvider.swift */; };
+		B86CCACE1DFF3CA200F46EDE /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B86CCACD1DFF3CA200F46EDE /* Buy.framework */; };
+		B86CCACF1DFF3CA200F46EDE /* Buy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B86CCACD1DFF3CA200F46EDE /* Buy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B8DA1BC61E033F6100CE947E /* ApplePayHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DA1BC51E033F6100CE947E /* ApplePayHandler.swift */; };
 		BE8B82511B8CF49D00E3F871 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82501B8CF49D00E3F871 /* main.m */; };
 		BE8B82541B8CF49D00E3F871 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82531B8CF49D00E3F871 /* AppDelegate.m */; };
 		BE8B82571B8CF49D00E3F871 /* ProductListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE8B82561B8CF49D00E3F871 /* ProductListViewController.m */; };
@@ -71,6 +88,41 @@
 			proxyType = 1;
 			remoteGlobalIDString = 901930E11BC5B9BC00D1134E;
 			remoteInfo = Buy;
+		};
+		B86CCA9D1DF9A2DA00F46EDE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BE8B82431B8CF49D00E3F871 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B86CCA9A1DF9A2DA00F46EDE;
+			remoteInfo = "Mobile Buy SDK watchOS Sample App Extension";
+		};
+		B86CCAAB1DF9A2DA00F46EDE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BE8B82431B8CF49D00E3F871 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B86CCA8E1DF9A2DA00F46EDE;
+			remoteInfo = "Mobile Buy SDK watchOS Sample App";
+		};
+		B86CCAB61DF9A2DA00F46EDE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BE34378F1BC5C18400C71330 /* Mobile Buy SDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B8A356991DD6112C00FDD7BD;
+			remoteInfo = BuyTV;
+		};
+		B86CCACC1DFF3CA200F46EDE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BE34378F1BC5C18400C71330 /* Mobile Buy SDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B8BB14501DF1E2EE00F45BBB;
+			remoteInfo = BuyWatch;
+		};
+		B86CCAD01DFF3CA200F46EDE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BE34378F1BC5C18400C71330 /* Mobile Buy SDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = B8BB144F1DF1E2EE00F45BBB;
+			remoteInfo = BuyWatch;
 		};
 		BE34379A1BC5C18400C71330 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -103,6 +155,39 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		B86CCAB91DF9A2DA00F46EDE /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				B86CCA9C1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B86CCABB1DF9A2DA00F46EDE /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				B86CCAAD1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B86CCAD21DFF3CA200F46EDE /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B86CCACF1DFF3CA200F46EDE /* Buy.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BE3437A61BC5C19D00C71330 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -203,6 +288,26 @@
 		B2C560B81CEE36C00015AA40 /* ProductViewControllerToggleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductViewControllerToggleTableViewCell.m; path = "Product View/ProductViewControllerToggleTableViewCell.m"; sourceTree = "<group>"; };
 		B2C560C01CEE39180015AA40 /* UIColor+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Additions.h"; sourceTree = "<group>"; };
 		B2C560C11CEE39180015AA40 /* UIColor+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Additions.m"; sourceTree = "<group>"; };
+		B812BE171E003D5C00ED6FEC /* ProductsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsModel.swift; sourceTree = "<group>"; };
+		B812BE1E1E003DC700ED6FEC /* BaseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
+		B82F5DC91E01898200CC5376 /* ProductDetailsInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailsInterfaceController.swift; sourceTree = "<group>"; };
+		B82F5DD01E0190CA00CC5376 /* ProductItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductItem.swift; sourceTree = "<group>"; };
+		B86CCA8F1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile Buy SDK watchOS Sample App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B86CCA921DF9A2DA00F46EDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		B86CCA941DF9A2DA00F46EDE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B86CCA961DF9A2DA00F46EDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B86CCA9B1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Mobile Buy SDK watchOS Sample App Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B86CCAA11DF9A2DA00F46EDE /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		B86CCAA21DF9A2DA00F46EDE /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		B86CCAA41DF9A2DA00F46EDE /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		B86CCAA61DF9A2DA00F46EDE /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		B86CCAA81DF9A2DA00F46EDE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B86CCAAA1DF9A2DA00F46EDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B86CCABC1DFAF39300F46EDE /* ProductRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductRowController.swift; sourceTree = "<group>"; };
+		B86CCAC91DFF39AC00F46EDE /* DataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
+		B8784B741E0C200D00734909 /* Credentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Credentials.h; sourceTree = "<group>"; };
+		B8784B791E0C215F00734909 /* Mobile Buy SDK Advanced Sample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mobile Buy SDK Advanced Sample-Bridging-Header.h"; sourceTree = "<group>"; };
+		B8DA1BC51E033F6100CE947E /* ApplePayHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplePayHandler.swift; sourceTree = "<group>"; };
 		BE34378F1BC5C18400C71330 /* Mobile Buy SDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Mobile Buy SDK.xcodeproj"; path = "../../Mobile Buy SDK/Mobile Buy SDK.xcodeproj"; sourceTree = "<group>"; };
 		BE5E28451B94F5C300D2ECB5 /* Mobile Buy SDK Advanced Sample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Mobile Buy SDK Advanced Sample.entitlements"; sourceTree = "<group>"; };
 		BE8B824B1B8CF49D00E3F871 /* Mobile Buy SDK Advanced Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile Buy SDK Advanced Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -224,6 +329,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		B86CCA981DF9A2DA00F46EDE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B86CCACE1DFF3CA200F46EDE /* Buy.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BE8B82481B8CF49D00E3F871 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -370,11 +483,51 @@
 			name = "Table View Cells";
 			sourceTree = "<group>";
 		};
+		B86CCA901DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App */ = {
+			isa = PBXGroup;
+			children = (
+				B86CCA911DF9A2DA00F46EDE /* Interface.storyboard */,
+				B86CCA941DF9A2DA00F46EDE /* Assets.xcassets */,
+				B86CCA961DF9A2DA00F46EDE /* Info.plist */,
+			);
+			path = "Mobile Buy SDK watchOS Sample App";
+			sourceTree = "<group>";
+		};
+		B86CCA9F1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App Extension */ = {
+			isa = PBXGroup;
+			children = (
+				B86CCAA21DF9A2DA00F46EDE /* InterfaceController.swift */,
+				B86CCAA41DF9A2DA00F46EDE /* ExtensionDelegate.swift */,
+				B86CCAA61DF9A2DA00F46EDE /* NotificationController.swift */,
+				B86CCAA81DF9A2DA00F46EDE /* Assets.xcassets */,
+				B86CCAAA1DF9A2DA00F46EDE /* Info.plist */,
+				B86CCAA01DF9A2DA00F46EDE /* Supporting Files */,
+				B86CCABC1DFAF39300F46EDE /* ProductRowController.swift */,
+				B86CCAC91DFF39AC00F46EDE /* DataProvider.swift */,
+				B812BE171E003D5C00ED6FEC /* ProductsModel.swift */,
+				B812BE1E1E003DC700ED6FEC /* BaseModel.swift */,
+				B82F5DC91E01898200CC5376 /* ProductDetailsInterfaceController.swift */,
+				B82F5DD01E0190CA00CC5376 /* ProductItem.swift */,
+				B8DA1BC51E033F6100CE947E /* ApplePayHandler.swift */,
+			);
+			path = "Mobile Buy SDK watchOS Sample App Extension";
+			sourceTree = "<group>";
+		};
+		B86CCAA01DF9A2DA00F46EDE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B86CCAA11DF9A2DA00F46EDE /* PushNotificationPayload.apns */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		BE3437901BC5C18400C71330 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				BE34379D1BC5C18400C71330 /* Buy.framework */,
 				BE34379B1BC5C18400C71330 /* Mobile Buy SDK Tests.xctest */,
+				B86CCAB71DF9A2DA00F46EDE /* Buy.framework */,
+				B86CCACD1DFF3CA200F46EDE /* Buy.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -385,6 +538,8 @@
 				BE34378F1BC5C18400C71330 /* Mobile Buy SDK.xcodeproj */,
 				90A6F42C1BA8BCAC003E7C4F /* PassKit.framework */,
 				BE8B824D1B8CF49D00E3F871 /* Mobile Buy SDK Advanced Sample */,
+				B86CCA901DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App */,
+				B86CCA9F1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App Extension */,
 				BE8B824C1B8CF49D00E3F871 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -393,6 +548,8 @@
 			isa = PBXGroup;
 			children = (
 				BE8B824B1B8CF49D00E3F871 /* Mobile Buy SDK Advanced Sample.app */,
+				B86CCA8F1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App.app */,
+				B86CCA9B1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -412,6 +569,8 @@
 				BE8B824E1B8CF49D00E3F871 /* Supporting Files */,
 				847612991CAB05BE00AB17AA /* UIKit Additions */,
 				BE8B82961B8E6A6900E3F871 /* View Controllers */,
+				B8784B741E0C200D00734909 /* Credentials.h */,
+				B8784B791E0C215F00734909 /* Mobile Buy SDK Advanced Sample-Bridging-Header.h */,
 			);
 			path = "Mobile Buy SDK Advanced Sample";
 			sourceTree = "<group>";
@@ -446,6 +605,42 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		B86CCA8E1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B86CCABA1DF9A2DA00F46EDE /* Build configuration list for PBXNativeTarget "Mobile Buy SDK watchOS Sample App" */;
+			buildPhases = (
+				B86CCA8D1DF9A2DA00F46EDE /* Resources */,
+				B86CCAB91DF9A2DA00F46EDE /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B86CCA9E1DF9A2DA00F46EDE /* PBXTargetDependency */,
+			);
+			name = "Mobile Buy SDK watchOS Sample App";
+			productName = "Mobile Buy SDK watchOS Sample App";
+			productReference = B86CCA8F1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		B86CCA9A1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B86CCAB81DF9A2DA00F46EDE /* Build configuration list for PBXNativeTarget "Mobile Buy SDK watchOS Sample App Extension" */;
+			buildPhases = (
+				B86CCA971DF9A2DA00F46EDE /* Sources */,
+				B86CCA981DF9A2DA00F46EDE /* Frameworks */,
+				B86CCA991DF9A2DA00F46EDE /* Resources */,
+				B86CCAD21DFF3CA200F46EDE /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B86CCAD11DFF3CA200F46EDE /* PBXTargetDependency */,
+			);
+			name = "Mobile Buy SDK watchOS Sample App Extension";
+			productName = "Mobile Buy SDK watchOS Sample App Extension";
+			productReference = B86CCA9B1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
 		BE8B824A1B8CF49D00E3F871 /* Mobile Buy SDK Advanced Sample */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = BE8B82711B8CF49D00E3F871 /* Build configuration list for PBXNativeTarget "Mobile Buy SDK Advanced Sample" */;
@@ -454,6 +649,7 @@
 				BE8B82481B8CF49D00E3F871 /* Frameworks */,
 				BE8B82491B8CF49D00E3F871 /* Resources */,
 				BE3437A61BC5C19D00C71330 /* Embed Frameworks */,
+				B86CCABB1DF9A2DA00F46EDE /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
@@ -461,6 +657,7 @@
 				BE3437A11BC5C18F00C71330 /* PBXTargetDependency */,
 				BE3437A51BC5C19D00C71330 /* PBXTargetDependency */,
 				84A772461D81A2640018D4F5 /* PBXTargetDependency */,
+				B86CCAAC1DF9A2DA00F46EDE /* PBXTargetDependency */,
 			);
 			name = "Mobile Buy SDK Advanced Sample";
 			productName = "Mobile Buy SDK Advanced Sample";
@@ -473,11 +670,21 @@
 		BE8B82431B8CF49D00E3F871 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0810;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = Shopify;
 				TargetAttributes = {
+					B86CCA8E1DF9A2DA00F46EDE = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+					};
+					B86CCA9A1DF9A2DA00F46EDE = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+					};
 					BE8B824A1B8CF49D00E3F871 = {
 						CreatedOnToolsVersion = 6.4;
+						LastSwiftMigration = 0820;
 						SystemCapabilities = {
 							com.apple.OMC = {
 								enabled = 1;
@@ -506,11 +713,27 @@
 			projectRoot = "";
 			targets = (
 				BE8B824A1B8CF49D00E3F871 /* Mobile Buy SDK Advanced Sample */,
+				B86CCA8E1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App */,
+				B86CCA9A1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App Extension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		B86CCAB71DF9A2DA00F46EDE /* Buy.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Buy.framework;
+			remoteRef = B86CCAB61DF9A2DA00F46EDE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B86CCACD1DFF3CA200F46EDE /* Buy.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Buy.framework;
+			remoteRef = B86CCACC1DFF3CA200F46EDE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		BE34379B1BC5C18400C71330 /* Mobile Buy SDK Tests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
@@ -528,6 +751,23 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		B86CCA8D1DF9A2DA00F46EDE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B86CCA951DF9A2DA00F46EDE /* Assets.xcassets in Resources */,
+				B86CCA931DF9A2DA00F46EDE /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B86CCA991DF9A2DA00F46EDE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B86CCAA91DF9A2DA00F46EDE /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BE8B82491B8CF49D00E3F871 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -542,6 +782,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		B86CCA971DF9A2DA00F46EDE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8DA1BC61E033F6100CE947E /* ApplePayHandler.swift in Sources */,
+				B86CCAA71DF9A2DA00F46EDE /* NotificationController.swift in Sources */,
+				B812BE181E003D5C00ED6FEC /* ProductsModel.swift in Sources */,
+				B812BE1F1E003DC700ED6FEC /* BaseModel.swift in Sources */,
+				B82F5DD11E0190CA00CC5376 /* ProductItem.swift in Sources */,
+				B86CCAA51DF9A2DA00F46EDE /* ExtensionDelegate.swift in Sources */,
+				B86CCACA1DFF39AC00F46EDE /* DataProvider.swift in Sources */,
+				B86CCABD1DFAF39300F46EDE /* ProductRowController.swift in Sources */,
+				B82F5DCA1E01898200CC5376 /* ProductDetailsInterfaceController.swift in Sources */,
+				B86CCAA31DF9A2DA00F46EDE /* InterfaceController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BE8B82471B8CF49D00E3F871 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -605,6 +862,21 @@
 			name = Buy;
 			targetProxy = 84A772451D81A2640018D4F5 /* PBXContainerItemProxy */;
 		};
+		B86CCA9E1DF9A2DA00F46EDE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B86CCA9A1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App Extension */;
+			targetProxy = B86CCA9D1DF9A2DA00F46EDE /* PBXContainerItemProxy */;
+		};
+		B86CCAAC1DF9A2DA00F46EDE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B86CCA8E1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App */;
+			targetProxy = B86CCAAB1DF9A2DA00F46EDE /* PBXContainerItemProxy */;
+		};
+		B86CCAD11DFF3CA200F46EDE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = BuyWatch;
+			targetProxy = B86CCAD01DFF3CA200F46EDE /* PBXContainerItemProxy */;
+		};
 		BE3437A11BC5C18F00C71330 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Buy Dynamic";
@@ -618,6 +890,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		B86CCA911DF9A2DA00F46EDE /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B86CCA921DF9A2DA00F46EDE /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
 		BE8B825B1B8CF49D00E3F871 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -637,6 +917,102 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		B86CCAAE1DF9A2DA00F46EDE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				IBSC_MODULE = Mobile_Buy_SDK_watchOS_Sample_App_Extension;
+				INFOPLIST_FILE = "Mobile Buy SDK watchOS Sample App/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.Mobile-Buy-SDK-Advanced-Sample.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+			};
+			name = Debug;
+		};
+		B86CCAAF1DF9A2DA00F46EDE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				IBSC_MODULE = Mobile_Buy_SDK_watchOS_Sample_App_Extension;
+				INFOPLIST_FILE = "Mobile Buy SDK watchOS Sample App/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.Mobile-Buy-SDK-Advanced-Sample.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+			};
+			name = Release;
+		};
+		B86CCAB01DF9A2DA00F46EDE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				INFOPLIST_FILE = "Mobile Buy SDK watchOS Sample App Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.Mobile-Buy-SDK-Advanced-Sample.watchkitapp.watchkitextension";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "Mobile Buy SDK Advanced Sample/Mobile Buy SDK Advanced Sample-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+			};
+			name = Debug;
+		};
+		B86CCAB11DF9A2DA00F46EDE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				INFOPLIST_FILE = "Mobile Buy SDK watchOS Sample App Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.Mobile-Buy-SDK-Advanced-Sample.watchkitapp.watchkitextension";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Mobile Buy SDK Advanced Sample/Mobile Buy SDK Advanced Sample-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+			};
+			name = Release;
+		};
 		BE8B826F1B8CF49D00E3F871 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -722,6 +1098,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Mobile Buy SDK Advanced Sample/Mobile Buy SDK Advanced Sample.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -736,6 +1113,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Mobile Buy SDK Advanced Sample/Mobile Buy SDK Advanced Sample-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -744,6 +1124,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Mobile Buy SDK Advanced Sample/Mobile Buy SDK Advanced Sample.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -758,6 +1139,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Mobile Buy SDK Advanced Sample/Mobile Buy SDK Advanced Sample-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -765,6 +1148,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		B86CCAB81DF9A2DA00F46EDE /* Build configuration list for PBXNativeTarget "Mobile Buy SDK watchOS Sample App Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B86CCAB01DF9A2DA00F46EDE /* Debug */,
+				B86CCAB11DF9A2DA00F46EDE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B86CCABA1DF9A2DA00F46EDE /* Build configuration list for PBXNativeTarget "Mobile Buy SDK watchOS Sample App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B86CCAAE1DF9A2DA00F46EDE /* Debug */,
+				B86CCAAF1DF9A2DA00F46EDE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		BE8B82461B8CF49D00E3F871 /* Build configuration list for PBXProject "Mobile Buy SDK Advanced Sample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

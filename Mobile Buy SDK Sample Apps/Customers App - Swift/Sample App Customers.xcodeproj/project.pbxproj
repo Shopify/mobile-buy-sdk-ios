@@ -45,6 +45,20 @@
 			remoteGlobalIDString = 901930E11BC5B9BC00D1134E;
 			remoteInfo = Buy;
 		};
+		B86CCAD91DFF3D1D00F46EDE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A9C03201CD9203600AE79BD /* Mobile Buy SDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B8A356991DD6112C00FDD7BD;
+			remoteInfo = BuyTV;
+		};
+		B86CCADB1DFF3D1D00F46EDE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A9C03201CD9203600AE79BD /* Mobile Buy SDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B8BB14501DF1E2EE00F45BBB;
+			remoteInfo = BuyWatch;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -173,6 +187,8 @@
 			children = (
 				9A9C032D1CD9203600AE79BD /* Buy.framework */,
 				9A9C03291CD9203600AE79BD /* Mobile Buy SDK Tests.xctest */,
+				B86CCADA1DFF3D1D00F46EDE /* Buy.framework */,
+				B86CCADC1DFF3D1D00F46EDE /* Buy.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -260,6 +276,20 @@
 			fileType = wrapper.framework;
 			path = Buy.framework;
 			remoteRef = 9A9C032C1CD9203600AE79BD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B86CCADA1DFF3D1D00F46EDE /* Buy.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Buy.framework;
+			remoteRef = B86CCAD91DFF3D1D00F46EDE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B86CCADC1DFF3D1D00F46EDE /* Buy.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Buy.framework;
+			remoteRef = B86CCADB1DFF3D1D00F46EDE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

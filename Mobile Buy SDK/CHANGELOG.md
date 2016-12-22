@@ -1,4 +1,37 @@
-# 2.1.0 ()
+# 2.2.0 ()
+Features
+* Add tvOS target #407
+* Create a tvOS project #411
+* Create a Data Provider for the tvOS sample app #420
+* Create a collection view to display collections on tvOS #421
+* Add collection and product view model to abstract model object away from views and view controllers #425
+* Configure collection view cells #427
+* Configure product view cells #420
+* Support `PKPaymentAuthorizationController` for iOS 10.0+
+* Add assets for tvOS sample app #443
+* Provide an empty collection cell state for tvOS #446
+* Create a Paged View Controller to display product images on tvOS #447
+* Add watchOS target #452
+* Add watchOS extension on Mobile Buy SDK Advanced Sample App #457
+* Configure interface controller with a `WKInterfaceTable` to show products #458
+* Create a Data Provider for the watchOS sample app #463
+* Create a products model to abstract model objects away from controllers #465
+* Create an interface controller to show product details #467
+* Configure variant picker on product details interface controller #470
+* Integrate Apple Pay to purchase products #471
+* Add handoff capabilities to product details interface controller #474
+* Add assets to watchOS sample app #476
+
+Refactor
+* Make product images square and aspect fit on tvOS #449
+
+Tasks
+* Add README.md for tvOS #451
+* tvOS integration branch to develop #453
+* watchOS integration branch to develop #477
+
+
+# 2.1.0 (November 17th, 2016)
 Features
 * Allow collections to be retrieved by an array of IDs #292
 * Add a unit test for customer creation #298
