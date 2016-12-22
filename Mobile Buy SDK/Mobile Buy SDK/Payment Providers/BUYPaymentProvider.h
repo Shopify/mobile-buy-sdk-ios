@@ -25,7 +25,10 @@
 //
 
 @import UIKit;
+
+#if !TARGET_OS_TV
 @import PassKit;
+#endif
 
 #import "BUYClient.h"
 
@@ -63,6 +66,7 @@ extern NSString *const BUYPaymentProviderDidCompleteCheckoutNotificationKey;
 
 @optional
 
+#if !TARGET_OS_TV
 /**
  *  Called when a PKPaymentAuthorizationController needs to be presented. If this method is implemented, also
  *  call `presentWithCompletion:` on the controller and specify completion.
@@ -73,6 +77,8 @@ extern NSString *const BUYPaymentProviderDidCompleteCheckoutNotificationKey;
  *  @param controller the `PKPaymentAuthorizationController` to be presented
  */
 - (void)paymentProvider:(id <BUYPaymentProvider>)provider wantsPaymentControllerPresented:(PKPaymentAuthorizationController *)controller NS_AVAILABLE_IOS(10_0);
+#endif
+
 
 /**
  *  Called when the checkout process has started
