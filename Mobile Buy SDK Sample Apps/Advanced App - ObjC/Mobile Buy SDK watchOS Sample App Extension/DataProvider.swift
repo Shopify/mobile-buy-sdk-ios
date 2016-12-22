@@ -83,8 +83,12 @@ public class DataProvider {
     /// - Returns: an Operation, can be cancelled at any time
     private func downloadProducts(completion: @escaping([BUYProduct]) -> Void) -> Operation {
         return self.client.getProductsPage(1, completion: { [weak self] (products, page, reachedEnd, error) in
-            self?.products = products!
-            completion(products!)
+            if let downloadedProducts = products {
+                self?.products = downloadedProducts
+                completion(downloadedProducts)
+            } else {
+                print(error.debugDescription)
+            }
         })
     }
 }
