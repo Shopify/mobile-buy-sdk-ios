@@ -24,6 +24,7 @@
 //  THE SOFTWARE.
 //
 
+#import "Credentials.h"
 #import "ProductListViewController.h"
 #import "ProductViewController.h"
 #import "Theme.h"
@@ -33,10 +34,6 @@
 #import "ProductViewControllerThemeTintColorTableViewCell.h"
 
 #import <Buy/Buy.h>
-
-//#warning - Enter your merchant ID
-// Adding a merchant ID will show Apple Pay in the BUYProductViewController (on supported devices)
-#define MERCHANT_ID @""
 
 @interface ProductListViewController () <UIViewControllerPreviewingDelegate>
 

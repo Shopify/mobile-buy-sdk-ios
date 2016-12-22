@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch42" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11508"/>
+    </dependencies>
+    <scenes>
+        <!--ProductDetailsInterfaceController-->
+        <scene sceneID="xBJ-vm-vha">
+            <objects>
+                <controller identifier="ProductDetailsInterfaceController" id="NN8-cs-SYQ" customClass="ProductDetailsInterfaceController" customModule="Mobile_Buy_SDK_watchOS_Sample_App_Extension">
+                    <items>
+                        <group width="1" alignment="left" layout="vertical" id="fWb-ZJ-8mQ">
+                            <items>
+                                <imageView height="140" alignment="center" contentMode="scaleAspectFit" id="8Rx-By-NN0"/>
+                                <separator alignment="left" id="bT6-jf-tgc"/>
+                                <group width="1" alignment="left" id="vhP-n0-Gm9">
+                                    <items>
+                                        <label width="0.94999999999999996" alignment="left" id="KHI-ug-vow">
+                                            <fontDescription key="font" type="system" pointSize="14"/>
+                                        </label>
+                                    </items>
+                                    <edgeInsets key="margins" left="4" right="0.0" top="0.0" bottom="0.0"/>
+                                </group>
+                                <picker height="50" alignment="left" focusStyle="stack" id="Bjr-jS-tm1">
+                                    <connections>
+                                        <action selector="pickerAction:" destination="NN8-cs-SYQ" id="vZ0-HS-kAl"/>
+                                    </connections>
+                                </picker>
+                                <group width="1" alignment="left" id="5oW-oD-kLP">
+                                    <items>
+                                        <label alignment="left" id="Zqj-pm-JqS">
+                                            <fontDescription key="font" type="system" pointSize="14"/>
+                                        </label>
+                                    </items>
+                                    <edgeInsets key="margins" left="4" right="0.0" top="0.0" bottom="0.0"/>
+                                </group>
+                                <paymentButton width="0.97999999999999998" alignment="center" id="KAx-WR-l8J">
+                                    <connections>
+                                        <action selector="checkoutWithApplePay" destination="NN8-cs-SYQ" id="AHN-ZS-npQ"/>
+                                    </connections>
+                                </paymentButton>
+                            </items>
+                            <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="2"/>
+                        </group>
+                        <separator alignment="left" id="83O-zo-I7d"/>
+                        <group width="1" alignment="left" verticalAlignment="bottom" id="Yu1-rV-U6T">
+                            <items>
+                                <imageView width="36" height="36" alignment="left" image="Handoff" id="A5U-Df-RUc"/>
+                                <label alignment="left" text="View details on your iPhone." numberOfLines="2" id="NMp-9x-gsM">
+                                    <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                </label>
+                            </items>
+                            <edgeInsets key="margins" left="2" right="0.0" top="4" bottom="0.0"/>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="applePayButton" destination="KAx-WR-l8J" id="xfl-mL-jI7"/>
+                        <outlet property="productImage" destination="8Rx-By-NN0" id="hSs-vc-5aR"/>
+                        <outlet property="productOptionLabel" destination="KHI-ug-vow" id="tvT-bN-Gkq"/>
+                        <outlet property="productPriceLabel" destination="Zqj-pm-JqS" id="T9G-hy-gTN"/>
+                        <outlet property="topSeparator" destination="bT6-jf-tgc" id="GDB-Je-agF"/>
+                        <outlet property="variantPicker" destination="Bjr-jS-tm1" id="YcZ-Rj-MFO"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="467" y="312"/>
+        </scene>
+        <!--LoadingInterfaceController-->
+        <scene sceneID="fyM-kz-O3m">
+            <objects>
+                <controller identifier="LoadingInterfaceController" id="mSn-8R-FXz">
+                    <items>
+                        <imageView width="0.29999999999999999" height="0.29999999999999999" alignment="center" verticalAlignment="center" image="frame" contentMode="scaleAspectFit" id="rSv-bD-f73"/>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="716.61538461538464" y="256.74358974358978"/>
+        </scene>
+        <!--Shopify-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller title="Shopify" id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Mobile_Buy_SDK_watchOS_Sample_App" customModuleProvider="target">
+                    <items>
+                        <table alignment="left" id="xyc-95-Fah">
+                            <items>
+                                <tableRow identifier="ProductRow" id="8oh-Cq-MI8" customClass="ProductRowController" customModule="Mobile_Buy_SDK_watchOS_Sample_App_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" radius="8" spacing="6" id="NTR-iN-6aY">
+                                        <items>
+                                            <imageView width="1" height="62" alignment="left" contentMode="scaleAspectFill" id="BDZ-0f-66j"/>
+                                            <group width="1" alignment="left" layout="vertical" id="kTC-4d-o9s">
+                                                <items>
+                                                    <label width="1" alignment="left" numberOfLines="2" id="M8S-Td-NeD">
+                                                        <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
+                                                    </label>
+                                                    <label width="1" alignment="left" id="D3Y-ZQ-9IZ">
+                                                        <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
+                                                    </label>
+                                                </items>
+                                                <edgeInsets key="margins" left="6" right="6" top="0.0" bottom="2"/>
+                                            </group>
+                                        </items>
+                                        <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="productImage" destination="BDZ-0f-66j" id="l0N-2g-YFb"/>
+                                        <outlet property="productPrice" destination="D3Y-ZQ-9IZ" id="crZ-S8-xOb"/>
+                                        <outlet property="productTitle" destination="M8S-Td-NeD" id="ABY-ad-H5E"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                        <label alignment="center" verticalAlignment="center" text="Loading Products..." id="CBE-Bj-YJX">
+                            <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </label>
+                    </items>
+                    <connections>
+                        <outlet property="loadingLabel" destination="CBE-Bj-YJX" id="RMm-DM-7h9"/>
+                        <outlet property="productsTable" destination="xyc-95-Fah" id="eWV-DX-ejA"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="220" y="257"/>
+        </scene>
+        <!--Static Notification Interface Controller-->
+        <scene sceneID="AEw-b0-oYE">
+            <objects>
+                <notificationController id="YCC-NB-fut">
+                    <items>
+                        <label alignment="left" text="Alert Label" id="IdU-wH-bcW"/>
+                    </items>
+                    <notificationCategory key="notificationCategory" identifier="myCategory" id="JfB-70-Muf"/>
+                    <connections>
+                        <outlet property="notificationAlertLabel" destination="IdU-wH-bcW" id="JKC-fr-R95"/>
+                        <segue destination="4sK-HA-Art" kind="relationship" relationship="dynamicNotificationInterface" id="kXh-Jw-8B1"/>
+                    </connections>
+                </notificationController>
+            </objects>
+            <point key="canvasLocation" x="220" y="643"/>
+        </scene>
+        <!--Notification Controller-->
+        <scene sceneID="ZPc-GJ-vnh">
+            <objects>
+                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="Mobile_Buy_SDK_watchOS_Sample_App" customModuleProvider="target"/>
+            </objects>
+            <point key="canvasLocation" x="468" y="643"/>
+        </scene>
+    </scenes>
+    <color key="tintColor" red="0.48746770620346069" green="0.7228664755821228" blue="0.36244720220565796" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+</document>
