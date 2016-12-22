@@ -29,6 +29,7 @@
 #import "AppDelegate.h"
 #import "OptimizelySDKiOS.h"
 #import "CollectionListViewController.h"
+#import "Credentials.h"
 #import "ProductViewController.h"
 #import "ProductListViewController.h"
 

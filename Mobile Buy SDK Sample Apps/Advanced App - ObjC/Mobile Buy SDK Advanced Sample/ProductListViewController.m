@@ -24,6 +24,7 @@
 //  THE SOFTWARE.
 //
 
+#import "Credentials.h"
 #import "ProductListViewController.h"
 #import "ProductViewController.h"
 #import "Theme.h"
