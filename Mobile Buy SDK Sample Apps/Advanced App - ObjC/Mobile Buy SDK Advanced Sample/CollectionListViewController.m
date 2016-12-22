@@ -26,13 +26,9 @@
 
 @import Buy;
 #import "CollectionListViewController.h"
+#import "Credentials.h"
 #import "ProductViewController.h"
 #import "ProductListViewController.h"
-
-#warning - Enter your shop domain and API Key
-#define SHOP_DOMAIN @""
-#define API_KEY @""
-#define APP_ID @""
 
 @interface CollectionListViewController ()
 

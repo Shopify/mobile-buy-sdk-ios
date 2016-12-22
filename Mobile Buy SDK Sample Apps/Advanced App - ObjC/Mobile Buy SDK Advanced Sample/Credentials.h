@@ -1,9 +1,9 @@
 //
-//  MasterViewController.h
+//  Credentials.h
 //  Mobile Buy SDK Advanced Sample
 //
 //  Created by Shopify.
-//  Copyright (c) 2015 Shopify Inc. All rights reserved.
+//  Copyright (c) 2016 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,12 +24,8 @@
 //  THE SOFTWARE.
 //
 
-@import UIKit;
-@import Buy;
-
-@interface ProductListViewController : UITableViewController
-
-- (instancetype)initWithClient:(BUYClient *)client collection:(BUYCollection*)collection;
-
-@end
-
+#warning - Enter your shop domain and API Key
+#define SHOP_DOMAIN @""
+#define API_KEY @""
+#define APP_ID @""
+#define MERCHANT_ID @""
