@@ -1,4 +1,4 @@
-# 2.2.0 ()
+# 2.2.0 (December 22nd, 2016)
 Features
 * Add tvOS target #407
 * Create a tvOS project #411
