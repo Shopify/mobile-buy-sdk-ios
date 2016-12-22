@@ -26,6 +26,6 @@
 
 #warning - Enter your shop domain and API Key
 #define SHOP_DOMAIN @""
-#define API_KEY @""
-#define APP_ID @""
+#define API_KEY     @""
+#define APP_ID      @""
 #define MERCHANT_ID @""
