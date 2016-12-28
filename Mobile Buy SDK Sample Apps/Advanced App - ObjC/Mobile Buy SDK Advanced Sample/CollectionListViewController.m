@@ -25,12 +25,13 @@
 //
 
 @import Buy;
+
+#import "AppDelegate.h"
+#import "OptimizelySDKiOS.h"
 #import "CollectionListViewController.h"
 #import "ProductListViewController.h"
 
-#warning - Enter your shop domain and API Key
 #define SHOP_DOMAIN @"argyle-bliss.myshopify.com"
-#define API_KEY @""
 #define APP_ID @"8"
 
 @interface CollectionListViewController ()
@@ -49,14 +50,18 @@
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     
+    NSString *apiKey = [[NSUserDefaults standardUserDefaults] stringForKey:@"optlyShopifyApiKey"];
+    if (!apiKey) {
+        #warning Enter the Shopify API key here if developing locally
+        apiKey = @"";
+    }
     self.client = [[BUYClient alloc] initWithShopDomain:SHOP_DOMAIN
-                                                 apiKey:API_KEY
+                                                 apiKey:apiKey
                                                   appId:APP_ID];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [self.client getCollectionsPage:1 completion:^(NSArray *collections, NSUInteger page, BOOL reachedEnd, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        
         if (error == nil && collections) {
             self.collections = collections;
             [self.tableView reloadData];
@@ -91,6 +96,7 @@
         case 1: {
             BUYCollection *collection = self.collections[indexPath.row];
             cell.textLabel.text = collection.title;
+            cell.accessibilityIdentifier = [NSString stringWithFormat:@"collection_list_item_%ld", indexPath.row];
         }
             break;
         default:

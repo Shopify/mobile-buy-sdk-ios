@@ -31,14 +31,29 @@
 
 @interface AppDelegate ()
 @property(nonatomic, strong, readwrite) OPTLYClient *client;
+@property(nonatomic, strong, readwrite) NSString *userId;
 @end
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    // [OPTLY - Doc] For E2E testing purposes we inject the userId and projectId via NSUserDefaults
+    self.userId = [[NSUserDefaults standardUserDefaults] stringForKey:@"optlyUserId"];
+    if (!self.userId) {
+        self.userId = @"";
+    }
+    
+    NSString *projectId = [[NSUserDefaults standardUserDefaults] stringForKey:@"optlyProjectId"];
+    if (!projectId) {
+        projectId = @"";
+    }
+    
+    // [OPTLY - Doc] Initialize the Optimizely Manager and Optimizely Client (async)
     OPTLYManager *optlyManager = [OPTLYManager initWithBuilderBlock:^(OPTLYManagerBuilder * _Nullable builder) {
-        builder.projectId = @"";
+        builder.projectId = projectId;
+        builder.logger = [[OPTLYLoggerDefault alloc] initWithLogLevel:OptimizelyLogLevelAll];
     }];
     [optlyManager initializeClientWithCallback:^(NSError * _Nullable error, OPTLYClient * _Nullable client) {
         self.client = client;

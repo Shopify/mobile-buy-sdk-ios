@@ -67,6 +67,7 @@
 	[self setBackgroundImage:[UIImage templateButtonBackgroundImage] forState:UIControlStateNormal];
 	[self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 	[self setTitleColor:[[UIColor whiteColor] colorWithAlphaComponent:0.5f] forState:UIControlStateDisabled];
+    [self setAccessibilityIdentifier:@"button_checkout"];
 }
 
 - (void)setTextColor:(UIColor*)color

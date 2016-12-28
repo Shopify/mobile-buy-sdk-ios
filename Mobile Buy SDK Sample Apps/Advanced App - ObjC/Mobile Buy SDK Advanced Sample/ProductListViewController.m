@@ -95,24 +95,16 @@
         UIBarButtonItem *sortBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sort" style:UIBarButtonItemStylePlain target:self action:@selector(presentCollectionSortOptions:)];
         self.navigationItem.rightBarButtonItem = sortBarButtonItem;
         
+        // [OPTLY - Doc] Determine whether we should sort the collection items by name or price based on the bucketed variation
         AppDelegate *appDelegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
-        
-        NSArray *users = @[@"user11",@"user22"];
-        
-
-        NSInteger index = arc4random() % [users count];
-        OPTLYVariation *var = [appDelegate.client activateExperiment:@"test-0-21" userId:users[index]];
-        if([var.variationKey isEqualToString:@"var1"]){
+        OPTLYVariation *var = [appDelegate.client activateExperiment:@"product_sorting_logic" userId:appDelegate.userId];
+        if([var.variationKey isEqualToString:@"sort_by_price"]){
             [self getCollectionWithSortOrder:BUYCollectionSortPriceDescending];
-            [appDelegate.client trackEvent:@"visit_view_1" userId:users[index]];
-        } else if([var.variationKey isEqualToString:@"control1"]){
-            [self getCollectionWithSortOrder:BUYCollectionSortCollectionDefault];
+        } else if([var.variationKey isEqualToString:@"sort_by_name"]){
+            [self getCollectionWithSortOrder:BUYCollectionSortTitleAscending];
         } else {
             [self getCollectionWithSortOrder:BUYCollectionSortCollectionDefault];
         }
-//        
-//        
-//        [self getCollectionWithSortOrder:BUYCollectionSortCollectionDefault];
     } else {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
         [self.client getProductsPage:1 completion:^(NSArray *products, NSUInteger page, BOOL reachedEnd, NSError *error) {
@@ -228,6 +220,7 @@
                 case 0: {
                     ProductViewControllerToggleTableViewCell *toggleCell = (ProductViewControllerToggleTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"ProductViewControllerToggleCell" forIndexPath:indexPath];
                     toggleCell.textLabel.text = @"Demo BUYProductViewController";
+                    toggleCell.accessibilityIdentifier = @"product_view_toggle_cell";
                     [toggleCell.toggleSwitch setOn:self.demoProductViewController];
                     [toggleCell.toggleSwitch addTarget:self action:@selector(toggleProductViewControllerDemo:) forControlEvents:UIControlEventValueChanged];
                     cell = toggleCell;
@@ -273,6 +266,7 @@
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             BUYProduct *product = self.products[indexPath.row];
             cell.textLabel.text = product.title;
+            cell.accessibilityIdentifier = [NSString stringWithFormat:@"product_list_item_%ld", indexPath.row];
         }
             break;
             
@@ -286,6 +280,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section > 0) {
+        // [OPTLY - Doc] Track a conversion event
+        AppDelegate *appDelegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
+        [appDelegate.client trackEvent:@"product_click" userId:appDelegate.userId];
+        
         BUYProduct *product = self.products[indexPath.row];
         if (self.demoProductViewController) {
             [self.tableView deselectRowAtIndexPath:indexPath animated:YES];

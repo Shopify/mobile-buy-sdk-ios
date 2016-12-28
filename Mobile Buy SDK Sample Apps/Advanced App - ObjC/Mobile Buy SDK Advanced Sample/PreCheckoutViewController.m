@@ -140,6 +140,7 @@ typedef NS_ENUM(NSInteger, UITableViewDiscountGiftCardSection) {
             cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
             cell.textLabel.text = @"Continue";
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
+            cell.accessibilityIdentifier = @"button_checkout_continue";
             break;
         default:
             break;

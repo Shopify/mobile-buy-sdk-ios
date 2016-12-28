@@ -25,7 +25,8 @@
 //
 
 @import Buy;
-
+#import "AppDelegate.h"
+#import "OptimizelySDKiOS.h"
 #import "CheckoutViewController.h"
 #import "SummaryItemsTableViewCell.h"
 #import "UIButton+PaymentButton.h"
@@ -71,6 +72,7 @@ NSString * const MerchantId = @"";
     [creditCardButton setTitle:@"Checkout with Credit Card" forState:UIControlStateNormal];
     creditCardButton.backgroundColor = [UIColor colorWithRed:0.48f green:0.71f blue:0.36f alpha:1.0f];
     creditCardButton.layer.cornerRadius = 6;
+    creditCardButton.accessibilityIdentifier = @"button_checkout_with_credit_card";
     [creditCardButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     creditCardButton.translatesAutoresizingMaskIntoConstraints = NO;
     [creditCardButton addTarget:self action:@selector(checkoutWithCreditCard) forControlEvents:UIControlEventTouchUpInside];
@@ -204,6 +206,15 @@ NSString * const MerchantId = @"";
 
     __weak CheckoutViewController *welf = self;
     
+    NSLog(@"Successfully completed checkout");
+    
+    // [OPTLY - Doc] Track checkout conversion event with revenue amount
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    OPTLYClient *client = delegate.client;
+    NSDecimalNumber *revenue = self.checkout.totalPrice;
+    [revenue decimalNumberByMultiplyingBy:[NSDecimalNumber decimalNumberWithString:@"100"]];
+    [client trackEvent:@"complete_checkout" userId:delegate.userId attributes:nil eventValue:revenue];
+    
     // First, the credit card must be stored on the checkout
     [self addCreditCardToCheckout:^(BOOL success, id<BUYPaymentToken> token) {
         
@@ -211,7 +222,6 @@ NSString * const MerchantId = @"";
             [welf.client completeCheckoutWithToken:welf.checkout.token paymentToken:token completion:^(BUYCheckout *checkout, NSError *error) {
                 
                 if (error == nil && checkout) {
-                    NSLog(@"Successfully completed checkout");
                     welf.checkout = checkout;
                 }
                 else {

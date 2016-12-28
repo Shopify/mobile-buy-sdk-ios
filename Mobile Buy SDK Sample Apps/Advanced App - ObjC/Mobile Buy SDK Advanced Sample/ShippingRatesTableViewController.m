@@ -123,6 +123,7 @@
     BUYShippingRate *shippingRate = self.shippingRates[indexPath.row];
     cell.textLabel.text = shippingRate.title;
     cell.detailTextLabel.text = [self.currencyFormatter stringFromNumber:shippingRate.price];
+    cell.accessibilityIdentifier = [NSString stringWithFormat:@"shipping_rate_list_item_%ld", indexPath.row];
     
     return cell;
 }

@@ -32,5 +32,6 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property(nonatomic, strong, readonly) OPTLYClient *client;
+@property(nonatomic, strong, readonly) NSString *userId;
 @end
 
