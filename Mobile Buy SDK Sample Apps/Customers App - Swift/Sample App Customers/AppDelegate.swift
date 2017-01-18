@@ -36,9 +36,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      ** Configure store credentials to
      ** use with your specific store.
      */
-    let shopDomain: String = ""
-    let apiKey:     String = ""
-    let appID:      String = ""
+    let shopDomain: String = "argyle-bliss.myshopify.com"
+    let apiKey:     String = "65b258447094d0d9518679d0fd1cf0fd"
+    let appID:      String = "8"
 
     private(set) var client: BUYClient!
 
