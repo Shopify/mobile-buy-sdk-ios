@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B8289BE91DDE03E6001D5AEC /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8289BE81DDE03E6001D5AEC /* Buy.framework */; };
-		B8289BEA1DDE03E6001D5AEC /* Buy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B8289BE81DDE03E6001D5AEC /* Buy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		137DD88C70BF3BC0704714DA /* Pods_Mobile_Buy_SDK_tvOS_Sample_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75D3D18ACBE02E413E572E77 /* Pods_Mobile_Buy_SDK_tvOS_Sample_App.framework */; };
+		B8289BE91DDE03E6001D5AEC /* ReferenceProxy in Frameworks */ = {isa = PBXBuildFile; fileRef = B8289BE81DDE03E6001D5AEC /* Buy.framework */; };
+		B8289BEA1DDE03E6001D5AEC /* ReferenceProxy in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B8289BE81DDE03E6001D5AEC /* Buy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B8627DC31DDDFC8A00327C18 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8627DC21DDDFC8A00327C18 /* AppDelegate.swift */; };
 		B8627DC51DDDFC8A00327C18 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8627DC41DDDFC8A00327C18 /* ViewController.swift */; };
 		B8627DC81DDDFC8A00327C18 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8627DC61DDDFC8A00327C18 /* Main.storyboard */; };
@@ -64,7 +65,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B8289BEA1DDE03E6001D5AEC /* Buy.framework in Embed Frameworks */,
+				B8289BEA1DDE03E6001D5AEC /* ReferenceProxy in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -72,6 +73,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3FAA13F1D70A2D2978269ADC /* Pods-Mobile Buy SDK tvOS Sample App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mobile Buy SDK tvOS Sample App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mobile Buy SDK tvOS Sample App/Pods-Mobile Buy SDK tvOS Sample App.debug.xcconfig"; sourceTree = "<group>"; };
+		621365267244FC804C8FFF1B /* Pods-Mobile Buy SDK tvOS Sample App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mobile Buy SDK tvOS Sample App.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mobile Buy SDK tvOS Sample App/Pods-Mobile Buy SDK tvOS Sample App.release.xcconfig"; sourceTree = "<group>"; };
+		75D3D18ACBE02E413E572E77 /* Pods_Mobile_Buy_SDK_tvOS_Sample_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mobile_Buy_SDK_tvOS_Sample_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8627DBF1DDDFC8A00327C18 /* Mobile Buy SDK tvOS Sample App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mobile Buy SDK tvOS Sample App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8627DC21DDDFC8A00327C18 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B8627DC41DDDFC8A00327C18 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -99,19 +103,39 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B8289BE91DDE03E6001D5AEC /* Buy.framework in Frameworks */,
+				B8289BE91DDE03E6001D5AEC /* ReferenceProxy in Frameworks */,
+				137DD88C70BF3BC0704714DA /* Pods_Mobile_Buy_SDK_tvOS_Sample_App.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7B1ABF2213EA26FEE1EF717A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				75D3D18ACBE02E413E572E77 /* Pods_Mobile_Buy_SDK_tvOS_Sample_App.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AF7BCA5A162FAF199FAFDC39 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3FAA13F1D70A2D2978269ADC /* Pods-Mobile Buy SDK tvOS Sample App.debug.xcconfig */,
+				621365267244FC804C8FFF1B /* Pods-Mobile Buy SDK tvOS Sample App.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		B8627DB61DDDFC8A00327C18 = {
 			isa = PBXGroup;
 			children = (
 				B8627DD11DDDFE0500327C18 /* Mobile Buy SDK.xcodeproj */,
 				B8627DC11DDDFC8A00327C18 /* Mobile Buy SDK tvOS Sample */,
 				B8627DC01DDDFC8A00327C18 /* Products */,
+				AF7BCA5A162FAF199FAFDC39 /* Pods */,
+				7B1ABF2213EA26FEE1EF717A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -165,10 +189,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B8627DCE1DDDFC8A00327C18 /* Build configuration list for PBXNativeTarget "Mobile Buy SDK tvOS Sample App" */;
 			buildPhases = (
+				D1C129CE0D7BDDF058E06931 /* [CP] Check Pods Manifest.lock */,
 				B8627DBB1DDDFC8A00327C18 /* Sources */,
 				B8627DBC1DDDFC8A00327C18 /* Frameworks */,
 				B8627DBD1DDDFC8A00327C18 /* Resources */,
 				B8289BED1DDE03E6001D5AEC /* Embed Frameworks */,
+				FC21A736619EC25AE3919CBD /* [CP] Embed Pods Frameworks */,
+				A9B2777E0DB02749CB84B921 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -256,6 +283,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A9B2777E0DB02749CB84B921 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mobile Buy SDK tvOS Sample App/Pods-Mobile Buy SDK tvOS Sample App-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D1C129CE0D7BDDF058E06931 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		FC21A736619EC25AE3919CBD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mobile Buy SDK tvOS Sample App/Pods-Mobile Buy SDK tvOS Sample App-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B8627DBB1DDDFC8A00327C18 /* Sources */ = {
@@ -393,6 +468,7 @@
 		};
 		B8627DCF1DDDFC8A00327C18 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3FAA13F1D70A2D2978269ADC /* Pods-Mobile Buy SDK tvOS Sample App.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -409,6 +485,7 @@
 		};
 		B8627DD01DDDFC8A00327C18 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 621365267244FC804C8FFF1B /* Pods-Mobile Buy SDK tvOS Sample App.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
