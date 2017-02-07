@@ -27,7 +27,7 @@
 
 #import "AppDelegate.h"
 #import "CheckoutViewController.h"
-#import "OptimizelySDKiOS.h"
+#import <OptimizelySDKiOS/OptimizelySDKiOS.h>
 
 @interface AppDelegate ()
 @property(nonatomic, strong, readwrite) OPTLYClient *client;
@@ -51,11 +51,11 @@
     }
     
     // [OPTLY - Doc] Initialize the Optimizely Manager and Optimizely Client (async)
-    OPTLYManager *optlyManager = [OPTLYManager initWithBuilderBlock:^(OPTLYManagerBuilder * _Nullable builder) {
+    OPTLYManager *optlyManager = [OPTLYManager init:^(OPTLYManagerBuilder * _Nullable builder) {
         builder.projectId = projectId;
         builder.logger = [[OPTLYLoggerDefault alloc] initWithLogLevel:OptimizelyLogLevelAll];
     }];
-    [optlyManager initializeClientWithCallback:^(NSError * _Nullable error, OPTLYClient * _Nullable client) {
+    [optlyManager initializeWithCallback:^(NSError * _Nullable error, OPTLYClient * _Nullable client) {
         self.client = client;
     }];
     return YES;

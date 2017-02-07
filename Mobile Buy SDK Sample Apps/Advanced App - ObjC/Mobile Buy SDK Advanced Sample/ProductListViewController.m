@@ -94,7 +94,7 @@
         
         // [OPTLY - Doc] Determine whether we should sort the collection items by name or price based on the bucketed variation
         AppDelegate *appDelegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
-        OPTLYVariation *var = [appDelegate.client activateExperiment:@"product_sorting_logic" userId:appDelegate.userId];
+        OPTLYVariation *var = [appDelegate.client activate:@"product_sorting_logic" userId:appDelegate.userId];
         if([var.variationKey isEqualToString:@"sort_by_price"]){
             [self getCollectionWithSortOrder:BUYCollectionSortPriceDescending];
         } else if([var.variationKey isEqualToString:@"sort_by_name"]){
@@ -279,7 +279,7 @@
     if (indexPath.section > 0) {
         // [OPTLY - Doc] Track a conversion event
         AppDelegate *appDelegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
-        [appDelegate.client trackEvent:@"product_click" userId:appDelegate.userId];
+        [appDelegate.client track:@"product_click" userId:appDelegate.userId];
         
         BUYProduct *product = self.products[indexPath.row];
         if (self.demoProductViewController) {

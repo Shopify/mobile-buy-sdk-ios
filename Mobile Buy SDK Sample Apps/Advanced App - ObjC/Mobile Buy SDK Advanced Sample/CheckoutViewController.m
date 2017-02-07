@@ -26,7 +26,7 @@
 
 @import Buy;
 #import "AppDelegate.h"
-#import "OptimizelySDKiOS.h"
+#import <OptimizelySDKiOS/OptimizelySDKiOS.h>
 #import "CheckoutViewController.h"
 #import "SummaryItemsTableViewCell.h"
 #import "UIButton+PaymentButton.h"
@@ -213,7 +213,7 @@ NSString * const MerchantId = @"";
     OPTLYClient *client = delegate.client;
     NSDecimalNumber *revenue = self.checkout.totalPrice;
     [revenue decimalNumberByMultiplyingBy:[NSDecimalNumber decimalNumberWithString:@"100"]];
-    [client trackEvent:@"complete_checkout" userId:delegate.userId attributes:nil eventValue:revenue];
+    [client track:@"complete_checkout" userId:delegate.userId attributes:nil eventValue:revenue];
     
     // First, the credit card must be stored on the checkout
     [self addCreditCardToCheckout:^(BOOL success, id<BUYPaymentToken> token) {

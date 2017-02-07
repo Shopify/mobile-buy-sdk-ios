@@ -27,7 +27,7 @@
 @import Buy;
 
 #import "AppDelegate.h"
-#import "OptimizelySDKiOS.h"
+#import <OptimizelySDKiOS/OptimizelySDKiOS.h>
 #import "CollectionListViewController.h"
 #import "Credentials.h"
 #import "ProductViewController.h"
