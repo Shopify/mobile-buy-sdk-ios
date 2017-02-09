@@ -123,6 +123,9 @@ typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArra
 	self.checkout.shippingAddress = [self buyAddressWithABRecord:address];
 	if ([self.checkout.shippingAddress isValidAddressForShippingRates]) {
 		[self updateCheckoutWithAddressCompletion:completion];
+	} else {
+		self.lastError = [NSError errorWithDomain:BUYShopifyError code:BUYShopifyError_InvalidShippingAddress userInfo:nil];
+		completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, @[], [self.checkout buy_summaryItemsWithShopName:self.shopName]);
 	}
 }
 
@@ -206,6 +209,9 @@ typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArra
 	self.checkout.shippingAddress = [self buyAddressWithContact:contact];
 	if ([self.checkout.shippingAddress isValidAddressForShippingRates]) {
 		[self updateCheckoutWithAddressCompletion:completion];
+	} else {
+		self.lastError = [NSError errorWithDomain:BUYShopifyError code:BUYShopifyError_InvalidShippingAddress userInfo:nil];
+		completion(PKPaymentAuthorizationStatusInvalidShippingPostalAddress, @[], [self.checkout buy_summaryItemsWithShopName:self.shopName]);
 	}
 }
 

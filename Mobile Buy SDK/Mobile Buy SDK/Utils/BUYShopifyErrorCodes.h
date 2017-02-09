@@ -38,6 +38,10 @@ typedef NS_ENUM(NSUInteger, BUYCheckoutError){
 	 */
 	BUYShopifyError_CartFetchError,
 	/**
+	 *  Shipping address is not valid address for shipping rates
+	 */
+	BUYShopifyError_InvalidShippingAddress,
+	/**
 	 *  No shipping rates are available for the selected address
 	 */
 	BUYShopifyError_NoShippingMethodsToAddress,
