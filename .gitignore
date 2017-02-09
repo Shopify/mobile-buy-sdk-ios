@@ -35,4 +35,4 @@ Podfile.lock
 Pods/
 
 test_shop_config.json
-
+**/Credentials.h
