@@ -1084,7 +1084,7 @@
 				DEVELOPMENT_TEAM = BDMC9C2X5M;
 				INFOPLIST_FILE = "Mobile Buy SDK watchOS Sample App Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.optimizely.testApp.watchOS-Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = com.optimizely.testApp.watchOS.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1108,7 +1108,7 @@
 				DEVELOPMENT_TEAM = BDMC9C2X5M;
 				INFOPLIST_FILE = "Mobile Buy SDK watchOS Sample App Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.optimizely.testApp.watchOS-Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = com.optimizely.testApp.watchOS.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;

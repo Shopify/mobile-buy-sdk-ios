@@ -25,7 +25,7 @@
 		<key>NSExtensionAttributes</key>
 		<dict>
 			<key>WKAppBundleIdentifier</key>
-			<string>com.shopify.Mobile-Buy-SDK-Advanced-Sample.watchkitapp</string>
+			<string>com.optimizely.testApp.watchOS</string>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.watchkit</string>
