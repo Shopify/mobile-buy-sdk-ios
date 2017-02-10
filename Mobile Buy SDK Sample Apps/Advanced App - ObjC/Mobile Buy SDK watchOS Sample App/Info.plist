@@ -26,7 +26,7 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>WKCompanionAppBundleIdentifier</key>
-	<string>com.shopify.Mobile-Buy-SDK-Advanced-Sample</string>
+	<string>com.optimizely.testApp</string>
 	<key>WKWatchKitApp</key>
 	<true/>
 </dict>

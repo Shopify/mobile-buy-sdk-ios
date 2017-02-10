@@ -48,7 +48,6 @@
 		902C9B8F1BB0729F00FC456E /* ShippingRateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 902C9B8E1BB0729F00FC456E /* ShippingRateTableViewCell.m */; };
 		902C9B921BB08FF500FC456E /* SummaryItemsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 902C9B911BB08FF500FC456E /* SummaryItemsTableViewCell.m */; };
 		9079F5F41BB1AAA100CB1B35 /* CollectionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9079F5F31BB1AAA100CB1B35 /* CollectionListViewController.m */; };
-		90A6F42D1BA8BCAC003E7C4F /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90A6F42C1BA8BCAC003E7C4F /* PassKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		9A0B0C871CEC8F370037D68F /* PaymentButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0B0C861CEC8F370037D68F /* PaymentButton.m */; };
 		B2C560B91CEE36C00015AA40 /* ProductViewControllerThemeStyleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C560B41CEE36C00015AA40 /* ProductViewControllerThemeStyleTableViewCell.m */; };
 		B2C560BA1CEE36C00015AA40 /* ProductViewControllerThemeTintColorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C560B61CEE36C00015AA40 /* ProductViewControllerThemeTintColorTableViewCell.m */; };
@@ -281,7 +280,6 @@
 		902C9B911BB08FF500FC456E /* SummaryItemsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SummaryItemsTableViewCell.m; sourceTree = "<group>"; };
 		9079F5F21BB1AAA100CB1B35 /* CollectionListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionListViewController.h; sourceTree = "<group>"; };
 		9079F5F31BB1AAA100CB1B35 /* CollectionListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionListViewController.m; sourceTree = "<group>"; };
-		90A6F42C1BA8BCAC003E7C4F /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 		9A0B0C851CEC8F370037D68F /* PaymentButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentButton.h; sourceTree = "<group>"; };
 		9A0B0C861CEC8F370037D68F /* PaymentButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentButton.m; sourceTree = "<group>"; };
 		B2C560B31CEE36C00015AA40 /* ProductViewControllerThemeStyleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductViewControllerThemeStyleTableViewCell.h; path = "Product View/ProductViewControllerThemeStyleTableViewCell.h"; sourceTree = "<group>"; };
@@ -361,7 +359,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D6E427A1E4A8C55008E328F /* Buy.framework in Frameworks */,
-				90A6F42D1BA8BCAC003E7C4F /* PassKit.framework in Frameworks */,
 				2E191B329B76A0B67B34EDBF /* Pods_Mobile_Buy_SDK_Advanced_Sample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -581,7 +578,6 @@
 			isa = PBXGroup;
 			children = (
 				BE34378F1BC5C18400C71330 /* Mobile Buy SDK.xcodeproj */,
-				90A6F42C1BA8BCAC003E7C4F /* PassKit.framework */,
 				BE8B824D1B8CF49D00E3F871 /* Mobile Buy SDK Advanced Sample */,
 				B86CCA901DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App */,
 				B86CCA9F1DF9A2DA00F46EDE /* Mobile Buy SDK watchOS Sample App Extension */,
@@ -724,23 +720,29 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = Shopify;
 				TargetAttributes = {
 					B86CCA8E1DF9A2DA00F46EDE = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = BDMC9C2X5M;
 						ProvisioningStyle = Automatic;
 					};
 					B86CCA9A1DF9A2DA00F46EDE = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = BDMC9C2X5M;
 						ProvisioningStyle = Automatic;
 					};
 					BE8B824A1B8CF49D00E3F871 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = BDMC9C2X5M;
 						LastSwiftMigration = 0820;
 						SystemCapabilities = {
 							com.apple.OMC = {
 								enabled = 1;
+							};
+							com.apple.Wallet = {
+								enabled = 0;
 							};
 						};
 					};
@@ -1030,9 +1032,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = BDMC9C2X5M;
 				IBSC_MODULE = Mobile_Buy_SDK_watchOS_Sample_App_Extension;
 				INFOPLIST_FILE = "Mobile Buy SDK watchOS Sample App/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.Mobile-Buy-SDK-Advanced-Sample.watchkitapp";
+				PRODUCT_BUNDLE_IDENTIFIER = com.optimizely.testApp.watchOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1055,9 +1058,10 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = BDMC9C2X5M;
 				IBSC_MODULE = Mobile_Buy_SDK_watchOS_Sample_App_Extension;
 				INFOPLIST_FILE = "Mobile Buy SDK watchOS Sample App/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.Mobile-Buy-SDK-Advanced-Sample.watchkitapp";
+				PRODUCT_BUNDLE_IDENTIFIER = com.optimizely.testApp.watchOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1077,9 +1081,10 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = BDMC9C2X5M;
 				INFOPLIST_FILE = "Mobile Buy SDK watchOS Sample App Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.Mobile-Buy-SDK-Advanced-Sample.watchkitapp.watchkitextension";
+				PRODUCT_BUNDLE_IDENTIFIER = com.optimizely.testApp.watchOS.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1100,9 +1105,10 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				DEVELOPMENT_TEAM = BDMC9C2X5M;
 				INFOPLIST_FILE = "Mobile Buy SDK watchOS Sample App Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.Mobile-Buy-SDK-Advanced-Sample.watchkitapp.watchkitextension";
+				PRODUCT_BUNDLE_IDENTIFIER = com.optimizely.testApp.watchOS.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1127,8 +1133,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1171,8 +1179,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1191,6 +1201,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1201,10 +1212,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "Mobile Buy SDK Advanced Sample/Mobile Buy SDK Advanced Sample.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = BDMC9C2X5M;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"${PROJECT_DIR}/../**",
@@ -1219,8 +1230,8 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos/OptimizelySDKShared",
 					"$(PROJECT_DIR)/build/Debug-iphoneos/OptimizelySDKUserProfile",
 				);
-				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.$(PRODUCT_NAME:rfc1034identifier)";
+				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.optimizely.testApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Mobile Buy SDK Advanced Sample/Mobile Buy SDK Advanced Sample-Bridging-Header.h";
@@ -1236,10 +1247,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "Mobile Buy SDK Advanced Sample/Mobile Buy SDK Advanced Sample.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = BDMC9C2X5M;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"${PROJECT_DIR}/../**",
@@ -1254,8 +1265,8 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos/OptimizelySDKShared",
 					"$(PROJECT_DIR)/build/Debug-iphoneos/OptimizelySDKUserProfile",
 				);
-				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.shopify.$(PRODUCT_NAME:rfc1034identifier)";
+				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.optimizely.testApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Mobile Buy SDK Advanced Sample/Mobile Buy SDK Advanced Sample-Bridging-Header.h";

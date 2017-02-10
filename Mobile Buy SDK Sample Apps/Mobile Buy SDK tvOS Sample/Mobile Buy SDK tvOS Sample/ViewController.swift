@@ -25,6 +25,7 @@
 //
 
 import UIKit
+import OptimizelySDKTVOS
 
 class ViewController: UIViewController, DataProviderSetter {
     
@@ -32,6 +33,7 @@ class ViewController: UIViewController, DataProviderSetter {
     
     var collections: CollectionsViewModel!
     var dataProvider: DataProvider!
+    var optlyManager: OPTLYManager!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +42,13 @@ class ViewController: UIViewController, DataProviderSetter {
         self.collections.getCollections { 
             self.collectionView.reloadData()
         }
+        self.optlyManager = OPTLYManager.init({ (builder) in
+            builder!.projectId = "8089961867"
+        })!
+        NotificationCenter.default.addObserver(self, selector: #selector(self.experimentListener), name: NSNotification.Name.OptimizelyDidActivateExperiment, object: nil)
+        self.optlyManager.initialize { (error, client) in
+            client?.activate("basic_experiment", userId: "user")
+        }
     }
     
     func createAlert(alertTitle: String, buttonTitle:String, message: String) -> UIAlertController {
@@ -47,6 +56,10 @@ class ViewController: UIViewController, DataProviderSetter {
         let buttonAction = UIAlertAction(title: buttonTitle, style: .default, handler: nil)
         alertController.addAction(buttonAction)
         return alertController
+    }
+    
+    func experimentListener(notification: NSNotification) {
+        print("experiment listener fired")
     }
 }
 

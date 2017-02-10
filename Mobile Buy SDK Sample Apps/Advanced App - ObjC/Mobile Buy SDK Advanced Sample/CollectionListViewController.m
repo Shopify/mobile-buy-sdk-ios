@@ -52,13 +52,8 @@
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     
-    NSString *apiKey = [[NSUserDefaults standardUserDefaults] stringForKey:@"optlyShopifyApiKey"];
-    if (!apiKey) {
-        #warning Enter the Shopify API key here if developing locally
-        apiKey = @"";
-    }
     self.client = [[BUYClient alloc] initWithShopDomain:SHOP_DOMAIN
-                                                 apiKey:apiKey
+                                                 apiKey:API_KEY
                                                   appId:APP_ID];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
