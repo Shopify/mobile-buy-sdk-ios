@@ -44,6 +44,7 @@
 #import "VariantSelectionViewController.h"
 #import "CheckoutButton.h"
 #import "ActionableFooterView.h"
+#import "AppDelegate.h"
 
 CGFloat const BUYMaxProductViewWidth = 414.0; // We max out to the width of the iPhone 6+
 CGFloat const BUYMaxProductViewHeight = 640.0;
@@ -302,7 +303,21 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
         [_productView.productViewFooter.actionButton addTarget:self action:@selector(addSelectedVariantToCart) forControlEvents:UIControlEventTouchUpInside];
     }
     else {
-        [_productView.productViewFooter.actionButton setTitle:NSLocalizedString(@"Check Out", nil) forState:UIControlStateNormal];
+        // [OPTLY - Doc] Determine which CTA text to show the user
+        AppDelegate *appDelegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
+        OPTLYVariation *var = [appDelegate.client activate:@"product_cta" userId:appDelegate.userId];
+        
+        NSString *CTAText;
+        
+        if([var.variationKey isEqualToString:@"get_it"]){
+            CTAText = @"Get it";
+        } else if([var.variationKey isEqualToString:@"buy_it"]) {
+            CTAText = @"Buy it";
+        } else {
+            CTAText = @"Check Out";
+        }
+        
+        [_productView.productViewFooter.actionButton setTitle:NSLocalizedString(CTAText, nil) forState:UIControlStateNormal];
         [_productView.productViewFooter.actionButton addTarget:self action:@selector(checkoutWithShopify) forControlEvents:UIControlEventTouchUpInside];
     }
     

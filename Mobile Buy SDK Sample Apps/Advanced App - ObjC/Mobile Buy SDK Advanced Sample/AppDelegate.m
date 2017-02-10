@@ -42,22 +42,35 @@
     // [OPTLY - Doc] For E2E testing purposes we inject the userId and projectId via NSUserDefaults
     self.userId = [[NSUserDefaults standardUserDefaults] stringForKey:@"optlyUserId"];
     if (!self.userId) {
+        // [OPTLY - Doc] Add user here for local testing
         self.userId = @"";
     }
     
     NSString *projectId = [[NSUserDefaults standardUserDefaults] stringForKey:@"optlyProjectId"];
     if (!projectId) {
+        // [OPTLY - Doc] Add project ID here for local testing
         projectId = @"";
     }
+    
     
     // [OPTLY - Doc] Initialize the Optimizely Manager and Optimizely Client (async)
     OPTLYManager *optlyManager = [OPTLYManager init:^(OPTLYManagerBuilder * _Nullable builder) {
         builder.projectId = projectId;
         builder.logger = [[OPTLYLoggerDefault alloc] initWithLogLevel:OptimizelyLogLevelAll];
     }];
-    [optlyManager initializeWithCallback:^(NSError * _Nullable error, OPTLYClient * _Nullable client) {
-        self.client = client;
-    }];
+
+    NSString *initializationMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"optlyInitMode"];
+    if ([initializationMode isEqualToString:@"sync_no_datafile"]) {
+        self.client = [optlyManager initialize];
+    } else if ([initializationMode isEqualToString:@"sync_datafile"]) {
+        NSString *datafile = [[NSUserDefaults standardUserDefaults] stringForKey:@"optlyDatafile"];
+        NSData *data = [datafile dataUsingEncoding:NSUTF8StringEncoding];
+        self.client = [optlyManager initializeWithDatafile:data];
+    } else {
+        [optlyManager initializeWithCallback:^(NSError * _Nullable error, OPTLYClient * _Nullable client) {
+            self.client = client;
+        }];
+    }
     return YES;
 }
 
