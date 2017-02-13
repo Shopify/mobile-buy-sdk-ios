@@ -321,7 +321,6 @@ typedef void (^BUYShippingMethodCompletion)(PKPaymentAuthorizationStatus, NSArra
 
 - (void)paymentAuthorizationControllerDidFinish:(PKPaymentAuthorizationController *)controller
 {
-	[controller dismissWithCompletion:nil];
 	[self paymentAuthorizationDidFinish];
 }
 
