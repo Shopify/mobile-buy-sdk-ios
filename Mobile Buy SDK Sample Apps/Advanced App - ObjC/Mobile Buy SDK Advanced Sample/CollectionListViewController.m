@@ -33,9 +33,6 @@
 #import "ProductViewController.h"
 #import "ProductListViewController.h"
 
-#define SHOP_DOMAIN @"argyle-bliss.myshopify.com"
-#define APP_ID @"8"
-
 @interface CollectionListViewController ()
 
 @property (nonatomic, strong) BUYClient *client;

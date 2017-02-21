@@ -69,7 +69,19 @@ NSString * const MerchantId = @"";
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 164)];
     
     UIButton *creditCardButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [creditCardButton setTitle:@"Checkout with Credit Card" forState:UIControlStateNormal];
+    [creditCardButton setTitle:@"Default" forState:UIControlStateNormal];
+    
+    // [OPTLY - Doc] Change CTA based on experiment variation
+    AppDelegate *appDelegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
+    OPTLYVariation *variation = [appDelegate.client variation:@"checkout_cta" userId:appDelegate.userId];
+    if (variation) {
+        if ([variation.variationKey isEqualToString:@"include_fake_text"]) {
+            [creditCardButton setTitle:@"Checkout with Fake Credit Card" forState:UIControlStateNormal];
+        } else if ([variation.variationKey isEqualToString:@"exclude_fake_text"]) {
+            [creditCardButton setTitle:@"Checkout with Credit Card" forState:UIControlStateNormal];
+        }
+    }
+    
     creditCardButton.backgroundColor = [UIColor colorWithRed:0.48f green:0.71f blue:0.36f alpha:1.0f];
     creditCardButton.layer.cornerRadius = 6;
     creditCardButton.accessibilityIdentifier = @"button_checkout_with_credit_card";
