@@ -1,0 +1,154 @@
+// Generated from graphql_swift_gen gem
+import Foundation
+
+extension ApiSchema {
+	open class ApiCustomerAccessTokenDeletePayloadQuery: GraphQL.AbstractQuery {
+		@discardableResult
+		open func clientMutationId(aliasSuffix: String? = nil) -> ApiCustomerAccessTokenDeletePayloadQuery {
+			addField(field: "clientMutationId", aliasSuffix: aliasSuffix)
+			return self
+		}
+
+		@discardableResult
+		open func deletedAccessToken(aliasSuffix: String? = nil) -> ApiCustomerAccessTokenDeletePayloadQuery {
+			addField(field: "deletedAccessToken", aliasSuffix: aliasSuffix)
+			return self
+		}
+
+		@discardableResult
+		open func deletedApiCustomerAccessTokenId(aliasSuffix: String? = nil) -> ApiCustomerAccessTokenDeletePayloadQuery {
+			addField(field: "deletedApiCustomerAccessTokenId", aliasSuffix: aliasSuffix)
+			return self
+		}
+
+		@discardableResult
+		open func userErrors(aliasSuffix: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> ApiCustomerAccessTokenDeletePayloadQuery {
+			let subquery = UserErrorQuery()
+			subfields(subquery)
+
+			addField(field: "userErrors", aliasSuffix: aliasSuffix, subfields: subquery)
+			return self
+		}
+	}
+
+	open class ApiCustomerAccessTokenDeletePayload: GraphQL.AbstractResponse
+	{
+		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
+			let fieldValue = value
+			switch fieldName {
+				case "clientMutationId":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return value
+
+				case "deletedAccessToken":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return value
+
+				case "deletedApiCustomerAccessTokenId":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return value
+
+				case "userErrors":
+				guard let value = value as? [[String: Any]] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try value.map { return try UserError(fields: $0) }
+
+				default:
+				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+			}
+		}
+
+		open var typeName: String { return "ApiCustomerAccessTokenDeletePayload" }
+
+		open var clientMutationId: String? {
+			return internalGetClientMutationId()
+		}
+
+		func internalGetClientMutationId(aliasSuffix: String? = nil) -> String? {
+			return field(field: "clientMutationId", aliasSuffix: aliasSuffix) as! String?
+		}
+
+		open var deletedAccessToken: String? {
+			return internalGetDeletedAccessToken()
+		}
+
+		func internalGetDeletedAccessToken(aliasSuffix: String? = nil) -> String? {
+			return field(field: "deletedAccessToken", aliasSuffix: aliasSuffix) as! String?
+		}
+
+		open var deletedApiCustomerAccessTokenId: String? {
+			return internalGetDeletedApiCustomerAccessTokenId()
+		}
+
+		func internalGetDeletedApiCustomerAccessTokenId(aliasSuffix: String? = nil) -> String? {
+			return field(field: "deletedApiCustomerAccessTokenId", aliasSuffix: aliasSuffix) as! String?
+		}
+
+		open var userErrors: [ApiSchema.UserError] {
+			return internalGetUserErrors()
+		}
+
+		func internalGetUserErrors(aliasSuffix: String? = nil) -> [ApiSchema.UserError] {
+			return field(field: "userErrors", aliasSuffix: aliasSuffix) as! [ApiSchema.UserError]
+		}
+
+		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
+			switch(key) {
+				case "clientMutationId":
+
+				return .Scalar
+
+				case "deletedAccessToken":
+
+				return .Scalar
+
+				case "deletedApiCustomerAccessTokenId":
+
+				return .Scalar
+
+				case "userErrors":
+
+				return .ObjectList
+
+				default:
+				return .Scalar
+			}
+		}
+
+		override open func fetchChildObject(key: String) -> GraphQL.AbstractResponse? {
+			switch(key) {
+				default:
+				break
+			}
+			return nil
+		}
+
+		override open func fetchChildObjectList(key: String) -> [GraphQL.AbstractResponse] {
+			switch(key) {
+				case "userErrors":
+				return internalGetUserErrors()
+
+				default:
+				return []
+			}
+		}
+
+		open func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+			return []
+		}
+
+		open func responseObject() -> GraphQL.AbstractResponse {
+			return self as GraphQL.AbstractResponse
+		}
+	}
+}
