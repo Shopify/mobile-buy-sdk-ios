@@ -23,7 +23,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-
+#import "AppDelegate.h"
 #import "PreCheckoutViewController.h"
 #import "CheckoutViewController.h"
 #import "SummaryItemsTableViewCell.h"
@@ -138,7 +138,7 @@ typedef NS_ENUM(NSInteger, UITableViewDiscountGiftCardSection) {
             break;
         case UITableViewSectionContinue:
             cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-            cell.textLabel.text = @"Continue";
+            cell.textLabel.text = [self getCartCTA];
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
             cell.accessibilityIdentifier = @"button_checkout_continue";
             break;
@@ -262,6 +262,35 @@ typedef NS_ENUM(NSInteger, UITableViewDiscountGiftCardSection) {
     CheckoutViewController *checkoutController = [[CheckoutViewController alloc] initWithClient:self.client checkout:self.checkout];
     checkoutController.currencyFormatter = self.currencyFormatter;
     [self.navigationController pushViewController:checkoutController animated:YES];
+}
+
+- (NSString *)getCartCTA
+{
+    // [OPTLY - Doc] Determine which CTA text to show the user
+    NSString *cartCTAExperimentKey = [[NSUserDefaults standardUserDefaults] stringForKey:@"optlyCartCtaExperimentKey"];
+    NSString *userAttributesString = [[NSUserDefaults standardUserDefaults] stringForKey:@"optlyUserAttributes"];
+    NSData *userAttributesData = [userAttributesString dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *userAttributesDict= nil;
+    if (userAttributesData) {
+        userAttributesDict = [NSJSONSerialization JSONObjectWithData:userAttributesData options:nil error:nil];
+    }
+    
+    NSString *CTAText = @"Continue";
+    AppDelegate *appDelegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
+    OPTLYVariation *var = nil;
+    var = [appDelegate.client activate:cartCTAExperimentKey userId:appDelegate.userId attributes:userAttributesDict];
+    
+    if (!var) {
+        return CTAText;
+    }
+    
+    if([var.variationKey isEqualToString:@"checkout_now"]){
+        CTAText = @"Checkout Now";
+    } else if([var.variationKey isEqualToString:@"do_it"]) {
+        CTAText = @"Do It";
+    }
+    
+    return CTAText;
 }
 
 @end
