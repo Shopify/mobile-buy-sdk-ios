@@ -32,4 +32,4 @@ content = GraphQLSwiftGen.new(
 	import_graphql_support: false, 
 	custom_scalars: customScalars
 )
-content.save("../Generated/")
+content.save("../Buy/Generated/")
