@@ -313,7 +313,7 @@
 			children = (
 				9AEF619D1E5F44360067FA90 /* GraphQL.swift */,
 			);
-			name = Support;
+			path = Support;
 			sourceTree = "<group>";
 		};
 		9AEF619F1E5F5A050067FA90 /* Custom */ = {
@@ -321,7 +321,7 @@
 			children = (
 				9AEF61A01E5F5A190067FA90 /* GraphQL+ScalarSupport.swift */,
 			);
-			name = Custom;
+			path = Custom;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
