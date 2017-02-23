@@ -88,6 +88,7 @@
 		9AEF619B1E5F439D0067FA90 /* ApiSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF614D1E5F439D0067FA90 /* ApiSchema.swift */; };
 		9AEF619E1E5F44360067FA90 /* GraphQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF619D1E5F44360067FA90 /* GraphQL.swift */; };
 		9AEF61A11E5F5A190067FA90 /* GraphQL+ScalarSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF61A01E5F5A190067FA90 /* GraphQL+ScalarSupport.swift */; };
+		9AEF61B91E5F64230067FA90 /* GraphSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF61B81E5F64230067FA90 /* GraphSession.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -174,6 +175,7 @@
 		9AEF614D1E5F439D0067FA90 /* ApiSchema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiSchema.swift; sourceTree = "<group>"; };
 		9AEF619D1E5F44360067FA90 /* GraphQL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQL.swift; sourceTree = "<group>"; };
 		9AEF61A01E5F5A190067FA90 /* GraphQL+ScalarSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GraphQL+ScalarSupport.swift"; sourceTree = "<group>"; };
+		9AEF61B81E5F64230067FA90 /* GraphSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphSession.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +208,7 @@
 		9AEF60F51E5F42D90067FA90 /* Buy */ = {
 			isa = PBXGroup;
 			children = (
+				9AEF61B81E5F64230067FA90 /* GraphSession.swift */,
 				9AEF619F1E5F5A050067FA90 /* Custom */,
 				9AEF619C1E5F441D0067FA90 /* Support */,
 				9AEF60FE1E5F439D0067FA90 /* Generated */,
@@ -421,6 +424,7 @@
 				9AEF617E1E5F439D0067FA90 /* Product.swift in Sources */,
 				9AEF617D1E5F439D0067FA90 /* PaymentRequest.swift in Sources */,
 				9AEF61791E5F439D0067FA90 /* OrderDisplayFulfillmentStatus.swift in Sources */,
+				9AEF61B91E5F64230067FA90 /* GraphSession.swift in Sources */,
 				9AEF617C1E5F439D0067FA90 /* PageInfo.swift in Sources */,
 				9AEF615B1E5F439D0067FA90 /* CollectionEdge.swift in Sources */,
 				9AEF61571E5F439D0067FA90 /* Attribute.swift in Sources */,
