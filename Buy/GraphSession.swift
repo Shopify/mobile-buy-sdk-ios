@@ -24,11 +24,11 @@ public class GraphClient {
         self.apiURL  = shopURL.appendingPathComponent("api/graphql")
         self.session = session
         self.headers = [
-            "User-Agent": "Mobile Buy SDK iOS/\(GraphClient.version())/\(GraphClient.bundleIdentifier())",
+            "User-Agent": Global.userAgent,
             "Authorization": "Basic \(GraphClient.tokenFor(apiKey))"
         ]
         
-        precondition(apiKey.isEmpty, "API Key is required to the Buy SDK. You can obtain one by adding a Mobile App channel here: \(shopURL.appendingPathComponent("admin"))")
+        precondition(!apiKey.isEmpty, "API Key is required to the Buy SDK. You can obtain one by adding a Mobile App channel here: \(shopURL.appendingPathComponent("admin"))")
     }
     
     static func tokenFor(_ apiKey: String) -> String {
@@ -37,18 +37,6 @@ public class GraphClient {
     
     static func urlFor(_ shopDomain: String) -> URL {
         return URL(string: "https://\(shopDomain)")!
-    }
-    
-    static func bundle() -> Bundle {
-        return Bundle(for: type(of: self) as! AnyClass)
-    }
-    
-    static func version() -> String {
-        return self.bundle().object(forInfoDictionaryKey: kCFBundleVersionKey as String) as? String ?? "x.x"
-    }
-    
-    static func bundleIdentifier() -> String {
-        return self.bundle().object(forInfoDictionaryKey: kCFBundleNameKey as String) as? String ?? "com.unknown.bundle"
     }
 
     // ----------------------------------

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9AAFAB721E60766E00864A17 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB711E60766E00864A17 /* Global.swift */; };
 		9AEF60F81E5F42D90067FA90 /* Buy.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AEF60F61E5F42D90067FA90 /* Buy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9AEF614E1E5F439D0067FA90 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF61001E5F439D0067FA90 /* Address.swift */; };
 		9AEF614F1E5F439D0067FA90 /* AddressInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF61011E5F439D0067FA90 /* AddressInput.swift */; };
@@ -92,6 +93,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9AAFAB711E60766E00864A17 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		9AEF60F31E5F42D90067FA90 /* Buy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Buy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AEF60F61E5F42D90067FA90 /* Buy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Buy.h; sourceTree = "<group>"; };
 		9AEF60F71E5F42D90067FA90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -189,6 +191,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9AAFAB701E60766300864A17 /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				9AAFAB711E60766E00864A17 /* Global.swift */,
+			);
+			name = Global;
+			sourceTree = "<group>";
+		};
 		9AEF60E91E5F42D90067FA90 = {
 			isa = PBXGroup;
 			children = (
@@ -208,6 +218,7 @@
 		9AEF60F51E5F42D90067FA90 /* Buy */ = {
 			isa = PBXGroup;
 			children = (
+				9AAFAB701E60766300864A17 /* Global */,
 				9AEF61B81E5F64230067FA90 /* GraphSession.swift */,
 				9AEF619F1E5F5A050067FA90 /* Custom */,
 				9AEF619C1E5F441D0067FA90 /* Support */,
@@ -419,6 +430,7 @@
 				9AEF61631E5F439D0067FA90 /* CustomerActivatePayload.swift in Sources */,
 				9AEF61751E5F439D0067FA90 /* Order.swift in Sources */,
 				9AEF61781E5F439D0067FA90 /* OrderDisplayFinancialStatus.swift in Sources */,
+				9AAFAB721E60766E00864A17 /* Global.swift in Sources */,
 				9AEF616C1E5F439D0067FA90 /* Image.swift in Sources */,
 				9AEF616D1E5F439D0067FA90 /* ImageConnection.swift in Sources */,
 				9AEF617E1E5F439D0067FA90 /* Product.swift in Sources */,
@@ -597,10 +609,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 3.0.0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = A7XGC83MZE;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 3.0.0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Buy/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -616,10 +629,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 3.0.0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = A7XGC83MZE;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 3.0.0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Buy/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
