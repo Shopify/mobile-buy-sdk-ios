@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum GraphQueryError: Error {
+public enum GraphError: Error {
     public struct Reason {
         let fields: [String: Any]
         
@@ -31,6 +31,6 @@ public enum GraphQueryError: Error {
     case invalidJSONError(data: Data?)
     case invalidGraphQLError(json: Any)
     case schemaViolationError(violation: SchemaViolationError)
-    case responseError(errors: [Reason])
+    case responseError(reasons: [Reason])
     case unknownError(reason: String)
 }

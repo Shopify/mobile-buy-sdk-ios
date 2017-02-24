@@ -51,23 +51,23 @@ public class GraphClient {
     // ----------------------------------
     //  MARK: - Queries -
     //
-	public func queryGraphWith(_ query: ApiSchema.QueryRootQuery, completionHandler: @escaping (ApiSchema.QueryRoot?, GraphQueryError?) -> Void) -> URLSessionTask? {
+	public func queryGraphWith(_ query: ApiSchema.QueryRootQuery, completionHandler: @escaping (ApiSchema.QueryRoot?, GraphError?) -> Void) -> URLSessionTask? {
 		return graphRequestTask(query: query, completionHandler: completionHandler)
 	}
 	
     // ----------------------------------
     //  MARK: - Mutations -
     //
-	public func mutateGraphWith(_ mutation: ApiSchema.MutationQuery, completionHandler: @escaping (ApiSchema.Mutation?, GraphQueryError?) -> Void) -> URLSessionTask? {
+	public func mutateGraphWith(_ mutation: ApiSchema.MutationQuery, completionHandler: @escaping (ApiSchema.Mutation?, GraphError?) -> Void) -> URLSessionTask? {
 		return graphRequestTask(query: mutation, completionHandler: completionHandler)
 	}
 	
     // ----------------------------------
     //  MARK: - Request Management -
     //
-	private func graphRequestTask<Q: GraphQL.AbstractQuery, R: GraphQL.AbstractResponse>(query: Q, completionHandler: @escaping (R?, GraphQueryError?) -> Void) -> URLSessionTask? {
+	private func graphRequestTask<Q: GraphQL.AbstractQuery, R: GraphQL.AbstractResponse>(query: Q, completionHandler: @escaping (R?, GraphError?) -> Void) -> URLSessionTask? {
         
-		func processGraphResponse(data: Data?, response: URLResponse?, error: Error?) -> (json: JSON?, error: GraphQueryError?) {
+		func processGraphResponse(data: Data?, response: URLResponse?, error: Error?) -> (json: JSON?, error: GraphError?) {
             
 			guard let response = response as? HTTPURLResponse, error == nil else {
 				return (json: nil, error: .requestError(error: error))
@@ -90,8 +90,11 @@ public class GraphClient {
 			}
             
 			if let graphErrors = graphErrors {
-				let errors = graphErrors.map { GraphQueryError.Reason(fields: $0) }
-				return (json: graphData, error: .responseError(errors: errors))
+				
+                let reasons = graphErrors.map {
+                    GraphError.Reason(fields: $0)
+                }
+				return (json: graphData, error: .responseError(reasons: reasons))
 			} else {
 				return (json: graphData, error: nil)
 			}
