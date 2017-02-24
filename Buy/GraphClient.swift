@@ -94,7 +94,7 @@ public class GraphClient {
                 let reasons = graphErrors.map {
                     GraphError.Reason(fields: $0)
                 }
-				return (json: graphData, error: .responseError(reasons: reasons))
+				return (json: graphData, error: .queryError(reasons: reasons))
 			} else {
 				return (json: graphData, error: nil)
 			}
@@ -108,7 +108,7 @@ public class GraphClient {
 						completionHandler(try R(fields: json), error)
 					} catch {
 						let violation = error as? SchemaViolationError ?? SchemaViolationError(type: R.self, field: "data", value: json)
-						completionHandler(nil, GraphQueryError.schemaViolationError(violation: violation))
+						completionHandler(nil, GraphError.schemaViolationError(violation: violation))
 					}
 				} else {
 					completionHandler(nil, error)

@@ -31,6 +31,6 @@ public enum GraphError: Error {
     case invalidJSONError(data: Data?)
     case invalidGraphQLError(json: Any)
     case schemaViolationError(violation: SchemaViolationError)
-    case responseError(reasons: [Reason])
+    case queryError(reasons: [Reason])
     case unknownError(reason: String)
 }
