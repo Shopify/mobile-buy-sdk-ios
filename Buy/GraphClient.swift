@@ -1,5 +1,5 @@
 //
-//  GraphSession.swift
+//  GraphClient.swift
 //  Buy
 //
 //  Created by Dima Bart on 2017-02-23.
@@ -7,6 +7,15 @@
 //
 
 import Foundation
+
+private typealias JSON = [String : Any]
+
+private struct Header {
+    static var userAgent     = "User-Agent"
+    static var authorization = "Authorization"
+    static var accept        = "Accept"
+    static var contentType   = "Content-Type"
+}
 
 public class GraphClient {
     
@@ -24,8 +33,8 @@ public class GraphClient {
         self.apiURL  = shopURL.appendingPathComponent("api/graphql")
         self.session = session
         self.headers = [
-            "User-Agent": Global.userAgent,
-            "Authorization": "Basic \(GraphClient.tokenFor(apiKey))"
+            Header.userAgent     : Global.userAgent,
+            Header.authorization : "Basic \(GraphClient.tokenFor(apiKey))"
         ]
         
         precondition(!apiKey.isEmpty, "API Key is required to the Buy SDK. You can obtain one by adding a Mobile App channel here: \(shopURL.appendingPathComponent("admin"))")
@@ -58,7 +67,7 @@ public class GraphClient {
     //
 	private func graphRequestTask<Q: GraphQL.AbstractQuery, R: GraphQL.AbstractResponse>(query: Q, completionHandler: @escaping (R?, GraphQueryError?) -> Void) -> URLSessionTask? {
         
-		func processGraphResponse(data: Data?, response: URLResponse?, error: Error?) -> (json: [String: AnyObject]?, error: GraphQueryError?) {
+		func processGraphResponse(data: Data?, response: URLResponse?, error: Error?) -> (json: JSON?, error: GraphQueryError?) {
             
 			guard let response = response as? HTTPURLResponse, error == nil else {
 				return (json: nil, error: .requestError(error: error))
@@ -72,9 +81,9 @@ public class GraphClient {
 				return (json: nil, error: .invalidJSONError(data: data))
 			}
 			
-			let graphResponse = json as? [String: AnyObject]
-			let graphErrors   = graphResponse?["errors"] as? [[String: AnyObject]]
-			let graphData     = graphResponse?["data"]   as? [String: AnyObject]
+			let graphResponse = json as? JSON
+			let graphErrors   = graphResponse?["errors"] as? [JSON]
+			let graphData     = graphResponse?["data"]   as? JSON
             
             guard graphData != nil || graphErrors != nil else {
 				return (json: nil, error: .invalidGraphQLError(json: json))
@@ -111,8 +120,8 @@ public class GraphClient {
 		request.httpMethod = "POST"
 		request.httpBody = String(describing: query).data(using: .utf8)
 		request.httpShouldHandleCookies = false
-		request.setValue("application/json", forHTTPHeaderField: "Accept")
-		request.setValue("application/graphql", forHTTPHeaderField: "Content-Type")
+		request.setValue("application/json", forHTTPHeaderField: Header.accept)
+		request.setValue("application/graphql", forHTTPHeaderField: Header.contentType)
 		
         for (name, value) in self.headers {
             request.setValue(value, forHTTPHeaderField: name)
@@ -120,36 +129,4 @@ public class GraphClient {
 		
 		return request
 	}
-}
-
-public enum GraphResponse<T> {
-	case success(T)
-	case error(Error?)
-}
-
-public enum GraphQueryError: Error {
-	public struct Reason {
-		let fields: [String: Any]
-
-		public var message: String {
-			return (fields["message"] as? String) ?? "Unknown error"
-		}
-
-		var line: Int? {
-			return fields["line"] as? Int
-		}
-
-		var column: Int? {
-			return fields["column"] as? Int
-		}
-	}
-
-	case requestError(error: Error?)
-	case invalidHTTPResponse
-	case httpError(statusCode: Int)
-	case invalidJSONError(data: Data?)
-	case invalidGraphQLError(json: Any)
-	case schemaViolationError(violation: SchemaViolationError)
-	case responseError(errors: [Reason])
-	case unknownError(reason: String)
 }

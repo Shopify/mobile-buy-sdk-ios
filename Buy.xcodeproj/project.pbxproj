@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9AAFAB721E60766E00864A17 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB711E60766E00864A17 /* Global.swift */; };
+		9AAFAB751E60809400864A17 /* GraphResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB741E60809400864A17 /* GraphResult.swift */; };
+		9AAFAB771E6080A500864A17 /* GraphError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB761E6080A500864A17 /* GraphError.swift */; };
 		9AEF60F81E5F42D90067FA90 /* Buy.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AEF60F61E5F42D90067FA90 /* Buy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9AEF614E1E5F439D0067FA90 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF61001E5F439D0067FA90 /* Address.swift */; };
 		9AEF614F1E5F439D0067FA90 /* AddressInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF61011E5F439D0067FA90 /* AddressInput.swift */; };
@@ -89,11 +91,13 @@
 		9AEF619B1E5F439D0067FA90 /* ApiSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF614D1E5F439D0067FA90 /* ApiSchema.swift */; };
 		9AEF619E1E5F44360067FA90 /* GraphQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF619D1E5F44360067FA90 /* GraphQL.swift */; };
 		9AEF61A11E5F5A190067FA90 /* GraphQL+ScalarSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF61A01E5F5A190067FA90 /* GraphQL+ScalarSupport.swift */; };
-		9AEF61B91E5F64230067FA90 /* GraphSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF61B81E5F64230067FA90 /* GraphSession.swift */; };
+		9AEF61B91E5F64230067FA90 /* GraphClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF61B81E5F64230067FA90 /* GraphClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9AAFAB711E60766E00864A17 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		9AAFAB741E60809400864A17 /* GraphResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphResult.swift; sourceTree = "<group>"; };
+		9AAFAB761E6080A500864A17 /* GraphError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphError.swift; sourceTree = "<group>"; };
 		9AEF60F31E5F42D90067FA90 /* Buy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Buy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AEF60F61E5F42D90067FA90 /* Buy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Buy.h; sourceTree = "<group>"; };
 		9AEF60F71E5F42D90067FA90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -177,7 +181,7 @@
 		9AEF614D1E5F439D0067FA90 /* ApiSchema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiSchema.swift; sourceTree = "<group>"; };
 		9AEF619D1E5F44360067FA90 /* GraphQL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQL.swift; sourceTree = "<group>"; };
 		9AEF61A01E5F5A190067FA90 /* GraphQL+ScalarSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GraphQL+ScalarSupport.swift"; sourceTree = "<group>"; };
-		9AEF61B81E5F64230067FA90 /* GraphSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphSession.swift; sourceTree = "<group>"; };
+		9AEF61B81E5F64230067FA90 /* GraphClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +201,16 @@
 				9AAFAB711E60766E00864A17 /* Global.swift */,
 			);
 			name = Global;
+			sourceTree = "<group>";
+		};
+		9AAFAB731E60804F00864A17 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				9AEF61B81E5F64230067FA90 /* GraphClient.swift */,
+				9AAFAB761E6080A500864A17 /* GraphError.swift */,
+				9AAFAB741E60809400864A17 /* GraphResult.swift */,
+			);
+			name = Client;
 			sourceTree = "<group>";
 		};
 		9AEF60E91E5F42D90067FA90 = {
@@ -219,7 +233,7 @@
 			isa = PBXGroup;
 			children = (
 				9AAFAB701E60766300864A17 /* Global */,
-				9AEF61B81E5F64230067FA90 /* GraphSession.swift */,
+				9AAFAB731E60804F00864A17 /* Client */,
 				9AEF619F1E5F5A050067FA90 /* Custom */,
 				9AEF619C1E5F441D0067FA90 /* Support */,
 				9AEF60FE1E5F439D0067FA90 /* Generated */,
@@ -436,7 +450,7 @@
 				9AEF617E1E5F439D0067FA90 /* Product.swift in Sources */,
 				9AEF617D1E5F439D0067FA90 /* PaymentRequest.swift in Sources */,
 				9AEF61791E5F439D0067FA90 /* OrderDisplayFulfillmentStatus.swift in Sources */,
-				9AEF61B91E5F64230067FA90 /* GraphSession.swift in Sources */,
+				9AEF61B91E5F64230067FA90 /* GraphClient.swift in Sources */,
 				9AEF617C1E5F439D0067FA90 /* PageInfo.swift in Sources */,
 				9AEF615B1E5F439D0067FA90 /* CollectionEdge.swift in Sources */,
 				9AEF61571E5F439D0067FA90 /* Attribute.swift in Sources */,
@@ -446,6 +460,7 @@
 				9AEF61881E5F439D0067FA90 /* PurchaseSessionCreatePayload.swift in Sources */,
 				9AEF61961E5F439D0067FA90 /* Transaction.swift in Sources */,
 				9AEF619E1E5F44360067FA90 /* GraphQL.swift in Sources */,
+				9AAFAB751E60809400864A17 /* GraphResult.swift in Sources */,
 				9AEF61551E5F439D0067FA90 /* ApiCustomerAccessTokenRenewInput.swift in Sources */,
 				9AEF61591E5F439D0067FA90 /* Collection.swift in Sources */,
 				9AEF615A1E5F439D0067FA90 /* CollectionConnection.swift in Sources */,
@@ -480,6 +495,7 @@
 				9AEF61691E5F439D0067FA90 /* CustomerResetPayload.swift in Sources */,
 				9AEF61851E5F439D0067FA90 /* ProductVariantEdge.swift in Sources */,
 				9AEF616F1E5F439D0067FA90 /* LineItem.swift in Sources */,
+				9AAFAB771E6080A500864A17 /* GraphError.swift in Sources */,
 				9AEF61981E5F439D0067FA90 /* TransactionStatus.swift in Sources */,
 				9AEF61671E5F439D0067FA90 /* CustomerRecoverPayload.swift in Sources */,
 				9AEF61701E5F439D0067FA90 /* LineItemConnection.swift in Sources */,
