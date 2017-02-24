@@ -9,28 +9,25 @@
 import Foundation
 
 public enum GraphError: Error {
+    
     public struct Reason {
-        let fields: [String: Any]
         
-        public var message: String {
-            return (fields["message"] as? String) ?? "Unknown error"
-        }
+        let message: String
+        let line:    Int?
+        let column:  Int?
         
-        var line: Int? {
-            return fields["line"] as? Int
-        }
-        
-        var column: Int? {
-            return fields["column"] as? Int
+        init(json: JSON) {
+            self.message = (json["message"] as? String) ?? "Unknown error"
+            self.line    = json["line"]     as? Int
+            self.column  = json["column"]   as? Int
         }
     }
     
-    case requestError(error: Error?)
-    case invalidHTTPResponse
-    case httpError(statusCode: Int)
-    case invalidJSONError(data: Data?)
-    case invalidGraphQLError(json: Any)
+    case request(error: Error?)
+    case http(statusCode: Int)
+    case noData
+    case jsonDeserializationFailed(data: Data?)
+    case invalidJson(json: Any)
     case schemaViolationError(violation: SchemaViolationError)
     case queryError(reasons: [Reason])
-    case unknownError(reason: String)
 }

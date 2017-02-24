@@ -8,7 +8,7 @@
 
 import Foundation
 
-private typealias JSON = [String : Any]
+internal typealias JSON = [String : Any]
 
 private struct Header {
     static var userAgent     = "User-Agent"
@@ -70,34 +70,46 @@ public class GraphClient {
 		func processGraphResponse(data: Data?, response: URLResponse?, error: Error?) -> (json: JSON?, error: GraphError?) {
             
 			guard let response = response as? HTTPURLResponse, error == nil else {
-				return (json: nil, error: .requestError(error: error))
+				return (json: nil, error: .request(error: error))
 			}
             
             guard response.statusCode >= 200 && response.statusCode < 300 else {
-				return (json: nil, error: .httpError(statusCode: response.statusCode))
+				return (json: nil, error: .http(statusCode: response.statusCode))
 			}
             
-			guard let json = try? JSONSerialization.jsonObject(with: data ?? Data(), options: []) else {
-				return (json: nil, error: .invalidJSONError(data: data))
+            guard let data = data else {
+                return (json: nil, error: .noData)
+            }
+            
+			guard let json = try? JSONSerialization.jsonObject(with: data, options: []) else {
+				return (json: nil, error: .jsonDeserializationFailed(data: data))
 			}
 			
 			let graphResponse = json as? JSON
 			let graphErrors   = graphResponse?["errors"] as? [JSON]
 			let graphData     = graphResponse?["data"]   as? JSON
             
+            /* ----------------------------------
+             ** This should never happen. A valid
+             ** GraphQL response will have either
+             ** data or errors.
+             */
             guard graphData != nil || graphErrors != nil else {
-				return (json: nil, error: .invalidGraphQLError(json: json))
+				return (json: nil, error: .invalidJson(json: json))
 			}
             
+            /* ---------------------------------
+             ** Extract any GraphQL errors found
+             ** during execution of the query.
+             */
+            var queryError: GraphError?
 			if let graphErrors = graphErrors {
-				
-                let reasons = graphErrors.map {
-                    GraphError.Reason(fields: $0)
-                }
-				return (json: graphData, error: .queryError(reasons: reasons))
-			} else {
-				return (json: graphData, error: nil)
+                queryError = .queryError(reasons: graphErrors.map {
+                    GraphError.Reason(json: $0)
+                })
 			}
+            
+            return (json: graphData, error: queryError)
 		}
 		
 		return session?.dataTask(with: graphRequest(query: query)) { (data, response, error) in
