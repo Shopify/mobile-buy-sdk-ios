@@ -15,9 +15,7 @@ extension ApiSchema.ImageConnectionQuery {
     func fragmentForStandardProductImage() -> ApiSchema.ImageConnectionQuery { return self
         .edges { $0
             .node { $0
-                .id()
                 .src()
-                .altText()
             }
         }
     }

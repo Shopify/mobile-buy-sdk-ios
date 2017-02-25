@@ -15,10 +15,7 @@ extension ApiSchema.ProductConnectionQuery {
     func fragmentForStandardProduct() -> ApiSchema.ProductConnectionQuery { return self
         .edges { $0
             .node { $0
-                .id()
-                .title()
-                .handle()
-                .images(first: 10) { $0
+                .images(first: 1) { $0
                     .fragmentForStandardProductImage()
                 }
             }
