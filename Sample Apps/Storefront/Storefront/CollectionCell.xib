@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="QPF-N8-369" customClass="CollectionCell" customModule="Storefront" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="263"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="263"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uKQ-bG-srs">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="165"/>
+                    </imageView>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="HEB-tj-VdU" customClass="StorefrontCollectionView" customModule="Storefront" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="165" width="320" height="98"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="98" id="NVZ-nZ-BU3"/>
+                        </constraints>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="4" minimumInteritemSpacing="4" id="tIc-4R-kR6">
+                            <size key="itemSize" width="90" height="90"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="4" minY="0.0" maxX="4" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="cellNibName" value="ProductCell"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="dataSource" destination="QPF-N8-369" id="dFq-fT-a0W"/>
+                            <outlet property="delegate" destination="QPF-N8-369" id="3Q1-Jj-2QG"/>
+                        </connections>
+                    </collectionView>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="uKQ-bG-srs" firstAttribute="top" secondItem="QPF-N8-369" secondAttribute="top" id="8BX-Wb-l2s"/>
+                <constraint firstItem="HEB-tj-VdU" firstAttribute="top" secondItem="uKQ-bG-srs" secondAttribute="bottom" id="PEg-yB-iKd"/>
+                <constraint firstItem="uKQ-bG-srs" firstAttribute="leading" secondItem="QPF-N8-369" secondAttribute="leading" id="QdT-f5-vbg"/>
+                <constraint firstAttribute="trailing" secondItem="uKQ-bG-srs" secondAttribute="trailing" id="luv-ZJ-2SO"/>
+                <constraint firstItem="HEB-tj-VdU" firstAttribute="leading" secondItem="QPF-N8-369" secondAttribute="leading" id="nqH-k2-8cB"/>
+                <constraint firstAttribute="trailing" secondItem="HEB-tj-VdU" secondAttribute="trailing" id="pIQ-Ff-7wD"/>
+                <constraint firstAttribute="bottom" secondItem="HEB-tj-VdU" secondAttribute="bottom" id="qwX-gQ-SqA"/>
+            </constraints>
+            <size key="customSize" width="320" height="263"/>
+            <connections>
+                <outlet property="collectionView" destination="HEB-tj-VdU" id="jvR-uJ-OZ8"/>
+                <outlet property="imageView" destination="uKQ-bG-srs" id="yPO-Av-yEQ"/>
+            </connections>
+            <point key="canvasLocation" x="77" y="32.5"/>
+        </collectionViewCell>
+    </objects>
+</document>
