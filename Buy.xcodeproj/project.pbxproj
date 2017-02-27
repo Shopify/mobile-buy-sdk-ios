@@ -92,7 +92,19 @@
 		9AEF619E1E5F44360067FA90 /* GraphQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF619D1E5F44360067FA90 /* GraphQL.swift */; };
 		9AEF61A11E5F5A190067FA90 /* GraphQL+ScalarSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF61A01E5F5A190067FA90 /* GraphQL+ScalarSupport.swift */; };
 		9AEF61B91E5F64230067FA90 /* GraphClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF61B81E5F64230067FA90 /* GraphClient.swift */; };
+		9AFA38ED1E64850A0056C5AA /* BuyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFA38EC1E64850A0056C5AA /* BuyTests.swift */; };
+		9AFA38EF1E64850A0056C5AA /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AEF60F31E5F42D90067FA90 /* Buy.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9AFA38F01E64850A0056C5AA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9AEF60EA1E5F42D90067FA90 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9AEF60F21E5F42D90067FA90;
+			remoteInfo = Buy;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		9AAFAB711E60766E00864A17 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
@@ -182,6 +194,9 @@
 		9AEF619D1E5F44360067FA90 /* GraphQL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQL.swift; sourceTree = "<group>"; };
 		9AEF61A01E5F5A190067FA90 /* GraphQL+ScalarSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GraphQL+ScalarSupport.swift"; sourceTree = "<group>"; };
 		9AEF61B81E5F64230067FA90 /* GraphClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphClient.swift; sourceTree = "<group>"; };
+		9AFA38EA1E64850A0056C5AA /* BuyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BuyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AFA38EC1E64850A0056C5AA /* BuyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyTests.swift; sourceTree = "<group>"; };
+		9AFA38EE1E64850A0056C5AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,6 +204,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9AFA38E71E64850A0056C5AA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9AFA38EF1E64850A0056C5AA /* Buy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,6 +240,7 @@
 			isa = PBXGroup;
 			children = (
 				9AEF60F51E5F42D90067FA90 /* Buy */,
+				9AFA38EB1E64850A0056C5AA /* BuyTests */,
 				9AEF60F41E5F42D90067FA90 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -225,6 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				9AEF60F31E5F42D90067FA90 /* Buy.framework */,
+				9AFA38EA1E64850A0056C5AA /* BuyTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -352,6 +377,15 @@
 			path = Custom;
 			sourceTree = "<group>";
 		};
+		9AFA38EB1E64850A0056C5AA /* BuyTests */ = {
+			isa = PBXGroup;
+			children = (
+				9AFA38EC1E64850A0056C5AA /* BuyTests.swift */,
+				9AFA38EE1E64850A0056C5AA /* Info.plist */,
+			);
+			path = BuyTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -384,16 +418,40 @@
 			productReference = 9AEF60F31E5F42D90067FA90 /* Buy.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		9AFA38E91E64850A0056C5AA /* BuyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9AFA38F41E64850A0056C5AA /* Build configuration list for PBXNativeTarget "BuyTests" */;
+			buildPhases = (
+				9AFA38E61E64850A0056C5AA /* Sources */,
+				9AFA38E71E64850A0056C5AA /* Frameworks */,
+				9AFA38E81E64850A0056C5AA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9AFA38F11E64850A0056C5AA /* PBXTargetDependency */,
+			);
+			name = BuyTests;
+			productName = BuyTests;
+			productReference = 9AFA38EA1E64850A0056C5AA /* BuyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		9AEF60EA1E5F42D90067FA90 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Shopify Inc.";
 				TargetAttributes = {
 					9AEF60F21E5F42D90067FA90 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = A7XGC83MZE;
+						ProvisioningStyle = Automatic;
+					};
+					9AFA38E91E64850A0056C5AA = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = A7XGC83MZE;
 						ProvisioningStyle = Automatic;
@@ -413,12 +471,20 @@
 			projectRoot = "";
 			targets = (
 				9AEF60F21E5F42D90067FA90 /* Buy */,
+				9AFA38E91E64850A0056C5AA /* BuyTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		9AEF60F11E5F42D90067FA90 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9AFA38E81E64850A0056C5AA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -519,7 +585,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9AFA38E61E64850A0056C5AA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9AFA38ED1E64850A0056C5AA /* BuyTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9AFA38F11E64850A0056C5AA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9AEF60F21E5F42D90067FA90 /* Buy */;
+			targetProxy = 9AFA38F01E64850A0056C5AA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		9AEF60F91E5F42D90067FA90 /* Debug */ = {
@@ -661,6 +743,30 @@
 			};
 			name = Release;
 		};
+		9AFA38F21E64850A0056C5AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = A7XGC83MZE;
+				INFOPLIST_FILE = BuyTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.BuyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		9AFA38F31E64850A0056C5AA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = A7XGC83MZE;
+				INFOPLIST_FILE = BuyTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.BuyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -681,6 +787,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		9AFA38F41E64850A0056C5AA /* Build configuration list for PBXNativeTarget "BuyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9AFA38F21E64850A0056C5AA /* Debug */,
+				9AFA38F31E64850A0056C5AA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
