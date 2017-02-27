@@ -61,9 +61,12 @@ extension CollectionCell: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
+        let layout = collectionViewLayout as! UICollectionViewFlowLayout
+        let length = collectionView.bounds.height - layout.sectionInset.top - layout.sectionInset.bottom
+        
         return CGSize(
-            width:  90.0,
-            height: 90.0
+            width:  length,
+            height: length
         )
     }
 }

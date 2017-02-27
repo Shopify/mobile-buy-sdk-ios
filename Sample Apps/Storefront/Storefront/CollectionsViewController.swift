@@ -72,6 +72,14 @@ extension CollectionsViewController: UITableViewDataSource {
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let ratio  = CGFloat(16.0 / 9.0)
+        let width  = tableView.bounds.width
+        let height = width / ratio // height for header
+        
+        return height + 150.0 // 150 is the height of the product collection
+    }
 }
 
 // ----------------------------------

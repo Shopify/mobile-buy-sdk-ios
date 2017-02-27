@@ -19,13 +19,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zhl-ew-uEp">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="298"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="245"/>
                     </imageView>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="8u8-y0-ose" customClass="StorefrontCollectionView" customModule="Storefront" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="298" width="375" height="98"/>
+                        <rect key="frame" x="0.0" y="245.5" width="375" height="150"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="98" id="UZ2-3g-Sy4"/>
+                            <constraint firstAttribute="height" constant="150" id="UZ2-3g-Sy4"/>
                         </constraints>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="4" minimumInteritemSpacing="4" id="NRK-k7-eNK">
                             <size key="itemSize" width="90" height="90"/>
