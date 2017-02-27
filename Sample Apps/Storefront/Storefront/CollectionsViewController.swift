@@ -26,6 +26,8 @@ class CollectionsViewController: UIViewController {
                 .collections(first: 25) { $0
                     .edges { $0
                         .node { $0
+                            .title()
+                            .descriptionPlainSummary()
                             .fragmentForStandardImage()
                             .products(first: 25) { $0
                                 .fragmentForStandardProduct()
@@ -56,6 +58,9 @@ class CollectionsViewController: UIViewController {
 //
 extension CollectionsViewController: UITableViewDataSource {
     
+    // ----------------------------------
+    //  MARK: - Data -
+    //
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.collections.count
     }
@@ -73,6 +78,20 @@ extension CollectionsViewController: UITableViewDataSource {
         return cell
     }
     
+    // ----------------------------------
+    //  MARK: - Titles -
+    //
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return self.collections[section].title
+    }
+    
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return self.collections[section].description
+    }
+    
+    // ----------------------------------
+    //  MARK: - Height -
+    //
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let ratio  = CGFloat(16.0 / 9.0)
         let width  = tableView.bounds.width

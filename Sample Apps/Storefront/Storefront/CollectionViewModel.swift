@@ -13,8 +13,10 @@ struct CollectionViewModel: ViewModel {
     
     typealias ModelType = ApiSchema.Collection
     
-    let imageURL: URL?
-    let products: [ProductViewModel]
+    let title:       String
+    let description: String
+    let imageURL:    URL?
+    let products:    [ProductViewModel]
     
     // ----------------------------------
     //  MARK: - Init -
@@ -26,7 +28,9 @@ struct CollectionViewModel: ViewModel {
             self.imageURL = nil
         }
         
-        self.products = model.products().viewModels
+        self.products    = model.products().viewModels
+        self.title       = model.title
+        self.description = model.descriptionPlainSummary
     }
 }
 
