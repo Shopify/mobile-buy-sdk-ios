@@ -11,7 +11,7 @@ import Buy
 
 class CollectionsViewController: UIViewController {
 
-    @IBOutlet weak var collectionView: StorefrontCollectionView!
+    @IBOutlet weak var tableView: StorefrontTableView!
     
     var collections: [CollectionViewModel] = []
     
@@ -41,7 +41,7 @@ class CollectionsViewController: UIViewController {
             
             if let query = query {
                 self.collections = query.shop.collections().viewModels
-                self.collectionView.reloadData()
+                self.tableView.reloadData()
             } else {
                 print("Failed to load collections: \(error)")
             }
@@ -54,14 +54,18 @@ class CollectionsViewController: UIViewController {
 // ----------------------------------
 //  MARK: - UICollectionViewDataSource -
 //
-extension CollectionsViewController: UICollectionViewDataSource {
+extension CollectionsViewController: UITableViewDataSource {
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return self.collections.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell       = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionCell.className, for: indexPath) as! CollectionCell
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell       = tableView.dequeueReusableCell(withIdentifier: CollectionCell.className, for: indexPath) as! CollectionCell
         let collection = self.collections[indexPath.row]
         
         cell.configureFrom(collection)
@@ -73,23 +77,9 @@ extension CollectionsViewController: UICollectionViewDataSource {
 // ----------------------------------
 //  MARK: - UICollectionViewDelegate -
 //
-extension CollectionsViewController: UICollectionViewDelegate {
+extension CollectionsViewController: UITableViewDelegate {
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-    }
-}
-
-// -----------------------------------------------
-//  MARK: - UICollectionViewDelegateFlowLayout -
-//
-extension CollectionsViewController: UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        return CGSize(
-            width:  collectionView.bounds.width,
-            height: collectionView.bounds.width / 1.25
-        )
     }
 }

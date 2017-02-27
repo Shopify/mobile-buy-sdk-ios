@@ -8,11 +8,11 @@
 
 import UIKit
 
-class CollectionCell: UICollectionViewCell, ViewModelConfigurable {
+class CollectionCell: UITableViewCell, ViewModelConfigurable {
     
     typealias ViewModelType = CollectionViewModel
     
-    @IBOutlet private weak var imageView:      UIImageView!
+    @IBOutlet private weak var titleImageView: UIImageView!
     @IBOutlet private weak var collectionView: StorefrontCollectionView!
     
     private(set) var viewModel: CollectionViewModel?
@@ -20,7 +20,7 @@ class CollectionCell: UICollectionViewCell, ViewModelConfigurable {
     func configureFrom(_ viewModel: CollectionViewModel) {
         self.viewModel = viewModel
         
-        self.imageView.setImageFrom(viewModel.imageURL)
+        self.titleImageView.setImageFrom(viewModel.imageURL)
         self.collectionView.reloadData()
     }
 }
