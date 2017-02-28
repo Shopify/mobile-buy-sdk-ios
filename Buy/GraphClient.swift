@@ -30,7 +30,7 @@ public class GraphClient {
     public init(shopDomain: String, apiKey: String, session: URLSession = URLSession(configuration: URLSessionConfiguration.default)) {
         
         let shopURL  = GraphClient.urlFor(shopDomain)
-        self.apiURL  = shopURL.appendingPathComponent("api/graphql")
+        self.apiURL  = GraphClient.urlFor(shopDomain, path: "/api/graphql")
         self.session = session
         self.headers = [
             Header.userAgent     : Global.userAgent,
@@ -44,8 +44,13 @@ public class GraphClient {
         return apiKey.data(using: .utf8)!.base64EncodedString()
     }
     
-    static func urlFor(_ shopDomain: String) -> URL {
-        return URL(string: "https://\(shopDomain)")!
+    static func urlFor(_ shopDomain: String, path: String = "") -> URL {
+        var components    = URLComponents()
+        components.scheme = "https"
+        components.host   = shopDomain
+        components.path   = path
+        
+        return components.url!
     }
 
     // ----------------------------------
