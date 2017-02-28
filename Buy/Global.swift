@@ -8,14 +8,7 @@
 
 import Foundation
 
-private final class BundleCoordinator: NSObject {
-    
-    static func frameworkBundle() -> Bundle {
-        return Bundle(for: self.classForCoder())
-    }
-}
-
-struct Global {
+class Global {
     
     // ----------------------------------
     //  MARK: - User Agent -
@@ -39,7 +32,7 @@ struct Global {
     //  MARK: - Bundles -
     //
     private static var frameworkBundle: Bundle {
-        return BundleCoordinator.frameworkBundle()
+        return Bundle(for: self)
     }
     
     private static var applicationBundle: Bundle {
