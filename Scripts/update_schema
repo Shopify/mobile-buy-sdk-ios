@@ -28,7 +28,7 @@ customScalars = [
 
 content = GraphQLSwiftGen.new(
 	schema, 
-	nest_under: 'ApiSchema', 
+	nest_under: 'Storefront', 
 	import_graphql_support: false, 
 	custom_scalars: customScalars
 )
