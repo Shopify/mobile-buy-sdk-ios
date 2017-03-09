@@ -130,16 +130,16 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 
 - (NSOperation *)getProductTagsPage:(NSUInteger)page completion:(BUYDataTagsListBlock)block
 {
-	return [self getProductTagsInCollection:@"" page:page completion:block];
+	return [self getProductTagsInCollection:nil page:page completion:block];
 }
 
-- (NSOperation *)getProductTagsInCollection:(NSString *)collectionId page:(NSUInteger)page completion:(BUYDataTagsListBlock)block
+- (NSOperation *)getProductTagsInCollection:(NSNumber *)collectionId page:(NSUInteger)page completion:(BUYDataTagsListBlock)block
 {
 	NSMutableDictionary *params = @{
 									@"limit" : @(self.productTagPageSize),
 									@"page"  : @(page),
 									}.mutableCopy;
-	if (collectionId.length) {
+	if (collectionId != nil) {
 		params[@"collection_id"] = collectionId;
 	}
 	
@@ -187,7 +187,7 @@ static NSString * const BUYCollectionsKey = @"collection_listings";
 	}];
 }
 
-- (NSOperation *)getCollectionsByIds:(NSArray<NSString *> *)collectionIds page:(NSUInteger)page completion:(BUYDataCollectionsBlock)block
+- (NSOperation *)getCollectionsByIds:(NSArray<NSNumber *> *)collectionIds page:(NSUInteger)page completion:(BUYDataCollectionsBlock)block
 {
 	NSURL *url = [self urlForCollectionListingsWithParameters:@{
 																@"collection_ids": [collectionIds componentsJoinedByString:@","],

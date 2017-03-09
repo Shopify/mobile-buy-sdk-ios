@@ -220,7 +220,7 @@ typedef void (^BUYDataTagsListBlock)(NSArray <NSString *> * _Nullable tags, NSUI
 *
 *  @return The associated NSOperation
 */
-- (NSOperation *)getProductTagsInCollection:(NSString *)collectionId page:(NSUInteger)page completion:(BUYDataTagsListBlock)block;
+- (NSOperation *)getProductTagsInCollection:(nullable NSNumber *)collectionId page:(NSUInteger)page completion:(BUYDataTagsListBlock)block;
 
 /**
  *  Fetch a single collection by the handle of the collection.
@@ -251,7 +251,7 @@ typedef void (^BUYDataTagsListBlock)(NSArray <NSString *> * _Nullable tags, NSUI
  *
  *  @return The associated BUYRequestOperation
  */
-- (NSOperation *)getCollectionsByIds:(NSArray<NSString *> *)collectionIds page:(NSUInteger)page completion:(BUYDataCollectionsBlock)block;
+- (NSOperation *)getCollectionsByIds:(NSArray<NSNumber *> *)collectionIds page:(NSUInteger)page completion:(BUYDataCollectionsBlock)block;
 
 /**
  *  Fetches the products in the given collection with the collection's
