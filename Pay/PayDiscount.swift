@@ -28,7 +28,7 @@ import Foundation
 import PassKit
 
 /// Represents a discount to be applied to the checkout. If the code
-/// is a zero-length string, it is treated as an "anonymous" discount
+/// is a zero-length string, then it is treated as an "anonymous" discount
 /// in the checkout summary item. Otherwise, the code is shown in the
 /// item label.
 ///
@@ -36,7 +36,7 @@ public struct PayDiscount {
 
     public let code:   String
     public let amount: Decimal
-    
+
     // ----------------------------------
     //  MARK: - Init -
     //

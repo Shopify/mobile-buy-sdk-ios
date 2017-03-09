@@ -30,18 +30,18 @@ import PassKit
 /// Represents a shipping rate quote, usually provided for a specific address.
 ///
 public struct PayShippingRate {
-    
-    /// Represents a `from` and `to` date for the expected delivery time frame. If the `to` date is `nil`, the expected delivery window is rougly around the `from` date.
+
+    /// Represents a `from` and `to` date for the expected delivery time frame. If the `to` date is `nil`, then the expected delivery window is roughly around the `from` date.
     ///
     public struct DeliveryRange {
-        
-        /// Delivery is expected to earlier than `from` date.
+
+        /// Delivery is expected no earlier than `from` date.
         public let from: Date
-        
+
         /// Delivery is expected no later than `to` date.
         public let to:   Date?
-        
-        /// Create a delivery range/
+
+        /// Create a delivery range.
         ///
         /// - parameters:
         ///     - from: A date from which to expect delivery.
@@ -51,33 +51,33 @@ public struct PayShippingRate {
             self.from = from
             self.to   = to
         }
-        
-        /// A string describing how many until expected delivery (ex: "1 - 2 days")
+
+        /// A string that describes how many days until expected delivery (eg: "1 - 2 days").
         public func descriptionFrom(_ date: Date) -> String {
             let firstDelta = date.daysUntil(self.from)
-            
+
             guard let toDate = self.to else {
                 let suffix  = firstDelta == 1 ? "" : "s"
                 return "\(firstDelta) day\(suffix)"
             }
-            
+
             let secondDelta = date.daysUntil(toDate)
             return "\(firstDelta) - \(secondDelta) days"
         }
     }
-    
-    /// A handle which unique identifies this shipping rate
+
+    /// A handle that uniquely identifies this shipping rate.
     public let handle: String
-    
-    /// A human-friendly name for this shipping rate
+
+    /// A human-friendly name for this shipping rate.
     public let title: String
-    
-    /// Shipping rate price
+
+    /// Shipping rate price.
     public let price: Decimal
-    
-    /// A delivery range representing a time frame during which a delivery is expected
+
+    /// A delivery range that represents a timeframe during which a delivery is expected.
     public let deliveryRange: DeliveryRange?
-    
+
     // ----------------------------------
     //  MARK: - Init -
     //
@@ -93,16 +93,16 @@ public struct PayShippingRate {
 //  MARK: - Date -
 //
 private extension Date {
-    
+
     static let calendar = Calendar.current
-    
+
     func daysUntil(_ date: Date) -> Int {
-        
+
         let calendar = Date.calendar
         let start    = calendar.startOfDay(for: self)
         let end      = calendar.startOfDay(for: date)
         let delta    = calendar.dateComponents([.day], from: start, to: end)
-        
+
         return delta.day!
     }
 }
@@ -111,29 +111,29 @@ private extension Date {
 //  MARK: - PassKit -
 //
 internal extension PayShippingRate {
-    
+
     var summaryItem: PKShippingMethod {
         let item = PKShippingMethod(label: self.title, amount: self.price)
-        
+
         if let deliveryRange = self.deliveryRange {
             item.detail = deliveryRange.descriptionFrom(Date())
         } else {
             item.detail = "No delivery estimate provided."
         }
         item.identifier = self.handle
-        
+
         return item
     }
 }
 
 internal extension Array where Element == PayShippingRate {
-    
+
     var summaryItems: [PKShippingMethod] {
         return self.map {
             $0.summaryItem
         }
     }
-    
+
     func shippingRateFor(_ shippingMethod: PKShippingMethod) -> Element? {
         return self.filter {
             $0.handle == shippingMethod.identifier!
