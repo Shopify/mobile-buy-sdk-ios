@@ -2,8 +2,8 @@
 import Foundation
 
 extension ApiSchema {
-	open class AddressInput {
-		open var id: GraphQL.ID?
+	open class CustomerMailingAddressCreateInput {
+		open var clientMutationId: String?
 
 		open var address1: String?
 
@@ -26,7 +26,7 @@ extension ApiSchema {
 		open var zip: String?
 
 		public init(
-			id: GraphQL.ID? = nil,
+			clientMutationId: String? = nil,
 
 			address1: String? = nil,
 
@@ -48,7 +48,7 @@ extension ApiSchema {
 
 			zip: String? = nil
 		) {
-			self.id = id
+			self.clientMutationId = clientMutationId
 
 			self.address1 = address1
 
@@ -74,8 +74,8 @@ extension ApiSchema {
 		func serialize() -> String {
 			var fields: [String] = []
 
-			if let id = id {
-				fields.append("id:\(GraphQL.quoteString(input: "\(id.rawValue)"))")
+			if let clientMutationId = clientMutationId {
+				fields.append("clientMutationId:\(GraphQL.quoteString(input: clientMutationId))")
 			}
 
 			if let address1 = address1 {

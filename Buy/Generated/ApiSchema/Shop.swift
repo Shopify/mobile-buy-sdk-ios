@@ -4,8 +4,8 @@ import Foundation
 extension ApiSchema {
 	open class ShopQuery: GraphQL.AbstractQuery {
 		@discardableResult
-		open func billingAddress(aliasSuffix: String? = nil, _ subfields: (AddressQuery) -> Void) -> ShopQuery {
-			let subquery = AddressQuery()
+		open func billingAddress(aliasSuffix: String? = nil, _ subfields: (MailingAddressQuery) -> Void) -> ShopQuery {
+			let subquery = MailingAddressQuery()
 			subfields(subquery)
 
 			addField(field: "billingAddress", aliasSuffix: aliasSuffix, subfields: subquery)
@@ -144,7 +144,7 @@ extension ApiSchema {
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return try Address(fields: value)
+				return try MailingAddress(fields: value)
 
 				case "collections":
 				guard let value = value as? [String: Any] else {
@@ -217,12 +217,12 @@ extension ApiSchema {
 
 		open var typeName: String { return "Shop" }
 
-		open var billingAddress: ApiSchema.Address {
+		open var billingAddress: ApiSchema.MailingAddress {
 			return internalGetBillingAddress()
 		}
 
-		func internalGetBillingAddress(aliasSuffix: String? = nil) -> ApiSchema.Address {
-			return field(field: "billingAddress", aliasSuffix: aliasSuffix) as! ApiSchema.Address
+		func internalGetBillingAddress(aliasSuffix: String? = nil) -> ApiSchema.MailingAddress {
+			return field(field: "billingAddress", aliasSuffix: aliasSuffix) as! ApiSchema.MailingAddress
 		}
 
 		open var collections: ApiSchema.CollectionConnection {

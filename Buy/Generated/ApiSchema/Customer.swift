@@ -10,16 +10,22 @@ extension ApiSchema {
 		}
 
 		@discardableResult
-		open func addresses(aliasSuffix: String? = nil, first: Int32? = nil, _ subfields: (AddressQuery) -> Void) -> CustomerQuery {
+		open func addresses(aliasSuffix: String? = nil, first: Int32, after: String? = nil, reverse: Bool? = nil, _ subfields: (MailingAddressConnectionQuery) -> Void) -> CustomerQuery {
 			var args: [String] = []
 
-			if let first = first {
-				args.append("first:\(first)")
+			args.append("first:\(first)")
+
+			if let after = after {
+				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let reverse = reverse {
+				args.append("reverse:\(reverse)")
 			}
 
 			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
 
-			let subquery = AddressQuery()
+			let subquery = MailingAddressConnectionQuery()
 			subfields(subquery)
 
 			addField(field: "addresses", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
@@ -33,8 +39,8 @@ extension ApiSchema {
 		}
 
 		@discardableResult
-		open func defaultAddress(aliasSuffix: String? = nil, _ subfields: (AddressQuery) -> Void) -> CustomerQuery {
-			let subquery = AddressQuery()
+		open func defaultAddress(aliasSuffix: String? = nil, _ subfields: (MailingAddressQuery) -> Void) -> CustomerQuery {
+			let subquery = MailingAddressQuery()
 			subfields(subquery)
 
 			addField(field: "defaultAddress", aliasSuffix: aliasSuffix, subfields: subquery)
@@ -121,10 +127,10 @@ extension ApiSchema {
 				return value
 
 				case "addresses":
-				guard let value = value as? [[String: Any]] else {
+				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return try value.map { return try Address(fields: $0) }
+				return try MailingAddressConnection(fields: value)
 
 				case "createdAt":
 				guard let value = value as? String else {
@@ -137,7 +143,7 @@ extension ApiSchema {
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return try Address(fields: value)
+				return try MailingAddress(fields: value)
 
 				case "displayName":
 				guard let value = value as? String else {
@@ -199,16 +205,16 @@ extension ApiSchema {
 			return field(field: "acceptsMarketing", aliasSuffix: aliasSuffix) as! Bool
 		}
 
-		open var addresses: [ApiSchema.Address] {
+		open var addresses: ApiSchema.MailingAddressConnection {
 			return internalGetAddresses()
 		}
 
-		open func aliasedAddresses(aliasSuffix: String) -> [ApiSchema.Address] {
+		open func aliasedAddresses(aliasSuffix: String) -> ApiSchema.MailingAddressConnection {
 			return internalGetAddresses(aliasSuffix: aliasSuffix)
 		}
 
-		func internalGetAddresses(aliasSuffix: String? = nil) -> [ApiSchema.Address] {
-			return field(field: "addresses", aliasSuffix: aliasSuffix) as! [ApiSchema.Address]
+		func internalGetAddresses(aliasSuffix: String? = nil) -> ApiSchema.MailingAddressConnection {
+			return field(field: "addresses", aliasSuffix: aliasSuffix) as! ApiSchema.MailingAddressConnection
 		}
 
 		open var createdAt: Date {
@@ -219,12 +225,12 @@ extension ApiSchema {
 			return field(field: "createdAt", aliasSuffix: aliasSuffix) as! Date
 		}
 
-		open var defaultAddress: ApiSchema.Address? {
+		open var defaultAddress: ApiSchema.MailingAddress? {
 			return internalGetDefaultAddress()
 		}
 
-		func internalGetDefaultAddress(aliasSuffix: String? = nil) -> ApiSchema.Address? {
-			return field(field: "defaultAddress", aliasSuffix: aliasSuffix) as! ApiSchema.Address?
+		func internalGetDefaultAddress(aliasSuffix: String? = nil) -> ApiSchema.MailingAddress? {
+			return field(field: "defaultAddress", aliasSuffix: aliasSuffix) as! ApiSchema.MailingAddress?
 		}
 
 		open var displayName: String {
@@ -295,7 +301,7 @@ extension ApiSchema {
 
 				case "addresses":
 
-				return .ObjectList
+				return .Object
 
 				case "createdAt":
 
@@ -340,6 +346,9 @@ extension ApiSchema {
 
 		override open func fetchChildObject(key: String) -> GraphQL.AbstractResponse? {
 			switch(key) {
+				case "addresses":
+				return internalGetAddresses()
+
 				case "defaultAddress":
 				return internalGetDefaultAddress()
 
@@ -354,9 +363,6 @@ extension ApiSchema {
 
 		override open func fetchChildObjectList(key: String) -> [GraphQL.AbstractResponse] {
 			switch(key) {
-				case "addresses":
-				return internalGetAddresses()
-
 				default:
 				return []
 			}
@@ -368,10 +374,8 @@ extension ApiSchema {
 				key in
 				switch(key) {
 					case "addresses":
-					internalGetAddresses().forEach {
-						response.append($0)
-						response.append(contentsOf: $0.childResponseObjectMap())
-					}
+					response.append(internalGetAddresses())
+					response.append(contentsOf: internalGetAddresses().childResponseObjectMap())
 
 					case "defaultAddress":
 					if let value = internalGetDefaultAddress() {

@@ -2,51 +2,51 @@
 import Foundation
 
 extension ApiSchema {
-	open class AddressQuery: GraphQL.AbstractQuery {
+	open class MailingAddressQuery: GraphQL.AbstractQuery {
 		@discardableResult
-		open func address1(aliasSuffix: String? = nil) -> AddressQuery {
+		open func address1(aliasSuffix: String? = nil) -> MailingAddressQuery {
 			addField(field: "address1", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func address2(aliasSuffix: String? = nil) -> AddressQuery {
+		open func address2(aliasSuffix: String? = nil) -> MailingAddressQuery {
 			addField(field: "address2", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func city(aliasSuffix: String? = nil) -> AddressQuery {
+		open func city(aliasSuffix: String? = nil) -> MailingAddressQuery {
 			addField(field: "city", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func company(aliasSuffix: String? = nil) -> AddressQuery {
+		open func company(aliasSuffix: String? = nil) -> MailingAddressQuery {
 			addField(field: "company", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func country(aliasSuffix: String? = nil) -> AddressQuery {
+		open func country(aliasSuffix: String? = nil) -> MailingAddressQuery {
 			addField(field: "country", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func countryCode(aliasSuffix: String? = nil) -> AddressQuery {
+		open func countryCode(aliasSuffix: String? = nil) -> MailingAddressQuery {
 			addField(field: "countryCode", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func firstName(aliasSuffix: String? = nil) -> AddressQuery {
+		open func firstName(aliasSuffix: String? = nil) -> MailingAddressQuery {
 			addField(field: "firstName", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func formatted(aliasSuffix: String? = nil, withName: Bool? = nil, withCompany: Bool? = nil) -> AddressQuery {
+		open func formatted(aliasSuffix: String? = nil, withName: Bool? = nil, withCompany: Bool? = nil) -> MailingAddressQuery {
 			var args: [String] = []
 
 			if let withName = withName {
@@ -64,55 +64,61 @@ extension ApiSchema {
 		}
 
 		@discardableResult
-		open func lastName(aliasSuffix: String? = nil) -> AddressQuery {
+		open func id(aliasSuffix: String? = nil) -> MailingAddressQuery {
+			addField(field: "id", aliasSuffix: aliasSuffix)
+			return self
+		}
+
+		@discardableResult
+		open func lastName(aliasSuffix: String? = nil) -> MailingAddressQuery {
 			addField(field: "lastName", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func latitude(aliasSuffix: String? = nil) -> AddressQuery {
+		open func latitude(aliasSuffix: String? = nil) -> MailingAddressQuery {
 			addField(field: "latitude", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func longitude(aliasSuffix: String? = nil) -> AddressQuery {
+		open func longitude(aliasSuffix: String? = nil) -> MailingAddressQuery {
 			addField(field: "longitude", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func name(aliasSuffix: String? = nil) -> AddressQuery {
+		open func name(aliasSuffix: String? = nil) -> MailingAddressQuery {
 			addField(field: "name", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func phone(aliasSuffix: String? = nil) -> AddressQuery {
+		open func phone(aliasSuffix: String? = nil) -> MailingAddressQuery {
 			addField(field: "phone", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func province(aliasSuffix: String? = nil) -> AddressQuery {
+		open func province(aliasSuffix: String? = nil) -> MailingAddressQuery {
 			addField(field: "province", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func provinceCode(aliasSuffix: String? = nil) -> AddressQuery {
+		open func provinceCode(aliasSuffix: String? = nil) -> MailingAddressQuery {
 			addField(field: "provinceCode", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func zip(aliasSuffix: String? = nil) -> AddressQuery {
+		open func zip(aliasSuffix: String? = nil) -> MailingAddressQuery {
 			addField(field: "zip", aliasSuffix: aliasSuffix)
 			return self
 		}
 	}
 
-	open class Address: GraphQL.AbstractResponse
+	open class MailingAddress: GraphQL.AbstractResponse, Node
 	{
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
@@ -171,6 +177,12 @@ extension ApiSchema {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
 				return value.map { return $0 }
+
+				case "id":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return GraphQL.ID(rawValue: value)
 
 				case "lastName":
 				if value is NSNull { return nil }
@@ -233,7 +245,7 @@ extension ApiSchema {
 			}
 		}
 
-		open var typeName: String { return "Address" }
+		open var typeName: String { return "MailingAddress" }
 
 		open var address1: String? {
 			return internalGetAddress1()
@@ -301,6 +313,14 @@ extension ApiSchema {
 
 		func internalGetFormatted(aliasSuffix: String? = nil) -> [String] {
 			return field(field: "formatted", aliasSuffix: aliasSuffix) as! [String]
+		}
+
+		open var id: GraphQL.ID {
+			return internalGetId()
+		}
+
+		func internalGetId(aliasSuffix: String? = nil) -> GraphQL.ID {
+			return field(field: "id", aliasSuffix: aliasSuffix) as! GraphQL.ID
 		}
 
 		open var lastName: String? {
@@ -400,6 +420,10 @@ extension ApiSchema {
 				case "formatted":
 
 				return .ScalarList
+
+				case "id":
+
+				return .Scalar
 
 				case "lastName":
 

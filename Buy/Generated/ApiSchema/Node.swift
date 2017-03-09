@@ -49,6 +49,14 @@ extension ApiSchema {
 		}
 
 		@discardableResult
+		open func onMailingAddress(subfields: (MailingAddressQuery) -> Void) -> NodeQuery {
+			let subquery = MailingAddressQuery()
+			subfields(subquery)
+			addInlineFragment(on: "MailingAddress", subfields: subquery)
+			return self
+		}
+
+		@discardableResult
 		open func onOrder(subfields: (OrderQuery) -> Void) -> NodeQuery {
 			let subquery = OrderQuery()
 			subfields(subquery)
@@ -136,6 +144,9 @@ extension ApiSchema {
 
 				case "CreditCardPaymentRequest":
 				return try CreditCardPaymentRequest.init(fields: fields)
+
+				case "MailingAddress":
+				return try MailingAddress.init(fields: fields)
 
 				case "Order":
 				return try Order.init(fields: fields)

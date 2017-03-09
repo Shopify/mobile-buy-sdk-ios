@@ -87,8 +87,8 @@ extension ApiSchema {
 		}
 
 		@discardableResult
-		open func shippingAddress(aliasSuffix: String? = nil, _ subfields: (AddressQuery) -> Void) -> OrderQuery {
-			let subquery = AddressQuery()
+		open func shippingAddress(aliasSuffix: String? = nil, _ subfields: (MailingAddressQuery) -> Void) -> OrderQuery {
+			let subquery = MailingAddressQuery()
 			subfields(subquery)
 
 			addField(field: "shippingAddress", aliasSuffix: aliasSuffix, subfields: subquery)
@@ -212,7 +212,7 @@ extension ApiSchema {
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return try Address(fields: value)
+				return try MailingAddress(fields: value)
 
 				case "subtotalPrice":
 				if value is NSNull { return nil }
@@ -351,12 +351,12 @@ extension ApiSchema {
 			return field(field: "processedAt", aliasSuffix: aliasSuffix) as! Date
 		}
 
-		open var shippingAddress: ApiSchema.Address? {
+		open var shippingAddress: ApiSchema.MailingAddress? {
 			return internalGetShippingAddress()
 		}
 
-		func internalGetShippingAddress(aliasSuffix: String? = nil) -> ApiSchema.Address? {
-			return field(field: "shippingAddress", aliasSuffix: aliasSuffix) as! ApiSchema.Address?
+		func internalGetShippingAddress(aliasSuffix: String? = nil) -> ApiSchema.MailingAddress? {
+			return field(field: "shippingAddress", aliasSuffix: aliasSuffix) as! ApiSchema.MailingAddress?
 		}
 
 		open var subtotalPrice: NSDecimalNumber? {
