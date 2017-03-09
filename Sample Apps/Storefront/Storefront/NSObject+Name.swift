@@ -29,6 +29,6 @@ import Foundation
 extension NSObject {
     
     static var className: String {
-        return NSStringFromClass(self).components(separatedBy: ".").last!
+        return String(describing: self)
     }
 }
