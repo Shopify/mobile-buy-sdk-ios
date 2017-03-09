@@ -45,7 +45,7 @@ extension Storefront {
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return value
+				return URL(string: value)!
 
 				default:
 				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
@@ -70,12 +70,12 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: aliasSuffix) as! GraphQL.ID?
 		}
 
-		open var src: String {
+		open var src: URL {
 			return internalGetSrc()
 		}
 
-		func internalGetSrc(aliasSuffix: String? = nil) -> String {
-			return field(field: "src", aliasSuffix: aliasSuffix) as! String
+		func internalGetSrc(aliasSuffix: String? = nil) -> URL {
+			return field(field: "src", aliasSuffix: aliasSuffix) as! URL
 		}
 
 		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
