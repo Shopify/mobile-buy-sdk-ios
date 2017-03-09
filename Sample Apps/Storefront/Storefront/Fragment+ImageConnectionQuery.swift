@@ -24,7 +24,6 @@
 //  THE SOFTWARE.
 //
 
-import Foundation
 import Buy
 
 extension Storefront.ImageConnectionQuery {
