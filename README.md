@@ -43,19 +43,13 @@ The SDK includes a pre-compiled [.docset](https://github.com/Shopify/mobile-buy-
 
 #### Dynamic Framework Installation
 
-1. Drag the `Mobile Buy SDK.xcodeproj` into your existing project
-2. Add the `Buy` target as a `Target Dependancy` in the `Build Phases` of your project's target
-3. Add the `Buy` (second target on the list is the Dynamic framework) target in the `Embedded Binaries` section in `Build Phases`
+1. Drag the `Buy.xcodeproj` into your existing project
+2. Add `Buy.framework` target as a depenency - `Your Project > (Select your target) > Build Phases > Target Dependencies > + > Buy.framework`
+3. Link `Buy.framework` - `Your Project > (Select your target) > Build Phases > Link Binary With Libraries > + > Buy.framework`
+4. Ensure the framework is copied into the bundle - `Your Project > (Select your target) > Build Phases > + > New Copy Files Phase > Destination (Select 'Frameworks') > + > Buy.framework`
+5. Import at use site `import Buy`
 
 See the [Sample Apps](https://github.com/Shopify/mobile-buy-sdk-ios/tree/master/Mobile Buy SDK Sample Apps/) for an example of Dynamic Framework usage.
-
-#### Static Framework Installation
-
-If you would like to not include the Mobile Buy SDK Project within your existing project, you can link directly to the `Buy.framework`.
-
-1.  Open the `Mobile Buy SDK.xcodeproj` and build the `Static Universal Framework` scheme
-2.  Drag the `Buy.framework` that was just created from `Mobile Buy SDK Sample Apps` into the `Linked Frameworks and Libraries` section for the target you want to add the framework to. Check Copy items if needed so the framework is copied to your project
-3.  In the `Build Settings` tab, add `-all_load` to `Other Linker Flags`
 
 #### CocoaPods
 
@@ -67,8 +61,9 @@ pod "Mobile-Buy-SDK"
 
 Then run `pod install`
 
-```objc
-#import "Buy.h"
+Import the SDK module:
+```swift
+import Buy
 ```
 
 #### Carthage
@@ -81,21 +76,40 @@ github "Shopify/mobile-buy-sdk-ios"
 
 Then run `carthage update`
 
-### Quick Start
-
-Import the module
-
-```objc
-@import Buy;
+Import the SDK module:
+```swift
+import Buy
 ```
 
-Initialize the `BUYClient` with your credentials from the *Mobile App Channel*
+### Getting started
 
+The Buy SDK is built on top of GraphQL. While some knowledge of GraphQL is good to have, you don't have to be an expert to start using with the Buy SDK. Instead of writing stringly-typed queries, the SDK provides generated classes and a builder pattern to help you write compile-time checked and auto-complete friendly queries and work with typed response models.
 
-```objc
-BUYClient *client = [[BUYClient alloc] initWithShopDomain:@"yourshop.myshopify.com"
-                                                   apiKey:@"aaaaaaaaaaaaaaaaaa"
-                                                    appId:@"99999"];
+This is what a sample query looks like to fetch a shop's name:
+
+```swift
+let query = ApiSchema.buildQuery { $0
+    .shop { $0
+        .name()
+    }
+}
+```
+
+### Types and models
+
+The Buy SDK provides classes for models that represent resources in the GraphQL schema 1-to-1. These classes are all scoped under the `Storefront` namespace. To access these classes you'll need to provide the entire name:
+
+```swift
+let collections: [Storefront.Collection] = []
+collection.forEach {
+    $0.doSomething()
+}
+```
+
+Initialize the `GraphClient` with your credentials from the *Mobile App Channel*
+
+```swift
+let client = GraphClient(shopDomain: "yourshop.myshopify.com", apiKey: "your-api-key")
 ```
 
 ### Storefront API
