@@ -1,5 +1,5 @@
 //
-//  ViewModel.swift
+//  Storyboard+ViewController.swift
 //  Storefront
 //
 //  Created by Shopify.
@@ -24,13 +24,16 @@
 //  THE SOFTWARE.
 //
 
-import Foundation
+import UIKit
 
-protocol ViewModel {
+extension UIStoryboard {
     
-    associatedtype ModelType
-    
-    var model: ModelType { get }
-    
-    init(from model: ModelType)
+    func instantiateViewController<T: UIViewController>() -> T {
+        
+        let viewController = self.instantiateViewController(withIdentifier: T.className)
+        guard let typedViewController = viewController as? T else {
+            fatalError("Unable to cast view controller of type (\(type(of: viewController))) to (\(T.className))")
+        }
+        return typedViewController
+    }
 }

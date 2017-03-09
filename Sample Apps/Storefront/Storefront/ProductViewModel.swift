@@ -31,6 +31,7 @@ struct ProductViewModel: ViewModel {
     
     typealias ModelType = Storefront.Product
     
+    let model:    ModelType
     let imageURL: URL?
     
     // ----------------------------------
@@ -42,6 +43,8 @@ struct ProductViewModel: ViewModel {
         } else {
             self.imageURL = nil
         }
+        
+        self.model = model
     }
 }
 

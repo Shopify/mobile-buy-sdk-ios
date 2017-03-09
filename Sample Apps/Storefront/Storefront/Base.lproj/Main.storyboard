@@ -12,7 +12,7 @@
         <!--Collections-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="CollectionsViewController" customModule="Storefront" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CollectionsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="CollectionsViewController" customModule="Storefront" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -44,11 +44,62 @@
                     <navigationItem key="navigationItem" title="Collections" id="9WP-3t-7If"/>
                     <connections>
                         <outlet property="tableView" destination="FJA-Xo-Ook" id="zuu-Zf-hAN"/>
+                        <segue destination="AbI-Ns-2vc" kind="show" id="f9n-Ry-sCt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1076" y="138.98050974512745"/>
+        </scene>
+        <!--Products-->
+        <scene sceneID="vIO-P4-DiX">
+            <objects>
+                <viewController storyboardIdentifier="ProductsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="AbI-Ns-2vc" customClass="ProductsViewController" customModule="Storefront" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mlK-I5-tBJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="oTA-Tk-tHe"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xKM-7h-oPY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="l3f-iD-z0W" customClass="StorefrontCollectionView" customModule="Storefront" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <inset key="scrollIndicatorInsets" minX="0.0" minY="5" maxX="0.0" maxY="5"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="LCc-sn-ckA">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="cellNibName" value="ProductCell"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="dataSource" destination="AbI-Ns-2vc" id="yxj-ig-aOM"/>
+                                    <outlet property="delegate" destination="AbI-Ns-2vc" id="IA6-Hn-FDk"/>
+                                    <outlet property="prefetchDataSource" destination="AbI-Ns-2vc" id="u0I-sB-XBE"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="l3f-iD-z0W" secondAttribute="trailing" id="971-jO-5TT"/>
+                            <constraint firstItem="oTA-Tk-tHe" firstAttribute="top" secondItem="l3f-iD-z0W" secondAttribute="bottom" id="9Pu-yp-tHC"/>
+                            <constraint firstItem="l3f-iD-z0W" firstAttribute="leading" secondItem="xKM-7h-oPY" secondAttribute="leading" id="aFP-HO-uyh"/>
+                            <constraint firstItem="l3f-iD-z0W" firstAttribute="top" secondItem="xKM-7h-oPY" secondAttribute="top" id="t6s-Aa-fox"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Products" id="So2-vy-uwr"/>
+                    <connections>
+                        <outlet property="collectionView" destination="l3f-iD-z0W" id="ZWP-72-Gmz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nes-dj-osI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1784.8" y="138.98050974512745"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="22L-nZ-ej3">

@@ -1,5 +1,5 @@
 //
-//  ViewModel.swift
+//  GraphClient+Shared.swift
 //  Storefront
 //
 //  Created by Shopify.
@@ -25,12 +25,8 @@
 //
 
 import Foundation
+import Buy
 
-protocol ViewModel {
-    
-    associatedtype ModelType
-    
-    var model: ModelType { get }
-    
-    init(from model: ModelType)
+extension GraphClient {
+    static let shared: GraphClient = GraphClient(shopDomain: "your-shop.myshopify.com", apiKey: "your-api-key")
 }

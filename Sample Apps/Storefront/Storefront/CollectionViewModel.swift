@@ -31,6 +31,7 @@ struct CollectionViewModel: ViewModel {
     
     typealias ModelType = Storefront.Collection
     
+    let model:       ModelType
     let title:       String
     let description: String
     let imageURL:    URL?
@@ -46,6 +47,7 @@ struct CollectionViewModel: ViewModel {
             self.imageURL = nil
         }
         
+        self.model       = model
         self.products    = model.productsArray().viewModels
         self.title       = model.title
         self.description = model.descriptionPlainSummary
