@@ -37,7 +37,7 @@ private struct Header {
 
 public class GraphClient {
     
-    public let session:  URLSession?
+    public let session:  URLSession
     
     private let apiURL:  URL
     private let headers: [String : String]
@@ -74,21 +74,21 @@ public class GraphClient {
     // ----------------------------------
     //  MARK: - Queries -
     //
-	public func queryGraphWith(_ query: ApiSchema.QueryRootQuery, completionHandler: @escaping (ApiSchema.QueryRoot?, GraphError?) -> Void) -> URLSessionTask? {
-		return graphRequestTask(query: query, completionHandler: completionHandler)
+	public func queryGraphWith(_ query: ApiSchema.QueryRootQuery, completionHandler: @escaping (ApiSchema.QueryRoot?, GraphError?) -> Void) -> URLSessionDataTask {
+		return self.graphRequestTask(query: query, completionHandler: completionHandler)
 	}
 	
     // ----------------------------------
     //  MARK: - Mutations -
     //
-	public func mutateGraphWith(_ mutation: ApiSchema.MutationQuery, completionHandler: @escaping (ApiSchema.Mutation?, GraphError?) -> Void) -> URLSessionTask? {
-		return graphRequestTask(query: mutation, completionHandler: completionHandler)
+	public func mutateGraphWith(_ mutation: ApiSchema.MutationQuery, completionHandler: @escaping (ApiSchema.Mutation?, GraphError?) -> Void) -> URLSessionDataTask {
+		return self.graphRequestTask(query: mutation, completionHandler: completionHandler)
 	}
 	
     // ----------------------------------
     //  MARK: - Request Management -
     //
-	private func graphRequestTask<Q: GraphQL.AbstractQuery, R: GraphQL.AbstractResponse>(query: Q, completionHandler: @escaping (R?, GraphError?) -> Void) -> URLSessionTask? {
+	private func graphRequestTask<Q: GraphQL.AbstractQuery, R: GraphQL.AbstractResponse>(query: Q, completionHandler: @escaping (R?, GraphError?) -> Void) -> URLSessionDataTask {
         
 		func processGraphResponse(data: Data?, response: URLResponse?, error: Error?) -> (json: JSON?, error: GraphError?) {
             
@@ -135,7 +135,7 @@ public class GraphClient {
             return (json: graphData, error: queryError)
 		}
 		
-		return session?.dataTask(with: graphRequest(query: query)) { (data, response, error) in
+		return self.session.dataTask(with: graphRequest(query: query)) { (data, response, error) in
 			let (json, error) = processGraphResponse(data: data, response: response, error: error)
 			DispatchQueue.main.async {
 				if let json = json {
