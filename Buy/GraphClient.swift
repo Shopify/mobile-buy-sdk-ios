@@ -74,14 +74,14 @@ public class GraphClient {
     // ----------------------------------
     //  MARK: - Queries -
     //
-	public func queryGraphWith(_ query: ApiSchema.QueryRootQuery, completionHandler: @escaping (ApiSchema.QueryRoot?, GraphError?) -> Void) -> URLSessionDataTask {
+	public func queryGraphWith(_ query: Storefront.QueryRootQuery, completionHandler: @escaping (Storefront.QueryRoot?, GraphError?) -> Void) -> URLSessionDataTask {
 		return self.graphRequestTask(query: query, completionHandler: completionHandler)
 	}
 	
     // ----------------------------------
     //  MARK: - Mutations -
     //
-	public func mutateGraphWith(_ mutation: ApiSchema.MutationQuery, completionHandler: @escaping (ApiSchema.Mutation?, GraphError?) -> Void) -> URLSessionDataTask {
+	public func mutateGraphWith(_ mutation: Storefront.MutationQuery, completionHandler: @escaping (Storefront.Mutation?, GraphError?) -> Void) -> URLSessionDataTask {
 		return self.graphRequestTask(query: mutation, completionHandler: completionHandler)
 	}
 	
