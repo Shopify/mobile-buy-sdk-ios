@@ -47,7 +47,10 @@ typedef NS_ENUM(NSInteger, UITableViewDiscountGiftCardSection) {
 
 @property (nonatomic, strong) BUYCheckout *checkout;
 @property (nonatomic, strong) BUYClient *client;
+@property (nonatomic, strong) OPTLYClient *optlyClient;
 @property (nonatomic, strong) NSArray *summaryItems;
+@property (nonatomic, strong) NSString *userId;
+@property (nonatomic, strong) NSDictionary *userAttributes;
 
 @end
 
@@ -76,6 +79,14 @@ typedef NS_ENUM(NSInteger, UITableViewDiscountGiftCardSection) {
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     [self.tableView registerClass:[SummaryItemsTableViewCell class] forCellReuseIdentifier:@"SummaryCell"];
+    AppDelegate *appDelegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
+    self.optlyClient = appDelegate.client;
+    self.userId = appDelegate.userId;
+    NSString *userAttributesString = [[NSUserDefaults standardUserDefaults] stringForKey:@"optlyUserAttributes"];
+    NSData *userAttributesData = [userAttributesString dataUsingEncoding:NSUTF8StringEncoding];
+    if (userAttributesData) {
+         self.userAttributes = [NSJSONSerialization JSONObjectWithData:userAttributesData options:NSJSONReadingMutableContainers error:nil];
+    }
 }
 
 - (void)setCheckout:(BUYCheckout *)checkout
@@ -168,6 +179,7 @@ typedef NS_ENUM(NSInteger, UITableViewDiscountGiftCardSection) {
             }
             break;
         case UITableViewSectionContinue:
+            [self.optlyClient track:@"pre_checkout_cta_clicked" userId:self.userId attributes:self.userAttributes];
             [self proceedToCheckout];
             break;
         default:
@@ -268,17 +280,10 @@ typedef NS_ENUM(NSInteger, UITableViewDiscountGiftCardSection) {
 {
     // [OPTLY - Doc] Determine which CTA text to show the user
     NSString *cartCTAExperimentKey = [[NSUserDefaults standardUserDefaults] stringForKey:@"optlyCartCtaExperimentKey"];
-    NSString *userAttributesString = [[NSUserDefaults standardUserDefaults] stringForKey:@"optlyUserAttributes"];
-    NSData *userAttributesData = [userAttributesString dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary *userAttributesDict= nil;
-    if (userAttributesData) {
-        userAttributesDict = [NSJSONSerialization JSONObjectWithData:userAttributesData options:nil error:nil];
-    }
+    
     
     NSString *CTAText = @"Continue";
-    AppDelegate *appDelegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
-    OPTLYVariation *var = nil;
-    var = [appDelegate.client activate:cartCTAExperimentKey userId:appDelegate.userId attributes:userAttributesDict];
+    OPTLYVariation *var = [self.optlyClient activate:cartCTAExperimentKey userId:self.userId attributes:self.userAttributes];
     
     if (!var) {
         return CTAText;
