@@ -27,10 +27,10 @@
 import Foundation
 import Buy
 
-extension ApiSchema.ProductConnectionQuery {
+extension Storefront.ProductConnectionQuery {
     
     @discardableResult
-    func fragmentForStandardProduct() -> ApiSchema.ProductConnectionQuery { return self
+    func fragmentForStandardProduct() -> Storefront.ProductConnectionQuery { return self
         .edges { $0
             .node { $0
                 .images(first: 1) { $0

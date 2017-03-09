@@ -27,10 +27,10 @@
 import Foundation
 import Buy
 
-extension ApiSchema.CollectionQuery {
+extension Storefront.CollectionQuery {
     
     @discardableResult
-    func fragmentForStandardImage() -> ApiSchema.CollectionQuery { return self
+    func fragmentForStandardImage() -> Storefront.CollectionQuery { return self
         .image { $0
             .src()
         }

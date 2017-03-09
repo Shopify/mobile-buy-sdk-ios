@@ -27,10 +27,10 @@
 import Foundation
 import Buy
 
-extension ApiSchema.ImageConnectionQuery {
+extension Storefront.ImageConnectionQuery {
     
     @discardableResult
-    func fragmentForStandardProductImage() -> ApiSchema.ImageConnectionQuery { return self
+    func fragmentForStandardProductImage() -> Storefront.ImageConnectionQuery { return self
         .edges { $0
             .node { $0
                 .src()

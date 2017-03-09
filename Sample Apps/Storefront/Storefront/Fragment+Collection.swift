@@ -27,9 +27,9 @@
 import Foundation
 import Buy
 
-extension ApiSchema.Collection {
+extension Storefront.Collection {
     
-    func products() -> [ApiSchema.Product] {
+    func products() -> [Storefront.Product] {
         return self.products.edges.map { $0.node }
     }
 }

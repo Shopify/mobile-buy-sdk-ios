@@ -39,7 +39,7 @@ class CollectionsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let query = ApiSchema.buildQuery { $0
+        let query = Storefront.buildQuery { $0
             .shop { $0
                 .collections(first: 25) { $0
                     .edges { $0
@@ -67,7 +67,7 @@ class CollectionsViewController: UIViewController {
             }
         }
         
-        task?.resume()
+        task.resume()
     }
 }
 

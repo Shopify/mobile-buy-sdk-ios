@@ -29,7 +29,7 @@ import Buy
 
 struct ProductViewModel: ViewModel {
     
-    typealias ModelType = ApiSchema.Product
+    typealias ModelType = Storefront.Product
     
     let imageURL: URL?
     
@@ -45,6 +45,6 @@ struct ProductViewModel: ViewModel {
     }
 }
 
-extension ApiSchema.Product: ViewModeling {
+extension Storefront.Product: ViewModeling {
     typealias ViewModelType = ProductViewModel
 }

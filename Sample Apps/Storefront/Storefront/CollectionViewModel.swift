@@ -29,7 +29,7 @@ import Buy
 
 struct CollectionViewModel: ViewModel {
     
-    typealias ModelType = ApiSchema.Collection
+    typealias ModelType = Storefront.Collection
     
     let title:       String
     let description: String
@@ -39,7 +39,7 @@ struct CollectionViewModel: ViewModel {
     // ----------------------------------
     //  MARK: - Init -
     //
-    init(from model: ApiSchema.Collection) {
+    init(from model: Storefront.Collection) {
         if let source = model.image?.src {
             self.imageURL = URL(string: source)!
         } else {
@@ -52,7 +52,7 @@ struct CollectionViewModel: ViewModel {
     }
 }
 
-extension ApiSchema.Collection: ViewModeling {
+extension Storefront.Collection: ViewModeling {
     typealias ViewModelType = CollectionViewModel
 }
 

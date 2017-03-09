@@ -27,9 +27,9 @@
 import Foundation
 import Buy
 
-extension ApiSchema.Product {
+extension Storefront.Product {
 
-    func images() -> [ApiSchema.Image] {
+    func images() -> [Storefront.Image] {
         return self.images.edges.map { $0.node }
     }
 }
