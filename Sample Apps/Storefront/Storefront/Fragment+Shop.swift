@@ -28,7 +28,7 @@ import Buy
 
 extension Storefront.Shop {
     
-    func collections() -> [Storefront.Collection] {
+    func collectionsArray() -> [Storefront.Collection] {
         return self.collections.edges.map { $0.node }
     }
 }

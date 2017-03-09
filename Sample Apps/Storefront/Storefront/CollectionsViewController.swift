@@ -60,7 +60,7 @@ class CollectionsViewController: UIViewController {
         let task   = client.queryGraphWith(query) { (query, error) in
             
             if let query = query {
-                self.collections = query.shop.collections().viewModels
+                self.collections = query.shop.collectionsArray().viewModels
                 self.tableView.reloadData()
             } else {
                 print("Failed to load collections: \(error)")

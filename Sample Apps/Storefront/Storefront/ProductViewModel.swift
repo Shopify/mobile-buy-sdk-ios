@@ -37,7 +37,7 @@ struct ProductViewModel: ViewModel {
     //  MARK: - Init -
     //
     init(from model: ModelType) {
-        if let image = model.images().first {
+        if let image = model.imagesArray().first {
             self.imageURL = URL(string: image.src)!
         } else {
             self.imageURL = nil

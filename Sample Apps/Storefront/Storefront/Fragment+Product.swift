@@ -28,7 +28,7 @@ import Buy
 
 extension Storefront.Product {
 
-    func images() -> [Storefront.Image] {
+    func imagesArray() -> [Storefront.Image] {
         return self.images.edges.map { $0.node }
     }
 }

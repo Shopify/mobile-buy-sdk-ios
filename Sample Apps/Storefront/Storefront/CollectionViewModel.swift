@@ -46,7 +46,7 @@ struct CollectionViewModel: ViewModel {
             self.imageURL = nil
         }
         
-        self.products    = model.products().viewModels
+        self.products    = model.productsArray().viewModels
         self.title       = model.title
         self.description = model.descriptionPlainSummary
     }
