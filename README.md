@@ -118,7 +118,7 @@ The Buy SDK is built on GraphQL, which means that you'll inherit all the powerfu
 
 GraphQL queries are written in plain text but the SDK offers a builder that abstracts the knowledge of the GraphQL schema and provides auto-completion. There are two types of queries:
 
-##### Query
+#### Query
 Using the `buildQuery()` method, we can build a query to retrieve entities and fields. Semantically, these are requivalent to `GET` requests in RESTful APIs. No reasource are modified as a result of a `query`.
 ```swift
 let query = Storefront.buildQuery { $0
@@ -140,7 +140,7 @@ query {
 }
 ```
 
-##### Mutation
+#### Mutation
 Using the `buildMutation()` method, we can a build a query to modify resources on the server. Semantically, these are equivalent to `POST`, `PUT` and `DELETE` requests in RESTful APIs.
 ```swift
 let mutation = Storefront.buildMutation { $0
