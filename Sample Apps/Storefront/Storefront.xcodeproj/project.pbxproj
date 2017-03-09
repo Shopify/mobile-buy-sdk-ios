@@ -21,7 +21,7 @@
 		9AAFAB941E60D2D000864A17 /* NSObject+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB931E60D2D000864A17 /* NSObject+Name.swift */; };
 		9AAFAB961E60D83600864A17 /* Fragment+CollectionQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB951E60D83600864A17 /* Fragment+CollectionQuery.swift */; };
 		9ADAD46B1E563091008AC561 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADAD46A1E563091008AC561 /* AppDelegate.swift */; };
-		9ADAD46D1E563091008AC561 /* CollectionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADAD46C1E563091008AC561 /* CollectionsController.swift */; };
+		9ADAD46D1E563091008AC561 /* CollectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADAD46C1E563091008AC561 /* CollectionsViewController.swift */; };
 		9ADAD4701E563091008AC561 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9ADAD46E1E563091008AC561 /* Main.storyboard */; };
 		9ADAD4721E563091008AC561 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9ADAD4711E563091008AC561 /* Assets.xcassets */; };
 		9ADAD4751E563091008AC561 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9ADAD4731E563091008AC561 /* LaunchScreen.storyboard */; };
@@ -81,7 +81,7 @@
 		9AAFAB951E60D83600864A17 /* Fragment+CollectionQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fragment+CollectionQuery.swift"; sourceTree = "<group>"; };
 		9ADAD4671E563091008AC561 /* Storefront.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Storefront.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9ADAD46A1E563091008AC561 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9ADAD46C1E563091008AC561 /* CollectionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsController.swift; sourceTree = "<group>"; };
+		9ADAD46C1E563091008AC561 /* CollectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsViewController.swift; sourceTree = "<group>"; };
 		9ADAD46F1E563091008AC561 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9ADAD4711E563091008AC561 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9ADAD4741E563091008AC561 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -123,6 +123,7 @@
 				9AAFAB7A1E60BDF900864A17 /* CollectionCell.swift */,
 				9AAFAB831E60BF4400864A17 /* CollectionCell.xib */,
 				9AAFAB811E60BEE000864A17 /* CollectionViewModel.swift */,
+				9ADAD46C1E563091008AC561 /* CollectionsViewController.swift */,
 			);
 			name = Collections;
 			sourceTree = "<group>";
@@ -175,7 +176,6 @@
 			isa = PBXGroup;
 			children = (
 				9ADAD46A1E563091008AC561 /* AppDelegate.swift */,
-				9ADAD46C1E563091008AC561 /* CollectionsController.swift */,
 				9AAFAB901E60D0F900864A17 /* UI */,
 				9AAFAB8D1E60C69C00864A17 /* Extensions */,
 				9AAFAB7C1E60BE3700864A17 /* Protocols */,
@@ -346,8 +346,8 @@
 				9AAFAB7B1E60BDF900864A17 /* CollectionCell.swift in Sources */,
 				9AAFAB941E60D2D000864A17 /* NSObject+Name.swift in Sources */,
 				9AEF61CC1E606EFE0067FA90 /* Fragment+ProductConnectionQuery.swift in Sources */,
-				9ADAD46D1E563091008AC561 /* CollectionsController.swift in Sources */,
 				9AAFAB8F1E60C6AC00864A17 /* UIImageView+Remote.swift in Sources */,
+				9ADAD46D1E563091008AC561 /* CollectionsViewController.swift in Sources */,
 				9AAFAB821E60BEE000864A17 /* CollectionViewModel.swift in Sources */,
 				9AAFAB801E60BE9800864A17 /* ViewModelConfigurable.swift in Sources */,
 				9AEF61CE1E606F100067FA90 /* Fragment+ImageConnectionQuery.swift in Sources */,
