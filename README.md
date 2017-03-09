@@ -112,6 +112,77 @@ Initialize the `GraphClient` with your credentials from the *Mobile App Channel*
 let client = GraphClient(shopDomain: "yourshop.myshopify.com", apiKey: "your-api-key")
 ```
 
+### Queries & Mutations
+
+The Buy SDK is built on GraphQL, which means that you'll inherit all the powerful capabilities GraphQL has to offer. As a result, there's a paradigm shift. With Buy SDK, you'll need to "query" the API and describe in the shape of an object graph what kind of fields and entities the server should return. Let's take a look at how to build a simple query.
+
+GraphQL queries are written in plain text but the SDK offers a builder that abstracts the knowledge of the GraphQL schema and provides auto-completion. There are two types of queries:
+
+##### Query
+Using the `buildQuery()` method, we can build a query to retrieve entities and fields. Semantically, these are requivalent to `GET` requests in RESTful APIs. No reasource are modified as a result of a `query`.
+```swift
+let query = Storefront.buildQuery { $0
+    .shop {
+        .name()
+        .currencyCode()
+        .moneyFormat()
+    }
+}
+```
+this will produce the following GraphQL query:
+```graphql
+query {
+	shop {
+    	name
+        currencyCode
+        moneyFormat
+    }
+}
+```
+
+##### Mutation
+Using the `buildMutation()` method, we can a build a query to modify resources on the server. Semantically, these are equivalent to `POST`, `PUT` and `DELETE` requests in RESTful APIs.
+```swift
+let mutation = Storefront.buildMutation { $0
+    .customerCreate(input: customerInput) { $0
+        .customer { $0
+            .displayName()
+            .firstName()
+            .lastName()
+        }
+    }
+}
+```
+
+Mutations are slightly different. Unlike simple queries, mutations can require an input object to represent the resource to be created or updated. The above `customerInput` parameter is created by simply initializing a `Storefront.CustomerInput` object like this:
+```swift
+let customerInput = Storefront.CustomerInput(
+    firstName: "John",
+    lastName:  "Smith",
+    email:     "john.smith@gmail.com",
+    password:  "johnny123",
+    acceptsMarketing: true
+)
+```
+The above will yield the following GraphQL query:
+```graphql
+mutation {
+	customerCreate(input: {
+    	firstName: "John"
+        lastName:  "Smith"
+        email:     "john.smith@gmail.com"
+        password:  "johnny123"
+        acceptsMarketing: true
+    }) {
+    	customer {
+    		displayName
+        	firstName
+        	lastName
+        }
+    }
+}
+```
+
 ### Storefront API
 After initializing the client with valid shop credentials, you can begin fetching collections.
 ```objc
