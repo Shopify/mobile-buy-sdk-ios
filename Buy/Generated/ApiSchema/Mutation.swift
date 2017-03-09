@@ -83,6 +83,51 @@ extension ApiSchema {
 		}
 
 		@discardableResult
+		open func customerMailingAddressCreate(aliasSuffix: String? = nil, input: CustomerMailingAddressCreateInput, _ subfields: (CustomerMailingAddressCreatePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("input:\(input.serialize())")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CustomerMailingAddressCreatePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "customerMailingAddressCreate", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
+			return self
+		}
+
+		@discardableResult
+		open func customerMailingAddressDelete(aliasSuffix: String? = nil, input: CustomerMailingAddressDeleteInput, _ subfields: (CustomerMailingAddressDeletePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("input:\(input.serialize())")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CustomerMailingAddressDeletePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "customerMailingAddressDelete", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
+			return self
+		}
+
+		@discardableResult
+		open func customerMailingAddressUpdate(aliasSuffix: String? = nil, input: CustomerMailingAddressUpdateInput, _ subfields: (CustomerMailingAddressUpdatePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("input:\(input.serialize())")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CustomerMailingAddressUpdatePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "customerMailingAddressUpdate", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
+			return self
+		}
+
+		@discardableResult
 		open func customerRecover(aliasSuffix: String? = nil, input: CustomerRecoverInput, _ subfields: (CustomerRecoverPayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
@@ -228,6 +273,27 @@ extension ApiSchema {
 				}
 				return try CustomerCreatePayload(fields: value)
 
+				case "customerMailingAddressCreate":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try CustomerMailingAddressCreatePayload(fields: value)
+
+				case "customerMailingAddressDelete":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try CustomerMailingAddressDeletePayload(fields: value)
+
+				case "customerMailingAddressUpdate":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try CustomerMailingAddressUpdatePayload(fields: value)
+
 				case "customerRecover":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -344,6 +410,42 @@ extension ApiSchema {
 			return field(field: "customerCreate", aliasSuffix: aliasSuffix) as! ApiSchema.CustomerCreatePayload?
 		}
 
+		open var customerMailingAddressCreate: ApiSchema.CustomerMailingAddressCreatePayload? {
+			return internalGetCustomerMailingAddressCreate()
+		}
+
+		open func aliasedCustomerMailingAddressCreate(aliasSuffix: String) -> ApiSchema.CustomerMailingAddressCreatePayload? {
+			return internalGetCustomerMailingAddressCreate(aliasSuffix: aliasSuffix)
+		}
+
+		func internalGetCustomerMailingAddressCreate(aliasSuffix: String? = nil) -> ApiSchema.CustomerMailingAddressCreatePayload? {
+			return field(field: "customerMailingAddressCreate", aliasSuffix: aliasSuffix) as! ApiSchema.CustomerMailingAddressCreatePayload?
+		}
+
+		open var customerMailingAddressDelete: ApiSchema.CustomerMailingAddressDeletePayload? {
+			return internalGetCustomerMailingAddressDelete()
+		}
+
+		open func aliasedCustomerMailingAddressDelete(aliasSuffix: String) -> ApiSchema.CustomerMailingAddressDeletePayload? {
+			return internalGetCustomerMailingAddressDelete(aliasSuffix: aliasSuffix)
+		}
+
+		func internalGetCustomerMailingAddressDelete(aliasSuffix: String? = nil) -> ApiSchema.CustomerMailingAddressDeletePayload? {
+			return field(field: "customerMailingAddressDelete", aliasSuffix: aliasSuffix) as! ApiSchema.CustomerMailingAddressDeletePayload?
+		}
+
+		open var customerMailingAddressUpdate: ApiSchema.CustomerMailingAddressUpdatePayload? {
+			return internalGetCustomerMailingAddressUpdate()
+		}
+
+		open func aliasedCustomerMailingAddressUpdate(aliasSuffix: String) -> ApiSchema.CustomerMailingAddressUpdatePayload? {
+			return internalGetCustomerMailingAddressUpdate(aliasSuffix: aliasSuffix)
+		}
+
+		func internalGetCustomerMailingAddressUpdate(aliasSuffix: String? = nil) -> ApiSchema.CustomerMailingAddressUpdatePayload? {
+			return field(field: "customerMailingAddressUpdate", aliasSuffix: aliasSuffix) as! ApiSchema.CustomerMailingAddressUpdatePayload?
+		}
+
 		open var customerRecover: ApiSchema.CustomerRecoverPayload? {
 			return internalGetCustomerRecover()
 		}
@@ -450,6 +552,18 @@ extension ApiSchema {
 
 				return .Object
 
+				case "customerMailingAddressCreate":
+
+				return .Object
+
+				case "customerMailingAddressDelete":
+
+				return .Object
+
+				case "customerMailingAddressUpdate":
+
+				return .Object
+
 				case "customerRecover":
 
 				return .Object
@@ -499,6 +613,15 @@ extension ApiSchema {
 
 				case "customerCreate":
 				return internalGetCustomerCreate()
+
+				case "customerMailingAddressCreate":
+				return internalGetCustomerMailingAddressCreate()
+
+				case "customerMailingAddressDelete":
+				return internalGetCustomerMailingAddressDelete()
+
+				case "customerMailingAddressUpdate":
+				return internalGetCustomerMailingAddressUpdate()
 
 				case "customerRecover":
 				return internalGetCustomerRecover()
@@ -565,6 +688,24 @@ extension ApiSchema {
 
 					case "customerCreate":
 					if let value = internalGetCustomerCreate() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "customerMailingAddressCreate":
+					if let value = internalGetCustomerMailingAddressCreate() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "customerMailingAddressDelete":
+					if let value = internalGetCustomerMailingAddressDelete() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "customerMailingAddressUpdate":
+					if let value = internalGetCustomerMailingAddressUpdate() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}

@@ -9,7 +9,7 @@ extension ApiSchema {
 
 		open var items: [LineItemInput]?
 
-		open var shippingAddress: AddressInput?
+		open var shippingAddress: MailingAddressInput?
 
 		public init(
 			clientMutationId: String? = nil,
@@ -18,7 +18,7 @@ extension ApiSchema {
 
 			items: [LineItemInput]? = nil,
 
-			shippingAddress: AddressInput? = nil
+			shippingAddress: MailingAddressInput? = nil
 		) {
 			self.clientMutationId = clientMutationId
 

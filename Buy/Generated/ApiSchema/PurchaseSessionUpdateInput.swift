@@ -11,7 +11,7 @@ extension ApiSchema {
 
 		open var items: [LineItemInput]?
 
-		open var shippingAddress: AddressInput?
+		open var shippingAddress: MailingAddressInput?
 
 		public init(
 			id: GraphQL.ID,
@@ -22,7 +22,7 @@ extension ApiSchema {
 
 			items: [LineItemInput]? = nil,
 
-			shippingAddress: AddressInput? = nil
+			shippingAddress: MailingAddressInput? = nil
 		) {
 			self.clientMutationId = clientMutationId
 
