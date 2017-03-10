@@ -31,6 +31,8 @@ class CollectionsViewController: UIViewController {
 
     @IBOutlet weak var tableView: StorefrontTableView!
     
+    let graph = Graph()
+    
     fileprivate var collections: [CollectionViewModel] = []
     
     // ----------------------------------
@@ -39,35 +41,12 @@ class CollectionsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let query = Storefront.buildQuery { $0
-            .shop { $0
-                .collections(first: 25) { $0
-                    .edges { $0
-                        .node { $0
-                            .id()
-                            .title()
-                            .descriptionPlainSummary()
-                            .fragmentForStandardImage()
-                            .products(first: 25) { $0
-                                .fragmentForStandardProduct()
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        
-        let task = GraphClient.shared.queryGraphWith(query) { (query, error) in
-            
-            if let query = query {
-                self.collections = query.shop.collectionsArray().viewModels
+        self.graph.fetchCollections { collections in
+            if let collections = collections {
+                self.collections = collections
                 self.tableView.reloadData()
-            } else {
-                print("Failed to load collections: \(error)")
             }
         }
-        
-        task.resume()
     }
 }
 

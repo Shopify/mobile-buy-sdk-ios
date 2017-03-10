@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9A15B73A1E64627A0078E7C5 /* StorefrontTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A15B7391E64627A0078E7C5 /* StorefrontTableView.swift */; };
+		9A8E88511E719A6E0042879D /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8E88501E719A6E0042879D /* Graph.swift */; };
+		9A8E885A1E719EB20042879D /* GraphQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8E88591E719EB20042879D /* GraphQuery.swift */; };
 		9AAFAB7B1E60BDF900864A17 /* CollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB7A1E60BDF900864A17 /* CollectionCell.swift */; };
 		9AAFAB7E1E60BE6500864A17 /* ViewModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB7D1E60BE6500864A17 /* ViewModeling.swift */; };
 		9AAFAB801E60BE9800864A17 /* ViewModelConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB7F1E60BE9800864A17 /* ViewModelConfigurable.swift */; };
@@ -35,7 +37,6 @@
 		9AEF61D71E6070F40067FA90 /* Fragment+Shop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF61D61E6070F40067FA90 /* Fragment+Shop.swift */; };
 		9AFA3B7D1E6DB7110056C5AA /* ProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFA3B7C1E6DB7110056C5AA /* ProductsViewController.swift */; };
 		9AFA3B7F1E6DC5FD0056C5AA /* Storyboard+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFA3B7E1E6DC5FD0056C5AA /* Storyboard+ViewController.swift */; };
-		9AFA3B811E6DEEA90056C5AA /* GraphClient+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFA3B801E6DEEA90056C5AA /* GraphClient+Shared.swift */; };
 		9AFA3B871E6DFF530056C5AA /* DepressibleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFA3B861E6DFF530056C5AA /* DepressibleCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +80,8 @@
 
 /* Begin PBXFileReference section */
 		9A15B7391E64627A0078E7C5 /* StorefrontTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorefrontTableView.swift; sourceTree = "<group>"; };
+		9A8E88501E719A6E0042879D /* Graph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
+		9A8E88591E719EB20042879D /* GraphQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQuery.swift; sourceTree = "<group>"; };
 		9AAFAB7A1E60BDF900864A17 /* CollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionCell.swift; sourceTree = "<group>"; };
 		9AAFAB7D1E60BE6500864A17 /* ViewModeling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModeling.swift; sourceTree = "<group>"; };
 		9AAFAB7F1E60BE9800864A17 /* ViewModelConfigurable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelConfigurable.swift; sourceTree = "<group>"; };
@@ -107,7 +110,6 @@
 		9AEF61D61E6070F40067FA90 /* Fragment+Shop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fragment+Shop.swift"; sourceTree = "<group>"; };
 		9AFA3B7C1E6DB7110056C5AA /* ProductsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsViewController.swift; sourceTree = "<group>"; };
 		9AFA3B7E1E6DC5FD0056C5AA /* Storyboard+ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Storyboard+ViewController.swift"; sourceTree = "<group>"; };
-		9AFA3B801E6DEEA90056C5AA /* GraphClient+Shared.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GraphClient+Shared.swift"; sourceTree = "<group>"; };
 		9AFA3B861E6DFF530056C5AA /* DepressibleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepressibleCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,6 +125,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9A8E884E1E7199870042879D /* API */ = {
+			isa = PBXGroup;
+			children = (
+				9A8E88501E719A6E0042879D /* Graph.swift */,
+				9A8E88591E719EB20042879D /* GraphQuery.swift */,
+				9AEF61CA1E606EEB0067FA90 /* Fragments */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
 		9AAFAB781E60BD5800864A17 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -162,7 +174,6 @@
 				9AAFAB8E1E60C6AC00864A17 /* UIImageView+Remote.swift */,
 				9AAFAB931E60D2D000864A17 /* NSObject+Name.swift */,
 				9AFA3B7E1E6DC5FD0056C5AA /* Storyboard+ViewController.swift */,
-				9AFA3B801E6DEEA90056C5AA /* GraphClient+Shared.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -201,7 +212,7 @@
 				9AAFAB901E60D0F900864A17 /* UI */,
 				9AAFAB8D1E60C69C00864A17 /* Extensions */,
 				9AAFAB7C1E60BE3700864A17 /* Protocols */,
-				9AEF61CA1E606EEB0067FA90 /* Fragments */,
+				9A8E884E1E7199870042879D /* API */,
 				9AAFAB781E60BD5800864A17 /* View Controllers */,
 				9ADAD46E1E563091008AC561 /* Main.storyboard */,
 				9ADAD47C1E5630CB008AC561 /* Supporting Files */,
@@ -373,6 +384,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A8E88511E719A6E0042879D /* Graph.swift in Sources */,
 				9AEF61D71E6070F40067FA90 /* Fragment+Shop.swift in Sources */,
 				9AAFAB961E60D83600864A17 /* Fragment+CollectionQuery.swift in Sources */,
 				9AEF61D11E606F930067FA90 /* Fragment+Product.swift in Sources */,
@@ -394,7 +406,7 @@
 				9AAFAB801E60BE9800864A17 /* ViewModelConfigurable.swift in Sources */,
 				9AEF61CE1E606F100067FA90 /* Fragment+ImageConnectionQuery.swift in Sources */,
 				9ADAD46B1E563091008AC561 /* AppDelegate.swift in Sources */,
-				9AFA3B811E6DEEA90056C5AA /* GraphClient+Shared.swift in Sources */,
+				9A8E885A1E719EB20042879D /* GraphQuery.swift in Sources */,
 				9AFA3B7F1E6DC5FD0056C5AA /* Storyboard+ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
