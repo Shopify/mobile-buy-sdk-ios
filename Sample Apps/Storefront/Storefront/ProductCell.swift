@@ -26,7 +26,7 @@
 
 import UIKit
 
-class ProductCell: UICollectionViewCell, ViewModelConfigurable {
+class ProductCell: DepressibleCell, ViewModelConfigurable {
 
     typealias ViewModelType = ProductViewModel
     

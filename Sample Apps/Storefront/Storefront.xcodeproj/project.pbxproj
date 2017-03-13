@@ -36,6 +36,7 @@
 		9AFA3B7D1E6DB7110056C5AA /* ProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFA3B7C1E6DB7110056C5AA /* ProductsViewController.swift */; };
 		9AFA3B7F1E6DC5FD0056C5AA /* Storyboard+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFA3B7E1E6DC5FD0056C5AA /* Storyboard+ViewController.swift */; };
 		9AFA3B811E6DEEA90056C5AA /* GraphClient+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFA3B801E6DEEA90056C5AA /* GraphClient+Shared.swift */; };
+		9AFA3B871E6DFF530056C5AA /* DepressibleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFA3B861E6DFF530056C5AA /* DepressibleCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +108,7 @@
 		9AFA3B7C1E6DB7110056C5AA /* ProductsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsViewController.swift; sourceTree = "<group>"; };
 		9AFA3B7E1E6DC5FD0056C5AA /* Storyboard+ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Storyboard+ViewController.swift"; sourceTree = "<group>"; };
 		9AFA3B801E6DEEA90056C5AA /* GraphClient+Shared.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GraphClient+Shared.swift"; sourceTree = "<group>"; };
+		9AFA3B861E6DFF530056C5AA /* DepressibleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepressibleCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +170,7 @@
 		9AAFAB901E60D0F900864A17 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				9AFA3B861E6DFF530056C5AA /* DepressibleCell.swift */,
 				9AAFAB911E60D11000864A17 /* StorefrontCollectionView.swift */,
 				9A15B7391E64627A0078E7C5 /* StorefrontTableView.swift */,
 			);
@@ -387,6 +390,7 @@
 				9AFA3B7D1E6DB7110056C5AA /* ProductsViewController.swift in Sources */,
 				9ADAD46D1E563091008AC561 /* CollectionsViewController.swift in Sources */,
 				9AAFAB821E60BEE000864A17 /* CollectionViewModel.swift in Sources */,
+				9AFA3B871E6DFF530056C5AA /* DepressibleCell.swift in Sources */,
 				9AAFAB801E60BE9800864A17 /* ViewModelConfigurable.swift in Sources */,
 				9AEF61CE1E606F100067FA90 /* Fragment+ImageConnectionQuery.swift in Sources */,
 				9ADAD46B1E563091008AC561 /* AppDelegate.swift in Sources */,
