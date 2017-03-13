@@ -168,7 +168,7 @@ extension Storefront {
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return value
+				return URL(string: value)!
 
 				case "displayFinancialStatus":
 				if value is NSNull { return nil }
@@ -291,12 +291,12 @@ extension Storefront {
 			return field(field: "currencyCode", aliasSuffix: aliasSuffix) as! Storefront.CurrencyCode
 		}
 
-		open var customerUrl: String? {
+		open var customerUrl: URL? {
 			return internalGetCustomerUrl()
 		}
 
-		func internalGetCustomerUrl(aliasSuffix: String? = nil) -> String? {
-			return field(field: "customerUrl", aliasSuffix: aliasSuffix) as! String?
+		func internalGetCustomerUrl(aliasSuffix: String? = nil) -> URL? {
+			return field(field: "customerUrl", aliasSuffix: aliasSuffix) as! URL?
 		}
 
 		open var displayFinancialStatus: Storefront.OrderDisplayFinancialStatus? {

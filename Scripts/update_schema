@@ -19,6 +19,12 @@ customScalars = [
 	  serialize_expr:   ->(expr) { "GraphQL.iso8601DateParser.string(from: #{expr})" },
 	),
 	GraphQLSwiftGen::Scalar.new(
+      type_name:       'URL',
+      swift_type:      'URL',
+      deserialize_expr: ->(expr) { "URL(string: #{expr})!" },
+      serialize_expr:   ->(expr) { "#{expr}.absoluteString" },
+    ),
+	GraphQLSwiftGen::Scalar.new(
 	  type_name:       'Money',
 	  swift_type:      'NSDecimalNumber',
 	  deserialize_expr: ->(expr) { "NSDecimalNumber(string: #{expr}, locale: GraphQL.posixLocale)" },
