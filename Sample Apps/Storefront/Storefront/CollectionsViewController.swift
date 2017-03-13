@@ -31,7 +31,7 @@ class CollectionsViewController: UIViewController {
 
     @IBOutlet weak var tableView: StorefrontTableView!
     
-    var collections: [CollectionViewModel] = []
+    fileprivate var collections: [CollectionViewModel] = []
     
     // ----------------------------------
     //  MARK: - View Loading -
@@ -44,6 +44,7 @@ class CollectionsViewController: UIViewController {
                 .collections(first: 25) { $0
                     .edges { $0
                         .node { $0
+                            .id()
                             .title()
                             .descriptionPlainSummary()
                             .fragmentForStandardImage()
@@ -55,9 +56,8 @@ class CollectionsViewController: UIViewController {
                 }
             }
         }
-
-        let client = GraphClient(shopDomain: "your-shop.myshopify.com", apiKey: "your-api-key")
-        let task   = client.queryGraphWith(query) { (query, error) in
+        
+        let task = GraphClient.shared.queryGraphWith(query) { (query, error) in
             
             if let query = query {
                 self.collections = query.shop.collectionsArray().viewModels
@@ -89,7 +89,7 @@ extension CollectionsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell       = tableView.dequeueReusableCell(withIdentifier: CollectionCell.className, for: indexPath) as! CollectionCell
-        let collection = self.collections[indexPath.row]
+        let collection = self.collections[indexPath.section]
         
         cell.configureFrom(collection)
         
@@ -125,6 +125,10 @@ extension CollectionsViewController: UITableViewDataSource {
 extension CollectionsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let collection = self.collections[indexPath.section]
         
+        let productsController: ProductsViewController = self.storyboard!.instantiateViewController()
+        productsController.collection = collection
+        self.navigationController!.pushViewController(productsController, animated: true)
     }
 }

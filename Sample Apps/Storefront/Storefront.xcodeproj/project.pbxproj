@@ -33,6 +33,9 @@
 		9AEF61D11E606F930067FA90 /* Fragment+Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF61D01E606F930067FA90 /* Fragment+Product.swift */; };
 		9AEF61D51E6070880067FA90 /* Fragment+Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF61D41E6070880067FA90 /* Fragment+Collection.swift */; };
 		9AEF61D71E6070F40067FA90 /* Fragment+Shop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF61D61E6070F40067FA90 /* Fragment+Shop.swift */; };
+		9AFA3B7D1E6DB7110056C5AA /* ProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFA3B7C1E6DB7110056C5AA /* ProductsViewController.swift */; };
+		9AFA3B7F1E6DC5FD0056C5AA /* Storyboard+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFA3B7E1E6DC5FD0056C5AA /* Storyboard+ViewController.swift */; };
+		9AFA3B811E6DEEA90056C5AA /* GraphClient+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFA3B801E6DEEA90056C5AA /* GraphClient+Shared.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 9AEF60F21E5F42D90067FA90;
 			remoteInfo = Buy;
+		};
+		9AFA3B7A1E6DB6FE0056C5AA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9AEF61BF1E606C710067FA90 /* Buy.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9AFA38EA1E64850A0056C5AA;
+			remoteInfo = BuyTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -94,6 +104,9 @@
 		9AEF61D01E606F930067FA90 /* Fragment+Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fragment+Product.swift"; sourceTree = "<group>"; };
 		9AEF61D41E6070880067FA90 /* Fragment+Collection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fragment+Collection.swift"; sourceTree = "<group>"; };
 		9AEF61D61E6070F40067FA90 /* Fragment+Shop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fragment+Shop.swift"; sourceTree = "<group>"; };
+		9AFA3B7C1E6DB7110056C5AA /* ProductsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsViewController.swift; sourceTree = "<group>"; };
+		9AFA3B7E1E6DC5FD0056C5AA /* Storyboard+ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Storyboard+ViewController.swift"; sourceTree = "<group>"; };
+		9AFA3B801E6DEEA90056C5AA /* GraphClient+Shared.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GraphClient+Shared.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				9AAFAB791E60BDED00864A17 /* Collections */,
+				9AFA3B781E6DB6FE0056C5AA /* Products */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -145,6 +159,8 @@
 			children = (
 				9AAFAB8E1E60C6AC00864A17 /* UIImageView+Remote.swift */,
 				9AAFAB931E60D2D000864A17 /* NSObject+Name.swift */,
+				9AFA3B7E1E6DC5FD0056C5AA /* Storyboard+ViewController.swift */,
+				9AFA3B801E6DEEA90056C5AA /* GraphClient+Shared.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -212,6 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				9AEF61C41E606C710067FA90 /* Buy.framework */,
+				9AFA3B7B1E6DB6FE0056C5AA /* BuyTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -243,6 +260,14 @@
 				9AAFAB951E60D83600864A17 /* Fragment+CollectionQuery.swift */,
 			);
 			name = Queries;
+			sourceTree = "<group>";
+		};
+		9AFA3B781E6DB6FE0056C5AA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9AFA3B7C1E6DB7110056C5AA /* ProductsViewController.swift */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -316,6 +341,13 @@
 			remoteRef = 9AEF61C31E606C710067FA90 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		9AFA3B7B1E6DB6FE0056C5AA /* BuyTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = BuyTests.xctest;
+			remoteRef = 9AFA3B7A1E6DB6FE0056C5AA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -352,11 +384,14 @@
 				9AAFAB941E60D2D000864A17 /* NSObject+Name.swift in Sources */,
 				9AEF61CC1E606EFE0067FA90 /* Fragment+ProductConnectionQuery.swift in Sources */,
 				9AAFAB8F1E60C6AC00864A17 /* UIImageView+Remote.swift in Sources */,
+				9AFA3B7D1E6DB7110056C5AA /* ProductsViewController.swift in Sources */,
 				9ADAD46D1E563091008AC561 /* CollectionsViewController.swift in Sources */,
 				9AAFAB821E60BEE000864A17 /* CollectionViewModel.swift in Sources */,
 				9AAFAB801E60BE9800864A17 /* ViewModelConfigurable.swift in Sources */,
 				9AEF61CE1E606F100067FA90 /* Fragment+ImageConnectionQuery.swift in Sources */,
 				9ADAD46B1E563091008AC561 /* AppDelegate.swift in Sources */,
+				9AFA3B811E6DEEA90056C5AA /* GraphClient+Shared.swift in Sources */,
+				9AFA3B7F1E6DC5FD0056C5AA /* Storyboard+ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
