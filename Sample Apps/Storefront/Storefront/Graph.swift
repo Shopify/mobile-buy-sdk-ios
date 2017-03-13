@@ -32,12 +32,14 @@ final class Graph {
     private static let shopDomain = "your-shop.myshopify.com"
     private static let apiKey     = "your-api-key"
     
+    static let shared = Graph()
+    
     private let client: GraphClient = GraphClient(shopDomain: Graph.shopDomain, apiKey: Graph.apiKey)
     
     // ----------------------------------
     //  MARK: - Init -
     //
-    required init() {
+    private init() {
         
     }
     

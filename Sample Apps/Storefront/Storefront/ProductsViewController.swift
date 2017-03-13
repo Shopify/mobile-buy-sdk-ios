@@ -43,7 +43,7 @@ class ProductsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.graph.fetcProducts(in: self.collection) { products in
+        Graph.shared.fetcProducts(in: self.collection) { products in
             if let products = products {
                 self.products = products
                 self.collectionView.reloadData()

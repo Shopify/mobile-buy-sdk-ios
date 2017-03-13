@@ -31,8 +31,6 @@ class CollectionsViewController: UIViewController {
 
     @IBOutlet weak var tableView: StorefrontTableView!
     
-    let graph = Graph()
-    
     fileprivate var collections: [CollectionViewModel] = []
     
     // ----------------------------------
@@ -41,7 +39,7 @@ class CollectionsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.graph.fetchCollections { collections in
+        Graph.shared.fetchCollections { collections in
             if let collections = collections {
                 self.collections = collections
                 self.tableView.reloadData()
