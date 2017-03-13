@@ -38,13 +38,8 @@ struct ProductViewModel: ViewModel {
     //  MARK: - Init -
     //
     init(from model: ModelType) {
-        if let image = model.imagesArray().first {
-            self.imageURL = URL(string: image.src)!
-        } else {
-            self.imageURL = nil
-        }
-        
-        self.model = model
+        self.model    = model
+        self.imageURL = model.imagesArray().first?.src
     }
 }
 

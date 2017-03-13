@@ -41,15 +41,10 @@ struct CollectionViewModel: ViewModel {
     //  MARK: - Init -
     //
     init(from model: Storefront.Collection) {
-        if let source = model.image?.src {
-            self.imageURL = URL(string: source)!
-        } else {
-            self.imageURL = nil
-        }
-        
         self.model       = model
         self.products    = model.productsArray().viewModels
         self.title       = model.title
+        self.imageURL    = model.image?.src
         self.description = model.descriptionPlainSummary
     }
 }
