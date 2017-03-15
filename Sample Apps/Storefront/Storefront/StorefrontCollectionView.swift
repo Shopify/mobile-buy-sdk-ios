@@ -26,9 +26,20 @@
 
 import UIKit
 
-class StorefrontCollectionView: UICollectionView {
+protocol StorefrontCollectionViewDelegate: class {
+    func collectionViewWillBeginPaging(_ collectionView: StorefrontCollectionView)
+    func collectionViewDidCompletePaging(_ collectionView: StorefrontCollectionView)
+}
+
+class StorefrontCollectionView: UICollectionView, Paginating {
     
     @IBInspectable private dynamic var cellNibName: String?
+    
+    weak var paginationDelegate: StorefrontCollectionViewDelegate?
+    
+    var paginationThreshold: CGFloat             = 500.0
+    var paginationState:     PaginationState     = .ready
+    var paginationDirection: PaginationDirection = .verical
     
     // ----------------------------------
     //  MARK: - Awake -
@@ -39,5 +50,22 @@ class StorefrontCollectionView: UICollectionView {
         if let className = self.value(forKey: "cellNibName") as? String {
             self.register(UINib(nibName: className, bundle: nil), forCellWithReuseIdentifier: className)
         }
+    }
+    
+    // ----------------------------------
+    //  MARK: - Layout -
+    //
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        self.trackPaging()
+    }
+    
+    func willBeginPaging() {
+        self.paginationDelegate?.collectionViewWillBeginPaging(self)
+    }
+    
+    func didCompletePaging() {
+        self.paginationDelegate?.collectionViewDidCompletePaging(self)
     }
 }

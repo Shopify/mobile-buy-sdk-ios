@@ -26,9 +26,20 @@
 
 import UIKit
 
-class StorefrontTableView: UITableView {
+protocol StorefrontTableViewDelegate: class {
+    func tableViewWillBeginPaging(_ table: StorefrontTableView)
+    func tableViewDidCompletePaging(_ table: StorefrontTableView)
+}
+
+class StorefrontTableView: UITableView, Paginating {
     
     @IBInspectable private dynamic var cellNibName: String?
+    
+    weak var paginationDelegate: StorefrontTableViewDelegate?
+    
+    var paginationThreshold: CGFloat             = 500.0
+    var paginationState:     PaginationState     = .ready
+    var paginationDirection: PaginationDirection = .verical
     
     // ----------------------------------
     //  MARK: - Awake -
@@ -39,5 +50,22 @@ class StorefrontTableView: UITableView {
         if let className = self.value(forKey: "cellNibName") as? String {
             self.register(UINib(nibName: className, bundle: nil), forCellReuseIdentifier: className)
         }
+    }
+    
+    // ----------------------------------
+    //  MARK: - Layout -
+    //
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        self.trackPaging()
+    }
+    
+    func willBeginPaging() {
+        self.paginationDelegate?.tableViewWillBeginPaging(self)
+    }
+    
+    func didCompletePaging() {
+        self.paginationDelegate?.tableViewDidCompletePaging(self)
     }
 }
