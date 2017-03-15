@@ -31,6 +31,7 @@ class ProductsViewController: UIViewController {
     
     @IBOutlet weak var collectionView: StorefrontCollectionView!
     
+    var graph:      Graph!
     var collection: CollectionViewModel!
     
     fileprivate let columns:  Int = 2
@@ -42,30 +43,12 @@ class ProductsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let query = Storefront.buildQuery { $0
-            .node(id: self.collection.model.id) { $0
-                .onCollection { $0
-                    .products(first: 25) { $0
-                        .fragmentForStandardProduct()
-                    }
-                }
-            }
-        }
-        
-        let task = GraphClient.shared.queryGraphWith(query) { (query, error) in
-            
-            if let query = query,
-                let collection = query.node as? Storefront.Collection {
-                
-                self.products = collection.products.edges.map { $0.node }.viewModels
+        Graph.shared.fetcProducts(in: self.collection) { products in
+            if let products = products {
+                self.products = products
                 self.collectionView.reloadData()
-                
-            } else {
-                print("Failed to load products in collection (\(self.collection.model.id.rawValue)): \(error)")
             }
         }
-        
-        task.resume()
     }
 }
 
