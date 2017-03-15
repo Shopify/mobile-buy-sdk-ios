@@ -1,5 +1,5 @@
 //
-//  ProductCell.swift
+//  VariantViewModel.swift
 //  Storefront
 //
 //  Created by Shopify.
@@ -24,23 +24,31 @@
 //  THE SOFTWARE.
 //
 
-import UIKit
+import Foundation
+import Buy
 
-class ProductCell: DepressibleCell, ViewModelConfigurable {
-
-    typealias ViewModelType = ProductViewModel
+struct VariantViewModel: ViewModel {
     
-    @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var priceLabel: UILabel!
-    @IBOutlet private weak var imageView:  UIImageView!
+    typealias ModelType = Storefront.ProductVariant
     
-    private(set) var viewModel: ProductViewModel?
+    let model:    ModelType
     
-    func configureFrom(_ viewModel: ProductViewModel) {
-        self.viewModel = viewModel
+    let title:    String
+    let price:    Decimal
+    let imageURL: URL?
+    
+    // ----------------------------------
+    //  MARK: - Init -
+    //
+    init(from model: ModelType) {
+        self.model    = model
         
-        self.titleLabel.text = viewModel.title
-        self.priceLabel.text = viewModel.price
-        self.imageView.setImageFrom(viewModel.imageURL)
+        self.title    = model.title
+        self.price    = model.price as Decimal
+        self.imageURL = model.images.first?.src
     }
+}
+
+extension Storefront.ProductVariant: ViewModeling {
+    typealias ViewModelType = VariantViewModel
 }

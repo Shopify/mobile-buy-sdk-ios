@@ -10,6 +10,8 @@
 		9A15B73A1E64627A0078E7C5 /* StorefrontTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A15B7391E64627A0078E7C5 /* StorefrontTableView.swift */; };
 		9A8E88511E719A6E0042879D /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8E88501E719A6E0042879D /* Graph.swift */; };
 		9A8E885A1E719EB20042879D /* GraphQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8E88591E719EB20042879D /* GraphQuery.swift */; };
+		9A9FFEEA1E772DF500F6DFF7 /* VariantViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9FFEE91E772DF500F6DFF7 /* VariantViewModel.swift */; };
+		9A9FFEFD1E78432F00F6DFF7 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9FFEFC1E78432F00F6DFF7 /* Currency.swift */; };
 		9AAFAB7B1E60BDF900864A17 /* CollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB7A1E60BDF900864A17 /* CollectionCell.swift */; };
 		9AAFAB7E1E60BE6500864A17 /* ViewModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB7D1E60BE6500864A17 /* ViewModeling.swift */; };
 		9AAFAB801E60BE9800864A17 /* ViewModelConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB7F1E60BE9800864A17 /* ViewModelConfigurable.swift */; };
@@ -82,6 +84,8 @@
 		9A15B7391E64627A0078E7C5 /* StorefrontTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorefrontTableView.swift; sourceTree = "<group>"; };
 		9A8E88501E719A6E0042879D /* Graph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
 		9A8E88591E719EB20042879D /* GraphQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQuery.swift; sourceTree = "<group>"; };
+		9A9FFEE91E772DF500F6DFF7 /* VariantViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariantViewModel.swift; sourceTree = "<group>"; };
+		9A9FFEFC1E78432F00F6DFF7 /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		9AAFAB7A1E60BDF900864A17 /* CollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionCell.swift; sourceTree = "<group>"; };
 		9AAFAB7D1E60BE6500864A17 /* ViewModeling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModeling.swift; sourceTree = "<group>"; };
 		9AAFAB7F1E60BE9800864A17 /* ViewModelConfigurable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelConfigurable.swift; sourceTree = "<group>"; };
@@ -135,6 +139,14 @@
 			name = API;
 			sourceTree = "<group>";
 		};
+		9A9FFEFB1E78431C00F6DFF7 /* Formatters */ = {
+			isa = PBXGroup;
+			children = (
+				9A9FFEFC1E78432F00F6DFF7 /* Currency.swift */,
+			);
+			name = Formatters;
+			sourceTree = "<group>";
+		};
 		9AAFAB781E60BD5800864A17 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -150,6 +162,7 @@
 				9AAFAB871E60C17100864A17 /* ProductCell.swift */,
 				9AAFAB881E60C17100864A17 /* ProductCell.xib */,
 				9AAFAB851E60C15300864A17 /* ProductViewModel.swift */,
+				9A9FFEE91E772DF500F6DFF7 /* VariantViewModel.swift */,
 				9AAFAB7A1E60BDF900864A17 /* CollectionCell.swift */,
 				9AAFAB831E60BF4400864A17 /* CollectionCell.xib */,
 				9AAFAB811E60BEE000864A17 /* CollectionViewModel.swift */,
@@ -209,6 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				9ADAD46A1E563091008AC561 /* AppDelegate.swift */,
+				9A9FFEFB1E78431C00F6DFF7 /* Formatters */,
 				9AAFAB901E60D0F900864A17 /* UI */,
 				9AAFAB8D1E60C69C00864A17 /* Extensions */,
 				9AAFAB7C1E60BE3700864A17 /* Protocols */,
@@ -392,6 +406,7 @@
 				9AAFAB7E1E60BE6500864A17 /* ViewModeling.swift in Sources */,
 				9AAFAB891E60C17100864A17 /* ProductCell.swift in Sources */,
 				9AEF61D51E6070880067FA90 /* Fragment+Collection.swift in Sources */,
+				9A9FFEFD1E78432F00F6DFF7 /* Currency.swift in Sources */,
 				9AAFAB921E60D11000864A17 /* StorefrontCollectionView.swift in Sources */,
 				9A15B73A1E64627A0078E7C5 /* StorefrontTableView.swift in Sources */,
 				9AAFAB8C1E60C3C700864A17 /* ViewModel.swift in Sources */,
@@ -403,6 +418,7 @@
 				9ADAD46D1E563091008AC561 /* CollectionsViewController.swift in Sources */,
 				9AAFAB821E60BEE000864A17 /* CollectionViewModel.swift in Sources */,
 				9AFA3B871E6DFF530056C5AA /* DepressibleCell.swift in Sources */,
+				9A9FFEEA1E772DF500F6DFF7 /* VariantViewModel.swift in Sources */,
 				9AAFAB801E60BE9800864A17 /* ViewModelConfigurable.swift in Sources */,
 				9AEF61CE1E606F100067FA90 /* Fragment+ImageConnectionQuery.swift in Sources */,
 				9ADAD46B1E563091008AC561 /* AppDelegate.swift in Sources */,

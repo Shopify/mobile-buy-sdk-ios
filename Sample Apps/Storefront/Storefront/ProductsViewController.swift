@@ -63,19 +63,24 @@ extension ProductsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell       = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCell.className, for: indexPath) as! ProductCell
-        let collection = self.products[indexPath.item]
+        let cell    = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCell.className, for: indexPath) as! ProductCell
+        let product = self.products[indexPath.item]
         
-        cell.configureFrom(collection)
+        cell.configureFrom(product)
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        cell.layer.cornerRadius  = 4.0
+        cell.layer.masksToBounds = true
     }
 }
 
 extension ProductsViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         let layout         = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         let itemSpacing    = layout.minimumInteritemSpacing * CGFloat(self.columns - 1)
         let sectionSpacing = layout.sectionInset.left + layout.sectionInset.right
@@ -83,7 +88,7 @@ extension ProductsViewController: UICollectionViewDelegateFlowLayout {
         
         return CGSize(
             width:  length,
-            height: length
+            height: length + 78.0
         )
     }
 }

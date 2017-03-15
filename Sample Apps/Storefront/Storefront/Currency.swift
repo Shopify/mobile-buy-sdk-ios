@@ -1,5 +1,5 @@
 //
-//  ProductCell.swift
+//  Currency.swift
 //  Storefront
 //
 //  Created by Shopify.
@@ -24,23 +24,17 @@
 //  THE SOFTWARE.
 //
 
-import UIKit
+import Foundation
 
-class ProductCell: DepressibleCell, ViewModelConfigurable {
+struct Currency {
 
-    typealias ViewModelType = ProductViewModel
+    private static let formatter: NumberFormatter = {
+        let formatter         = NumberFormatter()
+        formatter.numberStyle = .currency
+        return formatter
+    }()
     
-    @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var priceLabel: UILabel!
-    @IBOutlet private weak var imageView:  UIImageView!
-    
-    private(set) var viewModel: ProductViewModel?
-    
-    func configureFrom(_ viewModel: ProductViewModel) {
-        self.viewModel = viewModel
-        
-        self.titleLabel.text = viewModel.title
-        self.priceLabel.text = viewModel.price
-        self.imageView.setImageFrom(viewModel.imageURL)
+    static func stringFrom(_ decimal: Decimal, currency: String? = nil) -> String {
+        return self.formatter.string(from: decimal as NSDecimalNumber)!
     }
 }
