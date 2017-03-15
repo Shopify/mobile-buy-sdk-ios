@@ -179,7 +179,9 @@ typedef NS_ENUM(NSInteger, UITableViewDiscountGiftCardSection) {
             }
             break;
         case UITableViewSectionContinue:
-            [self.optlyClient track:@"pre_checkout_cta_clicked" userId:self.userId attributes:self.userAttributes];
+            NSString *cartCTAEventKey = [[NSUserDefaults standardUserDefaults] stringForKey:@"optlyCartCtaEventKey"];
+
+            [self.optlyClient track:cartCTAEventKey userId:self.userId attributes:self.userAttributes];
             [self proceedToCheckout];
             break;
         default:
