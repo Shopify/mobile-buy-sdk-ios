@@ -29,6 +29,7 @@ protocol Paginating: class {
     var contentOffset: CGPoint      { get }
     var contentInset:  UIEdgeInsets { get }
     
+    func shouldBeginPaging() -> Bool
     func willBeginPaging()
     func didCompletePaging()
 }
@@ -80,6 +81,10 @@ extension Paginating {
     //  MARK: - State Management -
     //
     func beginPaging() {
+        guard self.shouldBeginPaging() else {
+            return
+        }
+        
 //        print("Paging -----------------------")
 //        print("Content size: \(self.contentSize)")
 //        print("Bounds: \(self.bounds)")
@@ -101,6 +106,10 @@ extension Paginating {
         if self.hasContent && self.hasBounds && self.paginationState == .ready && self.reachedPagingThreshold {
             self.beginPaging()
         }
+    }
+    
+    func shouldBeginPaging() -> Bool {
+        return false
     }
     
     func willBeginPaging() {

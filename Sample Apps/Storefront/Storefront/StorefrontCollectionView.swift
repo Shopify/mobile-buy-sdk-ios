@@ -27,6 +27,7 @@
 import UIKit
 
 protocol StorefrontCollectionViewDelegate: class {
+    func collectionViewShouldBeginPaging(_ collectionView: StorefrontCollectionView) -> Bool
     func collectionViewWillBeginPaging(_ collectionView: StorefrontCollectionView)
     func collectionViewDidCompletePaging(_ collectionView: StorefrontCollectionView)
 }
@@ -61,11 +62,17 @@ class StorefrontCollectionView: UICollectionView, Paginating {
         self.trackPaging()
     }
     
+    func shouldBeginPaging() -> Bool {
+        return self.paginationDelegate?.collectionViewShouldBeginPaging(self) ?? false
+    }
+    
     func willBeginPaging() {
+        print("Paging collection view...")
         self.paginationDelegate?.collectionViewWillBeginPaging(self)
     }
     
     func didCompletePaging() {
+        print("Finished paging collection view.")
         self.paginationDelegate?.collectionViewDidCompletePaging(self)
     }
 }

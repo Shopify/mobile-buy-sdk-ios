@@ -27,36 +27,42 @@
 import Foundation
 import Buy
 
-struct ProductViewModel: ViewModel {
+final class ProductViewModel: ViewModel {
     
-    typealias ModelType = Storefront.Product
+    typealias ModelType = Storefront.ProductEdge
     
     let model:    ModelType
+    let cursor:   String
     
     let title:    String
     let price:    String
     let imageURL: URL?
-    let variants: [VariantViewModel]
+    let variants: PageableArray<VariantViewModel>
     
     // ----------------------------------
     //  MARK: - Init -
     //
-    init(from model: ModelType) {
+    required init(from model: ModelType) {
         self.model    = model
+        self.cursor   = model.cursor
         
-        let variants = model.variants.edges.map { $0.node }.viewModels.sorted {
+        let variants = model.node.variants.edges.viewModels.sorted {
             $0.0.price < $0.1.price
         }
         
         let lowestPrice = variants.first?.price
         
-        self.title    = model.title
+        self.title    = model.node.title
         self.price    = lowestPrice == nil ? "No price" : Currency.stringFrom(lowestPrice!)
-        self.imageURL = model.imagesArray().first?.src
-        self.variants = variants
+        self.imageURL = model.node.images.edges.first?.node.src
+        
+        self.variants = PageableArray(
+            with:     model.node.variants.edges,
+            pageInfo: model.node.variants.pageInfo
+        )
     }
 }
 
-extension Storefront.Product: ViewModeling {
+extension Storefront.ProductEdge: ViewModeling {
     typealias ViewModelType = ProductViewModel
 }

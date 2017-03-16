@@ -27,6 +27,7 @@
 import UIKit
 
 protocol StorefrontTableViewDelegate: class {
+    func tableViewShouldBeginPaging(_ table: StorefrontTableView) -> Bool
     func tableViewWillBeginPaging(_ table: StorefrontTableView)
     func tableViewDidCompletePaging(_ table: StorefrontTableView)
 }
@@ -61,11 +62,17 @@ class StorefrontTableView: UITableView, Paginating {
         self.trackPaging()
     }
     
+    func shouldBeginPaging() -> Bool {
+        return self.paginationDelegate?.tableViewShouldBeginPaging(self) ?? false
+    }
+    
     func willBeginPaging() {
+        print("Paging table view...")
         self.paginationDelegate?.tableViewWillBeginPaging(self)
     }
     
     func didCompletePaging() {
+        print("Finished paging table view.")
         self.paginationDelegate?.tableViewDidCompletePaging(self)
     }
 }

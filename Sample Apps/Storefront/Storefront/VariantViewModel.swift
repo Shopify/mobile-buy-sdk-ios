@@ -27,28 +27,28 @@
 import Foundation
 import Buy
 
-struct VariantViewModel: ViewModel {
+final class VariantViewModel: ViewModel {
     
-    typealias ModelType = Storefront.ProductVariant
+    typealias ModelType = Storefront.ProductVariantEdge
     
     let model:    ModelType
+    let cursor:   String
     
     let title:    String
     let price:    Decimal
-    let imageURL: URL?
     
     // ----------------------------------
     //  MARK: - Init -
     //
-    init(from model: ModelType) {
+    required init(from model: ModelType) {
         self.model    = model
+        self.cursor   = model.cursor
         
-        self.title    = model.title
-        self.price    = model.price as Decimal
-        self.imageURL = model.images.first?.src
+        self.title    = model.node.title
+        self.price    = model.node.price as Decimal
     }
 }
 
-extension Storefront.ProductVariant: ViewModeling {
+extension Storefront.ProductVariantEdge: ViewModeling {
     typealias ViewModelType = VariantViewModel
 }

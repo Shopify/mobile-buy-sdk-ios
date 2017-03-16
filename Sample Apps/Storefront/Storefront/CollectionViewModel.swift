@@ -27,29 +27,36 @@
 import Foundation
 import Buy
 
-struct CollectionViewModel: ViewModel {
+final class CollectionViewModel: ViewModel {
     
-    typealias ModelType = Storefront.Collection
+    typealias ModelType = Storefront.CollectionEdge
     
     let model:       ModelType
+    let cursor:      String
+    
     let title:       String
     let description: String
     let imageURL:    URL?
-    let products:    [ProductViewModel]
+    var products:    PageableArray<ProductViewModel>
     
     // ----------------------------------
     //  MARK: - Init -
     //
-    init(from model: Storefront.Collection) {
+    required init(from model: ModelType) {
         self.model       = model
-        self.products    = model.productsArray().viewModels
-        self.title       = model.title
-        self.imageURL    = model.image?.src
-        self.description = model.descriptionPlainSummary
+        self.cursor      = model.cursor
+        
+        self.title       = model.node.title
+        self.imageURL    = model.node.image?.src
+        self.description = model.node.descriptionPlainSummary
+        
+        self.products    = PageableArray(
+            with:     model.node.products.edges,
+            pageInfo: model.node.products.pageInfo
+        )
     }
 }
 
-extension Storefront.Collection: ViewModeling {
+extension Storefront.CollectionEdge: ViewModeling {
     typealias ViewModelType = CollectionViewModel
 }
-

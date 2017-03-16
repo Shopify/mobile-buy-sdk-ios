@@ -35,7 +35,7 @@ class ProductsViewController: UIViewController {
     var collection: CollectionViewModel!
     
     fileprivate let columns:  Int = 2
-    fileprivate var products: [ProductViewModel] = []
+    fileprivate var products: PageableArray<ProductViewModel>!
     
     // ----------------------------------
     //  MARK: - View Loading -
@@ -43,7 +43,9 @@ class ProductsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Graph.shared.fetcProducts(in: self.collection) { products in
+        self.collectionView.paginationDelegate = self
+        
+        Graph.shared.fetchProducts(in: self.collection) { products in
             if let products = products {
                 self.products = products
                 self.collectionView.reloadData()
@@ -53,18 +55,47 @@ class ProductsViewController: UIViewController {
 }
 
 // ----------------------------------
+//  MARK: - PaginationDelegate -
+//
+extension ProductsViewController: StorefrontCollectionViewDelegate {
+    
+    func collectionViewShouldBeginPaging(_ collectionView: StorefrontCollectionView) -> Bool {
+        return self.products?.hasNextPage ?? false
+    }
+    
+    func collectionViewWillBeginPaging(_ collectionView: StorefrontCollectionView) {
+        if let products = self.products,
+            let lastProduct = products.items.last {
+            
+            Graph.shared.fetchProducts(in: self.collection, after: lastProduct.cursor) { products in
+                if let products = products {
+                    self.products.appendPage(from: products)
+                    
+                    self.collectionView.reloadData()
+                    self.collectionView.completePaging()
+                }
+            }
+        }
+    }
+    
+    func collectionViewDidCompletePaging(_ collectionView: StorefrontCollectionView) {
+        
+    }
+}
+
+// ----------------------------------
 //  MARK: - UICollectionViewDataSource -
 //
 extension ProductsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.products.count
+        return self.products?.items.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell    = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCell.className, for: indexPath) as! ProductCell
-        let product = self.products[indexPath.item]
+        let product = self.products.items[indexPath.item]
         
         cell.configureFrom(product)
         
