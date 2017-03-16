@@ -30,6 +30,7 @@ class ParallaxViewController: UIViewController {
     
     @IBInspectable var insets:       UIEdgeInsets = .zero
     @IBInspectable var headerHeight: CGFloat      = 200.0
+    @IBInspectable var multiplier:   CGFloat      = 0.5
 
     @IBOutlet private weak var headerView: UIView!
     @IBOutlet private weak var scrollView: UIScrollView!
@@ -39,6 +40,18 @@ class ParallaxViewController: UIViewController {
         self.view.addSubview(view)
         return view
     }()
+    
+    private var minY: CGFloat {
+        return max(self.insets.top, self.topLayoutGuide.length)
+    }
+    
+    private var midY: CGFloat {
+        return self.minY + self.headerHeight
+    }
+    
+    private var maxY: CGFloat {
+        return self.bottomLayoutGuide.length
+    }
     
     // ----------------------------------
     //  MARK: - View Loading -
@@ -60,6 +73,21 @@ class ParallaxViewController: UIViewController {
     }
     
     // ----------------------------------
+    //  MARK: - Updates -
+    //
+    func updateParallax() {
+        
+        let headerOffset = self.scrollView.contentOffset.y + self.midY
+        let headerY      = min(self.minY - (headerOffset * self.multiplier), self.minY)
+        let headerHeight = max(self.headerHeight, self.headerHeight + (headerOffset * -1.0))
+        
+        var frame             = self.headerView.frame
+        frame.origin.y        = headerY
+        frame.size.height     = headerHeight
+        self.headerView.frame = frame
+    }
+    
+    // ----------------------------------
     //  MARK: - Layout Subviews -
     //
     override func viewWillLayoutSubviews() {
@@ -78,7 +106,7 @@ class ParallaxViewController: UIViewController {
     
     private func layoutHeaderView() {
         var frame             = self.view.bounds
-        frame.origin.y        = max(self.insets.top, self.topLayoutGuide.length)
+        frame.origin.y        = self.minY
         frame.size.height     = self.headerHeight
         self.headerView.frame = frame
     }
@@ -87,8 +115,8 @@ class ParallaxViewController: UIViewController {
         self.scrollView.frame = self.view.bounds
         
         var insets                   = self.scrollView.contentInset
-        insets.top                   = self.headerView.frame.maxY
-        insets.bottom                = self.bottomLayoutGuide.length
+        insets.top                   = self.midY
+        insets.bottom                = self.maxY
         self.scrollView.contentInset = insets
     }
     
