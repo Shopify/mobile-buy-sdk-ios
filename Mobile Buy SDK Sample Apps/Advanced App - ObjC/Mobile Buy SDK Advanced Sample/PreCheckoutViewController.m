@@ -165,6 +165,7 @@ typedef NS_ENUM(NSInteger, UITableViewDiscountGiftCardSection) {
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSString *cartCTAEventKey = [[NSUserDefaults standardUserDefaults] stringForKey:@"optlyCartCtaEventKey"];
     switch (indexPath.section) {
         case UITableViewSectionDiscountGiftCard:
             switch (indexPath.row) {
@@ -179,8 +180,6 @@ typedef NS_ENUM(NSInteger, UITableViewDiscountGiftCardSection) {
             }
             break;
         case UITableViewSectionContinue:
-            NSString *cartCTAEventKey = [[NSUserDefaults standardUserDefaults] stringForKey:@"optlyCartCtaEventKey"];
-
             [self.optlyClient track:cartCTAEventKey userId:self.userId attributes:self.userAttributes];
             [self proceedToCheckout];
             break;
