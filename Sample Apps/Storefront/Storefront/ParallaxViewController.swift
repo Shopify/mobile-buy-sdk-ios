@@ -28,9 +28,9 @@ import UIKit
 
 class ParallaxViewController: UIViewController {
     
-    @IBInspectable var insets:       UIEdgeInsets = .zero
-    @IBInspectable var headerHeight: CGFloat      = 200.0
-    @IBInspectable var multiplier:   CGFloat      = 0.5
+    @IBInspectable var insets:       UIEdgeInsets = .zero { didSet { self.view.setNeedsLayout() } }
+    @IBInspectable var headerHeight: CGFloat      = 200.0 { didSet { self.view.setNeedsLayout() } }
+    @IBInspectable var multiplier:   CGFloat      = 0.5   { didSet { self.view.setNeedsLayout() } }
 
     @IBOutlet private weak var headerView: UIView!
     @IBOutlet private weak var scrollView: UIScrollView!
@@ -41,15 +41,15 @@ class ParallaxViewController: UIViewController {
         return view
     }()
     
-    private var minY: CGFloat {
+    private var topY: CGFloat {
         return max(self.insets.top, self.topLayoutGuide.length)
     }
     
     private var midY: CGFloat {
-        return self.minY + self.headerHeight
+        return self.topY + self.headerHeight
     }
     
-    private var maxY: CGFloat {
+    private var bottomSpace: CGFloat {
         return self.bottomLayoutGuide.length
     }
     
@@ -78,7 +78,7 @@ class ParallaxViewController: UIViewController {
     func updateParallax() {
         
         let headerOffset = self.scrollView.contentOffset.y + self.midY
-        let headerY      = min(self.minY - (headerOffset * self.multiplier), self.minY)
+        let headerY      = min(self.topY - (headerOffset * self.multiplier), self.topY)
         let headerHeight = max(self.headerHeight, self.headerHeight + (headerOffset * -1.0))
         
         var frame             = self.headerView.frame
@@ -98,6 +98,7 @@ class ParallaxViewController: UIViewController {
         self.layoutScrollView()
         
         self.adjustZIndex()
+        self.updateParallax()
     }
     
     private func layoutProxyView() {
@@ -106,7 +107,7 @@ class ParallaxViewController: UIViewController {
     
     private func layoutHeaderView() {
         var frame             = self.view.bounds
-        frame.origin.y        = self.minY
+        frame.origin.y        = self.topY
         frame.size.height     = self.headerHeight
         self.headerView.frame = frame
     }
@@ -116,13 +117,14 @@ class ParallaxViewController: UIViewController {
         
         var insets                   = self.scrollView.contentInset
         insets.top                   = self.midY
-        insets.bottom                = self.maxY
+        insets.bottom                = self.bottomSpace
         self.scrollView.contentInset = insets
     }
     
     private func adjustZIndex() {
-        self.view.insertSubview(self.scrollView, aboveSubview: self.headerView)
-        self.view.insertSubview(self.proxyView,  aboveSubview: self.scrollView)
+        self.view.insertSubview(self.headerView, at: 0)
+        self.view.insertSubview(self.scrollView, at: 1)
+        self.view.insertSubview(self.proxyView, at: 2)
     }
     
     // ----------------------------------
@@ -148,14 +150,14 @@ private class ProxyView: UIView {
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         
-        let headerPoint = self.headerView.convert(point, from: self)
-        if self.headerView.bounds.contains(headerPoint) {
-            return self.headerView
+        if self.headerView.point(inside: point, with: event) {
+            let headerPoint = self.headerView.convert(point, from: self)
+            return self.headerView.hitTest(headerPoint, with: event)
         }
         
-        let scrollViewPoint = self.scrollView.convert(point, from: self)
-        if self.scrollView.bounds.contains(scrollViewPoint) {
-            return self.scrollView
+        if self.scrollView.point(inside: point, with: event) {
+            let scrollViewPoint = self.scrollView.convert(point, from: self)
+            return self.scrollView.hitTest(scrollViewPoint, with: event)
         }
         
         return self.superview
