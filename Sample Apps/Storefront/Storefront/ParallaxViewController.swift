@@ -150,13 +150,13 @@ private class ProxyView: UIView {
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         
-        if self.headerView.point(inside: point, with: event) {
-            let headerPoint = self.headerView.convert(point, from: self)
+        let headerPoint = self.headerView.convert(point, from: self)
+        if self.headerView.point(inside: headerPoint, with: event) {
             return self.headerView.hitTest(headerPoint, with: event)
         }
         
-        if self.scrollView.point(inside: point, with: event) {
-            let scrollViewPoint = self.scrollView.convert(point, from: self)
+        let scrollViewPoint = self.scrollView.convert(point, from: self)
+        if self.scrollView.point(inside: scrollViewPoint, with: event) {
             return self.scrollView.hitTest(scrollViewPoint, with: event)
         }
         
