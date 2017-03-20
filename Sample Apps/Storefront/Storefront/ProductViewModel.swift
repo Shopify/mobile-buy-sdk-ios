@@ -32,14 +32,28 @@ struct ProductViewModel: ViewModel {
     typealias ModelType = Storefront.Product
     
     let model:    ModelType
+    
+    let title:    String
+    let price:    String
     let imageURL: URL?
+    let variants: [VariantViewModel]
     
     // ----------------------------------
     //  MARK: - Init -
     //
     init(from model: ModelType) {
         self.model    = model
+        
+        let variants = model.variants.edges.map { $0.node }.viewModels.sorted {
+            $0.0.price < $0.1.price
+        }
+        
+        let lowestPrice = variants.first?.price
+        
+        self.title    = model.title
+        self.price    = lowestPrice == nil ? "No price" : Currency.stringFrom(lowestPrice!)
         self.imageURL = model.imagesArray().first?.src
+        self.variants = variants
     }
 }
 

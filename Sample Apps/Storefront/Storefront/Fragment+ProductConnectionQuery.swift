@@ -32,6 +32,18 @@ extension Storefront.ProductConnectionQuery {
     func fragmentForStandardProduct() -> Storefront.ProductConnectionQuery { return self
         .edges { $0
             .node { $0
+                .title()
+                .variants(first: 250) { $0
+                    .edges { $0
+                        .node { $0
+                            .title()
+                            .price()
+                            .images(first: 15) { $0
+                                .src()
+                            }
+                        }
+                    }
+                }
                 .images(first: 1) { $0
                     .fragmentForStandardProductImage()
                 }

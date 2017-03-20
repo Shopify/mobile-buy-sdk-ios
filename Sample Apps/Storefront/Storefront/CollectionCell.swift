@@ -41,6 +41,15 @@ class CollectionCell: UITableViewCell, ViewModelConfigurable {
         self.titleImageView.setImageFrom(viewModel.imageURL)
         self.collectionView.reloadData()
     }
+    
+    // ----------------------------------
+    //  MARK: - Reuse -
+    //
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        self.collectionView.contentOffset = CGPoint.zero
+    }
 }
 
 // ----------------------------------

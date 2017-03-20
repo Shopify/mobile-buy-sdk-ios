@@ -20,7 +20,7 @@ class DepressibleCell: UICollectionViewCell {
                 scale = 1.0
             }
             
-            UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: [.beginFromCurrentState], animations: {
+            UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
                 self.layer.transform = CATransform3DMakeScale(scale, scale, scale)
             }, completion: nil)
         }
