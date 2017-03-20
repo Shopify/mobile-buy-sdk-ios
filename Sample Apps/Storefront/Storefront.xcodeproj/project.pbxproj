@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9A15B73A1E64627A0078E7C5 /* StorefrontTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A15B7391E64627A0078E7C5 /* StorefrontTableView.swift */; };
+		9A21F2981E7AD30F00E00F4B /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21F2971E7AD30F00E00F4B /* ProductDetailsViewController.swift */; };
 		9A21F29A1E7AD4FD00E00F4B /* ParallaxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21F2991E7AD4FD00E00F4B /* ParallaxViewController.swift */; };
 		9A21F29F1E7EC8AE00E00F4B /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21F29E1E7EC8AE00E00F4B /* ImageViewController.swift */; };
 		9A8E88511E719A6E0042879D /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8E88501E719A6E0042879D /* Graph.swift */; };
@@ -17,6 +18,7 @@
 		9A9FFF051E796F2100F6DFF7 /* Paginating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9FFF041E796F2100F6DFF7 /* Paginating.swift */; };
 		9A9FFF111E79C0AD00F6DFF7 /* Fragment+VariantConnectionQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9FFF101E79C0AD00F6DFF7 /* Fragment+VariantConnectionQuery.swift */; };
 		9A9FFF131E79CCC800F6DFF7 /* PaginatedArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9FFF121E79CCC800F6DFF7 /* PaginatedArray.swift */; };
+		9A9FFF1C1E7FF3A800F6DFF7 /* ImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9FFF1B1E7FF3A800F6DFF7 /* ImageViewModel.swift */; };
 		9AAFAB7B1E60BDF900864A17 /* CollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB7A1E60BDF900864A17 /* CollectionCell.swift */; };
 		9AAFAB7E1E60BE6500864A17 /* ViewModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB7D1E60BE6500864A17 /* ViewModeling.swift */; };
 		9AAFAB801E60BE9800864A17 /* ViewModelConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB7F1E60BE9800864A17 /* ViewModelConfigurable.swift */; };
@@ -83,6 +85,7 @@
 
 /* Begin PBXFileReference section */
 		9A15B7391E64627A0078E7C5 /* StorefrontTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorefrontTableView.swift; sourceTree = "<group>"; };
+		9A21F2971E7AD30F00E00F4B /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
 		9A21F2991E7AD4FD00E00F4B /* ParallaxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallaxViewController.swift; sourceTree = "<group>"; };
 		9A21F29E1E7EC8AE00E00F4B /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		9A8E88501E719A6E0042879D /* Graph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
@@ -92,6 +95,7 @@
 		9A9FFF041E796F2100F6DFF7 /* Paginating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Paginating.swift; sourceTree = "<group>"; };
 		9A9FFF101E79C0AD00F6DFF7 /* Fragment+VariantConnectionQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fragment+VariantConnectionQuery.swift"; sourceTree = "<group>"; };
 		9A9FFF121E79CCC800F6DFF7 /* PaginatedArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginatedArray.swift; sourceTree = "<group>"; };
+		9A9FFF1B1E7FF3A800F6DFF7 /* ImageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewModel.swift; sourceTree = "<group>"; };
 		9AAFAB7A1E60BDF900864A17 /* CollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionCell.swift; sourceTree = "<group>"; };
 		9AAFAB7D1E60BE6500864A17 /* ViewModeling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModeling.swift; sourceTree = "<group>"; };
 		9AAFAB7F1E60BE9800864A17 /* ViewModelConfigurable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelConfigurable.swift; sourceTree = "<group>"; };
@@ -131,6 +135,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9A21F29B1E7ADF9000E00F4B /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				9A21F2971E7AD30F00E00F4B /* ProductDetailsViewController.swift */,
+			);
+			name = Details;
+			sourceTree = "<group>";
+		};
 		9A8E884E1E7199870042879D /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -165,6 +177,7 @@
 				9A9FFF121E79CCC800F6DFF7 /* PaginatedArray.swift */,
 				9AAFAB811E60BEE000864A17 /* CollectionViewModel.swift */,
 				9AAFAB851E60C15300864A17 /* ProductViewModel.swift */,
+				9A9FFF1B1E7FF3A800F6DFF7 /* ImageViewModel.swift */,
 				9A9FFEE91E772DF500F6DFF7 /* VariantViewModel.swift */,
 			);
 			name = Models;
@@ -175,6 +188,7 @@
 			children = (
 				9AAFAB791E60BDED00864A17 /* Collections */,
 				9AFA3B781E6DB6FE0056C5AA /* Products */,
+				9A21F29B1E7ADF9000E00F4B /* Details */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -401,6 +415,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A21F2981E7AD30F00E00F4B /* ProductDetailsViewController.swift in Sources */,
 				9A8E88511E719A6E0042879D /* Graph.swift in Sources */,
 				9AAFAB861E60C15300864A17 /* ProductViewModel.swift in Sources */,
 				9AAFAB7E1E60BE6500864A17 /* ViewModeling.swift in Sources */,
@@ -423,6 +438,7 @@
 				9AFA3B871E6DFF530056C5AA /* DepressibleCell.swift in Sources */,
 				9A9FFEEA1E772DF500F6DFF7 /* VariantViewModel.swift in Sources */,
 				9A21F29A1E7AD4FD00E00F4B /* ParallaxViewController.swift in Sources */,
+				9A9FFF1C1E7FF3A800F6DFF7 /* ImageViewModel.swift in Sources */,
 				9AAFAB801E60BE9800864A17 /* ViewModelConfigurable.swift in Sources */,
 				9AEF61CE1E606F100067FA90 /* Fragment+ImageConnectionQuery.swift in Sources */,
 				9ADAD46B1E563091008AC561 /* AppDelegate.swift in Sources */,

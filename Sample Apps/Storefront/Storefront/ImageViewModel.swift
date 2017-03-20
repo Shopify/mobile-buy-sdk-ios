@@ -1,5 +1,5 @@
 //
-//  ProductViewModel.swift
+//  ImageViewModel.swift
 //  Storefront
 //
 //  Created by Shopify.
@@ -27,17 +27,14 @@
 import Foundation
 import Buy
 
-final class ProductViewModel: ViewModel {
+final class ImageViewModel: ViewModel {
     
-    typealias ModelType = Storefront.ProductEdge
+    typealias ModelType = Storefront.ImageEdge
     
     let model:    ModelType
     let cursor:   String
     
-    let title:    String
-    let price:    String
-    let images:   PageableArray<ImageViewModel>
-    let variants: PageableArray<VariantViewModel>
+    let url:      URL
     
     // ----------------------------------
     //  MARK: - Init -
@@ -46,27 +43,10 @@ final class ProductViewModel: ViewModel {
         self.model    = model
         self.cursor   = model.cursor
         
-        let variants = model.node.variants.edges.viewModels.sorted {
-            $0.0.price < $0.1.price
-        }
-        
-        let lowestPrice = variants.first?.price
-        
-        self.title    = model.node.title
-        self.price    = lowestPrice == nil ? "No price" : Currency.stringFrom(lowestPrice!)
-        
-        self.images   = PageableArray(
-            with:     model.node.images.edges,
-            pageInfo: model.node.images.pageInfo
-        )
-        
-        self.variants = PageableArray(
-            with:     model.node.variants.edges,
-            pageInfo: model.node.variants.pageInfo
-        )
+        self.url      = model.node.src
     }
 }
 
-extension Storefront.ProductEdge: ViewModeling {
-    typealias ViewModelType = ProductViewModel
+extension Storefront.ImageEdge: ViewModeling {
+    typealias ViewModelType = ImageViewModel
 }
