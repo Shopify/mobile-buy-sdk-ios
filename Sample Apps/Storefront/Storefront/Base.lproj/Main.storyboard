@@ -114,7 +114,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VPS-G8-uAc">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VPS-G8-uAc">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -144,6 +144,7 @@
                     <connections>
                         <outlet property="headerView" destination="S4d-Jp-5KL" id="7B1-N3-TTY"/>
                         <outlet property="scrollView" destination="VPS-G8-uAc" id="5O9-JR-suo"/>
+                        <outlet property="tableView" destination="VPS-G8-uAc" id="Fr9-5d-OMK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RC0-fd-D51" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -172,6 +173,10 @@
         <scene sceneID="Mok-Ul-a0k">
             <objects>
                 <viewController id="YjN-Wq-G4f" customClass="ImageViewController" customModule="Storefront" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Mhz-pO-5Y1"/>
+                        <viewControllerLayoutGuide type="bottom" id="cxb-1W-g4T"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Xdf-pA-7Je">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

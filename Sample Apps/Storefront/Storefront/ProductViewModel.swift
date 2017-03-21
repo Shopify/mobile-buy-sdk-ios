@@ -35,6 +35,7 @@ final class ProductViewModel: ViewModel {
     let cursor:   String
     
     let title:    String
+    let summary:  String
     let price:    String
     let images:   PageableArray<ImageViewModel>
     let variants: PageableArray<VariantViewModel>
@@ -53,6 +54,7 @@ final class ProductViewModel: ViewModel {
         let lowestPrice = variants.first?.price
         
         self.title    = model.node.title
+        self.summary  = model.node.descriptionHtml
         self.price    = lowestPrice == nil ? "No price" : Currency.stringFrom(lowestPrice!)
         
         self.images   = PageableArray(
