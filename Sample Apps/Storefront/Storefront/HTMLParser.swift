@@ -31,7 +31,7 @@ final class HTMLParser {
     static func attributedStringFrom(_ html: String, font: String, size: CGFloat) -> NSAttributedString? {
         
         var style = ""
-        style += "<style>html { "
+        style += "<style>* { "
         style += "font-family: \"\(font)\" !important;"
         style += "font-size: \(size) !important;"
         style += "}</style>"
