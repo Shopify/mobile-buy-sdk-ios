@@ -28,6 +28,7 @@ import UIKit
 
 protocol CollectionCellDelegate: class {
     func cell(_ collectionCell: CollectionCell, didRequestProductsIn collection: CollectionViewModel, after product: ProductViewModel)
+    func cell(_ collectionCell: CollectionCell, didSelectProduct product: ProductViewModel)
 }
 
 class CollectionCell: UITableViewCell, ViewModelConfigurable {
@@ -129,7 +130,8 @@ extension CollectionCell: UICollectionViewDataSource {
 extension CollectionCell: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        let product = self.viewModel!.products.items[indexPath.row]
+        self.delegate?.cell(self, didSelectProduct: product)
     }
 }
 

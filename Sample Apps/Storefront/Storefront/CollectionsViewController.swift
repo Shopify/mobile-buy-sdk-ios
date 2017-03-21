@@ -105,6 +105,12 @@ extension CollectionsViewController: CollectionCellDelegate {
             }
         }
     }
+    
+    func cell(_ collectionCell: CollectionCell, didSelectProduct product: ProductViewModel) {
+        let detailsController: ProductDetailsViewController = self.storyboard!.instantiateViewController()
+        detailsController.product = product
+        self.navigationController!.pushViewController(detailsController, animated: true)
+    }
 }
 
 // ----------------------------------

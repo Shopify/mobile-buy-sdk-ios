@@ -152,10 +152,7 @@
 		9A21F29B1E7ADF9000E00F4B /* Details */ = {
 			isa = PBXGroup;
 			children = (
-				9A9FFF201E800D9600F6DFF7 /* ProductHeaderCell.swift */,
-				9A9FFF211E800D9600F6DFF7 /* ProductHeaderCell.xib */,
-				9A9FFF251E80172C00F6DFF7 /* ProductDetailsCell.swift */,
-				9A9FFF261E80172C00F6DFF7 /* ProductDetailsCell.xib */,
+				9A9FFF391E815F9500F6DFF7 /* Cells */,
 				9A21F2971E7AD30F00E00F4B /* ProductDetailsViewController.swift */,
 			);
 			name = Details;
@@ -211,6 +208,28 @@
 			name = Buttons;
 			sourceTree = "<group>";
 		};
+		9A9FFF391E815F9500F6DFF7 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				9A9FFF201E800D9600F6DFF7 /* ProductHeaderCell.swift */,
+				9A9FFF211E800D9600F6DFF7 /* ProductHeaderCell.xib */,
+				9A9FFF251E80172C00F6DFF7 /* ProductDetailsCell.swift */,
+				9A9FFF261E80172C00F6DFF7 /* ProductDetailsCell.xib */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		9A9FFF3B1E815F9A00F6DFF7 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				9AAFAB871E60C17100864A17 /* ProductCell.swift */,
+				9AAFAB881E60C17100864A17 /* ProductCell.xib */,
+				9AAFAB7A1E60BDF900864A17 /* CollectionCell.swift */,
+				9AAFAB831E60BF4400864A17 /* CollectionCell.xib */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
 		9AAFAB781E60BD5800864A17 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -224,10 +243,7 @@
 		9AAFAB791E60BDED00864A17 /* Collections */ = {
 			isa = PBXGroup;
 			children = (
-				9AAFAB871E60C17100864A17 /* ProductCell.swift */,
-				9AAFAB881E60C17100864A17 /* ProductCell.xib */,
-				9AAFAB7A1E60BDF900864A17 /* CollectionCell.swift */,
-				9AAFAB831E60BF4400864A17 /* CollectionCell.xib */,
+				9A9FFF3B1E815F9A00F6DFF7 /* Cells */,
 				9ADAD46C1E563091008AC561 /* CollectionsViewController.swift */,
 			);
 			name = Collections;
