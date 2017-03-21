@@ -159,14 +159,30 @@ private class ProxyView: UIView {
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         
+        /* ---------------------------------
+         ** Test if the point is contained
+         ** by the scroll view first.
+         */
+        let scrollViewPoint = self.scrollView.convert(point, from: self)
+        if self.scrollView.point(inside: scrollViewPoint, with: event) {
+            
+            /* -----------------------------------
+             ** Ensure that the point doesn't fall
+             ** into scroll view's inset space at
+             ** the top.
+             */
+            if scrollViewPoint.y > 0.0 {
+                return self.scrollView.hitTest(scrollViewPoint, with: event)
+            }
+        }
+        
+        /* ------------------------------------
+         ** Then test if the point is contained
+         ** by the header view.
+         */
         let headerPoint = self.headerView.convert(point, from: self)
         if self.headerView.point(inside: headerPoint, with: event) {
             return self.headerView.hitTest(headerPoint, with: event)
-        }
-        
-        let scrollViewPoint = self.scrollView.convert(point, from: self)
-        if self.scrollView.point(inside: scrollViewPoint, with: event) {
-            return self.scrollView.hitTest(scrollViewPoint, with: event)
         }
         
         return self.superview
