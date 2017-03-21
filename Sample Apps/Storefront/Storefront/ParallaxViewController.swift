@@ -32,14 +32,21 @@ class ParallaxViewController: UIViewController {
     @IBInspectable var headerHeight: CGFloat      = 200.0 { didSet { self.view.setNeedsLayout() } }
     @IBInspectable var multiplier:   CGFloat      = 0.5   { didSet { self.view.setNeedsLayout() } }
 
-    @IBOutlet private weak var headerView: UIView!
-    @IBOutlet private weak var scrollView: UIScrollView!
+    @IBOutlet private weak var headerView: UIView! {
+        willSet {
+            self.proxyView.headerView = newValue
+            self.view.setNeedsLayout()
+        }
+    }
     
-    lazy private var proxyView: ProxyView = {
-        let view = ProxyView(frame: self.view.bounds)
-        self.view.addSubview(view)
-        return view
-    }()
+    @IBOutlet private weak var scrollView: UIScrollView! {
+        willSet {
+            self.proxyView.scrollView = newValue
+            self.view.setNeedsLayout()
+        }
+    }
+    
+    private var proxyView: ProxyView!
     
     private var topY: CGFloat {
         return max(self.insets.top, self.topLayoutGuide.length)
@@ -51,6 +58,20 @@ class ParallaxViewController: UIViewController {
     
     private var bottomSpace: CGFloat {
         return self.bottomLayoutGuide.length
+    }
+    
+    // ----------------------------------
+    //  MARK: - Load View -
+    //
+    override func loadView() {
+        super.loadView()
+        
+        self.loadParallaxView()
+    }
+    
+    private func loadParallaxView() {
+        let view = ProxyView(frame: self.view.bounds)
+        self.view.addSubview(view)
     }
     
     // ----------------------------------
