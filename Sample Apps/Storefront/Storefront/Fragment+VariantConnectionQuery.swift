@@ -1,5 +1,5 @@
 //
-//  Fragmen+VariantConnectionQuery.swift
+//  Fragment+VariantConnectionQuery.swift
 //  Storefront
 //
 //  Created by Dima Bart on 2017-03-15.
