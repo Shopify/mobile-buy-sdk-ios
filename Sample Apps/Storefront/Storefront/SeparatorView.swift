@@ -35,7 +35,7 @@ class SeparatorView: UIView {
         case right
     }
     
-    @IBInspectable private var separatorPosition: Int = 0 {
+    @IBInspectable dynamic private var separatorPosition: Int = 0 {
         willSet(positionValue) {
             self.position = Position(rawValue: positionValue)!
         }
