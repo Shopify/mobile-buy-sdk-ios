@@ -31,6 +31,7 @@ extension Storefront.ImageConnectionQuery {
     @discardableResult
     func fragmentForStandardProductImage() -> Storefront.ImageConnectionQuery { return self
         .edges { $0
+            .cursor()
             .node { $0
                 .src()
             }

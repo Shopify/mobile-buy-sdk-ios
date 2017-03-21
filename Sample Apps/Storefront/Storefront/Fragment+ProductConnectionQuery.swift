@@ -30,19 +30,15 @@ extension Storefront.ProductConnectionQuery {
     
     @discardableResult
     func fragmentForStandardProduct() -> Storefront.ProductConnectionQuery { return self
+        .pageInfo { $0
+            .hasNextPage()
+        }
         .edges { $0
+            .cursor()
             .node { $0
                 .title()
                 .variants(first: 250) { $0
-                    .edges { $0
-                        .node { $0
-                            .title()
-                            .price()
-                            .images(first: 15) { $0
-                                .src()
-                            }
-                        }
-                    }
+                    .fragmentForStandardVariant()
                 }
                 .images(first: 1) { $0
                     .fragmentForStandardProductImage()

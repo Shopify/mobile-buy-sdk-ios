@@ -47,13 +47,16 @@ final class Graph {
     //  MARK: - Collections -
     //
     @discardableResult
-    func fetchCollections(limit: Int = 25, after cursor: String? = nil, productLimit: Int = 25, productCursor: String? = nil, completion: @escaping ([CollectionViewModel]?) -> Void) -> URLSessionDataTask {
+    func fetchCollections(limit: Int = 25, after cursor: String? = nil, productLimit: Int = 25, productCursor: String? = nil, completion: @escaping (PageableArray<CollectionViewModel>?) -> Void) -> URLSessionDataTask {
         
         let query = GraphQuery.queryForCollections(limit: limit, after: cursor, productLimit: productLimit, productCursor: productCursor)
         let task  = self.client.queryGraphWith(query) { (query, error) in
             
             if let query = query {
-                let collections = query.shop.collectionsArray().viewModels
+                let collections = PageableArray(
+                    with:     query.shop.collections.edges,
+                    pageInfo: query.shop.collections.pageInfo
+                )
                 completion(collections)
             } else {
                 print("Failed to load collections: \(error)")
@@ -66,7 +69,7 @@ final class Graph {
     }
     
     @discardableResult
-    func fetcProducts(in collection: CollectionViewModel, limit: Int = 25, after cursor: String? = nil, completion: @escaping ([ProductViewModel]?) -> Void) -> URLSessionDataTask {
+    func fetchProducts(in collection: CollectionViewModel, limit: Int = 25, after cursor: String? = nil, completion: @escaping (PageableArray<ProductViewModel>?) -> Void) -> URLSessionDataTask {
         
         let query = GraphQuery.queryForProducts(in: collection, limit: limit, after: cursor)
         let task  = self.client.queryGraphWith(query) { (query, error) in
@@ -74,11 +77,14 @@ final class Graph {
             if let query = query,
                 let collection = query.node as? Storefront.Collection {
                 
-                let products = collection.products.edges.map { $0.node }.viewModels
+                let products = PageableArray(
+                    with:     collection.products.edges,
+                    pageInfo: collection.products.pageInfo
+                )
                 completion(products)
                 
             } else {
-                print("Failed to load products in collection (\(collection.model.id.rawValue)): \(error)")
+                print("Failed to load products in collection (\(collection.model.node.id.rawValue)): \(error)")
                 completion(nil)
             }
         }

@@ -33,12 +33,19 @@ final class GraphQuery {
         return Storefront.buildQuery { $0
             .shop { $0
                 .collections(first: Int32(limit), after: cursor) { $0
+                    .pageInfo { $0
+                        .hasNextPage()
+                    }
                     .edges { $0
+                        .cursor()
                         .node { $0
                             .id()
                             .title()
                             .descriptionPlainSummary()
-                            .fragmentForStandardImage()
+                            .image { $0
+                                .src()
+                            }
+                            
                             .products(first: Int32(productLimit), after: productCursor) { $0
                                 .fragmentForStandardProduct()
                             }
@@ -52,7 +59,7 @@ final class GraphQuery {
     static func queryForProducts(in collection: CollectionViewModel, limit: Int, after cursor: String? = nil) -> Storefront.QueryRootQuery {
         
         return Storefront.buildQuery { $0
-            .node(id: collection.model.id) { $0
+            .node(id: collection.model.node.id) { $0
                 .onCollection { $0
                     .products(first: Int32(limit), after: cursor) { $0
                         .fragmentForStandardProduct()

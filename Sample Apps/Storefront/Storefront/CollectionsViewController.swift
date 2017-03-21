@@ -31,7 +31,7 @@ class CollectionsViewController: UIViewController {
 
     @IBOutlet weak var tableView: StorefrontTableView!
     
-    fileprivate var collections: [CollectionViewModel] = []
+    fileprivate var collections: PageableArray<CollectionViewModel>!
     
     // ----------------------------------
     //  MARK: - View Loading -
@@ -39,10 +39,69 @@ class CollectionsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.tableView.paginationDelegate = self
+        
         Graph.shared.fetchCollections { collections in
             if let collections = collections {
                 self.collections = collections
                 self.tableView.reloadData()
+            }
+        }
+    }
+    
+    // ----------------------------------
+    //  MARK: - Fetching -
+    //
+    fileprivate func fetchCollections(after cursor: String? = nil) {
+        Graph.shared.fetchCollections(after: cursor) { collections in
+            if let collections = collections {
+                self.collections = collections
+                self.tableView.reloadData()
+            }
+        }
+    }
+}
+
+// ----------------------------------
+//  MARK: - StorefrontTableViewDelegate -
+//
+extension CollectionsViewController: StorefrontTableViewDelegate {
+    
+    func tableViewShouldBeginPaging(_ table: StorefrontTableView) -> Bool {
+        return self.collections?.hasNextPage ?? false
+    }
+    
+    func tableViewWillBeginPaging(_ table: StorefrontTableView) {
+        if let collections = self.collections,
+            let lastCollection = collections.items.last {
+            
+            Graph.shared.fetchCollections(after: lastCollection.cursor) { collections in
+                if let collections = collections {
+                    
+                    self.collections.appendPage(from: collections)
+                    
+                    self.tableView.reloadData()
+                    self.tableView.completePaging()
+                }
+            }
+        }
+    }
+    
+    func tableViewDidCompletePaging(_ table: StorefrontTableView) {
+        
+    }
+}
+
+// ----------------------------------
+//  MARK: - CollectionCellDelegate -
+//
+extension CollectionsViewController: CollectionCellDelegate {
+    
+    func cell(_ collectionCell: CollectionCell, didRequestProductsIn collection: CollectionViewModel, after product: ProductViewModel) {
+        
+        Graph.shared.fetchProducts(in: collection, limit: 20, after: product.cursor) { products in
+            if let products = products, collectionCell.viewModel === collection {
+                collectionCell.appendProductsPage(from: products)
             }
         }
     }
@@ -57,7 +116,7 @@ extension CollectionsViewController: UITableViewDataSource {
     //  MARK: - Data -
     //
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.collections.count
+        return self.collections?.items.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -66,8 +125,9 @@ extension CollectionsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell       = tableView.dequeueReusableCell(withIdentifier: CollectionCell.className, for: indexPath) as! CollectionCell
-        let collection = self.collections[indexPath.section]
+        let collection = self.collections.items[indexPath.section]
         
+        cell.delegate = self
         cell.configureFrom(collection)
         
         return cell
@@ -77,11 +137,11 @@ extension CollectionsViewController: UITableViewDataSource {
     //  MARK: - Titles -
     //
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.collections[section].title
+        return self.collections.items[section].title
     }
     
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return self.collections[section].description
+        return self.collections.items[section].description
     }
     
     // ----------------------------------
@@ -102,7 +162,7 @@ extension CollectionsViewController: UITableViewDataSource {
 extension CollectionsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let collection = self.collections[indexPath.section]
+        let collection = self.collections.items[indexPath.section]
         
         let productsController: ProductsViewController = self.storyboard!.instantiateViewController()
         productsController.collection = collection

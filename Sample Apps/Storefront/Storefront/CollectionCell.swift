@@ -26,20 +26,39 @@
 
 import UIKit
 
+protocol CollectionCellDelegate: class {
+    func cell(_ collectionCell: CollectionCell, didRequestProductsIn collection: CollectionViewModel, after product: ProductViewModel)
+}
+
 class CollectionCell: UITableViewCell, ViewModelConfigurable {
     
     typealias ViewModelType = CollectionViewModel
+    
+    weak var delegate: CollectionCellDelegate?
     
     @IBOutlet private weak var titleImageView: UIImageView!
     @IBOutlet private weak var collectionView: StorefrontCollectionView!
     
     private(set) var viewModel: CollectionViewModel?
     
+    // ----------------------------------
+    //  MARK: - Configure -
+    //
     func configureFrom(_ viewModel: CollectionViewModel) {
         self.viewModel = viewModel
         
         self.titleImageView.setImageFrom(viewModel.imageURL)
         self.collectionView.reloadData()
+    }
+    
+    func appendProductsPage(from paginatedProducts: PageableArray<ProductViewModel>) {
+        if let viewModel = self.viewModel, !paginatedProducts.items.isEmpty {
+            print("Paging added \(paginatedProducts.items.count) products.")
+            
+            viewModel.products.appendPage(from: paginatedProducts)
+            self.collectionView.reloadData()
+            self.collectionView.completePaging()
+        }
     }
     
     // ----------------------------------
@@ -50,6 +69,39 @@ class CollectionCell: UITableViewCell, ViewModelConfigurable {
         
         self.collectionView.contentOffset = CGPoint.zero
     }
+    
+    // ----------------------------------
+    //  MARK: - Awake -
+    //
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        self.collectionView.paginationDirection = .horizontal
+        self.collectionView.paginationDelegate  = self
+    }
+}
+
+// ----------------------------------
+//  MARK: - PaginationDelegate -
+//
+extension CollectionCell: StorefrontCollectionViewDelegate {
+    
+    func collectionViewShouldBeginPaging(_ collectionView: StorefrontCollectionView) -> Bool {
+        print("Products have should begin paging: \(self.viewModel?.products.hasNextPage)")
+        return self.viewModel?.products.hasNextPage ?? false
+    }
+    
+    func collectionViewWillBeginPaging(_ collectionView: StorefrontCollectionView) {
+        if let collection = self.viewModel,
+            let lastProduct = collection.products.items.last {
+            
+            self.delegate?.cell(self, didRequestProductsIn: collection, after: lastProduct)
+        }
+    }
+    
+    func collectionViewDidCompletePaging(_ collectionView: StorefrontCollectionView) {
+        
+    }
 }
 
 // ----------------------------------
@@ -58,12 +110,12 @@ class CollectionCell: UITableViewCell, ViewModelConfigurable {
 extension CollectionCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel?.products.count ?? 0
+        return self.viewModel?.products.items.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell    = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCell.className, for: indexPath) as! ProductCell
-        let product = self.viewModel!.products[indexPath.row]
+        let product = self.viewModel!.products.items[indexPath.row]
         
         cell.configureFrom(product)
         
