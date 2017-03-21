@@ -79,7 +79,7 @@ class ParallaxViewController: UIViewController {
         
         let headerOffset = self.scrollView.contentOffset.y + self.midY
         let headerY      = min(self.topY - (headerOffset * self.multiplier), self.topY)
-        let headerHeight = max(self.headerHeight, self.headerHeight + (headerOffset * -1.0))
+        let headerHeight = max(self.headerHeight, self.headerHeight - headerOffset)
         
         var frame             = self.headerView.frame
         frame.origin.y        = headerY
