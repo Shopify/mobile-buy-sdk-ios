@@ -24,6 +24,8 @@
 		9A9FFF271E80172C00F6DFF7 /* ProductDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9FFF251E80172C00F6DFF7 /* ProductDetailsCell.swift */; };
 		9A9FFF281E80172C00F6DFF7 /* ProductDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A9FFF261E80172C00F6DFF7 /* ProductDetailsCell.xib */; };
 		9A9FFF2A1E8044BC00F6DFF7 /* HTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9FFF291E8044BC00F6DFF7 /* HTMLParser.swift */; };
+		9A9FFF2C1E8144F300F6DFF7 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9FFF2B1E8144F300F6DFF7 /* RoundedButton.swift */; };
+		9A9FFF2E1E8150F100F6DFF7 /* CartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9FFF2D1E8150F100F6DFF7 /* CartButton.swift */; };
 		9AAFAB7B1E60BDF900864A17 /* CollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB7A1E60BDF900864A17 /* CollectionCell.swift */; };
 		9AAFAB7E1E60BE6500864A17 /* ViewModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB7D1E60BE6500864A17 /* ViewModeling.swift */; };
 		9AAFAB801E60BE9800864A17 /* ViewModelConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB7F1E60BE9800864A17 /* ViewModelConfigurable.swift */; };
@@ -106,6 +108,8 @@
 		9A9FFF251E80172C00F6DFF7 /* ProductDetailsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailsCell.swift; sourceTree = "<group>"; };
 		9A9FFF261E80172C00F6DFF7 /* ProductDetailsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductDetailsCell.xib; sourceTree = "<group>"; };
 		9A9FFF291E8044BC00F6DFF7 /* HTMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTMLParser.swift; sourceTree = "<group>"; };
+		9A9FFF2B1E8144F300F6DFF7 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
+		9A9FFF2D1E8150F100F6DFF7 /* CartButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartButton.swift; sourceTree = "<group>"; };
 		9AAFAB7A1E60BDF900864A17 /* CollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionCell.swift; sourceTree = "<group>"; };
 		9AAFAB7D1E60BE6500864A17 /* ViewModeling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModeling.swift; sourceTree = "<group>"; };
 		9AAFAB7F1E60BE9800864A17 /* ViewModelConfigurable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelConfigurable.swift; sourceTree = "<group>"; };
@@ -198,6 +202,15 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
+		9A9FFF2F1E8150F400F6DFF7 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				9A9FFF2B1E8144F300F6DFF7 /* RoundedButton.swift */,
+				9A9FFF2D1E8150F100F6DFF7 /* CartButton.swift */,
+			);
+			name = Buttons;
+			sourceTree = "<group>";
+		};
 		9AAFAB781E60BD5800864A17 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -244,6 +257,7 @@
 			isa = PBXGroup;
 			children = (
 				9AFA3B861E6DFF530056C5AA /* DepressibleCell.swift */,
+				9A9FFF2F1E8150F400F6DFF7 /* Buttons */,
 				9A9FFF021E796F1100F6DFF7 /* Scroll Views */,
 				9A21F2991E7AD4FD00E00F4B /* ParallaxViewController.swift */,
 				9A21F29E1E7EC8AE00E00F4B /* ImageViewController.swift */,
@@ -460,10 +474,12 @@
 				9A21F29A1E7AD4FD00E00F4B /* ParallaxViewController.swift in Sources */,
 				9A9FFF1C1E7FF3A800F6DFF7 /* ImageViewModel.swift in Sources */,
 				9AAFAB801E60BE9800864A17 /* ViewModelConfigurable.swift in Sources */,
+				9A9FFF2C1E8144F300F6DFF7 /* RoundedButton.swift in Sources */,
 				9AEF61CE1E606F100067FA90 /* Fragment+ImageConnectionQuery.swift in Sources */,
 				9ADAD46B1E563091008AC561 /* AppDelegate.swift in Sources */,
 				9A8E885A1E719EB20042879D /* GraphQuery.swift in Sources */,
 				9AFA3B7F1E6DC5FD0056C5AA /* Storyboard+ViewController.swift in Sources */,
+				9A9FFF2E1E8150F100F6DFF7 /* CartButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
