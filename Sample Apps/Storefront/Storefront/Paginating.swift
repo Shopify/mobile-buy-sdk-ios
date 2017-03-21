@@ -85,14 +85,6 @@ extension Paginating {
             return
         }
         
-//        print("Paging -----------------------")
-//        print("Content size: \(self.contentSize)")
-//        print("Bounds: \(self.bounds)")
-//        print("Offset: \(self.contentOffset)")
-//        print("Delta: \(self.contentOffsetDelta)")
-//        print("Delta Value: \(self.contentOffsetDeltaValue)")
-//        print("Threshold: \(self.paginationThreshold)")
-        
         self.willBeginPaging()
         self.paginationState = .waiting
     }
