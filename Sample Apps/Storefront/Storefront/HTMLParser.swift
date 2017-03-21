@@ -37,13 +37,15 @@ final class HTMLParser {
         style += "}</style>"
         
         let styledHTML = html.trimmingCharacters(in: CharacterSet.newlines).appending(style)
+        let htmlData   = styledHTML.data(using: .utf8)!
         
-        let options = [
-            NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+        let options: [String: Any] = [
+            NSDocumentTypeDocumentAttribute      : NSHTMLTextDocumentType,
+            NSCharacterEncodingDocumentAttribute : String.Encoding.utf8.rawValue,
         ]
         
         return try? NSAttributedString(
-            data:               styledHTML.data(using: .utf8)!,
+            data:               htmlData,
             options:            options,
             documentAttributes: nil
         )
