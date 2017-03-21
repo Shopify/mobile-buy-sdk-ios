@@ -126,18 +126,6 @@ class ParallaxViewController: UIViewController {
         self.view.insertSubview(self.scrollView, at: 1)
         self.view.insertSubview(self.proxyView, at: 2)
     }
-    
-    // ----------------------------------
-    //  MARK: - Verification -
-    //
-    private func isChild(_ view: UIView) -> Bool {
-        for subview in self.view.subviews {
-            if subview === view {
-                return true
-            }
-        }
-        return false
-    }
 }
 
 // ----------------------------------
