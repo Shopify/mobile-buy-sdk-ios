@@ -26,6 +26,7 @@
 		9A9FFF2A1E8044BC00F6DFF7 /* HTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9FFF291E8044BC00F6DFF7 /* HTMLParser.swift */; };
 		9A9FFF2C1E8144F300F6DFF7 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9FFF2B1E8144F300F6DFF7 /* RoundedButton.swift */; };
 		9A9FFF2E1E8150F100F6DFF7 /* CartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9FFF2D1E8150F100F6DFF7 /* CartButton.swift */; };
+		9A9FFF411E8171E900F6DFF7 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9FFF401E8171E900F6DFF7 /* SeparatorView.swift */; };
 		9AAFAB7B1E60BDF900864A17 /* CollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB7A1E60BDF900864A17 /* CollectionCell.swift */; };
 		9AAFAB7E1E60BE6500864A17 /* ViewModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB7D1E60BE6500864A17 /* ViewModeling.swift */; };
 		9AAFAB801E60BE9800864A17 /* ViewModelConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB7F1E60BE9800864A17 /* ViewModelConfigurable.swift */; };
@@ -110,6 +111,7 @@
 		9A9FFF291E8044BC00F6DFF7 /* HTMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTMLParser.swift; sourceTree = "<group>"; };
 		9A9FFF2B1E8144F300F6DFF7 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		9A9FFF2D1E8150F100F6DFF7 /* CartButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartButton.swift; sourceTree = "<group>"; };
+		9A9FFF401E8171E900F6DFF7 /* SeparatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
 		9AAFAB7A1E60BDF900864A17 /* CollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionCell.swift; sourceTree = "<group>"; };
 		9AAFAB7D1E60BE6500864A17 /* ViewModeling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModeling.swift; sourceTree = "<group>"; };
 		9AAFAB7F1E60BE9800864A17 /* ViewModelConfigurable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelConfigurable.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 				9A9FFF021E796F1100F6DFF7 /* Scroll Views */,
 				9A21F2991E7AD4FD00E00F4B /* ParallaxViewController.swift */,
 				9A21F29E1E7EC8AE00E00F4B /* ImageViewController.swift */,
+				9A9FFF401E8171E900F6DFF7 /* SeparatorView.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -479,6 +482,7 @@
 				9AAFAB7B1E60BDF900864A17 /* CollectionCell.swift in Sources */,
 				9AAFAB941E60D2D000864A17 /* NSObject+Name.swift in Sources */,
 				9AEF61CC1E606EFE0067FA90 /* Fragment+ProductConnectionQuery.swift in Sources */,
+				9A9FFF411E8171E900F6DFF7 /* SeparatorView.swift in Sources */,
 				9AAFAB8F1E60C6AC00864A17 /* UIImageView+Remote.swift in Sources */,
 				9AFA3B7D1E6DB7110056C5AA /* ProductsViewController.swift in Sources */,
 				9A9FFF051E796F2100F6DFF7 /* Paginating.swift in Sources */,

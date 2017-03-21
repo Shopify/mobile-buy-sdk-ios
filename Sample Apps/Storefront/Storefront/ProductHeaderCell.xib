@@ -18,17 +18,27 @@
                 <rect key="frame" x="0.0" y="0.0" width="360" height="98"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="vpm-Ra-eDu">
+                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7NM-DN-mue" customClass="SeparatorView" customModule="Storefront" customModuleProvider="target">
+                        <rect key="frame" x="10" y="10" width="10" height="10"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="separatorPosition">
+                                <integer key="value" value="0"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="vpm-Ra-eDu">
                         <rect key="frame" x="15" y="15" width="330" height="77"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Some awesome bracelet with something else" lineBreakMode="tailTruncation" numberOfLines="2" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jHY-5b-TA1">
-                                <rect key="frame" x="0.0" y="14.5" width="229" height="48"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Some awesome bracelet with something else" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jHY-5b-TA1">
+                                <rect key="frame" x="0.0" y="29" width="229" height="48"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="20"/>
                                 <color key="textColor" white="0.10000000000000001" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Ba-rT-kGe" customClass="CartButton" customModule="Storefront" customModuleProvider="target">
-                                <rect key="frame" x="249" y="21.5" width="81" height="34"/>
+                                <rect key="frame" x="249" y="43" width="81" height="34"/>
                                 <color key="backgroundColor" red="0.4763322351" green="0.72474470440000005" blue="0.44370955919999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Medium" family="Apple SD Gothic Neo" pointSize="17"/>
                                 <inset key="contentEdgeInsets" minX="17" minY="7" maxX="17" maxY="6"/>
