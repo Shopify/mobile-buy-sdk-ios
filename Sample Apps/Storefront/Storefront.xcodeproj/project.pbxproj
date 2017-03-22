@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9A15B73A1E64627A0078E7C5 /* StorefrontTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A15B7391E64627A0078E7C5 /* StorefrontTableView.swift */; };
 		9A21F29A1E7AD4FD00E00F4B /* ParallaxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21F2991E7AD4FD00E00F4B /* ParallaxViewController.swift */; };
+		9A21F29F1E7EC8AE00E00F4B /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21F29E1E7EC8AE00E00F4B /* ImageViewController.swift */; };
 		9A8E88511E719A6E0042879D /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8E88501E719A6E0042879D /* Graph.swift */; };
 		9A8E885A1E719EB20042879D /* GraphQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8E88591E719EB20042879D /* GraphQuery.swift */; };
 		9A9FFEEA1E772DF500F6DFF7 /* VariantViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9FFEE91E772DF500F6DFF7 /* VariantViewModel.swift */; };
@@ -83,6 +84,7 @@
 /* Begin PBXFileReference section */
 		9A15B7391E64627A0078E7C5 /* StorefrontTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorefrontTableView.swift; sourceTree = "<group>"; };
 		9A21F2991E7AD4FD00E00F4B /* ParallaxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallaxViewController.swift; sourceTree = "<group>"; };
+		9A21F29E1E7EC8AE00E00F4B /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		9A8E88501E719A6E0042879D /* Graph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
 		9A8E88591E719EB20042879D /* GraphQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQuery.swift; sourceTree = "<group>"; };
 		9A9FFEE91E772DF500F6DFF7 /* VariantViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariantViewModel.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 				9AFA3B861E6DFF530056C5AA /* DepressibleCell.swift */,
 				9A9FFF021E796F1100F6DFF7 /* Scroll Views */,
 				9A21F2991E7AD4FD00E00F4B /* ParallaxViewController.swift */,
+				9A21F29E1E7EC8AE00E00F4B /* ImageViewController.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -407,6 +410,7 @@
 				9A9FFF111E79C0AD00F6DFF7 /* Fragment+VariantConnectionQuery.swift in Sources */,
 				9AAFAB921E60D11000864A17 /* StorefrontCollectionView.swift in Sources */,
 				9A15B73A1E64627A0078E7C5 /* StorefrontTableView.swift in Sources */,
+				9A21F29F1E7EC8AE00E00F4B /* ImageViewController.swift in Sources */,
 				9AAFAB8C1E60C3C700864A17 /* ViewModel.swift in Sources */,
 				9AAFAB7B1E60BDF900864A17 /* CollectionCell.swift in Sources */,
 				9AAFAB941E60D2D000864A17 /* NSObject+Name.swift in Sources */,
