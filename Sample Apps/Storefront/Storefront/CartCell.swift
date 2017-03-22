@@ -1,5 +1,5 @@
 //
-//  ProductHeaderCell.swift
+//  CartCell.swift
 //  Storefront
 //
 //  Created by Shopify.
@@ -24,19 +24,18 @@
 //  THE SOFTWARE.
 //
 
+
 import UIKit
 
-protocol ProductHeaderDelegate: class {
-    func productHeader(_ cell: ProductHeaderCell, didAddToCart sender: Any)
-}
+class CartCell: UITableViewCell, ViewModelConfigurable {
+    
+    typealias ViewModelType = CartItemViewModel
 
-class ProductHeaderCell: UITableViewCell, ViewModelConfigurable {
-    typealias ViewModelType = ProductViewModel
-    
-    weak var delegate: ProductHeaderDelegate?
-    
-    @IBOutlet private weak var titleLabel:  UILabel!
-    @IBOutlet private weak var priceButton: UIButton!
+    @IBOutlet private weak var thumbnailView: UIImageView!
+    @IBOutlet private weak var titleLabel:    UILabel!
+    @IBOutlet private weak var subtitleLabel: UILabel!
+    @IBOutlet private weak var priceLabel:    UILabel!
+    @IBOutlet private weak var quantityLabel: UILabel!
     
     var viewModel: ViewModelType?
     
@@ -46,14 +45,11 @@ class ProductHeaderCell: UITableViewCell, ViewModelConfigurable {
     func configureFrom(_ viewModel: ViewModelType) {
         self.viewModel = viewModel
         
-        self.titleLabel.text = viewModel.title
-        self.priceButton.setTitle(viewModel.price, for: .normal)
-    }
-}
-
-extension ProductHeaderCell {
-    
-    @IBAction func addToCartAction(_ sender: Any) {
-        self.delegate?.productHeader(self, didAddToCart: sender)
+        self.titleLabel.text    = viewModel.title
+        self.subtitleLabel.text = viewModel.subtitle
+        self.priceLabel.text    = viewModel.price
+        self.quantityLabel.text = viewModel.quantity
+        
+        self.thumbnailView.setImageFrom(viewModel.imageURL)
     }
 }

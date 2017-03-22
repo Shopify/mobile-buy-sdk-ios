@@ -51,6 +51,66 @@
             </objects>
             <point key="canvasLocation" x="1076" y="138.98050974512745"/>
         </scene>
+        <!--Cart Navigation Controller-->
+        <scene sceneID="90s-gs-WtJ">
+            <objects>
+                <navigationController storyboardIdentifier="CartNavigationController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YUF-MR-hUq" customClass="CartNavigationController" customModule="Storefront" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="7h5-ep-TYx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="dau-ev-4t0" kind="relationship" relationship="rootViewController" id="ayM-qq-uzT"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8hV-Ai-wxK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="382" y="842"/>
+        </scene>
+        <!--Cart-->
+        <scene sceneID="UJ7-cb-swN">
+            <objects>
+                <viewController storyboardIdentifier="CartViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="dau-ev-4t0" customClass="CartViewController" customModule="Storefront" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ra9-lp-C33"/>
+                        <viewControllerLayoutGuide type="bottom" id="6mD-WS-XEm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xXB-tE-Dtm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="N9E-fb-plh">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="dau-ev-4t0" id="5jy-Zc-bB6"/>
+                                    <outlet property="delegate" destination="dau-ev-4t0" id="dAY-oY-pNq"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="N9E-fb-plh" firstAttribute="leading" secondItem="xXB-tE-Dtm" secondAttribute="leading" id="Vxr-8B-MQr"/>
+                            <constraint firstAttribute="trailing" secondItem="N9E-fb-plh" secondAttribute="trailing" id="ZsI-Tx-903"/>
+                            <constraint firstItem="N9E-fb-plh" firstAttribute="top" secondItem="xXB-tE-Dtm" secondAttribute="top" id="jRK-ZY-Aua"/>
+                            <constraint firstItem="6mD-WS-XEm" firstAttribute="top" secondItem="N9E-fb-plh" secondAttribute="bottom" id="lhi-fU-d6X"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Cart" id="WM5-yl-c2M">
+                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="6fS-by-e2w">
+                            <connections>
+                                <action selector="cancelAction:" destination="dau-ev-4t0" id="CZz-V2-Kra"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="N9E-fb-plh" id="114-Vj-d7K"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4R4-CP-1NN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1076" y="841.52923538230891"/>
+        </scene>
         <!--Products-->
         <scene sceneID="vIO-P4-DiX">
             <objects>
@@ -140,7 +200,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Details" id="06T-Eq-F9g"/>
+                    <navigationItem key="navigationItem" title="Details" id="06T-Eq-F9g">
+                        <barButtonItem key="rightBarButtonItem" title="Cart" id="Wss-qW-p7O">
+                            <connections>
+                                <action selector="cartAction:" destination="FDf-If-Fqx" id="sCR-7P-U64"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="headerView" destination="S4d-Jp-5KL" id="7B1-N3-TTY"/>
                         <outlet property="scrollView" destination="VPS-G8-uAc" id="5O9-JR-suo"/>

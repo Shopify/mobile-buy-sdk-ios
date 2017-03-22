@@ -45,6 +45,9 @@
                                 <state key="normal" title="$13.99">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="addToCartAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="AxL-zv-G5M"/>
+                                </connections>
                             </button>
                         </subviews>
                     </stackView>

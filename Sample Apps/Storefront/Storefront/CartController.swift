@@ -1,5 +1,5 @@
 //
-//  ProductHeaderCell.swift
+//  CartController.swift
 //  Storefront
 //
 //  Created by Shopify.
@@ -24,36 +24,53 @@
 //  THE SOFTWARE.
 //
 
-import UIKit
+import Foundation
 
-protocol ProductHeaderDelegate: class {
-    func productHeader(_ cell: ProductHeaderCell, didAddToCart sender: Any)
-}
+class CartController {
 
-class ProductHeaderCell: UITableViewCell, ViewModelConfigurable {
-    typealias ViewModelType = ProductViewModel
+    static let shared = CartController()
     
-    weak var delegate: ProductHeaderDelegate?
+    private(set) var items: [CartItem] = []
     
-    @IBOutlet private weak var titleLabel:  UILabel!
-    @IBOutlet private weak var priceButton: UIButton!
-    
-    var viewModel: ViewModelType?
+    var subtotal: Decimal {
+        var value: Decimal = 0.0
+        for item in self.items {
+            value += item.variant.price * Decimal(item.quantity)
+        }
+        return value
+    }
     
     // ----------------------------------
-    //  MARK: - Configure -
+    //  MARK: - Init -
     //
-    func configureFrom(_ viewModel: ViewModelType) {
-        self.viewModel = viewModel
+    private init() {
         
-        self.titleLabel.text = viewModel.title
-        self.priceButton.setTitle(viewModel.price, for: .normal)
     }
-}
-
-extension ProductHeaderCell {
     
-    @IBAction func addToCartAction(_ sender: Any) {
-        self.delegate?.productHeader(self, didAddToCart: sender)
+    // ----------------------------------
+    //  MARK: - Item Management -
+    //
+    func incrementAt(_ index: Int) {
+        let existingItem = self.items[index]
+        existingItem.quantity += 1
+    }
+    
+    func decrementAt(_ index: Int) {
+        let existingItem = self.items[index]
+        existingItem.quantity -= 1
+    }
+    
+    func add(_ cartItem: CartItem) {
+        if let index = self.items.index(of: cartItem) {
+            self.incrementAt(index)
+        } else {
+            self.items.append(cartItem)
+        }
+    }
+    
+    func removeAllQuantitiesFor(_ cartItem: CartItem) {
+        if let index = self.items.index(of: cartItem) {
+            self.items.remove(at: index)
+        }
     }
 }
