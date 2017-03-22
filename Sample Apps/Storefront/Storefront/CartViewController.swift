@@ -26,9 +26,25 @@
 
 import UIKit
 
-class CartViewController: UIViewController {
+class CartViewController: ParallaxViewController {
 
     @IBOutlet fileprivate weak var tableView: UITableView!
+    
+    private var totalsViewController: TotalsViewController!
+    
+    // ----------------------------------
+    //  MARK: - Segue -
+    //
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        switch segue.identifier! {
+        case "TotalsViewController":
+            self.totalsViewController = segue.destination as! TotalsViewController
+        default:
+            break
+        }
+    }
     
     // ----------------------------------
     //  MARK: - View Loading -
@@ -36,12 +52,29 @@ class CartViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.configureParallax()
         self.configureTableView()
+        
+        self.updateSubtotal()
+    }
+    
+    private func configureParallax() {
+        self.layout       = .headerAbove
+        self.headerHeight = self.view.bounds.width * 0.5 // 2:1 ratio
+        self.multiplier   = 0.0
     }
     
     private func configureTableView() {
         self.tableView.estimatedRowHeight = 100.0
         self.tableView.register(UINib(nibName: "CartCell", bundle: nil), forCellReuseIdentifier: "CartCell")
+    }
+    
+    // ----------------------------------
+    //  MARK: - Update -
+    //
+    func updateSubtotal() {
+        self.totalsViewController.subtotal  = CartController.shared.subtotal
+        self.totalsViewController.itemCount = CartController.shared.itemCount
     }
 }
 
@@ -61,12 +94,18 @@ extension CartViewController {
 extension CartViewController: CartCellDelegate {
     
     func cartCell(_ cell: CartCell, didUpdateQuantity quantity: Int) {
-        let indexPath = self.tableView.indexPath(for: cell)!
-        let cartItem  = CartController.shared.items[indexPath.row]
-        
-        if quantity != cartItem.quantity {
-            cartItem.quantity = quantity
-            self.tableView.reloadRows(at: [indexPath], with: .none)
+        if let indexPath = self.tableView.indexPath(for: cell) {
+            let cartItem  = CartController.shared.items[indexPath.row]
+            
+            if quantity != cartItem.quantity {
+                cartItem.quantity = quantity
+                
+                self.tableView.beginUpdates()
+                self.tableView.reloadRows(at: [indexPath], with: .none)
+                self.tableView.endUpdates()
+            }
+            
+            self.updateSubtotal()
         }
     }
 }
@@ -102,5 +141,9 @@ extension CartViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.updateParallax()
     }
 }

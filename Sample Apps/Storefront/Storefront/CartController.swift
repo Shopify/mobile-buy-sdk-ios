@@ -33,11 +33,19 @@ class CartController {
     private(set) var items: [CartItem] = []
     
     var subtotal: Decimal {
-        var value: Decimal = 0.0
+        var accumulator: Decimal = 0.0
         for item in self.items {
-            value += item.variant.price * Decimal(item.quantity)
+            accumulator += item.variant.price * Decimal(item.quantity)
         }
-        return value
+        return accumulator
+    }
+    
+    var itemCount: Int {
+        var accumulator = 0
+        for item in self.items {
+            accumulator += item.quantity
+        }
+        return accumulator
     }
     
     // ----------------------------------
