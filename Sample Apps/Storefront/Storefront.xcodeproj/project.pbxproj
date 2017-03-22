@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9A15B73A1E64627A0078E7C5 /* StorefrontTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A15B7391E64627A0078E7C5 /* StorefrontTableView.swift */; };
+		9A21F29A1E7AD4FD00E00F4B /* ParallaxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21F2991E7AD4FD00E00F4B /* ParallaxViewController.swift */; };
 		9A8E88511E719A6E0042879D /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8E88501E719A6E0042879D /* Graph.swift */; };
 		9A8E885A1E719EB20042879D /* GraphQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8E88591E719EB20042879D /* GraphQuery.swift */; };
 		9A9FFEEA1E772DF500F6DFF7 /* VariantViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9FFEE91E772DF500F6DFF7 /* VariantViewModel.swift */; };
@@ -81,6 +82,7 @@
 
 /* Begin PBXFileReference section */
 		9A15B7391E64627A0078E7C5 /* StorefrontTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorefrontTableView.swift; sourceTree = "<group>"; };
+		9A21F2991E7AD4FD00E00F4B /* ParallaxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallaxViewController.swift; sourceTree = "<group>"; };
 		9A8E88501E719A6E0042879D /* Graph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
 		9A8E88591E719EB20042879D /* GraphQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQuery.swift; sourceTree = "<group>"; };
 		9A9FFEE91E772DF500F6DFF7 /* VariantViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariantViewModel.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 			children = (
 				9AFA3B861E6DFF530056C5AA /* DepressibleCell.swift */,
 				9A9FFF021E796F1100F6DFF7 /* Scroll Views */,
+				9A21F2991E7AD4FD00E00F4B /* ParallaxViewController.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -415,6 +418,7 @@
 				9AAFAB821E60BEE000864A17 /* CollectionViewModel.swift in Sources */,
 				9AFA3B871E6DFF530056C5AA /* DepressibleCell.swift in Sources */,
 				9A9FFEEA1E772DF500F6DFF7 /* VariantViewModel.swift in Sources */,
+				9A21F29A1E7AD4FD00E00F4B /* ParallaxViewController.swift in Sources */,
 				9AAFAB801E60BE9800864A17 /* ViewModelConfigurable.swift in Sources */,
 				9AEF61CE1E606F100067FA90 /* Fragment+ImageConnectionQuery.swift in Sources */,
 				9ADAD46B1E563091008AC561 /* AppDelegate.swift in Sources */,
