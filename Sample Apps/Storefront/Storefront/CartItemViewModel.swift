@@ -34,8 +34,12 @@ class CartItemViewModel: ViewModel {
     let imageURL: URL?
     let title:    String
     let subtitle: String
-    let quantity: String
     let price:    String
+    let quantity: Int
+    
+    var quantityDescription: String {
+        return "Quantity: \(model.quantity)"
+    }
     
     // ----------------------------------
     //  MARK: - Init -
@@ -46,8 +50,8 @@ class CartItemViewModel: ViewModel {
         self.imageURL = model.product.images.items.first?.url
         self.title    = model.product.title
         self.subtitle = model.variant.title
-        self.quantity = "Quantity: \(model.quantity)"
-        self.price    = Currency.stringFrom(model.variant.price)
+        self.quantity = model.quantity
+        self.price    = Currency.stringFrom(model.variant.price * Decimal(model.quantity))
     }
 }
 

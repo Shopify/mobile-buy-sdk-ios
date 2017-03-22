@@ -28,7 +28,7 @@ import UIKit
 
 class CartViewController: UIViewController {
 
-    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet fileprivate weak var tableView: UITableView!
     
     // ----------------------------------
     //  MARK: - View Loading -
@@ -56,6 +56,22 @@ extension CartViewController {
 }
 
 // ----------------------------------
+//  MARK: - CartCellDelegate -
+//
+extension CartViewController: CartCellDelegate {
+    
+    func cartCell(_ cell: CartCell, didUpdateQuantity quantity: Int) {
+        let indexPath = self.tableView.indexPath(for: cell)!
+        let cartItem  = CartController.shared.items[indexPath.row]
+        
+        if quantity != cartItem.quantity {
+            cartItem.quantity = quantity
+            self.tableView.reloadRows(at: [indexPath], with: .none)
+        }
+    }
+}
+
+// ----------------------------------
 //  MARK: - UITableViewDataSource -
 //
 extension CartViewController: UITableViewDataSource {
@@ -71,6 +87,7 @@ extension CartViewController: UITableViewDataSource {
         let cell     = tableView.dequeueReusableCell(withIdentifier: CartCell.className, for: indexPath) as! CartCell
         let cartItem = CartController.shared.items[indexPath.row]
         
+        cell.delegate = self
         cell.configureFrom(cartItem.viewModel)
         
         return cell

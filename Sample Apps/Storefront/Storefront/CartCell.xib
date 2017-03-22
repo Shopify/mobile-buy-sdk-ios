@@ -52,6 +52,9 @@
                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" autorepeat="NO" value="1" minimumValue="1" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="eXf-X9-AdF">
                         <rect key="frame" x="214" y="76.5" width="94" height="29"/>
                         <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <action selector="stepperAction:" destination="KGk-i7-Jjw" eventType="valueChanged" id="tgU-b4-qvn"/>
+                        </connections>
                     </stepper>
                 </subviews>
                 <constraints>
@@ -75,6 +78,7 @@
             <connections>
                 <outlet property="priceLabel" destination="WNg-Pm-U8b" id="3FL-gg-d2J"/>
                 <outlet property="quantityLabel" destination="EtQ-C7-pA9" id="hzW-Pr-vX9"/>
+                <outlet property="stepper" destination="eXf-X9-AdF" id="tk4-Md-cVf"/>
                 <outlet property="subtitleLabel" destination="FFK-gd-iR2" id="M4G-L1-z49"/>
                 <outlet property="thumbnailView" destination="g9b-hd-XrG" id="S4L-yO-1Tz"/>
                 <outlet property="titleLabel" destination="24T-hG-0td" id="WAr-h5-F08"/>
