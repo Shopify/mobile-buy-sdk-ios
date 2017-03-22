@@ -71,7 +71,9 @@ class ParallaxViewController: UIViewController {
     
     var layout: Layout = .headerBelow {
         didSet {
-            self.view.setNeedsLayout()
+            if self.isViewLoaded {
+                self.view.setNeedsLayout()
+            }
         }
     }
     
@@ -137,10 +139,24 @@ class ParallaxViewController: UIViewController {
     private func layoutScrollView() {
         self.scrollView.frame = self.view.bounds
         
+        /* -----------------------------------
+         ** In order to ensure that the scroll
+         ** doesn't appear half-scroller, we
+         ** have set the content size to zero 
+         ** before setting `contentInset`. We
+         ** then restore the previoiusly set
+         ** content size.
+         */
+        let contentSize = self.scrollView.contentSize
+        self.scrollView.contentSize  = .zero
+        
         var insets                   = self.scrollView.contentInset
         insets.top                   = self.midY
         insets.bottom                = self.bottomSpace
         self.scrollView.contentInset = insets
+        self.scrollView.scrollIndicatorInsets = insets
+        
+        self.scrollView.contentSize  = contentSize
     }
     
     private func adjustZIndex() {
