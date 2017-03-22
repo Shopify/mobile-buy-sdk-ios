@@ -28,6 +28,11 @@ import UIKit
 
 class ParallaxViewController: UIViewController {
     
+    enum Layout {
+        case headerBelow
+        case headerAbove
+    }
+    
     @IBInspectable var insets:       UIEdgeInsets = .zero { didSet { self.view.setNeedsLayout() } }
     @IBInspectable var headerHeight: CGFloat      = 200.0 { didSet { self.view.setNeedsLayout() } }
     @IBInspectable var multiplier:   CGFloat      = 0.5   { didSet { self.view.setNeedsLayout() } }
@@ -35,18 +40,22 @@ class ParallaxViewController: UIViewController {
     @IBOutlet private weak var headerView: UIView! {
         willSet {
             self.proxyView.headerView = newValue
-            self.view.setNeedsLayout()
+            if self.isViewLoaded {
+                self.view.setNeedsLayout()
+            }
         }
     }
     
     @IBOutlet private weak var scrollView: UIScrollView! {
         willSet {
             self.proxyView.scrollView = newValue
-            self.view.setNeedsLayout()
+            if self.isViewLoaded {
+                self.view.setNeedsLayout()
+            }
         }
     }
     
-    private var proxyView: ProxyView!
+    private var proxyView = ProxyView(frame: .zero)
     
     private var topY: CGFloat {
         return max(self.insets.top, self.topLayoutGuide.length)
@@ -60,18 +69,10 @@ class ParallaxViewController: UIViewController {
         return self.bottomLayoutGuide.length
     }
     
-    // ----------------------------------
-    //  MARK: - Load View -
-    //
-    override func loadView() {
-        super.loadView()
-        
-        self.loadParallaxView()
-    }
-    
-    private func loadParallaxView() {
-        let view = ProxyView(frame: self.view.bounds)
-        self.view.addSubview(view)
+    var layout: Layout = .headerBelow {
+        didSet {
+            self.view.setNeedsLayout()
+        }
     }
     
     // ----------------------------------
@@ -143,8 +144,15 @@ class ParallaxViewController: UIViewController {
     }
     
     private func adjustZIndex() {
-        self.view.insertSubview(self.headerView, at: 0)
-        self.view.insertSubview(self.scrollView, at: 1)
+        
+        switch self.layout {
+        case .headerBelow:
+            self.view.insertSubview(self.headerView, at: 0)
+            self.view.insertSubview(self.scrollView, at: 1)
+        case .headerAbove:
+            self.view.insertSubview(self.scrollView, at: 0)
+            self.view.insertSubview(self.headerView, at: 1)
+        }
         self.view.insertSubview(self.proxyView, at: 2)
     }
 }
