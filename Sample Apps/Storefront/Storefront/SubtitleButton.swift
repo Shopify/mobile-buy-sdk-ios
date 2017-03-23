@@ -1,5 +1,5 @@
 //
-//  CartButton.swift
+//  SubtitleButton.swift
 //  Storefront
 //
 //  Created by Shopify.
@@ -26,7 +26,9 @@
 
 import UIKit
 
-class CartButton: RoundedButton {
+class SubtitleButton: RoundedButton {
+    
+    @IBInspectable var subtitle: String = ""
     
     override func setTitle(_ title: String?, for state: UIControlState) {
         
@@ -48,7 +50,7 @@ class CartButton: RoundedButton {
             NSForegroundColorAttributeName: currentColor
             ])
         
-        let attributedSubtitle = NSAttributedString(string: "\nAdd to Cart", attributes: [
+        let attributedSubtitle = NSAttributedString(string: "\n\(self.subtitle)", attributes: [
             NSFontAttributeName           : UIFont(descriptor: currentFont.fontDescriptor, size: currentFont.pointSize * 0.6),
             NSParagraphStyleAttributeName : style,
             NSForegroundColorAttributeName: currentColor.withAlphaComponent(0.6)
