@@ -95,17 +95,16 @@ extension CartViewController: CartCellDelegate {
     
     func cartCell(_ cell: CartCell, didUpdateQuantity quantity: Int) {
         if let indexPath = self.tableView.indexPath(for: cell) {
-            let cartItem  = CartController.shared.items[indexPath.row]
             
-            if quantity != cartItem.quantity {
-                cartItem.quantity = quantity
+            let didUpdate = CartController.shared.updateQuantity(quantity, at: indexPath.row)
+            if didUpdate {
                 
                 self.tableView.beginUpdates()
                 self.tableView.reloadRows(at: [indexPath], with: .none)
                 self.tableView.endUpdates()
+                
+                self.updateSubtotal()
             }
-            
-            self.updateSubtotal()
         }
     }
 }

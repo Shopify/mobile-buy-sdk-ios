@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A0ED6861E83F120008C605E /* Serializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0ED6851E83F120008C605E /* Serializable.swift */; };
+		9A0ED68A1E83FF2D008C605E /* GraphQL+Serializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0ED6891E83FF2D008C605E /* GraphQL+Serializable.swift */; };
 		9A15B73A1E64627A0078E7C5 /* StorefrontTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A15B7391E64627A0078E7C5 /* StorefrontTableView.swift */; };
 		9A21F2981E7AD30F00E00F4B /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21F2971E7AD30F00E00F4B /* ProductDetailsViewController.swift */; };
 		9A21F29A1E7AD4FD00E00F4B /* ParallaxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21F2991E7AD4FD00E00F4B /* ParallaxViewController.swift */; };
@@ -100,6 +102,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9A0ED6851E83F120008C605E /* Serializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Serializable.swift; sourceTree = "<group>"; };
+		9A0ED6891E83FF2D008C605E /* GraphQL+Serializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GraphQL+Serializable.swift"; sourceTree = "<group>"; };
 		9A15B7391E64627A0078E7C5 /* StorefrontTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorefrontTableView.swift; sourceTree = "<group>"; };
 		9A21F2971E7AD30F00E00F4B /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
 		9A21F2991E7AD4FD00E00F4B /* ParallaxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallaxViewController.swift; sourceTree = "<group>"; };
@@ -167,6 +171,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9A0ED6881E83FF1B008C605E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				9A0ED6891E83FF2D008C605E /* GraphQL+Serializable.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		9A21F29B1E7ADF9000E00F4B /* Details */ = {
 			isa = PBXGroup;
 			children = (
@@ -181,6 +193,7 @@
 			children = (
 				9A8E88501E719A6E0042879D /* Graph.swift */,
 				9A8E88591E719EB20042879D /* GraphQuery.swift */,
+				9A0ED6881E83FF1B008C605E /* Extensions */,
 				9AEF61CA1E606EEB0067FA90 /* Fragments */,
 			);
 			name = API;
@@ -284,6 +297,7 @@
 				9AAFAB8B1E60C3C700864A17 /* ViewModel.swift */,
 				9AAFAB7D1E60BE6500864A17 /* ViewModeling.swift */,
 				9AAFAB7F1E60BE9800864A17 /* ViewModelConfigurable.swift */,
+				9A0ED6851E83F120008C605E /* Serializable.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -536,9 +550,11 @@
 				9AC583CF1E81BF96005DB319 /* CartCell.swift in Sources */,
 				9AAFAB8F1E60C6AC00864A17 /* UIImageView+Remote.swift in Sources */,
 				9AFA3B7D1E6DB7110056C5AA /* ProductsViewController.swift in Sources */,
+				9A0ED6861E83F120008C605E /* Serializable.swift in Sources */,
 				9A9FFF051E796F2100F6DFF7 /* Paginating.swift in Sources */,
 				9ADAD46D1E563091008AC561 /* CollectionsViewController.swift in Sources */,
 				9AAFAB821E60BEE000864A17 /* CollectionViewModel.swift in Sources */,
+				9A0ED68A1E83FF2D008C605E /* GraphQL+Serializable.swift in Sources */,
 				9AFA3B871E6DFF530056C5AA /* DepressibleCell.swift in Sources */,
 				9A9FFEEA1E772DF500F6DFF7 /* VariantViewModel.swift in Sources */,
 				9A9FFF4A1E81B59700F6DFF7 /* CartController.swift in Sources */,

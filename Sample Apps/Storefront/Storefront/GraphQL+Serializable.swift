@@ -1,5 +1,5 @@
 //
-//  AppDelegate.swift
+//  GraphQL+Serializable.swift
 //  Storefront
 //
 //  Created by Shopify.
@@ -24,25 +24,15 @@
 //  THE SOFTWARE.
 //
 
-import UIKit
+import Buy
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
-
-    // ----------------------------------
-    //  MARK: - Application Launch -
-    //
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
-        /* ----------------------------------------
-         ** Initialize the cart controller and pre-
-         ** load any cached cart items.
-         */
-        _ = CartController.shared
-        
-        return true
+extension GraphQL.AbstractResponse: Serializable {
+    
+    static func deserialize(from representation: SerializedRepresentation) -> Self? {
+        return try? self.init(fields: representation)
+    }
+    
+    func serialize() -> SerializedRepresentation {
+        return self.fields
     }
 }
-
