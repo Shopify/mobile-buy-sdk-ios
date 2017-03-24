@@ -55,6 +55,17 @@ class ProductsViewController: UIViewController {
 }
 
 // ----------------------------------
+//  MARK: - Actions -
+//
+extension ProductsViewController {
+    
+    @IBAction func cartAction(_ sender: Any) {
+        let cartController: CartNavigationController = self.storyboard!.instantiateViewController()
+        self.navigationController!.present(cartController, animated: true, completion: nil)
+    }
+}
+
+// ----------------------------------
 //  MARK: - PaginationDelegate -
 //
 extension ProductsViewController: StorefrontCollectionViewDelegate {

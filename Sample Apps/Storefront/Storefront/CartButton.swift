@@ -28,6 +28,12 @@ import UIKit
 
 class CartButton: UIBarButtonItem {
     
+    @IBInspectable var userInteractionEnabled: Bool = true {
+        didSet {
+            self.cartView.isUserInteractionEnabled = self.userInteractionEnabled
+        }
+    }
+    
     private var cartView: CartButtonView!
 
     // ----------------------------------
