@@ -69,7 +69,7 @@ class CartButton: UIBarButtonItem {
     //  MARK: - Notifications -
     //
     private func registerNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(itemCountDidChange(_:)), name: Notification.Name.CartControllerItemCountDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(itemCountDidChange(_:)), name: Notification.Name.CartControllerItemsDidChange, object: nil)
     }
     
     private func unregisterNotifications() {
