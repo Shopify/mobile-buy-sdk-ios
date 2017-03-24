@@ -26,8 +26,13 @@
 
 import Foundation
 
-class CartController {
 
+extension Notification.Name {
+    static let CartControllerItemCountDidChange = Notification.Name("CartController.ItemCountDidChange")
+}
+
+class CartController {
+    
     static let shared = CartController()
     
     private(set) var items: [CartItem] = []
@@ -67,8 +72,18 @@ class CartController {
         self.readCart { items in
             if let items = items {
                 self.items = items
+                
+                self.postItemCountChanged()
             }
         }
+    }
+    
+    // ----------------------------------
+    //  MARK: - Notifications -
+    //
+    private func postItemCountChanged() {
+        let notification = Notification(name: Notification.Name.CartControllerItemCountDidChange)
+        NotificationQueue.default.enqueue(notification, postingStyle: .asap)
     }
     
     // ----------------------------------
@@ -122,6 +137,14 @@ class CartController {
     }
     
     // ----------------------------------
+    //  MARK: - State Changes -
+    //
+    private func itemCountChanged() {
+        self.setNeedsFlush()
+        self.postItemCountChanged()
+    }
+    
+    // ----------------------------------
     //  MARK: - Item Management -
     //
     func updateQuantity(_ quantity: Int, at index: Int) -> Bool {
@@ -130,7 +153,7 @@ class CartController {
         if existingItem.quantity != quantity {
             existingItem.quantity = quantity
             
-            self.setNeedsFlush()
+            self.itemCountChanged()
             return true
         }
         return false
@@ -140,31 +163,31 @@ class CartController {
         let existingItem = self.items[index]
         existingItem.quantity += 1
         
-        self.setNeedsFlush()
+        self.itemCountChanged()
     }
     
     func decrementAt(_ index: Int) {
         let existingItem = self.items[index]
         existingItem.quantity -= 1
         
-        self.setNeedsFlush()
+        self.itemCountChanged()
     }
     
     func add(_ cartItem: CartItem) {
         if let index = self.items.index(of: cartItem) {
-            self.incrementAt(index)
+            self.items[index].quantity += 1
         } else {
             self.items.append(cartItem)
         }
         
-        self.setNeedsFlush()
+        self.itemCountChanged()
     }
     
     func removeAllQuantitiesFor(_ cartItem: CartItem) {
         if let index = self.items.index(of: cartItem) {
             self.items.remove(at: index)
             
-            self.setNeedsFlush()
+            self.itemCountChanged()
         }
     }
 }

@@ -41,7 +41,9 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="FJA-Xo-Ook" secondAttribute="bottom" id="fmZ-eY-4wD"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Collections" id="9WP-3t-7If"/>
+                    <navigationItem key="navigationItem" title="Collections" id="9WP-3t-7If">
+                        <barButtonItem key="rightBarButtonItem" title="Cart" id="6n0-30-yb1" customClass="CartButton" customModule="Storefront" customModuleProvider="target"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="FJA-Xo-Ook" id="zuu-Zf-hAN"/>
                         <segue destination="AbI-Ns-2vc" kind="show" id="f9n-Ry-sCt"/>
@@ -199,7 +201,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Details" id="06T-Eq-F9g">
-                        <barButtonItem key="rightBarButtonItem" title="Cart" id="Wss-qW-p7O">
+                        <barButtonItem key="rightBarButtonItem" title="Cart" id="Wss-qW-p7O" customClass="CartButton" customModule="Storefront" customModuleProvider="target">
                             <connections>
                                 <action selector="cartAction:" destination="FDf-If-Fqx" id="sCR-7P-U64"/>
                             </connections>
@@ -255,6 +257,10 @@
         <scene sceneID="RHL-KK-LA9">
             <objects>
                 <viewController storyboardIdentifier="TotalsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0rU-kT-Sds" customClass="TotalsViewController" customModule="Storefront" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lG9-ag-zzz"/>
+                        <viewControllerLayoutGuide type="bottom" id="s04-dR-aXf"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="5Si-l6-BER">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="160"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
