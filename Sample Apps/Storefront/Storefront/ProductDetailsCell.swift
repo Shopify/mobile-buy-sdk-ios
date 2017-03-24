@@ -39,6 +39,6 @@ class ProductDetailsCell: UITableViewCell, ViewModelConfigurable {
     func configureFrom(_ viewModel: ViewModelType) {
         self.viewModel = viewModel
         
-        self.contentLabel.attributedText = HTMLParser.attributedStringFrom(viewModel.summary, font: "Apple SD Gothic Neo", size: 17.0)
+        self.contentLabel.attributedText = viewModel.summary.interpretAsHTML(font: "Apple SD Gothic Neo", size: 17.0)
     }
 }
