@@ -130,8 +130,11 @@ extension ProductsViewController: UICollectionViewDelegateFlowLayout {
 extension ProductsViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let product = self.products.items[indexPath.item]
         
-        
+        let detailsController: ProductDetailsViewController = self.storyboard!.instantiateViewController()
+        detailsController.product = product
+        self.navigationController!.pushViewController(detailsController, animated: true)
         
         collectionView.deselectItem(at: indexPath, animated: true)
     }

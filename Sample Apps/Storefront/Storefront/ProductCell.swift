@@ -41,6 +41,6 @@ class ProductCell: DepressibleCell, ViewModelConfigurable {
         
         self.titleLabel.text = viewModel.title
         self.priceLabel.text = viewModel.price
-        self.imageView.setImageFrom(viewModel.imageURL)
+        self.imageView.setImageFrom(viewModel.images.items.first?.url)
     }
 }
