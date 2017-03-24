@@ -255,7 +255,10 @@ private class BadgeView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        self.label.frame        = self.bounds
+        var frame        = self.bounds
+        frame.origin.y  += 1.0 / UIScreen.main.scale
+        self.label.frame = frame
+        
         self.layer.cornerRadius = ceil(self.bounds.height * 0.5)
     }
 }
