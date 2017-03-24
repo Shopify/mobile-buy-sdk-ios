@@ -109,7 +109,7 @@ extension CollectionsViewController: CollectionCellDelegate {
     func cell(_ collectionCell: CollectionCell, didSelectProduct product: ProductViewModel) {
         let detailsController: ProductDetailsViewController = self.storyboard!.instantiateViewController()
         detailsController.product = product
-        self.navigationController!.pushViewController(detailsController, animated: true)
+        self.navigationController!.show(detailsController, sender: self)
     }
 }
 
@@ -172,6 +172,6 @@ extension CollectionsViewController: UITableViewDelegate {
         
         let productsController: ProductsViewController = self.storyboard!.instantiateViewController()
         productsController.collection = collection
-        self.navigationController!.pushViewController(productsController, animated: true)
+        self.navigationController!.show(productsController, sender: self)
     }
 }
