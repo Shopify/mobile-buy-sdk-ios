@@ -130,6 +130,7 @@ private class CartButtonView: UIButton {
     private var badgeView: BadgeView!
     
     private var badgeTransformMin     = CATransform3DMakeScale(0.001, 0.001, 0.001)
+    private var badgeTransformMid     = CATransform3DMakeScale(0.5, 0.5, 0.5)
     private var badgeTransformMax     = CATransform3DMakeScale(1.5, 1.5, 1.5)
     private var badgeTransformDefault = CATransform3DIdentity
     
@@ -186,8 +187,21 @@ private class CartButtonView: UIButton {
                  */
                 if badge > 0 {
                     
+                    let transform: CATransform3D
+                    
+                    /* -----------------------------------
+                     ** Determine whether to pop in or out
+                     ** based on whether it's an increment
+                     ** or a decrement.
+                     */
+                    if badge > self.badgeView.badge {
+                        transform = self.badgeTransformMax
+                    } else {
+                        transform = self.badgeTransformMid
+                    }
+                    
                     UIView.animate(withDuration: 0.1, delay: 0.0, options: [], animations: {
-                        self.badgeView.layer.transform = self.badgeTransformMax
+                        self.badgeView.layer.transform = transform
                     }, completion: { complete in
                         
                         setter()
@@ -196,6 +210,7 @@ private class CartButtonView: UIButton {
                             self.badgeView.layer.transform = self.badgeTransformDefault
                         }, completion: nil)
                     })
+                    
 
                 /* ---------------------------------
                  ** Badge is shown and we're hiding
