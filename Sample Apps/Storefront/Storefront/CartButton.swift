@@ -255,7 +255,10 @@ private class BadgeView: UIView {
         super.sizeToFit()
         
         self.label.sizeToFit()
-        self.bounds = self.label.bounds.insetBy(dx: -5.0, dy: -1.0).ceiled
+        
+        var bounds        = self.label.bounds.insetBy(dx: -5.0, dy: -1.0).ceiled
+        bounds.size.width = max(bounds.size.height, bounds.size.width) // prevent height exceeding width
+        self.bounds       = bounds
     }
     
     override func layoutSubviews() {
@@ -265,7 +268,7 @@ private class BadgeView: UIView {
         frame.origin.y  += 1.0 / UIScreen.main.scale
         self.label.frame = frame
         
-        self.layer.cornerRadius = ceil(self.bounds.height * 0.5)
+        self.layer.cornerRadius = self.bounds.height * 0.5
     }
 }
 
