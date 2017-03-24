@@ -48,7 +48,7 @@ final class CollectionViewModel: ViewModel {
         
         self.title       = model.node.title
         self.imageURL    = model.node.image?.src
-        self.description = model.node.descriptionPlainSummary
+        self.description = model.node.descriptionHtml
         
         self.products    = PageableArray(
             with:     model.node.products.edges,

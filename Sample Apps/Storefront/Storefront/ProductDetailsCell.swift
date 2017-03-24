@@ -1,5 +1,5 @@
 //
-//  Fragment+ProductConnectionQuery.swift
+//  ProductDetailsCell.swift
 //  Storefront
 //
 //  Created by Shopify.
@@ -24,27 +24,21 @@
 //  THE SOFTWARE.
 //
 
-import Buy
+import UIKit
 
-extension Storefront.ProductConnectionQuery {
+class ProductDetailsCell: UITableViewCell, ViewModelConfigurable {
+    typealias ViewModelType = ProductViewModel
     
-    @discardableResult
-    func fragmentForStandardProduct() -> Storefront.ProductConnectionQuery { return self
-        .pageInfo { $0
-            .hasNextPage()
-        }
-        .edges { $0
-            .cursor()
-            .node { $0
-                .title()
-                .descriptionHtml()
-                .variants(first: 250) { $0
-                    .fragmentForStandardVariant()
-                }
-                .images(first: 250) { $0
-                    .fragmentForStandardProductImage()
-                }
-            }
-        }
+    @IBOutlet private weak var contentLabel: UILabel!
+    
+    var viewModel: ViewModelType?
+    
+    // ----------------------------------
+    //  MARK: - Configure -
+    //
+    func configureFrom(_ viewModel: ViewModelType) {
+        self.viewModel = viewModel
+        
+        self.contentLabel.attributedText = HTMLParser.attributedStringFrom(viewModel.summary, font: "Apple SD Gothic Neo", size: 17.0)
     }
 }

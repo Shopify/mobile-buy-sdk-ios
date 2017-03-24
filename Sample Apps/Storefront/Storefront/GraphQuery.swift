@@ -41,7 +41,7 @@ final class GraphQuery {
                         .node { $0
                             .id()
                             .title()
-                            .descriptionPlainSummary()
+                            .descriptionHtml()
                             .image { $0
                                 .src()
                             }

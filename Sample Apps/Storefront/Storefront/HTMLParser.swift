@@ -1,5 +1,5 @@
 //
-//  Fragment+ProductConnectionQuery.swift
+//  HTMLParser.swift
 //  Storefront
 //
 //  Created by Shopify.
@@ -24,27 +24,30 @@
 //  THE SOFTWARE.
 //
 
-import Buy
+import UIKit
 
-extension Storefront.ProductConnectionQuery {
+final class HTMLParser {
     
-    @discardableResult
-    func fragmentForStandardProduct() -> Storefront.ProductConnectionQuery { return self
-        .pageInfo { $0
-            .hasNextPage()
-        }
-        .edges { $0
-            .cursor()
-            .node { $0
-                .title()
-                .descriptionHtml()
-                .variants(first: 250) { $0
-                    .fragmentForStandardVariant()
-                }
-                .images(first: 250) { $0
-                    .fragmentForStandardProductImage()
-                }
-            }
-        }
+    static func attributedStringFrom(_ html: String, font: String, size: CGFloat) -> NSAttributedString? {
+        
+        var style = ""
+        style += "<style>html { "
+        style += "font-family: \"\(font)\" !important;"
+        style += "font-size: \(size) !important;"
+        style += "}</style>"
+        
+        let styledHTML = html.trimmingCharacters(in: CharacterSet.newlines).appending(style)
+        let htmlData   = styledHTML.data(using: .utf8)!
+        
+        let options: [String: Any] = [
+            NSDocumentTypeDocumentAttribute      : NSHTMLTextDocumentType,
+            NSCharacterEncodingDocumentAttribute : String.Encoding.utf8.rawValue,
+        ]
+        
+        return try? NSAttributedString(
+            data:               htmlData,
+            options:            options,
+            documentAttributes: nil
+        )
     }
 }
