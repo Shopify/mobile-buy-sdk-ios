@@ -105,6 +105,12 @@ extension CollectionsViewController: CollectionCellDelegate {
             }
         }
     }
+    
+    func cell(_ collectionCell: CollectionCell, didSelectProduct product: ProductViewModel) {
+        let detailsController: ProductDetailsViewController = self.storyboard!.instantiateViewController()
+        detailsController.product = product
+        self.navigationController!.show(detailsController, sender: self)
+    }
 }
 
 // ----------------------------------
@@ -148,9 +154,9 @@ extension CollectionsViewController: UITableViewDataSource {
     //  MARK: - Height -
     //
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let ratio  = CGFloat(16.0 / 9.0)
+        
         let width  = tableView.bounds.width
-        let height = width / ratio // height for header
+        let height = width * 0.75 // 3:4 ratio
         
         return height + 150.0 // 150 is the height of the product collection
     }
@@ -166,6 +172,6 @@ extension CollectionsViewController: UITableViewDelegate {
         
         let productsController: ProductsViewController = self.storyboard!.instantiateViewController()
         productsController.collection = collection
-        self.navigationController!.pushViewController(productsController, animated: true)
+        self.navigationController!.show(productsController, sender: self)
     }
 }

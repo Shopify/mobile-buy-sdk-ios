@@ -1,5 +1,5 @@
 //
-//  HTMLParser.swift
+//  RoundedButton.swift
 //  Storefront
 //
 //  Created by Shopify.
@@ -26,28 +26,44 @@
 
 import UIKit
 
-final class HTMLParser {
+class RoundedButton: UIButton {
+
+    // ----------------------------------
+    //  MARK: - Init -
+    //
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        self.configureCornerRadius()
+    }
     
-    static func attributedStringFrom(_ html: String, font: String, size: CGFloat) -> NSAttributedString? {
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
         
-        var style = ""
-        style += "<style>* { "
-        style += "font-family: \"\(font)\" !important;"
-        style += "font-size: \(size) !important;"
-        style += "}</style>"
-        
-        let styledHTML = html.trimmingCharacters(in: CharacterSet.newlines).appending(style)
-        let htmlData   = styledHTML.data(using: .utf8)!
-        
-        let options: [String: Any] = [
-            NSDocumentTypeDocumentAttribute      : NSHTMLTextDocumentType,
-            NSCharacterEncodingDocumentAttribute : String.Encoding.utf8.rawValue,
-        ]
-        
-        return try? NSAttributedString(
-            data:               htmlData,
-            options:            options,
-            documentAttributes: nil
-        )
+        self.configureCornerRadius()
+    }
+    
+    private func configureCornerRadius() {
+        self.layer.cornerRadius  = 4.0
+        self.layer.masksToBounds = true
+    }
+    
+    // ----------------------------------
+    //  MARK: - Selection -
+    //
+    override var isHighlighted: Bool {
+        willSet(highlighted) {
+            
+            let scale: CGFloat
+            if highlighted {
+                scale = 0.9
+            } else {
+                scale = 1.0
+            }
+            
+            UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
+                self.layer.transform = CATransform3DMakeScale(scale, scale, scale)
+            }, completion: nil)
+        }
     }
 }
