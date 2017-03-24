@@ -1,5 +1,5 @@
 //
-//  HTMLParser.swift
+//  String+HTML.swift
 //  Storefront
 //
 //  Created by Shopify.
@@ -26,9 +26,9 @@
 
 import UIKit
 
-final class HTMLParser {
+extension String {
     
-    static func attributedStringFrom(_ html: String, font: String, size: CGFloat) -> NSAttributedString? {
+    func interpretAsHTML(font: String, size: CGFloat) -> NSAttributedString? {
         
         var style = ""
         style += "<style>* { "
@@ -36,7 +36,7 @@ final class HTMLParser {
         style += "font-size: \(size) !important;"
         style += "}</style>"
         
-        let styledHTML = html.trimmingCharacters(in: CharacterSet.newlines).appending(style)
+        let styledHTML = self.trimmingCharacters(in: CharacterSet.newlines).appending(style)
         let htmlData   = styledHTML.data(using: .utf8)!
         
         let options: [String: Any] = [
@@ -44,10 +44,6 @@ final class HTMLParser {
             NSCharacterEncodingDocumentAttribute : String.Encoding.utf8.rawValue,
         ]
         
-        return try? NSAttributedString(
-            data:               htmlData,
-            options:            options,
-            documentAttributes: nil
-        )
+        return try? NSAttributedString(data: htmlData, options: options, documentAttributes: nil)
     }
 }
