@@ -160,22 +160,63 @@ private class CartButtonView: UIButton {
     func setBadge(_ badge: Int, animated: Bool) {
         
         let setter = {
-            self.badgeView.setBadge(badge)
+            self.badgeView.badge    = badge
+            self.badgeView.isHidden = badge < 1
+            
             self.setNeedsLayout()
             self.layoutIfNeeded()
         }
         
+        guard self.badgeView.badge != badge else {
+            setter()
+            return
+        }
+        
         if animated {
-            UIView.animate(withDuration: 0.1, delay: 0.0, options: [.beginFromCurrentState], animations: {
-                self.badgeView.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
-            }, completion: { complete in
+            
+            if self.badgeView.badge > 0 {
+                
+                /* ---------------------------------
+                 ** Badge is already shown and we're
+                 ** changing it to a different value.
+                 */
+                if badge > 0 {
+                    
+                    UIView.animate(withDuration: 0.1, delay: 0.0, options: [.beginFromCurrentState], animations: {
+                        self.badgeView.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
+                    }, completion: { complete in
+                        
+                        setter()
+                        
+                        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.4, initialSpringVelocity: 0.5, options: [.beginFromCurrentState], animations: {
+                            self.badgeView.layer.transform = CATransform3DIdentity
+                        }, completion: nil)
+                    })
+
+                /* ---------------------------------
+                 ** Badge is shown and we're hiding
+                 ** it since it's now 0.
+                 */
+                } else {
+                    UIView.animate(withDuration: 0.1, delay: 0.0, options: [.beginFromCurrentState], animations: {
+                        self.badgeView.layer.transform = CATransform3DMakeScale(0.0001, 0.0001, 0.0001)
+                    }, completion: { complete in
+                        setter()
+                    })
+                }
+                
+            /* ----------------------------------
+             ** The badge is not show and we need
+             ** to present it.
+             */
+            } else {
                 
                 setter()
                 
                 UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.4, initialSpringVelocity: 0.5, options: [.beginFromCurrentState], animations: {
                     self.badgeView.layer.transform = CATransform3DIdentity
                 }, completion: nil)
-            })
+            }
             
         } else {
             setter()
@@ -201,6 +242,13 @@ private class CartButtonView: UIButton {
 }
 
 private class BadgeView: UIView {
+    
+    var badge: Int = 0 {
+        didSet {
+            self.label.text = "\(self.badge)"
+            self.setNeedsLayout()
+        }
+    }
     
     private var label: UILabel!
     
@@ -236,16 +284,6 @@ private class BadgeView: UIView {
         self.label.shadowColor   = .clear
         
         self.addSubview(self.label)
-    }
-    
-    // ----------------------------------
-    //  MARK: - Badge -
-    //
-    func setBadge(_ badge: Int) {
-        
-        self.label.text = "\(badge)"
-        self.setNeedsLayout()
-        
     }
     
     // ----------------------------------
