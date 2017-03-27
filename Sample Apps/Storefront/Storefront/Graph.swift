@@ -59,7 +59,7 @@ final class Graph {
                 )
                 completion(collections)
             } else {
-                print("Failed to load collections: \(error)")
+                print("Failed to load collections: \(String(describing: error))")
                 completion(nil)
             }
         }
@@ -84,7 +84,7 @@ final class Graph {
                 completion(products)
                 
             } else {
-                print("Failed to load products in collection (\(collection.model.node.id.rawValue)): \(error)")
+                print("Failed to load products in collection (\(collection.model.node.id.rawValue)): \(String(describing: error))")
                 completion(nil)
             }
         }
