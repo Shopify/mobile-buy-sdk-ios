@@ -14,6 +14,7 @@
 		9A21F2981E7AD30F00E00F4B /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21F2971E7AD30F00E00F4B /* ProductDetailsViewController.swift */; };
 		9A21F29A1E7AD4FD00E00F4B /* ParallaxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21F2991E7AD4FD00E00F4B /* ParallaxViewController.swift */; };
 		9A21F29F1E7EC8AE00E00F4B /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21F29E1E7EC8AE00E00F4B /* ImageViewController.swift */; };
+		9A7E3F6F1E89615E00713740 /* UICollectionView+Touch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7E3F6E1E89615E00713740 /* UICollectionView+Touch.swift */; };
 		9A8E88511E719A6E0042879D /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8E88501E719A6E0042879D /* Graph.swift */; };
 		9A8E885A1E719EB20042879D /* GraphQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8E88591E719EB20042879D /* GraphQuery.swift */; };
 		9A9FFEEA1E772DF500F6DFF7 /* VariantViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9FFEE91E772DF500F6DFF7 /* VariantViewModel.swift */; };
@@ -61,7 +62,7 @@
 		9AEF61CE1E606F100067FA90 /* Fragment+ImageConnectionQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF61CD1E606F100067FA90 /* Fragment+ImageConnectionQuery.swift */; };
 		9AFA3B7D1E6DB7110056C5AA /* ProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFA3B7C1E6DB7110056C5AA /* ProductsViewController.swift */; };
 		9AFA3B7F1E6DC5FD0056C5AA /* Storyboard+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFA3B7E1E6DC5FD0056C5AA /* Storyboard+ViewController.swift */; };
-		9AFA3B871E6DFF530056C5AA /* DepressibleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFA3B861E6DFF530056C5AA /* DepressibleCell.swift */; };
+		9AFA3B871E6DFF530056C5AA /* SelectableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFA3B861E6DFF530056C5AA /* SelectableCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +111,7 @@
 		9A21F2971E7AD30F00E00F4B /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
 		9A21F2991E7AD4FD00E00F4B /* ParallaxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallaxViewController.swift; sourceTree = "<group>"; };
 		9A21F29E1E7EC8AE00E00F4B /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		9A7E3F6E1E89615E00713740 /* UICollectionView+Touch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Touch.swift"; sourceTree = "<group>"; };
 		9A8E88501E719A6E0042879D /* Graph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
 		9A8E88591E719EB20042879D /* GraphQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQuery.swift; sourceTree = "<group>"; };
 		9A9FFEE91E772DF500F6DFF7 /* VariantViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariantViewModel.swift; sourceTree = "<group>"; };
@@ -158,7 +160,7 @@
 		9AEF61CD1E606F100067FA90 /* Fragment+ImageConnectionQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fragment+ImageConnectionQuery.swift"; sourceTree = "<group>"; };
 		9AFA3B7C1E6DB7110056C5AA /* ProductsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsViewController.swift; sourceTree = "<group>"; };
 		9AFA3B7E1E6DC5FD0056C5AA /* Storyboard+ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Storyboard+ViewController.swift"; sourceTree = "<group>"; };
-		9AFA3B861E6DFF530056C5AA /* DepressibleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepressibleCell.swift; sourceTree = "<group>"; };
+		9AFA3B861E6DFF530056C5AA /* SelectableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectableCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -307,6 +309,7 @@
 		9AAFAB8D1E60C69C00864A17 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				9A7E3F6E1E89615E00713740 /* UICollectionView+Touch.swift */,
 				9AAFAB8E1E60C6AC00864A17 /* UIImageView+Remote.swift */,
 				9AAFAB931E60D2D000864A17 /* NSObject+Name.swift */,
 				9AFA3B7E1E6DC5FD0056C5AA /* Storyboard+ViewController.swift */,
@@ -318,7 +321,7 @@
 		9AAFAB901E60D0F900864A17 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				9AFA3B861E6DFF530056C5AA /* DepressibleCell.swift */,
+				9AFA3B861E6DFF530056C5AA /* SelectableCell.swift */,
 				9A9FFF2F1E8150F400F6DFF7 /* Buttons */,
 				9A9FFF021E796F1100F6DFF7 /* Scroll Views */,
 				9A21F2991E7AD4FD00E00F4B /* ParallaxViewController.swift */,
@@ -559,7 +562,7 @@
 				9ADAD46D1E563091008AC561 /* CollectionsViewController.swift in Sources */,
 				9AAFAB821E60BEE000864A17 /* CollectionViewModel.swift in Sources */,
 				9A0ED68A1E83FF2D008C605E /* GraphQL+Serializable.swift in Sources */,
-				9AFA3B871E6DFF530056C5AA /* DepressibleCell.swift in Sources */,
+				9AFA3B871E6DFF530056C5AA /* SelectableCell.swift in Sources */,
 				9A9FFEEA1E772DF500F6DFF7 /* VariantViewModel.swift in Sources */,
 				9A9FFF4A1E81B59700F6DFF7 /* CartController.swift in Sources */,
 				9A9FFF271E80172C00F6DFF7 /* ProductDetailsCell.swift in Sources */,
@@ -573,6 +576,7 @@
 				9AC583D41E829597005DB319 /* CartItemViewModel.swift in Sources */,
 				9A8E885A1E719EB20042879D /* GraphQuery.swift in Sources */,
 				9AFA3B7F1E6DC5FD0056C5AA /* Storyboard+ViewController.swift in Sources */,
+				9A7E3F6F1E89615E00713740 /* UICollectionView+Touch.swift in Sources */,
 				9ADCC88B1E82FE2900F5B6DD /* TotalsViewController.swift in Sources */,
 				9A9FFF2E1E8150F100F6DFF7 /* SubtitleButton.swift in Sources */,
 				9AC583D21E81C165005DB319 /* CartNavigationController.swift in Sources */,

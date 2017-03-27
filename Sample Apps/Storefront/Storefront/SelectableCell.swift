@@ -1,5 +1,5 @@
 //
-//  ProductCell.swift
+//  SelectableCell.swift
 //  Storefront
 //
 //  Created by Shopify.
@@ -26,21 +26,52 @@
 
 import UIKit
 
-class ProductCell: SelectableCollectionCell, ViewModelConfigurable {
+protocol Selectable: class {
+    
+    var highlightView: UIView { get }
+}
 
-    typealias ViewModelType = ProductViewModel
+extension Selectable {
     
-    @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var priceLabel: UILabel!
-    @IBOutlet private weak var imageView:  UIImageView!
+    func applyHighlightIn(view: UIView) {
+        self.highlightView.frame           = view.bounds
+        self.highlightView.backgroundColor = view.tintColor.withAlphaComponent(0.04)
+        view.addSubview(self.highlightView)
+    }
     
-    private(set) var viewModel: ProductViewModel?
+    func removeHighlight() {
+        self.highlightView.removeFromSuperview()
+    }
+}
+
+class SelectableCollectionCell: UICollectionViewCell, Selectable {
     
-    func configureFrom(_ viewModel: ProductViewModel) {
-        self.viewModel = viewModel
-        
-        self.titleLabel.text = viewModel.title
-        self.priceLabel.text = viewModel.price
-        self.imageView.setImageFrom(viewModel.images.items.first?.url)
+    lazy var highlightView = UIView()
+    
+    override var isHighlighted: Bool {
+        willSet(highlighted) {
+            
+            if highlighted {
+                self.applyHighlightIn(view: self.contentView)
+            } else {
+                self.removeHighlight()
+            }
+        }
+    }
+}
+
+class SelectableTableCell: UITableViewCell, Selectable {
+    
+    lazy var highlightView = UIView()
+    
+    override var isHighlighted: Bool {
+        willSet(highlighted) {
+            
+            if highlighted {
+                self.applyHighlightIn(view: self.contentView)
+            } else {
+                self.removeHighlight()
+            }
+        }
     }
 }

@@ -80,6 +80,32 @@ class CollectionCell: UITableViewCell, ViewModelConfigurable {
         self.collectionView.paginationDirection = .horizontal
         self.collectionView.paginationDelegate  = self
     }
+    
+    // ----------------------------------
+    //  MARK: - Touch Queries -
+    //
+    func productFor(_ touch: CGPoint) -> (model: ProductViewModel, sourceRect: CGRect)? {
+        
+        let collectionTouch = self.collectionView.convert(touch, from: self)
+        if let indexPath = self.collectionView.indexPathForItem(at: collectionTouch) {
+            
+            let cell      = self.collectionView.cellForItem(at: indexPath) as! ProductCell
+            let cellFrame = self.collectionView.rectForItem(at: indexPath)!
+            
+            let product   = cell.viewModel!
+            let frame     = self.convert(cellFrame, from: self.collectionView)
+            
+            return (product, frame)
+        }
+        return nil
+    }
+    
+    func collectionFor(_ touch: CGPoint) -> (model: CollectionViewModel, sourceRect: CGRect)? {
+        if self.titleImageView.frame.contains(touch) {
+            return (self.viewModel!, self.titleImageView.frame)
+        }
+        return nil
+    }
 }
 
 // ----------------------------------

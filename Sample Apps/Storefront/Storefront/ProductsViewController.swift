@@ -43,7 +43,7 @@ class ProductsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.collectionView.paginationDelegate = self
+        self.configureCollectionView()
         
         Graph.shared.fetchProducts(in: self.collection) { products in
             if let products = products {
@@ -51,6 +51,23 @@ class ProductsViewController: UIViewController {
                 self.collectionView.reloadData()
             }
         }
+    }
+    
+    private func configureCollectionView() {
+        self.collectionView.paginationDelegate = self
+        
+        if self.traitCollection.forceTouchCapability == .available {
+            self.registerForPreviewing(with: self, sourceView: self.collectionView)
+        }
+    }
+    
+    // ----------------------------------
+    //  MARK: - View Controllers -
+    //
+    func productDetailsViewControllerWith(_ product: ProductViewModel) -> ProductDetailsViewController {
+        let controller: ProductDetailsViewController = self.storyboard!.instantiateViewController()
+        controller.product = product
+        return controller
     }
 }
 
@@ -62,6 +79,30 @@ extension ProductsViewController {
     @IBAction func cartAction(_ sender: Any) {
         let cartController: CartNavigationController = self.storyboard!.instantiateViewController()
         self.navigationController!.present(cartController, animated: true, completion: nil)
+    }
+}
+
+// ----------------------------------
+//  MARK: - UIViewControllerPreviewingDelegate -
+//
+extension ProductsViewController: UIViewControllerPreviewingDelegate {
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        
+        let collectionView = previewingContext.sourceView as! UICollectionView
+        if let indexPath = collectionView.indexPathForItem(at: location),
+            let frame = collectionView.rectForItem(at: indexPath) {
+            
+            previewingContext.sourceRect = frame
+            
+            let cell = collectionView.cellForItem(at: indexPath) as! ProductCell
+            return self.productDetailsViewControllerWith(cell.viewModel!)
+        }
+        return nil
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        self.navigationController!.show(viewControllerToCommit, sender: self)
     }
 }
 
@@ -141,10 +182,8 @@ extension ProductsViewController: UICollectionViewDelegateFlowLayout {
 extension ProductsViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let product = self.products.items[indexPath.item]
-        
-        let detailsController: ProductDetailsViewController = self.storyboard!.instantiateViewController()
-        detailsController.product = product
+        let product    = self.products.items[indexPath.item]
+        let controller = self.productDetailsViewControllerWith(product)
         self.navigationController!.show(detailsController, sender: self)
         
         collectionView.deselectItem(at: indexPath, animated: true)

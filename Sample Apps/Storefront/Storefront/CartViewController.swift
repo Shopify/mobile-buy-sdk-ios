@@ -73,6 +73,10 @@ class CartViewController: ParallaxViewController {
     private func configureTableView() {
         self.tableView.estimatedRowHeight = 100.0
         self.tableView.register(UINib(nibName: "CartCell", bundle: nil), forCellReuseIdentifier: "CartCell")
+        
+        if self.traitCollection.forceTouchCapability == .available {
+            self.registerForPreviewing(with: self, sourceView: self.tableView)
+        }
     }
     
     // ----------------------------------
@@ -97,6 +101,15 @@ class CartViewController: ParallaxViewController {
         self.totalsViewController.subtotal  = CartController.shared.subtotal
         self.totalsViewController.itemCount = CartController.shared.itemCount
     }
+    
+    // ----------------------------------
+    //  MARK: - View Controllers -
+    //
+    func productDetailsViewControllerWith(_ product: ProductViewModel) -> ProductDetailsViewController {
+        let controller: ProductDetailsViewController = self.storyboard!.instantiateViewController()
+        controller.product = product
+        return controller
+    }
 }
 
 // ----------------------------------
@@ -106,6 +119,31 @@ extension CartViewController {
     
     @IBAction func cancelAction(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+    }
+}
+
+// ----------------------------------
+//  MARK: - UIViewControllerPreviewingDelegate -
+//
+extension CartViewController: UIViewControllerPreviewingDelegate {
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        
+        let tableView = previewingContext.sourceView as! UITableView
+        if let indexPath = tableView.indexPathForRow(at: location) {
+            
+            previewingContext.sourceRect = tableView.rectForRow(at: indexPath)
+            
+            let cell    = tableView.cellForRow(at: indexPath) as! CartCell
+            let product = cell.viewModel!.model.product
+            
+            return self.productDetailsViewControllerWith(product)
+        }
+        return nil
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        self.navigationController!.show(viewControllerToCommit, sender: self)
     }
 }
 
