@@ -181,66 +181,76 @@ private class CartButtonView: UIButton {
             
             if self.badgeView.badge > 0 {
                 
-                /* ---------------------------------
-                 ** Badge is already shown and we're
-                 ** changing it to a different value.
-                 */
                 if badge > 0 {
-                    
-                    let transform: CATransform3D
-                    
-                    /* -----------------------------------
-                     ** Determine whether to pop in or out
-                     ** based on whether it's an increment
-                     ** or a decrement.
-                     */
-                    if badge > self.badgeView.badge {
-                        transform = self.badgeTransformMax
-                    } else {
-                        transform = self.badgeTransformMid
-                    }
-                    
-                    UIView.animate(withDuration: 0.1, delay: 0.0, options: [], animations: {
-                        self.badgeView.layer.transform = transform
-                    }, completion: { complete in
-                        
-                        setter()
-                        
-                        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.4, initialSpringVelocity: 0.5, options: [], animations: {
-                            self.badgeView.layer.transform = self.badgeTransformDefault
-                        }, completion: nil)
-                    })
-                    
-
-                /* ---------------------------------
-                 ** Badge is shown and we're hiding
-                 ** it since it's now 0.
-                 */
+                    self.applyBadgeAnimation(.scale(badge > self.badgeView.badge ? .up : .down), changeHandler: setter)
                 } else {
-                    UIView.animate(withDuration: 0.1, delay: 0.0, options: [], animations: {
-                        self.badgeView.layer.transform = self.badgeTransformMin
-                    }, completion: { complete in
-                        self.badgeView.layer.transform = self.badgeTransformDefault
-                        setter()
-                    })
+                    self.applyBadgeAnimation(.disappear, changeHandler: setter)
                 }
                 
-            /* ----------------------------------
-             ** The badge is not show and we need
-             ** to present it.
-             */
             } else {
-                
-                setter()
-                
-                self.badgeView.layer.transform = self.badgeTransformMin
-                UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.4, initialSpringVelocity: 0.5, options: [], animations: {
-                    self.badgeView.layer.transform = self.badgeTransformDefault
-                }, completion: nil)
+                self.applyBadgeAnimation(.appear, changeHandler: setter)
             }
             
         } else {
             setter()
+        }
+    }
+    
+    // ----------------------------------
+    //  MARK: - Animations -
+    //
+    enum BadgeAnimationType {
+        
+        enum ScaleDirection {
+            case up
+            case down
+        }
+        
+        case scale(ScaleDirection)
+        case appear
+        case disappear
+    }
+    
+    private func applyBadgeAnimation(_ type: BadgeAnimationType, changeHandler: @escaping () -> Void) {
+        switch type {
+        case .scale(let direction):
+            
+            let transform: CATransform3D
+            switch direction {
+            case .up:
+                transform = self.badgeTransformMax
+            case .down:
+                transform = self.badgeTransformMid
+            }
+            
+            UIView.animate(withDuration: 0.1, delay: 0.0, options: [], animations: {
+                self.badgeView.layer.transform = transform
+            }, completion: { complete in
+                
+                changeHandler()
+                
+                UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.4, initialSpringVelocity: 0.5, options: [], animations: {
+                    self.badgeView.layer.transform = self.badgeTransformDefault
+                }, completion: nil)
+            })
+            
+        case .appear:
+            
+            changeHandler()
+            
+            self.badgeView.layer.transform = self.badgeTransformMin
+            UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.4, initialSpringVelocity: 0.5, options: [], animations: {
+                self.badgeView.layer.transform = self.badgeTransformDefault
+            }, completion: nil)
+            
+        case .disappear:
+            
+            UIView.animate(withDuration: 0.1, delay: 0.0, options: [], animations: {
+                self.badgeView.layer.transform = self.badgeTransformMin
+            }, completion: { complete in
+                self.badgeView.layer.transform = self.badgeTransformDefault
+                changeHandler()
+            })
         }
     }
     

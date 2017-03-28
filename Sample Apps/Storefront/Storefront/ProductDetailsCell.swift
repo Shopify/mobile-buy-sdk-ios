@@ -39,6 +39,12 @@ class ProductDetailsCell: UITableViewCell, ViewModelConfigurable {
     func configureFrom(_ viewModel: ViewModelType) {
         self.viewModel = viewModel
         
+        /* ---------------------------------
+         ** This lable is intended to render
+         ** only styled text represented by
+         ** HTML. It will not display embeded
+         ** video or other complex HTML objects.
+         */
         self.contentLabel.attributedText = viewModel.summary.interpretAsHTML(font: "Apple SD Gothic Neo", size: 17.0)
     }
 }

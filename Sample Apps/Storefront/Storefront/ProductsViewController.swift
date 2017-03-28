@@ -145,7 +145,7 @@ extension ProductsViewController: UICollectionViewDelegate {
         
         let detailsController: ProductDetailsViewController = self.storyboard!.instantiateViewController()
         detailsController.product = product
-        self.navigationController!.pushViewController(detailsController, animated: true)
+        self.navigationController!.show(detailsController, sender: self)
         
         collectionView.deselectItem(at: indexPath, animated: true)
     }
