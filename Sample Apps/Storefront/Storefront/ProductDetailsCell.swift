@@ -45,6 +45,6 @@ class ProductDetailsCell: UITableViewCell, ViewModelConfigurable {
          ** HTML. It will not display embeded
          ** video or other complex HTML objects.
          */
-        self.contentLabel.attributedText = HTMLParser.attributedStringFrom(viewModel.summary, font: "Apple SD Gothic Neo", size: 17.0)
+        self.contentLabel.attributedText = viewModel.summary.interpretAsHTML(font: "Apple SD Gothic Neo", size: 17.0)
     }
 }

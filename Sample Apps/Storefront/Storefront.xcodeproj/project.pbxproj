@@ -26,7 +26,7 @@
 		9A9FFF231E800D9600F6DFF7 /* ProductHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A9FFF211E800D9600F6DFF7 /* ProductHeaderCell.xib */; };
 		9A9FFF271E80172C00F6DFF7 /* ProductDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9FFF251E80172C00F6DFF7 /* ProductDetailsCell.swift */; };
 		9A9FFF281E80172C00F6DFF7 /* ProductDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A9FFF261E80172C00F6DFF7 /* ProductDetailsCell.xib */; };
-		9A9FFF2A1E8044BC00F6DFF7 /* HTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9FFF291E8044BC00F6DFF7 /* HTMLParser.swift */; };
+		9A9FFF2A1E8044BC00F6DFF7 /* String+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9FFF291E8044BC00F6DFF7 /* String+HTML.swift */; };
 		9A9FFF2C1E8144F300F6DFF7 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9FFF2B1E8144F300F6DFF7 /* RoundedButton.swift */; };
 		9A9FFF2E1E8150F100F6DFF7 /* SubtitleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9FFF2D1E8150F100F6DFF7 /* SubtitleButton.swift */; };
 		9A9FFF411E8171E900F6DFF7 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9FFF401E8171E900F6DFF7 /* SeparatorView.swift */; };
@@ -122,7 +122,7 @@
 		9A9FFF211E800D9600F6DFF7 /* ProductHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductHeaderCell.xib; sourceTree = "<group>"; };
 		9A9FFF251E80172C00F6DFF7 /* ProductDetailsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailsCell.swift; sourceTree = "<group>"; };
 		9A9FFF261E80172C00F6DFF7 /* ProductDetailsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductDetailsCell.xib; sourceTree = "<group>"; };
-		9A9FFF291E8044BC00F6DFF7 /* HTMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTMLParser.swift; sourceTree = "<group>"; };
+		9A9FFF291E8044BC00F6DFF7 /* String+HTML.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+HTML.swift"; sourceTree = "<group>"; };
 		9A9FFF2B1E8144F300F6DFF7 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		9A9FFF2D1E8150F100F6DFF7 /* SubtitleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubtitleButton.swift; sourceTree = "<group>"; };
 		9A9FFF401E8171E900F6DFF7 /* SeparatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
@@ -205,7 +205,6 @@
 			isa = PBXGroup;
 			children = (
 				9A9FFEFC1E78432F00F6DFF7 /* Currency.swift */,
-				9A9FFF291E8044BC00F6DFF7 /* HTMLParser.swift */,
 			);
 			name = Formatters;
 			sourceTree = "<group>";
@@ -311,6 +310,7 @@
 				9AAFAB8E1E60C6AC00864A17 /* UIImageView+Remote.swift */,
 				9AAFAB931E60D2D000864A17 /* NSObject+Name.swift */,
 				9AFA3B7E1E6DC5FD0056C5AA /* Storyboard+ViewController.swift */,
+				9A9FFF291E8044BC00F6DFF7 /* String+HTML.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -546,7 +546,7 @@
 				9A21F29F1E7EC8AE00E00F4B /* ImageViewController.swift in Sources */,
 				9AAFAB8C1E60C3C700864A17 /* ViewModel.swift in Sources */,
 				9A0ED6911E842467008C605E /* CartButton.swift in Sources */,
-				9A9FFF2A1E8044BC00F6DFF7 /* HTMLParser.swift in Sources */,
+				9A9FFF2A1E8044BC00F6DFF7 /* String+HTML.swift in Sources */,
 				9AAFAB7B1E60BDF900864A17 /* CollectionCell.swift in Sources */,
 				9AAFAB941E60D2D000864A17 /* NSObject+Name.swift in Sources */,
 				9AEF61CC1E606EFE0067FA90 /* Fragment+ProductConnectionQuery.swift in Sources */,
