@@ -7,14 +7,14 @@ extension Storefront {
 
 		open var id: GraphQL.ID
 
-		open var token: String
+		open var resetToken: String
 
 		open var password: String
 
 		public init(
 			id: GraphQL.ID,
 
-			token: String,
+			resetToken: String,
 
 			password: String,
 
@@ -24,7 +24,7 @@ extension Storefront {
 
 			self.id = id
 
-			self.token = token
+			self.resetToken = resetToken
 
 			self.password = password
 		}
@@ -38,7 +38,7 @@ extension Storefront {
 
 			fields.append("id:\(GraphQL.quoteString(input: "\(id.rawValue)"))")
 
-			fields.append("token:\(GraphQL.quoteString(input: token))")
+			fields.append("resetToken:\(GraphQL.quoteString(input: resetToken))")
 
 			fields.append("password:\(GraphQL.quoteString(input: password))")
 

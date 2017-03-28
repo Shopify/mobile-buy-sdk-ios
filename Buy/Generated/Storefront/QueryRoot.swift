@@ -4,11 +4,17 @@ import Foundation
 extension Storefront {
 	open class QueryRootQuery: GraphQL.AbstractQuery {
 		@discardableResult
-		open func customer(aliasSuffix: String? = nil, _ subfields: (CustomerQuery) -> Void) -> QueryRootQuery {
+		open func customer(aliasSuffix: String? = nil, accessToken: String, _ subfields: (CustomerQuery) -> Void) -> QueryRootQuery {
+			var args: [String] = []
+
+			args.append("accessToken:\(GraphQL.quoteString(input: accessToken))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
 			let subquery = CustomerQuery()
 			subfields(subquery)
 
-			addField(field: "customer", aliasSuffix: aliasSuffix, subfields: subquery)
+			addField(field: "customer", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
 			return self
 		}
 
@@ -71,6 +77,10 @@ extension Storefront {
 
 		open var customer: Storefront.Customer? {
 			return internalGetCustomer()
+		}
+
+		open func aliasedCustomer(aliasSuffix: String) -> Storefront.Customer? {
+			return internalGetCustomer(aliasSuffix: aliasSuffix)
 		}
 
 		func internalGetCustomer(aliasSuffix: String? = nil) -> Storefront.Customer? {

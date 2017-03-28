@@ -16,12 +16,8 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func images(aliasSuffix: String? = nil, first: Int32? = nil, maxWidth: Int32? = nil, maxHeight: Int32? = nil, crop: CropRegion? = nil, scale: Int32? = nil, _ subfields: (ImageQuery) -> Void) -> ProductVariantQuery {
+		open func image(aliasSuffix: String? = nil, maxWidth: Int32? = nil, maxHeight: Int32? = nil, crop: CropRegion? = nil, scale: Int32? = nil, _ subfields: (ImageQuery) -> Void) -> ProductVariantQuery {
 			var args: [String] = []
-
-			if let first = first {
-				args.append("first:\(first)")
-			}
 
 			if let maxWidth = maxWidth {
 				args.append("maxWidth:\(maxWidth)")
@@ -44,7 +40,7 @@ extension Storefront {
 			let subquery = ImageQuery()
 			subfields(subquery)
 
-			addField(field: "images", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
+			addField(field: "image", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
 			return self
 		}
 
@@ -109,11 +105,12 @@ extension Storefront {
 				}
 				return GraphQL.ID(rawValue: value)
 
-				case "images":
-				guard let value = value as? [[String: Any]] else {
+				case "image":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return try value.map { return try Image(fields: $0) }
+				return try Image(fields: value)
 
 				case "price":
 				guard let value = value as? String else {
@@ -175,16 +172,16 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: aliasSuffix) as! GraphQL.ID
 		}
 
-		open var images: [Storefront.Image] {
-			return internalGetImages()
+		open var image: Storefront.Image? {
+			return internalGetImage()
 		}
 
-		open func aliasedImages(aliasSuffix: String) -> [Storefront.Image] {
-			return internalGetImages(aliasSuffix: aliasSuffix)
+		open func aliasedImage(aliasSuffix: String) -> Storefront.Image? {
+			return internalGetImage(aliasSuffix: aliasSuffix)
 		}
 
-		func internalGetImages(aliasSuffix: String? = nil) -> [Storefront.Image] {
-			return field(field: "images", aliasSuffix: aliasSuffix) as! [Storefront.Image]
+		func internalGetImage(aliasSuffix: String? = nil) -> Storefront.Image? {
+			return field(field: "image", aliasSuffix: aliasSuffix) as! Storefront.Image?
 		}
 
 		open var price: NSDecimalNumber {
@@ -245,9 +242,9 @@ extension Storefront {
 
 				return .Scalar
 
-				case "images":
+				case "image":
 
-				return .ObjectList
+				return .Object
 
 				case "price":
 
@@ -280,6 +277,9 @@ extension Storefront {
 
 		override open func fetchChildObject(key: String) -> GraphQL.AbstractResponse? {
 			switch(key) {
+				case "image":
+				return internalGetImage()
+
 				case "product":
 				return internalGetProduct()
 
@@ -291,9 +291,6 @@ extension Storefront {
 
 		override open func fetchChildObjectList(key: String) -> [GraphQL.AbstractResponse] {
 			switch(key) {
-				case "images":
-				return internalGetImages()
-
 				case "selectedOptions":
 				return internalGetSelectedOptions()
 
@@ -307,10 +304,10 @@ extension Storefront {
 			objectMap.keys.forEach({
 				key in
 				switch(key) {
-					case "images":
-					internalGetImages().forEach {
-						response.append($0)
-						response.append(contentsOf: $0.childResponseObjectMap())
+					case "image":
+					if let value = internalGetImage() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
 					case "product":

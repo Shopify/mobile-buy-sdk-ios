@@ -2,24 +2,27 @@
 import Foundation
 
 extension Storefront {
-	open class PurchaseSessionUpdatePayloadQuery: GraphQL.AbstractQuery {
+	open class CustomerAccessTokenDeletePayloadQuery: GraphQL.AbstractQuery {
 		@discardableResult
-		open func clientMutationId(aliasSuffix: String? = nil) -> PurchaseSessionUpdatePayloadQuery {
+		open func clientMutationId(aliasSuffix: String? = nil) -> CustomerAccessTokenDeletePayloadQuery {
 			addField(field: "clientMutationId", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func purchaseSession(aliasSuffix: String? = nil, _ subfields: (PurchaseSessionQuery) -> Void) -> PurchaseSessionUpdatePayloadQuery {
-			let subquery = PurchaseSessionQuery()
-			subfields(subquery)
-
-			addField(field: "purchaseSession", aliasSuffix: aliasSuffix, subfields: subquery)
+		open func deletedAccessToken(aliasSuffix: String? = nil) -> CustomerAccessTokenDeletePayloadQuery {
+			addField(field: "deletedAccessToken", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func userErrors(aliasSuffix: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> PurchaseSessionUpdatePayloadQuery {
+		open func deletedCustomerAccessTokenId(aliasSuffix: String? = nil) -> CustomerAccessTokenDeletePayloadQuery {
+			addField(field: "deletedCustomerAccessTokenId", aliasSuffix: aliasSuffix)
+			return self
+		}
+
+		@discardableResult
+		open func userErrors(aliasSuffix: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerAccessTokenDeletePayloadQuery {
 			let subquery = UserErrorQuery()
 			subfields(subquery)
 
@@ -28,7 +31,7 @@ extension Storefront {
 		}
 	}
 
-	open class PurchaseSessionUpdatePayload: GraphQL.AbstractResponse
+	open class CustomerAccessTokenDeletePayload: GraphQL.AbstractResponse
 	{
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
@@ -40,12 +43,19 @@ extension Storefront {
 				}
 				return value
 
-				case "purchaseSession":
+				case "deletedAccessToken":
 				if value is NSNull { return nil }
-				guard let value = value as? [String: Any] else {
+				guard let value = value as? String else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return try PurchaseSession(fields: value)
+				return value
+
+				case "deletedCustomerAccessTokenId":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return value
 
 				case "userErrors":
 				guard let value = value as? [[String: Any]] else {
@@ -58,7 +68,7 @@ extension Storefront {
 			}
 		}
 
-		open var typeName: String { return "PurchaseSessionUpdatePayload" }
+		open var typeName: String { return "CustomerAccessTokenDeletePayload" }
 
 		open var clientMutationId: String? {
 			return internalGetClientMutationId()
@@ -68,12 +78,20 @@ extension Storefront {
 			return field(field: "clientMutationId", aliasSuffix: aliasSuffix) as! String?
 		}
 
-		open var purchaseSession: Storefront.PurchaseSession? {
-			return internalGetPurchaseSession()
+		open var deletedAccessToken: String? {
+			return internalGetDeletedAccessToken()
 		}
 
-		func internalGetPurchaseSession(aliasSuffix: String? = nil) -> Storefront.PurchaseSession? {
-			return field(field: "purchaseSession", aliasSuffix: aliasSuffix) as! Storefront.PurchaseSession?
+		func internalGetDeletedAccessToken(aliasSuffix: String? = nil) -> String? {
+			return field(field: "deletedAccessToken", aliasSuffix: aliasSuffix) as! String?
+		}
+
+		open var deletedCustomerAccessTokenId: String? {
+			return internalGetDeletedCustomerAccessTokenId()
+		}
+
+		func internalGetDeletedCustomerAccessTokenId(aliasSuffix: String? = nil) -> String? {
+			return field(field: "deletedCustomerAccessTokenId", aliasSuffix: aliasSuffix) as! String?
 		}
 
 		open var userErrors: [Storefront.UserError] {
@@ -90,9 +108,13 @@ extension Storefront {
 
 				return .Scalar
 
-				case "purchaseSession":
+				case "deletedAccessToken":
 
-				return .Object
+				return .Scalar
+
+				case "deletedCustomerAccessTokenId":
+
+				return .Scalar
 
 				case "userErrors":
 
@@ -105,9 +127,6 @@ extension Storefront {
 
 		override open func fetchChildObject(key: String) -> GraphQL.AbstractResponse? {
 			switch(key) {
-				case "purchaseSession":
-				return internalGetPurchaseSession()
-
 				default:
 				break
 			}
@@ -125,27 +144,7 @@ extension Storefront {
 		}
 
 		open func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
-			var response: [GraphQL.AbstractResponse] = []
-			objectMap.keys.forEach({
-				key in
-				switch(key) {
-					case "purchaseSession":
-					if let value = internalGetPurchaseSession() {
-						response.append(value)
-						response.append(contentsOf: value.childResponseObjectMap())
-					}
-
-					case "userErrors":
-					internalGetUserErrors().forEach {
-						response.append($0)
-						response.append(contentsOf: $0.childResponseObjectMap())
-					}
-
-					default:
-					break
-				}
-			})
-			return response
+			return []
 		}
 
 		open func responseObject() -> GraphQL.AbstractResponse {

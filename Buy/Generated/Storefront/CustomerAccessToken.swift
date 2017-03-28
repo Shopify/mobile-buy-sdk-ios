@@ -2,27 +2,21 @@
 import Foundation
 
 extension Storefront {
-	open class ApiCustomerAccessTokenQuery: GraphQL.AbstractQuery {
+	open class CustomerAccessTokenQuery: GraphQL.AbstractQuery {
 		@discardableResult
-		open func accessToken(aliasSuffix: String? = nil) -> ApiCustomerAccessTokenQuery {
+		open func accessToken(aliasSuffix: String? = nil) -> CustomerAccessTokenQuery {
 			addField(field: "accessToken", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func expiresAt(aliasSuffix: String? = nil) -> ApiCustomerAccessTokenQuery {
+		open func expiresAt(aliasSuffix: String? = nil) -> CustomerAccessTokenQuery {
 			addField(field: "expiresAt", aliasSuffix: aliasSuffix)
-			return self
-		}
-
-		@discardableResult
-		open func id(aliasSuffix: String? = nil) -> ApiCustomerAccessTokenQuery {
-			addField(field: "id", aliasSuffix: aliasSuffix)
 			return self
 		}
 	}
 
-	open class ApiCustomerAccessToken: GraphQL.AbstractResponse, Node
+	open class CustomerAccessToken: GraphQL.AbstractResponse
 	{
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
@@ -39,18 +33,12 @@ extension Storefront {
 				}
 				return GraphQL.iso8601DateParser.date(from: value)!
 
-				case "id":
-				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
-				}
-				return GraphQL.ID(rawValue: value)
-
 				default:
 				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 			}
 		}
 
-		open var typeName: String { return "ApiCustomerAccessToken" }
+		open var typeName: String { return "CustomerAccessToken" }
 
 		open var accessToken: String {
 			return internalGetAccessToken()
@@ -68,14 +56,6 @@ extension Storefront {
 			return field(field: "expiresAt", aliasSuffix: aliasSuffix) as! Date
 		}
 
-		open var id: GraphQL.ID {
-			return internalGetId()
-		}
-
-		func internalGetId(aliasSuffix: String? = nil) -> GraphQL.ID {
-			return field(field: "id", aliasSuffix: aliasSuffix) as! GraphQL.ID
-		}
-
 		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
 			switch(key) {
 				case "accessToken":
@@ -83,10 +63,6 @@ extension Storefront {
 				return .Scalar
 
 				case "expiresAt":
-
-				return .Scalar
-
-				case "id":
 
 				return .Scalar
 

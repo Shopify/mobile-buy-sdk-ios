@@ -2,29 +2,29 @@
 import Foundation
 
 extension Storefront {
-	open class CustomerInput {
+	open class CustomerCreateInput {
 		open var clientMutationId: String?
 
 		open var firstName: String?
 
 		open var lastName: String?
 
-		open var email: String?
+		open var email: String
 
-		open var password: String?
+		open var password: String
 
 		open var acceptsMarketing: Bool?
 
 		public init(
+			email: String,
+
+			password: String,
+
 			clientMutationId: String? = nil,
 
 			firstName: String? = nil,
 
 			lastName: String? = nil,
-
-			email: String? = nil,
-
-			password: String? = nil,
 
 			acceptsMarketing: Bool? = nil
 		) {
@@ -56,13 +56,9 @@ extension Storefront {
 				fields.append("lastName:\(GraphQL.quoteString(input: lastName))")
 			}
 
-			if let email = email {
-				fields.append("email:\(GraphQL.quoteString(input: email))")
-			}
+			fields.append("email:\(GraphQL.quoteString(input: email))")
 
-			if let password = password {
-				fields.append("password:\(GraphQL.quoteString(input: password))")
-			}
+			fields.append("password:\(GraphQL.quoteString(input: password))")
 
 			if let acceptsMarketing = acceptsMarketing {
 				fields.append("acceptsMarketing:\(acceptsMarketing)")

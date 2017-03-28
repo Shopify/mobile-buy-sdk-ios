@@ -2,19 +2,19 @@
 import Foundation
 
 extension Storefront {
-	open class ShippingRatesRequestCreateInput {
+	open class CustomerAccessTokenRenewInput {
 		open var clientMutationId: String?
 
-		open var purchaseSessionId: GraphQL.ID
+		open var accessToken: String
 
 		public init(
-			purchaseSessionId: GraphQL.ID,
+			accessToken: String,
 
 			clientMutationId: String? = nil
 		) {
 			self.clientMutationId = clientMutationId
 
-			self.purchaseSessionId = purchaseSessionId
+			self.accessToken = accessToken
 		}
 
 		func serialize() -> String {
@@ -24,7 +24,7 @@ extension Storefront {
 				fields.append("clientMutationId:\(GraphQL.quoteString(input: clientMutationId))")
 			}
 
-			fields.append("purchaseSessionId:\(GraphQL.quoteString(input: "\(purchaseSessionId.rawValue)"))")
+			fields.append("accessToken:\(GraphQL.quoteString(input: accessToken))")
 
 			return "{\(fields.joined(separator: ","))}"
 		}

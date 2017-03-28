@@ -2,37 +2,43 @@
 import Foundation
 
 extension Storefront {
-	open class PurchaseSessionUpdateInput {
+	open class CheckoutCreateInput {
 		open var clientMutationId: String?
-
-		open var id: GraphQL.ID
 
 		open var email: String?
 
-		open var items: [LineItemInput]?
+		open var lineItems: [LineItemInput]?
 
 		open var shippingAddress: MailingAddressInput?
 
-		public init(
-			id: GraphQL.ID,
+		open var note: String?
 
+		open var customAttributes: [AttributeInput]?
+
+		public init(
 			clientMutationId: String? = nil,
 
 			email: String? = nil,
 
-			items: [LineItemInput]? = nil,
+			lineItems: [LineItemInput]? = nil,
 
-			shippingAddress: MailingAddressInput? = nil
+			shippingAddress: MailingAddressInput? = nil,
+
+			note: String? = nil,
+
+			customAttributes: [AttributeInput]? = nil
 		) {
 			self.clientMutationId = clientMutationId
 
-			self.id = id
-
 			self.email = email
 
-			self.items = items
+			self.lineItems = lineItems
 
 			self.shippingAddress = shippingAddress
+
+			self.note = note
+
+			self.customAttributes = customAttributes
 		}
 
 		func serialize() -> String {
@@ -42,18 +48,24 @@ extension Storefront {
 				fields.append("clientMutationId:\(GraphQL.quoteString(input: clientMutationId))")
 			}
 
-			fields.append("id:\(GraphQL.quoteString(input: "\(id.rawValue)"))")
-
 			if let email = email {
 				fields.append("email:\(GraphQL.quoteString(input: email))")
 			}
 
-			if let items = items {
-				fields.append("items:[\(items.map{ "\($0.serialize())" }.joined(separator: ","))]")
+			if let lineItems = lineItems {
+				fields.append("lineItems:[\(lineItems.map{ "\($0.serialize())" }.joined(separator: ","))]")
 			}
 
 			if let shippingAddress = shippingAddress {
 				fields.append("shippingAddress:\(shippingAddress.serialize())")
+			}
+
+			if let note = note {
+				fields.append("note:\(GraphQL.quoteString(input: note))")
+			}
+
+			if let customAttributes = customAttributes {
+				fields.append("customAttributes:[\(customAttributes.map{ "\($0.serialize())" }.joined(separator: ","))]")
 			}
 
 			return "{\(fields.joined(separator: ","))}"

@@ -2,7 +2,7 @@
 import Foundation
 
 extension Storefront {
-	open class ApiCustomerAccessTokenCreateInput {
+	open class CustomerAccessTokenCreateInput {
 		open var clientMutationId: String?
 
 		open var email: String

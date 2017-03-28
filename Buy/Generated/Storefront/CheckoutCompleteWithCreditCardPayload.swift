@@ -2,24 +2,33 @@
 import Foundation
 
 extension Storefront {
-	open class CustomerMailingAddressCreatePayloadQuery: GraphQL.AbstractQuery {
+	open class CheckoutCompleteWithCreditCardPayloadQuery: GraphQL.AbstractQuery {
 		@discardableResult
-		open func clientMutationId(aliasSuffix: String? = nil) -> CustomerMailingAddressCreatePayloadQuery {
+		open func checkout(aliasSuffix: String? = nil, _ subfields: (CheckoutQuery) -> Void) -> CheckoutCompleteWithCreditCardPayloadQuery {
+			let subquery = CheckoutQuery()
+			subfields(subquery)
+
+			addField(field: "checkout", aliasSuffix: aliasSuffix, subfields: subquery)
+			return self
+		}
+
+		@discardableResult
+		open func clientMutationId(aliasSuffix: String? = nil) -> CheckoutCompleteWithCreditCardPayloadQuery {
 			addField(field: "clientMutationId", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func customerAddress(aliasSuffix: String? = nil, _ subfields: (MailingAddressQuery) -> Void) -> CustomerMailingAddressCreatePayloadQuery {
-			let subquery = MailingAddressQuery()
+		open func payment(aliasSuffix: String? = nil, _ subfields: (PaymentQuery) -> Void) -> CheckoutCompleteWithCreditCardPayloadQuery {
+			let subquery = PaymentQuery()
 			subfields(subquery)
 
-			addField(field: "customerAddress", aliasSuffix: aliasSuffix, subfields: subquery)
+			addField(field: "payment", aliasSuffix: aliasSuffix, subfields: subquery)
 			return self
 		}
 
 		@discardableResult
-		open func userErrors(aliasSuffix: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerMailingAddressCreatePayloadQuery {
+		open func userErrors(aliasSuffix: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CheckoutCompleteWithCreditCardPayloadQuery {
 			let subquery = UserErrorQuery()
 			subfields(subquery)
 
@@ -28,11 +37,17 @@ extension Storefront {
 		}
 	}
 
-	open class CustomerMailingAddressCreatePayload: GraphQL.AbstractResponse
+	open class CheckoutCompleteWithCreditCardPayload: GraphQL.AbstractResponse
 	{
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "checkout":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try Checkout(fields: value)
+
 				case "clientMutationId":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
@@ -40,12 +55,12 @@ extension Storefront {
 				}
 				return value
 
-				case "customerAddress":
+				case "payment":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return try MailingAddress(fields: value)
+				return try Payment(fields: value)
 
 				case "userErrors":
 				guard let value = value as? [[String: Any]] else {
@@ -58,7 +73,15 @@ extension Storefront {
 			}
 		}
 
-		open var typeName: String { return "CustomerMailingAddressCreatePayload" }
+		open var typeName: String { return "CheckoutCompleteWithCreditCardPayload" }
+
+		open var checkout: Storefront.Checkout {
+			return internalGetCheckout()
+		}
+
+		func internalGetCheckout(aliasSuffix: String? = nil) -> Storefront.Checkout {
+			return field(field: "checkout", aliasSuffix: aliasSuffix) as! Storefront.Checkout
+		}
 
 		open var clientMutationId: String? {
 			return internalGetClientMutationId()
@@ -68,12 +91,12 @@ extension Storefront {
 			return field(field: "clientMutationId", aliasSuffix: aliasSuffix) as! String?
 		}
 
-		open var customerAddress: Storefront.MailingAddress? {
-			return internalGetCustomerAddress()
+		open var payment: Storefront.Payment? {
+			return internalGetPayment()
 		}
 
-		func internalGetCustomerAddress(aliasSuffix: String? = nil) -> Storefront.MailingAddress? {
-			return field(field: "customerAddress", aliasSuffix: aliasSuffix) as! Storefront.MailingAddress?
+		func internalGetPayment(aliasSuffix: String? = nil) -> Storefront.Payment? {
+			return field(field: "payment", aliasSuffix: aliasSuffix) as! Storefront.Payment?
 		}
 
 		open var userErrors: [Storefront.UserError] {
@@ -86,11 +109,15 @@ extension Storefront {
 
 		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
 			switch(key) {
+				case "checkout":
+
+				return .Object
+
 				case "clientMutationId":
 
 				return .Scalar
 
-				case "customerAddress":
+				case "payment":
 
 				return .Object
 
@@ -105,8 +132,11 @@ extension Storefront {
 
 		override open func fetchChildObject(key: String) -> GraphQL.AbstractResponse? {
 			switch(key) {
-				case "customerAddress":
-				return internalGetCustomerAddress()
+				case "checkout":
+				return internalGetCheckout()
+
+				case "payment":
+				return internalGetPayment()
 
 				default:
 				break
@@ -129,8 +159,12 @@ extension Storefront {
 			objectMap.keys.forEach({
 				key in
 				switch(key) {
-					case "customerAddress":
-					if let value = internalGetCustomerAddress() {
+					case "checkout":
+					response.append(internalGetCheckout())
+					response.append(contentsOf: internalGetCheckout().childResponseObjectMap())
+
+					case "payment":
+					if let value = internalGetPayment() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}

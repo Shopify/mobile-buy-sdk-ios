@@ -2,24 +2,21 @@
 import Foundation
 
 extension Storefront {
-	open class ApiCustomerAccessTokenCreatePayloadQuery: GraphQL.AbstractQuery {
+	open class CustomerAddressDeletePayloadQuery: GraphQL.AbstractQuery {
 		@discardableResult
-		open func apiCustomerAccessToken(aliasSuffix: String? = nil, _ subfields: (ApiCustomerAccessTokenQuery) -> Void) -> ApiCustomerAccessTokenCreatePayloadQuery {
-			let subquery = ApiCustomerAccessTokenQuery()
-			subfields(subquery)
-
-			addField(field: "apiCustomerAccessToken", aliasSuffix: aliasSuffix, subfields: subquery)
-			return self
-		}
-
-		@discardableResult
-		open func clientMutationId(aliasSuffix: String? = nil) -> ApiCustomerAccessTokenCreatePayloadQuery {
+		open func clientMutationId(aliasSuffix: String? = nil) -> CustomerAddressDeletePayloadQuery {
 			addField(field: "clientMutationId", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func userErrors(aliasSuffix: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> ApiCustomerAccessTokenCreatePayloadQuery {
+		open func deletedCustomerAddressId(aliasSuffix: String? = nil) -> CustomerAddressDeletePayloadQuery {
+			addField(field: "deletedCustomerAddressId", aliasSuffix: aliasSuffix)
+			return self
+		}
+
+		@discardableResult
+		open func userErrors(aliasSuffix: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerAddressDeletePayloadQuery {
 			let subquery = UserErrorQuery()
 			subfields(subquery)
 
@@ -28,19 +25,19 @@ extension Storefront {
 		}
 	}
 
-	open class ApiCustomerAccessTokenCreatePayload: GraphQL.AbstractResponse
+	open class CustomerAddressDeletePayload: GraphQL.AbstractResponse
 	{
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
-				case "apiCustomerAccessToken":
+				case "clientMutationId":
 				if value is NSNull { return nil }
-				guard let value = value as? [String: Any] else {
+				guard let value = value as? String else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return try ApiCustomerAccessToken(fields: value)
+				return value
 
-				case "clientMutationId":
+				case "deletedCustomerAddressId":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
@@ -58,15 +55,7 @@ extension Storefront {
 			}
 		}
 
-		open var typeName: String { return "ApiCustomerAccessTokenCreatePayload" }
-
-		open var apiCustomerAccessToken: Storefront.ApiCustomerAccessToken? {
-			return internalGetApiCustomerAccessToken()
-		}
-
-		func internalGetApiCustomerAccessToken(aliasSuffix: String? = nil) -> Storefront.ApiCustomerAccessToken? {
-			return field(field: "apiCustomerAccessToken", aliasSuffix: aliasSuffix) as! Storefront.ApiCustomerAccessToken?
-		}
+		open var typeName: String { return "CustomerAddressDeletePayload" }
 
 		open var clientMutationId: String? {
 			return internalGetClientMutationId()
@@ -74,6 +63,14 @@ extension Storefront {
 
 		func internalGetClientMutationId(aliasSuffix: String? = nil) -> String? {
 			return field(field: "clientMutationId", aliasSuffix: aliasSuffix) as! String?
+		}
+
+		open var deletedCustomerAddressId: String? {
+			return internalGetDeletedCustomerAddressId()
+		}
+
+		func internalGetDeletedCustomerAddressId(aliasSuffix: String? = nil) -> String? {
+			return field(field: "deletedCustomerAddressId", aliasSuffix: aliasSuffix) as! String?
 		}
 
 		open var userErrors: [Storefront.UserError] {
@@ -86,11 +83,11 @@ extension Storefront {
 
 		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
 			switch(key) {
-				case "apiCustomerAccessToken":
-
-				return .Object
-
 				case "clientMutationId":
+
+				return .Scalar
+
+				case "deletedCustomerAddressId":
 
 				return .Scalar
 
@@ -105,9 +102,6 @@ extension Storefront {
 
 		override open func fetchChildObject(key: String) -> GraphQL.AbstractResponse? {
 			switch(key) {
-				case "apiCustomerAccessToken":
-				return internalGetApiCustomerAccessToken()
-
 				default:
 				break
 			}
@@ -125,27 +119,7 @@ extension Storefront {
 		}
 
 		open func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
-			var response: [GraphQL.AbstractResponse] = []
-			objectMap.keys.forEach({
-				key in
-				switch(key) {
-					case "apiCustomerAccessToken":
-					if let value = internalGetApiCustomerAccessToken() {
-						response.append(value)
-						response.append(contentsOf: value.childResponseObjectMap())
-					}
-
-					case "userErrors":
-					internalGetUserErrors().forEach {
-						response.append($0)
-						response.append(contentsOf: $0.childResponseObjectMap())
-					}
-
-					default:
-					break
-				}
-			})
-			return response
+			return []
 		}
 
 		open func responseObject() -> GraphQL.AbstractResponse {

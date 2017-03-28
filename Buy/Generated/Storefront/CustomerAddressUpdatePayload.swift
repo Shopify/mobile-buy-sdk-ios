@@ -2,24 +2,24 @@
 import Foundation
 
 extension Storefront {
-	open class ShippingRatesRequestCreatePayloadQuery: GraphQL.AbstractQuery {
+	open class CustomerAddressUpdatePayloadQuery: GraphQL.AbstractQuery {
 		@discardableResult
-		open func clientMutationId(aliasSuffix: String? = nil) -> ShippingRatesRequestCreatePayloadQuery {
+		open func clientMutationId(aliasSuffix: String? = nil) -> CustomerAddressUpdatePayloadQuery {
 			addField(field: "clientMutationId", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func shippingRatesRequest(aliasSuffix: String? = nil, _ subfields: (ShippingRatesRequestQuery) -> Void) -> ShippingRatesRequestCreatePayloadQuery {
-			let subquery = ShippingRatesRequestQuery()
+		open func customerAddress(aliasSuffix: String? = nil, _ subfields: (MailingAddressQuery) -> Void) -> CustomerAddressUpdatePayloadQuery {
+			let subquery = MailingAddressQuery()
 			subfields(subquery)
 
-			addField(field: "shippingRatesRequest", aliasSuffix: aliasSuffix, subfields: subquery)
+			addField(field: "customerAddress", aliasSuffix: aliasSuffix, subfields: subquery)
 			return self
 		}
 
 		@discardableResult
-		open func userErrors(aliasSuffix: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> ShippingRatesRequestCreatePayloadQuery {
+		open func userErrors(aliasSuffix: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerAddressUpdatePayloadQuery {
 			let subquery = UserErrorQuery()
 			subfields(subquery)
 
@@ -28,7 +28,7 @@ extension Storefront {
 		}
 	}
 
-	open class ShippingRatesRequestCreatePayload: GraphQL.AbstractResponse
+	open class CustomerAddressUpdatePayload: GraphQL.AbstractResponse
 	{
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
@@ -40,12 +40,12 @@ extension Storefront {
 				}
 				return value
 
-				case "shippingRatesRequest":
+				case "customerAddress":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return try ShippingRatesRequest(fields: value)
+				return try MailingAddress(fields: value)
 
 				case "userErrors":
 				guard let value = value as? [[String: Any]] else {
@@ -58,7 +58,7 @@ extension Storefront {
 			}
 		}
 
-		open var typeName: String { return "ShippingRatesRequestCreatePayload" }
+		open var typeName: String { return "CustomerAddressUpdatePayload" }
 
 		open var clientMutationId: String? {
 			return internalGetClientMutationId()
@@ -68,12 +68,12 @@ extension Storefront {
 			return field(field: "clientMutationId", aliasSuffix: aliasSuffix) as! String?
 		}
 
-		open var shippingRatesRequest: Storefront.ShippingRatesRequest? {
-			return internalGetShippingRatesRequest()
+		open var customerAddress: Storefront.MailingAddress? {
+			return internalGetCustomerAddress()
 		}
 
-		func internalGetShippingRatesRequest(aliasSuffix: String? = nil) -> Storefront.ShippingRatesRequest? {
-			return field(field: "shippingRatesRequest", aliasSuffix: aliasSuffix) as! Storefront.ShippingRatesRequest?
+		func internalGetCustomerAddress(aliasSuffix: String? = nil) -> Storefront.MailingAddress? {
+			return field(field: "customerAddress", aliasSuffix: aliasSuffix) as! Storefront.MailingAddress?
 		}
 
 		open var userErrors: [Storefront.UserError] {
@@ -90,7 +90,7 @@ extension Storefront {
 
 				return .Scalar
 
-				case "shippingRatesRequest":
+				case "customerAddress":
 
 				return .Object
 
@@ -105,8 +105,8 @@ extension Storefront {
 
 		override open func fetchChildObject(key: String) -> GraphQL.AbstractResponse? {
 			switch(key) {
-				case "shippingRatesRequest":
-				return internalGetShippingRatesRequest()
+				case "customerAddress":
+				return internalGetCustomerAddress()
 
 				default:
 				break
@@ -129,8 +129,8 @@ extension Storefront {
 			objectMap.keys.forEach({
 				key in
 				switch(key) {
-					case "shippingRatesRequest":
-					if let value = internalGetShippingRatesRequest() {
+					case "customerAddress":
+					if let value = internalGetCustomerAddress() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}

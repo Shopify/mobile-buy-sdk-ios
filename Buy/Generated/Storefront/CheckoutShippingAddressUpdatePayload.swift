@@ -2,24 +2,24 @@
 import Foundation
 
 extension Storefront {
-	open class CustomerMailingAddressUpdatePayloadQuery: GraphQL.AbstractQuery {
+	open class CheckoutShippingAddressUpdatePayloadQuery: GraphQL.AbstractQuery {
 		@discardableResult
-		open func clientMutationId(aliasSuffix: String? = nil) -> CustomerMailingAddressUpdatePayloadQuery {
+		open func checkout(aliasSuffix: String? = nil, _ subfields: (CheckoutQuery) -> Void) -> CheckoutShippingAddressUpdatePayloadQuery {
+			let subquery = CheckoutQuery()
+			subfields(subquery)
+
+			addField(field: "checkout", aliasSuffix: aliasSuffix, subfields: subquery)
+			return self
+		}
+
+		@discardableResult
+		open func clientMutationId(aliasSuffix: String? = nil) -> CheckoutShippingAddressUpdatePayloadQuery {
 			addField(field: "clientMutationId", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func customerAddress(aliasSuffix: String? = nil, _ subfields: (MailingAddressQuery) -> Void) -> CustomerMailingAddressUpdatePayloadQuery {
-			let subquery = MailingAddressQuery()
-			subfields(subquery)
-
-			addField(field: "customerAddress", aliasSuffix: aliasSuffix, subfields: subquery)
-			return self
-		}
-
-		@discardableResult
-		open func userErrors(aliasSuffix: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerMailingAddressUpdatePayloadQuery {
+		open func userErrors(aliasSuffix: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CheckoutShippingAddressUpdatePayloadQuery {
 			let subquery = UserErrorQuery()
 			subfields(subquery)
 
@@ -28,24 +28,23 @@ extension Storefront {
 		}
 	}
 
-	open class CustomerMailingAddressUpdatePayload: GraphQL.AbstractResponse
+	open class CheckoutShippingAddressUpdatePayload: GraphQL.AbstractResponse
 	{
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "checkout":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try Checkout(fields: value)
+
 				case "clientMutationId":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
 				return value
-
-				case "customerAddress":
-				if value is NSNull { return nil }
-				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
-				}
-				return try MailingAddress(fields: value)
 
 				case "userErrors":
 				guard let value = value as? [[String: Any]] else {
@@ -58,7 +57,15 @@ extension Storefront {
 			}
 		}
 
-		open var typeName: String { return "CustomerMailingAddressUpdatePayload" }
+		open var typeName: String { return "CheckoutShippingAddressUpdatePayload" }
+
+		open var checkout: Storefront.Checkout {
+			return internalGetCheckout()
+		}
+
+		func internalGetCheckout(aliasSuffix: String? = nil) -> Storefront.Checkout {
+			return field(field: "checkout", aliasSuffix: aliasSuffix) as! Storefront.Checkout
+		}
 
 		open var clientMutationId: String? {
 			return internalGetClientMutationId()
@@ -66,14 +73,6 @@ extension Storefront {
 
 		func internalGetClientMutationId(aliasSuffix: String? = nil) -> String? {
 			return field(field: "clientMutationId", aliasSuffix: aliasSuffix) as! String?
-		}
-
-		open var customerAddress: Storefront.MailingAddress? {
-			return internalGetCustomerAddress()
-		}
-
-		func internalGetCustomerAddress(aliasSuffix: String? = nil) -> Storefront.MailingAddress? {
-			return field(field: "customerAddress", aliasSuffix: aliasSuffix) as! Storefront.MailingAddress?
 		}
 
 		open var userErrors: [Storefront.UserError] {
@@ -86,13 +85,13 @@ extension Storefront {
 
 		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
 			switch(key) {
+				case "checkout":
+
+				return .Object
+
 				case "clientMutationId":
 
 				return .Scalar
-
-				case "customerAddress":
-
-				return .Object
 
 				case "userErrors":
 
@@ -105,8 +104,8 @@ extension Storefront {
 
 		override open func fetchChildObject(key: String) -> GraphQL.AbstractResponse? {
 			switch(key) {
-				case "customerAddress":
-				return internalGetCustomerAddress()
+				case "checkout":
+				return internalGetCheckout()
 
 				default:
 				break
@@ -129,11 +128,9 @@ extension Storefront {
 			objectMap.keys.forEach({
 				key in
 				switch(key) {
-					case "customerAddress":
-					if let value = internalGetCustomerAddress() {
-						response.append(value)
-						response.append(contentsOf: value.childResponseObjectMap())
-					}
+					case "checkout":
+					response.append(internalGetCheckout())
+					response.append(contentsOf: internalGetCheckout().childResponseObjectMap())
 
 					case "userErrors":
 					internalGetUserErrors().forEach {

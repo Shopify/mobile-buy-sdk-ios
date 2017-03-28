@@ -2,31 +2,25 @@
 import Foundation
 
 extension Storefront {
-	open class CustomerActivateInput {
+	open class CustomerAddressCreateInput {
 		open var clientMutationId: String?
 
-		open var id: GraphQL.ID
+		open var accessToken: String
 
-		open var resetToken: String
-
-		open var password: String
+		open var address: MailingAddressInput
 
 		public init(
-			id: GraphQL.ID,
+			accessToken: String,
 
-			resetToken: String,
-
-			password: String,
+			address: MailingAddressInput,
 
 			clientMutationId: String? = nil
 		) {
 			self.clientMutationId = clientMutationId
 
-			self.id = id
+			self.accessToken = accessToken
 
-			self.resetToken = resetToken
-
-			self.password = password
+			self.address = address
 		}
 
 		func serialize() -> String {
@@ -36,11 +30,9 @@ extension Storefront {
 				fields.append("clientMutationId:\(GraphQL.quoteString(input: clientMutationId))")
 			}
 
-			fields.append("id:\(GraphQL.quoteString(input: "\(id.rawValue)"))")
+			fields.append("accessToken:\(GraphQL.quoteString(input: accessToken))")
 
-			fields.append("resetToken:\(GraphQL.quoteString(input: resetToken))")
-
-			fields.append("password:\(GraphQL.quoteString(input: password))")
+			fields.append("address:\(address.serialize())")
 
 			return "{\(fields.joined(separator: ","))}"
 		}

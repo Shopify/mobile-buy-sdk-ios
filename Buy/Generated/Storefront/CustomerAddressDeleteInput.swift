@@ -2,25 +2,25 @@
 import Foundation
 
 extension Storefront {
-	open class PurchaseSessionShippingRateUpdateInput {
+	open class CustomerAddressDeleteInput {
 		open var clientMutationId: String?
 
-		open var purchaseSessionId: GraphQL.ID
+		open var id: GraphQL.ID
 
-		open var shippingRateHandle: String
+		open var accessToken: String
 
 		public init(
-			purchaseSessionId: GraphQL.ID,
+			id: GraphQL.ID,
 
-			shippingRateHandle: String,
+			accessToken: String,
 
 			clientMutationId: String? = nil
 		) {
 			self.clientMutationId = clientMutationId
 
-			self.purchaseSessionId = purchaseSessionId
+			self.id = id
 
-			self.shippingRateHandle = shippingRateHandle
+			self.accessToken = accessToken
 		}
 
 		func serialize() -> String {
@@ -30,9 +30,9 @@ extension Storefront {
 				fields.append("clientMutationId:\(GraphQL.quoteString(input: clientMutationId))")
 			}
 
-			fields.append("purchaseSessionId:\(GraphQL.quoteString(input: "\(purchaseSessionId.rawValue)"))")
+			fields.append("id:\(GraphQL.quoteString(input: "\(id.rawValue)"))")
 
-			fields.append("shippingRateHandle:\(GraphQL.quoteString(input: shippingRateHandle))")
+			fields.append("accessToken:\(GraphQL.quoteString(input: accessToken))")
 
 			return "{\(fields.joined(separator: ","))}"
 		}

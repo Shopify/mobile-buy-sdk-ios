@@ -8,47 +8,152 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func apiCustomerAccessTokenCreate(aliasSuffix: String? = nil, input: ApiCustomerAccessTokenCreateInput, _ subfields: (ApiCustomerAccessTokenCreatePayloadQuery) -> Void) -> MutationQuery {
+		open func checkoutAddLineItems(aliasSuffix: String? = nil, input: CheckoutAddLineItemsInput, _ subfields: (CheckoutAddLineItemsPayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
 			args.append("input:\(input.serialize())")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
-			let subquery = ApiCustomerAccessTokenCreatePayloadQuery()
+			let subquery = CheckoutAddLineItemsPayloadQuery()
 			subfields(subquery)
 
-			addField(field: "apiCustomerAccessTokenCreate", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
+			addField(field: "checkoutAddLineItems", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
 			return self
 		}
 
 		@discardableResult
-		open func apiCustomerAccessTokenDelete(aliasSuffix: String? = nil, input: ApiCustomerAccessTokenDeleteInput, _ subfields: (ApiCustomerAccessTokenDeletePayloadQuery) -> Void) -> MutationQuery {
+		open func checkoutAttributesUpdate(aliasSuffix: String? = nil, input: CheckoutAttributesUpdateInput, _ subfields: (CheckoutAttributesUpdatePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
 			args.append("input:\(input.serialize())")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
-			let subquery = ApiCustomerAccessTokenDeletePayloadQuery()
+			let subquery = CheckoutAttributesUpdatePayloadQuery()
 			subfields(subquery)
 
-			addField(field: "apiCustomerAccessTokenDelete", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
+			addField(field: "checkoutAttributesUpdate", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
 			return self
 		}
 
 		@discardableResult
-		open func apiCustomerAccessTokenRenew(aliasSuffix: String? = nil, input: ApiCustomerAccessTokenRenewInput, _ subfields: (ApiCustomerAccessTokenRenewPayloadQuery) -> Void) -> MutationQuery {
+		open func checkoutCompleteWithCreditCard(aliasSuffix: String? = nil, input: CheckoutCompleteWithCreditCardInput, _ subfields: (CheckoutCompleteWithCreditCardPayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
 			args.append("input:\(input.serialize())")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
-			let subquery = ApiCustomerAccessTokenRenewPayloadQuery()
+			let subquery = CheckoutCompleteWithCreditCardPayloadQuery()
 			subfields(subquery)
 
-			addField(field: "apiCustomerAccessTokenRenew", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
+			addField(field: "checkoutCompleteWithCreditCard", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
+			return self
+		}
+
+		@discardableResult
+		open func checkoutCompleteWithTokenizedPayment(aliasSuffix: String? = nil, input: CheckoutCompleteWithTokenizedPaymentInput, _ subfields: (CheckoutCompleteWithTokenizedPaymentPayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("input:\(input.serialize())")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CheckoutCompleteWithTokenizedPaymentPayloadQuery()
+			subfields(subquery)
+
+			addField(field: "checkoutCompleteWithTokenizedPayment", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
+			return self
+		}
+
+		@discardableResult
+		open func checkoutCreate(aliasSuffix: String? = nil, input: CheckoutCreateInput, _ subfields: (CheckoutCreatePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("input:\(input.serialize())")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CheckoutCreatePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "checkoutCreate", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
+			return self
+		}
+
+		@discardableResult
+		open func checkoutShippingAddressUpdate(aliasSuffix: String? = nil, input: CheckoutShippingAddressUpdateInput, _ subfields: (CheckoutShippingAddressUpdatePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("input:\(input.serialize())")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CheckoutShippingAddressUpdatePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "checkoutShippingAddressUpdate", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
+			return self
+		}
+
+		@discardableResult
+		open func checkoutShippingLineUpdate(aliasSuffix: String? = nil, input: CheckoutShippingLineUpdateInput, _ subfields: (CheckoutShippingLineUpdatePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("input:\(input.serialize())")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CheckoutShippingLineUpdatePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "checkoutShippingLineUpdate", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
+			return self
+		}
+
+		@discardableResult
+		open func customerAccessTokenCreate(aliasSuffix: String? = nil, input: CustomerAccessTokenCreateInput, _ subfields: (CustomerAccessTokenCreatePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("input:\(input.serialize())")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CustomerAccessTokenCreatePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "customerAccessTokenCreate", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
+			return self
+		}
+
+		@discardableResult
+		open func customerAccessTokenDelete(aliasSuffix: String? = nil, input: CustomerAccessTokenDeleteInput, _ subfields: (CustomerAccessTokenDeletePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("input:\(input.serialize())")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CustomerAccessTokenDeletePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "customerAccessTokenDelete", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
+			return self
+		}
+
+		@discardableResult
+		open func customerAccessTokenRenew(aliasSuffix: String? = nil, input: CustomerAccessTokenRenewInput, _ subfields: (CustomerAccessTokenRenewPayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("input:\(input.serialize())")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CustomerAccessTokenRenewPayloadQuery()
+			subfields(subquery)
+
+			addField(field: "customerAccessTokenRenew", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
 			return self
 		}
 
@@ -68,7 +173,52 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func customerCreate(aliasSuffix: String? = nil, input: CustomerInput, _ subfields: (CustomerCreatePayloadQuery) -> Void) -> MutationQuery {
+		open func customerAddressCreate(aliasSuffix: String? = nil, input: CustomerAddressCreateInput, _ subfields: (CustomerAddressCreatePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("input:\(input.serialize())")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CustomerAddressCreatePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "customerAddressCreate", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
+			return self
+		}
+
+		@discardableResult
+		open func customerAddressDelete(aliasSuffix: String? = nil, input: CustomerAddressDeleteInput, _ subfields: (CustomerAddressDeletePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("input:\(input.serialize())")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CustomerAddressDeletePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "customerAddressDelete", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
+			return self
+		}
+
+		@discardableResult
+		open func customerAddressUpdate(aliasSuffix: String? = nil, input: CustomerAddressUpdateInput, _ subfields: (CustomerAddressUpdatePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("input:\(input.serialize())")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CustomerAddressUpdatePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "customerAddressUpdate", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
+			return self
+		}
+
+		@discardableResult
+		open func customerCreate(aliasSuffix: String? = nil, input: CustomerCreateInput, _ subfields: (CustomerCreatePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
 			args.append("input:\(input.serialize())")
@@ -79,51 +229,6 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "customerCreate", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
-			return self
-		}
-
-		@discardableResult
-		open func customerMailingAddressCreate(aliasSuffix: String? = nil, input: CustomerMailingAddressCreateInput, _ subfields: (CustomerMailingAddressCreatePayloadQuery) -> Void) -> MutationQuery {
-			var args: [String] = []
-
-			args.append("input:\(input.serialize())")
-
-			let argsString = "(\(args.joined(separator: ",")))"
-
-			let subquery = CustomerMailingAddressCreatePayloadQuery()
-			subfields(subquery)
-
-			addField(field: "customerMailingAddressCreate", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
-			return self
-		}
-
-		@discardableResult
-		open func customerMailingAddressDelete(aliasSuffix: String? = nil, input: CustomerMailingAddressDeleteInput, _ subfields: (CustomerMailingAddressDeletePayloadQuery) -> Void) -> MutationQuery {
-			var args: [String] = []
-
-			args.append("input:\(input.serialize())")
-
-			let argsString = "(\(args.joined(separator: ",")))"
-
-			let subquery = CustomerMailingAddressDeletePayloadQuery()
-			subfields(subquery)
-
-			addField(field: "customerMailingAddressDelete", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
-			return self
-		}
-
-		@discardableResult
-		open func customerMailingAddressUpdate(aliasSuffix: String? = nil, input: CustomerMailingAddressUpdateInput, _ subfields: (CustomerMailingAddressUpdatePayloadQuery) -> Void) -> MutationQuery {
-			var args: [String] = []
-
-			args.append("input:\(input.serialize())")
-
-			let argsString = "(\(args.joined(separator: ",")))"
-
-			let subquery = CustomerMailingAddressUpdatePayloadQuery()
-			subfields(subquery)
-
-			addField(field: "customerMailingAddressUpdate", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
 			return self
 		}
 
@@ -158,7 +263,7 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func customerUpdate(aliasSuffix: String? = nil, input: CustomerInput, _ subfields: (CustomerUpdatePayloadQuery) -> Void) -> MutationQuery {
+		open func customerUpdate(aliasSuffix: String? = nil, input: CustomerUpdateInput, _ subfields: (CustomerUpdatePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
 			args.append("input:\(input.serialize())")
@@ -171,66 +276,6 @@ extension Storefront {
 			addField(field: "customerUpdate", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
 			return self
 		}
-
-		@discardableResult
-		open func purchaseSessionCreate(aliasSuffix: String? = nil, input: PurchaseSessionCreateInput, _ subfields: (PurchaseSessionCreatePayloadQuery) -> Void) -> MutationQuery {
-			var args: [String] = []
-
-			args.append("input:\(input.serialize())")
-
-			let argsString = "(\(args.joined(separator: ",")))"
-
-			let subquery = PurchaseSessionCreatePayloadQuery()
-			subfields(subquery)
-
-			addField(field: "purchaseSessionCreate", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
-			return self
-		}
-
-		@discardableResult
-		open func purchaseSessionShippingRateUpdate(aliasSuffix: String? = nil, input: PurchaseSessionShippingRateUpdateInput, _ subfields: (PurchaseSessionShippingRateUpdatePayloadQuery) -> Void) -> MutationQuery {
-			var args: [String] = []
-
-			args.append("input:\(input.serialize())")
-
-			let argsString = "(\(args.joined(separator: ",")))"
-
-			let subquery = PurchaseSessionShippingRateUpdatePayloadQuery()
-			subfields(subquery)
-
-			addField(field: "purchaseSessionShippingRateUpdate", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
-			return self
-		}
-
-		@discardableResult
-		open func purchaseSessionUpdate(aliasSuffix: String? = nil, input: PurchaseSessionUpdateInput, _ subfields: (PurchaseSessionUpdatePayloadQuery) -> Void) -> MutationQuery {
-			var args: [String] = []
-
-			args.append("input:\(input.serialize())")
-
-			let argsString = "(\(args.joined(separator: ",")))"
-
-			let subquery = PurchaseSessionUpdatePayloadQuery()
-			subfields(subquery)
-
-			addField(field: "purchaseSessionUpdate", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
-			return self
-		}
-
-		@discardableResult
-		open func shippingRatesRequestCreate(aliasSuffix: String? = nil, input: ShippingRatesRequestCreateInput, _ subfields: (ShippingRatesRequestCreatePayloadQuery) -> Void) -> MutationQuery {
-			var args: [String] = []
-
-			args.append("input:\(input.serialize())")
-
-			let argsString = "(\(args.joined(separator: ",")))"
-
-			let subquery = ShippingRatesRequestCreatePayloadQuery()
-			subfields(subquery)
-
-			addField(field: "shippingRatesRequestCreate", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
-			return self
-		}
 	}
 
 	open class Mutation: GraphQL.AbstractResponse
@@ -238,26 +283,75 @@ extension Storefront {
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
-				case "apiCustomerAccessTokenCreate":
+				case "checkoutAddLineItems":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return try ApiCustomerAccessTokenCreatePayload(fields: value)
+				return try CheckoutAddLineItemsPayload(fields: value)
 
-				case "apiCustomerAccessTokenDelete":
+				case "checkoutAttributesUpdate":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return try ApiCustomerAccessTokenDeletePayload(fields: value)
+				return try CheckoutAttributesUpdatePayload(fields: value)
 
-				case "apiCustomerAccessTokenRenew":
+				case "checkoutCompleteWithCreditCard":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return try ApiCustomerAccessTokenRenewPayload(fields: value)
+				return try CheckoutCompleteWithCreditCardPayload(fields: value)
+
+				case "checkoutCompleteWithTokenizedPayment":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try CheckoutCompleteWithTokenizedPaymentPayload(fields: value)
+
+				case "checkoutCreate":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try CheckoutCreatePayload(fields: value)
+
+				case "checkoutShippingAddressUpdate":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try CheckoutShippingAddressUpdatePayload(fields: value)
+
+				case "checkoutShippingLineUpdate":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try CheckoutShippingLineUpdatePayload(fields: value)
+
+				case "customerAccessTokenCreate":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try CustomerAccessTokenCreatePayload(fields: value)
+
+				case "customerAccessTokenDelete":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try CustomerAccessTokenDeletePayload(fields: value)
+
+				case "customerAccessTokenRenew":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try CustomerAccessTokenRenewPayload(fields: value)
 
 				case "customerActivate":
 				if value is NSNull { return nil }
@@ -266,33 +360,33 @@ extension Storefront {
 				}
 				return try CustomerActivatePayload(fields: value)
 
+				case "customerAddressCreate":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try CustomerAddressCreatePayload(fields: value)
+
+				case "customerAddressDelete":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try CustomerAddressDeletePayload(fields: value)
+
+				case "customerAddressUpdate":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try CustomerAddressUpdatePayload(fields: value)
+
 				case "customerCreate":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
 				return try CustomerCreatePayload(fields: value)
-
-				case "customerMailingAddressCreate":
-				if value is NSNull { return nil }
-				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
-				}
-				return try CustomerMailingAddressCreatePayload(fields: value)
-
-				case "customerMailingAddressDelete":
-				if value is NSNull { return nil }
-				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
-				}
-				return try CustomerMailingAddressDeletePayload(fields: value)
-
-				case "customerMailingAddressUpdate":
-				if value is NSNull { return nil }
-				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
-				}
-				return try CustomerMailingAddressUpdatePayload(fields: value)
 
 				case "customerRecover":
 				if value is NSNull { return nil }
@@ -315,34 +409,6 @@ extension Storefront {
 				}
 				return try CustomerUpdatePayload(fields: value)
 
-				case "purchaseSessionCreate":
-				if value is NSNull { return nil }
-				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
-				}
-				return try PurchaseSessionCreatePayload(fields: value)
-
-				case "purchaseSessionShippingRateUpdate":
-				if value is NSNull { return nil }
-				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
-				}
-				return try PurchaseSessionShippingRateUpdatePayload(fields: value)
-
-				case "purchaseSessionUpdate":
-				if value is NSNull { return nil }
-				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
-				}
-				return try PurchaseSessionUpdatePayload(fields: value)
-
-				case "shippingRatesRequestCreate":
-				if value is NSNull { return nil }
-				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
-				}
-				return try ShippingRatesRequestCreatePayload(fields: value)
-
 				default:
 				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 			}
@@ -350,40 +416,124 @@ extension Storefront {
 
 		open var typeName: String { return "Mutation" }
 
-		open var apiCustomerAccessTokenCreate: Storefront.ApiCustomerAccessTokenCreatePayload? {
-			return internalGetApiCustomerAccessTokenCreate()
+		open var checkoutAddLineItems: Storefront.CheckoutAddLineItemsPayload? {
+			return internalGetCheckoutAddLineItems()
 		}
 
-		open func aliasedApiCustomerAccessTokenCreate(aliasSuffix: String) -> Storefront.ApiCustomerAccessTokenCreatePayload? {
-			return internalGetApiCustomerAccessTokenCreate(aliasSuffix: aliasSuffix)
+		open func aliasedCheckoutAddLineItems(aliasSuffix: String) -> Storefront.CheckoutAddLineItemsPayload? {
+			return internalGetCheckoutAddLineItems(aliasSuffix: aliasSuffix)
 		}
 
-		func internalGetApiCustomerAccessTokenCreate(aliasSuffix: String? = nil) -> Storefront.ApiCustomerAccessTokenCreatePayload? {
-			return field(field: "apiCustomerAccessTokenCreate", aliasSuffix: aliasSuffix) as! Storefront.ApiCustomerAccessTokenCreatePayload?
+		func internalGetCheckoutAddLineItems(aliasSuffix: String? = nil) -> Storefront.CheckoutAddLineItemsPayload? {
+			return field(field: "checkoutAddLineItems", aliasSuffix: aliasSuffix) as! Storefront.CheckoutAddLineItemsPayload?
 		}
 
-		open var apiCustomerAccessTokenDelete: Storefront.ApiCustomerAccessTokenDeletePayload? {
-			return internalGetApiCustomerAccessTokenDelete()
+		open var checkoutAttributesUpdate: Storefront.CheckoutAttributesUpdatePayload? {
+			return internalGetCheckoutAttributesUpdate()
 		}
 
-		open func aliasedApiCustomerAccessTokenDelete(aliasSuffix: String) -> Storefront.ApiCustomerAccessTokenDeletePayload? {
-			return internalGetApiCustomerAccessTokenDelete(aliasSuffix: aliasSuffix)
+		open func aliasedCheckoutAttributesUpdate(aliasSuffix: String) -> Storefront.CheckoutAttributesUpdatePayload? {
+			return internalGetCheckoutAttributesUpdate(aliasSuffix: aliasSuffix)
 		}
 
-		func internalGetApiCustomerAccessTokenDelete(aliasSuffix: String? = nil) -> Storefront.ApiCustomerAccessTokenDeletePayload? {
-			return field(field: "apiCustomerAccessTokenDelete", aliasSuffix: aliasSuffix) as! Storefront.ApiCustomerAccessTokenDeletePayload?
+		func internalGetCheckoutAttributesUpdate(aliasSuffix: String? = nil) -> Storefront.CheckoutAttributesUpdatePayload? {
+			return field(field: "checkoutAttributesUpdate", aliasSuffix: aliasSuffix) as! Storefront.CheckoutAttributesUpdatePayload?
 		}
 
-		open var apiCustomerAccessTokenRenew: Storefront.ApiCustomerAccessTokenRenewPayload? {
-			return internalGetApiCustomerAccessTokenRenew()
+		open var checkoutCompleteWithCreditCard: Storefront.CheckoutCompleteWithCreditCardPayload? {
+			return internalGetCheckoutCompleteWithCreditCard()
 		}
 
-		open func aliasedApiCustomerAccessTokenRenew(aliasSuffix: String) -> Storefront.ApiCustomerAccessTokenRenewPayload? {
-			return internalGetApiCustomerAccessTokenRenew(aliasSuffix: aliasSuffix)
+		open func aliasedCheckoutCompleteWithCreditCard(aliasSuffix: String) -> Storefront.CheckoutCompleteWithCreditCardPayload? {
+			return internalGetCheckoutCompleteWithCreditCard(aliasSuffix: aliasSuffix)
 		}
 
-		func internalGetApiCustomerAccessTokenRenew(aliasSuffix: String? = nil) -> Storefront.ApiCustomerAccessTokenRenewPayload? {
-			return field(field: "apiCustomerAccessTokenRenew", aliasSuffix: aliasSuffix) as! Storefront.ApiCustomerAccessTokenRenewPayload?
+		func internalGetCheckoutCompleteWithCreditCard(aliasSuffix: String? = nil) -> Storefront.CheckoutCompleteWithCreditCardPayload? {
+			return field(field: "checkoutCompleteWithCreditCard", aliasSuffix: aliasSuffix) as! Storefront.CheckoutCompleteWithCreditCardPayload?
+		}
+
+		open var checkoutCompleteWithTokenizedPayment: Storefront.CheckoutCompleteWithTokenizedPaymentPayload? {
+			return internalGetCheckoutCompleteWithTokenizedPayment()
+		}
+
+		open func aliasedCheckoutCompleteWithTokenizedPayment(aliasSuffix: String) -> Storefront.CheckoutCompleteWithTokenizedPaymentPayload? {
+			return internalGetCheckoutCompleteWithTokenizedPayment(aliasSuffix: aliasSuffix)
+		}
+
+		func internalGetCheckoutCompleteWithTokenizedPayment(aliasSuffix: String? = nil) -> Storefront.CheckoutCompleteWithTokenizedPaymentPayload? {
+			return field(field: "checkoutCompleteWithTokenizedPayment", aliasSuffix: aliasSuffix) as! Storefront.CheckoutCompleteWithTokenizedPaymentPayload?
+		}
+
+		open var checkoutCreate: Storefront.CheckoutCreatePayload? {
+			return internalGetCheckoutCreate()
+		}
+
+		open func aliasedCheckoutCreate(aliasSuffix: String) -> Storefront.CheckoutCreatePayload? {
+			return internalGetCheckoutCreate(aliasSuffix: aliasSuffix)
+		}
+
+		func internalGetCheckoutCreate(aliasSuffix: String? = nil) -> Storefront.CheckoutCreatePayload? {
+			return field(field: "checkoutCreate", aliasSuffix: aliasSuffix) as! Storefront.CheckoutCreatePayload?
+		}
+
+		open var checkoutShippingAddressUpdate: Storefront.CheckoutShippingAddressUpdatePayload? {
+			return internalGetCheckoutShippingAddressUpdate()
+		}
+
+		open func aliasedCheckoutShippingAddressUpdate(aliasSuffix: String) -> Storefront.CheckoutShippingAddressUpdatePayload? {
+			return internalGetCheckoutShippingAddressUpdate(aliasSuffix: aliasSuffix)
+		}
+
+		func internalGetCheckoutShippingAddressUpdate(aliasSuffix: String? = nil) -> Storefront.CheckoutShippingAddressUpdatePayload? {
+			return field(field: "checkoutShippingAddressUpdate", aliasSuffix: aliasSuffix) as! Storefront.CheckoutShippingAddressUpdatePayload?
+		}
+
+		open var checkoutShippingLineUpdate: Storefront.CheckoutShippingLineUpdatePayload? {
+			return internalGetCheckoutShippingLineUpdate()
+		}
+
+		open func aliasedCheckoutShippingLineUpdate(aliasSuffix: String) -> Storefront.CheckoutShippingLineUpdatePayload? {
+			return internalGetCheckoutShippingLineUpdate(aliasSuffix: aliasSuffix)
+		}
+
+		func internalGetCheckoutShippingLineUpdate(aliasSuffix: String? = nil) -> Storefront.CheckoutShippingLineUpdatePayload? {
+			return field(field: "checkoutShippingLineUpdate", aliasSuffix: aliasSuffix) as! Storefront.CheckoutShippingLineUpdatePayload?
+		}
+
+		open var customerAccessTokenCreate: Storefront.CustomerAccessTokenCreatePayload? {
+			return internalGetCustomerAccessTokenCreate()
+		}
+
+		open func aliasedCustomerAccessTokenCreate(aliasSuffix: String) -> Storefront.CustomerAccessTokenCreatePayload? {
+			return internalGetCustomerAccessTokenCreate(aliasSuffix: aliasSuffix)
+		}
+
+		func internalGetCustomerAccessTokenCreate(aliasSuffix: String? = nil) -> Storefront.CustomerAccessTokenCreatePayload? {
+			return field(field: "customerAccessTokenCreate", aliasSuffix: aliasSuffix) as! Storefront.CustomerAccessTokenCreatePayload?
+		}
+
+		open var customerAccessTokenDelete: Storefront.CustomerAccessTokenDeletePayload? {
+			return internalGetCustomerAccessTokenDelete()
+		}
+
+		open func aliasedCustomerAccessTokenDelete(aliasSuffix: String) -> Storefront.CustomerAccessTokenDeletePayload? {
+			return internalGetCustomerAccessTokenDelete(aliasSuffix: aliasSuffix)
+		}
+
+		func internalGetCustomerAccessTokenDelete(aliasSuffix: String? = nil) -> Storefront.CustomerAccessTokenDeletePayload? {
+			return field(field: "customerAccessTokenDelete", aliasSuffix: aliasSuffix) as! Storefront.CustomerAccessTokenDeletePayload?
+		}
+
+		open var customerAccessTokenRenew: Storefront.CustomerAccessTokenRenewPayload? {
+			return internalGetCustomerAccessTokenRenew()
+		}
+
+		open func aliasedCustomerAccessTokenRenew(aliasSuffix: String) -> Storefront.CustomerAccessTokenRenewPayload? {
+			return internalGetCustomerAccessTokenRenew(aliasSuffix: aliasSuffix)
+		}
+
+		func internalGetCustomerAccessTokenRenew(aliasSuffix: String? = nil) -> Storefront.CustomerAccessTokenRenewPayload? {
+			return field(field: "customerAccessTokenRenew", aliasSuffix: aliasSuffix) as! Storefront.CustomerAccessTokenRenewPayload?
 		}
 
 		open var customerActivate: Storefront.CustomerActivatePayload? {
@@ -398,6 +548,42 @@ extension Storefront {
 			return field(field: "customerActivate", aliasSuffix: aliasSuffix) as! Storefront.CustomerActivatePayload?
 		}
 
+		open var customerAddressCreate: Storefront.CustomerAddressCreatePayload? {
+			return internalGetCustomerAddressCreate()
+		}
+
+		open func aliasedCustomerAddressCreate(aliasSuffix: String) -> Storefront.CustomerAddressCreatePayload? {
+			return internalGetCustomerAddressCreate(aliasSuffix: aliasSuffix)
+		}
+
+		func internalGetCustomerAddressCreate(aliasSuffix: String? = nil) -> Storefront.CustomerAddressCreatePayload? {
+			return field(field: "customerAddressCreate", aliasSuffix: aliasSuffix) as! Storefront.CustomerAddressCreatePayload?
+		}
+
+		open var customerAddressDelete: Storefront.CustomerAddressDeletePayload? {
+			return internalGetCustomerAddressDelete()
+		}
+
+		open func aliasedCustomerAddressDelete(aliasSuffix: String) -> Storefront.CustomerAddressDeletePayload? {
+			return internalGetCustomerAddressDelete(aliasSuffix: aliasSuffix)
+		}
+
+		func internalGetCustomerAddressDelete(aliasSuffix: String? = nil) -> Storefront.CustomerAddressDeletePayload? {
+			return field(field: "customerAddressDelete", aliasSuffix: aliasSuffix) as! Storefront.CustomerAddressDeletePayload?
+		}
+
+		open var customerAddressUpdate: Storefront.CustomerAddressUpdatePayload? {
+			return internalGetCustomerAddressUpdate()
+		}
+
+		open func aliasedCustomerAddressUpdate(aliasSuffix: String) -> Storefront.CustomerAddressUpdatePayload? {
+			return internalGetCustomerAddressUpdate(aliasSuffix: aliasSuffix)
+		}
+
+		func internalGetCustomerAddressUpdate(aliasSuffix: String? = nil) -> Storefront.CustomerAddressUpdatePayload? {
+			return field(field: "customerAddressUpdate", aliasSuffix: aliasSuffix) as! Storefront.CustomerAddressUpdatePayload?
+		}
+
 		open var customerCreate: Storefront.CustomerCreatePayload? {
 			return internalGetCustomerCreate()
 		}
@@ -408,42 +594,6 @@ extension Storefront {
 
 		func internalGetCustomerCreate(aliasSuffix: String? = nil) -> Storefront.CustomerCreatePayload? {
 			return field(field: "customerCreate", aliasSuffix: aliasSuffix) as! Storefront.CustomerCreatePayload?
-		}
-
-		open var customerMailingAddressCreate: Storefront.CustomerMailingAddressCreatePayload? {
-			return internalGetCustomerMailingAddressCreate()
-		}
-
-		open func aliasedCustomerMailingAddressCreate(aliasSuffix: String) -> Storefront.CustomerMailingAddressCreatePayload? {
-			return internalGetCustomerMailingAddressCreate(aliasSuffix: aliasSuffix)
-		}
-
-		func internalGetCustomerMailingAddressCreate(aliasSuffix: String? = nil) -> Storefront.CustomerMailingAddressCreatePayload? {
-			return field(field: "customerMailingAddressCreate", aliasSuffix: aliasSuffix) as! Storefront.CustomerMailingAddressCreatePayload?
-		}
-
-		open var customerMailingAddressDelete: Storefront.CustomerMailingAddressDeletePayload? {
-			return internalGetCustomerMailingAddressDelete()
-		}
-
-		open func aliasedCustomerMailingAddressDelete(aliasSuffix: String) -> Storefront.CustomerMailingAddressDeletePayload? {
-			return internalGetCustomerMailingAddressDelete(aliasSuffix: aliasSuffix)
-		}
-
-		func internalGetCustomerMailingAddressDelete(aliasSuffix: String? = nil) -> Storefront.CustomerMailingAddressDeletePayload? {
-			return field(field: "customerMailingAddressDelete", aliasSuffix: aliasSuffix) as! Storefront.CustomerMailingAddressDeletePayload?
-		}
-
-		open var customerMailingAddressUpdate: Storefront.CustomerMailingAddressUpdatePayload? {
-			return internalGetCustomerMailingAddressUpdate()
-		}
-
-		open func aliasedCustomerMailingAddressUpdate(aliasSuffix: String) -> Storefront.CustomerMailingAddressUpdatePayload? {
-			return internalGetCustomerMailingAddressUpdate(aliasSuffix: aliasSuffix)
-		}
-
-		func internalGetCustomerMailingAddressUpdate(aliasSuffix: String? = nil) -> Storefront.CustomerMailingAddressUpdatePayload? {
-			return field(field: "customerMailingAddressUpdate", aliasSuffix: aliasSuffix) as! Storefront.CustomerMailingAddressUpdatePayload?
 		}
 
 		open var customerRecover: Storefront.CustomerRecoverPayload? {
@@ -482,65 +632,45 @@ extension Storefront {
 			return field(field: "customerUpdate", aliasSuffix: aliasSuffix) as! Storefront.CustomerUpdatePayload?
 		}
 
-		open var purchaseSessionCreate: Storefront.PurchaseSessionCreatePayload? {
-			return internalGetPurchaseSessionCreate()
-		}
-
-		open func aliasedPurchaseSessionCreate(aliasSuffix: String) -> Storefront.PurchaseSessionCreatePayload? {
-			return internalGetPurchaseSessionCreate(aliasSuffix: aliasSuffix)
-		}
-
-		func internalGetPurchaseSessionCreate(aliasSuffix: String? = nil) -> Storefront.PurchaseSessionCreatePayload? {
-			return field(field: "purchaseSessionCreate", aliasSuffix: aliasSuffix) as! Storefront.PurchaseSessionCreatePayload?
-		}
-
-		open var purchaseSessionShippingRateUpdate: Storefront.PurchaseSessionShippingRateUpdatePayload? {
-			return internalGetPurchaseSessionShippingRateUpdate()
-		}
-
-		open func aliasedPurchaseSessionShippingRateUpdate(aliasSuffix: String) -> Storefront.PurchaseSessionShippingRateUpdatePayload? {
-			return internalGetPurchaseSessionShippingRateUpdate(aliasSuffix: aliasSuffix)
-		}
-
-		func internalGetPurchaseSessionShippingRateUpdate(aliasSuffix: String? = nil) -> Storefront.PurchaseSessionShippingRateUpdatePayload? {
-			return field(field: "purchaseSessionShippingRateUpdate", aliasSuffix: aliasSuffix) as! Storefront.PurchaseSessionShippingRateUpdatePayload?
-		}
-
-		open var purchaseSessionUpdate: Storefront.PurchaseSessionUpdatePayload? {
-			return internalGetPurchaseSessionUpdate()
-		}
-
-		open func aliasedPurchaseSessionUpdate(aliasSuffix: String) -> Storefront.PurchaseSessionUpdatePayload? {
-			return internalGetPurchaseSessionUpdate(aliasSuffix: aliasSuffix)
-		}
-
-		func internalGetPurchaseSessionUpdate(aliasSuffix: String? = nil) -> Storefront.PurchaseSessionUpdatePayload? {
-			return field(field: "purchaseSessionUpdate", aliasSuffix: aliasSuffix) as! Storefront.PurchaseSessionUpdatePayload?
-		}
-
-		open var shippingRatesRequestCreate: Storefront.ShippingRatesRequestCreatePayload? {
-			return internalGetShippingRatesRequestCreate()
-		}
-
-		open func aliasedShippingRatesRequestCreate(aliasSuffix: String) -> Storefront.ShippingRatesRequestCreatePayload? {
-			return internalGetShippingRatesRequestCreate(aliasSuffix: aliasSuffix)
-		}
-
-		func internalGetShippingRatesRequestCreate(aliasSuffix: String? = nil) -> Storefront.ShippingRatesRequestCreatePayload? {
-			return field(field: "shippingRatesRequestCreate", aliasSuffix: aliasSuffix) as! Storefront.ShippingRatesRequestCreatePayload?
-		}
-
 		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
 			switch(key) {
-				case "apiCustomerAccessTokenCreate":
+				case "checkoutAddLineItems":
 
 				return .Object
 
-				case "apiCustomerAccessTokenDelete":
+				case "checkoutAttributesUpdate":
 
 				return .Object
 
-				case "apiCustomerAccessTokenRenew":
+				case "checkoutCompleteWithCreditCard":
+
+				return .Object
+
+				case "checkoutCompleteWithTokenizedPayment":
+
+				return .Object
+
+				case "checkoutCreate":
+
+				return .Object
+
+				case "checkoutShippingAddressUpdate":
+
+				return .Object
+
+				case "checkoutShippingLineUpdate":
+
+				return .Object
+
+				case "customerAccessTokenCreate":
+
+				return .Object
+
+				case "customerAccessTokenDelete":
+
+				return .Object
+
+				case "customerAccessTokenRenew":
 
 				return .Object
 
@@ -548,19 +678,19 @@ extension Storefront {
 
 				return .Object
 
+				case "customerAddressCreate":
+
+				return .Object
+
+				case "customerAddressDelete":
+
+				return .Object
+
+				case "customerAddressUpdate":
+
+				return .Object
+
 				case "customerCreate":
-
-				return .Object
-
-				case "customerMailingAddressCreate":
-
-				return .Object
-
-				case "customerMailingAddressDelete":
-
-				return .Object
-
-				case "customerMailingAddressUpdate":
 
 				return .Object
 
@@ -573,22 +703,6 @@ extension Storefront {
 				return .Object
 
 				case "customerUpdate":
-
-				return .Object
-
-				case "purchaseSessionCreate":
-
-				return .Object
-
-				case "purchaseSessionShippingRateUpdate":
-
-				return .Object
-
-				case "purchaseSessionUpdate":
-
-				return .Object
-
-				case "shippingRatesRequestCreate":
 
 				return .Object
 
@@ -599,29 +713,50 @@ extension Storefront {
 
 		override open func fetchChildObject(key: String) -> GraphQL.AbstractResponse? {
 			switch(key) {
-				case "apiCustomerAccessTokenCreate":
-				return internalGetApiCustomerAccessTokenCreate()
+				case "checkoutAddLineItems":
+				return internalGetCheckoutAddLineItems()
 
-				case "apiCustomerAccessTokenDelete":
-				return internalGetApiCustomerAccessTokenDelete()
+				case "checkoutAttributesUpdate":
+				return internalGetCheckoutAttributesUpdate()
 
-				case "apiCustomerAccessTokenRenew":
-				return internalGetApiCustomerAccessTokenRenew()
+				case "checkoutCompleteWithCreditCard":
+				return internalGetCheckoutCompleteWithCreditCard()
+
+				case "checkoutCompleteWithTokenizedPayment":
+				return internalGetCheckoutCompleteWithTokenizedPayment()
+
+				case "checkoutCreate":
+				return internalGetCheckoutCreate()
+
+				case "checkoutShippingAddressUpdate":
+				return internalGetCheckoutShippingAddressUpdate()
+
+				case "checkoutShippingLineUpdate":
+				return internalGetCheckoutShippingLineUpdate()
+
+				case "customerAccessTokenCreate":
+				return internalGetCustomerAccessTokenCreate()
+
+				case "customerAccessTokenDelete":
+				return internalGetCustomerAccessTokenDelete()
+
+				case "customerAccessTokenRenew":
+				return internalGetCustomerAccessTokenRenew()
 
 				case "customerActivate":
 				return internalGetCustomerActivate()
 
+				case "customerAddressCreate":
+				return internalGetCustomerAddressCreate()
+
+				case "customerAddressDelete":
+				return internalGetCustomerAddressDelete()
+
+				case "customerAddressUpdate":
+				return internalGetCustomerAddressUpdate()
+
 				case "customerCreate":
 				return internalGetCustomerCreate()
-
-				case "customerMailingAddressCreate":
-				return internalGetCustomerMailingAddressCreate()
-
-				case "customerMailingAddressDelete":
-				return internalGetCustomerMailingAddressDelete()
-
-				case "customerMailingAddressUpdate":
-				return internalGetCustomerMailingAddressUpdate()
 
 				case "customerRecover":
 				return internalGetCustomerRecover()
@@ -631,18 +766,6 @@ extension Storefront {
 
 				case "customerUpdate":
 				return internalGetCustomerUpdate()
-
-				case "purchaseSessionCreate":
-				return internalGetPurchaseSessionCreate()
-
-				case "purchaseSessionShippingRateUpdate":
-				return internalGetPurchaseSessionShippingRateUpdate()
-
-				case "purchaseSessionUpdate":
-				return internalGetPurchaseSessionUpdate()
-
-				case "shippingRatesRequestCreate":
-				return internalGetShippingRatesRequestCreate()
 
 				default:
 				break
@@ -662,20 +785,62 @@ extension Storefront {
 			objectMap.keys.forEach({
 				key in
 				switch(key) {
-					case "apiCustomerAccessTokenCreate":
-					if let value = internalGetApiCustomerAccessTokenCreate() {
+					case "checkoutAddLineItems":
+					if let value = internalGetCheckoutAddLineItems() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
-					case "apiCustomerAccessTokenDelete":
-					if let value = internalGetApiCustomerAccessTokenDelete() {
+					case "checkoutAttributesUpdate":
+					if let value = internalGetCheckoutAttributesUpdate() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
-					case "apiCustomerAccessTokenRenew":
-					if let value = internalGetApiCustomerAccessTokenRenew() {
+					case "checkoutCompleteWithCreditCard":
+					if let value = internalGetCheckoutCompleteWithCreditCard() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "checkoutCompleteWithTokenizedPayment":
+					if let value = internalGetCheckoutCompleteWithTokenizedPayment() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "checkoutCreate":
+					if let value = internalGetCheckoutCreate() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "checkoutShippingAddressUpdate":
+					if let value = internalGetCheckoutShippingAddressUpdate() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "checkoutShippingLineUpdate":
+					if let value = internalGetCheckoutShippingLineUpdate() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "customerAccessTokenCreate":
+					if let value = internalGetCustomerAccessTokenCreate() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "customerAccessTokenDelete":
+					if let value = internalGetCustomerAccessTokenDelete() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "customerAccessTokenRenew":
+					if let value = internalGetCustomerAccessTokenRenew() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
@@ -686,26 +851,26 @@ extension Storefront {
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
+					case "customerAddressCreate":
+					if let value = internalGetCustomerAddressCreate() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "customerAddressDelete":
+					if let value = internalGetCustomerAddressDelete() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "customerAddressUpdate":
+					if let value = internalGetCustomerAddressUpdate() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
 					case "customerCreate":
 					if let value = internalGetCustomerCreate() {
-						response.append(value)
-						response.append(contentsOf: value.childResponseObjectMap())
-					}
-
-					case "customerMailingAddressCreate":
-					if let value = internalGetCustomerMailingAddressCreate() {
-						response.append(value)
-						response.append(contentsOf: value.childResponseObjectMap())
-					}
-
-					case "customerMailingAddressDelete":
-					if let value = internalGetCustomerMailingAddressDelete() {
-						response.append(value)
-						response.append(contentsOf: value.childResponseObjectMap())
-					}
-
-					case "customerMailingAddressUpdate":
-					if let value = internalGetCustomerMailingAddressUpdate() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
@@ -724,30 +889,6 @@ extension Storefront {
 
 					case "customerUpdate":
 					if let value = internalGetCustomerUpdate() {
-						response.append(value)
-						response.append(contentsOf: value.childResponseObjectMap())
-					}
-
-					case "purchaseSessionCreate":
-					if let value = internalGetPurchaseSessionCreate() {
-						response.append(value)
-						response.append(contentsOf: value.childResponseObjectMap())
-					}
-
-					case "purchaseSessionShippingRateUpdate":
-					if let value = internalGetPurchaseSessionShippingRateUpdate() {
-						response.append(value)
-						response.append(contentsOf: value.childResponseObjectMap())
-					}
-
-					case "purchaseSessionUpdate":
-					if let value = internalGetPurchaseSessionUpdate() {
-						response.append(value)
-						response.append(contentsOf: value.childResponseObjectMap())
-					}
-
-					case "shippingRatesRequestCreate":
-					if let value = internalGetShippingRatesRequestCreate() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}

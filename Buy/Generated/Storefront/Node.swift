@@ -25,10 +25,10 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func onApiCustomerAccessToken(subfields: (ApiCustomerAccessTokenQuery) -> Void) -> NodeQuery {
-			let subquery = ApiCustomerAccessTokenQuery()
+		open func onCheckout(subfields: (CheckoutQuery) -> Void) -> NodeQuery {
+			let subquery = CheckoutQuery()
 			subfields(subquery)
-			addInlineFragment(on: "ApiCustomerAccessToken", subfields: subquery)
+			addInlineFragment(on: "Checkout", subfields: subquery)
 			return self
 		}
 
@@ -37,14 +37,6 @@ extension Storefront {
 			let subquery = CollectionQuery()
 			subfields(subquery)
 			addInlineFragment(on: "Collection", subfields: subquery)
-			return self
-		}
-
-		@discardableResult
-		open func onCreditCardPaymentRequest(subfields: (CreditCardPaymentRequestQuery) -> Void) -> NodeQuery {
-			let subquery = CreditCardPaymentRequestQuery()
-			subfields(subquery)
-			addInlineFragment(on: "CreditCardPaymentRequest", subfields: subquery)
 			return self
 		}
 
@@ -61,6 +53,14 @@ extension Storefront {
 			let subquery = OrderQuery()
 			subfields(subquery)
 			addInlineFragment(on: "Order", subfields: subquery)
+			return self
+		}
+
+		@discardableResult
+		open func onPayment(subfields: (PaymentQuery) -> Void) -> NodeQuery {
+			let subquery = PaymentQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Payment", subfields: subquery)
 			return self
 		}
 
@@ -85,22 +85,6 @@ extension Storefront {
 			let subquery = ProductVariantQuery()
 			subfields(subquery)
 			addInlineFragment(on: "ProductVariant", subfields: subquery)
-			return self
-		}
-
-		@discardableResult
-		open func onPurchaseSession(subfields: (PurchaseSessionQuery) -> Void) -> NodeQuery {
-			let subquery = PurchaseSessionQuery()
-			subfields(subquery)
-			addInlineFragment(on: "PurchaseSession", subfields: subquery)
-			return self
-		}
-
-		@discardableResult
-		open func onShippingRatesRequest(subfields: (ShippingRatesRequestQuery) -> Void) -> NodeQuery {
-			let subquery = ShippingRatesRequestQuery()
-			subfields(subquery)
-			addInlineFragment(on: "ShippingRatesRequest", subfields: subquery)
 			return self
 		}
 
@@ -136,20 +120,20 @@ extension Storefront {
 				throw SchemaViolationError(type: UnknownNode.self, field: "__typename", value: fields["__typename"] ?? NSNull())
 			}
 			switch typeName {
-				case "ApiCustomerAccessToken":
-				return try ApiCustomerAccessToken.init(fields: fields)
+				case "Checkout":
+				return try Checkout.init(fields: fields)
 
 				case "Collection":
 				return try Collection.init(fields: fields)
-
-				case "CreditCardPaymentRequest":
-				return try CreditCardPaymentRequest.init(fields: fields)
 
 				case "MailingAddress":
 				return try MailingAddress.init(fields: fields)
 
 				case "Order":
 				return try Order.init(fields: fields)
+
+				case "Payment":
+				return try Payment.init(fields: fields)
 
 				case "Product":
 				return try Product.init(fields: fields)
@@ -159,12 +143,6 @@ extension Storefront {
 
 				case "ProductVariant":
 				return try ProductVariant.init(fields: fields)
-
-				case "PurchaseSession":
-				return try PurchaseSession.init(fields: fields)
-
-				case "ShippingRatesRequest":
-				return try ShippingRatesRequest.init(fields: fields)
 
 				case "ShopPolicy":
 				return try ShopPolicy.init(fields: fields)

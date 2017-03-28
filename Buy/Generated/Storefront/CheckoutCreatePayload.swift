@@ -2,24 +2,24 @@
 import Foundation
 
 extension Storefront {
-	open class PurchaseSessionCreatePayloadQuery: GraphQL.AbstractQuery {
+	open class CheckoutCreatePayloadQuery: GraphQL.AbstractQuery {
 		@discardableResult
-		open func clientMutationId(aliasSuffix: String? = nil) -> PurchaseSessionCreatePayloadQuery {
+		open func checkout(aliasSuffix: String? = nil, _ subfields: (CheckoutQuery) -> Void) -> CheckoutCreatePayloadQuery {
+			let subquery = CheckoutQuery()
+			subfields(subquery)
+
+			addField(field: "checkout", aliasSuffix: aliasSuffix, subfields: subquery)
+			return self
+		}
+
+		@discardableResult
+		open func clientMutationId(aliasSuffix: String? = nil) -> CheckoutCreatePayloadQuery {
 			addField(field: "clientMutationId", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func purchaseSession(aliasSuffix: String? = nil, _ subfields: (PurchaseSessionQuery) -> Void) -> PurchaseSessionCreatePayloadQuery {
-			let subquery = PurchaseSessionQuery()
-			subfields(subquery)
-
-			addField(field: "purchaseSession", aliasSuffix: aliasSuffix, subfields: subquery)
-			return self
-		}
-
-		@discardableResult
-		open func userErrors(aliasSuffix: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> PurchaseSessionCreatePayloadQuery {
+		open func userErrors(aliasSuffix: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CheckoutCreatePayloadQuery {
 			let subquery = UserErrorQuery()
 			subfields(subquery)
 
@@ -28,24 +28,24 @@ extension Storefront {
 		}
 	}
 
-	open class PurchaseSessionCreatePayload: GraphQL.AbstractResponse
+	open class CheckoutCreatePayload: GraphQL.AbstractResponse
 	{
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "checkout":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try Checkout(fields: value)
+
 				case "clientMutationId":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
 				return value
-
-				case "purchaseSession":
-				if value is NSNull { return nil }
-				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
-				}
-				return try PurchaseSession(fields: value)
 
 				case "userErrors":
 				guard let value = value as? [[String: Any]] else {
@@ -58,7 +58,15 @@ extension Storefront {
 			}
 		}
 
-		open var typeName: String { return "PurchaseSessionCreatePayload" }
+		open var typeName: String { return "CheckoutCreatePayload" }
+
+		open var checkout: Storefront.Checkout? {
+			return internalGetCheckout()
+		}
+
+		func internalGetCheckout(aliasSuffix: String? = nil) -> Storefront.Checkout? {
+			return field(field: "checkout", aliasSuffix: aliasSuffix) as! Storefront.Checkout?
+		}
 
 		open var clientMutationId: String? {
 			return internalGetClientMutationId()
@@ -66,14 +74,6 @@ extension Storefront {
 
 		func internalGetClientMutationId(aliasSuffix: String? = nil) -> String? {
 			return field(field: "clientMutationId", aliasSuffix: aliasSuffix) as! String?
-		}
-
-		open var purchaseSession: Storefront.PurchaseSession? {
-			return internalGetPurchaseSession()
-		}
-
-		func internalGetPurchaseSession(aliasSuffix: String? = nil) -> Storefront.PurchaseSession? {
-			return field(field: "purchaseSession", aliasSuffix: aliasSuffix) as! Storefront.PurchaseSession?
 		}
 
 		open var userErrors: [Storefront.UserError] {
@@ -86,13 +86,13 @@ extension Storefront {
 
 		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
 			switch(key) {
+				case "checkout":
+
+				return .Object
+
 				case "clientMutationId":
 
 				return .Scalar
-
-				case "purchaseSession":
-
-				return .Object
 
 				case "userErrors":
 
@@ -105,8 +105,8 @@ extension Storefront {
 
 		override open func fetchChildObject(key: String) -> GraphQL.AbstractResponse? {
 			switch(key) {
-				case "purchaseSession":
-				return internalGetPurchaseSession()
+				case "checkout":
+				return internalGetCheckout()
 
 				default:
 				break
@@ -129,8 +129,8 @@ extension Storefront {
 			objectMap.keys.forEach({
 				key in
 				switch(key) {
-					case "purchaseSession":
-					if let value = internalGetPurchaseSession() {
+					case "checkout":
+					if let value = internalGetCheckout() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}

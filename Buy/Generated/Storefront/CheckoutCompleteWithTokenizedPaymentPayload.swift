@@ -2,24 +2,33 @@
 import Foundation
 
 extension Storefront {
-	open class ApiCustomerAccessTokenRenewPayloadQuery: GraphQL.AbstractQuery {
+	open class CheckoutCompleteWithTokenizedPaymentPayloadQuery: GraphQL.AbstractQuery {
 		@discardableResult
-		open func apiCustomerAccessToken(aliasSuffix: String? = nil, _ subfields: (ApiCustomerAccessTokenQuery) -> Void) -> ApiCustomerAccessTokenRenewPayloadQuery {
-			let subquery = ApiCustomerAccessTokenQuery()
+		open func checkout(aliasSuffix: String? = nil, _ subfields: (CheckoutQuery) -> Void) -> CheckoutCompleteWithTokenizedPaymentPayloadQuery {
+			let subquery = CheckoutQuery()
 			subfields(subquery)
 
-			addField(field: "apiCustomerAccessToken", aliasSuffix: aliasSuffix, subfields: subquery)
+			addField(field: "checkout", aliasSuffix: aliasSuffix, subfields: subquery)
 			return self
 		}
 
 		@discardableResult
-		open func clientMutationId(aliasSuffix: String? = nil) -> ApiCustomerAccessTokenRenewPayloadQuery {
+		open func clientMutationId(aliasSuffix: String? = nil) -> CheckoutCompleteWithTokenizedPaymentPayloadQuery {
 			addField(field: "clientMutationId", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func userErrors(aliasSuffix: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> ApiCustomerAccessTokenRenewPayloadQuery {
+		open func payment(aliasSuffix: String? = nil, _ subfields: (PaymentQuery) -> Void) -> CheckoutCompleteWithTokenizedPaymentPayloadQuery {
+			let subquery = PaymentQuery()
+			subfields(subquery)
+
+			addField(field: "payment", aliasSuffix: aliasSuffix, subfields: subquery)
+			return self
+		}
+
+		@discardableResult
+		open func userErrors(aliasSuffix: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CheckoutCompleteWithTokenizedPaymentPayloadQuery {
 			let subquery = UserErrorQuery()
 			subfields(subquery)
 
@@ -28,17 +37,16 @@ extension Storefront {
 		}
 	}
 
-	open class ApiCustomerAccessTokenRenewPayload: GraphQL.AbstractResponse
+	open class CheckoutCompleteWithTokenizedPaymentPayload: GraphQL.AbstractResponse
 	{
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
-				case "apiCustomerAccessToken":
-				if value is NSNull { return nil }
+				case "checkout":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return try ApiCustomerAccessToken(fields: value)
+				return try Checkout(fields: value)
 
 				case "clientMutationId":
 				if value is NSNull { return nil }
@@ -46,6 +54,13 @@ extension Storefront {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
 				return value
+
+				case "payment":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try Payment(fields: value)
 
 				case "userErrors":
 				guard let value = value as? [[String: Any]] else {
@@ -58,14 +73,14 @@ extension Storefront {
 			}
 		}
 
-		open var typeName: String { return "ApiCustomerAccessTokenRenewPayload" }
+		open var typeName: String { return "CheckoutCompleteWithTokenizedPaymentPayload" }
 
-		open var apiCustomerAccessToken: Storefront.ApiCustomerAccessToken? {
-			return internalGetApiCustomerAccessToken()
+		open var checkout: Storefront.Checkout {
+			return internalGetCheckout()
 		}
 
-		func internalGetApiCustomerAccessToken(aliasSuffix: String? = nil) -> Storefront.ApiCustomerAccessToken? {
-			return field(field: "apiCustomerAccessToken", aliasSuffix: aliasSuffix) as! Storefront.ApiCustomerAccessToken?
+		func internalGetCheckout(aliasSuffix: String? = nil) -> Storefront.Checkout {
+			return field(field: "checkout", aliasSuffix: aliasSuffix) as! Storefront.Checkout
 		}
 
 		open var clientMutationId: String? {
@@ -74,6 +89,14 @@ extension Storefront {
 
 		func internalGetClientMutationId(aliasSuffix: String? = nil) -> String? {
 			return field(field: "clientMutationId", aliasSuffix: aliasSuffix) as! String?
+		}
+
+		open var payment: Storefront.Payment? {
+			return internalGetPayment()
+		}
+
+		func internalGetPayment(aliasSuffix: String? = nil) -> Storefront.Payment? {
+			return field(field: "payment", aliasSuffix: aliasSuffix) as! Storefront.Payment?
 		}
 
 		open var userErrors: [Storefront.UserError] {
@@ -86,13 +109,17 @@ extension Storefront {
 
 		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
 			switch(key) {
-				case "apiCustomerAccessToken":
+				case "checkout":
 
 				return .Object
 
 				case "clientMutationId":
 
 				return .Scalar
+
+				case "payment":
+
+				return .Object
 
 				case "userErrors":
 
@@ -105,8 +132,11 @@ extension Storefront {
 
 		override open func fetchChildObject(key: String) -> GraphQL.AbstractResponse? {
 			switch(key) {
-				case "apiCustomerAccessToken":
-				return internalGetApiCustomerAccessToken()
+				case "checkout":
+				return internalGetCheckout()
+
+				case "payment":
+				return internalGetPayment()
 
 				default:
 				break
@@ -129,8 +159,12 @@ extension Storefront {
 			objectMap.keys.forEach({
 				key in
 				switch(key) {
-					case "apiCustomerAccessToken":
-					if let value = internalGetApiCustomerAccessToken() {
+					case "checkout":
+					response.append(internalGetCheckout())
+					response.append(contentsOf: internalGetCheckout().childResponseObjectMap())
+
+					case "payment":
+					if let value = internalGetPayment() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}

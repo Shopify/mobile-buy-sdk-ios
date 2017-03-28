@@ -2,21 +2,24 @@
 import Foundation
 
 extension Storefront {
-	open class CustomerMailingAddressDeletePayloadQuery: GraphQL.AbstractQuery {
+	open class CustomerAccessTokenRenewPayloadQuery: GraphQL.AbstractQuery {
 		@discardableResult
-		open func clientMutationId(aliasSuffix: String? = nil) -> CustomerMailingAddressDeletePayloadQuery {
+		open func clientMutationId(aliasSuffix: String? = nil) -> CustomerAccessTokenRenewPayloadQuery {
 			addField(field: "clientMutationId", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func deletedCustomerAddressId(aliasSuffix: String? = nil) -> CustomerMailingAddressDeletePayloadQuery {
-			addField(field: "deletedCustomerAddressId", aliasSuffix: aliasSuffix)
+		open func customerAccessToken(aliasSuffix: String? = nil, _ subfields: (CustomerAccessTokenQuery) -> Void) -> CustomerAccessTokenRenewPayloadQuery {
+			let subquery = CustomerAccessTokenQuery()
+			subfields(subquery)
+
+			addField(field: "customerAccessToken", aliasSuffix: aliasSuffix, subfields: subquery)
 			return self
 		}
 
 		@discardableResult
-		open func userErrors(aliasSuffix: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerMailingAddressDeletePayloadQuery {
+		open func userErrors(aliasSuffix: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerAccessTokenRenewPayloadQuery {
 			let subquery = UserErrorQuery()
 			subfields(subquery)
 
@@ -25,7 +28,7 @@ extension Storefront {
 		}
 	}
 
-	open class CustomerMailingAddressDeletePayload: GraphQL.AbstractResponse
+	open class CustomerAccessTokenRenewPayload: GraphQL.AbstractResponse
 	{
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
@@ -37,12 +40,12 @@ extension Storefront {
 				}
 				return value
 
-				case "deletedCustomerAddressId":
+				case "customerAccessToken":
 				if value is NSNull { return nil }
-				guard let value = value as? String else {
+				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return value
+				return try CustomerAccessToken(fields: value)
 
 				case "userErrors":
 				guard let value = value as? [[String: Any]] else {
@@ -55,7 +58,7 @@ extension Storefront {
 			}
 		}
 
-		open var typeName: String { return "CustomerMailingAddressDeletePayload" }
+		open var typeName: String { return "CustomerAccessTokenRenewPayload" }
 
 		open var clientMutationId: String? {
 			return internalGetClientMutationId()
@@ -65,12 +68,12 @@ extension Storefront {
 			return field(field: "clientMutationId", aliasSuffix: aliasSuffix) as! String?
 		}
 
-		open var deletedCustomerAddressId: String? {
-			return internalGetDeletedCustomerAddressId()
+		open var customerAccessToken: Storefront.CustomerAccessToken? {
+			return internalGetCustomerAccessToken()
 		}
 
-		func internalGetDeletedCustomerAddressId(aliasSuffix: String? = nil) -> String? {
-			return field(field: "deletedCustomerAddressId", aliasSuffix: aliasSuffix) as! String?
+		func internalGetCustomerAccessToken(aliasSuffix: String? = nil) -> Storefront.CustomerAccessToken? {
+			return field(field: "customerAccessToken", aliasSuffix: aliasSuffix) as! Storefront.CustomerAccessToken?
 		}
 
 		open var userErrors: [Storefront.UserError] {
@@ -87,9 +90,9 @@ extension Storefront {
 
 				return .Scalar
 
-				case "deletedCustomerAddressId":
+				case "customerAccessToken":
 
-				return .Scalar
+				return .Object
 
 				case "userErrors":
 
@@ -102,6 +105,9 @@ extension Storefront {
 
 		override open func fetchChildObject(key: String) -> GraphQL.AbstractResponse? {
 			switch(key) {
+				case "customerAccessToken":
+				return internalGetCustomerAccessToken()
+
 				default:
 				break
 			}
@@ -119,7 +125,27 @@ extension Storefront {
 		}
 
 		open func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
-			return []
+			var response: [GraphQL.AbstractResponse] = []
+			objectMap.keys.forEach({
+				key in
+				switch(key) {
+					case "customerAccessToken":
+					if let value = internalGetCustomerAccessToken() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "userErrors":
+					internalGetUserErrors().forEach {
+						response.append($0)
+						response.append(contentsOf: $0.childResponseObjectMap())
+					}
+
+					default:
+					break
+				}
+			})
+			return response
 		}
 
 		open func responseObject() -> GraphQL.AbstractResponse {
