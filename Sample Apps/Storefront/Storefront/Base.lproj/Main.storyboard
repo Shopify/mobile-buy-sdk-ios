@@ -341,7 +341,7 @@
                                 <blurEffect style="light"/>
                             </visualEffectView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="sIG-Rh-ld5" firstAttribute="leading" secondItem="5Si-l6-BER" secondAttribute="leading" id="7VR-En-QsU"/>
                             <constraint firstItem="sIG-Rh-ld5" firstAttribute="top" secondItem="5Si-l6-BER" secondAttribute="top" id="FbK-JM-rvK"/>

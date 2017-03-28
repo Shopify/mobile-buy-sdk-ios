@@ -129,6 +129,11 @@ private class CartButtonView: UIButton {
     
     private var badgeView: BadgeView!
     
+    private var badgeTransformMin     = CATransform3DMakeScale(0.001, 0.001, 0.001)
+    private var badgeTransformMid     = CATransform3DMakeScale(0.5, 0.5, 0.5)
+    private var badgeTransformMax     = CATransform3DMakeScale(1.5, 1.5, 1.5)
+    private var badgeTransformDefault = CATransform3DIdentity
+    
     // ----------------------------------
     //  MARK: - Init -
     //
@@ -155,30 +160,97 @@ private class CartButtonView: UIButton {
     }
     
     // ----------------------------------
-    //  MARK: - Setters -
+    //  MARK: - Badge -
     //
     func setBadge(_ badge: Int, animated: Bool) {
         
         let setter = {
-            self.badgeView.setBadge(badge)
+            self.badgeView.badge    = badge
+            self.badgeView.isHidden = badge < 1
+            
             self.setNeedsLayout()
             self.layoutIfNeeded()
         }
         
+        guard self.badgeView.badge != badge else {
+            setter()
+            return
+        }
+        
         if animated {
-            UIView.animate(withDuration: 0.1, delay: 0.0, options: [.beginFromCurrentState], animations: {
-                self.badgeView.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
-            }, completion: { complete in
+            
+            if self.badgeView.badge > 0 {
                 
-                setter()
+                if badge > 0 {
+                    self.applyBadgeAnimation(.scale(badge > self.badgeView.badge ? .up : .down), changeHandler: setter)
+                } else {
+                    self.applyBadgeAnimation(.disappear, changeHandler: setter)
+                }
                 
-                UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.4, initialSpringVelocity: 0.5, options: [.beginFromCurrentState], animations: {
-                    self.badgeView.layer.transform = CATransform3DIdentity
-                }, completion: nil)
-            })
+            } else {
+                self.applyBadgeAnimation(.appear, changeHandler: setter)
+            }
             
         } else {
             setter()
+        }
+    }
+    
+    // ----------------------------------
+    //  MARK: - Animations -
+    //
+    enum BadgeAnimationType {
+        
+        enum ScaleDirection {
+            case up
+            case down
+        }
+        
+        case scale(ScaleDirection)
+        case appear
+        case disappear
+    }
+    
+    private func applyBadgeAnimation(_ type: BadgeAnimationType, changeHandler: @escaping () -> Void) {
+        switch type {
+        case .scale(let direction):
+            
+            let transform: CATransform3D
+            switch direction {
+            case .up:
+                transform = self.badgeTransformMax
+            case .down:
+                transform = self.badgeTransformMid
+            }
+            
+            UIView.animate(withDuration: 0.1, delay: 0.0, options: [], animations: {
+                self.badgeView.layer.transform = transform
+            }, completion: { complete in
+                
+                changeHandler()
+                
+                UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.4, initialSpringVelocity: 0.5, options: [], animations: {
+                    self.badgeView.layer.transform = self.badgeTransformDefault
+                }, completion: nil)
+            })
+            
+        case .appear:
+            
+            changeHandler()
+            
+            self.badgeView.layer.transform = self.badgeTransformMin
+            UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.4, initialSpringVelocity: 0.5, options: [], animations: {
+                self.badgeView.layer.transform = self.badgeTransformDefault
+            }, completion: nil)
+            
+        case .disappear:
+            
+            UIView.animate(withDuration: 0.1, delay: 0.0, options: [], animations: {
+                self.badgeView.layer.transform = self.badgeTransformMin
+            }, completion: { complete in
+                self.badgeView.layer.transform = self.badgeTransformDefault
+                changeHandler()
+            })
         }
     }
     
@@ -201,6 +273,13 @@ private class CartButtonView: UIButton {
 }
 
 private class BadgeView: UIView {
+    
+    var badge: Int = 0 {
+        didSet {
+            self.label.text = "\(self.badge)"
+            self.setNeedsLayout()
+        }
+    }
     
     private var label: UILabel!
     
@@ -239,23 +318,16 @@ private class BadgeView: UIView {
     }
     
     // ----------------------------------
-    //  MARK: - Badge -
-    //
-    func setBadge(_ badge: Int) {
-        
-        self.label.text = "\(badge)"
-        self.setNeedsLayout()
-        
-    }
-    
-    // ----------------------------------
     //  MARK: - Layout -
     //
     override func sizeToFit() {
         super.sizeToFit()
         
         self.label.sizeToFit()
-        self.bounds = self.label.bounds.insetBy(dx: -5.0, dy: -1.0).ceiled
+        
+        var bounds        = self.label.bounds.insetBy(dx: -5.0, dy: -1.0).ceiled
+        bounds.size.width = max(bounds.size.height, bounds.size.width) // prevent height exceeding width
+        self.bounds       = bounds
     }
     
     override func layoutSubviews() {
@@ -265,7 +337,7 @@ private class BadgeView: UIView {
         frame.origin.y  += 1.0 / UIScreen.main.scale
         self.label.frame = frame
         
-        self.layer.cornerRadius = ceil(self.bounds.height * 0.5)
+        self.layer.cornerRadius = self.bounds.height * 0.5
     }
 }
 
