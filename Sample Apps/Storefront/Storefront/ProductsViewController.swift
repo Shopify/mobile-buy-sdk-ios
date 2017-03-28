@@ -184,7 +184,7 @@ extension ProductsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let product    = self.products.items[indexPath.item]
         let controller = self.productDetailsViewControllerWith(product)
-        self.navigationController!.show(detailsController, sender: self)
+        self.navigationController!.show(controller, sender: self)
         
         collectionView.deselectItem(at: indexPath, animated: true)
     }
