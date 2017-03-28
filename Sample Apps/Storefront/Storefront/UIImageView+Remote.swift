@@ -46,15 +46,6 @@ extension UIImageView {
     func setImageFrom(_ url: URL?, placeholder: UIImage? = nil, completion: Completion? = nil) {
         
         self.currentTask?.cancel()
-        self.image = nil
-        
-        /* -----------------------------------
-         ** Set the placeholder image if one
-         ** was provided.
-         */
-        if let placeholder = placeholder {
-            self.image = placeholder
-        }
         
         /* ---------------------------------
          ** If the url is provided, kick off
@@ -63,9 +54,17 @@ extension UIImageView {
          */
         if let url = url {
             
+            if let cachedImage = ImageCache.shared.imageFor(url) {
+                self.image = cachedImage
+            } else {
+                self.image = placeholder
+            }
+            
             self.currentTask = URLSession.shared.dataTask(with: url) { (data, response, error) in
                 
                 if let data = data, let image = UIImage(data: data) {
+                    
+                    ImageCache.shared.set(image, for: url)
                     DispatchQueue.main.async {
                         self.image = image
                     }
@@ -74,8 +73,27 @@ extension UIImageView {
             self.currentTask?.resume()
             
         } else {
-            self.image       = nil
+            self.image       = placeholder
             self.currentTask = nil
         }
+    }
+}
+
+// ----------------------------------
+//  MARK: - Image Cache -
+//
+private class ImageCache: NSCache<NSString, UIImage> {
+    
+    static let shared = ImageCache()
+    
+    func set(_ image: UIImage, for url: URL) {
+        self.setObject(image, forKey: url.absoluteString as NSString)
+    }
+    
+    func imageFor(_ url: URL?) -> UIImage? {
+        guard let url = url else {
+            return nil
+        }
+        return self.object(forKey: url.absoluteString as NSString)
     }
 }
