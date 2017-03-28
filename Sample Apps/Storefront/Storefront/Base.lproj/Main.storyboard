@@ -42,7 +42,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Collections" id="9WP-3t-7If">
-                        <barButtonItem key="rightBarButtonItem" title="Cart" id="6n0-30-yb1" customClass="CartButton" customModule="Storefront" customModuleProvider="target"/>
+                        <barButtonItem key="rightBarButtonItem" title="Cart" id="6n0-30-yb1" customClass="CartButton" customModule="Storefront" customModuleProvider="target">
+                            <connections>
+                                <action selector="cartAction:" destination="BYZ-38-t0r" id="faZ-2U-0TL"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="FJA-Xo-Ook" id="zuu-Zf-hAN"/>
@@ -107,6 +111,11 @@
                                 <action selector="cancelAction:" destination="dau-ev-4t0" id="CZz-V2-Kra"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Cart" id="81Q-Gf-tr0" customClass="CartButton" customModule="Storefront" customModuleProvider="target">
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="userInteractionEnabled" value="NO"/>
+                            </userDefinedRuntimeAttributes>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="headerView" destination="t2u-Og-LPy" id="Zgx-5m-8MT"/>
@@ -159,7 +168,13 @@
                             <constraint firstItem="l3f-iD-z0W" firstAttribute="top" secondItem="xKM-7h-oPY" secondAttribute="top" id="t6s-Aa-fox"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Products" id="So2-vy-uwr"/>
+                    <navigationItem key="navigationItem" title="Products" id="So2-vy-uwr">
+                        <barButtonItem key="rightBarButtonItem" title="Cart" id="gJB-Hs-8wl" customClass="CartButton" customModule="Storefront" customModuleProvider="target">
+                            <connections>
+                                <action selector="cartAction:" destination="AbI-Ns-2vc" id="sLK-yS-Ky3"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="l3f-iD-z0W" id="ZWP-72-Gmz"/>
                         <segue destination="FDf-If-Fqx" kind="show" id="2Ev-0t-uys"/>
