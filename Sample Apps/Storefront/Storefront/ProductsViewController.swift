@@ -119,7 +119,7 @@ extension ProductsViewController: UICollectionViewDelegateFlowLayout {
         
         return CGSize(
             width:  length,
-            height: length + 78.0
+            height: length + 80.0
         )
     }
 }

@@ -51,6 +51,7 @@
 		9ADAD4701E563091008AC561 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9ADAD46E1E563091008AC561 /* Main.storyboard */; };
 		9ADAD4721E563091008AC561 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9ADAD4711E563091008AC561 /* Assets.xcassets */; };
 		9ADAD4751E563091008AC561 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9ADAD4731E563091008AC561 /* LaunchScreen.storyboard */; };
+		9ADCC88B1E82FE2900F5B6DD /* TotalsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADCC88A1E82FE2900F5B6DD /* TotalsViewController.swift */; };
 		9AEF61C71E606C7C0067FA90 /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AEF61C41E606C710067FA90 /* Buy.framework */; };
 		9AEF61C91E606C8B0067FA90 /* Buy.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 9AEF61C41E606C710067FA90 /* Buy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9AEF61CC1E606EFE0067FA90 /* Fragment+ProductConnectionQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF61CB1E606EFE0067FA90 /* Fragment+ProductConnectionQuery.swift */; };
@@ -145,6 +146,7 @@
 		9ADAD4711E563091008AC561 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9ADAD4741E563091008AC561 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9ADAD4761E563091008AC561 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9ADCC88A1E82FE2900F5B6DD /* TotalsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalsViewController.swift; sourceTree = "<group>"; };
 		9AEF61BF1E606C710067FA90 /* Buy.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Buy.xcodeproj; path = ../../Buy.xcodeproj; sourceTree = "<group>"; };
 		9AEF61CB1E606EFE0067FA90 /* Fragment+ProductConnectionQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fragment+ProductConnectionQuery.swift"; sourceTree = "<group>"; };
 		9AEF61CD1E606F100067FA90 /* Fragment+ImageConnectionQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fragment+ImageConnectionQuery.swift"; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 				9AC583CC1E81BF81005DB319 /* Cells */,
 				9AC583C81E81BEF8005DB319 /* CartViewController.swift */,
 				9AC583D11E81C165005DB319 /* CartNavigationController.swift */,
+				9ADCC88A1E82FE2900F5B6DD /* TotalsViewController.swift */,
 			);
 			name = Cart;
 			sourceTree = "<group>";
@@ -550,6 +553,7 @@
 				9AC583D41E829597005DB319 /* CartItemViewModel.swift in Sources */,
 				9A8E885A1E719EB20042879D /* GraphQuery.swift in Sources */,
 				9AFA3B7F1E6DC5FD0056C5AA /* Storyboard+ViewController.swift in Sources */,
+				9ADCC88B1E82FE2900F5B6DD /* TotalsViewController.swift in Sources */,
 				9A9FFF2E1E8150F100F6DFF7 /* CartButton.swift in Sources */,
 				9AC583D21E81C165005DB319 /* CartNavigationController.swift in Sources */,
 			);

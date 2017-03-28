@@ -1,5 +1,5 @@
 //
-//  CartController.swift
+//  TotalsViewController.swift
 //  Storefront
 //
 //  Created by Shopify.
@@ -24,61 +24,30 @@
 //  THE SOFTWARE.
 //
 
-import Foundation
+import UIKit
 
-class CartController {
-
-    static let shared = CartController()
+class TotalsViewController: UIViewController {
     
-    private(set) var items: [CartItem] = []
+    @IBOutlet private weak var subtotalTitleLabel: UILabel!
+    @IBOutlet private weak var subtotalLabel: UILabel!
     
-    var subtotal: Decimal {
-        var accumulator: Decimal = 0.0
-        for item in self.items {
-            accumulator += item.variant.price * Decimal(item.quantity)
+    var itemCount: Int = 0 {
+        didSet {
+            self.subtotalTitleLabel.text = "\(self.itemCount) Item\(itemCount == 1 ? "" : "s")"
         }
-        return accumulator
     }
     
-    var itemCount: Int {
-        var accumulator = 0
-        for item in self.items {
-            accumulator += item.quantity
+    var subtotal: Decimal = 0.0 {
+        didSet {
+            self.subtotalLabel.text = Currency.stringFrom(self.subtotal)
         }
-        return accumulator
     }
     
     // ----------------------------------
-    //  MARK: - Init -
+    //  MARK: - View Loading -
     //
-    private init() {
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-    }
-    
-    // ----------------------------------
-    //  MARK: - Item Management -
-    //
-    func incrementAt(_ index: Int) {
-        let existingItem = self.items[index]
-        existingItem.quantity += 1
-    }
-    
-    func decrementAt(_ index: Int) {
-        let existingItem = self.items[index]
-        existingItem.quantity -= 1
-    }
-    
-    func add(_ cartItem: CartItem) {
-        if let index = self.items.index(of: cartItem) {
-            self.incrementAt(index)
-        } else {
-            self.items.append(cartItem)
-        }
-    }
-    
-    func removeAllQuantitiesFor(_ cartItem: CartItem) {
-        if let index = self.items.index(of: cartItem) {
-            self.items.remove(at: index)
-        }
     }
 }
