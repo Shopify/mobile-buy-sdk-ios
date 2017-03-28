@@ -31,21 +31,23 @@ final class VariantViewModel: ViewModel {
     
     typealias ModelType = Storefront.ProductVariantEdge
     
-    let model:    ModelType
-    let cursor:   String
+    let model:  ModelType
+    let cursor: String
     
-    let title:    String
-    let price:    Decimal
+    let id:     String
+    let title:  String
+    let price:  Decimal
     
     // ----------------------------------
     //  MARK: - Init -
     //
     required init(from model: ModelType) {
-        self.model    = model
-        self.cursor   = model.cursor
+        self.model  = model
+        self.cursor = model.cursor
         
-        self.title    = model.node.title
-        self.price    = model.node.price as Decimal
+        self.id     = model.node.id.rawValue
+        self.title  = model.node.title
+        self.price  = model.node.price as Decimal
     }
 }
 

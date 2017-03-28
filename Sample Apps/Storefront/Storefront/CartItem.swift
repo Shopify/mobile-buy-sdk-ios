@@ -1,5 +1,5 @@
 //
-//  ProductHeaderCell.swift
+//  CartItem.swift
 //  Storefront
 //
 //  Created by Shopify.
@@ -24,36 +24,41 @@
 //  THE SOFTWARE.
 //
 
-import UIKit
+import Foundation
 
-protocol ProductHeaderDelegate: class {
-    func productHeader(_ cell: ProductHeaderCell, didAddToCart sender: Any)
-}
-
-class ProductHeaderCell: UITableViewCell, ViewModelConfigurable {
-    typealias ViewModelType = ProductViewModel
+class CartItem: Equatable, Hashable {
     
-    weak var delegate: ProductHeaderDelegate?
+    let product: ProductViewModel
+    let variant: VariantViewModel
     
-    @IBOutlet private weak var titleLabel:  UILabel!
-    @IBOutlet private weak var priceButton: UIButton!
-    
-    var viewModel: ViewModelType?
+    var quantity: Int
     
     // ----------------------------------
-    //  MARK: - Configure -
+    //  MARK: - Init -
     //
-    func configureFrom(_ viewModel: ViewModelType) {
-        self.viewModel = viewModel
-        
-        self.titleLabel.text = viewModel.title
-        self.priceButton.setTitle(viewModel.price, for: .normal)
+    init(product: ProductViewModel, variant: VariantViewModel, quantity: Int = 1) {
+        self.product  = product
+        self.variant  = variant
+        self.quantity = quantity
     }
 }
 
-extension ProductHeaderCell {
+// ----------------------------------
+//  MARK: - Hashable -
+//
+extension CartItem {
     
-    @IBAction func addToCartAction(_ sender: Any) {
-        self.delegate?.productHeader(self, didAddToCart: sender)
+    var hashValue: Int {
+        return self.variant.id.hashValue
+    }
+}
+
+// ----------------------------------
+//  MARK: - Equatable -
+//
+extension CartItem {
+    
+    static func ==(lhs: CartItem, rhs: CartItem) -> Bool {
+        return lhs.variant.id == rhs.variant.id && lhs.product.id == rhs.product.id
     }
 }

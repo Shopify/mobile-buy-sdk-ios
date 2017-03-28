@@ -1,5 +1,5 @@
 //
-//  ProductHeaderCell.swift
+//  CartItemViewModel.swift
 //  Storefront
 //
 //  Created by Shopify.
@@ -24,36 +24,37 @@
 //  THE SOFTWARE.
 //
 
-import UIKit
+import Foundation
 
-protocol ProductHeaderDelegate: class {
-    func productHeader(_ cell: ProductHeaderCell, didAddToCart sender: Any)
-}
-
-class ProductHeaderCell: UITableViewCell, ViewModelConfigurable {
-    typealias ViewModelType = ProductViewModel
+class CartItemViewModel: ViewModel {
+    typealias ModelType = CartItem
     
-    weak var delegate: ProductHeaderDelegate?
+    let model: ModelType
     
-    @IBOutlet private weak var titleLabel:  UILabel!
-    @IBOutlet private weak var priceButton: UIButton!
+    let imageURL: URL?
+    let title:    String
+    let subtitle: String
+    let price:    String
+    let quantity: Int
     
-    var viewModel: ViewModelType?
+    var quantityDescription: String {
+        return "Quantity: \(model.quantity)"
+    }
     
     // ----------------------------------
-    //  MARK: - Configure -
+    //  MARK: - Init -
     //
-    func configureFrom(_ viewModel: ViewModelType) {
-        self.viewModel = viewModel
+    required init(from model: ModelType) {
+        self.model = model
         
-        self.titleLabel.text = viewModel.title
-        self.priceButton.setTitle(viewModel.price, for: .normal)
+        self.imageURL = model.product.images.items.first?.url
+        self.title    = model.product.title
+        self.subtitle = model.variant.title
+        self.quantity = model.quantity
+        self.price    = Currency.stringFrom(model.variant.price * Decimal(model.quantity))
     }
 }
 
-extension ProductHeaderCell {
-    
-    @IBAction func addToCartAction(_ sender: Any) {
-        self.delegate?.productHeader(self, didAddToCart: sender)
-    }
+extension CartItem: ViewModeling {
+    typealias ViewModelType = CartItemViewModel
 }

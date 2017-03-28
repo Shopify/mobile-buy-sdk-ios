@@ -34,6 +34,7 @@ final class CollectionViewModel: ViewModel {
     let model:       ModelType
     let cursor:      String
     
+    let id:          String
     let title:       String
     let description: String
     let imageURL:    URL?
@@ -45,7 +46,8 @@ final class CollectionViewModel: ViewModel {
     required init(from model: ModelType) {
         self.model       = model
         self.cursor      = model.cursor
-        
+    
+        self.id          = model.node.id.rawValue
         self.title       = model.node.title
         self.imageURL    = model.node.image?.src
         self.description = model.node.descriptionHtml

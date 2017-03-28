@@ -1,5 +1,5 @@
 //
-//  ProductHeaderCell.swift
+//  CartCell.swift
 //  Storefront
 //
 //  Created by Shopify.
@@ -24,19 +24,25 @@
 //  THE SOFTWARE.
 //
 
+
 import UIKit
 
-protocol ProductHeaderDelegate: class {
-    func productHeader(_ cell: ProductHeaderCell, didAddToCart sender: Any)
+protocol CartCellDelegate: class {
+    func cartCell(_ cell: CartCell, didUpdateQuantity quantity: Int)
 }
 
-class ProductHeaderCell: UITableViewCell, ViewModelConfigurable {
-    typealias ViewModelType = ProductViewModel
+class CartCell: UITableViewCell, ViewModelConfigurable {
     
-    weak var delegate: ProductHeaderDelegate?
+    typealias ViewModelType = CartItemViewModel
     
-    @IBOutlet private weak var titleLabel:  UILabel!
-    @IBOutlet private weak var priceButton: UIButton!
+    weak var delegate: CartCellDelegate?
+
+    @IBOutlet private weak var thumbnailView: UIImageView!
+    @IBOutlet private weak var titleLabel:    UILabel!
+    @IBOutlet private weak var subtitleLabel: UILabel!
+    @IBOutlet private weak var priceLabel:    UILabel!
+    @IBOutlet private weak var quantityLabel: UILabel!
+    @IBOutlet private weak var stepper:       UIStepper!
     
     var viewModel: ViewModelType?
     
@@ -46,14 +52,22 @@ class ProductHeaderCell: UITableViewCell, ViewModelConfigurable {
     func configureFrom(_ viewModel: ViewModelType) {
         self.viewModel = viewModel
         
-        self.titleLabel.text = viewModel.title
-        self.priceButton.setTitle(viewModel.price, for: .normal)
+        self.titleLabel.text    = viewModel.title
+        self.subtitleLabel.text = viewModel.subtitle
+        self.priceLabel.text    = viewModel.price
+        self.quantityLabel.text = viewModel.quantityDescription
+        self.stepper.value      = Double(viewModel.quantity)
+        
+        self.thumbnailView.setImageFrom(viewModel.imageURL)
     }
 }
 
-extension ProductHeaderCell {
+// ----------------------------------
+//  MARK: - Actions -
+//
+extension CartCell {
     
-    @IBAction func addToCartAction(_ sender: Any) {
-        self.delegate?.productHeader(self, didAddToCart: sender)
+    @IBAction func stepperAction(_ sender: UIStepper) {
+        self.delegate?.cartCell(self, didUpdateQuantity: Int(sender.value))
     }
 }

@@ -36,6 +36,7 @@ extension Storefront.ProductConnectionQuery {
         .edges { $0
             .cursor()
             .node { $0
+                .id()
                 .title()
                 .descriptionHtml()
                 .variants(first: 250) { $0

@@ -88,6 +88,28 @@ class ProductDetailsViewController: ParallaxViewController {
 }
 
 // ----------------------------------
+//  MARK: - Actions -
+//
+extension ProductDetailsViewController {
+    
+    @IBAction func cartAction(_ sender: Any) {
+        let cartController: CartNavigationController = self.storyboard!.instantiateViewController()
+        self.navigationController!.present(cartController, animated: true, completion: nil)
+    }
+}
+
+// ----------------------------------
+//  MARK: - ProductHeaderDelegate -
+//
+extension ProductDetailsViewController: ProductHeaderDelegate {
+    
+    func productHeader(_ cell: ProductHeaderCell, didAddToCart sender: Any) {
+        let item = CartItem(product: self.product, variant: self.product.variants.items[0])
+        CartController.shared.add(item)
+    }
+}
+
+// ----------------------------------
 //  MARK: - UITableViewDataSource -
 //
 extension ProductDetailsViewController: UITableViewDataSource {
@@ -99,7 +121,9 @@ extension ProductDetailsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch CellKind(rawValue: indexPath.row)! {
         case .header:
-            return tableView.deque(ProductHeaderCell.self, configureFrom: self.product, at: indexPath)
+            let cell = tableView.deque(ProductHeaderCell.self, configureFrom: self.product, at: indexPath)
+            cell.delegate = self
+            return cell
             
         case .details:
             return tableView.deque(ProductDetailsCell.self, configureFrom: self.product, at: indexPath)
