@@ -48,24 +48,106 @@ class CartController {
         return accumulator
     }
     
+    private let ioQueue    = DispatchQueue(label: "com.storefront.writeQueue")
+    private var needsFlush = false
+    private var cartURL: URL = {
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+        let documentsURL  = URL(fileURLWithPath: documentsPath)
+        let cartURL       = documentsURL.appendingPathComponent("cart.json")
+        
+        print("Cart URL: \(cartURL)")
+        
+        return cartURL
+    }()
+    
     // ----------------------------------
     //  MARK: - Init -
     //
     private init() {
-        
+        self.readCart { items in
+            if let items = items {
+                self.items = items
+            }
+        }
+    }
+    
+    // ----------------------------------
+    //  MARK: - IO Management -
+    //
+    private func setNeedsFlush() {
+        if !self.needsFlush {
+            self.needsFlush = true
+            
+            DispatchQueue.main.async(execute: self.flush)
+        }
+    }
+    
+    private func flush() {
+        let serializedItems = self.items.serialize()
+        self.ioQueue.async {
+            do {
+                let data = try JSONSerialization.data(withJSONObject: serializedItems, options: [])
+                try data.write(to: self.cartURL, options: [.atomic])
+                
+                print("Flushed cart to disk.")
+                
+            } catch let error {
+                print("Failed to flush cart to disk: \(error)")
+            }
+            
+            DispatchQueue.main.async {
+                self.needsFlush = false
+            }
+        }
+    }
+    
+    private func readCart(completion: @escaping ([CartItem]?) -> Void) {
+        self.ioQueue.async {
+            do {
+                let data            = try Data(contentsOf: self.cartURL)
+                let serializedItems = try JSONSerialization.jsonObject(with: data, options: [])
+                
+                let cartItems = [CartItem].deserialize(from: serializedItems as! [SerializedRepresentation])
+                DispatchQueue.main.async {
+                    completion(cartItems)
+                }
+                
+            } catch let error {
+                print("Failed to load cart from disk: \(error)")
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
+            }
+        }
     }
     
     // ----------------------------------
     //  MARK: - Item Management -
     //
+    func updateQuantity(_ quantity: Int, at index: Int) -> Bool {
+        let existingItem = self.items[index]
+        
+        if existingItem.quantity != quantity {
+            existingItem.quantity = quantity
+            
+            self.setNeedsFlush()
+            return true
+        }
+        return false
+    }
+    
     func incrementAt(_ index: Int) {
         let existingItem = self.items[index]
         existingItem.quantity += 1
+        
+        self.setNeedsFlush()
     }
     
     func decrementAt(_ index: Int) {
         let existingItem = self.items[index]
         existingItem.quantity -= 1
+        
+        self.setNeedsFlush()
     }
     
     func add(_ cartItem: CartItem) {
@@ -74,11 +156,15 @@ class CartController {
         } else {
             self.items.append(cartItem)
         }
+        
+        self.setNeedsFlush()
     }
     
     func removeAllQuantitiesFor(_ cartItem: CartItem) {
         if let index = self.items.index(of: cartItem) {
             self.items.remove(at: index)
+            
+            self.setNeedsFlush()
         }
     }
 }

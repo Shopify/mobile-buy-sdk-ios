@@ -1,5 +1,5 @@
 //
-//  AppDelegate.swift
+//  Serializable.swift
 //  Storefront
 //
 //  Created by Shopify.
@@ -24,25 +24,31 @@
 //  THE SOFTWARE.
 //
 
-import UIKit
+import Foundation
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+typealias SerializedRepresentation = [String : Any]
 
-    var window: UIWindow?
-
-    // ----------------------------------
-    //  MARK: - Application Launch -
-    //
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
-        /* ----------------------------------------
-         ** Initialize the cart controller and pre-
-         ** load any cached cart items.
-         */
-        _ = CartController.shared
-        
-        return true
-    }
+protocol Serializable {
+    
+    static func deserialize(from representation: SerializedRepresentation) -> Self?
+    
+    func serialize() -> SerializedRepresentation
 }
 
+// ----------------------------------
+//  MARK: - Collection Conveniences -
+//
+extension Array where Element: Serializable {
+    
+    static func deserialize(from representation: [SerializedRepresentation]) -> [Element]? {
+        return representation.flatMap {
+            Element.deserialize(from: $0)
+        }
+    }
+    
+    func serialize() -> [SerializedRepresentation] {
+        return self.map {
+            $0.serialize()
+        }
+    }
+}

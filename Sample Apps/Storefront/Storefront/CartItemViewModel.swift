@@ -26,7 +26,7 @@
 
 import Foundation
 
-class CartItemViewModel: ViewModel {
+final class CartItemViewModel: ViewModel {
     typealias ModelType = CartItem
     
     let model: ModelType
