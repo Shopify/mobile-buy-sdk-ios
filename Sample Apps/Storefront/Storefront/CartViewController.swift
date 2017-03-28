@@ -56,6 +56,12 @@ class CartViewController: ParallaxViewController {
         self.configureTableView()
         
         self.updateSubtotal()
+        
+        self.registerNotifications()
+    }
+    
+    deinit {
+        self.unregisterNotifications()
     }
     
     private func configureParallax() {
@@ -67,6 +73,21 @@ class CartViewController: ParallaxViewController {
     private func configureTableView() {
         self.tableView.estimatedRowHeight = 100.0
         self.tableView.register(UINib(nibName: "CartCell", bundle: nil), forCellReuseIdentifier: "CartCell")
+    }
+    
+    // ----------------------------------
+    //  MARK: - Notifications -
+    //
+    private func registerNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(cartControllerItemsDidChange(_:)), name: Notification.Name.CartControllerItemsDidChange, object: nil)
+    }
+    
+    private func unregisterNotifications() {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    private dynamic func cartControllerItemsDidChange(_ notification: Notification) {
+        self.updateSubtotal()
     }
     
     // ----------------------------------
@@ -102,8 +123,6 @@ extension CartViewController: CartCellDelegate {
                 self.tableView.beginUpdates()
                 self.tableView.reloadRows(at: [indexPath], with: .none)
                 self.tableView.endUpdates()
-                
-                self.updateSubtotal()
             }
         }
     }
@@ -129,6 +148,26 @@ extension CartViewController: UITableViewDataSource {
         cell.configureFrom(cartItem.viewModel)
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        switch editingStyle {
+        case .delete:
+            
+            tableView.beginUpdates()
+            
+            CartController.shared.removeAllQuantities(at: indexPath.row)
+            
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            tableView.endUpdates()
+            
+        default:
+            break
+        }
     }
 }
 

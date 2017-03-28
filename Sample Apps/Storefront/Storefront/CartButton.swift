@@ -26,38 +26,251 @@
 
 import UIKit
 
-class CartButton: RoundedButton {
+class CartButton: UIBarButtonItem {
     
-    override func setTitle(_ title: String?, for state: UIControlState) {
+    private var cartView: CartButtonView!
+
+    // ----------------------------------
+    //  MARK: - Init -
+    //
+    override init() {
+        super.init()
         
-        guard let title = title else {
-            super.setTitle(nil, for: state)
-            return
+        self.initialize()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        self.initialize()
+    }
+    
+    override var customView: UIView? {
+        didSet {
+            if self.customView !== self.cartView {
+                self.customView = self.cartView
+            }
+        }
+    }
+    
+    private func initialize() {
+        self.cartView   = self.createCartButtonView()
+        self.customView = self.cartView
+        
+        self.updateBadgeCount(animated: false)
+        self.registerNotifications()
+    }
+    
+    deinit {
+        self.unregisterNotifications()
+    }
+    
+    // ----------------------------------
+    //  MARK: - Notifications -
+    //
+    private func registerNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(itemCountDidChange(_:)), name: Notification.Name.CartControllerItemsDidChange, object: nil)
+    }
+    
+    private func unregisterNotifications() {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    private dynamic func itemCountDidChange(_ notification: Notification) {
+        self.updateBadgeCount(animated: true)
+        print("Badge count change notification received")
+    }
+    
+    // ----------------------------------
+    //  MARK: - Cart View -
+    //
+    private func createCartButtonView() -> CartButtonView {
+        
+        let cartView   = CartButtonView(type: .system)
+        let cartImage  = #imageLiteral(resourceName: "cart")
+        cartView.frame = CGRect(origin: .zero, size: cartImage.size).insetBy(dx: -10.0, dy: -5.0)
+        
+        cartView.contentHorizontalAlignment = .right
+        cartView.setImage(cartImage, for: .normal)
+        cartView.addTarget(self, action: #selector(cartAction(_:)), for: .touchUpInside)
+        
+        return cartView
+    }
+    
+    // ----------------------------------
+    //  MARK: - Update -
+    //
+    private func updateBadgeCount(animated: Bool) {
+        self.cartView.setBadge(CartController.shared.itemCount, animated: animated)
+    }
+    
+    // ----------------------------------
+    //  MARK: - Actions -
+    //
+    dynamic private func cartAction(_ sender: Any) {
+        if let target = self.target,
+            let selector = self.action {
+            
+            _ = target.perform(selector, with: sender)
+        }
+    }
+}
+
+// ----------------------------------
+//  MARK: - CartButtonView -
+//
+private class CartButtonView: UIButton {
+    
+    private var badgeView: BadgeView!
+    
+    // ----------------------------------
+    //  MARK: - Init -
+    //
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        self.initialize()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        self.initialize()
+    }
+    
+    private func initialize() {
+        self.clipsToBounds = false
+        self.initBadgeView()
+    }
+    
+    private func initBadgeView() {
+        self.badgeView = BadgeView(frame: .zero)
+        self.addSubview(self.badgeView)
+    }
+    
+    // ----------------------------------
+    //  MARK: - Setters -
+    //
+    func setBadge(_ badge: Int, animated: Bool) {
+        
+        let setter = {
+            self.badgeView.setBadge(badge)
+            self.setNeedsLayout()
+            self.layoutIfNeeded()
         }
         
-        let currentFont  = self.titleLabel!.font!
-        let currentColor = self.titleColor(for: state) ?? .white
+        if animated {
+            UIView.animate(withDuration: 0.1, delay: 0.0, options: [.beginFromCurrentState], animations: {
+                self.badgeView.layer.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
+            }, completion: { complete in
+                
+                setter()
+                
+                UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.4, initialSpringVelocity: 0.5, options: [.beginFromCurrentState], animations: {
+                    self.badgeView.layer.transform = CATransform3DIdentity
+                }, completion: nil)
+            })
+            
+        } else {
+            setter()
+        }
+    }
+    
+    // ----------------------------------
+    //  MARK: - Layout -
+    //
+    override func layoutSubviews() {
+        super.layoutSubviews()
         
-        let style           = NSMutableParagraphStyle()
-        style.alignment     = .center
-        style.lineBreakMode = .byClipping
+        self.layoutBadge()
+    }
+    
+    private func layoutBadge() {
+        self.badgeView.sizeToFit()
+        self.badgeView.center = CGPoint(
+            x: floor(self.bounds.width - 2.0),
+            y: floor(0.0               + 5.0)
+        )
+    }
+}
+
+private class BadgeView: UIView {
+    
+    private var label: UILabel!
+    
+    // ----------------------------------
+    //  MARK: - Init -
+    //
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
-        let attributedTitle = NSMutableAttributedString(string: title, attributes: [
-            NSFontAttributeName           : currentFont,
-            NSParagraphStyleAttributeName : style,
-            NSForegroundColorAttributeName: currentColor
-            ])
+        self.initialize()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
         
-        let attributedSubtitle = NSAttributedString(string: "\nAdd to Cart", attributes: [
-            NSFontAttributeName           : UIFont(descriptor: currentFont.fontDescriptor, size: currentFont.pointSize * 0.6),
-            NSParagraphStyleAttributeName : style,
-            NSForegroundColorAttributeName: currentColor.withAlphaComponent(0.6)
-            ])
+        self.initialize()
+    }
+    
+    private func initialize() {
+        self.clipsToBounds   = true
+        self.backgroundColor = UIColor(colorLiteralRed: 0.9372, green: 0.3372, blue: 0.2156, alpha: 1.0).withAlphaComponent(0.9)
         
-        attributedTitle.append(attributedSubtitle)
+        self.initLabel()
+    }
+    
+    private func initLabel() {
+        self.label               = UILabel(frame: .zero)
+        self.label.font          = UIFont(name: "AppleSDGothicNeo-Bold", size: 10.0)
+        self.label.textAlignment = .center
+        self.label.lineBreakMode = .byClipping
+        self.label.numberOfLines = 1
+        self.label.textColor     = .white
+        self.label.shadowColor   = .clear
         
-        self.titleLabel?.numberOfLines = 0
+        self.addSubview(self.label)
+    }
+    
+    // ----------------------------------
+    //  MARK: - Badge -
+    //
+    func setBadge(_ badge: Int) {
         
-        super.setAttributedTitle(attributedTitle, for: state)
+        self.label.text = "\(badge)"
+        self.setNeedsLayout()
+        
+    }
+    
+    // ----------------------------------
+    //  MARK: - Layout -
+    //
+    override func sizeToFit() {
+        super.sizeToFit()
+        
+        self.label.sizeToFit()
+        self.bounds = self.label.bounds.insetBy(dx: -5.0, dy: -1.0).ceiled
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        var frame        = self.bounds
+        frame.origin.y  += 1.0 / UIScreen.main.scale
+        self.label.frame = frame
+        
+        self.layer.cornerRadius = ceil(self.bounds.height * 0.5)
+    }
+}
+
+private extension CGRect {
+    
+    var ceiled: CGRect {
+        return CGRect(
+            x:      ceil(self.origin.x),
+            y:      ceil(self.origin.y),
+            width:  ceil(self.width),
+            height: ceil(self.height)
+        )
     }
 }
