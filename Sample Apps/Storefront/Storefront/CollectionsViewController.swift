@@ -39,13 +39,21 @@ class CollectionsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.paginationDelegate = self
+        self.configureTableView()
         
         Graph.shared.fetchCollections { collections in
             if let collections = collections {
                 self.collections = collections
                 self.tableView.reloadData()
             }
+        }
+    }
+    
+    private func configureTableView() {
+        self.tableView.paginationDelegate = self
+        
+        if self.traitCollection.forceTouchCapability == .available {
+            self.registerForPreviewing(with: self, sourceView: self.tableView)
         }
     }
     
@@ -60,6 +68,21 @@ class CollectionsViewController: UIViewController {
             }
         }
     }
+    
+    // ----------------------------------
+    //  MARK: - View Controllers -
+    //
+    func productsViewControllerWith(_ collection: CollectionViewModel) -> ProductsViewController {
+        let controller: ProductsViewController = self.storyboard!.instantiateViewController()
+        controller.collection = collection
+        return controller
+    }
+    
+    func productDetailsViewControllerWith(_ product: ProductViewModel) -> ProductDetailsViewController {
+        let controller: ProductDetailsViewController = self.storyboard!.instantiateViewController()
+        controller.product = product
+        return controller
+    }
 }
 
 // ----------------------------------
@@ -70,6 +93,36 @@ extension CollectionsViewController {
     @IBAction func cartAction(_ sender: Any) {
         let cartController: CartNavigationController = self.storyboard!.instantiateViewController()
         self.navigationController!.present(cartController, animated: true, completion: nil)
+    }
+}
+
+// ----------------------------------
+//  MARK: - UIViewControllerPreviewingDelegate -
+//
+extension CollectionsViewController: UIViewControllerPreviewingDelegate {
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        
+        let tableView = previewingContext.sourceView as! UITableView
+        if let indexPath = tableView.indexPathForRow(at: location) {
+            
+            let cell  = tableView.cellForRow(at: indexPath) as! CollectionCell
+            let touch = cell.convert(location, from: tableView)
+            
+            if let productResult = cell.productFor(touch) {
+                previewingContext.sourceRect = tableView.convert(productResult.sourceRect, from: cell)
+                return self.productDetailsViewControllerWith(productResult.model)
+                
+            } else if let collectionResult = cell.collectionFor(touch) {
+                previewingContext.sourceRect = tableView.convert(collectionResult.sourceRect, from: cell)
+                return self.productsViewControllerWith(collectionResult.model)
+            }
+        }
+        return nil
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        self.navigationController!.show(viewControllerToCommit, sender: self)
     }
 }
 
@@ -179,10 +232,8 @@ extension CollectionsViewController: UITableViewDataSource {
 extension CollectionsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let collection = self.collections.items[indexPath.section]
-        
-        let productsController: ProductsViewController = self.storyboard!.instantiateViewController()
-        productsController.collection = collection
+        let collection         = self.collections.items[indexPath.row]
+        let productsController = self.productsViewControllerWith(collection)
         self.navigationController!.show(productsController, sender: self)
     }
 }
