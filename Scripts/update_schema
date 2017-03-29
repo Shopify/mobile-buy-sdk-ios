@@ -25,10 +25,16 @@ customScalars = [
       serialize_expr:   ->(expr) { "#{expr}.absoluteString" },
     ),
 	GraphQLSwiftGen::Scalar.new(
+	  type_name:       'Int32',
+	  swift_type:      'Int',
+	  deserialize_expr: ->(expr) { "Int(#{expr})"   },
+	  serialize_expr:   ->(expr) { "Int32(#{expr})" },
+	),
+	GraphQLSwiftGen::Scalar.new(
 	  type_name:       'Money',
-	  swift_type:      'NSDecimalNumber',
-	  deserialize_expr: ->(expr) { "NSDecimalNumber(string: #{expr}, locale: GraphQL.posixLocale)" },
-	  serialize_expr:   ->(expr) { "#{expr}.description(withLocale: GraphQL.posixLocale)"          },
+	  swift_type:      'Decimal',
+	  deserialize_expr: ->(expr) { "Decimal(string: #{expr}, locale: GraphQL.posixLocale)" },
+	  serialize_expr:   ->(expr) { "String(describing: #{expr})"                           },
 	)
 ]
 

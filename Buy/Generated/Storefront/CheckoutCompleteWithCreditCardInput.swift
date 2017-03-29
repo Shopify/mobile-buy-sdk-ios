@@ -7,7 +7,7 @@ extension Storefront {
 
 		open var checkoutId: GraphQL.ID
 
-		open var amount: NSDecimalNumber
+		open var amount: Decimal
 
 		open var idempotencyKey: String
 
@@ -20,7 +20,7 @@ extension Storefront {
 		public init(
 			checkoutId: GraphQL.ID,
 
-			amount: NSDecimalNumber,
+			amount: Decimal,
 
 			idempotencyKey: String,
 
@@ -56,7 +56,7 @@ extension Storefront {
 
 			fields.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
 
-			fields.append("amount:\(GraphQL.quoteString(input: "\(amount.description(withLocale: GraphQL.posixLocale))"))")
+			fields.append("amount:\(GraphQL.quoteString(input: "\(String(describing: amount))"))")
 
 			fields.append("idempotencyKey:\(GraphQL.quoteString(input: idempotencyKey))")
 

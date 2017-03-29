@@ -37,7 +37,7 @@ extension Storefront {
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return NSDecimalNumber(string: value, locale: GraphQL.posixLocale)
+				return Decimal(string: value, locale: GraphQL.posixLocale)
 
 				case "title":
 				guard let value = value as? String else {
@@ -60,12 +60,12 @@ extension Storefront {
 			return field(field: "handle", aliasSuffix: aliasSuffix) as! String
 		}
 
-		open var price: NSDecimalNumber {
+		open var price: Decimal {
 			return internalGetPrice()
 		}
 
-		func internalGetPrice(aliasSuffix: String? = nil) -> NSDecimalNumber {
-			return field(field: "price", aliasSuffix: aliasSuffix) as! NSDecimalNumber
+		func internalGetPrice(aliasSuffix: String? = nil) -> Decimal {
+			return field(field: "price", aliasSuffix: aliasSuffix) as! Decimal
 		}
 
 		open var title: String {

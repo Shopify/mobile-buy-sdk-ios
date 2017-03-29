@@ -3,8 +3,6 @@ import Foundation
 
 extension Storefront {
 	open class MailingAddressInput {
-		open var id: GraphQL.ID?
-
 		open var address1: String?
 
 		open var address2: String?
@@ -26,8 +24,6 @@ extension Storefront {
 		open var zip: String?
 
 		public init(
-			id: GraphQL.ID? = nil,
-
 			address1: String? = nil,
 
 			address2: String? = nil,
@@ -48,8 +44,6 @@ extension Storefront {
 
 			zip: String? = nil
 		) {
-			self.id = id
-
 			self.address1 = address1
 
 			self.address2 = address2
@@ -73,10 +67,6 @@ extension Storefront {
 
 		func serialize() -> String {
 			var fields: [String] = []
-
-			if let id = id {
-				fields.append("id:\(GraphQL.quoteString(input: "\(id.rawValue)"))")
-			}
 
 			if let address1 = address1 {
 				fields.append("address1:\(GraphQL.quoteString(input: address1))")

@@ -219,32 +219,32 @@ extension Storefront {
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return NSDecimalNumber(string: value, locale: GraphQL.posixLocale)
+				return Decimal(string: value, locale: GraphQL.posixLocale)
 
 				case "totalPrice":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return NSDecimalNumber(string: value, locale: GraphQL.posixLocale)
+				return Decimal(string: value, locale: GraphQL.posixLocale)
 
 				case "totalRefunded":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return NSDecimalNumber(string: value, locale: GraphQL.posixLocale)
+				return Decimal(string: value, locale: GraphQL.posixLocale)
 
 				case "totalShippingPrice":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return NSDecimalNumber(string: value, locale: GraphQL.posixLocale)
+				return Decimal(string: value, locale: GraphQL.posixLocale)
 
 				case "totalTax":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return NSDecimalNumber(string: value, locale: GraphQL.posixLocale)
+				return Decimal(string: value, locale: GraphQL.posixLocale)
 
 				case "updatedAt":
 				guard let value = value as? String else {
@@ -359,44 +359,44 @@ extension Storefront {
 			return field(field: "shippingAddress", aliasSuffix: aliasSuffix) as! Storefront.MailingAddress?
 		}
 
-		open var subtotalPrice: NSDecimalNumber? {
+		open var subtotalPrice: Decimal? {
 			return internalGetSubtotalPrice()
 		}
 
-		func internalGetSubtotalPrice(aliasSuffix: String? = nil) -> NSDecimalNumber? {
-			return field(field: "subtotalPrice", aliasSuffix: aliasSuffix) as! NSDecimalNumber?
+		func internalGetSubtotalPrice(aliasSuffix: String? = nil) -> Decimal? {
+			return field(field: "subtotalPrice", aliasSuffix: aliasSuffix) as! Decimal?
 		}
 
-		open var totalPrice: NSDecimalNumber {
+		open var totalPrice: Decimal {
 			return internalGetTotalPrice()
 		}
 
-		func internalGetTotalPrice(aliasSuffix: String? = nil) -> NSDecimalNumber {
-			return field(field: "totalPrice", aliasSuffix: aliasSuffix) as! NSDecimalNumber
+		func internalGetTotalPrice(aliasSuffix: String? = nil) -> Decimal {
+			return field(field: "totalPrice", aliasSuffix: aliasSuffix) as! Decimal
 		}
 
-		open var totalRefunded: NSDecimalNumber {
+		open var totalRefunded: Decimal {
 			return internalGetTotalRefunded()
 		}
 
-		func internalGetTotalRefunded(aliasSuffix: String? = nil) -> NSDecimalNumber {
-			return field(field: "totalRefunded", aliasSuffix: aliasSuffix) as! NSDecimalNumber
+		func internalGetTotalRefunded(aliasSuffix: String? = nil) -> Decimal {
+			return field(field: "totalRefunded", aliasSuffix: aliasSuffix) as! Decimal
 		}
 
-		open var totalShippingPrice: NSDecimalNumber {
+		open var totalShippingPrice: Decimal {
 			return internalGetTotalShippingPrice()
 		}
 
-		func internalGetTotalShippingPrice(aliasSuffix: String? = nil) -> NSDecimalNumber {
-			return field(field: "totalShippingPrice", aliasSuffix: aliasSuffix) as! NSDecimalNumber
+		func internalGetTotalShippingPrice(aliasSuffix: String? = nil) -> Decimal {
+			return field(field: "totalShippingPrice", aliasSuffix: aliasSuffix) as! Decimal
 		}
 
-		open var totalTax: NSDecimalNumber? {
+		open var totalTax: Decimal? {
 			return internalGetTotalTax()
 		}
 
-		func internalGetTotalTax(aliasSuffix: String? = nil) -> NSDecimalNumber? {
-			return field(field: "totalTax", aliasSuffix: aliasSuffix) as! NSDecimalNumber?
+		func internalGetTotalTax(aliasSuffix: String? = nil) -> Decimal? {
+			return field(field: "totalTax", aliasSuffix: aliasSuffix) as! Decimal?
 		}
 
 		open var updatedAt: Date {

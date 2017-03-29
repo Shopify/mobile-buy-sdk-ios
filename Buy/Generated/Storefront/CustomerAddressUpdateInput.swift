@@ -7,10 +7,14 @@ extension Storefront {
 
 		open var accessToken: String
 
+		open var id: GraphQL.ID
+
 		open var address: MailingAddressInput
 
 		public init(
 			accessToken: String,
+
+			id: GraphQL.ID,
 
 			address: MailingAddressInput,
 
@@ -19,6 +23,8 @@ extension Storefront {
 			self.clientMutationId = clientMutationId
 
 			self.accessToken = accessToken
+
+			self.id = id
 
 			self.address = address
 		}
@@ -31,6 +37,8 @@ extension Storefront {
 			}
 
 			fields.append("accessToken:\(GraphQL.quoteString(input: accessToken))")
+
+			fields.append("id:\(GraphQL.quoteString(input: "\(id.rawValue)"))")
 
 			fields.append("address:\(address.serialize())")
 

@@ -226,7 +226,7 @@ extension Storefront {
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return NSDecimalNumber(string: value, locale: GraphQL.posixLocale)
+				return Decimal(string: value, locale: GraphQL.posixLocale)
 
 				case "ready":
 				guard let value = value as? Bool else {
@@ -258,7 +258,7 @@ extension Storefront {
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return NSDecimalNumber(string: value, locale: GraphQL.posixLocale)
+				return Decimal(string: value, locale: GraphQL.posixLocale)
 
 				case "taxExempt":
 				guard let value = value as? Bool else {
@@ -276,13 +276,13 @@ extension Storefront {
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return NSDecimalNumber(string: value, locale: GraphQL.posixLocale)
+				return Decimal(string: value, locale: GraphQL.posixLocale)
 
 				case "totalTax":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return NSDecimalNumber(string: value, locale: GraphQL.posixLocale)
+				return Decimal(string: value, locale: GraphQL.posixLocale)
 
 				case "updatedAt":
 				guard let value = value as? String else {
@@ -379,12 +379,12 @@ extension Storefront {
 			return field(field: "orderStatusUrl", aliasSuffix: aliasSuffix) as! URL?
 		}
 
-		open var paymentDue: NSDecimalNumber {
+		open var paymentDue: Decimal {
 			return internalGetPaymentDue()
 		}
 
-		func internalGetPaymentDue(aliasSuffix: String? = nil) -> NSDecimalNumber {
-			return field(field: "paymentDue", aliasSuffix: aliasSuffix) as! NSDecimalNumber
+		func internalGetPaymentDue(aliasSuffix: String? = nil) -> Decimal {
+			return field(field: "paymentDue", aliasSuffix: aliasSuffix) as! Decimal
 		}
 
 		open var ready: Bool {
@@ -419,12 +419,12 @@ extension Storefront {
 			return field(field: "shippingLine", aliasSuffix: aliasSuffix) as! Storefront.ShippingRate?
 		}
 
-		open var subtotalPrice: NSDecimalNumber {
+		open var subtotalPrice: Decimal {
 			return internalGetSubtotalPrice()
 		}
 
-		func internalGetSubtotalPrice(aliasSuffix: String? = nil) -> NSDecimalNumber {
-			return field(field: "subtotalPrice", aliasSuffix: aliasSuffix) as! NSDecimalNumber
+		func internalGetSubtotalPrice(aliasSuffix: String? = nil) -> Decimal {
+			return field(field: "subtotalPrice", aliasSuffix: aliasSuffix) as! Decimal
 		}
 
 		open var taxExempt: Bool {
@@ -443,20 +443,20 @@ extension Storefront {
 			return field(field: "taxesIncluded", aliasSuffix: aliasSuffix) as! Bool
 		}
 
-		open var totalPrice: NSDecimalNumber {
+		open var totalPrice: Decimal {
 			return internalGetTotalPrice()
 		}
 
-		func internalGetTotalPrice(aliasSuffix: String? = nil) -> NSDecimalNumber {
-			return field(field: "totalPrice", aliasSuffix: aliasSuffix) as! NSDecimalNumber
+		func internalGetTotalPrice(aliasSuffix: String? = nil) -> Decimal {
+			return field(field: "totalPrice", aliasSuffix: aliasSuffix) as! Decimal
 		}
 
-		open var totalTax: NSDecimalNumber {
+		open var totalTax: Decimal {
 			return internalGetTotalTax()
 		}
 
-		func internalGetTotalTax(aliasSuffix: String? = nil) -> NSDecimalNumber {
-			return field(field: "totalTax", aliasSuffix: aliasSuffix) as! NSDecimalNumber
+		func internalGetTotalTax(aliasSuffix: String? = nil) -> Decimal {
+			return field(field: "totalTax", aliasSuffix: aliasSuffix) as! Decimal
 		}
 
 		open var updatedAt: Date {
