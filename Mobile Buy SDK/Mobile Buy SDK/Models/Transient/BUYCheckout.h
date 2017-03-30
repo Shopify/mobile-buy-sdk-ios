@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithModelManager:(id<BUYModelManager>)modelManager cartToken:(NSString *)token;
 
 - (NSArray<BUYGiftCard *> *)giftCardsArray;
-- (NSArray<BUYCartLineItem *> *)lineItemsArray;
+- (NSArray<BUYLineItem *> *)lineItemsArray;
 
 - (void)updateWithCart:(BUYCart *)cart;
 
