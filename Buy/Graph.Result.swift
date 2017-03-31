@@ -1,5 +1,5 @@
 //
-//  GraphResult.swift
+//  Graph.Result.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -26,7 +26,9 @@
 
 import Foundation
 
-public enum GraphResult<T> {
-    case success(T)
-    case error(Error?)
+public extension Graph {
+    public enum Result<T> {
+        case success(T)
+        case error(Error?)
+    }
 }
