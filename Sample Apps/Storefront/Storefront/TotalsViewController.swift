@@ -26,10 +26,21 @@
 
 import UIKit
 
+enum PaymentType {
+    case applePay
+    case webCheckout
+}
+
+protocol TotalsControllerDelegate: class {
+    func totalsController(_ totalsController: TotalsViewController, didRequestPaymentWith type: PaymentType)
+}
+
 class TotalsViewController: UIViewController {
     
     @IBOutlet private weak var subtotalTitleLabel: UILabel!
-    @IBOutlet private weak var subtotalLabel: UILabel!
+    @IBOutlet private weak var subtotalLabel:      UILabel!
+    
+    weak var delegate: TotalsControllerDelegate?
     
     var itemCount: Int = 0 {
         didSet {
@@ -50,4 +61,53 @@ class TotalsViewController: UIViewController {
         super.viewDidLoad()
         
     }
+    
+    // ----------------------------------
+    //  MARK: - Actions -
+    //
+    @IBAction func applePayAction(_ sender: Any) {
+        self.delegate?.totalsController(self, didRequestPaymentWith: .applePay)
+    }
 }
+
+
+//private func fetchCurrencyDescription(completion: @escaping (CurrencyDescription?) -> Void) {
+//    let query = Storefront.buildQuery { $0
+//        .shop { $0
+//            .name()
+//            .currencyCode()
+//            .billingAddress { $0
+//                .countryCode()
+//            }
+//        }
+//    }
+//    
+//    let task = self.client.queryGraphWith(query) { response, error in
+//        if let response = response {
+//            completion(CurrencyDescription(
+//                currencyCode: response.shop.currencyCode.rawValue,
+//                countryCode:  response.shop.billingAddress.countryCode
+//            ))
+//        } else {
+//            completion(nil)
+//        }
+//    }
+//    
+//    task.resume()
+//}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
