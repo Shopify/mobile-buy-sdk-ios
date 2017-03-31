@@ -110,7 +110,9 @@
 		9A4069C51E8E9B8E000254CD /* UserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4069681E8E9B8E000254CD /* UserError.swift */; };
 		9A4069C61E8E9B8E000254CD /* WeightUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4069691E8E9B8E000254CD /* WeightUnit.swift */; };
 		9A4069C71E8E9B8E000254CD /* Storefront.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40696A1E8E9B8E000254CD /* Storefront.swift */; };
+		9A4069CA1E8EA6DB000254CD /* Graph.RetryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4069C91E8EA6DB000254CD /* Graph.RetryHandler.swift */; };
 		9A4069CC1E8EA710000254CD /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4069CB1E8EA710000254CD /* Graph.swift */; };
+		9A4069CF1E8ED98A000254CD /* Graph.Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4069CE1E8ED98A000254CD /* Graph.Task.swift */; };
 		9AAFAB721E60766E00864A17 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB711E60766E00864A17 /* Global.swift */; };
 		9AAFAB751E60809400864A17 /* Graph.Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB741E60809400864A17 /* Graph.Result.swift */; };
 		9AAFAB771E6080A500864A17 /* Graph.QueryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB761E6080A500864A17 /* Graph.QueryError.swift */; };
@@ -246,7 +248,9 @@
 		9A4069681E8E9B8E000254CD /* UserError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserError.swift; sourceTree = "<group>"; };
 		9A4069691E8E9B8E000254CD /* WeightUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightUnit.swift; sourceTree = "<group>"; };
 		9A40696A1E8E9B8E000254CD /* Storefront.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storefront.swift; sourceTree = "<group>"; };
+		9A4069C91E8EA6DB000254CD /* Graph.RetryHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.RetryHandler.swift; sourceTree = "<group>"; };
 		9A4069CB1E8EA710000254CD /* Graph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
+		9A4069CE1E8ED98A000254CD /* Graph.Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.Task.swift; sourceTree = "<group>"; };
 		9AAFAB711E60766E00864A17 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		9AAFAB741E60809400864A17 /* Graph.Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.Result.swift; sourceTree = "<group>"; };
 		9AAFAB761E6080A500864A17 /* Graph.QueryError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.QueryError.swift; sourceTree = "<group>"; };
@@ -431,9 +435,11 @@
 			isa = PBXGroup;
 			children = (
 				9A4069CB1E8EA710000254CD /* Graph.swift */,
+				9A4069CE1E8ED98A000254CD /* Graph.Task.swift */,
 				9AEF61B81E5F64230067FA90 /* Graph.Client.swift */,
 				9AAFAB761E6080A500864A17 /* Graph.QueryError.swift */,
 				9AAFAB741E60809400864A17 /* Graph.Result.swift */,
+				9A4069C91E8EA6DB000254CD /* Graph.RetryHandler.swift */,
 			);
 			name = Client;
 			sourceTree = "<group>";
@@ -716,8 +722,10 @@
 			files = (
 				9A4069C21E8E9B8E000254CD /* Transaction.swift in Sources */,
 				9A4069751E8E9B8E000254CD /* CheckoutCompleteWithTokenizedPaymentInput.swift in Sources */,
+				9A4069CF1E8ED98A000254CD /* Graph.Task.swift in Sources */,
 				9A4069AD1E8E9B8E000254CD /* OrderCancelReason.swift in Sources */,
 				9A40699C1E8E9B8E000254CD /* CustomerUpdateInput.swift in Sources */,
+				9A4069CA1E8EA6DB000254CD /* Graph.RetryHandler.swift in Sources */,
 				9A4069811E8E9B8E000254CD /* CollectionEdge.swift in Sources */,
 				9A4069741E8E9B8E000254CD /* CheckoutCompleteWithCreditCardPayload.swift in Sources */,
 				9A4069841E8E9B8E000254CD /* CropRegion.swift in Sources */,

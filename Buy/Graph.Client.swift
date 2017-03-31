@@ -75,82 +75,49 @@ extension Graph {
         // ----------------------------------
         //  MARK: - Queries -
         //
-        public func queryGraphWith(_ query: Storefront.QueryRootQuery, completionHandler: @escaping (Storefront.QueryRoot?, QueryError?) -> Void) -> URLSessionDataTask {
-            return self.graphRequestTask(query: query, completionHandler: completionHandler)
+        public func queryGraphWith(_ query: Storefront.QueryRootQuery, retryHandler: RetryHandler<Storefront.QueryRoot>? = nil, completionHandler: @escaping (Storefront.QueryRoot?, QueryError?) -> Void) -> Task {
+            return self.graphRequestTask(query: query, retryHandler: retryHandler, completionHandler: completionHandler)
         }
         
         // ----------------------------------
         //  MARK: - Mutations -
         //
-        public func mutateGraphWith(_ mutation: Storefront.MutationQuery, completionHandler: @escaping (Storefront.Mutation?, QueryError?) -> Void) -> URLSessionDataTask {
-            return self.graphRequestTask(query: mutation, completionHandler: completionHandler)
+        public func mutateGraphWith(_ mutation: Storefront.MutationQuery, retryHandler: RetryHandler<Storefront.Mutation>? = nil, completionHandler: @escaping (Storefront.Mutation?, QueryError?) -> Void) -> Task {
+            return self.graphRequestTask(query: mutation, retryHandler: retryHandler, completionHandler: completionHandler)
         }
         
         // ----------------------------------
         //  MARK: - Request Management -
         //
-        private func graphRequestTask<Q: GraphQL.AbstractQuery, R: GraphQL.AbstractResponse>(query: Q, completionHandler: @escaping (R?, QueryError?) -> Void) -> URLSessionDataTask {
+        private func graphRequestTask<Q: GraphQL.AbstractQuery, R: GraphQL.AbstractResponse>(query: Q, retryHandler: RetryHandler<R>? = nil, completionHandler: @escaping (R?, QueryError?) -> Void) -> Task {
             
-            func processGraphResponse(data: Data?, response: URLResponse?, error: Error?) -> (json: JSON?, error: QueryError?) {
-                
-                guard let response = response as? HTTPURLResponse, error == nil else {
-                    return (json: nil, error: .request(error: error))
-                }
-                
-                guard response.statusCode >= 200 && response.statusCode < 300 else {
-                    return (json: nil, error: .http(statusCode: response.statusCode))
-                }
-                
-                guard let data = data else {
-                    return (json: nil, error: .noData)
-                }
-                
-                guard let json = try? JSONSerialization.jsonObject(with: data, options: []) else {
-                    return (json: nil, error: .jsonDeserializationFailed(data: data))
-                }
-                
-                let graphResponse = json as? JSON
-                let graphErrors   = graphResponse?["errors"] as? [JSON]
-                let graphData     = graphResponse?["data"]   as? JSON
-                
-                /* ----------------------------------
-                 ** This should never happen. A valid
-                 ** GraphQL response will have either
-                 ** data or errors.
-                 */
-                guard graphData != nil || graphErrors != nil else {
-                    return (json: nil, error: .invalidJson(json: json))
-                }
-                
-                /* ---------------------------------
-                 ** Extract any GraphQL errors found
-                 ** during execution of the query.
-                 */
-                var queryError: QueryError?
-                if let graphErrors = graphErrors {
-                    queryError = .queryError(reasons: graphErrors.map {
-                        QueryError.Reason(json: $0)
-                    })
-                }
-                
-                return (json: graphData, error: queryError)
-            }
+            var task: Task!
             
-            return self.session.dataTask(with: graphRequest(query: query)) { (data, response, error) in
-                let (json, error) = processGraphResponse(data: data, response: response, error: error)
+            let request  = self.graphRequest(query: query)
+            let dataTask = self.session.graphTask(with: request) { (response: R?, error: QueryError?) in
                 DispatchQueue.main.async {
-                    if let json = json {
-                        do {
-                            completionHandler(try R(fields: json), error)
-                        } catch {
-                            let violation = error as? SchemaViolationError ?? SchemaViolationError(type: R.self, field: "data", value: json)
-                            completionHandler(nil, QueryError.schemaViolationError(violation: violation))
-                        }
+                    
+                    if var retryHandler = retryHandler, retryHandler.canRetry, retryHandler.condition(response, error) == true {
+                        
+                        /* ---------------------------------
+                         ** A retry handler was provided and
+                         ** the condition evaluated to true,
+                         ** we have to retry the request.
+                         */
+                        retryHandler.repeatCount += 1
+                        
+                        let retryTask = self.graphRequestTask(query: query, retryHandler: retryHandler, completionHandler: completionHandler)
+                        task.setTask(retryTask.task)
+                        task.resume()
+                        
                     } else {
-                        completionHandler(nil, error)
+                        completionHandler(response, error)
                     }
                 }
             }
+            
+            task = Task(representing: dataTask)
+            return task
         }
         
         private func graphRequest(query: GraphQL.AbstractQuery) -> URLRequest {
@@ -167,6 +134,82 @@ extension Graph {
             }
             
             return request
+        }
+    }
+}
+
+// ----------------------------------
+//  MARK: - Graph Data Task -
+//
+private extension URLSession {
+    
+    func graphTask<R: GraphQL.AbstractResponse>(with request: URLRequest, completionHandler: @escaping (R?, Graph.QueryError?) -> Void) -> URLSessionDataTask {
+        return self.dataTask(with: request) { json, error in
+            
+            if let json = json {
+                
+                do {
+                    completionHandler(try R(fields: json), error)
+                } catch {
+                    let violation = error as? SchemaViolationError ?? SchemaViolationError(type: R.self, field: "data", value: json)
+                    completionHandler(nil, Graph.QueryError.schemaViolationError(violation: violation))
+                }
+                
+            } else {
+                completionHandler(nil, error)
+            }
+        }
+    }
+    
+    func dataTask(with request: URLRequest, completionHandler: @escaping (JSON?, Graph.QueryError?) -> Void) -> URLSessionDataTask {
+        return self.dataTask(with: request) { data, response, error in
+            
+            guard let response = response as? HTTPURLResponse, error == nil else {
+                completionHandler(nil, .request(error: error))
+                return
+            }
+            
+            guard response.statusCode >= 200 && response.statusCode < 300 else {
+                completionHandler(nil, .http(statusCode: response.statusCode))
+                return
+            }
+            
+            guard let data = data else {
+                completionHandler(nil, .noData)
+                return
+            }
+            
+            guard let json = try? JSONSerialization.jsonObject(with: data, options: []) else {
+                completionHandler(nil, .jsonDeserializationFailed(data: data))
+                return
+            }
+            
+            let graphResponse = json as? JSON
+            let graphErrors   = graphResponse?["errors"] as? [JSON]
+            let graphData     = graphResponse?["data"]   as? JSON
+            
+            /* ----------------------------------
+             ** This should never happen. A valid
+             ** GraphQL response will have either
+             ** data or errors.
+             */
+            guard graphData != nil || graphErrors != nil else {
+                completionHandler(nil, .invalidJson(json: json))
+                return
+            }
+            
+            /* ---------------------------------
+             ** Extract any GraphQL errors found
+             ** during execution of the query.
+             */
+            var queryError: Graph.QueryError?
+            if let graphErrors = graphErrors {
+                queryError = .queryError(reasons: graphErrors.map {
+                    Graph.QueryError.Reason(json: $0)
+                })
+            }
+            
+            completionHandler(graphData, queryError)
         }
     }
 }
