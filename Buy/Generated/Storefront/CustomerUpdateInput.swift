@@ -5,7 +5,7 @@ extension Storefront {
 	open class CustomerUpdateInput {
 		open var clientMutationId: String?
 
-		open var accessToken: String
+		open var customerAccessToken: String
 
 		open var firstName: String?
 
@@ -18,7 +18,7 @@ extension Storefront {
 		open var acceptsMarketing: Bool?
 
 		public init(
-			accessToken: String,
+			customerAccessToken: String,
 
 			clientMutationId: String? = nil,
 
@@ -34,7 +34,7 @@ extension Storefront {
 		) {
 			self.clientMutationId = clientMutationId
 
-			self.accessToken = accessToken
+			self.customerAccessToken = customerAccessToken
 
 			self.firstName = firstName
 
@@ -54,7 +54,7 @@ extension Storefront {
 				fields.append("clientMutationId:\(GraphQL.quoteString(input: clientMutationId))")
 			}
 
-			fields.append("accessToken:\(GraphQL.quoteString(input: accessToken))")
+			fields.append("customerAccessToken:\(GraphQL.quoteString(input: customerAccessToken))")
 
 			if let firstName = firstName {
 				fields.append("firstName:\(GraphQL.quoteString(input: firstName))")

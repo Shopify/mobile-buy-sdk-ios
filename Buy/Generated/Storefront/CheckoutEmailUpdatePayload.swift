@@ -2,22 +2,25 @@
 import Foundation
 
 extension Storefront {
-	open class CustomerAddressDeletePayloadQuery: GraphQL.AbstractQuery {
+	open class CheckoutEmailUpdatePayloadQuery: GraphQL.AbstractQuery {
+		@discardableResult
+		open func checkout(aliasSuffix: String? = nil, _ subfields: (CheckoutQuery) -> Void) -> CheckoutEmailUpdatePayloadQuery {
+			let subquery = CheckoutQuery()
+			subfields(subquery)
+
+			addField(field: "checkout", aliasSuffix: aliasSuffix, subfields: subquery)
+			return self
+		}
+
 		@available(*, deprecated, message:"Relay is moving away from requiring this field")
 		@discardableResult
-		open func clientMutationId(aliasSuffix: String? = nil) -> CustomerAddressDeletePayloadQuery {
+		open func clientMutationId(aliasSuffix: String? = nil) -> CheckoutEmailUpdatePayloadQuery {
 			addField(field: "clientMutationId", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func deletedCustomerAddressId(aliasSuffix: String? = nil) -> CustomerAddressDeletePayloadQuery {
-			addField(field: "deletedCustomerAddressId", aliasSuffix: aliasSuffix)
-			return self
-		}
-
-		@discardableResult
-		open func userErrors(aliasSuffix: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerAddressDeletePayloadQuery {
+		open func userErrors(aliasSuffix: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CheckoutEmailUpdatePayloadQuery {
 			let subquery = UserErrorQuery()
 			subfields(subquery)
 
@@ -26,19 +29,18 @@ extension Storefront {
 		}
 	}
 
-	open class CustomerAddressDeletePayload: GraphQL.AbstractResponse
+	open class CheckoutEmailUpdatePayload: GraphQL.AbstractResponse
 	{
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
-				case "clientMutationId":
-				if value is NSNull { return nil }
-				guard let value = value as? String else {
+				case "checkout":
+				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return value
+				return try Checkout(fields: value)
 
-				case "deletedCustomerAddressId":
+				case "clientMutationId":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
@@ -56,7 +58,15 @@ extension Storefront {
 			}
 		}
 
-		open var typeName: String { return "CustomerAddressDeletePayload" }
+		open var typeName: String { return "CheckoutEmailUpdatePayload" }
+
+		open var checkout: Storefront.Checkout {
+			return internalGetCheckout()
+		}
+
+		func internalGetCheckout(aliasSuffix: String? = nil) -> Storefront.Checkout {
+			return field(field: "checkout", aliasSuffix: aliasSuffix) as! Storefront.Checkout
+		}
 
 		@available(*, deprecated, message:"Relay is moving away from requiring this field")
 		open var clientMutationId: String? {
@@ -65,14 +75,6 @@ extension Storefront {
 
 		func internalGetClientMutationId(aliasSuffix: String? = nil) -> String? {
 			return field(field: "clientMutationId", aliasSuffix: aliasSuffix) as! String?
-		}
-
-		open var deletedCustomerAddressId: String? {
-			return internalGetDeletedCustomerAddressId()
-		}
-
-		func internalGetDeletedCustomerAddressId(aliasSuffix: String? = nil) -> String? {
-			return field(field: "deletedCustomerAddressId", aliasSuffix: aliasSuffix) as! String?
 		}
 
 		open var userErrors: [Storefront.UserError] {
@@ -85,11 +87,11 @@ extension Storefront {
 
 		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
 			switch(key) {
+				case "checkout":
+
+				return .Object
+
 				case "clientMutationId":
-
-				return .Scalar
-
-				case "deletedCustomerAddressId":
 
 				return .Scalar
 
@@ -104,6 +106,9 @@ extension Storefront {
 
 		override open func fetchChildObject(key: String) -> GraphQL.AbstractResponse? {
 			switch(key) {
+				case "checkout":
+				return internalGetCheckout()
+
 				default:
 				break
 			}
@@ -121,7 +126,25 @@ extension Storefront {
 		}
 
 		open func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
-			return []
+			var response: [GraphQL.AbstractResponse] = []
+			objectMap.keys.forEach({
+				key in
+				switch(key) {
+					case "checkout":
+					response.append(internalGetCheckout())
+					response.append(contentsOf: internalGetCheckout().childResponseObjectMap())
+
+					case "userErrors":
+					internalGetUserErrors().forEach {
+						response.append($0)
+						response.append(contentsOf: $0.childResponseObjectMap())
+					}
+
+					default:
+					break
+				}
+			})
+			return response
 		}
 
 		open func responseObject() -> GraphQL.AbstractResponse {
