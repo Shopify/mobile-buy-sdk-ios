@@ -1,5 +1,5 @@
 //
-//  GraphQuery.swift
+//  ClientQuery.swift
 //  Storefront
 //
 //  Created by Shopify.
@@ -27,7 +27,7 @@
 import Foundation
 import Buy
 
-final class GraphQuery {
+final class ClientQuery {
 
     static func queryForCollections(limit: Int, after cursor: String? = nil, productLimit: Int = 25, productCursor: String? = nil) -> Storefront.QueryRootQuery {
         return Storefront.buildQuery { $0

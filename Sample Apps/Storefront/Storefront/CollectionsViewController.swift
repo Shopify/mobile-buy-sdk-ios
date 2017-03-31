@@ -41,7 +41,7 @@ class CollectionsViewController: UIViewController {
         
         self.configureTableView()
         
-        Graph.shared.fetchCollections { collections in
+        Client.shared.fetchCollections { collections in
             if let collections = collections {
                 self.collections = collections
                 self.tableView.reloadData()
@@ -61,7 +61,7 @@ class CollectionsViewController: UIViewController {
     //  MARK: - Fetching -
     //
     fileprivate func fetchCollections(after cursor: String? = nil) {
-        Graph.shared.fetchCollections(after: cursor) { collections in
+        Client.shared.fetchCollections(after: cursor) { collections in
             if let collections = collections {
                 self.collections = collections
                 self.tableView.reloadData()
@@ -139,7 +139,7 @@ extension CollectionsViewController: StorefrontTableViewDelegate {
         if let collections = self.collections,
             let lastCollection = collections.items.last {
             
-            Graph.shared.fetchCollections(after: lastCollection.cursor) { collections in
+            Client.shared.fetchCollections(after: lastCollection.cursor) { collections in
                 if let collections = collections {
                     
                     self.collections.appendPage(from: collections)
@@ -163,7 +163,7 @@ extension CollectionsViewController: CollectionCellDelegate {
     
     func cell(_ collectionCell: CollectionCell, didRequestProductsIn collection: CollectionViewModel, after product: ProductViewModel) {
         
-        Graph.shared.fetchProducts(in: collection, limit: 20, after: product.cursor) { products in
+        Client.shared.fetchProducts(in: collection, limit: 20, after: product.cursor) { products in
             if let products = products, collectionCell.viewModel === collection {
                 collectionCell.appendProductsPage(from: products)
             }

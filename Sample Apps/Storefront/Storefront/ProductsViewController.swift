@@ -45,7 +45,7 @@ class ProductsViewController: UIViewController {
         
         self.configureCollectionView()
         
-        Graph.shared.fetchProducts(in: self.collection) { products in
+        Client.shared.fetchProducts(in: self.collection) { products in
             if let products = products {
                 self.products = products
                 self.collectionView.reloadData()
@@ -119,7 +119,7 @@ extension ProductsViewController: StorefrontCollectionViewDelegate {
         if let products = self.products,
             let lastProduct = products.items.last {
             
-            Graph.shared.fetchProducts(in: self.collection, after: lastProduct.cursor) { products in
+            Client.shared.fetchProducts(in: self.collection, after: lastProduct.cursor) { products in
                 if let products = products {
                     self.products.appendPage(from: products)
                     

@@ -134,7 +134,7 @@ extension CartViewController: TotalsControllerDelegate {
     func totalsController(_ totalsController: TotalsViewController, didRequestPaymentWith type: PaymentType) {
         
         let cartItems = CartController.shared.items
-        Graph.shared.createCheckout(with: cartItems) { checkout in
+        Client.shared.createCheckout(with: cartItems) { checkout in
             if let checkout = checkout {
                 
                 let payCurrency = PayCurrency(currencyCode: "CAD", countryCode: "CA")

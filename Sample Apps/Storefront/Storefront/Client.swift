@@ -1,5 +1,5 @@
 //
-//  Graph.swift
+//  Client.swift
 //  Storefront
 //
 //  Created by Shopify.
@@ -27,14 +27,14 @@
 import Foundation
 import Buy
 
-final class Graph {
+final class Client {
     
     static let shopDomain = "your-shop.myshopify.com"
     static let apiKey     = "your-api-key"
     
-    static let shared = Graph()
+    static let shared = Client()
     
-    private let client: GraphClient = GraphClient(shopDomain: Graph.shopDomain, apiKey: Graph.apiKey)
+    private let client: Graph.Client = Graph.Client(shopDomain: Client.shopDomain, apiKey: Client.apiKey)
     
     // ----------------------------------
     //  MARK: - Init -
@@ -47,9 +47,9 @@ final class Graph {
     //  MARK: - Collections -
     //
     @discardableResult
-    func fetchCollections(limit: Int = 25, after cursor: String? = nil, productLimit: Int = 25, productCursor: String? = nil, completion: @escaping (PageableArray<CollectionViewModel>?) -> Void) -> URLSessionDataTask {
+    func fetchCollections(limit: Int = 25, after cursor: String? = nil, productLimit: Int = 25, productCursor: String? = nil, completion: @escaping (PageableArray<CollectionViewModel>?) -> Void) -> Graph.Task {
         
-        let query = GraphQuery.queryForCollections(limit: limit, after: cursor, productLimit: productLimit, productCursor: productCursor)
+        let query = ClientQuery.queryForCollections(limit: limit, after: cursor, productLimit: productLimit, productCursor: productCursor)
         let task  = self.client.queryGraphWith(query) { (query, error) in
             
             if let query = query {
@@ -72,9 +72,9 @@ final class Graph {
     //  MARK: - Products -
     //
     @discardableResult
-    func fetchProducts(in collection: CollectionViewModel, limit: Int = 25, after cursor: String? = nil, completion: @escaping (PageableArray<ProductViewModel>?) -> Void) -> URLSessionDataTask {
+    func fetchProducts(in collection: CollectionViewModel, limit: Int = 25, after cursor: String? = nil, completion: @escaping (PageableArray<ProductViewModel>?) -> Void) -> Graph.Task {
         
-        let query = GraphQuery.queryForProducts(in: collection, limit: limit, after: cursor)
+        let query = ClientQuery.queryForProducts(in: collection, limit: limit, after: cursor)
         let task  = self.client.queryGraphWith(query) { (query, error) in
             
             if let query = query,
@@ -100,10 +100,10 @@ final class Graph {
     //  MARK: - Checkout -
     //
     @discardableResult
-    func createCheckout(with cartItems: [CartItem], completion: @escaping (Storefront.Checkout?) -> Void) -> URLSessionDataTask {
-        let mutation = GraphQuery.mutationForCreateCheckout(with: cartItems)
-        let task     = self.client.mutateGraphWith(mutation) { response, error in
-            
+    func createCheckout(with cartItems: [CartItem], completion: @escaping (Storefront.Checkout?) -> Void) -> Graph.Task {
+        let mutation = ClientQuery.mutationForCreateCheckout(with: cartItems)
+        let task     = self.client.mutateGraphWith(mutation) { response, erro in
+
             if let mutation = response,
                 let checkout = mutation.checkoutCreate?.checkout {
                 
