@@ -46,6 +46,8 @@ public extension Graph {
         
         public internal(set) var repeatCount: Int = 0
         
+        public var repeatInterval: Double = 2.0
+        
         public let endurance: Endurance
         public let condition: Condition
         public var canRetry:  Bool {

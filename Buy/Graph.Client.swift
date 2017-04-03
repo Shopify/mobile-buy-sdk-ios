@@ -108,7 +108,12 @@ extension Graph {
                         
                         let retryTask = self.graphRequestTask(query: query, retryHandler: retryHandler, completionHandler: completionHandler)
                         task.setTask(retryTask.task)
-                        task.resume()
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + retryHandler.repeatInterval) {
+                            if task.task.state == .suspended {
+                                task.resume()
+                            }
+                        }
                         
                     } else {
                         completionHandler(response, error)
