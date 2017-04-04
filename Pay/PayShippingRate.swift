@@ -97,7 +97,7 @@ internal extension PayShippingRate {
         if let deliveryRange = self.deliveryRange {
             item.detail = deliveryRange.description
         } else {
-            item.detail = ""
+            item.detail = "No delivery range provided."
         }
         item.identifier = self.handle
         
