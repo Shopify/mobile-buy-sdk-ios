@@ -14,6 +14,7 @@
 		9A21F2981E7AD30F00E00F4B /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21F2971E7AD30F00E00F4B /* ProductDetailsViewController.swift */; };
 		9A21F29A1E7AD4FD00E00F4B /* ParallaxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21F2991E7AD4FD00E00F4B /* ParallaxViewController.swift */; };
 		9A21F29F1E7EC8AE00E00F4B /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21F29E1E7EC8AE00E00F4B /* ImageViewController.swift */; };
+		9A27C32A1E8FDF7C00218EE8 /* Fragment+CheckoutQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A27C3291E8FDF7C00218EE8 /* Fragment+CheckoutQuery.swift */; };
 		9A4069071E8E76C7000254CD /* Pay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A4069021E8E76AB000254CD /* Pay.framework */; };
 		9A4069081E8E76CE000254CD /* Pay.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 9A4069021E8E76AB000254CD /* Pay.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9A7E3F6F1E89615E00713740 /* UICollectionView+Touch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7E3F6E1E89615E00713740 /* UICollectionView+Touch.swift */; };
@@ -135,6 +136,7 @@
 		9A21F2971E7AD30F00E00F4B /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
 		9A21F2991E7AD4FD00E00F4B /* ParallaxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallaxViewController.swift; sourceTree = "<group>"; };
 		9A21F29E1E7EC8AE00E00F4B /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		9A27C3291E8FDF7C00218EE8 /* Fragment+CheckoutQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fragment+CheckoutQuery.swift"; sourceTree = "<group>"; };
 		9A7E3F6E1E89615E00713740 /* UICollectionView+Touch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Touch.swift"; sourceTree = "<group>"; };
 		9A8E88501E719A6E0042879D /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		9A8E88591E719EB20042879D /* ClientQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientQuery.swift; sourceTree = "<group>"; };
@@ -446,6 +448,7 @@
 				9AEF61CB1E606EFE0067FA90 /* Fragment+ProductConnectionQuery.swift */,
 				9A9FFF101E79C0AD00F6DFF7 /* Fragment+VariantConnectionQuery.swift */,
 				9AEF61CD1E606F100067FA90 /* Fragment+ImageConnectionQuery.swift */,
+				9A27C3291E8FDF7C00218EE8 /* Fragment+CheckoutQuery.swift */,
 			);
 			name = Fragments;
 			sourceTree = "<group>";
@@ -581,6 +584,7 @@
 				9A8E88511E719A6E0042879D /* Client.swift in Sources */,
 				9AAFAB861E60C15300864A17 /* ProductViewModel.swift in Sources */,
 				9AAFAB7E1E60BE6500864A17 /* ViewModeling.swift in Sources */,
+				9A27C32A1E8FDF7C00218EE8 /* Fragment+CheckoutQuery.swift in Sources */,
 				9AAFAB891E60C17100864A17 /* ProductCell.swift in Sources */,
 				9A9FFF131E79CCC800F6DFF7 /* PaginatedArray.swift in Sources */,
 				9A9FFEFD1E78432F00F6DFF7 /* Currency.swift in Sources */,
