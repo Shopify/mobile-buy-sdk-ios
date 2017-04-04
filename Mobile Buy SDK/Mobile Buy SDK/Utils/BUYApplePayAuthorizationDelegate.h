@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param client   A configured client
  *  @param checkout The checkout which is to be completed using Apple Pay
- *  @param shopName A shop object to alleviate the need for ApplePayHelper to retrieve it via the BUYClient
+ *  @param shopName The name of the shop. Used to generate the PKPaymentSummaryItem for Apple Pay. 
  *
  *  @return helper object
  */

@@ -122,7 +122,7 @@
 	return self.giftCards.array ?: @[];
 }
 
-- (NSArray<BUYCartLineItem *> *)lineItemsArray
+- (NSArray<BUYLineItem *> *)lineItemsArray
 {
 	return self.lineItems.array ?: @[];
 }
