@@ -33,7 +33,7 @@ class CartViewController: ParallaxViewController {
     
     private var totalsViewController: TotalsViewController!
     
-    fileprivate let payController = PayController(merchantID: "greats-clone.myshopify.com")
+    fileprivate let paySession = PaySession(merchantID: "your-merchant-identifier.myshopify.com")
     
     // ----------------------------------
     //  MARK: - Segue -
@@ -138,11 +138,12 @@ extension CartViewController: TotalsControllerDelegate {
             if let checkout = checkout {
                 
                 let payCurrency = PayCurrency(currencyCode: "CAD", countryCode: "CA")
-                let payItems    = checkout.lineItems.edges.map {
-                    PayLineItem(price: $0.node.variant?.price ?? 0.0, quantity: Int($0.node.quantity))
+                let payItems    = checkout.lineItems.map { item in
+                    PayLineItem(price: item.totalPrice, quantity: item.quantity)
                 }
                 
                 let payCheckout = PayCheckout(
+                    id:              checkout.id,
                     lineItems:       payItems,
                     shippingAddress: nil,
                     shippingRate:    nil,
@@ -153,8 +154,8 @@ extension CartViewController: TotalsControllerDelegate {
                     paymentDue:      checkout.paymentDue
                 )
                 
-                self.payController.delegate = self
-                self.payController.authorizePaymentUsing(payCheckout, currency: payCurrency)
+                self.paySession.delegate = self
+                self.paySession.authorizePaymentUsing(payCheckout, currency: payCurrency)
                 
             } else {
                 print("Failed to create checkout")
@@ -165,46 +166,73 @@ extension CartViewController: TotalsControllerDelegate {
 }
 
 // ----------------------------------
-//  MARK: - PayControllerDelegate -
+//  MARK: - PaySessionDelegate -
 //
-extension CartViewController: PayControllerDelegate {
+extension CartViewController: PaySessionDelegate {
     
-    func payController(_ payController: PayController, didRequestShippingRatesFor address: PayPostalAddress, provide: @escaping  (PayCheckout, [PayShippingRate]) -> Void) {
+    func paySession(_ paySession: PaySession, didRequestShippingRatesFor address: PayPostalAddress, checkout: PayCheckout, provide: @escaping  (PayCheckout?, [PayShippingRate]) -> Void) {
         
-        let start = Date(timeIntervalSince1970: Date().timeIntervalSince1970 + 86400 * 3)
-        let end   = Date(timeIntervalSince1970: Date().timeIntervalSince1970 + 86400 * 5)
-        
-        let shippingRates: [PayShippingRate] = [
-            PayShippingRate(handle: "123", title: "FedEx Express", price: 14.00, deliveryRange: .init(from: start, to: end)),
-            PayShippingRate(handle: "234", title: "UPS Regular", price: 13.00, deliveryRange: .init(from: start, to: end)),
-            PayShippingRate(handle: "345", title: "Canada Post", price: 7.50, deliveryRange: .init(from: start, to: end)),
-            PayShippingRate(handle: "456", title: "United States Postal Service", price: 5.00, deliveryRange: .init(from: start, to: end)),
-        ]
-        
-        print("Getting shipping rates...")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            print("Fetched shipping rates.")
-            provide(payController.checkout!, shippingRates)
+        print("Updating checkout with address...")
+        Client.shared.updateCheckout(checkout.id, updatingShippingAddress: address) { checkout in
+            
+            guard let checkout = checkout else {
+                print("Update for checkout failed.")
+                provide(nil, [])
+                return
+            }
+            
+            print("Getting shipping rates...")
+            Client.shared.fetchShippingRatesForCheckout(checkout.id) { result in
+                if let result = result {
+                    print("Fetched shipping rates.")
+                    provide(result.checkout.payCheckout, result.rates.payShippingRates)
+                } else {
+                    provide(nil, [])
+                }
+            }
         }
     }
     
-    func payController(_ payController: PayController, didSelectShippingRate shippingRate: PayShippingRate, provide: @escaping  (PayCheckout) -> Void) {
+    func paySession(_ paySession: PaySession, didSelectShippingRate shippingRate: PayShippingRate, checkout: PayCheckout, provide: @escaping  (PayCheckout?) -> Void) {
         
         print("Selecting shipping rate...")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+        Client.shared.updateCheckout(checkout.id, updatingShippingRate: shippingRate) { updatedCheckout in
             print("Selected shipping rate.")
-            provide(payController.checkout!)
+            provide(updatedCheckout?.payCheckout)
         }
     }
     
-    func payController(_ payController: PayController, didCompletePayment token: Data, checkout: PayCheckout, completeTransaction: @escaping (PayController.TransactionStatus) -> Void) {
+    func paySession(_ paySession: PaySession, didAuthorizePayment authorization: PayAuthorization, checkout: PayCheckout, completeTransaction: @escaping (PaySession.TransactionStatus) -> Void) {
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            completeTransaction(.success)
+        guard let email = authorization.shippingAddress.email else {
+            print("Unable to update checkout email. Aborting transaction.")
+            completeTransaction(.failure)
+            return
+        }
+        
+        print("Updating checkout email...")
+        Client.shared.updateCheckout(checkout.id, updatingEmail: email) { updatedCheckout in
+            
+            guard let _ = updatedCheckout else {
+                completeTransaction(.failure)
+                return
+            }
+            
+            print("Checkout email updated: \(email)")
+            print("Completing checkout...")
+            Client.shared.completeCheckout(checkout, billingAddress: authorization.billingAddress, applePayToken: authorization.token, idempotencyToken: paySession.identifier) { payment in
+                if let payment = payment, checkout.paymentDue == payment.amount {
+                    print("Checkout completed successfully.")
+                    completeTransaction(.success)
+                } else {
+                    print("Checkout failed to complete.")
+                    completeTransaction(.failure)
+                }
+            }
         }
     }
     
-    func payControllerDidFinish(_ payController: PayController) {
+    func paySessionDidFinish(_ paySession: PaySession) {
         
     }
 }
