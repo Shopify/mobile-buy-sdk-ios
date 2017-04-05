@@ -42,16 +42,16 @@ typedef void (^BUYClientRequestJSONCompletion)(NSDictionary *json, NSHTTPURLResp
 - (NSOperation *)getRequestForURL:(NSURL *)url    completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
 - (NSOperation *)deleteRequestForURL:(NSURL *)url completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
 
-- (NSOperation *)postRequestForURL:(NSURL *)url  object:(id <BUYSerializable>)object completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
+- (NSOperation *)postRequestForURL:(NSURL *)url  object:(id<BUYSerializable>)object completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
 - (NSOperation *)putRequestForURL:(NSURL *)url   object:(id<BUYSerializable>)object  completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
-- (NSOperation *)patchRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
+- (NSOperation *)patchRequestForURL:(NSURL *)url object:(id<BUYSerializable>)object completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
 
 - (NSOperation *)getRequestForURL:(NSURL *)url    start:(BOOL)start completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
 - (NSOperation *)deleteRequestForURL:(NSURL *)url start:(BOOL)start completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
 
-- (NSOperation *)postRequestForURL:(NSURL *)url  object:(id <BUYSerializable>)object start:(BOOL)start completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
+- (NSOperation *)postRequestForURL:(NSURL *)url  object:(id<BUYSerializable>)object start:(BOOL)start completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
 - (NSOperation *)putRequestForURL:(NSURL *)url   object:(id<BUYSerializable>)object  start:(BOOL)start completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
-- (NSOperation *)patchRequestForURL:(NSURL *)url object:(id <BUYSerializable>)object start:(BOOL)start completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
+- (NSOperation *)patchRequestForURL:(NSURL *)url object:(id<BUYSerializable>)object start:(BOOL)start completionHandler:(BUYClientRequestJSONCompletion)completionHandler;
 
 - (BUYStatus)statusForStatusCode:(NSUInteger)statusCode error:(NSError *)error;
 
