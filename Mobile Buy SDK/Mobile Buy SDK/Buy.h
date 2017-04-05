@@ -84,6 +84,9 @@
 #import "BUYClient+Checkout.h"
 #import "BUYClient+Storefront.h"
 
+// Subclassing support
+#import "BUYClient+Internal.h"
+
 // Foundation extensions
 #import "NSArray+BUYAdditions.h"
 #import "NSDate+BUYAdditions.h"
