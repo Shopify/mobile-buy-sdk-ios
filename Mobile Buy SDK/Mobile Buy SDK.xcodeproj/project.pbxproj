@@ -33,6 +33,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		4EC78C9F1E953FA9009E27B7 /* BUYClient+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 8498DCB01CDD1B4A00BD12A8 /* BUYClient+Internal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		841ADE001CB6C942000004B0 /* NSArray+BUYAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 841ADDEB1CB6C942000004B0 /* NSArray+BUYAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		841ADE021CB6C942000004B0 /* NSArray+BUYAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 841ADDEC1CB6C942000004B0 /* NSArray+BUYAdditions.m */; };
 		841ADE041CB6C942000004B0 /* NSDate+BUYAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 841ADDED1CB6C942000004B0 /* NSDate+BUYAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1482,6 +1483,7 @@
 				849810931CB7E07900CFAB58 /* BUYDeliveryRangeTransformer.h in Headers */,
 				901931371BC5B9BC00D1134E /* BUYTaxLine.h in Headers */,
 				84B0A7351CE10ED900253EB0 /* BUYPaymentController.h in Headers */,
+				4EC78C9F1E953FA9009E27B7 /* BUYClient+Internal.h in Headers */,
 				9019313A1BC5B9BC00D1134E /* BUYImageLink.h in Headers */,
 				9019313B1BC5B9BC00D1134E /* BUYOptionValue.h in Headers */,
 				84B0A7311CE10ED900253EB0 /* BUYApplePayPaymentProvider.h in Headers */,
