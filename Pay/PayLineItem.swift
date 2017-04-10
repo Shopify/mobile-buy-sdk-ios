@@ -43,10 +43,8 @@ public struct PayLineItem {
 public extension Array where Element == PayLineItem {
     
     public var totalPrice: Decimal {
-        var accumulator: Decimal = 0.0
-        self.forEach { item in
-            accumulator += item.price * Decimal(item.quantity)
+        return self.reduce(0) {
+            $0 + $1.price * Decimal($1.quantity)
         }
-        return accumulator
     }
 }
