@@ -72,15 +72,19 @@
 
 - (NSString *)quantityRemainingMessage
 {
-	NSNumber *remaining = (id)self.options[@"remaining"];
-	NSString *localizedString;
-	
-	if ([remaining isEqualToNumber:@0]) {
-		localizedString = NSLocalizedString(@"Completely sold out", @"String describing a line item with zero stock available");
+	if ([self.code isEqualToString:@"invalid"]) {
+		return NSLocalizedString(@"This item is no longer available", @"String describing a line item that is no longer in the channel");
 	} else {
-		localizedString = NSLocalizedString(@"Only %1$@ left in stock, reduce the quantity and try again.", @"String describing an out of stock line item with first parameter representing amount remaining");
+		NSNumber *remaining = (id)self.options[@"remaining"];
+		NSString *localizedString;
+		
+		if ([remaining isEqualToNumber:@0]) {
+			localizedString = NSLocalizedString(@"Completely sold out", @"String describing a line item with zero stock available");
+		} else {
+			localizedString = NSLocalizedString(@"Only %1$@ left in stock, reduce the quantity and try again.", @"String describing an out of stock line item with first parameter representing amount remaining");
+		}
+		return [NSString localizedStringWithFormat:localizedString, remaining];
 	}
-	return [NSString localizedStringWithFormat:localizedString, remaining];
 }
 
 @end
