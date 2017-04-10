@@ -38,19 +38,15 @@ class CartController {
     private(set) var items: [CartItem] = []
     
     var subtotal: Decimal {
-        var accumulator: Decimal = 0.0
-        for item in self.items {
-            accumulator += item.variant.price * Decimal(item.quantity)
+        return self.items.reduce(0) {
+            $0 + $1.variant.price * Decimal($1.quantity)
         }
-        return accumulator
     }
     
     var itemCount: Int {
-        var accumulator = 0
-        for item in self.items {
-            accumulator += item.quantity
+        return self.items.reduce(0) {
+            $0 + $1.quantity
         }
-        return accumulator
     }
     
     private let ioQueue    = DispatchQueue(label: "com.storefront.writeQueue")
