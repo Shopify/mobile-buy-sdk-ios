@@ -1070,6 +1070,7 @@
 				9AA89E8B1E9BDC590075AC74 /* MockSession.swift in Sources */,
 				9AA89E861E9BD8930075AC74 /* Graph.Task.swift in Sources */,
 				9AA89E981E9D2BD80075AC74 /* Graph.RetryHandlerTests.swift in Sources */,
+				9AA89E861E9BD8930075AC74 /* Graph.Task.swift in Sources */,
 				9AFA38ED1E64850A0056C5AA /* BuyTests.swift in Sources */,
 				9AA89E961E9D29B40075AC74 /* Graph.QueryError.swift in Sources */,
 				9AA89E8D1E9BDC650075AC74 /* MockSessionDataTask.swift in Sources */,
