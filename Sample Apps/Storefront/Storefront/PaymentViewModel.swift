@@ -39,6 +39,7 @@ final class PaymentViewModel: ViewModel {
     let checkout:   CheckoutViewModel
     let creditCard: CreditCardViewModel?
     let amount:     Decimal
+    let error:      String?
     
     // ----------------------------------
     //  MARK: - Init -
@@ -52,6 +53,7 @@ final class PaymentViewModel: ViewModel {
         self.amount     = model.amount
         self.isTest     = model.test
         self.isReady    = model.ready
+        self.error      = model.errorMessage
     }
 }
 

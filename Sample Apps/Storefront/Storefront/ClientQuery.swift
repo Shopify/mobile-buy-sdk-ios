@@ -243,6 +243,7 @@ final class ClientQuery {
                         .expiryMonth()
                         .expiryYear()
                     }
+                    .errorMessage()
                 }
             }
         }
