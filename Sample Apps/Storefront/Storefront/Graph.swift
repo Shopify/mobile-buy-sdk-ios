@@ -29,8 +29,8 @@ import Buy
 
 final class Graph {
     
-    private static let shopDomain = "your-shop.myshopify.com"
-    private static let apiKey     = "your-api-key"
+    static let shopDomain = "your-shop.myshopify.com"
+    static let apiKey     = "your-api-key"
     
     static let shared = Graph()
     
@@ -68,6 +68,9 @@ final class Graph {
         return task
     }
     
+    // ----------------------------------
+    //  MARK: - Products -
+    //
     @discardableResult
     func fetchProducts(in collection: CollectionViewModel, limit: Int = 25, after cursor: String? = nil, completion: @escaping (PageableArray<ProductViewModel>?) -> Void) -> URLSessionDataTask {
         
@@ -85,6 +88,27 @@ final class Graph {
                 
             } else {
                 print("Failed to load products in collection (\(collection.model.node.id.rawValue)): \(String(describing: error))")
+                completion(nil)
+            }
+        }
+        
+        task.resume()
+        return task
+    }
+    
+    // ----------------------------------
+    //  MARK: - Checkout -
+    //
+    @discardableResult
+    func createCheckout(with cartItems: [CartItem], completion: @escaping (Storefront.Checkout?) -> Void) -> URLSessionDataTask {
+        let mutation = GraphQuery.mutationForCreateCheckout(with: cartItems)
+        let task     = self.client.mutateGraphWith(mutation) { response, error in
+            
+            if let mutation = response,
+                let checkout = mutation.checkoutCreate?.checkout {
+                
+                completion(checkout)
+            } else {
                 completion(nil)
             }
         }

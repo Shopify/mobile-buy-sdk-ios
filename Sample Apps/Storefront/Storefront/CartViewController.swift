@@ -25,12 +25,15 @@
 //
 
 import UIKit
+import Pay
 
 class CartViewController: ParallaxViewController {
 
     @IBOutlet fileprivate weak var tableView: UITableView!
     
     private var totalsViewController: TotalsViewController!
+    
+    fileprivate let payController = PayController(merchantID: "greats-clone.myshopify.com")
     
     // ----------------------------------
     //  MARK: - Segue -
@@ -40,7 +43,8 @@ class CartViewController: ParallaxViewController {
         
         switch segue.identifier! {
         case "TotalsViewController":
-            self.totalsViewController = segue.destination as! TotalsViewController
+            self.totalsViewController          = segue.destination as! TotalsViewController
+            self.totalsViewController.delegate = self
         default:
             break
         }
@@ -119,6 +123,89 @@ extension CartViewController {
     
     @IBAction func cancelAction(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+    }
+}
+
+// ----------------------------------
+//  MARK: - TotalsControllerDelegate -
+//
+extension CartViewController: TotalsControllerDelegate {
+    
+    func totalsController(_ totalsController: TotalsViewController, didRequestPaymentWith type: PaymentType) {
+        
+        let cartItems = CartController.shared.items
+        Graph.shared.createCheckout(with: cartItems) { checkout in
+            if let checkout = checkout {
+                
+                let payCurrency = PayCurrency(currencyCode: "CAD", countryCode: "CA")
+                let payItems    = checkout.lineItems.edges.map {
+                    PayLineItem(price: $0.node.variant?.price ?? 0.0, quantity: Int($0.node.quantity))
+                }
+                
+                let payCheckout = PayCheckout(
+                    lineItems:       payItems,
+                    shippingAddress: nil,
+                    shippingRate:    nil,
+                    discountAmount:  0.0,
+                    subtotalPrice:   checkout.subtotalPrice,
+                    needsShipping:   checkout.requiresShipping,
+                    totalTax:        checkout.totalTax,
+                    paymentDue:      checkout.paymentDue
+                )
+                
+                self.payController.delegate = self
+                self.payController.authorizePaymentUsing(payCheckout, currency: payCurrency)
+                
+            } else {
+                print("Failed to create checkout")
+            }
+        }
+        
+    }
+}
+
+// ----------------------------------
+//  MARK: - PayControllerDelegate -
+//
+extension CartViewController: PayControllerDelegate {
+    
+    func payController(_ payController: PayController, didRequestShippingRatesFor address: PayPostalAddress, provide: @escaping  (PayCheckout, [PayShippingRate]) -> Void) {
+        
+        let start = Date(timeIntervalSince1970: Date().timeIntervalSince1970 + 86400 * 3)
+        let end   = Date(timeIntervalSince1970: Date().timeIntervalSince1970 + 86400 * 5)
+        
+        let shippingRates: [PayShippingRate] = [
+            PayShippingRate(handle: "123", title: "FedEx Express", price: 14.00, deliveryRange: .init(from: start, to: end)),
+            PayShippingRate(handle: "234", title: "UPS Regular", price: 13.00, deliveryRange: .init(from: start, to: end)),
+            PayShippingRate(handle: "345", title: "Canada Post", price: 7.50, deliveryRange: .init(from: start, to: end)),
+            PayShippingRate(handle: "456", title: "United States Postal Service", price: 5.00, deliveryRange: .init(from: start, to: end)),
+        ]
+        
+        print("Getting shipping rates...")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            print("Fetched shipping rates.")
+            provide(payController.checkout!, shippingRates)
+        }
+    }
+    
+    func payController(_ payController: PayController, didSelectShippingRate shippingRate: PayShippingRate, provide: @escaping  (PayCheckout) -> Void) {
+        
+        print("Selecting shipping rate...")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            print("Selected shipping rate.")
+            provide(payController.checkout!)
+        }
+    }
+    
+    func payController(_ payController: PayController, didCompletePayment token: Data, checkout: PayCheckout, completeTransaction: @escaping (PayController.TransactionStatus) -> Void) {
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            completeTransaction(.success)
+        }
+    }
+    
+    func payControllerDidFinish(_ payController: PayController) {
+        
     }
 }
 

@@ -68,4 +68,81 @@ final class GraphQuery {
             }
         }
     }
+    
+    static func mutationForCreateCheckout(with cartItems: [CartItem]) -> Storefront.MutationQuery {
+        let lineItems = cartItems.map { item in
+            Storefront.LineItemInput(variantId: GraphQL.ID(rawValue: item.variant.id), quantity: Int32(item.quantity))
+        }
+        
+        let checkoutInput = Storefront.CheckoutCreateInput(lineItems: lineItems)
+        
+        return Storefront.buildMutation { $0
+            .checkoutCreate(input: checkoutInput) { $0
+                .checkout { $0
+                    .id()
+                    .completedAt()
+                    .createdAt()
+                    .updatedAt()
+                    
+                    .ready()
+                    .requiresShipping()
+                    .taxExempt()
+                    .taxesIncluded()
+                    
+                    .shippingAddress { $0
+                        .address1()
+                        .address2()
+                        .city()
+                        .country()
+                        .countryCode()
+                        .province()
+                        .provinceCode()
+                        .zip()
+                        
+                        .company()
+                        .firstName()
+                        .lastName()
+                        .name()
+                        .phone()
+                    }
+                    
+                    .shippingLine { $0
+                        .handle()
+                        .title()
+                        .price()
+                    }
+                    
+                    .customAttributes { $0
+                        .key()
+                        .value()
+                    }
+                    
+                    .note()
+                    .lineItems(first: 250) { $0
+                        .edges { $0
+                            .node { $0
+                                .variant { $0
+                                    .id()
+                                    .price()
+                                }
+                                .title()
+                                .quantity()
+                                .customAttributes { $0
+                                    .key()
+                                    .value()
+                                }
+                            }
+                        }
+                    }
+                    .orderStatusUrl()
+                    .webUrl()
+                    .currencyCode()
+                    .subtotalPrice()
+                    .totalTax()
+                    .totalPrice()
+                    .paymentDue()
+                }
+            }
+        }
+    }
 }

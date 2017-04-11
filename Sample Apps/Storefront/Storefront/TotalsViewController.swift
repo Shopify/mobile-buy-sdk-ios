@@ -26,10 +26,21 @@
 
 import UIKit
 
+enum PaymentType {
+    case applePay
+    case webCheckout
+}
+
+protocol TotalsControllerDelegate: class {
+    func totalsController(_ totalsController: TotalsViewController, didRequestPaymentWith type: PaymentType)
+}
+
 class TotalsViewController: UIViewController {
     
     @IBOutlet private weak var subtotalTitleLabel: UILabel!
-    @IBOutlet private weak var subtotalLabel: UILabel!
+    @IBOutlet private weak var subtotalLabel:      UILabel!
+    
+    weak var delegate: TotalsControllerDelegate?
     
     var itemCount: Int = 0 {
         didSet {
@@ -49,5 +60,12 @@ class TotalsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    }
+    
+    // ----------------------------------
+    //  MARK: - Actions -
+    //
+    @IBAction func applePayAction(_ sender: Any) {
+        self.delegate?.totalsController(self, didRequestPaymentWith: .applePay)
     }
 }
