@@ -1,5 +1,5 @@
 //
-//  Graph.Task.swift
+//  MockSession.swift
 //  BuyTests
 //
 //  Created by Shopify.
@@ -24,53 +24,22 @@
 //  THE SOFTWARE.
 //
 
-import XCTest
-@testable import Buy
+import Foundation
 
-class Graph_Task: XCTestCase {
-    
-    let url: URL = URL(string: "https://www.google.com")!
+final class MockSession: URLSession {
     
     // ----------------------------------
     //  MARK: - Init -
     //
-    func testInit() {
-        let dataTask = MockDataTask()
-        let task     = Graph.Task(representing: dataTask)
+    override init() {
+        super.init()
         
-        XCTAssertNotNil(task.task)
-        XCTAssertTrue(task.task === dataTask)
     }
     
     // ----------------------------------
-    //  MARK: - Tasks -
+    //  MARK: - Requests -
     //
-    func testSetTask() {
-        let firstTask  = MockDataTask()
-        let task       = Graph.Task(representing: firstTask)
-        
-        let secondTask = MockDataTask()
-        task.setTask(secondTask)
-        
-        XCTAssertNotNil(task.task)
-        XCTAssertTrue(task.task === secondTask)
-    }
-    
-    func testResumeTask() {
-        let dataTask = MockDataTask()
-        let task     = Graph.Task(representing: dataTask)
-        
-        XCTAssertFalse(dataTask.isResumed)
-        task.resume()
-        XCTAssertTrue(dataTask.isResumed)
-    }
-    
-    func testCancelTask() {
-        let dataTask = MockDataTask()
-        let task     = Graph.Task(representing: dataTask)
-        
-        XCTAssertFalse(dataTask.isCanceled)
-        task.cancel()
-        XCTAssertTrue(dataTask.isCanceled)
+    override func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+        return MockDataTask(request: request, completion: completionHandler)
     }
 }
