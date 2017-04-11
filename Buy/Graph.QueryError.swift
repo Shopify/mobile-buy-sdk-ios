@@ -47,7 +47,7 @@ public extension Graph {
         case noData
         case jsonDeserializationFailed(data: Data?)
         case invalidJson(json: Any)
-        case schemaViolationError(violation: SchemaViolationError)
-        case queryError(reasons: [Reason])
+        case schemaViolation(violation: SchemaViolationError)
+        case invalidQuery(reasons: [Reason])
     }
 }
