@@ -12,6 +12,7 @@ extension Storefront {
 			return self
 		}
 
+		@available(*, deprecated, message:"Relay is moving away from requiring this field")
 		@discardableResult
 		open func clientMutationId(aliasSuffix: String? = nil) -> CheckoutCompleteWithCreditCardPayloadQuery {
 			addField(field: "clientMutationId", aliasSuffix: aliasSuffix)
@@ -83,6 +84,7 @@ extension Storefront {
 			return field(field: "checkout", aliasSuffix: aliasSuffix) as! Storefront.Checkout
 		}
 
+		@available(*, deprecated, message:"Relay is moving away from requiring this field")
 		open var clientMutationId: String? {
 			return internalGetClientMutationId()
 		}

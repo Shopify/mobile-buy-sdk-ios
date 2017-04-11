@@ -83,6 +83,21 @@ extension Storefront {
 		}
 
 		@discardableResult
+		open func checkoutEmailUpdate(aliasSuffix: String? = nil, input: CheckoutEmailUpdateInput, _ subfields: (CheckoutEmailUpdatePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("input:\(input.serialize())")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CheckoutEmailUpdatePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "checkoutEmailUpdate", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
+			return self
+		}
+
+		@discardableResult
 		open func checkoutShippingAddressUpdate(aliasSuffix: String? = nil, input: CheckoutShippingAddressUpdateInput, _ subfields: (CheckoutShippingAddressUpdatePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
@@ -318,6 +333,13 @@ extension Storefront {
 				}
 				return try CheckoutCreatePayload(fields: value)
 
+				case "checkoutEmailUpdate":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try CheckoutEmailUpdatePayload(fields: value)
+
 				case "checkoutShippingAddressUpdate":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -474,6 +496,18 @@ extension Storefront {
 
 		func internalGetCheckoutCreate(aliasSuffix: String? = nil) -> Storefront.CheckoutCreatePayload? {
 			return field(field: "checkoutCreate", aliasSuffix: aliasSuffix) as! Storefront.CheckoutCreatePayload?
+		}
+
+		open var checkoutEmailUpdate: Storefront.CheckoutEmailUpdatePayload? {
+			return internalGetCheckoutEmailUpdate()
+		}
+
+		open func aliasedCheckoutEmailUpdate(aliasSuffix: String) -> Storefront.CheckoutEmailUpdatePayload? {
+			return internalGetCheckoutEmailUpdate(aliasSuffix: aliasSuffix)
+		}
+
+		func internalGetCheckoutEmailUpdate(aliasSuffix: String? = nil) -> Storefront.CheckoutEmailUpdatePayload? {
+			return field(field: "checkoutEmailUpdate", aliasSuffix: aliasSuffix) as! Storefront.CheckoutEmailUpdatePayload?
 		}
 
 		open var checkoutShippingAddressUpdate: Storefront.CheckoutShippingAddressUpdatePayload? {
@@ -654,6 +688,10 @@ extension Storefront {
 
 				return .Object
 
+				case "checkoutEmailUpdate":
+
+				return .Object
+
 				case "checkoutShippingAddressUpdate":
 
 				return .Object
@@ -727,6 +765,9 @@ extension Storefront {
 
 				case "checkoutCreate":
 				return internalGetCheckoutCreate()
+
+				case "checkoutEmailUpdate":
+				return internalGetCheckoutEmailUpdate()
 
 				case "checkoutShippingAddressUpdate":
 				return internalGetCheckoutShippingAddressUpdate()
@@ -811,6 +852,12 @@ extension Storefront {
 
 					case "checkoutCreate":
 					if let value = internalGetCheckoutCreate() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "checkoutEmailUpdate":
+					if let value = internalGetCheckoutEmailUpdate() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}

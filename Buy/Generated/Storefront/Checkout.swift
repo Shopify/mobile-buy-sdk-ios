@@ -4,6 +4,15 @@ import Foundation
 extension Storefront {
 	open class CheckoutQuery: GraphQL.AbstractQuery {
 		@discardableResult
+		open func availableShippingRates(aliasSuffix: String? = nil, _ subfields: (AvailableShippingRatesQuery) -> Void) -> CheckoutQuery {
+			let subquery = AvailableShippingRatesQuery()
+			subfields(subquery)
+
+			addField(field: "availableShippingRates", aliasSuffix: aliasSuffix, subfields: subquery)
+			return self
+		}
+
+		@discardableResult
 		open func completedAt(aliasSuffix: String? = nil) -> CheckoutQuery {
 			addField(field: "completedAt", aliasSuffix: aliasSuffix)
 			return self
@@ -27,6 +36,21 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "customAttributes", aliasSuffix: aliasSuffix, subfields: subquery)
+			return self
+		}
+
+		@discardableResult
+		open func customer(aliasSuffix: String? = nil, _ subfields: (CustomerQuery) -> Void) -> CheckoutQuery {
+			let subquery = CustomerQuery()
+			subfields(subquery)
+
+			addField(field: "customer", aliasSuffix: aliasSuffix, subfields: subquery)
+			return self
+		}
+
+		@discardableResult
+		open func email(aliasSuffix: String? = nil) -> CheckoutQuery {
+			addField(field: "email", aliasSuffix: aliasSuffix)
 			return self
 		}
 
@@ -164,6 +188,13 @@ extension Storefront {
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "availableShippingRates":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try AvailableShippingRates(fields: value)
+
 				case "completedAt":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
@@ -188,6 +219,20 @@ extension Storefront {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
 				return try value.map { return try Attribute(fields: $0) }
+
+				case "customer":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try Customer(fields: value)
+
+				case "email":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return value
 
 				case "id":
 				guard let value = value as? String else {
@@ -303,6 +348,14 @@ extension Storefront {
 
 		open var typeName: String { return "Checkout" }
 
+		open var availableShippingRates: Storefront.AvailableShippingRates? {
+			return internalGetAvailableShippingRates()
+		}
+
+		func internalGetAvailableShippingRates(aliasSuffix: String? = nil) -> Storefront.AvailableShippingRates? {
+			return field(field: "availableShippingRates", aliasSuffix: aliasSuffix) as! Storefront.AvailableShippingRates?
+		}
+
 		open var completedAt: Date? {
 			return internalGetCompletedAt()
 		}
@@ -333,6 +386,22 @@ extension Storefront {
 
 		func internalGetCustomAttributes(aliasSuffix: String? = nil) -> [Storefront.Attribute] {
 			return field(field: "customAttributes", aliasSuffix: aliasSuffix) as! [Storefront.Attribute]
+		}
+
+		open var customer: Storefront.Customer? {
+			return internalGetCustomer()
+		}
+
+		func internalGetCustomer(aliasSuffix: String? = nil) -> Storefront.Customer? {
+			return field(field: "customer", aliasSuffix: aliasSuffix) as! Storefront.Customer?
+		}
+
+		open var email: String? {
+			return internalGetEmail()
+		}
+
+		func internalGetEmail(aliasSuffix: String? = nil) -> String? {
+			return field(field: "email", aliasSuffix: aliasSuffix) as! String?
 		}
 
 		open var id: GraphQL.ID {
@@ -477,6 +546,10 @@ extension Storefront {
 
 		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
 			switch(key) {
+				case "availableShippingRates":
+
+				return .Object
+
 				case "completedAt":
 
 				return .Scalar
@@ -492,6 +565,14 @@ extension Storefront {
 				case "customAttributes":
 
 				return .ObjectList
+
+				case "customer":
+
+				return .Object
+
+				case "email":
+
+				return .Scalar
 
 				case "id":
 
@@ -568,6 +649,12 @@ extension Storefront {
 
 		override open func fetchChildObject(key: String) -> GraphQL.AbstractResponse? {
 			switch(key) {
+				case "availableShippingRates":
+				return internalGetAvailableShippingRates()
+
+				case "customer":
+				return internalGetCustomer()
+
 				case "lineItems":
 				return internalGetLineItems()
 
@@ -601,10 +688,22 @@ extension Storefront {
 			objectMap.keys.forEach({
 				key in
 				switch(key) {
+					case "availableShippingRates":
+					if let value = internalGetAvailableShippingRates() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
 					case "customAttributes":
 					internalGetCustomAttributes().forEach {
 						response.append($0)
 						response.append(contentsOf: $0.childResponseObjectMap())
+					}
+
+					case "customer":
+					if let value = internalGetCustomer() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
 					case "lineItems":

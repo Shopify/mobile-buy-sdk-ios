@@ -3,6 +3,7 @@ import Foundation
 
 extension Storefront {
 	open class CustomerRecoverPayloadQuery: GraphQL.AbstractQuery {
+		@available(*, deprecated, message:"Relay is moving away from requiring this field")
 		@discardableResult
 		open func clientMutationId(aliasSuffix: String? = nil) -> CustomerRecoverPayloadQuery {
 			addField(field: "clientMutationId", aliasSuffix: aliasSuffix)
@@ -44,6 +45,7 @@ extension Storefront {
 
 		open var typeName: String { return "CustomerRecoverPayload" }
 
+		@available(*, deprecated, message:"Relay is moving away from requiring this field")
 		open var clientMutationId: String? {
 			return internalGetClientMutationId()
 		}

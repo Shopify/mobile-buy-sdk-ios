@@ -7,6 +7,10 @@ extension Storefront {
 
 		case center = "CENTER"
 
+		case `left` = "LEFT"
+
+		case `right` = "RIGHT"
+
 		case top = "TOP"
 
 		case unknownValue = ""

@@ -5,14 +5,14 @@ extension Storefront {
 	open class CustomerAddressUpdateInput {
 		open var clientMutationId: String?
 
-		open var accessToken: String
+		open var customerAccessToken: String
 
 		open var id: GraphQL.ID
 
 		open var address: MailingAddressInput
 
 		public init(
-			accessToken: String,
+			customerAccessToken: String,
 
 			id: GraphQL.ID,
 
@@ -22,7 +22,7 @@ extension Storefront {
 		) {
 			self.clientMutationId = clientMutationId
 
-			self.accessToken = accessToken
+			self.customerAccessToken = customerAccessToken
 
 			self.id = id
 
@@ -36,7 +36,7 @@ extension Storefront {
 				fields.append("clientMutationId:\(GraphQL.quoteString(input: clientMutationId))")
 			}
 
-			fields.append("accessToken:\(GraphQL.quoteString(input: accessToken))")
+			fields.append("customerAccessToken:\(GraphQL.quoteString(input: customerAccessToken))")
 
 			fields.append("id:\(GraphQL.quoteString(input: "\(id.rawValue)"))")
 

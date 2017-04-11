@@ -4,10 +4,10 @@ import Foundation
 extension Storefront {
 	open class QueryRootQuery: GraphQL.AbstractQuery {
 		@discardableResult
-		open func customer(aliasSuffix: String? = nil, accessToken: String, _ subfields: (CustomerQuery) -> Void) -> QueryRootQuery {
+		open func customer(aliasSuffix: String? = nil, customerAccessToken: String, _ subfields: (CustomerQuery) -> Void) -> QueryRootQuery {
 			var args: [String] = []
 
-			args.append("accessToken:\(GraphQL.quoteString(input: accessToken))")
+			args.append("customerAccessToken:\(GraphQL.quoteString(input: customerAccessToken))")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 

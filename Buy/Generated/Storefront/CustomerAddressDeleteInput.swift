@@ -7,12 +7,12 @@ extension Storefront {
 
 		open var id: GraphQL.ID
 
-		open var accessToken: String
+		open var customerAccessToken: String
 
 		public init(
 			id: GraphQL.ID,
 
-			accessToken: String,
+			customerAccessToken: String,
 
 			clientMutationId: String? = nil
 		) {
@@ -20,7 +20,7 @@ extension Storefront {
 
 			self.id = id
 
-			self.accessToken = accessToken
+			self.customerAccessToken = customerAccessToken
 		}
 
 		func serialize() -> String {
@@ -32,7 +32,7 @@ extension Storefront {
 
 			fields.append("id:\(GraphQL.quoteString(input: "\(id.rawValue)"))")
 
-			fields.append("accessToken:\(GraphQL.quoteString(input: accessToken))")
+			fields.append("customerAccessToken:\(GraphQL.quoteString(input: customerAccessToken))")
 
 			return "{\(fields.joined(separator: ","))}"
 		}

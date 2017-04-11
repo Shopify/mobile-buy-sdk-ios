@@ -109,6 +109,12 @@ extension Storefront {
 		}
 
 		@discardableResult
+		open func phone(aliasSuffix: String? = nil) -> CustomerQuery {
+			addField(field: "phone", aliasSuffix: aliasSuffix)
+			return self
+		}
+
+		@discardableResult
 		open func updatedAt(aliasSuffix: String? = nil) -> CustomerQuery {
 			addField(field: "updatedAt", aliasSuffix: aliasSuffix)
 			return self
@@ -183,6 +189,13 @@ extension Storefront {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
 				return try OrderConnection(fields: value)
+
+				case "phone":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return value
 
 				case "updatedAt":
 				guard let value = value as? String else {
@@ -285,6 +298,14 @@ extension Storefront {
 			return field(field: "orders", aliasSuffix: aliasSuffix) as! Storefront.OrderConnection
 		}
 
+		open var phone: String? {
+			return internalGetPhone()
+		}
+
+		func internalGetPhone(aliasSuffix: String? = nil) -> String? {
+			return field(field: "phone", aliasSuffix: aliasSuffix) as! String?
+		}
+
 		open var updatedAt: Date {
 			return internalGetUpdatedAt()
 		}
@@ -334,6 +355,10 @@ extension Storefront {
 				case "orders":
 
 				return .Object
+
+				case "phone":
+
+				return .Scalar
 
 				case "updatedAt":
 
