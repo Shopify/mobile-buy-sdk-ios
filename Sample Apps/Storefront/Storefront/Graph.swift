@@ -29,8 +29,8 @@ import Buy
 
 final class Graph {
     
-    private static let shopDomain = "your-shop.myshopify.com"
-    private static let apiKey     = "your-api-key"
+    static let shopDomain = "your-shop.myshopify.com"
+    static let apiKey     = "your-api-key"
     
     static let shared = Graph()
     
@@ -102,7 +102,7 @@ final class Graph {
     @discardableResult
     func createCheckout(with cartItems: [CartItem], completion: @escaping (Storefront.Checkout?) -> Void) -> URLSessionDataTask {
         let mutation = GraphQuery.mutationForCreateCheckout(with: cartItems)
-        let task     = self.client.mutateGraphWith(mutation) { response, erro in
+        let task     = self.client.mutateGraphWith(mutation) { response, error in
             
             if let mutation = response,
                 let checkout = mutation.checkoutCreate?.checkout {
