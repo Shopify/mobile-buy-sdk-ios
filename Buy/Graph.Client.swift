@@ -40,8 +40,8 @@ extension Graph {
         
         public let session:  URLSession
         
-        private let apiURL:  URL
-        private let headers: [String : String]
+        internal let apiURL:  URL
+        internal let headers: [String : String]
         
         // ----------------------------------
         //  MARK: - Init -
@@ -93,7 +93,7 @@ extension Graph {
             
             var task: Task!
             
-            let request  = self.graphRequest(query: query)
+            let request  = self.graphRequestFor(query: query)
             let dataTask = self.session.graphTask(with: request) { (response: R?, error: QueryError?) in
                 DispatchQueue.main.async {
                     
@@ -109,7 +109,7 @@ extension Graph {
                         let retryTask = self.graphRequestTask(query: query, retryHandler: retryHandler, completionHandler: completionHandler)
                         task.setTask(retryTask.task)
                         
-                        DispatchQueue.main.asyncAfter(deadline: .now() + retryHandler.repeatInterval) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + retryHandler.interval) {
                             if task.task.state == .suspended {
                                 task.resume()
                             }
@@ -125,7 +125,7 @@ extension Graph {
             return task
         }
         
-        private func graphRequest(query: GraphQL.AbstractQuery) -> URLRequest {
+        func graphRequestFor(query: GraphQL.AbstractQuery) -> URLRequest {
             var request = URLRequest(url: self.apiURL)
             
             request.httpMethod = "POST"
@@ -155,9 +155,8 @@ private extension URLSession {
                 
                 do {
                     completionHandler(try R(fields: json), error)
-                } catch {
-                    let violation = error as? SchemaViolationError ?? SchemaViolationError(type: R.self, field: "data", value: json)
-                    completionHandler(nil, Graph.QueryError.schemaViolationError(violation: violation))
+                } catch let error {
+                    completionHandler(nil, Graph.QueryError.schemaViolation(violation: error as! SchemaViolationError))
                 }
                 
             } else {
@@ -209,7 +208,7 @@ private extension URLSession {
              */
             var queryError: Graph.QueryError?
             if let graphErrors = graphErrors {
-                queryError = .queryError(reasons: graphErrors.map {
+                queryError = .invalidQuery(reasons: graphErrors.map {
                     Graph.QueryError.Reason(json: $0)
                 })
             }
