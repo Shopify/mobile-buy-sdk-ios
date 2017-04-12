@@ -51,14 +51,17 @@ public class PaySession: NSObject {
     internal fileprivate(set) var checkout:      PayCheckout
     internal fileprivate(set) var shippingRates: [PayShippingRate] = []
     
+    private let controllerType: PKPaymentAuthorizationController.Type
+    
     // ----------------------------------
     //  MARK: - Init -
     //
-    public init(checkout: PayCheckout, currency: PayCurrency, merchantID: String) {
-        self.checkout   = checkout
-        self.currency   = currency
-        self.merchantID = merchantID
-        self.identifier = UUID().uuidString
+    public init(checkout: PayCheckout, currency: PayCurrency, merchantID: String, controllerType: PKPaymentAuthorizationController.Type = PKPaymentAuthorizationController.self) {
+        self.checkout       = checkout
+        self.currency       = currency
+        self.merchantID     = merchantID
+        self.identifier     = UUID().uuidString
+        self.controllerType = controllerType
     }
     
     // ----------------------------------
@@ -66,7 +69,7 @@ public class PaySession: NSObject {
     //
     public func authorize() {
         let paymentRequest  = self.paymentRequestUsing(checkout, currency: currency, merchantID: self.merchantID)
-        let controller      = PKPaymentAuthorizationController(paymentRequest: paymentRequest)
+        let controller      = self.controllerType.init(paymentRequest: paymentRequest)
         controller.delegate = self
         controller.present(completion: nil)
     }
