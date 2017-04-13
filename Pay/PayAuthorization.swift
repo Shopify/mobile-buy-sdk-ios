@@ -26,7 +26,7 @@
 
 import Foundation
 
-public class PayAuthorization {
+public struct PayAuthorization {
 
     public let token: String
     
