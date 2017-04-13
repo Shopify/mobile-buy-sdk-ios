@@ -74,6 +74,9 @@ class PaySessionTests: XCTestCase {
         XCTAssertEqual(shippingRequest.requiredShippingAddressFields, [.all])
     }
     
+    // ----------------------------------
+    //  MARK: - Select Shipping Contact -
+    //
     func testSelectShippingContactWithInvalidAddress() {
         
         let checkout = self.createCheckout(requiresShipping: true)
@@ -122,20 +125,21 @@ class PaySessionTests: XCTestCase {
         let shippingRate     = self.createShippingRate()
         let addressCheckout  = self.createCheckout(shippingAddress: shippingAddress)
         let shippingCheckout = self.createCheckout(shippingRate: shippingRate)
-        let validExpectation = self.expectation(description: "")
         
+        let e1 = self.expectation(description: "")
         delegate.didRequestShippingRates = { session, postalAddress, checkout, provide in
-            validExpectation.fulfill()
+            e1.fulfill()
             
             XCTAssertNil(checkout.shippingAddress)
             XCTAssertNil(checkout.shippingRate)
             
-            provide(addressCheckout, [
-                shippingRate,
-            ])
+            provide(addressCheckout, [shippingRate])
         }
         
+        let e2 = self.expectation(description: "")
         delegate.didSelectShippingRate = { session, shippingRate, checkout, provide in
+            e2.fulfill()
+            
             XCTAssertNotNil(checkout.shippingAddress)
             XCTAssertNil(checkout.shippingRate)
             
@@ -149,9 +153,69 @@ class PaySessionTests: XCTestCase {
             XCTAssertEqual(summaryItems, shippingCheckout.summaryItems)
         }
         
-        self.wait(for: [validExpectation], timeout: 0)
+        self.wait(for: [e1, e2], timeout: 0)
     }
     
+    func testSelectShippingContactFailure() {
+        
+        let checkout = self.createCheckout(requiresShipping: true)
+        let delegate = self.setupDelegateForMockSessionWith(checkout)
+        
+        let shippingContact  = self.createShippingContact()
+        let shippingAddress  = self.createAddress()
+        let shippingRate     = self.createShippingRate()
+        let addressCheckout  = self.createCheckout(shippingAddress: shippingAddress)
+        
+        let e1 = self.expectation(description: "")
+        delegate.didRequestShippingRates = { session, postalAddress, checkout, provide in
+            e1.fulfill()
+            provide(addressCheckout, [shippingRate])
+        }
+        
+        let e2 = self.expectation(description: "")
+        delegate.didSelectShippingRate = { session, shippingRate, checkout, provide in
+            e2.fulfill()
+            
+            XCTAssertNotNil(checkout.shippingAddress)
+            XCTAssertNil(checkout.shippingRate)
+            
+            provide(nil)
+        }
+        
+        MockAuthorizationController.invokeDidSelectShippingContact(shippingContact) { status, shippingMethods, summaryItems in
+            
+            XCTAssertEqual(status, .failure)
+            XCTAssertTrue(shippingMethods.isEmpty)
+            XCTAssertTrue(summaryItems.isEmpty)
+        }
+        
+        self.wait(for: [e1, e2], timeout: 0)
+    }
+    
+    // ----------------------------------
+    //  MARK: - Select Shipping Method -
+    //
+    func testSelectShippingMethodWithoutShippingRates() {
+        
+        let checkout = self.createCheckout(requiresShipping: true)
+        let delegate = self.setupDelegateForMockSessionWith(checkout)
+        
+        delegate.didSelectShippingRate = { session, shippingRate, checkout, provide in
+            XCTFail()
+        }
+        
+        let shippingRate   = self.createShippingRate()
+        let shippingMethod = shippingRate.summaryItem
+        
+        MockAuthorizationController.invokeDidSelectShippingMethod(shippingMethod) { status, summaryItems in
+            XCTAssertEqual(status, .failure)
+            XCTAssertEqual(summaryItems, checkout.summaryItems)
+        }
+    }
+    
+    // ----------------------------------
+    //  MARK: - Session Delegate -
+    //
     private func setupDelegateForMockSessionWith(_ checkout: PayCheckout) -> MockSessionDelegate {
         let session      = self.createSession()
         let delegate     = MockSessionDelegate(session: session)
@@ -163,15 +227,23 @@ class PaySessionTests: XCTestCase {
         
         return delegate
     }
+}
+
+// ----------------------------------
+//  MARK: - Models -
+//
+extension PaySessionTests {
     
     // ----------------------------------
     //  MARK: - PassKit Models -
     //
-    private func createShippingMethod() -> PKShippingMethod {
-        return PKShippingMethod(label: "CanadaPost", amount: 15.00 as NSDecimalNumber)
+    fileprivate func createShippingMethod(identifier: String? = nil) -> PKShippingMethod {
+        let method        = PKShippingMethod(label: "CanadaPost", amount: 15.00 as NSDecimalNumber)
+        method.identifier = identifier
+        return method
     }
     
-    private func createShippingContact() -> PKContact {
+    fileprivate func createShippingContact() -> PKContact {
         let contact  = PKContact()
         contact.name = {
             var c        = PersonNameComponents()
@@ -186,7 +258,7 @@ class PaySessionTests: XCTestCase {
         return contact
     }
     
-    private func createPostalAddress() -> CNPostalAddress {
+    fileprivate func createPostalAddress() -> CNPostalAddress {
         let address        = CNMutablePostalAddress()
         address.street     = "80 Spadina"
         address.city       = "Toronto"
@@ -200,21 +272,21 @@ class PaySessionTests: XCTestCase {
     // ----------------------------------
     //  MARK: - Pay Models -
     //
-    private func createSession() -> PaySession {
+    fileprivate func createSession() -> PaySession {
         return PaySession(merchantID: "com.merchant.identifier", controllerType: MockAuthorizationController.self)
     }
     
-    private func createCurrency() -> PayCurrency {
+    fileprivate func createCurrency() -> PayCurrency {
         return PayCurrency(currencyCode: "USD", countryCode: "US")
     }
     
-    private func createCheckout(requiresShipping: Bool = true, shippingAddress: PayAddress? = nil, shippingRate: PayShippingRate? = nil) -> PayCheckout {
+    fileprivate func createCheckout(requiresShipping: Bool = true, shippingAddress: PayAddress? = nil, shippingRate: PayShippingRate? = nil) -> PayCheckout {
         return PayCheckout(
             id: "com.checkout.identifier",
             lineItems: [
                 self.createLineItem1(),
                 self.createLineItem2(),
-            ],
+                ],
             shippingAddress: shippingAddress,
             shippingRate:    shippingRate,
             discountAmount:  0.0,
@@ -225,24 +297,15 @@ class PaySessionTests: XCTestCase {
         )
     }
     
-    private func createLineItem1() -> PayLineItem {
+    fileprivate func createLineItem1() -> PayLineItem {
         return PayLineItem(price: 16.0, quantity: 2)
     }
     
-    private func createLineItem2() -> PayLineItem {
+    fileprivate func createLineItem2() -> PayLineItem {
         return PayLineItem(price: 12.0, quantity: 1)
     }
     
-//    private func createShippingAddress() -> PayPostalAddress {
-//        return PayPostalAddress(
-//            city:     "Toronto",
-//            country:  "Canada",
-//            province: "ON",
-//            zip:      "M5V 2J4"
-//        )
-//    }
-    
-    private func createAddress() -> PayAddress {
+    fileprivate func createAddress() -> PayAddress {
         return PayAddress(
             addressLine1: "80 Spadina",
             addressLine2: nil,
@@ -257,107 +320,7 @@ class PaySessionTests: XCTestCase {
         )
     }
     
-    private func createShippingRate() -> PayShippingRate {
+    fileprivate func createShippingRate() -> PayShippingRate {
         return PayShippingRate(handle: "shipping-rate", title: "UPS Standard", price: 12.0)
-    }
-}
-
-// ---------------------------------------
-//  MARK: - MockAuthorizationController -
-//
-private final class MockAuthorizationController: PKPaymentAuthorizationController {
-    
-    private static var instances: [MockAuthorizationController] = []
-    
-    // ----------------------------------
-    //  MARK: - Instance Management -
-    //
-    override init(paymentRequest request: PKPaymentRequest) {
-        super.init(paymentRequest: request)
-        
-        type(of: self).instances.append(self)
-    }
-    
-    // ----------------------------------
-    //  MARK: - Disable Defaults -
-    //
-    override func present(completion: ((Bool) -> Void)? = nil) {
-        // Do nothing
-    }
-    
-    // ----------------------------------
-    //  MARK: - Invoke Delegate Calls -
-    //
-    static func invokeDidSelectShippingContact(_ contact: PKContact, completion: @escaping (PKPaymentAuthorizationStatus, [PKShippingMethod], [PKPaymentSummaryItem]) -> Void) {
-        
-        self.instances.forEach { authorizationController in
-            authorizationController.delegate?.paymentAuthorizationController?(authorizationController, didSelectShippingContact: contact, completion: completion)
-        }
-    }
-    
-    static func invokeDidAuthorizePayment(_ payment: PKPayment, completion: @escaping (PKPaymentAuthorizationStatus) -> Void) {
-        
-        self.instances.forEach { authorizationController in
-            authorizationController.delegate?.paymentAuthorizationController(authorizationController, didAuthorizePayment: payment, completion: completion)
-        }
-    }
-    
-    static func invokeDidFinish() {
-        self.instances.forEach { authorizationController in
-            authorizationController.delegate?.paymentAuthorizationControllerDidFinish(authorizationController)
-        }
-    }
-    
-    static func invokeDidSelectShippingMethod(_ shippingMethod: PKShippingMethod, completion: @escaping (PKPaymentAuthorizationStatus, [PKPaymentSummaryItem]) -> Void) {
-        
-        self.instances.forEach { authorizationController in
-            authorizationController.delegate?.paymentAuthorizationController?(authorizationController, didSelectShippingMethod: shippingMethod, completion: completion)
-        }
-    }
-
-    static func invokeDidSelectPaymentMethod(_ paymentMethod: PKPaymentMethod, completion: @escaping ([PKPaymentSummaryItem]) -> Void) {
-        
-        self.instances.forEach { authorizationController in
-            authorizationController.delegate?.paymentAuthorizationController?(authorizationController, didSelectPaymentMethod: paymentMethod, completion: completion)
-        }
-    }
-}
-
-// ----------------------------------
-//  MARK: - SessionDelegate -
-//
-private final class MockSessionDelegate: PaySessionDelegate {
-    
-    var didSelectShippingRate:   ((PaySession, PayShippingRate, PayCheckout, (PayCheckout?) -> Void) -> Void)?
-    var didAuthorizePayment:     ((PaySession, PayAuthorization, PayCheckout, (PaySession.TransactionStatus) -> Void) -> Void)?
-    var didRequestShippingRates: ((PaySession, PayPostalAddress, PayCheckout, (PayCheckout?, [PayShippingRate]) -> Void) -> Void)?
-    var didFinish: ((PaySession) -> Void)?
-    
-    let session: PaySession
-    
-    // ----------------------------------
-    //  MARK: - Init -
-    //
-    init(session: PaySession) {
-        self.session = session
-    }
-    
-    // ----------------------------------
-    //  MARK: - Delegate -
-    //
-    func paySession(_ paySession: PaySession, didSelectShippingRate shippingRate: PayShippingRate, checkout: PayCheckout, provide: @escaping (PayCheckout?) -> Void) {
-        self.didSelectShippingRate?(paySession, shippingRate, checkout, provide)
-    }
-    
-    func paySession(_ paySession: PaySession, didAuthorizePayment authorization: PayAuthorization, checkout: PayCheckout, completeTransaction: @escaping (PaySession.TransactionStatus) -> Void) {
-        self.didAuthorizePayment?(paySession, authorization, checkout, completeTransaction)
-    }
-    
-    func paySession(_ paySession: PaySession, didRequestShippingRatesFor address: PayPostalAddress, checkout: PayCheckout, provide: @escaping (PayCheckout?, [PayShippingRate]) -> Void) {
-        self.didRequestShippingRates?(paySession, address, checkout, provide)
-    }
-    
-    func paySessionDidFinish(_ paySession: PaySession) {
-        self.didFinish?(paySession)
     }
 }

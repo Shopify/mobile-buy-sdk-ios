@@ -140,6 +140,8 @@
 		9AD1871A1EA4F954003F91A3 /* UserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD186AD1EA4F954003F91A3 /* UserError.swift */; };
 		9AD1871B1EA4F954003F91A3 /* WeightUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD186AE1EA4F954003F91A3 /* WeightUnit.swift */; };
 		9AD1871C1EA4F954003F91A3 /* Storefront.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD186AF1EA4F954003F91A3 /* Storefront.swift */; };
+		9AEC90E21E9FFA7F008C6E1C /* MockSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEC90E11E9FFA7F008C6E1C /* MockSessionDelegate.swift */; };
+		9AEC90E41E9FFAA6008C6E1C /* MockAuthorizationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEC90E31E9FFAA6008C6E1C /* MockAuthorizationController.swift */; };
 		9AEF60F81E5F42D90067FA90 /* Buy.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AEF60F61E5F42D90067FA90 /* Buy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9AEF61A11E5F5A190067FA90 /* GraphQL+ScalarSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF61A01E5F5A190067FA90 /* GraphQL+ScalarSupport.swift */; };
 		9AEF61B91E5F64230067FA90 /* Graph.Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF61B81E5F64230067FA90 /* Graph.Client.swift */; };
@@ -302,6 +304,8 @@
 		9AD186AD1EA4F954003F91A3 /* UserError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserError.swift; sourceTree = "<group>"; };
 		9AD186AE1EA4F954003F91A3 /* WeightUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightUnit.swift; sourceTree = "<group>"; };
 		9AD186AF1EA4F954003F91A3 /* Storefront.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storefront.swift; sourceTree = "<group>"; };
+		9AEC90E11E9FFA7F008C6E1C /* MockSessionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSessionDelegate.swift; sourceTree = "<group>"; };
+		9AEC90E31E9FFAA6008C6E1C /* MockAuthorizationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockAuthorizationController.swift; sourceTree = "<group>"; };
 		9AEF60F31E5F42D90067FA90 /* Buy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Buy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AEF60F61E5F42D90067FA90 /* Buy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Buy.h; sourceTree = "<group>"; };
 		9AEF60F71E5F42D90067FA90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -367,6 +371,7 @@
 		9A4068E81E8E7659000254CD /* PayTests */ = {
 			isa = PBXGroup;
 			children = (
+				9AEC90E01E9FFA6E008C6E1C /* Mocks */,
 				9A4068E91E8E7659000254CD /* PaySessionTests.swift */,
 				9A4068EB1E8E7659000254CD /* Info.plist */,
 			);
@@ -633,6 +638,13 @@
 				9AD186AE1EA4F954003F91A3 /* WeightUnit.swift */,
 			);
 			path = Storefront;
+		9AEC90E01E9FFA6E008C6E1C /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				9AEC90E11E9FFA7F008C6E1C /* MockSessionDelegate.swift */,
+				9AEC90E31E9FFAA6008C6E1C /* MockAuthorizationController.swift */,
+			);
+			name = Mocks;
 			sourceTree = "<group>";
 		};
 		9AEF60E91E5F42D90067FA90 = {
@@ -909,6 +921,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A4068EA1E8E7659000254CD /* PaySessionTests.swift in Sources */,
+				9AEC90E41E9FFAA6008C6E1C /* MockAuthorizationController.swift in Sources */,
+				9AEC90E21E9FFA7F008C6E1C /* MockSessionDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
