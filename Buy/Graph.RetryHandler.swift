@@ -1,5 +1,5 @@
 //
-//  GraphResult.swift
+//  Graph.RetryHandler.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -26,7 +26,40 @@
 
 import Foundation
 
-public enum GraphResult<T> {
-    case success(T)
-    case error(Error?)
+public extension Graph {
+    
+    public struct RetryHandler<R: GraphQL.AbstractResponse> {
+        
+        public typealias Condition = (R?, QueryError?) -> Bool
+        
+        public enum Endurance {
+            case infinite
+            case finite(Int)
+            
+            fileprivate func canContinueFor(_ count: Int) -> Bool {
+                switch self {
+                case .infinite:          return true
+                case .finite(let limit): return count < limit
+                }
+            }
+        }
+        
+        public internal(set) var repeatCount: Int = 0
+        
+        public var repeatInterval: Double = 2.0
+        
+        public let endurance: Endurance
+        public let condition: Condition
+        public var canRetry:  Bool {
+            return self.endurance.canContinueFor(self.repeatCount)
+        }
+        
+        // ----------------------------------
+        //  MARK: - Init -
+        //
+        public init(endurance: Endurance = .infinite, condition: @escaping Condition) {
+            self.endurance = endurance
+            self.condition = condition
+        }
+    }
 }
