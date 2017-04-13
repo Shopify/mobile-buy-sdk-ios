@@ -77,7 +77,7 @@ public class PaySession: NSObject {
     // ----------------------------------
     //  MARK: - Payment Creation -
     //
-    private func paymentRequestUsing(_ checkout: PayCheckout, currency: PayCurrency, merchantID: String) -> PKPaymentRequest {
+    func paymentRequestUsing(_ checkout: PayCheckout, currency: PayCurrency, merchantID: String) -> PKPaymentRequest {
         let request                           = PKPaymentRequest()
         request.countryCode                   = currency.countryCode
         request.currencyCode                  = currency.currencyCode
