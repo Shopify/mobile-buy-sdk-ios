@@ -11,7 +11,7 @@ xcodebuild test \
  | xcpretty -c
  
  xcodebuild test \
--project "Pay.xcodeproj" \
+-project "Buy.xcodeproj" \
 -scheme "Pay" \
 -sdk iphonesimulator \
 -destination 'platform=iOS Simulator,name=iPhone 7,OS=10.3' \
