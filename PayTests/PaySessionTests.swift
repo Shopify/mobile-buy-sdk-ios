@@ -34,16 +34,24 @@ class PaySessionTests: XCTestCase {
     //  MARK: - Init -
     //
     func testInit() {
-        let session = PaySession(merchantID: "some-id")
+        let checkout = self.createCheckout()
+        let currency = self.createCurrency()
+        let session  = PaySession(checkout: checkout, currency: currency, merchantID: "some-id")
         
         XCTAssertEqual(session.merchantID, "some-id")
+        XCTAssertEqual(session.checkout.id, checkout.id)
+        XCTAssertEqual(session.currency.countryCode, currency.countryCode)
+        
         XCTAssertFalse(session.identifier.isEmpty)
     }
     
     func testUniqueIdentifier() {
-        let session1 = self.createSession()
-        let session2 = self.createSession()
-        let session3 = self.createSession()
+        let checkout = self.createCheckout()
+        let currency = self.createCurrency()
+        
+        let session1 = self.createSession(checkout: checkout, currency: currency)
+        let session2 = self.createSession(checkout: checkout, currency: currency)
+        let session3 = self.createSession(checkout: checkout, currency: currency)
         
         XCTAssertNotEqual(session1.identifier, session2.identifier)
         XCTAssertNotEqual(session2.identifier, session3.identifier)
@@ -53,8 +61,9 @@ class PaySessionTests: XCTestCase {
     //  MARK: - Payment Request -
     //
     func testPaymentRequest() {
-        let session  = self.createSession()
+        let checkout = self.createCheckout()
         let currency = self.createCurrency()
+        let session  = self.createSession(checkout: checkout, currency: currency)
         
         let digitalCheckout = self.createCheckout(requiresShipping: false)
         let digitalRequest  = session.paymentRequestUsing(digitalCheckout, currency: currency, merchantID: session.merchantID)
@@ -217,13 +226,12 @@ class PaySessionTests: XCTestCase {
     //  MARK: - Session Delegate -
     //
     private func setupDelegateForMockSessionWith(_ checkout: PayCheckout) -> MockSessionDelegate {
-        let session      = self.createSession()
+        let currency     = self.createCurrency()
+        let session      = self.createSession(checkout: checkout, currency: currency)
         let delegate     = MockSessionDelegate(session: session)
         session.delegate = delegate
         
-        let currency = self.createCurrency()
-        
-        session.authorizePaymentUsing(checkout, currency: currency)
+        session.authorize()
         
         return delegate
     }
@@ -272,8 +280,8 @@ extension PaySessionTests {
     // ----------------------------------
     //  MARK: - Pay Models -
     //
-    fileprivate func createSession() -> PaySession {
-        return PaySession(merchantID: "com.merchant.identifier", controllerType: MockAuthorizationController.self)
+    fileprivate func createSession(checkout: PayCheckout, currency: PayCurrency) -> PaySession {
+        return PaySession(checkout: checkout, currency: currency, merchantID: "com.merchant.identifier", controllerType: MockAuthorizationController.self)
     }
     
     fileprivate func createCurrency() -> PayCurrency {
