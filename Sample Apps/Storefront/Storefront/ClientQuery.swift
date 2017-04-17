@@ -128,41 +128,6 @@ final class ClientQuery {
         }
     }
     
-//    static func mutationForUpdateCheckout(_ id: String, updatingBillingAddress address: PayPostalAddress) -> Storefront.MutationQuery {
-//        
-////        let addressInput = Storefront.MailingAddressInput(
-////            city:     address.city,
-////            country:  address.country,
-////            province: address.province,
-////            zip:      address.zip
-////        )
-//        
-//        let addressInput = Storefront.MailingAddressInput(
-//            address1:  "80 Spadina",
-//            address2:  "",
-//            city:      "Toronto",
-//            country:   "Canada",
-//            firstName: "John",
-//            lastName:  "Smith",
-//            province:  "ON",
-//            zip:       "M5V 2J4"
-//        )
-//        
-//        let updateInput = Storefront.CheckoutBillingAddressUpdateInput(shippingAddress: addressInput, checkoutId: GraphQL.ID(rawValue: id))
-//        
-//        return Storefront.buildMutation { $0
-//            .checkoutBillingAddressUpdate(input: updateInput) { $0
-//                .userErrors { $0
-//                    .field()
-//                    .message()
-//                }
-//                .checkout { $0
-//                    .fragmentForCheckout()
-//                }
-//            }
-//        }
-//    }
-    
     static func mutationForUpdateCheckout(_ id: String, updatingShippingRate shippingRate: PayShippingRate) -> Storefront.MutationQuery {
         
         let updateInput = Storefront.CheckoutShippingLineUpdateInput(checkoutId: GraphQL.ID(rawValue: id), shippingRateHandle: shippingRate.handle)

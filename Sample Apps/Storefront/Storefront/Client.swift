@@ -126,24 +126,6 @@ final class Client {
         return task
     }
     
-//    @discardableResult
-//    func updateCheckout(_ id: String, updatingBillingAddress address: PayPostalAddress, completion: @escaping (CheckoutViewModel?) -> Void) -> Graph.Task {
-//        let mutation = ClientQuery.mutationForUpdateCheckout(id, updatingBillingAddress: address)
-//        let task     = self.client.mutateGraphWith(mutation) { response, error in
-//            error.debugPrint()
-//            
-//            if let checkout = response?.checkoutBillingAddressUpdate?.checkout,
-//                let _ = checkout.billingAddress {
-//                completion(checkout.viewModel)
-//            } else {
-//                completion(nil)
-//            }
-//        }
-//        
-//        task.resume()
-//        return task
-//    }
-    
     @discardableResult
     func updateCheckout(_ id: String, updatingShippingRate shippingRate: PayShippingRate, completion: @escaping (CheckoutViewModel?) -> Void) -> Graph.Task {
         let mutation = ClientQuery.mutationForUpdateCheckout(id, updatingShippingRate: shippingRate)
