@@ -33,7 +33,7 @@ class CartViewController: ParallaxViewController {
     
     private var totalsViewController: TotalsViewController!
     
-    fileprivate let paySession = PaySession(merchantID: "your-merchant-identifier.myshopify.com")
+    fileprivate var paySession: PaySession?
     
     // ----------------------------------
     //  MARK: - Segue -
@@ -107,6 +107,34 @@ class CartViewController: ParallaxViewController {
     }
     
     // ----------------------------------
+    //  MARK: - Actions -
+    //
+    func authorizePaymentWith(_ checkout: CheckoutViewModel) {
+        let payCurrency = PayCurrency(currencyCode: "CAD", countryCode: "CA")
+        let payItems    = checkout.lineItems.map { item in
+            PayLineItem(price: item.totalPrice, quantity: item.quantity)
+        }
+        
+        let payCheckout = PayCheckout(
+            id:              checkout.id,
+            lineItems:       payItems,
+            shippingAddress: nil,
+            shippingRate:    nil,
+            discountAmount:  0.0,
+            subtotalPrice:   checkout.subtotalPrice,
+            needsShipping:   checkout.requiresShipping,
+            totalTax:        checkout.totalTax,
+            paymentDue:      checkout.paymentDue
+        )
+        
+        let paySession      = PaySession(checkout: payCheckout, currency: payCurrency, merchantID: "com.mechant.identifier")
+        paySession.delegate = self
+        self.paySession     = paySession
+        
+        paySession.authorize()
+    }
+    
+    // ----------------------------------
     //  MARK: - View Controllers -
     //
     func productDetailsViewControllerWith(_ product: ProductViewModel) -> ProductDetailsViewController {
@@ -136,27 +164,7 @@ extension CartViewController: TotalsControllerDelegate {
         let cartItems = CartController.shared.items
         Client.shared.createCheckout(with: cartItems) { checkout in
             if let checkout = checkout {
-                
-                let payCurrency = PayCurrency(currencyCode: "CAD", countryCode: "CA")
-                let payItems    = checkout.lineItems.map { item in
-                    PayLineItem(price: item.totalPrice, quantity: item.quantity)
-                }
-                
-                let payCheckout = PayCheckout(
-                    id:              checkout.id,
-                    lineItems:       payItems,
-                    shippingAddress: nil,
-                    shippingRate:    nil,
-                    discountAmount:  0.0,
-                    subtotalPrice:   checkout.subtotalPrice,
-                    needsShipping:   checkout.requiresShipping,
-                    totalTax:        checkout.totalTax,
-                    paymentDue:      checkout.paymentDue
-                )
-                
-                self.paySession.delegate = self
-                self.paySession.authorizePaymentUsing(payCheckout, currency: payCurrency)
-                
+                self.authorizePaymentWith(checkout)
             } else {
                 print("Failed to create checkout")
             }
