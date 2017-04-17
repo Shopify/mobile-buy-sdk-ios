@@ -9,3 +9,10 @@ xcodebuild test \
 -sdk iphonesimulator \
 -destination 'platform=iOS Simulator,name=iPhone 7,OS=10.3' \
  | xcpretty -c
+ 
+ xcodebuild test \
+-project "Pay.xcodeproj" \
+-scheme "Pay" \
+-sdk iphonesimulator \
+-destination 'platform=iOS Simulator,name=iPhone 7,OS=10.3' \
+ | xcpretty -c
