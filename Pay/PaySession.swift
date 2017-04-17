@@ -44,17 +44,19 @@ public class PaySession: NSObject {
     
     public weak var delegate: PaySessionDelegate?
     
+    public let currency:   PayCurrency
     public let merchantID: String
     public let identifier: String
     
-    internal fileprivate(set) var currency:      PayCurrency?
-    internal fileprivate(set) var checkout:      PayCheckout?
-    internal fileprivate(set) var shippingRates: [PayShippingRate]?
+    internal fileprivate(set) var checkout:      PayCheckout
+    internal fileprivate(set) var shippingRates: [PayShippingRate] = []
     
     // ----------------------------------
     //  MARK: - Init -
     //
-    public init(merchantID: String) {
+    public init(checkout: PayCheckout, currency: PayCurrency, merchantID: String) {
+        self.checkout   = checkout
+        self.currency   = currency
         self.merchantID = merchantID
         self.identifier = UUID().uuidString
     }
@@ -62,10 +64,7 @@ public class PaySession: NSObject {
     // ----------------------------------
     //  MARK: - Begin Checkout -
     //
-    public func authorizePaymentUsing(_ checkout: PayCheckout, currency: PayCurrency) {
-        self.checkout = checkout
-        self.currency = currency
-        
+    public func authorize() {
         let paymentRequest  = self.paymentRequestUsing(checkout, currency: currency, merchantID: self.merchantID)
         let controller      = PKPaymentAuthorizationController(paymentRequest: paymentRequest)
         controller.delegate = self
@@ -110,11 +109,11 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
             token:           payment.token.paymentData.hexString,
             billingAddress:  PayAddress(with: payment.billingContact!),
             shippingAddress: PayAddress(with: payment.shippingContact!),
-            shippingRate:    self.shippingRates?.shippingRateFor(payment.shippingMethod!)
+            shippingRate:    self.shippingRates.shippingRateFor(payment.shippingMethod!)
         )
         
         print("Authorized payment. Completing...")
-        self.delegate?.paySession(self, didAuthorizePayment: authorization, checkout: self.checkout!, completeTransaction: { status in
+        self.delegate?.paySession(self, didAuthorizePayment: authorization, checkout: self.checkout, completeTransaction: { status in
             print("Completion status : \(status)")
             
             switch status {
@@ -128,7 +127,7 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
         print("Selecting shipping contact...")
         
         guard let postalAddress = contact.postalAddress else {
-            completion(.invalidShippingPostalAddress, [], self.checkout!.summaryItems)
+            completion(.invalidShippingPostalAddress, [], self.checkout.summaryItems)
             return
         }
         
@@ -140,7 +139,7 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
          ** postal address. The partial info
          ** should be enough to obtain rates.
          */
-        self.delegate?.paySession(self, didRequestShippingRatesFor: payPostalAddress, checkout: self.checkout!, provide: { updatedCheckout, shippingRates in
+        self.delegate?.paySession(self, didRequestShippingRatesFor: payPostalAddress, checkout: self.checkout, provide: { updatedCheckout, shippingRates in
             
             /* ---------------------------------
              ** The delegate has an opportunity
@@ -149,7 +148,7 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
              ** postal address.
              */
             guard let updatedCheckout = updatedCheckout, !shippingRates.isEmpty else {
-                completion(.invalidShippingPostalAddress, [], self.checkout!.summaryItems)
+                completion(.invalidShippingPostalAddress, [], self.checkout.summaryItems)
                 return
             }
             
@@ -183,12 +182,12 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
          ** methods are mapped 1:1 from shipping
          ** rates.
          */
-        guard let shippingRate = self.shippingRates!.shippingRateFor(shippingMethod) else {
-            completion(.failure, self.checkout!.summaryItems)
+        guard let shippingRate = self.shippingRates.shippingRateFor(shippingMethod) else {
+            completion(.failure, self.checkout.summaryItems)
             return
         }
         
-        self.delegate?.paySession(self, didSelectShippingRate: shippingRate, checkout: self.checkout!, provide: { updatedCheckout in
+        self.delegate?.paySession(self, didSelectShippingRate: shippingRate, checkout: self.checkout, provide: { updatedCheckout in
             if let updatedCheckout = updatedCheckout {
                 self.checkout = updatedCheckout
                 
