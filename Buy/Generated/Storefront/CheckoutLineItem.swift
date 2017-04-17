@@ -2,9 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class LineItemQuery: GraphQL.AbstractQuery {
+	open class CheckoutLineItemQuery: GraphQL.AbstractQuery {
 		@discardableResult
-		open func customAttributes(aliasSuffix: String? = nil, _ subfields: (AttributeQuery) -> Void) -> LineItemQuery {
+		open func customAttributes(aliasSuffix: String? = nil, _ subfields: (AttributeQuery) -> Void) -> CheckoutLineItemQuery {
 			let subquery = AttributeQuery()
 			subfields(subquery)
 
@@ -13,19 +13,25 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func quantity(aliasSuffix: String? = nil) -> LineItemQuery {
+		open func id(aliasSuffix: String? = nil) -> CheckoutLineItemQuery {
+			addField(field: "id", aliasSuffix: aliasSuffix)
+			return self
+		}
+
+		@discardableResult
+		open func quantity(aliasSuffix: String? = nil) -> CheckoutLineItemQuery {
 			addField(field: "quantity", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func title(aliasSuffix: String? = nil) -> LineItemQuery {
+		open func title(aliasSuffix: String? = nil) -> CheckoutLineItemQuery {
 			addField(field: "title", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func variant(aliasSuffix: String? = nil, _ subfields: (ProductVariantQuery) -> Void) -> LineItemQuery {
+		open func variant(aliasSuffix: String? = nil, _ subfields: (ProductVariantQuery) -> Void) -> CheckoutLineItemQuery {
 			let subquery = ProductVariantQuery()
 			subfields(subquery)
 
@@ -34,7 +40,7 @@ extension Storefront {
 		}
 	}
 
-	open class LineItem: GraphQL.AbstractResponse
+	open class CheckoutLineItem: GraphQL.AbstractResponse, Node
 	{
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
@@ -44,6 +50,12 @@ extension Storefront {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
 				return try value.map { return try Attribute(fields: $0) }
+
+				case "id":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return GraphQL.ID(rawValue: value)
 
 				case "quantity":
 				guard let value = value as? Int else {
@@ -69,7 +81,7 @@ extension Storefront {
 			}
 		}
 
-		open var typeName: String { return "LineItem" }
+		open var typeName: String { return "CheckoutLineItem" }
 
 		open var customAttributes: [Storefront.Attribute] {
 			return internalGetCustomAttributes()
@@ -77,6 +89,14 @@ extension Storefront {
 
 		func internalGetCustomAttributes(aliasSuffix: String? = nil) -> [Storefront.Attribute] {
 			return field(field: "customAttributes", aliasSuffix: aliasSuffix) as! [Storefront.Attribute]
+		}
+
+		open var id: GraphQL.ID {
+			return internalGetId()
+		}
+
+		func internalGetId(aliasSuffix: String? = nil) -> GraphQL.ID {
+			return field(field: "id", aliasSuffix: aliasSuffix) as! GraphQL.ID
 		}
 
 		open var quantity: Int32 {
@@ -108,6 +128,10 @@ extension Storefront {
 				case "customAttributes":
 
 				return .ObjectList
+
+				case "id":
+
+				return .Scalar
 
 				case "quantity":
 

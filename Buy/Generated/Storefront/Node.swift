@@ -25,10 +25,26 @@ extension Storefront {
 		}
 
 		@discardableResult
+		open func onAppliedGiftCard(subfields: (AppliedGiftCardQuery) -> Void) -> NodeQuery {
+			let subquery = AppliedGiftCardQuery()
+			subfields(subquery)
+			addInlineFragment(on: "AppliedGiftCard", subfields: subquery)
+			return self
+		}
+
+		@discardableResult
 		open func onCheckout(subfields: (CheckoutQuery) -> Void) -> NodeQuery {
 			let subquery = CheckoutQuery()
 			subfields(subquery)
 			addInlineFragment(on: "Checkout", subfields: subquery)
+			return self
+		}
+
+		@discardableResult
+		open func onCheckoutLineItem(subfields: (CheckoutLineItemQuery) -> Void) -> NodeQuery {
+			let subquery = CheckoutLineItemQuery()
+			subfields(subquery)
+			addInlineFragment(on: "CheckoutLineItem", subfields: subquery)
 			return self
 		}
 
@@ -120,8 +136,14 @@ extension Storefront {
 				throw SchemaViolationError(type: UnknownNode.self, field: "__typename", value: fields["__typename"] ?? NSNull())
 			}
 			switch typeName {
+				case "AppliedGiftCard":
+				return try AppliedGiftCard.init(fields: fields)
+
 				case "Checkout":
 				return try Checkout.init(fields: fields)
+
+				case "CheckoutLineItem":
+				return try CheckoutLineItem.init(fields: fields)
 
 				case "Collection":
 				return try Collection.init(fields: fields)

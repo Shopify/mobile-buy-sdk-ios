@@ -2,16 +2,16 @@
 import Foundation
 
 extension Storefront {
-	open class LineItemEdgeQuery: GraphQL.AbstractQuery {
+	open class OrderLineItemEdgeQuery: GraphQL.AbstractQuery {
 		@discardableResult
-		open func cursor(aliasSuffix: String? = nil) -> LineItemEdgeQuery {
+		open func cursor(aliasSuffix: String? = nil) -> OrderLineItemEdgeQuery {
 			addField(field: "cursor", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func node(aliasSuffix: String? = nil, _ subfields: (LineItemQuery) -> Void) -> LineItemEdgeQuery {
-			let subquery = LineItemQuery()
+		open func node(aliasSuffix: String? = nil, _ subfields: (OrderLineItemQuery) -> Void) -> OrderLineItemEdgeQuery {
+			let subquery = OrderLineItemQuery()
 			subfields(subquery)
 
 			addField(field: "node", aliasSuffix: aliasSuffix, subfields: subquery)
@@ -19,7 +19,7 @@ extension Storefront {
 		}
 	}
 
-	open class LineItemEdge: GraphQL.AbstractResponse
+	open class OrderLineItemEdge: GraphQL.AbstractResponse
 	{
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
@@ -34,14 +34,14 @@ extension Storefront {
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return try LineItem(fields: value)
+				return try OrderLineItem(fields: value)
 
 				default:
 				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 			}
 		}
 
-		open var typeName: String { return "LineItemEdge" }
+		open var typeName: String { return "OrderLineItemEdge" }
 
 		open var cursor: String {
 			return internalGetCursor()
@@ -51,12 +51,12 @@ extension Storefront {
 			return field(field: "cursor", aliasSuffix: aliasSuffix) as! String
 		}
 
-		open var node: Storefront.LineItem {
+		open var node: Storefront.OrderLineItem {
 			return internalGetNode()
 		}
 
-		func internalGetNode(aliasSuffix: String? = nil) -> Storefront.LineItem {
-			return field(field: "node", aliasSuffix: aliasSuffix) as! Storefront.LineItem
+		func internalGetNode(aliasSuffix: String? = nil) -> Storefront.OrderLineItem {
+			return field(field: "node", aliasSuffix: aliasSuffix) as! Storefront.OrderLineItem
 		}
 
 		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {

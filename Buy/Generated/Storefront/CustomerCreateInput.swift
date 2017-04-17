@@ -3,8 +3,6 @@ import Foundation
 
 extension Storefront {
 	open class CustomerCreateInput {
-		open var clientMutationId: String?
-
 		open var firstName: String?
 
 		open var lastName: String?
@@ -20,16 +18,12 @@ extension Storefront {
 
 			password: String,
 
-			clientMutationId: String? = nil,
-
 			firstName: String? = nil,
 
 			lastName: String? = nil,
 
 			acceptsMarketing: Bool? = nil
 		) {
-			self.clientMutationId = clientMutationId
-
 			self.firstName = firstName
 
 			self.lastName = lastName
@@ -43,10 +37,6 @@ extension Storefront {
 
 		func serialize() -> String {
 			var fields: [String] = []
-
-			if let clientMutationId = clientMutationId {
-				fields.append("clientMutationId:\(GraphQL.quoteString(input: clientMutationId))")
-			}
 
 			if let firstName = firstName {
 				fields.append("firstName:\(GraphQL.quoteString(input: firstName))")

@@ -2,23 +2,17 @@
 import Foundation
 
 extension Storefront {
-	open class CheckoutAddLineItemsInput {
+	open class CheckoutCustomerDisassociateInput {
 		open var clientMutationId: String?
-
-		open var lineItems: [LineItemInput]?
 
 		open var checkoutId: GraphQL.ID
 
 		public init(
 			checkoutId: GraphQL.ID,
 
-			clientMutationId: String? = nil,
-
-			lineItems: [LineItemInput]? = nil
+			clientMutationId: String? = nil
 		) {
 			self.clientMutationId = clientMutationId
-
-			self.lineItems = lineItems
 
 			self.checkoutId = checkoutId
 		}
@@ -28,10 +22,6 @@ extension Storefront {
 
 			if let clientMutationId = clientMutationId {
 				fields.append("clientMutationId:\(GraphQL.quoteString(input: clientMutationId))")
-			}
-
-			if let lineItems = lineItems {
-				fields.append("lineItems:[\(lineItems.map{ "\($0.serialize())" }.joined(separator: ","))]")
 			}
 
 			fields.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")

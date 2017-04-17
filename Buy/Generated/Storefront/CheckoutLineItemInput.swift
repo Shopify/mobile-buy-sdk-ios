@@ -2,7 +2,7 @@
 import Foundation
 
 extension Storefront {
-	open class LineItemInput {
+	open class CheckoutLineItemInput {
 		open var variantId: GraphQL.ID
 
 		open var quantity: Int32

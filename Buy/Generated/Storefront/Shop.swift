@@ -4,15 +4,6 @@ import Foundation
 extension Storefront {
 	open class ShopQuery: GraphQL.AbstractQuery {
 		@discardableResult
-		open func billingAddress(aliasSuffix: String? = nil, _ subfields: (MailingAddressQuery) -> Void) -> ShopQuery {
-			let subquery = MailingAddressQuery()
-			subfields(subquery)
-
-			addField(field: "billingAddress", aliasSuffix: aliasSuffix, subfields: subquery)
-			return self
-		}
-
-		@discardableResult
 		open func collections(aliasSuffix: String? = nil, first: Int32, after: String? = nil, sortKey: CollectionSortKeys? = nil, reverse: Bool? = nil, query: String? = nil, _ subfields: (CollectionConnectionQuery) -> Void) -> ShopQuery {
 			var args: [String] = []
 
@@ -140,12 +131,6 @@ extension Storefront {
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
-				case "billingAddress":
-				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
-				}
-				return try MailingAddress(fields: value)
-
 				case "collections":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
@@ -216,14 +201,6 @@ extension Storefront {
 		}
 
 		open var typeName: String { return "Shop" }
-
-		open var billingAddress: Storefront.MailingAddress {
-			return internalGetBillingAddress()
-		}
-
-		func internalGetBillingAddress(aliasSuffix: String? = nil) -> Storefront.MailingAddress {
-			return field(field: "billingAddress", aliasSuffix: aliasSuffix) as! Storefront.MailingAddress
-		}
 
 		open var collections: Storefront.CollectionConnection {
 			return internalGetCollections()
@@ -315,10 +292,6 @@ extension Storefront {
 
 		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
 			switch(key) {
-				case "billingAddress":
-
-				return .Object
-
 				case "collections":
 
 				return .Object
@@ -366,9 +339,6 @@ extension Storefront {
 
 		override open func fetchChildObject(key: String) -> GraphQL.AbstractResponse? {
 			switch(key) {
-				case "billingAddress":
-				return internalGetBillingAddress()
-
 				case "collections":
 				return internalGetCollections()
 
@@ -405,10 +375,6 @@ extension Storefront {
 			objectMap.keys.forEach({
 				key in
 				switch(key) {
-					case "billingAddress":
-					response.append(internalGetBillingAddress())
-					response.append(contentsOf: internalGetBillingAddress().childResponseObjectMap())
-
 					case "collections":
 					response.append(internalGetCollections())
 					response.append(contentsOf: internalGetCollections().childResponseObjectMap())
