@@ -4,6 +4,15 @@ import Foundation
 extension Storefront {
 	open class CheckoutQuery: GraphQL.AbstractQuery {
 		@discardableResult
+		open func appliedGiftCards(aliasSuffix: String? = nil, _ subfields: (AppliedGiftCardQuery) -> Void) -> CheckoutQuery {
+			let subquery = AppliedGiftCardQuery()
+			subfields(subquery)
+
+			addField(field: "appliedGiftCards", aliasSuffix: aliasSuffix, subfields: subquery)
+			return self
+		}
+
+		@discardableResult
 		open func availableShippingRates(aliasSuffix: String? = nil, _ subfields: (AvailableShippingRatesQuery) -> Void) -> CheckoutQuery {
 			let subquery = AvailableShippingRatesQuery()
 			subfields(subquery)
@@ -61,7 +70,7 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func lineItems(aliasSuffix: String? = nil, first: Int32, after: String? = nil, reverse: Bool? = nil, _ subfields: (LineItemConnectionQuery) -> Void) -> CheckoutQuery {
+		open func lineItems(aliasSuffix: String? = nil, first: Int32, after: String? = nil, reverse: Bool? = nil, _ subfields: (CheckoutLineItemConnectionQuery) -> Void) -> CheckoutQuery {
 			var args: [String] = []
 
 			args.append("first:\(first)")
@@ -76,7 +85,7 @@ extension Storefront {
 
 			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
 
-			let subquery = LineItemConnectionQuery()
+			let subquery = CheckoutLineItemConnectionQuery()
 			subfields(subquery)
 
 			addField(field: "lineItems", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
@@ -188,6 +197,12 @@ extension Storefront {
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "appliedGiftCards":
+				guard let value = value as? [[String: Any]] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try value.map { return try AppliedGiftCard(fields: $0) }
+
 				case "availableShippingRates":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -244,7 +259,7 @@ extension Storefront {
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return try LineItemConnection(fields: value)
+				return try CheckoutLineItemConnection(fields: value)
 
 				case "note":
 				if value is NSNull { return nil }
@@ -348,6 +363,14 @@ extension Storefront {
 
 		open var typeName: String { return "Checkout" }
 
+		open var appliedGiftCards: [Storefront.AppliedGiftCard] {
+			return internalGetAppliedGiftCards()
+		}
+
+		func internalGetAppliedGiftCards(aliasSuffix: String? = nil) -> [Storefront.AppliedGiftCard] {
+			return field(field: "appliedGiftCards", aliasSuffix: aliasSuffix) as! [Storefront.AppliedGiftCard]
+		}
+
 		open var availableShippingRates: Storefront.AvailableShippingRates? {
 			return internalGetAvailableShippingRates()
 		}
@@ -412,16 +435,16 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: aliasSuffix) as! GraphQL.ID
 		}
 
-		open var lineItems: Storefront.LineItemConnection {
+		open var lineItems: Storefront.CheckoutLineItemConnection {
 			return internalGetLineItems()
 		}
 
-		open func aliasedLineItems(aliasSuffix: String) -> Storefront.LineItemConnection {
+		open func aliasedLineItems(aliasSuffix: String) -> Storefront.CheckoutLineItemConnection {
 			return internalGetLineItems(aliasSuffix: aliasSuffix)
 		}
 
-		func internalGetLineItems(aliasSuffix: String? = nil) -> Storefront.LineItemConnection {
-			return field(field: "lineItems", aliasSuffix: aliasSuffix) as! Storefront.LineItemConnection
+		func internalGetLineItems(aliasSuffix: String? = nil) -> Storefront.CheckoutLineItemConnection {
+			return field(field: "lineItems", aliasSuffix: aliasSuffix) as! Storefront.CheckoutLineItemConnection
 		}
 
 		open var note: String? {
@@ -546,6 +569,10 @@ extension Storefront {
 
 		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
 			switch(key) {
+				case "appliedGiftCards":
+
+				return .ObjectList
+
 				case "availableShippingRates":
 
 				return .Object
@@ -675,6 +702,9 @@ extension Storefront {
 
 		override open func fetchChildObjectList(key: String) -> [GraphQL.AbstractResponse] {
 			switch(key) {
+				case "appliedGiftCards":
+				return internalGetAppliedGiftCards()
+
 				case "customAttributes":
 				return internalGetCustomAttributes()
 
@@ -688,6 +718,12 @@ extension Storefront {
 			objectMap.keys.forEach({
 				key in
 				switch(key) {
+					case "appliedGiftCards":
+					internalGetAppliedGiftCards().forEach {
+						response.append($0)
+						response.append(contentsOf: $0.childResponseObjectMap())
+					}
+
 					case "availableShippingRates":
 					if let value = internalGetAvailableShippingRates() {
 						response.append(value)

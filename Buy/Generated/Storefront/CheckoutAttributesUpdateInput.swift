@@ -11,6 +11,8 @@ extension Storefront {
 
 		open var customAttributes: [AttributeInput]?
 
+		open var allowPartialAddresses: Bool?
+
 		public init(
 			checkoutId: GraphQL.ID,
 
@@ -18,7 +20,9 @@ extension Storefront {
 
 			note: String? = nil,
 
-			customAttributes: [AttributeInput]? = nil
+			customAttributes: [AttributeInput]? = nil,
+
+			allowPartialAddresses: Bool? = nil
 		) {
 			self.clientMutationId = clientMutationId
 
@@ -27,6 +31,8 @@ extension Storefront {
 			self.note = note
 
 			self.customAttributes = customAttributes
+
+			self.allowPartialAddresses = allowPartialAddresses
 		}
 
 		func serialize() -> String {
@@ -44,6 +50,10 @@ extension Storefront {
 
 			if let customAttributes = customAttributes {
 				fields.append("customAttributes:[\(customAttributes.map{ "\($0.serialize())" }.joined(separator: ","))]")
+			}
+
+			if let allowPartialAddresses = allowPartialAddresses {
+				fields.append("allowPartialAddresses:\(allowPartialAddresses)")
 			}
 
 			return "{\(fields.joined(separator: ","))}"

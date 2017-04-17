@@ -4,11 +4,26 @@ import Foundation
 extension Storefront {
 	open class CollectionQuery: GraphQL.AbstractQuery {
 		@discardableResult
+		open func description(aliasSuffix: String? = nil, truncateAt: Int32? = nil) -> CollectionQuery {
+			var args: [String] = []
+
+			if let truncateAt = truncateAt {
+				args.append("truncateAt:\(truncateAt)")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			addField(field: "description", aliasSuffix: aliasSuffix, args: argsString)
+			return self
+		}
+
+		@discardableResult
 		open func descriptionHtml(aliasSuffix: String? = nil) -> CollectionQuery {
 			addField(field: "descriptionHtml", aliasSuffix: aliasSuffix)
 			return self
 		}
 
+		@available(*, deprecated, message:"Use `description` instead")
 		@discardableResult
 		open func descriptionPlainSummary(aliasSuffix: String? = nil) -> CollectionQuery {
 			addField(field: "descriptionPlainSummary", aliasSuffix: aliasSuffix)
@@ -97,6 +112,12 @@ extension Storefront {
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "description":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return value
+
 				case "descriptionHtml":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
@@ -153,6 +174,18 @@ extension Storefront {
 
 		open var typeName: String { return "Collection" }
 
+		open var description: String {
+			return internalGetDescription()
+		}
+
+		open func aliasedDescription(aliasSuffix: String) -> String {
+			return internalGetDescription(aliasSuffix: aliasSuffix)
+		}
+
+		func internalGetDescription(aliasSuffix: String? = nil) -> String {
+			return field(field: "description", aliasSuffix: aliasSuffix) as! String
+		}
+
 		open var descriptionHtml: String {
 			return internalGetDescriptionHtml()
 		}
@@ -161,6 +194,7 @@ extension Storefront {
 			return field(field: "descriptionHtml", aliasSuffix: aliasSuffix) as! String
 		}
 
+		@available(*, deprecated, message:"Use `description` instead")
 		open var descriptionPlainSummary: String {
 			return internalGetDescriptionPlainSummary()
 		}
@@ -227,6 +261,10 @@ extension Storefront {
 
 		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
 			switch(key) {
+				case "description":
+
+				return .Scalar
+
 				case "descriptionHtml":
 
 				return .Scalar

@@ -52,7 +52,7 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func lineItems(aliasSuffix: String? = nil, first: Int32, after: String? = nil, reverse: Bool? = nil, _ subfields: (LineItemConnectionQuery) -> Void) -> OrderQuery {
+		open func lineItems(aliasSuffix: String? = nil, first: Int32, after: String? = nil, reverse: Bool? = nil, _ subfields: (OrderLineItemConnectionQuery) -> Void) -> OrderQuery {
 			var args: [String] = []
 
 			args.append("first:\(first)")
@@ -67,7 +67,7 @@ extension Storefront {
 
 			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
 
-			let subquery = LineItemConnectionQuery()
+			let subquery = OrderLineItemConnectionQuery()
 			subfields(subquery)
 
 			addField(field: "lineItems", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
@@ -193,7 +193,7 @@ extension Storefront {
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return try LineItemConnection(fields: value)
+				return try OrderLineItemConnection(fields: value)
 
 				case "orderNumber":
 				guard let value = value as? Int else {
@@ -323,16 +323,16 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: aliasSuffix) as! GraphQL.ID
 		}
 
-		open var lineItems: Storefront.LineItemConnection {
+		open var lineItems: Storefront.OrderLineItemConnection {
 			return internalGetLineItems()
 		}
 
-		open func aliasedLineItems(aliasSuffix: String) -> Storefront.LineItemConnection {
+		open func aliasedLineItems(aliasSuffix: String) -> Storefront.OrderLineItemConnection {
 			return internalGetLineItems(aliasSuffix: aliasSuffix)
 		}
 
-		func internalGetLineItems(aliasSuffix: String? = nil) -> Storefront.LineItemConnection {
-			return field(field: "lineItems", aliasSuffix: aliasSuffix) as! Storefront.LineItemConnection
+		func internalGetLineItems(aliasSuffix: String? = nil) -> Storefront.OrderLineItemConnection {
+			return field(field: "lineItems", aliasSuffix: aliasSuffix) as! Storefront.OrderLineItemConnection
 		}
 
 		open var orderNumber: Int32 {

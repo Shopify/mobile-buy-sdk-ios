@@ -33,11 +33,26 @@ extension Storefront {
 		}
 
 		@discardableResult
+		open func description(aliasSuffix: String? = nil, truncateAt: Int32? = nil) -> ProductQuery {
+			var args: [String] = []
+
+			if let truncateAt = truncateAt {
+				args.append("truncateAt:\(truncateAt)")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			addField(field: "description", aliasSuffix: aliasSuffix, args: argsString)
+			return self
+		}
+
+		@discardableResult
 		open func descriptionHtml(aliasSuffix: String? = nil) -> ProductQuery {
 			addField(field: "descriptionHtml", aliasSuffix: aliasSuffix)
 			return self
 		}
 
+		@available(*, deprecated, message:"Use `description` instead")
 		@discardableResult
 		open func descriptionPlainSummary(aliasSuffix: String? = nil) -> ProductQuery {
 			addField(field: "descriptionPlainSummary", aliasSuffix: aliasSuffix)
@@ -189,6 +204,12 @@ extension Storefront {
 				}
 				return GraphQL.iso8601DateParser.date(from: value)!
 
+				case "description":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return value
+
 				case "descriptionHtml":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
@@ -294,6 +315,18 @@ extension Storefront {
 			return field(field: "createdAt", aliasSuffix: aliasSuffix) as! Date
 		}
 
+		open var description: String {
+			return internalGetDescription()
+		}
+
+		open func aliasedDescription(aliasSuffix: String) -> String {
+			return internalGetDescription(aliasSuffix: aliasSuffix)
+		}
+
+		func internalGetDescription(aliasSuffix: String? = nil) -> String {
+			return field(field: "description", aliasSuffix: aliasSuffix) as! String
+		}
+
 		open var descriptionHtml: String {
 			return internalGetDescriptionHtml()
 		}
@@ -302,6 +335,7 @@ extension Storefront {
 			return field(field: "descriptionHtml", aliasSuffix: aliasSuffix) as! String
 		}
 
+		@available(*, deprecated, message:"Use `description` instead")
 		open var descriptionPlainSummary: String {
 			return internalGetDescriptionPlainSummary()
 		}
@@ -417,6 +451,10 @@ extension Storefront {
 				return .Object
 
 				case "createdAt":
+
+				return .Scalar
+
+				case "description":
 
 				return .Scalar
 

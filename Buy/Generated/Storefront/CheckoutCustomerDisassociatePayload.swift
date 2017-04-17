@@ -2,9 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class CheckoutAddLineItemsPayloadQuery: GraphQL.AbstractQuery {
+	open class CheckoutCustomerDisassociatePayloadQuery: GraphQL.AbstractQuery {
 		@discardableResult
-		open func checkout(aliasSuffix: String? = nil, _ subfields: (CheckoutQuery) -> Void) -> CheckoutAddLineItemsPayloadQuery {
+		open func checkout(aliasSuffix: String? = nil, _ subfields: (CheckoutQuery) -> Void) -> CheckoutCustomerDisassociatePayloadQuery {
 			let subquery = CheckoutQuery()
 			subfields(subquery)
 
@@ -14,13 +14,13 @@ extension Storefront {
 
 		@available(*, deprecated, message:"Relay is moving away from requiring this field")
 		@discardableResult
-		open func clientMutationId(aliasSuffix: String? = nil) -> CheckoutAddLineItemsPayloadQuery {
+		open func clientMutationId(aliasSuffix: String? = nil) -> CheckoutCustomerDisassociatePayloadQuery {
 			addField(field: "clientMutationId", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func userErrors(aliasSuffix: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CheckoutAddLineItemsPayloadQuery {
+		open func userErrors(aliasSuffix: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CheckoutCustomerDisassociatePayloadQuery {
 			let subquery = UserErrorQuery()
 			subfields(subquery)
 
@@ -29,13 +29,12 @@ extension Storefront {
 		}
 	}
 
-	open class CheckoutAddLineItemsPayload: GraphQL.AbstractResponse
+	open class CheckoutCustomerDisassociatePayload: GraphQL.AbstractResponse
 	{
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
 				case "checkout":
-				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
@@ -59,14 +58,14 @@ extension Storefront {
 			}
 		}
 
-		open var typeName: String { return "CheckoutAddLineItemsPayload" }
+		open var typeName: String { return "CheckoutCustomerDisassociatePayload" }
 
-		open var checkout: Storefront.Checkout? {
+		open var checkout: Storefront.Checkout {
 			return internalGetCheckout()
 		}
 
-		func internalGetCheckout(aliasSuffix: String? = nil) -> Storefront.Checkout? {
-			return field(field: "checkout", aliasSuffix: aliasSuffix) as! Storefront.Checkout?
+		func internalGetCheckout(aliasSuffix: String? = nil) -> Storefront.Checkout {
+			return field(field: "checkout", aliasSuffix: aliasSuffix) as! Storefront.Checkout
 		}
 
 		@available(*, deprecated, message:"Relay is moving away from requiring this field")
@@ -132,10 +131,8 @@ extension Storefront {
 				key in
 				switch(key) {
 					case "checkout":
-					if let value = internalGetCheckout() {
-						response.append(value)
-						response.append(contentsOf: value.childResponseObjectMap())
-					}
+					response.append(internalGetCheckout())
+					response.append(contentsOf: internalGetCheckout().childResponseObjectMap())
 
 					case "userErrors":
 					internalGetUserErrors().forEach {

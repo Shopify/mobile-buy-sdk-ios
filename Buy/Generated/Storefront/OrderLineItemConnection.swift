@@ -2,10 +2,10 @@
 import Foundation
 
 extension Storefront {
-	open class LineItemConnectionQuery: GraphQL.AbstractQuery {
+	open class OrderLineItemConnectionQuery: GraphQL.AbstractQuery {
 		@discardableResult
-		open func edges(aliasSuffix: String? = nil, _ subfields: (LineItemEdgeQuery) -> Void) -> LineItemConnectionQuery {
-			let subquery = LineItemEdgeQuery()
+		open func edges(aliasSuffix: String? = nil, _ subfields: (OrderLineItemEdgeQuery) -> Void) -> OrderLineItemConnectionQuery {
+			let subquery = OrderLineItemEdgeQuery()
 			subfields(subquery)
 
 			addField(field: "edges", aliasSuffix: aliasSuffix, subfields: subquery)
@@ -13,7 +13,7 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func pageInfo(aliasSuffix: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> LineItemConnectionQuery {
+		open func pageInfo(aliasSuffix: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> OrderLineItemConnectionQuery {
 			let subquery = PageInfoQuery()
 			subfields(subquery)
 
@@ -22,7 +22,7 @@ extension Storefront {
 		}
 	}
 
-	open class LineItemConnection: GraphQL.AbstractResponse
+	open class OrderLineItemConnection: GraphQL.AbstractResponse
 	{
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
@@ -31,7 +31,7 @@ extension Storefront {
 				guard let value = value as? [[String: Any]] else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return try value.map { return try LineItemEdge(fields: $0) }
+				return try value.map { return try OrderLineItemEdge(fields: $0) }
 
 				case "pageInfo":
 				guard let value = value as? [String: Any] else {
@@ -44,14 +44,14 @@ extension Storefront {
 			}
 		}
 
-		open var typeName: String { return "LineItemConnection" }
+		open var typeName: String { return "OrderLineItemConnection" }
 
-		open var edges: [Storefront.LineItemEdge] {
+		open var edges: [Storefront.OrderLineItemEdge] {
 			return internalGetEdges()
 		}
 
-		func internalGetEdges(aliasSuffix: String? = nil) -> [Storefront.LineItemEdge] {
-			return field(field: "edges", aliasSuffix: aliasSuffix) as! [Storefront.LineItemEdge]
+		func internalGetEdges(aliasSuffix: String? = nil) -> [Storefront.OrderLineItemEdge] {
+			return field(field: "edges", aliasSuffix: aliasSuffix) as! [Storefront.OrderLineItemEdge]
 		}
 
 		open var pageInfo: Storefront.PageInfo {

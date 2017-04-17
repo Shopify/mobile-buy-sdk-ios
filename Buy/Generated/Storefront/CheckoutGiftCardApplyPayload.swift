@@ -2,18 +2,25 @@
 import Foundation
 
 extension Storefront {
-	open class CustomerCreatePayloadQuery: GraphQL.AbstractQuery {
+	open class CheckoutGiftCardApplyPayloadQuery: GraphQL.AbstractQuery {
 		@discardableResult
-		open func customer(aliasSuffix: String? = nil, _ subfields: (CustomerQuery) -> Void) -> CustomerCreatePayloadQuery {
-			let subquery = CustomerQuery()
+		open func checkout(aliasSuffix: String? = nil, _ subfields: (CheckoutQuery) -> Void) -> CheckoutGiftCardApplyPayloadQuery {
+			let subquery = CheckoutQuery()
 			subfields(subquery)
 
-			addField(field: "customer", aliasSuffix: aliasSuffix, subfields: subquery)
+			addField(field: "checkout", aliasSuffix: aliasSuffix, subfields: subquery)
+			return self
+		}
+
+		@available(*, deprecated, message:"Relay is moving away from requiring this field")
+		@discardableResult
+		open func clientMutationId(aliasSuffix: String? = nil) -> CheckoutGiftCardApplyPayloadQuery {
+			addField(field: "clientMutationId", aliasSuffix: aliasSuffix)
 			return self
 		}
 
 		@discardableResult
-		open func userErrors(aliasSuffix: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerCreatePayloadQuery {
+		open func userErrors(aliasSuffix: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CheckoutGiftCardApplyPayloadQuery {
 			let subquery = UserErrorQuery()
 			subfields(subquery)
 
@@ -22,17 +29,23 @@ extension Storefront {
 		}
 	}
 
-	open class CustomerCreatePayload: GraphQL.AbstractResponse
+	open class CheckoutGiftCardApplyPayload: GraphQL.AbstractResponse
 	{
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
-				case "customer":
-				if value is NSNull { return nil }
+				case "checkout":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
-				return try Customer(fields: value)
+				return try Checkout(fields: value)
+
+				case "clientMutationId":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return value
 
 				case "userErrors":
 				guard let value = value as? [[String: Any]] else {
@@ -45,14 +58,23 @@ extension Storefront {
 			}
 		}
 
-		open var typeName: String { return "CustomerCreatePayload" }
+		open var typeName: String { return "CheckoutGiftCardApplyPayload" }
 
-		open var customer: Storefront.Customer? {
-			return internalGetCustomer()
+		open var checkout: Storefront.Checkout {
+			return internalGetCheckout()
 		}
 
-		func internalGetCustomer(aliasSuffix: String? = nil) -> Storefront.Customer? {
-			return field(field: "customer", aliasSuffix: aliasSuffix) as! Storefront.Customer?
+		func internalGetCheckout(aliasSuffix: String? = nil) -> Storefront.Checkout {
+			return field(field: "checkout", aliasSuffix: aliasSuffix) as! Storefront.Checkout
+		}
+
+		@available(*, deprecated, message:"Relay is moving away from requiring this field")
+		open var clientMutationId: String? {
+			return internalGetClientMutationId()
+		}
+
+		func internalGetClientMutationId(aliasSuffix: String? = nil) -> String? {
+			return field(field: "clientMutationId", aliasSuffix: aliasSuffix) as! String?
 		}
 
 		open var userErrors: [Storefront.UserError] {
@@ -65,9 +87,13 @@ extension Storefront {
 
 		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
 			switch(key) {
-				case "customer":
+				case "checkout":
 
 				return .Object
+
+				case "clientMutationId":
+
+				return .Scalar
 
 				case "userErrors":
 
@@ -80,8 +106,8 @@ extension Storefront {
 
 		override open func fetchChildObject(key: String) -> GraphQL.AbstractResponse? {
 			switch(key) {
-				case "customer":
-				return internalGetCustomer()
+				case "checkout":
+				return internalGetCheckout()
 
 				default:
 				break
@@ -104,11 +130,9 @@ extension Storefront {
 			objectMap.keys.forEach({
 				key in
 				switch(key) {
-					case "customer":
-					if let value = internalGetCustomer() {
-						response.append(value)
-						response.append(contentsOf: value.childResponseObjectMap())
-					}
+					case "checkout":
+					response.append(internalGetCheckout())
+					response.append(contentsOf: internalGetCheckout().childResponseObjectMap())
 
 					case "userErrors":
 					internalGetUserErrors().forEach {
