@@ -638,6 +638,8 @@
 				9AD186AE1EA4F954003F91A3 /* WeightUnit.swift */,
 			);
 			path = Storefront;
+			sourceTree = "<group>";
+		};
 		9AEC90E01E9FFA6E008C6E1C /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
