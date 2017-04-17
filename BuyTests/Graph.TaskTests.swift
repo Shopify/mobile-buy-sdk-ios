@@ -1,5 +1,5 @@
 //
-//  Graph.Task.swift
+//  Graph.TaskTests.swift
 //  BuyTests
 //
 //  Created by Shopify.
@@ -27,7 +27,7 @@
 import XCTest
 @testable import Buy
 
-class Graph_Task: XCTestCase {
+class Graph_TaskTests: XCTestCase {
     
     let url: URL = URL(string: "https://www.google.com")!
     
@@ -72,26 +72,5 @@ class Graph_Task: XCTestCase {
         XCTAssertFalse(dataTask.isCanceled)
         task.cancel()
         XCTAssertTrue(dataTask.isCanceled)
-    }
-}
-
-// ----------------------------------
-//  MARK: - MockDataTask -
-//
-private class MockDataTask: URLSessionDataTask {
-    
-    private(set) var isResumed  = false
-    private(set) var isCanceled = false
-    
-    override init() {
-        
-    }
-    
-    override func resume() {
-        self.isResumed = true
-    }
-    
-    override func cancel() {
-        self.isCanceled = true
     }
 }
