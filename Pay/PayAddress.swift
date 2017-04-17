@@ -31,7 +31,6 @@ public struct PayPostalAddress {
     
     public let city:         String?
     public let country:      String?
-    public let countryCode:  String?
     public let province:     String?
     public let zip:          String?
     
@@ -46,7 +45,6 @@ public struct PayPostalAddress {
         
         self.city         = city
         self.country      = country
-        self.countryCode  = countryCode
         self.province     = province
         self.zip          = zip
     }
@@ -58,13 +56,13 @@ public struct PayAddress {
     public let addressLine2: String?
     public let city:         String?
     public let country:      String?
-    public let countryCode:  String?
     public let province:     String?
     public let zip:          String?
     
     public let firstName:    String?
     public let lastName:     String?
     public let phone:        String?
+    public let email:        String?
     
     // ----------------------------------
     //  MARK: - Init -
@@ -73,25 +71,25 @@ public struct PayAddress {
         addressLine2: String? = nil,
         city:         String? = nil,
         country:      String? = nil,
-        countryCode:  String? = nil,
         province:     String? = nil,
         zip:          String? = nil,
         
         firstName:    String? = nil,
         lastName:     String? = nil,
-        phone:        String? = nil) {
+        phone:        String? = nil,
+        email:        String? = nil) {
         
         self.addressLine1 = addressLine1
         self.addressLine2 = addressLine2
         self.city         = city
         self.country      = country
-        self.countryCode  = countryCode
         self.province     = province
         self.zip          = zip
         
         self.firstName    = firstName
         self.lastName     = lastName
         self.phone        = phone
+        self.email        = email
     }
 }
 
@@ -104,7 +102,6 @@ internal extension PayPostalAddress {
         self.init(
             city:        address.city,
             country:     address.country,
-            countryCode: address.isoCountryCode,
             province:    address.state,
             zip:         address.postalCode
         )
@@ -120,12 +117,12 @@ internal extension PayAddress {
             addressLine2: lines.count > 1 ? lines[1] : nil,
             city:         contact.postalAddress!.city,
             country:      contact.postalAddress!.country,
-            countryCode:  contact.postalAddress!.isoCountryCode,
             province:     contact.postalAddress!.state,
             zip:          contact.postalAddress!.postalCode,
             firstName:    contact.name?.givenName,
             lastName:     contact.name?.familyName,
-            phone:        contact.phoneNumber?.stringValue
+            phone:        contact.phoneNumber?.stringValue,
+            email:        contact.emailAddress
         )
     }
 }

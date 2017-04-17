@@ -12,7 +12,7 @@
 		9A4068EC1E8E7659000254CD /* Pay.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A4068DE1E8E7659000254CD /* Pay.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A4068F91E8E767B000254CD /* PayAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4068F31E8E767B000254CD /* PayAddress.swift */; };
 		9A4068FA1E8E767B000254CD /* PayCheckout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4068F41E8E767B000254CD /* PayCheckout.swift */; };
-		9A4068FB1E8E767B000254CD /* PayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4068F51E8E767B000254CD /* PayController.swift */; };
+		9A4068FB1E8E767B000254CD /* PaySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4068F51E8E767B000254CD /* PaySession.swift */; };
 		9A4068FC1E8E767B000254CD /* PayCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4068F61E8E767B000254CD /* PayCurrency.swift */; };
 		9A4068FD1E8E767B000254CD /* PayLineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4068F71E8E767B000254CD /* PayLineItem.swift */; };
 		9A4068FE1E8E767B000254CD /* PayShippingRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4068F81E8E767B000254CD /* PayShippingRate.swift */; };
@@ -116,6 +116,7 @@
 		9AAFAB721E60766E00864A17 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB711E60766E00864A17 /* Global.swift */; };
 		9AAFAB751E60809400864A17 /* Graph.Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB741E60809400864A17 /* Graph.Result.swift */; };
 		9AAFAB771E6080A500864A17 /* Graph.QueryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB761E6080A500864A17 /* Graph.QueryError.swift */; };
+		9AB421B11E93CA45005098C4 /* PayAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB421B01E93CA45005098C4 /* PayAuthorization.swift */; };
 		9AEF60F81E5F42D90067FA90 /* Buy.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AEF60F61E5F42D90067FA90 /* Buy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9AEF61A11E5F5A190067FA90 /* GraphQL+ScalarSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF61A01E5F5A190067FA90 /* GraphQL+ScalarSupport.swift */; };
 		9AEF61B91E5F64230067FA90 /* Graph.Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF61B81E5F64230067FA90 /* Graph.Client.swift */; };
@@ -150,7 +151,7 @@
 		9A4068EB1E8E7659000254CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A4068F31E8E767B000254CD /* PayAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayAddress.swift; sourceTree = "<group>"; };
 		9A4068F41E8E767B000254CD /* PayCheckout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayCheckout.swift; sourceTree = "<group>"; };
-		9A4068F51E8E767B000254CD /* PayController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayController.swift; sourceTree = "<group>"; };
+		9A4068F51E8E767B000254CD /* PaySession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaySession.swift; sourceTree = "<group>"; };
 		9A4068F61E8E767B000254CD /* PayCurrency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayCurrency.swift; sourceTree = "<group>"; };
 		9A4068F71E8E767B000254CD /* PayLineItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayLineItem.swift; sourceTree = "<group>"; };
 		9A4068F81E8E767B000254CD /* PayShippingRate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayShippingRate.swift; sourceTree = "<group>"; };
@@ -254,6 +255,7 @@
 		9AAFAB711E60766E00864A17 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		9AAFAB741E60809400864A17 /* Graph.Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.Result.swift; sourceTree = "<group>"; };
 		9AAFAB761E6080A500864A17 /* Graph.QueryError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.QueryError.swift; sourceTree = "<group>"; };
+		9AB421B01E93CA45005098C4 /* PayAuthorization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayAuthorization.swift; sourceTree = "<group>"; };
 		9AEF60F31E5F42D90067FA90 /* Buy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Buy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AEF60F61E5F42D90067FA90 /* Buy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Buy.h; sourceTree = "<group>"; };
 		9AEF60F71E5F42D90067FA90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -303,12 +305,13 @@
 			isa = PBXGroup;
 			children = (
 				9A4068DE1E8E7659000254CD /* Pay.h */,
-				9A4068F51E8E767B000254CD /* PayController.swift */,
+				9A4068F51E8E767B000254CD /* PaySession.swift */,
 				9A4068F41E8E767B000254CD /* PayCheckout.swift */,
 				9A4068F71E8E767B000254CD /* PayLineItem.swift */,
 				9A4068F61E8E767B000254CD /* PayCurrency.swift */,
 				9A4068F31E8E767B000254CD /* PayAddress.swift */,
 				9A4068F81E8E767B000254CD /* PayShippingRate.swift */,
+				9AB421B01E93CA45005098C4 /* PayAuthorization.swift */,
 				9A4069091E8E82E2000254CD /* PassKit+Extensions.swift */,
 				9A4068DF1E8E7659000254CD /* Info.plist */,
 			);
@@ -702,8 +705,9 @@
 				9A4068FC1E8E767B000254CD /* PayCurrency.swift in Sources */,
 				9A40690A1E8E82E2000254CD /* PassKit+Extensions.swift in Sources */,
 				9A4068FE1E8E767B000254CD /* PayShippingRate.swift in Sources */,
+				9AB421B11E93CA45005098C4 /* PayAuthorization.swift in Sources */,
 				9A4068F91E8E767B000254CD /* PayAddress.swift in Sources */,
-				9A4068FB1E8E767B000254CD /* PayController.swift in Sources */,
+				9A4068FB1E8E767B000254CD /* PaySession.swift in Sources */,
 				9A4068FD1E8E767B000254CD /* PayLineItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
