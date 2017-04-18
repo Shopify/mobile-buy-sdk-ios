@@ -1,5 +1,6 @@
 //
 //  PayCurrencyTests.swift
+//  PayTests
 //
 //  Created by Shopify.
 //  Copyright (c) 2017 Shopify Inc. All rights reserved.
