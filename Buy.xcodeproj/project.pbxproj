@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A0C7FCD1EA6631B0020F187 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C7FCC1EA6631B0020F187 /* Models.swift */; };
 		9A3F2CBB1EA5177500307F8B /* Graph.TaskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA89E851E9BD8930075AC74 /* Graph.TaskTests.swift */; };
 		9A4068E51E8E7659000254CD /* Pay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A4068DC1E8E7658000254CD /* Pay.framework */; };
 		9A4068EA1E8E7659000254CD /* PaySessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4068E91E8E7659000254CD /* PaySessionTests.swift */; };
@@ -30,6 +31,7 @@
 		9AADF1C71EA63ED000D22740 /* MockPaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AADF1C61EA63ED000D22740 /* MockPaymentMethod.swift */; };
 		9AADF1C91EA63FB900D22740 /* MockPaymentToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AADF1C81EA63FB900D22740 /* MockPaymentToken.swift */; };
 		9AADF1CB1EA640C000D22740 /* MockPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AADF1CA1EA640C000D22740 /* MockPayment.swift */; };
+		9AADF1CD1EA6618800D22740 /* PayCheckoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AADF1CC1EA6618800D22740 /* PayCheckoutTests.swift */; };
 		9AAFAB721E60766E00864A17 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB711E60766E00864A17 /* Global.swift */; };
 		9AAFAB771E6080A500864A17 /* Graph.QueryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB761E6080A500864A17 /* Graph.QueryError.swift */; };
 		9AB421B11E93CA45005098C4 /* PayAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB421B01E93CA45005098C4 /* PayAuthorization.swift */; };
@@ -170,6 +172,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9A0C7FCC1EA6631B0020F187 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		9A4068DC1E8E7658000254CD /* Pay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A4068DE1E8E7659000254CD /* Pay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pay.h; sourceTree = "<group>"; };
 		9A4068DF1E8E7659000254CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -196,6 +199,7 @@
 		9AADF1C61EA63ED000D22740 /* MockPaymentMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPaymentMethod.swift; sourceTree = "<group>"; };
 		9AADF1C81EA63FB900D22740 /* MockPaymentToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPaymentToken.swift; sourceTree = "<group>"; };
 		9AADF1CA1EA640C000D22740 /* MockPayment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPayment.swift; sourceTree = "<group>"; };
+		9AADF1CC1EA6618800D22740 /* PayCheckoutTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayCheckoutTests.swift; sourceTree = "<group>"; };
 		9AAFAB711E60766E00864A17 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		9AAFAB761E6080A500864A17 /* Graph.QueryError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.QueryError.swift; sourceTree = "<group>"; };
 		9AB421B01E93CA45005098C4 /* PayAuthorization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayAuthorization.swift; sourceTree = "<group>"; };
@@ -355,6 +359,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9A0C7FCB1EA663110020F187 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9A0C7FCC1EA6631B0020F187 /* Models.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		9A4068DD1E8E7659000254CD /* Pay */ = {
 			isa = PBXGroup;
 			children = (
@@ -375,8 +387,10 @@
 		9A4068E81E8E7659000254CD /* PayTests */ = {
 			isa = PBXGroup;
 			children = (
+				9A0C7FCB1EA663110020F187 /* Models */,
 				9AEC90E01E9FFA6E008C6E1C /* Mocks */,
 				9A4068E91E8E7659000254CD /* PaySessionTests.swift */,
+				9AADF1CC1EA6618800D22740 /* PayCheckoutTests.swift */,
 				9A4068EB1E8E7659000254CD /* Info.plist */,
 			);
 			path = PayTests;
@@ -830,7 +844,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9AADF1C91EA63FB900D22740 /* MockPaymentToken.swift in Sources */,
+				9AADF1CD1EA6618800D22740 /* PayCheckoutTests.swift in Sources */,
 				9A4068EA1E8E7659000254CD /* PaySessionTests.swift in Sources */,
+				9A0C7FCD1EA6631B0020F187 /* Models.swift in Sources */,
 				9AEC90E41E9FFAA6008C6E1C /* MockAuthorizationController.swift in Sources */,
 				9AEC90E21E9FFA7F008C6E1C /* MockSessionDelegate.swift in Sources */,
 				9AADF1CB1EA640C000D22740 /* MockPayment.swift in Sources */,
