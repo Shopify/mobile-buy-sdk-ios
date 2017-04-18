@@ -33,6 +33,7 @@ class PayCheckoutTests: XCTestCase {
     //  MARK: - Init -
     //
     func testInit() {
+        let discount = Models.createDiscount()
         let address  = Models.createAddress()
         let rate     = Models.createShippingRate()
         let checkout = PayCheckout(
@@ -41,6 +42,7 @@ class PayCheckoutTests: XCTestCase {
                 PayLineItem(price: 10.0, quantity: 1),
                 PayLineItem(price: 20.0, quantity: 1),
             ],
+            discount:        discount,
             shippingAddress: address,
             shippingRate:    rate,
             discountAmount:  10.0,
@@ -54,11 +56,11 @@ class PayCheckoutTests: XCTestCase {
         XCTAssertEqual(checkout.lineItems.count, 2)
         XCTAssertEqual(checkout.shippingAddress!.city, address.city)
         XCTAssertEqual(checkout.shippingRate!.handle,  rate.handle)
-        XCTAssertEqual(checkout.discountAmount, 10.0)
-        XCTAssertEqual(checkout.subtotalPrice,  30.0)
-        XCTAssertEqual(checkout.needsShipping,  true)
-        XCTAssertEqual(checkout.totalTax,       15.0)
-        XCTAssertEqual(checkout.paymentDue,     35.0)
+        XCTAssertEqual(checkout.discount!.amount, 20.0)
+        XCTAssertEqual(checkout.subtotalPrice,    30.0)
+        XCTAssertEqual(checkout.needsShipping,    true)
+        XCTAssertEqual(checkout.totalTax,         15.0)
+        XCTAssertEqual(checkout.paymentDue,       35.0)
     }
     
     // ----------------------------------
@@ -97,5 +99,17 @@ class PayCheckoutTests: XCTestCase {
         XCTAssertEqual(summaryItems[0].label, "CART TOTAL")
         XCTAssertEqual(summaryItems[1].label, "SUBTOTAL")
         XCTAssertEqual(summaryItems[2].label, "TOTAL")
+    }
+    
+    func testSummaryItemsWithDiscount() {
+        let discount     = Models.createDiscount()
+        let checkout     = Models.createCheckout(requiresShipping: false, discount: discount, empty: true, hasTax: false)
+        let summaryItems = checkout.summaryItems
+        
+        XCTAssertEqual(summaryItems.count, 4)
+        XCTAssertEqual(summaryItems[0].label, "CART TOTAL")
+        XCTAssertEqual(summaryItems[1].label, "DISCOUNT (WIN20)")
+        XCTAssertEqual(summaryItems[2].label, "SUBTOTAL")
+        XCTAssertEqual(summaryItems[3].label, "TOTAL")
     }
 }
