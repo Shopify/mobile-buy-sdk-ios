@@ -27,6 +27,9 @@
 		9AA89E8D1E9BDC650075AC74 /* MockSessionDataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA89E8C1E9BDC650075AC74 /* MockSessionDataTask.swift */; };
 		9AA89E961E9D29B40075AC74 /* Graph.QueryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA89E951E9D29B40075AC74 /* Graph.QueryError.swift */; };
 		9AADF1B51EA517D100D22740 /* Graph.RetryHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA89E971E9D2BD80075AC74 /* Graph.RetryHandlerTests.swift */; };
+		9AADF1C71EA63ED000D22740 /* MockPaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AADF1C61EA63ED000D22740 /* MockPaymentMethod.swift */; };
+		9AADF1C91EA63FB900D22740 /* MockPaymentToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AADF1C81EA63FB900D22740 /* MockPaymentToken.swift */; };
+		9AADF1CB1EA640C000D22740 /* MockPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AADF1CA1EA640C000D22740 /* MockPayment.swift */; };
 		9AAFAB721E60766E00864A17 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB711E60766E00864A17 /* Global.swift */; };
 		9AAFAB771E6080A500864A17 /* Graph.QueryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB761E6080A500864A17 /* Graph.QueryError.swift */; };
 		9AB421B11E93CA45005098C4 /* PayAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB421B01E93CA45005098C4 /* PayAuthorization.swift */; };
@@ -190,6 +193,9 @@
 		9AA89E8C1E9BDC650075AC74 /* MockSessionDataTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSessionDataTask.swift; sourceTree = "<group>"; };
 		9AA89E951E9D29B40075AC74 /* Graph.QueryError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.QueryError.swift; sourceTree = "<group>"; };
 		9AA89E971E9D2BD80075AC74 /* Graph.RetryHandlerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.RetryHandlerTests.swift; sourceTree = "<group>"; };
+		9AADF1C61EA63ED000D22740 /* MockPaymentMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPaymentMethod.swift; sourceTree = "<group>"; };
+		9AADF1C81EA63FB900D22740 /* MockPaymentToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPaymentToken.swift; sourceTree = "<group>"; };
+		9AADF1CA1EA640C000D22740 /* MockPayment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPayment.swift; sourceTree = "<group>"; };
 		9AAFAB711E60766E00864A17 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		9AAFAB761E6080A500864A17 /* Graph.QueryError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.QueryError.swift; sourceTree = "<group>"; };
 		9AB421B01E93CA45005098C4 /* PayAuthorization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayAuthorization.swift; sourceTree = "<group>"; };
@@ -544,6 +550,9 @@
 			children = (
 				9AEC90E11E9FFA7F008C6E1C /* MockSessionDelegate.swift */,
 				9AEC90E31E9FFAA6008C6E1C /* MockAuthorizationController.swift */,
+				9AADF1C61EA63ED000D22740 /* MockPaymentMethod.swift */,
+				9AADF1C81EA63FB900D22740 /* MockPaymentToken.swift */,
+				9AADF1CA1EA640C000D22740 /* MockPayment.swift */,
 			);
 			name = Mocks;
 			sourceTree = "<group>";
@@ -820,9 +829,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AADF1C91EA63FB900D22740 /* MockPaymentToken.swift in Sources */,
 				9A4068EA1E8E7659000254CD /* PaySessionTests.swift in Sources */,
 				9AEC90E41E9FFAA6008C6E1C /* MockAuthorizationController.swift in Sources */,
 				9AEC90E21E9FFA7F008C6E1C /* MockSessionDelegate.swift in Sources */,
+				9AADF1CB1EA640C000D22740 /* MockPayment.swift in Sources */,
+				9AADF1C71EA63ED000D22740 /* MockPaymentMethod.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

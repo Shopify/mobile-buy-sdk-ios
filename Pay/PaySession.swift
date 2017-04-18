@@ -48,8 +48,8 @@ public class PaySession: NSObject {
     public let merchantID: String
     public let identifier: String
     
-    internal fileprivate(set) var checkout:      PayCheckout
-    internal fileprivate(set) var shippingRates: [PayShippingRate] = []
+    internal var checkout:      PayCheckout
+    internal var shippingRates: [PayShippingRate] = []
     
     private let controllerType: PKPaymentAuthorizationController.Type
     
@@ -102,6 +102,12 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
     //
     public func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didAuthorizePayment payment: PKPayment, completion: @escaping (PKPaymentAuthorizationStatus) -> Void) {
      
+        var shippingRate: PayShippingRate?
+        
+        if self.checkout.needsShipping {
+            shippingRate = self.shippingRates.shippingRateFor(payment.shippingMethod!)
+        }
+        
         /* -----------------------------------------------
          ** The PKPayment object provides `billingContact`
          ** and `shippingContact` only when required fields
@@ -112,7 +118,7 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
             token:           payment.token.paymentData.hexString,
             billingAddress:  PayAddress(with: payment.billingContact!),
             shippingAddress: PayAddress(with: payment.shippingContact!),
-            shippingRate:    self.shippingRates.shippingRateFor(payment.shippingMethod!)
+            shippingRate:    shippingRate
         )
         
         print("Authorized payment. Completing...")

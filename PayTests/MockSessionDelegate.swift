@@ -40,7 +40,8 @@ final class MockSessionDelegate: PaySessionDelegate {
     //  MARK: - Init -
     //
     init(session: PaySession) {
-        self.session = session
+        self.session          = session
+        self.session.delegate = self
     }
     
     // ----------------------------------
