@@ -26,9 +26,14 @@
 
 import Foundation
 
+/// Represents the currency used in a transaction.
+///
 public struct PayCurrency {
     
+    /// A string representing an ISO 4217 currency code (ex: "USD")
     public let currencyCode: String
+    
+    // A string representing an ISO Alpha-2 country code (ex: "US")
     public let countryCode:  String
     
     // ----------------------------------

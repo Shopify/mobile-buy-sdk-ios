@@ -26,6 +26,8 @@
 
 import Foundation
 
+/// Represents a line item in checkout with a quantity and single-unit price.
+///
 public struct PayLineItem {
     
     public let price:    Decimal

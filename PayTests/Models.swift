@@ -89,7 +89,6 @@ struct Models {
         ]
         
         return PayCheckout(
-            id: "com.checkout.identifier",
             lineItems:       !empty ? lineItems : [],
             discount:        discount,
             shippingAddress: shippingAddress,

@@ -27,17 +27,32 @@
 import Foundation
 import PassKit
 
+/// Represents a shipping rate quote, usually provided for a specific address.
+///
 public struct PayShippingRate {
     
+    /// Represents a `from` and `to` date for the expected delivery time frame. If the `to` date is `nil`, the expected delivery window is rougly around the `from` date.
+    ///
     public struct DeliveryRange {
+        
+        /// Delivery is expected to earlier than `from` date.
         public let from: Date
+        
+        /// Delivery is expected no later than `to` date.
         public let to:   Date?
         
+        /// Create a delivery range/
+        ///
+        /// - parameters:
+        ///     - from: A date from which to expect delivery.
+        ///     - to: A date until which to expect delivery.
+        ///
         public init(from: Date, to: Date? = nil) {
             self.from = from
             self.to   = to
         }
         
+        /// A string describing how many until expected delivery (ex: "1 - 2 days")
         public func descriptionFrom(_ date: Date) -> String {
             let firstDelta = date.daysUntil(self.from)
             
@@ -51,9 +66,16 @@ public struct PayShippingRate {
         }
     }
     
-    public let handle:        String
-    public let title:         String
-    public let price:         Decimal
+    /// A handle which unique identifies this shipping rate
+    public let handle: String
+    
+    /// A human-friendly name for this shipping rate
+    public let title: String
+    
+    /// Shipping rate price
+    public let price: Decimal
+    
+    /// A delivery range representing a time frame during which a delivery is expected
     public let deliveryRange: DeliveryRange?
     
     // ----------------------------------

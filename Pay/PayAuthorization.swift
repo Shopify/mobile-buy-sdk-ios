@@ -26,13 +26,23 @@
 
 import Foundation
 
+/// Encapsulates encrypted JSON payload provided by Apple Pay after an authorized payment request. In addition to
+/// the `token`, this structure include final information that is available *only* after payment authorization
+/// such as `billingAddress` and comlpete `shippingAddress`.
+///
 public struct PayAuthorization {
 
+    /// Encrypted JSON payment data represented by a string
     public let token: String
     
-    public let billingAddress:  PayAddress
+    /// Billing address that was selected by the user
+    public let billingAddress: PayAddress
+    
+    /// Shipping address that was selected by the user
     public let shippingAddress: PayAddress
-    public let shippingRate:    PayShippingRate?
+    
+    /// Shipping rate that was selected by the user
+    public let shippingRate: PayShippingRate?
     
     // ----------------------------------
     //  MARK: - Init -
