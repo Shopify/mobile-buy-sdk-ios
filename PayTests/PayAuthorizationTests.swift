@@ -33,10 +33,11 @@ class PayAuthorizationTests: XCTestCase {
     //  MARK: - Init -
     //
     func testInit() {
+        let paymentData   = "123".data(using: .utf8)!
         let address       = Models.createAddress()
         let rate          = Models.createShippingRate()
         let authorization = PayAuthorization(
-            token:           "123",
+            paymentData:     paymentData,
             billingAddress:  address,
             shippingAddress: address,
             shippingRate:    rate
