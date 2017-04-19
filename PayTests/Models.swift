@@ -124,4 +124,34 @@ struct Models {
     static func createShippingRate() -> PayShippingRate {
         return PayShippingRate(handle: "shipping-rate", title: "UPS Standard", price: 12.0)
     }
+    
+    static func createShippingRates() -> [PayShippingRate] {
+        return [
+            PayShippingRate(handle: "123", title: "USPS",  price: 11.0),
+            PayShippingRate(handle: "234", title: "UPS",   price: 12.0),
+            PayShippingRate(handle: "345", title: "FexEx", price: 13.0),
+        ]
+    }
+    
+    static func createDeliveryRangeFromSingle() -> (orderDate: Date, range: PayShippingRate.DeliveryRange) {
+        let order = Date(timeIntervalSince1970: 1483228800)
+        let from  = Date(timeIntervalSince1970: 1483315200)
+        
+        return (order, PayShippingRate.DeliveryRange(from: from))
+    }
+    
+    static func createDeliveryRangeFromMulti() -> (orderDate: Date, range: PayShippingRate.DeliveryRange) {
+        let order = Date(timeIntervalSince1970: 1483228800)
+        let from  = Date(timeIntervalSince1970: 1483401600)
+        
+        return (order, PayShippingRate.DeliveryRange(from: from))
+    }
+    
+    static func createDeliveryRange() -> (orderDate: Date, range: PayShippingRate.DeliveryRange) {
+        let order = Date(timeIntervalSince1970: 1483228800)
+        let from  = Date(timeIntervalSince1970: 1483315200)
+        let to    = Date(timeIntervalSince1970: 1483747200)
+        
+        return (order, PayShippingRate.DeliveryRange(from: from, to: to))
+    }
 }
