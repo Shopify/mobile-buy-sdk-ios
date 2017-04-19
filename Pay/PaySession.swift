@@ -282,10 +282,3 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
         self.delegate?.paySessionDidFinish(self)
     }
 }
-
-private extension Data {
-    
-    var hexString: String {
-        return self.map { String($0, radix: 16) }.joined()
-    }
-}
