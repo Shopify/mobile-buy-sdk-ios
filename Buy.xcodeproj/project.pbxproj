@@ -15,6 +15,7 @@
 		9A0C7FD91EA686A20020F187 /* PayAddressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C7FD81EA686A20020F187 /* PayAddressTests.swift */; };
 		9A0C7FDD1EA699280020F187 /* PayShippingRateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C7FDC1EA699280020F187 /* PayShippingRateTests.swift */; };
 		9A0C7FE31EA7981C0020F187 /* PayAuthorizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C7FE21EA7981C0020F187 /* PayAuthorizationTests.swift */; };
+		9A0C7FE51EA79EA70020F187 /* PassKit+SummaryItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C7FE41EA79EA70020F187 /* PassKit+SummaryItemTests.swift */; };
 		9A3F2CBB1EA5177500307F8B /* Graph.TaskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA89E851E9BD8930075AC74 /* Graph.TaskTests.swift */; };
 		9A4068E51E8E7659000254CD /* Pay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A4068DC1E8E7658000254CD /* Pay.framework */; };
 		9A4068EA1E8E7659000254CD /* PaySessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4068E91E8E7659000254CD /* PaySessionTests.swift */; };
@@ -25,7 +26,7 @@
 		9A4068FC1E8E767B000254CD /* PayCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4068F61E8E767B000254CD /* PayCurrency.swift */; };
 		9A4068FD1E8E767B000254CD /* PayLineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4068F71E8E767B000254CD /* PayLineItem.swift */; };
 		9A4068FE1E8E767B000254CD /* PayShippingRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4068F81E8E767B000254CD /* PayShippingRate.swift */; };
-		9A40690A1E8E82E2000254CD /* PassKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4069091E8E82E2000254CD /* PassKit+Extensions.swift */; };
+		9A40690A1E8E82E2000254CD /* PassKit+SummaryItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4069091E8E82E2000254CD /* PassKit+SummaryItems.swift */; };
 		9A4069CA1E8EA6DB000254CD /* Graph.RetryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4069C91E8EA6DB000254CD /* Graph.RetryHandler.swift */; };
 		9A4069CC1E8EA710000254CD /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4069CB1E8EA710000254CD /* Graph.swift */; };
 		9A4069CF1E8ED98A000254CD /* Graph.Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4069CE1E8ED98A000254CD /* Graph.Task.swift */; };
@@ -187,6 +188,7 @@
 		9A0C7FD81EA686A20020F187 /* PayAddressTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayAddressTests.swift; sourceTree = "<group>"; };
 		9A0C7FDC1EA699280020F187 /* PayShippingRateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayShippingRateTests.swift; sourceTree = "<group>"; };
 		9A0C7FE21EA7981C0020F187 /* PayAuthorizationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayAuthorizationTests.swift; sourceTree = "<group>"; };
+		9A0C7FE41EA79EA70020F187 /* PassKit+SummaryItemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PassKit+SummaryItemTests.swift"; sourceTree = "<group>"; };
 		9A4068DC1E8E7658000254CD /* Pay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A4068DE1E8E7659000254CD /* Pay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pay.h; sourceTree = "<group>"; };
 		9A4068DF1E8E7659000254CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -199,7 +201,7 @@
 		9A4068F61E8E767B000254CD /* PayCurrency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayCurrency.swift; sourceTree = "<group>"; };
 		9A4068F71E8E767B000254CD /* PayLineItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayLineItem.swift; sourceTree = "<group>"; };
 		9A4068F81E8E767B000254CD /* PayShippingRate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayShippingRate.swift; sourceTree = "<group>"; };
-		9A4069091E8E82E2000254CD /* PassKit+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PassKit+Extensions.swift"; sourceTree = "<group>"; };
+		9A4069091E8E82E2000254CD /* PassKit+SummaryItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PassKit+SummaryItems.swift"; sourceTree = "<group>"; };
 		9A4069C91E8EA6DB000254CD /* Graph.RetryHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.RetryHandler.swift; sourceTree = "<group>"; };
 		9A4069CB1E8EA710000254CD /* Graph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
 		9A4069CE1E8ED98A000254CD /* Graph.Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.Task.swift; sourceTree = "<group>"; };
@@ -393,7 +395,7 @@
 				9A4068F31E8E767B000254CD /* PayAddress.swift */,
 				9A4068F81E8E767B000254CD /* PayShippingRate.swift */,
 				9AB421B01E93CA45005098C4 /* PayAuthorization.swift */,
-				9A4069091E8E82E2000254CD /* PassKit+Extensions.swift */,
+				9A4069091E8E82E2000254CD /* PassKit+SummaryItems.swift */,
 				9A4068DF1E8E7659000254CD /* Info.plist */,
 			);
 			path = Pay;
@@ -412,6 +414,7 @@
 				9A0C7FD81EA686A20020F187 /* PayAddressTests.swift */,
 				9A0C7FDC1EA699280020F187 /* PayShippingRateTests.swift */,
 				9A0C7FE21EA7981C0020F187 /* PayAuthorizationTests.swift */,
+				9A0C7FE41EA79EA70020F187 /* PassKit+SummaryItemTests.swift */,
 				9A4068EB1E8E7659000254CD /* Info.plist */,
 			);
 			path = PayTests;
@@ -851,7 +854,7 @@
 			files = (
 				9A4068FA1E8E767B000254CD /* PayCheckout.swift in Sources */,
 				9A4068FC1E8E767B000254CD /* PayCurrency.swift in Sources */,
-				9A40690A1E8E82E2000254CD /* PassKit+Extensions.swift in Sources */,
+				9A40690A1E8E82E2000254CD /* PassKit+SummaryItems.swift in Sources */,
 				9A4068FE1E8E767B000254CD /* PayShippingRate.swift in Sources */,
 				9AB421B11E93CA45005098C4 /* PayAuthorization.swift in Sources */,
 				9A4068F91E8E767B000254CD /* PayAddress.swift in Sources */,
@@ -866,6 +869,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9AADF1C91EA63FB900D22740 /* MockPaymentToken.swift in Sources */,
+				9A0C7FE51EA79EA70020F187 /* PassKit+SummaryItemTests.swift in Sources */,
 				9AADF1CD1EA6618800D22740 /* PayCheckoutTests.swift in Sources */,
 				9A4068EA1E8E7659000254CD /* PaySessionTests.swift in Sources */,
 				9A0C7FD91EA686A20020F187 /* PayAddressTests.swift in Sources */,

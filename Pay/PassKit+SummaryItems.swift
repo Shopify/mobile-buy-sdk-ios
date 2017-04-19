@@ -1,5 +1,5 @@
 //
-//  PassKit+Extensions.swift
+//  PassKit+SummaryItems.swift
 //  Pay
 //
 //  Created by Shopify.
@@ -34,13 +34,6 @@ internal extension Decimal {
     
     func summaryItemNamed(_ name: String) -> PKPaymentSummaryItem {
         return PKPaymentSummaryItem(label: name, amount: self)
-    }
-}
-
-internal extension Double {
-    
-    func summaryItemNamed(_ name: String) -> PKPaymentSummaryItem {
-        return Decimal(self).summaryItemNamed(name)
     }
 }
 
