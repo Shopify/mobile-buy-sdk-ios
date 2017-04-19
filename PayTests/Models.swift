@@ -73,6 +73,10 @@ struct Models {
         return PayDiscount(code: "WIN20", amount: 20.0)
     }
     
+    static func createAnonymousDiscount() -> PayDiscount {
+        return PayDiscount(code: "", amount: 20.0)
+    }
+    
     static func createCurrency() -> PayCurrency {
         return PayCurrency(currencyCode: "USD", countryCode: "US")
     }

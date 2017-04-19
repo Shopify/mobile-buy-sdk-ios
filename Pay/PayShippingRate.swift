@@ -41,13 +41,13 @@ public struct PayShippingRate {
         public func descriptionFrom(_ date: Date) -> String {
             let firstDelta = date.daysUntil(self.from)
             
-            if let toDate = self.to {
-                let secondDelta = date.daysUntil(toDate)
-                return "\(firstDelta) - \(secondDelta) days"
-            } else {
+            guard let toDate = self.to else {
                 let suffix  = firstDelta == 1 ? "" : "s"
                 return "\(firstDelta) day\(suffix)"
             }
+            
+            let secondDelta = date.daysUntil(toDate)
+            return "\(firstDelta) - \(secondDelta) days"
         }
     }
     

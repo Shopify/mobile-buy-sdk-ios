@@ -86,7 +86,7 @@ class PayShippingRateTests: XCTestCase {
     // ----------------------------------
     //  MARK: - PassKit -
     //
-    func testSummaryItems() {
+    func testSummaryItem() {
         let rate = Models.createShippingRate()
         let item = rate.summaryItem
         
@@ -94,6 +94,18 @@ class PayShippingRateTests: XCTestCase {
         XCTAssertEqual(item.amount,     12.0 as NSDecimalNumber)
         XCTAssertEqual(item.identifier, "shipping-rate")
         XCTAssertEqual(item.detail,     "No delivery estimate provided.")
+    }
+    
+    func testSummaryItemWithDeliveryRange() {
+        let tomorrow = Date(timeIntervalSince1970: Date().timeIntervalSince1970 + 86400)
+        let range    = PayShippingRate.DeliveryRange(from: tomorrow)
+        let rate     = PayShippingRate(handle: "shipping-rate", title: "UPS Standard", price: 12.0, deliveryRange: range)
+        let item     = rate.summaryItem
+        
+        XCTAssertEqual(item.label,      "UPS Standard")
+        XCTAssertEqual(item.amount,     12.0 as NSDecimalNumber)
+        XCTAssertEqual(item.identifier, "shipping-rate")
+        XCTAssertEqual(item.detail,     "1 day")
     }
     
     func testSummaryItemsCollection() {
