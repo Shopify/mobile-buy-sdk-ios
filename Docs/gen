@@ -2,8 +2,27 @@
 
 if hash jazzy 2>/dev/null
 then
+
+    # Backup the readme file
+    # ######################
+
+    cp ../README.md ../README.md.backup
+
+    # Find and replace code blocks
+    # ############################
+
+    sed -i "" -e 's/```[a-zA-Z0-9]*/```/g' ../README.md
+
+    # Invoke Jazzy doc generation
+    # ###########################
+
     jazzy --config .buy.yml
     jazzy --config .pay.yml
+
+    # Revert README changes
+    rm ../README.md
+    mv ../README.md.backup ../README.md
+
 else
     echo "Jazzy is not installed."
     echo "Install by running: gem install jazzy"
