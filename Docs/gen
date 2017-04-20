@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if hash jazzy 2>/dev/null
+then
+    jazzy --config .buy.yml
+    jazzy --config .pay.yml
+else
+    echo "Jazzy is not installed."
+    echo "Install by running: gem install jazzy"
+fi
