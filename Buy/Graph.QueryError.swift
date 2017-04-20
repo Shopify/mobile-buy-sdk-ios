@@ -27,13 +27,21 @@
 import Foundation
 
 public extension Graph {
+    
+    /// Represents an error that was encountered somewhere in the request pipeline.
     public enum QueryError: Error {
         
+        /// For invalid queries, a collection of `Reason`s is provided to indicate where exactly in the query the problem occured.
         public struct Reason {
             
+            /// The error message associated with the line and column number
             let message: String
-            let line:    Int?
-            let column:  Int?
+            
+            /// Line on which the error occured
+            let line: Int?
+            
+            /// The column at which the error occured
+            let column: Int?
             
             init(json: JSON) {
                 self.message = (json["message"] as? String) ?? "Unknown error"
@@ -42,12 +50,25 @@ public extension Graph {
             }
         }
         
+        /// A non-HTTPURLResponse was received
         case request(error: Error?)
+        
+        /// A non-200 status code was received
         case http(statusCode: Int)
+        
+        /// The response contains no data
         case noData
+        
+        /// JSON deserialization failed, invalid syntax
         case jsonDeserializationFailed(data: Data?)
+        
+        /// JSON structure doesn't match expectation
         case invalidJson(json: Any)
-        case schemaViolation(violation: SchemaViolationError)
+        
+        /// The provided query was partially or completely invalid
         case invalidQuery(reasons: [Reason])
+        
+        /// The response schema does not match expectation
+        case schemaViolation(violation: SchemaViolationError)
     }
 }

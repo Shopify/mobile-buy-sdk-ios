@@ -38,8 +38,37 @@ private struct Header {
 }
 
 extension Graph {
+    
+    /// A completion handler for GraphQL `query` requests.
+    ///
+    /// - parameters:
+    ///     - query: A typed response model that will contain fields that match exactly the fields requested. Accessing a field that wasn't initially queried will raise a `fatalError`.
+    ///     - error: An error encountered during the request.
+    ///
+    /// - Important:
+    /// `query` and `error` are **not** mutually exclusive. In other words, it is valid for a request to return both a non-nil `query` and `error`. In this case, the `error` generally represents an issue with only a subset of the query.
+    ///
+    public typealias QueryCompletion = (_ query: Storefront.QueryRoot?, _ error: QueryError?) -> Void
+    
+    /// A completion handler for GraphQL `mutation` requests.
+    ///
+    /// - parameters:
+    ///     - mutation: A typed response model that will contain fields that match exactly the fields requested. Accessing a field that wasn't initially queried will raise a `fatalError`.
+    ///     - error:    An error encountered during the request.
+    ///
+    /// - Important:
+    /// `mutation` and `error` are **not** mutually exclusive. In other words, it is valid for a request to return both a non-nil `mutation` and `error`. In this case, the `error` generally represents an issue with only a subset of the query.
+    ///
+    public typealias MutationCompletion = (_ mutation: Storefront.Mutation?, _ error: QueryError?) -> Void
+    
+    /// The `Client` is a network layer designed to abstract the communication with the Shopify GraphQL endpoint
+    /// by handling the serialization and deserialization of GraphQL models for `query` and `mutation` requests.
+    /// In addition, the `Client` will take care of appending the necessary headers for authorizing the network
+    /// requests based on the provided `shopDomain` and `apiKey`.
+    ///
     public class Client {
         
+        /// The `URLSession` backing all `Client` network operations. You may provide your own session when initializing a new `Client`.
         public let session:  URLSession
         
         internal let apiURL:  URL
@@ -48,6 +77,13 @@ extension Graph {
         // ----------------------------------
         //  MARK: - Init -
         //
+        /// Creates and initialized a new `Client`.
+        ///
+        /// - parameters:
+        ///     - shopDomain: The domain of your shop (ex: "shopname.myshopify.com").
+        ///     - apiKey:     The API key for you app, obtained from the Shopify admin.
+        ///     - session:    A `URLSession` to use for this client. If left blank, a session with a `default` configuration will be created.
+        ///
         public init(shopDomain: String, apiKey: String, session: URLSession = URLSession(configuration: URLSessionConfiguration.default)) {
             
             let shopURL  = Client.urlFor(shopDomain)
@@ -75,14 +111,46 @@ extension Graph {
         // ----------------------------------
         //  MARK: - Queries -
         //
-        public func queryGraphWith(_ query: Storefront.QueryRootQuery, retryHandler: RetryHandler<Storefront.QueryRoot>? = nil, completionHandler: @escaping (Storefront.QueryRoot?, QueryError?) -> Void) -> Task {
+        /// Performs a GraphQL `query` request.
+        ///
+        /// - parameters:
+        ///     - query:             A GraphQL query to execute, represented by a `QueryRootQuery` object.
+        ///     - retryHandler:      An optional handler for subsequently retrying or polling. There are several Shopify resources that require polling until `resource.ready == true`. If provided, the `retryHandler` is executed for every response to access whether a request should continue retrying. The `completionHandler` won't be executed until the `retryHandler.condition` evaluates to `false`.
+        ///     - completionHandler: A handler that will be executed after a failed or successful query request.
+        
+        /// - returns:
+        /// A reference to a `Task` representing this query operation.
+        ///
+        /// - Important:
+        /// The returned task is always in a `suspended` state. You must call `resume` to start the task:
+        /// ````
+        /// task.resume()
+        /// ````
+        ///
+        public func queryGraphWith(_ query: Storefront.QueryRootQuery, retryHandler: RetryHandler<Storefront.QueryRoot>? = nil, completionHandler: @escaping QueryCompletion) -> Task {
             return self.graphRequestTask(query: query, retryHandler: retryHandler, completionHandler: completionHandler)
         }
         
         // ----------------------------------
         //  MARK: - Mutations -
         //
-        public func mutateGraphWith(_ mutation: Storefront.MutationQuery, retryHandler: RetryHandler<Storefront.Mutation>? = nil, completionHandler: @escaping (Storefront.Mutation?, QueryError?) -> Void) -> Task {
+        /// Performs a GraphQL `mutation` request.
+        ///
+        /// - parameters:
+        ///     - mutation:          A GraphQL mutation to execute, represented by a `MutationQuery` object.
+        ///     - retryHandler:      An optional handler for subsequently retrying or polling. There are several Shopify resources that require polling until `resource.ready == true`. If provided, the `retryHandler` is executed for every response to access whether a request should continue retrying. The `completionHandler` won't be executed until the `retryHandler.condition` evaluates to `false`.
+        ///     - completionHandler: A handler that will be executed after a failed or successful query request.
+        
+        /// - returns:
+        /// A reference to a `Task` representing this mutation operation.
+        ///
+        /// - Important:
+        /// The returned task is always in a `suspended` state. You must call `resume` to start the task:
+        /// ````
+        /// task.resume()
+        /// ````
+        ///
+        public func mutateGraphWith(_ mutation: Storefront.MutationQuery, retryHandler: RetryHandler<Storefront.Mutation>? = nil, completionHandler: @escaping MutationCompletion) -> Task {
             return self.graphRequestTask(query: mutation, retryHandler: retryHandler, completionHandler: completionHandler)
         }
         
