@@ -3,13 +3,6 @@ import Foundation
 
 extension Storefront {
 	open class CustomerAddressUpdatePayloadQuery: GraphQL.AbstractQuery {
-		@available(*, deprecated, message:"Relay is moving away from requiring this field")
-		@discardableResult
-		open func clientMutationId(aliasSuffix: String? = nil) -> CustomerAddressUpdatePayloadQuery {
-			addField(field: "clientMutationId", aliasSuffix: aliasSuffix)
-			return self
-		}
-
 		@discardableResult
 		open func customerAddress(aliasSuffix: String? = nil, _ subfields: (MailingAddressQuery) -> Void) -> CustomerAddressUpdatePayloadQuery {
 			let subquery = MailingAddressQuery()
@@ -34,13 +27,6 @@ extension Storefront {
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
-				case "clientMutationId":
-				if value is NSNull { return nil }
-				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
-				}
-				return value
-
 				case "customerAddress":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -61,15 +47,6 @@ extension Storefront {
 
 		open var typeName: String { return "CustomerAddressUpdatePayload" }
 
-		@available(*, deprecated, message:"Relay is moving away from requiring this field")
-		open var clientMutationId: String? {
-			return internalGetClientMutationId()
-		}
-
-		func internalGetClientMutationId(aliasSuffix: String? = nil) -> String? {
-			return field(field: "clientMutationId", aliasSuffix: aliasSuffix) as! String?
-		}
-
 		open var customerAddress: Storefront.MailingAddress? {
 			return internalGetCustomerAddress()
 		}
@@ -88,10 +65,6 @@ extension Storefront {
 
 		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
 			switch(key) {
-				case "clientMutationId":
-
-				return .Scalar
-
 				case "customerAddress":
 
 				return .Object

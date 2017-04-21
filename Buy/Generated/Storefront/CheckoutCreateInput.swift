@@ -3,8 +3,6 @@ import Foundation
 
 extension Storefront {
 	open class CheckoutCreateInput {
-		open var clientMutationId: String?
-
 		open var email: String?
 
 		open var lineItems: [CheckoutLineItemInput]?
@@ -18,8 +16,6 @@ extension Storefront {
 		open var allowPartialAddresses: Bool?
 
 		public init(
-			clientMutationId: String? = nil,
-
 			email: String? = nil,
 
 			lineItems: [CheckoutLineItemInput]? = nil,
@@ -32,8 +28,6 @@ extension Storefront {
 
 			allowPartialAddresses: Bool? = nil
 		) {
-			self.clientMutationId = clientMutationId
-
 			self.email = email
 
 			self.lineItems = lineItems
@@ -49,10 +43,6 @@ extension Storefront {
 
 		func serialize() -> String {
 			var fields: [String] = []
-
-			if let clientMutationId = clientMutationId {
-				fields.append("clientMutationId:\(GraphQL.quoteString(input: clientMutationId))")
-			}
 
 			if let email = email {
 				fields.append("email:\(GraphQL.quoteString(input: email))")

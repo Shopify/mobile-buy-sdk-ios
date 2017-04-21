@@ -186,6 +186,12 @@ extension Storefront {
 		}
 
 		@discardableResult
+		open func vaultUrl(aliasSuffix: String? = nil) -> CheckoutQuery {
+			addField(field: "vaultUrl", aliasSuffix: aliasSuffix)
+			return self
+		}
+
+		@discardableResult
 		open func webUrl(aliasSuffix: String? = nil) -> CheckoutQuery {
 			addField(field: "webUrl", aliasSuffix: aliasSuffix)
 			return self
@@ -349,6 +355,12 @@ extension Storefront {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
 				return GraphQL.iso8601DateParser.date(from: value)!
+
+				case "vaultUrl":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return URL(string: value)!
 
 				case "webUrl":
 				guard let value = value as? String else {
@@ -559,6 +571,14 @@ extension Storefront {
 			return field(field: "updatedAt", aliasSuffix: aliasSuffix) as! Date
 		}
 
+		open var vaultUrl: URL {
+			return internalGetVaultUrl()
+		}
+
+		func internalGetVaultUrl(aliasSuffix: String? = nil) -> URL {
+			return field(field: "vaultUrl", aliasSuffix: aliasSuffix) as! URL
+		}
+
 		open var webUrl: URL {
 			return internalGetWebUrl()
 		}
@@ -662,6 +682,10 @@ extension Storefront {
 				return .Scalar
 
 				case "updatedAt":
+
+				return .Scalar
+
+				case "vaultUrl":
 
 				return .Scalar
 

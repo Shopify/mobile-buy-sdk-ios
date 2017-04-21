@@ -3,13 +3,6 @@ import Foundation
 
 extension Storefront {
 	open class CustomerRecoverPayloadQuery: GraphQL.AbstractQuery {
-		@available(*, deprecated, message:"Relay is moving away from requiring this field")
-		@discardableResult
-		open func clientMutationId(aliasSuffix: String? = nil) -> CustomerRecoverPayloadQuery {
-			addField(field: "clientMutationId", aliasSuffix: aliasSuffix)
-			return self
-		}
-
 		@discardableResult
 		open func userErrors(aliasSuffix: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerRecoverPayloadQuery {
 			let subquery = UserErrorQuery()
@@ -25,13 +18,6 @@ extension Storefront {
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
-				case "clientMutationId":
-				if value is NSNull { return nil }
-				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
-				}
-				return value
-
 				case "userErrors":
 				guard let value = value as? [[String: Any]] else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
@@ -45,15 +31,6 @@ extension Storefront {
 
 		open var typeName: String { return "CustomerRecoverPayload" }
 
-		@available(*, deprecated, message:"Relay is moving away from requiring this field")
-		open var clientMutationId: String? {
-			return internalGetClientMutationId()
-		}
-
-		func internalGetClientMutationId(aliasSuffix: String? = nil) -> String? {
-			return field(field: "clientMutationId", aliasSuffix: aliasSuffix) as! String?
-		}
-
 		open var userErrors: [Storefront.UserError] {
 			return internalGetUserErrors()
 		}
@@ -64,10 +41,6 @@ extension Storefront {
 
 		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
 			switch(key) {
-				case "clientMutationId":
-
-				return .Scalar
-
 				case "userErrors":
 
 				return .ObjectList

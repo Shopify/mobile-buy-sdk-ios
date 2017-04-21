@@ -3,8 +3,6 @@ import Foundation
 
 extension Storefront {
 	open class CustomerAccessTokenCreateInput {
-		open var clientMutationId: String?
-
 		open var email: String
 
 		open var password: String
@@ -12,12 +10,8 @@ extension Storefront {
 		public init(
 			email: String,
 
-			password: String,
-
-			clientMutationId: String? = nil
+			password: String
 		) {
-			self.clientMutationId = clientMutationId
-
 			self.email = email
 
 			self.password = password
@@ -25,10 +19,6 @@ extension Storefront {
 
 		func serialize() -> String {
 			var fields: [String] = []
-
-			if let clientMutationId = clientMutationId {
-				fields.append("clientMutationId:\(GraphQL.quoteString(input: clientMutationId))")
-			}
 
 			fields.append("email:\(GraphQL.quoteString(input: email))")
 

@@ -3,13 +3,6 @@ import Foundation
 
 extension Storefront {
 	open class CustomerAccessTokenRenewPayloadQuery: GraphQL.AbstractQuery {
-		@available(*, deprecated, message:"Relay is moving away from requiring this field")
-		@discardableResult
-		open func clientMutationId(aliasSuffix: String? = nil) -> CustomerAccessTokenRenewPayloadQuery {
-			addField(field: "clientMutationId", aliasSuffix: aliasSuffix)
-			return self
-		}
-
 		@discardableResult
 		open func customerAccessToken(aliasSuffix: String? = nil, _ subfields: (CustomerAccessTokenQuery) -> Void) -> CustomerAccessTokenRenewPayloadQuery {
 			let subquery = CustomerAccessTokenQuery()
@@ -34,13 +27,6 @@ extension Storefront {
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
-				case "clientMutationId":
-				if value is NSNull { return nil }
-				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
-				}
-				return value
-
 				case "customerAccessToken":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -61,15 +47,6 @@ extension Storefront {
 
 		open var typeName: String { return "CustomerAccessTokenRenewPayload" }
 
-		@available(*, deprecated, message:"Relay is moving away from requiring this field")
-		open var clientMutationId: String? {
-			return internalGetClientMutationId()
-		}
-
-		func internalGetClientMutationId(aliasSuffix: String? = nil) -> String? {
-			return field(field: "clientMutationId", aliasSuffix: aliasSuffix) as! String?
-		}
-
 		open var customerAccessToken: Storefront.CustomerAccessToken? {
 			return internalGetCustomerAccessToken()
 		}
@@ -88,10 +65,6 @@ extension Storefront {
 
 		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
 			switch(key) {
-				case "clientMutationId":
-
-				return .Scalar
-
 				case "customerAccessToken":
 
 				return .Object

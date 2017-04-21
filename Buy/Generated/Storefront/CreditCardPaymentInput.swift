@@ -2,11 +2,7 @@
 import Foundation
 
 extension Storefront {
-	open class CheckoutCompleteWithCreditCardInput {
-		open var clientMutationId: String?
-
-		open var checkoutId: GraphQL.ID
-
+	open class CreditCardPaymentInput {
 		open var amount: Decimal
 
 		open var idempotencyKey: String
@@ -18,8 +14,6 @@ extension Storefront {
 		open var test: Bool?
 
 		public init(
-			checkoutId: GraphQL.ID,
-
 			amount: Decimal,
 
 			idempotencyKey: String,
@@ -28,14 +22,8 @@ extension Storefront {
 
 			vaultId: String,
 
-			clientMutationId: String? = nil,
-
 			test: Bool? = nil
 		) {
-			self.clientMutationId = clientMutationId
-
-			self.checkoutId = checkoutId
-
 			self.amount = amount
 
 			self.idempotencyKey = idempotencyKey
@@ -49,12 +37,6 @@ extension Storefront {
 
 		func serialize() -> String {
 			var fields: [String] = []
-
-			if let clientMutationId = clientMutationId {
-				fields.append("clientMutationId:\(GraphQL.quoteString(input: clientMutationId))")
-			}
-
-			fields.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
 
 			fields.append("amount:\(GraphQL.quoteString(input: "\(String(describing: amount))"))")
 
