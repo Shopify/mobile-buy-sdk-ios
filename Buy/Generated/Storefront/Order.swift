@@ -46,6 +46,12 @@ extension Storefront {
 		}
 
 		@discardableResult
+		open func email(aliasSuffix: String? = nil) -> OrderQuery {
+			addField(field: "email", aliasSuffix: aliasSuffix)
+			return self
+		}
+
+		@discardableResult
 		open func id(aliasSuffix: String? = nil) -> OrderQuery {
 			addField(field: "id", aliasSuffix: aliasSuffix)
 			return self
@@ -77,6 +83,12 @@ extension Storefront {
 		@discardableResult
 		open func orderNumber(aliasSuffix: String? = nil) -> OrderQuery {
 			addField(field: "orderNumber", aliasSuffix: aliasSuffix)
+			return self
+		}
+
+		@discardableResult
+		open func phone(aliasSuffix: String? = nil) -> OrderQuery {
+			addField(field: "phone", aliasSuffix: aliasSuffix)
 			return self
 		}
 
@@ -183,6 +195,13 @@ extension Storefront {
 				}
 				return OrderDisplayFulfillmentStatus(rawValue: value) ?? .unknownValue
 
+				case "email":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return value
+
 				case "id":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
@@ -200,6 +219,13 @@ extension Storefront {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
 				return Int32(value)
+
+				case "phone":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return value
 
 				case "processedAt":
 				guard let value = value as? String else {
@@ -315,6 +341,14 @@ extension Storefront {
 			return field(field: "displayFulfillmentStatus", aliasSuffix: aliasSuffix) as! Storefront.OrderDisplayFulfillmentStatus
 		}
 
+		open var email: String? {
+			return internalGetEmail()
+		}
+
+		func internalGetEmail(aliasSuffix: String? = nil) -> String? {
+			return field(field: "email", aliasSuffix: aliasSuffix) as! String?
+		}
+
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -341,6 +375,14 @@ extension Storefront {
 
 		func internalGetOrderNumber(aliasSuffix: String? = nil) -> Int32 {
 			return field(field: "orderNumber", aliasSuffix: aliasSuffix) as! Int32
+		}
+
+		open var phone: String? {
+			return internalGetPhone()
+		}
+
+		func internalGetPhone(aliasSuffix: String? = nil) -> String? {
+			return field(field: "phone", aliasSuffix: aliasSuffix) as! String?
 		}
 
 		open var processedAt: Date {
@@ -437,6 +479,10 @@ extension Storefront {
 
 				return .Scalar
 
+				case "email":
+
+				return .Scalar
+
 				case "id":
 
 				return .Scalar
@@ -446,6 +492,10 @@ extension Storefront {
 				return .Object
 
 				case "orderNumber":
+
+				return .Scalar
+
+				case "phone":
 
 				return .Scalar
 

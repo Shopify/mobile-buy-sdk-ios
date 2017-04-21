@@ -52,13 +52,6 @@ extension Storefront {
 			return self
 		}
 
-		@available(*, deprecated, message:"Use `description` instead")
-		@discardableResult
-		open func descriptionPlainSummary(aliasSuffix: String? = nil) -> ProductQuery {
-			addField(field: "descriptionPlainSummary", aliasSuffix: aliasSuffix)
-			return self
-		}
-
 		@discardableResult
 		open func handle(aliasSuffix: String? = nil) -> ProductQuery {
 			addField(field: "handle", aliasSuffix: aliasSuffix)
@@ -216,12 +209,6 @@ extension Storefront {
 				}
 				return value
 
-				case "descriptionPlainSummary":
-				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
-				}
-				return value
-
 				case "handle":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
@@ -333,15 +320,6 @@ extension Storefront {
 
 		func internalGetDescriptionHtml(aliasSuffix: String? = nil) -> String {
 			return field(field: "descriptionHtml", aliasSuffix: aliasSuffix) as! String
-		}
-
-		@available(*, deprecated, message:"Use `description` instead")
-		open var descriptionPlainSummary: String {
-			return internalGetDescriptionPlainSummary()
-		}
-
-		func internalGetDescriptionPlainSummary(aliasSuffix: String? = nil) -> String {
-			return field(field: "descriptionPlainSummary", aliasSuffix: aliasSuffix) as! String
 		}
 
 		open var handle: String {
@@ -459,10 +437,6 @@ extension Storefront {
 				return .Scalar
 
 				case "descriptionHtml":
-
-				return .Scalar
-
-				case "descriptionPlainSummary":
 
 				return .Scalar
 

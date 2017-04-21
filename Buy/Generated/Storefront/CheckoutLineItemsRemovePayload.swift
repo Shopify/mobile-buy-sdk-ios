@@ -12,13 +12,6 @@ extension Storefront {
 			return self
 		}
 
-		@available(*, deprecated, message:"Relay is moving away from requiring this field")
-		@discardableResult
-		open func clientMutationId(aliasSuffix: String? = nil) -> CheckoutLineItemsRemovePayloadQuery {
-			addField(field: "clientMutationId", aliasSuffix: aliasSuffix)
-			return self
-		}
-
 		@discardableResult
 		open func userErrors(aliasSuffix: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CheckoutLineItemsRemovePayloadQuery {
 			let subquery = UserErrorQuery()
@@ -41,13 +34,6 @@ extension Storefront {
 				}
 				return try Checkout(fields: value)
 
-				case "clientMutationId":
-				if value is NSNull { return nil }
-				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
-				}
-				return value
-
 				case "userErrors":
 				guard let value = value as? [[String: Any]] else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
@@ -69,15 +55,6 @@ extension Storefront {
 			return field(field: "checkout", aliasSuffix: aliasSuffix) as! Storefront.Checkout?
 		}
 
-		@available(*, deprecated, message:"Relay is moving away from requiring this field")
-		open var clientMutationId: String? {
-			return internalGetClientMutationId()
-		}
-
-		func internalGetClientMutationId(aliasSuffix: String? = nil) -> String? {
-			return field(field: "clientMutationId", aliasSuffix: aliasSuffix) as! String?
-		}
-
 		open var userErrors: [Storefront.UserError] {
 			return internalGetUserErrors()
 		}
@@ -91,10 +68,6 @@ extension Storefront {
 				case "checkout":
 
 				return .Object
-
-				case "clientMutationId":
-
-				return .Scalar
 
 				case "userErrors":
 

@@ -8,8 +8,10 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func checkoutAttributesUpdate(aliasSuffix: String? = nil, input: CheckoutAttributesUpdateInput, _ subfields: (CheckoutAttributesUpdatePayloadQuery) -> Void) -> MutationQuery {
+		open func checkoutAttributesUpdate(aliasSuffix: String? = nil, checkoutId: GraphQL.ID, input: CheckoutAttributesUpdateInput, _ subfields: (CheckoutAttributesUpdatePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
+
+			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
 
 			args.append("input:\(input.serialize())")
 
@@ -23,10 +25,10 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func checkoutCompleteFree(aliasSuffix: String? = nil, input: CheckoutCompleteFree, _ subfields: (CheckoutCompleteFreePayloadQuery) -> Void) -> MutationQuery {
+		open func checkoutCompleteFree(aliasSuffix: String? = nil, checkoutId: GraphQL.ID, _ subfields: (CheckoutCompleteFreePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
-			args.append("input:\(input.serialize())")
+			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -38,10 +40,12 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func checkoutCompleteWithCreditCard(aliasSuffix: String? = nil, input: CheckoutCompleteWithCreditCardInput, _ subfields: (CheckoutCompleteWithCreditCardPayloadQuery) -> Void) -> MutationQuery {
+		open func checkoutCompleteWithCreditCard(aliasSuffix: String? = nil, checkoutId: GraphQL.ID, payment: CreditCardPaymentInput, _ subfields: (CheckoutCompleteWithCreditCardPayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
-			args.append("input:\(input.serialize())")
+			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
+
+			args.append("payment:\(payment.serialize())")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -53,10 +57,12 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func checkoutCompleteWithTokenizedPayment(aliasSuffix: String? = nil, input: CheckoutCompleteWithTokenizedPaymentInput, _ subfields: (CheckoutCompleteWithTokenizedPaymentPayloadQuery) -> Void) -> MutationQuery {
+		open func checkoutCompleteWithTokenizedPayment(aliasSuffix: String? = nil, checkoutId: GraphQL.ID, payment: TokenizedPaymentInput, _ subfields: (CheckoutCompleteWithTokenizedPaymentPayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
-			args.append("input:\(input.serialize())")
+			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
+
+			args.append("payment:\(payment.serialize())")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -83,10 +89,12 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func checkoutCustomerAssociate(aliasSuffix: String? = nil, input: CheckoutCustomerAssociateInput, _ subfields: (CheckoutCustomerAssociatePayloadQuery) -> Void) -> MutationQuery {
+		open func checkoutCustomerAssociate(aliasSuffix: String? = nil, checkoutId: GraphQL.ID, customerAccessToken: String, _ subfields: (CheckoutCustomerAssociatePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
-			args.append("input:\(input.serialize())")
+			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
+
+			args.append("customerAccessToken:\(GraphQL.quoteString(input: customerAccessToken))")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -98,10 +106,10 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func checkoutCustomerDisassociate(aliasSuffix: String? = nil, input: CheckoutCustomerDisassociateInput, _ subfields: (CheckoutCustomerDisassociatePayloadQuery) -> Void) -> MutationQuery {
+		open func checkoutCustomerDisassociate(aliasSuffix: String? = nil, checkoutId: GraphQL.ID, _ subfields: (CheckoutCustomerDisassociatePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
-			args.append("input:\(input.serialize())")
+			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -113,10 +121,12 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func checkoutEmailUpdate(aliasSuffix: String? = nil, input: CheckoutEmailUpdateInput, _ subfields: (CheckoutEmailUpdatePayloadQuery) -> Void) -> MutationQuery {
+		open func checkoutEmailUpdate(aliasSuffix: String? = nil, checkoutId: GraphQL.ID, email: String, _ subfields: (CheckoutEmailUpdatePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
-			args.append("input:\(input.serialize())")
+			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
+
+			args.append("email:\(GraphQL.quoteString(input: email))")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -128,10 +138,12 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func checkoutGiftCardApply(aliasSuffix: String? = nil, input: CheckoutGiftCardApplyInput, _ subfields: (CheckoutGiftCardApplyPayloadQuery) -> Void) -> MutationQuery {
+		open func checkoutGiftCardApply(aliasSuffix: String? = nil, giftCardCode: String, checkoutId: GraphQL.ID, _ subfields: (CheckoutGiftCardApplyPayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
-			args.append("input:\(input.serialize())")
+			args.append("giftCardCode:\(GraphQL.quoteString(input: giftCardCode))")
+
+			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -143,12 +155,33 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func checkoutLineItemsAdd(aliasSuffix: String? = nil, input: CheckoutLineItemsAddInput, _ subfields: (CheckoutLineItemsAddPayloadQuery) -> Void) -> MutationQuery {
+		open func checkoutGiftCardRemove(aliasSuffix: String? = nil, appliedGiftCardId: GraphQL.ID, checkoutId: GraphQL.ID, _ subfields: (CheckoutGiftCardRemovePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
-			args.append("input:\(input.serialize())")
+			args.append("appliedGiftCardId:\(GraphQL.quoteString(input: "\(appliedGiftCardId.rawValue)"))")
+
+			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
 
 			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CheckoutGiftCardRemovePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "checkoutGiftCardRemove", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
+			return self
+		}
+
+		@discardableResult
+		open func checkoutLineItemsAdd(aliasSuffix: String? = nil, lineItems: [CheckoutLineItemInput]? = nil, checkoutId: GraphQL.ID, _ subfields: (CheckoutLineItemsAddPayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
+
+			if let lineItems = lineItems {
+				args.append("lineItems:[\(lineItems.map{ "\($0.serialize())" }.joined(separator: ","))]")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
 
 			let subquery = CheckoutLineItemsAddPayloadQuery()
 			subfields(subquery)
@@ -158,10 +191,12 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func checkoutLineItemsRemove(aliasSuffix: String? = nil, input: CheckoutLineItemsRemoveInput, _ subfields: (CheckoutLineItemsRemovePayloadQuery) -> Void) -> MutationQuery {
+		open func checkoutLineItemsRemove(aliasSuffix: String? = nil, checkoutId: GraphQL.ID, lineItemIds: [GraphQL.ID], _ subfields: (CheckoutLineItemsRemovePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
-			args.append("input:\(input.serialize())")
+			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
+
+			args.append("lineItemIds:[\(lineItemIds.map{ "\(GraphQL.quoteString(input: "\($0.rawValue)"))" }.joined(separator: ","))]")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -190,10 +225,12 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func checkoutShippingAddressUpdate(aliasSuffix: String? = nil, input: CheckoutShippingAddressUpdateInput, _ subfields: (CheckoutShippingAddressUpdatePayloadQuery) -> Void) -> MutationQuery {
+		open func checkoutShippingAddressUpdate(aliasSuffix: String? = nil, shippingAddress: MailingAddressInput, checkoutId: GraphQL.ID, _ subfields: (CheckoutShippingAddressUpdatePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
-			args.append("input:\(input.serialize())")
+			args.append("shippingAddress:\(shippingAddress.serialize())")
+
+			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -205,10 +242,12 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func checkoutShippingLineUpdate(aliasSuffix: String? = nil, input: CheckoutShippingLineUpdateInput, _ subfields: (CheckoutShippingLineUpdatePayloadQuery) -> Void) -> MutationQuery {
+		open func checkoutShippingLineUpdate(aliasSuffix: String? = nil, checkoutId: GraphQL.ID, shippingRateHandle: String, _ subfields: (CheckoutShippingLineUpdatePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
-			args.append("input:\(input.serialize())")
+			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
+
+			args.append("shippingRateHandle:\(GraphQL.quoteString(input: shippingRateHandle))")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -235,10 +274,10 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func customerAccessTokenDelete(aliasSuffix: String? = nil, input: CustomerAccessTokenDeleteInput, _ subfields: (CustomerAccessTokenDeletePayloadQuery) -> Void) -> MutationQuery {
+		open func customerAccessTokenDelete(aliasSuffix: String? = nil, customerAccessToken: String, _ subfields: (CustomerAccessTokenDeletePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
-			args.append("input:\(input.serialize())")
+			args.append("customerAccessToken:\(GraphQL.quoteString(input: customerAccessToken))")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -250,10 +289,10 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func customerAccessTokenRenew(aliasSuffix: String? = nil, input: CustomerAccessTokenRenewInput, _ subfields: (CustomerAccessTokenRenewPayloadQuery) -> Void) -> MutationQuery {
+		open func customerAccessTokenRenew(aliasSuffix: String? = nil, customerAccessToken: String, _ subfields: (CustomerAccessTokenRenewPayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
-			args.append("input:\(input.serialize())")
+			args.append("customerAccessToken:\(GraphQL.quoteString(input: customerAccessToken))")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -265,8 +304,10 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func customerActivate(aliasSuffix: String? = nil, input: CustomerActivateInput, _ subfields: (CustomerActivatePayloadQuery) -> Void) -> MutationQuery {
+		open func customerActivate(aliasSuffix: String? = nil, id: GraphQL.ID, input: CustomerActivateInput, _ subfields: (CustomerActivatePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
+
+			args.append("id:\(GraphQL.quoteString(input: "\(id.rawValue)"))")
 
 			args.append("input:\(input.serialize())")
 
@@ -280,10 +321,12 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func customerAddressCreate(aliasSuffix: String? = nil, input: CustomerAddressCreateInput, _ subfields: (CustomerAddressCreatePayloadQuery) -> Void) -> MutationQuery {
+		open func customerAddressCreate(aliasSuffix: String? = nil, customerAccessToken: String, address: MailingAddressInput, _ subfields: (CustomerAddressCreatePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
-			args.append("input:\(input.serialize())")
+			args.append("customerAccessToken:\(GraphQL.quoteString(input: customerAccessToken))")
+
+			args.append("address:\(address.serialize())")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -295,10 +338,12 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func customerAddressDelete(aliasSuffix: String? = nil, input: CustomerAddressDeleteInput, _ subfields: (CustomerAddressDeletePayloadQuery) -> Void) -> MutationQuery {
+		open func customerAddressDelete(aliasSuffix: String? = nil, id: GraphQL.ID, customerAccessToken: String, _ subfields: (CustomerAddressDeletePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
-			args.append("input:\(input.serialize())")
+			args.append("id:\(GraphQL.quoteString(input: "\(id.rawValue)"))")
+
+			args.append("customerAccessToken:\(GraphQL.quoteString(input: customerAccessToken))")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -310,10 +355,14 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func customerAddressUpdate(aliasSuffix: String? = nil, input: CustomerAddressUpdateInput, _ subfields: (CustomerAddressUpdatePayloadQuery) -> Void) -> MutationQuery {
+		open func customerAddressUpdate(aliasSuffix: String? = nil, customerAccessToken: String, id: GraphQL.ID, address: MailingAddressInput, _ subfields: (CustomerAddressUpdatePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
-			args.append("input:\(input.serialize())")
+			args.append("customerAccessToken:\(GraphQL.quoteString(input: customerAccessToken))")
+
+			args.append("id:\(GraphQL.quoteString(input: "\(id.rawValue)"))")
+
+			args.append("address:\(address.serialize())")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -340,10 +389,10 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func customerRecover(aliasSuffix: String? = nil, input: CustomerRecoverInput, _ subfields: (CustomerRecoverPayloadQuery) -> Void) -> MutationQuery {
+		open func customerRecover(aliasSuffix: String? = nil, email: String, _ subfields: (CustomerRecoverPayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
 
-			args.append("input:\(input.serialize())")
+			args.append("email:\(GraphQL.quoteString(input: email))")
 
 			let argsString = "(\(args.joined(separator: ",")))"
 
@@ -355,8 +404,10 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func customerReset(aliasSuffix: String? = nil, input: CustomerResetInput, _ subfields: (CustomerResetPayloadQuery) -> Void) -> MutationQuery {
+		open func customerReset(aliasSuffix: String? = nil, id: GraphQL.ID, input: CustomerResetInput, _ subfields: (CustomerResetPayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
+
+			args.append("id:\(GraphQL.quoteString(input: "\(id.rawValue)"))")
 
 			args.append("input:\(input.serialize())")
 
@@ -454,6 +505,13 @@ extension Storefront {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
 				return try CheckoutGiftCardApplyPayload(fields: value)
+
+				case "checkoutGiftCardRemove":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try CheckoutGiftCardRemovePayload(fields: value)
 
 				case "checkoutLineItemsAdd":
 				if value is NSNull { return nil }
@@ -680,6 +738,18 @@ extension Storefront {
 
 		func internalGetCheckoutGiftCardApply(aliasSuffix: String? = nil) -> Storefront.CheckoutGiftCardApplyPayload? {
 			return field(field: "checkoutGiftCardApply", aliasSuffix: aliasSuffix) as! Storefront.CheckoutGiftCardApplyPayload?
+		}
+
+		open var checkoutGiftCardRemove: Storefront.CheckoutGiftCardRemovePayload? {
+			return internalGetCheckoutGiftCardRemove()
+		}
+
+		open func aliasedCheckoutGiftCardRemove(aliasSuffix: String) -> Storefront.CheckoutGiftCardRemovePayload? {
+			return internalGetCheckoutGiftCardRemove(aliasSuffix: aliasSuffix)
+		}
+
+		func internalGetCheckoutGiftCardRemove(aliasSuffix: String? = nil) -> Storefront.CheckoutGiftCardRemovePayload? {
+			return field(field: "checkoutGiftCardRemove", aliasSuffix: aliasSuffix) as! Storefront.CheckoutGiftCardRemovePayload?
 		}
 
 		open var checkoutLineItemsAdd: Storefront.CheckoutLineItemsAddPayload? {
@@ -912,6 +982,10 @@ extension Storefront {
 
 				return .Object
 
+				case "checkoutGiftCardRemove":
+
+				return .Object
+
 				case "checkoutLineItemsAdd":
 
 				return .Object
@@ -1009,6 +1083,9 @@ extension Storefront {
 
 				case "checkoutGiftCardApply":
 				return internalGetCheckoutGiftCardApply()
+
+				case "checkoutGiftCardRemove":
+				return internalGetCheckoutGiftCardRemove()
 
 				case "checkoutLineItemsAdd":
 				return internalGetCheckoutLineItemsAdd()
@@ -1126,6 +1203,12 @@ extension Storefront {
 
 					case "checkoutGiftCardApply":
 					if let value = internalGetCheckoutGiftCardApply() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "checkoutGiftCardRemove":
+					if let value = internalGetCheckoutGiftCardRemove() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
