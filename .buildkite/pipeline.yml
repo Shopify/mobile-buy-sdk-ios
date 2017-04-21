@@ -8,8 +8,6 @@ steps:
     env:
       TARGET_IMAGE: "macos-xcode83"
     
-  - wait
-    
   - label: "Pay Tests"
     command: "./Scripts/test_pay"
     timeout_in_minutes: 10
