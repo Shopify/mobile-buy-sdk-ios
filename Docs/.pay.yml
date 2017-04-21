@@ -3,8 +3,6 @@ module: Pay
 author: Shopify Inc.
 github_url: https://github.com/Shopify/mobile-buy-sdk-ios
 
-swift_version: 3.1
-
 theme: fullwidth
 output: Pay
 docset_path: ../Docsets/Pay.docset
