@@ -181,7 +181,7 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
          ** We can then safely force-unwrap both contacts.
          */
         let authorization = PayAuthorization(
-            token:           payment.token.paymentData.hexString,
+            paymentData:     payment.token.paymentData,
             billingAddress:  PayAddress(with: payment.billingContact!),
             shippingAddress: PayAddress(with: payment.shippingContact!),
             shippingRate:    shippingRate
@@ -280,12 +280,5 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
         controller.dismiss(completion: nil)
         
         self.delegate?.paySessionDidFinish(self)
-    }
-}
-
-private extension Data {
-    
-    var hexString: String {
-        return self.map { String($0, radix: 16) }.joined()
     }
 }

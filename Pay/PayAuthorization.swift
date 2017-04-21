@@ -47,8 +47,8 @@ public struct PayAuthorization {
     // ----------------------------------
     //  MARK: - Init -
     //
-    internal init(token: String, billingAddress: PayAddress, shippingAddress: PayAddress, shippingRate: PayShippingRate?) {
-        self.token           = token
+    internal init(paymentData: Data, billingAddress: PayAddress, shippingAddress: PayAddress, shippingRate: PayShippingRate?) {
+        self.token           = String(data: paymentData, encoding: .utf8)!
         self.billingAddress  = billingAddress
         self.shippingAddress = shippingAddress
         self.shippingRate    = shippingRate

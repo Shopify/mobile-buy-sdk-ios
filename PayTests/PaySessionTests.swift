@@ -106,7 +106,7 @@ class PaySessionTests: XCTestCase {
          */
         delegate.didAuthorizePayment = { session, authorization, checkout, complete in
             
-            let tokenString = token.paymentData.map { String($0, radix: 16) }.joined()
+            let tokenString = String(data: token.paymentData, encoding: .utf8)
             XCTAssertEqual(authorization.token, tokenString)
             XCTAssertEqual(authorization.billingAddress.city,  contact.postalAddress!.city)
             XCTAssertEqual(authorization.shippingAddress.city, contact.postalAddress!.city)
