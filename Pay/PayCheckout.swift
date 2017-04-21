@@ -27,9 +27,12 @@
 import Foundation
 import PassKit
 
+/// The `PayCheckout` encapsulates all fields required for invoking the Apple Pay
+/// dialog. It is also responsible for creating summary items for cart total, 
+/// subtotal, taxes, shipping and more.
+///
 public struct PayCheckout {
 
-    public let id:              String
     public let hasLineItems:    Bool
     public let needsShipping:   Bool
     
@@ -45,9 +48,8 @@ public struct PayCheckout {
     // ----------------------------------
     //  MARK: - Init -
     //
-    public init(id: String, lineItems: [PayLineItem], discount: PayDiscount?, shippingAddress: PayAddress?, shippingRate: PayShippingRate?, discountAmount: Decimal, subtotalPrice: Decimal, needsShipping: Bool, totalTax: Decimal, paymentDue: Decimal) {
+    public init(lineItems: [PayLineItem], discount: PayDiscount?, shippingAddress: PayAddress?, shippingRate: PayShippingRate?, discountAmount: Decimal, subtotalPrice: Decimal, needsShipping: Bool, totalTax: Decimal, paymentDue: Decimal) {
         
-        self.id              = id
         self.lineItems       = lineItems
         self.shippingAddress = shippingAddress
         self.shippingRate    = shippingRate

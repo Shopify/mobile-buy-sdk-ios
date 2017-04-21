@@ -27,25 +27,76 @@
 import Foundation
 import PassKit
 
+/// The delegate will be called when user interaction modifies the information
+/// that affects checkout. Whenever such events occur, you should perform any
+/// API calls required to mutate the existing checkout and provide the updated
+/// object in the `provide` handler.
+///
 public protocol PaySessionDelegate: class {
+    
+    /// This callback is invoked when the user updates the `shippingContact` and the current address used for shipping is invalidated. 
+    /// You should make any necessary API calls to obtain shipping rates here and provide an array of `PayShippingRate` objects.
+    ///
+    /// - parameters:
+    ///     - paySession: The session that invoked the callback.
+    ///     - address:    A partial address that you can use to obtain relevant shipping rates. This address is missing `addressLine1` and `addressLine2`. This information is only available after the user has authorized payment.
+    ///     - checkout:   The current checkout state.
+    ///     - provide:    A completion handler that **must** be invoked with an updated `PayCheckout` and an array of `[PayShippingRate]`. If the `PayPostalAddress` is invalid or you were unable to obtain shipping rates, returning `nil` or empty shipping rates will result in an invalid address error in Apple Pay.
+    ///
     func paySession(_ paySession: PaySession, didRequestShippingRatesFor address: PayPostalAddress, checkout: PayCheckout, provide: @escaping (PayCheckout?, [PayShippingRate]) -> Void)
+    
+    /// This callback is invoked when the user selects a shipping rate or an initial array of shipping rates is provided. In the latter case, the first shipping rate in the array will be used. You should make any necessary API calls to update the checkout with the selected shipping rate here.
+    ///
+    /// - parameters:
+    ///     - paySession:   The session that invoked the callback.
+    ///     - shippingRate: The selected shipping rate.
+    ///     - checkout:     The current checkout state.
+    ///     - provide:      A completion handler that **must** be invoked with an updated `PayCheckout`. Returning `nil` will result in a generic failure in the Apple Pay dialog.
+    ///
     func paySession(_ paySession: PaySession, didSelectShippingRate shippingRate: PayShippingRate, checkout: PayCheckout, provide: @escaping (PayCheckout?) -> Void)
+    
+    /// This callback is invoked when the user authorizes payment using Touch ID or passcode. You should make necessary API calls to update and complete the checkout with final information (ex: billing address, etc) here.
+    ///
+    /// - parameters:
+    ///     - paySession:          The session that invoked the callback.
+    ///     - authorization:       Authorization object that encapsulates the token and other relevant information: billing address, complete shipping address, shipping rate.
+    ///     - checkout:            The current checkout state.
+    ///     - completeTransaction: A completion handler that **must** be invoked with the final transaction status.
+    ///
     func paySession(_ paySession: PaySession, didAuthorizePayment authorization: PayAuthorization, checkout: PayCheckout, completeTransaction: @escaping (PaySession.TransactionStatus) -> Void)
     
+    /// This callback is invoked when the Apple Pay authorization controller is dismissed.
+    ///
+    /// - parameters:
+    ///     - paySession: The session that invoked the callback.
+    ///
     func paySessionDidFinish(_ paySession: PaySession)
 }
 
+/// The `PaySession` is responsible for coordinating the communication
+/// between `PKPaymentAuthorizationController` and your application to
+/// provide easier support for Apple Pay.
+///
 public class PaySession: NSObject {
     
+    /// A status that determines whether a transaction has completed
+    /// successfully or failed.
+    ///
     public enum TransactionStatus {
         case success
         case failure
     }
     
+    /// A delegate for receiving updates from `PaySession`.
     public weak var delegate: PaySessionDelegate?
     
-    public let currency:   PayCurrency
+    /// Currency description that will be used in this Apple Pay transaction.
+    public let currency: PayCurrency
+    
+    /// Merchant ID provided on initilization. Should match the merchant ID used to setup Apple Pay in the developer portal.
     public let merchantID: String
+    
+    /// Idempotency identifier of this session
     public let identifier: String
     
     internal var checkout:      PayCheckout
@@ -56,6 +107,16 @@ public class PaySession: NSObject {
     // ----------------------------------
     //  MARK: - Init -
     //
+    
+    /// An instance of `PaySession` represents a single transaction using Apple Pay.
+    /// To create one requires a `PayCheckout` and `PayCurrency`.
+    ///
+    /// - parameters:
+    ///     - checkout: A `PayCheckout` that will be used to create summary items.
+    ///     - currency: Represents the country and currency that will be used for the transaction.
+    ///     - merchantID: The merchant ID that you've registered to use for Apple Pay.
+    ///     - controllerType: Reserved for testing.
+    ///
     public init(checkout: PayCheckout, currency: PayCurrency, merchantID: String, controllerType: PKPaymentAuthorizationController.Type = PKPaymentAuthorizationController.self) {
         self.checkout       = checkout
         self.currency       = currency
@@ -67,6 +128,11 @@ public class PaySession: NSObject {
     // ----------------------------------
     //  MARK: - Begin Checkout -
     //
+    
+    /// Invoking `authorize()` will create a payment request and present the 
+    /// Apple Pay dialog. The `delegate` will then be called when the user
+    /// begins changing billing address, shipping address and shipping rates.
+    ///
     public func authorize() {
         let paymentRequest  = self.paymentRequestUsing(checkout, currency: currency, merchantID: self.merchantID)
         let controller      = self.controllerType.init(paymentRequest: paymentRequest)

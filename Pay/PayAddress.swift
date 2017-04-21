@@ -27,12 +27,21 @@
 import Foundation
 import PassKit
 
+/// Represents a partial address without street information.
+///
 public struct PayPostalAddress {
     
-    public let city:         String?
-    public let country:      String?
-    public let province:     String?
-    public let zip:          String?
+    /// City (ex: "Toronto")
+    public let city: String?
+    
+    /// Country (ex: "Canada")
+    public let country: String?
+    
+    /// Province (ex: "ON" or "Ontario")
+    public let province: String?
+    
+    /// Zip or postal code (ex: "M5V 2J4")
+    public let zip: String?
     
     // ----------------------------------
     //  MARK: - Init -
@@ -49,19 +58,39 @@ public struct PayPostalAddress {
     }
 }
 
+/// Represents a complete address including first name, last name, phone and email address.
+///
 public struct PayAddress {
     
+    /// First address line (ex: "Spadina 80")
     public let addressLine1: String?
-    public let addressLine2: String?
-    public let city:         String?
-    public let country:      String?
-    public let province:     String?
-    public let zip:          String?
     
-    public let firstName:    String?
-    public let lastName:     String?
-    public let phone:        String?
-    public let email:        String?
+    /// Second address line (ex: "Suite 400")
+    public let addressLine2: String?
+    
+    /// City (ex: "Toronto")
+    public let city: String?
+    
+    /// Country (ex: "Canada")
+    public let country: String?
+    
+    /// Province (ex: "ON" or "Ontario")
+    public let province: String?
+    
+    /// Zip or postal code (ex: "M5V 2J4")
+    public let zip: String?
+    
+    /// First name (ex: "John")
+    public let firstName: String?
+    
+    /// Last name (ex: "Smith")
+    public let lastName: String?
+    
+    /// Phone number (ex: "1234567890")
+    public let phone: String?
+    
+    /// Email address (ex: "john.smith@gmail.com")
+    public let email: String?
     
     // ----------------------------------
     //  MARK: - Init -

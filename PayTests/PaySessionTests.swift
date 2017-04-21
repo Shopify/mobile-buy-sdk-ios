@@ -39,7 +39,6 @@ class PaySessionTests: XCTestCase {
         let session  = PaySession(checkout: checkout, currency: currency, merchantID: "some-id")
         
         XCTAssertEqual(session.merchantID, "some-id")
-        XCTAssertEqual(session.checkout.id, checkout.id)
         XCTAssertEqual(session.currency.countryCode, currency.countryCode)
         
         XCTAssertFalse(session.identifier.isEmpty)
