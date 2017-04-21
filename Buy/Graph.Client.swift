@@ -30,9 +30,11 @@ internal typealias JSON = [String : Any]
 
 private struct Header {
     static var userAgent     = "User-Agent"
-    static var authorization = "Authorization"
     static var accept        = "Accept"
     static var contentType   = "Content-Type"
+    static var authorization = "X-Shopify-Storefront-Access-Token"
+    static var sdkVersion    = "X-SDK-Version"
+    static var sdkVariant    = "X-SDK-Variant"
 }
 
 extension Graph {
@@ -53,14 +55,12 @@ extension Graph {
             self.session = session
             self.headers = [
                 Header.userAgent     : Global.userAgent,
-                Header.authorization : "Basic \(Client.tokenFor(apiKey))"
+                Header.authorization : apiKey,
+                Header.sdkVersion    : Global.frameworkVersion,
+                Header.sdkVariant    : "ios",
             ]
             
             precondition(!apiKey.isEmpty, "API Key is required to the Buy SDK. You can obtain one by adding a Mobile App channel here: \(shopURL.appendingPathComponent("admin"))")
-        }
-        
-        static func tokenFor(_ apiKey: String) -> String {
-            return apiKey.data(using: .utf8)!.base64EncodedString()
         }
         
         static func urlFor(_ shopDomain: String, path: String = "") -> URL {

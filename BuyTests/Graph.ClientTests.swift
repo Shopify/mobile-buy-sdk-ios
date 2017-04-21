@@ -33,10 +33,6 @@ class Graph_ClientTests: XCTestCase {
     let shopDomain  = "testshop.myshopify.com"
     let apiKey      = "com.testing.api.key"
     
-    var apiKeyHeader: String {
-         return "Basic \(self.apiKey.data(using: .utf8)!.base64EncodedString())"
-    }
-    
     // ----------------------------------
     //  MARK: - Init -
     //
@@ -55,19 +51,14 @@ class Graph_ClientTests: XCTestCase {
         XCTAssertEqual(url, URL(string: "https://www.google.com/some/task"))
     }
     
-    func testTokenEncoding() {
-        let apiKey       = "some-key"
-        let encodedToken = Graph.Client.tokenFor(apiKey)
-        
-        XCTAssertEqual(encodedToken, apiKey.data(using: .utf8)?.base64EncodedString())
-    }
-    
     func testInitialHeaders() {
         let client = self.defaultClient()
         
-        XCTAssertEqual(client.headers.count, 2)
+        XCTAssertEqual(client.headers.count, 4)
         XCTAssertEqual(client.headers["User-Agent"],    Global.userAgent)
-        XCTAssertEqual(client.headers["Authorization"], self.apiKeyHeader)
+        XCTAssertEqual(client.headers["X-SDK-Version"], Global.frameworkVersion)
+        XCTAssertEqual(client.headers["X-SDK-Variant"], "ios")
+        XCTAssertEqual(client.headers["X-Shopify-Storefront-Access-Token"], self.apiKey)
     }
     
     // ----------------------------------
@@ -85,7 +76,7 @@ class Graph_ClientTests: XCTestCase {
         
         // Ensure that the client inserts defaults headers
         XCTAssertNotNil(request.value(forHTTPHeaderField: "User-Agent"))
-        XCTAssertNotNil(request.value(forHTTPHeaderField: "Authorization"))
+        XCTAssertNotNil(request.value(forHTTPHeaderField: "X-Shopify-Storefront-Access-Token"))
     }
     
     // ----------------------------------

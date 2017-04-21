@@ -16,7 +16,14 @@
 		9A0C7FDD1EA699280020F187 /* PayShippingRateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C7FDC1EA699280020F187 /* PayShippingRateTests.swift */; };
 		9A0C7FE31EA7981C0020F187 /* PayAuthorizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C7FE21EA7981C0020F187 /* PayAuthorizationTests.swift */; };
 		9A0C7FE51EA79EA70020F187 /* PassKit+SummaryItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C7FE41EA79EA70020F187 /* PassKit+SummaryItemTests.swift */; };
-		9A3F2CBB1EA5177500307F8B /* Graph.TaskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA89E851E9BD8930075AC74 /* Graph.TaskTests.swift */; };
+		9A0C7FEB1EAA3F7E0020F187 /* MockSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA89E8A1E9BDC590075AC74 /* MockSession.swift */; };
+		9A0C7FEC1EAA3F7E0020F187 /* MockSessionDataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA89E8C1E9BDC650075AC74 /* MockSessionDataTask.swift */; };
+		9A0C7FED1EAA3F7E0020F187 /* GraphQL+ScalarSupportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA6B6D61E9D563C00CE9F18 /* GraphQL+ScalarSupportTests.swift */; };
+		9A0C7FEE1EAA3F7E0020F187 /* Graph.TaskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA89E851E9BD8930075AC74 /* Graph.TaskTests.swift */; };
+		9A0C7FEF1EAA3F7E0020F187 /* Graph.ClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA89E871E9BDB7F0075AC74 /* Graph.ClientTests.swift */; };
+		9A0C7FF01EAA3F7E0020F187 /* Graph.QueryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA89E951E9D29B40075AC74 /* Graph.QueryError.swift */; };
+		9A0C7FF11EAA3F7E0020F187 /* Graph.RetryHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA89E971E9D2BD80075AC74 /* Graph.RetryHandlerTests.swift */; };
+		9A0C7FF21EAA3F7E0020F187 /* BuyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFA38EC1E64850A0056C5AA /* BuyTests.swift */; };
 		9A4068E51E8E7659000254CD /* Pay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A4068DC1E8E7658000254CD /* Pay.framework */; };
 		9A4068EA1E8E7659000254CD /* PaySessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4068E91E8E7659000254CD /* PaySessionTests.swift */; };
 		9A4068EC1E8E7659000254CD /* Pay.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A4068DE1E8E7659000254CD /* Pay.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -30,12 +37,6 @@
 		9A4069CA1E8EA6DB000254CD /* Graph.RetryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4069C91E8EA6DB000254CD /* Graph.RetryHandler.swift */; };
 		9A4069CC1E8EA710000254CD /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4069CB1E8EA710000254CD /* Graph.swift */; };
 		9A4069CF1E8ED98A000254CD /* Graph.Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4069CE1E8ED98A000254CD /* Graph.Task.swift */; };
-		9AA6B6D71E9D563C00CE9F18 /* GraphQL+ScalarSupportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA6B6D61E9D563C00CE9F18 /* GraphQL+ScalarSupportTests.swift */; };
-		9AA89E881E9BDB7F0075AC74 /* Graph.ClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA89E871E9BDB7F0075AC74 /* Graph.ClientTests.swift */; };
-		9AA89E8B1E9BDC590075AC74 /* MockSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA89E8A1E9BDC590075AC74 /* MockSession.swift */; };
-		9AA89E8D1E9BDC650075AC74 /* MockSessionDataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA89E8C1E9BDC650075AC74 /* MockSessionDataTask.swift */; };
-		9AA89E961E9D29B40075AC74 /* Graph.QueryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA89E951E9D29B40075AC74 /* Graph.QueryError.swift */; };
-		9AADF1B51EA517D100D22740 /* Graph.RetryHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA89E971E9D2BD80075AC74 /* Graph.RetryHandlerTests.swift */; };
 		9AADF1C71EA63ED000D22740 /* MockPaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AADF1C61EA63ED000D22740 /* MockPaymentMethod.swift */; };
 		9AADF1C91EA63FB900D22740 /* MockPaymentToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AADF1C81EA63FB900D22740 /* MockPaymentToken.swift */; };
 		9AADF1CB1EA640C000D22740 /* MockPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AADF1CA1EA640C000D22740 /* MockPayment.swift */; };
@@ -157,7 +158,6 @@
 		9AEF60F81E5F42D90067FA90 /* Buy.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AEF60F61E5F42D90067FA90 /* Buy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9AEF61A11E5F5A190067FA90 /* GraphQL+ScalarSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF61A01E5F5A190067FA90 /* GraphQL+ScalarSupport.swift */; };
 		9AEF61B91E5F64230067FA90 /* Graph.Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF61B81E5F64230067FA90 /* Graph.Client.swift */; };
-		9AFA38ED1E64850A0056C5AA /* BuyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFA38EC1E64850A0056C5AA /* BuyTests.swift */; };
 		9AFA38EF1E64850A0056C5AA /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AEF60F31E5F42D90067FA90 /* Buy.framework */; };
 		9AFA3B6D1E6D9A5E0056C5AA /* GraphQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFA3B6C1E6D9A5E0056C5AA /* GraphQL.swift */; };
 /* End PBXBuildFile section */
@@ -1014,25 +1014,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9AA89E881E9BDB7F0075AC74 /* Graph.ClientTests.swift in Sources */,
-				9AADF1B51EA517D100D22740 /* Graph.RetryHandlerTests.swift in Sources */,
-				9AA89E961E9D29B40075AC74 /* Graph.QueryError.swift in Sources */,
-				9A3F2CBB1EA5177500307F8B /* Graph.TaskTests.swift in Sources */,
-				9AA89E8B1E9BDC590075AC74 /* MockSession.swift in Sources */,
-				9AA89E861E9BD8930075AC74 /* Graph.Task.swift in Sources */,
-				9AA89E981E9D2BD80075AC74 /* Graph.RetryHandlerTests.swift in Sources */,
-				9AA89E861E9BD8930075AC74 /* Graph.Task.swift in Sources */,
-				9AA89E981E9D2BD80075AC74 /* Graph.RetryHandlerTests.swift in Sources */,
-				9AA89E861E9BD8930075AC74 /* Graph.Task.swift in Sources */,
-				9AA89E981E9D2BD80075AC74 /* Graph.RetryHandlerTests.swift in Sources */,
-				9AA89E861E9BD8930075AC74 /* Graph.Task.swift in Sources */,
-				9AA89E8D1E9BDC650075AC74 /* MockSessionDataTask.swift in Sources */,
-				9AA89E981E9D2BD80075AC74 /* Graph.RetryHandlerTests.swift in Sources */,
-				9AA89E8D1E9BDC650075AC74 /* MockSessionDataTask.swift in Sources */,
-				9AA89E981E9D2BD80075AC74 /* Graph.RetryHandlerTests.swift in Sources */,
-				9AA89E8D1E9BDC650075AC74 /* MockSessionDataTask.swift in Sources */,
-				9AFA38ED1E64850A0056C5AA /* BuyTests.swift in Sources */,
-				9AA6B6D71E9D563C00CE9F18 /* GraphQL+ScalarSupportTests.swift in Sources */,
+				9A0C7FED1EAA3F7E0020F187 /* GraphQL+ScalarSupportTests.swift in Sources */,
+				9A0C7FF01EAA3F7E0020F187 /* Graph.QueryError.swift in Sources */,
+				9A0C7FEB1EAA3F7E0020F187 /* MockSession.swift in Sources */,
+				9A0C7FEF1EAA3F7E0020F187 /* Graph.ClientTests.swift in Sources */,
+				9A0C7FF21EAA3F7E0020F187 /* BuyTests.swift in Sources */,
+				9A0C7FF11EAA3F7E0020F187 /* Graph.RetryHandlerTests.swift in Sources */,
+				9A0C7FEE1EAA3F7E0020F187 /* Graph.TaskTests.swift in Sources */,
+				9A0C7FEC1EAA3F7E0020F187 /* MockSessionDataTask.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
