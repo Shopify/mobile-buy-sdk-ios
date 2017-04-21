@@ -48,17 +48,20 @@ public class PaySession: NSObject {
     public let merchantID: String
     public let identifier: String
     
-    internal fileprivate(set) var checkout:      PayCheckout
-    internal fileprivate(set) var shippingRates: [PayShippingRate] = []
+    internal var checkout:      PayCheckout
+    internal var shippingRates: [PayShippingRate] = []
+    
+    private let controllerType: PKPaymentAuthorizationController.Type
     
     // ----------------------------------
     //  MARK: - Init -
     //
-    public init(checkout: PayCheckout, currency: PayCurrency, merchantID: String) {
-        self.checkout   = checkout
-        self.currency   = currency
-        self.merchantID = merchantID
-        self.identifier = UUID().uuidString
+    public init(checkout: PayCheckout, currency: PayCurrency, merchantID: String, controllerType: PKPaymentAuthorizationController.Type = PKPaymentAuthorizationController.self) {
+        self.checkout       = checkout
+        self.currency       = currency
+        self.merchantID     = merchantID
+        self.identifier     = UUID().uuidString
+        self.controllerType = controllerType
     }
     
     // ----------------------------------
@@ -66,7 +69,7 @@ public class PaySession: NSObject {
     //
     public func authorize() {
         let paymentRequest  = self.paymentRequestUsing(checkout, currency: currency, merchantID: self.merchantID)
-        let controller      = PKPaymentAuthorizationController(paymentRequest: paymentRequest)
+        let controller      = self.controllerType.init(paymentRequest: paymentRequest)
         controller.delegate = self
         controller.present(completion: nil)
     }
@@ -74,7 +77,7 @@ public class PaySession: NSObject {
     // ----------------------------------
     //  MARK: - Payment Creation -
     //
-    private func paymentRequestUsing(_ checkout: PayCheckout, currency: PayCurrency, merchantID: String) -> PKPaymentRequest {
+    func paymentRequestUsing(_ checkout: PayCheckout, currency: PayCurrency, merchantID: String) -> PKPaymentRequest {
         let request                           = PKPaymentRequest()
         request.countryCode                   = currency.countryCode
         request.currencyCode                  = currency.currencyCode
@@ -99,6 +102,12 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
     //
     public func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didAuthorizePayment payment: PKPayment, completion: @escaping (PKPaymentAuthorizationStatus) -> Void) {
      
+        var shippingRate: PayShippingRate?
+        
+        if self.checkout.needsShipping {
+            shippingRate = self.shippingRates.shippingRateFor(payment.shippingMethod!)
+        }
+        
         /* -----------------------------------------------
          ** The PKPayment object provides `billingContact`
          ** and `shippingContact` only when required fields
@@ -109,7 +118,7 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
             token:           payment.token.paymentData.hexString,
             billingAddress:  PayAddress(with: payment.billingContact!),
             shippingAddress: PayAddress(with: payment.shippingContact!),
-            shippingRate:    self.shippingRates.shippingRateFor(payment.shippingMethod!)
+            shippingRate:    shippingRate
         )
         
         print("Authorized payment. Completing...")

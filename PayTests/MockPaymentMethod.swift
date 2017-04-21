@@ -1,5 +1,5 @@
 //
-//  PayTests.swift
+//  MockPaymentMethod.swift
 //  PayTests
 //
 //  Created by Shopify.
@@ -24,14 +24,33 @@
 //  THE SOFTWARE.
 //
 
-import XCTest
-@testable import Pay
+import Foundation
+import PassKit
 
-class PayTests: XCTestCase {
+class MockPaymentMethod: PKPaymentMethod {
     
-    override func setUp() {
-        super.setUp()
-        
-        
+    override var displayName: String? {
+        return self._displayName
+    }
+    
+    override var network: PKPaymentNetwork? {
+        return self._network
+    }
+    
+    override var type: PKPaymentMethodType {
+        return self._type
+    }
+    
+    private let _displayName: String
+    private let _network:     PKPaymentNetwork
+    private let _type:        PKPaymentMethodType
+    
+    // ----------------------------------
+    //  MARK: - Init -
+    //
+    init(displayName: String, network: PKPaymentNetwork, type: PKPaymentMethodType) {
+        self._displayName = displayName
+        self._network     = network
+        self._type        = type
     }
 }
