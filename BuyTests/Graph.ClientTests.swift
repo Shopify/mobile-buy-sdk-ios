@@ -415,7 +415,7 @@ class Graph_ClientTests: XCTestCase {
     private func defaultMutationPayload() -> (mutation: Storefront.MutationQuery, response: [String: Any]) {
         
         let mutation = Storefront.buildMutation { $0
-            .checkoutEmailUpdate(input: .init(checkoutId: GraphQL.ID(rawValue: "123"), email: "john.smith@gmail.com")) { $0
+            .checkoutEmailUpdate(checkoutId: GraphQL.ID(rawValue: "123"), email: "john.smith@gmail.com") { $0
                 .userErrors { $0
                     .message()
                 }
