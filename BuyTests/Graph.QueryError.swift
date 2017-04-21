@@ -1,6 +1,6 @@
 //
-//  Graph.Result.swift
-//  Buy
+//  Graph.QueryError.swift
+//  BuyTests
 //
 //  Created by Shopify.
 //  Copyright (c) 2017 Shopify Inc. All rights reserved.
@@ -24,11 +24,34 @@
 //  THE SOFTWARE.
 //
 
-import Foundation
+import XCTest
+@testable import Buy
 
-public extension Graph {
-    public enum Result<T> {
-        case success(T)
-        case error(Error?)
+class Graph_QueryErrorTests: XCTestCase {
+
+    // ----------------------------------
+    //  MARK: - Reason -
+    //
+    func testInitReasonComplete() {
+        let json: JSON = [
+            "message" : "Good reason for failure",
+            "line"    : 2,
+            "column"  : 4,
+        ]
+        
+        let reason = Graph.QueryError.Reason(json: json)
+        
+        XCTAssertEqual(reason.message, json["message"] as! String)
+        XCTAssertEqual(reason.line,    json["line"]    as? Int)
+        XCTAssertEqual(reason.column,  json["column"]  as? Int)
+    }
+    
+    func testInitReasonIncomplete() {
+        
+        let reason = Graph.QueryError.Reason(json: [:])
+        
+        XCTAssertEqual(reason.message, "Unknown error")
+        XCTAssertNil(reason.line)
+        XCTAssertNil(reason.column)
     }
 }

@@ -20,12 +20,14 @@
 		9A4069CA1E8EA6DB000254CD /* Graph.RetryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4069C91E8EA6DB000254CD /* Graph.RetryHandler.swift */; };
 		9A4069CC1E8EA710000254CD /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4069CB1E8EA710000254CD /* Graph.swift */; };
 		9A4069CF1E8ED98A000254CD /* Graph.Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4069CE1E8ED98A000254CD /* Graph.Task.swift */; };
+		9AA6B6D71E9D563C00CE9F18 /* GraphQL+ScalarSupportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA6B6D61E9D563C00CE9F18 /* GraphQL+ScalarSupportTests.swift */; };
 		9AA89E861E9BD8930075AC74 /* Graph.Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA89E851E9BD8930075AC74 /* Graph.Task.swift */; };
 		9AA89E881E9BDB7F0075AC74 /* Graph.ClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA89E871E9BDB7F0075AC74 /* Graph.ClientTests.swift */; };
 		9AA89E8B1E9BDC590075AC74 /* MockSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA89E8A1E9BDC590075AC74 /* MockSession.swift */; };
 		9AA89E8D1E9BDC650075AC74 /* MockSessionDataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA89E8C1E9BDC650075AC74 /* MockSessionDataTask.swift */; };
+		9AA89E961E9D29B40075AC74 /* Graph.QueryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA89E951E9D29B40075AC74 /* Graph.QueryError.swift */; };
+		9AA89E981E9D2BD80075AC74 /* Graph.RetryHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA89E971E9D2BD80075AC74 /* Graph.RetryHandlerTests.swift */; };
 		9AAFAB721E60766E00864A17 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB711E60766E00864A17 /* Global.swift */; };
-		9AAFAB751E60809400864A17 /* Graph.Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB741E60809400864A17 /* Graph.Result.swift */; };
 		9AAFAB771E6080A500864A17 /* Graph.QueryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB761E6080A500864A17 /* Graph.QueryError.swift */; };
 		9AB421B11E93CA45005098C4 /* PayAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB421B01E93CA45005098C4 /* PayAuthorization.swift */; };
 		9AD186B01EA4F954003F91A3 /* AppliedGiftCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD186431EA4F954003F91A3 /* AppliedGiftCard.swift */; };
@@ -179,12 +181,14 @@
 		9A4069C91E8EA6DB000254CD /* Graph.RetryHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.RetryHandler.swift; sourceTree = "<group>"; };
 		9A4069CB1E8EA710000254CD /* Graph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
 		9A4069CE1E8ED98A000254CD /* Graph.Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.Task.swift; sourceTree = "<group>"; };
+		9AA6B6D61E9D563C00CE9F18 /* GraphQL+ScalarSupportTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GraphQL+ScalarSupportTests.swift"; sourceTree = "<group>"; };
 		9AA89E851E9BD8930075AC74 /* Graph.Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.Task.swift; sourceTree = "<group>"; };
 		9AA89E871E9BDB7F0075AC74 /* Graph.ClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.ClientTests.swift; sourceTree = "<group>"; };
 		9AA89E8A1E9BDC590075AC74 /* MockSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSession.swift; sourceTree = "<group>"; };
 		9AA89E8C1E9BDC650075AC74 /* MockSessionDataTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSessionDataTask.swift; sourceTree = "<group>"; };
+		9AA89E951E9D29B40075AC74 /* Graph.QueryError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.QueryError.swift; sourceTree = "<group>"; };
+		9AA89E971E9D2BD80075AC74 /* Graph.RetryHandlerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.RetryHandlerTests.swift; sourceTree = "<group>"; };
 		9AAFAB711E60766E00864A17 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
-		9AAFAB741E60809400864A17 /* Graph.Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.Result.swift; sourceTree = "<group>"; };
 		9AAFAB761E6080A500864A17 /* Graph.QueryError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.QueryError.swift; sourceTree = "<group>"; };
 		9AB421B01E93CA45005098C4 /* PayAuthorization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayAuthorization.swift; sourceTree = "<group>"; };
 		9AD186431EA4F954003F91A3 /* AppliedGiftCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppliedGiftCard.swift; sourceTree = "<group>"; };
@@ -466,11 +470,21 @@
 			path = Storefront;
 			sourceTree = "<group>";
 		};
+		9AA6B6D51E9D562200CE9F18 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				9AA6B6D61E9D563C00CE9F18 /* GraphQL+ScalarSupportTests.swift */,
+			);
+			name = Custom;
+			sourceTree = "<group>";
+		};
 		9AA89E841E9BD8740075AC74 /* Client */ = {
 			isa = PBXGroup;
 			children = (
 				9AA89E851E9BD8930075AC74 /* Graph.Task.swift */,
 				9AA89E871E9BDB7F0075AC74 /* Graph.ClientTests.swift */,
+				9AA89E951E9D29B40075AC74 /* Graph.QueryError.swift */,
+				9AA89E971E9D2BD80075AC74 /* Graph.RetryHandlerTests.swift */,
 			);
 			name = Client;
 			sourceTree = "<group>";
@@ -499,7 +513,6 @@
 				9A4069CE1E8ED98A000254CD /* Graph.Task.swift */,
 				9AEF61B81E5F64230067FA90 /* Graph.Client.swift */,
 				9AAFAB761E6080A500864A17 /* Graph.QueryError.swift */,
-				9AAFAB741E60809400864A17 /* Graph.Result.swift */,
 				9A4069C91E8EA6DB000254CD /* Graph.RetryHandler.swift */,
 			);
 			name = Client;
@@ -678,6 +691,7 @@
 			children = (
 				9AA89E891E9BDC4A0075AC74 /* Mocks */,
 				9AA89E841E9BD8740075AC74 /* Client */,
+				9AA6B6D51E9D562200CE9F18 /* Custom */,
 				9AFA38EC1E64850A0056C5AA /* BuyTests.swift */,
 				9AFA38EE1E64850A0056C5AA /* Info.plist */,
 			);
@@ -999,6 +1013,44 @@
 				9AD186E31EA4F954003F91A3 /* CustomerAccessTokenRenewPayload.swift in Sources */,
 				9AD186B11EA4F954003F91A3 /* Attribute.swift in Sources */,
 				9AD186C21EA4F954003F91A3 /* CheckoutCustomerDisassociatePayload.swift in Sources */,
+				9A4069871E8E9B8E000254CD /* CustomerAccessToken.swift in Sources */,
+				9A4069961E8E9B8E000254CD /* CustomerCreateInput.swift in Sources */,
+				9A4069C51E8E9B8E000254CD /* UserError.swift in Sources */,
+				9A40697B1E8E9B8E000254CD /* CheckoutShippingAddressUpdateInput.swift in Sources */,
+				9A4069A31E8E9B8E000254CD /* LineItemConnection.swift in Sources */,
+				9A40698D1E8E9B8E000254CD /* CustomerAccessTokenRenewPayload.swift in Sources */,
+				9A40697A1E8E9B8E000254CD /* CheckoutEmailUpdatePayload.swift in Sources */,
+				9A4069761E8E9B8E000254CD /* CheckoutCompleteWithTokenizedPaymentPayload.swift in Sources */,
+				9A40696C1E8E9B8E000254CD /* AttributeInput.swift in Sources */,
+				9A4069A61E8E9B8E000254CD /* MailingAddress.swift in Sources */,
+				9A4069801E8E9B8E000254CD /* CollectionConnection.swift in Sources */,
+				9A40696F1E8E9B8E000254CD /* CheckoutAddLineItemsInput.swift in Sources */,
+				9A4069701E8E9B8E000254CD /* CheckoutAddLineItemsPayload.swift in Sources */,
+				9A4069A51E8E9B8E000254CD /* LineItemInput.swift in Sources */,
+				9A4069A81E8E9B8E000254CD /* MailingAddressEdge.swift in Sources */,
+				9A40698B1E8E9B8E000254CD /* CustomerAccessTokenDeletePayload.swift in Sources */,
+				9A4069711E8E9B8E000254CD /* CheckoutAttributesUpdateInput.swift in Sources */,
+				9A40696D1E8E9B8E000254CD /* AvailableShippingRates.swift in Sources */,
+				9A40697C1E8E9B8E000254CD /* CheckoutShippingAddressUpdatePayload.swift in Sources */,
+				9A4069B41E8E9B8E000254CD /* Payment.swift in Sources */,
+				9A4069A71E8E9B8E000254CD /* MailingAddressConnection.swift in Sources */,
+				9A4069911E8E9B8E000254CD /* CustomerAddressCreatePayload.swift in Sources */,
+				9A40697F1E8E9B8E000254CD /* Collection.swift in Sources */,
+				9A4069B81E8E9B8E000254CD /* ProductOption.swift in Sources */,
+				9A40699D1E8E9B8E000254CD /* CustomerUpdatePayload.swift in Sources */,
+				9A4069B31E8E9B8E000254CD /* PageInfo.swift in Sources */,
+				9A40696B1E8E9B8E000254CD /* Attribute.swift in Sources */,
+				9A4069C01E8E9B8E000254CD /* Shop.swift in Sources */,
+				9A4069721E8E9B8E000254CD /* CheckoutAttributesUpdatePayload.swift in Sources */,
+				9A4069B61E8E9B8E000254CD /* ProductConnection.swift in Sources */,
+				9A4069C71E8E9B8E000254CD /* Storefront.swift in Sources */,
+				9A40699E1E8E9B8E000254CD /* Domain.swift in Sources */,
+				9A4069B11E8E9B8E000254CD /* OrderEdge.swift in Sources */,
+				9A4069BC1E8E9B8E000254CD /* ProductVariantEdge.swift in Sources */,
+				9A4069771E8E9B8E000254CD /* CheckoutCreateInput.swift in Sources */,
+				9A40699A1E8E9B8E000254CD /* CustomerResetInput.swift in Sources */,
+				9A4069831E8E9B8E000254CD /* CreditCard.swift in Sources */,
+				9A40696E1E8E9B8E000254CD /* Checkout.swift in Sources */,
 				9AAFAB771E6080A500864A17 /* Graph.QueryError.swift in Sources */,
 				9AD187031EA4F954003F91A3 /* OrderEdge.swift in Sources */,
 				9AD186C91EA4F954003F91A3 /* CheckoutLineItemEdge.swift in Sources */,
@@ -1027,7 +1079,13 @@
 				9AA89E881E9BDB7F0075AC74 /* Graph.ClientTests.swift in Sources */,
 				9AA89E861E9BD8930075AC74 /* Graph.Task.swift in Sources */,
 				9AA89E8B1E9BDC590075AC74 /* MockSession.swift in Sources */,
+				9AA89E861E9BD8930075AC74 /* Graph.Task.swift in Sources */,
+				9AA89E981E9D2BD80075AC74 /* Graph.RetryHandlerTests.swift in Sources */,
+				9AA89E861E9BD8930075AC74 /* Graph.Task.swift in Sources */,
+				9AA89E981E9D2BD80075AC74 /* Graph.RetryHandlerTests.swift in Sources */,
 				9AFA38ED1E64850A0056C5AA /* BuyTests.swift in Sources */,
+				9AA89E961E9D29B40075AC74 /* Graph.QueryError.swift in Sources */,
+				9AA6B6D71E9D563C00CE9F18 /* GraphQL+ScalarSupportTests.swift in Sources */,
 				9AA89E8D1E9BDC650075AC74 /* MockSessionDataTask.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
