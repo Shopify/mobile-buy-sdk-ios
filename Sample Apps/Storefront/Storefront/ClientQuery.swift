@@ -78,7 +78,7 @@ final class ClientQuery {
     //
     static func mutationForCreateCheckout(with cartItems: [CartItem]) -> Storefront.MutationQuery {
         let lineItems = cartItems.map { item in
-            Storefront.LineItemInput(variantId: GraphQL.ID(rawValue: item.variant.id), quantity: Int32(item.quantity))
+            Storefront.CheckoutLineItemInput(variantId: GraphQL.ID(rawValue: item.variant.id), quantity: Int32(item.quantity))
         }
         
         let checkoutInput = Storefront.CheckoutCreateInput(lineItems: lineItems)
@@ -101,7 +101,7 @@ final class ClientQuery {
 //            zip:      address.zip
 //        )
         
-        
+        let checkoutID   = GraphQL.ID(rawValue: id)
         let addressInput = Storefront.MailingAddressInput(
             address1:  "80 Spadina",
             address2:  "",
@@ -113,10 +113,8 @@ final class ClientQuery {
             zip:       "M5V 2J4"
         )
         
-        let updateInput = Storefront.CheckoutShippingAddressUpdateInput(shippingAddress: addressInput, checkoutId: GraphQL.ID(rawValue: id))
-        
         return Storefront.buildMutation { $0
-            .checkoutShippingAddressUpdate(input: updateInput) { $0
+            .checkoutShippingAddressUpdate(shippingAddress: addressInput, checkoutId: checkoutID) { $0
                 .userErrors { $0
                     .field()
                     .message()
@@ -130,10 +128,8 @@ final class ClientQuery {
     
     static func mutationForUpdateCheckout(_ id: String, updatingShippingRate shippingRate: PayShippingRate) -> Storefront.MutationQuery {
         
-        let updateInput = Storefront.CheckoutShippingLineUpdateInput(checkoutId: GraphQL.ID(rawValue: id), shippingRateHandle: shippingRate.handle)
-        
         return Storefront.buildMutation { $0
-            .checkoutShippingLineUpdate(input: updateInput) { $0
+            .checkoutShippingLineUpdate(checkoutId: GraphQL.ID(rawValue: id), shippingRateHandle: shippingRate.handle) { $0
                 .userErrors { $0
                     .field()
                     .message()
@@ -147,10 +143,8 @@ final class ClientQuery {
     
     static func mutationForUpdateCheckout(_ id: String, updatingEmail email: String) -> Storefront.MutationQuery {
         
-        let updateInput = Storefront.CheckoutEmailUpdateInput(checkoutId: GraphQL.ID(rawValue: id), email: email)
-        
         return Storefront.buildMutation { $0
-            .checkoutEmailUpdate(input: updateInput) { $0
+            .checkoutEmailUpdate(checkoutId: GraphQL.ID(rawValue: id), email: email) { $0
                 .userErrors { $0
                     .field()
                     .message()
@@ -175,8 +169,7 @@ final class ClientQuery {
             zip:       billingAddress.zip
         )
         
-        let tokenizedInput = Storefront.CheckoutCompleteWithTokenizedPaymentInput(
-            checkoutId:     GraphQL.ID(rawValue: checkout.id),
+        let paymentInput = Storefront.TokenizedPaymentInput(
             amount:         checkout.paymentDue,
             idempotencyKey: idempotencyToken,
             billingAddress: mailingAddress,
@@ -185,7 +178,7 @@ final class ClientQuery {
         )
         
         return Storefront.buildMutation { $0
-            .checkoutCompleteWithTokenizedPayment(input: tokenizedInput) { $0
+            .checkoutCompleteWithTokenizedPayment(checkoutId: GraphQL.ID(rawValue: checkout.id), payment: paymentInput) { $0
                 .userErrors { $0
                     .field()
                     .message()

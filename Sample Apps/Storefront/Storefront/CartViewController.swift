@@ -118,9 +118,9 @@ class CartViewController: ParallaxViewController {
         let payCheckout = PayCheckout(
             id:              checkout.id,
             lineItems:       payItems,
+            discount:        nil,
             shippingAddress: nil,
             shippingRate:    nil,
-            discountAmount:  0.0,
             subtotalPrice:   checkout.subtotalPrice,
             needsShipping:   checkout.requiresShipping,
             totalTax:        checkout.totalTax,

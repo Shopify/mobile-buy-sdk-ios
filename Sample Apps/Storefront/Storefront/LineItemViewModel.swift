@@ -29,7 +29,7 @@ import Buy
 
 final class LineItemViewModel: ViewModel {
     
-    typealias ModelType = Storefront.LineItemEdge
+    typealias ModelType = Storefront.CheckoutLineItemEdge
     
     let model:    ModelType
     let cursor:   String
@@ -55,6 +55,6 @@ final class LineItemViewModel: ViewModel {
     }
 }
 
-extension Storefront.LineItemEdge: ViewModeling {
+extension Storefront.CheckoutLineItemEdge: ViewModeling {
     typealias ViewModelType = LineItemViewModel
 }

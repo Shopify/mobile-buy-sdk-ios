@@ -37,9 +37,9 @@ extension CheckoutViewModel {
         return PayCheckout(
             id:              self.id,
             lineItems:       payItems,
+            discount:        nil,
             shippingAddress: self.shippingAddress?.payAddress,
             shippingRate:    self.shippingRate?.payShippingRate,
-            discountAmount:  0.0,
             subtotalPrice:   self.subtotalPrice,
             needsShipping:   self.requiresShipping,
             totalTax:        self.totalTax,
