@@ -29,7 +29,7 @@ import PassKit
 
 public struct PayShippingRate {
     
-    public struct DeliveryRange: CustomStringConvertible {
+    public struct DeliveryRange {
         public let from: Date
         public let to:   Date?
         
@@ -38,17 +38,16 @@ public struct PayShippingRate {
             self.to   = to
         }
         
-        public var description: String {
-            let now        = Date()
-            let firstDelta = now.daysUntil(self.from)
+        public func descriptionFrom(_ date: Date) -> String {
+            let firstDelta = date.daysUntil(self.from)
             
-            if let toDate = self.to {
-                let secondDelta = now.daysUntil(toDate)
-                return "\(firstDelta)-\(secondDelta) days"
-            } else {
+            guard let toDate = self.to else {
                 let suffix  = firstDelta == 1 ? "" : "s"
                 return "\(firstDelta) day\(suffix)"
             }
+            
+            let secondDelta = date.daysUntil(toDate)
+            return "\(firstDelta) - \(secondDelta) days"
         }
     }
     
@@ -95,9 +94,9 @@ internal extension PayShippingRate {
         let item = PKShippingMethod(label: self.title, amount: self.price)
         
         if let deliveryRange = self.deliveryRange {
-            item.detail = deliveryRange.description
+            item.detail = deliveryRange.descriptionFrom(Date())
         } else {
-            item.detail = "No delivery range provided."
+            item.detail = "No delivery estimate provided."
         }
         item.identifier = self.handle
         

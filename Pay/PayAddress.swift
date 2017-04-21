@@ -39,7 +39,6 @@ public struct PayPostalAddress {
     //
     public init(city: String? = nil,
          country:     String? = nil,
-         countryCode: String? = nil,
          province:    String? = nil,
          zip:         String? = nil) {
         
@@ -111,10 +110,11 @@ internal extension PayPostalAddress {
 internal extension PayAddress {
     
     init(with contact: PKContact) {
-        let lines = contact.postalAddress!.street.components(separatedBy: .newlines)
+        let street = contact.postalAddress!.street
+        let lines  = street.components(separatedBy: .newlines)
         self.init(
-            addressLine1: lines.count > 0 ? lines[0] : nil,
-            addressLine2: lines.count > 1 ? lines[1] : nil,
+            addressLine1: !street.isEmpty && lines.count > 0 ? lines[0] : nil,
+            addressLine2: !street.isEmpty && lines.count > 1 ? lines[1] : nil,
             city:         contact.postalAddress!.city,
             country:      contact.postalAddress!.country,
             province:     contact.postalAddress!.state,

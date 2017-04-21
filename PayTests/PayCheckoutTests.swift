@@ -104,12 +104,19 @@ class PayCheckoutTests: XCTestCase {
     func testSummaryItemsWithDiscount() {
         let discount     = Models.createDiscount()
         let checkout     = Models.createCheckout(requiresShipping: false, discount: discount, empty: true, hasTax: false)
-        let summaryItems = checkout.summaryItems
+        var summaryItems = checkout.summaryItems
         
         XCTAssertEqual(summaryItems.count, 4)
         XCTAssertEqual(summaryItems[0].label, "CART TOTAL")
         XCTAssertEqual(summaryItems[1].label, "DISCOUNT (WIN20)")
         XCTAssertEqual(summaryItems[2].label, "SUBTOTAL")
         XCTAssertEqual(summaryItems[3].label, "TOTAL")
+        
+        let anonymousDiscount = Models.createAnonymousDiscount()
+        let checkout2         = Models.createCheckout(requiresShipping: false, discount: anonymousDiscount, empty: true, hasTax: false)
+        
+        summaryItems = checkout2.summaryItems
+        
+        XCTAssertEqual(summaryItems[1].label, "DISCOUNT")
     }
 }
