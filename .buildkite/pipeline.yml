@@ -2,9 +2,11 @@ steps:
   - label: "Buy Tests"
     command: 
       - "./Scripts/test_buy"
-    macstadium-scheduler: true
+    agents:
+      - macstadium-scheduler: true
     
   - label: "Pay Tests"
     command: 
       - "./Scripts/test_pay"
-    macstadium-scheduler: true
+    agents:
+      - macstadium-scheduler: true
