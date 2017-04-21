@@ -33,6 +33,7 @@ import PassKit
 ///
 public struct PayCheckout {
 
+    public let id:              String
     public let hasLineItems:    Bool
     public let needsShipping:   Bool
     
@@ -48,8 +49,9 @@ public struct PayCheckout {
     // ----------------------------------
     //  MARK: - Init -
     //
-    public init(lineItems: [PayLineItem], discount: PayDiscount?, shippingAddress: PayAddress?, shippingRate: PayShippingRate?, discountAmount: Decimal, subtotalPrice: Decimal, needsShipping: Bool, totalTax: Decimal, paymentDue: Decimal) {
+    public init(id: String, lineItems: [PayLineItem], discount: PayDiscount?, shippingAddress: PayAddress?, shippingRate: PayShippingRate?, subtotalPrice: Decimal, needsShipping: Bool, totalTax: Decimal, paymentDue: Decimal) {
         
+        self.id              = id
         self.lineItems       = lineItems
         self.shippingAddress = shippingAddress
         self.shippingRate    = shippingRate

@@ -37,6 +37,7 @@ class PayCheckoutTests: XCTestCase {
         let address  = Models.createAddress()
         let rate     = Models.createShippingRate()
         let checkout = PayCheckout(
+            id: "123",
             lineItems: [
                 PayLineItem(price: 10.0, quantity: 1),
                 PayLineItem(price: 20.0, quantity: 1),
@@ -44,13 +45,13 @@ class PayCheckoutTests: XCTestCase {
             discount:        discount,
             shippingAddress: address,
             shippingRate:    rate,
-            discountAmount:  10.0,
             subtotalPrice:   30.0,
             needsShipping:   true,
             totalTax:        15.0,
             paymentDue:      35.0
         )
         
+        XCTAssertEqual(checkout.id,              "123")
         XCTAssertEqual(checkout.lineItems.count, 2)
         XCTAssertEqual(checkout.shippingAddress!.city, address.city)
         XCTAssertEqual(checkout.shippingRate!.handle,  rate.handle)

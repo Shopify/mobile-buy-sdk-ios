@@ -89,11 +89,11 @@ struct Models {
         ]
         
         return PayCheckout(
+            id:              "123",
             lineItems:       !empty ? lineItems : [],
             discount:        discount,
             shippingAddress: shippingAddress,
             shippingRate:    shippingRate,
-            discountAmount:  0.0,
             subtotalPrice:   44.0,
             needsShipping:   requiresShipping,
             totalTax:        hasTax ? 6.0 : 0.0,
