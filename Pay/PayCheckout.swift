@@ -31,14 +31,13 @@ public struct PayCheckout {
 
     public let id:              String
     public let hasLineItems:    Bool
-    public let hasDiscount:     Bool
     public let needsShipping:   Bool
     
+    public let discount:        PayDiscount?
     public let lineItems:       [PayLineItem]
     public let shippingAddress: PayAddress?
     public let shippingRate:    PayShippingRate?
     
-    public let discountAmount:  Decimal
     public let subtotalPrice:   Decimal
     public let totalTax:        Decimal
     public let paymentDue:      Decimal
@@ -46,20 +45,19 @@ public struct PayCheckout {
     // ----------------------------------
     //  MARK: - Init -
     //
-    public init(id: String, lineItems: [PayLineItem], shippingAddress: PayAddress?, shippingRate: PayShippingRate?, discountAmount: Decimal, subtotalPrice: Decimal, needsShipping: Bool, totalTax: Decimal, paymentDue: Decimal) {
+    public init(id: String, lineItems: [PayLineItem], discount: PayDiscount?, shippingAddress: PayAddress?, shippingRate: PayShippingRate?, discountAmount: Decimal, subtotalPrice: Decimal, needsShipping: Bool, totalTax: Decimal, paymentDue: Decimal) {
         
         self.id              = id
         self.lineItems       = lineItems
         self.shippingAddress = shippingAddress
         self.shippingRate    = shippingRate
         
-        self.discountAmount  = discountAmount
+        self.discount        = discount
         self.subtotalPrice   = subtotalPrice
         self.totalTax        = totalTax
         self.paymentDue      = paymentDue
         
         self.hasLineItems    = !lineItems.isEmpty
-        self.hasDiscount     = false // TODO: Add discount
         self.needsShipping   = needsShipping
     }
 }
@@ -72,16 +70,15 @@ internal extension PayCheckout {
     var summaryItems: [PKPaymentSummaryItem] {
         var summaryItems: [PKPaymentSummaryItem] = []
         
-        if self.hasLineItems /* or has discount */ {
+        if self.hasLineItems || self.discount != nil {
             summaryItems.append(self.lineItems.totalPrice.summaryItemNamed("CART TOTAL"))
         }
         
-        // TODO: if self.hasDiscount { add discount summary item }
-        
-        //        if (hasDiscount) {
-        //            NSString *discountLabel = [self.discount.code length] > 0 ? [NSString stringWithFormat:@"DISCOUNT (%@)", self.discount.code] : @"DISCOUNT";
-        //            [summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:discountLabel amount:[self.discount.amount buy_decimalNumberAsNegative]]];
-        //        }
+        if let discount = self.discount {
+            let title  = discount.code.isEmpty ? "DISCOUNT" : "DISCOUNT (\(discount.code))"
+            let amount = discount.amount * -1.0
+            summaryItems.append(amount.summaryItemNamed(title))
+        }
         
         summaryItems.append(self.subtotalPrice.summaryItemNamed("SUBTOTAL"))
         

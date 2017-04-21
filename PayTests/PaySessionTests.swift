@@ -34,8 +34,8 @@ class PaySessionTests: XCTestCase {
     //  MARK: - Init -
     //
     func testInit() {
-        let checkout = self.createCheckout()
-        let currency = self.createCurrency()
+        let checkout = Models.createCheckout()
+        let currency = Models.createCurrency()
         let session  = PaySession(checkout: checkout, currency: currency, merchantID: "some-id")
         
         XCTAssertEqual(session.merchantID, "some-id")
@@ -46,12 +46,12 @@ class PaySessionTests: XCTestCase {
     }
     
     func testUniqueIdentifier() {
-        let checkout = self.createCheckout()
-        let currency = self.createCurrency()
+        let checkout = Models.createCheckout()
+        let currency = Models.createCurrency()
         
-        let session1 = self.createSession(checkout: checkout, currency: currency)
-        let session2 = self.createSession(checkout: checkout, currency: currency)
-        let session3 = self.createSession(checkout: checkout, currency: currency)
+        let session1 = Models.createSession(checkout: checkout, currency: currency)
+        let session2 = Models.createSession(checkout: checkout, currency: currency)
+        let session3 = Models.createSession(checkout: checkout, currency: currency)
         
         XCTAssertNotEqual(session1.identifier, session2.identifier)
         XCTAssertNotEqual(session2.identifier, session3.identifier)
@@ -61,11 +61,11 @@ class PaySessionTests: XCTestCase {
     //  MARK: - Payment Request -
     //
     func testPaymentRequest() {
-        let checkout = self.createCheckout()
-        let currency = self.createCurrency()
-        let session  = self.createSession(checkout: checkout, currency: currency)
+        let checkout = Models.createCheckout()
+        let currency = Models.createCurrency()
+        let session  = Models.createSession(checkout: checkout, currency: currency)
         
-        let digitalCheckout = self.createCheckout(requiresShipping: false)
+        let digitalCheckout = Models.createCheckout(requiresShipping: false)
         let digitalRequest  = session.paymentRequestUsing(digitalCheckout, currency: currency, merchantID: session.merchantID)
         
         XCTAssertEqual(digitalRequest.countryCode,                   currency.countryCode)
@@ -77,7 +77,7 @@ class PaySessionTests: XCTestCase {
         XCTAssertEqual(digitalRequest.merchantCapabilities,          [.capability3DS])
         XCTAssertFalse(digitalRequest.paymentSummaryItems.isEmpty)
         
-        let shippingCheckout = self.createCheckout(requiresShipping: true)
+        let shippingCheckout = Models.createCheckout(requiresShipping: true)
         let shippingRequest  = session.paymentRequestUsing(shippingCheckout, currency: currency, merchantID: session.merchantID)
         
         XCTAssertEqual(shippingRequest.requiredShippingAddressFields, [.all])
@@ -88,14 +88,14 @@ class PaySessionTests: XCTestCase {
     //
     func testPaymentAuthorization() {
         
-        let contact      = self.createContact()
-        let shippingRate = self.createShippingRate()
+        let contact      = Models.createContact()
+        let shippingRate = Models.createShippingRate()
         
         let payMethod = MockPaymentMethod(displayName: "John's Mastercard", network: .masterCard, type: .credit)
         let token     = MockPaymentToken(paymentMethod: payMethod)
         let payment   = MockPayment(token: token, billingContact: contact, shippingContact: contact, shippingMethod: shippingRate.summaryItem)
         
-        let checkout  = self.createCheckout(requiresShipping: true)
+        let checkout  = Models.createCheckout(requiresShipping: true)
         let delegate  = self.setupDelegateForMockSessionWith(checkout) { session in
             session.shippingRates = [
                 shippingRate
@@ -149,7 +149,7 @@ class PaySessionTests: XCTestCase {
     //
     func testSelectShippingContactWithInvalidAddress() {
         
-        let checkout = self.createCheckout(requiresShipping: true)
+        let checkout = Models.createCheckout(requiresShipping: true)
         let delegate = self.setupDelegateForMockSessionWith(checkout)
         
         delegate.didRequestShippingRates = { session, postalAddress, checkout, provide in
@@ -171,10 +171,10 @@ class PaySessionTests: XCTestCase {
     
     func testSelectShippingContactWithEmptyRates() {
         
-        let checkout = self.createCheckout(requiresShipping: true)
+        let checkout = Models.createCheckout(requiresShipping: true)
         let delegate = self.setupDelegateForMockSessionWith(checkout)
         
-        let shippingContact    = self.createContact()
+        let shippingContact    = Models.createContact()
         let invalidExpectation = self.expectation(description: "")
         
         delegate.didRequestShippingRates = { session, postalAddress, checkout, provide in
@@ -197,14 +197,14 @@ class PaySessionTests: XCTestCase {
     
     func testSelectShippingContact() {
         
-        let checkout = self.createCheckout(requiresShipping: true)
+        let checkout = Models.createCheckout(requiresShipping: true)
         let delegate = self.setupDelegateForMockSessionWith(checkout)
         
-        let shippingContact  = self.createContact()
-        let shippingAddress  = self.createAddress()
-        let shippingRate     = self.createShippingRate()
-        let addressCheckout  = self.createCheckout(shippingAddress: shippingAddress)
-        let shippingCheckout = self.createCheckout(shippingRate: shippingRate)
+        let shippingContact  = Models.createContact()
+        let shippingAddress  = Models.createAddress()
+        let shippingRate     = Models.createShippingRate()
+        let addressCheckout  = Models.createCheckout(shippingAddress: shippingAddress)
+        let shippingCheckout = Models.createCheckout(shippingRate: shippingRate)
         
         let e1 = self.expectation(description: "")
         delegate.didRequestShippingRates = { session, postalAddress, checkout, provide in
@@ -242,13 +242,13 @@ class PaySessionTests: XCTestCase {
     
     func testSelectShippingContactFailure() {
         
-        let checkout = self.createCheckout(requiresShipping: true)
+        let checkout = Models.createCheckout(requiresShipping: true)
         let delegate = self.setupDelegateForMockSessionWith(checkout)
         
-        let shippingContact  = self.createContact()
-        let shippingAddress  = self.createAddress()
-        let shippingRate     = self.createShippingRate()
-        let addressCheckout  = self.createCheckout(shippingAddress: shippingAddress)
+        let shippingContact  = Models.createContact()
+        let shippingAddress  = Models.createAddress()
+        let shippingRate     = Models.createShippingRate()
+        let addressCheckout  = Models.createCheckout(shippingAddress: shippingAddress)
         
         let e1 = self.expectation(description: "")
         delegate.didRequestShippingRates = { session, postalAddress, checkout, provide in
@@ -285,14 +285,14 @@ class PaySessionTests: XCTestCase {
     //
     func testSelectShippingMethodWithoutShippingRates() {
         
-        let checkout = self.createCheckout(requiresShipping: true)
+        let checkout = Models.createCheckout(requiresShipping: true)
         let delegate = self.setupDelegateForMockSessionWith(checkout)
         
         delegate.didSelectShippingRate = { session, shippingRate, checkout, provide in
             XCTFail()
         }
         
-        let shippingRate   = self.createShippingRate()
+        let shippingRate   = Models.createShippingRate()
         let shippingMethod = shippingRate.summaryItem
         
         let expectation = self.expectation(description: "")
@@ -309,10 +309,10 @@ class PaySessionTests: XCTestCase {
     
     func testSelectShippingMethodWithNilCheckout() {
         
-        let shippingRate   = self.createShippingRate()
+        let shippingRate   = Models.createShippingRate()
         let shippingMethod = shippingRate.summaryItem
         
-        let checkout = self.createCheckout(requiresShipping: true)
+        let checkout = Models.createCheckout(requiresShipping: true)
         let delegate = self.setupDelegateForMockSessionWith(checkout) { session in
             
             session.checkout      = checkout
@@ -339,10 +339,10 @@ class PaySessionTests: XCTestCase {
     
     func testSelectShippingMethod() {
         
-        let shippingRate   = self.createShippingRate()
+        let shippingRate   = Models.createShippingRate()
         let shippingMethod = shippingRate.summaryItem
         
-        let checkout = self.createCheckout(requiresShipping: true)
+        let checkout = Models.createCheckout(requiresShipping: true)
         let delegate = self.setupDelegateForMockSessionWith(checkout) { session in
             
             session.checkout      = checkout
@@ -351,7 +351,7 @@ class PaySessionTests: XCTestCase {
             ]
         }
         
-        let updatedCheckout = self.createCheckout(
+        let updatedCheckout = Models.createCheckout(
             requiresShipping: true,
             shippingRate:     shippingRate
         )
@@ -379,7 +379,7 @@ class PaySessionTests: XCTestCase {
     //
     func testAuthorizationFinished() {
         
-        let checkout    = self.createCheckout(requiresShipping: true)
+        let checkout    = Models.createCheckout(requiresShipping: true)
         let delegate    = self.setupDelegateForMockSessionWith(checkout)
         let expectation = self.expectation(description: "")
         
@@ -395,8 +395,8 @@ class PaySessionTests: XCTestCase {
     //  MARK: - Session Delegate -
     //
     private func setupDelegateForMockSessionWith(_ checkout: PayCheckout, configure: ((PaySession) -> Void)? = nil) -> MockSessionDelegate {
-        let currency = self.createCurrency()
-        let session  = self.createSession(checkout: checkout, currency: currency)
+        let currency = Models.createCurrency()
+        let session  = Models.createSession(checkout: checkout, currency: currency)
         let delegate = MockSessionDelegate(session: session)
         
         configure?(session)
@@ -404,101 +404,5 @@ class PaySessionTests: XCTestCase {
         session.authorize()
         
         return delegate
-    }
-}
-
-// ----------------------------------
-//  MARK: - Models -
-//
-extension PaySessionTests {
-    
-    // ----------------------------------
-    //  MARK: - PassKit Models -
-    //
-    fileprivate func createShippingMethod(identifier: String? = nil) -> PKShippingMethod {
-        let method        = PKShippingMethod(label: "CanadaPost", amount: 15.00 as NSDecimalNumber)
-        method.identifier = identifier
-        return method
-    }
-    
-    fileprivate func createContact() -> PKContact {
-        let contact  = PKContact()
-        contact.name = {
-            var c        = PersonNameComponents()
-            c.givenName  = "John"
-            c.familyName = "Smith"
-            return c
-        }()
-        contact.phoneNumber   = CNPhoneNumber(stringValue: "1234567890")
-        contact.postalAddress = self.createPostalAddress()
-        contact.emailAddress  = "john.smith@gmail.com"
-        
-        return contact
-    }
-    
-    fileprivate func createPostalAddress() -> CNPostalAddress {
-        let address        = CNMutablePostalAddress()
-        address.street     = "80 Spadina"
-        address.city       = "Toronto"
-        address.country    = "Canada"
-        address.state      = "ON"
-        address.postalCode = "M5V 2J4"
-        
-        return address.copy() as! CNPostalAddress
-    }
-    
-    // ----------------------------------
-    //  MARK: - Pay Models -
-    //
-    fileprivate func createSession(checkout: PayCheckout, currency: PayCurrency) -> PaySession {
-        return PaySession(checkout: checkout, currency: currency, merchantID: "com.merchant.identifier", controllerType: MockAuthorizationController.self)
-    }
-    
-    fileprivate func createCurrency() -> PayCurrency {
-        return PayCurrency(currencyCode: "USD", countryCode: "US")
-    }
-    
-    fileprivate func createCheckout(requiresShipping: Bool = true, shippingAddress: PayAddress? = nil, shippingRate: PayShippingRate? = nil) -> PayCheckout {
-        return PayCheckout(
-            id: "com.checkout.identifier",
-            lineItems: [
-                self.createLineItem1(),
-                self.createLineItem2(),
-                ],
-            shippingAddress: shippingAddress,
-            shippingRate:    shippingRate,
-            discountAmount:  0.0,
-            subtotalPrice:   44.0,
-            needsShipping:   requiresShipping,
-            totalTax:        6.0,
-            paymentDue:      50.0
-        )
-    }
-    
-    fileprivate func createLineItem1() -> PayLineItem {
-        return PayLineItem(price: 16.0, quantity: 2)
-    }
-    
-    fileprivate func createLineItem2() -> PayLineItem {
-        return PayLineItem(price: 12.0, quantity: 1)
-    }
-    
-    fileprivate func createAddress() -> PayAddress {
-        return PayAddress(
-            addressLine1: "80 Spadina",
-            addressLine2: nil,
-            city:         "Toronto",
-            country:      "Canada",
-            province:     "ON",
-            zip:          "M5V 2J4",
-            firstName:    "John",
-            lastName:     "Smith",
-            phone:        "1234567890",
-            email:        "john.smith@gmail.com"
-        )
-    }
-    
-    fileprivate func createShippingRate() -> PayShippingRate {
-        return PayShippingRate(handle: "shipping-rate", title: "UPS Standard", price: 12.0)
     }
 }
