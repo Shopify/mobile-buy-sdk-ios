@@ -46,10 +46,10 @@ public extension Graph {
         
         public internal(set) var repeatCount: Int = 0
         
-        public var repeatInterval: Double = 2.0
-        
         public let endurance: Endurance
         public let condition: Condition
+        
+        public var interval:  Double
         public var canRetry:  Bool {
             return self.endurance.canContinueFor(self.repeatCount)
         }
@@ -57,9 +57,10 @@ public extension Graph {
         // ----------------------------------
         //  MARK: - Init -
         //
-        public init(endurance: Endurance = .infinite, condition: @escaping Condition) {
+        public init(endurance: Endurance = .infinite, interval: Double = 2.0, condition: @escaping Condition) {
             self.endurance = endurance
             self.condition = condition
+            self.interval  = interval
         }
     }
 }
