@@ -1,0 +1,15 @@
+env:
+  TARGET_IMAGE: "macos-xcode83"
+  
+steps:
+  - label: "Buy Tests"
+    command: "./Scripts/test_buy"
+    timeout_in_minutes: 10
+    agents:
+      macstadium-scheduler: true
+    
+  - label: "Pay Tests"
+    command: "./Scripts/test_pay"
+    timeout_in_minutes: 10
+    agents:
+      macstadium-scheduler: true
