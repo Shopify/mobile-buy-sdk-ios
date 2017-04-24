@@ -20,9 +20,6 @@ Shopify’s Mobile Buy SDK makes it simple to sell physical products inside your
 - [Quick Start](#quick-start)
 - [Building the SDK](#building-the-sdk)
 - [Mobile Buy SDK Targets and schemes](#mobile-buy-sdk-targets-and-schemes)
-- [Sample Apps](#sample-apps)
-- [Product View](#product-view)
-- [Unit Tests](#unit-tests)
 - [Contributions](#contributions)
 - [Help](#help)
 - [License](#license)
@@ -83,7 +80,7 @@ import Buy
 
 ### Getting started
 
-The Buy SDK is built on top of GraphQL. While some knowledge of GraphQL is good to have, you don't have to be an expert to start using with the Buy SDK. Instead of writing stringly-typed queries, the SDK provides generated classes and a builder pattern to help you write compile-time checked and auto-complete friendly queries and work with typed response models.
+The Buy SDK is built on top of [GraphQL](http://graphql.org/). While some knowledge of GraphQL is good to have, you don't have to be an expert to start using with the Buy SDK. Instead of writing stringly-typed queries, the SDK provides generated classes and a builder pattern to help you write compile-time checked and auto-complete friendly queries and work with typed response models.
 
 This is what a sample query looks like to fetch a shop's name:
 
@@ -111,6 +108,7 @@ Initialize the `GraphClient` with your credentials from the *Mobile App Channel*
 ```swift
 let client = GraphClient(shopDomain: "yourshop.myshopify.com", apiKey: "your-api-key")
 ```
+To learn more about GraphQL types & models go to official [page](http://graphql.org/learn/schema/)
 
 ### Queries & Mutations
 
@@ -182,143 +180,79 @@ mutation {
     }
 }
 ```
+To learn more about GraphQL queries & mutations go to official [page](http://graphql.org/learn/queries/)
 
-### Storefront API
-After initializing the client with valid shop credentials, you can begin fetching collections.
-```objc
-[client getCollectionsPage:1 completion:^(NSArray<BUYCollection *> * _Nullable collections, NSUInteger page, BOOL reachedEnd, NSError * _Nullable error) {
-	if (collections && !error) {
-		// Do something with collections
-	} else {
-		NSLog(@"Error fetching collections: %@", error.userInfo);
-	}
-}];
+### Query Arguments
+Example of query arguments:
+```graphql
+{
+  shop {
+    products(first:50, sortKey: TITLE) {
+      edges {
+        node {
+          id
+          title
+        }
+      }
+    }
+  }
+}
 ```
-Having a collection, we can then retrieve an array of products within that collection:
-```objc
-BUYCollection *collection = collections.firstObject;
+To learn more about GraphQL errors go to official [page](http://graphql.org/learn/queries/#arguments)
 
-[client getProductsPage:1 inCollection:collection.identifier completion:^(NSArray<BUYProduct *> * _Nullable products, NSUInteger page, BOOL reachedEnd, NSError * _Nullable error) {
-	if (products && !error) {
-		// Do something with products
-	} else {
-		NSLog(@"Error fetching products in collection %@: %@", collection.identifier, error.userInfo);
-	}
-}];
-```
-
-### Customer API
-##### Customer Login
-You can allow customers to login with their existing account using the SDK. First, we'll need to create the `BUYAccountCredentials` object used to pass authentication credentials to the server.
-```objc
-NSArray *credentialItems = @[
-						     [BUYAccountCredentialItem itemWithEmail:@"john.smith@gmail.com"],
-							 [BUYAccountCredentialItem itemWithPassword:@"password"],
-							];
-BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:credentialItems];
-```
-We can now use the credentials object to login the customer.
-```objc
-[client loginCustomerWithCredentials:credentials callback:^(BUYCustomer * _Nullable customer, BUYCustomerToken * _Nullable token, NSError * _Nullable error) {
-	if (customer && token && !error) {
-		// Do something with customer and store token for future requests
-	} else {
-		NSLog(@"Failed to login customer: %@", error.userInfo);
-	}
-}];
-```
-##### Customer Creation
-Creating a customer account is very similar to login flow but requres a little more info in the credentials object.
-```objc
-NSArray *credentialItems = @[
-							 [BUYAccountCredentialItem itemWithFirstName:@"John"],
-							 [BUYAccountCredentialItem itemWithLastName:@"Smith"],
-							 [BUYAccountCredentialItem itemWithEmail:@"john.smith@gmail.com"],
-							 [BUYAccountCredentialItem itemWithPassword:@"password"]
-							];
-BUYAccountCredentials *credentials = [BUYAccountCredentials credentialsWithItems:credentialItems];
-```
-After we obtain the customers first name, last name and password in addition to the email and password fields, we can create an account.
-```objc
-[client createCustomerWithCredentials:credentials callback:^(BUYCustomer * _Nullable customer, BUYCustomerToken * _Nullable token, NSError * _Nullable error) {
-	if (customer && token && !error) {
-		// Do something with customer and store token for future requests
-	} else {
-		NSLog(@"Failed to create customer: %@", error.userInfo);
-	}
-}];
-```
-
-### Integration Guide
-Consult the [Usage Section](https://docs.shopify.com/mobile-buy-sdk/ios/integration-guide/#using-the-mobile-buy-sdk) of the Integration Guide on how to create a cart, checkout and more with the SDK.
-
-### Building the SDK
-
-Clone this repo or download as .zip and open `Mobile Buy SDK.xcodeproj`.
-
-The workspace includes the Mobile Buy SDK project.
-
-### Mobile Buy SDK Targets and schemes
-
-The Mobile Buy SDK includes a number of targets and schemes:
-
-* **Buy**: This is the Mobile Buy SDK dynamic framework. Please refer to the installation section above
-
-* **Static Universal Framework**: This builds a **static** framework from the `Buy` target using the `build_universal.sh` script in the `Static Universal Framework` target and copies the built framework in the `/Mobile Buy SDK Sample Apps` folder. This is a fat binary that includes arm and i386 slices. Build this target if you have made any changes to the framework that you want to test with the sample apps as the sample apps do not build the framework directly but embed the already built framework
-
-* **Mobile Buy SDK Tests**: Tests for the Mobile Buy SDK framework. See instructions below
-
-* **Documentation**: This generates appledoc documentation for the framework
-
-### Sample Apps
-
-The repo includes 4 sample apps. Each sample apps embeds the dynamic framework and includes readme files with more information:
-
-* [Advanced Sample App - Objective C](https://github.com/Shopify/mobile-buy-sdk-ios/tree/develop/Mobile%20Buy%20SDK%20Sample%20Apps/Advanced%20App%20-%20ObjC)
-* [Customers Sample App - Swift](https://github.com/Shopify/mobile-buy-sdk-ios/tree/develop/Mobile%20Buy%20SDK%20Sample%20Apps/Customers%20App%20-%20Swift)
-* [tvOS Sample App - Swift](https://github.com/Shopify/mobile-buy-sdk-ios/tree/develop/Mobile%20Buy%20SDK%20Sample%20Apps/Mobile%20Buy%20SDK%20tvOS%20Sample)
-* [watchOS Sample App - Swift](https://github.com/Shopify/mobile-buy-sdk-ios/tree/develop/Mobile%20Buy%20SDK%20Sample%20Apps/Advanced%20App%20-%20ObjC/Mobile%20Buy%20SDK%20watchOS%20Sample%20App%20Extension)
-
-
-We suggest you take a look at the **Advanced Sample App** and test your shop with the sample app before you begin. If you run into any issues, the **Advanced Sample App** is also a great resource for debugging integration issues and checkout.
-
-### Product View
-
-The Advanced Sample App includes an easy-to-use product view to make selling simple in any app. The `ProductViewController` displays any product, it's images, price and details and includes a variant selection flow. It will even handle Apple Pay and web checkout automatically:
-
-![Product View Screenshot](https://raw.github.com/Shopify/mobile-buy-sdk-ios/master/Assets/Product_View_Screenshot_1.png)
-
-You can also theme the `ProductViewController` to better match your app and products being displayed:
-
-![Product View Screenshot](https://raw.github.com/Shopify/mobile-buy-sdk-ios/master/Assets/Product_View_Screenshot_2.png)
-
-The [Advanced Sample App](https://github.com/Shopify/mobile-buy-sdk-ios/tree/master/Mobile Buy SDK Sample Apps/Advanced App - ObjC/) includes a demo of the `ProductViewController`. Documentation on how to use the `ProductViewController` is also available [here](https://github.com/Shopify/mobile-buy-sdk-ios/tree/master/Mobile Buy SDK Sample Apps/Advanced App - ObjC/PRODUCT_VIEW_README.md).
-
-### Unit Tests
-
-To run the Mobile Buy SDK integration tests against an actual shop, you will need a Shopify shop that is publicly accessible (not password protected). Please note that the integration tests **will create an order** on that shop. This is to validate that the SDK works properly with Shopify.  Modify the **test_shop_data.json** file to contain your shop's credentials and the required product IDs, gift cards, and discounts as necessary.
-
-If the credentials in the **test_shop_config.json** are empty, running the integration tests will use mocked respoonses.  The mocked responses are defined in **mocked_responses.json**.  Do not check in credentials in this file.
-
-Example `test_shop_config.json`
-```
-{	
-	"domain":"yourshop.myshopify.com",
-	"api_key":"abc123",
-	"app_id":"8",
-	"merchant_id":"merchant.com.yourcompany.app"
+### Errors
+Example of GraphQL error reponse:
+```graphql
+{
+  "errors": [
+    {
+      "message": "Field 'Shop' doesn't exist on type 'QueryRoot'",
+      "locations": [
+        {
+          "line": 2,
+          "column": 90
+        }
+      ],
+      "fields": [
+        "query CollectionsWithProducts",
+        "Shop"
+      ]
+    }
+  ]
 }
 ```
 
-Alternatively, you can edit the `Mobile Buy SDK Tests` scheme and add the following arguments to the **Environment Variables**:
+### Code Generation
+#### Ruby Script
+#### Generated query & mutation request models
+#### Generated query & mutation response models
+#### Node, aliases
 
-* `shop_domain`: Your shop's domain, for example: `abetterlookingshop.myshopify.com`
-* `api_key`: The API provided when setting up the Mobile App channel on Shopify Admin: *https://your_shop_id.myshopify.com/admin/mobile_app/integration*
-* `app_id`: The App ID provided with the API Key above
-* `gift_card_code_11`, `gift_card_code_25`, `gift_card_code_50`: Three valid [Gift Card](https://docs.shopify.com/manual/your-store/gift-cards) codes for your shop
-* `expired_gift_card_code`: An expired Gift Card code
-* `expired_gift_card_id`: The ID for the expired Gift Card
-* `product_ids_comma_separated`: a comma seperated list of product IDs (2 is suitable) to use for the cart
+### GraphClient
+#### Initialization
+#### Query & mutations
+#### Retry & polling
+#### Graph client errors
+
+### Pay Helper
+
+### Case study
+#### Fetch Shop info
+#### Fetch Collections 
+##### Fetch Collections with Products
+#### Fetch Collection by ID
+#### Fetch Product by ID
+#### Create Checkout
+#### Update Checkout
+##### Update Checkout with Customer Email
+##### Update Checkout with Customer Shipping Address
+##### Polling Checkout Shipping Rates
+### Complete Checkout
+#### With Credit Card
+#### With Apple Pay
+#### Polling Checkout Payment Status
+### Handling Errors
+
 
 ### Contributions
 
