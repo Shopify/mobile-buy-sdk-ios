@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		9A0C80C51EAE73840020F187 /* Documentation */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 9A0C80C81EAE73840020F187 /* Build configuration list for PBXAggregateTarget "Documentation" */;
+			buildPhases = (
+				9A0C80C91EAE738D0020F187 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = Documentation;
+			productName = Documentation;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		9A0C7FCD1EA6631B0020F187 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C7FCC1EA6631B0020F187 /* Models.swift */; };
 		9A0C7FD11EA669C80020F187 /* PayDiscount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C7FD01EA669C80020F187 /* PayDiscount.swift */; };
@@ -731,6 +745,11 @@
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Shopify Inc.";
 				TargetAttributes = {
+					9A0C80C51EAE73840020F187 = {
+						CreatedOnToolsVersion = 8.3.1;
+						DevelopmentTeam = A7XGC83MZE;
+						ProvisioningStyle = Automatic;
+					};
 					9A4068DB1E8E7658000254CD = {
 						CreatedOnToolsVersion = 8.3;
 						DevelopmentTeam = A7XGC83MZE;
@@ -770,6 +789,7 @@
 				9AFA38E91E64850A0056C5AA /* BuyTests */,
 				9A4068DB1E8E7658000254CD /* Pay */,
 				9A4068E31E8E7659000254CD /* PayTests */,
+				9A0C80C51EAE73840020F187 /* Documentation */,
 			);
 		};
 /* End PBXProject section */
@@ -804,6 +824,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9A0C80C91EAE738D0020F187 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Pay/",
+				"$(SRCROOT)/Buy/",
+			);
+			outputPaths = (
+				"$(SRCROOT)/Docs/Docsets/Buy.docset/",
+				"$(SRCROOT)/Docs/Docsets/Pay.docset/",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Docs/gen\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9A4068D71E8E7658000254CD /* Sources */ = {
@@ -985,6 +1025,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		9A0C80C61EAE73840020F187 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = A7XGC83MZE;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		9A0C80C71EAE73840020F187 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = A7XGC83MZE;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		9A4068ED1E8E7659000254CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1228,6 +1284,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		9A0C80C81EAE73840020F187 /* Build configuration list for PBXAggregateTarget "Documentation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9A0C80C61EAE73840020F187 /* Debug */,
+				9A0C80C71EAE73840020F187 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		9A4068F11E8E7659000254CD /* Build configuration list for PBXNativeTarget "Pay" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
