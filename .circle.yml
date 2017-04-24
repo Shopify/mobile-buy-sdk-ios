@@ -1,0 +1,24 @@
+machine:
+  xcode:
+    version: 8.3
+#  environment:
+#    SCHEME: "Lock"
+#    DEVICE: "iPhone 7 (10.3)"
+#    FASTLANE_EXPLICIT_OPEN_SIMULATOR: 2
+
+dependencies:
+#  pre:
+#    - brew install swiftlint
+#  post:
+#    - mkdir -p fastlane/test_output
+#  cache_directories:
+#    - "Car#thage/Build"
+#  override:
+#    - bundle install --without=development
+#    - bundle exec fastlane ios bootstrap
+
+test:
+  override:
+    - ./Scripts/test_buy
+    - ./Scripts/test_pay
+    
