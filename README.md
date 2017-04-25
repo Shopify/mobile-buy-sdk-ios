@@ -163,7 +163,24 @@ Both of the above queries will produce identical GraphQL queries (below) but the
 
 #### Response Models
 
-All generated response models are derived from the `GraphQL.AbstractResponse` type.
+All generated response models are derived from the `GraphQL.AbstractResponse` type. This abstract type provides a similar key-value type interface to a `Dictionary` for accessing field values in GraphQL responses. Just like `GraphQL.AbstractQuery`, you should never use these accessors directly, and instead opt for typed, derived properties in generated subclasses in stead. Let's continue the example of accessing the result of a shop name query:
+
+```swift
+// Never do this
+
+let response: GraphQL.AbstractResponse
+
+let shop = response.field("shop") as! GraphQL.AbstractResponse
+let name = shop.field("name") as! String
+```
+Instead, use the typed accessors in generated subclasses:
+
+```swift
+// response: Storefront.QueryRoot
+let name: String = response.shop.name
+```
+
+Again, both of the approach produce the same result but the latter case is safe and requires no casting as it already knows about the expect type.
 
 ### Types and models
 
