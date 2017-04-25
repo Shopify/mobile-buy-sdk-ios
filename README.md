@@ -240,10 +240,10 @@ let product    = response.aliasedNode(aliasSuffix: "product")    as! Storefront.
 Learn more about [GraphQL aliases](http://graphql.org/learn/queries/#aliases).
 
 ### Graph Client
-The `Graph.Client` is core network layer of the Buy SDK. It requires the following to get started:
+The `Graph.Client` is the factory for `???GraphCall???` that can be used to send GraphQL queries over network layer and read their responses. It requires the following to get started:
 
 - your shop domain, the `.myshopify.com` is required
-- api key, can be obtained in your shop's admin
+- api key, can be obtained in your shop's admin page
 - a `URLSession` (optional), if you want to customize the configuration used for network requests
  
 ```swift
@@ -280,7 +280,7 @@ client.queryGraphWith(query) { response, error in
 Learn more about [GraphQL queries](http://graphql.org/learn/queries/).
 
 #### Mutations
-Semantically a GraphQL `mutation` operation is equivalent to a `PUT`, `POST` or `DELETE` RESTful call. A mutation almost always is accompanied a by an input that represents values that will be updated and a query that is similar to a `query` operation that will contain fields of the modified resource. With `Graph.Client` you can perform a mutation operation using:
+Semantically a GraphQL `mutation` operation is equivalent to a `PUT`, `POST` or `DELETE` RESTful call. A mutation almost always is accompanied a by an input that represents values that will be updated and a query that can be useful for fetching the new state of an object after an update, it is similar to a `query` operation that will contain fields of the modified resource. With `Graph.Client` you can perform a mutation operation using:
 
 ```swift
 public func mutateGraphWith(_ mutation: Storefront.MutationQuery, retryHandler: RetryHandler<Storefront.Mutation>? = default, completionHandler: MutationCompletion) -> Task
@@ -294,6 +294,8 @@ let mutation   = Storefront.buildMutation { $0
     .customerReset(id: customerID, input: input) { $0
         .customer { $0
             .id()
+            .firstName()
+            .lastName()
         }
         .userErrors { $0
             .field()
@@ -306,7 +308,8 @@ client.mutateGraphWith(mutation) { response, error in
     if let mutation = response?.customerReset {
         
         if let customer = mutation.customer, !mutation.userErrors.isEmpty {
-            let firstName = customer
+            let firstName = customer.firstName
+            let lastName = customer.lastName
         } else {
             
             print("Failed to reset password. Encountered invalid fields:")
@@ -327,7 +330,7 @@ Learn more about [GraphQL mutations](http://graphql.org/learn/queries/#mutations
 
 #### Retry
 
-Both `queryGraphWith` and `mutateGraphWith` accept an optional `RetryHandler<R: GraphQL.AbstractResponse>`. This object encapsulates the retry state and customization parameters for how the `Client` will retry subsequent requests (delay, number of retries, etc). By default, the `retryHandler` is nil and no retry bahviour will be provided. To enable retry or polling simply create a handler with a condition. If the `handler.condition` and `handler.canRetry` evaluates to `true`, the `Client` will continue executing the request:
+Both `queryGraphWith` and `mutateGraphWith` accept an optional `RetryHandler<R: GraphQL.AbstractResponse>`. This object encapsulates the retry state and customization parameters for how the `Client` will retry subsequent requests (delay, number of retries, etc). By default, the `retryHandler` is nil and no retry bahaviour will be provided. To enable retry or polling simply create a handler with a condition. If the `handler.condition` and `handler.canRetry` evaluates to `true`, the `Client` will continue executing the request:
 
 ```swift
 let handler = Graph.RetryHandler<Storefront.QueryRoot>() { (query, error) -> Bool in
@@ -357,26 +360,9 @@ client.queryGraphWith(query) { response, error in
 ```
 If the error is of type `.invalidQuery`, an array of `Reason` objects. These will provide more in-depth information about the query error. Keep in mind that these errors are not meant to be displayed to the end-user. **They are for debug purposes only**.
 
-
-```
-### Query Arguments
-Example of query arguments:
-{
-  shop {
-    products(first:50, sortKey: TITLE) {
-      edges {
-        node {
-          id
-          title
-        }
-      }
-    }
-  }
-}
-To learn more about GraphQL errors go to official [page](http://graphql.org/learn/queries/#arguments)
-
-### Errors
 Example of GraphQL error reponse:
+
+```json
 {
   "errors": [
     {
@@ -394,8 +380,28 @@ Example of GraphQL error reponse:
     }
   ]
 }
-
 ```
+Learn more about [GraphQL errors](http://graphql.org/learn/validation/)
+
+### Query Arguments
+Example of query arguments:
+
+```graphql
+{
+  shop {
+    products(first:50, sortKey: TITLE) {
+      edges {
+        node {
+          id
+          title
+        }
+      }
+    }
+  }
+}
+```
+Learn more about [GraphQL query argumnets](http://graphql.org/learn/queries/#arguments)
+
 
 ### Code Generation
 #### Ruby Script
