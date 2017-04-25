@@ -20,9 +20,10 @@ Shopify’s Mobile Buy SDK makes it simple to sell physical products inside your
 
 - [Getting Started](#getting-started)
 - [Code Generation](#code-generation)
-  - [Request models](#)
-  - [Response models](#)
-  - [Node, aliases](#)
+  - [Request models](#request-models)
+  - [Response models](#response-models)
+  - [The `Node` protocol](#the-node-protocol)
+  - [Aliases](#aliases)
 
 - [GraphClient](#)
   - [Initialization](#)
@@ -177,10 +178,61 @@ Instead, use the typed accessors in generated subclasses:
 
 ```swift
 // response: Storefront.QueryRoot
+
 let name: String = response.shop.name
 ```
 
 Again, both of the approach produce the same result but the latter case is safe and requires no casting as it already knows about the expect type.
+
+#### The `Node` protocol
+
+GraphQL defines a `Node` interface that declares an `id` field on any conforming type. This makes it convenient to query for any object in the schema given only it's `id`. The concept is carried across to Buy SDK as well but requeries a cast to the correct type. Given this query:
+
+```swift
+let id    = GraphQL.ID(rawValue: "NkZmFzZGZhc")
+let query = Storefront.buildQuery { $0
+    .node(id: id) { $0
+        .onOrder { $0
+            .id()
+            .createdAt()
+        }
+    }
+}
+```
+accessing the order requires a cast:
+
+```swift
+// response: Storefront.QueryRoot
+
+let order = response.node as! Storefront.Order
+```
+
+##### Aliases
+
+Aliases are useful when a single query contain multiple node fields. GraphQL allows only unique fields but multiple nodes would produce a collision. This is where aliases come in. Multiple nodes can be queried by using a unique alias for each one:
+
+```swift
+let query = Storefront.buildQuery { $0
+    .node(aliasSuffix: "collection", id: GraphQL.ID(rawValue: "NkZmFzZGZhc")) { $0
+        .onCollection { $0
+            // fields for Collection
+        }
+    }
+    .node(aliasSuffix: "product", id: GraphQL.ID(rawValue: "GZhc2Rm")) { $0
+        .onProduct { $0
+            // fields for Product
+        }
+    }
+}
+```
+Accessing the aliased nodes is similar to a plain node:
+
+```swift
+// response: Storefront.QueryRoot
+
+let collection = response.aliasedNode(aliasSuffix: "collection") as! Storefront.Collection
+let product    = response.aliasedNode(aliasSuffix: "product")    as! Storefront.Product
+```
 
 ### Types and models
 
