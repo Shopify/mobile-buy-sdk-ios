@@ -252,7 +252,7 @@ let client = Graph.Client(
 	apiKey:     "dGhpcyBpcyBhIHByaXZhdGUgYXBpIGtleQ"
 )
 ```
-GraphQL specifies two types of operations - queries and mutations. The `Client` exposes both these types as separate methods for each to maintain type-safety.
+GraphQL specifies two types of operations - queries and mutations. The `Client` exposes these as two type-safe operations, while also offering some conveniences for retrying and polling in each.
 
 #### Queries
 Semantically a GraphQL `query` operation is equivalent to a `GET` RESTful call and garantees that no resources will be mutated on the server. With `Graph.Client` you can perform a query operation using:
@@ -325,6 +325,19 @@ More often than not, a mutation will rely on some kind of user input. While you 
 
 Learn more about [GraphQL mutations](http://graphql.org/learn/queries/#mutations).
 
+#### Retry
+
+Both `queryGraphWith` and `mutateGraphWith` accept an optional `RetryHandler<R: GraphQL.AbstractResponse>`. This object encapsulates the retry state and customization parameters for how the `Client` will retry subsequent requests (delay, number of retries, etc). By default, the `retryHandler` is nil and no retry bahviour will be provided. To enable retry or polling simply create a handler with a condition. If the `handler.condition` and `handler.canRetry` evaluates to `true`, the `Client` will continue executing the request:
+
+```swift
+let handler = Graph.RetryHandler<Storefront.QueryRoot>() { (query, error) -> Bool in
+    if myCondition {
+        return true // will retry
+    }
+    return false // will either succeed or fail
+}
+```
+The retry handler is generic and can handle both `query` and `mutation` requests equally well.
 ```
 ### Query Arguments
 Example of query arguments:
