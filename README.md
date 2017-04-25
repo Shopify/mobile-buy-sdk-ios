@@ -234,6 +234,7 @@ Accessing the aliased nodes is similar to a plain node:
 let collection = response.aliasedNode(aliasSuffix: "collection") as! Storefront.Collection
 let product    = response.aliasedNode(aliasSuffix: "product")    as! Storefront.Product
 ```
+Learn more about [GraphQL aliases](http://graphql.org/learn/queries/#aliases).
 
 ### Graph Client
 The `Graph.Client` is core network layer of the Buy SDK. It requires the following to get started:
@@ -273,6 +274,7 @@ client.queryGraphWith(query) { response, error in
     }
 }
 ```
+Learn more about [GraphQL queries](http://graphql.org/learn/queries/).
 
 #### Mutations
 Semantically a GraphQL `mutation` operation is equivalent to a `PUT`, `POST` or `DELETE` RESTful call. A mutation almost always is accompanied a by an input that represents values that will be updated and a query that is similar to a `query` operation that will contain fields of the modified resource. With `Graph.Client` you can perform a mutation operation using:
@@ -318,99 +320,11 @@ client.mutateGraphWith(mutation) { response, error in
 ```
 More often than not, a mutation will rely on some kind of user input. While you should always validate user input before posting a mutation, there are never garantees when it comes to dynamic data. For this reason, you should always request the `userErrors` field on mutations (where available) to provide useful feedback in your UI regarding any issues that were encountered in the mutation query. These errors can include anything from `invalid email address` to `password is too short`.
 
-### Types and models
+Learn more about [GraphQL mutations](http://graphql.org/learn/queries/#mutations).
 
-The Buy SDK provides classes for models that represent resources in the GraphQL schema 1-to-1. These classes are all scoped under the `Storefront` namespace. To access these classes you'll need to provide the entire name:
-
-```swift
-let collections: [Storefront.Collection] = []
-collection.forEach {
-    $0.doSomething()
-}
 ```
-
-Initialize the `GraphClient` with your credentials from the *Mobile App Channel*
-
-```swift
-let client = GraphClient(shopDomain: "yourshop.myshopify.com", apiKey: "your-api-key")
-```
-To learn more about GraphQL types & models go to official [page](http://graphql.org/learn/schema/)
-
-### Queries & Mutations
-
-The Buy SDK is built on GraphQL, which means that you'll inherit all the powerful capabilities GraphQL has to offer. As a result, there's a paradigm shift. With Buy SDK, you'll need to "query" the API and describe in the shape of an object graph what kind of fields and entities the server should return. Let's take a look at how to build a simple query.
-
-GraphQL queries are written in plain text but the SDK offers a builder that abstracts the knowledge of the GraphQL schema and provides auto-completion. There are two types of queries:
-
-#### Query
-Using the `buildQuery()` method, we can build a query to retrieve entities and fields. Semantically, these are requivalent to `GET` requests in RESTful APIs. No reasource are modified as a result of a `query`.
-```swift
-let query = Storefront.buildQuery { $0
-    .shop {
-        .name()
-        .currencyCode()
-        .moneyFormat()
-    }
-}
-```
-this will produce the following GraphQL query:
-```graphql
-query {
-	shop {
-    	name
-        currencyCode
-        moneyFormat
-    }
-}
-```
-
-#### Mutation
-Using the `buildMutation()` method, we can a build a query to modify resources on the server. Semantically, these are equivalent to `POST`, `PUT` and `DELETE` requests in RESTful APIs.
-```swift
-let mutation = Storefront.buildMutation { $0
-    .customerCreate(input: customerInput) { $0
-        .customer { $0
-            .displayName()
-            .firstName()
-            .lastName()
-        }
-    }
-}
-```
-
-Mutations are slightly different. Unlike simple queries, mutations can require an input object to represent the resource to be created or updated. The above `customerInput` parameter is created by simply initializing a `Storefront.CustomerInput` object like this:
-```swift
-let customerInput = Storefront.CustomerInput(
-    firstName: "John",
-    lastName:  "Smith",
-    email:     "john.smith@gmail.com",
-    password:  "johnny123",
-    acceptsMarketing: true
-)
-```
-The above will yield the following GraphQL query:
-```graphql
-mutation {
-	customerCreate(input: {
-    	firstName: "John"
-        lastName:  "Smith"
-        email:     "john.smith@gmail.com"
-        password:  "johnny123"
-        acceptsMarketing: true
-    }) {
-    	customer {
-    		displayName
-        	firstName
-        	lastName
-        }
-    }
-}
-```
-To learn more about GraphQL queries & mutations go to official [page](http://graphql.org/learn/queries/)
-
 ### Query Arguments
 Example of query arguments:
-```graphql
 {
   shop {
     products(first:50, sortKey: TITLE) {
@@ -423,12 +337,10 @@ Example of query arguments:
     }
   }
 }
-```
 To learn more about GraphQL errors go to official [page](http://graphql.org/learn/queries/#arguments)
 
 ### Errors
 Example of GraphQL error reponse:
-```graphql
 {
   "errors": [
     {
@@ -446,6 +358,7 @@ Example of GraphQL error reponse:
     }
   ]
 }
+
 ```
 
 ### Code Generation
