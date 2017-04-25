@@ -26,8 +26,8 @@ Shopify’s Mobile Buy SDK makes it simple to sell physical products inside your
   - [Aliases](#aliases)
 
 - [GraphClient](#)
-  - [Initialization](#)
-  - [Query & mutations](#)
+  - [Queries](#queries)
+  - [Mutations](#mutations)
   - [Retry & polling](#)
   - [Graph client errors](#)
 
@@ -234,6 +234,89 @@ Accessing the aliased nodes is similar to a plain node:
 let collection = response.aliasedNode(aliasSuffix: "collection") as! Storefront.Collection
 let product    = response.aliasedNode(aliasSuffix: "product")    as! Storefront.Product
 ```
+
+### Graph Client
+The `Graph.Client` is core network layer of the Buy SDK. It requires the following to get started:
+
+- your shop domain, the `.myshopify.com` is required
+- api key, can be obtained in your shop's admin
+- a `URLSession` (optional), if you want to customize the configuration used for network requests
+ 
+```swift
+let client = Graph.Client(
+	shopDomain: "shoes.myshopify.com", 
+	apiKey:     "dGhpcyBpcyBhIHByaXZhdGUgYXBpIGtleQ"
+)
+```
+GraphQL specifies two types of operations - queries and mutations. The `Client` exposes both these types as separate methods for each to maintain type-safety.
+
+#### Queries
+Semantically a GraphQL `query` operation is equivalent to a `GET` RESTful call and garantees that no resources will be mutated on the server. With `Graph.Client` you can perform a query operation using:
+
+```swift
+public func queryGraphWith(_ query: Storefront.QueryRootQuery, retryHandler: RetryHandler<Storefront.QueryRoot>? = default, completionHandler: QueryCompletion) -> Task
+```
+For example, let's take a look at how we can query for a shop's name:
+
+```swift
+let query = Storefront.buildQuery { $0
+    .shop {
+        .name()
+    }
+}
+
+client.queryGraphWith(query) { response, error in
+    if let response = response {
+        let name = response.shop.name
+    } else {
+        print("Query failed: \(error)")
+    }
+}
+```
+
+#### Mutations
+Semantically a GraphQL `mutation` operation is equivalent to a `PUT`, `POST` or `DELETE` RESTful call. A mutation almost always is accompanied a by an input that represents values that will be updated and a query that is similar to a `query` operation that will contain fields of the modified resource. With `Graph.Client` you can perform a mutation operation using:
+
+```swift
+public func mutateGraphWith(_ mutation: Storefront.MutationQuery, retryHandler: RetryHandler<Storefront.Mutation>? = default, completionHandler: MutationCompletion) -> Task
+```
+For example, let's take a look at how we can reset a customer's password using a recovery token:
+
+```swift
+let customerID = GraphQL.ID(rawValue: "YSBjdXN0b21lciBpZA")
+let input      = Storefront.CustomerResetInput(resetToken: "c29tZSB0b2tlbiB2YWx1ZQ", password: "abc123")
+let mutation   = Storefront.buildMutation { $0
+    .customerReset(id: customerID, input: input) { $0
+        .customer { $0
+            .id()
+        }
+        .userErrors { $0
+            .field()
+            .message()
+        }
+    }
+}
+
+client.mutateGraphWith(mutation) { response, error in
+    if let mutation = response?.customerReset {
+        
+        if let customer = mutation.customer, !mutation.userErrors.isEmpty {
+            let firstName = customer
+        } else {
+            
+            print("Failed to reset password. Encountered invalid fields:")
+            mutation.userErrors.forEach {
+                let fieldPath = $0.field?.joined() ?? ""
+                print("  \(fieldPath): \($0.message)")
+            }
+        }
+        
+    } else {
+        print("Failed to reset password: \(error)")
+    }
+}
+```
+More often than not, a mutation will rely on some kind of user input. While you should always validate user input before posting a mutation, there are never garantees when it comes to dynamic data. For this reason, you should always request the `userErrors` field on mutations (where available) to provide useful feedback in your UI regarding any issues that were encountered in the mutation query. These errors can include anything from `invalid email address` to `password is too short`.
 
 ### Types and models
 
