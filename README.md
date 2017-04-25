@@ -338,6 +338,26 @@ let handler = Graph.RetryHandler<Storefront.QueryRoot>() { (query, error) -> Boo
 }
 ```
 The retry handler is generic and can handle both `query` and `mutation` requests equally well.
+
+#### Errors
+
+The completion for either a `query` or `mutation` request will always contain an optional `Graph.QueryError` that represents the current error state of the request. **It's important to note that `error` and `response` are NOT mutually exclusively.** That is to say that it's perfectly valid to have a non-nil error and response. The presence of error can represent both a network error (network error, invalid JSON, etc) or a GraphQL error (invalid query syntax, missing parameter, etc). The `Graph.QueryError` is an `enum` so checking the type of error is trivial:
+
+```swift
+client.queryGraphWith(query) { response, error in
+    if let response = response {
+        // Do something
+    } else {
+		        
+        if let error = error, case .http(let statusCode) = error {
+            print("Query failed. HTTP error code: \(statusCode)")
+        }
+    }
+}
+```
+If the error is of type `.invalidQuery`, an array of `Reason` objects. These will provide more in-depth information about the query error. Keep in mind that these errors are not meant to be displayed to the end-user. **They are for debug purposes only**.
+
+
 ```
 ### Query Arguments
 Example of query arguments:
