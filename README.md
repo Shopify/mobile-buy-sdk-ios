@@ -12,14 +12,44 @@ Shopify’s Mobile Buy SDK makes it simple to sell physical products inside your
 
 - [Documentation](#documentation)
   - [API Documentation](#api-documentation)
+
 - [Installation](#installation)
   - [Dynamic Framework Installation](#dynamic-framework-installation)
-  - [Static Framework Installation](#static-framework-installation)
   - [CocoaPods](#cocoapods)
   - [Carthage](#carthage)
-- [Quick Start](#quick-start)
-- [Building the SDK](#building-the-sdk)
-- [Mobile Buy SDK Targets and schemes](#mobile-buy-sdk-targets-and-schemes)
+
+- [Getting Started](#getting-started)
+- [Code Generation](#code-generation)
+  - [Ruby Script](#)
+  - [Generated query & mutation request models](#)
+  - [Generated query & mutation response models](#)
+  - [Node, aliases](#)
+
+- [GraphClient](#)
+  - [Initialization](#)
+  - [Query & mutations](#)
+  - [Retry & polling](#)
+  - [Graph client errors](#)
+
+- [Pay Helper](#)
+
+- [Case study](#)
+  - [Fetch Shop info](#)
+  - [Fetch Collections ](#)
+  - [Fetch Collections](#)
+      - [Fetch Collection by ID](#)
+      - [Fetch Product by ID](#)
+  - [Create Checkout](#)
+  - [Update Checkout](#)
+      - [Update Checkout with Customer Email](#)
+      - [Update Checkout with Customer Shipping Address](#)
+      - [Polling Checkout Shipping Rates](#)
+  - [Complete Checkout](#)
+      - [With Credit Card](#)
+      - [With Apple Pay](#)
+      - [Polling Checkout Payment Status](#)
+  - [Handling Errors](#)
+
 - [Contributions](#contributions)
 - [Help](#help)
 - [License](#license)
@@ -40,13 +70,25 @@ The SDK includes a pre-compiled [.docset](https://github.com/Shopify/mobile-buy-
 
 #### Dynamic Framework Installation
 
-1. Drag the `Buy.xcodeproj` into your existing project
-2. Add `Buy.framework` target as a depenency - `Your Project > (Select your target) > Build Phases > Target Dependencies > + > Buy.framework`
-3. Link `Buy.framework` - `Your Project > (Select your target) > Build Phases > Link Binary With Libraries > + > Buy.framework`
-4. Ensure the framework is copied into the bundle - `Your Project > (Select your target) > Build Phases > + > New Copy Files Phase > Destination (Select 'Frameworks') > + > Buy.framework`
-5. Import at use site `import Buy`
-
-See the [Sample Apps](https://github.com/Shopify/mobile-buy-sdk-ios/tree/master/Mobile Buy SDK Sample Apps/) for an example of Dynamic Framework usage.
+2. Add `Buy.framework` target as a depenency by navigating to:
+  - `Your Project` and (Select your target)
+  - `Build Phases`
+  - `Target Dependencies`
+  -  Add  `Buy.framework`
+3. Link `Buy.framework` by navigating to:
+  - `Your Project` and (Select your target)
+  - `Build Phases`
+  - `Link Binary With Libraries`
+  -  Add `Buy.framework`
+4. Ensure the framework is copied into the bundle by navigating to:
+  - `Your Project` and (Select your target)
+  - `Build Phases`
+  - Add `New Copy Files Phase`
+  - Select `Destination` dropdown and chose `Frameworks`
+  - Add `Buy.framework`
+5. Import into your project files using `import Buy`
+ 
+See the `Storefront` sample app for an example of how to add the `Buy` target a dependency.
 
 #### CocoaPods
 
@@ -247,10 +289,12 @@ Example of GraphQL error reponse:
 ##### Update Checkout with Customer Email
 ##### Update Checkout with Customer Shipping Address
 ##### Polling Checkout Shipping Rates
+
 ### Complete Checkout
 #### With Credit Card
 #### With Apple Pay
 #### Polling Checkout Payment Status
+
 ### Handling Errors
 
 
