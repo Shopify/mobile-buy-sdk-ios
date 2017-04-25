@@ -20,9 +20,8 @@ Shopify’s Mobile Buy SDK makes it simple to sell physical products inside your
 
 - [Getting Started](#getting-started)
 - [Code Generation](#code-generation)
-  - [Ruby Script](#)
-  - [Generated query & mutation request models](#)
-  - [Generated query & mutation response models](#)
+  - [Request models](#)
+  - [Response models](#)
   - [Node, aliases](#)
 
 - [GraphClient](#)
@@ -122,17 +121,49 @@ import Buy
 
 ### Getting started
 
-The Buy SDK is built on top of [GraphQL](http://graphql.org/). While some knowledge of GraphQL is good to have, you don't have to be an expert to start using with the Buy SDK. Instead of writing stringly-typed queries, the SDK provides generated classes and a builder pattern to help you write compile-time checked and auto-complete friendly queries and work with typed response models.
+The Buy SDK is built on top of [GraphQL](http://graphql.org/). While some knowledge of GraphQL is good to have, you don't have to be an expert to start using it with the Buy SDK. Instead of writing stringed queries and parsing JSON responses, the SDK handles all the query generation and response parsing, exposing only typed models and compile-time checked query structures. The section below will give a brief introduction to this system and provide some examples of how it makes building custom storefronts safe and easy.
 
-This is what a sample query looks like to fetch a shop's name:
+### Code Generation
+
+The Buy SDK is built on a hierarchy of generated classes that generate and parse GraphQL queries and response. These classes are generated manually by running a custom Ruby script that relies on the [GraphQL Swift Generation](https://github.com/Shopify/graphql_swift_gen) library. Majority of the generation functinality lives inside the library with the script only providing overrides for custom GraphQL scalar types. The library also includes supporting classes that are required by generated query and response models.
+
+#### Request Models
+
+All generated request models are derived from the `GraphQL.AbstractQuery` type. While this abstract type does contain enough functionality to build a query, you should never use it directly. Let's take a look at an example query for a shop's name:
 
 ```swift
-let query = ApiSchema.buildQuery { $0
+// Never do this
+
+let shopQuery = GraphQL.AbstractQuery()
+shopQuery.addField(field: "name")
+
+let query = GraphQL.AbstractQuery()
+query.addField(field: "shop", subfields: shopQuery)
+
+```
+Instead, rely on the typed methods provided in the generated subclasses:
+
+```swift
+let query = Storefront.buildQuery { $0
     .shop { $0
         .name()
     }
 }
 ```
+
+Both of the above queries will produce identical GraphQL queries (below) but the latter apporach provides auto-completion and compile-time validation against the GraphQL schema. It will surface an error if requested fields don't exists, aren't the correct type or are deprecated. You also may have noticed that the latter approach resembles the pure GraphQL query structure, and this is intentional. The query is both much more legible and easier to write.
+
+```graphql
+{ 
+  shop { 
+    name 
+  } 
+}
+```
+
+#### Response Models
+
+All generated response models are derived from the `GraphQL.AbstractResponse` type.
 
 ### Types and models
 
