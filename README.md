@@ -126,7 +126,8 @@ The Buy SDK is built on top of [GraphQL](http://graphql.org/). While some knowle
 
 ### Code Generation
 
-The Buy SDK is built on a hierarchy of generated classes that generate and parse GraphQL queries and response. These classes are generated manually by running a custom Ruby script that relies on the [GraphQL Swift Generation](https://github.com/Shopify/graphql_swift_gen) library. Majority of the generation functinality lives inside the library with the script only providing overrides for custom GraphQL scalar types. The library also includes supporting classes that are required by generated query and response models.
+The Buy SDK is built on a hierarchy of generated classes that construct and parse GraphQL queries and response. These classes are generated manually by running a custom Ruby script that relies on the [GraphQL Swift Generation](https://github.com/Shopify/graphql_swift_gen) library. Majority of the generation functionality lives inside the library. Ruby script is responsible for downloading StoreFront GraphQL schema, triggering Ruby gem for code generation, saving generated classes to the specified folder path and providing overrides for custom GraphQL scalar types. The library also includes supporting classes that are required by generated query and response models.
+
 
 #### Request Models
 
@@ -152,7 +153,7 @@ let query = Storefront.buildQuery { $0
 }
 ```
 
-Both of the above queries will produce identical GraphQL queries (below) but the latter apporach provides auto-completion and compile-time validation against the GraphQL schema. It will surface an error if requested fields don't exists, aren't the correct type or are deprecated. You also may have noticed that the latter approach resembles the pure GraphQL query structure, and this is intentional. The query is both much more legible and easier to write.
+Both of the above queries will produce identical GraphQL queries (below) but the latter apporach provides auto-completion and compile-time validation against the GraphQL schema. It will surface an error if requested fields don't exists, aren't the correct type or are deprecated. You also may have noticed that the latter approach resembles the GraphQL query language structure, and this is intentional. The query is both much more legible and easier to write.
 
 ```graphql
 { 
@@ -186,7 +187,7 @@ Again, both of the approach produce the same result but the latter case is safe 
 
 #### The `Node` protocol
 
-GraphQL defines a `Node` interface that declares an `id` field on any conforming type. This makes it convenient to query for any object in the schema given only it's `id`. The concept is carried across to Buy SDK as well but requeries a cast to the correct type. Given this query:
+GraphQL shema defines a `Node` interface that declares an `id` field on any conforming type. This makes it convenient to query for any object in the schema given only it's `id`. The concept is carried across to Buy SDK as well but requeries a cast to the correct type. Make sure that requested `Node` by query `id` argument value corresonds to the casted type otherwise it will crash the application. Given this query:
 
 ```swift
 let id    = GraphQL.ID(rawValue: "NkZmFzZGZhc")
@@ -209,7 +210,7 @@ let order = response.node as! Storefront.Order
 
 ##### Aliases
 
-Aliases are useful when a single query contain multiple node fields. GraphQL allows only unique fields but multiple nodes would produce a collision. This is where aliases come in. Multiple nodes can be queried by using a unique alias for each one:
+Aliases are useful when a single query requests multiple fields with the same names at the same nesting level. GraphQL allows only unique field names otherwise multiple fields with the same names would produce a collision. This is where aliases come in. Multiple nodes can be queried by using a unique alias for each one:
 
 ```swift
 let query = Storefront.buildQuery { $0
