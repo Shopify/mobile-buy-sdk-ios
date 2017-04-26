@@ -54,7 +54,7 @@ class CartController {
     private var cartURL: URL = {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
         let documentsURL  = URL(fileURLWithPath: documentsPath)
-        let cartURL       = documentsURL.appendingPathComponent("\(Graph.shopDomain).json")
+        let cartURL       = documentsURL.appendingPathComponent("\(Client.shopDomain).json")
         
         print("Cart URL: \(cartURL)")
         
