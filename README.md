@@ -516,24 +516,7 @@ func paySessionDidFinish(_ paySession: PaySession) {
 ```
 Invoked when the  Pay modal is dismissed, regardless of whether the payment authorization was successful or not.
 
-## Query Arguments
-Example of query arguments:
 
-```graphql
-{
-  shop {
-    products(first:50, sortKey: TITLE) {
-      edges {
-        node {
-          id
-          title
-        }
-      }
-    }
-  }
-}
-```
-Learn more about [GraphQL query argumnets](http://graphql.org/learn/queries/#arguments)
 
 ## Case study
 ### Fetch Shop info
