@@ -6,9 +6,11 @@
 [![CocoaPods](https://img.shields.io/cocoapods/v/Mobile-Buy-SDK.svg)](https://cocoapods.org/pods/Mobile-Buy-SDK)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
-# Mobile Buy SDK v3.0 for iOS
+# Buy SDK
 
-Shopify’s Mobile Buy SDK makes it simple to sell products inside your mobile app. With a few lines of code, you can connect your app with the Shopify platform and let your users buy your products using Apple Pay or their credit card.
+Shopify’s Mobile Buy SDK makes it simple to create custom storefronts in your mobile app. Utitlizing the power and flexibility of GraphQL you can build native storefront experiences using the Shopify platform. The Buy SDK , you can connect your app with the Shopify platform and let your users buy your products using Apple Pay or their credit card.
+
+## Table of contents
 
 - [Documentation](#documentation)
   - [API Documentation](#api-documentation)
@@ -59,21 +61,21 @@ Shopify’s Mobile Buy SDK makes it simple to sell products inside your mobile a
 - [Help](#help)
 - [License](#license)
 
-### Documentation
+## Documentation
 
 Official documentation can be found on the [Mobile Buy SDK for iOS page](https://docs.shopify.com/mobile-buy-sdk/ios).
 
-#### API Documentation
+### API Documentation
 
 API docs (`.docset`) can be generated with the `Documentation` scheme or viewed online at Cocoadocs: [http://cocoadocs.org/docsets/Mobile-Buy-SDK/](http://cocoadocs.org/docsets/Mobile-Buy-SDK/).
 
 The SDK includes a pre-compiled [.docset](https://github.com/Shopify/mobile-buy-sdk-ios/tree/master/Mobile Buy SDK/docs/com.shopify.Mobile-Buy-SDK.docset) that can be used in API documentation browser apps such as Dash.
 
-### Installation
+## Installation
 
 <a href="https://github.com/Shopify/mobile-buy-sdk-ios/releases/latest">Download the latest version</a>
 
-#### Dynamic Framework Installation
+### Dynamic Framework Installation
 
 2. Add `Buy.framework` target as a depenency by navigating to:
   - `Your Project` and (Select your target)
@@ -95,7 +97,7 @@ The SDK includes a pre-compiled [.docset](https://github.com/Shopify/mobile-buy-
  
 See the `Storefront` sample app for an example of how to add the `Buy` target a dependency.
 
-#### CocoaPods
+### CocoaPods
 
 Add the following line to your podfile:
 
@@ -110,7 +112,7 @@ Import the SDK module:
 import Buy
 ```
 
-#### Carthage
+### Carthage
 
 Add the following line to your Cartfile
 
@@ -125,19 +127,19 @@ Import the SDK module:
 import Buy
 ```
 
-### Getting started
+## Getting started
 
 The Buy SDK version 3.0 is levereging [GraphQL](http://graphql.org/). While some knowledge of GraphQL is good to have, you don't have to be an expert to start using it with the Buy SDK. Instead of writing stringed queries and parsing JSON responses, the SDK handles all the query generation and response parsing, exposing only typed models and compile-time checked query structures. The section below will give a brief introduction to this system and provide some examples of how it makes building custom storefronts safe and easy.
 
-### Migration from SDK v2.0
+## Migration from SDK v2.0
 Previous version of Mobile SDK v2.0 is based on REST API. With newer version 3.0 Shopify is migrating from REST to GraphQL. Unfortenetly specifics of generation GraphQL models makes almost impossible to create the migration path from v2.0 to v3.0, as domains models are not backward compatible. The concepts thougth remains the same like collections, products, checkouts, orders etc.
 
-### Code Generation
+## Code Generation
 
 The Buy SDK is built on a hierarchy of generated classes that construct and parse GraphQL queries and response. These classes are generated manually by running a custom Ruby script that relies on the [GraphQL Swift Generation](https://github.com/Shopify/graphql_swift_gen) library. Majority of the generation functionality lives inside the library. Ruby script is responsible for downloading StoreFront GraphQL schema, triggering Ruby gem for code generation, saving generated classes to the specified folder path and providing overrides for custom GraphQL scalar types. The library also includes supporting classes that are required by generated query and response models.
 
 
-#### Request Models
+### Request Models
 
 All generated request models are derived from the `GraphQL.AbstractQuery` type. While this abstract type does contain enough functionality to build a query, you should never use it directly. Let's take a look at an example query for a shop's name:
 
@@ -171,7 +173,7 @@ Both of the above queries will produce identical GraphQL queries (below) but the
 }
 ```
 
-#### Response Models
+### Response Models
 
 All generated response models are derived from the `GraphQL.AbstractResponse` type. This abstract type provides a similar key-value type interface to a `Dictionary` for accessing field values in GraphQL responses. Just like `GraphQL.AbstractQuery`, you should never use these accessors directly, and instead opt for typed, derived properties in generated subclasses in stead. Let's continue the example of accessing the result of a shop name query:
 
@@ -193,7 +195,7 @@ let name: String = response.shop.name
 
 Again, both of the approach produce the same result but the latter case is safe and requires no casting as it already knows about the expect type.
 
-#### The `Node` protocol
+### The `Node` protocol
 
 GraphQL shema defines a `Node` interface that declares an `id` field on any conforming type. This makes it convenient to query for any object in the schema given only it's `id`. The concept is carried across to Buy SDK as well but requeries a cast to the correct type. Make sure that requested `Node` by query `id` argument value corresonds to the casted type otherwise it will crash the application. Given this query:
 
@@ -216,7 +218,7 @@ accessing the order requires a cast:
 let order = response.node as! Storefront.Order
 ```
 
-##### Aliases
+#### Aliases
 
 Aliases are useful when a single query requests multiple fields with the same names at the same nesting level. GraphQL allows only unique field names otherwise multiple fields with the same names would produce a collision. This is where aliases come in. Multiple nodes can be queried by using a unique alias for each one:
 
@@ -244,7 +246,7 @@ let product    = response.aliasedNode(aliasSuffix: "product")    as! Storefront.
 ```
 Learn more about [GraphQL aliases](http://graphql.org/learn/queries/#aliases).
 
-### Graph Client
+## Graph Client
 The `Graph.Client` is the factory for `???GraphCall???` that can be used to send GraphQL queries over network layer and read their responses. It requires the following to get started:
 
 - your shop domain, the `.myshopify.com` is required
@@ -259,7 +261,7 @@ let client = Graph.Client(
 ```
 GraphQL specifies two types of operations - queries and mutations. The `Client` exposes these as two type-safe operations, while also offering some conveniences for retrying and polling in each.
 
-#### Queries
+### Queries
 Semantically a GraphQL `query` operation is equivalent to a `GET` RESTful call and garantees that no resources will be mutated on the server. With `Graph.Client` you can perform a query operation using:
 
 ```swift
@@ -284,7 +286,7 @@ client.queryGraphWith(query) { response, error in
 ```
 Learn more about [GraphQL queries](http://graphql.org/learn/queries/).
 
-#### Mutations
+### Mutations
 Semantically a GraphQL `mutation` operation is equivalent to a `PUT`, `POST` or `DELETE` RESTful call. A mutation almost always is accompanied a by an input that represents values that will be updated and a query that can be useful for fetching the new state of an object after an update, it is similar to a `query` operation that will contain fields of the modified resource. With `Graph.Client` you can perform a mutation operation using:
 
 ```swift
@@ -333,7 +335,7 @@ More often than not, a mutation will rely on some kind of user input. While you 
 
 Learn more about [GraphQL mutations](http://graphql.org/learn/queries/#mutations).
 
-#### Retry
+### Retry
 
 Both `queryGraphWith` and `mutateGraphWith` accept an optional `RetryHandler<R: GraphQL.AbstractResponse>`. This object encapsulates the retry state and customization parameters for how the `Client` will retry subsequent requests (delay, number of retries, etc). By default, the `retryHandler` is nil and no retry bahaviour will be provided. To enable retry or polling simply create a handler with a condition. If the `handler.condition` and `handler.canRetry` evaluates to `true`, the `Client` will continue executing the request:
 
@@ -347,7 +349,7 @@ let handler = Graph.RetryHandler<Storefront.QueryRoot>() { (query, error) -> Boo
 ```
 The retry handler is generic and can handle both `query` and `mutation` requests equally well.
 
-#### Errors
+### Errors
 
 The completion for either a `query` or `mutation` request will always contain an optional `Graph.QueryError` that represents the current error state of the request. **It's important to note that `error` and `response` are NOT mutually exclusively.** That is to say that it's perfectly valid to have a non-nil error and response. The presence of error can represent both a network error (network error, invalid JSON, etc) or a GraphQL error (invalid query syntax, missing parameter, etc). The `Graph.QueryError` is an `enum` so checking the type of error is trivial:
 
@@ -388,11 +390,11 @@ Example of GraphQL error reponse:
 ```
 Learn more about [GraphQL errors](http://graphql.org/learn/validation/)
 
-### Apple Pay
+## Apple Pay
 
 Support for  Pay is provided by the `Pay` framework. It is compiled and tested separately from the `Buy` SDK and offers a simpler interface for supporting  Pay in your application. It is designed to take the guess work out of using partial GraphQL models with `PKPaymentAuthorizationController`.
 
-#### Pay Session
+### Pay Session
 
 When the customer is ready to pay for products in your application with  Pay, the `PaySession` will encapsulate all the state necessary to complete the checkout process:
 
@@ -423,7 +425,7 @@ self.paySession.authorize()
 ```
 After calling `authorize()`, the session will create a `PKPaymentAuthorizationController` on your behalf and present it to the customer. By providing a `delegate` you'll be notified when the customer changes shipping address, selects a shipping rate and authorizes the payment using TouchID or passcode. It is **critical** to correctly handle each one of these events by updating the `Storefront.Checkout` with appropriate mutations to keep the checkout state on the server up-to-date. Let's take a look at each one:
 
-##### Did update shipping address
+#### Did update shipping address
 ```swift
 func paySession(_ paySession: PaySession, didRequestShippingRatesFor address: PayPostalAddress, checkout: PayCheckout, provide: @escaping  (PayCheckout?, [PayShippingRate]) -> Void) {
     
@@ -461,7 +463,7 @@ func paySession(_ paySession: PaySession, didRequestShippingRatesFor address: Pa
 ```
 Invoked when the customer has selected a shipping contact in the  Pay modal. The provided `PayPostalAddress` is a partial address the excludes the street address for added security. This is actually enforced by `PassKit` and not the `Pay` framework. Nevertheless, information contained in `PayPostalAddress` is sufficient to obtain an array of available shipping rates from `Storefront.Checkout`. 
 
-##### Did select shipping rate
+#### Did select shipping rate
 ```swift
 func paySession(_ paySession: PaySession, didSelectShippingRate shippingRate: PayShippingRate, checkout: PayCheckout, provide: @escaping  (PayCheckout?) -> Void) {
     
@@ -487,7 +489,7 @@ func paySession(_ paySession: PaySession, didSelectShippingRate shippingRate: Pa
 ```
 Invoked every time the customer selects a different shipping **and** the first time shipping rates are updated as a result of the previous `delegate` callback.
 
-##### Did authorize payment
+#### Did authorize payment
 ```swift
 func paySession(_ paySession: PaySession, didAuthorizePayment authorization: PayAuthorization, checkout: PayCheckout, completeTransaction: @escaping (PaySession.TransactionStatus) -> Void) {
     
@@ -506,7 +508,7 @@ func paySession(_ paySession: PaySession, didAuthorizePayment authorization: Pay
 ```
 Once the customer authorizes the payment, the `delegate` will receive the encrypted `token` and other associated information you'll need for the final `completeCheckout` mutation to complete the purchase. Keep in mind that the state of the checkout on the server **must** be up-to-date before invoking the final checkout completion mutation. Ensure that all in-flight update mutations are finished before completing checkout.
 
-##### Did finish payment
+#### Did finish payment
 ```swift
 func paySessionDidFinish(_ paySession: PaySession) {
     // Do something after the  Pay modal is dismissed   
@@ -514,7 +516,7 @@ func paySessionDidFinish(_ paySession: PaySession) {
 ```
 Invoked when the  Pay modal is dismissed, regardless of whether the payment authorization was successful or not.
 
-### Query Arguments
+## Query Arguments
 Example of query arguments:
 
 ```graphql
@@ -533,34 +535,34 @@ Example of query arguments:
 ```
 Learn more about [GraphQL query argumnets](http://graphql.org/learn/queries/#arguments)
 
-### Case study
-#### Fetch Shop info
-#### Fetch Collections 
-##### Fetch Collections with Products
-#### Fetch Collection by ID
-#### Fetch Product by ID
-#### Create Checkout
-#### Update Checkout
-##### Update Checkout with Customer Email
-##### Update Checkout with Customer Shipping Address
-##### Polling Checkout Shipping Rates
+## Case study
+### Fetch Shop info
+### Fetch Collections 
+#### Fetch Collections with Products
+### Fetch Collection by ID
+### Fetch Product by ID
+### Create Checkout
+### Update Checkout
+#### Update Checkout with Customer Email
+#### Update Checkout with Customer Shipping Address
+#### Polling Checkout Shipping Rates
 
-### Complete Checkout
-#### With Credit Card
-#### With Apple Pay
-#### Polling Checkout Payment Status
+## Complete Checkout
+### With Credit Card
+### With Apple Pay
+### Polling Checkout Payment Status
 
-### Handling Errors
+## Handling Errors
 
 
-### Contributions
+## Contributions
 
 We welcome contributions. Follow the steps in [CONTRIBUTING](CONTRIBUTING.md) file.
 
-### Help
+## Help
 
 For help, please post questions on our forum, in the Shopify APIs & Technology section: https://ecommerce.shopify.com/c/shopify-apis-and-technology
 
-### License
+## License
 
 The Mobile Buy SDK is provided under an MIT Licence.  See the [LICENSE](LICENSE) file
