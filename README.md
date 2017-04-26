@@ -28,10 +28,15 @@ Shopify’s Mobile Buy SDK makes it simple to sell products inside your mobile a
 - [GraphClient](#)
   - [Queries](#queries)
   - [Mutations](#mutations)
-  - [Retry & polling](#)
-  - [Graph client errors](#)
+  - [Retry & polling](#retry)
+  - [Errors](#errors)
 
-- [Pay Helper](#)
+- [ Pay](#apple-pay)
+  - [Pay Session](#pay-session)
+      - [Did update shipping address](#did-update-shipping-address)
+      - [Did select shipping rate](#did-select-shipping-rate)
+      - [Did authorize payment](#did-authorize-payment)
+      - [Did finish payment](#did-finish-payment)
 
 - [Case study](#)
   - [Fetch Shop info](#)
@@ -382,6 +387,132 @@ Example of GraphQL error reponse:
 }
 ```
 Learn more about [GraphQL errors](http://graphql.org/learn/validation/)
+
+### Apple Pay
+
+Support for  Pay is provided by the `Pay` framework. It is compiled and tested separately from the `Buy` SDK and offers a simpler interface for supporting  Pay in your application. It is designed to take the guess work out of using partial GraphQL models with `PKPaymentAuthorizationController`.
+
+#### Pay Session
+
+When the customer is ready to pay for products in your application with  Pay, the `PaySession` will encapsulate all the state necessary to complete the checkout process:
+
+- your shop's currency
+- your  Pay `merchantID`
+- available shipping rates
+- selected shipping rate
+- billing & shipping address
+- checkout state
+
+To present the  Pay modal and begin the checkout process, you'll need: 
+
+- a created `Storefront.Checkout`
+- currency information that can be obtained with a `query` on `Storefront.Shop` 
+-  Pay `merchantID`
+
+Once all the prerequisites have been met, you can initialize a `PaySession` and begin the payment authorization process:
+
+```swift
+self.paySession = PaySession(
+	checkout:   payCheckout, 
+	currency:   payCurrency, 
+	merchantID: "com.merchant.identifier"
+)
+
+self.paySession.delegate = self     
+self.paySession.authorize()
+```
+After calling `authorize()`, the session will create a `PKPaymentAuthorizationController` on your behalf and present it to the customer. By providing a `delegate` you'll be notified when the customer changes shipping address, selects a shipping rate and authorizes the payment using TouchID or passcode. It is **critical** to correctly handle each one of these events by updating the `Storefront.Checkout` with appropriate mutations to keep the checkout state on the server up-to-date. Let's take a look at each one:
+
+##### Did update shipping address
+```swift
+func paySession(_ paySession: PaySession, didRequestShippingRatesFor address: PayPostalAddress, checkout: PayCheckout, provide: @escaping  (PayCheckout?, [PayShippingRate]) -> Void) {
+    
+    self.updateCheckoutShippingAddress(id: checkout.id, with: address) { updatedCheckout in
+        if let updatedCheckout = updatedCheckout {
+            
+            self.fetchShippingRates(for: address) { shippingRates in
+                if let shippingRates = shippingRates {
+                    
+                    /* Be sure to provide an up-to-date checkout that contains the
+                     * shipping address that was used to fetch the shipping rates.
+                     */
+                    provide(updatedCheckout, shippingRates)
+                    
+                } else {
+                
+                    /* By providing a nil checkout we inform the PaySession that
+                     * we failed to obtain shipping rates with the provided address. An
+                     * "invalid shipping address" error will be displayed to the customer.
+                     */
+	                 provide(nil, [])
+                }
+            }
+            
+        } else {
+        
+            /* By providing a nil checkout we inform the PaySession that
+             * we failed to obtain shipping rates with the provided address. An
+             * "invalid shipping address" error will be displayed to the customer.
+             */
+            provide(nil, [])
+        }
+    }
+}
+```
+Invoked when the customer has selected a shipping contact in the  Pay modal. The provided `PayPostalAddress` is a partial address the excludes the street address for added security. This is actually enforced by `PassKit` and not the `Pay` framework. Nevertheless, information contained in `PayPostalAddress` is sufficient to obtain an array of available shipping rates from `Storefront.Checkout`. 
+
+##### Did select shipping rate
+```swift
+func paySession(_ paySession: PaySession, didSelectShippingRate shippingRate: PayShippingRate, checkout: PayCheckout, provide: @escaping  (PayCheckout?) -> Void) {
+    
+    self.updateCheckoutWithSelectedShippingRate(id: checkout.id, shippingRate: shippingRate) { updatedCheckout in
+        if let updatedCheckout = updatedCheckout {
+            
+            /* Be sure to provide the update checkout that include the shipping 
+             * line selected by the customer.
+             */
+            provide(updatedCheckout)
+            
+        } else {
+        
+            /* By providing a nil checkout we inform the PaySession that we failed 
+             * to select the shipping rate for this checkout. The PaySession will
+             * fail the current payment authorization process and a generic error
+             * will be shown to the customer.
+             */
+            provide(nil)
+        }
+    }
+}
+```
+Invoked every time the customer selects a different shipping **and** the first time shipping rates are updated as a result of the previous `delegate` callback.
+
+##### Did authorize payment
+```swift
+func paySession(_ paySession: PaySession, didAuthorizePayment authorization: PayAuthorization, checkout: PayCheckout, completeTransaction: @escaping (PaySession.TransactionStatus) -> Void) {
+    
+    /* 1. Update checkout with complete shipping address. Example:
+     * self.updateCheckoutShippingAddress(id: checkout.id, shippingAddress: authorization.shippingAddress) { ... }
+     *
+     * 2. Update checkout with the customer's email. Example:
+     * self.updateCheckoutEmail(id: checkout.id, email: authorization.shippingAddress.email) { ... }
+     * 
+     * 3. Complete checkout with billing address and payment data
+     */
+     self.completeCheckout(id: checkout.id, billingAddress: billingAddress, token: authorization.token) { success in
+         completeTransaction(success ? .success : .failure)
+     }
+}
+```
+Once the customer authorizes the payment, the `delegate` will receive the encrypted `token` and other associated information you'll need for the final `completeCheckout` mutation to complete the purchase. Keep in mind that the state of the checkout on the server **must** be up-to-date before invoking the final checkout completion mutation. Ensure that all in-flight update mutations are finished before completing checkout.
+
+##### Did finish payment
+```swift
+func paySessionDidFinish(_ paySession: PaySession) {
+    // Do something after the  Pay modal is dismissed   
+}
+```
+Invoked when the  Pay modal is dismissed, regardless of whether the payment authorization was successful or not.
 
 ### Query Arguments
 Example of query arguments:
