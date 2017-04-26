@@ -1,0 +1,28 @@
+source_directory: ..
+module: Buy
+author: Shopify Inc.
+github_url: https://github.com/Shopify/mobile-buy-sdk-ios
+exclude:
+  - "**/Generated/*.swift"
+
+theme: fullwidth
+output: Buy
+docset_path: ../Docsets/Buy.docset
+
+clean: true
+disable_search: true
+skip_undocumented: true
+
+xcodebuild_arguments: 
+  - -scheme
+  - Buy
+
+custom_categories:
+ - name: Graph
+   children:
+   - Graph
+
+ - name: Client Handlers
+   children:
+   - MutationCompletion
+   - QueryCompletion

@@ -1,0 +1,33 @@
+source_directory: ..
+module: Pay
+author: Shopify Inc.
+github_url: https://github.com/Shopify/mobile-buy-sdk-ios
+
+theme: fullwidth
+output: Pay
+docset_path: ../Docsets/Pay.docset
+
+clean: true
+disable_search: true
+skip_undocumented: true
+
+xcodebuild_arguments: 
+  - -scheme
+  - Pay
+
+custom_categories:
+  - name: Session
+    children:
+    - PaySession
+    - PaySessionDelegate
+
+  - name: Models
+    children:
+    - PayAddress
+    - PayAuthorization
+    - PayCheckout
+    - PayCurrency
+    - PayDiscount
+    - PayLineItem
+    - PayPostalAddress
+    - PayShippingRate
