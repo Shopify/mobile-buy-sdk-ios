@@ -533,21 +533,6 @@ Example of query arguments:
 ```
 Learn more about [GraphQL query argumnets](http://graphql.org/learn/queries/#arguments)
 
-
-### Code Generation
-#### Ruby Script
-#### Generated query & mutation request models
-#### Generated query & mutation response models
-#### Node, aliases
-
-### GraphClient
-#### Initialization
-#### Query & mutations
-#### Retry & polling
-#### Graph client errors
-
-### Pay Helper
-
 ### Case study
 #### Fetch Shop info
 #### Fetch Collections 
