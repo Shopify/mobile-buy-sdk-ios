@@ -847,6 +847,41 @@ let mutation = Storefront.buildMutation { $0
 
 #### Polling for shipping rates
 
+Available shipping rates are specific to a checkout since the cost to ship items depends on the quantity, weight and other attributes of the items in the checkout. Shipping rates also require a checkout to have a valid `shippingAddress`, which can be updated using steps found in [updating a checkout](#updating-a-checkout). Available shipping rates are a field on `Storefront.Checkout` so given a `checkoutID` (that we kept a reference to earlier) we can query for shipping rates:
+
+```swift
+let query = Storefront.buildQuery { $0
+    .node(id: checkoutID) { $0
+        .onCheckout { $0
+            .id()
+            .availableShippingRates { $0
+                .ready()
+                .shippingRates { $0
+                    .handle()
+                    .price()
+                    .title()
+                }
+            }
+        }
+    }
+}
+```
+
+The query above will kick off an asynchoronous task on the server to fetch shipping rates from multiple shipping providers. While the request may return immedietly (network latency aside), it does not mean that the list of shipping rates is complete. This is indicated by the `ready` field in the query above. It is your application's responsibility to continue retrying this query until `ready == true`. The Buy SDK has [built-in support for retrying requests](#retry), so we'll create a retry handler and perform the query:
+
+```swift
+let retry = Graph.RetryHandler<Storefront.QueryRoot>(endurance: .finite(10)) { (response, error) -> Bool in
+    return (response?.node as? Storefront.Checkout)?.availableShippingRates?.ready ?? false == false
+}
+    
+let query = ClientQuery.queryShippingRatesForCheckout(id)
+let task  = self.client.queryGraphWith(query, retryHandler: retry) { response, error in
+	let checkout      = (response?.node as? Storefront.Checkout)
+	let shippingRates = checkout.availableShippingRates?.shippingRates
+}
+```
+The completion will be called only if `availableShippingRates.ready == true` or the retry count reaches 10.
+
 #### Completing checkout with a credit card
 
 #### Completing checkout with Apple Pay
