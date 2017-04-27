@@ -876,8 +876,8 @@ let retry = Graph.RetryHandler<Storefront.QueryRoot>(endurance: .finite(10)) { (
     
 let query = ClientQuery.queryShippingRatesForCheckout(id)
 let task  = self.client.queryGraphWith(query, retryHandler: retry) { response, error in
-	let checkout      = (response?.node as? Storefront.Checkout)
-	let shippingRates = checkout.availableShippingRates?.shippingRates
+    let checkout      = (response?.node as? Storefront.Checkout)
+    let shippingRates = checkout.availableShippingRates?.shippingRates
 }
 ```
 The completion will be called only if `availableShippingRates.ready == true` or the retry count reaches 10.
