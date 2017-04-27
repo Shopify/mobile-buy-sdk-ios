@@ -2,42 +2,45 @@
 
 # Sample Application
 
-Mobile Buy SDK shipped with the sample application that demonstrates typical mobile shop. By typical mobile shop we assume to have next flow: user browses products, open product details, selects product variant and add to the cart. From cart screen he completes checkout using web checkout or Apple Pay.
-That exact user case sample application demonstrates and shows example of how to build these types of screens:
+Mobile Buy SDK shipped with the sample application that demonstrates typical mobile shop. By typical mobile shop we assume to have next flow: user browses products, open product details, selects product variant and add to the cart. From cart screen he completes checkout using web checkout or Apple Pay. That exact use case sample application demonstrates and shows example of how to build these types of screens:
 
-## Hybrid collection list with products
-
+### Hybrid collection list with products
+--
 Shows how to build screen with vertical list of collections and for each collection show horizontal list of products. As well demostrates the best GraphQL feature to fetch required data in one request
 
 SCREENSHOT HERE
 
-## Product list
-
+### Product list
+--
 Example of regular product grid for selected collection.
 
 SCREENSHOT HERE
 
-## Product details
-
+### Product details
+--
 Example of product details screen with image gallery and add to cart button
 
 SCREENSHOT HERE
 
-## Search
+### Search
+--
 
 TBD
 
-## Local cart
-
+### Local cart
+--
 Shows how to build local cart with line item managment, web checkout and Apple Pay integration.
 
 SCREENSHOT HERE
 
-## Order confirmation
-
+### Order confirmation
+--
 Shows checkout complition with Apple Pay integration
 
 SCREENSHOT HERE
+
+
+## Run Sample App 
 
 ## License
 
