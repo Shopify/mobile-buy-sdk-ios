@@ -694,34 +694,68 @@ GraphQL query sent to the server:
 Since we know exactly what collection we want to fetch products for, we'll use the [`node` interface](#the-node-interface) to query the collection by `id`. You might have also noticed that we're fetching a few additional field and objects: `pageInfo` and `cursor`. We can then use a `cursor` of any product edge to fetch more products `before` it or `after` it. Likewise, the `pageInfo` object provides additional metadata about whether the next page (and potentially previous page) is available or not.
 
 ### Fetch product details
-To fetch product by it's id:
+
+In our app we likely want to have a detailed product page with images, variants and descriptions. Conventionally, we'd need multiple `REST` calls to fetch all the required information but with Buy SDK, we can do it with a single query.
 
 ```swift
-SWIFT CODE GOES HERE
-```
+let query = Storefront.buildQuery { $0
+    .node(id: productID) { $0
+        .onProduct { $0
+            .id()
+            .title()
+            .description()
+            .images(first: 10) { $0
+                .edges { $0
+                    .node { $0
+                        .id()
+                        .src()
+                    }
+                }
+            }
+            .variants(first: 10) { $0
+                .edges { $0
+                    .node { $0
+                        .id()
+                        .price()
+                        .title()
+                        .available()
+                    }
+                }
+            }
+        }
+    }
+}
 
-That corresponds to the next GraphQL query being sent to the server:
+client.queryGraphWith(query) { response, error in
+    let product  = response?.node as? Storefront.Product
+    let images   = product?.images.edges.map { $0.node }
+    let variants = product?.variants.edges.map { $0.node }
+}
+```
+GraphQL query sent to the server:
 
 ```graphql
 {
-  node(id: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzMzMjk4MTIyOTE=") {
+  node(id: "9Qcm9kdWN0LzMzMj") {
     ... on Product {
       id
       title
-      descriptionHtml
-      images(first: 1) {
+      description
+      images(first: 10) {
         edges {
           node {
+            id
             src
           }
         }
       }
-      variants(first: 250) {
+      variants(first: 10) {
         edges {
           node {
             id
             price
             title
+            available
           }
         }
       }
