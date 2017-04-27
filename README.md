@@ -45,15 +45,13 @@ Shopify’s Mobile Buy SDK makes it simple to create custom storefronts in your 
   - [Fetch collections and products](#fetch-collections-and-products)
   - [Pagination](#pagination)
   - [Fetch product details](#fetch-product-details)
-  - [Create Checkout](#)
-  - [Update Checkout](#)
-      - [Update Checkout with Customer Email](#)
-      - [Update Checkout with Customer Shipping Address](#)
-      - [Polling Checkout Shipping Rates](#)
-  - [Complete Checkout](#)
-      - [With Credit Card](#)
-      - [With Apple Pay](#)
-      - [Polling Checkout Payment Status](#)
+  - [Checkout](#checkout)
+      - [Creating a checkout](#checkout)
+      - [Updating a checkout](#updating-a-checkout)
+      - [Polling for shipping rates](#polling-for-shipping-rates)
+      - [Completing a checkout with a credit card](#completing-a-checkout-with-a-credit-card)
+      - [Completing a checkout with  Pay](#completing-a-checkout-with-apple-pay)
+      - [Polling checkout completion](#polling-checkout-completion)
   - [Handling Errors](#)
 
 - [Contributions](#contributions)
@@ -764,71 +762,98 @@ GraphQL query sent to the server:
 }
 ```
 
-### Create Checkout
-To create checkout you will need to provide `CheckoutCreateInput` as argument for mutation query:
+### Checkout
+
+After browsing products and collections, a customer may eventually want to purchase something. The Buy SDK does not provide support for a local shopping cart since the requirements can vary between applications. Instead, the implementation is left up to the custom storefront. Nevertheless, when a customer is ready to make a purchse you'll need to create a checkout.
+
+Almost every `mutation` query requires an input object. This is the object that dictates what fields will be mutated for a particular resource. In this case, we'll need to create a `Storefront.CheckoutCreateInput`:
 
 ```swift
-SWIFT CODE GOES HERE
-```
-
-That corresponds to the next GraphQL query being sent to the server:
-
-```graphql
-mutation ($input: CheckoutCreateInput!) {
-  checkoutCreate(input: $input) {
-    checkout {
-      id
-      webUrl
-      requiresShipping
-      currencyCode
-      totalPrice
-      totalTax
-      subtotalPrice
-      lineItemConnection: lineItems(first: 250) {
-        lineItemEdges: edges {
-          lineItem: node {
-            title
-            quantity
-            variant {
-              id
-              price
-            }
-          }
-        }
-      }
-    }
-  }
-}
-```
-```graphql
-{
-  "input": {
-    "email": "test@test.com",
-    "lineItems": [
-      {
-        "variantId": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC85Njg3MDQ5NTM5",
-        "quantity": 1
-      },
-      {
-        "variantId": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC85Njg3MDQ5NjAz",
-        "quantity": 1
-      }
+let input = Storefront.CheckoutCreateInput(
+    lineItems: [
+        Storefront.CheckoutLineItemInput(variantId: GraphQL.ID(rawValue: "mFyaWFu"), quantity: 5),
+        Storefront.CheckoutLineItemInput(variantId: GraphQL.ID(rawValue: "8vc2hGl"), quantity: 3),
     ]
-  }
+)
+```
+The checkout input object accepts other arguments like `email` and `shippingAddress` but in our example, we don't have access to that information from the customer until a later time so we won't include them in this mutation. Given the checkout input, we can execute the `checkoutCreate` mutation:
+
+```swift
+let mutation = Storefront.buildMutation { $0
+    .checkoutCreate(input: checkout) { $0
+        .checkout { $0
+            .id()
+        }
+        .userErrors { $0
+            .field()
+            .message()
+        }
+    }
+}
+
+client.mutateGraphWith(mutation) { result, error in
+    guard error == nil else {
+        // handle request error
+    }
+    
+    guard let userError = result?.checkoutCreate?.userErrors else {
+        // handle any user error
+        return
+    }
+    
+    let checkoutID = result?.checkoutCreate?.checkout?.id
 }
 ```
-### Update Checkout
+**It is best practice to always include `userErrors` fields in your mutation payload query, where possible.** You should always validate user input before making mutation requests but it's possible that there might be a mismatch between the client and server. In this case, `userErrors` will contain an error with a `field` and `message` for any invalid or missing fields.
 
-#### Update Checkout with Customer Email
-#### Update Checkout with Customer Shipping Address
-#### Polling Checkout Shipping Rates
+Since we'll need to update the checkout with additional information later, all we need from a checkout in this mutation is an `id` so we can keep a reference to it. We can skip all other fields on `Storefront.Checkout` for efficiency and reduced bandwidth.
 
-## Complete Checkout
-### With Credit Card
-### With Apple Pay
-### Polling Checkout Payment Status
+#### Updating a checkout
 
-## Handling Errors
+A customer's information may not all be available when a checkout is created. The Buy SDK provides mutations for updating specific checkout fields that are required for completion. Name the `email` and `shippingAddress` fields:
+
+###### Updating email
+
+```swift
+let mutation = Storefront.buildMutation { $0
+    .checkoutEmailUpdate(checkoutId: id, email: "john.smith@gmail.com") { $0
+        .checkout { $0
+            .id()
+        }
+        .userErrors { $0
+            .field()
+            .message()
+        }
+    }
+}
+```
+
+###### Updating shipping address
+
+```swift
+let shippingAddress: Storefront.MailingAddressInput
+let mutation = Storefront.buildMutation { $0
+    .checkoutShippingAddressUpdate(shippingAddress: shippingAddress, checkoutId: id) {
+        .checkout { $0
+            .id()
+        }
+        .userErrors { $0
+            .field()
+            .message()
+        }
+    }
+}
+```
+
+#### Polling for shipping rates
+
+#### Completing checkout with a credit card
+
+#### Completing checkout with Apple Pay
+
+#### Polling for checkout completion
+
+#### Handling Errors
 
 ## Sample Application
 Mobile Buy SDK shipped with sample application that can be found [here](/Sample%20Apps/Storefront/).
