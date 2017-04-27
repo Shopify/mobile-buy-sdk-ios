@@ -830,6 +830,8 @@ mutation ($input: CheckoutCreateInput!) {
 
 ## Handling Errors
 
+## Sample Application
+Mobile Buy SDK shipped with sample application that can be found [here](/Sample%20Apps/Storefront/).
 
 ## Contributions
 
