@@ -519,13 +519,213 @@ Invoked when the  Pay modal is dismissed, regardless of whether the payment a
 
 
 ## Case study
+In this case study we are going to walk through the series of Buy SDK GraphQL quieries from simple fetching shop meta information to mutation query for checkout completion. These examples of queries should be enough to cover the typical mobile shop application.
+
 ### Fetch Shop info
+To fetch shop meta information like: name, currencyCode, refundPolicy etc.:
+
+```swift
+SWIFT CODE GOES HERE
+```
+
+That corresponds to the next GraphQL query being sent to the server:
+
+```graphql
+{
+  shop {
+    name,
+    currencyCode,
+    refundPolicy {
+      title
+      url
+    }
+  }
+}
+```
+
 ### Fetch Collections 
+To fetch product collection page:
+
+```swift
+SWIFT CODE GOES HERE
+```
+
+That corresponds to the next GraphQL query being sent to the server:
+
+```graphql
+{
+  shop {
+    collections(first:20, after:"eyJsYXN0X2lkIjoxNDg4MTc3MzEsImxhc3RfdmFsdWUiOiIxNDg4MTc3MzEifQ==") {
+      edges {
+        cursor
+        node {
+          id
+          title
+          descriptionHtml
+          handle
+        }
+      }
+    }
+  }
+}
+```
+
 #### Fetch Collections with Products
+You can do even more, if you need to build hybrid list view of collections with products:
+
+```swift
+SWIFT CODE GOES HERE
+```
+That corresponds to the next GraphQL query being sent to the server:
+
+```graphql
+{
+  shop {
+    collections(first: 20, after: "eyJsYXN0X2lkIjoxNDg4MTc3MzEsImxhc3RfdmFsdWUiOiIxNDg4MTc3MzEifQ==") {
+      edges {
+        cursor
+        node {
+          id
+          title
+          descriptionHtml
+          handle
+          products(first: 10) {
+            edges {
+              node {
+                id
+                title
+                descriptionHtml
+                images(first: 1) {
+                  edges {
+                    node {
+                      src
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
 ### Fetch Collection by ID
+To fetch collection by it's id:
+
+```swift
+SWIFT CODE GOES HERE
+```
+
+That corresponds to the next GraphQL query being sent to the server:
+
+```graphql
+{
+  node(id: "Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzE0ODc4NDQ1MQ==") {
+    ... on Collection {
+      id
+      title
+      descriptionHtml
+      handle
+    }
+  }
+}
+```
+
 ### Fetch Product by ID
+To fetch product by it's id:
+
+```swift
+SWIFT CODE GOES HERE
+```
+
+That corresponds to the next GraphQL query being sent to the server:
+
+```graphql
+{
+  node(id: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzMzMjk4MTIyOTE=") {
+    ... on Product {
+      id
+      title
+      descriptionHtml
+      images(first: 1) {
+        edges {
+          node {
+            src
+          }
+        }
+      }
+      variants(first: 250) {
+        edges {
+          node {
+            id
+            price
+            title
+          }
+        }
+      }
+    }
+  }
+}
+```
+
 ### Create Checkout
+To create checkout you will need to provide `CheckoutCreateInput` as argument for mutation query:
+
+```swift
+SWIFT CODE GOES HERE
+```
+
+That corresponds to the next GraphQL query being sent to the server:
+
+```graphql
+mutation ($input: CheckoutCreateInput!) {
+  checkoutCreate(input: $input) {
+    checkout {
+      id
+      webUrl
+      requiresShipping
+      currencyCode
+      totalPrice
+      totalTax
+      subtotalPrice
+      lineItemConnection: lineItems(first: 250) {
+        lineItemEdges: edges {
+          lineItem: node {
+            title
+            quantity
+            variant {
+              id
+              price
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+```graphql
+{
+  "input": {
+    "email": "test@test.com",
+    "lineItems": [
+      {
+        "variantId": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC85Njg3MDQ5NTM5",
+        "quantity": 1
+      },
+      {
+        "variantId": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC85Njg3MDQ5NjAz",
+        "quantity": 1
+      }
+    ]
+  }
+}
+```
 ### Update Checkout
+
 #### Update Checkout with Customer Email
 #### Update Checkout with Customer Shipping Address
 #### Polling Checkout Shipping Rates
