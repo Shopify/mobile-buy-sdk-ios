@@ -27,7 +27,7 @@ Shopify’s Mobile Buy SDK makes it simple to create custom storefronts in your 
   - [The `Node` protocol](#the-node-protocol)
   - [Aliases](#aliases)
 
-- [GraphClient](#)
+- [GraphClient](#graph-client)
   - [Queries](#queries)
   - [Mutations](#mutations)
   - [Retry & polling](#retry)
@@ -40,12 +40,11 @@ Shopify’s Mobile Buy SDK makes it simple to create custom storefronts in your 
       - [Did authorize payment](#did-authorize-payment)
       - [Did finish payment](#did-finish-payment)
 
-- [Case study](#)
-  - [Fetch Shop info](#)
-  - [Fetch Collections ](#)
-  - [Fetch Collections](#)
-      - [Fetch Collection by ID](#)
-      - [Fetch Product by ID](#)
+- [Case study](#case-study)
+  - [Fetch shop](#fetch-shop)
+  - [Fetch collections and products](#fetch-collections-and-products)
+  - [Pagination](#pagination)
+  - [Fetch product details](#fetch-product-details)
   - [Create Checkout](#)
   - [Update Checkout](#)
       - [Update Checkout with Customer Email](#)
@@ -516,19 +515,39 @@ func paySessionDidFinish(_ paySession: PaySession) {
 ```
 Invoked when the  Pay modal is dismissed, regardless of whether the payment authorization was successful or not.
 
-
-
 ## Case study
-In this case study we are going to walk through the series of Buy SDK GraphQL quieries from simple fetching shop meta information to mutation query for checkout completion. These examples of queries should be enough to cover the typical mobile shop application.
 
-### Fetch Shop info
-To fetch shop meta information like: name, currencyCode, refundPolicy etc.:
+Getting started with any SDK can be daunting. The purpose of this section is to explore all areas of the Buy SDK that may be necessary to build a custom storefront on iOS. Let's dive right in.
+
+In this section we're going to assume that you've [setup a client](#graph-client) somewhere in your source code:
 
 ```swift
-SWIFT CODE GOES HERE
+let client: Graph.Client
 ```
 
-That corresponds to the next GraphQL query being sent to the server:
+### Fetch shop
+
+Before displaying any products to the user it's often necessary to obtain various metadata about your shop. This can be anything from a currency code to your shop's name:
+
+```swift
+let query = Storefront.buildQuery { $0
+    .shop { $0
+        .name()
+        .currencyCode()
+        .refundPolicy { $0
+            .title()
+            .url()
+        }
+    }
+}
+    
+client.queryGraphWith(query) { response, error in
+    let name         = response?.shop.name
+    let currencyCode = response?.shop.currencyCode
+    let moneyFormat  = response?.shop.moneyFormat
+}
+```
+GraphQL query sent to the server:
 
 ```graphql
 {
@@ -543,65 +562,61 @@ That corresponds to the next GraphQL query being sent to the server:
 }
 ```
 
-### Fetch Collections 
-To fetch product collection page:
+### Fetch collections and products
+
+In our custom storefront we want to display collection with a preview of several products. With a conventional RESTful service, this would require a network call to get collections and another network call for **each** collection in that array. This is often refered to as the `n + 1` problem.
+
+The Buy SDK is built on GraphQL, which solves the `n + 1` request problem.
 
 ```swift
-SWIFT CODE GOES HERE
-```
-
-That corresponds to the next GraphQL query being sent to the server:
-
-```graphql
-{
-  shop {
-    collections(first:20, after:"eyJsYXN0X2lkIjoxNDg4MTc3MzEsImxhc3RfdmFsdWUiOiIxNDg4MTc3MzEifQ==") {
-      edges {
-        cursor
-        node {
-          id
-          title
-          descriptionHtml
-          handle
+let query = Storefront.buildQuery { $0
+    .shop { $0
+        .collections(first: 10) { $0
+            .edges { $0
+                .node { $0
+                    .id()
+                    .title()
+                    .products(first: 10) { $0
+                        .edges { $0
+                            .node { $0
+                                .id()
+                                .title()
+                                .productType()
+                                .description()
+                            }
+                        }
+                    }
+                }
+            }
         }
-      }
     }
-  }
+}
+    
+client.queryGraphWith(query) { response, error in
+    let collections  = response?.shop.collections.edges.map { $0.node }
+    collections?.forEach { collection in
+        
+        let products = collection.products.edges.map { $0.node }
+    }
 }
 ```
-
-#### Fetch Collections with Products
-You can do even more, if you need to build hybrid list view of collections with products:
+GraphQL query sent to the server:
 
 ```swift
-SWIFT CODE GOES HERE
-```
-That corresponds to the next GraphQL query being sent to the server:
-
-```graphql
 {
   shop {
-    collections(first: 20, after: "eyJsYXN0X2lkIjoxNDg4MTc3MzEsImxhc3RfdmFsdWUiOiIxNDg4MTc3MzEifQ==") {
+    collections(first: 10) {
       edges {
-        cursor
         node {
           id
           title
-          descriptionHtml
-          handle
           products(first: 10) {
             edges {
               node {
                 id
                 title
-                descriptionHtml
-                images(first: 1) {
-                  edges {
-                    node {
-                      src
-                    }
-                  }
-                }
+                productType
+                description
               }
             }
           }
@@ -612,29 +627,73 @@ That corresponds to the next GraphQL query being sent to the server:
 }
 ```
 
-### Fetch Collection by ID
-To fetch collection by it's id:
+This single query will retrieve 10 collection and 10 products for each collection with just one network request. Since it only retries a small subset of properties for each resource it's also **much** more bandwidth-efficient than fetching 100 complete resources via conventional REST.
+
+But what if you need to get more than 10 products in each collection?
+
+### Pagination
+
+While it may convenient to assume that a single network request will suffice for loading all collections and products, that may be somewhat naive. The best practice is to paginate results. Since the Buy SDK is built on top of GraphQL, it inherits the concept of `edges` and `nodes`.
+
+Learn more about [pagination in GraphQL](http://graphql.org/learn/pagination/).
+
+Let's take a look at how we can paginate throught products in a collection.
 
 ```swift
-SWIFT CODE GOES HERE
+let query = Storefront.buildQuery { $0
+    .node(id: collectionID) { $0
+        .onCollection { $0
+            .products(first: 10, after: productsCursor) { $0
+                .pageInfo { $0
+                    .hasNextPage()
+                }
+                .edges { $0
+                    .cursor()
+                    .node { $0
+                        .id()
+                        .title()
+                        .productType()
+                        .description()
+                    }
+                }
+            }
+        }
+    }
+}
+    
+client.queryGraphWith(query) { response, error in
+    let collection    = response?.node as? Storefront.Collection
+    let productCursor = collection?.products.edges.last?.cursor
+}
 ```
-
-That corresponds to the next GraphQL query being sent to the server:
+GraphQL query sent to the server:
 
 ```graphql
 {
-  node(id: "Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzE0ODc4NDQ1MQ==") {
+  node(id: "IjoxNDg4MTc3MzEsImxhc3R") {
     ... on Collection {
-      id
-      title
-      descriptionHtml
-      handle
+      products(first: 10, after: "sdWUiOiIxNDg4MTc3M") {
+        pageInfo {
+          hasNextPage
+        }
+        edges {
+          cursor
+        	node {
+            id
+            title
+            productType
+            description
+          }
+        }
+      }
     }
   }
 }
 ```
 
-### Fetch Product by ID
+Since we know exactly what collection we want to fetch products for, we'll use the [`node` interface](#the-node-interface) to query the collection by `id`. You might have also noticed that we're fetching a few additional field and objects: `pageInfo` and `cursor`. We can then use a `cursor` of any product edge to fetch more products `before` it or `after` it. Likewise, the `pageInfo` object provides additional metadata about whether the next page (and potentially previous page) is available or not.
+
+### Fetch product details
 To fetch product by it's id:
 
 ```swift
