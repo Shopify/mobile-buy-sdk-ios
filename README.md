@@ -891,16 +891,16 @@ The completion will be called only if `availableShippingRates.ready == true` or 
 #### Handling Errors <sub><sup>[[TOC]](#table-of-contents)</sup></sub>
 
 ## Sample Application <sub><sup>[[TOC]](#table-of-contents)</sup></sub>
-Mobile Buy SDK shipped with sample application that can be found [here](/Sample%20Apps/Storefront/).
+We've provided a complete end-to-end sample application to help you get started. Check out the [Storefront readme](/Sample%20Apps/Storefront/) for details.
 
 ## Contributions <sub><sup>[[TOC]](#table-of-contents)</sup></sub>
 
-We welcome contributions. Follow the steps in [CONTRIBUTING](CONTRIBUTING.md) file.
+We welcome contributions. Please follow the steps in our [contributing guidelines](CONTRIBUTING.md).
 
 ## Help <sub><sup>[[TOC]](#table-of-contents)</sup></sub>
 
-For help, please post questions on our forum, in the Shopify APIs & Technology section: https://ecommerce.shopify.com/c/shopify-apis-and-technology
+For help, please post questions on [our forum](https://ecommerce.shopify.com/c/shopify-apis-and-technology), in `Shopify APIs & Technology` section.
 
 ## License <sub><sup>[[TOC]](#table-of-contents)</sup></sub>
 
-The Mobile Buy SDK is provided under an MIT Licence.  See the [LICENSE](LICENSE) file
+The Mobile Buy SDK is provided under an [MIT Licence](LICENSE).
