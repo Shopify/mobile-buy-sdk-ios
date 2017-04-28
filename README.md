@@ -49,8 +49,10 @@ Shopify’s Mobile Buy SDK makes it simple to create custom storefronts in your 
       - [Creating a checkout](#checkout-toc)
       - [Updating a checkout](#updating-a-checkout-toc)
       - [Polling for shipping rates](#polling-for-shipping-rates-toc)
-      - [Completing a checkout with a credit card](#completing-checkout---credit-card-toc)
-      - [Completing a checkout with  Pay](#completing-checkout---apple-pay-toc)
+      - [Completing a checkout](#completing-a-checkout-toc)
+          - [Web](#web-toc)
+          - [Credit card](#credit-card-toc)
+          - [ Pay](#apple-pay-toc)
       - [Polling checkout completion](#polling-checkout-completion-toc)
   - [Handling Errors](#handling-errors-toc)
 
@@ -882,9 +884,23 @@ let task  = self.client.queryGraphWith(query, retryHandler: retry) { response, e
 ```
 The completion will be called only if `availableShippingRates.ready == true` or the retry count reaches 10. While you can specify `.infinite` for the retry handler's `endurance` property, we highly recommend you set a finite limit.
 
-#### Completing checkout - Credit Card <sub><sup>[[TOC]](#table-of-contents)</sup></sub>
+#### Completing a checkout <sub><sup>[[TOC]](#table-of-contents)</sup></sub>
 
-#### Completing checkout - Apple Pay <sub><sup>[[TOC]](#table-of-contents)</sup></sub>
+After all required fields have been filled and the customer is ready to pay, you have 3 ways to complete checkout and process the payment.
+
+###### Web 
+
+The simplest way to complete a checkout is by redirecting the customer to a web view where they will be presented with the same flow that they're familiar with on the web. The `Storefront.Checkout` resource provides a `webUrl` that you can use present a web view. We highly recommend using `SFSafariViewController` instead of `WKWebView` or other alternatives.
+
+**NOTE**: While using web checkout is the simplest out of the 3 approaches, it doesn't offer a native checkout experience and it presents some difficulty when it comes to observing the checkout state. Since the web view doesn't provide any callbacks for various checkout states, you'll still have to [poll for checkout completion](#poll-for-checkout-completion-toc).
+
+###### Credit Card <sub><sup>[[TOC]](#table-of-contents)</sup></sub>
+
+
+
+###### Apple Pay <sub><sup>[[TOC]](#table-of-contents)</sup></sub>
+
+
 
 #### Polling for checkout completion <sub><sup>[[TOC]](#table-of-contents)</sup></sub>
 
