@@ -884,11 +884,11 @@ let task  = self.client.queryGraphWith(query, retryHandler: retry) { response, e
 ```
 The completion will be called only if `availableShippingRates.ready == true` or the retry count reaches 10. While you can specify `.infinite` for the retry handler's `endurance` property, we highly recommend you set a finite limit.
 
-#### Completing a checkout <sub><sup>[[TOC]](#table-of-contents)</sup></sub>
+#### Completing a checkout [▲](#table-of-contents)
 
 After all required fields have been filled and the customer is ready to pay, you have 3 ways to complete checkout and process the payment.
 
-###### Web 
+###### Web <sub><sup>[[TOC]](#table-of-contents)</sup></sub>
 
 The simplest way to complete a checkout is by redirecting the customer to a web view where they will be presented with the same flow that they're familiar with on the web. The `Storefront.Checkout` resource provides a `webUrl` that you can use present a web view. We highly recommend using `SFSafariViewController` instead of `WKWebView` or other alternatives.
 
@@ -896,7 +896,15 @@ The simplest way to complete a checkout is by redirecting the customer to a web 
 
 ###### Credit Card <sub><sup>[[TOC]](#table-of-contents)</sup></sub>
 
+The native credit card checkout offers the most conventional UX out of the 3 alternatives but is also requires the most effort to implement. You'll be required to implement UI for gather your customers' name, email, address, payment information and other fields required to complete checkout.
 
+Assuming your custom storefront has all the infomation it needs, the first step to completing a credit card checkout is to vault the provided credit card and exchange it for a payment token that will be used to complete the payment.
+
+```swift
+self.vault(creditCardNumber) { paymentToken in
+    
+}
+```
 
 ###### Apple Pay <sub><sup>[[TOC]](#table-of-contents)</sup></sub>
 
