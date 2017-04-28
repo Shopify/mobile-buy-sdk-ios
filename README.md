@@ -49,8 +49,8 @@ Shopify’s Mobile Buy SDK makes it simple to create custom storefronts in your 
       - [Creating a checkout](#checkout)
       - [Updating a checkout](#updating-a-checkout)
       - [Polling for shipping rates](#polling-for-shipping-rates)
-      - [Completing a checkout with a credit card](#completing-a-checkout-with-a-credit-card)
-      - [Completing a checkout with  Pay](#completing-a-checkout-with-apple-pay)
+      - [Completing a checkout with a credit card](#completing-a-checkout-credit-card)
+      - [Completing a checkout with  Pay](#completing-a-checkout-apple-pay)
       - [Polling checkout completion](#polling-checkout-completion)
   - [Handling Errors](#)
 
@@ -880,11 +880,11 @@ let task  = self.client.queryGraphWith(query, retryHandler: retry) { response, e
     let shippingRates = checkout.availableShippingRates?.shippingRates
 }
 ```
-The completion will be called only if `availableShippingRates.ready == true` or the retry count reaches 10.
+The completion will be called only if `availableShippingRates.ready == true` or the retry count reaches 10. While you can specify `.infinite` for the retry handler's `endurance` property, we highly recommend you set a finite limit.
 
-#### Completing checkout with a credit card
+#### Completing checkout - Credit Card
 
-#### Completing checkout with Apple Pay
+#### Completing checkout - Apple Pay
 
 #### Polling for checkout completion
 
