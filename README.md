@@ -15,7 +15,7 @@ Shopify’s Mobile Buy SDK makes it simple to create custom storefronts in your 
 - [Documentation](#documentation-toc)
   - [API Documentation](#api-documentation-toc)
 
-- [Installation](#installation)
+- [Installation](#installation-toc)
   - [Dynamic Framework Installation](#dynamic-framework-installation-toc)
   - [CocoaPods](#cocoapods-toc)
   - [Carthage](#carthage-toc)
