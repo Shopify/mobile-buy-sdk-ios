@@ -899,7 +899,7 @@ We welcome contributions. Please follow the steps in our [contributing guideline
 
 ## Help <sub><sup>[[TOC]](#table-of-contents)</sup></sub>
 
-For help, please post questions on [our forum](https://ecommerce.shopify.com/c/shopify-apis-and-technology), in `Shopify APIs & Technology` section.
+For help, please post questions on [our forum](https://ecommerce.shopify.com/c/shopify-apis-and-technology), in `Shopify APIs & SDKs` section.
 
 ## License <sub><sup>[[TOC]](#table-of-contents)</sup></sub>
 
