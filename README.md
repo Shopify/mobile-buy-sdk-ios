@@ -49,8 +49,8 @@ Shopify’s Mobile Buy SDK makes it simple to create custom storefronts in your 
       - [Creating a checkout](#checkout)
       - [Updating a checkout](#updating-a-checkout)
       - [Polling for shipping rates](#polling-for-shipping-rates)
-      - [Completing a checkout with a credit card](#completing-a-checkout-credit-card)
-      - [Completing a checkout with  Pay](#completing-a-checkout-apple-pay)
+      - [Completing a checkout with a credit card](#completing-checkout-credit-card)
+      - [Completing a checkout with  Pay](#completing-checkout-apple-pay)
       - [Polling checkout completion](#polling-checkout-completion)
   - [Handling Errors](#)
 
