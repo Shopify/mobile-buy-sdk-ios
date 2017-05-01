@@ -931,11 +931,54 @@ The simplest way to complete a checkout is by redirecting the customer to a web 
 
 The native credit card checkout offers the most conventional UX out of the 3 alternatives but is also requires the most effort to implement. You'll be required to implement UI for gather your customers' name, email, address, payment information and other fields required to complete checkout.
 
-Assuming your custom storefront has all the infomation it needs, the first step to completing a credit card checkout is to vault the provided credit card and exchange it for a payment token that will be used to complete the payment.
+Assuming your custom storefront has all the infomation it needs, the first step to completing a credit card checkout is to vault the provided credit card and exchange it for a payment token that will be used to complete the payment. Please reference the instructions for [vaulting a credit card](#card-vaulting-).
+
+After obtaining a credit card vault token, we can proceed to complete the checkout by creating a `CreditCardPaymentInput` and executing the mutation query:
 
 ```swift
-self.vault(creditCardNumber) { paymentToken in
+// let paySession: PaySession
+// let payCheckout: PayCheckout
+// let payAuthorization: PayAuthorization
+
+let payment = Storefront.CreditCardPaymentInput(
+    amount:         payCheckout.paymentDue,
+    idempotencyKey: paySession.identifier,
+    billingAddress: self.mailingAddressInputFrom(payAuthorization.billingAddress,
+    vaultId:        token
+)
     
+let mutation = Storefront.buildMutation { $0
+    .checkoutCompleteWithCreditCard(checkoutId: checkoutID, payment: payment) { $0
+        .payment { $0
+            .id()
+            .ready()
+        }
+        .checkout { $0
+            .id()
+            .ready()
+        }
+        .userErrors { $0
+            .field()
+            .message()
+        }
+    }
+}
+    
+client.mutateGraphWith(mutation) { result, error in
+    guard error == nil else {
+        // handle request error
+    }
+    
+    guard let userError = result?.checkoutCompleteWithCreditCard?.userErrors else {
+        // handle any user error
+        return
+    }
+    
+    let checkoutReady = result?.checkoutCompleteWithCreditCard?.checkout.ready ?? false
+    let paymentReady  = result?.checkoutCompleteWithCreditCard?.payment?.ready ?? false
+    
+    // checkoutReady == false
+    // paymentReady == false
 }
 ```
 
@@ -948,7 +991,7 @@ The Buy SDK makes  Pay integration easy with the provided `Pay.framework`. Pl
 // let payCheckout: PayCheckout
 // let payAuthorization: PayAuthorization
         
-let payment    = Storefront.TokenizedPaymentInput(
+let payment = Storefront.TokenizedPaymentInput(
     amount:         payCheckout.paymentDue,
     idempotencyKey: paySession.identifier,
     billingAddress: self.mailingAddressInputFrom(payAuthorization.billingAddress), // <- perform the conversion
