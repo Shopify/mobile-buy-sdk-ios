@@ -519,7 +519,7 @@ Invoked when the  Pay modal is dismissed, regardless of whether the payment a
 
 Getting started with any SDK can be daunting. The purpose of this section is to explore all areas of the Buy SDK that may be necessary to build a custom storefront on iOS. Let's dive right in.
 
-In this section we're going to assume that you've [setup a client](#graph-client) somewhere in your source code:
+In this section we're going to assume that you've [setup a client](#graph-client-) somewhere in your source code:
 
 ```swift
 let client: Graph.Client
