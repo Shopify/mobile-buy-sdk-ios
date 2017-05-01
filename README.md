@@ -27,11 +27,14 @@ Shopify’s Mobile Buy SDK makes it simple to create custom storefronts in your 
   - [The `Node` protocol](#the-node-protocol-)
   - [Aliases](#aliases)
 
-- [GraphClient](#graph-client-)
+- [Graph Client](#graph-client-)
   - [Queries](#querie-s)
   - [Mutations](#mutations-)
   - [Retry & polling](#retry-)
   - [Errors](#errors-)
+
+- [Card Vaulting](#card-vaulting-)
+  - [Card Client](#card-client-)
 
 - [ Pay](#apple-pay-)
   - [Pay Session](#pay-session-)
@@ -388,6 +391,36 @@ Example of GraphQL error reponse:
 }
 ```
 Learn more about [GraphQL errors](http://graphql.org/learn/validation/)
+
+## Card Vaulting [⤴](#table-of-contents)
+
+The Buy SDK offers support for native checkout via GraphQL, which let's you complete a checkout with a credit card. However, it does not accept credit card numbers directly. Instead, you'll have to vault the credit cards via the standalone, PCI-compliant web service. The Buy SDK makes it easy with `Card.Client`.
+
+### Card Client [⤴](#table-of-contents)
+
+Like `Graph.Client`, the `Card.Client` manages your interactions with the card server that is responsible for providing opaque credit card tokens that are used to complete checkouts. After collection the user's credit card information in a secure maner, create a credit card representation and submit a vault request:
+
+```swift
+let cardClient = Card.Client()
+let creditCard = Card.CreditCard(
+	firstName:        "John",
+	middleName:       "Singleton",
+	lastName:         "Smith",
+	number:           "1234567812345678",
+	expiryMonth:      "07",
+	expiryYear:       "19",
+	verificationCode: "1234"
+)
+
+let task = cardClient.vault(creditCard) { token, error in
+    if let token = token {
+        // proceed to complete checkout with `token`
+    } else {
+        // handle error
+    }
+}
+task.resume()
+```
 
 ## Apple Pay [⤴](#table-of-contents)
 
