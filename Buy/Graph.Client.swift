@@ -61,7 +61,7 @@ extension Graph {
     ///
     public typealias MutationCompletion = (_ mutation: Storefront.Mutation?, _ error: QueryError?) -> Void
     
-    /// The `Client` is a network layer designed to abstract the communication with the Shopify GraphQL endpoint
+    /// The `Graph.Client` is a network layer designed to abstract the communication with the Shopify GraphQL endpoint
     /// by handling the serialization and deserialization of GraphQL models for `query` and `mutation` requests.
     /// In addition, the `Client` will take care of appending the necessary headers for authorizing the network
     /// requests based on the provided `shopDomain` and `apiKey`.
