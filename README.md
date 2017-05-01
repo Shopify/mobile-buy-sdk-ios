@@ -908,7 +908,55 @@ self.vault(creditCardNumber) { paymentToken in
 
 ###### Apple Pay [⤴](#table-of-contents)
 
+The Buy SDK makes  Pay integration easy with the provided `Pay.framework`. Please refer to the [ Pay](#apple-pay-) section on how to setup and use `PaySession` to obtain a payment token. With token in-hand, we can complete the checkout:
 
+```swift
+// let paySession: PaySession
+// let payCheckout: PayCheckout
+// let payAuthorization: PayAuthorization
+        
+let payment    = Storefront.TokenizedPaymentInput(
+    amount:         payCheckout.paymentDue,
+    idempotencyKey: paySession.identifier,
+    billingAddress: self.mailingAddressInputFrom(payAuthorization.billingAddress), // <- perform the conversion
+    type:           "apple_pay",
+    paymentData:    payAuthorization.token
+)
+    
+let mutation = Storefront.buildMutation { $0
+    .checkoutCompleteWithTokenizedPayment(checkoutId: checkoutID, payment: payment) { $0
+        .payment { $0
+            .id()
+            .ready()
+        }
+        .checkout { $0
+            .id()
+            .ready()
+        }
+        .userErrors { $0
+            .field()
+            .message()
+        }
+    }
+}
+    
+client.mutateGraphWith(mutation) { result, error in
+    guard error == nil else {
+        // handle request error
+    }
+    
+    guard let userError = result?.checkoutCompleteWithTokenizedPayment?.userErrors else {
+        // handle any user error
+        return
+    }
+    
+    let checkoutReady = result?.checkoutCompleteWithTokenizedPayment?.checkout.ready ?? false
+    let paymentReady  = result?.checkoutCompleteWithTokenizedPayment?.payment?.ready ?? false
+    
+    // checkoutReady == false
+    // paymentReady == false
+}
+```
 
 #### Polling for checkout completion [⤴](#table-of-contents)
 
