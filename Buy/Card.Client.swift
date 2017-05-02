@@ -79,7 +79,8 @@ public extension Card {
         /// that can be used to complete a checkout.
         ///
         /// - parameters:
-        ///     - creditCard: The credit card to Vaulting
+        ///     - creditCard: The credit card to vault
+        ///     - url:        The `vaultUrl` obtained from a `Storefront.Checkout`
         ///     - completion: The completion handler that will be executed with the token after a card has has been vaulted.
         ///
         /// - returns:
