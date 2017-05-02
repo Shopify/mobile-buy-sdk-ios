@@ -44,8 +44,6 @@ public extension Card {
         /// The `URLSession` backing all `Client` network operations. You may provide your own session when initializing a new `Client`.
         public let session: URLSession
         
-        internal let apiURL: URL = URL(string: "https://elb.deposit.shopifycs.com/sessions")!
-        
         // ----------------------------------
         //  MARK: - Init -
         //
@@ -61,8 +59,8 @@ public extension Card {
         // ----------------------------------
         //  MARK: - Request Generation -
         //
-        func requestFor(_ creditCard: CreditCard) -> URLRequest {
-            var request = URLRequest(url: self.apiURL)
+        func requestFor(_ creditCard: CreditCard, to url: URL) -> URLRequest {
+            var request = URLRequest(url: url)
             
             request.httpMethod = "POST"
             request.httpBody   = try! JSONSerialization.data(withJSONObject: creditCard.dictionary(), options: [])
@@ -87,8 +85,8 @@ public extension Card {
         /// - returns:
         /// A reference to a `Task` representing this vault operation.
         ///
-        public func vault(_ creditCard: CreditCard, completion: @escaping VaultCompletion) -> Graph.Task {
-            let task = self.session.dataTask(with: self.requestFor(creditCard)) { data, response, error in
+        public func vault(_ creditCard: CreditCard, to url: URL, completion: @escaping VaultCompletion) -> Graph.Task {
+            let task = self.session.dataTask(with: self.requestFor(creditCard, to: url)) { data, response, error in
                 
                 guard let data = data else {
                     completion(nil, error)

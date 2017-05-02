@@ -35,9 +35,10 @@ class Card_ClientTests: XCTestCase {
     //  MARK: - Init -
     //
     func testInit() {
-        let client = Card.Client()
+        let session = URLSession(configuration: .default)
+        let client  = Card.Client(session: session)
         
-        XCTAssertEqual(client.apiURL.absoluteString, "https://elb.deposit.shopifycs.com/sessions")
+        XCTAssertTrue(client.session === session)
     }
     
     // ----------------------------------
@@ -46,10 +47,12 @@ class Card_ClientTests: XCTestCase {
     func testRequestGeneration() {
         let card    = self.defaultCreditCard()
         let client  = self.defaultClient()
-        let request = client.requestFor(card)
+        let url     = self.defaultURL()
+        let request = client.requestFor(card, to: url)
         
         let jsonData = try! JSONSerialization.data(withJSONObject: card.dictionary(), options: [])
         
+        XCTAssertEqual(request.url, url)
         XCTAssertEqual(request.httpMethod, "POST")
         XCTAssertEqual(request.httpBody, jsonData)
         XCTAssertFalse(request.httpShouldHandleCookies)
@@ -117,7 +120,8 @@ class Card_ClientTests: XCTestCase {
         let e = self.expectation(description: "")
         
         let client  = self.defaultClient()
-        let handle  = client.vault(card) { token, error in
+        let url     = self.defaultURL()
+        let handle  = client.vault(card, to: url) { token, error in
             assertions(token, error)
             e.fulfill()
         }
@@ -131,6 +135,10 @@ class Card_ClientTests: XCTestCase {
     // ----------------------------------
     //  MARK: - Private -
     //
+    private func defaultURL() -> URL {
+        return URL(string: "https://www.google.com")!
+    }
+    
     private func defaultClient() -> Card.Client {
         return Card.Client(session: self.mockSession)
     }
