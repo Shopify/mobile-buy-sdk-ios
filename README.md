@@ -401,7 +401,9 @@ The Buy SDK offers support for native checkout via GraphQL, which let's you comp
 Like `Graph.Client`, the `Card.Client` manages your interactions with the card server that is responsible for providing opaque credit card tokens that are used to complete checkouts. After collection the user's credit card information in a secure maner, create a credit card representation and submit a vault request:
 
 ```swift
-let cardClient = Card.Client()
+// let checkout: Storefront.Checkout
+// let cardClient: Card.Client
+
 let creditCard = Card.CreditCard(
 	firstName:        "John",
 	middleName:       "Singleton",
@@ -412,7 +414,7 @@ let creditCard = Card.CreditCard(
 	verificationCode: "1234"
 )
 
-let task = cardClient.vault(creditCard) { token, error in
+let task = cardClient.vault(creditCard, to: checkout.vaultUrl) { token, error in
     if let token = token {
         // proceed to complete checkout with `token`
     } else {
@@ -421,6 +423,7 @@ let task = cardClient.vault(creditCard) { token, error in
 }
 task.resume()
 ```
+**IMPORTANT:** Keep in mind that the credit card vaulting service does **not** provide any validation for submitted credit cards. As a result, submitting invalid credit card numbers or even missing fields will always yield a vault `token`. Any errors related to invalid credit card information will be surfaced only when the provided `token` is used to complete a checkout.
 
 ## Apple Pay [⤴](#table-of-contents)
 
