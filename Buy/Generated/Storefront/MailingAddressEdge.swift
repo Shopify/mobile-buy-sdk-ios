@@ -2,7 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class MailingAddressEdgeQuery: GraphQL.AbstractQuery {
+	open class MailingAddressEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = MailingAddressEdge
+
 		@discardableResult
 		open func cursor(aliasSuffix: String? = nil) -> MailingAddressEdgeQuery {
 			addField(field: "cursor", aliasSuffix: aliasSuffix)
@@ -19,8 +21,9 @@ extension Storefront {
 		}
 	}
 
-	open class MailingAddressEdge: GraphQL.AbstractResponse
-	{
+	open class MailingAddressEdge: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = MailingAddressEdgeQuery
+
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {

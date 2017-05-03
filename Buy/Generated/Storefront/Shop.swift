@@ -2,7 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class ShopQuery: GraphQL.AbstractQuery {
+	open class ShopQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = Shop
+
 		@discardableResult
 		open func collections(aliasSuffix: String? = nil, first: Int32, after: String? = nil, sortKey: CollectionSortKeys? = nil, reverse: Bool? = nil, query: String? = nil, _ subfields: (CollectionConnectionQuery) -> Void) -> ShopQuery {
 			var args: [String] = []
@@ -117,6 +119,12 @@ extension Storefront {
 		}
 
 		@discardableResult
+		open func shopifyPaymentsAccountId(aliasSuffix: String? = nil) -> ShopQuery {
+			addField(field: "shopifyPaymentsAccountId", aliasSuffix: aliasSuffix)
+			return self
+		}
+
+		@discardableResult
 		open func termsOfService(aliasSuffix: String? = nil, _ subfields: (ShopPolicyQuery) -> Void) -> ShopQuery {
 			let subquery = ShopPolicyQuery()
 			subfields(subquery)
@@ -126,8 +134,9 @@ extension Storefront {
 		}
 	}
 
-	open class Shop: GraphQL.AbstractResponse
-	{
+	open class Shop: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = ShopQuery
+
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
@@ -187,6 +196,13 @@ extension Storefront {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
 				return try ShopPolicy(fields: value)
+
+				case "shopifyPaymentsAccountId":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return value
 
 				case "termsOfService":
 				if value is NSNull { return nil }
@@ -282,6 +298,14 @@ extension Storefront {
 			return field(field: "refundPolicy", aliasSuffix: aliasSuffix) as! Storefront.ShopPolicy?
 		}
 
+		open var shopifyPaymentsAccountId: String? {
+			return internalGetShopifyPaymentsAccountId()
+		}
+
+		func internalGetShopifyPaymentsAccountId(aliasSuffix: String? = nil) -> String? {
+			return field(field: "shopifyPaymentsAccountId", aliasSuffix: aliasSuffix) as! String?
+		}
+
 		open var termsOfService: Storefront.ShopPolicy? {
 			return internalGetTermsOfService()
 		}
@@ -327,6 +351,10 @@ extension Storefront {
 				case "refundPolicy":
 
 				return .Object
+
+				case "shopifyPaymentsAccountId":
+
+				return .Scalar
 
 				case "termsOfService":
 

@@ -2,7 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class MutationQuery: GraphQL.AbstractQuery {
+	open class MutationQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = Mutation
+
 		open override var description: String {
 			return "mutation" + super.description
 		}
@@ -438,8 +440,9 @@ extension Storefront {
 		}
 	}
 
-	open class Mutation: GraphQL.AbstractResponse
-	{
+	open class Mutation: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = MutationQuery
+
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {

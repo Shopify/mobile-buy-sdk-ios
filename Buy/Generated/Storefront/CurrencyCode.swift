@@ -215,6 +215,8 @@ extension Storefront {
 
 		case scr = "SCR"
 
+		case sdg = "SDG"
+
 		case sek = "SEK"
 
 		case sgd = "SGD"

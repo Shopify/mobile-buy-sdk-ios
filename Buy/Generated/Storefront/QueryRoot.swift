@@ -2,7 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class QueryRootQuery: GraphQL.AbstractQuery {
+	open class QueryRootQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = QueryRoot
+
 		@discardableResult
 		open func customer(aliasSuffix: String? = nil, customerAccessToken: String, _ subfields: (CustomerQuery) -> Void) -> QueryRootQuery {
 			var args: [String] = []
@@ -43,8 +45,9 @@ extension Storefront {
 		}
 	}
 
-	open class QueryRoot: GraphQL.AbstractResponse
-	{
+	open class QueryRoot: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = QueryRootQuery
+
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {

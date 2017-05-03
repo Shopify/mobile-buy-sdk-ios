@@ -2,7 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class CheckoutQuery: GraphQL.AbstractQuery {
+	open class CheckoutQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = Checkout
+
 		@discardableResult
 		open func appliedGiftCards(aliasSuffix: String? = nil, _ subfields: (AppliedGiftCardQuery) -> Void) -> CheckoutQuery {
 			let subquery = AppliedGiftCardQuery()
@@ -198,8 +200,9 @@ extension Storefront {
 		}
 	}
 
-	open class Checkout: GraphQL.AbstractResponse, Node
-	{
+	open class Checkout: GraphQL.AbstractResponse, GraphQLObject, Node {
+		public typealias Query = CheckoutQuery
+
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {

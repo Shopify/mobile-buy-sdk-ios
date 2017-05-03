@@ -2,7 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class PageInfoQuery: GraphQL.AbstractQuery {
+	open class PageInfoQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = PageInfo
+
 		@discardableResult
 		open func hasNextPage(aliasSuffix: String? = nil) -> PageInfoQuery {
 			addField(field: "hasNextPage", aliasSuffix: aliasSuffix)
@@ -16,8 +18,9 @@ extension Storefront {
 		}
 	}
 
-	open class PageInfo: GraphQL.AbstractResponse
-	{
+	open class PageInfo: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = PageInfoQuery
+
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {

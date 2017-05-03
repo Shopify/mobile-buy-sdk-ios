@@ -2,7 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class DomainQuery: GraphQL.AbstractQuery {
+	open class DomainQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = Domain
+
 		@discardableResult
 		open func host(aliasSuffix: String? = nil) -> DomainQuery {
 			addField(field: "host", aliasSuffix: aliasSuffix)
@@ -22,8 +24,9 @@ extension Storefront {
 		}
 	}
 
-	open class Domain: GraphQL.AbstractResponse
-	{
+	open class Domain: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = DomainQuery
+
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {

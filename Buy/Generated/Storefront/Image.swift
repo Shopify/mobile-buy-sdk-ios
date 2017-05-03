@@ -2,7 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class ImageQuery: GraphQL.AbstractQuery {
+	open class ImageQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = Image
+
 		@discardableResult
 		open func altText(aliasSuffix: String? = nil) -> ImageQuery {
 			addField(field: "altText", aliasSuffix: aliasSuffix)
@@ -22,8 +24,9 @@ extension Storefront {
 		}
 	}
 
-	open class Image: GraphQL.AbstractResponse
-	{
+	open class Image: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = ImageQuery
+
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
