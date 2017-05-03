@@ -53,10 +53,10 @@ Shopify’s Mobile Buy SDK makes it simple to create custom storefronts in your 
       - [Updating a checkout](#updating-a-checkout-)
       - [Polling for shipping rates](#polling-for-shipping-rates-)
       - [Completing a checkout](#completing-a-checkout-)
-          - [Web](#web-)
-          - [Credit card](#credit-card-)
-          - [ Pay](#apple-pay-)
-      - [Polling checkout completion](#polling-checkout-completion-)
+          - [Web](#web-checkout-)
+          - [Credit card](#credit-card-checkout-)
+          - [ Pay](#apple-pay-checkout-)
+      - [Polling for checkout completion](#polling-for-checkout-completion-)
   - [Handling Errors](#handling-errors-)
 
 - [Sample Application](#sample-application-)
@@ -927,13 +927,13 @@ The completion will be called only if `availableShippingRates.ready == true` or 
 
 After all required fields have been filled and the customer is ready to pay, you have 3 ways to complete the checkout and process the payment.
 
-###### Web [⤴](#table-of-contents)
+###### Web Checkout [⤴](#table-of-contents)
 
 The simplest way to complete a checkout is by redirecting the customer to a web view where they will be presented with the same flow that they're familiar with on the web. The `Storefront.Checkout` resource provides a `webUrl` that you can use to present a web view. We highly recommend using `SFSafariViewController` instead of `WKWebView` or other alternatives.
 
 **NOTE**: While using web checkout is the simplest out of the 3 approaches, it presents some difficulty when it comes to observing the checkout state. Since the web view doesn't provide any callbacks for various checkout states, you'll still have to [poll for checkout completion](#poll-for-checkout-completion-).
 
-###### Credit Card [⤴](#table-of-contents)
+###### Credit Card Checkout [⤴](#table-of-contents)
 
 The native credit card checkout offers the most conventional UX out of the 3 alternatives but is also requires the most effort to implement. You'll be required to implement UI for gathering your customers' name, email, address, payment information and other fields required to complete checkout.
 
@@ -988,7 +988,7 @@ client.mutateGraphWith(mutation) { result, error in
 }
 ```
 
-###### Apple Pay [⤴](#table-of-contents)
+###### Apple Pay Checkout [⤴](#table-of-contents)
 
 The Buy SDK makes  Pay integration easy with the provided `Pay.framework`. Please refer to the [ Pay](#apple-pay-) section on how to setup and use `PaySession` to obtain a payment token. With token in-hand, we can complete the checkout:
 
