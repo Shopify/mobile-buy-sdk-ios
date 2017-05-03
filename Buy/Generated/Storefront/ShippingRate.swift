@@ -2,7 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class ShippingRateQuery: GraphQL.AbstractQuery {
+	open class ShippingRateQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = ShippingRate
+
 		@discardableResult
 		open func handle(aliasSuffix: String? = nil) -> ShippingRateQuery {
 			addField(field: "handle", aliasSuffix: aliasSuffix)
@@ -22,8 +24,9 @@ extension Storefront {
 		}
 	}
 
-	open class ShippingRate: GraphQL.AbstractResponse
-	{
+	open class ShippingRate: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = ShippingRateQuery
+
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {

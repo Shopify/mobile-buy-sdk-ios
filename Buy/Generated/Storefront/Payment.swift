@@ -2,7 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class PaymentQuery: GraphQL.AbstractQuery {
+	open class PaymentQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = Payment
+
 		@discardableResult
 		open func amount(aliasSuffix: String? = nil) -> PaymentQuery {
 			addField(field: "amount", aliasSuffix: aliasSuffix)
@@ -76,8 +78,9 @@ extension Storefront {
 		}
 	}
 
-	open class Payment: GraphQL.AbstractResponse, Node
-	{
+	open class Payment: GraphQL.AbstractResponse, GraphQLObject, Node {
+		public typealias Query = PaymentQuery
+
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {

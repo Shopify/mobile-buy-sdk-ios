@@ -2,7 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class CollectionQuery: GraphQL.AbstractQuery {
+	open class CollectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = Collection
+
 		@discardableResult
 		open func description(aliasSuffix: String? = nil, truncateAt: Int32? = nil) -> CollectionQuery {
 			var args: [String] = []
@@ -100,8 +102,9 @@ extension Storefront {
 		}
 	}
 
-	open class Collection: GraphQL.AbstractResponse, Node
-	{
+	open class Collection: GraphQL.AbstractResponse, GraphQLObject, Node {
+		public typealias Query = CollectionQuery
+
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {

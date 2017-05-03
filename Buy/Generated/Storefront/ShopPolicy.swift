@@ -2,7 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class ShopPolicyQuery: GraphQL.AbstractQuery {
+	open class ShopPolicyQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = ShopPolicy
+
 		@discardableResult
 		open func body(aliasSuffix: String? = nil) -> ShopPolicyQuery {
 			addField(field: "body", aliasSuffix: aliasSuffix)
@@ -28,8 +30,9 @@ extension Storefront {
 		}
 	}
 
-	open class ShopPolicy: GraphQL.AbstractResponse, Node
-	{
+	open class ShopPolicy: GraphQL.AbstractResponse, GraphQLObject, Node {
+		public typealias Query = ShopPolicyQuery
+
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {

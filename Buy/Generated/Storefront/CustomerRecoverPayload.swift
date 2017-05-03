@@ -2,7 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class CustomerRecoverPayloadQuery: GraphQL.AbstractQuery {
+	open class CustomerRecoverPayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = CustomerRecoverPayload
+
 		@discardableResult
 		open func userErrors(aliasSuffix: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerRecoverPayloadQuery {
 			let subquery = UserErrorQuery()
@@ -13,8 +15,9 @@ extension Storefront {
 		}
 	}
 
-	open class CustomerRecoverPayload: GraphQL.AbstractResponse
-	{
+	open class CustomerRecoverPayload: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = CustomerRecoverPayloadQuery
+
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {

@@ -12,7 +12,9 @@ public protocol Node {
 }
 
 extension Storefront {
-	open class NodeQuery: GraphQL.AbstractQuery {
+	open class NodeQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = Node
+
 		@discardableResult
 		open func id(aliasSuffix: String? = nil) -> NodeQuery {
 			addField(field: "id", aliasSuffix: aliasSuffix)
@@ -113,8 +115,9 @@ extension Storefront {
 		}
 	}
 
-	open class UnknownNode: GraphQL.AbstractResponse, Node
-	{
+	open class UnknownNode: GraphQL.AbstractResponse, GraphQLObject, Node {
+		public typealias Query = NodeQuery
+
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {

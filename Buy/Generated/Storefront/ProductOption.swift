@@ -2,7 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class ProductOptionQuery: GraphQL.AbstractQuery {
+	open class ProductOptionQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = ProductOption
+
 		@discardableResult
 		open func id(aliasSuffix: String? = nil) -> ProductOptionQuery {
 			addField(field: "id", aliasSuffix: aliasSuffix)
@@ -22,8 +24,9 @@ extension Storefront {
 		}
 	}
 
-	open class ProductOption: GraphQL.AbstractResponse, Node
-	{
+	open class ProductOption: GraphQL.AbstractResponse, GraphQLObject, Node {
+		public typealias Query = ProductOptionQuery
+
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
