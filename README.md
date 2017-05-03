@@ -14,8 +14,8 @@ Shopify’s Mobile Buy SDK makes it simple to create custom storefronts in your 
 
 - [Installation](#installation-)
   - [Dynamic Framework Installation](#dynamic-framework-installation-)
-  - [CocoaPods](#cocoapods-)
   - [Carthage](#carthage-)
+  - [CocoaPods](#cocoapods-)
 
 - [Getting Started](#getting-started-)
 - [Code Generation](#code-generation-)
@@ -93,22 +93,6 @@ The SDK includes a pre-compiled [.docset](https://github.com/Shopify/mobile-buy-
  
 See the `Storefront` sample app for an example of how to add the `Buy` target a dependency.
 
-### CocoaPods [⤴](#table-of-contents)
-
-Add the following line to your podfile:
-
-```ruby
-pod "Mobile-Buy-SDK"
-```
-
-Then run `pod install`.
-
-Import the SDK module:
-
-```swift
-import Buy
-```
-
 ### Carthage [⤴](#table-of-contents)
 
 Add the following line to your Cartfile
@@ -118,6 +102,24 @@ github "Shopify/mobile-buy-sdk-ios"
 ```
 
 Then run `carthage update`
+
+Follow the [steps to link the dynamic framework](#dynamic-framework-installation-) that Carthage produced.
+
+Import the SDK module:
+
+```swift
+import Buy
+```
+
+### CocoaPods [⤴](#table-of-contents)
+
+Add the following line to your podfile:
+
+```ruby
+pod "Mobile-Buy-SDK"
+```
+
+Then run `pod install`.
 
 Import the SDK module:
 
