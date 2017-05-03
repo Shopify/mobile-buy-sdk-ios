@@ -107,9 +107,10 @@ Add the following line to your podfile:
 pod "Mobile-Buy-SDK"
 ```
 
-Then run `pod install`
+Then run `pod install`.
 
 Import the SDK module:
+
 ```swift
 import Buy
 ```
@@ -125,25 +126,36 @@ github "Shopify/mobile-buy-sdk-ios"
 Then run `carthage update`
 
 Import the SDK module:
+
 ```swift
 import Buy
 ```
 
 ## Getting started [⤴](#table-of-contents)
 
-The Buy SDK version 3.0 is levereging [GraphQL](http://graphql.org/). While some knowledge of GraphQL is good to have, you don't have to be an expert to start using it with the Buy SDK. Instead of writing stringed queries and parsing JSON responses, the SDK handles all the query generation and response parsing, exposing only typed models and compile-time checked query structures. The section below will give a brief introduction to this system and provide some examples of how it makes building custom storefronts safe and easy.
+The Buy SDK is built entirely on [GraphQL](http://graphql.org/). While some knowledge of GraphQL is good to have, you don't have to be an expert to start using it with the Buy SDK. Instead of writing stringed queries and parsing JSON responses, the SDK handles all the query generation and response parsing, exposing only typed models and compile-time checked query structures. The section below will give a brief introduction to this system and provide some examples of how it makes building custom storefronts safe and easy.
 
 ## Migration from SDK v2.0 [⤴](#table-of-contents)
 Previous version of Mobile SDK v2.0 is based on REST API. With newer version 3.0 Shopify is migrating from REST to GraphQL. Unfortenetly specifics of generation GraphQL models makes almost impossible to create the migration path from v2.0 to v3.0, as domains models are not backward compatible. The concepts thougth remains the same like collections, products, checkouts, orders etc.
 
 ## Code Generation [⤴](#table-of-contents)
 
-The Buy SDK is built on a hierarchy of generated classes that construct and parse GraphQL queries and response. These classes are generated manually by running a custom Ruby script that relies on the [GraphQL Swift Generation](https://github.com/Shopify/graphql_swift_gen) library. Majority of the generation functionality lives inside the library. Ruby script is responsible for downloading StoreFront GraphQL schema, triggering Ruby gem for code generation, saving generated classes to the specified folder path and providing overrides for custom GraphQL scalar types. The library also includes supporting classes that are required by generated query and response models.
+The Buy SDK is built on a hierarchy of generated classes that construct and parse GraphQL queries and response. These classes are generated manually by running a custom Ruby script that relies on the [GraphQL Swift Generation](https://github.com/Shopify/graphql_swift_gen) library. Majority of the generation functionality and supporting classes live inside the library. It works by downloading the GraphQL schema, generating Swift class heirarchy and saving the generated files to the specified folder path. In addition, it provides overrides for custom GraphQL scalar types like `DateTime`.
 
 
 ### Request Models [⤴](#table-of-contents)
 
-All generated request models are derived from the `GraphQL.AbstractQuery` type. While this abstract type does contain enough functionality to build a query, you should never use it directly. Let's take a look at an example query for a shop's name:
+All generated request models are derived from the `GraphQL.AbstractQuery` type. While this abstract type does contain enough functionality to build a query, you should never use it directly. Instead, rely on the typed methods provided in the generated subclasses. Let's take a look at an example query for a shop's name:
+
+```swift
+let query = Storefront.buildQuery { $0
+    .shop { $0
+        .name()
+    }
+}
+```
+
+Never use the abstract class directly:
 
 ```swift
 // Never do this
@@ -155,20 +167,11 @@ let query = GraphQL.AbstractQuery()
 query.addField(field: "shop", subfields: shopQuery)
 
 ```
-Instead, rely on the typed methods provided in the generated subclasses:
 
-```swift
-let query = Storefront.buildQuery { $0
-    .shop { $0
-        .name()
-    }
-}
-```
-
-Both of the above queries will produce identical GraphQL queries (below) but the latter apporach provides auto-completion and compile-time validation against the GraphQL schema. It will surface an error if requested fields don't exists, aren't the correct type or are deprecated. You also may have noticed that the latter approach resembles the GraphQL query language structure, and this is intentional. The query is both much more legible and easier to write.
+Both of the above queries will produce identical GraphQL queries (below) but the former apporach provides auto-completion and compile-time validation against the GraphQL schema. It will surface an error if requested fields don't exists, aren't the correct type or are deprecated. You also may have noticed that the former approach resembles the GraphQL query language structure, and this is intentional. The query is both easier to write and much more legible.
 
 ```graphql
-{ 
+query { 
   shop { 
     name 
   } 
@@ -177,7 +180,14 @@ Both of the above queries will produce identical GraphQL queries (below) but the
 
 ### Response Models [⤴](#table-of-contents)
 
-All generated response models are derived from the `GraphQL.AbstractResponse` type. This abstract type provides a similar key-value type interface to a `Dictionary` for accessing field values in GraphQL responses. Just like `GraphQL.AbstractQuery`, you should never use these accessors directly, and instead opt for typed, derived properties in generated subclasses in stead. Let's continue the example of accessing the result of a shop name query:
+All generated response models are derived from the `GraphQL.AbstractResponse` type. This abstract type provides a similar key-value type interface to a `Dictionary` for accessing field values in GraphQL responses. Just like `GraphQL.AbstractQuery`, you should never use these accessors directly, and instead rely on typed, derived properties in generated subclasses. Let's continue the example of accessing the result of a shop name query:
+
+```swift
+// response: Storefront.QueryRoot
+
+let name: String = response.shop.name
+```
+Never use the abstract class directly:
 
 ```swift
 // Never do this
@@ -187,19 +197,12 @@ let response: GraphQL.AbstractResponse
 let shop = response.field("shop") as! GraphQL.AbstractResponse
 let name = shop.field("name") as! String
 ```
-Instead, use the typed accessors in generated subclasses:
 
-```swift
-// response: Storefront.QueryRoot
-
-let name: String = response.shop.name
-```
-
-Again, both of the approach produce the same result but the latter case is safe and requires no casting as it already knows about the expect type.
+Again, both of the approaches produce the same result but the former case is safe and requires no casting as it already knows about the expect type.
 
 ### The `Node` protocol [⤴](#table-of-contents)
 
-GraphQL shema defines a `Node` interface that declares an `id` field on any conforming type. This makes it convenient to query for any object in the schema given only it's `id`. The concept is carried across to Buy SDK as well but requeries a cast to the correct type. Make sure that requested `Node` by query `id` argument value corresonds to the casted type otherwise it will crash the application. Given this query:
+GraphQL shema defines a `Node` interface that declares an `id` field on any conforming type. This makes it convenient to query for any object in the schema given only it's `id`. The concept is carried across to the Buy SDK as well but requeries a cast to the correct type. It is your responsibility to ensure that the `Node` type is of the correct type, otherwise casting to an incorrect time will result in a runtime exception. Given this query:
 
 ```swift
 let id    = GraphQL.ID(rawValue: "NkZmFzZGZhc")
@@ -212,7 +215,7 @@ let query = Storefront.buildQuery { $0
     }
 }
 ```
-accessing the order requires a cast:
+accessing the `Storefront.Order` requires a cast:
 
 ```swift
 // response: Storefront.QueryRoot
@@ -222,7 +225,7 @@ let order = response.node as! Storefront.Order
 
 #### Aliases [⤴](#table-of-contents)
 
-Aliases are useful when a single query requests multiple fields with the same names at the same nesting level. GraphQL allows only unique field names otherwise multiple fields with the same names would produce a collision. This is where aliases come in. Multiple nodes can be queried by using a unique alias for each one:
+Aliases are useful when a single query requests multiple fields with the same names at the same nesting level as GraphQL allows only unique field names. Multiple nodes can be queried by using a unique alias for each one:
 
 ```swift
 let query = Storefront.buildQuery { $0
@@ -249,11 +252,11 @@ let product    = response.aliasedNode(aliasSuffix: "product")    as! Storefront.
 Learn more about [GraphQL aliases](http://graphql.org/learn/queries/#aliases).
 
 ## Graph Client [⤴](#table-of-contents)
-The `Graph.Client` is the factory for `???GraphCall???` that can be used to send GraphQL queries over network layer and read their responses. It requires the following to get started:
+The `Graph.Client` is a network layer built on top of `URLSession` that executes `query` and `mutation` requests. It also provides conveniences for polling and retrying requests. To get started with `Graph.Client` you'll need the following:
 
 - your shop domain, the `.myshopify.com` is required
 - api key, can be obtained in your shop's admin page
-- a `URLSession` (optional), if you want to customize the configuration used for network requests
+- a `URLSession` (optional), if you want to customize the configuration used for network requests or share your existing `URLSession` with the `Graph.Client`
  
 ```swift
 let client = Graph.Client(
@@ -289,7 +292,7 @@ client.queryGraphWith(query) { response, error in
 Learn more about [GraphQL queries](http://graphql.org/learn/queries/).
 
 ### Mutations [⤴](#table-of-contents)
-Semantically a GraphQL `mutation` operation is equivalent to a `PUT`, `POST` or `DELETE` RESTful call. A mutation almost always is accompanied a by an input that represents values that will be updated and a query that can be useful for fetching the new state of an object after an update, it is similar to a `query` operation that will contain fields of the modified resource. With `Graph.Client` you can perform a mutation operation using:
+Semantically a GraphQL `mutation` operation is equivalent to a `PUT`, `POST` or `DELETE` RESTful call. A mutation is almost always accompanied by an input that represents values to be updated and a query to fetch fields of the updated resource. You can think of a `mutation` as a two-step operation where the resource is first modified, and then queried using the provided `query` The second half of the operation is identical to a regular `query` request. With `Graph.Client` you can perform a mutation operation using:
 
 ```swift
 public func mutateGraphWith(_ mutation: Storefront.MutationQuery, retryHandler: RetryHandler<Storefront.Mutation>? = default, completionHandler: MutationCompletion) -> Task
@@ -346,7 +349,7 @@ let handler = Graph.RetryHandler<Storefront.QueryRoot>() { (query, error) -> Boo
     if myCondition {
         return true // will retry
     }
-    return false // will either succeed or fail
+    return false // will complete the request, either succeed or fail
 }
 ```
 The retry handler is generic and can handle both `query` and `mutation` requests equally well.
@@ -398,7 +401,7 @@ The Buy SDK offers support for native checkout via GraphQL, which let's you comp
 
 ### Card Client [⤴](#table-of-contents)
 
-Like `Graph.Client`, the `Card.Client` manages your interactions with the card server that is responsible for providing opaque credit card tokens that are used to complete checkouts. After collection the user's credit card information in a secure maner, create a credit card representation and submit a vault request:
+Like `Graph.Client`, the `Card.Client` manages your interactions with the card server that provides opaque credit card tokens. The tokens are used to complete checkouts. After collectng the user's credit card information in a secure maner, create a credit card representation and submit a vault request:
 
 ```swift
 // let checkout: Storefront.Checkout
@@ -496,7 +499,7 @@ func paySession(_ paySession: PaySession, didRequestShippingRatesFor address: Pa
     }
 }
 ```
-Invoked when the customer has selected a shipping contact in the  Pay modal. The provided `PayPostalAddress` is a partial address the excludes the street address for added security. This is actually enforced by `PassKit` and not the `Pay` framework. Nevertheless, information contained in `PayPostalAddress` is sufficient to obtain an array of available shipping rates from `Storefront.Checkout`. 
+Invoked when the customer has selected a shipping contact in the  Pay modal. The provided `PayPostalAddress` is a partial address that excludes the street address for added security. This is actually enforced by `PassKit` and not the `Pay` framework. Nevertheless, information contained in `PayPostalAddress` is sufficient to obtain an array of available shipping rates from `Storefront.Checkout`. 
 
 #### Did select shipping rate [⤴](#table-of-contents)
 ```swift
@@ -553,9 +556,9 @@ Invoked when the  Pay modal is dismissed, regardless of whether the payment a
 
 ## Case study [⤴](#table-of-contents)
 
-Getting started with any SDK can be daunting. The purpose of this section is to explore all areas of the Buy SDK that may be necessary to build a custom storefront on iOS. Let's dive right in.
+Getting started with any SDK can be confusing. The purpose of this section is to explore all areas of the Buy SDK that may be necessary to build a custom storefront on iOS and provide a solid starting point. Let's dive right in.
 
-In this section we're going to assume that you've [setup a client](#graph-client-) somewhere in your source code:
+In this section we're going to assume that you've [setup a client](#graph-client-) somewhere in your source code. While it's possible to have multiple instance of `Graph.Client`, reusing a single instance offers many behind-the-scenes performance improvements:
 
 ```swift
 let client: Graph.Client
@@ -583,13 +586,13 @@ client.queryGraphWith(query) { response, error in
     let moneyFormat  = response?.shop.moneyFormat
 }
 ```
-GraphQL query sent to the server:
+The corresponding GraphQL query would look like this:
 
 ```graphql
-{
+query {
   shop {
-    name,
-    currencyCode,
+    name
+    currencyCode
     refundPolicy {
       title
       url
@@ -636,7 +639,7 @@ client.queryGraphWith(query) { response, error in
     }
 }
 ```
-GraphQL query sent to the server:
+The corresponding GraphQL query would look like this:
 
 ```swift
 {
@@ -663,13 +666,13 @@ GraphQL query sent to the server:
 }
 ```
 
-This single query will retrieve 10 collection and 10 products for each collection with just one network request. Since it only retries a small subset of properties for each resource it's also **much** more bandwidth-efficient than fetching 100 complete resources via conventional REST.
+This single query will retrieve 10 collection and 10 products for each collection with just one network request. Since it only retrieves a small subset of properties for each resource it's also **much** more bandwidth-efficient than fetching 100 complete resources via conventional REST.
 
 But what if you need to get more than 10 products in each collection?
 
 ### Pagination [⤴](#table-of-contents)
 
-While it may convenient to assume that a single network request will suffice for loading all collections and products, that may be somewhat naive. The best practice is to paginate results. Since the Buy SDK is built on top of GraphQL, it inherits the concept of `edges` and `nodes`.
+While it may be convenient to assume that a single network request will suffice for loading all collections and products, but that may be naive. The best practice is to paginate results. Since the Buy SDK is built on top of GraphQL, it inherits the concept of `edges` and `nodes`.
 
 Learn more about [pagination in GraphQL](http://graphql.org/learn/pagination/).
 
@@ -702,10 +705,10 @@ client.queryGraphWith(query) { response, error in
     let productCursor = collection?.products.edges.last?.cursor
 }
 ```
-GraphQL query sent to the server:
+The corresponding GraphQL query would look like this:
 
 ```graphql
-{
+query {
   node(id: "IjoxNDg4MTc3MzEsImxhc3R") {
     ... on Collection {
       products(first: 10, after: "sdWUiOiIxNDg4MTc3M") {
@@ -727,7 +730,7 @@ GraphQL query sent to the server:
 }
 ```
 
-Since we know exactly what collection we want to fetch products for, we'll use the [`node` interface](#the-node-protocol) to query the collection by `id`. You might have also noticed that we're fetching a few additional field and objects: `pageInfo` and `cursor`. We can then use a `cursor` of any product edge to fetch more products `before` it or `after` it. Likewise, the `pageInfo` object provides additional metadata about whether the next page (and potentially previous page) is available or not.
+Since we know exactly what collection we want to fetch products for, we'll use the [`node` interface](#the-node-protocol) to query the collection by `id`. You may have also noticed that we're fetching a couple of additional fields and objects: `pageInfo` and `cursor`. We can then use a `cursor` of any product edge to fetch more products `before` it or `after` it. Likewise, the `pageInfo` object provides additional metadata about whether the next page (and potentially previous page) is available or not.
 
 ### Fetch product details [⤴](#table-of-contents)
 
@@ -768,7 +771,7 @@ client.queryGraphWith(query) { response, error in
     let variants = product?.variants.edges.map { $0.node }
 }
 ```
-GraphQL query sent to the server:
+The corresponding GraphQL query would look like this:
 
 ```graphql
 {
@@ -848,7 +851,7 @@ Since we'll need to update the checkout with additional information later, all w
 
 #### Updating a checkout [⤴](#table-of-contents)
 
-A customer's information may not all be available when a checkout is created. The Buy SDK provides mutations for updating specific checkout fields that are required for completion. Name the `email` and `shippingAddress` fields:
+A customer's information may not be available when a checkout is created. The Buy SDK provides mutations for updating specific checkout fields that are required for completion. Namely the `email` and `shippingAddress` fields:
 
 ###### Updating email [⤴](#table-of-contents)
 
@@ -911,9 +914,8 @@ The query above will kick off an asynchoronous task on the server to fetch shipp
 let retry = Graph.RetryHandler<Storefront.QueryRoot>(endurance: .finite(10)) { (response, error) -> Bool in
     return (response?.node as? Storefront.Checkout)?.availableShippingRates?.ready ?? false == false
 }
-    
-let query = ClientQuery.queryShippingRatesForCheckout(id)
-let task  = self.client.queryGraphWith(query, retryHandler: retry) { response, error in
+
+let task = self.client.queryGraphWith(query, retryHandler: retry) { response, error in
     let checkout      = (response?.node as? Storefront.Checkout)
     let shippingRates = checkout.availableShippingRates?.shippingRates
 }
@@ -922,17 +924,17 @@ The completion will be called only if `availableShippingRates.ready == true` or 
 
 #### Completing a checkout [⤴](#table-of-contents)
 
-After all required fields have been filled and the customer is ready to pay, you have 3 ways to complete checkout and process the payment.
+After all required fields have been filled and the customer is ready to pay, you have 3 ways to complete the checkout and process the payment.
 
 ###### Web [⤴](#table-of-contents)
 
-The simplest way to complete a checkout is by redirecting the customer to a web view where they will be presented with the same flow that they're familiar with on the web. The `Storefront.Checkout` resource provides a `webUrl` that you can use present a web view. We highly recommend using `SFSafariViewController` instead of `WKWebView` or other alternatives.
+The simplest way to complete a checkout is by redirecting the customer to a web view where they will be presented with the same flow that they're familiar with on the web. The `Storefront.Checkout` resource provides a `webUrl` that you can use to present a web view. We highly recommend using `SFSafariViewController` instead of `WKWebView` or other alternatives.
 
-**NOTE**: While using web checkout is the simplest out of the 3 approaches, it doesn't offer a native checkout experience and it presents some difficulty when it comes to observing the checkout state. Since the web view doesn't provide any callbacks for various checkout states, you'll still have to [poll for checkout completion](#poll-for-checkout-completion-).
+**NOTE**: While using web checkout is the simplest out of the 3 approaches, it presents some difficulty when it comes to observing the checkout state. Since the web view doesn't provide any callbacks for various checkout states, you'll still have to [poll for checkout completion](#poll-for-checkout-completion-).
 
 ###### Credit Card [⤴](#table-of-contents)
 
-The native credit card checkout offers the most conventional UX out of the 3 alternatives but is also requires the most effort to implement. You'll be required to implement UI for gather your customers' name, email, address, payment information and other fields required to complete checkout.
+The native credit card checkout offers the most conventional UX out of the 3 alternatives but is also requires the most effort to implement. You'll be required to implement UI for gathering your customers' name, email, address, payment information and other fields required to complete checkout.
 
 Assuming your custom storefront has all the infomation it needs, the first step to completing a credit card checkout is to vault the provided credit card and exchange it for a payment token that will be used to complete the payment. Please reference the instructions for [vaulting a credit card](#card-vaulting-).
 
@@ -1039,10 +1041,57 @@ client.mutateGraphWith(mutation) { result, error in
 
 #### Polling for checkout completion [⤴](#table-of-contents)
 
+After a successful `checkoutCompleteWith...` mutation, the checkout process has started. This process is usually short but not immediate so polling is required to obtain an updated checkout in a `ready` state - with a `Storefront.Order`.
+
+```swift
+let retry = Graph.RetryHandler<Storefront.QueryRoot>(endurance: .finite(30)) { (response, error) -> Bool in
+    return (response?.node as? Storefront.Checkout)?.order == nil
+}
+
+let query = Storefront.buildQuery { $0
+    .node(id: checkoutID) { $0
+        .onCheckout { $0
+            .order { $0
+                .id()
+                .createdAt()
+                .orderNumber()
+                .totalPrice()
+            }
+        }
+    }
+}
+    
+let task  = self.client.queryGraphWith(query, retryHandler: retry) { response, error in
+    let checkout = (response?.node as? Storefront.Checkout)
+    let orderID  = checkout?.order?.id
+}
+```
+Again, just like when [polling for available shipping rates](#polling-for-shipping-rates-), we have to create a `RetryHandler` to provide a condition upon which to retry the request. In this case, we're asserting that the `Storefront.Order` is `nil` an continue retrying the request if it is.
+
 #### Handling Errors [⤴](#table-of-contents)
 
+The `Graph.Client` can return a non-nil `Graph.QueryError`. **The error and the result are not mutually exclusive.** It is valid to have both an error and a result, however, the error `case`, in this instance, is **always** `.invalidQuery(let reasons)`. You should always evaluate the `error` and ensure that you don't have an invalid query, then evaluate the result:
+
+```swift
+let task = self.client.queryGraphWith(query) { result, error in
+    
+    if let error = error, case .invalidQuery(let reasons) = error {
+        reasons.forEach {
+            print("Error on \($0.line):\($0.column) - \($0.message)")
+        }
+    }
+    
+    if let result = result {
+        // Do something with the result
+    } else {
+        // Handle any other errors
+    }
+}
+```
+**IMPORTANT:** `Graph.QueryError` does not contain user-friendly information. Often, it's a technical reason for failure and should never be shown to the end-user. Handling errors is most useful for debugging and is considered best practice.
+
 ## Sample Application [⤴](#table-of-contents)
-We've provided a complete end-to-end sample application to help you get started. Check out the [Storefront readme](/Sample%20Apps/Storefront/) for details.
+The Buy SDK includes a comprehensive sample application that coverst the most common use cases of the SDK. It's built on best practices and our recommended `ViewModel` architecture. You can use it as a template, a starting point or just cherrypick components as needed. Check out the [Storefront readme](/Sample%20Apps/Storefront/) for more details.
 
 ## Contributions [⤴](#table-of-contents)
 
