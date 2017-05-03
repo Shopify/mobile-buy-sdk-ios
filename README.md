@@ -28,7 +28,7 @@ Shopify’s Mobile Buy SDK makes it simple to create custom storefronts in your 
   - [Aliases](#aliases)
 
 - [Graph Client](#graph-client-)
-  - [Queries](#querie-s)
+  - [Queries](#queries-)
   - [Mutations](#mutations-)
   - [Retry & polling](#retry-)
   - [Errors](#errors-)
