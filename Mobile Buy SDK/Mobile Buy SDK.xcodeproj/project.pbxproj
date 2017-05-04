@@ -243,7 +243,7 @@
 		9A47CF0F1CE4D7A800A6D5BA /* BUYApplePayTokenTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A47CF0E1CE4D7A800A6D5BA /* BUYApplePayTokenTests.m */; };
 		9A47CF201CE50EBB00A6D5BA /* BUYApplePayTestToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A47CF1F1CE50EBB00A6D5BA /* BUYApplePayTestToken.m */; };
 		9A47CF231CE5112A00A6D5BA /* BUYAssert.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A47CF211CE5112A00A6D5BA /* BUYAssert.h */; };
-		9A585C0B1CE6440B001F20F0 /* BUYOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A585C041CE6440B001F20F0 /* BUYOperation.h */; };
+		9A585C0B1CE6440B001F20F0 /* BUYOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A585C041CE6440B001F20F0 /* BUYOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A585C0D1CE6440B001F20F0 /* BUYOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A585C051CE6440B001F20F0 /* BUYOperation.m */; };
 		9A6B03791CDA5D4F0054C26E /* BUYAccountCredentialsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6B03781CDA5D4F0054C26E /* BUYAccountCredentialsTests.m */; };
 		9A6C1D411D07485F00BFF4F9 /* BUYStatusOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A6C1D3F1D07485F00BFF4F9 /* BUYStatusOperation.h */; };
@@ -1521,13 +1521,13 @@
 				84D915441CC0359700D334FB /* BUYObserver.h in Headers */,
 				84980F5F1CB7617E00CFAB58 /* BUYDateTransformer.h in Headers */,
 				84980F591CB7617500CFAB58 /* BUYURLTransformer.h in Headers */,
+				9A585C0B1CE6440B001F20F0 /* BUYOperation.h in Headers */,
 				84D915501CC03F1600D334FB /* BUYModelManager.h in Headers */,
 				9032F2DB1BE9457A00BB9EEF /* BUYCheckoutAttribute.h in Headers */,
 				9019315E1BC5B9BC00D1134E /* BUYError.h in Headers */,
 				84980F371CB75C2900CFAB58 /* NSPropertyDescription+BUYAdditions.h in Headers */,
 				9A0B0CA81CED0A860037D68F /* BUYCheckoutOperation.h in Headers */,
 				901931611BC5B9BC00D1134E /* BUYClient.h in Headers */,
-				9A585C0B1CE6440B001F20F0 /* BUYOperation.h in Headers */,
 				9A0B0C791CEB5BBD0037D68F /* BUYCustomerToken.h in Headers */,
 				849810971CB7E07900CFAB58 /* BUYFlatCollectionTransformer.h in Headers */,
 				9A6C1DC41D089E4700BFF4F9 /* BUYClientTypes.h in Headers */,

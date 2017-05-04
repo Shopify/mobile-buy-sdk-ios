@@ -42,6 +42,7 @@
 #import "BUYImageLink.h"
 #import "BUYLineItem.h"
 #import "BUYMaskedCreditCard.h"
+#import "BUYOperation.h"
 #import "BUYOption.h"
 #import "BUYOptionValue.h"
 #import "BUYOrder.h"
