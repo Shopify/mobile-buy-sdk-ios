@@ -90,13 +90,13 @@ class Graph_CacheItemTests: XCTestCase {
         let location = Graph.CacheItem.Location(inParent: self.testDirectory, hash: "test-item")
         
         XCTAssertFalse(self.fileManager.fileExists(atPath: location.dataURL.path))
-        XCTAssertFalse(self.fileManager.fileExists(atPath: location.dataURL.path))
+        XCTAssertFalse(self.fileManager.fileExists(atPath: location.metaURL.path))
         
         let success = item.write(to: location)
         
         XCTAssertTrue(success)
         XCTAssertTrue(self.fileManager.fileExists(atPath: location.dataURL.path))
-        XCTAssertTrue(self.fileManager.fileExists(atPath: location.dataURL.path))
+        XCTAssertTrue(self.fileManager.fileExists(atPath: location.metaURL.path))
     }
     
     func testWriteRestricted() {
