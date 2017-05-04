@@ -212,6 +212,17 @@ extension Graph {
 }
 
 // ----------------------------------
+//  MARK: - URLRequest Hash -
+//
+extension URLRequest {
+    
+    var hash: Graph.Hash {
+        precondition(self.httpBody != nil, "URLRequest requires a non-empty HTTP body to calculate cache key.")
+        return self.httpBody!.md5
+    }
+}
+
+// ----------------------------------
 //  MARK: - Graph Data Task -
 //
 private extension URLSession {

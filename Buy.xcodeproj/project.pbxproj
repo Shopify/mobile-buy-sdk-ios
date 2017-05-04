@@ -134,6 +134,8 @@
 		9A0C80B51EAA51C50020F187 /* WeightUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80561EAA51C50020F187 /* WeightUnit.swift */; };
 		9A0C80B61EAA51C50020F187 /* Storefront.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80571EAA51C50020F187 /* Storefront.swift */; };
 		9A0C80FC1EBA27970020F187 /* SelectedOptionInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80FB1EBA27970020F187 /* SelectedOptionInput.swift */; };
+		9A0C81051EBA66440020F187 /* Graph.Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C81041EBA66440020F187 /* Graph.Cache.swift */; };
+		9A0C81071EBA66800020F187 /* Graph.CachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C81061EBA66800020F187 /* Graph.CachePolicy.swift */; };
 		9A4068E51E8E7659000254CD /* Pay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A4068DC1E8E7658000254CD /* Pay.framework */; };
 		9A4068EA1E8E7659000254CD /* PaySessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4068E91E8E7659000254CD /* PaySessionTests.swift */; };
 		9A4068EC1E8E7659000254CD /* Pay.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A4068DE1E8E7659000254CD /* Pay.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -149,6 +151,9 @@
 		9A4069CF1E8ED98A000254CD /* Graph.Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4069CE1E8ED98A000254CD /* Graph.Task.swift */; };
 		9A6F3BA41EBB5BD700B149F4 /* DigestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F3BA31EBB5BD700B149F4 /* DigestTests.swift */; };
 		9A6F3BA61EBB5F2400B149F4 /* Digest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F3BA51EBB5F2400B149F4 /* Digest.swift */; };
+		9A6F3BA91EBB6A7500B149F4 /* Graph.CacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F3BA81EBB6A7500B149F4 /* Graph.CacheTests.swift */; };
+		9AA7AC761EBB77660014D95D /* Graph.CacheItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA7AC751EBB77660014D95D /* Graph.CacheItem.swift */; };
+		9AA7AC781EBB78160014D95D /* Graph.CacheItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA7AC771EBB78160014D95D /* Graph.CacheItemTests.swift */; };
 		9AADF1C71EA63ED000D22740 /* MockPaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AADF1C61EA63ED000D22740 /* MockPaymentMethod.swift */; };
 		9AADF1C91EA63FB900D22740 /* MockPaymentToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AADF1C81EA63FB900D22740 /* MockPaymentToken.swift */; };
 		9AADF1CB1EA640C000D22740 /* MockPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AADF1CA1EA640C000D22740 /* MockPayment.swift */; };
@@ -295,6 +300,8 @@
 		9A0C80561EAA51C50020F187 /* WeightUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightUnit.swift; sourceTree = "<group>"; };
 		9A0C80571EAA51C50020F187 /* Storefront.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storefront.swift; sourceTree = "<group>"; };
 		9A0C80FB1EBA27970020F187 /* SelectedOptionInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedOptionInput.swift; sourceTree = "<group>"; };
+		9A0C81041EBA66440020F187 /* Graph.Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.Cache.swift; sourceTree = "<group>"; };
+		9A0C81061EBA66800020F187 /* Graph.CachePolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.CachePolicy.swift; sourceTree = "<group>"; };
 		9A4068DC1E8E7658000254CD /* Pay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A4068DE1E8E7659000254CD /* Pay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pay.h; sourceTree = "<group>"; };
 		9A4068DF1E8E7659000254CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -315,7 +322,10 @@
 		9A6F3B9A1EBB49A000B149F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A6F3BA31EBB5BD700B149F4 /* DigestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DigestTests.swift; sourceTree = "<group>"; };
 		9A6F3BA51EBB5F2400B149F4 /* Digest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Digest.swift; sourceTree = "<group>"; };
+		9A6F3BA81EBB6A7500B149F4 /* Graph.CacheTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.CacheTests.swift; sourceTree = "<group>"; };
 		9AA6B6D61E9D563C00CE9F18 /* GraphQL+ScalarSupportTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GraphQL+ScalarSupportTests.swift"; sourceTree = "<group>"; };
+		9AA7AC751EBB77660014D95D /* Graph.CacheItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.CacheItem.swift; sourceTree = "<group>"; };
+		9AA7AC771EBB78160014D95D /* Graph.CacheItemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.CacheItemTests.swift; sourceTree = "<group>"; };
 		9AA89E851E9BD8930075AC74 /* Graph.TaskTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.TaskTests.swift; sourceTree = "<group>"; };
 		9AA89E871E9BDB7F0075AC74 /* Graph.ClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.ClientTests.swift; sourceTree = "<group>"; };
 		9AA89E8A1E9BDC590075AC74 /* MockSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSession.swift; sourceTree = "<group>"; };
@@ -557,6 +567,8 @@
 		9AA89E841E9BD8740075AC74 /* Client */ = {
 			isa = PBXGroup;
 			children = (
+				9A6F3BA81EBB6A7500B149F4 /* Graph.CacheTests.swift */,
+				9AA7AC771EBB78160014D95D /* Graph.CacheItemTests.swift */,
 				9AA89E851E9BD8930075AC74 /* Graph.TaskTests.swift */,
 				9AA89E871E9BDB7F0075AC74 /* Graph.ClientTests.swift */,
 				9AA89E951E9D29B40075AC74 /* Graph.QueryError.swift */,
@@ -587,6 +599,9 @@
 			isa = PBXGroup;
 			children = (
 				9A4069CB1E8EA710000254CD /* Graph.swift */,
+				9A0C81061EBA66800020F187 /* Graph.CachePolicy.swift */,
+				9A0C81041EBA66440020F187 /* Graph.Cache.swift */,
+				9AA7AC751EBB77660014D95D /* Graph.CacheItem.swift */,
 				9A4069CE1E8ED98A000254CD /* Graph.Task.swift */,
 				9AEF61B81E5F64230067FA90 /* Graph.Client.swift */,
 				9AAFAB761E6080A500864A17 /* Graph.QueryError.swift */,
@@ -1010,6 +1025,7 @@
 				9A0C808D1EAA51C50020F187 /* Domain.swift in Sources */,
 				9A0C80B11EAA51C50020F187 /* Transaction.swift in Sources */,
 				9A0C80631EAA51C50020F187 /* CheckoutCreatePayload.swift in Sources */,
+				9A0C81051EBA66440020F187 /* Graph.Cache.swift in Sources */,
 				9A0C80961EAA51C50020F187 /* Node.swift in Sources */,
 				9A0C80711EAA51C50020F187 /* CheckoutShippingAddressUpdatePayload.swift in Sources */,
 				9A0C809F1EAA51C50020F187 /* OrderLineItemEdge.swift in Sources */,
@@ -1036,6 +1052,7 @@
 				9A0C806F1EAA51C50020F187 /* CheckoutLineItemsUpdatePayload.swift in Sources */,
 				9AAFAB721E60766E00864A17 /* Global.swift in Sources */,
 				9A0C808F1EAA51C50020F187 /* ImageConnection.swift in Sources */,
+				9A0C81071EBA66800020F187 /* Graph.CachePolicy.swift in Sources */,
 				9A0C80A81EAA51C50020F187 /* ProductVariant.swift in Sources */,
 				9A0C80B31EAA51C50020F187 /* TransactionStatus.swift in Sources */,
 				9A0C80761EAA51C50020F187 /* CollectionSortKeys.swift in Sources */,
@@ -1043,6 +1060,7 @@
 				9A0C80911EAA51C50020F187 /* MailingAddress.swift in Sources */,
 				9A0C80791EAA51C50020F187 /* CropRegion.swift in Sources */,
 				9A0C806E1EAA51C50020F187 /* CheckoutLineItemsRemovePayload.swift in Sources */,
+				9AA7AC761EBB77660014D95D /* Graph.CacheItem.swift in Sources */,
 				9A0C805C1EAA51C50020F187 /* Checkout.swift in Sources */,
 				9A0C806A1EAA51C50020F187 /* CheckoutLineItemConnection.swift in Sources */,
 				9A0C80931EAA51C50020F187 /* MailingAddressEdge.swift in Sources */,
@@ -1092,12 +1110,14 @@
 			files = (
 				9A0C7FED1EAA3F7E0020F187 /* GraphQL+ScalarSupportTests.swift in Sources */,
 				9A0C7FF01EAA3F7E0020F187 /* Graph.QueryError.swift in Sources */,
+				9A6F3BA91EBB6A7500B149F4 /* Graph.CacheTests.swift in Sources */,
 				9A6F3BA41EBB5BD700B149F4 /* DigestTests.swift in Sources */,
 				9A0C7FEB1EAA3F7E0020F187 /* MockSession.swift in Sources */,
 				9A0C7FEF1EAA3F7E0020F187 /* Graph.ClientTests.swift in Sources */,
 				9A0C7FF21EAA3F7E0020F187 /* BuyTests.swift in Sources */,
 				9A0C7FF11EAA3F7E0020F187 /* Graph.RetryHandlerTests.swift in Sources */,
 				9A0C7FEE1EAA3F7E0020F187 /* Graph.TaskTests.swift in Sources */,
+				9AA7AC781EBB78160014D95D /* Graph.CacheItemTests.swift in Sources */,
 				9A0C7FEC1EAA3F7E0020F187 /* MockSessionDataTask.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1465,6 +1485,7 @@
 				9A6F3B9D1EBB49A000B149F4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9AEF60ED1E5F42D90067FA90 /* Build configuration list for PBXProject "Buy" */ = {
 			isa = XCConfigurationList;
