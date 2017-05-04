@@ -47,8 +47,14 @@ struct Digest {
 extension String {
     
     var md5: String {
-        let data = self.data(using: .utf8)!
-        return Digest.md5(data).hex
+        return self.data(using: .utf8)!.md5
+    }
+}
+
+extension Data {
+    
+    var md5: String {
+        return Digest.md5(self).hex
     }
 }
 

@@ -71,11 +71,20 @@ class DigestTests: XCTestCase {
     }
     
     // ----------------------------------
-    //  MARK: - Extensions -
+    //  MARK: - String -
     //
     func testStringExtensions() {
         let query = "query { shop { name } }"
         
         XCTAssertEqual(query.md5, "37d3868e50b398dc12ddd14ba1cec315")
+    }
+    
+    // ----------------------------------
+    //  MARK: - Data -
+    //
+    func testDataExtensions() {
+        let data = "query { shop { name } }".data(using: .utf8)!
+        
+        XCTAssertEqual(data.md5, "37d3868e50b398dc12ddd14ba1cec315")
     }
 }
