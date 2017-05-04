@@ -36,6 +36,8 @@ internal extension Graph {
         
         private static let fileManager = FileManager.default
         
+        private let memoryCache = NSCache<NSString, NSData>()
+        
         // ----------------------------------
         //  MARK: - Init -
         //
@@ -51,6 +53,8 @@ internal extension Graph {
         }
         
         func purge() {
+            self.memoryCache.removeAllObjects()
+            
             try? Cache.fileManager.removeItem(at: Cache.cacheDirectory())
             self.createCacheDirectoryIfNeeded()
         }
@@ -59,14 +63,24 @@ internal extension Graph {
         //  MARK: - Accessors -
         //
         func data(for hash: Hash) -> Data? {
-            let location = Graph.CacheItem.Location(inParent: Cache.cacheDirectory(), hash: hash)
-            if let item = CacheItem(at: location) {
-                return item.data
+            if let data = self.dataInMemory(for: hash) {
+                return data
+                
+            } else {
+                let location = Graph.CacheItem.Location(inParent: Cache.cacheDirectory(), hash: hash)
+                if let item = CacheItem(at: location) {
+                    
+                    self.setInMemory(item.data, for: hash)
+                    return item.data
+                }
+                
+                return nil
             }
-            return nil
         }
         
         func set(_ data: Data, for hash: Hash) {
+            self.setInMemory(data, for: hash)
+            
             let location  = Graph.CacheItem.Location(inParent: Cache.cacheDirectory(), hash: hash)
             let cacheItem = CacheItem(hash: hash, data: data)
                 
@@ -74,7 +88,18 @@ internal extension Graph {
         }
         
         // ----------------------------------
-        //  MARK: - File System -
+        //  MARK: - Memory Cache -
+        //
+        private func setInMemory(_ data: Data, for hash: Hash) {
+            self.memoryCache.setObject(data as NSData, forKey: hash as NSString)
+        }
+        
+        private func dataInMemory(for hash: Hash) -> Data? {
+            return self.memoryCache.object(forKey: hash as NSString) as Data?
+        }
+        
+        // ----------------------------------
+        //  MARK: - File System Cache -
         //
         static func cacheDirectory() -> URL {
             let tmp = URL(fileURLWithPath: NSTemporaryDirectory())

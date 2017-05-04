@@ -77,9 +77,9 @@ class Graph_CacheItemTests: XCTestCase {
         let retrievedItem = Graph.CacheItem(at: location)
         
         XCTAssertNotNil(retrievedItem)
-        XCTAssertEqual(item.data,      retrievedItem!.data)
-        XCTAssertEqual(item.hash,      retrievedItem!.hash)
-        XCTAssertEqual(item.timestamp, retrievedItem!.timestamp)
+        XCTAssertEqual(item.data, retrievedItem!.data)
+        XCTAssertEqual(item.hash, retrievedItem!.hash)
+        XCTAssertEqual(Int(item.timestamp * 100.0), Int(retrievedItem!.timestamp * 100.0))
     }
     
     // ----------------------------------
