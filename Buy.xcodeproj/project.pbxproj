@@ -147,6 +147,8 @@
 		9A4069CA1E8EA6DB000254CD /* Graph.RetryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4069C91E8EA6DB000254CD /* Graph.RetryHandler.swift */; };
 		9A4069CC1E8EA710000254CD /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4069CB1E8EA710000254CD /* Graph.swift */; };
 		9A4069CF1E8ED98A000254CD /* Graph.Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4069CE1E8ED98A000254CD /* Graph.Task.swift */; };
+		9A6F3BA41EBB5BD700B149F4 /* DigestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F3BA31EBB5BD700B149F4 /* DigestTests.swift */; };
+		9A6F3BA61EBB5F2400B149F4 /* Digest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F3BA51EBB5F2400B149F4 /* Digest.swift */; };
 		9AADF1C71EA63ED000D22740 /* MockPaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AADF1C61EA63ED000D22740 /* MockPaymentMethod.swift */; };
 		9AADF1C91EA63FB900D22740 /* MockPaymentToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AADF1C81EA63FB900D22740 /* MockPaymentToken.swift */; };
 		9AADF1CB1EA640C000D22740 /* MockPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AADF1CA1EA640C000D22740 /* MockPayment.swift */; };
@@ -311,6 +313,8 @@
 		9A4069CE1E8ED98A000254CD /* Graph.Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.Task.swift; sourceTree = "<group>"; };
 		9A6F3B971EBB49A000B149F4 /* Crypto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Crypto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A6F3B9A1EBB49A000B149F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9A6F3BA31EBB5BD700B149F4 /* DigestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DigestTests.swift; sourceTree = "<group>"; };
+		9A6F3BA51EBB5F2400B149F4 /* Digest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Digest.swift; sourceTree = "<group>"; };
 		9AA6B6D61E9D563C00CE9F18 /* GraphQL+ScalarSupportTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GraphQL+ScalarSupportTests.swift"; sourceTree = "<group>"; };
 		9AA89E851E9BD8930075AC74 /* Graph.TaskTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.TaskTests.swift; sourceTree = "<group>"; };
 		9AA89E871E9BDB7F0075AC74 /* Graph.ClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.ClientTests.swift; sourceTree = "<group>"; };
@@ -534,6 +538,14 @@
 			path = Crypto;
 			sourceTree = "<group>";
 		};
+		9A6F3BA71EBB5F4D00B149F4 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				9A6F3BA31EBB5BD700B149F4 /* DigestTests.swift */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
 		9AA6B6D51E9D562200CE9F18 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
@@ -562,12 +574,13 @@
 			name = Mocks;
 			sourceTree = "<group>";
 		};
-		9AAFAB701E60766300864A17 /* Global */ = {
+		9AAFAB701E60766300864A17 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				9AAFAB711E60766E00864A17 /* Global.swift */,
+				9A6F3BA51EBB5F2400B149F4 /* Digest.swift */,
 			);
-			name = Global;
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 		9AAFAB731E60804F00864A17 /* Client */ = {
@@ -622,7 +635,7 @@
 		9AEF60F51E5F42D90067FA90 /* Buy */ = {
 			isa = PBXGroup;
 			children = (
-				9AAFAB701E60766300864A17 /* Global */,
+				9AAFAB701E60766300864A17 /* Utilities */,
 				9AAFAB731E60804F00864A17 /* Client */,
 				9AEF619F1E5F5A050067FA90 /* Custom */,
 				9AEF60FE1E5F439D0067FA90 /* Generated */,
@@ -653,6 +666,7 @@
 			isa = PBXGroup;
 			children = (
 				9AA89E891E9BDC4A0075AC74 /* Mocks */,
+				9A6F3BA71EBB5F4D00B149F4 /* Utilities */,
 				9AA6B6D51E9D562200CE9F18 /* Custom */,
 				9AA89E841E9BD8740075AC74 /* Client */,
 				9AFA38EC1E64850A0056C5AA /* BuyTests.swift */,
@@ -983,6 +997,7 @@
 				9A0C807B1EAA51C50020F187 /* Customer.swift in Sources */,
 				9A0C807D1EAA51C50020F187 /* CustomerAccessTokenCreateInput.swift in Sources */,
 				9A0C808B1EAA51C50020F187 /* CustomerUpdateInput.swift in Sources */,
+				9A6F3BA61EBB5F2400B149F4 /* Digest.swift in Sources */,
 				9A0C80991EAA51C50020F187 /* OrderConnection.swift in Sources */,
 				9A4069CA1E8EA6DB000254CD /* Graph.RetryHandler.swift in Sources */,
 				9A0C807A1EAA51C50020F187 /* CurrencyCode.swift in Sources */,
@@ -1077,6 +1092,7 @@
 			files = (
 				9A0C7FED1EAA3F7E0020F187 /* GraphQL+ScalarSupportTests.swift in Sources */,
 				9A0C7FF01EAA3F7E0020F187 /* Graph.QueryError.swift in Sources */,
+				9A6F3BA41EBB5BD700B149F4 /* DigestTests.swift in Sources */,
 				9A0C7FEB1EAA3F7E0020F187 /* MockSession.swift in Sources */,
 				9A0C7FEF1EAA3F7E0020F187 /* Graph.ClientTests.swift in Sources */,
 				9A0C7FF21EAA3F7E0020F187 /* BuyTests.swift in Sources */,
