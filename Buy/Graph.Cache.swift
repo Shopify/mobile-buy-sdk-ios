@@ -36,7 +36,7 @@ internal extension Graph {
         
         private static let fileManager = FileManager.default
         
-        private let memoryCache = NSCache<NSString, NSData>()
+        private let memoryCache = NSCache<NSString, CacheItem>()
         
         // ----------------------------------
         //  MARK: - Init -
@@ -52,8 +52,12 @@ internal extension Graph {
             }
         }
         
-        func purge() {
+        func purgeInMemory() {
             self.memoryCache.removeAllObjects()
+        }
+        
+        func purge() {
+            self.purgeInMemory()
             
             try? Cache.fileManager.removeItem(at: Cache.cacheDirectory())
             self.createCacheDirectoryIfNeeded()
@@ -62,40 +66,39 @@ internal extension Graph {
         // ----------------------------------
         //  MARK: - Accessors -
         //
-        func data(for hash: Hash) -> Data? {
-            if let data = self.dataInMemory(for: hash) {
-                return data
+        func item(for hash: Hash) -> CacheItem? {
+            if let cacheItem = self.itemInMemory(for: hash) {
+                return cacheItem
                 
             } else {
                 let location = Graph.CacheItem.Location(inParent: Cache.cacheDirectory(), hash: hash)
-                if let item = CacheItem(at: location) {
+                if let cacheItem = CacheItem(at: location) {
                     
-                    self.setInMemory(item.data, for: hash)
-                    return item.data
+                    self.setInMemory(cacheItem)
+                    return cacheItem
                 }
-                
-                return nil
             }
+            
+            return nil
         }
         
-        func set(_ data: Data, for hash: Hash) {
-            self.setInMemory(data, for: hash)
+        func set(_ cacheItem: CacheItem) {
+            self.setInMemory(cacheItem)
             
-            let location  = Graph.CacheItem.Location(inParent: Cache.cacheDirectory(), hash: hash)
-            let cacheItem = CacheItem(hash: hash, data: data)
-                
+            let location = Graph.CacheItem.Location(inParent: Cache.cacheDirectory(), hash: cacheItem.hash)
+            
             cacheItem.write(to: location)
         }
         
         // ----------------------------------
         //  MARK: - Memory Cache -
         //
-        private func setInMemory(_ data: Data, for hash: Hash) {
-            self.memoryCache.setObject(data as NSData, forKey: hash as NSString)
+        private func setInMemory(_ cacheItem: CacheItem) {
+            self.memoryCache.setObject(cacheItem, forKey: cacheItem.hash as NSString)
         }
         
-        private func dataInMemory(for hash: Hash) -> Data? {
-            return self.memoryCache.object(forKey: hash as NSString) as Data?
+        private func itemInMemory(for hash: Hash) -> CacheItem? {
+            return self.memoryCache.object(forKey: hash as NSString)
         }
         
         // ----------------------------------

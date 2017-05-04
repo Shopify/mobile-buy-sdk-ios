@@ -55,23 +55,26 @@ class Graph_CacheTests: XCTestCase {
     //  MARK: - Purge -
     //
     func testPurge() {
-        let cache   = self.defaultCache()
-        let request = self.defaultRequest(query: .two)
+        let cache     = self.defaultCache()
+        let request   = self.defaultRequest(query: .two)
+        let cacheItem = request.cacheItem
         
         cache.purge()
         
-        let data = cache.data(for: request.hash)
-        XCTAssertEqual(data, nil)
+        let item = cache.item(for: request.hash)
+        XCTAssertNil(item)
         
-        cache.set(request.httpBody!, for: request.hash)
+        cache.set(cacheItem)
         
-        let data2 = cache.data(for: request.hash)
-        XCTAssertEqual(data2, request.httpBody)
+        let item2 = cache.item(for: request.hash)
+        XCTAssertNotNil(item2)
+        XCTAssertEqual(item2!.hash, request.hash)
+        XCTAssertEqual(item2!.data, request.httpBody!)
         
         cache.purge()
         
-        let data3 = cache.data(for: request.hash)
-        XCTAssertEqual(data3, nil)
+        let item3 = cache.item(for: request.hash)
+        XCTAssertNil(item3)
     }
     
     // ----------------------------------
@@ -83,19 +86,51 @@ class Graph_CacheTests: XCTestCase {
         
         cache.purge()
         
-        let data = cache.data(for: request.hash)
-        XCTAssertNil(data)
+        let item = cache.item(for: request.hash)
+        XCTAssertNil(item)
     }
     
     func testStoreAndRetrieve() {
-        let cache   = self.defaultCache()
-        let request = self.defaultRequest()
+        let cache     = self.defaultCache()
+        let request   = self.defaultRequest()
+        let cacheItem = request.cacheItem
         
         cache.purge()
-        cache.set(request.httpBody!, for: request.hash)
+        cache.set(cacheItem)
         
-        let data = cache.data(for: request.hash)
-        XCTAssertEqual(request.httpBody!, data)
+        let item = cache.item(for: request.hash)
+        XCTAssertNotNil(item)
+        XCTAssertEqual(item!.hash, request.hash)
+        XCTAssertEqual(item!.data, request.httpBody!)
+    }
+    
+    func testStoreAndRetrieveAfterInMemoryPurge() {
+        let cache     = self.defaultCache()
+        let request   = self.defaultRequest()
+        let cacheItem = request.cacheItem
+        
+        cache.purge()
+        cache.set(cacheItem)
+        cache.purgeInMemory()
+        
+        let item = cache.item(for: request.hash)
+        XCTAssertNotNil(item)
+        XCTAssertEqual(item!.hash, request.hash)
+        XCTAssertEqual(item!.data, request.httpBody!)
+    }
+    
+    func testStoreAndRetrieveEmptyBody() {
+        let cache     = self.defaultCache()
+        let request   = URLRequest(url: URL(string: "http://")!)
+        let cacheItem = request.cacheItem
+        
+        cache.purge()
+        cache.set(cacheItem)
+        
+        let item = cache.item(for: request.hash)
+        XCTAssertNotNil(item)
+        XCTAssertEqual(item!.hash, "d41d8cd98f00b204e9800998ecf8427e") // Hash of empty data
+        XCTAssertEqual(item!.data.count, 0)
     }
     
     // ----------------------------------

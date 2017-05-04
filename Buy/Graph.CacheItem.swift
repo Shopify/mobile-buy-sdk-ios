@@ -90,6 +90,9 @@ internal extension Graph {
     }
 }
 
+// ----------------------------------
+//  MARK: - Location -
+//
 extension Graph.CacheItem {
     internal struct Location {
         
@@ -111,5 +114,19 @@ extension Graph.CacheItem {
             self.dataURL = dataURL
             self.metaURL = metaURL
         }
+    }
+}
+
+// ----------------------------------
+//  MARK: - URLRequest Hash -
+//
+extension URLRequest {
+    
+    var cacheItem: Graph.CacheItem {
+        return Graph.CacheItem(hash: self.hash, data: self.httpBody ?? Data())
+    }
+    
+    var hash: Graph.Hash {
+        return (self.httpBody ?? Data()).md5
     }
 }
