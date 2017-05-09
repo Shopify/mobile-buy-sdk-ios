@@ -27,38 +27,38 @@
 import Foundation
 
 public extension Graph {
-    
-    /// Provides an interface for managing the `URLSessionDataTask` created by `Graph.Client`. Since the 
-    /// the underlying `URLSessionDataTask` can change (in the case of retried requests), `Task` provides
+
+    /// Provides an interface for managing the `URLSessionDataTask` created by `Graph.Client`. Since the
+    /// underlying `URLSessionDataTask` can change (in the case of retried requests), `Task` provides
     /// a single place to `cancel()` or `resume()` this underlying task.
     ///
     public class Task {
-        
+
         internal private(set) var task: URLSessionDataTask
-        
+
         // ----------------------------------
         //  MARK: - Init -
         //
         internal init(representing task: URLSessionDataTask) {
             self.task = task
         }
-        
+
         // ----------------------------------
         //  MARK: - Setters -
         //
         internal func setTask(_ task: URLSessionDataTask) {
             self.task = task
         }
-        
+
         // ----------------------------------
         //  MARK: - Control -
         //
-        
+
         /// Starts the underlying task
         public func resume() {
             self.task.resume()
         }
-        
+
         /// Cancel the underlying task
         public func cancel() {
             self.task.cancel()

@@ -16,9 +16,7 @@ We welcome contributions to the Mobile Buy SDK. But before you contribute, make 
 
 ## Workflow
 
-1. Fork the repo and branch off of `develop`.
+1. Fork the repo, and branch off of `develop`.
 2. Create a new branch in your fork.
-3. If it makes sense to add tests for your code, then do so.
-4. Add any new keys to `test_shop_data.json`, but don't check in their values.
-5. Make sure all tests pass.
-6. Create a pull request.
+3. If it makes sense to add tests for your code, then do so (and make sure that they pass).
+5. Create a pull request.

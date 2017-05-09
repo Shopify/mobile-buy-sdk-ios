@@ -74,22 +74,22 @@ The documentation is generated using [Jazzy](https://github.com/realm/jazzy).
 
 ### Dynamic Framework Installation [⤴](#table-of-contents)
 
-2. Add `Buy.framework` target as a dependency:
-  1. Open `Your Project` and (Select your target).
-  2. Navigate to `Build Phases` > `Target Dependencies`.
-  3. Add  `Buy.framework`.
-3. Link `Buy.framework`:
-  1. Open `Your Project` and (Select your target).
-  2. Navigate to `Build Phases` > `Link Binary With Libraries`.
+1. Add **Buy.framework** target as a dependency:
+  1. Open **Your Project**, and then select your target.
+  2. Navigate to **Build Phases** > **Target Dependencies**.
   3. Add `Buy.framework`.
-4. Make sure that the framework is copied into the bundle: by navigating to:
-  1. Open `Your Project` and (Select your target).
-  2. Navigate to `Build Phases` > `New Copy Files Phase`.
-  3. Select `Destination` dropdown and chose `Frameworks`.
+2. Link `Buy.framework`:
+  1. Open **Your Project**, and then select your target.
+  2. Navigate to **Build Phases** > **Link Binary With Libraries**.
+  3. Add `Buy.framework`.
+3. Make sure that the framework is copied into the bundle:
+  1. Open **Your Project**, and then select your target.
+  2. Navigate to **Build Phases** > **New Copy Files Phase**.
+  3. From the **Destination** dropdown, select **Frameworks**.
   4. Add `Buy.framework`.
-5. Import into your project files using `import Buy`.
+4. Import into your project files using `import Buy`.
 
-See the `Storefront` sample app for an example of how to add the `Buy` target a dependency.
+See the **Storefront** sample app for an example of how to add the `Buy` target a dependency.
 
 ### Carthage [⤴](#table-of-contents)
 
@@ -884,7 +884,7 @@ Since we'll need to update the checkout with additional information later, all w
 
 #### Updating a checkout [⤴](#table-of-contents)
 
-A customer's information may not be available when a checkout is created. The Buy SDK provides mutations for updating specific checkout fields that are required for completion, such as the `email` and `shippingAddress` fields:
+A customer's information might not be available when a checkout is created. The Buy SDK provides mutations for updating the specific checkout fields that are required for completion: the `email` and `shippingAddress` fields.
 
 ###### Updating email [⤴](#table-of-contents)
 
