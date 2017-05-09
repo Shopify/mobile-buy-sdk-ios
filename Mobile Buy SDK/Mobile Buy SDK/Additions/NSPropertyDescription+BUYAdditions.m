@@ -209,11 +209,7 @@ static NSString *JSONValueTransformerNameForAttributeType(NSAttributeType type)
 // model -> JSON
 - (id)buy_JSONForObject:(NSObject<BUYObject> *)object
 {
-	id json = nil;
-	if (!self.inverseRelationship || self.inverseRelationship.allowsInverseEncoding) {
-		json = [self.destinationEntity buy_JSONForObject:object];
-	}
-	return json;
+	return [self.destinationEntity buy_JSONForObject:object];
 }
 
 // JSON -> (ordered)set (of models)
@@ -284,11 +280,13 @@ static NSString *JSONValueTransformerNameForAttributeType(NSAttributeType type)
 	if (self.encodesIdInJSON) {
 		json = [value valueForKey:NSStringFromSelector(@selector(identifier))];
 	}
-	else if (!self.toMany) {
-		json = [self buy_JSONForObject:value];
-	}
-	else if (!self.manyToMany) {
-		json = [self buy_JSONForCollection:value];
+	else if (self.ownsDestination) {
+		if (self.toMany) {
+			json = [self buy_JSONForCollection:value];
+		}
+		else {
+			json = [self buy_JSONForObject:value];
+		}
 	}
 	return json;
 }
@@ -307,7 +305,12 @@ static NSString *JSONValueTransformerNameForAttributeType(NSAttributeType type)
 
 - (BOOL)buy_allowsInverseEncoding
 {
-	return self.deleteRule != NSCascadeDeleteRule && ![self.entity buy_isPrivate];
+	return self.deleteRule != NSCascadeDeleteRule && !self.entity.private;
+}
+
+- (BOOL)buy_ownsDestination
+{
+	return self.toMany && self.deleteRule == NSCascadeDeleteRule;
 }
 
 @end
