@@ -28,15 +28,6 @@ import Foundation
 
 internal typealias JSON = [String : Any]
 
-private struct Header {
-    static var userAgent     = "User-Agent"
-    static var accept        = "Accept"
-    static var contentType   = "Content-Type"
-    static var authorization = "X-Shopify-Storefront-Access-Token"
-    static var sdkVersion    = "X-SDK-Version"
-    static var sdkVariant    = "X-SDK-Variant"
-}
-
 extension Graph {
     
     /// A completion handler for GraphQL `query` requests.
@@ -69,7 +60,9 @@ extension Graph {
     public class Client {
         
         /// The `URLSession` backing all `Client` network operations. You may provide your own session when initializing a new `Client`.
-        public let session:  URLSession
+        public let session: URLSession
+        
+        internal let cache = Cache()
         
         internal let apiURL:  URL
         internal let headers: [String : String]
@@ -115,6 +108,7 @@ extension Graph {
         ///
         /// - parameters:
         ///     - query:             A GraphQL query to execute, represented by a `QueryRootQuery` object.
+        ///     - cachePolicy:       An optional `Graph.CachePolicy` that determines whether or not the query should be loaded from cache or fetched over the network.
         ///     - retryHandler:      An optional handler for subsequently retrying or polling. There are several Shopify resources that require polling until `resource.ready == true`. If provided, the `retryHandler` is executed for every response to access whether a request should continue retrying. The `completionHandler` won't be executed until the `retryHandler.condition` evaluates to `false`.
         ///     - completionHandler: A handler that will be executed after a failed or successful query request.
         
@@ -127,8 +121,13 @@ extension Graph {
         /// task.resume()
         /// ````
         ///
-        public func queryGraphWith(_ query: Storefront.QueryRootQuery, retryHandler: RetryHandler<Storefront.QueryRoot>? = nil, completionHandler: @escaping QueryCompletion) -> Task {
-            return self.graphRequestTask(query: query, retryHandler: retryHandler, completionHandler: completionHandler)
+        public func queryGraphWith(_ query: Storefront.QueryRootQuery, cachePolicy: CachePolicy = .networkOnly, retryHandler: RetryHandler<Storefront.QueryRoot>? = nil, completionHandler: @escaping QueryCompletion) -> Task {
+            return self.graphRequestTask(
+                query:             query,
+                cachePolicy:       cachePolicy,
+                retryHandler:      retryHandler,
+                completionHandler: completionHandler
+            )
         }
         
         // ----------------------------------
@@ -151,56 +150,41 @@ extension Graph {
         /// ````
         ///
         public func mutateGraphWith(_ mutation: Storefront.MutationQuery, retryHandler: RetryHandler<Storefront.Mutation>? = nil, completionHandler: @escaping MutationCompletion) -> Task {
-            return self.graphRequestTask(query: mutation, retryHandler: retryHandler, completionHandler: completionHandler)
+            return self.graphRequestTask(
+                query:             mutation,
+                cachePolicy:       .networkOnly,
+                retryHandler:      retryHandler,
+                completionHandler: completionHandler
+            )
         }
         
         // ----------------------------------
         //  MARK: - Request Management -
         //
-        private func graphRequestTask<Q: GraphQL.AbstractQuery, R: GraphQL.AbstractResponse>(query: Q, retryHandler: RetryHandler<R>? = nil, completionHandler: @escaping (R?, QueryError?) -> Void) -> Task {
+        private func graphRequestTask<Q: GraphQL.AbstractQuery, R: GraphQL.AbstractResponse>(query: Q, cachePolicy: CachePolicy, retryHandler: RetryHandler<R>? = nil, completionHandler: @escaping (R?, QueryError?) -> Void) -> Task {
             
-            var task: Task!
-            
-            let request  = self.graphRequestFor(query: query)
-            let dataTask = self.session.graphTask(with: request) { (response: R?, error: QueryError?) in
-                DispatchQueue.main.async {
-                    
-                    if var retryHandler = retryHandler, retryHandler.canRetry, retryHandler.condition(response, error) == true {
-                        
-                        /* ---------------------------------
-                         ** A retry handler was provided and
-                         ** the condition evaluated to true,
-                         ** we have to retry the request.
-                         */
-                        retryHandler.repeatCount += 1
-                        
-                        let retryTask = self.graphRequestTask(query: query, retryHandler: retryHandler, completionHandler: completionHandler)
-                        task.setTask(retryTask.task)
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + retryHandler.interval) {
-                            if task.task.state == .suspended {
-                                task.resume()
-                            }
-                        }
-                        
-                    } else {
-                        completionHandler(response, error)
-                    }
-                }
-            }
-            
-            task = Task(representing: dataTask)
-            return task
+            let request = self.graphRequestFor(query: query)
+            return InternalTask<R>(
+                session:      self.session,
+                cache:        self.cache,
+                request:      request,
+                cachePolicy:  cachePolicy,
+                retryHandler: retryHandler,
+                completion:   completionHandler
+            )
         }
         
         func graphRequestFor(query: GraphQL.AbstractQuery) -> URLRequest {
-            var request = URLRequest(url: self.apiURL)
+            var request     = URLRequest(url: self.apiURL)
+            let requestData = String(describing: query).data(using: .utf8)!
             
-            request.httpMethod = "POST"
-            request.httpBody = String(describing: query).data(using: .utf8)
+            request.httpMethod              = "POST"
+            request.httpBody                = requestData
             request.httpShouldHandleCookies = false
-            request.setValue("application/json", forHTTPHeaderField: Header.accept)
+            
+            request.setValue("application/json",    forHTTPHeaderField: Header.accept)
             request.setValue("application/graphql", forHTTPHeaderField: Header.contentType)
+            request.setValue(requestData.md5,       forHTTPHeaderField: Header.queryTag)
             
             for (name, value) in self.headers {
                 request.setValue(value, forHTTPHeaderField: name)
@@ -211,77 +195,4 @@ extension Graph {
     }
 }
 
-// ----------------------------------
-//  MARK: - Graph Data Task -
-//
-private extension URLSession {
-    
-    func graphTask<R: GraphQL.AbstractResponse>(with request: URLRequest, completionHandler: @escaping (R?, Graph.QueryError?) -> Void) -> URLSessionDataTask {
-        return self.dataTask(with: request) { json, error in
-            
-            if let json = json {
-                
-                do {
-                    completionHandler(try R(fields: json), error)
-                } catch let error {
-                    completionHandler(nil, Graph.QueryError.schemaViolation(violation: error as! SchemaViolationError))
-                }
-                
-            } else {
-                completionHandler(nil, error)
-            }
-        }
-    }
-    
-    func dataTask(with request: URLRequest, completionHandler: @escaping (JSON?, Graph.QueryError?) -> Void) -> URLSessionDataTask {
-        return self.dataTask(with: request) { data, response, error in
-            
-            guard let response = response as? HTTPURLResponse, error == nil else {
-                completionHandler(nil, .request(error: error))
-                return
-            }
-            
-            guard response.statusCode >= 200 && response.statusCode < 300 else {
-                completionHandler(nil, .http(statusCode: response.statusCode))
-                return
-            }
-            
-            guard let data = data else {
-                completionHandler(nil, .noData)
-                return
-            }
-            
-            guard let json = try? JSONSerialization.jsonObject(with: data, options: []) else {
-                completionHandler(nil, .jsonDeserializationFailed(data: data))
-                return
-            }
-            
-            let graphResponse = json as? JSON
-            let graphErrors   = graphResponse?["errors"] as? [JSON]
-            let graphData     = graphResponse?["data"]   as? JSON
-            
-            /* ----------------------------------
-             ** This should never happen. A valid
-             ** GraphQL response will have either
-             ** data or errors.
-             */
-            guard graphData != nil || graphErrors != nil else {
-                completionHandler(nil, .invalidJson(json: json))
-                return
-            }
-            
-            /* ---------------------------------
-             ** Extract any GraphQL errors found
-             ** during execution of the query.
-             */
-            var queryError: Graph.QueryError?
-            if let graphErrors = graphErrors {
-                queryError = .invalidQuery(reasons: graphErrors.map {
-                    Graph.QueryError.Reason(json: $0)
-                })
-            }
-            
-            completionHandler(graphData, queryError)
-        }
-    }
-}
+

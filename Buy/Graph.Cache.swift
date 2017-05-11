@@ -64,7 +64,7 @@ internal extension Graph {
         }
         
         // ----------------------------------
-        //  MARK: - Accessors -
+        //  MARK: - Item Management -
         //
         func item(for hash: Hash) -> CacheItem? {
             if let cacheItem = self.itemInMemory(for: hash) {
@@ -90,6 +90,18 @@ internal extension Graph {
             cacheItem.write(to: location)
         }
         
+        func remove(for hash: Hash) {
+            self.removeInMemory(for: hash)
+            
+            let location = Graph.CacheItem.Location(inParent: Cache.cacheDirectory(), hash: hash)
+            do {
+                try Cache.fileManager.removeItem(at: location.dataURL)
+                try Cache.fileManager.removeItem(at: location.metaURL)
+            } catch {
+                print("Failed to delete cached item on disk: \(error)")
+            }
+        }
+        
         // ----------------------------------
         //  MARK: - Memory Cache -
         //
@@ -99,6 +111,10 @@ internal extension Graph {
         
         private func itemInMemory(for hash: Hash) -> CacheItem? {
             return self.memoryCache.object(forKey: hash as NSString)
+        }
+        
+        private func removeInMemory(for hash: Hash) {
+            self.memoryCache.removeObject(forKey: hash as NSString)
         }
         
         // ----------------------------------
