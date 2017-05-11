@@ -26,14 +26,14 @@
 
 import Foundation
 
-public extension Graph {
+extension Graph {
     
     /// The caching policy defines the method for executing the query.
     /// Some policies require an `expireIn` parameter that determines
     /// the time (in seconds) until the cache is invalidated and is
     /// considered to be stale.
     ///
-    public enum CachePolicy {
+    public enum CachePolicy: Equatable {
         
         /// Load from cache without loading from network
         case cacheOnly
@@ -46,5 +46,19 @@ public extension Graph {
         
         /// Load from network but fallback to cached data if the request fails
         case networkFirst(expireIn: Int)
+    }
+}
+
+extension Graph.CachePolicy {
+    
+    public static func ==(lhs: Graph.CachePolicy, rhs: Graph.CachePolicy) -> Bool {
+        switch (lhs, rhs) {
+        case (.cacheOnly,            .cacheOnly):                           return true
+        case (.networkOnly,          .networkOnly):                         return true
+        case (.cacheFirst(let lv),   .cacheFirst(let rv))   where lv == rv: return true
+        case (.networkFirst(let lv), .networkFirst(let rv)) where lv == rv: return true
+        default:
+            return false
+        }
     }
 }

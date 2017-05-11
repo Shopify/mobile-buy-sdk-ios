@@ -130,6 +130,6 @@ extension URLRequest {
         let hash        = self.value(forHTTPHeaderField: Header.queryTag) ?? ""
         let accessToken = self.value(forHTTPHeaderField: Header.authorization) ?? ""
         
-        return "\(hash):\(accessToken)".md5
+        return "\(hash)\(accessToken)".md5
     }
 }
