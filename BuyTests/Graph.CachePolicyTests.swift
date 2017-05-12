@@ -1,6 +1,6 @@
 //
-//  Global.swift
-//  Buy
+//  Graph.CachePolicyTests.swift
+//  BuyTests
 //
 //  Created by Shopify.
 //  Copyright (c) 2017 Shopify Inc. All rights reserved.
@@ -24,36 +24,21 @@
 //  THE SOFTWARE.
 //
 
-import Foundation
+import XCTest
+@testable import Buy
 
-class Global {
+class Graph_CachePolicyTests: XCTestCase {
     
     // ----------------------------------
-    //  MARK: - User Agent -
+    //  MARK: - Equality -
     //
-    static var userAgent: String {
-        return "Mobile Buy SDK iOS/\(self.frameworkVersion)/\(self.applicationIdentifier)"
-    }
-
-    // ----------------------------------
-    //  MARK: - Versions -
-    //
-    static var frameworkVersion: String {
-        return self.frameworkBundle.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as! String
-    }
-    
-    static var applicationIdentifier: String {
-        return self.applicationBundle.object(forInfoDictionaryKey: kCFBundleIdentifierKey as String) as? String ?? "com.unknown.bundle"
-    }
-    
-    // ----------------------------------
-    //  MARK: - Bundles -
-    //
-    private static var frameworkBundle: Bundle {
-        return Bundle(for: self)
-    }
-    
-    private static var applicationBundle: Bundle {
-        return Bundle.main
+    func testEquality() {
+        XCTAssertEqual(Graph.CachePolicy.cacheOnly,                  Graph.CachePolicy.cacheOnly)
+        XCTAssertEqual(Graph.CachePolicy.networkOnly,                Graph.CachePolicy.networkOnly)
+        XCTAssertEqual(Graph.CachePolicy.cacheFirst(expireIn: 10),   Graph.CachePolicy.cacheFirst(expireIn: 10))
+        XCTAssertEqual(Graph.CachePolicy.networkFirst(expireIn: 10), Graph.CachePolicy.networkFirst(expireIn: 10))
+        
+        XCTAssertNotEqual(Graph.CachePolicy.cacheFirst(expireIn: 10),   Graph.CachePolicy.cacheFirst(expireIn: 15))
+        XCTAssertNotEqual(Graph.CachePolicy.networkFirst(expireIn: 10), Graph.CachePolicy.networkFirst(expireIn: 15))
     }
 }
