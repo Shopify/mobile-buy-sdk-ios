@@ -28,6 +28,10 @@ import Foundation
 
 final class MockSession: URLSession {
     
+    typealias TaskConfigurationHandler = (MockDataTask) -> Void
+    
+    var configurationHandler: TaskConfigurationHandler?
+    
     // ----------------------------------
     //  MARK: - Init -
     //
@@ -40,6 +44,10 @@ final class MockSession: URLSession {
     //  MARK: - Requests -
     //
     override func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-        return MockDataTask(request: request, completion: completionHandler)
+        let task = MockDataTask(request: request, completion: completionHandler)
+        
+        self.configurationHandler?(task)
+        
+        return task
     }
 }

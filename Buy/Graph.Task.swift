@@ -64,7 +64,7 @@ internal extension Graph {
             self.cache        = cache
             self.session      = session
             self.request      = request
-            self.cachePolicy  = cachePolicy
+            self.cachePolicy  = retryHandler == nil ? cachePolicy : .networkOnly
             self.retryHandler = retryHandler
             self.completion   = completion
         }
