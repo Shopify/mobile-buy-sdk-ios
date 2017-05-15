@@ -500,7 +500,7 @@ class Graph_TaskTests: XCTestCase {
         
         let retry = Graph.RetryHandler<Storefront.QueryRoot>(endurance: .finite(retryLimit), interval: 0.05) { (result, error) -> Bool in
             retryCount += 1
-            print("Retrying...")
+            Log("Retrying...")
             return retryCount < retryLimit
         }
         

@@ -98,7 +98,7 @@ internal extension Graph {
                 try Cache.fileManager.removeItem(at: location.dataURL)
                 try Cache.fileManager.removeItem(at: location.metaURL)
             } catch {
-                print("Failed to delete cached item on disk: \(error)")
+                Log("Failed to delete cached item on disk: \(error)")
             }
         }
         

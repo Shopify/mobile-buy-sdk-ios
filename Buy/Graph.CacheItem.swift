@@ -81,7 +81,7 @@ internal extension Graph {
                 try self.data.write(to: location.dataURL, options: .atomic)
                 
             } catch {
-                print("Failed to flush CacheItem: \(error)")
+                Log("Failed to flush CacheItem: \(error)")
                 return false
             }
             

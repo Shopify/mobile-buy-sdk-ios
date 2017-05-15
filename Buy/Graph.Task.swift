@@ -86,7 +86,7 @@ internal extension Graph {
             
             switch cachePolicy {
             case .cacheFirst(let expireIn):
-                print("Exercising cache policy: CACHE_FIRST(\(expireIn))")
+                Log("Exercising cache policy: CACHE_FIRST(\(expireIn))")
                 
                 self.cachedModelFor(hash, expireIn: expireIn) { response in
                     if let response = response {
@@ -98,7 +98,7 @@ internal extension Graph {
                 }
                 
             case .cacheOnly:
-                print("Exercising cache policy: CACHE_ONLY")
+                Log("Exercising cache policy: CACHE_ONLY")
                 
                 self.cachedModelFor(hash) { response in
                     completion(response, nil)
@@ -106,7 +106,7 @@ internal extension Graph {
                 }
                 
             case .networkFirst(let expireIn):
-                print("Exercising cache policy: NETWORK_FIRST(\(expireIn))")
+                Log("Exercising cache policy: NETWORK_FIRST(\(expireIn))")
                 
                 self.task = self.graphTaskWith(self.request, retryHandler: self.retryHandler) { response, data, error in
                     
@@ -128,7 +128,7 @@ internal extension Graph {
                 self.task?.resume()
                 
             case .networkOnly:
-                print("Exercising cache policy: NETWORK_ONLY")
+                Log("Exercising cache policy: NETWORK_ONLY")
                 
                 self.task = self.graphTaskWith(self.request, retryHandler: self.retryHandler) { response, data, error in
                     
@@ -167,13 +167,13 @@ internal extension Graph {
              ** interval, otherwise return nil.
              */
             if let expireIn = expireIn {
-                print("Cache expiry interval set to: \(expireIn)")
+                Log("Cache expiry interval set to: \(expireIn)")
                 
                 let now       = Int(Date().timeIntervalSince1970)
                 let timestamp = Int(item.timestamp)
                 
                 guard timestamp + expireIn > now else {
-                    print("Cached item expiry exceeded by: Now: \(timestamp + expireIn - now)")
+                    Log("Cached item expiry exceeded by: Now: \(timestamp + expireIn - now)")
                     
                     /* ----------------------------------
                      ** Purge any expired items from disk
@@ -187,9 +187,9 @@ internal extension Graph {
                     return
                 }
                 
-                print("Cached item is still valid. Time remaining Now: \(timestamp + expireIn - now)")
+                Log("Cached item is still valid. Time remaining Now: \(timestamp + expireIn - now)")
             } else {
-                print("No cache expiry set.")
+                Log("No cache expiry set.")
             }
             
             let response = HTTPURLResponse(
