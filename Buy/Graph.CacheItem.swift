@@ -110,7 +110,7 @@ extension Graph.CacheItem {
             )
         }
         
-        init(dataURL: URL, metaURL: URL) {
+        internal init(dataURL: URL, metaURL: URL) {
             self.dataURL = dataURL
             self.metaURL = metaURL
         }
