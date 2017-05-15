@@ -29,6 +29,8 @@ import Crypto
 
 struct Digest {
     
+    private init() {}
+    
     static func md5(_ data: Data) -> [UInt8] {
         
         var context = CC_MD5_CTX()
