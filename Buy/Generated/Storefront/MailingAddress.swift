@@ -2,7 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class MailingAddressQuery: GraphQL.AbstractQuery {
+	open class MailingAddressQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = MailingAddress
+
 		@discardableResult
 		open func address1(aliasSuffix: String? = nil) -> MailingAddressQuery {
 			addField(field: "address1", aliasSuffix: aliasSuffix)
@@ -118,8 +120,9 @@ extension Storefront {
 		}
 	}
 
-	open class MailingAddress: GraphQL.AbstractResponse, Node
-	{
+	open class MailingAddress: GraphQL.AbstractResponse, GraphQLObject, Node {
+		public typealias Query = MailingAddressQuery
+
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {

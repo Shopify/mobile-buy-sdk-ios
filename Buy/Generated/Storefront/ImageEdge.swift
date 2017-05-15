@@ -2,7 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class ImageEdgeQuery: GraphQL.AbstractQuery {
+	open class ImageEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = ImageEdge
+
 		@discardableResult
 		open func cursor(aliasSuffix: String? = nil) -> ImageEdgeQuery {
 			addField(field: "cursor", aliasSuffix: aliasSuffix)
@@ -19,8 +21,9 @@ extension Storefront {
 		}
 	}
 
-	open class ImageEdge: GraphQL.AbstractResponse
-	{
+	open class ImageEdge: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = ImageEdgeQuery
+
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {

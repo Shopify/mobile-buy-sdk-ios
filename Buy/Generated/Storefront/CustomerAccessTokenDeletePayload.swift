@@ -2,7 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class CustomerAccessTokenDeletePayloadQuery: GraphQL.AbstractQuery {
+	open class CustomerAccessTokenDeletePayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = CustomerAccessTokenDeletePayload
+
 		@discardableResult
 		open func deletedAccessToken(aliasSuffix: String? = nil) -> CustomerAccessTokenDeletePayloadQuery {
 			addField(field: "deletedAccessToken", aliasSuffix: aliasSuffix)
@@ -25,8 +27,9 @@ extension Storefront {
 		}
 	}
 
-	open class CustomerAccessTokenDeletePayload: GraphQL.AbstractResponse
-	{
+	open class CustomerAccessTokenDeletePayload: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = CustomerAccessTokenDeletePayloadQuery
+
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {

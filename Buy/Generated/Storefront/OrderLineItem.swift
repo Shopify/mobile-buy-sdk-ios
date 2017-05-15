@@ -2,7 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class OrderLineItemQuery: GraphQL.AbstractQuery {
+	open class OrderLineItemQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = OrderLineItem
+
 		@discardableResult
 		open func customAttributes(aliasSuffix: String? = nil, _ subfields: (AttributeQuery) -> Void) -> OrderLineItemQuery {
 			let subquery = AttributeQuery()
@@ -34,8 +36,9 @@ extension Storefront {
 		}
 	}
 
-	open class OrderLineItem: GraphQL.AbstractResponse
-	{
+	open class OrderLineItem: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = OrderLineItemQuery
+
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {

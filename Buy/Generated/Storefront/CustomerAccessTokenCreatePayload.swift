@@ -2,7 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class CustomerAccessTokenCreatePayloadQuery: GraphQL.AbstractQuery {
+	open class CustomerAccessTokenCreatePayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = CustomerAccessTokenCreatePayload
+
 		@discardableResult
 		open func customerAccessToken(aliasSuffix: String? = nil, _ subfields: (CustomerAccessTokenQuery) -> Void) -> CustomerAccessTokenCreatePayloadQuery {
 			let subquery = CustomerAccessTokenQuery()
@@ -22,8 +24,9 @@ extension Storefront {
 		}
 	}
 
-	open class CustomerAccessTokenCreatePayload: GraphQL.AbstractResponse
-	{
+	open class CustomerAccessTokenCreatePayload: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = CustomerAccessTokenCreatePayloadQuery
+
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {

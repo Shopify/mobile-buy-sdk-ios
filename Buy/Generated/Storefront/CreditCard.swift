@@ -2,7 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class CreditCardQuery: GraphQL.AbstractQuery {
+	open class CreditCardQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = CreditCard
+
 		@discardableResult
 		open func brand(aliasSuffix: String? = nil) -> CreditCardQuery {
 			addField(field: "brand", aliasSuffix: aliasSuffix)
@@ -52,8 +54,9 @@ extension Storefront {
 		}
 	}
 
-	open class CreditCard: GraphQL.AbstractResponse
-	{
+	open class CreditCard: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = CreditCardQuery
+
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {

@@ -2,7 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class CheckoutLineItemConnectionQuery: GraphQL.AbstractQuery {
+	open class CheckoutLineItemConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = CheckoutLineItemConnection
+
 		@discardableResult
 		open func edges(aliasSuffix: String? = nil, _ subfields: (CheckoutLineItemEdgeQuery) -> Void) -> CheckoutLineItemConnectionQuery {
 			let subquery = CheckoutLineItemEdgeQuery()
@@ -22,8 +24,9 @@ extension Storefront {
 		}
 	}
 
-	open class CheckoutLineItemConnection: GraphQL.AbstractResponse
-	{
+	open class CheckoutLineItemConnection: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = CheckoutLineItemConnectionQuery
+
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {

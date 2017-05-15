@@ -2,7 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class CustomerAddressCreatePayloadQuery: GraphQL.AbstractQuery {
+	open class CustomerAddressCreatePayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = CustomerAddressCreatePayload
+
 		@discardableResult
 		open func customerAddress(aliasSuffix: String? = nil, _ subfields: (MailingAddressQuery) -> Void) -> CustomerAddressCreatePayloadQuery {
 			let subquery = MailingAddressQuery()
@@ -22,8 +24,9 @@ extension Storefront {
 		}
 	}
 
-	open class CustomerAddressCreatePayload: GraphQL.AbstractResponse
-	{
+	open class CustomerAddressCreatePayload: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = CustomerAddressCreatePayloadQuery
+
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {

@@ -2,7 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class CheckoutLineItemsUpdatePayloadQuery: GraphQL.AbstractQuery {
+	open class CheckoutLineItemsUpdatePayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = CheckoutLineItemsUpdatePayload
+
 		@discardableResult
 		open func checkout(aliasSuffix: String? = nil, _ subfields: (CheckoutQuery) -> Void) -> CheckoutLineItemsUpdatePayloadQuery {
 			let subquery = CheckoutQuery()
@@ -22,8 +24,9 @@ extension Storefront {
 		}
 	}
 
-	open class CheckoutLineItemsUpdatePayload: GraphQL.AbstractResponse
-	{
+	open class CheckoutLineItemsUpdatePayload: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = CheckoutLineItemsUpdatePayloadQuery
+
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {

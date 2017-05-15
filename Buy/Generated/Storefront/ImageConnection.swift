@@ -2,7 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class ImageConnectionQuery: GraphQL.AbstractQuery {
+	open class ImageConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = ImageConnection
+
 		@discardableResult
 		open func edges(aliasSuffix: String? = nil, _ subfields: (ImageEdgeQuery) -> Void) -> ImageConnectionQuery {
 			let subquery = ImageEdgeQuery()
@@ -22,8 +24,9 @@ extension Storefront {
 		}
 	}
 
-	open class ImageConnection: GraphQL.AbstractResponse
-	{
+	open class ImageConnection: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = ImageConnectionQuery
+
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {

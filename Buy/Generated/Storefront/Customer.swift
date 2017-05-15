@@ -2,7 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class CustomerQuery: GraphQL.AbstractQuery {
+	open class CustomerQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = Customer
+
 		@discardableResult
 		open func acceptsMarketing(aliasSuffix: String? = nil) -> CustomerQuery {
 			addField(field: "acceptsMarketing", aliasSuffix: aliasSuffix)
@@ -121,8 +123,9 @@ extension Storefront {
 		}
 	}
 
-	open class Customer: GraphQL.AbstractResponse
-	{
+	open class Customer: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = CustomerQuery
+
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {

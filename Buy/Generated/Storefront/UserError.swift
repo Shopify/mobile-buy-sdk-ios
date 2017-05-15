@@ -2,7 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class UserErrorQuery: GraphQL.AbstractQuery {
+	open class UserErrorQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = UserError
+
 		@discardableResult
 		open func field(aliasSuffix: String? = nil) -> UserErrorQuery {
 			addField(field: "field", aliasSuffix: aliasSuffix)
@@ -16,8 +18,9 @@ extension Storefront {
 		}
 	}
 
-	open class UserError: GraphQL.AbstractResponse
-	{
+	open class UserError: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = UserErrorQuery
+
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {

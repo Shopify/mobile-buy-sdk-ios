@@ -2,7 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class ProductQuery: GraphQL.AbstractQuery {
+	open class ProductQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = Product
+
 		@discardableResult
 		open func collections(aliasSuffix: String? = nil, first: Int32, after: String? = nil, reverse: Bool? = nil, _ subfields: (CollectionConnectionQuery) -> Void) -> ProductQuery {
 			var args: [String] = []
@@ -151,6 +153,21 @@ extension Storefront {
 		}
 
 		@discardableResult
+		open func variantBySelectedOptions(aliasSuffix: String? = nil, selectedOptions: [SelectedOptionInput], _ subfields: (ProductVariantQuery) -> Void) -> ProductQuery {
+			var args: [String] = []
+
+			args.append("selectedOptions:[\(selectedOptions.map{ "\($0.serialize())" }.joined(separator: ","))]")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = ProductVariantQuery()
+			subfields(subquery)
+
+			addField(field: "variantBySelectedOptions", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
+			return self
+		}
+
+		@discardableResult
 		open func variants(aliasSuffix: String? = nil, first: Int32, after: String? = nil, reverse: Bool? = nil, _ subfields: (ProductVariantConnectionQuery) -> Void) -> ProductQuery {
 			var args: [String] = []
 
@@ -180,8 +197,9 @@ extension Storefront {
 		}
 	}
 
-	open class Product: GraphQL.AbstractResponse, Node
-	{
+	open class Product: GraphQL.AbstractResponse, GraphQLObject, Node {
+		public typealias Query = ProductQuery
+
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
@@ -262,6 +280,13 @@ extension Storefront {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
 				return GraphQL.iso8601DateParser.date(from: value)!
+
+				case "variantBySelectedOptions":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try ProductVariant(fields: value)
 
 				case "variants":
 				guard let value = value as? [String: Any] else {
@@ -402,6 +427,18 @@ extension Storefront {
 			return field(field: "updatedAt", aliasSuffix: aliasSuffix) as! Date
 		}
 
+		open var variantBySelectedOptions: Storefront.ProductVariant? {
+			return internalGetVariantBySelectedOptions()
+		}
+
+		open func aliasedVariantBySelectedOptions(aliasSuffix: String) -> Storefront.ProductVariant? {
+			return internalGetVariantBySelectedOptions(aliasSuffix: aliasSuffix)
+		}
+
+		func internalGetVariantBySelectedOptions(aliasSuffix: String? = nil) -> Storefront.ProductVariant? {
+			return field(field: "variantBySelectedOptions", aliasSuffix: aliasSuffix) as! Storefront.ProductVariant?
+		}
+
 		open var variants: Storefront.ProductVariantConnection {
 			return internalGetVariants()
 		}
@@ -476,6 +513,10 @@ extension Storefront {
 
 				return .Scalar
 
+				case "variantBySelectedOptions":
+
+				return .Object
+
 				case "variants":
 
 				return .Object
@@ -496,6 +537,9 @@ extension Storefront {
 
 				case "images":
 				return internalGetImages()
+
+				case "variantBySelectedOptions":
+				return internalGetVariantBySelectedOptions()
 
 				case "variants":
 				return internalGetVariants()
@@ -533,6 +577,12 @@ extension Storefront {
 					internalGetOptions().forEach {
 						response.append($0)
 						response.append(contentsOf: $0.childResponseObjectMap())
+					}
+
+					case "variantBySelectedOptions":
+					if let value = internalGetVariantBySelectedOptions() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
 					case "variants":

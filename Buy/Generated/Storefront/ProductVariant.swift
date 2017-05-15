@@ -2,7 +2,9 @@
 import Foundation
 
 extension Storefront {
-	open class ProductVariantQuery: GraphQL.AbstractQuery {
+	open class ProductVariantQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = ProductVariant
+
 		@discardableResult
 		open func available(aliasSuffix: String? = nil) -> ProductVariantQuery {
 			addField(field: "available", aliasSuffix: aliasSuffix)
@@ -87,8 +89,9 @@ extension Storefront {
 		}
 	}
 
-	open class ProductVariant: GraphQL.AbstractResponse, Node
-	{
+	open class ProductVariant: GraphQL.AbstractResponse, GraphQLObject, Node {
+		public typealias Query = ProductVariantQuery
+
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {

@@ -35,15 +35,15 @@ public extension Graph {
         public struct Reason {
             
             /// The error message associated with the line and column number
-            let message: String
+            public let message: String
             
             /// Line on which the error occured
-            let line: Int?
+            public let line: Int?
             
             /// The column at which the error occured
-            let column: Int?
+            public let column: Int?
             
-            init(json: JSON) {
+            internal init(json: JSON) {
                 self.message = (json["message"] as? String) ?? "Unknown error"
                 self.line    = json["line"]     as? Int
                 self.column  = json["column"]   as? Int
