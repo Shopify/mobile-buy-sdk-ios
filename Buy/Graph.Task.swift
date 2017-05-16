@@ -79,9 +79,8 @@ internal extension Graph {
         
         private func resume(using cachePolicy: CachePolicy) {
             
-            let request    = self.request
             let completion = self.completion
-            let hash       = request.hash
+            let hash       = self.request.hash
             
             switch cachePolicy {
             case .cacheFirst(let expireIn):
@@ -107,7 +106,7 @@ internal extension Graph {
             case .networkFirst(let expireIn):
                 print("Exercising cache policy: NETWORK_FIRST(\(expireIn))")
                 
-                self.task = self.graphTaskWith(request, retryHandler: self.retryHandler) { response, data, error in
+                self.task = self.graphTaskWith(self.request, retryHandler: self.retryHandler) { response, data, error in
                     
                     if let _ = response, let data = data {
                         self.cache(data, for: hash)
@@ -129,7 +128,7 @@ internal extension Graph {
             case .networkOnly:
                 print("Exercising cache policy: NETWORK_ONLY")
                 
-                self.task = self.graphTaskWith(request, retryHandler: self.retryHandler) { response, data, error in
+                self.task = self.graphTaskWith(self.request, retryHandler: self.retryHandler) { response, data, error in
                     
                     if let _ = response, let data = data {
                         self.cache(data, for: hash)
