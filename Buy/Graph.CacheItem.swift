@@ -127,6 +127,9 @@ extension URLRequest {
     }
     
     var hash: Graph.Hash {
-        return (self.httpBody ?? Data()).md5
+        let hash        = self.value(forHTTPHeaderField: Header.queryTag) ?? ""
+        let accessToken = self.value(forHTTPHeaderField: Header.authorization) ?? ""
+        
+        return "\(hash)\(accessToken)".md5
     }
 }

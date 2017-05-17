@@ -1,6 +1,6 @@
 //
-//  MockSession.swift
-//  BuyTests
+//  Header.swift
+//  Buy
 //
 //  Created by Shopify.
 //  Copyright (c) 2017 Shopify Inc. All rights reserved.
@@ -26,28 +26,12 @@
 
 import Foundation
 
-final class MockSession: URLSession {
-    
-    typealias TaskConfigurationHandler = (MockDataTask) -> Void
-    
-    var configurationHandler: TaskConfigurationHandler?
-    
-    // ----------------------------------
-    //  MARK: - Init -
-    //
-    override init() {
-        super.init()
-        
-    }
-    
-    // ----------------------------------
-    //  MARK: - Requests -
-    //
-    override func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-        let task = MockDataTask(request: request, completion: completionHandler)
-        
-        self.configurationHandler?(task)
-        
-        return task
-    }
+internal struct Header {
+    static var userAgent     = "User-Agent"
+    static var accept        = "Accept"
+    static var contentType   = "Content-Type"
+    static var authorization = "X-Shopify-Storefront-Access-Token"
+    static var sdkVersion    = "X-SDK-Version"
+    static var sdkVariant    = "X-SDK-Variant"
+    static var queryTag      = "X-Query-Tag"
 }

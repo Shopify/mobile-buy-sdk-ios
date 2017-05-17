@@ -39,7 +39,7 @@ class Global {
     //  MARK: - Versions -
     //
     static var frameworkVersion: String {
-        return self.frameworkBundle.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as? String ?? "x.x"
+        return self.frameworkBundle.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as! String
     }
     
     static var applicationIdentifier: String {

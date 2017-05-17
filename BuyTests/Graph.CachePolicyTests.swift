@@ -1,5 +1,5 @@
 //
-//  MockSession.swift
+//  Graph.CachePolicyTests.swift
 //  BuyTests
 //
 //  Created by Shopify.
@@ -24,30 +24,21 @@
 //  THE SOFTWARE.
 //
 
-import Foundation
+import XCTest
+@testable import Buy
 
-final class MockSession: URLSession {
-    
-    typealias TaskConfigurationHandler = (MockDataTask) -> Void
-    
-    var configurationHandler: TaskConfigurationHandler?
+class Graph_CachePolicyTests: XCTestCase {
     
     // ----------------------------------
-    //  MARK: - Init -
+    //  MARK: - Equality -
     //
-    override init() {
-        super.init()
+    func testEquality() {
+        XCTAssertEqual(Graph.CachePolicy.cacheOnly,                  Graph.CachePolicy.cacheOnly)
+        XCTAssertEqual(Graph.CachePolicy.networkOnly,                Graph.CachePolicy.networkOnly)
+        XCTAssertEqual(Graph.CachePolicy.cacheFirst(expireIn: 10),   Graph.CachePolicy.cacheFirst(expireIn: 10))
+        XCTAssertEqual(Graph.CachePolicy.networkFirst(expireIn: 10), Graph.CachePolicy.networkFirst(expireIn: 10))
         
-    }
-    
-    // ----------------------------------
-    //  MARK: - Requests -
-    //
-    override func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-        let task = MockDataTask(request: request, completion: completionHandler)
-        
-        self.configurationHandler?(task)
-        
-        return task
+        XCTAssertNotEqual(Graph.CachePolicy.cacheFirst(expireIn: 10),   Graph.CachePolicy.cacheFirst(expireIn: 15))
+        XCTAssertNotEqual(Graph.CachePolicy.networkFirst(expireIn: 10), Graph.CachePolicy.networkFirst(expireIn: 15))
     }
 }

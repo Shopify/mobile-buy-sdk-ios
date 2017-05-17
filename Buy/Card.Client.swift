@@ -26,11 +26,6 @@
 
 import Foundation
 
-private struct Header {
-    static var accept      = "Accept"
-    static var contentType = "Content-Type"
-}
-
 public extension Card {
     
     public typealias VaultCompletion = (_ token: String?, _ error: Error?) -> Void
@@ -86,7 +81,7 @@ public extension Card {
         /// - returns:
         /// A reference to a `Task` representing this vault operation.
         ///
-        public func vault(_ creditCard: CreditCard, to url: URL, completion: @escaping VaultCompletion) -> Graph.Task {
+        public func vault(_ creditCard: CreditCard, to url: URL, completion: @escaping VaultCompletion) -> Task {
             let task = self.session.dataTask(with: self.requestFor(creditCard, to: url)) { data, response, error in
                 
                 guard let data = data else {
@@ -105,7 +100,7 @@ public extension Card {
                 }
             }
             
-            return Graph.Task(representing: task)
+            return task
         }
     }
 }

@@ -133,6 +133,23 @@ class Graph_CacheTests: XCTestCase {
         XCTAssertEqual(item!.data.count, 0)
     }
     
+    func testRemove() {
+        let cache     = self.defaultCache()
+        let request   = self.defaultRequest()
+        let cacheItem = request.cacheItem
+        
+        cache.purge()
+        cache.set(cacheItem)
+        
+        let item = cache.item(for: request.hash)
+        XCTAssertNotNil(item)
+        
+        cache.remove(for: cacheItem.hash)
+        
+        let item2 = cache.item(for: request.hash)
+        XCTAssertNil(item2)
+    }
+    
     // ----------------------------------
     //  MARK: - Private -
     //

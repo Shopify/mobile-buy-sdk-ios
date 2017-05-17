@@ -121,14 +121,14 @@ class Card_ClientTests: XCTestCase {
         
         let client  = self.defaultClient()
         let url     = self.defaultURL()
-        let handle  = client.vault(card, to: url) { token, error in
+        let task    = client.vault(card, to: url) { token, error in
             assertions(token, error)
             e.fulfill()
         }
         
-        configuration(handle.task as! MockDataTask)
+        configuration(task as! MockDataTask)
         
-        handle.resume()
+        task.resume()
         self.wait(for: [e], timeout: 10)
     }
     
