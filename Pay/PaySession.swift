@@ -187,9 +187,9 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
             shippingRate:    shippingRate
         )
         
-        print("Authorized payment. Completing...")
+        Log("Authorized payment. Completing...")
         self.delegate?.paySession(self, didAuthorizePayment: authorization, checkout: self.checkout, completeTransaction: { status in
-            print("Completion status : \(status)")
+            Log("Completion status : \(status)")
             
             switch status {
             case .success: completion(.success)
@@ -199,7 +199,7 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
     }
     
     public func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didSelectShippingContact contact: PKContact, completion: @escaping (PKPaymentAuthorizationStatus, [PKShippingMethod], [PKPaymentSummaryItem]) -> Void) {
-        print("Selecting shipping contact...")
+        Log("Selecting shipping contact...")
         
         guard let postalAddress = contact.postalAddress else {
             completion(.invalidShippingPostalAddress, [], self.checkout.summaryItems)
@@ -240,7 +240,7 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
                 if let updatedCheckout = updatedCheckout {
                     self.checkout = updatedCheckout
                     
-                    print("Selected shipping contact.")
+                    Log("Selected shipping contact.")
                     completion(.success, shippingRates.summaryItems, updatedCheckout.summaryItems)
                 } else {
                     completion(.failure, [], [])
@@ -250,7 +250,7 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
     }
     
     public func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didSelectShippingMethod shippingMethod: PKShippingMethod, completion: @escaping (PKPaymentAuthorizationStatus, [PKPaymentSummaryItem]) -> Void) {
-        print("Selecting delivery method...")
+        Log("Selecting delivery method...")
         
         /* --------------------------------------
          ** This should never fail since shipping
@@ -266,7 +266,7 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
             if let updatedCheckout = updatedCheckout {
                 self.checkout = updatedCheckout
                 
-                print("Selected delivery method.")
+                Log("Selected delivery method.")
                 completion(.success, updatedCheckout.summaryItems)
             } else {
                 completion(.failure, [])
@@ -276,7 +276,7 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
     
     public func paymentAuthorizationControllerDidFinish(_ controller: PKPaymentAuthorizationController) {
         
-        print("Dismissing authorization controller.")
+        Log("Dismissing authorization controller.")
         controller.dismiss(completion: nil)
         
         self.delegate?.paySessionDidFinish(self)
