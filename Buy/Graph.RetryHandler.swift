@@ -27,22 +27,22 @@
 import Foundation
 
 public extension Graph {
-    
+
     /// A structure that encapsulates a retry condition for polling or retrying `Client` operations.
     public struct RetryHandler<R: GraphQL.AbstractResponse> {
-        
-        /// A condition, which signals to retry the network operation if evaluates to `true`.
+
+        /// A condition that signals to retry the network operation if it evaluates to `true`.
         public typealias Condition = (R?, QueryError?) -> Bool
 
         /// Represents the two cases for `Endurance`
         public enum Endurance {
-            
+
             /// Requests should continue retrying indefinitely
             case infinite
-            
+
             /// Requests are limited to a finite number of retries
             case finite(Int)
-            
+
             fileprivate func canContinueFor(_ count: Int) -> Bool {
                 switch self {
                 case .infinite:          return true
@@ -50,24 +50,24 @@ public extension Graph {
                 }
             }
         }
-        
+
         /// Indicates how many times a request has been retried
         public internal(set) var repeatCount: Int = 0
-        
+
         /// The endurance of the retry condition
         public let endurance: Endurance
-        
+
         /// The retry condition
         public let condition: Condition
-        
+
         /// The delay, in seconds, between subsequent retry attempts
         public var interval:  Double
-        
+
         /// Indicates whether the current state allows for another retry operation
         public var canRetry:  Bool {
             return self.endurance.canContinueFor(self.repeatCount)
         }
-        
+
         // ----------------------------------
         //  MARK: - Init -
         //
@@ -76,7 +76,7 @@ public extension Graph {
         /// - parameters:
         ///     - endurance: An endurance value that determines whether the retry condition will be executed indefinitely or up to a specific number of times.
         ///     - interval:  A delay, in seconds, between subsequent retry attempts.
-        ///     - condition: A retry condition. The network request will continute retrying if `self.canRetry` **and** `condition` evaluates to `true`.
+        ///     - condition: A retry condition. The network request will continue retrying if `self.canRetry` **and** `condition` evaluates to `true`.
         ///
         public init(endurance: Endurance = .infinite, interval: Double = 2.0, condition: @escaping Condition) {
             self.endurance = endurance

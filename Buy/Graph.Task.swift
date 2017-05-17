@@ -27,7 +27,7 @@
 import Foundation
 
 /// Provides an interface for managing the `URLSessionDataTask` created by `Graph.Client`. Since the
-/// the underlying `URLSessionDataTask` can change (in the case of retried requests), `Task` provides
+/// underlying `URLSessionDataTask` can change (in the case of retried requests), `Task` provides
 /// a single place to `cancel()` or `resume()` this underlying task.
 ///
 public protocol Task {
@@ -70,7 +70,7 @@ internal extension Graph {
             self.retryHandler = retryHandler
             self.completion   = completion
         }
-        
+
         // ----------------------------------
         //  MARK: - Control -
         //
@@ -145,7 +145,7 @@ internal extension Graph {
             self.isCancelled = true
             self.task?.cancel()
         }
-        
+
         // ----------------------------------
         //  MARK: - Cache -
         //

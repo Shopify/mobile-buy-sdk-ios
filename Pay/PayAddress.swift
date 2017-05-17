@@ -30,19 +30,19 @@ import PassKit
 /// Represents a partial address without street information.
 ///
 public struct PayPostalAddress {
-    
-    /// City (ex: "Toronto")
+
+    /// City (eg: "Toronto")
     public let city: String?
-    
-    /// Country (ex: "Canada")
+
+    /// Country (eg: "Canada")
     public let country: String?
-    
-    /// Province (ex: "ON" or "Ontario")
+
+    /// Province (eg: "ON" or "Ontario")
     public let province: String?
-    
-    /// Zip or postal code (ex: "M5V 2J4")
+
+    /// Zip or postal code (eg: "M5V 2J4")
     public let zip: String?
-    
+
     // ----------------------------------
     //  MARK: - Init -
     //
@@ -50,7 +50,7 @@ public struct PayPostalAddress {
          country:     String? = nil,
          province:    String? = nil,
          zip:         String? = nil) {
-        
+
         self.city         = city
         self.country      = country
         self.province     = province
@@ -58,40 +58,40 @@ public struct PayPostalAddress {
     }
 }
 
-/// Represents a complete address including first name, last name, phone and email address.
+/// Represents a complete address including first name, last name, phone, and email address.
 ///
 public struct PayAddress {
-    
-    /// First address line (ex: "Spadina 80")
+
+    /// First address line (eg: "Spadina 80")
     public let addressLine1: String?
-    
-    /// Second address line (ex: "Suite 400")
+
+    /// Second address line (eg: "Suite 400")
     public let addressLine2: String?
-    
-    /// City (ex: "Toronto")
+
+    /// City (eg: "Toronto")
     public let city: String?
-    
-    /// Country (ex: "Canada")
+
+    /// Country (eg: "Canada")
     public let country: String?
-    
-    /// Province (ex: "ON" or "Ontario")
+
+    /// Province (eg: "ON" or "Ontario")
     public let province: String?
-    
-    /// Zip or postal code (ex: "M5V 2J4")
+
+    /// Zip or postal code (eg: "M5V 2J4")
     public let zip: String?
-    
-    /// First name (ex: "John")
+
+    /// First name (eg: "John")
     public let firstName: String?
-    
-    /// Last name (ex: "Smith")
+
+    /// Last name (eg: "Smith")
     public let lastName: String?
-    
-    /// Phone number (ex: "1234567890")
+
+    /// Phone number (eg: "1234567890")
     public let phone: String?
-    
-    /// Email address (ex: "john.smith@gmail.com")
+
+    /// Email address (eg: "john.smith@gmail.com")
     public let email: String?
-    
+
     // ----------------------------------
     //  MARK: - Init -
     //
@@ -101,19 +101,19 @@ public struct PayAddress {
         country:      String? = nil,
         province:     String? = nil,
         zip:          String? = nil,
-        
+
         firstName:    String? = nil,
         lastName:     String? = nil,
         phone:        String? = nil,
         email:        String? = nil) {
-        
+
         self.addressLine1 = addressLine1
         self.addressLine2 = addressLine2
         self.city         = city
         self.country      = country
         self.province     = province
         self.zip          = zip
-        
+
         self.firstName    = firstName
         self.lastName     = lastName
         self.phone        = phone
@@ -125,7 +125,7 @@ public struct PayAddress {
 //  MARK: - PassKit -
 //
 internal extension PayPostalAddress {
-    
+
     init(with address: CNPostalAddress) {
         self.init(
             city:        address.city,
@@ -137,7 +137,7 @@ internal extension PayPostalAddress {
 }
 
 internal extension PayAddress {
-    
+
     init(with contact: PKContact) {
         let street = contact.postalAddress!.street
         let lines  = street.components(separatedBy: .newlines)

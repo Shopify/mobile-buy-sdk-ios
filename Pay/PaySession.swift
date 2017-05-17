@@ -33,18 +33,18 @@ import PassKit
 /// object in the `provide` handler.
 ///
 public protocol PaySessionDelegate: class {
-    
-    /// This callback is invoked when the user updates the `shippingContact` and the current address used for shipping is invalidated. 
+
+    /// This callback is invoked if the user updates the `shippingContact` and the current address used for shipping is invalidated.
     /// You should make any necessary API calls to obtain shipping rates here and provide an array of `PayShippingRate` objects.
     ///
     /// - parameters:
     ///     - paySession: The session that invoked the callback.
     ///     - address:    A partial address that you can use to obtain relevant shipping rates. This address is missing `addressLine1` and `addressLine2`. This information is only available after the user has authorized payment.
     ///     - checkout:   The current checkout state.
-    ///     - provide:    A completion handler that **must** be invoked with an updated `PayCheckout` and an array of `[PayShippingRate]`. If the `PayPostalAddress` is invalid or you were unable to obtain shipping rates, returning `nil` or empty shipping rates will result in an invalid address error in Apple Pay.
+    ///     - provide:    A completion handler that **must** be invoked with an updated `PayCheckout` and an array of `[PayShippingRate]`. If the `PayPostalAddress` is invalid or you were unable to obtain shipping rates, then returning `nil` or empty shipping rates will result in an invalid address error in Apple Pay.
     ///
     func paySession(_ paySession: PaySession, didRequestShippingRatesFor address: PayPostalAddress, checkout: PayCheckout, provide: @escaping (PayCheckout?, [PayShippingRate]) -> Void)
-    
+
     /// This callback is invoked when the user selects a shipping rate or an initial array of shipping rates is provided. In the latter case, the first shipping rate in the array will be used. You should make any necessary API calls to update the checkout with the selected shipping rate here.
     ///
     /// - parameters:
@@ -54,17 +54,17 @@ public protocol PaySessionDelegate: class {
     ///     - provide:      A completion handler that **must** be invoked with an updated `PayCheckout`. Returning `nil` will result in a generic failure in the Apple Pay dialog.
     ///
     func paySession(_ paySession: PaySession, didSelectShippingRate shippingRate: PayShippingRate, checkout: PayCheckout, provide: @escaping (PayCheckout?) -> Void)
-    
-    /// This callback is invoked when the user authorizes payment using Touch ID or passcode. You should make necessary API calls to update and complete the checkout with final information (ex: billing address, etc) here.
+
+    /// This callback is invoked when the user authorizes payment using Touch ID or passcode. You should make necessary API calls to update and complete the checkout with final information here (eg: billing address).
     ///
     /// - parameters:
     ///     - paySession:          The session that invoked the callback.
-    ///     - authorization:       Authorization object that encapsulates the token and other relevant information: billing address, complete shipping address, shipping rate.
+    ///     - authorization:       Authorization object that encapsulates the token and other relevant information: billing address, complete shipping address, and shipping rate.
     ///     - checkout:            The current checkout state.
     ///     - completeTransaction: A completion handler that **must** be invoked with the final transaction status.
     ///
     func paySession(_ paySession: PaySession, didAuthorizePayment authorization: PayAuthorization, checkout: PayCheckout, completeTransaction: @escaping (PaySession.TransactionStatus) -> Void)
-    
+
     /// This callback is invoked when the Apple Pay authorization controller is dismissed.
     ///
     /// - parameters:
@@ -73,12 +73,12 @@ public protocol PaySessionDelegate: class {
     func paySessionDidFinish(_ paySession: PaySession)
 }
 
-/// The `PaySession` is responsible for coordinating the communication
+/// The `PaySession` coordinates the communication
 /// between `PKPaymentAuthorizationController` and your application to
 /// provide easier support for Apple Pay.
 ///
 public class PaySession: NSObject {
-    
+
     /// A status that determines whether a transaction has completed
     /// successfully or failed.
     ///
@@ -86,28 +86,28 @@ public class PaySession: NSObject {
         case success
         case failure
     }
-    
+
     /// A delegate for receiving updates from `PaySession`.
     public weak var delegate: PaySessionDelegate?
-    
-    /// Currency description that will be used in this Apple Pay transaction.
+
+    /// The currency description that will be used in this Apple Pay transaction.
     public let currency: PayCurrency
-    
-    /// Merchant ID provided on initilization. Should match the merchant ID used to setup Apple Pay in the developer portal.
+
+    /// The merchant ID provided on initialization. It should match the merchant ID used to setup Apple Pay in the developer portal.
     public let merchantID: String
-    
-    /// Idempotency identifier of this session
+
+    /// Idempotency identifier of this session.
     public let identifier: String
-    
+
     internal var checkout:      PayCheckout
     internal var shippingRates: [PayShippingRate] = []
-    
+
     private let controllerType: PKPaymentAuthorizationController.Type
-    
+
     // ----------------------------------
     //  MARK: - Init -
     //
-    
+
     /// An instance of `PaySession` represents a single transaction using Apple Pay.
     /// To create one requires a `PayCheckout` and `PayCurrency`.
     ///
@@ -124,14 +124,14 @@ public class PaySession: NSObject {
         self.identifier     = UUID().uuidString
         self.controllerType = controllerType
     }
-    
+
     // ----------------------------------
     //  MARK: - Begin Checkout -
     //
-    
-    /// Invoking `authorize()` will create a payment request and present the 
+
+    /// Invoking `authorize()` will create a payment request and present the
     /// Apple Pay dialog. The `delegate` will then be called when the user
-    /// begins changing billing address, shipping address and shipping rates.
+    /// begins changing billing address, shipping address, and shipping rates.
     ///
     public func authorize() {
         let paymentRequest  = self.paymentRequestUsing(checkout, currency: currency, merchantID: self.merchantID)
@@ -139,7 +139,7 @@ public class PaySession: NSObject {
         controller.delegate = self
         controller.present(completion: nil)
     }
-    
+
     // ----------------------------------
     //  MARK: - Payment Creation -
     //
@@ -153,7 +153,7 @@ public class PaySession: NSObject {
         request.supportedNetworks             = [.visa, .masterCard, .amex]
         request.merchantCapabilities          = [.capability3DS]
         request.paymentSummaryItems           = checkout.summaryItems
-        
+
         return request
     }
 }
@@ -162,18 +162,18 @@ public class PaySession: NSObject {
 //  MARK: - PKPaymentAuthorizationControllerDelegate -
 //
 extension PaySession: PKPaymentAuthorizationControllerDelegate {
-    
+
     // -------------------------------------------------------
     //  MARK: - PKPaymentAuthorizationControllerDelegate -
     //
     public func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didAuthorizePayment payment: PKPayment, completion: @escaping (PKPaymentAuthorizationStatus) -> Void) {
-     
+
         var shippingRate: PayShippingRate?
-        
+
         if self.checkout.needsShipping {
             shippingRate = self.shippingRates.shippingRateFor(payment.shippingMethod!)
         }
-        
+
         /* -----------------------------------------------
          ** The PKPayment object provides `billingContact`
          ** and `shippingContact` only when required fields
@@ -190,14 +190,14 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
         Log("Authorized payment. Completing...")
         self.delegate?.paySession(self, didAuthorizePayment: authorization, checkout: self.checkout, completeTransaction: { status in
             Log("Completion status : \(status)")
-            
+        
             switch status {
             case .success: completion(.success)
             case .failure: completion(.failure)
             }
         })
     }
-    
+
     public func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didSelectShippingContact contact: PKContact, completion: @escaping (PKPaymentAuthorizationStatus, [PKShippingMethod], [PKPaymentSummaryItem]) -> Void) {
         Log("Selecting shipping contact...")
         
@@ -205,9 +205,9 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
             completion(.invalidShippingPostalAddress, [], self.checkout.summaryItems)
             return
         }
-        
+
         let payPostalAddress = PayPostalAddress(with: postalAddress)
-        
+
         /* ---------------------------------
          ** Request the delegate to provide
          ** shipping rates for the given
@@ -215,7 +215,7 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
          ** should be enough to obtain rates.
          */
         self.delegate?.paySession(self, didRequestShippingRatesFor: payPostalAddress, checkout: self.checkout, provide: { updatedCheckout, shippingRates in
-            
+
             /* ---------------------------------
              ** The delegate has an opportunity
              ** to return empty shipping rates
@@ -226,10 +226,10 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
                 completion(.invalidShippingPostalAddress, [], self.checkout.summaryItems)
                 return
             }
-            
+
             self.checkout      = updatedCheckout
             self.shippingRates = shippingRates
-            
+
             /* -----------------------------------------
              ** Give the delegate a chance to update the
              ** checkout with the first shipping rate as
@@ -248,7 +248,7 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
             })
         })
     }
-    
+
     public func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didSelectShippingMethod shippingMethod: PKShippingMethod, completion: @escaping (PKPaymentAuthorizationStatus, [PKPaymentSummaryItem]) -> Void) {
         Log("Selecting delivery method...")
         
@@ -261,7 +261,7 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
             completion(.failure, self.checkout.summaryItems)
             return
         }
-        
+
         self.delegate?.paySession(self, didSelectShippingRate: shippingRate, checkout: self.checkout, provide: { updatedCheckout in
             if let updatedCheckout = updatedCheckout {
                 self.checkout = updatedCheckout
@@ -273,12 +273,12 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
             }
         })
     }
-    
+
     public func paymentAuthorizationControllerDidFinish(_ controller: PKPaymentAuthorizationController) {
         
         Log("Dismissing authorization controller.")
         controller.dismiss(completion: nil)
-        
+
         self.delegate?.paySessionDidFinish(self)
     }
 }
