@@ -174,16 +174,14 @@ extension Storefront {
 		}
 
 		@discardableResult
-		open func checkoutLineItemsAdd(aliasSuffix: String? = nil, lineItems: [CheckoutLineItemInput]? = nil, checkoutId: GraphQL.ID, _ subfields: (CheckoutLineItemsAddPayloadQuery) -> Void) -> MutationQuery {
+		open func checkoutLineItemsAdd(aliasSuffix: String? = nil, lineItems: [CheckoutLineItemInput], checkoutId: GraphQL.ID, _ subfields: (CheckoutLineItemsAddPayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
+
+			args.append("lineItems:[\(lineItems.map{ "\($0.serialize())" }.joined(separator: ","))]")
 
 			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
 
-			if let lineItems = lineItems {
-				args.append("lineItems:[\(lineItems.map{ "\($0.serialize())" }.joined(separator: ","))]")
-			}
-
-			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+			let argsString = "(\(args.joined(separator: ",")))"
 
 			let subquery = CheckoutLineItemsAddPayloadQuery()
 			subfields(subquery)

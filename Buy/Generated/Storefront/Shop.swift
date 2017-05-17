@@ -6,6 +6,12 @@ extension Storefront {
 		public typealias Response = Shop
 
 		@discardableResult
+		open func cardVaultUrl(aliasSuffix: String? = nil) -> ShopQuery {
+			addField(field: "cardVaultUrl", aliasSuffix: aliasSuffix)
+			return self
+		}
+
+		@discardableResult
 		open func collections(aliasSuffix: String? = nil, first: Int32, after: String? = nil, sortKey: CollectionSortKeys? = nil, reverse: Bool? = nil, query: String? = nil, _ subfields: (CollectionConnectionQuery) -> Void) -> ShopQuery {
 			var args: [String] = []
 
@@ -140,6 +146,12 @@ extension Storefront {
 		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "cardVaultUrl":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return URL(string: value)!
+
 				case "collections":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
@@ -217,6 +229,14 @@ extension Storefront {
 		}
 
 		open var typeName: String { return "Shop" }
+
+		open var cardVaultUrl: URL {
+			return internalGetCardVaultUrl()
+		}
+
+		func internalGetCardVaultUrl(aliasSuffix: String? = nil) -> URL {
+			return field(field: "cardVaultUrl", aliasSuffix: aliasSuffix) as! URL
+		}
 
 		open var collections: Storefront.CollectionConnection {
 			return internalGetCollections()
@@ -316,6 +336,10 @@ extension Storefront {
 
 		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
 			switch(key) {
+				case "cardVaultUrl":
+
+				return .Scalar
+
 				case "collections":
 
 				return .Object

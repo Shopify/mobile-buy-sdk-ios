@@ -7,11 +7,7 @@ extension Storefront {
 
 		case id = "ID"
 
-		case inventoryTotal = "INVENTORY_TOTAL"
-
 		case productType = "PRODUCT_TYPE"
-
-		case publishedAt = "PUBLISHED_AT"
 
 		case relevance = "RELEVANCE"
 
