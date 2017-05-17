@@ -39,6 +39,8 @@ public protocol Task {
     func cancel()
 }
 
+extension URLSessionDataTask: Task {}
+
 internal extension Graph {
     
     internal class InternalTask<R: GraphQL.AbstractResponse>: Task {
