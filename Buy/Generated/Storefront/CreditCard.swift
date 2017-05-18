@@ -1,63 +1,91 @@
-// Generated from graphql_swift_gen gem
+//
+//  CreditCard.swift
+//  Buy
+//
+//  Created by Shopify.
+//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
+
 import Foundation
 
 extension Storefront {
+	/// Credit card information used for a payment. 
 	open class CreditCardQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CreditCard
 
 		@discardableResult
-		open func brand(aliasSuffix: String? = nil) -> CreditCardQuery {
-			addField(field: "brand", aliasSuffix: aliasSuffix)
+		open func brand(alias: String? = nil) -> CreditCardQuery {
+			addField(field: "brand", aliasSuffix: alias)
 			return self
 		}
 
 		@discardableResult
-		open func expiryMonth(aliasSuffix: String? = nil) -> CreditCardQuery {
-			addField(field: "expiryMonth", aliasSuffix: aliasSuffix)
+		open func expiryMonth(alias: String? = nil) -> CreditCardQuery {
+			addField(field: "expiryMonth", aliasSuffix: alias)
 			return self
 		}
 
 		@discardableResult
-		open func expiryYear(aliasSuffix: String? = nil) -> CreditCardQuery {
-			addField(field: "expiryYear", aliasSuffix: aliasSuffix)
+		open func expiryYear(alias: String? = nil) -> CreditCardQuery {
+			addField(field: "expiryYear", aliasSuffix: alias)
 			return self
 		}
 
 		@discardableResult
-		open func firstDigits(aliasSuffix: String? = nil) -> CreditCardQuery {
-			addField(field: "firstDigits", aliasSuffix: aliasSuffix)
+		open func firstDigits(alias: String? = nil) -> CreditCardQuery {
+			addField(field: "firstDigits", aliasSuffix: alias)
 			return self
 		}
 
 		@discardableResult
-		open func firstName(aliasSuffix: String? = nil) -> CreditCardQuery {
-			addField(field: "firstName", aliasSuffix: aliasSuffix)
+		open func firstName(alias: String? = nil) -> CreditCardQuery {
+			addField(field: "firstName", aliasSuffix: alias)
 			return self
 		}
 
 		@discardableResult
-		open func lastDigits(aliasSuffix: String? = nil) -> CreditCardQuery {
-			addField(field: "lastDigits", aliasSuffix: aliasSuffix)
+		open func lastDigits(alias: String? = nil) -> CreditCardQuery {
+			addField(field: "lastDigits", aliasSuffix: alias)
 			return self
 		}
 
 		@discardableResult
-		open func lastName(aliasSuffix: String? = nil) -> CreditCardQuery {
-			addField(field: "lastName", aliasSuffix: aliasSuffix)
+		open func lastName(alias: String? = nil) -> CreditCardQuery {
+			addField(field: "lastName", aliasSuffix: alias)
 			return self
 		}
 
+		/// Masked credit card number with only the last 4 digits displayed 
 		@discardableResult
-		open func maskedNumber(aliasSuffix: String? = nil) -> CreditCardQuery {
-			addField(field: "maskedNumber", aliasSuffix: aliasSuffix)
+		open func maskedNumber(alias: String? = nil) -> CreditCardQuery {
+			addField(field: "maskedNumber", aliasSuffix: alias)
 			return self
 		}
 	}
 
+	/// Credit card information used for a payment. 
 	open class CreditCard: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CreditCardQuery
 
-		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
+		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
 				case "brand":
@@ -121,132 +149,73 @@ extension Storefront {
 			}
 		}
 
-		open var typeName: String { return "CreditCard" }
-
 		open var brand: String? {
 			return internalGetBrand()
 		}
 
-		func internalGetBrand(aliasSuffix: String? = nil) -> String? {
-			return field(field: "brand", aliasSuffix: aliasSuffix) as! String?
+		func internalGetBrand(alias: String? = nil) -> String? {
+			return field(field: "brand", aliasSuffix: alias) as! String?
 		}
 
 		open var expiryMonth: Int32? {
 			return internalGetExpiryMonth()
 		}
 
-		func internalGetExpiryMonth(aliasSuffix: String? = nil) -> Int32? {
-			return field(field: "expiryMonth", aliasSuffix: aliasSuffix) as! Int32?
+		func internalGetExpiryMonth(alias: String? = nil) -> Int32? {
+			return field(field: "expiryMonth", aliasSuffix: alias) as! Int32?
 		}
 
 		open var expiryYear: Int32? {
 			return internalGetExpiryYear()
 		}
 
-		func internalGetExpiryYear(aliasSuffix: String? = nil) -> Int32? {
-			return field(field: "expiryYear", aliasSuffix: aliasSuffix) as! Int32?
+		func internalGetExpiryYear(alias: String? = nil) -> Int32? {
+			return field(field: "expiryYear", aliasSuffix: alias) as! Int32?
 		}
 
 		open var firstDigits: String? {
 			return internalGetFirstDigits()
 		}
 
-		func internalGetFirstDigits(aliasSuffix: String? = nil) -> String? {
-			return field(field: "firstDigits", aliasSuffix: aliasSuffix) as! String?
+		func internalGetFirstDigits(alias: String? = nil) -> String? {
+			return field(field: "firstDigits", aliasSuffix: alias) as! String?
 		}
 
 		open var firstName: String? {
 			return internalGetFirstName()
 		}
 
-		func internalGetFirstName(aliasSuffix: String? = nil) -> String? {
-			return field(field: "firstName", aliasSuffix: aliasSuffix) as! String?
+		func internalGetFirstName(alias: String? = nil) -> String? {
+			return field(field: "firstName", aliasSuffix: alias) as! String?
 		}
 
 		open var lastDigits: String? {
 			return internalGetLastDigits()
 		}
 
-		func internalGetLastDigits(aliasSuffix: String? = nil) -> String? {
-			return field(field: "lastDigits", aliasSuffix: aliasSuffix) as! String?
+		func internalGetLastDigits(alias: String? = nil) -> String? {
+			return field(field: "lastDigits", aliasSuffix: alias) as! String?
 		}
 
 		open var lastName: String? {
 			return internalGetLastName()
 		}
 
-		func internalGetLastName(aliasSuffix: String? = nil) -> String? {
-			return field(field: "lastName", aliasSuffix: aliasSuffix) as! String?
+		func internalGetLastName(alias: String? = nil) -> String? {
+			return field(field: "lastName", aliasSuffix: alias) as! String?
 		}
 
+		/// Masked credit card number with only the last 4 digits displayed 
 		open var maskedNumber: String? {
 			return internalGetMaskedNumber()
 		}
 
-		func internalGetMaskedNumber(aliasSuffix: String? = nil) -> String? {
-			return field(field: "maskedNumber", aliasSuffix: aliasSuffix) as! String?
+		func internalGetMaskedNumber(alias: String? = nil) -> String? {
+			return field(field: "maskedNumber", aliasSuffix: alias) as! String?
 		}
 
-		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
-			switch(key) {
-				case "brand":
-
-				return .Scalar
-
-				case "expiryMonth":
-
-				return .Scalar
-
-				case "expiryYear":
-
-				return .Scalar
-
-				case "firstDigits":
-
-				return .Scalar
-
-				case "firstName":
-
-				return .Scalar
-
-				case "lastDigits":
-
-				return .Scalar
-
-				case "lastName":
-
-				return .Scalar
-
-				case "maskedNumber":
-
-				return .Scalar
-
-				default:
-				return .Scalar
-			}
-		}
-
-		override open func fetchChildObject(key: String) -> GraphQL.AbstractResponse? {
-			switch(key) {
-				default:
-				break
-			}
-			return nil
-		}
-
-		override open func fetchChildObjectList(key: String) -> [GraphQL.AbstractResponse] {
-			switch(key) {
-				default:
-				return []
-			}
-		}
-
-		open func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			return []
-		}
-
-		open func responseObject() -> GraphQL.AbstractResponse {
-			return self as GraphQL.AbstractResponse
 		}
 	}
 }

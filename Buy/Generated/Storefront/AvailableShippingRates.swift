@@ -1,30 +1,61 @@
-// Generated from graphql_swift_gen gem
+//
+//  AvailableShippingRates.swift
+//  Buy
+//
+//  Created by Shopify.
+//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
+
 import Foundation
 
 extension Storefront {
+	/// A collection of available shipping rates for a checkout. 
 	open class AvailableShippingRatesQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = AvailableShippingRates
 
+		/// Whether or not the shipping rates are ready. The `shippingRates` field is 
+		/// `null` when this value is `false`. This field should be polled until its 
+		/// value becomes `true`. 
 		@discardableResult
-		open func ready(aliasSuffix: String? = nil) -> AvailableShippingRatesQuery {
-			addField(field: "ready", aliasSuffix: aliasSuffix)
+		open func ready(alias: String? = nil) -> AvailableShippingRatesQuery {
+			addField(field: "ready", aliasSuffix: alias)
 			return self
 		}
 
+		/// The fetched shipping rates. `null` until the `ready` field is `true`. 
 		@discardableResult
-		open func shippingRates(aliasSuffix: String? = nil, _ subfields: (ShippingRateQuery) -> Void) -> AvailableShippingRatesQuery {
+		open func shippingRates(alias: String? = nil, _ subfields: (ShippingRateQuery) -> Void) -> AvailableShippingRatesQuery {
 			let subquery = ShippingRateQuery()
 			subfields(subquery)
 
-			addField(field: "shippingRates", aliasSuffix: aliasSuffix, subfields: subquery)
+			addField(field: "shippingRates", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 	}
 
+	/// A collection of available shipping rates for a checkout. 
 	open class AvailableShippingRates: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = AvailableShippingRatesQuery
 
-		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
+		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
 				case "ready":
@@ -45,63 +76,28 @@ extension Storefront {
 			}
 		}
 
-		open var typeName: String { return "AvailableShippingRates" }
-
+		/// Whether or not the shipping rates are ready. The `shippingRates` field is 
+		/// `null` when this value is `false`. This field should be polled until its 
+		/// value becomes `true`. 
 		open var ready: Bool {
 			return internalGetReady()
 		}
 
-		func internalGetReady(aliasSuffix: String? = nil) -> Bool {
-			return field(field: "ready", aliasSuffix: aliasSuffix) as! Bool
+		func internalGetReady(alias: String? = nil) -> Bool {
+			return field(field: "ready", aliasSuffix: alias) as! Bool
 		}
 
+		/// The fetched shipping rates. `null` until the `ready` field is `true`. 
 		open var shippingRates: [Storefront.ShippingRate]? {
 			return internalGetShippingRates()
 		}
 
-		func internalGetShippingRates(aliasSuffix: String? = nil) -> [Storefront.ShippingRate]? {
-			return field(field: "shippingRates", aliasSuffix: aliasSuffix) as! [Storefront.ShippingRate]?
+		func internalGetShippingRates(alias: String? = nil) -> [Storefront.ShippingRate]? {
+			return field(field: "shippingRates", aliasSuffix: alias) as! [Storefront.ShippingRate]?
 		}
 
-		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
-			switch(key) {
-				case "ready":
-
-				return .Scalar
-
-				case "shippingRates":
-
-				return .ObjectList
-
-				default:
-				return .Scalar
-			}
-		}
-
-		override open func fetchChildObject(key: String) -> GraphQL.AbstractResponse? {
-			switch(key) {
-				default:
-				break
-			}
-			return nil
-		}
-
-		override open func fetchChildObjectList(key: String) -> [GraphQL.AbstractResponse] {
-			switch(key) {
-				case "shippingRates":
-				return internalGetShippingRates() ?? []
-
-				default:
-				return []
-			}
-		}
-
-		open func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			return []
-		}
-
-		open func responseObject() -> GraphQL.AbstractResponse {
-			return self as GraphQL.AbstractResponse
 		}
 	}
 }

@@ -1,25 +1,52 @@
-// Generated from graphql_swift_gen gem
+//
+//  CustomerResetPayload.swift
+//  Buy
+//
+//  Created by Shopify.
+//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
+
 import Foundation
 
 extension Storefront {
 	open class CustomerResetPayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CustomerResetPayload
 
+		/// The customer object which was reset. 
 		@discardableResult
-		open func customer(aliasSuffix: String? = nil, _ subfields: (CustomerQuery) -> Void) -> CustomerResetPayloadQuery {
+		open func customer(alias: String? = nil, _ subfields: (CustomerQuery) -> Void) -> CustomerResetPayloadQuery {
 			let subquery = CustomerQuery()
 			subfields(subquery)
 
-			addField(field: "customer", aliasSuffix: aliasSuffix, subfields: subquery)
+			addField(field: "customer", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
+		/// List of errors that occurred executing the mutation. 
 		@discardableResult
-		open func userErrors(aliasSuffix: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerResetPayloadQuery {
+		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerResetPayloadQuery {
 			let subquery = UserErrorQuery()
 			subfields(subquery)
 
-			addField(field: "userErrors", aliasSuffix: aliasSuffix, subfields: subquery)
+			addField(field: "userErrors", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 	}
@@ -27,7 +54,7 @@ extension Storefront {
 	open class CustomerResetPayload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CustomerResetPayloadQuery
 
-		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
+		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
 				case "customer":
@@ -48,65 +75,28 @@ extension Storefront {
 			}
 		}
 
-		open var typeName: String { return "CustomerResetPayload" }
-
+		/// The customer object which was reset. 
 		open var customer: Storefront.Customer? {
 			return internalGetCustomer()
 		}
 
-		func internalGetCustomer(aliasSuffix: String? = nil) -> Storefront.Customer? {
-			return field(field: "customer", aliasSuffix: aliasSuffix) as! Storefront.Customer?
+		func internalGetCustomer(alias: String? = nil) -> Storefront.Customer? {
+			return field(field: "customer", aliasSuffix: alias) as! Storefront.Customer?
 		}
 
+		/// List of errors that occurred executing the mutation. 
 		open var userErrors: [Storefront.UserError] {
 			return internalGetUserErrors()
 		}
 
-		func internalGetUserErrors(aliasSuffix: String? = nil) -> [Storefront.UserError] {
-			return field(field: "userErrors", aliasSuffix: aliasSuffix) as! [Storefront.UserError]
+		func internalGetUserErrors(alias: String? = nil) -> [Storefront.UserError] {
+			return field(field: "userErrors", aliasSuffix: alias) as! [Storefront.UserError]
 		}
 
-		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
-			switch(key) {
-				case "customer":
-
-				return .Object
-
-				case "userErrors":
-
-				return .ObjectList
-
-				default:
-				return .Scalar
-			}
-		}
-
-		override open func fetchChildObject(key: String) -> GraphQL.AbstractResponse? {
-			switch(key) {
-				case "customer":
-				return internalGetCustomer()
-
-				default:
-				break
-			}
-			return nil
-		}
-
-		override open func fetchChildObjectList(key: String) -> [GraphQL.AbstractResponse] {
-			switch(key) {
-				case "userErrors":
-				return internalGetUserErrors()
-
-				default:
-				return []
-			}
-		}
-
-		open func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			var response: [GraphQL.AbstractResponse] = []
-			objectMap.keys.forEach({
-				key in
-				switch(key) {
+			objectMap.keys.forEach {
+				switch($0) {
 					case "customer":
 					if let value = internalGetCustomer() {
 						response.append(value)
@@ -122,12 +112,8 @@ extension Storefront {
 					default:
 					break
 				}
-			})
+			}
 			return response
-		}
-
-		open func responseObject() -> GraphQL.AbstractResponse {
-			return self as GraphQL.AbstractResponse
 		}
 	}
 }

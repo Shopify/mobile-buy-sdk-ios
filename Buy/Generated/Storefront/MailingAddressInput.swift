@@ -1,7 +1,33 @@
-// Generated from graphql_swift_gen gem
+//
+//  MailingAddressInput.swift
+//  Buy
+//
+//  Created by Shopify.
+//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
+
 import Foundation
 
 extension Storefront {
+	/// Specifies the fields accepted to create or update a mailing address. 
 	open class MailingAddressInput {
 		open var address1: String?
 
@@ -23,49 +49,34 @@ extension Storefront {
 
 		open var zip: String?
 
-		public init(
-			address1: String? = nil,
-
-			address2: String? = nil,
-
-			city: String? = nil,
-
-			company: String? = nil,
-
-			country: String? = nil,
-
-			firstName: String? = nil,
-
-			lastName: String? = nil,
-
-			phone: String? = nil,
-
-			province: String? = nil,
-
-			zip: String? = nil
-		) {
+		/// Creates the input object.
+		///
+		/// - parameters:
+		///     - address1: No description
+		///     - address2: No description
+		///     - city: No description
+		///     - company: No description
+		///     - country: No description
+		///     - firstName: No description
+		///     - lastName: No description
+		///     - phone: No description
+		///     - province: No description
+		///     - zip: No description
+		///
+		public init(address1: String? = nil, address2: String? = nil, city: String? = nil, company: String? = nil, country: String? = nil, firstName: String? = nil, lastName: String? = nil, phone: String? = nil, province: String? = nil, zip: String? = nil) {
 			self.address1 = address1
-
 			self.address2 = address2
-
 			self.city = city
-
 			self.company = company
-
 			self.country = country
-
 			self.firstName = firstName
-
 			self.lastName = lastName
-
 			self.phone = phone
-
 			self.province = province
-
 			self.zip = zip
 		}
 
-		func serialize() -> String {
+		internal func serialize() -> String {
 			var fields: [String] = []
 
 			if let address1 = address1 {

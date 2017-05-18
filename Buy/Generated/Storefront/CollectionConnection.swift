@@ -1,25 +1,52 @@
-// Generated from graphql_swift_gen gem
+//
+//  CollectionConnection.swift
+//  Buy
+//
+//  Created by Shopify.
+//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
+
 import Foundation
 
 extension Storefront {
 	open class CollectionConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CollectionConnection
 
+		/// A list of edges. 
 		@discardableResult
-		open func edges(aliasSuffix: String? = nil, _ subfields: (CollectionEdgeQuery) -> Void) -> CollectionConnectionQuery {
+		open func edges(alias: String? = nil, _ subfields: (CollectionEdgeQuery) -> Void) -> CollectionConnectionQuery {
 			let subquery = CollectionEdgeQuery()
 			subfields(subquery)
 
-			addField(field: "edges", aliasSuffix: aliasSuffix, subfields: subquery)
+			addField(field: "edges", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
+		/// Information to aid in pagination. 
 		@discardableResult
-		open func pageInfo(aliasSuffix: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> CollectionConnectionQuery {
+		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> CollectionConnectionQuery {
 			let subquery = PageInfoQuery()
 			subfields(subquery)
 
-			addField(field: "pageInfo", aliasSuffix: aliasSuffix, subfields: subquery)
+			addField(field: "pageInfo", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 	}
@@ -27,7 +54,7 @@ extension Storefront {
 	open class CollectionConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CollectionConnectionQuery
 
-		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
+		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
 				case "edges":
@@ -47,65 +74,28 @@ extension Storefront {
 			}
 		}
 
-		open var typeName: String { return "CollectionConnection" }
-
+		/// A list of edges. 
 		open var edges: [Storefront.CollectionEdge] {
 			return internalGetEdges()
 		}
 
-		func internalGetEdges(aliasSuffix: String? = nil) -> [Storefront.CollectionEdge] {
-			return field(field: "edges", aliasSuffix: aliasSuffix) as! [Storefront.CollectionEdge]
+		func internalGetEdges(alias: String? = nil) -> [Storefront.CollectionEdge] {
+			return field(field: "edges", aliasSuffix: alias) as! [Storefront.CollectionEdge]
 		}
 
+		/// Information to aid in pagination. 
 		open var pageInfo: Storefront.PageInfo {
 			return internalGetPageInfo()
 		}
 
-		func internalGetPageInfo(aliasSuffix: String? = nil) -> Storefront.PageInfo {
-			return field(field: "pageInfo", aliasSuffix: aliasSuffix) as! Storefront.PageInfo
+		func internalGetPageInfo(alias: String? = nil) -> Storefront.PageInfo {
+			return field(field: "pageInfo", aliasSuffix: alias) as! Storefront.PageInfo
 		}
 
-		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
-			switch(key) {
-				case "edges":
-
-				return .ObjectList
-
-				case "pageInfo":
-
-				return .Object
-
-				default:
-				return .Scalar
-			}
-		}
-
-		override open func fetchChildObject(key: String) -> GraphQL.AbstractResponse? {
-			switch(key) {
-				case "pageInfo":
-				return internalGetPageInfo()
-
-				default:
-				break
-			}
-			return nil
-		}
-
-		override open func fetchChildObjectList(key: String) -> [GraphQL.AbstractResponse] {
-			switch(key) {
-				case "edges":
-				return internalGetEdges()
-
-				default:
-				return []
-			}
-		}
-
-		open func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			var response: [GraphQL.AbstractResponse] = []
-			objectMap.keys.forEach({
-				key in
-				switch(key) {
+			objectMap.keys.forEach {
+				switch($0) {
 					case "edges":
 					internalGetEdges().forEach {
 						response.append($0)
@@ -119,12 +109,8 @@ extension Storefront {
 					default:
 					break
 				}
-			})
+			}
 			return response
-		}
-
-		open func responseObject() -> GraphQL.AbstractResponse {
-			return self as GraphQL.AbstractResponse
 		}
 	}
 }

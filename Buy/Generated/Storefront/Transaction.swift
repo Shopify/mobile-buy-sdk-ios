@@ -1,39 +1,70 @@
-// Generated from graphql_swift_gen gem
+//
+//  Transaction.swift
+//  Buy
+//
+//  Created by Shopify.
+//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
+
 import Foundation
 
 extension Storefront {
+	/// An object representing exchange of money for a product or service. 
 	open class TransactionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Transaction
 
+		/// The amount of money that the transaction was for. 
 		@discardableResult
-		open func amount(aliasSuffix: String? = nil) -> TransactionQuery {
-			addField(field: "amount", aliasSuffix: aliasSuffix)
+		open func amount(alias: String? = nil) -> TransactionQuery {
+			addField(field: "amount", aliasSuffix: alias)
 			return self
 		}
 
+		/// The kind of the transaction. 
 		@discardableResult
-		open func kind(aliasSuffix: String? = nil) -> TransactionQuery {
-			addField(field: "kind", aliasSuffix: aliasSuffix)
+		open func kind(alias: String? = nil) -> TransactionQuery {
+			addField(field: "kind", aliasSuffix: alias)
 			return self
 		}
 
+		/// The status of the transaction 
 		@discardableResult
-		open func status(aliasSuffix: String? = nil) -> TransactionQuery {
-			addField(field: "status", aliasSuffix: aliasSuffix)
+		open func status(alias: String? = nil) -> TransactionQuery {
+			addField(field: "status", aliasSuffix: alias)
 			return self
 		}
 
+		/// Whether the transaction was done in test mode or not 
 		@discardableResult
-		open func test(aliasSuffix: String? = nil) -> TransactionQuery {
-			addField(field: "test", aliasSuffix: aliasSuffix)
+		open func test(alias: String? = nil) -> TransactionQuery {
+			addField(field: "test", aliasSuffix: alias)
 			return self
 		}
 	}
 
+	/// An object representing exchange of money for a product or service. 
 	open class Transaction: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = TransactionQuery
 
-		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
+		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
 				case "amount":
@@ -65,84 +96,44 @@ extension Storefront {
 			}
 		}
 
-		open var typeName: String { return "Transaction" }
-
+		/// The amount of money that the transaction was for. 
 		open var amount: Decimal {
 			return internalGetAmount()
 		}
 
-		func internalGetAmount(aliasSuffix: String? = nil) -> Decimal {
-			return field(field: "amount", aliasSuffix: aliasSuffix) as! Decimal
+		func internalGetAmount(alias: String? = nil) -> Decimal {
+			return field(field: "amount", aliasSuffix: alias) as! Decimal
 		}
 
+		/// The kind of the transaction. 
 		open var kind: Storefront.TransactionKind {
 			return internalGetKind()
 		}
 
-		func internalGetKind(aliasSuffix: String? = nil) -> Storefront.TransactionKind {
-			return field(field: "kind", aliasSuffix: aliasSuffix) as! Storefront.TransactionKind
+		func internalGetKind(alias: String? = nil) -> Storefront.TransactionKind {
+			return field(field: "kind", aliasSuffix: alias) as! Storefront.TransactionKind
 		}
 
+		/// The status of the transaction 
 		open var status: Storefront.TransactionStatus {
 			return internalGetStatus()
 		}
 
-		func internalGetStatus(aliasSuffix: String? = nil) -> Storefront.TransactionStatus {
-			return field(field: "status", aliasSuffix: aliasSuffix) as! Storefront.TransactionStatus
+		func internalGetStatus(alias: String? = nil) -> Storefront.TransactionStatus {
+			return field(field: "status", aliasSuffix: alias) as! Storefront.TransactionStatus
 		}
 
+		/// Whether the transaction was done in test mode or not 
 		open var test: Bool {
 			return internalGetTest()
 		}
 
-		func internalGetTest(aliasSuffix: String? = nil) -> Bool {
-			return field(field: "test", aliasSuffix: aliasSuffix) as! Bool
+		func internalGetTest(alias: String? = nil) -> Bool {
+			return field(field: "test", aliasSuffix: alias) as! Bool
 		}
 
-		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
-			switch(key) {
-				case "amount":
-
-				return .Scalar
-
-				case "kind":
-
-				return .Scalar
-
-				case "status":
-
-				return .Scalar
-
-				case "test":
-
-				return .Scalar
-
-				default:
-				return .Scalar
-			}
-		}
-
-		override open func fetchChildObject(key: String) -> GraphQL.AbstractResponse? {
-			switch(key) {
-				default:
-				break
-			}
-			return nil
-		}
-
-		override open func fetchChildObjectList(key: String) -> [GraphQL.AbstractResponse] {
-			switch(key) {
-				default:
-				return []
-			}
-		}
-
-		open func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			return []
-		}
-
-		open func responseObject() -> GraphQL.AbstractResponse {
-			return self as GraphQL.AbstractResponse
 		}
 	}
 }

@@ -1,54 +1,85 @@
-// Generated from graphql_swift_gen gem
+//
+//  MailingAddress.swift
+//  Buy
+//
+//  Created by Shopify.
+//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
+
 import Foundation
 
 extension Storefront {
+	/// Represents a mailing address for customers and shipping. 
 	open class MailingAddressQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = MailingAddress
 
 		@discardableResult
-		open func address1(aliasSuffix: String? = nil) -> MailingAddressQuery {
-			addField(field: "address1", aliasSuffix: aliasSuffix)
+		open func address1(alias: String? = nil) -> MailingAddressQuery {
+			addField(field: "address1", aliasSuffix: alias)
 			return self
 		}
 
 		@discardableResult
-		open func address2(aliasSuffix: String? = nil) -> MailingAddressQuery {
-			addField(field: "address2", aliasSuffix: aliasSuffix)
+		open func address2(alias: String? = nil) -> MailingAddressQuery {
+			addField(field: "address2", aliasSuffix: alias)
 			return self
 		}
 
 		@discardableResult
-		open func city(aliasSuffix: String? = nil) -> MailingAddressQuery {
-			addField(field: "city", aliasSuffix: aliasSuffix)
+		open func city(alias: String? = nil) -> MailingAddressQuery {
+			addField(field: "city", aliasSuffix: alias)
 			return self
 		}
 
 		@discardableResult
-		open func company(aliasSuffix: String? = nil) -> MailingAddressQuery {
-			addField(field: "company", aliasSuffix: aliasSuffix)
+		open func company(alias: String? = nil) -> MailingAddressQuery {
+			addField(field: "company", aliasSuffix: alias)
 			return self
 		}
 
 		@discardableResult
-		open func country(aliasSuffix: String? = nil) -> MailingAddressQuery {
-			addField(field: "country", aliasSuffix: aliasSuffix)
+		open func country(alias: String? = nil) -> MailingAddressQuery {
+			addField(field: "country", aliasSuffix: alias)
 			return self
 		}
 
 		@discardableResult
-		open func countryCode(aliasSuffix: String? = nil) -> MailingAddressQuery {
-			addField(field: "countryCode", aliasSuffix: aliasSuffix)
+		open func countryCode(alias: String? = nil) -> MailingAddressQuery {
+			addField(field: "countryCode", aliasSuffix: alias)
 			return self
 		}
 
 		@discardableResult
-		open func firstName(aliasSuffix: String? = nil) -> MailingAddressQuery {
-			addField(field: "firstName", aliasSuffix: aliasSuffix)
+		open func firstName(alias: String? = nil) -> MailingAddressQuery {
+			addField(field: "firstName", aliasSuffix: alias)
 			return self
 		}
 
+		///
+		/// - parameters:
+		///     - withName: No description
+		///     - withCompany: No description
+		///
 		@discardableResult
-		open func formatted(aliasSuffix: String? = nil, withName: Bool? = nil, withCompany: Bool? = nil) -> MailingAddressQuery {
+		open func formatted(alias: String? = nil, withName: Bool? = nil, withCompany: Bool? = nil) -> MailingAddressQuery {
 			var args: [String] = []
 
 			if let withName = withName {
@@ -61,69 +92,70 @@ extension Storefront {
 
 			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
 
-			addField(field: "formatted", aliasSuffix: aliasSuffix, args: argsString)
+			addField(field: "formatted", aliasSuffix: alias, args: argsString)
 			return self
 		}
 
 		@discardableResult
-		open func id(aliasSuffix: String? = nil) -> MailingAddressQuery {
-			addField(field: "id", aliasSuffix: aliasSuffix)
+		open func id(alias: String? = nil) -> MailingAddressQuery {
+			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
 		@discardableResult
-		open func lastName(aliasSuffix: String? = nil) -> MailingAddressQuery {
-			addField(field: "lastName", aliasSuffix: aliasSuffix)
+		open func lastName(alias: String? = nil) -> MailingAddressQuery {
+			addField(field: "lastName", aliasSuffix: alias)
 			return self
 		}
 
 		@discardableResult
-		open func latitude(aliasSuffix: String? = nil) -> MailingAddressQuery {
-			addField(field: "latitude", aliasSuffix: aliasSuffix)
+		open func latitude(alias: String? = nil) -> MailingAddressQuery {
+			addField(field: "latitude", aliasSuffix: alias)
 			return self
 		}
 
 		@discardableResult
-		open func longitude(aliasSuffix: String? = nil) -> MailingAddressQuery {
-			addField(field: "longitude", aliasSuffix: aliasSuffix)
+		open func longitude(alias: String? = nil) -> MailingAddressQuery {
+			addField(field: "longitude", aliasSuffix: alias)
 			return self
 		}
 
 		@discardableResult
-		open func name(aliasSuffix: String? = nil) -> MailingAddressQuery {
-			addField(field: "name", aliasSuffix: aliasSuffix)
+		open func name(alias: String? = nil) -> MailingAddressQuery {
+			addField(field: "name", aliasSuffix: alias)
 			return self
 		}
 
 		@discardableResult
-		open func phone(aliasSuffix: String? = nil) -> MailingAddressQuery {
-			addField(field: "phone", aliasSuffix: aliasSuffix)
+		open func phone(alias: String? = nil) -> MailingAddressQuery {
+			addField(field: "phone", aliasSuffix: alias)
 			return self
 		}
 
 		@discardableResult
-		open func province(aliasSuffix: String? = nil) -> MailingAddressQuery {
-			addField(field: "province", aliasSuffix: aliasSuffix)
+		open func province(alias: String? = nil) -> MailingAddressQuery {
+			addField(field: "province", aliasSuffix: alias)
 			return self
 		}
 
 		@discardableResult
-		open func provinceCode(aliasSuffix: String? = nil) -> MailingAddressQuery {
-			addField(field: "provinceCode", aliasSuffix: aliasSuffix)
+		open func provinceCode(alias: String? = nil) -> MailingAddressQuery {
+			addField(field: "provinceCode", aliasSuffix: alias)
 			return self
 		}
 
 		@discardableResult
-		open func zip(aliasSuffix: String? = nil) -> MailingAddressQuery {
-			addField(field: "zip", aliasSuffix: aliasSuffix)
+		open func zip(alias: String? = nil) -> MailingAddressQuery {
+			addField(field: "zip", aliasSuffix: alias)
 			return self
 		}
 	}
 
+	/// Represents a mailing address for customers and shipping. 
 	open class MailingAddress: GraphQL.AbstractResponse, GraphQLObject, Node {
 		public typealias Query = MailingAddressQuery
 
-		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
+		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
 				case "address1":
@@ -248,244 +280,148 @@ extension Storefront {
 			}
 		}
 
-		open var typeName: String { return "MailingAddress" }
-
 		open var address1: String? {
 			return internalGetAddress1()
 		}
 
-		func internalGetAddress1(aliasSuffix: String? = nil) -> String? {
-			return field(field: "address1", aliasSuffix: aliasSuffix) as! String?
+		func internalGetAddress1(alias: String? = nil) -> String? {
+			return field(field: "address1", aliasSuffix: alias) as! String?
 		}
 
 		open var address2: String? {
 			return internalGetAddress2()
 		}
 
-		func internalGetAddress2(aliasSuffix: String? = nil) -> String? {
-			return field(field: "address2", aliasSuffix: aliasSuffix) as! String?
+		func internalGetAddress2(alias: String? = nil) -> String? {
+			return field(field: "address2", aliasSuffix: alias) as! String?
 		}
 
 		open var city: String? {
 			return internalGetCity()
 		}
 
-		func internalGetCity(aliasSuffix: String? = nil) -> String? {
-			return field(field: "city", aliasSuffix: aliasSuffix) as! String?
+		func internalGetCity(alias: String? = nil) -> String? {
+			return field(field: "city", aliasSuffix: alias) as! String?
 		}
 
 		open var company: String? {
 			return internalGetCompany()
 		}
 
-		func internalGetCompany(aliasSuffix: String? = nil) -> String? {
-			return field(field: "company", aliasSuffix: aliasSuffix) as! String?
+		func internalGetCompany(alias: String? = nil) -> String? {
+			return field(field: "company", aliasSuffix: alias) as! String?
 		}
 
 		open var country: String? {
 			return internalGetCountry()
 		}
 
-		func internalGetCountry(aliasSuffix: String? = nil) -> String? {
-			return field(field: "country", aliasSuffix: aliasSuffix) as! String?
+		func internalGetCountry(alias: String? = nil) -> String? {
+			return field(field: "country", aliasSuffix: alias) as! String?
 		}
 
 		open var countryCode: String? {
 			return internalGetCountryCode()
 		}
 
-		func internalGetCountryCode(aliasSuffix: String? = nil) -> String? {
-			return field(field: "countryCode", aliasSuffix: aliasSuffix) as! String?
+		func internalGetCountryCode(alias: String? = nil) -> String? {
+			return field(field: "countryCode", aliasSuffix: alias) as! String?
 		}
 
 		open var firstName: String? {
 			return internalGetFirstName()
 		}
 
-		func internalGetFirstName(aliasSuffix: String? = nil) -> String? {
-			return field(field: "firstName", aliasSuffix: aliasSuffix) as! String?
+		func internalGetFirstName(alias: String? = nil) -> String? {
+			return field(field: "firstName", aliasSuffix: alias) as! String?
 		}
 
 		open var formatted: [String] {
 			return internalGetFormatted()
 		}
 
-		open func aliasedFormatted(aliasSuffix: String) -> [String] {
-			return internalGetFormatted(aliasSuffix: aliasSuffix)
+		open func aliasedFormatted(alias: String) -> [String] {
+			return internalGetFormatted(alias: alias)
 		}
 
-		func internalGetFormatted(aliasSuffix: String? = nil) -> [String] {
-			return field(field: "formatted", aliasSuffix: aliasSuffix) as! [String]
+		func internalGetFormatted(alias: String? = nil) -> [String] {
+			return field(field: "formatted", aliasSuffix: alias) as! [String]
 		}
 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
 
-		func internalGetId(aliasSuffix: String? = nil) -> GraphQL.ID {
-			return field(field: "id", aliasSuffix: aliasSuffix) as! GraphQL.ID
+		func internalGetId(alias: String? = nil) -> GraphQL.ID {
+			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
 		open var lastName: String? {
 			return internalGetLastName()
 		}
 
-		func internalGetLastName(aliasSuffix: String? = nil) -> String? {
-			return field(field: "lastName", aliasSuffix: aliasSuffix) as! String?
+		func internalGetLastName(alias: String? = nil) -> String? {
+			return field(field: "lastName", aliasSuffix: alias) as! String?
 		}
 
 		open var latitude: Double? {
 			return internalGetLatitude()
 		}
 
-		func internalGetLatitude(aliasSuffix: String? = nil) -> Double? {
-			return field(field: "latitude", aliasSuffix: aliasSuffix) as! Double?
+		func internalGetLatitude(alias: String? = nil) -> Double? {
+			return field(field: "latitude", aliasSuffix: alias) as! Double?
 		}
 
 		open var longitude: Double? {
 			return internalGetLongitude()
 		}
 
-		func internalGetLongitude(aliasSuffix: String? = nil) -> Double? {
-			return field(field: "longitude", aliasSuffix: aliasSuffix) as! Double?
+		func internalGetLongitude(alias: String? = nil) -> Double? {
+			return field(field: "longitude", aliasSuffix: alias) as! Double?
 		}
 
 		open var name: String? {
 			return internalGetName()
 		}
 
-		func internalGetName(aliasSuffix: String? = nil) -> String? {
-			return field(field: "name", aliasSuffix: aliasSuffix) as! String?
+		func internalGetName(alias: String? = nil) -> String? {
+			return field(field: "name", aliasSuffix: alias) as! String?
 		}
 
 		open var phone: String? {
 			return internalGetPhone()
 		}
 
-		func internalGetPhone(aliasSuffix: String? = nil) -> String? {
-			return field(field: "phone", aliasSuffix: aliasSuffix) as! String?
+		func internalGetPhone(alias: String? = nil) -> String? {
+			return field(field: "phone", aliasSuffix: alias) as! String?
 		}
 
 		open var province: String? {
 			return internalGetProvince()
 		}
 
-		func internalGetProvince(aliasSuffix: String? = nil) -> String? {
-			return field(field: "province", aliasSuffix: aliasSuffix) as! String?
+		func internalGetProvince(alias: String? = nil) -> String? {
+			return field(field: "province", aliasSuffix: alias) as! String?
 		}
 
 		open var provinceCode: String? {
 			return internalGetProvinceCode()
 		}
 
-		func internalGetProvinceCode(aliasSuffix: String? = nil) -> String? {
-			return field(field: "provinceCode", aliasSuffix: aliasSuffix) as! String?
+		func internalGetProvinceCode(alias: String? = nil) -> String? {
+			return field(field: "provinceCode", aliasSuffix: alias) as! String?
 		}
 
 		open var zip: String? {
 			return internalGetZip()
 		}
 
-		func internalGetZip(aliasSuffix: String? = nil) -> String? {
-			return field(field: "zip", aliasSuffix: aliasSuffix) as! String?
+		func internalGetZip(alias: String? = nil) -> String? {
+			return field(field: "zip", aliasSuffix: alias) as! String?
 		}
 
-		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
-			switch(key) {
-				case "address1":
-
-				return .Scalar
-
-				case "address2":
-
-				return .Scalar
-
-				case "city":
-
-				return .Scalar
-
-				case "company":
-
-				return .Scalar
-
-				case "country":
-
-				return .Scalar
-
-				case "countryCode":
-
-				return .Scalar
-
-				case "firstName":
-
-				return .Scalar
-
-				case "formatted":
-
-				return .ScalarList
-
-				case "id":
-
-				return .Scalar
-
-				case "lastName":
-
-				return .Scalar
-
-				case "latitude":
-
-				return .Scalar
-
-				case "longitude":
-
-				return .Scalar
-
-				case "name":
-
-				return .Scalar
-
-				case "phone":
-
-				return .Scalar
-
-				case "province":
-
-				return .Scalar
-
-				case "provinceCode":
-
-				return .Scalar
-
-				case "zip":
-
-				return .Scalar
-
-				default:
-				return .Scalar
-			}
-		}
-
-		override open func fetchChildObject(key: String) -> GraphQL.AbstractResponse? {
-			switch(key) {
-				default:
-				break
-			}
-			return nil
-		}
-
-		override open func fetchChildObjectList(key: String) -> [GraphQL.AbstractResponse] {
-			switch(key) {
-				default:
-				return []
-			}
-		}
-
-		open func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			return []
-		}
-
-		open func responseObject() -> GraphQL.AbstractResponse {
-			return self as GraphQL.AbstractResponse
 		}
 	}
 }
