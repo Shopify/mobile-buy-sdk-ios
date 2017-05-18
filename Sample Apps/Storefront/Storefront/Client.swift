@@ -41,7 +41,7 @@ final class Client {
     //  MARK: - Collections -
     //
     @discardableResult
-    func fetchCollections(limit: Int = 25, after cursor: String? = nil, productLimit: Int = 25, productCursor: String? = nil, completion: @escaping (PageableArray<CollectionViewModel>?) -> Void) -> Graph.Task {
+    func fetchCollections(limit: Int = 25, after cursor: String? = nil, productLimit: Int = 25, productCursor: String? = nil, completion: @escaping (PageableArray<CollectionViewModel>?) -> Void) -> Task {
         
         let query = ClientQuery.queryForCollections(limit: limit, after: cursor, productLimit: productLimit, productCursor: productCursor)
         let task  = self.client.queryGraphWith(query) { (query, error) in
@@ -67,7 +67,7 @@ final class Client {
     //  MARK: - Products -
     //
     @discardableResult
-    func fetchProducts(in collection: CollectionViewModel, limit: Int = 25, after cursor: String? = nil, completion: @escaping (PageableArray<ProductViewModel>?) -> Void) -> Graph.Task {
+    func fetchProducts(in collection: CollectionViewModel, limit: Int = 25, after cursor: String? = nil, completion: @escaping (PageableArray<ProductViewModel>?) -> Void) -> Task {
         
         let query = ClientQuery.queryForProducts(in: collection, limit: limit, after: cursor)
         let task  = self.client.queryGraphWith(query) { (query, error) in
@@ -96,7 +96,7 @@ final class Client {
     //  MARK: - Checkout -
     //
     @discardableResult
-    func createCheckout(with cartItems: [CartItem], completion: @escaping (CheckoutViewModel?) -> Void) -> Graph.Task {
+    func createCheckout(with cartItems: [CartItem], completion: @escaping (CheckoutViewModel?) -> Void) -> Task {
         let mutation = ClientQuery.mutationForCreateCheckout(with: cartItems)
         let task     = self.client.mutateGraphWith(mutation) { response, error in
             error.debugPrint()
@@ -109,7 +109,7 @@ final class Client {
     }
     
     @discardableResult
-    func updateCheckout(_ id: String, updatingShippingAddress address: PayPostalAddress, completion: @escaping (CheckoutViewModel?) -> Void) -> Graph.Task {
+    func updateCheckout(_ id: String, updatingShippingAddress address: PayPostalAddress, completion: @escaping (CheckoutViewModel?) -> Void) -> Task {
         let mutation = ClientQuery.mutationForUpdateCheckout(id, updatingShippingAddress: address)
         let task     = self.client.mutateGraphWith(mutation) { response, error in
             error.debugPrint()
@@ -127,7 +127,7 @@ final class Client {
     }
     
     @discardableResult
-    func updateCheckout(_ id: String, updatingShippingRate shippingRate: PayShippingRate, completion: @escaping (CheckoutViewModel?) -> Void) -> Graph.Task {
+    func updateCheckout(_ id: String, updatingShippingRate shippingRate: PayShippingRate, completion: @escaping (CheckoutViewModel?) -> Void) -> Task {
         let mutation = ClientQuery.mutationForUpdateCheckout(id, updatingShippingRate: shippingRate)
         let task     = self.client.mutateGraphWith(mutation) { response, error in
             error.debugPrint()
@@ -145,7 +145,7 @@ final class Client {
     }
     
     @discardableResult
-    func updateCheckout(_ id: String, updatingEmail email: String, completion: @escaping (CheckoutViewModel?) -> Void) -> Graph.Task {
+    func updateCheckout(_ id: String, updatingEmail email: String, completion: @escaping (CheckoutViewModel?) -> Void) -> Task {
         let mutation = ClientQuery.mutationForUpdateCheckout(id, updatingEmail: email)
         let task     = self.client.mutateGraphWith(mutation) { response, error in
             error.debugPrint()
@@ -163,7 +163,7 @@ final class Client {
     }
     
     @discardableResult
-    func fetchShippingRatesForCheckout(_ id: String, completion: @escaping ((checkout: CheckoutViewModel, rates: [ShippingRateViewModel])?) -> Void) -> Graph.Task {
+    func fetchShippingRatesForCheckout(_ id: String, completion: @escaping ((checkout: CheckoutViewModel, rates: [ShippingRateViewModel])?) -> Void) -> Task {
         
         let retry = Graph.RetryHandler<Storefront.QueryRoot>(endurance: .finite(30)) { response, error -> Bool in
             error.debugPrint()
@@ -192,7 +192,7 @@ final class Client {
     }
     
     @discardableResult
-    func completeCheckout(_ checkout: PayCheckout, billingAddress: PayAddress, applePayToken token: String, idempotencyToken: String, completion: @escaping (PaymentViewModel?) -> Void) -> Graph.Task {
+    func completeCheckout(_ checkout: PayCheckout, billingAddress: PayAddress, applePayToken token: String, idempotencyToken: String, completion: @escaping (PaymentViewModel?) -> Void) -> Task {
         
         let retry = Graph.RetryHandler<Storefront.Mutation>(endurance: .finite(30)) { mutation, error -> Bool in
             error.debugPrint()
