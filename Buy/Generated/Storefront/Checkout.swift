@@ -1,78 +1,120 @@
-// Generated from graphql_swift_gen gem
+//
+//  Checkout.swift
+//  Buy
+//
+//  Created by Shopify.
+//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
+
 import Foundation
 
 extension Storefront {
+	/// A container for all the information required to checkout items and pay. 
 	open class CheckoutQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Checkout
 
 		@discardableResult
-		open func appliedGiftCards(aliasSuffix: String? = nil, _ subfields: (AppliedGiftCardQuery) -> Void) -> CheckoutQuery {
+		open func appliedGiftCards(alias: String? = nil, _ subfields: (AppliedGiftCardQuery) -> Void) -> CheckoutQuery {
 			let subquery = AppliedGiftCardQuery()
 			subfields(subquery)
 
-			addField(field: "appliedGiftCards", aliasSuffix: aliasSuffix, subfields: subquery)
+			addField(field: "appliedGiftCards", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
+		/// The available shipping rates for this Checkout. Should only be used when 
+		/// checkout `requiresShipping` is `true` and the shipping address is valid. 
 		@discardableResult
-		open func availableShippingRates(aliasSuffix: String? = nil, _ subfields: (AvailableShippingRatesQuery) -> Void) -> CheckoutQuery {
+		open func availableShippingRates(alias: String? = nil, _ subfields: (AvailableShippingRatesQuery) -> Void) -> CheckoutQuery {
 			let subquery = AvailableShippingRatesQuery()
 			subfields(subquery)
 
-			addField(field: "availableShippingRates", aliasSuffix: aliasSuffix, subfields: subquery)
+			addField(field: "availableShippingRates", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
+		/// The date and time when the checkout was completed. 
 		@discardableResult
-		open func completedAt(aliasSuffix: String? = nil) -> CheckoutQuery {
-			addField(field: "completedAt", aliasSuffix: aliasSuffix)
+		open func completedAt(alias: String? = nil) -> CheckoutQuery {
+			addField(field: "completedAt", aliasSuffix: alias)
 			return self
 		}
 
+		/// The date and time when the checkout was created. 
 		@discardableResult
-		open func createdAt(aliasSuffix: String? = nil) -> CheckoutQuery {
-			addField(field: "createdAt", aliasSuffix: aliasSuffix)
+		open func createdAt(alias: String? = nil) -> CheckoutQuery {
+			addField(field: "createdAt", aliasSuffix: alias)
 			return self
 		}
 
+		/// The currency code for the Checkout. 
 		@discardableResult
-		open func currencyCode(aliasSuffix: String? = nil) -> CheckoutQuery {
-			addField(field: "currencyCode", aliasSuffix: aliasSuffix)
+		open func currencyCode(alias: String? = nil) -> CheckoutQuery {
+			addField(field: "currencyCode", aliasSuffix: alias)
 			return self
 		}
 
+		/// A list of extra information that is added to the checkout. 
 		@discardableResult
-		open func customAttributes(aliasSuffix: String? = nil, _ subfields: (AttributeQuery) -> Void) -> CheckoutQuery {
+		open func customAttributes(alias: String? = nil, _ subfields: (AttributeQuery) -> Void) -> CheckoutQuery {
 			let subquery = AttributeQuery()
 			subfields(subquery)
 
-			addField(field: "customAttributes", aliasSuffix: aliasSuffix, subfields: subquery)
+			addField(field: "customAttributes", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
+		/// The customer associated with the checkout. 
 		@discardableResult
-		open func customer(aliasSuffix: String? = nil, _ subfields: (CustomerQuery) -> Void) -> CheckoutQuery {
+		open func customer(alias: String? = nil, _ subfields: (CustomerQuery) -> Void) -> CheckoutQuery {
 			let subquery = CustomerQuery()
 			subfields(subquery)
 
-			addField(field: "customer", aliasSuffix: aliasSuffix, subfields: subquery)
+			addField(field: "customer", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// The email attached to this checkout. 
+		@discardableResult
+		open func email(alias: String? = nil) -> CheckoutQuery {
+			addField(field: "email", aliasSuffix: alias)
 			return self
 		}
 
 		@discardableResult
-		open func email(aliasSuffix: String? = nil) -> CheckoutQuery {
-			addField(field: "email", aliasSuffix: aliasSuffix)
+		open func id(alias: String? = nil) -> CheckoutQuery {
+			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
+		/// A list of line item objects, each one containing information about an item 
+		/// in the checkout. 
+		///
+		/// - parameters:
+		///     - first: No description
+		///     - after: No description
+		///     - reverse: No description
+		///
 		@discardableResult
-		open func id(aliasSuffix: String? = nil) -> CheckoutQuery {
-			addField(field: "id", aliasSuffix: aliasSuffix)
-			return self
-		}
-
-		@discardableResult
-		open func lineItems(aliasSuffix: String? = nil, first: Int32, after: String? = nil, reverse: Bool? = nil, _ subfields: (CheckoutLineItemConnectionQuery) -> Void) -> CheckoutQuery {
+		open func lineItems(alias: String? = nil, first: Int32, after: String? = nil, reverse: Bool? = nil, _ subfields: (CheckoutLineItemConnectionQuery) -> Void) -> CheckoutQuery {
 			var args: [String] = []
 
 			args.append("first:\(first)")
@@ -90,120 +132,137 @@ extension Storefront {
 			let subquery = CheckoutLineItemConnectionQuery()
 			subfields(subquery)
 
-			addField(field: "lineItems", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
+			addField(field: "lineItems", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
 		@discardableResult
-		open func note(aliasSuffix: String? = nil) -> CheckoutQuery {
-			addField(field: "note", aliasSuffix: aliasSuffix)
+		open func note(alias: String? = nil) -> CheckoutQuery {
+			addField(field: "note", aliasSuffix: alias)
 			return self
 		}
 
+		/// The resulting order from a paid checkout. 
 		@discardableResult
-		open func order(aliasSuffix: String? = nil, _ subfields: (OrderQuery) -> Void) -> CheckoutQuery {
+		open func order(alias: String? = nil, _ subfields: (OrderQuery) -> Void) -> CheckoutQuery {
 			let subquery = OrderQuery()
 			subfields(subquery)
 
-			addField(field: "order", aliasSuffix: aliasSuffix, subfields: subquery)
+			addField(field: "order", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
+		/// The Order Status Page for this Checkout, null when checkout is not 
+		/// completed. 
 		@discardableResult
-		open func orderStatusUrl(aliasSuffix: String? = nil) -> CheckoutQuery {
-			addField(field: "orderStatusUrl", aliasSuffix: aliasSuffix)
+		open func orderStatusUrl(alias: String? = nil) -> CheckoutQuery {
+			addField(field: "orderStatusUrl", aliasSuffix: alias)
 			return self
 		}
 
+		/// The amount left to be paid. This is equal to the cost of the line items, 
+		/// taxes and shipping minus discounts and gift cards. 
 		@discardableResult
-		open func paymentDue(aliasSuffix: String? = nil) -> CheckoutQuery {
-			addField(field: "paymentDue", aliasSuffix: aliasSuffix)
+		open func paymentDue(alias: String? = nil) -> CheckoutQuery {
+			addField(field: "paymentDue", aliasSuffix: alias)
 			return self
 		}
 
+		/// Whether or not the Checkout is ready and can be completed. Checkouts may 
+		/// have asynchronous operations that can take time to finish. If you want to 
+		/// complete a checkout or ensure all the fields are populated and up to date, 
+		/// polling is required until the value is true. 
 		@discardableResult
-		open func ready(aliasSuffix: String? = nil) -> CheckoutQuery {
-			addField(field: "ready", aliasSuffix: aliasSuffix)
+		open func ready(alias: String? = nil) -> CheckoutQuery {
+			addField(field: "ready", aliasSuffix: alias)
 			return self
 		}
 
+		/// States whether or not the fulfillment requires shipping. 
 		@discardableResult
-		open func requiresShipping(aliasSuffix: String? = nil) -> CheckoutQuery {
-			addField(field: "requiresShipping", aliasSuffix: aliasSuffix)
+		open func requiresShipping(alias: String? = nil) -> CheckoutQuery {
+			addField(field: "requiresShipping", aliasSuffix: alias)
 			return self
 		}
 
+		/// The shipping address to where the line items will be shipped. 
 		@discardableResult
-		open func shippingAddress(aliasSuffix: String? = nil, _ subfields: (MailingAddressQuery) -> Void) -> CheckoutQuery {
+		open func shippingAddress(alias: String? = nil, _ subfields: (MailingAddressQuery) -> Void) -> CheckoutQuery {
 			let subquery = MailingAddressQuery()
 			subfields(subquery)
 
-			addField(field: "shippingAddress", aliasSuffix: aliasSuffix, subfields: subquery)
+			addField(field: "shippingAddress", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
+		/// Once a shipping rate is selected by the customer it is transitioned to a 
+		/// `shipping_line` object. 
 		@discardableResult
-		open func shippingLine(aliasSuffix: String? = nil, _ subfields: (ShippingRateQuery) -> Void) -> CheckoutQuery {
+		open func shippingLine(alias: String? = nil, _ subfields: (ShippingRateQuery) -> Void) -> CheckoutQuery {
 			let subquery = ShippingRateQuery()
 			subfields(subquery)
 
-			addField(field: "shippingLine", aliasSuffix: aliasSuffix, subfields: subquery)
+			addField(field: "shippingLine", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
+		/// Price of the checkout before shipping, taxes, and discounts. 
 		@discardableResult
-		open func subtotalPrice(aliasSuffix: String? = nil) -> CheckoutQuery {
-			addField(field: "subtotalPrice", aliasSuffix: aliasSuffix)
+		open func subtotalPrice(alias: String? = nil) -> CheckoutQuery {
+			addField(field: "subtotalPrice", aliasSuffix: alias)
 			return self
 		}
 
+		/// Specifies if the Checkout is tax exempt. 
 		@discardableResult
-		open func taxExempt(aliasSuffix: String? = nil) -> CheckoutQuery {
-			addField(field: "taxExempt", aliasSuffix: aliasSuffix)
+		open func taxExempt(alias: String? = nil) -> CheckoutQuery {
+			addField(field: "taxExempt", aliasSuffix: alias)
 			return self
 		}
 
+		/// Specifies if taxes are included in the line item and shipping line prices. 
 		@discardableResult
-		open func taxesIncluded(aliasSuffix: String? = nil) -> CheckoutQuery {
-			addField(field: "taxesIncluded", aliasSuffix: aliasSuffix)
+		open func taxesIncluded(alias: String? = nil) -> CheckoutQuery {
+			addField(field: "taxesIncluded", aliasSuffix: alias)
 			return self
 		}
 
+		/// The sum of all the prices of all the items in the checkout, taxes and 
+		/// discounts included. 
 		@discardableResult
-		open func totalPrice(aliasSuffix: String? = nil) -> CheckoutQuery {
-			addField(field: "totalPrice", aliasSuffix: aliasSuffix)
+		open func totalPrice(alias: String? = nil) -> CheckoutQuery {
+			addField(field: "totalPrice", aliasSuffix: alias)
 			return self
 		}
 
+		/// The sum of all the taxes applied to the line items and shipping lines in 
+		/// the checkout. 
 		@discardableResult
-		open func totalTax(aliasSuffix: String? = nil) -> CheckoutQuery {
-			addField(field: "totalTax", aliasSuffix: aliasSuffix)
+		open func totalTax(alias: String? = nil) -> CheckoutQuery {
+			addField(field: "totalTax", aliasSuffix: alias)
 			return self
 		}
 
+		/// The date and time when the checkout was last updated. 
 		@discardableResult
-		open func updatedAt(aliasSuffix: String? = nil) -> CheckoutQuery {
-			addField(field: "updatedAt", aliasSuffix: aliasSuffix)
+		open func updatedAt(alias: String? = nil) -> CheckoutQuery {
+			addField(field: "updatedAt", aliasSuffix: alias)
 			return self
 		}
 
+		/// The url pointing to the checkout accessible from the web. 
 		@discardableResult
-		open func vaultUrl(aliasSuffix: String? = nil) -> CheckoutQuery {
-			addField(field: "vaultUrl", aliasSuffix: aliasSuffix)
-			return self
-		}
-
-		@discardableResult
-		open func webUrl(aliasSuffix: String? = nil) -> CheckoutQuery {
-			addField(field: "webUrl", aliasSuffix: aliasSuffix)
+		open func webUrl(alias: String? = nil) -> CheckoutQuery {
+			addField(field: "webUrl", aliasSuffix: alias)
 			return self
 		}
 	}
 
+	/// A container for all the information required to checkout items and pay. 
 	open class Checkout: GraphQL.AbstractResponse, GraphQLObject, Node {
 		public typealias Query = CheckoutQuery
 
-		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
+		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
 				case "appliedGiftCards":
@@ -359,12 +418,6 @@ extension Storefront {
 				}
 				return GraphQL.iso8601DateParser.date(from: value)!
 
-				case "vaultUrl":
-				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
-				}
-				return URL(string: value)!
-
 				case "webUrl":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
@@ -376,375 +429,246 @@ extension Storefront {
 			}
 		}
 
-		open var typeName: String { return "Checkout" }
-
 		open var appliedGiftCards: [Storefront.AppliedGiftCard] {
 			return internalGetAppliedGiftCards()
 		}
 
-		func internalGetAppliedGiftCards(aliasSuffix: String? = nil) -> [Storefront.AppliedGiftCard] {
-			return field(field: "appliedGiftCards", aliasSuffix: aliasSuffix) as! [Storefront.AppliedGiftCard]
+		func internalGetAppliedGiftCards(alias: String? = nil) -> [Storefront.AppliedGiftCard] {
+			return field(field: "appliedGiftCards", aliasSuffix: alias) as! [Storefront.AppliedGiftCard]
 		}
 
+		/// The available shipping rates for this Checkout. Should only be used when 
+		/// checkout `requiresShipping` is `true` and the shipping address is valid. 
 		open var availableShippingRates: Storefront.AvailableShippingRates? {
 			return internalGetAvailableShippingRates()
 		}
 
-		func internalGetAvailableShippingRates(aliasSuffix: String? = nil) -> Storefront.AvailableShippingRates? {
-			return field(field: "availableShippingRates", aliasSuffix: aliasSuffix) as! Storefront.AvailableShippingRates?
+		func internalGetAvailableShippingRates(alias: String? = nil) -> Storefront.AvailableShippingRates? {
+			return field(field: "availableShippingRates", aliasSuffix: alias) as! Storefront.AvailableShippingRates?
 		}
 
+		/// The date and time when the checkout was completed. 
 		open var completedAt: Date? {
 			return internalGetCompletedAt()
 		}
 
-		func internalGetCompletedAt(aliasSuffix: String? = nil) -> Date? {
-			return field(field: "completedAt", aliasSuffix: aliasSuffix) as! Date?
+		func internalGetCompletedAt(alias: String? = nil) -> Date? {
+			return field(field: "completedAt", aliasSuffix: alias) as! Date?
 		}
 
+		/// The date and time when the checkout was created. 
 		open var createdAt: Date {
 			return internalGetCreatedAt()
 		}
 
-		func internalGetCreatedAt(aliasSuffix: String? = nil) -> Date {
-			return field(field: "createdAt", aliasSuffix: aliasSuffix) as! Date
+		func internalGetCreatedAt(alias: String? = nil) -> Date {
+			return field(field: "createdAt", aliasSuffix: alias) as! Date
 		}
 
+		/// The currency code for the Checkout. 
 		open var currencyCode: Storefront.CurrencyCode {
 			return internalGetCurrencyCode()
 		}
 
-		func internalGetCurrencyCode(aliasSuffix: String? = nil) -> Storefront.CurrencyCode {
-			return field(field: "currencyCode", aliasSuffix: aliasSuffix) as! Storefront.CurrencyCode
+		func internalGetCurrencyCode(alias: String? = nil) -> Storefront.CurrencyCode {
+			return field(field: "currencyCode", aliasSuffix: alias) as! Storefront.CurrencyCode
 		}
 
+		/// A list of extra information that is added to the checkout. 
 		open var customAttributes: [Storefront.Attribute] {
 			return internalGetCustomAttributes()
 		}
 
-		func internalGetCustomAttributes(aliasSuffix: String? = nil) -> [Storefront.Attribute] {
-			return field(field: "customAttributes", aliasSuffix: aliasSuffix) as! [Storefront.Attribute]
+		func internalGetCustomAttributes(alias: String? = nil) -> [Storefront.Attribute] {
+			return field(field: "customAttributes", aliasSuffix: alias) as! [Storefront.Attribute]
 		}
 
+		/// The customer associated with the checkout. 
 		open var customer: Storefront.Customer? {
 			return internalGetCustomer()
 		}
 
-		func internalGetCustomer(aliasSuffix: String? = nil) -> Storefront.Customer? {
-			return field(field: "customer", aliasSuffix: aliasSuffix) as! Storefront.Customer?
+		func internalGetCustomer(alias: String? = nil) -> Storefront.Customer? {
+			return field(field: "customer", aliasSuffix: alias) as! Storefront.Customer?
 		}
 
+		/// The email attached to this checkout. 
 		open var email: String? {
 			return internalGetEmail()
 		}
 
-		func internalGetEmail(aliasSuffix: String? = nil) -> String? {
-			return field(field: "email", aliasSuffix: aliasSuffix) as! String?
+		func internalGetEmail(alias: String? = nil) -> String? {
+			return field(field: "email", aliasSuffix: alias) as! String?
 		}
 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
 
-		func internalGetId(aliasSuffix: String? = nil) -> GraphQL.ID {
-			return field(field: "id", aliasSuffix: aliasSuffix) as! GraphQL.ID
+		func internalGetId(alias: String? = nil) -> GraphQL.ID {
+			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
+		/// A list of line item objects, each one containing information about an item 
+		/// in the checkout. 
 		open var lineItems: Storefront.CheckoutLineItemConnection {
 			return internalGetLineItems()
 		}
 
-		open func aliasedLineItems(aliasSuffix: String) -> Storefront.CheckoutLineItemConnection {
-			return internalGetLineItems(aliasSuffix: aliasSuffix)
+		open func aliasedLineItems(alias: String) -> Storefront.CheckoutLineItemConnection {
+			return internalGetLineItems(alias: alias)
 		}
 
-		func internalGetLineItems(aliasSuffix: String? = nil) -> Storefront.CheckoutLineItemConnection {
-			return field(field: "lineItems", aliasSuffix: aliasSuffix) as! Storefront.CheckoutLineItemConnection
+		func internalGetLineItems(alias: String? = nil) -> Storefront.CheckoutLineItemConnection {
+			return field(field: "lineItems", aliasSuffix: alias) as! Storefront.CheckoutLineItemConnection
 		}
 
 		open var note: String? {
 			return internalGetNote()
 		}
 
-		func internalGetNote(aliasSuffix: String? = nil) -> String? {
-			return field(field: "note", aliasSuffix: aliasSuffix) as! String?
+		func internalGetNote(alias: String? = nil) -> String? {
+			return field(field: "note", aliasSuffix: alias) as! String?
 		}
 
+		/// The resulting order from a paid checkout. 
 		open var order: Storefront.Order? {
 			return internalGetOrder()
 		}
 
-		func internalGetOrder(aliasSuffix: String? = nil) -> Storefront.Order? {
-			return field(field: "order", aliasSuffix: aliasSuffix) as! Storefront.Order?
+		func internalGetOrder(alias: String? = nil) -> Storefront.Order? {
+			return field(field: "order", aliasSuffix: alias) as! Storefront.Order?
 		}
 
+		/// The Order Status Page for this Checkout, null when checkout is not 
+		/// completed. 
 		open var orderStatusUrl: URL? {
 			return internalGetOrderStatusUrl()
 		}
 
-		func internalGetOrderStatusUrl(aliasSuffix: String? = nil) -> URL? {
-			return field(field: "orderStatusUrl", aliasSuffix: aliasSuffix) as! URL?
+		func internalGetOrderStatusUrl(alias: String? = nil) -> URL? {
+			return field(field: "orderStatusUrl", aliasSuffix: alias) as! URL?
 		}
 
+		/// The amount left to be paid. This is equal to the cost of the line items, 
+		/// taxes and shipping minus discounts and gift cards. 
 		open var paymentDue: Decimal {
 			return internalGetPaymentDue()
 		}
 
-		func internalGetPaymentDue(aliasSuffix: String? = nil) -> Decimal {
-			return field(field: "paymentDue", aliasSuffix: aliasSuffix) as! Decimal
+		func internalGetPaymentDue(alias: String? = nil) -> Decimal {
+			return field(field: "paymentDue", aliasSuffix: alias) as! Decimal
 		}
 
+		/// Whether or not the Checkout is ready and can be completed. Checkouts may 
+		/// have asynchronous operations that can take time to finish. If you want to 
+		/// complete a checkout or ensure all the fields are populated and up to date, 
+		/// polling is required until the value is true. 
 		open var ready: Bool {
 			return internalGetReady()
 		}
 
-		func internalGetReady(aliasSuffix: String? = nil) -> Bool {
-			return field(field: "ready", aliasSuffix: aliasSuffix) as! Bool
+		func internalGetReady(alias: String? = nil) -> Bool {
+			return field(field: "ready", aliasSuffix: alias) as! Bool
 		}
 
+		/// States whether or not the fulfillment requires shipping. 
 		open var requiresShipping: Bool {
 			return internalGetRequiresShipping()
 		}
 
-		func internalGetRequiresShipping(aliasSuffix: String? = nil) -> Bool {
-			return field(field: "requiresShipping", aliasSuffix: aliasSuffix) as! Bool
+		func internalGetRequiresShipping(alias: String? = nil) -> Bool {
+			return field(field: "requiresShipping", aliasSuffix: alias) as! Bool
 		}
 
+		/// The shipping address to where the line items will be shipped. 
 		open var shippingAddress: Storefront.MailingAddress? {
 			return internalGetShippingAddress()
 		}
 
-		func internalGetShippingAddress(aliasSuffix: String? = nil) -> Storefront.MailingAddress? {
-			return field(field: "shippingAddress", aliasSuffix: aliasSuffix) as! Storefront.MailingAddress?
+		func internalGetShippingAddress(alias: String? = nil) -> Storefront.MailingAddress? {
+			return field(field: "shippingAddress", aliasSuffix: alias) as! Storefront.MailingAddress?
 		}
 
+		/// Once a shipping rate is selected by the customer it is transitioned to a 
+		/// `shipping_line` object. 
 		open var shippingLine: Storefront.ShippingRate? {
 			return internalGetShippingLine()
 		}
 
-		func internalGetShippingLine(aliasSuffix: String? = nil) -> Storefront.ShippingRate? {
-			return field(field: "shippingLine", aliasSuffix: aliasSuffix) as! Storefront.ShippingRate?
+		func internalGetShippingLine(alias: String? = nil) -> Storefront.ShippingRate? {
+			return field(field: "shippingLine", aliasSuffix: alias) as! Storefront.ShippingRate?
 		}
 
+		/// Price of the checkout before shipping, taxes, and discounts. 
 		open var subtotalPrice: Decimal {
 			return internalGetSubtotalPrice()
 		}
 
-		func internalGetSubtotalPrice(aliasSuffix: String? = nil) -> Decimal {
-			return field(field: "subtotalPrice", aliasSuffix: aliasSuffix) as! Decimal
+		func internalGetSubtotalPrice(alias: String? = nil) -> Decimal {
+			return field(field: "subtotalPrice", aliasSuffix: alias) as! Decimal
 		}
 
+		/// Specifies if the Checkout is tax exempt. 
 		open var taxExempt: Bool {
 			return internalGetTaxExempt()
 		}
 
-		func internalGetTaxExempt(aliasSuffix: String? = nil) -> Bool {
-			return field(field: "taxExempt", aliasSuffix: aliasSuffix) as! Bool
+		func internalGetTaxExempt(alias: String? = nil) -> Bool {
+			return field(field: "taxExempt", aliasSuffix: alias) as! Bool
 		}
 
+		/// Specifies if taxes are included in the line item and shipping line prices. 
 		open var taxesIncluded: Bool {
 			return internalGetTaxesIncluded()
 		}
 
-		func internalGetTaxesIncluded(aliasSuffix: String? = nil) -> Bool {
-			return field(field: "taxesIncluded", aliasSuffix: aliasSuffix) as! Bool
+		func internalGetTaxesIncluded(alias: String? = nil) -> Bool {
+			return field(field: "taxesIncluded", aliasSuffix: alias) as! Bool
 		}
 
+		/// The sum of all the prices of all the items in the checkout, taxes and 
+		/// discounts included. 
 		open var totalPrice: Decimal {
 			return internalGetTotalPrice()
 		}
 
-		func internalGetTotalPrice(aliasSuffix: String? = nil) -> Decimal {
-			return field(field: "totalPrice", aliasSuffix: aliasSuffix) as! Decimal
+		func internalGetTotalPrice(alias: String? = nil) -> Decimal {
+			return field(field: "totalPrice", aliasSuffix: alias) as! Decimal
 		}
 
+		/// The sum of all the taxes applied to the line items and shipping lines in 
+		/// the checkout. 
 		open var totalTax: Decimal {
 			return internalGetTotalTax()
 		}
 
-		func internalGetTotalTax(aliasSuffix: String? = nil) -> Decimal {
-			return field(field: "totalTax", aliasSuffix: aliasSuffix) as! Decimal
+		func internalGetTotalTax(alias: String? = nil) -> Decimal {
+			return field(field: "totalTax", aliasSuffix: alias) as! Decimal
 		}
 
+		/// The date and time when the checkout was last updated. 
 		open var updatedAt: Date {
 			return internalGetUpdatedAt()
 		}
 
-		func internalGetUpdatedAt(aliasSuffix: String? = nil) -> Date {
-			return field(field: "updatedAt", aliasSuffix: aliasSuffix) as! Date
+		func internalGetUpdatedAt(alias: String? = nil) -> Date {
+			return field(field: "updatedAt", aliasSuffix: alias) as! Date
 		}
 
-		open var vaultUrl: URL {
-			return internalGetVaultUrl()
-		}
-
-		func internalGetVaultUrl(aliasSuffix: String? = nil) -> URL {
-			return field(field: "vaultUrl", aliasSuffix: aliasSuffix) as! URL
-		}
-
+		/// The url pointing to the checkout accessible from the web. 
 		open var webUrl: URL {
 			return internalGetWebUrl()
 		}
 
-		func internalGetWebUrl(aliasSuffix: String? = nil) -> URL {
-			return field(field: "webUrl", aliasSuffix: aliasSuffix) as! URL
+		func internalGetWebUrl(alias: String? = nil) -> URL {
+			return field(field: "webUrl", aliasSuffix: alias) as! URL
 		}
 
-		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
-			switch(key) {
-				case "appliedGiftCards":
-
-				return .ObjectList
-
-				case "availableShippingRates":
-
-				return .Object
-
-				case "completedAt":
-
-				return .Scalar
-
-				case "createdAt":
-
-				return .Scalar
-
-				case "currencyCode":
-
-				return .Scalar
-
-				case "customAttributes":
-
-				return .ObjectList
-
-				case "customer":
-
-				return .Object
-
-				case "email":
-
-				return .Scalar
-
-				case "id":
-
-				return .Scalar
-
-				case "lineItems":
-
-				return .Object
-
-				case "note":
-
-				return .Scalar
-
-				case "order":
-
-				return .Object
-
-				case "orderStatusUrl":
-
-				return .Scalar
-
-				case "paymentDue":
-
-				return .Scalar
-
-				case "ready":
-
-				return .Scalar
-
-				case "requiresShipping":
-
-				return .Scalar
-
-				case "shippingAddress":
-
-				return .Object
-
-				case "shippingLine":
-
-				return .Object
-
-				case "subtotalPrice":
-
-				return .Scalar
-
-				case "taxExempt":
-
-				return .Scalar
-
-				case "taxesIncluded":
-
-				return .Scalar
-
-				case "totalPrice":
-
-				return .Scalar
-
-				case "totalTax":
-
-				return .Scalar
-
-				case "updatedAt":
-
-				return .Scalar
-
-				case "vaultUrl":
-
-				return .Scalar
-
-				case "webUrl":
-
-				return .Scalar
-
-				default:
-				return .Scalar
-			}
-		}
-
-		override open func fetchChildObject(key: String) -> GraphQL.AbstractResponse? {
-			switch(key) {
-				case "availableShippingRates":
-				return internalGetAvailableShippingRates()
-
-				case "customer":
-				return internalGetCustomer()
-
-				case "lineItems":
-				return internalGetLineItems()
-
-				case "order":
-				return internalGetOrder()
-
-				case "shippingAddress":
-				return internalGetShippingAddress()
-
-				case "shippingLine":
-				return internalGetShippingLine()
-
-				default:
-				break
-			}
-			return nil
-		}
-
-		override open func fetchChildObjectList(key: String) -> [GraphQL.AbstractResponse] {
-			switch(key) {
-				case "appliedGiftCards":
-				return internalGetAppliedGiftCards()
-
-				case "customAttributes":
-				return internalGetCustomAttributes()
-
-				default:
-				return []
-			}
-		}
-
-		open func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			var response: [GraphQL.AbstractResponse] = []
-			objectMap.keys.forEach({
-				key in
-				switch(key) {
+			objectMap.keys.forEach {
+				switch($0) {
 					case "appliedGiftCards":
 					internalGetAppliedGiftCards().forEach {
 						response.append($0)
@@ -794,12 +718,8 @@ extension Storefront {
 					default:
 					break
 				}
-			})
+			}
 			return response
-		}
-
-		open func responseObject() -> GraphQL.AbstractResponse {
-			return self as GraphQL.AbstractResponse
 		}
 	}
 }

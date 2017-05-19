@@ -1,12 +1,49 @@
-// Generated from graphql_swift_gen gem
+//
+//  Product.swift
+//  Buy
+//
+//  Created by Shopify.
+//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
+
 import Foundation
 
 extension Storefront {
+	/// A product represents an individual item for sale in a Shopify store. 
+	/// Products are often physical, but they don't have to be. For example, a 
+	/// digital download (such as a movie, music or ebook file) also qualifies as a 
+	/// product, as do services (such as equipment rental, work for hire, 
+	/// customization of another product or an extended warranty). 
 	open class ProductQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Product
 
+		/// List of collections a product belongs to. 
+		///
+		/// - parameters:
+		///     - first: No description
+		///     - after: No description
+		///     - reverse: No description
+		///
 		@discardableResult
-		open func collections(aliasSuffix: String? = nil, first: Int32, after: String? = nil, reverse: Bool? = nil, _ subfields: (CollectionConnectionQuery) -> Void) -> ProductQuery {
+		open func collections(alias: String? = nil, first: Int32, after: String? = nil, reverse: Bool? = nil, _ subfields: (CollectionConnectionQuery) -> Void) -> ProductQuery {
 			var args: [String] = []
 
 			args.append("first:\(first)")
@@ -24,18 +61,24 @@ extension Storefront {
 			let subquery = CollectionConnectionQuery()
 			subfields(subquery)
 
-			addField(field: "collections", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
+			addField(field: "collections", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
+		/// The date and time when the product was created. 
 		@discardableResult
-		open func createdAt(aliasSuffix: String? = nil) -> ProductQuery {
-			addField(field: "createdAt", aliasSuffix: aliasSuffix)
+		open func createdAt(alias: String? = nil) -> ProductQuery {
+			addField(field: "createdAt", aliasSuffix: alias)
 			return self
 		}
 
+		/// Stripped description of the product, single line with HTML tags removed. 
+		///
+		/// - parameters:
+		///     - truncateAt: Truncates string after the given length.
+		///
 		@discardableResult
-		open func description(aliasSuffix: String? = nil, truncateAt: Int32? = nil) -> ProductQuery {
+		open func description(alias: String? = nil, truncateAt: Int32? = nil) -> ProductQuery {
 			var args: [String] = []
 
 			if let truncateAt = truncateAt {
@@ -44,30 +87,45 @@ extension Storefront {
 
 			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
 
-			addField(field: "description", aliasSuffix: aliasSuffix, args: argsString)
+			addField(field: "description", aliasSuffix: alias, args: argsString)
+			return self
+		}
+
+		/// The description of the product, complete with HTML formatting. 
+		@discardableResult
+		open func descriptionHtml(alias: String? = nil) -> ProductQuery {
+			addField(field: "descriptionHtml", aliasSuffix: alias)
+			return self
+		}
+
+		/// A human-friendly unique string for the Product automatically generated from 
+		/// its title. They are used by the Liquid templating language to refer to 
+		/// objects. 
+		@discardableResult
+		open func handle(alias: String? = nil) -> ProductQuery {
+			addField(field: "handle", aliasSuffix: alias)
 			return self
 		}
 
 		@discardableResult
-		open func descriptionHtml(aliasSuffix: String? = nil) -> ProductQuery {
-			addField(field: "descriptionHtml", aliasSuffix: aliasSuffix)
+		open func id(alias: String? = nil) -> ProductQuery {
+			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
+		/// List of images associated with the product. 
+		///
+		/// - parameters:
+		///     - first: No description
+		///     - after: No description
+		///     - reverse: No description
+		///     - maxWidth: Image width in pixels between 1 and 2048
+		///     - maxHeight: Image height in pixels between 1 and 2048
+		///     - crop: If specified, crop the image keeping the specified region
+		///     - scale: Image size multiplier retina displays. Must be between 1 and 3
+		///
 		@discardableResult
-		open func handle(aliasSuffix: String? = nil) -> ProductQuery {
-			addField(field: "handle", aliasSuffix: aliasSuffix)
-			return self
-		}
-
-		@discardableResult
-		open func id(aliasSuffix: String? = nil) -> ProductQuery {
-			addField(field: "id", aliasSuffix: aliasSuffix)
-			return self
-		}
-
-		@discardableResult
-		open func images(aliasSuffix: String? = nil, first: Int32, after: String? = nil, reverse: Bool? = nil, maxWidth: Int32? = nil, maxHeight: Int32? = nil, crop: CropRegion? = nil, scale: Int32? = nil, _ subfields: (ImageConnectionQuery) -> Void) -> ProductQuery {
+		open func images(alias: String? = nil, first: Int32, after: String? = nil, reverse: Bool? = nil, maxWidth: Int32? = nil, maxHeight: Int32? = nil, crop: CropRegion? = nil, scale: Int32? = nil, _ subfields: (ImageConnectionQuery) -> Void) -> ProductQuery {
 			var args: [String] = []
 
 			args.append("first:\(first)")
@@ -101,12 +159,17 @@ extension Storefront {
 			let subquery = ImageConnectionQuery()
 			subfields(subquery)
 
-			addField(field: "images", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
+			addField(field: "images", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
+		/// Lst of custom product options (maximum of 3 per product). 
+		///
+		/// - parameters:
+		///     - first: Truncate the array result to this size
+		///
 		@discardableResult
-		open func options(aliasSuffix: String? = nil, first: Int32? = nil, _ subfields: (ProductOptionQuery) -> Void) -> ProductQuery {
+		open func options(alias: String? = nil, first: Int32? = nil, _ subfields: (ProductOptionQuery) -> Void) -> ProductQuery {
 			var args: [String] = []
 
 			if let first = first {
@@ -118,42 +181,60 @@ extension Storefront {
 			let subquery = ProductOptionQuery()
 			subfields(subquery)
 
-			addField(field: "options", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
+			addField(field: "options", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
+		/// A categorization that a product can be tagged with, commonly used for 
+		/// filtering and searching. 
 		@discardableResult
-		open func productType(aliasSuffix: String? = nil) -> ProductQuery {
-			addField(field: "productType", aliasSuffix: aliasSuffix)
+		open func productType(alias: String? = nil) -> ProductQuery {
+			addField(field: "productType", aliasSuffix: alias)
 			return self
 		}
 
+		/// The date and time when the product was published to the Online Store 
+		/// channel. A value of `null` indicates that the product is not published to 
+		/// Online Store. 
 		@discardableResult
-		open func publishedAt(aliasSuffix: String? = nil) -> ProductQuery {
-			addField(field: "publishedAt", aliasSuffix: aliasSuffix)
+		open func publishedAt(alias: String? = nil) -> ProductQuery {
+			addField(field: "publishedAt", aliasSuffix: alias)
 			return self
 		}
 
+		/// A categorization that a product can be tagged with, commonly used for 
+		/// filtering and searching. Each comma-separated tag has a character limit of 
+		/// 255. 
 		@discardableResult
-		open func tags(aliasSuffix: String? = nil) -> ProductQuery {
-			addField(field: "tags", aliasSuffix: aliasSuffix)
+		open func tags(alias: String? = nil) -> ProductQuery {
+			addField(field: "tags", aliasSuffix: alias)
 			return self
 		}
 
+		/// The product’s title. 
 		@discardableResult
-		open func title(aliasSuffix: String? = nil) -> ProductQuery {
-			addField(field: "title", aliasSuffix: aliasSuffix)
+		open func title(alias: String? = nil) -> ProductQuery {
+			addField(field: "title", aliasSuffix: alias)
 			return self
 		}
 
+		/// The date and time when the product was last modified. 
 		@discardableResult
-		open func updatedAt(aliasSuffix: String? = nil) -> ProductQuery {
-			addField(field: "updatedAt", aliasSuffix: aliasSuffix)
+		open func updatedAt(alias: String? = nil) -> ProductQuery {
+			addField(field: "updatedAt", aliasSuffix: alias)
 			return self
 		}
 
+		/// Find a product’s variant based on its selected options. This is useful for 
+		/// converting a user’s selection of product options into a single matching 
+		/// variant. If there is not a variant for the selected options, `null` will be 
+		/// returned. 
+		///
+		/// - parameters:
+		///     - selectedOptions: No description
+		///
 		@discardableResult
-		open func variantBySelectedOptions(aliasSuffix: String? = nil, selectedOptions: [SelectedOptionInput], _ subfields: (ProductVariantQuery) -> Void) -> ProductQuery {
+		open func variantBySelectedOptions(alias: String? = nil, selectedOptions: [SelectedOptionInput], _ subfields: (ProductVariantQuery) -> Void) -> ProductQuery {
 			var args: [String] = []
 
 			args.append("selectedOptions:[\(selectedOptions.map{ "\($0.serialize())" }.joined(separator: ","))]")
@@ -163,12 +244,19 @@ extension Storefront {
 			let subquery = ProductVariantQuery()
 			subfields(subquery)
 
-			addField(field: "variantBySelectedOptions", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
+			addField(field: "variantBySelectedOptions", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
+		/// List of the product’s variants. 
+		///
+		/// - parameters:
+		///     - first: No description
+		///     - after: No description
+		///     - reverse: No description
+		///
 		@discardableResult
-		open func variants(aliasSuffix: String? = nil, first: Int32, after: String? = nil, reverse: Bool? = nil, _ subfields: (ProductVariantConnectionQuery) -> Void) -> ProductQuery {
+		open func variants(alias: String? = nil, first: Int32, after: String? = nil, reverse: Bool? = nil, _ subfields: (ProductVariantConnectionQuery) -> Void) -> ProductQuery {
 			var args: [String] = []
 
 			args.append("first:\(first)")
@@ -186,21 +274,27 @@ extension Storefront {
 			let subquery = ProductVariantConnectionQuery()
 			subfields(subquery)
 
-			addField(field: "variants", aliasSuffix: aliasSuffix, args: argsString, subfields: subquery)
+			addField(field: "variants", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
+		/// The product’s vendor name. 
 		@discardableResult
-		open func vendor(aliasSuffix: String? = nil) -> ProductQuery {
-			addField(field: "vendor", aliasSuffix: aliasSuffix)
+		open func vendor(alias: String? = nil) -> ProductQuery {
+			addField(field: "vendor", aliasSuffix: alias)
 			return self
 		}
 	}
 
+	/// A product represents an individual item for sale in a Shopify store. 
+	/// Products are often physical, but they don't have to be. For example, a 
+	/// digital download (such as a movie, music or ebook file) also qualifies as a 
+	/// product, as do services (such as equipment rental, work for hire, 
+	/// customization of another product or an extended warranty). 
 	open class Product: GraphQL.AbstractResponse, GraphQLObject, Node {
 		public typealias Query = ProductQuery
 
-		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
+		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
 				case "collections":
@@ -305,266 +399,187 @@ extension Storefront {
 			}
 		}
 
-		open var typeName: String { return "Product" }
-
+		/// List of collections a product belongs to. 
 		open var collections: Storefront.CollectionConnection {
 			return internalGetCollections()
 		}
 
-		open func aliasedCollections(aliasSuffix: String) -> Storefront.CollectionConnection {
-			return internalGetCollections(aliasSuffix: aliasSuffix)
+		open func aliasedCollections(alias: String) -> Storefront.CollectionConnection {
+			return internalGetCollections(alias: alias)
 		}
 
-		func internalGetCollections(aliasSuffix: String? = nil) -> Storefront.CollectionConnection {
-			return field(field: "collections", aliasSuffix: aliasSuffix) as! Storefront.CollectionConnection
+		func internalGetCollections(alias: String? = nil) -> Storefront.CollectionConnection {
+			return field(field: "collections", aliasSuffix: alias) as! Storefront.CollectionConnection
 		}
 
+		/// The date and time when the product was created. 
 		open var createdAt: Date {
 			return internalGetCreatedAt()
 		}
 
-		func internalGetCreatedAt(aliasSuffix: String? = nil) -> Date {
-			return field(field: "createdAt", aliasSuffix: aliasSuffix) as! Date
+		func internalGetCreatedAt(alias: String? = nil) -> Date {
+			return field(field: "createdAt", aliasSuffix: alias) as! Date
 		}
 
+		/// Stripped description of the product, single line with HTML tags removed. 
 		open var description: String {
 			return internalGetDescription()
 		}
 
-		open func aliasedDescription(aliasSuffix: String) -> String {
-			return internalGetDescription(aliasSuffix: aliasSuffix)
+		open func aliasedDescription(alias: String) -> String {
+			return internalGetDescription(alias: alias)
 		}
 
-		func internalGetDescription(aliasSuffix: String? = nil) -> String {
-			return field(field: "description", aliasSuffix: aliasSuffix) as! String
+		func internalGetDescription(alias: String? = nil) -> String {
+			return field(field: "description", aliasSuffix: alias) as! String
 		}
 
+		/// The description of the product, complete with HTML formatting. 
 		open var descriptionHtml: String {
 			return internalGetDescriptionHtml()
 		}
 
-		func internalGetDescriptionHtml(aliasSuffix: String? = nil) -> String {
-			return field(field: "descriptionHtml", aliasSuffix: aliasSuffix) as! String
+		func internalGetDescriptionHtml(alias: String? = nil) -> String {
+			return field(field: "descriptionHtml", aliasSuffix: alias) as! String
 		}
 
+		/// A human-friendly unique string for the Product automatically generated from 
+		/// its title. They are used by the Liquid templating language to refer to 
+		/// objects. 
 		open var handle: String {
 			return internalGetHandle()
 		}
 
-		func internalGetHandle(aliasSuffix: String? = nil) -> String {
-			return field(field: "handle", aliasSuffix: aliasSuffix) as! String
+		func internalGetHandle(alias: String? = nil) -> String {
+			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
 
-		func internalGetId(aliasSuffix: String? = nil) -> GraphQL.ID {
-			return field(field: "id", aliasSuffix: aliasSuffix) as! GraphQL.ID
+		func internalGetId(alias: String? = nil) -> GraphQL.ID {
+			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
+		/// List of images associated with the product. 
 		open var images: Storefront.ImageConnection {
 			return internalGetImages()
 		}
 
-		open func aliasedImages(aliasSuffix: String) -> Storefront.ImageConnection {
-			return internalGetImages(aliasSuffix: aliasSuffix)
+		open func aliasedImages(alias: String) -> Storefront.ImageConnection {
+			return internalGetImages(alias: alias)
 		}
 
-		func internalGetImages(aliasSuffix: String? = nil) -> Storefront.ImageConnection {
-			return field(field: "images", aliasSuffix: aliasSuffix) as! Storefront.ImageConnection
+		func internalGetImages(alias: String? = nil) -> Storefront.ImageConnection {
+			return field(field: "images", aliasSuffix: alias) as! Storefront.ImageConnection
 		}
 
+		/// Lst of custom product options (maximum of 3 per product). 
 		open var options: [Storefront.ProductOption] {
 			return internalGetOptions()
 		}
 
-		open func aliasedOptions(aliasSuffix: String) -> [Storefront.ProductOption] {
-			return internalGetOptions(aliasSuffix: aliasSuffix)
+		open func aliasedOptions(alias: String) -> [Storefront.ProductOption] {
+			return internalGetOptions(alias: alias)
 		}
 
-		func internalGetOptions(aliasSuffix: String? = nil) -> [Storefront.ProductOption] {
-			return field(field: "options", aliasSuffix: aliasSuffix) as! [Storefront.ProductOption]
+		func internalGetOptions(alias: String? = nil) -> [Storefront.ProductOption] {
+			return field(field: "options", aliasSuffix: alias) as! [Storefront.ProductOption]
 		}
 
+		/// A categorization that a product can be tagged with, commonly used for 
+		/// filtering and searching. 
 		open var productType: String {
 			return internalGetProductType()
 		}
 
-		func internalGetProductType(aliasSuffix: String? = nil) -> String {
-			return field(field: "productType", aliasSuffix: aliasSuffix) as! String
+		func internalGetProductType(alias: String? = nil) -> String {
+			return field(field: "productType", aliasSuffix: alias) as! String
 		}
 
+		/// The date and time when the product was published to the Online Store 
+		/// channel. A value of `null` indicates that the product is not published to 
+		/// Online Store. 
 		open var publishedAt: Date {
 			return internalGetPublishedAt()
 		}
 
-		func internalGetPublishedAt(aliasSuffix: String? = nil) -> Date {
-			return field(field: "publishedAt", aliasSuffix: aliasSuffix) as! Date
+		func internalGetPublishedAt(alias: String? = nil) -> Date {
+			return field(field: "publishedAt", aliasSuffix: alias) as! Date
 		}
 
+		/// A categorization that a product can be tagged with, commonly used for 
+		/// filtering and searching. Each comma-separated tag has a character limit of 
+		/// 255. 
 		open var tags: [String] {
 			return internalGetTags()
 		}
 
-		func internalGetTags(aliasSuffix: String? = nil) -> [String] {
-			return field(field: "tags", aliasSuffix: aliasSuffix) as! [String]
+		func internalGetTags(alias: String? = nil) -> [String] {
+			return field(field: "tags", aliasSuffix: alias) as! [String]
 		}
 
+		/// The product’s title. 
 		open var title: String {
 			return internalGetTitle()
 		}
 
-		func internalGetTitle(aliasSuffix: String? = nil) -> String {
-			return field(field: "title", aliasSuffix: aliasSuffix) as! String
+		func internalGetTitle(alias: String? = nil) -> String {
+			return field(field: "title", aliasSuffix: alias) as! String
 		}
 
+		/// The date and time when the product was last modified. 
 		open var updatedAt: Date {
 			return internalGetUpdatedAt()
 		}
 
-		func internalGetUpdatedAt(aliasSuffix: String? = nil) -> Date {
-			return field(field: "updatedAt", aliasSuffix: aliasSuffix) as! Date
+		func internalGetUpdatedAt(alias: String? = nil) -> Date {
+			return field(field: "updatedAt", aliasSuffix: alias) as! Date
 		}
 
+		/// Find a product’s variant based on its selected options. This is useful for 
+		/// converting a user’s selection of product options into a single matching 
+		/// variant. If there is not a variant for the selected options, `null` will be 
+		/// returned. 
 		open var variantBySelectedOptions: Storefront.ProductVariant? {
 			return internalGetVariantBySelectedOptions()
 		}
 
-		open func aliasedVariantBySelectedOptions(aliasSuffix: String) -> Storefront.ProductVariant? {
-			return internalGetVariantBySelectedOptions(aliasSuffix: aliasSuffix)
+		open func aliasedVariantBySelectedOptions(alias: String) -> Storefront.ProductVariant? {
+			return internalGetVariantBySelectedOptions(alias: alias)
 		}
 
-		func internalGetVariantBySelectedOptions(aliasSuffix: String? = nil) -> Storefront.ProductVariant? {
-			return field(field: "variantBySelectedOptions", aliasSuffix: aliasSuffix) as! Storefront.ProductVariant?
+		func internalGetVariantBySelectedOptions(alias: String? = nil) -> Storefront.ProductVariant? {
+			return field(field: "variantBySelectedOptions", aliasSuffix: alias) as! Storefront.ProductVariant?
 		}
 
+		/// List of the product’s variants. 
 		open var variants: Storefront.ProductVariantConnection {
 			return internalGetVariants()
 		}
 
-		open func aliasedVariants(aliasSuffix: String) -> Storefront.ProductVariantConnection {
-			return internalGetVariants(aliasSuffix: aliasSuffix)
+		open func aliasedVariants(alias: String) -> Storefront.ProductVariantConnection {
+			return internalGetVariants(alias: alias)
 		}
 
-		func internalGetVariants(aliasSuffix: String? = nil) -> Storefront.ProductVariantConnection {
-			return field(field: "variants", aliasSuffix: aliasSuffix) as! Storefront.ProductVariantConnection
+		func internalGetVariants(alias: String? = nil) -> Storefront.ProductVariantConnection {
+			return field(field: "variants", aliasSuffix: alias) as! Storefront.ProductVariantConnection
 		}
 
+		/// The product’s vendor name. 
 		open var vendor: String {
 			return internalGetVendor()
 		}
 
-		func internalGetVendor(aliasSuffix: String? = nil) -> String {
-			return field(field: "vendor", aliasSuffix: aliasSuffix) as! String
+		func internalGetVendor(alias: String? = nil) -> String {
+			return field(field: "vendor", aliasSuffix: alias) as! String
 		}
 
-		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
-			switch(key) {
-				case "collections":
-
-				return .Object
-
-				case "createdAt":
-
-				return .Scalar
-
-				case "description":
-
-				return .Scalar
-
-				case "descriptionHtml":
-
-				return .Scalar
-
-				case "handle":
-
-				return .Scalar
-
-				case "id":
-
-				return .Scalar
-
-				case "images":
-
-				return .Object
-
-				case "options":
-
-				return .ObjectList
-
-				case "productType":
-
-				return .Scalar
-
-				case "publishedAt":
-
-				return .Scalar
-
-				case "tags":
-
-				return .ScalarList
-
-				case "title":
-
-				return .Scalar
-
-				case "updatedAt":
-
-				return .Scalar
-
-				case "variantBySelectedOptions":
-
-				return .Object
-
-				case "variants":
-
-				return .Object
-
-				case "vendor":
-
-				return .Scalar
-
-				default:
-				return .Scalar
-			}
-		}
-
-		override open func fetchChildObject(key: String) -> GraphQL.AbstractResponse? {
-			switch(key) {
-				case "collections":
-				return internalGetCollections()
-
-				case "images":
-				return internalGetImages()
-
-				case "variantBySelectedOptions":
-				return internalGetVariantBySelectedOptions()
-
-				case "variants":
-				return internalGetVariants()
-
-				default:
-				break
-			}
-			return nil
-		}
-
-		override open func fetchChildObjectList(key: String) -> [GraphQL.AbstractResponse] {
-			switch(key) {
-				case "options":
-				return internalGetOptions()
-
-				default:
-				return []
-			}
-		}
-
-		open func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			var response: [GraphQL.AbstractResponse] = []
-			objectMap.keys.forEach({
-				key in
-				switch(key) {
+			objectMap.keys.forEach {
+				switch($0) {
 					case "collections":
 					response.append(internalGetCollections())
 					response.append(contentsOf: internalGetCollections().childResponseObjectMap())
@@ -592,12 +607,8 @@ extension Storefront {
 					default:
 					break
 				}
-			})
+			}
 			return response
-		}
-
-		open func responseObject() -> GraphQL.AbstractResponse {
-			return self as GraphQL.AbstractResponse
 		}
 	}
 }

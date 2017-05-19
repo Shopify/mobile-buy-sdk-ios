@@ -1,27 +1,56 @@
-// Generated from graphql_swift_gen gem
+//
+//  Attribute.swift
+//  Buy
+//
+//  Created by Shopify.
+//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
+
 import Foundation
 
 extension Storefront {
+	/// Represents a generic custom attribute. 
 	open class AttributeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Attribute
 
+		/// Key or name of the attribute. 
 		@discardableResult
-		open func key(aliasSuffix: String? = nil) -> AttributeQuery {
-			addField(field: "key", aliasSuffix: aliasSuffix)
+		open func key(alias: String? = nil) -> AttributeQuery {
+			addField(field: "key", aliasSuffix: alias)
 			return self
 		}
 
+		/// Value of the attribute. 
 		@discardableResult
-		open func value(aliasSuffix: String? = nil) -> AttributeQuery {
-			addField(field: "value", aliasSuffix: aliasSuffix)
+		open func value(alias: String? = nil) -> AttributeQuery {
+			addField(field: "value", aliasSuffix: alias)
 			return self
 		}
 	}
 
+	/// Represents a generic custom attribute. 
 	open class Attribute: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = AttributeQuery
 
-		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
+		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
 				case "key":
@@ -42,60 +71,26 @@ extension Storefront {
 			}
 		}
 
-		open var typeName: String { return "Attribute" }
-
+		/// Key or name of the attribute. 
 		open var key: String {
 			return internalGetKey()
 		}
 
-		func internalGetKey(aliasSuffix: String? = nil) -> String {
-			return field(field: "key", aliasSuffix: aliasSuffix) as! String
+		func internalGetKey(alias: String? = nil) -> String {
+			return field(field: "key", aliasSuffix: alias) as! String
 		}
 
+		/// Value of the attribute. 
 		open var value: String? {
 			return internalGetValue()
 		}
 
-		func internalGetValue(aliasSuffix: String? = nil) -> String? {
-			return field(field: "value", aliasSuffix: aliasSuffix) as! String?
+		func internalGetValue(alias: String? = nil) -> String? {
+			return field(field: "value", aliasSuffix: alias) as! String?
 		}
 
-		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
-			switch(key) {
-				case "key":
-
-				return .Scalar
-
-				case "value":
-
-				return .Scalar
-
-				default:
-				return .Scalar
-			}
-		}
-
-		override open func fetchChildObject(key: String) -> GraphQL.AbstractResponse? {
-			switch(key) {
-				default:
-				break
-			}
-			return nil
-		}
-
-		override open func fetchChildObjectList(key: String) -> [GraphQL.AbstractResponse] {
-			switch(key) {
-				default:
-				return []
-			}
-		}
-
-		open func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			return []
-		}
-
-		open func responseObject() -> GraphQL.AbstractResponse {
-			return self as GraphQL.AbstractResponse
 		}
 	}
 }

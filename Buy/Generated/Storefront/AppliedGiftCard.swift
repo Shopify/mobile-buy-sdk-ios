@@ -1,39 +1,69 @@
-// Generated from graphql_swift_gen gem
+//
+//  AppliedGiftCard.swift
+//  Buy
+//
+//  Created by Shopify.
+//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
+
 import Foundation
 
 extension Storefront {
+	/// Details about the gift card used on the checkout. 
 	open class AppliedGiftCardQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = AppliedGiftCard
 
+		/// The amount that was used taken from the Gift Card by applying it. 
 		@discardableResult
-		open func amountUsed(aliasSuffix: String? = nil) -> AppliedGiftCardQuery {
-			addField(field: "amountUsed", aliasSuffix: aliasSuffix)
+		open func amountUsed(alias: String? = nil) -> AppliedGiftCardQuery {
+			addField(field: "amountUsed", aliasSuffix: alias)
+			return self
+		}
+
+		/// The amount left on the Gift Card. 
+		@discardableResult
+		open func balance(alias: String? = nil) -> AppliedGiftCardQuery {
+			addField(field: "balance", aliasSuffix: alias)
 			return self
 		}
 
 		@discardableResult
-		open func balance(aliasSuffix: String? = nil) -> AppliedGiftCardQuery {
-			addField(field: "balance", aliasSuffix: aliasSuffix)
+		open func id(alias: String? = nil) -> AppliedGiftCardQuery {
+			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
+		/// The last characters of the Gift Card code 
 		@discardableResult
-		open func id(aliasSuffix: String? = nil) -> AppliedGiftCardQuery {
-			addField(field: "id", aliasSuffix: aliasSuffix)
-			return self
-		}
-
-		@discardableResult
-		open func lastCharacters(aliasSuffix: String? = nil) -> AppliedGiftCardQuery {
-			addField(field: "lastCharacters", aliasSuffix: aliasSuffix)
+		open func lastCharacters(alias: String? = nil) -> AppliedGiftCardQuery {
+			addField(field: "lastCharacters", aliasSuffix: alias)
 			return self
 		}
 	}
 
+	/// Details about the gift card used on the checkout. 
 	open class AppliedGiftCard: GraphQL.AbstractResponse, GraphQLObject, Node {
 		public typealias Query = AppliedGiftCardQuery
 
-		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
+		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
 				case "amountUsed":
@@ -65,84 +95,43 @@ extension Storefront {
 			}
 		}
 
-		open var typeName: String { return "AppliedGiftCard" }
-
+		/// The amount that was used taken from the Gift Card by applying it. 
 		open var amountUsed: Decimal {
 			return internalGetAmountUsed()
 		}
 
-		func internalGetAmountUsed(aliasSuffix: String? = nil) -> Decimal {
-			return field(field: "amountUsed", aliasSuffix: aliasSuffix) as! Decimal
+		func internalGetAmountUsed(alias: String? = nil) -> Decimal {
+			return field(field: "amountUsed", aliasSuffix: alias) as! Decimal
 		}
 
+		/// The amount left on the Gift Card. 
 		open var balance: Decimal {
 			return internalGetBalance()
 		}
 
-		func internalGetBalance(aliasSuffix: String? = nil) -> Decimal {
-			return field(field: "balance", aliasSuffix: aliasSuffix) as! Decimal
+		func internalGetBalance(alias: String? = nil) -> Decimal {
+			return field(field: "balance", aliasSuffix: alias) as! Decimal
 		}
 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
 
-		func internalGetId(aliasSuffix: String? = nil) -> GraphQL.ID {
-			return field(field: "id", aliasSuffix: aliasSuffix) as! GraphQL.ID
+		func internalGetId(alias: String? = nil) -> GraphQL.ID {
+			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
+		/// The last characters of the Gift Card code 
 		open var lastCharacters: String {
 			return internalGetLastCharacters()
 		}
 
-		func internalGetLastCharacters(aliasSuffix: String? = nil) -> String {
-			return field(field: "lastCharacters", aliasSuffix: aliasSuffix) as! String
+		func internalGetLastCharacters(alias: String? = nil) -> String {
+			return field(field: "lastCharacters", aliasSuffix: alias) as! String
 		}
 
-		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
-			switch(key) {
-				case "amountUsed":
-
-				return .Scalar
-
-				case "balance":
-
-				return .Scalar
-
-				case "id":
-
-				return .Scalar
-
-				case "lastCharacters":
-
-				return .Scalar
-
-				default:
-				return .Scalar
-			}
-		}
-
-		override open func fetchChildObject(key: String) -> GraphQL.AbstractResponse? {
-			switch(key) {
-				default:
-				break
-			}
-			return nil
-		}
-
-		override open func fetchChildObjectList(key: String) -> [GraphQL.AbstractResponse] {
-			switch(key) {
-				default:
-				return []
-			}
-		}
-
-		open func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			return []
-		}
-
-		open func responseObject() -> GraphQL.AbstractResponse {
-			return self as GraphQL.AbstractResponse
 		}
 	}
 }

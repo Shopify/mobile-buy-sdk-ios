@@ -1,45 +1,78 @@
-// Generated from graphql_swift_gen gem
+//
+//  OrderLineItem.swift
+//  Buy
+//
+//  Created by Shopify.
+//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
+
 import Foundation
 
 extension Storefront {
+	/// Represents a single line in an order. There is one line item for each 
+	/// distinct product variant. 
 	open class OrderLineItemQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = OrderLineItem
 
+		/// List of custom attributes associated to the line item. 
 		@discardableResult
-		open func customAttributes(aliasSuffix: String? = nil, _ subfields: (AttributeQuery) -> Void) -> OrderLineItemQuery {
+		open func customAttributes(alias: String? = nil, _ subfields: (AttributeQuery) -> Void) -> OrderLineItemQuery {
 			let subquery = AttributeQuery()
 			subfields(subquery)
 
-			addField(field: "customAttributes", aliasSuffix: aliasSuffix, subfields: subquery)
+			addField(field: "customAttributes", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
+		/// The number of products variants associated to the line item. 
 		@discardableResult
-		open func quantity(aliasSuffix: String? = nil) -> OrderLineItemQuery {
-			addField(field: "quantity", aliasSuffix: aliasSuffix)
+		open func quantity(alias: String? = nil) -> OrderLineItemQuery {
+			addField(field: "quantity", aliasSuffix: alias)
 			return self
 		}
 
+		/// The title of the product combined with title of the variant. 
 		@discardableResult
-		open func title(aliasSuffix: String? = nil) -> OrderLineItemQuery {
-			addField(field: "title", aliasSuffix: aliasSuffix)
+		open func title(alias: String? = nil) -> OrderLineItemQuery {
+			addField(field: "title", aliasSuffix: alias)
 			return self
 		}
 
+		/// The product variant object associated to the line item. 
 		@discardableResult
-		open func variant(aliasSuffix: String? = nil, _ subfields: (ProductVariantQuery) -> Void) -> OrderLineItemQuery {
+		open func variant(alias: String? = nil, _ subfields: (ProductVariantQuery) -> Void) -> OrderLineItemQuery {
 			let subquery = ProductVariantQuery()
 			subfields(subquery)
 
-			addField(field: "variant", aliasSuffix: aliasSuffix, subfields: subquery)
+			addField(field: "variant", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 	}
 
+	/// Represents a single line in an order. There is one line item for each 
+	/// distinct product variant. 
 	open class OrderLineItem: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = OrderLineItemQuery
 
-		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
+		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
 				case "customAttributes":
@@ -72,89 +105,46 @@ extension Storefront {
 			}
 		}
 
-		open var typeName: String { return "OrderLineItem" }
-
+		/// List of custom attributes associated to the line item. 
 		open var customAttributes: [Storefront.Attribute] {
 			return internalGetCustomAttributes()
 		}
 
-		func internalGetCustomAttributes(aliasSuffix: String? = nil) -> [Storefront.Attribute] {
-			return field(field: "customAttributes", aliasSuffix: aliasSuffix) as! [Storefront.Attribute]
+		func internalGetCustomAttributes(alias: String? = nil) -> [Storefront.Attribute] {
+			return field(field: "customAttributes", aliasSuffix: alias) as! [Storefront.Attribute]
 		}
 
+		/// The number of products variants associated to the line item. 
 		open var quantity: Int32 {
 			return internalGetQuantity()
 		}
 
-		func internalGetQuantity(aliasSuffix: String? = nil) -> Int32 {
-			return field(field: "quantity", aliasSuffix: aliasSuffix) as! Int32
+		func internalGetQuantity(alias: String? = nil) -> Int32 {
+			return field(field: "quantity", aliasSuffix: alias) as! Int32
 		}
 
+		/// The title of the product combined with title of the variant. 
 		open var title: String {
 			return internalGetTitle()
 		}
 
-		func internalGetTitle(aliasSuffix: String? = nil) -> String {
-			return field(field: "title", aliasSuffix: aliasSuffix) as! String
+		func internalGetTitle(alias: String? = nil) -> String {
+			return field(field: "title", aliasSuffix: alias) as! String
 		}
 
+		/// The product variant object associated to the line item. 
 		open var variant: Storefront.ProductVariant? {
 			return internalGetVariant()
 		}
 
-		func internalGetVariant(aliasSuffix: String? = nil) -> Storefront.ProductVariant? {
-			return field(field: "variant", aliasSuffix: aliasSuffix) as! Storefront.ProductVariant?
+		func internalGetVariant(alias: String? = nil) -> Storefront.ProductVariant? {
+			return field(field: "variant", aliasSuffix: alias) as! Storefront.ProductVariant?
 		}
 
-		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
-			switch(key) {
-				case "customAttributes":
-
-				return .ObjectList
-
-				case "quantity":
-
-				return .Scalar
-
-				case "title":
-
-				return .Scalar
-
-				case "variant":
-
-				return .Object
-
-				default:
-				return .Scalar
-			}
-		}
-
-		override open func fetchChildObject(key: String) -> GraphQL.AbstractResponse? {
-			switch(key) {
-				case "variant":
-				return internalGetVariant()
-
-				default:
-				break
-			}
-			return nil
-		}
-
-		override open func fetchChildObjectList(key: String) -> [GraphQL.AbstractResponse] {
-			switch(key) {
-				case "customAttributes":
-				return internalGetCustomAttributes()
-
-				default:
-				return []
-			}
-		}
-
-		open func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			var response: [GraphQL.AbstractResponse] = []
-			objectMap.keys.forEach({
-				key in
-				switch(key) {
+			objectMap.keys.forEach {
+				switch($0) {
 					case "customAttributes":
 					internalGetCustomAttributes().forEach {
 						response.append($0)
@@ -170,12 +160,8 @@ extension Storefront {
 					default:
 					break
 				}
-			})
+			}
 			return response
-		}
-
-		open func responseObject() -> GraphQL.AbstractResponse {
-			return self as GraphQL.AbstractResponse
 		}
 	}
 }

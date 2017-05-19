@@ -1,39 +1,71 @@
-// Generated from graphql_swift_gen gem
+//
+//  ShopPolicy.swift
+//  Buy
+//
+//  Created by Shopify.
+//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
+
 import Foundation
 
 extension Storefront {
+	/// Policy that a merchant has configured for their store, such as their refund 
+	/// or privacy policy. 
 	open class ShopPolicyQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ShopPolicy
 
+		/// Policy text, maximum size of 64kb. 
 		@discardableResult
-		open func body(aliasSuffix: String? = nil) -> ShopPolicyQuery {
-			addField(field: "body", aliasSuffix: aliasSuffix)
+		open func body(alias: String? = nil) -> ShopPolicyQuery {
+			addField(field: "body", aliasSuffix: alias)
 			return self
 		}
 
 		@discardableResult
-		open func id(aliasSuffix: String? = nil) -> ShopPolicyQuery {
-			addField(field: "id", aliasSuffix: aliasSuffix)
+		open func id(alias: String? = nil) -> ShopPolicyQuery {
+			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
+		/// Policy’s title. 
 		@discardableResult
-		open func title(aliasSuffix: String? = nil) -> ShopPolicyQuery {
-			addField(field: "title", aliasSuffix: aliasSuffix)
+		open func title(alias: String? = nil) -> ShopPolicyQuery {
+			addField(field: "title", aliasSuffix: alias)
 			return self
 		}
 
+		/// Public URL to the policy. 
 		@discardableResult
-		open func url(aliasSuffix: String? = nil) -> ShopPolicyQuery {
-			addField(field: "url", aliasSuffix: aliasSuffix)
+		open func url(alias: String? = nil) -> ShopPolicyQuery {
+			addField(field: "url", aliasSuffix: alias)
 			return self
 		}
 	}
 
+	/// Policy that a merchant has configured for their store, such as their refund 
+	/// or privacy policy. 
 	open class ShopPolicy: GraphQL.AbstractResponse, GraphQLObject, Node {
 		public typealias Query = ShopPolicyQuery
 
-		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
+		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
 				case "body":
@@ -65,84 +97,43 @@ extension Storefront {
 			}
 		}
 
-		open var typeName: String { return "ShopPolicy" }
-
+		/// Policy text, maximum size of 64kb. 
 		open var body: String {
 			return internalGetBody()
 		}
 
-		func internalGetBody(aliasSuffix: String? = nil) -> String {
-			return field(field: "body", aliasSuffix: aliasSuffix) as! String
+		func internalGetBody(alias: String? = nil) -> String {
+			return field(field: "body", aliasSuffix: alias) as! String
 		}
 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
 
-		func internalGetId(aliasSuffix: String? = nil) -> GraphQL.ID {
-			return field(field: "id", aliasSuffix: aliasSuffix) as! GraphQL.ID
+		func internalGetId(alias: String? = nil) -> GraphQL.ID {
+			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
+		/// Policy’s title. 
 		open var title: String {
 			return internalGetTitle()
 		}
 
-		func internalGetTitle(aliasSuffix: String? = nil) -> String {
-			return field(field: "title", aliasSuffix: aliasSuffix) as! String
+		func internalGetTitle(alias: String? = nil) -> String {
+			return field(field: "title", aliasSuffix: alias) as! String
 		}
 
+		/// Public URL to the policy. 
 		open var url: URL {
 			return internalGetUrl()
 		}
 
-		func internalGetUrl(aliasSuffix: String? = nil) -> URL {
-			return field(field: "url", aliasSuffix: aliasSuffix) as! URL
+		func internalGetUrl(alias: String? = nil) -> URL {
+			return field(field: "url", aliasSuffix: alias) as! URL
 		}
 
-		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
-			switch(key) {
-				case "body":
-
-				return .Scalar
-
-				case "id":
-
-				return .Scalar
-
-				case "title":
-
-				return .Scalar
-
-				case "url":
-
-				return .Scalar
-
-				default:
-				return .Scalar
-			}
-		}
-
-		override open func fetchChildObject(key: String) -> GraphQL.AbstractResponse? {
-			switch(key) {
-				default:
-				break
-			}
-			return nil
-		}
-
-		override open func fetchChildObjectList(key: String) -> [GraphQL.AbstractResponse] {
-			switch(key) {
-				default:
-				return []
-			}
-		}
-
-		open func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			return []
-		}
-
-		open func responseObject() -> GraphQL.AbstractResponse {
-			return self as GraphQL.AbstractResponse
 		}
 	}
 }

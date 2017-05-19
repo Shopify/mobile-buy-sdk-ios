@@ -1,87 +1,126 @@
-// Generated from graphql_swift_gen gem
+//
+//  Payment.swift
+//  Buy
+//
+//  Created by Shopify.
+//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
+
 import Foundation
 
 extension Storefront {
+	/// A payment applied to a checkout. 
 	open class PaymentQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Payment
 
+		/// The amount of the payment. 
 		@discardableResult
-		open func amount(aliasSuffix: String? = nil) -> PaymentQuery {
-			addField(field: "amount", aliasSuffix: aliasSuffix)
+		open func amount(alias: String? = nil) -> PaymentQuery {
+			addField(field: "amount", aliasSuffix: alias)
 			return self
 		}
 
+		/// The billing address for the payment. 
 		@discardableResult
-		open func billingAddress(aliasSuffix: String? = nil, _ subfields: (MailingAddressQuery) -> Void) -> PaymentQuery {
+		open func billingAddress(alias: String? = nil, _ subfields: (MailingAddressQuery) -> Void) -> PaymentQuery {
 			let subquery = MailingAddressQuery()
 			subfields(subquery)
 
-			addField(field: "billingAddress", aliasSuffix: aliasSuffix, subfields: subquery)
+			addField(field: "billingAddress", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
+		/// The checkout to which the payment belongs. 
 		@discardableResult
-		open func checkout(aliasSuffix: String? = nil, _ subfields: (CheckoutQuery) -> Void) -> PaymentQuery {
+		open func checkout(alias: String? = nil, _ subfields: (CheckoutQuery) -> Void) -> PaymentQuery {
 			let subquery = CheckoutQuery()
 			subfields(subquery)
 
-			addField(field: "checkout", aliasSuffix: aliasSuffix, subfields: subquery)
+			addField(field: "checkout", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
+		/// The credit card used for the payment in the case of direct payments. 
 		@discardableResult
-		open func creditCard(aliasSuffix: String? = nil, _ subfields: (CreditCardQuery) -> Void) -> PaymentQuery {
+		open func creditCard(alias: String? = nil, _ subfields: (CreditCardQuery) -> Void) -> PaymentQuery {
 			let subquery = CreditCardQuery()
 			subfields(subquery)
 
-			addField(field: "creditCard", aliasSuffix: aliasSuffix, subfields: subquery)
+			addField(field: "creditCard", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// An message describing a processing error during asynchronous processing. 
+		@discardableResult
+		open func errorMessage(alias: String? = nil) -> PaymentQuery {
+			addField(field: "errorMessage", aliasSuffix: alias)
 			return self
 		}
 
 		@discardableResult
-		open func errorMessage(aliasSuffix: String? = nil) -> PaymentQuery {
-			addField(field: "errorMessage", aliasSuffix: aliasSuffix)
+		open func id(alias: String? = nil) -> PaymentQuery {
+			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
+		/// A client-side generated token to identify a payment and perform idempotent 
+		/// operations. 
 		@discardableResult
-		open func id(aliasSuffix: String? = nil) -> PaymentQuery {
-			addField(field: "id", aliasSuffix: aliasSuffix)
+		open func idempotencyKey(alias: String? = nil) -> PaymentQuery {
+			addField(field: "idempotencyKey", aliasSuffix: alias)
 			return self
 		}
 
+		/// Whether or not the payment is still processing asynchronously. 
 		@discardableResult
-		open func idempotencyKey(aliasSuffix: String? = nil) -> PaymentQuery {
-			addField(field: "idempotencyKey", aliasSuffix: aliasSuffix)
+		open func ready(alias: String? = nil) -> PaymentQuery {
+			addField(field: "ready", aliasSuffix: alias)
 			return self
 		}
 
+		/// A flag to indicate if the payment is to be done in test mode for gateways 
+		/// that support it. 
 		@discardableResult
-		open func ready(aliasSuffix: String? = nil) -> PaymentQuery {
-			addField(field: "ready", aliasSuffix: aliasSuffix)
+		open func test(alias: String? = nil) -> PaymentQuery {
+			addField(field: "test", aliasSuffix: alias)
 			return self
 		}
 
+		/// The actual transaction recorded by Shopify after having processed the 
+		/// payment with the gateway. 
 		@discardableResult
-		open func test(aliasSuffix: String? = nil) -> PaymentQuery {
-			addField(field: "test", aliasSuffix: aliasSuffix)
-			return self
-		}
-
-		@discardableResult
-		open func transaction(aliasSuffix: String? = nil, _ subfields: (TransactionQuery) -> Void) -> PaymentQuery {
+		open func transaction(alias: String? = nil, _ subfields: (TransactionQuery) -> Void) -> PaymentQuery {
 			let subquery = TransactionQuery()
 			subfields(subquery)
 
-			addField(field: "transaction", aliasSuffix: aliasSuffix, subfields: subquery)
+			addField(field: "transaction", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 	}
 
+	/// A payment applied to a checkout. 
 	open class Payment: GraphQL.AbstractResponse, GraphQLObject, Node {
 		public typealias Query = PaymentQuery
 
-		open override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
+		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
 				case "amount":
@@ -154,167 +193,102 @@ extension Storefront {
 			}
 		}
 
-		open var typeName: String { return "Payment" }
-
+		/// The amount of the payment. 
 		open var amount: Decimal {
 			return internalGetAmount()
 		}
 
-		func internalGetAmount(aliasSuffix: String? = nil) -> Decimal {
-			return field(field: "amount", aliasSuffix: aliasSuffix) as! Decimal
+		func internalGetAmount(alias: String? = nil) -> Decimal {
+			return field(field: "amount", aliasSuffix: alias) as! Decimal
 		}
 
+		/// The billing address for the payment. 
 		open var billingAddress: Storefront.MailingAddress? {
 			return internalGetBillingAddress()
 		}
 
-		func internalGetBillingAddress(aliasSuffix: String? = nil) -> Storefront.MailingAddress? {
-			return field(field: "billingAddress", aliasSuffix: aliasSuffix) as! Storefront.MailingAddress?
+		func internalGetBillingAddress(alias: String? = nil) -> Storefront.MailingAddress? {
+			return field(field: "billingAddress", aliasSuffix: alias) as! Storefront.MailingAddress?
 		}
 
+		/// The checkout to which the payment belongs. 
 		open var checkout: Storefront.Checkout {
 			return internalGetCheckout()
 		}
 
-		func internalGetCheckout(aliasSuffix: String? = nil) -> Storefront.Checkout {
-			return field(field: "checkout", aliasSuffix: aliasSuffix) as! Storefront.Checkout
+		func internalGetCheckout(alias: String? = nil) -> Storefront.Checkout {
+			return field(field: "checkout", aliasSuffix: alias) as! Storefront.Checkout
 		}
 
+		/// The credit card used for the payment in the case of direct payments. 
 		open var creditCard: Storefront.CreditCard? {
 			return internalGetCreditCard()
 		}
 
-		func internalGetCreditCard(aliasSuffix: String? = nil) -> Storefront.CreditCard? {
-			return field(field: "creditCard", aliasSuffix: aliasSuffix) as! Storefront.CreditCard?
+		func internalGetCreditCard(alias: String? = nil) -> Storefront.CreditCard? {
+			return field(field: "creditCard", aliasSuffix: alias) as! Storefront.CreditCard?
 		}
 
+		/// An message describing a processing error during asynchronous processing. 
 		open var errorMessage: String? {
 			return internalGetErrorMessage()
 		}
 
-		func internalGetErrorMessage(aliasSuffix: String? = nil) -> String? {
-			return field(field: "errorMessage", aliasSuffix: aliasSuffix) as! String?
+		func internalGetErrorMessage(alias: String? = nil) -> String? {
+			return field(field: "errorMessage", aliasSuffix: alias) as! String?
 		}
 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
 
-		func internalGetId(aliasSuffix: String? = nil) -> GraphQL.ID {
-			return field(field: "id", aliasSuffix: aliasSuffix) as! GraphQL.ID
+		func internalGetId(alias: String? = nil) -> GraphQL.ID {
+			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
+		/// A client-side generated token to identify a payment and perform idempotent 
+		/// operations. 
 		open var idempotencyKey: String? {
 			return internalGetIdempotencyKey()
 		}
 
-		func internalGetIdempotencyKey(aliasSuffix: String? = nil) -> String? {
-			return field(field: "idempotencyKey", aliasSuffix: aliasSuffix) as! String?
+		func internalGetIdempotencyKey(alias: String? = nil) -> String? {
+			return field(field: "idempotencyKey", aliasSuffix: alias) as! String?
 		}
 
+		/// Whether or not the payment is still processing asynchronously. 
 		open var ready: Bool {
 			return internalGetReady()
 		}
 
-		func internalGetReady(aliasSuffix: String? = nil) -> Bool {
-			return field(field: "ready", aliasSuffix: aliasSuffix) as! Bool
+		func internalGetReady(alias: String? = nil) -> Bool {
+			return field(field: "ready", aliasSuffix: alias) as! Bool
 		}
 
+		/// A flag to indicate if the payment is to be done in test mode for gateways 
+		/// that support it. 
 		open var test: Bool {
 			return internalGetTest()
 		}
 
-		func internalGetTest(aliasSuffix: String? = nil) -> Bool {
-			return field(field: "test", aliasSuffix: aliasSuffix) as! Bool
+		func internalGetTest(alias: String? = nil) -> Bool {
+			return field(field: "test", aliasSuffix: alias) as! Bool
 		}
 
+		/// The actual transaction recorded by Shopify after having processed the 
+		/// payment with the gateway. 
 		open var transaction: Storefront.Transaction? {
 			return internalGetTransaction()
 		}
 
-		func internalGetTransaction(aliasSuffix: String? = nil) -> Storefront.Transaction? {
-			return field(field: "transaction", aliasSuffix: aliasSuffix) as! Storefront.Transaction?
+		func internalGetTransaction(alias: String? = nil) -> Storefront.Transaction? {
+			return field(field: "transaction", aliasSuffix: alias) as! Storefront.Transaction?
 		}
 
-		override open func childObjectType(key: String) -> GraphQL.ChildObjectType {
-			switch(key) {
-				case "amount":
-
-				return .Scalar
-
-				case "billingAddress":
-
-				return .Object
-
-				case "checkout":
-
-				return .Object
-
-				case "creditCard":
-
-				return .Object
-
-				case "errorMessage":
-
-				return .Scalar
-
-				case "id":
-
-				return .Scalar
-
-				case "idempotencyKey":
-
-				return .Scalar
-
-				case "ready":
-
-				return .Scalar
-
-				case "test":
-
-				return .Scalar
-
-				case "transaction":
-
-				return .Object
-
-				default:
-				return .Scalar
-			}
-		}
-
-		override open func fetchChildObject(key: String) -> GraphQL.AbstractResponse? {
-			switch(key) {
-				case "billingAddress":
-				return internalGetBillingAddress()
-
-				case "checkout":
-				return internalGetCheckout()
-
-				case "creditCard":
-				return internalGetCreditCard()
-
-				case "transaction":
-				return internalGetTransaction()
-
-				default:
-				break
-			}
-			return nil
-		}
-
-		override open func fetchChildObjectList(key: String) -> [GraphQL.AbstractResponse] {
-			switch(key) {
-				default:
-				return []
-			}
-		}
-
-		open func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			var response: [GraphQL.AbstractResponse] = []
-			objectMap.keys.forEach({
-				key in
-				switch(key) {
+			objectMap.keys.forEach {
+				switch($0) {
 					case "billingAddress":
 					if let value = internalGetBillingAddress() {
 						response.append(value)
@@ -340,12 +314,8 @@ extension Storefront {
 					default:
 					break
 				}
-			})
+			}
 			return response
-		}
-
-		open func responseObject() -> GraphQL.AbstractResponse {
-			return self as GraphQL.AbstractResponse
 		}
 	}
 }
