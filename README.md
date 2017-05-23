@@ -29,6 +29,7 @@ The Mobile Buy SDK makes it easy to create custom storefronts in your mobile app
   - [Queries](#queries-)
   - [Mutations](#mutations-)
   - [Retry and polling](#retry-)
+  - [Caching](#caching-)
   - [Errors](#errors-)
 
 - [Card vaulting](#card-vaulting-)
@@ -362,7 +363,7 @@ let handler = Graph.RetryHandler<Storefront.QueryRoot>() { (query, error) -> Boo
 
 The retry handler is generic, and can handle both `query` and `mutation` requests equally well.
 
-### Caching
+### Caching [⤴](#table-of-contents)
 
 Network queries and mutations can be both slow and expensive. For resources that change infrequently caching can be a big win in terms of bandwidth and latency. Since GraphQL relies on `POST` requests, we can't easily take advantage of HTTP caching already available in `URLSession`. For this reason, the `Graph.Client` is equipped with an opt-in caching layer that can be enabled client-wide or on a per-request basis. 
 
