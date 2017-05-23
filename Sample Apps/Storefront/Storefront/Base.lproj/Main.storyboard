@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="5HA-7N-vXJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="5HA-7N-vXJ">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -96,7 +96,7 @@
                                 </connections>
                             </tableView>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t2u-Og-LPy">
-                                <rect key="frame" x="0.0" y="64" width="375" height="160"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="210"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <segue destination="0rU-kT-Sds" kind="embed" identifier="TotalsViewController" id="evH-EU-UpO"/>
@@ -277,32 +277,32 @@
                         <viewControllerLayoutGuide type="bottom" id="s04-dR-aXf"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="5Si-l6-BER">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="160"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="210"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sIG-Rh-ld5">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="160"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="210"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Dh2-Um-bPx">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="160"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="210"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hPa-rC-ezo">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="160"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="210"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$4,643.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MDh-hh-crX">
-                                                    <rect key="frame" x="81" y="51" width="213" height="58"/>
+                                                    <rect key="frame" x="81" y="56" width="213" height="58"/>
                                                     <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="48"/>
                                                     <color key="textColor" red="0.4763322351" green="0.72474470440000005" blue="0.44370955919999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Excludes taxes &amp; applicable discounts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tKm-BV-m0X">
-                                                    <rect key="frame" x="85" y="111" width="206" height="16"/>
+                                                    <rect key="frame" x="85" y="116" width="205.5" height="16"/>
                                                     <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="13"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtotal" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qoh-eB-sef">
-                                                    <rect key="frame" x="161" y="31" width="53" height="18"/>
+                                                    <rect key="frame" x="161" y="36" width="53" height="18"/>
                                                     <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="15"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -317,30 +317,26 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RM6-Qx-qIw">
-                                                    <rect key="frame" x="321" y="8" width="46" height="30"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="wqv-hh-lYL">
+                                                    <rect key="frame" x="85" y="144" width="205.5" height="30"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="3iy-B0-ZWK"/>
-                                                        <constraint firstAttribute="width" constant="46" id="PAR-wd-wZj"/>
+                                                        <constraint firstAttribute="height" constant="30" id="mHh-fs-nar"/>
                                                     </constraints>
-                                                    <state key="normal" title="Pay"/>
-                                                    <connections>
-                                                        <action selector="applePayAction:" destination="0rU-kT-Sds" eventType="touchUpInside" id="VRT-L8-eMu"/>
-                                                    </connections>
-                                                </button>
+                                                </stackView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="tKm-BV-m0X" firstAttribute="top" secondItem="MDh-hh-crX" secondAttribute="bottom" constant="2" id="Fxk-TU-Vgo"/>
+                                                <constraint firstItem="wqv-hh-lYL" firstAttribute="trailing" secondItem="tKm-BV-m0X" secondAttribute="trailing" id="HfY-Gk-9gA"/>
                                                 <constraint firstItem="tKm-BV-m0X" firstAttribute="centerX" secondItem="MDh-hh-crX" secondAttribute="centerX" id="IER-bD-FMf"/>
                                                 <constraint firstItem="MDh-hh-crX" firstAttribute="top" secondItem="qoh-eB-sef" secondAttribute="bottom" constant="2" id="PrW-3H-pgW"/>
                                                 <constraint firstItem="qoh-eB-sef" firstAttribute="centerX" secondItem="MDh-hh-crX" secondAttribute="centerX" id="V1G-Qo-ZZS"/>
-                                                <constraint firstItem="MDh-hh-crX" firstAttribute="centerY" secondItem="hPa-rC-ezo" secondAttribute="centerY" id="dX2-K6-rjf"/>
+                                                <constraint firstItem="MDh-hh-crX" firstAttribute="centerY" secondItem="hPa-rC-ezo" secondAttribute="centerY" constant="-20" id="dX2-K6-rjf"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="MDh-hh-crX" secondAttribute="trailing" constant="12" id="ghI-mz-SJy"/>
-                                                <constraint firstAttribute="trailing" secondItem="RM6-Qx-qIw" secondAttribute="trailing" constant="8" id="jbl-UV-a0E"/>
-                                                <constraint firstItem="RM6-Qx-qIw" firstAttribute="top" secondItem="hPa-rC-ezo" secondAttribute="top" constant="8" id="ndS-hp-naG"/>
                                                 <constraint firstItem="MDh-hh-crX" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hPa-rC-ezo" secondAttribute="leading" constant="12" id="sk6-Xi-1D6"/>
+                                                <constraint firstItem="wqv-hh-lYL" firstAttribute="top" secondItem="tKm-BV-m0X" secondAttribute="bottom" constant="12" id="umW-ky-xPA"/>
                                                 <constraint firstItem="MDh-hh-crX" firstAttribute="centerX" secondItem="hPa-rC-ezo" secondAttribute="centerX" id="xu2-I0-hSt"/>
+                                                <constraint firstItem="wqv-hh-lYL" firstAttribute="leading" secondItem="tKm-BV-m0X" secondAttribute="leading" id="yao-NG-rjx"/>
                                             </constraints>
                                         </view>
                                     </subviews>
@@ -363,13 +359,14 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="buttonStackView" destination="wqv-hh-lYL" id="eQS-8X-jBn"/>
                         <outlet property="subtotalLabel" destination="MDh-hh-crX" id="Lbi-S8-t24"/>
                         <outlet property="subtotalTitleLabel" destination="qoh-eB-sef" id="MtX-cG-Rec"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mnj-fe-spy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1862" y="613"/>
+            <point key="canvasLocation" x="1861.5999999999999" y="612.59370314842579"/>
         </scene>
     </scenes>
 </document>

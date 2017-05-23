@@ -161,15 +161,21 @@ extension CartViewController: TotalsControllerDelegate {
     
     func totalsController(_ totalsController: TotalsViewController, didRequestPaymentWith type: PaymentType) {
         
-        let cartItems = CartController.shared.items
-        Client.shared.createCheckout(with: cartItems) { checkout in
-            if let checkout = checkout {
-                self.authorizePaymentWith(checkout)
-            } else {
-                print("Failed to create checkout")
+        switch type {
+        case .webCheckout:
+            // TODO: Web checkout
+            break
+            
+        case .applePay:
+            let cartItems = CartController.shared.items
+            Client.shared.createCheckout(with: cartItems) { checkout in
+                if let checkout = checkout {
+                    self.authorizePaymentWith(checkout)
+                } else {
+                    print("Failed to create checkout")
+                }
             }
         }
-        
     }
 }
 
