@@ -362,6 +362,37 @@ let handler = Graph.RetryHandler<Storefront.QueryRoot>() { (query, error) -> Boo
 
 The retry handler is generic, and can handle both `query` and `mutation` requests equally well.
 
+### Caching
+
+Network queries and mutations can be both slow and expensive. For resources that change infrequently caching can be a big win in terms of bandwidth and latency. Since GraphQL relies on `POST` requests, we can't easily take advantage of HTTP caching already available in `URLSession`. For this reason, the `Graph.Client` is equipped with an opt-in caching layer that can be enabled client-wide or on a per-request basis. 
+
+**IMPORTANT:** Keep in mind that caching is only provided for `query` operations and is not available for `mutation` operations or any other requests that provided a `retryHandler`.
+
+There are 4 available cache policies:
+
+- `.cacheOnly` - Fetch response from cache only, ignoring the network. If the cached response doesn't exist, return error.
+- `.networkOnly` - Fetch response from network only, ignoring any cached responses.
+- `.cacheFirst(expireIn: Int)` - Fetch response from cache first, if the response doesn't exist or is older than `expireIn`, fetch from network
+- `.networkFirst(expireIn: Int)` - Fetch response from network first. If the network fails and the cached response isn't older than `expireIn`, return cached data instead.
+
+#### Enable client-wide caching
+
+You can provide a default `cachePolicy` for any instance of `Graph.Client`, which means that all `query` operations will use this cache policy if none is specified for the individual request. You can do so by setting the client's `cachePolicy` property:
+
+```swift
+let client = Graph.Client(shopDomain: "...", apiKey: "...")
+client.cachePolicy = .cacheFirst
+```
+
+Now, all calls to `queryGraphWith` will yield a task with a `.cacheFirst` cache policy. In addition, you can specify a cache policy as a parameter to `queryGraphWith` to override the client-wide cache policy:
+
+```swift
+let task = client.queryGraphWith(query, cachePolicy: .networkFirst(expireIn: 20)) { query, error in 
+    // ...
+}
+```
+The `task` cache policy at this point will be `.networkFirst(expireIn: 20)`, which means that the cached response will be valid for 20 seconds from the time the response is received.
+
 ### Errors [⤴](#table-of-contents)
 
 The completion for either a `query` or `mutation` request will always contain an optional `Graph.QueryError` that represents the current error state of the request. **It's important to note that `error` and `response` are NOT mutually exclusive.** That is to say that it's perfectly valid to have a non-nil error and response. The presence of an error can represent both a network error (such as a network error, or invalid JSON) or a GraphQL error (such as invalid query syntax, or a missing parameter). The `Graph.QueryError` is an `enum`, so checking the type of error is trivial:
