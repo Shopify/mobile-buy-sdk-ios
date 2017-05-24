@@ -59,6 +59,9 @@ extension Graph {
     ///
     public class Client {
         
+        /// Cache policy to use for all `query` operations produced by this instance of `Graph.Client` 
+        public var cachePolicy: CachePolicy = .networkOnly
+        
         /// The `URLSession` backing all `Client` network operations. You can provide your own session when initializing a new `Client`.
         public let session: URLSession
         
@@ -121,10 +124,10 @@ extension Graph {
         /// task.resume()
         /// ````
         ///
-        public func queryGraphWith(_ query: Storefront.QueryRootQuery, cachePolicy: CachePolicy = .networkOnly, retryHandler: RetryHandler<Storefront.QueryRoot>? = nil, completionHandler: @escaping QueryCompletion) -> Task {
+        public func queryGraphWith(_ query: Storefront.QueryRootQuery, cachePolicy: CachePolicy? = nil, retryHandler: RetryHandler<Storefront.QueryRoot>? = nil, completionHandler: @escaping QueryCompletion) -> Task {
             return self.graphRequestTask(
                 query:             query,
-                cachePolicy:       cachePolicy,
+                cachePolicy:       cachePolicy ?? self.cachePolicy,
                 retryHandler:      retryHandler,
                 completionHandler: completionHandler
             )

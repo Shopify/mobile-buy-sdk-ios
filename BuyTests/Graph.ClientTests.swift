@@ -39,6 +39,7 @@ class Graph_ClientTests: XCTestCase {
         let client = self.defaultClient()
         
         XCTAssertEqual(client.apiURL.absoluteString, "https://\(self.shopDomain)/api/graphql")
+        XCTAssertEqual(client.cachePolicy, .networkOnly)
     }
     
     func testDomainGeneration() {
@@ -87,15 +88,23 @@ class Graph_ClientTests: XCTestCase {
         let payload = self.defaultQueryPayload()
         let request = client.graphRequestFor(query: payload.query)
         
-        let task = client.queryGraphWith(payload.query, cachePolicy: .networkFirst(expireIn: 20)) { query, error in
-            
-        } as! Graph.InternalTask<Storefront.QueryRoot>
+        let task = client.queryGraphWith(payload.query, cachePolicy: .networkFirst(expireIn: 20)) { query, error in } as! Graph.InternalTask<Storefront.QueryRoot>
         
         XCTAssertTrue(task.session === client.session)
         XCTAssertTrue(task.cache   === client.cache)
         XCTAssertEqual(task.request, request)
         XCTAssertEqual(task.cachePolicy, .networkFirst(expireIn: 20))
         XCTAssertNil(task.retryHandler)
+    }
+    
+    func testDefaultClientCachePolicyForQuery() {
+        let client         = self.defaultClient()
+        client.cachePolicy = .cacheOnly
+        
+        let payload = self.defaultQueryPayload()
+        let task    = client.queryGraphWith(payload.query) { query, error in } as! Graph.InternalTask<Storefront.QueryRoot>
+        
+        XCTAssertEqual(task.cachePolicy, .cacheOnly)
     }
     
     func testMutation() {
