@@ -26,6 +26,7 @@
 
 import UIKit
 import Pay
+import SafariServices
 
 class CartViewController: ParallaxViewController {
 
@@ -109,6 +110,12 @@ class CartViewController: ParallaxViewController {
     // ----------------------------------
     //  MARK: - Actions -
     //
+    func openSafariFor(_ checkout: CheckoutViewModel) {
+        let safari                  = SFSafariViewController(url: checkout.webURL)
+        safari.navigationItem.title = "Checkout"
+        self.navigationController?.show(safari, sender: self)
+    }
+    
     func authorizePaymentWith(_ checkout: CheckoutViewModel) {
         let payCurrency = PayCurrency(currencyCode: "CAD", countryCode: "CA")
         let payItems    = checkout.lineItems.map { item in
@@ -160,16 +167,19 @@ extension CartViewController {
 extension CartViewController: TotalsControllerDelegate {
     
     func totalsController(_ totalsController: TotalsViewController, didRequestPaymentWith type: PaymentType) {
-        
         let cartItems = CartController.shared.items
         Client.shared.createCheckout(with: cartItems) { checkout in
             if let checkout = checkout {
-                self.authorizePaymentWith(checkout)
+                
+                switch type {
+                case .webCheckout: self.openSafariFor(checkout)
+                case .applePay:    self.authorizePaymentWith(checkout)
+                }
+                
             } else {
                 print("Failed to create checkout")
             }
         }
-        
     }
 }
 

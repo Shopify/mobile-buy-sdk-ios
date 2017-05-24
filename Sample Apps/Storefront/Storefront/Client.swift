@@ -38,6 +38,13 @@ final class Client {
     private let client: Graph.Client = Graph.Client(shopDomain: Client.shopDomain, apiKey: Client.apiKey)
     
     // ----------------------------------
+    //  MARK: - Init -
+    //
+    private init() {
+        self.client.cachePolicy = .cacheFirst(expireIn: 3600)
+    }
+    
+    // ----------------------------------
     //  MARK: - Collections -
     //
     @discardableResult

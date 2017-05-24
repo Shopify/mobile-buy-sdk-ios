@@ -25,6 +25,8 @@
 //
 
 import UIKit
+import Pay
+import PassKit
 
 enum PaymentType {
     case applePay
@@ -39,6 +41,7 @@ class TotalsViewController: UIViewController {
     
     @IBOutlet private weak var subtotalTitleLabel: UILabel!
     @IBOutlet private weak var subtotalLabel:      UILabel!
+    @IBOutlet private weak var buttonStackView:    UIStackView!
     
     weak var delegate: TotalsControllerDelegate?
     
@@ -60,12 +63,33 @@ class TotalsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.loadPurchaseOptions()
+    }
+    
+    private func loadPurchaseOptions() {
+        
+        let webCheckout = RoundedButton(type: .system)
+        webCheckout.backgroundColor = UIColor.applicationGreen
+        webCheckout.addTarget(self, action: #selector(webCheckoutAction(_:)), for: .touchUpInside)
+        webCheckout.setTitle("Checkout",  for: .normal)
+        webCheckout.setTitleColor(.white, for: .normal)
+        self.buttonStackView.addArrangedSubview(webCheckout)
+        
+        if PKPaymentAuthorizationController.canMakePayments() {
+            let applePay = PKPaymentButton(type: .buy, style: .black)
+            applePay.addTarget(self, action: #selector(applePayAction(_:)), for: .touchUpInside)
+            self.buttonStackView.addArrangedSubview(applePay)
+        }
     }
     
     // ----------------------------------
     //  MARK: - Actions -
     //
-    @IBAction func applePayAction(_ sender: Any) {
+    dynamic func webCheckoutAction(_ sender: Any) {
+        self.delegate?.totalsController(self, didRequestPaymentWith: .webCheckout)
+    }
+    
+    dynamic func applePayAction(_ sender: Any) {
         self.delegate?.totalsController(self, didRequestPaymentWith: .applePay)
     }
 }
