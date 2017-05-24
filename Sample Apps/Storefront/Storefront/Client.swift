@@ -198,8 +198,7 @@ final class Client {
         return task
     }
     
-    @discardableResult
-    func completeCheckout(_ checkout: PayCheckout, billingAddress: PayAddress, applePayToken token: String, idempotencyToken: String, completion: @escaping (PaymentViewModel?) -> Void) -> Task {
+    func completeCheckout(_ checkout: PayCheckout, billingAddress: PayAddress, applePayToken token: String, idempotencyToken: String, completion: @escaping (PaymentViewModel?) -> Void) {
         
         let retry = Graph.RetryHandler<Storefront.Mutation>(endurance: .finite(30)) { mutation, error -> Bool in
             error.debugPrint()
@@ -220,6 +219,37 @@ final class Client {
             error.debugPrint()
             
             if let payment = response?.checkoutCompleteWithTokenizedPayment?.payment {
+                
+                print("Payment created, fetching status...")
+                self.fetchCompletedPayment(payment.id.rawValue) { paymentViewModel in
+                    completion(paymentViewModel)
+                }
+                
+            } else {
+                completion(nil)
+            }
+        }
+        
+        task.resume()
+    }
+    
+    func fetchCompletedPayment(_ id: String, completion: @escaping (PaymentViewModel?) -> Void) {
+        
+        let retry = Graph.RetryHandler<Storefront.QueryRoot>(endurance: .finite(30)) { response, error -> Bool in
+            error.debugPrint()
+            
+            if let payment = response?.node as? Storefront.Payment {
+                print("Payment not ready yet, retrying...")
+                return !payment.ready
+            } else {
+                return false
+            }
+        }
+        
+        let query = ClientQuery.queryForPayment(id)
+        let task  = self.client.queryGraphWith(query, retryHandler: retry) { query, error in
+            
+            if let payment = query?.node as? Storefront.Payment {
                 completion(payment.viewModel)
             } else {
                 completion(nil)
@@ -227,7 +257,6 @@ final class Client {
         }
         
         task.resume()
-        return task
     }
 }
 
