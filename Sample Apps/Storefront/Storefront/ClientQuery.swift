@@ -184,24 +184,17 @@ final class ClientQuery {
                     .message()
                 }
                 .payment { $0
-                    .id()
-                    .ready()
-                    .test()
-                    .amount()
-                    .checkout { $0
-                        .fragmentForCheckout()
-                    }
-                    .creditCard { $0
-                        .firstDigits()
-                        .lastDigits()
-                        .maskedNumber()
-                        .brand()
-                        .firstName()
-                        .lastName()
-                        .expiryMonth()
-                        .expiryYear()
-                    }
-                    .errorMessage()
+                    .fragmentForPayment()
+                }
+            }
+        }
+    }
+    
+    static func queryForPayment(_ id: String) -> Storefront.QueryRootQuery {
+        return Storefront.buildQuery { $0
+            .node(id: GraphQL.ID(rawValue: id)) { $0
+                .onPayment { $0
+                    .fragmentForPayment()
                 }
             }
         }
@@ -210,7 +203,7 @@ final class ClientQuery {
     static func queryShippingRatesForCheckout(_ id: String) -> Storefront.QueryRootQuery {
         
         return Storefront.buildQuery { $0
-            .node(id: GraphQL.ID(rawValue: id)!) { $0
+            .node(id: GraphQL.ID(rawValue: id)) { $0
                 .onCheckout { $0
                     .fragmentForCheckout()
                     .availableShippingRates { $0
