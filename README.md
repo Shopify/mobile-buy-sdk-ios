@@ -29,6 +29,7 @@ The Mobile Buy SDK makes it easy to create custom storefronts in your mobile app
   - [Queries](#queries-)
   - [Mutations](#mutations-)
   - [Retry and polling](#retry-)
+  - [Caching](#caching-)
   - [Errors](#errors-)
 
 - [Card vaulting](#card-vaulting-)
@@ -361,6 +362,42 @@ let handler = Graph.RetryHandler<Storefront.QueryRoot>() { (query, error) -> Boo
 ```
 
 The retry handler is generic, and can handle both `query` and `mutation` requests equally well.
+
+### Caching [⤴](#table-of-contents)
+
+Network queries and mutations can be both slow and expensive. For resources that change infrequently, you might want to use caching to help reduce both bandwidth and latency. Since GraphQL relies on `POST` requests, we can't easily take advantage of the HTTP caching that's available in `URLSession`. For this reason, the `Graph.Client` is equipped with an opt-in caching layer that can be enabled client-wide or on a per-request basis.
+
+**IMPORTANT:** Caching is provided only for `query` operations. It isn't available for `mutation` operations or for any other requests that provide a `retryHandler`.
+
+There are four available cache policies:
+
+- `.cacheOnly` - Fetch a response from the cache only, ignoring the network. If the cached response doesn't exist, then return an error.
+- `.networkOnly` - Fetch a response from the network only, ignoring any cached responses.
+- `.cacheFirst(expireIn: Int)` - Fetch a response from the cache first. If the response doesn't exist or is older than `expireIn`, then fetch a response from the network
+- `.networkFirst(expireIn: Int)` - Fetch a response from the network first. If the network fails and the cached response isn't older than `expireIn`, then return cached data instead.
+
+#### Enable client-wide caching
+
+You can enable client-wide caching by providing a default `cachePolicy` for any instance of `Graph.Client`. This sets all `query` operations to use your default cache policy, unless you specify an alternate policy for an individual request.
+
+In this example, we set the client's `cachePolicy` property to `cacheFirst`:
+
+```swift
+let client = Graph.Client(shopDomain: "...", apiKey: "...")
+client.cachePolicy = .cacheFirst
+```
+
+Now, all calls to `queryGraphWith` will yield a task with a `.cacheFirst` cache policy.
+
+If you want to override a client-wide cache policy for an individual request, then specify an alternate cache policy as a parameter of `queryGraphWith`:
+
+```swift
+let task = client.queryGraphWith(query, cachePolicy: .networkFirst(expireIn: 20)) { query, error in
+    // ...
+}
+```
+
+In this example, the `task` cache policy changes to `.networkFirst(expireIn: 20)`, which means that the cached response will be valid for 20 seconds from the time the response is received.
 
 ### Errors [⤴](#table-of-contents)
 
