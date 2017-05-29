@@ -200,22 +200,8 @@ final class Client {
     
     func completeCheckout(_ checkout: PayCheckout, billingAddress: PayAddress, applePayToken token: String, idempotencyToken: String, completion: @escaping (PaymentViewModel?) -> Void) {
         
-        let retry = Graph.RetryHandler<Storefront.Mutation>(endurance: .finite(30)) { mutation, error -> Bool in
-            error.debugPrint()
-            
-            guard let userErrors = mutation?.checkoutCompleteWithTokenizedPayment?.userErrors, userErrors.isEmpty && error == nil else {
-                return false
-            }
-            
-            if let payment = mutation?.checkoutCompleteWithTokenizedPayment?.payment {
-                return !payment.ready
-            } else {
-                return true
-            }
-        }
-        
         let mutation = ClientQuery.mutationForCompleteCheckoutUsingApplePay(checkout, billingAddress: billingAddress, token: token, idempotencyToken: idempotencyToken)
-        let task     = self.client.mutateGraphWith(mutation, retryHandler: retry) { response, error in
+        let task     = self.client.mutateGraphWith(mutation) { response, error in
             error.debugPrint()
             
             if let payment = response?.checkoutCompleteWithTokenizedPayment?.payment {
