@@ -25,7 +25,7 @@ The Mobile Buy SDK makes it easy to create custom storefronts in your mobile app
   - [The `Node` protocol](#the-node-protocol-)
   - [Aliases](#aliases-)
 
-- [Graph client](#graph-client-)
+- [Graph client](#graphclient-)
   - [Queries](#queries-)
   - [Mutations](#mutations-)
   - [Retry and polling](#retry-)
@@ -622,7 +622,7 @@ Invoked when the  Pay modal is dismissed, regardless of whether the payment a
 
 Getting started with any SDK can be confusing. The purpose of this section is to explore all areas of the Buy SDK that might be necessary to build a custom storefront on iOS and provide a solid starting point for your own implementation.
 
-In this section we're going to assume that you've [set up a client](#graph-client-) somewhere in your source code. Although it's possible to have multiple instance of `Graph.Client`, reusing a single instance offers many behind-the-scenes performance improvements:
+In this section we're going to assume that you've [set up a client](#graphclient-) somewhere in your source code. Although it's possible to have multiple instance of `Graph.Client`, reusing a single instance offers many behind-the-scenes performance improvements:
 
 ```swift
 let client: Graph.Client
