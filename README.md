@@ -978,7 +978,7 @@ let query = Storefront.buildQuery { $0
 }
 ```
 
-The query above starts an asynchronous task on the server to fetch shipping rates from multiple shipping providers. Although the request might return immediately (network latency aside), it does not mean that the list of shipping rates is complete. This is indicated by the `ready` field in the query above. It is your application's responsibility to continue retrying this query until `ready == true`. The Buy SDK has [built-in support for retrying requests](#retry), so we'll create a retry handler and perform the query:
+The query above starts an asynchronous task on the server to fetch shipping rates from multiple shipping providers. Although the request might return immediately (network latency aside), it does not mean that the list of shipping rates is complete. This is indicated by the `ready` field in the query above. It is your application's responsibility to continue retrying this query until `ready == true`. The Buy SDK has [built-in support for retrying requests](#retry-), so we'll create a retry handler and perform the query:
 
 ```swift
 let retry = Graph.RetryHandler<Storefront.QueryRoot>(endurance: .finite(10)) { (response, error) -> Bool in
