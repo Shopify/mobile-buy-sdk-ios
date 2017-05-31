@@ -25,7 +25,7 @@ The Mobile Buy SDK makes it easy to create custom storefronts in your mobile app
   - [The `Node` protocol](#the-node-protocol-)
   - [Aliases](#aliases-)
 
-- [Graph client](#graph-client-)
+- [Graph client](#graphclient-)
   - [Queries](#queries-)
   - [Mutations](#mutations-)
   - [Retry and polling](#retry-)
@@ -285,13 +285,14 @@ let query = Storefront.buildQuery { $0
     }
 }
 
-client.queryGraphWith(query) { response, error in
+let task = client.queryGraphWith(query) { response, error in
     if let response = response {
         let name = response.shop.name
     } else {
         print("Query failed: \(error)")
     }
 }
+task.resume()
 ```
 
 Learn more about [GraphQL queries](http://graphql.org/learn/queries/).
@@ -323,7 +324,7 @@ let mutation   = Storefront.buildMutation { $0
     }
 }
 
-client.mutateGraphWith(mutation) { response, error in
+let task = client.mutateGraphWith(mutation) { response, error in
     if let mutation = response?.customerReset {
 
         if let customer = mutation.customer, !mutation.userErrors.isEmpty {
@@ -342,6 +343,7 @@ client.mutateGraphWith(mutation) { response, error in
         print("Failed to reset password: \(error)")
     }
 }
+task.resume()
 ```
 
 A mutation will often rely on some kind of user input. Although you should always validate user input before posting a mutation, there are never guarantees when it comes to dynamic data. For this reason, you should always request the `userErrors` field on mutations (where available) to provide useful feedback in your UI regarding any issues that were encountered in the mutation query. These errors can include anything from `Invalid email address` to `Password is too short`.
@@ -404,7 +406,7 @@ In this example, the `task` cache policy changes to `.networkFirst(expireIn: 20)
 The completion for either a `query` or `mutation` request will always contain an optional `Graph.QueryError` that represents the current error state of the request. **It's important to note that `error` and `response` are NOT mutually exclusive.** That is to say that it's perfectly valid to have a non-nil error and response. The presence of an error can represent both a network error (such as a network error, or invalid JSON) or a GraphQL error (such as invalid query syntax, or a missing parameter). The `Graph.QueryError` is an `enum`, so checking the type of error is trivial:
 
 ```swift
-client.queryGraphWith(query) { response, error in
+let task = client.queryGraphWith(query) { response, error in
     if let response = response {
         // Do something
     } else {
@@ -414,6 +416,7 @@ client.queryGraphWith(query) { response, error in
         }
     }
 }
+task.resume()
 ```
 
 If the error is of type `.invalidQuery`, then an array of `Reason` objects is returned. These will provide more in-depth information about the query error. Keep in mind that these errors are not meant to be displayed to the end-user. **They are for debugging purposes only**.
@@ -622,7 +625,7 @@ Invoked when the  Pay modal is dismissed, regardless of whether the payment a
 
 Getting started with any SDK can be confusing. The purpose of this section is to explore all areas of the Buy SDK that might be necessary to build a custom storefront on iOS and provide a solid starting point for your own implementation.
 
-In this section we're going to assume that you've [set up a client](#graph-client-) somewhere in your source code. Although it's possible to have multiple instance of `Graph.Client`, reusing a single instance offers many behind-the-scenes performance improvements:
+In this section we're going to assume that you've [set up a client](#graphclient-) somewhere in your source code. Although it's possible to have multiple instance of `Graph.Client`, reusing a single instance offers many behind-the-scenes performance improvements:
 
 ```swift
 let client: Graph.Client
@@ -644,11 +647,12 @@ let query = Storefront.buildQuery { $0
     }
 }
 
-client.queryGraphWith(query) { response, error in
+let task = client.queryGraphWith(query) { response, error in
     let name         = response?.shop.name
     let currencyCode = response?.shop.currencyCode
     let moneyFormat  = response?.shop.moneyFormat
 }
+task.resume()
 ```
 
 The corresponding GraphQL query looks like this:
@@ -696,13 +700,14 @@ let query = Storefront.buildQuery { $0
     }
 }
 
-client.queryGraphWith(query) { response, error in
+let task = client.queryGraphWith(query) { response, error in
     let collections  = response?.shop.collections.edges.map { $0.node }
     collections?.forEach { collection in
 
         let products = collection.products.edges.map { $0.node }
     }
 }
+task.resume()
 ```
 
 The corresponding GraphQL query looks like this:
@@ -766,10 +771,11 @@ let query = Storefront.buildQuery { $0
     }
 }
 
-client.queryGraphWith(query) { response, error in
+let task = client.queryGraphWith(query) { response, error in
     let collection    = response?.node as? Storefront.Collection
     let productCursor = collection?.products.edges.last?.cursor
 }
+task.resume()
 ```
 
 The corresponding GraphQL query looks like this:
@@ -797,7 +803,7 @@ query {
 }
 ```
 
-Since we know exactly what collection we want to fetch products for, we'll use the [`node` interface](#the-node-protocol) to query the collection by `id`. You might have also noticed that we're fetching a couple of additional fields and objects: `pageInfo` and `cursor`. We can then use a `cursor` of any product edge to fetch more products `before` it or `after` it. Likewise, the `pageInfo` object provides additional metadata about whether the next page (and potentially previous page) is available or not.
+Since we know exactly what collection we want to fetch products for, we'll use the [`node` interface](#the-node-protocol-) to query the collection by `id`. You might have also noticed that we're fetching a couple of additional fields and objects: `pageInfo` and `cursor`. We can then use a `cursor` of any product edge to fetch more products `before` it or `after` it. Likewise, the `pageInfo` object provides additional metadata about whether the next page (and potentially previous page) is available or not.
 
 ### Fetch product details [⤴](#table-of-contents)
 
@@ -832,11 +838,12 @@ let query = Storefront.buildQuery { $0
     }
 }
 
-client.queryGraphWith(query) { response, error in
+let task = client.queryGraphWith(query) { response, error in
     let product  = response?.node as? Storefront.Product
     let images   = product?.images.edges.map { $0.node }
     let variants = product?.variants.edges.map { $0.node }
 }
+task.resume()
 ```
 
 The corresponding GraphQL query looks like this:
@@ -901,7 +908,7 @@ let mutation = Storefront.buildMutation { $0
     }
 }
 
-client.mutateGraphWith(mutation) { result, error in
+let task = client.mutateGraphWith(mutation) { result, error in
     guard error == nil else {
         // handle request error
     }
@@ -913,6 +920,7 @@ client.mutateGraphWith(mutation) { result, error in
 
     let checkoutID = result?.checkoutCreate?.checkout?.id
 }
+task.resume()
 ```
 
 **It is best practice to always include `userErrors` fields in your mutation payload query, where possible.** You should always validate user input before making mutation requests, but it's possible that a validated user input might cause a mismatch between the client and server. In this case, `userErrors` contains an error with a `field` and `message` for any invalid or missing fields.
@@ -958,7 +966,7 @@ let mutation = Storefront.buildMutation { $0
 
 #### Polling for shipping rates [⤴](#table-of-contents)
 
-Available shipping rates are specific to a checkout since the cost to ship items depends on the quantity, weight, and other attributes of the items in the checkout. Shipping rates also require a checkout to have a valid `shippingAddress`, which can be updated using steps found in [updating a checkout](#updating-a-checkout). Available shipping rates are a field on `Storefront.Checkout`, so given a `checkoutID` (that we kept a reference to earlier) we can query for shipping rates:
+Available shipping rates are specific to a checkout since the cost to ship items depends on the quantity, weight, and other attributes of the items in the checkout. Shipping rates also require a checkout to have a valid `shippingAddress`, which can be updated using steps found in [updating a checkout](#updating-a-checkout-). Available shipping rates are a field on `Storefront.Checkout`, so given a `checkoutID` (that we kept a reference to earlier) we can query for shipping rates:
 
 ```swift
 let query = Storefront.buildQuery { $0
@@ -978,7 +986,7 @@ let query = Storefront.buildQuery { $0
 }
 ```
 
-The query above starts an asynchronous task on the server to fetch shipping rates from multiple shipping providers. Although the request might return immediately (network latency aside), it does not mean that the list of shipping rates is complete. This is indicated by the `ready` field in the query above. It is your application's responsibility to continue retrying this query until `ready == true`. The Buy SDK has [built-in support for retrying requests](#retry), so we'll create a retry handler and perform the query:
+The query above starts an asynchronous task on the server to fetch shipping rates from multiple shipping providers. Although the request might return immediately (network latency aside), it does not mean that the list of shipping rates is complete. This is indicated by the `ready` field in the query above. It is your application's responsibility to continue retrying this query until `ready == true`. The Buy SDK has [built-in support for retrying requests](#retry-), so we'll create a retry handler and perform the query:
 
 ```swift
 let retry = Graph.RetryHandler<Storefront.QueryRoot>(endurance: .finite(10)) { (response, error) -> Bool in
@@ -989,6 +997,7 @@ let task = self.client.queryGraphWith(query, retryHandler: retry) { response, er
     let checkout      = (response?.node as? Storefront.Checkout)
     let shippingRates = checkout.availableShippingRates?.shippingRates
 }
+task.resume()
 ```
 
 The completion will be called only if `availableShippingRates.ready == true` or the retry count reaches 10. Although you can specify `.infinite` for the retry handler's `endurance` property, we highly recommend you set a finite limit.
@@ -1005,7 +1014,7 @@ After all required fields have been filled and the customer is ready to pay, you
 
 The simplest way to complete a checkout is by redirecting the customer to a web view where they will be presented with the same flow that they're familiar with on the web. The `Storefront.Checkout` resource provides a `webUrl` that you can use to present a web view. We highly recommend using `SFSafariViewController` instead of `WKWebView` or other alternatives.
 
-**NOTE**: Although using web checkout is the simplest out of the 3 approaches, it presents some difficulty when it comes to observing the checkout state. Since the web view doesn't provide any callbacks for various checkout states, you still need to [poll for checkout completion](#poll-for-checkout-completion-).
+**NOTE**: Although using web checkout is the simplest out of the 3 approaches, it presents some difficulty when it comes to observing the checkout state. Since the web view doesn't provide any callbacks for various checkout states, you still need to [poll for checkout completion](#polling-for-checkout-completion-).
 
 ###### Credit card checkout [⤴](#table-of-contents)
 
@@ -1044,7 +1053,7 @@ let mutation = Storefront.buildMutation { $0
     }
 }
 
-client.mutateGraphWith(mutation) { result, error in
+let task = client.mutateGraphWith(mutation) { result, error in
     guard error == nil else {
         // handle request error
     }
@@ -1060,6 +1069,7 @@ client.mutateGraphWith(mutation) { result, error in
     // checkoutReady == false
     // paymentReady == false
 }
+task.resume()
 ```
 
 ###### Apple Pay checkout [⤴](#table-of-contents)
@@ -1096,7 +1106,7 @@ let mutation = Storefront.buildMutation { $0
     }
 }
 
-client.mutateGraphWith(mutation) { result, error in
+let task = client.mutateGraphWith(mutation) { result, error in
     guard error == nil else {
         // handle request error
     }
@@ -1112,6 +1122,7 @@ client.mutateGraphWith(mutation) { result, error in
     // checkoutReady == false
     // paymentReady == false
 }
+task.resume()
 ```
 
 #### Polling for checkout completion [⤴](#table-of-contents)
@@ -1140,6 +1151,7 @@ let task  = self.client.queryGraphWith(query, retryHandler: retry) { response, e
     let checkout = (response?.node as? Storefront.Checkout)
     let orderID  = checkout?.order?.id
 }
+task.resume()
 ```
 
 Again, just like when [polling for available shipping rates](#polling-for-shipping-rates-), we need to create a `RetryHandler` to provide a condition upon which to retry the request. In this case, we're asserting that the `Storefront.Order` is `nil`, and we'll continue to retry the request if it is.
@@ -1163,6 +1175,7 @@ let task = self.client.queryGraphWith(query) { result, error in
         // Handle any other errors
     }
 }
+task.resume()
 ```
 
 **IMPORTANT:** `Graph.QueryError` does not contain user-friendly information. Often, it describes the technical reason for the failure, and shouldn't be shown to the end-user. Handling errors is most useful for debugging.
