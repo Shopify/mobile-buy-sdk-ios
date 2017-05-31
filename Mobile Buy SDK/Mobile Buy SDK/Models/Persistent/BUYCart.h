@@ -61,9 +61,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Removes the BUYCartLineItem from the BUYCart associated with the given BUYProductVariant object.
- *  If the associated BUYCartLineItem exists, that BUYCartLineItem's quantity is decreased by one.
- *
- *  @param variant The BUYProductVariant to remove from the BUYCart or decrease by one quantity
+
+ *  @param variant The BUYProductVariant to remove from the BUYCart 
  */
 - (void)removeVariant:(BUYProductVariant *)variant;
 
