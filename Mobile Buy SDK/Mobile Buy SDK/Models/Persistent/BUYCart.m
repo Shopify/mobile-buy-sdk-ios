@@ -78,7 +78,7 @@
 	[self willChangeValueForKey:BUYCartRelationships.lineItems];
 	
 	BUYCartLineItem *lineItem = [self linetItemForVariant:variant];
-	if (lineItem && [lineItem decrementQuantity].integerValue <= 0) {
+	if (lineItem) {
 		[self.lineItemsSet removeObject:lineItem];
 	}
 	
