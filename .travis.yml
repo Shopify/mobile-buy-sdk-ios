@@ -1,0 +1,7 @@
+language: objective-c
+osx_image: xcode8.3
+
+script:
+- set -o pipefail
+- ./Scripts/test_buy
+- ./Scripts/test_pay
