@@ -32,6 +32,7 @@
 @interface AppDelegate ()
 @property(nonatomic, strong, readwrite) OPTLYClient *client;
 @property(nonatomic, strong, readwrite) NSString *userId;
+@property(nonatomic, strong, readwrite) NSString *experimentKey;
 @end
 
 @implementation AppDelegate
@@ -52,13 +53,19 @@
         projectId = @"";
     }
     
+    self.experimentKey = [[NSUserDefaults standardUserDefaults] stringForKey:@"optlyCheckoutCtaExperimentKey"];
+    
+    OPTLYUserProfileServiceDefault *userProfileService = [OPTLYUserProfileServiceDefault init:^(OPTLYUserProfileServiceBuilder *builder) {
+        builder.logger = [[OPTLYLoggerDefault alloc] initWithLogLevel:OptimizelyLogLevelAll];
+    }];
     
     // [OPTLY - Doc] Initialize the Optimizely Manager and Optimizely Client (async)
     OPTLYManager *optlyManager = [OPTLYManager init:^(OPTLYManagerBuilder * _Nullable builder) {
         builder.projectId = projectId;
         builder.logger = [[OPTLYLoggerDefault alloc] initWithLogLevel:OptimizelyLogLevelAll];
+        builder.userProfileService = userProfileService;
     }];
-
+    
     NSString *initializationMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"optlyInitMode"];
     if ([initializationMode isEqualToString:@"sync_no_datafile"]) {
         self.client = [optlyManager initialize];
@@ -66,6 +73,34 @@
         NSString *datafile = [[NSUserDefaults standardUserDefaults] stringForKey:@"optlyDatafile"];
         NSData *data = [datafile dataUsingEncoding:NSUTF8StringEncoding];
         self.client = [optlyManager initializeWithDatafile:data];
+        
+    // --- Special initialization mode for the User Profile Service tests ----
+    } else if ([initializationMode isEqualToString:@"sync_async_datafile"]) {
+        // Activate Synchronously with a Datafile
+        // The user profile should persist the variation in the saved datafile (include_fake_text)
+        OPTLYManager *optlyManagerForSavedDatafile = [OPTLYManager init:^(OPTLYManagerBuilder * _Nullable builder) {
+            builder.projectId = projectId;
+            builder.logger = [[OPTLYLoggerDefault alloc] initWithLogLevel:OptimizelyLogLevelAll];
+            builder.userProfileService = userProfileService;
+        }];
+        
+        NSString *datafile = [[NSUserDefaults standardUserDefaults] stringForKey:@"optlyDatafile"];
+        NSData *data = [datafile dataUsingEncoding:NSUTF8StringEncoding];
+        OPTLYClient *clientFromSavedDatafile = [optlyManagerForSavedDatafile initializeWithDatafile:data];
+        OPTLYVariation *variationFromSavedDatafile = [clientFromSavedDatafile activate:self.experimentKey userId:self.userId];
+        
+        // Activate Asynchronously
+        // Different datafile from remote should not changedthe bucketed value
+        OPTLYManager *optlyManagerForAsyncDatafile = [OPTLYManager init:^(OPTLYManagerBuilder * _Nullable builder) {
+            builder.projectId = projectId;
+            builder.logger = [[OPTLYLoggerDefault alloc] initWithLogLevel:OptimizelyLogLevelAll];
+            builder.userProfileService = userProfileService;
+        }];
+        
+        [optlyManagerForAsyncDatafile initializeWithCallback:^(NSError * _Nullable error, OPTLYClient * _Nullable client) {
+            self.client = client;
+            OPTLYVariation *variation = [self.client activate:self.experimentKey userId:self.userId];
+        }];
     } else {
         [optlyManager initializeWithCallback:^(NSError * _Nullable error, OPTLYClient * _Nullable client) {
             self.client = client;
