@@ -145,7 +145,7 @@ The Buy SDK is built on a hierarchy of generated classes that construct and pars
 
 All generated request models are derived from the `GraphQL.AbstractQuery` type. Although this abstract type contains enough functionality to build a query, you should never use it directly. Instead, rely on the typed methods provided in the generated subclasses.
 
-Let's take a look at an example query for a shop's name:
+The following example shows a sample query for a shop's name:
 
 ```swift
 let query = Storefront.buildQuery { $0
@@ -182,7 +182,7 @@ query {
 
 All generated response models are derived from the `GraphQL.AbstractResponse` type. This abstract type provides a similar key-value type interface to a `Dictionary` for accessing field values in GraphQL responses. Just like `GraphQL.AbstractQuery`, you should never use these accessors directly, and instead rely on typed, derived properties in generated subclasses.
 
-Let's continue the example of accessing the result of a shop name query:
+The following example builds on the earlier the example of accessing the result of a shop name query:
 
 ```swift
 // response: Storefront.QueryRoot
@@ -205,7 +205,7 @@ Again, both of the approaches produce the same result, but the former case is pr
 
 ### The `Node` protocol [⤴](#table-of-contents)
 
-The GraphQL schema defines a `Node` interface that declares an `id` field on any conforming type. This makes it convenient to query for any object in the schema given only its `id`. The concept is carried across to the Buy SDK as well, but requires a cast to the correct type. You need to make sure that the `Node` type is of the correct type, otherwise casting to an incorrect time will return a runtime exception.
+The GraphQL schema defines a `Node` interface that declares an `id` field on any conforming type. This makes it convenient to query for any object in the schema given only its `id`. The concept is carried across to the Buy SDK as well, but requires a cast to the correct type. You need to make sure that the `Node` type is of the correct type, otherwise casting to an incorrect type will return a runtime exception.
 
 Given this query:
 
@@ -274,7 +274,7 @@ let client = Graph.Client(
 )
 ```
 
-GraphQL specifies two types of operations: queries and mutations. The `Client` exposes these as two type-safe operations, although also offering some conveniences for retrying and polling in each.
+GraphQL specifies two types of operations: queries and mutations. The `Client` exposes these as two type-safe operations, although it also offers some conveniences for retrying and polling in each one.
 
 ### Queries [⤴](#table-of-contents)
 
@@ -284,7 +284,7 @@ Semantically, a GraphQL `query` operation is equivalent to a `GET` RESTful call.
 public func queryGraphWith(_ query: Storefront.QueryRootQuery, retryHandler: RetryHandler<Storefront.QueryRoot>? = default, completionHandler: QueryCompletion) -> Task
 ```
 
-For example, let's take a look at how we can query for a shop's name:
+The following example shows how you can query for a shop's name:
 
 ```swift
 let query = Storefront.buildQuery { $0
@@ -307,13 +307,15 @@ Learn more about [GraphQL queries](http://graphql.org/learn/queries/).
 
 ### Mutations [⤴](#table-of-contents)
 
-Semantically a GraphQL `mutation` operation is equivalent to a `PUT`, `POST` or `DELETE` RESTful call. A mutation is almost always accompanied by an input that represents values to be updated and a query to fetch fields of the updated resource. You can think of a `mutation` as a two-step operation where the resource is first modified, and then queried using the provided `query`. The second half of the operation is identical to a regular `query` request. With `Graph.Client` you can perform a mutation operation using:
+Semantically a GraphQL `mutation` operation is equivalent to a `PUT`, `POST` or `DELETE` RESTful call. A mutation is almost always accompanied by an input that represents values to be updated and a query to fetch fields of the updated resource. You can think of a `mutation` as a two-step operation where the resource is first modified, and then queried using the provided `query`. The second half of the operation is identical to a regular `query` request.
+
+With `Graph.Client` you can perform a mutation operation using:
 
 ```swift
 public func mutateGraphWith(_ mutation: Storefront.MutationQuery, retryHandler: RetryHandler<Storefront.Mutation>? = default, completionHandler: MutationCompletion) -> Task
 ```
 
-For example, let's take a look at how we can reset a customer's password using a recovery token:
+The following example shows how you can reset a customer's password using a recovery token:
 
 ```swift
 let customerID = GraphQL.ID(rawValue: "YSBjdXN0b21lciBpZA")
@@ -411,7 +413,7 @@ In this example, the `task` cache policy changes to `.networkFirst(expireIn: 20)
 
 ### Errors [⤴](#table-of-contents)
 
-The completion for either a `query` or `mutation` request will always contain an optional `Graph.QueryError` that represents the current error state of the request. **It's important to note that `error` and `response` are NOT mutually exclusive.** That is to say that it's perfectly valid to have a non-nil error and response. The presence of an error can represent both a network error (such as a network error, or invalid JSON) or a GraphQL error (such as invalid query syntax, or a missing parameter). The `Graph.QueryError` is an `enum`, so checking the type of error is trivial:
+The completion for either a `query` or `mutation` request will always contain an optional `Graph.QueryError` that represents the current error state of the request. **It's important to note that `error` and `response` are NOT mutually exclusive.** It is perfectly valid to have a non-nil error and response. The presence of an error can represent both a network error (such as a network error, or invalid JSON) or a GraphQL error (such as invalid query syntax, or a missing parameter). The `Graph.QueryError` is an `enum`, so checking the type of error is trivial:
 
 ```swift
 let task = client.queryGraphWith(query) { response, error in
@@ -459,7 +461,9 @@ The Buy SDK support native checkout via GraphQL, which lets you complete a check
 
 ## Search [⤴](#table-of-contents)
 
-Some `Storefront` models accept search terms via the `query` parameter. For example, you can provide a `query` to search for collections that contain a specific search term in any of their fields. For example let's look at how we can find collections that contain the word "shoes":
+Some `Storefront` models accept search terms via the `query` parameter. For example, you can provide a `query` to search for collections that contain a specific search term in any of their fields.
+
+The following example shows how you can find collections that contain the word "shoes":
 
 ```swift
 let query = Storefront.buildQuery { $0
@@ -479,11 +483,11 @@ let query = Storefront.buildQuery { $0
 
 #### Fuzzy matching [⤴](#table-of-contents)
 
-In the example above, our query is `shoes` and will match collections that contain "shoes" in the description, title, and other fields. This is the simplest form of queries. It provides fuzzy matching of search terms on all fields of a collection.
+In the example above, the query is `shoes`. This will match collections that contain "shoes" in the description, title, and other fields. This is the simplest form of query. It provides fuzzy matching of search terms on all fields of a collection.
 
 #### Field matching [⤴](#table-of-contents)
 
-Alternative to object-wide fuzzy matches, you can specify specific fields to search for instead. For example, if we want to match collections of particular type, we can do so by specifying a field directly:
+As an alternative to object-wide fuzzy matches, you can also specify individual fields to include in your search. For example, if you want to match collections of particular type, you can do so by specifying a field directly:
 
 ```swift
 .collections(first: 10, query: "collection_type:runners") { $0
@@ -491,13 +495,13 @@ Alternative to object-wide fuzzy matches, you can specify specific fields to sea
 }
 ```
 
-The format for specifying fields and search parameters is the following: `field:search_term`. It's critical to avoid whitespace between the `:` and the `search_term`. Fields that support search are documented in the generated interfaces of the Buy SDK.
+The format for specifying fields and search parameters is the following: `field:search_term`. Note that it's critical that there be no space between the `:` and the `search_term`. Fields that support search are documented in the generated interfaces of the Buy SDK.
 
-**IMPORTANT:** If a field is specified (as in the example above) the `search_term` will be an **exact match** and not a fuzzy match. In the example above, collections of type `blue_runners` will not match.
+**IMPORTANT:** If you specify a field in a search (as in the example above), then the `search_term` will be an **exact match** instead of a fuzzy match. For example, based on the query above, a collection with the type `blue_runners` will not match the query for `runners`.
 
 #### Negating field matching [⤴](#table-of-contents)
 
-Each field search can also be negated. Building on the example above, if we wanted to match all collection that were **not** of type `runners`, we can do so by appending a `-` to the field:
+Each search field can also be negated. Building on the example above, if you want to match all collections that were **not** of the type `runners`, then you can append a `-` to the relevant field:
 
 ```swift
 .collections(first: 10, query: "-collection_type:runners") { $0
@@ -507,7 +511,9 @@ Each field search can also be negated. Building on the example above, if we want
 
 #### Boolean operators [⤴](#table-of-contents)
 
-In addition to single fields searches, you can build more complex searches using boolean operators. They very much like ordinary SQL operators. Let's search for products that are tagged with `blue` and are of type `sneaker`:
+In addition to single field searches, you can build more complex searches using boolean operators. They very much like ordinary SQL operators.
+
+The following example shows how you can search for products that are tagged with `blue` and that are of type `sneaker`:
 
 ```swift
 .products(first: 10, query: "tag:blue AND product_type:sneaker") { $0
@@ -515,7 +521,7 @@ In addition to single fields searches, you can build more complex searches using
 }
 ```
 
-We can also group search terms:
+You can also group search terms:
 
 ```swift
 .products(first: 10, query: "(tag:blue AND product_type:sneaker) OR tag:red") { $0
@@ -525,16 +531,17 @@ We can also group search terms:
 
 #### Comparison operators [⤴](#table-of-contents)
 
-The search syntax also allows for comparing values that aren't exact matches. For example, you might want to get products that were updated only after a certain a date. We can do that as well:
+The search syntax also allows for comparing values that aren't exact matches. For example, you might want to get products that were updated only after a certain a date. You can do that as well:
 
 ```swift
 .products(first: 10, query: "updated_at:>\"2017-05-29T00:00:00Z\"") { $0
     ...
 }
 ```
-The search above will return products that have been updated after midnight on May 29th, 2017. Note how the date is enclosed by another pair of escaped quotations. You can also use this technique for mulitple words or sentenses.
 
-This is the complete list of supported comparison operators:
+The query above will return products that have been updated after midnight on May 29, 2017. Note how the date is enclosed by another pair of escaped quotations. You can also use this technique for multiple words or sentences.
+
+The SDK supports the following comparison operators:
 
 - `:` equal to
 - `:<` less than
@@ -546,7 +553,9 @@ This is the complete list of supported comparison operators:
 
 #### Exists operator [⤴](#table-of-contents)
 
-There is one special operator that can be used for checking `nil` or empty values. Let's imagine that we want to find products that don't have any tags. We can do so using the `*` operator and negating the field:
+There is one special operator that can be used for checking `nil` or empty values.
+
+The following example shows how you can find products that don't have any tags. You can do so using the `*` operator and negating the field:
 
 ```swift
 .products(first: 10, query: "-tag:*") { $0
@@ -618,7 +627,7 @@ self.paySession.delegate = self
 self.paySession.authorize()
 ```
 
-After calling `authorize()`, the session will create a `PKPaymentAuthorizationController` on your behalf and present it to the customer. By providing a `delegate`, you'll be notified when the customer changes shipping address, selects a shipping rate, and authorizes the payment using TouchID or passcode. It is **critical** to correctly handle each one of these events by updating the `Storefront.Checkout` with appropriate mutations to keep the checkout state on the server up-to-date.
+After calling `authorize()`, the session will create a `PKPaymentAuthorizationController` on your behalf and present it to the customer. By providing a `delegate`, you'll be notified when the customer changes shipping address, selects a shipping rate, and authorizes the payment using TouchID or passcode. It is **critical** to correctly handle each one of these events by updating the `Storefront.Checkout` with appropriate mutations. This keeps the checkout state on the server up-to-date.
 
 Let's take a look at each one:
 
@@ -730,7 +739,7 @@ Invoked when the  Pay modal is dismissed, regardless of whether the payment a
 
 Getting started with any SDK can be confusing. The purpose of this section is to explore all areas of the Buy SDK that might be necessary to build a custom storefront on iOS and provide a solid starting point for your own implementation.
 
-In this section we're going to assume that you've [set up a client](#graphclient-) somewhere in your source code. Although it's possible to have multiple instance of `Graph.Client`, reusing a single instance offers many behind-the-scenes performance improvements:
+In this section we're going to assume that you've [set up a client](#graphclient-) somewhere in your source code. Although it's possible to have multiple instances of `Graph.Client`, reusing a single instance offers many behind-the-scenes performance improvements:
 
 ```swift
 let client: Graph.Client
@@ -779,7 +788,7 @@ query {
 
 In our sample custom storefront, we want to display a collection with a preview of several products. With a conventional RESTful service, this would require one network call for collections and another network call for each collection in that array. This is often referred to as the `n + 1` problem.
 
-The Buy SDK is built on GraphQL, which solves the `n + 1` request problem. In the following example, a single query will retrieve 10 collection and 10 products for each collection with just one network request:
+The Buy SDK is built on GraphQL, which solves the `n + 1` request problem. In the following example, a single query retrieves 10 collection and 10 products for each collection with just one network request:
 
 ```swift
 let query = Storefront.buildQuery { $0
@@ -852,7 +861,7 @@ Although it might be convenient to assume that a single network request will suf
 
 Learn more about [pagination in GraphQL](http://graphql.org/learn/pagination/).
 
-Let's take a look at how we can paginate through products in a collection:
+The following example shows how you can paginate through products in a collection:
 
 ```swift
 let query = Storefront.buildQuery { $0
@@ -1125,7 +1134,7 @@ The simplest way to complete a checkout is by redirecting the customer to a web 
 
 The native credit card checkout offers the most conventional user experience out of the three alternatives, but it also requires the most effort to implement. You'll be required to implement UI for gathering your customers' name, email, address, payment information and other fields required to complete checkout.
 
-Assuming your custom storefront has all the information it needs, the first step to completing a credit card checkout is to vault the provided credit card and exchange it for a payment token that will be used to complete the payment. Please reference the instructions for [vaulting a credit card](#card-vaulting-).
+Assuming your custom storefront has all the information it needs, the first step to completing a credit card checkout is to vault the provided credit card and exchange it for a payment token that will be used to complete the payment. To learn more, see the instructions for [vaulting a credit card](#card-vaulting-).
 
 After obtaining a credit card vault token, we can proceed to complete the checkout by creating a `CreditCardPaymentInput` and executing the mutation query:
 
@@ -1179,7 +1188,7 @@ task.resume()
 
 ###### Apple Pay checkout [⤴](#table-of-contents)
 
-The Buy SDK makes  Pay integration easy with the provided `Pay.framework`. Please refer to the [ Pay](#apple-pay-) section on how to setup and use `PaySession` to obtain a payment token. After we have a payment token, we can complete the checkout:
+The Buy SDK makes  Pay integration easy with the provided `Pay.framework`. To learn how to set up and use `PaySession` to obtain a payment token, refer to the [ Pay](#apple-pay-) section. After we have a payment token, we can complete the checkout:
 
 ```swift
 // let paySession: PaySession
@@ -1232,7 +1241,7 @@ task.resume()
 
 #### Polling for checkout completion [⤴](#table-of-contents)
 
-After a successful `checkoutCompleteWith...` mutation, the checkout process has started. This process is usually short, but it isn't immediate. Because of this, polling is required to obtain an updated checkout in a `ready` state - with a `Storefront.Order`.
+After a successful `checkoutCompleteWith...` mutation, the checkout process starts. This process is usually short, but it isn't immediate. Because of this, polling is required to obtain an updated checkout in a `ready` state - with a `Storefront.Order`.
 
 ```swift
 let retry = Graph.RetryHandler<Storefront.QueryRoot>(endurance: .finite(30)) { (response, error) -> Bool in
