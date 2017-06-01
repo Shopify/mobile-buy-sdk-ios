@@ -359,6 +359,9 @@ extension Storefront {
 		/// Surinamese Dollar (SRD) 
 		case srd = "SRD"
 
+		/// South Sudanese Pound (SSP) 
+		case ssp = "SSP"
+
 		/// Sao Tome And Principe Dobra (STD) 
 		case std = "STD"
 

@@ -59,6 +59,24 @@ extension Storefront {
 
 		/// An object with an ID to support global identification. 
 		@discardableResult
+		open func onArticle(subfields: (ArticleQuery) -> Void) -> NodeQuery {
+			let subquery = ArticleQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Article", subfields: subquery)
+			return self
+		}
+
+		/// An object with an ID to support global identification. 
+		@discardableResult
+		open func onBlog(subfields: (BlogQuery) -> Void) -> NodeQuery {
+			let subquery = BlogQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Blog", subfields: subquery)
+			return self
+		}
+
+		/// An object with an ID to support global identification. 
+		@discardableResult
 		open func onCheckout(subfields: (CheckoutQuery) -> Void) -> NodeQuery {
 			let subquery = CheckoutQuery()
 			subfields(subquery)
@@ -81,6 +99,15 @@ extension Storefront {
 			let subquery = CollectionQuery()
 			subfields(subquery)
 			addInlineFragment(on: "Collection", subfields: subquery)
+			return self
+		}
+
+		/// An object with an ID to support global identification. 
+		@discardableResult
+		open func onComment(subfields: (CommentQuery) -> Void) -> NodeQuery {
+			let subquery = CommentQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Comment", subfields: subquery)
 			return self
 		}
 
@@ -173,11 +200,17 @@ extension Storefront {
 			switch typeName {
 				case "AppliedGiftCard": return try AppliedGiftCard.init(fields: fields)
 
+				case "Article": return try Article.init(fields: fields)
+
+				case "Blog": return try Blog.init(fields: fields)
+
 				case "Checkout": return try Checkout.init(fields: fields)
 
 				case "CheckoutLineItem": return try CheckoutLineItem.init(fields: fields)
 
 				case "Collection": return try Collection.init(fields: fields)
+
+				case "Comment": return try Comment.init(fields: fields)
 
 				case "MailingAddress": return try MailingAddress.init(fields: fields)
 
