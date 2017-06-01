@@ -158,6 +158,19 @@
 		9A6F3BA41EBB5BD700B149F4 /* DigestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F3BA31EBB5BD700B149F4 /* DigestTests.swift */; };
 		9A6F3BA61EBB5F2400B149F4 /* Digest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F3BA51EBB5F2400B149F4 /* Digest.swift */; };
 		9A6F3BA91EBB6A7500B149F4 /* Graph.CacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F3BA81EBB6A7500B149F4 /* Graph.CacheTests.swift */; };
+		9AA416C71EE095AA0060029B /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA416C21EE095AA0060029B /* Article.swift */; };
+		9AA416C81EE095AA0060029B /* ArticleAuthor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA416C31EE095AA0060029B /* ArticleAuthor.swift */; };
+		9AA416C91EE095AA0060029B /* ArticleConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA416C41EE095AA0060029B /* ArticleConnection.swift */; };
+		9AA416CA1EE095AA0060029B /* ArticleEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA416C51EE095AA0060029B /* ArticleEdge.swift */; };
+		9AA416CB1EE095AA0060029B /* ArticleSortKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA416C61EE095AA0060029B /* ArticleSortKeys.swift */; };
+		9AA416D01EE095B20060029B /* Blog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA416CC1EE095B20060029B /* Blog.swift */; };
+		9AA416D11EE095B20060029B /* BlogConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA416CD1EE095B20060029B /* BlogConnection.swift */; };
+		9AA416D21EE095B20060029B /* BlogEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA416CE1EE095B20060029B /* BlogEdge.swift */; };
+		9AA416D31EE095B20060029B /* BlogSortKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA416CF1EE095B20060029B /* BlogSortKeys.swift */; };
+		9AA416D81EE095BB0060029B /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA416D41EE095BB0060029B /* Comment.swift */; };
+		9AA416D91EE095BB0060029B /* CommentAuthor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA416D51EE095BB0060029B /* CommentAuthor.swift */; };
+		9AA416DA1EE095BB0060029B /* CommentConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA416D61EE095BB0060029B /* CommentConnection.swift */; };
+		9AA416DB1EE095BB0060029B /* CommentEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA416D71EE095BB0060029B /* CommentEdge.swift */; };
 		9AA7AC761EBB77660014D95D /* Graph.CacheItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA7AC751EBB77660014D95D /* Graph.CacheItem.swift */; };
 		9AA7AC781EBB78160014D95D /* Graph.CacheItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA7AC771EBB78160014D95D /* Graph.CacheItemTests.swift */; };
 		9AADF1C71EA63ED000D22740 /* MockPaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AADF1C61EA63ED000D22740 /* MockPaymentMethod.swift */; };
@@ -338,6 +351,19 @@
 		9A6F3BA31EBB5BD700B149F4 /* DigestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DigestTests.swift; sourceTree = "<group>"; };
 		9A6F3BA51EBB5F2400B149F4 /* Digest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Digest.swift; sourceTree = "<group>"; };
 		9A6F3BA81EBB6A7500B149F4 /* Graph.CacheTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.CacheTests.swift; sourceTree = "<group>"; };
+		9AA416C21EE095AA0060029B /* Article.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
+		9AA416C31EE095AA0060029B /* ArticleAuthor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleAuthor.swift; sourceTree = "<group>"; };
+		9AA416C41EE095AA0060029B /* ArticleConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleConnection.swift; sourceTree = "<group>"; };
+		9AA416C51EE095AA0060029B /* ArticleEdge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleEdge.swift; sourceTree = "<group>"; };
+		9AA416C61EE095AA0060029B /* ArticleSortKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleSortKeys.swift; sourceTree = "<group>"; };
+		9AA416CC1EE095B20060029B /* Blog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blog.swift; sourceTree = "<group>"; };
+		9AA416CD1EE095B20060029B /* BlogConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogConnection.swift; sourceTree = "<group>"; };
+		9AA416CE1EE095B20060029B /* BlogEdge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogEdge.swift; sourceTree = "<group>"; };
+		9AA416CF1EE095B20060029B /* BlogSortKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogSortKeys.swift; sourceTree = "<group>"; };
+		9AA416D41EE095BB0060029B /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		9AA416D51EE095BB0060029B /* CommentAuthor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentAuthor.swift; sourceTree = "<group>"; };
+		9AA416D61EE095BB0060029B /* CommentConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentConnection.swift; sourceTree = "<group>"; };
+		9AA416D71EE095BB0060029B /* CommentEdge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentEdge.swift; sourceTree = "<group>"; };
 		9AA6B6D61E9D563C00CE9F18 /* GraphQL+ScalarSupportTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GraphQL+ScalarSupportTests.swift"; sourceTree = "<group>"; };
 		9AA7AC751EBB77660014D95D /* Graph.CacheItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.CacheItem.swift; sourceTree = "<group>"; };
 		9AA7AC771EBB78160014D95D /* Graph.CacheItemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.CacheItemTests.swift; sourceTree = "<group>"; };
@@ -421,6 +447,19 @@
 		9A0C7FF81EAA51C50020F187 /* Storefront */ = {
 			isa = PBXGroup;
 			children = (
+				9AA416D41EE095BB0060029B /* Comment.swift */,
+				9AA416D51EE095BB0060029B /* CommentAuthor.swift */,
+				9AA416D61EE095BB0060029B /* CommentConnection.swift */,
+				9AA416D71EE095BB0060029B /* CommentEdge.swift */,
+				9AA416CC1EE095B20060029B /* Blog.swift */,
+				9AA416CD1EE095B20060029B /* BlogConnection.swift */,
+				9AA416CE1EE095B20060029B /* BlogEdge.swift */,
+				9AA416CF1EE095B20060029B /* BlogSortKeys.swift */,
+				9AA416C21EE095AA0060029B /* Article.swift */,
+				9AA416C31EE095AA0060029B /* ArticleAuthor.swift */,
+				9AA416C41EE095AA0060029B /* ArticleConnection.swift */,
+				9AA416C51EE095AA0060029B /* ArticleEdge.swift */,
+				9AA416C61EE095AA0060029B /* ArticleSortKeys.swift */,
 				9A0C7FF91EAA51C50020F187 /* AppliedGiftCard.swift */,
 				9A0C7FFA1EAA51C50020F187 /* Attribute.swift */,
 				9A0C7FFB1EAA51C50020F187 /* AttributeInput.swift */,
@@ -689,9 +728,8 @@
 		9AEF60F51E5F42D90067FA90 /* Buy */ = {
 			isa = PBXGroup;
 			children = (
-				9AAFAB701E60766300864A17 /* Global */,
 				9AAFAB701E60766300864A17 /* Utilities */,
-        9A0C80EE1EB76DC50020F187 /* Card */,
+				9A0C80EE1EB76DC50020F187 /* Card */,
 				9AAFAB731E60804F00864A17 /* Client */,
 				9AEF619F1E5F5A050067FA90 /* Custom */,
 				9AEF60FE1E5F439D0067FA90 /* Generated */,
@@ -1044,6 +1082,7 @@
 				9A0C80AB1EAA51C50020F187 /* QueryRoot.swift in Sources */,
 				9A0C80AD1EAA51C50020F187 /* ShippingRate.swift in Sources */,
 				9A0C80641EAA51C50020F187 /* CheckoutCustomerAssociatePayload.swift in Sources */,
+				9AA416D01EE095B20060029B /* Blog.swift in Sources */,
 				9A0C805B1EAA51C50020F187 /* AvailableShippingRates.swift in Sources */,
 				9A0C80741EAA51C50020F187 /* CollectionConnection.swift in Sources */,
 				9A0C80671EAA51C50020F187 /* CheckoutGiftCardApplyPayload.swift in Sources */,
@@ -1077,15 +1116,19 @@
 				9A0C80F01EB773310020F187 /* Card.swift in Sources */,
 				9A0C80701EAA51C50020F187 /* CheckoutLineItemUpdateInput.swift in Sources */,
 				9A0C807E1EAA51C50020F187 /* CustomerAccessTokenCreatePayload.swift in Sources */,
+				9AA416D21EE095B20060029B /* BlogEdge.swift in Sources */,
 				9A0C80AE1EAA51C50020F187 /* Shop.swift in Sources */,
 				9A0C80751EAA51C50020F187 /* CollectionEdge.swift in Sources */,
 				9A0C80FC1EBA27970020F187 /* SelectedOptionInput.swift in Sources */,
 				9A0C80951EAA51C50020F187 /* Mutation.swift in Sources */,
 				9A49DC831EC4AD580053710B /* Header.swift in Sources */,
+				9AA416D91EE095BB0060029B /* CommentAuthor.swift in Sources */,
 				9A0C80A91EAA51C50020F187 /* ProductVariantConnection.swift in Sources */,
+				9AA416D81EE095BB0060029B /* Comment.swift in Sources */,
 				9A0C80891EAA51C50020F187 /* CustomerResetInput.swift in Sources */,
 				9A0C807F1EAA51C50020F187 /* CustomerAccessTokenDeletePayload.swift in Sources */,
 				9A0C80611EAA51C50020F187 /* CheckoutCompleteWithTokenizedPaymentPayload.swift in Sources */,
+				9AA416D11EE095B20060029B /* BlogConnection.swift in Sources */,
 				9A0C80771EAA51C50020F187 /* CreditCard.swift in Sources */,
 				9AFA3B6D1E6D9A5E0056C5AA /* GraphQL.swift in Sources */,
 				9A0C808E1EAA51C50020F187 /* Image.swift in Sources */,
@@ -1104,15 +1147,20 @@
 				9A0C80B31EAA51C50020F187 /* TransactionStatus.swift in Sources */,
 				9A0C80761EAA51C50020F187 /* CollectionSortKeys.swift in Sources */,
 				9A0C80871EAA51C50020F187 /* CustomerCreatePayload.swift in Sources */,
+				9AA416C71EE095AA0060029B /* Article.swift in Sources */,
 				9A0C80911EAA51C50020F187 /* MailingAddress.swift in Sources */,
+				9AA416C91EE095AA0060029B /* ArticleConnection.swift in Sources */,
 				9A0C80791EAA51C50020F187 /* CropRegion.swift in Sources */,
 				9A0C806E1EAA51C50020F187 /* CheckoutLineItemsRemovePayload.swift in Sources */,
 				9AA7AC761EBB77660014D95D /* Graph.CacheItem.swift in Sources */,
+				9AA416D31EE095B20060029B /* BlogSortKeys.swift in Sources */,
 				9A0C805C1EAA51C50020F187 /* Checkout.swift in Sources */,
 				9A0C806A1EAA51C50020F187 /* CheckoutLineItemConnection.swift in Sources */,
 				9A0C80931EAA51C50020F187 /* MailingAddressEdge.swift in Sources */,
+				9AA416DA1EE095BB0060029B /* CommentConnection.swift in Sources */,
 				9A0C80B21EAA51C50020F187 /* TransactionKind.swift in Sources */,
 				9A0C80861EAA51C50020F187 /* CustomerCreateInput.swift in Sources */,
+				9AA416CA1EE095AA0060029B /* ArticleEdge.swift in Sources */,
 				9A0C80B41EAA51C50020F187 /* UserError.swift in Sources */,
 				9A0C80811EAA51C50020F187 /* CustomerActivateInput.swift in Sources */,
 				9A0C80821EAA51C50020F187 /* CustomerActivatePayload.swift in Sources */,
@@ -1120,6 +1168,7 @@
 				9A0C80B61EAA51C50020F187 /* Storefront.swift in Sources */,
 				9A0C80921EAA51C50020F187 /* MailingAddressConnection.swift in Sources */,
 				9A0C80901EAA51C50020F187 /* ImageEdge.swift in Sources */,
+				9AA416C81EE095AA0060029B /* ArticleAuthor.swift in Sources */,
 				9A0C80AC1EAA51C50020F187 /* SelectedOption.swift in Sources */,
 				9A0C809E1EAA51C50020F187 /* OrderLineItemConnection.swift in Sources */,
 				9A0C805D1EAA51C50020F187 /* CheckoutAttributesUpdateInput.swift in Sources */,
@@ -1134,6 +1183,7 @@
 				9A0C80F41EB785310020F187 /* Card.Client.swift in Sources */,
 				9A0C80731EAA51C50020F187 /* Collection.swift in Sources */,
 				9A0C808A1EAA51C50020F187 /* CustomerResetPayload.swift in Sources */,
+				9AA416CB1EE095AA0060029B /* ArticleSortKeys.swift in Sources */,
 				9A0C80621EAA51C50020F187 /* CheckoutCreateInput.swift in Sources */,
 				9A0C80A01EAA51C50020F187 /* OrderSortKeys.swift in Sources */,
 				9A0C80601EAA51C50020F187 /* CheckoutCompleteWithCreditCardPayload.swift in Sources */,
@@ -1148,6 +1198,7 @@
 				9A0C80AA1EAA51C50020F187 /* ProductVariantEdge.swift in Sources */,
 				9A0C80581EAA51C50020F187 /* AppliedGiftCard.swift in Sources */,
 				9A0C80651EAA51C50020F187 /* CheckoutCustomerDisassociatePayload.swift in Sources */,
+				9AA416DB1EE095BB0060029B /* CommentEdge.swift in Sources */,
 				9AEF61A11E5F5A190067FA90 /* GraphQL+ScalarSupport.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

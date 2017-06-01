@@ -32,6 +32,95 @@ extension Storefront {
 	open class ShopQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Shop
 
+		/// List of the shop' articles. 
+		///
+		/// - parameters:
+		///     - first: No description
+		///     - after: No description
+		///     - sortKey: No description
+		///     - reverse: No description
+		///     - query: Supported filter parameters:
+		///         - `author`
+		///         - `updated_at`
+		///         - `created_at`
+		///         - `blog_title`
+		///         - `tag`
+		///
+		@discardableResult
+		open func articles(alias: String? = nil, first: Int32, after: String? = nil, sortKey: ArticleSortKeys? = nil, reverse: Bool? = nil, query: String? = nil, _ subfields: (ArticleConnectionQuery) -> Void) -> ShopQuery {
+			var args: [String] = []
+
+			args.append("first:\(first)")
+
+			if let after = after {
+				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
+			}
+
+			if let reverse = reverse {
+				args.append("reverse:\(reverse)")
+			}
+
+			if let query = query {
+				args.append("query:\(GraphQL.quoteString(input: query))")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = ArticleConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "articles", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// List of the shop' blogs. 
+		///
+		/// - parameters:
+		///     - first: No description
+		///     - after: No description
+		///     - sortKey: No description
+		///     - reverse: No description
+		///     - query: Supported filter parameters:
+		///         - `handle`
+		///         - `title`
+		///         - `updated_at`
+		///         - `created_at`
+		///
+		@discardableResult
+		open func blogs(alias: String? = nil, first: Int32, after: String? = nil, sortKey: BlogSortKeys? = nil, reverse: Bool? = nil, query: String? = nil, _ subfields: (BlogConnectionQuery) -> Void) -> ShopQuery {
+			var args: [String] = []
+
+			args.append("first:\(first)")
+
+			if let after = after {
+				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
+			}
+
+			if let reverse = reverse {
+				args.append("reverse:\(reverse)")
+			}
+
+			if let query = query {
+				args.append("query:\(GraphQL.quoteString(input: query))")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = BlogConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "blogs", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// The url pointing to the endpoint to vault credit cards. 
 		@discardableResult
 		open func cardVaultUrl(alias: String? = nil) -> ShopQuery {
@@ -39,7 +128,7 @@ extension Storefront {
 			return self
 		}
 
-		/// List of the shop’ collections. 
+		/// List of the shop’s collections. 
 		///
 		/// - parameters:
 		///     - first: No description
@@ -132,7 +221,7 @@ extension Storefront {
 			return self
 		}
 
-		/// List of the shop’ products. 
+		/// List of the shop’s products. 
 		///
 		/// - parameters:
 		///     - first: No description
@@ -188,7 +277,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The shop's Shopify Payments account id. 
+		/// The shop’s Shopify Payments account id. 
 		@discardableResult
 		open func shopifyPaymentsAccountId(alias: String? = nil) -> ShopQuery {
 			addField(field: "shopifyPaymentsAccountId", aliasSuffix: alias)
@@ -214,6 +303,18 @@ extension Storefront {
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "articles":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try ArticleConnection(fields: value)
+
+				case "blogs":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try BlogConnection(fields: value)
+
 				case "cardVaultUrl":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
@@ -296,6 +397,32 @@ extension Storefront {
 			}
 		}
 
+		/// List of the shop' articles. 
+		open var articles: Storefront.ArticleConnection {
+			return internalGetArticles()
+		}
+
+		open func aliasedArticles(alias: String) -> Storefront.ArticleConnection {
+			return internalGetArticles(alias: alias)
+		}
+
+		func internalGetArticles(alias: String? = nil) -> Storefront.ArticleConnection {
+			return field(field: "articles", aliasSuffix: alias) as! Storefront.ArticleConnection
+		}
+
+		/// List of the shop' blogs. 
+		open var blogs: Storefront.BlogConnection {
+			return internalGetBlogs()
+		}
+
+		open func aliasedBlogs(alias: String) -> Storefront.BlogConnection {
+			return internalGetBlogs(alias: alias)
+		}
+
+		func internalGetBlogs(alias: String? = nil) -> Storefront.BlogConnection {
+			return field(field: "blogs", aliasSuffix: alias) as! Storefront.BlogConnection
+		}
+
 		/// The url pointing to the endpoint to vault credit cards. 
 		open var cardVaultUrl: URL {
 			return internalGetCardVaultUrl()
@@ -305,7 +432,7 @@ extension Storefront {
 			return field(field: "cardVaultUrl", aliasSuffix: alias) as! URL
 		}
 
-		/// List of the shop’ collections. 
+		/// List of the shop’s collections. 
 		open var collections: Storefront.CollectionConnection {
 			return internalGetCollections()
 		}
@@ -373,7 +500,7 @@ extension Storefront {
 			return field(field: "privacyPolicy", aliasSuffix: alias) as! Storefront.ShopPolicy?
 		}
 
-		/// List of the shop’ products. 
+		/// List of the shop’s products. 
 		open var products: Storefront.ProductConnection {
 			return internalGetProducts()
 		}
@@ -395,7 +522,7 @@ extension Storefront {
 			return field(field: "refundPolicy", aliasSuffix: alias) as! Storefront.ShopPolicy?
 		}
 
-		/// The shop's Shopify Payments account id. 
+		/// The shop’s Shopify Payments account id. 
 		open var shopifyPaymentsAccountId: String? {
 			return internalGetShopifyPaymentsAccountId()
 		}
@@ -417,6 +544,14 @@ extension Storefront {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
 				switch($0) {
+					case "articles":
+					response.append(internalGetArticles())
+					response.append(contentsOf: internalGetArticles().childResponseObjectMap())
+
+					case "blogs":
+					response.append(internalGetBlogs())
+					response.append(contentsOf: internalGetBlogs().childResponseObjectMap())
+
 					case "collections":
 					response.append(internalGetCollections())
 					response.append(contentsOf: internalGetCollections().childResponseObjectMap())
