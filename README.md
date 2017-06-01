@@ -182,7 +182,7 @@ query {
 
 All generated response models are derived from the `GraphQL.AbstractResponse` type. This abstract type provides a similar key-value type interface to a `Dictionary` for accessing field values in GraphQL responses. Just like `GraphQL.AbstractQuery`, you should never use these accessors directly, and instead rely on typed, derived properties in generated subclasses.
 
-The following example builds on the earlier the example of accessing the result of a shop name query:
+The following example builds on the earlier example of accessing the result of a shop name query:
 
 ```swift
 // response: Storefront.QueryRoot
