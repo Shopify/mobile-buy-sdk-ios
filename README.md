@@ -32,6 +32,14 @@ The Mobile Buy SDK makes it easy to create custom storefronts in your mobile app
   - [Caching](#caching-)
   - [Errors](#errors-)
 
+- [Search](#search-)
+  - [Fuzzy matching](#fuzzy-matching-)
+  - [Field matching](#field-matching-)
+  - [Negating field matching](#negating-field-matching-)
+  - [Boolean operators](#boolean-operators-)
+  - [Comparison operators](#comparison-operators-)
+  - [Exists operator](#exists-operator-)
+
 - [Card vaulting](#card-vaulting-)
   - [Card client](#card-client-)
 
@@ -448,6 +456,103 @@ Learn more about [GraphQL errors](http://graphql.org/learn/validation/).
 ## Card Vaulting [⤴](#table-of-contents)
 
 The Buy SDK support native checkout via GraphQL, which lets you complete a checkout with a credit card. However, it doesn't accept credit card numbers directly. Instead, you need to vault the credit cards via the standalone, PCI-compliant web service. The Buy SDK makes it easy to do this using `Card.Client`.
+
+## Search [⤴](#table-of-contents)
+
+Some `Storefront` models accept search terms via the `query` parameter. For example, you can provide a `query` to search for collections that contain a specific search term in any of their fields. For example let's look at how we can find collections that contain the word "shoes":
+
+```swift
+let query = Storefront.buildQuery { $0
+    .shop { $0
+        .collections(first: 10, query: "shoes") { $0
+            .edges { $0
+                .node { $0
+                    .id()
+                    .title()
+                    .description()
+                }
+            }
+        }
+    }
+}
+```
+
+#### Fuzzy matching
+
+In the example above, our query is `shoes` and will match collections that contain "shoes" in the description, title, and other fields. This is the simplest form of queries. It provides fuzzy matching of search terms on all fields of a collection.
+
+#### Field matching
+
+Alternative to object-wide fuzzy matches, you can specify specific fields to search for instead. For example, if we want to match collections of particular type, we can do so by specifying a field directly:
+
+```swift
+.collections(first: 10, query: "collection_type:runners") { $0
+    ...
+}
+```
+
+The format for specifying fields and search parameters is the following: `field:search_term`. It's critical to avoid whitespace between the `:` and the `search_term`. Fields that support search are documented in the generated interfaces of the Buy SDK.
+
+**IMPORTANT:** If a field is specified (as in the example above) the `search_term` will be an **exact match** and not a fuzzy match. In the example above, collections of type `blue_runners` will not match.
+
+#### Negating field matching
+
+Each field search can also be negated. Building on the example above, if we wanted to match all collection that were **not** of type `runners`, we can do so by appending a `-` to the field:
+
+```swift
+.collections(first: 10, query: "-collection_type:runners") { $0
+    ...
+}
+```
+
+#### Boolean operators
+
+In addition to single fields searches, you can build more complex searches using boolean operators. They very much like ordinary SQL operators. Let's search for products that are tagged with `blue` and are of type `sneaker`:
+
+```swift
+.products(first: 10, query: "tag:blue AND product_type:sneaker") { $0
+    ...
+}
+```
+
+We can also group search terms:
+
+```swift
+.products(first: 10, query: "(tag:blue AND product_type:sneaker) OR tag:red") { $0
+    ...
+}
+```
+
+#### Comparison operators
+
+The search syntax also allows for comparing values that aren't exact matches. For example, you might want to get products that were updated only after a certain a date. We can do that as well:
+
+```swift
+.products(first: 10, query: "updated_at:>\"2017-05-29T00:00:00Z\"") { $0
+    ...
+}
+```
+The search above will return products that have been updated after midnight on May 29th, 2017. Note how the date is enclosed by another pair of escaped quotations. You can also use this technique for mulitple words or sentenses.
+
+This is the complete list of supported comparison operators:
+
+- `:` equal to
+- `:<` less than
+- `:>` greater than
+- `:<=` less than or equal to
+- `:>=` greater than or equal to
+
+**IMPORTANT:** `:=` is not a valid operator.
+
+#### Exists operator
+
+There is one special operator that can be used for checking `nil` or empty values. Let's imagine that we want to find products that don't have any tags. We can do so using the `*` operator and negating the field:
+
+```swift
+.products(first: 10, query: "-tag:*") { $0
+    ...
+}
+```
 
 ### Card Client [⤴](#table-of-contents)
 
