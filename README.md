@@ -477,11 +477,11 @@ let query = Storefront.buildQuery { $0
 }
 ```
 
-#### Fuzzy matching
+#### Fuzzy matching [⤴](#table-of-contents)
 
 In the example above, our query is `shoes` and will match collections that contain "shoes" in the description, title, and other fields. This is the simplest form of queries. It provides fuzzy matching of search terms on all fields of a collection.
 
-#### Field matching
+#### Field matching [⤴](#table-of-contents)
 
 Alternative to object-wide fuzzy matches, you can specify specific fields to search for instead. For example, if we want to match collections of particular type, we can do so by specifying a field directly:
 
@@ -495,7 +495,7 @@ The format for specifying fields and search parameters is the following: `field:
 
 **IMPORTANT:** If a field is specified (as in the example above) the `search_term` will be an **exact match** and not a fuzzy match. In the example above, collections of type `blue_runners` will not match.
 
-#### Negating field matching
+#### Negating field matching [⤴](#table-of-contents)
 
 Each field search can also be negated. Building on the example above, if we wanted to match all collection that were **not** of type `runners`, we can do so by appending a `-` to the field:
 
@@ -505,7 +505,7 @@ Each field search can also be negated. Building on the example above, if we want
 }
 ```
 
-#### Boolean operators
+#### Boolean operators [⤴](#table-of-contents)
 
 In addition to single fields searches, you can build more complex searches using boolean operators. They very much like ordinary SQL operators. Let's search for products that are tagged with `blue` and are of type `sneaker`:
 
@@ -523,7 +523,7 @@ We can also group search terms:
 }
 ```
 
-#### Comparison operators
+#### Comparison operators [⤴](#table-of-contents)
 
 The search syntax also allows for comparing values that aren't exact matches. For example, you might want to get products that were updated only after a certain a date. We can do that as well:
 
@@ -544,7 +544,7 @@ This is the complete list of supported comparison operators:
 
 **IMPORTANT:** `:=` is not a valid operator.
 
-#### Exists operator
+#### Exists operator [⤴](#table-of-contents)
 
 There is one special operator that can be used for checking `nil` or empty values. Let's imagine that we want to find products that don't have any tags. We can do so using the `*` operator and negating the field:
 
