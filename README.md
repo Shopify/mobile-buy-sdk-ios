@@ -454,10 +454,6 @@ The following example shows a GraphQL error response for an invalid query:
 
 Learn more about [GraphQL errors](http://graphql.org/learn/validation/).
 
-## Card Vaulting [⤴](#table-of-contents)
-
-The Buy SDK support native checkout via GraphQL, which lets you complete a checkout with a credit card. However, it doesn't accept credit card numbers directly. Instead, you need to vault the credit cards via the standalone, PCI-compliant web service. The Buy SDK makes it easy to do this using `Card.Client`.
-
 ## Search [⤴](#table-of-contents)
 
 Some `Storefront` models accept search terms via the `query` parameter. For example, you can provide a `query` to search for collections that contain a specific search term in any of their fields.
@@ -561,6 +557,10 @@ The following example shows how you can find products that don't have any tags. 
     ...
 }
 ```
+
+## Card Vaulting [⤴](#table-of-contents)
+
+The Buy SDK support native checkout via GraphQL, which lets you complete a checkout with a credit card. However, it doesn't accept credit card numbers directly. Instead, you need to vault the credit cards via the standalone, PCI-compliant web service. The Buy SDK makes it easy to do this using `Card.Client`.
 
 ### Card Client [⤴](#table-of-contents)
 
