@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="99" id="KGk-i7-Jjw" customClass="ProductHeaderCell" customModule="Storefront" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="360" height="99"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="360" height="99"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7NM-DN-mue" customClass="SeparatorView" customModule="Storefront" customModuleProvider="target">
+                        <rect key="frame" x="10" y="10" width="10" height="10"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="separatorPosition">
+                                <integer key="value" value="0"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="vpm-Ra-eDu">
+                        <rect key="frame" x="15" y="15" width="330" height="77"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Some awesome bracelet with something else" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jHY-5b-TA1">
+                                <rect key="frame" x="0.0" y="29" width="223" height="48"/>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="20"/>
+                                <color key="textColor" white="0.10000000000000001" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Ba-rT-kGe" customClass="SubtitleButton" customModule="Storefront" customModuleProvider="target">
+                                <rect key="frame" x="243" y="47" width="87" height="30"/>
+                                <color key="backgroundColor" red="0.4763322351" green="0.72474470440000005" blue="0.44370955919999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Medium" family="Apple SD Gothic Neo" pointSize="17"/>
+                                <inset key="contentEdgeInsets" minX="20" minY="5" maxX="20" maxY="4"/>
+                                <state key="normal" title="$13.99">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="subtitle" value="Add to Cart"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="addToCartAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="AxL-zv-G5M"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="vpm-Ra-eDu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="7mU-jB-pq0"/>
+                    <constraint firstAttribute="bottom" secondItem="vpm-Ra-eDu" secondAttribute="bottom" constant="7" id="SWH-9s-3uj"/>
+                    <constraint firstItem="vpm-Ra-eDu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Zt0-t1-BUt"/>
+                    <constraint firstAttribute="trailing" secondItem="vpm-Ra-eDu" secondAttribute="trailing" constant="15" id="wpo-8c-N9B"/>
+                </constraints>
+            </tableViewCellContentView>
+            <inset key="separatorInset" minX="9999" minY="0.0" maxX="0.0" maxY="0.0"/>
+            <connections>
+                <outlet property="priceButton" destination="5Ba-rT-kGe" id="HY0-xp-ett"/>
+                <outlet property="titleLabel" destination="jHY-5b-TA1" id="y6y-dD-oCJ"/>
+            </connections>
+            <point key="canvasLocation" x="97" y="76.5"/>
+        </tableViewCell>
+    </objects>
+</document>
