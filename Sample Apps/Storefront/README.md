@@ -1,44 +1,27 @@
-![Mobile Buy SDK](https://raw.github.com/Shopify/mobile-buy-sdk-ios/master/Assets/Mobile_Buy_SDK_Github_banner.png)
+![Mobile Buy SDK](https://cloud.githubusercontent.com/assets/5244861/26738020/885c12ac-479a-11e7-8914-2853ec09f89f.png)
 
-# Sample Application
+# Storefront App
 
-Mobile Buy SDK shipped with the sample application that demonstrates typical mobile shop. By typical mobile shop we assume to have next flow: user browses products, open product details, selects product variant and add to the cart. From cart screen he completes checkout using web checkout or Apple Pay. That exact use case sample application demonstrates and shows example of how to build these types of screens:
+The Mobile Buy SDK ships with a sample application that demonstrates how to build a custom storefront on iOS. Using this sample application, a user can browse your shop's products and collections, add merchandise to a cart, and then checkout using Apple Pay or a web checkout.
 
-### Hybrid collection list with products
-Shows how to build screen with vertical list of collections and for each collection show horizontal list of products. As well demostrates the best GraphQL feature to fetch required data in one request
+## Setup
 
-SCREENSHOT HERE
-##
+To run the sample application, you need to provide credentials to the shop that the app will point to:
 
-### Product list
-Example of regular product grid for selected collection.
+1. Make sure that you have the **Mobile App** channel installed in your Shopify admin.
+2. From your Shopify admin, navigate to the **Mobile App** channel, and then copy your API key.
+3. Open the Sample Application project in `Sample App > Storefront > Storefront.xcodeproj`
+4. Open `Client.swift`, and then insert your API key and shop domain:
 
-SCREENSHOT HERE
-##
+```swift
+final class Client {
 
-### Product details
-Example of product details screen with image gallery and add to cart button
-
-SCREENSHOT HERE
-##
-
-### Search
-TBD
-##
-
-### Local cart
-Shows how to build local cart with line item managment, web checkout and Apple Pay integration.
-
-SCREENSHOT HERE
-##
-
-### Order confirmation
-Shows checkout complition with Apple Pay integration
-
-SCREENSHOT HERE
-
-## Run Sample App 
+    static let shopDomain = "yourshophere.myshopify.com"
+    static let apiKey     = "2dce9587e0f140ac84aaec25847e9d35"
+    ...
+}
+```
 
 ## License
 
-The Mobile Buy SDK is provided under an MIT Licence.  See the [LICENSE](../../LICENSE) file
+The Mobile Buy SDK is provided under an MIT License.  See the [LICENSE](../../LICENSE) file
