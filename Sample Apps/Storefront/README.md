@@ -1,0 +1,27 @@
+![Mobile Buy SDK](https://cloud.githubusercontent.com/assets/5244861/26738020/885c12ac-479a-11e7-8914-2853ec09f89f.png)
+
+# Storefront App
+
+The Mobile Buy SDK ships with a sample application that demonstrates how to build a custom storefront on iOS. Using this sample application, a user can browse your shop's products and collections, add merchandise to a cart, and then checkout using Apple Pay or a web checkout.
+
+## Setup
+
+To run the sample application, you need to provide credentials to the shop that the app will point to:
+
+1. Make sure that you have the **Mobile App** channel installed in your Shopify admin.
+2. From your Shopify admin, navigate to the **Mobile App** channel, and then copy your API key.
+3. Open the Sample Application project in `Sample App > Storefront > Storefront.xcodeproj`
+4. Open `Client.swift`, and then insert your API key and shop domain:
+
+```swift
+final class Client {
+
+    static let shopDomain = "yourshophere.myshopify.com"
+    static let apiKey     = "2dce9587e0f140ac84aaec25847e9d35"
+    ...
+}
+```
+
+## License
+
+The Mobile Buy SDK is provided under an MIT License.  See the [LICENSE](../../LICENSE) file

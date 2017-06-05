@@ -1,0 +1,47 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+require 'net/http'
+require 'json'
+require 'optparse'
+require 'graphql_schema'
+require 'graphql_swift_gen'
+
+endpoint = URI("https://app.shopify.com/services/ping/storefront_graphql_schema")
+body     = Net::HTTP.get(endpoint)
+schema   = GraphQLSchema.new(JSON.parse(body))
+
+customScalars = [
+	GraphQLSwiftGen::Scalar.new(
+	  type_name:       'DateTime',
+	  swift_type:      'Date',
+	  deserialize_expr: ->(expr) { "GraphQL.iso8601DateParser.date(from: #{expr})!"  },
+	  serialize_expr:   ->(expr) { "GraphQL.iso8601DateParser.string(from: #{expr})" },
+	),
+	GraphQLSwiftGen::Scalar.new(
+      type_name:       'URL',
+      swift_type:      'URL',
+      deserialize_expr: ->(expr) { "URL(string: #{expr})!" },
+      serialize_expr:   ->(expr) { "#{expr}.absoluteString" },
+    ),
+	GraphQLSwiftGen::Scalar.new(
+	  type_name:       'Int32',
+	  swift_type:      'Int',
+	  deserialize_expr: ->(expr) { "Int(#{expr})"   },
+	  serialize_expr:   ->(expr) { "Int32(#{expr})" },
+	),
+	GraphQLSwiftGen::Scalar.new(
+	  type_name:       'Money',
+	  swift_type:      'Decimal',
+	  deserialize_expr: ->(expr) { "Decimal(string: #{expr}, locale: GraphQL.posixLocale)" },
+	  serialize_expr:   ->(expr) { "String(describing: #{expr})"                           },
+	)
+]
+
+content = GraphQLSwiftGen.new(
+	schema, 
+	nest_under: 'Storefront', 
+	import_graphql_support: false, 
+	custom_scalars: customScalars
+)
+content.save("../Buy/Generated/")

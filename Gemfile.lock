@@ -1,0 +1,19 @@
+PATH
+  remote: Dependencies/Swift Gen
+  specs:
+    graphql_swift_gen (0.1.0)
+      graphql_schema (~> 0.1.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    graphql_schema (0.1.5)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  graphql_swift_gen!
+
+BUNDLED WITH
+   1.14.3
