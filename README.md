@@ -99,27 +99,27 @@ See the **Storefront** sample app for an example of how to add the `Buy` target 
 ### Carthage [⤴](#table-of-contents)
 
 1. Add the following line to your Cartfile:
-  ```ruby
-  github "Shopify/mobile-buy-sdk-ios"
-  ```
+```ruby
+github "Shopify/mobile-buy-sdk-ios"
+```
 2. Run `carthage update`.
 3. Follow the [steps to link the dynamic framework](#dynamic-framework-installation-) that Carthage produced.
 4. Import the SDK module:
-  ```swift
-  import Buy
-  ```
+```swift
+import Buy
+```
 
 ### CocoaPods [⤴](#table-of-contents)
 
 1. Add the following line to your podfile:
-  ```ruby
-  pod "Mobile-Buy-SDK"
-  ```
+```ruby
+pod "Mobile-Buy-SDK"
+```
 2. Run `pod install`.
 3. Import the SDK module:
-  ```swift
-  import Buy
-  ```
+```swift
+import Buy
+```
 
 ## Getting started [⤴](#table-of-contents)
 
