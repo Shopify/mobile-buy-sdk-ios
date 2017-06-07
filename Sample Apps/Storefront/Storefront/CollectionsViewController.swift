@@ -232,7 +232,7 @@ extension CollectionsViewController: UITableViewDataSource {
 extension CollectionsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let collection         = self.collections.items[indexPath.row]
+        let collection         = self.collections.items[indexPath.section]
         let productsController = self.productsViewControllerWith(collection)
         self.navigationController!.show(productsController, sender: self)
     }
