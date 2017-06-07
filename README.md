@@ -82,17 +82,30 @@ The documentation is generated using [Jazzy](https://github.com/realm/jazzy).
 
 ### Dynamic Framework Installation [⤴](#table-of-contents)
 
-1. Add **Buy.framework** target as a dependency:
+1. Add `Buy` as a git submodule by running:
+
+```
+git submodule add git@github.com:Shopify/mobile-buy-sdk-ios.git
+```
+
+2. Ensure that all submodules of `Buy` have alse been updated by running:
+
+```
+git submodule update --init --recursive
+```
+
+3. Drag the `Buy.xcodeproj` into your application project.
+4. Add **Buy.framework** target as a dependency:
     1. Navigate to **Build Phases** > **Target Dependencies**.
     2. Add `Buy.framework`.
-2. Link `Buy.framework`:
+5. Link `Buy.framework`:
     1. Navigate to **Build Phases** > **Link Binary With Libraries**.
     2. Add `Buy.framework`.
-3. Make sure that the framework is copied into the bundle:
+6. Make sure that the framework is copied into the bundle:
     1. Navigate to **Build Phases** > **New Copy Files Phase**.
     2. From the **Destination** dropdown, select **Frameworks**.
     3. Add `Buy.framework`.
-4. Import into your project files using `import Buy`.
+7. Import into your project files using `import Buy`.
 
 See the **Storefront** sample app for an example of how to add the `Buy` target a dependency.
 
