@@ -82,47 +82,57 @@ The documentation is generated using [Jazzy](https://github.com/realm/jazzy).
 
 ### Dynamic Framework Installation [⤴](#table-of-contents)
 
-1. Add **Buy.framework** target as a dependency:
-  1. Open **Your Project**, and then select your target.
-  2. Navigate to **Build Phases** > **Target Dependencies**.
-  3. Add `Buy.framework`.
-2. Link `Buy.framework`:
-  1. Open **Your Project**, and then select your target.
-  2. Navigate to **Build Phases** > **Link Binary With Libraries**.
-  3. Add `Buy.framework`.
-3. Make sure that the framework is copied into the bundle:
-  1. Open **Your Project**, and then select your target.
-  2. Navigate to **Build Phases** > **New Copy Files Phase**.
-  3. From the **Destination** dropdown, select **Frameworks**.
-  4. Add `Buy.framework`.
-4. Import into your project files using `import Buy`.
+1. Add `Buy` as a git submodule by running:
+
+```
+git submodule add git@github.com:Shopify/mobile-buy-sdk-ios.git
+```
+
+2. Ensure that all submodules of `Buy` have alse been updated by running:
+
+```
+git submodule update --init --recursive
+```
+
+3. Drag the `Buy.xcodeproj` into your application project.
+4. Add **Buy.framework** target as a dependency:
+    1. Navigate to **Build Phases** > **Target Dependencies**.
+    2. Add `Buy.framework`.
+5. Link `Buy.framework`:
+    1. Navigate to **Build Phases** > **Link Binary With Libraries**.
+    2. Add `Buy.framework`.
+6. Make sure that the framework is copied into the bundle:
+    1. Navigate to **Build Phases** > **New Copy Files Phase**.
+    2. From the **Destination** dropdown, select **Frameworks**.
+    3. Add `Buy.framework`.
+7. Import into your project files using `import Buy`.
 
 See the **Storefront** sample app for an example of how to add the `Buy` target a dependency.
 
 ### Carthage [⤴](#table-of-contents)
 
 1. Add the following line to your Cartfile:
-  ```ruby
-  github "Shopify/mobile-buy-sdk-ios"
-  ```
+```ruby
+github "Shopify/mobile-buy-sdk-ios"
+```
 2. Run `carthage update`.
 3. Follow the [steps to link the dynamic framework](#dynamic-framework-installation-) that Carthage produced.
 4. Import the SDK module:
-  ```swift
-  import Buy
-  ```
+```swift
+import Buy
+```
 
 ### CocoaPods [⤴](#table-of-contents)
 
 1. Add the following line to your podfile:
-  ```ruby
-  pod "Mobile-Buy-SDK"
-  ```
+```ruby
+pod "Mobile-Buy-SDK"
+```
 2. Run `pod install`.
 3. Import the SDK module:
-  ```swift
-  import Buy
-  ```
+```swift
+import Buy
+```
 
 ## Getting started [⤴](#table-of-contents)
 
