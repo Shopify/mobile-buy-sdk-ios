@@ -30,8 +30,8 @@ import Pay
 
 final class Client {
     
-    static let shopDomain = "your-shop.myshopify.com"
-    static let apiKey     = "your-api-key"
+    static let shopDomain = "graphql.myshopify.com"
+    static let apiKey     = "8e2fef6daed4b93cf4e731f580799dd1"
     
     static let shared = Client()
     
