@@ -69,6 +69,7 @@ class ProductDetailsViewController: ParallaxViewController {
         self.tableView.register(ProductHeaderCell.self)
         self.tableView.register(ProductDetailsCell.self)
         
+        self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 44.0
     }
     

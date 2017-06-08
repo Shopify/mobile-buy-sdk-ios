@@ -76,6 +76,7 @@ class CartViewController: ParallaxViewController {
     }
     
     private func configureTableView() {
+        self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 100.0
         self.tableView.register(UINib(nibName: "CartCell", bundle: nil), forCellReuseIdentifier: "CartCell")
         
