@@ -32,6 +32,4 @@ FOUNDATION_EXPORT double BuyVersionNumber;
 //! Project version string for Buy.
 FOUNDATION_EXPORT const unsigned char BuyVersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <Buy/PublicHeader.h>
-
-
+#import <Buy/md5.h>
