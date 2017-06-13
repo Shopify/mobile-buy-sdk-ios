@@ -341,7 +341,6 @@
 		9A4069CB1E8EA710000254CD /* Graph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
 		9A4069CE1E8ED98A000254CD /* Graph.Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.Task.swift; sourceTree = "<group>"; };
 		9A49DC821EC4AD580053710B /* Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
-		9A6F3B9A1EBB49A000B149F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A6F3BA31EBB5BD700B149F4 /* DigestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DigestTests.swift; sourceTree = "<group>"; };
 		9A6F3BA51EBB5F2400B149F4 /* Digest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Digest.swift; sourceTree = "<group>"; };
 		9A6F3BA81EBB6A7500B149F4 /* Graph.CacheTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.CacheTests.swift; sourceTree = "<group>"; };
@@ -548,16 +547,6 @@
 			path = Storefront;
 			sourceTree = "<group>";
 		};
-		9A0C80EE1EB76DC50020F187 /* Card */ = {
-			isa = PBXGroup;
-			children = (
-				9A0C80EF1EB773310020F187 /* Card.swift */,
-				9A0C80F11EB773520020F187 /* Card.CreditCard.swift */,
-				9A0C80F31EB785310020F187 /* Card.Client.swift */,
-			);
-			name = Card;
-			sourceTree = "<group>";
-		};
 		9A0C80F51EB7B6090020F187 /* Card */ = {
 			isa = PBXGroup;
 			children = (
@@ -604,20 +593,48 @@
 			path = PayTests;
 			sourceTree = "<group>";
 		};
-		9A6F3B981EBB49A000B149F4 /* Crypto */ = {
-			isa = PBXGroup;
-			children = (
-				9A6F3B9A1EBB49A000B149F4 /* Info.plist */,
-			);
-			path = Crypto;
-			sourceTree = "<group>";
-		};
 		9A6F3BA71EBB5F4D00B149F4 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				9A6F3BA31EBB5BD700B149F4 /* DigestTests.swift */,
 			);
 			name = Utilities;
+			sourceTree = "<group>";
+		};
+		9A7497491EF059F600D3F673 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				9AAFAB711E60766E00864A17 /* Global.swift */,
+				9A6F3BA51EBB5F2400B149F4 /* Digest.swift */,
+				9A49DC821EC4AD580053710B /* Header.swift */,
+				9AE2A1C51EC9EE1D00921247 /* Log.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		9A74974A1EF05A0E00D3F673 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				9A4069CB1E8EA710000254CD /* Graph.swift */,
+				9A0C81061EBA66800020F187 /* Graph.CachePolicy.swift */,
+				9A0C81041EBA66440020F187 /* Graph.Cache.swift */,
+				9AA7AC751EBB77660014D95D /* Graph.CacheItem.swift */,
+				9A4069CE1E8ED98A000254CD /* Graph.Task.swift */,
+				9AEF61B81E5F64230067FA90 /* Graph.Client.swift */,
+				9AAFAB761E6080A500864A17 /* Graph.QueryError.swift */,
+				9A4069C91E8EA6DB000254CD /* Graph.RetryHandler.swift */,
+			);
+			path = Client;
+			sourceTree = "<group>";
+		};
+		9A74974B1EF05A2900D3F673 /* Card */ = {
+			isa = PBXGroup;
+			children = (
+				9A0C80EF1EB773310020F187 /* Card.swift */,
+				9A0C80F11EB773520020F187 /* Card.CreditCard.swift */,
+				9A0C80F31EB785310020F187 /* Card.Client.swift */,
+			);
+			path = Card;
 			sourceTree = "<group>";
 		};
 		9AA6B6D51E9D562200CE9F18 /* Custom */ = {
@@ -651,32 +668,6 @@
 			name = Mocks;
 			sourceTree = "<group>";
 		};
-		9AAFAB701E60766300864A17 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				9AAFAB711E60766E00864A17 /* Global.swift */,
-				9A6F3BA51EBB5F2400B149F4 /* Digest.swift */,
-				9A49DC821EC4AD580053710B /* Header.swift */,
-				9AE2A1C51EC9EE1D00921247 /* Log.swift */,
-			);
-			name = Utilities;
-			sourceTree = "<group>";
-		};
-		9AAFAB731E60804F00864A17 /* Client */ = {
-			isa = PBXGroup;
-			children = (
-				9A4069CB1E8EA710000254CD /* Graph.swift */,
-				9A0C81061EBA66800020F187 /* Graph.CachePolicy.swift */,
-				9A0C81041EBA66440020F187 /* Graph.Cache.swift */,
-				9AA7AC751EBB77660014D95D /* Graph.CacheItem.swift */,
-				9A4069CE1E8ED98A000254CD /* Graph.Task.swift */,
-				9AEF61B81E5F64230067FA90 /* Graph.Client.swift */,
-				9AAFAB761E6080A500864A17 /* Graph.QueryError.swift */,
-				9A4069C91E8EA6DB000254CD /* Graph.RetryHandler.swift */,
-			);
-			name = Client;
-			sourceTree = "<group>";
-		};
 		9AB1D12A1EEF051500CA9048 /* Crypto */ = {
 			isa = PBXGroup;
 			children = (
@@ -706,7 +697,6 @@
 				9AFA38EB1E64850A0056C5AA /* BuyTests */,
 				9A4068DD1E8E7659000254CD /* Pay */,
 				9A4068E81E8E7659000254CD /* PayTests */,
-				9A6F3B981EBB49A000B149F4 /* Crypto */,
 				9AEF60F41E5F42D90067FA90 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -725,12 +715,12 @@
 		9AEF60F51E5F42D90067FA90 /* Buy */ = {
 			isa = PBXGroup;
 			children = (
-				9AB1D12A1EEF051500CA9048 /* Crypto */,
-				9AAFAB701E60766300864A17 /* Utilities */,
-				9A0C80EE1EB76DC50020F187 /* Card */,
-				9AAFAB731E60804F00864A17 /* Client */,
-				9AEF619F1E5F5A050067FA90 /* Custom */,
 				9AEF60FE1E5F439D0067FA90 /* Generated */,
+				9A74974A1EF05A0E00D3F673 /* Client */,
+				9A74974B1EF05A2900D3F673 /* Card */,
+				9A7497491EF059F600D3F673 /* Utilities */,
+				9AB1D12A1EEF051500CA9048 /* Crypto */,
+				9AEF619F1E5F5A050067FA90 /* Custom */,
 				9AEF60F61E5F42D90067FA90 /* Buy.h */,
 				9AEF60F71E5F42D90067FA90 /* Info.plist */,
 			);
