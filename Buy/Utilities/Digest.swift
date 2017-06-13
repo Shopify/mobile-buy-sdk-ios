@@ -24,49 +24,22 @@
 //  THE SOFTWARE.
 //
 
+#if COCOAPODS
 import Foundation
-
-struct Digest {
-    
-    private init() {}
-    
-    static func md5(_ data: Data) -> [UInt8] {
-        let context = UnsafeMutablePointer<MD5_CTX>.allocate(capacity: 1)
-        MD5_Init(context)
-        
-        data.forEach { byte in
-            MD5_Update(context, [byte], 1)
-        }
-        
-        let hash = UnsafeMutablePointer<UInt8>.allocate(capacity: 16)
-        MD5_Final(hash, context)
-        
-        let array = [UInt8](UnsafeBufferPointer(start: hash, count: 16))
-        
-        hash.deallocate(capacity: 16)
-        context.deallocate(capacity: 1)
-        
-        return array
-    }
-}
+#else
+import Crypto
+#endif
 
 extension String {
     
     var md5: String {
-        return self.data(using: .utf8)!.md5
+        return self.md5()
     }
 }
 
 extension Data {
     
     var md5: String {
-        return Digest.md5(self).hex
-    }
-}
-
-extension Array where Element == UInt8 {
-    
-    var hex: String {
-        return self.map { String(format: "%02x", $0) }.joined()
+        return (self as NSData).md5()
     }
 }

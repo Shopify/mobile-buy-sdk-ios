@@ -1,6 +1,6 @@
 //
-//  Buy.h
-//  Buy
+//  Crypto.h
+//  Crypto
 //
 //  Created by Shopify.
 //  Copyright (c) 2017 Shopify Inc. All rights reserved.
@@ -26,8 +26,12 @@
 
 #import <UIKit/UIKit.h>
 
-//! Project version number for Buy.
-FOUNDATION_EXPORT double BuyVersionNumber;
+//! Project version number for Crypto.
+FOUNDATION_EXPORT double CryptoVersionNumber;
 
-//! Project version string for Buy.
-FOUNDATION_EXPORT const unsigned char BuyVersionString[];
+//! Project version string for Crypto.
+FOUNDATION_EXPORT const unsigned char CryptoVersionString[];
+
+#ifndef COCOAPODS
+#import <Crypto/Hash.h>
+#endif
