@@ -25,24 +25,28 @@
 //
 
 import Foundation
-import Crypto
 
 struct Digest {
     
     private init() {}
     
     static func md5(_ data: Data) -> [UInt8] {
+        let context = UnsafeMutablePointer<MD5_CTX>.allocate(capacity: 1)
+        MD5_Init(context)
         
-        var context = CC_MD5_CTX()
-        var digest  = [UInt8](repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
-        
-        CC_MD5_Init(&context)
         data.forEach { byte in
-            CC_MD5_Update(&context, [byte], 1)
+            MD5_Update(context, [byte], 1)
         }
-        CC_MD5_Final(&digest, &context)
         
-        return digest
+        let hash = UnsafeMutablePointer<UInt8>.allocate(capacity: 16)
+        MD5_Final(hash, context)
+        
+        let array = [UInt8](UnsafeBufferPointer(start: hash, count: 16))
+        
+        hash.deallocate(capacity: 16)
+        context.deallocate(capacity: 1)
+        
+        return array
     }
 }
 
