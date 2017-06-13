@@ -32,4 +32,6 @@ FOUNDATION_EXPORT double BuyVersionNumber;
 //! Project version string for Buy.
 FOUNDATION_EXPORT const unsigned char BuyVersionString[];
 
+#ifndef COCOAPODS
 #import <Buy/md5.h>
+#endif
