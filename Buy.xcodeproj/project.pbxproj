@@ -597,15 +597,6 @@
 			path = Storefront;
 			sourceTree = "<group>";
 		};
-		9A0C80F51EB7B6090020F187 /* Card */ = {
-			isa = PBXGroup;
-			children = (
-				9A0C80F81EB7BAEF0020F187 /* Card.CreditCardTests.swift */,
-				9A0C80F61EB7B61B0020F187 /* Card.ClientTests.swift */,
-			);
-			name = Card;
-			sourceTree = "<group>";
-		};
 		9A4068DD1E8E7659000254CD /* Pay */ = {
 			isa = PBXGroup;
 			children = (
@@ -641,6 +632,46 @@
 				9A4068EB1E8E7659000254CD /* Info.plist */,
 			);
 			path = PayTests;
+			sourceTree = "<group>";
+		};
+		9A46660D1EF1914000A41625 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				9AE2A1C11EC6373B00921247 /* Graph.CachePolicyTests.swift */,
+				9A6F3BA81EBB6A7500B149F4 /* Graph.CacheTests.swift */,
+				9AA7AC771EBB78160014D95D /* Graph.CacheItemTests.swift */,
+				9AA89E851E9BD8930075AC74 /* Graph.TaskTests.swift */,
+				9AA89E871E9BDB7F0075AC74 /* Graph.ClientTests.swift */,
+				9AA89E951E9D29B40075AC74 /* Graph.QueryError.swift */,
+				9AA89E971E9D2BD80075AC74 /* Graph.RetryHandlerTests.swift */,
+			);
+			path = Client;
+			sourceTree = "<group>";
+		};
+		9A46660E1EF1915400A41625 /* Card */ = {
+			isa = PBXGroup;
+			children = (
+				9A0C80F81EB7BAEF0020F187 /* Card.CreditCardTests.swift */,
+				9A0C80F61EB7B61B0020F187 /* Card.ClientTests.swift */,
+			);
+			path = Card;
+			sourceTree = "<group>";
+		};
+		9A46660F1EF1916300A41625 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				9AA6B6D61E9D563C00CE9F18 /* GraphQL+ScalarSupportTests.swift */,
+			);
+			path = Custom;
+			sourceTree = "<group>";
+		};
+		9A4666101EF1917000A41625 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				9AA89E8A1E9BDC590075AC74 /* MockSession.swift */,
+				9AA89E8C1E9BDC650075AC74 /* MockSessionDataTask.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		9A664D691EF05F63001BFB01 /* Crypto */ = {
@@ -697,37 +728,6 @@
 				9A0C80F31EB785310020F187 /* Card.Client.swift */,
 			);
 			path = Card;
-			sourceTree = "<group>";
-		};
-		9AA6B6D51E9D562200CE9F18 /* Custom */ = {
-			isa = PBXGroup;
-			children = (
-				9AA6B6D61E9D563C00CE9F18 /* GraphQL+ScalarSupportTests.swift */,
-			);
-			name = Custom;
-			sourceTree = "<group>";
-		};
-		9AA89E841E9BD8740075AC74 /* Client */ = {
-			isa = PBXGroup;
-			children = (
-				9AE2A1C11EC6373B00921247 /* Graph.CachePolicyTests.swift */,
-				9A6F3BA81EBB6A7500B149F4 /* Graph.CacheTests.swift */,
-				9AA7AC771EBB78160014D95D /* Graph.CacheItemTests.swift */,
-				9AA89E851E9BD8930075AC74 /* Graph.TaskTests.swift */,
-				9AA89E871E9BDB7F0075AC74 /* Graph.ClientTests.swift */,
-				9AA89E951E9D29B40075AC74 /* Graph.QueryError.swift */,
-				9AA89E971E9D2BD80075AC74 /* Graph.RetryHandlerTests.swift */,
-			);
-			name = Client;
-			sourceTree = "<group>";
-		};
-		9AA89E891E9BDC4A0075AC74 /* Mocks */ = {
-			isa = PBXGroup;
-			children = (
-				9AA89E8A1E9BDC590075AC74 /* MockSession.swift */,
-				9AA89E8C1E9BDC650075AC74 /* MockSessionDataTask.swift */,
-			);
-			name = Mocks;
 			sourceTree = "<group>";
 		};
 		9AEC90E01E9FFA6E008C6E1C /* Mocks */ = {
@@ -803,10 +803,10 @@
 		9AFA38EB1E64850A0056C5AA /* BuyTests */ = {
 			isa = PBXGroup;
 			children = (
-				9AA89E891E9BDC4A0075AC74 /* Mocks */,
-				9AA6B6D51E9D562200CE9F18 /* Custom */,
-				9A0C80F51EB7B6090020F187 /* Card */,
-				9AA89E841E9BD8740075AC74 /* Client */,
+				9A4666101EF1917000A41625 /* Mocks */,
+				9A46660F1EF1916300A41625 /* Custom */,
+				9A46660E1EF1915400A41625 /* Card */,
+				9A46660D1EF1914000A41625 /* Client */,
 				9AFA38EE1E64850A0056C5AA /* Info.plist */,
 			);
 			path = BuyTests;
