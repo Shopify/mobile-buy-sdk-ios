@@ -28,7 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9A664D7C1EF159F8001BFB01"
+               BuildableName = "CryptoTests.xctest"
+               BlueprintName = "CryptoTests"
+               ReferencedContainer = "container:Buy.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "9A664D671EF05F63001BFB01"
+            BuildableName = "Crypto.framework"
+            BlueprintName = "Crypto"
+            ReferencedContainer = "container:Buy.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
