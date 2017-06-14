@@ -131,7 +131,7 @@ pod "Mobile-Buy-SDK"
 2. Run `pod install`.
 3. Import the SDK module:
 ```swift
-import Buy
+import MobileBuySDK
 ```
 
 ## Getting started [⤴](#table-of-contents)
