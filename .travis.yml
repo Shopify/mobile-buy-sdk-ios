@@ -9,3 +9,4 @@ script:
   - ./Scripts/test_crypto
   - ./Scripts/test_buy
   - ./Scripts/test_pay
+  - ./Scripts/test_sample
