@@ -474,14 +474,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9A0C7FCB1EA663110020F187 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				9A0C7FCC1EA6631B0020F187 /* Models.swift */,
-			);
-			name = Models;
-			sourceTree = "<group>";
-		};
 		9A0C7FF81EAA51C50020F187 /* Storefront */ = {
 			isa = PBXGroup;
 			children = (
@@ -618,8 +610,8 @@
 		9A4068E81E8E7659000254CD /* PayTests */ = {
 			isa = PBXGroup;
 			children = (
-				9A0C7FCB1EA663110020F187 /* Models */,
-				9AEC90E01E9FFA6E008C6E1C /* Mocks */,
+				9A4666111EF191B300A41625 /* Models */,
+				9A4666121EF191B600A41625 /* Mocks */,
 				9A4068E91E8E7659000254CD /* PaySessionTests.swift */,
 				9AADF1CC1EA6618800D22740 /* PayCheckoutTests.swift */,
 				9A0C7FD21EA66DF70020F187 /* PayDiscountTests.swift */,
@@ -670,6 +662,26 @@
 			children = (
 				9AA89E8A1E9BDC590075AC74 /* MockSession.swift */,
 				9AA89E8C1E9BDC650075AC74 /* MockSessionDataTask.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		9A4666111EF191B300A41625 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9A0C7FCC1EA6631B0020F187 /* Models.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		9A4666121EF191B600A41625 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				9AEC90E11E9FFA7F008C6E1C /* MockSessionDelegate.swift */,
+				9AEC90E31E9FFAA6008C6E1C /* MockAuthorizationController.swift */,
+				9AADF1C61EA63ED000D22740 /* MockPaymentMethod.swift */,
+				9AADF1C81EA63FB900D22740 /* MockPaymentToken.swift */,
+				9AADF1CA1EA640C000D22740 /* MockPayment.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -728,18 +740,6 @@
 				9A0C80F31EB785310020F187 /* Card.Client.swift */,
 			);
 			path = Card;
-			sourceTree = "<group>";
-		};
-		9AEC90E01E9FFA6E008C6E1C /* Mocks */ = {
-			isa = PBXGroup;
-			children = (
-				9AEC90E11E9FFA7F008C6E1C /* MockSessionDelegate.swift */,
-				9AEC90E31E9FFAA6008C6E1C /* MockAuthorizationController.swift */,
-				9AADF1C61EA63ED000D22740 /* MockPaymentMethod.swift */,
-				9AADF1C81EA63FB900D22740 /* MockPaymentToken.swift */,
-				9AADF1CA1EA640C000D22740 /* MockPayment.swift */,
-			);
-			name = Mocks;
 			sourceTree = "<group>";
 		};
 		9AEF60E91E5F42D90067FA90 = {
