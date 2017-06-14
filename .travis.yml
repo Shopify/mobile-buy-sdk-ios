@@ -1,12 +1,11 @@
 language: objective-c
 osx_image: xcode8.3
-rvm:
-  - 2.2
   
 before_install:
   - gem install xcpretty
   
 script:
   - set -o pipefail
+  - ./Scripts/test_crypto
   - ./Scripts/test_buy
   - ./Scripts/test_pay

@@ -1,6 +1,6 @@
 //
-//  Buy.h
-//  Buy
+//  Hash.h
+//  Crypto
 //
 //  Created by Shopify.
 //  Copyright (c) 2017 Shopify Inc. All rights reserved.
@@ -24,10 +24,22 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
-//! Project version number for Buy.
-FOUNDATION_EXPORT double BuyVersionNumber;
+NS_ASSUME_NONNULL_BEGIN
 
-//! Project version string for Buy.
-FOUNDATION_EXPORT const unsigned char BuyVersionString[];
+#pragma mark - NSData -
+@interface NSData (Hash)
+
+- (NSString *)md5;
+
+@end
+
+#pragma mark - NSString -
+@interface NSString (Hash)
+
+- (NSString *)md5;
+
+@end
+
+NS_ASSUME_NONNULL_END

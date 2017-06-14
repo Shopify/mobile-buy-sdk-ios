@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
   }
   
   s.subspec 'Buy' do |s|
-    s.source_files = 'Buy/**/*.{h,m,c,swift}', 'Dependencies/Swift Gen/support/Sources/GraphQL.swift'
+    s.source_files = 'Buy/**/*.{h,m,c,swift}', 'Crypto/**/*.{h,m,c,swift}', 'Dependencies/Swift Gen/support/Sources/GraphQL.swift'
     s.xcconfig = { 
       "GCC_PREPROCESSOR_DEFINITIONS" => '$(inherited) COCOAPODS=1' 
     }
