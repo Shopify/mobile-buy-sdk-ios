@@ -37,7 +37,6 @@
 		9A0C7FEF1EAA3F7E0020F187 /* Graph.ClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA89E871E9BDB7F0075AC74 /* Graph.ClientTests.swift */; };
 		9A0C7FF01EAA3F7E0020F187 /* Graph.QueryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA89E951E9D29B40075AC74 /* Graph.QueryError.swift */; };
 		9A0C7FF11EAA3F7E0020F187 /* Graph.RetryHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA89E971E9D2BD80075AC74 /* Graph.RetryHandlerTests.swift */; };
-		9A0C7FF21EAA3F7E0020F187 /* BuyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFA38EC1E64850A0056C5AA /* BuyTests.swift */; };
 		9A0C80581EAA51C50020F187 /* AppliedGiftCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C7FF91EAA51C50020F187 /* AppliedGiftCard.swift */; };
 		9A0C80591EAA51C50020F187 /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C7FFA1EAA51C50020F187 /* Attribute.swift */; };
 		9A0C805A1EAA51C50020F187 /* AttributeInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C7FFB1EAA51C50020F187 /* AttributeInput.swift */; };
@@ -421,7 +420,6 @@
 		9AEF61A01E5F5A190067FA90 /* GraphQL+ScalarSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GraphQL+ScalarSupport.swift"; sourceTree = "<group>"; };
 		9AEF61B81E5F64230067FA90 /* Graph.Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.Client.swift; sourceTree = "<group>"; };
 		9AFA38EA1E64850A0056C5AA /* BuyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BuyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9AFA38EC1E64850A0056C5AA /* BuyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyTests.swift; sourceTree = "<group>"; };
 		9AFA38EE1E64850A0056C5AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9AFA3B6C1E6D9A5E0056C5AA /* GraphQL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQL.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -809,7 +807,6 @@
 				9AA6B6D51E9D562200CE9F18 /* Custom */,
 				9A0C80F51EB7B6090020F187 /* Card */,
 				9AA89E841E9BD8740075AC74 /* Client */,
-				9AFA38EC1E64850A0056C5AA /* BuyTests.swift */,
 				9AFA38EE1E64850A0056C5AA /* Info.plist */,
 			);
 			path = BuyTests;
@@ -1300,7 +1297,6 @@
 				9A6F3BA91EBB6A7500B149F4 /* Graph.CacheTests.swift in Sources */,
 				9A0C7FEB1EAA3F7E0020F187 /* MockSession.swift in Sources */,
 				9A0C7FEF1EAA3F7E0020F187 /* Graph.ClientTests.swift in Sources */,
-				9A0C7FF21EAA3F7E0020F187 /* BuyTests.swift in Sources */,
 				9A0C7FF11EAA3F7E0020F187 /* Graph.RetryHandlerTests.swift in Sources */,
 				9A0C7FEE1EAA3F7E0020F187 /* Graph.TaskTests.swift in Sources */,
 				9AA7AC781EBB78160014D95D /* Graph.CacheItemTests.swift in Sources */,
@@ -1740,6 +1736,7 @@
 				9A664D861EF159F8001BFB01 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9AEF60ED1E5F42D90067FA90 /* Build configuration list for PBXProject "Buy" */ = {
 			isa = XCConfigurationList;
