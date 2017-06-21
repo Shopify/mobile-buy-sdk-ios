@@ -1313,11 +1313,11 @@ task.resume()
 
 ## Customer Accounts [⤴](#table-of-contents)
 
-Using the Buy SDK, you can build custom storefronts that allow your customers to create accounts, browse orders and manage their information. Since most customer-related actions modify state on the server, they are performed using various `mutation` queries. Let's take a look at a few.
+Using the Buy SDK, you can build custom storefronts that allow your customers to create accounts, browse previously completed orders and manage their information. Since most customer-related actions modify state on the server, they are performed using various `mutation` queries. Let's take a look at a few.
 
 ### Creating a customer [⤴](#table-of-contents)
 
-Before a customer can login, they must first create an account. In your application, you can provide a signup form that will run the following `mutation` query. The `input` to the mutation is some basic customer information that will create an account on your shop. Keep in mind that this mutation returns a `Storefront.Customer` object, **not** an access token. After a successful mutation, the customer will still be required to [log in using their credentials](#customer-login-).
+Before a customer can log in, they must first create an account. In your application, you can provide a signup form that will run the following `mutation` query. The `input` to the mutation is some basic customer information that will create an account on your shop. Keep in mind that this mutation returns a `Storefront.Customer` object, **not** an access token. After a successful mutation, the customer will still be required to [log in using their credentials](#customer-login-).
 
 ```swift
 let input = Storefront.CustomerCreateInput(
