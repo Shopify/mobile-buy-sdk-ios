@@ -1369,6 +1369,8 @@ let mutation = Storefront.buildMutation { $0
 ```
 Optionally, you can refresh the custom access token periodically using the `customerAccessTokenRenew` mutation.
 
+**IMPORTANT:** It is your responsibility to securely store the customer access token. We recommend using Keychain and best practices for storing secure data.
+
 ### Forgot password [⤴](#table-of-contents)
 
 Occasionally, a customer might forget their account password. The SDK provides a way for your application to reset a customer's password. A minimalistic implementation can simply call the recover mutation, at which point the customer will receive an email with instructions on how to reset their password in a web browser. The following mutation just takes a customer's email as an argument and returns `userErrors` in the payload if there are issues with the input:
