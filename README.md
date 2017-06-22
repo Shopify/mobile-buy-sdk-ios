@@ -67,7 +67,7 @@ The Mobile Buy SDK makes it easy to create custom storefronts in your mobile app
   - [Customer Accounts](#customer-accounts-)
       - [Creating a customer](#creating-a-customer-)
       - [Customer login](#customer-login-)
-      - [Forgot password](#forgot-password-)
+      - [Password reset](#password-reset-)
       - [Create, update and delete address](#create-update-and-delete-address-)
       - [Customer information](#customer-information-)
       - [Customer Addresses](#customer-addresses-)
@@ -1313,11 +1313,11 @@ task.resume()
 
 ## Customer Accounts [⤴](#table-of-contents)
 
-Using the Buy SDK, you can build custom storefronts that allow your customers to create accounts, browse previously completed orders and manage their information. Since most customer-related actions modify state on the server, they are performed using various `mutation` requests. Let's take a look at a few.
+Using the Buy SDK, you can build custom storefronts that let your customers create accounts, browse previously completed orders, and manage their information. Since most customer-related actions modify states on the server, they are performed using various `mutation` requests. Let's take a look at a few examples.
 
 ### Creating a customer [⤴](#table-of-contents)
 
-Before a customer can log in, they must first create an account. In your application, you can provide a signup form that will run the following `mutation` request. The `input` to the mutation is some basic customer information that will create an account on your shop. Keep in mind that this mutation returns a `Storefront.Customer` object, **not** an access token. After a successful mutation, the customer will still be required to [log in using their credentials](#customer-login-).
+Before a customer can log in, they must first create an account. In your application, you can provide a sign-up form that runs the following `mutation` request. In this example, the `input` for the mutation is some basic customer information that will create an account on your shop.
 
 ```swift
 let input = Storefront.CustomerCreateInput(
@@ -1344,9 +1344,11 @@ let mutation = Storefront.buildMutation { $0
 }
 ```
 
+Keep in mind that this mutation returns a `Storefront.Customer` object, **not** an access token. After a successful mutation, the customer will still be required to [log in using their credentials](#customer-login-).
+
 ### Customer login [⤴](#table-of-contents)
 
-Any customer with an account can log in to your shop. All login operations are `mutation` requests that exchange customer credentials for an access token. You can log in your customers using the `customerAccessTokenCreate` mutation. Keep in mind that the return access token expires. The expiry `Date` is provided by the `expiresAt` property of the returned payload.
+Any customer who has an account can log in to your shop. All log-in operations are `mutation` requests that exchange customer credentials for an access token. You can log in your customers using the `customerAccessTokenCreate` mutation. Keep in mind that the return access token will eventually expire. The expiry `Date` is provided by the `expiresAt` property of the returned payload.
 
 ```swift
 let input = Storefront.CustomerAccessTokenCreateInput(
@@ -1367,13 +1369,16 @@ let mutation = Storefront.buildMutation { $0
     }
 }
 ```
+
 Optionally, you can refresh the custom access token periodically using the `customerAccessTokenRenew` mutation.
 
 **IMPORTANT:** It is your responsibility to securely store the customer access token. We recommend using Keychain and best practices for storing secure data.
 
-### Forgot password [⤴](#table-of-contents)
+### Password reset [⤴](#table-of-contents)
 
-Occasionally, a customer might forget their account password. The SDK provides a way for your application to reset a customer's password. A minimalistic implementation can simply call the recover mutation, at which point the customer will receive an email with instructions on how to reset their password in a web browser. The following mutation just takes a customer's email as an argument and returns `userErrors` in the payload if there are issues with the input:
+Occasionally, a customer might forget their account password. The SDK provides a way for your application to reset a customer's password. A minimalistic implementation can simply call the recover mutation, at which point the customer will receive an email with instructions on how to reset their password in a web browser.
+
+The following mutation takes a customer's email as an argument and returns `userErrors` in the payload if there are issues with the input:
 
 ```swift
 let mutation = Storefront.buildMutation { $0
@@ -1386,9 +1391,11 @@ let mutation = Storefront.buildMutation { $0
 }
 ```
 
-### Create, update and delete address [⤴](#table-of-contents)
+### Create, update, and delete address [⤴](#table-of-contents)
 
-You can create, update and delete addresses on the customer's behalf using the appropriate `mutation`. The important thing to keep in mind with these mutations is that they require customer authentication. Each query requires a customer access token as a parameter in order to perform the mutation. This is an example of a mutation for creating an address:
+You can create, update, and delete addresses on the customer's behalf using the appropriate `mutation`. Keep in mind that these mutations require customer authentication. Each query requires a customer access token as a parameter to perform the mutation.
+
+The following example shows a mutation for creating an address:
 
 ```swift
 let input = Storefront.MailingAddressInput(
@@ -1420,7 +1427,9 @@ let mutation = Storefront.buildMutation { $0
 
 ### Customer information [⤴](#table-of-contents)
 
-Up to this point, all our interaction with customer information has been through `mutation` requests but at some point, we'll need to show the customer their info as well. Just like the address mutations, customer `query` operations are authenticated and require a valid access token to execute. Let's take a look at how we can obtain some basic customer info:
+Up to this point, our interaction with customer information has been through `mutation` requests. At some point, we'll also need to show the customer their information. We can do this using customer `query` operations.
+
+Just like the address mutations, customer `query` operations are authenticated and require a valid access token to execute. The following example shows how to obtain some basic customer info:
 
 ```swift
 let query = Storefront.buildQuery { $0
@@ -1435,7 +1444,7 @@ let query = Storefront.buildQuery { $0
 
 #### Customer Addresses [⤴](#table-of-contents)
 
-We can obtain addresses associated with the customer's account: 
+You can obtain the addresses associated with the customer's account:
 
 ```swift
 let query = Storefront.buildQuery { $0
@@ -1457,7 +1466,7 @@ let query = Storefront.buildQuery { $0
 
 #### Customer Orders [⤴](#table-of-contents)
 
-We can obtain order history for a customer as well:
+You can also obtain a customer's order history:
 
 ```swift
 let query = Storefront.buildQuery { $0
