@@ -1013,7 +1013,7 @@ The corresponding GraphQL query looks like this:
 
 After browsing products and collections, a customer might eventually want to purchase something. The Buy SDK does not provide support for a local shopping cart since the requirements can vary between applications. Instead, the implementation is left up to the custom storefront. Nevertheless, when a customer is ready to make a purchase you'll need to create a checkout.
 
-Almost every `mutation` query requires an input object. This is the object that dictates what fields will be mutated for a particular resource. In this case, we'll need to create a `Storefront.CheckoutCreateInput`:
+Almost every `mutation` request requires an input object. This is the object that dictates what fields will be mutated for a particular resource. In this case, we'll need to create a `Storefront.CheckoutCreateInput`:
 
 ```swift
 let input = Storefront.CheckoutCreateInput(
@@ -1313,11 +1313,11 @@ task.resume()
 
 ## Customer Accounts [⤴](#table-of-contents)
 
-Using the Buy SDK, you can build custom storefronts that allow your customers to create accounts, browse previously completed orders and manage their information. Since most customer-related actions modify state on the server, they are performed using various `mutation` queries. Let's take a look at a few.
+Using the Buy SDK, you can build custom storefronts that allow your customers to create accounts, browse previously completed orders and manage their information. Since most customer-related actions modify state on the server, they are performed using various `mutation` requests. Let's take a look at a few.
 
 ### Creating a customer [⤴](#table-of-contents)
 
-Before a customer can log in, they must first create an account. In your application, you can provide a signup form that will run the following `mutation` query. The `input` to the mutation is some basic customer information that will create an account on your shop. Keep in mind that this mutation returns a `Storefront.Customer` object, **not** an access token. After a successful mutation, the customer will still be required to [log in using their credentials](#customer-login-).
+Before a customer can log in, they must first create an account. In your application, you can provide a signup form that will run the following `mutation` request. The `input` to the mutation is some basic customer information that will create an account on your shop. Keep in mind that this mutation returns a `Storefront.Customer` object, **not** an access token. After a successful mutation, the customer will still be required to [log in using their credentials](#customer-login-).
 
 ```swift
 let input = Storefront.CustomerCreateInput(
@@ -1346,7 +1346,7 @@ let mutation = Storefront.buildMutation { $0
 
 ### Customer login [⤴](#table-of-contents)
 
-Any customer with an account can log in to your shop. All login operations are `mutation` queries that exchange customer credentials for an access token. You can log in your customers using the `customerAccessTokenCreate` mutation. Keep in mind that the return access token expires. The expiry `Date` is provided by the `expiresAt` property of the returned payload.
+Any customer with an account can log in to your shop. All login operations are `mutation` requests that exchange customer credentials for an access token. You can log in your customers using the `customerAccessTokenCreate` mutation. Keep in mind that the return access token expires. The expiry `Date` is provided by the `expiresAt` property of the returned payload.
 
 ```swift
 let input = Storefront.CustomerAccessTokenCreateInput(
@@ -1388,7 +1388,7 @@ let mutation = Storefront.buildMutation { $0
 
 ### Create, update and delete address [⤴](#table-of-contents)
 
-You can create, update and delete addresses on the customer's behalf using the appropriate `mutation` queries. The important thing to keep in mind with these mutations is that they require customer authentication. Each query requires a customer access token as a parameter in order to perform the mutation. This is an example of a mutation for creating an address:
+You can create, update and delete addresses on the customer's behalf using the appropriate `mutation`. The important thing to keep in mind with these mutations is that they require customer authentication. Each query requires a customer access token as a parameter in order to perform the mutation. This is an example of a mutation for creating an address:
 
 ```swift
 let input = Storefront.MailingAddressInput(
@@ -1420,7 +1420,7 @@ let mutation = Storefront.buildMutation { $0
 
 ### Customer information [⤴](#table-of-contents)
 
-Up to this point, all our interaction with customer information has been through `mutation` queries but at some point, we'll need to show the customer their info as well. Just like the address mutations, customer `query` operations are authenticated and require a valid access token to execute. Let's take a look at how we can obtain some basic customer info:
+Up to this point, all our interaction with customer information has been through `mutation` requests but at some point, we'll need to show the customer their info as well. Just like the address mutations, customer `query` operations are authenticated and require a valid access token to execute. Let's take a look at how we can obtain some basic customer info:
 
 ```swift
 let query = Storefront.buildQuery { $0
