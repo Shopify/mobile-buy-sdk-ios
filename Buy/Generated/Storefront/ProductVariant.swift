@@ -33,9 +33,17 @@ extension Storefront {
 		public typealias Response = ProductVariant
 
 		/// Indicates if the product variant is in stock. 
+		@available(*, deprecated, message:"Use `availableForSale` instead")
 		@discardableResult
 		open func available(alias: String? = nil) -> ProductVariantQuery {
 			addField(field: "available", aliasSuffix: alias)
+			return self
+		}
+
+		/// Indicates if the product variant is available for sale. 
+		@discardableResult
+		open func availableForSale(alias: String? = nil) -> ProductVariantQuery {
+			addField(field: "availableForSale", aliasSuffix: alias)
 			return self
 		}
 
@@ -147,6 +155,12 @@ extension Storefront {
 				}
 				return value
 
+				case "availableForSale":
+				guard let value = value as? Bool else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return value
+
 				case "id":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
@@ -202,13 +216,23 @@ extension Storefront {
 			}
 		}
 
-		/// Indicates if the product variant is in stock. 
+		/// Indicates if the product variant is in stock. @available(*, deprecated, message:"Use `availableForSale` instead")
+
 		open var available: Bool? {
 			return internalGetAvailable()
 		}
 
 		func internalGetAvailable(alias: String? = nil) -> Bool? {
 			return field(field: "available", aliasSuffix: alias) as! Bool?
+		}
+
+		/// Indicates if the product variant is available for sale. 
+		open var availableForSale: Bool {
+			return internalGetAvailableForSale()
+		}
+
+		func internalGetAvailableForSale(alias: String? = nil) -> Bool {
+			return field(field: "availableForSale", aliasSuffix: alias) as! Bool
 		}
 
 		open var id: GraphQL.ID {

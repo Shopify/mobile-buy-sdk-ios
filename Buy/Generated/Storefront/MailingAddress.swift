@@ -97,6 +97,12 @@ extension Storefront {
 		}
 
 		@discardableResult
+		open func formattedArea(alias: String? = nil) -> MailingAddressQuery {
+			addField(field: "formattedArea", aliasSuffix: alias)
+			return self
+		}
+
+		@discardableResult
 		open func id(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
@@ -212,6 +218,12 @@ extension Storefront {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
 				return value.map { return $0 }
+
+				case "formattedArea":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return value
 
 				case "id":
 				guard let value = value as? String else {
@@ -346,6 +358,14 @@ extension Storefront {
 
 		func internalGetFormatted(alias: String? = nil) -> [String] {
 			return field(field: "formatted", aliasSuffix: alias) as! [String]
+		}
+
+		open var formattedArea: String {
+			return internalGetFormattedArea()
+		}
+
+		func internalGetFormattedArea(alias: String? = nil) -> String {
+			return field(field: "formattedArea", aliasSuffix: alias) as! String
 		}
 
 		open var id: GraphQL.ID {
