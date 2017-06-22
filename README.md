@@ -1309,7 +1309,7 @@ The Buy SDK includes a comprehensive sample application that covers the most com
 
 ## Contributions [⤴](#table-of-contents)
 
-We welcome contributions. Please follow the steps in our [contributing guidelines](CONTRIBUTING.md).
+We welcome contributions. Please follow the steps in our [contributing guidelines](.github/CONTRIBUTING.md).
 
 ## Help [⤴](#table-of-contents)
 
