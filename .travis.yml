@@ -6,7 +6,14 @@ before_install:
   
 script:
   - set -o pipefail
-  - ./Scripts/test_crypto
-  - ./Scripts/test_buy
-  - ./Scripts/test_pay
-  - ./Scripts/test_sample
+  - "./Scripts/test_crypto"
+  - "./Scripts/test_buy"
+  - "./Scripts/test_pay"
+  - "./Scripts/test_sample"
+
+notifications:
+  slack:
+    rooms:
+      on_success: change
+      on_failure: always
+      secure: pbP4oFT5PMX6AFZyBJHDzfNEXLkwBzg87RWFAr2J4wZpN64zBuZiGHb4mzWteC7ZqCUn4ovA7NgYI18vq6gkNtfeAGGpFi8ZrS9GzIIhmJqwhHLl5BI9NwFLxVcq2jjjELtnm6msvhevA4nQxkfwbCcvZpB8rY55EXTpgKtwVske+hhJxFOkjHb9tlvMg5GK14cyVKNYim1o1bMOFa18Puy+1wFRW05GBQ6DWgBMmdhm7hfoPlKMPK8mkzDjR987uWJ/21Ggrr2jMuKsQLM9C4QLZA7xdUpqC7OkAGQqeEOrx0gcJ/b1BTsz5j2iAXIRzlUdcskWUChtNVPrZlAZ972XevGxiWB+YB6lfmzDT9FPFoLJkzLUSyW7Iog2ORJoM2CSEq80mfPkl4eQGFZWUGSqbxQxSbdGBbLcJm/7Zp58+UzS5rEocmhbikHip1QqT2ISMuBC2r5PcUe103eSzrjoGsyzVjZzNU2Pr2KfvlRIhQE77naiC3GDDyemDCkRmQ7HiwalOOlZ4xgr4wECZds/L0HUDkGL/xhc62+OXnDkpSJj8b6/eGezfNv3RLn390kuODrN+u50VmGtyJ+kCv6TO/D5xK39rzrYuV5FR5gSlYFMf5exygvFHuB88sTakJyAtg0F9MkzDb9wZwwsFnOLm3JDVODsQB+fWaXE5ps=
