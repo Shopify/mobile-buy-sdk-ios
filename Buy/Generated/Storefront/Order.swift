@@ -34,29 +34,6 @@ extension Storefront {
 	open class OrderQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Order
 
-		/// The reason why the order was cancelled. If the order was not cancelled, 
-		/// this value is `null`. 
-		@discardableResult
-		open func cancelReason(alias: String? = nil) -> OrderQuery {
-			addField(field: "cancelReason", aliasSuffix: alias)
-			return self
-		}
-
-		/// The date and time when the order was cancelled. If the order was not 
-		/// cancelled, this value is `null.` 
-		@discardableResult
-		open func cancelledAt(alias: String? = nil) -> OrderQuery {
-			addField(field: "cancelledAt", aliasSuffix: alias)
-			return self
-		}
-
-		/// The date and time when the order was created. 
-		@discardableResult
-		open func createdAt(alias: String? = nil) -> OrderQuery {
-			addField(field: "createdAt", aliasSuffix: alias)
-			return self
-		}
-
 		/// The code of the currency used for the payment. 
 		@discardableResult
 		open func currencyCode(alias: String? = nil) -> OrderQuery {
@@ -68,20 +45,6 @@ extension Storefront {
 		@discardableResult
 		open func customerUrl(alias: String? = nil) -> OrderQuery {
 			addField(field: "customerUrl", aliasSuffix: alias)
-			return self
-		}
-
-		/// Displays financial status of order payment processing. 
-		@discardableResult
-		open func displayFinancialStatus(alias: String? = nil) -> OrderQuery {
-			addField(field: "displayFinancialStatus", aliasSuffix: alias)
-			return self
-		}
-
-		/// Displays fulfillment status of the order. 
-		@discardableResult
-		open func displayFulfillmentStatus(alias: String? = nil) -> OrderQuery {
-			addField(field: "displayFulfillmentStatus", aliasSuffix: alias)
 			return self
 		}
 
@@ -197,13 +160,6 @@ extension Storefront {
 			addField(field: "totalTax", aliasSuffix: alias)
 			return self
 		}
-
-		/// The date and time when the order was last modified. 
-		@discardableResult
-		open func updatedAt(alias: String? = nil) -> OrderQuery {
-			addField(field: "updatedAt", aliasSuffix: alias)
-			return self
-		}
 	}
 
 	/// An order is a customer’s completed request to purchase one or more products 
@@ -216,26 +172,6 @@ extension Storefront {
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
-				case "cancelReason":
-				if value is NSNull { return nil }
-				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
-				}
-				return OrderCancelReason(rawValue: value) ?? .unknownValue
-
-				case "cancelledAt":
-				if value is NSNull { return nil }
-				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
-				}
-				return GraphQL.iso8601DateParser.date(from: value)!
-
-				case "createdAt":
-				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
-				}
-				return GraphQL.iso8601DateParser.date(from: value)!
-
 				case "currencyCode":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
@@ -248,19 +184,6 @@ extension Storefront {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
 				return URL(string: value)!
-
-				case "displayFinancialStatus":
-				if value is NSNull { return nil }
-				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
-				}
-				return OrderDisplayFinancialStatus(rawValue: value) ?? .unknownValue
-
-				case "displayFulfillmentStatus":
-				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
-				}
-				return OrderDisplayFulfillmentStatus(rawValue: value) ?? .unknownValue
 
 				case "email":
 				if value is NSNull { return nil }
@@ -339,44 +262,9 @@ extension Storefront {
 				}
 				return Decimal(string: value, locale: GraphQL.posixLocale)
 
-				case "updatedAt":
-				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
-				}
-				return GraphQL.iso8601DateParser.date(from: value)!
-
 				default:
 				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 			}
-		}
-
-		/// The reason why the order was cancelled. If the order was not cancelled, 
-		/// this value is `null`. 
-		open var cancelReason: Storefront.OrderCancelReason? {
-			return internalGetCancelReason()
-		}
-
-		func internalGetCancelReason(alias: String? = nil) -> Storefront.OrderCancelReason? {
-			return field(field: "cancelReason", aliasSuffix: alias) as! Storefront.OrderCancelReason?
-		}
-
-		/// The date and time when the order was cancelled. If the order was not 
-		/// cancelled, this value is `null.` 
-		open var cancelledAt: Date? {
-			return internalGetCancelledAt()
-		}
-
-		func internalGetCancelledAt(alias: String? = nil) -> Date? {
-			return field(field: "cancelledAt", aliasSuffix: alias) as! Date?
-		}
-
-		/// The date and time when the order was created. 
-		open var createdAt: Date {
-			return internalGetCreatedAt()
-		}
-
-		func internalGetCreatedAt(alias: String? = nil) -> Date {
-			return field(field: "createdAt", aliasSuffix: alias) as! Date
 		}
 
 		/// The code of the currency used for the payment. 
@@ -395,24 +283,6 @@ extension Storefront {
 
 		func internalGetCustomerUrl(alias: String? = nil) -> URL? {
 			return field(field: "customerUrl", aliasSuffix: alias) as! URL?
-		}
-
-		/// Displays financial status of order payment processing. 
-		open var displayFinancialStatus: Storefront.OrderDisplayFinancialStatus? {
-			return internalGetDisplayFinancialStatus()
-		}
-
-		func internalGetDisplayFinancialStatus(alias: String? = nil) -> Storefront.OrderDisplayFinancialStatus? {
-			return field(field: "displayFinancialStatus", aliasSuffix: alias) as! Storefront.OrderDisplayFinancialStatus?
-		}
-
-		/// Displays fulfillment status of the order. 
-		open var displayFulfillmentStatus: Storefront.OrderDisplayFulfillmentStatus {
-			return internalGetDisplayFulfillmentStatus()
-		}
-
-		func internalGetDisplayFulfillmentStatus(alias: String? = nil) -> Storefront.OrderDisplayFulfillmentStatus {
-			return field(field: "displayFulfillmentStatus", aliasSuffix: alias) as! Storefront.OrderDisplayFulfillmentStatus
 		}
 
 		/// The customer's email address. 
@@ -528,15 +398,6 @@ extension Storefront {
 
 		func internalGetTotalTax(alias: String? = nil) -> Decimal? {
 			return field(field: "totalTax", aliasSuffix: alias) as! Decimal?
-		}
-
-		/// The date and time when the order was last modified. 
-		open var updatedAt: Date {
-			return internalGetUpdatedAt()
-		}
-
-		func internalGetUpdatedAt(alias: String? = nil) -> Date {
-			return field(field: "updatedAt", aliasSuffix: alias) as! Date
 		}
 
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {

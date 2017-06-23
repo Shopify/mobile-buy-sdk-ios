@@ -128,6 +128,26 @@ extension Storefront {
 			return self
 		}
 
+		/// Find a collection by its handle. 
+		///
+		/// - parameters:
+		///     - handle: No description
+		///
+		@discardableResult
+		open func collectionByHandle(alias: String? = nil, handle: String, _ subfields: (CollectionQuery) -> Void) -> ShopQuery {
+			var args: [String] = []
+
+			args.append("handle:\(GraphQL.quoteString(input: handle))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CollectionQuery()
+			subfields(subquery)
+
+			addField(field: "collectionByHandle", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// List of the shop’s collections. 
 		///
 		/// - parameters:
@@ -139,7 +159,6 @@ extension Storefront {
 		///         - `title`
 		///         - `collection_type`
 		///         - `updated_at`
-		///         - `published_status`
 		///
 		@discardableResult
 		open func collections(alias: String? = nil, first: Int32, after: String? = nil, sortKey: CollectionSortKeys? = nil, reverse: Bool? = nil, query: String? = nil, _ subfields: (CollectionConnectionQuery) -> Void) -> ShopQuery {
@@ -218,6 +237,26 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "privacyPolicy", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// Find a product by its handle. 
+		///
+		/// - parameters:
+		///     - handle: No description
+		///
+		@discardableResult
+		open func productByHandle(alias: String? = nil, handle: String, _ subfields: (ProductQuery) -> Void) -> ShopQuery {
+			var args: [String] = []
+
+			args.append("handle:\(GraphQL.quoteString(input: handle))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = ProductQuery()
+			subfields(subquery)
+
+			addField(field: "productByHandle", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
@@ -321,6 +360,13 @@ extension Storefront {
 				}
 				return URL(string: value)!
 
+				case "collectionByHandle":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try Collection(fields: value)
+
 				case "collections":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
@@ -364,6 +410,13 @@ extension Storefront {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
 				return try ShopPolicy(fields: value)
+
+				case "productByHandle":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try Product(fields: value)
 
 				case "products":
 				guard let value = value as? [String: Any] else {
@@ -430,6 +483,19 @@ extension Storefront {
 
 		func internalGetCardVaultUrl(alias: String? = nil) -> URL {
 			return field(field: "cardVaultUrl", aliasSuffix: alias) as! URL
+		}
+
+		/// Find a collection by its handle. 
+		open var collectionByHandle: Storefront.Collection? {
+			return internalGetCollectionByHandle()
+		}
+
+		open func aliasedCollectionByHandle(alias: String) -> Storefront.Collection? {
+			return internalGetCollectionByHandle(alias: alias)
+		}
+
+		func internalGetCollectionByHandle(alias: String? = nil) -> Storefront.Collection? {
+			return field(field: "collectionByHandle", aliasSuffix: alias) as! Storefront.Collection?
 		}
 
 		/// List of the shop’s collections. 
@@ -500,6 +566,19 @@ extension Storefront {
 			return field(field: "privacyPolicy", aliasSuffix: alias) as! Storefront.ShopPolicy?
 		}
 
+		/// Find a product by its handle. 
+		open var productByHandle: Storefront.Product? {
+			return internalGetProductByHandle()
+		}
+
+		open func aliasedProductByHandle(alias: String) -> Storefront.Product? {
+			return internalGetProductByHandle(alias: alias)
+		}
+
+		func internalGetProductByHandle(alias: String? = nil) -> Storefront.Product? {
+			return field(field: "productByHandle", aliasSuffix: alias) as! Storefront.Product?
+		}
+
 		/// List of the shop’s products. 
 		open var products: Storefront.ProductConnection {
 			return internalGetProducts()
@@ -552,6 +631,12 @@ extension Storefront {
 					response.append(internalGetBlogs())
 					response.append(contentsOf: internalGetBlogs().childResponseObjectMap())
 
+					case "collectionByHandle":
+					if let value = internalGetCollectionByHandle() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
 					case "collections":
 					response.append(internalGetCollections())
 					response.append(contentsOf: internalGetCollections().childResponseObjectMap())
@@ -562,6 +647,12 @@ extension Storefront {
 
 					case "privacyPolicy":
 					if let value = internalGetPrivacyPolicy() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "productByHandle":
+					if let value = internalGetProductByHandle() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
