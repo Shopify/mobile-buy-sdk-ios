@@ -131,25 +131,7 @@ extension Storefront {
 		///     - sortKey: No description
 		///     - reverse: No description
 		///     - query: Supported filter parameters:
-		///         - `status`
-		///         - `financial_status`
-		///         - `fulfillment_status`
-		///         - `source_name`
-		///         - `chargeback_status`
-		///         - `risk_level`
-		///         - `customer_id`
-		///         - `email`
-		///         - `credit_card_last4`
 		///         - `processed_at`
-		///         - `checkout_token`
-		///         - `cart_token`
-		///         - `location_id`
-		///         - `channel_id`
-		///         - `discount_code`
-		///         - `tag`
-		///         - `since_id`
-		///         - `updated_at`
-		///         - `created_at`
 		///
 		@discardableResult
 		open func orders(alias: String? = nil, first: Int32, after: String? = nil, sortKey: OrderSortKeys? = nil, reverse: Bool? = nil, query: String? = nil, _ subfields: (OrderConnectionQuery) -> Void) -> CustomerQuery {

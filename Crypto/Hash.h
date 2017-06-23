@@ -1,6 +1,6 @@
 //
-//  BuyTests.swift
-//  BuyTests
+//  Hash.h
+//  Crypto
 //
 //  Created by Shopify.
 //  Copyright (c) 2017 Shopify Inc. All rights reserved.
@@ -24,9 +24,22 @@
 //  THE SOFTWARE.
 //
 
-import XCTest
+#import <Foundation/Foundation.h>
 
-class BuyTests: XCTestCase {
-    
-    
-}
+NS_ASSUME_NONNULL_BEGIN
+
+#pragma mark - NSData -
+@interface NSData (Hash)
+
+- (NSString *)md5;
+
+@end
+
+#pragma mark - NSString -
+@interface NSString (Hash)
+
+- (NSString *)md5;
+
+@end
+
+NS_ASSUME_NONNULL_END

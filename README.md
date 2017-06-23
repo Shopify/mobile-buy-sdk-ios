@@ -64,6 +64,14 @@ The Mobile Buy SDK makes it easy to create custom storefronts in your mobile app
           - [ Pay](#apple-pay-checkout-)
       - [Polling for checkout completion](#polling-for-checkout-completion-)
   - [Handling Errors](#handling-errors-)
+  - [Customer Accounts](#customer-accounts-)
+      - [Creating a customer](#creating-a-customer-)
+      - [Customer login](#customer-login-)
+      - [Password reset](#password-reset-)
+      - [Create, update and delete address](#create-update-and-delete-address-)
+      - [Customer information](#customer-information-)
+      - [Customer Addresses](#customer-addresses-)
+      - [Customer Orders](#customer-orders-)
 
 - [Sample application](#sample-application-)
 - [Contributions](#contributions-)
@@ -131,7 +139,7 @@ pod "Mobile-Buy-SDK"
 2. Run `pod install`.
 3. Import the SDK module:
 ```swift
-import Buy
+import MobileBuySDK
 ```
 
 ## Getting started [⤴](#table-of-contents)
@@ -1005,7 +1013,7 @@ The corresponding GraphQL query looks like this:
 
 After browsing products and collections, a customer might eventually want to purchase something. The Buy SDK does not provide support for a local shopping cart since the requirements can vary between applications. Instead, the implementation is left up to the custom storefront. Nevertheless, when a customer is ready to make a purchase you'll need to create a checkout.
 
-Almost every `mutation` query requires an input object. This is the object that dictates what fields will be mutated for a particular resource. In this case, we'll need to create a `Storefront.CheckoutCreateInput`:
+Almost every `mutation` request requires an input object. This is the object that dictates what fields will be mutated for a particular resource. In this case, we'll need to create a `Storefront.CheckoutCreateInput`:
 
 ```swift
 let input = Storefront.CheckoutCreateInput(
@@ -1303,13 +1311,186 @@ task.resume()
 
 **IMPORTANT:** `Graph.QueryError` does not contain user-friendly information. Often, it describes the technical reason for the failure, and shouldn't be shown to the end-user. Handling errors is most useful for debugging.
 
+## Customer Accounts [⤴](#table-of-contents)
+
+Using the Buy SDK, you can build custom storefronts that let your customers create accounts, browse previously completed orders, and manage their information. Since most customer-related actions modify states on the server, they are performed using various `mutation` requests. Let's take a look at a few examples.
+
+### Creating a customer [⤴](#table-of-contents)
+
+Before a customer can log in, they must first create an account. In your application, you can provide a sign-up form that runs the following `mutation` request. In this example, the `input` for the mutation is some basic customer information that will create an account on your shop.
+
+```swift
+let input = Storefront.CustomerCreateInput(
+    email:     "john.smith@gmail.com",
+    password:  "123456",
+    firstName: "John",
+    lastName:  "Smith",
+    acceptsMarketing: true
+)
+
+let mutation = Storefront.buildMutation { $0
+    .customerCreate(input: input) { $0
+        .customer { $0
+            .id()
+            .email()
+            .firstName()
+            .lastName()
+        }
+        .userErrors { $0
+            .field()
+            .message()
+        }
+    }
+}
+```
+
+Keep in mind that this mutation returns a `Storefront.Customer` object, **not** an access token. After a successful mutation, the customer will still be required to [log in using their credentials](#customer-login-).
+
+### Customer login [⤴](#table-of-contents)
+
+Any customer who has an account can log in to your shop. All log-in operations are `mutation` requests that exchange customer credentials for an access token. You can log in your customers using the `customerAccessTokenCreate` mutation. Keep in mind that the return access token will eventually expire. The expiry `Date` is provided by the `expiresAt` property of the returned payload.
+
+```swift
+let input = Storefront.CustomerAccessTokenCreateInput(
+    email:    "john.smith@gmail.com",
+    password: "123456"
+)
+
+let mutation = Storefront.buildMutation { $0
+    .customerAccessTokenCreate(input: input) { $0
+        .customerAccessToken { $0
+            .accessToken()
+            .expiresAt()
+        }
+        .userErrors { $0
+            .field()
+            .message()
+        }
+    }
+}
+```
+
+Optionally, you can refresh the custom access token periodically using the `customerAccessTokenRenew` mutation.
+
+**IMPORTANT:** It is your responsibility to securely store the customer access token. We recommend using Keychain and best practices for storing secure data.
+
+### Password reset [⤴](#table-of-contents)
+
+Occasionally, a customer might forget their account password. The SDK provides a way for your application to reset a customer's password. A minimalistic implementation can simply call the recover mutation, at which point the customer will receive an email with instructions on how to reset their password in a web browser.
+
+The following mutation takes a customer's email as an argument and returns `userErrors` in the payload if there are issues with the input:
+
+```swift
+let mutation = Storefront.buildMutation { $0
+    .customerRecover(email: "john.smith@gmail.com") { $0
+        .userErrors { $0
+            .field()
+            .message()
+        }
+    }
+}
+```
+
+### Create, update, and delete address [⤴](#table-of-contents)
+
+You can create, update, and delete addresses on the customer's behalf using the appropriate `mutation`. Keep in mind that these mutations require customer authentication. Each query requires a customer access token as a parameter to perform the mutation.
+
+The following example shows a mutation for creating an address:
+
+```swift
+let input = Storefront.MailingAddressInput(
+    address1:  "80 Spadina Ave.",
+    address2:  "Suite 400",
+    city:      "Toronto",
+    country:   "Canada",
+    firstName: "John",
+    lastName:  "Smith",
+    phone:     "1-123-456-7890",
+    province:  "ON",
+    zip:       "M5V 2J4"
+)
+
+let mutation = Storefront.buildMutation { $0
+    .customerAddressCreate(customerAccessToken: token, address: input) { $0
+        .customerAddress { $0
+            .id()
+            .address1()
+            .address2()
+        }
+        .userErrors { $0
+            .field()
+            .message()
+        }
+    }
+}
+```
+
+### Customer information [⤴](#table-of-contents)
+
+Up to this point, our interaction with customer information has been through `mutation` requests. At some point, we'll also need to show the customer their information. We can do this using customer `query` operations.
+
+Just like the address mutations, customer `query` operations are authenticated and require a valid access token to execute. The following example shows how to obtain some basic customer info:
+
+```swift
+let query = Storefront.buildQuery { $0
+    .customer(customerAccessToken: token) { $0
+        .id()
+        .firstName()
+        .lastName()
+        .email()
+    }
+}
+```
+
+#### Customer Addresses [⤴](#table-of-contents)
+
+You can obtain the addresses associated with the customer's account:
+
+```swift
+let query = Storefront.buildQuery { $0
+    .customer(customerAccessToken: token) { $0
+        .addresses(first: 10) { $0
+            .edges { $0
+                .node { $0
+                    .address1()
+                    .address2()
+                    .city()
+                    .province()
+                    .country()
+                }
+            }
+        }
+    }
+}
+```
+
+#### Customer Orders [⤴](#table-of-contents)
+
+You can also obtain a customer's order history:
+
+```swift
+let query = Storefront.buildQuery { $0
+    .customer(customerAccessToken: token) { $0
+        .orders(first: 10) { $0
+            .edges { $0
+                .node { $0
+                    .id()
+                    .orderNumber()
+                    .totalPrice()
+                }
+            }
+        }
+    }
+}
+```
+
 ## Sample application [⤴](#table-of-contents)
 
 The Buy SDK includes a comprehensive sample application that covers the most common use cases of the SDK. It's built on best practices and our recommended `ViewModel` architecture. You can use it as a template, a starting point, or a place to cherrypick components as needed. Check out the [Storefront readme](/Sample%20Apps/Storefront/) for more details.
 
 ## Contributions [⤴](#table-of-contents)
 
-We welcome contributions. Please follow the steps in our [contributing guidelines](CONTRIBUTING.md).
+We welcome contributions. Please follow the steps in our [contributing guidelines](.github/CONTRIBUTING.md).
 
 ## Help [⤴](#table-of-contents)
 

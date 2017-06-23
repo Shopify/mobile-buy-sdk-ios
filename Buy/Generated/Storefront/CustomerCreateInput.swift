@@ -38,6 +38,9 @@ extension Storefront {
 		/// The customer’s email. 
 		open var email: String
 
+		/// The customer’s phone number. 
+		open var phone: String?
+
 		/// The login password used by the customer. 
 		open var password: String
 
@@ -51,13 +54,15 @@ extension Storefront {
 		///     - firstName: The customer’s first name.
 		///     - lastName: The customer’s last name.
 		///     - email: The customer’s email.
+		///     - phone: The customer’s phone number.
 		///     - password: The login password used by the customer.
 		///     - acceptsMarketing: Indicates whether the customer has consented to be sent marketing material via email.
 		///
-		public init(email: String, password: String, firstName: String? = nil, lastName: String? = nil, acceptsMarketing: Bool? = nil) {
+		public init(email: String, password: String, firstName: String? = nil, lastName: String? = nil, phone: String? = nil, acceptsMarketing: Bool? = nil) {
 			self.firstName = firstName
 			self.lastName = lastName
 			self.email = email
+			self.phone = phone
 			self.password = password
 			self.acceptsMarketing = acceptsMarketing
 		}
@@ -74,6 +79,10 @@ extension Storefront {
 			}
 
 			fields.append("email:\(GraphQL.quoteString(input: email))")
+
+			if let phone = phone {
+				fields.append("phone:\(GraphQL.quoteString(input: phone))")
+			}
 
 			fields.append("password:\(GraphQL.quoteString(input: password))")
 

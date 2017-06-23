@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9AEF60F21E5F42D90067FA90"
-               BuildableName = "Buy.framework"
-               BlueprintName = "Buy"
+               BlueprintIdentifier = "9A664D671EF05F63001BFB01"
+               BuildableName = "Crypto.framework"
+               BlueprintName = "Crypto"
                ReferencedContainer = "container:Buy.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -26,16 +26,15 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9AFA38E91E64850A0056C5AA"
-               BuildableName = "BuyTests.xctest"
-               BlueprintName = "BuyTests"
+               BlueprintIdentifier = "9A664D7C1EF159F8001BFB01"
+               BuildableName = "CryptoTests.xctest"
+               BlueprintName = "CryptoTests"
                ReferencedContainer = "container:Buy.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -43,9 +42,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9AEF60F21E5F42D90067FA90"
-            BuildableName = "Buy.framework"
-            BlueprintName = "Buy"
+            BlueprintIdentifier = "9A664D671EF05F63001BFB01"
+            BuildableName = "Crypto.framework"
+            BlueprintName = "Crypto"
             ReferencedContainer = "container:Buy.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -65,9 +64,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9AEF60F21E5F42D90067FA90"
-            BuildableName = "Buy.framework"
-            BlueprintName = "Buy"
+            BlueprintIdentifier = "9A664D671EF05F63001BFB01"
+            BuildableName = "Crypto.framework"
+            BlueprintName = "Crypto"
             ReferencedContainer = "container:Buy.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -83,9 +82,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9AEF60F21E5F42D90067FA90"
-            BuildableName = "Buy.framework"
-            BlueprintName = "Buy"
+            BlueprintIdentifier = "9A664D671EF05F63001BFB01"
+            BuildableName = "Crypto.framework"
+            BlueprintName = "Crypto"
             ReferencedContainer = "container:Buy.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

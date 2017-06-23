@@ -24,45 +24,22 @@
 //  THE SOFTWARE.
 //
 
+#if COCOAPODS
 import Foundation
+#else
 import Crypto
-
-struct Digest {
-    
-    private init() {}
-    
-    static func md5(_ data: Data) -> [UInt8] {
-        
-        var context = CC_MD5_CTX()
-        var digest  = [UInt8](repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
-        
-        CC_MD5_Init(&context)
-        data.forEach { byte in
-            CC_MD5_Update(&context, [byte], 1)
-        }
-        CC_MD5_Final(&digest, &context)
-        
-        return digest
-    }
-}
+#endif
 
 extension String {
     
     var md5: String {
-        return self.data(using: .utf8)!.md5
+        return self.md5()
     }
 }
 
 extension Data {
     
     var md5: String {
-        return Digest.md5(self).hex
-    }
-}
-
-extension Array where Element == UInt8 {
-    
-    var hex: String {
-        return self.map { String(format: "%02x", $0) }.joined()
+        return (self as NSData).md5()
     }
 }

@@ -6,7 +6,7 @@ The Mobile Buy SDK ships with a sample application that demonstrates how to buil
 
 ## Setup
 
-To run the sample application, you need to provide credentials to the shop that the app will point to:
+The sample application is pre-configured with credentials to a test shop and requires no setup to build and run. You can also run the sample application with your own shop by following the steps below:
 
 1. Make sure that you have the **Mobile App** channel installed in your Shopify admin.
 2. From your Shopify admin, navigate to the **Mobile App** channel, and then copy your API key.

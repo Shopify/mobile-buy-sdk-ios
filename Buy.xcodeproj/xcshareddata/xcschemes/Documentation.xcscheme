@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9AEF60F21E5F42D90067FA90"
-               BuildableName = "Buy.framework"
-               BlueprintName = "Buy"
+               BlueprintIdentifier = "9A0C80C51EAE73840020F187"
+               BuildableName = "Documentation"
+               BlueprintName = "Documentation"
                ReferencedContainer = "container:Buy.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -26,29 +26,9 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9AFA38E91E64850A0056C5AA"
-               BuildableName = "BuyTests.xctest"
-               BlueprintName = "BuyTests"
-               ReferencedContainer = "container:Buy.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9AEF60F21E5F42D90067FA90"
-            BuildableName = "Buy.framework"
-            BlueprintName = "Buy"
-            ReferencedContainer = "container:Buy.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -65,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9AEF60F21E5F42D90067FA90"
-            BuildableName = "Buy.framework"
-            BlueprintName = "Buy"
+            BlueprintIdentifier = "9A0C80C51EAE73840020F187"
+            BuildableName = "Documentation"
+            BlueprintName = "Documentation"
             ReferencedContainer = "container:Buy.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -83,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9AEF60F21E5F42D90067FA90"
-            BuildableName = "Buy.framework"
-            BlueprintName = "Buy"
+            BlueprintIdentifier = "9A0C80C51EAE73840020F187"
+            BuildableName = "Documentation"
+            BlueprintName = "Documentation"
             ReferencedContainer = "container:Buy.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

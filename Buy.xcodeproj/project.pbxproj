@@ -37,7 +37,6 @@
 		9A0C7FEF1EAA3F7E0020F187 /* Graph.ClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA89E871E9BDB7F0075AC74 /* Graph.ClientTests.swift */; };
 		9A0C7FF01EAA3F7E0020F187 /* Graph.QueryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA89E951E9D29B40075AC74 /* Graph.QueryError.swift */; };
 		9A0C7FF11EAA3F7E0020F187 /* Graph.RetryHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA89E971E9D2BD80075AC74 /* Graph.RetryHandlerTests.swift */; };
-		9A0C7FF21EAA3F7E0020F187 /* BuyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFA38EC1E64850A0056C5AA /* BuyTests.swift */; };
 		9A0C80581EAA51C50020F187 /* AppliedGiftCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C7FF91EAA51C50020F187 /* AppliedGiftCard.swift */; };
 		9A0C80591EAA51C50020F187 /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C7FFA1EAA51C50020F187 /* Attribute.swift */; };
 		9A0C805A1EAA51C50020F187 /* AttributeInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C7FFB1EAA51C50020F187 /* AttributeInput.swift */; };
@@ -155,7 +154,13 @@
 		9A4069CC1E8EA710000254CD /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4069CB1E8EA710000254CD /* Graph.swift */; };
 		9A4069CF1E8ED98A000254CD /* Graph.Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4069CE1E8ED98A000254CD /* Graph.Task.swift */; };
 		9A49DC831EC4AD580053710B /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A49DC821EC4AD580053710B /* Header.swift */; };
-		9A6F3BA41EBB5BD700B149F4 /* DigestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F3BA31EBB5BD700B149F4 /* DigestTests.swift */; };
+		9A664D6C1EF05F63001BFB01 /* Crypto.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A664D6A1EF05F63001BFB01 /* Crypto.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9A664D721EF05F97001BFB01 /* Hash.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A664D701EF05F97001BFB01 /* Hash.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9A664D731EF05F97001BFB01 /* Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A664D711EF05F97001BFB01 /* Hash.m */; };
+		9A664D761EF06298001BFB01 /* Crypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A664D681EF05F63001BFB01 /* Crypto.framework */; };
+		9A664D781EF062A8001BFB01 /* Crypto.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9A664D681EF05F63001BFB01 /* Crypto.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9A664D801EF159F8001BFB01 /* CryptoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A664D7F1EF159F8001BFB01 /* CryptoTests.swift */; };
+		9A664D821EF159F8001BFB01 /* Crypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A664D681EF05F63001BFB01 /* Crypto.framework */; };
 		9A6F3BA61EBB5F2400B149F4 /* Digest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F3BA51EBB5F2400B149F4 /* Digest.swift */; };
 		9A6F3BA91EBB6A7500B149F4 /* Graph.CacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F3BA81EBB6A7500B149F4 /* Graph.CacheTests.swift */; };
 		9AA416C71EE095AA0060029B /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA416C21EE095AA0060029B /* Article.swift */; };
@@ -200,11 +205,18 @@
 			remoteGlobalIDString = 9A4068DB1E8E7658000254CD;
 			remoteInfo = Pay;
 		};
-		9A6F3B9F1EBB4AE800B149F4 /* PBXContainerItemProxy */ = {
+		9A664D741EF0626F001BFB01 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9AEF60EA1E5F42D90067FA90 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 9A6F3B961EBB49A000B149F4;
+			remoteGlobalIDString = 9A664D671EF05F63001BFB01;
+			remoteInfo = Crypto;
+		};
+		9A664D831EF159F8001BFB01 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9AEF60EA1E5F42D90067FA90 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9A664D671EF05F63001BFB01;
 			remoteInfo = Crypto;
 		};
 		9AFA38F01E64850A0056C5AA /* PBXContainerItemProxy */ = {
@@ -215,6 +227,19 @@
 			remoteInfo = Buy;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9A664D771EF0629F001BFB01 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9A664D781EF062A8001BFB01 /* Crypto.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		9A0C7FCC1EA6631B0020F187 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
@@ -346,9 +371,14 @@
 		9A4069CB1E8EA710000254CD /* Graph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
 		9A4069CE1E8ED98A000254CD /* Graph.Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.Task.swift; sourceTree = "<group>"; };
 		9A49DC821EC4AD580053710B /* Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
-		9A6F3B971EBB49A000B149F4 /* Crypto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Crypto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9A6F3B9A1EBB49A000B149F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9A6F3BA31EBB5BD700B149F4 /* DigestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DigestTests.swift; sourceTree = "<group>"; };
+		9A664D681EF05F63001BFB01 /* Crypto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Crypto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A664D6A1EF05F63001BFB01 /* Crypto.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Crypto.h; sourceTree = "<group>"; };
+		9A664D6B1EF05F63001BFB01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9A664D701EF05F97001BFB01 /* Hash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Hash.h; sourceTree = "<group>"; };
+		9A664D711EF05F97001BFB01 /* Hash.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Hash.m; sourceTree = "<group>"; };
+		9A664D7D1EF159F8001BFB01 /* CryptoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CryptoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A664D7F1EF159F8001BFB01 /* CryptoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoTests.swift; sourceTree = "<group>"; };
+		9A664D811EF159F8001BFB01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A6F3BA51EBB5F2400B149F4 /* Digest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Digest.swift; sourceTree = "<group>"; };
 		9A6F3BA81EBB6A7500B149F4 /* Graph.CacheTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.CacheTests.swift; sourceTree = "<group>"; };
 		9AA416C21EE095AA0060029B /* Article.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
@@ -390,7 +420,6 @@
 		9AEF61A01E5F5A190067FA90 /* GraphQL+ScalarSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GraphQL+ScalarSupport.swift"; sourceTree = "<group>"; };
 		9AEF61B81E5F64230067FA90 /* Graph.Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.Client.swift; sourceTree = "<group>"; };
 		9AFA38EA1E64850A0056C5AA /* BuyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BuyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9AFA38EC1E64850A0056C5AA /* BuyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyTests.swift; sourceTree = "<group>"; };
 		9AFA38EE1E64850A0056C5AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9AFA3B6C1E6D9A5E0056C5AA /* GraphQL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQL.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -411,10 +440,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9A6F3B931EBB49A000B149F4 /* Frameworks */ = {
+		9A664D641EF05F63001BFB01 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9A664D7A1EF159F8001BFB01 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A664D821EF159F8001BFB01 /* Crypto.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,6 +459,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A664D761EF06298001BFB01 /* Crypto.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,14 +474,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9A0C7FCB1EA663110020F187 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				9A0C7FCC1EA6631B0020F187 /* Models.swift */,
-			);
-			name = Models;
-			sourceTree = "<group>";
-		};
 		9A0C7FF81EAA51C50020F187 /* Storefront */ = {
 			isa = PBXGroup;
 			children = (
@@ -559,25 +589,6 @@
 			path = Storefront;
 			sourceTree = "<group>";
 		};
-		9A0C80EE1EB76DC50020F187 /* Card */ = {
-			isa = PBXGroup;
-			children = (
-				9A0C80EF1EB773310020F187 /* Card.swift */,
-				9A0C80F11EB773520020F187 /* Card.CreditCard.swift */,
-				9A0C80F31EB785310020F187 /* Card.Client.swift */,
-			);
-			name = Card;
-			sourceTree = "<group>";
-		};
-		9A0C80F51EB7B6090020F187 /* Card */ = {
-			isa = PBXGroup;
-			children = (
-				9A0C80F81EB7BAEF0020F187 /* Card.CreditCardTests.swift */,
-				9A0C80F61EB7B61B0020F187 /* Card.ClientTests.swift */,
-			);
-			name = Card;
-			sourceTree = "<group>";
-		};
 		9A4068DD1E8E7659000254CD /* Pay */ = {
 			isa = PBXGroup;
 			children = (
@@ -599,8 +610,8 @@
 		9A4068E81E8E7659000254CD /* PayTests */ = {
 			isa = PBXGroup;
 			children = (
-				9A0C7FCB1EA663110020F187 /* Models */,
-				9AEC90E01E9FFA6E008C6E1C /* Mocks */,
+				9A4666111EF191B300A41625 /* Models */,
+				9A4666121EF191B600A41625 /* Mocks */,
 				9A4068E91E8E7659000254CD /* PaySessionTests.swift */,
 				9AADF1CC1EA6618800D22740 /* PayCheckoutTests.swift */,
 				9A0C7FD21EA66DF70020F187 /* PayDiscountTests.swift */,
@@ -615,31 +626,7 @@
 			path = PayTests;
 			sourceTree = "<group>";
 		};
-		9A6F3B981EBB49A000B149F4 /* Crypto */ = {
-			isa = PBXGroup;
-			children = (
-				9A6F3B9A1EBB49A000B149F4 /* Info.plist */,
-			);
-			path = Crypto;
-			sourceTree = "<group>";
-		};
-		9A6F3BA71EBB5F4D00B149F4 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				9A6F3BA31EBB5BD700B149F4 /* DigestTests.swift */,
-			);
-			name = Utilities;
-			sourceTree = "<group>";
-		};
-		9AA6B6D51E9D562200CE9F18 /* Custom */ = {
-			isa = PBXGroup;
-			children = (
-				9AA6B6D61E9D563C00CE9F18 /* GraphQL+ScalarSupportTests.swift */,
-			);
-			name = Custom;
-			sourceTree = "<group>";
-		};
-		9AA89E841E9BD8740075AC74 /* Client */ = {
+		9A46660D1EF1914000A41625 /* Client */ = {
 			isa = PBXGroup;
 			children = (
 				9AE2A1C11EC6373B00921247 /* Graph.CachePolicyTests.swift */,
@@ -650,19 +637,76 @@
 				9AA89E951E9D29B40075AC74 /* Graph.QueryError.swift */,
 				9AA89E971E9D2BD80075AC74 /* Graph.RetryHandlerTests.swift */,
 			);
-			name = Client;
+			path = Client;
 			sourceTree = "<group>";
 		};
-		9AA89E891E9BDC4A0075AC74 /* Mocks */ = {
+		9A46660E1EF1915400A41625 /* Card */ = {
+			isa = PBXGroup;
+			children = (
+				9A0C80F81EB7BAEF0020F187 /* Card.CreditCardTests.swift */,
+				9A0C80F61EB7B61B0020F187 /* Card.ClientTests.swift */,
+			);
+			path = Card;
+			sourceTree = "<group>";
+		};
+		9A46660F1EF1916300A41625 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				9AA6B6D61E9D563C00CE9F18 /* GraphQL+ScalarSupportTests.swift */,
+			);
+			path = Custom;
+			sourceTree = "<group>";
+		};
+		9A4666101EF1917000A41625 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
 				9AA89E8A1E9BDC590075AC74 /* MockSession.swift */,
 				9AA89E8C1E9BDC650075AC74 /* MockSessionDataTask.swift */,
 			);
-			name = Mocks;
+			path = Mocks;
 			sourceTree = "<group>";
 		};
-		9AAFAB701E60766300864A17 /* Utilities */ = {
+		9A4666111EF191B300A41625 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9A0C7FCC1EA6631B0020F187 /* Models.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		9A4666121EF191B600A41625 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				9AEC90E11E9FFA7F008C6E1C /* MockSessionDelegate.swift */,
+				9AEC90E31E9FFAA6008C6E1C /* MockAuthorizationController.swift */,
+				9AADF1C61EA63ED000D22740 /* MockPaymentMethod.swift */,
+				9AADF1C81EA63FB900D22740 /* MockPaymentToken.swift */,
+				9AADF1CA1EA640C000D22740 /* MockPayment.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		9A664D691EF05F63001BFB01 /* Crypto */ = {
+			isa = PBXGroup;
+			children = (
+				9A664D6A1EF05F63001BFB01 /* Crypto.h */,
+				9A664D701EF05F97001BFB01 /* Hash.h */,
+				9A664D711EF05F97001BFB01 /* Hash.m */,
+				9A664D6B1EF05F63001BFB01 /* Info.plist */,
+			);
+			path = Crypto;
+			sourceTree = "<group>";
+		};
+		9A664D7E1EF159F8001BFB01 /* CryptoTests */ = {
+			isa = PBXGroup;
+			children = (
+				9A664D7F1EF159F8001BFB01 /* CryptoTests.swift */,
+				9A664D811EF159F8001BFB01 /* Info.plist */,
+			);
+			path = CryptoTests;
+			sourceTree = "<group>";
+		};
+		9A7497491EF059F600D3F673 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				9AAFAB711E60766E00864A17 /* Global.swift */,
@@ -670,10 +714,10 @@
 				9A49DC821EC4AD580053710B /* Header.swift */,
 				9AE2A1C51EC9EE1D00921247 /* Log.swift */,
 			);
-			name = Utilities;
+			path = Utilities;
 			sourceTree = "<group>";
 		};
-		9AAFAB731E60804F00864A17 /* Client */ = {
+		9A74974A1EF05A0E00D3F673 /* Client */ = {
 			isa = PBXGroup;
 			children = (
 				9A4069CB1E8EA710000254CD /* Graph.swift */,
@@ -685,19 +729,17 @@
 				9AAFAB761E6080A500864A17 /* Graph.QueryError.swift */,
 				9A4069C91E8EA6DB000254CD /* Graph.RetryHandler.swift */,
 			);
-			name = Client;
+			path = Client;
 			sourceTree = "<group>";
 		};
-		9AEC90E01E9FFA6E008C6E1C /* Mocks */ = {
+		9A74974B1EF05A2900D3F673 /* Card */ = {
 			isa = PBXGroup;
 			children = (
-				9AEC90E11E9FFA7F008C6E1C /* MockSessionDelegate.swift */,
-				9AEC90E31E9FFAA6008C6E1C /* MockAuthorizationController.swift */,
-				9AADF1C61EA63ED000D22740 /* MockPaymentMethod.swift */,
-				9AADF1C81EA63FB900D22740 /* MockPaymentToken.swift */,
-				9AADF1CA1EA640C000D22740 /* MockPayment.swift */,
+				9A0C80EF1EB773310020F187 /* Card.swift */,
+				9A0C80F11EB773520020F187 /* Card.CreditCard.swift */,
+				9A0C80F31EB785310020F187 /* Card.Client.swift */,
 			);
-			name = Mocks;
+			path = Card;
 			sourceTree = "<group>";
 		};
 		9AEF60E91E5F42D90067FA90 = {
@@ -708,7 +750,8 @@
 				9AFA38EB1E64850A0056C5AA /* BuyTests */,
 				9A4068DD1E8E7659000254CD /* Pay */,
 				9A4068E81E8E7659000254CD /* PayTests */,
-				9A6F3B981EBB49A000B149F4 /* Crypto */,
+				9A664D691EF05F63001BFB01 /* Crypto */,
+				9A664D7E1EF159F8001BFB01 /* CryptoTests */,
 				9AEF60F41E5F42D90067FA90 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -720,7 +763,8 @@
 				9AFA38EA1E64850A0056C5AA /* BuyTests.xctest */,
 				9A4068DC1E8E7658000254CD /* Pay.framework */,
 				9A4068E41E8E7659000254CD /* PayTests.xctest */,
-				9A6F3B971EBB49A000B149F4 /* Crypto.framework */,
+				9A664D681EF05F63001BFB01 /* Crypto.framework */,
+				9A664D7D1EF159F8001BFB01 /* CryptoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -728,11 +772,11 @@
 		9AEF60F51E5F42D90067FA90 /* Buy */ = {
 			isa = PBXGroup;
 			children = (
-				9AAFAB701E60766300864A17 /* Utilities */,
-				9A0C80EE1EB76DC50020F187 /* Card */,
-				9AAFAB731E60804F00864A17 /* Client */,
-				9AEF619F1E5F5A050067FA90 /* Custom */,
 				9AEF60FE1E5F439D0067FA90 /* Generated */,
+				9A74974A1EF05A0E00D3F673 /* Client */,
+				9A74974B1EF05A2900D3F673 /* Card */,
+				9A7497491EF059F600D3F673 /* Utilities */,
+				9AEF619F1E5F5A050067FA90 /* Custom */,
 				9AEF60F61E5F42D90067FA90 /* Buy.h */,
 				9AEF60F71E5F42D90067FA90 /* Info.plist */,
 			);
@@ -759,12 +803,10 @@
 		9AFA38EB1E64850A0056C5AA /* BuyTests */ = {
 			isa = PBXGroup;
 			children = (
-				9AA89E891E9BDC4A0075AC74 /* Mocks */,
-				9A6F3BA71EBB5F4D00B149F4 /* Utilities */,
-				9AA6B6D51E9D562200CE9F18 /* Custom */,
-				9A0C80F51EB7B6090020F187 /* Card */,
-				9AA89E841E9BD8740075AC74 /* Client */,
-				9AFA38EC1E64850A0056C5AA /* BuyTests.swift */,
+				9A4666101EF1917000A41625 /* Mocks */,
+				9A46660F1EF1916300A41625 /* Custom */,
+				9A46660E1EF1915400A41625 /* Card */,
+				9A46660D1EF1914000A41625 /* Client */,
 				9AFA38EE1E64850A0056C5AA /* Info.plist */,
 			);
 			path = BuyTests;
@@ -790,10 +832,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9A6F3B941EBB49A000B149F4 /* Headers */ = {
+		9A664D651EF05F63001BFB01 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A664D721EF05F97001BFB01 /* Hash.h in Headers */,
+				9A664D6C1EF05F63001BFB01 /* Crypto.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -844,14 +888,14 @@
 			productReference = 9A4068E41E8E7659000254CD /* PayTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		9A6F3B961EBB49A000B149F4 /* Crypto */ = {
+		9A664D671EF05F63001BFB01 /* Crypto */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9A6F3B9E1EBB49A000B149F4 /* Build configuration list for PBXNativeTarget "Crypto" */;
+			buildConfigurationList = 9A664D6F1EF05F63001BFB01 /* Build configuration list for PBXNativeTarget "Crypto" */;
 			buildPhases = (
-				9A6F3B921EBB49A000B149F4 /* Sources */,
-				9A6F3B931EBB49A000B149F4 /* Frameworks */,
-				9A6F3B941EBB49A000B149F4 /* Headers */,
-				9A6F3B951EBB49A000B149F4 /* Resources */,
+				9A664D631EF05F63001BFB01 /* Sources */,
+				9A664D641EF05F63001BFB01 /* Frameworks */,
+				9A664D651EF05F63001BFB01 /* Headers */,
+				9A664D661EF05F63001BFB01 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -859,8 +903,26 @@
 			);
 			name = Crypto;
 			productName = Crypto;
-			productReference = 9A6F3B971EBB49A000B149F4 /* Crypto.framework */;
+			productReference = 9A664D681EF05F63001BFB01 /* Crypto.framework */;
 			productType = "com.apple.product-type.framework";
+		};
+		9A664D7C1EF159F8001BFB01 /* CryptoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9A664D871EF159F8001BFB01 /* Build configuration list for PBXNativeTarget "CryptoTests" */;
+			buildPhases = (
+				9A664D791EF159F8001BFB01 /* Sources */,
+				9A664D7A1EF159F8001BFB01 /* Frameworks */,
+				9A664D7B1EF159F8001BFB01 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9A664D841EF159F8001BFB01 /* PBXTargetDependency */,
+			);
+			name = CryptoTests;
+			productName = CryptoTests;
+			productReference = 9A664D7D1EF159F8001BFB01 /* CryptoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		9AEF60F21E5F42D90067FA90 /* Buy */ = {
 			isa = PBXNativeTarget;
@@ -870,11 +932,12 @@
 				9AEF60EF1E5F42D90067FA90 /* Frameworks */,
 				9AEF60F01E5F42D90067FA90 /* Headers */,
 				9AEF60F11E5F42D90067FA90 /* Resources */,
+				9A664D771EF0629F001BFB01 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				9A6F3BA01EBB4AE800B149F4 /* PBXTargetDependency */,
+				9A664D751EF0626F001BFB01 /* PBXTargetDependency */,
 			);
 			name = Buy;
 			productName = Buy;
@@ -905,8 +968,8 @@
 		9AEF60EA1E5F42D90067FA90 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0820;
+				LastSwiftUpdateCheck = 0900;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Shopify Inc.";
 				TargetAttributes = {
 					9A0C80C51EAE73840020F187 = {
@@ -916,29 +979,25 @@
 					};
 					9A4068DB1E8E7658000254CD = {
 						CreatedOnToolsVersion = 8.3;
-						DevelopmentTeam = A7XGC83MZE;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 					9A4068E31E8E7659000254CD = {
 						CreatedOnToolsVersion = 8.3;
-						DevelopmentTeam = A7XGC83MZE;
 						ProvisioningStyle = Automatic;
 					};
-					9A6F3B961EBB49A000B149F4 = {
-						CreatedOnToolsVersion = 8.3.1;
-						DevelopmentTeam = A7XGC83MZE;
-						LastSwiftMigration = 0830;
-						ProvisioningStyle = Automatic;
+					9A664D671EF05F63001BFB01 = {
+						CreatedOnToolsVersion = 9.0;
+					};
+					9A664D7C1EF159F8001BFB01 = {
+						CreatedOnToolsVersion = 9.0;
 					};
 					9AEF60F21E5F42D90067FA90 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = A7XGC83MZE;
 						ProvisioningStyle = Automatic;
 					};
 					9AFA38E91E64850A0056C5AA = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = A7XGC83MZE;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -960,7 +1019,8 @@
 				9A4068DB1E8E7658000254CD /* Pay */,
 				9A4068E31E8E7659000254CD /* PayTests */,
 				9A0C80C51EAE73840020F187 /* Documentation */,
-				9A6F3B961EBB49A000B149F4 /* Crypto */,
+				9A664D671EF05F63001BFB01 /* Crypto */,
+				9A664D7C1EF159F8001BFB01 /* CryptoTests */,
 			);
 		};
 /* End PBXProject section */
@@ -980,7 +1040,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9A6F3B951EBB49A000B149F4 /* Resources */ = {
+		9A664D661EF05F63001BFB01 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9A664D7B1EF159F8001BFB01 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1063,10 +1130,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9A6F3B921EBB49A000B149F4 /* Sources */ = {
+		9A664D631EF05F63001BFB01 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A664D731EF05F97001BFB01 /* Hash.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9A664D791EF159F8001BFB01 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A664D801EF159F8001BFB01 /* CryptoTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1213,10 +1289,8 @@
 				9A0C80F91EB7BAEF0020F187 /* Card.CreditCardTests.swift in Sources */,
 				9AE2A1C21EC6373B00921247 /* Graph.CachePolicyTests.swift in Sources */,
 				9A6F3BA91EBB6A7500B149F4 /* Graph.CacheTests.swift in Sources */,
-				9A6F3BA41EBB5BD700B149F4 /* DigestTests.swift in Sources */,
 				9A0C7FEB1EAA3F7E0020F187 /* MockSession.swift in Sources */,
 				9A0C7FEF1EAA3F7E0020F187 /* Graph.ClientTests.swift in Sources */,
-				9A0C7FF21EAA3F7E0020F187 /* BuyTests.swift in Sources */,
 				9A0C7FF11EAA3F7E0020F187 /* Graph.RetryHandlerTests.swift in Sources */,
 				9A0C7FEE1EAA3F7E0020F187 /* Graph.TaskTests.swift in Sources */,
 				9AA7AC781EBB78160014D95D /* Graph.CacheItemTests.swift in Sources */,
@@ -1232,10 +1306,15 @@
 			target = 9A4068DB1E8E7658000254CD /* Pay */;
 			targetProxy = 9A4068E61E8E7659000254CD /* PBXContainerItemProxy */;
 		};
-		9A6F3BA01EBB4AE800B149F4 /* PBXTargetDependency */ = {
+		9A664D751EF0626F001BFB01 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 9A6F3B961EBB49A000B149F4 /* Crypto */;
-			targetProxy = 9A6F3B9F1EBB4AE800B149F4 /* PBXContainerItemProxy */;
+			target = 9A664D671EF05F63001BFB01 /* Crypto */;
+			targetProxy = 9A664D741EF0626F001BFB01 /* PBXContainerItemProxy */;
+		};
+		9A664D841EF159F8001BFB01 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9A664D671EF05F63001BFB01 /* Crypto */;
+			targetProxy = 9A664D831EF159F8001BFB01 /* PBXContainerItemProxy */;
 		};
 		9AFA38F11E64850A0056C5AA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1268,7 +1347,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = A7XGC83MZE;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1292,7 +1371,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = A7XGC83MZE;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1312,7 +1391,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				DEVELOPMENT_TEAM = A7XGC83MZE;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PayTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1327,7 +1406,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				DEVELOPMENT_TEAM = A7XGC83MZE;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PayTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1337,50 +1416,107 @@
 			};
 			name = Release;
 		};
-		9A6F3B9C1EBB49A000B149F4 /* Debug */ = {
+		9A664D6D1EF05F63001BFB01 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = A7XGC83MZE;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = Crypto/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = Crypto/iphone.modulemap;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.Crypto;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		9A6F3B9D1EBB49A000B149F4 /* Release */ = {
+		9A664D6E1EF05F63001BFB01 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = A7XGC83MZE;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = Crypto/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.Crypto;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		9A664D851EF159F8001BFB01 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = CryptoTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = Crypto/iphone.modulemap;
-				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.Crypto;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.CryptoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9A664D861EF159F8001BFB01 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = CryptoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.CryptoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1489,13 +1625,13 @@
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 3.0.0;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = A7XGC83MZE;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 3.0.0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Buy/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-function-bodies=100";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.Buy;
@@ -1511,13 +1647,13 @@
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 3.0.0;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = A7XGC83MZE;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 3.0.0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Buy/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.Buy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1529,11 +1665,14 @@
 		9AFA38F21E64850A0056C5AA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = A7XGC83MZE;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BuyTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.BuyTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -1541,11 +1680,14 @@
 		9AFA38F31E64850A0056C5AA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = A7XGC83MZE;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BuyTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.BuyTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -1580,11 +1722,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9A6F3B9E1EBB49A000B149F4 /* Build configuration list for PBXNativeTarget "Crypto" */ = {
+		9A664D6F1EF05F63001BFB01 /* Build configuration list for PBXNativeTarget "Crypto" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9A6F3B9C1EBB49A000B149F4 /* Debug */,
-				9A6F3B9D1EBB49A000B149F4 /* Release */,
+				9A664D6D1EF05F63001BFB01 /* Debug */,
+				9A664D6E1EF05F63001BFB01 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9A664D871EF159F8001BFB01 /* Build configuration list for PBXNativeTarget "CryptoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9A664D851EF159F8001BFB01 /* Debug */,
+				9A664D861EF159F8001BFB01 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

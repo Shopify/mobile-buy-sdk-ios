@@ -29,25 +29,13 @@ import Foundation
 extension Storefront {
 	/// The set of valid sort keys for the orders query. 
 	public enum OrderSortKeys: String {
-		case createdAt = "CREATED_AT"
-
-		case customerName = "CUSTOMER_NAME"
-
-		case financialStatus = "FINANCIAL_STATUS"
-
-		case fulfillmentStatus = "FULFILLMENT_STATUS"
-
 		case id = "ID"
-
-		case orderNumber = "ORDER_NUMBER"
 
 		case processedAt = "PROCESSED_AT"
 
 		case relevance = "RELEVANCE"
 
 		case totalPrice = "TOTAL_PRICE"
-
-		case updatedAt = "UPDATED_AT"
 
 		case unknownValue = ""
 	}
