@@ -30,7 +30,7 @@
 @implementation NSData (ShopifyHash)
 
 - (NSString *)shopify_hexadecimalString {
-    NSMutableString *builder = [[NSMutableString alloc] initWithCapacity:self.length];
+    NSMutableString *builder = [[NSMutableString alloc] initWithCapacity:self.length * 2];
     const unsigned char *buffer = self.bytes;
     for (NSUInteger i = 0; i < self.length; i++) {
         [builder appendFormat:@"%02x", buffer[i]];
