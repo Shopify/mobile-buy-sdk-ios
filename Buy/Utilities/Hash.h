@@ -1,6 +1,6 @@
 //
-//  Digest.swift
-//  Buy
+//  Hash.h
+//  Crypto
 //
 //  Created by Shopify.
 //  Copyright (c) 2017 Shopify Inc. All rights reserved.
@@ -24,22 +24,20 @@
 //  THE SOFTWARE.
 //
 
-#if COCOAPODS
-import Foundation
-#else
-import Crypto
-#endif
+#import <Foundation/Foundation.h>
 
-extension String {
-    
-    var md5: String {
-        return self.md5()
-    }
-}
+NS_ASSUME_NONNULL_BEGIN
 
-extension Data {
-    
-    var md5: String {
-        return (self as NSData).md5()
-    }
-}
+@interface NSData (ShopifyHash)
+
+- (NSString *)shopify_md5;
+
+@end
+
+@interface NSString (ShopifyHash)
+
+- (NSString *)shopify_md5;
+
+@end
+
+NS_ASSUME_NONNULL_END

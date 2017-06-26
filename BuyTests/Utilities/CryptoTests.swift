@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import Crypto
+@testable import Buy
 
 class CryptoTests: XCTestCase {
     
@@ -16,15 +16,11 @@ class CryptoTests: XCTestCase {
     //
     func testDataHash() {
         let query = "query { shop { name } }".data(using: .utf8)!
-        let hash  = (query as NSData).md5()
-        
-        XCTAssertEqual(hash, "37d3868e50b398dc12ddd14ba1cec315")
+        XCTAssertEqual(query.md5, "37d3868e50b398dc12ddd14ba1cec315")
     }
     
     func testStringHash() {
         let query = "query { shop { name } }"
-        let hash  = query.md5()
-        
-        XCTAssertEqual(hash, "37d3868e50b398dc12ddd14ba1cec315")
+        XCTAssertEqual(query.md5, "37d3868e50b398dc12ddd14ba1cec315")
     }
 }

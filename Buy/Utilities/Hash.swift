@@ -1,6 +1,6 @@
 //
-//  Crypto.h
-//  Crypto
+//  Hash.swift
+//  Buy
 //
 //  Created by Shopify.
 //  Copyright (c) 2017 Shopify Inc. All rights reserved.
@@ -24,14 +24,16 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+import Foundation
 
-//! Project version number for Crypto.
-FOUNDATION_EXPORT double CryptoVersionNumber;
+extension Data {
+    var md5: String {
+        return (self as NSData).shopify_md5()
+    }
+}
 
-//! Project version string for Crypto.
-FOUNDATION_EXPORT const unsigned char CryptoVersionString[];
-
-#ifndef COCOAPODS
-#import <Crypto/Hash.h>
-#endif
+extension String {
+    var md5: String {
+        return self.shopify_md5()
+    }
+}

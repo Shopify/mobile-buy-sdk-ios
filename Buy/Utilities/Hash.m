@@ -1,5 +1,5 @@
 //
-//  Hash.h
+//  Hash.m
 //  Crypto
 //
 //  Created by Shopify.
@@ -24,22 +24,32 @@
 //  THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
+#import "Hash.h"
+#import <CommonCrypto/CommonCrypto.h>
 
-NS_ASSUME_NONNULL_BEGIN
+@implementation NSData (ShopifyHash)
 
-#pragma mark - NSData -
-@interface NSData (Hash)
+- (NSString *)shopify_hexadecimalString {
+    NSMutableString *builder = [[NSMutableString alloc] initWithCapacity:self.length * 2];
+    const unsigned char *buffer = self.bytes;
+    for (NSUInteger i = 0; i < self.length; i++) {
+        [builder appendFormat:@"%02x", buffer[i]];
+    }
+    return builder;
+}
 
-- (NSString *)md5;
+- (NSString *)shopify_md5 {
+    void *buffer = malloc(CC_MD5_DIGEST_LENGTH);
+    CC_MD5(self.bytes, (CC_LONG) self.length, buffer);
+    return [[NSData dataWithBytesNoCopy:buffer length:CC_MD5_DIGEST_LENGTH] shopify_hexadecimalString];
+}
 
 @end
 
-#pragma mark - NSString -
-@interface NSString (Hash)
+@implementation NSString (ShopifyHash)
 
-- (NSString *)md5;
+- (NSString *)shopify_md5 {
+    return [[self dataUsingEncoding:NSUTF8StringEncoding] shopify_md5];
+}
 
 @end
-
-NS_ASSUME_NONNULL_END
