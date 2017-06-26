@@ -25,6 +25,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Buy/Hash.h>
 
 //! Project version number for Buy.
 FOUNDATION_EXPORT double BuyVersionNumber;

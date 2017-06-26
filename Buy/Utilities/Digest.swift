@@ -24,11 +24,7 @@
 //  THE SOFTWARE.
 //
 
-#if COCOAPODS
 import Foundation
-#else
-import Crypto
-#endif
 
 extension String {
     

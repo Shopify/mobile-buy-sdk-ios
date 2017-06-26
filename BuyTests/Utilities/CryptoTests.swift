@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import Crypto
+import Buy
 
 class CryptoTests: XCTestCase {
     
