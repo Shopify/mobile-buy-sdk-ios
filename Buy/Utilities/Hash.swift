@@ -1,5 +1,5 @@
 //
-//  Digest.swift
+//  Hash.swift
 //  Buy
 //
 //  Created by Shopify.
