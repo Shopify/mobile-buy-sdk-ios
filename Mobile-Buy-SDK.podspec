@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name                = 'Mobile-Buy-SDK'
-  s.version             = '3.0'
+  s.version             = '3.0.3'
   s.summary             = 'Create custom Shopify storefront on iOS.'
   s.description         = 'Shopify’s Mobile Buy SDK makes it simple to create custom storefronts in your mobile app. Utitlizing the power and flexibility of GraphQL you can build native storefront experiences using the Shopify platform.'
   s.homepage            = 'https://github.com/Shopify/mobile-buy-sdk-ios'
@@ -21,14 +21,9 @@ Pod::Spec.new do |s|
     :submodules => true 
   }
   
-  s.subspec 'Buy' do |s|
-    s.source_files = 'Buy/**/*.{h,m,c,swift}', 'Crypto/**/*.{h,m,c,swift}', 'Dependencies/Swift Gen/support/Sources/GraphQL.swift'
-    s.xcconfig = { 
-      "GCC_PREPROCESSOR_DEFINITIONS" => '$(inherited) COCOAPODS=1' 
-    }
-  end
+  s.source_files = 'Buy/**/*.{h,m,c,swift}', 'Pay/**/*.{swift}', 'Crypto/**/*.{h,m,c,swift}', 'Dependencies/Swift Gen/support/Sources/GraphQL.swift'
+  s.xcconfig = { 
+    "GCC_PREPROCESSOR_DEFINITIONS" => '$(inherited) COCOAPODS=1'
+  }
   
-  s.subspec 'Pay' do |s|
-    s.source_files = 'Pay/**/*.{swift}', 'Buy/Log.swift'
-  end
 end
