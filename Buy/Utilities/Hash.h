@@ -28,17 +28,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#pragma mark - NSData -
-@interface NSData (Hash)
+@interface NSData (ShopifyHash)
 
-- (NSString *)md5;
+- (NSString *)shopify_md5;
 
 @end
 
-#pragma mark - NSString -
-@interface NSString (Hash)
+@interface NSString (ShopifyHash)
 
-- (NSString *)md5;
+- (NSString *)shopify_md5;
 
 @end
 

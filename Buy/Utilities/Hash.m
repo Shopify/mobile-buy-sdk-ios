@@ -27,64 +27,29 @@
 #import "Hash.h"
 #import <CommonCrypto/CommonCrypto.h>
 
-#pragma mark - Hash -
-@interface Hash : NSObject
+@implementation NSData (ShopifyHash)
 
-+ (void)data:(NSData *)data md5:(uint8_t *)md5;
+- (NSString *)shopify_hexadecimalString {
+    NSMutableString *builder = [[NSMutableString alloc] init];
+    const unsigned char *buffer = self.bytes;
+    for (NSUInteger i = 0; i < self.length; i++) {
+        [builder appendFormat:@"%02x", buffer[i]];
+    }
+    return builder;
+}
 
-@end
-
-@implementation Hash
-
-+ (void)data:(NSData *)data md5:(uint8_t *)md5 {
-    __block CC_MD5_CTX context;
-    CC_MD5_Init(&context);
-    
-    [data enumerateByteRangesUsingBlock:^(const void *bytes, NSRange byteRange, BOOL *stop) {
-        CC_MD5_Update(&context, bytes, (CC_LONG)byteRange.length);
-    }];
-    
-    CC_MD5_Final(md5, &context);
+- (NSString *)shopify_md5 {
+    void *buffer = malloc(CC_MD5_DIGEST_LENGTH);
+    CC_MD5(self.bytes, (CC_LONG) self.length, buffer);
+    return [[NSData dataWithBytesNoCopy:buffer length:CC_MD5_DIGEST_LENGTH] shopify_hexadecimalString];
 }
 
 @end
 
-#pragma mark - NSString -
-@interface NSString (Digest)
+@implementation NSString (ShopifyHash)
 
-+ (NSString *)md5UsingDigest:(uint8_t *)d;
-
-@end
-
-@implementation NSString (Digest)
-
-+ (NSString *)md5UsingDigest:(uint8_t *)d {
-    return [NSString stringWithFormat:
-            @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
-            d[0],  d[1],  d[2],  d[3],  d[4],  d[5],  d[6],  d[7],
-            d[8],  d[9],  d[10], d[11], d[12], d[13], d[14], d[15]
-            ];
-}
-
-@end
-
-#pragma mark - NSData -
-@implementation NSData (Hash)
-
-- (NSString *)md5 {
-    uint8_t digest[16];
-    [Hash data:self md5:digest];
-    
-    return [NSString md5UsingDigest:digest];
-}
-
-@end
-
-#pragma mark - NSString -
-@implementation NSString (Hash)
-
-- (NSString *)md5 {
-    return [self dataUsingEncoding:NSUTF8StringEncoding].md5;
+- (NSString *)shopify_md5 {
+    return [[self dataUsingEncoding:NSUTF8StringEncoding] shopify_md5];
 }
 
 @end

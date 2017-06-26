@@ -26,16 +26,14 @@
 
 import Foundation
 
-extension String {
-    
+extension Data {
     var md5: String {
-        return self.md5()
+        return (self as NSData).shopify_md5()
     }
 }
 
-extension Data {
-    
+extension String {
     var md5: String {
-        return (self as NSData).md5()
+        return self.shopify_md5()
     }
 }
