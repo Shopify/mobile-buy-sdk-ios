@@ -134,7 +134,7 @@ import Buy
 
 1. Add the following line to your podfile:
 ```ruby
-pod "Mobile-Buy-SDK"
+pod "Mobile-Buy-SDK", :submodules => true
 ```
 2. Run `pod install`.
 3. Import the SDK module:
