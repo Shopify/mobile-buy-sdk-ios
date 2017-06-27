@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
     :submodules => true 
   }
   
-  s.source_files = 'Buy/**/*.{h,m,c,swift}', 'Pay/**/*.{swift}', 'Crypto/**/*.{h,m,c,swift}', 'Dependencies/Swift Gen/support/Sources/GraphQL.swift'
+  s.source_files = 'Buy/**/*.{h,m,c,swift}', 'Pay/**/*.{swift}', 'Dependencies/Swift Gen/support/Sources/GraphQL.swift'
   s.xcconfig = { 
     "GCC_PREPROCESSOR_DEFINITIONS" => '$(inherited) COCOAPODS=1'
   }

@@ -1,6 +1,6 @@
 //
-//  Hash.h
-//  Crypto
+//  MD5Tests.swift
+//  BuyTests
 //
 //  Created by Shopify.
 //  Copyright (c) 2017 Shopify Inc. All rights reserved.
@@ -24,22 +24,25 @@
 //  THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
+import XCTest
+@testable import Buy
 
-NS_ASSUME_NONNULL_BEGIN
-
-#pragma mark - NSData -
-@interface NSData (Hash)
-
-- (NSString *)md5;
-
-@end
-
-#pragma mark - NSString -
-@interface NSString (Hash)
-
-- (NSString *)md5;
-
-@end
-
-NS_ASSUME_NONNULL_END
+class MD5Tests: XCTestCase {
+    
+    // ----------------------------------
+    //  MARK: - Hash -
+    //
+    func testDataHash() {
+        let query = "query { shop { name } }".data(using: .utf8)!
+        let hash  = MD5.hash(query)
+        
+        XCTAssertEqual(hash, "37d3868e50b398dc12ddd14ba1cec315")
+    }
+    
+    func testStringHash() {
+        let query = "query { shop { name } }"
+        let hash  = MD5.hash(query)
+        
+        XCTAssertEqual(hash, "37d3868e50b398dc12ddd14ba1cec315")
+    }
+}
