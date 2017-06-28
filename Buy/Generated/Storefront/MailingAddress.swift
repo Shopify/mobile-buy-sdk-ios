@@ -220,6 +220,7 @@ extension Storefront {
 				return value.map { return $0 }
 
 				case "formattedArea":
+				if value is NSNull { return nil }
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
@@ -360,12 +361,12 @@ extension Storefront {
 			return field(field: "formatted", aliasSuffix: alias) as! [String]
 		}
 
-		open var formattedArea: String {
+		open var formattedArea: String? {
 			return internalGetFormattedArea()
 		}
 
-		func internalGetFormattedArea(alias: String? = nil) -> String {
-			return field(field: "formattedArea", aliasSuffix: alias) as! String
+		func internalGetFormattedArea(alias: String? = nil) -> String? {
+			return field(field: "formattedArea", aliasSuffix: alias) as! String?
 		}
 
 		open var id: GraphQL.ID {
