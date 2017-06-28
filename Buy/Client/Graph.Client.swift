@@ -187,7 +187,7 @@ extension Graph {
             
             request.setValue("application/json",    forHTTPHeaderField: Header.accept)
             request.setValue("application/graphql", forHTTPHeaderField: Header.contentType)
-            request.setValue(requestData.md5,       forHTTPHeaderField: Header.queryTag)
+            request.setValue(MD5.hash(requestData), forHTTPHeaderField: Header.queryTag)
 
             for (name, value) in self.headers {
                 request.setValue(value, forHTTPHeaderField: name)

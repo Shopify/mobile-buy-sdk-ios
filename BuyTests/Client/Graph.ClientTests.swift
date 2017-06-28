@@ -73,7 +73,7 @@ class Graph_ClientTests: XCTestCase {
         XCTAssertFalse(request.httpShouldHandleCookies)
         XCTAssertEqual(request.value(forHTTPHeaderField: "Accept"),       "application/json")
         XCTAssertEqual(request.value(forHTTPHeaderField: "Content-Type"), "application/graphql")
-        XCTAssertEqual(request.value(forHTTPHeaderField: "X-Query-Tag"),  request.httpBody!.md5)
+        XCTAssertEqual(request.value(forHTTPHeaderField: "X-Query-Tag"),  MD5.hash(request.httpBody!))
         
         // Ensure that the client inserts defaults headers
         XCTAssertNotNil(request.value(forHTTPHeaderField: "User-Agent"))
