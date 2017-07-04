@@ -58,25 +58,33 @@ class Card_CreditCardTests: XCTestCase {
         let card       = self.creditCard()
         let dictionary = card.dictionary()
         
-        XCTAssertEqual(dictionary.count, 6)
-        XCTAssertEqual(dictionary["number"]             as! String, "1234567812345678")
-        XCTAssertEqual(dictionary["first_name"]         as! String, "John Singleton")
-        XCTAssertEqual(dictionary["last_name"]          as! String, "Smith")
-        XCTAssertEqual(dictionary["month"]              as! String, "07")
-        XCTAssertEqual(dictionary["year"]               as! String, "19")
-        XCTAssertEqual(dictionary["verification_value"] as! String, "1234")
+        XCTAssertEqual(dictionary.count, 1)
+        
+        let creditCard = dictionary["credit_card"] as! JSON
+        
+        XCTAssertEqual(creditCard.count, 6)
+        XCTAssertEqual(creditCard["number"]             as! String, "1234567812345678")
+        XCTAssertEqual(creditCard["first_name"]         as! String, "John Singleton")
+        XCTAssertEqual(creditCard["last_name"]          as! String, "Smith")
+        XCTAssertEqual(creditCard["month"]              as! String, "07")
+        XCTAssertEqual(creditCard["year"]               as! String, "19")
+        XCTAssertEqual(creditCard["verification_value"] as! String, "1234")
     }
     
     func testSerializationPartial() {
         let card       = self.partialCreditCard()
         let dictionary = card.dictionary()
         
-        XCTAssertEqual(dictionary.count, 5)
-        XCTAssertEqual(dictionary["number"]     as! String, "1234567812345678")
-        XCTAssertEqual(dictionary["first_name"] as! String, "John")
-        XCTAssertEqual(dictionary["last_name"]  as! String, "Smith")
-        XCTAssertEqual(dictionary["month"]      as! String, "07")
-        XCTAssertEqual(dictionary["year"]       as! String, "19")
+        XCTAssertEqual(dictionary.count, 1)
+        
+        let creditCard = dictionary["credit_card"] as! JSON
+        
+        XCTAssertEqual(creditCard.count, 5)
+        XCTAssertEqual(creditCard["number"]     as! String, "1234567812345678")
+        XCTAssertEqual(creditCard["first_name"] as! String, "John")
+        XCTAssertEqual(creditCard["last_name"]  as! String, "Smith")
+        XCTAssertEqual(creditCard["month"]      as! String, "07")
+        XCTAssertEqual(creditCard["year"]       as! String, "19")
     }
     
     // ----------------------------------
