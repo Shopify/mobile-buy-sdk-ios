@@ -188,6 +188,9 @@
 		9AEF60F81E5F42D90067FA90 /* Buy.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AEF60F61E5F42D90067FA90 /* Buy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9AEF61A11E5F5A190067FA90 /* GraphQL+ScalarSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF61A01E5F5A190067FA90 /* GraphQL+ScalarSupport.swift */; };
 		9AEF61B91E5F64230067FA90 /* Graph.Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF61B81E5F64230067FA90 /* Graph.Client.swift */; };
+		9AF1C1871F13B4530064AEA0 /* CountryCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1C1861F13ACCF0064AEA0 /* CountryCode.swift */; };
+		9AF1C1881F13B45C0064AEA0 /* PaymentSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1C1851F13ACCF0064AEA0 /* PaymentSettings.swift */; };
+		9AF1C1891F13B45E0064AEA0 /* ProductCollectionSortKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1C1841F13ACCF0064AEA0 /* ProductCollectionSortKeys.swift */; };
 		9AFA38EF1E64850A0056C5AA /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AEF60F31E5F42D90067FA90 /* Buy.framework */; };
 		9AFA3B6D1E6D9A5E0056C5AA /* GraphQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFA3B6C1E6D9A5E0056C5AA /* GraphQL.swift */; };
 /* End PBXBuildFile section */
@@ -381,6 +384,9 @@
 		9AEF60F71E5F42D90067FA90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9AEF61A01E5F5A190067FA90 /* GraphQL+ScalarSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GraphQL+ScalarSupport.swift"; sourceTree = "<group>"; };
 		9AEF61B81E5F64230067FA90 /* Graph.Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.Client.swift; sourceTree = "<group>"; };
+		9AF1C1841F13ACCF0064AEA0 /* ProductCollectionSortKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCollectionSortKeys.swift; sourceTree = "<group>"; };
+		9AF1C1851F13ACCF0064AEA0 /* PaymentSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSettings.swift; sourceTree = "<group>"; };
+		9AF1C1861F13ACCF0064AEA0 /* CountryCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCode.swift; sourceTree = "<group>"; };
 		9AFA38EA1E64850A0056C5AA /* BuyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BuyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AFA38EE1E64850A0056C5AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9AFA3B6C1E6D9A5E0056C5AA /* GraphQL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQL.swift; sourceTree = "<group>"; };
@@ -423,23 +429,19 @@
 		9A0C7FF81EAA51C50020F187 /* Storefront */ = {
 			isa = PBXGroup;
 			children = (
-				9AA416D41EE095BB0060029B /* Comment.swift */,
-				9AA416D51EE095BB0060029B /* CommentAuthor.swift */,
-				9AA416D61EE095BB0060029B /* CommentConnection.swift */,
-				9AA416D71EE095BB0060029B /* CommentEdge.swift */,
-				9AA416CC1EE095B20060029B /* Blog.swift */,
-				9AA416CD1EE095B20060029B /* BlogConnection.swift */,
-				9AA416CE1EE095B20060029B /* BlogEdge.swift */,
-				9AA416CF1EE095B20060029B /* BlogSortKeys.swift */,
+				9A0C7FF91EAA51C50020F187 /* AppliedGiftCard.swift */,
 				9AA416C21EE095AA0060029B /* Article.swift */,
 				9AA416C31EE095AA0060029B /* ArticleAuthor.swift */,
 				9AA416C41EE095AA0060029B /* ArticleConnection.swift */,
 				9AA416C51EE095AA0060029B /* ArticleEdge.swift */,
 				9AA416C61EE095AA0060029B /* ArticleSortKeys.swift */,
-				9A0C7FF91EAA51C50020F187 /* AppliedGiftCard.swift */,
 				9A0C7FFA1EAA51C50020F187 /* Attribute.swift */,
 				9A0C7FFB1EAA51C50020F187 /* AttributeInput.swift */,
 				9A0C7FFC1EAA51C50020F187 /* AvailableShippingRates.swift */,
+				9AA416CC1EE095B20060029B /* Blog.swift */,
+				9AA416CD1EE095B20060029B /* BlogConnection.swift */,
+				9AA416CE1EE095B20060029B /* BlogEdge.swift */,
+				9AA416CF1EE095B20060029B /* BlogSortKeys.swift */,
 				9A0C7FFD1EAA51C50020F187 /* Checkout.swift */,
 				9A0C7FFE1EAA51C50020F187 /* CheckoutAttributesUpdateInput.swift */,
 				9A0C7FFF1EAA51C50020F187 /* CheckoutAttributesUpdatePayload.swift */,
@@ -467,6 +469,11 @@
 				9A0C80151EAA51C50020F187 /* CollectionConnection.swift */,
 				9A0C80161EAA51C50020F187 /* CollectionEdge.swift */,
 				9A0C80171EAA51C50020F187 /* CollectionSortKeys.swift */,
+				9AA416D41EE095BB0060029B /* Comment.swift */,
+				9AA416D51EE095BB0060029B /* CommentAuthor.swift */,
+				9AA416D61EE095BB0060029B /* CommentConnection.swift */,
+				9AA416D71EE095BB0060029B /* CommentEdge.swift */,
+				9AF1C1861F13ACCF0064AEA0 /* CountryCode.swift */,
 				9A0C80181EAA51C50020F187 /* CreditCard.swift */,
 				9A0C80191EAA51C50020F187 /* CreditCardPaymentInput.swift */,
 				9A0C801A1EAA51C50020F187 /* CropRegion.swift */,
@@ -511,7 +518,9 @@
 				9A0C80411EAA51C50020F187 /* OrderSortKeys.swift */,
 				9A0C80421EAA51C50020F187 /* PageInfo.swift */,
 				9A0C80431EAA51C50020F187 /* Payment.swift */,
+				9AF1C1851F13ACCF0064AEA0 /* PaymentSettings.swift */,
 				9A0C80441EAA51C50020F187 /* Product.swift */,
+				9AF1C1841F13ACCF0064AEA0 /* ProductCollectionSortKeys.swift */,
 				9A0C80451EAA51C50020F187 /* ProductConnection.swift */,
 				9A0C80461EAA51C50020F187 /* ProductEdge.swift */,
 				9A0C80471EAA51C50020F187 /* ProductOption.swift */,
@@ -1037,6 +1046,7 @@
 				9A0C805F1EAA51C50020F187 /* CheckoutCompleteFreePayload.swift in Sources */,
 				9A0C80941EAA51C50020F187 /* MailingAddressInput.swift in Sources */,
 				9A0C80881EAA51C50020F187 /* CustomerRecoverPayload.swift in Sources */,
+				9AF1C1881F13B45C0064AEA0 /* PaymentSettings.swift in Sources */,
 				9A0C808D1EAA51C50020F187 /* Domain.swift in Sources */,
 				9A0C80F21EB773520020F187 /* Card.CreditCard.swift in Sources */,
 				9A0C80B11EAA51C50020F187 /* Transaction.swift in Sources */,
@@ -1071,6 +1081,7 @@
 				9A0C80A31EAA51C50020F187 /* Product.swift in Sources */,
 				9A0C80851EAA51C50020F187 /* CustomerAddressUpdatePayload.swift in Sources */,
 				9A0C80A21EAA51C50020F187 /* Payment.swift in Sources */,
+				9AF1C1891F13B45E0064AEA0 /* ProductCollectionSortKeys.swift in Sources */,
 				9A0C806F1EAA51C50020F187 /* CheckoutLineItemsUpdatePayload.swift in Sources */,
 				9AAFAB721E60766E00864A17 /* Global.swift in Sources */,
 				9A0C808F1EAA51C50020F187 /* ImageConnection.swift in Sources */,
@@ -1098,6 +1109,7 @@
 				9A0C80821EAA51C50020F187 /* CustomerActivatePayload.swift in Sources */,
 				9A0C805A1EAA51C50020F187 /* AttributeInput.swift in Sources */,
 				9A0C80B61EAA51C50020F187 /* Storefront.swift in Sources */,
+				9AF1C1871F13B4530064AEA0 /* CountryCode.swift in Sources */,
 				9A0C80921EAA51C50020F187 /* MailingAddressConnection.swift in Sources */,
 				9A0C80901EAA51C50020F187 /* ImageEdge.swift in Sources */,
 				9AA416C81EE095AA0060029B /* ArticleAuthor.swift in Sources */,
