@@ -119,6 +119,9 @@ extension Storefront {
 		/// Costa Rican Colones (CRC) 
 		case crc = "CRC"
 
+		/// Cape Verdean escudo (CVE) 
+		case cve = "CVE"
+
 		/// Czech Koruny (CZK) 
 		case czk = "CZK"
 

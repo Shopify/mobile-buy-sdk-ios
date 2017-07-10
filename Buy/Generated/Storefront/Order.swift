@@ -41,6 +41,13 @@ extension Storefront {
 			return self
 		}
 
+		/// The locale code in which this specific order happened. 
+		@discardableResult
+		open func customerLocale(alias: String? = nil) -> OrderQuery {
+			addField(field: "customerLocale", aliasSuffix: alias)
+			return self
+		}
+
 		/// The order’s URL for a customer. 
 		@discardableResult
 		open func customerUrl(alias: String? = nil) -> OrderQuery {
@@ -178,6 +185,13 @@ extension Storefront {
 				}
 				return CurrencyCode(rawValue: value) ?? .unknownValue
 
+				case "customerLocale":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return value
+
 				case "customerUrl":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
@@ -274,6 +288,15 @@ extension Storefront {
 
 		func internalGetCurrencyCode(alias: String? = nil) -> Storefront.CurrencyCode {
 			return field(field: "currencyCode", aliasSuffix: alias) as! Storefront.CurrencyCode
+		}
+
+		/// The locale code in which this specific order happened. 
+		open var customerLocale: String? {
+			return internalGetCustomerLocale()
+		}
+
+		func internalGetCustomerLocale(alias: String? = nil) -> String? {
+			return field(field: "customerLocale", aliasSuffix: alias) as! String?
 		}
 
 		/// The order’s URL for a customer. 
