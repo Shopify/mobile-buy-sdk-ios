@@ -38,6 +38,7 @@
 + (NSDateFormatter*)dateFormatterForPublications
 {
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+	[dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_GB"]];
 	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
 	return dateFormatter;
 }
