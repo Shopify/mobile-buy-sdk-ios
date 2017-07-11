@@ -38,29 +38,9 @@
 + (NSDateFormatter*)dateFormatterForPublications
 {
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	
-	if (![self is24hTimeFormat]) {
-		[dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_GB"]];
-	}
-	
+	[dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_GB"]];
 	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
 	return dateFormatter;
-}
-
-+ (BOOL)is24hTimeFormat
-{
-	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-	[formatter setLocale:[NSLocale currentLocale]];
-	[formatter setDateStyle:NSDateFormatterNoStyle];
-	[formatter setTimeStyle:NSDateFormatterShortStyle];
-	
-	NSString *dateString = [formatter stringFromDate:[NSDate date]];
-	
-	NSRange amRange = [dateString rangeOfString:[formatter AMSymbol]];
-	NSRange pmRange = [dateString rangeOfString:[formatter PMSymbol]];
-	BOOL is24h = (amRange.location == NSNotFound && pmRange.location == NSNotFound);
-	
-	return is24h;
 }
 
 @end
