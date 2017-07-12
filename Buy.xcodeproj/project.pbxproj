@@ -140,6 +140,8 @@
 		9A0C80FC1EBA27970020F187 /* SelectedOptionInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80FB1EBA27970020F187 /* SelectedOptionInput.swift */; };
 		9A0C81051EBA66440020F187 /* Graph.Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C81041EBA66440020F187 /* Graph.Cache.swift */; };
 		9A0C81071EBA66800020F187 /* Graph.CachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C81061EBA66800020F187 /* Graph.CachePolicy.swift */; };
+		9A125CFF1F16A0E0008DCF38 /* StringConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A125CFE1F16A0D7008DCF38 /* StringConnection.swift */; };
+		9A125D001F16A0E0008DCF38 /* StringEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A125CFD1F16A0D7008DCF38 /* StringEdge.swift */; };
 		9A4068E51E8E7659000254CD /* Pay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A4068DC1E8E7658000254CD /* Pay.framework */; };
 		9A4068EA1E8E7659000254CD /* PaySessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4068E91E8E7659000254CD /* PaySessionTests.swift */; };
 		9A4068EC1E8E7659000254CD /* Pay.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A4068DE1E8E7659000254CD /* Pay.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -325,6 +327,8 @@
 		9A0C80FB1EBA27970020F187 /* SelectedOptionInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedOptionInput.swift; sourceTree = "<group>"; };
 		9A0C81041EBA66440020F187 /* Graph.Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.Cache.swift; sourceTree = "<group>"; };
 		9A0C81061EBA66800020F187 /* Graph.CachePolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.CachePolicy.swift; sourceTree = "<group>"; };
+		9A125CFD1F16A0D7008DCF38 /* StringEdge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringEdge.swift; sourceTree = "<group>"; };
+		9A125CFE1F16A0D7008DCF38 /* StringConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringConnection.swift; sourceTree = "<group>"; };
 		9A4068DC1E8E7658000254CD /* Pay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A4068DE1E8E7659000254CD /* Pay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pay.h; sourceTree = "<group>"; };
 		9A4068DF1E8E7659000254CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -534,6 +538,8 @@
 				9A0C804E1EAA51C50020F187 /* ShippingRate.swift */,
 				9A0C804F1EAA51C50020F187 /* Shop.swift */,
 				9A0C80501EAA51C50020F187 /* ShopPolicy.swift */,
+				9A125CFE1F16A0D7008DCF38 /* StringConnection.swift */,
+				9A125CFD1F16A0D7008DCF38 /* StringEdge.swift */,
 				9A0C80511EAA51C50020F187 /* TokenizedPaymentInput.swift */,
 				9A0C80521EAA51C50020F187 /* Transaction.swift */,
 				9A0C80531EAA51C50020F187 /* TransactionKind.swift */,
@@ -1095,6 +1101,7 @@
 				9AA416C91EE095AA0060029B /* ArticleConnection.swift in Sources */,
 				9A0C80791EAA51C50020F187 /* CropRegion.swift in Sources */,
 				9A0C806E1EAA51C50020F187 /* CheckoutLineItemsRemovePayload.swift in Sources */,
+				9A125CFF1F16A0E0008DCF38 /* StringConnection.swift in Sources */,
 				9AA7AC761EBB77660014D95D /* Graph.CacheItem.swift in Sources */,
 				9AA416D31EE095B20060029B /* BlogSortKeys.swift in Sources */,
 				9A0C805C1EAA51C50020F187 /* Checkout.swift in Sources */,
@@ -1118,6 +1125,7 @@
 				9A0C805D1EAA51C50020F187 /* CheckoutAttributesUpdateInput.swift in Sources */,
 				9A0C806D1EAA51C50020F187 /* CheckoutLineItemsAddPayload.swift in Sources */,
 				9A0C80781EAA51C50020F187 /* CreditCardPaymentInput.swift in Sources */,
+				9A125D001F16A0E0008DCF38 /* StringEdge.swift in Sources */,
 				9AEF61B91E5F64230067FA90 /* Graph.Client.swift in Sources */,
 				9A4069CC1E8EA710000254CD /* Graph.swift in Sources */,
 				9A0C80A71EAA51C50020F187 /* ProductSortKeys.swift in Sources */,
