@@ -97,7 +97,9 @@ public extension Card {
                 json["verification_value"] = verificationCode
             }
             
-            return json
+            return [
+                "credit_card": json,
+            ]
         }
     }
 }

@@ -1,6 +1,6 @@
 //
-//  Hash.m
-//  Crypto
+//  MD5.m
+//  Buy
 //
 //  Created by Shopify.
 //  Copyright (c) 2017 Shopify Inc. All rights reserved.
@@ -24,17 +24,21 @@
 //  THE SOFTWARE.
 //
 
-#import "Hash.h"
+#import "MD5.h"
 #import <CommonCrypto/CommonCrypto.h>
 
-#pragma mark - Hash -
-@interface Hash : NSObject
+@implementation MD5
 
-+ (void)data:(NSData *)data md5:(uint8_t *)md5;
++ (NSString *)data:(NSData *)data {
+    uint8_t digest[16];
+    [self data:data md5:digest];
+    
+    return [self string16FromDigest:digest];
+}
 
-@end
-
-@implementation Hash
++ (NSString *)string:(NSString *)string {
+    return [self data:[string dataUsingEncoding:NSUTF8StringEncoding]];
+}
 
 + (void)data:(NSData *)data md5:(uint8_t *)md5 {
     __block CC_MD5_CTX context;
@@ -47,44 +51,12 @@
     CC_MD5_Final(md5, &context);
 }
 
-@end
-
-#pragma mark - NSString -
-@interface NSString (Digest)
-
-+ (NSString *)md5UsingDigest:(uint8_t *)d;
-
-@end
-
-@implementation NSString (Digest)
-
-+ (NSString *)md5UsingDigest:(uint8_t *)d {
++ (NSString *)string16FromDigest:(uint8_t *)d {
     return [NSString stringWithFormat:
             @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
             d[0],  d[1],  d[2],  d[3],  d[4],  d[5],  d[6],  d[7],
             d[8],  d[9],  d[10], d[11], d[12], d[13], d[14], d[15]
             ];
-}
-
-@end
-
-#pragma mark - NSData -
-@implementation NSData (Hash)
-
-- (NSString *)md5 {
-    uint8_t digest[16];
-    [Hash data:self md5:digest];
-    
-    return [NSString md5UsingDigest:digest];
-}
-
-@end
-
-#pragma mark - NSString -
-@implementation NSString (Hash)
-
-- (NSString *)md5 {
-    return [self dataUsingEncoding:NSUTF8StringEncoding].md5;
 }
 
 @end

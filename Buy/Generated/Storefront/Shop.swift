@@ -122,6 +122,7 @@ extension Storefront {
 		}
 
 		/// The url pointing to the endpoint to vault credit cards. 
+		@available(*, deprecated, message:"Use `paymentSettings` instead")
 		@discardableResult
 		open func cardVaultUrl(alias: String? = nil) -> ShopQuery {
 			addField(field: "cardVaultUrl", aliasSuffix: alias)
@@ -192,6 +193,7 @@ extension Storefront {
 		}
 
 		/// The three-letter code for the currency that the shop accepts. 
+		@available(*, deprecated, message:"Use `paymentSettings` instead")
 		@discardableResult
 		open func currencyCode(alias: String? = nil) -> ShopQuery {
 			addField(field: "currencyCode", aliasSuffix: alias)
@@ -217,6 +219,16 @@ extension Storefront {
 		@discardableResult
 		open func name(alias: String? = nil) -> ShopQuery {
 			addField(field: "name", aliasSuffix: alias)
+			return self
+		}
+
+		/// Values required for completing various payment methods. 
+		@discardableResult
+		open func paymentSettings(alias: String? = nil, _ subfields: (PaymentSettingsQuery) -> Void) -> ShopQuery {
+			let subquery = PaymentSettingsQuery()
+			subfields(subquery)
+
+			addField(field: "paymentSettings", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -257,6 +269,26 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "productByHandle", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// List of the shop’s product types. 
+		///
+		/// - parameters:
+		///     - first: No description
+		///
+		@discardableResult
+		open func productTypes(alias: String? = nil, first: Int32, _ subfields: (StringConnectionQuery) -> Void) -> ShopQuery {
+			var args: [String] = []
+
+			args.append("first:\(first)")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = StringConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "productTypes", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
@@ -317,6 +349,7 @@ extension Storefront {
 		}
 
 		/// The shop’s Shopify Payments account id. 
+		@available(*, deprecated, message:"Use `paymentSettings` instead")
 		@discardableResult
 		open func shopifyPaymentsAccountId(alias: String? = nil) -> ShopQuery {
 			addField(field: "shopifyPaymentsAccountId", aliasSuffix: alias)
@@ -398,6 +431,12 @@ extension Storefront {
 				}
 				return value
 
+				case "paymentSettings":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try PaymentSettings(fields: value)
+
 				case "primaryDomain":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
@@ -417,6 +456,12 @@ extension Storefront {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
 				return try Product(fields: value)
+
+				case "productTypes":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return try StringConnection(fields: value)
 
 				case "products":
 				guard let value = value as? [String: Any] else {
@@ -476,7 +521,8 @@ extension Storefront {
 			return field(field: "blogs", aliasSuffix: alias) as! Storefront.BlogConnection
 		}
 
-		/// The url pointing to the endpoint to vault credit cards. 
+		/// The url pointing to the endpoint to vault credit cards. @available(*, deprecated, message:"Use `paymentSettings` instead")
+
 		open var cardVaultUrl: URL {
 			return internalGetCardVaultUrl()
 		}
@@ -511,7 +557,8 @@ extension Storefront {
 			return field(field: "collections", aliasSuffix: alias) as! Storefront.CollectionConnection
 		}
 
-		/// The three-letter code for the currency that the shop accepts. 
+		/// The three-letter code for the currency that the shop accepts. @available(*, deprecated, message:"Use `paymentSettings` instead")
+
 		open var currencyCode: Storefront.CurrencyCode {
 			return internalGetCurrencyCode()
 		}
@@ -548,6 +595,15 @@ extension Storefront {
 			return field(field: "name", aliasSuffix: alias) as! String
 		}
 
+		/// Values required for completing various payment methods. 
+		open var paymentSettings: Storefront.PaymentSettings {
+			return internalGetPaymentSettings()
+		}
+
+		func internalGetPaymentSettings(alias: String? = nil) -> Storefront.PaymentSettings {
+			return field(field: "paymentSettings", aliasSuffix: alias) as! Storefront.PaymentSettings
+		}
+
 		/// The shop’s primary domain. 
 		open var primaryDomain: Storefront.Domain {
 			return internalGetPrimaryDomain()
@@ -579,6 +635,19 @@ extension Storefront {
 			return field(field: "productByHandle", aliasSuffix: alias) as! Storefront.Product?
 		}
 
+		/// List of the shop’s product types. 
+		open var productTypes: Storefront.StringConnection {
+			return internalGetProductTypes()
+		}
+
+		open func aliasedProductTypes(alias: String) -> Storefront.StringConnection {
+			return internalGetProductTypes(alias: alias)
+		}
+
+		func internalGetProductTypes(alias: String? = nil) -> Storefront.StringConnection {
+			return field(field: "productTypes", aliasSuffix: alias) as! Storefront.StringConnection
+		}
+
 		/// List of the shop’s products. 
 		open var products: Storefront.ProductConnection {
 			return internalGetProducts()
@@ -601,7 +670,8 @@ extension Storefront {
 			return field(field: "refundPolicy", aliasSuffix: alias) as! Storefront.ShopPolicy?
 		}
 
-		/// The shop’s Shopify Payments account id. 
+		/// The shop’s Shopify Payments account id. @available(*, deprecated, message:"Use `paymentSettings` instead")
+
 		open var shopifyPaymentsAccountId: String? {
 			return internalGetShopifyPaymentsAccountId()
 		}
@@ -641,6 +711,10 @@ extension Storefront {
 					response.append(internalGetCollections())
 					response.append(contentsOf: internalGetCollections().childResponseObjectMap())
 
+					case "paymentSettings":
+					response.append(internalGetPaymentSettings())
+					response.append(contentsOf: internalGetPaymentSettings().childResponseObjectMap())
+
 					case "primaryDomain":
 					response.append(internalGetPrimaryDomain())
 					response.append(contentsOf: internalGetPrimaryDomain().childResponseObjectMap())
@@ -656,6 +730,10 @@ extension Storefront {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
+
+					case "productTypes":
+					response.append(internalGetProductTypes())
+					response.append(contentsOf: internalGetProductTypes().childResponseObjectMap())
 
 					case "products":
 					response.append(internalGetProducts())

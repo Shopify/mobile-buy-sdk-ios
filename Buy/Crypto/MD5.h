@@ -1,5 +1,5 @@
 //
-//  Digest.swift
+//  MD5.h
 //  Buy
 //
 //  Created by Shopify.
@@ -24,22 +24,15 @@
 //  THE SOFTWARE.
 //
 
-#if COCOAPODS
-import Foundation
-#else
-import Crypto
-#endif
+#import <Foundation/Foundation.h>
 
-extension String {
-    
-    var md5: String {
-        return self.md5()
-    }
-}
+NS_ASSUME_NONNULL_BEGIN
 
-extension Data {
-    
-    var md5: String {
-        return (self as NSData).md5()
-    }
-}
+@interface MD5: NSObject
+
++ (NSString *)data:(NSData *)data NS_SWIFT_NAME(hash(_:));
++ (NSString *)string:(NSString *)string NS_SWIFT_NAME(hash(_:));
+
+@end
+
+NS_ASSUME_NONNULL_END

@@ -134,7 +134,7 @@ import Buy
 
 1. Add the following line to your podfile:
 ```ruby
-pod "Mobile-Buy-SDK"
+pod "Mobile-Buy-SDK", :submodules => true
 ```
 2. Run `pod install`.
 3. Import the SDK module:
@@ -585,7 +585,7 @@ The Buy SDK support native checkout via GraphQL, which lets you complete a check
 Like `Graph.Client`, the `Card.Client` manages your interactions with the card server that provides opaque credit card tokens. The tokens are used to complete checkouts. After collecting the user's credit card information in a secure manner, create a credit card representation and submit a vault request:
 
 ```swift
-// let checkout: Storefront.Checkout
+// let settings: Storefront.PaymentSettings
 // let cardClient: Card.Client
 
 let creditCard = Card.CreditCard(
@@ -598,7 +598,7 @@ let creditCard = Card.CreditCard(
 	verificationCode: "1234"
 )
 
-let task = cardClient.vault(creditCard, to: checkout.vaultUrl) { token, error in
+let task = cardClient.vault(creditCard, to: settings.cardVaultUrl) { token, error in
     if let token = token {
         // proceed to complete checkout with `token`
     } else {

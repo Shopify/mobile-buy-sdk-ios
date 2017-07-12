@@ -1,6 +1,6 @@
 //
-//  Hash.h
-//  Crypto
+//  ProductCollectionSortKeys.swift
+//  Buy
 //
 //  Created by Shopify.
 //  Copyright (c) 2017 Shopify Inc. All rights reserved.
@@ -24,22 +24,27 @@
 //  THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
+import Foundation
 
-NS_ASSUME_NONNULL_BEGIN
+extension Storefront {
+	/// The set of valid sort keys for the products query. 
+	public enum ProductCollectionSortKeys: String {
+		case bestSelling = "BEST_SELLING"
 
-#pragma mark - NSData -
-@interface NSData (Hash)
+		case collectionDefault = "COLLECTION_DEFAULT"
 
-- (NSString *)md5;
+		case created = "CREATED"
 
-@end
+		case id = "ID"
 
-#pragma mark - NSString -
-@interface NSString (Hash)
+		case manual = "MANUAL"
 
-- (NSString *)md5;
+		case price = "PRICE"
 
-@end
+		case relevance = "RELEVANCE"
 
-NS_ASSUME_NONNULL_END
+		case title = "TITLE"
+
+		case unknownValue = ""
+	}
+}

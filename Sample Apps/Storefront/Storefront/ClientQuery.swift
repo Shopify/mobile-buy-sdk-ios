@@ -81,7 +81,10 @@ final class ClientQuery {
             Storefront.CheckoutLineItemInput(variantId: GraphQL.ID(rawValue: item.variant.id), quantity: Int32(item.quantity))
         }
         
-        let checkoutInput = Storefront.CheckoutCreateInput(lineItems: lineItems)
+        let checkoutInput = Storefront.CheckoutCreateInput(
+            lineItems: lineItems,
+            allowPartialAddresses: true
+        )
         
         return Storefront.buildMutation { $0
             .checkoutCreate(input: checkoutInput) { $0
@@ -94,23 +97,13 @@ final class ClientQuery {
     
     static func mutationForUpdateCheckout(_ id: String, updatingShippingAddress address: PayPostalAddress) -> Storefront.MutationQuery {
         
-//        let addressInput = Storefront.MailingAddressInput(
-//            city:     address.city,
-//            country:  address.country,
-//            province: address.province,
-//            zip:      address.zip
-//        )
         
         let checkoutID   = GraphQL.ID(rawValue: id)
         let addressInput = Storefront.MailingAddressInput(
-            address1:  "80 Spadina",
-            address2:  "",
-            city:      "Toronto",
-            country:   "Canada",
-            firstName: "John",
-            lastName:  "Smith",
-            province:  "ON",
-            zip:       "M5V 2J4"
+            city:     address.city,
+            country:  address.country,
+            province: address.province,
+            zip:      address.zip
         )
         
         return Storefront.buildMutation { $0

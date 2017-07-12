@@ -1,6 +1,6 @@
 //
-//  Crypto.h
-//  Crypto
+//  MD5Tests.swift
+//  BuyTests
 //
 //  Created by Shopify.
 //  Copyright (c) 2017 Shopify Inc. All rights reserved.
@@ -24,14 +24,25 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+import XCTest
+@testable import Buy
 
-//! Project version number for Crypto.
-FOUNDATION_EXPORT double CryptoVersionNumber;
-
-//! Project version string for Crypto.
-FOUNDATION_EXPORT const unsigned char CryptoVersionString[];
-
-#ifndef COCOAPODS
-#import <Crypto/Hash.h>
-#endif
+class MD5Tests: XCTestCase {
+    
+    // ----------------------------------
+    //  MARK: - Hash -
+    //
+    func testDataHash() {
+        let query = "query { shop { name } }".data(using: .utf8)!
+        let hash  = MD5.hash(query)
+        
+        XCTAssertEqual(hash, "37d3868e50b398dc12ddd14ba1cec315")
+    }
+    
+    func testStringHash() {
+        let query = "query { shop { name } }"
+        let hash  = MD5.hash(query)
+        
+        XCTAssertEqual(hash, "37d3868e50b398dc12ddd14ba1cec315")
+    }
+}
