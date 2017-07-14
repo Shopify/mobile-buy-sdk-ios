@@ -216,8 +216,8 @@ extension Storefront {
 			}
 		}
 
-		/// Indicates if the product variant is in stock. @available(*, deprecated, message:"Use `availableForSale` instead")
-
+		/// Indicates if the product variant is in stock. 
+		@available(*, deprecated, message:"Use `availableForSale` instead")
 		open var available: Bool? {
 			return internalGetAvailable()
 		}
