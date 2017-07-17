@@ -521,8 +521,8 @@ extension Storefront {
 			return field(field: "blogs", aliasSuffix: alias) as! Storefront.BlogConnection
 		}
 
-		/// The url pointing to the endpoint to vault credit cards. @available(*, deprecated, message:"Use `paymentSettings` instead")
-
+		/// The url pointing to the endpoint to vault credit cards. 
+		@available(*, deprecated, message:"Use `paymentSettings` instead")
 		open var cardVaultUrl: URL {
 			return internalGetCardVaultUrl()
 		}
@@ -557,8 +557,8 @@ extension Storefront {
 			return field(field: "collections", aliasSuffix: alias) as! Storefront.CollectionConnection
 		}
 
-		/// The three-letter code for the currency that the shop accepts. @available(*, deprecated, message:"Use `paymentSettings` instead")
-
+		/// The three-letter code for the currency that the shop accepts. 
+		@available(*, deprecated, message:"Use `paymentSettings` instead")
 		open var currencyCode: Storefront.CurrencyCode {
 			return internalGetCurrencyCode()
 		}
@@ -670,8 +670,8 @@ extension Storefront {
 			return field(field: "refundPolicy", aliasSuffix: alias) as! Storefront.ShopPolicy?
 		}
 
-		/// The shop’s Shopify Payments account id. @available(*, deprecated, message:"Use `paymentSettings` instead")
-
+		/// The shop’s Shopify Payments account id. 
+		@available(*, deprecated, message:"Use `paymentSettings` instead")
 		open var shopifyPaymentsAccountId: String? {
 			return internalGetShopifyPaymentsAccountId()
 		}
