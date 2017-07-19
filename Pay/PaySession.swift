@@ -45,6 +45,18 @@ public protocol PaySessionDelegate: class {
     ///
     func paySession(_ paySession: PaySession, didRequestShippingRatesFor address: PayPostalAddress, checkout: PayCheckout, provide: @escaping (PayCheckout?, [PayShippingRate]) -> Void)
 
+    /// This callback is invoked if the user updates the `shippingContact` and the current address is invalidated. This method is called *only* for
+    /// checkouts that don't require shipping.
+    /// You should make any necessary API calls to update the checkout with the provided address in order to obtain accurate tax information.
+    ///
+    /// - parameters:
+    ///     - paySession: The session that invoked the callback.
+    ///     - address:    A partial address that you can use to obtain relevant tax information for the checkout. This address is missing `addressLine1` and `addressLine2`. This information is only available after the user has authorized payment.
+    ///     - checkout:   The current checkout state.
+    ///     - provide:    A completion handler that **must** be invoked with an updated `PayCheckout`. Returning `nil` will result in a generic failure in the Apple Pay dialog.
+    ///
+    func paySession(_ paySession: PaySession, didUpdateShippingAddress address: PayPostalAddress, checkout: PayCheckout, provide: @escaping (PayCheckout?) -> Void)
+    
     /// This callback is invoked when the user selects a shipping rate or an initial array of shipping rates is provided. In the latter case, the first shipping rate in the array will be used. You should make any necessary API calls to update the checkout with the selected shipping rate here.
     ///
     /// - parameters:
@@ -134,7 +146,7 @@ public class PaySession: NSObject {
     /// begins changing billing address, shipping address, and shipping rates.
     ///
     public func authorize() {
-        let paymentRequest  = self.paymentRequestUsing(checkout, currency: currency, merchantID: self.merchantID)
+        let paymentRequest  = self.paymentRequestUsing(self.checkout, currency: self.currency, merchantID: self.merchantID)
         let controller      = self.controllerType.init(paymentRequest: paymentRequest)
         controller.delegate = self
         controller.present(completion: nil)
@@ -149,7 +161,7 @@ public class PaySession: NSObject {
         request.currencyCode                  = currency.currencyCode
         request.merchantIdentifier            = merchantID
         request.requiredBillingAddressFields  = .all
-        request.requiredShippingAddressFields = checkout.needsShipping ? [.all] : [.email, .phone]
+        request.requiredShippingAddressFields = .all
         request.supportedNetworks             = [.visa, .masterCard, .amex]
         request.merchantCapabilities          = [.capability3DS]
         request.paymentSummaryItems           = checkout.summaryItems
@@ -207,6 +219,28 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
         }
 
         let payPostalAddress = PayPostalAddress(with: postalAddress)
+        
+        /* ---------------------------------
+         ** If the checkout doesn't require
+         ** shipping, we still need to notify
+         ** the delegate about the shipping
+         ** address but we have to skip fetching
+         ** shipping rates.
+         */
+        guard self.checkout.needsShipping else {
+            Log("Checkout doesn't require shipping. Updating address...")
+            
+            self.delegate?.paySession(self, didUpdateShippingAddress: payPostalAddress, checkout: self.checkout, provide: { updatedCheckout in
+                if let updatedCheckout = updatedCheckout {
+                    self.checkout = updatedCheckout
+                    
+                    completion(.success, [], updatedCheckout.summaryItems)
+                } else {
+                    completion(.failure, [], [])
+                }
+            })
+            return
+        }
 
         /* ---------------------------------
          ** Request the delegate to provide
