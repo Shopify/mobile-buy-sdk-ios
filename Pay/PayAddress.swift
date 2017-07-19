@@ -139,15 +139,25 @@ internal extension PayPostalAddress {
 internal extension PayAddress {
 
     init(with contact: PKContact) {
-        let street = contact.postalAddress!.street
-        let lines  = street.components(separatedBy: .newlines)
+        
+        var line1: String?
+        var line2: String?
+        
+        if let address = contact.postalAddress {
+            let street = address.street
+            let lines  = street.components(separatedBy: .newlines)
+            
+            line1      = lines.count > 0 ? lines[0] : nil
+            line2      = lines.count > 1 ? lines[1] : nil
+        }
+        
         self.init(
-            addressLine1: !street.isEmpty && lines.count > 0 ? lines[0] : nil,
-            addressLine2: !street.isEmpty && lines.count > 1 ? lines[1] : nil,
-            city:         contact.postalAddress!.city,
-            country:      contact.postalAddress!.country,
-            province:     contact.postalAddress!.state,
-            zip:          contact.postalAddress!.postalCode,
+            addressLine1: line1,
+            addressLine2: line2,
+            city:         contact.postalAddress?.city,
+            country:      contact.postalAddress?.country,
+            province:     contact.postalAddress?.state,
+            zip:          contact.postalAddress?.postalCode,
             firstName:    contact.name?.givenName,
             lastName:     contact.name?.familyName,
             phone:        contact.phoneNumber?.stringValue,
