@@ -145,10 +145,11 @@ internal extension PayAddress {
         
         if let address = contact.postalAddress {
             let street = address.street
-            let lines  = street.components(separatedBy: .newlines)
-            
-            line1      = lines.count > 0 ? lines[0] : nil
-            line2      = lines.count > 1 ? lines[1] : nil
+            if !street.isEmpty {
+                let lines  = street.components(separatedBy: .newlines)
+                line1      = lines.count > 0 ? lines[0] : nil
+                line2      = lines.count > 1 ? lines[1] : nil
+            }
         }
         
         self.init(
