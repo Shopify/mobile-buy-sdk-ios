@@ -29,10 +29,11 @@ import Pay
 
 final class MockSessionDelegate: PaySessionDelegate {
     
-    var didSelectShippingRate:   ((PaySession, PayShippingRate, PayCheckout, (PayCheckout?) -> Void) -> Void)?
-    var didAuthorizePayment:     ((PaySession, PayAuthorization, PayCheckout, (PaySession.TransactionStatus) -> Void) -> Void)?
-    var didRequestShippingRates: ((PaySession, PayPostalAddress, PayCheckout, (PayCheckout?, [PayShippingRate]) -> Void) -> Void)?
-    var didFinish: ((PaySession) -> Void)?
+    var didSelectShippingRate:    ((PaySession, PayShippingRate, PayCheckout, (PayCheckout?) -> Void) -> Void)?
+    var didAuthorizePayment:      ((PaySession, PayAuthorization, PayCheckout, (PaySession.TransactionStatus) -> Void) -> Void)?
+    var didRequestShippingRates:  ((PaySession, PayPostalAddress, PayCheckout, (PayCheckout?, [PayShippingRate]) -> Void) -> Void)?
+    var didUpdateShippingAddress: ((PaySession, PayPostalAddress, PayCheckout, (PayCheckout?) -> Void) -> Void)?
+    var didFinish:                ((PaySession) -> Void)?
     
     let session: PaySession
     
@@ -57,6 +58,10 @@ final class MockSessionDelegate: PaySessionDelegate {
     
     func paySession(_ paySession: PaySession, didRequestShippingRatesFor address: PayPostalAddress, checkout: PayCheckout, provide: @escaping (PayCheckout?, [PayShippingRate]) -> Void) {
         self.didRequestShippingRates?(paySession, address, checkout, provide)
+    }
+    
+    func paySession(_ paySession: PaySession, didUpdateShippingAddress address: PayPostalAddress, checkout: PayCheckout, provide: @escaping (PayCheckout?) -> Void) {
+        self.didUpdateShippingAddress?(paySession, address, checkout, provide)
     }
     
     func paySessionDidFinish(_ paySession: PaySession) {
