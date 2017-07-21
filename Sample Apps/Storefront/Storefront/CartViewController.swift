@@ -212,6 +212,20 @@ extension CartViewController: PaySessionDelegate {
         }
     }
     
+    func paySession(_ paySession: PaySession, didUpdateShippingAddress address: PayPostalAddress, checkout: PayCheckout, provide: @escaping (PayCheckout?) -> Void) {
+        
+        print("Updating checkout with shipping address for tax estimate...")
+        Client.shared.updateCheckout(checkout.id, updatingShippingAddress: address) { checkout in
+            
+            if let checkout = checkout {   
+                provide(checkout.payCheckout)
+            } else {
+                print("Update for checkout failed.")
+                provide(nil)
+            }
+        }
+    }
+    
     func paySession(_ paySession: PaySession, didSelectShippingRate shippingRate: PayShippingRate, checkout: PayCheckout, provide: @escaping  (PayCheckout?) -> Void) {
         
         print("Selecting shipping rate...")
