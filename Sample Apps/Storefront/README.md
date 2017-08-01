@@ -8,10 +8,14 @@ The Mobile Buy SDK ships with a sample application that demonstrates how to buil
 
 The sample application is pre-configured with credentials to a test shop and requires no setup to build and run. You can also run the sample application with your own shop by following the steps below:
 
-1. Make sure that you have the **Mobile App** channel installed in your Shopify admin.
-2. From your Shopify admin, navigate to the **Mobile App** channel, and then copy your API key.
-3. Open the Sample Application project in `Sample App > Storefront > Storefront.xcodeproj`
-4. Open `Client.swift`, and then insert your API key and shop domain:
+1. Ensure that all submodules of `Buy SDK` have also been updated by running:
+```
+git submodule update --init --recursive
+```
+2. Make sure that you have the **Mobile App** channel installed in your Shopify admin.
+3. From your Shopify admin, navigate to the **Mobile App** channel, and then copy your API key.
+4. Open the Sample Application project in `Sample App > Storefront > Storefront.xcodeproj`
+5. Open `Client.swift`, and then insert your API key and shop domain:
 
 ```swift
 final class Client {
