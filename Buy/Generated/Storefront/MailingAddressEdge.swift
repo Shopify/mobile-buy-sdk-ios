@@ -30,12 +30,14 @@ extension Storefront {
 	open class MailingAddressEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = MailingAddressEdge
 
+		/// A cursor for use in pagination. 
 		@discardableResult
 		open func cursor(alias: String? = nil) -> MailingAddressEdgeQuery {
 			addField(field: "cursor", aliasSuffix: alias)
 			return self
 		}
 
+		/// The item at the end of MailingAddressEdge. 
 		@discardableResult
 		open func node(alias: String? = nil, _ subfields: (MailingAddressQuery) -> Void) -> MailingAddressEdgeQuery {
 			let subquery = MailingAddressQuery()
@@ -69,6 +71,7 @@ extension Storefront {
 			}
 		}
 
+		/// A cursor for use in pagination. 
 		open var cursor: String {
 			return internalGetCursor()
 		}
@@ -77,6 +80,7 @@ extension Storefront {
 			return field(field: "cursor", aliasSuffix: alias) as! String
 		}
 
+		/// The item at the end of MailingAddressEdge. 
 		open var node: Storefront.MailingAddress {
 			return internalGetNode()
 		}

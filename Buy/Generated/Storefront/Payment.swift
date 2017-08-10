@@ -75,6 +75,7 @@ extension Storefront {
 			return self
 		}
 
+		/// Globally unique identifier. 
 		@discardableResult
 		open func id(alias: String? = nil) -> PaymentQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -238,6 +239,7 @@ extension Storefront {
 			return field(field: "errorMessage", aliasSuffix: alias) as! String?
 		}
 
+		/// Globally unique identifier. 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}

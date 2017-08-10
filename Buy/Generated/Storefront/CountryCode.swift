@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// Country codes 
+	/// ISO 3166-1 alpha-2 country codes with some differences. 
 	public enum CountryCode: String {
 		/// Andorra 
 		case ad = "AD"
