@@ -30,12 +30,14 @@ extension Storefront {
 	open class ImageEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ImageEdge
 
+		/// A cursor for use in pagination. 
 		@discardableResult
 		open func cursor(alias: String? = nil) -> ImageEdgeQuery {
 			addField(field: "cursor", aliasSuffix: alias)
 			return self
 		}
 
+		/// The item at the end of ImageEdge. 
 		@discardableResult
 		open func node(alias: String? = nil, _ subfields: (ImageQuery) -> Void) -> ImageEdgeQuery {
 			let subquery = ImageQuery()
@@ -69,6 +71,7 @@ extension Storefront {
 			}
 		}
 
+		/// A cursor for use in pagination. 
 		open var cursor: String {
 			return internalGetCursor()
 		}
@@ -77,6 +80,7 @@ extension Storefront {
 			return field(field: "cursor", aliasSuffix: alias) as! String
 		}
 
+		/// The item at the end of ImageEdge. 
 		open var node: Storefront.Image {
 			return internalGetNode()
 		}

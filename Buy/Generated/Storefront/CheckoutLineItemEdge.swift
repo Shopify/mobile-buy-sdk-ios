@@ -30,12 +30,14 @@ extension Storefront {
 	open class CheckoutLineItemEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CheckoutLineItemEdge
 
+		/// A cursor for use in pagination. 
 		@discardableResult
 		open func cursor(alias: String? = nil) -> CheckoutLineItemEdgeQuery {
 			addField(field: "cursor", aliasSuffix: alias)
 			return self
 		}
 
+		/// The item at the end of CheckoutLineItemEdge. 
 		@discardableResult
 		open func node(alias: String? = nil, _ subfields: (CheckoutLineItemQuery) -> Void) -> CheckoutLineItemEdgeQuery {
 			let subquery = CheckoutLineItemQuery()
@@ -69,6 +71,7 @@ extension Storefront {
 			}
 		}
 
+		/// A cursor for use in pagination. 
 		open var cursor: String {
 			return internalGetCursor()
 		}
@@ -77,6 +80,7 @@ extension Storefront {
 			return field(field: "cursor", aliasSuffix: alias) as! String
 		}
 
+		/// The item at the end of CheckoutLineItemEdge. 
 		open var node: Storefront.CheckoutLineItem {
 			return internalGetNode()
 		}

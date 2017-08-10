@@ -66,6 +66,7 @@ extension Storefront {
 			return self
 		}
 
+		/// Globally unique identifier. 
 		@discardableResult
 		open func id(alias: String? = nil) -> CollectionQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -253,6 +254,7 @@ extension Storefront {
 			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
+		/// Globally unique identifier. 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}

@@ -47,6 +47,15 @@ extension Storefront {
 			return self
 		}
 
+		/// The compare at price of the variant. This can be used to mark a variant as 
+		/// on sale, when `compareAtPrice` is higher than `price`. 
+		@discardableResult
+		open func compareAtPrice(alias: String? = nil) -> ProductVariantQuery {
+			addField(field: "compareAtPrice", aliasSuffix: alias)
+			return self
+		}
+
+		/// Globally unique identifier. 
 		@discardableResult
 		open func id(alias: String? = nil) -> ProductVariantQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -117,6 +126,13 @@ extension Storefront {
 			return self
 		}
 
+		/// The SKU (Stock Keeping Unit) associated with the variant. 
+		@discardableResult
+		open func sku(alias: String? = nil) -> ProductVariantQuery {
+			addField(field: "sku", aliasSuffix: alias)
+			return self
+		}
+
 		/// The product variant’s title. 
 		@discardableResult
 		open func title(alias: String? = nil) -> ProductVariantQuery {
@@ -161,6 +177,13 @@ extension Storefront {
 				}
 				return value
 
+				case "compareAtPrice":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return Decimal(string: value, locale: GraphQL.posixLocale)
+
 				case "id":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
@@ -191,6 +214,13 @@ extension Storefront {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
 				return try value.map { return try SelectedOption(fields: $0) }
+
+				case "sku":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return value
 
 				case "title":
 				guard let value = value as? String else {
@@ -235,6 +265,17 @@ extension Storefront {
 			return field(field: "availableForSale", aliasSuffix: alias) as! Bool
 		}
 
+		/// The compare at price of the variant. This can be used to mark a variant as 
+		/// on sale, when `compareAtPrice` is higher than `price`. 
+		open var compareAtPrice: Decimal? {
+			return internalGetCompareAtPrice()
+		}
+
+		func internalGetCompareAtPrice(alias: String? = nil) -> Decimal? {
+			return field(field: "compareAtPrice", aliasSuffix: alias) as! Decimal?
+		}
+
+		/// Globally unique identifier. 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -281,6 +322,15 @@ extension Storefront {
 
 		func internalGetSelectedOptions(alias: String? = nil) -> [Storefront.SelectedOption] {
 			return field(field: "selectedOptions", aliasSuffix: alias) as! [Storefront.SelectedOption]
+		}
+
+		/// The SKU (Stock Keeping Unit) associated with the variant. 
+		open var sku: String? {
+			return internalGetSku()
+		}
+
+		func internalGetSku(alias: String? = nil) -> String? {
+			return field(field: "sku", aliasSuffix: alias) as! String?
 		}
 
 		/// The product variant’s title. 

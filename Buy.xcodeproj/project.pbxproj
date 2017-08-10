@@ -156,6 +156,9 @@
 		9A4069CC1E8EA710000254CD /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4069CB1E8EA710000254CD /* Graph.swift */; };
 		9A4069CF1E8ED98A000254CD /* Graph.Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4069CE1E8ED98A000254CD /* Graph.Task.swift */; };
 		9A49DC831EC4AD580053710B /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A49DC821EC4AD580053710B /* Header.swift */; };
+		9A52D3A21F3CA58E00C093C8 /* ProductImageSortKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A52D3A01F3CA58E00C093C8 /* ProductImageSortKeys.swift */; };
+		9A52D3A31F3CA58E00C093C8 /* CardBrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A52D3A11F3CA58E00C093C8 /* CardBrand.swift */; };
+		9A52D3A51F3CA5DB00C093C8 /* DigitalWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A52D3A41F3CA5DB00C093C8 /* DigitalWallet.swift */; };
 		9A6F3BA91EBB6A7500B149F4 /* Graph.CacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F3BA81EBB6A7500B149F4 /* Graph.CacheTests.swift */; };
 		9A9C513C1F02A5D6003363E7 /* MD5.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A664D701EF05F97001BFB01 /* MD5.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A9C513D1F02A5DB003363E7 /* MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A664D711EF05F97001BFB01 /* MD5.m */; };
@@ -346,6 +349,9 @@
 		9A4069CB1E8EA710000254CD /* Graph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
 		9A4069CE1E8ED98A000254CD /* Graph.Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.Task.swift; sourceTree = "<group>"; };
 		9A49DC821EC4AD580053710B /* Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
+		9A52D3A01F3CA58E00C093C8 /* ProductImageSortKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductImageSortKeys.swift; sourceTree = "<group>"; };
+		9A52D3A11F3CA58E00C093C8 /* CardBrand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBrand.swift; sourceTree = "<group>"; };
+		9A52D3A41F3CA5DB00C093C8 /* DigitalWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitalWallet.swift; sourceTree = "<group>"; };
 		9A664D701EF05F97001BFB01 /* MD5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MD5.h; sourceTree = "<group>"; };
 		9A664D711EF05F97001BFB01 /* MD5.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MD5.m; sourceTree = "<group>"; };
 		9A664D7F1EF159F8001BFB01 /* MD5Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MD5Tests.swift; sourceTree = "<group>"; };
@@ -446,6 +452,7 @@
 				9AA416CD1EE095B20060029B /* BlogConnection.swift */,
 				9AA416CE1EE095B20060029B /* BlogEdge.swift */,
 				9AA416CF1EE095B20060029B /* BlogSortKeys.swift */,
+				9A52D3A11F3CA58E00C093C8 /* CardBrand.swift */,
 				9A0C7FFD1EAA51C50020F187 /* Checkout.swift */,
 				9A0C7FFE1EAA51C50020F187 /* CheckoutAttributesUpdateInput.swift */,
 				9A0C7FFF1EAA51C50020F187 /* CheckoutAttributesUpdatePayload.swift */,
@@ -500,6 +507,7 @@
 				9A0C802B1EAA51C50020F187 /* CustomerResetPayload.swift */,
 				9A0C802C1EAA51C50020F187 /* CustomerUpdateInput.swift */,
 				9A0C802D1EAA51C50020F187 /* CustomerUpdatePayload.swift */,
+				9A52D3A41F3CA5DB00C093C8 /* DigitalWallet.swift */,
 				9A0C802E1EAA51C50020F187 /* Domain.swift */,
 				9A0C802F1EAA51C50020F187 /* Image.swift */,
 				9A0C80301EAA51C50020F187 /* ImageConnection.swift */,
@@ -527,6 +535,7 @@
 				9AF1C1841F13ACCF0064AEA0 /* ProductCollectionSortKeys.swift */,
 				9A0C80451EAA51C50020F187 /* ProductConnection.swift */,
 				9A0C80461EAA51C50020F187 /* ProductEdge.swift */,
+				9A52D3A01F3CA58E00C093C8 /* ProductImageSortKeys.swift */,
 				9A0C80471EAA51C50020F187 /* ProductOption.swift */,
 				9A0C80481EAA51C50020F187 /* ProductSortKeys.swift */,
 				9A0C80491EAA51C50020F187 /* ProductVariant.swift */,
@@ -1050,6 +1059,7 @@
 				9A0C80721EAA51C50020F187 /* CheckoutShippingLineUpdatePayload.swift in Sources */,
 				9A0C80681EAA51C50020F187 /* CheckoutGiftCardRemovePayload.swift in Sources */,
 				9A0C805F1EAA51C50020F187 /* CheckoutCompleteFreePayload.swift in Sources */,
+				9A52D3A51F3CA5DB00C093C8 /* DigitalWallet.swift in Sources */,
 				9A0C80941EAA51C50020F187 /* MailingAddressInput.swift in Sources */,
 				9A0C80881EAA51C50020F187 /* CustomerRecoverPayload.swift in Sources */,
 				9AF1C1881F13B45C0064AEA0 /* PaymentSettings.swift in Sources */,
@@ -1066,6 +1076,7 @@
 				9A0C807E1EAA51C50020F187 /* CustomerAccessTokenCreatePayload.swift in Sources */,
 				9AA416D21EE095B20060029B /* BlogEdge.swift in Sources */,
 				9A0C80AE1EAA51C50020F187 /* Shop.swift in Sources */,
+				9A52D3A21F3CA58E00C093C8 /* ProductImageSortKeys.swift in Sources */,
 				9A0C80751EAA51C50020F187 /* CollectionEdge.swift in Sources */,
 				9A0C80FC1EBA27970020F187 /* SelectedOptionInput.swift in Sources */,
 				9A0C80951EAA51C50020F187 /* Mutation.swift in Sources */,
@@ -1136,6 +1147,7 @@
 				9A0C80731EAA51C50020F187 /* Collection.swift in Sources */,
 				9A0C808A1EAA51C50020F187 /* CustomerResetPayload.swift in Sources */,
 				9AA416CB1EE095AA0060029B /* ArticleSortKeys.swift in Sources */,
+				9A52D3A31F3CA58E00C093C8 /* CardBrand.swift in Sources */,
 				9A0C80621EAA51C50020F187 /* CheckoutCreateInput.swift in Sources */,
 				9A0C80A01EAA51C50020F187 /* OrderSortKeys.swift in Sources */,
 				9A0C80601EAA51C50020F187 /* CheckoutCompleteWithCreditCardPayload.swift in Sources */,
@@ -1213,11 +1225,11 @@
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 3.0.5;
+				CURRENT_PROJECT_VERSION = 3.0.6;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3.0.5;
+				DYLIB_CURRENT_VERSION = 3.0.6;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Pay/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1238,11 +1250,11 @@
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 3.0.5;
+				CURRENT_PROJECT_VERSION = 3.0.6;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3.0.5;
+				DYLIB_CURRENT_VERSION = 3.0.6;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Pay/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1388,11 +1400,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 3.0.5;
+				CURRENT_PROJECT_VERSION = 3.0.6;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3.0.5;
+				DYLIB_CURRENT_VERSION = 3.0.6;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Buy/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1410,11 +1422,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 3.0.5;
+				CURRENT_PROJECT_VERSION = 3.0.6;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3.0.5;
+				DYLIB_CURRENT_VERSION = 3.0.6;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Buy/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
