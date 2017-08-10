@@ -101,6 +101,8 @@ public class PaySession: NSObject {
 
     /// A delegate for receiving updates from `PaySession`.
     public weak var delegate: PaySessionDelegate?
+    
+    public var acceptedCardBrands: [PayCardBrand] = [.visa, .masterCard, .americanExpress]
 
     /// The currency description that will be used in this Apple Pay transaction.
     public let currency: PayCurrency
