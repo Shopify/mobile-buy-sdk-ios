@@ -30,12 +30,14 @@ extension Storefront {
 	open class ArticleEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ArticleEdge
 
+		/// A cursor for use in pagination. 
 		@discardableResult
 		open func cursor(alias: String? = nil) -> ArticleEdgeQuery {
 			addField(field: "cursor", aliasSuffix: alias)
 			return self
 		}
 
+		/// The item at the end of ArticleEdge. 
 		@discardableResult
 		open func node(alias: String? = nil, _ subfields: (ArticleQuery) -> Void) -> ArticleEdgeQuery {
 			let subquery = ArticleQuery()
@@ -69,6 +71,7 @@ extension Storefront {
 			}
 		}
 
+		/// A cursor for use in pagination. 
 		open var cursor: String {
 			return internalGetCursor()
 		}
@@ -77,6 +80,7 @@ extension Storefront {
 			return field(field: "cursor", aliasSuffix: alias) as! String
 		}
 
+		/// The item at the end of ArticleEdge. 
 		open var node: Storefront.Article {
 			return internalGetNode()
 		}

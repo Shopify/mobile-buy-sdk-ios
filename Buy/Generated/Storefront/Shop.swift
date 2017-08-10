@@ -222,7 +222,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Values required for completing various payment methods. 
+		/// Settings related to payments. 
 		@discardableResult
 		open func paymentSettings(alias: String? = nil, _ subfields: (PaymentSettingsQuery) -> Void) -> ShopQuery {
 			let subquery = PaymentSettingsQuery()
@@ -595,7 +595,7 @@ extension Storefront {
 			return field(field: "name", aliasSuffix: alias) as! String
 		}
 
-		/// Values required for completing various payment methods. 
+		/// Settings related to payments. 
 		open var paymentSettings: Storefront.PaymentSettings {
 			return internalGetPaymentSettings()
 		}

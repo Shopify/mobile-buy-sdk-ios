@@ -27,9 +27,16 @@
 import Foundation
 
 extension Storefront {
-	/// Values required for completing various payment methods. 
+	/// Settings related to payments. 
 	open class PaymentSettingsQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = PaymentSettings
+
+		/// List of the card brands which the shop accepts. 
+		@discardableResult
+		open func acceptedCardBrands(alias: String? = nil) -> PaymentSettingsQuery {
+			addField(field: "acceptedCardBrands", aliasSuffix: alias)
+			return self
+		}
 
 		/// The url pointing to the endpoint to vault credit cards. 
 		@discardableResult
@@ -38,7 +45,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The two-letter code for where the shop is located. 
+		/// The country where the shop is located. 
 		@discardableResult
 		open func countryCode(alias: String? = nil) -> PaymentSettingsQuery {
 			addField(field: "countryCode", aliasSuffix: alias)
@@ -58,15 +65,28 @@ extension Storefront {
 			addField(field: "shopifyPaymentsAccountId", aliasSuffix: alias)
 			return self
 		}
+
+		/// List of the digital wallets which the shop supports. 
+		@discardableResult
+		open func supportedDigitalWallets(alias: String? = nil) -> PaymentSettingsQuery {
+			addField(field: "supportedDigitalWallets", aliasSuffix: alias)
+			return self
+		}
 	}
 
-	/// Values required for completing various payment methods. 
+	/// Settings related to payments. 
 	open class PaymentSettings: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = PaymentSettingsQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "acceptedCardBrands":
+				guard let value = value as? [String] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return value.map { return CardBrand(rawValue: $0) ?? .unknownValue }
+
 				case "cardVaultUrl":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
@@ -92,9 +112,24 @@ extension Storefront {
 				}
 				return value
 
+				case "supportedDigitalWallets":
+				guard let value = value as? [String] else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return value.map { return DigitalWallet(rawValue: $0) ?? .unknownValue }
+
 				default:
 				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 			}
+		}
+
+		/// List of the card brands which the shop accepts. 
+		open var acceptedCardBrands: [Storefront.CardBrand] {
+			return internalGetAcceptedCardBrands()
+		}
+
+		func internalGetAcceptedCardBrands(alias: String? = nil) -> [Storefront.CardBrand] {
+			return field(field: "acceptedCardBrands", aliasSuffix: alias) as! [Storefront.CardBrand]
 		}
 
 		/// The url pointing to the endpoint to vault credit cards. 
@@ -106,7 +141,7 @@ extension Storefront {
 			return field(field: "cardVaultUrl", aliasSuffix: alias) as! URL
 		}
 
-		/// The two-letter code for where the shop is located. 
+		/// The country where the shop is located. 
 		open var countryCode: Storefront.CountryCode {
 			return internalGetCountryCode()
 		}
@@ -131,6 +166,15 @@ extension Storefront {
 
 		func internalGetShopifyPaymentsAccountId(alias: String? = nil) -> String? {
 			return field(field: "shopifyPaymentsAccountId", aliasSuffix: alias) as! String?
+		}
+
+		/// List of the digital wallets which the shop supports. 
+		open var supportedDigitalWallets: [Storefront.DigitalWallet] {
+			return internalGetSupportedDigitalWallets()
+		}
+
+		func internalGetSupportedDigitalWallets(alias: String? = nil) -> [Storefront.DigitalWallet] {
+			return field(field: "supportedDigitalWallets", aliasSuffix: alias) as! [Storefront.DigitalWallet]
 		}
 
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {

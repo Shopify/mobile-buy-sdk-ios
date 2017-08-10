@@ -107,6 +107,7 @@ extension Storefront {
 			return self
 		}
 
+		/// Globally unique identifier. 
 		@discardableResult
 		open func id(alias: String? = nil) -> ProductQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -118,6 +119,7 @@ extension Storefront {
 		/// - parameters:
 		///     - first: No description
 		///     - after: No description
+		///     - sortKey: No description
 		///     - reverse: No description
 		///     - maxWidth: Image width in pixels between 1 and 2048
 		///     - maxHeight: Image height in pixels between 1 and 2048
@@ -125,13 +127,17 @@ extension Storefront {
 		///     - scale: Image size multiplier retina displays. Must be between 1 and 3
 		///
 		@discardableResult
-		open func images(alias: String? = nil, first: Int32, after: String? = nil, reverse: Bool? = nil, maxWidth: Int32? = nil, maxHeight: Int32? = nil, crop: CropRegion? = nil, scale: Int32? = nil, _ subfields: (ImageConnectionQuery) -> Void) -> ProductQuery {
+		open func images(alias: String? = nil, first: Int32, after: String? = nil, sortKey: ProductImageSortKeys? = nil, reverse: Bool? = nil, maxWidth: Int32? = nil, maxHeight: Int32? = nil, crop: CropRegion? = nil, scale: Int32? = nil, _ subfields: (ImageConnectionQuery) -> Void) -> ProductQuery {
 			var args: [String] = []
 
 			args.append("first:\(first)")
 
 			if let after = after {
 				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
 			}
 
 			if let reverse = reverse {
@@ -454,6 +460,7 @@ extension Storefront {
 			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
+		/// Globally unique identifier. 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
