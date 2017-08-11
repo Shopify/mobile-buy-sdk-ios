@@ -136,6 +136,8 @@ public class PaySession: NSObject {
         self.merchantID     = merchantID
         self.identifier     = UUID().uuidString
         self.controllerType = controllerType
+        
+        super.init()
     }
 
     // ----------------------------------
