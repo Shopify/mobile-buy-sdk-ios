@@ -29,28 +29,22 @@ import PassKit
 extension PayCardBrand {
     
     var paymentNetwork: PKPaymentNetwork? {
-        if #available(iOS 10.1, *) {
-            switch self {
-            case .visa:            return .visa
-            case .masterCard:      return .masterCard
-            case .discover:        return .discover
-            case .americanExpress: return .amex
-            case .jcb:             return .JCB
-            default:
-                return nil
-            }
-        } else {
-            switch self {
-            case .visa:            return .visa
-            case .masterCard:      return .masterCard
-            case .discover:        return .discover
-            case .americanExpress: return .amex
-            case .jcb:
+        switch self {
+        case .visa:            return .visa
+        case .masterCard:      return .masterCard
+        case .discover:        return .discover
+        case .americanExpress: return .amex
+        case .jcb:
+            
+            if #available(iOS 10.1, *) {
+                return .JCB
+            } else {
                 Log("WARNING: Attempting to convert PayCardBrand.jcb to PKPaymentNetwork on iOS 10.0 or lower. PKPaymentNetwork.JCB requires iOS 10.1 or higher.")
-                fallthrough
-            default:
                 return nil
             }
+            
+        default:
+            return nil
         }
     }
 }
