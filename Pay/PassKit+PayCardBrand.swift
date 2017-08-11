@@ -26,25 +26,25 @@
 
 import PassKit
 
-extension PKPaymentNetwork {
+extension PayCardBrand {
     
-    init?(_ cardBrand: PayCardBrand) {
+    var paymentNetwork: PKPaymentNetwork? {
         if #available(iOS 10.1, *) {
-            switch cardBrand {
-            case .visa:            self = .visa
-            case .masterCard:      self = .masterCard
-            case .discover:        self = .discover
-            case .americanExpress: self = .amex
-            case .jcb:             self = .JCB
+            switch self {
+            case .visa:            return .visa
+            case .masterCard:      return .masterCard
+            case .discover:        return .discover
+            case .americanExpress: return .amex
+            case .jcb:             return .JCB
             default:
                 return nil
             }
         } else {
-            switch cardBrand {
-            case .visa:            self = .visa
-            case .masterCard:      self = .masterCard
-            case .discover:        self = .discover
-            case .americanExpress: self = .amex
+            switch self {
+            case .visa:            return .visa
+            case .masterCard:      return .masterCard
+            case .discover:        return .discover
+            case .americanExpress: return .amex
             case .jcb:
                 Log("WARNING: Attempting to convert PayCardBrand.jcb to PKPaymentNetwork on iOS 10.0 or lower. PKPaymentNetwork.JCB requires iOS 10.1 or higher.")
                 fallthrough
@@ -59,7 +59,7 @@ extension Array where Element == PayCardBrand {
     
     var paymentNetworks: [PKPaymentNetwork] {
         return self.flatMap {
-            PKPaymentNetwork($0)
+            $0.paymentNetwork
         }
     }
 }
