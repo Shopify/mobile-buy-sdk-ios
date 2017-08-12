@@ -162,6 +162,7 @@
 		9A27C32E1E91218100218EE8 /* AddressViewModel+PayAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AddressViewModel+PayAddress.swift"; sourceTree = "<group>"; };
 		9A27C3301E91232500218EE8 /* ShippingRateViewModel+PayShippingRate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ShippingRateViewModel+PayShippingRate.swift"; sourceTree = "<group>"; };
 		9A4069D51E8EEDC9000254CD /* ShippingRateViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingRateViewModel.swift; sourceTree = "<group>"; };
+		9A52D3BB1F3F25C300C093C8 /* Storefront.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Storefront.entitlements; sourceTree = "<group>"; };
 		9A7E3F6E1E89615E00713740 /* UICollectionView+Touch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Touch.swift"; sourceTree = "<group>"; };
 		9A8E88501E719A6E0042879D /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		9A8E88591E719EB20042879D /* ClientQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientQuery.swift; sourceTree = "<group>"; };
@@ -461,6 +462,7 @@
 		9ADAD4691E563091008AC561 /* Storefront */ = {
 			isa = PBXGroup;
 			children = (
+				9A52D3BB1F3F25C300C093C8 /* Storefront.entitlements */,
 				9ADAD46A1E563091008AC561 /* AppDelegate.swift */,
 				9A9FFEFB1E78431C00F6DFF7 /* Formatters */,
 				9AAFAB901E60D0F900864A17 /* UI */,
@@ -563,6 +565,11 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = A7XGC83MZE;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplePay = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -842,10 +849,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Storefront/Storefront.entitlements;
 				DEVELOPMENT_TEAM = A7XGC83MZE;
 				INFOPLIST_FILE = Storefront/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.Storefront;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.buysdk.storefront;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -855,10 +863,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Storefront/Storefront.entitlements;
 				DEVELOPMENT_TEAM = A7XGC83MZE;
 				INFOPLIST_FILE = Storefront/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.Storefront;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.buysdk.storefront;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
