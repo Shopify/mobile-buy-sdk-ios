@@ -1,5 +1,5 @@
 //
-//  PassKit+SummaryItems.swift
+//  PayCardBrand.swift
 //  Pay
 //
 //  Created by Shopify.
@@ -24,24 +24,14 @@
 //  THE SOFTWARE.
 //
 
+import Foundation
 import PassKit
 
-// ----------------------------------
-//  MARK: - Decimal -
-//
-internal extension Decimal {
-    
-    func summaryItemNamed(_ name: String) -> PKPaymentSummaryItem {
-        return PKPaymentSummaryItem(label: name, amount: self)
-    }
-}
-
-// ----------------------------------
-//  MARK: - PKPaymentSummaryItem -
-//
-internal extension PKPaymentSummaryItem {
-    
-    convenience init(label: String, amount: Decimal) {
-        self.init(label: label, amount: amount as NSDecimalNumber)
-    }
+public enum PayCardBrand: String {
+    case visa            = "VISA"
+    case masterCard      = "MASTERCARD"
+    case discover        = "DISCOVER"
+    case americanExpress = "AMERICAN_EXPRESS"
+    case dinersClub      = "DINERS_CLUB"
+    case jcb             = "JCB"
 }

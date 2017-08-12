@@ -101,6 +101,8 @@ public class PaySession: NSObject {
 
     /// A delegate for receiving updates from `PaySession`.
     public weak var delegate: PaySessionDelegate?
+    
+    public var acceptedCardBrands: [PayCardBrand] = [.visa, .masterCard, .americanExpress]
 
     /// The currency description that will be used in this Apple Pay transaction.
     public let currency: PayCurrency
@@ -119,7 +121,6 @@ public class PaySession: NSObject {
     // ----------------------------------
     //  MARK: - Init -
     //
-
     /// An instance of `PaySession` represents a single transaction using Apple Pay.
     /// To create one requires a `PayCheckout` and `PayCurrency`.
     ///
@@ -135,12 +136,13 @@ public class PaySession: NSObject {
         self.merchantID     = merchantID
         self.identifier     = UUID().uuidString
         self.controllerType = controllerType
+        
+        super.init()
     }
 
     // ----------------------------------
     //  MARK: - Begin Checkout -
     //
-
     /// Invoking `authorize()` will create a payment request and present the
     /// Apple Pay dialog. The `delegate` will then be called when the user
     /// begins changing billing address, shipping address, and shipping rates.
@@ -162,7 +164,7 @@ public class PaySession: NSObject {
         request.merchantIdentifier            = merchantID
         request.requiredBillingAddressFields  = .all
         request.requiredShippingAddressFields = .all
-        request.supportedNetworks             = [.visa, .masterCard, .amex]
+        request.supportedNetworks             = self.acceptedCardBrands.paymentNetworks
         request.merchantCapabilities          = [.capability3DS]
         request.paymentSummaryItems           = checkout.summaryItems
 

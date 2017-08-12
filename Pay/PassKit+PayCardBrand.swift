@@ -1,5 +1,5 @@
 //
-//  PassKit+SummaryItems.swift
+//  PassKit+PayCardBrand.swift
 //  Pay
 //
 //  Created by Shopify.
@@ -26,22 +26,34 @@
 
 import PassKit
 
-// ----------------------------------
-//  MARK: - Decimal -
-//
-internal extension Decimal {
+extension PayCardBrand {
     
-    func summaryItemNamed(_ name: String) -> PKPaymentSummaryItem {
-        return PKPaymentSummaryItem(label: name, amount: self)
+    var paymentNetwork: PKPaymentNetwork? {
+        switch self {
+        case .visa:            return .visa
+        case .masterCard:      return .masterCard
+        case .discover:        return .discover
+        case .americanExpress: return .amex
+        case .jcb:
+            
+            if #available(iOS 10.1, *) {
+                return .JCB
+            } else {
+                Log("WARNING: Attempting to convert PayCardBrand.jcb to PKPaymentNetwork on iOS 10.0 or lower. PKPaymentNetwork.JCB requires iOS 10.1 or higher.")
+                return nil
+            }
+            
+        default:
+            return nil
+        }
     }
 }
 
-// ----------------------------------
-//  MARK: - PKPaymentSummaryItem -
-//
-internal extension PKPaymentSummaryItem {
+extension Array where Element == PayCardBrand {
     
-    convenience init(label: String, amount: Decimal) {
-        self.init(label: label, amount: amount as NSDecimalNumber)
+    var paymentNetworks: [PKPaymentNetwork] {
+        return self.flatMap {
+            $0.paymentNetwork
+        }
     }
 }
