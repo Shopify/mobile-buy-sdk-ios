@@ -95,8 +95,7 @@ final class ClientQuery {
         }
     }
     
-    static func mutationForUpdateCheckout(_ id: String, updatingShippingAddress address: PayPostalAddress) -> Storefront.MutationQuery {
-        
+    static func mutationForUpdateCheckout(_ id: String, updatingPartialShippingAddress address: PayPostalAddress) -> Storefront.MutationQuery {
         
         let checkoutID   = GraphQL.ID(rawValue: id)
         let addressInput = Storefront.MailingAddressInput(
@@ -104,6 +103,34 @@ final class ClientQuery {
             country:  address.country,
             province: address.province,
             zip:      address.zip
+        )
+        
+        return Storefront.buildMutation { $0
+            .checkoutShippingAddressUpdate(shippingAddress: addressInput, checkoutId: checkoutID) { $0
+                .userErrors { $0
+                    .field()
+                    .message()
+                }
+                .checkout { $0
+                    .fragmentForCheckout()
+                }
+            }
+        }
+    }
+    
+    static func mutationForUpdateCheckout(_ id: String, updatingCompleteShippingAddress address: PayAddress) -> Storefront.MutationQuery {
+        
+        let checkoutID   = GraphQL.ID(rawValue: id)
+        let addressInput = Storefront.MailingAddressInput(
+            address1:  address.addressLine1,
+            address2:  address.addressLine2,
+            city:      address.city,
+            country:   address.country,
+            firstName: address.firstName,
+            lastName:  address.lastName,
+            phone:     address.phone,
+            province:  address.province,
+            zip:       address.zip
         )
         
         return Storefront.buildMutation { $0
