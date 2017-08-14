@@ -32,6 +32,7 @@ final class Client {
     
     static let shopDomain = "graphql.myshopify.com"
     static let apiKey     = "8e2fef6daed4b93cf4e731f580799dd1"
+    static let merchantID = "merchant.com.your.id"
     
     static let shared = Client()
     
@@ -116,8 +117,26 @@ final class Client {
     }
     
     @discardableResult
-    func updateCheckout(_ id: String, updatingShippingAddress address: PayPostalAddress, completion: @escaping (CheckoutViewModel?) -> Void) -> Task {
-        let mutation = ClientQuery.mutationForUpdateCheckout(id, updatingShippingAddress: address)
+    func updateCheckout(_ id: String, updatingPartialShippingAddress address: PayPostalAddress, completion: @escaping (CheckoutViewModel?) -> Void) -> Task {
+        let mutation = ClientQuery.mutationForUpdateCheckout(id, updatingPartialShippingAddress: address)
+        let task     = self.client.mutateGraphWith(mutation) { response, error in
+            error.debugPrint()
+            
+            if let checkout = response?.checkoutShippingAddressUpdate?.checkout,
+                let _ = checkout.shippingAddress {
+                completion(checkout.viewModel)
+            } else {
+                completion(nil)
+            }
+        }
+        
+        task.resume()
+        return task
+    }
+    
+    @discardableResult
+    func updateCheckout(_ id: String, updatingCompleteShippingAddress address: PayAddress, completion: @escaping (CheckoutViewModel?) -> Void) -> Task {
+        let mutation = ClientQuery.mutationForUpdateCheckout(id, updatingCompleteShippingAddress: address)
         let task     = self.client.mutateGraphWith(mutation) { response, error in
             error.debugPrint()
             
