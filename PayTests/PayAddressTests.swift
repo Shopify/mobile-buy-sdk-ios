@@ -35,16 +35,66 @@ class PayAddressTests: XCTestCase {
     //
     func testInitPostalAddress() {
         let address = PayPostalAddress(
-            city:        "Toronto",
-            country:     "Canada",
-            province:    "ON",
-            zip:         "A1B 2C3"
+            city:        "Brooklyn",
+            country:     "United States",
+            countryCode: "US",
+            province:    "NY",
+            zip:         "11217"
         )
         
-        XCTAssertEqual(address.city,     "Toronto")
-        XCTAssertEqual(address.country,  "Canada")
-        XCTAssertEqual(address.province, "ON")
-        XCTAssertEqual(address.zip,      "A1B 2C3")
+        XCTAssertEqual(address.city,      "Brooklyn")
+        XCTAssertEqual(address.country,   "United States")
+        XCTAssertEqual(address.province,  "NY")
+        XCTAssertEqual(address.zip,       "11217")
+        XCTAssertEqual(address.paddedZip, "11217")
+    }
+    
+    func testInitPostalAddressInUnitedStates() {
+        let address = PayPostalAddress(
+            city:        "Brooklyn",
+            country:     "United States",
+            countryCode: "US",
+            province:    "NY",
+            zip:         "112"
+        )
+        
+        XCTAssertEqual(address.city,      "Brooklyn")
+        XCTAssertEqual(address.country,   "United States")
+        XCTAssertEqual(address.province,  "NY")
+        XCTAssertEqual(address.zip,       "112")
+        XCTAssertEqual(address.paddedZip, "112")
+    }
+    
+    func testInitPartialPostalAddressInCanada() {
+        let address = PayPostalAddress(
+            city:        "Toronto",
+            country:     "Canada",
+            countryCode: "CA",
+            province:    "ON",
+            zip:         "L5S "
+        )
+        
+        XCTAssertEqual(address.city,      "Toronto")
+        XCTAssertEqual(address.country,   "Canada")
+        XCTAssertEqual(address.province,  "ON")
+        XCTAssertEqual(address.zip,       "L5S ")
+        XCTAssertEqual(address.paddedZip, "L5S 0Z0")
+    }
+    
+    func testInitPartialPostalAddressInUnitedKingdom() {
+        let address = PayPostalAddress(
+            city:        "London",
+            country:     "United Kingdom",
+            countryCode: "gb",
+            province:    "ON",
+            zip:         "W1A "
+        )
+        
+        XCTAssertEqual(address.city,      "London")
+        XCTAssertEqual(address.country,   "United Kingdom")
+        XCTAssertEqual(address.province,  "ON")
+        XCTAssertEqual(address.zip,       "W1A ")
+        XCTAssertEqual(address.paddedZip, "W1A 0ZZ")
     }
     
     func testInitAddress() {
@@ -80,10 +130,11 @@ class PayAddressTests: XCTestCase {
         let passKitAddress = Models.createPostalAddress()
         let address        = PayPostalAddress(with: passKitAddress)
         
-        XCTAssertEqual(address.city,     "Toronto")
-        XCTAssertEqual(address.country,  "Canada")
-        XCTAssertEqual(address.province, "ON")
-        XCTAssertEqual(address.zip,      "M5V 2J4")
+        XCTAssertEqual(address.city,      "Toronto")
+        XCTAssertEqual(address.country,   "Canada")
+        XCTAssertEqual(address.province,  "ON")
+        XCTAssertEqual(address.zip,       "M5V 2J4")
+        XCTAssertEqual(address.paddedZip, "M5V 2J4")
     }
     
     // ----------------------------------

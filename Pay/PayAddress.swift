@@ -36,25 +36,70 @@ public struct PayPostalAddress {
 
     /// Country (eg: "Canada")
     public let country: String?
+    
+    /// ISO country code (eg: "ca")
+    public let countryCode: String?
 
     /// Province (eg: "ON" or "Ontario")
     public let province: String?
 
     /// Zip or postal code (eg: "M5V 2J4")
     public let zip: String?
+    
+    /// A padded zip if the countryCode is "ca" or "gb"
+    public let paddedZip: String?
 
     // ----------------------------------
     //  MARK: - Init -
     //
     public init(city: String? = nil,
          country:     String? = nil,
+         countryCode: String? = nil,
          province:    String? = nil,
          zip:         String? = nil) {
 
         self.city         = city
         self.country      = country
+        self.countryCode  = countryCode
         self.province     = province
         self.zip          = zip
+        
+        /* -----------------------------------
+         ** If we're dealing with postal codes
+         ** in Canada or United Kingdom, we are
+         ** likely dealing with a partial code.
+         ** We'll have to pad it to make it
+         ** compatible with Shopify.
+         */
+        var paddedZip: String?
+        
+        if let countryCode = self.countryCode?.lowercased(), let zip = zip {
+            
+            let postalCode = zip.trimmingCharacters(in: .whitespacesAndNewlines)
+            if postalCode.characters.count < 4 {
+                paddedZip = PayPostalAddress.paddedPostalCode(postalCode, for: countryCode)
+            } else {
+                paddedZip = postalCode
+            }
+        }
+        
+        self.paddedZip = paddedZip
+    }
+    
+    // ----------------------------------
+    //  MARK: - Postal Code -
+    //
+    private static func paddedPostalCode(_ postalCode: String, for countryCode: String) -> String {
+        switch countryCode {
+        case "ca":
+            return "\(postalCode) 0Z0"
+        
+        case "gb":
+            return "\(postalCode) 0ZZ"
+
+        default:
+            return postalCode
+        }
     }
 }
 
@@ -130,6 +175,7 @@ internal extension PayPostalAddress {
         self.init(
             city:        address.city,
             country:     address.country,
+            countryCode: address.isoCountryCode,
             province:    address.state,
             zip:         address.postalCode
         )
