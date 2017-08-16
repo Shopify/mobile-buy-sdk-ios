@@ -43,6 +43,9 @@ public protocol PaySessionDelegate: class {
     ///     - checkout:   The current checkout state.
     ///     - provide:    A completion handler that **must** be invoked with an updated `PayCheckout` and an array of `[PayShippingRate]`. If the `PayPostalAddress` is invalid or you were unable to obtain shipping rates, then returning `nil` or empty shipping rates will result in an invalid address error in Apple Pay.
     ///
+    /// - Important:
+    /// The `address` passed into this method is _partial_, and doesn't include address lines or a complete zip / postal code. It is sufficient for obtaining shipping rates _only_. **You must update the checkout with a full address before completing the payment.** The complete address will be available in `paySession(_:didAuthorizePayment:checkout:completeTransaction:)`.
+    ///
     func paySession(_ paySession: PaySession, didRequestShippingRatesFor address: PayPostalAddress, checkout: PayCheckout, provide: @escaping (PayCheckout?, [PayShippingRate]) -> Void)
 
     /// This callback is invoked if the user updates the `shippingContact` and the current address is invalidated. This method is called *only* for
@@ -54,6 +57,9 @@ public protocol PaySessionDelegate: class {
     ///     - address:    A partial address that you can use to obtain relevant tax information for the checkout. This address is missing `addressLine1` and `addressLine2`. This information is only available after the user has authorized payment.
     ///     - checkout:   The current checkout state.
     ///     - provide:    A completion handler that **must** be invoked with an updated `PayCheckout`. Returning `nil` will result in a generic failure in the Apple Pay dialog.
+    ///
+    /// - Important:
+    /// The `address` passed into this method is _partial_, and doesn't include address lines or a complete zip / postal code. It is sufficient for obtaining shipping rates _only_. **You must update the checkout with a full address before completing the payment.** The complete address will be available in `paySession(_:didAuthorizePayment:checkout:completeTransaction:)`.
     ///
     func paySession(_ paySession: PaySession, didUpdateShippingAddress address: PayPostalAddress, checkout: PayCheckout, provide: @escaping (PayCheckout?) -> Void)
     
@@ -74,6 +80,9 @@ public protocol PaySessionDelegate: class {
     ///     - authorization:       Authorization object that encapsulates the token and other relevant information: billing address, complete shipping address, and shipping rate.
     ///     - checkout:            The current checkout state.
     ///     - completeTransaction: A completion handler that **must** be invoked with the final transaction status.
+    ///
+    /// - Important:
+    /// If you previously set a partial address on checkout (eg: for obtaining shipping rates), you **MUST** update the checkout with the complete address provided by `authorization.shippingAddress`.
     ///
     func paySession(_ paySession: PaySession, didAuthorizePayment authorization: PayAuthorization, checkout: PayCheckout, completeTransaction: @escaping (PaySession.TransactionStatus) -> Void)
 
