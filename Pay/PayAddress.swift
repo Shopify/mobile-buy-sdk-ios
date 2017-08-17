@@ -46,8 +46,13 @@ public struct PayPostalAddress {
     /// Zip or postal code (eg: "M5V 2J4")
     public let zip: String?
     
-    /// A padded zip if the countryCode is "ca" or "gb"
-    public let paddedZip: String?
+    /// True if the zip or postal code has been padded. For example,
+    /// if the value passed in was "M5V", this property will return
+    /// `true` and `zip` will be "M5V 0Z0"
+    public let isPadded: Bool
+    
+    /// The original, non-padded zip code that was used to create the address
+    internal let originalZip: String?
 
     // ----------------------------------
     //  MARK: - Init -
@@ -62,7 +67,7 @@ public struct PayPostalAddress {
         self.country      = country
         self.countryCode  = countryCode
         self.province     = province
-        self.zip          = zip
+        self.originalZip  = zip
         
         /* -----------------------------------
          ** If we're dealing with postal codes
@@ -71,34 +76,38 @@ public struct PayPostalAddress {
          ** We'll have to pad it to make it
          ** compatible with Shopify.
          */
-        var paddedZip: String?
-        
-        if let countryCode = self.countryCode?.lowercased(), let zip = zip {
+        let countryCode = self.countryCode?.lowercased() ?? ""
+        if let zip = zip {
             
-            let postalCode = zip.trimmingCharacters(in: .whitespacesAndNewlines)
-            if postalCode.characters.count < 4 {
-                paddedZip = PayPostalAddress.paddedPostalCode(postalCode, for: countryCode)
+            let trimmedZip = zip.trimmingCharacters(in: .whitespacesAndNewlines)
+            if trimmedZip.characters.count < 4 {
+                let (zip, isPadded) = PayPostalAddress.paddedPostalCode(trimmedZip, for: countryCode)
+                self.zip      = zip
+                self.isPadded = isPadded
             } else {
-                paddedZip = postalCode
+                self.zip      = trimmedZip
+                self.isPadded = false
             }
+            
+        } else {
+            self.zip      = nil
+            self.isPadded = false
         }
-        
-        self.paddedZip = paddedZip
     }
     
     // ----------------------------------
     //  MARK: - Postal Code -
     //
-    private static func paddedPostalCode(_ postalCode: String, for countryCode: String) -> String {
+    private static func paddedPostalCode(_ postalCode: String, for countryCode: String) -> (postalCode: String, isModified: Bool) {
         switch countryCode {
         case "ca":
-            return "\(postalCode) 0Z0"
+            return ("\(postalCode) 0Z0", true)
         
         case "gb":
-            return "\(postalCode) 0ZZ"
+            return ("\(postalCode) 0ZZ", true)
 
         default:
-            return postalCode
+            return (postalCode, false)
         }
     }
 }

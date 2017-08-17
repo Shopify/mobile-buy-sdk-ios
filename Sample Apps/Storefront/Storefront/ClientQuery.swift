@@ -102,7 +102,7 @@ final class ClientQuery {
             city:     address.city,
             country:  address.country,
             province: address.province,
-            zip:      address.paddedZip
+            zip:      address.zip
         )
         
         return Storefront.buildMutation { $0
