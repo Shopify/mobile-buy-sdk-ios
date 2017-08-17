@@ -33,33 +33,35 @@ final class AddressViewModel: ViewModel {
     
     let model:  ModelType
     
-    let firstName: String?
-    let lastName:  String?
-    let phone:     String?
+    let firstName:   String?
+    let lastName:    String?
+    let phone:       String?
     
-    let address1:  String?
-    let address2:  String?
-    let city:      String?
-    let country:   String?
-    let province:  String?
-    let zip:       String?
+    let address1:    String?
+    let address2:    String?
+    let city:        String?
+    let country:     String?
+    let countryCode: String?
+    let province:    String?
+    let zip:         String?
     
     // ----------------------------------
     //  MARK: - Init -
     //
     required init(from model: ModelType) {
-        self.model     = model
+        self.model       = model
         
-        self.firstName = model.firstName
-        self.lastName  = model.lastName
-        self.phone     = model.phone
+        self.firstName   = model.firstName
+        self.lastName    = model.lastName
+        self.phone       = model.phone
         
-        self.address1  = model.address1
-        self.address2  = model.address2
-        self.city      = model.city
-        self.country   = model.country
-        self.province  = model.province
-        self.zip       = model.zip
+        self.address1    = model.address1
+        self.address2    = model.address2
+        self.city        = model.city
+        self.country     = model.country
+        self.countryCode = model.countryCode
+        self.province    = model.province
+        self.zip         = model.zip
     }
 }
 

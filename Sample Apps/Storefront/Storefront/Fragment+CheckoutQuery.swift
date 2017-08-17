@@ -44,6 +44,7 @@ extension Storefront.CheckoutQuery {
             .address2()
             .city()
             .country()
+            .countryCode()
             .province()
             .provinceCode()
             .zip()

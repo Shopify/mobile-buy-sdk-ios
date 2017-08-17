@@ -101,13 +101,6 @@
 			remoteGlobalIDString = 9A4068DB1E8E7658000254CD;
 			remoteInfo = Pay;
 		};
-		9A9C92B21ED488520027F049 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9AEF61BF1E606C710067FA90 /* Buy.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 9A6F3B971EBB49A000B149F4;
-			remoteInfo = Crypto;
-		};
 		9AEF61C31E606C710067FA90 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9AEF61BF1E606C710067FA90 /* Buy.xcodeproj */;
@@ -503,7 +496,6 @@
 				9AFA3B7B1E6DB6FE0056C5AA /* BuyTests.xctest */,
 				9A4069021E8E76AB000254CD /* Pay.framework */,
 				9A4069041E8E76AB000254CD /* PayTests.xctest */,
-				9A9C92B31ED488520027F049 /* Crypto.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -610,13 +602,6 @@
 			fileType = wrapper.cfbundle;
 			path = PayTests.xctest;
 			remoteRef = 9A4069031E8E76AB000254CD /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9A9C92B31ED488520027F049 /* Crypto.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Crypto.framework;
-			remoteRef = 9A9C92B21ED488520027F049 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		9AEF61C41E606C710067FA90 /* Buy.framework */ = {

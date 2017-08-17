@@ -35,16 +35,87 @@ class PayAddressTests: XCTestCase {
     //
     func testInitPostalAddress() {
         let address = PayPostalAddress(
-            city:        "Toronto",
-            country:     "Canada",
-            province:    "ON",
-            zip:         "A1B 2C3"
+            city:        "Brooklyn",
+            country:     "United States",
+            countryCode: "US",
+            province:    "NY",
+            zip:         "11217"
         )
         
-        XCTAssertEqual(address.city,     "Toronto")
-        XCTAssertEqual(address.country,  "Canada")
-        XCTAssertEqual(address.province, "ON")
-        XCTAssertEqual(address.zip,      "A1B 2C3")
+        XCTAssertEqual(address.city,        "Brooklyn")
+        XCTAssertEqual(address.country,     "United States")
+        XCTAssertEqual(address.province,    "NY")
+        XCTAssertEqual(address.zip,         "11217")
+        XCTAssertEqual(address.originalZip, "11217")
+        XCTAssertEqual(address.isPadded,    false)
+    }
+    
+    func testInitPostalAddressInUnitedStates() {
+        let address = PayPostalAddress(
+            city:        "Brooklyn",
+            country:     "United States",
+            countryCode: "US",
+            province:    "NY",
+            zip:         "112"
+        )
+        
+        XCTAssertEqual(address.city,        "Brooklyn")
+        XCTAssertEqual(address.country,     "United States")
+        XCTAssertEqual(address.province,    "NY")
+        XCTAssertEqual(address.zip,         "112")
+        XCTAssertEqual(address.originalZip, "112")
+        XCTAssertEqual(address.isPadded,    false)
+    }
+    
+    func testInitPartialPostalAddressInCanada() {
+        let address = PayPostalAddress(
+            city:        "Toronto",
+            country:     "Canada",
+            countryCode: "CA",
+            province:    "ON",
+            zip:         "L5S "
+        )
+        
+        XCTAssertEqual(address.city,        "Toronto")
+        XCTAssertEqual(address.country,     "Canada")
+        XCTAssertEqual(address.province,    "ON")
+        XCTAssertEqual(address.zip,         "L5S 0Z0")
+        XCTAssertEqual(address.originalZip, "L5S ")
+        XCTAssertEqual(address.isPadded,    true)
+    }
+    
+    func testInitPartialPostalAddressInUnitedKingdom() {
+        let address = PayPostalAddress(
+            city:        "London",
+            country:     "United Kingdom",
+            countryCode: "gb",
+            province:    "ON",
+            zip:         "W1A"
+        )
+        
+        XCTAssertEqual(address.city,        "London")
+        XCTAssertEqual(address.country,     "United Kingdom")
+        XCTAssertEqual(address.province,    "ON")
+        XCTAssertEqual(address.zip,         "W1A 0ZZ")
+        XCTAssertEqual(address.originalZip, "W1A")
+        XCTAssertEqual(address.isPadded,    true)
+    }
+    
+    func testInitEmptyZipAddress() {
+        let address = PayPostalAddress(
+            city:        "London",
+            country:     "United Kingdom",
+            countryCode: nil,
+            province:    "ON",
+            zip:         nil
+        )
+        
+        XCTAssertEqual(address.city,        "London")
+        XCTAssertEqual(address.country,     "United Kingdom")
+        XCTAssertEqual(address.province,    "ON")
+        XCTAssertEqual(address.zip,         nil)
+        XCTAssertEqual(address.originalZip, nil)
+        XCTAssertEqual(address.isPadded,    false)
     }
     
     func testInitAddress() {
@@ -80,10 +151,12 @@ class PayAddressTests: XCTestCase {
         let passKitAddress = Models.createPostalAddress()
         let address        = PayPostalAddress(with: passKitAddress)
         
-        XCTAssertEqual(address.city,     "Toronto")
-        XCTAssertEqual(address.country,  "Canada")
-        XCTAssertEqual(address.province, "ON")
-        XCTAssertEqual(address.zip,      "M5V 2J4")
+        XCTAssertEqual(address.city,        "Toronto")
+        XCTAssertEqual(address.country,     "Canada")
+        XCTAssertEqual(address.province,    "ON")
+        XCTAssertEqual(address.zip,         "M5V 2J4")
+        XCTAssertEqual(address.originalZip, "M5V 2J4")
+        XCTAssertEqual(address.isPadded,    false)
     }
     
     // ----------------------------------
