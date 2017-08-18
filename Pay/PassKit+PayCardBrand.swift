@@ -1,6 +1,6 @@
 //
-//  AddressViewModel.swift
-//  Storefront
+//  PassKit+PayCardBrand.swift
+//  Pay
 //
 //  Created by Shopify.
 //  Copyright (c) 2017 Shopify Inc. All rights reserved.
@@ -24,47 +24,36 @@
 //  THE SOFTWARE.
 //
 
-import Foundation
-import Buy
+import PassKit
 
-final class AddressViewModel: ViewModel {
+extension PayCardBrand {
     
-    typealias ModelType = Storefront.MailingAddress
-    
-    let model:  ModelType
-    
-    let firstName:   String?
-    let lastName:    String?
-    let phone:       String?
-    
-    let address1:    String?
-    let address2:    String?
-    let city:        String?
-    let country:     String?
-    let countryCode: String?
-    let province:    String?
-    let zip:         String?
-    
-    // ----------------------------------
-    //  MARK: - Init -
-    //
-    required init(from model: ModelType) {
-        self.model       = model
-        
-        self.firstName   = model.firstName
-        self.lastName    = model.lastName
-        self.phone       = model.phone
-        
-        self.address1    = model.address1
-        self.address2    = model.address2
-        self.city        = model.city
-        self.country     = model.country
-        self.countryCode = model.countryCode
-        self.province    = model.province
-        self.zip         = model.zip
+    var paymentNetwork: PKPaymentNetwork? {
+        switch self {
+        case .visa:            return .visa
+        case .masterCard:      return .masterCard
+        case .discover:        return .discover
+        case .americanExpress: return .amex
+        case .jcb:
+            
+            if #available(iOS 10.1, *) {
+                return .JCB
+            } else {
+                Log("WARNING: Attempting to convert PayCardBrand.jcb to PKPaymentNetwork on iOS 10.0 or lower. PKPaymentNetwork.JCB requires iOS 10.1 or higher.")
+                return nil
+            }
+            
+        default:
+            return nil
+        }
     }
 }
 
-extension Storefront.MailingAddress: ViewModeling {
-    typealias ViewModelType = AddressViewModel
+extension Array where Element == PayCardBrand {
+    
+    var paymentNetworks: [PKPaymentNetwork] {
+        return self.flatMap {
+            $0.paymentNetwork
+        }
+    }
 }

@@ -27,17 +27,7 @@
 import Pay
 
 extension AddressViewModel {
-    
-    var payPostalAddress: PayPostalAddress {
         
-        return PayPostalAddress(
-            city:        self.city,
-            country:     self.country,
-            province:    self.province,
-            zip:         self.zip
-        )
-    }
-    
     var payAddress: PayAddress {
         
         return PayAddress(

@@ -1205,6 +1205,8 @@ task.resume()
 
 ###### Apple Pay checkout [⤴](#table-of-contents)
 
+**IMPORTANT**: Before completing the checkout with an Apple Pay token you should ensure that your checkout is updated with the latests shipping address provided by `paySession(_:didAuthorizePayment:checkout:completeTransaction:)` delegate callback. If you've previously set a partial shipping address on the checkout for obtaining shipping rates, **the current checkout, as is, will not complete successfully**. You must update the checkout with the full address that includes address lines and a complete zip or postal code.
+
 The Buy SDK makes  Pay integration easy with the provided `Pay.framework`. To learn how to set up and use `PaySession` to obtain a payment token, refer to the [ Pay](#apple-pay-) section. After we have a payment token, we can complete the checkout:
 
 ```swift

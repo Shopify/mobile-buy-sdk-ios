@@ -135,7 +135,7 @@ class CartViewController: ParallaxViewController {
             paymentDue:      checkout.paymentDue
         )
         
-        let paySession      = PaySession(checkout: payCheckout, currency: payCurrency, merchantID: "com.mechant.identifier")
+        let paySession      = PaySession(checkout: payCheckout, currency: payCurrency, merchantID: Client.merchantID)
         paySession.delegate = self
         self.paySession     = paySession
         
@@ -192,7 +192,7 @@ extension CartViewController: PaySessionDelegate {
     func paySession(_ paySession: PaySession, didRequestShippingRatesFor address: PayPostalAddress, checkout: PayCheckout, provide: @escaping  (PayCheckout?, [PayShippingRate]) -> Void) {
         
         print("Updating checkout with address...")
-        Client.shared.updateCheckout(checkout.id, updatingShippingAddress: address) { checkout in
+        Client.shared.updateCheckout(checkout.id, updatingPartialShippingAddress: address) { checkout in
             
             guard let checkout = checkout else {
                 print("Update for checkout failed.")
@@ -215,7 +215,7 @@ extension CartViewController: PaySessionDelegate {
     func paySession(_ paySession: PaySession, didUpdateShippingAddress address: PayPostalAddress, checkout: PayCheckout, provide: @escaping (PayCheckout?) -> Void) {
         
         print("Updating checkout with shipping address for tax estimate...")
-        Client.shared.updateCheckout(checkout.id, updatingShippingAddress: address) { checkout in
+        Client.shared.updateCheckout(checkout.id, updatingPartialShippingAddress: address) { checkout in
             
             if let checkout = checkout {   
                 provide(checkout.payCheckout)
@@ -243,23 +243,30 @@ extension CartViewController: PaySessionDelegate {
             return
         }
         
-        print("Updating checkout email...")
-        Client.shared.updateCheckout(checkout.id, updatingEmail: email) { updatedCheckout in
-            
+        print("Updating checkout shipping address...")
+        Client.shared.updateCheckout(checkout.id, updatingCompleteShippingAddress: authorization.shippingAddress) { updatedCheckout in
             guard let _ = updatedCheckout else {
                 completeTransaction(.failure)
                 return
             }
             
-            print("Checkout email updated: \(email)")
-            print("Completing checkout...")
-            Client.shared.completeCheckout(checkout, billingAddress: authorization.billingAddress, applePayToken: authorization.token, idempotencyToken: paySession.identifier) { payment in
-                if let payment = payment, checkout.paymentDue == payment.amount {
-                    print("Checkout completed successfully.")
-                    completeTransaction(.success)
-                } else {
-                    print("Checkout failed to complete.")
+            print("Updating checkout email...")
+            Client.shared.updateCheckout(checkout.id, updatingEmail: email) { updatedCheckout in
+                guard let _ = updatedCheckout else {
                     completeTransaction(.failure)
+                    return
+                }
+                
+                print("Checkout email updated: \(email)")
+                print("Completing checkout...")
+                Client.shared.completeCheckout(checkout, billingAddress: authorization.billingAddress, applePayToken: authorization.token, idempotencyToken: paySession.identifier) { payment in
+                    if let payment = payment, checkout.paymentDue == payment.amount {
+                        print("Checkout completed successfully.")
+                        completeTransaction(.success)
+                    } else {
+                        print("Checkout failed to complete.")
+                        completeTransaction(.failure)
+                    }
                 }
             }
         }

@@ -36,25 +36,79 @@ public struct PayPostalAddress {
 
     /// Country (eg: "Canada")
     public let country: String?
+    
+    /// ISO country code (eg: "ca")
+    public let countryCode: String?
 
     /// Province (eg: "ON" or "Ontario")
     public let province: String?
 
     /// Zip or postal code (eg: "M5V 2J4")
     public let zip: String?
+    
+    /// True if the zip or postal code has been padded. For example,
+    /// if the value passed in was "M5V", this property will return
+    /// `true` and `zip` will be "M5V 0Z0"
+    public let isPadded: Bool
+    
+    /// The original, non-padded zip code that was used to create the address
+    internal let originalZip: String?
 
     // ----------------------------------
     //  MARK: - Init -
     //
     public init(city: String? = nil,
          country:     String? = nil,
+         countryCode: String? = nil,
          province:    String? = nil,
          zip:         String? = nil) {
 
         self.city         = city
         self.country      = country
+        self.countryCode  = countryCode
         self.province     = province
-        self.zip          = zip
+        self.originalZip  = zip
+        
+        /* -----------------------------------
+         ** If we're dealing with postal codes
+         ** in Canada or United Kingdom, we are
+         ** likely dealing with a partial code.
+         ** We'll have to pad it to make it
+         ** compatible with Shopify.
+         */
+        let countryCode = self.countryCode?.lowercased() ?? ""
+        if let zip = zip {
+            
+            let trimmedZip = zip.trimmingCharacters(in: .whitespacesAndNewlines)
+            if trimmedZip.characters.count < 4 {
+                let (zip, isPadded) = PayPostalAddress.paddedPostalCode(trimmedZip, for: countryCode)
+                self.zip      = zip
+                self.isPadded = isPadded
+            } else {
+                self.zip      = trimmedZip
+                self.isPadded = false
+            }
+            
+        } else {
+            self.zip      = nil
+            self.isPadded = false
+        }
+    }
+    
+    // ----------------------------------
+    //  MARK: - Postal Code -
+    //
+    private static func paddedPostalCode(_ postalCode: String, for countryCode: String) -> (postalCode: String, isModified: Bool) {
+        switch countryCode {
+        case "ca":
+            return ("\(postalCode) 0Z0", true)
+        
+        case "gb":
+            return ("\(postalCode) 0ZZ", true)
+
+        default:
+            return (postalCode, false)
+        }
     }
 }
 
@@ -130,6 +184,7 @@ internal extension PayPostalAddress {
         self.init(
             city:        address.city,
             country:     address.country,
+            countryCode: address.isoCountryCode,
             province:    address.state,
             zip:         address.postalCode
         )
