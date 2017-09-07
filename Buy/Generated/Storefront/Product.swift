@@ -169,7 +169,15 @@ extension Storefront {
 			return self
 		}
 
-		/// Lst of custom product options (maximum of 3 per product). 
+		/// The online store URL for the product. A value of `null` indicates that the 
+		/// product is not published to the Online Store sales channel. 
+		@discardableResult
+		open func onlineStoreUrl(alias: String? = nil) -> ProductQuery {
+			addField(field: "onlineStoreUrl", aliasSuffix: alias)
+			return self
+		}
+
+		/// List of custom product options (maximum of 3 per product). 
 		///
 		/// - parameters:
 		///     - first: Truncate the array result to this size
@@ -199,9 +207,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The date and time when the product was published to the Online Store 
-		/// channel. A value of `null` indicates that the product is not published to 
-		/// Online Store. 
+		/// The date and time when the product was published to the channel. 
 		@discardableResult
 		open func publishedAt(alias: String? = nil) -> ProductQuery {
 			addField(field: "publishedAt", aliasSuffix: alias)
@@ -260,9 +266,10 @@ extension Storefront {
 		///     - first: No description
 		///     - after: No description
 		///     - reverse: No description
+		///     - sortKey: No description
 		///
 		@discardableResult
-		open func variants(alias: String? = nil, first: Int32, after: String? = nil, reverse: Bool? = nil, _ subfields: (ProductVariantConnectionQuery) -> Void) -> ProductQuery {
+		open func variants(alias: String? = nil, first: Int32, after: String? = nil, reverse: Bool? = nil, sortKey: ProductVariantSortKeys? = nil, _ subfields: (ProductVariantConnectionQuery) -> Void) -> ProductQuery {
 			var args: [String] = []
 
 			args.append("first:\(first)")
@@ -273,6 +280,10 @@ extension Storefront {
 
 			if let reverse = reverse {
 				args.append("reverse:\(reverse)")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
 			}
 
 			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
@@ -344,6 +355,13 @@ extension Storefront {
 					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
 				}
 				return try ImageConnection(fields: value)
+
+				case "onlineStoreUrl":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				}
+				return URL(string: value)!
 
 				case "options":
 				guard let value = value as? [[String: Any]] else {
@@ -482,7 +500,17 @@ extension Storefront {
 			return field(field: "images", aliasSuffix: alias) as! Storefront.ImageConnection
 		}
 
-		/// Lst of custom product options (maximum of 3 per product). 
+		/// The online store URL for the product. A value of `null` indicates that the 
+		/// product is not published to the Online Store sales channel. 
+		open var onlineStoreUrl: URL? {
+			return internalGetOnlineStoreUrl()
+		}
+
+		func internalGetOnlineStoreUrl(alias: String? = nil) -> URL? {
+			return field(field: "onlineStoreUrl", aliasSuffix: alias) as! URL?
+		}
+
+		/// List of custom product options (maximum of 3 per product). 
 		open var options: [Storefront.ProductOption] {
 			return internalGetOptions()
 		}
@@ -505,9 +533,7 @@ extension Storefront {
 			return field(field: "productType", aliasSuffix: alias) as! String
 		}
 
-		/// The date and time when the product was published to the Online Store 
-		/// channel. A value of `null` indicates that the product is not published to 
-		/// Online Store. 
+		/// The date and time when the product was published to the channel. 
 		open var publishedAt: Date {
 			return internalGetPublishedAt()
 		}
