@@ -30,23 +30,23 @@ extension Storefront {
 	/// Specifies the fields required to create a new Customer. 
 	open class CustomerCreateInput {
 		/// The customer’s first name. 
-		open var firstName: String?
+		open var firstName: InputValue<String>
 
 		/// The customer’s last name. 
-		open var lastName: String?
+		open var lastName: InputValue<String>
 
 		/// The customer’s email. 
 		open var email: String
 
 		/// The customer’s phone number. 
-		open var phone: String?
+		open var phone: InputValue<String>
 
 		/// The login password used by the customer. 
 		open var password: String
 
 		/// Indicates whether the customer has consented to be sent marketing material 
 		/// via email. 
-		open var acceptsMarketing: Bool?
+		open var acceptsMarketing: InputValue<Bool>
 
 		/// Creates the input object.
 		///
@@ -58,7 +58,7 @@ extension Storefront {
 		///     - password: The login password used by the customer.
 		///     - acceptsMarketing: Indicates whether the customer has consented to be sent marketing material via email.
 		///
-		public init(email: String, password: String, firstName: String? = nil, lastName: String? = nil, phone: String? = nil, acceptsMarketing: Bool? = nil) {
+		public init(email: String, password: String, firstName: InputValue<String> = .undefined, lastName: InputValue<String> = .undefined, phone: InputValue<String> = .undefined, acceptsMarketing: InputValue<Bool> = .undefined) {
 			self.firstName = firstName
 			self.lastName = lastName
 			self.email = email
@@ -70,24 +70,32 @@ extension Storefront {
 		internal func serialize() -> String {
 			var fields: [String] = []
 
-			if let firstName = firstName {
-				fields.append("firstName:\(GraphQL.quoteString(input: firstName))")
+			switch firstName {
+				case .some(let firstName): fields.append("firstName:\(GraphQL.quoteString(input: firstName))")
+				case .null: fields.append("firstName:null")
+				case .undefined: break
 			}
 
-			if let lastName = lastName {
-				fields.append("lastName:\(GraphQL.quoteString(input: lastName))")
+			switch lastName {
+				case .some(let lastName): fields.append("lastName:\(GraphQL.quoteString(input: lastName))")
+				case .null: fields.append("lastName:null")
+				case .undefined: break
 			}
 
 			fields.append("email:\(GraphQL.quoteString(input: email))")
 
-			if let phone = phone {
-				fields.append("phone:\(GraphQL.quoteString(input: phone))")
+			switch phone {
+				case .some(let phone): fields.append("phone:\(GraphQL.quoteString(input: phone))")
+				case .null: fields.append("phone:null")
+				case .undefined: break
 			}
 
 			fields.append("password:\(GraphQL.quoteString(input: password))")
 
-			if let acceptsMarketing = acceptsMarketing {
-				fields.append("acceptsMarketing:\(acceptsMarketing)")
+			switch acceptsMarketing {
+				case .some(let acceptsMarketing): fields.append("acceptsMarketing:\(acceptsMarketing)")
+				case .null: fields.append("acceptsMarketing:null")
+				case .undefined: break
 			}
 
 			return "{\(fields.joined(separator: ","))}"

@@ -78,12 +78,12 @@ final class ClientQuery {
     //
     static func mutationForCreateCheckout(with cartItems: [CartItem]) -> Storefront.MutationQuery {
         let lineItems = cartItems.map { item in
-            Storefront.CheckoutLineItemInput(variantId: GraphQL.ID(rawValue: item.variant.id), quantity: Int32(item.quantity))
+            Storefront.CheckoutLineItemInput(quantity: Int32(item.quantity), variantId: GraphQL.ID(rawValue: item.variant.id))
         }
         
         let checkoutInput = Storefront.CheckoutCreateInput(
-            lineItems: lineItems,
-            allowPartialAddresses: true
+            lineItems: .some(lineItems),
+            allowPartialAddresses: .some(true)
         )
         
         return Storefront.buildMutation { $0
@@ -99,10 +99,10 @@ final class ClientQuery {
         
         let checkoutID   = GraphQL.ID(rawValue: id)
         let addressInput = Storefront.MailingAddressInput(
-            city:     address.city,
-            country:  address.country,
-            province: address.province,
-            zip:      address.zip
+            city:     address.city.orNull,
+            country:  address.country.orNull,
+            province: address.province.orNull,
+            zip:      address.zip.orNull
         )
         
         return Storefront.buildMutation { $0
@@ -122,15 +122,15 @@ final class ClientQuery {
         
         let checkoutID   = GraphQL.ID(rawValue: id)
         let addressInput = Storefront.MailingAddressInput(
-            address1:  address.addressLine1,
-            address2:  address.addressLine2,
-            city:      address.city,
-            country:   address.country,
-            firstName: address.firstName,
-            lastName:  address.lastName,
-            phone:     address.phone,
-            province:  address.province,
-            zip:       address.zip
+            address1:  address.addressLine1.orNull,
+            address2:  address.addressLine2.orNull,
+            city:      address.city.orNull,
+            country:   address.country.orNull,
+            firstName: address.firstName.orNull,
+            lastName:  address.lastName.orNull,
+            phone:     address.phone.orNull,
+            province:  address.province.orNull,
+            zip:       address.zip.orNull
         )
         
         return Storefront.buildMutation { $0
@@ -179,14 +179,14 @@ final class ClientQuery {
     static func mutationForCompleteCheckoutUsingApplePay(_ checkout: PayCheckout, billingAddress: PayAddress, token: String, idempotencyToken: String) -> Storefront.MutationQuery {
         
         let mailingAddress = Storefront.MailingAddressInput(
-            address1:  billingAddress.addressLine1,
-            address2:  billingAddress.addressLine2,
-            city:      billingAddress.city,
-            country:   billingAddress.country,
-            firstName: billingAddress.firstName,
-            lastName:  billingAddress.lastName,
-            province:  billingAddress.province,
-            zip:       billingAddress.zip
+            address1:  billingAddress.addressLine1.orNull,
+            address2:  billingAddress.addressLine2.orNull,
+            city:      billingAddress.city.orNull,
+            country:   billingAddress.country.orNull,
+            firstName: billingAddress.firstName.orNull,
+            lastName:  billingAddress.lastName.orNull,
+            province:  billingAddress.province.orNull,
+            zip:       billingAddress.zip.orNull
         )
         
         let paymentInput = Storefront.TokenizedPaymentInput(
@@ -196,7 +196,7 @@ final class ClientQuery {
             type:           CheckoutViewModel.PaymentType.applePay.rawValue,
             paymentData:    token
         )
-        
+
         return Storefront.buildMutation { $0
             .checkoutCompleteWithTokenizedPayment(checkoutId: GraphQL.ID(rawValue: checkout.id), payment: paymentInput) { $0
                 .userErrors { $0

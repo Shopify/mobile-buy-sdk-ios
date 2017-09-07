@@ -128,13 +128,13 @@ extension Storefront {
 		/// - parameters:
 		///     - first: No description
 		///     - after: No description
-		///     - sortKey: No description
 		///     - reverse: No description
+		///     - sortKey: No description
 		///     - query: Supported filter parameters:
 		///         - `processed_at`
 		///
 		@discardableResult
-		open func orders(alias: String? = nil, first: Int32, after: String? = nil, sortKey: OrderSortKeys? = nil, reverse: Bool? = nil, query: String? = nil, _ subfields: (OrderConnectionQuery) -> Void) -> CustomerQuery {
+		open func orders(alias: String? = nil, first: Int32, after: String? = nil, reverse: Bool? = nil, sortKey: OrderSortKeys? = nil, query: String? = nil, _ subfields: (OrderConnectionQuery) -> Void) -> CustomerQuery {
 			var args: [String] = []
 
 			args.append("first:\(first)")
@@ -143,12 +143,12 @@ extension Storefront {
 				args.append("after:\(GraphQL.quoteString(input: after))")
 			}
 
-			if let sortKey = sortKey {
-				args.append("sortKey:\(sortKey.rawValue)")
-			}
-
 			if let reverse = reverse {
 				args.append("reverse:\(reverse)")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
 			}
 
 			if let query = query {

@@ -115,11 +115,11 @@ extension Storefront {
 		/// - parameters:
 		///     - first: No description
 		///     - after: No description
-		///     - sortKey: No description
 		///     - reverse: No description
+		///     - sortKey: No description
 		///
 		@discardableResult
-		open func products(alias: String? = nil, first: Int32, after: String? = nil, sortKey: ProductCollectionSortKeys? = nil, reverse: Bool? = nil, _ subfields: (ProductConnectionQuery) -> Void) -> CollectionQuery {
+		open func products(alias: String? = nil, first: Int32, after: String? = nil, reverse: Bool? = nil, sortKey: ProductCollectionSortKeys? = nil, _ subfields: (ProductConnectionQuery) -> Void) -> CollectionQuery {
 			var args: [String] = []
 
 			args.append("first:\(first)")
@@ -128,12 +128,12 @@ extension Storefront {
 				args.append("after:\(GraphQL.quoteString(input: after))")
 			}
 
-			if let sortKey = sortKey {
-				args.append("sortKey:\(sortKey.rawValue)")
-			}
-
 			if let reverse = reverse {
 				args.append("reverse:\(reverse)")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
 			}
 
 			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"

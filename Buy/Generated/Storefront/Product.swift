@@ -119,15 +119,15 @@ extension Storefront {
 		/// - parameters:
 		///     - first: No description
 		///     - after: No description
-		///     - sortKey: No description
 		///     - reverse: No description
+		///     - sortKey: No description
 		///     - maxWidth: Image width in pixels between 1 and 2048
 		///     - maxHeight: Image height in pixels between 1 and 2048
 		///     - crop: If specified, crop the image keeping the specified region
 		///     - scale: Image size multiplier retina displays. Must be between 1 and 3
 		///
 		@discardableResult
-		open func images(alias: String? = nil, first: Int32, after: String? = nil, sortKey: ProductImageSortKeys? = nil, reverse: Bool? = nil, maxWidth: Int32? = nil, maxHeight: Int32? = nil, crop: CropRegion? = nil, scale: Int32? = nil, _ subfields: (ImageConnectionQuery) -> Void) -> ProductQuery {
+		open func images(alias: String? = nil, first: Int32, after: String? = nil, reverse: Bool? = nil, sortKey: ProductImageSortKeys? = nil, maxWidth: Int32? = nil, maxHeight: Int32? = nil, crop: CropRegion? = nil, scale: Int32? = nil, _ subfields: (ImageConnectionQuery) -> Void) -> ProductQuery {
 			var args: [String] = []
 
 			args.append("first:\(first)")
@@ -136,12 +136,12 @@ extension Storefront {
 				args.append("after:\(GraphQL.quoteString(input: after))")
 			}
 
-			if let sortKey = sortKey {
-				args.append("sortKey:\(sortKey.rawValue)")
-			}
-
 			if let reverse = reverse {
 				args.append("reverse:\(reverse)")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
 			}
 
 			if let maxWidth = maxWidth {

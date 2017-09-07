@@ -45,7 +45,7 @@ extension Storefront {
 		open var vaultId: String
 
 		/// Executes the payment in test mode if possible. Defaults to `false`. 
-		open var test: Bool?
+		open var test: InputValue<Bool>
 
 		/// Creates the input object.
 		///
@@ -56,7 +56,7 @@ extension Storefront {
 		///     - vaultId: The ID returned by Shopify's Card Vault.
 		///     - test: Executes the payment in test mode if possible. Defaults to `false`.
 		///
-		public init(amount: Decimal, idempotencyKey: String, billingAddress: MailingAddressInput, vaultId: String, test: Bool? = nil) {
+		public init(amount: Decimal, idempotencyKey: String, billingAddress: MailingAddressInput, vaultId: String, test: InputValue<Bool> = .undefined) {
 			self.amount = amount
 			self.idempotencyKey = idempotencyKey
 			self.billingAddress = billingAddress
@@ -75,8 +75,10 @@ extension Storefront {
 
 			fields.append("vaultId:\(GraphQL.quoteString(input: vaultId))")
 
-			if let test = test {
-				fields.append("test:\(test)")
+			switch test {
+				case .some(let test): fields.append("test:\(test)")
+				case .null: fields.append("test:null")
+				case .undefined: break
 			}
 
 			return "{\(fields.joined(separator: ","))}"
