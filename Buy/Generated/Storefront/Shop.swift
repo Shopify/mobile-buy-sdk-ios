@@ -37,8 +37,8 @@ extension Storefront {
 		/// - parameters:
 		///     - first: No description
 		///     - after: No description
-		///     - sortKey: No description
 		///     - reverse: No description
+		///     - sortKey: No description
 		///     - query: Supported filter parameters:
 		///         - `author`
 		///         - `updated_at`
@@ -47,7 +47,7 @@ extension Storefront {
 		///         - `tag`
 		///
 		@discardableResult
-		open func articles(alias: String? = nil, first: Int32, after: String? = nil, sortKey: ArticleSortKeys? = nil, reverse: Bool? = nil, query: String? = nil, _ subfields: (ArticleConnectionQuery) -> Void) -> ShopQuery {
+		open func articles(alias: String? = nil, first: Int32, after: String? = nil, reverse: Bool? = nil, sortKey: ArticleSortKeys? = nil, query: String? = nil, _ subfields: (ArticleConnectionQuery) -> Void) -> ShopQuery {
 			var args: [String] = []
 
 			args.append("first:\(first)")
@@ -56,12 +56,12 @@ extension Storefront {
 				args.append("after:\(GraphQL.quoteString(input: after))")
 			}
 
-			if let sortKey = sortKey {
-				args.append("sortKey:\(sortKey.rawValue)")
-			}
-
 			if let reverse = reverse {
 				args.append("reverse:\(reverse)")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
 			}
 
 			if let query = query {
@@ -82,8 +82,8 @@ extension Storefront {
 		/// - parameters:
 		///     - first: No description
 		///     - after: No description
-		///     - sortKey: No description
 		///     - reverse: No description
+		///     - sortKey: No description
 		///     - query: Supported filter parameters:
 		///         - `handle`
 		///         - `title`
@@ -91,7 +91,7 @@ extension Storefront {
 		///         - `created_at`
 		///
 		@discardableResult
-		open func blogs(alias: String? = nil, first: Int32, after: String? = nil, sortKey: BlogSortKeys? = nil, reverse: Bool? = nil, query: String? = nil, _ subfields: (BlogConnectionQuery) -> Void) -> ShopQuery {
+		open func blogs(alias: String? = nil, first: Int32, after: String? = nil, reverse: Bool? = nil, sortKey: BlogSortKeys? = nil, query: String? = nil, _ subfields: (BlogConnectionQuery) -> Void) -> ShopQuery {
 			var args: [String] = []
 
 			args.append("first:\(first)")
@@ -100,12 +100,12 @@ extension Storefront {
 				args.append("after:\(GraphQL.quoteString(input: after))")
 			}
 
-			if let sortKey = sortKey {
-				args.append("sortKey:\(sortKey.rawValue)")
-			}
-
 			if let reverse = reverse {
 				args.append("reverse:\(reverse)")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
 			}
 
 			if let query = query {
@@ -154,15 +154,15 @@ extension Storefront {
 		/// - parameters:
 		///     - first: No description
 		///     - after: No description
-		///     - sortKey: No description
 		///     - reverse: No description
+		///     - sortKey: No description
 		///     - query: Supported filter parameters:
 		///         - `title`
 		///         - `collection_type`
 		///         - `updated_at`
 		///
 		@discardableResult
-		open func collections(alias: String? = nil, first: Int32, after: String? = nil, sortKey: CollectionSortKeys? = nil, reverse: Bool? = nil, query: String? = nil, _ subfields: (CollectionConnectionQuery) -> Void) -> ShopQuery {
+		open func collections(alias: String? = nil, first: Int32, after: String? = nil, reverse: Bool? = nil, sortKey: CollectionSortKeys? = nil, query: String? = nil, _ subfields: (CollectionConnectionQuery) -> Void) -> ShopQuery {
 			var args: [String] = []
 
 			args.append("first:\(first)")
@@ -171,12 +171,12 @@ extension Storefront {
 				args.append("after:\(GraphQL.quoteString(input: after))")
 			}
 
-			if let sortKey = sortKey {
-				args.append("sortKey:\(sortKey.rawValue)")
-			}
-
 			if let reverse = reverse {
 				args.append("reverse:\(reverse)")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
 			}
 
 			if let query = query {
@@ -297,8 +297,8 @@ extension Storefront {
 		/// - parameters:
 		///     - first: No description
 		///     - after: No description
-		///     - sortKey: No description
 		///     - reverse: No description
+		///     - sortKey: No description
 		///     - query: Supported filter parameters:
 		///         - `title`
 		///         - `product_type`
@@ -308,7 +308,7 @@ extension Storefront {
 		///         - `tag`
 		///
 		@discardableResult
-		open func products(alias: String? = nil, first: Int32, after: String? = nil, sortKey: ProductSortKeys? = nil, reverse: Bool? = nil, query: String? = nil, _ subfields: (ProductConnectionQuery) -> Void) -> ShopQuery {
+		open func products(alias: String? = nil, first: Int32, after: String? = nil, reverse: Bool? = nil, sortKey: ProductSortKeys? = nil, query: String? = nil, _ subfields: (ProductConnectionQuery) -> Void) -> ShopQuery {
 			var args: [String] = []
 
 			args.append("first:\(first)")
@@ -317,12 +317,12 @@ extension Storefront {
 				args.append("after:\(GraphQL.quoteString(input: after))")
 			}
 
-			if let sortKey = sortKey {
-				args.append("sortKey:\(sortKey.rawValue)")
-			}
-
 			if let reverse = reverse {
 				args.append("reverse:\(reverse)")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
 			}
 
 			if let query = query {

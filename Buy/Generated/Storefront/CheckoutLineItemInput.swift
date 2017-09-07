@@ -29,39 +29,41 @@ import Foundation
 extension Storefront {
 	/// Specifies the input fields to create a line item on a checkout. 
 	open class CheckoutLineItemInput {
-		/// The identifier of the product variant for the line item. 
-		open var variantId: GraphQL.ID
+		/// Extra information in the form of an array of Key-Value pairs about the line 
+		/// item. 
+		open var customAttributes: InputValue<[AttributeInput]>
 
 		/// The quantity of the line item. 
 		open var quantity: Int32
 
-		/// Extra information in the form of an array of Key-Value pairs about the line 
-		/// item. 
-		open var customAttributes: [AttributeInput]?
+		/// The identifier of the product variant for the line item. 
+		open var variantId: GraphQL.ID
 
 		/// Creates the input object.
 		///
 		/// - parameters:
-		///     - variantId: The identifier of the product variant for the line item.
-		///     - quantity: The quantity of the line item.
 		///     - customAttributes: Extra information in the form of an array of Key-Value pairs about the line item.
+		///     - quantity: The quantity of the line item.
+		///     - variantId: The identifier of the product variant for the line item.
 		///
-		public init(variantId: GraphQL.ID, quantity: Int32, customAttributes: [AttributeInput]? = nil) {
-			self.variantId = variantId
-			self.quantity = quantity
+		public init(quantity: Int32, variantId: GraphQL.ID, customAttributes: InputValue<[AttributeInput]> = .undefined) {
 			self.customAttributes = customAttributes
+			self.quantity = quantity
+			self.variantId = variantId
 		}
 
 		internal func serialize() -> String {
 			var fields: [String] = []
 
-			fields.append("variantId:\(GraphQL.quoteString(input: "\(variantId.rawValue)"))")
+			switch customAttributes {
+				case .some(let customAttributes): fields.append("customAttributes:[\(customAttributes.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				case .null: fields.append("customAttributes:null")
+				case .undefined: break
+			}
 
 			fields.append("quantity:\(quantity)")
 
-			if let customAttributes = customAttributes {
-				fields.append("customAttributes:[\(customAttributes.map{ "\($0.serialize())" }.joined(separator: ","))]")
-			}
+			fields.append("variantId:\(GraphQL.quoteString(input: "\(variantId.rawValue)"))")
 
 			return "{\(fields.joined(separator: ","))}"
 		}

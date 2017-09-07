@@ -49,10 +49,10 @@ extension Storefront {
 		open var paymentData: String
 
 		/// Executes the payment in test mode if possible. Defaults to `false`. 
-		open var test: Bool?
+		open var test: InputValue<Bool>
 
 		/// Public Hash Key used for AndroidPay payments only. 
-		open var identifier: String?
+		open var identifier: InputValue<String>
 
 		/// Creates the input object.
 		///
@@ -65,7 +65,7 @@ extension Storefront {
 		///     - test: Executes the payment in test mode if possible. Defaults to `false`.
 		///     - identifier: Public Hash Key used for AndroidPay payments only.
 		///
-		public init(amount: Decimal, idempotencyKey: String, billingAddress: MailingAddressInput, type: String, paymentData: String, test: Bool? = nil, identifier: String? = nil) {
+		public init(amount: Decimal, idempotencyKey: String, billingAddress: MailingAddressInput, type: String, paymentData: String, test: InputValue<Bool> = .undefined, identifier: InputValue<String> = .undefined) {
 			self.amount = amount
 			self.idempotencyKey = idempotencyKey
 			self.billingAddress = billingAddress
@@ -88,12 +88,16 @@ extension Storefront {
 
 			fields.append("paymentData:\(GraphQL.quoteString(input: paymentData))")
 
-			if let test = test {
-				fields.append("test:\(test)")
+			switch test {
+				case .some(let test): fields.append("test:\(test)")
+				case .null: fields.append("test:null")
+				case .undefined: break
 			}
 
-			if let identifier = identifier {
-				fields.append("identifier:\(GraphQL.quoteString(input: identifier))")
+			switch identifier {
+				case .some(let identifier): fields.append("identifier:\(GraphQL.quoteString(input: identifier))")
+				case .null: fields.append("identifier:null")
+				case .undefined: break
 			}
 
 			return "{\(fields.joined(separator: ","))}"

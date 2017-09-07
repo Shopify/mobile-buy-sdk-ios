@@ -29,25 +29,25 @@ import Foundation
 extension Storefront {
 	/// Specifies the fields accepted to create or update a mailing address. 
 	open class MailingAddressInput {
-		open var address1: String?
+		open var address1: InputValue<String>
 
-		open var address2: String?
+		open var address2: InputValue<String>
 
-		open var city: String?
+		open var city: InputValue<String>
 
-		open var company: String?
+		open var company: InputValue<String>
 
-		open var country: String?
+		open var country: InputValue<String>
 
-		open var firstName: String?
+		open var firstName: InputValue<String>
 
-		open var lastName: String?
+		open var lastName: InputValue<String>
 
-		open var phone: String?
+		open var phone: InputValue<String>
 
-		open var province: String?
+		open var province: InputValue<String>
 
-		open var zip: String?
+		open var zip: InputValue<String>
 
 		/// Creates the input object.
 		///
@@ -63,7 +63,7 @@ extension Storefront {
 		///     - province: No description
 		///     - zip: No description
 		///
-		public init(address1: String? = nil, address2: String? = nil, city: String? = nil, company: String? = nil, country: String? = nil, firstName: String? = nil, lastName: String? = nil, phone: String? = nil, province: String? = nil, zip: String? = nil) {
+		public init(address1: InputValue<String> = .undefined, address2: InputValue<String> = .undefined, city: InputValue<String> = .undefined, company: InputValue<String> = .undefined, country: InputValue<String> = .undefined, firstName: InputValue<String> = .undefined, lastName: InputValue<String> = .undefined, phone: InputValue<String> = .undefined, province: InputValue<String> = .undefined, zip: InputValue<String> = .undefined) {
 			self.address1 = address1
 			self.address2 = address2
 			self.city = city
@@ -79,44 +79,64 @@ extension Storefront {
 		internal func serialize() -> String {
 			var fields: [String] = []
 
-			if let address1 = address1 {
-				fields.append("address1:\(GraphQL.quoteString(input: address1))")
+			switch address1 {
+				case .some(let address1): fields.append("address1:\(GraphQL.quoteString(input: address1))")
+				case .null: fields.append("address1:null")
+				case .undefined: break
 			}
 
-			if let address2 = address2 {
-				fields.append("address2:\(GraphQL.quoteString(input: address2))")
+			switch address2 {
+				case .some(let address2): fields.append("address2:\(GraphQL.quoteString(input: address2))")
+				case .null: fields.append("address2:null")
+				case .undefined: break
 			}
 
-			if let city = city {
-				fields.append("city:\(GraphQL.quoteString(input: city))")
+			switch city {
+				case .some(let city): fields.append("city:\(GraphQL.quoteString(input: city))")
+				case .null: fields.append("city:null")
+				case .undefined: break
 			}
 
-			if let company = company {
-				fields.append("company:\(GraphQL.quoteString(input: company))")
+			switch company {
+				case .some(let company): fields.append("company:\(GraphQL.quoteString(input: company))")
+				case .null: fields.append("company:null")
+				case .undefined: break
 			}
 
-			if let country = country {
-				fields.append("country:\(GraphQL.quoteString(input: country))")
+			switch country {
+				case .some(let country): fields.append("country:\(GraphQL.quoteString(input: country))")
+				case .null: fields.append("country:null")
+				case .undefined: break
 			}
 
-			if let firstName = firstName {
-				fields.append("firstName:\(GraphQL.quoteString(input: firstName))")
+			switch firstName {
+				case .some(let firstName): fields.append("firstName:\(GraphQL.quoteString(input: firstName))")
+				case .null: fields.append("firstName:null")
+				case .undefined: break
 			}
 
-			if let lastName = lastName {
-				fields.append("lastName:\(GraphQL.quoteString(input: lastName))")
+			switch lastName {
+				case .some(let lastName): fields.append("lastName:\(GraphQL.quoteString(input: lastName))")
+				case .null: fields.append("lastName:null")
+				case .undefined: break
 			}
 
-			if let phone = phone {
-				fields.append("phone:\(GraphQL.quoteString(input: phone))")
+			switch phone {
+				case .some(let phone): fields.append("phone:\(GraphQL.quoteString(input: phone))")
+				case .null: fields.append("phone:null")
+				case .undefined: break
 			}
 
-			if let province = province {
-				fields.append("province:\(GraphQL.quoteString(input: province))")
+			switch province {
+				case .some(let province): fields.append("province:\(GraphQL.quoteString(input: province))")
+				case .null: fields.append("province:null")
+				case .undefined: break
 			}
 
-			if let zip = zip {
-				fields.append("zip:\(GraphQL.quoteString(input: zip))")
+			switch zip {
+				case .some(let zip): fields.append("zip:\(GraphQL.quoteString(input: zip))")
+				case .null: fields.append("zip:null")
+				case .undefined: break
 			}
 
 			return "{\(fields.joined(separator: ","))}"

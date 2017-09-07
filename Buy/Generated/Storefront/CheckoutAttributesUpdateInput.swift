@@ -30,15 +30,15 @@ extension Storefront {
 	/// Specifies the fields required to update a checkout's attributes. 
 	open class CheckoutAttributesUpdateInput {
 		/// The text of an optional note that a shop owner can attach to the checkout. 
-		open var note: String?
+		open var note: InputValue<String>
 
 		/// A list of extra information that is added to the checkout. 
-		open var customAttributes: [AttributeInput]?
+		open var customAttributes: InputValue<[AttributeInput]>
 
 		/// Allows setting partial addresses on a Checkout, skipping the full 
 		/// validation of attributes. The required attributes are city, province, and 
 		/// country. Full validation of the addresses is still done at complete time. 
-		open var allowPartialAddresses: Bool?
+		open var allowPartialAddresses: InputValue<Bool>
 
 		/// Creates the input object.
 		///
@@ -47,7 +47,7 @@ extension Storefront {
 		///     - customAttributes: A list of extra information that is added to the checkout.
 		///     - allowPartialAddresses: Allows setting partial addresses on a Checkout, skipping the full validation of attributes. The required attributes are city, province, and country. Full validation of the addresses is still done at complete time. 
 		///
-		public init(note: String? = nil, customAttributes: [AttributeInput]? = nil, allowPartialAddresses: Bool? = nil) {
+		public init(note: InputValue<String> = .undefined, customAttributes: InputValue<[AttributeInput]> = .undefined, allowPartialAddresses: InputValue<Bool> = .undefined) {
 			self.note = note
 			self.customAttributes = customAttributes
 			self.allowPartialAddresses = allowPartialAddresses
@@ -56,16 +56,22 @@ extension Storefront {
 		internal func serialize() -> String {
 			var fields: [String] = []
 
-			if let note = note {
-				fields.append("note:\(GraphQL.quoteString(input: note))")
+			switch note {
+				case .some(let note): fields.append("note:\(GraphQL.quoteString(input: note))")
+				case .null: fields.append("note:null")
+				case .undefined: break
 			}
 
-			if let customAttributes = customAttributes {
-				fields.append("customAttributes:[\(customAttributes.map{ "\($0.serialize())" }.joined(separator: ","))]")
+			switch customAttributes {
+				case .some(let customAttributes): fields.append("customAttributes:[\(customAttributes.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				case .null: fields.append("customAttributes:null")
+				case .undefined: break
 			}
 
-			if let allowPartialAddresses = allowPartialAddresses {
-				fields.append("allowPartialAddresses:\(allowPartialAddresses)")
+			switch allowPartialAddresses {
+				case .some(let allowPartialAddresses): fields.append("allowPartialAddresses:\(allowPartialAddresses)")
+				case .null: fields.append("allowPartialAddresses:null")
+				case .undefined: break
 			}
 
 			return "{\(fields.joined(separator: ","))}"

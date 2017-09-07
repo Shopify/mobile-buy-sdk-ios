@@ -29,17 +29,17 @@ import Foundation
 extension Storefront {
 	/// Specifies the input fields to update a line item on the checkout. 
 	open class CheckoutLineItemUpdateInput {
-		open var id: GraphQL.ID?
+		open var id: InputValue<GraphQL.ID>
 
 		/// The variant identifier of the line item. 
-		open var variantId: GraphQL.ID?
+		open var variantId: InputValue<GraphQL.ID>
 
 		/// The quantity of the line item. 
-		open var quantity: Int32?
+		open var quantity: InputValue<Int32>
 
 		/// Extra information in the form of an array of Key-Value pairs about the line 
 		/// item. 
-		open var customAttributes: [AttributeInput]?
+		open var customAttributes: InputValue<[AttributeInput]>
 
 		/// Creates the input object.
 		///
@@ -49,7 +49,7 @@ extension Storefront {
 		///     - quantity: The quantity of the line item.
 		///     - customAttributes: Extra information in the form of an array of Key-Value pairs about the line item.
 		///
-		public init(id: GraphQL.ID? = nil, variantId: GraphQL.ID? = nil, quantity: Int32? = nil, customAttributes: [AttributeInput]? = nil) {
+		public init(id: InputValue<GraphQL.ID> = .undefined, variantId: InputValue<GraphQL.ID> = .undefined, quantity: InputValue<Int32> = .undefined, customAttributes: InputValue<[AttributeInput]> = .undefined) {
 			self.id = id
 			self.variantId = variantId
 			self.quantity = quantity
@@ -59,20 +59,28 @@ extension Storefront {
 		internal func serialize() -> String {
 			var fields: [String] = []
 
-			if let id = id {
-				fields.append("id:\(GraphQL.quoteString(input: "\(id.rawValue)"))")
+			switch id {
+				case .some(let id): fields.append("id:\(GraphQL.quoteString(input: "\(id.rawValue)"))")
+				case .null: fields.append("id:null")
+				case .undefined: break
 			}
 
-			if let variantId = variantId {
-				fields.append("variantId:\(GraphQL.quoteString(input: "\(variantId.rawValue)"))")
+			switch variantId {
+				case .some(let variantId): fields.append("variantId:\(GraphQL.quoteString(input: "\(variantId.rawValue)"))")
+				case .null: fields.append("variantId:null")
+				case .undefined: break
 			}
 
-			if let quantity = quantity {
-				fields.append("quantity:\(quantity)")
+			switch quantity {
+				case .some(let quantity): fields.append("quantity:\(quantity)")
+				case .null: fields.append("quantity:null")
+				case .undefined: break
 			}
 
-			if let customAttributes = customAttributes {
-				fields.append("customAttributes:[\(customAttributes.map{ "\($0.serialize())" }.joined(separator: ","))]")
+			switch customAttributes {
+				case .some(let customAttributes): fields.append("customAttributes:[\(customAttributes.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				case .null: fields.append("customAttributes:null")
+				case .undefined: break
 			}
 
 			return "{\(fields.joined(separator: ","))}"
