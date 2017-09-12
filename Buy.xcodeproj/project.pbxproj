@@ -882,8 +882,8 @@
 			children = (
 				9AEF60F31E5F42D90067FA90 /* Buy.framework */,
 				9AC2EFC81F6818180037E0D7 /* Buy.framework */,
-				9AFA38EA1E64850A0056C5AA /* BuyTests.xctest */,
 				9A4068DC1E8E7658000254CD /* Pay.framework */,
+				9AFA38EA1E64850A0056C5AA /* BuyTests.xctest */,
 				9A4068E41E8E7659000254CD /* PayTests.xctest */,
 			);
 			name = Products;
@@ -1116,8 +1116,8 @@
 			targets = (
 				9AEF60F21E5F42D90067FA90 /* Buy */,
 				9AC2EF371F6818180037E0D7 /* Buy watchOS */,
-				9AFA38E91E64850A0056C5AA /* BuyTests */,
 				9A4068DB1E8E7658000254CD /* Pay */,
+				9AFA38E91E64850A0056C5AA /* BuyTests */,
 				9A4068E31E8E7659000254CD /* PayTests */,
 				9A0C80C51EAE73840020F187 /* Documentation */,
 			);
