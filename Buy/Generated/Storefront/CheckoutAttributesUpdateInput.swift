@@ -30,15 +30,15 @@ extension Storefront {
 	/// Specifies the fields required to update a checkout's attributes. 
 	open class CheckoutAttributesUpdateInput {
 		/// The text of an optional note that a shop owner can attach to the checkout. 
-		open var note: String?
+		open var note: Input<String>
 
 		/// A list of extra information that is added to the checkout. 
-		open var customAttributes: [AttributeInput]?
+		open var customAttributes: Input<[AttributeInput]>
 
 		/// Allows setting partial addresses on a Checkout, skipping the full 
 		/// validation of attributes. The required attributes are city, province, and 
 		/// country. Full validation of the addresses is still done at complete time. 
-		open var allowPartialAddresses: Bool?
+		open var allowPartialAddresses: Input<Bool>
 
 		/// Creates the input object.
 		///
@@ -47,25 +47,59 @@ extension Storefront {
 		///     - customAttributes: A list of extra information that is added to the checkout.
 		///     - allowPartialAddresses: Allows setting partial addresses on a Checkout, skipping the full validation of attributes. The required attributes are city, province, and country. Full validation of the addresses is still done at complete time. 
 		///
-		public init(note: String? = nil, customAttributes: [AttributeInput]? = nil, allowPartialAddresses: Bool? = nil) {
+		public static func create(note: Input<String> = .undefined, customAttributes: Input<[AttributeInput]> = .undefined, allowPartialAddresses: Input<Bool> = .undefined) -> CheckoutAttributesUpdateInput {
+			return CheckoutAttributesUpdateInput(note: note, customAttributes: customAttributes, allowPartialAddresses: allowPartialAddresses)
+		}
+
+		private init(note: Input<String> = .undefined, customAttributes: Input<[AttributeInput]> = .undefined, allowPartialAddresses: Input<Bool> = .undefined) {
 			self.note = note
 			self.customAttributes = customAttributes
 			self.allowPartialAddresses = allowPartialAddresses
 		}
 
+		/// Creates the input object.
+		///
+		/// - parameters:
+		///     - note: The text of an optional note that a shop owner can attach to the checkout.
+		///     - customAttributes: A list of extra information that is added to the checkout.
+		///     - allowPartialAddresses: Allows setting partial addresses on a Checkout, skipping the full validation of attributes. The required attributes are city, province, and country. Full validation of the addresses is still done at complete time. 
+		///
+		@available(*, deprecated)
+		public convenience init(note: String? = nil, customAttributes: [AttributeInput]? = nil, allowPartialAddresses: Bool? = nil) {
+			self.init(note: note.orNull, customAttributes: customAttributes.orNull, allowPartialAddresses: allowPartialAddresses.orNull)
+		}
+
 		internal func serialize() -> String {
 			var fields: [String] = []
 
-			if let note = note {
+			switch note {
+				case .value(let note): 
+				guard let note = note else {
+					fields.append("note:null")
+					break
+				}
 				fields.append("note:\(GraphQL.quoteString(input: note))")
+				case .undefined: break
 			}
 
-			if let customAttributes = customAttributes {
+			switch customAttributes {
+				case .value(let customAttributes): 
+				guard let customAttributes = customAttributes else {
+					fields.append("customAttributes:null")
+					break
+				}
 				fields.append("customAttributes:[\(customAttributes.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				case .undefined: break
 			}
 
-			if let allowPartialAddresses = allowPartialAddresses {
+			switch allowPartialAddresses {
+				case .value(let allowPartialAddresses): 
+				guard let allowPartialAddresses = allowPartialAddresses else {
+					fields.append("allowPartialAddresses:null")
+					break
+				}
 				fields.append("allowPartialAddresses:\(allowPartialAddresses)")
+				case .undefined: break
 			}
 
 			return "{\(fields.joined(separator: ","))}"

@@ -66,24 +66,24 @@ extension Storefront {
 			switch fieldName {
 				case "id":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: ProductOption.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.ID(rawValue: value)
 
 				case "name":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: ProductOption.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "values":
 				guard let value = value as? [String] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: ProductOption.self, field: fieldName, value: fieldValue)
 				}
 				return value.map { return $0 }
 
 				default:
-				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: ProductOption.self, field: fieldName, value: fieldValue)
 			}
 		}
 

@@ -57,18 +57,18 @@ extension Storefront {
 			switch fieldName {
 				case "accessToken":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CustomerAccessToken.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "expiresAt":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CustomerAccessToken.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.iso8601DateParser.date(from: value)!
 
 				default:
-				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: CustomerAccessToken.self, field: fieldName, value: fieldValue)
 			}
 		}
 

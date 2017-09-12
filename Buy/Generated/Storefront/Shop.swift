@@ -37,8 +37,8 @@ extension Storefront {
 		/// - parameters:
 		///     - first: No description
 		///     - after: No description
-		///     - sortKey: No description
 		///     - reverse: No description
+		///     - sortKey: No description
 		///     - query: Supported filter parameters:
 		///         - `author`
 		///         - `updated_at`
@@ -56,12 +56,12 @@ extension Storefront {
 				args.append("after:\(GraphQL.quoteString(input: after))")
 			}
 
-			if let sortKey = sortKey {
-				args.append("sortKey:\(sortKey.rawValue)")
-			}
-
 			if let reverse = reverse {
 				args.append("reverse:\(reverse)")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
 			}
 
 			if let query = query {
@@ -82,8 +82,8 @@ extension Storefront {
 		/// - parameters:
 		///     - first: No description
 		///     - after: No description
-		///     - sortKey: No description
 		///     - reverse: No description
+		///     - sortKey: No description
 		///     - query: Supported filter parameters:
 		///         - `handle`
 		///         - `title`
@@ -100,12 +100,12 @@ extension Storefront {
 				args.append("after:\(GraphQL.quoteString(input: after))")
 			}
 
-			if let sortKey = sortKey {
-				args.append("sortKey:\(sortKey.rawValue)")
-			}
-
 			if let reverse = reverse {
 				args.append("reverse:\(reverse)")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
 			}
 
 			if let query = query {
@@ -154,8 +154,8 @@ extension Storefront {
 		/// - parameters:
 		///     - first: No description
 		///     - after: No description
-		///     - sortKey: No description
 		///     - reverse: No description
+		///     - sortKey: No description
 		///     - query: Supported filter parameters:
 		///         - `title`
 		///         - `collection_type`
@@ -171,12 +171,12 @@ extension Storefront {
 				args.append("after:\(GraphQL.quoteString(input: after))")
 			}
 
-			if let sortKey = sortKey {
-				args.append("sortKey:\(sortKey.rawValue)")
-			}
-
 			if let reverse = reverse {
 				args.append("reverse:\(reverse)")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
 			}
 
 			if let query = query {
@@ -297,8 +297,8 @@ extension Storefront {
 		/// - parameters:
 		///     - first: No description
 		///     - after: No description
-		///     - sortKey: No description
 		///     - reverse: No description
+		///     - sortKey: No description
 		///     - query: Supported filter parameters:
 		///         - `title`
 		///         - `product_type`
@@ -317,12 +317,12 @@ extension Storefront {
 				args.append("after:\(GraphQL.quoteString(input: after))")
 			}
 
-			if let sortKey = sortKey {
-				args.append("sortKey:\(sortKey.rawValue)")
-			}
-
 			if let reverse = reverse {
 				args.append("reverse:\(reverse)")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
 			}
 
 			if let query = query {
@@ -377,121 +377,121 @@ extension Storefront {
 			switch fieldName {
 				case "articles":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return try ArticleConnection(fields: value)
 
 				case "blogs":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return try BlogConnection(fields: value)
 
 				case "cardVaultUrl":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return URL(string: value)!
 
 				case "collectionByHandle":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return try Collection(fields: value)
 
 				case "collections":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return try CollectionConnection(fields: value)
 
 				case "currencyCode":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return CurrencyCode(rawValue: value) ?? .unknownValue
 
 				case "description":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "moneyFormat":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "name":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "paymentSettings":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return try PaymentSettings(fields: value)
 
 				case "primaryDomain":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return try Domain(fields: value)
 
 				case "privacyPolicy":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return try ShopPolicy(fields: value)
 
 				case "productByHandle":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return try Product(fields: value)
 
 				case "productTypes":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return try StringConnection(fields: value)
 
 				case "products":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return try ProductConnection(fields: value)
 
 				case "refundPolicy":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return try ShopPolicy(fields: value)
 
 				case "shopifyPaymentsAccountId":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "termsOfService":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return try ShopPolicy(fields: value)
 
 				default:
-				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 			}
 		}
 

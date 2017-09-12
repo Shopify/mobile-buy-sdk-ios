@@ -83,43 +83,43 @@ extension Storefront {
 			switch fieldName {
 				case "acceptedCardBrands":
 				guard let value = value as? [String] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: PaymentSettings.self, field: fieldName, value: fieldValue)
 				}
 				return value.map { return CardBrand(rawValue: $0) ?? .unknownValue }
 
 				case "cardVaultUrl":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: PaymentSettings.self, field: fieldName, value: fieldValue)
 				}
 				return URL(string: value)!
 
 				case "countryCode":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: PaymentSettings.self, field: fieldName, value: fieldValue)
 				}
 				return CountryCode(rawValue: value) ?? .unknownValue
 
 				case "currencyCode":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: PaymentSettings.self, field: fieldName, value: fieldValue)
 				}
 				return CurrencyCode(rawValue: value) ?? .unknownValue
 
 				case "shopifyPaymentsAccountId":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: PaymentSettings.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "supportedDigitalWallets":
 				guard let value = value as? [String] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: PaymentSettings.self, field: fieldName, value: fieldValue)
 				}
 				return value.map { return DigitalWallet(rawValue: $0) ?? .unknownValue }
 
 				default:
-				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: PaymentSettings.self, field: fieldName, value: fieldValue)
 			}
 		}
 

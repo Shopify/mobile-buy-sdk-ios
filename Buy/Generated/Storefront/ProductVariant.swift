@@ -167,82 +167,82 @@ extension Storefront {
 				case "available":
 				if value is NSNull { return nil }
 				guard let value = value as? Bool else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "availableForSale":
 				guard let value = value as? Bool else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "compareAtPrice":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
 				}
 				return Decimal(string: value, locale: GraphQL.posixLocale)
 
 				case "id":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.ID(rawValue: value)
 
 				case "image":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
 				}
 				return try Image(fields: value)
 
 				case "price":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
 				}
 				return Decimal(string: value, locale: GraphQL.posixLocale)
 
 				case "product":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
 				}
 				return try Product(fields: value)
 
 				case "selectedOptions":
 				guard let value = value as? [[String: Any]] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
 				}
 				return try value.map { return try SelectedOption(fields: $0) }
 
 				case "sku":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "title":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "weight":
 				if value is NSNull { return nil }
 				guard let value = value as? Double else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "weightUnit":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
 				}
 				return WeightUnit(rawValue: value) ?? .unknownValue
 
 				default:
-				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
 			}
 		}
 

@@ -39,6 +39,16 @@ extension Storefront {
 		///     - key: No description
 		///     - value: No description
 		///
+		public static func create(key: String, value: String) -> AttributeInput {
+			return AttributeInput(key: key, value: value)
+		}
+
+		/// Creates the input object.
+		///
+		/// - parameters:
+		///     - key: No description
+		///     - value: No description
+		///
 		public init(key: String, value: String) {
 			self.key = key
 			self.value = value

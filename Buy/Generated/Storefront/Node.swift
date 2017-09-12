@@ -184,12 +184,12 @@ extension Storefront {
 			switch fieldName {
 				case "id":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: UnknownNode.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.ID(rawValue: value)
 
 				default:
-				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: UnknownNode.self, field: fieldName, value: fieldValue)
 			}
 		}
 

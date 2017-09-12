@@ -71,30 +71,30 @@ extension Storefront {
 			switch fieldName {
 				case "body":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: ShopPolicy.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "id":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: ShopPolicy.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.ID(rawValue: value)
 
 				case "title":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: ShopPolicy.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "url":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: ShopPolicy.self, field: fieldName, value: fieldValue)
 				}
 				return URL(string: value)!
 
 				default:
-				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: ShopPolicy.self, field: fieldName, value: fieldValue)
 			}
 		}
 

@@ -56,18 +56,18 @@ extension Storefront {
 				case "field":
 				if value is NSNull { return nil }
 				guard let value = value as? [String] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: UserError.self, field: fieldName, value: fieldValue)
 				}
 				return value.map { return $0 }
 
 				case "message":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: UserError.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				default:
-				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: UserError.self, field: fieldName, value: fieldValue)
 			}
 		}
 

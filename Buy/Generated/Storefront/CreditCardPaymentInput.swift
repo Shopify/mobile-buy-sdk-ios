@@ -45,7 +45,7 @@ extension Storefront {
 		open var vaultId: String
 
 		/// Executes the payment in test mode if possible. Defaults to `false`. 
-		open var test: Bool?
+		open var test: Input<Bool>
 
 		/// Creates the input object.
 		///
@@ -56,12 +56,30 @@ extension Storefront {
 		///     - vaultId: The ID returned by Shopify's Card Vault.
 		///     - test: Executes the payment in test mode if possible. Defaults to `false`.
 		///
-		public init(amount: Decimal, idempotencyKey: String, billingAddress: MailingAddressInput, vaultId: String, test: Bool? = nil) {
+		public static func create(amount: Decimal, idempotencyKey: String, billingAddress: MailingAddressInput, vaultId: String, test: Input<Bool> = .undefined) -> CreditCardPaymentInput {
+			return CreditCardPaymentInput(amount: amount, idempotencyKey: idempotencyKey, billingAddress: billingAddress, vaultId: vaultId, test: test)
+		}
+
+		private init(amount: Decimal, idempotencyKey: String, billingAddress: MailingAddressInput, vaultId: String, test: Input<Bool> = .undefined) {
 			self.amount = amount
 			self.idempotencyKey = idempotencyKey
 			self.billingAddress = billingAddress
 			self.vaultId = vaultId
 			self.test = test
+		}
+
+		/// Creates the input object.
+		///
+		/// - parameters:
+		///     - amount: The amount of the payment.
+		///     - idempotencyKey: A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one.
+		///     - billingAddress: The billing address for the payment.
+		///     - vaultId: The ID returned by Shopify's Card Vault.
+		///     - test: Executes the payment in test mode if possible. Defaults to `false`.
+		///
+		@available(*, deprecated)
+		public convenience init(amount: Decimal, idempotencyKey: String, billingAddress: MailingAddressInput, vaultId: String, test: Bool? = nil) {
+			self.init(amount: amount, idempotencyKey: idempotencyKey, billingAddress: billingAddress, vaultId: vaultId, test: test.orNull)
 		}
 
 		internal func serialize() -> String {
@@ -75,8 +93,14 @@ extension Storefront {
 
 			fields.append("vaultId:\(GraphQL.quoteString(input: vaultId))")
 
-			if let test = test {
+			switch test {
+				case .value(let test): 
+				guard let test = test else {
+					fields.append("test:null")
+					break
+				}
 				fields.append("test:\(test)")
+				case .undefined: break
 			}
 
 			return "{\(fields.joined(separator: ","))}"
