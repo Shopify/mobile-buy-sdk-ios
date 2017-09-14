@@ -91,61 +91,61 @@ extension Storefront {
 				case "brand":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CreditCard.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "expiryMonth":
 				if value is NSNull { return nil }
 				guard let value = value as? Int else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CreditCard.self, field: fieldName, value: fieldValue)
 				}
 				return Int32(value)
 
 				case "expiryYear":
 				if value is NSNull { return nil }
 				guard let value = value as? Int else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CreditCard.self, field: fieldName, value: fieldValue)
 				}
 				return Int32(value)
 
 				case "firstDigits":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CreditCard.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "firstName":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CreditCard.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "lastDigits":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CreditCard.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "lastName":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CreditCard.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "maskedNumber":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CreditCard.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				default:
-				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: CreditCard.self, field: fieldName, value: fieldValue)
 			}
 		}
 

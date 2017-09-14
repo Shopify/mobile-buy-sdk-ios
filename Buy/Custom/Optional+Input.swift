@@ -1,5 +1,5 @@
 //
-//  AttributeInput.swift
+//  Optional+Input.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -26,42 +26,15 @@
 
 import Foundation
 
-extension Storefront {
-	/// Specifies the input fields required for an attribute. 
-	open class AttributeInput {
-		open var key: String
-
-		open var value: String
-
-		/// Creates the input object.
-		///
-		/// - parameters:
-		///     - key: No description
-		///     - value: No description
-		///
-		public static func create(key: String, value: String) -> AttributeInput {
-			return AttributeInput(key: key, value: value)
-		}
-
-		/// Creates the input object.
-		///
-		/// - parameters:
-		///     - key: No description
-		///     - value: No description
-		///
-		public init(key: String, value: String) {
-			self.key = key
-			self.value = value
-		}
-
-		internal func serialize() -> String {
-			var fields: [String] = []
-
-			fields.append("key:\(GraphQL.quoteString(input: key))")
-
-			fields.append("value:\(GraphQL.quoteString(input: value))")
-
-			return "{\(fields.joined(separator: ","))}"
-		}
-	}
+public extension Optional {
+    
+    /// Transforms an Optional<T> into Input.value(T), or Input.value(nil) if optional is nil.
+    public var orNull: Input<Wrapped> {
+        return Input(orNull: self)
+    }
+    
+    /// Transforms an Optional<T> into Input.value(T), or Input.undefined if optional is nil.
+    public var orUndefined: Input<Wrapped> {
+        return Input(orUndefined: self)
+    }
 }

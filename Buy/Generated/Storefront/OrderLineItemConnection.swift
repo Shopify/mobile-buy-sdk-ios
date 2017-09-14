@@ -59,18 +59,18 @@ extension Storefront {
 			switch fieldName {
 				case "edges":
 				guard let value = value as? [[String: Any]] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: OrderLineItemConnection.self, field: fieldName, value: fieldValue)
 				}
 				return try value.map { return try OrderLineItemEdge(fields: $0) }
 
 				case "pageInfo":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: OrderLineItemConnection.self, field: fieldName, value: fieldValue)
 				}
 				return try PageInfo(fields: value)
 
 				default:
-				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: OrderLineItemConnection.self, field: fieldName, value: fieldValue)
 			}
 		}
 

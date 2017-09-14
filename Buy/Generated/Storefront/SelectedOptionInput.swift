@@ -41,6 +41,16 @@ extension Storefront {
 		///     - name: The product option’s name.
 		///     - value: The product option’s value.
 		///
+		public static func create(name: String, value: String) -> SelectedOptionInput {
+			return SelectedOptionInput(name: name, value: value)
+		}
+
+		/// Creates the input object.
+		///
+		/// - parameters:
+		///     - name: The product option’s name.
+		///     - value: The product option’s value.
+		///
 		public init(name: String, value: String) {
 			self.name = name
 			self.value = value

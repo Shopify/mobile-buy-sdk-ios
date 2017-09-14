@@ -69,30 +69,30 @@ extension Storefront {
 			switch fieldName {
 				case "amount":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Transaction.self, field: fieldName, value: fieldValue)
 				}
 				return Decimal(string: value, locale: GraphQL.posixLocale)
 
 				case "kind":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Transaction.self, field: fieldName, value: fieldValue)
 				}
 				return TransactionKind(rawValue: value) ?? .unknownValue
 
 				case "status":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Transaction.self, field: fieldName, value: fieldValue)
 				}
 				return TransactionStatus(rawValue: value) ?? .unknownValue
 
 				case "test":
 				guard let value = value as? Bool else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Transaction.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				default:
-				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: Transaction.self, field: fieldName, value: fieldValue)
 			}
 		}
 

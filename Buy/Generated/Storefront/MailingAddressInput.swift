@@ -29,25 +29,25 @@ import Foundation
 extension Storefront {
 	/// Specifies the fields accepted to create or update a mailing address. 
 	open class MailingAddressInput {
-		open var address1: String?
+		open var address1: Input<String>
 
-		open var address2: String?
+		open var address2: Input<String>
 
-		open var city: String?
+		open var city: Input<String>
 
-		open var company: String?
+		open var company: Input<String>
 
-		open var country: String?
+		open var country: Input<String>
 
-		open var firstName: String?
+		open var firstName: Input<String>
 
-		open var lastName: String?
+		open var lastName: Input<String>
 
-		open var phone: String?
+		open var phone: Input<String>
 
-		open var province: String?
+		open var province: Input<String>
 
-		open var zip: String?
+		open var zip: Input<String>
 
 		/// Creates the input object.
 		///
@@ -63,7 +63,11 @@ extension Storefront {
 		///     - province: No description
 		///     - zip: No description
 		///
-		public init(address1: String? = nil, address2: String? = nil, city: String? = nil, company: String? = nil, country: String? = nil, firstName: String? = nil, lastName: String? = nil, phone: String? = nil, province: String? = nil, zip: String? = nil) {
+		public static func create(address1: Input<String> = .undefined, address2: Input<String> = .undefined, city: Input<String> = .undefined, company: Input<String> = .undefined, country: Input<String> = .undefined, firstName: Input<String> = .undefined, lastName: Input<String> = .undefined, phone: Input<String> = .undefined, province: Input<String> = .undefined, zip: Input<String> = .undefined) -> MailingAddressInput {
+			return MailingAddressInput(address1: address1, address2: address2, city: city, company: company, country: country, firstName: firstName, lastName: lastName, phone: phone, province: province, zip: zip)
+		}
+
+		private init(address1: Input<String> = .undefined, address2: Input<String> = .undefined, city: Input<String> = .undefined, company: Input<String> = .undefined, country: Input<String> = .undefined, firstName: Input<String> = .undefined, lastName: Input<String> = .undefined, phone: Input<String> = .undefined, province: Input<String> = .undefined, zip: Input<String> = .undefined) {
 			self.address1 = address1
 			self.address2 = address2
 			self.city = city
@@ -76,47 +80,126 @@ extension Storefront {
 			self.zip = zip
 		}
 
+		/// Creates the input object.
+		///
+		/// - parameters:
+		///     - address1: No description
+		///     - address2: No description
+		///     - city: No description
+		///     - company: No description
+		///     - country: No description
+		///     - firstName: No description
+		///     - lastName: No description
+		///     - phone: No description
+		///     - province: No description
+		///     - zip: No description
+		///
+		@available(*, deprecated, message: "Use the static create() method instead.")
+		public convenience init(address1: String? = nil, address2: String? = nil, city: String? = nil, company: String? = nil, country: String? = nil, firstName: String? = nil, lastName: String? = nil, phone: String? = nil, province: String? = nil, zip: String? = nil) {
+			self.init(address1: address1.orNull, address2: address2.orNull, city: city.orNull, company: company.orNull, country: country.orNull, firstName: firstName.orNull, lastName: lastName.orNull, phone: phone.orNull, province: province.orNull, zip: zip.orNull)
+		}
+
 		internal func serialize() -> String {
 			var fields: [String] = []
 
-			if let address1 = address1 {
+			switch address1 {
+				case .value(let address1): 
+				guard let address1 = address1 else {
+					fields.append("address1:null")
+					break
+				}
 				fields.append("address1:\(GraphQL.quoteString(input: address1))")
+				case .undefined: break
 			}
 
-			if let address2 = address2 {
+			switch address2 {
+				case .value(let address2): 
+				guard let address2 = address2 else {
+					fields.append("address2:null")
+					break
+				}
 				fields.append("address2:\(GraphQL.quoteString(input: address2))")
+				case .undefined: break
 			}
 
-			if let city = city {
+			switch city {
+				case .value(let city): 
+				guard let city = city else {
+					fields.append("city:null")
+					break
+				}
 				fields.append("city:\(GraphQL.quoteString(input: city))")
+				case .undefined: break
 			}
 
-			if let company = company {
+			switch company {
+				case .value(let company): 
+				guard let company = company else {
+					fields.append("company:null")
+					break
+				}
 				fields.append("company:\(GraphQL.quoteString(input: company))")
+				case .undefined: break
 			}
 
-			if let country = country {
+			switch country {
+				case .value(let country): 
+				guard let country = country else {
+					fields.append("country:null")
+					break
+				}
 				fields.append("country:\(GraphQL.quoteString(input: country))")
+				case .undefined: break
 			}
 
-			if let firstName = firstName {
+			switch firstName {
+				case .value(let firstName): 
+				guard let firstName = firstName else {
+					fields.append("firstName:null")
+					break
+				}
 				fields.append("firstName:\(GraphQL.quoteString(input: firstName))")
+				case .undefined: break
 			}
 
-			if let lastName = lastName {
+			switch lastName {
+				case .value(let lastName): 
+				guard let lastName = lastName else {
+					fields.append("lastName:null")
+					break
+				}
 				fields.append("lastName:\(GraphQL.quoteString(input: lastName))")
+				case .undefined: break
 			}
 
-			if let phone = phone {
+			switch phone {
+				case .value(let phone): 
+				guard let phone = phone else {
+					fields.append("phone:null")
+					break
+				}
 				fields.append("phone:\(GraphQL.quoteString(input: phone))")
+				case .undefined: break
 			}
 
-			if let province = province {
+			switch province {
+				case .value(let province): 
+				guard let province = province else {
+					fields.append("province:null")
+					break
+				}
 				fields.append("province:\(GraphQL.quoteString(input: province))")
+				case .undefined: break
 			}
 
-			if let zip = zip {
+			switch zip {
+				case .value(let zip): 
+				guard let zip = zip else {
+					fields.append("zip:null")
+					break
+				}
 				fields.append("zip:\(GraphQL.quoteString(input: zip))")
+				case .undefined: break
 			}
 
 			return "{\(fields.joined(separator: ","))}"

@@ -70,6 +70,25 @@ extension Storefront {
 			return self
 		}
 
+		///
+		/// - parameters:
+		///     - ids: No description
+		///
+		@discardableResult
+		open func nodes(alias: String? = nil, ids: [GraphQL.ID], _ subfields: (NodeQuery) -> Void) -> QueryRootQuery {
+			var args: [String] = []
+
+			args.append("ids:[\(ids.map{ "\(GraphQL.quoteString(input: "\($0.rawValue)"))" }.joined(separator: ","))]")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = NodeQuery()
+			subfields(subquery)
+
+			addField(field: "nodes", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		@discardableResult
 		open func shop(alias: String? = nil, _ subfields: (ShopQuery) -> Void) -> QueryRootQuery {
 			let subquery = ShopQuery()
@@ -91,25 +110,35 @@ extension Storefront {
 				case "customer":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
 				}
 				return try Customer(fields: value)
 
 				case "node":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
 				}
 				return try UnknownNode.create(fields: value)
 
+				case "nodes":
+				guard let value = value as? [Any] else {
+					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
+				}
+				return try value.map { if $0 is NSNull { return nil }
+				guard let value = $0 as? [String: Any] else {
+					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
+				}
+				return try UnknownNode.create(fields: value) } as [Any?]
+
 				case "shop":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
 				}
 				return try Shop(fields: value)
 
 				default:
-				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
 			}
 		}
 
@@ -137,6 +166,18 @@ extension Storefront {
 			return field(field: "node", aliasSuffix: alias) as! Node?
 		}
 
+		open var nodes: [Node?] {
+			return internalGetNodes()
+		}
+
+		open func aliasedNodes(alias: String) -> [Node?] {
+			return internalGetNodes(alias: alias)
+		}
+
+		func internalGetNodes(alias: String? = nil) -> [Node?] {
+			return field(field: "nodes", aliasSuffix: alias) as! [Node?]
+		}
+
 		open var shop: Storefront.Shop {
 			return internalGetShop()
 		}
@@ -159,6 +200,14 @@ extension Storefront {
 					if let value = internalGetNode() {
 						response.append((value as! GraphQL.AbstractResponse))
 						response.append(contentsOf: (value as! GraphQL.AbstractResponse).childResponseObjectMap())
+					}
+
+					case "nodes":
+					internalGetNodes().forEach {
+						if let value = $0 {
+							response.append((value as! GraphQL.AbstractResponse))
+							response.append(contentsOf: (value as! GraphQL.AbstractResponse).childResponseObjectMap())
+						}
 					}
 
 					case "shop":

@@ -60,19 +60,19 @@ extension Storefront {
 			switch fieldName {
 				case "ready":
 				guard let value = value as? Bool else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: AvailableShippingRates.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "shippingRates":
 				if value is NSNull { return nil }
 				guard let value = value as? [[String: Any]] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: AvailableShippingRates.self, field: fieldName, value: fieldValue)
 				}
 				return try value.map { return try ShippingRate(fields: $0) }
 
 				default:
-				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: AvailableShippingRates.self, field: fieldName, value: fieldValue)
 			}
 		}
 

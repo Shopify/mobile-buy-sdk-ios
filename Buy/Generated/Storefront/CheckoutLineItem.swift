@@ -83,37 +83,37 @@ extension Storefront {
 			switch fieldName {
 				case "customAttributes":
 				guard let value = value as? [[String: Any]] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CheckoutLineItem.self, field: fieldName, value: fieldValue)
 				}
 				return try value.map { return try Attribute(fields: $0) }
 
 				case "id":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CheckoutLineItem.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.ID(rawValue: value)
 
 				case "quantity":
 				guard let value = value as? Int else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CheckoutLineItem.self, field: fieldName, value: fieldValue)
 				}
 				return Int32(value)
 
 				case "title":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CheckoutLineItem.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "variant":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CheckoutLineItem.self, field: fieldName, value: fieldValue)
 				}
 				return try ProductVariant(fields: value)
 
 				default:
-				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: CheckoutLineItem.self, field: fieldName, value: fieldValue)
 			}
 		}
 

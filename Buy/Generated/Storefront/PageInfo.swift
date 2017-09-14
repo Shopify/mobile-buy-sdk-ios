@@ -55,18 +55,18 @@ extension Storefront {
 			switch fieldName {
 				case "hasNextPage":
 				guard let value = value as? Bool else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: PageInfo.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "hasPreviousPage":
 				guard let value = value as? Bool else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: PageInfo.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				default:
-				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: PageInfo.self, field: fieldName, value: fieldValue)
 			}
 		}
 

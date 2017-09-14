@@ -30,25 +30,25 @@ extension Storefront {
 	/// Specifies the fields required to create a checkout. 
 	open class CheckoutCreateInput {
 		/// The email with which the customer wants to checkout. 
-		open var email: String?
+		open var email: Input<String>
 
 		/// A list of line item objects, each one containing information about an item 
 		/// in the checkout. 
-		open var lineItems: [CheckoutLineItemInput]?
+		open var lineItems: Input<[CheckoutLineItemInput]>
 
 		/// The shipping address to where the line items will be shipped. 
-		open var shippingAddress: MailingAddressInput?
+		open var shippingAddress: Input<MailingAddressInput>
 
 		/// The text of an optional note that a shop owner can attach to the checkout. 
-		open var note: String?
+		open var note: Input<String>
 
 		/// A list of extra information that is added to the checkout. 
-		open var customAttributes: [AttributeInput]?
+		open var customAttributes: Input<[AttributeInput]>
 
 		/// Allows setting partial addresses on a Checkout, skipping the full 
 		/// validation of attributes. The required attributes are city, province, and 
 		/// country. Full validation of addresses is still done at complete time. 
-		open var allowPartialAddresses: Bool?
+		open var allowPartialAddresses: Input<Bool>
 
 		/// Creates the input object.
 		///
@@ -60,7 +60,11 @@ extension Storefront {
 		///     - customAttributes: A list of extra information that is added to the checkout.
 		///     - allowPartialAddresses: Allows setting partial addresses on a Checkout, skipping the full validation of attributes. The required attributes are city, province, and country. Full validation of addresses is still done at complete time. 
 		///
-		public init(email: String? = nil, lineItems: [CheckoutLineItemInput]? = nil, shippingAddress: MailingAddressInput? = nil, note: String? = nil, customAttributes: [AttributeInput]? = nil, allowPartialAddresses: Bool? = nil) {
+		public static func create(email: Input<String> = .undefined, lineItems: Input<[CheckoutLineItemInput]> = .undefined, shippingAddress: Input<MailingAddressInput> = .undefined, note: Input<String> = .undefined, customAttributes: Input<[AttributeInput]> = .undefined, allowPartialAddresses: Input<Bool> = .undefined) -> CheckoutCreateInput {
+			return CheckoutCreateInput(email: email, lineItems: lineItems, shippingAddress: shippingAddress, note: note, customAttributes: customAttributes, allowPartialAddresses: allowPartialAddresses)
+		}
+
+		private init(email: Input<String> = .undefined, lineItems: Input<[CheckoutLineItemInput]> = .undefined, shippingAddress: Input<MailingAddressInput> = .undefined, note: Input<String> = .undefined, customAttributes: Input<[AttributeInput]> = .undefined, allowPartialAddresses: Input<Bool> = .undefined) {
 			self.email = email
 			self.lineItems = lineItems
 			self.shippingAddress = shippingAddress
@@ -69,31 +73,82 @@ extension Storefront {
 			self.allowPartialAddresses = allowPartialAddresses
 		}
 
+		/// Creates the input object.
+		///
+		/// - parameters:
+		///     - email: The email with which the customer wants to checkout.
+		///     - lineItems: A list of line item objects, each one containing information about an item in the checkout.
+		///     - shippingAddress: The shipping address to where the line items will be shipped.
+		///     - note: The text of an optional note that a shop owner can attach to the checkout.
+		///     - customAttributes: A list of extra information that is added to the checkout.
+		///     - allowPartialAddresses: Allows setting partial addresses on a Checkout, skipping the full validation of attributes. The required attributes are city, province, and country. Full validation of addresses is still done at complete time. 
+		///
+		@available(*, deprecated, message: "Use the static create() method instead.")
+		public convenience init(email: String? = nil, lineItems: [CheckoutLineItemInput]? = nil, shippingAddress: MailingAddressInput? = nil, note: String? = nil, customAttributes: [AttributeInput]? = nil, allowPartialAddresses: Bool? = nil) {
+			self.init(email: email.orNull, lineItems: lineItems.orNull, shippingAddress: shippingAddress.orNull, note: note.orNull, customAttributes: customAttributes.orNull, allowPartialAddresses: allowPartialAddresses.orNull)
+		}
+
 		internal func serialize() -> String {
 			var fields: [String] = []
 
-			if let email = email {
+			switch email {
+				case .value(let email): 
+				guard let email = email else {
+					fields.append("email:null")
+					break
+				}
 				fields.append("email:\(GraphQL.quoteString(input: email))")
+				case .undefined: break
 			}
 
-			if let lineItems = lineItems {
+			switch lineItems {
+				case .value(let lineItems): 
+				guard let lineItems = lineItems else {
+					fields.append("lineItems:null")
+					break
+				}
 				fields.append("lineItems:[\(lineItems.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				case .undefined: break
 			}
 
-			if let shippingAddress = shippingAddress {
+			switch shippingAddress {
+				case .value(let shippingAddress): 
+				guard let shippingAddress = shippingAddress else {
+					fields.append("shippingAddress:null")
+					break
+				}
 				fields.append("shippingAddress:\(shippingAddress.serialize())")
+				case .undefined: break
 			}
 
-			if let note = note {
+			switch note {
+				case .value(let note): 
+				guard let note = note else {
+					fields.append("note:null")
+					break
+				}
 				fields.append("note:\(GraphQL.quoteString(input: note))")
+				case .undefined: break
 			}
 
-			if let customAttributes = customAttributes {
+			switch customAttributes {
+				case .value(let customAttributes): 
+				guard let customAttributes = customAttributes else {
+					fields.append("customAttributes:null")
+					break
+				}
 				fields.append("customAttributes:[\(customAttributes.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				case .undefined: break
 			}
 
-			if let allowPartialAddresses = allowPartialAddresses {
+			switch allowPartialAddresses {
+				case .value(let allowPartialAddresses): 
+				guard let allowPartialAddresses = allowPartialAddresses else {
+					fields.append("allowPartialAddresses:null")
+					break
+				}
 				fields.append("allowPartialAddresses:\(allowPartialAddresses)")
+				case .undefined: break
 			}
 
 			return "{\(fields.joined(separator: ","))}"

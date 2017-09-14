@@ -31,42 +31,49 @@ extension Storefront {
 	open class MailingAddressQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = MailingAddress
 
+		/// Address line 1 (Street address/PO Box/Company name). 
 		@discardableResult
 		open func address1(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "address1", aliasSuffix: alias)
 			return self
 		}
 
+		/// Address line 2 (Apartment/Suite/Unit/Building). 
 		@discardableResult
 		open func address2(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "address2", aliasSuffix: alias)
 			return self
 		}
 
+		/// City/District/Suburb/Town/Village. 
 		@discardableResult
 		open func city(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "city", aliasSuffix: alias)
 			return self
 		}
 
+		/// Company/Organization/Government. 
 		@discardableResult
 		open func company(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "company", aliasSuffix: alias)
 			return self
 		}
 
+		/// State/County/Province/Region. 
 		@discardableResult
 		open func country(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "country", aliasSuffix: alias)
 			return self
 		}
 
+		/// Two-letter country code. For example, US. 
 		@discardableResult
 		open func countryCode(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "countryCode", aliasSuffix: alias)
 			return self
 		}
 
+		/// First name of the customer. 
 		@discardableResult
 		open func firstName(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "firstName", aliasSuffix: alias)
@@ -96,6 +103,7 @@ extension Storefront {
 			return self
 		}
 
+		/// Comma-separated list of city, province, and country. 
 		@discardableResult
 		open func formattedArea(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "formattedArea", aliasSuffix: alias)
@@ -109,48 +117,57 @@ extension Storefront {
 			return self
 		}
 
+		/// Last name of the customer. 
 		@discardableResult
 		open func lastName(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "lastName", aliasSuffix: alias)
 			return self
 		}
 
+		/// Latitude coordinate of the customer address. 
 		@discardableResult
 		open func latitude(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "latitude", aliasSuffix: alias)
 			return self
 		}
 
+		/// Longitude coordinate of the customer address. 
 		@discardableResult
 		open func longitude(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "longitude", aliasSuffix: alias)
 			return self
 		}
 
+		/// Name of the customer, based on first name + last name. 
 		@discardableResult
 		open func name(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "name", aliasSuffix: alias)
 			return self
 		}
 
+		/// Unique phone number for the customer. Formatted using E.164 standard. For 
+		/// example, _+16135551111_. 
 		@discardableResult
 		open func phone(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "phone", aliasSuffix: alias)
 			return self
 		}
 
+		/// State/County/Province/Region. 
 		@discardableResult
 		open func province(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "province", aliasSuffix: alias)
 			return self
 		}
 
+		/// Two-letter province or state code. For example, ON. 
 		@discardableResult
 		open func provinceCode(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "provinceCode", aliasSuffix: alias)
 			return self
 		}
 
+		/// Zip/Postal Code. 
 		@discardableResult
 		open func zip(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "zip", aliasSuffix: alias)
@@ -168,132 +185,133 @@ extension Storefront {
 				case "address1":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: MailingAddress.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "address2":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: MailingAddress.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "city":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: MailingAddress.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "company":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: MailingAddress.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "country":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: MailingAddress.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "countryCode":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: MailingAddress.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "firstName":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: MailingAddress.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "formatted":
 				guard let value = value as? [String] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: MailingAddress.self, field: fieldName, value: fieldValue)
 				}
 				return value.map { return $0 }
 
 				case "formattedArea":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: MailingAddress.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "id":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: MailingAddress.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.ID(rawValue: value)
 
 				case "lastName":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: MailingAddress.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "latitude":
 				if value is NSNull { return nil }
 				guard let value = value as? Double else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: MailingAddress.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "longitude":
 				if value is NSNull { return nil }
 				guard let value = value as? Double else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: MailingAddress.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "name":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: MailingAddress.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "phone":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: MailingAddress.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "province":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: MailingAddress.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "provinceCode":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: MailingAddress.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "zip":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: MailingAddress.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				default:
-				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: MailingAddress.self, field: fieldName, value: fieldValue)
 			}
 		}
 
+		/// Address line 1 (Street address/PO Box/Company name). 
 		open var address1: String? {
 			return internalGetAddress1()
 		}
@@ -302,6 +320,7 @@ extension Storefront {
 			return field(field: "address1", aliasSuffix: alias) as! String?
 		}
 
+		/// Address line 2 (Apartment/Suite/Unit/Building). 
 		open var address2: String? {
 			return internalGetAddress2()
 		}
@@ -310,6 +329,7 @@ extension Storefront {
 			return field(field: "address2", aliasSuffix: alias) as! String?
 		}
 
+		/// City/District/Suburb/Town/Village. 
 		open var city: String? {
 			return internalGetCity()
 		}
@@ -318,6 +338,7 @@ extension Storefront {
 			return field(field: "city", aliasSuffix: alias) as! String?
 		}
 
+		/// Company/Organization/Government. 
 		open var company: String? {
 			return internalGetCompany()
 		}
@@ -326,6 +347,7 @@ extension Storefront {
 			return field(field: "company", aliasSuffix: alias) as! String?
 		}
 
+		/// State/County/Province/Region. 
 		open var country: String? {
 			return internalGetCountry()
 		}
@@ -334,6 +356,7 @@ extension Storefront {
 			return field(field: "country", aliasSuffix: alias) as! String?
 		}
 
+		/// Two-letter country code. For example, US. 
 		open var countryCode: String? {
 			return internalGetCountryCode()
 		}
@@ -342,6 +365,7 @@ extension Storefront {
 			return field(field: "countryCode", aliasSuffix: alias) as! String?
 		}
 
+		/// First name of the customer. 
 		open var firstName: String? {
 			return internalGetFirstName()
 		}
@@ -362,6 +386,7 @@ extension Storefront {
 			return field(field: "formatted", aliasSuffix: alias) as! [String]
 		}
 
+		/// Comma-separated list of city, province, and country. 
 		open var formattedArea: String? {
 			return internalGetFormattedArea()
 		}
@@ -379,6 +404,7 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
+		/// Last name of the customer. 
 		open var lastName: String? {
 			return internalGetLastName()
 		}
@@ -387,6 +413,7 @@ extension Storefront {
 			return field(field: "lastName", aliasSuffix: alias) as! String?
 		}
 
+		/// Latitude coordinate of the customer address. 
 		open var latitude: Double? {
 			return internalGetLatitude()
 		}
@@ -395,6 +422,7 @@ extension Storefront {
 			return field(field: "latitude", aliasSuffix: alias) as! Double?
 		}
 
+		/// Longitude coordinate of the customer address. 
 		open var longitude: Double? {
 			return internalGetLongitude()
 		}
@@ -403,6 +431,7 @@ extension Storefront {
 			return field(field: "longitude", aliasSuffix: alias) as! Double?
 		}
 
+		/// Name of the customer, based on first name + last name. 
 		open var name: String? {
 			return internalGetName()
 		}
@@ -411,6 +440,8 @@ extension Storefront {
 			return field(field: "name", aliasSuffix: alias) as! String?
 		}
 
+		/// Unique phone number for the customer. Formatted using E.164 standard. For 
+		/// example, _+16135551111_. 
 		open var phone: String? {
 			return internalGetPhone()
 		}
@@ -419,6 +450,7 @@ extension Storefront {
 			return field(field: "phone", aliasSuffix: alias) as! String?
 		}
 
+		/// State/County/Province/Region. 
 		open var province: String? {
 			return internalGetProvince()
 		}
@@ -427,6 +459,7 @@ extension Storefront {
 			return field(field: "province", aliasSuffix: alias) as! String?
 		}
 
+		/// Two-letter province or state code. For example, ON. 
 		open var provinceCode: String? {
 			return internalGetProvinceCode()
 		}
@@ -435,6 +468,7 @@ extension Storefront {
 			return field(field: "provinceCode", aliasSuffix: alias) as! String?
 		}
 
+		/// Zip/Postal Code. 
 		open var zip: String? {
 			return internalGetZip()
 		}

@@ -59,18 +59,18 @@ extension Storefront {
 			switch fieldName {
 				case "checkout":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CheckoutGiftCardRemovePayload.self, field: fieldName, value: fieldValue)
 				}
 				return try Checkout(fields: value)
 
 				case "userErrors":
 				guard let value = value as? [[String: Any]] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CheckoutGiftCardRemovePayload.self, field: fieldName, value: fieldValue)
 				}
 				return try value.map { return try UserError(fields: $0) }
 
 				default:
-				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: CheckoutGiftCardRemovePayload.self, field: fieldName, value: fieldValue)
 			}
 		}
 

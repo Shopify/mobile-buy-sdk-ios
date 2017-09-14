@@ -41,6 +41,16 @@ extension Storefront {
 		///     - email: The email associated to the customer.
 		///     - password: The login password to be used by the customer.
 		///
+		public static func create(email: String, password: String) -> CustomerAccessTokenCreateInput {
+			return CustomerAccessTokenCreateInput(email: email, password: password)
+		}
+
+		/// Creates the input object.
+		///
+		/// - parameters:
+		///     - email: The email associated to the customer.
+		///     - password: The login password to be used by the customer.
+		///
 		public init(email: String, password: String) {
 			self.email = email
 			self.password = password
