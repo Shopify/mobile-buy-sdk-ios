@@ -27,10 +27,13 @@
 import Foundation
 
 public extension Optional {
+    
+    /// Transforms an Optional<T> into Input.value(T), or Input.value(nil) if optional is nil.
     public var orNull: Input<Wrapped> {
         return Input(orNull: self)
     }
     
+    /// Transforms an Optional<T> into Input.value(T), or Input.undefined if optional is nil.
     public var orUndefined: Input<Wrapped> {
         return Input(orUndefined: self)
     }
