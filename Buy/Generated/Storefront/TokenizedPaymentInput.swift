@@ -90,7 +90,7 @@ extension Storefront {
 		///     - test: Executes the payment in test mode if possible. Defaults to `false`.
 		///     - identifier: Public Hash Key used for AndroidPay payments only.
 		///
-		@available(*, deprecated)
+		@available(*, deprecated, message: "Use the static create() method instead.")
 		public convenience init(amount: Decimal, idempotencyKey: String, billingAddress: MailingAddressInput, type: String, paymentData: String, test: Bool? = nil, identifier: String? = nil) {
 			self.init(amount: amount, idempotencyKey: idempotencyKey, billingAddress: billingAddress, type: type, paymentData: paymentData, test: test.orNull, identifier: identifier.orNull)
 		}

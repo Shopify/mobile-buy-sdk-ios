@@ -83,7 +83,7 @@ extension Storefront {
 		///     - customAttributes: A list of extra information that is added to the checkout.
 		///     - allowPartialAddresses: Allows setting partial addresses on a Checkout, skipping the full validation of attributes. The required attributes are city, province, and country. Full validation of addresses is still done at complete time. 
 		///
-		@available(*, deprecated)
+		@available(*, deprecated, message: "Use the static create() method instead.")
 		public convenience init(email: String? = nil, lineItems: [CheckoutLineItemInput]? = nil, shippingAddress: MailingAddressInput? = nil, note: String? = nil, customAttributes: [AttributeInput]? = nil, allowPartialAddresses: Bool? = nil) {
 			self.init(email: email.orNull, lineItems: lineItems.orNull, shippingAddress: shippingAddress.orNull, note: note.orNull, customAttributes: customAttributes.orNull, allowPartialAddresses: allowPartialAddresses.orNull)
 		}

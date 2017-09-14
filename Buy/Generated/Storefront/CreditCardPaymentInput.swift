@@ -77,7 +77,7 @@ extension Storefront {
 		///     - vaultId: The ID returned by Shopify's Card Vault.
 		///     - test: Executes the payment in test mode if possible. Defaults to `false`.
 		///
-		@available(*, deprecated)
+		@available(*, deprecated, message: "Use the static create() method instead.")
 		public convenience init(amount: Decimal, idempotencyKey: String, billingAddress: MailingAddressInput, vaultId: String, test: Bool? = nil) {
 			self.init(amount: amount, idempotencyKey: idempotencyKey, billingAddress: billingAddress, vaultId: vaultId, test: test.orNull)
 		}

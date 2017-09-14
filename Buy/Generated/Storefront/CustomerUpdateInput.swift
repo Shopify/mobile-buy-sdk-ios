@@ -81,7 +81,7 @@ extension Storefront {
 		///     - password: The login password used by the customer.
 		///     - acceptsMarketing: Indicates whether the customer has consented to be sent marketing material via email.
 		///
-		@available(*, deprecated)
+		@available(*, deprecated, message: "Use the static create() method instead.")
 		public convenience init(firstName: String? = nil, lastName: String? = nil, email: String? = nil, phone: String? = nil, password: String? = nil, acceptsMarketing: Bool? = nil) {
 			self.init(firstName: firstName.orNull, lastName: lastName.orNull, email: email.orNull, phone: phone.orNull, password: password.orNull, acceptsMarketing: acceptsMarketing.orNull)
 		}

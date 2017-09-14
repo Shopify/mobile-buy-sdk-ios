@@ -63,8 +63,8 @@ extension Storefront {
 		///     - quantity: The quantity of the line item.
 		///     - variantId: The identifier of the product variant for the line item.
 		///
-		@available(*, deprecated)
-		public convenience init(variantId: GraphQL.ID, quantity: Int32, customAttributes: [AttributeInput]? = nil) {
+		@available(*, deprecated, message: "Use the static create() method instead.")
+		public convenience init(quantity: Int32, variantId: GraphQL.ID, customAttributes: [AttributeInput]? = nil) {
 			self.init(quantity: quantity, variantId: variantId, customAttributes: customAttributes.orNull)
 		}
 
