@@ -338,6 +338,145 @@
 		9AF1C1871F13B4530064AEA0 /* CountryCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1C1861F13ACCF0064AEA0 /* CountryCode.swift */; };
 		9AF1C1881F13B45C0064AEA0 /* PaymentSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1C1851F13ACCF0064AEA0 /* PaymentSettings.swift */; };
 		9AF1C1891F13B45E0064AEA0 /* ProductCollectionSortKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1C1841F13ACCF0064AEA0 /* ProductCollectionSortKeys.swift */; };
+		9AF255B31F6FEE50005BB0C9 /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C7FFA1EAA51C50020F187 /* Attribute.swift */; };
+		9AF255B41F6FEE50005BB0C9 /* OrderLineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C803E1EAA51C50020F187 /* OrderLineItem.swift */; };
+		9AF255B51F6FEE50005BB0C9 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE2A1C51EC9EE1D00921247 /* Log.swift */; };
+		9AF255B61F6FEE50005BB0C9 /* OrderCancelReason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80391EAA51C50020F187 /* OrderCancelReason.swift */; };
+		9AF255B71F6FEE50005BB0C9 /* ProductVariantSortKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE1F8151F605F8F00147E77 /* ProductVariantSortKeys.swift */; };
+		9AF255B81F6FEE50005BB0C9 /* ProductOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80471EAA51C50020F187 /* ProductOption.swift */; };
+		9AF255B91F6FEE50005BB0C9 /* QueryRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C804C1EAA51C50020F187 /* QueryRoot.swift */; };
+		9AF255BA1F6FEE50005BB0C9 /* ShippingRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C804E1EAA51C50020F187 /* ShippingRate.swift */; };
+		9AF255BB1F6FEE50005BB0C9 /* CheckoutCustomerAssociatePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80051EAA51C50020F187 /* CheckoutCustomerAssociatePayload.swift */; };
+		9AF255BC1F6FEE50005BB0C9 /* Blog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA416CC1EE095B20060029B /* Blog.swift */; };
+		9AF255BD1F6FEE50005BB0C9 /* AvailableShippingRates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C7FFC1EAA51C50020F187 /* AvailableShippingRates.swift */; };
+		9AF255BE1F6FEE50005BB0C9 /* CollectionConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80151EAA51C50020F187 /* CollectionConnection.swift */; };
+		9AF255BF1F6FEE50005BB0C9 /* CheckoutGiftCardApplyPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80081EAA51C50020F187 /* CheckoutGiftCardApplyPayload.swift */; };
+		9AF255C01F6FEE50005BB0C9 /* OrderDisplayFulfillmentStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C803C1EAA51C50020F187 /* OrderDisplayFulfillmentStatus.swift */; };
+		9AF255C11F6FEE50005BB0C9 /* ProductEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80461EAA51C50020F187 /* ProductEdge.swift */; };
+		9AF255C21F6FEE50005BB0C9 /* CheckoutAttributesUpdatePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C7FFF1EAA51C50020F187 /* CheckoutAttributesUpdatePayload.swift */; };
+		9AF255C31F6FEE50005BB0C9 /* WeightUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80561EAA51C50020F187 /* WeightUnit.swift */; };
+		9AF255C41F6FEE50005BB0C9 /* CustomerUpdatePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C802D1EAA51C50020F187 /* CustomerUpdatePayload.swift */; };
+		9AF255C51F6FEE50005BB0C9 /* Graph.Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4069CE1E8ED98A000254CD /* Graph.Task.swift */; };
+		9AF255C61F6FEE50005BB0C9 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C801C1EAA51C50020F187 /* Customer.swift */; };
+		9AF255C71F6FEE50005BB0C9 /* CustomerAccessTokenCreateInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C801E1EAA51C50020F187 /* CustomerAccessTokenCreateInput.swift */; };
+		9AF255C81F6FEE50005BB0C9 /* CustomerUpdateInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C802C1EAA51C50020F187 /* CustomerUpdateInput.swift */; };
+		9AF255C91F6FEE50005BB0C9 /* OrderConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C803A1EAA51C50020F187 /* OrderConnection.swift */; };
+		9AF255CA1F6FEE50005BB0C9 /* MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A664D711EF05F97001BFB01 /* MD5.m */; };
+		9AF255CB1F6FEE50005BB0C9 /* Graph.RetryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4069C91E8EA6DB000254CD /* Graph.RetryHandler.swift */; };
+		9AF255CC1F6FEE50005BB0C9 /* CurrencyCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C801B1EAA51C50020F187 /* CurrencyCode.swift */; };
+		9AF255CD1F6FEE50005BB0C9 /* ShopPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80501EAA51C50020F187 /* ShopPolicy.swift */; };
+		9AF255CE1F6FEE50005BB0C9 /* CheckoutShippingLineUpdatePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80131EAA51C50020F187 /* CheckoutShippingLineUpdatePayload.swift */; };
+		9AF255CF1F6FEE50005BB0C9 /* CheckoutGiftCardRemovePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80091EAA51C50020F187 /* CheckoutGiftCardRemovePayload.swift */; };
+		9AF255D01F6FEE50005BB0C9 /* CheckoutCompleteFreePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80001EAA51C50020F187 /* CheckoutCompleteFreePayload.swift */; };
+		9AF255D11F6FEE50005BB0C9 /* DigitalWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A52D3A41F3CA5DB00C093C8 /* DigitalWallet.swift */; };
+		9AF255D21F6FEE50005BB0C9 /* MailingAddressInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80351EAA51C50020F187 /* MailingAddressInput.swift */; };
+		9AF255D31F6FEE50005BB0C9 /* CustomerRecoverPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80291EAA51C50020F187 /* CustomerRecoverPayload.swift */; };
+		9AF255D41F6FEE50005BB0C9 /* PaymentSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1C1851F13ACCF0064AEA0 /* PaymentSettings.swift */; };
+		9AF255D51F6FEE50005BB0C9 /* Domain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C802E1EAA51C50020F187 /* Domain.swift */; };
+		9AF255D61F6FEE50005BB0C9 /* Card.CreditCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80F11EB773520020F187 /* Card.CreditCard.swift */; };
+		9AF255D71F6FEE50005BB0C9 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80521EAA51C50020F187 /* Transaction.swift */; };
+		9AF255D81F6FEE50005BB0C9 /* CheckoutCreatePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80041EAA51C50020F187 /* CheckoutCreatePayload.swift */; };
+		9AF255D91F6FEE50005BB0C9 /* Graph.Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C81041EBA66440020F187 /* Graph.Cache.swift */; };
+		9AF255DA1F6FEE50005BB0C9 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80371EAA51C50020F187 /* Node.swift */; };
+		9AF255DB1F6FEE50005BB0C9 /* CheckoutShippingAddressUpdatePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80121EAA51C50020F187 /* CheckoutShippingAddressUpdatePayload.swift */; };
+		9AF255DC1F6FEE50005BB0C9 /* OrderLineItemEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80401EAA51C50020F187 /* OrderLineItemEdge.swift */; };
+		9AF255DD1F6FEE50005BB0C9 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80EF1EB773310020F187 /* Card.swift */; };
+		9AF255DE1F6FEE50005BB0C9 /* CheckoutLineItemUpdateInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80111EAA51C50020F187 /* CheckoutLineItemUpdateInput.swift */; };
+		9AF255DF1F6FEE50005BB0C9 /* CustomerAccessTokenCreatePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C801F1EAA51C50020F187 /* CustomerAccessTokenCreatePayload.swift */; };
+		9AF255E01F6FEE50005BB0C9 /* BlogEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA416CE1EE095B20060029B /* BlogEdge.swift */; };
+		9AF255E11F6FEE50005BB0C9 /* Shop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C804F1EAA51C50020F187 /* Shop.swift */; };
+		9AF255E21F6FEE50005BB0C9 /* ProductImageSortKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A52D3A01F3CA58E00C093C8 /* ProductImageSortKeys.swift */; };
+		9AF255E31F6FEE50005BB0C9 /* CollectionEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80161EAA51C50020F187 /* CollectionEdge.swift */; };
+		9AF255E41F6FEE50005BB0C9 /* SelectedOptionInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80FB1EBA27970020F187 /* SelectedOptionInput.swift */; };
+		9AF255E51F6FEE50005BB0C9 /* Mutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80361EAA51C50020F187 /* Mutation.swift */; };
+		9AF255E61F6FEE50005BB0C9 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A49DC821EC4AD580053710B /* Header.swift */; };
+		9AF255E71F6FEE50005BB0C9 /* CommentAuthor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA416D51EE095BB0060029B /* CommentAuthor.swift */; };
+		9AF255E81F6FEE50005BB0C9 /* ProductVariantConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C804A1EAA51C50020F187 /* ProductVariantConnection.swift */; };
+		9AF255E91F6FEE50005BB0C9 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA416D41EE095BB0060029B /* Comment.swift */; };
+		9AF255EA1F6FEE50005BB0C9 /* CustomerResetInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C802A1EAA51C50020F187 /* CustomerResetInput.swift */; };
+		9AF255EB1F6FEE50005BB0C9 /* CustomerAccessTokenDeletePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80201EAA51C50020F187 /* CustomerAccessTokenDeletePayload.swift */; };
+		9AF255EC1F6FEE50005BB0C9 /* CheckoutCompleteWithTokenizedPaymentPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80021EAA51C50020F187 /* CheckoutCompleteWithTokenizedPaymentPayload.swift */; };
+		9AF255ED1F6FEE50005BB0C9 /* BlogConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA416CD1EE095B20060029B /* BlogConnection.swift */; };
+		9AF255EE1F6FEE50005BB0C9 /* CreditCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80181EAA51C50020F187 /* CreditCard.swift */; };
+		9AF255EF1F6FEE50005BB0C9 /* GraphQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFA3B6C1E6D9A5E0056C5AA /* GraphQL.swift */; };
+		9AF255F01F6FEE50005BB0C9 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C802F1EAA51C50020F187 /* Image.swift */; };
+		9AF255F11F6FEE50005BB0C9 /* CustomerAddressCreatePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80241EAA51C50020F187 /* CustomerAddressCreatePayload.swift */; };
+		9AF255F21F6FEE50005BB0C9 /* PageInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80421EAA51C50020F187 /* PageInfo.swift */; };
+		9AF255F31F6FEE50005BB0C9 /* CustomerAccessTokenRenewPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80211EAA51C50020F187 /* CustomerAccessTokenRenewPayload.swift */; };
+		9AF255F41F6FEE50005BB0C9 /* CustomerAddressDeletePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80251EAA51C50020F187 /* CustomerAddressDeletePayload.swift */; };
+		9AF255F51F6FEE50005BB0C9 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80441EAA51C50020F187 /* Product.swift */; };
+		9AF255F61F6FEE50005BB0C9 /* CustomerAddressUpdatePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80261EAA51C50020F187 /* CustomerAddressUpdatePayload.swift */; };
+		9AF255F71F6FEE50005BB0C9 /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80431EAA51C50020F187 /* Payment.swift */; };
+		9AF255F81F6FEE50005BB0C9 /* ProductCollectionSortKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1C1841F13ACCF0064AEA0 /* ProductCollectionSortKeys.swift */; };
+		9AF255F91F6FEE50005BB0C9 /* CheckoutLineItemsUpdatePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80101EAA51C50020F187 /* CheckoutLineItemsUpdatePayload.swift */; };
+		9AF255FA1F6FEE50005BB0C9 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB711E60766E00864A17 /* Global.swift */; };
+		9AF255FB1F6FEE50005BB0C9 /* ImageConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80301EAA51C50020F187 /* ImageConnection.swift */; };
+		9AF255FC1F6FEE50005BB0C9 /* Graph.CachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C81061EBA66800020F187 /* Graph.CachePolicy.swift */; };
+		9AF255FD1F6FEE50005BB0C9 /* ProductVariant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80491EAA51C50020F187 /* ProductVariant.swift */; };
+		9AF255FE1F6FEE50005BB0C9 /* TransactionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80541EAA51C50020F187 /* TransactionStatus.swift */; };
+		9AF255FF1F6FEE50005BB0C9 /* CollectionSortKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80171EAA51C50020F187 /* CollectionSortKeys.swift */; };
+		9AF256001F6FEE50005BB0C9 /* CustomerCreatePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80281EAA51C50020F187 /* CustomerCreatePayload.swift */; };
+		9AF256011F6FEE50005BB0C9 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA416C21EE095AA0060029B /* Article.swift */; };
+		9AF256021F6FEE50005BB0C9 /* MailingAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80321EAA51C50020F187 /* MailingAddress.swift */; };
+		9AF256031F6FEE50005BB0C9 /* ArticleConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA416C41EE095AA0060029B /* ArticleConnection.swift */; };
+		9AF256041F6FEE50005BB0C9 /* CropRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C801A1EAA51C50020F187 /* CropRegion.swift */; };
+		9AF256051F6FEE50005BB0C9 /* CheckoutLineItemsRemovePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C800F1EAA51C50020F187 /* CheckoutLineItemsRemovePayload.swift */; };
+		9AF256061F6FEE50005BB0C9 /* StringConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A125CFE1F16A0D7008DCF38 /* StringConnection.swift */; };
+		9AF256071F6FEE50005BB0C9 /* Graph.CacheItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA7AC751EBB77660014D95D /* Graph.CacheItem.swift */; };
+		9AF256081F6FEE50005BB0C9 /* BlogSortKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA416CF1EE095B20060029B /* BlogSortKeys.swift */; };
+		9AF256091F6FEE50005BB0C9 /* Checkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C7FFD1EAA51C50020F187 /* Checkout.swift */; };
+		9AF2560A1F6FEE50005BB0C9 /* CheckoutLineItemConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C800B1EAA51C50020F187 /* CheckoutLineItemConnection.swift */; };
+		9AF2560B1F6FEE50005BB0C9 /* MailingAddressEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80341EAA51C50020F187 /* MailingAddressEdge.swift */; };
+		9AF2560C1F6FEE50005BB0C9 /* CommentConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA416D61EE095BB0060029B /* CommentConnection.swift */; };
+		9AF2560D1F6FEE50005BB0C9 /* TransactionKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80531EAA51C50020F187 /* TransactionKind.swift */; };
+		9AF2560E1F6FEE50005BB0C9 /* CustomerCreateInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80271EAA51C50020F187 /* CustomerCreateInput.swift */; };
+		9AF2560F1F6FEE50005BB0C9 /* ArticleEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA416C51EE095AA0060029B /* ArticleEdge.swift */; };
+		9AF256101F6FEE50005BB0C9 /* UserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80551EAA51C50020F187 /* UserError.swift */; };
+		9AF256111F6FEE50005BB0C9 /* CustomerActivateInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80221EAA51C50020F187 /* CustomerActivateInput.swift */; };
+		9AF256121F6FEE50005BB0C9 /* CustomerActivatePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80231EAA51C50020F187 /* CustomerActivatePayload.swift */; };
+		9AF256131F6FEE50005BB0C9 /* AttributeInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C7FFB1EAA51C50020F187 /* AttributeInput.swift */; };
+		9AF256141F6FEE50005BB0C9 /* Storefront.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80571EAA51C50020F187 /* Storefront.swift */; };
+		9AF256151F6FEE50005BB0C9 /* CountryCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF1C1861F13ACCF0064AEA0 /* CountryCode.swift */; };
+		9AF256161F6FEE50005BB0C9 /* MailingAddressConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80331EAA51C50020F187 /* MailingAddressConnection.swift */; };
+		9AF256171F6FEE50005BB0C9 /* ImageEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80311EAA51C50020F187 /* ImageEdge.swift */; };
+		9AF256181F6FEE50005BB0C9 /* ArticleAuthor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA416C31EE095AA0060029B /* ArticleAuthor.swift */; };
+		9AF256191F6FEE50005BB0C9 /* SelectedOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C804D1EAA51C50020F187 /* SelectedOption.swift */; };
+		9AF2561A1F6FEE50005BB0C9 /* OrderLineItemConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C803F1EAA51C50020F187 /* OrderLineItemConnection.swift */; };
+		9AF2561B1F6FEE50005BB0C9 /* CheckoutAttributesUpdateInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C7FFE1EAA51C50020F187 /* CheckoutAttributesUpdateInput.swift */; };
+		9AF2561C1F6FEE50005BB0C9 /* CheckoutLineItemsAddPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C800E1EAA51C50020F187 /* CheckoutLineItemsAddPayload.swift */; };
+		9AF2561D1F6FEE50005BB0C9 /* CreditCardPaymentInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80191EAA51C50020F187 /* CreditCardPaymentInput.swift */; };
+		9AF2561E1F6FEE50005BB0C9 /* StringEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A125CFD1F16A0D7008DCF38 /* StringEdge.swift */; };
+		9AF2561F1F6FEE50005BB0C9 /* Graph.Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF61B81E5F64230067FA90 /* Graph.Client.swift */; };
+		9AF256201F6FEE50005BB0C9 /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4069CB1E8EA710000254CD /* Graph.swift */; };
+		9AF256211F6FEE50005BB0C9 /* ProductSortKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80481EAA51C50020F187 /* ProductSortKeys.swift */; };
+		9AF256221F6FEE50005BB0C9 /* Graph.QueryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB761E6080A500864A17 /* Graph.QueryError.swift */; };
+		9AF256231F6FEE50005BB0C9 /* OrderEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C803D1EAA51C50020F187 /* OrderEdge.swift */; };
+		9AF256241F6FEE50005BB0C9 /* CheckoutEmailUpdatePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80071EAA51C50020F187 /* CheckoutEmailUpdatePayload.swift */; };
+		9AF256251F6FEE50005BB0C9 /* Card.Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80F31EB785310020F187 /* Card.Client.swift */; };
+		9AF256261F6FEE50005BB0C9 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80141EAA51C50020F187 /* Collection.swift */; };
+		9AF256271F6FEE50005BB0C9 /* CustomerResetPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C802B1EAA51C50020F187 /* CustomerResetPayload.swift */; };
+		9AF256281F6FEE50005BB0C9 /* ArticleSortKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA416C61EE095AA0060029B /* ArticleSortKeys.swift */; };
+		9AF256291F6FEE50005BB0C9 /* CardBrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A52D3A11F3CA58E00C093C8 /* CardBrand.swift */; };
+		9AF2562A1F6FEE50005BB0C9 /* CheckoutCreateInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80031EAA51C50020F187 /* CheckoutCreateInput.swift */; };
+		9AF2562B1F6FEE50005BB0C9 /* OrderSortKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80411EAA51C50020F187 /* OrderSortKeys.swift */; };
+		9AF2562C1F6FEE50005BB0C9 /* CheckoutCompleteWithCreditCardPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80011EAA51C50020F187 /* CheckoutCompleteWithCreditCardPayload.swift */; };
+		9AF2562D1F6FEE50005BB0C9 /* CheckoutLineItemEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C800C1EAA51C50020F187 /* CheckoutLineItemEdge.swift */; };
+		9AF2562E1F6FEE50005BB0C9 /* ProductConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80451EAA51C50020F187 /* ProductConnection.swift */; };
+		9AF2562F1F6FEE50005BB0C9 /* CustomerAccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C801D1EAA51C50020F187 /* CustomerAccessToken.swift */; };
+		9AF256301F6FEE50005BB0C9 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80381EAA51C50020F187 /* Order.swift */; };
+		9AF256311F6FEE50005BB0C9 /* CheckoutLineItemInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C800D1EAA51C50020F187 /* CheckoutLineItemInput.swift */; };
+		9AF256321F6FEE50005BB0C9 /* TokenizedPaymentInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80511EAA51C50020F187 /* TokenizedPaymentInput.swift */; };
+		9AF256331F6FEE50005BB0C9 /* CheckoutLineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C800A1EAA51C50020F187 /* CheckoutLineItem.swift */; };
+		9AF256341F6FEE50005BB0C9 /* OrderDisplayFinancialStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C803B1EAA51C50020F187 /* OrderDisplayFinancialStatus.swift */; };
+		9AF256351F6FEE50005BB0C9 /* ProductVariantEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C804B1EAA51C50020F187 /* ProductVariantEdge.swift */; };
+		9AF256361F6FEE50005BB0C9 /* AppliedGiftCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C7FF91EAA51C50020F187 /* AppliedGiftCard.swift */; };
+		9AF256371F6FEE50005BB0C9 /* CheckoutCustomerDisassociatePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C80061EAA51C50020F187 /* CheckoutCustomerDisassociatePayload.swift */; };
+		9AF256381F6FEE50005BB0C9 /* CommentEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA416D71EE095BB0060029B /* CommentEdge.swift */; };
+		9AF256391F6FEE50005BB0C9 /* GraphQL+ScalarSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF61A01E5F5A190067FA90 /* GraphQL+ScalarSupport.swift */; };
+		9AF2563C1F6FEE50005BB0C9 /* Buy.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AEF60F61E5F42D90067FA90 /* Buy.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9AF2563D1F6FEE50005BB0C9 /* MD5.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A664D701EF05F97001BFB01 /* MD5.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9AF256441F6FEFCD005BB0C9 /* Optional+Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2EFD61F686DB90037E0D7 /* Optional+Input.swift */; };
+		9AF256451F6FEFCD005BB0C9 /* Optional+Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2EFD61F686DB90037E0D7 /* Optional+Input.swift */; };
 		9AFA38EF1E64850A0056C5AA /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AEF60F31E5F42D90067FA90 /* Buy.framework */; };
 		9AFA3B6D1E6D9A5E0056C5AA /* GraphQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFA3B6C1E6D9A5E0056C5AA /* GraphQL.swift */; };
 /* End PBXBuildFile section */
@@ -545,6 +684,7 @@
 		9AF1C1841F13ACCF0064AEA0 /* ProductCollectionSortKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCollectionSortKeys.swift; sourceTree = "<group>"; };
 		9AF1C1851F13ACCF0064AEA0 /* PaymentSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSettings.swift; sourceTree = "<group>"; };
 		9AF1C1861F13ACCF0064AEA0 /* CountryCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCode.swift; sourceTree = "<group>"; };
+		9AF256421F6FEE50005BB0C9 /* Buy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Buy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AFA38EA1E64850A0056C5AA /* BuyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BuyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AFA38EE1E64850A0056C5AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9AFA3B6C1E6D9A5E0056C5AA /* GraphQL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQL.swift; sourceTree = "<group>"; };
@@ -574,6 +714,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		9AEF60EF1E5F42D90067FA90 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9AF2563A1F6FEE50005BB0C9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -884,6 +1031,7 @@
 			children = (
 				9AEF60F31E5F42D90067FA90 /* Buy.framework */,
 				9AC2EFC81F6818180037E0D7 /* Buy.framework */,
+				9AF256421F6FEE50005BB0C9 /* Buy.framework */,
 				9A4068DC1E8E7658000254CD /* Pay.framework */,
 				9AFA38EA1E64850A0056C5AA /* BuyTests.xctest */,
 				9A4068E41E8E7659000254CD /* PayTests.xctest */,
@@ -975,6 +1123,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9AF2563B1F6FEE50005BB0C9 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9AF2563C1F6FEE50005BB0C9 /* Buy.h in Headers */,
+				9AF2563D1F6FEE50005BB0C9 /* MD5.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -1050,6 +1207,24 @@
 			productReference = 9AEF60F31E5F42D90067FA90 /* Buy.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		9AF255B11F6FEE50005BB0C9 /* Buy tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9AF2563F1F6FEE50005BB0C9 /* Build configuration list for PBXNativeTarget "Buy tvOS" */;
+			buildPhases = (
+				9AF255B21F6FEE50005BB0C9 /* Sources */,
+				9AF2563A1F6FEE50005BB0C9 /* Frameworks */,
+				9AF2563B1F6FEE50005BB0C9 /* Headers */,
+				9AF2563E1F6FEE50005BB0C9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Buy tvOS";
+			productName = Buy;
+			productReference = 9AF256421F6FEE50005BB0C9 /* Buy.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		9AFA38E91E64850A0056C5AA /* BuyTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9AFA38F41E64850A0056C5AA /* Build configuration list for PBXNativeTarget "BuyTests" */;
@@ -1099,6 +1274,9 @@
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
 					};
+					9AF255B11F6FEE50005BB0C9 = {
+						ProvisioningStyle = Automatic;
+					};
 					9AFA38E91E64850A0056C5AA = {
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
@@ -1119,6 +1297,7 @@
 			targets = (
 				9AEF60F21E5F42D90067FA90 /* Buy */,
 				9AC2EF371F6818180037E0D7 /* Buy watchOS */,
+				9AF255B11F6FEE50005BB0C9 /* Buy tvOS */,
 				9A4068DB1E8E7658000254CD /* Pay */,
 				9AFA38E91E64850A0056C5AA /* BuyTests */,
 				9A4068E31E8E7659000254CD /* PayTests */,
@@ -1150,6 +1329,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		9AEF60F11E5F42D90067FA90 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9AF2563E1F6FEE50005BB0C9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1320,6 +1506,7 @@
 				9AC2EF8E1F6818180037E0D7 /* BlogSortKeys.swift in Sources */,
 				9AC2EF8F1F6818180037E0D7 /* Checkout.swift in Sources */,
 				9AC2EF901F6818180037E0D7 /* CheckoutLineItemConnection.swift in Sources */,
+				9AF256451F6FEFCD005BB0C9 /* Optional+Input.swift in Sources */,
 				9AC2EF911F6818180037E0D7 /* MailingAddressEdge.swift in Sources */,
 				9AC2EF921F6818180037E0D7 /* CommentConnection.swift in Sources */,
 				9AC2EF931F6818180037E0D7 /* TransactionKind.swift in Sources */,
@@ -1513,6 +1700,149 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9AF255B21F6FEE50005BB0C9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9AF255B31F6FEE50005BB0C9 /* Attribute.swift in Sources */,
+				9AF255B41F6FEE50005BB0C9 /* OrderLineItem.swift in Sources */,
+				9AF255B51F6FEE50005BB0C9 /* Log.swift in Sources */,
+				9AF255B61F6FEE50005BB0C9 /* OrderCancelReason.swift in Sources */,
+				9AF255B71F6FEE50005BB0C9 /* ProductVariantSortKeys.swift in Sources */,
+				9AF255B81F6FEE50005BB0C9 /* ProductOption.swift in Sources */,
+				9AF255B91F6FEE50005BB0C9 /* QueryRoot.swift in Sources */,
+				9AF255BA1F6FEE50005BB0C9 /* ShippingRate.swift in Sources */,
+				9AF255BB1F6FEE50005BB0C9 /* CheckoutCustomerAssociatePayload.swift in Sources */,
+				9AF255BC1F6FEE50005BB0C9 /* Blog.swift in Sources */,
+				9AF255BD1F6FEE50005BB0C9 /* AvailableShippingRates.swift in Sources */,
+				9AF255BE1F6FEE50005BB0C9 /* CollectionConnection.swift in Sources */,
+				9AF255BF1F6FEE50005BB0C9 /* CheckoutGiftCardApplyPayload.swift in Sources */,
+				9AF255C01F6FEE50005BB0C9 /* OrderDisplayFulfillmentStatus.swift in Sources */,
+				9AF255C11F6FEE50005BB0C9 /* ProductEdge.swift in Sources */,
+				9AF255C21F6FEE50005BB0C9 /* CheckoutAttributesUpdatePayload.swift in Sources */,
+				9AF255C31F6FEE50005BB0C9 /* WeightUnit.swift in Sources */,
+				9AF255C41F6FEE50005BB0C9 /* CustomerUpdatePayload.swift in Sources */,
+				9AF255C51F6FEE50005BB0C9 /* Graph.Task.swift in Sources */,
+				9AF255C61F6FEE50005BB0C9 /* Customer.swift in Sources */,
+				9AF255C71F6FEE50005BB0C9 /* CustomerAccessTokenCreateInput.swift in Sources */,
+				9AF255C81F6FEE50005BB0C9 /* CustomerUpdateInput.swift in Sources */,
+				9AF255C91F6FEE50005BB0C9 /* OrderConnection.swift in Sources */,
+				9AF255CA1F6FEE50005BB0C9 /* MD5.m in Sources */,
+				9AF255CB1F6FEE50005BB0C9 /* Graph.RetryHandler.swift in Sources */,
+				9AF255CC1F6FEE50005BB0C9 /* CurrencyCode.swift in Sources */,
+				9AF255CD1F6FEE50005BB0C9 /* ShopPolicy.swift in Sources */,
+				9AF255CE1F6FEE50005BB0C9 /* CheckoutShippingLineUpdatePayload.swift in Sources */,
+				9AF255CF1F6FEE50005BB0C9 /* CheckoutGiftCardRemovePayload.swift in Sources */,
+				9AF255D01F6FEE50005BB0C9 /* CheckoutCompleteFreePayload.swift in Sources */,
+				9AF255D11F6FEE50005BB0C9 /* DigitalWallet.swift in Sources */,
+				9AF255D21F6FEE50005BB0C9 /* MailingAddressInput.swift in Sources */,
+				9AF255D31F6FEE50005BB0C9 /* CustomerRecoverPayload.swift in Sources */,
+				9AF255D41F6FEE50005BB0C9 /* PaymentSettings.swift in Sources */,
+				9AF255D51F6FEE50005BB0C9 /* Domain.swift in Sources */,
+				9AF255D61F6FEE50005BB0C9 /* Card.CreditCard.swift in Sources */,
+				9AF255D71F6FEE50005BB0C9 /* Transaction.swift in Sources */,
+				9AF255D81F6FEE50005BB0C9 /* CheckoutCreatePayload.swift in Sources */,
+				9AF255D91F6FEE50005BB0C9 /* Graph.Cache.swift in Sources */,
+				9AF255DA1F6FEE50005BB0C9 /* Node.swift in Sources */,
+				9AF255DB1F6FEE50005BB0C9 /* CheckoutShippingAddressUpdatePayload.swift in Sources */,
+				9AF255DC1F6FEE50005BB0C9 /* OrderLineItemEdge.swift in Sources */,
+				9AF255DD1F6FEE50005BB0C9 /* Card.swift in Sources */,
+				9AF255DE1F6FEE50005BB0C9 /* CheckoutLineItemUpdateInput.swift in Sources */,
+				9AF255DF1F6FEE50005BB0C9 /* CustomerAccessTokenCreatePayload.swift in Sources */,
+				9AF255E01F6FEE50005BB0C9 /* BlogEdge.swift in Sources */,
+				9AF255E11F6FEE50005BB0C9 /* Shop.swift in Sources */,
+				9AF255E21F6FEE50005BB0C9 /* ProductImageSortKeys.swift in Sources */,
+				9AF255E31F6FEE50005BB0C9 /* CollectionEdge.swift in Sources */,
+				9AF255E41F6FEE50005BB0C9 /* SelectedOptionInput.swift in Sources */,
+				9AF255E51F6FEE50005BB0C9 /* Mutation.swift in Sources */,
+				9AF255E61F6FEE50005BB0C9 /* Header.swift in Sources */,
+				9AF255E71F6FEE50005BB0C9 /* CommentAuthor.swift in Sources */,
+				9AF255E81F6FEE50005BB0C9 /* ProductVariantConnection.swift in Sources */,
+				9AF255E91F6FEE50005BB0C9 /* Comment.swift in Sources */,
+				9AF255EA1F6FEE50005BB0C9 /* CustomerResetInput.swift in Sources */,
+				9AF255EB1F6FEE50005BB0C9 /* CustomerAccessTokenDeletePayload.swift in Sources */,
+				9AF255EC1F6FEE50005BB0C9 /* CheckoutCompleteWithTokenizedPaymentPayload.swift in Sources */,
+				9AF255ED1F6FEE50005BB0C9 /* BlogConnection.swift in Sources */,
+				9AF255EE1F6FEE50005BB0C9 /* CreditCard.swift in Sources */,
+				9AF255EF1F6FEE50005BB0C9 /* GraphQL.swift in Sources */,
+				9AF255F01F6FEE50005BB0C9 /* Image.swift in Sources */,
+				9AF255F11F6FEE50005BB0C9 /* CustomerAddressCreatePayload.swift in Sources */,
+				9AF255F21F6FEE50005BB0C9 /* PageInfo.swift in Sources */,
+				9AF255F31F6FEE50005BB0C9 /* CustomerAccessTokenRenewPayload.swift in Sources */,
+				9AF255F41F6FEE50005BB0C9 /* CustomerAddressDeletePayload.swift in Sources */,
+				9AF255F51F6FEE50005BB0C9 /* Product.swift in Sources */,
+				9AF255F61F6FEE50005BB0C9 /* CustomerAddressUpdatePayload.swift in Sources */,
+				9AF255F71F6FEE50005BB0C9 /* Payment.swift in Sources */,
+				9AF255F81F6FEE50005BB0C9 /* ProductCollectionSortKeys.swift in Sources */,
+				9AF255F91F6FEE50005BB0C9 /* CheckoutLineItemsUpdatePayload.swift in Sources */,
+				9AF255FA1F6FEE50005BB0C9 /* Global.swift in Sources */,
+				9AF255FB1F6FEE50005BB0C9 /* ImageConnection.swift in Sources */,
+				9AF255FC1F6FEE50005BB0C9 /* Graph.CachePolicy.swift in Sources */,
+				9AF255FD1F6FEE50005BB0C9 /* ProductVariant.swift in Sources */,
+				9AF255FE1F6FEE50005BB0C9 /* TransactionStatus.swift in Sources */,
+				9AF255FF1F6FEE50005BB0C9 /* CollectionSortKeys.swift in Sources */,
+				9AF256001F6FEE50005BB0C9 /* CustomerCreatePayload.swift in Sources */,
+				9AF256011F6FEE50005BB0C9 /* Article.swift in Sources */,
+				9AF256021F6FEE50005BB0C9 /* MailingAddress.swift in Sources */,
+				9AF256031F6FEE50005BB0C9 /* ArticleConnection.swift in Sources */,
+				9AF256041F6FEE50005BB0C9 /* CropRegion.swift in Sources */,
+				9AF256051F6FEE50005BB0C9 /* CheckoutLineItemsRemovePayload.swift in Sources */,
+				9AF256061F6FEE50005BB0C9 /* StringConnection.swift in Sources */,
+				9AF256071F6FEE50005BB0C9 /* Graph.CacheItem.swift in Sources */,
+				9AF256081F6FEE50005BB0C9 /* BlogSortKeys.swift in Sources */,
+				9AF256091F6FEE50005BB0C9 /* Checkout.swift in Sources */,
+				9AF2560A1F6FEE50005BB0C9 /* CheckoutLineItemConnection.swift in Sources */,
+				9AF256441F6FEFCD005BB0C9 /* Optional+Input.swift in Sources */,
+				9AF2560B1F6FEE50005BB0C9 /* MailingAddressEdge.swift in Sources */,
+				9AF2560C1F6FEE50005BB0C9 /* CommentConnection.swift in Sources */,
+				9AF2560D1F6FEE50005BB0C9 /* TransactionKind.swift in Sources */,
+				9AF2560E1F6FEE50005BB0C9 /* CustomerCreateInput.swift in Sources */,
+				9AF2560F1F6FEE50005BB0C9 /* ArticleEdge.swift in Sources */,
+				9AF256101F6FEE50005BB0C9 /* UserError.swift in Sources */,
+				9AF256111F6FEE50005BB0C9 /* CustomerActivateInput.swift in Sources */,
+				9AF256121F6FEE50005BB0C9 /* CustomerActivatePayload.swift in Sources */,
+				9AF256131F6FEE50005BB0C9 /* AttributeInput.swift in Sources */,
+				9AF256141F6FEE50005BB0C9 /* Storefront.swift in Sources */,
+				9AF256151F6FEE50005BB0C9 /* CountryCode.swift in Sources */,
+				9AF256161F6FEE50005BB0C9 /* MailingAddressConnection.swift in Sources */,
+				9AF256171F6FEE50005BB0C9 /* ImageEdge.swift in Sources */,
+				9AF256181F6FEE50005BB0C9 /* ArticleAuthor.swift in Sources */,
+				9AF256191F6FEE50005BB0C9 /* SelectedOption.swift in Sources */,
+				9AF2561A1F6FEE50005BB0C9 /* OrderLineItemConnection.swift in Sources */,
+				9AF2561B1F6FEE50005BB0C9 /* CheckoutAttributesUpdateInput.swift in Sources */,
+				9AF2561C1F6FEE50005BB0C9 /* CheckoutLineItemsAddPayload.swift in Sources */,
+				9AF2561D1F6FEE50005BB0C9 /* CreditCardPaymentInput.swift in Sources */,
+				9AF2561E1F6FEE50005BB0C9 /* StringEdge.swift in Sources */,
+				9AF2561F1F6FEE50005BB0C9 /* Graph.Client.swift in Sources */,
+				9AF256201F6FEE50005BB0C9 /* Graph.swift in Sources */,
+				9AF256211F6FEE50005BB0C9 /* ProductSortKeys.swift in Sources */,
+				9AF256221F6FEE50005BB0C9 /* Graph.QueryError.swift in Sources */,
+				9AF256231F6FEE50005BB0C9 /* OrderEdge.swift in Sources */,
+				9AF256241F6FEE50005BB0C9 /* CheckoutEmailUpdatePayload.swift in Sources */,
+				9AF256251F6FEE50005BB0C9 /* Card.Client.swift in Sources */,
+				9AF256261F6FEE50005BB0C9 /* Collection.swift in Sources */,
+				9AF256271F6FEE50005BB0C9 /* CustomerResetPayload.swift in Sources */,
+				9AF256281F6FEE50005BB0C9 /* ArticleSortKeys.swift in Sources */,
+				9AF256291F6FEE50005BB0C9 /* CardBrand.swift in Sources */,
+				9AF2562A1F6FEE50005BB0C9 /* CheckoutCreateInput.swift in Sources */,
+				9AF2562B1F6FEE50005BB0C9 /* OrderSortKeys.swift in Sources */,
+				9AF2562C1F6FEE50005BB0C9 /* CheckoutCompleteWithCreditCardPayload.swift in Sources */,
+				9AF2562D1F6FEE50005BB0C9 /* CheckoutLineItemEdge.swift in Sources */,
+				9AF2562E1F6FEE50005BB0C9 /* ProductConnection.swift in Sources */,
+				9AF2562F1F6FEE50005BB0C9 /* CustomerAccessToken.swift in Sources */,
+				9AF256301F6FEE50005BB0C9 /* Order.swift in Sources */,
+				9AF256311F6FEE50005BB0C9 /* CheckoutLineItemInput.swift in Sources */,
+				9AF256321F6FEE50005BB0C9 /* TokenizedPaymentInput.swift in Sources */,
+				9AF256331F6FEE50005BB0C9 /* CheckoutLineItem.swift in Sources */,
+				9AF256341F6FEE50005BB0C9 /* OrderDisplayFinancialStatus.swift in Sources */,
+				9AF256351F6FEE50005BB0C9 /* ProductVariantEdge.swift in Sources */,
+				9AF256361F6FEE50005BB0C9 /* AppliedGiftCard.swift in Sources */,
+				9AF256371F6FEE50005BB0C9 /* CheckoutCustomerDisassociatePayload.swift in Sources */,
+				9AF256381F6FEE50005BB0C9 /* CommentEdge.swift in Sources */,
+				9AF256391F6FEE50005BB0C9 /* GraphQL+ScalarSupport.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9AFA38E61E64850A0056C5AA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1659,13 +1989,14 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-function-bodies=100";
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.Buy;
 				PRODUCT_NAME = Buy;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
@@ -1691,6 +2022,7 @@
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
@@ -1807,7 +2139,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-function-bodies=100";
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.Buy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1833,6 +2165,61 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		9AF256401F6FEE50005BB0C9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3.1.0;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 3.1.0;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Buy/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.Buy;
+				PRODUCT_MODULE_NAME = Buy;
+				PRODUCT_NAME = Buy;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		9AF256411F6FEE50005BB0C9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3.1.0;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 3.1.0;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Buy/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.Buy;
+				PRODUCT_MODULE_NAME = Buy;
+				PRODUCT_NAME = Buy;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;
 		};
@@ -1919,6 +2306,15 @@
 			buildConfigurations = (
 				9AEF60FC1E5F42D90067FA90 /* Debug */,
 				9AEF60FD1E5F42D90067FA90 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9AF2563F1F6FEE50005BB0C9 /* Build configuration list for PBXNativeTarget "Buy tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9AF256401F6FEE50005BB0C9 /* Debug */,
+				9AF256411F6FEE50005BB0C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

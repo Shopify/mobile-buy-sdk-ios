@@ -1,0 +1,9 @@
+ #!/usr/bin/env bash
+
+set -ex
+set -eo pipefail
+
+xcodebuild build \
+-project "Buy.xcodeproj" \
+-scheme "Buy watchOS" \
+ | xcpretty -c

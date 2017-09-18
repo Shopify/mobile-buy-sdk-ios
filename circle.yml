@@ -10,6 +10,8 @@ checkout:
 test:
   override:
     - ./Scripts/test_buy
+    - ./Scripts/test_buy_tv
+    - ./Scripts/test_buy_watch
     - ./Scripts/test_pay
     - ./Scripts/test_sample
     
