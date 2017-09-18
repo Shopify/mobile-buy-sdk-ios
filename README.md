@@ -72,6 +72,7 @@ The Mobile Buy SDK makes it easy to create custom storefronts in your mobile app
       - [Customer information](#customer-information-)
       - [Customer Addresses](#customer-addresses-)
       - [Customer Orders](#customer-orders-)
+      - [Customer Update](#customer-update-)
 
 - [Sample application](#sample-application-)
 - [Contributions](#contributions-)
@@ -1483,6 +1484,51 @@ let query = Storefront.buildQuery { $0
             }
         }
     }
+}
+```
+
+#### Customer Update [⤴](#table-of-contents)
+
+Input objects, like `Storefront.MailingAddressInput`, use `Input<T>` type to represent optional fields and distinguish `nil` values from `undefined` values. Let's take `Storefront.CustomerUpdateInput` as an example and see how we'd tackle updating a customer's phone number:
+
+```swift
+let input = Storefront.CustomerUpdateInput(
+    phone: .value("+16471234567")
+)
+```
+
+We'd create an input object with just the `phone` field set to the phone number we want to update with. Notice that we're passing in an `Input.value()` instead of the plain phone number string. The `Storefront.CustomerUpdateInput` object, however, has more than just a `phone` field. Those fields have a default value of `.undefined` if you don't specify them. That means the fields aren't serialized in the mutation and will be omitted entirely. The result will be something like this:
+
+```graphql
+mutation {
+  customerUpdate(customer: {
+    phone: "+16471234567"
+  }, customerAccessToken: "...") {
+    customer {
+      phone
+    }
+  }
+}
+```
+This approach is great for setting a new phone number or updating and existing phone number to a new value. But what if the customer wants to remove the phone number completely? Leaving the phone number blank or sending an empty string are semantically different and won't help us here. The former indicated that we didn't define a value and the latter will return an invalid phone number error. This is where the `Input<T>` is valuable. You can signal the intention to remove a phone number by specifying a `nil` value:
+
+```swift
+let input = Storefront.CustomerUpdateInput(
+    phone: .value(nil)
+)
+```
+
+The result is a mutation that will update a customer's phone number to `null`.
+
+```graphql
+mutation {
+  customerUpdate(customer: {
+    phone: null
+  }, customerAccessToken: "...") {
+    customer {
+      phone
+    }
+  }
 }
 ```
 
