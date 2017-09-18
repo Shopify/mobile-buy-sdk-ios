@@ -1489,7 +1489,9 @@ let query = Storefront.buildQuery { $0
 
 #### Customer Update [⤴](#table-of-contents)
 
-Input objects, like `Storefront.MailingAddressInput`, use `Input<T>` type to represent optional fields and distinguish `nil` values from `undefined` values. Let's take `Storefront.CustomerUpdateInput` as an example and see how we'd tackle updating a customer's phone number:
+Input objects, like `Storefront.MailingAddressInput`, use `Input<T>` type to represent optional fields and distinguish `nil` values from `undefined` values.
+
+The following example uses `Storefront.CustomerUpdateInput` to show how to update a customer's phone number:
 
 ```swift
 let input = Storefront.CustomerUpdateInput(
@@ -1497,7 +1499,9 @@ let input = Storefront.CustomerUpdateInput(
 )
 ```
 
-We'd create an input object with just the `phone` field set to the phone number we want to update with. Notice that we're passing in an `Input.value()` instead of the plain phone number string. The `Storefront.CustomerUpdateInput` object, however, has more than just a `phone` field. Those fields have a default value of `.undefined` if you don't specify them. That means the fields aren't serialized in the mutation and will be omitted entirely. The result will be something like this:
+In this example, you create an input object by setting the `phone` field to the new phone number that you want to update the field with. Notice that you need to pass in an `Input.value()` instead of a simple string containing the phone number.
+
+The `Storefront.CustomerUpdateInput` object also includes other fields besides the `phone` field. These fields all default to a value of `.undefined` if you don't specify them otherwise. This means that the fields aren't serialized in the mutation, and will be omitted entirely. The result looks like this:
 
 ```graphql
 mutation {
@@ -1510,7 +1514,8 @@ mutation {
   }
 }
 ```
-This approach is great for setting a new phone number or updating and existing phone number to a new value. But what if the customer wants to remove the phone number completely? Leaving the phone number blank or sending an empty string are semantically different and won't help us here. The former indicated that we didn't define a value and the latter will return an invalid phone number error. This is where the `Input<T>` is valuable. You can signal the intention to remove a phone number by specifying a `nil` value:
+
+This approach works well for setting a new phone number or updating an existing phone number to a new value. But what if the customer wants to remove the phone number completely? Leaving the phone number blank or sending an empty string are semantically different and won't achieve the intended result. The former approach indicates that we didn't define a value, and the latter returns an invalid phone number error. This is where the `Input<T>` is especially useful. You can use it to signal the intention to remove a phone number by specifying a `nil` value:
 
 ```swift
 let input = Storefront.CustomerUpdateInput(
@@ -1518,7 +1523,7 @@ let input = Storefront.CustomerUpdateInput(
 )
 ```
 
-The result is a mutation that will update a customer's phone number to `null`.
+The result is a mutation that updates a customer's phone number to `null`.
 
 ```graphql
 mutation {
