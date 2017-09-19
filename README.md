@@ -72,6 +72,7 @@ The Mobile Buy SDK makes it easy to create custom storefronts in your mobile app
       - [Customer information](#customer-information-)
       - [Customer Addresses](#customer-addresses-)
       - [Customer Orders](#customer-orders-)
+      - [Customer Update](#customer-update-)
 
 - [Sample application](#sample-application-)
 - [Contributions](#contributions-)
@@ -336,7 +337,7 @@ The following example shows how you can reset a customer's password using a reco
 
 ```swift
 let customerID = GraphQL.ID(rawValue: "YSBjdXN0b21lciBpZA")
-let input      = Storefront.CustomerResetInput(resetToken: "c29tZSB0b2tlbiB2YWx1ZQ", password: "abc123")
+let input      = Storefront.CustomerResetInput.create(resetToken: "c29tZSB0b2tlbiB2YWx1ZQ", password: "abc123")
 let mutation   = Storefront.buildMutation { $0
     .customerReset(id: customerID, input: input) { $0
         .customer { $0
@@ -1016,11 +1017,11 @@ After browsing products and collections, a customer might eventually want to pur
 Almost every `mutation` request requires an input object. This is the object that dictates what fields will be mutated for a particular resource. In this case, we'll need to create a `Storefront.CheckoutCreateInput`:
 
 ```swift
-let input = Storefront.CheckoutCreateInput(
-    lineItems: [
-        Storefront.CheckoutLineItemInput(variantId: GraphQL.ID(rawValue: "mFyaWFu"), quantity: 5),
-        Storefront.CheckoutLineItemInput(variantId: GraphQL.ID(rawValue: "8vc2hGl"), quantity: 3),
-    ]
+let input = Storefront.CheckoutCreateInput.create(
+    lineItems: .value([
+        Storefront.CheckoutLineItemInput.create(variantId: GraphQL.ID(rawValue: "mFyaWFu"), quantity: 5),
+        Storefront.CheckoutLineItemInput.create(variantId: GraphQL.ID(rawValue: "8vc2hGl"), quantity: 3),
+    ])
 )
 ```
 
@@ -1160,7 +1161,7 @@ After obtaining a credit card vault token, we can proceed to complete the checko
 // let payCheckout: PayCheckout
 // let payAuthorization: PayAuthorization
 
-let payment = Storefront.CreditCardPaymentInput(
+let payment = Storefront.CreditCardPaymentInput.create(
     amount:         payCheckout.paymentDue,
     idempotencyKey: paySession.identifier,
     billingAddress: self.mailingAddressInputFrom(payAuthorization.billingAddress,
@@ -1214,7 +1215,7 @@ The Buy SDK makes  Pay integration easy with the provided `Pay.framework`. To
 // let payCheckout: PayCheckout
 // let payAuthorization: PayAuthorization
 
-let payment = Storefront.TokenizedPaymentInput(
+let payment = Storefront.TokenizedPaymentInput.create(
     amount:         payCheckout.paymentDue,
     idempotencyKey: paySession.identifier,
     billingAddress: self.mailingAddressInputFrom(payAuthorization.billingAddress), // <- perform the conversion
@@ -1322,12 +1323,12 @@ Using the Buy SDK, you can build custom storefronts that let your customers crea
 Before a customer can log in, they must first create an account. In your application, you can provide a sign-up form that runs the following `mutation` request. In this example, the `input` for the mutation is some basic customer information that will create an account on your shop.
 
 ```swift
-let input = Storefront.CustomerCreateInput(
-    email:     "john.smith@gmail.com",
-    password:  "123456",
-    firstName: "John",
-    lastName:  "Smith",
-    acceptsMarketing: true
+let input = Storefront.CustomerCreateInput.create(
+    email:            .value("john.smith@gmail.com"),
+    password:         .value("123456"),
+    firstName:        .value("John"),
+    lastName:         .value("Smith"),
+    acceptsMarketing: .value(true)
 )
 
 let mutation = Storefront.buildMutation { $0
@@ -1353,7 +1354,7 @@ Keep in mind that this mutation returns a `Storefront.Customer` object, **not** 
 Any customer who has an account can log in to your shop. All log-in operations are `mutation` requests that exchange customer credentials for an access token. You can log in your customers using the `customerAccessTokenCreate` mutation. Keep in mind that the return access token will eventually expire. The expiry `Date` is provided by the `expiresAt` property of the returned payload.
 
 ```swift
-let input = Storefront.CustomerAccessTokenCreateInput(
+let input = Storefront.CustomerAccessTokenCreateInput.create(
     email:    "john.smith@gmail.com",
     password: "123456"
 )
@@ -1400,16 +1401,16 @@ You can create, update, and delete addresses on the customer's behalf using the 
 The following example shows a mutation for creating an address:
 
 ```swift
-let input = Storefront.MailingAddressInput(
-    address1:  "80 Spadina Ave.",
-    address2:  "Suite 400",
-    city:      "Toronto",
-    country:   "Canada",
-    firstName: "John",
-    lastName:  "Smith",
-    phone:     "1-123-456-7890",
-    province:  "ON",
-    zip:       "M5V 2J4"
+let input = Storefront.MailingAddressInput.create(
+    address1:  .value("80 Spadina Ave."),
+    address2:  .value("Suite 400"),
+    city:      .value("Toronto"),
+    country:   .value("Canada"),
+    firstName: .value("John"),
+    lastName:  .value("Smith"),
+    phone:     .value("1-123-456-7890"),
+    province:  .value("ON"),
+    zip:       .value("M5V 2J4")
 )
 
 let mutation = Storefront.buildMutation { $0
@@ -1483,6 +1484,56 @@ let query = Storefront.buildQuery { $0
             }
         }
     }
+}
+```
+
+#### Customer Update [⤴](#table-of-contents)
+
+Input objects, like `Storefront.MailingAddressInput`, use `Input<T>` (where `T` is the type of value) to represent optional fields and distinguish `nil` values from `undefined` values (eg. `phone: Input<String>`).
+
+The following example uses `Storefront.CustomerUpdateInput` to show how to update a customer's phone number:
+
+```swift
+let input = Storefront.CustomerUpdateInput(
+    phone: .value("+16471234567")
+)
+```
+
+In this example, you create an input object by setting the `phone` field to the new phone number that you want to update the field with. Notice that you need to pass in an `Input.value()` instead of a simple string containing the phone number.
+
+The `Storefront.CustomerUpdateInput` object also includes other fields besides the `phone` field. These fields all default to a value of `.undefined` if you don't specify them otherwise. This means that the fields aren't serialized in the mutation, and will be omitted entirely. The result looks like this:
+
+```graphql
+mutation {
+  customerUpdate(customer: {
+    phone: "+16471234567"
+  }, customerAccessToken: "...") {
+    customer {
+      phone
+    }
+  }
+}
+```
+
+This approach works well for setting a new phone number or updating an existing phone number to a new value. But what if the customer wants to remove the phone number completely? Leaving the phone number blank or sending an empty string are semantically different and won't achieve the intended result. The former approach indicates that we didn't define a value, and the latter returns an invalid phone number error. This is where the `Input<T>` is especially useful. You can use it to signal the intention to remove a phone number by specifying a `nil` value:
+
+```swift
+let input = Storefront.CustomerUpdateInput(
+    phone: .value(nil)
+)
+```
+
+The result is a mutation that updates a customer's phone number to `null`.
+
+```graphql
+mutation {
+  customerUpdate(customer: {
+    phone: null
+  }, customerAccessToken: "...") {
+    customer {
+      phone
+    }
+  }
 }
 ```
 
