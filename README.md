@@ -1489,7 +1489,7 @@ let query = Storefront.buildQuery { $0
 
 #### Customer Update [⤴](#table-of-contents)
 
-Input objects, like `Storefront.MailingAddressInput`, use `Input<T>` type to represent optional fields and distinguish `nil` values from `undefined` values.
+Input objects, like `Storefront.MailingAddressInput`, use `Input<T>` (where `T` is the type of value) to represent optional fields and distinguish `nil` values from `undefined` values (eg. `phone: Input<String>`).
 
 The following example uses `Storefront.CustomerUpdateInput` to show how to update a customer's phone number:
 
