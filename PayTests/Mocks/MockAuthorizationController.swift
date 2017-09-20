@@ -60,7 +60,7 @@ final class MockAuthorizationController: PKPaymentAuthorizationController {
     static func invokeDidAuthorizePayment(_ payment: PKPayment, completion: @escaping (PKPaymentAuthorizationStatus) -> Void) {
         
         self.instances.forEach { authorizationController in
-            authorizationController.delegate?.paymentAuthorizationController(authorizationController, didAuthorizePayment: payment, completion: completion)
+            authorizationController.delegate?.paymentAuthorizationController?(authorizationController, didAuthorizePayment: payment, completion: completion)
         }
     }
     
