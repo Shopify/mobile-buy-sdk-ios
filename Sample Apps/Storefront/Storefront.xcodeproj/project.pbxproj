@@ -122,6 +122,20 @@
 			remoteGlobalIDString = 9AFA38EA1E64850A0056C5AA;
 			remoteInfo = BuyTests;
 		};
+		9AFEF4671F72A7CC003FA8C5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9AEF61BF1E606C710067FA90 /* Buy.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9AC2EFC81F6818180037E0D7;
+			remoteInfo = "Buy watchOS";
+		};
+		9AFEF4691F72A7CC003FA8C5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9AEF61BF1E606C710067FA90 /* Buy.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9AF256421F6FEE50005BB0C9;
+			remoteInfo = "Buy tvOS";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -493,8 +507,10 @@
 			isa = PBXGroup;
 			children = (
 				9AEF61C41E606C710067FA90 /* Buy.framework */,
-				9AFA3B7B1E6DB6FE0056C5AA /* BuyTests.xctest */,
+				9AFEF4681F72A7CC003FA8C5 /* Buy.framework */,
+				9AFEF46A1F72A7CC003FA8C5 /* Buy.framework */,
 				9A4069021E8E76AB000254CD /* Pay.framework */,
+				9AFA3B7B1E6DB6FE0056C5AA /* BuyTests.xctest */,
 				9A4069041E8E76AB000254CD /* PayTests.xctest */,
 			);
 			name = Products;
@@ -616,6 +632,20 @@
 			fileType = wrapper.cfbundle;
 			path = BuyTests.xctest;
 			remoteRef = 9AFA3B7A1E6DB6FE0056C5AA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9AFEF4681F72A7CC003FA8C5 /* Buy.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Buy.framework;
+			remoteRef = 9AFEF4671F72A7CC003FA8C5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9AFEF46A1F72A7CC003FA8C5 /* Buy.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Buy.framework;
+			remoteRef = 9AFEF4691F72A7CC003FA8C5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -840,7 +870,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.buysdk.storefront;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -854,7 +884,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.buysdk.storefront;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

@@ -39,9 +39,9 @@ extension String {
         let styledHTML = self.trimmingCharacters(in: CharacterSet.newlines).appending(style)
         let htmlData   = styledHTML.data(using: .utf8)!
         
-        let options: [String: Any] = [
-            NSDocumentTypeDocumentAttribute      : NSHTMLTextDocumentType,
-            NSCharacterEncodingDocumentAttribute : String.Encoding.utf8.rawValue,
+        let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
+            NSAttributedString.DocumentReadingOptionKey.documentType      : NSAttributedString.DocumentType.html,
+            NSAttributedString.DocumentReadingOptionKey.characterEncoding : String.Encoding.utf8.rawValue,
         ]
         
         return try? NSAttributedString(data: htmlData, options: options, documentAttributes: nil)
