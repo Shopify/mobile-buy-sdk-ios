@@ -479,6 +479,7 @@
 		9AF256451F6FEFCD005BB0C9 /* Optional+Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC2EFD61F686DB90037E0D7 /* Optional+Input.swift */; };
 		9AFA38EF1E64850A0056C5AA /* Buy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AEF60F31E5F42D90067FA90 /* Buy.framework */; };
 		9AFA3B6D1E6D9A5E0056C5AA /* GraphQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFA3B6C1E6D9A5E0056C5AA /* GraphQL.swift */; };
+		9AFEF46E1F72DB64003FA8C5 /* MockPaySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFEF46D1F72DB64003FA8C5 /* MockPaySession.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -688,6 +689,7 @@
 		9AFA38EA1E64850A0056C5AA /* BuyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BuyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AFA38EE1E64850A0056C5AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9AFA3B6C1E6D9A5E0056C5AA /* GraphQL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQL.swift; sourceTree = "<group>"; };
+		9AFEF46D1F72DB64003FA8C5 /* MockPaySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPaySession.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -958,6 +960,7 @@
 				9AADF1C61EA63ED000D22740 /* MockPaymentMethod.swift */,
 				9AADF1C81EA63FB900D22740 /* MockPaymentToken.swift */,
 				9AADF1CA1EA640C000D22740 /* MockPayment.swift */,
+				9AFEF46D1F72DB64003FA8C5 /* MockPaySession.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -1403,6 +1406,7 @@
 				9A4068EA1E8E7659000254CD /* PaySessionTests.swift in Sources */,
 				9A0C7FD91EA686A20020F187 /* PayAddressTests.swift in Sources */,
 				9A0C7FD71EA686240020F187 /* PayCurrencyTests.swift in Sources */,
+				9AFEF46E1F72DB64003FA8C5 /* MockPaySession.swift in Sources */,
 				9A0C7FD51EA682640020F187 /* PayLineItemTests.swift in Sources */,
 				9A0C7FCD1EA6631B0020F187 /* Models.swift in Sources */,
 				9AEC90E41E9FFAA6008C6E1C /* MockAuthorizationController.swift in Sources */,

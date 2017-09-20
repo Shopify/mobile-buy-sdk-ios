@@ -28,6 +28,7 @@ import XCTest
 import PassKit
 @testable import Pay
 
+@available(iOS 11.0, *)
 class PayShippingRateTests: XCTestCase {
 
     // ----------------------------------
