@@ -76,7 +76,7 @@ class TotalsViewController: UIViewController {
         self.buttonStackView.addArrangedSubview(webCheckout)
         
         if PKPaymentAuthorizationController.canMakePayments() {
-            let applePay = PKPaymentButton(type: .buy, style: .black)
+            let applePay = PKPaymentButton(paymentButtonType: .buy, paymentButtonStyle: .black)
             applePay.addTarget(self, action: #selector(applePayAction(_:)), for: .touchUpInside)
             self.buttonStackView.addArrangedSubview(applePay)
         }
@@ -85,11 +85,11 @@ class TotalsViewController: UIViewController {
     // ----------------------------------
     //  MARK: - Actions -
     //
-    dynamic func webCheckoutAction(_ sender: Any) {
+    @objc func webCheckoutAction(_ sender: Any) {
         self.delegate?.totalsController(self, didRequestPaymentWith: .webCheckout)
     }
     
-    dynamic func applePayAction(_ sender: Any) {
+    @objc func applePayAction(_ sender: Any) {
         self.delegate?.totalsController(self, didRequestPaymentWith: .applePay)
     }
 }

@@ -189,6 +189,14 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
     // -------------------------------------------------------
     //  MARK: - PKPaymentAuthorizationControllerDelegate -
     //
+    @available(iOS 11.0, *)
+    public func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
+        self.paymentAuthorizationController(controller, didAuthorizePayment: payment) { (status: PKPaymentAuthorizationStatus) in
+            let result = PKPaymentAuthorizationResult(status: status, errors: nil)
+            completion(result)
+        }
+    }
+    
     public func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didAuthorizePayment payment: PKPayment, completion: @escaping (PKPaymentAuthorizationStatus) -> Void) {
 
         var shippingRate: PayShippingRate?
@@ -219,6 +227,16 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
             case .failure: completion(.failure)
             }
         })
+    }
+    
+    @available(iOS 11.0, *)
+    public func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didSelectShippingContact contact: PKContact, handler completion: @escaping (PKPaymentRequestShippingContactUpdate) -> Void) {
+        
+        self.paymentAuthorizationController(controller, didSelectShippingContact: contact) { status, shippingMethod, summaryItems in
+            let result    = PKPaymentRequestShippingContactUpdate(errors: nil, paymentSummaryItems: summaryItems, shippingMethods: shippingMethod)
+            result.status = status
+            completion(result)
+        }
     }
 
     public func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didSelectShippingContact contact: PKContact, completion: @escaping (PKPaymentAuthorizationStatus, [PKShippingMethod], [PKPaymentSummaryItem]) -> Void) {
@@ -292,6 +310,15 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
                 }
             })
         })
+    }
+    
+    @available(iOS 11.0, *)
+    public func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didSelectShippingMethod shippingMethod: PKShippingMethod, handler completion: @escaping (PKPaymentRequestShippingMethodUpdate) -> Void) {
+        self.paymentAuthorizationController(controller, didSelectShippingMethod: shippingMethod) { status, summaryItems in
+            let result    = PKPaymentRequestShippingMethodUpdate(paymentSummaryItems: summaryItems)
+            result.status = status
+            completion(result)
+        }
     }
 
     public func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didSelectShippingMethod shippingMethod: PKShippingMethod, completion: @escaping (PKPaymentAuthorizationStatus, [PKPaymentSummaryItem]) -> Void) {

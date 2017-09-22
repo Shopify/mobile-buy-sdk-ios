@@ -96,7 +96,7 @@ class CartViewController: ParallaxViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    private dynamic func cartControllerItemsDidChange(_ notification: Notification) {
+    @objc private func cartControllerItemsDidChange(_ notification: Notification) {
         self.updateSubtotal()
     }
     
@@ -114,7 +114,7 @@ class CartViewController: ParallaxViewController {
     func openSafariFor(_ checkout: CheckoutViewModel) {
         let safari                  = SFSafariViewController(url: checkout.webURL)
         safari.navigationItem.title = "Checkout"
-        self.navigationController?.show(safari, sender: self)
+        self.navigationController?.present(safari, animated: true, completion: nil)
     }
     
     func authorizePaymentWith(_ checkout: CheckoutViewModel) {
