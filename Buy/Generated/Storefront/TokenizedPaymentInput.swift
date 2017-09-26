@@ -49,10 +49,10 @@ extension Storefront {
 		open var paymentData: String
 
 		/// Executes the payment in test mode if possible. Defaults to `false`. 
-		open var test: Bool?
+		open var test: Input<Bool>
 
 		/// Public Hash Key used for AndroidPay payments only. 
-		open var identifier: String?
+		open var identifier: Input<String>
 
 		/// Creates the input object.
 		///
@@ -65,7 +65,11 @@ extension Storefront {
 		///     - test: Executes the payment in test mode if possible. Defaults to `false`.
 		///     - identifier: Public Hash Key used for AndroidPay payments only.
 		///
-		public init(amount: Decimal, idempotencyKey: String, billingAddress: MailingAddressInput, type: String, paymentData: String, test: Bool? = nil, identifier: String? = nil) {
+		public static func create(amount: Decimal, idempotencyKey: String, billingAddress: MailingAddressInput, type: String, paymentData: String, test: Input<Bool> = .undefined, identifier: Input<String> = .undefined) -> TokenizedPaymentInput {
+			return TokenizedPaymentInput(amount: amount, idempotencyKey: idempotencyKey, billingAddress: billingAddress, type: type, paymentData: paymentData, test: test, identifier: identifier)
+		}
+
+		private init(amount: Decimal, idempotencyKey: String, billingAddress: MailingAddressInput, type: String, paymentData: String, test: Input<Bool> = .undefined, identifier: Input<String> = .undefined) {
 			self.amount = amount
 			self.idempotencyKey = idempotencyKey
 			self.billingAddress = billingAddress
@@ -73,6 +77,22 @@ extension Storefront {
 			self.paymentData = paymentData
 			self.test = test
 			self.identifier = identifier
+		}
+
+		/// Creates the input object.
+		///
+		/// - parameters:
+		///     - amount: The amount of the payment.
+		///     - idempotencyKey: A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one.
+		///     - billingAddress: The billing address for the payment.
+		///     - type: The type of payment token.
+		///     - paymentData: A simple string or JSON containing the required payment data for the tokenized payment.
+		///     - test: Executes the payment in test mode if possible. Defaults to `false`.
+		///     - identifier: Public Hash Key used for AndroidPay payments only.
+		///
+		@available(*, deprecated, message: "Use the static create() method instead.")
+		public convenience init(amount: Decimal, idempotencyKey: String, billingAddress: MailingAddressInput, type: String, paymentData: String, test: Bool? = nil, identifier: String? = nil) {
+			self.init(amount: amount, idempotencyKey: idempotencyKey, billingAddress: billingAddress, type: type, paymentData: paymentData, test: test.orNull, identifier: identifier.orNull)
 		}
 
 		internal func serialize() -> String {
@@ -88,12 +108,24 @@ extension Storefront {
 
 			fields.append("paymentData:\(GraphQL.quoteString(input: paymentData))")
 
-			if let test = test {
+			switch test {
+				case .value(let test): 
+				guard let test = test else {
+					fields.append("test:null")
+					break
+				}
 				fields.append("test:\(test)")
+				case .undefined: break
 			}
 
-			if let identifier = identifier {
+			switch identifier {
+				case .value(let identifier): 
+				guard let identifier = identifier else {
+					fields.append("identifier:null")
+					break
+				}
 				fields.append("identifier:\(GraphQL.quoteString(input: identifier))")
+				case .undefined: break
 			}
 
 			return "{\(fields.joined(separator: ","))}"

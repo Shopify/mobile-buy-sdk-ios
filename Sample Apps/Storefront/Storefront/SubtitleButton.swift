@@ -45,16 +45,16 @@ class SubtitleButton: RoundedButton {
         style.lineBreakMode = .byClipping
         
         let attributedTitle = NSMutableAttributedString(string: title, attributes: [
-            NSFontAttributeName           : currentFont,
-            NSParagraphStyleAttributeName : style,
-            NSForegroundColorAttributeName: currentColor
-            ])
+            NSAttributedStringKey.font           : currentFont,
+            NSAttributedStringKey.paragraphStyle : style,
+            NSAttributedStringKey.foregroundColor: currentColor
+        ])
         
         let attributedSubtitle = NSAttributedString(string: "\n\(self.subtitle)", attributes: [
-            NSFontAttributeName           : UIFont(descriptor: currentFont.fontDescriptor, size: currentFont.pointSize * 0.6),
-            NSParagraphStyleAttributeName : style,
-            NSForegroundColorAttributeName: currentColor.withAlphaComponent(0.6)
-            ])
+            NSAttributedStringKey.font           : UIFont(descriptor: currentFont.fontDescriptor, size: currentFont.pointSize * 0.6),
+            NSAttributedStringKey.paragraphStyle : style,
+            NSAttributedStringKey.foregroundColor: currentColor.withAlphaComponent(0.6)
+        ])
         
         attributedTitle.append(attributedSubtitle)
         

@@ -32,7 +32,7 @@ internal extension Graph {
     
     internal class Cache {
         
-        static let cacheName = "com.buy.graph.cache"
+        static let cacheName = "com.buy.graph.cache-\(Global.frameworkVersion)"
         
         private static let fileManager = FileManager.default
         

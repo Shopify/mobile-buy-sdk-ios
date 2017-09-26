@@ -82,7 +82,7 @@ class CartButton: UIBarButtonItem {
         NotificationCenter.default.removeObserver(self)
     }
     
-    private dynamic func itemCountDidChange(_ notification: Notification) {
+    @objc private func itemCountDidChange(_ notification: Notification) {
         self.updateBadgeCount(animated: true)
         print("Badge count change notification received")
     }
@@ -113,7 +113,7 @@ class CartButton: UIBarButtonItem {
     // ----------------------------------
     //  MARK: - Actions -
     //
-    dynamic private func cartAction(_ sender: Any) {
+    @objc private func cartAction(_ sender: Any) {
         if let target = self.target,
             let selector = self.action {
             
@@ -300,7 +300,7 @@ private class BadgeView: UIView {
     
     private func initialize() {
         self.clipsToBounds   = true
-        self.backgroundColor = UIColor(colorLiteralRed: 0.9372, green: 0.3372, blue: 0.2156, alpha: 1.0).withAlphaComponent(0.9)
+        self.backgroundColor = #colorLiteral(red: 0.937254902, green: 0.337254902, blue: 0.2156862745, alpha: 1).withAlphaComponent(0.9)
         
         self.initLabel()
     }

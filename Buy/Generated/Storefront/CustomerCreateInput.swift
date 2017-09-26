@@ -30,23 +30,23 @@ extension Storefront {
 	/// Specifies the fields required to create a new Customer. 
 	open class CustomerCreateInput {
 		/// The customer’s first name. 
-		open var firstName: String?
+		open var firstName: Input<String>
 
 		/// The customer’s last name. 
-		open var lastName: String?
+		open var lastName: Input<String>
 
 		/// The customer’s email. 
 		open var email: String
 
 		/// The customer’s phone number. 
-		open var phone: String?
+		open var phone: Input<String>
 
 		/// The login password used by the customer. 
 		open var password: String
 
 		/// Indicates whether the customer has consented to be sent marketing material 
 		/// via email. 
-		open var acceptsMarketing: Bool?
+		open var acceptsMarketing: Input<Bool>
 
 		/// Creates the input object.
 		///
@@ -58,7 +58,11 @@ extension Storefront {
 		///     - password: The login password used by the customer.
 		///     - acceptsMarketing: Indicates whether the customer has consented to be sent marketing material via email.
 		///
-		public init(email: String, password: String, firstName: String? = nil, lastName: String? = nil, phone: String? = nil, acceptsMarketing: Bool? = nil) {
+		public static func create(email: String, password: String, firstName: Input<String> = .undefined, lastName: Input<String> = .undefined, phone: Input<String> = .undefined, acceptsMarketing: Input<Bool> = .undefined) -> CustomerCreateInput {
+			return CustomerCreateInput(email: email, password: password, firstName: firstName, lastName: lastName, phone: phone, acceptsMarketing: acceptsMarketing)
+		}
+
+		private init(email: String, password: String, firstName: Input<String> = .undefined, lastName: Input<String> = .undefined, phone: Input<String> = .undefined, acceptsMarketing: Input<Bool> = .undefined) {
 			self.firstName = firstName
 			self.lastName = lastName
 			self.email = email
@@ -67,27 +71,66 @@ extension Storefront {
 			self.acceptsMarketing = acceptsMarketing
 		}
 
+		/// Creates the input object.
+		///
+		/// - parameters:
+		///     - firstName: The customer’s first name.
+		///     - lastName: The customer’s last name.
+		///     - email: The customer’s email.
+		///     - phone: The customer’s phone number.
+		///     - password: The login password used by the customer.
+		///     - acceptsMarketing: Indicates whether the customer has consented to be sent marketing material via email.
+		///
+		@available(*, deprecated, message: "Use the static create() method instead.")
+		public convenience init(email: String, password: String, firstName: String? = nil, lastName: String? = nil, phone: String? = nil, acceptsMarketing: Bool? = nil) {
+			self.init(email: email, password: password, firstName: firstName.orNull, lastName: lastName.orNull, phone: phone.orNull, acceptsMarketing: acceptsMarketing.orNull)
+		}
+
 		internal func serialize() -> String {
 			var fields: [String] = []
 
-			if let firstName = firstName {
+			switch firstName {
+				case .value(let firstName): 
+				guard let firstName = firstName else {
+					fields.append("firstName:null")
+					break
+				}
 				fields.append("firstName:\(GraphQL.quoteString(input: firstName))")
+				case .undefined: break
 			}
 
-			if let lastName = lastName {
+			switch lastName {
+				case .value(let lastName): 
+				guard let lastName = lastName else {
+					fields.append("lastName:null")
+					break
+				}
 				fields.append("lastName:\(GraphQL.quoteString(input: lastName))")
+				case .undefined: break
 			}
 
 			fields.append("email:\(GraphQL.quoteString(input: email))")
 
-			if let phone = phone {
+			switch phone {
+				case .value(let phone): 
+				guard let phone = phone else {
+					fields.append("phone:null")
+					break
+				}
 				fields.append("phone:\(GraphQL.quoteString(input: phone))")
+				case .undefined: break
 			}
 
 			fields.append("password:\(GraphQL.quoteString(input: password))")
 
-			if let acceptsMarketing = acceptsMarketing {
+			switch acceptsMarketing {
+				case .value(let acceptsMarketing): 
+				guard let acceptsMarketing = acceptsMarketing else {
+					fields.append("acceptsMarketing:null")
+					break
+				}
 				fields.append("acceptsMarketing:\(acceptsMarketing)")
+				case .undefined: break
 			}
 
 			return "{\(fields.joined(separator: ","))}"

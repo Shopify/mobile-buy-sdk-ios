@@ -75,36 +75,36 @@ extension Storefront {
 				case "bio":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: ArticleAuthor.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "email":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: ArticleAuthor.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "firstName":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: ArticleAuthor.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "lastName":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: ArticleAuthor.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "name":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: ArticleAuthor.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				default:
-				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: ArticleAuthor.self, field: fieldName, value: fieldValue)
 			}
 		}
 

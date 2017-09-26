@@ -55,16 +55,28 @@ extension Storefront {
 		/// - parameters:
 		///     - first: No description
 		///     - after: No description
+		///     - last: No description
+		///     - before: No description
 		///     - reverse: No description
 		///
 		@discardableResult
-		open func comments(alias: String? = nil, first: Int32, after: String? = nil, reverse: Bool? = nil, _ subfields: (CommentConnectionQuery) -> Void) -> ArticleQuery {
+		open func comments(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (CommentConnectionQuery) -> Void) -> ArticleQuery {
 			var args: [String] = []
 
-			args.append("first:\(first)")
+			if let first = first {
+				args.append("first:\(first)")
+			}
 
 			if let after = after {
 				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
 			}
 
 			if let reverse = reverse {
@@ -213,87 +225,87 @@ extension Storefront {
 			switch fieldName {
 				case "author":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
 				}
 				return try ArticleAuthor(fields: value)
 
 				case "blog":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
 				}
 				return try Blog(fields: value)
 
 				case "comments":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
 				}
 				return try CommentConnection(fields: value)
 
 				case "content":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "contentHtml":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "excerpt":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "excerptHtml":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "id":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.ID(rawValue: value)
 
 				case "image":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
 				}
 				return try Image(fields: value)
 
 				case "publishedAt":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.iso8601DateParser.date(from: value)!
 
 				case "tags":
 				guard let value = value as? [String] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
 				}
 				return value.map { return $0 }
 
 				case "title":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "url":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
 				}
 				return URL(string: value)!
 
 				default:
-				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
 			}
 		}
 

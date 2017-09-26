@@ -46,16 +46,28 @@ extension Storefront {
 		/// - parameters:
 		///     - first: No description
 		///     - after: No description
+		///     - last: No description
+		///     - before: No description
 		///     - reverse: No description
 		///
 		@discardableResult
-		open func addresses(alias: String? = nil, first: Int32, after: String? = nil, reverse: Bool? = nil, _ subfields: (MailingAddressConnectionQuery) -> Void) -> CustomerQuery {
+		open func addresses(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (MailingAddressConnectionQuery) -> Void) -> CustomerQuery {
 			var args: [String] = []
 
-			args.append("first:\(first)")
+			if let first = first {
+				args.append("first:\(first)")
+			}
 
 			if let after = after {
 				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
 			}
 
 			if let reverse = reverse {
@@ -128,27 +140,39 @@ extension Storefront {
 		/// - parameters:
 		///     - first: No description
 		///     - after: No description
-		///     - sortKey: No description
+		///     - last: No description
+		///     - before: No description
 		///     - reverse: No description
+		///     - sortKey: No description
 		///     - query: Supported filter parameters:
 		///         - `processed_at`
 		///
 		@discardableResult
-		open func orders(alias: String? = nil, first: Int32, after: String? = nil, sortKey: OrderSortKeys? = nil, reverse: Bool? = nil, query: String? = nil, _ subfields: (OrderConnectionQuery) -> Void) -> CustomerQuery {
+		open func orders(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: OrderSortKeys? = nil, query: String? = nil, _ subfields: (OrderConnectionQuery) -> Void) -> CustomerQuery {
 			var args: [String] = []
 
-			args.append("first:\(first)")
+			if let first = first {
+				args.append("first:\(first)")
+			}
 
 			if let after = after {
 				args.append("after:\(GraphQL.quoteString(input: after))")
 			}
 
-			if let sortKey = sortKey {
-				args.append("sortKey:\(sortKey.rawValue)")
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
 			}
 
 			if let reverse = reverse {
 				args.append("reverse:\(reverse)")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
 			}
 
 			if let query = query {
@@ -190,83 +214,83 @@ extension Storefront {
 			switch fieldName {
 				case "acceptsMarketing":
 				guard let value = value as? Bool else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Customer.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "addresses":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Customer.self, field: fieldName, value: fieldValue)
 				}
 				return try MailingAddressConnection(fields: value)
 
 				case "createdAt":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Customer.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.iso8601DateParser.date(from: value)!
 
 				case "defaultAddress":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Customer.self, field: fieldName, value: fieldValue)
 				}
 				return try MailingAddress(fields: value)
 
 				case "displayName":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Customer.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "email":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Customer.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "firstName":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Customer.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "id":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Customer.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.ID(rawValue: value)
 
 				case "lastName":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Customer.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "orders":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Customer.self, field: fieldName, value: fieldValue)
 				}
 				return try OrderConnection(fields: value)
 
 				case "phone":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Customer.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "updatedAt":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Customer.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.iso8601DateParser.date(from: value)!
 
 				default:
-				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: Customer.self, field: fieldName, value: fieldValue)
 			}
 		}
 

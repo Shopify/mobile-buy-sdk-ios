@@ -59,18 +59,18 @@ extension Storefront {
 			switch fieldName {
 				case "name":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: SelectedOption.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "value":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: SelectedOption.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				default:
-				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: SelectedOption.self, field: fieldName, value: fieldValue)
 			}
 		}
 

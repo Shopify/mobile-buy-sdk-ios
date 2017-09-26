@@ -126,71 +126,71 @@ extension Storefront {
 			switch fieldName {
 				case "amount":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Payment.self, field: fieldName, value: fieldValue)
 				}
 				return Decimal(string: value, locale: GraphQL.posixLocale)
 
 				case "billingAddress":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Payment.self, field: fieldName, value: fieldValue)
 				}
 				return try MailingAddress(fields: value)
 
 				case "checkout":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Payment.self, field: fieldName, value: fieldValue)
 				}
 				return try Checkout(fields: value)
 
 				case "creditCard":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Payment.self, field: fieldName, value: fieldValue)
 				}
 				return try CreditCard(fields: value)
 
 				case "errorMessage":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Payment.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "id":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Payment.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.ID(rawValue: value)
 
 				case "idempotencyKey":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Payment.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "ready":
 				guard let value = value as? Bool else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Payment.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "test":
 				guard let value = value as? Bool else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Payment.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "transaction":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Payment.self, field: fieldName, value: fieldValue)
 				}
 				return try Transaction(fields: value)
 
 				default:
-				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: Payment.self, field: fieldName, value: fieldValue)
 			}
 		}
 

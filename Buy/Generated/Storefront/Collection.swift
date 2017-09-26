@@ -115,25 +115,37 @@ extension Storefront {
 		/// - parameters:
 		///     - first: No description
 		///     - after: No description
-		///     - sortKey: No description
+		///     - last: No description
+		///     - before: No description
 		///     - reverse: No description
+		///     - sortKey: No description
 		///
 		@discardableResult
-		open func products(alias: String? = nil, first: Int32, after: String? = nil, sortKey: ProductCollectionSortKeys? = nil, reverse: Bool? = nil, _ subfields: (ProductConnectionQuery) -> Void) -> CollectionQuery {
+		open func products(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: ProductCollectionSortKeys? = nil, _ subfields: (ProductConnectionQuery) -> Void) -> CollectionQuery {
 			var args: [String] = []
 
-			args.append("first:\(first)")
+			if let first = first {
+				args.append("first:\(first)")
+			}
 
 			if let after = after {
 				args.append("after:\(GraphQL.quoteString(input: after))")
 			}
 
-			if let sortKey = sortKey {
-				args.append("sortKey:\(sortKey.rawValue)")
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
 			}
 
 			if let reverse = reverse {
 				args.append("reverse:\(reverse)")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
 			}
 
 			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
@@ -170,55 +182,55 @@ extension Storefront {
 			switch fieldName {
 				case "description":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Collection.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "descriptionHtml":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Collection.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "handle":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Collection.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "id":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Collection.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.ID(rawValue: value)
 
 				case "image":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Collection.self, field: fieldName, value: fieldValue)
 				}
 				return try Image(fields: value)
 
 				case "products":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Collection.self, field: fieldName, value: fieldValue)
 				}
 				return try ProductConnection(fields: value)
 
 				case "title":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Collection.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "updatedAt":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Collection.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.iso8601DateParser.date(from: value)!
 
 				default:
-				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: Collection.self, field: fieldName, value: fieldValue)
 			}
 		}
 

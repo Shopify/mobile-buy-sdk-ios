@@ -1,6 +1,6 @@
 //
-//  PayAuthorizationTests.swift
-//  PayTests
+//  Optional+Input.swift
+//  Buy
 //
 //  Created by Shopify.
 //  Copyright (c) 2017 Shopify Inc. All rights reserved.
@@ -24,29 +24,17 @@
 //  THE SOFTWARE.
 //
 
-import XCTest
-@testable import Pay
+import Foundation
 
-@available(iOS 11.0, *)
-class PayAuthorizationTests: XCTestCase {
+public extension Optional {
     
-    // ----------------------------------
-    //  MARK: - Init -
-    //
-    func testInit() {
-        let paymentData   = "123".data(using: .utf8)!
-        let address       = Models.createAddress()
-        let rate          = Models.createShippingRate()
-        let authorization = PayAuthorization(
-            paymentData:     paymentData,
-            billingAddress:  address,
-            shippingAddress: address,
-            shippingRate:    rate
-        )
-        
-        XCTAssertEqual(authorization.token, "123")
-        XCTAssertEqual(authorization.billingAddress.firstName,  address.firstName)
-        XCTAssertEqual(authorization.shippingAddress.firstName, address.firstName)
-        XCTAssertEqual(authorization.shippingRate!.handle,      rate.handle)
+    /// Transforms an Optional<T> into Input.value(T), or Input.value(nil) if optional is nil.
+    public var orNull: Input<Wrapped> {
+        return Input(orNull: self)
+    }
+    
+    /// Transforms an Optional<T> into Input.value(T), or Input.undefined if optional is nil.
+    public var orUndefined: Input<Wrapped> {
+        return Input(orUndefined: self)
     }
 }

@@ -37,8 +37,10 @@ extension Storefront {
 		/// - parameters:
 		///     - first: No description
 		///     - after: No description
-		///     - sortKey: No description
+		///     - last: No description
+		///     - before: No description
 		///     - reverse: No description
+		///     - sortKey: No description
 		///     - query: Supported filter parameters:
 		///         - `author`
 		///         - `updated_at`
@@ -47,21 +49,31 @@ extension Storefront {
 		///         - `tag`
 		///
 		@discardableResult
-		open func articles(alias: String? = nil, first: Int32, after: String? = nil, sortKey: ArticleSortKeys? = nil, reverse: Bool? = nil, query: String? = nil, _ subfields: (ArticleConnectionQuery) -> Void) -> ShopQuery {
+		open func articles(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: ArticleSortKeys? = nil, query: String? = nil, _ subfields: (ArticleConnectionQuery) -> Void) -> ShopQuery {
 			var args: [String] = []
 
-			args.append("first:\(first)")
+			if let first = first {
+				args.append("first:\(first)")
+			}
 
 			if let after = after {
 				args.append("after:\(GraphQL.quoteString(input: after))")
 			}
 
-			if let sortKey = sortKey {
-				args.append("sortKey:\(sortKey.rawValue)")
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
 			}
 
 			if let reverse = reverse {
 				args.append("reverse:\(reverse)")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
 			}
 
 			if let query = query {
@@ -82,8 +94,10 @@ extension Storefront {
 		/// - parameters:
 		///     - first: No description
 		///     - after: No description
-		///     - sortKey: No description
+		///     - last: No description
+		///     - before: No description
 		///     - reverse: No description
+		///     - sortKey: No description
 		///     - query: Supported filter parameters:
 		///         - `handle`
 		///         - `title`
@@ -91,21 +105,31 @@ extension Storefront {
 		///         - `created_at`
 		///
 		@discardableResult
-		open func blogs(alias: String? = nil, first: Int32, after: String? = nil, sortKey: BlogSortKeys? = nil, reverse: Bool? = nil, query: String? = nil, _ subfields: (BlogConnectionQuery) -> Void) -> ShopQuery {
+		open func blogs(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: BlogSortKeys? = nil, query: String? = nil, _ subfields: (BlogConnectionQuery) -> Void) -> ShopQuery {
 			var args: [String] = []
 
-			args.append("first:\(first)")
+			if let first = first {
+				args.append("first:\(first)")
+			}
 
 			if let after = after {
 				args.append("after:\(GraphQL.quoteString(input: after))")
 			}
 
-			if let sortKey = sortKey {
-				args.append("sortKey:\(sortKey.rawValue)")
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
 			}
 
 			if let reverse = reverse {
 				args.append("reverse:\(reverse)")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
 			}
 
 			if let query = query {
@@ -154,29 +178,41 @@ extension Storefront {
 		/// - parameters:
 		///     - first: No description
 		///     - after: No description
-		///     - sortKey: No description
+		///     - last: No description
+		///     - before: No description
 		///     - reverse: No description
+		///     - sortKey: No description
 		///     - query: Supported filter parameters:
 		///         - `title`
 		///         - `collection_type`
 		///         - `updated_at`
 		///
 		@discardableResult
-		open func collections(alias: String? = nil, first: Int32, after: String? = nil, sortKey: CollectionSortKeys? = nil, reverse: Bool? = nil, query: String? = nil, _ subfields: (CollectionConnectionQuery) -> Void) -> ShopQuery {
+		open func collections(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: CollectionSortKeys? = nil, query: String? = nil, _ subfields: (CollectionConnectionQuery) -> Void) -> ShopQuery {
 			var args: [String] = []
 
-			args.append("first:\(first)")
+			if let first = first {
+				args.append("first:\(first)")
+			}
 
 			if let after = after {
 				args.append("after:\(GraphQL.quoteString(input: after))")
 			}
 
-			if let sortKey = sortKey {
-				args.append("sortKey:\(sortKey.rawValue)")
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
 			}
 
 			if let reverse = reverse {
 				args.append("reverse:\(reverse)")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
 			}
 
 			if let query = query {
@@ -297,8 +333,10 @@ extension Storefront {
 		/// - parameters:
 		///     - first: No description
 		///     - after: No description
-		///     - sortKey: No description
+		///     - last: No description
+		///     - before: No description
 		///     - reverse: No description
+		///     - sortKey: No description
 		///     - query: Supported filter parameters:
 		///         - `title`
 		///         - `product_type`
@@ -308,21 +346,31 @@ extension Storefront {
 		///         - `tag`
 		///
 		@discardableResult
-		open func products(alias: String? = nil, first: Int32, after: String? = nil, sortKey: ProductSortKeys? = nil, reverse: Bool? = nil, query: String? = nil, _ subfields: (ProductConnectionQuery) -> Void) -> ShopQuery {
+		open func products(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: ProductSortKeys? = nil, query: String? = nil, _ subfields: (ProductConnectionQuery) -> Void) -> ShopQuery {
 			var args: [String] = []
 
-			args.append("first:\(first)")
+			if let first = first {
+				args.append("first:\(first)")
+			}
 
 			if let after = after {
 				args.append("after:\(GraphQL.quoteString(input: after))")
 			}
 
-			if let sortKey = sortKey {
-				args.append("sortKey:\(sortKey.rawValue)")
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
 			}
 
 			if let reverse = reverse {
 				args.append("reverse:\(reverse)")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
 			}
 
 			if let query = query {
@@ -377,121 +425,121 @@ extension Storefront {
 			switch fieldName {
 				case "articles":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return try ArticleConnection(fields: value)
 
 				case "blogs":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return try BlogConnection(fields: value)
 
 				case "cardVaultUrl":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return URL(string: value)!
 
 				case "collectionByHandle":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return try Collection(fields: value)
 
 				case "collections":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return try CollectionConnection(fields: value)
 
 				case "currencyCode":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return CurrencyCode(rawValue: value) ?? .unknownValue
 
 				case "description":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "moneyFormat":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "name":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "paymentSettings":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return try PaymentSettings(fields: value)
 
 				case "primaryDomain":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return try Domain(fields: value)
 
 				case "privacyPolicy":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return try ShopPolicy(fields: value)
 
 				case "productByHandle":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return try Product(fields: value)
 
 				case "productTypes":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return try StringConnection(fields: value)
 
 				case "products":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return try ProductConnection(fields: value)
 
 				case "refundPolicy":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return try ShopPolicy(fields: value)
 
 				case "shopifyPaymentsAccountId":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "termsOfService":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return try ShopPolicy(fields: value)
 
 				default:
-				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 			}
 		}
 

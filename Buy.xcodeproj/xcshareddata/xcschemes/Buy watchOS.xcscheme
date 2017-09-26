@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9A4068DB1E8E7658000254CD"
-               BuildableName = "Pay.framework"
-               BlueprintName = "Pay"
+               BlueprintIdentifier = "9AC2EF371F6818180037E0D7"
+               BuildableName = "Buy.framework"
+               BlueprintName = "Buy watchOS"
                ReferencedContainer = "container:Buy.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -27,29 +27,9 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       language = ""
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9A4068E31E8E7659000254CD"
-               BuildableName = "PayTests.xctest"
-               BlueprintName = "PayTests"
-               ReferencedContainer = "container:Buy.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9A4068DB1E8E7658000254CD"
-            BuildableName = "Pay.framework"
-            BlueprintName = "Pay"
-            ReferencedContainer = "container:Buy.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -67,9 +47,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9A4068DB1E8E7658000254CD"
-            BuildableName = "Pay.framework"
-            BlueprintName = "Pay"
+            BlueprintIdentifier = "9AC2EF371F6818180037E0D7"
+            BuildableName = "Buy.framework"
+            BlueprintName = "Buy watchOS"
             ReferencedContainer = "container:Buy.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -85,9 +65,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9A4068DB1E8E7658000254CD"
-            BuildableName = "Pay.framework"
-            BlueprintName = "Pay"
+            BlueprintIdentifier = "9AC2EF371F6818180037E0D7"
+            BuildableName = "Buy.framework"
+            BlueprintName = "Buy watchOS"
             ReferencedContainer = "container:Buy.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

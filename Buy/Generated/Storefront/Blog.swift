@@ -35,16 +35,28 @@ extension Storefront {
 		/// - parameters:
 		///     - first: No description
 		///     - after: No description
+		///     - last: No description
+		///     - before: No description
 		///     - reverse: No description
 		///
 		@discardableResult
-		open func articles(alias: String? = nil, first: Int32, after: String? = nil, reverse: Bool? = nil, _ subfields: (ArticleConnectionQuery) -> Void) -> BlogQuery {
+		open func articles(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (ArticleConnectionQuery) -> Void) -> BlogQuery {
 			var args: [String] = []
 
-			args.append("first:\(first)")
+			if let first = first {
+				args.append("first:\(first)")
+			}
 
 			if let after = after {
 				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
 			}
 
 			if let reverse = reverse {
@@ -90,30 +102,30 @@ extension Storefront {
 			switch fieldName {
 				case "articles":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Blog.self, field: fieldName, value: fieldValue)
 				}
 				return try ArticleConnection(fields: value)
 
 				case "id":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Blog.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.ID(rawValue: value)
 
 				case "title":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Blog.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "url":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Blog.self, field: fieldName, value: fieldValue)
 				}
 				return URL(string: value)!
 
 				default:
-				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: Blog.self, field: fieldName, value: fieldValue)
 			}
 		}
 

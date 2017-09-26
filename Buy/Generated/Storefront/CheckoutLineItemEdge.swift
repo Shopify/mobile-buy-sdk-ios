@@ -56,18 +56,18 @@ extension Storefront {
 			switch fieldName {
 				case "cursor":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CheckoutLineItemEdge.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "node":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CheckoutLineItemEdge.self, field: fieldName, value: fieldValue)
 				}
 				return try CheckoutLineItem(fields: value)
 
 				default:
-				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: CheckoutLineItemEdge.self, field: fieldName, value: fieldValue)
 			}
 		}
 

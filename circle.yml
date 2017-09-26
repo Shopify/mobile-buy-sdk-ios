@@ -1,0 +1,17 @@
+machine:
+  xcode:
+    version: 9.0
+
+checkout:
+  post:
+    - git submodule sync --recursive
+    - git submodule update --recursive --init
+
+test:
+  override:
+    - ./Scripts/test_buy
+    - ./Scripts/test_buy_tv
+    - ./Scripts/test_buy_watch
+    - ./Scripts/test_pay
+    - ./Scripts/test_sample
+    

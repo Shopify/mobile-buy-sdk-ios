@@ -62,24 +62,24 @@ extension Storefront {
 			switch fieldName {
 				case "host":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Domain.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "sslEnabled":
 				guard let value = value as? Bool else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Domain.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "url":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Domain.self, field: fieldName, value: fieldValue)
 				}
 				return URL(string: value)!
 
 				default:
-				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: Domain.self, field: fieldName, value: fieldValue)
 			}
 		}
 

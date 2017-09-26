@@ -28,6 +28,7 @@ import XCTest
 import PassKit
 @testable import Pay
 
+@available(iOS 11.0, *)
 class PaySessionTests: XCTestCase {
     
     // ----------------------------------
@@ -246,7 +247,6 @@ class PaySessionTests: XCTestCase {
         
         let shippingContact  = Models.createContact()
         let shippingAddress  = Models.createAddress()
-        let shippingRate     = Models.createShippingRate()
         let addressCheckout  = Models.createCheckout(requiresShipping: false, shippingAddress: shippingAddress)
         
         let e1 = self.expectation(description: "")
@@ -451,6 +451,116 @@ class PaySessionTests: XCTestCase {
         MockAuthorizationController.invokeDidFinish()
         
         self.wait(for: [expectation], timeout: 10)
+    }
+    
+    // ----------------------------------
+    //  MARK: - iOS 11 Support -
+    //
+    @available(iOS 11.0, *)
+    func testSessionForwardsShippingContact() {
+        let checkout = Models.createCheckout(requiresShipping: true)
+        let session  = Models.createSession(checkout: checkout, currency: Models.createCurrency())
+        
+        let shippingContact = Models.createContact()
+        let shippingMethods = [Models.createShippingMethod()]
+        let summaryItems    = checkout.summaryItems
+        
+        let e2 = self.expectation(description: "")
+        session.didSelectShippingContactHandler = { controller, contact, handler in
+            XCTAssertTrue(contact === shippingContact)
+            e2.fulfill()
+            return .unhandled
+        }
+        
+        let e1 = self.expectation(description: "")
+        session.didSelectShippingContact = { controller, contact, completion in
+            completion(.success, shippingMethods, summaryItems)
+            e1.fulfill()
+            return .handled
+        }
+        
+        session.authorize()
+        
+        let e3 = self.expectation(description: "")
+        MockAuthorizationController.invokeDidSelectShippingContactHandler(shippingContact) { result in
+            
+            XCTAssertEqual(result.status,              .success)
+            XCTAssertEqual(result.shippingMethods,     shippingMethods)
+            XCTAssertEqual(result.paymentSummaryItems, summaryItems)
+            
+            e3.fulfill()
+        }
+        
+        self.wait(for: [e1, e2, e3], timeout: 2.0)
+    }
+    
+    @available(iOS 11.0, *)
+    func testSessionForwardsShippingMethod() {
+        
+        let shippingMethod  = Models.createShippingMethod()
+        let checkout        = Models.createCheckout(requiresShipping: true, shippingRate: Models.createShippingRate())
+        let session         = Models.createSession(checkout: checkout, currency: Models.createCurrency())
+        let summaryItems    = checkout.summaryItems
+        
+        let e2 = self.expectation(description: "")
+        session.didSelectShippingMethodHandler = { controller, method, handler in
+            XCTAssertTrue(method === shippingMethod)
+            e2.fulfill()
+            return .unhandled
+        }
+        
+        let e1 = self.expectation(description: "")
+        session.didSelectShippingMethod = { controller, shippingMethod, completion in
+            completion(.success, summaryItems)
+            e1.fulfill()
+            return .handled
+        }
+        
+        session.authorize()
+        
+        let e3 = self.expectation(description: "")
+        MockAuthorizationController.invokeDidSelectShippingMethodHandler(shippingMethod) { result in
+            XCTAssertEqual(result.status,              .success)
+            XCTAssertEqual(result.paymentSummaryItems, summaryItems)
+            e3.fulfill()
+        }
+        
+        self.wait(for: [e1, e2, e3], timeout: 2.0)
+    }
+    
+    @available(iOS 11.0, *)
+    func testSessionForwardsAuthorizedPayment() {
+        
+        let checkout = Models.createCheckout(requiresShipping: true, shippingRate: Models.createShippingRate())
+        let session  = Models.createSession(checkout: checkout, currency: Models.createCurrency())
+        
+        let method   = MockPaymentMethod(displayName: "Test Payment", network: .amex, type: .credit)
+        let token    = MockPaymentToken(paymentMethod: method)
+        let payment  = MockPayment(token: token)
+        
+        let e2 = self.expectation(description: "")
+        session.didAuthorizePaymentHandler = { controller, currentPayment, handler in
+            XCTAssertTrue(currentPayment === payment)
+            e2.fulfill()
+            return .unhandled
+        }
+        
+        let e1 = self.expectation(description: "")
+        session.didAuthorizePayment = { controller, payment, completion in
+            completion(.success)
+            e1.fulfill()
+            return .handled
+        }
+        
+        session.authorize()
+        
+        let e3 = self.expectation(description: "")
+        MockAuthorizationController.invokeDidAuthorizePaymentHandler(payment) { result in
+            XCTAssertEqual(result.status, .success)
+            e3.fulfill()
+        }
+        
+        self.wait(for: [e1, e2, e3], timeout: 2.0)
     }
     
     // ----------------------------------

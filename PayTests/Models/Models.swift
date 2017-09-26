@@ -28,6 +28,7 @@ import Foundation
 import PassKit
 import Pay
 
+@available(iOS 11.0, *)
 struct Models {
     
     static func createShippingMethod(identifier: String? = nil) -> PKShippingMethod {
@@ -65,8 +66,8 @@ struct Models {
     // ----------------------------------
     //  MARK: - Pay Models -
     //
-    static func createSession(checkout: PayCheckout, currency: PayCurrency) -> PaySession {
-        return PaySession(checkout: checkout, currency: currency, merchantID: "com.merchant.identifier", controllerType: MockAuthorizationController.self)
+    static func createSession(checkout: PayCheckout, currency: PayCurrency) -> MockPaySession {
+        return MockPaySession(checkout: checkout, currency: currency, merchantID: "com.merchant.identifier", controllerType: MockAuthorizationController.self)
     }
     
     static func createDiscount() -> PayDiscount {

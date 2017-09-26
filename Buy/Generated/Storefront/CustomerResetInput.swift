@@ -41,6 +41,16 @@ extension Storefront {
 		///     - resetToken: The reset token required to reset the customer’s password.
 		///     - password: New password that will be set as part of the reset password process.
 		///
+		public static func create(resetToken: String, password: String) -> CustomerResetInput {
+			return CustomerResetInput(resetToken: resetToken, password: password)
+		}
+
+		/// Creates the input object.
+		///
+		/// - parameters:
+		///     - resetToken: The reset token required to reset the customer’s password.
+		///     - password: New password that will be set as part of the reset password process.
+		///
 		public init(resetToken: String, password: String) {
 			self.resetToken = resetToken
 			self.password = password

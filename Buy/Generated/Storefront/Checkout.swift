@@ -112,16 +112,28 @@ extension Storefront {
 		/// - parameters:
 		///     - first: No description
 		///     - after: No description
+		///     - last: No description
+		///     - before: No description
 		///     - reverse: No description
 		///
 		@discardableResult
-		open func lineItems(alias: String? = nil, first: Int32, after: String? = nil, reverse: Bool? = nil, _ subfields: (CheckoutLineItemConnectionQuery) -> Void) -> CheckoutQuery {
+		open func lineItems(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (CheckoutLineItemConnectionQuery) -> Void) -> CheckoutQuery {
 			var args: [String] = []
 
-			args.append("first:\(first)")
+			if let first = first {
+				args.append("first:\(first)")
+			}
 
 			if let after = after {
 				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
 			}
 
 			if let reverse = reverse {
@@ -268,165 +280,165 @@ extension Storefront {
 			switch fieldName {
 				case "appliedGiftCards":
 				guard let value = value as? [[String: Any]] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
 				}
 				return try value.map { return try AppliedGiftCard(fields: $0) }
 
 				case "availableShippingRates":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
 				}
 				return try AvailableShippingRates(fields: value)
 
 				case "completedAt":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.iso8601DateParser.date(from: value)!
 
 				case "createdAt":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.iso8601DateParser.date(from: value)!
 
 				case "currencyCode":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
 				}
 				return CurrencyCode(rawValue: value) ?? .unknownValue
 
 				case "customAttributes":
 				guard let value = value as? [[String: Any]] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
 				}
 				return try value.map { return try Attribute(fields: $0) }
 
 				case "customer":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
 				}
 				return try Customer(fields: value)
 
 				case "email":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "id":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.ID(rawValue: value)
 
 				case "lineItems":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
 				}
 				return try CheckoutLineItemConnection(fields: value)
 
 				case "note":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "order":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
 				}
 				return try Order(fields: value)
 
 				case "orderStatusUrl":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
 				}
 				return URL(string: value)!
 
 				case "paymentDue":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
 				}
 				return Decimal(string: value, locale: GraphQL.posixLocale)
 
 				case "ready":
 				guard let value = value as? Bool else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "requiresShipping":
 				guard let value = value as? Bool else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "shippingAddress":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
 				}
 				return try MailingAddress(fields: value)
 
 				case "shippingLine":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
 				}
 				return try ShippingRate(fields: value)
 
 				case "subtotalPrice":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
 				}
 				return Decimal(string: value, locale: GraphQL.posixLocale)
 
 				case "taxExempt":
 				guard let value = value as? Bool else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "taxesIncluded":
 				guard let value = value as? Bool else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "totalPrice":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
 				}
 				return Decimal(string: value, locale: GraphQL.posixLocale)
 
 				case "totalTax":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
 				}
 				return Decimal(string: value, locale: GraphQL.posixLocale)
 
 				case "updatedAt":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.iso8601DateParser.date(from: value)!
 
 				case "webUrl":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
 				}
 				return URL(string: value)!
 
 				default:
-				throw SchemaViolationError(type: type(of: self), field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
 			}
 		}
 
