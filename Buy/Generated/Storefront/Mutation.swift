@@ -187,6 +187,29 @@ extension Storefront {
 			return self
 		}
 
+		/// Applies a discount to an existing checkout using a discount code. 
+		///
+		/// - parameters:
+		///     - discountCode: The discount code to apply to the checkout.
+		///     - checkoutId: The ID of the checkout.
+		///
+		@discardableResult
+		open func checkoutDiscountCodeApply(alias: String? = nil, discountCode: String, checkoutId: GraphQL.ID, _ subfields: (CheckoutDiscountCodeApplyPayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("discountCode:\(GraphQL.quoteString(input: discountCode))")
+
+			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CheckoutDiscountCodeApplyPayloadQuery()
+			subfields(subquery)
+
+			addField(field: "checkoutDiscountCodeApply", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// Updates the email on an existing checkout. 
 		///
 		/// - parameters:
@@ -237,7 +260,7 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - appliedGiftCardId: The ID of the Applied Gift Card to remove from the Checkout
-		///     - checkoutId: The ID of the Checkout
+		///     - checkoutId: The ID of the checkout.
 		///
 		@discardableResult
 		open func checkoutGiftCardRemove(alias: String? = nil, appliedGiftCardId: GraphQL.ID, checkoutId: GraphQL.ID, _ subfields: (CheckoutGiftCardRemovePayloadQuery) -> Void) -> MutationQuery {
@@ -547,6 +570,29 @@ extension Storefront {
 			return self
 		}
 
+		/// Updates the default address of an existing customer. 
+		///
+		/// - parameters:
+		///     - customerAccessToken: The access token used to identify the customer.
+		///     - addressId: ID of the address to set as the new default for the customer.
+		///
+		@discardableResult
+		open func customerDefaultAddressUpdate(alias: String? = nil, customerAccessToken: String, addressId: GraphQL.ID, _ subfields: (CustomerDefaultAddressUpdatePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("customerAccessToken:\(GraphQL.quoteString(input: customerAccessToken))")
+
+			args.append("addressId:\(GraphQL.quoteString(input: "\(addressId.rawValue)"))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CustomerDefaultAddressUpdatePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "customerDefaultAddressUpdate", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// Sends a reset password email to the customer, as the first step in the 
 		/// reset password process. 
 		///
@@ -672,6 +718,13 @@ extension Storefront {
 				}
 				return try CheckoutCustomerDisassociatePayload(fields: value)
 
+				case "checkoutDiscountCodeApply":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CheckoutDiscountCodeApplyPayload(fields: value)
+
 				case "checkoutEmailUpdate":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -783,6 +836,13 @@ extension Storefront {
 					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
 				}
 				return try CustomerCreatePayload(fields: value)
+
+				case "customerDefaultAddressUpdate":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CustomerDefaultAddressUpdatePayload(fields: value)
 
 				case "customerRecover":
 				if value is NSNull { return nil }
@@ -898,6 +958,19 @@ extension Storefront {
 
 		func internalGetCheckoutCustomerDisassociate(alias: String? = nil) -> Storefront.CheckoutCustomerDisassociatePayload? {
 			return field(field: "checkoutCustomerDisassociate", aliasSuffix: alias) as! Storefront.CheckoutCustomerDisassociatePayload?
+		}
+
+		/// Applies a discount to an existing checkout using a discount code. 
+		open var checkoutDiscountCodeApply: Storefront.CheckoutDiscountCodeApplyPayload? {
+			return internalGetCheckoutDiscountCodeApply()
+		}
+
+		open func aliasedCheckoutDiscountCodeApply(alias: String) -> Storefront.CheckoutDiscountCodeApplyPayload? {
+			return internalGetCheckoutDiscountCodeApply(alias: alias)
+		}
+
+		func internalGetCheckoutDiscountCodeApply(alias: String? = nil) -> Storefront.CheckoutDiscountCodeApplyPayload? {
+			return field(field: "checkoutDiscountCodeApply", aliasSuffix: alias) as! Storefront.CheckoutDiscountCodeApplyPayload?
 		}
 
 		/// Updates the email on an existing checkout. 
@@ -1109,6 +1182,19 @@ extension Storefront {
 			return field(field: "customerCreate", aliasSuffix: alias) as! Storefront.CustomerCreatePayload?
 		}
 
+		/// Updates the default address of an existing customer. 
+		open var customerDefaultAddressUpdate: Storefront.CustomerDefaultAddressUpdatePayload? {
+			return internalGetCustomerDefaultAddressUpdate()
+		}
+
+		open func aliasedCustomerDefaultAddressUpdate(alias: String) -> Storefront.CustomerDefaultAddressUpdatePayload? {
+			return internalGetCustomerDefaultAddressUpdate(alias: alias)
+		}
+
+		func internalGetCustomerDefaultAddressUpdate(alias: String? = nil) -> Storefront.CustomerDefaultAddressUpdatePayload? {
+			return field(field: "customerDefaultAddressUpdate", aliasSuffix: alias) as! Storefront.CustomerDefaultAddressUpdatePayload?
+		}
+
 		/// Sends a reset password email to the customer, as the first step in the 
 		/// reset password process. 
 		open var customerRecover: Storefront.CustomerRecoverPayload? {
@@ -1191,6 +1277,12 @@ extension Storefront {
 
 					case "checkoutCustomerDisassociate":
 					if let value = internalGetCheckoutCustomerDisassociate() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "checkoutDiscountCodeApply":
+					if let value = internalGetCheckoutDiscountCodeApply() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
@@ -1287,6 +1379,12 @@ extension Storefront {
 
 					case "customerCreate":
 					if let value = internalGetCustomerCreate() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "customerDefaultAddressUpdate":
+					if let value = internalGetCustomerDefaultAddressUpdate() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
