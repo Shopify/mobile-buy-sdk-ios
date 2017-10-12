@@ -143,6 +143,31 @@ class CartViewController: ParallaxViewController {
     }
     
     // ----------------------------------
+    //  MARK: - Discount Codes -
+    //
+    func promptForDiscountCode(completion: @escaping (String?) -> Void) {
+        let alert = UIAlertController(title: "Do you have a discount code?", message: "Any valid discount code can be applied to your checkout.", preferredStyle: .alert)
+        alert.addTextField { textField in
+            textField.attributedPlaceholder = NSAttributedString(string: "Discount code")
+        }
+        
+        alert.addAction(UIAlertAction(title: "No", style: .default, handler: { action in
+            completion(nil)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Yes, apply code", style: .cancel, handler: { [unowned alert] action in
+            let code = alert.textFields!.first!.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+            if let code = code, code.count > 0 {
+                completion(code)
+            } else {
+                completion(nil)
+            }
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    // ----------------------------------
     //  MARK: - View Controllers -
     //
     func productDetailsViewControllerWith(_ product: ProductViewModel) -> ProductDetailsViewController {
@@ -172,9 +197,32 @@ extension CartViewController: TotalsControllerDelegate {
         Client.shared.createCheckout(with: cartItems) { checkout in
             if let checkout = checkout {
                 
-                switch type {
-                case .webCheckout: self.openSafariFor(checkout)
-                case .applePay:    self.authorizePaymentWith(checkout)
+                let completeCreateCheckout: (CheckoutViewModel) -> Void = { checkout in
+                    switch type {
+                    case .webCheckout: self.openSafariFor(checkout)
+                    case .applePay:    self.authorizePaymentWith(checkout)
+                    }
+                }
+                
+                /* ----------------------------------------
+                 ** Use "HALFOFF" discount code for a 50%
+                 ** discount in the graphql.myshopify.com
+                 ** store (the test shop).
+                 */
+                self.promptForDiscountCode { discountCode in
+                    if let discountCode = discountCode {
+                        
+                        Client.shared.applyDiscount(discountCode, to: checkout.id) { checkout in
+                            if let checkout = checkout {
+                                completeCreateCheckout(checkout)
+                            } else {
+                                print("Failed to apply discount to checkout")
+                            }
+                        }
+                        
+                    } else {
+                        completeCreateCheckout(checkout)
+                    }
                 }
                 
             } else {
