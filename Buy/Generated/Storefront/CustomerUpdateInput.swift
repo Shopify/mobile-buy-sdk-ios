@@ -83,7 +83,7 @@ extension Storefront {
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
 		public convenience init(firstName: String? = nil, lastName: String? = nil, email: String? = nil, phone: String? = nil, password: String? = nil, acceptsMarketing: Bool? = nil) {
-			self.init(firstName: firstName.orNull, lastName: lastName.orNull, email: email.orNull, phone: phone.orNull, password: password.orNull, acceptsMarketing: acceptsMarketing.orNull)
+			self.init(firstName: firstName.orUndefined, lastName: lastName.orUndefined, email: email.orUndefined, phone: phone.orUndefined, password: password.orUndefined, acceptsMarketing: acceptsMarketing.orUndefined)
 		}
 
 		internal func serialize() -> String {

@@ -70,7 +70,7 @@ extension Storefront {
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
 		public convenience init(id: GraphQL.ID? = nil, variantId: GraphQL.ID? = nil, quantity: Int32? = nil, customAttributes: [AttributeInput]? = nil) {
-			self.init(id: id.orNull, variantId: variantId.orNull, quantity: quantity.orNull, customAttributes: customAttributes.orNull)
+			self.init(id: id.orUndefined, variantId: variantId.orUndefined, quantity: quantity.orUndefined, customAttributes: customAttributes.orUndefined)
 		}
 
 		internal func serialize() -> String {

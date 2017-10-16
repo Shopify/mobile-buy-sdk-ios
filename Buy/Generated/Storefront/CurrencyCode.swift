@@ -371,6 +371,9 @@ extension Storefront {
 		/// Syrian Pound (SYP) 
 		case syp = "SYP"
 
+		/// Swazi Lilangeni (SZL) 
+		case szl = "SZL"
+
 		/// Thai baht (THB) 
 		case thb = "THB"
 

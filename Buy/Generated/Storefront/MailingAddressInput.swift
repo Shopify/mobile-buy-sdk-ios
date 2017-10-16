@@ -96,7 +96,7 @@ extension Storefront {
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
 		public convenience init(address1: String? = nil, address2: String? = nil, city: String? = nil, company: String? = nil, country: String? = nil, firstName: String? = nil, lastName: String? = nil, phone: String? = nil, province: String? = nil, zip: String? = nil) {
-			self.init(address1: address1.orNull, address2: address2.orNull, city: city.orNull, company: company.orNull, country: country.orNull, firstName: firstName.orNull, lastName: lastName.orNull, phone: phone.orNull, province: province.orNull, zip: zip.orNull)
+			self.init(address1: address1.orUndefined, address2: address2.orUndefined, city: city.orUndefined, company: company.orUndefined, country: country.orUndefined, firstName: firstName.orUndefined, lastName: lastName.orUndefined, phone: phone.orUndefined, province: province.orUndefined, zip: zip.orUndefined)
 		}
 
 		internal func serialize() -> String {
