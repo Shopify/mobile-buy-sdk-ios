@@ -29,6 +29,8 @@ import XCTest
 
 class Graph_CacheTests: XCTestCase {
     
+    let shopDomain = "cachetests.myshopify.com"
+    
     enum Query {
         case one  
         case two  
@@ -47,8 +49,18 @@ class Graph_CacheTests: XCTestCase {
     //  MARK: - Init -
     //
     func testInit() {
-        let cache = Graph.Cache()
+        let cache = Graph.Cache(shopName: self.shopDomain)
         XCTAssertNotNil(cache)
+    }
+    
+    // ----------------------------------
+    //  MARK: - Cache Directory -
+    //
+    func testShopDependantDirectory() {
+        let cache1 = Graph.Cache(shopName: "store1")
+        let cache2 = Graph.Cache(shopName: "store2")
+        
+        XCTAssertNotEqual(cache1.cacheDirectory(), cache2.cacheDirectory())
     }
     
     // ----------------------------------
@@ -154,7 +166,7 @@ class Graph_CacheTests: XCTestCase {
     //  MARK: - Private -
     //
     private func defaultCache() -> Graph.Cache {
-        return Graph.Cache()
+        return Graph.Cache(shopName: self.shopDomain)
     }
     
     private func defaultRequest(query: Query = .one) -> URLRequest {

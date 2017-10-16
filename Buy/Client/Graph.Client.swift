@@ -65,8 +65,8 @@ extension Graph {
         /// The `URLSession` backing all `Client` network operations. You can provide your own session when initializing a new `Client`.
         public let session: URLSession
         
-        internal let cache = Cache()
-        
+        internal let cache: Cache
+
         internal let apiURL:  URL
         internal let headers: [String : String]
 
@@ -84,6 +84,7 @@ extension Graph {
 
             let shopURL  = Client.urlFor(shopDomain)
             self.apiURL  = Client.urlFor(shopDomain, path: "/api/graphql")
+            self.cache   = Cache(shopName: shopDomain)
             self.session = session
             self.headers = [
                 Header.userAgent     : Global.userAgent,
