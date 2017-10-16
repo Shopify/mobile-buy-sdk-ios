@@ -92,7 +92,7 @@ extension Storefront {
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
 		public convenience init(amount: Decimal, idempotencyKey: String, billingAddress: MailingAddressInput, type: String, paymentData: String, test: Bool? = nil, identifier: String? = nil) {
-			self.init(amount: amount, idempotencyKey: idempotencyKey, billingAddress: billingAddress, type: type, paymentData: paymentData, test: test.orNull, identifier: identifier.orNull)
+			self.init(amount: amount, idempotencyKey: idempotencyKey, billingAddress: billingAddress, type: type, paymentData: paymentData, test: test.orUndefined, identifier: identifier.orUndefined)
 		}
 
 		internal func serialize() -> String {
