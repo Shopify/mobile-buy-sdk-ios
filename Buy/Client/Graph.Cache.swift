@@ -32,22 +32,23 @@ internal extension Graph {
     
     internal class Cache {
         
+        let cacheDirectory: URL
+        
         private static let fileManager = FileManager.default
         private static let cacheName   = "com.buy.graph.cache"
         
         private let memoryCache = NSCache<NSString, CacheItem>()
-        private let shopHash:  String
         
         // ----------------------------------
         //  MARK: - Init -
         //
         init(shopName: String) {
-            self.shopHash = MD5.hash(shopName)
+            self.cacheDirectory = Cache.cacheDirectory(for: shopName)
             self.createCacheDirectoryIfNeeded()
         }
         
         private func createCacheDirectoryIfNeeded() {
-            let cacheDirectory = self.cacheDirectory()
+            let cacheDirectory = self.cacheDirectory
             if !Cache.fileManager.fileExists(atPath: cacheDirectory.path) {
                 try! Cache.fileManager.createDirectory(at: cacheDirectory, withIntermediateDirectories: true, attributes: nil)
             }
@@ -60,7 +61,7 @@ internal extension Graph {
         func purge() {
             self.purgeInMemory()
             
-            try? Cache.fileManager.removeItem(at: self.cacheDirectory())
+            try? Cache.fileManager.removeItem(at: self.cacheDirectory)
             self.createCacheDirectoryIfNeeded()
         }
         
@@ -72,7 +73,7 @@ internal extension Graph {
                 return cacheItem
                 
             } else {
-                let location = Graph.CacheItem.Location(inParent: self.cacheDirectory(), hash: hash)
+                let location = Graph.CacheItem.Location(inParent: self.cacheDirectory, hash: hash)
                 if let cacheItem = CacheItem(at: location) {
                     
                     self.setInMemory(cacheItem)
@@ -86,7 +87,7 @@ internal extension Graph {
         func set(_ cacheItem: CacheItem) {
             self.setInMemory(cacheItem)
             
-            let location = Graph.CacheItem.Location(inParent: self.cacheDirectory(), hash: cacheItem.hash)
+            let location = Graph.CacheItem.Location(inParent: self.cacheDirectory, hash: cacheItem.hash)
             
             cacheItem.write(to: location)
         }
@@ -94,7 +95,7 @@ internal extension Graph {
         func remove(for hash: Hash) {
             self.removeInMemory(for: hash)
             
-            let location = Graph.CacheItem.Location(inParent: self.cacheDirectory(), hash: hash)
+            let location = Graph.CacheItem.Location(inParent: self.cacheDirectory, hash: hash)
             do {
                 try Cache.fileManager.removeItem(at: location.dataURL)
                 try Cache.fileManager.removeItem(at: location.metaURL)
@@ -121,13 +122,13 @@ internal extension Graph {
         // ----------------------------------
         //  MARK: - File System Cache -
         //
-        func cacheDirectory() -> URL {
+        private static func cacheDirectory(for shopName: String) -> URL {
             let tmp = URL(fileURLWithPath: NSTemporaryDirectory())
             var url = tmp
             
             url = url.appendingPathComponent(Cache.cacheName)
             url = url.appendingPathComponent(Global.frameworkVersion)
-            url = url.appendingPathComponent(self.shopHash)
+            url = url.appendingPathComponent(MD5.hash(shopName))
             
             return url
         }

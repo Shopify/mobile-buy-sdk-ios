@@ -60,7 +60,7 @@ class Graph_CacheTests: XCTestCase {
         let cache1 = Graph.Cache(shopName: "store1")
         let cache2 = Graph.Cache(shopName: "store2")
         
-        XCTAssertNotEqual(cache1.cacheDirectory(), cache2.cacheDirectory())
+        XCTAssertNotEqual(cache1.cacheDirectory, cache2.cacheDirectory)
     }
     
     // ----------------------------------
