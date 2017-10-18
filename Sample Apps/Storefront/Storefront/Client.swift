@@ -101,6 +101,22 @@ final class Client {
     }
     
     // ----------------------------------
+    //  MARK: - Discounts -
+    //
+    @discardableResult
+    func applyDiscount(_ discountCode: String, to checkoutID: String, completion: @escaping (CheckoutViewModel?) -> Void) -> Task {
+        let mutation = ClientQuery.mutationForApplyingDiscount(discountCode, to: checkoutID)
+        let task     = self.client.mutateGraphWith(mutation) { response, error in
+            error.debugPrint()
+            
+            completion(response?.checkoutDiscountCodeApply?.checkout.viewModel)
+        }
+        
+        task.resume()
+        return task
+    }
+    
+    // ----------------------------------
     //  MARK: - Checkout -
     //
     @discardableResult

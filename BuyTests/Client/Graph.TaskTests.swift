@@ -29,7 +29,7 @@ import XCTest
 
 class Graph_TaskTests: XCTestCase {
     
-    let cache = Graph.Cache()
+    let cache = Graph.Cache(shopName: "tasktests.myshopify.com")
     let url   = URL(string: "https://www.google.com")!
     
     // ----------------------------------
@@ -37,7 +37,7 @@ class Graph_TaskTests: XCTestCase {
     //
     func testInit() {
         let session = MockSession()
-        let cache   = Graph.Cache()
+        let cache   = Graph.Cache(shopName: "shop.myshopify.com")
         let payload = self.defaultQueryPayload()
         let request = self.defaultRequest(for: payload.query)
         let retry   = Graph.RetryHandler<Storefront.QueryRoot> { query, error in

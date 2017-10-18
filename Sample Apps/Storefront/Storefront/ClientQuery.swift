@@ -74,6 +74,24 @@ final class ClientQuery {
     }
     
     // ----------------------------------
+    //  MARK: - Discounts -
+    //
+    static func mutationForApplyingDiscount(_ discountCode: String, to checkoutID: String) -> Storefront.MutationQuery {
+        let id = GraphQL.ID(rawValue: checkoutID)
+        return Storefront.buildMutation { $0
+            .checkoutDiscountCodeApply(discountCode: discountCode, checkoutId: id) { $0
+                .userErrors { $0
+                    .field()
+                    .message()
+                }
+                .checkout { $0
+                    .fragmentForCheckout()
+                }
+            }
+        }
+    }
+    
+    // ----------------------------------
     //  MARK: - Checkout -
     //
     static func mutationForCreateCheckout(with cartItems: [CartItem]) -> Storefront.MutationQuery {

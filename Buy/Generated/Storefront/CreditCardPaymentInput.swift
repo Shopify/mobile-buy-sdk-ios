@@ -79,7 +79,7 @@ extension Storefront {
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
 		public convenience init(amount: Decimal, idempotencyKey: String, billingAddress: MailingAddressInput, vaultId: String, test: Bool? = nil) {
-			self.init(amount: amount, idempotencyKey: idempotencyKey, billingAddress: billingAddress, vaultId: vaultId, test: test.orNull)
+			self.init(amount: amount, idempotencyKey: idempotencyKey, billingAddress: billingAddress, vaultId: vaultId, test: test.orUndefined)
 		}
 
 		internal func serialize() -> String {

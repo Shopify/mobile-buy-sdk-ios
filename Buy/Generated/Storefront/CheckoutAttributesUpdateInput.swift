@@ -66,7 +66,7 @@ extension Storefront {
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
 		public convenience init(note: String? = nil, customAttributes: [AttributeInput]? = nil, allowPartialAddresses: Bool? = nil) {
-			self.init(note: note.orNull, customAttributes: customAttributes.orNull, allowPartialAddresses: allowPartialAddresses.orNull)
+			self.init(note: note.orUndefined, customAttributes: customAttributes.orUndefined, allowPartialAddresses: allowPartialAddresses.orUndefined)
 		}
 
 		internal func serialize() -> String {
