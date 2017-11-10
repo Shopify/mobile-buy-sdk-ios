@@ -71,7 +71,7 @@ public struct PayCheckout {
 //
 internal extension PayCheckout {
 
-    var summaryItems: [PKPaymentSummaryItem] {
+    func summaryItems(for shop: String) -> [PKPaymentSummaryItem] {
         var summaryItems: [PKPaymentSummaryItem] = []
 
         if self.hasLineItems || self.discount != nil {
@@ -103,7 +103,7 @@ internal extension PayCheckout {
         //            }
         //        }
 
-        summaryItems.append(self.paymentDue.summaryItemNamed("TOTAL"))
+        summaryItems.append(self.paymentDue.summaryItemNamed(shop))
 
         return summaryItems
     }
