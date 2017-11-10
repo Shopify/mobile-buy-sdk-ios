@@ -67,7 +67,7 @@ struct Models {
     //  MARK: - Pay Models -
     //
     static func createSession(checkout: PayCheckout, currency: PayCurrency) -> MockPaySession {
-        return MockPaySession(checkout: checkout, currency: currency, merchantID: "com.merchant.identifier", controllerType: MockAuthorizationController.self)
+        return MockPaySession(shopName: "Jaded Labs", checkout: checkout, currency: currency, merchantID: "com.merchant.identifier", controllerType: MockAuthorizationController.self)
     }
     
     static func createDiscount() -> PayDiscount {

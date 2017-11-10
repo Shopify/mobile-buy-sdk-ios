@@ -30,6 +30,8 @@ import XCTest
 @available(iOS 11.0, *)
 class PayCheckoutTests: XCTestCase {
 
+    private let shopName = "SHOPIFY"
+    
     // ----------------------------------
     //  MARK: - Init -
     //
@@ -68,54 +70,54 @@ class PayCheckoutTests: XCTestCase {
     //
     func testSummaryItemsWithTaxes() {
         let checkout     = Models.createCheckout(requiresShipping: false)
-        let summaryItems = checkout.summaryItems
+        let summaryItems = checkout.summaryItems(for: self.shopName)
         
         XCTAssertEqual(summaryItems.count, 4)
         XCTAssertEqual(summaryItems[0].label, "CART TOTAL")
         XCTAssertEqual(summaryItems[1].label, "SUBTOTAL")
         XCTAssertEqual(summaryItems[2].label, "TAXES")
-        XCTAssertEqual(summaryItems[3].label, "TOTAL")
+        XCTAssertEqual(summaryItems[3].label, "SHOPIFY")
     }
     
     func testSummaryItemsWithShipping() {
         let address      = Models.createAddress()
         let rate         = Models.createShippingRate()
         let checkout     = Models.createCheckout(requiresShipping: true, shippingAddress: address, shippingRate: rate)
-        let summaryItems = checkout.summaryItems
+        let summaryItems = checkout.summaryItems(for: self.shopName)
         
         XCTAssertEqual(summaryItems.count, 5)
         XCTAssertEqual(summaryItems[0].label, "CART TOTAL")
         XCTAssertEqual(summaryItems[1].label, "SUBTOTAL")
         XCTAssertEqual(summaryItems[2].label, "SHIPPING")
         XCTAssertEqual(summaryItems[3].label, "TAXES")
-        XCTAssertEqual(summaryItems[4].label, "TOTAL")
+        XCTAssertEqual(summaryItems[4].label, "SHOPIFY")
     }
     
     func testSummaryItemsWithoutTax() {
         let checkout     = Models.createCheckout(requiresShipping: false, hasTax: false)
-        let summaryItems = checkout.summaryItems
+        let summaryItems = checkout.summaryItems(for: self.shopName)
         
         XCTAssertEqual(summaryItems.count, 3)
         XCTAssertEqual(summaryItems[0].label, "CART TOTAL")
         XCTAssertEqual(summaryItems[1].label, "SUBTOTAL")
-        XCTAssertEqual(summaryItems[2].label, "TOTAL")
+        XCTAssertEqual(summaryItems[2].label, "SHOPIFY")
     }
     
     func testSummaryItemsWithDiscount() {
         let discount     = Models.createDiscount()
         let checkout     = Models.createCheckout(requiresShipping: false, discount: discount, empty: true, hasTax: false)
-        var summaryItems = checkout.summaryItems
+        var summaryItems = checkout.summaryItems(for: self.shopName)
         
         XCTAssertEqual(summaryItems.count, 4)
         XCTAssertEqual(summaryItems[0].label, "CART TOTAL")
         XCTAssertEqual(summaryItems[1].label, "DISCOUNT (WIN20)")
         XCTAssertEqual(summaryItems[2].label, "SUBTOTAL")
-        XCTAssertEqual(summaryItems[3].label, "TOTAL")
+        XCTAssertEqual(summaryItems[3].label, "SHOPIFY")
         
         let anonymousDiscount = Models.createAnonymousDiscount()
         let checkout2         = Models.createCheckout(requiresShipping: false, discount: anonymousDiscount, empty: true, hasTax: false)
         
-        summaryItems = checkout2.summaryItems
+        summaryItems = checkout2.summaryItems(for: self.shopName)
         
         XCTAssertEqual(summaryItems[1].label, "DISCOUNT")
     }

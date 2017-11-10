@@ -46,6 +46,28 @@ final class Client {
     }
     
     // ----------------------------------
+    //  MARK: - Shop -
+    //
+    @discardableResult
+    func fetchShopName(completion: @escaping (String?) -> Void) -> Task {
+        
+        let query = ClientQuery.queryForShopName()
+        let task  = self.client.queryGraphWith(query) { (query, error) in
+            error.debugPrint()
+            
+            if let query = query {
+                completion(query.shop.name)
+            } else {
+                print("Failed to fetch shop name: \(String(describing: error))")
+                completion(nil)
+            }
+        }
+        
+        task.resume()
+        return task
+    }
+    
+    // ----------------------------------
     //  MARK: - Collections -
     //
     @discardableResult

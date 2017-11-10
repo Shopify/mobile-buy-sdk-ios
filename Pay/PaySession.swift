@@ -111,7 +111,13 @@ public class PaySession: NSObject {
     /// A delegate for receiving updates from `PaySession`.
     public weak var delegate: PaySessionDelegate?
     
+    /// Types of credit cards accepted for payment.
     public var acceptedCardBrands: [PayCardBrand] = [.visa, .masterCard, .americanExpress]
+    
+    /// The name of your shop. Display in the Apple Pay dialog
+    /// during checkout. It is _very_ important that `shopName`
+    /// accurately reflects the shop customers will be paying to.
+    public let shopName: String
 
     /// The currency description that will be used in this Apple Pay transaction.
     public let currency: PayCurrency
@@ -139,7 +145,8 @@ public class PaySession: NSObject {
     ///     - merchantID: The merchant ID that you've registered to use for Apple Pay.
     ///     - controllerType: Reserved for testing.
     ///
-    public init(checkout: PayCheckout, currency: PayCurrency, merchantID: String, controllerType: PKPaymentAuthorizationController.Type = PKPaymentAuthorizationController.self) {
+    public init(shopName: String, checkout: PayCheckout, currency: PayCurrency, merchantID: String, controllerType: PKPaymentAuthorizationController.Type = PKPaymentAuthorizationController.self) {
+        self.shopName       = shopName
         self.checkout       = checkout
         self.currency       = currency
         self.merchantID     = merchantID
@@ -147,6 +154,11 @@ public class PaySession: NSObject {
         self.controllerType = controllerType
         
         super.init()
+    }
+    
+    @available(*, deprecated, message: "PaySession requires a shop name to display during checkout. Use init(shopName:checkout:currency:merchantID:controllerType:) instead.")
+    public convenience init(checkout: PayCheckout, currency: PayCurrency, merchantID: String, controllerType: PKPaymentAuthorizationController.Type = PKPaymentAuthorizationController.self) {
+        self.init(shopName: "TOTAL", checkout: checkout, currency: currency, merchantID: merchantID, controllerType: controllerType)
     }
 
     // ----------------------------------
@@ -175,7 +187,7 @@ public class PaySession: NSObject {
         request.requiredShippingAddressFields = .all
         request.supportedNetworks             = self.acceptedCardBrands.paymentNetworks
         request.merchantCapabilities          = [.capability3DS]
-        request.paymentSummaryItems           = checkout.summaryItems
+        request.paymentSummaryItems           = checkout.summaryItems(for: self.shopName)
 
         return request
     }
@@ -243,7 +255,7 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
         Log("Selecting shipping contact...")
         
         guard let postalAddress = contact.postalAddress else {
-            completion(.invalidShippingPostalAddress, [], self.checkout.summaryItems)
+            completion(.invalidShippingPostalAddress, [], self.checkout.summaryItems(for: self.shopName))
             return
         }
 
@@ -263,7 +275,7 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
                 if let updatedCheckout = updatedCheckout {
                     self.checkout = updatedCheckout
                     
-                    completion(.success, [], updatedCheckout.summaryItems)
+                    completion(.success, [], updatedCheckout.summaryItems(for: self.shopName))
                 } else {
                     completion(.failure, [], [])
                 }
@@ -286,7 +298,7 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
              ** postal address.
              */
             guard let updatedCheckout = updatedCheckout, !shippingRates.isEmpty else {
-                completion(.invalidShippingPostalAddress, [], self.checkout.summaryItems)
+                completion(.invalidShippingPostalAddress, [], self.checkout.summaryItems(for: self.shopName))
                 return
             }
 
@@ -304,7 +316,7 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
                     self.checkout = updatedCheckout
                     
                     Log("Selected shipping contact.")
-                    completion(.success, shippingRates.summaryItems, updatedCheckout.summaryItems)
+                    completion(.success, shippingRates.summaryItems, updatedCheckout.summaryItems(for: self.shopName))
                 } else {
                     completion(.failure, [], [])
                 }
@@ -330,7 +342,7 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
          ** rates.
          */
         guard let shippingRate = self.shippingRates.shippingRateFor(shippingMethod) else {
-            completion(.failure, self.checkout.summaryItems)
+            completion(.failure, self.checkout.summaryItems(for: self.shopName))
             return
         }
 
@@ -339,7 +351,7 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
                 self.checkout = updatedCheckout
                 
                 Log("Selected delivery method.")
-                completion(.success, updatedCheckout.summaryItems)
+                completion(.success, updatedCheckout.summaryItems(for: self.shopName))
             } else {
                 completion(.failure, [])
             }

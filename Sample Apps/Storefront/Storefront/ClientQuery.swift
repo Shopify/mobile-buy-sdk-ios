@@ -31,6 +31,17 @@ import Pay
 final class ClientQuery {
 
     // ----------------------------------
+    //  MARK: - Shop -
+    //
+    static func queryForShopName() -> Storefront.QueryRootQuery {
+        return Storefront.buildQuery { $0
+            .shop { $0
+                .name()
+            }
+        }
+    }
+    
+    // ----------------------------------
     //  MARK: - Storefront -
     //
     static func queryForCollections(limit: Int, after cursor: String? = nil, productLimit: Int = 25, productCursor: String? = nil) -> Storefront.QueryRootQuery {

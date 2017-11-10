@@ -117,7 +117,7 @@ class CartViewController: ParallaxViewController {
         self.navigationController?.present(safari, animated: true, completion: nil)
     }
     
-    func authorizePaymentWith(_ checkout: CheckoutViewModel) {
+    func authorizePaymentFor(_ shopName: String, in checkout: CheckoutViewModel) {
         let payCurrency = PayCurrency(currencyCode: "CAD", countryCode: "CA")
         let payItems    = checkout.lineItems.map { item in
             PayLineItem(price: item.totalPrice, quantity: item.quantity)
@@ -135,7 +135,7 @@ class CartViewController: ParallaxViewController {
             paymentDue:      checkout.paymentDue
         )
         
-        let paySession      = PaySession(checkout: payCheckout, currency: payCurrency, merchantID: Client.merchantID)
+        let paySession      = PaySession(shopName: shopName, checkout: payCheckout, currency: payCurrency, merchantID: Client.merchantID)
         paySession.delegate = self
         self.paySession     = paySession
         
@@ -195,38 +195,47 @@ extension CartViewController: TotalsControllerDelegate {
     func totalsController(_ totalsController: TotalsViewController, didRequestPaymentWith type: PaymentType) {
         let cartItems = CartController.shared.items
         Client.shared.createCheckout(with: cartItems) { checkout in
-            if let checkout = checkout {
-                
-                let completeCreateCheckout: (CheckoutViewModel) -> Void = { checkout in
-                    switch type {
-                    case .webCheckout: self.openSafariFor(checkout)
-                    case .applePay:    self.authorizePaymentWith(checkout)
-                    }
-                }
-                
-                /* ----------------------------------------
-                 ** Use "HALFOFF" discount code for a 50%
-                 ** discount in the graphql.myshopify.com
-                 ** store (the test shop).
-                 */
-                self.promptForDiscountCode { discountCode in
-                    if let discountCode = discountCode {
-                        
-                        Client.shared.applyDiscount(discountCode, to: checkout.id) { checkout in
-                            if let checkout = checkout {
-                                completeCreateCheckout(checkout)
-                            } else {
-                                print("Failed to apply discount to checkout")
-                            }
+            guard let checkout = checkout else {
+                print("Failed to create checkout.")
+                return
+            }
+            
+            let completeCreateCheckout: (CheckoutViewModel) -> Void = { checkout in
+                switch type {
+                case .webCheckout:
+                    self.openSafariFor(checkout)
+                    
+                case .applePay:
+                    Client.shared.fetchShopName { shopName in
+                        guard let shopName = shopName else {
+                            print("Failed to fetch shop name.")
+                            return
                         }
                         
-                    } else {
-                        completeCreateCheckout(checkout)
+                        self.authorizePaymentFor(shopName, in: checkout)
                     }
                 }
-                
-            } else {
-                print("Failed to create checkout")
+            }
+            
+            /* ----------------------------------------
+             ** Use "HALFOFF" discount code for a 50%
+             ** discount in the graphql.myshopify.com
+             ** store (the test shop).
+             */
+            self.promptForDiscountCode { discountCode in
+                if let discountCode = discountCode {
+                    
+                    Client.shared.applyDiscount(discountCode, to: checkout.id) { checkout in
+                        if let checkout = checkout {
+                            completeCreateCheckout(checkout)
+                        } else {
+                            print("Failed to apply discount to checkout")
+                        }
+                    }
+                    
+                } else {
+                    completeCreateCheckout(checkout)
+                }
             }
         }
     }

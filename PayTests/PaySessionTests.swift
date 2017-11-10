@@ -31,18 +31,28 @@ import PassKit
 @available(iOS 11.0, *)
 class PaySessionTests: XCTestCase {
     
+    private let shopName = "Jaded Labs"
+    
     // ----------------------------------
     //  MARK: - Init -
     //
     func testInit() {
         let checkout = Models.createCheckout()
         let currency = Models.createCurrency()
-        let session  = PaySession(checkout: checkout, currency: currency, merchantID: "some-id")
+        let session  = PaySession(shopName: shopName, checkout: checkout, currency: currency, merchantID: "some-id")
         
         XCTAssertEqual(session.merchantID, "some-id")
         XCTAssertEqual(session.currency.countryCode, currency.countryCode)
         
         XCTAssertFalse(session.identifier.isEmpty)
+    }
+    
+    func testDeprecatedInit() {
+        let checkout = Models.createCheckout()
+        let currency = Models.createCurrency()
+        let session  = PaySession(checkout: checkout, currency: currency, merchantID: "some-id")
+        
+        XCTAssertEqual(session.shopName, "TOTAL")
     }
     
     func testUniqueIdentifier() {
@@ -161,7 +171,7 @@ class PaySessionTests: XCTestCase {
         MockAuthorizationController.invokeDidSelectShippingContact(PKContact()) { status, shippingMethods, summaryItems in
             XCTAssertEqual(status, .invalidShippingPostalAddress)
             XCTAssertEqual(shippingMethods, [])
-            XCTAssertEqual(summaryItems, checkout.summaryItems)
+            XCTAssertEqual(summaryItems, checkout.summaryItems(for: self.shopName))
             
             expectation.fulfill()
         }
@@ -187,7 +197,7 @@ class PaySessionTests: XCTestCase {
         MockAuthorizationController.invokeDidSelectShippingContact(shippingContact) { status, shippingMethods, summaryItems in
             XCTAssertEqual(status, .invalidShippingPostalAddress)
             XCTAssertEqual(shippingMethods, [])
-            XCTAssertEqual(summaryItems, checkout.summaryItems)
+            XCTAssertEqual(summaryItems, checkout.summaryItems(for: self.shopName))
             
             expectation.fulfill()
         }
@@ -232,7 +242,7 @@ class PaySessionTests: XCTestCase {
             
             XCTAssertEqual(status, .success)
             XCTAssertEqual(shippingMethods.count, 1)
-            XCTAssertEqual(summaryItems, shippingCheckout.summaryItems)
+            XCTAssertEqual(summaryItems, shippingCheckout.summaryItems(for: self.shopName))
             
             expectation.fulfill()
         }
@@ -264,7 +274,7 @@ class PaySessionTests: XCTestCase {
             
             XCTAssertEqual(status, .success)
             XCTAssertEqual(shippingMethods.count, 0)
-            XCTAssertEqual(summaryItems, checkout.summaryItems)
+            XCTAssertEqual(summaryItems, checkout.summaryItems(for: self.shopName))
             
             expectation.fulfill()
         }
@@ -361,7 +371,7 @@ class PaySessionTests: XCTestCase {
         
         MockAuthorizationController.invokeDidSelectShippingMethod(shippingMethod) { status, summaryItems in
             XCTAssertEqual(status, .failure)
-            XCTAssertEqual(summaryItems, checkout.summaryItems)
+            XCTAssertEqual(summaryItems, checkout.summaryItems(for: self.shopName))
             
             expectation.fulfill()
         }
@@ -428,7 +438,7 @@ class PaySessionTests: XCTestCase {
         
         MockAuthorizationController.invokeDidSelectShippingMethod(shippingMethod) { status, summaryItems in
             XCTAssertEqual(status, .success)
-            XCTAssertEqual(updatedCheckout.summaryItems, summaryItems)
+            XCTAssertEqual(updatedCheckout.summaryItems(for: self.shopName), summaryItems)
             
             expectation.fulfill()
         }
@@ -463,7 +473,7 @@ class PaySessionTests: XCTestCase {
         
         let shippingContact = Models.createContact()
         let shippingMethods = [Models.createShippingMethod()]
-        let summaryItems    = checkout.summaryItems
+        let summaryItems    = checkout.summaryItems(for: self.shopName)
         
         let e2 = self.expectation(description: "")
         session.didSelectShippingContactHandler = { controller, contact, handler in
@@ -500,7 +510,7 @@ class PaySessionTests: XCTestCase {
         let shippingMethod  = Models.createShippingMethod()
         let checkout        = Models.createCheckout(requiresShipping: true, shippingRate: Models.createShippingRate())
         let session         = Models.createSession(checkout: checkout, currency: Models.createCurrency())
-        let summaryItems    = checkout.summaryItems
+        let summaryItems    = checkout.summaryItems(for: self.shopName)
         
         let e2 = self.expectation(description: "")
         session.didSelectShippingMethodHandler = { controller, method, handler in
