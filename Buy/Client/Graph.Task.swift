@@ -212,7 +212,7 @@ internal extension Graph {
                 let (model, error) = self.processResponse(data, response, error)
                 
                 DispatchQueue.main.async {
-                    if var retryHandler = retryHandler, retryHandler.canRetry, retryHandler.condition(model, error) == true {
+                    if var retryHandler = retryHandler, !self.isCancelled, retryHandler.canRetry, retryHandler.condition(model, error) == true {
                         
                         /* ---------------------------------
                          ** A retry handler was provided and
