@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.module_name         = 'MobileBuySDK'
   s.requires_arc        = true
   s.platforms           = {
-    :ios     => '10.0',
+    :ios     => '9.0',
     :watchos => '3.1',
     :tvos    => '9.0'
   }
