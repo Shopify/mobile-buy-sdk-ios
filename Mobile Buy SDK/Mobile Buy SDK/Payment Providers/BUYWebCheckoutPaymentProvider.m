@@ -165,8 +165,20 @@ static NSString *const WebCheckoutCustomerAccessToken = @"customer_access_token"
 {
 	NSURL *checkoutURL = [self authenticatedWebCheckoutURL:checkout.webCheckoutURL];
 	if (SafariViewControllerClass) {
-		
-		SFSafariViewController *safariViewController = [[SafariViewControllerClass alloc] initWithURL:checkoutURL];
+
+		SFSafariViewController *safariViewController;
+
+		// A Topology app patch for Shopify's SFSafari web checkout VC:
+		// Disable bar collapsing (if we're on iOS 11).
+		if (@available(iOS 11.0, *)) {
+			SFSafariViewControllerConfiguration *configuration = [[SFSafariViewControllerConfiguration alloc] init];
+			configuration.barCollapsingEnabled = NO;
+			safariViewController = [[SFSafariViewController alloc] initWithURL:checkoutURL
+																 configuration:configuration];
+		} else {
+			safariViewController = [[SFSafariViewController alloc] initWithURL:checkoutURL];
+		}
+
 		safariViewController.delegate = self;
 		[self.delegate paymentProvider:self wantsControllerPresented:safariViewController];
 	}
