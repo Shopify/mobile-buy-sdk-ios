@@ -7,9 +7,10 @@ require 'optparse'
 require 'graphql_schema'
 require 'graphql_swift_gen'
 
-endpoint = URI("https://app.shopify.com/services/ping/storefront_graphql_schema")
-body     = Net::HTTP.get(endpoint)
-schema   = GraphQLSchema.new(JSON.parse(body))
+shared_storefront_api_key = "e3e948e3697fcc37a837f7dd35719525"
+endpoint                  = URI("https://app.shopify.com/services/graphql/introspection/storefront?api_client_api_key=#{shared_storefront_api_key}")
+body                      = Net::HTTP.get(endpoint)
+schema                    = GraphQLSchema.new(JSON.parse(body))
 
 customScalars = [
 	GraphQLSwiftGen::Scalar.new(
