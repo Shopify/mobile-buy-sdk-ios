@@ -65,10 +65,10 @@ extension Storefront {
 		/// Image associated with the product variant. 
 		///
 		/// - parameters:
-		///     - maxWidth: Image width in pixels between 1 and 2048
-		///     - maxHeight: Image height in pixels between 1 and 2048
-		///     - crop: If specified, crop the image keeping the specified region
-		///     - scale: Image size multiplier retina displays. Must be between 1 and 3
+		///     - maxWidth: Image width in pixels between 1 and 2048. This argument is deprecated: Use `maxWidth` on `Image.transformedSrc` instead.
+		///     - maxHeight: Image height in pixels between 1 and 2048. This argument is deprecated: Use `maxHeight` on `Image.transformedSrc` instead.
+		///     - crop: Crops the image according to the specified region. This argument is deprecated: Use `crop` on `Image.transformedSrc` instead.
+		///     - scale: Image size multiplier for high-resolution retina displays. Must be between 1 and 3. This argument is deprecated: Use `scale` on `Image.transformedSrc` instead.
 		///
 		@discardableResult
 		open func image(alias: String? = nil, maxWidth: Int32? = nil, maxHeight: Int32? = nil, crop: CropRegion? = nil, scale: Int32? = nil, _ subfields: (ImageQuery) -> Void) -> ProductVariantQuery {
