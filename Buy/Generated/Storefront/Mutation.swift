@@ -435,7 +435,9 @@ extension Storefront {
 			return self
 		}
 
-		/// Renews a customer access token. 
+		/// Renews a customer access token. Access token renewal must happen *before* a 
+		/// token expires. If a token has already expired, a new one should be created 
+		/// instead via `customerAccessTokenCreate`. 
 		///
 		/// - parameters:
 		///     - customerAccessToken: The access token used to identify the customer.
@@ -1104,7 +1106,9 @@ extension Storefront {
 			return field(field: "customerAccessTokenDelete", aliasSuffix: alias) as! Storefront.CustomerAccessTokenDeletePayload?
 		}
 
-		/// Renews a customer access token. 
+		/// Renews a customer access token. Access token renewal must happen *before* a 
+		/// token expires. If a token has already expired, a new one should be created 
+		/// instead via `customerAccessTokenCreate`. 
 		open var customerAccessTokenRenew: Storefront.CustomerAccessTokenRenewPayload? {
 			return internalGetCustomerAccessTokenRenew()
 		}

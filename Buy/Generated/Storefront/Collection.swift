@@ -76,10 +76,10 @@ extension Storefront {
 		/// Image associated with the collection. 
 		///
 		/// - parameters:
-		///     - maxWidth: Image width in pixels between 1 and 2048
-		///     - maxHeight: Image height in pixels between 1 and 2048
-		///     - crop: If specified, crop the image keeping the specified region
-		///     - scale: Image size multiplier retina displays. Must be between 1 and 3
+		///     - maxWidth: Image width in pixels between 1 and 2048. This argument is deprecated: Use `maxWidth` on `Image.transformedSrc` instead.
+		///     - maxHeight: Image height in pixels between 1 and 2048. This argument is deprecated: Use `maxHeight` on `Image.transformedSrc` instead.
+		///     - crop: Crops the image according to the specified region. This argument is deprecated: Use `crop` on `Image.transformedSrc` instead.
+		///     - scale: Image size multiplier for high-resolution retina displays. Must be between 1 and 3. This argument is deprecated: Use `scale` on `Image.transformedSrc` instead.
 		///
 		@discardableResult
 		open func image(alias: String? = nil, maxWidth: Int32? = nil, maxHeight: Int32? = nil, crop: CropRegion? = nil, scale: Int32? = nil, _ subfields: (ImageQuery) -> Void) -> CollectionQuery {
@@ -113,12 +113,12 @@ extension Storefront {
 		/// List of products in the collection. 
 		///
 		/// - parameters:
-		///     - first: No description
-		///     - after: No description
-		///     - last: No description
-		///     - before: No description
-		///     - reverse: No description
-		///     - sortKey: No description
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///     - reverse: Reverse the order of the underlying list.
+		///     - sortKey: Sort the underlying list by the given key.
 		///
 		@discardableResult
 		open func products(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: ProductCollectionSortKeys? = nil, _ subfields: (ProductConnectionQuery) -> Void) -> CollectionQuery {

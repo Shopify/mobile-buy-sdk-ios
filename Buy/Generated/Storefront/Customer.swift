@@ -44,11 +44,11 @@ extension Storefront {
 		/// A list of addresses for the customer. 
 		///
 		/// - parameters:
-		///     - first: No description
-		///     - after: No description
-		///     - last: No description
-		///     - before: No description
-		///     - reverse: No description
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///     - reverse: Reverse the order of the underlying list.
 		///
 		@discardableResult
 		open func addresses(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (MailingAddressConnectionQuery) -> Void) -> CustomerQuery {
@@ -138,12 +138,12 @@ extension Storefront {
 		/// The orders associated with the customer. 
 		///
 		/// - parameters:
-		///     - first: No description
-		///     - after: No description
-		///     - last: No description
-		///     - before: No description
-		///     - reverse: No description
-		///     - sortKey: No description
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///     - reverse: Reverse the order of the underlying list.
+		///     - sortKey: Sort the underlying list by the given key.
 		///     - query: Supported filter parameters:
 		///         - `processed_at`
 		///
