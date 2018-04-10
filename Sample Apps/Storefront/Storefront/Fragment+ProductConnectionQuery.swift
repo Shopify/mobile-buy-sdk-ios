@@ -42,7 +42,7 @@ extension Storefront.ProductConnectionQuery {
                 .variants(first: 250) { $0
                     .fragmentForStandardVariant()
                 }
-                .images(first: 250) { $0
+                .images(first: 250, maxWidth: ClientQuery.maxImageDimension, maxHeight: ClientQuery.maxImageDimension) { $0
                     .fragmentForStandardProductImage()
                 }
             }
