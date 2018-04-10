@@ -53,7 +53,7 @@ extension Storefront {
 
 		///
 		/// - parameters:
-		///     - id: No description
+		///     - id: The ID of the Node to return.
 		///
 		@discardableResult
 		open func node(alias: String? = nil, id: GraphQL.ID, _ subfields: (NodeQuery) -> Void) -> QueryRootQuery {
@@ -72,7 +72,7 @@ extension Storefront {
 
 		///
 		/// - parameters:
-		///     - ids: No description
+		///     - ids: The IDs of the Nodes to return.
 		///
 		@discardableResult
 		open func nodes(alias: String? = nil, ids: [GraphQL.ID], _ subfields: (NodeQuery) -> Void) -> QueryRootQuery {

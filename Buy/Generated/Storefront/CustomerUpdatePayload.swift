@@ -40,6 +40,18 @@ extension Storefront {
 			return self
 		}
 
+		/// The newly created customer access token. If the customer's password is 
+		/// updated, all previous access tokens (including the one used to perform this 
+		/// mutation) become invalid, and a new token is generated. 
+		@discardableResult
+		open func customerAccessToken(alias: String? = nil, _ subfields: (CustomerAccessTokenQuery) -> Void) -> CustomerUpdatePayloadQuery {
+			let subquery = CustomerAccessTokenQuery()
+			subfields(subquery)
+
+			addField(field: "customerAccessToken", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// List of errors that occurred executing the mutation. 
 		@discardableResult
 		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerUpdatePayloadQuery {
@@ -64,6 +76,13 @@ extension Storefront {
 				}
 				return try Customer(fields: value)
 
+				case "customerAccessToken":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: CustomerUpdatePayload.self, field: fieldName, value: fieldValue)
+				}
+				return try CustomerAccessToken(fields: value)
+
 				case "userErrors":
 				guard let value = value as? [[String: Any]] else {
 					throw SchemaViolationError(type: CustomerUpdatePayload.self, field: fieldName, value: fieldValue)
@@ -84,6 +103,17 @@ extension Storefront {
 			return field(field: "customer", aliasSuffix: alias) as! Storefront.Customer?
 		}
 
+		/// The newly created customer access token. If the customer's password is 
+		/// updated, all previous access tokens (including the one used to perform this 
+		/// mutation) become invalid, and a new token is generated. 
+		open var customerAccessToken: Storefront.CustomerAccessToken? {
+			return internalGetCustomerAccessToken()
+		}
+
+		func internalGetCustomerAccessToken(alias: String? = nil) -> Storefront.CustomerAccessToken? {
+			return field(field: "customerAccessToken", aliasSuffix: alias) as! Storefront.CustomerAccessToken?
+		}
+
 		/// List of errors that occurred executing the mutation. 
 		open var userErrors: [Storefront.UserError] {
 			return internalGetUserErrors()
@@ -99,6 +129,12 @@ extension Storefront {
 				switch($0) {
 					case "customer":
 					if let value = internalGetCustomer() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "customerAccessToken":
+					if let value = internalGetCustomerAccessToken() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}

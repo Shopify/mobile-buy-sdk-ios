@@ -35,12 +35,12 @@ extension Storefront {
 		/// List of the shop' articles. 
 		///
 		/// - parameters:
-		///     - first: No description
-		///     - after: No description
-		///     - last: No description
-		///     - before: No description
-		///     - reverse: No description
-		///     - sortKey: No description
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///     - reverse: Reverse the order of the underlying list.
+		///     - sortKey: Sort the underlying list by the given key.
 		///     - query: Supported filter parameters:
 		///         - `author`
 		///         - `updated_at`
@@ -92,12 +92,12 @@ extension Storefront {
 		/// List of the shop' blogs. 
 		///
 		/// - parameters:
-		///     - first: No description
-		///     - after: No description
-		///     - last: No description
-		///     - before: No description
-		///     - reverse: No description
-		///     - sortKey: No description
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///     - reverse: Reverse the order of the underlying list.
+		///     - sortKey: Sort the underlying list by the given key.
 		///     - query: Supported filter parameters:
 		///         - `handle`
 		///         - `title`
@@ -176,12 +176,12 @@ extension Storefront {
 		/// List of the shop’s collections. 
 		///
 		/// - parameters:
-		///     - first: No description
-		///     - after: No description
-		///     - last: No description
-		///     - before: No description
-		///     - reverse: No description
-		///     - sortKey: No description
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///     - reverse: Reverse the order of the underlying list.
+		///     - sortKey: Sort the underlying list by the given key.
 		///     - query: Supported filter parameters:
 		///         - `title`
 		///         - `collection_type`
@@ -331,12 +331,12 @@ extension Storefront {
 		/// List of the shop’s products. 
 		///
 		/// - parameters:
-		///     - first: No description
-		///     - after: No description
-		///     - last: No description
-		///     - before: No description
-		///     - reverse: No description
-		///     - sortKey: No description
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///     - reverse: Reverse the order of the underlying list.
+		///     - sortKey: Sort the underlying list by the given key.
 		///     - query: Supported filter parameters:
 		///         - `title`
 		///         - `product_type`

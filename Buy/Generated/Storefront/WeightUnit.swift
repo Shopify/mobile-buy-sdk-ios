@@ -27,18 +27,18 @@
 import Foundation
 
 extension Storefront {
-	/// Units of measurements for weight. 
+	/// Units of measurement for weight. 
 	public enum WeightUnit: String {
 		/// Metric system unit of mass 
 		case grams = "GRAMS"
 
-		/// 1 equals 1000 grams 
+		/// 1 kilogram equals 1000 grams 
 		case kilograms = "KILOGRAMS"
 
 		/// Imperial system unit of mass 
 		case ounces = "OUNCES"
 
-		/// 1 equals 16 ounces 
+		/// 1 pound equals 16 ounces 
 		case pounds = "POUNDS"
 
 		case unknownValue = ""

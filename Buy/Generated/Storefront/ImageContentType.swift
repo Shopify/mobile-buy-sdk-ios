@@ -1,5 +1,5 @@
 //
-//  CollectionSortKeys.swift
+//  ImageContentType.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,19 +27,13 @@
 import Foundation
 
 extension Storefront {
-	/// The set of valid sort keys for the collections query. 
-	public enum CollectionSortKeys: String {
-		case id = "ID"
+	/// List of supported image content types. 
+	public enum ImageContentType: String {
+		case jpg = "JPG"
 
-		/// During a search (i.e. when the `query` parameter has been specified on the 
-		/// connection) this sorts the results by relevance to the search term(s). When 
-		/// no search query is specified, this sort key is not deterministic and should 
-		/// not be used. 
-		case relevance = "RELEVANCE"
+		case png = "PNG"
 
-		case title = "TITLE"
-
-		case updatedAt = "UPDATED_AT"
+		case webp = "WEBP"
 
 		case unknownValue = ""
 	}
