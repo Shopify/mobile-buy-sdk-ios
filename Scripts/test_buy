@@ -7,5 +7,5 @@ xcodebuild test \
 -project "Buy.xcodeproj" \
 -scheme "Buy" \
 -sdk iphonesimulator \
--destination 'platform=iOS Simulator,name=iPhone 7,OS=latest' \
+-destination "id=$CURRENT_SIMULATOR_UUID" \
  | xcpretty -c
