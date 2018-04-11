@@ -29,7 +29,7 @@ import Foundation
 extension Storefront {
 	/// Specifies the input fields required to activate a customer. 
 	open class CustomerActivateInput {
-		/// The activation token required to activate the customer 
+		/// The activation token required to activate the customer. 
 		open var activationToken: String
 
 		/// The login password used by the customer. 
@@ -38,7 +38,7 @@ extension Storefront {
 		/// Creates the input object.
 		///
 		/// - parameters:
-		///     - activationToken: The activation token required to activate the customer
+		///     - activationToken: The activation token required to activate the customer.
 		///     - password: The login password used by the customer.
 		///
 		public static func create(activationToken: String, password: String) -> CustomerActivateInput {
@@ -48,7 +48,7 @@ extension Storefront {
 		/// Creates the input object.
 		///
 		/// - parameters:
-		///     - activationToken: The activation token required to activate the customer
+		///     - activationToken: The activation token required to activate the customer.
 		///     - password: The login password used by the customer.
 		///
 		public init(activationToken: String, password: String) {

@@ -29,15 +29,17 @@ import Foundation
 extension Storefront {
 	/// Specifies the input fields required for an attribute. 
 	open class AttributeInput {
+		/// Key or name of the attribute. 
 		open var key: String
 
+		/// Value of the attribute. 
 		open var value: String
 
 		/// Creates the input object.
 		///
 		/// - parameters:
-		///     - key: No description
-		///     - value: No description
+		///     - key: Key or name of the attribute.
+		///     - value: Value of the attribute.
 		///
 		public static func create(key: String, value: String) -> AttributeInput {
 			return AttributeInput(key: key, value: value)
@@ -46,8 +48,8 @@ extension Storefront {
 		/// Creates the input object.
 		///
 		/// - parameters:
-		///     - key: No description
-		///     - value: No description
+		///     - key: Key or name of the attribute.
+		///     - value: Value of the attribute.
 		///
 		public init(key: String, value: String) {
 			self.key = key
