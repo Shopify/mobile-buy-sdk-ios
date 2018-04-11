@@ -62,7 +62,8 @@ extension Storefront {
 			return self
 		}
 
-		/// Image associated with the product variant. 
+		/// Image associated with the product variant. This field falls back to the 
+		/// product image if no image is available. 
 		///
 		/// - parameters:
 		///     - maxWidth: Image width in pixels between 1 and 2048. This argument is deprecated: Use `maxWidth` on `Image.transformedSrc` instead.
@@ -284,7 +285,8 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// Image associated with the product variant. 
+		/// Image associated with the product variant. This field falls back to the 
+		/// product image if no image is available. 
 		open var image: Storefront.Image? {
 			return internalGetImage()
 		}
