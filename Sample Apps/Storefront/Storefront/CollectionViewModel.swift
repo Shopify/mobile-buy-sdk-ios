@@ -49,7 +49,7 @@ final class CollectionViewModel: ViewModel {
     
         self.id          = model.node.id.rawValue
         self.title       = model.node.title
-        self.imageURL    = model.node.image?.src
+        self.imageURL    = model.node.image?.transformedSrc
         self.description = model.node.descriptionHtml
         
         self.products    = PageableArray(

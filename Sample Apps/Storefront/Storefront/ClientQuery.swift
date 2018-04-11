@@ -30,6 +30,8 @@ import Pay
 
 final class ClientQuery {
 
+    static let maxImageDimension = Int32(UIScreen.main.bounds.width)
+    
     // ----------------------------------
     //  MARK: - Shop -
     //
@@ -57,8 +59,8 @@ final class ClientQuery {
                             .id()
                             .title()
                             .descriptionHtml()
-                            .image { $0
-                                .src()
+                            .image(maxWidth: ClientQuery.maxImageDimension, maxHeight: ClientQuery.maxImageDimension) { $0
+                                .transformedSrc()
                             }
                             
                             .products(first: Int32(productLimit), after: productCursor) { $0

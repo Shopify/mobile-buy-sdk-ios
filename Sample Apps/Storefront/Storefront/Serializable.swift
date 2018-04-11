@@ -41,7 +41,7 @@ protocol Serializable {
 extension Array where Element: Serializable {
     
     static func deserialize(from representation: [SerializedRepresentation]) -> [Element]? {
-        return representation.flatMap {
+        return representation.compactMap {
             Element.deserialize(from: $0)
         }
     }

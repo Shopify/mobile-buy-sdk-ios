@@ -52,7 +52,7 @@ extension PayCardBrand {
 extension Array where Element == PayCardBrand {
     
     var paymentNetworks: [PKPaymentNetwork] {
-        return self.flatMap {
+        return self.compactMap {
             $0.paymentNetwork
         }
     }
