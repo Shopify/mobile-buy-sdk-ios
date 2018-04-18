@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="5HA-7N-vXJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="5HA-7N-vXJ">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -62,7 +62,6 @@
             <objects>
                 <navigationController storyboardIdentifier="CartNavigationController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YUF-MR-hUq" customClass="CartNavigationController" customModule="Storefront" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="7h5-ep-TYx">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -139,11 +138,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="l3f-iD-z0W" customClass="StorefrontCollectionView" customModule="Storefront" customModuleProvider="target">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" delaysContentTouches="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="w1D-iY-CwD" customClass="StorefrontCollectionView" customModule="Storefront" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="5" maxX="0.0" maxY="5"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="LCc-sn-ckA">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="seQ-oZ-Mcb">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -154,19 +154,13 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="cellNibName" value="ProductCell"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <outlet property="dataSource" destination="AbI-Ns-2vc" id="yxj-ig-aOM"/>
-                                    <outlet property="delegate" destination="AbI-Ns-2vc" id="IA6-Hn-FDk"/>
-                                    <outlet property="prefetchDataSource" destination="AbI-Ns-2vc" id="u0I-sB-XBE"/>
+                                    <outlet property="dataSource" destination="AbI-Ns-2vc" id="Ca2-Li-iFc"/>
+                                    <outlet property="delegate" destination="AbI-Ns-2vc" id="9SL-d9-9tg"/>
+                                    <outlet property="prefetchDataSource" destination="AbI-Ns-2vc" id="c9C-8n-5Fy"/>
                                 </connections>
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="0.97193080357142858" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="l3f-iD-z0W" secondAttribute="trailing" id="971-jO-5TT"/>
-                            <constraint firstItem="oTA-Tk-tHe" firstAttribute="top" secondItem="l3f-iD-z0W" secondAttribute="bottom" id="9Pu-yp-tHC"/>
-                            <constraint firstItem="l3f-iD-z0W" firstAttribute="leading" secondItem="xKM-7h-oPY" secondAttribute="leading" id="aFP-HO-uyh"/>
-                            <constraint firstItem="l3f-iD-z0W" firstAttribute="top" secondItem="xKM-7h-oPY" secondAttribute="top" id="t6s-Aa-fox"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Products" id="So2-vy-uwr">
                         <barButtonItem key="rightBarButtonItem" title="Cart" id="gJB-Hs-8wl" customClass="CartButton" customModule="Storefront" customModuleProvider="target">
@@ -176,7 +170,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="collectionView" destination="l3f-iD-z0W" id="ZWP-72-Gmz"/>
+                        <outlet property="collectionView" destination="w1D-iY-CwD" id="mvX-Wn-0bU"/>
                         <segue destination="FDf-If-Fqx" kind="show" id="2Ev-0t-uys"/>
                     </connections>
                 </viewController>
@@ -238,7 +232,6 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5HA-7N-vXJ" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="5AZ-QU-kn7">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -259,7 +252,7 @@
                         <viewControllerLayoutGuide type="bottom" id="cxb-1W-g4T"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Xdf-pA-7Je">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="203"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -277,7 +270,7 @@
                         <viewControllerLayoutGuide type="bottom" id="s04-dR-aXf"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="5Si-l6-BER">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="210"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sIG-Rh-ld5">
@@ -286,7 +279,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="210"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hPa-rC-ezo">
+                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hPa-rC-ezo">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="210"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$4,643.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MDh-hh-crX">
@@ -366,7 +359,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mnj-fe-spy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1861.5999999999999" y="612.59370314842579"/>
+            <point key="canvasLocation" x="1953" y="815"/>
         </scene>
     </scenes>
 </document>
