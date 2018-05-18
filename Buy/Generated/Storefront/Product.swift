@@ -35,6 +35,13 @@ extension Storefront {
 	open class ProductQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Product
 
+		/// Indicates if at least one product variant is available for sale. 
+		@discardableResult
+		open func availableForSale(alias: String? = nil) -> ProductQuery {
+			addField(field: "availableForSale", aliasSuffix: alias)
+			return self
+		}
+
 		/// List of collections a product belongs to. 
 		///
 		/// - parameters:
@@ -204,7 +211,7 @@ extension Storefront {
 		/// List of custom product options (maximum of 3 per product). 
 		///
 		/// - parameters:
-		///     - first: Truncate the array result to this size
+		///     - first: Truncate the array result to this size.
 		///
 		@discardableResult
 		open func options(alias: String? = nil, first: Int32? = nil, _ subfields: (ProductOptionQuery) -> Void) -> ProductQuery {
@@ -220,6 +227,16 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "options", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// The price range. 
+		@discardableResult
+		open func priceRange(alias: String? = nil, _ subfields: (ProductPriceRangeQuery) -> Void) -> ProductQuery {
+			let subquery = ProductPriceRangeQuery()
+			subfields(subquery)
+
+			addField(field: "priceRange", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -350,6 +367,12 @@ extension Storefront {
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "availableForSale":
+				guard let value = value as? Bool else {
+					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
+				}
+				return value
+
 				case "collections":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
@@ -405,6 +428,12 @@ extension Storefront {
 				}
 				return try value.map { return try ProductOption(fields: $0) }
 
+				case "priceRange":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
+				}
+				return try ProductPriceRange(fields: value)
+
 				case "productType":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
@@ -457,6 +486,15 @@ extension Storefront {
 				default:
 				throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
 			}
+		}
+
+		/// Indicates if at least one product variant is available for sale. 
+		open var availableForSale: Bool {
+			return internalGetAvailableForSale()
+		}
+
+		func internalGetAvailableForSale(alias: String? = nil) -> Bool {
+			return field(field: "availableForSale", aliasSuffix: alias) as! Bool
 		}
 
 		/// List of collections a product belongs to. 
@@ -557,6 +595,15 @@ extension Storefront {
 
 		func internalGetOptions(alias: String? = nil) -> [Storefront.ProductOption] {
 			return field(field: "options", aliasSuffix: alias) as! [Storefront.ProductOption]
+		}
+
+		/// The price range. 
+		open var priceRange: Storefront.ProductPriceRange {
+			return internalGetPriceRange()
+		}
+
+		func internalGetPriceRange(alias: String? = nil) -> Storefront.ProductPriceRange {
+			return field(field: "priceRange", aliasSuffix: alias) as! Storefront.ProductPriceRange
 		}
 
 		/// A categorization that a product can be tagged with, commonly used for 
@@ -662,6 +709,10 @@ extension Storefront {
 						response.append($0)
 						response.append(contentsOf: $0.childResponseObjectMap())
 					}
+
+					case "priceRange":
+					response.append(internalGetPriceRange())
+					response.append(contentsOf: internalGetPriceRange().childResponseObjectMap())
 
 					case "variantBySelectedOptions":
 					if let value = internalGetVariantBySelectedOptions() {

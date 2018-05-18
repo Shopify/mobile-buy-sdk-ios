@@ -74,6 +74,9 @@ extension Storefront {
 		/// Bahraini Dinar (BHD) 
 		case bhd = "BHD"
 
+		/// Burundian Franc (BIF) 
+		case bif = "BIF"
+
 		/// Brunei Dollar (BND) 
 		case bnd = "BND"
 
