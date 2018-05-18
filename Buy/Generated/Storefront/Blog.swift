@@ -72,6 +72,14 @@ extension Storefront {
 			return self
 		}
 
+		/// A human-friendly unique string for the Blog automatically generated from 
+		/// its title. 
+		@discardableResult
+		open func handle(alias: String? = nil) -> BlogQuery {
+			addField(field: "handle", aliasSuffix: alias)
+			return self
+		}
+
 		/// Globally unique identifier. 
 		@discardableResult
 		open func id(alias: String? = nil) -> BlogQuery {
@@ -105,6 +113,12 @@ extension Storefront {
 					throw SchemaViolationError(type: Blog.self, field: fieldName, value: fieldValue)
 				}
 				return try ArticleConnection(fields: value)
+
+				case "handle":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Blog.self, field: fieldName, value: fieldValue)
+				}
+				return value
 
 				case "id":
 				guard let value = value as? String else {
@@ -140,6 +154,16 @@ extension Storefront {
 
 		func internalGetArticles(alias: String? = nil) -> Storefront.ArticleConnection {
 			return field(field: "articles", aliasSuffix: alias) as! Storefront.ArticleConnection
+		}
+
+		/// A human-friendly unique string for the Blog automatically generated from 
+		/// its title. 
+		open var handle: String {
+			return internalGetHandle()
+		}
+
+		func internalGetHandle(alias: String? = nil) -> String {
+			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
 		/// Globally unique identifier. 

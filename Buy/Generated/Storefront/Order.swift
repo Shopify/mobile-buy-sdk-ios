@@ -48,7 +48,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The order’s URL for a customer. 
+		/// The unique URL that the customer can use to access the order. 
 		@discardableResult
 		open func customerUrl(alias: String? = nil) -> OrderQuery {
 			addField(field: "customerUrl", aliasSuffix: alias)
@@ -142,6 +142,13 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "shippingAddress", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// The unique URL for the order's status page. 
+		@discardableResult
+		open func statusUrl(alias: String? = nil) -> OrderQuery {
+			addField(field: "statusUrl", aliasSuffix: alias)
 			return self
 		}
 
@@ -257,6 +264,12 @@ extension Storefront {
 				}
 				return try MailingAddress(fields: value)
 
+				case "statusUrl":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
+				}
+				return URL(string: value)!
+
 				case "subtotalPrice":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
@@ -312,7 +325,7 @@ extension Storefront {
 			return field(field: "customerLocale", aliasSuffix: alias) as! String?
 		}
 
-		/// The order’s URL for a customer. 
+		/// The unique URL that the customer can use to access the order. 
 		open var customerUrl: URL? {
 			return internalGetCustomerUrl()
 		}
@@ -389,6 +402,15 @@ extension Storefront {
 
 		func internalGetShippingAddress(alias: String? = nil) -> Storefront.MailingAddress? {
 			return field(field: "shippingAddress", aliasSuffix: alias) as! Storefront.MailingAddress?
+		}
+
+		/// The unique URL for the order's status page. 
+		open var statusUrl: URL {
+			return internalGetStatusUrl()
+		}
+
+		func internalGetStatusUrl(alias: String? = nil) -> URL {
+			return field(field: "statusUrl", aliasSuffix: alias) as! URL
 		}
 
 		/// Price of the order before shipping and taxes. 

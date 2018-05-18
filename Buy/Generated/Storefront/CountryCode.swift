@@ -113,6 +113,9 @@ extension Storefront {
 		/// Bolivia 
 		case bo = "BO"
 
+		/// Bonaire, Sint Eustatius and Saba 
+		case bq = "BQ"
+
 		/// Brazil 
 		case br = "BR"
 

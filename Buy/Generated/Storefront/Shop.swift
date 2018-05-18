@@ -311,7 +311,7 @@ extension Storefront {
 		/// List of the shop’s product types. 
 		///
 		/// - parameters:
-		///     - first: No description
+		///     - first: Returns up to the first `n` elements from the list.
 		///
 		@discardableResult
 		open func productTypes(alias: String? = nil, first: Int32, _ subfields: (StringConnectionQuery) -> Void) -> ShopQuery {
@@ -393,6 +393,13 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "refundPolicy", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// Countries that the shop ships to. 
+		@discardableResult
+		open func shipsToCountries(alias: String? = nil) -> ShopQuery {
+			addField(field: "shipsToCountries", aliasSuffix: alias)
 			return self
 		}
 
@@ -523,6 +530,12 @@ extension Storefront {
 					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return try ShopPolicy(fields: value)
+
+				case "shipsToCountries":
+				guard let value = value as? [String] else {
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
+				}
+				return value.map { return CountryCode(rawValue: $0) ?? .unknownValue }
 
 				case "shopifyPaymentsAccountId":
 				if value is NSNull { return nil }
@@ -716,6 +729,15 @@ extension Storefront {
 
 		func internalGetRefundPolicy(alias: String? = nil) -> Storefront.ShopPolicy? {
 			return field(field: "refundPolicy", aliasSuffix: alias) as! Storefront.ShopPolicy?
+		}
+
+		/// Countries that the shop ships to. 
+		open var shipsToCountries: [Storefront.CountryCode] {
+			return internalGetShipsToCountries()
+		}
+
+		func internalGetShipsToCountries(alias: String? = nil) -> [Storefront.CountryCode] {
+			return field(field: "shipsToCountries", aliasSuffix: alias) as! [Storefront.CountryCode]
 		}
 
 		/// The shop’s Shopify Payments account id. 

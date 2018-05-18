@@ -1,5 +1,5 @@
 //
-//  UserError.swift
+//  DisplayableError.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -26,29 +26,50 @@
 
 import Foundation
 
+/// Represents an error in the input of a mutation. 
+public protocol DisplayableError {
+	var field: [String]? { get }
+
+	var message: String { get }
+}
+
 extension Storefront {
 	/// Represents an error in the input of a mutation. 
-	open class UserErrorQuery: GraphQL.AbstractQuery, GraphQLQuery {
-		public typealias Response = UserError
+	open class DisplayableErrorQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = DisplayableError
 
 		/// Path to the input field which caused the error. 
 		@discardableResult
-		open func field(alias: String? = nil) -> UserErrorQuery {
+		open func field(alias: String? = nil) -> DisplayableErrorQuery {
 			addField(field: "field", aliasSuffix: alias)
 			return self
 		}
 
 		/// The error message. 
 		@discardableResult
-		open func message(alias: String? = nil) -> UserErrorQuery {
+		open func message(alias: String? = nil) -> DisplayableErrorQuery {
 			addField(field: "message", aliasSuffix: alias)
+			return self
+		}
+
+		override init() {
+			super.init()
+			addField(field: "__typename")
+		}
+
+		/// Represents an error in the input of a mutation. 
+		@discardableResult
+		open func onUserError(subfields: (UserErrorQuery) -> Void) -> DisplayableErrorQuery {
+			let subquery = UserErrorQuery()
+			subfields(subquery)
+			addInlineFragment(on: "UserError", subfields: subquery)
 			return self
 		}
 	}
 
 	/// Represents an error in the input of a mutation. 
-	open class UserError: GraphQL.AbstractResponse, GraphQLObject, DisplayableError {
-		public typealias Query = UserErrorQuery
+	open class UnknownDisplayableError: GraphQL.AbstractResponse, GraphQLObject, DisplayableError {
+		public typealias Query = DisplayableErrorQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
@@ -56,18 +77,30 @@ extension Storefront {
 				case "field":
 				if value is NSNull { return nil }
 				guard let value = value as? [String] else {
-					throw SchemaViolationError(type: UserError.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: UnknownDisplayableError.self, field: fieldName, value: fieldValue)
 				}
 				return value.map { return $0 }
 
 				case "message":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: UserError.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: UnknownDisplayableError.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				default:
-				throw SchemaViolationError(type: UserError.self, field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: UnknownDisplayableError.self, field: fieldName, value: fieldValue)
+			}
+		}
+
+		internal static func create(fields: [String: Any]) throws -> DisplayableError {
+			guard let typeName = fields["__typename"] as? String else {
+				throw SchemaViolationError(type: UnknownDisplayableError.self, field: "__typename", value: fields["__typename"] ?? NSNull())
+			}
+			switch typeName {
+				case "UserError": return try UserError.init(fields: fields)
+
+				default:
+				return try UnknownDisplayableError.init(fields: fields)
 			}
 		}
 

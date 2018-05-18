@@ -67,9 +67,17 @@ extension Storefront {
 		}
 
 		/// Two-letter country code. For example, US. 
+		@available(*, deprecated, message:"Use `countryCodeV2` instead")
 		@discardableResult
 		open func countryCode(alias: String? = nil) -> MailingAddressQuery {
 			addField(field: "countryCode", aliasSuffix: alias)
+			return self
+		}
+
+		/// Two-letter country code. For example, US. 
+		@discardableResult
+		open func countryCodeV2(alias: String? = nil) -> MailingAddressQuery {
+			addField(field: "countryCodeV2", aliasSuffix: alias)
 			return self
 		}
 
@@ -224,6 +232,13 @@ extension Storefront {
 				}
 				return value
 
+				case "countryCodeV2":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: MailingAddress.self, field: fieldName, value: fieldValue)
+				}
+				return CountryCode(rawValue: value) ?? .unknownValue
+
 				case "firstName":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
@@ -357,12 +372,22 @@ extension Storefront {
 		}
 
 		/// Two-letter country code. For example, US. 
+		@available(*, deprecated, message:"Use `countryCodeV2` instead")
 		open var countryCode: String? {
 			return internalGetCountryCode()
 		}
 
 		func internalGetCountryCode(alias: String? = nil) -> String? {
 			return field(field: "countryCode", aliasSuffix: alias) as! String?
+		}
+
+		/// Two-letter country code. For example, US. 
+		open var countryCodeV2: Storefront.CountryCode? {
+			return internalGetCountryCodeV2()
+		}
+
+		func internalGetCountryCodeV2(alias: String? = nil) -> Storefront.CountryCode? {
+			return field(field: "countryCodeV2", aliasSuffix: alias) as! Storefront.CountryCode?
 		}
 
 		/// First name of the customer. 

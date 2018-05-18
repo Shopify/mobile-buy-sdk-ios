@@ -36,6 +36,9 @@ extension Storefront {
 		/// Apple Pay 
 		case applePay = "APPLE_PAY"
 
+		/// Google Pay 
+		case googlePay = "GOOGLE_PAY"
+
 		/// Shopify Pay 
 		case shopifyPay = "SHOPIFY_PAY"
 
