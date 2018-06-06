@@ -31,7 +31,7 @@ extension CheckoutViewModel {
     var payCheckout: PayCheckout {
         
         let payItems = self.lineItems.map { item in
-            PayLineItem(price: item.totalPrice, quantity: item.quantity)
+            PayLineItem(price: item.individualPrice, quantity: item.quantity)
         }
         
         return PayCheckout(

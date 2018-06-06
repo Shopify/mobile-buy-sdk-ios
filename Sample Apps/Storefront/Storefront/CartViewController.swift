@@ -120,7 +120,7 @@ class CartViewController: ParallaxViewController {
     func authorizePaymentFor(_ shopName: String, in checkout: CheckoutViewModel) {
         let payCurrency = PayCurrency(currencyCode: "CAD", countryCode: "CA")
         let payItems    = checkout.lineItems.map { item in
-            PayLineItem(price: item.totalPrice, quantity: item.quantity)
+            PayLineItem(price: item.individualPrice, quantity: item.quantity)
         }
         
         let payCheckout = PayCheckout(
