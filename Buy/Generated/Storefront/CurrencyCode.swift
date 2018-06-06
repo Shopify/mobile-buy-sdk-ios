@@ -191,6 +191,9 @@ extension Storefront {
 		/// Indian Rupees (INR) 
 		case inr = "INR"
 
+		/// Iraqi Dinar (IQD) 
+		case iqd = "IQD"
+
 		/// Icelandic Kronur (ISK) 
 		case isk = "ISK"
 
