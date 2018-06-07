@@ -210,6 +210,26 @@ extension Storefront {
 			return self
 		}
 
+		/// Removes the applied discount from an existing checkout. 
+		///
+		/// - parameters:
+		///     - checkoutId: The ID of the checkout.
+		///
+		@discardableResult
+		open func checkoutDiscountCodeRemove(alias: String? = nil, checkoutId: GraphQL.ID, _ subfields: (CheckoutDiscountCodeRemovePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CheckoutDiscountCodeRemovePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "checkoutDiscountCodeRemove", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// Updates the email on an existing checkout. 
 		///
 		/// - parameters:
@@ -727,6 +747,13 @@ extension Storefront {
 				}
 				return try CheckoutDiscountCodeApplyPayload(fields: value)
 
+				case "checkoutDiscountCodeRemove":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CheckoutDiscountCodeRemovePayload(fields: value)
+
 				case "checkoutEmailUpdate":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -973,6 +1000,19 @@ extension Storefront {
 
 		func internalGetCheckoutDiscountCodeApply(alias: String? = nil) -> Storefront.CheckoutDiscountCodeApplyPayload? {
 			return field(field: "checkoutDiscountCodeApply", aliasSuffix: alias) as! Storefront.CheckoutDiscountCodeApplyPayload?
+		}
+
+		/// Removes the applied discount from an existing checkout. 
+		open var checkoutDiscountCodeRemove: Storefront.CheckoutDiscountCodeRemovePayload? {
+			return internalGetCheckoutDiscountCodeRemove()
+		}
+
+		open func aliasedCheckoutDiscountCodeRemove(alias: String) -> Storefront.CheckoutDiscountCodeRemovePayload? {
+			return internalGetCheckoutDiscountCodeRemove(alias: alias)
+		}
+
+		func internalGetCheckoutDiscountCodeRemove(alias: String? = nil) -> Storefront.CheckoutDiscountCodeRemovePayload? {
+			return field(field: "checkoutDiscountCodeRemove", aliasSuffix: alias) as! Storefront.CheckoutDiscountCodeRemovePayload?
 		}
 
 		/// Updates the email on an existing checkout. 
@@ -1287,6 +1327,12 @@ extension Storefront {
 
 					case "checkoutDiscountCodeApply":
 					if let value = internalGetCheckoutDiscountCodeApply() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "checkoutDiscountCodeRemove":
+					if let value = internalGetCheckoutDiscountCodeRemove() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
