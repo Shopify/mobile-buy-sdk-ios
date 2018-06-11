@@ -561,6 +561,40 @@ class Graph_TaskTests: XCTestCase {
         XCTAssertFalse(initialDataTask === task.task)
     }
     
+    func testRetryImmediateCancel() {
+        let payload = self.defaultQueryPayload()
+        var retryCount = 0
+        
+        let retry = Graph.RetryHandler<Storefront.QueryRoot>(endurance: .finite(5), interval: 0.05) { (result, error) -> Bool in
+            retryCount += 1
+            return true
+        }
+        
+        let task = self.defaultTask(query: payload.query, cachePolicy: .networkOnly, retryHandler: retry, configuration: { mock in
+            // No configuration
+        }, completion: { request, query, error in
+            XCTFail()
+        })
+        
+        task.resume()
+        
+        let initialDataTask = task.task
+        
+        task.cancel()
+        
+        /* ----------------------------------
+         ** We have to wait just a bit to see
+         ** if the query completes (failing).
+         */
+        let e = self.expectation(description: "")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            e.fulfill()
+        }
+        self.wait(for: [e], timeout: 10)
+        
+        XCTAssertEqual(retryCount, 0)
+        XCTAssertTrue(initialDataTask === task.task)
+    }
     
     // ----------------------------------
     //  MARK: - Cache -
