@@ -114,7 +114,7 @@ class CollectionCell: UITableViewCell, ViewModelConfigurable {
 extension CollectionCell: StorefrontCollectionViewDelegate {
     
     func collectionViewShouldBeginPaging(_ collectionView: StorefrontCollectionView) -> Bool {
-        print("Products should have begun paging: \(String(describing: self.viewModel?.products.hasNextPage))")
+        print("Products should begin paging: \(String(describing: self.viewModel?.products.hasNextPage))")
         return self.viewModel?.products.hasNextPage ?? false
     }
     
