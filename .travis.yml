@@ -1,0 +1,17 @@
+language: swift
+osx_image: xcode9.4
+
+before_install:
+  - gem install xcpretty
+
+before_script:
+  - source "./Scripts/setup_simulator"
+  - git submodule sync --recursive && git submodule update --recursive --init
+
+script:
+  - set -o pipefail
+  - "./Scripts/test_buy"
+  - "./Scripts/test_buy_tv"
+  - "./Scripts/test_buy_watch"
+  - "./Scripts/test_pay"
+  - "./Scripts/test_sample"
