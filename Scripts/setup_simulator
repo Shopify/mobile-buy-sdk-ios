@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
 
 CURRENT_SIMULATOR_UUID=$(xcrun simctl create TestDevice com.apple.CoreSimulator.SimDeviceType.iPhone-7 com.apple.CoreSimulator.SimRuntime.iOS-11-3)
-
-echo "export CURRENT_SIMULATOR_UUID=${CURRENT_SIMULATOR_UUID}" >> $BASH_ENV
+export CURRENT_SIMULATOR_UUID
