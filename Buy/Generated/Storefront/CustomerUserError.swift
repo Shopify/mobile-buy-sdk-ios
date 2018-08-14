@@ -1,5 +1,5 @@
 //
-//  DisplayableError.swift
+//  CustomerUserError.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -26,93 +26,72 @@
 
 import Foundation
 
-/// Represents an error in the input of a mutation. 
-public protocol DisplayableError {
-	var field: [String]? { get }
-
-	var message: String { get }
-}
-
 extension Storefront {
-	/// Represents an error in the input of a mutation. 
-	open class DisplayableErrorQuery: GraphQL.AbstractQuery, GraphQLQuery {
-		public typealias Response = DisplayableError
+	/// Represents an error that happens during execution of a customer mutation. 
+	open class CustomerUserErrorQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = CustomerUserError
+
+		/// Error code to uniquely identify the error. 
+		@discardableResult
+		open func code(alias: String? = nil) -> CustomerUserErrorQuery {
+			addField(field: "code", aliasSuffix: alias)
+			return self
+		}
 
 		/// Path to the input field which caused the error. 
 		@discardableResult
-		open func field(alias: String? = nil) -> DisplayableErrorQuery {
+		open func field(alias: String? = nil) -> CustomerUserErrorQuery {
 			addField(field: "field", aliasSuffix: alias)
 			return self
 		}
 
 		/// The error message. 
 		@discardableResult
-		open func message(alias: String? = nil) -> DisplayableErrorQuery {
+		open func message(alias: String? = nil) -> CustomerUserErrorQuery {
 			addField(field: "message", aliasSuffix: alias)
-			return self
-		}
-
-		override init() {
-			super.init()
-			addField(field: "__typename")
-		}
-
-		/// Represents an error in the input of a mutation. 
-		@discardableResult
-		open func onCustomerUserError(subfields: (CustomerUserErrorQuery) -> Void) -> DisplayableErrorQuery {
-			let subquery = CustomerUserErrorQuery()
-			subfields(subquery)
-			addInlineFragment(on: "CustomerUserError", subfields: subquery)
-			return self
-		}
-
-		/// Represents an error in the input of a mutation. 
-		@discardableResult
-		open func onUserError(subfields: (UserErrorQuery) -> Void) -> DisplayableErrorQuery {
-			let subquery = UserErrorQuery()
-			subfields(subquery)
-			addInlineFragment(on: "UserError", subfields: subquery)
 			return self
 		}
 	}
 
-	/// Represents an error in the input of a mutation. 
-	open class UnknownDisplayableError: GraphQL.AbstractResponse, GraphQLObject, DisplayableError {
-		public typealias Query = DisplayableErrorQuery
+	/// Represents an error that happens during execution of a customer mutation. 
+	open class CustomerUserError: GraphQL.AbstractResponse, GraphQLObject, DisplayableError {
+		public typealias Query = CustomerUserErrorQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "code":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: CustomerUserError.self, field: fieldName, value: fieldValue)
+				}
+				return CustomerErrorCode(rawValue: value) ?? .unknownValue
+
 				case "field":
 				if value is NSNull { return nil }
 				guard let value = value as? [String] else {
-					throw SchemaViolationError(type: UnknownDisplayableError.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CustomerUserError.self, field: fieldName, value: fieldValue)
 				}
 				return value.map { return $0 }
 
 				case "message":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: UnknownDisplayableError.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CustomerUserError.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				default:
-				throw SchemaViolationError(type: UnknownDisplayableError.self, field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: CustomerUserError.self, field: fieldName, value: fieldValue)
 			}
 		}
 
-		internal static func create(fields: [String: Any]) throws -> DisplayableError {
-			guard let typeName = fields["__typename"] as? String else {
-				throw SchemaViolationError(type: UnknownDisplayableError.self, field: "__typename", value: fields["__typename"] ?? NSNull())
-			}
-			switch typeName {
-				case "CustomerUserError": return try CustomerUserError.init(fields: fields)
+		/// Error code to uniquely identify the error. 
+		open var code: Storefront.CustomerErrorCode? {
+			return internalGetCode()
+		}
 
-				case "UserError": return try UserError.init(fields: fields)
-
-				default:
-				return try UnknownDisplayableError.init(fields: fields)
-			}
+		func internalGetCode(alias: String? = nil) -> Storefront.CustomerErrorCode? {
+			return field(field: "code", aliasSuffix: alias) as! Storefront.CustomerErrorCode?
 		}
 
 		/// Path to the input field which caused the error. 
