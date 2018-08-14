@@ -1,6 +1,6 @@
 //
-//  CheckoutViewModel+PayCheckout.swift
-//  Storefront
+//  PayGiftCard.swift
+//  Pay
 //
 //  Created by Shopify.
 //  Copyright (c) 2017 Shopify Inc. All rights reserved.
@@ -24,27 +24,31 @@
 //  THE SOFTWARE.
 //
 
-import Pay
+import Foundation
 
-extension CheckoutViewModel {
-
-    var payCheckout: PayCheckout {
-        
-        let payItems = self.lineItems.map { item in
-            PayLineItem(price: item.individualPrice, quantity: item.quantity)
-        }
-        
-        return PayCheckout(
-            id:              self.id,
-            lineItems:       payItems,
-            giftCards:       nil,
-            discount:        nil,
-            shippingAddress: self.shippingAddress?.payAddress,
-            shippingRate:    self.shippingRate?.payShippingRate,
-            subtotalPrice:   self.subtotalPrice,
-            needsShipping:   self.requiresShipping,
-            totalTax:        self.totalTax,
-            paymentDue:      self.paymentDue
-        )
+/// Represents a gift card to be applied to the checkout.
+///
+public struct PayGiftCard {
+    
+    /// Globally unique identifier.
+    public let id: String
+    
+    /// The amount left on the Gift Card.
+    public let balance: Decimal
+    
+    /// The amount that was used taken from the Gift Card by applying it.
+    public let amount: Decimal
+    
+    /// The last characters of the Gift Card code
+    public let lastCharacters: String
+    
+    // ----------------------------------
+    //  MARK: - Init -
+    //
+    public init(id: String, balance: Decimal, amount: Decimal, lastCharacters: String) {
+        self.id             = id
+        self.balance        = balance
+        self.amount         = amount
+        self.lastCharacters = lastCharacters
     }
 }

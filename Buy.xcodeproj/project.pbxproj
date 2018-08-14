@@ -209,6 +209,31 @@
 		9AAFAB771E6080A500864A17 /* Graph.QueryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAFAB761E6080A500864A17 /* Graph.QueryError.swift */; };
 		9AB421B11E93CA45005098C4 /* PayAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB421B01E93CA45005098C4 /* PayAuthorization.swift */; };
 		9ABC3E221F02DDC0004CF078 /* MD5Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A664D7F1EF159F8001BFB01 /* MD5Tests.swift */; };
+		9ABEB3A92122FF7700A373F2 /* Fulfillment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABEB3A42122FF7500A373F2 /* Fulfillment.swift */; };
+		9ABEB3AA2122FF7700A373F2 /* Fulfillment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABEB3A42122FF7500A373F2 /* Fulfillment.swift */; };
+		9ABEB3AB2122FF7700A373F2 /* Fulfillment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABEB3A42122FF7500A373F2 /* Fulfillment.swift */; };
+		9ABEB3AC2122FF7700A373F2 /* FulfillmentLineItemConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABEB3A52122FF7600A373F2 /* FulfillmentLineItemConnection.swift */; };
+		9ABEB3AD2122FF7700A373F2 /* FulfillmentLineItemConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABEB3A52122FF7600A373F2 /* FulfillmentLineItemConnection.swift */; };
+		9ABEB3AE2122FF7700A373F2 /* FulfillmentLineItemConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABEB3A52122FF7600A373F2 /* FulfillmentLineItemConnection.swift */; };
+		9ABEB3AF2122FF7700A373F2 /* FulfillmentLineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABEB3A62122FF7600A373F2 /* FulfillmentLineItem.swift */; };
+		9ABEB3B02122FF7700A373F2 /* FulfillmentLineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABEB3A62122FF7600A373F2 /* FulfillmentLineItem.swift */; };
+		9ABEB3B12122FF7700A373F2 /* FulfillmentLineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABEB3A62122FF7600A373F2 /* FulfillmentLineItem.swift */; };
+		9ABEB3B22122FF7700A373F2 /* FulfillmentTrackingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABEB3A72122FF7700A373F2 /* FulfillmentTrackingInfo.swift */; };
+		9ABEB3B32122FF7700A373F2 /* FulfillmentTrackingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABEB3A72122FF7700A373F2 /* FulfillmentTrackingInfo.swift */; };
+		9ABEB3B42122FF7700A373F2 /* FulfillmentTrackingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABEB3A72122FF7700A373F2 /* FulfillmentTrackingInfo.swift */; };
+		9ABEB3B52122FF7700A373F2 /* FulfillmentLineItemEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABEB3A82122FF7700A373F2 /* FulfillmentLineItemEdge.swift */; };
+		9ABEB3B62122FF7700A373F2 /* FulfillmentLineItemEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABEB3A82122FF7700A373F2 /* FulfillmentLineItemEdge.swift */; };
+		9ABEB3B72122FF7700A373F2 /* FulfillmentLineItemEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABEB3A82122FF7700A373F2 /* FulfillmentLineItemEdge.swift */; };
+		9ABEB3BA2122FF8000A373F2 /* CustomerUserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABEB3B82122FF7F00A373F2 /* CustomerUserError.swift */; };
+		9ABEB3BB2122FF8000A373F2 /* CustomerUserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABEB3B82122FF7F00A373F2 /* CustomerUserError.swift */; };
+		9ABEB3BC2122FF8000A373F2 /* CustomerUserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABEB3B82122FF7F00A373F2 /* CustomerUserError.swift */; };
+		9ABEB3BD2122FF8000A373F2 /* CustomerErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABEB3B92122FF7F00A373F2 /* CustomerErrorCode.swift */; };
+		9ABEB3BE2122FF8000A373F2 /* CustomerErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABEB3B92122FF7F00A373F2 /* CustomerErrorCode.swift */; };
+		9ABEB3BF2122FF8000A373F2 /* CustomerErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABEB3B92122FF7F00A373F2 /* CustomerErrorCode.swift */; };
+		9ABEB3C12122FFE900A373F2 /* CheckoutGiftCardsAppendPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABEB3C02122FFE900A373F2 /* CheckoutGiftCardsAppendPayload.swift */; };
+		9ABEB3C22122FFE900A373F2 /* CheckoutGiftCardsAppendPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABEB3C02122FFE900A373F2 /* CheckoutGiftCardsAppendPayload.swift */; };
+		9ABEB3C32122FFE900A373F2 /* CheckoutGiftCardsAppendPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABEB3C02122FFE900A373F2 /* CheckoutGiftCardsAppendPayload.swift */; };
+		9ABEB3D42123598800A373F2 /* PayGiftCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABEB3D32123598800A373F2 /* PayGiftCard.swift */; };
 		9AC2EF391F6818180037E0D7 /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C7FFA1EAA51C50020F187 /* Attribute.swift */; };
 		9AC2EF3A1F6818180037E0D7 /* OrderLineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C803E1EAA51C50020F187 /* OrderLineItem.swift */; };
 		9AC2EF3B1F6818180037E0D7 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE2A1C51EC9EE1D00921247 /* Log.swift */; };
@@ -698,6 +723,15 @@
 		9AAFAB711E60766E00864A17 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		9AAFAB761E6080A500864A17 /* Graph.QueryError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.QueryError.swift; sourceTree = "<group>"; };
 		9AB421B01E93CA45005098C4 /* PayAuthorization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayAuthorization.swift; sourceTree = "<group>"; };
+		9ABEB3A42122FF7500A373F2 /* Fulfillment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fulfillment.swift; sourceTree = "<group>"; };
+		9ABEB3A52122FF7600A373F2 /* FulfillmentLineItemConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FulfillmentLineItemConnection.swift; sourceTree = "<group>"; };
+		9ABEB3A62122FF7600A373F2 /* FulfillmentLineItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FulfillmentLineItem.swift; sourceTree = "<group>"; };
+		9ABEB3A72122FF7700A373F2 /* FulfillmentTrackingInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FulfillmentTrackingInfo.swift; sourceTree = "<group>"; };
+		9ABEB3A82122FF7700A373F2 /* FulfillmentLineItemEdge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FulfillmentLineItemEdge.swift; sourceTree = "<group>"; };
+		9ABEB3B82122FF7F00A373F2 /* CustomerUserError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerUserError.swift; sourceTree = "<group>"; };
+		9ABEB3B92122FF7F00A373F2 /* CustomerErrorCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerErrorCode.swift; sourceTree = "<group>"; };
+		9ABEB3C02122FFE900A373F2 /* CheckoutGiftCardsAppendPayload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutGiftCardsAppendPayload.swift; sourceTree = "<group>"; };
+		9ABEB3D32123598800A373F2 /* PayGiftCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayGiftCard.swift; sourceTree = "<group>"; };
 		9AC2EFC81F6818180037E0D7 /* Buy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Buy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AC2EFD61F686DB90037E0D7 /* Optional+Input.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Input.swift"; sourceTree = "<group>"; };
 		9AE1F8151F605F8F00147E77 /* ProductVariantSortKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductVariantSortKeys.swift; sourceTree = "<group>"; };
@@ -906,6 +940,7 @@
 				9A4068F51E8E767B000254CD /* PaySession.swift */,
 				9A4068F41E8E767B000254CD /* PayCheckout.swift */,
 				9A52D3B11F3CE99900C093C8 /* PayCardBrand.swift */,
+				9ABEB3D32123598800A373F2 /* PayGiftCard.swift */,
 				9A0C7FD01EA669C80020F187 /* PayDiscount.swift */,
 				9A4068F71E8E767B000254CD /* PayLineItem.swift */,
 				9A4068F61E8E767B000254CD /* PayCurrency.swift */,
@@ -1422,6 +1457,7 @@
 				9A40690A1E8E82E2000254CD /* PassKit+SummaryItems.swift in Sources */,
 				9A4068FE1E8E767B000254CD /* PayShippingRate.swift in Sources */,
 				9AB421B11E93CA45005098C4 /* PayAuthorization.swift in Sources */,
+				9ABEB3D42123598800A373F2 /* PayGiftCard.swift in Sources */,
 				9A4068F91E8E767B000254CD /* PayAddress.swift in Sources */,
 				9A52D3B21F3CE99900C093C8 /* PayCardBrand.swift in Sources */,
 				9A4068FB1E8E767B000254CD /* PaySession.swift in Sources */,

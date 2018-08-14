@@ -70,6 +70,24 @@ struct Models {
         return MockPaySession(shopName: "Jaded Labs", checkout: checkout, currency: currency, merchantID: "com.merchant.identifier", controllerType: MockAuthorizationController.self)
     }
     
+    static func createGiftCard() -> PayGiftCard {
+        return PayGiftCard(
+            id: "123",
+            balance: 20.00,
+            amount: 5.00,
+            lastCharacters: "A1B2"
+        )
+    }
+    
+    static func createGiftCardSecondary() -> PayGiftCard {
+        return PayGiftCard(
+            id: "234",
+            balance: 10.00,
+            amount: 2.50,
+            lastCharacters: "C3D4"
+        )
+    }
+    
     static func createDiscount() -> PayDiscount {
         return PayDiscount(code: "WIN20", amount: 20.0)
     }
@@ -82,7 +100,7 @@ struct Models {
         return PayCurrency(currencyCode: "USD", countryCode: "US")
     }
     
-    static func createCheckout(requiresShipping: Bool = true, discount: PayDiscount? = nil, shippingAddress: PayAddress? = nil, shippingRate: PayShippingRate? = nil, empty: Bool = false, hasTax: Bool = true) -> PayCheckout {
+    static func createCheckout(requiresShipping: Bool = true, giftCards: [PayGiftCard]? = nil, discount: PayDiscount? = nil, shippingAddress: PayAddress? = nil, shippingRate: PayShippingRate? = nil, empty: Bool = false, hasTax: Bool = true) -> PayCheckout {
         
         let lineItems = [
             self.createLineItem1(),
@@ -92,6 +110,7 @@ struct Models {
         return PayCheckout(
             id:              "123",
             lineItems:       !empty ? lineItems : [],
+            giftCards:       giftCards,
             discount:        discount,
             shippingAddress: shippingAddress,
             shippingRate:    shippingRate,
