@@ -59,7 +59,7 @@ final class AddressViewModel: ViewModel {
         self.address2    = model.address2
         self.city        = model.city
         self.country     = model.country
-        self.countryCode = model.countryCode
+        self.countryCode = model.countryCodeV2?.rawValue
         self.province    = model.province
         self.zip         = model.zip
     }
