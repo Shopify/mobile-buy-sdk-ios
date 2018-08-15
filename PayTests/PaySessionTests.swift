@@ -50,7 +50,7 @@ class PaySessionTests: XCTestCase {
     func testDeprecatedInit() {
         let checkout = Models.createCheckout()
         let currency = Models.createCurrency()
-        let session  = PaySession(checkout: checkout, currency: currency, merchantID: "some-id")
+        let session  = PaySession(shopName: "test", checkout: checkout, currency: currency, merchantID: "some-id")
         
         XCTAssertEqual(session.shopName, "TOTAL")
     }
