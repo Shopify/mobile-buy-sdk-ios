@@ -113,9 +113,11 @@ class PayCheckoutTests: XCTestCase {
         
         XCTAssertEqual(summaryItems.count, 4)
         XCTAssertEqual(summaryItems[0].label, "CART TOTAL")
-        XCTAssertEqual(summaryItems[1].label, "GIFT CARD (A1B2)")
-        XCTAssertEqual(summaryItems[2].label, "SUBTOTAL")
+        XCTAssertEqual(summaryItems[1].label, "SUBTOTAL")
+        XCTAssertEqual(summaryItems[2].label, "GIFT CARD (•••• A1B2)")
         XCTAssertEqual(summaryItems[3].label, "SHOPIFY")
+        
+        XCTAssertEqual(summaryItems[2].amount as Decimal, giftCards[0].amount.negative)
     }
     
     func testSummaryItemsWithMultipleGiftCards() {
@@ -129,9 +131,12 @@ class PayCheckoutTests: XCTestCase {
         
         XCTAssertEqual(summaryItems.count, 4)
         XCTAssertEqual(summaryItems[0].label, "CART TOTAL")
-        XCTAssertEqual(summaryItems[1].label, "GIFT CARDS")
-        XCTAssertEqual(summaryItems[2].label, "SUBTOTAL")
+        XCTAssertEqual(summaryItems[1].label, "SUBTOTAL")
+        XCTAssertEqual(summaryItems[2].label, "GIFT CARDS (2)")
         XCTAssertEqual(summaryItems[3].label, "SHOPIFY")
+        
+        let totalGiftCards = giftCards.reduce(0) { $0 + $1.amount }
+        XCTAssertEqual(summaryItems[2].amount as Decimal, totalGiftCards.negative)
     }
     
     func testSummaryItemsWithDiscount() {
@@ -145,11 +150,14 @@ class PayCheckoutTests: XCTestCase {
         XCTAssertEqual(summaryItems[2].label, "SUBTOTAL")
         XCTAssertEqual(summaryItems[3].label, "SHOPIFY")
         
+        XCTAssertEqual(summaryItems[1].amount as Decimal, discount.amount.negative)
+        
         let anonymousDiscount = Models.createAnonymousDiscount()
         let checkout2         = Models.createCheckout(requiresShipping: false, discount: anonymousDiscount, empty: true, hasTax: false)
         
         summaryItems = checkout2.summaryItems(for: self.shopName)
         
         XCTAssertEqual(summaryItems[1].label, "DISCOUNT")
+        XCTAssertEqual(summaryItems[1].amount as Decimal, anonymousDiscount.amount.negative)
     }
 }

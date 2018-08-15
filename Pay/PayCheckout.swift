@@ -82,28 +82,11 @@ internal extension PayCheckout {
             summaryItems.append(self.lineItems.totalPrice.summaryItemNamed("CART TOTAL"))
         }
         
-        // Gift cards
-        
-        if let giftCards = self.giftCards, !giftCards.isEmpty {
-            if giftCards.count == 1 {
-                let giftCard     = giftCards[0]
-                let appliedTotal = giftCard.amount
-                summaryItems.append(appliedTotal.summaryItemNamed("GIFT CARD (\(giftCard.lastCharacters))"))
-                
-            } else {
-                let appliedTotal = giftCards.reduce(0) {
-                    $0 + $1.amount
-                }
-                summaryItems.append(appliedTotal.summaryItemNamed("GIFT CARDS"))
-            }
-        }
-        
         // Discount
 
         if let discount = self.discount {
-            let title  = discount.code.isEmpty ? "DISCOUNT" : "DISCOUNT (\(discount.code))"
-            let amount = discount.amount * -1.0
-            summaryItems.append(amount.summaryItemNamed(title))
+            let title = discount.code.isEmpty ? "DISCOUNT" : "DISCOUNT (\(discount.code))"
+            summaryItems.append(discount.amount.negative.summaryItemNamed(title))
         }
 
         // Subtotal
@@ -120,6 +103,22 @@ internal extension PayCheckout {
         
         if self.totalTax > 0.0 {
             summaryItems.append(self.totalTax.summaryItemNamed("TAXES"))
+        }
+        
+        // Gift cards
+        
+        if let giftCards = self.giftCards, !giftCards.isEmpty {
+            if giftCards.count == 1 {
+                let giftCard     = giftCards[0]
+                let appliedTotal = giftCard.amount
+                summaryItems.append(appliedTotal.negative.summaryItemNamed("GIFT CARD (•••• \(giftCard.lastCharacters))"))
+                
+            } else {
+                let appliedTotal = giftCards.reduce(0) {
+                    $0 + $1.amount
+                }
+                summaryItems.append(appliedTotal.negative.summaryItemNamed("GIFT CARDS (\(giftCards.count))"))
+            }
         }
 
         // Shop name
