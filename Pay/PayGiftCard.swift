@@ -1,5 +1,5 @@
 //
-//  PassKit+SummaryItems.swift
+//  PayGiftCard.swift
 //  Pay
 //
 //  Created by Shopify.
@@ -24,28 +24,31 @@
 //  THE SOFTWARE.
 //
 
-import PassKit
+import Foundation
 
-// ----------------------------------
-//  MARK: - Decimal -
-//
-internal extension Decimal {
+/// Represents a gift card to be applied to the checkout.
+///
+public struct PayGiftCard {
     
-    var negative: Decimal {
-        return self * -1.0
-    }
+    /// Globally unique identifier.
+    public let id: String
     
-    func summaryItemNamed(_ name: String) -> PKPaymentSummaryItem {
-        return PKPaymentSummaryItem(label: name, amount: self)
-    }
-}
-
-// ----------------------------------
-//  MARK: - PKPaymentSummaryItem -
-//
-internal extension PKPaymentSummaryItem {
+    /// The amount left on the Gift Card.
+    public let balance: Decimal
     
-    convenience init(label: String, amount: Decimal) {
-        self.init(label: label, amount: amount as NSDecimalNumber)
+    /// The amount that was used taken from the Gift Card by applying it.
+    public let amount: Decimal
+    
+    /// The last characters of the Gift Card code
+    public let lastCharacters: String
+    
+    // ----------------------------------
+    //  MARK: - Init -
+    //
+    public init(id: String, balance: Decimal, amount: Decimal, lastCharacters: String) {
+        self.id             = id
+        self.balance        = balance
+        self.amount         = amount
+        self.lastCharacters = lastCharacters
     }
 }

@@ -36,6 +36,7 @@ class PayCheckoutTests: XCTestCase {
     //  MARK: - Init -
     //
     func testInit() {
+        let giftCard = Models.createGiftCard()
         let discount = Models.createDiscount()
         let address  = Models.createAddress()
         let rate     = Models.createShippingRate()
@@ -45,6 +46,7 @@ class PayCheckoutTests: XCTestCase {
                 PayLineItem(price: 10.0, quantity: 1),
                 PayLineItem(price: 20.0, quantity: 1),
             ],
+            giftCards:       [giftCard],
             discount:        discount,
             shippingAddress: address,
             shippingRate:    rate,
@@ -58,6 +60,7 @@ class PayCheckoutTests: XCTestCase {
         XCTAssertEqual(checkout.lineItems.count, 2)
         XCTAssertEqual(checkout.shippingAddress!.city, address.city)
         XCTAssertEqual(checkout.shippingRate!.handle,  rate.handle)
+        XCTAssertEqual(checkout.giftCards!.first!.amount, 5.00)
         XCTAssertEqual(checkout.discount!.amount, 20.0)
         XCTAssertEqual(checkout.subtotalPrice,    30.0)
         XCTAssertEqual(checkout.needsShipping,    true)
@@ -103,6 +106,39 @@ class PayCheckoutTests: XCTestCase {
         XCTAssertEqual(summaryItems[2].label, "SHOPIFY")
     }
     
+    func testSummaryItemsWithGiftCard() {
+        let giftCards    = [Models.createGiftCard()]
+        let checkout     = Models.createCheckout(giftCards: giftCards, hasTax: false)
+        let summaryItems = checkout.summaryItems(for: self.shopName)
+        
+        XCTAssertEqual(summaryItems.count, 4)
+        XCTAssertEqual(summaryItems[0].label, "CART TOTAL")
+        XCTAssertEqual(summaryItems[1].label, "SUBTOTAL")
+        XCTAssertEqual(summaryItems[2].label, "GIFT CARD (•••• A1B2)")
+        XCTAssertEqual(summaryItems[3].label, "SHOPIFY")
+        
+        XCTAssertEqual(summaryItems[2].amount as Decimal, giftCards[0].amount.negative)
+    }
+    
+    func testSummaryItemsWithMultipleGiftCards() {
+        let giftCards = [
+            Models.createGiftCard(),
+            Models.createGiftCardSecondary(),
+        ]
+        
+        let checkout     = Models.createCheckout(giftCards: giftCards, hasTax: false)
+        let summaryItems = checkout.summaryItems(for: self.shopName)
+        
+        XCTAssertEqual(summaryItems.count, 4)
+        XCTAssertEqual(summaryItems[0].label, "CART TOTAL")
+        XCTAssertEqual(summaryItems[1].label, "SUBTOTAL")
+        XCTAssertEqual(summaryItems[2].label, "GIFT CARDS (2)")
+        XCTAssertEqual(summaryItems[3].label, "SHOPIFY")
+        
+        let totalGiftCards = giftCards.reduce(0) { $0 + $1.amount }
+        XCTAssertEqual(summaryItems[2].amount as Decimal, totalGiftCards.negative)
+    }
+    
     func testSummaryItemsWithDiscount() {
         let discount     = Models.createDiscount()
         let checkout     = Models.createCheckout(requiresShipping: false, discount: discount, empty: true, hasTax: false)
@@ -114,11 +150,14 @@ class PayCheckoutTests: XCTestCase {
         XCTAssertEqual(summaryItems[2].label, "SUBTOTAL")
         XCTAssertEqual(summaryItems[3].label, "SHOPIFY")
         
+        XCTAssertEqual(summaryItems[1].amount as Decimal, discount.amount.negative)
+        
         let anonymousDiscount = Models.createAnonymousDiscount()
         let checkout2         = Models.createCheckout(requiresShipping: false, discount: anonymousDiscount, empty: true, hasTax: false)
         
         summaryItems = checkout2.summaryItems(for: self.shopName)
         
         XCTAssertEqual(summaryItems[1].label, "DISCOUNT")
+        XCTAssertEqual(summaryItems[1].amount as Decimal, anonymousDiscount.amount.negative)
     }
 }

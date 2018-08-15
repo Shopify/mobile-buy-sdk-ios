@@ -37,6 +37,7 @@ extension CheckoutViewModel {
         return PayCheckout(
             id:              self.id,
             lineItems:       payItems,
+            giftCards:       nil,
             discount:        nil,
             shippingAddress: self.shippingAddress?.payAddress,
             shippingRate:    self.shippingRate?.payShippingRate,

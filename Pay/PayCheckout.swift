@@ -37,6 +37,7 @@ public struct PayCheckout {
     public let hasLineItems:    Bool
     public let needsShipping:   Bool
 
+    public let giftCards:       [PayGiftCard]?
     public let discount:        PayDiscount?
     public let lineItems:       [PayLineItem]
     public let shippingAddress: PayAddress?
@@ -49,13 +50,14 @@ public struct PayCheckout {
     // ----------------------------------
     //  MARK: - Init -
     //
-    public init(id: String, lineItems: [PayLineItem], discount: PayDiscount?, shippingAddress: PayAddress?, shippingRate: PayShippingRate?, subtotalPrice: Decimal, needsShipping: Bool, totalTax: Decimal, paymentDue: Decimal) {
+    public init(id: String, lineItems: [PayLineItem], giftCards: [PayGiftCard]?, discount: PayDiscount?, shippingAddress: PayAddress?, shippingRate: PayShippingRate?, subtotalPrice: Decimal, needsShipping: Bool, totalTax: Decimal, paymentDue: Decimal) {
 
         self.id              = id
         self.lineItems       = lineItems
         self.shippingAddress = shippingAddress
         self.shippingRate    = shippingRate
 
+        self.giftCards       = giftCards
         self.discount        = discount
         self.subtotalPrice   = subtotalPrice
         self.totalTax        = totalTax
@@ -74,35 +76,53 @@ internal extension PayCheckout {
     func summaryItems(for shop: String) -> [PKPaymentSummaryItem] {
         var summaryItems: [PKPaymentSummaryItem] = []
 
+        // Cart total
+        
         if self.hasLineItems || self.discount != nil {
             summaryItems.append(self.lineItems.totalPrice.summaryItemNamed("CART TOTAL"))
         }
+        
+        // Discount
 
         if let discount = self.discount {
-            let title  = discount.code.isEmpty ? "DISCOUNT" : "DISCOUNT (\(discount.code))"
-            let amount = discount.amount * -1.0
-            summaryItems.append(amount.summaryItemNamed(title))
+            let title = discount.code.isEmpty ? "DISCOUNT" : "DISCOUNT (\(discount.code))"
+            summaryItems.append(discount.amount.negative.summaryItemNamed(title))
         }
 
+        // Subtotal
+        
         summaryItems.append(self.subtotalPrice.summaryItemNamed("SUBTOTAL"))
 
+        // Shipping
+        
         if let shippingRate = self.shippingRate, shippingRate.price > 0.0 {
             summaryItems.append(shippingRate.price.summaryItemNamed("SHIPPING"))
         }
 
+        // Taxes
+        
         if self.totalTax > 0.0 {
             summaryItems.append(self.totalTax.summaryItemNamed("TAXES"))
         }
+        
+        // Gift cards
+        
+        if let giftCards = self.giftCards, !giftCards.isEmpty {
+            if giftCards.count == 1 {
+                let giftCard     = giftCards[0]
+                let appliedTotal = giftCard.amount
+                summaryItems.append(appliedTotal.negative.summaryItemNamed("GIFT CARD (•••• \(giftCard.lastCharacters))"))
+                
+            } else {
+                let appliedTotal = giftCards.reduce(0) {
+                    $0 + $1.amount
+                }
+                summaryItems.append(appliedTotal.negative.summaryItemNamed("GIFT CARDS (\(giftCards.count))"))
+            }
+        }
 
-        // TODO: if !self.giftCards.isEmpty { add gift card summary item }
-
-        //        if ([self.giftCards count] > 0) {
-        //            for (BUYGiftCard *giftCard in self.giftCards) {
-        //                NSString *giftCardLabel = [giftCard.lastCharacters length] > 0 ? [NSString stringWithFormat:@"GIFT CARD (•••• %@)", giftCard.lastCharacters] : @"GIFT CARD";
-        //                [summaryItems addObject:[PKPaymentSummaryItem summaryItemWithLabel:giftCardLabel amount:giftCard.amountUsed ? [giftCard.amountUsed buy_decimalNumberAsNegative] : [giftCard.balance buy_decimalNumberAsNegative]]];
-        //            }
-        //        }
-
+        // Shop name
+        
         summaryItems.append(self.paymentDue.summaryItemNamed(shop))
 
         return summaryItems
