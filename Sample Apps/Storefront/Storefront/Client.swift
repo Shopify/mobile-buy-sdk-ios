@@ -240,7 +240,7 @@ final class Client {
         }
         
         let query = ClientQuery.queryShippingRatesForCheckout(id)
-        let task  = self.client.queryGraphWith(query, retryHandler: retry) { response, error in
+        let task  = self.client.queryGraphWith(query, cachePolicy: .networkOnly, retryHandler: retry) { response, error in
             error.debugPrint()
             
             if let response = response,
