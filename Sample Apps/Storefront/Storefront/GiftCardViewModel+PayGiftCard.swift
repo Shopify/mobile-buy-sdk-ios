@@ -1,5 +1,5 @@
 //
-//  CheckoutViewModel+PayCheckout.swift
+//  GiftCardViewModel+PayGiftCard.swift
 //  Storefront
 //
 //  Created by Shopify.
@@ -26,25 +26,14 @@
 
 import Pay
 
-extension CheckoutViewModel {
-
-    var payCheckout: PayCheckout {
-        
-        let payItems = self.lineItems.map { item in
-            PayLineItem(price: item.individualPrice, quantity: item.quantity)
-        }
-        
-        return PayCheckout(
-            id:              self.id,
-            lineItems:       payItems,
-            giftCards:       self.giftCards.map { $0.payGiftCard },
-            discount:        nil,
-            shippingAddress: self.shippingAddress?.payAddress,
-            shippingRate:    self.shippingRate?.payShippingRate,
-            subtotalPrice:   self.subtotalPrice,
-            needsShipping:   self.requiresShipping,
-            totalTax:        self.totalTax,
-            paymentDue:      self.paymentDue
+extension GiftCardViewModel {
+    
+    var payGiftCard: PayGiftCard {
+        return PayGiftCard(
+            id: self.id,
+            balance: self.balance,
+            amount: self.amountUsed,
+            lastCharacters: self.lastCharacters
         )
     }
 }

@@ -1,5 +1,5 @@
 //
-//  CheckoutViewModel+PayCheckout.swift
+//  GiftCardViewModel.swift
 //  Storefront
 //
 //  Created by Shopify.
@@ -24,27 +24,33 @@
 //  THE SOFTWARE.
 //
 
-import Pay
+import Foundation
+import Buy
 
-extension CheckoutViewModel {
-
-    var payCheckout: PayCheckout {
+final class GiftCardViewModel: ViewModel {
+    
+    typealias ModelType = Storefront.AppliedGiftCard
+    
+    let model:  ModelType
+    
+    let id:             String
+    let balance:        Decimal
+    let amountUsed:     Decimal
+    let lastCharacters: String
+    
+    // ----------------------------------
+    //  MARK: - Init -
+    //
+    required init(from model: ModelType) {
+        self.model            = model
         
-        let payItems = self.lineItems.map { item in
-            PayLineItem(price: item.individualPrice, quantity: item.quantity)
-        }
-        
-        return PayCheckout(
-            id:              self.id,
-            lineItems:       payItems,
-            giftCards:       self.giftCards.map { $0.payGiftCard },
-            discount:        nil,
-            shippingAddress: self.shippingAddress?.payAddress,
-            shippingRate:    self.shippingRate?.payShippingRate,
-            subtotalPrice:   self.subtotalPrice,
-            needsShipping:   self.requiresShipping,
-            totalTax:        self.totalTax,
-            paymentDue:      self.paymentDue
-        )
+        self.id             = model.id.rawValue
+        self.balance        = model.balance
+        self.amountUsed     = model.amountUsed
+        self.lastCharacters = model.lastCharacters
     }
+}
+
+extension Storefront.AppliedGiftCard: ViewModeling {
+    typealias ViewModelType = GiftCardViewModel
 }
