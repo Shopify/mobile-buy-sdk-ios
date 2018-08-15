@@ -159,6 +159,28 @@ extension Storefront {
 			return self
 		}
 
+		/// List of the order’s successful fulfillments. 
+		///
+		/// - parameters:
+		///     - first: Truncate the array result to this size.
+		///
+		@discardableResult
+		open func successfulFulfillments(alias: String? = nil, first: Int32? = nil, _ subfields: (FulfillmentQuery) -> Void) -> OrderQuery {
+			var args: [String] = []
+
+			if let first = first {
+				args.append("first:\(first)")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = FulfillmentQuery()
+			subfields(subquery)
+
+			addField(field: "successfulFulfillments", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// The sum of all the prices of all the items in the order, taxes and 
 		/// discounts included (must be positive). 
 		@discardableResult
@@ -276,6 +298,13 @@ extension Storefront {
 					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
 				}
 				return Decimal(string: value, locale: GraphQL.posixLocale)
+
+				case "successfulFulfillments":
+				if value is NSNull { return nil }
+				guard let value = value as? [[String: Any]] else {
+					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
+				}
+				return try value.map { return try Fulfillment(fields: $0) }
 
 				case "totalPrice":
 				guard let value = value as? String else {
@@ -422,6 +451,19 @@ extension Storefront {
 			return field(field: "subtotalPrice", aliasSuffix: alias) as! Decimal?
 		}
 
+		/// List of the order’s successful fulfillments. 
+		open var successfulFulfillments: [Storefront.Fulfillment]? {
+			return internalGetSuccessfulFulfillments()
+		}
+
+		open func aliasedSuccessfulFulfillments(alias: String) -> [Storefront.Fulfillment]? {
+			return internalGetSuccessfulFulfillments(alias: alias)
+		}
+
+		func internalGetSuccessfulFulfillments(alias: String? = nil) -> [Storefront.Fulfillment]? {
+			return field(field: "successfulFulfillments", aliasSuffix: alias) as! [Storefront.Fulfillment]?
+		}
+
 		/// The sum of all the prices of all the items in the order, taxes and 
 		/// discounts included (must be positive). 
 		open var totalPrice: Decimal {
@@ -471,6 +513,14 @@ extension Storefront {
 					if let value = internalGetShippingAddress() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "successfulFulfillments":
+					if let value = internalGetSuccessfulFulfillments() {
+						value.forEach {
+							response.append($0)
+							response.append(contentsOf: $0.childResponseObjectMap())
+						}
 					}
 
 					default:

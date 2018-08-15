@@ -83,6 +83,7 @@ extension Storefront {
 		}
 
 		/// The customer associated with the checkout. 
+		@available(*, deprecated, message:"This field will always return null. If you have an authentication token for the customer, you can use the `customer` field on the query root to retrieve it.")
 		@discardableResult
 		open func customer(alias: String? = nil, _ subfields: (CustomerQuery) -> Void) -> CheckoutQuery {
 			let subquery = CustomerQuery()
@@ -497,6 +498,7 @@ extension Storefront {
 		}
 
 		/// The customer associated with the checkout. 
+		@available(*, deprecated, message:"This field will always return null. If you have an authentication token for the customer, you can use the `customer` field on the query root to retrieve it.")
 		open var customer: Storefront.Customer? {
 			return internalGetCustomer()
 		}
