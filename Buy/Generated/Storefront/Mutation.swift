@@ -253,12 +253,14 @@ extension Storefront {
 			return self
 		}
 
-		/// Applies a gift card to an existing checkout using a gift card code. 
+		/// Applies a gift card to an existing checkout using a gift card code. This 
+		/// will replace all currently applied gift cards. 
 		///
 		/// - parameters:
 		///     - giftCardCode: The code of the gift card to apply on the checkout.
 		///     - checkoutId: The ID of the checkout.
 		///
+		@available(*, deprecated, message:"Use `checkoutGiftCardsAppend` instead")
 		@discardableResult
 		open func checkoutGiftCardApply(alias: String? = nil, giftCardCode: String, checkoutId: GraphQL.ID, _ subfields: (CheckoutGiftCardApplyPayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -296,6 +298,29 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "checkoutGiftCardRemove", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Appends gift cards to an existing checkout. 
+		///
+		/// - parameters:
+		///     - giftCardCodes: A list of gift card codes to append to the checkout.
+		///     - checkoutId: The ID of the checkout.
+		///
+		@discardableResult
+		open func checkoutGiftCardsAppend(alias: String? = nil, giftCardCodes: [String], checkoutId: GraphQL.ID, _ subfields: (CheckoutGiftCardsAppendPayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("giftCardCodes:[\(giftCardCodes.map{ "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
+
+			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CheckoutGiftCardsAppendPayloadQuery()
+			subfields(subquery)
+
+			addField(field: "checkoutGiftCardsAppend", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
@@ -775,6 +800,13 @@ extension Storefront {
 				}
 				return try CheckoutGiftCardRemovePayload(fields: value)
 
+				case "checkoutGiftCardsAppend":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CheckoutGiftCardsAppendPayload(fields: value)
+
 				case "checkoutLineItemsAdd":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -1028,10 +1060,14 @@ extension Storefront {
 			return field(field: "checkoutEmailUpdate", aliasSuffix: alias) as! Storefront.CheckoutEmailUpdatePayload?
 		}
 
-		/// Applies a gift card to an existing checkout using a gift card code. 
+		/// Applies a gift card to an existing checkout using a gift card code. This 
+		/// will replace all currently applied gift cards. 
+		@available(*, deprecated, message:"Use `checkoutGiftCardsAppend` instead")
 		open var checkoutGiftCardApply: Storefront.CheckoutGiftCardApplyPayload? {
 			return internalGetCheckoutGiftCardApply()
 		}
+
+		@available(*, deprecated, message:"Use `checkoutGiftCardsAppend` instead")
 
 		open func aliasedCheckoutGiftCardApply(alias: String) -> Storefront.CheckoutGiftCardApplyPayload? {
 			return internalGetCheckoutGiftCardApply(alias: alias)
@@ -1052,6 +1088,19 @@ extension Storefront {
 
 		func internalGetCheckoutGiftCardRemove(alias: String? = nil) -> Storefront.CheckoutGiftCardRemovePayload? {
 			return field(field: "checkoutGiftCardRemove", aliasSuffix: alias) as! Storefront.CheckoutGiftCardRemovePayload?
+		}
+
+		/// Appends gift cards to an existing checkout. 
+		open var checkoutGiftCardsAppend: Storefront.CheckoutGiftCardsAppendPayload? {
+			return internalGetCheckoutGiftCardsAppend()
+		}
+
+		open func aliasedCheckoutGiftCardsAppend(alias: String) -> Storefront.CheckoutGiftCardsAppendPayload? {
+			return internalGetCheckoutGiftCardsAppend(alias: alias)
+		}
+
+		func internalGetCheckoutGiftCardsAppend(alias: String? = nil) -> Storefront.CheckoutGiftCardsAppendPayload? {
+			return field(field: "checkoutGiftCardsAppend", aliasSuffix: alias) as! Storefront.CheckoutGiftCardsAppendPayload?
 		}
 
 		/// Adds a list of line items to a checkout. 
@@ -1351,6 +1400,12 @@ extension Storefront {
 
 					case "checkoutGiftCardRemove":
 					if let value = internalGetCheckoutGiftCardRemove() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "checkoutGiftCardsAppend":
+					if let value = internalGetCheckoutGiftCardsAppend() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}

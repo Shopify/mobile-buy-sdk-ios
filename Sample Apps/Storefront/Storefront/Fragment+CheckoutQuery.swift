@@ -36,6 +36,13 @@ extension Storefront.CheckoutQuery {
         .taxesIncluded()
         .email()
         
+        .appliedGiftCards { $0
+            .id()
+            .balance()
+            .amountUsed()
+            .lastCharacters()
+        }
+        
         .shippingAddress { $0
             .firstName()
             .lastName()
@@ -44,7 +51,7 @@ extension Storefront.CheckoutQuery {
             .address2()
             .city()
             .country()
-            .countryCode()
+            .countryCodeV2()
             .province()
             .provinceCode()
             .zip()

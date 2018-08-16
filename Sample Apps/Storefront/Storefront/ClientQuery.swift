@@ -105,6 +105,24 @@ final class ClientQuery {
     }
     
     // ----------------------------------
+    //  MARK: - Gift Cards -
+    //
+    static func mutationForApplyingGiftCard(_ giftCardCode: String, to checkoutID: String) -> Storefront.MutationQuery {
+        let id = GraphQL.ID(rawValue: checkoutID)
+        return Storefront.buildMutation { $0
+            .checkoutGiftCardApply(giftCardCode: giftCardCode, checkoutId: id) { $0
+                .userErrors { $0
+                    .field()
+                    .message()
+                }
+                .checkout { $0
+                    .fragmentForCheckout()
+                }
+            }
+        }
+    }
+    
+    // ----------------------------------
     //  MARK: - Checkout -
     //
     static func mutationForCreateCheckout(with cartItems: [CartItem]) -> Storefront.MutationQuery {

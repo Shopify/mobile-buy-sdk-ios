@@ -31,6 +31,10 @@ import PassKit
 //
 internal extension Decimal {
     
+    var negative: Decimal {
+        return self * -1.0
+    }
+    
     func summaryItemNamed(_ name: String) -> PKPaymentSummaryItem {
         return PKPaymentSummaryItem(label: name, amount: self)
     }

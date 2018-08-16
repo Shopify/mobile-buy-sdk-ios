@@ -48,6 +48,7 @@ final class CheckoutViewModel: ViewModel {
     let note:             String?
     let webURL:           URL
     
+    let giftCards:        [GiftCardViewModel]
     let lineItems:        [LineItemViewModel]
     let currencyCode:     String
     let subtotalPrice:    Decimal
@@ -71,6 +72,7 @@ final class CheckoutViewModel: ViewModel {
         self.note             = model.note
         self.webURL           = model.webUrl
         
+        self.giftCards        = model.appliedGiftCards.viewModels
         self.lineItems        = model.lineItems.edges.viewModels
         self.currencyCode     = model.currencyCode.rawValue
         self.subtotalPrice    = model.subtotalPrice

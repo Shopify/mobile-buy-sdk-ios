@@ -1,5 +1,5 @@
 //
-//  CheckoutCustomerAssociatePayload.swift
+//  CheckoutGiftCardsAppendPayload.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,12 +27,12 @@
 import Foundation
 
 extension Storefront {
-	open class CheckoutCustomerAssociatePayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
-		public typealias Response = CheckoutCustomerAssociatePayload
+	open class CheckoutGiftCardsAppendPayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = CheckoutGiftCardsAppendPayload
 
 		/// The updated checkout object. 
 		@discardableResult
-		open func checkout(alias: String? = nil, _ subfields: (CheckoutQuery) -> Void) -> CheckoutCustomerAssociatePayloadQuery {
+		open func checkout(alias: String? = nil, _ subfields: (CheckoutQuery) -> Void) -> CheckoutGiftCardsAppendPayloadQuery {
 			let subquery = CheckoutQuery()
 			subfields(subquery)
 
@@ -40,19 +40,9 @@ extension Storefront {
 			return self
 		}
 
-		/// The associated customer object. 
-		@discardableResult
-		open func customer(alias: String? = nil, _ subfields: (CustomerQuery) -> Void) -> CheckoutCustomerAssociatePayloadQuery {
-			let subquery = CustomerQuery()
-			subfields(subquery)
-
-			addField(field: "customer", aliasSuffix: alias, subfields: subquery)
-			return self
-		}
-
 		/// List of errors that occurred executing the mutation. 
 		@discardableResult
-		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CheckoutCustomerAssociatePayloadQuery {
+		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CheckoutGiftCardsAppendPayloadQuery {
 			let subquery = UserErrorQuery()
 			subfields(subquery)
 
@@ -61,52 +51,37 @@ extension Storefront {
 		}
 	}
 
-	open class CheckoutCustomerAssociatePayload: GraphQL.AbstractResponse, GraphQLObject {
-		public typealias Query = CheckoutCustomerAssociatePayloadQuery
+	open class CheckoutGiftCardsAppendPayload: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = CheckoutGiftCardsAppendPayloadQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
 				case "checkout":
+				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: CheckoutCustomerAssociatePayload.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CheckoutGiftCardsAppendPayload.self, field: fieldName, value: fieldValue)
 				}
 				return try Checkout(fields: value)
 
-				case "customer":
-				if value is NSNull { return nil }
-				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: CheckoutCustomerAssociatePayload.self, field: fieldName, value: fieldValue)
-				}
-				return try Customer(fields: value)
-
 				case "userErrors":
 				guard let value = value as? [[String: Any]] else {
-					throw SchemaViolationError(type: CheckoutCustomerAssociatePayload.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CheckoutGiftCardsAppendPayload.self, field: fieldName, value: fieldValue)
 				}
 				return try value.map { return try UserError(fields: $0) }
 
 				default:
-				throw SchemaViolationError(type: CheckoutCustomerAssociatePayload.self, field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: CheckoutGiftCardsAppendPayload.self, field: fieldName, value: fieldValue)
 			}
 		}
 
 		/// The updated checkout object. 
-		open var checkout: Storefront.Checkout {
+		open var checkout: Storefront.Checkout? {
 			return internalGetCheckout()
 		}
 
-		func internalGetCheckout(alias: String? = nil) -> Storefront.Checkout {
-			return field(field: "checkout", aliasSuffix: alias) as! Storefront.Checkout
-		}
-
-		/// The associated customer object. 
-		open var customer: Storefront.Customer? {
-			return internalGetCustomer()
-		}
-
-		func internalGetCustomer(alias: String? = nil) -> Storefront.Customer? {
-			return field(field: "customer", aliasSuffix: alias) as! Storefront.Customer?
+		func internalGetCheckout(alias: String? = nil) -> Storefront.Checkout? {
+			return field(field: "checkout", aliasSuffix: alias) as! Storefront.Checkout?
 		}
 
 		/// List of errors that occurred executing the mutation. 
@@ -123,11 +98,7 @@ extension Storefront {
 			objectMap.keys.forEach {
 				switch($0) {
 					case "checkout":
-					response.append(internalGetCheckout())
-					response.append(contentsOf: internalGetCheckout().childResponseObjectMap())
-
-					case "customer":
-					if let value = internalGetCustomer() {
+					if let value = internalGetCheckout() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
