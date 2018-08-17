@@ -1,22 +1,200 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="5HA-7N-vXJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5HA-7N-vXJ">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Customer Coordinator-->
+        <scene sceneID="L3n-53-vgO">
+            <objects>
+                <viewController storyboardIdentifier="CustomerCoordinator" useStoryboardIdentifierAsRestorationIdentifier="YES" id="95v-dm-qjx" customClass="CustomerCoordinator" customModule="Storefront" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="plc-sW-dCr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Ni4-Z2-jIf"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q7J-Vy-8Tm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1076" y="-1257"/>
+        </scene>
+        <!--Login-->
+        <scene sceneID="NVQ-Nb-Rjf">
+            <objects>
+                <viewController storyboardIdentifier="LoginViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5Xs-ss-CF5" customClass="LoginViewController" customModule="Storefront" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6cl-2u-O12">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ofp-jd-uzq">
+                                <rect key="frame" x="40" y="84" width="295" height="40"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SuO-3Z-lNA" customClass="SeparatorView" customModule="Storefront" customModuleProvider="target">
+                                        <rect key="frame" x="10" y="10" width="10" height="10"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="separatorPosition">
+                                                <integer key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kq3-xS-4ew">
+                                        <rect key="frame" x="0.0" y="0.0" width="295" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="HHX-Le-Cbz"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next" enablesReturnKeyAutomatically="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                        <connections>
+                                            <action selector="textFieldValueDidChangeWithTextField:" destination="5Xs-ss-CF5" eventType="editingChanged" id="WdS-Cd-zL9"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="kq3-xS-4ew" firstAttribute="leading" secondItem="Ofp-jd-uzq" secondAttribute="leading" id="2df-n2-I5G"/>
+                                    <constraint firstAttribute="bottom" secondItem="kq3-xS-4ew" secondAttribute="bottom" id="6R8-bf-OlS"/>
+                                    <constraint firstItem="kq3-xS-4ew" firstAttribute="top" secondItem="Ofp-jd-uzq" secondAttribute="top" id="FlC-fh-HcQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="kq3-xS-4ew" secondAttribute="trailing" id="aZc-Jb-X0z"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0MY-jJ-Z5Z">
+                                <rect key="frame" x="40" y="124" width="295" height="40"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dq5-2j-FEU">
+                                        <rect key="frame" x="0.0" y="0.0" width="295" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="zNl-ct-Ulw"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="continue" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                        <connections>
+                                            <action selector="textFieldValueDidChangeWithTextField:" destination="5Xs-ss-CF5" eventType="editingChanged" id="Qj2-Lo-kel"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Dq5-2j-FEU" secondAttribute="bottom" id="7Rl-uw-b2Q"/>
+                                    <constraint firstItem="Dq5-2j-FEU" firstAttribute="top" secondItem="0MY-jJ-Z5Z" secondAttribute="top" id="DvM-cg-YJG"/>
+                                    <constraint firstItem="Dq5-2j-FEU" firstAttribute="leading" secondItem="0MY-jJ-Z5Z" secondAttribute="leading" id="TTa-M3-c3l"/>
+                                    <constraint firstAttribute="trailing" secondItem="Dq5-2j-FEU" secondAttribute="trailing" id="go8-yb-qmI"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="acg-ZT-UIP" customClass="RoundedButton" customModule="Storefront" customModuleProvider="target">
+                                <rect key="frame" x="40" y="174" width="295" height="44"/>
+                                <color key="backgroundColor" red="0.35751083061884043" green="0.48840632277339202" blue="0.72474470440000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="iAc-lZ-JA1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Medium" family="Apple SD Gothic Neo" pointSize="18"/>
+                                <inset key="contentEdgeInsets" minX="20" minY="5" maxX="20" maxY="4"/>
+                                <state key="normal" title="Login">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="subtitle" value="Add to Cart"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="loginAction:" destination="5Xs-ss-CF5" eventType="touchUpInside" id="4HZ-50-p84"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="0MY-jJ-Z5Z" firstAttribute="leading" secondItem="kq3-xS-4ew" secondAttribute="leading" id="AaY-hH-QYz"/>
+                            <constraint firstItem="acg-ZT-UIP" firstAttribute="leading" secondItem="Dq5-2j-FEU" secondAttribute="leading" id="JTO-Jy-n42"/>
+                            <constraint firstItem="Ofp-jd-uzq" firstAttribute="leading" secondItem="6cl-2u-O12" secondAttribute="leading" constant="40" id="Wbo-cd-Lwa"/>
+                            <constraint firstItem="0MY-jJ-Z5Z" firstAttribute="top" secondItem="kq3-xS-4ew" secondAttribute="bottom" id="bdP-Md-2Sg"/>
+                            <constraint firstItem="acg-ZT-UIP" firstAttribute="trailing" secondItem="Dq5-2j-FEU" secondAttribute="trailing" id="cEL-7D-5Z4"/>
+                            <constraint firstItem="0MY-jJ-Z5Z" firstAttribute="trailing" secondItem="kq3-xS-4ew" secondAttribute="trailing" id="dG2-y6-DNc"/>
+                            <constraint firstAttribute="trailing" secondItem="Ofp-jd-uzq" secondAttribute="trailing" constant="40" id="kFo-Rq-xe6"/>
+                            <constraint firstItem="Ofp-jd-uzq" firstAttribute="top" secondItem="Hft-5a-cry" secondAttribute="top" constant="20" id="lJW-Tq-0sU"/>
+                            <constraint firstItem="acg-ZT-UIP" firstAttribute="top" secondItem="Dq5-2j-FEU" secondAttribute="bottom" constant="10" id="rZi-Js-n8U"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Hft-5a-cry"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Login" id="gBP-Vg-20u">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Mtp-eD-Sr8">
+                            <connections>
+                                <action selector="cancelAction:" destination="5Xs-ss-CF5" id="DXs-JJ-80W"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="loginButton" destination="acg-ZT-UIP" id="vSs-1W-qQj"/>
+                        <outlet property="passwordField" destination="Dq5-2j-FEU" id="u2R-nV-Ml8"/>
+                        <outlet property="usernameField" destination="kq3-xS-4ew" id="XlB-8o-lCw"/>
+                        <segue destination="qWH-0g-gKh" kind="show" id="3O4-kp-wLq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jF6-rb-fCT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1076" y="-551.87406296851577"/>
+        </scene>
+        <!--Orders-->
+        <scene sceneID="qrh-8v-yl6">
+            <objects>
+                <viewController storyboardIdentifier="OrdersViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qWH-0g-gKh" customClass="OrdersViewController" customModule="Storefront" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9bf-gu-yPA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="60" estimatedRowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2m3-Ad-kES" customClass="StorefrontTableView" customModule="Storefront" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="cellNibName" value="OrderCell"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="dataSource" destination="qWH-0g-gKh" id="f1N-0j-rRi"/>
+                                    <outlet property="delegate" destination="qWH-0g-gKh" id="toy-nD-3Tk"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="2m3-Ad-kES" firstAttribute="top" secondItem="9bf-gu-yPA" secondAttribute="top" id="EOX-qn-lK9"/>
+                            <constraint firstAttribute="trailing" secondItem="2m3-Ad-kES" secondAttribute="trailing" id="Zsu-5C-Y7l"/>
+                            <constraint firstItem="2m3-Ad-kES" firstAttribute="bottom" secondItem="9bf-gu-yPA" secondAttribute="bottom" id="cKf-mM-zNr"/>
+                            <constraint firstItem="2m3-Ad-kES" firstAttribute="leading" secondItem="9bf-gu-yPA" secondAttribute="leading" id="uQz-C2-gPf"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="S8Z-7b-jOb"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Orders" id="Xot-T1-D0u">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="OY6-wL-K1B">
+                            <connections>
+                                <action selector="cancelAction:" destination="qWH-0g-gKh" id="wU2-Sx-YaJ"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Logout" id="qKd-ad-JQM">
+                            <connections>
+                                <action selector="logoutAction:" destination="qWH-0g-gKh" id="9dH-Ik-fHe"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="2m3-Ad-kES" id="07S-RI-aEx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eD5-u5-Vwb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1773.5999999999999" y="-552.77361319340332"/>
+        </scene>
         <!--Collections-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="CollectionsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="CollectionsViewController" customModule="Storefront" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -36,12 +214,18 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="FJA-Xo-Ook" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="5eC-TZ-ObZ"/>
-                            <constraint firstAttribute="trailing" secondItem="FJA-Xo-Ook" secondAttribute="trailing" id="IfH-27-oI7"/>
-                            <constraint firstItem="FJA-Xo-Ook" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="JZC-9D-Myf"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="FJA-Xo-Ook" secondAttribute="bottom" id="fmZ-eY-4wD"/>
+                            <constraint firstItem="wI9-Ha-FJb" firstAttribute="trailing" secondItem="FJA-Xo-Ook" secondAttribute="trailing" id="IfH-27-oI7"/>
+                            <constraint firstItem="FJA-Xo-Ook" firstAttribute="leading" secondItem="wI9-Ha-FJb" secondAttribute="leading" id="JZC-9D-Myf"/>
+                            <constraint firstItem="wI9-Ha-FJb" firstAttribute="bottom" secondItem="FJA-Xo-Ook" secondAttribute="bottom" id="fmZ-eY-4wD"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="wI9-Ha-FJb"/>
                     </view>
                     <navigationItem key="navigationItem" title="Collections" id="9WP-3t-7If">
+                        <barButtonItem key="leftBarButtonItem" title="Account" id="0GW-gD-SPf">
+                            <connections>
+                                <action selector="accountAction:" destination="BYZ-38-t0r" id="rJX-bK-F66"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Cart" id="6n0-30-yb1" customClass="CartButton" customModule="Storefront" customModuleProvider="target">
                             <connections>
                                 <action selector="cartAction:" destination="BYZ-38-t0r" id="faZ-2U-0TL"/>
@@ -62,7 +246,7 @@
             <objects>
                 <navigationController storyboardIdentifier="CartNavigationController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YUF-MR-hUq" customClass="CartNavigationController" customModule="Storefront" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="7h5-ep-TYx">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -77,10 +261,6 @@
         <scene sceneID="UJ7-cb-swN">
             <objects>
                 <viewController storyboardIdentifier="CartViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="dau-ev-4t0" customClass="CartViewController" customModule="Storefront" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ra9-lp-C33"/>
-                        <viewControllerLayoutGuide type="bottom" id="6mD-WS-XEm"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="xXB-tE-Dtm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -104,6 +284,7 @@
                             </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="37d-3b-Jo8"/>
                     </view>
                     <navigationItem key="navigationItem" title="Cart" id="WM5-yl-c2M">
                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="6fS-by-e2w">
@@ -131,10 +312,6 @@
         <scene sceneID="vIO-P4-DiX">
             <objects>
                 <viewController storyboardIdentifier="ProductsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="AbI-Ns-2vc" customClass="ProductsViewController" customModule="Storefront" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="mlK-I5-tBJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="oTA-Tk-tHe"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="xKM-7h-oPY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -162,11 +339,12 @@
                         </subviews>
                         <color key="backgroundColor" white="0.97193080357142858" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="l3f-iD-z0W" secondAttribute="trailing" id="971-jO-5TT"/>
-                            <constraint firstItem="oTA-Tk-tHe" firstAttribute="top" secondItem="l3f-iD-z0W" secondAttribute="bottom" id="9Pu-yp-tHC"/>
-                            <constraint firstItem="l3f-iD-z0W" firstAttribute="leading" secondItem="xKM-7h-oPY" secondAttribute="leading" id="aFP-HO-uyh"/>
+                            <constraint firstItem="HAP-TG-e7K" firstAttribute="trailing" secondItem="l3f-iD-z0W" secondAttribute="trailing" id="971-jO-5TT"/>
+                            <constraint firstItem="HAP-TG-e7K" firstAttribute="bottom" secondItem="l3f-iD-z0W" secondAttribute="bottom" id="9Pu-yp-tHC"/>
+                            <constraint firstItem="l3f-iD-z0W" firstAttribute="leading" secondItem="HAP-TG-e7K" secondAttribute="leading" id="aFP-HO-uyh"/>
                             <constraint firstItem="l3f-iD-z0W" firstAttribute="top" secondItem="xKM-7h-oPY" secondAttribute="top" id="t6s-Aa-fox"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="HAP-TG-e7K"/>
                     </view>
                     <navigationItem key="navigationItem" title="Products" id="So2-vy-uwr">
                         <barButtonItem key="rightBarButtonItem" title="Cart" id="gJB-Hs-8wl" customClass="CartButton" customModule="Storefront" customModuleProvider="target">
@@ -182,16 +360,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nes-dj-osI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1784.8" y="138.98050974512745"/>
+            <point key="canvasLocation" x="2724" y="138.98050974512745"/>
         </scene>
         <!--Details-->
         <scene sceneID="Bqz-yI-NCp">
             <objects>
                 <viewController storyboardIdentifier="ProductDetailsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FDf-If-Fqx" customClass="ProductDetailsViewController" customModule="Storefront" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="9Lv-xa-MWy"/>
-                        <viewControllerLayoutGuide type="bottom" id="AwE-8o-yw3"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="xvB-Pf-jdl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -214,6 +388,7 @@
                             </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="5pQ-8E-H6W"/>
                     </view>
                     <navigationItem key="navigationItem" title="Details" id="06T-Eq-F9g">
                         <barButtonItem key="rightBarButtonItem" title="Cart" id="Wss-qW-p7O" customClass="CartButton" customModule="Storefront" customModuleProvider="target">
@@ -230,7 +405,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RC0-fd-D51" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2493.5999999999999" y="138.98050974512745"/>
+            <point key="canvasLocation" x="3432.8000000000002" y="138.98050974512745"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="22L-nZ-ej3">
@@ -238,7 +413,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5HA-7N-vXJ" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="5AZ-QU-kn7">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -254,28 +429,21 @@
         <scene sceneID="Mok-Ul-a0k">
             <objects>
                 <viewController id="YjN-Wq-G4f" customClass="ImageViewController" customModule="Storefront" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Mhz-pO-5Y1"/>
-                        <viewControllerLayoutGuide type="bottom" id="cxb-1W-g4T"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Xdf-pA-7Je">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="203"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="r4o-3R-0X0"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LK7-jW-ht3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3278" y="-71"/>
+            <point key="canvasLocation" x="4216.8000000000002" y="-71.514242878560722"/>
         </scene>
         <!--Totals View Controller-->
         <scene sceneID="RHL-KK-LA9">
             <objects>
                 <viewController storyboardIdentifier="TotalsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0rU-kT-Sds" customClass="TotalsViewController" customModule="Storefront" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="lG9-ag-zzz"/>
-                        <viewControllerLayoutGuide type="bottom" id="s04-dR-aXf"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="5Si-l6-BER">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="210"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -352,11 +520,12 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="sIG-Rh-ld5" firstAttribute="leading" secondItem="5Si-l6-BER" secondAttribute="leading" id="7VR-En-QsU"/>
+                            <constraint firstItem="sIG-Rh-ld5" firstAttribute="leading" secondItem="yla-Np-z6k" secondAttribute="leading" id="7VR-En-QsU"/>
                             <constraint firstItem="sIG-Rh-ld5" firstAttribute="top" secondItem="5Si-l6-BER" secondAttribute="top" id="FbK-JM-rvK"/>
-                            <constraint firstAttribute="trailing" secondItem="sIG-Rh-ld5" secondAttribute="trailing" id="fEh-LX-HUe"/>
+                            <constraint firstItem="yla-Np-z6k" firstAttribute="trailing" secondItem="sIG-Rh-ld5" secondAttribute="trailing" id="fEh-LX-HUe"/>
                             <constraint firstAttribute="bottom" secondItem="sIG-Rh-ld5" secondAttribute="bottom" id="z5L-U4-4Xd"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="yla-Np-z6k"/>
                     </view>
                     <connections>
                         <outlet property="buttonStackView" destination="wqv-hh-lYL" id="eQS-8X-jBn"/>
@@ -368,5 +537,24 @@
             </objects>
             <point key="canvasLocation" x="1861.5999999999999" y="612.59370314842579"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="pBj-Dd-IID">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="PVb-Me-kLG" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ce3-ef-qMO">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="5Xs-ss-CF5" kind="relationship" relationship="rootViewController" id="u71-XQ-vOz"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mgi-t7-sN2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="382" y="-551"/>
+        </scene>
     </scenes>
+    <color key="tintColor" red="0.3575108306" green="0.48840632280000001" blue="0.72474470440000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

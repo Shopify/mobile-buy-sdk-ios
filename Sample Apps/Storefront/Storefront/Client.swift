@@ -46,6 +46,72 @@ final class Client {
     }
     
     // ----------------------------------
+    //  MARK: - Customers -
+    //
+    @discardableResult
+    func login(email: String, password: String, completion: @escaping (String?) -> Void) -> Task {
+        
+        let mutation = ClientQuery.mutationForLogin(email: email, password: password)
+        let task     = self.client.mutateGraphWith(mutation) { (mutation, error) in
+            error.debugPrint()
+            
+            if let container = mutation?.customerAccessTokenCreate?.customerAccessToken {
+                completion(container.accessToken)
+            } else {
+                let errors = mutation?.customerAccessTokenCreate?.customerUserErrors ?? []
+                print("Failed to login customer: \(errors)")
+                completion(nil)
+            }
+        }
+        
+        task.resume()
+        return task
+    }
+    
+    @discardableResult
+    func logout(accessToken: String, completion: @escaping (Bool) -> Void) -> Task {
+        
+        let mutation = ClientQuery.mutationForLogout(accessToken: accessToken)
+        let task     = self.client.mutateGraphWith(mutation) { (mutation, error) in
+            error.debugPrint()
+            
+            if let deletedToken = mutation?.customerAccessTokenDelete?.deletedAccessToken {
+                completion(deletedToken == accessToken)
+            } else {
+                let errors = mutation?.customerAccessTokenDelete?.userErrors ?? []
+                print("Failed to logout customer: \(errors)")
+                completion(false)
+            }
+        }
+        
+        task.resume()
+        return task
+    }
+    
+    @discardableResult
+    func fetchOrders(limit: Int = 25, after cursor: String? = nil, accessToken: String, completion: @escaping (PageableArray<OrderViewModel>?) -> Void) -> Task {
+        
+        let query = ClientQuery.queryForOrders(limit: limit, after: cursor, accessToken: accessToken)
+        let task  = self.client.queryGraphWith(query) { (query, error) in
+            error.debugPrint()
+            
+            if let customer = query?.customer {
+                let collections = PageableArray(
+                    with:     customer.orders.edges,
+                    pageInfo: customer.orders.pageInfo
+                )
+                completion(collections)
+            } else {
+                print("Failed to load orders: \(String(describing: error))")
+                completion(nil)
+            }
+        }
+        
+        task.resume()
+        return task
+    }
+    
+    // ----------------------------------
     //  MARK: - Shop -
     //
     @discardableResult

@@ -33,6 +33,48 @@ final class ClientQuery {
     static let maxImageDimension = Int32(UIScreen.main.bounds.width)
     
     // ----------------------------------
+    //  MARK: - Customers -
+    //
+    static func mutationForLogin(email: String, password: String) -> Storefront.MutationQuery {
+        let input = Storefront.CustomerAccessTokenCreateInput(email: email, password: password)
+        return Storefront.buildMutation { $0
+            .customerAccessTokenCreate(input: input) { $0
+                .customerAccessToken { $0
+                    .accessToken()
+                    .expiresAt()
+                }
+                .customerUserErrors { $0
+                    .code()
+                    .field()
+                    .message()
+                }
+            }
+        }
+    }
+    
+    static func mutationForLogout(accessToken: String) -> Storefront.MutationQuery {
+        return Storefront.buildMutation { $0
+            .customerAccessTokenDelete(customerAccessToken: accessToken) { $0
+                .deletedAccessToken()
+                .userErrors { $0
+                    .field()
+                    .message()
+                }
+            }
+        }
+    }
+    
+    static func queryForOrders(limit: Int, after cursor: String? = nil, accessToken: String) -> Storefront.QueryRootQuery {
+        return Storefront.buildQuery { $0
+            .customer(customerAccessToken: accessToken) { $0
+                .orders(first: Int32(limit), after: cursor) { $0
+                    .fragmentForStandardOrder()
+                }
+            }
+        }
+    }
+    
+    // ----------------------------------
     //  MARK: - Shop -
     //
     static func queryForShopName() -> Storefront.QueryRootQuery {

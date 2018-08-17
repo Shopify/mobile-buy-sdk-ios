@@ -40,13 +40,7 @@ class CollectionsViewController: UIViewController {
         super.viewDidLoad()
         
         self.configureTableView()
-        
-        Client.shared.fetchCollections { collections in
-            if let collections = collections {
-                self.collections = collections
-                self.tableView.reloadData()
-            }
-        }
+        self.fetchCollections()
     }
     
     private func configureTableView() {
@@ -90,7 +84,12 @@ class CollectionsViewController: UIViewController {
 //
 extension CollectionsViewController {
     
-    @IBAction func cartAction(_ sender: Any) {
+    @IBAction private func accountAction(_ sender: UIBarButtonItem) {
+        let coordinator: CustomerCoordinator = self.storyboard!.instantiateViewController()
+        self.present(coordinator, animated: true, completion: nil)
+    }
+    
+    @IBAction private func cartAction(_ sender: Any) {
         let cartController: CartNavigationController = self.storyboard!.instantiateViewController()
         self.navigationController!.present(cartController, animated: true, completion: nil)
     }
