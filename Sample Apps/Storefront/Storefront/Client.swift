@@ -89,20 +89,21 @@ final class Client {
     }
     
     @discardableResult
-    func fetchOrders(limit: Int = 25, after cursor: String? = nil, accessToken: String, completion: @escaping (PageableArray<OrderViewModel>?) -> Void) -> Task {
+    func fetchCustomerAndOrders(limit: Int = 25, after cursor: String? = nil, accessToken: String, completion: @escaping ((customer: CustomerViewModel, orders: PageableArray<OrderViewModel>)?) -> Void) -> Task {
         
-        let query = ClientQuery.queryForOrders(limit: limit, after: cursor, accessToken: accessToken)
+        let query = ClientQuery.queryForCustomer(limit: limit, after: cursor, accessToken: accessToken)
         let task  = self.client.queryGraphWith(query) { (query, error) in
             error.debugPrint()
             
             if let customer = query?.customer {
+                let viewModel   = customer.viewModel
                 let collections = PageableArray(
                     with:     customer.orders.edges,
                     pageInfo: customer.orders.pageInfo
                 )
-                completion(collections)
+                completion((viewModel, collections))
             } else {
-                print("Failed to load orders: \(String(describing: error))")
+                print("Failed to load customer and orders: \(String(describing: error))")
                 completion(nil)
             }
         }

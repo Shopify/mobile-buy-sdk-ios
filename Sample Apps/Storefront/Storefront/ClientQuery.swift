@@ -64,9 +64,16 @@ final class ClientQuery {
         }
     }
     
-    static func queryForOrders(limit: Int, after cursor: String? = nil, accessToken: String) -> Storefront.QueryRootQuery {
+    static func queryForCustomer(limit: Int, after cursor: String? = nil, accessToken: String) -> Storefront.QueryRootQuery {
         return Storefront.buildQuery { $0
             .customer(customerAccessToken: accessToken) { $0
+                .id()
+                .displayName()
+                .email()
+                .firstName()
+                .lastName()
+                .phone()
+                .updatedAt()
                 .orders(first: Int32(limit), after: cursor) { $0
                     .fragmentForStandardOrder()
                 }

@@ -50,9 +50,9 @@ class CustomerCoordinator: UIViewController {
     }
     
     private func showOrders(animated: Bool) {
-        let ordersController: OrdersViewController = self.storyboard!.instantiateViewController()
-        ordersController.delegate = self
-        self.hostController.setViewControllers([ordersController], animated: animated)
+        let customerController: CustomerViewController = self.storyboard!.instantiateViewController()
+        customerController.delegate = self
+        self.hostController.setViewControllers([customerController], animated: animated)
     }
     
     private func showLogin(animated: Bool) {
@@ -63,14 +63,14 @@ class CustomerCoordinator: UIViewController {
 }
 
 // ----------------------------------
-//  MARK: - OrdersControllerDelegate -
+//  MARK: - CustomerControllerDelegate -
 //
-extension CustomerCoordinator: OrdersControllerDelegate {
-    func ordersControllerDidCancel(_ ordersController: OrdersViewController) {
+extension CustomerCoordinator: CustomerControllerDelegate {
+    func customerControllerDidCancel(_ customerController: CustomerViewController) {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func ordersControllerDidLogout(_ ordersController: OrdersViewController) {
+    func customerControllerDidLogout(_ customerController: CustomerViewController) {
         guard let accessToken = AccountController.shared.accessToken else {
             return
         }
