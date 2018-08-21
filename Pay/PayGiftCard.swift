@@ -1,6 +1,6 @@
 //
-//  AddressViewModel.swift
-//  Storefront
+//  PayGiftCard.swift
+//  Pay
 //
 //  Created by Shopify.
 //  Copyright (c) 2017 Shopify Inc. All rights reserved.
@@ -25,46 +25,30 @@
 //
 
 import Foundation
-import Buy
 
-final class AddressViewModel: ViewModel {
+/// Represents a gift card to be applied to the checkout.
+///
+public struct PayGiftCard {
     
-    typealias ModelType = Storefront.MailingAddress
+    /// Globally unique identifier.
+    public let id: String
     
-    let model:  ModelType
+    /// The amount left on the Gift Card.
+    public let balance: Decimal
     
-    let firstName:   String?
-    let lastName:    String?
-    let phone:       String?
+    /// The amount that was used taken from the Gift Card by applying it.
+    public let amount: Decimal
     
-    let address1:    String?
-    let address2:    String?
-    let city:        String?
-    let country:     String?
-    let countryCode: String?
-    let province:    String?
-    let zip:         String?
+    /// The last characters of the Gift Card code
+    public let lastCharacters: String
     
     // ----------------------------------
     //  MARK: - Init -
     //
-    required init(from model: ModelType) {
-        self.model       = model
-        
-        self.firstName   = model.firstName
-        self.lastName    = model.lastName
-        self.phone       = model.phone
-        
-        self.address1    = model.address1
-        self.address2    = model.address2
-        self.city        = model.city
-        self.country     = model.country
-        self.countryCode = model.countryCodeV2?.rawValue
-        self.province    = model.province
-        self.zip         = model.zip
+    public init(id: String, balance: Decimal, amount: Decimal, lastCharacters: String) {
+        self.id             = id
+        self.balance        = balance
+        self.amount         = amount
+        self.lastCharacters = lastCharacters
     }
-}
-
-extension Storefront.MailingAddress: ViewModeling {
-    typealias ViewModelType = AddressViewModel
 }

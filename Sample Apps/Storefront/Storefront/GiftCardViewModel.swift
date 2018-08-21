@@ -1,5 +1,5 @@
 //
-//  AddressViewModel.swift
+//  GiftCardViewModel.swift
 //  Storefront
 //
 //  Created by Shopify.
@@ -27,44 +27,30 @@
 import Foundation
 import Buy
 
-final class AddressViewModel: ViewModel {
+final class GiftCardViewModel: ViewModel {
     
-    typealias ModelType = Storefront.MailingAddress
+    typealias ModelType = Storefront.AppliedGiftCard
     
     let model:  ModelType
     
-    let firstName:   String?
-    let lastName:    String?
-    let phone:       String?
-    
-    let address1:    String?
-    let address2:    String?
-    let city:        String?
-    let country:     String?
-    let countryCode: String?
-    let province:    String?
-    let zip:         String?
+    let id:             String
+    let balance:        Decimal
+    let amountUsed:     Decimal
+    let lastCharacters: String
     
     // ----------------------------------
     //  MARK: - Init -
     //
     required init(from model: ModelType) {
-        self.model       = model
+        self.model            = model
         
-        self.firstName   = model.firstName
-        self.lastName    = model.lastName
-        self.phone       = model.phone
-        
-        self.address1    = model.address1
-        self.address2    = model.address2
-        self.city        = model.city
-        self.country     = model.country
-        self.countryCode = model.countryCodeV2?.rawValue
-        self.province    = model.province
-        self.zip         = model.zip
+        self.id             = model.id.rawValue
+        self.balance        = model.balance
+        self.amountUsed     = model.amountUsed
+        self.lastCharacters = model.lastCharacters
     }
 }
 
-extension Storefront.MailingAddress: ViewModeling {
-    typealias ViewModelType = AddressViewModel
+extension Storefront.AppliedGiftCard: ViewModeling {
+    typealias ViewModelType = GiftCardViewModel
 }

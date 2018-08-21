@@ -119,23 +119,13 @@ class CartViewController: ParallaxViewController {
     
     func authorizePaymentFor(_ shopName: String, in checkout: CheckoutViewModel) {
         let payCurrency = PayCurrency(currencyCode: "CAD", countryCode: "CA")
-        let payItems    = checkout.lineItems.map { item in
-            PayLineItem(price: item.individualPrice, quantity: item.quantity)
-        }
-        
-        let payCheckout = PayCheckout(
-            id:              checkout.id,
-            lineItems:       payItems,
-            discount:        nil,
-            shippingAddress: nil,
-            shippingRate:    nil,
-            subtotalPrice:   checkout.subtotalPrice,
-            needsShipping:   checkout.requiresShipping,
-            totalTax:        checkout.totalTax,
-            paymentDue:      checkout.paymentDue
+        let paySession  = PaySession(
+            shopName: shopName,
+            checkout: checkout.payCheckout,
+            currency: payCurrency,
+            merchantID: Client.merchantID
         )
         
-        let paySession      = PaySession(shopName: shopName, checkout: payCheckout, currency: payCurrency, merchantID: Client.merchantID)
         paySession.delegate = self
         self.paySession     = paySession
         
@@ -145,23 +135,32 @@ class CartViewController: ParallaxViewController {
     // ----------------------------------
     //  MARK: - Discount Codes -
     //
-    func promptForDiscountCode(completion: @escaping (String?) -> Void) {
-        let alert = UIAlertController(title: "Do you have a discount code?", message: "Any valid discount code can be applied to your checkout.", preferredStyle: .alert)
+    func promptForCodes(completion: @escaping ((discountCode: String?, giftCard: String?)) -> Void) {
+        let alert = UIAlertController(title: "Do you have a discount code of gift cards?", message: "Any valid discount code or gift card can be applied to your checkout.", preferredStyle: .alert)
+        
         alert.addTextField { textField in
             textField.attributedPlaceholder = NSAttributedString(string: "Discount code")
         }
         
-        alert.addAction(UIAlertAction(title: "No", style: .default, handler: { action in
-            completion(nil)
-        }))
+        alert.addTextField { textField in
+            textField.attributedPlaceholder = NSAttributedString(string: "Gift card code")
+        }
         
-        alert.addAction(UIAlertAction(title: "Yes, apply code", style: .cancel, handler: { [unowned alert] action in
-            let code = alert.textFields!.first!.text?.trimmingCharacters(in: .whitespacesAndNewlines)
-            if let code = code, code.count > 0 {
-                completion(code)
-            } else {
-                completion(nil)
+        alert.addAction(UIAlertAction(title: "Continue", style: .cancel, handler: { [unowned alert] action in
+            let textFields = alert.textFields!
+            
+            var discountCode = textFields[0].text?.trimmingCharacters(in: .whitespacesAndNewlines)
+            var giftCardCode = textFields[1].text?.trimmingCharacters(in: .whitespacesAndNewlines)
+            
+            if let code = discountCode, code.isEmpty {
+                discountCode = nil
             }
+            
+            if let code = giftCardCode, code.isEmpty {
+                giftCardCode = nil
+            }
+            
+            completion((discountCode: discountCode, giftCard: giftCardCode))
         }))
         
         self.present(alert, animated: true, completion: nil)
@@ -222,19 +221,51 @@ extension CartViewController: TotalsControllerDelegate {
              ** discount in the graphql.myshopify.com
              ** store (the test shop).
              */
-            self.promptForDiscountCode { discountCode in
+            self.promptForCodes { (discountCode, giftCard) in
+                var updatedCheckout = checkout
+                
+                let queue     = DispatchQueue.global(qos: .userInitiated)
+                let group     = DispatchGroup()
+                let semaphore = DispatchSemaphore(value: 1)
+                
                 if let discountCode = discountCode {
-                    
-                    Client.shared.applyDiscount(discountCode, to: checkout.id) { checkout in
-                        if let checkout = checkout {
-                            completeCreateCheckout(checkout)
-                        } else {
-                            print("Failed to apply discount to checkout")
+                    group.enter()
+                    queue.async {
+                        semaphore.wait()
+                        
+                        print("Applying discount code: \(discountCode)")
+                        Client.shared.applyDiscount(discountCode, to: checkout.id) { checkout in
+                            if let checkout = checkout {
+                                updatedCheckout = checkout
+                            } else {
+                                print("Failed to apply discount to checkout")
+                            }
+                            semaphore.signal()
+                            group.leave()
                         }
                     }
-                    
-                } else {
-                    completeCreateCheckout(checkout)
+                }
+                
+                if let giftCard = giftCard {
+                    group.enter()
+                    queue.async {
+                        semaphore.wait()
+                        
+                        print("Applying gift card: \(giftCard)")
+                        Client.shared.applyGiftCard(giftCard, to: checkout.id) { checkout in
+                            if let checkout = checkout {
+                                updatedCheckout = checkout
+                            } else {
+                                print("Failed to apply gift card to checkout")
+                            }
+                            semaphore.signal()
+                            group.leave()
+                        }
+                    }
+                }
+                
+                group.notify(queue: .main) {
+                    completeCreateCheckout(updatedCheckout)
                 }
             }
         }

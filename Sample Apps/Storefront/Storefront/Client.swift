@@ -139,6 +139,22 @@ final class Client {
     }
     
     // ----------------------------------
+    //  MARK: - Gift Cards -
+    //
+    @discardableResult
+    func applyGiftCard(_ giftCardCode: String, to checkoutID: String, completion: @escaping (CheckoutViewModel?) -> Void) -> Task {
+        let mutation = ClientQuery.mutationForApplyingGiftCard(giftCardCode, to: checkoutID)
+        let task     = self.client.mutateGraphWith(mutation) { response, error in
+            error.debugPrint()
+            
+            completion(response?.checkoutGiftCardApply?.checkout.viewModel)
+        }
+        
+        task.resume()
+        return task
+    }
+    
+    // ----------------------------------
     //  MARK: - Checkout -
     //
     @discardableResult
@@ -240,7 +256,7 @@ final class Client {
         }
         
         let query = ClientQuery.queryShippingRatesForCheckout(id)
-        let task  = self.client.queryGraphWith(query, retryHandler: retry) { response, error in
+        let task  = self.client.queryGraphWith(query, cachePolicy: .networkOnly, retryHandler: retry) { response, error in
             error.debugPrint()
             
             if let response = response,

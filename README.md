@@ -1,6 +1,6 @@
 ﻿![Mobile Buy SDK](https://cloud.githubusercontent.com/assets/5244861/26374751/6895a582-3fd4-11e7-80c4-2c1632262d66.png)
 
-[![CircleCI](https://circleci.com/gh/Shopify/mobile-buy-sdk-ios.svg?style=shield)](https://circleci.com/gh/Shopify/mobile-buy-sdk-ios)
+[![Travis](https://travis-ci.org/Shopify/mobile-buy-sdk-ios.svg?style=shield)](https://travis-ci.org/Shopify/mobile-buy-sdk-ios)
 [![GitHub release](https://img.shields.io/github/release/shopify/mobile-buy-sdk-ios.svg?style=flat)](https://github.com/Shopify/mobile-buy-sdk-ios/releases/latest)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)](https://github.com/Shopify/mobile-buy-sdk-ios/blob/master/LICENSE)
@@ -58,6 +58,7 @@ The Mobile Buy SDK makes it easy to create custom storefronts in your mobile app
       - [Creating a checkout](#checkout-)
       - [Updating a checkout](#updating-a-checkout-)
       - [Polling for shipping rates](#polling-for-shipping-rates-)
+      - [Updating shipping line](#updating-shipping-line-)
       - [Completing a checkout](#completing-a-checkout-)
           - [Web](#web-checkout-)
           - [Credit card](#credit-card-checkout-)
@@ -1061,7 +1062,11 @@ Since we'll need to update the checkout with additional information later, all w
 
 #### Updating a checkout [⤴](#table-of-contents)
 
-A customer's information might not be available when a checkout is created. The Buy SDK provides mutations for updating the specific checkout fields that are required for completion: the `email` and `shippingAddress` fields.
+A customer's information might not be available when a checkout is created. The Buy SDK provides mutations for updating the specific checkout fields that are required for completion: the `email`, `shippingAddress` and  `shippingLine` fields.
+
+Note that if your checkout contains a line item that requires shipping, you must provide a shipping address and a shipping line as part of your checkout. 
+
+To obtain the handle required for updating a shipping line, you must first poll for shipping rates.
 
 ###### Updating email [⤴](#table-of-contents)
 
@@ -1096,7 +1101,7 @@ let mutation = Storefront.buildMutation { $0
 }
 ```
 
-#### Polling for shipping rates [⤴](#table-of-contents)
+##### Polling for shipping rates [⤴](#table-of-contents)
 
 Available shipping rates are specific to a checkout since the cost to ship items depends on the quantity, weight, and other attributes of the items in the checkout. Shipping rates also require a checkout to have a valid `shippingAddress`, which can be updated using steps found in [updating a checkout](#updating-a-checkout-). Available shipping rates are a field on `Storefront.Checkout`, so given a `checkoutID` (that we kept a reference to earlier) we can query for shipping rates:
 
@@ -1133,6 +1138,22 @@ task.resume()
 ```
 
 The completion will be called only if `availableShippingRates.ready == true` or the retry count reaches 10. Although you can specify `.infinite` for the retry handler's `endurance` property, we highly recommend you set a finite limit.
+
+##### Updating shipping line [⤴](#table-of-contents)
+
+```swift
+let mutation = Storefront.buildMutation { $0
+    .checkoutShippingLineUpdate(checkoutId: id, shippingRateHandle: shippingRate.handle) { $0
+        .checkout { $0
+            .id()
+        }
+        .userErrors { $0
+            .field()
+            .message()
+        }
+    }
+}
+```
 
 #### Completing a checkout [⤴](#table-of-contents)
 

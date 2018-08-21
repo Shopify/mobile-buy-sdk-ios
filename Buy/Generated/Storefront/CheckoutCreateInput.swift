@@ -58,7 +58,7 @@ extension Storefront {
 		///     - shippingAddress: The shipping address to where the line items will be shipped.
 		///     - note: The text of an optional note that a shop owner can attach to the checkout.
 		///     - customAttributes: A list of extra information that is added to the checkout.
-		///     - allowPartialAddresses: Allows setting partial addresses on a Checkout, skipping the full validation of attributes. The required attributes are city, province, and country. Full validation of addresses is still done at complete time.
+		///     - allowPartialAddresses: Allows setting partial addresses on a Checkout, skipping the full validation of attributes. The required attributes are city, province, and country. Full validation of addresses is still done at complete time. 
 		///
 		public static func create(email: Input<String> = .undefined, lineItems: Input<[CheckoutLineItemInput]> = .undefined, shippingAddress: Input<MailingAddressInput> = .undefined, note: Input<String> = .undefined, customAttributes: Input<[AttributeInput]> = .undefined, allowPartialAddresses: Input<Bool> = .undefined) -> CheckoutCreateInput {
 			return CheckoutCreateInput(email: email, lineItems: lineItems, shippingAddress: shippingAddress, note: note, customAttributes: customAttributes, allowPartialAddresses: allowPartialAddresses)
@@ -81,7 +81,7 @@ extension Storefront {
 		///     - shippingAddress: The shipping address to where the line items will be shipped.
 		///     - note: The text of an optional note that a shop owner can attach to the checkout.
 		///     - customAttributes: A list of extra information that is added to the checkout.
-		///     - allowPartialAddresses: Allows setting partial addresses on a Checkout, skipping the full validation of attributes. The required attributes are city, province, and country. Full validation of addresses is still done at complete time.
+		///     - allowPartialAddresses: Allows setting partial addresses on a Checkout, skipping the full validation of attributes. The required attributes are city, province, and country. Full validation of addresses is still done at complete time. 
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
 		public convenience init(email: String? = nil, lineItems: [CheckoutLineItemInput]? = nil, shippingAddress: MailingAddressInput? = nil, note: String? = nil, customAttributes: [AttributeInput]? = nil, allowPartialAddresses: Bool? = nil) {
