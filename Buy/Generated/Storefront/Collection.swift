@@ -230,7 +230,8 @@ extension Storefront {
 				return GraphQL.iso8601DateParser.date(from: value)!
 
 				default:
-				throw SchemaViolationError(type: Collection.self, field: fieldName, value: fieldValue)
+                return value
+//                throw SchemaViolationError(type: Collection.self, field: fieldName, value: fieldValue)
 			}
 		}
 
