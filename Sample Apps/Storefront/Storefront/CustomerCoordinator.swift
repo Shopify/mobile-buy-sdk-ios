@@ -36,11 +36,11 @@ class CustomerCoordinator: UIViewController {
     override func loadView() {
         super.loadView()
         
-        self.addChildViewController(self.hostController)
+        self.addChild(self.hostController)
         self.view.addSubview(self.hostController.view)
         self.hostController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.hostController.view.frame = self.view.bounds
-        self.hostController.didMove(toParentViewController: self)
+        self.hostController.didMove(toParent: self)
         
         if let _ = AccountController.shared.accessToken {
             self.showOrders(animated: false)

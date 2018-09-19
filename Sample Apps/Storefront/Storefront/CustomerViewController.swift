@@ -51,7 +51,7 @@ class CustomerViewController: ParallaxViewController {
         
         switch segue.identifier! {
         case "ProfileViewController":
-            self.profileViewController = segue.destination as! ProfileViewController
+            self.profileViewController = (segue.destination as! ProfileViewController)
         default:
             break
         }
