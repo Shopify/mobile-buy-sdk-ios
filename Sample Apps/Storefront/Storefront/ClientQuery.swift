@@ -159,7 +159,7 @@ final class ClientQuery {
     static func mutationForApplyingGiftCard(_ giftCardCode: String, to checkoutID: String) -> Storefront.MutationQuery {
         let id = GraphQL.ID(rawValue: checkoutID)
         return Storefront.buildMutation { $0
-            .checkoutGiftCardApply(giftCardCode: giftCardCode, checkoutId: id) { $0
+            .checkoutGiftCardsAppend(giftCardCodes: [giftCardCode], checkoutId: id) { $0
                 .userErrors { $0
                     .field()
                     .message()
