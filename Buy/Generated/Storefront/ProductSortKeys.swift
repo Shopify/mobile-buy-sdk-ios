@@ -29,10 +29,13 @@ import Foundation
 extension Storefront {
 	/// The set of valid sort keys for the products query. 
 	public enum ProductSortKeys: String {
+		/// Sort by the `created_at` value. 
 		case createdAt = "CREATED_AT"
 
+		/// Sort by the `id` value. 
 		case id = "ID"
 
+		/// Sort by the `product_type` value. 
 		case productType = "PRODUCT_TYPE"
 
 		/// During a search (i.e. when the `query` parameter has been specified on the 
@@ -41,10 +44,13 @@ extension Storefront {
 		/// not be used. 
 		case relevance = "RELEVANCE"
 
+		/// Sort by the `title` value. 
 		case title = "TITLE"
 
+		/// Sort by the `updated_at` value. 
 		case updatedAt = "UPDATED_AT"
 
+		/// Sort by the `vendor` value. 
 		case vendor = "VENDOR"
 
 		case unknownValue = ""

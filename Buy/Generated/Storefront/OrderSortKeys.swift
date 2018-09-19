@@ -29,8 +29,10 @@ import Foundation
 extension Storefront {
 	/// The set of valid sort keys for the orders query. 
 	public enum OrderSortKeys: String {
+		/// Sort by the `id` value. 
 		case id = "ID"
 
+		/// Sort by the `processed_at` value. 
 		case processedAt = "PROCESSED_AT"
 
 		/// During a search (i.e. when the `query` parameter has been specified on the 
@@ -39,6 +41,7 @@ extension Storefront {
 		/// not be used. 
 		case relevance = "RELEVANCE"
 
+		/// Sort by the `total_price` value. 
 		case totalPrice = "TOTAL_PRICE"
 
 		case unknownValue = ""

@@ -29,8 +29,10 @@ import Foundation
 extension Storefront {
 	/// The set of valid sort keys for the variants query. 
 	public enum ProductVariantSortKeys: String {
+		/// Sort by the `id` value. 
 		case id = "ID"
 
+		/// Sort by the `position` value. 
 		case position = "POSITION"
 
 		/// During a search (i.e. when the `query` parameter has been specified on the 
@@ -39,8 +41,10 @@ extension Storefront {
 		/// not be used. 
 		case relevance = "RELEVANCE"
 
+		/// Sort by the `sku` value. 
 		case sku = "SKU"
 
+		/// Sort by the `title` value. 
 		case title = "TITLE"
 
 		case unknownValue = ""

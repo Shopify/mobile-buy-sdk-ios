@@ -32,14 +32,14 @@ extension Storefront {
 		/// The activation token required to activate the customer. 
 		open var activationToken: String
 
-		/// The login password used by the customer. 
+		/// New password that will be set during activation. 
 		open var password: String
 
 		/// Creates the input object.
 		///
 		/// - parameters:
 		///     - activationToken: The activation token required to activate the customer.
-		///     - password: The login password used by the customer.
+		///     - password: New password that will be set during activation.
 		///
 		public static func create(activationToken: String, password: String) -> CustomerActivateInput {
 			return CustomerActivateInput(activationToken: activationToken, password: password)
@@ -49,7 +49,7 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - activationToken: The activation token required to activate the customer.
-		///     - password: The login password used by the customer.
+		///     - password: New password that will be set during activation.
 		///
 		public init(activationToken: String, password: String) {
 			self.activationToken = activationToken

@@ -29,424 +29,424 @@ import Foundation
 extension Storefront {
 	/// Currency codes 
 	public enum CurrencyCode: String {
-		/// United Arab Emirates Dirham (AED) 
+		/// United Arab Emirates Dirham (AED). 
 		case aed = "AED"
 
-		/// Afghan Afghani (AFN) 
+		/// Afghan Afghani (AFN). 
 		case afn = "AFN"
 
-		/// Albanian Lek (ALL) 
+		/// Albanian Lek (ALL). 
 		case all = "ALL"
 
-		/// Armenian Dram (AMD) 
+		/// Armenian Dram (AMD). 
 		case amd = "AMD"
 
-		/// Netherlands Antillean Guilder 
+		/// Netherlands Antillean Guilder. 
 		case ang = "ANG"
 
-		/// Angolan Kwanza (AOA) 
+		/// Angolan Kwanza (AOA). 
 		case aoa = "AOA"
 
-		/// Argentine Pesos (ARS) 
+		/// Argentine Pesos (ARS). 
 		case ars = "ARS"
 
-		/// Australian Dollars (AUD) 
+		/// Australian Dollars (AUD). 
 		case aud = "AUD"
 
-		/// Aruban Florin (AWG) 
+		/// Aruban Florin (AWG). 
 		case awg = "AWG"
 
-		/// Azerbaijani Manat (AZN) 
+		/// Azerbaijani Manat (AZN). 
 		case azn = "AZN"
 
-		/// Bosnia and Herzegovina Convertible Mark (BAM) 
+		/// Bosnia and Herzegovina Convertible Mark (BAM). 
 		case bam = "BAM"
 
-		/// Barbadian Dollar (BBD) 
+		/// Barbadian Dollar (BBD). 
 		case bbd = "BBD"
 
-		/// Bangladesh Taka (BDT) 
+		/// Bangladesh Taka (BDT). 
 		case bdt = "BDT"
 
-		/// Bulgarian Lev (BGN) 
+		/// Bulgarian Lev (BGN). 
 		case bgn = "BGN"
 
-		/// Bahraini Dinar (BHD) 
+		/// Bahraini Dinar (BHD). 
 		case bhd = "BHD"
 
-		/// Burundian Franc (BIF) 
+		/// Burundian Franc (BIF). 
 		case bif = "BIF"
 
-		/// Brunei Dollar (BND) 
+		/// Brunei Dollar (BND). 
 		case bnd = "BND"
 
-		/// Bolivian Boliviano (BOB) 
+		/// Bolivian Boliviano (BOB). 
 		case bob = "BOB"
 
-		/// Brazilian Real (BRL) 
+		/// Brazilian Real (BRL). 
 		case brl = "BRL"
 
-		/// Bahamian Dollar (BSD) 
+		/// Bahamian Dollar (BSD). 
 		case bsd = "BSD"
 
-		/// Bhutanese Ngultrum (BTN) 
+		/// Bhutanese Ngultrum (BTN). 
 		case btn = "BTN"
 
-		/// Botswana Pula (BWP) 
+		/// Botswana Pula (BWP). 
 		case bwp = "BWP"
 
-		/// Belarusian Ruble (BYR) 
+		/// Belarusian Ruble (BYR). 
 		case byr = "BYR"
 
-		/// Belize Dollar (BZD) 
+		/// Belize Dollar (BZD). 
 		case bzd = "BZD"
 
-		/// Canadian Dollars (CAD) 
+		/// Canadian Dollars (CAD). 
 		case cad = "CAD"
 
-		/// Congolese franc (CDF) 
+		/// Congolese franc (CDF). 
 		case cdf = "CDF"
 
-		/// Swiss Francs (CHF) 
+		/// Swiss Francs (CHF). 
 		case chf = "CHF"
 
-		/// Chilean Peso (CLP) 
+		/// Chilean Peso (CLP). 
 		case clp = "CLP"
 
-		/// Chinese Yuan Renminbi (CNY) 
+		/// Chinese Yuan Renminbi (CNY). 
 		case cny = "CNY"
 
-		/// Colombian Peso (COP) 
+		/// Colombian Peso (COP). 
 		case cop = "COP"
 
-		/// Costa Rican Colones (CRC) 
+		/// Costa Rican Colones (CRC). 
 		case crc = "CRC"
 
-		/// Cape Verdean escudo (CVE) 
+		/// Cape Verdean escudo (CVE). 
 		case cve = "CVE"
 
-		/// Czech Koruny (CZK) 
+		/// Czech Koruny (CZK). 
 		case czk = "CZK"
 
-		/// Danish Kroner (DKK) 
+		/// Danish Kroner (DKK). 
 		case dkk = "DKK"
 
-		/// Dominican Peso (DOP) 
+		/// Dominican Peso (DOP). 
 		case dop = "DOP"
 
-		/// Algerian Dinar (DZD) 
+		/// Algerian Dinar (DZD). 
 		case dzd = "DZD"
 
-		/// Egyptian Pound (EGP) 
+		/// Egyptian Pound (EGP). 
 		case egp = "EGP"
 
-		/// Ethiopian Birr (ETB) 
+		/// Ethiopian Birr (ETB). 
 		case etb = "ETB"
 
-		/// Euro (EUR) 
+		/// Euro (EUR). 
 		case eur = "EUR"
 
-		/// Fijian Dollars (FJD) 
+		/// Fijian Dollars (FJD). 
 		case fjd = "FJD"
 
-		/// United Kingdom Pounds (GBP) 
+		/// United Kingdom Pounds (GBP). 
 		case gbp = "GBP"
 
-		/// Georgian Lari (GEL) 
+		/// Georgian Lari (GEL). 
 		case gel = "GEL"
 
-		/// Ghanaian Cedi (GHS) 
+		/// Ghanaian Cedi (GHS). 
 		case ghs = "GHS"
 
-		/// Gambian Dalasi (GMD) 
+		/// Gambian Dalasi (GMD). 
 		case gmd = "GMD"
 
-		/// Guatemalan Quetzal (GTQ) 
+		/// Guatemalan Quetzal (GTQ). 
 		case gtq = "GTQ"
 
-		/// Guyanese Dollar (GYD) 
+		/// Guyanese Dollar (GYD). 
 		case gyd = "GYD"
 
-		/// Hong Kong Dollars (HKD) 
+		/// Hong Kong Dollars (HKD). 
 		case hkd = "HKD"
 
-		/// Honduran Lempira (HNL) 
+		/// Honduran Lempira (HNL). 
 		case hnl = "HNL"
 
-		/// Croatian Kuna (HRK) 
+		/// Croatian Kuna (HRK). 
 		case hrk = "HRK"
 
-		/// Haitian Gourde (HTG) 
+		/// Haitian Gourde (HTG). 
 		case htg = "HTG"
 
-		/// Hungarian Forint (HUF) 
+		/// Hungarian Forint (HUF). 
 		case huf = "HUF"
 
-		/// Indonesian Rupiah (IDR) 
+		/// Indonesian Rupiah (IDR). 
 		case idr = "IDR"
 
-		/// Israeli New Shekel (NIS) 
+		/// Israeli New Shekel (NIS). 
 		case ils = "ILS"
 
-		/// Indian Rupees (INR) 
+		/// Indian Rupees (INR). 
 		case inr = "INR"
 
-		/// Iraqi Dinar (IQD) 
+		/// Iraqi Dinar (IQD). 
 		case iqd = "IQD"
 
-		/// Icelandic Kronur (ISK) 
+		/// Icelandic Kronur (ISK). 
 		case isk = "ISK"
 
-		/// Jersey Pound 
+		/// Jersey Pound. 
 		case jep = "JEP"
 
-		/// Jamaican Dollars (JMD) 
+		/// Jamaican Dollars (JMD). 
 		case jmd = "JMD"
 
-		/// Jordanian Dinar (JOD) 
+		/// Jordanian Dinar (JOD). 
 		case jod = "JOD"
 
-		/// Japanese Yen (JPY) 
+		/// Japanese Yen (JPY). 
 		case jpy = "JPY"
 
-		/// Kenyan Shilling (KES) 
+		/// Kenyan Shilling (KES). 
 		case kes = "KES"
 
-		/// Kyrgyzstani Som (KGS) 
+		/// Kyrgyzstani Som (KGS). 
 		case kgs = "KGS"
 
-		/// Cambodian Riel 
+		/// Cambodian Riel. 
 		case khr = "KHR"
 
-		/// Comorian Franc (KMF) 
+		/// Comorian Franc (KMF). 
 		case kmf = "KMF"
 
-		/// South Korean Won (KRW) 
+		/// South Korean Won (KRW). 
 		case krw = "KRW"
 
-		/// Kuwaiti Dinar (KWD) 
+		/// Kuwaiti Dinar (KWD). 
 		case kwd = "KWD"
 
-		/// Cayman Dollars (KYD) 
+		/// Cayman Dollars (KYD). 
 		case kyd = "KYD"
 
-		/// Kazakhstani Tenge (KZT) 
+		/// Kazakhstani Tenge (KZT). 
 		case kzt = "KZT"
 
-		/// Laotian Kip (LAK) 
+		/// Laotian Kip (LAK). 
 		case lak = "LAK"
 
-		/// Lebanese Pounds (LBP) 
+		/// Lebanese Pounds (LBP). 
 		case lbp = "LBP"
 
-		/// Sri Lankan Rupees (LKR) 
+		/// Sri Lankan Rupees (LKR). 
 		case lkr = "LKR"
 
-		/// Liberian Dollar (LRD) 
+		/// Liberian Dollar (LRD). 
 		case lrd = "LRD"
 
-		/// Lesotho Loti (LSL) 
+		/// Lesotho Loti (LSL). 
 		case lsl = "LSL"
 
-		/// Lithuanian Litai (LTL) 
+		/// Lithuanian Litai (LTL). 
 		case ltl = "LTL"
 
-		/// Latvian Lati (LVL) 
+		/// Latvian Lati (LVL). 
 		case lvl = "LVL"
 
-		/// Moroccan Dirham 
+		/// Moroccan Dirham. 
 		case mad = "MAD"
 
-		/// Moldovan Leu (MDL) 
+		/// Moldovan Leu (MDL). 
 		case mdl = "MDL"
 
-		/// Malagasy Ariary (MGA) 
+		/// Malagasy Ariary (MGA). 
 		case mga = "MGA"
 
-		/// Macedonia Denar (MKD) 
+		/// Macedonia Denar (MKD). 
 		case mkd = "MKD"
 
-		/// Burmese Kyat (MMK) 
+		/// Burmese Kyat (MMK). 
 		case mmk = "MMK"
 
-		/// Mongolian Tugrik 
+		/// Mongolian Tugrik. 
 		case mnt = "MNT"
 
-		/// Macanese Pataca (MOP) 
+		/// Macanese Pataca (MOP). 
 		case mop = "MOP"
 
-		/// Mauritian Rupee (MUR) 
+		/// Mauritian Rupee (MUR). 
 		case mur = "MUR"
 
-		/// Maldivian Rufiyaa (MVR) 
+		/// Maldivian Rufiyaa (MVR). 
 		case mvr = "MVR"
 
-		/// Malawian Kwacha (MWK) 
+		/// Malawian Kwacha (MWK). 
 		case mwk = "MWK"
 
-		/// Mexican Pesos (MXN) 
+		/// Mexican Pesos (MXN). 
 		case mxn = "MXN"
 
-		/// Malaysian Ringgits (MYR) 
+		/// Malaysian Ringgits (MYR). 
 		case myr = "MYR"
 
-		/// Mozambican Metical 
+		/// Mozambican Metical. 
 		case mzn = "MZN"
 
-		/// Namibian Dollar 
+		/// Namibian Dollar. 
 		case nad = "NAD"
 
-		/// Nigerian Naira (NGN) 
+		/// Nigerian Naira (NGN). 
 		case ngn = "NGN"
 
-		/// Nicaraguan Córdoba (NIO) 
+		/// Nicaraguan Córdoba (NIO). 
 		case nio = "NIO"
 
-		/// Norwegian Kroner (NOK) 
+		/// Norwegian Kroner (NOK). 
 		case nok = "NOK"
 
-		/// Nepalese Rupee (NPR) 
+		/// Nepalese Rupee (NPR). 
 		case npr = "NPR"
 
-		/// New Zealand Dollars (NZD) 
+		/// New Zealand Dollars (NZD). 
 		case nzd = "NZD"
 
-		/// Omani Rial (OMR) 
+		/// Omani Rial (OMR). 
 		case omr = "OMR"
 
-		/// Peruvian Nuevo Sol (PEN) 
+		/// Peruvian Nuevo Sol (PEN). 
 		case pen = "PEN"
 
-		/// Papua New Guinean Kina (PGK) 
+		/// Papua New Guinean Kina (PGK). 
 		case pgk = "PGK"
 
-		/// Philippine Peso (PHP) 
+		/// Philippine Peso (PHP). 
 		case php = "PHP"
 
-		/// Pakistani Rupee (PKR) 
+		/// Pakistani Rupee (PKR). 
 		case pkr = "PKR"
 
-		/// Polish Zlotych (PLN) 
+		/// Polish Zlotych (PLN). 
 		case pln = "PLN"
 
-		/// Paraguayan Guarani (PYG) 
+		/// Paraguayan Guarani (PYG). 
 		case pyg = "PYG"
 
-		/// Qatari Rial (QAR) 
+		/// Qatari Rial (QAR). 
 		case qar = "QAR"
 
-		/// Romanian Lei (RON) 
+		/// Romanian Lei (RON). 
 		case ron = "RON"
 
-		/// Serbian dinar (RSD) 
+		/// Serbian dinar (RSD). 
 		case rsd = "RSD"
 
-		/// Russian Rubles (RUB) 
+		/// Russian Rubles (RUB). 
 		case rub = "RUB"
 
-		/// Rwandan Franc (RWF) 
+		/// Rwandan Franc (RWF). 
 		case rwf = "RWF"
 
-		/// Saudi Riyal (SAR) 
+		/// Saudi Riyal (SAR). 
 		case sar = "SAR"
 
-		/// Solomon Islands Dollar (SBD) 
+		/// Solomon Islands Dollar (SBD). 
 		case sbd = "SBD"
 
-		/// Seychellois Rupee (SCR) 
+		/// Seychellois Rupee (SCR). 
 		case scr = "SCR"
 
-		/// Sudanese Pound (SDG) 
+		/// Sudanese Pound (SDG). 
 		case sdg = "SDG"
 
-		/// Swedish Kronor (SEK) 
+		/// Swedish Kronor (SEK). 
 		case sek = "SEK"
 
-		/// Singapore Dollars (SGD) 
+		/// Singapore Dollars (SGD). 
 		case sgd = "SGD"
 
-		/// Surinamese Dollar (SRD) 
+		/// Surinamese Dollar (SRD). 
 		case srd = "SRD"
 
-		/// South Sudanese Pound (SSP) 
+		/// South Sudanese Pound (SSP). 
 		case ssp = "SSP"
 
-		/// Sao Tome And Principe Dobra (STD) 
+		/// Sao Tome And Principe Dobra (STD). 
 		case std = "STD"
 
-		/// Syrian Pound (SYP) 
+		/// Syrian Pound (SYP). 
 		case syp = "SYP"
 
-		/// Swazi Lilangeni (SZL) 
+		/// Swazi Lilangeni (SZL). 
 		case szl = "SZL"
 
-		/// Thai baht (THB) 
+		/// Thai baht (THB). 
 		case thb = "THB"
 
-		/// Turkmenistani Manat (TMT) 
+		/// Turkmenistani Manat (TMT). 
 		case tmt = "TMT"
 
-		/// Tunisian Dinar (TND) 
+		/// Tunisian Dinar (TND). 
 		case tnd = "TND"
 
-		/// Turkish Lira (TRY) 
+		/// Turkish Lira (TRY). 
 		case `try` = "TRY"
 
-		/// Trinidad and Tobago Dollars (TTD) 
+		/// Trinidad and Tobago Dollars (TTD). 
 		case ttd = "TTD"
 
-		/// Taiwan Dollars (TWD) 
+		/// Taiwan Dollars (TWD). 
 		case twd = "TWD"
 
-		/// Tanzanian Shilling (TZS) 
+		/// Tanzanian Shilling (TZS). 
 		case tzs = "TZS"
 
-		/// Ukrainian Hryvnia (UAH) 
+		/// Ukrainian Hryvnia (UAH). 
 		case uah = "UAH"
 
-		/// Ugandan Shilling (UGX) 
+		/// Ugandan Shilling (UGX). 
 		case ugx = "UGX"
 
-		/// United States Dollars (USD) 
+		/// United States Dollars (USD). 
 		case usd = "USD"
 
-		/// Uruguayan Pesos (UYU) 
+		/// Uruguayan Pesos (UYU). 
 		case uyu = "UYU"
 
-		/// Uzbekistan som (UZS) 
+		/// Uzbekistan som (UZS). 
 		case uzs = "UZS"
 
-		/// Venezuelan Bolivares (VEF) 
+		/// Venezuelan Bolivares (VEF). 
 		case vef = "VEF"
 
-		/// Vietnamese đồng (VND) 
+		/// Vietnamese đồng (VND). 
 		case vnd = "VND"
 
-		/// Vanuatu Vatu (VUV) 
+		/// Vanuatu Vatu (VUV). 
 		case vuv = "VUV"
 
-		/// Samoan Tala (WST) 
+		/// Samoan Tala (WST). 
 		case wst = "WST"
 
-		/// Central African CFA Franc (XAF) 
+		/// Central African CFA Franc (XAF). 
 		case xaf = "XAF"
 
-		/// East Caribbean Dollar (XCD) 
+		/// East Caribbean Dollar (XCD). 
 		case xcd = "XCD"
 
-		/// West African CFA franc (XOF) 
+		/// West African CFA franc (XOF). 
 		case xof = "XOF"
 
-		/// CFP Franc (XPF) 
+		/// CFP Franc (XPF). 
 		case xpf = "XPF"
 
-		/// Yemeni Rial (YER) 
+		/// Yemeni Rial (YER). 
 		case yer = "YER"
 
-		/// South African Rand (ZAR) 
+		/// South African Rand (ZAR). 
 		case zar = "ZAR"
 
-		/// Zambian Kwacha (ZMW) 
+		/// Zambian Kwacha (ZMW). 
 		case zmw = "ZMW"
 
 		case unknownValue = ""
