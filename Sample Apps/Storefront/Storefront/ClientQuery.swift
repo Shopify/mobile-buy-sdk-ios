@@ -274,6 +274,21 @@ final class ClientQuery {
         }
     }
     
+    static func mutationForUpdateCheckout(_ checkoutID: String, associatingCustomer accessToken: String) -> Storefront.MutationQuery {
+        let id = GraphQL.ID(rawValue: checkoutID)
+        return Storefront.buildMutation { $0
+            .checkoutCustomerAssociate(checkoutId: id, customerAccessToken: accessToken) { $0
+                .userErrors { $0
+                    .field()
+                    .message()
+                }
+                .checkout { $0
+                    .fragmentForCheckout()
+                }
+            }
+        }
+    }
+    
     static func mutationForCompleteCheckoutUsingApplePay(_ checkout: PayCheckout, billingAddress: PayAddress, token: String, idempotencyToken: String) -> Storefront.MutationQuery {
         
         let mailingAddress = Storefront.MailingAddressInput.create(

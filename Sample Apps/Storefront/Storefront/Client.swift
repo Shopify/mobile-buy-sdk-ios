@@ -310,6 +310,24 @@ final class Client {
     }
     
     @discardableResult
+    func updateCheckout(_ id: String, associatingCustomer accessToken: String, completion: @escaping (CheckoutViewModel?) -> Void) -> Task {
+        
+        let mutation = ClientQuery.mutationForUpdateCheckout(id, associatingCustomer: accessToken)
+        let task     = self.client.mutateGraphWith(mutation) { (mutation, error) in
+            error.debugPrint()
+            
+            if let checkout = mutation?.checkoutCustomerAssociate?.checkout {
+                completion(checkout.viewModel)
+            } else {
+                completion(nil)
+            }
+        }
+        
+        task.resume()
+        return task
+    }
+    
+    @discardableResult
     func fetchShippingRatesForCheckout(_ id: String, completion: @escaping ((checkout: CheckoutViewModel, rates: [ShippingRateViewModel])?) -> Void) -> Task {
         
         let retry = Graph.RetryHandler<Storefront.QueryRoot>(endurance: .finite(30)) { response, error -> Bool in
