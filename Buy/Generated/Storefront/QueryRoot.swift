@@ -32,6 +32,139 @@ extension Storefront {
 	open class QueryRootQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = QueryRoot
 
+		/// List of the shop's articles. 
+		///
+		/// - parameters:
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///     - reverse: Reverse the order of the underlying list.
+		///     - sortKey: Sort the underlying list by the given key.
+		///     - query: Supported filter parameters:
+		///         - `author`
+		///         - `updated_at`
+		///         - `created_at`
+		///         - `blog_title`
+		///         - `tag`
+		///
+		@discardableResult
+		open func articles(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: ArticleSortKeys? = nil, query: String? = nil, _ subfields: (ArticleConnectionQuery) -> Void) -> QueryRootQuery {
+			var args: [String] = []
+
+			if let first = first {
+				args.append("first:\(first)")
+			}
+
+			if let after = after {
+				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
+			}
+
+			if let reverse = reverse {
+				args.append("reverse:\(reverse)")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
+			}
+
+			if let query = query {
+				args.append("query:\(GraphQL.quoteString(input: query))")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = ArticleConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "articles", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Find a blog by its handle. 
+		///
+		/// - parameters:
+		///     - handle: The handle of the blog.
+		///
+		@discardableResult
+		open func blogByHandle(alias: String? = nil, handle: String, _ subfields: (BlogQuery) -> Void) -> QueryRootQuery {
+			var args: [String] = []
+
+			args.append("handle:\(GraphQL.quoteString(input: handle))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = BlogQuery()
+			subfields(subquery)
+
+			addField(field: "blogByHandle", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// List of the shop's blogs. 
+		///
+		/// - parameters:
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///     - reverse: Reverse the order of the underlying list.
+		///     - sortKey: Sort the underlying list by the given key.
+		///     - query: Supported filter parameters:
+		///         - `handle`
+		///         - `title`
+		///         - `updated_at`
+		///         - `created_at`
+		///
+		@discardableResult
+		open func blogs(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: BlogSortKeys? = nil, query: String? = nil, _ subfields: (BlogConnectionQuery) -> Void) -> QueryRootQuery {
+			var args: [String] = []
+
+			if let first = first {
+				args.append("first:\(first)")
+			}
+
+			if let after = after {
+				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
+			}
+
+			if let reverse = reverse {
+				args.append("reverse:\(reverse)")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
+			}
+
+			if let query = query {
+				args.append("query:\(GraphQL.quoteString(input: query))")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = BlogConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "blogs", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		///
 		/// - parameters:
 		///     - customerAccessToken: The customer access token
@@ -107,6 +240,25 @@ extension Storefront {
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "articles":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
+				}
+				return try ArticleConnection(fields: value)
+
+				case "blogByHandle":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
+				}
+				return try Blog(fields: value)
+
+				case "blogs":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
+				}
+				return try BlogConnection(fields: value)
+
 				case "customer":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -140,6 +292,45 @@ extension Storefront {
 				default:
 				throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
 			}
+		}
+
+		/// List of the shop's articles. 
+		open var articles: Storefront.ArticleConnection {
+			return internalGetArticles()
+		}
+
+		open func aliasedArticles(alias: String) -> Storefront.ArticleConnection {
+			return internalGetArticles(alias: alias)
+		}
+
+		func internalGetArticles(alias: String? = nil) -> Storefront.ArticleConnection {
+			return field(field: "articles", aliasSuffix: alias) as! Storefront.ArticleConnection
+		}
+
+		/// Find a blog by its handle. 
+		open var blogByHandle: Storefront.Blog? {
+			return internalGetBlogByHandle()
+		}
+
+		open func aliasedBlogByHandle(alias: String) -> Storefront.Blog? {
+			return internalGetBlogByHandle(alias: alias)
+		}
+
+		func internalGetBlogByHandle(alias: String? = nil) -> Storefront.Blog? {
+			return field(field: "blogByHandle", aliasSuffix: alias) as! Storefront.Blog?
+		}
+
+		/// List of the shop's blogs. 
+		open var blogs: Storefront.BlogConnection {
+			return internalGetBlogs()
+		}
+
+		open func aliasedBlogs(alias: String) -> Storefront.BlogConnection {
+			return internalGetBlogs(alias: alias)
+		}
+
+		func internalGetBlogs(alias: String? = nil) -> Storefront.BlogConnection {
+			return field(field: "blogs", aliasSuffix: alias) as! Storefront.BlogConnection
 		}
 
 		open var customer: Storefront.Customer? {
@@ -190,6 +381,20 @@ extension Storefront {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
 				switch($0) {
+					case "articles":
+					response.append(internalGetArticles())
+					response.append(contentsOf: internalGetArticles().childResponseObjectMap())
+
+					case "blogByHandle":
+					if let value = internalGetBlogByHandle() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "blogs":
+					response.append(internalGetBlogs())
+					response.append(contentsOf: internalGetBlogs().childResponseObjectMap())
+
 					case "customer":
 					if let value = internalGetCustomer() {
 						response.append(value)

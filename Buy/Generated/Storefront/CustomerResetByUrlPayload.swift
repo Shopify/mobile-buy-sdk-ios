@@ -1,5 +1,5 @@
 //
-//  CustomerResetPayload.swift
+//  CustomerResetByUrlPayload.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,12 +27,12 @@
 import Foundation
 
 extension Storefront {
-	open class CustomerResetPayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
-		public typealias Response = CustomerResetPayload
+	open class CustomerResetByUrlPayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = CustomerResetByUrlPayload
 
 		/// The customer object which was reset. 
 		@discardableResult
-		open func customer(alias: String? = nil, _ subfields: (CustomerQuery) -> Void) -> CustomerResetPayloadQuery {
+		open func customer(alias: String? = nil, _ subfields: (CustomerQuery) -> Void) -> CustomerResetByUrlPayloadQuery {
 			let subquery = CustomerQuery()
 			subfields(subquery)
 
@@ -42,7 +42,7 @@ extension Storefront {
 
 		/// A newly created customer access token object for the customer. 
 		@discardableResult
-		open func customerAccessToken(alias: String? = nil, _ subfields: (CustomerAccessTokenQuery) -> Void) -> CustomerResetPayloadQuery {
+		open func customerAccessToken(alias: String? = nil, _ subfields: (CustomerAccessTokenQuery) -> Void) -> CustomerResetByUrlPayloadQuery {
 			let subquery = CustomerAccessTokenQuery()
 			subfields(subquery)
 
@@ -52,7 +52,7 @@ extension Storefront {
 
 		/// List of errors that occurred executing the mutation. 
 		@discardableResult
-		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerResetPayloadQuery {
+		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerResetByUrlPayloadQuery {
 			let subquery = UserErrorQuery()
 			subfields(subquery)
 
@@ -61,8 +61,8 @@ extension Storefront {
 		}
 	}
 
-	open class CustomerResetPayload: GraphQL.AbstractResponse, GraphQLObject {
-		public typealias Query = CustomerResetPayloadQuery
+	open class CustomerResetByUrlPayload: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = CustomerResetByUrlPayloadQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
@@ -70,25 +70,25 @@ extension Storefront {
 				case "customer":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: CustomerResetPayload.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CustomerResetByUrlPayload.self, field: fieldName, value: fieldValue)
 				}
 				return try Customer(fields: value)
 
 				case "customerAccessToken":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: CustomerResetPayload.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CustomerResetByUrlPayload.self, field: fieldName, value: fieldValue)
 				}
 				return try CustomerAccessToken(fields: value)
 
 				case "userErrors":
 				guard let value = value as? [[String: Any]] else {
-					throw SchemaViolationError(type: CustomerResetPayload.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CustomerResetByUrlPayload.self, field: fieldName, value: fieldValue)
 				}
 				return try value.map { return try UserError(fields: $0) }
 
 				default:
-				throw SchemaViolationError(type: CustomerResetPayload.self, field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: CustomerResetByUrlPayload.self, field: fieldName, value: fieldValue)
 			}
 		}
 

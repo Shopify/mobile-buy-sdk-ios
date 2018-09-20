@@ -42,6 +42,7 @@ extension Storefront {
 		///     - checkoutId: The ID of the checkout.
 		///     - input: No description
 		///
+		@available(*, deprecated, message:"Use `checkoutAttributesUpdateV2` instead")
 		@discardableResult
 		open func checkoutAttributesUpdate(alias: String? = nil, checkoutId: GraphQL.ID, input: CheckoutAttributesUpdateInput, _ subfields: (CheckoutAttributesUpdatePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -56,6 +57,29 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "checkoutAttributesUpdate", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Updates the attributes of a checkout. 
+		///
+		/// - parameters:
+		///     - checkoutId: The ID of the checkout.
+		///     - input: The checkout attributes to update.
+		///
+		@discardableResult
+		open func checkoutAttributesUpdateV2(alias: String? = nil, checkoutId: GraphQL.ID, input: CheckoutAttributesUpdateV2Input, _ subfields: (CheckoutAttributesUpdateV2PayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
+
+			args.append("input:\(input.serialize())")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CheckoutAttributesUpdateV2PayloadQuery()
+			subfields(subquery)
+
+			addField(field: "checkoutAttributesUpdateV2", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
@@ -684,6 +708,30 @@ extension Storefront {
 			return self
 		}
 
+		/// Resets a customer’s password with the reset password url received from 
+		/// `CustomerRecover`. 
+		///
+		/// - parameters:
+		///     - resetUrl: The customer's reset password url.
+		///     - password: New password that will be set as part of the reset password process.
+		///
+		@discardableResult
+		open func customerResetByUrl(alias: String? = nil, resetUrl: URL, password: String, _ subfields: (CustomerResetByUrlPayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("resetUrl:\(GraphQL.quoteString(input: "\(resetUrl.absoluteString)"))")
+
+			args.append("password:\(GraphQL.quoteString(input: password))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CustomerResetByUrlPayloadQuery()
+			subfields(subquery)
+
+			addField(field: "customerResetByUrl", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// Updates an existing customer. 
 		///
 		/// - parameters:
@@ -722,6 +770,13 @@ extension Storefront {
 					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
 				}
 				return try CheckoutAttributesUpdatePayload(fields: value)
+
+				case "checkoutAttributesUpdateV2":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CheckoutAttributesUpdateV2Payload(fields: value)
 
 				case "checkoutCompleteFree":
 				if value is NSNull { return nil }
@@ -919,6 +974,13 @@ extension Storefront {
 				}
 				return try CustomerResetPayload(fields: value)
 
+				case "customerResetByUrl":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CustomerResetByUrlPayload(fields: value)
+
 				case "customerUpdate":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -932,9 +994,12 @@ extension Storefront {
 		}
 
 		/// Updates the attributes of a checkout. 
+		@available(*, deprecated, message:"Use `checkoutAttributesUpdateV2` instead")
 		open var checkoutAttributesUpdate: Storefront.CheckoutAttributesUpdatePayload? {
 			return internalGetCheckoutAttributesUpdate()
 		}
+
+		@available(*, deprecated, message:"Use `checkoutAttributesUpdateV2` instead")
 
 		open func aliasedCheckoutAttributesUpdate(alias: String) -> Storefront.CheckoutAttributesUpdatePayload? {
 			return internalGetCheckoutAttributesUpdate(alias: alias)
@@ -942,6 +1007,19 @@ extension Storefront {
 
 		func internalGetCheckoutAttributesUpdate(alias: String? = nil) -> Storefront.CheckoutAttributesUpdatePayload? {
 			return field(field: "checkoutAttributesUpdate", aliasSuffix: alias) as! Storefront.CheckoutAttributesUpdatePayload?
+		}
+
+		/// Updates the attributes of a checkout. 
+		open var checkoutAttributesUpdateV2: Storefront.CheckoutAttributesUpdateV2Payload? {
+			return internalGetCheckoutAttributesUpdateV2()
+		}
+
+		open func aliasedCheckoutAttributesUpdateV2(alias: String) -> Storefront.CheckoutAttributesUpdateV2Payload? {
+			return internalGetCheckoutAttributesUpdateV2(alias: alias)
+		}
+
+		func internalGetCheckoutAttributesUpdateV2(alias: String? = nil) -> Storefront.CheckoutAttributesUpdateV2Payload? {
+			return field(field: "checkoutAttributesUpdateV2", aliasSuffix: alias) as! Storefront.CheckoutAttributesUpdateV2Payload?
 		}
 
 		open var checkoutCompleteFree: Storefront.CheckoutCompleteFreePayload? {
@@ -1315,6 +1393,20 @@ extension Storefront {
 			return field(field: "customerReset", aliasSuffix: alias) as! Storefront.CustomerResetPayload?
 		}
 
+		/// Resets a customer’s password with the reset password url received from 
+		/// `CustomerRecover`. 
+		open var customerResetByUrl: Storefront.CustomerResetByUrlPayload? {
+			return internalGetCustomerResetByUrl()
+		}
+
+		open func aliasedCustomerResetByUrl(alias: String) -> Storefront.CustomerResetByUrlPayload? {
+			return internalGetCustomerResetByUrl(alias: alias)
+		}
+
+		func internalGetCustomerResetByUrl(alias: String? = nil) -> Storefront.CustomerResetByUrlPayload? {
+			return field(field: "customerResetByUrl", aliasSuffix: alias) as! Storefront.CustomerResetByUrlPayload?
+		}
+
 		/// Updates an existing customer. 
 		open var customerUpdate: Storefront.CustomerUpdatePayload? {
 			return internalGetCustomerUpdate()
@@ -1334,6 +1426,12 @@ extension Storefront {
 				switch($0) {
 					case "checkoutAttributesUpdate":
 					if let value = internalGetCheckoutAttributesUpdate() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "checkoutAttributesUpdateV2":
+					if let value = internalGetCheckoutAttributesUpdateV2() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
@@ -1502,6 +1600,12 @@ extension Storefront {
 
 					case "customerReset":
 					if let value = internalGetCustomerReset() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "customerResetByUrl":
+					if let value = internalGetCustomerResetByUrl() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}

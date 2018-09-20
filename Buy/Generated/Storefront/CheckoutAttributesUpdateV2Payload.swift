@@ -1,5 +1,5 @@
 //
-//  CustomerResetPayload.swift
+//  CheckoutAttributesUpdateV2Payload.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,32 +27,22 @@
 import Foundation
 
 extension Storefront {
-	open class CustomerResetPayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
-		public typealias Response = CustomerResetPayload
+	open class CheckoutAttributesUpdateV2PayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = CheckoutAttributesUpdateV2Payload
 
-		/// The customer object which was reset. 
+		/// The updated checkout object. 
 		@discardableResult
-		open func customer(alias: String? = nil, _ subfields: (CustomerQuery) -> Void) -> CustomerResetPayloadQuery {
-			let subquery = CustomerQuery()
+		open func checkout(alias: String? = nil, _ subfields: (CheckoutQuery) -> Void) -> CheckoutAttributesUpdateV2PayloadQuery {
+			let subquery = CheckoutQuery()
 			subfields(subquery)
 
-			addField(field: "customer", aliasSuffix: alias, subfields: subquery)
-			return self
-		}
-
-		/// A newly created customer access token object for the customer. 
-		@discardableResult
-		open func customerAccessToken(alias: String? = nil, _ subfields: (CustomerAccessTokenQuery) -> Void) -> CustomerResetPayloadQuery {
-			let subquery = CustomerAccessTokenQuery()
-			subfields(subquery)
-
-			addField(field: "customerAccessToken", aliasSuffix: alias, subfields: subquery)
+			addField(field: "checkout", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
 		/// List of errors that occurred executing the mutation. 
 		@discardableResult
-		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerResetPayloadQuery {
+		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CheckoutAttributesUpdateV2PayloadQuery {
 			let subquery = UserErrorQuery()
 			subfields(subquery)
 
@@ -61,53 +51,37 @@ extension Storefront {
 		}
 	}
 
-	open class CustomerResetPayload: GraphQL.AbstractResponse, GraphQLObject {
-		public typealias Query = CustomerResetPayloadQuery
+	open class CheckoutAttributesUpdateV2Payload: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = CheckoutAttributesUpdateV2PayloadQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
-				case "customer":
+				case "checkout":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: CustomerResetPayload.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CheckoutAttributesUpdateV2Payload.self, field: fieldName, value: fieldValue)
 				}
-				return try Customer(fields: value)
-
-				case "customerAccessToken":
-				if value is NSNull { return nil }
-				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: CustomerResetPayload.self, field: fieldName, value: fieldValue)
-				}
-				return try CustomerAccessToken(fields: value)
+				return try Checkout(fields: value)
 
 				case "userErrors":
 				guard let value = value as? [[String: Any]] else {
-					throw SchemaViolationError(type: CustomerResetPayload.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CheckoutAttributesUpdateV2Payload.self, field: fieldName, value: fieldValue)
 				}
 				return try value.map { return try UserError(fields: $0) }
 
 				default:
-				throw SchemaViolationError(type: CustomerResetPayload.self, field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: CheckoutAttributesUpdateV2Payload.self, field: fieldName, value: fieldValue)
 			}
 		}
 
-		/// The customer object which was reset. 
-		open var customer: Storefront.Customer? {
-			return internalGetCustomer()
+		/// The updated checkout object. 
+		open var checkout: Storefront.Checkout? {
+			return internalGetCheckout()
 		}
 
-		func internalGetCustomer(alias: String? = nil) -> Storefront.Customer? {
-			return field(field: "customer", aliasSuffix: alias) as! Storefront.Customer?
-		}
-
-		/// A newly created customer access token object for the customer. 
-		open var customerAccessToken: Storefront.CustomerAccessToken? {
-			return internalGetCustomerAccessToken()
-		}
-
-		func internalGetCustomerAccessToken(alias: String? = nil) -> Storefront.CustomerAccessToken? {
-			return field(field: "customerAccessToken", aliasSuffix: alias) as! Storefront.CustomerAccessToken?
+		func internalGetCheckout(alias: String? = nil) -> Storefront.Checkout? {
+			return field(field: "checkout", aliasSuffix: alias) as! Storefront.Checkout?
 		}
 
 		/// List of errors that occurred executing the mutation. 
@@ -123,14 +97,8 @@ extension Storefront {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
 				switch($0) {
-					case "customer":
-					if let value = internalGetCustomer() {
-						response.append(value)
-						response.append(contentsOf: value.childResponseObjectMap())
-					}
-
-					case "customerAccessToken":
-					if let value = internalGetCustomerAccessToken() {
+					case "checkout":
+					if let value = internalGetCheckout() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
