@@ -29,11 +29,17 @@ import Foundation
 extension Storefront {
 	/// The set of valid sort keys for the articles query. 
 	public enum ArticleSortKeys: String {
+		/// Sort by the `author` value. 
 		case author = "AUTHOR"
 
+		/// Sort by the `blog_title` value. 
 		case blogTitle = "BLOG_TITLE"
 
+		/// Sort by the `id` value. 
 		case id = "ID"
+
+		/// Sort by the `published_at` value. 
+		case publishedAt = "PUBLISHED_AT"
 
 		/// During a search (i.e. when the `query` parameter has been specified on the 
 		/// connection) this sorts the results by relevance to the search term(s). When 
@@ -41,8 +47,10 @@ extension Storefront {
 		/// not be used. 
 		case relevance = "RELEVANCE"
 
+		/// Sort by the `title` value. 
 		case title = "TITLE"
 
+		/// Sort by the `updated_at` value. 
 		case updatedAt = "UPDATED_AT"
 
 		case unknownValue = ""

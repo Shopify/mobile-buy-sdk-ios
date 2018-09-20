@@ -29,6 +29,7 @@ import Foundation
 extension Storefront {
 	/// The set of valid sort keys for the collections query. 
 	public enum CollectionSortKeys: String {
+		/// Sort by the `id` value. 
 		case id = "ID"
 
 		/// During a search (i.e. when the `query` parameter has been specified on the 
@@ -37,8 +38,10 @@ extension Storefront {
 		/// not be used. 
 		case relevance = "RELEVANCE"
 
+		/// Sort by the `title` value. 
 		case title = "TITLE"
 
+		/// Sort by the `updated_at` value. 
 		case updatedAt = "UPDATED_AT"
 
 		case unknownValue = ""

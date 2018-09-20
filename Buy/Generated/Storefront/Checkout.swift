@@ -220,7 +220,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Price of the checkout before shipping, taxes, and discounts. 
+		/// Price of the checkout before shipping and taxes. 
 		@discardableResult
 		open func subtotalPrice(alias: String? = nil) -> CheckoutQuery {
 			addField(field: "subtotalPrice", aliasSuffix: alias)
@@ -616,7 +616,7 @@ extension Storefront {
 			return field(field: "shippingLine", aliasSuffix: alias) as! Storefront.ShippingRate?
 		}
 
-		/// Price of the checkout before shipping, taxes, and discounts. 
+		/// Price of the checkout before shipping and taxes. 
 		open var subtotalPrice: Decimal {
 			return internalGetSubtotalPrice()
 		}

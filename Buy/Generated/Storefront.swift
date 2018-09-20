@@ -24,14 +24,14 @@
 //  THE SOFTWARE.
 //
 
-open class Storefront {
-	open static func buildQuery(_ subfields: (QueryRootQuery) -> Void) -> QueryRootQuery {
+public class Storefront {
+	public static func buildQuery(_ subfields: (QueryRootQuery) -> Void) -> QueryRootQuery {
 		let root = QueryRootQuery()
 		subfields(root)
 		return root
 	}
 
-	open static func buildMutation(_ subfields: (MutationQuery) -> Void) -> MutationQuery {
+	public static func buildMutation(_ subfields: (MutationQuery) -> Void) -> MutationQuery {
 		let root = MutationQuery()
 		subfields(root)
 		return root
