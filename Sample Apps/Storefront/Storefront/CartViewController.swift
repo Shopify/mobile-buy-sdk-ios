@@ -112,9 +112,9 @@ class CartViewController: ParallaxViewController {
     //  MARK: - Actions -
     //
     func openSafariFor(_ checkout: CheckoutViewModel) {
-        let safari                  = SFSafariViewController(url: checkout.webURL)
-        safari.navigationItem.title = "Checkout"
-        self.navigationController?.present(safari, animated: true, completion: nil)
+        let webController = WebViewController(url: checkout.webURL, accessToken: AccountController.shared.accessToken)
+        webController.navigationItem.title = "Checkout"
+        self.navigationController?.pushViewController(webController, animated: true)
     }
     
     func authorizePaymentFor(_ shopName: String, in checkout: CheckoutViewModel) {
@@ -265,7 +265,21 @@ extension CartViewController: TotalsControllerDelegate {
                 }
                 
                 group.notify(queue: .main) {
-                    completeCreateCheckout(updatedCheckout)
+                    if let accessToken = AccountController.shared.accessToken {
+                        
+                        print("Associating checkout with customer: \(accessToken)")
+                        Client.shared.updateCheckout(updatedCheckout.id, associatingCustomer: accessToken) { associatedCheckout in
+                            if let associatedCheckout = associatedCheckout {
+                                completeCreateCheckout(associatedCheckout)
+                            } else {
+                                print("Failed to associate checkout with customer.")
+                                completeCreateCheckout(updatedCheckout)
+                            }
+                        }
+                        
+                    } else {
+                        completeCreateCheckout(updatedCheckout)
+                    }
                 }
             }
         }
