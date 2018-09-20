@@ -1341,7 +1341,7 @@
 					};
 					9A4068DB1E8E7658000254CD = {
 						CreatedOnToolsVersion = 8.3;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 					9A4068E31E8E7659000254CD = {
@@ -1353,6 +1353,7 @@
 					};
 					9AEF60F21E5F42D90067FA90 = {
 						CreatedOnToolsVersion = 8.2.1;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 					9AF255B11F6FEE50005BB0C9 = {
@@ -2045,7 +2046,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -2068,7 +2069,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.Pay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -2288,7 +2289,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.Buy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -2309,7 +2310,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.Buy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

@@ -44,7 +44,7 @@ class CartViewController: ParallaxViewController {
         
         switch segue.identifier! {
         case "TotalsViewController":
-            self.totalsViewController          = segue.destination as! TotalsViewController
+            self.totalsViewController          = (segue.destination as! TotalsViewController)
             self.totalsViewController.delegate = self
         default:
             break
@@ -76,7 +76,7 @@ class CartViewController: ParallaxViewController {
     }
     
     private func configureTableView() {
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 100.0
         self.tableView.register(UINib(nibName: "CartCell", bundle: nil), forCellReuseIdentifier: "CartCell")
         
@@ -449,7 +449,7 @@ extension CartViewController: UITableViewDataSource {
         return true
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
             
