@@ -214,7 +214,7 @@ final class Client {
         let task     = self.client.mutateGraphWith(mutation) { response, error in
             error.debugPrint()
             
-            completion(response?.checkoutGiftCardApply?.checkout.viewModel)
+            completion(response?.checkoutGiftCardsAppend?.checkout?.viewModel)
         }
         
         task.resume()
