@@ -1,6 +1,6 @@
 //
-//  Storefront.swift
-//  Buy
+//  OrderCell.swift
+//  Storefront
 //
 //  Created by Shopify.
 //  Copyright (c) 2017 Shopify Inc. All rights reserved.
@@ -24,16 +24,24 @@
 //  THE SOFTWARE.
 //
 
-public class Storefront {
-	public static func buildQuery(_ subfields: (QueryRootQuery) -> Void) -> QueryRootQuery {
-		let root = QueryRootQuery()
-		subfields(root)
-		return root
-	}
+import UIKit
 
-	public static func buildMutation(_ subfields: (MutationQuery) -> Void) -> MutationQuery {
-		let root = MutationQuery()
-		subfields(root)
-		return root
-	}
+class OrderCell: UITableViewCell, ViewModelConfigurable {
+
+    typealias ViewModelType = OrderViewModel
+    
+    private(set) var viewModel: ViewModelType?
+    
+    @IBOutlet private weak var titleLabel:    UILabel!
+    @IBOutlet private weak var subtitleLabel: UILabel!
+    @IBOutlet private weak var detailLabel:   UILabel!
+    
+    // ----------------------------------
+    //  MARK: - Configure -
+    //
+    func configureFrom(_ viewModel: ViewModelType) {
+        titleLabel.text    = "#\(viewModel.number)"
+        subtitleLabel.text = viewModel.email ?? "No email"
+        detailLabel.text   = Currency.stringFrom(viewModel.totalPrice)
+    }
 }

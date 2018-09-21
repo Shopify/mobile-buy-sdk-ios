@@ -33,6 +33,55 @@ final class ClientQuery {
     static let maxImageDimension = Int32(UIScreen.main.bounds.width)
     
     // ----------------------------------
+    //  MARK: - Customers -
+    //
+    static func mutationForLogin(email: String, password: String) -> Storefront.MutationQuery {
+        let input = Storefront.CustomerAccessTokenCreateInput(email: email, password: password)
+        return Storefront.buildMutation { $0
+            .customerAccessTokenCreate(input: input) { $0
+                .customerAccessToken { $0
+                    .accessToken()
+                    .expiresAt()
+                }
+                .customerUserErrors { $0
+                    .code()
+                    .field()
+                    .message()
+                }
+            }
+        }
+    }
+    
+    static func mutationForLogout(accessToken: String) -> Storefront.MutationQuery {
+        return Storefront.buildMutation { $0
+            .customerAccessTokenDelete(customerAccessToken: accessToken) { $0
+                .deletedAccessToken()
+                .userErrors { $0
+                    .field()
+                    .message()
+                }
+            }
+        }
+    }
+    
+    static func queryForCustomer(limit: Int, after cursor: String? = nil, accessToken: String) -> Storefront.QueryRootQuery {
+        return Storefront.buildQuery { $0
+            .customer(customerAccessToken: accessToken) { $0
+                .id()
+                .displayName()
+                .email()
+                .firstName()
+                .lastName()
+                .phone()
+                .updatedAt()
+                .orders(first: Int32(limit), after: cursor) { $0
+                    .fragmentForStandardOrder()
+                }
+            }
+        }
+    }
+    
+    // ----------------------------------
     //  MARK: - Shop -
     //
     static func queryForShopName() -> Storefront.QueryRootQuery {
@@ -110,7 +159,7 @@ final class ClientQuery {
     static func mutationForApplyingGiftCard(_ giftCardCode: String, to checkoutID: String) -> Storefront.MutationQuery {
         let id = GraphQL.ID(rawValue: checkoutID)
         return Storefront.buildMutation { $0
-            .checkoutGiftCardApply(giftCardCode: giftCardCode, checkoutId: id) { $0
+            .checkoutGiftCardsAppend(giftCardCodes: [giftCardCode], checkoutId: id) { $0
                 .userErrors { $0
                     .field()
                     .message()
@@ -214,6 +263,21 @@ final class ClientQuery {
         
         return Storefront.buildMutation { $0
             .checkoutEmailUpdate(checkoutId: GraphQL.ID(rawValue: id), email: email) { $0
+                .userErrors { $0
+                    .field()
+                    .message()
+                }
+                .checkout { $0
+                    .fragmentForCheckout()
+                }
+            }
+        }
+    }
+    
+    static func mutationForUpdateCheckout(_ checkoutID: String, associatingCustomer accessToken: String) -> Storefront.MutationQuery {
+        let id = GraphQL.ID(rawValue: checkoutID)
+        return Storefront.buildMutation { $0
+            .checkoutCustomerAssociate(checkoutId: id, customerAccessToken: accessToken) { $0
                 .userErrors { $0
                     .field()
                     .message()

@@ -1,5 +1,5 @@
 //
-//  AppDelegate.swift
+//  AccountController.swift
 //  Storefront
 //
 //  Created by Shopify.
@@ -24,25 +24,52 @@
 //  THE SOFTWARE.
 //
 
-import UIKit
+import Foundation
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
-
+/// This class provides insufficient security for
+/// storing customer access token and is provided
+/// for sample purposes only. All secure credentials
+/// should be stored using Keychain.
+///
+class AccountController {
+    
+    static let shared = AccountController()
+    
+    private(set) var accessToken: String?
+    
+    private let defaults = UserDefaults.standard
+    
     // ----------------------------------
-    //  MARK: - Application Launch -
+    //  MARK: - Init -
     //
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        /* ----------------------------------------
-         ** Initialize the cart controller and pre-
-         ** load any cached cart items.
-         */
-        _ = CartController.shared
-        
-        return true
+    private init() {
+        self.loadToken()
+    }
+    
+    // ----------------------------------
+    //  MARK: - Management -
+    //
+    func save(accessToken: String) {
+        self.accessToken = accessToken
+        self.defaults.set(accessToken, forKey: Key.token)
+        self.defaults.synchronize()
+    }
+    
+    func deleteAccessToken() {
+        self.accessToken = nil
+        self.defaults.removeObject(forKey: Key.token)
+        self.defaults.synchronize()
+    }
+    
+    @discardableResult
+    func loadToken() -> String? {
+        self.accessToken = self.defaults.string(forKey: Key.token)
+        return self.accessToken
     }
 }
 
+private extension AccountController {
+    enum Key {
+        static let token = "com.shopify.storefront.customerAccessToken"
+    }
+}

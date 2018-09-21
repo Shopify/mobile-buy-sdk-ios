@@ -48,6 +48,7 @@ extension Storefront {
 		///         - `blog_title`
 		///         - `tag`
 		///
+		@available(*, deprecated, message:"Use `QueryRoot.articles` instead.")
 		@discardableResult
 		open func articles(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: ArticleSortKeys? = nil, query: String? = nil, _ subfields: (ArticleConnectionQuery) -> Void) -> ShopQuery {
 			var args: [String] = []
@@ -104,6 +105,7 @@ extension Storefront {
 		///         - `updated_at`
 		///         - `created_at`
 		///
+		@available(*, deprecated, message:"Use `QueryRoot.blogs` instead.")
 		@discardableResult
 		open func blogs(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: BlogSortKeys? = nil, query: String? = nil, _ subfields: (BlogConnectionQuery) -> Void) -> ShopQuery {
 			var args: [String] = []
@@ -557,9 +559,12 @@ extension Storefront {
 		}
 
 		/// List of the shop' articles. 
+		@available(*, deprecated, message:"Use `QueryRoot.articles` instead.")
 		open var articles: Storefront.ArticleConnection {
 			return internalGetArticles()
 		}
+
+		@available(*, deprecated, message:"Use `QueryRoot.articles` instead.")
 
 		open func aliasedArticles(alias: String) -> Storefront.ArticleConnection {
 			return internalGetArticles(alias: alias)
@@ -570,9 +575,12 @@ extension Storefront {
 		}
 
 		/// List of the shop' blogs. 
+		@available(*, deprecated, message:"Use `QueryRoot.blogs` instead.")
 		open var blogs: Storefront.BlogConnection {
 			return internalGetBlogs()
 		}
+
+		@available(*, deprecated, message:"Use `QueryRoot.blogs` instead.")
 
 		open func aliasedBlogs(alias: String) -> Storefront.BlogConnection {
 			return internalGetBlogs(alias: alias)

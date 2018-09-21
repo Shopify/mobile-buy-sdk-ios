@@ -1,6 +1,6 @@
 //
-//  Storefront.swift
-//  Buy
+//  CustomerViewModel.swift
+//  Storefront
 //
 //  Created by Shopify.
 //  Copyright (c) 2017 Shopify Inc. All rights reserved.
@@ -24,16 +24,39 @@
 //  THE SOFTWARE.
 //
 
-public class Storefront {
-	public static func buildQuery(_ subfields: (QueryRootQuery) -> Void) -> QueryRootQuery {
-		let root = QueryRootQuery()
-		subfields(root)
-		return root
-	}
+import Foundation
+import Buy
 
-	public static func buildMutation(_ subfields: (MutationQuery) -> Void) -> MutationQuery {
-		let root = MutationQuery()
-		subfields(root)
-		return root
-	}
+final class CustomerViewModel: ViewModel {
+    
+    typealias ModelType = Storefront.Customer
+    
+    let model:       ModelType
+    
+    let id:          String
+    let displayName: String
+    let firstName:   String?
+    let lastName:    String?
+    let phoneNumber: String?
+    let email:       String?
+    let updatedAt:   Date
+    
+    // ----------------------------------
+    //  MARK: - Init -
+    //
+    required init(from model: ModelType) {
+        self.model       = model
+        
+        self.id          = model.id.rawValue
+        self.displayName = model.displayName
+        self.firstName   = model.firstName
+        self.lastName    = model.lastName
+        self.phoneNumber = model.phone
+        self.email       = model.email
+        self.updatedAt   = model.updatedAt
+    }
+}
+
+extension Storefront.Customer: ViewModeling {
+    typealias ViewModelType = CustomerViewModel
 }

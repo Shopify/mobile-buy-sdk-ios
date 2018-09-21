@@ -1,6 +1,6 @@
 //
-//  Storefront.swift
-//  Buy
+//  ProfileViewController.swift
+//  Storefront
 //
 //  Created by Shopify.
 //  Copyright (c) 2017 Shopify Inc. All rights reserved.
@@ -24,16 +24,40 @@
 //  THE SOFTWARE.
 //
 
-public class Storefront {
-	public static func buildQuery(_ subfields: (QueryRootQuery) -> Void) -> QueryRootQuery {
-		let root = QueryRootQuery()
-		subfields(root)
-		return root
-	}
+import UIKit
 
-	public static func buildMutation(_ subfields: (MutationQuery) -> Void) -> MutationQuery {
-		let root = MutationQuery()
-		subfields(root)
-		return root
-	}
+class ProfileViewController: UIViewController {
+    
+    var customer: CustomerViewModel? {
+        didSet {
+            view.setNeedsLayout()
+        }
+    }
+    
+    @IBOutlet private weak var nameLabel:  UILabel!
+    @IBOutlet private weak var emailLabel: UILabel!
+    @IBOutlet private weak var phoneLabel: UILabel!
+    
+    // ----------------------------------
+    //  MARK: - Layout -
+    //
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        self.updateState()
+    }
+    
+    private func updateState() {
+        guard let customer = self.customer else {
+            self.nameLabel.text  = nil
+            self.emailLabel.text = nil
+            self.phoneLabel.text = nil
+            
+            return
+        }
+        
+        self.nameLabel.text  = customer.displayName
+        self.emailLabel.text = customer.email
+        self.phoneLabel.text = customer.phoneNumber
+    }
 }

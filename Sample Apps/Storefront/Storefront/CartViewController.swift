@@ -44,7 +44,7 @@ class CartViewController: ParallaxViewController {
         
         switch segue.identifier! {
         case "TotalsViewController":
-            self.totalsViewController          = segue.destination as! TotalsViewController
+            self.totalsViewController          = (segue.destination as! TotalsViewController)
             self.totalsViewController.delegate = self
         default:
             break
@@ -76,7 +76,7 @@ class CartViewController: ParallaxViewController {
     }
     
     private func configureTableView() {
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 100.0
         self.tableView.register(UINib(nibName: "CartCell", bundle: nil), forCellReuseIdentifier: "CartCell")
         
@@ -112,9 +112,9 @@ class CartViewController: ParallaxViewController {
     //  MARK: - Actions -
     //
     func openSafariFor(_ checkout: CheckoutViewModel) {
-        let safari                  = SFSafariViewController(url: checkout.webURL)
-        safari.navigationItem.title = "Checkout"
-        self.navigationController?.present(safari, animated: true, completion: nil)
+        let webController = WebViewController(url: checkout.webURL, accessToken: AccountController.shared.accessToken)
+        webController.navigationItem.title = "Checkout"
+        self.navigationController?.pushViewController(webController, animated: true)
     }
     
     func authorizePaymentFor(_ shopName: String, in checkout: CheckoutViewModel) {
@@ -265,7 +265,21 @@ extension CartViewController: TotalsControllerDelegate {
                 }
                 
                 group.notify(queue: .main) {
-                    completeCreateCheckout(updatedCheckout)
+                    if let accessToken = AccountController.shared.accessToken {
+                        
+                        print("Associating checkout with customer: \(accessToken)")
+                        Client.shared.updateCheckout(updatedCheckout.id, associatingCustomer: accessToken) { associatedCheckout in
+                            if let associatedCheckout = associatedCheckout {
+                                completeCreateCheckout(associatedCheckout)
+                            } else {
+                                print("Failed to associate checkout with customer.")
+                                completeCreateCheckout(updatedCheckout)
+                            }
+                        }
+                        
+                    } else {
+                        completeCreateCheckout(updatedCheckout)
+                    }
                 }
             }
         }
@@ -435,7 +449,7 @@ extension CartViewController: UITableViewDataSource {
         return true
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
             

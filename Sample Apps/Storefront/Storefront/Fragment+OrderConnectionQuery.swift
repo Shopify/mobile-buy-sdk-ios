@@ -1,6 +1,6 @@
 //
-//  Storefront.swift
-//  Buy
+//  Fragment+OrderConnectionQuery.swift
+//  Storefront
 //
 //  Created by Shopify.
 //  Copyright (c) 2017 Shopify Inc. All rights reserved.
@@ -24,16 +24,23 @@
 //  THE SOFTWARE.
 //
 
-public class Storefront {
-	public static func buildQuery(_ subfields: (QueryRootQuery) -> Void) -> QueryRootQuery {
-		let root = QueryRootQuery()
-		subfields(root)
-		return root
-	}
+import Buy
 
-	public static func buildMutation(_ subfields: (MutationQuery) -> Void) -> MutationQuery {
-		let root = MutationQuery()
-		subfields(root)
-		return root
-	}
+extension Storefront.OrderConnectionQuery {
+    
+    @discardableResult
+    func fragmentForStandardOrder() -> Storefront.OrderConnectionQuery { return self
+        .pageInfo { $0
+            .hasNextPage()
+        }
+        .edges { $0
+            .cursor()
+            .node { $0
+                .id()
+                .orderNumber()
+                .email()
+                .totalPrice()
+            }
+        }
+    }
 }
