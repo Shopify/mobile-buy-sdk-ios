@@ -111,6 +111,14 @@ extension Storefront {
 			return self
 		}
 
+		/// Unique identifier for the order that appears on the order. For example, 
+		/// _#1000_ or _Store1001. 
+		@discardableResult
+		open func name(alias: String? = nil) -> OrderQuery {
+			addField(field: "name", aliasSuffix: alias)
+			return self
+		}
+
 		/// A unique numeric identifier for the order for use by shop owner and 
 		/// customer. 
 		@discardableResult
@@ -260,6 +268,12 @@ extension Storefront {
 				}
 				return try OrderLineItemConnection(fields: value)
 
+				case "name":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
+				}
+				return value
+
 				case "orderNumber":
 				guard let value = value as? Int else {
 					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
@@ -392,6 +406,16 @@ extension Storefront {
 
 		func internalGetLineItems(alias: String? = nil) -> Storefront.OrderLineItemConnection {
 			return field(field: "lineItems", aliasSuffix: alias) as! Storefront.OrderLineItemConnection
+		}
+
+		/// Unique identifier for the order that appears on the order. For example, 
+		/// _#1000_ or _Store1001. 
+		open var name: String {
+			return internalGetName()
+		}
+
+		func internalGetName(alias: String? = nil) -> String {
+			return field(field: "name", aliasSuffix: alias) as! String
 		}
 
 		/// A unique numeric identifier for the order for use by shop owner and 

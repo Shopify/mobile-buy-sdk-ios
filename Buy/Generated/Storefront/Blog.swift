@@ -30,6 +30,26 @@ extension Storefront {
 	open class BlogQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Blog
 
+		/// Find an article by its handle. 
+		///
+		/// - parameters:
+		///     - handle: The handle of the article.
+		///
+		@discardableResult
+		open func articleByHandle(alias: String? = nil, handle: String, _ subfields: (ArticleQuery) -> Void) -> BlogQuery {
+			var args: [String] = []
+
+			args.append("handle:\(GraphQL.quoteString(input: handle))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = ArticleQuery()
+			subfields(subquery)
+
+			addField(field: "articleByHandle", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// List of the blog's articles. 
 		///
 		/// - parameters:
@@ -108,6 +128,13 @@ extension Storefront {
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "articleByHandle":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Blog.self, field: fieldName, value: fieldValue)
+				}
+				return try Article(fields: value)
+
 				case "articles":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Blog.self, field: fieldName, value: fieldValue)
@@ -141,6 +168,19 @@ extension Storefront {
 				default:
 				throw SchemaViolationError(type: Blog.self, field: fieldName, value: fieldValue)
 			}
+		}
+
+		/// Find an article by its handle. 
+		open var articleByHandle: Storefront.Article? {
+			return internalGetArticleByHandle()
+		}
+
+		open func aliasedArticleByHandle(alias: String) -> Storefront.Article? {
+			return internalGetArticleByHandle(alias: alias)
+		}
+
+		func internalGetArticleByHandle(alias: String? = nil) -> Storefront.Article? {
+			return field(field: "articleByHandle", aliasSuffix: alias) as! Storefront.Article?
 		}
 
 		/// List of the blog's articles. 
@@ -197,6 +237,12 @@ extension Storefront {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
 				switch($0) {
+					case "articleByHandle":
+					if let value = internalGetArticleByHandle() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
 					case "articles":
 					response.append(internalGetArticles())
 					response.append(contentsOf: internalGetArticles().childResponseObjectMap())
