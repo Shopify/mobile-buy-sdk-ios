@@ -1,5 +1,5 @@
 //
-//  CheckoutCreatePayload.swift
+//  CheckoutCompleteWithCreditCardV2Payload.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,12 +27,12 @@
 import Foundation
 
 extension Storefront {
-	open class CheckoutCreatePayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
-		public typealias Response = CheckoutCreatePayload
+	open class CheckoutCompleteWithCreditCardV2PayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = CheckoutCompleteWithCreditCardV2Payload
 
-		/// The new checkout object. 
+		/// The checkout on which the payment was applied. 
 		@discardableResult
-		open func checkout(alias: String? = nil, _ subfields: (CheckoutQuery) -> Void) -> CheckoutCreatePayloadQuery {
+		open func checkout(alias: String? = nil, _ subfields: (CheckoutQuery) -> Void) -> CheckoutCompleteWithCreditCardV2PayloadQuery {
 			let subquery = CheckoutQuery()
 			subfields(subquery)
 
@@ -40,20 +40,19 @@ extension Storefront {
 			return self
 		}
 
-		/// List of errors that occurred executing the mutation. 
+		/// A representation of the attempted payment. 
 		@discardableResult
-		open func checkoutUserErrors(alias: String? = nil, _ subfields: (CheckoutUserErrorQuery) -> Void) -> CheckoutCreatePayloadQuery {
-			let subquery = CheckoutUserErrorQuery()
+		open func payment(alias: String? = nil, _ subfields: (PaymentQuery) -> Void) -> CheckoutCompleteWithCreditCardV2PayloadQuery {
+			let subquery = PaymentQuery()
 			subfields(subquery)
 
-			addField(field: "checkoutUserErrors", aliasSuffix: alias, subfields: subquery)
+			addField(field: "payment", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
 		/// List of errors that occurred executing the mutation. 
-		@available(*, deprecated, message:"Use `checkoutUserErrors` instead")
 		@discardableResult
-		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CheckoutCreatePayloadQuery {
+		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CheckoutCompleteWithCreditCardV2PayloadQuery {
 			let subquery = UserErrorQuery()
 			subfields(subquery)
 
@@ -62,8 +61,8 @@ extension Storefront {
 		}
 	}
 
-	open class CheckoutCreatePayload: GraphQL.AbstractResponse, GraphQLObject {
-		public typealias Query = CheckoutCreatePayloadQuery
+	open class CheckoutCompleteWithCreditCardV2Payload: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = CheckoutCompleteWithCreditCardV2PayloadQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
@@ -71,28 +70,29 @@ extension Storefront {
 				case "checkout":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: CheckoutCreatePayload.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CheckoutCompleteWithCreditCardV2Payload.self, field: fieldName, value: fieldValue)
 				}
 				return try Checkout(fields: value)
 
-				case "checkoutUserErrors":
-				guard let value = value as? [[String: Any]] else {
-					throw SchemaViolationError(type: CheckoutCreatePayload.self, field: fieldName, value: fieldValue)
+				case "payment":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: CheckoutCompleteWithCreditCardV2Payload.self, field: fieldName, value: fieldValue)
 				}
-				return try value.map { return try CheckoutUserError(fields: $0) }
+				return try Payment(fields: value)
 
 				case "userErrors":
 				guard let value = value as? [[String: Any]] else {
-					throw SchemaViolationError(type: CheckoutCreatePayload.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CheckoutCompleteWithCreditCardV2Payload.self, field: fieldName, value: fieldValue)
 				}
 				return try value.map { return try UserError(fields: $0) }
 
 				default:
-				throw SchemaViolationError(type: CheckoutCreatePayload.self, field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: CheckoutCompleteWithCreditCardV2Payload.self, field: fieldName, value: fieldValue)
 			}
 		}
 
-		/// The new checkout object. 
+		/// The checkout on which the payment was applied. 
 		open var checkout: Storefront.Checkout? {
 			return internalGetCheckout()
 		}
@@ -101,17 +101,16 @@ extension Storefront {
 			return field(field: "checkout", aliasSuffix: alias) as! Storefront.Checkout?
 		}
 
-		/// List of errors that occurred executing the mutation. 
-		open var checkoutUserErrors: [Storefront.CheckoutUserError] {
-			return internalGetCheckoutUserErrors()
+		/// A representation of the attempted payment. 
+		open var payment: Storefront.Payment? {
+			return internalGetPayment()
 		}
 
-		func internalGetCheckoutUserErrors(alias: String? = nil) -> [Storefront.CheckoutUserError] {
-			return field(field: "checkoutUserErrors", aliasSuffix: alias) as! [Storefront.CheckoutUserError]
+		func internalGetPayment(alias: String? = nil) -> Storefront.Payment? {
+			return field(field: "payment", aliasSuffix: alias) as! Storefront.Payment?
 		}
 
 		/// List of errors that occurred executing the mutation. 
-		@available(*, deprecated, message:"Use `checkoutUserErrors` instead")
 		open var userErrors: [Storefront.UserError] {
 			return internalGetUserErrors()
 		}
@@ -130,10 +129,10 @@ extension Storefront {
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
-					case "checkoutUserErrors":
-					internalGetCheckoutUserErrors().forEach {
-						response.append($0)
-						response.append(contentsOf: $0.childResponseObjectMap())
+					case "payment":
+					if let value = internalGetPayment() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
 					case "userErrors":

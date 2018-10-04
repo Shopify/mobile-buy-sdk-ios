@@ -106,8 +106,9 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - checkoutId: The ID of the checkout.
-		///     - payment: No description
+		///     - payment: The credit card info to apply as a payment.
 		///
+		@available(*, deprecated, message:"Use `checkoutCompleteWithCreditCardV2` instead")
 		@discardableResult
 		open func checkoutCompleteWithCreditCard(alias: String? = nil, checkoutId: GraphQL.ID, payment: CreditCardPaymentInput, _ subfields: (CheckoutCompleteWithCreditCardPayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -122,6 +123,29 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "checkoutCompleteWithCreditCard", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Completes a checkout using a credit card token from Shopify's Vault. 
+		///
+		/// - parameters:
+		///     - checkoutId: The ID of the checkout.
+		///     - payment: The credit card info to apply as a payment.
+		///
+		@discardableResult
+		open func checkoutCompleteWithCreditCardV2(alias: String? = nil, checkoutId: GraphQL.ID, payment: CreditCardPaymentInputV2, _ subfields: (CheckoutCompleteWithCreditCardV2PayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
+
+			args.append("payment:\(payment.serialize())")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CheckoutCompleteWithCreditCardV2PayloadQuery()
+			subfields(subquery)
+
+			addField(field: "checkoutCompleteWithCreditCardV2", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
@@ -792,6 +816,13 @@ extension Storefront {
 				}
 				return try CheckoutCompleteWithCreditCardPayload(fields: value)
 
+				case "checkoutCompleteWithCreditCardV2":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CheckoutCompleteWithCreditCardV2Payload(fields: value)
+
 				case "checkoutCompleteWithTokenizedPayment":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -1035,9 +1066,12 @@ extension Storefront {
 		}
 
 		/// Completes a checkout using a credit card token from Shopify's Vault. 
+		@available(*, deprecated, message:"Use `checkoutCompleteWithCreditCardV2` instead")
 		open var checkoutCompleteWithCreditCard: Storefront.CheckoutCompleteWithCreditCardPayload? {
 			return internalGetCheckoutCompleteWithCreditCard()
 		}
+
+		@available(*, deprecated, message:"Use `checkoutCompleteWithCreditCardV2` instead")
 
 		open func aliasedCheckoutCompleteWithCreditCard(alias: String) -> Storefront.CheckoutCompleteWithCreditCardPayload? {
 			return internalGetCheckoutCompleteWithCreditCard(alias: alias)
@@ -1045,6 +1079,19 @@ extension Storefront {
 
 		func internalGetCheckoutCompleteWithCreditCard(alias: String? = nil) -> Storefront.CheckoutCompleteWithCreditCardPayload? {
 			return field(field: "checkoutCompleteWithCreditCard", aliasSuffix: alias) as! Storefront.CheckoutCompleteWithCreditCardPayload?
+		}
+
+		/// Completes a checkout using a credit card token from Shopify's Vault. 
+		open var checkoutCompleteWithCreditCardV2: Storefront.CheckoutCompleteWithCreditCardV2Payload? {
+			return internalGetCheckoutCompleteWithCreditCardV2()
+		}
+
+		open func aliasedCheckoutCompleteWithCreditCardV2(alias: String) -> Storefront.CheckoutCompleteWithCreditCardV2Payload? {
+			return internalGetCheckoutCompleteWithCreditCardV2(alias: alias)
+		}
+
+		func internalGetCheckoutCompleteWithCreditCardV2(alias: String? = nil) -> Storefront.CheckoutCompleteWithCreditCardV2Payload? {
+			return field(field: "checkoutCompleteWithCreditCardV2", aliasSuffix: alias) as! Storefront.CheckoutCompleteWithCreditCardV2Payload?
 		}
 
 		/// Completes a checkout with a tokenized payment. 
@@ -1444,6 +1491,12 @@ extension Storefront {
 
 					case "checkoutCompleteWithCreditCard":
 					if let value = internalGetCheckoutCompleteWithCreditCard() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "checkoutCompleteWithCreditCardV2":
+					if let value = internalGetCheckoutCompleteWithCreditCardV2() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}

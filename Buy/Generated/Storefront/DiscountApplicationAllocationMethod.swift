@@ -1,5 +1,5 @@
 //
-//  ProductSortKeys.swift
+//  DiscountApplicationAllocationMethod.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,37 +27,17 @@
 import Foundation
 
 extension Storefront {
-	/// The set of valid sort keys for the products query. 
-	public enum ProductSortKeys: String {
-		/// Sort by the `best_selling` value. 
-		case bestSelling = "BEST_SELLING"
+	/// The method by which the discount's value is allocated onto its entitled 
+	/// lines. 
+	public enum DiscountApplicationAllocationMethod: String {
+		/// The value is spread across all entitled lines. 
+		case across = "ACROSS"
 
-		/// Sort by the `created_at` value. 
-		case createdAt = "CREATED_AT"
+		/// The value is applied onto every entitled line. 
+		case each = "EACH"
 
-		/// Sort by the `id` value. 
-		case id = "ID"
-
-		/// Sort by the `price` value. 
-		case price = "PRICE"
-
-		/// Sort by the `product_type` value. 
-		case productType = "PRODUCT_TYPE"
-
-		/// During a search (i.e. when the `query` parameter has been specified on the 
-		/// connection) this sorts the results by relevance to the search term(s). When 
-		/// no search query is specified, this sort key is not deterministic and should 
-		/// not be used. 
-		case relevance = "RELEVANCE"
-
-		/// Sort by the `title` value. 
-		case title = "TITLE"
-
-		/// Sort by the `updated_at` value. 
-		case updatedAt = "UPDATED_AT"
-
-		/// Sort by the `vendor` value. 
-		case vendor = "VENDOR"
+		/// The value is specifically applied onto a particular line. 
+		case one = "ONE"
 
 		case unknownValue = ""
 	}
