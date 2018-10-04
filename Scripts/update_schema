@@ -36,6 +36,12 @@ customScalars = [
 	  swift_type:      'Decimal',
 	  deserialize_expr: ->(expr) { "Decimal(string: #{expr}, locale: GraphQL.posixLocale)" },
 	  serialize_expr:   ->(expr) { "String(describing: #{expr})"                           },
+	),
+	GraphQLSwiftGen::Scalar.new(
+	  type_name:       'Decimal',
+	  swift_type:      'Decimal',
+	  deserialize_expr: ->(expr) { "Decimal(string: #{expr}, locale: GraphQL.posixLocale)" },
+	  serialize_expr:   ->(expr) { "String(describing: #{expr})"                           },
 	)
 ]
 
