@@ -71,7 +71,7 @@ extension Storefront {
 	/// more general solution, the [Unicode CLDR number formatting database] is 
 	/// available with many implementations (such as 
 	/// [TwitterCldr](https://github.com/twitter/twitter-cldr-rb)). 
-	open class MoneyV2: GraphQL.AbstractResponse, GraphQLObject {
+	open class MoneyV2: GraphQL.AbstractResponse, GraphQLObject, PricingValue {
 		public typealias Query = MoneyV2Query
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
