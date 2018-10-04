@@ -127,7 +127,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The SKU (Stock Keeping Unit) associated with the variant. 
+		/// The SKU (stock keeping unit) associated with the variant. 
 		@discardableResult
 		open func sku(alias: String? = nil) -> ProductVariantQuery {
 			addField(field: "sku", aliasSuffix: alias)
@@ -326,7 +326,7 @@ extension Storefront {
 			return field(field: "selectedOptions", aliasSuffix: alias) as! [Storefront.SelectedOption]
 		}
 
-		/// The SKU (Stock Keeping Unit) associated with the variant. 
+		/// The SKU (stock keeping unit) associated with the variant. 
 		open var sku: String? {
 			return internalGetSku()
 		}

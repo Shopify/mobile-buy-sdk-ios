@@ -29,7 +29,34 @@ import Foundation
 extension Storefront {
 	/// Possible error codes that could be returned by a customer mutation. 
 	public enum CustomerErrorCode: String {
-		/// Customer is unidentified. 
+		/// Input value is blank. 
+		case blank = "BLANK"
+
+		/// Input contains HTML tags. 
+		case containsHtmlTags = "CONTAINS_HTML_TAGS"
+
+		/// Input contains URL. 
+		case containsUrl = "CONTAINS_URL"
+
+		/// Customer is disabled. 
+		case customerDisabled = "CUSTOMER_DISABLED"
+
+		/// Input value is invalid. 
+		case invalid = "INVALID"
+
+		/// Input password starts or ends with whitespace. 
+		case passwordStartsOrEndsWithWhitespace = "PASSWORD_STARTS_OR_ENDS_WITH_WHITESPACE"
+
+		/// Input value is already taken. 
+		case taken = "TAKEN"
+
+		/// Input value is too long. 
+		case tooLong = "TOO_LONG"
+
+		/// Input value is too short. 
+		case tooShort = "TOO_SHORT"
+
+		/// Unidentified customer. 
 		case unidentifiedCustomer = "UNIDENTIFIED_CUSTOMER"
 
 		case unknownValue = ""

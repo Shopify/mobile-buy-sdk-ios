@@ -158,7 +158,7 @@ extension Storefront {
 		/// Find a collection by its handle. 
 		///
 		/// - parameters:
-		///     - handle: No description
+		///     - handle: The handle of the collection.
 		///
 		@discardableResult
 		open func collectionByHandle(alias: String? = nil, handle: String, _ subfields: (CollectionQuery) -> Void) -> ShopQuery {
@@ -293,7 +293,7 @@ extension Storefront {
 		/// Find a product by its handle. 
 		///
 		/// - parameters:
-		///     - handle: No description
+		///     - handle: The handle of the product.
 		///
 		@discardableResult
 		open func productByHandle(alias: String? = nil, handle: String, _ subfields: (ProductQuery) -> Void) -> ShopQuery {
@@ -345,6 +345,7 @@ extension Storefront {
 		///         - `vendor`
 		///         - `created_at`
 		///         - `updated_at`
+		///         - `variants.price`
 		///         - `tag`
 		///
 		@discardableResult
