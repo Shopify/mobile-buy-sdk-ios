@@ -39,16 +39,7 @@ extension Storefront.CheckoutQuery {
         .discountApplications(first: 250) { $0
             .edges { $0
                 .node { $0
-                    .onDiscountCodeApplication { $0
-                        .applicable()
-                        .code()
-                    }
-                    .onManualDiscountApplication { $0
-                        .title()
-                    }
-                    .onScriptDiscountApplication { $0
-                        .description()
-                    }
+                    .fragmentForDiscountApplication()
                 }
             }
         }

@@ -34,5 +34,8 @@ extension Storefront.DiscountAllocationQuery {
             .amount()
             .currencyCode()
         }
+        .discountApplication { $0
+            .fragmentForDiscountApplication()
+        }
     }
 }
