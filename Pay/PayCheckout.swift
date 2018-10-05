@@ -33,38 +33,40 @@ import PassKit
 ///
 public struct PayCheckout {
 
-    public let id:              String
-    public let hasLineItems:    Bool
-    public let needsShipping:   Bool
+    public let id:               String
+    public let hasLineItems:     Bool
+    public let needsShipping:    Bool
 
-    public let giftCards:       [PayGiftCard]?
-    public let discount:        PayDiscount?
-    public let lineItems:       [PayLineItem]
-    public let shippingAddress: PayAddress?
-    public let shippingRate:    PayShippingRate?
+    public let giftCards:        [PayGiftCard]?
+    public let discount:         PayDiscount?
+    public let shippingDiscount: PayDiscount?
+    public let lineItems:        [PayLineItem]
+    public let shippingAddress:  PayAddress?
+    public let shippingRate:     PayShippingRate?
 
-    public let subtotalPrice:   Decimal
-    public let totalTax:        Decimal
-    public let paymentDue:      Decimal
+    public let subtotalPrice:    Decimal
+    public let totalTax:         Decimal
+    public let paymentDue:       Decimal
 
     // ----------------------------------
     //  MARK: - Init -
     //
-    public init(id: String, lineItems: [PayLineItem], giftCards: [PayGiftCard]?, discount: PayDiscount?, shippingAddress: PayAddress?, shippingRate: PayShippingRate?, subtotalPrice: Decimal, needsShipping: Bool, totalTax: Decimal, paymentDue: Decimal) {
+    public init(id: String, lineItems: [PayLineItem], giftCards: [PayGiftCard]?, discount: PayDiscount?, shippingDiscount: PayDiscount?, shippingAddress: PayAddress?, shippingRate: PayShippingRate?, subtotalPrice: Decimal, needsShipping: Bool, totalTax: Decimal, paymentDue: Decimal) {
 
-        self.id              = id
-        self.lineItems       = lineItems
-        self.shippingAddress = shippingAddress
-        self.shippingRate    = shippingRate
+        self.id               = id
+        self.lineItems        = lineItems
+        self.shippingAddress  = shippingAddress
+        self.shippingRate     = shippingRate
 
-        self.giftCards       = giftCards
-        self.discount        = discount
-        self.subtotalPrice   = subtotalPrice
-        self.totalTax        = totalTax
-        self.paymentDue      = paymentDue
+        self.giftCards        = giftCards
+        self.discount         = discount
+        self.shippingDiscount = shippingDiscount
+        self.subtotalPrice    = subtotalPrice
+        self.totalTax         = totalTax
+        self.paymentDue       = paymentDue
 
-        self.hasLineItems    = !lineItems.isEmpty
-        self.needsShipping   = needsShipping
+        self.hasLineItems     = !lineItems.isEmpty
+        self.needsShipping    = needsShipping
     }
 }
 
@@ -99,6 +101,13 @@ internal extension PayCheckout {
             summaryItems.append(shippingRate.price.summaryItemNamed("SHIPPING"))
         }
 
+        // Shipping Discount
+        
+        if let discount = self.shippingDiscount {
+            let title = discount.code.isEmpty ? "DISCOUNT" : "DISCOUNT (\(discount.code))"
+            summaryItems.append(discount.amount.negative.summaryItemNamed(title))
+        }
+        
         // Taxes
         
         if self.totalTax > 0.0 {

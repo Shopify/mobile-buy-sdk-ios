@@ -1,5 +1,5 @@
 //
-//  LineItemViewModel.swift
+//  Fragment+DiscountAllocation.swift
 //  Storefront
 //
 //  Created by Shopify.
@@ -24,39 +24,15 @@
 //  THE SOFTWARE.
 //
 
-import Foundation
 import Buy
 
-final class LineItemViewModel: ViewModel {
+extension Storefront.DiscountAllocationQuery {
     
-    typealias ModelType = Storefront.CheckoutLineItemEdge
-    
-    let model:    ModelType
-    let cursor:   String
-    
-    let variantID:           String?
-    let title:               String
-    let quantity:            Int
-    let individualPrice:     Decimal
-    let totalPrice:          Decimal
-    let discountAllocations: [DiscountAllocationViewModel]
-    
-    // ----------------------------------
-    //  MARK: - Init -
-    //
-    required init(from model: ModelType) {
-        self.model               = model
-        self.cursor              = model.cursor
-        
-        self.variantID           = model.node.variant!.id.rawValue
-        self.title               = model.node.title
-        self.quantity            = Int(model.node.quantity)
-        self.individualPrice     = model.node.variant!.price
-        self.totalPrice          = self.individualPrice * Decimal(self.quantity)
-        self.discountAllocations = model.node.discountAllocations.viewModels
+    @discardableResult
+    func fragmentForDiscountAllocation() -> Storefront.DiscountAllocationQuery { return self
+        .allocatedAmount { $0
+            .amount()
+            .currencyCode()
+        }
     }
-}
-
-extension Storefront.CheckoutLineItemEdge: ViewModeling {
-    typealias ViewModelType = LineItemViewModel
 }

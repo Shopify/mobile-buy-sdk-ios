@@ -35,16 +35,17 @@ extension CheckoutViewModel {
         }
         
         return PayCheckout(
-            id:              self.id,
-            lineItems:       payItems,
-            giftCards:       self.giftCards.map { $0.payGiftCard },
-            discount:        nil,
-            shippingAddress: self.shippingAddress?.payAddress,
-            shippingRate:    self.shippingRate?.payShippingRate,
-            subtotalPrice:   self.subtotalPrice,
-            needsShipping:   self.requiresShipping,
-            totalTax:        self.totalTax,
-            paymentDue:      self.paymentDue
+            id:               self.id,
+            lineItems:        payItems,
+            giftCards:        self.giftCards.map { $0.payGiftCard },
+            discount:         self.totalLineItemDiscounts > 0 ? PayDiscount(code: self.discountDescription, amount: self.totalLineItemDiscounts) : nil,
+            shippingDiscount: self.totalShippingDiscounts > 0 ? PayDiscount(code: self.discountDescription, amount: self.totalShippingDiscounts) : nil,
+            shippingAddress:  self.shippingAddress?.payAddress,
+            shippingRate:     self.shippingRate?.payShippingRate,
+            subtotalPrice:    self.subtotalPrice,
+            needsShipping:    self.requiresShipping,
+            totalTax:         self.totalTax,
+            paymentDue:       self.paymentDue
         )
     }
 }
