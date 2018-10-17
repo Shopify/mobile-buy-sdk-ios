@@ -362,7 +362,7 @@ final class Client {
         let task     = self.client.mutateGraphWith(mutation) { response, error in
             error.debugPrint()
             
-            if let payment = response?.checkoutCompleteWithTokenizedPayment?.payment {
+            if let payment = response?.checkoutCompleteWithTokenizedPaymentV2?.payment {
                 
                 print("Payment created, fetching status...")
                 self.fetchCompletedPayment(payment.id.rawValue) { paymentViewModel in
@@ -394,6 +394,7 @@ final class Client {
         let task  = self.client.queryGraphWith(query, retryHandler: retry) { query, error in
             
             if let payment = query?.node as? Storefront.Payment {
+                print("Payment error: \(payment.errorMessage ?? "none")")
                 completion(payment.viewModel)
             } else {
                 completion(nil)

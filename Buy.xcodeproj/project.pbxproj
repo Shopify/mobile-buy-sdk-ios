@@ -21,6 +21,12 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		9A035E102177B764008596C9 /* TokenizedPaymentInputV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A035E0F2177B763008596C9 /* TokenizedPaymentInputV2.swift */; };
+		9A035E112177B764008596C9 /* TokenizedPaymentInputV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A035E0F2177B763008596C9 /* TokenizedPaymentInputV2.swift */; };
+		9A035E122177B764008596C9 /* TokenizedPaymentInputV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A035E0F2177B763008596C9 /* TokenizedPaymentInputV2.swift */; };
+		9A035E132177B775008596C9 /* CheckoutCompleteWithTokenizedPaymentV2Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A42EA312177B6A900006EC3 /* CheckoutCompleteWithTokenizedPaymentV2Payload.swift */; };
+		9A035E162177B778008596C9 /* CheckoutCompleteWithTokenizedPaymentV2Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A42EA312177B6A900006EC3 /* CheckoutCompleteWithTokenizedPaymentV2Payload.swift */; };
+		9A035E172177B779008596C9 /* CheckoutCompleteWithTokenizedPaymentV2Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A42EA312177B6A900006EC3 /* CheckoutCompleteWithTokenizedPaymentV2Payload.swift */; };
 		9A0C7FCD1EA6631B0020F187 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C7FCC1EA6631B0020F187 /* Models.swift */; };
 		9A0C7FD11EA669C80020F187 /* PayDiscount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C7FD01EA669C80020F187 /* PayDiscount.swift */; };
 		9A0C7FD31EA66DF70020F187 /* PayDiscountTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C7FD21EA66DF70020F187 /* PayDiscountTests.swift */; };
@@ -606,6 +612,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9A035E0F2177B763008596C9 /* TokenizedPaymentInputV2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizedPaymentInputV2.swift; sourceTree = "<group>"; };
 		9A0C7FCC1EA6631B0020F187 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		9A0C7FD01EA669C80020F187 /* PayDiscount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayDiscount.swift; sourceTree = "<group>"; };
 		9A0C7FD21EA66DF70020F187 /* PayDiscountTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayDiscountTests.swift; sourceTree = "<group>"; };
@@ -738,6 +745,7 @@
 		9A4069CE1E8ED98A000254CD /* Graph.Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.Task.swift; sourceTree = "<group>"; };
 		9A41E2A51F85096B0059485A /* CheckoutDiscountCodeApplyPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutDiscountCodeApplyPayload.swift; sourceTree = "<group>"; };
 		9A41E2A91F8509770059485A /* CustomerDefaultAddressUpdatePayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerDefaultAddressUpdatePayload.swift; sourceTree = "<group>"; };
+		9A42EA312177B6A900006EC3 /* CheckoutCompleteWithTokenizedPaymentV2Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutCompleteWithTokenizedPaymentV2Payload.swift; sourceTree = "<group>"; };
 		9A43489A20C84A56005EAD56 /* CheckoutDiscountCodeRemovePayload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutDiscountCodeRemovePayload.swift; sourceTree = "<group>"; };
 		9A49DC821EC4AD580053710B /* Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		9A52D3A01F3CA58E00C093C8 /* ProductImageSortKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductImageSortKeys.swift; sourceTree = "<group>"; };
@@ -908,6 +916,7 @@
 				9A0C80011EAA51C50020F187 /* CheckoutCompleteWithCreditCardPayload.swift */,
 				9A6711372166678500A57A3F /* CheckoutCompleteWithCreditCardV2Payload.swift */,
 				9A0C80021EAA51C50020F187 /* CheckoutCompleteWithTokenizedPaymentPayload.swift */,
+				9A42EA312177B6A900006EC3 /* CheckoutCompleteWithTokenizedPaymentV2Payload.swift */,
 				9A0C80031EAA51C50020F187 /* CheckoutCreateInput.swift */,
 				9A0C80041EAA51C50020F187 /* CheckoutCreatePayload.swift */,
 				9A0C80051EAA51C50020F187 /* CheckoutCustomerAssociatePayload.swift */,
@@ -1032,6 +1041,7 @@
 				9A125CFE1F16A0D7008DCF38 /* StringConnection.swift */,
 				9A125CFD1F16A0D7008DCF38 /* StringEdge.swift */,
 				9A0C80511EAA51C50020F187 /* TokenizedPaymentInput.swift */,
+				9A035E0F2177B763008596C9 /* TokenizedPaymentInputV2.swift */,
 				9A0C80521EAA51C50020F187 /* Transaction.swift */,
 				9A0C80531EAA51C50020F187 /* TransactionKind.swift */,
 				9A0C80541EAA51C50020F187 /* TransactionStatus.swift */,
@@ -1662,6 +1672,7 @@
 				9AC2EF651F6818180037E0D7 /* CustomerAccessTokenCreatePayload.swift in Sources */,
 				9ABEB3B32122FF7700A373F2 /* FulfillmentTrackingInfo.swift in Sources */,
 				9ABEB3BB2122FF8000A373F2 /* CustomerUserError.swift in Sources */,
+				9A035E112177B764008596C9 /* TokenizedPaymentInputV2.swift in Sources */,
 				9AC2EF661F6818180037E0D7 /* BlogEdge.swift in Sources */,
 				9A67114721666A7700A57A3F /* CheckoutUserError.swift in Sources */,
 				9AC2EF671F6818180037E0D7 /* Shop.swift in Sources */,
@@ -1672,6 +1683,7 @@
 				9AC2EF6B1F6818180037E0D7 /* Mutation.swift in Sources */,
 				9AC2EF6C1F6818180037E0D7 /* Header.swift in Sources */,
 				9AC2EF6D1F6818180037E0D7 /* CommentAuthor.swift in Sources */,
+				9A035E162177B778008596C9 /* CheckoutCompleteWithTokenizedPaymentV2Payload.swift in Sources */,
 				9AC2EF6E1F6818180037E0D7 /* ProductVariantConnection.swift in Sources */,
 				9A9EA44320AF0EBB002CB926 /* ProductPriceRange.swift in Sources */,
 				9A67117721666AB200A57A3F /* DiscountApplicationTargetSelection.swift in Sources */,
@@ -1840,6 +1852,7 @@
 				9A0C807E1EAA51C50020F187 /* CustomerAccessTokenCreatePayload.swift in Sources */,
 				9ABEB3B22122FF7700A373F2 /* FulfillmentTrackingInfo.swift in Sources */,
 				9ABEB3BA2122FF8000A373F2 /* CustomerUserError.swift in Sources */,
+				9A035E102177B764008596C9 /* TokenizedPaymentInputV2.swift in Sources */,
 				9AA416D21EE095B20060029B /* BlogEdge.swift in Sources */,
 				9A67114621666A7700A57A3F /* CheckoutUserError.swift in Sources */,
 				9A0C80AE1EAA51C50020F187 /* Shop.swift in Sources */,
@@ -1850,6 +1863,7 @@
 				9A0C80951EAA51C50020F187 /* Mutation.swift in Sources */,
 				9A49DC831EC4AD580053710B /* Header.swift in Sources */,
 				9AA416D91EE095BB0060029B /* CommentAuthor.swift in Sources */,
+				9A035E132177B775008596C9 /* CheckoutCompleteWithTokenizedPaymentV2Payload.swift in Sources */,
 				9A0C80A91EAA51C50020F187 /* ProductVariantConnection.swift in Sources */,
 				9A9EA44220AF0EBB002CB926 /* ProductPriceRange.swift in Sources */,
 				9A67117621666AB200A57A3F /* DiscountApplicationTargetSelection.swift in Sources */,
@@ -2018,6 +2032,7 @@
 				9AF255DF1F6FEE50005BB0C9 /* CustomerAccessTokenCreatePayload.swift in Sources */,
 				9ABEB3B42122FF7700A373F2 /* FulfillmentTrackingInfo.swift in Sources */,
 				9ABEB3BC2122FF8000A373F2 /* CustomerUserError.swift in Sources */,
+				9A035E122177B764008596C9 /* TokenizedPaymentInputV2.swift in Sources */,
 				9AF255E01F6FEE50005BB0C9 /* BlogEdge.swift in Sources */,
 				9A67114821666A7700A57A3F /* CheckoutUserError.swift in Sources */,
 				9AF255E11F6FEE50005BB0C9 /* Shop.swift in Sources */,
@@ -2028,6 +2043,7 @@
 				9AF255E51F6FEE50005BB0C9 /* Mutation.swift in Sources */,
 				9AF255E61F6FEE50005BB0C9 /* Header.swift in Sources */,
 				9AF255E71F6FEE50005BB0C9 /* CommentAuthor.swift in Sources */,
+				9A035E172177B779008596C9 /* CheckoutCompleteWithTokenizedPaymentV2Payload.swift in Sources */,
 				9AF255E81F6FEE50005BB0C9 /* ProductVariantConnection.swift in Sources */,
 				9A9EA44420AF0EBB002CB926 /* ProductPriceRange.swift in Sources */,
 				9A67117821666AB200A57A3F /* DiscountApplicationTargetSelection.swift in Sources */,

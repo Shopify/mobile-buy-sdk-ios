@@ -42,6 +42,7 @@ extension CheckoutViewModel {
             shippingDiscount: self.totalShippingDiscounts > 0 ? PayDiscount(code: self.shippingDiscountName, amount: self.totalShippingDiscounts) : nil,
             shippingAddress:  self.shippingAddress?.payAddress,
             shippingRate:     self.shippingRate?.payShippingRate,
+            currencyCode:     self.currencyCode,
             subtotalPrice:    self.subtotalPrice,
             needsShipping:    self.requiresShipping,
             totalTax:         self.totalTax,
