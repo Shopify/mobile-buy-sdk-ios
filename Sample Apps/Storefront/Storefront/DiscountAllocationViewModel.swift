@@ -1,5 +1,5 @@
 //
-//  LineItemViewModel.swift
+//  DiscountAllocationViewModel.swift
 //  Storefront
 //
 //  Created by Shopify.
@@ -27,36 +27,43 @@
 import Foundation
 import Buy
 
-final class LineItemViewModel: ViewModel {
+final class DiscountAllocationViewModel: ViewModel {
     
-    typealias ModelType = Storefront.CheckoutLineItemEdge
+    typealias ModelType = Storefront.DiscountAllocation
     
-    let model:    ModelType
-    let cursor:   String
+    let model: ModelType
     
-    let variantID:           String?
-    let title:               String
-    let quantity:            Int
-    let individualPrice:     Decimal
-    let totalPrice:          Decimal
-    let discountAllocations: [DiscountAllocationViewModel]
+    let amount:       Decimal
+    let currencyCode: String
+    let application:  DiscountApplication
     
     // ----------------------------------
     //  MARK: - Init -
     //
     required init(from model: ModelType) {
-        self.model               = model
-        self.cursor              = model.cursor
+        self.model        = model
         
-        self.variantID           = model.node.variant!.id.rawValue
-        self.title               = model.node.title
-        self.quantity            = Int(model.node.quantity)
-        self.individualPrice     = model.node.variant!.price
-        self.totalPrice          = self.individualPrice * Decimal(self.quantity)
-        self.discountAllocations = model.node.discountAllocations.viewModels
+        self.amount       = model.allocatedAmount.amount
+        self.currencyCode = model.allocatedAmount.currencyCode.rawValue
+        self.application  = model.discountApplication.resolvedViewModel
     }
 }
 
-extension Storefront.CheckoutLineItemEdge: ViewModeling {
-    typealias ViewModelType = LineItemViewModel
+extension Storefront.DiscountAllocation: ViewModeling {
+    typealias ViewModelType = DiscountAllocationViewModel
+}
+
+extension Array where Element == DiscountAllocationViewModel {
+    
+    var aggregateName: String {
+        return self.map {
+            $0.application.name
+        }.joined(separator: ", ")
+    }
+    
+    var totalDiscount: Decimal {
+        return reduce(0) {
+            $0 + $1.amount
+        }
+    }
 }

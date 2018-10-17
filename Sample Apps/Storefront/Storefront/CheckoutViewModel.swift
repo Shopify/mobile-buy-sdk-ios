@@ -56,6 +56,15 @@ final class CheckoutViewModel: ViewModel {
     let totalPrice:       Decimal
     let paymentDue:       Decimal
     
+    let shippingDiscountName:   String
+    let totalShippingDiscounts: Decimal
+    
+    let lineItemDiscountName:   String
+    let totalLineItemDiscounts: Decimal
+    let totalDiscounts:         Decimal
+    
+    let shippingDiscountAllocations: [DiscountAllocationViewModel]
+    
     // ----------------------------------
     //  MARK: - Init -
     //
@@ -79,6 +88,17 @@ final class CheckoutViewModel: ViewModel {
         self.totalTax         = model.totalTax
         self.totalPrice       = model.totalPrice
         self.paymentDue       = model.paymentDue
+        
+        self.shippingDiscountAllocations = model.shippingDiscountAllocations.viewModels
+
+        self.shippingDiscountName   = self.shippingDiscountAllocations.aggregateName
+        self.totalShippingDiscounts = self.shippingDiscountAllocations.totalDiscount
+        
+        let lineItemAllocations     = self.lineItems.flatMap { $0.discountAllocations }
+        self.lineItemDiscountName   = lineItemAllocations.aggregateName
+        self.totalLineItemDiscounts = lineItemAllocations.totalDiscount
+        
+        self.totalDiscounts         = self.totalShippingDiscounts + self.totalLineItemDiscounts
     }
 }
 

@@ -36,6 +36,18 @@ extension Storefront.CheckoutQuery {
         .taxesIncluded()
         .email()
         
+        .discountApplications(first: 250) { $0
+            .edges { $0
+                .node { $0
+                    .fragmentForDiscountApplication()
+                }
+            }
+        }
+        
+        .shippingDiscountAllocations { $0
+            .fragmentForDiscountAllocation()
+        }
+        
         .appliedGiftCards { $0
             .id()
             .balance()
@@ -74,6 +86,9 @@ extension Storefront.CheckoutQuery {
                     }
                     .title()
                     .quantity()
+                    .discountAllocations { $0
+                        .fragmentForDiscountAllocation()
+                    }
                 }
             }
         }

@@ -1,5 +1,5 @@
 //
-//  LineItemViewModel.swift
+//  ManualCodeViewModel.swift
 //  Storefront
 //
 //  Created by Shopify.
@@ -24,39 +24,24 @@
 //  THE SOFTWARE.
 //
 
-import Foundation
 import Buy
 
-final class LineItemViewModel: ViewModel {
+final class ManualCodeViewModel: DiscountApplication, ViewModel {
     
-    typealias ModelType = Storefront.CheckoutLineItemEdge
+    typealias ModelType = Storefront.ManualDiscountApplication
     
-    let model:    ModelType
-    let cursor:   String
-    
-    let variantID:           String?
-    let title:               String
-    let quantity:            Int
-    let individualPrice:     Decimal
-    let totalPrice:          Decimal
-    let discountAllocations: [DiscountAllocationViewModel]
+    let model: ModelType
+    let name:  String
     
     // ----------------------------------
     //  MARK: - Init -
     //
     required init(from model: ModelType) {
-        self.model               = model
-        self.cursor              = model.cursor
-        
-        self.variantID           = model.node.variant!.id.rawValue
-        self.title               = model.node.title
-        self.quantity            = Int(model.node.quantity)
-        self.individualPrice     = model.node.variant!.price
-        self.totalPrice          = self.individualPrice * Decimal(self.quantity)
-        self.discountAllocations = model.node.discountAllocations.viewModels
+        self.model = model
+        self.name  = model.title
     }
 }
 
-extension Storefront.CheckoutLineItemEdge: ViewModeling {
-    typealias ViewModelType = LineItemViewModel
+extension Storefront.ManualDiscountApplication: ViewModeling {
+    typealias ViewModelType = ManualCodeViewModel
 }

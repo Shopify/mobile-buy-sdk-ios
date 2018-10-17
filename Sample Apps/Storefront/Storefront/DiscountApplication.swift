@@ -1,5 +1,5 @@
 //
-//  LineItemViewModel.swift
+//  DiscountApplication.swift
 //  Storefront
 //
 //  Created by Shopify.
@@ -24,39 +24,32 @@
 //  THE SOFTWARE.
 //
 
-import Foundation
 import Buy
 
-final class LineItemViewModel: ViewModel {
+protocol DiscountApplication {
+    var name: String { get }
+}
+
+extension Buy.DiscountApplication {
     
-    typealias ModelType = Storefront.CheckoutLineItemEdge
-    
-    let model:    ModelType
-    let cursor:   String
-    
-    let variantID:           String?
-    let title:               String
-    let quantity:            Int
-    let individualPrice:     Decimal
-    let totalPrice:          Decimal
-    let discountAllocations: [DiscountAllocationViewModel]
-    
-    // ----------------------------------
-    //  MARK: - Init -
-    //
-    required init(from model: ModelType) {
-        self.model               = model
-        self.cursor              = model.cursor
-        
-        self.variantID           = model.node.variant!.id.rawValue
-        self.title               = model.node.title
-        self.quantity            = Int(model.node.quantity)
-        self.individualPrice     = model.node.variant!.price
-        self.totalPrice          = self.individualPrice * Decimal(self.quantity)
-        self.discountAllocations = model.node.discountAllocations.viewModels
+    var resolvedViewModel: DiscountApplication {
+        switch self {
+        case let discount as Storefront.DiscountCodeApplication:
+            return discount.viewModel
+        case let discount as Storefront.ManualDiscountApplication:
+            return discount.viewModel
+        case let discount as Storefront.ScriptDiscountApplication:
+            return discount.viewModel
+        default:
+            fatalError("Unsupported DiscountApplication type: \(type(of: self))")
+        }
     }
 }
 
-extension Storefront.CheckoutLineItemEdge: ViewModeling {
-    typealias ViewModelType = LineItemViewModel
+extension Array where Element == Buy.DiscountApplication {
+    
+    var viewModels: [DiscountApplication] {
+        return self.map { $0.resolvedViewModel }
+    }
 }
+
