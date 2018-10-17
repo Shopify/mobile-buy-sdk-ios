@@ -81,7 +81,7 @@ extension Storefront {
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: MoneyV2.self, field: fieldName, value: fieldValue)
 				}
-				return value
+				return Decimal(string: value, locale: GraphQL.posixLocale)
 
 				case "currencyCode":
 				guard let value = value as? String else {
@@ -95,12 +95,12 @@ extension Storefront {
 		}
 
 		/// Decimal money amount. 
-		open var amount: String {
+		open var amount: Decimal {
 			return internalGetAmount()
 		}
 
-		func internalGetAmount(alias: String? = nil) -> String {
-			return field(field: "amount", aliasSuffix: alias) as! String
+		func internalGetAmount(alias: String? = nil) -> Decimal {
+			return field(field: "amount", aliasSuffix: alias) as! Decimal
 		}
 
 		/// Currency of the money. 

@@ -30,7 +30,7 @@ extension Storefront {
 	/// Specifies the fields for a monetary value with currency. 
 	open class MoneyInput {
 		/// Decimal money amount. 
-		open var amount: String
+		open var amount: Decimal
 
 		/// Currency of the money. 
 		open var currencyCode: CurrencyCode
@@ -41,7 +41,7 @@ extension Storefront {
 		///     - amount: Decimal money amount.
 		///     - currencyCode: Currency of the money.
 		///
-		public static func create(amount: String, currencyCode: CurrencyCode) -> MoneyInput {
+		public static func create(amount: Decimal, currencyCode: CurrencyCode) -> MoneyInput {
 			return MoneyInput(amount: amount, currencyCode: currencyCode)
 		}
 
@@ -51,7 +51,7 @@ extension Storefront {
 		///     - amount: Decimal money amount.
 		///     - currencyCode: Currency of the money.
 		///
-		public init(amount: String, currencyCode: CurrencyCode) {
+		public init(amount: Decimal, currencyCode: CurrencyCode) {
 			self.amount = amount
 			self.currencyCode = currencyCode
 		}
@@ -59,7 +59,7 @@ extension Storefront {
 		internal func serialize() -> String {
 			var fields: [String] = []
 
-			fields.append("amount:\(GraphQL.quoteString(input: amount))")
+			fields.append("amount:\(GraphQL.quoteString(input: "\(String(describing: amount))"))")
 
 			fields.append("currencyCode:\(currencyCode.rawValue)")
 
