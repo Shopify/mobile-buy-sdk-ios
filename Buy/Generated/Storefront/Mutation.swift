@@ -222,6 +222,7 @@ extension Storefront {
 		///     - checkoutId: The ID of the checkout.
 		///     - customerAccessToken: The customer access token of the customer to associate.
 		///
+		@available(*, deprecated, message:"Use `checkoutCustomerAssociateV2` instead")
 		@discardableResult
 		open func checkoutCustomerAssociate(alias: String? = nil, checkoutId: GraphQL.ID, customerAccessToken: String, _ subfields: (CheckoutCustomerAssociatePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -239,11 +240,35 @@ extension Storefront {
 			return self
 		}
 
+		/// Associates a customer to the checkout. 
+		///
+		/// - parameters:
+		///     - checkoutId: The ID of the checkout.
+		///     - customerAccessToken: The customer access token of the customer to associate.
+		///
+		@discardableResult
+		open func checkoutCustomerAssociateV2(alias: String? = nil, checkoutId: GraphQL.ID, customerAccessToken: String, _ subfields: (CheckoutCustomerAssociateV2PayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
+
+			args.append("customerAccessToken:\(GraphQL.quoteString(input: customerAccessToken))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CheckoutCustomerAssociateV2PayloadQuery()
+			subfields(subquery)
+
+			addField(field: "checkoutCustomerAssociateV2", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// Disassociates the current checkout customer from the checkout. 
 		///
 		/// - parameters:
 		///     - checkoutId: The ID of the checkout.
 		///
+		@available(*, deprecated, message:"Use `checkoutCustomerDisassociateV2` instead")
 		@discardableResult
 		open func checkoutCustomerDisassociate(alias: String? = nil, checkoutId: GraphQL.ID, _ subfields: (CheckoutCustomerDisassociatePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -256,6 +281,26 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "checkoutCustomerDisassociate", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Disassociates the current checkout customer from the checkout. 
+		///
+		/// - parameters:
+		///     - checkoutId: The ID of the checkout.
+		///
+		@discardableResult
+		open func checkoutCustomerDisassociateV2(alias: String? = nil, checkoutId: GraphQL.ID, _ subfields: (CheckoutCustomerDisassociateV2PayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CheckoutCustomerDisassociateV2PayloadQuery()
+			subfields(subquery)
+
+			addField(field: "checkoutCustomerDisassociateV2", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
@@ -353,9 +398,10 @@ extension Storefront {
 		/// Removes an applied gift card from the checkout. 
 		///
 		/// - parameters:
-		///     - appliedGiftCardId: The ID of the Applied Gift Card to remove from the Checkout
+		///     - appliedGiftCardId: The ID of the Applied Gift Card to remove from the Checkout.
 		///     - checkoutId: The ID of the checkout.
 		///
+		@available(*, deprecated, message:"Use `checkoutGiftCardRemoveV2` instead")
 		@discardableResult
 		open func checkoutGiftCardRemove(alias: String? = nil, appliedGiftCardId: GraphQL.ID, checkoutId: GraphQL.ID, _ subfields: (CheckoutGiftCardRemovePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -370,6 +416,29 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "checkoutGiftCardRemove", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Removes an applied gift card from the checkout. 
+		///
+		/// - parameters:
+		///     - appliedGiftCardId: The ID of the Applied Gift Card to remove from the Checkout.
+		///     - checkoutId: The ID of the checkout.
+		///
+		@discardableResult
+		open func checkoutGiftCardRemoveV2(alias: String? = nil, appliedGiftCardId: GraphQL.ID, checkoutId: GraphQL.ID, _ subfields: (CheckoutGiftCardRemoveV2PayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("appliedGiftCardId:\(GraphQL.quoteString(input: "\(appliedGiftCardId.rawValue)"))")
+
+			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CheckoutGiftCardRemoveV2PayloadQuery()
+			subfields(subquery)
+
+			addField(field: "checkoutGiftCardRemoveV2", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
@@ -875,12 +944,26 @@ extension Storefront {
 				}
 				return try CheckoutCustomerAssociatePayload(fields: value)
 
+				case "checkoutCustomerAssociateV2":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CheckoutCustomerAssociateV2Payload(fields: value)
+
 				case "checkoutCustomerDisassociate":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
 				}
 				return try CheckoutCustomerDisassociatePayload(fields: value)
+
+				case "checkoutCustomerDisassociateV2":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CheckoutCustomerDisassociateV2Payload(fields: value)
 
 				case "checkoutDiscountCodeApply":
 				if value is NSNull { return nil }
@@ -916,6 +999,13 @@ extension Storefront {
 					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
 				}
 				return try CheckoutGiftCardRemovePayload(fields: value)
+
+				case "checkoutGiftCardRemoveV2":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CheckoutGiftCardRemoveV2Payload(fields: value)
 
 				case "checkoutGiftCardsAppend":
 				if value is NSNull { return nil }
@@ -1168,9 +1258,12 @@ extension Storefront {
 		}
 
 		/// Associates a customer to the checkout. 
+		@available(*, deprecated, message:"Use `checkoutCustomerAssociateV2` instead")
 		open var checkoutCustomerAssociate: Storefront.CheckoutCustomerAssociatePayload? {
 			return internalGetCheckoutCustomerAssociate()
 		}
+
+		@available(*, deprecated, message:"Use `checkoutCustomerAssociateV2` instead")
 
 		open func aliasedCheckoutCustomerAssociate(alias: String) -> Storefront.CheckoutCustomerAssociatePayload? {
 			return internalGetCheckoutCustomerAssociate(alias: alias)
@@ -1180,10 +1273,26 @@ extension Storefront {
 			return field(field: "checkoutCustomerAssociate", aliasSuffix: alias) as! Storefront.CheckoutCustomerAssociatePayload?
 		}
 
+		/// Associates a customer to the checkout. 
+		open var checkoutCustomerAssociateV2: Storefront.CheckoutCustomerAssociateV2Payload? {
+			return internalGetCheckoutCustomerAssociateV2()
+		}
+
+		open func aliasedCheckoutCustomerAssociateV2(alias: String) -> Storefront.CheckoutCustomerAssociateV2Payload? {
+			return internalGetCheckoutCustomerAssociateV2(alias: alias)
+		}
+
+		func internalGetCheckoutCustomerAssociateV2(alias: String? = nil) -> Storefront.CheckoutCustomerAssociateV2Payload? {
+			return field(field: "checkoutCustomerAssociateV2", aliasSuffix: alias) as! Storefront.CheckoutCustomerAssociateV2Payload?
+		}
+
 		/// Disassociates the current checkout customer from the checkout. 
+		@available(*, deprecated, message:"Use `checkoutCustomerDisassociateV2` instead")
 		open var checkoutCustomerDisassociate: Storefront.CheckoutCustomerDisassociatePayload? {
 			return internalGetCheckoutCustomerDisassociate()
 		}
+
+		@available(*, deprecated, message:"Use `checkoutCustomerDisassociateV2` instead")
 
 		open func aliasedCheckoutCustomerDisassociate(alias: String) -> Storefront.CheckoutCustomerDisassociatePayload? {
 			return internalGetCheckoutCustomerDisassociate(alias: alias)
@@ -1191,6 +1300,19 @@ extension Storefront {
 
 		func internalGetCheckoutCustomerDisassociate(alias: String? = nil) -> Storefront.CheckoutCustomerDisassociatePayload? {
 			return field(field: "checkoutCustomerDisassociate", aliasSuffix: alias) as! Storefront.CheckoutCustomerDisassociatePayload?
+		}
+
+		/// Disassociates the current checkout customer from the checkout. 
+		open var checkoutCustomerDisassociateV2: Storefront.CheckoutCustomerDisassociateV2Payload? {
+			return internalGetCheckoutCustomerDisassociateV2()
+		}
+
+		open func aliasedCheckoutCustomerDisassociateV2(alias: String) -> Storefront.CheckoutCustomerDisassociateV2Payload? {
+			return internalGetCheckoutCustomerDisassociateV2(alias: alias)
+		}
+
+		func internalGetCheckoutCustomerDisassociateV2(alias: String? = nil) -> Storefront.CheckoutCustomerDisassociateV2Payload? {
+			return field(field: "checkoutCustomerDisassociateV2", aliasSuffix: alias) as! Storefront.CheckoutCustomerDisassociateV2Payload?
 		}
 
 		/// Applies a discount to an existing checkout using a discount code. 
@@ -1250,9 +1372,12 @@ extension Storefront {
 		}
 
 		/// Removes an applied gift card from the checkout. 
+		@available(*, deprecated, message:"Use `checkoutGiftCardRemoveV2` instead")
 		open var checkoutGiftCardRemove: Storefront.CheckoutGiftCardRemovePayload? {
 			return internalGetCheckoutGiftCardRemove()
 		}
+
+		@available(*, deprecated, message:"Use `checkoutGiftCardRemoveV2` instead")
 
 		open func aliasedCheckoutGiftCardRemove(alias: String) -> Storefront.CheckoutGiftCardRemovePayload? {
 			return internalGetCheckoutGiftCardRemove(alias: alias)
@@ -1260,6 +1385,19 @@ extension Storefront {
 
 		func internalGetCheckoutGiftCardRemove(alias: String? = nil) -> Storefront.CheckoutGiftCardRemovePayload? {
 			return field(field: "checkoutGiftCardRemove", aliasSuffix: alias) as! Storefront.CheckoutGiftCardRemovePayload?
+		}
+
+		/// Removes an applied gift card from the checkout. 
+		open var checkoutGiftCardRemoveV2: Storefront.CheckoutGiftCardRemoveV2Payload? {
+			return internalGetCheckoutGiftCardRemoveV2()
+		}
+
+		open func aliasedCheckoutGiftCardRemoveV2(alias: String) -> Storefront.CheckoutGiftCardRemoveV2Payload? {
+			return internalGetCheckoutGiftCardRemoveV2(alias: alias)
+		}
+
+		func internalGetCheckoutGiftCardRemoveV2(alias: String? = nil) -> Storefront.CheckoutGiftCardRemoveV2Payload? {
+			return field(field: "checkoutGiftCardRemoveV2", aliasSuffix: alias) as! Storefront.CheckoutGiftCardRemoveV2Payload?
 		}
 
 		/// Appends gift cards to an existing checkout. 
@@ -1572,8 +1710,20 @@ extension Storefront {
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
+					case "checkoutCustomerAssociateV2":
+					if let value = internalGetCheckoutCustomerAssociateV2() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
 					case "checkoutCustomerDisassociate":
 					if let value = internalGetCheckoutCustomerDisassociate() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "checkoutCustomerDisassociateV2":
+					if let value = internalGetCheckoutCustomerDisassociateV2() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
@@ -1604,6 +1754,12 @@ extension Storefront {
 
 					case "checkoutGiftCardRemove":
 					if let value = internalGetCheckoutGiftCardRemove() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "checkoutGiftCardRemoveV2":
+					if let value = internalGetCheckoutGiftCardRemoveV2() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}

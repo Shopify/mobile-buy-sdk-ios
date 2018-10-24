@@ -170,6 +170,15 @@
 		9A43489B20C84A56005EAD56 /* CheckoutDiscountCodeRemovePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A43489A20C84A56005EAD56 /* CheckoutDiscountCodeRemovePayload.swift */; };
 		9A43489C20C84A56005EAD56 /* CheckoutDiscountCodeRemovePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A43489A20C84A56005EAD56 /* CheckoutDiscountCodeRemovePayload.swift */; };
 		9A43489D20C84A56005EAD56 /* CheckoutDiscountCodeRemovePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A43489A20C84A56005EAD56 /* CheckoutDiscountCodeRemovePayload.swift */; };
+		9A47C049218087880043525D /* CheckoutCustomerAssociateV2Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A47C046218087870043525D /* CheckoutCustomerAssociateV2Payload.swift */; };
+		9A47C04A218087880043525D /* CheckoutCustomerAssociateV2Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A47C046218087870043525D /* CheckoutCustomerAssociateV2Payload.swift */; };
+		9A47C04B218087880043525D /* CheckoutCustomerAssociateV2Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A47C046218087870043525D /* CheckoutCustomerAssociateV2Payload.swift */; };
+		9A47C04C218087880043525D /* CheckoutGiftCardRemoveV2Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A47C047218087880043525D /* CheckoutGiftCardRemoveV2Payload.swift */; };
+		9A47C04D218087880043525D /* CheckoutGiftCardRemoveV2Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A47C047218087880043525D /* CheckoutGiftCardRemoveV2Payload.swift */; };
+		9A47C04E218087880043525D /* CheckoutGiftCardRemoveV2Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A47C047218087880043525D /* CheckoutGiftCardRemoveV2Payload.swift */; };
+		9A47C04F218087880043525D /* CheckoutCustomerDisassociateV2Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A47C048218087880043525D /* CheckoutCustomerDisassociateV2Payload.swift */; };
+		9A47C050218087880043525D /* CheckoutCustomerDisassociateV2Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A47C048218087880043525D /* CheckoutCustomerDisassociateV2Payload.swift */; };
+		9A47C051218087880043525D /* CheckoutCustomerDisassociateV2Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A47C048218087880043525D /* CheckoutCustomerDisassociateV2Payload.swift */; };
 		9A49DC831EC4AD580053710B /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A49DC821EC4AD580053710B /* Header.swift */; };
 		9A52D3A21F3CA58E00C093C8 /* ProductImageSortKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A52D3A01F3CA58E00C093C8 /* ProductImageSortKeys.swift */; };
 		9A52D3A31F3CA58E00C093C8 /* CardBrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A52D3A11F3CA58E00C093C8 /* CardBrand.swift */; };
@@ -747,6 +756,9 @@
 		9A41E2A91F8509770059485A /* CustomerDefaultAddressUpdatePayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerDefaultAddressUpdatePayload.swift; sourceTree = "<group>"; };
 		9A42EA312177B6A900006EC3 /* CheckoutCompleteWithTokenizedPaymentV2Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutCompleteWithTokenizedPaymentV2Payload.swift; sourceTree = "<group>"; };
 		9A43489A20C84A56005EAD56 /* CheckoutDiscountCodeRemovePayload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutDiscountCodeRemovePayload.swift; sourceTree = "<group>"; };
+		9A47C046218087870043525D /* CheckoutCustomerAssociateV2Payload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutCustomerAssociateV2Payload.swift; sourceTree = "<group>"; };
+		9A47C047218087880043525D /* CheckoutGiftCardRemoveV2Payload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutGiftCardRemoveV2Payload.swift; sourceTree = "<group>"; };
+		9A47C048218087880043525D /* CheckoutCustomerDisassociateV2Payload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutCustomerDisassociateV2Payload.swift; sourceTree = "<group>"; };
 		9A49DC821EC4AD580053710B /* Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		9A52D3A01F3CA58E00C093C8 /* ProductImageSortKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductImageSortKeys.swift; sourceTree = "<group>"; };
 		9A52D3A11F3CA58E00C093C8 /* CardBrand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBrand.swift; sourceTree = "<group>"; };
@@ -920,13 +932,16 @@
 				9A0C80031EAA51C50020F187 /* CheckoutCreateInput.swift */,
 				9A0C80041EAA51C50020F187 /* CheckoutCreatePayload.swift */,
 				9A0C80051EAA51C50020F187 /* CheckoutCustomerAssociatePayload.swift */,
+				9A47C046218087870043525D /* CheckoutCustomerAssociateV2Payload.swift */,
 				9A0C80061EAA51C50020F187 /* CheckoutCustomerDisassociatePayload.swift */,
+				9A47C048218087880043525D /* CheckoutCustomerDisassociateV2Payload.swift */,
 				9A41E2A51F85096B0059485A /* CheckoutDiscountCodeApplyPayload.swift */,
 				9A43489A20C84A56005EAD56 /* CheckoutDiscountCodeRemovePayload.swift */,
 				9A0C80071EAA51C50020F187 /* CheckoutEmailUpdatePayload.swift */,
 				9A67114121666A6600A57A3F /* CheckoutErrorCode.swift */,
 				9A0C80081EAA51C50020F187 /* CheckoutGiftCardApplyPayload.swift */,
 				9A0C80091EAA51C50020F187 /* CheckoutGiftCardRemovePayload.swift */,
+				9A47C047218087880043525D /* CheckoutGiftCardRemoveV2Payload.swift */,
 				9ABEB3C02122FFE900A373F2 /* CheckoutGiftCardsAppendPayload.swift */,
 				9A0C800A1EAA51C50020F187 /* CheckoutLineItem.swift */,
 				9A0C800B1EAA51C50020F187 /* CheckoutLineItemConnection.swift */,
@@ -1666,6 +1681,7 @@
 				9AC2EF601F6818180037E0D7 /* Node.swift in Sources */,
 				9AC2EF611F6818180037E0D7 /* CheckoutShippingAddressUpdatePayload.swift in Sources */,
 				9AC2EF621F6818180037E0D7 /* OrderLineItemEdge.swift in Sources */,
+				9A47C04D218087880043525D /* CheckoutGiftCardRemoveV2Payload.swift in Sources */,
 				9AC2EF631F6818180037E0D7 /* Card.swift in Sources */,
 				9AC2EF641F6818180037E0D7 /* CheckoutLineItemUpdateInput.swift in Sources */,
 				9ABEB3AA2122FF7700A373F2 /* Fulfillment.swift in Sources */,
@@ -1736,6 +1752,7 @@
 				9AC2EF951F6818180037E0D7 /* ArticleEdge.swift in Sources */,
 				9AC2EF961F6818180037E0D7 /* UserError.swift in Sources */,
 				9AC2EF971F6818180037E0D7 /* CustomerActivateInput.swift in Sources */,
+				9A47C04A218087880043525D /* CheckoutCustomerAssociateV2Payload.swift in Sources */,
 				9AC2EF981F6818180037E0D7 /* CustomerActivatePayload.swift in Sources */,
 				9AC2EF991F6818180037E0D7 /* AttributeInput.swift in Sources */,
 				9AC2EF9A1F6818180037E0D7 /* Storefront.swift in Sources */,
@@ -1767,6 +1784,7 @@
 				9A9EA43D20AF0EBB002CB926 /* DisplayableError.swift in Sources */,
 				9AC2EFAF1F6818180037E0D7 /* CardBrand.swift in Sources */,
 				9A67115621666AB200A57A3F /* ScriptDiscountApplication.swift in Sources */,
+				9A47C050218087880043525D /* CheckoutCustomerDisassociateV2Payload.swift in Sources */,
 				9A67113F2166678500A57A3F /* CheckoutCompleteWithCreditCardV2Payload.swift in Sources */,
 				9AC2EFB01F6818180037E0D7 /* CheckoutCreateInput.swift in Sources */,
 				9AC2EFB11F6818180037E0D7 /* OrderSortKeys.swift in Sources */,
@@ -1846,6 +1864,7 @@
 				9A0C80961EAA51C50020F187 /* Node.swift in Sources */,
 				9A0C80711EAA51C50020F187 /* CheckoutShippingAddressUpdatePayload.swift in Sources */,
 				9A0C809F1EAA51C50020F187 /* OrderLineItemEdge.swift in Sources */,
+				9A47C04C218087880043525D /* CheckoutGiftCardRemoveV2Payload.swift in Sources */,
 				9A0C80F01EB773310020F187 /* Card.swift in Sources */,
 				9A0C80701EAA51C50020F187 /* CheckoutLineItemUpdateInput.swift in Sources */,
 				9ABEB3A92122FF7700A373F2 /* Fulfillment.swift in Sources */,
@@ -1916,6 +1935,7 @@
 				9AA416CA1EE095AA0060029B /* ArticleEdge.swift in Sources */,
 				9A0C80B41EAA51C50020F187 /* UserError.swift in Sources */,
 				9A0C80811EAA51C50020F187 /* CustomerActivateInput.swift in Sources */,
+				9A47C049218087880043525D /* CheckoutCustomerAssociateV2Payload.swift in Sources */,
 				9A0C80821EAA51C50020F187 /* CustomerActivatePayload.swift in Sources */,
 				9A0C805A1EAA51C50020F187 /* AttributeInput.swift in Sources */,
 				9A0C80B61EAA51C50020F187 /* Storefront.swift in Sources */,
@@ -1947,6 +1967,7 @@
 				9A9EA43C20AF0EBB002CB926 /* DisplayableError.swift in Sources */,
 				9A52D3A31F3CA58E00C093C8 /* CardBrand.swift in Sources */,
 				9A67115521666AB200A57A3F /* ScriptDiscountApplication.swift in Sources */,
+				9A47C04F218087880043525D /* CheckoutCustomerDisassociateV2Payload.swift in Sources */,
 				9A67113E2166678500A57A3F /* CheckoutCompleteWithCreditCardV2Payload.swift in Sources */,
 				9A0C80621EAA51C50020F187 /* CheckoutCreateInput.swift in Sources */,
 				9A0C80A01EAA51C50020F187 /* OrderSortKeys.swift in Sources */,
@@ -2026,6 +2047,7 @@
 				9AF255DA1F6FEE50005BB0C9 /* Node.swift in Sources */,
 				9AF255DB1F6FEE50005BB0C9 /* CheckoutShippingAddressUpdatePayload.swift in Sources */,
 				9AF255DC1F6FEE50005BB0C9 /* OrderLineItemEdge.swift in Sources */,
+				9A47C04E218087880043525D /* CheckoutGiftCardRemoveV2Payload.swift in Sources */,
 				9AF255DD1F6FEE50005BB0C9 /* Card.swift in Sources */,
 				9AF255DE1F6FEE50005BB0C9 /* CheckoutLineItemUpdateInput.swift in Sources */,
 				9ABEB3AB2122FF7700A373F2 /* Fulfillment.swift in Sources */,
@@ -2096,6 +2118,7 @@
 				9AF2560F1F6FEE50005BB0C9 /* ArticleEdge.swift in Sources */,
 				9AF256101F6FEE50005BB0C9 /* UserError.swift in Sources */,
 				9AF256111F6FEE50005BB0C9 /* CustomerActivateInput.swift in Sources */,
+				9A47C04B218087880043525D /* CheckoutCustomerAssociateV2Payload.swift in Sources */,
 				9AF256121F6FEE50005BB0C9 /* CustomerActivatePayload.swift in Sources */,
 				9AF256131F6FEE50005BB0C9 /* AttributeInput.swift in Sources */,
 				9AF256141F6FEE50005BB0C9 /* Storefront.swift in Sources */,
@@ -2127,6 +2150,7 @@
 				9A9EA43E20AF0EBB002CB926 /* DisplayableError.swift in Sources */,
 				9AF256291F6FEE50005BB0C9 /* CardBrand.swift in Sources */,
 				9A67115721666AB200A57A3F /* ScriptDiscountApplication.swift in Sources */,
+				9A47C051218087880043525D /* CheckoutCustomerDisassociateV2Payload.swift in Sources */,
 				9A6711402166678500A57A3F /* CheckoutCompleteWithCreditCardV2Payload.swift in Sources */,
 				9AF2562A1F6FEE50005BB0C9 /* CheckoutCreateInput.swift in Sources */,
 				9AF2562B1F6FEE50005BB0C9 /* OrderSortKeys.swift in Sources */,
