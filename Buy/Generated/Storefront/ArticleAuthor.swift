@@ -58,7 +58,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The author's full name 
+		/// The author's full name. 
 		@discardableResult
 		open func name(alias: String? = nil) -> ArticleAuthorQuery {
 			addField(field: "name", aliasSuffix: alias)
@@ -144,7 +144,7 @@ extension Storefront {
 			return field(field: "lastName", aliasSuffix: alias) as! String
 		}
 
-		/// The author's full name 
+		/// The author's full name. 
 		open var name: String {
 			return internalGetName()
 		}

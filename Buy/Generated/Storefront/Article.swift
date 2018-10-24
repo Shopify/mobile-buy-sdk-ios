@@ -31,12 +31,23 @@ extension Storefront {
 		public typealias Response = Article
 
 		/// The article's author. 
+		@available(*, deprecated, message:"Use `authorV2` instead")
 		@discardableResult
 		open func author(alias: String? = nil, _ subfields: (ArticleAuthorQuery) -> Void) -> ArticleQuery {
 			let subquery = ArticleAuthorQuery()
 			subfields(subquery)
 
 			addField(field: "author", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// The article's author. 
+		@discardableResult
+		open func authorV2(alias: String? = nil, _ subfields: (ArticleAuthorQuery) -> Void) -> ArticleQuery {
+			let subquery = ArticleAuthorQuery()
+			subfields(subquery)
+
+			addField(field: "authorV2", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -237,6 +248,13 @@ extension Storefront {
 				}
 				return try ArticleAuthor(fields: value)
 
+				case "authorV2":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
+				}
+				return try ArticleAuthor(fields: value)
+
 				case "blog":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
@@ -324,12 +342,22 @@ extension Storefront {
 		}
 
 		/// The article's author. 
+		@available(*, deprecated, message:"Use `authorV2` instead")
 		open var author: Storefront.ArticleAuthor {
 			return internalGetAuthor()
 		}
 
 		func internalGetAuthor(alias: String? = nil) -> Storefront.ArticleAuthor {
 			return field(field: "author", aliasSuffix: alias) as! Storefront.ArticleAuthor
+		}
+
+		/// The article's author. 
+		open var authorV2: Storefront.ArticleAuthor? {
+			return internalGetAuthorV2()
+		}
+
+		func internalGetAuthorV2(alias: String? = nil) -> Storefront.ArticleAuthor? {
+			return field(field: "authorV2", aliasSuffix: alias) as! Storefront.ArticleAuthor?
 		}
 
 		/// The blog that the article belongs to. 
@@ -473,6 +501,12 @@ extension Storefront {
 					case "author":
 					response.append(internalGetAuthor())
 					response.append(contentsOf: internalGetAuthor().childResponseObjectMap())
+
+					case "authorV2":
+					if let value = internalGetAuthorV2() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
 
 					case "blog":
 					response.append(internalGetBlog())

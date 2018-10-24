@@ -52,6 +52,7 @@ class PayCheckoutTests: XCTestCase {
             shippingDiscount: shipping,
             shippingAddress:  address,
             shippingRate:     rate,
+            currencyCode:     "CAD",
             subtotalPrice:    30.0,
             needsShipping:    true,
             totalTax:         15.0,
@@ -65,6 +66,7 @@ class PayCheckoutTests: XCTestCase {
         XCTAssertEqual(checkout.giftCards!.first!.amount, 5.00)
         XCTAssertEqual(checkout.discount!.amount,         20.0)
         XCTAssertEqual(checkout.shippingDiscount!.amount, 10.0)
+        XCTAssertEqual(checkout.currencyCode,             "CAD")
         XCTAssertEqual(checkout.subtotalPrice,            30.0)
         XCTAssertEqual(checkout.needsShipping,            true)
         XCTAssertEqual(checkout.totalTax,                 15.0)

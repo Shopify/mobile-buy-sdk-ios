@@ -92,6 +92,16 @@ extension Storefront {
 			return self
 		}
 
+		/// The authors who have contributed to the blog. 
+		@discardableResult
+		open func authors(alias: String? = nil, _ subfields: (ArticleAuthorQuery) -> Void) -> BlogQuery {
+			let subquery = ArticleAuthorQuery()
+			subfields(subquery)
+
+			addField(field: "authors", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// A human-friendly unique string for the Blog automatically generated from 
 		/// its title. 
 		@discardableResult
@@ -140,6 +150,12 @@ extension Storefront {
 					throw SchemaViolationError(type: Blog.self, field: fieldName, value: fieldValue)
 				}
 				return try ArticleConnection(fields: value)
+
+				case "authors":
+				guard let value = value as? [[String: Any]] else {
+					throw SchemaViolationError(type: Blog.self, field: fieldName, value: fieldValue)
+				}
+				return try value.map { return try ArticleAuthor(fields: $0) }
 
 				case "handle":
 				guard let value = value as? String else {
@@ -196,6 +212,15 @@ extension Storefront {
 			return field(field: "articles", aliasSuffix: alias) as! Storefront.ArticleConnection
 		}
 
+		/// The authors who have contributed to the blog. 
+		open var authors: [Storefront.ArticleAuthor] {
+			return internalGetAuthors()
+		}
+
+		func internalGetAuthors(alias: String? = nil) -> [Storefront.ArticleAuthor] {
+			return field(field: "authors", aliasSuffix: alias) as! [Storefront.ArticleAuthor]
+		}
+
 		/// A human-friendly unique string for the Blog automatically generated from 
 		/// its title. 
 		open var handle: String {
@@ -246,6 +271,12 @@ extension Storefront {
 					case "articles":
 					response.append(internalGetArticles())
 					response.append(contentsOf: internalGetArticles().childResponseObjectMap())
+
+					case "authors":
+					internalGetAuthors().forEach {
+						response.append($0)
+						response.append(contentsOf: $0.childResponseObjectMap())
+					}
 
 					default:
 					break
