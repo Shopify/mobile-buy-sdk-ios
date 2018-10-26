@@ -316,7 +316,7 @@ final class Client {
         let task     = self.client.mutateGraphWith(mutation) { (mutation, error) in
             error.debugPrint()
             
-            if let checkout = mutation?.checkoutCustomerAssociate?.checkout {
+            if let checkout = mutation?.checkoutCustomerAssociateV2?.checkout {
                 completion(checkout.viewModel)
             } else {
                 completion(nil)
