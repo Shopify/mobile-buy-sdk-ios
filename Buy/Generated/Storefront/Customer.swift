@@ -207,6 +207,13 @@ extension Storefront {
 			return self
 		}
 
+		/// A list of tags assigned to the customer. 
+		@discardableResult
+		open func tags(alias: String? = nil) -> CustomerQuery {
+			addField(field: "tags", aliasSuffix: alias)
+			return self
+		}
+
 		/// The date and time when the customer information was updated. 
 		@discardableResult
 		open func updatedAt(alias: String? = nil) -> CustomerQuery {
@@ -301,6 +308,12 @@ extension Storefront {
 					throw SchemaViolationError(type: Customer.self, field: fieldName, value: fieldValue)
 				}
 				return value
+
+				case "tags":
+				guard let value = value as? [String] else {
+					throw SchemaViolationError(type: Customer.self, field: fieldName, value: fieldValue)
+				}
+				return value.map { return $0 }
 
 				case "updatedAt":
 				guard let value = value as? String else {
@@ -428,6 +441,15 @@ extension Storefront {
 
 		func internalGetPhone(alias: String? = nil) -> String? {
 			return field(field: "phone", aliasSuffix: alias) as! String?
+		}
+
+		/// A list of tags assigned to the customer. 
+		open var tags: [String] {
+			return internalGetTags()
+		}
+
+		func internalGetTags(alias: String? = nil) -> [String] {
+			return field(field: "tags", aliasSuffix: alias) as! [String]
 		}
 
 		/// The date and time when the customer information was updated. 

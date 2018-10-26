@@ -316,6 +316,26 @@ extension Storefront {
 			return self
 		}
 
+		/// Tags added to products. 
+		///
+		/// - parameters:
+		///     - first: Returns up to the first `n` elements from the list.
+		///
+		@discardableResult
+		open func productTags(alias: String? = nil, first: Int32, _ subfields: (StringConnectionQuery) -> Void) -> ShopQuery {
+			var args: [String] = []
+
+			args.append("first:\(first)")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = StringConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "productTags", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// List of the shop’s product types. 
 		///
 		/// - parameters:
@@ -523,6 +543,12 @@ extension Storefront {
 				}
 				return try Product(fields: value)
 
+				case "productTags":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
+				}
+				return try StringConnection(fields: value)
+
 				case "productTypes":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
@@ -713,6 +739,19 @@ extension Storefront {
 			return field(field: "productByHandle", aliasSuffix: alias) as! Storefront.Product?
 		}
 
+		/// Tags added to products. 
+		open var productTags: Storefront.StringConnection {
+			return internalGetProductTags()
+		}
+
+		open func aliasedProductTags(alias: String) -> Storefront.StringConnection {
+			return internalGetProductTags(alias: alias)
+		}
+
+		func internalGetProductTags(alias: String? = nil) -> Storefront.StringConnection {
+			return field(field: "productTags", aliasSuffix: alias) as! Storefront.StringConnection
+		}
+
 		/// List of the shop’s product types. 
 		open var productTypes: Storefront.StringConnection {
 			return internalGetProductTypes()
@@ -817,6 +856,10 @@ extension Storefront {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
+
+					case "productTags":
+					response.append(internalGetProductTags())
+					response.append(contentsOf: internalGetProductTags().childResponseObjectMap())
 
 					case "productTypes":
 					response.append(internalGetProductTypes())
