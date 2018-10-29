@@ -52,6 +52,17 @@ extension Storefront {
 
 		/// List of errors that occurred executing the mutation. 
 		@discardableResult
+		open func customerUserErrors(alias: String? = nil, _ subfields: (CustomerUserErrorQuery) -> Void) -> CustomerActivatePayloadQuery {
+			let subquery = CustomerUserErrorQuery()
+			subfields(subquery)
+
+			addField(field: "customerUserErrors", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// List of errors that occurred executing the mutation. 
+		@available(*, deprecated, message:"Use `customerUserErrors` instead")
+		@discardableResult
 		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerActivatePayloadQuery {
 			let subquery = UserErrorQuery()
 			subfields(subquery)
@@ -80,6 +91,12 @@ extension Storefront {
 					throw SchemaViolationError(type: CustomerActivatePayload.self, field: fieldName, value: fieldValue)
 				}
 				return try CustomerAccessToken(fields: value)
+
+				case "customerUserErrors":
+				guard let value = value as? [[String: Any]] else {
+					throw SchemaViolationError(type: CustomerActivatePayload.self, field: fieldName, value: fieldValue)
+				}
+				return try value.map { return try CustomerUserError(fields: $0) }
 
 				case "userErrors":
 				guard let value = value as? [[String: Any]] else {
@@ -111,6 +128,16 @@ extension Storefront {
 		}
 
 		/// List of errors that occurred executing the mutation. 
+		open var customerUserErrors: [Storefront.CustomerUserError] {
+			return internalGetCustomerUserErrors()
+		}
+
+		func internalGetCustomerUserErrors(alias: String? = nil) -> [Storefront.CustomerUserError] {
+			return field(field: "customerUserErrors", aliasSuffix: alias) as! [Storefront.CustomerUserError]
+		}
+
+		/// List of errors that occurred executing the mutation. 
+		@available(*, deprecated, message:"Use `customerUserErrors` instead")
 		open var userErrors: [Storefront.UserError] {
 			return internalGetUserErrors()
 		}
@@ -133,6 +160,12 @@ extension Storefront {
 					if let value = internalGetCustomerAccessToken() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "customerUserErrors":
+					internalGetCustomerUserErrors().forEach {
+						response.append($0)
+						response.append(contentsOf: $0.childResponseObjectMap())
 					}
 
 					case "userErrors":

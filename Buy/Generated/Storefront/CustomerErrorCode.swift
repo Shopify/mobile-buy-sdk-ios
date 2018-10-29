@@ -29,6 +29,9 @@ import Foundation
 extension Storefront {
 	/// Possible error codes that could be returned by a customer mutation. 
 	public enum CustomerErrorCode: String {
+		/// Customer already enabled. 
+		case alreadyEnabled = "ALREADY_ENABLED"
+
 		/// Input value is blank. 
 		case blank = "BLANK"
 
@@ -44,11 +47,17 @@ extension Storefront {
 		/// Input value is invalid. 
 		case invalid = "INVALID"
 
+		/// Address does not exist. 
+		case notFound = "NOT_FOUND"
+
 		/// Input password starts or ends with whitespace. 
 		case passwordStartsOrEndsWithWhitespace = "PASSWORD_STARTS_OR_ENDS_WITH_WHITESPACE"
 
 		/// Input value is already taken. 
 		case taken = "TAKEN"
+
+		/// Invalid activation token. 
+		case tokenInvalid = "TOKEN_INVALID"
 
 		/// Input value is too long. 
 		case tooLong = "TOO_LONG"
