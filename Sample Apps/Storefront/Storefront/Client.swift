@@ -198,7 +198,7 @@ final class Client {
         let task     = self.client.mutateGraphWith(mutation) { response, error in
             error.debugPrint()
             
-            completion(response?.checkoutDiscountCodeApply?.checkout.viewModel)
+            completion(response?.checkoutDiscountCodeApplyV2?.checkout?.viewModel)
         }
         
         task.resume()
@@ -243,7 +243,7 @@ final class Client {
         let task     = self.client.mutateGraphWith(mutation) { response, error in
             error.debugPrint()
             
-            if let checkout = response?.checkoutShippingAddressUpdate?.checkout,
+            if let checkout = response?.checkoutShippingAddressUpdateV2?.checkout,
                 let _ = checkout.shippingAddress {
                 completion(checkout.viewModel)
             } else {
@@ -261,7 +261,7 @@ final class Client {
         let task     = self.client.mutateGraphWith(mutation) { response, error in
             error.debugPrint()
             
-            if let checkout = response?.checkoutShippingAddressUpdate?.checkout,
+            if let checkout = response?.checkoutShippingAddressUpdateV2?.checkout,
                 let _ = checkout.shippingAddress {
                 completion(checkout.viewModel)
             } else {
@@ -297,7 +297,7 @@ final class Client {
         let task     = self.client.mutateGraphWith(mutation) { response, error in
             error.debugPrint()
             
-            if let checkout = response?.checkoutEmailUpdate?.checkout,
+            if let checkout = response?.checkoutEmailUpdateV2?.checkout,
                 let _ = checkout.email {
                 completion(checkout.viewModel)
             } else {

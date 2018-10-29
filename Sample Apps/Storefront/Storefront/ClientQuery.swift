@@ -141,7 +141,7 @@ final class ClientQuery {
     static func mutationForApplyingDiscount(_ discountCode: String, to checkoutID: String) -> Storefront.MutationQuery {
         let id = GraphQL.ID(rawValue: checkoutID)
         return Storefront.buildMutation { $0
-            .checkoutDiscountCodeApply(discountCode: discountCode, checkoutId: id) { $0
+            .checkoutDiscountCodeApplyV2(discountCode: discountCode, checkoutId: id) { $0
                 .userErrors { $0
                     .field()
                     .message()
@@ -204,7 +204,7 @@ final class ClientQuery {
         )
         
         return Storefront.buildMutation { $0
-            .checkoutShippingAddressUpdate(shippingAddress: addressInput, checkoutId: checkoutID) { $0
+            .checkoutShippingAddressUpdateV2(shippingAddress: addressInput, checkoutId: checkoutID) { $0
                 .userErrors { $0
                     .field()
                     .message()
@@ -232,7 +232,7 @@ final class ClientQuery {
         )
         
         return Storefront.buildMutation { $0
-            .checkoutShippingAddressUpdate(shippingAddress: addressInput, checkoutId: checkoutID) { $0
+            .checkoutShippingAddressUpdateV2(shippingAddress: addressInput, checkoutId: checkoutID) { $0
                 .userErrors { $0
                     .field()
                     .message()
@@ -262,7 +262,7 @@ final class ClientQuery {
     static func mutationForUpdateCheckout(_ id: String, updatingEmail email: String) -> Storefront.MutationQuery {
         
         return Storefront.buildMutation { $0
-            .checkoutEmailUpdate(checkoutId: GraphQL.ID(rawValue: id), email: email) { $0
+            .checkoutEmailUpdateV2(checkoutId: GraphQL.ID(rawValue: id), email: email) { $0
                 .userErrors { $0
                     .field()
                     .message()
