@@ -216,6 +216,6 @@ private class ProxyView: UIView {
             print("ParallaxViewController must have a non-nill headerView and scrollView assigned to it.")
         }
         
-        return self.superview?.hitTest(point, with: event)
+        return nil
     }
 }
