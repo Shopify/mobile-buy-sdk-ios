@@ -316,7 +316,8 @@ extension Storefront {
 			return self
 		}
 
-		/// Tags added to products. 
+		/// Tags added to products. Additional access scope required: 
+		/// unauthenticated_read_product_tags. 
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -739,7 +740,8 @@ extension Storefront {
 			return field(field: "productByHandle", aliasSuffix: alias) as! Storefront.Product?
 		}
 
-		/// Tags added to products. 
+		/// Tags added to products. Additional access scope required: 
+		/// unauthenticated_read_product_tags. 
 		open var productTags: Storefront.StringConnection {
 			return internalGetProductTags()
 		}

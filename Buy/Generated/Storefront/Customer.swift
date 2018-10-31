@@ -207,7 +207,8 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of tags assigned to the customer. 
+		/// A list of tags assigned to the customer. Additional access scope required: 
+		/// unauthenticated_read_customer_tags. 
 		@discardableResult
 		open func tags(alias: String? = nil) -> CustomerQuery {
 			addField(field: "tags", aliasSuffix: alias)
@@ -443,7 +444,8 @@ extension Storefront {
 			return field(field: "phone", aliasSuffix: alias) as! String?
 		}
 
-		/// A list of tags assigned to the customer. 
+		/// A list of tags assigned to the customer. Additional access scope required: 
+		/// unauthenticated_read_customer_tags. 
 		open var tags: [String] {
 			return internalGetTags()
 		}
