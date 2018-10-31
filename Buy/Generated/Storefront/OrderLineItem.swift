@@ -42,6 +42,17 @@ extension Storefront {
 			return self
 		}
 
+		/// The discounts that have been allocated onto the order line item by discount 
+		/// applications. 
+		@discardableResult
+		open func discountAllocations(alias: String? = nil, _ subfields: (DiscountAllocationQuery) -> Void) -> OrderLineItemQuery {
+			let subquery = DiscountAllocationQuery()
+			subfields(subquery)
+
+			addField(field: "discountAllocations", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The number of products variants associated to the line item. 
 		@discardableResult
 		open func quantity(alias: String? = nil) -> OrderLineItemQuery {
@@ -81,6 +92,12 @@ extension Storefront {
 				}
 				return try value.map { return try Attribute(fields: $0) }
 
+				case "discountAllocations":
+				guard let value = value as? [[String: Any]] else {
+					throw SchemaViolationError(type: OrderLineItem.self, field: fieldName, value: fieldValue)
+				}
+				return try value.map { return try DiscountAllocation(fields: $0) }
+
 				case "quantity":
 				guard let value = value as? Int else {
 					throw SchemaViolationError(type: OrderLineItem.self, field: fieldName, value: fieldValue)
@@ -112,6 +129,16 @@ extension Storefront {
 
 		func internalGetCustomAttributes(alias: String? = nil) -> [Storefront.Attribute] {
 			return field(field: "customAttributes", aliasSuffix: alias) as! [Storefront.Attribute]
+		}
+
+		/// The discounts that have been allocated onto the order line item by discount 
+		/// applications. 
+		open var discountAllocations: [Storefront.DiscountAllocation] {
+			return internalGetDiscountAllocations()
+		}
+
+		func internalGetDiscountAllocations(alias: String? = nil) -> [Storefront.DiscountAllocation] {
+			return field(field: "discountAllocations", aliasSuffix: alias) as! [Storefront.DiscountAllocation]
 		}
 
 		/// The number of products variants associated to the line item. 
@@ -147,6 +174,12 @@ extension Storefront {
 				switch($0) {
 					case "customAttributes":
 					internalGetCustomAttributes().forEach {
+						response.append($0)
+						response.append(contentsOf: $0.childResponseObjectMap())
+					}
+
+					case "discountAllocations":
+					internalGetDiscountAllocations().forEach {
 						response.append($0)
 						response.append(contentsOf: $0.childResponseObjectMap())
 					}

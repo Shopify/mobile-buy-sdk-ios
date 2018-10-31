@@ -55,6 +55,48 @@ extension Storefront {
 			return self
 		}
 
+		/// Discounts that have been applied on the order. 
+		///
+		/// - parameters:
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///     - reverse: Reverse the order of the underlying list.
+		///
+		@discardableResult
+		open func discountApplications(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (DiscountApplicationConnectionQuery) -> Void) -> OrderQuery {
+			var args: [String] = []
+
+			if let first = first {
+				args.append("first:\(first)")
+			}
+
+			if let after = after {
+				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
+			}
+
+			if let reverse = reverse {
+				args.append("reverse:\(reverse)")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = DiscountApplicationConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "discountApplications", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// The customer's email address. 
 		@discardableResult
 		open func email(alias: String? = nil) -> OrderQuery {
@@ -150,6 +192,17 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "shippingAddress", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// The discounts that have been allocated onto the shipping line by discount 
+		/// applications. 
+		@discardableResult
+		open func shippingDiscountAllocations(alias: String? = nil, _ subfields: (DiscountAllocationQuery) -> Void) -> OrderQuery {
+			let subquery = DiscountAllocationQuery()
+			subfields(subquery)
+
+			addField(field: "shippingDiscountAllocations", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -249,6 +302,12 @@ extension Storefront {
 				}
 				return URL(string: value)!
 
+				case "discountApplications":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
+				}
+				return try DiscountApplicationConnection(fields: value)
+
 				case "email":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
@@ -299,6 +358,12 @@ extension Storefront {
 					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
 				}
 				return try MailingAddress(fields: value)
+
+				case "shippingDiscountAllocations":
+				guard let value = value as? [[String: Any]] else {
+					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
+				}
+				return try value.map { return try DiscountAllocation(fields: $0) }
 
 				case "statusUrl":
 				guard let value = value as? String else {
@@ -375,6 +440,19 @@ extension Storefront {
 
 		func internalGetCustomerUrl(alias: String? = nil) -> URL? {
 			return field(field: "customerUrl", aliasSuffix: alias) as! URL?
+		}
+
+		/// Discounts that have been applied on the order. 
+		open var discountApplications: Storefront.DiscountApplicationConnection {
+			return internalGetDiscountApplications()
+		}
+
+		open func aliasedDiscountApplications(alias: String) -> Storefront.DiscountApplicationConnection {
+			return internalGetDiscountApplications(alias: alias)
+		}
+
+		func internalGetDiscountApplications(alias: String? = nil) -> Storefront.DiscountApplicationConnection {
+			return field(field: "discountApplications", aliasSuffix: alias) as! Storefront.DiscountApplicationConnection
 		}
 
 		/// The customer's email address. 
@@ -457,6 +535,16 @@ extension Storefront {
 			return field(field: "shippingAddress", aliasSuffix: alias) as! Storefront.MailingAddress?
 		}
 
+		/// The discounts that have been allocated onto the shipping line by discount 
+		/// applications. 
+		open var shippingDiscountAllocations: [Storefront.DiscountAllocation] {
+			return internalGetShippingDiscountAllocations()
+		}
+
+		func internalGetShippingDiscountAllocations(alias: String? = nil) -> [Storefront.DiscountAllocation] {
+			return field(field: "shippingDiscountAllocations", aliasSuffix: alias) as! [Storefront.DiscountAllocation]
+		}
+
 		/// The unique URL for the order's status page. 
 		open var statusUrl: URL {
 			return internalGetStatusUrl()
@@ -529,6 +617,10 @@ extension Storefront {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
 				switch($0) {
+					case "discountApplications":
+					response.append(internalGetDiscountApplications())
+					response.append(contentsOf: internalGetDiscountApplications().childResponseObjectMap())
+
 					case "lineItems":
 					response.append(internalGetLineItems())
 					response.append(contentsOf: internalGetLineItems().childResponseObjectMap())
@@ -537,6 +629,12 @@ extension Storefront {
 					if let value = internalGetShippingAddress() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "shippingDiscountAllocations":
+					internalGetShippingDiscountAllocations().forEach {
+						response.append($0)
+						response.append(contentsOf: $0.childResponseObjectMap())
 					}
 
 					case "successfulFulfillments":

@@ -128,6 +128,16 @@ extension Storefront {
 			return self
 		}
 
+		/// The customer's most recently updated, incomplete checkout. 
+		@discardableResult
+		open func lastIncompleteCheckout(alias: String? = nil, _ subfields: (CheckoutQuery) -> Void) -> CustomerQuery {
+			let subquery = CheckoutQuery()
+			subfields(subquery)
+
+			addField(field: "lastIncompleteCheckout", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The customer’s last name. 
 		@discardableResult
 		open func lastName(alias: String? = nil) -> CustomerQuery {
@@ -146,6 +156,8 @@ extension Storefront {
 		///     - sortKey: Sort the underlying list by the given key.
 		///     - query: Supported filter parameters:
 		///         - `processed_at`
+		///        
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
 		///
 		@discardableResult
 		open func orders(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: OrderSortKeys? = nil, query: String? = nil, _ subfields: (OrderConnectionQuery) -> Void) -> CustomerQuery {
@@ -192,6 +204,14 @@ extension Storefront {
 		@discardableResult
 		open func phone(alias: String? = nil) -> CustomerQuery {
 			addField(field: "phone", aliasSuffix: alias)
+			return self
+		}
+
+		/// A list of tags assigned to the customer. Additional access scope required: 
+		/// unauthenticated_read_customer_tags. 
+		@discardableResult
+		open func tags(alias: String? = nil) -> CustomerQuery {
+			addField(field: "tags", aliasSuffix: alias)
 			return self
 		}
 
@@ -263,6 +283,13 @@ extension Storefront {
 				}
 				return GraphQL.ID(rawValue: value)
 
+				case "lastIncompleteCheckout":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Customer.self, field: fieldName, value: fieldValue)
+				}
+				return try Checkout(fields: value)
+
 				case "lastName":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
@@ -282,6 +309,12 @@ extension Storefront {
 					throw SchemaViolationError(type: Customer.self, field: fieldName, value: fieldValue)
 				}
 				return value
+
+				case "tags":
+				guard let value = value as? [String] else {
+					throw SchemaViolationError(type: Customer.self, field: fieldName, value: fieldValue)
+				}
+				return value.map { return $0 }
 
 				case "updatedAt":
 				guard let value = value as? String else {
@@ -371,6 +404,15 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
+		/// The customer's most recently updated, incomplete checkout. 
+		open var lastIncompleteCheckout: Storefront.Checkout? {
+			return internalGetLastIncompleteCheckout()
+		}
+
+		func internalGetLastIncompleteCheckout(alias: String? = nil) -> Storefront.Checkout? {
+			return field(field: "lastIncompleteCheckout", aliasSuffix: alias) as! Storefront.Checkout?
+		}
+
 		/// The customer’s last name. 
 		open var lastName: String? {
 			return internalGetLastName()
@@ -402,6 +444,16 @@ extension Storefront {
 			return field(field: "phone", aliasSuffix: alias) as! String?
 		}
 
+		/// A list of tags assigned to the customer. Additional access scope required: 
+		/// unauthenticated_read_customer_tags. 
+		open var tags: [String] {
+			return internalGetTags()
+		}
+
+		func internalGetTags(alias: String? = nil) -> [String] {
+			return field(field: "tags", aliasSuffix: alias) as! [String]
+		}
+
 		/// The date and time when the customer information was updated. 
 		open var updatedAt: Date {
 			return internalGetUpdatedAt()
@@ -421,6 +473,12 @@ extension Storefront {
 
 					case "defaultAddress":
 					if let value = internalGetDefaultAddress() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "lastIncompleteCheckout":
+					if let value = internalGetLastIncompleteCheckout() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}

@@ -34,24 +34,26 @@ final class LineItemViewModel: ViewModel {
     let model:    ModelType
     let cursor:   String
     
-    let variantID:       String?
-    let title:           String
-    let quantity:        Int
-    let individualPrice: Decimal
-    let totalPrice:      Decimal
+    let variantID:           String?
+    let title:               String
+    let quantity:            Int
+    let individualPrice:     Decimal
+    let totalPrice:          Decimal
+    let discountAllocations: [DiscountAllocationViewModel]
     
     // ----------------------------------
     //  MARK: - Init -
     //
     required init(from model: ModelType) {
-        self.model           = model
-        self.cursor          = model.cursor
+        self.model               = model
+        self.cursor              = model.cursor
         
-        self.variantID       = model.node.variant!.id.rawValue
-        self.title           = model.node.title
-        self.quantity        = Int(model.node.quantity)
-        self.individualPrice = model.node.variant!.price
-        self.totalPrice      = self.individualPrice * Decimal(self.quantity)
+        self.variantID           = model.node.variant!.id.rawValue
+        self.title               = model.node.title
+        self.quantity            = Int(model.node.quantity)
+        self.individualPrice     = model.node.variant!.price
+        self.totalPrice          = self.individualPrice * Decimal(self.quantity)
+        self.discountAllocations = model.node.discountAllocations.viewModels
     }
 }
 

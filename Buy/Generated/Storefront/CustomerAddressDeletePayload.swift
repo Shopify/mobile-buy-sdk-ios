@@ -30,6 +30,16 @@ extension Storefront {
 	open class CustomerAddressDeletePayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CustomerAddressDeletePayload
 
+		/// List of errors that occurred executing the mutation. 
+		@discardableResult
+		open func customerUserErrors(alias: String? = nil, _ subfields: (CustomerUserErrorQuery) -> Void) -> CustomerAddressDeletePayloadQuery {
+			let subquery = CustomerUserErrorQuery()
+			subfields(subquery)
+
+			addField(field: "customerUserErrors", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// ID of the deleted customer address. 
 		@discardableResult
 		open func deletedCustomerAddressId(alias: String? = nil) -> CustomerAddressDeletePayloadQuery {
@@ -38,6 +48,7 @@ extension Storefront {
 		}
 
 		/// List of errors that occurred executing the mutation. 
+		@available(*, deprecated, message:"Use `customerUserErrors` instead")
 		@discardableResult
 		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerAddressDeletePayloadQuery {
 			let subquery = UserErrorQuery()
@@ -54,6 +65,12 @@ extension Storefront {
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "customerUserErrors":
+				guard let value = value as? [[String: Any]] else {
+					throw SchemaViolationError(type: CustomerAddressDeletePayload.self, field: fieldName, value: fieldValue)
+				}
+				return try value.map { return try CustomerUserError(fields: $0) }
+
 				case "deletedCustomerAddressId":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
@@ -72,6 +89,15 @@ extension Storefront {
 			}
 		}
 
+		/// List of errors that occurred executing the mutation. 
+		open var customerUserErrors: [Storefront.CustomerUserError] {
+			return internalGetCustomerUserErrors()
+		}
+
+		func internalGetCustomerUserErrors(alias: String? = nil) -> [Storefront.CustomerUserError] {
+			return field(field: "customerUserErrors", aliasSuffix: alias) as! [Storefront.CustomerUserError]
+		}
+
 		/// ID of the deleted customer address. 
 		open var deletedCustomerAddressId: String? {
 			return internalGetDeletedCustomerAddressId()
@@ -82,6 +108,7 @@ extension Storefront {
 		}
 
 		/// List of errors that occurred executing the mutation. 
+		@available(*, deprecated, message:"Use `customerUserErrors` instead")
 		open var userErrors: [Storefront.UserError] {
 			return internalGetUserErrors()
 		}

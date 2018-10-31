@@ -29,11 +29,17 @@ import Foundation
 extension Storefront {
 	/// The set of valid sort keys for the products query. 
 	public enum ProductSortKeys: String {
+		/// Sort by the `best_selling` value. 
+		case bestSelling = "BEST_SELLING"
+
 		/// Sort by the `created_at` value. 
 		case createdAt = "CREATED_AT"
 
 		/// Sort by the `id` value. 
 		case id = "ID"
+
+		/// Sort by the `price` value. 
+		case price = "PRICE"
 
 		/// Sort by the `product_type` value. 
 		case productType = "PRODUCT_TYPE"

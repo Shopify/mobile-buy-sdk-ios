@@ -47,6 +47,8 @@ extension Storefront {
 		///         - `created_at`
 		///         - `blog_title`
 		///         - `tag`
+		///        
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
 		///
 		@available(*, deprecated, message:"Use `QueryRoot.articles` instead.")
 		@discardableResult
@@ -104,6 +106,8 @@ extension Storefront {
 		///         - `title`
 		///         - `updated_at`
 		///         - `created_at`
+		///        
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
 		///
 		@available(*, deprecated, message:"Use `QueryRoot.blogs` instead.")
 		@discardableResult
@@ -158,7 +162,7 @@ extension Storefront {
 		/// Find a collection by its handle. 
 		///
 		/// - parameters:
-		///     - handle: No description
+		///     - handle: The handle of the collection.
 		///
 		@discardableResult
 		open func collectionByHandle(alias: String? = nil, handle: String, _ subfields: (CollectionQuery) -> Void) -> ShopQuery {
@@ -188,6 +192,8 @@ extension Storefront {
 		///         - `title`
 		///         - `collection_type`
 		///         - `updated_at`
+		///        
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
 		///
 		@discardableResult
 		open func collections(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: CollectionSortKeys? = nil, query: String? = nil, _ subfields: (CollectionConnectionQuery) -> Void) -> ShopQuery {
@@ -293,7 +299,7 @@ extension Storefront {
 		/// Find a product by its handle. 
 		///
 		/// - parameters:
-		///     - handle: No description
+		///     - handle: The handle of the product.
 		///
 		@discardableResult
 		open func productByHandle(alias: String? = nil, handle: String, _ subfields: (ProductQuery) -> Void) -> ShopQuery {
@@ -307,6 +313,27 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "productByHandle", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Tags added to products. Additional access scope required: 
+		/// unauthenticated_read_product_tags. 
+		///
+		/// - parameters:
+		///     - first: Returns up to the first `n` elements from the list.
+		///
+		@discardableResult
+		open func productTags(alias: String? = nil, first: Int32, _ subfields: (StringConnectionQuery) -> Void) -> ShopQuery {
+			var args: [String] = []
+
+			args.append("first:\(first)")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = StringConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "productTags", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
@@ -345,7 +372,10 @@ extension Storefront {
 		///         - `vendor`
 		///         - `created_at`
 		///         - `updated_at`
+		///         - `variants.price`
 		///         - `tag`
+		///        
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
 		///
 		@discardableResult
 		open func products(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: ProductSortKeys? = nil, query: String? = nil, _ subfields: (ProductConnectionQuery) -> Void) -> ShopQuery {
@@ -513,6 +543,12 @@ extension Storefront {
 					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return try Product(fields: value)
+
+				case "productTags":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
+				}
+				return try StringConnection(fields: value)
 
 				case "productTypes":
 				guard let value = value as? [String: Any] else {
@@ -704,6 +740,20 @@ extension Storefront {
 			return field(field: "productByHandle", aliasSuffix: alias) as! Storefront.Product?
 		}
 
+		/// Tags added to products. Additional access scope required: 
+		/// unauthenticated_read_product_tags. 
+		open var productTags: Storefront.StringConnection {
+			return internalGetProductTags()
+		}
+
+		open func aliasedProductTags(alias: String) -> Storefront.StringConnection {
+			return internalGetProductTags(alias: alias)
+		}
+
+		func internalGetProductTags(alias: String? = nil) -> Storefront.StringConnection {
+			return field(field: "productTags", aliasSuffix: alias) as! Storefront.StringConnection
+		}
+
 		/// List of the shop’s product types. 
 		open var productTypes: Storefront.StringConnection {
 			return internalGetProductTypes()
@@ -808,6 +858,10 @@ extension Storefront {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
+
+					case "productTags":
+					response.append(internalGetProductTags())
+					response.append(contentsOf: internalGetProductTags().childResponseObjectMap())
 
 					case "productTypes":
 					response.append(internalGetProductTypes())

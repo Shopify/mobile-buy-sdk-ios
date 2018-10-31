@@ -256,8 +256,8 @@ extension Storefront {
 		}
 
 		/// A categorization that a product can be tagged with, commonly used for 
-		/// filtering and searching. Each comma-separated tag has a character limit of 
-		/// 255. 
+		/// filtering and searching. Additional access scope required for private apps: 
+		/// unauthenticated_read_product_tags. 
 		@discardableResult
 		open func tags(alias: String? = nil) -> ProductQuery {
 			addField(field: "tags", aliasSuffix: alias)
@@ -626,8 +626,8 @@ extension Storefront {
 		}
 
 		/// A categorization that a product can be tagged with, commonly used for 
-		/// filtering and searching. Each comma-separated tag has a character limit of 
-		/// 255. 
+		/// filtering and searching. Additional access scope required for private apps: 
+		/// unauthenticated_read_product_tags. 
 		open var tags: [String] {
 			return internalGetTags()
 		}

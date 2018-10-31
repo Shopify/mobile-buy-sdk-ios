@@ -47,6 +47,8 @@ extension Storefront {
 		///         - `created_at`
 		///         - `blog_title`
 		///         - `tag`
+		///        
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
 		///
 		@discardableResult
 		open func articles(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: ArticleSortKeys? = nil, query: String? = nil, _ subfields: (ArticleConnectionQuery) -> Void) -> QueryRootQuery {
@@ -123,6 +125,8 @@ extension Storefront {
 		///         - `title`
 		///         - `updated_at`
 		///         - `created_at`
+		///        
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
 		///
 		@discardableResult
 		open func blogs(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: BlogSortKeys? = nil, query: String? = nil, _ subfields: (BlogConnectionQuery) -> Void) -> QueryRootQuery {
