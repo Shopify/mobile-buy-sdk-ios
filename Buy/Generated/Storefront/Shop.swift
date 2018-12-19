@@ -43,10 +43,10 @@ extension Storefront {
 		///     - sortKey: Sort the underlying list by the given key.
 		///     - query: Supported filter parameters:
 		///         - `author`
-		///         - `updated_at`
-		///         - `created_at`
 		///         - `blog_title`
+		///         - `created_at`
 		///         - `tag`
+		///         - `updated_at`
 		///        
 		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
 		///
@@ -102,10 +102,10 @@ extension Storefront {
 		///     - reverse: Reverse the order of the underlying list.
 		///     - sortKey: Sort the underlying list by the given key.
 		///     - query: Supported filter parameters:
+		///         - `created_at`
 		///         - `handle`
 		///         - `title`
 		///         - `updated_at`
-		///         - `created_at`
 		///        
 		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
 		///
@@ -151,14 +151,6 @@ extension Storefront {
 			return self
 		}
 
-		/// The url pointing to the endpoint to vault credit cards. 
-		@available(*, deprecated, message:"Use `paymentSettings` instead")
-		@discardableResult
-		open func cardVaultUrl(alias: String? = nil) -> ShopQuery {
-			addField(field: "cardVaultUrl", aliasSuffix: alias)
-			return self
-		}
-
 		/// Find a collection by its handle. 
 		///
 		/// - parameters:
@@ -189,8 +181,8 @@ extension Storefront {
 		///     - reverse: Reverse the order of the underlying list.
 		///     - sortKey: Sort the underlying list by the given key.
 		///     - query: Supported filter parameters:
-		///         - `title`
 		///         - `collection_type`
+		///         - `title`
 		///         - `updated_at`
 		///        
 		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
@@ -367,13 +359,13 @@ extension Storefront {
 		///     - reverse: Reverse the order of the underlying list.
 		///     - sortKey: Sort the underlying list by the given key.
 		///     - query: Supported filter parameters:
-		///         - `title`
-		///         - `product_type`
-		///         - `vendor`
 		///         - `created_at`
+		///         - `product_type`
+		///         - `tag`
+		///         - `title`
 		///         - `updated_at`
 		///         - `variants.price`
-		///         - `tag`
+		///         - `vendor`
 		///        
 		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
 		///
@@ -473,12 +465,6 @@ extension Storefront {
 					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return try BlogConnection(fields: value)
-
-				case "cardVaultUrl":
-				guard let value = value as? String else {
-					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
-				}
-				return URL(string: value)!
 
 				case "collectionByHandle":
 				if value is NSNull { return nil }
@@ -624,16 +610,6 @@ extension Storefront {
 
 		func internalGetBlogs(alias: String? = nil) -> Storefront.BlogConnection {
 			return field(field: "blogs", aliasSuffix: alias) as! Storefront.BlogConnection
-		}
-
-		/// The url pointing to the endpoint to vault credit cards. 
-		@available(*, deprecated, message:"Use `paymentSettings` instead")
-		open var cardVaultUrl: URL {
-			return internalGetCardVaultUrl()
-		}
-
-		func internalGetCardVaultUrl(alias: String? = nil) -> URL {
-			return field(field: "cardVaultUrl", aliasSuffix: alias) as! URL
 		}
 
 		/// Find a collection by its handle. 

@@ -100,6 +100,54 @@ extension Storefront {
 			return self
 		}
 
+		/// List of prices and compare-at prices in the presentment currencies for this 
+		/// shop. 
+		///
+		/// - parameters:
+		///     - presentmentCurrencies: The presentment currencies prices should return in.
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///     - reverse: Reverse the order of the underlying list.
+		///
+		@discardableResult
+		open func presentmentPrices(alias: String? = nil, presentmentCurrencies: [CurrencyCode]? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (ProductVariantPricePairConnectionQuery) -> Void) -> ProductVariantQuery {
+			var args: [String] = []
+
+			if let presentmentCurrencies = presentmentCurrencies {
+				args.append("presentmentCurrencies:[\(presentmentCurrencies.map{ "\($0.rawValue)" }.joined(separator: ","))]")
+			}
+
+			if let first = first {
+				args.append("first:\(first)")
+			}
+
+			if let after = after {
+				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
+			}
+
+			if let reverse = reverse {
+				args.append("reverse:\(reverse)")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = ProductVariantPricePairConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "presentmentPrices", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// The product variant’s price. 
 		@discardableResult
 		open func price(alias: String? = nil) -> ProductVariantQuery {
@@ -197,6 +245,12 @@ extension Storefront {
 					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
 				}
 				return try Image(fields: value)
+
+				case "presentmentPrices":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
+				}
+				return try ProductVariantPricePairConnection(fields: value)
 
 				case "price":
 				guard let value = value as? String else {
@@ -299,6 +353,20 @@ extension Storefront {
 			return field(field: "image", aliasSuffix: alias) as! Storefront.Image?
 		}
 
+		/// List of prices and compare-at prices in the presentment currencies for this 
+		/// shop. 
+		open var presentmentPrices: Storefront.ProductVariantPricePairConnection {
+			return internalGetPresentmentPrices()
+		}
+
+		open func aliasedPresentmentPrices(alias: String) -> Storefront.ProductVariantPricePairConnection {
+			return internalGetPresentmentPrices(alias: alias)
+		}
+
+		func internalGetPresentmentPrices(alias: String? = nil) -> Storefront.ProductVariantPricePairConnection {
+			return field(field: "presentmentPrices", aliasSuffix: alias) as! Storefront.ProductVariantPricePairConnection
+		}
+
 		/// The product variant’s price. 
 		open var price: Decimal {
 			return internalGetPrice()
@@ -372,6 +440,10 @@ extension Storefront {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
+
+					case "presentmentPrices":
+					response.append(internalGetPresentmentPrices())
+					response.append(contentsOf: internalGetPresentmentPrices().childResponseObjectMap())
 
 					case "product":
 					response.append(internalGetProduct())

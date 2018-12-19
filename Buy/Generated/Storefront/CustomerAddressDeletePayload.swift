@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// Return type for `customerAddressDelete` mutation. 
 	open class CustomerAddressDeletePayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CustomerAddressDeletePayload
 
@@ -59,6 +60,7 @@ extension Storefront {
 		}
 	}
 
+	/// Return type for `customerAddressDelete` mutation. 
 	open class CustomerAddressDeletePayload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CustomerAddressDeletePayloadQuery
 

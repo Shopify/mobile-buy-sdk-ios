@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// Return type for `customerAccessTokenCreate` mutation. 
 	open class CustomerAccessTokenCreatePayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CustomerAccessTokenCreatePayload
 
@@ -62,6 +63,7 @@ extension Storefront {
 		}
 	}
 
+	/// Return type for `customerAccessTokenCreate` mutation. 
 	open class CustomerAccessTokenCreatePayload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CustomerAccessTokenCreatePayloadQuery
 

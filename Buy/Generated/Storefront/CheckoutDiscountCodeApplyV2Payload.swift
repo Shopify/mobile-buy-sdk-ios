@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// Return type for `checkoutDiscountCodeApplyV2` mutation. 
 	open class CheckoutDiscountCodeApplyV2PayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CheckoutDiscountCodeApplyV2Payload
 
@@ -51,6 +52,7 @@ extension Storefront {
 		}
 	}
 
+	/// Return type for `checkoutDiscountCodeApplyV2` mutation. 
 	open class CheckoutDiscountCodeApplyV2Payload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CheckoutDiscountCodeApplyV2PayloadQuery
 

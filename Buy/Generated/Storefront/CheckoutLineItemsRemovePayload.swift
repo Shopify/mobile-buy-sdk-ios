@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// Return type for `checkoutLineItemsRemove` mutation. 
 	open class CheckoutLineItemsRemovePayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CheckoutLineItemsRemovePayload
 
@@ -50,6 +51,7 @@ extension Storefront {
 		}
 	}
 
+	/// Return type for `checkoutLineItemsRemove` mutation. 
 	open class CheckoutLineItemsRemovePayload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CheckoutLineItemsRemovePayloadQuery
 

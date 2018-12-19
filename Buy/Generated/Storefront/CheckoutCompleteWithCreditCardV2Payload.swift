@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// Return type for `checkoutCompleteWithCreditCardV2` mutation. 
 	open class CheckoutCompleteWithCreditCardV2PayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CheckoutCompleteWithCreditCardV2Payload
 
@@ -61,6 +62,7 @@ extension Storefront {
 		}
 	}
 
+	/// Return type for `checkoutCompleteWithCreditCardV2` mutation. 
 	open class CheckoutCompleteWithCreditCardV2Payload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CheckoutCompleteWithCreditCardV2PayloadQuery
 

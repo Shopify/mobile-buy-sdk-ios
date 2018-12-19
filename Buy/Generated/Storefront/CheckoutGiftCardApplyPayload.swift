@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// Return type for `checkoutGiftCardApply` mutation. 
 	open class CheckoutGiftCardApplyPayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CheckoutGiftCardApplyPayload
 
@@ -51,6 +52,7 @@ extension Storefront {
 		}
 	}
 
+	/// Return type for `checkoutGiftCardApply` mutation. 
 	open class CheckoutGiftCardApplyPayload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CheckoutGiftCardApplyPayloadQuery
 

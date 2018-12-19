@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// Return type for `checkoutCompleteWithTokenizedPayment` mutation. 
 	open class CheckoutCompleteWithTokenizedPaymentPayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CheckoutCompleteWithTokenizedPaymentPayload
 
@@ -61,6 +62,7 @@ extension Storefront {
 		}
 	}
 
+	/// Return type for `checkoutCompleteWithTokenizedPayment` mutation. 
 	open class CheckoutCompleteWithTokenizedPaymentPayload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CheckoutCompleteWithTokenizedPaymentPayloadQuery
 
