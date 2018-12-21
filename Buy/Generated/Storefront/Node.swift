@@ -131,6 +131,15 @@ extension Storefront {
 
 		/// An object with an ID to support global identification. 
 		@discardableResult
+		open func onPage(subfields: (PageQuery) -> Void) -> NodeQuery {
+			let subquery = PageQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Page", subfields: subquery)
+			return self
+		}
+
+		/// An object with an ID to support global identification. 
+		@discardableResult
 		open func onPayment(subfields: (PaymentQuery) -> Void) -> NodeQuery {
 			let subquery = PaymentQuery()
 			subfields(subquery)
@@ -215,6 +224,8 @@ extension Storefront {
 				case "MailingAddress": return try MailingAddress.init(fields: fields)
 
 				case "Order": return try Order.init(fields: fields)
+
+				case "Page": return try Page.init(fields: fields)
 
 				case "Payment": return try Payment.init(fields: fields)
 

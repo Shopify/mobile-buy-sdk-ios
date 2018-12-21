@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// Return type for `checkoutCustomerDisassociate` mutation. 
 	open class CheckoutCustomerDisassociatePayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CheckoutCustomerDisassociatePayload
 
@@ -51,6 +52,7 @@ extension Storefront {
 		}
 	}
 
+	/// Return type for `checkoutCustomerDisassociate` mutation. 
 	open class CheckoutCustomerDisassociatePayload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CheckoutCustomerDisassociatePayloadQuery
 

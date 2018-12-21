@@ -43,10 +43,10 @@ extension Storefront {
 		///     - sortKey: Sort the underlying list by the given key.
 		///     - query: Supported filter parameters:
 		///         - `author`
-		///         - `updated_at`
-		///         - `created_at`
 		///         - `blog_title`
+		///         - `created_at`
 		///         - `tag`
+		///         - `updated_at`
 		///        
 		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
 		///
@@ -121,10 +121,10 @@ extension Storefront {
 		///     - reverse: Reverse the order of the underlying list.
 		///     - sortKey: Sort the underlying list by the given key.
 		///     - query: Supported filter parameters:
+		///         - `created_at`
 		///         - `handle`
 		///         - `title`
 		///         - `updated_at`
-		///         - `created_at`
 		///        
 		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
 		///
@@ -226,6 +226,84 @@ extension Storefront {
 			return self
 		}
 
+		/// Find a page by its handle. 
+		///
+		/// - parameters:
+		///     - handle: The handle of the page.
+		///
+		@discardableResult
+		open func pageByHandle(alias: String? = nil, handle: String, _ subfields: (PageQuery) -> Void) -> QueryRootQuery {
+			var args: [String] = []
+
+			args.append("handle:\(GraphQL.quoteString(input: handle))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = PageQuery()
+			subfields(subquery)
+
+			addField(field: "pageByHandle", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// List of the shop's pages. 
+		///
+		/// - parameters:
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///     - reverse: Reverse the order of the underlying list.
+		///     - sortKey: Sort the underlying list by the given key.
+		///     - query: Supported filter parameters:
+		///         - `created_at`
+		///         - `handle`
+		///         - `title`
+		///         - `updated_at`
+		///        
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
+		///
+		@discardableResult
+		open func pages(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: PageSortKeys? = nil, query: String? = nil, _ subfields: (PageConnectionQuery) -> Void) -> QueryRootQuery {
+			var args: [String] = []
+
+			if let first = first {
+				args.append("first:\(first)")
+			}
+
+			if let after = after {
+				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
+			}
+
+			if let reverse = reverse {
+				args.append("reverse:\(reverse)")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
+			}
+
+			if let query = query {
+				args.append("query:\(GraphQL.quoteString(input: query))")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = PageConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "pages", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		@discardableResult
 		open func shop(alias: String? = nil, _ subfields: (ShopQuery) -> Void) -> QueryRootQuery {
 			let subquery = ShopQuery()
@@ -286,6 +364,19 @@ extension Storefront {
 					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
 				}
 				return try UnknownNode.create(fields: value) } as [Any?]
+
+				case "pageByHandle":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
+				}
+				return try Page(fields: value)
+
+				case "pages":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
+				}
+				return try PageConnection(fields: value)
 
 				case "shop":
 				guard let value = value as? [String: Any] else {
@@ -373,6 +464,32 @@ extension Storefront {
 			return field(field: "nodes", aliasSuffix: alias) as! [Node?]
 		}
 
+		/// Find a page by its handle. 
+		open var pageByHandle: Storefront.Page? {
+			return internalGetPageByHandle()
+		}
+
+		open func aliasedPageByHandle(alias: String) -> Storefront.Page? {
+			return internalGetPageByHandle(alias: alias)
+		}
+
+		func internalGetPageByHandle(alias: String? = nil) -> Storefront.Page? {
+			return field(field: "pageByHandle", aliasSuffix: alias) as! Storefront.Page?
+		}
+
+		/// List of the shop's pages. 
+		open var pages: Storefront.PageConnection {
+			return internalGetPages()
+		}
+
+		open func aliasedPages(alias: String) -> Storefront.PageConnection {
+			return internalGetPages(alias: alias)
+		}
+
+		func internalGetPages(alias: String? = nil) -> Storefront.PageConnection {
+			return field(field: "pages", aliasSuffix: alias) as! Storefront.PageConnection
+		}
+
 		open var shop: Storefront.Shop {
 			return internalGetShop()
 		}
@@ -418,6 +535,16 @@ extension Storefront {
 							response.append(contentsOf: (value as! GraphQL.AbstractResponse).childResponseObjectMap())
 						}
 					}
+
+					case "pageByHandle":
+					if let value = internalGetPageByHandle() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "pages":
+					response.append(internalGetPages())
+					response.append(contentsOf: internalGetPages().childResponseObjectMap())
 
 					case "shop":
 					response.append(internalGetShop())

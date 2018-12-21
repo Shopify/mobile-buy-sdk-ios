@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// Return type for `checkoutShippingAddressUpdateV2` mutation. 
 	open class CheckoutShippingAddressUpdateV2PayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CheckoutShippingAddressUpdateV2Payload
 
@@ -51,6 +52,7 @@ extension Storefront {
 		}
 	}
 
+	/// Return type for `checkoutShippingAddressUpdateV2` mutation. 
 	open class CheckoutShippingAddressUpdateV2Payload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CheckoutShippingAddressUpdateV2PayloadQuery
 

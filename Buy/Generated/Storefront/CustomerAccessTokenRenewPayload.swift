@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// Return type for `customerAccessTokenRenew` mutation. 
 	open class CustomerAccessTokenRenewPayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CustomerAccessTokenRenewPayload
 
@@ -51,6 +52,7 @@ extension Storefront {
 		}
 	}
 
+	/// Return type for `customerAccessTokenRenew` mutation. 
 	open class CustomerAccessTokenRenewPayload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CustomerAccessTokenRenewPayloadQuery
 
