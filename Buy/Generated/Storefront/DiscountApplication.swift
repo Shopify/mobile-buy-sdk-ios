@@ -84,6 +84,16 @@ extension Storefront {
 		/// Discount applications capture the intentions of a discount source at the 
 		/// time of application. 
 		@discardableResult
+		open func onAutomaticDiscountApplication(subfields: (AutomaticDiscountApplicationQuery) -> Void) -> DiscountApplicationQuery {
+			let subquery = AutomaticDiscountApplicationQuery()
+			subfields(subquery)
+			addInlineFragment(on: "AutomaticDiscountApplication", subfields: subquery)
+			return self
+		}
+
+		/// Discount applications capture the intentions of a discount source at the 
+		/// time of application. 
+		@discardableResult
 		open func onDiscountCodeApplication(subfields: (DiscountCodeApplicationQuery) -> Void) -> DiscountApplicationQuery {
 			let subquery = DiscountCodeApplicationQuery()
 			subfields(subquery)
@@ -154,6 +164,8 @@ extension Storefront {
 				throw SchemaViolationError(type: UnknownDiscountApplication.self, field: "__typename", value: fields["__typename"] ?? NSNull())
 			}
 			switch typeName {
+				case "AutomaticDiscountApplication": return try AutomaticDiscountApplication.init(fields: fields)
+
 				case "DiscountCodeApplication": return try DiscountCodeApplication.init(fields: fields)
 
 				case "ManualDiscountApplication": return try ManualDiscountApplication.init(fields: fields)
