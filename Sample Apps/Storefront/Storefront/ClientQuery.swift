@@ -97,24 +97,22 @@ final class ClientQuery {
     //
     static func queryForCollections(limit: Int, after cursor: String? = nil, productLimit: Int = 25, productCursor: String? = nil) -> Storefront.QueryRootQuery {
         return Storefront.buildQuery { $0
-            .shop { $0
-                .collections(first: Int32(limit), after: cursor) { $0
-                    .pageInfo { $0
-                        .hasNextPage()
-                    }
-                    .edges { $0
-                        .cursor()
-                        .node { $0
-                            .id()
-                            .title()
-                            .descriptionHtml()
-                            .image(maxWidth: ClientQuery.maxImageDimension, maxHeight: ClientQuery.maxImageDimension) { $0
-                                .transformedSrc()
-                            }
-                            
-                            .products(first: Int32(productLimit), after: productCursor) { $0
-                                .fragmentForStandardProduct()
-                            }
+            .collections(first: Int32(limit), after: cursor) { $0
+                .pageInfo { $0
+                    .hasNextPage()
+                }
+                .edges { $0
+                    .cursor()
+                    .node { $0
+                        .id()
+                        .title()
+                        .descriptionHtml()
+                        .image(maxWidth: ClientQuery.maxImageDimension, maxHeight: ClientQuery.maxImageDimension) { $0
+                            .transformedSrc()
+                        }
+                        
+                        .products(first: Int32(productLimit), after: productCursor) { $0
+                            .fragmentForStandardProduct()
                         }
                     }
                 }
@@ -142,7 +140,7 @@ final class ClientQuery {
         let id = GraphQL.ID(rawValue: checkoutID)
         return Storefront.buildMutation { $0
             .checkoutDiscountCodeApplyV2(discountCode: discountCode, checkoutId: id) { $0
-                .userErrors { $0
+                .checkoutUserErrors { $0
                     .field()
                     .message()
                 }
@@ -263,7 +261,7 @@ final class ClientQuery {
         
         return Storefront.buildMutation { $0
             .checkoutEmailUpdateV2(checkoutId: GraphQL.ID(rawValue: id), email: email) { $0
-                .userErrors { $0
+                .checkoutUserErrors { $0
                     .field()
                     .message()
                 }
@@ -278,7 +276,7 @@ final class ClientQuery {
         let id = GraphQL.ID(rawValue: checkoutID)
         return Storefront.buildMutation { $0
             .checkoutCustomerAssociateV2(checkoutId: id, customerAccessToken: accessToken) { $0
-                .userErrors { $0
+                .checkoutUserErrors { $0
                     .field()
                     .message()
                 }

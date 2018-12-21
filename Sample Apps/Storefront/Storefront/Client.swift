@@ -146,8 +146,8 @@ final class Client {
             
             if let query = query {
                 let collections = PageableArray(
-                    with:     query.shop.collections.edges,
-                    pageInfo: query.shop.collections.pageInfo
+                    with:     query.collections.edges,
+                    pageInfo: query.collections.pageInfo
                 )
                 completion(collections)
             } else {
