@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// Return type for `customerReset` mutation. 
 	open class CustomerResetPayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CustomerResetPayload
 
@@ -72,6 +73,7 @@ extension Storefront {
 		}
 	}
 
+	/// Return type for `customerReset` mutation. 
 	open class CustomerResetPayload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CustomerResetPayloadQuery
 

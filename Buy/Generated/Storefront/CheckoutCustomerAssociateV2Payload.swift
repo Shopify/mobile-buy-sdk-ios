@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// Return type for `checkoutCustomerAssociateV2` mutation. 
 	open class CheckoutCustomerAssociateV2PayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CheckoutCustomerAssociateV2Payload
 
@@ -37,6 +38,16 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "checkout", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// List of errors that occurred executing the mutation. 
+		@discardableResult
+		open func checkoutUserErrors(alias: String? = nil, _ subfields: (CheckoutUserErrorQuery) -> Void) -> CheckoutCustomerAssociateV2PayloadQuery {
+			let subquery = CheckoutUserErrorQuery()
+			subfields(subquery)
+
+			addField(field: "checkoutUserErrors", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -51,6 +62,7 @@ extension Storefront {
 		}
 
 		/// List of errors that occurred executing the mutation. 
+		@available(*, deprecated, message:"Use `checkoutUserErrors` instead")
 		@discardableResult
 		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CheckoutCustomerAssociateV2PayloadQuery {
 			let subquery = UserErrorQuery()
@@ -61,6 +73,7 @@ extension Storefront {
 		}
 	}
 
+	/// Return type for `checkoutCustomerAssociateV2` mutation. 
 	open class CheckoutCustomerAssociateV2Payload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CheckoutCustomerAssociateV2PayloadQuery
 
@@ -73,6 +86,12 @@ extension Storefront {
 					throw SchemaViolationError(type: CheckoutCustomerAssociateV2Payload.self, field: fieldName, value: fieldValue)
 				}
 				return try Checkout(fields: value)
+
+				case "checkoutUserErrors":
+				guard let value = value as? [[String: Any]] else {
+					throw SchemaViolationError(type: CheckoutCustomerAssociateV2Payload.self, field: fieldName, value: fieldValue)
+				}
+				return try value.map { return try CheckoutUserError(fields: $0) }
 
 				case "customer":
 				if value is NSNull { return nil }
@@ -101,6 +120,15 @@ extension Storefront {
 			return field(field: "checkout", aliasSuffix: alias) as! Storefront.Checkout?
 		}
 
+		/// List of errors that occurred executing the mutation. 
+		open var checkoutUserErrors: [Storefront.CheckoutUserError] {
+			return internalGetCheckoutUserErrors()
+		}
+
+		func internalGetCheckoutUserErrors(alias: String? = nil) -> [Storefront.CheckoutUserError] {
+			return field(field: "checkoutUserErrors", aliasSuffix: alias) as! [Storefront.CheckoutUserError]
+		}
+
 		/// The associated customer object. 
 		open var customer: Storefront.Customer? {
 			return internalGetCustomer()
@@ -111,6 +139,7 @@ extension Storefront {
 		}
 
 		/// List of errors that occurred executing the mutation. 
+		@available(*, deprecated, message:"Use `checkoutUserErrors` instead")
 		open var userErrors: [Storefront.UserError] {
 			return internalGetUserErrors()
 		}
@@ -127,6 +156,12 @@ extension Storefront {
 					if let value = internalGetCheckout() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "checkoutUserErrors":
+					internalGetCheckoutUserErrors().forEach {
+						response.append($0)
+						response.append(contentsOf: $0.childResponseObjectMap())
 					}
 
 					case "customer":

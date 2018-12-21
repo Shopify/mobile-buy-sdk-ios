@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// Return type for `customerActivate` mutation. 
 	open class CustomerActivatePayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CustomerActivatePayload
 
@@ -72,6 +73,7 @@ extension Storefront {
 		}
 	}
 
+	/// Return type for `customerActivate` mutation. 
 	open class CustomerActivatePayload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CustomerActivatePayloadQuery
 

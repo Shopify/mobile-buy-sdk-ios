@@ -519,6 +519,7 @@ extension Storefront {
 		///     - lineItems: A list of line item objects to add to the checkout.
 		///     - checkoutId: The ID of the checkout.
 		///
+		@available(*, deprecated, message:"Use `checkoutLineItemsReplace` instead")
 		@discardableResult
 		open func checkoutLineItemsAdd(alias: String? = nil, lineItems: [CheckoutLineItemInput], checkoutId: GraphQL.ID, _ subfields: (CheckoutLineItemsAddPayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -542,6 +543,7 @@ extension Storefront {
 		///     - checkoutId: the checkout on which to remove line items
 		///     - lineItemIds: line item ids to remove
 		///
+		@available(*, deprecated, message:"Use `checkoutLineItemsReplace` instead")
 		@discardableResult
 		open func checkoutLineItemsRemove(alias: String? = nil, checkoutId: GraphQL.ID, lineItemIds: [GraphQL.ID], _ subfields: (CheckoutLineItemsRemovePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -559,12 +561,36 @@ extension Storefront {
 			return self
 		}
 
+		/// Sets a list of line items to a checkout. 
+		///
+		/// - parameters:
+		///     - lineItems: A list of line item objects to set on the checkout.
+		///     - checkoutId: The ID of the checkout.
+		///
+		@discardableResult
+		open func checkoutLineItemsReplace(alias: String? = nil, lineItems: [CheckoutLineItemInput], checkoutId: GraphQL.ID, _ subfields: (CheckoutLineItemsReplacePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("lineItems:[\(lineItems.map{ "\($0.serialize())" }.joined(separator: ","))]")
+
+			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CheckoutLineItemsReplacePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "checkoutLineItemsReplace", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// Updates line items on a checkout. 
 		///
 		/// - parameters:
 		///     - checkoutId: the checkout on which to update line items.
 		///     - lineItems: line items to update.
 		///
+		@available(*, deprecated, message:"Use `checkoutLineItemsReplace` instead")
 		@discardableResult
 		open func checkoutLineItemsUpdate(alias: String? = nil, checkoutId: GraphQL.ID, lineItems: [CheckoutLineItemUpdateInput], _ subfields: (CheckoutLineItemsUpdatePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -1114,6 +1140,13 @@ extension Storefront {
 				}
 				return try CheckoutLineItemsRemovePayload(fields: value)
 
+				case "checkoutLineItemsReplace":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CheckoutLineItemsReplacePayload(fields: value)
+
 				case "checkoutLineItemsUpdate":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -1539,9 +1572,12 @@ extension Storefront {
 		}
 
 		/// Adds a list of line items to a checkout. 
+		@available(*, deprecated, message:"Use `checkoutLineItemsReplace` instead")
 		open var checkoutLineItemsAdd: Storefront.CheckoutLineItemsAddPayload? {
 			return internalGetCheckoutLineItemsAdd()
 		}
+
+		@available(*, deprecated, message:"Use `checkoutLineItemsReplace` instead")
 
 		open func aliasedCheckoutLineItemsAdd(alias: String) -> Storefront.CheckoutLineItemsAddPayload? {
 			return internalGetCheckoutLineItemsAdd(alias: alias)
@@ -1552,9 +1588,12 @@ extension Storefront {
 		}
 
 		/// Removes line items from an existing checkout 
+		@available(*, deprecated, message:"Use `checkoutLineItemsReplace` instead")
 		open var checkoutLineItemsRemove: Storefront.CheckoutLineItemsRemovePayload? {
 			return internalGetCheckoutLineItemsRemove()
 		}
+
+		@available(*, deprecated, message:"Use `checkoutLineItemsReplace` instead")
 
 		open func aliasedCheckoutLineItemsRemove(alias: String) -> Storefront.CheckoutLineItemsRemovePayload? {
 			return internalGetCheckoutLineItemsRemove(alias: alias)
@@ -1564,10 +1603,26 @@ extension Storefront {
 			return field(field: "checkoutLineItemsRemove", aliasSuffix: alias) as! Storefront.CheckoutLineItemsRemovePayload?
 		}
 
+		/// Sets a list of line items to a checkout. 
+		open var checkoutLineItemsReplace: Storefront.CheckoutLineItemsReplacePayload? {
+			return internalGetCheckoutLineItemsReplace()
+		}
+
+		open func aliasedCheckoutLineItemsReplace(alias: String) -> Storefront.CheckoutLineItemsReplacePayload? {
+			return internalGetCheckoutLineItemsReplace(alias: alias)
+		}
+
+		func internalGetCheckoutLineItemsReplace(alias: String? = nil) -> Storefront.CheckoutLineItemsReplacePayload? {
+			return field(field: "checkoutLineItemsReplace", aliasSuffix: alias) as! Storefront.CheckoutLineItemsReplacePayload?
+		}
+
 		/// Updates line items on a checkout. 
+		@available(*, deprecated, message:"Use `checkoutLineItemsReplace` instead")
 		open var checkoutLineItemsUpdate: Storefront.CheckoutLineItemsUpdatePayload? {
 			return internalGetCheckoutLineItemsUpdate()
 		}
+
+		@available(*, deprecated, message:"Use `checkoutLineItemsReplace` instead")
 
 		open func aliasedCheckoutLineItemsUpdate(alias: String) -> Storefront.CheckoutLineItemsUpdatePayload? {
 			return internalGetCheckoutLineItemsUpdate(alias: alias)
@@ -1931,6 +1986,12 @@ extension Storefront {
 
 					case "checkoutLineItemsRemove":
 					if let value = internalGetCheckoutLineItemsRemove() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "checkoutLineItemsReplace":
+					if let value = internalGetCheckoutLineItemsReplace() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}

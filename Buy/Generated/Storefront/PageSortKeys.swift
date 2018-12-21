@@ -1,5 +1,5 @@
 //
-//  Global.swift
+//  PageSortKeys.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -26,34 +26,24 @@
 
 import Foundation
 
-class Global {
-    
-    // ----------------------------------
-    //  MARK: - User Agent -
-    //
-    static var userAgent: String {
-        return "Mobile Buy SDK iOS/\(self.frameworkVersion)/\(self.applicationIdentifier)"
-    }
+extension Storefront {
+	/// The set of valid sort keys for the pages query. 
+	public enum PageSortKeys: String {
+		/// Sort by the `id` value. 
+		case id = "ID"
 
-    // ----------------------------------
-    //  MARK: - Versions -
-    //
-    static var frameworkVersion: String {
-        return self.frameworkBundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
-    }
-    
-    static var applicationIdentifier: String {
-        return self.applicationBundle.object(forInfoDictionaryKey: kCFBundleIdentifierKey as String) as? String ?? "com.unknown.bundle"
-    }
-    
-    // ----------------------------------
-    //  MARK: - Bundles -
-    //
-    private static var frameworkBundle: Bundle {
-        return Bundle(for: self)
-    }
-    
-    private static var applicationBundle: Bundle {
-        return Bundle.main
-    }
+		/// During a search (i.e. when the `query` parameter has been specified on the 
+		/// connection) this sorts the results by relevance to the search term(s). When 
+		/// no search query is specified, this sort key is not deterministic and should 
+		/// not be used. 
+		case relevance = "RELEVANCE"
+
+		/// Sort by the `title` value. 
+		case title = "TITLE"
+
+		/// Sort by the `updated_at` value. 
+		case updatedAt = "UPDATED_AT"
+
+		case unknownValue = ""
+	}
 }
