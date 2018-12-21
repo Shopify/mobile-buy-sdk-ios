@@ -41,6 +41,16 @@ extension Storefront {
 			return self
 		}
 
+		/// List of errors that occurred executing the mutation. 
+		@discardableResult
+		open func checkoutUserErrors(alias: String? = nil, _ subfields: (CheckoutUserErrorQuery) -> Void) -> CheckoutCompleteWithCreditCardV2PayloadQuery {
+			let subquery = CheckoutUserErrorQuery()
+			subfields(subquery)
+
+			addField(field: "checkoutUserErrors", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// A representation of the attempted payment. 
 		@discardableResult
 		open func payment(alias: String? = nil, _ subfields: (PaymentQuery) -> Void) -> CheckoutCompleteWithCreditCardV2PayloadQuery {
@@ -52,6 +62,7 @@ extension Storefront {
 		}
 
 		/// List of errors that occurred executing the mutation. 
+		@available(*, deprecated, message:"Use `checkoutUserErrors` instead")
 		@discardableResult
 		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CheckoutCompleteWithCreditCardV2PayloadQuery {
 			let subquery = UserErrorQuery()
@@ -75,6 +86,12 @@ extension Storefront {
 					throw SchemaViolationError(type: CheckoutCompleteWithCreditCardV2Payload.self, field: fieldName, value: fieldValue)
 				}
 				return try Checkout(fields: value)
+
+				case "checkoutUserErrors":
+				guard let value = value as? [[String: Any]] else {
+					throw SchemaViolationError(type: CheckoutCompleteWithCreditCardV2Payload.self, field: fieldName, value: fieldValue)
+				}
+				return try value.map { return try CheckoutUserError(fields: $0) }
 
 				case "payment":
 				if value is NSNull { return nil }
@@ -103,6 +120,15 @@ extension Storefront {
 			return field(field: "checkout", aliasSuffix: alias) as! Storefront.Checkout?
 		}
 
+		/// List of errors that occurred executing the mutation. 
+		open var checkoutUserErrors: [Storefront.CheckoutUserError] {
+			return internalGetCheckoutUserErrors()
+		}
+
+		func internalGetCheckoutUserErrors(alias: String? = nil) -> [Storefront.CheckoutUserError] {
+			return field(field: "checkoutUserErrors", aliasSuffix: alias) as! [Storefront.CheckoutUserError]
+		}
+
 		/// A representation of the attempted payment. 
 		open var payment: Storefront.Payment? {
 			return internalGetPayment()
@@ -113,6 +139,7 @@ extension Storefront {
 		}
 
 		/// List of errors that occurred executing the mutation. 
+		@available(*, deprecated, message:"Use `checkoutUserErrors` instead")
 		open var userErrors: [Storefront.UserError] {
 			return internalGetUserErrors()
 		}
@@ -129,6 +156,12 @@ extension Storefront {
 					if let value = internalGetCheckout() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "checkoutUserErrors":
+					internalGetCheckoutUserErrors().forEach {
+						response.append($0)
+						response.append(contentsOf: $0.childResponseObjectMap())
 					}
 
 					case "payment":

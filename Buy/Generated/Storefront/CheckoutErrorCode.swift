@@ -80,6 +80,9 @@ extension Storefront {
 		/// Checkout is locked. 
 		case locked = "LOCKED"
 
+		/// Missing payment input. 
+		case missingPaymentInput = "MISSING_PAYMENT_INPUT"
+
 		/// Not enough in stock. 
 		case notEnoughInStock = "NOT_ENOUGH_IN_STOCK"
 

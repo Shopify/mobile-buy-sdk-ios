@@ -172,6 +172,9 @@
 		9A2ACDDB21CABB7100C09FF7 /* CheckoutLineItemsReplacePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2ACDDA21CABB7000C09FF7 /* CheckoutLineItemsReplacePayload.swift */; };
 		9A2ACDDC21CABB7100C09FF7 /* CheckoutLineItemsReplacePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2ACDDA21CABB7000C09FF7 /* CheckoutLineItemsReplacePayload.swift */; };
 		9A2ACDDD21CABB7100C09FF7 /* CheckoutLineItemsReplacePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2ACDDA21CABB7000C09FF7 /* CheckoutLineItemsReplacePayload.swift */; };
+		9A2ACE2D21CD3C8700C09FF7 /* AutomaticDiscountApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2ACE2C21CD3C8600C09FF7 /* AutomaticDiscountApplication.swift */; };
+		9A2ACE2E21CD3C8700C09FF7 /* AutomaticDiscountApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2ACE2C21CD3C8600C09FF7 /* AutomaticDiscountApplication.swift */; };
+		9A2ACE2F21CD3C8700C09FF7 /* AutomaticDiscountApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2ACE2C21CD3C8600C09FF7 /* AutomaticDiscountApplication.swift */; };
 		9A4068E51E8E7659000254CD /* Pay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A4068DC1E8E7658000254CD /* Pay.framework */; };
 		9A4068EA1E8E7659000254CD /* PaySessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4068E91E8E7659000254CD /* PaySessionTests.swift */; };
 		9A4068EC1E8E7659000254CD /* Pay.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A4068DE1E8E7659000254CD /* Pay.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -777,6 +780,7 @@
 		9A2ACDC321CABAC200C09FF7 /* Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
 		9A2ACDC421CABAC200C09FF7 /* PageSortKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageSortKeys.swift; sourceTree = "<group>"; };
 		9A2ACDDA21CABB7000C09FF7 /* CheckoutLineItemsReplacePayload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutLineItemsReplacePayload.swift; sourceTree = "<group>"; };
+		9A2ACE2C21CD3C8600C09FF7 /* AutomaticDiscountApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutomaticDiscountApplication.swift; sourceTree = "<group>"; };
 		9A4068DC1E8E7658000254CD /* Pay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A4068DE1E8E7659000254CD /* Pay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pay.h; sourceTree = "<group>"; };
 		9A4068DF1E8E7659000254CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -957,6 +961,7 @@
 				9AA416C61EE095AA0060029B /* ArticleSortKeys.swift */,
 				9A0C7FFA1EAA51C50020F187 /* Attribute.swift */,
 				9A0C7FFB1EAA51C50020F187 /* AttributeInput.swift */,
+				9A2ACE2C21CD3C8600C09FF7 /* AutomaticDiscountApplication.swift */,
 				9A0C7FFC1EAA51C50020F187 /* AvailableShippingRates.swift */,
 				9AA416CC1EE095B20060029B /* Blog.swift */,
 				9AA416CD1EE095B20060029B /* BlogConnection.swift */,
@@ -1704,6 +1709,7 @@
 				9AC2EF471F6818180037E0D7 /* ProductEdge.swift in Sources */,
 				9AC2EF481F6818180037E0D7 /* CheckoutAttributesUpdatePayload.swift in Sources */,
 				9AC2EF491F6818180037E0D7 /* WeightUnit.swift in Sources */,
+				9A2ACE2E21CD3C8700C09FF7 /* AutomaticDiscountApplication.swift in Sources */,
 				9AC2EF4A1F6818180037E0D7 /* CustomerUpdatePayload.swift in Sources */,
 				9AC2EF4B1F6818180037E0D7 /* Graph.Task.swift in Sources */,
 				9AC2EF4C1F6818180037E0D7 /* Customer.swift in Sources */,
@@ -1898,6 +1904,7 @@
 				9A0C80A51EAA51C50020F187 /* ProductEdge.swift in Sources */,
 				9A0C805E1EAA51C50020F187 /* CheckoutAttributesUpdatePayload.swift in Sources */,
 				9A0C80B51EAA51C50020F187 /* WeightUnit.swift in Sources */,
+				9A2ACE2D21CD3C8700C09FF7 /* AutomaticDiscountApplication.swift in Sources */,
 				9A0C808C1EAA51C50020F187 /* CustomerUpdatePayload.swift in Sources */,
 				9A4069CF1E8ED98A000254CD /* Graph.Task.swift in Sources */,
 				9A0C807B1EAA51C50020F187 /* Customer.swift in Sources */,
@@ -2092,6 +2099,7 @@
 				9AF255C11F6FEE50005BB0C9 /* ProductEdge.swift in Sources */,
 				9AF255C21F6FEE50005BB0C9 /* CheckoutAttributesUpdatePayload.swift in Sources */,
 				9AF255C31F6FEE50005BB0C9 /* WeightUnit.swift in Sources */,
+				9A2ACE2F21CD3C8700C09FF7 /* AutomaticDiscountApplication.swift in Sources */,
 				9AF255C41F6FEE50005BB0C9 /* CustomerUpdatePayload.swift in Sources */,
 				9AF255C51F6FEE50005BB0C9 /* Graph.Task.swift in Sources */,
 				9AF255C61F6FEE50005BB0C9 /* Customer.swift in Sources */,
