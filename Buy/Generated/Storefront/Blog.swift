@@ -58,9 +58,18 @@ extension Storefront {
 		///     - last: Returns up to the last `n` elements from the list.
 		///     - before: Returns the elements that come before the specified cursor.
 		///     - reverse: Reverse the order of the underlying list.
+		///     - sortKey: Sort the underlying list by the given key.
+		///     - query: Supported filter parameters:
+		///         - `author`
+		///         - `blog_title`
+		///         - `created_at`
+		///         - `tag`
+		///         - `updated_at`
+		///        
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
 		///
 		@discardableResult
-		open func articles(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (ArticleConnectionQuery) -> Void) -> BlogQuery {
+		open func articles(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: ArticleSortKeys? = nil, query: String? = nil, _ subfields: (ArticleConnectionQuery) -> Void) -> BlogQuery {
 			var args: [String] = []
 
 			if let first = first {
@@ -81,6 +90,14 @@ extension Storefront {
 
 			if let reverse = reverse {
 				args.append("reverse:\(reverse)")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
+			}
+
+			if let query = query {
+				args.append("query:\(GraphQL.quoteString(input: query))")
 			}
 
 			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
