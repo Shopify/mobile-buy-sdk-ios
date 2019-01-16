@@ -39,6 +39,13 @@ extension Storefront {
 			return self
 		}
 
+		/// Policy’s handle. 
+		@discardableResult
+		open func handle(alias: String? = nil) -> ShopPolicyQuery {
+			addField(field: "handle", aliasSuffix: alias)
+			return self
+		}
+
 		/// Globally unique identifier. 
 		@discardableResult
 		open func id(alias: String? = nil) -> ShopPolicyQuery {
@@ -75,6 +82,12 @@ extension Storefront {
 				}
 				return value
 
+				case "handle":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: ShopPolicy.self, field: fieldName, value: fieldValue)
+				}
+				return value
+
 				case "id":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: ShopPolicy.self, field: fieldName, value: fieldValue)
@@ -105,6 +118,15 @@ extension Storefront {
 
 		func internalGetBody(alias: String? = nil) -> String {
 			return field(field: "body", aliasSuffix: alias) as! String
+		}
+
+		/// Policy’s handle. 
+		open var handle: String {
+			return internalGetHandle()
+		}
+
+		func internalGetHandle(alias: String? = nil) -> String {
+			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
 		/// Globally unique identifier. 
