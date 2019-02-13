@@ -56,8 +56,29 @@ extension Storefront {
 		/// Checkout is already completed. 
 		case empty = "EMPTY"
 
-		/// Gift card unusable. 
+		/// Gift card has already been applied. 
+		case giftCardAlreadyApplied = "GIFT_CARD_ALREADY_APPLIED"
+
+		/// Gift card code is invalid. 
+		case giftCardCodeInvalid = "GIFT_CARD_CODE_INVALID"
+
+		/// Gift card currency does not match checkout currency. 
+		case giftCardCurrencyMismatch = "GIFT_CARD_CURRENCY_MISMATCH"
+
+		/// Gift card is disabled. 
+		case giftCardDisabled = "GIFT_CARD_DISABLED"
+
+		/// Gift card is expired. 
+		case giftCardExpired = "GIFT_CARD_EXPIRED"
+
+		/// Gift card was not found. 
+		case giftCardNotFound = "GIFT_CARD_NOT_FOUND"
+
+		/// Gift card cannot be applied to a checkout that contains a gift card. 
 		case giftCardUnusable = "GIFT_CARD_UNUSABLE"
+
+		/// Input value should be greater than or equal to minimum allowed value. 
+		case greaterThanOrEqualTo = "GREATER_THAN_OR_EQUAL_TO"
 
 		/// Input value is invalid. 
 		case invalid = "INVALID"
@@ -76,6 +97,12 @@ extension Storefront {
 
 		/// Input value should be less than maximum allowed value. 
 		case lessThan = "LESS_THAN"
+
+		/// Input value should be less or equal to maximum allowed value. 
+		case lessThanOrEqualTo = "LESS_THAN_OR_EQUAL_TO"
+
+		/// Line item was not found in checkout. 
+		case lineItemNotFound = "LINE_ITEM_NOT_FOUND"
 
 		/// Checkout is locked. 
 		case locked = "LOCKED"
