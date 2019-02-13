@@ -364,6 +364,7 @@ extension Storefront {
 		///     - reverse: Reverse the order of the underlying list.
 		///     - sortKey: Sort the underlying list by the given key.
 		///     - query: Supported filter parameters:
+		///         - `available_for_sale`
 		///         - `created_at`
 		///         - `product_type`
 		///         - `tag`
