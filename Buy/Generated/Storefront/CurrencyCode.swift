@@ -77,6 +77,9 @@ extension Storefront {
 		/// Burundian Franc (BIF). 
 		case bif = "BIF"
 
+		/// Bermudian Dollar (BMD). 
+		case bmd = "BMD"
+
 		/// Brunei Dollar (BND). 
 		case bnd = "BND"
 
