@@ -214,6 +214,16 @@ extension Storefront {
 			return self
 		}
 
+		/// The article’s SEO information. 
+		@discardableResult
+		open func seo(alias: String? = nil, _ subfields: (SEOQuery) -> Void) -> ArticleQuery {
+			let subquery = SEOQuery()
+			subfields(subquery)
+
+			addField(field: "seo", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// A categorization that a article can be tagged with. 
 		@discardableResult
 		open func tags(alias: String? = nil) -> ArticleQuery {
@@ -317,6 +327,13 @@ extension Storefront {
 					throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.iso8601DateParser.date(from: value)!
+
+				case "seo":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
+				}
+				return try SEO(fields: value)
 
 				case "tags":
 				guard let value = value as? [String] else {
@@ -467,6 +484,15 @@ extension Storefront {
 			return field(field: "publishedAt", aliasSuffix: alias) as! Date
 		}
 
+		/// The article’s SEO information. 
+		open var seo: Storefront.SEO? {
+			return internalGetSeo()
+		}
+
+		func internalGetSeo(alias: String? = nil) -> Storefront.SEO? {
+			return field(field: "seo", aliasSuffix: alias) as! Storefront.SEO?
+		}
+
 		/// A categorization that a article can be tagged with. 
 		open var tags: [String] {
 			return internalGetTags()
@@ -518,6 +544,12 @@ extension Storefront {
 
 					case "image":
 					if let value = internalGetImage() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "seo":
+					if let value = internalGetSeo() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
