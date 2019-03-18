@@ -45,14 +45,22 @@ extension Storefront {
 			return self
 		}
 
-		/// The status of the transaction 
+		/// The status of the transaction. 
+		@available(*, deprecated, message:"Use `statusV2` instead")
 		@discardableResult
 		open func status(alias: String? = nil) -> TransactionQuery {
 			addField(field: "status", aliasSuffix: alias)
 			return self
 		}
 
-		/// Whether the transaction was done in test mode or not 
+		/// The status of the transaction. 
+		@discardableResult
+		open func statusV2(alias: String? = nil) -> TransactionQuery {
+			addField(field: "statusV2", aliasSuffix: alias)
+			return self
+		}
+
+		/// Whether the transaction was done in test mode or not. 
 		@discardableResult
 		open func test(alias: String? = nil) -> TransactionQuery {
 			addField(field: "test", aliasSuffix: alias)
@@ -80,6 +88,13 @@ extension Storefront {
 				return TransactionKind(rawValue: value) ?? .unknownValue
 
 				case "status":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Transaction.self, field: fieldName, value: fieldValue)
+				}
+				return TransactionStatus(rawValue: value) ?? .unknownValue
+
+				case "statusV2":
+				if value is NSNull { return nil }
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: Transaction.self, field: fieldName, value: fieldValue)
 				}
@@ -114,7 +129,8 @@ extension Storefront {
 			return field(field: "kind", aliasSuffix: alias) as! Storefront.TransactionKind
 		}
 
-		/// The status of the transaction 
+		/// The status of the transaction. 
+		@available(*, deprecated, message:"Use `statusV2` instead")
 		open var status: Storefront.TransactionStatus {
 			return internalGetStatus()
 		}
@@ -123,7 +139,16 @@ extension Storefront {
 			return field(field: "status", aliasSuffix: alias) as! Storefront.TransactionStatus
 		}
 
-		/// Whether the transaction was done in test mode or not 
+		/// The status of the transaction. 
+		open var statusV2: Storefront.TransactionStatus? {
+			return internalGetStatusV2()
+		}
+
+		func internalGetStatusV2(alias: String? = nil) -> Storefront.TransactionStatus? {
+			return field(field: "statusV2", aliasSuffix: alias) as! Storefront.TransactionStatus?
+		}
+
+		/// Whether the transaction was done in test mode or not. 
 		open var test: Bool {
 			return internalGetTest()
 		}
