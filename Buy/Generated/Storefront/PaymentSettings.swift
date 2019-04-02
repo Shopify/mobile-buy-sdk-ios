@@ -59,6 +59,15 @@ extension Storefront {
 			return self
 		}
 
+		/// A list of enabled currencies (ISO 4217 format) that the shop accepts. 
+		/// Merchants can enable currencies from their Shopify Payments settings in the 
+		/// Shopify admin. 
+		@discardableResult
+		open func enabledPresentmentCurrencies(alias: String? = nil) -> PaymentSettingsQuery {
+			addField(field: "enabledPresentmentCurrencies", aliasSuffix: alias)
+			return self
+		}
+
 		/// The shop’s Shopify Payments account id. 
 		@discardableResult
 		open func shopifyPaymentsAccountId(alias: String? = nil) -> PaymentSettingsQuery {
@@ -104,6 +113,12 @@ extension Storefront {
 					throw SchemaViolationError(type: PaymentSettings.self, field: fieldName, value: fieldValue)
 				}
 				return CurrencyCode(rawValue: value) ?? .unknownValue
+
+				case "enabledPresentmentCurrencies":
+				guard let value = value as? [String] else {
+					throw SchemaViolationError(type: PaymentSettings.self, field: fieldName, value: fieldValue)
+				}
+				return value.map { return CurrencyCode(rawValue: $0) ?? .unknownValue }
 
 				case "shopifyPaymentsAccountId":
 				if value is NSNull { return nil }
@@ -157,6 +172,17 @@ extension Storefront {
 
 		func internalGetCurrencyCode(alias: String? = nil) -> Storefront.CurrencyCode {
 			return field(field: "currencyCode", aliasSuffix: alias) as! Storefront.CurrencyCode
+		}
+
+		/// A list of enabled currencies (ISO 4217 format) that the shop accepts. 
+		/// Merchants can enable currencies from their Shopify Payments settings in the 
+		/// Shopify admin. 
+		open var enabledPresentmentCurrencies: [Storefront.CurrencyCode] {
+			return internalGetEnabledPresentmentCurrencies()
+		}
+
+		func internalGetEnabledPresentmentCurrencies(alias: String? = nil) -> [Storefront.CurrencyCode] {
+			return field(field: "enabledPresentmentCurrencies", aliasSuffix: alias) as! [Storefront.CurrencyCode]
 		}
 
 		/// The shop’s Shopify Payments account id. 

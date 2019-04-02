@@ -49,9 +49,21 @@ extension Storefront {
 
 		/// The compare at price of the variant. This can be used to mark a variant as 
 		/// on sale, when `compareAtPrice` is higher than `price`. 
+		@available(*, deprecated, message:"Use `compareAtPriceV2` instead")
 		@discardableResult
 		open func compareAtPrice(alias: String? = nil) -> ProductVariantQuery {
 			addField(field: "compareAtPrice", aliasSuffix: alias)
+			return self
+		}
+
+		/// The compare at price of the variant. This can be used to mark a variant as 
+		/// on sale, when `compareAtPriceV2` is higher than `priceV2`. 
+		@discardableResult
+		open func compareAtPriceV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ProductVariantQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "compareAtPriceV2", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -149,9 +161,20 @@ extension Storefront {
 		}
 
 		/// The product variant’s price. 
+		@available(*, deprecated, message:"Use `priceV2` instead")
 		@discardableResult
 		open func price(alias: String? = nil) -> ProductVariantQuery {
 			addField(field: "price", aliasSuffix: alias)
+			return self
+		}
+
+		/// The product variant’s price. 
+		@discardableResult
+		open func priceV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ProductVariantQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "priceV2", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -233,6 +256,13 @@ extension Storefront {
 				}
 				return Decimal(string: value, locale: GraphQL.posixLocale)
 
+				case "compareAtPriceV2":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
+				}
+				return try MoneyV2(fields: value)
+
 				case "id":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
@@ -257,6 +287,12 @@ extension Storefront {
 					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
 				}
 				return Decimal(string: value, locale: GraphQL.posixLocale)
+
+				case "priceV2":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
+				}
+				return try MoneyV2(fields: value)
 
 				case "product":
 				guard let value = value as? [String: Any] else {
@@ -322,12 +358,23 @@ extension Storefront {
 
 		/// The compare at price of the variant. This can be used to mark a variant as 
 		/// on sale, when `compareAtPrice` is higher than `price`. 
+		@available(*, deprecated, message:"Use `compareAtPriceV2` instead")
 		open var compareAtPrice: Decimal? {
 			return internalGetCompareAtPrice()
 		}
 
 		func internalGetCompareAtPrice(alias: String? = nil) -> Decimal? {
 			return field(field: "compareAtPrice", aliasSuffix: alias) as! Decimal?
+		}
+
+		/// The compare at price of the variant. This can be used to mark a variant as 
+		/// on sale, when `compareAtPriceV2` is higher than `priceV2`. 
+		open var compareAtPriceV2: Storefront.MoneyV2? {
+			return internalGetCompareAtPriceV2()
+		}
+
+		func internalGetCompareAtPriceV2(alias: String? = nil) -> Storefront.MoneyV2? {
+			return field(field: "compareAtPriceV2", aliasSuffix: alias) as! Storefront.MoneyV2?
 		}
 
 		/// Globally unique identifier. 
@@ -368,12 +415,22 @@ extension Storefront {
 		}
 
 		/// The product variant’s price. 
+		@available(*, deprecated, message:"Use `priceV2` instead")
 		open var price: Decimal {
 			return internalGetPrice()
 		}
 
 		func internalGetPrice(alias: String? = nil) -> Decimal {
 			return field(field: "price", aliasSuffix: alias) as! Decimal
+		}
+
+		/// The product variant’s price. 
+		open var priceV2: Storefront.MoneyV2 {
+			return internalGetPriceV2()
+		}
+
+		func internalGetPriceV2(alias: String? = nil) -> Storefront.MoneyV2 {
+			return field(field: "priceV2", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
 		/// The product object that the product variant belongs to. 
@@ -435,6 +492,12 @@ extension Storefront {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
 				switch($0) {
+					case "compareAtPriceV2":
+					if let value = internalGetCompareAtPriceV2() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
 					case "image":
 					if let value = internalGetImage() {
 						response.append(value)
@@ -444,6 +507,10 @@ extension Storefront {
 					case "presentmentPrices":
 					response.append(internalGetPresentmentPrices())
 					response.append(contentsOf: internalGetPresentmentPrices().childResponseObjectMap())
+
+					case "priceV2":
+					response.append(internalGetPriceV2())
+					response.append(contentsOf: internalGetPriceV2().childResponseObjectMap())
 
 					case "product":
 					response.append(internalGetProduct())

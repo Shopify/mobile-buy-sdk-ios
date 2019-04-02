@@ -41,6 +41,7 @@ extension Storefront {
 		}
 
 		/// The description of the application as defined by the Script. 
+		@available(*, deprecated, message:"Use `title` instead")
 		@discardableResult
 		open func description(alias: String? = nil) -> ScriptDiscountApplicationQuery {
 			addField(field: "description", aliasSuffix: alias)
@@ -58,6 +59,13 @@ extension Storefront {
 		@discardableResult
 		open func targetType(alias: String? = nil) -> ScriptDiscountApplicationQuery {
 			addField(field: "targetType", aliasSuffix: alias)
+			return self
+		}
+
+		/// The title of the application as defined by the Script. 
+		@discardableResult
+		open func title(alias: String? = nil) -> ScriptDiscountApplicationQuery {
+			addField(field: "title", aliasSuffix: alias)
 			return self
 		}
 
@@ -104,6 +112,12 @@ extension Storefront {
 				}
 				return DiscountApplicationTargetType(rawValue: value) ?? .unknownValue
 
+				case "title":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: ScriptDiscountApplication.self, field: fieldName, value: fieldValue)
+				}
+				return value
+
 				case "value":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: ScriptDiscountApplication.self, field: fieldName, value: fieldValue)
@@ -126,6 +140,7 @@ extension Storefront {
 		}
 
 		/// The description of the application as defined by the Script. 
+		@available(*, deprecated, message:"Use `title` instead")
 		open var description: String {
 			return internalGetDescription()
 		}
@@ -150,6 +165,15 @@ extension Storefront {
 
 		func internalGetTargetType(alias: String? = nil) -> Storefront.DiscountApplicationTargetType {
 			return field(field: "targetType", aliasSuffix: alias) as! Storefront.DiscountApplicationTargetType
+		}
+
+		/// The title of the application as defined by the Script. 
+		open var title: String {
+			return internalGetTitle()
+		}
+
+		func internalGetTitle(alias: String? = nil) -> String {
+			return field(field: "title", aliasSuffix: alias) as! String
 		}
 
 		/// The value of the discount application. 

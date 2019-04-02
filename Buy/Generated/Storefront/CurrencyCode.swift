@@ -317,6 +317,9 @@ extension Storefront {
 		/// Omani Rial (OMR). 
 		case omr = "OMR"
 
+		/// Panamian Balboa (PAB). 
+		case pab = "PAB"
+
 		/// Peruvian Nuevo Sol (PEN). 
 		case pen = "PEN"
 
