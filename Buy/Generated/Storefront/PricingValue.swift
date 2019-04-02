@@ -26,12 +26,12 @@
 
 import Foundation
 
-/// The value of the pricing object. 
+/// The price value (fixed or percentage) for a discount application. 
 public protocol PricingValue {
 }
 
 extension Storefront {
-	/// The value of the pricing object. 
+	/// The price value (fixed or percentage) for a discount application. 
 	open class PricingValueQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = PricingValue
 
@@ -40,7 +40,7 @@ extension Storefront {
 			addField(field: "__typename")
 		}
 
-		/// The value of the pricing object. 
+		/// The price value (fixed or percentage) for a discount application. 
 		@discardableResult
 		open func onMoneyV2(subfields: (MoneyV2Query) -> Void) -> PricingValueQuery {
 			let subquery = MoneyV2Query()
@@ -49,7 +49,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The value of the pricing object. 
+		/// The price value (fixed or percentage) for a discount application. 
 		@discardableResult
 		open func onPricingPercentageValue(subfields: (PricingPercentageValueQuery) -> Void) -> PricingValueQuery {
 			let subquery = PricingPercentageValueQuery()
@@ -59,7 +59,7 @@ extension Storefront {
 		}
 	}
 
-	/// The value of the pricing object. 
+	/// The price value (fixed or percentage) for a discount application. 
 	open class UnknownPricingValue: GraphQL.AbstractResponse, GraphQLObject, PricingValue {
 		public typealias Query = PricingValueQuery
 

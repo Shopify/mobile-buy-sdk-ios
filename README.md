@@ -642,7 +642,7 @@ self.paySession = PaySession(
 	merchantID: "com.merchant.identifier"
 )
 
-self.paySession.delegate = self     
+self.paySession.delegate = self
 self.paySession.authorize()
 ```
 
@@ -748,7 +748,7 @@ Invoked when the customer authorizes the payment. At this point, the `delegate` 
 
 ```swift
 func paySessionDidFinish(_ paySession: PaySession) {
-    // Do something after the  Pay modal is dismissed   
+    // Do something after the  Pay modal is dismissed
 }
 ```
 
@@ -1064,7 +1064,7 @@ Since we'll need to update the checkout with additional information later, all w
 
 A customer's information might not be available when a checkout is created. The Buy SDK provides mutations for updating the specific checkout fields that are required for completion: the `email`, `shippingAddress` and  `shippingLine` fields.
 
-Note that if your checkout contains a line item that requires shipping, you must provide a shipping address and a shipping line as part of your checkout. 
+Note that if your checkout contains a line item that requires shipping, you must provide a shipping address and a shipping line as part of your checkout.
 
 To obtain the handle required for updating a shipping line, you must first poll for shipping rates.
 

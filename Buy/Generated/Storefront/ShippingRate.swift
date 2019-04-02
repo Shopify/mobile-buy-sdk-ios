@@ -39,9 +39,20 @@ extension Storefront {
 		}
 
 		/// Price of this shipping rate. 
+		@available(*, deprecated, message:"Use `priceV2` instead")
 		@discardableResult
 		open func price(alias: String? = nil) -> ShippingRateQuery {
 			addField(field: "price", aliasSuffix: alias)
+			return self
+		}
+
+		/// Price of this shipping rate. 
+		@discardableResult
+		open func priceV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ShippingRateQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "priceV2", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -72,6 +83,12 @@ extension Storefront {
 				}
 				return Decimal(string: value, locale: GraphQL.posixLocale)
 
+				case "priceV2":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: ShippingRate.self, field: fieldName, value: fieldValue)
+				}
+				return try MoneyV2(fields: value)
+
 				case "title":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: ShippingRate.self, field: fieldName, value: fieldValue)
@@ -93,12 +110,22 @@ extension Storefront {
 		}
 
 		/// Price of this shipping rate. 
+		@available(*, deprecated, message:"Use `priceV2` instead")
 		open var price: Decimal {
 			return internalGetPrice()
 		}
 
 		func internalGetPrice(alias: String? = nil) -> Decimal {
 			return field(field: "price", aliasSuffix: alias) as! Decimal
+		}
+
+		/// Price of this shipping rate. 
+		open var priceV2: Storefront.MoneyV2 {
+			return internalGetPriceV2()
+		}
+
+		func internalGetPriceV2(alias: String? = nil) -> Storefront.MoneyV2 {
+			return field(field: "priceV2", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
 		/// Title of this shipping rate. 
@@ -111,7 +138,18 @@ extension Storefront {
 		}
 
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
-			return []
+			var response: [GraphQL.AbstractResponse] = []
+			objectMap.keys.forEach {
+				switch($0) {
+					case "priceV2":
+					response.append(internalGetPriceV2())
+					response.append(contentsOf: internalGetPriceV2().childResponseObjectMap())
+
+					default:
+					break
+				}
+			}
+			return response
 		}
 	}
 }
