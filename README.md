@@ -307,7 +307,7 @@ The following example shows how you can query for a shop's name:
 
 ```swift
 let query = Storefront.buildQuery { $0
-    .shop {
+    .shop { $0
         .name()
     }
 }
