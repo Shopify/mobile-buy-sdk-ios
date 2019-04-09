@@ -29,7 +29,7 @@ import Foundation
 public extension Graph {
 
     /// A structure that encapsulates a retry condition for polling or retrying `Client` operations.
-    public struct RetryHandler<R: GraphQL.AbstractResponse> {
+    struct RetryHandler<R: GraphQL.AbstractResponse> {
 
         /// A condition that signals to retry the network operation if it evaluates to `true`.
         public typealias Condition = (R?, QueryError?) -> Bool

@@ -28,7 +28,7 @@ import Foundation
 
 internal extension Graph {
     
-    internal class CacheItem {
+    class CacheItem {
         
         let hash:      Hash
         let data:      Data

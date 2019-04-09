@@ -656,25 +656,4 @@ class Graph_TaskTests: XCTestCase {
         
         return (query, response)
     }
-    
-    private func defaultMutationPayload() -> (mutation: Storefront.MutationQuery, response: [String: Any]) {
-        
-        let mutation = Storefront.buildMutation { $0
-            .checkoutEmailUpdateV2(checkoutId: GraphQL.ID(rawValue: "123"), email: "john.smith@gmail.com") { $0
-                .userErrors { $0
-                    .message()
-                }
-            }
-        }
-        
-        let response = [
-            "data": [
-                "checkoutEmailUpdateV2": [
-                    "userErrors": []
-                ]
-            ]
-        ]
-        
-        return (mutation, response)
-    }
 }
