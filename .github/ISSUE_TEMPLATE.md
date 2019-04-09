@@ -11,4 +11,4 @@ None of the above? Create an issue. Be sure to include all the necessary informa
 - What is the expected behaviour?
 - What is happening instead?
 
-If there's not enough information to address the problem, we'll tag your issue with `information required` and close it until futher information is provided.
+If there's not enough information to address the problem, we'll tag your issue with `information required` and close it until further information is provided.
