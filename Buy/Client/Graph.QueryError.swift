@@ -29,7 +29,7 @@ import Foundation
 public extension Graph {
 
     /// Represents an error that was encountered somewhere in the request pipeline.
-    public enum QueryError: Error {
+    enum QueryError: Error {
 
         /// For invalid queries, a collection of `Reason`s is provided to indicate exactly where the problem occurred in the query.
         public struct Reason {

@@ -27,7 +27,7 @@
 import Foundation
 
 public extension Card {
-    public struct CreditCard {
+    struct CreditCard {
         
         /// First name as shown on the credit card
         public let firstName: String

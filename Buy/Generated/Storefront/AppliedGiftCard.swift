@@ -32,16 +32,38 @@ extension Storefront {
 		public typealias Response = AppliedGiftCard
 
 		/// The amount that was used taken from the Gift Card by applying it. 
+		@available(*, deprecated, message:"Use `amountUsedV2` instead")
 		@discardableResult
 		open func amountUsed(alias: String? = nil) -> AppliedGiftCardQuery {
 			addField(field: "amountUsed", aliasSuffix: alias)
 			return self
 		}
 
+		/// The amount that was used taken from the Gift Card by applying it. 
+		@discardableResult
+		open func amountUsedV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> AppliedGiftCardQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "amountUsedV2", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The amount left on the Gift Card. 
+		@available(*, deprecated, message:"Use `balanceV2` instead")
 		@discardableResult
 		open func balance(alias: String? = nil) -> AppliedGiftCardQuery {
 			addField(field: "balance", aliasSuffix: alias)
+			return self
+		}
+
+		/// The amount left on the Gift Card. 
+		@discardableResult
+		open func balanceV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> AppliedGiftCardQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "balanceV2", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -73,11 +95,23 @@ extension Storefront {
 				}
 				return Decimal(string: value, locale: GraphQL.posixLocale)
 
+				case "amountUsedV2":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: AppliedGiftCard.self, field: fieldName, value: fieldValue)
+				}
+				return try MoneyV2(fields: value)
+
 				case "balance":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: AppliedGiftCard.self, field: fieldName, value: fieldValue)
 				}
 				return Decimal(string: value, locale: GraphQL.posixLocale)
+
+				case "balanceV2":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: AppliedGiftCard.self, field: fieldName, value: fieldValue)
+				}
+				return try MoneyV2(fields: value)
 
 				case "id":
 				guard let value = value as? String else {
@@ -97,6 +131,7 @@ extension Storefront {
 		}
 
 		/// The amount that was used taken from the Gift Card by applying it. 
+		@available(*, deprecated, message:"Use `amountUsedV2` instead")
 		open var amountUsed: Decimal {
 			return internalGetAmountUsed()
 		}
@@ -105,13 +140,32 @@ extension Storefront {
 			return field(field: "amountUsed", aliasSuffix: alias) as! Decimal
 		}
 
+		/// The amount that was used taken from the Gift Card by applying it. 
+		open var amountUsedV2: Storefront.MoneyV2 {
+			return internalGetAmountUsedV2()
+		}
+
+		func internalGetAmountUsedV2(alias: String? = nil) -> Storefront.MoneyV2 {
+			return field(field: "amountUsedV2", aliasSuffix: alias) as! Storefront.MoneyV2
+		}
+
 		/// The amount left on the Gift Card. 
+		@available(*, deprecated, message:"Use `balanceV2` instead")
 		open var balance: Decimal {
 			return internalGetBalance()
 		}
 
 		func internalGetBalance(alias: String? = nil) -> Decimal {
 			return field(field: "balance", aliasSuffix: alias) as! Decimal
+		}
+
+		/// The amount left on the Gift Card. 
+		open var balanceV2: Storefront.MoneyV2 {
+			return internalGetBalanceV2()
+		}
+
+		func internalGetBalanceV2(alias: String? = nil) -> Storefront.MoneyV2 {
+			return field(field: "balanceV2", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
 		/// Globally unique identifier. 
@@ -133,7 +187,22 @@ extension Storefront {
 		}
 
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
-			return []
+			var response: [GraphQL.AbstractResponse] = []
+			objectMap.keys.forEach {
+				switch($0) {
+					case "amountUsedV2":
+					response.append(internalGetAmountUsedV2())
+					response.append(contentsOf: internalGetAmountUsedV2().childResponseObjectMap())
+
+					case "balanceV2":
+					response.append(internalGetBalanceV2())
+					response.append(contentsOf: internalGetBalanceV2().childResponseObjectMap())
+
+					default:
+					break
+				}
+			}
+			return response
 		}
 	}
 }
