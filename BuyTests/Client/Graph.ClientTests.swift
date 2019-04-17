@@ -152,8 +152,10 @@ class Graph_ClientTests: XCTestCase {
         
         let mutation = Storefront.buildMutation { $0
             .checkoutEmailUpdateV2(checkoutId: GraphQL.ID(rawValue: "123"), email: "john.smith@gmail.com") { $0
-                .userErrors { $0
+                .checkoutUserErrors { $0
+                    .code()
                     .message()
+                    .field()
                 }
             }
         }
@@ -161,7 +163,7 @@ class Graph_ClientTests: XCTestCase {
         let response = [
             "data": [
                 "checkoutEmailUpdateV2": [
-                    "userErrors": []
+                    "checkoutUserErrors": []
                 ]
             ]
         ]

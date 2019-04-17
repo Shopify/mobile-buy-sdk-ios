@@ -28,13 +28,13 @@ import Foundation
 
 public extension Card {
     
-    public typealias VaultCompletion = (_ token: String?, _ error: Error?) -> Void
+    typealias VaultCompletion = (_ token: String?, _ error: Error?) -> Void
     
     /// The `Vault.Client` is a network layer designed to abstract the communication with the Shopify's
     /// credit card server. For PCI-compliance reasons, this is a standalone service, separate from the
     /// main `Graph.Client` service.
     ///
-    public class Client {
+    class Client {
      
         /// The `URLSession` backing all `Client` network operations. You may provide your own session when initializing a new `Client`.
         public let session: URLSession

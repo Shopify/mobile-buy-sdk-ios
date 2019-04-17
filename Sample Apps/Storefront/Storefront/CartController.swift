@@ -170,7 +170,7 @@ class CartController {
     }
     
     func add(_ cartItem: CartItem) {
-        if let index = self.items.index(of: cartItem) {
+        if let index = self.items.firstIndex(of: cartItem) {
             self.items[index].quantity += 1
         } else {
             self.items.append(cartItem)
@@ -180,7 +180,7 @@ class CartController {
     }
     
     func removeAllQuantitiesFor(_ cartItem: CartItem) {
-        if let index = self.items.index(of: cartItem) {
+        if let index = self.items.firstIndex(of: cartItem) {
             self.removeAllQuantities(at: index)
         }
     }

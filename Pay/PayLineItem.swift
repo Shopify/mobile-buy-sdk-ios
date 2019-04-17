@@ -44,7 +44,7 @@ public struct PayLineItem {
 
 public extension Array where Element == PayLineItem {
     
-    public var totalPrice: Decimal {
+    var totalPrice: Decimal {
         return self.reduce(0) {
             $0 + $1.price * Decimal($1.quantity)
         }
