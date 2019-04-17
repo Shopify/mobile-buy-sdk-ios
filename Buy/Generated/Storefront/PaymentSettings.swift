@@ -52,7 +52,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The three-letter code for the currency that the shop accepts. 
+		/// The three-letter code for the shop's primary currency. 
 		@discardableResult
 		open func currencyCode(alias: String? = nil) -> PaymentSettingsQuery {
 			addField(field: "currencyCode", aliasSuffix: alias)
@@ -165,7 +165,7 @@ extension Storefront {
 			return field(field: "countryCode", aliasSuffix: alias) as! Storefront.CountryCode
 		}
 
-		/// The three-letter code for the currency that the shop accepts. 
+		/// The three-letter code for the shop's primary currency. 
 		open var currencyCode: Storefront.CurrencyCode {
 			return internalGetCurrencyCode()
 		}

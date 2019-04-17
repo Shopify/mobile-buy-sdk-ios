@@ -50,8 +50,10 @@ extension Storefront {
 		/// country. Full validation of addresses is still done at complete time. 
 		open var allowPartialAddresses: Input<Bool>
 
-		/// The currency code of one of the shop's enabled presentment currencies. If 
-		/// the shop uses Shopify Payments, then the checkout is set to this currency. 
+		/// The three-letter currency code of one of the shop's enabled presentment 
+		/// currencies. Including this field creates a checkout in the specified 
+		/// currency. By default, new checkouts are created in the shop's primary 
+		/// currency. 
 		open var presentmentCurrencyCode: Input<CurrencyCode>
 
 		/// Creates the input object.
@@ -63,7 +65,7 @@ extension Storefront {
 		///     - note: The text of an optional note that a shop owner can attach to the checkout.
 		///     - customAttributes: A list of extra information that is added to the checkout.
 		///     - allowPartialAddresses: Allows setting partial addresses on a Checkout, skipping the full validation of attributes. The required attributes are city, province, and country. Full validation of addresses is still done at complete time. 
-		///     - presentmentCurrencyCode: The currency code of one of the shop's enabled presentment currencies. If the shop uses Shopify Payments, then the checkout is set to this currency.
+		///     - presentmentCurrencyCode: The three-letter currency code of one of the shop's enabled presentment currencies. Including this field creates a checkout in the specified currency. By default, new checkouts are created in the shop's primary currency. 
 		///
 		public static func create(email: Input<String> = .undefined, lineItems: Input<[CheckoutLineItemInput]> = .undefined, shippingAddress: Input<MailingAddressInput> = .undefined, note: Input<String> = .undefined, customAttributes: Input<[AttributeInput]> = .undefined, allowPartialAddresses: Input<Bool> = .undefined, presentmentCurrencyCode: Input<CurrencyCode> = .undefined) -> CheckoutCreateInput {
 			return CheckoutCreateInput(email: email, lineItems: lineItems, shippingAddress: shippingAddress, note: note, customAttributes: customAttributes, allowPartialAddresses: allowPartialAddresses, presentmentCurrencyCode: presentmentCurrencyCode)
@@ -88,7 +90,7 @@ extension Storefront {
 		///     - note: The text of an optional note that a shop owner can attach to the checkout.
 		///     - customAttributes: A list of extra information that is added to the checkout.
 		///     - allowPartialAddresses: Allows setting partial addresses on a Checkout, skipping the full validation of attributes. The required attributes are city, province, and country. Full validation of addresses is still done at complete time. 
-		///     - presentmentCurrencyCode: The currency code of one of the shop's enabled presentment currencies. If the shop uses Shopify Payments, then the checkout is set to this currency.
+		///     - presentmentCurrencyCode: The three-letter currency code of one of the shop's enabled presentment currencies. Including this field creates a checkout in the specified currency. By default, new checkouts are created in the shop's primary currency. 
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
 		public convenience init(email: String? = nil, lineItems: [CheckoutLineItemInput]? = nil, shippingAddress: MailingAddressInput? = nil, note: String? = nil, customAttributes: [AttributeInput]? = nil, allowPartialAddresses: Bool? = nil, presentmentCurrencyCode: CurrencyCode? = nil) {
