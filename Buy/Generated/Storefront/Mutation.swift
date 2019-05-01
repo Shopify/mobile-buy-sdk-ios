@@ -659,7 +659,7 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - checkoutId: The ID of the checkout.
-		///     - shippingRateHandle: A concatenation of a Checkout’s shipping provider, price, and title, enabling the customer to select the availableShippingRates.
+		///     - shippingRateHandle: A unique identifier to a Checkout’s shipping provider, price, and title combination, enabling the customer to select the availableShippingRates.
 		///
 		@discardableResult
 		open func checkoutShippingLineUpdate(alias: String? = nil, checkoutId: GraphQL.ID, shippingRateHandle: String, _ subfields: (CheckoutShippingLineUpdatePayloadQuery) -> Void) -> MutationQuery {
