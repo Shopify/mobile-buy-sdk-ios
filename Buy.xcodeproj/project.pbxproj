@@ -303,6 +303,24 @@
 		9AA997EC2046EC480096734F /* ImageContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA997EB2046EC470096734F /* ImageContentType.swift */; };
 		9AA997ED2046EC480096734F /* ImageContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA997EB2046EC470096734F /* ImageContentType.swift */; };
 		9AA997EE2046EC480096734F /* ImageContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA997EB2046EC470096734F /* ImageContentType.swift */; };
+		9AA9A3F32279E79B0002DFDA /* MetafieldParentResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA9A3EE2279E7990002DFDA /* MetafieldParentResource.swift */; };
+		9AA9A3F42279E79B0002DFDA /* MetafieldParentResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA9A3EE2279E7990002DFDA /* MetafieldParentResource.swift */; };
+		9AA9A3F52279E79B0002DFDA /* MetafieldParentResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA9A3EE2279E7990002DFDA /* MetafieldParentResource.swift */; };
+		9AA9A3F62279E79B0002DFDA /* Metafield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA9A3EF2279E79A0002DFDA /* Metafield.swift */; };
+		9AA9A3F72279E79B0002DFDA /* Metafield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA9A3EF2279E79A0002DFDA /* Metafield.swift */; };
+		9AA9A3F82279E79B0002DFDA /* Metafield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA9A3EF2279E79A0002DFDA /* Metafield.swift */; };
+		9AA9A3F92279E79B0002DFDA /* MetafieldValueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA9A3F02279E79A0002DFDA /* MetafieldValueType.swift */; };
+		9AA9A3FA2279E79B0002DFDA /* MetafieldValueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA9A3F02279E79A0002DFDA /* MetafieldValueType.swift */; };
+		9AA9A3FB2279E79B0002DFDA /* MetafieldValueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA9A3F02279E79A0002DFDA /* MetafieldValueType.swift */; };
+		9AA9A3FC2279E79B0002DFDA /* MetafieldEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA9A3F12279E79A0002DFDA /* MetafieldEdge.swift */; };
+		9AA9A3FD2279E79B0002DFDA /* MetafieldEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA9A3F12279E79A0002DFDA /* MetafieldEdge.swift */; };
+		9AA9A3FE2279E79B0002DFDA /* MetafieldEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA9A3F12279E79A0002DFDA /* MetafieldEdge.swift */; };
+		9AA9A3FF2279E79B0002DFDA /* MetafieldConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA9A3F22279E79B0002DFDA /* MetafieldConnection.swift */; };
+		9AA9A4002279E79B0002DFDA /* MetafieldConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA9A3F22279E79B0002DFDA /* MetafieldConnection.swift */; };
+		9AA9A4012279E79B0002DFDA /* MetafieldConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA9A3F22279E79B0002DFDA /* MetafieldConnection.swift */; };
+		9AA9A4032279E7AF0002DFDA /* HasMetafields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA9A4022279E7AF0002DFDA /* HasMetafields.swift */; };
+		9AA9A4042279E7AF0002DFDA /* HasMetafields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA9A4022279E7AF0002DFDA /* HasMetafields.swift */; };
+		9AA9A4052279E7AF0002DFDA /* HasMetafields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA9A4022279E7AF0002DFDA /* HasMetafields.swift */; };
 		9AADF1C71EA63ED000D22740 /* MockPaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AADF1C61EA63ED000D22740 /* MockPaymentMethod.swift */; };
 		9AADF1C91EA63FB900D22740 /* MockPaymentToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AADF1C81EA63FB900D22740 /* MockPaymentToken.swift */; };
 		9AADF1CB1EA640C000D22740 /* MockPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AADF1CA1EA640C000D22740 /* MockPayment.swift */; };
@@ -864,6 +882,12 @@
 		9AA89E951E9D29B40075AC74 /* Graph.QueryError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.QueryError.swift; sourceTree = "<group>"; };
 		9AA89E971E9D2BD80075AC74 /* Graph.RetryHandlerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.RetryHandlerTests.swift; sourceTree = "<group>"; };
 		9AA997EB2046EC470096734F /* ImageContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageContentType.swift; sourceTree = "<group>"; };
+		9AA9A3EE2279E7990002DFDA /* MetafieldParentResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetafieldParentResource.swift; sourceTree = "<group>"; };
+		9AA9A3EF2279E79A0002DFDA /* Metafield.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Metafield.swift; sourceTree = "<group>"; };
+		9AA9A3F02279E79A0002DFDA /* MetafieldValueType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetafieldValueType.swift; sourceTree = "<group>"; };
+		9AA9A3F12279E79A0002DFDA /* MetafieldEdge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetafieldEdge.swift; sourceTree = "<group>"; };
+		9AA9A3F22279E79B0002DFDA /* MetafieldConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetafieldConnection.swift; sourceTree = "<group>"; };
+		9AA9A4022279E7AF0002DFDA /* HasMetafields.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HasMetafields.swift; sourceTree = "<group>"; };
 		9AADF1C61EA63ED000D22740 /* MockPaymentMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPaymentMethod.swift; sourceTree = "<group>"; };
 		9AADF1C81EA63FB900D22740 /* MockPaymentToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPaymentToken.swift; sourceTree = "<group>"; };
 		9AADF1CA1EA640C000D22740 /* MockPayment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPayment.swift; sourceTree = "<group>"; };
@@ -1063,6 +1087,7 @@
 				9ABEB3A52122FF7600A373F2 /* FulfillmentLineItemConnection.swift */,
 				9ABEB3A82122FF7700A373F2 /* FulfillmentLineItemEdge.swift */,
 				9ABEB3A72122FF7700A373F2 /* FulfillmentTrackingInfo.swift */,
+				9AA9A4022279E7AF0002DFDA /* HasMetafields.swift */,
 				9A0C802F1EAA51C50020F187 /* Image.swift */,
 				9A0C80301EAA51C50020F187 /* ImageConnection.swift */,
 				9AA997EB2046EC470096734F /* ImageContentType.swift */,
@@ -1072,6 +1097,11 @@
 				9A0C80341EAA51C50020F187 /* MailingAddressEdge.swift */,
 				9A0C80351EAA51C50020F187 /* MailingAddressInput.swift */,
 				9A67114E21666AAF00A57A3F /* ManualDiscountApplication.swift */,
+				9AA9A3EF2279E79A0002DFDA /* Metafield.swift */,
+				9AA9A3F22279E79B0002DFDA /* MetafieldConnection.swift */,
+				9AA9A3F12279E79A0002DFDA /* MetafieldEdge.swift */,
+				9AA9A3EE2279E7990002DFDA /* MetafieldParentResource.swift */,
+				9AA9A3F02279E79A0002DFDA /* MetafieldValueType.swift */,
 				9A6711312166678300A57A3F /* MoneyInput.swift */,
 				9A9EA43A20AF0EBA002CB926 /* MoneyV2.swift */,
 				9A0C80361EAA51C50020F187 /* Mutation.swift */,
@@ -1723,6 +1753,7 @@
 				9AC2EF4E1F6818180037E0D7 /* CustomerUpdateInput.swift in Sources */,
 				9A41E2AA1F8509770059485A /* CustomerDefaultAddressUpdatePayload.swift in Sources */,
 				9AC2EF4F1F6818180037E0D7 /* OrderConnection.swift in Sources */,
+				9AA9A3FA2279E79B0002DFDA /* MetafieldValueType.swift in Sources */,
 				9A67115921666AB200A57A3F /* DiscountApplicationEdge.swift in Sources */,
 				9A67116221666AB200A57A3F /* DiscountApplication.swift in Sources */,
 				9AC2EF501F6818180037E0D7 /* MD5.m in Sources */,
@@ -1732,6 +1763,7 @@
 				9AC2EF531F6818180037E0D7 /* ShopPolicy.swift in Sources */,
 				9AC2EF541F6818180037E0D7 /* CheckoutShippingLineUpdatePayload.swift in Sources */,
 				9ABEB3B02122FF7700A373F2 /* FulfillmentLineItem.swift in Sources */,
+				9AA9A3FD2279E79B0002DFDA /* MetafieldEdge.swift in Sources */,
 				9AC2EF551F6818180037E0D7 /* CheckoutGiftCardRemovePayload.swift in Sources */,
 				9AC2EF561F6818180037E0D7 /* CheckoutCompleteFreePayload.swift in Sources */,
 				9AC2EF571F6818180037E0D7 /* DigitalWallet.swift in Sources */,
@@ -1811,6 +1843,7 @@
 				9AC2EF8B1F6818180037E0D7 /* CheckoutLineItemsRemovePayload.swift in Sources */,
 				9A9EA44020AF0EBB002CB926 /* MoneyV2.swift in Sources */,
 				9AC2EF8C1F6818180037E0D7 /* StringConnection.swift in Sources */,
+				9AA9A4002279E79B0002DFDA /* MetafieldConnection.swift in Sources */,
 				9AC2EF8D1F6818180037E0D7 /* Graph.CacheItem.swift in Sources */,
 				9A67115C21666AB200A57A3F /* DiscountApplicationConnection.swift in Sources */,
 				9AC2EF8E1F6818180037E0D7 /* BlogSortKeys.swift in Sources */,
@@ -1823,6 +1856,7 @@
 				9AC2EF931F6818180037E0D7 /* TransactionKind.swift in Sources */,
 				9AC2EF941F6818180037E0D7 /* CustomerCreateInput.swift in Sources */,
 				9AC2EF951F6818180037E0D7 /* ArticleEdge.swift in Sources */,
+				9AA9A3F72279E79B0002DFDA /* Metafield.swift in Sources */,
 				9AC2EF961F6818180037E0D7 /* UserError.swift in Sources */,
 				9AC2EF971F6818180037E0D7 /* CustomerActivateInput.swift in Sources */,
 				9A2ACDCC21CABAC200C09FF7 /* ProductVariantPricePairEdge.swift in Sources */,
@@ -1863,8 +1897,10 @@
 				9A67115621666AB200A57A3F /* ScriptDiscountApplication.swift in Sources */,
 				9A47C050218087880043525D /* CheckoutCustomerDisassociateV2Payload.swift in Sources */,
 				B3B5A031223FF6C3008ECA02 /* SEO.swift in Sources */,
+				9AA9A3F42279E79B0002DFDA /* MetafieldParentResource.swift in Sources */,
 				9A67113F2166678500A57A3F /* CheckoutCompleteWithCreditCardV2Payload.swift in Sources */,
 				9AC2EFB01F6818180037E0D7 /* CheckoutCreateInput.swift in Sources */,
+				9AA9A4042279E7AF0002DFDA /* HasMetafields.swift in Sources */,
 				9AC2EFB11F6818180037E0D7 /* OrderSortKeys.swift in Sources */,
 				9A6711392166678500A57A3F /* CreditCardPaymentInputV2.swift in Sources */,
 				9AC2EFB21F6818180037E0D7 /* CheckoutCompleteWithCreditCardPayload.swift in Sources */,
@@ -1919,6 +1955,7 @@
 				9A0C808B1EAA51C50020F187 /* CustomerUpdateInput.swift in Sources */,
 				9A41E2AB1F8509770059485A /* CustomerDefaultAddressUpdatePayload.swift in Sources */,
 				9A0C80991EAA51C50020F187 /* OrderConnection.swift in Sources */,
+				9AA9A3F92279E79B0002DFDA /* MetafieldValueType.swift in Sources */,
 				9A67115821666AB200A57A3F /* DiscountApplicationEdge.swift in Sources */,
 				9A67116121666AB200A57A3F /* DiscountApplication.swift in Sources */,
 				9A9C513D1F02A5DB003363E7 /* MD5.m in Sources */,
@@ -1928,6 +1965,7 @@
 				9A0C80AF1EAA51C50020F187 /* ShopPolicy.swift in Sources */,
 				9A0C80721EAA51C50020F187 /* CheckoutShippingLineUpdatePayload.swift in Sources */,
 				9ABEB3AF2122FF7700A373F2 /* FulfillmentLineItem.swift in Sources */,
+				9AA9A3FC2279E79B0002DFDA /* MetafieldEdge.swift in Sources */,
 				9A0C80681EAA51C50020F187 /* CheckoutGiftCardRemovePayload.swift in Sources */,
 				9A0C805F1EAA51C50020F187 /* CheckoutCompleteFreePayload.swift in Sources */,
 				9A52D3A51F3CA5DB00C093C8 /* DigitalWallet.swift in Sources */,
@@ -2007,6 +2045,7 @@
 				9A0C806E1EAA51C50020F187 /* CheckoutLineItemsRemovePayload.swift in Sources */,
 				9A9EA43F20AF0EBB002CB926 /* MoneyV2.swift in Sources */,
 				9A125CFF1F16A0E0008DCF38 /* StringConnection.swift in Sources */,
+				9AA9A3FF2279E79B0002DFDA /* MetafieldConnection.swift in Sources */,
 				9AA7AC761EBB77660014D95D /* Graph.CacheItem.swift in Sources */,
 				9A67115B21666AB200A57A3F /* DiscountApplicationConnection.swift in Sources */,
 				9AA416D31EE095B20060029B /* BlogSortKeys.swift in Sources */,
@@ -2019,6 +2058,7 @@
 				9A0C80B21EAA51C50020F187 /* TransactionKind.swift in Sources */,
 				9A0C80861EAA51C50020F187 /* CustomerCreateInput.swift in Sources */,
 				9AA416CA1EE095AA0060029B /* ArticleEdge.swift in Sources */,
+				9AA9A3F62279E79B0002DFDA /* Metafield.swift in Sources */,
 				9A0C80B41EAA51C50020F187 /* UserError.swift in Sources */,
 				9A0C80811EAA51C50020F187 /* CustomerActivateInput.swift in Sources */,
 				9A2ACDCB21CABAC200C09FF7 /* ProductVariantPricePairEdge.swift in Sources */,
@@ -2059,8 +2099,10 @@
 				9A67115521666AB200A57A3F /* ScriptDiscountApplication.swift in Sources */,
 				9A47C04F218087880043525D /* CheckoutCustomerDisassociateV2Payload.swift in Sources */,
 				B3B5A030223FF6C3008ECA02 /* SEO.swift in Sources */,
+				9AA9A3F32279E79B0002DFDA /* MetafieldParentResource.swift in Sources */,
 				9A67113E2166678500A57A3F /* CheckoutCompleteWithCreditCardV2Payload.swift in Sources */,
 				9A0C80621EAA51C50020F187 /* CheckoutCreateInput.swift in Sources */,
+				9AA9A4032279E7AF0002DFDA /* HasMetafields.swift in Sources */,
 				9A0C80A01EAA51C50020F187 /* OrderSortKeys.swift in Sources */,
 				9A6711382166678500A57A3F /* CreditCardPaymentInputV2.swift in Sources */,
 				9A0C80601EAA51C50020F187 /* CheckoutCompleteWithCreditCardPayload.swift in Sources */,
@@ -2115,6 +2157,7 @@
 				9AF255C81F6FEE50005BB0C9 /* CustomerUpdateInput.swift in Sources */,
 				9A41E2AC1F8509770059485A /* CustomerDefaultAddressUpdatePayload.swift in Sources */,
 				9AF255C91F6FEE50005BB0C9 /* OrderConnection.swift in Sources */,
+				9AA9A3FB2279E79B0002DFDA /* MetafieldValueType.swift in Sources */,
 				9A67115A21666AB200A57A3F /* DiscountApplicationEdge.swift in Sources */,
 				9A67116321666AB200A57A3F /* DiscountApplication.swift in Sources */,
 				9AF255CA1F6FEE50005BB0C9 /* MD5.m in Sources */,
@@ -2124,6 +2167,7 @@
 				9AF255CD1F6FEE50005BB0C9 /* ShopPolicy.swift in Sources */,
 				9AF255CE1F6FEE50005BB0C9 /* CheckoutShippingLineUpdatePayload.swift in Sources */,
 				9ABEB3B12122FF7700A373F2 /* FulfillmentLineItem.swift in Sources */,
+				9AA9A3FE2279E79B0002DFDA /* MetafieldEdge.swift in Sources */,
 				9AF255CF1F6FEE50005BB0C9 /* CheckoutGiftCardRemovePayload.swift in Sources */,
 				9AF255D01F6FEE50005BB0C9 /* CheckoutCompleteFreePayload.swift in Sources */,
 				9AF255D11F6FEE50005BB0C9 /* DigitalWallet.swift in Sources */,
@@ -2203,6 +2247,7 @@
 				9AF256051F6FEE50005BB0C9 /* CheckoutLineItemsRemovePayload.swift in Sources */,
 				9A9EA44120AF0EBB002CB926 /* MoneyV2.swift in Sources */,
 				9AF256061F6FEE50005BB0C9 /* StringConnection.swift in Sources */,
+				9AA9A4012279E79B0002DFDA /* MetafieldConnection.swift in Sources */,
 				9AF256071F6FEE50005BB0C9 /* Graph.CacheItem.swift in Sources */,
 				9A67115D21666AB200A57A3F /* DiscountApplicationConnection.swift in Sources */,
 				9AF256081F6FEE50005BB0C9 /* BlogSortKeys.swift in Sources */,
@@ -2215,6 +2260,7 @@
 				9AF2560D1F6FEE50005BB0C9 /* TransactionKind.swift in Sources */,
 				9AF2560E1F6FEE50005BB0C9 /* CustomerCreateInput.swift in Sources */,
 				9AF2560F1F6FEE50005BB0C9 /* ArticleEdge.swift in Sources */,
+				9AA9A3F82279E79B0002DFDA /* Metafield.swift in Sources */,
 				9AF256101F6FEE50005BB0C9 /* UserError.swift in Sources */,
 				9AF256111F6FEE50005BB0C9 /* CustomerActivateInput.swift in Sources */,
 				9A2ACDCD21CABAC200C09FF7 /* ProductVariantPricePairEdge.swift in Sources */,
@@ -2255,8 +2301,10 @@
 				9A67115721666AB200A57A3F /* ScriptDiscountApplication.swift in Sources */,
 				9A47C051218087880043525D /* CheckoutCustomerDisassociateV2Payload.swift in Sources */,
 				B3B5A032223FF6C3008ECA02 /* SEO.swift in Sources */,
+				9AA9A3F52279E79B0002DFDA /* MetafieldParentResource.swift in Sources */,
 				9A6711402166678500A57A3F /* CheckoutCompleteWithCreditCardV2Payload.swift in Sources */,
 				9AF2562A1F6FEE50005BB0C9 /* CheckoutCreateInput.swift in Sources */,
+				9AA9A4052279E7AF0002DFDA /* HasMetafields.swift in Sources */,
 				9AF2562B1F6FEE50005BB0C9 /* OrderSortKeys.swift in Sources */,
 				9A67113A2166678500A57A3F /* CreditCardPaymentInputV2.swift in Sources */,
 				9AF2562C1F6FEE50005BB0C9 /* CheckoutCompleteWithCreditCardPayload.swift in Sources */,
@@ -2336,11 +2384,11 @@
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 3.5.0;
+				CURRENT_PROJECT_VERSION = 3.5.1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3.5.0;
+				DYLIB_CURRENT_VERSION = 3.5.1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Pay/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2361,11 +2409,11 @@
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 3.5.0;
+				CURRENT_PROJECT_VERSION = 3.5.1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3.5.0;
+				DYLIB_CURRENT_VERSION = 3.5.1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Pay/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2414,11 +2462,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.5.0;
+				CURRENT_PROJECT_VERSION = 3.5.1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3.5.0;
+				DYLIB_CURRENT_VERSION = 3.5.1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Buy/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2442,11 +2490,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.5.0;
+				CURRENT_PROJECT_VERSION = 3.5.1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3.5.0;
+				DYLIB_CURRENT_VERSION = 3.5.1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Buy/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2584,11 +2632,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 3.5.0;
+				CURRENT_PROJECT_VERSION = 3.5.1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3.5.0;
+				DYLIB_CURRENT_VERSION = 3.5.1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Buy/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2606,11 +2654,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 3.5.0;
+				CURRENT_PROJECT_VERSION = 3.5.1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3.5.0;
+				DYLIB_CURRENT_VERSION = 3.5.1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Buy/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2629,11 +2677,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.5.0;
+				CURRENT_PROJECT_VERSION = 3.5.1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3.5.0;
+				DYLIB_CURRENT_VERSION = 3.5.1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Buy/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2658,11 +2706,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.5.0;
+				CURRENT_PROJECT_VERSION = 3.5.1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3.5.0;
+				DYLIB_CURRENT_VERSION = 3.5.1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Buy/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
