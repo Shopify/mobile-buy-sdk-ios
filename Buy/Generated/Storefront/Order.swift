@@ -169,7 +169,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The customer's phone number. 
+		/// The customer's phone number for receiving SMS notifications. 
 		@discardableResult
 		open func phone(alias: String? = nil) -> OrderQuery {
 			addField(field: "phone", aliasSuffix: alias)
@@ -594,7 +594,7 @@ extension Storefront {
 			return field(field: "orderNumber", aliasSuffix: alias) as! Int32
 		}
 
-		/// The customer's phone number. 
+		/// The customer's phone number for receiving SMS notifications. 
 		open var phone: String? {
 			return internalGetPhone()
 		}
