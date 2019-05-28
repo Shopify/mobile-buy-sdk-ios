@@ -401,6 +401,29 @@ extension Storefront {
 			return self
 		}
 
+		/// Find recommended products related to a given `product_id`. To learn more 
+		/// about how recommendations are generated, see [*Showing product 
+		/// recommendations on product 
+		/// pages*](https://help.shopify.com/themes/development/recommended-products). 
+		///
+		/// - parameters:
+		///     - productId: The id of the product.
+		///
+		@discardableResult
+		open func productRecommendations(alias: String? = nil, productId: GraphQL.ID, _ subfields: (ProductQuery) -> Void) -> QueryRootQuery {
+			var args: [String] = []
+
+			args.append("productId:\(GraphQL.quoteString(input: "\(productId.rawValue)"))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = ProductQuery()
+			subfields(subquery)
+
+			addField(field: "productRecommendations", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// Tags added to products. Additional access scope required: 
 		/// unauthenticated_read_product_tags. 
 		///
@@ -598,6 +621,13 @@ extension Storefront {
 				}
 				return try Product(fields: value)
 
+				case "productRecommendations":
+				if value is NSNull { return nil }
+				guard let value = value as? [[String: Any]] else {
+					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
+				}
+				return try value.map { return try Product(fields: $0) }
+
 				case "productTags":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
@@ -767,6 +797,22 @@ extension Storefront {
 			return field(field: "productByHandle", aliasSuffix: alias) as! Storefront.Product?
 		}
 
+		/// Find recommended products related to a given `product_id`. To learn more 
+		/// about how recommendations are generated, see [*Showing product 
+		/// recommendations on product 
+		/// pages*](https://help.shopify.com/themes/development/recommended-products). 
+		open var productRecommendations: [Storefront.Product]? {
+			return internalGetProductRecommendations()
+		}
+
+		open func aliasedProductRecommendations(alias: String) -> [Storefront.Product]? {
+			return internalGetProductRecommendations(alias: alias)
+		}
+
+		func internalGetProductRecommendations(alias: String? = nil) -> [Storefront.Product]? {
+			return field(field: "productRecommendations", aliasSuffix: alias) as! [Storefront.Product]?
+		}
+
 		/// Tags added to products. Additional access scope required: 
 		/// unauthenticated_read_product_tags. 
 		open var productTags: Storefront.StringConnection {
@@ -877,6 +923,14 @@ extension Storefront {
 					if let value = internalGetProductByHandle() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "productRecommendations":
+					if let value = internalGetProductRecommendations() {
+						value.forEach {
+							response.append($0)
+							response.append(contentsOf: $0.childResponseObjectMap())
+						}
 					}
 
 					case "productTags":
