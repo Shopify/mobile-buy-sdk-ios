@@ -32,9 +32,20 @@ extension Storefront {
 		public typealias Response = Payment
 
 		/// The amount of the payment. 
+		@available(*, deprecated, message:"Use `amountV2` instead")
 		@discardableResult
 		open func amount(alias: String? = nil) -> PaymentQuery {
 			addField(field: "amount", aliasSuffix: alias)
+			return self
+		}
+
+		/// The amount of the payment. 
+		@discardableResult
+		open func amountV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> PaymentQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "amountV2", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -130,6 +141,12 @@ extension Storefront {
 				}
 				return Decimal(string: value, locale: GraphQL.posixLocale)
 
+				case "amountV2":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Payment.self, field: fieldName, value: fieldValue)
+				}
+				return try MoneyV2(fields: value)
+
 				case "billingAddress":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -195,12 +212,22 @@ extension Storefront {
 		}
 
 		/// The amount of the payment. 
+		@available(*, deprecated, message:"Use `amountV2` instead")
 		open var amount: Decimal {
 			return internalGetAmount()
 		}
 
 		func internalGetAmount(alias: String? = nil) -> Decimal {
 			return field(field: "amount", aliasSuffix: alias) as! Decimal
+		}
+
+		/// The amount of the payment. 
+		open var amountV2: Storefront.MoneyV2 {
+			return internalGetAmountV2()
+		}
+
+		func internalGetAmountV2(alias: String? = nil) -> Storefront.MoneyV2 {
+			return field(field: "amountV2", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
 		/// The billing address for the payment. 
@@ -291,6 +318,10 @@ extension Storefront {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
 				switch($0) {
+					case "amountV2":
+					response.append(internalGetAmountV2())
+					response.append(contentsOf: internalGetAmountV2().childResponseObjectMap())
+
 					case "billingAddress":
 					if let value = internalGetBillingAddress() {
 						response.append(value)
