@@ -300,6 +300,53 @@ extension Storefront {
 			return self
 		}
 
+		/// List of price ranges in the presentment currencies for this shop. 
+		///
+		/// - parameters:
+		///     - presentmentCurrencies: Specifies the presentment currencies to return a price range in.
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///     - reverse: Reverse the order of the underlying list.
+		///
+		@discardableResult
+		open func presentmentPriceRanges(alias: String? = nil, presentmentCurrencies: [CurrencyCode]? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (ProductPriceRangeConnectionQuery) -> Void) -> ProductQuery {
+			var args: [String] = []
+
+			if let presentmentCurrencies = presentmentCurrencies {
+				args.append("presentmentCurrencies:[\(presentmentCurrencies.map{ "\($0.rawValue)" }.joined(separator: ","))]")
+			}
+
+			if let first = first {
+				args.append("first:\(first)")
+			}
+
+			if let after = after {
+				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
+			}
+
+			if let reverse = reverse {
+				args.append("reverse:\(reverse)")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = ProductPriceRangeConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "presentmentPriceRanges", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// The price range. 
 		@discardableResult
 		open func priceRange(alias: String? = nil, _ subfields: (ProductPriceRangeQuery) -> Void) -> ProductQuery {
@@ -511,6 +558,12 @@ extension Storefront {
 				}
 				return try value.map { return try ProductOption(fields: $0) }
 
+				case "presentmentPriceRanges":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
+				}
+				return try ProductPriceRangeConnection(fields: value)
+
 				case "priceRange":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
@@ -706,6 +759,19 @@ extension Storefront {
 			return field(field: "options", aliasSuffix: alias) as! [Storefront.ProductOption]
 		}
 
+		/// List of price ranges in the presentment currencies for this shop. 
+		open var presentmentPriceRanges: Storefront.ProductPriceRangeConnection {
+			return internalGetPresentmentPriceRanges()
+		}
+
+		open func aliasedPresentmentPriceRanges(alias: String) -> Storefront.ProductPriceRangeConnection {
+			return internalGetPresentmentPriceRanges(alias: alias)
+		}
+
+		func internalGetPresentmentPriceRanges(alias: String? = nil) -> Storefront.ProductPriceRangeConnection {
+			return field(field: "presentmentPriceRanges", aliasSuffix: alias) as! Storefront.ProductPriceRangeConnection
+		}
+
 		/// The price range. 
 		open var priceRange: Storefront.ProductPriceRange {
 			return internalGetPriceRange()
@@ -828,6 +894,10 @@ extension Storefront {
 						response.append($0)
 						response.append(contentsOf: $0.childResponseObjectMap())
 					}
+
+					case "presentmentPriceRanges":
+					response.append(internalGetPresentmentPriceRanges())
+					response.append(contentsOf: internalGetPresentmentPriceRanges().childResponseObjectMap())
 
 					case "priceRange":
 					response.append(internalGetPriceRange())
