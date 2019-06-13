@@ -45,7 +45,7 @@ final class ShippingRateViewModel: ViewModel {
         
         self.handle = model.handle
         self.title  = model.title
-        self.price  = model.price
+        self.price  = model.priceV2.amount
     }
 }
 

@@ -84,9 +84,9 @@ class CartItem: Equatable, Hashable, Serializable {
 //  MARK: - Hashable -
 //
 extension CartItem {
-    
-    var hashValue: Int {
-        return self.variant.id.hashValue
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.variant.id)
     }
 }
 

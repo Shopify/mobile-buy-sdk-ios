@@ -38,7 +38,7 @@ extension Storefront.DiscountApplicationQuery {
             .title()
         }
         .onScriptDiscountApplication { $0
-            .description()
+            .title()
         }
     }
 }

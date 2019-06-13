@@ -31,7 +31,7 @@ extension Storefront {
 	open class AppliedGiftCardQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = AppliedGiftCard
 
-		/// The amount that was used taken from the Gift Card by applying it. 
+		/// The amount that was taken from the Gift Card by applying it. 
 		@available(*, deprecated, message:"Use `amountUsedV2` instead")
 		@discardableResult
 		open func amountUsed(alias: String? = nil) -> AppliedGiftCardQuery {
@@ -39,7 +39,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The amount that was used taken from the Gift Card by applying it. 
+		/// The amount that was taken from the Gift Card by applying it. 
 		@discardableResult
 		open func amountUsedV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> AppliedGiftCardQuery {
 			let subquery = MoneyV2Query()
@@ -78,6 +78,16 @@ extension Storefront {
 		@discardableResult
 		open func lastCharacters(alias: String? = nil) -> AppliedGiftCardQuery {
 			addField(field: "lastCharacters", aliasSuffix: alias)
+			return self
+		}
+
+		/// The amount that was applied to the checkout in its currency. 
+		@discardableResult
+		open func presentmentAmountUsed(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> AppliedGiftCardQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "presentmentAmountUsed", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 	}
@@ -125,12 +135,18 @@ extension Storefront {
 				}
 				return value
 
+				case "presentmentAmountUsed":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: AppliedGiftCard.self, field: fieldName, value: fieldValue)
+				}
+				return try MoneyV2(fields: value)
+
 				default:
 				throw SchemaViolationError(type: AppliedGiftCard.self, field: fieldName, value: fieldValue)
 			}
 		}
 
-		/// The amount that was used taken from the Gift Card by applying it. 
+		/// The amount that was taken from the Gift Card by applying it. 
 		@available(*, deprecated, message:"Use `amountUsedV2` instead")
 		open var amountUsed: Decimal {
 			return internalGetAmountUsed()
@@ -140,7 +156,7 @@ extension Storefront {
 			return field(field: "amountUsed", aliasSuffix: alias) as! Decimal
 		}
 
-		/// The amount that was used taken from the Gift Card by applying it. 
+		/// The amount that was taken from the Gift Card by applying it. 
 		open var amountUsedV2: Storefront.MoneyV2 {
 			return internalGetAmountUsedV2()
 		}
@@ -186,6 +202,15 @@ extension Storefront {
 			return field(field: "lastCharacters", aliasSuffix: alias) as! String
 		}
 
+		/// The amount that was applied to the checkout in its currency. 
+		open var presentmentAmountUsed: Storefront.MoneyV2 {
+			return internalGetPresentmentAmountUsed()
+		}
+
+		func internalGetPresentmentAmountUsed(alias: String? = nil) -> Storefront.MoneyV2 {
+			return field(field: "presentmentAmountUsed", aliasSuffix: alias) as! Storefront.MoneyV2
+		}
+
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
@@ -197,6 +222,10 @@ extension Storefront {
 					case "balanceV2":
 					response.append(internalGetBalanceV2())
 					response.append(contentsOf: internalGetBalanceV2().childResponseObjectMap())
+
+					case "presentmentAmountUsed":
+					response.append(internalGetPresentmentAmountUsed())
+					response.append(contentsOf: internalGetPresentmentAmountUsed().childResponseObjectMap())
 
 					default:
 					break

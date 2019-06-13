@@ -51,7 +51,7 @@ final class LineItemViewModel: ViewModel {
         self.variantID           = model.node.variant!.id.rawValue
         self.title               = model.node.title
         self.quantity            = Int(model.node.quantity)
-        self.individualPrice     = model.node.variant!.price
+        self.individualPrice     = model.node.variant!.priceV2.amount
         self.totalPrice          = self.individualPrice * Decimal(self.quantity)
         self.discountAllocations = model.node.discountAllocations.viewModels
     }
