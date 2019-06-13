@@ -41,7 +41,10 @@ extension Storefront.OrderLineItemConnectionQuery {
                 .variant { $0
                     .id()
                     .title()
-                    .price()
+                    .priceV2 { $0
+                        .amount()
+                        .currencyCode()
+                    }
                 }
             }
         }

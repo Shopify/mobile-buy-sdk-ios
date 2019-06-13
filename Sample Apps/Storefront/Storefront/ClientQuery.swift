@@ -158,7 +158,7 @@ final class ClientQuery {
         let id = GraphQL.ID(rawValue: checkoutID)
         return Storefront.buildMutation { $0
             .checkoutGiftCardsAppend(giftCardCodes: [giftCardCode], checkoutId: id) { $0
-                .userErrors { $0
+                .checkoutUserErrors { $0
                     .field()
                     .message()
                 }
@@ -203,7 +203,7 @@ final class ClientQuery {
         
         return Storefront.buildMutation { $0
             .checkoutShippingAddressUpdateV2(shippingAddress: addressInput, checkoutId: checkoutID) { $0
-                .userErrors { $0
+                .checkoutUserErrors { $0
                     .field()
                     .message()
                 }
@@ -231,7 +231,7 @@ final class ClientQuery {
         
         return Storefront.buildMutation { $0
             .checkoutShippingAddressUpdateV2(shippingAddress: addressInput, checkoutId: checkoutID) { $0
-                .userErrors { $0
+                .checkoutUserErrors { $0
                     .field()
                     .message()
                 }
@@ -246,7 +246,7 @@ final class ClientQuery {
         
         return Storefront.buildMutation { $0
             .checkoutShippingLineUpdate(checkoutId: GraphQL.ID(rawValue: id), shippingRateHandle: shippingRate.handle) { $0
-                .userErrors { $0
+                .checkoutUserErrors { $0
                     .field()
                     .message()
                 }
@@ -312,7 +312,7 @@ final class ClientQuery {
         
         return Storefront.buildMutation { $0
             .checkoutCompleteWithTokenizedPaymentV2(checkoutId: GraphQL.ID(rawValue: checkout.id), payment: paymentInput) { $0
-                .userErrors { $0
+                .checkoutUserErrors { $0
                     .field()
                     .message()
                 }
@@ -343,7 +343,10 @@ final class ClientQuery {
                         .ready()
                         .shippingRates { $0
                             .handle()
-                            .price()
+                            .priceV2 { $0
+                                .amount()
+                                .currencyCode()
+                            }
                             .title()
                         }
                     }

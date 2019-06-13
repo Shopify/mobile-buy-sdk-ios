@@ -49,7 +49,7 @@ final class OrderViewModel: ViewModel {
         self.id          = model.node.id.rawValue
         self.number      = Int(model.node.orderNumber)
         self.email       = model.node.email
-        self.totalPrice  = model.node.totalPrice
+        self.totalPrice  = model.node.totalPriceV2.amount
     }
 }
 
