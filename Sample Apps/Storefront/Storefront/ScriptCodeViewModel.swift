@@ -38,7 +38,7 @@ final class ScriptCodeViewModel: DiscountApplication, ViewModel {
     //
     required init(from model: ModelType) {
         self.model = model
-        self.name  = model.description
+        self.name  = model.title
     }
 }
 

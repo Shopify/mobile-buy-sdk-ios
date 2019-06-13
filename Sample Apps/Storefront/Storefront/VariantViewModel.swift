@@ -47,7 +47,7 @@ final class VariantViewModel: ViewModel {
         
         self.id     = model.node.id.rawValue
         self.title  = model.node.title
-        self.price  = model.node.price as Decimal
+        self.price  = model.node.priceV2.amount
     }
 }
 
