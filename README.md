@@ -1568,7 +1568,7 @@ We welcome contributions. Please follow the steps in our [contributing guideline
 
 ## Help [⤴](#table-of-contents)
 
-For help with the Mobile Buy SDK, post questions on [our forum](https://ecommerce.shopify.com/c/shopify-apis-and-technology), in the `Shopify APIs & SDKs` section.
+For help with the Mobile Buy SDK, see the [iOS Buy SDK documentation](https://help.shopify.com/en/api/storefront-api/tools/ios-buy-sdk) or post questions on [our forum](https://ecommerce.shopify.com/c/shopify-apis-and-technology), in the `Shopify APIs & SDKs` section.
 
 ## License [⤴](#table-of-contents)
 
