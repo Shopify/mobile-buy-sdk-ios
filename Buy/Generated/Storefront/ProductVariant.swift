@@ -258,6 +258,14 @@ extension Storefront {
 			return self
 		}
 
+		/// Whether a customer needs to provide a shipping address when placing an 
+		/// order for the product variant. 
+		@discardableResult
+		open func requiresShipping(alias: String? = nil) -> ProductVariantQuery {
+			addField(field: "requiresShipping", aliasSuffix: alias)
+			return self
+		}
+
 		/// List of product options applied to the variant. 
 		@discardableResult
 		open func selectedOptions(alias: String? = nil, _ subfields: (SelectedOptionQuery) -> Void) -> ProductVariantQuery {
@@ -382,6 +390,12 @@ extension Storefront {
 					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
 				}
 				return try Product(fields: value)
+
+				case "requiresShipping":
+				guard let value = value as? Bool else {
+					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
+				}
+				return value
 
 				case "selectedOptions":
 				guard let value = value as? [[String: Any]] else {
@@ -549,6 +563,16 @@ extension Storefront {
 
 		func internalGetProduct(alias: String? = nil) -> Storefront.Product {
 			return field(field: "product", aliasSuffix: alias) as! Storefront.Product
+		}
+
+		/// Whether a customer needs to provide a shipping address when placing an 
+		/// order for the product variant. 
+		open var requiresShipping: Bool {
+			return internalGetRequiresShipping()
+		}
+
+		func internalGetRequiresShipping(alias: String? = nil) -> Bool {
+			return field(field: "requiresShipping", aliasSuffix: alias) as! Bool
 		}
 
 		/// List of product options applied to the variant. 
