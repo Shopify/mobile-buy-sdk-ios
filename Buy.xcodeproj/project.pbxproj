@@ -664,6 +664,9 @@
 		B3B5A030223FF6C3008ECA02 /* SEO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B5A02F223FF6C3008ECA02 /* SEO.swift */; };
 		B3B5A031223FF6C3008ECA02 /* SEO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B5A02F223FF6C3008ECA02 /* SEO.swift */; };
 		B3B5A032223FF6C3008ECA02 /* SEO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B5A02F223FF6C3008ECA02 /* SEO.swift */; };
+		FB7707D822CD488E00ED289E /* ApiVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7707D722CD488E00ED289E /* ApiVersion.swift */; };
+		FB7707D922CD488E00ED289E /* ApiVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7707D722CD488E00ED289E /* ApiVersion.swift */; };
+		FB7707DA22CD488E00ED289E /* ApiVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7707D722CD488E00ED289E /* ApiVersion.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -936,6 +939,7 @@
 		9AFA3B6C1E6D9A5E0056C5AA /* GraphQL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQL.swift; sourceTree = "<group>"; };
 		9AFEF46D1F72DB64003FA8C5 /* MockPaySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPaySession.swift; sourceTree = "<group>"; };
 		B3B5A02F223FF6C3008ECA02 /* SEO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SEO.swift; sourceTree = "<group>"; };
+		FB7707D722CD488E00ED289E /* ApiVersion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiVersion.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -989,6 +993,7 @@
 		9A0C7FF81EAA51C50020F187 /* Storefront */ = {
 			isa = PBXGroup;
 			children = (
+				FB7707D722CD488E00ED289E /* ApiVersion.swift */,
 				9A0C7FF91EAA51C50020F187 /* AppliedGiftCard.swift */,
 				9AA416C21EE095AA0060029B /* Article.swift */,
 				9AA416C31EE095AA0060029B /* ArticleAuthor.swift */,
@@ -1831,6 +1836,7 @@
 				9AC2EF791F6818180037E0D7 /* CustomerAccessTokenRenewPayload.swift in Sources */,
 				9AC2EF7A1F6818180037E0D7 /* CustomerAddressDeletePayload.swift in Sources */,
 				9AC2EF7B1F6818180037E0D7 /* Product.swift in Sources */,
+				FB7707D922CD488E00ED289E /* ApiVersion.swift in Sources */,
 				9AC2EF7C1F6818180037E0D7 /* CustomerAddressUpdatePayload.swift in Sources */,
 				9AC2EF7D1F6818180037E0D7 /* Payment.swift in Sources */,
 				9AC2EF7E1F6818180037E0D7 /* ProductCollectionSortKeys.swift in Sources */,
@@ -2035,6 +2041,7 @@
 				9A0C80801EAA51C50020F187 /* CustomerAccessTokenRenewPayload.swift in Sources */,
 				9A0C80841EAA51C50020F187 /* CustomerAddressDeletePayload.swift in Sources */,
 				9A0C80A31EAA51C50020F187 /* Product.swift in Sources */,
+				FB7707D822CD488E00ED289E /* ApiVersion.swift in Sources */,
 				9A0C80851EAA51C50020F187 /* CustomerAddressUpdatePayload.swift in Sources */,
 				9A0C80A21EAA51C50020F187 /* Payment.swift in Sources */,
 				9AF1C1891F13B45E0064AEA0 /* ProductCollectionSortKeys.swift in Sources */,
@@ -2239,6 +2246,7 @@
 				9AF255F31F6FEE50005BB0C9 /* CustomerAccessTokenRenewPayload.swift in Sources */,
 				9AF255F41F6FEE50005BB0C9 /* CustomerAddressDeletePayload.swift in Sources */,
 				9AF255F51F6FEE50005BB0C9 /* Product.swift in Sources */,
+				FB7707DA22CD488E00ED289E /* ApiVersion.swift in Sources */,
 				9AF255F61F6FEE50005BB0C9 /* CustomerAddressUpdatePayload.swift in Sources */,
 				9AF255F71F6FEE50005BB0C9 /* Payment.swift in Sources */,
 				9AF255F81F6FEE50005BB0C9 /* ProductCollectionSortKeys.swift in Sources */,
@@ -2400,7 +2408,7 @@
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 3.5.3;
+				CURRENT_PROJECT_VERSION = 3.6.0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2425,7 +2433,7 @@
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 3.5.3;
+				CURRENT_PROJECT_VERSION = 3.6.0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2478,7 +2486,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.5.3;
+				CURRENT_PROJECT_VERSION = 3.6.0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2506,7 +2514,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.5.3;
+				CURRENT_PROJECT_VERSION = 3.6.0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2648,7 +2656,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 3.5.3;
+				CURRENT_PROJECT_VERSION = 3.6.0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2670,7 +2678,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 3.5.3;
+				CURRENT_PROJECT_VERSION = 3.6.0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2693,7 +2701,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.5.3;
+				CURRENT_PROJECT_VERSION = 3.6.0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2722,7 +2730,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.5.3;
+				CURRENT_PROJECT_VERSION = 3.6.0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;

@@ -445,7 +445,8 @@ extension Storefront {
 			return self
 		}
 
-		/// List of the shop’s product types. 
+		/// List of product types for the shop's products that are published to your 
+		/// app. 
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -524,6 +525,17 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "products", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// The list of public Storefront API versions, including supported, release 
+		/// candidate and unstable versions. 
+		@discardableResult
+		open func publicApiVersions(alias: String? = nil, _ subfields: (ApiVersionQuery) -> Void) -> QueryRootQuery {
+			let subquery = ApiVersionQuery()
+			subfields(subquery)
+
+			addField(field: "publicApiVersions", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -645,6 +657,12 @@ extension Storefront {
 					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
 				}
 				return try ProductConnection(fields: value)
+
+				case "publicApiVersions":
+				guard let value = value as? [[String: Any]] else {
+					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
+				}
+				return try value.map { return try ApiVersion(fields: $0) }
 
 				case "shop":
 				guard let value = value as? [String: Any] else {
@@ -827,7 +845,8 @@ extension Storefront {
 			return field(field: "productTags", aliasSuffix: alias) as! Storefront.StringConnection
 		}
 
-		/// List of the shop’s product types. 
+		/// List of product types for the shop's products that are published to your 
+		/// app. 
 		open var productTypes: Storefront.StringConnection {
 			return internalGetProductTypes()
 		}
@@ -851,6 +870,16 @@ extension Storefront {
 
 		func internalGetProducts(alias: String? = nil) -> Storefront.ProductConnection {
 			return field(field: "products", aliasSuffix: alias) as! Storefront.ProductConnection
+		}
+
+		/// The list of public Storefront API versions, including supported, release 
+		/// candidate and unstable versions. 
+		open var publicApiVersions: [Storefront.ApiVersion] {
+			return internalGetPublicApiVersions()
+		}
+
+		func internalGetPublicApiVersions(alias: String? = nil) -> [Storefront.ApiVersion] {
+			return field(field: "publicApiVersions", aliasSuffix: alias) as! [Storefront.ApiVersion]
 		}
 
 		open var shop: Storefront.Shop {
@@ -944,6 +973,12 @@ extension Storefront {
 					case "products":
 					response.append(internalGetProducts())
 					response.append(contentsOf: internalGetProducts().childResponseObjectMap())
+
+					case "publicApiVersions":
+					internalGetPublicApiVersions().forEach {
+						response.append($0)
+						response.append(contentsOf: $0.childResponseObjectMap())
+					}
 
 					case "shop":
 					response.append(internalGetShop())

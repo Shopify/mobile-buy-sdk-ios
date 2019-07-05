@@ -32,6 +32,9 @@ extension Storefront {
 		/// Checkout is already completed. 
 		case alreadyCompleted = "ALREADY_COMPLETED"
 
+		/// Input email contains an invalid domain name. 
+		case badDomain = "BAD_DOMAIN"
+
 		/// Input value is blank. 
 		case blank = "BLANK"
 
@@ -65,6 +68,9 @@ extension Storefront {
 		/// Gift card currency does not match checkout currency. 
 		case giftCardCurrencyMismatch = "GIFT_CARD_CURRENCY_MISMATCH"
 
+		/// Gift card has no funds left. 
+		case giftCardDepleted = "GIFT_CARD_DEPLETED"
+
 		/// Gift card is disabled. 
 		case giftCardDisabled = "GIFT_CARD_DISABLED"
 
@@ -82,6 +88,9 @@ extension Storefront {
 
 		/// Input value is invalid. 
 		case invalid = "INVALID"
+
+		/// Input Zip is invalid for country provided. 
+		case invalidForCountry = "INVALID_FOR_COUNTRY"
 
 		/// Input Zip is invalid for country and province provided. 
 		case invalidForCountryAndProvince = "INVALID_FOR_COUNTRY_AND_PROVINCE"
@@ -124,6 +133,9 @@ extension Storefront {
 
 		/// Input value is too long. 
 		case tooLong = "TOO_LONG"
+
+		/// The amount of the payment does not match the value to be paid. 
+		case totalPriceMismatch = "TOTAL_PRICE_MISMATCH"
 
 		case unknownValue = ""
 	}
