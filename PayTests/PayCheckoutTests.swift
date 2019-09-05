@@ -38,6 +38,7 @@ class PayCheckoutTests: XCTestCase {
     func testInit() {
         let giftCard = Models.createGiftCard()
         let discount = Models.createDiscount()
+        let shipping = Models.createShippingDiscount()
         let address  = Models.createAddress()
         let rate     = Models.createShippingRate()
         let checkout = PayCheckout(
@@ -46,26 +47,30 @@ class PayCheckoutTests: XCTestCase {
                 PayLineItem(price: 10.0, quantity: 1),
                 PayLineItem(price: 20.0, quantity: 1),
             ],
-            giftCards:       [giftCard],
-            discount:        discount,
-            shippingAddress: address,
-            shippingRate:    rate,
-            subtotalPrice:   30.0,
-            needsShipping:   true,
-            totalTax:        15.0,
-            paymentDue:      35.0
+            giftCards:        [giftCard],
+            discount:         discount,
+            shippingDiscount: shipping,
+            shippingAddress:  address,
+            shippingRate:     rate,
+            currencyCode:     "CAD",
+            subtotalPrice:    30.0,
+            needsShipping:    true,
+            totalTax:         15.0,
+            paymentDue:       35.0
         )
         
-        XCTAssertEqual(checkout.id,              "123")
-        XCTAssertEqual(checkout.lineItems.count, 2)
-        XCTAssertEqual(checkout.shippingAddress!.city, address.city)
-        XCTAssertEqual(checkout.shippingRate!.handle,  rate.handle)
+        XCTAssertEqual(checkout.id,                       "123")
+        XCTAssertEqual(checkout.lineItems.count,          2)
+        XCTAssertEqual(checkout.shippingAddress!.city,    address.city)
+        XCTAssertEqual(checkout.shippingRate!.handle,     rate.handle)
         XCTAssertEqual(checkout.giftCards!.first!.amount, 5.00)
-        XCTAssertEqual(checkout.discount!.amount, 20.0)
-        XCTAssertEqual(checkout.subtotalPrice,    30.0)
-        XCTAssertEqual(checkout.needsShipping,    true)
-        XCTAssertEqual(checkout.totalTax,         15.0)
-        XCTAssertEqual(checkout.paymentDue,       35.0)
+        XCTAssertEqual(checkout.discount!.amount,         20.0)
+        XCTAssertEqual(checkout.shippingDiscount!.amount, 10.0)
+        XCTAssertEqual(checkout.currencyCode,             "CAD")
+        XCTAssertEqual(checkout.subtotalPrice,            30.0)
+        XCTAssertEqual(checkout.needsShipping,            true)
+        XCTAssertEqual(checkout.totalTax,                 15.0)
+        XCTAssertEqual(checkout.paymentDue,               35.0)
     }
     
     // ----------------------------------
@@ -139,7 +144,7 @@ class PayCheckoutTests: XCTestCase {
         XCTAssertEqual(summaryItems[2].amount as Decimal, totalGiftCards.negative)
     }
     
-    func testSummaryItemsWithDiscount() {
+    func testSummaryItemsWithItemDiscount() {
         let discount     = Models.createDiscount()
         let checkout     = Models.createCheckout(requiresShipping: false, discount: discount, empty: true, hasTax: false)
         var summaryItems = checkout.summaryItems(for: self.shopName)
@@ -159,5 +164,59 @@ class PayCheckoutTests: XCTestCase {
         
         XCTAssertEqual(summaryItems[1].label, "DISCOUNT")
         XCTAssertEqual(summaryItems[1].amount as Decimal, anonymousDiscount.amount.negative)
+    }
+    
+    func testSummaryItemsWithShippingDiscount() {
+        let discount     = Models.createShippingDiscount()
+        let checkout     = Models.createCheckout(requiresShipping: false, shippingDiscount: discount, empty: true, hasTax: false)
+        var summaryItems = checkout.summaryItems(for: self.shopName)
+        
+        XCTAssertEqual(summaryItems.count, 3)
+        XCTAssertEqual(summaryItems[0].label, "SUBTOTAL")
+        XCTAssertEqual(summaryItems[1].label, "DISCOUNT (FREESHIP)")
+        XCTAssertEqual(summaryItems[2].label, "SHOPIFY")
+        
+        XCTAssertEqual(summaryItems[1].amount as Decimal, discount.amount.negative)
+        
+        let anonymousDiscount = Models.createAnonymousShippingDiscount()
+        let checkout2         = Models.createCheckout(requiresShipping: false, shippingDiscount: anonymousDiscount, empty: true, hasTax: false)
+        
+        summaryItems = checkout2.summaryItems(for: self.shopName)
+        
+        XCTAssertEqual(summaryItems[1].label, "DISCOUNT")
+        XCTAssertEqual(summaryItems[1].amount as Decimal, anonymousDiscount.amount.negative)
+    }
+    
+    func testSummaryItemsFullyLoaded() {
+        let giftCards        = [Models.createGiftCard()]
+        let discount         = Models.createDiscount()
+        let shippingDiscount = Models.createShippingDiscount()
+        let address          = Models.createAddress()
+        let shippingRate     = Models.createShippingRate()
+        let checkout         = Models.createCheckout(
+            requiresShipping: true,
+            giftCards:        giftCards,
+            discount:         discount,
+            shippingDiscount: shippingDiscount,
+            shippingAddress:  address,
+            shippingRate:     shippingRate,
+            empty:            false,
+            hasTax:           true
+        )
+        let summaryItems = checkout.summaryItems(for: self.shopName)
+        
+        XCTAssertEqual(summaryItems.count, 8)
+        XCTAssertEqual(summaryItems[0].label, "CART TOTAL")
+        XCTAssertEqual(summaryItems[1].label, "DISCOUNT (WIN20)")
+        XCTAssertEqual(summaryItems[2].label, "SUBTOTAL")
+        XCTAssertEqual(summaryItems[3].label, "SHIPPING")
+        XCTAssertEqual(summaryItems[4].label, "DISCOUNT (FREESHIP)")
+        XCTAssertEqual(summaryItems[5].label, "TAXES")
+        XCTAssertEqual(summaryItems[6].label, "GIFT CARD (•••• A1B2)")
+        XCTAssertEqual(summaryItems[7].label, "SHOPIFY")
+        
+        XCTAssertEqual(summaryItems[1].amount as Decimal, discount.amount.negative)
+        XCTAssertEqual(summaryItems[4].amount as Decimal, shippingDiscount.amount.negative)
+        XCTAssertEqual(summaryItems[6].amount as Decimal, giftCards[0].amount.negative)
     }
 }

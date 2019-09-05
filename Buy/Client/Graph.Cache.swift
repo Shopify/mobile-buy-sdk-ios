@@ -30,7 +30,7 @@ internal extension Graph {
     
     typealias Hash = String
     
-    internal class Cache {
+    class Cache {
         
         let cacheDirectory: URL
         

@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// Return type for `checkoutEmailUpdate` mutation. 
 	open class CheckoutEmailUpdatePayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CheckoutEmailUpdatePayload
 
@@ -42,6 +43,17 @@ extension Storefront {
 
 		/// List of errors that occurred executing the mutation. 
 		@discardableResult
+		open func checkoutUserErrors(alias: String? = nil, _ subfields: (CheckoutUserErrorQuery) -> Void) -> CheckoutEmailUpdatePayloadQuery {
+			let subquery = CheckoutUserErrorQuery()
+			subfields(subquery)
+
+			addField(field: "checkoutUserErrors", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// List of errors that occurred executing the mutation. 
+		@available(*, deprecated, message:"Use `checkoutUserErrors` instead")
+		@discardableResult
 		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CheckoutEmailUpdatePayloadQuery {
 			let subquery = UserErrorQuery()
 			subfields(subquery)
@@ -51,6 +63,7 @@ extension Storefront {
 		}
 	}
 
+	/// Return type for `checkoutEmailUpdate` mutation. 
 	open class CheckoutEmailUpdatePayload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CheckoutEmailUpdatePayloadQuery
 
@@ -62,6 +75,12 @@ extension Storefront {
 					throw SchemaViolationError(type: CheckoutEmailUpdatePayload.self, field: fieldName, value: fieldValue)
 				}
 				return try Checkout(fields: value)
+
+				case "checkoutUserErrors":
+				guard let value = value as? [[String: Any]] else {
+					throw SchemaViolationError(type: CheckoutEmailUpdatePayload.self, field: fieldName, value: fieldValue)
+				}
+				return try value.map { return try CheckoutUserError(fields: $0) }
 
 				case "userErrors":
 				guard let value = value as? [[String: Any]] else {
@@ -84,6 +103,16 @@ extension Storefront {
 		}
 
 		/// List of errors that occurred executing the mutation. 
+		open var checkoutUserErrors: [Storefront.CheckoutUserError] {
+			return internalGetCheckoutUserErrors()
+		}
+
+		func internalGetCheckoutUserErrors(alias: String? = nil) -> [Storefront.CheckoutUserError] {
+			return field(field: "checkoutUserErrors", aliasSuffix: alias) as! [Storefront.CheckoutUserError]
+		}
+
+		/// List of errors that occurred executing the mutation. 
+		@available(*, deprecated, message:"Use `checkoutUserErrors` instead")
 		open var userErrors: [Storefront.UserError] {
 			return internalGetUserErrors()
 		}
@@ -99,6 +128,12 @@ extension Storefront {
 					case "checkout":
 					response.append(internalGetCheckout())
 					response.append(contentsOf: internalGetCheckout().childResponseObjectMap())
+
+					case "checkoutUserErrors":
+					internalGetCheckoutUserErrors().forEach {
+						response.append($0)
+						response.append(contentsOf: $0.childResponseObjectMap())
+					}
 
 					case "userErrors":
 					internalGetUserErrors().forEach {

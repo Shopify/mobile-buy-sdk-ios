@@ -29,10 +29,10 @@ import UIKit
 class SeparatorView: UIView {
     
     enum Position: Int {
-        case top
-        case left
-        case bottom
-        case right
+        case top    = 0
+        case left   = 1
+        case bottom = 2
+        case right  = 3
     }
     
     @IBInspectable dynamic private var separatorPosition: Int = 0 {

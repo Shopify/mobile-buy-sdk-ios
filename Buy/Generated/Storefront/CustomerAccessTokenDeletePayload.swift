@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// Return type for `customerAccessTokenDelete` mutation. 
 	open class CustomerAccessTokenDeletePayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CustomerAccessTokenDeletePayload
 
@@ -55,6 +56,7 @@ extension Storefront {
 		}
 	}
 
+	/// Return type for `customerAccessTokenDelete` mutation. 
 	open class CustomerAccessTokenDeletePayload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CustomerAccessTokenDeletePayloadQuery
 

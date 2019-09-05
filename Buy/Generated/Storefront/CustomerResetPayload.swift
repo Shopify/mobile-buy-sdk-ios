@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// Return type for `customerReset` mutation. 
 	open class CustomerResetPayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CustomerResetPayload
 
@@ -40,7 +41,28 @@ extension Storefront {
 			return self
 		}
 
+		/// A newly created customer access token object for the customer. 
+		@discardableResult
+		open func customerAccessToken(alias: String? = nil, _ subfields: (CustomerAccessTokenQuery) -> Void) -> CustomerResetPayloadQuery {
+			let subquery = CustomerAccessTokenQuery()
+			subfields(subquery)
+
+			addField(field: "customerAccessToken", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// List of errors that occurred executing the mutation. 
+		@discardableResult
+		open func customerUserErrors(alias: String? = nil, _ subfields: (CustomerUserErrorQuery) -> Void) -> CustomerResetPayloadQuery {
+			let subquery = CustomerUserErrorQuery()
+			subfields(subquery)
+
+			addField(field: "customerUserErrors", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// List of errors that occurred executing the mutation. 
+		@available(*, deprecated, message:"Use `customerUserErrors` instead")
 		@discardableResult
 		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerResetPayloadQuery {
 			let subquery = UserErrorQuery()
@@ -51,6 +73,7 @@ extension Storefront {
 		}
 	}
 
+	/// Return type for `customerReset` mutation. 
 	open class CustomerResetPayload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CustomerResetPayloadQuery
 
@@ -63,6 +86,19 @@ extension Storefront {
 					throw SchemaViolationError(type: CustomerResetPayload.self, field: fieldName, value: fieldValue)
 				}
 				return try Customer(fields: value)
+
+				case "customerAccessToken":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: CustomerResetPayload.self, field: fieldName, value: fieldValue)
+				}
+				return try CustomerAccessToken(fields: value)
+
+				case "customerUserErrors":
+				guard let value = value as? [[String: Any]] else {
+					throw SchemaViolationError(type: CustomerResetPayload.self, field: fieldName, value: fieldValue)
+				}
+				return try value.map { return try CustomerUserError(fields: $0) }
 
 				case "userErrors":
 				guard let value = value as? [[String: Any]] else {
@@ -84,7 +120,26 @@ extension Storefront {
 			return field(field: "customer", aliasSuffix: alias) as! Storefront.Customer?
 		}
 
+		/// A newly created customer access token object for the customer. 
+		open var customerAccessToken: Storefront.CustomerAccessToken? {
+			return internalGetCustomerAccessToken()
+		}
+
+		func internalGetCustomerAccessToken(alias: String? = nil) -> Storefront.CustomerAccessToken? {
+			return field(field: "customerAccessToken", aliasSuffix: alias) as! Storefront.CustomerAccessToken?
+		}
+
 		/// List of errors that occurred executing the mutation. 
+		open var customerUserErrors: [Storefront.CustomerUserError] {
+			return internalGetCustomerUserErrors()
+		}
+
+		func internalGetCustomerUserErrors(alias: String? = nil) -> [Storefront.CustomerUserError] {
+			return field(field: "customerUserErrors", aliasSuffix: alias) as! [Storefront.CustomerUserError]
+		}
+
+		/// List of errors that occurred executing the mutation. 
+		@available(*, deprecated, message:"Use `customerUserErrors` instead")
 		open var userErrors: [Storefront.UserError] {
 			return internalGetUserErrors()
 		}
@@ -101,6 +156,18 @@ extension Storefront {
 					if let value = internalGetCustomer() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "customerAccessToken":
+					if let value = internalGetCustomerAccessToken() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "customerUserErrors":
+					internalGetCustomerUserErrors().forEach {
+						response.append($0)
+						response.append(contentsOf: $0.childResponseObjectMap())
 					}
 
 					case "userErrors":

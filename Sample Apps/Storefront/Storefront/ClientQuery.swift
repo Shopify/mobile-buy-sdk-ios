@@ -33,6 +33,55 @@ final class ClientQuery {
     static let maxImageDimension = Int32(UIScreen.main.bounds.width)
     
     // ----------------------------------
+    //  MARK: - Customers -
+    //
+    static func mutationForLogin(email: String, password: String) -> Storefront.MutationQuery {
+        let input = Storefront.CustomerAccessTokenCreateInput(email: email, password: password)
+        return Storefront.buildMutation { $0
+            .customerAccessTokenCreate(input: input) { $0
+                .customerAccessToken { $0
+                    .accessToken()
+                    .expiresAt()
+                }
+                .customerUserErrors { $0
+                    .code()
+                    .field()
+                    .message()
+                }
+            }
+        }
+    }
+    
+    static func mutationForLogout(accessToken: String) -> Storefront.MutationQuery {
+        return Storefront.buildMutation { $0
+            .customerAccessTokenDelete(customerAccessToken: accessToken) { $0
+                .deletedAccessToken()
+                .userErrors { $0
+                    .field()
+                    .message()
+                }
+            }
+        }
+    }
+    
+    static func queryForCustomer(limit: Int, after cursor: String? = nil, accessToken: String) -> Storefront.QueryRootQuery {
+        return Storefront.buildQuery { $0
+            .customer(customerAccessToken: accessToken) { $0
+                .id()
+                .displayName()
+                .email()
+                .firstName()
+                .lastName()
+                .phone()
+                .updatedAt()
+                .orders(first: Int32(limit), after: cursor) { $0
+                    .fragmentForStandardOrder()
+                }
+            }
+        }
+    }
+    
+    // ----------------------------------
     //  MARK: - Shop -
     //
     static func queryForShopName() -> Storefront.QueryRootQuery {
@@ -48,24 +97,22 @@ final class ClientQuery {
     //
     static func queryForCollections(limit: Int, after cursor: String? = nil, productLimit: Int = 25, productCursor: String? = nil) -> Storefront.QueryRootQuery {
         return Storefront.buildQuery { $0
-            .shop { $0
-                .collections(first: Int32(limit), after: cursor) { $0
-                    .pageInfo { $0
-                        .hasNextPage()
-                    }
-                    .edges { $0
-                        .cursor()
-                        .node { $0
-                            .id()
-                            .title()
-                            .descriptionHtml()
-                            .image(maxWidth: ClientQuery.maxImageDimension, maxHeight: ClientQuery.maxImageDimension) { $0
-                                .transformedSrc()
-                            }
-                            
-                            .products(first: Int32(productLimit), after: productCursor) { $0
-                                .fragmentForStandardProduct()
-                            }
+            .collections(first: Int32(limit), after: cursor) { $0
+                .pageInfo { $0
+                    .hasNextPage()
+                }
+                .edges { $0
+                    .cursor()
+                    .node { $0
+                        .id()
+                        .title()
+                        .descriptionHtml()
+                        .image(maxWidth: ClientQuery.maxImageDimension, maxHeight: ClientQuery.maxImageDimension) { $0
+                            .transformedSrc()
+                        }
+                        
+                        .products(first: Int32(productLimit), after: productCursor) { $0
+                            .fragmentForStandardProduct()
                         }
                     }
                 }
@@ -92,8 +139,8 @@ final class ClientQuery {
     static func mutationForApplyingDiscount(_ discountCode: String, to checkoutID: String) -> Storefront.MutationQuery {
         let id = GraphQL.ID(rawValue: checkoutID)
         return Storefront.buildMutation { $0
-            .checkoutDiscountCodeApply(discountCode: discountCode, checkoutId: id) { $0
-                .userErrors { $0
+            .checkoutDiscountCodeApplyV2(discountCode: discountCode, checkoutId: id) { $0
+                .checkoutUserErrors { $0
                     .field()
                     .message()
                 }
@@ -110,8 +157,8 @@ final class ClientQuery {
     static func mutationForApplyingGiftCard(_ giftCardCode: String, to checkoutID: String) -> Storefront.MutationQuery {
         let id = GraphQL.ID(rawValue: checkoutID)
         return Storefront.buildMutation { $0
-            .checkoutGiftCardApply(giftCardCode: giftCardCode, checkoutId: id) { $0
-                .userErrors { $0
+            .checkoutGiftCardsAppend(giftCardCodes: [giftCardCode], checkoutId: id) { $0
+                .checkoutUserErrors { $0
                     .field()
                     .message()
                 }
@@ -155,8 +202,8 @@ final class ClientQuery {
         )
         
         return Storefront.buildMutation { $0
-            .checkoutShippingAddressUpdate(shippingAddress: addressInput, checkoutId: checkoutID) { $0
-                .userErrors { $0
+            .checkoutShippingAddressUpdateV2(shippingAddress: addressInput, checkoutId: checkoutID) { $0
+                .checkoutUserErrors { $0
                     .field()
                     .message()
                 }
@@ -183,8 +230,8 @@ final class ClientQuery {
         )
         
         return Storefront.buildMutation { $0
-            .checkoutShippingAddressUpdate(shippingAddress: addressInput, checkoutId: checkoutID) { $0
-                .userErrors { $0
+            .checkoutShippingAddressUpdateV2(shippingAddress: addressInput, checkoutId: checkoutID) { $0
+                .checkoutUserErrors { $0
                     .field()
                     .message()
                 }
@@ -199,7 +246,7 @@ final class ClientQuery {
         
         return Storefront.buildMutation { $0
             .checkoutShippingLineUpdate(checkoutId: GraphQL.ID(rawValue: id), shippingRateHandle: shippingRate.handle) { $0
-                .userErrors { $0
+                .checkoutUserErrors { $0
                     .field()
                     .message()
                 }
@@ -213,8 +260,23 @@ final class ClientQuery {
     static func mutationForUpdateCheckout(_ id: String, updatingEmail email: String) -> Storefront.MutationQuery {
         
         return Storefront.buildMutation { $0
-            .checkoutEmailUpdate(checkoutId: GraphQL.ID(rawValue: id), email: email) { $0
-                .userErrors { $0
+            .checkoutEmailUpdateV2(checkoutId: GraphQL.ID(rawValue: id), email: email) { $0
+                .checkoutUserErrors { $0
+                    .field()
+                    .message()
+                }
+                .checkout { $0
+                    .fragmentForCheckout()
+                }
+            }
+        }
+    }
+    
+    static func mutationForUpdateCheckout(_ checkoutID: String, associatingCustomer accessToken: String) -> Storefront.MutationQuery {
+        let id = GraphQL.ID(rawValue: checkoutID)
+        return Storefront.buildMutation { $0
+            .checkoutCustomerAssociateV2(checkoutId: id, customerAccessToken: accessToken) { $0
+                .checkoutUserErrors { $0
                     .field()
                     .message()
                 }
@@ -238,8 +300,10 @@ final class ClientQuery {
             zip:       billingAddress.zip.orNull
         )
         
-        let paymentInput = Storefront.TokenizedPaymentInput.create(
-            amount:         checkout.paymentDue,
+        let currencyCode  = Storefront.CurrencyCode(rawValue: checkout.currencyCode)!
+        let paymentAmount = Storefront.MoneyInput(amount: checkout.paymentDue, currencyCode: currencyCode)
+        let paymentInput  = Storefront.TokenizedPaymentInputV2.create(
+            paymentAmount:  paymentAmount,
             idempotencyKey: idempotencyToken,
             billingAddress: mailingAddress,
             type:           CheckoutViewModel.PaymentType.applePay.rawValue,
@@ -247,8 +311,8 @@ final class ClientQuery {
         )
         
         return Storefront.buildMutation { $0
-            .checkoutCompleteWithTokenizedPayment(checkoutId: GraphQL.ID(rawValue: checkout.id), payment: paymentInput) { $0
-                .userErrors { $0
+            .checkoutCompleteWithTokenizedPaymentV2(checkoutId: GraphQL.ID(rawValue: checkout.id), payment: paymentInput) { $0
+                .checkoutUserErrors { $0
                     .field()
                     .message()
                 }
@@ -279,7 +343,10 @@ final class ClientQuery {
                         .ready()
                         .shippingRates { $0
                             .handle()
-                            .price()
+                            .priceV2 { $0
+                                .amount()
+                                .currencyCode()
+                            }
                             .title()
                         }
                     }

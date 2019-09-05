@@ -43,7 +43,7 @@ extension URLSessionDataTask: Task {}
 
 internal extension Graph {
     
-    internal class InternalTask<R: GraphQL.AbstractResponse>: Task {
+    class InternalTask<R: GraphQL.AbstractResponse>: Task {
         
         typealias TaskCompletion = (R?, QueryError?) -> Void
         

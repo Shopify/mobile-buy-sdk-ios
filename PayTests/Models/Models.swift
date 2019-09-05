@@ -92,15 +92,23 @@ struct Models {
         return PayDiscount(code: "WIN20", amount: 20.0)
     }
     
+    static func createShippingDiscount() -> PayDiscount {
+        return PayDiscount(code: "FREESHIP", amount: 10.0)
+    }
+    
     static func createAnonymousDiscount() -> PayDiscount {
         return PayDiscount(code: "", amount: 20.0)
+    }
+    
+    static func createAnonymousShippingDiscount() -> PayDiscount {
+        return PayDiscount(code: "", amount: 10.0)
     }
     
     static func createCurrency() -> PayCurrency {
         return PayCurrency(currencyCode: "USD", countryCode: "US")
     }
     
-    static func createCheckout(requiresShipping: Bool = true, giftCards: [PayGiftCard]? = nil, discount: PayDiscount? = nil, shippingAddress: PayAddress? = nil, shippingRate: PayShippingRate? = nil, empty: Bool = false, hasTax: Bool = true) -> PayCheckout {
+    static func createCheckout(requiresShipping: Bool = true, giftCards: [PayGiftCard]? = nil, discount: PayDiscount? = nil, shippingDiscount: PayDiscount? = nil, shippingAddress: PayAddress? = nil, shippingRate: PayShippingRate? = nil, empty: Bool = false, hasTax: Bool = true) -> PayCheckout {
         
         let lineItems = [
             self.createLineItem1(),
@@ -108,16 +116,18 @@ struct Models {
         ]
         
         return PayCheckout(
-            id:              "123",
-            lineItems:       !empty ? lineItems : [],
-            giftCards:       giftCards,
-            discount:        discount,
-            shippingAddress: shippingAddress,
-            shippingRate:    shippingRate,
-            subtotalPrice:   44.0,
-            needsShipping:   requiresShipping,
-            totalTax:        hasTax ? 6.0 : 0.0,
-            paymentDue:      50.0
+            id:               "123",
+            lineItems:        !empty ? lineItems : [],
+            giftCards:        giftCards,
+            discount:         discount,
+            shippingDiscount: shippingDiscount,
+            shippingAddress:  shippingAddress,
+            shippingRate:     shippingRate,
+            currencyCode:     "CAD",
+            subtotalPrice:    44.0,
+            needsShipping:    requiresShipping,
+            totalTax:         hasTax ? 6.0 : 0.0,
+            paymentDue:       50.0
         )
     }
     

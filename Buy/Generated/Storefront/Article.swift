@@ -31,12 +31,23 @@ extension Storefront {
 		public typealias Response = Article
 
 		/// The article's author. 
+		@available(*, deprecated, message:"Use `authorV2` instead")
 		@discardableResult
 		open func author(alias: String? = nil, _ subfields: (ArticleAuthorQuery) -> Void) -> ArticleQuery {
 			let subquery = ArticleAuthorQuery()
 			subfields(subquery)
 
 			addField(field: "author", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// The article's author. 
+		@discardableResult
+		open func authorV2(alias: String? = nil, _ subfields: (ArticleAuthorQuery) -> Void) -> ArticleQuery {
+			let subquery = ArticleAuthorQuery()
+			subfields(subquery)
+
+			addField(field: "authorV2", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -203,6 +214,16 @@ extension Storefront {
 			return self
 		}
 
+		/// The article’s SEO information. 
+		@discardableResult
+		open func seo(alias: String? = nil, _ subfields: (SEOQuery) -> Void) -> ArticleQuery {
+			let subquery = SEOQuery()
+			subfields(subquery)
+
+			addField(field: "seo", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// A categorization that a article can be tagged with. 
 		@discardableResult
 		open func tags(alias: String? = nil) -> ArticleQuery {
@@ -232,6 +253,13 @@ extension Storefront {
 			let fieldValue = value
 			switch fieldName {
 				case "author":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
+				}
+				return try ArticleAuthor(fields: value)
+
+				case "authorV2":
+				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
 				}
@@ -300,6 +328,13 @@ extension Storefront {
 				}
 				return GraphQL.iso8601DateParser.date(from: value)!
 
+				case "seo":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
+				}
+				return try SEO(fields: value)
+
 				case "tags":
 				guard let value = value as? [String] else {
 					throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
@@ -324,12 +359,22 @@ extension Storefront {
 		}
 
 		/// The article's author. 
+		@available(*, deprecated, message:"Use `authorV2` instead")
 		open var author: Storefront.ArticleAuthor {
 			return internalGetAuthor()
 		}
 
 		func internalGetAuthor(alias: String? = nil) -> Storefront.ArticleAuthor {
 			return field(field: "author", aliasSuffix: alias) as! Storefront.ArticleAuthor
+		}
+
+		/// The article's author. 
+		open var authorV2: Storefront.ArticleAuthor? {
+			return internalGetAuthorV2()
+		}
+
+		func internalGetAuthorV2(alias: String? = nil) -> Storefront.ArticleAuthor? {
+			return field(field: "authorV2", aliasSuffix: alias) as! Storefront.ArticleAuthor?
 		}
 
 		/// The blog that the article belongs to. 
@@ -439,6 +484,15 @@ extension Storefront {
 			return field(field: "publishedAt", aliasSuffix: alias) as! Date
 		}
 
+		/// The article’s SEO information. 
+		open var seo: Storefront.SEO? {
+			return internalGetSeo()
+		}
+
+		func internalGetSeo(alias: String? = nil) -> Storefront.SEO? {
+			return field(field: "seo", aliasSuffix: alias) as! Storefront.SEO?
+		}
+
 		/// A categorization that a article can be tagged with. 
 		open var tags: [String] {
 			return internalGetTags()
@@ -474,6 +528,12 @@ extension Storefront {
 					response.append(internalGetAuthor())
 					response.append(contentsOf: internalGetAuthor().childResponseObjectMap())
 
+					case "authorV2":
+					if let value = internalGetAuthorV2() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
 					case "blog":
 					response.append(internalGetBlog())
 					response.append(contentsOf: internalGetBlog().childResponseObjectMap())
@@ -484,6 +544,12 @@ extension Storefront {
 
 					case "image":
 					if let value = internalGetImage() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "seo":
+					if let value = internalGetSeo() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}

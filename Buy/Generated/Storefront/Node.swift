@@ -122,10 +122,28 @@ extension Storefront {
 
 		/// An object with an ID to support global identification. 
 		@discardableResult
+		open func onMetafield(subfields: (MetafieldQuery) -> Void) -> NodeQuery {
+			let subquery = MetafieldQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Metafield", subfields: subquery)
+			return self
+		}
+
+		/// An object with an ID to support global identification. 
+		@discardableResult
 		open func onOrder(subfields: (OrderQuery) -> Void) -> NodeQuery {
 			let subquery = OrderQuery()
 			subfields(subquery)
 			addInlineFragment(on: "Order", subfields: subquery)
+			return self
+		}
+
+		/// An object with an ID to support global identification. 
+		@discardableResult
+		open func onPage(subfields: (PageQuery) -> Void) -> NodeQuery {
+			let subquery = PageQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Page", subfields: subquery)
 			return self
 		}
 
@@ -214,7 +232,11 @@ extension Storefront {
 
 				case "MailingAddress": return try MailingAddress.init(fields: fields)
 
+				case "Metafield": return try Metafield.init(fields: fields)
+
 				case "Order": return try Order.init(fields: fields)
+
+				case "Page": return try Page.init(fields: fields)
 
 				case "Payment": return try Payment.init(fields: fields)
 

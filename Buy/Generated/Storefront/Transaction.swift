@@ -32,9 +32,20 @@ extension Storefront {
 		public typealias Response = Transaction
 
 		/// The amount of money that the transaction was for. 
+		@available(*, deprecated, message:"Use `amountV2` instead")
 		@discardableResult
 		open func amount(alias: String? = nil) -> TransactionQuery {
 			addField(field: "amount", aliasSuffix: alias)
+			return self
+		}
+
+		/// The amount of money that the transaction was for. 
+		@discardableResult
+		open func amountV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> TransactionQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "amountV2", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -45,14 +56,22 @@ extension Storefront {
 			return self
 		}
 
-		/// The status of the transaction 
+		/// The status of the transaction. 
+		@available(*, deprecated, message:"Use `statusV2` instead")
 		@discardableResult
 		open func status(alias: String? = nil) -> TransactionQuery {
 			addField(field: "status", aliasSuffix: alias)
 			return self
 		}
 
-		/// Whether the transaction was done in test mode or not 
+		/// The status of the transaction. 
+		@discardableResult
+		open func statusV2(alias: String? = nil) -> TransactionQuery {
+			addField(field: "statusV2", aliasSuffix: alias)
+			return self
+		}
+
+		/// Whether the transaction was done in test mode or not. 
 		@discardableResult
 		open func test(alias: String? = nil) -> TransactionQuery {
 			addField(field: "test", aliasSuffix: alias)
@@ -73,6 +92,12 @@ extension Storefront {
 				}
 				return Decimal(string: value, locale: GraphQL.posixLocale)
 
+				case "amountV2":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Transaction.self, field: fieldName, value: fieldValue)
+				}
+				return try MoneyV2(fields: value)
+
 				case "kind":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: Transaction.self, field: fieldName, value: fieldValue)
@@ -80,6 +105,13 @@ extension Storefront {
 				return TransactionKind(rawValue: value) ?? .unknownValue
 
 				case "status":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Transaction.self, field: fieldName, value: fieldValue)
+				}
+				return TransactionStatus(rawValue: value) ?? .unknownValue
+
+				case "statusV2":
+				if value is NSNull { return nil }
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: Transaction.self, field: fieldName, value: fieldValue)
 				}
@@ -97,12 +129,22 @@ extension Storefront {
 		}
 
 		/// The amount of money that the transaction was for. 
+		@available(*, deprecated, message:"Use `amountV2` instead")
 		open var amount: Decimal {
 			return internalGetAmount()
 		}
 
 		func internalGetAmount(alias: String? = nil) -> Decimal {
 			return field(field: "amount", aliasSuffix: alias) as! Decimal
+		}
+
+		/// The amount of money that the transaction was for. 
+		open var amountV2: Storefront.MoneyV2 {
+			return internalGetAmountV2()
+		}
+
+		func internalGetAmountV2(alias: String? = nil) -> Storefront.MoneyV2 {
+			return field(field: "amountV2", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
 		/// The kind of the transaction. 
@@ -114,7 +156,8 @@ extension Storefront {
 			return field(field: "kind", aliasSuffix: alias) as! Storefront.TransactionKind
 		}
 
-		/// The status of the transaction 
+		/// The status of the transaction. 
+		@available(*, deprecated, message:"Use `statusV2` instead")
 		open var status: Storefront.TransactionStatus {
 			return internalGetStatus()
 		}
@@ -123,7 +166,16 @@ extension Storefront {
 			return field(field: "status", aliasSuffix: alias) as! Storefront.TransactionStatus
 		}
 
-		/// Whether the transaction was done in test mode or not 
+		/// The status of the transaction. 
+		open var statusV2: Storefront.TransactionStatus? {
+			return internalGetStatusV2()
+		}
+
+		func internalGetStatusV2(alias: String? = nil) -> Storefront.TransactionStatus? {
+			return field(field: "statusV2", aliasSuffix: alias) as! Storefront.TransactionStatus?
+		}
+
+		/// Whether the transaction was done in test mode or not. 
 		open var test: Bool {
 			return internalGetTest()
 		}
@@ -133,7 +185,18 @@ extension Storefront {
 		}
 
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
-			return []
+			var response: [GraphQL.AbstractResponse] = []
+			objectMap.keys.forEach {
+				switch($0) {
+					case "amountV2":
+					response.append(internalGetAmountV2())
+					response.append(contentsOf: internalGetAmountV2().childResponseObjectMap())
+
+					default:
+					break
+				}
+			}
+			return response
 		}
 	}
 }

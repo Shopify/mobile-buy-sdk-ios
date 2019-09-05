@@ -29,8 +29,10 @@ import Foundation
 extension Storefront {
 	/// The set of valid sort keys for the blogs query. 
 	public enum BlogSortKeys: String {
+		/// Sort by the `handle` value. 
 		case handle = "HANDLE"
 
+		/// Sort by the `id` value. 
 		case id = "ID"
 
 		/// During a search (i.e. when the `query` parameter has been specified on the 
@@ -39,6 +41,7 @@ extension Storefront {
 		/// not be used. 
 		case relevance = "RELEVANCE"
 
+		/// Sort by the `title` value. 
 		case title = "TITLE"
 
 		case unknownValue = ""

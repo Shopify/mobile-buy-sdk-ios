@@ -27,10 +27,22 @@
 import Foundation
 
 extension Storefront {
+	/// Return type for `customerRecover` mutation. 
 	open class CustomerRecoverPayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CustomerRecoverPayload
 
 		/// List of errors that occurred executing the mutation. 
+		@discardableResult
+		open func customerUserErrors(alias: String? = nil, _ subfields: (CustomerUserErrorQuery) -> Void) -> CustomerRecoverPayloadQuery {
+			let subquery = CustomerUserErrorQuery()
+			subfields(subquery)
+
+			addField(field: "customerUserErrors", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// List of errors that occurred executing the mutation. 
+		@available(*, deprecated, message:"Use `customerUserErrors` instead")
 		@discardableResult
 		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerRecoverPayloadQuery {
 			let subquery = UserErrorQuery()
@@ -41,12 +53,19 @@ extension Storefront {
 		}
 	}
 
+	/// Return type for `customerRecover` mutation. 
 	open class CustomerRecoverPayload: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CustomerRecoverPayloadQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "customerUserErrors":
+				guard let value = value as? [[String: Any]] else {
+					throw SchemaViolationError(type: CustomerRecoverPayload.self, field: fieldName, value: fieldValue)
+				}
+				return try value.map { return try CustomerUserError(fields: $0) }
+
 				case "userErrors":
 				guard let value = value as? [[String: Any]] else {
 					throw SchemaViolationError(type: CustomerRecoverPayload.self, field: fieldName, value: fieldValue)
@@ -59,6 +78,16 @@ extension Storefront {
 		}
 
 		/// List of errors that occurred executing the mutation. 
+		open var customerUserErrors: [Storefront.CustomerUserError] {
+			return internalGetCustomerUserErrors()
+		}
+
+		func internalGetCustomerUserErrors(alias: String? = nil) -> [Storefront.CustomerUserError] {
+			return field(field: "customerUserErrors", aliasSuffix: alias) as! [Storefront.CustomerUserError]
+		}
+
+		/// List of errors that occurred executing the mutation. 
+		@available(*, deprecated, message:"Use `customerUserErrors` instead")
 		open var userErrors: [Storefront.UserError] {
 			return internalGetUserErrors()
 		}

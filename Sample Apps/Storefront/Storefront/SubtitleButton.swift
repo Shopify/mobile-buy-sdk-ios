@@ -30,7 +30,7 @@ class SubtitleButton: RoundedButton {
     
     @IBInspectable var subtitle: String = ""
     
-    override func setTitle(_ title: String?, for state: UIControlState) {
+    override func setTitle(_ title: String?, for state: UIControl.State) {
         
         guard let title = title else {
             super.setTitle(nil, for: state)
@@ -45,15 +45,15 @@ class SubtitleButton: RoundedButton {
         style.lineBreakMode = .byClipping
         
         let attributedTitle = NSMutableAttributedString(string: title, attributes: [
-            NSAttributedStringKey.font           : currentFont,
-            NSAttributedStringKey.paragraphStyle : style,
-            NSAttributedStringKey.foregroundColor: currentColor
+            .font           : currentFont,
+            .paragraphStyle : style,
+            .foregroundColor: currentColor
         ])
         
         let attributedSubtitle = NSAttributedString(string: "\n\(self.subtitle)", attributes: [
-            NSAttributedStringKey.font           : UIFont(descriptor: currentFont.fontDescriptor, size: currentFont.pointSize * 0.6),
-            NSAttributedStringKey.paragraphStyle : style,
-            NSAttributedStringKey.foregroundColor: currentColor.withAlphaComponent(0.6)
+            .font           : UIFont(descriptor: currentFont.fontDescriptor, size: currentFont.pointSize * 0.6),
+            .paragraphStyle : style,
+            .foregroundColor: currentColor.withAlphaComponent(0.6)
         ])
         
         attributedTitle.append(attributedSubtitle)

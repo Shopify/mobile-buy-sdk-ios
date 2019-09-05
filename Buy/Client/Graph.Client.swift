@@ -51,20 +51,20 @@ extension Graph {
     /// `mutation` and `error` are **not** mutually exclusive. In other words, it is valid for a request to return both a non-nil `mutation` and `error`. In this case, the `error` generally represents an issue with only a subset of the query.
     ///
     public typealias MutationCompletion = (_ mutation: Storefront.Mutation?, _ error: QueryError?) -> Void
-    
+
     /// The `Graph.Client` is a network layer designed to abstract the communication with the Shopify GraphQL endpoint
     /// by handling the serialization and deserialization of GraphQL models for `query` and `mutation` requests.
     /// In addition, the `Client` will take care of appending the necessary headers for authorizing the network
     /// requests based on the provided `shopDomain` and `apiKey`.
     ///
     public class Client {
-        
-        /// Cache policy to use for all `query` operations produced by this instance of `Graph.Client` 
+
+        /// Cache policy to use for all `query` operations produced by this instance of `Graph.Client`
         public var cachePolicy: CachePolicy = .networkOnly
-        
+
         /// The `URLSession` backing all `Client` network operations. You can provide your own session when initializing a new `Client`.
         public let session: URLSession
-        
+
         internal let cache: Cache
 
         internal let apiURL:  URL
@@ -83,7 +83,7 @@ extension Graph {
         public init(shopDomain: String, apiKey: String, session: URLSession = URLSession(configuration: URLSessionConfiguration.default)) {
 
             let shopURL  = Client.urlFor(shopDomain)
-            self.apiURL  = Client.urlFor(shopDomain, path: "/api/graphql")
+            self.apiURL  = Client.urlFor(shopDomain, path: "/api/2019-07/graphql")
             self.cache   = Cache(shopName: shopDomain)
             self.session = session
             self.headers = [
@@ -166,7 +166,7 @@ extension Graph {
         //  MARK: - Request Management -
         //
         private func graphRequestTask<Q: GraphQL.AbstractQuery, R: GraphQL.AbstractResponse>(query: Q, cachePolicy: CachePolicy, retryHandler: RetryHandler<R>? = nil, completionHandler: @escaping (R?, QueryError?) -> Void) -> Task {
-            
+
             let request = self.graphRequestFor(query: query)
             return InternalTask<R>(
                 session:      self.session,
@@ -181,11 +181,11 @@ extension Graph {
         func graphRequestFor(query: GraphQL.AbstractQuery) -> URLRequest {
             var request     = URLRequest(url: self.apiURL)
             let requestData = String(describing: query).data(using: .utf8)!
-            
+
             request.httpMethod              = "POST"
             request.httpBody                = requestData
             request.httpShouldHandleCookies = false
-            
+
             request.setValue("application/json",    forHTTPHeaderField: Header.accept)
             request.setValue("application/graphql", forHTTPHeaderField: Header.contentType)
             request.setValue(MD5.hash(requestData), forHTTPHeaderField: Header.queryTag)

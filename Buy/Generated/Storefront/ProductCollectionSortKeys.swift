@@ -29,16 +29,22 @@ import Foundation
 extension Storefront {
 	/// The set of valid sort keys for the products query. 
 	public enum ProductCollectionSortKeys: String {
+		/// Sort by the `best-selling` value. 
 		case bestSelling = "BEST_SELLING"
 
+		/// Sort by the `collection-default` value. 
 		case collectionDefault = "COLLECTION_DEFAULT"
 
+		/// Sort by the `created` value. 
 		case created = "CREATED"
 
+		/// Sort by the `id` value. 
 		case id = "ID"
 
+		/// Sort by the `manual` value. 
 		case manual = "MANUAL"
 
+		/// Sort by the `price` value. 
 		case price = "PRICE"
 
 		/// During a search (i.e. when the `query` parameter has been specified on the 
@@ -47,6 +53,7 @@ extension Storefront {
 		/// not be used. 
 		case relevance = "RELEVANCE"
 
+		/// Sort by the `title` value. 
 		case title = "TITLE"
 
 		case unknownValue = ""

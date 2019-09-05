@@ -35,7 +35,7 @@ extension Storefront {
 	open class ProductQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Product
 
-		/// Indicates if at least one product variant is available for sale. 
+		/// Whether the product is available on the Online Store channel and in stock. 
 		@discardableResult
 		open func availableForSale(alias: String? = nil) -> ProductQuery {
 			addField(field: "availableForSale", aliasSuffix: alias)
@@ -200,6 +200,76 @@ extension Storefront {
 			return self
 		}
 
+		/// The metafield associated with the resource. 
+		///
+		/// - parameters:
+		///     - namespace: Container for a set of metafields (maximum of 20 characters).
+		///     - key: Identifier for the metafield (maximum of 30 characters).
+		///
+		@discardableResult
+		open func metafield(alias: String? = nil, namespace: String, key: String, _ subfields: (MetafieldQuery) -> Void) -> ProductQuery {
+			var args: [String] = []
+
+			args.append("namespace:\(GraphQL.quoteString(input: namespace))")
+
+			args.append("key:\(GraphQL.quoteString(input: key))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = MetafieldQuery()
+			subfields(subquery)
+
+			addField(field: "metafield", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// A paginated list of metafields associated with the resource. 
+		///
+		/// - parameters:
+		///     - namespace: Container for a set of metafields (maximum of 20 characters).
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///     - reverse: Reverse the order of the underlying list.
+		///
+		@discardableResult
+		open func metafields(alias: String? = nil, namespace: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (MetafieldConnectionQuery) -> Void) -> ProductQuery {
+			var args: [String] = []
+
+			if let namespace = namespace {
+				args.append("namespace:\(GraphQL.quoteString(input: namespace))")
+			}
+
+			if let first = first {
+				args.append("first:\(first)")
+			}
+
+			if let after = after {
+				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
+			}
+
+			if let reverse = reverse {
+				args.append("reverse:\(reverse)")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = MetafieldConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "metafields", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// The online store URL for the product. A value of `null` indicates that the 
 		/// product is not published to the Online Store sales channel. 
 		@discardableResult
@@ -230,6 +300,53 @@ extension Storefront {
 			return self
 		}
 
+		/// List of price ranges in the presentment currencies for this shop. 
+		///
+		/// - parameters:
+		///     - presentmentCurrencies: Specifies the presentment currencies to return a price range in.
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///     - reverse: Reverse the order of the underlying list.
+		///
+		@discardableResult
+		open func presentmentPriceRanges(alias: String? = nil, presentmentCurrencies: [CurrencyCode]? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (ProductPriceRangeConnectionQuery) -> Void) -> ProductQuery {
+			var args: [String] = []
+
+			if let presentmentCurrencies = presentmentCurrencies {
+				args.append("presentmentCurrencies:[\(presentmentCurrencies.map{ "\($0.rawValue)" }.joined(separator: ","))]")
+			}
+
+			if let first = first {
+				args.append("first:\(first)")
+			}
+
+			if let after = after {
+				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
+			}
+
+			if let reverse = reverse {
+				args.append("reverse:\(reverse)")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = ProductPriceRangeConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "presentmentPriceRanges", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// The price range. 
 		@discardableResult
 		open func priceRange(alias: String? = nil, _ subfields: (ProductPriceRangeQuery) -> Void) -> ProductQuery {
@@ -256,8 +373,8 @@ extension Storefront {
 		}
 
 		/// A categorization that a product can be tagged with, commonly used for 
-		/// filtering and searching. Each comma-separated tag has a character limit of 
-		/// 255. 
+		/// filtering and searching. Additional access scope required for private apps: 
+		/// unauthenticated_read_product_tags. 
 		@discardableResult
 		open func tags(alias: String? = nil) -> ProductQuery {
 			addField(field: "tags", aliasSuffix: alias)
@@ -361,7 +478,7 @@ extension Storefront {
 	/// digital download (such as a movie, music or ebook file) also qualifies as a 
 	/// product, as do services (such as equipment rental, work for hire, 
 	/// customization of another product or an extended warranty). 
-	open class Product: GraphQL.AbstractResponse, GraphQLObject, Node {
+	open class Product: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource, Node {
 		public typealias Query = ProductQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
@@ -415,6 +532,19 @@ extension Storefront {
 				}
 				return try ImageConnection(fields: value)
 
+				case "metafield":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
+				}
+				return try Metafield(fields: value)
+
+				case "metafields":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
+				}
+				return try MetafieldConnection(fields: value)
+
 				case "onlineStoreUrl":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
@@ -427,6 +557,12 @@ extension Storefront {
 					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
 				}
 				return try value.map { return try ProductOption(fields: $0) }
+
+				case "presentmentPriceRanges":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
+				}
+				return try ProductPriceRangeConnection(fields: value)
 
 				case "priceRange":
 				guard let value = value as? [String: Any] else {
@@ -488,7 +624,7 @@ extension Storefront {
 			}
 		}
 
-		/// Indicates if at least one product variant is available for sale. 
+		/// Whether the product is available on the Online Store channel and in stock. 
 		open var availableForSale: Bool {
 			return internalGetAvailableForSale()
 		}
@@ -574,6 +710,32 @@ extension Storefront {
 			return field(field: "images", aliasSuffix: alias) as! Storefront.ImageConnection
 		}
 
+		/// The metafield associated with the resource. 
+		open var metafield: Storefront.Metafield? {
+			return internalGetMetafield()
+		}
+
+		open func aliasedMetafield(alias: String) -> Storefront.Metafield? {
+			return internalGetMetafield(alias: alias)
+		}
+
+		func internalGetMetafield(alias: String? = nil) -> Storefront.Metafield? {
+			return field(field: "metafield", aliasSuffix: alias) as! Storefront.Metafield?
+		}
+
+		/// A paginated list of metafields associated with the resource. 
+		open var metafields: Storefront.MetafieldConnection {
+			return internalGetMetafields()
+		}
+
+		open func aliasedMetafields(alias: String) -> Storefront.MetafieldConnection {
+			return internalGetMetafields(alias: alias)
+		}
+
+		func internalGetMetafields(alias: String? = nil) -> Storefront.MetafieldConnection {
+			return field(field: "metafields", aliasSuffix: alias) as! Storefront.MetafieldConnection
+		}
+
 		/// The online store URL for the product. A value of `null` indicates that the 
 		/// product is not published to the Online Store sales channel. 
 		open var onlineStoreUrl: URL? {
@@ -595,6 +757,19 @@ extension Storefront {
 
 		func internalGetOptions(alias: String? = nil) -> [Storefront.ProductOption] {
 			return field(field: "options", aliasSuffix: alias) as! [Storefront.ProductOption]
+		}
+
+		/// List of price ranges in the presentment currencies for this shop. 
+		open var presentmentPriceRanges: Storefront.ProductPriceRangeConnection {
+			return internalGetPresentmentPriceRanges()
+		}
+
+		open func aliasedPresentmentPriceRanges(alias: String) -> Storefront.ProductPriceRangeConnection {
+			return internalGetPresentmentPriceRanges(alias: alias)
+		}
+
+		func internalGetPresentmentPriceRanges(alias: String? = nil) -> Storefront.ProductPriceRangeConnection {
+			return field(field: "presentmentPriceRanges", aliasSuffix: alias) as! Storefront.ProductPriceRangeConnection
 		}
 
 		/// The price range. 
@@ -626,8 +801,8 @@ extension Storefront {
 		}
 
 		/// A categorization that a product can be tagged with, commonly used for 
-		/// filtering and searching. Each comma-separated tag has a character limit of 
-		/// 255. 
+		/// filtering and searching. Additional access scope required for private apps: 
+		/// unauthenticated_read_product_tags. 
 		open var tags: [String] {
 			return internalGetTags()
 		}
@@ -704,11 +879,25 @@ extension Storefront {
 					response.append(internalGetImages())
 					response.append(contentsOf: internalGetImages().childResponseObjectMap())
 
+					case "metafield":
+					if let value = internalGetMetafield() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "metafields":
+					response.append(internalGetMetafields())
+					response.append(contentsOf: internalGetMetafields().childResponseObjectMap())
+
 					case "options":
 					internalGetOptions().forEach {
 						response.append($0)
 						response.append(contentsOf: $0.childResponseObjectMap())
 					}
+
+					case "presentmentPriceRanges":
+					response.append(internalGetPresentmentPriceRanges())
+					response.append(contentsOf: internalGetPresentmentPriceRanges().childResponseObjectMap())
 
 					case "priceRange":
 					response.append(internalGetPriceRange())

@@ -47,7 +47,7 @@ class ProductDetailsViewController: ParallaxViewController {
         
         switch segue.identifier! {
         case "ImageViewController":
-            self.imageViewController = segue.destination as! ImageViewController
+            self.imageViewController = (segue.destination as! ImageViewController)
         default:
             break
         }
@@ -69,7 +69,7 @@ class ProductDetailsViewController: ParallaxViewController {
         self.tableView.register(ProductHeaderCell.self)
         self.tableView.register(ProductDetailsCell.self)
         
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 44.0
     }
     

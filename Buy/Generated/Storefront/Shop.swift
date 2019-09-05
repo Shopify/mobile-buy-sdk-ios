@@ -43,11 +43,14 @@ extension Storefront {
 		///     - sortKey: Sort the underlying list by the given key.
 		///     - query: Supported filter parameters:
 		///         - `author`
-		///         - `updated_at`
-		///         - `created_at`
 		///         - `blog_title`
+		///         - `created_at`
 		///         - `tag`
+		///         - `updated_at`
+		///        
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
 		///
+		@available(*, deprecated, message:"Use `QueryRoot.articles` instead.")
 		@discardableResult
 		open func articles(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: ArticleSortKeys? = nil, query: String? = nil, _ subfields: (ArticleConnectionQuery) -> Void) -> ShopQuery {
 			var args: [String] = []
@@ -99,11 +102,14 @@ extension Storefront {
 		///     - reverse: Reverse the order of the underlying list.
 		///     - sortKey: Sort the underlying list by the given key.
 		///     - query: Supported filter parameters:
+		///         - `created_at`
 		///         - `handle`
 		///         - `title`
 		///         - `updated_at`
-		///         - `created_at`
+		///        
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
 		///
+		@available(*, deprecated, message:"Use `QueryRoot.blogs` instead.")
 		@discardableResult
 		open func blogs(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: BlogSortKeys? = nil, query: String? = nil, _ subfields: (BlogConnectionQuery) -> Void) -> ShopQuery {
 			var args: [String] = []
@@ -145,19 +151,12 @@ extension Storefront {
 			return self
 		}
 
-		/// The url pointing to the endpoint to vault credit cards. 
-		@available(*, deprecated, message:"Use `paymentSettings` instead")
-		@discardableResult
-		open func cardVaultUrl(alias: String? = nil) -> ShopQuery {
-			addField(field: "cardVaultUrl", aliasSuffix: alias)
-			return self
-		}
-
 		/// Find a collection by its handle. 
 		///
 		/// - parameters:
-		///     - handle: No description
+		///     - handle: The handle of the collection.
 		///
+		@available(*, deprecated, message:"Use `QueryRoot.collectionByHandle` instead.")
 		@discardableResult
 		open func collectionByHandle(alias: String? = nil, handle: String, _ subfields: (CollectionQuery) -> Void) -> ShopQuery {
 			var args: [String] = []
@@ -183,10 +182,13 @@ extension Storefront {
 		///     - reverse: Reverse the order of the underlying list.
 		///     - sortKey: Sort the underlying list by the given key.
 		///     - query: Supported filter parameters:
-		///         - `title`
 		///         - `collection_type`
+		///         - `title`
 		///         - `updated_at`
+		///        
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
 		///
+		@available(*, deprecated, message:"Use `QueryRoot.collections` instead.")
 		@discardableResult
 		open func collections(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: CollectionSortKeys? = nil, query: String? = nil, _ subfields: (CollectionConnectionQuery) -> Void) -> ShopQuery {
 			var args: [String] = []
@@ -291,8 +293,9 @@ extension Storefront {
 		/// Find a product by its handle. 
 		///
 		/// - parameters:
-		///     - handle: No description
+		///     - handle: The handle of the product.
 		///
+		@available(*, deprecated, message:"Use `QueryRoot.productByHandle` instead.")
 		@discardableResult
 		open func productByHandle(alias: String? = nil, handle: String, _ subfields: (ProductQuery) -> Void) -> ShopQuery {
 			var args: [String] = []
@@ -308,11 +311,34 @@ extension Storefront {
 			return self
 		}
 
+		/// Tags added to products. Additional access scope required: 
+		/// unauthenticated_read_product_tags. 
+		///
+		/// - parameters:
+		///     - first: Returns up to the first `n` elements from the list.
+		///
+		@available(*, deprecated, message:"Use `QueryRoot.productTags` instead.")
+		@discardableResult
+		open func productTags(alias: String? = nil, first: Int32, _ subfields: (StringConnectionQuery) -> Void) -> ShopQuery {
+			var args: [String] = []
+
+			args.append("first:\(first)")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = StringConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "productTags", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// List of the shop’s product types. 
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
 		///
+		@available(*, deprecated, message:"Use `QueryRoot.productTypes` instead.")
 		@discardableResult
 		open func productTypes(alias: String? = nil, first: Int32, _ subfields: (StringConnectionQuery) -> Void) -> ShopQuery {
 			var args: [String] = []
@@ -338,13 +364,18 @@ extension Storefront {
 		///     - reverse: Reverse the order of the underlying list.
 		///     - sortKey: Sort the underlying list by the given key.
 		///     - query: Supported filter parameters:
-		///         - `title`
-		///         - `product_type`
-		///         - `vendor`
+		///         - `available_for_sale`
 		///         - `created_at`
-		///         - `updated_at`
+		///         - `product_type`
 		///         - `tag`
+		///         - `title`
+		///         - `updated_at`
+		///         - `variants.price`
+		///         - `vendor`
+		///        
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
 		///
+		@available(*, deprecated, message:"Use `QueryRoot.products` instead.")
 		@discardableResult
 		open func products(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: ProductSortKeys? = nil, query: String? = nil, _ subfields: (ProductConnectionQuery) -> Void) -> ShopQuery {
 			var args: [String] = []
@@ -442,12 +473,6 @@ extension Storefront {
 				}
 				return try BlogConnection(fields: value)
 
-				case "cardVaultUrl":
-				guard let value = value as? String else {
-					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
-				}
-				return URL(string: value)!
-
 				case "collectionByHandle":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -512,6 +537,12 @@ extension Storefront {
 				}
 				return try Product(fields: value)
 
+				case "productTags":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
+				}
+				return try StringConnection(fields: value)
+
 				case "productTypes":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
@@ -557,9 +588,12 @@ extension Storefront {
 		}
 
 		/// List of the shop' articles. 
+		@available(*, deprecated, message:"Use `QueryRoot.articles` instead.")
 		open var articles: Storefront.ArticleConnection {
 			return internalGetArticles()
 		}
+
+		@available(*, deprecated, message:"Use `QueryRoot.articles` instead.")
 
 		open func aliasedArticles(alias: String) -> Storefront.ArticleConnection {
 			return internalGetArticles(alias: alias)
@@ -570,9 +604,12 @@ extension Storefront {
 		}
 
 		/// List of the shop' blogs. 
+		@available(*, deprecated, message:"Use `QueryRoot.blogs` instead.")
 		open var blogs: Storefront.BlogConnection {
 			return internalGetBlogs()
 		}
+
+		@available(*, deprecated, message:"Use `QueryRoot.blogs` instead.")
 
 		open func aliasedBlogs(alias: String) -> Storefront.BlogConnection {
 			return internalGetBlogs(alias: alias)
@@ -582,20 +619,13 @@ extension Storefront {
 			return field(field: "blogs", aliasSuffix: alias) as! Storefront.BlogConnection
 		}
 
-		/// The url pointing to the endpoint to vault credit cards. 
-		@available(*, deprecated, message:"Use `paymentSettings` instead")
-		open var cardVaultUrl: URL {
-			return internalGetCardVaultUrl()
-		}
-
-		func internalGetCardVaultUrl(alias: String? = nil) -> URL {
-			return field(field: "cardVaultUrl", aliasSuffix: alias) as! URL
-		}
-
 		/// Find a collection by its handle. 
+		@available(*, deprecated, message:"Use `QueryRoot.collectionByHandle` instead.")
 		open var collectionByHandle: Storefront.Collection? {
 			return internalGetCollectionByHandle()
 		}
+
+		@available(*, deprecated, message:"Use `QueryRoot.collectionByHandle` instead.")
 
 		open func aliasedCollectionByHandle(alias: String) -> Storefront.Collection? {
 			return internalGetCollectionByHandle(alias: alias)
@@ -606,9 +636,12 @@ extension Storefront {
 		}
 
 		/// List of the shop’s collections. 
+		@available(*, deprecated, message:"Use `QueryRoot.collections` instead.")
 		open var collections: Storefront.CollectionConnection {
 			return internalGetCollections()
 		}
+
+		@available(*, deprecated, message:"Use `QueryRoot.collections` instead.")
 
 		open func aliasedCollections(alias: String) -> Storefront.CollectionConnection {
 			return internalGetCollections(alias: alias)
@@ -684,9 +717,12 @@ extension Storefront {
 		}
 
 		/// Find a product by its handle. 
+		@available(*, deprecated, message:"Use `QueryRoot.productByHandle` instead.")
 		open var productByHandle: Storefront.Product? {
 			return internalGetProductByHandle()
 		}
+
+		@available(*, deprecated, message:"Use `QueryRoot.productByHandle` instead.")
 
 		open func aliasedProductByHandle(alias: String) -> Storefront.Product? {
 			return internalGetProductByHandle(alias: alias)
@@ -696,10 +732,30 @@ extension Storefront {
 			return field(field: "productByHandle", aliasSuffix: alias) as! Storefront.Product?
 		}
 
+		/// Tags added to products. Additional access scope required: 
+		/// unauthenticated_read_product_tags. 
+		@available(*, deprecated, message:"Use `QueryRoot.productTags` instead.")
+		open var productTags: Storefront.StringConnection {
+			return internalGetProductTags()
+		}
+
+		@available(*, deprecated, message:"Use `QueryRoot.productTags` instead.")
+
+		open func aliasedProductTags(alias: String) -> Storefront.StringConnection {
+			return internalGetProductTags(alias: alias)
+		}
+
+		func internalGetProductTags(alias: String? = nil) -> Storefront.StringConnection {
+			return field(field: "productTags", aliasSuffix: alias) as! Storefront.StringConnection
+		}
+
 		/// List of the shop’s product types. 
+		@available(*, deprecated, message:"Use `QueryRoot.productTypes` instead.")
 		open var productTypes: Storefront.StringConnection {
 			return internalGetProductTypes()
 		}
+
+		@available(*, deprecated, message:"Use `QueryRoot.productTypes` instead.")
 
 		open func aliasedProductTypes(alias: String) -> Storefront.StringConnection {
 			return internalGetProductTypes(alias: alias)
@@ -710,9 +766,12 @@ extension Storefront {
 		}
 
 		/// List of the shop’s products. 
+		@available(*, deprecated, message:"Use `QueryRoot.products` instead.")
 		open var products: Storefront.ProductConnection {
 			return internalGetProducts()
 		}
+
+		@available(*, deprecated, message:"Use `QueryRoot.products` instead.")
 
 		open func aliasedProducts(alias: String) -> Storefront.ProductConnection {
 			return internalGetProducts(alias: alias)
@@ -800,6 +859,10 @@ extension Storefront {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
+
+					case "productTags":
+					response.append(internalGetProductTags())
+					response.append(contentsOf: internalGetProductTags().childResponseObjectMap())
 
 					case "productTypes":
 					response.append(internalGetProductTypes())

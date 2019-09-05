@@ -50,14 +50,17 @@ class Card_ClientTests: XCTestCase {
         let url     = self.defaultURL()
         let request = client.requestFor(card, to: url)
         
-        let jsonData = try! JSONSerialization.data(withJSONObject: card.dictionary(), options: [])
-        
         XCTAssertEqual(request.url, url)
         XCTAssertEqual(request.httpMethod, "POST")
-        XCTAssertEqual(request.httpBody, jsonData)
         XCTAssertFalse(request.httpShouldHandleCookies)
         XCTAssertEqual(request.value(forHTTPHeaderField: "Accept"),       "application/json")
         XCTAssertEqual(request.value(forHTTPHeaderField: "Content-Type"), "application/json")
+        
+        let expectedCard = card.dictionary()
+        let json = try! JSONSerialization.jsonObject(with: request.httpBody!, options: []) as! [String: Any]
+        
+        XCTAssertEqual(json.count, expectedCard.count)
+        XCTAssertEqual(json["credit_card"]! as! [String : String], expectedCard["credit_card"]! as! [String : String])
     }
     
     // ----------------------------------

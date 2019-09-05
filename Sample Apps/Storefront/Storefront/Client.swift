@@ -46,6 +46,73 @@ final class Client {
     }
     
     // ----------------------------------
+    //  MARK: - Customers -
+    //
+    @discardableResult
+    func login(email: String, password: String, completion: @escaping (String?) -> Void) -> Task {
+        
+        let mutation = ClientQuery.mutationForLogin(email: email, password: password)
+        let task     = self.client.mutateGraphWith(mutation) { (mutation, error) in
+            error.debugPrint()
+            
+            if let container = mutation?.customerAccessTokenCreate?.customerAccessToken {
+                completion(container.accessToken)
+            } else {
+                let errors = mutation?.customerAccessTokenCreate?.customerUserErrors ?? []
+                print("Failed to login customer: \(errors)")
+                completion(nil)
+            }
+        }
+        
+        task.resume()
+        return task
+    }
+    
+    @discardableResult
+    func logout(accessToken: String, completion: @escaping (Bool) -> Void) -> Task {
+        
+        let mutation = ClientQuery.mutationForLogout(accessToken: accessToken)
+        let task     = self.client.mutateGraphWith(mutation) { (mutation, error) in
+            error.debugPrint()
+            
+            if let deletedToken = mutation?.customerAccessTokenDelete?.deletedAccessToken {
+                completion(deletedToken == accessToken)
+            } else {
+                let errors = mutation?.customerAccessTokenDelete?.userErrors ?? []
+                print("Failed to logout customer: \(errors)")
+                completion(false)
+            }
+        }
+        
+        task.resume()
+        return task
+    }
+    
+    @discardableResult
+    func fetchCustomerAndOrders(limit: Int = 25, after cursor: String? = nil, accessToken: String, completion: @escaping ((customer: CustomerViewModel, orders: PageableArray<OrderViewModel>)?) -> Void) -> Task {
+        
+        let query = ClientQuery.queryForCustomer(limit: limit, after: cursor, accessToken: accessToken)
+        let task  = self.client.queryGraphWith(query) { (query, error) in
+            error.debugPrint()
+            
+            if let customer = query?.customer {
+                let viewModel   = customer.viewModel
+                let collections = PageableArray(
+                    with:     customer.orders.edges,
+                    pageInfo: customer.orders.pageInfo
+                )
+                completion((viewModel, collections))
+            } else {
+                print("Failed to load customer and orders: \(String(describing: error))")
+                completion(nil)
+            }
+        }
+        
+        task.resume()
+        return task
+    }
+    
+    // ----------------------------------
     //  MARK: - Shop -
     //
     @discardableResult
@@ -79,8 +146,8 @@ final class Client {
             
             if let query = query {
                 let collections = PageableArray(
-                    with:     query.shop.collections.edges,
-                    pageInfo: query.shop.collections.pageInfo
+                    with:     query.collections.edges,
+                    pageInfo: query.collections.pageInfo
                 )
                 completion(collections)
             } else {
@@ -131,7 +198,7 @@ final class Client {
         let task     = self.client.mutateGraphWith(mutation) { response, error in
             error.debugPrint()
             
-            completion(response?.checkoutDiscountCodeApply?.checkout.viewModel)
+            completion(response?.checkoutDiscountCodeApplyV2?.checkout?.viewModel)
         }
         
         task.resume()
@@ -147,7 +214,7 @@ final class Client {
         let task     = self.client.mutateGraphWith(mutation) { response, error in
             error.debugPrint()
             
-            completion(response?.checkoutGiftCardApply?.checkout.viewModel)
+            completion(response?.checkoutGiftCardsAppend?.checkout?.viewModel)
         }
         
         task.resume()
@@ -176,7 +243,7 @@ final class Client {
         let task     = self.client.mutateGraphWith(mutation) { response, error in
             error.debugPrint()
             
-            if let checkout = response?.checkoutShippingAddressUpdate?.checkout,
+            if let checkout = response?.checkoutShippingAddressUpdateV2?.checkout,
                 let _ = checkout.shippingAddress {
                 completion(checkout.viewModel)
             } else {
@@ -194,7 +261,7 @@ final class Client {
         let task     = self.client.mutateGraphWith(mutation) { response, error in
             error.debugPrint()
             
-            if let checkout = response?.checkoutShippingAddressUpdate?.checkout,
+            if let checkout = response?.checkoutShippingAddressUpdateV2?.checkout,
                 let _ = checkout.shippingAddress {
                 completion(checkout.viewModel)
             } else {
@@ -230,8 +297,26 @@ final class Client {
         let task     = self.client.mutateGraphWith(mutation) { response, error in
             error.debugPrint()
             
-            if let checkout = response?.checkoutEmailUpdate?.checkout,
+            if let checkout = response?.checkoutEmailUpdateV2?.checkout,
                 let _ = checkout.email {
+                completion(checkout.viewModel)
+            } else {
+                completion(nil)
+            }
+        }
+        
+        task.resume()
+        return task
+    }
+    
+    @discardableResult
+    func updateCheckout(_ id: String, associatingCustomer accessToken: String, completion: @escaping (CheckoutViewModel?) -> Void) -> Task {
+        
+        let mutation = ClientQuery.mutationForUpdateCheckout(id, associatingCustomer: accessToken)
+        let task     = self.client.mutateGraphWith(mutation) { (mutation, error) in
+            error.debugPrint()
+            
+            if let checkout = mutation?.checkoutCustomerAssociateV2?.checkout {
                 completion(checkout.viewModel)
             } else {
                 completion(nil)
@@ -277,7 +362,7 @@ final class Client {
         let task     = self.client.mutateGraphWith(mutation) { response, error in
             error.debugPrint()
             
-            if let payment = response?.checkoutCompleteWithTokenizedPayment?.payment {
+            if let payment = response?.checkoutCompleteWithTokenizedPaymentV2?.payment {
                 
                 print("Payment created, fetching status...")
                 self.fetchCompletedPayment(payment.id.rawValue) { paymentViewModel in
@@ -309,6 +394,7 @@ final class Client {
         let task  = self.client.queryGraphWith(query, retryHandler: retry) { query, error in
             
             if let payment = query?.node as? Storefront.Payment {
+                print("Payment error: \(payment.errorMessage ?? "none")")
                 completion(payment.viewModel)
             } else {
                 completion(nil)

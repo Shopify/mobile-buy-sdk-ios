@@ -33,7 +33,10 @@ extension Storefront.PaymentQuery {
         .id()
         .ready()
         .test()
-        .amount()
+        .amountV2 { $0
+            .amount()
+            .currencyCode()
+        }
         .checkout { $0
             .fragmentForCheckout()
         }
