@@ -1200,7 +1200,7 @@ let mutation = Storefront.buildMutation { $0
             .id()
             .ready()
         }
-        .userErrors { $0
+        .checkoutUserErrors { $0
             .field()
             .message()
         }
@@ -1212,13 +1212,13 @@ let task = client.mutateGraphWith(mutation) { result, error in
         // handle request error
     }
 
-    guard let userError = result?.checkoutCompleteWithCreditCard?.userErrors else {
+    guard let userError = result?.checkoutCompleteWithCreditCardV2?.checkoutUserErrors else {
         // handle any user error
         return
     }
 
-    let checkoutReady = result?.checkoutCompleteWithCreditCard?.checkout.ready ?? false
-    let paymentReady  = result?.checkoutCompleteWithCreditCard?.payment?.ready ?? false
+    let checkoutReady = result?.checkoutCompleteWithCreditCardV2?.checkout.ready ?? false
+    let paymentReady  = result?.checkoutCompleteWithCreditCardV2?.payment?.ready ?? false
 
     // checkoutReady == false
     // paymentReady == false
