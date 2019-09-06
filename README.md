@@ -1181,16 +1181,17 @@ After obtaining a credit card vault token, we can proceed to complete the checko
 // let paySession: PaySession
 // let payCheckout: PayCheckout
 // let payAuthorization: PayAuthorization
+// let moneyInput: MoneyInput
 
-let payment = Storefront.CreditCardPaymentInput.create(
-    amount:         payCheckout.paymentDue,
+let payment = Storefront.CreditCardPaymentInputV2.create(
+    paymentAmount:  moneyInput,
     idempotencyKey: paySession.identifier,
     billingAddress: self.mailingAddressInputFrom(payAuthorization.billingAddress,
     vaultId:        token
 )
 
 let mutation = Storefront.buildMutation { $0
-    .checkoutCompleteWithCreditCard(checkoutId: checkoutID, payment: payment) { $0
+    .checkoutCompleteWithCreditCardV2(checkoutId: checkoutID, payment: payment) { $0
         .payment { $0
             .id()
             .ready()
