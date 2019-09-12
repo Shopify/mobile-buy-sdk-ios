@@ -1200,6 +1200,7 @@ let mutation = Storefront.buildMutation { $0
             .ready()
         }
         .checkoutUserErrors { $0
+            .code()
             .field()
             .message()
         }
