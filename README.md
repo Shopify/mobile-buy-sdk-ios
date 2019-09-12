@@ -1179,7 +1179,6 @@ After obtaining a credit card vault token, we can proceed to complete the checko
 
 ```swift
 // let paySession: PaySession
-// let payCheckout: PayCheckout
 // let payAuthorization: PayAuthorization
 // let moneyInput: MoneyInput
 
