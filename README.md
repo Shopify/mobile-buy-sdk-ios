@@ -1179,18 +1179,18 @@ After obtaining a credit card vault token, we can proceed to complete the checko
 
 ```swift
 // let paySession: PaySession
-// let payCheckout: PayCheckout
 // let payAuthorization: PayAuthorization
+// let moneyInput: MoneyInput
 
-let payment = Storefront.CreditCardPaymentInput.create(
-    amount:         payCheckout.paymentDue,
+let payment = Storefront.CreditCardPaymentInputV2.create(
+    paymentAmount:  moneyInput,
     idempotencyKey: paySession.identifier,
     billingAddress: self.mailingAddressInputFrom(payAuthorization.billingAddress,
     vaultId:        token
 )
 
 let mutation = Storefront.buildMutation { $0
-    .checkoutCompleteWithCreditCard(checkoutId: checkoutID, payment: payment) { $0
+    .checkoutCompleteWithCreditCardV2(checkoutId: checkoutID, payment: payment) { $0
         .payment { $0
             .id()
             .ready()
@@ -1199,7 +1199,8 @@ let mutation = Storefront.buildMutation { $0
             .id()
             .ready()
         }
-        .userErrors { $0
+        .checkoutUserErrors { $0
+            .code()
             .field()
             .message()
         }
@@ -1211,13 +1212,13 @@ let task = client.mutateGraphWith(mutation) { result, error in
         // handle request error
     }
 
-    guard let userError = result?.checkoutCompleteWithCreditCard?.userErrors else {
+    guard let userError = result?.checkoutCompleteWithCreditCardV2?.checkoutUserErrors else {
         // handle any user error
         return
     }
 
-    let checkoutReady = result?.checkoutCompleteWithCreditCard?.checkout.ready ?? false
-    let paymentReady  = result?.checkoutCompleteWithCreditCard?.payment?.ready ?? false
+    let checkoutReady = result?.checkoutCompleteWithCreditCardV2?.checkout.ready ?? false
+    let paymentReady  = result?.checkoutCompleteWithCreditCardV2?.payment?.ready ?? false
 
     // checkoutReady == false
     // paymentReady == false
