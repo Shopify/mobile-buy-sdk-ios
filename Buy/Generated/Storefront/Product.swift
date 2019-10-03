@@ -35,7 +35,7 @@ extension Storefront {
 	open class ProductQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Product
 
-		/// Whether the product is available on the Online Store channel and in stock. 
+		/// Indicates if at least one product variant is available for sale. 
 		@discardableResult
 		open func availableForSale(alias: String? = nil) -> ProductQuery {
 			addField(field: "availableForSale", aliasSuffix: alias)
@@ -624,7 +624,7 @@ extension Storefront {
 			}
 		}
 
-		/// Whether the product is available on the Online Store channel and in stock. 
+		/// Indicates if at least one product variant is available for sale. 
 		open var availableForSale: Bool {
 			return internalGetAvailableForSale()
 		}

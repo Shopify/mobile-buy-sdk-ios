@@ -132,6 +132,9 @@ extension Storefront {
 		/// Czech Koruny (CZK). 
 		case czk = "CZK"
 
+		/// Djiboutian Franc (DJF). 
+		case djf = "DJF"
+
 		/// Danish Kroner (DKK). 
 		case dkk = "DKK"
 
@@ -165,6 +168,9 @@ extension Storefront {
 		/// Gambian Dalasi (GMD). 
 		case gmd = "GMD"
 
+		/// Guinean Franc (GNF). 
+		case gnf = "GNF"
+
 		/// Guatemalan Quetzal (GTQ). 
 		case gtq = "GTQ"
 
@@ -197,6 +203,9 @@ extension Storefront {
 
 		/// Iraqi Dinar (IQD). 
 		case iqd = "IQD"
+
+		/// Iranian Rial (IRR). 
+		case irr = "IRR"
 
 		/// Icelandic Kronur (ISK). 
 		case isk = "ISK"
@@ -257,6 +266,9 @@ extension Storefront {
 
 		/// Latvian Lati (LVL). 
 		case lvl = "LVL"
+
+		/// Libyan Dinar (LYD). 
+		case lyd = "LYD"
 
 		/// Moroccan Dirham. 
 		case mad = "MAD"
@@ -372,6 +384,9 @@ extension Storefront {
 		/// Singapore Dollars (SGD). 
 		case sgd = "SGD"
 
+		/// Sierra Leonean Leone (SLL). 
+		case sll = "SLL"
+
 		/// Surinamese Dollar (SRD). 
 		case srd = "SRD"
 
@@ -390,11 +405,17 @@ extension Storefront {
 		/// Thai baht (THB). 
 		case thb = "THB"
 
+		/// Tajikistani Somoni (TJS). 
+		case tjs = "TJS"
+
 		/// Turkmenistani Manat (TMT). 
 		case tmt = "TMT"
 
 		/// Tunisian Dinar (TND). 
 		case tnd = "TND"
+
+		/// Tongan Pa'anga (TOP). 
+		case top = "TOP"
 
 		/// Turkish Lira (TRY). 
 		case `try` = "TRY"
