@@ -144,6 +144,8 @@ pod "Mobile-Buy-SDK"
 import MobileBuySDK
 ```
 
+Note: If you've forked this repo and are attempting to install from your own git destination, commit, or branch, be sure to include "submodules: true" in the line of your Podfile
+
 ## Getting started [⤴](#table-of-contents)
 
 The Buy SDK is built on [GraphQL](http://graphql.org/). The SDK handles all the query generation and response parsing, exposing only typed models and compile-time checked query structures. It doesn't require you to write stringed queries, or parse JSON responses.
