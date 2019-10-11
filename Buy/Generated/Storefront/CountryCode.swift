@@ -446,7 +446,7 @@ extension Storefront {
 		/// Madagascar. 
 		case mg = "MG"
 
-		/// Macedonia, Republic Of. 
+		/// North Macedonia. 
 		case mk = "MK"
 
 		/// Mali. 
@@ -644,7 +644,7 @@ extension Storefront {
 		/// Syria. 
 		case sy = "SY"
 
-		/// Swaziland. 
+		/// Eswatini. 
 		case sz = "SZ"
 
 		/// Turks and Caicos Islands. 

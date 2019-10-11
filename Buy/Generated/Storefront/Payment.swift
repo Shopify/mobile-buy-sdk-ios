@@ -79,7 +79,7 @@ extension Storefront {
 			return self
 		}
 
-		/// An message describing a processing error during asynchronous processing. 
+		/// A message describing a processing error during asynchronous processing. 
 		@discardableResult
 		open func errorMessage(alias: String? = nil) -> PaymentQuery {
 			addField(field: "errorMessage", aliasSuffix: alias)
@@ -98,6 +98,14 @@ extension Storefront {
 		@discardableResult
 		open func idempotencyKey(alias: String? = nil) -> PaymentQuery {
 			addField(field: "idempotencyKey", aliasSuffix: alias)
+			return self
+		}
+
+		/// The URL where the customer needs to be redirected so they can complete the 
+		/// 3D Secure payment flow. 
+		@discardableResult
+		open func nextActionUrl(alias: String? = nil) -> PaymentQuery {
+			addField(field: "nextActionUrl", aliasSuffix: alias)
 			return self
 		}
 
@@ -187,6 +195,13 @@ extension Storefront {
 				}
 				return value
 
+				case "nextActionUrl":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Payment.self, field: fieldName, value: fieldValue)
+				}
+				return URL(string: value)!
+
 				case "ready":
 				guard let value = value as? Bool else {
 					throw SchemaViolationError(type: Payment.self, field: fieldName, value: fieldValue)
@@ -257,7 +272,7 @@ extension Storefront {
 			return field(field: "creditCard", aliasSuffix: alias) as! Storefront.CreditCard?
 		}
 
-		/// An message describing a processing error during asynchronous processing. 
+		/// A message describing a processing error during asynchronous processing. 
 		open var errorMessage: String? {
 			return internalGetErrorMessage()
 		}
@@ -283,6 +298,16 @@ extension Storefront {
 
 		func internalGetIdempotencyKey(alias: String? = nil) -> String? {
 			return field(field: "idempotencyKey", aliasSuffix: alias) as! String?
+		}
+
+		/// The URL where the customer needs to be redirected so they can complete the 
+		/// 3D Secure payment flow. 
+		open var nextActionUrl: URL? {
+			return internalGetNextActionUrl()
+		}
+
+		func internalGetNextActionUrl(alias: String? = nil) -> URL? {
+			return field(field: "nextActionUrl", aliasSuffix: alias) as! URL?
 		}
 
 		/// Whether or not the payment is still processing asynchronously. 

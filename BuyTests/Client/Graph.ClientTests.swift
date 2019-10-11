@@ -38,7 +38,7 @@ class Graph_ClientTests: XCTestCase {
     func testInit() {
         let client = self.defaultClient()
 
-        XCTAssertEqual(client.apiURL.absoluteString, "https://\(self.shopDomain)/api/2019-07/graphql")
+        XCTAssertEqual(client.apiURL.absoluteString, "https://\(self.shopDomain)/api/2019-10/graphql")
         XCTAssertEqual(client.cachePolicy, .networkOnly)
     }
 

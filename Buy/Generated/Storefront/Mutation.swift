@@ -83,6 +83,9 @@ extension Storefront {
 			return self
 		}
 
+		/// Completes a checkout without providing payment information. You can use 
+		/// this mutation for free items or items whose purchase price is covered by a 
+		/// gift card. 
 		///
 		/// - parameters:
 		///     - checkoutId: The ID of the checkout.
@@ -126,7 +129,10 @@ extension Storefront {
 			return self
 		}
 
-		/// Completes a checkout using a credit card token from Shopify's Vault. 
+		/// Completes a checkout using a credit card token from Shopify's card vault. 
+		/// Before you can complete checkouts using CheckoutCompleteWithCreditCardV2, 
+		/// you need to [_request payment 
+		/// processing_](https://help.shopify.com/api/guides/sales-channel-sdk/getting-started#request-payment-processing). 
 		///
 		/// - parameters:
 		///     - checkoutId: The ID of the checkout.
@@ -1300,6 +1306,9 @@ extension Storefront {
 			return field(field: "checkoutAttributesUpdateV2", aliasSuffix: alias) as! Storefront.CheckoutAttributesUpdateV2Payload?
 		}
 
+		/// Completes a checkout without providing payment information. You can use 
+		/// this mutation for free items or items whose purchase price is covered by a 
+		/// gift card. 
 		open var checkoutCompleteFree: Storefront.CheckoutCompleteFreePayload? {
 			return internalGetCheckoutCompleteFree()
 		}
@@ -1328,7 +1337,10 @@ extension Storefront {
 			return field(field: "checkoutCompleteWithCreditCard", aliasSuffix: alias) as! Storefront.CheckoutCompleteWithCreditCardPayload?
 		}
 
-		/// Completes a checkout using a credit card token from Shopify's Vault. 
+		/// Completes a checkout using a credit card token from Shopify's card vault. 
+		/// Before you can complete checkouts using CheckoutCompleteWithCreditCardV2, 
+		/// you need to [_request payment 
+		/// processing_](https://help.shopify.com/api/guides/sales-channel-sdk/getting-started#request-payment-processing). 
 		open var checkoutCompleteWithCreditCardV2: Storefront.CheckoutCompleteWithCreditCardV2Payload? {
 			return internalGetCheckoutCompleteWithCreditCardV2()
 		}
