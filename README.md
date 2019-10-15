@@ -144,6 +144,8 @@ pod "Mobile-Buy-SDK"
 import MobileBuySDK
 ```
 
+Note: If you've forked this repo and are attempting to install from your own git destination, commit, or branch, be sure to include "submodules: true" in the line of your Podfile
+
 ## Getting started [⤴](#table-of-contents)
 
 The Buy SDK is built on [GraphQL](http://graphql.org/). The SDK handles all the query generation and response parsing, exposing only typed models and compile-time checked query structures. It doesn't require you to write stringed queries, or parse JSON responses.
@@ -1573,7 +1575,7 @@ We welcome contributions. Please follow the steps in our [contributing guideline
 
 ## Help [⤴](#table-of-contents)
 
-For help with the Mobile Buy SDK, post questions on [our forum](https://ecommerce.shopify.com/c/shopify-apis-and-technology), in the `Shopify APIs & SDKs` section.
+For help with the Mobile Buy SDK, see the [iOS Buy SDK documentation](https://help.shopify.com/en/api/storefront-api/tools/ios-buy-sdk) or post questions on [our forum](https://ecommerce.shopify.com/c/shopify-apis-and-technology), in the `Shopify APIs & SDKs` section.
 
 ## License [⤴](#table-of-contents)
 
