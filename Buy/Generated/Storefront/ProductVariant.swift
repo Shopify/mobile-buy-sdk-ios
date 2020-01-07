@@ -230,6 +230,53 @@ extension Storefront {
 			return self
 		}
 
+		/// List of unit prices in the presentment currencies for this shop. 
+		///
+		/// - parameters:
+		///     - presentmentCurrencies: Specify the currencies in which to return presentment unit prices.
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///     - reverse: Reverse the order of the underlying list.
+		///
+		@discardableResult
+		open func presentmentUnitPrices(alias: String? = nil, presentmentCurrencies: [CurrencyCode]? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (MoneyV2ConnectionQuery) -> Void) -> ProductVariantQuery {
+			var args: [String] = []
+
+			if let presentmentCurrencies = presentmentCurrencies {
+				args.append("presentmentCurrencies:[\(presentmentCurrencies.map{ "\($0.rawValue)" }.joined(separator: ","))]")
+			}
+
+			if let first = first {
+				args.append("first:\(first)")
+			}
+
+			if let after = after {
+				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
+			}
+
+			if let reverse = reverse {
+				args.append("reverse:\(reverse)")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = MoneyV2ConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "presentmentUnitPrices", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// The product variant’s price. 
 		@available(*, deprecated, message:"Use `priceV2` instead")
 		@discardableResult
@@ -287,6 +334,26 @@ extension Storefront {
 		@discardableResult
 		open func title(alias: String? = nil) -> ProductVariantQuery {
 			addField(field: "title", aliasSuffix: alias)
+			return self
+		}
+
+		/// The unit price value for the variant based on the variant's measurement. 
+		@discardableResult
+		open func unitPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ProductVariantQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "unitPrice", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// The unit price measurement for the variant. 
+		@discardableResult
+		open func unitPriceMeasurement(alias: String? = nil, _ subfields: (UnitPriceMeasurementQuery) -> Void) -> ProductVariantQuery {
+			let subquery = UnitPriceMeasurementQuery()
+			subfields(subquery)
+
+			addField(field: "unitPriceMeasurement", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -373,6 +440,12 @@ extension Storefront {
 				}
 				return try ProductVariantPricePairConnection(fields: value)
 
+				case "presentmentUnitPrices":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
+				}
+				return try MoneyV2Connection(fields: value)
+
 				case "price":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
@@ -415,6 +488,20 @@ extension Storefront {
 					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
 				}
 				return value
+
+				case "unitPrice":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
+				}
+				return try MoneyV2(fields: value)
+
+				case "unitPriceMeasurement":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
+				}
+				return try UnitPriceMeasurement(fields: value)
 
 				case "weight":
 				if value is NSNull { return nil }
@@ -537,6 +624,19 @@ extension Storefront {
 			return field(field: "presentmentPrices", aliasSuffix: alias) as! Storefront.ProductVariantPricePairConnection
 		}
 
+		/// List of unit prices in the presentment currencies for this shop. 
+		open var presentmentUnitPrices: Storefront.MoneyV2Connection {
+			return internalGetPresentmentUnitPrices()
+		}
+
+		open func aliasedPresentmentUnitPrices(alias: String) -> Storefront.MoneyV2Connection {
+			return internalGetPresentmentUnitPrices(alias: alias)
+		}
+
+		func internalGetPresentmentUnitPrices(alias: String? = nil) -> Storefront.MoneyV2Connection {
+			return field(field: "presentmentUnitPrices", aliasSuffix: alias) as! Storefront.MoneyV2Connection
+		}
+
 		/// The product variant’s price. 
 		@available(*, deprecated, message:"Use `priceV2` instead")
 		open var price: Decimal {
@@ -602,6 +702,24 @@ extension Storefront {
 			return field(field: "title", aliasSuffix: alias) as! String
 		}
 
+		/// The unit price value for the variant based on the variant's measurement. 
+		open var unitPrice: Storefront.MoneyV2? {
+			return internalGetUnitPrice()
+		}
+
+		func internalGetUnitPrice(alias: String? = nil) -> Storefront.MoneyV2? {
+			return field(field: "unitPrice", aliasSuffix: alias) as! Storefront.MoneyV2?
+		}
+
+		/// The unit price measurement for the variant. 
+		open var unitPriceMeasurement: Storefront.UnitPriceMeasurement? {
+			return internalGetUnitPriceMeasurement()
+		}
+
+		func internalGetUnitPriceMeasurement(alias: String? = nil) -> Storefront.UnitPriceMeasurement? {
+			return field(field: "unitPriceMeasurement", aliasSuffix: alias) as! Storefront.UnitPriceMeasurement?
+		}
+
 		/// The weight of the product variant in the unit system specified with 
 		/// `weight_unit`. 
 		open var weight: Double? {
@@ -651,6 +769,10 @@ extension Storefront {
 					response.append(internalGetPresentmentPrices())
 					response.append(contentsOf: internalGetPresentmentPrices().childResponseObjectMap())
 
+					case "presentmentUnitPrices":
+					response.append(internalGetPresentmentUnitPrices())
+					response.append(contentsOf: internalGetPresentmentUnitPrices().childResponseObjectMap())
+
 					case "priceV2":
 					response.append(internalGetPriceV2())
 					response.append(contentsOf: internalGetPriceV2().childResponseObjectMap())
@@ -663,6 +785,18 @@ extension Storefront {
 					internalGetSelectedOptions().forEach {
 						response.append($0)
 						response.append(contentsOf: $0.childResponseObjectMap())
+					}
+
+					case "unitPrice":
+					if let value = internalGetUnitPrice() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "unitPriceMeasurement":
+					if let value = internalGetUnitPriceMeasurement() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
 					default:

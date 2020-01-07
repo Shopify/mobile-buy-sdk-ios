@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// Currency codes 
+	/// Currency codes. 
 	public enum CurrencyCode: String {
 		/// United Arab Emirates Dirham (AED). 
 		case aed = "AED"
@@ -156,6 +156,9 @@ extension Storefront {
 		/// Fijian Dollars (FJD). 
 		case fjd = "FJD"
 
+		/// Falkland Islands Pounds (FKP). 
+		case fkp = "FKP"
+
 		/// United Kingdom Pounds (GBP). 
 		case gbp = "GBP"
 
@@ -164,6 +167,9 @@ extension Storefront {
 
 		/// Ghanaian Cedi (GHS). 
 		case ghs = "GHS"
+
+		/// Gibraltar Pounds (GIP). 
+		case gip = "GIP"
 
 		/// Gambian Dalasi (GMD). 
 		case gmd = "GMD"
@@ -383,6 +389,9 @@ extension Storefront {
 
 		/// Singapore Dollars (SGD). 
 		case sgd = "SGD"
+
+		/// Saint Helena Pounds (SHP). 
+		case shp = "SHP"
 
 		/// Sierra Leonean Leone (SLL). 
 		case sll = "SLL"

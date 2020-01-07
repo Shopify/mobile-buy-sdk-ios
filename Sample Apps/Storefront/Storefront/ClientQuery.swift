@@ -306,8 +306,8 @@ final class ClientQuery {
             paymentAmount:  paymentAmount,
             idempotencyKey: idempotencyToken,
             billingAddress: mailingAddress,
-            type:           CheckoutViewModel.PaymentType.applePay.rawValue,
-            paymentData:    token
+            paymentData:    token,
+            type:           CheckoutViewModel.PaymentType.applePay.rawValue
         )
         
         return Storefront.buildMutation { $0
