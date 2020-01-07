@@ -36,6 +36,36 @@
 		8128551E23C4AC7E00ADA66E /* MediaConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550F23C4AC7E00ADA66E /* MediaConnection.swift */; };
 		8128551F23C4AC7E00ADA66E /* MediaImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128551023C4AC7E00ADA66E /* MediaImage.swift */; };
 		8128552023C4AC7E00ADA66E /* UnitPriceMeasurementMeasuredType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128551123C4AC7E00ADA66E /* UnitPriceMeasurementMeasuredType.swift */; };
+		815FAB3A23C4B81500F98749 /* ExternalVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550D23C4AC7E00ADA66E /* ExternalVideo.swift */; };
+		815FAB3B23C4B81500F98749 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550923C4AC7E00ADA66E /* Media.swift */; };
+		815FAB3C23C4B81500F98749 /* MediaConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550F23C4AC7E00ADA66E /* MediaConnection.swift */; };
+		815FAB3D23C4B81500F98749 /* MediaContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550C23C4AC7E00ADA66E /* MediaContentType.swift */; };
+		815FAB3E23C4B81500F98749 /* MediaEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550A23C4AC7E00ADA66E /* MediaEdge.swift */; };
+		815FAB3F23C4B81500F98749 /* MediaImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128551023C4AC7E00ADA66E /* MediaImage.swift */; };
+		815FAB4023C4B81500F98749 /* Model3d.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550423C4AC7D00ADA66E /* Model3d.swift */; };
+		815FAB4123C4B81500F98749 /* Model3dSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550323C4AC7D00ADA66E /* Model3dSource.swift */; };
+		815FAB4223C4B81500F98749 /* MoneyV2Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550B23C4AC7E00ADA66E /* MoneyV2Connection.swift */; };
+		815FAB4323C4B81500F98749 /* MoneyV2Edge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550E23C4AC7E00ADA66E /* MoneyV2Edge.swift */; };
+		815FAB4423C4B81500F98749 /* UnitPriceMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550523C4AC7E00ADA66E /* UnitPriceMeasurement.swift */; };
+		815FAB4523C4B81500F98749 /* UnitPriceMeasurementMeasuredType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128551123C4AC7E00ADA66E /* UnitPriceMeasurementMeasuredType.swift */; };
+		815FAB4623C4B81500F98749 /* UnitPriceMeasurementMeasuredUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550823C4AC7E00ADA66E /* UnitPriceMeasurementMeasuredUnit.swift */; };
+		815FAB4723C4B81500F98749 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550723C4AC7E00ADA66E /* Video.swift */; };
+		815FAB4823C4B81500F98749 /* VideoSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550623C4AC7E00ADA66E /* VideoSource.swift */; };
+		815FAB4923C4B82C00F98749 /* ExternalVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550D23C4AC7E00ADA66E /* ExternalVideo.swift */; };
+		815FAB4A23C4B82C00F98749 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550923C4AC7E00ADA66E /* Media.swift */; };
+		815FAB4B23C4B82C00F98749 /* MediaConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550F23C4AC7E00ADA66E /* MediaConnection.swift */; };
+		815FAB4C23C4B82C00F98749 /* MediaContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550C23C4AC7E00ADA66E /* MediaContentType.swift */; };
+		815FAB4D23C4B82C00F98749 /* MediaEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550A23C4AC7E00ADA66E /* MediaEdge.swift */; };
+		815FAB4E23C4B82C00F98749 /* MediaImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128551023C4AC7E00ADA66E /* MediaImage.swift */; };
+		815FAB4F23C4B82C00F98749 /* Model3d.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550423C4AC7D00ADA66E /* Model3d.swift */; };
+		815FAB5023C4B82C00F98749 /* Model3dSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550323C4AC7D00ADA66E /* Model3dSource.swift */; };
+		815FAB5123C4B82C00F98749 /* MoneyV2Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550B23C4AC7E00ADA66E /* MoneyV2Connection.swift */; };
+		815FAB5223C4B82D00F98749 /* MoneyV2Edge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550E23C4AC7E00ADA66E /* MoneyV2Edge.swift */; };
+		815FAB5323C4B82D00F98749 /* UnitPriceMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550523C4AC7E00ADA66E /* UnitPriceMeasurement.swift */; };
+		815FAB5423C4B82D00F98749 /* UnitPriceMeasurementMeasuredType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128551123C4AC7E00ADA66E /* UnitPriceMeasurementMeasuredType.swift */; };
+		815FAB5523C4B82D00F98749 /* UnitPriceMeasurementMeasuredUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550823C4AC7E00ADA66E /* UnitPriceMeasurementMeasuredUnit.swift */; };
+		815FAB5623C4B82D00F98749 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550723C4AC7E00ADA66E /* Video.swift */; };
+		815FAB5723C4B82D00F98749 /* VideoSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550623C4AC7E00ADA66E /* VideoSource.swift */; };
 		9A035E102177B764008596C9 /* TokenizedPaymentInputV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A035E0F2177B763008596C9 /* TokenizedPaymentInputV2.swift */; };
 		9A035E112177B764008596C9 /* TokenizedPaymentInputV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A035E0F2177B763008596C9 /* TokenizedPaymentInputV2.swift */; };
 		9A035E122177B764008596C9 /* TokenizedPaymentInputV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A035E0F2177B763008596C9 /* TokenizedPaymentInputV2.swift */; };
@@ -1784,6 +1814,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				815FAB4923C4B82C00F98749 /* ExternalVideo.swift in Sources */,
+				815FAB4A23C4B82C00F98749 /* Media.swift in Sources */,
+				815FAB4B23C4B82C00F98749 /* MediaConnection.swift in Sources */,
+				815FAB4C23C4B82C00F98749 /* MediaContentType.swift in Sources */,
+				815FAB4D23C4B82C00F98749 /* MediaEdge.swift in Sources */,
+				815FAB4E23C4B82C00F98749 /* MediaImage.swift in Sources */,
+				815FAB4F23C4B82C00F98749 /* Model3d.swift in Sources */,
+				815FAB5023C4B82C00F98749 /* Model3dSource.swift in Sources */,
+				815FAB5123C4B82C00F98749 /* MoneyV2Connection.swift in Sources */,
+				815FAB5223C4B82D00F98749 /* MoneyV2Edge.swift in Sources */,
+				815FAB5323C4B82D00F98749 /* UnitPriceMeasurement.swift in Sources */,
+				815FAB5423C4B82D00F98749 /* UnitPriceMeasurementMeasuredType.swift in Sources */,
+				815FAB5523C4B82D00F98749 /* UnitPriceMeasurementMeasuredUnit.swift in Sources */,
+				815FAB5623C4B82D00F98749 /* Video.swift in Sources */,
+				815FAB5723C4B82D00F98749 /* VideoSource.swift in Sources */,
 				9AC2EF391F6818180037E0D7 /* Attribute.swift in Sources */,
 				9AC2EF3A1F6818180037E0D7 /* OrderLineItem.swift in Sources */,
 				9AC2EF3B1F6818180037E0D7 /* Log.swift in Sources */,
@@ -2209,6 +2254,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				815FAB3A23C4B81500F98749 /* ExternalVideo.swift in Sources */,
+				815FAB3B23C4B81500F98749 /* Media.swift in Sources */,
+				815FAB3C23C4B81500F98749 /* MediaConnection.swift in Sources */,
+				815FAB3D23C4B81500F98749 /* MediaContentType.swift in Sources */,
+				815FAB3E23C4B81500F98749 /* MediaEdge.swift in Sources */,
+				815FAB3F23C4B81500F98749 /* MediaImage.swift in Sources */,
+				815FAB4023C4B81500F98749 /* Model3d.swift in Sources */,
+				815FAB4123C4B81500F98749 /* Model3dSource.swift in Sources */,
+				815FAB4223C4B81500F98749 /* MoneyV2Connection.swift in Sources */,
+				815FAB4323C4B81500F98749 /* MoneyV2Edge.swift in Sources */,
+				815FAB4423C4B81500F98749 /* UnitPriceMeasurement.swift in Sources */,
+				815FAB4523C4B81500F98749 /* UnitPriceMeasurementMeasuredType.swift in Sources */,
+				815FAB4623C4B81500F98749 /* UnitPriceMeasurementMeasuredUnit.swift in Sources */,
+				815FAB4723C4B81500F98749 /* Video.swift in Sources */,
+				815FAB4823C4B81500F98749 /* VideoSource.swift in Sources */,
 				9AF255B31F6FEE50005BB0C9 /* Attribute.swift in Sources */,
 				9AF255B41F6FEE50005BB0C9 /* OrderLineItem.swift in Sources */,
 				9AF255B51F6FEE50005BB0C9 /* Log.swift in Sources */,
@@ -2468,11 +2528,11 @@
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 3.6.1;
+				CURRENT_PROJECT_VERSION = 3.7.0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3.6.1;
+				DYLIB_CURRENT_VERSION = 3.7.0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Pay/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2493,11 +2553,11 @@
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 3.6.1;
+				CURRENT_PROJECT_VERSION = 3.7.0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3.6.1;
+				DYLIB_CURRENT_VERSION = 3.7.0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Pay/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2546,11 +2606,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.6.1;
+				CURRENT_PROJECT_VERSION = 3.7.0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3.6.1;
+				DYLIB_CURRENT_VERSION = 3.7.0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Buy/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2574,11 +2634,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.6.1;
+				CURRENT_PROJECT_VERSION = 3.7.0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3.6.1;
+				DYLIB_CURRENT_VERSION = 3.7.0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Buy/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2716,11 +2776,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 3.6.1;
+				CURRENT_PROJECT_VERSION = 3.7.0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3.6.1;
+				DYLIB_CURRENT_VERSION = 3.7.0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Buy/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2738,11 +2798,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 3.6.1;
+				CURRENT_PROJECT_VERSION = 3.7.0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3.6.1;
+				DYLIB_CURRENT_VERSION = 3.7.0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Buy/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2761,11 +2821,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.6.1;
+				CURRENT_PROJECT_VERSION = 3.7.0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3.6.1;
+				DYLIB_CURRENT_VERSION = 3.7.0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Buy/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2790,11 +2850,11 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.6.1;
+				CURRENT_PROJECT_VERSION = 3.7.0;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3.6.1;
+				DYLIB_CURRENT_VERSION = 3.7.0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Buy/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
