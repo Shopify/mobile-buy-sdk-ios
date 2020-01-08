@@ -113,6 +113,15 @@ extension Storefront {
 
 		/// An object with an ID to support global identification. 
 		@discardableResult
+		open func onExternalVideo(subfields: (ExternalVideoQuery) -> Void) -> NodeQuery {
+			let subquery = ExternalVideoQuery()
+			subfields(subquery)
+			addInlineFragment(on: "ExternalVideo", subfields: subquery)
+			return self
+		}
+
+		/// An object with an ID to support global identification. 
+		@discardableResult
 		open func onMailingAddress(subfields: (MailingAddressQuery) -> Void) -> NodeQuery {
 			let subquery = MailingAddressQuery()
 			subfields(subquery)
@@ -122,10 +131,28 @@ extension Storefront {
 
 		/// An object with an ID to support global identification. 
 		@discardableResult
+		open func onMediaImage(subfields: (MediaImageQuery) -> Void) -> NodeQuery {
+			let subquery = MediaImageQuery()
+			subfields(subquery)
+			addInlineFragment(on: "MediaImage", subfields: subquery)
+			return self
+		}
+
+		/// An object with an ID to support global identification. 
+		@discardableResult
 		open func onMetafield(subfields: (MetafieldQuery) -> Void) -> NodeQuery {
 			let subquery = MetafieldQuery()
 			subfields(subquery)
 			addInlineFragment(on: "Metafield", subfields: subquery)
+			return self
+		}
+
+		/// An object with an ID to support global identification. 
+		@discardableResult
+		open func onModel3d(subfields: (Model3dQuery) -> Void) -> NodeQuery {
+			let subquery = Model3dQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Model3d", subfields: subquery)
 			return self
 		}
 
@@ -191,6 +218,15 @@ extension Storefront {
 			addInlineFragment(on: "ShopPolicy", subfields: subquery)
 			return self
 		}
+
+		/// An object with an ID to support global identification. 
+		@discardableResult
+		open func onVideo(subfields: (VideoQuery) -> Void) -> NodeQuery {
+			let subquery = VideoQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Video", subfields: subquery)
+			return self
+		}
 	}
 
 	/// An object with an ID to support global identification. 
@@ -230,9 +266,15 @@ extension Storefront {
 
 				case "Comment": return try Comment.init(fields: fields)
 
+				case "ExternalVideo": return try ExternalVideo.init(fields: fields)
+
 				case "MailingAddress": return try MailingAddress.init(fields: fields)
 
+				case "MediaImage": return try MediaImage.init(fields: fields)
+
 				case "Metafield": return try Metafield.init(fields: fields)
+
+				case "Model3d": return try Model3d.init(fields: fields)
 
 				case "Order": return try Order.init(fields: fields)
 
@@ -247,6 +289,8 @@ extension Storefront {
 				case "ProductVariant": return try ProductVariant.init(fields: fields)
 
 				case "ShopPolicy": return try ShopPolicy.init(fields: fields)
+
+				case "Video": return try Video.init(fields: fields)
 
 				default:
 				return try UnknownNode.init(fields: fields)

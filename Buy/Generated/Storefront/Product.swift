@@ -200,6 +200,48 @@ extension Storefront {
 			return self
 		}
 
+		/// The media associated with the product. 
+		///
+		/// - parameters:
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///     - reverse: Reverse the order of the underlying list.
+		///
+		@discardableResult
+		open func media(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (MediaConnectionQuery) -> Void) -> ProductQuery {
+			var args: [String] = []
+
+			if let first = first {
+				args.append("first:\(first)")
+			}
+
+			if let after = after {
+				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
+			}
+
+			if let reverse = reverse {
+				args.append("reverse:\(reverse)")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = MediaConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "media", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// The metafield associated with the resource. 
 		///
 		/// - parameters:
@@ -532,6 +574,12 @@ extension Storefront {
 				}
 				return try ImageConnection(fields: value)
 
+				case "media":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
+				}
+				return try MediaConnection(fields: value)
+
 				case "metafield":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -710,6 +758,19 @@ extension Storefront {
 			return field(field: "images", aliasSuffix: alias) as! Storefront.ImageConnection
 		}
 
+		/// The media associated with the product. 
+		open var media: Storefront.MediaConnection {
+			return internalGetMedia()
+		}
+
+		open func aliasedMedia(alias: String) -> Storefront.MediaConnection {
+			return internalGetMedia(alias: alias)
+		}
+
+		func internalGetMedia(alias: String? = nil) -> Storefront.MediaConnection {
+			return field(field: "media", aliasSuffix: alias) as! Storefront.MediaConnection
+		}
+
 		/// The metafield associated with the resource. 
 		open var metafield: Storefront.Metafield? {
 			return internalGetMetafield()
@@ -878,6 +939,10 @@ extension Storefront {
 					case "images":
 					response.append(internalGetImages())
 					response.append(contentsOf: internalGetImages().childResponseObjectMap())
+
+					case "media":
+					response.append(internalGetMedia())
+					response.append(contentsOf: internalGetMedia().childResponseObjectMap())
 
 					case "metafield":
 					if let value = internalGetMetafield() {
