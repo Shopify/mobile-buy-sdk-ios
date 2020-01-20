@@ -137,6 +137,9 @@ extension Storefront {
 		/// The amount of the payment does not match the value to be paid. 
 		case totalPriceMismatch = "TOTAL_PRICE_MISMATCH"
 
+		/// Unable to apply discount. 
+		case unableToApply = "UNABLE_TO_APPLY"
+
 		case unknownValue = ""
 	}
 }

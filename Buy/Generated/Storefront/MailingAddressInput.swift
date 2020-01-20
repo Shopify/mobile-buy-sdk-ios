@@ -29,39 +29,52 @@ import Foundation
 extension Storefront {
 	/// Specifies the fields accepted to create or update a mailing address. 
 	open class MailingAddressInput {
+		/// The first line of the address. Typically the street address or PO Box 
+		/// number. 
 		open var address1: Input<String>
 
+		/// The second line of the address. Typically the number of the apartment, 
+		/// suite, or unit. 
 		open var address2: Input<String>
 
+		/// The name of the city, district, village, or town. 
 		open var city: Input<String>
 
+		/// The name of the customer's company or organization. 
 		open var company: Input<String>
 
+		/// The name of the country. 
 		open var country: Input<String>
 
+		/// The first name of the customer. 
 		open var firstName: Input<String>
 
+		/// The last name of the customer. 
 		open var lastName: Input<String>
 
+		/// A unique phone number for the customer. Formatted using E.164 standard. For 
+		/// example, _+16135551111_. 
 		open var phone: Input<String>
 
+		/// The region of the address, such as the province, state, or district. 
 		open var province: Input<String>
 
+		/// The zip or postal code of the address. 
 		open var zip: Input<String>
 
 		/// Creates the input object.
 		///
 		/// - parameters:
-		///     - address1: No description
-		///     - address2: No description
-		///     - city: No description
-		///     - company: No description
-		///     - country: No description
-		///     - firstName: No description
-		///     - lastName: No description
-		///     - phone: No description
-		///     - province: No description
-		///     - zip: No description
+		///     - address1: The first line of the address. Typically the street address or PO Box number. 
+		///     - address2: The second line of the address. Typically the number of the apartment, suite, or unit. 
+		///     - city: The name of the city, district, village, or town. 
+		///     - company: The name of the customer's company or organization. 
+		///     - country: The name of the country.
+		///     - firstName: The first name of the customer.
+		///     - lastName: The last name of the customer.
+		///     - phone: A unique phone number for the customer.  Formatted using E.164 standard. For example, _+16135551111_. 
+		///     - province: The region of the address, such as the province, state, or district.
+		///     - zip: The zip or postal code of the address.
 		///
 		public static func create(address1: Input<String> = .undefined, address2: Input<String> = .undefined, city: Input<String> = .undefined, company: Input<String> = .undefined, country: Input<String> = .undefined, firstName: Input<String> = .undefined, lastName: Input<String> = .undefined, phone: Input<String> = .undefined, province: Input<String> = .undefined, zip: Input<String> = .undefined) -> MailingAddressInput {
 			return MailingAddressInput(address1: address1, address2: address2, city: city, company: company, country: country, firstName: firstName, lastName: lastName, phone: phone, province: province, zip: zip)
@@ -83,16 +96,16 @@ extension Storefront {
 		/// Creates the input object.
 		///
 		/// - parameters:
-		///     - address1: No description
-		///     - address2: No description
-		///     - city: No description
-		///     - company: No description
-		///     - country: No description
-		///     - firstName: No description
-		///     - lastName: No description
-		///     - phone: No description
-		///     - province: No description
-		///     - zip: No description
+		///     - address1: The first line of the address. Typically the street address or PO Box number. 
+		///     - address2: The second line of the address. Typically the number of the apartment, suite, or unit. 
+		///     - city: The name of the city, district, village, or town. 
+		///     - company: The name of the customer's company or organization. 
+		///     - country: The name of the country.
+		///     - firstName: The first name of the customer.
+		///     - lastName: The last name of the customer.
+		///     - phone: A unique phone number for the customer.  Formatted using E.164 standard. For example, _+16135551111_. 
+		///     - province: The region of the address, such as the province, state, or district.
+		///     - zip: The zip or postal code of the address.
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
 		public convenience init(address1: String? = nil, address2: String? = nil, city: String? = nil, company: String? = nil, country: String? = nil, firstName: String? = nil, lastName: String? = nil, phone: String? = nil, province: String? = nil, zip: String? = nil) {
