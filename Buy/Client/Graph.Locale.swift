@@ -1,9 +1,9 @@
 //
-//  Header.swift
+//  Graph.Locale.swift
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) 2020 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -26,13 +26,10 @@
 
 import Foundation
 
-internal struct Header {
-    static var userAgent     = "User-Agent"
-    static var accept        = "Accept"
-    static var contentType   = "Content-Type"
-    static var authorization = "X-Shopify-Storefront-Access-Token"
-    static var sdkVersion    = "X-SDK-Version"
-    static var sdkVariant    = "X-SDK-Variant"
-    static var queryTag      = "X-Query-Tag"
-    static var sdkLocale     = "Accept-Language"
+internal extension Graph {
+    enum Locale {
+        case en
+        case fr
+        case de
+    }
 }
