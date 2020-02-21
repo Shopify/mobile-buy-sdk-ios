@@ -84,7 +84,7 @@ extension Graph {
         public init(shopDomain: String, apiKey: String, session: URLSession = URLSession(configuration: URLSessionConfiguration.default), locale: String = "") {
 
             let shopURL  = Client.urlFor(shopDomain)
-            self.apiURL  = Client.urlFor(shopDomain, path: "/api/2019-10/graphql")
+            self.apiURL  = Client.urlFor(shopDomain, path: "/api/2020-01/graphql")
             self.cache   = Cache(shopName: shopDomain)
             self.session = session
             self.headers = [
