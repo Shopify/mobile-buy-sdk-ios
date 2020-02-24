@@ -79,11 +79,12 @@ extension Graph {
         ///     - shopDomain: The domain of your shop (ex: "shopname.myshopify.com").
         ///     - apiKey:     The API key for you app, obtained from the Shopify admin.
         ///     - session:    A `URLSession` to use for this client. If left blank, a session with a `default` configuration will be created.
+        ///     - locale:   The buyer's current locale. Supported values are limited to locales available to your shop.
         ///
-        public init(shopDomain: String, apiKey: String, session: URLSession = URLSession(configuration: URLSessionConfiguration.default)) {
+        public init(shopDomain: String, apiKey: String, session: URLSession = URLSession(configuration: URLSessionConfiguration.default), locale: Locale? = nil) {
 
             let shopURL  = Client.urlFor(shopDomain)
-            self.apiURL  = Client.urlFor(shopDomain, path: "/api/2019-10/graphql")
+            self.apiURL  = Client.urlFor(shopDomain, path: "/api/2020-01/graphql")
             self.cache   = Cache(shopName: shopDomain)
             self.session = session
             self.headers = [
@@ -91,6 +92,7 @@ extension Graph {
                 Header.authorization : apiKey,
                 Header.sdkVersion    : Global.frameworkVersion,
                 Header.sdkVariant    : "ios",
+                Header.language      : locale?.languageIdentifier ?? "",
             ]
 
             precondition(!apiKey.isEmpty, "API Key is required to the Buy SDK. You can obtain one by adding a Mobile App channel here: \(shopURL.appendingPathComponent("admin"))")
@@ -195,6 +197,16 @@ extension Graph {
             }
 
             return request
+        }
+    }
+}
+
+private extension Locale {
+    var languageIdentifier: String {
+        if let language = languageCode, let region = regionCode {
+            return "\(language)-\(region)"
+        } else {
+            return identifier
         }
     }
 }

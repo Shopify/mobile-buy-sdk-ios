@@ -31,6 +31,7 @@ class Graph_ClientTests: XCTestCase {
 
     let shopDomain  = "testshop.myshopify.com"
     let apiKey      = "com.testing.api.key"
+    let language    = Locale.init(identifier: "zh-CN")
 
     // ----------------------------------
     //  MARK: - Init -
@@ -38,7 +39,7 @@ class Graph_ClientTests: XCTestCase {
     func testInit() {
         let client = self.defaultClient()
 
-        XCTAssertEqual(client.apiURL.absoluteString, "https://\(self.shopDomain)/api/2019-10/graphql")
+        XCTAssertEqual(client.apiURL.absoluteString, "https://\(self.shopDomain)/api/2020-01/graphql")
         XCTAssertEqual(client.cachePolicy, .networkOnly)
     }
 
@@ -54,11 +55,12 @@ class Graph_ClientTests: XCTestCase {
     func testInitialHeaders() {
         let client = self.defaultClient()
 
-        XCTAssertEqual(client.headers.count, 4)
+        XCTAssertEqual(client.headers.count, 5)
         XCTAssertEqual(client.headers["User-Agent"],    Global.userAgent)
         XCTAssertEqual(client.headers["X-SDK-Version"], Global.frameworkVersion)
         XCTAssertEqual(client.headers["X-SDK-Variant"], "ios")
         XCTAssertEqual(client.headers["X-Shopify-Storefront-Access-Token"], self.apiKey)
+        XCTAssertEqual(client.headers["Accept-Language"], "zh-CN")
     }
 
     // ----------------------------------
@@ -127,7 +129,7 @@ class Graph_ClientTests: XCTestCase {
     //  MARK: - Private -
     //
     private func defaultClient() -> Graph.Client {
-        return Graph.Client(shopDomain: self.shopDomain, apiKey: self.apiKey, session: MockSession())
+        return Graph.Client(shopDomain: self.shopDomain, apiKey: self.apiKey, session: MockSession(), locale: self.language)
     }
 
     private func defaultQueryPayload() -> (query: Storefront.QueryRootQuery, response: [String: Any]) {
