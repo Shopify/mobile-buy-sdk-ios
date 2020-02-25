@@ -200,13 +200,3 @@ extension Graph {
         }
     }
 }
-
-private extension Locale {
-    var languageIdentifier: String {
-        if let language = languageCode, let region = regionCode {
-            return "\(language)-\(region)"
-        } else {
-            return identifier
-        }
-    }
-}
