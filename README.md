@@ -303,7 +303,7 @@ If your store supports multiple languages, Storefront API can return translated 
 let client = Graph.Client(
 	shopDomain: "shoes.myshopify.com",
 	apiKey:     "dGhpcyBpcyBhIHByaXZhdGUgYXBpIGtleQ",
-  locale:     Locale.current
+        locale:     Locale.current
 )
 ```
 
