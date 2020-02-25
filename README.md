@@ -287,11 +287,23 @@ The `Graph.Client` is a network layer built on top of `URLSession` that executes
 - Your shop's `.myshopify.com` domain
 - Your API key, which you can find in your shop's admin page
 - A `URLSession` (optional), if you want to customize the configuration used for network requests or share your existing `URLSession` with the `Graph.Client`
+- (optional) The buyer's current locale. Supported values are limited to locales available to your shop.
 
 ```swift
 let client = Graph.Client(
 	shopDomain: "shoes.myshopify.com",
 	apiKey:     "dGhpcyBpcyBhIHByaXZhdGUgYXBpIGtleQ"
+)
+```
+
+If your store supports multiple languages, Storefront API can return translated resource types and fields. Learn more about [translating content](https://help.shopify.com/en/api/guides/multi-language/translating-content-api).
+
+```swift
+// Initializing a client to return translated content
+let client = Graph.Client(
+	shopDomain: "shoes.myshopify.com",
+	apiKey:     "dGhpcyBpcyBhIHByaXZhdGUgYXBpIGtleQ",
+  locale:     Locale.current
 )
 ```
 

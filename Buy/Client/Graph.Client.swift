@@ -79,7 +79,7 @@ extension Graph {
         ///     - shopDomain: The domain of your shop (ex: "shopname.myshopify.com").
         ///     - apiKey:     The API key for you app, obtained from the Shopify admin.
         ///     - session:    A `URLSession` to use for this client. If left blank, a session with a `default` configuration will be created.
-        ///     - locale:   The buyer's current locale. Supported values are limited to locales available to your shop.
+        ///     - locale:     The buyer's current locale. Supported values are limited to locales available to your shop.
         ///
         public init(shopDomain: String, apiKey: String, session: URLSession = URLSession(configuration: URLSessionConfiguration.default), locale: Locale? = nil) {
 
