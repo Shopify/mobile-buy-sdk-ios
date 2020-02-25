@@ -46,6 +46,6 @@ class Locale_LanguageTests: XCTestCase {
     
     func testCompoundLocale() {
         let locale = Locale(identifier: "zh_Hans_US")
-        XCTAssertEqual(locale.languageIdentifier, "zh-Hans-US")
+        XCTAssertEqual(locale.languageIdentifier, "zh-US")
     }
 }
