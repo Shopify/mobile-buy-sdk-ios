@@ -193,6 +193,10 @@
 		9A0C81071EBA66800020F187 /* Graph.CachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C81061EBA66800020F187 /* Graph.CachePolicy.swift */; };
 		9A125CFF1F16A0E0008DCF38 /* StringConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A125CFE1F16A0D7008DCF38 /* StringConnection.swift */; };
 		9A125D001F16A0E0008DCF38 /* StringEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A125CFD1F16A0D7008DCF38 /* StringEdge.swift */; };
+		9A22EC072404732E00E3D3F2 /* Locale+Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A22EC062404732E00E3D3F2 /* Locale+Language.swift */; };
+		9A22EC0B2404738300E3D3F2 /* Locale+LanguageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A22EC0A2404738300E3D3F2 /* Locale+LanguageTests.swift */; };
+		9A22EC0C240556CA00E3D3F2 /* Locale+Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A22EC062404732E00E3D3F2 /* Locale+Language.swift */; };
+		9A22EC0D240556CB00E3D3F2 /* Locale+Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A22EC062404732E00E3D3F2 /* Locale+Language.swift */; };
 		9A2ACDC521CABAC200C09FF7 /* ProductVariantPricePair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2ACDBE21CABAC100C09FF7 /* ProductVariantPricePair.swift */; };
 		9A2ACDC621CABAC200C09FF7 /* ProductVariantPricePair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2ACDBE21CABAC100C09FF7 /* ProductVariantPricePair.swift */; };
 		9A2ACDC721CABAC200C09FF7 /* ProductVariantPricePair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2ACDBE21CABAC100C09FF7 /* ProductVariantPricePair.swift */; };
@@ -862,6 +866,8 @@
 		9A0C81061EBA66800020F187 /* Graph.CachePolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.CachePolicy.swift; sourceTree = "<group>"; };
 		9A125CFD1F16A0D7008DCF38 /* StringEdge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringEdge.swift; sourceTree = "<group>"; };
 		9A125CFE1F16A0D7008DCF38 /* StringConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringConnection.swift; sourceTree = "<group>"; };
+		9A22EC062404732E00E3D3F2 /* Locale+Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locale+Language.swift"; sourceTree = "<group>"; };
+		9A22EC0A2404738300E3D3F2 /* Locale+LanguageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locale+LanguageTests.swift"; sourceTree = "<group>"; };
 		9A2ACDBE21CABAC100C09FF7 /* ProductVariantPricePair.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductVariantPricePair.swift; sourceTree = "<group>"; };
 		9A2ACDBF21CABAC100C09FF7 /* PageConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageConnection.swift; sourceTree = "<group>"; };
 		9A2ACDC021CABAC100C09FF7 /* ProductVariantPricePairEdge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductVariantPricePairEdge.swift; sourceTree = "<group>"; };
@@ -1251,6 +1257,14 @@
 			path = Storefront;
 			sourceTree = "<group>";
 		};
+		9A22EC092404737100E3D3F2 /* Utitlies */ = {
+			isa = PBXGroup;
+			children = (
+				9A22EC0A2404738300E3D3F2 /* Locale+LanguageTests.swift */,
+			);
+			path = Utitlies;
+			sourceTree = "<group>";
+		};
 		9A4068DD1E8E7659000254CD /* Pay */ = {
 			isa = PBXGroup;
 			children = (
@@ -1359,6 +1373,7 @@
 				9AAFAB711E60766E00864A17 /* Global.swift */,
 				9A49DC821EC4AD580053710B /* Header.swift */,
 				9AE2A1C51EC9EE1D00921247 /* Log.swift */,
+				9A22EC062404732E00E3D3F2 /* Locale+Language.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1471,6 +1486,7 @@
 				9A46660E1EF1915400A41625 /* Card */,
 				9A46660D1EF1914000A41625 /* Client */,
 				9A9C513E1F02A691003363E7 /* Crypto */,
+				9A22EC092404737100E3D3F2 /* Utitlies */,
 				9AFA38EE1E64850A0056C5AA /* Info.plist */,
 			);
 			path = BuyTests;
@@ -1861,6 +1877,7 @@
 				9AA9A3FA2279E79B0002DFDA /* MetafieldValueType.swift in Sources */,
 				9A67115921666AB200A57A3F /* DiscountApplicationEdge.swift in Sources */,
 				9A67116221666AB200A57A3F /* DiscountApplication.swift in Sources */,
+				9A22EC0C240556CA00E3D3F2 /* Locale+Language.swift in Sources */,
 				9AC2EF501F6818180037E0D7 /* MD5.m in Sources */,
 				9AC2EF511F6818180037E0D7 /* Graph.RetryHandler.swift in Sources */,
 				9A67116E21666AB200A57A3F /* PricingValue.swift in Sources */,
@@ -2081,6 +2098,7 @@
 				9A52D3A51F3CA5DB00C093C8 /* DigitalWallet.swift in Sources */,
 				9A43489B20C84A56005EAD56 /* CheckoutDiscountCodeRemovePayload.swift in Sources */,
 				9A0C80941EAA51C50020F187 /* MailingAddressInput.swift in Sources */,
+				9A22EC072404732E00E3D3F2 /* Locale+Language.swift in Sources */,
 				9ABEB3C12122FFE900A373F2 /* CheckoutGiftCardsAppendPayload.swift in Sources */,
 				9A0C80881EAA51C50020F187 /* CustomerRecoverPayload.swift in Sources */,
 				9A67114221666A6700A57A3F /* CheckoutErrorCode.swift in Sources */,
@@ -2301,6 +2319,7 @@
 				9AA9A3FB2279E79B0002DFDA /* MetafieldValueType.swift in Sources */,
 				9A67115A21666AB200A57A3F /* DiscountApplicationEdge.swift in Sources */,
 				9A67116321666AB200A57A3F /* DiscountApplication.swift in Sources */,
+				9A22EC0D240556CB00E3D3F2 /* Locale+Language.swift in Sources */,
 				9AF255CA1F6FEE50005BB0C9 /* MD5.m in Sources */,
 				9AF255CB1F6FEE50005BB0C9 /* Graph.RetryHandler.swift in Sources */,
 				9A67116F21666AB200A57A3F /* PricingValue.swift in Sources */,
@@ -2481,6 +2500,7 @@
 				9A0C80F91EB7BAEF0020F187 /* Card.CreditCardTests.swift in Sources */,
 				9AE2A1C21EC6373B00921247 /* Graph.CachePolicyTests.swift in Sources */,
 				9A6F3BA91EBB6A7500B149F4 /* Graph.CacheTests.swift in Sources */,
+				9A22EC0B2404738300E3D3F2 /* Locale+LanguageTests.swift in Sources */,
 				9A0C7FEB1EAA3F7E0020F187 /* MockSession.swift in Sources */,
 				9A0C7FEF1EAA3F7E0020F187 /* Graph.ClientTests.swift in Sources */,
 				9A0C7FF11EAA3F7E0020F187 /* Graph.RetryHandlerTests.swift in Sources */,
