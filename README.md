@@ -296,7 +296,7 @@ let client = Graph.Client(
 )
 ```
 
-If your store supports multiple languages, Storefront API can return translated resource types and fields. Learn more about [translating content](https://help.shopify.com/en/api/guides/multi-language/translating-content-api).
+If your store supports multiple languages, then the Storefront API can return translated resource types and fields. Learn more about [translating content](https://shopify.dev/tutorials/manage-app-translations-with-admin-api).
 
 ```swift
 // Initializing a client to return translated content
