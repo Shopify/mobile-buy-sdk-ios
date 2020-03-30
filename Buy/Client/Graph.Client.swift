@@ -82,9 +82,20 @@ extension Graph {
         ///     - locale:     The buyer's current locale. Supported values are limited to locales available to your shop.
         ///
         public init(shopDomain: String, apiKey: String, session: URLSession = URLSession(configuration: URLSessionConfiguration.default), locale: Locale? = nil) {
-
+            
+            // Read API version from user defined build setting or version file
+            var apiVersion = "2020-01"
+            
+            if let filepath = Bundle.main.path(forResource: "version", ofType: nil, inDirectory: "Buy/Generated") {
+                do {
+                    apiVersion = try String(contentsOfFile: filepath)
+                } catch {
+                    print("Error reading API version")
+                }
+            }
+            
             let shopURL  = Client.urlFor(shopDomain)
-            self.apiURL  = Client.urlFor(shopDomain, path: "/api/2020-01/graphql")
+            self.apiURL  = Client.urlFor(shopDomain, path: String(format:"/api/%@/graphql", apiVersion))
             self.cache   = Cache(shopName: shopDomain)
             self.session = session
             self.headers = [
