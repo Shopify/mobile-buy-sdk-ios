@@ -26,7 +26,7 @@ if res.is_a?(Net::HTTPSuccess)
 
   output = ERB.new(File.read("version.swift.erb")).result()
 
-  File.open("../Buy/Generated/Storefront.ApiInfo.swift", "w") { |f|
+  File.open("../Buy/Generated/Storefront.Schema.swift", "w") { |f|
   	f.write "#{output}"
   }
   schema = GraphQLSchema.new(JSON.parse(res.body))

@@ -1,5 +1,5 @@
 //
-//  Storefront.ApiInfo.swift
+//  Storefront.Schema.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -24,8 +24,8 @@
 //  THE SOFTWARE.
 //
 
-extension Storefront{
-    struct ApiInfo {
+extension Storefront {
+    enum Schema {
         static let version = "2020-01"
     }
 }
