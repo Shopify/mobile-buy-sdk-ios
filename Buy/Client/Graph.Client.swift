@@ -67,7 +67,7 @@ extension Graph {
 
         internal let cache: Cache
 
-        internal var apiURL:  URL
+        internal let apiURL:  URL
         internal let headers: [String : String]
 
         // ----------------------------------
