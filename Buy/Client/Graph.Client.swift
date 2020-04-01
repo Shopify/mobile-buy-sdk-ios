@@ -82,9 +82,9 @@ extension Graph {
         ///     - locale:     The buyer's current locale. Supported values are limited to locales available to your shop.
         ///
         public init(shopDomain: String, apiKey: String, session: URLSession = URLSession(configuration: URLSessionConfiguration.default), locale: Locale? = nil) {
-
+            
             let shopURL  = Client.urlFor(shopDomain)
-            self.apiURL  = Client.urlFor(shopDomain, path: "/api/2020-01/graphql")
+            self.apiURL  = Client.urlFor(shopDomain, path: "/api/\(Storefront.Schema.version)/graphql")
             self.cache   = Cache(shopName: shopDomain)
             self.session = session
             self.headers = [

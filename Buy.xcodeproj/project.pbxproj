@@ -66,6 +66,9 @@
 		815FAB5523C4B82D00F98749 /* UnitPriceMeasurementMeasuredUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550823C4AC7E00ADA66E /* UnitPriceMeasurementMeasuredUnit.swift */; };
 		815FAB5623C4B82D00F98749 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550723C4AC7E00ADA66E /* Video.swift */; };
 		815FAB5723C4B82D00F98749 /* VideoSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550623C4AC7E00ADA66E /* VideoSource.swift */; };
+		81F02041243391F100826BEC /* Storefront.Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F02040243391F000826BEC /* Storefront.Schema.swift */; };
+		81F02042243391F100826BEC /* Storefront.Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F02040243391F000826BEC /* Storefront.Schema.swift */; };
+		81F02043243391F100826BEC /* Storefront.Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F02040243391F000826BEC /* Storefront.Schema.swift */; };
 		9A035E102177B764008596C9 /* TokenizedPaymentInputV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A035E0F2177B763008596C9 /* TokenizedPaymentInputV2.swift */; };
 		9A035E112177B764008596C9 /* TokenizedPaymentInputV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A035E0F2177B763008596C9 /* TokenizedPaymentInputV2.swift */; };
 		9A035E122177B764008596C9 /* TokenizedPaymentInputV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A035E0F2177B763008596C9 /* TokenizedPaymentInputV2.swift */; };
@@ -751,6 +754,7 @@
 		8128550F23C4AC7E00ADA66E /* MediaConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaConnection.swift; sourceTree = "<group>"; };
 		8128551023C4AC7E00ADA66E /* MediaImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaImage.swift; sourceTree = "<group>"; };
 		8128551123C4AC7E00ADA66E /* UnitPriceMeasurementMeasuredType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitPriceMeasurementMeasuredType.swift; sourceTree = "<group>"; };
+		81F02040243391F000826BEC /* Storefront.Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Storefront.Schema.swift; path = Buy/Generated/Storefront.Schema.swift; sourceTree = SOURCE_ROOT; };
 		9A035E0F2177B763008596C9 /* TokenizedPaymentInputV2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizedPaymentInputV2.swift; sourceTree = "<group>"; };
 		9A0C7FCC1EA6631B0020F187 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		9A0C7FD01EA669C80020F187 /* PayDiscount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayDiscount.swift; sourceTree = "<group>"; };
@@ -1463,6 +1467,7 @@
 		9AEF60FE1E5F439D0067FA90 /* Generated */ = {
 			isa = PBXGroup;
 			children = (
+				81F02040243391F000826BEC /* Storefront.Schema.swift */,
 				9A0C7FF81EAA51C50020F187 /* Storefront */,
 				9A0C80571EAA51C50020F187 /* Storefront.swift */,
 			);
@@ -1881,6 +1886,7 @@
 				9AC2EF501F6818180037E0D7 /* MD5.m in Sources */,
 				9AC2EF511F6818180037E0D7 /* Graph.RetryHandler.swift in Sources */,
 				9A67116E21666AB200A57A3F /* PricingValue.swift in Sources */,
+				81F02042243391F100826BEC /* Storefront.Schema.swift in Sources */,
 				9AC2EF521F6818180037E0D7 /* CurrencyCode.swift in Sources */,
 				9AC2EF531F6818180037E0D7 /* ShopPolicy.swift in Sources */,
 				9AC2EF541F6818180037E0D7 /* CheckoutShippingLineUpdatePayload.swift in Sources */,
@@ -2102,6 +2108,7 @@
 				9ABEB3C12122FFE900A373F2 /* CheckoutGiftCardsAppendPayload.swift in Sources */,
 				9A0C80881EAA51C50020F187 /* CustomerRecoverPayload.swift in Sources */,
 				9A67114221666A6700A57A3F /* CheckoutErrorCode.swift in Sources */,
+				81F02041243391F100826BEC /* Storefront.Schema.swift in Sources */,
 				8128551323C4AC7E00ADA66E /* Model3d.swift in Sources */,
 				9AF1C1881F13B45C0064AEA0 /* PaymentSettings.swift in Sources */,
 				9A0C808D1EAA51C50020F187 /* Domain.swift in Sources */,
@@ -2323,6 +2330,7 @@
 				9AF255CA1F6FEE50005BB0C9 /* MD5.m in Sources */,
 				9AF255CB1F6FEE50005BB0C9 /* Graph.RetryHandler.swift in Sources */,
 				9A67116F21666AB200A57A3F /* PricingValue.swift in Sources */,
+				81F02043243391F100826BEC /* Storefront.Schema.swift in Sources */,
 				9AF255CC1F6FEE50005BB0C9 /* CurrencyCode.swift in Sources */,
 				9AF255CD1F6FEE50005BB0C9 /* ShopPolicy.swift in Sources */,
 				9AF255CE1F6FEE50005BB0C9 /* CheckoutShippingLineUpdatePayload.swift in Sources */,
