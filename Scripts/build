@@ -24,9 +24,9 @@ res = Net::HTTP.get_response(endpoint)
 if res.is_a?(Net::HTTPSuccess)
   puts "Using Storefront API version: #{storefront_api_version}"
 
-  output = ERB.new(File.read("version.swift.erb")).result()
+  output = ERB.new(File.read("./Scripts/version.swift.erb")).result()
 
-  File.open("../Buy/Generated/Storefront.Schema.swift", "w") { |f|
+  File.open("./Buy/Generated/Storefront.Schema.swift", "w") { |f|
   	f.write "#{output}"
   }
   schema = GraphQLSchema.new(JSON.parse(res.body))
@@ -74,4 +74,4 @@ content = GraphQLSwiftGen.new(
 	import_graphql_support: false,
 	custom_scalars: customScalars
 )
-content.save("../Buy/Generated/")
+content.save("./Buy/Generated/")
