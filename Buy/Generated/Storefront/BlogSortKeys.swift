@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// The set of valid sort keys for the blogs query. 
+	/// The set of valid sort keys for the Blog query. 
 	public enum BlogSortKeys: String {
 		/// Sort by the `handle` value. 
 		case handle = "HANDLE"

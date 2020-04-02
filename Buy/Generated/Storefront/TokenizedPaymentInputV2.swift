@@ -41,14 +41,15 @@ extension Storefront {
 		/// The billing address for the payment. 
 		open var billingAddress: MailingAddressInput
 
-		/// The type of payment token. 
+		/// The type of payment token.
 		open var type: String
 
-		/// A simple string or JSON containing the required payment data for the 
+		/// A simple string or JSON containing the required payment data for the
 		/// tokenized payment. 
 		open var paymentData: String
 
-		/// Executes the payment in test mode if possible. Defaults to `false`. 
+		/// Whether to execute the payment in test mode, if possible. Test mode is not 
+		/// supported in production stores. Defaults to `false`. 
 		open var test: Input<Bool>
 
 		/// Public Hash Key used for AndroidPay payments only. 
@@ -62,7 +63,7 @@ extension Storefront {
 		///     - billingAddress: The billing address for the payment.
 		///     - type: The type of payment token.
 		///     - paymentData: A simple string or JSON containing the required payment data for the tokenized payment.
-		///     - test: Executes the payment in test mode if possible. Defaults to `false`.
+		///     - test: Whether to execute the payment in test mode, if possible. Test mode is not supported in production stores. Defaults to `false`.
 		///     - identifier: Public Hash Key used for AndroidPay payments only.
 		///
 		public static func create(paymentAmount: MoneyInput, idempotencyKey: String, billingAddress: MailingAddressInput, type: String, paymentData: String, test: Input<Bool> = .undefined, identifier: Input<String> = .undefined) -> TokenizedPaymentInputV2 {
@@ -87,7 +88,7 @@ extension Storefront {
 		///     - billingAddress: The billing address for the payment.
 		///     - type: The type of payment token.
 		///     - paymentData: A simple string or JSON containing the required payment data for the tokenized payment.
-		///     - test: Executes the payment in test mode if possible. Defaults to `false`.
+		///     - test: Whether to execute the payment in test mode, if possible. Test mode is not supported in production stores. Defaults to `false`.
 		///     - identifier: Public Hash Key used for AndroidPay payments only.
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")

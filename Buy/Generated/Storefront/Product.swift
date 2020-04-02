@@ -443,7 +443,7 @@ extension Storefront {
 		/// returned. 
 		///
 		/// - parameters:
-		///     - selectedOptions: No description
+		///     - selectedOptions: The input fields used for a selected option.
 		///
 		@discardableResult
 		open func variantBySelectedOptions(alias: String? = nil, selectedOptions: [SelectedOptionInput], _ subfields: (ProductVariantQuery) -> Void) -> ProductQuery {

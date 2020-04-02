@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// A comment on an article. 
 	open class CommentQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Comment
 
@@ -74,6 +75,7 @@ extension Storefront {
 		}
 	}
 
+	/// A comment on an article. 
 	open class Comment: GraphQL.AbstractResponse, GraphQLObject, Node {
 		public typealias Query = CommentQuery
 
