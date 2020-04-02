@@ -31,7 +31,7 @@ extension Storefront {
 	open class AppliedGiftCardQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = AppliedGiftCard
 
-		/// The amount that was taken from the Gift Card by applying it. 
+		/// The amount that was taken from the gift card by applying it. 
 		@available(*, deprecated, message:"Use `amountUsedV2` instead")
 		@discardableResult
 		open func amountUsed(alias: String? = nil) -> AppliedGiftCardQuery {
@@ -39,7 +39,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The amount that was taken from the Gift Card by applying it. 
+		/// The amount that was taken from the gift card by applying it. 
 		@discardableResult
 		open func amountUsedV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> AppliedGiftCardQuery {
 			let subquery = MoneyV2Query()
@@ -49,7 +49,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The amount left on the Gift Card. 
+		/// The amount left on the gift card. 
 		@available(*, deprecated, message:"Use `balanceV2` instead")
 		@discardableResult
 		open func balance(alias: String? = nil) -> AppliedGiftCardQuery {
@@ -57,7 +57,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The amount left on the Gift Card. 
+		/// The amount left on the gift card. 
 		@discardableResult
 		open func balanceV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> AppliedGiftCardQuery {
 			let subquery = MoneyV2Query()
@@ -74,7 +74,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The last characters of the Gift Card code 
+		/// The last characters of the gift card. 
 		@discardableResult
 		open func lastCharacters(alias: String? = nil) -> AppliedGiftCardQuery {
 			addField(field: "lastCharacters", aliasSuffix: alias)
@@ -146,7 +146,7 @@ extension Storefront {
 			}
 		}
 
-		/// The amount that was taken from the Gift Card by applying it. 
+		/// The amount that was taken from the gift card by applying it. 
 		@available(*, deprecated, message:"Use `amountUsedV2` instead")
 		open var amountUsed: Decimal {
 			return internalGetAmountUsed()
@@ -156,7 +156,7 @@ extension Storefront {
 			return field(field: "amountUsed", aliasSuffix: alias) as! Decimal
 		}
 
-		/// The amount that was taken from the Gift Card by applying it. 
+		/// The amount that was taken from the gift card by applying it. 
 		open var amountUsedV2: Storefront.MoneyV2 {
 			return internalGetAmountUsedV2()
 		}
@@ -165,7 +165,7 @@ extension Storefront {
 			return field(field: "amountUsedV2", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The amount left on the Gift Card. 
+		/// The amount left on the gift card. 
 		@available(*, deprecated, message:"Use `balanceV2` instead")
 		open var balance: Decimal {
 			return internalGetBalance()
@@ -175,7 +175,7 @@ extension Storefront {
 			return field(field: "balance", aliasSuffix: alias) as! Decimal
 		}
 
-		/// The amount left on the Gift Card. 
+		/// The amount left on the gift card. 
 		open var balanceV2: Storefront.MoneyV2 {
 			return internalGetBalanceV2()
 		}
@@ -193,7 +193,7 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// The last characters of the Gift Card code 
+		/// The last characters of the gift card. 
 		open var lastCharacters: String {
 			return internalGetLastCharacters()
 		}

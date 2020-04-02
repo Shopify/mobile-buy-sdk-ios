@@ -29,10 +29,13 @@ import Foundation
 extension Storefront {
 	/// List of supported image content types. 
 	public enum ImageContentType: String {
+		/// A JPG image. 
 		case jpg = "JPG"
 
+		/// A PNG image. 
 		case png = "PNG"
 
+		/// A WEBP image. 
 		case webp = "WEBP"
 
 		case unknownValue = ""

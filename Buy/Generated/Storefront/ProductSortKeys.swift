@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// The set of valid sort keys for the products query. 
+	/// The set of valid sort keys for the Product query. 
 	public enum ProductSortKeys: String {
 		/// Sort by the `best_selling` value. 
 		case bestSelling = "BEST_SELLING"

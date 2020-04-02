@@ -246,9 +246,10 @@ extension Storefront {
 			return self
 		}
 
+		/// Find a customer by its access token. 
 		///
 		/// - parameters:
-		///     - customerAccessToken: The customer access token
+		///     - customerAccessToken: The customer access token.
 		///
 		@discardableResult
 		open func customer(alias: String? = nil, customerAccessToken: String, _ subfields: (CustomerQuery) -> Void) -> QueryRootQuery {
@@ -539,6 +540,7 @@ extension Storefront {
 			return self
 		}
 
+		/// The shop associated with the storefront access token. 
 		@discardableResult
 		open func shop(alias: String? = nil, _ subfields: (ShopQuery) -> Void) -> QueryRootQuery {
 			let subquery = ShopQuery()
@@ -740,6 +742,7 @@ extension Storefront {
 			return field(field: "collections", aliasSuffix: alias) as! Storefront.CollectionConnection
 		}
 
+		/// Find a customer by its access token. 
 		open var customer: Storefront.Customer? {
 			return internalGetCustomer()
 		}
@@ -882,6 +885,7 @@ extension Storefront {
 			return field(field: "publicApiVersions", aliasSuffix: alias) as! [Storefront.ApiVersion]
 		}
 
+		/// The shop associated with the storefront access token. 
 		open var shop: Storefront.Shop {
 			return internalGetShop()
 		}

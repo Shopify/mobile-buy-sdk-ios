@@ -29,6 +29,7 @@ import Foundation
 extension Storefront {
 	/// Specifies the input fields to update a line item on the checkout. 
 	open class CheckoutLineItemUpdateInput {
+		/// The identifier of the line item. 
 		open var id: Input<GraphQL.ID>
 
 		/// The variant identifier of the line item. 
@@ -44,7 +45,7 @@ extension Storefront {
 		/// Creates the input object.
 		///
 		/// - parameters:
-		///     - id: No description
+		///     - id: The identifier of the line item.
 		///     - variantId: The variant identifier of the line item.
 		///     - quantity: The quantity of the line item.
 		///     - customAttributes: Extra information in the form of an array of Key-Value pairs about the line item.
@@ -63,7 +64,7 @@ extension Storefront {
 		/// Creates the input object.
 		///
 		/// - parameters:
-		///     - id: No description
+		///     - id: The identifier of the line item.
 		///     - variantId: The variant identifier of the line item.
 		///     - quantity: The quantity of the line item.
 		///     - customAttributes: Extra information in the form of an array of Key-Value pairs about the line item.

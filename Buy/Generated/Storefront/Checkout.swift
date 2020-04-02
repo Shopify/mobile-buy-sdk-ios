@@ -31,6 +31,7 @@ extension Storefront {
 	open class CheckoutQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Checkout
 
+		/// The gift cards used on the checkout. 
 		@discardableResult
 		open func appliedGiftCards(alias: String? = nil, _ subfields: (AppliedGiftCardQuery) -> Void) -> CheckoutQuery {
 			let subquery = AppliedGiftCardQuery()
@@ -203,6 +204,7 @@ extension Storefront {
 			return self
 		}
 
+		/// The note associated with the checkout. 
 		@discardableResult
 		open func note(alias: String? = nil) -> CheckoutQuery {
 			addField(field: "note", aliasSuffix: alias)
@@ -596,6 +598,7 @@ extension Storefront {
 			}
 		}
 
+		/// The gift cards used on the checkout. 
 		open var appliedGiftCards: [Storefront.AppliedGiftCard] {
 			return internalGetAppliedGiftCards()
 		}
@@ -715,6 +718,7 @@ extension Storefront {
 			return field(field: "lineItemsSubtotalPrice", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
+		/// The note associated with the checkout. 
 		open var note: String? {
 			return internalGetNote()
 		}
