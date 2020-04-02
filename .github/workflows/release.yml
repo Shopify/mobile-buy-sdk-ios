@@ -1,0 +1,38 @@
+name: Create SDK release
+
+on: 
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: macOS-latest
+    
+    steps:
+    
+    - uses: actions/checkout@master
+      with:
+        ref: 'master'
+
+    - name: Create a draft release
+      uses: actions/github-script@0.9.0
+      with:
+        script: |
+          // Get the current date
+          const today = new Date();
+          const yyyy = today.getFullYear();
+          const mm = String(today.getMonth() + 1).padStart(2, '0');
+          const api_version = yyyy + '-' + mm
+
+          github.repos.createRelease({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            name: "X.X.X",
+            body: "Release notes:" +
+              "\n- https://shopify.dev/concepts/about-apis/versioning/release-notes/" + api_version + "#storefront-api-changes",
+            tag_name: 'x.x.x',
+            target_commitish: 'master',
+            draft: true,
+            prerelease: false,
+          })

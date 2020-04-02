@@ -1,0 +1,23 @@
+name: Ensure Mobile-Buy-SDK version is bumped
+
+on:
+  push:
+    branches:
+      - release/**
+jobs:
+  build:
+    runs-on: macOS-latest
+      
+    steps:
+    - uses: actions/checkout@master
+
+    - name: Ensure Mobile-Buy-SDK.podspec version is changed
+      run: |
+        LINES=$(git log -- Mobile-Buy-SDK.podspec master..HEAD | xargs -n 4 | grep s.version | wc -l)
+        if [ "$LINES" -eq "2" ]; then
+          echo "Podfile version was updated";
+          exit 0;
+        else 
+          echo "::error::Mobile-Buy-SDK.podspec must be updated with new version"
+          exit 1;
+        fi
