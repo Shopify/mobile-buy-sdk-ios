@@ -27,15 +27,21 @@
 import Foundation
 
 extension Storefront {
+	/// Represents the reason for the order's cancellation. 
 	public enum OrderCancelReason: String {
+		/// The customer wanted to cancel the order. 
 		case customer = "CUSTOMER"
 
+		/// Payment was declined. 
 		case declined = "DECLINED"
 
+		/// The order was fraudulent. 
 		case fraud = "FRAUD"
 
+		/// There was insufficient inventory. 
 		case inventory = "INVENTORY"
 
+		/// The order was canceled for an unlisted reason. 
 		case other = "OTHER"
 
 		case unknownValue = ""

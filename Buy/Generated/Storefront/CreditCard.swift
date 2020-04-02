@@ -31,49 +31,56 @@ extension Storefront {
 	open class CreditCardQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CreditCard
 
+		/// The brand of the credit card. 
 		@discardableResult
 		open func brand(alias: String? = nil) -> CreditCardQuery {
 			addField(field: "brand", aliasSuffix: alias)
 			return self
 		}
 
+		/// The expiry month of the credit card. 
 		@discardableResult
 		open func expiryMonth(alias: String? = nil) -> CreditCardQuery {
 			addField(field: "expiryMonth", aliasSuffix: alias)
 			return self
 		}
 
+		/// The expiry year of the credit card. 
 		@discardableResult
 		open func expiryYear(alias: String? = nil) -> CreditCardQuery {
 			addField(field: "expiryYear", aliasSuffix: alias)
 			return self
 		}
 
+		/// The credit card's BIN number. 
 		@discardableResult
 		open func firstDigits(alias: String? = nil) -> CreditCardQuery {
 			addField(field: "firstDigits", aliasSuffix: alias)
 			return self
 		}
 
+		/// The first name of the card holder. 
 		@discardableResult
 		open func firstName(alias: String? = nil) -> CreditCardQuery {
 			addField(field: "firstName", aliasSuffix: alias)
 			return self
 		}
 
+		/// The last 4 digits of the credit card. 
 		@discardableResult
 		open func lastDigits(alias: String? = nil) -> CreditCardQuery {
 			addField(field: "lastDigits", aliasSuffix: alias)
 			return self
 		}
 
+		/// The last name of the card holder. 
 		@discardableResult
 		open func lastName(alias: String? = nil) -> CreditCardQuery {
 			addField(field: "lastName", aliasSuffix: alias)
 			return self
 		}
 
-		/// Masked credit card number with only the last 4 digits displayed 
+		/// The masked credit card number with only the last 4 digits displayed. 
 		@discardableResult
 		open func maskedNumber(alias: String? = nil) -> CreditCardQuery {
 			addField(field: "maskedNumber", aliasSuffix: alias)
@@ -149,6 +156,7 @@ extension Storefront {
 			}
 		}
 
+		/// The brand of the credit card. 
 		open var brand: String? {
 			return internalGetBrand()
 		}
@@ -157,6 +165,7 @@ extension Storefront {
 			return field(field: "brand", aliasSuffix: alias) as! String?
 		}
 
+		/// The expiry month of the credit card. 
 		open var expiryMonth: Int32? {
 			return internalGetExpiryMonth()
 		}
@@ -165,6 +174,7 @@ extension Storefront {
 			return field(field: "expiryMonth", aliasSuffix: alias) as! Int32?
 		}
 
+		/// The expiry year of the credit card. 
 		open var expiryYear: Int32? {
 			return internalGetExpiryYear()
 		}
@@ -173,6 +183,7 @@ extension Storefront {
 			return field(field: "expiryYear", aliasSuffix: alias) as! Int32?
 		}
 
+		/// The credit card's BIN number. 
 		open var firstDigits: String? {
 			return internalGetFirstDigits()
 		}
@@ -181,6 +192,7 @@ extension Storefront {
 			return field(field: "firstDigits", aliasSuffix: alias) as! String?
 		}
 
+		/// The first name of the card holder. 
 		open var firstName: String? {
 			return internalGetFirstName()
 		}
@@ -189,6 +201,7 @@ extension Storefront {
 			return field(field: "firstName", aliasSuffix: alias) as! String?
 		}
 
+		/// The last 4 digits of the credit card. 
 		open var lastDigits: String? {
 			return internalGetLastDigits()
 		}
@@ -197,6 +210,7 @@ extension Storefront {
 			return field(field: "lastDigits", aliasSuffix: alias) as! String?
 		}
 
+		/// The last name of the card holder. 
 		open var lastName: String? {
 			return internalGetLastName()
 		}
@@ -205,7 +219,7 @@ extension Storefront {
 			return field(field: "lastName", aliasSuffix: alias) as! String?
 		}
 
-		/// Masked credit card number with only the last 4 digits displayed 
+		/// The masked credit card number with only the last 4 digits displayed. 
 		open var maskedNumber: String? {
 			return internalGetMaskedNumber()
 		}

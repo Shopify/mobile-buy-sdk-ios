@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// The set of valid sort keys for the collections query. 
+	/// The set of valid sort keys for the Collection query. 
 	public enum CollectionSortKeys: String {
 		/// Sort by the `id` value. 
 		case id = "ID"

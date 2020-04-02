@@ -1,9 +1,9 @@
 //
-//  Storefront.Schema.swift
+//  PaymentTokenType.swift
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2020 Shopify Inc. All rights reserved.
+//  Copyright (c) 2017 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +24,23 @@
 //  THE SOFTWARE.
 //
 
+import Foundation
+
 extension Storefront {
-    enum Schema {
-        static let version = "2020-04"
-    }
+	/// The valid values for the types of payment token. 
+	public enum PaymentTokenType: String {
+		/// Apple Pay token type. 
+		case applePay = "APPLE_PAY"
+
+		/// Google Pay token type. 
+		case googlePay = "GOOGLE_PAY"
+
+		/// Shopify Pay token type. 
+		case shopifyPay = "SHOPIFY_PAY"
+
+		/// Vault payment token type. 
+		case vault = "VAULT"
+
+		case unknownValue = ""
+	}
 }

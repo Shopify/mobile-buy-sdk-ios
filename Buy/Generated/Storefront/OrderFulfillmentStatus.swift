@@ -1,9 +1,9 @@
 //
-//  Storefront.Schema.swift
+//  OrderFulfillmentStatus.swift
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2020 Shopify Inc. All rights reserved.
+//  Copyright (c) 2017 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +24,32 @@
 //  THE SOFTWARE.
 //
 
+import Foundation
+
 extension Storefront {
-    enum Schema {
-        static let version = "2020-04"
-    }
+	/// Represents the order's current fulfillment status. 
+	public enum OrderFulfillmentStatus: String {
+		/// Displayed as **Fulfilled**. 
+		case fulfilled = "FULFILLED"
+
+		/// Displayed as **In progress**. 
+		case inProgress = "IN_PROGRESS"
+
+		/// Displayed as **Open**. 
+		case `open` = "OPEN"
+
+		/// Displayed as **Partially fulfilled**. 
+		case partiallyFulfilled = "PARTIALLY_FULFILLED"
+
+		/// Displayed as **Pending fulfillment**. 
+		case pendingFulfillment = "PENDING_FULFILLMENT"
+
+		/// Displayed as **Restocked**. 
+		case restocked = "RESTOCKED"
+
+		/// Displayed as **Unfulfilled**. 
+		case unfulfilled = "UNFULFILLED"
+
+		case unknownValue = ""
+	}
 }

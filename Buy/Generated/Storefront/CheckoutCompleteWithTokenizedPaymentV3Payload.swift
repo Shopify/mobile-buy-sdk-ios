@@ -1,5 +1,5 @@
 //
-//  CheckoutLineItemsRemovePayload.swift
+//  CheckoutCompleteWithTokenizedPaymentV3Payload.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,13 +27,13 @@
 import Foundation
 
 extension Storefront {
-	/// Return type for `checkoutLineItemsRemove` mutation. 
-	open class CheckoutLineItemsRemovePayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
-		public typealias Response = CheckoutLineItemsRemovePayload
+	/// Return type for `checkoutCompleteWithTokenizedPaymentV3` mutation. 
+	open class CheckoutCompleteWithTokenizedPaymentV3PayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = CheckoutCompleteWithTokenizedPaymentV3Payload
 
-		/// The updated checkout object. 
+		/// The checkout on which the payment was applied. 
 		@discardableResult
-		open func checkout(alias: String? = nil, _ subfields: (CheckoutQuery) -> Void) -> CheckoutLineItemsRemovePayloadQuery {
+		open func checkout(alias: String? = nil, _ subfields: (CheckoutQuery) -> Void) -> CheckoutCompleteWithTokenizedPaymentV3PayloadQuery {
 			let subquery = CheckoutQuery()
 			subfields(subquery)
 
@@ -43,7 +43,7 @@ extension Storefront {
 
 		/// List of errors that occurred executing the mutation. 
 		@discardableResult
-		open func checkoutUserErrors(alias: String? = nil, _ subfields: (CheckoutUserErrorQuery) -> Void) -> CheckoutLineItemsRemovePayloadQuery {
+		open func checkoutUserErrors(alias: String? = nil, _ subfields: (CheckoutUserErrorQuery) -> Void) -> CheckoutCompleteWithTokenizedPaymentV3PayloadQuery {
 			let subquery = CheckoutUserErrorQuery()
 			subfields(subquery)
 
@@ -51,10 +51,20 @@ extension Storefront {
 			return self
 		}
 
+		/// A representation of the attempted payment. 
+		@discardableResult
+		open func payment(alias: String? = nil, _ subfields: (PaymentQuery) -> Void) -> CheckoutCompleteWithTokenizedPaymentV3PayloadQuery {
+			let subquery = PaymentQuery()
+			subfields(subquery)
+
+			addField(field: "payment", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// List of errors that occurred executing the mutation. 
 		@available(*, deprecated, message:"Use `checkoutUserErrors` instead")
 		@discardableResult
-		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CheckoutLineItemsRemovePayloadQuery {
+		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CheckoutCompleteWithTokenizedPaymentV3PayloadQuery {
 			let subquery = UserErrorQuery()
 			subfields(subquery)
 
@@ -63,9 +73,9 @@ extension Storefront {
 		}
 	}
 
-	/// Return type for `checkoutLineItemsRemove` mutation. 
-	open class CheckoutLineItemsRemovePayload: GraphQL.AbstractResponse, GraphQLObject {
-		public typealias Query = CheckoutLineItemsRemovePayloadQuery
+	/// Return type for `checkoutCompleteWithTokenizedPaymentV3` mutation. 
+	open class CheckoutCompleteWithTokenizedPaymentV3Payload: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = CheckoutCompleteWithTokenizedPaymentV3PayloadQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
@@ -73,28 +83,35 @@ extension Storefront {
 				case "checkout":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: CheckoutLineItemsRemovePayload.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CheckoutCompleteWithTokenizedPaymentV3Payload.self, field: fieldName, value: fieldValue)
 				}
 				return try Checkout(fields: value)
 
 				case "checkoutUserErrors":
 				guard let value = value as? [[String: Any]] else {
-					throw SchemaViolationError(type: CheckoutLineItemsRemovePayload.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CheckoutCompleteWithTokenizedPaymentV3Payload.self, field: fieldName, value: fieldValue)
 				}
 				return try value.map { return try CheckoutUserError(fields: $0) }
 
+				case "payment":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: CheckoutCompleteWithTokenizedPaymentV3Payload.self, field: fieldName, value: fieldValue)
+				}
+				return try Payment(fields: value)
+
 				case "userErrors":
 				guard let value = value as? [[String: Any]] else {
-					throw SchemaViolationError(type: CheckoutLineItemsRemovePayload.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CheckoutCompleteWithTokenizedPaymentV3Payload.self, field: fieldName, value: fieldValue)
 				}
 				return try value.map { return try UserError(fields: $0) }
 
 				default:
-				throw SchemaViolationError(type: CheckoutLineItemsRemovePayload.self, field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: CheckoutCompleteWithTokenizedPaymentV3Payload.self, field: fieldName, value: fieldValue)
 			}
 		}
 
-		/// The updated checkout object. 
+		/// The checkout on which the payment was applied. 
 		open var checkout: Storefront.Checkout? {
 			return internalGetCheckout()
 		}
@@ -110,6 +127,15 @@ extension Storefront {
 
 		func internalGetCheckoutUserErrors(alias: String? = nil) -> [Storefront.CheckoutUserError] {
 			return field(field: "checkoutUserErrors", aliasSuffix: alias) as! [Storefront.CheckoutUserError]
+		}
+
+		/// A representation of the attempted payment. 
+		open var payment: Storefront.Payment? {
+			return internalGetPayment()
+		}
+
+		func internalGetPayment(alias: String? = nil) -> Storefront.Payment? {
+			return field(field: "payment", aliasSuffix: alias) as! Storefront.Payment?
 		}
 
 		/// List of errors that occurred executing the mutation. 
@@ -136,6 +162,12 @@ extension Storefront {
 					internalGetCheckoutUserErrors().forEach {
 						response.append($0)
 						response.append(contentsOf: $0.childResponseObjectMap())
+					}
+
+					case "payment":
+					if let value = internalGetPayment() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
 					case "userErrors":

@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// The set of valid sort keys for the articles query. 
+	/// The set of valid sort keys for the Article query. 
 	public enum ArticleSortKeys: String {
 		/// Sort by the `author` value. 
 		case author = "AUTHOR"
