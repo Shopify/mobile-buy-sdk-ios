@@ -1,5 +1,7 @@
-PATH
-  remote: Dependencies/Swift Gen
+GIT
+  remote: https://github.com/Shopify/graphql_swift_gen
+  revision: 3b1342a0452462cef93839e9d0db636a12cb9b17
+  branch: task/buy-sdk-3
   specs:
     graphql_swift_gen (0.1.0)
       graphql_schema (~> 0.1.1)
@@ -16,4 +18,4 @@ DEPENDENCIES
   graphql_swift_gen!
 
 BUNDLED WITH
-   1.14.3
+   1.17.3
