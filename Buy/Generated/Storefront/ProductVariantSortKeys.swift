@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// The set of valid sort keys for the variants query. 
+	/// The set of valid sort keys for the ProductVariant query. 
 	public enum ProductVariantSortKeys: String {
 		/// Sort by the `id` value. 
 		case id = "ID"

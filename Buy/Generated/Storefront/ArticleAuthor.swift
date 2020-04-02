@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// The author of an article. 
 	open class ArticleAuthorQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ArticleAuthor
 
@@ -66,6 +67,7 @@ extension Storefront {
 		}
 	}
 
+	/// The author of an article. 
 	open class ArticleAuthor: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ArticleAuthorQuery
 

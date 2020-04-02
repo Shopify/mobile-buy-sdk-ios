@@ -1,6 +1,6 @@
 //
-//  ProductImageSortKeys.swift
-//  Buy
+//  Locale+LanguageTests.swift
+//  BuyTests
 //
 //  Created by Shopify.
 //  Copyright (c) 2017 Shopify Inc. All rights reserved.
@@ -24,26 +24,28 @@
 //  THE SOFTWARE.
 //
 
-import Foundation
+import XCTest
+@testable import Buy
 
-extension Storefront {
-	/// The set of valid sort keys for the ProductImage query. 
-	public enum ProductImageSortKeys: String {
-		/// Sort by the `created_at` value. 
-		case createdAt = "CREATED_AT"
-
-		/// Sort by the `id` value. 
-		case id = "ID"
-
-		/// Sort by the `position` value. 
-		case position = "POSITION"
-
-		/// During a search (i.e. when the `query` parameter has been specified on the 
-		/// connection) this sorts the results by relevance to the search term(s). When 
-		/// no search query is specified, this sort key is not deterministic and should 
-		/// not be used. 
-		case relevance = "RELEVANCE"
-
-		case unknownValue = ""
-	}
+class Locale_LanguageTests: XCTestCase {
+    
+    func testCompleteIdentifier() {
+        let locale = Locale(identifier: "en_US")
+        XCTAssertEqual(locale.languageIdentifier, "en-US")
+    }
+    
+    func testNoRegionCode() {
+        let locale = Locale(identifier: "en")
+        XCTAssertEqual(locale.languageIdentifier, "en")
+    }
+    
+    func testHyphenSeparated() {
+        let locale = Locale(identifier: "en-US")
+        XCTAssertEqual(locale.languageIdentifier, "en-US")
+    }
+    
+    func testCompoundLocale() {
+        let locale = Locale(identifier: "zh_Hans_US")
+        XCTAssertEqual(locale.languageIdentifier, "zh-US")
+    }
 }

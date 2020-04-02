@@ -66,6 +66,9 @@
 		815FAB5523C4B82D00F98749 /* UnitPriceMeasurementMeasuredUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550823C4AC7E00ADA66E /* UnitPriceMeasurementMeasuredUnit.swift */; };
 		815FAB5623C4B82D00F98749 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550723C4AC7E00ADA66E /* Video.swift */; };
 		815FAB5723C4B82D00F98749 /* VideoSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128550623C4AC7E00ADA66E /* VideoSource.swift */; };
+		81F02041243391F100826BEC /* Storefront.Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F02040243391F000826BEC /* Storefront.Schema.swift */; };
+		81F02042243391F100826BEC /* Storefront.Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F02040243391F000826BEC /* Storefront.Schema.swift */; };
+		81F02043243391F100826BEC /* Storefront.Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F02040243391F000826BEC /* Storefront.Schema.swift */; };
 		9A035E102177B764008596C9 /* TokenizedPaymentInputV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A035E0F2177B763008596C9 /* TokenizedPaymentInputV2.swift */; };
 		9A035E112177B764008596C9 /* TokenizedPaymentInputV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A035E0F2177B763008596C9 /* TokenizedPaymentInputV2.swift */; };
 		9A035E122177B764008596C9 /* TokenizedPaymentInputV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A035E0F2177B763008596C9 /* TokenizedPaymentInputV2.swift */; };
@@ -193,6 +196,10 @@
 		9A0C81071EBA66800020F187 /* Graph.CachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0C81061EBA66800020F187 /* Graph.CachePolicy.swift */; };
 		9A125CFF1F16A0E0008DCF38 /* StringConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A125CFE1F16A0D7008DCF38 /* StringConnection.swift */; };
 		9A125D001F16A0E0008DCF38 /* StringEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A125CFD1F16A0D7008DCF38 /* StringEdge.swift */; };
+		9A22EC072404732E00E3D3F2 /* Locale+Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A22EC062404732E00E3D3F2 /* Locale+Language.swift */; };
+		9A22EC0B2404738300E3D3F2 /* Locale+LanguageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A22EC0A2404738300E3D3F2 /* Locale+LanguageTests.swift */; };
+		9A22EC0C240556CA00E3D3F2 /* Locale+Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A22EC062404732E00E3D3F2 /* Locale+Language.swift */; };
+		9A22EC0D240556CB00E3D3F2 /* Locale+Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A22EC062404732E00E3D3F2 /* Locale+Language.swift */; };
 		9A2ACDC521CABAC200C09FF7 /* ProductVariantPricePair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2ACDBE21CABAC100C09FF7 /* ProductVariantPricePair.swift */; };
 		9A2ACDC621CABAC200C09FF7 /* ProductVariantPricePair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2ACDBE21CABAC100C09FF7 /* ProductVariantPricePair.swift */; };
 		9A2ACDC721CABAC200C09FF7 /* ProductVariantPricePair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2ACDBE21CABAC100C09FF7 /* ProductVariantPricePair.swift */; };
@@ -747,6 +754,7 @@
 		8128550F23C4AC7E00ADA66E /* MediaConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaConnection.swift; sourceTree = "<group>"; };
 		8128551023C4AC7E00ADA66E /* MediaImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaImage.swift; sourceTree = "<group>"; };
 		8128551123C4AC7E00ADA66E /* UnitPriceMeasurementMeasuredType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitPriceMeasurementMeasuredType.swift; sourceTree = "<group>"; };
+		81F02040243391F000826BEC /* Storefront.Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Storefront.Schema.swift; path = Buy/Generated/Storefront.Schema.swift; sourceTree = SOURCE_ROOT; };
 		9A035E0F2177B763008596C9 /* TokenizedPaymentInputV2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizedPaymentInputV2.swift; sourceTree = "<group>"; };
 		9A0C7FCC1EA6631B0020F187 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		9A0C7FD01EA669C80020F187 /* PayDiscount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayDiscount.swift; sourceTree = "<group>"; };
@@ -862,6 +870,8 @@
 		9A0C81061EBA66800020F187 /* Graph.CachePolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.CachePolicy.swift; sourceTree = "<group>"; };
 		9A125CFD1F16A0D7008DCF38 /* StringEdge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringEdge.swift; sourceTree = "<group>"; };
 		9A125CFE1F16A0D7008DCF38 /* StringConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringConnection.swift; sourceTree = "<group>"; };
+		9A22EC062404732E00E3D3F2 /* Locale+Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locale+Language.swift"; sourceTree = "<group>"; };
+		9A22EC0A2404738300E3D3F2 /* Locale+LanguageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Locale+LanguageTests.swift"; sourceTree = "<group>"; };
 		9A2ACDBE21CABAC100C09FF7 /* ProductVariantPricePair.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductVariantPricePair.swift; sourceTree = "<group>"; };
 		9A2ACDBF21CABAC100C09FF7 /* PageConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageConnection.swift; sourceTree = "<group>"; };
 		9A2ACDC021CABAC100C09FF7 /* ProductVariantPricePairEdge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductVariantPricePairEdge.swift; sourceTree = "<group>"; };
@@ -1251,6 +1261,14 @@
 			path = Storefront;
 			sourceTree = "<group>";
 		};
+		9A22EC092404737100E3D3F2 /* Utitlies */ = {
+			isa = PBXGroup;
+			children = (
+				9A22EC0A2404738300E3D3F2 /* Locale+LanguageTests.swift */,
+			);
+			path = Utitlies;
+			sourceTree = "<group>";
+		};
 		9A4068DD1E8E7659000254CD /* Pay */ = {
 			isa = PBXGroup;
 			children = (
@@ -1359,6 +1377,7 @@
 				9AAFAB711E60766E00864A17 /* Global.swift */,
 				9A49DC821EC4AD580053710B /* Header.swift */,
 				9AE2A1C51EC9EE1D00921247 /* Log.swift */,
+				9A22EC062404732E00E3D3F2 /* Locale+Language.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1448,6 +1467,7 @@
 		9AEF60FE1E5F439D0067FA90 /* Generated */ = {
 			isa = PBXGroup;
 			children = (
+				81F02040243391F000826BEC /* Storefront.Schema.swift */,
 				9A0C7FF81EAA51C50020F187 /* Storefront */,
 				9A0C80571EAA51C50020F187 /* Storefront.swift */,
 			);
@@ -1471,6 +1491,7 @@
 				9A46660E1EF1915400A41625 /* Card */,
 				9A46660D1EF1914000A41625 /* Client */,
 				9A9C513E1F02A691003363E7 /* Crypto */,
+				9A22EC092404737100E3D3F2 /* Utitlies */,
 				9AFA38EE1E64850A0056C5AA /* Info.plist */,
 			);
 			path = BuyTests;
@@ -1861,9 +1882,11 @@
 				9AA9A3FA2279E79B0002DFDA /* MetafieldValueType.swift in Sources */,
 				9A67115921666AB200A57A3F /* DiscountApplicationEdge.swift in Sources */,
 				9A67116221666AB200A57A3F /* DiscountApplication.swift in Sources */,
+				9A22EC0C240556CA00E3D3F2 /* Locale+Language.swift in Sources */,
 				9AC2EF501F6818180037E0D7 /* MD5.m in Sources */,
 				9AC2EF511F6818180037E0D7 /* Graph.RetryHandler.swift in Sources */,
 				9A67116E21666AB200A57A3F /* PricingValue.swift in Sources */,
+				81F02042243391F100826BEC /* Storefront.Schema.swift in Sources */,
 				9AC2EF521F6818180037E0D7 /* CurrencyCode.swift in Sources */,
 				9AC2EF531F6818180037E0D7 /* ShopPolicy.swift in Sources */,
 				9AC2EF541F6818180037E0D7 /* CheckoutShippingLineUpdatePayload.swift in Sources */,
@@ -2081,9 +2104,11 @@
 				9A52D3A51F3CA5DB00C093C8 /* DigitalWallet.swift in Sources */,
 				9A43489B20C84A56005EAD56 /* CheckoutDiscountCodeRemovePayload.swift in Sources */,
 				9A0C80941EAA51C50020F187 /* MailingAddressInput.swift in Sources */,
+				9A22EC072404732E00E3D3F2 /* Locale+Language.swift in Sources */,
 				9ABEB3C12122FFE900A373F2 /* CheckoutGiftCardsAppendPayload.swift in Sources */,
 				9A0C80881EAA51C50020F187 /* CustomerRecoverPayload.swift in Sources */,
 				9A67114221666A6700A57A3F /* CheckoutErrorCode.swift in Sources */,
+				81F02041243391F100826BEC /* Storefront.Schema.swift in Sources */,
 				8128551323C4AC7E00ADA66E /* Model3d.swift in Sources */,
 				9AF1C1881F13B45C0064AEA0 /* PaymentSettings.swift in Sources */,
 				9A0C808D1EAA51C50020F187 /* Domain.swift in Sources */,
@@ -2301,9 +2326,11 @@
 				9AA9A3FB2279E79B0002DFDA /* MetafieldValueType.swift in Sources */,
 				9A67115A21666AB200A57A3F /* DiscountApplicationEdge.swift in Sources */,
 				9A67116321666AB200A57A3F /* DiscountApplication.swift in Sources */,
+				9A22EC0D240556CB00E3D3F2 /* Locale+Language.swift in Sources */,
 				9AF255CA1F6FEE50005BB0C9 /* MD5.m in Sources */,
 				9AF255CB1F6FEE50005BB0C9 /* Graph.RetryHandler.swift in Sources */,
 				9A67116F21666AB200A57A3F /* PricingValue.swift in Sources */,
+				81F02043243391F100826BEC /* Storefront.Schema.swift in Sources */,
 				9AF255CC1F6FEE50005BB0C9 /* CurrencyCode.swift in Sources */,
 				9AF255CD1F6FEE50005BB0C9 /* ShopPolicy.swift in Sources */,
 				9AF255CE1F6FEE50005BB0C9 /* CheckoutShippingLineUpdatePayload.swift in Sources */,
@@ -2481,6 +2508,7 @@
 				9A0C80F91EB7BAEF0020F187 /* Card.CreditCardTests.swift in Sources */,
 				9AE2A1C21EC6373B00921247 /* Graph.CachePolicyTests.swift in Sources */,
 				9A6F3BA91EBB6A7500B149F4 /* Graph.CacheTests.swift in Sources */,
+				9A22EC0B2404738300E3D3F2 /* Locale+LanguageTests.swift in Sources */,
 				9A0C7FEB1EAA3F7E0020F187 /* MockSession.swift in Sources */,
 				9A0C7FEF1EAA3F7E0020F187 /* Graph.ClientTests.swift in Sources */,
 				9A0C7FF11EAA3F7E0020F187 /* Graph.RetryHandlerTests.swift in Sources */,
@@ -2532,7 +2560,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3.7.0;
+				DYLIB_CURRENT_VERSION = 3.7.1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Pay/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2557,7 +2585,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3.7.0;
+				DYLIB_CURRENT_VERSION = 3.7.1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Pay/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2610,7 +2638,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3.7.0;
+				DYLIB_CURRENT_VERSION = 3.7.1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Buy/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2638,7 +2666,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3.7.0;
+				DYLIB_CURRENT_VERSION = 3.7.1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Buy/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2689,6 +2717,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DYLIB_CURRENT_VERSION = 3.7.1;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2751,6 +2780,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_CURRENT_VERSION = 3.7.1;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2780,7 +2810,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3.7.0;
+				DYLIB_CURRENT_VERSION = 3.7.1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Buy/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2802,7 +2832,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3.7.0;
+				DYLIB_CURRENT_VERSION = 3.7.1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Buy/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2825,7 +2855,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3.7.0;
+				DYLIB_CURRENT_VERSION = 3.7.1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Buy/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2854,7 +2884,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 3.7.0;
+				DYLIB_CURRENT_VERSION = 3.7.1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Buy/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";

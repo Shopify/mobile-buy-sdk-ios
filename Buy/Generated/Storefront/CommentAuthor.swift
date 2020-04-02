@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// The author of a comment. 
 	open class CommentAuthorQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CommentAuthor
 
@@ -45,6 +46,7 @@ extension Storefront {
 		}
 	}
 
+	/// The author of a comment. 
 	open class CommentAuthor: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CommentAuthorQuery
 

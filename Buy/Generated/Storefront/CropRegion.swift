@@ -29,19 +29,19 @@ import Foundation
 extension Storefront {
 	/// The part of the image that should remain after cropping. 
 	public enum CropRegion: String {
-		/// Keep the bottom of the image 
+		/// Keep the bottom of the image. 
 		case bottom = "BOTTOM"
 
-		/// Keep the center of the image 
+		/// Keep the center of the image. 
 		case center = "CENTER"
 
-		/// Keep the left of the image 
+		/// Keep the left of the image. 
 		case `left` = "LEFT"
 
-		/// Keep the right of the image 
+		/// Keep the right of the image. 
 		case `right` = "RIGHT"
 
-		/// Keep the top of the image 
+		/// Keep the top of the image. 
 		case top = "TOP"
 
 		case unknownValue = ""

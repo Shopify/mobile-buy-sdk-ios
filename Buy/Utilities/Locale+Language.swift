@@ -1,5 +1,5 @@
 //
-//  ProductImageSortKeys.swift
+//  Locale+Language.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -26,24 +26,18 @@
 
 import Foundation
 
-extension Storefront {
-	/// The set of valid sort keys for the ProductImage query. 
-	public enum ProductImageSortKeys: String {
-		/// Sort by the `created_at` value. 
-		case createdAt = "CREATED_AT"
-
-		/// Sort by the `id` value. 
-		case id = "ID"
-
-		/// Sort by the `position` value. 
-		case position = "POSITION"
-
-		/// During a search (i.e. when the `query` parameter has been specified on the 
-		/// connection) this sorts the results by relevance to the search term(s). When 
-		/// no search query is specified, this sort key is not deterministic and should 
-		/// not be used. 
-		case relevance = "RELEVANCE"
-
-		case unknownValue = ""
-	}
+internal extension Locale {
+    
+    var languageIdentifier: String {
+        let components = [
+            languageCode,
+            regionCode,
+        ].compactMap { $0 }
+        
+        if !components.isEmpty {
+            return components.joined(separator: "-")
+        } else {
+            return identifier
+        }
+    }
 }

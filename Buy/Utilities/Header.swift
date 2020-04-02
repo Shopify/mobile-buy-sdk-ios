@@ -34,4 +34,5 @@ internal struct Header {
     static var sdkVersion    = "X-SDK-Version"
     static var sdkVariant    = "X-SDK-Variant"
     static var queryTag      = "X-Query-Tag"
+    static var language     = "Accept-Language"
 }

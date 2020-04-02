@@ -1,17 +1,39 @@
 #!/usr/bin/env ruby
 
+# Generates new schema typed swift code for the ios mobile buy SDK; and updates the
+# version of the storefront API being used by the SDK
+#
+# build.rb
+
 require 'bundler/setup'
 require 'net/http'
 require 'json'
 require 'optparse'
 require 'graphql_schema'
 require 'graphql_swift_gen'
+require 'fileutils'
+require 'erb'
 
 shared_storefront_api_key = "4a6c829ec3cb12ef9004bf8ed27adf12"
-storefront_api_version    = "2020-01"
-endpoint                  = URI("https://app.shopify.com/services/graphql/introspection/storefront?api_client_api_key=#{shared_storefront_api_key}&api_version=#{storefront_api_version}")
-body                      = Net::HTTP.get(endpoint)
-schema                    = GraphQLSchema.new(JSON.parse(body))
+storefront_api_version = ARGV[0]
+
+endpoint = URI("https://app.shopify.com/services/graphql/introspection/storefront?api_client_api_key=#{shared_storefront_api_key}&api_version=#{storefront_api_version}")
+
+res = Net::HTTP.get_response(endpoint)
+
+if res.is_a?(Net::HTTPSuccess)
+  puts "Using Storefront API version: #{storefront_api_version}"
+
+  output = ERB.new(File.read("version.swift.erb")).result()
+
+  File.open("../Buy/Generated/Storefront.Schema.swift", "w") { |f|
+  	f.write "#{output}"
+  }
+  schema = GraphQLSchema.new(JSON.parse(res.body))
+else
+  puts "Invalid API version provided. Please try again."
+	exit(false)
+end
 
 customScalars = [
 	GraphQLSwiftGen::Scalar.new(

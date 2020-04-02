@@ -1,9 +1,9 @@
 //
-//  ProductImageSortKeys.swift
+//  Storefront.Schema.swift
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//  Copyright (c) 2020 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,26 +24,8 @@
 //  THE SOFTWARE.
 //
 
-import Foundation
-
 extension Storefront {
-	/// The set of valid sort keys for the ProductImage query. 
-	public enum ProductImageSortKeys: String {
-		/// Sort by the `created_at` value. 
-		case createdAt = "CREATED_AT"
-
-		/// Sort by the `id` value. 
-		case id = "ID"
-
-		/// Sort by the `position` value. 
-		case position = "POSITION"
-
-		/// During a search (i.e. when the `query` parameter has been specified on the 
-		/// connection) this sorts the results by relevance to the search term(s). When 
-		/// no search query is specified, this sort key is not deterministic and should 
-		/// not be used. 
-		case relevance = "RELEVANCE"
-
-		case unknownValue = ""
-	}
+    enum Schema {
+        static let version = "<%= storefront_api_version %>"
+    }
 }

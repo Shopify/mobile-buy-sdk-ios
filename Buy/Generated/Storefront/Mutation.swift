@@ -40,7 +40,7 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - checkoutId: The ID of the checkout.
-		///     - input: No description
+		///     - input: The fields used to update a checkout's attributes.
 		///
 		@available(*, deprecated, message:"Use `checkoutAttributesUpdateV2` instead")
 		@discardableResult
@@ -185,6 +185,7 @@ extension Storefront {
 		///     - checkoutId: The ID of the checkout.
 		///     - payment: The info to apply as a tokenized payment.
 		///
+		@available(*, deprecated, message:"Use `checkoutCompleteWithTokenizedPaymentV3` instead")
 		@discardableResult
 		open func checkoutCompleteWithTokenizedPaymentV2(alias: String? = nil, checkoutId: GraphQL.ID, payment: TokenizedPaymentInputV2, _ subfields: (CheckoutCompleteWithTokenizedPaymentV2PayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -205,7 +206,7 @@ extension Storefront {
 		/// Creates a new checkout. 
 		///
 		/// - parameters:
-		///     - input: No description
+		///     - input: The fields used to create a checkout.
 		///
 		@discardableResult
 		open func checkoutCreate(alias: String? = nil, input: CheckoutCreateInput, _ subfields: (CheckoutCreatePayloadQuery) -> Void) -> MutationQuery {
@@ -543,11 +544,11 @@ extension Storefront {
 			return self
 		}
 
-		/// Removes line items from an existing checkout 
+		/// Removes line items from an existing checkout. 
 		///
 		/// - parameters:
-		///     - checkoutId: the checkout on which to remove line items
-		///     - lineItemIds: line item ids to remove
+		///     - checkoutId: The checkout on which to remove line items.
+		///     - lineItemIds: Line item ids to remove.
 		///
 		@available(*, deprecated, message:"Use `checkoutLineItemsReplace` instead")
 		@discardableResult
@@ -593,8 +594,8 @@ extension Storefront {
 		/// Updates line items on a checkout. 
 		///
 		/// - parameters:
-		///     - checkoutId: the checkout on which to update line items.
-		///     - lineItems: line items to update.
+		///     - checkoutId: The checkout on which to update line items.
+		///     - lineItems: Line items to update.
 		///
 		@available(*, deprecated, message:"Use `checkoutLineItemsReplace` instead")
 		@discardableResult
@@ -688,7 +689,7 @@ extension Storefront {
 		/// modify the customer object in any way. 
 		///
 		/// - parameters:
-		///     - input: No description
+		///     - input: The fields used to create a customer access token.
 		///
 		@discardableResult
 		open func customerAccessTokenCreate(alias: String? = nil, input: CustomerAccessTokenCreateInput, _ subfields: (CustomerAccessTokenCreatePayloadQuery) -> Void) -> MutationQuery {
@@ -751,7 +752,7 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - id: Specifies the customer to activate.
-		///     - input: No description
+		///     - input: The fields used to activate a customer.
 		///
 		@discardableResult
 		open func customerActivate(alias: String? = nil, id: GraphQL.ID, input: CustomerActivateInput, _ subfields: (CustomerActivatePayloadQuery) -> Void) -> MutationQuery {
@@ -845,7 +846,7 @@ extension Storefront {
 		/// Creates a new customer. 
 		///
 		/// - parameters:
-		///     - input: No description
+		///     - input: The fields used to create a new customer.
 		///
 		@discardableResult
 		open func customerCreate(alias: String? = nil, input: CustomerCreateInput, _ subfields: (CustomerCreatePayloadQuery) -> Void) -> MutationQuery {
@@ -910,7 +911,7 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - id: Specifies the customer to reset.
-		///     - input: No description
+		///     - input: The fields used to reset a customer’s password.
 		///
 		@discardableResult
 		open func customerReset(alias: String? = nil, id: GraphQL.ID, input: CustomerResetInput, _ subfields: (CustomerResetPayloadQuery) -> Void) -> MutationQuery {
@@ -1370,9 +1371,12 @@ extension Storefront {
 		}
 
 		/// Completes a checkout with a tokenized payment. 
+		@available(*, deprecated, message:"Use `checkoutCompleteWithTokenizedPaymentV3` instead")
 		open var checkoutCompleteWithTokenizedPaymentV2: Storefront.CheckoutCompleteWithTokenizedPaymentV2Payload? {
 			return internalGetCheckoutCompleteWithTokenizedPaymentV2()
 		}
+
+		@available(*, deprecated, message:"Use `checkoutCompleteWithTokenizedPaymentV3` instead")
 
 		open func aliasedCheckoutCompleteWithTokenizedPaymentV2(alias: String) -> Storefront.CheckoutCompleteWithTokenizedPaymentV2Payload? {
 			return internalGetCheckoutCompleteWithTokenizedPaymentV2(alias: alias)
@@ -1599,7 +1603,7 @@ extension Storefront {
 			return field(field: "checkoutLineItemsAdd", aliasSuffix: alias) as! Storefront.CheckoutLineItemsAddPayload?
 		}
 
-		/// Removes line items from an existing checkout 
+		/// Removes line items from an existing checkout. 
 		@available(*, deprecated, message:"Use `checkoutLineItemsReplace` instead")
 		open var checkoutLineItemsRemove: Storefront.CheckoutLineItemsRemovePayload? {
 			return internalGetCheckoutLineItemsRemove()
