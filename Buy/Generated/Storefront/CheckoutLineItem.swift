@@ -74,6 +74,16 @@ extension Storefront {
 			return self
 		}
 
+		/// Unit price of the line item. 
+		@discardableResult
+		open func unitPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CheckoutLineItemQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "unitPrice", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// Product variant of the line item. 
 		@discardableResult
 		open func variant(alias: String? = nil, _ subfields: (ProductVariantQuery) -> Void) -> CheckoutLineItemQuery {
@@ -121,6 +131,13 @@ extension Storefront {
 					throw SchemaViolationError(type: CheckoutLineItem.self, field: fieldName, value: fieldValue)
 				}
 				return value
+
+				case "unitPrice":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: CheckoutLineItem.self, field: fieldName, value: fieldValue)
+				}
+				return try MoneyV2(fields: value)
 
 				case "variant":
 				if value is NSNull { return nil }
@@ -181,6 +198,15 @@ extension Storefront {
 			return field(field: "title", aliasSuffix: alias) as! String
 		}
 
+		/// Unit price of the line item. 
+		open var unitPrice: Storefront.MoneyV2? {
+			return internalGetUnitPrice()
+		}
+
+		func internalGetUnitPrice(alias: String? = nil) -> Storefront.MoneyV2? {
+			return field(field: "unitPrice", aliasSuffix: alias) as! Storefront.MoneyV2?
+		}
+
 		/// Product variant of the line item. 
 		open var variant: Storefront.ProductVariant? {
 			return internalGetVariant()
@@ -204,6 +230,12 @@ extension Storefront {
 					internalGetDiscountAllocations().forEach {
 						response.append($0)
 						response.append(contentsOf: $0.childResponseObjectMap())
+					}
+
+					case "unitPrice":
+					if let value = internalGetUnitPrice() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
 					case "variant":
