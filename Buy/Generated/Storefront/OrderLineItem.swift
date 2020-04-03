@@ -32,6 +32,14 @@ extension Storefront {
 	open class OrderLineItemQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = OrderLineItem
 
+		/// The number of entries associated to the line item minus the items that have 
+		/// been removed. 
+		@discardableResult
+		open func currentQuantity(alias: String? = nil) -> OrderLineItemQuery {
+			addField(field: "currentQuantity", aliasSuffix: alias)
+			return self
+		}
+
 		/// List of custom attributes associated to the line item. 
 		@discardableResult
 		open func customAttributes(alias: String? = nil, _ subfields: (AttributeQuery) -> Void) -> OrderLineItemQuery {
@@ -50,6 +58,29 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "discountAllocations", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// The total price of the line item, including discounts, and displayed in the 
+		/// presentment currency. 
+		@discardableResult
+		open func discountedTotalPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderLineItemQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "discountedTotalPrice", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// The total price of the line item, not including any discounts. The total 
+		/// price is calculated using the original unit price multiplied by the 
+		/// quantity, and it is displayed in the presentment currency. 
+		@discardableResult
+		open func originalTotalPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderLineItemQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "originalTotalPrice", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -86,6 +117,12 @@ extension Storefront {
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "currentQuantity":
+				guard let value = value as? Int else {
+					throw SchemaViolationError(type: OrderLineItem.self, field: fieldName, value: fieldValue)
+				}
+				return Int32(value)
+
 				case "customAttributes":
 				guard let value = value as? [[String: Any]] else {
 					throw SchemaViolationError(type: OrderLineItem.self, field: fieldName, value: fieldValue)
@@ -97,6 +134,18 @@ extension Storefront {
 					throw SchemaViolationError(type: OrderLineItem.self, field: fieldName, value: fieldValue)
 				}
 				return try value.map { return try DiscountAllocation(fields: $0) }
+
+				case "discountedTotalPrice":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: OrderLineItem.self, field: fieldName, value: fieldValue)
+				}
+				return try MoneyV2(fields: value)
+
+				case "originalTotalPrice":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: OrderLineItem.self, field: fieldName, value: fieldValue)
+				}
+				return try MoneyV2(fields: value)
 
 				case "quantity":
 				guard let value = value as? Int else {
@@ -122,6 +171,16 @@ extension Storefront {
 			}
 		}
 
+		/// The number of entries associated to the line item minus the items that have 
+		/// been removed. 
+		open var currentQuantity: Int32 {
+			return internalGetCurrentQuantity()
+		}
+
+		func internalGetCurrentQuantity(alias: String? = nil) -> Int32 {
+			return field(field: "currentQuantity", aliasSuffix: alias) as! Int32
+		}
+
 		/// List of custom attributes associated to the line item. 
 		open var customAttributes: [Storefront.Attribute] {
 			return internalGetCustomAttributes()
@@ -139,6 +198,27 @@ extension Storefront {
 
 		func internalGetDiscountAllocations(alias: String? = nil) -> [Storefront.DiscountAllocation] {
 			return field(field: "discountAllocations", aliasSuffix: alias) as! [Storefront.DiscountAllocation]
+		}
+
+		/// The total price of the line item, including discounts, and displayed in the 
+		/// presentment currency. 
+		open var discountedTotalPrice: Storefront.MoneyV2 {
+			return internalGetDiscountedTotalPrice()
+		}
+
+		func internalGetDiscountedTotalPrice(alias: String? = nil) -> Storefront.MoneyV2 {
+			return field(field: "discountedTotalPrice", aliasSuffix: alias) as! Storefront.MoneyV2
+		}
+
+		/// The total price of the line item, not including any discounts. The total 
+		/// price is calculated using the original unit price multiplied by the 
+		/// quantity, and it is displayed in the presentment currency. 
+		open var originalTotalPrice: Storefront.MoneyV2 {
+			return internalGetOriginalTotalPrice()
+		}
+
+		func internalGetOriginalTotalPrice(alias: String? = nil) -> Storefront.MoneyV2 {
+			return field(field: "originalTotalPrice", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
 		/// The number of products variants associated to the line item. 
@@ -183,6 +263,14 @@ extension Storefront {
 						response.append($0)
 						response.append(contentsOf: $0.childResponseObjectMap())
 					}
+
+					case "discountedTotalPrice":
+					response.append(internalGetDiscountedTotalPrice())
+					response.append(contentsOf: internalGetDiscountedTotalPrice().childResponseObjectMap())
+
+					case "originalTotalPrice":
+					response.append(internalGetOriginalTotalPrice())
+					response.append(contentsOf: internalGetOriginalTotalPrice().childResponseObjectMap())
 
 					case "variant":
 					if let value = internalGetVariant() {

@@ -32,6 +32,9 @@ extension Storefront {
 		/// Customer already enabled. 
 		case alreadyEnabled = "ALREADY_ENABLED"
 
+		/// Input email contains an invalid domain name. 
+		case badDomain = "BAD_DOMAIN"
+
 		/// Input value is blank. 
 		case blank = "BLANK"
 
@@ -46,6 +49,9 @@ extension Storefront {
 
 		/// Input value is invalid. 
 		case invalid = "INVALID"
+
+		/// Multipass token is not valid. 
+		case invalidMultipassRequest = "INVALID_MULTIPASS_REQUEST"
 
 		/// Address does not exist. 
 		case notFound = "NOT_FOUND"

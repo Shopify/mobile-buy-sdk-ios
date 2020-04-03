@@ -33,6 +33,13 @@ extension Storefront {
 	open class MetafieldQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Metafield
 
+		/// The date and time when the storefront metafield was created. 
+		@discardableResult
+		open func createdAt(alias: String? = nil) -> MetafieldQuery {
+			addField(field: "createdAt", aliasSuffix: alias)
+			return self
+		}
+
 		/// The description of a metafield. 
 		@discardableResult
 		open func description(alias: String? = nil) -> MetafieldQuery {
@@ -71,6 +78,13 @@ extension Storefront {
 			return self
 		}
 
+		/// The date and time when the storefront metafield was updated. 
+		@discardableResult
+		open func updatedAt(alias: String? = nil) -> MetafieldQuery {
+			addField(field: "updatedAt", aliasSuffix: alias)
+			return self
+		}
+
 		/// The value of a metafield. 
 		@discardableResult
 		open func value(alias: String? = nil) -> MetafieldQuery {
@@ -95,6 +109,12 @@ extension Storefront {
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "createdAt":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Metafield.self, field: fieldName, value: fieldValue)
+				}
+				return GraphQL.iso8601DateParser.date(from: value)!
+
 				case "description":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
@@ -126,6 +146,12 @@ extension Storefront {
 				}
 				return try UnknownMetafieldParentResource.create(fields: value)
 
+				case "updatedAt":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Metafield.self, field: fieldName, value: fieldValue)
+				}
+				return GraphQL.iso8601DateParser.date(from: value)!
+
 				case "value":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: Metafield.self, field: fieldName, value: fieldValue)
@@ -141,6 +167,15 @@ extension Storefront {
 				default:
 				throw SchemaViolationError(type: Metafield.self, field: fieldName, value: fieldValue)
 			}
+		}
+
+		/// The date and time when the storefront metafield was created. 
+		open var createdAt: Date {
+			return internalGetCreatedAt()
+		}
+
+		func internalGetCreatedAt(alias: String? = nil) -> Date {
+			return field(field: "createdAt", aliasSuffix: alias) as! Date
 		}
 
 		/// The description of a metafield. 
@@ -186,6 +221,15 @@ extension Storefront {
 
 		func internalGetParentResource(alias: String? = nil) -> MetafieldParentResource {
 			return field(field: "parentResource", aliasSuffix: alias) as! MetafieldParentResource
+		}
+
+		/// The date and time when the storefront metafield was updated. 
+		open var updatedAt: Date {
+			return internalGetUpdatedAt()
+		}
+
+		func internalGetUpdatedAt(alias: String? = nil) -> Date {
+			return field(field: "updatedAt", aliasSuffix: alias) as! Date
 		}
 
 		/// The value of a metafield. 

@@ -1,5 +1,5 @@
 //
-//  TokenizedPaymentInputV2.swift
+//  TokenizedPaymentInputV3.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -29,7 +29,7 @@ import Foundation
 extension Storefront {
 	/// Specifies the fields required to complete a checkout with a tokenized 
 	/// payment. 
-	open class TokenizedPaymentInputV2 {
+	open class TokenizedPaymentInputV3 {
 		/// The amount and currency of the payment. 
 		open var paymentAmount: MoneyInput
 
@@ -53,7 +53,7 @@ extension Storefront {
 		open var identifier: Input<String>
 
 		/// The type of payment token. 
-		open var type: String
+		open var type: PaymentTokenType
 
 		/// Creates the input object.
 		///
@@ -66,11 +66,11 @@ extension Storefront {
 		///     - identifier: Public Hash Key used for AndroidPay payments only.
 		///     - type: The type of payment token.
 		///
-		public static func create(paymentAmount: MoneyInput, idempotencyKey: String, billingAddress: MailingAddressInput, paymentData: String, type: String, test: Input<Bool> = .undefined, identifier: Input<String> = .undefined) -> TokenizedPaymentInputV2 {
-			return TokenizedPaymentInputV2(paymentAmount: paymentAmount, idempotencyKey: idempotencyKey, billingAddress: billingAddress, paymentData: paymentData, type: type, test: test, identifier: identifier)
+		public static func create(paymentAmount: MoneyInput, idempotencyKey: String, billingAddress: MailingAddressInput, paymentData: String, type: PaymentTokenType, test: Input<Bool> = .undefined, identifier: Input<String> = .undefined) -> TokenizedPaymentInputV3 {
+			return TokenizedPaymentInputV3(paymentAmount: paymentAmount, idempotencyKey: idempotencyKey, billingAddress: billingAddress, paymentData: paymentData, type: type, test: test, identifier: identifier)
 		}
 
-		private init(paymentAmount: MoneyInput, idempotencyKey: String, billingAddress: MailingAddressInput, paymentData: String, type: String, test: Input<Bool> = .undefined, identifier: Input<String> = .undefined) {
+		private init(paymentAmount: MoneyInput, idempotencyKey: String, billingAddress: MailingAddressInput, paymentData: String, type: PaymentTokenType, test: Input<Bool> = .undefined, identifier: Input<String> = .undefined) {
 			self.paymentAmount = paymentAmount
 			self.idempotencyKey = idempotencyKey
 			self.billingAddress = billingAddress
@@ -92,7 +92,7 @@ extension Storefront {
 		///     - type: The type of payment token.
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
-		public convenience init(paymentAmount: MoneyInput, idempotencyKey: String, billingAddress: MailingAddressInput, paymentData: String, type: String, test: Bool? = nil, identifier: String? = nil) {
+		public convenience init(paymentAmount: MoneyInput, idempotencyKey: String, billingAddress: MailingAddressInput, paymentData: String, type: PaymentTokenType, test: Bool? = nil, identifier: String? = nil) {
 			self.init(paymentAmount: paymentAmount, idempotencyKey: idempotencyKey, billingAddress: billingAddress, paymentData: paymentData, type: type, test: test.orUndefined, identifier: identifier.orUndefined)
 		}
 
@@ -127,7 +127,7 @@ extension Storefront {
 				case .undefined: break
 			}
 
-			fields.append("type:\(GraphQL.quoteString(input: type))")
+			fields.append("type:\(type.rawValue)")
 
 			return "{\(fields.joined(separator: ","))}"
 		}
