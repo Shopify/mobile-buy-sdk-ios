@@ -1,0 +1,32 @@
+name: Run tests
+
+on: 
+  pull_request:
+    branches:
+      - develop
+      - master
+
+jobs:
+  build:
+
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@master
+
+    - uses: actions/setup-ruby@v1
+      with:
+        ruby-version: '2.6'
+    
+    - name: Install xcpretty
+      run: gem install xcpretty
+    
+    - name: Test generated schema
+      run: |
+        CURRENT_SIMULATOR_UUID=$(xcrun simctl create TestDevice com.apple.CoreSimulator.SimDeviceType.iPhone-11 com.apple.CoreSimulator.SimRuntime.iOS-13-3)
+        export CURRENT_SIMULATOR_UUID
+        git submodule sync --recursive && git submodule update --recursive --init
+        ./Scripts/test_buy
+        ./Scripts/test_buy_tv
+        ./Scripts/test_buy_watch
+        ./Scripts/test_pay
