@@ -1,0 +1,40 @@
+name: Run tests
+
+on: 
+  pull_request
+
+jobs:
+  build:
+
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@master
+
+    - uses: actions/setup-ruby@v1
+      with:
+        ruby-version: '2.6'
+    
+    - name: Install xcpretty
+      run: gem install xcpretty
+    
+    - name: Update submodules
+      run: git submodule sync --recursive && git submodule update --recursive --init
+      
+    - name: Setup simulator
+      id: version
+      run: |
+        CURRENT_SIMULATOR_UUID=$(xcrun simctl create TestDevice com.apple.CoreSimulator.SimDeviceType.iPhone-11 com.apple.CoreSimulator.SimRuntime.iOS-13-3)
+        echo "::set-env name=CURRENT_SIMULATOR_UUID::$CURRENT_SIMULATOR_UUID"
+        
+    - name: Test Buy
+      run: ./Scripts/test_buy
+      
+    - name: Test Buy TV
+      run: ./Scripts/test_buy_tv
+      
+    - name: Test Buy Watch
+      run: ./Scripts/test_buy_watch
+      
+    - name: Test Pay
+      run: ./Scripts/test_pay
