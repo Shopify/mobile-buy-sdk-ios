@@ -39,7 +39,7 @@ class Graph_ClientTests: XCTestCase {
     func testInit() {
         let client = self.defaultClient()
 
-        XCTAssertEqual(client.apiURL.absoluteString, "https://\(self.shopDomain)/api/2020-01/graphql")
+        XCTAssertEqual(client.apiURL.absoluteString, "https://\(self.shopDomain)/api/\(Storefront.Schema.version)/graphql")
         XCTAssertEqual(client.cachePolicy, .networkOnly)
     }
 
