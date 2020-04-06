@@ -13,9 +13,11 @@ require 'graphql_schema'
 require 'graphql_swift_gen'
 require 'fileutils'
 require 'erb'
+require 'xcodeproj'
 
 shared_storefront_api_key = "4a6c829ec3cb12ef9004bf8ed27adf12"
 storefront_api_version = ARGV[0]
+generated_nesting_class = 'Storefront'
 
 endpoint = URI("https://app.shopify.com/services/graphql/introspection/storefront?api_client_api_key=#{shared_storefront_api_key}&api_version=#{storefront_api_version}")
 scripts_path = __dir__
@@ -75,8 +77,33 @@ customScalars = [
 
 content = GraphQLSwiftGen.new(
 	schema,
-	nest_under: 'Storefront',
+	nest_under: generated_nesting_class,
 	import_graphql_support: false,
 	custom_scalars: customScalars
 )
 content.save(generated_code_path)
+
+
+################################################
+# Add newly generated sources to xcode project
+################################################
+
+project_path = File.join(parent_path, 'Buy.xcodeproj')
+project = Xcodeproj::Project.open(project_path)
+
+generated_files = Dir[File.join(generated_code_path, generated_nesting_class, '*')]
+
+buy_target = project.targets.find{ |t| t.name == 'Buy'}
+source_files = buy_target.source_build_phase.files.to_a.map do |pbx_build_file|
+	pbx_build_file.file_ref.real_path.to_s
+end
+
+generated_files.each{ |f|
+  unless source_files.include?(f)
+    new_file = project.new_file(f)
+    buy_target.source_build_phase.add_file_reference(new_file, true)
+    new_files << new_file
+  end
+}
+
+project.save

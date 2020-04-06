@@ -9,13 +9,25 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    CFPropertyList (3.0.2)
+    atomos (0.1.3)
+    claide (1.0.3)
+    colored2 (3.1.2)
     graphql_schema (0.1.6)
+    nanaimo (0.2.6)
+    xcodeproj (1.15.0)
+      CFPropertyList (>= 2.3.3, < 4.0)
+      atomos (~> 0.1.3)
+      claide (>= 1.0.2, < 2.0)
+      colored2 (~> 3.1)
+      nanaimo (~> 0.2.6)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   graphql_swift_gen!
+  xcodeproj
 
 BUNDLED WITH
    1.17.3
