@@ -13,7 +13,7 @@ jobs:
 
     - name: Ensure Mobile-Buy-SDK.podspec version is changed
       run: |
-        LINES=$(git log -- Mobile-Buy-SDK.podspec master..HEAD | xargs -n 4 | grep s.version | wc -l)
+        LINES=$(git diff master..HEAD -- Mobile-Buy-SDK.podspec | xargs -n 4 | grep s.version | wc -l)
         if [ "$LINES" -eq "2" ]; then
           echo "Podfile version was updated";
           exit 0;
