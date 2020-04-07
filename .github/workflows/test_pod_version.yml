@@ -3,7 +3,7 @@ name: Ensure Mobile-Buy-SDK version is bumped
 on:
   push:
     branches:
-      - release/**
+      - 'release/**'
 jobs:
   build:
     runs-on: macOS-latest
