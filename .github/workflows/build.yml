@@ -1,0 +1,72 @@
+name: Build SDK for latest API version
+
+on: 
+  schedule:
+    # Run on midnight UTC on the first of jan/apr/jul/oct
+    # API is released 1PM EDT/EST
+    - cron: '59 23 1 1/3 *'
+
+jobs:
+  build:
+
+    runs-on: macOS-latest
+    
+    steps:
+    - name: Get API Version
+      id: version
+      run: |
+        API_VERSION="$(date +'%Y-%m')"
+        echo "::set-env name=API_VERSION::$API_VERSION"
+      
+    - uses: actions/checkout@master
+      with:
+        ref: 'master'
+      
+    - uses: actions/setup-ruby@v1
+      with:
+        ruby-version: '2.6'
+
+    - name: Install bundler
+      run: gem install bundler
+      
+    - name: Install dependencies
+      run: bundle install
+        
+    - name: Build new SDK version
+      run: |
+        echo "Generating schema for $API_VERSION"
+        ./Scripts/build $API_VERSION
+       
+    - name: Create and reset release branch
+      run: git checkout -B "release/$API_VERSION-auto-generated" # -B will reset branch if it exists
+      
+    - name: Stage and push generated files
+      run: |
+        git add ./Buy/Generated
+        git commit -m "Update schema (auto-generated)"
+        git push --set-upstream --force origin "release/$API_VERSION-auto-generated"
+    
+    - uses: actions/github-script@0.9.0
+      with:
+        script: |
+          // Get the current date
+          const today = new Date();
+          const yyyy = today.getFullYear();
+          const mm = String(today.getMonth() + 1).padStart(2, '0');
+          const api_version = yyyy + '-' + mm
+          
+          // create a pull request
+          github.pulls.create({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            title: 'Update schema (auto-generated)',
+            head: 'release/' + api_version + '-auto-generated',
+            base: 'master',
+            body: "Release notes:" + 
+              "\n- https://shopify.dev/concepts/about-apis/versioning/release-notes/" + api_version + "#storefront-api-changes" +
+              "\n" +
+              "\n**Steps to release:**" +
+              "\n- [ ] Make sure tests are passing" +
+              "\n- [ ] Set the SDK version number (`s.version`) in [`Mobile-Buy-SDK.podspec`](https://github.com/Shopify/mobile-buy-sdk-ios/blob/" + api_version + "-auto-generated/Mobile-Buy-SDK.podspec)" +
+              "\n- [ ] After merging this PR, remember to update the automatically created [draft release](https://github.com/Shopify/mobile-buy-sdk-ios/releases) with the same version number"
+            })
