@@ -9,12 +9,15 @@ jobs:
     runs-on: macOS-latest
       
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2.1.0
+      with:
+        ref: ${{ github.event.pull_request.head.ref }}
+        fetch-depth: 0
 
     - name: Ensure Mobile-Buy-SDK.podspec version is changed
       run: |
-        LINES=$(git diff master..HEAD -- Mobile-Buy-SDK.podspec | grep s.version | wc -l)
-        if [ "$LINES" -eq "2" ]; then
+        git fetch origin master
+        if [ $(git diff origin/master -- Mobile-Buy-SDK.podspec | grep s.version | wc -l) -eq "2" ]; then
           echo "Podfile version was updated";
           exit 0;
         else 
