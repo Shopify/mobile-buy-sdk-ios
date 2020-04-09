@@ -1,9 +1,9 @@
 //
-//  Storefront.Schema.swift
+//  OrderFinancialStatus.swift
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2020 Shopify Inc. All rights reserved.
+//  Copyright (c) 2017 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +24,32 @@
 //  THE SOFTWARE.
 //
 
+import Foundation
+
 extension Storefront {
-    enum Schema {
-        static let version = "2020-04"
-    }
+	/// Represents the order's current financial status. 
+	public enum OrderFinancialStatus: String {
+		/// Displayed as **Authorized**. 
+		case authorized = "AUTHORIZED"
+
+		/// Displayed as **Paid**. 
+		case paid = "PAID"
+
+		/// Displayed as **Partially paid**. 
+		case partiallyPaid = "PARTIALLY_PAID"
+
+		/// Displayed as **Partially refunded**. 
+		case partiallyRefunded = "PARTIALLY_REFUNDED"
+
+		/// Displayed as **Pending**. 
+		case pending = "PENDING"
+
+		/// Displayed as **Refunded**. 
+		case refunded = "REFUNDED"
+
+		/// Displayed as **Voided**. 
+		case voided = "VOIDED"
+
+		case unknownValue = ""
+	}
 }

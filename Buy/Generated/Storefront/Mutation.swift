@@ -203,6 +203,29 @@ extension Storefront {
 			return self
 		}
 
+		/// Completes a checkout with a tokenized payment. 
+		///
+		/// - parameters:
+		///     - checkoutId: The ID of the checkout.
+		///     - payment: The info to apply as a tokenized payment.
+		///
+		@discardableResult
+		open func checkoutCompleteWithTokenizedPaymentV3(alias: String? = nil, checkoutId: GraphQL.ID, payment: TokenizedPaymentInputV3, _ subfields: (CheckoutCompleteWithTokenizedPaymentV3PayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
+
+			args.append("payment:\(payment.serialize())")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CheckoutCompleteWithTokenizedPaymentV3PayloadQuery()
+			subfields(subquery)
+
+			addField(field: "checkoutCompleteWithTokenizedPaymentV3", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// Creates a new checkout. 
 		///
 		/// - parameters:
@@ -706,6 +729,29 @@ extension Storefront {
 			return self
 		}
 
+		/// Creates a customer access token using a multipass token instead of email 
+		/// and password. A customer record is created if customer does not exist. If a 
+		/// customer record already exists but the record is disabled, then it's 
+		/// enabled. 
+		///
+		/// - parameters:
+		///     - multipassToken: A valid multipass token to be authenticated.
+		///
+		@discardableResult
+		open func customerAccessTokenCreateWithMultipass(alias: String? = nil, multipassToken: String, _ subfields: (CustomerAccessTokenCreateWithMultipassPayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("multipassToken:\(GraphQL.quoteString(input: multipassToken))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CustomerAccessTokenCreateWithMultipassPayloadQuery()
+			subfields(subquery)
+
+			addField(field: "customerAccessTokenCreateWithMultipass", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// Permanently destroys a customer access token. 
 		///
 		/// - parameters:
@@ -768,6 +814,30 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "customerActivate", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Activates a customer with the activation url received from 
+		/// `customerCreate`. 
+		///
+		/// - parameters:
+		///     - activationUrl: The customer activation URL.
+		///     - password: A new password set during activation.
+		///
+		@discardableResult
+		open func customerActivateByUrl(alias: String? = nil, activationUrl: URL, password: String, _ subfields: (CustomerActivateByUrlPayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("activationUrl:\(GraphQL.quoteString(input: "\(activationUrl.absoluteString)"))")
+
+			args.append("password:\(GraphQL.quoteString(input: password))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CustomerActivateByUrlPayloadQuery()
+			subfields(subquery)
+
+			addField(field: "customerActivateByUrl", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
@@ -1035,6 +1105,13 @@ extension Storefront {
 				}
 				return try CheckoutCompleteWithTokenizedPaymentV2Payload(fields: value)
 
+				case "checkoutCompleteWithTokenizedPaymentV3":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CheckoutCompleteWithTokenizedPaymentV3Payload(fields: value)
+
 				case "checkoutCreate":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -1189,6 +1266,13 @@ extension Storefront {
 				}
 				return try CustomerAccessTokenCreatePayload(fields: value)
 
+				case "customerAccessTokenCreateWithMultipass":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CustomerAccessTokenCreateWithMultipassPayload(fields: value)
+
 				case "customerAccessTokenDelete":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -1209,6 +1293,13 @@ extension Storefront {
 					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
 				}
 				return try CustomerActivatePayload(fields: value)
+
+				case "customerActivateByUrl":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CustomerActivateByUrlPayload(fields: value)
 
 				case "customerAddressCreate":
 				if value is NSNull { return nil }
@@ -1384,6 +1475,19 @@ extension Storefront {
 
 		func internalGetCheckoutCompleteWithTokenizedPaymentV2(alias: String? = nil) -> Storefront.CheckoutCompleteWithTokenizedPaymentV2Payload? {
 			return field(field: "checkoutCompleteWithTokenizedPaymentV2", aliasSuffix: alias) as! Storefront.CheckoutCompleteWithTokenizedPaymentV2Payload?
+		}
+
+		/// Completes a checkout with a tokenized payment. 
+		open var checkoutCompleteWithTokenizedPaymentV3: Storefront.CheckoutCompleteWithTokenizedPaymentV3Payload? {
+			return internalGetCheckoutCompleteWithTokenizedPaymentV3()
+		}
+
+		open func aliasedCheckoutCompleteWithTokenizedPaymentV3(alias: String) -> Storefront.CheckoutCompleteWithTokenizedPaymentV3Payload? {
+			return internalGetCheckoutCompleteWithTokenizedPaymentV3(alias: alias)
+		}
+
+		func internalGetCheckoutCompleteWithTokenizedPaymentV3(alias: String? = nil) -> Storefront.CheckoutCompleteWithTokenizedPaymentV3Payload? {
+			return field(field: "checkoutCompleteWithTokenizedPaymentV3", aliasSuffix: alias) as! Storefront.CheckoutCompleteWithTokenizedPaymentV3Payload?
 		}
 
 		/// Creates a new checkout. 
@@ -1704,6 +1808,22 @@ extension Storefront {
 			return field(field: "customerAccessTokenCreate", aliasSuffix: alias) as! Storefront.CustomerAccessTokenCreatePayload?
 		}
 
+		/// Creates a customer access token using a multipass token instead of email 
+		/// and password. A customer record is created if customer does not exist. If a 
+		/// customer record already exists but the record is disabled, then it's 
+		/// enabled. 
+		open var customerAccessTokenCreateWithMultipass: Storefront.CustomerAccessTokenCreateWithMultipassPayload? {
+			return internalGetCustomerAccessTokenCreateWithMultipass()
+		}
+
+		open func aliasedCustomerAccessTokenCreateWithMultipass(alias: String) -> Storefront.CustomerAccessTokenCreateWithMultipassPayload? {
+			return internalGetCustomerAccessTokenCreateWithMultipass(alias: alias)
+		}
+
+		func internalGetCustomerAccessTokenCreateWithMultipass(alias: String? = nil) -> Storefront.CustomerAccessTokenCreateWithMultipassPayload? {
+			return field(field: "customerAccessTokenCreateWithMultipass", aliasSuffix: alias) as! Storefront.CustomerAccessTokenCreateWithMultipassPayload?
+		}
+
 		/// Permanently destroys a customer access token. 
 		open var customerAccessTokenDelete: Storefront.CustomerAccessTokenDeletePayload? {
 			return internalGetCustomerAccessTokenDelete()
@@ -1743,6 +1863,20 @@ extension Storefront {
 
 		func internalGetCustomerActivate(alias: String? = nil) -> Storefront.CustomerActivatePayload? {
 			return field(field: "customerActivate", aliasSuffix: alias) as! Storefront.CustomerActivatePayload?
+		}
+
+		/// Activates a customer with the activation url received from 
+		/// `customerCreate`. 
+		open var customerActivateByUrl: Storefront.CustomerActivateByUrlPayload? {
+			return internalGetCustomerActivateByUrl()
+		}
+
+		open func aliasedCustomerActivateByUrl(alias: String) -> Storefront.CustomerActivateByUrlPayload? {
+			return internalGetCustomerActivateByUrl(alias: alias)
+		}
+
+		func internalGetCustomerActivateByUrl(alias: String? = nil) -> Storefront.CustomerActivateByUrlPayload? {
+			return field(field: "customerActivateByUrl", aliasSuffix: alias) as! Storefront.CustomerActivateByUrlPayload?
 		}
 
 		/// Creates a new address for a customer. 
@@ -1910,6 +2044,12 @@ extension Storefront {
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
+					case "checkoutCompleteWithTokenizedPaymentV3":
+					if let value = internalGetCheckoutCompleteWithTokenizedPaymentV3() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
 					case "checkoutCreate":
 					if let value = internalGetCheckoutCreate() {
 						response.append(value)
@@ -2042,6 +2182,12 @@ extension Storefront {
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
+					case "customerAccessTokenCreateWithMultipass":
+					if let value = internalGetCustomerAccessTokenCreateWithMultipass() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
 					case "customerAccessTokenDelete":
 					if let value = internalGetCustomerAccessTokenDelete() {
 						response.append(value)
@@ -2056,6 +2202,12 @@ extension Storefront {
 
 					case "customerActivate":
 					if let value = internalGetCustomerActivate() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "customerActivateByUrl":
+					if let value = internalGetCustomerActivateByUrl() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}

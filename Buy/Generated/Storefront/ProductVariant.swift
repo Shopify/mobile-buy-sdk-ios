@@ -67,6 +67,14 @@ extension Storefront {
 			return self
 		}
 
+		/// Whether the product variant is available for sale but currently out of 
+		/// stock. 
+		@discardableResult
+		open func currentlyNotInStock(alias: String? = nil) -> ProductVariantQuery {
+			addField(field: "currentlyNotInStock", aliasSuffix: alias)
+			return self
+		}
+
 		/// Globally unique identifier. 
 		@discardableResult
 		open func id(alias: String? = nil) -> ProductVariantQuery {
@@ -305,6 +313,13 @@ extension Storefront {
 			return self
 		}
 
+		/// The total sellable quantity of the variant for online sales channels. 
+		@discardableResult
+		open func quantityAvailable(alias: String? = nil) -> ProductVariantQuery {
+			addField(field: "quantityAvailable", aliasSuffix: alias)
+			return self
+		}
+
 		/// Whether a customer needs to provide a shipping address when placing an 
 		/// order for the product variant. 
 		@discardableResult
@@ -408,6 +423,12 @@ extension Storefront {
 				}
 				return try MoneyV2(fields: value)
 
+				case "currentlyNotInStock":
+				guard let value = value as? Bool else {
+					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
+				}
+				return value
+
 				case "id":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
@@ -463,6 +484,13 @@ extension Storefront {
 					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
 				}
 				return try Product(fields: value)
+
+				case "quantityAvailable":
+				if value is NSNull { return nil }
+				guard let value = value as? Int else {
+					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
+				}
+				return Int32(value)
 
 				case "requiresShipping":
 				guard let value = value as? Bool else {
@@ -559,6 +587,16 @@ extension Storefront {
 
 		func internalGetCompareAtPriceV2(alias: String? = nil) -> Storefront.MoneyV2? {
 			return field(field: "compareAtPriceV2", aliasSuffix: alias) as! Storefront.MoneyV2?
+		}
+
+		/// Whether the product variant is available for sale but currently out of 
+		/// stock. 
+		open var currentlyNotInStock: Bool {
+			return internalGetCurrentlyNotInStock()
+		}
+
+		func internalGetCurrentlyNotInStock(alias: String? = nil) -> Bool {
+			return field(field: "currentlyNotInStock", aliasSuffix: alias) as! Bool
 		}
 
 		/// Globally unique identifier. 
@@ -663,6 +701,15 @@ extension Storefront {
 
 		func internalGetProduct(alias: String? = nil) -> Storefront.Product {
 			return field(field: "product", aliasSuffix: alias) as! Storefront.Product
+		}
+
+		/// The total sellable quantity of the variant for online sales channels. 
+		open var quantityAvailable: Int32? {
+			return internalGetQuantityAvailable()
+		}
+
+		func internalGetQuantityAvailable(alias: String? = nil) -> Int32? {
+			return field(field: "quantityAvailable", aliasSuffix: alias) as! Int32?
 		}
 
 		/// Whether a customer needs to provide a shipping address when placing an 

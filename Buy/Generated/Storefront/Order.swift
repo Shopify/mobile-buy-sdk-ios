@@ -34,10 +34,61 @@ extension Storefront {
 	open class OrderQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Order
 
+		/// Represents the reason for the order's cancellation. Returns null if the 
+		/// order wasn't canceled. 
+		@discardableResult
+		open func cancelReason(alias: String? = nil) -> OrderQuery {
+			addField(field: "cancelReason", aliasSuffix: alias)
+			return self
+		}
+
+		/// The date and time when the order was canceled. Returns null if the order 
+		/// wasn't canceled. 
+		@discardableResult
+		open func canceledAt(alias: String? = nil) -> OrderQuery {
+			addField(field: "canceledAt", aliasSuffix: alias)
+			return self
+		}
+
 		/// The code of the currency used for the payment. 
 		@discardableResult
 		open func currencyCode(alias: String? = nil) -> OrderQuery {
 			addField(field: "currencyCode", aliasSuffix: alias)
+			return self
+		}
+
+		/// The subtotal of line items and their discounts, excluding line items that 
+		/// have been removed. Does not contain order-level discounts, shipping costs, 
+		/// or shipping discounts. Taxes are not included unless the order is a 
+		/// taxes-included order. 
+		@discardableResult
+		open func currentSubtotalPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "currentSubtotalPrice", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// The total amount of the order, including taxes and discounts, minus amounts 
+		/// for line items that have been removed. 
+		@discardableResult
+		open func currentTotalPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "currentTotalPrice", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// The total of all taxes applied to the order, excluding taxes for returned 
+		/// line items. 
+		@discardableResult
+		open func currentTotalTax(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "currentTotalTax", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -97,10 +148,31 @@ extension Storefront {
 			return self
 		}
 
+		/// Whether the order has had any edits applied or not. 
+		@discardableResult
+		open func edited(alias: String? = nil) -> OrderQuery {
+			addField(field: "edited", aliasSuffix: alias)
+			return self
+		}
+
 		/// The customer's email address. 
 		@discardableResult
 		open func email(alias: String? = nil) -> OrderQuery {
 			addField(field: "email", aliasSuffix: alias)
+			return self
+		}
+
+		/// The financial status of the order. 
+		@discardableResult
+		open func financialStatus(alias: String? = nil) -> OrderQuery {
+			addField(field: "financialStatus", aliasSuffix: alias)
+			return self
+		}
+
+		/// The fulfillment status for the order. 
+		@discardableResult
+		open func fulfillmentStatus(alias: String? = nil) -> OrderQuery {
+			addField(field: "fulfillmentStatus", aliasSuffix: alias)
 			return self
 		}
 
@@ -166,6 +238,16 @@ extension Storefront {
 		@discardableResult
 		open func orderNumber(alias: String? = nil) -> OrderQuery {
 			addField(field: "orderNumber", aliasSuffix: alias)
+			return self
+		}
+
+		/// The total price of the order before any applied edits. 
+		@discardableResult
+		open func originalTotalPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "originalTotalPrice", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -338,11 +420,43 @@ extension Storefront {
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "cancelReason":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
+				}
+				return OrderCancelReason(rawValue: value) ?? .unknownValue
+
+				case "canceledAt":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
+				}
+				return GraphQL.iso8601DateParser.date(from: value)!
+
 				case "currencyCode":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
 				}
 				return CurrencyCode(rawValue: value) ?? .unknownValue
+
+				case "currentSubtotalPrice":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
+				}
+				return try MoneyV2(fields: value)
+
+				case "currentTotalPrice":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
+				}
+				return try MoneyV2(fields: value)
+
+				case "currentTotalTax":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
+				}
+				return try MoneyV2(fields: value)
 
 				case "customerLocale":
 				if value is NSNull { return nil }
@@ -364,12 +478,31 @@ extension Storefront {
 				}
 				return try DiscountApplicationConnection(fields: value)
 
+				case "edited":
+				guard let value = value as? Bool else {
+					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
+				}
+				return value
+
 				case "email":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
 				}
 				return value
+
+				case "financialStatus":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
+				}
+				return OrderFinancialStatus(rawValue: value) ?? .unknownValue
+
+				case "fulfillmentStatus":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
+				}
+				return OrderFulfillmentStatus(rawValue: value) ?? .unknownValue
 
 				case "id":
 				guard let value = value as? String else {
@@ -394,6 +527,12 @@ extension Storefront {
 					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
 				}
 				return Int32(value)
+
+				case "originalTotalPrice":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
+				}
+				return try MoneyV2(fields: value)
 
 				case "phone":
 				if value is NSNull { return nil }
@@ -503,6 +642,26 @@ extension Storefront {
 			}
 		}
 
+		/// Represents the reason for the order's cancellation. Returns null if the 
+		/// order wasn't canceled. 
+		open var cancelReason: Storefront.OrderCancelReason? {
+			return internalGetCancelReason()
+		}
+
+		func internalGetCancelReason(alias: String? = nil) -> Storefront.OrderCancelReason? {
+			return field(field: "cancelReason", aliasSuffix: alias) as! Storefront.OrderCancelReason?
+		}
+
+		/// The date and time when the order was canceled. Returns null if the order 
+		/// wasn't canceled. 
+		open var canceledAt: Date? {
+			return internalGetCanceledAt()
+		}
+
+		func internalGetCanceledAt(alias: String? = nil) -> Date? {
+			return field(field: "canceledAt", aliasSuffix: alias) as! Date?
+		}
+
 		/// The code of the currency used for the payment. 
 		open var currencyCode: Storefront.CurrencyCode {
 			return internalGetCurrencyCode()
@@ -510,6 +669,38 @@ extension Storefront {
 
 		func internalGetCurrencyCode(alias: String? = nil) -> Storefront.CurrencyCode {
 			return field(field: "currencyCode", aliasSuffix: alias) as! Storefront.CurrencyCode
+		}
+
+		/// The subtotal of line items and their discounts, excluding line items that 
+		/// have been removed. Does not contain order-level discounts, shipping costs, 
+		/// or shipping discounts. Taxes are not included unless the order is a 
+		/// taxes-included order. 
+		open var currentSubtotalPrice: Storefront.MoneyV2 {
+			return internalGetCurrentSubtotalPrice()
+		}
+
+		func internalGetCurrentSubtotalPrice(alias: String? = nil) -> Storefront.MoneyV2 {
+			return field(field: "currentSubtotalPrice", aliasSuffix: alias) as! Storefront.MoneyV2
+		}
+
+		/// The total amount of the order, including taxes and discounts, minus amounts 
+		/// for line items that have been removed. 
+		open var currentTotalPrice: Storefront.MoneyV2 {
+			return internalGetCurrentTotalPrice()
+		}
+
+		func internalGetCurrentTotalPrice(alias: String? = nil) -> Storefront.MoneyV2 {
+			return field(field: "currentTotalPrice", aliasSuffix: alias) as! Storefront.MoneyV2
+		}
+
+		/// The total of all taxes applied to the order, excluding taxes for returned 
+		/// line items. 
+		open var currentTotalTax: Storefront.MoneyV2 {
+			return internalGetCurrentTotalTax()
+		}
+
+		func internalGetCurrentTotalTax(alias: String? = nil) -> Storefront.MoneyV2 {
+			return field(field: "currentTotalTax", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
 		/// The locale code in which this specific order happened. 
@@ -543,6 +734,15 @@ extension Storefront {
 			return field(field: "discountApplications", aliasSuffix: alias) as! Storefront.DiscountApplicationConnection
 		}
 
+		/// Whether the order has had any edits applied or not. 
+		open var edited: Bool {
+			return internalGetEdited()
+		}
+
+		func internalGetEdited(alias: String? = nil) -> Bool {
+			return field(field: "edited", aliasSuffix: alias) as! Bool
+		}
+
 		/// The customer's email address. 
 		open var email: String? {
 			return internalGetEmail()
@@ -550,6 +750,24 @@ extension Storefront {
 
 		func internalGetEmail(alias: String? = nil) -> String? {
 			return field(field: "email", aliasSuffix: alias) as! String?
+		}
+
+		/// The financial status of the order. 
+		open var financialStatus: Storefront.OrderFinancialStatus? {
+			return internalGetFinancialStatus()
+		}
+
+		func internalGetFinancialStatus(alias: String? = nil) -> Storefront.OrderFinancialStatus? {
+			return field(field: "financialStatus", aliasSuffix: alias) as! Storefront.OrderFinancialStatus?
+		}
+
+		/// The fulfillment status for the order. 
+		open var fulfillmentStatus: Storefront.OrderFulfillmentStatus {
+			return internalGetFulfillmentStatus()
+		}
+
+		func internalGetFulfillmentStatus(alias: String? = nil) -> Storefront.OrderFulfillmentStatus {
+			return field(field: "fulfillmentStatus", aliasSuffix: alias) as! Storefront.OrderFulfillmentStatus
 		}
 
 		/// Globally unique identifier. 
@@ -592,6 +810,15 @@ extension Storefront {
 
 		func internalGetOrderNumber(alias: String? = nil) -> Int32 {
 			return field(field: "orderNumber", aliasSuffix: alias) as! Int32
+		}
+
+		/// The total price of the order before any applied edits. 
+		open var originalTotalPrice: Storefront.MoneyV2 {
+			return internalGetOriginalTotalPrice()
+		}
+
+		func internalGetOriginalTotalPrice(alias: String? = nil) -> Storefront.MoneyV2 {
+			return field(field: "originalTotalPrice", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
 		/// The customer's phone number for receiving SMS notifications. 
@@ -756,6 +983,18 @@ extension Storefront {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
 				switch($0) {
+					case "currentSubtotalPrice":
+					response.append(internalGetCurrentSubtotalPrice())
+					response.append(contentsOf: internalGetCurrentSubtotalPrice().childResponseObjectMap())
+
+					case "currentTotalPrice":
+					response.append(internalGetCurrentTotalPrice())
+					response.append(contentsOf: internalGetCurrentTotalPrice().childResponseObjectMap())
+
+					case "currentTotalTax":
+					response.append(internalGetCurrentTotalTax())
+					response.append(contentsOf: internalGetCurrentTotalTax().childResponseObjectMap())
+
 					case "discountApplications":
 					response.append(internalGetDiscountApplications())
 					response.append(contentsOf: internalGetDiscountApplications().childResponseObjectMap())
@@ -763,6 +1002,10 @@ extension Storefront {
 					case "lineItems":
 					response.append(internalGetLineItems())
 					response.append(contentsOf: internalGetLineItems().childResponseObjectMap())
+
+					case "originalTotalPrice":
+					response.append(internalGetOriginalTotalPrice())
+					response.append(contentsOf: internalGetOriginalTotalPrice().childResponseObjectMap())
 
 					case "shippingAddress":
 					if let value = internalGetShippingAddress() {
