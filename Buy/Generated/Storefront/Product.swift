@@ -424,8 +424,8 @@ extension Storefront {
 			return self
 		}
 
-		/// A categorization that a product can be tagged with, commonly used for 
-		/// filtering and searching. Additional access scope required for private apps: 
+		/// A comma separated list of tags that have been added to the product. 
+		/// Additional access scope required for private apps: 
 		/// unauthenticated_read_product_tags. 
 		@discardableResult
 		open func tags(alias: String? = nil) -> ProductQuery {
@@ -900,8 +900,8 @@ extension Storefront {
 			return field(field: "publishedAt", aliasSuffix: alias) as! Date
 		}
 
-		/// A categorization that a product can be tagged with, commonly used for 
-		/// filtering and searching. Additional access scope required for private apps: 
+		/// A comma separated list of tags that have been added to the product. 
+		/// Additional access scope required for private apps: 
 		/// unauthenticated_read_product_tags. 
 		open var tags: [String] {
 			return internalGetTags()

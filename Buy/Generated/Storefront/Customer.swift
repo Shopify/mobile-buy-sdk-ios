@@ -157,7 +157,8 @@ extension Storefront {
 		///     - query: Supported filter parameters:
 		///         - `processed_at`
 		///        
-		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+		///        for more information about using filters.
 		///
 		@discardableResult
 		open func orders(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: OrderSortKeys? = nil, query: String? = nil, _ subfields: (OrderConnectionQuery) -> Void) -> CustomerQuery {
@@ -207,8 +208,8 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of tags assigned to the customer. Additional access scope required: 
-		/// unauthenticated_read_customer_tags. 
+		/// A comma separated list of tags that have been added to the customer. 
+		/// Additional access scope required: unauthenticated_read_customer_tags. 
 		@discardableResult
 		open func tags(alias: String? = nil) -> CustomerQuery {
 			addField(field: "tags", aliasSuffix: alias)
@@ -444,8 +445,8 @@ extension Storefront {
 			return field(field: "phone", aliasSuffix: alias) as! String?
 		}
 
-		/// A list of tags assigned to the customer. Additional access scope required: 
-		/// unauthenticated_read_customer_tags. 
+		/// A comma separated list of tags that have been added to the customer. 
+		/// Additional access scope required: unauthenticated_read_customer_tags. 
 		open var tags: [String] {
 			return internalGetTags()
 		}

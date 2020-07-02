@@ -44,6 +44,9 @@ extension Storefront {
 		/// Customer already used once per customer discount notice. 
 		case customerAlreadyUsedOncePerCustomerDiscountNotice = "CUSTOMER_ALREADY_USED_ONCE_PER_CUSTOMER_DISCOUNT_NOTICE"
 
+		/// Discount already applied. 
+		case discountAlreadyApplied = "DISCOUNT_ALREADY_APPLIED"
+
 		/// Discount disabled. 
 		case discountDisabled = "DISCOUNT_DISABLED"
 

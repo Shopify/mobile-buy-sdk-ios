@@ -67,8 +67,8 @@ extension Storefront {
 			return self
 		}
 
-		/// Whether the product variant is available for sale but currently out of 
-		/// stock. 
+		/// Whether a product is out of stock but still available for purchase (used 
+		/// for backorders). 
 		@discardableResult
 		open func currentlyNotInStock(alias: String? = nil) -> ProductVariantQuery {
 			addField(field: "currentlyNotInStock", aliasSuffix: alias)
@@ -589,8 +589,8 @@ extension Storefront {
 			return field(field: "compareAtPriceV2", aliasSuffix: alias) as! Storefront.MoneyV2?
 		}
 
-		/// Whether the product variant is available for sale but currently out of 
-		/// stock. 
+		/// Whether a product is out of stock but still available for purchase (used 
+		/// for backorders). 
 		open var currentlyNotInStock: Bool {
 			return internalGetCurrentlyNotInStock()
 		}

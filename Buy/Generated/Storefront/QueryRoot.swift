@@ -48,7 +48,8 @@ extension Storefront {
 		///         - `tag`
 		///         - `updated_at`
 		///        
-		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+		///        for more information about using filters.
 		///
 		@discardableResult
 		open func articles(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: ArticleSortKeys? = nil, query: String? = nil, _ subfields: (ArticleConnectionQuery) -> Void) -> QueryRootQuery {
@@ -126,7 +127,8 @@ extension Storefront {
 		///         - `title`
 		///         - `updated_at`
 		///        
-		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+		///        for more information about using filters.
 		///
 		@discardableResult
 		open func blogs(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: BlogSortKeys? = nil, query: String? = nil, _ subfields: (BlogConnectionQuery) -> Void) -> QueryRootQuery {
@@ -203,7 +205,8 @@ extension Storefront {
 		///         - `title`
 		///         - `updated_at`
 		///        
-		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+		///        for more information about using filters.
 		///
 		@discardableResult
 		open func collections(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: CollectionSortKeys? = nil, query: String? = nil, _ subfields: (CollectionConnectionQuery) -> Void) -> QueryRootQuery {
@@ -339,7 +342,8 @@ extension Storefront {
 		///         - `title`
 		///         - `updated_at`
 		///        
-		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+		///        for more information about using filters.
 		///
 		@discardableResult
 		open func pages(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: PageSortKeys? = nil, query: String? = nil, _ subfields: (PageConnectionQuery) -> Void) -> QueryRootQuery {
@@ -486,7 +490,8 @@ extension Storefront {
 		///         - `variants.price`
 		///         - `vendor`
 		///        
-		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+		///        for more information about using filters.
 		///
 		@discardableResult
 		open func products(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: ProductSortKeys? = nil, query: String? = nil, _ subfields: (ProductConnectionQuery) -> Void) -> QueryRootQuery {

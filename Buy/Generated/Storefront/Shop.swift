@@ -48,7 +48,8 @@ extension Storefront {
 		///         - `tag`
 		///         - `updated_at`
 		///        
-		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+		///        for more information about using filters.
 		///
 		@available(*, deprecated, message:"Use `QueryRoot.articles` instead.")
 		@discardableResult
@@ -107,7 +108,8 @@ extension Storefront {
 		///         - `title`
 		///         - `updated_at`
 		///        
-		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+		///        for more information about using filters.
 		///
 		@available(*, deprecated, message:"Use `QueryRoot.blogs` instead.")
 		@discardableResult
@@ -186,7 +188,8 @@ extension Storefront {
 		///         - `title`
 		///         - `updated_at`
 		///        
-		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+		///        for more information about using filters.
 		///
 		@available(*, deprecated, message:"Use `QueryRoot.collections` instead.")
 		@discardableResult
@@ -311,8 +314,8 @@ extension Storefront {
 			return self
 		}
 
-		/// Tags added to products. Additional access scope required: 
-		/// unauthenticated_read_product_tags. 
+		/// A comma separated list of tags that have been added to products. Additional 
+		/// access scope required: unauthenticated_read_product_tags. 
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -373,7 +376,8 @@ extension Storefront {
 		///         - `variants.price`
 		///         - `vendor`
 		///        
-		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+		///        for more information about using filters.
 		///
 		@available(*, deprecated, message:"Use `QueryRoot.products` instead.")
 		@discardableResult
@@ -732,8 +736,8 @@ extension Storefront {
 			return field(field: "productByHandle", aliasSuffix: alias) as! Storefront.Product?
 		}
 
-		/// Tags added to products. Additional access scope required: 
-		/// unauthenticated_read_product_tags. 
+		/// A comma separated list of tags that have been added to products. Additional 
+		/// access scope required: unauthenticated_read_product_tags. 
 		@available(*, deprecated, message:"Use `QueryRoot.productTags` instead.")
 		open var productTags: Storefront.StringConnection {
 			return internalGetProductTags()
