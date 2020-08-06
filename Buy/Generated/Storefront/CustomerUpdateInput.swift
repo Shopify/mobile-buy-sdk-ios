@@ -39,7 +39,7 @@ extension Storefront {
 		open var email: Input<String>
 
 		/// A unique phone number for the customer. Formatted using E.164 standard. For 
-		/// example, _+16135551111_. 
+		/// example, _+16135551111_. To remove the phone number, specify `null`. 
 		open var phone: Input<String>
 
 		/// The login password used by the customer. 
@@ -55,7 +55,7 @@ extension Storefront {
 		///     - firstName: The customer’s first name.
 		///     - lastName: The customer’s last name.
 		///     - email: The customer’s email.
-		///     - phone: A unique phone number for the customer.  Formatted using E.164 standard. For example, _+16135551111_. 
+		///     - phone: A unique phone number for the customer.  Formatted using E.164 standard. For example, _+16135551111_. To remove the phone number, specify `null`. 
 		///     - password: The login password used by the customer.
 		///     - acceptsMarketing: Indicates whether the customer has consented to be sent marketing material via email.
 		///
@@ -78,7 +78,7 @@ extension Storefront {
 		///     - firstName: The customer’s first name.
 		///     - lastName: The customer’s last name.
 		///     - email: The customer’s email.
-		///     - phone: A unique phone number for the customer.  Formatted using E.164 standard. For example, _+16135551111_. 
+		///     - phone: A unique phone number for the customer.  Formatted using E.164 standard. For example, _+16135551111_. To remove the phone number, specify `null`. 
 		///     - password: The login password used by the customer.
 		///     - acceptsMarketing: Indicates whether the customer has consented to be sent marketing material via email.
 		///
