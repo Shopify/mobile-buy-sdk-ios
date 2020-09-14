@@ -102,7 +102,7 @@ public protocol PaySessionDelegate: class {
 /// provide easier support for Apple Pay.
 ///
 @available(iOS 10.0, *)
-open class PaySession: NSObject {
+public class PaySession: NSObject {
 
     /// A status that determines whether a transaction has completed
     /// successfully or failed.
