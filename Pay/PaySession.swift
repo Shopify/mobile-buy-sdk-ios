@@ -100,7 +100,7 @@ public protocol PaySessionDelegate: class {
 /// provide easier support for Apple Pay.
 ///
 @available(iOS 10.0, *)
-public class PaySession: NSObject {
+open class PaySession: NSObject {
 
     /// A status that determines whether a transaction has completed
     /// successfully or failed.
@@ -129,6 +129,9 @@ public class PaySession: NSObject {
 
     /// Idempotency identifier of this session.
     public let identifier: String
+    
+    /// Shipping Contact can be set on the Pay Session, in order to pass in a pre-populated shipping address.
+    public var shippingContact: PKContact
 
     internal var checkout:      PayCheckout
     internal var shippingRates: [PayShippingRate] = []
@@ -185,6 +188,7 @@ public class PaySession: NSObject {
         request.countryCode                   = currency.countryCode
         request.currencyCode                  = currency.currencyCode
         request.merchantIdentifier            = merchantID
+        request.shippingContact               = shippingContact
         request.requiredBillingAddressFields  = .all
         request.requiredShippingAddressFields = .all
         request.supportedNetworks             = self.acceptedCardBrands.paymentNetworks
