@@ -110,7 +110,7 @@ struct Models {
         return PayCurrency(currencyCode: "USD", countryCode: "US")
     }
     
-    static func createCheckout(requiresShipping: Bool = true, giftCards: [PayGiftCard]? = nil, discount: PayDiscount? = nil, shippingDiscount: PayDiscount? = nil, shippingAddress: PayAddress? = nil, shippingRate: PayShippingRate? = nil, empty: Bool = false, hasTax: Bool = true) -> PayCheckout {
+    static func createCheckout(requiresShipping: Bool = true, giftCards: [PayGiftCard]? = nil, discount: PayDiscount? = nil, shippingDiscount: PayDiscount? = nil, shippingAddress: PayAddress? = nil, emailAddress: String? = nil, shippingRate: PayShippingRate? = nil, empty: Bool = false, hasTax: Bool = true) -> PayCheckout {
         
         let lineItems = [
             self.createLineItem1(),
@@ -124,6 +124,7 @@ struct Models {
             discount:         discount,
             shippingDiscount: shippingDiscount,
             shippingAddress:  shippingAddress,
+            emailAddress:     emailAddress,
             shippingRate:     shippingRate,
             currencyCode:     "CAD",
             subtotalPrice:    44.0,

@@ -41,6 +41,7 @@ public struct PayCheckout {
     public let shippingDiscount: PayDiscount?
     public let lineItems:        [PayLineItem]
     public let shippingAddress:  PayAddress?
+    public let emailAddress:     String?
     public let shippingRate:     PayShippingRate?
 
     public let currencyCode:     String
@@ -51,11 +52,12 @@ public struct PayCheckout {
     // ----------------------------------
     //  MARK: - Init -
     //
-    public init(id: String, lineItems: [PayLineItem], giftCards: [PayGiftCard]?, discount: PayDiscount?, shippingDiscount: PayDiscount?, shippingAddress: PayAddress?, shippingRate: PayShippingRate?, currencyCode: String, subtotalPrice: Decimal, needsShipping: Bool, totalTax: Decimal, paymentDue: Decimal) {
+    public init(id: String, lineItems: [PayLineItem], giftCards: [PayGiftCard]?, discount: PayDiscount?, shippingDiscount: PayDiscount?, shippingAddress: PayAddress?, emailAddress: String?, shippingRate: PayShippingRate?, currencyCode: String, subtotalPrice: Decimal, needsShipping: Bool, totalTax: Decimal, paymentDue: Decimal) {
 
         self.id               = id
         self.lineItems        = lineItems
         self.shippingAddress  = shippingAddress
+        self.emailAddress     = emailAddress
         self.shippingRate     = shippingRate
 
         self.giftCards        = giftCards
