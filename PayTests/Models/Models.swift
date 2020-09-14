@@ -124,7 +124,6 @@ struct Models {
             discount:         discount,
             shippingDiscount: shippingDiscount,
             shippingAddress:  shippingAddress,
-            emailAddress:     emailAddress,
             shippingRate:     shippingRate,
             currencyCode:     "CAD",
             subtotalPrice:    44.0,
