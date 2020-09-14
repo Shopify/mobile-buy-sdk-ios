@@ -131,7 +131,7 @@ public class PaySession: NSObject {
     public let identifier: String
     
     /// Shipping Contact can be set on the Pay Session, in order to pass in a pre-populated shipping address.
-    public var shippingContact: PKContact
+    public var shippingContact: PKContact?
 
     internal var checkout:      PayCheckout
     internal var shippingRates: [PayShippingRate] = []
