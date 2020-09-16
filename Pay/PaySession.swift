@@ -191,6 +191,13 @@ public class PaySession: NSObject {
         request.shippingContact               = shippingContact
         request.requiredBillingAddressFields  = .all
         request.requiredShippingAddressFields = .all
+        
+        request.shippingMethods = checkout.availableShippingRates?.compactMap {
+            let method = PKShippingMethod(label: $0.title, amount: $0.price)
+            method.identifier = $0.handle
+            return method
+        }
+        
         request.supportedNetworks             = self.acceptedCardBrands.paymentNetworks
         request.merchantCapabilities          = [.capability3DS]
         request.paymentSummaryItems           = checkout.summaryItems(for: self.shopName)
