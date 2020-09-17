@@ -191,10 +191,13 @@ public class PaySession: NSObject {
         request.shippingContact               = shippingContact
         request.requiredBillingAddressFields  = .all
         request.requiredShippingAddressFields = .all
-        
+        if let shippingRates = checkout.availableShippingRates {
+            self.shippingRates = shippingRates
+        }
         request.shippingMethods = checkout.availableShippingRates?.compactMap {
             let method = PKShippingMethod(label: $0.title, amount: $0.price)
             method.identifier = $0.handle
+            method.detail = ""
             return method
         }
         
