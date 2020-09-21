@@ -1,3 +1,0 @@
-[submodule "Dependencies/Swift Gen"]
-	path = Dependencies/Swift Gen
-url=https://github.com/Shopify/graphql_swift_gen.git

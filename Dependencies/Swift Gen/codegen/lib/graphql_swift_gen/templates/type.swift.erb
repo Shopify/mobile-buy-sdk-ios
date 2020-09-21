@@ -1,0 +1,232 @@
+//
+//  <%= type.name %>.swift
+//  Buy
+//
+//  Created by Shopify.
+//  Copyright (c) 2017 Shopify Inc. All rights reserved.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
+
+import Foundation
+<% if import_graphql_support %>
+  import GraphQLSupport
+<% end %>
+
+<% case type.kind; when 'OBJECT', 'INTERFACE', 'UNION' %>
+  <% fields = type.fields(include_deprecated: true) || [] %>
+<% end %>
+
+<% if type.interface? || type.union? %>
+  <%= %>
+  <%= swift_doc(type) %>
+  public protocol <%= type.name %> {
+    <% fields.each do |field| %>
+      <%= swift_attributes(field) %>
+      var <%= escape_reserved_word(field.camelize_name) %>: <%= swift_output_type(field.type) %> { get }
+    <% end %>
+  }
+<% end %>
+
+extension <%= schema_name %> {
+  <% case type.kind; when 'OBJECT', 'INTERFACE', 'UNION' %>
+    <%= swift_doc(type) %>
+    open class <%= type.name %>Query: GraphQL.AbstractQuery, GraphQLQuery {
+      public typealias Response = <%= type.name %>
+
+      <% if type.name == schema.mutation_root_name %>
+        open override var description: String {
+          return "mutation" + super.description
+        }
+      <% end %>
+      <% fields.each do |field| %>
+		<%= swift_doc(field) %>
+        <%= swift_attributes(field) %>@discardableResult
+        open func <%= escape_reserved_word(field.camelize_name) %>(<%= swift_arg_defs(field) %>) -> <%= type.name %>Query {
+          <% unless field.args.empty? %>
+            var args: [String] = []
+            <% field.required_args.each do |arg| %>
+              args.append("<%= arg.name %>:<%= generate_build_input_code(arg.name, arg.type.unwrap_non_null) %>")
+            <% end %>
+            <% field.optional_args.each do |arg| %>
+              if let <%= escape_reserved_word(arg.name) %> = <%= escape_reserved_word(arg.name) %> {
+                args.append("<%= arg.name %>:<%= generate_build_input_code(arg.name, arg.type) %>")
+              }
+            <% end %>
+            <% if field.optional_args.empty? %>
+              let argsString = "(\(args.joined(separator: ",")))"
+            <% else %>
+              let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+            <% end %>
+          <% end %>
+
+          <% if field.subfields? %>
+            let subquery = <%= field.type.unwrap.name %>Query()
+            subfields(subquery)
+          <% end %>
+
+          addField(field: "<%= field.name %>", aliasSuffix: alias<% unless field.args.empty? %>, args: argsString<% end %><% if field.subfields? %>, subfields: subquery<% end %>)
+          return self
+        }
+      <% end %>
+      <% unless type.object? %>
+        override init() {
+          super.init()
+          addField(field: "__typename")
+        }
+        <% type.possible_types.each do |possible_type| %>
+          <%= swift_doc(type) %>
+          @discardableResult
+          open func on<%= possible_type.name %>(subfields: (<%= possible_type.name %>Query) -> Void) -> <%= type.name %>Query {
+            let subquery = <%= possible_type.name %>Query()
+            subfields(subquery)
+            addInlineFragment(on: "<%= possible_type.name %>", subfields: subquery)
+            return self
+          }
+        <% end %>
+      <% end %>
+    }
+
+    <% class_name = type.object? ? type.name : "Unknown#{type.name}" %>
+    <%= swift_doc(type) %>
+    open class <%= class_name %>: GraphQL.AbstractResponse, GraphQLObject<%= swift_protocols(type) %> {
+      public typealias Query = <%= type.name %>Query
+
+      internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
+        let fieldValue = value
+        switch fieldName {
+          <% fields.each do |field| %>
+            case "<%= field.name %>":
+              <%= deserialize_value_code(class_name, field.name, 'value', field.type) %>
+          <% end %>
+          default:
+            throw SchemaViolationError(type: <%= class_name %>.self, field: fieldName, value: fieldValue)
+        }
+      }
+
+      <% unless type.object? %>
+        internal static func create(fields: [String: Any]) throws -> <%= type.name %> {
+          guard let typeName = fields["__typename"] as? String else {
+            throw SchemaViolationError(type: <%= class_name %>.self, field: "__typename", value: fields["__typename"] ?? NSNull())
+          }
+          switch typeName {
+            <% type.possible_types.each do |possible_type| %>
+              case "<%= possible_type.name %>": return try <%= possible_type.name %>.init(fields: fields)
+            <% end %>
+            default:
+              return try <%= class_name %>.init(fields: fields)
+          }
+        }
+      <% end %>
+
+      <% fields.each do |field| %>
+        <%= swift_doc(field, false) %>
+        <%= swift_attributes(field) %>open var <%= escape_reserved_word(field.camelize_name) %>: <%= swift_output_type(field.type) %> {
+          return internalGet<%= field.classify_name %>()
+        }
+
+        <% unless field.args.empty? %>
+          <%= swift_attributes(field) %>
+          open func aliased<%= field.classify_name %>(alias: String) -> <%= swift_output_type(field.type) %> {
+            return internalGet<%= field.classify_name %>(alias: alias)
+          }
+        <% end %>
+
+        func internalGet<%= field.classify_name %>(alias: String? = nil) -> <%= swift_output_type(field.type) %> {
+          return field(field: "<%= field.name %>", aliasSuffix: alias) as! <%= swift_output_type(field.type) %>
+        }
+      <% end %>
+
+      internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+        <% if fields.any? { |field| ['OBJECT', 'INTERFACE'].include?(field.type.unwrap_non_null.kind) } %>
+          var response: [GraphQL.AbstractResponse] = []
+          objectMap.keys.forEach {
+            switch($0) {
+            <% fields.each do |field| %>
+              <% if %w(OBJECT INTERFACE UNION).include?(field.type.unwrap.kind) %>
+                case "<%= field.name %>":
+                  <%= generate_append_objects_code("internalGet#{field.classify_name}()", field.type) %>
+              <% end %>
+            <% end %>
+            default:
+              break
+            }
+          }
+          return response
+        <% else %>
+          return []
+        <% end %>
+      }
+    }
+  <% when 'INPUT_OBJECT' %>
+    <%= swift_doc(type) %>
+    open class <%= type.name %> {
+      <% type.input_fields.each do |field| %>
+      
+       <%= swift_doc(field) %>
+       open var <%= escape_reserved_word(field.camelize_name) %>: <%= swift_input_type(field.type, wrapped: true) %>
+      <% end %>
+      /// Creates the input object.
+      ///
+      <%= input_field_description(type) %>
+	  <%= generate_input_init(type) %>
+	  
+	  <% if deprecated_input_init_required(type) %>
+	  <%= generate_private_input_init(type) %>
+	  <% end %>
+	  
+	  /// Creates the input object.
+      ///
+      <%= input_field_description(type) %>
+	  <%= generate_deprecated_input_init(type) %>
+
+      internal func serialize() -> String {
+        var fields: [String] = []
+        <% type.input_fields.each do |field| %>
+          <% if field.type.non_null? %>
+            fields.append("<%= field.name %>:<%= generate_build_input_code(field.camelize_name, field.type.unwrap_non_null) %>")
+          <% else %>
+            <% escapedField = escape_reserved_word(field.camelize_name) %>
+            switch <%= escapedField %> {
+            case .value(let <%= escapedField %>): 
+                guard let <%= escapedField %> = <%= escapedField %> else {
+                    fields.append("<%= field.name %>:null")
+                    break
+            	}
+             	fields.append("<%= field.name %>:<%= generate_build_input_code(field.camelize_name, field.type.unwrap_non_null) %>")
+            case .undefined: break
+            }
+          <% end %>
+        <% end %>
+        return "{\(fields.joined(separator: ","))}"
+      }
+    }
+  <% when 'ENUM' %>
+    <%= swift_doc(type) %>
+    public enum <%= type.name %>: String {
+      <% type.enum_values(include_deprecated: true).each do |value| %>
+		<%= swift_doc(value) %>
+        <%= swift_attributes(value) %>case <%= escape_reserved_word(value.camelize_name) %> = "<%= value.name %>"
+      <% end %>
+      case unknownValue = ""
+    }
+  <% else %>
+    <% raise NotImplementedError, "unhandled #{type.kind} type #{type.name}" %>
+  <% end %>
+}

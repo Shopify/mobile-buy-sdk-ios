@@ -1,0 +1,3 @@
+class GraphQLSwiftGen
+  VERSION = "0.1.0"
+end
