@@ -1,7 +1,8 @@
 name: Run tests
 
 on:
-  pull_request
+  pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -18,13 +19,16 @@ jobs:
     - name: Install xcpretty
       run: gem install xcpretty
 
-    - name: Update submodules
-      run: git submodule sync --recursive && git submodule update --recursive --init
+    - name: Use Xcode 12
+      run: sudo xcode-select -s /Applications/Xcode_12.app
+
+    - name: List available simulators
+      run: xcrun simctl list devices
 
     - name: Setup simulator
       id: version
       run: |
-        CURRENT_SIMULATOR_UUID=$(xcrun simctl create TestDevice com.apple.CoreSimulator.SimDeviceType.iPhone-11 com.apple.CoreSimulator.SimRuntime.iOS-13-6)
+        CURRENT_SIMULATOR_UUID=$(xcrun simctl create TestDevice com.apple.CoreSimulator.SimDeviceType.iPhone-11 com.apple.CoreSimulator.SimRuntime.iOS-14-0)
         echo "::set-env name=CURRENT_SIMULATOR_UUID::$CURRENT_SIMULATOR_UUID"
 
     - name: Test Buy
@@ -38,3 +42,6 @@ jobs:
 
     - name: Test Pay
       run: ./Scripts/test_pay
+      
+    - name: Test Swift Package
+      run: swift test 2>&1 | xcpretty

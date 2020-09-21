@@ -5,6 +5,7 @@ on:
     # Run on midnight UTC on the first of jan/apr/jul/oct
     # API is released 1PM EDT/EST
     - cron: '59 23 1 1/3 *'
+  workflow_dispatch:
 
 jobs:
   build:
@@ -36,6 +37,9 @@ jobs:
       run: |
         echo "Generating schema for $API_VERSION"
         ./Scripts/build $API_VERSION
+        
+    - name: Incrementing SDK version
+      run: ./Scripts/increment_version
        
     - name: Create and reset release branch
       run: git checkout -B "release/$API_VERSION-auto-generated" # -B will reset branch if it exists
