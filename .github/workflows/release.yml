@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
 
 jobs:
   build:
@@ -14,6 +15,12 @@ jobs:
     - uses: actions/checkout@master
       with:
         ref: 'master'
+        
+    - name: Get SDK version
+      id: version
+      run: |
+        SDK_VERSION="$(./Scripts/get_version)"
+        echo "::set-env name=SDK_VERSION::$SDK_VERSION"
 
     - name: Create a draft release
       uses: actions/github-script@0.9.0
@@ -24,14 +31,15 @@ jobs:
           const yyyy = today.getFullYear();
           const mm = String(today.getMonth() + 1).padStart(2, '0');
           const api_version = yyyy + '-' + mm
+          const sdkVersion = ${process.env.SDK_VERSION}
 
           github.repos.createRelease({
             owner: context.repo.owner,
             repo: context.repo.repo,
-            name: "X.X.X",
+            name: sdkVersion,
             body: "Release notes:" +
               "\n- https://shopify.dev/concepts/about-apis/versioning/release-notes/" + api_version + "#storefront-api-changes",
-            tag_name: 'x.x.x',
+            tag_name: sdkVersion,
             target_commitish: 'master',
             draft: true,
             prerelease: false,
