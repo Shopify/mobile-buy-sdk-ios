@@ -128,7 +128,7 @@ internal extension Graph {
             
             url = url.appendingPathComponent(Cache.cacheName)
             url = url.appendingPathComponent(Global.frameworkVersion)
-            url = url.appendingPathComponent(MD5.hash(shopName))
+            url = url.appendingPathComponent(SHA256.hash(shopName))
             
             return url
         }

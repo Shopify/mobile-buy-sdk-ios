@@ -24,6 +24,8 @@
 //  THE SOFTWARE.
 //
 
+#if canImport(PassKit)
+
 import Foundation
 import Pay
 
@@ -68,3 +70,5 @@ final class MockSessionDelegate: PaySessionDelegate {
         self.didFinish?(paySession)
     }
 }
+
+#endif

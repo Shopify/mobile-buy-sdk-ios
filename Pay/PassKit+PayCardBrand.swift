@@ -24,6 +24,8 @@
 //  THE SOFTWARE.
 //
 
+#if canImport(PassKit)
+
 import PassKit
 
 extension PayCardBrand {
@@ -57,3 +59,5 @@ extension Array where Element == PayCardBrand {
         }
     }
 }
+
+#endif

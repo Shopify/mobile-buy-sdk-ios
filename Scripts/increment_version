@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+
+parent_path = File.expand_path('..', __dir__)
+file_path = File.join(parent_path, 'Buy', 'Utilities', 'SDK.swift')
+src = File.read(file_path)
+if !src 
+    puts "Could not read file."
+    exit(false)
+end
+
+version = src.match(/static let version = "([0-9.]+)"/i).captures[0]
+
+components = version.split('.')
+components[1] = components[1].to_i + 1
+new_version = components.join('.')
+
+new_src = src.gsub(/static let version = "([0-9.]+)"/, "static let version = \"#{new_version}\"")
+File.open(file_path, "w") { |file| 
+    file.puts new_src
+}
+
+puts new_version

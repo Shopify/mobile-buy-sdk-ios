@@ -25,7 +25,6 @@
 //
 
 import Foundation
-import PassKit
 
 /// Represents a discount to be applied to the checkout. If the code
 /// is a zero-length string, then it is treated as an "anonymous" discount

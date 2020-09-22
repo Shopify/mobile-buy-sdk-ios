@@ -25,7 +25,6 @@
 //
 
 import Foundation
-import PassKit
 
 /// Encapsulates all fields required for invoking the Apple Pay
 /// dialog. It also creates summary items for cart total,
@@ -72,6 +71,10 @@ public struct PayCheckout {
         self.needsShipping    = needsShipping
     }
 }
+
+#if canImport(PassKit)
+
+import PassKit
 
 // ----------------------------------
 //  MARK: - PassKits -
@@ -140,3 +143,5 @@ internal extension PayCheckout {
         return summaryItems
     }
 }
+
+#endif

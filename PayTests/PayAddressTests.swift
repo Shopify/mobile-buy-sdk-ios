@@ -25,8 +25,11 @@
 //
 
 import XCTest
-import PassKit
 @testable import Pay
+
+#if canImport(PassKit)
+import PassKit
+#endif
 
 @available(iOS 11.0, *)
 class PayAddressTests: XCTestCase {
@@ -145,6 +148,8 @@ class PayAddressTests: XCTestCase {
         XCTAssertEqual(address.email,        "john.smith@gmail.com")
     }
     
+    #if canImport(PassKit)
+    
     // ----------------------------------
     //  MARK: - CNPostalAddress -
     //
@@ -195,4 +200,6 @@ class PayAddressTests: XCTestCase {
         XCTAssertEqual(address3.addressLine1, nil)
         XCTAssertEqual(address3.addressLine2, nil)
     }
+    
+    #endif
 }

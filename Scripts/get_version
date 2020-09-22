@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+parent_path = File.expand_path('..', __dir__)
+file_path = File.join(parent_path, 'Buy', 'Utilities', 'SDK.swift')
+src = File.read(file_path)
+
+version = src.match(/static let version = "([0-9.]+)"/i).captures[0]
+puts version
