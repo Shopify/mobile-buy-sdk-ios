@@ -1,5 +1,5 @@
 //
-//  MD5.h
+//  SDK.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -24,15 +24,8 @@
 //  THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
+import Foundation
 
-NS_ASSUME_NONNULL_BEGIN
-
-@interface MD5: NSObject
-
-+ (NSString *)data:(NSData *)data NS_SWIFT_NAME(hash(_:));
-+ (NSString *)string:(NSString *)string NS_SWIFT_NAME(hash(_:));
-
-@end
-
-NS_ASSUME_NONNULL_END
+internal enum SDK {
+    static let version = "5.1.0"
+}

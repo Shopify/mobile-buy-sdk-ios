@@ -1,5 +1,5 @@
 //
-//  MD5Tests.swift
+//  SHA256Tests.swift
 //  BuyTests
 //
 //  Created by Shopify.
@@ -27,22 +27,22 @@
 import XCTest
 @testable import Buy
 
-class MD5Tests: XCTestCase {
+class SHA256Tests: XCTestCase {
     
     // ----------------------------------
     //  MARK: - Hash -
     //
     func testDataHash() {
         let query = "query { shop { name } }".data(using: .utf8)!
-        let hash  = MD5.hash(query)
+        let hash  = SHA256.hash(query)
         
-        XCTAssertEqual(hash, "37d3868e50b398dc12ddd14ba1cec315")
+        XCTAssertEqual(hash, "81f5f157cf9744055c946cfd72c69557fe806a282991a9bcf7ba00ba70575dad")
     }
     
     func testStringHash() {
         let query = "query { shop { name } }"
-        let hash  = MD5.hash(query)
+        let hash  = SHA256.hash(query)
         
-        XCTAssertEqual(hash, "37d3868e50b398dc12ddd14ba1cec315")
+        XCTAssertEqual(hash, "81f5f157cf9744055c946cfd72c69557fe806a282991a9bcf7ba00ba70575dad")
     }
 }

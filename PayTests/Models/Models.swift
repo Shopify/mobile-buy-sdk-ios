@@ -24,6 +24,8 @@
 //  THE SOFTWARE.
 //
 
+#if canImport(PassKit)
+
 import Foundation
 import PassKit
 import Pay
@@ -188,3 +190,5 @@ struct Models {
         return (order, PayShippingRate.DeliveryRange(from: from, to: to))
     }
 }
+
+#endif

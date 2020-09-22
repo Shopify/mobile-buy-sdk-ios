@@ -24,6 +24,8 @@
 //  THE SOFTWARE.
 //
 
+#if canImport(PassKit)
+
 import PassKit
 
 // ----------------------------------
@@ -49,3 +51,5 @@ internal extension PKPaymentSummaryItem {
         self.init(label: label, amount: amount as NSDecimalNumber)
     }
 }
+
+#endif

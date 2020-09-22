@@ -24,6 +24,8 @@
 //  THE SOFTWARE.
 //
 
+#if canImport(PassKit)
+
 import Foundation
 import PassKit
 
@@ -60,3 +62,5 @@ class MockPayment: PKPayment {
         self._shippingMethod  = shippingMethod
     }
 }
+
+#endif

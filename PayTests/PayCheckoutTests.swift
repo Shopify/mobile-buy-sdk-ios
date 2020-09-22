@@ -24,6 +24,8 @@
 //  THE SOFTWARE.
 //
 
+#if canImport(PassKit)
+
 import XCTest
 @testable import Pay
 
@@ -220,3 +222,5 @@ class PayCheckoutTests: XCTestCase {
         XCTAssertEqual(summaryItems[6].amount as Decimal, giftCards[0].amount.negative)
     }
 }
+
+#endif

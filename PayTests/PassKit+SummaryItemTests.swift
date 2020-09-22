@@ -24,6 +24,8 @@
 //  THE SOFTWARE.
 //
 
+#if canImport(PassKit)
+
 import XCTest
 @testable import Pay
 
@@ -41,3 +43,5 @@ class PassKit_SummaryItemTests: XCTestCase {
         XCTAssertEqual(item.type, .final)
     }
 }
+
+#endif

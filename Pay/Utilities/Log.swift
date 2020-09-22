@@ -1,6 +1,6 @@
 //
-//  MD5.m
-//  Buy
+//  Log.swift
+//  Pay
 //
 //  Created by Shopify.
 //  Copyright (c) 2017 Shopify Inc. All rights reserved.
@@ -24,39 +24,10 @@
 //  THE SOFTWARE.
 //
 
-#import "MD5.h"
-#import <CommonCrypto/CommonCrypto.h>
+import Foundation
 
-@implementation MD5
-
-+ (NSString *)data:(NSData *)data {
-    uint8_t digest[16];
-    [self data:data md5:digest];
-    
-    return [self string16FromDigest:digest];
+func Log(_ string: String) {
+#if DEBUG
+    print(string)
+#endif
 }
-
-+ (NSString *)string:(NSString *)string {
-    return [self data:[string dataUsingEncoding:NSUTF8StringEncoding]];
-}
-
-+ (void)data:(NSData *)data md5:(uint8_t *)md5 {
-    __block CC_MD5_CTX context;
-    CC_MD5_Init(&context);
-    
-    [data enumerateByteRangesUsingBlock:^(const void *bytes, NSRange byteRange, BOOL *stop) {
-        CC_MD5_Update(&context, bytes, (CC_LONG)byteRange.length);
-    }];
-    
-    CC_MD5_Final(md5, &context);
-}
-
-+ (NSString *)string16FromDigest:(uint8_t *)d {
-    return [NSString stringWithFormat:
-            @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
-            d[0],  d[1],  d[2],  d[3],  d[4],  d[5],  d[6],  d[7],
-            d[8],  d[9],  d[10], d[11], d[12], d[13], d[14], d[15]
-            ];
-}
-
-@end

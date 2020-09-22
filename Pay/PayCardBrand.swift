@@ -25,7 +25,6 @@
 //
 
 import Foundation
-import PassKit
 
 public enum PayCardBrand: String {
     case visa            = "VISA"

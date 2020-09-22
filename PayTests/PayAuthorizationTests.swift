@@ -24,6 +24,8 @@
 //  THE SOFTWARE.
 //
 
+#if canImport(PassKit)
+
 import XCTest
 @testable import Pay
 
@@ -50,3 +52,5 @@ class PayAuthorizationTests: XCTestCase {
         XCTAssertEqual(authorization.shippingRate!.handle,      rate.handle)
     }
 }
+
+#endif
