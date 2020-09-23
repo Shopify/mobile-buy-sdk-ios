@@ -90,6 +90,10 @@ The documentation is generated using [Jazzy](https://github.com/realm/jazzy).
 
 <a href="https://github.com/Shopify/mobile-buy-sdk-ios/releases/latest">Download the latest version</a>
 
+### Swift Package Manager [⤴](#table-of-contents)
+
+This is the recommended approach of integration the SDK with your app. You can follow Apple's guide for [adding a package dependency to your app](https://developer.apple.com/documentation/xcode/adding_package_dependencies_to_your_app) for a thorough walkthrough. 
+
 ### Dynamic Framework Installation [⤴](#table-of-contents)
 
 1. Add `Buy` as a git submodule by running:
