@@ -12,6 +12,7 @@ current_version = sdk_version_src.match(/static let version = "([0-9.]+)"/i).cap
 
 components = current_version.split('.')
 components[1] = components[1].to_i + 1
+components[2] = 0
 new_version = components.join('.')
 
 sdk_version_src.gsub!(/static let version = "([0-9.]+)"/, "static let version = \"#{new_version}\"")
@@ -34,5 +35,7 @@ end
 File.open(podspec_path, 'w') do |file|
     file.puts podspec_src
 end
+
+system('agvtool', 'new-marketing-version', new_version)
 
 puts new_version
