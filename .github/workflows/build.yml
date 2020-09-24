@@ -1,6 +1,6 @@
 name: Build SDK for latest API version
 
-on: 
+on:
   schedule:
     # Run on midnight UTC on the first of jan/apr/jul/oct
     # API is released 1PM EDT/EST
@@ -11,45 +11,45 @@ jobs:
   build:
 
     runs-on: macOS-latest
-    
+
     steps:
     - name: Get API Version
       id: version
       run: |
         API_VERSION="$(date +'%Y-%m')"
         echo "::set-env name=API_VERSION::$API_VERSION"
-      
+
     - uses: actions/checkout@master
       with:
         ref: 'master'
-      
+
     - uses: actions/setup-ruby@v1
       with:
         ruby-version: '2.6'
 
     - name: Install bundler
       run: gem install bundler
-      
+
     - name: Install dependencies
       run: bundle install
-        
+
+    - name: Create and reset release branch
+      run: git checkout -B "release/$API_VERSION-auto-generated" # -B will reset branch if it exists
+
     - name: Build new SDK version
       run: |
         echo "Generating schema for $API_VERSION"
         ./Scripts/build $API_VERSION
-        
+
     - name: Incrementing SDK version
       run: ./Scripts/increment_version
-       
-    - name: Create and reset release branch
-      run: git checkout -B "release/$API_VERSION-auto-generated" # -B will reset branch if it exists
-      
+
     - name: Stage and push generated files
       run: |
         git add ./Buy/Generated
         git commit -m "Update schema (auto-generated)"
         git push --set-upstream --force origin "release/$API_VERSION-auto-generated"
-    
+
     - uses: actions/github-script@0.9.0
       with:
         script: |
@@ -58,7 +58,7 @@ jobs:
           const yyyy = today.getFullYear();
           const mm = String(today.getMonth() + 1).padStart(2, '0');
           const api_version = yyyy + '-' + mm
-          
+
           // create a pull request
           github.pulls.create({
             owner: context.repo.owner,
@@ -66,7 +66,7 @@ jobs:
             title: 'Update schema (auto-generated)',
             head: 'release/' + api_version + '-auto-generated',
             base: 'master',
-            body: "Release notes:" + 
+            body: "Release notes:" +
               "\n- https://shopify.dev/concepts/about-apis/versioning/release-notes/" + api_version + "#storefront-api-changes" +
               "\n" +
               "\n**Steps to release:**" +
