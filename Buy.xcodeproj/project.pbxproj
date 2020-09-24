@@ -251,9 +251,9 @@
 		9A371411251A21BE00FE742B /* GraphQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A371409251A21B200FE742B /* GraphQL.swift */; };
 		9A371419251A21BE00FE742B /* GraphQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A371409251A21B200FE742B /* GraphQL.swift */; };
 		9A37141A251A21BF00FE742B /* GraphQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A371409251A21B200FE742B /* GraphQL.swift */; };
-		9A371464251A2AEC00FE742B /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A371463251A2AEC00FE742B /* MD5.swift */; };
-		9A371465251A2AEC00FE742B /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A371463251A2AEC00FE742B /* MD5.swift */; };
-		9A371466251A2AEC00FE742B /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A371463251A2AEC00FE742B /* MD5.swift */; };
+		9A371464251A2AEC00FE742B /* SHA256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A371463251A2AEC00FE742B /* SHA256.swift */; };
+		9A371465251A2AEC00FE742B /* SHA256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A371463251A2AEC00FE742B /* SHA256.swift */; };
+		9A371466251A2AEC00FE742B /* SHA256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A371463251A2AEC00FE742B /* SHA256.swift */; };
 		9A3714AF251A808800FE742B /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3714AE251A806D00FE742B /* Log.swift */; };
 		9A3D0F3222B28BB800B2E7AF /* ProductPriceRangeEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3D0F3022B28BB700B2E7AF /* ProductPriceRangeEdge.swift */; };
 		9A3D0F3322B28BB800B2E7AF /* ProductPriceRangeEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3D0F3022B28BB700B2E7AF /* ProductPriceRangeEdge.swift */; };
@@ -911,7 +911,7 @@
 		9A2ACE2C21CD3C8600C09FF7 /* AutomaticDiscountApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutomaticDiscountApplication.swift; sourceTree = "<group>"; };
 		9A371409251A21B200FE742B /* GraphQL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQL.swift; sourceTree = "<group>"; };
 		9A371422251A24CF00FE742B /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
-		9A371463251A2AEC00FE742B /* MD5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MD5.swift; sourceTree = "<group>"; };
+		9A371463251A2AEC00FE742B /* SHA256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHA256.swift; sourceTree = "<group>"; };
 		9A3714AE251A806D00FE742B /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		9A3D0F3022B28BB700B2E7AF /* ProductPriceRangeEdge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductPriceRangeEdge.swift; sourceTree = "<group>"; };
 		9A3D0F3122B28BB800B2E7AF /* ProductPriceRangeConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductPriceRangeConnection.swift; sourceTree = "<group>"; };
@@ -1465,7 +1465,7 @@
 		9A9C513B1F02A0CA003363E7 /* Crypto */ = {
 			isa = PBXGroup;
 			children = (
-				9A371463251A2AEC00FE742B /* MD5.swift */,
+				9A371463251A2AEC00FE742B /* SHA256.swift */,
 			);
 			path = Crypto;
 			sourceTree = "<group>";
@@ -2047,7 +2047,7 @@
 				9AC2EF9E1F6818180037E0D7 /* ArticleAuthor.swift in Sources */,
 				9ABEB3BE2122FF8000A373F2 /* CustomerErrorCode.swift in Sources */,
 				9AC2EF9F1F6818180037E0D7 /* SelectedOption.swift in Sources */,
-				9A371465251A2AEC00FE742B /* MD5.swift in Sources */,
+				9A371465251A2AEC00FE742B /* SHA256.swift in Sources */,
 				9AC2EFA01F6818180037E0D7 /* OrderLineItemConnection.swift in Sources */,
 				9A3D4CD6251B9EF200B702E0 /* SDK.swift in Sources */,
 				9AC2EFA11F6818180037E0D7 /* CheckoutAttributesUpdateInput.swift in Sources */,
@@ -2277,7 +2277,7 @@
 				9A0C809E1EAA51C50020F187 /* OrderLineItemConnection.swift in Sources */,
 				9A0C805D1EAA51C50020F187 /* CheckoutAttributesUpdateInput.swift in Sources */,
 				8128551E23C4AC7E00ADA66E /* MediaConnection.swift in Sources */,
-				9A371464251A2AEC00FE742B /* MD5.swift in Sources */,
+				9A371464251A2AEC00FE742B /* SHA256.swift in Sources */,
 				9A0C806D1EAA51C50020F187 /* CheckoutLineItemsAddPayload.swift in Sources */,
 				9A3D4CD5251B9EF200B702E0 /* SDK.swift in Sources */,
 				9A0C80781EAA51C50020F187 /* CreditCardPaymentInput.swift in Sources */,
@@ -2507,7 +2507,7 @@
 				9AF256181F6FEE50005BB0C9 /* ArticleAuthor.swift in Sources */,
 				9ABEB3BF2122FF8000A373F2 /* CustomerErrorCode.swift in Sources */,
 				9AF256191F6FEE50005BB0C9 /* SelectedOption.swift in Sources */,
-				9A371466251A2AEC00FE742B /* MD5.swift in Sources */,
+				9A371466251A2AEC00FE742B /* SHA256.swift in Sources */,
 				9AF2561A1F6FEE50005BB0C9 /* OrderLineItemConnection.swift in Sources */,
 				9A3D4CD7251B9EF200B702E0 /* SDK.swift in Sources */,
 				9AF2561B1F6FEE50005BB0C9 /* CheckoutAttributesUpdateInput.swift in Sources */,
