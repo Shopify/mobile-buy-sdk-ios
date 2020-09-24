@@ -36,4 +36,6 @@ File.open(podspec_path, 'w') do |file|
     file.puts podspec_src
 end
 
+system('agvtool', 'new-marketing-version', new_version)
+
 puts new_version
