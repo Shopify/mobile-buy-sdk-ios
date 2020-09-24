@@ -54,6 +54,8 @@ jobs:
       run: |
         git add ./Buy/Utilities/SDK.swift
         git add ./Mobile-Buy-SDK.podspec
+        git add ./\*Info.plist
+        git add
         git commit -m "Bump version"
         git push --set-upstream --force origin "release/$API_VERSION-auto-generated"
 
