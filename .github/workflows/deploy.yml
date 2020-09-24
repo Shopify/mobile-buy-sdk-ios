@@ -4,6 +4,7 @@ on:
   release:
     types:
       - published
+  workflow_dispatch:
       
 jobs:
   build:
@@ -21,7 +22,6 @@ jobs:
     - name: Install dependencies
       run: |
         gem install cocoapods
-        git submodule sync --recursive && git submodule update --recursive --init
     
     - name: Push to cocoapods
       run: |

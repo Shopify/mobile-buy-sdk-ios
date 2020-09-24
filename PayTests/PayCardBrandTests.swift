@@ -24,6 +24,8 @@
 //  THE SOFTWARE.
 //
 
+#if canImport(PassKit)
+
 import XCTest
 import PassKit
 @testable import Pay
@@ -67,3 +69,5 @@ class PayCardBrandTests: XCTestCase {
         XCTAssertEqual(networks[1], .masterCard)
     }
 }
+
+#endif

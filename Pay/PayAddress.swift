@@ -25,7 +25,6 @@
 //
 
 import Foundation
-import PassKit
 
 /// Represents a partial address without street information.
 ///
@@ -175,6 +174,10 @@ public struct PayAddress {
     }
 }
 
+#if canImport(PassKit)
+
+import PassKit
+
 // ----------------------------------
 //  MARK: - PassKit -
 //
@@ -221,3 +224,5 @@ internal extension PayAddress {
         )
     }
 }
+
+#endif

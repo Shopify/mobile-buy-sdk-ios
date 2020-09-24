@@ -24,6 +24,8 @@
 //  THE SOFTWARE.
 //
 
+#if canImport(PassKit)
+
 import Foundation
 import PassKit
 
@@ -111,3 +113,5 @@ final class MockAuthorizationController: PKPaymentAuthorizationController {
         }
     }
 }
+
+#endif

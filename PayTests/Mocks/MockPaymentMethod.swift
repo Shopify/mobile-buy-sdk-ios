@@ -24,6 +24,8 @@
 //  THE SOFTWARE.
 //
 
+#if canImport(PassKit)
+
 import Foundation
 import PassKit
 
@@ -54,3 +56,5 @@ class MockPaymentMethod: PKPaymentMethod {
         self._type        = type
     }
 }
+
+#endif

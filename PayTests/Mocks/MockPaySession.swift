@@ -6,6 +6,8 @@
 //  Copyright © 2017 Shopify Inc. All rights reserved.
 //
 
+#if canImport(PassKit)
+
 import Foundation
 import PassKit
 @testable import Pay
@@ -74,3 +76,5 @@ class MockPaySession: PaySession {
         }
     }
 }
+
+#endif

@@ -25,7 +25,6 @@
 //
 
 import Foundation
-import PassKit
 
 /// Represents a shipping rate quote, usually provided for a specific address.
 ///
@@ -107,6 +106,10 @@ private extension Date {
     }
 }
 
+#if canImport(PassKit)
+
+import PassKit
+
 // ----------------------------------
 //  MARK: - PassKit -
 //
@@ -140,3 +143,5 @@ internal extension Array where Element == PayShippingRate {
         }.first
     }
 }
+
+#endif
