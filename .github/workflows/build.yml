@@ -41,13 +41,20 @@ jobs:
         echo "Generating schema for $API_VERSION"
         ./Scripts/build $API_VERSION
 
-    - name: Incrementing SDK version
-      run: ./Scripts/increment_version
-
     - name: Stage and push generated files
       run: |
         git add ./Buy/Generated
         git commit -m "Update schema (auto-generated)"
+        git push --set-upstream --force origin "release/$API_VERSION-auto-generated"
+
+    - name: Incrementing SDK version
+      run: ./Scripts/increment_version
+
+    - name: Stage and push versioning files
+      run: |
+        git add ./Buy/Utilities/SDK.swift
+        git add ./Mobile-Buy-SDK.podspec
+        git commit -m "Bump version"
         git push --set-upstream --force origin "release/$API_VERSION-auto-generated"
 
     - uses: actions/github-script@0.9.0
