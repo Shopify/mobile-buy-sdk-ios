@@ -39,7 +39,7 @@ class Global {
     //  MARK: - Versions -
     //
     static var frameworkVersion: String {
-        return "\(Storefront.Schema.version)\(SDK.version)"
+        return "\(Storefront.Schema.version)/\(SDK.version)"
     }
     
     static var applicationIdentifier: String {
