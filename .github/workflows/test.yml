@@ -1,14 +1,17 @@
-name: Run tests
+name: Test
 
 on:
+  push:
+    branches:
+      - master
+      - release/**
   pull_request:
   workflow_dispatch:
 
 jobs:
   build:
-
     runs-on: macOS-latest
-
+    
     steps:
     - uses: actions/checkout@master
 
