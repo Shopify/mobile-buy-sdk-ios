@@ -19,7 +19,7 @@ jobs:
     - name: Get SDK version
       id: sdk-version
       run: |
-        SDK_VERSION="$(./Scripts/get_version)"
+        SDK_VERSION="$(./Scripts/get_sdk_version)"
         echo "::set-env name=SDK_VERSION::$SDK_VERSION"
 
     - name: Get API Version
