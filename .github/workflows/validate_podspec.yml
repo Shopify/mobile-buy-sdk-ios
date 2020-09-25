@@ -1,4 +1,4 @@
-name: Ensure Mobile-Buy-SDK version is bumped
+name: Validate .podspec version
 
 on:
   push:
@@ -14,7 +14,7 @@ jobs:
         ref: ${{ github.event.pull_request.head.ref }}
         fetch-depth: 0
 
-    - name: Ensure Mobile-Buy-SDK.podspec version is changed
+    - name: Validate .podspec version
       run: |
         git fetch origin master
         if [ $(git diff origin/master -- Mobile-Buy-SDK.podspec | grep s.version | wc -l) -eq "2" ]; then
