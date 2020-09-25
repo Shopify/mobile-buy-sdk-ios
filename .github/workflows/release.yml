@@ -17,22 +17,23 @@ jobs:
         ref: 'master'
         
     - name: Get SDK version
-      id: version
+      id: sdk-version
       run: |
-        SDK_VERSION="$(./Scripts/get_version)"
+        SDK_VERSION="$(./Scripts/get_sdk_version)"
         echo "::set-env name=SDK_VERSION::$SDK_VERSION"
+
+    - name: Get API Version
+      id: api-version
+      run: |
+        API_VERSION="$(./Scripts/get_api_version)"
+        echo "::set-env name=API_VERSION::$API_VERSION"
 
     - name: Create a draft release
       uses: actions/github-script@0.9.0
       with:
         script: |
-          // Get the current date
-          const today = new Date();
-          const yyyy = today.getFullYear();
-          const mm = String(today.getMonth() + 1).padStart(2, '0');
-          const api_version = yyyy + '-' + mm
+          const api_version = process.env.API_VERSION
           const sdkVersion = process.env.SDK_VERSION
-
           github.repos.createRelease({
             owner: context.repo.owner,
             repo: context.repo.repo,
