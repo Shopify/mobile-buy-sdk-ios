@@ -193,8 +193,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The sum of all the prices of all the items in the checkout. Taxes, shipping 
-		/// and discounts excluded. 
+		/// The sum of all the prices of all the items in the checkout. Duties, taxes, 
+		/// shipping and discounts excluded. 
 		@discardableResult
 		open func lineItemsSubtotalPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CheckoutQuery {
 			let subquery = MoneyV2Query()
@@ -239,7 +239,7 @@ extension Storefront {
 		}
 
 		/// The amount left to be paid. This is equal to the cost of the line items, 
-		/// taxes and shipping minus discounts and gift cards. 
+		/// duties, taxes and shipping minus discounts and gift cards. 
 		@discardableResult
 		open func paymentDueV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CheckoutQuery {
 			let subquery = MoneyV2Query()
@@ -306,7 +306,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Price of the checkout before shipping and taxes. 
+		/// Price of the checkout before duties, shipping and taxes. 
 		@discardableResult
 		open func subtotalPriceV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CheckoutQuery {
 			let subquery = MoneyV2Query()
@@ -339,8 +339,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The sum of all the prices of all the items in the checkout, taxes and 
-		/// discounts included. 
+		/// The sum of all the prices of all the items in the checkout, duties, taxes 
+		/// and discounts included. 
 		@discardableResult
 		open func totalPriceV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CheckoutQuery {
 			let subquery = MoneyV2Query()
@@ -708,8 +708,8 @@ extension Storefront {
 			return field(field: "lineItems", aliasSuffix: alias) as! Storefront.CheckoutLineItemConnection
 		}
 
-		/// The sum of all the prices of all the items in the checkout. Taxes, shipping 
-		/// and discounts excluded. 
+		/// The sum of all the prices of all the items in the checkout. Duties, taxes, 
+		/// shipping and discounts excluded. 
 		open var lineItemsSubtotalPrice: Storefront.MoneyV2 {
 			return internalGetLineItemsSubtotalPrice()
 		}
@@ -758,7 +758,7 @@ extension Storefront {
 		}
 
 		/// The amount left to be paid. This is equal to the cost of the line items, 
-		/// taxes and shipping minus discounts and gift cards. 
+		/// duties, taxes and shipping minus discounts and gift cards. 
 		open var paymentDueV2: Storefront.MoneyV2 {
 			return internalGetPaymentDueV2()
 		}
@@ -827,7 +827,7 @@ extension Storefront {
 			return field(field: "subtotalPrice", aliasSuffix: alias) as! Decimal
 		}
 
-		/// Price of the checkout before shipping and taxes. 
+		/// Price of the checkout before duties, shipping and taxes. 
 		open var subtotalPriceV2: Storefront.MoneyV2 {
 			return internalGetSubtotalPriceV2()
 		}
@@ -865,8 +865,8 @@ extension Storefront {
 			return field(field: "totalPrice", aliasSuffix: alias) as! Decimal
 		}
 
-		/// The sum of all the prices of all the items in the checkout, taxes and 
-		/// discounts included. 
+		/// The sum of all the prices of all the items in the checkout, duties, taxes 
+		/// and discounts included. 
 		open var totalPriceV2: Storefront.MoneyV2 {
 			return internalGetTotalPriceV2()
 		}
