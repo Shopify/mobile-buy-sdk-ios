@@ -1,4 +1,4 @@
-name: Create SDK release
+name: Release
 
 on: 
   workflow_dispatch:
