@@ -13,12 +13,6 @@ jobs:
     runs-on: macOS-latest
 
     steps:
-    - name: Get API Version
-      id: version
-      run: |
-        API_VERSION="$(./Scripts/get_api_version)"
-        echo "::set-env name=API_VERSION::$API_VERSION"
-
     - uses: actions/checkout@master
       with:
         ref: 'master'
@@ -35,6 +29,12 @@ jobs:
 
     - name: Create and reset release branch
       run: git checkout -B "release/$API_VERSION-auto-generated" # -B will reset branch if it exists
+
+    - name: Get API Version
+      id: version
+      run: |
+        API_VERSION="$(./Scripts/get_api_version)"
+        echo "::set-env name=API_VERSION::$API_VERSION"
 
     - name: Build new SDK version
       run: |
