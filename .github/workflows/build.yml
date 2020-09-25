@@ -1,4 +1,4 @@
-name: Build SDK for latest API version
+name: Generate schema
 
 on:
   schedule:
