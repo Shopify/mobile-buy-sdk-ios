@@ -9,7 +9,8 @@ jobs:
     
     steps:
     
-    - uses: actions/checkout@master
+    - name: Checkout master
+      uses: actions/checkout@master
       with:
         ref: 'master'
         
@@ -35,8 +36,7 @@ jobs:
             owner: context.repo.owner,
             repo: context.repo.repo,
             name: sdkVersion,
-            body: "Release notes:" +
-              "\n- https://shopify.dev/concepts/about-apis/versioning/release-notes/" + api_version + "#storefront-api-changes",
+            body: `Take a look at the [latest schema changes](https://shopify.dev/concepts/about-apis/versioning/release-notes/${api_version}#storefront-api-changes).`,
             tag_name: sdkVersion,
             target_commitish: 'master',
             draft: true,

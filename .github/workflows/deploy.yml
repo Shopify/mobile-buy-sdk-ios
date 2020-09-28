@@ -11,11 +11,13 @@ jobs:
     runs-on: macOS-latest
     
     steps:
-    - uses: actions/checkout@master
+    - name: Checkout master
+      uses: actions/checkout@master
       with:
         ref: 'master'
     
-    - uses: actions/setup-ruby@v1
+    - name: Install Ruby
+      uses: actions/setup-ruby@v1
       with:
         ruby-version: '2.6' 
         

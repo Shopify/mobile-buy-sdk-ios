@@ -1,4 +1,4 @@
-name: Generate schema
+name: Build new schema
 
 on:
   schedule:
@@ -13,11 +13,14 @@ jobs:
     runs-on: macOS-latest
 
     steps:
-    - uses: actions/checkout@master
+    - name: Checkout master
+      uses: actions/checkout@master
       with:
         ref: 'master'
+        ssh-key: ${{ secrets.SSH_ACTIONS_KEY }}
 
-    - uses: actions/setup-ruby@v1
+    - name: Install Ruby
+      uses: actions/setup-ruby@v1
       with:
         ruby-version: '2.6'
 
@@ -31,50 +34,51 @@ jobs:
       id: version
       run: |
         API_VERSION="$(./Scripts/get_api_version)"
+        BRANCH_NAME="release/${API_VERSION}-auto-generated"
         echo "::set-env name=API_VERSION::$API_VERSION"
+        echo "::set-env name=BRANCH_NAME::$BRANCH_NAME"
 
-    - name: Create and reset release branch
-      run: git checkout -B "release/$API_VERSION-auto-generated" # -B will reset branch if it exists
+    - name: Create and push the release branch
+      run: |
+        git checkout -B $BRANCH_NAME # -B will reset branch if it exists
+        git push --set-upstream --force origin $BRANCH_NAME
 
     - name: Build new SDK version
       run: |
         echo "Generating schema for $API_VERSION"
         ./Scripts/build $API_VERSION
-
-    - name: Stage and push generated files
-      run: |
         git add ./Buy/Generated
         git commit -m "Update schema (auto-generated)"
-        git push --set-upstream --force origin "release/$API_VERSION-auto-generated"
+        git push --set-upstream --force origin $BRANCH_NAME
 
-    - name: Incrementing SDK version
-      run: ./Scripts/increment_version
-
-    - name: Stage and push versioning files
+    - name: Increment SDK version
       run: |
+        ./Scripts/increment_version
         git add ./Buy/Utilities/SDK.swift
         git add ./Mobile-Buy-SDK.podspec
         git add ./\*Info.plist
         git add
         git commit -m "Bump version"
-        git push --set-upstream --force origin "release/$API_VERSION-auto-generated"
+        git push --set-upstream --force origin $BRANCH_NAME
 
-    - uses: actions/github-script@0.9.0
+    - name: Create pull request
+      uses: actions/github-script@0.9.0
       with:
         script: |
           const api_version = process.env.API_VERSION
+          const branch_name = process.env.BRANCH_NAME
           github.pulls.create({
             owner: context.repo.owner,
             repo: context.repo.repo,
             title: 'Update schema (auto-generated)',
-            head: 'release/' + api_version + '-auto-generated',
+            head: branch_name,
             base: 'master',
-            body: "Release notes:" +
-              "\n- https://shopify.dev/concepts/about-apis/versioning/release-notes/" + api_version + "#storefront-api-changes" +
+            body: "### Release notes" +
               "\n" +
-              "\n**Steps to release:**" +
-              "\n- [ ] Make sure tests are passing" +
-              "\n- [ ] Set the SDK version number (`s.version`) in [`Mobile-Buy-SDK.podspec`](https://github.com/Shopify/mobile-buy-sdk-ios/blob/" + api_version + "-auto-generated/Mobile-Buy-SDK.podspec)" +
+              `\nThe [latest schema changes](https://shopify.dev/concepts/about-apis/versioning/release-notes/${api_version}#storefront-api-changes).` +
+              "\n" +
+              "\n#### Steps to release" +
+              "\n- [ ] Tests are passing" +
               "\n- [ ] Update the [Buy SDK and Library Releases spreadsheet](https://docs.google.com/spreadsheets/d/1WZ8dEl9dQQ6O3ZmBpvq3x-25pBUzN7J6fyj6GnVdS0Q) with the new SDK version" +
-              "\n- [ ] After merging this PR, remember to update the automatically created [draft release](https://github.com/Shopify/mobile-buy-sdk-ios/releases) with the same version number"
+              "\n- [ ] After merging this PR, remember to manually publish the [generated release](https://github.com/Shopify/mobile-buy-sdk-ios/releases)"
             })
