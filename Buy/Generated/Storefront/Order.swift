@@ -58,8 +58,8 @@ extension Storefront {
 		}
 
 		/// The subtotal of line items and their discounts, excluding line items that 
-		/// have been removed. Does not contain order-level discounts, shipping costs, 
-		/// or shipping discounts. Taxes are not included unless the order is a 
+		/// have been removed. Does not contain order-level discounts, duties, shipping 
+		/// costs, or shipping discounts. Taxes are not included unless the order is a 
 		/// taxes-included order. 
 		@discardableResult
 		open func currentSubtotalPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
@@ -70,8 +70,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The total amount of the order, including taxes and discounts, minus amounts 
-		/// for line items that have been removed. 
+		/// The total amount of the order, including duties, taxes and discounts, minus 
+		/// amounts for line items that have been removed. 
 		@discardableResult
 		open func currentTotalPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
 			let subquery = MoneyV2Query()
@@ -303,7 +303,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Price of the order before shipping and taxes. 
+		/// Price of the order before duties, shipping and taxes. 
 		@discardableResult
 		open func subtotalPriceV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
 			let subquery = MoneyV2Query()
@@ -344,7 +344,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The sum of all the prices of all the items in the order, taxes and 
+		/// The sum of all the prices of all the items in the order, duties, taxes and 
 		/// discounts included (must be positive). 
 		@discardableResult
 		open func totalPriceV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
@@ -672,8 +672,8 @@ extension Storefront {
 		}
 
 		/// The subtotal of line items and their discounts, excluding line items that 
-		/// have been removed. Does not contain order-level discounts, shipping costs, 
-		/// or shipping discounts. Taxes are not included unless the order is a 
+		/// have been removed. Does not contain order-level discounts, duties, shipping 
+		/// costs, or shipping discounts. Taxes are not included unless the order is a 
 		/// taxes-included order. 
 		open var currentSubtotalPrice: Storefront.MoneyV2 {
 			return internalGetCurrentSubtotalPrice()
@@ -683,8 +683,8 @@ extension Storefront {
 			return field(field: "currentSubtotalPrice", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The total amount of the order, including taxes and discounts, minus amounts 
-		/// for line items that have been removed. 
+		/// The total amount of the order, including duties, taxes and discounts, minus 
+		/// amounts for line items that have been removed. 
 		open var currentTotalPrice: Storefront.MoneyV2 {
 			return internalGetCurrentTotalPrice()
 		}
@@ -879,7 +879,7 @@ extension Storefront {
 			return field(field: "subtotalPrice", aliasSuffix: alias) as! Decimal?
 		}
 
-		/// Price of the order before shipping and taxes. 
+		/// Price of the order before duties, shipping and taxes. 
 		open var subtotalPriceV2: Storefront.MoneyV2? {
 			return internalGetSubtotalPriceV2()
 		}
@@ -912,7 +912,7 @@ extension Storefront {
 			return field(field: "totalPrice", aliasSuffix: alias) as! Decimal
 		}
 
-		/// The sum of all the prices of all the items in the order, taxes and 
+		/// The sum of all the prices of all the items in the order, duties, taxes and 
 		/// discounts included (must be positive). 
 		open var totalPriceV2: Storefront.MoneyV2 {
 			return internalGetTotalPriceV2()

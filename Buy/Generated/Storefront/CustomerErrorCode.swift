@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// Possible error codes that could be returned by a customer mutation. 
+	/// Possible error codes that could be returned by CustomerUserError. 
 	public enum CustomerErrorCode: String {
 		/// Customer already enabled. 
 		case alreadyEnabled = "ALREADY_ENABLED"

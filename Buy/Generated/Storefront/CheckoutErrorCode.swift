@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// Possible error codes that could be returned by a checkout mutation. 
+	/// Possible error codes that could be returned by CheckoutUserError. 
 	public enum CheckoutErrorCode: String {
 		/// Checkout is already completed. 
 		case alreadyCompleted = "ALREADY_COMPLETED"
