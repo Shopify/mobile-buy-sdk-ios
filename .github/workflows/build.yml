@@ -51,16 +51,6 @@ jobs:
         git commit -m "Update schema (auto-generated)"
         git push --set-upstream --force origin $BRANCH_NAME
 
-    - name: Increment SDK version
-      run: |
-        ./Scripts/increment_version
-        git add ./Buy/Utilities/SDK.swift
-        git add ./Mobile-Buy-SDK.podspec
-        git add ./\*Info.plist
-        git add
-        git commit -m "Bump version"
-        git push --set-upstream --force origin $BRANCH_NAME
-
     - name: Create pull request
       uses: actions/github-script@0.9.0
       with:
@@ -82,3 +72,14 @@ jobs:
               "\n- [ ] Update the [Buy SDK and Library Releases spreadsheet](https://docs.google.com/spreadsheets/d/1WZ8dEl9dQQ6O3ZmBpvq3x-25pBUzN7J6fyj6GnVdS0Q) with the new SDK version" +
               "\n- [ ] After merging this PR, remember to manually publish the [generated release](https://github.com/Shopify/mobile-buy-sdk-ios/releases)"
             })
+
+    - name: Increment SDK version
+      run: |
+        ./Scripts/increment_version
+        git add ./Buy/Utilities/SDK.swift
+        git add ./Mobile-Buy-SDK.podspec
+        git add ./\*Info.plist
+        git add
+        git commit -m "Bump version"
+        git push --set-upstream --force origin $BRANCH_NAME
+        
