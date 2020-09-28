@@ -549,7 +549,6 @@ extension Storefront {
 		///     - lineItems: A list of line item objects to add to the checkout.
 		///     - checkoutId: The ID of the checkout.
 		///
-		@available(*, deprecated, message:"Use `checkoutLineItemsReplace` instead")
 		@discardableResult
 		open func checkoutLineItemsAdd(alias: String? = nil, lineItems: [CheckoutLineItemInput], checkoutId: GraphQL.ID, _ subfields: (CheckoutLineItemsAddPayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -573,7 +572,6 @@ extension Storefront {
 		///     - checkoutId: The checkout on which to remove line items.
 		///     - lineItemIds: Line item ids to remove.
 		///
-		@available(*, deprecated, message:"Use `checkoutLineItemsReplace` instead")
 		@discardableResult
 		open func checkoutLineItemsRemove(alias: String? = nil, checkoutId: GraphQL.ID, lineItemIds: [GraphQL.ID], _ subfields: (CheckoutLineItemsRemovePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -620,7 +618,6 @@ extension Storefront {
 		///     - checkoutId: The checkout on which to update line items.
 		///     - lineItems: Line items to update.
 		///
-		@available(*, deprecated, message:"Use `checkoutLineItemsReplace` instead")
 		@discardableResult
 		open func checkoutLineItemsUpdate(alias: String? = nil, checkoutId: GraphQL.ID, lineItems: [CheckoutLineItemUpdateInput], _ subfields: (CheckoutLineItemsUpdatePayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -1692,12 +1689,9 @@ extension Storefront {
 		}
 
 		/// Adds a list of line items to a checkout. 
-		@available(*, deprecated, message:"Use `checkoutLineItemsReplace` instead")
 		open var checkoutLineItemsAdd: Storefront.CheckoutLineItemsAddPayload? {
 			return internalGetCheckoutLineItemsAdd()
 		}
-
-		@available(*, deprecated, message:"Use `checkoutLineItemsReplace` instead")
 
 		open func aliasedCheckoutLineItemsAdd(alias: String) -> Storefront.CheckoutLineItemsAddPayload? {
 			return internalGetCheckoutLineItemsAdd(alias: alias)
@@ -1708,12 +1702,9 @@ extension Storefront {
 		}
 
 		/// Removes line items from an existing checkout. 
-		@available(*, deprecated, message:"Use `checkoutLineItemsReplace` instead")
 		open var checkoutLineItemsRemove: Storefront.CheckoutLineItemsRemovePayload? {
 			return internalGetCheckoutLineItemsRemove()
 		}
-
-		@available(*, deprecated, message:"Use `checkoutLineItemsReplace` instead")
 
 		open func aliasedCheckoutLineItemsRemove(alias: String) -> Storefront.CheckoutLineItemsRemovePayload? {
 			return internalGetCheckoutLineItemsRemove(alias: alias)
@@ -1737,12 +1728,9 @@ extension Storefront {
 		}
 
 		/// Updates line items on a checkout. 
-		@available(*, deprecated, message:"Use `checkoutLineItemsReplace` instead")
 		open var checkoutLineItemsUpdate: Storefront.CheckoutLineItemsUpdatePayload? {
 			return internalGetCheckoutLineItemsUpdate()
 		}
-
-		@available(*, deprecated, message:"Use `checkoutLineItemsReplace` instead")
 
 		open func aliasedCheckoutLineItemsUpdate(alias: String) -> Storefront.CheckoutLineItemsUpdatePayload? {
 			return internalGetCheckoutLineItemsUpdate(alias: alias)
