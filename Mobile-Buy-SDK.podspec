@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.requires_arc        = true
   s.platforms           = {
     :ios     => '12.0',
-    :watchos => '2.0',
+    :watchos => '3.1',
     :tvos    => '12.0'
   }
 
@@ -25,7 +25,9 @@ Pod::Spec.new do |s|
     :submodules => true
   }
 
+  s.swift_version        = '5.0'
   s.source_files         = 'Buy/**/*.{swift}'
+  s.exclude_files        = 'Pay/Utilities/Log.swift'
   s.ios.source_files     = 'Pay/**/*.{swift}'
   s.watchos.source_files = 'Pay/**/*.{swift}'
 
