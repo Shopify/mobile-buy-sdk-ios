@@ -1,8 +1,9 @@
 ﻿![Mobile Buy SDK](https://cloud.githubusercontent.com/assets/5244861/26374751/6895a582-3fd4-11e7-80c4-2c1632262d66.png)
 
-[![Travis](https://travis-ci.org/Shopify/mobile-buy-sdk-ios.svg?style=shield)](https://travis-ci.org/Shopify/mobile-buy-sdk-ios)
+![Build](https://github.com/Shopify/mobile-buy-sdk-ios/workflows/Test/badge.svg?event=push)
 [![GitHub release](https://img.shields.io/github/release/shopify/mobile-buy-sdk-ios.svg?style=flat)](https://github.com/Shopify/mobile-buy-sdk-ios/releases/latest)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-4BC51D.svg?style=flat)](https://swift.org/package-manager/)
 [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)](https://github.com/Shopify/mobile-buy-sdk-ios/blob/master/LICENSE)
 
 # Mobile Buy SDK
