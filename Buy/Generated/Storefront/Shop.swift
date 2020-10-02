@@ -431,6 +431,16 @@ extension Storefront {
 			return self
 		}
 
+		/// The shop’s shipping policy. 
+		@discardableResult
+		open func shippingPolicy(alias: String? = nil, _ subfields: (ShopPolicyQuery) -> Void) -> ShopQuery {
+			let subquery = ShopPolicyQuery()
+			subfields(subquery)
+
+			addField(field: "shippingPolicy", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// Countries that the shop ships to. 
 		@discardableResult
 		open func shipsToCountries(alias: String? = nil) -> ShopQuery {
@@ -560,6 +570,13 @@ extension Storefront {
 				return try ProductConnection(fields: value)
 
 				case "refundPolicy":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
+				}
+				return try ShopPolicy(fields: value)
+
+				case "shippingPolicy":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
@@ -794,6 +811,15 @@ extension Storefront {
 			return field(field: "refundPolicy", aliasSuffix: alias) as! Storefront.ShopPolicy?
 		}
 
+		/// The shop’s shipping policy. 
+		open var shippingPolicy: Storefront.ShopPolicy? {
+			return internalGetShippingPolicy()
+		}
+
+		func internalGetShippingPolicy(alias: String? = nil) -> Storefront.ShopPolicy? {
+			return field(field: "shippingPolicy", aliasSuffix: alias) as! Storefront.ShopPolicy?
+		}
+
 		/// Countries that the shop ships to. 
 		open var shipsToCountries: [Storefront.CountryCode] {
 			return internalGetShipsToCountries()
@@ -878,6 +904,12 @@ extension Storefront {
 
 					case "refundPolicy":
 					if let value = internalGetRefundPolicy() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "shippingPolicy":
+					if let value = internalGetShippingPolicy() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}

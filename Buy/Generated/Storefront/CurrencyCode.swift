@@ -147,6 +147,9 @@ extension Storefront {
 		/// Egyptian Pound (EGP). 
 		case egp = "EGP"
 
+		/// Eritrean Nakfa (ERN). 
+		case ern = "ERN"
+
 		/// Ethiopian Birr (ETB). 
 		case etb = "ETB"
 
@@ -237,6 +240,9 @@ extension Storefront {
 		/// Cambodian Riel. 
 		case khr = "KHR"
 
+		/// Kiribati Dollar (KID). 
+		case kid = "KID"
+
 		/// Comorian Franc (KMF). 
 		case kmf = "KMF"
 
@@ -296,6 +302,9 @@ extension Storefront {
 
 		/// Macanese Pataca (MOP). 
 		case mop = "MOP"
+
+		/// Mauritanian Ouguiya (MRU). 
+		case mru = "MRU"
 
 		/// Mauritian Rupee (MUR). 
 		case mur = "MUR"
@@ -396,6 +405,9 @@ extension Storefront {
 		/// Sierra Leonean Leone (SLL). 
 		case sll = "SLL"
 
+		/// Somali Shilling (SOS). 
+		case sos = "SOS"
+
 		/// Surinamese Dollar (SRD). 
 		case srd = "SRD"
 
@@ -456,6 +468,9 @@ extension Storefront {
 		/// Venezuelan Bolivares (VEF). 
 		@available(*, deprecated, message:"`VEF` is deprecated. Use `VES` available from version `2020-10` onwards instead.")
 		case vef = "VEF"
+
+		/// Venezuelan Bolivares (VES). 
+		case ves = "VES"
 
 		/// Vietnamese đồng (VND). 
 		case vnd = "VND"
