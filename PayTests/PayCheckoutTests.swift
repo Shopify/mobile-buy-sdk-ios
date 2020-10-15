@@ -55,6 +55,7 @@ class PayCheckoutTests: XCTestCase {
             shippingAddress:  address,
             shippingRate:     rate,
             currencyCode:     "CAD",
+            totalDuties:      9.95,
             subtotalPrice:    30.0,
             needsShipping:    true,
             totalTax:         15.0,
@@ -70,6 +71,7 @@ class PayCheckoutTests: XCTestCase {
         XCTAssertEqual(checkout.shippingDiscount!.amount, 10.0)
         XCTAssertEqual(checkout.currencyCode,             "CAD")
         XCTAssertEqual(checkout.subtotalPrice,            30.0)
+        XCTAssertEqual(checkout.totalDuties,              9.95)
         XCTAssertEqual(checkout.needsShipping,            true)
         XCTAssertEqual(checkout.totalTax,                 15.0)
         XCTAssertEqual(checkout.paymentDue,               35.0)
@@ -87,6 +89,32 @@ class PayCheckoutTests: XCTestCase {
         XCTAssertEqual(summaryItems[1].label, "SUBTOTAL")
         XCTAssertEqual(summaryItems[2].label, "TAXES")
         XCTAssertEqual(summaryItems[3].label, "SHOPIFY")
+    }
+    
+    func testSummaryItemsWithDuties() {
+        let checkout     = Models.createCheckout(requiresShipping: false, duties: 24.99)
+        let summaryItems = checkout.summaryItems(for: self.shopName)
+        
+        XCTAssertEqual(summaryItems.count, 5)
+        XCTAssertEqual(summaryItems[0].label, "CART TOTAL")
+        XCTAssertEqual(summaryItems[1].label, "SUBTOTAL")
+        XCTAssertEqual(summaryItems[2].label, "DUTIES")
+        XCTAssertEqual(summaryItems[2].amount as Decimal, 24.99)
+        XCTAssertEqual(summaryItems[3].label, "TAXES")
+        XCTAssertEqual(summaryItems[4].label, "SHOPIFY")
+    }
+    
+    func testSummaryItemsWithDutiesAmountZero() {
+        let checkout     = Models.createCheckout(requiresShipping: false, duties: 0)
+        let summaryItems = checkout.summaryItems(for: self.shopName)
+        
+        XCTAssertEqual(summaryItems.count, 5)
+        XCTAssertEqual(summaryItems[0].label, "CART TOTAL")
+        XCTAssertEqual(summaryItems[1].label, "SUBTOTAL")
+        XCTAssertEqual(summaryItems[2].label, "DUTIES")
+        XCTAssertEqual(summaryItems[2].amount as Decimal, 0)
+        XCTAssertEqual(summaryItems[3].label, "TAXES")
+        XCTAssertEqual(summaryItems[4].label, "SHOPIFY")
     }
     
     func testSummaryItemsWithShipping() {
