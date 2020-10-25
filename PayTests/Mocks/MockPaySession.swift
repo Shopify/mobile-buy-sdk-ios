@@ -12,7 +12,6 @@ import Foundation
 import PassKit
 @testable import Pay
 
-@available(iOS 11.0, *)
 class MockPaySession: PaySession {
     
     enum Status {
