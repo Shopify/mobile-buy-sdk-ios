@@ -30,7 +30,6 @@ import XCTest
 import PassKit
 @testable import Pay
 
-@available(iOS 11.0, *)
 class PaySessionTests: XCTestCase {
     
     private let shopName = "Jaded Labs"
@@ -483,37 +482,31 @@ class PaySessionTests: XCTestCase {
         let shippingMethods = [Models.createShippingMethod()]
         let summaryItems    = checkout.summaryItems(for: self.shopName)
 
-        let e2 = self.expectation(description: "")
-        session.didSelectShippingContactHandler = { controller, contact, handler in
-            XCTAssertTrue(contact === shippingContact)
-            e2.fulfill()
-            return .unhandled
-        }
-
         let e1 = self.expectation(description: "")
         session.didSelectShippingContactHandler = { controller, contact, completion in
+            XCTAssertTrue(contact === shippingContact)
             let result = PKPaymentRequestShippingContactUpdate()
             result.status = .success
             result.shippingMethods = shippingMethods
             result.paymentSummaryItems = summaryItems
             completion(result)
             e1.fulfill()
-            return .handled
+            return .unhandled
         }
-
+        
         session.authorize()
 
-        let e3 = self.expectation(description: "")
+        let e2 = self.expectation(description: "")
         MockAuthorizationController.invokeDidSelectShippingContactHandler(shippingContact) { result in
 
             XCTAssertEqual(result.status,              .success)
             XCTAssertEqual(result.shippingMethods,     shippingMethods)
             XCTAssertEqual(result.paymentSummaryItems, summaryItems)
 
-            e3.fulfill()
+            e2.fulfill()
         }
 
-        self.wait(for: [e1, e2, e3], timeout: 2.0)
+        self.wait(for: [e1, e2], timeout: 2.0)
     }
     
     func testSessionForwardsShippingMethod() {
@@ -523,15 +516,9 @@ class PaySessionTests: XCTestCase {
         let session         = Models.createSession(checkout: checkout, currency: Models.createCurrency())
         let summaryItems    = checkout.summaryItems(for: self.shopName)
 
-        let e2 = self.expectation(description: "")
-        session.didSelectShippingMethodHandler = { controller, method, handler in
-            XCTAssertTrue(method === shippingMethod)
-            e2.fulfill()
-            return .unhandled
-        }
-
         let e1 = self.expectation(description: "")
-        session.didSelectShippingMethodHandler = { controller, shippingMethod, completion in
+        session.didSelectShippingMethodHandler = { controller, method, completion in
+            XCTAssertTrue(method === shippingMethod)
             let result = PKPaymentRequestShippingMethodUpdate()
             result.status = .success
             result.paymentSummaryItems = summaryItems
@@ -542,14 +529,14 @@ class PaySessionTests: XCTestCase {
 
         session.authorize()
 
-        let e3 = self.expectation(description: "")
+        let e2 = self.expectation(description: "")
         MockAuthorizationController.invokeDidSelectShippingMethodHandler(shippingMethod) { result in
             XCTAssertEqual(result.status,              .success)
             XCTAssertEqual(result.paymentSummaryItems, summaryItems)
-            e3.fulfill()
+            e2.fulfill()
         }
 
-        self.wait(for: [e1, e2, e3], timeout: 2.0)
+        self.wait(for: [e1, e2], timeout: 2.0)
     }
     
     func testSessionForwardsAuthorizedPayment() {
@@ -561,15 +548,9 @@ class PaySessionTests: XCTestCase {
         let token    = MockPaymentToken(paymentMethod: method)
         let payment  = MockPayment(token: token)
 
-        let e2 = self.expectation(description: "")
-        session.didAuthorizePaymentHandler = { controller, currentPayment, handler in
-            XCTAssertTrue(currentPayment === payment)
-            e2.fulfill()
-            return .unhandled
-        }
-
         let e1 = self.expectation(description: "")
-        session.didAuthorizePaymentHandler = { controller, payment, completion in
+        session.didAuthorizePaymentHandler = { controller, currentPayment, completion in
+            XCTAssertTrue(currentPayment === payment)
             let result = PKPaymentAuthorizationResult(status: .success, errors: nil)
             completion(result)
             e1.fulfill()
@@ -578,13 +559,13 @@ class PaySessionTests: XCTestCase {
 
         session.authorize()
 
-        let e3 = self.expectation(description: "")
+        let e2 = self.expectation(description: "")
         MockAuthorizationController.invokeDidAuthorizePaymentHandler(payment) { result in
             XCTAssertEqual(result.status, .success)
-            e3.fulfill()
+            e2.fulfill()
         }
 
-        self.wait(for: [e1, e2, e3], timeout: 2.0)
+        self.wait(for: [e1, e2], timeout: 2.0)
     }
     
     // ----------------------------------
