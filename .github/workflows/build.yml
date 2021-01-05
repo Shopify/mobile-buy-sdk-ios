@@ -35,8 +35,6 @@ jobs:
       run: |
         API_VERSION="$(./Scripts/get_api_version)"
         BRANCH_NAME="release/${API_VERSION}-auto-generated"
-        echo "::set-env name=API_VERSION::$API_VERSION"
-        echo "::set-env name=BRANCH_NAME::$BRANCH_NAME"
 
     - name: Create and push the release branch
       run: |
