@@ -18,13 +18,13 @@ jobs:
       id: sdk-version
       run: |
         SDK_VERSION="$(./Scripts/get_sdk_version)"
-        echo "::set-env name=SDK_VERSION::$SDK_VERSION"
+        echo "SDK_VERSION=$SDK_VERSION" >> $GITHUB_ENV
 
     - name: Get API Version
       id: api-version
       run: |
         API_VERSION="$(./Scripts/get_api_version)"
-        echo "::set-env name=API_VERSION::$API_VERSION"
+        echo "API_VERSION=$API_VERSION" >> $GITHUB_ENV
 
     - name: Create a draft release
       uses: actions/github-script@0.9.0

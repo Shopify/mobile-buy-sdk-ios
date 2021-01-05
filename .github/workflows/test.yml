@@ -28,7 +28,7 @@ jobs:
       id: version
       run: |
         CURRENT_SIMULATOR_UUID=$(xcrun simctl create TestDevice com.apple.CoreSimulator.SimDeviceType.iPhone-11 com.apple.CoreSimulator.SimRuntime.iOS-14-0)
-        echo "::set-env name=CURRENT_SIMULATOR_UUID::$CURRENT_SIMULATOR_UUID"
+        echo "CURRENT_SIMULATOR_UUID=$CURRENT_SIMULATOR_UUID" >> $GITHUB_ENV
 
     - name: Test Buy
       run: ./Scripts/test_buy
