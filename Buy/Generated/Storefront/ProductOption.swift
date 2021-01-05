@@ -27,9 +27,9 @@
 import Foundation
 
 extension Storefront {
-	/// Custom product property names like "Size", "Color", and "Material". 
-	/// Products are based on permutations of these options. A product may have a 
-	/// maximum of 3 options. 255 characters limit each. 
+	/// Product property names like "Size", "Color", and "Material" that the 
+	/// customers can select. Variants are selected based on permutations of these 
+	/// options. 255 characters limit each. 
 	open class ProductOptionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ProductOption
 
@@ -55,9 +55,9 @@ extension Storefront {
 		}
 	}
 
-	/// Custom product property names like "Size", "Color", and "Material". 
-	/// Products are based on permutations of these options. A product may have a 
-	/// maximum of 3 options. 255 characters limit each. 
+	/// Product property names like "Size", "Color", and "Material" that the 
+	/// customers can select. Variants are selected based on permutations of these 
+	/// options. 255 characters limit each. 
 	open class ProductOption: GraphQL.AbstractResponse, GraphQLObject, Node {
 		public typealias Query = ProductOptionQuery
 

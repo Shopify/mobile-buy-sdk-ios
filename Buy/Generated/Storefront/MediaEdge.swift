@@ -27,6 +27,8 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type which holds one Media and a cursor during 
+	/// pagination. 
 	open class MediaEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = MediaEdge
 
@@ -48,6 +50,8 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type which holds one Media and a cursor during 
+	/// pagination. 
 	open class MediaEdge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = MediaEdgeQuery
 

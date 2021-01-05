@@ -136,6 +136,16 @@ extension Storefront {
 			return self
 		}
 
+		/// The blog's SEO information. 
+		@discardableResult
+		open func seo(alias: String? = nil, _ subfields: (SEOQuery) -> Void) -> BlogQuery {
+			let subquery = SEOQuery()
+			subfields(subquery)
+
+			addField(field: "seo", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The blogs’s title. 
 		@discardableResult
 		open func title(alias: String? = nil) -> BlogQuery {
@@ -188,6 +198,13 @@ extension Storefront {
 					throw SchemaViolationError(type: Blog.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.ID(rawValue: value)
+
+				case "seo":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Blog.self, field: fieldName, value: fieldValue)
+				}
+				return try SEO(fields: value)
 
 				case "title":
 				guard let value = value as? String else {
@@ -260,6 +277,15 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
+		/// The blog's SEO information. 
+		open var seo: Storefront.SEO? {
+			return internalGetSeo()
+		}
+
+		func internalGetSeo(alias: String? = nil) -> Storefront.SEO? {
+			return field(field: "seo", aliasSuffix: alias) as! Storefront.SEO?
+		}
+
 		/// The blogs’s title. 
 		open var title: String {
 			return internalGetTitle()
@@ -296,6 +322,12 @@ extension Storefront {
 					internalGetAuthors().forEach {
 						response.append($0)
 						response.append(contentsOf: $0.childResponseObjectMap())
+					}
+
+					case "seo":
+					if let value = internalGetSeo() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
 					default:

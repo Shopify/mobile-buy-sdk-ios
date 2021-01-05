@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type for paginating through multiple Media. 
 	open class MediaConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = MediaConnection
 
@@ -51,6 +52,7 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type for paginating through multiple Media. 
 	open class MediaConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = MediaConnectionQuery
 

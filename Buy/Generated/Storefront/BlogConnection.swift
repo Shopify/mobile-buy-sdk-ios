@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type for paginating through multiple Blogs. 
 	open class BlogConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = BlogConnection
 
@@ -51,6 +52,7 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type for paginating through multiple Blogs. 
 	open class BlogConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = BlogConnectionQuery
 

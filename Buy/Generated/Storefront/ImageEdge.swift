@@ -27,6 +27,8 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type which holds one Image and a cursor during 
+	/// pagination. 
 	open class ImageEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ImageEdge
 
@@ -48,6 +50,8 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type which holds one Image and a cursor during 
+	/// pagination. 
 	open class ImageEdge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ImageEdgeQuery
 

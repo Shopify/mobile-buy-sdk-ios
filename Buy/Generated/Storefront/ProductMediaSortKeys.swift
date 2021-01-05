@@ -1,5 +1,5 @@
 //
-//  OrderFulfillmentStatus.swift
+//  ProductMediaSortKeys.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,31 +27,19 @@
 import Foundation
 
 extension Storefront {
-	/// Represents the order's current fulfillment status. 
-	public enum OrderFulfillmentStatus: String {
-		/// Displayed as **Fulfilled**. 
-		case fulfilled = "FULFILLED"
+	/// The set of valid sort keys for the ProductMedia query. 
+	public enum ProductMediaSortKeys: String {
+		/// Sort by the `id` value. 
+		case id = "ID"
 
-		/// Displayed as **In progress**. 
-		case inProgress = "IN_PROGRESS"
+		/// Sort by the `position` value. 
+		case position = "POSITION"
 
-		/// Displayed as **Open**. 
-		case `open` = "OPEN"
-
-		/// Displayed as **Partially fulfilled**. 
-		case partiallyFulfilled = "PARTIALLY_FULFILLED"
-
-		/// Displayed as **Pending fulfillment**. 
-		case pendingFulfillment = "PENDING_FULFILLMENT"
-
-		/// Displayed as **Restocked**. 
-		case restocked = "RESTOCKED"
-
-		/// Displayed as **Scheduled**. 
-		case scheduled = "SCHEDULED"
-
-		/// Displayed as **Unfulfilled**. 
-		case unfulfilled = "UNFULFILLED"
+		/// During a search (i.e. when the `query` parameter has been specified on the 
+		/// connection) this sorts the results by relevance to the search term(s). When 
+		/// no search query is specified, this sort key is not deterministic and should 
+		/// not be used. 
+		case relevance = "RELEVANCE"
 
 		case unknownValue = ""
 	}

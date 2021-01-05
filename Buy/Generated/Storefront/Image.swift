@@ -38,6 +38,14 @@ extension Storefront {
 			return self
 		}
 
+		/// The original height of the image in pixels. Returns `null` if the image is 
+		/// not hosted by Shopify. 
+		@discardableResult
+		open func height(alias: String? = nil) -> ImageQuery {
+			addField(field: "height", aliasSuffix: alias)
+			return self
+		}
+
 		/// A unique identifier for the image. 
 		@discardableResult
 		open func id(alias: String? = nil) -> ImageQuery {
@@ -103,6 +111,14 @@ extension Storefront {
 			addField(field: "transformedSrc", aliasSuffix: alias, args: argsString)
 			return self
 		}
+
+		/// The original width of the image in pixels. Returns `null` if the image is 
+		/// not hosted by Shopify. 
+		@discardableResult
+		open func width(alias: String? = nil) -> ImageQuery {
+			addField(field: "width", aliasSuffix: alias)
+			return self
+		}
 	}
 
 	/// Represents an image resource. 
@@ -118,6 +134,13 @@ extension Storefront {
 					throw SchemaViolationError(type: Image.self, field: fieldName, value: fieldValue)
 				}
 				return value
+
+				case "height":
+				if value is NSNull { return nil }
+				guard let value = value as? Int else {
+					throw SchemaViolationError(type: Image.self, field: fieldName, value: fieldValue)
+				}
+				return Int32(value)
 
 				case "id":
 				if value is NSNull { return nil }
@@ -144,6 +167,13 @@ extension Storefront {
 				}
 				return URL(string: value)!
 
+				case "width":
+				if value is NSNull { return nil }
+				guard let value = value as? Int else {
+					throw SchemaViolationError(type: Image.self, field: fieldName, value: fieldValue)
+				}
+				return Int32(value)
+
 				default:
 				throw SchemaViolationError(type: Image.self, field: fieldName, value: fieldValue)
 			}
@@ -156,6 +186,16 @@ extension Storefront {
 
 		func internalGetAltText(alias: String? = nil) -> String? {
 			return field(field: "altText", aliasSuffix: alias) as! String?
+		}
+
+		/// The original height of the image in pixels. Returns `null` if the image is 
+		/// not hosted by Shopify. 
+		open var height: Int32? {
+			return internalGetHeight()
+		}
+
+		func internalGetHeight(alias: String? = nil) -> Int32? {
+			return field(field: "height", aliasSuffix: alias) as! Int32?
 		}
 
 		/// A unique identifier for the image. 
@@ -202,6 +242,16 @@ extension Storefront {
 
 		func internalGetTransformedSrc(alias: String? = nil) -> URL {
 			return field(field: "transformedSrc", aliasSuffix: alias) as! URL
+		}
+
+		/// The original width of the image in pixels. Returns `null` if the image is 
+		/// not hosted by Shopify. 
+		open var width: Int32? {
+			return internalGetWidth()
+		}
+
+		func internalGetWidth(alias: String? = nil) -> Int32? {
+			return field(field: "width", aliasSuffix: alias) as! Int32?
 		}
 
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {

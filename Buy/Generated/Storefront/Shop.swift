@@ -314,8 +314,8 @@ extension Storefront {
 			return self
 		}
 
-		/// A comma separated list of tags that have been added to products. Additional 
-		/// access scope required: unauthenticated_read_product_tags. 
+		/// A list of tags that have been added to products. Additional access scope 
+		/// required: unauthenticated_read_product_tags. 
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -753,8 +753,8 @@ extension Storefront {
 			return field(field: "productByHandle", aliasSuffix: alias) as! Storefront.Product?
 		}
 
-		/// A comma separated list of tags that have been added to products. Additional 
-		/// access scope required: unauthenticated_read_product_tags. 
+		/// A list of tags that have been added to products. Additional access scope 
+		/// required: unauthenticated_read_product_tags. 
 		@available(*, deprecated, message:"Use `QueryRoot.productTags` instead.")
 		open var productTags: Storefront.StringConnection {
 			return internalGetProductTags()

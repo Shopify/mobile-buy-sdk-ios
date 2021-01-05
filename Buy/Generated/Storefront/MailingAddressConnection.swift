@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type for paginating through multiple MailingAddresses. 
 	open class MailingAddressConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = MailingAddressConnection
 
@@ -51,6 +52,7 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type for paginating through multiple MailingAddresses. 
 	open class MailingAddressConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = MailingAddressConnectionQuery
 
