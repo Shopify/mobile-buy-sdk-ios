@@ -47,6 +47,9 @@ extension Storefront {
 		/// Displayed as **Restocked**. 
 		case restocked = "RESTOCKED"
 
+		/// Displayed as **Scheduled**. 
+		case scheduled = "SCHEDULED"
+
 		/// Displayed as **Unfulfilled**. 
 		case unfulfilled = "UNFULFILLED"
 

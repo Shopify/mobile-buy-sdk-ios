@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type for paginating through multiple Metafields. 
 	open class MetafieldConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = MetafieldConnection
 
@@ -51,6 +52,7 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type for paginating through multiple Metafields. 
 	open class MetafieldConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = MetafieldConnectionQuery
 

@@ -27,6 +27,8 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type for paginating through multiple 
+	/// FulfillmentLineItems. 
 	open class FulfillmentLineItemConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = FulfillmentLineItemConnection
 
@@ -51,6 +53,8 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type for paginating through multiple 
+	/// FulfillmentLineItems. 
 	open class FulfillmentLineItemConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = FulfillmentLineItemConnectionQuery
 

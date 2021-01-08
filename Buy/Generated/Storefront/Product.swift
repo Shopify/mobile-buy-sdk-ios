@@ -218,9 +218,10 @@ extension Storefront {
 		///     - last: Returns up to the last `n` elements from the list.
 		///     - before: Returns the elements that come before the specified cursor.
 		///     - reverse: Reverse the order of the underlying list.
+		///     - sortKey: Sort the underlying list by the given key.
 		///
 		@discardableResult
-		open func media(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (MediaConnectionQuery) -> Void) -> ProductQuery {
+		open func media(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: ProductMediaSortKeys? = nil, _ subfields: (MediaConnectionQuery) -> Void) -> ProductQuery {
 			var args: [String] = []
 
 			if let first = first {
@@ -241,6 +242,10 @@ extension Storefront {
 
 			if let reverse = reverse {
 				args.append("reverse:\(reverse)")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
 			}
 
 			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
@@ -330,7 +335,7 @@ extension Storefront {
 			return self
 		}
 
-		/// List of custom product options (maximum of 3 per product). 
+		/// List of product options. 
 		///
 		/// - parameters:
 		///     - first: Truncate the array result to this size.
@@ -421,6 +426,16 @@ extension Storefront {
 		@discardableResult
 		open func publishedAt(alias: String? = nil) -> ProductQuery {
 			addField(field: "publishedAt", aliasSuffix: alias)
+			return self
+		}
+
+		/// The product's SEO information. 
+		@discardableResult
+		open func seo(alias: String? = nil, _ subfields: (SEOQuery) -> Void) -> ProductQuery {
+			let subquery = SEOQuery()
+			subfields(subquery)
+
+			addField(field: "seo", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -653,6 +668,12 @@ extension Storefront {
 				}
 				return GraphQL.iso8601DateParser.date(from: value)!
 
+				case "seo":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
+				}
+				return try SEO(fields: value)
+
 				case "tags":
 				guard let value = value as? [String] else {
 					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
@@ -846,7 +867,7 @@ extension Storefront {
 			return field(field: "onlineStoreUrl", aliasSuffix: alias) as! URL?
 		}
 
-		/// List of custom product options (maximum of 3 per product). 
+		/// List of product options. 
 		open var options: [Storefront.ProductOption] {
 			return internalGetOptions()
 		}
@@ -898,6 +919,15 @@ extension Storefront {
 
 		func internalGetPublishedAt(alias: String? = nil) -> Date {
 			return field(field: "publishedAt", aliasSuffix: alias) as! Date
+		}
+
+		/// The product's SEO information. 
+		open var seo: Storefront.SEO {
+			return internalGetSeo()
+		}
+
+		func internalGetSeo(alias: String? = nil) -> Storefront.SEO {
+			return field(field: "seo", aliasSuffix: alias) as! Storefront.SEO
 		}
 
 		/// A comma separated list of tags that have been added to the product. 
@@ -1019,6 +1049,10 @@ extension Storefront {
 					case "priceRange":
 					response.append(internalGetPriceRange())
 					response.append(contentsOf: internalGetPriceRange().childResponseObjectMap())
+
+					case "seo":
+					response.append(internalGetSeo())
+					response.append(contentsOf: internalGetSeo().childResponseObjectMap())
 
 					case "variantBySelectedOptions":
 					if let value = internalGetVariantBySelectedOptions() {

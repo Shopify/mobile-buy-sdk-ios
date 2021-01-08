@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type for paginating through multiple ProductVariants. 
 	open class ProductVariantConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ProductVariantConnection
 
@@ -51,6 +52,7 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type for paginating through multiple ProductVariants. 
 	open class ProductVariantConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ProductVariantConnectionQuery
 

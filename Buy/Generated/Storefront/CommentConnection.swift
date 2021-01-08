@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type for paginating through multiple Comments. 
 	open class CommentConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CommentConnection
 
@@ -51,6 +52,7 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type for paginating through multiple Comments. 
 	open class CommentConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CommentConnectionQuery
 

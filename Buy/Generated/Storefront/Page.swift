@@ -68,6 +68,16 @@ extension Storefront {
 			return self
 		}
 
+		/// The page's SEO information. 
+		@discardableResult
+		open func seo(alias: String? = nil, _ subfields: (SEOQuery) -> Void) -> PageQuery {
+			let subquery = SEOQuery()
+			subfields(subquery)
+
+			addField(field: "seo", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The title of the page. 
 		@discardableResult
 		open func title(alias: String? = nil) -> PageQuery {
@@ -127,6 +137,13 @@ extension Storefront {
 					throw SchemaViolationError(type: Page.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.ID(rawValue: value)
+
+				case "seo":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Page.self, field: fieldName, value: fieldValue)
+				}
+				return try SEO(fields: value)
 
 				case "title":
 				guard let value = value as? String else {
@@ -197,6 +214,15 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
+		/// The page's SEO information. 
+		open var seo: Storefront.SEO? {
+			return internalGetSeo()
+		}
+
+		func internalGetSeo(alias: String? = nil) -> Storefront.SEO? {
+			return field(field: "seo", aliasSuffix: alias) as! Storefront.SEO?
+		}
+
 		/// The title of the page. 
 		open var title: String {
 			return internalGetTitle()
@@ -225,7 +251,20 @@ extension Storefront {
 		}
 
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
-			return []
+			var response: [GraphQL.AbstractResponse] = []
+			objectMap.keys.forEach {
+				switch($0) {
+					case "seo":
+					if let value = internalGetSeo() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					default:
+					break
+				}
+			}
+			return response
 		}
 	}
 }

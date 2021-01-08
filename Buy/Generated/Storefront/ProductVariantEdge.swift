@@ -27,6 +27,8 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type which holds one ProductVariant and a cursor during 
+	/// pagination. 
 	open class ProductVariantEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ProductVariantEdge
 
@@ -48,6 +50,8 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type which holds one ProductVariant and a cursor during 
+	/// pagination. 
 	open class ProductVariantEdge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ProductVariantEdgeQuery
 

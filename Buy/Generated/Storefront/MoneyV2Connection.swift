@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type for paginating through multiple MoneyV2s. 
 	open class MoneyV2ConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = MoneyV2Connection
 
@@ -51,6 +52,7 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type for paginating through multiple MoneyV2s. 
 	open class MoneyV2Connection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = MoneyV2ConnectionQuery
 

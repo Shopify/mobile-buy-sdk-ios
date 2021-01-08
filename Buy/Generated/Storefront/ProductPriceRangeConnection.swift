@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type for paginating through multiple ProductPriceRanges. 
 	open class ProductPriceRangeConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ProductPriceRangeConnection
 
@@ -51,6 +52,7 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type for paginating through multiple ProductPriceRanges. 
 	open class ProductPriceRangeConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ProductPriceRangeConnectionQuery
 

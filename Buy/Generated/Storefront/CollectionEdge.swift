@@ -27,6 +27,8 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type which holds one Collection and a cursor during 
+	/// pagination. 
 	open class CollectionEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CollectionEdge
 
@@ -48,6 +50,8 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type which holds one Collection and a cursor during 
+	/// pagination. 
 	open class CollectionEdge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CollectionEdgeQuery
 

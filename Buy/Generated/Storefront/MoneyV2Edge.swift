@@ -27,6 +27,8 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type which holds one MoneyV2 and a cursor during 
+	/// pagination. 
 	open class MoneyV2EdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = MoneyV2Edge
 
@@ -48,6 +50,8 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type which holds one MoneyV2 and a cursor during 
+	/// pagination. 
 	open class MoneyV2Edge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = MoneyV2EdgeQuery
 

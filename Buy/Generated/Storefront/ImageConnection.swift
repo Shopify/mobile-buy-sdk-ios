@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type for paginating through multiple Images. 
 	open class ImageConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ImageConnection
 
@@ -51,6 +52,7 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type for paginating through multiple Images. 
 	open class ImageConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ImageConnectionQuery
 

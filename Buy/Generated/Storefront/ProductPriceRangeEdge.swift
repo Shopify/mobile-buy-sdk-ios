@@ -27,6 +27,8 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type which holds one ProductPriceRange and a cursor 
+	/// during pagination. 
 	open class ProductPriceRangeEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ProductPriceRangeEdge
 
@@ -48,6 +50,8 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type which holds one ProductPriceRange and a cursor 
+	/// during pagination. 
 	open class ProductPriceRangeEdge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ProductPriceRangeEdgeQuery
 

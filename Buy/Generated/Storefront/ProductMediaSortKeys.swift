@@ -1,5 +1,5 @@
 //
-//  SDK.swift
+//  ProductMediaSortKeys.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -26,6 +26,21 @@
 
 import Foundation
 
-internal enum SDK {
-    static let version = "5.3.0"
+extension Storefront {
+	/// The set of valid sort keys for the ProductMedia query. 
+	public enum ProductMediaSortKeys: String {
+		/// Sort by the `id` value. 
+		case id = "ID"
+
+		/// Sort by the `position` value. 
+		case position = "POSITION"
+
+		/// During a search (i.e. when the `query` parameter has been specified on the 
+		/// connection) this sorts the results by relevance to the search term(s). When 
+		/// no search query is specified, this sort key is not deterministic and should 
+		/// not be used. 
+		case relevance = "RELEVANCE"
+
+		case unknownValue = ""
+	}
 }

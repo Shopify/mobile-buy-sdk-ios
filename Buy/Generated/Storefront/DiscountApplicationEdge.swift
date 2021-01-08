@@ -27,6 +27,8 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type which holds one DiscountApplication and a cursor 
+	/// during pagination. 
 	open class DiscountApplicationEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = DiscountApplicationEdge
 
@@ -48,6 +50,8 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type which holds one DiscountApplication and a cursor 
+	/// during pagination. 
 	open class DiscountApplicationEdge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = DiscountApplicationEdgeQuery
 

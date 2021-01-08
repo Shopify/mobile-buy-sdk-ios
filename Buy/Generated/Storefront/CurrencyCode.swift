@@ -98,8 +98,11 @@ extension Storefront {
 		/// Botswana Pula (BWP). 
 		case bwp = "BWP"
 
+		/// Belarusian Ruble (BYN). 
+		case byn = "BYN"
+
 		/// Belarusian Ruble (BYR). 
-		@available(*, deprecated, message:"`BYR` is deprecated. Use `BYN` available from version `2019-10` onwards instead.")
+		@available(*, deprecated, message:"`BYR` is deprecated. Use `BYN` available from version `2021-01` onwards instead.")
 		case byr = "BYR"
 
 		/// Belize Dollar (BZD). 

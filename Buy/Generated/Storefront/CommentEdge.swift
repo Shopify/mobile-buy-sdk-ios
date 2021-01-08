@@ -27,6 +27,8 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type which holds one Comment and a cursor during 
+	/// pagination. 
 	open class CommentEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CommentEdge
 
@@ -48,6 +50,8 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type which holds one Comment and a cursor during 
+	/// pagination. 
 	open class CommentEdge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CommentEdgeQuery
 

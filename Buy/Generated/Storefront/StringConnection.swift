@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type for paginating through multiple Strings. 
 	open class StringConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = StringConnection
 
@@ -51,6 +52,7 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type for paginating through multiple Strings. 
 	open class StringConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = StringConnectionQuery
 
