@@ -302,7 +302,7 @@ extension Storefront {
 		/// Guyana. 
 		case gy = "GY"
 
-		/// Hong Kong SAR China. 
+		/// Hong Kong SAR. 
 		case hk = "HK"
 
 		/// Heard & McDonald Islands. 
@@ -458,7 +458,7 @@ extension Storefront {
 		/// Mongolia. 
 		case mn = "MN"
 
-		/// Macao SAR China. 
+		/// Macao SAR. 
 		case mo = "MO"
 
 		/// Martinique. 

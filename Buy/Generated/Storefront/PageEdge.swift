@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type which holds one Page and a cursor during pagination. 
 	open class PageEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = PageEdge
 
@@ -48,6 +49,7 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type which holds one Page and a cursor during pagination. 
 	open class PageEdge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = PageEdgeQuery
 

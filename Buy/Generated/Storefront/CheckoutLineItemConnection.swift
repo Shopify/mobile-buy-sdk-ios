@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type for paginating through multiple CheckoutLineItems. 
 	open class CheckoutLineItemConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CheckoutLineItemConnection
 
@@ -51,6 +52,7 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type for paginating through multiple CheckoutLineItems. 
 	open class CheckoutLineItemConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CheckoutLineItemConnectionQuery
 

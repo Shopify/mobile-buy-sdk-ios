@@ -27,6 +27,8 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type for paginating through multiple 
+	/// DiscountApplications. 
 	open class DiscountApplicationConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = DiscountApplicationConnection
 
@@ -51,6 +53,8 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type for paginating through multiple 
+	/// DiscountApplications. 
 	open class DiscountApplicationConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = DiscountApplicationConnectionQuery
 

@@ -27,6 +27,8 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type which holds one String and a cursor during 
+	/// pagination. 
 	open class StringEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = StringEdge
 
@@ -45,6 +47,8 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type which holds one String and a cursor during 
+	/// pagination. 
 	open class StringEdge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = StringEdgeQuery
 

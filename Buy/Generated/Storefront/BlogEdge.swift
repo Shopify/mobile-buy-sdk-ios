@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type which holds one Blog and a cursor during pagination. 
 	open class BlogEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = BlogEdge
 
@@ -48,6 +49,7 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type which holds one Blog and a cursor during pagination. 
 	open class BlogEdge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = BlogEdgeQuery
 

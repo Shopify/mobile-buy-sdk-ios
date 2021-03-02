@@ -27,6 +27,8 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type which holds one Metafield and a cursor during 
+	/// pagination. 
 	open class MetafieldEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = MetafieldEdge
 
@@ -48,6 +50,8 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type which holds one Metafield and a cursor during 
+	/// pagination. 
 	open class MetafieldEdge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = MetafieldEdgeQuery
 

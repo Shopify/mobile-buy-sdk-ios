@@ -27,6 +27,8 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type which holds one OrderLineItem and a cursor during 
+	/// pagination. 
 	open class OrderLineItemEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = OrderLineItemEdge
 
@@ -48,6 +50,8 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type which holds one OrderLineItem and a cursor during 
+	/// pagination. 
 	open class OrderLineItemEdge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = OrderLineItemEdgeQuery
 
