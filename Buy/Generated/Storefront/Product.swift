@@ -462,7 +462,10 @@ extension Storefront {
 			return self
 		}
 
-		/// The date and time when the product was last modified. 
+		/// The date and time when the product was last modified. A product's 
+		/// `updatedAt` value can change for different reasons. For example, if an 
+		/// order is placed for a product that has inventory tracking set up, then the 
+		/// inventory adjustment is counted as an update. 
 		@discardableResult
 		open func updatedAt(alias: String? = nil) -> ProductQuery {
 			addField(field: "updatedAt", aliasSuffix: alias)
@@ -959,7 +962,10 @@ extension Storefront {
 			return field(field: "totalInventory", aliasSuffix: alias) as! Int32?
 		}
 
-		/// The date and time when the product was last modified. 
+		/// The date and time when the product was last modified. A product's 
+		/// `updatedAt` value can change for different reasons. For example, if an 
+		/// order is placed for a product that has inventory tracking set up, then the 
+		/// inventory adjustment is counted as an update. 
 		open var updatedAt: Date {
 			return internalGetUpdatedAt()
 		}

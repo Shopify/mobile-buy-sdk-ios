@@ -45,6 +45,13 @@ extension Storefront {
 			return self
 		}
 
+		/// The host of the external video. 
+		@discardableResult
+		open func host(alias: String? = nil) -> ExternalVideoQuery {
+			addField(field: "host", aliasSuffix: alias)
+			return self
+		}
+
 		/// Globally unique identifier. 
 		@discardableResult
 		open func id(alias: String? = nil) -> ExternalVideoQuery {
@@ -90,6 +97,12 @@ extension Storefront {
 				}
 				return URL(string: value)!
 
+				case "host":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: ExternalVideo.self, field: fieldName, value: fieldValue)
+				}
+				return MediaHost(rawValue: value) ?? .unknownValue
+
 				case "id":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: ExternalVideo.self, field: fieldName, value: fieldValue)
@@ -130,6 +143,15 @@ extension Storefront {
 
 		func internalGetEmbeddedUrl(alias: String? = nil) -> URL {
 			return field(field: "embeddedUrl", aliasSuffix: alias) as! URL
+		}
+
+		/// The host of the external video. 
+		open var host: Storefront.MediaHost {
+			return internalGetHost()
+		}
+
+		func internalGetHost(alias: String? = nil) -> Storefront.MediaHost {
+			return field(field: "host", aliasSuffix: alias) as! Storefront.MediaHost
 		}
 
 		/// Globally unique identifier. 

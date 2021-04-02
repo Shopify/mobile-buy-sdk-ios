@@ -94,7 +94,8 @@ extension Storefront {
 		}
 
 		/// A client-side generated token to identify a payment and perform idempotent 
-		/// operations. 
+		/// operations. For more information, refer to [Idempotent 
+		/// requests](https://shopify.dev/concepts/about-apis/idempotent-requests). 
 		@discardableResult
 		open func idempotencyKey(alias: String? = nil) -> PaymentQuery {
 			addField(field: "idempotencyKey", aliasSuffix: alias)
@@ -291,7 +292,8 @@ extension Storefront {
 		}
 
 		/// A client-side generated token to identify a payment and perform idempotent 
-		/// operations. 
+		/// operations. For more information, refer to [Idempotent 
+		/// requests](https://shopify.dev/concepts/about-apis/idempotent-requests). 
 		open var idempotencyKey: String? {
 			return internalGetIdempotencyKey()
 		}
