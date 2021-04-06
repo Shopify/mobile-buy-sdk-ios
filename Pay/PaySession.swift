@@ -191,18 +191,21 @@ public class PaySession: NSObject {
         request.currencyCode                  = currency.currencyCode
         request.merchantIdentifier            = merchantID
         request.shippingContact               = shippingContact
-        request.requiredBillingAddressFields  = .all
-        request.requiredShippingAddressFields = .all
+        request.requiredBillingContactFields  = [.phoneNumber, .phoneticName, .postalAddress]
+        request.requiredShippingContactFields = checkout.needsShipping ? [.phoneNumber, .phoneticName, .postalAddress, .phoneNumber, .emailAddress] : []
         if let shippingRates = checkout.availableShippingRates {
             self.shippingRates = shippingRates
         }
-        request.shippingMethods = checkout.availableShippingRates?.compactMap {
-            let method = PKShippingMethod(label: $0.title, amount: $0.price)
-            method.identifier = $0.handle
-            method.detail = ""
-            return method
-        }
         
+        if checkout.needsShipping {
+            request.shippingMethods = checkout.availableShippingRates?.compactMap {
+                let method = PKShippingMethod(label: $0.title, amount: $0.price)
+                method.identifier = $0.handle
+                method.detail = ""
+                return method
+            }
+        }
+
         request.supportedNetworks             = self.acceptedCardBrands.paymentNetworks
         request.merchantCapabilities          = [.capability3DS]
         request.paymentSummaryItems           = checkout.summaryItems(for: self.shopName)
