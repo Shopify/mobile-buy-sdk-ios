@@ -191,7 +191,7 @@ public class PaySession: NSObject {
         request.currencyCode                  = currency.currencyCode
         request.merchantIdentifier            = merchantID
         request.shippingContact               = shippingContact
-        request.requiredBillingContactFields  = [.phoneNumber, .phoneticName, .postalAddress]
+        request.requiredBillingContactFields  = [.phoneNumber, .name, .postalAddress]
         request.requiredShippingContactFields = checkout.needsShipping ? [.phoneNumber, .phoneticName, .postalAddress, .phoneNumber, .emailAddress] : []
         if let shippingRates = checkout.availableShippingRates {
             self.shippingRates = shippingRates
