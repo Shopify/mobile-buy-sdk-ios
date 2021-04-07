@@ -1,5 +1,5 @@
 //
-//  TransactionStatus.swift
+//  MediaHost.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,19 +27,13 @@
 import Foundation
 
 extension Storefront {
-	/// Transaction statuses describe the status of a transaction. 
-	public enum TransactionStatus: String {
-		/// There was an error while processing the transaction. 
-		case error = "ERROR"
+	/// Host for a Media Resource. 
+	public enum MediaHost: String {
+		/// Host for Vimeo embedded videos. 
+		case vimeo = "VIMEO"
 
-		/// The transaction failed. 
-		case failure = "FAILURE"
-
-		/// The transaction is pending. 
-		case pending = "PENDING"
-
-		/// The transaction succeeded. 
-		case success = "SUCCESS"
+		/// Host for YouTube embedded videos. 
+		case youtube = "YOUTUBE"
 
 		case unknownValue = ""
 	}

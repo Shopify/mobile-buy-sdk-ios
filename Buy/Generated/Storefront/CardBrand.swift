@@ -29,22 +29,22 @@ import Foundation
 extension Storefront {
 	/// Card brand, such as Visa or Mastercard, which can be used for payments. 
 	public enum CardBrand: String {
-		/// American Express 
+		/// American Express. 
 		case americanExpress = "AMERICAN_EXPRESS"
 
-		/// Diners Club 
+		/// Diners Club. 
 		case dinersClub = "DINERS_CLUB"
 
-		/// Discover 
+		/// Discover. 
 		case discover = "DISCOVER"
 
-		/// JCB 
+		/// JCB. 
 		case jcb = "JCB"
 
-		/// Mastercard 
+		/// Mastercard. 
 		case mastercard = "MASTERCARD"
 
-		/// Visa 
+		/// Visa. 
 		case visa = "VISA"
 
 		case unknownValue = ""

@@ -330,6 +330,16 @@ extension Storefront {
 			return self
 		}
 
+		/// The sum of all the duties applied to the line items in the checkout. 
+		@discardableResult
+		open func totalDuties(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CheckoutQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "totalDuties", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The sum of all the prices of all the items in the checkout, taxes and 
 		/// discounts included. 
 		@available(*, deprecated, message:"Use `totalPriceV2` instead")
@@ -556,6 +566,13 @@ extension Storefront {
 					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
 				}
 				return value
+
+				case "totalDuties":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
+				}
+				return try MoneyV2(fields: value)
 
 				case "totalPrice":
 				guard let value = value as? String else {
@@ -854,6 +871,15 @@ extension Storefront {
 			return field(field: "taxesIncluded", aliasSuffix: alias) as! Bool
 		}
 
+		/// The sum of all the duties applied to the line items in the checkout. 
+		open var totalDuties: Storefront.MoneyV2? {
+			return internalGetTotalDuties()
+		}
+
+		func internalGetTotalDuties(alias: String? = nil) -> Storefront.MoneyV2? {
+			return field(field: "totalDuties", aliasSuffix: alias) as! Storefront.MoneyV2?
+		}
+
 		/// The sum of all the prices of all the items in the checkout, taxes and 
 		/// discounts included. 
 		@available(*, deprecated, message:"Use `totalPriceV2` instead")
@@ -985,6 +1011,12 @@ extension Storefront {
 					case "subtotalPriceV2":
 					response.append(internalGetSubtotalPriceV2())
 					response.append(contentsOf: internalGetSubtotalPriceV2().childResponseObjectMap())
+
+					case "totalDuties":
+					if let value = internalGetTotalDuties() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
 
 					case "totalPriceV2":
 					response.append(internalGetTotalPriceV2())

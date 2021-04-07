@@ -740,6 +740,9 @@
 		B3B5A030223FF6C3008ECA02 /* SEO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B5A02F223FF6C3008ECA02 /* SEO.swift */; };
 		B3B5A031223FF6C3008ECA02 /* SEO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B5A02F223FF6C3008ECA02 /* SEO.swift */; };
 		B3B5A032223FF6C3008ECA02 /* SEO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B5A02F223FF6C3008ECA02 /* SEO.swift */; };
+		BFACC99C261CB85B00E7C8AA /* MediaHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFACC99B261CB85B00E7C8AA /* MediaHost.swift */; };
+		BFACC9A4261CB86A00E7C8AA /* MediaHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFACC99B261CB85B00E7C8AA /* MediaHost.swift */; };
+		BFACC9AC261CB86B00E7C8AA /* MediaHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFACC99B261CB85B00E7C8AA /* MediaHost.swift */; };
 		FB7707D822CD488E00ED289E /* ApiVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7707D722CD488E00ED289E /* ApiVersion.swift */; };
 		FB7707D922CD488E00ED289E /* ApiVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7707D722CD488E00ED289E /* ApiVersion.swift */; };
 		FB7707DA22CD488E00ED289E /* ApiVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7707D722CD488E00ED289E /* ApiVersion.swift */; };
@@ -1043,6 +1046,7 @@
 		9AFA38EE1E64850A0056C5AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9AFEF46D1F72DB64003FA8C5 /* MockPaySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPaySession.swift; sourceTree = "<group>"; };
 		B3B5A02F223FF6C3008ECA02 /* SEO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SEO.swift; sourceTree = "<group>"; };
+		BFACC99B261CB85B00E7C8AA /* MediaHost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaHost.swift; sourceTree = "<group>"; };
 		FB7707D722CD488E00ED289E /* ApiVersion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiVersion.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1220,6 +1224,7 @@
 				9A0C80351EAA51C50020F187 /* MailingAddressInput.swift */,
 				9A67114E21666AAF00A57A3F /* ManualDiscountApplication.swift */,
 				8128550923C4AC7E00ADA66E /* Media.swift */,
+				BFACC99B261CB85B00E7C8AA /* MediaHost.swift */,
 				8128550F23C4AC7E00ADA66E /* MediaConnection.swift */,
 				8128550C23C4AC7E00ADA66E /* MediaContentType.swift */,
 				8128550A23C4AC7E00ADA66E /* MediaEdge.swift */,
@@ -1941,6 +1946,7 @@
 				9AC2EF541F6818180037E0D7 /* CheckoutShippingLineUpdatePayload.swift in Sources */,
 				9ABEB3B02122FF7700A373F2 /* FulfillmentLineItem.swift in Sources */,
 				9AA9A3FD2279E79B0002DFDA /* MetafieldEdge.swift in Sources */,
+				BFACC9AC261CB86B00E7C8AA /* MediaHost.swift in Sources */,
 				9AC2EF551F6818180037E0D7 /* CheckoutGiftCardRemovePayload.swift in Sources */,
 				9AC2EF561F6818180037E0D7 /* CheckoutCompleteFreePayload.swift in Sources */,
 				9AC2EF571F6818180037E0D7 /* DigitalWallet.swift in Sources */,
@@ -2172,6 +2178,7 @@
 				9A0C808D1EAA51C50020F187 /* Domain.swift in Sources */,
 				9A0C80F21EB773520020F187 /* Card.CreditCard.swift in Sources */,
 				9A67117321666AB200A57A3F /* DiscountAllocation.swift in Sources */,
+				BFACC99C261CB85B00E7C8AA /* MediaHost.swift in Sources */,
 				9A0C80B11EAA51C50020F187 /* Transaction.swift in Sources */,
 				8128551623C4AC7E00ADA66E /* Video.swift in Sources */,
 				9A0C80631EAA51C50020F187 /* CheckoutCreatePayload.swift in Sources */,
@@ -2403,6 +2410,7 @@
 				9AF255CE1F6FEE50005BB0C9 /* CheckoutShippingLineUpdatePayload.swift in Sources */,
 				9ABEB3B12122FF7700A373F2 /* FulfillmentLineItem.swift in Sources */,
 				9AA9A3FE2279E79B0002DFDA /* MetafieldEdge.swift in Sources */,
+				BFACC9A4261CB86A00E7C8AA /* MediaHost.swift in Sources */,
 				9AF255CF1F6FEE50005BB0C9 /* CheckoutGiftCardRemovePayload.swift in Sources */,
 				9AF255D01F6FEE50005BB0C9 /* CheckoutCompleteFreePayload.swift in Sources */,
 				9AF255D11F6FEE50005BB0C9 /* DigitalWallet.swift in Sources */,
@@ -2639,6 +2647,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MARKETING_VERSION = 6.0.0;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.Pay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2662,6 +2671,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MARKETING_VERSION = 6.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.Pay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2883,6 +2893,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MARKETING_VERSION = 6.0.0;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.Buy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2903,6 +2914,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MARKETING_VERSION = 6.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shopify.Buy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
