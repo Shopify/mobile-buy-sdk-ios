@@ -1244,8 +1244,6 @@ let task = client.mutateGraphWith(mutation) { result, error in
 }
 task.resume()
 ```
-**IMPORTANT**: Before completing the checkout with a credit card, you need to have the `write_checkouts_payments` scope enabled for your app. This can be done by [requesting payment process for native mobile apps](https://docs.google.com/forms/d/e/1FAIpQLSfaiwWJwTsMKKi6Sl-qfiLMwKRKyZ9TxBuutumkk6ThisFTUg/viewform). Alternatively, if this will be a [Sales Channel](https://shopify.dev/tutorials/build-a-sales-channel), you can request through [payment processing for Sales Channels](https://shopify.dev/tutorials/authenticate-a-public-app-with-oauth#request-payment-processing).  
-
 **3D Secure Checkout**
 
 To implement 3D secure on your checkout flow, see [the API Help Docs](https://help.shopify.com/en/api/guides/3d-secure#graphql-storefront-api-changes).
