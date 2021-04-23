@@ -142,13 +142,7 @@ internal extension PayCheckout {
 
         // Shop name
         
-        // If gift card is part paying items, use total amount.
-        // https://github.com/Shopify/mobile-buy-sdk-ios/issues/927
-        if let giftCards = self.giftCards, !giftCards.isEmpty {
-            summaryItems.append(self.total.summaryItemNamed(shop))
-        } else {
-            summaryItems.append(self.paymentDue.summaryItemNamed(shop))
-        }
+        summaryItems.append(self.paymentDue.summaryItemNamed(shop))
 
         return summaryItems
     }
