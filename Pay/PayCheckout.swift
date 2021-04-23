@@ -43,16 +43,17 @@ public struct PayCheckout {
     public let shippingAddress:  PayAddress?
     public let shippingRate:     PayShippingRate?
     public let availableShippingRates:     [PayShippingRate]?
-
+    
     public let currencyCode:     String
     public let subtotalPrice:    Decimal
     public let totalTax:         Decimal
     public let paymentDue:       Decimal
+    public let total:            Decimal
 
     // ----------------------------------
     //  MARK: - Init -
     //
-    public init(id: String, lineItems: [PayLineItem], giftCards: [PayGiftCard]?, discount: PayDiscount?, shippingDiscount: PayDiscount?, shippingAddress: PayAddress?, shippingRate: PayShippingRate?, availableShippingRates: [PayShippingRate]?, currencyCode: String, subtotalPrice: Decimal, needsShipping: Bool, totalTax: Decimal, paymentDue: Decimal) {
+    public init(id: String, lineItems: [PayLineItem], giftCards: [PayGiftCard]?, discount: PayDiscount?, shippingDiscount: PayDiscount?, shippingAddress: PayAddress?, shippingRate: PayShippingRate?, availableShippingRates: [PayShippingRate]?, currencyCode: String, subtotalPrice: Decimal, needsShipping: Bool, totalTax: Decimal, total: Decimal, paymentDue: Decimal) {
 
         self.id               = id
         self.lineItems        = lineItems
@@ -71,6 +72,7 @@ public struct PayCheckout {
 
         self.hasLineItems     = !lineItems.isEmpty
         self.needsShipping    = needsShipping
+        self.total = total
     }
 }
 
@@ -140,7 +142,13 @@ internal extension PayCheckout {
 
         // Shop name
         
-        summaryItems.append(self.paymentDue.summaryItemNamed(shop))
+        // If gift card is part paying items, use total amount.
+        // https://github.com/Shopify/mobile-buy-sdk-ios/issues/927
+        if let giftCards = self.giftCards, !giftCards.isEmpty {
+            summaryItems.append(self.total.summaryItemNamed(shop))
+        } else {
+            summaryItems.append(self.paymentDue.summaryItemNamed(shop))
+        }
 
         return summaryItems
     }
