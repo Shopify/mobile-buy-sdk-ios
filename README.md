@@ -1123,7 +1123,7 @@ let mutation = Storefront.buildMutation { $0
 
 ##### Polling for checkout updates [⤴](#table-of-contents)
 
-Checkouts may have asynchronous operations that can take time to finish. If you want to complete a checkout or ensure all the fields are populated and up to date, polling is required until the `ready` value is true. 
+Checkouts may have asynchronous operations that can take time to finish. If you want to complete a checkout or ensure all the fields are populated and up to date, polling is required until the `ready` value is `true`. 
 
 All asynchronous computations are completed and the checkout is updated accordingly once the `checkout.ready` flag is `true`. 
 This flag should be checked (and polled if it is `false`) after every update to the checkout to ensure there are no asynchronous processes running that could affect the fields of the checkout. 
