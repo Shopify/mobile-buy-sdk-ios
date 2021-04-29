@@ -58,7 +58,7 @@ The Mobile Buy SDK makes it easy to create custom storefronts in your mobile app
   - [Checkout](#checkout-)
       - [Creating a checkout](#checkout-)
       - [Updating a checkout](#updating-a-checkout-)
-      - [Polling for checkout updates](#polling-for-checkout-updates-)
+      - [Polling for checkout readiness](#polling-for-checkout-updates-)
       - [Polling for shipping rates](#polling-for-shipping-rates-)
       - [Updating shipping line](#updating-shipping-line-)
       - [Completing a checkout](#completing-a-checkout-)
@@ -1121,9 +1121,9 @@ let mutation = Storefront.buildMutation { $0
 }
 ```
 
-##### Polling for checkout updates [⤴](#table-of-contents)
+##### Polling for checkout readiness [⤴](#table-of-contents)
 
-Checkouts may have asynchronous operations that can take time to finish. If you want to complete a checkout or ensure all the fields are populated and up to date, polling is required until the `ready` value is `true`. 
+Checkouts may have asynchronous operations that can take time to finish. If you want to complete a checkout or ensure all the fields are populated and up to date, polling is required until the `ready` value is `true`. Fields that are populated asynchronously include duties and taxes.
 
 All asynchronous computations are completed and the checkout is updated accordingly once the `checkout.ready` flag is `true`. 
 This flag should be checked (and polled if it is `false`) after every update to the checkout to ensure there are no asynchronous processes running that could affect the fields of the checkout. 
@@ -1167,7 +1167,6 @@ task.resume()
 ```
 
 The completion will be called only if `checkout.ready == true` or the retry count reaches 10. Although you can specify `.infinite` for the retry handler's `endurance` property, we highly recommend you set a finite limit.
-The fields 
 
 ##### Polling for shipping rates [⤴](#table-of-contents)
 
