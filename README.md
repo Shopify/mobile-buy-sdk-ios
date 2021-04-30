@@ -58,6 +58,7 @@ The Mobile Buy SDK makes it easy to create custom storefronts in your mobile app
   - [Checkout](#checkout-)
       - [Creating a checkout](#checkout-)
       - [Updating a checkout](#updating-a-checkout-)
+      - [Polling for checkout readiness](#polling-for-checkout-updates-)
       - [Polling for shipping rates](#polling-for-shipping-rates-)
       - [Updating shipping line](#updating-shipping-line-)
       - [Completing a checkout](#completing-a-checkout-)
@@ -1119,6 +1120,53 @@ let mutation = Storefront.buildMutation { $0
     }
 }
 ```
+
+##### Polling for checkout readiness [⤴](#table-of-contents)
+
+Checkouts may have asynchronous operations that can take time to finish. If you want to complete a checkout or ensure all the fields are populated and up to date, polling is required until the `ready` value is `true`. Fields that are populated asynchronously include duties and taxes.
+
+All asynchronous computations are completed and the checkout is updated accordingly once the `checkout.ready` flag is `true`. 
+This flag should be checked (and polled if it is `false`) after every update to the checkout to ensure there are no asynchronous processes running that could affect the fields of the checkout. 
+Common examples would be after updating the shipping address or adjusting the line items of a checkout.
+
+```swift
+let query = Storefront.buildQuery { $0
+    .node(id: checkoutID) { $0
+        .onCheckout { $0
+            .id()
+            .ready() // <- Indicates that all fields are up to date after asynchronous operations completed.
+            .totalDuties { $0
+                .amount()
+                .currencyCode()
+            }
+            .totalTaxV2 { $0
+                .amount()
+                .currencyCode()
+            }
+            .totalPriceV2 { $0
+                .amount()
+                .currencyCode()
+            }
+            // ...
+        }
+    }
+}
+```
+
+It is your application's responsibility to poll for updates and to continue retrying this query until `ready == true` and to use the updated fields returned with that response. The Buy SDK has [built-in support for retrying requests](#retry-), so we'll create a retry handler and perform the query:
+
+```swift
+let retry = Graph.RetryHandler<Storefront.QueryRoot>(endurance: .finite(10)) { (response, _) -> Bool in
+    (response?.node as? Storefront.Checkout)?.ready ?? false == false
+}
+
+let task = self.client.queryGraphWith(query, retryHandler: retry) { response, error in
+    let updatedCheckout = response?.node as? Storefront.Checkout
+}
+task.resume()
+```
+
+The completion will be called only if `checkout.ready == true` or the retry count reaches 10. Although you can specify `.infinite` for the retry handler's `endurance` property, we highly recommend you set a finite limit.
 
 ##### Polling for shipping rates [⤴](#table-of-contents)
 
