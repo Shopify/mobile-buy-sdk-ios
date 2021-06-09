@@ -248,7 +248,7 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
         let authorization = PayAuthorization(
             paymentData:     payment.token.paymentData,
             billingAddress:  PayAddress(with: payment.billingContact!),
-            shippingAddress: PayAddress(with: payment.shippingContact!),
+            shippingAddress: payment.shippingContact != nil ? PayAddress(with: payment.shippingContact!) : nil,
             shippingRate:    shippingRate
         )
         
