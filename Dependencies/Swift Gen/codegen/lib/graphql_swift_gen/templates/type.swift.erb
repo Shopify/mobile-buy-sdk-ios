@@ -50,9 +50,13 @@ extension <%= schema_name %> {
     open class <%= type.name %>Query: GraphQL.AbstractQuery, GraphQLQuery {
       public typealias Response = <%= type.name %>
 
-      <% if type.name == schema.mutation_root_name %>
+      <% if type.name == schema.query_root_name %>
         open override var description: String {
-          return "mutation" + super.description
+          return "query " + super.description
+        }
+      <% elsif type.name == schema.mutation_root_name %>
+        open override var description: String {
+          return "mutation " + super.description
         }
       <% end %>
       <% fields.each do |field| %>

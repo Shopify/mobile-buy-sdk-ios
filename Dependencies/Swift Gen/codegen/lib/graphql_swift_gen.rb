@@ -29,6 +29,11 @@ class GraphQLSwiftGen
   def generate
     output = {}
     output["#{schema_name}.swift"] = generate_schema_file
+    %w{QUERY MUTATION}.each do |kind|
+      directives_for_kind(kind).each do |directive|
+        output["#{schema_name}/#{directive.classify_name}.swift"] = generate_directive(directive)
+      end
+    end
     schema.types.reject{ |type| type.name.start_with?('__') || type.scalar? }.each do |type|
       output["#{schema_name}/#{type.name}.swift"] = generate_type(type)
     end
@@ -50,7 +55,8 @@ class GraphQLSwiftGen
 
   SCHEMA_ERB = erb_for("ApiSchema.swift.erb")
   TYPE_ERB = erb_for("type.swift.erb")
-  private_constant :SCHEMA_ERB, :TYPE_ERB
+  DIRECTIVE_ERB = erb_for("directive.swift.erb")
+  private_constant :SCHEMA_ERB, :TYPE_ERB, :DIRECTIVE_ERB
 
   DEFAULT_SCALAR = Scalar.new(type_name: nil, swift_type: 'String', json_type: 'String')
   private_constant :DEFAULT_SCALAR
@@ -109,6 +115,10 @@ class GraphQLSwiftGen
     reformat(TYPE_ERB.result(binding))
   end
 
+  def generate_directive(directive)
+    reformat(DIRECTIVE_ERB.result(binding))
+  end
+
   def reformat(code)
     Reformatter.new(indent: "\t").reformat(code)
   end
@@ -126,8 +136,8 @@ class GraphQLSwiftGen
     else
       raise NotImplementedError, "Unhandled #{type.kind} input type"
     end
-    
-    if wrapped 
+
+    if wrapped
       if !non_null
         code = "Input<#{code}>"
       end
@@ -174,6 +184,17 @@ class GraphQLSwiftGen
     end
     code += "?" unless non_null
     code
+  end
+
+  def directives_for_kind(kind)
+    schema.directives.select do |directive|
+      directive.locations.include?(kind)
+    end
+  end
+
+  def swift_root_directive_args(operation_type)
+    directives_for_kind(operation_type)
+      .map { |directive| "#{directive.name}: #{directive.classify_name}Directive? = nil" }
   end
 
   def generate_build_input_code(expr, type, wrap: true)
@@ -228,8 +249,8 @@ class GraphQLSwiftGen
       raise NotImplementedError, "Unexpected #{type.kind} argument type"
     end
   end
-  
-  def generate_input_init(type) 
+
+  def generate_input_init(type)
     text = "public static func create("
 	input_fields = type.required_input_fields + type.optional_input_fields
     input_fields.each do |field|
@@ -239,7 +260,7 @@ class GraphQLSwiftGen
       text << (field.type.non_null? ? "" : " = .undefined")
       text << (field == input_fields.last ? "" : ", ")
     end
-      
+
     text << ") -> #{type.name} {"
     text << "\n"
 	text << "return #{type.name}("
@@ -249,7 +270,7 @@ class GraphQLSwiftGen
 	text << ")\n"
     text << "}"
   end
-  
+
   def deprecated_input_init_required(type)
   	type.input_fields.each do |field|
       unless field.type.non_null?
@@ -258,8 +279,8 @@ class GraphQLSwiftGen
     end
     false
   end
-  
-  def generate_private_input_init(type) 
+
+  def generate_private_input_init(type)
     text = "private init("
     input_fields = type.required_input_fields + type.optional_input_fields
     input_fields.each do |field|
@@ -273,13 +294,13 @@ class GraphQLSwiftGen
     text << " {\n"
       type.input_fields.each do |field|
         name = escape_reserved_word(field.camelize_name)
-        text << "self." + name + " = " + name 
+        text << "self." + name + " = " + name
         text << "\n"
       end
     text << "}"
   end
-  
-  def generate_deprecated_input_init(type) 
+
+  def generate_deprecated_input_init(type)
   	convenience = deprecated_input_init_required(type) ? "convenience " : ""
   	deprecation = deprecated_input_init_required(type) ? "@available(*, deprecated, message: \"Use the static create() method instead.\")\n" : ""
     text = "#{deprecation}public #{convenience}init("
@@ -293,7 +314,7 @@ class GraphQLSwiftGen
       end
     text << ")"
     text << " {\n"
-    
+
       if deprecated_input_init_required(type)
       	text << "self.init("
 		text << input_fields.map { |field|
@@ -307,7 +328,7 @@ class GraphQLSwiftGen
       else
 		type.input_fields.each do |field|
 		  name = escape_reserved_word(field.camelize_name)
-		  text << "self." + name + " = " + name 
+		  text << "self." + name + " = " + name
 		  if !field.type.non_null?
 			text << ".orUndefined"
 		  end
@@ -316,11 +337,11 @@ class GraphQLSwiftGen
 	  end
     text << "}"
   end
-  
+
   def remove_linebreaks(text)
     text.gsub("\n", " ")
   end
-  
+
   def input_field_description(type)
     unless type.input_fields.count == 0
       text = "/// - parameters:" + ""
@@ -332,7 +353,7 @@ class GraphQLSwiftGen
       text
     end
   end
-  
+
   def swift_arg_defs(field)
     defs = ["alias: String? = nil"]
     field.args.each do |arg|
@@ -342,6 +363,16 @@ class GraphQLSwiftGen
     end
     if field.subfields?
       defs << "_ subfields: (#{field.type.unwrap.name}Query) -> Void"
+    end
+    defs.join(', ')
+  end
+
+  def swift_directive_arg_defs(directive)
+    defs = []
+    directive.args.each do |arg|
+      arg_def = "#{escape_reserved_word(arg.name)}: #{swift_input_type(arg.type)}"
+      arg_def << " = nil" unless arg.type.non_null?
+      defs << arg_def
     end
     defs.join(', ')
   end
@@ -368,34 +399,34 @@ class GraphQLSwiftGen
     end
     "@available(*, deprecated#{message_argument})\n"
   end
-  
+
   def swift_doc(element, include_args=true)
     doc = ''
-  	
+
     unless element.description.nil?
       description = element.description
       description = wrap_text(description, '/// ')
       doc << "\n\n" + description
     end
-    
+
   	if include_args && element.respond_to?(:args)
   	  if element.args.count > 0
 		doc << "\n///\n"
 		doc << "/// - parameters:"
-		element.args.each do |arg|	
+		element.args.each do |arg|
 		  doc << "\n"
 		  doc << '///     - ' + arg.name + ': ' + (arg.description.nil? ? "No description" : format_arg_list(arg.description, 7))
 		end
 		doc << "\n///"
   	  end
-  	end	
+  	end
     doc
   end
 
   def wrap_text(text, prefix, width=80)
     container = ''
     line = "" + prefix
-    
+
     parts = text.split(" ")
     parts.each do |part|
       if line.length + part.length < width
@@ -409,7 +440,7 @@ class GraphQLSwiftGen
         line << ' '
       end
     end
-    
+
     if line.length > 0
       container << line
     end
@@ -417,7 +448,7 @@ class GraphQLSwiftGen
   end
 
   def format_arg_list(text, spacing)
-	parts = text.split("\n")    
+	parts = text.split("\n")
 	commented = parts.drop(1).map do |part|
 	  "/// " + (" " * spacing) + part
 	end
