@@ -2,12 +2,12 @@ PATH
   remote: Dependencies/Swift Gen
   specs:
     graphql_swift_gen (0.1.0)
-      graphql_schema (~> 0.1.1)
+      graphql_schema (~> 0.1.8)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    graphql_schema (0.1.6)
+    graphql_schema (0.1.8)
 
 PLATFORMS
   ruby
