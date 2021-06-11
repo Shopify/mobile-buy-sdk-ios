@@ -1,5 +1,5 @@
 //
-//  <%= schema_name %>.swift
+//  <%= directive.name %>.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -24,17 +24,32 @@
 //  THE SOFTWARE.
 //
 
-public class <%= schema_name %> {
-  <% [['Query', schema.query_root_name], ['Mutation', schema.mutation_root_name]].each do |operation_type, root_name| %>
-    <% directive_args = swift_root_directive_args(operation_type) %>
-    <% formatted_args = directive_args.empty? ? "_ " : directive_args.join(", ") + ", " %>
-   public static func build<%= operation_type %>(<%= formatted_args %>subfields: (<%= root_name %>Query) -> Void) -> <%= root_name %>Query {
-      let root = <%= root_name %>Query()
-      <% unless directive_args.empty? %>
-      root.directives = [<%= directives_for_kind(operation_type).map(&:name).join(", ") %>].compactMap({ $0 })
+import Foundation
+<% if import_graphql_support %>
+  import GraphQLSupport
+<% end %>
+
+extension <%= schema_name %> {
+  open class <%= directive.classify_name %>Directive: GraphQL.AbstractDirective {
+    <%= swift_doc(directive) %>
+    public init(<%= swift_directive_arg_defs(directive) %>) {
+      <% unless directive.args.empty? %>
+        var args: [String] = []
+        <% directive.required_args.each do |arg| %>
+          args.append("<%= arg.name %>:<%= generate_build_input_code(arg.name, arg.type.unwrap_non_null) %>")
+        <% end %>
+        <% directive.optional_args.each do |arg| %>
+          if let <%= escape_reserved_word(arg.name) %> = <%= escape_reserved_word(arg.name) %> {
+            args.append("<%= arg.name %>:<%= generate_build_input_code(arg.name, arg.type) %>")
+          }
+        <% end %>
+        <% if directive.optional_args.empty? %>
+          let argsString = "(\(args.joined(separator: ",")))"
+        <% else %>
+          let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+        <% end %>
       <% end %>
-      subfields(root)
-      return root
+      super.init(name: "<%= directive.name %>", args: argsString)
     }
-  <% end %>
+  }
 }

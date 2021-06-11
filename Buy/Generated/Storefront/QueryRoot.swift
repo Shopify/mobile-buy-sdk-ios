@@ -32,6 +32,10 @@ extension Storefront {
 	open class QueryRootQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = QueryRoot
 
+		open override var description: String {
+			return "query " + super.description
+		}
+
 		/// List of the shop's articles. 
 		///
 		/// - parameters:

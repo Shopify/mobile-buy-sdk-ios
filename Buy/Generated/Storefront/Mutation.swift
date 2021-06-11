@@ -33,7 +33,7 @@ extension Storefront {
 		public typealias Response = Mutation
 
 		open override var description: String {
-			return "mutation" + super.description
+			return "mutation " + super.description
 		}
 
 		/// Updates the attributes of a checkout. 
