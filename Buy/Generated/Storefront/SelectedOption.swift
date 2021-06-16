@@ -27,9 +27,8 @@
 import Foundation
 
 extension Storefront {
-	/// Custom properties that a shop owner can use to define product variants. 
-	/// Multiple options can exist. Options are represented as: option1, option2, 
-	/// option3, etc. 
+	/// Properties used by customers to select a product variant. Products can have 
+	/// multiple options, like different sizes or colors. 
 	open class SelectedOptionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SelectedOption
 
@@ -48,9 +47,8 @@ extension Storefront {
 		}
 	}
 
-	/// Custom properties that a shop owner can use to define product variants. 
-	/// Multiple options can exist. Options are represented as: option1, option2, 
-	/// option3, etc. 
+	/// Properties used by customers to select a product variant. Products can have 
+	/// multiple options, like different sizes or colors. 
 	open class SelectedOption: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = SelectedOptionQuery
 

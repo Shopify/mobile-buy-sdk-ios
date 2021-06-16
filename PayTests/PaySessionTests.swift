@@ -24,6 +24,8 @@
 //  THE SOFTWARE.
 //
 
+#if canImport(PassKit)
+
 import XCTest
 import PassKit
 @testable import Pay
@@ -588,3 +590,5 @@ class PaySessionTests: XCTestCase {
         return delegate
     }
 }
+
+#endif

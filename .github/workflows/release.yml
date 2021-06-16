@@ -1,0 +1,44 @@
+name: Release
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macOS-latest
+    
+    steps:
+    
+    - name: Checkout master
+      uses: actions/checkout@master
+      with:
+        ref: 'master'
+        
+    - name: Get SDK version
+      id: sdk-version
+      run: |
+        SDK_VERSION="$(./Scripts/get_sdk_version)"
+        echo "SDK_VERSION=$SDK_VERSION" >> $GITHUB_ENV
+
+    - name: Get API Version
+      id: api-version
+      run: |
+        API_VERSION="$(./Scripts/get_api_version)"
+        echo "API_VERSION=$API_VERSION" >> $GITHUB_ENV
+
+    - name: Create a draft release
+      uses: actions/github-script@0.9.0
+      with:
+        script: |
+          const api_version = process.env.API_VERSION
+          const sdkVersion = process.env.SDK_VERSION
+          github.repos.createRelease({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            name: sdkVersion,
+            body: `Take a look at the [latest schema changes](https://shopify.dev/concepts/about-apis/versioning/release-notes/${api_version}#storefront-api-changes).`,
+            tag_name: sdkVersion,
+            target_commitish: 'master',
+            draft: true,
+            prerelease: false,
+          })

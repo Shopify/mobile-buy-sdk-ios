@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// Currency codes 
+	/// Currency codes. 
 	public enum CurrencyCode: String {
 		/// United Arab Emirates Dirham (AED). 
 		case aed = "AED"
@@ -98,8 +98,11 @@ extension Storefront {
 		/// Botswana Pula (BWP). 
 		case bwp = "BWP"
 
+		/// Belarusian Ruble (BYN). 
+		case byn = "BYN"
+
 		/// Belarusian Ruble (BYR). 
-		@available(*, deprecated, message:"`BYR` is deprecated. Use `BYN` available from version `2019-10` onwards instead.")
+		@available(*, deprecated, message:"`BYR` is deprecated. Use `BYN` available from version `2021-01` onwards instead.")
 		case byr = "BYR"
 
 		/// Belize Dollar (BZD). 
@@ -132,6 +135,9 @@ extension Storefront {
 		/// Czech Koruny (CZK). 
 		case czk = "CZK"
 
+		/// Djiboutian Franc (DJF). 
+		case djf = "DJF"
+
 		/// Danish Kroner (DKK). 
 		case dkk = "DKK"
 
@@ -144,6 +150,9 @@ extension Storefront {
 		/// Egyptian Pound (EGP). 
 		case egp = "EGP"
 
+		/// Eritrean Nakfa (ERN). 
+		case ern = "ERN"
+
 		/// Ethiopian Birr (ETB). 
 		case etb = "ETB"
 
@@ -152,6 +161,9 @@ extension Storefront {
 
 		/// Fijian Dollars (FJD). 
 		case fjd = "FJD"
+
+		/// Falkland Islands Pounds (FKP). 
+		case fkp = "FKP"
 
 		/// United Kingdom Pounds (GBP). 
 		case gbp = "GBP"
@@ -162,8 +174,14 @@ extension Storefront {
 		/// Ghanaian Cedi (GHS). 
 		case ghs = "GHS"
 
+		/// Gibraltar Pounds (GIP). 
+		case gip = "GIP"
+
 		/// Gambian Dalasi (GMD). 
 		case gmd = "GMD"
+
+		/// Guinean Franc (GNF). 
+		case gnf = "GNF"
 
 		/// Guatemalan Quetzal (GTQ). 
 		case gtq = "GTQ"
@@ -198,6 +216,9 @@ extension Storefront {
 		/// Iraqi Dinar (IQD). 
 		case iqd = "IQD"
 
+		/// Iranian Rial (IRR). 
+		case irr = "IRR"
+
 		/// Icelandic Kronur (ISK). 
 		case isk = "ISK"
 
@@ -221,6 +242,9 @@ extension Storefront {
 
 		/// Cambodian Riel. 
 		case khr = "KHR"
+
+		/// Kiribati Dollar (KID). 
+		case kid = "KID"
 
 		/// Comorian Franc (KMF). 
 		case kmf = "KMF"
@@ -258,6 +282,9 @@ extension Storefront {
 		/// Latvian Lati (LVL). 
 		case lvl = "LVL"
 
+		/// Libyan Dinar (LYD). 
+		case lyd = "LYD"
+
 		/// Moroccan Dirham. 
 		case mad = "MAD"
 
@@ -278,6 +305,9 @@ extension Storefront {
 
 		/// Macanese Pataca (MOP). 
 		case mop = "MOP"
+
+		/// Mauritanian Ouguiya (MRU). 
+		case mru = "MRU"
 
 		/// Mauritian Rupee (MUR). 
 		case mur = "MUR"
@@ -372,6 +402,15 @@ extension Storefront {
 		/// Singapore Dollars (SGD). 
 		case sgd = "SGD"
 
+		/// Saint Helena Pounds (SHP). 
+		case shp = "SHP"
+
+		/// Sierra Leonean Leone (SLL). 
+		case sll = "SLL"
+
+		/// Somali Shilling (SOS). 
+		case sos = "SOS"
+
 		/// Surinamese Dollar (SRD). 
 		case srd = "SRD"
 
@@ -390,11 +429,17 @@ extension Storefront {
 		/// Thai baht (THB). 
 		case thb = "THB"
 
+		/// Tajikistani Somoni (TJS). 
+		case tjs = "TJS"
+
 		/// Turkmenistani Manat (TMT). 
 		case tmt = "TMT"
 
 		/// Tunisian Dinar (TND). 
 		case tnd = "TND"
+
+		/// Tongan Pa'anga (TOP). 
+		case top = "TOP"
 
 		/// Turkish Lira (TRY). 
 		case `try` = "TRY"
@@ -424,7 +469,11 @@ extension Storefront {
 		case uzs = "UZS"
 
 		/// Venezuelan Bolivares (VEF). 
+		@available(*, deprecated, message:"`VEF` is deprecated. Use `VES` available from version `2020-10` onwards instead.")
 		case vef = "VEF"
+
+		/// Venezuelan Bolivares (VES). 
+		case ves = "VES"
 
 		/// Vietnamese đồng (VND). 
 		case vnd = "VND"

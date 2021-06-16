@@ -31,6 +31,7 @@ extension Storefront {
 	open class CheckoutLineItemsRemovePayloadQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CheckoutLineItemsRemovePayload
 
+		/// The updated checkout object. 
 		@discardableResult
 		open func checkout(alias: String? = nil, _ subfields: (CheckoutQuery) -> Void) -> CheckoutLineItemsRemovePayloadQuery {
 			let subquery = CheckoutQuery()
@@ -93,6 +94,7 @@ extension Storefront {
 			}
 		}
 
+		/// The updated checkout object. 
 		open var checkout: Storefront.Checkout? {
 			return internalGetCheckout()
 		}

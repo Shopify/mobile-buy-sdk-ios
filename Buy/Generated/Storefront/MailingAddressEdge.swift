@@ -27,6 +27,8 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type which holds one MailingAddress and a cursor during 
+	/// pagination. 
 	open class MailingAddressEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = MailingAddressEdge
 
@@ -48,6 +50,8 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type which holds one MailingAddress and a cursor during 
+	/// pagination. 
 	open class MailingAddressEdge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = MailingAddressEdgeQuery
 

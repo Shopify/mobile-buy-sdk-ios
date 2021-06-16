@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// The set of valid sort keys for the images query. 
+	/// The set of valid sort keys for the ProductImage query. 
 	public enum ProductImageSortKeys: String {
 		/// Sort by the `created_at` value. 
 		case createdAt = "CREATED_AT"

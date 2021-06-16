@@ -27,6 +27,8 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type which holds one FulfillmentLineItem and a cursor 
+	/// during pagination. 
 	open class FulfillmentLineItemEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = FulfillmentLineItemEdge
 
@@ -48,6 +50,8 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type which holds one FulfillmentLineItem and a cursor 
+	/// during pagination. 
 	open class FulfillmentLineItemEdge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = FulfillmentLineItemEdgeQuery
 

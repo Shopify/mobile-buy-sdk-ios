@@ -48,7 +48,8 @@ extension Storefront {
 		///         - `tag`
 		///         - `updated_at`
 		///        
-		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+		///        for more information about using filters.
 		///
 		@available(*, deprecated, message:"Use `QueryRoot.articles` instead.")
 		@discardableResult
@@ -107,7 +108,8 @@ extension Storefront {
 		///         - `title`
 		///         - `updated_at`
 		///        
-		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+		///        for more information about using filters.
 		///
 		@available(*, deprecated, message:"Use `QueryRoot.blogs` instead.")
 		@discardableResult
@@ -186,7 +188,8 @@ extension Storefront {
 		///         - `title`
 		///         - `updated_at`
 		///        
-		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+		///        for more information about using filters.
 		///
 		@available(*, deprecated, message:"Use `QueryRoot.collections` instead.")
 		@discardableResult
@@ -311,8 +314,8 @@ extension Storefront {
 			return self
 		}
 
-		/// Tags added to products. Additional access scope required: 
-		/// unauthenticated_read_product_tags. 
+		/// A list of tags that have been added to products. Additional access scope 
+		/// required: unauthenticated_read_product_tags. 
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -373,7 +376,8 @@ extension Storefront {
 		///         - `variants.price`
 		///         - `vendor`
 		///        
-		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+		///        for more information about using filters.
 		///
 		@available(*, deprecated, message:"Use `QueryRoot.products` instead.")
 		@discardableResult
@@ -424,6 +428,16 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "refundPolicy", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// The shop’s shipping policy. 
+		@discardableResult
+		open func shippingPolicy(alias: String? = nil, _ subfields: (ShopPolicyQuery) -> Void) -> ShopQuery {
+			let subquery = ShopPolicyQuery()
+			subfields(subquery)
+
+			addField(field: "shippingPolicy", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -556,6 +570,13 @@ extension Storefront {
 				return try ProductConnection(fields: value)
 
 				case "refundPolicy":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
+				}
+				return try ShopPolicy(fields: value)
+
+				case "shippingPolicy":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
@@ -732,8 +753,8 @@ extension Storefront {
 			return field(field: "productByHandle", aliasSuffix: alias) as! Storefront.Product?
 		}
 
-		/// Tags added to products. Additional access scope required: 
-		/// unauthenticated_read_product_tags. 
+		/// A list of tags that have been added to products. Additional access scope 
+		/// required: unauthenticated_read_product_tags. 
 		@available(*, deprecated, message:"Use `QueryRoot.productTags` instead.")
 		open var productTags: Storefront.StringConnection {
 			return internalGetProductTags()
@@ -788,6 +809,15 @@ extension Storefront {
 
 		func internalGetRefundPolicy(alias: String? = nil) -> Storefront.ShopPolicy? {
 			return field(field: "refundPolicy", aliasSuffix: alias) as! Storefront.ShopPolicy?
+		}
+
+		/// The shop’s shipping policy. 
+		open var shippingPolicy: Storefront.ShopPolicy? {
+			return internalGetShippingPolicy()
+		}
+
+		func internalGetShippingPolicy(alias: String? = nil) -> Storefront.ShopPolicy? {
+			return field(field: "shippingPolicy", aliasSuffix: alias) as! Storefront.ShopPolicy?
 		}
 
 		/// Countries that the shop ships to. 
@@ -874,6 +904,12 @@ extension Storefront {
 
 					case "refundPolicy":
 					if let value = internalGetRefundPolicy() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "shippingPolicy":
+					if let value = internalGetShippingPolicy() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}

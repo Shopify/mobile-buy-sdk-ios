@@ -1,0 +1,41 @@
+#!/usr/bin/env ruby
+
+project_root = File.expand_path('..', __dir__)
+
+sdk_version_path = File.join(project_root, 'Buy', 'Utilities', 'SDK.swift')
+unless File.exist?(sdk_version_path) && File.writable?(sdk_version_path)
+    raise "unable to open #{sdk_version_path}"
+end
+
+sdk_version_src = File.read(sdk_version_path)
+current_version = sdk_version_src.match(/static let version = "([0-9.]+)"/i).captures[0]
+
+components = current_version.split('.')
+components[1] = components[1].to_i + 1
+components[2] = 0
+new_version = components.join('.')
+
+sdk_version_src.gsub!(/static let version = "([0-9.]+)"/, "static let version = \"#{new_version}\"")
+File.open(sdk_version_path, "w") do |file|
+    file.puts sdk_version_src
+end
+
+podspec_path = File.join(project_root, 'Mobile-Buy-SDK.podspec')
+unless File.exist?(podspec_path) && File.writable?(podspec_path)
+    raise "unable to open #{podspec_path}"
+end
+
+podspec_src = File.read(podspec_path)
+if match = podspec_src.match(/s.version\s*= '([0-9.]+)'/i)
+    current = match.captures[0]
+    new_def = match.to_s.gsub(current, new_version)
+    podspec_src.gsub!(match.to_s, new_def)
+end
+
+File.open(podspec_path, 'w') do |file|
+    file.puts podspec_src
+end
+
+system('agvtool', 'new-marketing-version', new_version)
+
+puts new_version

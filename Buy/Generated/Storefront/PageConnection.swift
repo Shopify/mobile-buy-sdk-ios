@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type for paginating through multiple Pages. 
 	open class PageConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = PageConnection
 
@@ -51,6 +52,7 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type for paginating through multiple Pages. 
 	open class PageConnection: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = PageConnectionQuery
 

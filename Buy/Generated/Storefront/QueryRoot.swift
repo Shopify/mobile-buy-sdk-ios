@@ -32,6 +32,10 @@ extension Storefront {
 	open class QueryRootQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = QueryRoot
 
+		open override var description: String {
+			return "query " + super.description
+		}
+
 		/// List of the shop's articles. 
 		///
 		/// - parameters:
@@ -48,7 +52,8 @@ extension Storefront {
 		///         - `tag`
 		///         - `updated_at`
 		///        
-		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+		///        for more information about using filters.
 		///
 		@discardableResult
 		open func articles(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: ArticleSortKeys? = nil, query: String? = nil, _ subfields: (ArticleConnectionQuery) -> Void) -> QueryRootQuery {
@@ -126,7 +131,8 @@ extension Storefront {
 		///         - `title`
 		///         - `updated_at`
 		///        
-		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+		///        for more information about using filters.
 		///
 		@discardableResult
 		open func blogs(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: BlogSortKeys? = nil, query: String? = nil, _ subfields: (BlogConnectionQuery) -> Void) -> QueryRootQuery {
@@ -203,7 +209,8 @@ extension Storefront {
 		///         - `title`
 		///         - `updated_at`
 		///        
-		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+		///        for more information about using filters.
 		///
 		@discardableResult
 		open func collections(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: CollectionSortKeys? = nil, query: String? = nil, _ subfields: (CollectionConnectionQuery) -> Void) -> QueryRootQuery {
@@ -246,9 +253,10 @@ extension Storefront {
 			return self
 		}
 
+		/// Find a customer by its access token. 
 		///
 		/// - parameters:
-		///     - customerAccessToken: The customer access token
+		///     - customerAccessToken: The customer access token.
 		///
 		@discardableResult
 		open func customer(alias: String? = nil, customerAccessToken: String, _ subfields: (CustomerQuery) -> Void) -> QueryRootQuery {
@@ -265,6 +273,7 @@ extension Storefront {
 			return self
 		}
 
+		/// Returns a specific node by ID. 
 		///
 		/// - parameters:
 		///     - id: The ID of the Node to return.
@@ -284,6 +293,7 @@ extension Storefront {
 			return self
 		}
 
+		/// Returns the list of nodes with the given IDs. 
 		///
 		/// - parameters:
 		///     - ids: The IDs of the Nodes to return.
@@ -338,7 +348,8 @@ extension Storefront {
 		///         - `title`
 		///         - `updated_at`
 		///        
-		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+		///        for more information about using filters.
 		///
 		@discardableResult
 		open func pages(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: PageSortKeys? = nil, query: String? = nil, _ subfields: (PageConnectionQuery) -> Void) -> QueryRootQuery {
@@ -485,7 +496,8 @@ extension Storefront {
 		///         - `variants.price`
 		///         - `vendor`
 		///        
-		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).
+		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+		///        for more information about using filters.
 		///
 		@discardableResult
 		open func products(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: ProductSortKeys? = nil, query: String? = nil, _ subfields: (ProductConnectionQuery) -> Void) -> QueryRootQuery {
@@ -539,6 +551,7 @@ extension Storefront {
 			return self
 		}
 
+		/// The shop associated with the storefront access token. 
 		@discardableResult
 		open func shop(alias: String? = nil, _ subfields: (ShopQuery) -> Void) -> QueryRootQuery {
 			let subquery = ShopQuery()
@@ -740,6 +753,7 @@ extension Storefront {
 			return field(field: "collections", aliasSuffix: alias) as! Storefront.CollectionConnection
 		}
 
+		/// Find a customer by its access token. 
 		open var customer: Storefront.Customer? {
 			return internalGetCustomer()
 		}
@@ -752,6 +766,7 @@ extension Storefront {
 			return field(field: "customer", aliasSuffix: alias) as! Storefront.Customer?
 		}
 
+		/// Returns a specific node by ID. 
 		open var node: Node? {
 			return internalGetNode()
 		}
@@ -764,6 +779,7 @@ extension Storefront {
 			return field(field: "node", aliasSuffix: alias) as! Node?
 		}
 
+		/// Returns the list of nodes with the given IDs. 
 		open var nodes: [Node?] {
 			return internalGetNodes()
 		}
@@ -882,6 +898,7 @@ extension Storefront {
 			return field(field: "publicApiVersions", aliasSuffix: alias) as! [Storefront.ApiVersion]
 		}
 
+		/// The shop associated with the storefront access token. 
 		open var shop: Storefront.Shop {
 			return internalGetShop()
 		}

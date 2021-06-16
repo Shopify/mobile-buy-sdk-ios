@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// Possible error codes that could be returned by a checkout mutation. 
+	/// Possible error codes that could be returned by CheckoutUserError. 
 	public enum CheckoutErrorCode: String {
 		/// Checkout is already completed. 
 		case alreadyCompleted = "ALREADY_COMPLETED"
@@ -43,6 +43,9 @@ extension Storefront {
 
 		/// Customer already used once per customer discount notice. 
 		case customerAlreadyUsedOncePerCustomerDiscountNotice = "CUSTOMER_ALREADY_USED_ONCE_PER_CUSTOMER_DISCOUNT_NOTICE"
+
+		/// Discount already applied. 
+		case discountAlreadyApplied = "DISCOUNT_ALREADY_APPLIED"
 
 		/// Discount disabled. 
 		case discountDisabled = "DISCOUNT_DISABLED"
@@ -136,6 +139,9 @@ extension Storefront {
 
 		/// The amount of the payment does not match the value to be paid. 
 		case totalPriceMismatch = "TOTAL_PRICE_MISMATCH"
+
+		/// Unable to apply discount. 
+		case unableToApply = "UNABLE_TO_APPLY"
 
 		case unknownValue = ""
 	}

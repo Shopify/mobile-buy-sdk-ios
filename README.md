@@ -1,8 +1,9 @@
 ﻿![Mobile Buy SDK](https://cloud.githubusercontent.com/assets/5244861/26374751/6895a582-3fd4-11e7-80c4-2c1632262d66.png)
 
-[![Travis](https://travis-ci.org/Shopify/mobile-buy-sdk-ios.svg?style=shield)](https://travis-ci.org/Shopify/mobile-buy-sdk-ios)
+[![Build](https://github.com/Shopify/mobile-buy-sdk-ios/workflows/Test/badge.svg?event=push)](https://github.com/Shopify/mobile-buy-sdk-ios/actions?query=workflow%3ATest)
 [![GitHub release](https://img.shields.io/github/release/shopify/mobile-buy-sdk-ios.svg?style=flat)](https://github.com/Shopify/mobile-buy-sdk-ios/releases/latest)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-4BC51D.svg?style=flat)](https://swift.org/package-manager/)
 [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)](https://github.com/Shopify/mobile-buy-sdk-ios/blob/master/LICENSE)
 
 # Mobile Buy SDK
@@ -57,6 +58,7 @@ The Mobile Buy SDK makes it easy to create custom storefronts in your mobile app
   - [Checkout](#checkout-)
       - [Creating a checkout](#checkout-)
       - [Updating a checkout](#updating-a-checkout-)
+      - [Polling for checkout readiness](#polling-for-checkout-updates-)
       - [Polling for shipping rates](#polling-for-shipping-rates-)
       - [Updating shipping line](#updating-shipping-line-)
       - [Completing a checkout](#completing-a-checkout-)
@@ -89,6 +91,10 @@ The documentation is generated using [Jazzy](https://github.com/realm/jazzy).
 ## Installation [⤴](#table-of-contents)
 
 <a href="https://github.com/Shopify/mobile-buy-sdk-ios/releases/latest">Download the latest version</a>
+
+### Swift Package Manager [⤴](#table-of-contents)
+
+This is the recommended approach of integration the SDK with your app. You can follow Apple's guide for [adding a package dependency to your app](https://developer.apple.com/documentation/xcode/adding_package_dependencies_to_your_app) for a thorough walkthrough. 
 
 ### Dynamic Framework Installation [⤴](#table-of-contents)
 
@@ -143,6 +149,8 @@ pod "Mobile-Buy-SDK"
 ```swift
 import MobileBuySDK
 ```
+
+Note: If you've forked this repo and are attempting to install from your own git destination, commit, or branch, be sure to include "submodules: true" in the line of your Podfile
 
 ## Getting started [⤴](#table-of-contents)
 
@@ -285,11 +293,23 @@ The `Graph.Client` is a network layer built on top of `URLSession` that executes
 - Your shop's `.myshopify.com` domain
 - Your API key, which you can find in your shop's admin page
 - A `URLSession` (optional), if you want to customize the configuration used for network requests or share your existing `URLSession` with the `Graph.Client`
+- (optional) The buyer's current locale. Supported values are limited to locales available to your shop.
 
 ```swift
 let client = Graph.Client(
 	shopDomain: "shoes.myshopify.com",
 	apiKey:     "dGhpcyBpcyBhIHByaXZhdGUgYXBpIGtleQ"
+)
+```
+
+If your store supports multiple languages, then the Storefront API can return translated resource types and fields. Learn more about [translating content](https://shopify.dev/tutorials/manage-app-translations-with-admin-api).
+
+```swift
+// Initializing a client to return translated content
+let client = Graph.Client(
+	shopDomain: "shoes.myshopify.com",
+	apiKey:     "dGhpcyBpcyBhIHByaXZhdGUgYXBpIGtleQ",
+        locale:     Locale.current
 )
 ```
 
@@ -1101,6 +1121,53 @@ let mutation = Storefront.buildMutation { $0
 }
 ```
 
+##### Polling for checkout readiness [⤴](#table-of-contents)
+
+Checkouts may have asynchronous operations that can take time to finish. If you want to complete a checkout or ensure all the fields are populated and up to date, polling is required until the `ready` value is `true`. Fields that are populated asynchronously include duties and taxes.
+
+All asynchronous computations are completed and the checkout is updated accordingly once the `checkout.ready` flag is `true`. 
+This flag should be checked (and polled if it is `false`) after every update to the checkout to ensure there are no asynchronous processes running that could affect the fields of the checkout. 
+Common examples would be after updating the shipping address or adjusting the line items of a checkout.
+
+```swift
+let query = Storefront.buildQuery { $0
+    .node(id: checkoutID) { $0
+        .onCheckout { $0
+            .id()
+            .ready() // <- Indicates that all fields are up to date after asynchronous operations completed.
+            .totalDuties { $0
+                .amount()
+                .currencyCode()
+            }
+            .totalTaxV2 { $0
+                .amount()
+                .currencyCode()
+            }
+            .totalPriceV2 { $0
+                .amount()
+                .currencyCode()
+            }
+            // ...
+        }
+    }
+}
+```
+
+It is your application's responsibility to poll for updates and to continue retrying this query until `ready == true` and to use the updated fields returned with that response. The Buy SDK has [built-in support for retrying requests](#retry-), so we'll create a retry handler and perform the query:
+
+```swift
+let retry = Graph.RetryHandler<Storefront.QueryRoot>(endurance: .finite(10)) { (response, _) -> Bool in
+    (response?.node as? Storefront.Checkout)?.ready ?? false == false
+}
+
+let task = self.client.queryGraphWith(query, retryHandler: retry) { response, error in
+    let updatedCheckout = response?.node as? Storefront.Checkout
+}
+task.resume()
+```
+
+The completion will be called only if `checkout.ready == true` or the retry count reaches 10. Although you can specify `.infinite` for the retry handler's `endurance` property, we highly recommend you set a finite limit.
+
 ##### Polling for shipping rates [⤴](#table-of-contents)
 
 Available shipping rates are specific to a checkout since the cost to ship items depends on the quantity, weight, and other attributes of the items in the checkout. Shipping rates also require a checkout to have a valid `shippingAddress`, which can be updated using steps found in [updating a checkout](#updating-a-checkout-). Available shipping rates are a field on `Storefront.Checkout`, so given a `checkoutID` (that we kept a reference to earlier) we can query for shipping rates:
@@ -1179,18 +1246,18 @@ After obtaining a credit card vault token, we can proceed to complete the checko
 
 ```swift
 // let paySession: PaySession
-// let payCheckout: PayCheckout
 // let payAuthorization: PayAuthorization
+// let moneyInput: MoneyInput
 
-let payment = Storefront.CreditCardPaymentInput.create(
-    amount:         payCheckout.paymentDue,
+let payment = Storefront.CreditCardPaymentInputV2.create(
+    paymentAmount:  moneyInput,
     idempotencyKey: paySession.identifier,
     billingAddress: self.mailingAddressInputFrom(payAuthorization.billingAddress,
     vaultId:        token
 )
 
 let mutation = Storefront.buildMutation { $0
-    .checkoutCompleteWithCreditCard(checkoutId: checkoutID, payment: payment) { $0
+    .checkoutCompleteWithCreditCardV2(checkoutId: checkoutID, payment: payment) { $0
         .payment { $0
             .id()
             .ready()
@@ -1199,7 +1266,8 @@ let mutation = Storefront.buildMutation { $0
             .id()
             .ready()
         }
-        .userErrors { $0
+        .checkoutUserErrors { $0
+            .code()
             .field()
             .message()
         }
@@ -1211,19 +1279,22 @@ let task = client.mutateGraphWith(mutation) { result, error in
         // handle request error
     }
 
-    guard let userError = result?.checkoutCompleteWithCreditCard?.userErrors else {
+    guard let userError = result?.checkoutCompleteWithCreditCardV2?.checkoutUserErrors else {
         // handle any user error
         return
     }
 
-    let checkoutReady = result?.checkoutCompleteWithCreditCard?.checkout.ready ?? false
-    let paymentReady  = result?.checkoutCompleteWithCreditCard?.payment?.ready ?? false
+    let checkoutReady = result?.checkoutCompleteWithCreditCardV2?.checkout.ready ?? false
+    let paymentReady  = result?.checkoutCompleteWithCreditCardV2?.payment?.ready ?? false
 
     // checkoutReady == false
     // paymentReady == false
 }
 task.resume()
 ```
+**3D Secure Checkout**
+
+To implement 3D secure on your checkout flow, see [the API Help Docs](https://help.shopify.com/en/api/guides/3d-secure#graphql-storefront-api-changes).
 
 ###### Apple Pay checkout [⤴](#table-of-contents)
 
@@ -1560,7 +1631,8 @@ mutation {
 
 ## Sample application [⤴](#table-of-contents)
 
-The Buy SDK includes a comprehensive sample application that covers the most common use cases of the SDK. It's built on best practices and our recommended `ViewModel` architecture. You can use it as a template, a starting point, or a place to cherrypick components as needed. Check out the [Storefront readme](/Sample%20Apps/Storefront/) for more details.
+For help getting started, take a look at the [sample iOS app](https://github.com/Shopify/mobile-buy-sdk-ios-sample). It covers the most common use cases of the SDK and how to integrate with it. Use the sample app as a template, a starting point, or a place to cherrypick components as needed. Refer to the app's readme for more details.
+
 
 ## Contributions [⤴](#table-of-contents)
 

@@ -141,7 +141,7 @@ class Graph_CacheTests: XCTestCase {
         
         let item = cache.item(for: request.hash)
         XCTAssertNotNil(item)
-        XCTAssertEqual(item!.hash, "d41d8cd98f00b204e9800998ecf8427e") // Hash of empty data
+        XCTAssertEqual(item!.hash, "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855") // Hash of empty data
         XCTAssertEqual(item!.data.count, 0)
     }
     

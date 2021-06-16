@@ -27,6 +27,8 @@
 import Foundation
 
 extension Storefront {
+	/// An auto-generated type which holds one CheckoutLineItem and a cursor during 
+	/// pagination. 
 	open class CheckoutLineItemEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CheckoutLineItemEdge
 
@@ -48,6 +50,8 @@ extension Storefront {
 		}
 	}
 
+	/// An auto-generated type which holds one CheckoutLineItem and a cursor during 
+	/// pagination. 
 	open class CheckoutLineItemEdge: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CheckoutLineItemEdgeQuery
 

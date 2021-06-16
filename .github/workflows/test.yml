@@ -1,0 +1,46 @@
+name: Test
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macOS-latest
+    
+    steps:
+    - uses: actions/checkout@master
+
+    - uses: actions/setup-ruby@v1
+      with:
+        ruby-version: '2.6'
+
+    - name: Install xcpretty
+      run: gem install xcpretty
+
+    - name: Use Xcode 12
+      run: sudo xcode-select -s /Applications/Xcode_12.app
+
+    - name: List available simulators
+      run: xcrun simctl list devices
+
+    - name: Setup simulator
+      id: version
+      run: |
+        CURRENT_SIMULATOR_UUID=$(xcrun simctl create TestDevice com.apple.CoreSimulator.SimDeviceType.iPhone-11 com.apple.CoreSimulator.SimRuntime.iOS-14-0)
+        echo "CURRENT_SIMULATOR_UUID=$CURRENT_SIMULATOR_UUID" >> $GITHUB_ENV
+
+    - name: Test Buy
+      run: ./Scripts/test_buy
+
+    - name: Test Buy TV
+      run: ./Scripts/test_buy_tv
+
+    - name: Test Buy Watch
+      run: ./Scripts/test_buy_watch
+
+    - name: Test Pay
+      run: ./Scripts/test_pay
+      
+    - name: Test Swift Package
+      run: swift test 2>&1 | xcpretty

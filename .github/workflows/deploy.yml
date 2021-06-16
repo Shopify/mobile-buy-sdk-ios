@@ -1,0 +1,34 @@
+name: Deploy to Cocoapods
+
+on:
+  release:
+    types:
+      - published
+  workflow_dispatch:
+      
+jobs:
+  build:
+    runs-on: macOS-latest
+    
+    steps:
+    - name: Checkout master
+      uses: actions/checkout@master
+      with:
+        ref: 'master'
+    
+    - name: Install Ruby
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: '2.6' 
+        
+    - name: Install dependencies
+      run: |
+        gem install cocoapods
+    
+    - name: Push to cocoapods
+      run: |
+        set -eo pipefail
+        pod lib lint --allow-warnings
+        pod trunk push --allow-warnings
+      env:
+        COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}

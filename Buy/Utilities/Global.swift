@@ -39,7 +39,7 @@ class Global {
     //  MARK: - Versions -
     //
     static var frameworkVersion: String {
-        return self.frameworkBundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+        return "\(Storefront.Schema.version)/\(SDK.version)"
     }
     
     static var applicationIdentifier: String {

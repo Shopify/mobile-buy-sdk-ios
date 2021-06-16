@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// Specifies the fields required to create a new Customer. 
+	/// Specifies the fields required to create a new customer. 
 	open class CustomerCreateInput {
 		/// The customer’s first name. 
 		open var firstName: Input<String>
@@ -38,7 +38,8 @@ extension Storefront {
 		/// The customer’s email. 
 		open var email: String
 
-		/// The customer’s phone number. 
+		/// A unique phone number for the customer. Formatted using E.164 standard. For 
+		/// example, _+16135551111_. 
 		open var phone: Input<String>
 
 		/// The login password used by the customer. 
@@ -54,7 +55,7 @@ extension Storefront {
 		///     - firstName: The customer’s first name.
 		///     - lastName: The customer’s last name.
 		///     - email: The customer’s email.
-		///     - phone: The customer’s phone number.
+		///     - phone: A unique phone number for the customer.  Formatted using E.164 standard. For example, _+16135551111_. 
 		///     - password: The login password used by the customer.
 		///     - acceptsMarketing: Indicates whether the customer has consented to be sent marketing material via email.
 		///
@@ -77,7 +78,7 @@ extension Storefront {
 		///     - firstName: The customer’s first name.
 		///     - lastName: The customer’s last name.
 		///     - email: The customer’s email.
-		///     - phone: The customer’s phone number.
+		///     - phone: A unique phone number for the customer.  Formatted using E.164 standard. For example, _+16135551111_. 
 		///     - password: The login password used by the customer.
 		///     - acceptsMarketing: Indicates whether the customer has consented to be sent marketing material via email.
 		///

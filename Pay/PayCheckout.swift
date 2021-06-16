@@ -25,7 +25,6 @@
 //
 
 import Foundation
-import PassKit
 
 /// Encapsulates all fields required for invoking the Apple Pay
 /// dialog. It also creates summary items for cart total,
@@ -45,6 +44,7 @@ public struct PayCheckout {
     public let shippingRate:     PayShippingRate?
 
     public let currencyCode:     String
+    public let totalDuties:      Decimal?
     public let subtotalPrice:    Decimal
     public let totalTax:         Decimal
     public let paymentDue:       Decimal
@@ -52,7 +52,7 @@ public struct PayCheckout {
     // ----------------------------------
     //  MARK: - Init -
     //
-    public init(id: String, lineItems: [PayLineItem], giftCards: [PayGiftCard]?, discount: PayDiscount?, shippingDiscount: PayDiscount?, shippingAddress: PayAddress?, shippingRate: PayShippingRate?, currencyCode: String, subtotalPrice: Decimal, needsShipping: Bool, totalTax: Decimal, paymentDue: Decimal) {
+    public init(id: String, lineItems: [PayLineItem], giftCards: [PayGiftCard]?, discount: PayDiscount?, shippingDiscount: PayDiscount?, shippingAddress: PayAddress?, shippingRate: PayShippingRate?, currencyCode: String, totalDuties: Decimal?, subtotalPrice: Decimal, needsShipping: Bool, totalTax: Decimal, paymentDue: Decimal) {
 
         self.id               = id
         self.lineItems        = lineItems
@@ -64,6 +64,7 @@ public struct PayCheckout {
         self.shippingDiscount = shippingDiscount
         
         self.currencyCode     = currencyCode
+        self.totalDuties      = totalDuties
         self.subtotalPrice    = subtotalPrice
         self.totalTax         = totalTax
         self.paymentDue       = paymentDue
@@ -72,6 +73,10 @@ public struct PayCheckout {
         self.needsShipping    = needsShipping
     }
 }
+
+#if canImport(PassKit)
+
+import PassKit
 
 // ----------------------------------
 //  MARK: - PassKits -
@@ -111,6 +116,12 @@ internal extension PayCheckout {
             summaryItems.append(discount.amount.negative.summaryItemNamed(title))
         }
         
+        // Duties
+        
+        if let duties = self.totalDuties {
+            summaryItems.append(duties.summaryItemNamed("DUTIES"))
+        }
+        
         // Taxes
         
         if self.totalTax > 0.0 {
@@ -140,3 +151,5 @@ internal extension PayCheckout {
         return summaryItems
     }
 }
+
+#endif

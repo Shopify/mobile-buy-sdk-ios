@@ -27,6 +27,7 @@
 import Foundation
 
 extension Storefront {
+	/// An article in an online store blog. 
 	open class ArticleQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Article
 
@@ -246,6 +247,7 @@ extension Storefront {
 		}
 	}
 
+	/// An article in an online store blog. 
 	open class Article: GraphQL.AbstractResponse, GraphQLObject, Node {
 		public typealias Query = ArticleQuery
 

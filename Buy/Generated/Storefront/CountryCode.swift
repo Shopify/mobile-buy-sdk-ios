@@ -29,6 +29,9 @@ import Foundation
 extension Storefront {
 	/// ISO 3166-1 alpha-2 country codes with some differences. 
 	public enum CountryCode: String {
+		/// Ascension Island. 
+		case ac = "AC"
+
 		/// Andorra. 
 		case ad = "AD"
 
@@ -38,7 +41,7 @@ extension Storefront {
 		/// Afghanistan. 
 		case af = "AF"
 
-		/// Antigua And Barbuda. 
+		/// Antigua & Barbuda. 
 		case ag = "AG"
 
 		/// Anguilla. 
@@ -68,13 +71,13 @@ extension Storefront {
 		/// Aruba. 
 		case aw = "AW"
 
-		/// Aland Islands. 
+		/// Åland Islands. 
 		case ax = "AX"
 
 		/// Azerbaijan. 
 		case az = "AZ"
 
-		/// Bosnia And Herzegovina. 
+		/// Bosnia & Herzegovina. 
 		case ba = "BA"
 
 		/// Barbados. 
@@ -101,7 +104,7 @@ extension Storefront {
 		/// Benin. 
 		case bj = "BJ"
 
-		/// Saint Barthélemy. 
+		/// St. Barthélemy. 
 		case bl = "BL"
 
 		/// Bermuda. 
@@ -113,7 +116,7 @@ extension Storefront {
 		/// Bolivia. 
 		case bo = "BO"
 
-		/// Bonaire, Sint Eustatius and Saba. 
+		/// Caribbean Netherlands. 
 		case bq = "BQ"
 
 		/// Brazil. 
@@ -143,19 +146,19 @@ extension Storefront {
 		/// Cocos (Keeling) Islands. 
 		case cc = "CC"
 
-		/// Congo, The Democratic Republic Of The. 
+		/// Congo - Kinshasa. 
 		case cd = "CD"
 
 		/// Central African Republic. 
 		case cf = "CF"
 
-		/// Congo. 
+		/// Congo - Brazzaville. 
 		case cg = "CG"
 
 		/// Switzerland. 
 		case ch = "CH"
 
-		/// Côte d'Ivoire. 
+		/// Côte d’Ivoire. 
 		case ci = "CI"
 
 		/// Cook Islands. 
@@ -164,7 +167,7 @@ extension Storefront {
 		/// Chile. 
 		case cl = "CL"
 
-		/// Republic of Cameroon. 
+		/// Cameroon. 
 		case cm = "CM"
 
 		/// China. 
@@ -191,7 +194,7 @@ extension Storefront {
 		/// Cyprus. 
 		case cy = "CY"
 
-		/// Czech Republic. 
+		/// Czechia. 
 		case cz = "CZ"
 
 		/// Germany. 
@@ -239,7 +242,7 @@ extension Storefront {
 		/// Fiji. 
 		case fj = "FJ"
 
-		/// Falkland Islands (Malvinas). 
+		/// Falkland Islands. 
 		case fk = "FK"
 
 		/// Faroe Islands. 
@@ -290,22 +293,22 @@ extension Storefront {
 		/// Greece. 
 		case gr = "GR"
 
-		/// South Georgia And The South Sandwich Islands. 
+		/// South Georgia & South Sandwich Islands. 
 		case gs = "GS"
 
 		/// Guatemala. 
 		case gt = "GT"
 
-		/// Guinea Bissau. 
+		/// Guinea-Bissau. 
 		case gw = "GW"
 
 		/// Guyana. 
 		case gy = "GY"
 
-		/// Hong Kong. 
+		/// Hong Kong SAR. 
 		case hk = "HK"
 
-		/// Heard Island And Mcdonald Islands. 
+		/// Heard & McDonald Islands. 
 		case hm = "HM"
 
 		/// Honduras. 
@@ -329,7 +332,7 @@ extension Storefront {
 		/// Israel. 
 		case il = "IL"
 
-		/// Isle Of Man. 
+		/// Isle of Man. 
 		case im = "IM"
 
 		/// India. 
@@ -341,7 +344,7 @@ extension Storefront {
 		/// Iraq. 
 		case iq = "IQ"
 
-		/// Iran, Islamic Republic Of. 
+		/// Iran. 
 		case ir = "IR"
 
 		/// Iceland. 
@@ -377,10 +380,10 @@ extension Storefront {
 		/// Comoros. 
 		case km = "KM"
 
-		/// Saint Kitts And Nevis. 
+		/// St. Kitts & Nevis. 
 		case kn = "KN"
 
-		/// Korea, Democratic People's Republic Of. 
+		/// North Korea. 
 		case kp = "KP"
 
 		/// South Korea. 
@@ -395,13 +398,13 @@ extension Storefront {
 		/// Kazakhstan. 
 		case kz = "KZ"
 
-		/// Lao People's Democratic Republic. 
+		/// Laos. 
 		case la = "LA"
 
 		/// Lebanon. 
 		case lb = "LB"
 
-		/// Saint Lucia. 
+		/// St. Lucia. 
 		case lc = "LC"
 
 		/// Liechtenstein. 
@@ -425,7 +428,7 @@ extension Storefront {
 		/// Latvia. 
 		case lv = "LV"
 
-		/// Libyan Arab Jamahiriya. 
+		/// Libya. 
 		case ly = "LY"
 
 		/// Morocco. 
@@ -434,31 +437,31 @@ extension Storefront {
 		/// Monaco. 
 		case mc = "MC"
 
-		/// Moldova, Republic of. 
+		/// Moldova. 
 		case md = "MD"
 
 		/// Montenegro. 
 		case me = "ME"
 
-		/// Saint Martin. 
+		/// St. Martin. 
 		case mf = "MF"
 
 		/// Madagascar. 
 		case mg = "MG"
 
-		/// Macedonia, Republic Of. 
+		/// North Macedonia. 
 		case mk = "MK"
 
 		/// Mali. 
 		case ml = "ML"
 
-		/// Myanmar. 
+		/// Myanmar (Burma). 
 		case mm = "MM"
 
 		/// Mongolia. 
 		case mn = "MN"
 
-		/// Macao. 
+		/// Macao SAR. 
 		case mo = "MO"
 
 		/// Martinique. 
@@ -551,13 +554,13 @@ extension Storefront {
 		/// Poland. 
 		case pl = "PL"
 
-		/// Saint Pierre And Miquelon. 
+		/// St. Pierre & Miquelon. 
 		case pm = "PM"
 
-		/// Pitcairn. 
+		/// Pitcairn Islands. 
 		case pn = "PN"
 
-		/// Palestinian Territory, Occupied. 
+		/// Palestinian Territories. 
 		case ps = "PS"
 
 		/// Portugal. 
@@ -569,7 +572,7 @@ extension Storefront {
 		/// Qatar. 
 		case qa = "QA"
 
-		/// Reunion. 
+		/// Réunion. 
 		case re = "RE"
 
 		/// Romania. 
@@ -602,13 +605,13 @@ extension Storefront {
 		/// Singapore. 
 		case sg = "SG"
 
-		/// Saint Helena. 
+		/// St. Helena. 
 		case sh = "SH"
 
 		/// Slovenia. 
 		case si = "SI"
 
-		/// Svalbard And Jan Mayen. 
+		/// Svalbard & Jan Mayen. 
 		case sj = "SJ"
 
 		/// Slovakia. 
@@ -632,7 +635,7 @@ extension Storefront {
 		/// South Sudan. 
 		case ss = "SS"
 
-		/// Sao Tome And Principe. 
+		/// São Tomé & Príncipe. 
 		case st = "ST"
 
 		/// El Salvador. 
@@ -644,10 +647,13 @@ extension Storefront {
 		/// Syria. 
 		case sy = "SY"
 
-		/// Swaziland. 
+		/// Eswatini. 
 		case sz = "SZ"
 
-		/// Turks and Caicos Islands. 
+		/// Tristan da Cunha. 
+		case ta = "TA"
+
+		/// Turks & Caicos Islands. 
 		case tc = "TC"
 
 		/// Chad. 
@@ -668,7 +674,7 @@ extension Storefront {
 		/// Tokelau. 
 		case tk = "TK"
 
-		/// Timor Leste. 
+		/// Timor-Leste. 
 		case tl = "TL"
 
 		/// Turkmenistan. 
@@ -683,7 +689,7 @@ extension Storefront {
 		/// Turkey. 
 		case tr = "TR"
 
-		/// Trinidad and Tobago. 
+		/// Trinidad & Tobago. 
 		case tt = "TT"
 
 		/// Tuvalu. 
@@ -692,7 +698,7 @@ extension Storefront {
 		/// Taiwan. 
 		case tw = "TW"
 
-		/// Tanzania, United Republic Of. 
+		/// Tanzania. 
 		case tz = "TZ"
 
 		/// Ukraine. 
@@ -701,7 +707,7 @@ extension Storefront {
 		/// Uganda. 
 		case ug = "UG"
 
-		/// United States Minor Outlying Islands. 
+		/// U.S. Outlying Islands. 
 		case um = "UM"
 
 		/// United States. 
@@ -713,16 +719,16 @@ extension Storefront {
 		/// Uzbekistan. 
 		case uz = "UZ"
 
-		/// Holy See (Vatican City State). 
+		/// Vatican City. 
 		case va = "VA"
 
-		/// St. Vincent. 
+		/// St. Vincent & Grenadines. 
 		case vc = "VC"
 
 		/// Venezuela. 
 		case ve = "VE"
 
-		/// Virgin Islands, British. 
+		/// British Virgin Islands. 
 		case vg = "VG"
 
 		/// Vietnam. 
@@ -731,7 +737,7 @@ extension Storefront {
 		/// Vanuatu. 
 		case vu = "VU"
 
-		/// Wallis And Futuna. 
+		/// Wallis & Futuna. 
 		case wf = "WF"
 
 		/// Samoa. 
@@ -754,6 +760,9 @@ extension Storefront {
 
 		/// Zimbabwe. 
 		case zw = "ZW"
+
+		/// Unknown Region. 
+		case zz = "ZZ"
 
 		case unknownValue = ""
 	}

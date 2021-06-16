@@ -35,7 +35,7 @@ extension Storefront {
 	open class ProductQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Product
 
-		/// Whether the product is available on the Online Store channel and in stock. 
+		/// Indicates if at least one product variant is available for sale. 
 		@discardableResult
 		open func availableForSale(alias: String? = nil) -> ProductQuery {
 			addField(field: "availableForSale", aliasSuffix: alias)
@@ -81,6 +81,16 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "collections", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// The compare at price of the product across all variants. 
+		@discardableResult
+		open func compareAtPriceRange(alias: String? = nil, _ subfields: (ProductPriceRangeQuery) -> Void) -> ProductQuery {
+			let subquery = ProductPriceRangeQuery()
+			subfields(subquery)
+
+			addField(field: "compareAtPriceRange", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -200,6 +210,53 @@ extension Storefront {
 			return self
 		}
 
+		/// The media associated with the product. 
+		///
+		/// - parameters:
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///     - reverse: Reverse the order of the underlying list.
+		///     - sortKey: Sort the underlying list by the given key.
+		///
+		@discardableResult
+		open func media(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: ProductMediaSortKeys? = nil, _ subfields: (MediaConnectionQuery) -> Void) -> ProductQuery {
+			var args: [String] = []
+
+			if let first = first {
+				args.append("first:\(first)")
+			}
+
+			if let after = after {
+				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
+			}
+
+			if let reverse = reverse {
+				args.append("reverse:\(reverse)")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = MediaConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "media", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// The metafield associated with the resource. 
 		///
 		/// - parameters:
@@ -278,7 +335,7 @@ extension Storefront {
 			return self
 		}
 
-		/// List of custom product options (maximum of 3 per product). 
+		/// List of product options. 
 		///
 		/// - parameters:
 		///     - first: Truncate the array result to this size.
@@ -372,8 +429,18 @@ extension Storefront {
 			return self
 		}
 
-		/// A categorization that a product can be tagged with, commonly used for 
-		/// filtering and searching. Additional access scope required for private apps: 
+		/// The product's SEO information. 
+		@discardableResult
+		open func seo(alias: String? = nil, _ subfields: (SEOQuery) -> Void) -> ProductQuery {
+			let subquery = SEOQuery()
+			subfields(subquery)
+
+			addField(field: "seo", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// A comma separated list of tags that have been added to the product. 
+		/// Additional access scope required for private apps: 
 		/// unauthenticated_read_product_tags. 
 		@discardableResult
 		open func tags(alias: String? = nil) -> ProductQuery {
@@ -388,7 +455,17 @@ extension Storefront {
 			return self
 		}
 
-		/// The date and time when the product was last modified. 
+		/// The total quantity of inventory in stock for this Product. 
+		@discardableResult
+		open func totalInventory(alias: String? = nil) -> ProductQuery {
+			addField(field: "totalInventory", aliasSuffix: alias)
+			return self
+		}
+
+		/// The date and time when the product was last modified. A product's 
+		/// `updatedAt` value can change for different reasons. For example, if an 
+		/// order is placed for a product that has inventory tracking set up, then the 
+		/// inventory adjustment is counted as an update. 
 		@discardableResult
 		open func updatedAt(alias: String? = nil) -> ProductQuery {
 			addField(field: "updatedAt", aliasSuffix: alias)
@@ -401,7 +478,7 @@ extension Storefront {
 		/// returned. 
 		///
 		/// - parameters:
-		///     - selectedOptions: No description
+		///     - selectedOptions: The input fields used for a selected option.
 		///
 		@discardableResult
 		open func variantBySelectedOptions(alias: String? = nil, selectedOptions: [SelectedOptionInput], _ subfields: (ProductVariantQuery) -> Void) -> ProductQuery {
@@ -496,6 +573,12 @@ extension Storefront {
 				}
 				return try CollectionConnection(fields: value)
 
+				case "compareAtPriceRange":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
+				}
+				return try ProductPriceRange(fields: value)
+
 				case "createdAt":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
@@ -531,6 +614,12 @@ extension Storefront {
 					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
 				}
 				return try ImageConnection(fields: value)
+
+				case "media":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
+				}
+				return try MediaConnection(fields: value)
 
 				case "metafield":
 				if value is NSNull { return nil }
@@ -582,6 +671,12 @@ extension Storefront {
 				}
 				return GraphQL.iso8601DateParser.date(from: value)!
 
+				case "seo":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
+				}
+				return try SEO(fields: value)
+
 				case "tags":
 				guard let value = value as? [String] else {
 					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
@@ -593,6 +688,13 @@ extension Storefront {
 					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
 				}
 				return value
+
+				case "totalInventory":
+				if value is NSNull { return nil }
+				guard let value = value as? Int else {
+					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
+				}
+				return Int32(value)
 
 				case "updatedAt":
 				guard let value = value as? String else {
@@ -624,7 +726,7 @@ extension Storefront {
 			}
 		}
 
-		/// Whether the product is available on the Online Store channel and in stock. 
+		/// Indicates if at least one product variant is available for sale. 
 		open var availableForSale: Bool {
 			return internalGetAvailableForSale()
 		}
@@ -644,6 +746,15 @@ extension Storefront {
 
 		func internalGetCollections(alias: String? = nil) -> Storefront.CollectionConnection {
 			return field(field: "collections", aliasSuffix: alias) as! Storefront.CollectionConnection
+		}
+
+		/// The compare at price of the product across all variants. 
+		open var compareAtPriceRange: Storefront.ProductPriceRange {
+			return internalGetCompareAtPriceRange()
+		}
+
+		func internalGetCompareAtPriceRange(alias: String? = nil) -> Storefront.ProductPriceRange {
+			return field(field: "compareAtPriceRange", aliasSuffix: alias) as! Storefront.ProductPriceRange
 		}
 
 		/// The date and time when the product was created. 
@@ -710,6 +821,19 @@ extension Storefront {
 			return field(field: "images", aliasSuffix: alias) as! Storefront.ImageConnection
 		}
 
+		/// The media associated with the product. 
+		open var media: Storefront.MediaConnection {
+			return internalGetMedia()
+		}
+
+		open func aliasedMedia(alias: String) -> Storefront.MediaConnection {
+			return internalGetMedia(alias: alias)
+		}
+
+		func internalGetMedia(alias: String? = nil) -> Storefront.MediaConnection {
+			return field(field: "media", aliasSuffix: alias) as! Storefront.MediaConnection
+		}
+
 		/// The metafield associated with the resource. 
 		open var metafield: Storefront.Metafield? {
 			return internalGetMetafield()
@@ -746,7 +870,7 @@ extension Storefront {
 			return field(field: "onlineStoreUrl", aliasSuffix: alias) as! URL?
 		}
 
-		/// List of custom product options (maximum of 3 per product). 
+		/// List of product options. 
 		open var options: [Storefront.ProductOption] {
 			return internalGetOptions()
 		}
@@ -800,8 +924,17 @@ extension Storefront {
 			return field(field: "publishedAt", aliasSuffix: alias) as! Date
 		}
 
-		/// A categorization that a product can be tagged with, commonly used for 
-		/// filtering and searching. Additional access scope required for private apps: 
+		/// The product's SEO information. 
+		open var seo: Storefront.SEO {
+			return internalGetSeo()
+		}
+
+		func internalGetSeo(alias: String? = nil) -> Storefront.SEO {
+			return field(field: "seo", aliasSuffix: alias) as! Storefront.SEO
+		}
+
+		/// A comma separated list of tags that have been added to the product. 
+		/// Additional access scope required for private apps: 
 		/// unauthenticated_read_product_tags. 
 		open var tags: [String] {
 			return internalGetTags()
@@ -820,7 +953,19 @@ extension Storefront {
 			return field(field: "title", aliasSuffix: alias) as! String
 		}
 
-		/// The date and time when the product was last modified. 
+		/// The total quantity of inventory in stock for this Product. 
+		open var totalInventory: Int32? {
+			return internalGetTotalInventory()
+		}
+
+		func internalGetTotalInventory(alias: String? = nil) -> Int32? {
+			return field(field: "totalInventory", aliasSuffix: alias) as! Int32?
+		}
+
+		/// The date and time when the product was last modified. A product's 
+		/// `updatedAt` value can change for different reasons. For example, if an 
+		/// order is placed for a product that has inventory tracking set up, then the 
+		/// inventory adjustment is counted as an update. 
 		open var updatedAt: Date {
 			return internalGetUpdatedAt()
 		}
@@ -875,9 +1020,17 @@ extension Storefront {
 					response.append(internalGetCollections())
 					response.append(contentsOf: internalGetCollections().childResponseObjectMap())
 
+					case "compareAtPriceRange":
+					response.append(internalGetCompareAtPriceRange())
+					response.append(contentsOf: internalGetCompareAtPriceRange().childResponseObjectMap())
+
 					case "images":
 					response.append(internalGetImages())
 					response.append(contentsOf: internalGetImages().childResponseObjectMap())
+
+					case "media":
+					response.append(internalGetMedia())
+					response.append(contentsOf: internalGetMedia().childResponseObjectMap())
 
 					case "metafield":
 					if let value = internalGetMetafield() {
@@ -902,6 +1055,10 @@ extension Storefront {
 					case "priceRange":
 					response.append(internalGetPriceRange())
 					response.append(contentsOf: internalGetPriceRange().childResponseObjectMap())
+
+					case "seo":
+					response.append(internalGetSeo())
+					response.append(contentsOf: internalGetSeo().childResponseObjectMap())
 
 					case "variantBySelectedOptions":
 					if let value = internalGetVariantBySelectedOptions() {

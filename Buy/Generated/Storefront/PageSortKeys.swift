@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// The set of valid sort keys for the pages query. 
+	/// The set of valid sort keys for the Page query. 
 	public enum PageSortKeys: String {
 		/// Sort by the `id` value. 
 		case id = "ID"

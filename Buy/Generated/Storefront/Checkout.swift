@@ -31,6 +31,7 @@ extension Storefront {
 	open class CheckoutQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Checkout
 
+		/// The gift cards used on the checkout. 
 		@discardableResult
 		open func appliedGiftCards(alias: String? = nil, _ subfields: (AppliedGiftCardQuery) -> Void) -> CheckoutQuery {
 			let subquery = AppliedGiftCardQuery()
@@ -192,8 +193,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The sum of all the prices of all the items in the checkout. Taxes, shipping 
-		/// and discounts excluded. 
+		/// The sum of all the prices of all the items in the checkout. Duties, taxes, 
+		/// shipping and discounts excluded. 
 		@discardableResult
 		open func lineItemsSubtotalPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CheckoutQuery {
 			let subquery = MoneyV2Query()
@@ -203,6 +204,7 @@ extension Storefront {
 			return self
 		}
 
+		/// The note associated with the checkout. 
 		@discardableResult
 		open func note(alias: String? = nil) -> CheckoutQuery {
 			addField(field: "note", aliasSuffix: alias)
@@ -237,7 +239,7 @@ extension Storefront {
 		}
 
 		/// The amount left to be paid. This is equal to the cost of the line items, 
-		/// taxes and shipping minus discounts and gift cards. 
+		/// duties, taxes and shipping minus discounts and gift cards. 
 		@discardableResult
 		open func paymentDueV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CheckoutQuery {
 			let subquery = MoneyV2Query()
@@ -304,7 +306,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Price of the checkout before shipping and taxes. 
+		/// Price of the checkout before duties, shipping and taxes. 
 		@discardableResult
 		open func subtotalPriceV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CheckoutQuery {
 			let subquery = MoneyV2Query()
@@ -328,6 +330,16 @@ extension Storefront {
 			return self
 		}
 
+		/// The sum of all the duties applied to the line items in the checkout. 
+		@discardableResult
+		open func totalDuties(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CheckoutQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "totalDuties", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The sum of all the prices of all the items in the checkout, taxes and 
 		/// discounts included. 
 		@available(*, deprecated, message:"Use `totalPriceV2` instead")
@@ -337,8 +349,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The sum of all the prices of all the items in the checkout, taxes and 
-		/// discounts included. 
+		/// The sum of all the prices of all the items in the checkout, duties, taxes 
+		/// and discounts included. 
 		@discardableResult
 		open func totalPriceV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CheckoutQuery {
 			let subquery = MoneyV2Query()
@@ -555,6 +567,13 @@ extension Storefront {
 				}
 				return value
 
+				case "totalDuties":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
+				}
+				return try MoneyV2(fields: value)
+
 				case "totalPrice":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
@@ -596,6 +615,7 @@ extension Storefront {
 			}
 		}
 
+		/// The gift cards used on the checkout. 
 		open var appliedGiftCards: [Storefront.AppliedGiftCard] {
 			return internalGetAppliedGiftCards()
 		}
@@ -705,8 +725,8 @@ extension Storefront {
 			return field(field: "lineItems", aliasSuffix: alias) as! Storefront.CheckoutLineItemConnection
 		}
 
-		/// The sum of all the prices of all the items in the checkout. Taxes, shipping 
-		/// and discounts excluded. 
+		/// The sum of all the prices of all the items in the checkout. Duties, taxes, 
+		/// shipping and discounts excluded. 
 		open var lineItemsSubtotalPrice: Storefront.MoneyV2 {
 			return internalGetLineItemsSubtotalPrice()
 		}
@@ -715,6 +735,7 @@ extension Storefront {
 			return field(field: "lineItemsSubtotalPrice", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
+		/// The note associated with the checkout. 
 		open var note: String? {
 			return internalGetNote()
 		}
@@ -754,7 +775,7 @@ extension Storefront {
 		}
 
 		/// The amount left to be paid. This is equal to the cost of the line items, 
-		/// taxes and shipping minus discounts and gift cards. 
+		/// duties, taxes and shipping minus discounts and gift cards. 
 		open var paymentDueV2: Storefront.MoneyV2 {
 			return internalGetPaymentDueV2()
 		}
@@ -823,7 +844,7 @@ extension Storefront {
 			return field(field: "subtotalPrice", aliasSuffix: alias) as! Decimal
 		}
 
-		/// Price of the checkout before shipping and taxes. 
+		/// Price of the checkout before duties, shipping and taxes. 
 		open var subtotalPriceV2: Storefront.MoneyV2 {
 			return internalGetSubtotalPriceV2()
 		}
@@ -850,6 +871,15 @@ extension Storefront {
 			return field(field: "taxesIncluded", aliasSuffix: alias) as! Bool
 		}
 
+		/// The sum of all the duties applied to the line items in the checkout. 
+		open var totalDuties: Storefront.MoneyV2? {
+			return internalGetTotalDuties()
+		}
+
+		func internalGetTotalDuties(alias: String? = nil) -> Storefront.MoneyV2? {
+			return field(field: "totalDuties", aliasSuffix: alias) as! Storefront.MoneyV2?
+		}
+
 		/// The sum of all the prices of all the items in the checkout, taxes and 
 		/// discounts included. 
 		@available(*, deprecated, message:"Use `totalPriceV2` instead")
@@ -861,8 +891,8 @@ extension Storefront {
 			return field(field: "totalPrice", aliasSuffix: alias) as! Decimal
 		}
 
-		/// The sum of all the prices of all the items in the checkout, taxes and 
-		/// discounts included. 
+		/// The sum of all the prices of all the items in the checkout, duties, taxes 
+		/// and discounts included. 
 		open var totalPriceV2: Storefront.MoneyV2 {
 			return internalGetTotalPriceV2()
 		}
@@ -981,6 +1011,12 @@ extension Storefront {
 					case "subtotalPriceV2":
 					response.append(internalGetSubtotalPriceV2())
 					response.append(contentsOf: internalGetSubtotalPriceV2().childResponseObjectMap())
+
+					case "totalDuties":
+					if let value = internalGetTotalDuties() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
 
 					case "totalPriceV2":
 					response.append(internalGetTotalPriceV2())
