@@ -1,6 +1,11 @@
 //
+<<<<<<< HEAD:Buy/Generated/Storefront/OrderFinancialStatus.swift
+//  OrderFinancialStatus.swift
+//  Buy
+=======
 //  Locale+LanguageTests.swift
 //  BuyTests
+>>>>>>> upstream/master:BuyTests/Utitlies/Locale+LanguageTests.swift
 //
 //  Created by Shopify.
 //  Copyright (c) 2017 Shopify Inc. All rights reserved.
@@ -27,6 +32,34 @@
 import XCTest
 @testable import Buy
 
+<<<<<<< HEAD:Buy/Generated/Storefront/OrderFinancialStatus.swift
+extension Storefront {
+	/// Represents the order's current financial status. 
+	public enum OrderFinancialStatus: String {
+		/// Displayed as **Authorized**. 
+		case authorized = "AUTHORIZED"
+
+		/// Displayed as **Paid**. 
+		case paid = "PAID"
+
+		/// Displayed as **Partially paid**. 
+		case partiallyPaid = "PARTIALLY_PAID"
+
+		/// Displayed as **Partially refunded**. 
+		case partiallyRefunded = "PARTIALLY_REFUNDED"
+
+		/// Displayed as **Pending**. 
+		case pending = "PENDING"
+
+		/// Displayed as **Refunded**. 
+		case refunded = "REFUNDED"
+
+		/// Displayed as **Voided**. 
+		case voided = "VOIDED"
+
+		case unknownValue = ""
+	}
+=======
 class Locale_LanguageTests: XCTestCase {
     
     func testCompleteIdentifier() {
@@ -48,4 +81,5 @@ class Locale_LanguageTests: XCTestCase {
         let locale = Locale(identifier: "zh_Hans_US")
         XCTAssertEqual(locale.languageIdentifier, "zh-US")
     }
+>>>>>>> upstream/master:BuyTests/Utitlies/Locale+LanguageTests.swift
 }

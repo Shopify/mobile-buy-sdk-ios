@@ -1,5 +1,5 @@
 //
-//  MD5.m
+//  <%= directive.name %>.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -24,39 +24,32 @@
 //  THE SOFTWARE.
 //
 
-#import "MD5.h"
-#import <CommonCrypto/CommonCrypto.h>
+import Foundation
+<% if import_graphql_support %>
+  import GraphQLSupport
+<% end %>
 
-@implementation MD5
-
-+ (NSString *)data:(NSData *)data {
-    uint8_t digest[16];
-    [self data:data md5:digest];
-    
-    return [self string16FromDigest:digest];
+extension <%= schema_name %> {
+  open class <%= directive.classify_name %>Directive: GraphQL.AbstractDirective {
+    <%= swift_doc(directive) %>
+    public init(<%= swift_directive_arg_defs(directive) %>) {
+      <% unless directive.args.empty? %>
+        var args: [String] = []
+        <% directive.required_args.each do |arg| %>
+          args.append("<%= arg.name %>:<%= generate_build_input_code(arg.name, arg.type.unwrap_non_null) %>")
+        <% end %>
+        <% directive.optional_args.each do |arg| %>
+          if let <%= escape_reserved_word(arg.name) %> = <%= escape_reserved_word(arg.name) %> {
+            args.append("<%= arg.name %>:<%= generate_build_input_code(arg.name, arg.type) %>")
+          }
+        <% end %>
+        <% if directive.optional_args.empty? %>
+          let argsString = "(\(args.joined(separator: ",")))"
+        <% else %>
+          let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+        <% end %>
+      <% end %>
+      super.init(name: "<%= directive.name %>", args: argsString)
+    }
+  }
 }
-
-+ (NSString *)string:(NSString *)string {
-    return [self data:[string dataUsingEncoding:NSUTF8StringEncoding]];
-}
-
-+ (void)data:(NSData *)data md5:(uint8_t *)md5 {
-    __block CC_MD5_CTX context;
-    CC_MD5_Init(&context);
-    
-    [data enumerateByteRangesUsingBlock:^(const void *bytes, NSRange byteRange, BOOL *stop) {
-        CC_MD5_Update(&context, bytes, (CC_LONG)byteRange.length);
-    }];
-    
-    CC_MD5_Final(md5, &context);
-}
-
-+ (NSString *)string16FromDigest:(uint8_t *)d {
-    return [NSString stringWithFormat:
-            @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
-            d[0],  d[1],  d[2],  d[3],  d[4],  d[5],  d[6],  d[7],
-            d[8],  d[9],  d[10], d[11], d[12], d[13], d[14], d[15]
-            ];
-}
-
-@end
