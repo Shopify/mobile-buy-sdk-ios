@@ -235,6 +235,76 @@ extension Storefront {
 			return self
 		}
 
+		/// Returns a metafield found by namespace and key. 
+		///
+		/// - parameters:
+		///     - namespace: Container for a set of metafields (maximum of 20 characters).
+		///     - key: Identifier for the metafield (maximum of 30 characters).
+		///
+		@discardableResult
+		open func metafield(alias: String? = nil, namespace: String, key: String, _ subfields: (MetafieldQuery) -> Void) -> OrderQuery {
+			var args: [String] = []
+
+			args.append("namespace:\(GraphQL.quoteString(input: namespace))")
+
+			args.append("key:\(GraphQL.quoteString(input: key))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = MetafieldQuery()
+			subfields(subquery)
+
+			addField(field: "metafield", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// A paginated list of metafields associated with the resource. 
+		///
+		/// - parameters:
+		///     - namespace: Container for a set of metafields (maximum of 20 characters).
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///     - reverse: Reverse the order of the underlying list.
+		///
+		@discardableResult
+		open func metafields(alias: String? = nil, namespace: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (MetafieldConnectionQuery) -> Void) -> OrderQuery {
+			var args: [String] = []
+
+			if let namespace = namespace {
+				args.append("namespace:\(GraphQL.quoteString(input: namespace))")
+			}
+
+			if let first = first {
+				args.append("first:\(first)")
+			}
+
+			if let after = after {
+				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
+			}
+
+			if let reverse = reverse {
+				args.append("reverse:\(reverse)")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = MetafieldConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "metafields", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// Unique identifier for the order that appears on the order. For example, 
 		/// _#1000_ or _Store1001. 
 		@discardableResult
@@ -434,7 +504,7 @@ extension Storefront {
 	/// from a shop. An order is created when a customer completes the checkout 
 	/// process, during which time they provides an email address, billing address 
 	/// and payment information. 
-	open class Order: GraphQL.AbstractResponse, GraphQLObject, Node {
+	open class Order: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource, Node {
 		public typealias Query = OrderQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
@@ -542,6 +612,19 @@ extension Storefront {
 					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
 				}
 				return try OrderLineItemConnection(fields: value)
+
+				case "metafield":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
+				}
+				return try Metafield(fields: value)
+
+				case "metafields":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
+				}
+				return try MetafieldConnection(fields: value)
 
 				case "name":
 				guard let value = value as? String else {
@@ -835,6 +918,32 @@ extension Storefront {
 			return field(field: "lineItems", aliasSuffix: alias) as! Storefront.OrderLineItemConnection
 		}
 
+		/// Returns a metafield found by namespace and key. 
+		open var metafield: Storefront.Metafield? {
+			return internalGetMetafield()
+		}
+
+		open func aliasedMetafield(alias: String) -> Storefront.Metafield? {
+			return internalGetMetafield(alias: alias)
+		}
+
+		func internalGetMetafield(alias: String? = nil) -> Storefront.Metafield? {
+			return field(field: "metafield", aliasSuffix: alias) as! Storefront.Metafield?
+		}
+
+		/// A paginated list of metafields associated with the resource. 
+		open var metafields: Storefront.MetafieldConnection {
+			return internalGetMetafields()
+		}
+
+		open func aliasedMetafields(alias: String) -> Storefront.MetafieldConnection {
+			return internalGetMetafields(alias: alias)
+		}
+
+		func internalGetMetafields(alias: String? = nil) -> Storefront.MetafieldConnection {
+			return field(field: "metafields", aliasSuffix: alias) as! Storefront.MetafieldConnection
+		}
+
 		/// Unique identifier for the order that appears on the order. For example, 
 		/// _#1000_ or _Store1001. 
 		open var name: String {
@@ -1060,6 +1169,16 @@ extension Storefront {
 					case "lineItems":
 					response.append(internalGetLineItems())
 					response.append(contentsOf: internalGetLineItems().childResponseObjectMap())
+
+					case "metafield":
+					if let value = internalGetMetafield() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "metafields":
+					response.append(internalGetMetafields())
+					response.append(contentsOf: internalGetMetafields().childResponseObjectMap())
 
 					case "originalTotalDuties":
 					if let value = internalGetOriginalTotalDuties() {

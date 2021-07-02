@@ -273,6 +273,69 @@ extension Storefront {
 			return self
 		}
 
+		/// Returns the localized experiences configured for the shop. 
+		@discardableResult
+		open func localization(alias: String? = nil, _ subfields: (LocalizationQuery) -> Void) -> QueryRootQuery {
+			let subquery = LocalizationQuery()
+			subfields(subquery)
+
+			addField(field: "localization", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// List of the shop's locations that support in-store pickup. When sorting by 
+		/// distance, you must specify a location via the `near` argument. 
+		///
+		/// - parameters:
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///     - reverse: Reverse the order of the underlying list.
+		///     - sortKey: Sort the underlying list by the given key.
+		///     - near: Used to sort results based on proximity to the provided location.
+		///
+		@discardableResult
+		open func locations(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: LocationSortKeys? = nil, near: GeoCoordinateInput? = nil, _ subfields: (LocationConnectionQuery) -> Void) -> QueryRootQuery {
+			var args: [String] = []
+
+			if let first = first {
+				args.append("first:\(first)")
+			}
+
+			if let after = after {
+				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
+			}
+
+			if let reverse = reverse {
+				args.append("reverse:\(reverse)")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
+			}
+
+			if let near = near {
+				args.append("near:\(near.serialize())")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = LocationConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "locations", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// Returns a specific node by ID. 
 		///
 		/// - parameters:
@@ -609,6 +672,18 @@ extension Storefront {
 				}
 				return try Customer(fields: value)
 
+				case "localization":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
+				}
+				return try Localization(fields: value)
+
+				case "locations":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
+				}
+				return try LocationConnection(fields: value)
+
 				case "node":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -764,6 +839,29 @@ extension Storefront {
 
 		func internalGetCustomer(alias: String? = nil) -> Storefront.Customer? {
 			return field(field: "customer", aliasSuffix: alias) as! Storefront.Customer?
+		}
+
+		/// Returns the localized experiences configured for the shop. 
+		open var localization: Storefront.Localization {
+			return internalGetLocalization()
+		}
+
+		func internalGetLocalization(alias: String? = nil) -> Storefront.Localization {
+			return field(field: "localization", aliasSuffix: alias) as! Storefront.Localization
+		}
+
+		/// List of the shop's locations that support in-store pickup. When sorting by 
+		/// distance, you must specify a location via the `near` argument. 
+		open var locations: Storefront.LocationConnection {
+			return internalGetLocations()
+		}
+
+		open func aliasedLocations(alias: String) -> Storefront.LocationConnection {
+			return internalGetLocations(alias: alias)
+		}
+
+		func internalGetLocations(alias: String? = nil) -> Storefront.LocationConnection {
+			return field(field: "locations", aliasSuffix: alias) as! Storefront.LocationConnection
 		}
 
 		/// Returns a specific node by ID. 
@@ -940,6 +1038,14 @@ extension Storefront {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
+
+					case "localization":
+					response.append(internalGetLocalization())
+					response.append(contentsOf: internalGetLocalization().childResponseObjectMap())
+
+					case "locations":
+					response.append(internalGetLocations())
+					response.append(contentsOf: internalGetLocations().childResponseObjectMap())
 
 					case "node":
 					if let value = internalGetNode() {

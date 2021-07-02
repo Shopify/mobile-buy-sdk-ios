@@ -208,6 +208,76 @@ extension Storefront {
 			return self
 		}
 
+		/// Returns a metafield found by namespace and key. 
+		///
+		/// - parameters:
+		///     - namespace: Container for a set of metafields (maximum of 20 characters).
+		///     - key: Identifier for the metafield (maximum of 30 characters).
+		///
+		@discardableResult
+		open func metafield(alias: String? = nil, namespace: String, key: String, _ subfields: (MetafieldQuery) -> Void) -> ArticleQuery {
+			var args: [String] = []
+
+			args.append("namespace:\(GraphQL.quoteString(input: namespace))")
+
+			args.append("key:\(GraphQL.quoteString(input: key))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = MetafieldQuery()
+			subfields(subquery)
+
+			addField(field: "metafield", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// A paginated list of metafields associated with the resource. 
+		///
+		/// - parameters:
+		///     - namespace: Container for a set of metafields (maximum of 20 characters).
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///     - reverse: Reverse the order of the underlying list.
+		///
+		@discardableResult
+		open func metafields(alias: String? = nil, namespace: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (MetafieldConnectionQuery) -> Void) -> ArticleQuery {
+			var args: [String] = []
+
+			if let namespace = namespace {
+				args.append("namespace:\(GraphQL.quoteString(input: namespace))")
+			}
+
+			if let first = first {
+				args.append("first:\(first)")
+			}
+
+			if let after = after {
+				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
+			}
+
+			if let reverse = reverse {
+				args.append("reverse:\(reverse)")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = MetafieldConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "metafields", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// The date and time when the article was published. 
 		@discardableResult
 		open func publishedAt(alias: String? = nil) -> ArticleQuery {
@@ -248,7 +318,7 @@ extension Storefront {
 	}
 
 	/// An article in an online store blog. 
-	open class Article: GraphQL.AbstractResponse, GraphQLObject, Node {
+	open class Article: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource, Node {
 		public typealias Query = ArticleQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
@@ -323,6 +393,19 @@ extension Storefront {
 					throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
 				}
 				return try Image(fields: value)
+
+				case "metafield":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
+				}
+				return try Metafield(fields: value)
+
+				case "metafields":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
+				}
+				return try MetafieldConnection(fields: value)
 
 				case "publishedAt":
 				guard let value = value as? String else {
@@ -477,6 +560,32 @@ extension Storefront {
 			return field(field: "image", aliasSuffix: alias) as! Storefront.Image?
 		}
 
+		/// Returns a metafield found by namespace and key. 
+		open var metafield: Storefront.Metafield? {
+			return internalGetMetafield()
+		}
+
+		open func aliasedMetafield(alias: String) -> Storefront.Metafield? {
+			return internalGetMetafield(alias: alias)
+		}
+
+		func internalGetMetafield(alias: String? = nil) -> Storefront.Metafield? {
+			return field(field: "metafield", aliasSuffix: alias) as! Storefront.Metafield?
+		}
+
+		/// A paginated list of metafields associated with the resource. 
+		open var metafields: Storefront.MetafieldConnection {
+			return internalGetMetafields()
+		}
+
+		open func aliasedMetafields(alias: String) -> Storefront.MetafieldConnection {
+			return internalGetMetafields(alias: alias)
+		}
+
+		func internalGetMetafields(alias: String? = nil) -> Storefront.MetafieldConnection {
+			return field(field: "metafields", aliasSuffix: alias) as! Storefront.MetafieldConnection
+		}
+
 		/// The date and time when the article was published. 
 		open var publishedAt: Date {
 			return internalGetPublishedAt()
@@ -549,6 +658,16 @@ extension Storefront {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
+
+					case "metafield":
+					if let value = internalGetMetafield() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "metafields":
+					response.append(internalGetMetafields())
+					response.append(contentsOf: internalGetMetafields().childResponseObjectMap())
 
 					case "seo":
 					if let value = internalGetSeo() {

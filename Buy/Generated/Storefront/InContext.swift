@@ -1,5 +1,5 @@
 //
-//  Storefront.swift
+//  inContext.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -24,18 +24,33 @@
 //  THE SOFTWARE.
 //
 
-public class Storefront {
-	public static func buildQuery(_ subfields: (QueryRootQuery) -> Void) -> QueryRootQuery {
-		let root = QueryRootQuery()
+import Foundation
 
-		subfields(root)
-		return root
-	}
+extension Storefront {
+	open class InContextDirective: GraphQL.AbstractDirective {
+		/// Contextualizes data based on the additional information provided by the 
+		/// directive. For example, you can use the `@inContext(country: CA)` directive 
+		/// to query the price of a product in a storefront within the context of 
+		/// Canada. 
+		///
+		/// - parameters:
+		///     - country: The country code for context. For example, `CA`.
+		///     - preferredLocationId: The identifier of the customer's preferred location.
+		///
+		public init(country: CountryCode? = nil, preferredLocationId: GraphQL.ID? = nil) {
+			var args: [String] = []
 
-	public static func buildMutation(_ subfields: (MutationQuery) -> Void) -> MutationQuery {
-		let root = MutationQuery()
+			if let country = country {
+				args.append("country:\(country.rawValue)")
+			}
 
-		subfields(root)
-		return root
+			if let preferredLocationId = preferredLocationId {
+				args.append("preferredLocationId:\(GraphQL.quoteString(input: "\(preferredLocationId.rawValue)"))")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			super.init(name: "inContext", args: argsString)
+		}
 	}
 }

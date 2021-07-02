@@ -35,6 +35,9 @@ extension Storefront {
 		/// Displayed as **In progress**. 
 		case inProgress = "IN_PROGRESS"
 
+		/// Displayed as **On hold**. 
+		case onHold = "ON_HOLD"
+
 		/// Displayed as **Open**. 
 		case `open` = "OPEN"
 
