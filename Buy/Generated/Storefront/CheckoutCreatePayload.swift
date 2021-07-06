@@ -51,6 +51,13 @@ extension Storefront {
 			return self
 		}
 
+		/// The checkout queue token. 
+		@discardableResult
+		open func queueToken(alias: String? = nil) -> CheckoutCreatePayloadQuery {
+			addField(field: "queueToken", aliasSuffix: alias)
+			return self
+		}
+
 		/// List of errors that occurred executing the mutation. 
 		@available(*, deprecated, message:"Use `checkoutUserErrors` instead")
 		@discardableResult
@@ -83,6 +90,13 @@ extension Storefront {
 				}
 				return try value.map { return try CheckoutUserError(fields: $0) }
 
+				case "queueToken":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: CheckoutCreatePayload.self, field: fieldName, value: fieldValue)
+				}
+				return value
+
 				case "userErrors":
 				guard let value = value as? [[String: Any]] else {
 					throw SchemaViolationError(type: CheckoutCreatePayload.self, field: fieldName, value: fieldValue)
@@ -110,6 +124,15 @@ extension Storefront {
 
 		func internalGetCheckoutUserErrors(alias: String? = nil) -> [Storefront.CheckoutUserError] {
 			return field(field: "checkoutUserErrors", aliasSuffix: alias) as! [Storefront.CheckoutUserError]
+		}
+
+		/// The checkout queue token. 
+		open var queueToken: String? {
+			return internalGetQueueToken()
+		}
+
+		func internalGetQueueToken(alias: String? = nil) -> String? {
+			return field(field: "queueToken", aliasSuffix: alias) as! String?
 		}
 
 		/// List of errors that occurred executing the mutation. 
