@@ -46,7 +46,11 @@ extension Storefront {
 			return self
 		}
 
-		/// Whether the version is supported by Shopify. 
+		/// Whether the version is actively supported by Shopify. Supported API 
+		/// versions are guaranteed to be stable. Unsupported API versions include 
+		/// unstable, release candidate, and end-of-life versions that are marked as 
+		/// unsupported. For more information, refer to 
+		/// [Versioning](https://shopify.dev/concepts/about-apis/versioning). 
 		@discardableResult
 		open func supported(alias: String? = nil) -> ApiVersionQuery {
 			addField(field: "supported", aliasSuffix: alias)
@@ -103,7 +107,11 @@ extension Storefront {
 			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
-		/// Whether the version is supported by Shopify. 
+		/// Whether the version is actively supported by Shopify. Supported API 
+		/// versions are guaranteed to be stable. Unsupported API versions include 
+		/// unstable, release candidate, and end-of-life versions that are marked as 
+		/// unsupported. For more information, refer to 
+		/// [Versioning](https://shopify.dev/concepts/about-apis/versioning). 
 		open var supported: Bool {
 			return internalGetSupported()
 		}

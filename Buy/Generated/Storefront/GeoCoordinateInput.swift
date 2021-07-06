@@ -1,5 +1,5 @@
 //
-//  OrderDisplayFinancialStatus.swift
+//  GeoCoordinateInput.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,21 +27,43 @@
 import Foundation
 
 extension Storefront {
-	public enum OrderDisplayFinancialStatus: String {
-		case authorized = "AUTHORIZED"
+	/// Used to specify a geographical location. 
+	open class GeoCoordinateInput {
+		/// The coordinate's latitude value. 
+		open var latitude: Double
 
-		case paid = "PAID"
+		/// The coordinate's longitude value. 
+		open var longitude: Double
 
-		case partiallyPaid = "PARTIALLY_PAID"
+		/// Creates the input object.
+		///
+		/// - parameters:
+		///     - latitude: The coordinate's latitude value.
+		///     - longitude: The coordinate's longitude value.
+		///
+		public static func create(latitude: Double, longitude: Double) -> GeoCoordinateInput {
+			return GeoCoordinateInput(latitude: latitude, longitude: longitude)
+		}
 
-		case partiallyRefunded = "PARTIALLY_REFUNDED"
+		/// Creates the input object.
+		///
+		/// - parameters:
+		///     - latitude: The coordinate's latitude value.
+		///     - longitude: The coordinate's longitude value.
+		///
+		public init(latitude: Double, longitude: Double) {
+			self.latitude = latitude
+			self.longitude = longitude
+		}
 
-		case pending = "PENDING"
+		internal func serialize() -> String {
+			var fields: [String] = []
 
-		case refunded = "REFUNDED"
+			fields.append("latitude:\(latitude)")
 
-		case voided = "VOIDED"
+			fields.append("longitude:\(longitude)")
 
-		case unknownValue = ""
+			return "{\(fields.joined(separator: ","))}"
+		}
 	}
 }

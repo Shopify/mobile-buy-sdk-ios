@@ -52,6 +52,16 @@ extension Storefront {
 			return self
 		}
 
+		/// The identity of the customer associated with the checkout. 
+		@discardableResult
+		open func buyerIdentity(alias: String? = nil, _ subfields: (CheckoutBuyerIdentityQuery) -> Void) -> CheckoutQuery {
+			let subquery = CheckoutBuyerIdentityQuery()
+			subfields(subquery)
+
+			addField(field: "buyerIdentity", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The date and time when the checkout was completed. 
 		@discardableResult
 		open func completedAt(alias: String? = nil) -> CheckoutQuery {
@@ -415,6 +425,12 @@ extension Storefront {
 				}
 				return try AvailableShippingRates(fields: value)
 
+				case "buyerIdentity":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
+				}
+				return try CheckoutBuyerIdentity(fields: value)
+
 				case "completedAt":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
@@ -632,6 +648,15 @@ extension Storefront {
 
 		func internalGetAvailableShippingRates(alias: String? = nil) -> Storefront.AvailableShippingRates? {
 			return field(field: "availableShippingRates", aliasSuffix: alias) as! Storefront.AvailableShippingRates?
+		}
+
+		/// The identity of the customer associated with the checkout. 
+		open var buyerIdentity: Storefront.CheckoutBuyerIdentity {
+			return internalGetBuyerIdentity()
+		}
+
+		func internalGetBuyerIdentity(alias: String? = nil) -> Storefront.CheckoutBuyerIdentity {
+			return field(field: "buyerIdentity", aliasSuffix: alias) as! Storefront.CheckoutBuyerIdentity
 		}
 
 		/// The date and time when the checkout was completed. 
@@ -955,6 +980,10 @@ extension Storefront {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
+
+					case "buyerIdentity":
+					response.append(internalGetBuyerIdentity())
+					response.append(contentsOf: internalGetBuyerIdentity().childResponseObjectMap())
 
 					case "customAttributes":
 					internalGetCustomAttributes().forEach {

@@ -496,6 +496,9 @@ extension Storefront {
 		/// CFP Franc (XPF). 
 		case xpf = "XPF"
 
+		/// Unrecognized currency. 
+		case xxx = "XXX"
+
 		/// Yemeni Rial (YER). 
 		case yer = "YER"
 

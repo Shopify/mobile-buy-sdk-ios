@@ -1,5 +1,5 @@
 //
-//  Storefront.swift
+//  UnitSystem.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -24,18 +24,17 @@
 //  THE SOFTWARE.
 //
 
-public class Storefront {
-	public static func buildQuery(_ subfields: (QueryRootQuery) -> Void) -> QueryRootQuery {
-		let root = QueryRootQuery()
+import Foundation
 
-		subfields(root)
-		return root
-	}
+extension Storefront {
+	/// Systems of weights and measures. 
+	public enum UnitSystem: String {
+		/// Imperial system of weights and measures. 
+		case imperialSystem = "IMPERIAL_SYSTEM"
 
-	public static func buildMutation(_ subfields: (MutationQuery) -> Void) -> MutationQuery {
-		let root = MutationQuery()
+		/// Metric system of weights and measures. 
+		case metricSystem = "METRIC_SYSTEM"
 
-		subfields(root)
-		return root
+		case unknownValue = ""
 	}
 }
