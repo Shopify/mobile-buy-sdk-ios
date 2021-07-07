@@ -122,6 +122,15 @@ extension Storefront {
 
 		/// An object with an ID to support global identification. 
 		@discardableResult
+		open func onLocation(subfields: (LocationQuery) -> Void) -> NodeQuery {
+			let subquery = LocationQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Location", subfields: subquery)
+			return self
+		}
+
+		/// An object with an ID to support global identification. 
+		@discardableResult
 		open func onMailingAddress(subfields: (MailingAddressQuery) -> Void) -> NodeQuery {
 			let subquery = MailingAddressQuery()
 			subfields(subquery)
@@ -267,6 +276,8 @@ extension Storefront {
 				case "Comment": return try Comment.init(fields: fields)
 
 				case "ExternalVideo": return try ExternalVideo.init(fields: fields)
+
+				case "Location": return try Location.init(fields: fields)
 
 				case "MailingAddress": return try MailingAddress.init(fields: fields)
 

@@ -25,14 +25,20 @@
 //
 
 public class Storefront {
-	public static func buildQuery(_ subfields: (QueryRootQuery) -> Void) -> QueryRootQuery {
+	public static func buildQuery(inContext: InContextDirective? = nil, subfields: (QueryRootQuery) -> Void) -> QueryRootQuery {
 		let root = QueryRootQuery()
+
+		root.directives = [inContext].compactMap({ $0 })
+
 		subfields(root)
 		return root
 	}
 
-	public static func buildMutation(_ subfields: (MutationQuery) -> Void) -> MutationQuery {
+	public static func buildMutation(inContext: InContextDirective? = nil, subfields: (MutationQuery) -> Void) -> MutationQuery {
 		let root = MutationQuery()
+
+		root.directives = [inContext].compactMap({ $0 })
+
 		subfields(root)
 		return root
 	}

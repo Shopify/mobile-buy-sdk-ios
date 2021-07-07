@@ -1,5 +1,5 @@
 //
-//  OrderDisplayFulfillmentStatus.swift
+//  LocationSortKeys.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,18 +27,19 @@
 import Foundation
 
 extension Storefront {
-	public enum OrderDisplayFulfillmentStatus: String {
-		case fulfilled = "FULFILLED"
+	/// The set of valid sort keys for the Location query. 
+	public enum LocationSortKeys: String {
+		/// Sort by the `city` value. 
+		case city = "CITY"
 
-		case `open` = "OPEN"
+		/// Sort by the `distance` value. 
+		case distance = "DISTANCE"
 
-		case partiallyFulfilled = "PARTIALLY_FULFILLED"
+		/// Sort by the `id` value. 
+		case id = "ID"
 
-		case pendingFulfillment = "PENDING_FULFILLMENT"
-
-		case restocked = "RESTOCKED"
-
-		case unfulfilled = "UNFULFILLED"
+		/// Sort by the `name` value. 
+		case name = "NAME"
 
 		case unknownValue = ""
 	}

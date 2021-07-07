@@ -1,5 +1,5 @@
 //
-//  OrderFulfillmentStatus.swift
+//  UnitSystem.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,34 +27,13 @@
 import Foundation
 
 extension Storefront {
-	/// Represents the order's current fulfillment status. 
-	public enum OrderFulfillmentStatus: String {
-		/// Displayed as **Fulfilled**. 
-		case fulfilled = "FULFILLED"
+	/// Systems of weights and measures. 
+	public enum UnitSystem: String {
+		/// Imperial system of weights and measures. 
+		case imperialSystem = "IMPERIAL_SYSTEM"
 
-		/// Displayed as **In progress**. 
-		case inProgress = "IN_PROGRESS"
-
-		/// Displayed as **On hold**. 
-		case onHold = "ON_HOLD"
-
-		/// Displayed as **Open**. 
-		case `open` = "OPEN"
-
-		/// Displayed as **Partially fulfilled**. 
-		case partiallyFulfilled = "PARTIALLY_FULFILLED"
-
-		/// Displayed as **Pending fulfillment**. 
-		case pendingFulfillment = "PENDING_FULFILLMENT"
-
-		/// Displayed as **Restocked**. 
-		case restocked = "RESTOCKED"
-
-		/// Displayed as **Scheduled**. 
-		case scheduled = "SCHEDULED"
-
-		/// Displayed as **Unfulfilled**. 
-		case unfulfilled = "UNFULFILLED"
+		/// Metric system of weights and measures. 
+		case metricSystem = "METRIC_SYSTEM"
 
 		case unknownValue = ""
 	}

@@ -1,5 +1,5 @@
 //
-//  OrderFulfillmentStatus.swift
+//  inContext.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,35 +27,30 @@
 import Foundation
 
 extension Storefront {
-	/// Represents the order's current fulfillment status. 
-	public enum OrderFulfillmentStatus: String {
-		/// Displayed as **Fulfilled**. 
-		case fulfilled = "FULFILLED"
+	open class InContextDirective: GraphQL.AbstractDirective {
+		/// Contextualizes data based on the additional information provided by the 
+		/// directive. For example, you can use the `@inContext(country: CA)` directive 
+		/// to query the price of a product in a storefront within the context of 
+		/// Canada. 
+		///
+		/// - parameters:
+		///     - country: The country code for context. For example, `CA`.
+		///     - preferredLocationId: The identifier of the customer's preferred location.
+		///
+		public init(country: CountryCode? = nil, preferredLocationId: GraphQL.ID? = nil) {
+			var args: [String] = []
 
-		/// Displayed as **In progress**. 
-		case inProgress = "IN_PROGRESS"
+			if let country = country {
+				args.append("country:\(country.rawValue)")
+			}
 
-		/// Displayed as **On hold**. 
-		case onHold = "ON_HOLD"
+			if let preferredLocationId = preferredLocationId {
+				args.append("preferredLocationId:\(GraphQL.quoteString(input: "\(preferredLocationId.rawValue)"))")
+			}
 
-		/// Displayed as **Open**. 
-		case `open` = "OPEN"
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
 
-		/// Displayed as **Partially fulfilled**. 
-		case partiallyFulfilled = "PARTIALLY_FULFILLED"
-
-		/// Displayed as **Pending fulfillment**. 
-		case pendingFulfillment = "PENDING_FULFILLMENT"
-
-		/// Displayed as **Restocked**. 
-		case restocked = "RESTOCKED"
-
-		/// Displayed as **Scheduled**. 
-		case scheduled = "SCHEDULED"
-
-		/// Displayed as **Unfulfilled**. 
-		case unfulfilled = "UNFULFILLED"
-
-		case unknownValue = ""
+			super.init(name: "inContext", args: argsString)
+		}
 	}
 }
