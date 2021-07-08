@@ -49,47 +49,12 @@ final class MockAuthorizationController: PKPaymentAuthorizationController {
         // Do nothing
     }
     
-    // ----------------------------------
-    //  MARK: - Invoke Delegate Calls -
-    //
-    static func invokeDidSelectShippingContact(_ contact: PKContact, completion: @escaping (PKPaymentAuthorizationStatus, [PKShippingMethod], [PKPaymentSummaryItem]) -> Void) {
-        
-        self.instances.forEach { authorizationController in
-            authorizationController.delegate?.paymentAuthorizationController?(authorizationController, didSelectShippingContact: contact, completion: completion)
-        }
-    }
-    
-    static func invokeDidAuthorizePayment(_ payment: PKPayment, completion: @escaping (PKPaymentAuthorizationStatus) -> Void) {
-        
-        self.instances.forEach { authorizationController in
-            authorizationController.delegate?.paymentAuthorizationController?(authorizationController, didAuthorizePayment: payment, completion: completion)
-        }
-    }
-    
     static func invokeDidFinish() {
         self.instances.forEach { authorizationController in
             authorizationController.delegate?.paymentAuthorizationControllerDidFinish(authorizationController)
         }
     }
     
-    static func invokeDidSelectShippingMethod(_ shippingMethod: PKShippingMethod, completion: @escaping (PKPaymentAuthorizationStatus, [PKPaymentSummaryItem]) -> Void) {
-        
-        self.instances.forEach { authorizationController in
-            authorizationController.delegate?.paymentAuthorizationController?(authorizationController, didSelectShippingMethod: shippingMethod, completion: completion)
-        }
-    }
-    
-    static func invokeDidSelectPaymentMethod(_ paymentMethod: PKPaymentMethod, completion: @escaping ([PKPaymentSummaryItem]) -> Void) {
-        
-        self.instances.forEach { authorizationController in
-            authorizationController.delegate?.paymentAuthorizationController?(authorizationController, didSelectPaymentMethod: paymentMethod, completion: completion)
-        }
-    }
-    
-    // ----------------------------------
-    //  MARK: - iOS 11 -
-    //
-    @available(iOS 11.0, *)
     static func invokeDidAuthorizePaymentHandler(_ payment: PKPayment, handler: @escaping (PKPaymentAuthorizationResult) -> Void) {
         
         self.instances.forEach { authorizationController in
@@ -97,7 +62,6 @@ final class MockAuthorizationController: PKPaymentAuthorizationController {
         }
     }
     
-    @available(iOS 11.0, *)
     static func invokeDidSelectShippingContactHandler(_ contact: PKContact, handler: @escaping (PKPaymentRequestShippingContactUpdate) -> Void) {
         
         self.instances.forEach { authorizationController in
@@ -105,7 +69,6 @@ final class MockAuthorizationController: PKPaymentAuthorizationController {
         }
     }
     
-    @available(iOS 11.0, *)
     static func invokeDidSelectShippingMethodHandler(_ shippingMethod: PKShippingMethod, handler: @escaping (PKPaymentRequestShippingMethodUpdate) -> Void) {
         
         self.instances.forEach { authorizationController in

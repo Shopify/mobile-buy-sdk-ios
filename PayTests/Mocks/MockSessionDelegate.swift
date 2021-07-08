@@ -31,10 +31,10 @@ import Pay
 
 final class MockSessionDelegate: PaySessionDelegate {
     
-    var didSelectShippingRate:    ((PaySession, PayShippingRate, PayCheckout, (PayCheckout?) -> Void) -> Void)?
+    var didSelectShippingRate:    ((PaySession, PayShippingRate, PayCheckout, (PayCheckout?, [Error]?) -> Void) -> Void)?
     var didAuthorizePayment:      ((PaySession, PayAuthorization, PayCheckout, (PaySession.TransactionStatus) -> Void) -> Void)?
-    var didRequestShippingRates:  ((PaySession, PayPostalAddress, PayCheckout, (PayCheckout?, [PayShippingRate]) -> Void) -> Void)?
-    var didUpdateShippingAddress: ((PaySession, PayPostalAddress, PayCheckout, (PayCheckout?) -> Void) -> Void)?
+    var didRequestShippingRates:  ((PaySession, PayPostalAddress, PayCheckout, (PayCheckout?, [PayShippingRate], [Error]?) -> Void) -> Void)?
+    var didUpdateShippingAddress: ((PaySession, PayPostalAddress, PayCheckout, (PayCheckout?, [Error]?) -> Void) -> Void)?
     var didFinish:                ((PaySession) -> Void)?
     
     let session: PaySession
@@ -50,7 +50,7 @@ final class MockSessionDelegate: PaySessionDelegate {
     // ----------------------------------
     //  MARK: - Delegate -
     //
-    func paySession(_ paySession: PaySession, didSelectShippingRate shippingRate: PayShippingRate, checkout: PayCheckout, provide: @escaping (PayCheckout?) -> Void) {
+    func paySession(_ paySession: PaySession, didSelectShippingRate shippingRate: PayShippingRate, checkout: PayCheckout, provide: @escaping (PayCheckout?, [Error]?) -> Void) {
         self.didSelectShippingRate?(paySession, shippingRate, checkout, provide)
     }
     
@@ -58,11 +58,11 @@ final class MockSessionDelegate: PaySessionDelegate {
         self.didAuthorizePayment?(paySession, authorization, checkout, completeTransaction)
     }
     
-    func paySession(_ paySession: PaySession, didRequestShippingRatesFor address: PayPostalAddress, checkout: PayCheckout, provide: @escaping (PayCheckout?, [PayShippingRate]) -> Void) {
+    func paySession(_ paySession: PaySession, didRequestShippingRatesFor address: PayPostalAddress, checkout: PayCheckout, provide: @escaping (PayCheckout?, [PayShippingRate], [Error]?) -> Void) {
         self.didRequestShippingRates?(paySession, address, checkout, provide)
     }
     
-    func paySession(_ paySession: PaySession, didUpdateShippingAddress address: PayPostalAddress, checkout: PayCheckout, provide: @escaping (PayCheckout?) -> Void) {
+    func paySession(_ paySession: PaySession, didUpdateShippingAddress address: PayPostalAddress, checkout: PayCheckout, provide: @escaping (PayCheckout?, [Error]?) -> Void) {
         self.didUpdateShippingAddress?(paySession, address, checkout, provide)
     }
     

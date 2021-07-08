@@ -49,7 +49,7 @@ public protocol PaySessionDelegate: class {
     /// - Important:
     /// The `address` passed into this method is _partial_, and doesn't include address lines or a complete zip / postal code. It is sufficient for obtaining shipping rates _only_. **You must update the checkout with a full address before completing the payment.** The complete address will be available in `paySession(_:didAuthorizePayment:checkout:completeTransaction:)`.
     ///
-    func paySession(_ paySession: PaySession, didRequestShippingRatesFor address: PayPostalAddress, checkout: PayCheckout, provide: @escaping (PayCheckout?, [PayShippingRate]) -> Void)
+    func paySession(_ paySession: PaySession, didRequestShippingRatesFor address: PayPostalAddress, checkout: PayCheckout, provide: @escaping (PayCheckout?, [PayShippingRate], [Error]?) -> Void)
 
     /// This callback is invoked if the user updates the `shippingContact` and the current address is invalidated. This method is called *only* for
     /// checkouts that don't require shipping.
@@ -64,7 +64,7 @@ public protocol PaySessionDelegate: class {
     /// - Important:
     /// The `address` passed into this method is _partial_, and doesn't include address lines or a complete zip / postal code. It is sufficient for obtaining shipping rates _only_. **You must update the checkout with a full address before completing the payment.** The complete address will be available in `paySession(_:didAuthorizePayment:checkout:completeTransaction:)`.
     ///
-    func paySession(_ paySession: PaySession, didUpdateShippingAddress address: PayPostalAddress, checkout: PayCheckout, provide: @escaping (PayCheckout?) -> Void)
+    func paySession(_ paySession: PaySession, didUpdateShippingAddress address: PayPostalAddress, checkout: PayCheckout, provide: @escaping (PayCheckout?, [Error]?) -> Void)
     
     /// This callback is invoked when the user selects a shipping rate or an initial array of shipping rates is provided. In the latter case, the first shipping rate in the array will be used. You should make any necessary API calls to update the checkout with the selected shipping rate here.
     ///
@@ -74,7 +74,7 @@ public protocol PaySessionDelegate: class {
     ///     - checkout:     The current checkout state.
     ///     - provide:      A completion handler that **must** be invoked with an updated `PayCheckout`. Returning `nil` will result in a generic failure in the Apple Pay dialog.
     ///
-    func paySession(_ paySession: PaySession, didSelectShippingRate shippingRate: PayShippingRate, checkout: PayCheckout, provide: @escaping (PayCheckout?) -> Void)
+    func paySession(_ paySession: PaySession, didSelectShippingRate shippingRate: PayShippingRate, checkout: PayCheckout, provide: @escaping (PayCheckout?, [Error]?) -> Void)
 
     /// This callback is invoked when the user authorizes payment using Touch ID or passcode. You should make necessary API calls to update and complete the checkout with final information here (eg: billing address).
     ///
@@ -109,7 +109,7 @@ public class PaySession: NSObject {
     ///
     public enum TransactionStatus {
         case success
-        case failure
+        case failure(errors: [Error])
     }
 
     /// A delegate for receiving updates from `PaySession`.
@@ -187,8 +187,8 @@ public class PaySession: NSObject {
         request.countryCode                   = currency.countryCode
         request.currencyCode                  = currency.currencyCode
         request.merchantIdentifier            = merchantID
-        request.requiredBillingAddressFields  = .all
-        request.requiredShippingAddressFields = .all
+        request.requiredBillingContactFields = Set([PKContactField.emailAddress, .name, .phoneNumber, .postalAddress])
+        request.requiredShippingContactFields = Set([PKContactField.emailAddress, .name, .phoneNumber, .postalAddress])
         request.supportedNetworks             = self.acceptedCardBrands.paymentNetworks
         request.merchantCapabilities          = [.capability3DS]
         request.paymentSummaryItems           = checkout.summaryItems(for: self.shopName)
@@ -200,22 +200,13 @@ public class PaySession: NSObject {
 // ------------------------------------------------------
 //  MARK: - PKPaymentAuthorizationControllerDelegate -
 //
-@available(iOS 10.0, *)
 extension PaySession: PKPaymentAuthorizationControllerDelegate {
 
     // -------------------------------------------------------
     //  MARK: - PKPaymentAuthorizationControllerDelegate -
     //
-    @available(iOS 11.0, watchOS 4.0, *)
     public func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
-        self.paymentAuthorizationController(controller, didAuthorizePayment: payment) { (status: PKPaymentAuthorizationStatus) in
-            let result = PKPaymentAuthorizationResult(status: status, errors: nil)
-            completion(result)
-        }
-    }
-    
-    public func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didAuthorizePayment payment: PKPayment, completion: @escaping (PKPaymentAuthorizationStatus) -> Void) {
-
+        
         var shippingRate: PayShippingRate?
 
         if self.checkout.needsShipping {
@@ -238,29 +229,47 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
         Log("Authorized payment. Completing...")
         self.delegate?.paySession(self, didAuthorizePayment: authorization, checkout: self.checkout, completeTransaction: { status in
             Log("Completion status : \(status)")
-        
+            
             switch status {
-            case .success: completion(.success)
-            case .failure: completion(.failure)
+            case .success:
+                let result = PKPaymentAuthorizationResult(
+                    status: .success,
+                    errors: nil
+                )
+                
+                completion(result)
+            case .failure(let errors):
+                let result = PKPaymentAuthorizationResult(
+                    status: .failure,
+                    errors: errors
+                )
+                
+                completion(result)
             }
         })
+        
     }
     
-    @available(iOS 11.0, watchOS 4.0, *)
     public func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didSelectShippingContact contact: PKContact, handler completion: @escaping (PKPaymentRequestShippingContactUpdate) -> Void) {
         
-        self.paymentAuthorizationController(controller, didSelectShippingContact: contact) { status, shippingMethod, summaryItems in
-            let result    = PKPaymentRequestShippingContactUpdate(errors: nil, paymentSummaryItems: summaryItems, shippingMethods: shippingMethod)
-            result.status = status
-            completion(result)
-        }
-    }
-
-    public func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didSelectShippingContact contact: PKContact, completion: @escaping (PKPaymentAuthorizationStatus, [PKShippingMethod], [PKPaymentSummaryItem]) -> Void) {
         Log("Selecting shipping contact...")
         
         guard let postalAddress = contact.postalAddress else {
-            completion(.invalidShippingPostalAddress, [], self.checkout.summaryItems(for: self.shopName))
+            
+            let result = PKPaymentRequestShippingContactUpdate(
+                errors: [
+                    PKPaymentRequest.paymentShippingAddressInvalidError(
+                        withKey: CNContactPostalAddressesKey,
+                        localizedDescription: "Invalid shipping address"
+                    )
+                ],
+                paymentSummaryItems: self.checkout.summaryItems(for: self.shopName),
+                shippingMethods: []
+            )
+            result.status = .failure
+            
+            completion(result)
+            
             return
         }
 
@@ -276,13 +285,22 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
         guard self.checkout.needsShipping else {
             Log("Checkout doesn't require shipping. Updating address...")
             
-            self.delegate?.paySession(self, didUpdateShippingAddress: payPostalAddress, checkout: self.checkout, provide: { updatedCheckout in
+            self.delegate?.paySession(self, didUpdateShippingAddress: payPostalAddress, checkout: self.checkout, provide: { updatedCheckout, errors in
                 if let updatedCheckout = updatedCheckout {
                     self.checkout = updatedCheckout
-                    
-                    completion(.success, [], updatedCheckout.summaryItems(for: self.shopName))
+                    let result = PKPaymentRequestShippingContactUpdate()
+                    result.status = .success
+                    result.paymentSummaryItems = updatedCheckout.summaryItems(for: self.shopName)
+                    completion(result)
                 } else {
-                    completion(.failure, [], [])
+                    let result = PKPaymentRequestShippingContactUpdate(
+                        errors: errors,
+                        paymentSummaryItems: [],
+                        shippingMethods: []
+                    )
+                    result.status = .failure
+                    
+                    completion(result)
                 }
             })
             return
@@ -294,7 +312,7 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
          ** postal address. The partial info
          ** should be enough to obtain rates.
          */
-        self.delegate?.paySession(self, didRequestShippingRatesFor: payPostalAddress, checkout: self.checkout, provide: { updatedCheckout, shippingRates in
+        self.delegate?.paySession(self, didRequestShippingRatesFor: payPostalAddress, checkout: self.checkout, provide: { updatedCheckout, shippingRates, errors in
 
             /* ---------------------------------
              ** The delegate has an opportunity
@@ -302,8 +320,15 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
              ** which indicates invalid or incomplete
              ** postal address.
              */
-            guard let updatedCheckout = updatedCheckout, !shippingRates.isEmpty else {
-                completion(.invalidShippingPostalAddress, [], self.checkout.summaryItems(for: self.shopName))
+            guard let updatedCheckout = updatedCheckout, !shippingRates.isEmpty, errors == nil else {
+                let result = PKPaymentRequestShippingContactUpdate(
+                    errors: errors,
+                    paymentSummaryItems: self.checkout.summaryItems(for: self.shopName),
+                    shippingMethods: []
+                )
+                result.status = .failure
+                
+                completion(result)
                 return
             }
 
@@ -316,29 +341,33 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
              ** the default. Apple Pay selects it but
              ** doesn't invoke the delegate method.
              */
-            self.delegate?.paySession(self, didSelectShippingRate: shippingRates.first!, checkout: updatedCheckout, provide: { updatedCheckout in
+            self.delegate?.paySession(self, didSelectShippingRate: shippingRates.first!, checkout: updatedCheckout, provide: { updatedCheckout, errors in
                 if let updatedCheckout = updatedCheckout {
                     self.checkout = updatedCheckout
                     
                     Log("Selected shipping contact.")
-                    completion(.success, shippingRates.summaryItems, updatedCheckout.summaryItems(for: self.shopName))
+                    let result = PKPaymentRequestShippingContactUpdate()
+                    result.status = .success
+                    result.shippingMethods = shippingRates.summaryItems
+                    result.paymentSummaryItems = updatedCheckout.summaryItems(for: self.shopName)
+                    
+                    completion(result)
                 } else {
-                    completion(.failure, [], [])
+                    let result = PKPaymentRequestShippingContactUpdate(
+                        errors: errors,
+                        paymentSummaryItems: [],
+                        shippingMethods: []
+                    )
+                    result.status = .failure
+                    
+                    completion(result)
                 }
             })
         })
     }
     
-    @available(iOS 11.0, watchOS 4.0, *)
     public func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didSelectShippingMethod shippingMethod: PKShippingMethod, handler completion: @escaping (PKPaymentRequestShippingMethodUpdate) -> Void) {
-        self.paymentAuthorizationController(controller, didSelectShippingMethod: shippingMethod) { status, summaryItems in
-            let result    = PKPaymentRequestShippingMethodUpdate(paymentSummaryItems: summaryItems)
-            result.status = status
-            completion(result)
-        }
-    }
-
-    public func paymentAuthorizationController(_ controller: PKPaymentAuthorizationController, didSelectShippingMethod shippingMethod: PKShippingMethod, completion: @escaping (PKPaymentAuthorizationStatus, [PKPaymentSummaryItem]) -> Void) {
+        
         Log("Selecting delivery method...")
         
         /* --------------------------------------
@@ -347,22 +376,33 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
          ** rates.
          */
         guard let shippingRate = self.shippingRates.shippingRateFor(shippingMethod) else {
-            completion(.failure, self.checkout.summaryItems(for: self.shopName))
+            let result = PKPaymentRequestShippingMethodUpdate()
+            result.status = .failure
+            result.paymentSummaryItems = self.checkout.summaryItems(for: self.shopName)
+            completion(result)
             return
         }
 
-        self.delegate?.paySession(self, didSelectShippingRate: shippingRate, checkout: self.checkout, provide: { updatedCheckout in
+        self.delegate?.paySession(self, didSelectShippingRate: shippingRate, checkout: self.checkout, provide: { updatedCheckout, errors in
             if let updatedCheckout = updatedCheckout {
                 self.checkout = updatedCheckout
                 
                 Log("Selected delivery method.")
-                completion(.success, updatedCheckout.summaryItems(for: self.shopName))
+                
+                let result = PKPaymentRequestShippingMethodUpdate()
+                result.status = .success
+                result.paymentSummaryItems = updatedCheckout.summaryItems(for: self.shopName)
+                completion(result)
             } else {
-                completion(.failure, [])
+                let result = PKPaymentRequestShippingMethodUpdate()
+                result.status = .failure
+                result.paymentSummaryItems = []
+                completion(result)
             }
         })
+        
     }
-
+    
     public func paymentAuthorizationControllerDidFinish(_ controller: PKPaymentAuthorizationController) {
         
         Log("Dismissing authorization controller.")
