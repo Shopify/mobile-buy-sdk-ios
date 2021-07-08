@@ -78,6 +78,13 @@ extension Storefront {
 			return self
 		}
 
+		/// The type name of the metafield. 
+		@discardableResult
+		open func type(alias: String? = nil) -> MetafieldQuery {
+			addField(field: "type", aliasSuffix: alias)
+			return self
+		}
+
 		/// The date and time when the storefront metafield was updated. 
 		@discardableResult
 		open func updatedAt(alias: String? = nil) -> MetafieldQuery {
@@ -93,6 +100,7 @@ extension Storefront {
 		}
 
 		/// Represents the metafield value type. 
+		@available(*, deprecated, message:"`valueType` is deprecated and replaced by `type` in API version 2021-07.")
 		@discardableResult
 		open func valueType(alias: String? = nil) -> MetafieldQuery {
 			addField(field: "valueType", aliasSuffix: alias)
@@ -145,6 +153,12 @@ extension Storefront {
 					throw SchemaViolationError(type: Metafield.self, field: fieldName, value: fieldValue)
 				}
 				return try UnknownMetafieldParentResource.create(fields: value)
+
+				case "type":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Metafield.self, field: fieldName, value: fieldValue)
+				}
+				return value
 
 				case "updatedAt":
 				guard let value = value as? String else {
@@ -223,6 +237,15 @@ extension Storefront {
 			return field(field: "parentResource", aliasSuffix: alias) as! MetafieldParentResource
 		}
 
+		/// The type name of the metafield. 
+		open var type: String {
+			return internalGetType()
+		}
+
+		func internalGetType(alias: String? = nil) -> String {
+			return field(field: "type", aliasSuffix: alias) as! String
+		}
+
 		/// The date and time when the storefront metafield was updated. 
 		open var updatedAt: Date {
 			return internalGetUpdatedAt()
@@ -242,6 +265,7 @@ extension Storefront {
 		}
 
 		/// Represents the metafield value type. 
+		@available(*, deprecated, message:"`valueType` is deprecated and replaced by `type` in API version 2021-07.")
 		open var valueType: Storefront.MetafieldValueType {
 			return internalGetValueType()
 		}
