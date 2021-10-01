@@ -47,7 +47,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Globally unique identifier. 
+		/// A globally-unique identifier. 
 		@discardableResult
 		open func id(alias: String? = nil) -> MetafieldQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -78,7 +78,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The type name of the metafield. 
+		/// The type name of the metafield. See the list of [supported 
+		/// types](https://shopify.dev/apps/metafields/definitions/types). 
 		@discardableResult
 		open func type(alias: String? = nil) -> MetafieldQuery {
 			addField(field: "type", aliasSuffix: alias)
@@ -201,7 +202,7 @@ extension Storefront {
 			return field(field: "description", aliasSuffix: alias) as! String?
 		}
 
-		/// Globally unique identifier. 
+		/// A globally-unique identifier. 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -237,7 +238,8 @@ extension Storefront {
 			return field(field: "parentResource", aliasSuffix: alias) as! MetafieldParentResource
 		}
 
-		/// The type name of the metafield. 
+		/// The type name of the metafield. See the list of [supported 
+		/// types](https://shopify.dev/apps/metafields/definitions/types). 
 		open var type: String {
 			return internalGetType()
 		}

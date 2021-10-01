@@ -36,7 +36,194 @@ extension Storefront {
 			return "mutation " + super.description
 		}
 
-		/// Updates the attributes of a checkout. 
+		/// Updates the attributes on a cart. 
+		///
+		/// - parameters:
+		///     - attributes: An array of key-value pairs that contains additional information about the cart.
+		///     - cartId: The ID of the cart.
+		///
+		@discardableResult
+		open func cartAttributesUpdate(alias: String? = nil, attributes: [AttributeInput], cartId: GraphQL.ID, _ subfields: (CartAttributesUpdatePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("attributes:[\(attributes.map{ "\($0.serialize())" }.joined(separator: ","))]")
+
+			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CartAttributesUpdatePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "cartAttributesUpdate", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Updates customer information associated with a cart. 
+		///
+		/// - parameters:
+		///     - cartId: The ID of the cart.
+		///     - buyerIdentity: The customer associated with the cart.
+		///
+		@discardableResult
+		open func cartBuyerIdentityUpdate(alias: String? = nil, cartId: GraphQL.ID, buyerIdentity: CartBuyerIdentityInput, _ subfields: (CartBuyerIdentityUpdatePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
+
+			args.append("buyerIdentity:\(buyerIdentity.serialize())")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CartBuyerIdentityUpdatePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "cartBuyerIdentityUpdate", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Creates a new cart. 
+		///
+		/// - parameters:
+		///     - input: The fields used to create a cart.
+		///
+		@discardableResult
+		open func cartCreate(alias: String? = nil, input: CartInput? = nil, _ subfields: (CartCreatePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			if let input = input {
+				args.append("input:\(input.serialize())")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = CartCreatePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "cartCreate", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Updates the discount codes applied to the cart. 
+		///
+		/// - parameters:
+		///     - cartId: The ID of the cart.
+		///     - discountCodes: The discount codes to apply to the cart.
+		///
+		@discardableResult
+		open func cartDiscountCodesUpdate(alias: String? = nil, cartId: GraphQL.ID, discountCodes: [String]? = nil, _ subfields: (CartDiscountCodesUpdatePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
+
+			if let discountCodes = discountCodes {
+				args.append("discountCodes:[\(discountCodes.map{ "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = CartDiscountCodesUpdatePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "cartDiscountCodesUpdate", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Adds a merchandise line to the cart. 
+		///
+		/// - parameters:
+		///     - lines: A list of merchandise lines to add to the cart.
+		///     - cartId: The ID of the cart.
+		///
+		@discardableResult
+		open func cartLinesAdd(alias: String? = nil, lines: [CartLineInput], cartId: GraphQL.ID, _ subfields: (CartLinesAddPayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("lines:[\(lines.map{ "\($0.serialize())" }.joined(separator: ","))]")
+
+			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CartLinesAddPayloadQuery()
+			subfields(subquery)
+
+			addField(field: "cartLinesAdd", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Removes one or more merchandise lines from the cart. 
+		///
+		/// - parameters:
+		///     - cartId: The ID of the cart.
+		///     - lineIds: The merchandise line IDs to remove.
+		///
+		@discardableResult
+		open func cartLinesRemove(alias: String? = nil, cartId: GraphQL.ID, lineIds: [GraphQL.ID], _ subfields: (CartLinesRemovePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
+
+			args.append("lineIds:[\(lineIds.map{ "\(GraphQL.quoteString(input: "\($0.rawValue)"))" }.joined(separator: ","))]")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CartLinesRemovePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "cartLinesRemove", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Updates one or more merchandise lines on a cart. 
+		///
+		/// - parameters:
+		///     - cartId: The ID of the cart.
+		///     - lines: The merchandise lines to update.
+		///
+		@discardableResult
+		open func cartLinesUpdate(alias: String? = nil, cartId: GraphQL.ID, lines: [CartLineUpdateInput], _ subfields: (CartLinesUpdatePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
+
+			args.append("lines:[\(lines.map{ "\($0.serialize())" }.joined(separator: ","))]")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CartLinesUpdatePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "cartLinesUpdate", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Updates the note on the cart. 
+		///
+		/// - parameters:
+		///     - cartId: The ID of the cart.
+		///     - note: The note on the cart.
+		///
+		@discardableResult
+		open func cartNoteUpdate(alias: String? = nil, cartId: GraphQL.ID, note: String? = nil, _ subfields: (CartNoteUpdatePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
+
+			if let note = note {
+				args.append("note:\(GraphQL.quoteString(input: note))")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = CartNoteUpdatePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "cartNoteUpdate", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Updates the attributes of a checkout if `allowPartialAddresses` is `true`. 
 		///
 		/// - parameters:
 		///     - checkoutId: The ID of the checkout.
@@ -60,7 +247,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Updates the attributes of a checkout. 
+		/// Updates the attributes of a checkout if `allowPartialAddresses` is `true`. 
 		///
 		/// - parameters:
 		///     - checkoutId: The ID of the checkout.
@@ -230,7 +417,7 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - input: The fields used to create a checkout.
-		///     - queueToken: The checkout queue token.
+		///     - queueToken: The checkout queue token. Available only to selected stores.
 		///
 		@discardableResult
 		open func checkoutCreate(alias: String? = nil, input: CheckoutCreateInput, queueToken: String? = nil, _ subfields: (CheckoutCreatePayloadQuery) -> Void) -> MutationQuery {
@@ -1058,6 +1245,62 @@ extension Storefront {
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "cartAttributesUpdate":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CartAttributesUpdatePayload(fields: value)
+
+				case "cartBuyerIdentityUpdate":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CartBuyerIdentityUpdatePayload(fields: value)
+
+				case "cartCreate":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CartCreatePayload(fields: value)
+
+				case "cartDiscountCodesUpdate":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CartDiscountCodesUpdatePayload(fields: value)
+
+				case "cartLinesAdd":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CartLinesAddPayload(fields: value)
+
+				case "cartLinesRemove":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CartLinesRemovePayload(fields: value)
+
+				case "cartLinesUpdate":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CartLinesUpdatePayload(fields: value)
+
+				case "cartNoteUpdate":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CartNoteUpdatePayload(fields: value)
+
 				case "checkoutAttributesUpdate":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -1371,7 +1614,111 @@ extension Storefront {
 			}
 		}
 
-		/// Updates the attributes of a checkout. 
+		/// Updates the attributes on a cart. 
+		open var cartAttributesUpdate: Storefront.CartAttributesUpdatePayload? {
+			return internalGetCartAttributesUpdate()
+		}
+
+		open func aliasedCartAttributesUpdate(alias: String) -> Storefront.CartAttributesUpdatePayload? {
+			return internalGetCartAttributesUpdate(alias: alias)
+		}
+
+		func internalGetCartAttributesUpdate(alias: String? = nil) -> Storefront.CartAttributesUpdatePayload? {
+			return field(field: "cartAttributesUpdate", aliasSuffix: alias) as! Storefront.CartAttributesUpdatePayload?
+		}
+
+		/// Updates customer information associated with a cart. 
+		open var cartBuyerIdentityUpdate: Storefront.CartBuyerIdentityUpdatePayload? {
+			return internalGetCartBuyerIdentityUpdate()
+		}
+
+		open func aliasedCartBuyerIdentityUpdate(alias: String) -> Storefront.CartBuyerIdentityUpdatePayload? {
+			return internalGetCartBuyerIdentityUpdate(alias: alias)
+		}
+
+		func internalGetCartBuyerIdentityUpdate(alias: String? = nil) -> Storefront.CartBuyerIdentityUpdatePayload? {
+			return field(field: "cartBuyerIdentityUpdate", aliasSuffix: alias) as! Storefront.CartBuyerIdentityUpdatePayload?
+		}
+
+		/// Creates a new cart. 
+		open var cartCreate: Storefront.CartCreatePayload? {
+			return internalGetCartCreate()
+		}
+
+		open func aliasedCartCreate(alias: String) -> Storefront.CartCreatePayload? {
+			return internalGetCartCreate(alias: alias)
+		}
+
+		func internalGetCartCreate(alias: String? = nil) -> Storefront.CartCreatePayload? {
+			return field(field: "cartCreate", aliasSuffix: alias) as! Storefront.CartCreatePayload?
+		}
+
+		/// Updates the discount codes applied to the cart. 
+		open var cartDiscountCodesUpdate: Storefront.CartDiscountCodesUpdatePayload? {
+			return internalGetCartDiscountCodesUpdate()
+		}
+
+		open func aliasedCartDiscountCodesUpdate(alias: String) -> Storefront.CartDiscountCodesUpdatePayload? {
+			return internalGetCartDiscountCodesUpdate(alias: alias)
+		}
+
+		func internalGetCartDiscountCodesUpdate(alias: String? = nil) -> Storefront.CartDiscountCodesUpdatePayload? {
+			return field(field: "cartDiscountCodesUpdate", aliasSuffix: alias) as! Storefront.CartDiscountCodesUpdatePayload?
+		}
+
+		/// Adds a merchandise line to the cart. 
+		open var cartLinesAdd: Storefront.CartLinesAddPayload? {
+			return internalGetCartLinesAdd()
+		}
+
+		open func aliasedCartLinesAdd(alias: String) -> Storefront.CartLinesAddPayload? {
+			return internalGetCartLinesAdd(alias: alias)
+		}
+
+		func internalGetCartLinesAdd(alias: String? = nil) -> Storefront.CartLinesAddPayload? {
+			return field(field: "cartLinesAdd", aliasSuffix: alias) as! Storefront.CartLinesAddPayload?
+		}
+
+		/// Removes one or more merchandise lines from the cart. 
+		open var cartLinesRemove: Storefront.CartLinesRemovePayload? {
+			return internalGetCartLinesRemove()
+		}
+
+		open func aliasedCartLinesRemove(alias: String) -> Storefront.CartLinesRemovePayload? {
+			return internalGetCartLinesRemove(alias: alias)
+		}
+
+		func internalGetCartLinesRemove(alias: String? = nil) -> Storefront.CartLinesRemovePayload? {
+			return field(field: "cartLinesRemove", aliasSuffix: alias) as! Storefront.CartLinesRemovePayload?
+		}
+
+		/// Updates one or more merchandise lines on a cart. 
+		open var cartLinesUpdate: Storefront.CartLinesUpdatePayload? {
+			return internalGetCartLinesUpdate()
+		}
+
+		open func aliasedCartLinesUpdate(alias: String) -> Storefront.CartLinesUpdatePayload? {
+			return internalGetCartLinesUpdate(alias: alias)
+		}
+
+		func internalGetCartLinesUpdate(alias: String? = nil) -> Storefront.CartLinesUpdatePayload? {
+			return field(field: "cartLinesUpdate", aliasSuffix: alias) as! Storefront.CartLinesUpdatePayload?
+		}
+
+		/// Updates the note on the cart. 
+		open var cartNoteUpdate: Storefront.CartNoteUpdatePayload? {
+			return internalGetCartNoteUpdate()
+		}
+
+		open func aliasedCartNoteUpdate(alias: String) -> Storefront.CartNoteUpdatePayload? {
+			return internalGetCartNoteUpdate(alias: alias)
+		}
+
+		func internalGetCartNoteUpdate(alias: String? = nil) -> Storefront.CartNoteUpdatePayload? {
+			return field(field: "cartNoteUpdate", aliasSuffix: alias) as! Storefront.CartNoteUpdatePayload?
+		}
+
+		/// Updates the attributes of a checkout if `allowPartialAddresses` is `true`. 
 		@available(*, deprecated, message:"Use `checkoutAttributesUpdateV2` instead")
 		open var checkoutAttributesUpdate: Storefront.CheckoutAttributesUpdatePayload? {
 			return internalGetCheckoutAttributesUpdate()
@@ -1387,7 +1734,7 @@ extension Storefront {
 			return field(field: "checkoutAttributesUpdate", aliasSuffix: alias) as! Storefront.CheckoutAttributesUpdatePayload?
 		}
 
-		/// Updates the attributes of a checkout. 
+		/// Updates the attributes of a checkout if `allowPartialAddresses` is `true`. 
 		open var checkoutAttributesUpdateV2: Storefront.CheckoutAttributesUpdateV2Payload? {
 			return internalGetCheckoutAttributesUpdateV2()
 		}
@@ -1995,6 +2342,54 @@ extension Storefront {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
 				switch($0) {
+					case "cartAttributesUpdate":
+					if let value = internalGetCartAttributesUpdate() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "cartBuyerIdentityUpdate":
+					if let value = internalGetCartBuyerIdentityUpdate() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "cartCreate":
+					if let value = internalGetCartCreate() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "cartDiscountCodesUpdate":
+					if let value = internalGetCartDiscountCodesUpdate() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "cartLinesAdd":
+					if let value = internalGetCartLinesAdd() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "cartLinesRemove":
+					if let value = internalGetCartLinesRemove() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "cartLinesUpdate":
+					if let value = internalGetCartLinesUpdate() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "cartNoteUpdate":
+					if let value = internalGetCartNoteUpdate() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
 					case "checkoutAttributesUpdate":
 					if let value = internalGetCheckoutAttributesUpdate() {
 						response.append(value)

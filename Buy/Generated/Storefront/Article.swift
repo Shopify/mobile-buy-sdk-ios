@@ -164,7 +164,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Globally unique identifier. 
+		/// A globally-unique identifier. 
 		@discardableResult
 		open func id(alias: String? = nil) -> ArticleQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -278,6 +278,15 @@ extension Storefront {
 			return self
 		}
 
+		/// The URL used for viewing the resource on the shop's Online Store. Returns 
+		/// `null` if the resource is currently not published to the Online Store sales 
+		/// channel. 
+		@discardableResult
+		open func onlineStoreUrl(alias: String? = nil) -> ArticleQuery {
+			addField(field: "onlineStoreUrl", aliasSuffix: alias)
+			return self
+		}
+
 		/// The date and time when the article was published. 
 		@discardableResult
 		open func publishedAt(alias: String? = nil) -> ArticleQuery {
@@ -310,6 +319,7 @@ extension Storefront {
 		}
 
 		/// The url pointing to the article accessible from the web. 
+		@available(*, deprecated, message:"Use `onlineStoreUrl` instead")
 		@discardableResult
 		open func url(alias: String? = nil) -> ArticleQuery {
 			addField(field: "url", aliasSuffix: alias)
@@ -318,7 +328,7 @@ extension Storefront {
 	}
 
 	/// An article in an online store blog. 
-	open class Article: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource, Node {
+	open class Article: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource, Node, OnlineStorePublishable {
 		public typealias Query = ArticleQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
@@ -406,6 +416,13 @@ extension Storefront {
 					throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
 				}
 				return try MetafieldConnection(fields: value)
+
+				case "onlineStoreUrl":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
+				}
+				return URL(string: value)!
 
 				case "publishedAt":
 				guard let value = value as? String else {
@@ -538,7 +555,7 @@ extension Storefront {
 			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
-		/// Globally unique identifier. 
+		/// A globally-unique identifier. 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -586,6 +603,17 @@ extension Storefront {
 			return field(field: "metafields", aliasSuffix: alias) as! Storefront.MetafieldConnection
 		}
 
+		/// The URL used for viewing the resource on the shop's Online Store. Returns 
+		/// `null` if the resource is currently not published to the Online Store sales 
+		/// channel. 
+		open var onlineStoreUrl: URL? {
+			return internalGetOnlineStoreUrl()
+		}
+
+		func internalGetOnlineStoreUrl(alias: String? = nil) -> URL? {
+			return field(field: "onlineStoreUrl", aliasSuffix: alias) as! URL?
+		}
+
 		/// The date and time when the article was published. 
 		open var publishedAt: Date {
 			return internalGetPublishedAt()
@@ -623,6 +651,7 @@ extension Storefront {
 		}
 
 		/// The url pointing to the article accessible from the web. 
+		@available(*, deprecated, message:"Use `onlineStoreUrl` instead")
 		open var url: URL {
 			return internalGetUrl()
 		}

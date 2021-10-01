@@ -136,7 +136,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Globally unique identifier. 
+		/// A globally-unique identifier. 
 		@discardableResult
 		open func id(alias: String? = nil) -> ProductQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -327,8 +327,9 @@ extension Storefront {
 			return self
 		}
 
-		/// The online store URL for the product. A value of `null` indicates that the 
-		/// product is not published to the Online Store sales channel. 
+		/// The URL used for viewing the resource on the shop's Online Store. Returns 
+		/// `null` if the resource is currently not published to the Online Store sales 
+		/// channel. 
 		@discardableResult
 		open func onlineStoreUrl(alias: String? = nil) -> ProductQuery {
 			addField(field: "onlineStoreUrl", aliasSuffix: alias)
@@ -367,6 +368,7 @@ extension Storefront {
 		///     - before: Returns the elements that come before the specified cursor.
 		///     - reverse: Reverse the order of the underlying list.
 		///
+		@available(*, deprecated, message:"Use `@inContext` instead.")
 		@discardableResult
 		open func presentmentPriceRanges(alias: String? = nil, presentmentCurrencies: [CurrencyCode]? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (ProductPriceRangeConnectionQuery) -> Void) -> ProductQuery {
 			var args: [String] = []
@@ -607,7 +609,7 @@ extension Storefront {
 	/// digital download (such as a movie, music or ebook file) also qualifies as a 
 	/// product, as do services (such as equipment rental, work for hire, 
 	/// customization of another product or an extended warranty). 
-	open class Product: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource, Node {
+	open class Product: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource, Node, OnlineStorePublishable {
 		public typealias Query = ProductQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
@@ -863,7 +865,7 @@ extension Storefront {
 			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
-		/// Globally unique identifier. 
+		/// A globally-unique identifier. 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -924,8 +926,9 @@ extension Storefront {
 			return field(field: "metafields", aliasSuffix: alias) as! Storefront.MetafieldConnection
 		}
 
-		/// The online store URL for the product. A value of `null` indicates that the 
-		/// product is not published to the Online Store sales channel. 
+		/// The URL used for viewing the resource on the shop's Online Store. Returns 
+		/// `null` if the resource is currently not published to the Online Store sales 
+		/// channel. 
 		open var onlineStoreUrl: URL? {
 			return internalGetOnlineStoreUrl()
 		}
@@ -948,9 +951,12 @@ extension Storefront {
 		}
 
 		/// List of price ranges in the presentment currencies for this shop. 
+		@available(*, deprecated, message:"Use `@inContext` instead.")
 		open var presentmentPriceRanges: Storefront.ProductPriceRangeConnection {
 			return internalGetPresentmentPriceRanges()
 		}
+
+		@available(*, deprecated, message:"Use `@inContext` instead.")
 
 		open func aliasedPresentmentPriceRanges(alias: String) -> Storefront.ProductPriceRangeConnection {
 			return internalGetPresentmentPriceRanges(alias: alias)

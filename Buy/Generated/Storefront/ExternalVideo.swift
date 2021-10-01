@@ -52,7 +52,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Globally unique identifier. 
+		/// A globally-unique identifier. 
 		@discardableResult
 		open func id(alias: String? = nil) -> ExternalVideoQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -154,7 +154,7 @@ extension Storefront {
 			return field(field: "host", aliasSuffix: alias) as! Storefront.MediaHost
 		}
 
-		/// Globally unique identifier. 
+		/// A globally-unique identifier. 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}

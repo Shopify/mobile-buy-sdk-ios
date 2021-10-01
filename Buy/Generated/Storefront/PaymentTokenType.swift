@@ -38,6 +38,9 @@ extension Storefront {
 		/// Shopify Pay token type. 
 		case shopifyPay = "SHOPIFY_PAY"
 
+		/// Stripe token type. 
+		case stripeVaultToken = "STRIPE_VAULT_TOKEN"
+
 		/// Vault payment token type. 
 		case vault = "VAULT"
 

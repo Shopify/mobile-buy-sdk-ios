@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Globally unique identifier. 
+		/// A globally-unique identifier. 
 		@discardableResult
 		open func id(alias: String? = nil) -> LocationQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -95,7 +95,7 @@ extension Storefront {
 			return field(field: "address", aliasSuffix: alias) as! Storefront.LocationAddress
 		}
 
-		/// Globally unique identifier. 
+		/// A globally-unique identifier. 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
