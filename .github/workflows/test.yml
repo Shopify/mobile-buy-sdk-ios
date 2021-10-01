@@ -11,9 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      - uses: actions/setup-ruby@v1
-        with:
-          ruby-version: "2.6"
+      - uses: ruby/setup-ruby@v1
 
       - name: Install xcpretty
         run: gem install xcpretty

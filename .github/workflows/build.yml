@@ -19,9 +19,7 @@ jobs:
           ssh-key: ${{ secrets.SSH_ACTIONS_KEY }}
 
       - name: Install Ruby
-        uses: actions/setup-ruby@v1
-        with:
-        ruby-version: "2.6"
+        uses: ruby/setup-ruby@v1
 
       - name: Install bundler
         run: gem install bundler

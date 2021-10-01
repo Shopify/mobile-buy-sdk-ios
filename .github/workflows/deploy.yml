@@ -17,9 +17,7 @@ jobs:
           ref: "master"
 
       - name: Install Ruby
-        uses: actions/setup-ruby@v1
-        with:
-          ruby-version: "2.6"
+        uses: ruby/setup-ruby@v1
 
       - name: Install dependencies
         run: |
