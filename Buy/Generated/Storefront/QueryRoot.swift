@@ -96,11 +96,39 @@ extension Storefront {
 			return self
 		}
 
+		/// Fetch a specific `Blog` by one of its unique attributes. 
+		///
+		/// - parameters:
+		///     - id: The ID of the `Blog`.
+		///     - handle: The handle of the `Blog`.
+		///
+		@discardableResult
+		open func blog(alias: String? = nil, id: GraphQL.ID? = nil, handle: String? = nil, _ subfields: (BlogQuery) -> Void) -> QueryRootQuery {
+			var args: [String] = []
+
+			if let id = id {
+				args.append("id:\(GraphQL.quoteString(input: "\(id.rawValue)"))")
+			}
+
+			if let handle = handle {
+				args.append("handle:\(GraphQL.quoteString(input: handle))")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = BlogQuery()
+			subfields(subquery)
+
+			addField(field: "blog", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// Find a blog by its handle. 
 		///
 		/// - parameters:
 		///     - handle: The handle of the blog.
 		///
+		@available(*, deprecated, message:"Use `blog` instead")
 		@discardableResult
 		open func blogByHandle(alias: String? = nil, handle: String, _ subfields: (BlogQuery) -> Void) -> QueryRootQuery {
 			var args: [String] = []
@@ -175,11 +203,59 @@ extension Storefront {
 			return self
 		}
 
+		/// Find a cart by its ID. 
+		///
+		/// - parameters:
+		///     - id: The id of the cart.
+		///
+		@discardableResult
+		open func cart(alias: String? = nil, id: GraphQL.ID, _ subfields: (CartQuery) -> Void) -> QueryRootQuery {
+			var args: [String] = []
+
+			args.append("id:\(GraphQL.quoteString(input: "\(id.rawValue)"))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CartQuery()
+			subfields(subquery)
+
+			addField(field: "cart", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Fetch a specific `Collection` by one of its unique attributes. 
+		///
+		/// - parameters:
+		///     - id: The ID of the `Collection`.
+		///     - handle: The handle of the `Collection`.
+		///
+		@discardableResult
+		open func collection(alias: String? = nil, id: GraphQL.ID? = nil, handle: String? = nil, _ subfields: (CollectionQuery) -> Void) -> QueryRootQuery {
+			var args: [String] = []
+
+			if let id = id {
+				args.append("id:\(GraphQL.quoteString(input: "\(id.rawValue)"))")
+			}
+
+			if let handle = handle {
+				args.append("handle:\(GraphQL.quoteString(input: handle))")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = CollectionQuery()
+			subfields(subquery)
+
+			addField(field: "collection", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// Find a collection by its handle. 
 		///
 		/// - parameters:
 		///     - handle: The handle of the collection.
 		///
+		@available(*, deprecated, message:"Use `collection` instead")
 		@discardableResult
 		open func collectionByHandle(alias: String? = nil, handle: String, _ subfields: (CollectionQuery) -> Void) -> QueryRootQuery {
 			var args: [String] = []
@@ -376,11 +452,39 @@ extension Storefront {
 			return self
 		}
 
+		/// Fetch a specific `Page` by one of its unique attributes. 
+		///
+		/// - parameters:
+		///     - id: The ID of the `Page`.
+		///     - handle: The handle of the `Page`.
+		///
+		@discardableResult
+		open func page(alias: String? = nil, id: GraphQL.ID? = nil, handle: String? = nil, _ subfields: (PageQuery) -> Void) -> QueryRootQuery {
+			var args: [String] = []
+
+			if let id = id {
+				args.append("id:\(GraphQL.quoteString(input: "\(id.rawValue)"))")
+			}
+
+			if let handle = handle {
+				args.append("handle:\(GraphQL.quoteString(input: handle))")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = PageQuery()
+			subfields(subquery)
+
+			addField(field: "page", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// Find a page by its handle. 
 		///
 		/// - parameters:
 		///     - handle: The handle of the page.
 		///
+		@available(*, deprecated, message:"Use `page` instead")
 		@discardableResult
 		open func pageByHandle(alias: String? = nil, handle: String, _ subfields: (PageQuery) -> Void) -> QueryRootQuery {
 			var args: [String] = []
@@ -455,11 +559,39 @@ extension Storefront {
 			return self
 		}
 
+		/// Fetch a specific `Product` by one of its unique attributes. 
+		///
+		/// - parameters:
+		///     - id: The ID of the `Product`.
+		///     - handle: The handle of the `Product`.
+		///
+		@discardableResult
+		open func product(alias: String? = nil, id: GraphQL.ID? = nil, handle: String? = nil, _ subfields: (ProductQuery) -> Void) -> QueryRootQuery {
+			var args: [String] = []
+
+			if let id = id {
+				args.append("id:\(GraphQL.quoteString(input: "\(id.rawValue)"))")
+			}
+
+			if let handle = handle {
+				args.append("handle:\(GraphQL.quoteString(input: handle))")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = ProductQuery()
+			subfields(subquery)
+
+			addField(field: "product", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// Find a product by its handle. 
 		///
 		/// - parameters:
 		///     - handle: The handle of the product.
 		///
+		@available(*, deprecated, message:"Use `product` instead")
 		@discardableResult
 		open func productByHandle(alias: String? = nil, handle: String, _ subfields: (ProductQuery) -> Void) -> QueryRootQuery {
 			var args: [String] = []
@@ -639,6 +771,13 @@ extension Storefront {
 				}
 				return try ArticleConnection(fields: value)
 
+				case "blog":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
+				}
+				return try Blog(fields: value)
+
 				case "blogByHandle":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -651,6 +790,20 @@ extension Storefront {
 					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
 				}
 				return try BlogConnection(fields: value)
+
+				case "cart":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
+				}
+				return try Cart(fields: value)
+
+				case "collection":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
+				}
+				return try Collection(fields: value)
 
 				case "collectionByHandle":
 				if value is NSNull { return nil }
@@ -701,6 +854,13 @@ extension Storefront {
 				}
 				return try UnknownNode.create(fields: value) } as [Any?]
 
+				case "page":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
+				}
+				return try Page(fields: value)
+
 				case "pageByHandle":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -713,6 +873,13 @@ extension Storefront {
 					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
 				}
 				return try PageConnection(fields: value)
+
+				case "product":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
+				}
+				return try Product(fields: value)
 
 				case "productByHandle":
 				if value is NSNull { return nil }
@@ -776,10 +943,26 @@ extension Storefront {
 			return field(field: "articles", aliasSuffix: alias) as! Storefront.ArticleConnection
 		}
 
+		/// Fetch a specific `Blog` by one of its unique attributes. 
+		open var blog: Storefront.Blog? {
+			return internalGetBlog()
+		}
+
+		open func aliasedBlog(alias: String) -> Storefront.Blog? {
+			return internalGetBlog(alias: alias)
+		}
+
+		func internalGetBlog(alias: String? = nil) -> Storefront.Blog? {
+			return field(field: "blog", aliasSuffix: alias) as! Storefront.Blog?
+		}
+
 		/// Find a blog by its handle. 
+		@available(*, deprecated, message:"Use `blog` instead")
 		open var blogByHandle: Storefront.Blog? {
 			return internalGetBlogByHandle()
 		}
+
+		@available(*, deprecated, message:"Use `blog` instead")
 
 		open func aliasedBlogByHandle(alias: String) -> Storefront.Blog? {
 			return internalGetBlogByHandle(alias: alias)
@@ -802,10 +985,39 @@ extension Storefront {
 			return field(field: "blogs", aliasSuffix: alias) as! Storefront.BlogConnection
 		}
 
+		/// Find a cart by its ID. 
+		open var cart: Storefront.Cart? {
+			return internalGetCart()
+		}
+
+		open func aliasedCart(alias: String) -> Storefront.Cart? {
+			return internalGetCart(alias: alias)
+		}
+
+		func internalGetCart(alias: String? = nil) -> Storefront.Cart? {
+			return field(field: "cart", aliasSuffix: alias) as! Storefront.Cart?
+		}
+
+		/// Fetch a specific `Collection` by one of its unique attributes. 
+		open var collection: Storefront.Collection? {
+			return internalGetCollection()
+		}
+
+		open func aliasedCollection(alias: String) -> Storefront.Collection? {
+			return internalGetCollection(alias: alias)
+		}
+
+		func internalGetCollection(alias: String? = nil) -> Storefront.Collection? {
+			return field(field: "collection", aliasSuffix: alias) as! Storefront.Collection?
+		}
+
 		/// Find a collection by its handle. 
+		@available(*, deprecated, message:"Use `collection` instead")
 		open var collectionByHandle: Storefront.Collection? {
 			return internalGetCollectionByHandle()
 		}
+
+		@available(*, deprecated, message:"Use `collection` instead")
 
 		open func aliasedCollectionByHandle(alias: String) -> Storefront.Collection? {
 			return internalGetCollectionByHandle(alias: alias)
@@ -890,10 +1102,26 @@ extension Storefront {
 			return field(field: "nodes", aliasSuffix: alias) as! [Node?]
 		}
 
+		/// Fetch a specific `Page` by one of its unique attributes. 
+		open var page: Storefront.Page? {
+			return internalGetPage()
+		}
+
+		open func aliasedPage(alias: String) -> Storefront.Page? {
+			return internalGetPage(alias: alias)
+		}
+
+		func internalGetPage(alias: String? = nil) -> Storefront.Page? {
+			return field(field: "page", aliasSuffix: alias) as! Storefront.Page?
+		}
+
 		/// Find a page by its handle. 
+		@available(*, deprecated, message:"Use `page` instead")
 		open var pageByHandle: Storefront.Page? {
 			return internalGetPageByHandle()
 		}
+
+		@available(*, deprecated, message:"Use `page` instead")
 
 		open func aliasedPageByHandle(alias: String) -> Storefront.Page? {
 			return internalGetPageByHandle(alias: alias)
@@ -916,10 +1144,26 @@ extension Storefront {
 			return field(field: "pages", aliasSuffix: alias) as! Storefront.PageConnection
 		}
 
+		/// Fetch a specific `Product` by one of its unique attributes. 
+		open var product: Storefront.Product? {
+			return internalGetProduct()
+		}
+
+		open func aliasedProduct(alias: String) -> Storefront.Product? {
+			return internalGetProduct(alias: alias)
+		}
+
+		func internalGetProduct(alias: String? = nil) -> Storefront.Product? {
+			return field(field: "product", aliasSuffix: alias) as! Storefront.Product?
+		}
+
 		/// Find a product by its handle. 
+		@available(*, deprecated, message:"Use `product` instead")
 		open var productByHandle: Storefront.Product? {
 			return internalGetProductByHandle()
 		}
+
+		@available(*, deprecated, message:"Use `product` instead")
 
 		open func aliasedProductByHandle(alias: String) -> Storefront.Product? {
 			return internalGetProductByHandle(alias: alias)
@@ -1013,6 +1257,12 @@ extension Storefront {
 					response.append(internalGetArticles())
 					response.append(contentsOf: internalGetArticles().childResponseObjectMap())
 
+					case "blog":
+					if let value = internalGetBlog() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
 					case "blogByHandle":
 					if let value = internalGetBlogByHandle() {
 						response.append(value)
@@ -1022,6 +1272,18 @@ extension Storefront {
 					case "blogs":
 					response.append(internalGetBlogs())
 					response.append(contentsOf: internalGetBlogs().childResponseObjectMap())
+
+					case "cart":
+					if let value = internalGetCart() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "collection":
+					if let value = internalGetCollection() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
 
 					case "collectionByHandle":
 					if let value = internalGetCollectionByHandle() {
@@ -1061,6 +1323,12 @@ extension Storefront {
 						}
 					}
 
+					case "page":
+					if let value = internalGetPage() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
 					case "pageByHandle":
 					if let value = internalGetPageByHandle() {
 						response.append(value)
@@ -1070,6 +1338,12 @@ extension Storefront {
 					case "pages":
 					response.append(internalGetPages())
 					response.append(contentsOf: internalGetPages().childResponseObjectMap())
+
+					case "product":
+					if let value = internalGetProduct() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
 
 					case "productByHandle":
 					if let value = internalGetProductByHandle() {

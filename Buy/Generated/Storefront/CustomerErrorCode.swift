@@ -35,7 +35,7 @@ extension Storefront {
 		/// Input email contains an invalid domain name. 
 		case badDomain = "BAD_DOMAIN"
 
-		/// Input value is blank. 
+		/// The input value is blank. 
 		case blank = "BLANK"
 
 		/// Input contains HTML tags. 
@@ -47,7 +47,7 @@ extension Storefront {
 		/// Customer is disabled. 
 		case customerDisabled = "CUSTOMER_DISABLED"
 
-		/// Input value is invalid. 
+		/// The input value is invalid. 
 		case invalid = "INVALID"
 
 		/// Multipass token is not valid. 
@@ -59,16 +59,16 @@ extension Storefront {
 		/// Input password starts or ends with whitespace. 
 		case passwordStartsOrEndsWithWhitespace = "PASSWORD_STARTS_OR_ENDS_WITH_WHITESPACE"
 
-		/// Input value is already taken. 
+		/// The input value is already taken. 
 		case taken = "TAKEN"
 
 		/// Invalid activation token. 
 		case tokenInvalid = "TOKEN_INVALID"
 
-		/// Input value is too long. 
+		/// The input value is too long. 
 		case tooLong = "TOO_LONG"
 
-		/// Input value is too short. 
+		/// The input value is too short. 
 		case tooShort = "TOO_SHORT"
 
 		/// Unidentified customer. 

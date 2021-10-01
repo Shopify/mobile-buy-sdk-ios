@@ -35,7 +35,7 @@ extension Storefront {
 		/// Input email contains an invalid domain name. 
 		case badDomain = "BAD_DOMAIN"
 
-		/// Input value is blank. 
+		/// The input value is blank. 
 		case blank = "BLANK"
 
 		/// Cart does not meet discount requirements notice. 
@@ -89,10 +89,11 @@ extension Storefront {
 		/// Gift card cannot be applied to a checkout that contains a gift card. 
 		case giftCardUnusable = "GIFT_CARD_UNUSABLE"
 
-		/// Input value should be greater than or equal to minimum allowed value. 
+		/// The input value should be greater than or equal to the minimum value 
+		/// allowed. 
 		case greaterThanOrEqualTo = "GREATER_THAN_OR_EQUAL_TO"
 
-		/// Input value is invalid. 
+		/// The input value is invalid. 
 		case invalid = "INVALID"
 
 		/// Cannot specify country and presentment currency code. 
@@ -116,10 +117,10 @@ extension Storefront {
 		/// Invalid state in country. 
 		case invalidStateInCountry = "INVALID_STATE_IN_COUNTRY"
 
-		/// Input value should be less than maximum allowed value. 
+		/// The input value should be less than the maximum value allowed. 
 		case lessThan = "LESS_THAN"
 
-		/// Input value should be less or equal to maximum allowed value. 
+		/// The input value should be less than or equal to the maximum value allowed. 
 		case lessThanOrEqualTo = "LESS_THAN_OR_EQUAL_TO"
 
 		/// Line item was not found in checkout. 
@@ -137,7 +138,7 @@ extension Storefront {
 		/// Input value is not supported. 
 		case notSupported = "NOT_SUPPORTED"
 
-		/// Input value must be blank. 
+		/// The input value needs to be blank. 
 		case present = "PRESENT"
 
 		/// Shipping rate expired. 
@@ -146,7 +147,7 @@ extension Storefront {
 		/// Throttled during checkout. 
 		case throttledDuringCheckout = "THROTTLED_DURING_CHECKOUT"
 
-		/// Input value is too long. 
+		/// The input value is too long. 
 		case tooLong = "TOO_LONG"
 
 		/// The amount of the payment does not match the value to be paid. 

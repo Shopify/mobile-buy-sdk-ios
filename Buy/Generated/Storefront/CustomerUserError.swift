@@ -31,14 +31,14 @@ extension Storefront {
 	open class CustomerUserErrorQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CustomerUserError
 
-		/// Error code to uniquely identify the error. 
+		/// The error code. 
 		@discardableResult
 		open func code(alias: String? = nil) -> CustomerUserErrorQuery {
 			addField(field: "code", aliasSuffix: alias)
 			return self
 		}
 
-		/// Path to the input field which caused the error. 
+		/// The path to the input field that caused the error. 
 		@discardableResult
 		open func field(alias: String? = nil) -> CustomerUserErrorQuery {
 			addField(field: "field", aliasSuffix: alias)
@@ -85,7 +85,7 @@ extension Storefront {
 			}
 		}
 
-		/// Error code to uniquely identify the error. 
+		/// The error code. 
 		open var code: Storefront.CustomerErrorCode? {
 			return internalGetCode()
 		}
@@ -94,7 +94,7 @@ extension Storefront {
 			return field(field: "code", aliasSuffix: alias) as! Storefront.CustomerErrorCode?
 		}
 
-		/// Path to the input field which caused the error. 
+		/// The path to the input field that caused the error. 
 		open var field: [String]? {
 			return internalGetField()
 		}

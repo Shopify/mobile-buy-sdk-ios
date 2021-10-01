@@ -31,7 +31,7 @@ extension Storefront {
 	open class UserErrorQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = UserError
 
-		/// Path to the input field which caused the error. 
+		/// The path to the input field that caused the error. 
 		@discardableResult
 		open func field(alias: String? = nil) -> UserErrorQuery {
 			addField(field: "field", aliasSuffix: alias)
@@ -71,7 +71,7 @@ extension Storefront {
 			}
 		}
 
-		/// Path to the input field which caused the error. 
+		/// The path to the input field that caused the error. 
 		open var field: [String]? {
 			return internalGetField()
 		}

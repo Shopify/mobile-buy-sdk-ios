@@ -4,82 +4,78 @@ on:
   schedule:
     # Run on midnight UTC on the first of jan/apr/jul/oct
     # API is released 1PM EDT/EST
-    - cron: '59 23 1 1/3 *'
+    - cron: "59 23 1 1/3 *"
   workflow_dispatch:
 
 jobs:
   build:
-
     runs-on: macOS-latest
 
     steps:
-    - name: Checkout master
-      uses: actions/checkout@master
-      with:
-        ref: 'master'
-        ssh-key: ${{ secrets.SSH_ACTIONS_KEY }}
+      - name: Checkout master
+        uses: actions/checkout@master
+        with:
+          ref: "master"
+          ssh-key: ${{ secrets.SSH_ACTIONS_KEY }}
 
-    - name: Install Ruby
-      uses: actions/setup-ruby@v1
-      with:
-        ruby-version: '2.6'
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
 
-    - name: Install bundler
-      run: gem install bundler
+      - name: Install bundler
+        run: gem install bundler
 
-    - name: Install dependencies
-      run: bundle install
+      - name: Install dependencies
+        run: bundle install
 
-    - name: Get API Version
-      id: version
-      run: |
-        API_VERSION="$(./Scripts/get_api_version)"
-        BRANCH_NAME="release/${API_VERSION}-auto-generated"
-        echo "API_VERSION=$API_VERSION" >> $GITHUB_ENV
-        echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+      - name: Get API Version
+        id: version
+        run: |
+          API_VERSION="$(./Scripts/get_api_version)"
+          BRANCH_NAME="release/${API_VERSION}-auto-generated"
+          echo "API_VERSION=$API_VERSION" >> $GITHUB_ENV
+          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
 
-    - name: Create and push the release branch
-      run: |
-        git checkout -B $BRANCH_NAME # -B will reset branch if it exists
-        git push --set-upstream --force origin $BRANCH_NAME
+      - name: Create and push the release branch
+        run: |
+          git checkout -B $BRANCH_NAME # -B will reset branch if it exists
+          git push --set-upstream --force origin $BRANCH_NAME
 
-    - name: Build new SDK version
-      run: |
-        echo "Generating schema for $API_VERSION"
-        ./Scripts/build $API_VERSION
-        git add ./Buy/Generated
-        git commit -m "Update schema (auto-generated)"
-        git push --set-upstream --force origin $BRANCH_NAME
+      - name: Build new SDK version
+        run: |
+          echo "Generating schema for $API_VERSION"
+          ./Scripts/build $API_VERSION
+          git add ./Buy/Generated
+          git commit -m "Update schema (auto-generated)"
+          git push --set-upstream --force origin $BRANCH_NAME
 
-    - name: Create pull request
-      uses: actions/github-script@0.9.0
-      with:
-        script: |
-          const api_version = process.env.API_VERSION
-          const branch_name = process.env.BRANCH_NAME
-          github.pulls.create({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            title: 'Update schema (auto-generated)',
-            head: branch_name,
-            base: 'master',
-            body: "### Release notes" +
-              "\n" +
-              `\nThe [latest schema changes](https://shopify.dev/concepts/about-apis/versioning/release-notes/${api_version}#storefront-api-changes).` +
-              "\n" +
-              "\n#### Steps to release" +
-              "\n- [ ] Tests are passing" +
-              "\n- [ ] Update the [Buy SDK and Library Releases spreadsheet](https://docs.google.com/spreadsheets/d/1WZ8dEl9dQQ6O3ZmBpvq3x-25pBUzN7J6fyj6GnVdS0Q) with the new SDK version" +
-              "\n- [ ] After merging this PR, remember to manually publish the [generated release](https://github.com/Shopify/mobile-buy-sdk-ios/releases)"
-            })
+      - name: Create pull request
+        uses: actions/github-script@0.9.0
+        with:
+          script: |
+            const api_version = process.env.API_VERSION
+            const branch_name = process.env.BRANCH_NAME
+            github.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Update schema (auto-generated)',
+              head: branch_name,
+              base: 'master',
+              body: "### Release notes" +
+                "\n" +
+                `\nThe [latest schema changes](https://shopify.dev/concepts/about-apis/versioning/release-notes/${api_version}#storefront-api-changes).` +
+                "\n" +
+                "\n#### Steps to release" +
+                "\n- [ ] Tests are passing" +
+                "\n- [ ] Update the [Buy SDK and Library Releases spreadsheet](https://docs.google.com/spreadsheets/d/1WZ8dEl9dQQ6O3ZmBpvq3x-25pBUzN7J6fyj6GnVdS0Q) with the new SDK version" +
+                "\n- [ ] After merging this PR, remember to manually publish the [generated release](https://github.com/Shopify/mobile-buy-sdk-ios/releases)"
+              })
 
-    - name: Increment SDK version
-      run: |
-        ./Scripts/increment_version
-        git add ./Buy/Utilities/SDK.swift
-        git add ./Mobile-Buy-SDK.podspec
-        git add ./\*Info.plist
-        git add
-        git commit -m "Bump version"
-        git push --set-upstream --force origin $BRANCH_NAME
-        
+      - name: Increment SDK version
+        run: |
+          ./Scripts/increment_version
+          git add ./Buy/Utilities/SDK.swift
+          git add ./Mobile-Buy-SDK.podspec
+          git add ./\*Info.plist
+          git add
+          git commit -m "Bump version"
+          git push --set-upstream --force origin $BRANCH_NAME

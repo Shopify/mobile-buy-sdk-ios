@@ -75,7 +75,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Globally unique identifier. 
+		/// A globally-unique identifier. 
 		@discardableResult
 		open func id(alias: String? = nil) -> ProductVariantQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -201,6 +201,7 @@ extension Storefront {
 		///     - before: Returns the elements that come before the specified cursor.
 		///     - reverse: Reverse the order of the underlying list.
 		///
+		@available(*, deprecated, message:"Use `@inContext` instead.")
 		@discardableResult
 		open func presentmentPrices(alias: String? = nil, presentmentCurrencies: [CurrencyCode]? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (ProductVariantPricePairConnectionQuery) -> Void) -> ProductVariantQuery {
 			var args: [String] = []
@@ -248,6 +249,7 @@ extension Storefront {
 		///     - before: Returns the elements that come before the specified cursor.
 		///     - reverse: Reverse the order of the underlying list.
 		///
+		@available(*, deprecated, message:"Use `@inContext` instead.")
 		@discardableResult
 		open func presentmentUnitPrices(alias: String? = nil, presentmentCurrencies: [CurrencyCode]? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (MoneyV2ConnectionQuery) -> Void) -> ProductVariantQuery {
 			var args: [String] = []
@@ -476,7 +478,7 @@ extension Storefront {
 
 	/// A product variant represents a different version of a product, such as 
 	/// differing sizes or differing colors. 
-	open class ProductVariant: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource, Node {
+	open class ProductVariant: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, Merchandise, MetafieldParentResource, Node {
 		public typealias Query = ProductVariantQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
@@ -697,7 +699,7 @@ extension Storefront {
 			return field(field: "currentlyNotInStock", aliasSuffix: alias) as! Bool
 		}
 
-		/// Globally unique identifier. 
+		/// A globally-unique identifier. 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -748,9 +750,12 @@ extension Storefront {
 
 		/// List of prices and compare-at prices in the presentment currencies for this 
 		/// shop. 
+		@available(*, deprecated, message:"Use `@inContext` instead.")
 		open var presentmentPrices: Storefront.ProductVariantPricePairConnection {
 			return internalGetPresentmentPrices()
 		}
+
+		@available(*, deprecated, message:"Use `@inContext` instead.")
 
 		open func aliasedPresentmentPrices(alias: String) -> Storefront.ProductVariantPricePairConnection {
 			return internalGetPresentmentPrices(alias: alias)
@@ -761,9 +766,12 @@ extension Storefront {
 		}
 
 		/// List of unit prices in the presentment currencies for this shop. 
+		@available(*, deprecated, message:"Use `@inContext` instead.")
 		open var presentmentUnitPrices: Storefront.MoneyV2Connection {
 			return internalGetPresentmentUnitPrices()
 		}
+
+		@available(*, deprecated, message:"Use `@inContext` instead.")
 
 		open func aliasedPresentmentUnitPrices(alias: String) -> Storefront.MoneyV2Connection {
 			return internalGetPresentmentUnitPrices(alias: alias)

@@ -36,7 +36,7 @@ extension Storefront {
 	open class NodeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Node
 
-		/// Globally unique identifier. 
+		/// A globally-unique identifier. 
 		@discardableResult
 		open func id(alias: String? = nil) -> NodeQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -72,6 +72,24 @@ extension Storefront {
 			let subquery = BlogQuery()
 			subfields(subquery)
 			addInlineFragment(on: "Blog", subfields: subquery)
+			return self
+		}
+
+		/// An object with an ID to support global identification. 
+		@discardableResult
+		open func onCart(subfields: (CartQuery) -> Void) -> NodeQuery {
+			let subquery = CartQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Cart", subfields: subquery)
+			return self
+		}
+
+		/// An object with an ID to support global identification. 
+		@discardableResult
+		open func onCartLine(subfields: (CartLineQuery) -> Void) -> NodeQuery {
+			let subquery = CartLineQuery()
+			subfields(subquery)
+			addInlineFragment(on: "CartLine", subfields: subquery)
 			return self
 		}
 
@@ -267,6 +285,10 @@ extension Storefront {
 
 				case "Blog": return try Blog.init(fields: fields)
 
+				case "Cart": return try Cart.init(fields: fields)
+
+				case "CartLine": return try CartLine.init(fields: fields)
+
 				case "Checkout": return try Checkout.init(fields: fields)
 
 				case "CheckoutLineItem": return try CheckoutLineItem.init(fields: fields)
@@ -308,7 +330,7 @@ extension Storefront {
 			}
 		}
 
-		/// Globally unique identifier. 
+		/// A globally-unique identifier. 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}

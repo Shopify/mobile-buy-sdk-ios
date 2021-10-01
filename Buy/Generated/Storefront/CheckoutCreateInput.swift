@@ -47,13 +47,14 @@ extension Storefront {
 
 		/// Allows setting partial addresses on a Checkout, skipping the full 
 		/// validation of attributes. The required attributes are city, province, and 
-		/// country. Full validation of addresses is still done at complete time. 
+		/// country. Full validation of addresses is still done at completion time. 
+		/// Defaults to `null`. 
 		open var allowPartialAddresses: Input<Bool>
 
 		/// The three-letter currency code of one of the shop's enabled presentment 
 		/// currencies. Including this field creates a checkout in the specified 
 		/// currency. By default, new checkouts are created in the shop's primary 
-		/// currency. 
+		/// currency. This argument is deprecated: Use `country` field instead. 
 		open var presentmentCurrencyCode: Input<CurrencyCode>
 
 		/// The identity of the customer associated with the checkout. 
@@ -67,8 +68,8 @@ extension Storefront {
 		///     - shippingAddress: The shipping address to where the line items will be shipped.
 		///     - note: The text of an optional note that a shop owner can attach to the checkout.
 		///     - customAttributes: A list of extra information that is added to the checkout.
-		///     - allowPartialAddresses: Allows setting partial addresses on a Checkout, skipping the full validation of attributes. The required attributes are city, province, and country. Full validation of addresses is still done at complete time. 
-		///     - presentmentCurrencyCode: The three-letter currency code of one of the shop's enabled presentment currencies. Including this field creates a checkout in the specified currency. By default, new checkouts are created in the shop's primary currency. 
+		///     - allowPartialAddresses: Allows setting partial addresses on a Checkout, skipping the full validation of attributes. The required attributes are city, province, and country. Full validation of addresses is still done at completion time. Defaults to `null`. 
+		///     - presentmentCurrencyCode: The three-letter currency code of one of the shop's enabled presentment currencies. Including this field creates a checkout in the specified currency. By default, new checkouts are created in the shop's primary currency.  This argument is deprecated: Use `country` field instead.
 		///     - buyerIdentity: The identity of the customer associated with the checkout.
 		///
 		public static func create(email: Input<String> = .undefined, lineItems: Input<[CheckoutLineItemInput]> = .undefined, shippingAddress: Input<MailingAddressInput> = .undefined, note: Input<String> = .undefined, customAttributes: Input<[AttributeInput]> = .undefined, allowPartialAddresses: Input<Bool> = .undefined, presentmentCurrencyCode: Input<CurrencyCode> = .undefined, buyerIdentity: Input<CheckoutBuyerIdentityInput> = .undefined) -> CheckoutCreateInput {
@@ -94,8 +95,8 @@ extension Storefront {
 		///     - shippingAddress: The shipping address to where the line items will be shipped.
 		///     - note: The text of an optional note that a shop owner can attach to the checkout.
 		///     - customAttributes: A list of extra information that is added to the checkout.
-		///     - allowPartialAddresses: Allows setting partial addresses on a Checkout, skipping the full validation of attributes. The required attributes are city, province, and country. Full validation of addresses is still done at complete time. 
-		///     - presentmentCurrencyCode: The three-letter currency code of one of the shop's enabled presentment currencies. Including this field creates a checkout in the specified currency. By default, new checkouts are created in the shop's primary currency. 
+		///     - allowPartialAddresses: Allows setting partial addresses on a Checkout, skipping the full validation of attributes. The required attributes are city, province, and country. Full validation of addresses is still done at completion time. Defaults to `null`. 
+		///     - presentmentCurrencyCode: The three-letter currency code of one of the shop's enabled presentment currencies. Including this field creates a checkout in the specified currency. By default, new checkouts are created in the shop's primary currency.  This argument is deprecated: Use `country` field instead.
 		///     - buyerIdentity: The identity of the customer associated with the checkout.
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
