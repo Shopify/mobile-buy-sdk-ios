@@ -42,6 +42,60 @@ extension Storefront {
 
 		/// A resource that the metafield belongs to. 
 		@discardableResult
+		open func onArticle(subfields: (ArticleQuery) -> Void) -> MetafieldParentResourceQuery {
+			let subquery = ArticleQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Article", subfields: subquery)
+			return self
+		}
+
+		/// A resource that the metafield belongs to. 
+		@discardableResult
+		open func onBlog(subfields: (BlogQuery) -> Void) -> MetafieldParentResourceQuery {
+			let subquery = BlogQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Blog", subfields: subquery)
+			return self
+		}
+
+		/// A resource that the metafield belongs to. 
+		@discardableResult
+		open func onCollection(subfields: (CollectionQuery) -> Void) -> MetafieldParentResourceQuery {
+			let subquery = CollectionQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Collection", subfields: subquery)
+			return self
+		}
+
+		/// A resource that the metafield belongs to. 
+		@discardableResult
+		open func onCustomer(subfields: (CustomerQuery) -> Void) -> MetafieldParentResourceQuery {
+			let subquery = CustomerQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Customer", subfields: subquery)
+			return self
+		}
+
+		/// A resource that the metafield belongs to. 
+		@discardableResult
+		open func onOrder(subfields: (OrderQuery) -> Void) -> MetafieldParentResourceQuery {
+			let subquery = OrderQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Order", subfields: subquery)
+			return self
+		}
+
+		/// A resource that the metafield belongs to. 
+		@discardableResult
+		open func onPage(subfields: (PageQuery) -> Void) -> MetafieldParentResourceQuery {
+			let subquery = PageQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Page", subfields: subquery)
+			return self
+		}
+
+		/// A resource that the metafield belongs to. 
+		@discardableResult
 		open func onProduct(subfields: (ProductQuery) -> Void) -> MetafieldParentResourceQuery {
 			let subquery = ProductQuery()
 			subfields(subquery)
@@ -55,6 +109,15 @@ extension Storefront {
 			let subquery = ProductVariantQuery()
 			subfields(subquery)
 			addInlineFragment(on: "ProductVariant", subfields: subquery)
+			return self
+		}
+
+		/// A resource that the metafield belongs to. 
+		@discardableResult
+		open func onShop(subfields: (ShopQuery) -> Void) -> MetafieldParentResourceQuery {
+			let subquery = ShopQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Shop", subfields: subquery)
 			return self
 		}
 	}
@@ -76,9 +139,23 @@ extension Storefront {
 				throw SchemaViolationError(type: UnknownMetafieldParentResource.self, field: "__typename", value: fields["__typename"] ?? NSNull())
 			}
 			switch typeName {
+				case "Article": return try Article.init(fields: fields)
+
+				case "Blog": return try Blog.init(fields: fields)
+
+				case "Collection": return try Collection.init(fields: fields)
+
+				case "Customer": return try Customer.init(fields: fields)
+
+				case "Order": return try Order.init(fields: fields)
+
+				case "Page": return try Page.init(fields: fields)
+
 				case "Product": return try Product.init(fields: fields)
 
 				case "ProductVariant": return try ProductVariant.init(fields: fields)
+
+				case "Shop": return try Shop.init(fields: fields)
 
 				default:
 				return try UnknownMetafieldParentResource.init(fields: fields)

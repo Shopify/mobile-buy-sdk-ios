@@ -58,6 +58,7 @@ The Mobile Buy SDK makes it easy to create custom storefronts in your mobile app
   - [Checkout](#checkout-)
       - [Creating a checkout](#checkout-)
       - [Updating a checkout](#updating-a-checkout-)
+      - [Polling for checkout readiness](#polling-for-checkout-updates-)
       - [Polling for shipping rates](#polling-for-shipping-rates-)
       - [Updating shipping line](#updating-shipping-line-)
       - [Completing a checkout](#completing-a-checkout-)
@@ -1120,6 +1121,53 @@ let mutation = Storefront.buildMutation { $0
 }
 ```
 
+##### Polling for checkout readiness [⤴](#table-of-contents)
+
+Checkouts may have asynchronous operations that can take time to finish. If you want to complete a checkout or ensure all the fields are populated and up to date, polling is required until the `ready` value is `true`. Fields that are populated asynchronously include duties and taxes.
+
+All asynchronous computations are completed and the checkout is updated accordingly once the `checkout.ready` flag is `true`. 
+This flag should be checked (and polled if it is `false`) after every update to the checkout to ensure there are no asynchronous processes running that could affect the fields of the checkout. 
+Common examples would be after updating the shipping address or adjusting the line items of a checkout.
+
+```swift
+let query = Storefront.buildQuery { $0
+    .node(id: checkoutID) { $0
+        .onCheckout { $0
+            .id()
+            .ready() // <- Indicates that all fields are up to date after asynchronous operations completed.
+            .totalDuties { $0
+                .amount()
+                .currencyCode()
+            }
+            .totalTaxV2 { $0
+                .amount()
+                .currencyCode()
+            }
+            .totalPriceV2 { $0
+                .amount()
+                .currencyCode()
+            }
+            // ...
+        }
+    }
+}
+```
+
+It is your application's responsibility to poll for updates and to continue retrying this query until `ready == true` and to use the updated fields returned with that response. The Buy SDK has [built-in support for retrying requests](#retry-), so we'll create a retry handler and perform the query:
+
+```swift
+let retry = Graph.RetryHandler<Storefront.QueryRoot>(endurance: .finite(10)) { (response, _) -> Bool in
+    (response?.node as? Storefront.Checkout)?.ready ?? false == false
+}
+
+let task = self.client.queryGraphWith(query, retryHandler: retry) { response, error in
+    let updatedCheckout = response?.node as? Storefront.Checkout
+}
+task.resume()
+```
+
+The completion will be called only if `checkout.ready == true` or the retry count reaches 10. Although you can specify `.infinite` for the retry handler's `endurance` property, we highly recommend you set a finite limit.
+
 ##### Polling for shipping rates [⤴](#table-of-contents)
 
 Available shipping rates are specific to a checkout since the cost to ship items depends on the quantity, weight, and other attributes of the items in the checkout. Shipping rates also require a checkout to have a valid `shippingAddress`, which can be updated using steps found in [updating a checkout](#updating-a-checkout-). Available shipping rates are a field on `Storefront.Checkout`, so given a `checkoutID` (that we kept a reference to earlier) we can query for shipping rates:
@@ -1244,8 +1292,6 @@ let task = client.mutateGraphWith(mutation) { result, error in
 }
 task.resume()
 ```
-**IMPORTANT**: Before completing the checkout with a credit card, you need to have the `write_checkouts_payments` scope enabled for your app. This can be done by [requesting payment process for native mobile apps](https://docs.google.com/forms/d/e/1FAIpQLSfaiwWJwTsMKKi6Sl-qfiLMwKRKyZ9TxBuutumkk6ThisFTUg/viewform). Alternatively, if this will be a [Sales Channel](https://shopify.dev/tutorials/build-a-sales-channel), you can request through [payment processing for Sales Channels](https://shopify.dev/tutorials/authenticate-a-public-app-with-oauth#request-payment-processing).  
-
 **3D Secure Checkout**
 
 To implement 3D secure on your checkout flow, see [the API Help Docs](https://help.shopify.com/en/api/guides/3d-secure#graphql-storefront-api-changes).

@@ -40,7 +40,7 @@ extension Storefront {
 	open class HasMetafieldsQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = HasMetafields
 
-		/// The metafield associated with the resource. 
+		/// Returns a metafield found by namespace and key. 
 		///
 		/// - parameters:
 		///     - namespace: Container for a set of metafields (maximum of 20 characters).
@@ -118,6 +118,66 @@ extension Storefront {
 		/// Represents information about the metafields associated to the specified 
 		/// resource. 
 		@discardableResult
+		open func onArticle(subfields: (ArticleQuery) -> Void) -> HasMetafieldsQuery {
+			let subquery = ArticleQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Article", subfields: subquery)
+			return self
+		}
+
+		/// Represents information about the metafields associated to the specified 
+		/// resource. 
+		@discardableResult
+		open func onBlog(subfields: (BlogQuery) -> Void) -> HasMetafieldsQuery {
+			let subquery = BlogQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Blog", subfields: subquery)
+			return self
+		}
+
+		/// Represents information about the metafields associated to the specified 
+		/// resource. 
+		@discardableResult
+		open func onCollection(subfields: (CollectionQuery) -> Void) -> HasMetafieldsQuery {
+			let subquery = CollectionQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Collection", subfields: subquery)
+			return self
+		}
+
+		/// Represents information about the metafields associated to the specified 
+		/// resource. 
+		@discardableResult
+		open func onCustomer(subfields: (CustomerQuery) -> Void) -> HasMetafieldsQuery {
+			let subquery = CustomerQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Customer", subfields: subquery)
+			return self
+		}
+
+		/// Represents information about the metafields associated to the specified 
+		/// resource. 
+		@discardableResult
+		open func onOrder(subfields: (OrderQuery) -> Void) -> HasMetafieldsQuery {
+			let subquery = OrderQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Order", subfields: subquery)
+			return self
+		}
+
+		/// Represents information about the metafields associated to the specified 
+		/// resource. 
+		@discardableResult
+		open func onPage(subfields: (PageQuery) -> Void) -> HasMetafieldsQuery {
+			let subquery = PageQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Page", subfields: subquery)
+			return self
+		}
+
+		/// Represents information about the metafields associated to the specified 
+		/// resource. 
+		@discardableResult
 		open func onProduct(subfields: (ProductQuery) -> Void) -> HasMetafieldsQuery {
 			let subquery = ProductQuery()
 			subfields(subquery)
@@ -132,6 +192,16 @@ extension Storefront {
 			let subquery = ProductVariantQuery()
 			subfields(subquery)
 			addInlineFragment(on: "ProductVariant", subfields: subquery)
+			return self
+		}
+
+		/// Represents information about the metafields associated to the specified 
+		/// resource. 
+		@discardableResult
+		open func onShop(subfields: (ShopQuery) -> Void) -> HasMetafieldsQuery {
+			let subquery = ShopQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Shop", subfields: subquery)
 			return self
 		}
 	}
@@ -167,16 +237,30 @@ extension Storefront {
 				throw SchemaViolationError(type: UnknownHasMetafields.self, field: "__typename", value: fields["__typename"] ?? NSNull())
 			}
 			switch typeName {
+				case "Article": return try Article.init(fields: fields)
+
+				case "Blog": return try Blog.init(fields: fields)
+
+				case "Collection": return try Collection.init(fields: fields)
+
+				case "Customer": return try Customer.init(fields: fields)
+
+				case "Order": return try Order.init(fields: fields)
+
+				case "Page": return try Page.init(fields: fields)
+
 				case "Product": return try Product.init(fields: fields)
 
 				case "ProductVariant": return try ProductVariant.init(fields: fields)
+
+				case "Shop": return try Shop.init(fields: fields)
 
 				default:
 				return try UnknownHasMetafields.init(fields: fields)
 			}
 		}
 
-		/// The metafield associated with the resource. 
+		/// Returns a metafield found by namespace and key. 
 		open var metafield: Storefront.Metafield? {
 			return internalGetMetafield()
 		}

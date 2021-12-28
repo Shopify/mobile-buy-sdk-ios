@@ -23,7 +23,6 @@ xcuserdata
 *.moved-aside
 *.xcuserstate
 *.xcscmblueprint
-.ruby-version
 *Sample*/Buy.framework
 *-INTERNAL.*
 

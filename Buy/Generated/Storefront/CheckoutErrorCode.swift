@@ -35,7 +35,7 @@ extension Storefront {
 		/// Input email contains an invalid domain name. 
 		case badDomain = "BAD_DOMAIN"
 
-		/// Input value is blank. 
+		/// The input value is blank. 
 		case blank = "BLANK"
 
 		/// Cart does not meet discount requirements notice. 
@@ -62,6 +62,9 @@ extension Storefront {
 		/// Checkout is already completed. 
 		case empty = "EMPTY"
 
+		/// Queue token has expired. 
+		case expiredQueueToken = "EXPIRED_QUEUE_TOKEN"
+
 		/// Gift card has already been applied. 
 		case giftCardAlreadyApplied = "GIFT_CARD_ALREADY_APPLIED"
 
@@ -86,11 +89,15 @@ extension Storefront {
 		/// Gift card cannot be applied to a checkout that contains a gift card. 
 		case giftCardUnusable = "GIFT_CARD_UNUSABLE"
 
-		/// Input value should be greater than or equal to minimum allowed value. 
+		/// The input value should be greater than or equal to the minimum value 
+		/// allowed. 
 		case greaterThanOrEqualTo = "GREATER_THAN_OR_EQUAL_TO"
 
-		/// Input value is invalid. 
+		/// The input value is invalid. 
 		case invalid = "INVALID"
+
+		/// Cannot specify country and presentment currency code. 
+		case invalidCountryAndCurrency = "INVALID_COUNTRY_AND_CURRENCY"
 
 		/// Input Zip is invalid for country provided. 
 		case invalidForCountry = "INVALID_FOR_COUNTRY"
@@ -101,16 +108,19 @@ extension Storefront {
 		/// Invalid province in country. 
 		case invalidProvinceInCountry = "INVALID_PROVINCE_IN_COUNTRY"
 
+		/// Queue token is invalid. 
+		case invalidQueueToken = "INVALID_QUEUE_TOKEN"
+
 		/// Invalid region in country. 
 		case invalidRegionInCountry = "INVALID_REGION_IN_COUNTRY"
 
 		/// Invalid state in country. 
 		case invalidStateInCountry = "INVALID_STATE_IN_COUNTRY"
 
-		/// Input value should be less than maximum allowed value. 
+		/// The input value should be less than the maximum value allowed. 
 		case lessThan = "LESS_THAN"
 
-		/// Input value should be less or equal to maximum allowed value. 
+		/// The input value should be less than or equal to the maximum value allowed. 
 		case lessThanOrEqualTo = "LESS_THAN_OR_EQUAL_TO"
 
 		/// Line item was not found in checkout. 
@@ -128,13 +138,16 @@ extension Storefront {
 		/// Input value is not supported. 
 		case notSupported = "NOT_SUPPORTED"
 
-		/// Input value is not present. 
+		/// The input value needs to be blank. 
 		case present = "PRESENT"
 
 		/// Shipping rate expired. 
 		case shippingRateExpired = "SHIPPING_RATE_EXPIRED"
 
-		/// Input value is too long. 
+		/// Throttled during checkout. 
+		case throttledDuringCheckout = "THROTTLED_DURING_CHECKOUT"
+
+		/// The input value is too long. 
 		case tooLong = "TOO_LONG"
 
 		/// The amount of the payment does not match the value to be paid. 

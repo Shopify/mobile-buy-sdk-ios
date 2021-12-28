@@ -45,6 +45,7 @@ public struct PayCheckout {
     public let availableShippingRates:     [PayShippingRate]?
     
     public let currencyCode:     String
+    public let totalDuties:      Decimal?
     public let subtotalPrice:    Decimal
     public let totalTax:         Decimal
     public let paymentDue:       Decimal
@@ -53,7 +54,7 @@ public struct PayCheckout {
     // ----------------------------------
     //  MARK: - Init -
     //
-    public init(id: String, lineItems: [PayLineItem], giftCards: [PayGiftCard]?, discount: PayDiscount?, shippingDiscount: PayDiscount?, shippingAddress: PayAddress?, shippingRate: PayShippingRate?, availableShippingRates: [PayShippingRate]?, currencyCode: String, subtotalPrice: Decimal, needsShipping: Bool, totalTax: Decimal, total: Decimal, paymentDue: Decimal) {
+    public init(id: String, lineItems: [PayLineItem], giftCards: [PayGiftCard]?, discount: PayDiscount?, shippingDiscount: PayDiscount?, shippingAddress: PayAddress?, shippingRate: PayShippingRate?, availableShippingRates: [PayShippingRate]?, currencyCode: String, totalDuties: Decimal?, subtotalPrice: Decimal, needsShipping: Bool, totalTax: Decimal, paymentDue: Decimal, total: Decimal) {
 
         self.id               = id
         self.lineItems        = lineItems
@@ -66,13 +67,14 @@ public struct PayCheckout {
         self.availableShippingRates = availableShippingRates
         
         self.currencyCode     = currencyCode
+        self.totalDuties      = totalDuties
         self.subtotalPrice    = subtotalPrice
         self.totalTax         = totalTax
         self.paymentDue       = paymentDue
 
         self.hasLineItems     = !lineItems.isEmpty
         self.needsShipping    = needsShipping
-        self.total = total
+        self.total            = total
     }
 }
 
@@ -116,6 +118,12 @@ internal extension PayCheckout {
         if let discount = self.shippingDiscount {
             let title = discount.code.isEmpty ? "DISCOUNT" : "DISCOUNT (\(discount.code))"
             summaryItems.append(discount.amount.negative.summaryItemNamed(title))
+        }
+        
+        // Duties
+        
+        if let duties = self.totalDuties {
+            summaryItems.append(duties.summaryItemNamed("DUTIES"))
         }
         
         // Taxes

@@ -1,5 +1,5 @@
 //
-//  OrderDisplayFulfillmentStatus.swift
+//  CartErrorCode.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,18 +27,22 @@
 import Foundation
 
 extension Storefront {
-	public enum OrderDisplayFulfillmentStatus: String {
-		case fulfilled = "FULFILLED"
+	/// Possible error codes that could be returned by CartUserError. 
+	public enum CartErrorCode: String {
+		/// The input value is invalid. 
+		case invalid = "INVALID"
 
-		case `open` = "OPEN"
+		/// Merchandise line was not found in cart. 
+		case invalidMerchandiseLine = "INVALID_MERCHANDISE_LINE"
 
-		case partiallyFulfilled = "PARTIALLY_FULFILLED"
+		/// The input value should be less than the maximum value allowed. 
+		case lessThan = "LESS_THAN"
 
-		case pendingFulfillment = "PENDING_FULFILLMENT"
+		/// Missing discount code. 
+		case missingDiscountCode = "MISSING_DISCOUNT_CODE"
 
-		case restocked = "RESTOCKED"
-
-		case unfulfilled = "UNFULFILLED"
+		/// Missing note. 
+		case missingNote = "MISSING_NOTE"
 
 		case unknownValue = ""
 	}

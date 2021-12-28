@@ -107,7 +107,7 @@ class PaySessionTests: XCTestCase {
         let token     = MockPaymentToken(paymentMethod: payMethod)
         let payment   = MockPayment(token: token, billingContact: contact, shippingContact: contact, shippingMethod: shippingRate.summaryItem)
         
-        let checkout  = Models.createCheckout(requiresShipping: true)
+        let checkout  = Models.createCheckout(requiresShipping: true, shippingRate: shippingRate)
         let delegate  = self.setupDelegateForMockSessionWith(checkout) { session in
             session.shippingRates = [
                 shippingRate
@@ -122,7 +122,7 @@ class PaySessionTests: XCTestCase {
             let tokenString = String(data: token.paymentData, encoding: .utf8)
             XCTAssertEqual(authorization.token, tokenString)
             XCTAssertEqual(authorization.billingAddress.city,  contact.postalAddress!.city)
-            XCTAssertEqual(authorization.shippingAddress.city, contact.postalAddress!.city)
+            XCTAssertEqual(authorization.shippingAddress?.city, contact.postalAddress!.city)
             
             XCTAssertNotNil(authorization.shippingRate)
             XCTAssertEqual(authorization.shippingRate!.handle, shippingRate.handle)
@@ -386,7 +386,7 @@ class PaySessionTests: XCTestCase {
         let shippingRate   = Models.createShippingRate()
         let shippingMethod = shippingRate.summaryItem
         
-        let checkout = Models.createCheckout(requiresShipping: true)
+        let checkout = Models.createCheckout(requiresShipping: true, shippingRate: shippingRate)
         let delegate = self.setupDelegateForMockSessionWith(checkout) { session in
             
             session.checkout      = checkout

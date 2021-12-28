@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// List of errors that occurred executing the mutation. 
+		/// The list of errors that occurred from executing the mutation. 
 		@discardableResult
 		open func checkoutUserErrors(alias: String? = nil, _ subfields: (CheckoutUserErrorQuery) -> Void) -> CheckoutCreatePayloadQuery {
 			let subquery = CheckoutUserErrorQuery()
@@ -51,7 +51,14 @@ extension Storefront {
 			return self
 		}
 
-		/// List of errors that occurred executing the mutation. 
+		/// The checkout queue token. Available only to selected stores. 
+		@discardableResult
+		open func queueToken(alias: String? = nil) -> CheckoutCreatePayloadQuery {
+			addField(field: "queueToken", aliasSuffix: alias)
+			return self
+		}
+
+		/// The list of errors that occurred from executing the mutation. 
 		@available(*, deprecated, message:"Use `checkoutUserErrors` instead")
 		@discardableResult
 		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CheckoutCreatePayloadQuery {
@@ -83,6 +90,13 @@ extension Storefront {
 				}
 				return try value.map { return try CheckoutUserError(fields: $0) }
 
+				case "queueToken":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: CheckoutCreatePayload.self, field: fieldName, value: fieldValue)
+				}
+				return value
+
 				case "userErrors":
 				guard let value = value as? [[String: Any]] else {
 					throw SchemaViolationError(type: CheckoutCreatePayload.self, field: fieldName, value: fieldValue)
@@ -103,7 +117,7 @@ extension Storefront {
 			return field(field: "checkout", aliasSuffix: alias) as! Storefront.Checkout?
 		}
 
-		/// List of errors that occurred executing the mutation. 
+		/// The list of errors that occurred from executing the mutation. 
 		open var checkoutUserErrors: [Storefront.CheckoutUserError] {
 			return internalGetCheckoutUserErrors()
 		}
@@ -112,7 +126,16 @@ extension Storefront {
 			return field(field: "checkoutUserErrors", aliasSuffix: alias) as! [Storefront.CheckoutUserError]
 		}
 
-		/// List of errors that occurred executing the mutation. 
+		/// The checkout queue token. Available only to selected stores. 
+		open var queueToken: String? {
+			return internalGetQueueToken()
+		}
+
+		func internalGetQueueToken(alias: String? = nil) -> String? {
+			return field(field: "queueToken", aliasSuffix: alias) as! String?
+		}
+
+		/// The list of errors that occurred from executing the mutation. 
 		@available(*, deprecated, message:"Use `checkoutUserErrors` instead")
 		open var userErrors: [Storefront.UserError] {
 			return internalGetUserErrors()

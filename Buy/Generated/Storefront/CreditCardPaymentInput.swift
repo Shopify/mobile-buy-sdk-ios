@@ -35,7 +35,8 @@ extension Storefront {
 
 		/// A unique client generated key used to avoid duplicate charges. When a 
 		/// duplicate payment is found, the original is returned instead of creating a 
-		/// new one. 
+		/// new one. For more information, refer to [Idempotent 
+		/// requests](https://shopify.dev/concepts/about-apis/idempotent-requests). 
 		open var idempotencyKey: String
 
 		/// The billing address for the payment. 
@@ -51,7 +52,7 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - amount: The amount of the payment.
-		///     - idempotencyKey: A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one.
+		///     - idempotencyKey: A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests).
 		///     - billingAddress: The billing address for the payment.
 		///     - vaultId: The ID returned by Shopify's Card Vault.
 		///     - test: Executes the payment in test mode if possible. Defaults to `false`.
@@ -72,7 +73,7 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - amount: The amount of the payment.
-		///     - idempotencyKey: A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one.
+		///     - idempotencyKey: A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests).
 		///     - billingAddress: The billing address for the payment.
 		///     - vaultId: The ID returned by Shopify's Card Vault.
 		///     - test: Executes the payment in test mode if possible. Defaults to `false`.

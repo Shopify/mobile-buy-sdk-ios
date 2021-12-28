@@ -26,8 +26,13 @@
 
 public class <%= schema_name %> {
   <% [['Query', schema.query_root_name], ['Mutation', schema.mutation_root_name]].each do |operation_type, root_name| %>
-   public static func build<%= operation_type %>(_ subfields: (<%= root_name %>Query) -> Void) -> <%= root_name %>Query {
+    <% directive_args = swift_root_directive_args(operation_type.upcase) %>
+    <% formatted_args = directive_args.empty? ? "_ " : directive_args.join(", ") + ", " %>
+   public static func build<%= operation_type %>(<%= formatted_args %>subfields: (<%= root_name %>Query) -> Void) -> <%= root_name %>Query {
       let root = <%= root_name %>Query()
+      <% unless directive_args.empty? %>
+      root.directives = [<%= directives_for_kind(operation_type.upcase).map(&:name).join(", ") %>].compactMap({ $0 })
+      <% end %>
       subfields(root)
       return root
     }

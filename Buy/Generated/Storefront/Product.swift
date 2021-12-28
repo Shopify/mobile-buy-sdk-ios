@@ -136,7 +136,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Globally unique identifier. 
+		/// A globally-unique identifier. 
 		@discardableResult
 		open func id(alias: String? = nil) -> ProductQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -257,7 +257,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The metafield associated with the resource. 
+		/// Returns a metafield found by namespace and key. 
 		///
 		/// - parameters:
 		///     - namespace: Container for a set of metafields (maximum of 20 characters).
@@ -327,8 +327,9 @@ extension Storefront {
 			return self
 		}
 
-		/// The online store URL for the product. A value of `null` indicates that the 
-		/// product is not published to the Online Store sales channel. 
+		/// The URL used for viewing the resource on the shop's Online Store. Returns 
+		/// `null` if the resource is currently not published to the Online Store sales 
+		/// channel. 
 		@discardableResult
 		open func onlineStoreUrl(alias: String? = nil) -> ProductQuery {
 			addField(field: "onlineStoreUrl", aliasSuffix: alias)
@@ -367,6 +368,7 @@ extension Storefront {
 		///     - before: Returns the elements that come before the specified cursor.
 		///     - reverse: Reverse the order of the underlying list.
 		///
+		@available(*, deprecated, message:"Use `@inContext` instead.")
 		@discardableResult
 		open func presentmentPriceRanges(alias: String? = nil, presentmentCurrencies: [CurrencyCode]? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (ProductPriceRangeConnectionQuery) -> Void) -> ProductQuery {
 			var args: [String] = []
@@ -429,6 +431,58 @@ extension Storefront {
 			return self
 		}
 
+		/// Whether the product can only be purchased with a selling plan. 
+		@discardableResult
+		open func requiresSellingPlan(alias: String? = nil) -> ProductQuery {
+			addField(field: "requiresSellingPlan", aliasSuffix: alias)
+			return self
+		}
+
+		/// A list of a product's available selling plan groups. A selling plan group 
+		/// represents a selling method. For example, 'Subscribe and save' is a selling 
+		/// method where customers pay for goods or services per delivery. A selling 
+		/// plan group contains individual selling plans. 
+		///
+		/// - parameters:
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///     - reverse: Reverse the order of the underlying list.
+		///
+		@discardableResult
+		open func sellingPlanGroups(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (SellingPlanGroupConnectionQuery) -> Void) -> ProductQuery {
+			var args: [String] = []
+
+			if let first = first {
+				args.append("first:\(first)")
+			}
+
+			if let after = after {
+				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
+			}
+
+			if let reverse = reverse {
+				args.append("reverse:\(reverse)")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = SellingPlanGroupConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "sellingPlanGroups", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// The product's SEO information. 
 		@discardableResult
 		open func seo(alias: String? = nil, _ subfields: (SEOQuery) -> Void) -> ProductQuery {
@@ -462,7 +516,10 @@ extension Storefront {
 			return self
 		}
 
-		/// The date and time when the product was last modified. 
+		/// The date and time when the product was last modified. A product's 
+		/// `updatedAt` value can change for different reasons. For example, if an 
+		/// order is placed for a product that has inventory tracking set up, then the 
+		/// inventory adjustment is counted as an update. 
 		@discardableResult
 		open func updatedAt(alias: String? = nil) -> ProductQuery {
 			addField(field: "updatedAt", aliasSuffix: alias)
@@ -552,7 +609,7 @@ extension Storefront {
 	/// digital download (such as a movie, music or ebook file) also qualifies as a 
 	/// product, as do services (such as equipment rental, work for hire, 
 	/// customization of another product or an extended warranty). 
-	open class Product: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource, Node {
+	open class Product: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource, Node, OnlineStorePublishable {
 		public typealias Query = ProductQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
@@ -667,6 +724,18 @@ extension Storefront {
 					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.iso8601DateParser.date(from: value)!
+
+				case "requiresSellingPlan":
+				guard let value = value as? Bool else {
+					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
+				}
+				return value
+
+				case "sellingPlanGroups":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
+				}
+				return try SellingPlanGroupConnection(fields: value)
 
 				case "seo":
 				guard let value = value as? [String: Any] else {
@@ -796,7 +865,7 @@ extension Storefront {
 			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
-		/// Globally unique identifier. 
+		/// A globally-unique identifier. 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -831,7 +900,7 @@ extension Storefront {
 			return field(field: "media", aliasSuffix: alias) as! Storefront.MediaConnection
 		}
 
-		/// The metafield associated with the resource. 
+		/// Returns a metafield found by namespace and key. 
 		open var metafield: Storefront.Metafield? {
 			return internalGetMetafield()
 		}
@@ -857,8 +926,9 @@ extension Storefront {
 			return field(field: "metafields", aliasSuffix: alias) as! Storefront.MetafieldConnection
 		}
 
-		/// The online store URL for the product. A value of `null` indicates that the 
-		/// product is not published to the Online Store sales channel. 
+		/// The URL used for viewing the resource on the shop's Online Store. Returns 
+		/// `null` if the resource is currently not published to the Online Store sales 
+		/// channel. 
 		open var onlineStoreUrl: URL? {
 			return internalGetOnlineStoreUrl()
 		}
@@ -881,9 +951,12 @@ extension Storefront {
 		}
 
 		/// List of price ranges in the presentment currencies for this shop. 
+		@available(*, deprecated, message:"Use `@inContext` instead.")
 		open var presentmentPriceRanges: Storefront.ProductPriceRangeConnection {
 			return internalGetPresentmentPriceRanges()
 		}
+
+		@available(*, deprecated, message:"Use `@inContext` instead.")
 
 		open func aliasedPresentmentPriceRanges(alias: String) -> Storefront.ProductPriceRangeConnection {
 			return internalGetPresentmentPriceRanges(alias: alias)
@@ -919,6 +992,31 @@ extension Storefront {
 
 		func internalGetPublishedAt(alias: String? = nil) -> Date {
 			return field(field: "publishedAt", aliasSuffix: alias) as! Date
+		}
+
+		/// Whether the product can only be purchased with a selling plan. 
+		open var requiresSellingPlan: Bool {
+			return internalGetRequiresSellingPlan()
+		}
+
+		func internalGetRequiresSellingPlan(alias: String? = nil) -> Bool {
+			return field(field: "requiresSellingPlan", aliasSuffix: alias) as! Bool
+		}
+
+		/// A list of a product's available selling plan groups. A selling plan group 
+		/// represents a selling method. For example, 'Subscribe and save' is a selling 
+		/// method where customers pay for goods or services per delivery. A selling 
+		/// plan group contains individual selling plans. 
+		open var sellingPlanGroups: Storefront.SellingPlanGroupConnection {
+			return internalGetSellingPlanGroups()
+		}
+
+		open func aliasedSellingPlanGroups(alias: String) -> Storefront.SellingPlanGroupConnection {
+			return internalGetSellingPlanGroups(alias: alias)
+		}
+
+		func internalGetSellingPlanGroups(alias: String? = nil) -> Storefront.SellingPlanGroupConnection {
+			return field(field: "sellingPlanGroups", aliasSuffix: alias) as! Storefront.SellingPlanGroupConnection
 		}
 
 		/// The product's SEO information. 
@@ -959,7 +1057,10 @@ extension Storefront {
 			return field(field: "totalInventory", aliasSuffix: alias) as! Int32?
 		}
 
-		/// The date and time when the product was last modified. 
+		/// The date and time when the product was last modified. A product's 
+		/// `updatedAt` value can change for different reasons. For example, if an 
+		/// order is placed for a product that has inventory tracking set up, then the 
+		/// inventory adjustment is counted as an update. 
 		open var updatedAt: Date {
 			return internalGetUpdatedAt()
 		}
@@ -1049,6 +1150,10 @@ extension Storefront {
 					case "priceRange":
 					response.append(internalGetPriceRange())
 					response.append(contentsOf: internalGetPriceRange().childResponseObjectMap())
+
+					case "sellingPlanGroups":
+					response.append(internalGetSellingPlanGroups())
+					response.append(contentsOf: internalGetSellingPlanGroups().childResponseObjectMap())
 
 					case "seo":
 					response.append(internalGetSeo())

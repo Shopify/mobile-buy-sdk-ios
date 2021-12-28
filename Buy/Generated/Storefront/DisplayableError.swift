@@ -38,7 +38,7 @@ extension Storefront {
 	open class DisplayableErrorQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = DisplayableError
 
-		/// Path to the input field which caused the error. 
+		/// The path to the input field that caused the error. 
 		@discardableResult
 		open func field(alias: String? = nil) -> DisplayableErrorQuery {
 			addField(field: "field", aliasSuffix: alias)
@@ -55,6 +55,15 @@ extension Storefront {
 		override init() {
 			super.init()
 			addField(field: "__typename")
+		}
+
+		/// Represents an error in the input of a mutation. 
+		@discardableResult
+		open func onCartUserError(subfields: (CartUserErrorQuery) -> Void) -> DisplayableErrorQuery {
+			let subquery = CartUserErrorQuery()
+			subfields(subquery)
+			addInlineFragment(on: "CartUserError", subfields: subquery)
+			return self
 		}
 
 		/// Represents an error in the input of a mutation. 
@@ -115,6 +124,8 @@ extension Storefront {
 				throw SchemaViolationError(type: UnknownDisplayableError.self, field: "__typename", value: fields["__typename"] ?? NSNull())
 			}
 			switch typeName {
+				case "CartUserError": return try CartUserError.init(fields: fields)
+
 				case "CheckoutUserError": return try CheckoutUserError.init(fields: fields)
 
 				case "CustomerUserError": return try CustomerUserError.init(fields: fields)
@@ -126,7 +137,7 @@ extension Storefront {
 			}
 		}
 
-		/// Path to the input field which caused the error. 
+		/// The path to the input field that caused the error. 
 		open var field: [String]? {
 			return internalGetField()
 		}
