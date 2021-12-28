@@ -45,7 +45,7 @@ extension Storefront {
 			return self
 		}
 
-		/// List of errors that occurred executing the mutation. 
+		/// The list of errors that occurred from executing the mutation. 
 		@discardableResult
 		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerAccessTokenDeletePayloadQuery {
 			let subquery = UserErrorQuery()
@@ -106,7 +106,7 @@ extension Storefront {
 			return field(field: "deletedCustomerAccessTokenId", aliasSuffix: alias) as! String?
 		}
 
-		/// List of errors that occurred executing the mutation. 
+		/// The list of errors that occurred from executing the mutation. 
 		open var userErrors: [Storefront.UserError] {
 			return internalGetUserErrors()
 		}

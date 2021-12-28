@@ -27,13 +27,18 @@
 import Foundation
 
 extension Storefront {
+	/// Transaction statuses describe the status of a transaction. 
 	public enum TransactionStatus: String {
+		/// There was an error while processing the transaction. 
 		case error = "ERROR"
 
+		/// The transaction failed. 
 		case failure = "FAILURE"
 
+		/// The transaction is pending. 
 		case pending = "PENDING"
 
+		/// The transaction succeeded. 
 		case success = "SUCCESS"
 
 		case unknownValue = ""

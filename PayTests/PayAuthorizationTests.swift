@@ -48,7 +48,7 @@ class PayAuthorizationTests: XCTestCase {
         
         XCTAssertEqual(authorization.token, "123")
         XCTAssertEqual(authorization.billingAddress.firstName,  address.firstName)
-        XCTAssertEqual(authorization.shippingAddress.firstName, address.firstName)
+        XCTAssertEqual(authorization.shippingAddress?.firstName, address.firstName)
         XCTAssertEqual(authorization.shippingRate!.handle,      rate.handle)
     }
 }

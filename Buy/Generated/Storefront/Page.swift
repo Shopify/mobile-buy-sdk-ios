@@ -61,10 +61,89 @@ extension Storefront {
 			return self
 		}
 
-		/// Globally unique identifier. 
+		/// A globally-unique identifier. 
 		@discardableResult
 		open func id(alias: String? = nil) -> PageQuery {
 			addField(field: "id", aliasSuffix: alias)
+			return self
+		}
+
+		/// Returns a metafield found by namespace and key. 
+		///
+		/// - parameters:
+		///     - namespace: Container for a set of metafields (maximum of 20 characters).
+		///     - key: Identifier for the metafield (maximum of 30 characters).
+		///
+		@discardableResult
+		open func metafield(alias: String? = nil, namespace: String, key: String, _ subfields: (MetafieldQuery) -> Void) -> PageQuery {
+			var args: [String] = []
+
+			args.append("namespace:\(GraphQL.quoteString(input: namespace))")
+
+			args.append("key:\(GraphQL.quoteString(input: key))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = MetafieldQuery()
+			subfields(subquery)
+
+			addField(field: "metafield", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// A paginated list of metafields associated with the resource. 
+		///
+		/// - parameters:
+		///     - namespace: Container for a set of metafields (maximum of 20 characters).
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///     - reverse: Reverse the order of the underlying list.
+		///
+		@discardableResult
+		open func metafields(alias: String? = nil, namespace: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (MetafieldConnectionQuery) -> Void) -> PageQuery {
+			var args: [String] = []
+
+			if let namespace = namespace {
+				args.append("namespace:\(GraphQL.quoteString(input: namespace))")
+			}
+
+			if let first = first {
+				args.append("first:\(first)")
+			}
+
+			if let after = after {
+				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
+			}
+
+			if let reverse = reverse {
+				args.append("reverse:\(reverse)")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = MetafieldConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "metafields", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// The URL used for viewing the resource on the shop's Online Store. Returns 
+		/// `null` if the resource is currently not published to the Online Store sales 
+		/// channel. 
+		@discardableResult
+		open func onlineStoreUrl(alias: String? = nil) -> PageQuery {
+			addField(field: "onlineStoreUrl", aliasSuffix: alias)
 			return self
 		}
 
@@ -93,6 +172,7 @@ extension Storefront {
 		}
 
 		/// The url pointing to the page accessible from the web. 
+		@available(*, deprecated, message:"Use `onlineStoreUrl` instead")
 		@discardableResult
 		open func url(alias: String? = nil) -> PageQuery {
 			addField(field: "url", aliasSuffix: alias)
@@ -102,7 +182,7 @@ extension Storefront {
 
 	/// Shopify merchants can create pages to hold static HTML content. Each Page 
 	/// object represents a custom page on the online store. 
-	open class Page: GraphQL.AbstractResponse, GraphQLObject, Node {
+	open class Page: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource, Node, OnlineStorePublishable {
 		public typealias Query = PageQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
@@ -137,6 +217,26 @@ extension Storefront {
 					throw SchemaViolationError(type: Page.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.ID(rawValue: value)
+
+				case "metafield":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Page.self, field: fieldName, value: fieldValue)
+				}
+				return try Metafield(fields: value)
+
+				case "metafields":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Page.self, field: fieldName, value: fieldValue)
+				}
+				return try MetafieldConnection(fields: value)
+
+				case "onlineStoreUrl":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Page.self, field: fieldName, value: fieldValue)
+				}
+				return URL(string: value)!
 
 				case "seo":
 				if value is NSNull { return nil }
@@ -205,13 +305,50 @@ extension Storefront {
 			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
-		/// Globally unique identifier. 
+		/// A globally-unique identifier. 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
 
 		func internalGetId(alias: String? = nil) -> GraphQL.ID {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
+		}
+
+		/// Returns a metafield found by namespace and key. 
+		open var metafield: Storefront.Metafield? {
+			return internalGetMetafield()
+		}
+
+		open func aliasedMetafield(alias: String) -> Storefront.Metafield? {
+			return internalGetMetafield(alias: alias)
+		}
+
+		func internalGetMetafield(alias: String? = nil) -> Storefront.Metafield? {
+			return field(field: "metafield", aliasSuffix: alias) as! Storefront.Metafield?
+		}
+
+		/// A paginated list of metafields associated with the resource. 
+		open var metafields: Storefront.MetafieldConnection {
+			return internalGetMetafields()
+		}
+
+		open func aliasedMetafields(alias: String) -> Storefront.MetafieldConnection {
+			return internalGetMetafields(alias: alias)
+		}
+
+		func internalGetMetafields(alias: String? = nil) -> Storefront.MetafieldConnection {
+			return field(field: "metafields", aliasSuffix: alias) as! Storefront.MetafieldConnection
+		}
+
+		/// The URL used for viewing the resource on the shop's Online Store. Returns 
+		/// `null` if the resource is currently not published to the Online Store sales 
+		/// channel. 
+		open var onlineStoreUrl: URL? {
+			return internalGetOnlineStoreUrl()
+		}
+
+		func internalGetOnlineStoreUrl(alias: String? = nil) -> URL? {
+			return field(field: "onlineStoreUrl", aliasSuffix: alias) as! URL?
 		}
 
 		/// The page's SEO information. 
@@ -242,6 +379,7 @@ extension Storefront {
 		}
 
 		/// The url pointing to the page accessible from the web. 
+		@available(*, deprecated, message:"Use `onlineStoreUrl` instead")
 		open var url: URL {
 			return internalGetUrl()
 		}
@@ -254,6 +392,16 @@ extension Storefront {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
 				switch($0) {
+					case "metafield":
+					if let value = internalGetMetafield() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "metafields":
+					response.append(internalGetMetafields())
+					response.append(contentsOf: internalGetMetafields().childResponseObjectMap())
+
 					case "seo":
 					if let value = internalGetSeo() {
 						response.append(value)

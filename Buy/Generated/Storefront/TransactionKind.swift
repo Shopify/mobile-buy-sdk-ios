@@ -27,15 +27,22 @@
 import Foundation
 
 extension Storefront {
+	/// The different kinds of order transactions. 
 	public enum TransactionKind: String {
+		/// An amount reserved against the cardholder's funding source. Money does not 
+		/// change hands until the authorization is captured. 
 		case authorization = "AUTHORIZATION"
 
+		/// A transfer of the money that was reserved during the authorization stage. 
 		case capture = "CAPTURE"
 
+		/// Money returned to the customer when they have paid too much. 
 		case change = "CHANGE"
 
+		/// An authorization for a payment taken with an EMV credit card reader. 
 		case emvAuthorization = "EMV_AUTHORIZATION"
 
+		/// An authorization and capture performed together in a single step. 
 		case sale = "SALE"
 
 		case unknownValue = ""

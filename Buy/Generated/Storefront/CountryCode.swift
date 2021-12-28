@@ -29,6 +29,9 @@ import Foundation
 extension Storefront {
 	/// ISO 3166-1 alpha-2 country codes with some differences. 
 	public enum CountryCode: String {
+		/// Ascension Island. 
+		case ac = "AC"
+
 		/// Andorra. 
 		case ad = "AD"
 
@@ -647,6 +650,9 @@ extension Storefront {
 		/// Eswatini. 
 		case sz = "SZ"
 
+		/// Tristan da Cunha. 
+		case ta = "TA"
+
 		/// Turks & Caicos Islands. 
 		case tc = "TC"
 
@@ -754,6 +760,9 @@ extension Storefront {
 
 		/// Zimbabwe. 
 		case zw = "ZW"
+
+		/// Unknown Region. 
+		case zz = "ZZ"
 
 		case unknownValue = ""
 	}

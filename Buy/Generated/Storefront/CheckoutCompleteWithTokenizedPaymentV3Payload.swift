@@ -41,7 +41,7 @@ extension Storefront {
 			return self
 		}
 
-		/// List of errors that occurred executing the mutation. 
+		/// The list of errors that occurred from executing the mutation. 
 		@discardableResult
 		open func checkoutUserErrors(alias: String? = nil, _ subfields: (CheckoutUserErrorQuery) -> Void) -> CheckoutCompleteWithTokenizedPaymentV3PayloadQuery {
 			let subquery = CheckoutUserErrorQuery()
@@ -61,7 +61,7 @@ extension Storefront {
 			return self
 		}
 
-		/// List of errors that occurred executing the mutation. 
+		/// The list of errors that occurred from executing the mutation. 
 		@available(*, deprecated, message:"Use `checkoutUserErrors` instead")
 		@discardableResult
 		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CheckoutCompleteWithTokenizedPaymentV3PayloadQuery {
@@ -120,7 +120,7 @@ extension Storefront {
 			return field(field: "checkout", aliasSuffix: alias) as! Storefront.Checkout?
 		}
 
-		/// List of errors that occurred executing the mutation. 
+		/// The list of errors that occurred from executing the mutation. 
 		open var checkoutUserErrors: [Storefront.CheckoutUserError] {
 			return internalGetCheckoutUserErrors()
 		}
@@ -138,7 +138,7 @@ extension Storefront {
 			return field(field: "payment", aliasSuffix: alias) as! Storefront.Payment?
 		}
 
-		/// List of errors that occurred executing the mutation. 
+		/// The list of errors that occurred from executing the mutation. 
 		@available(*, deprecated, message:"Use `checkoutUserErrors` instead")
 		open var userErrors: [Storefront.UserError] {
 			return internalGetUserErrors()

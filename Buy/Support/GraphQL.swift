@@ -51,18 +51,45 @@ public class GraphQL {
 			return rawValue
 		}
 	}
+    
+    open class AbstractDirective: CustomStringConvertible {
+        let name: String
+        
+        let args: String?
+        
+        open var description: String {
+            var sig = "@\(name)"
+            if let args = args {
+                sig += args
+            }
+            return sig
+        }
+        
+        init(name: String, args: String? = nil) {
+            self.name = name
+            self.args = args
+        }
+    }
 
 	open class AbstractQuery: CustomStringConvertible {
 		static let aliasSuffixSeparator = "__"
 		var selections: [String: Selection] = [:]
 		var orderedSelections: [Selection] = [] // predictable order for testing
 
+		var directives = [AbstractDirective]()
+
 		public init () {
 		}
 
 		open var description: String {
 			assert(!selections.isEmpty, "selection set must have at least 1 selection")
-			var query = "{"
+
+			let directives = self.directives
+				.map({ String(describing: $0) })
+				.joined(separator: " ")
+
+			var query = directives.isEmpty ? "{" : "\(directives) {"
+
 			var first = true
 			for s in orderedSelections {
 				if first {

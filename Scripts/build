@@ -27,6 +27,9 @@ res = Net::HTTP.get_response(endpoint)
 if res.is_a?(Net::HTTPSuccess)
   puts "Using Storefront API version: #{storefront_api_version}"
 
+	FileUtils.rm_rf(generated_code_path)
+	FileUtils.mkdir_p(generated_code_path)
+
   template_path = File.join(scripts_path, 'version.swift.erb')
   output = ERB.new(File.read(template_path)).result()
   output_path = File.join(generated_code_path, 'Storefront.Schema.swift')

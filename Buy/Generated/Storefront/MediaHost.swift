@@ -1,5 +1,5 @@
 //
-//  OrderDisplayFinancialStatus.swift
+//  MediaHost.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,20 +27,13 @@
 import Foundation
 
 extension Storefront {
-	public enum OrderDisplayFinancialStatus: String {
-		case authorized = "AUTHORIZED"
+	/// Host for a Media Resource. 
+	public enum MediaHost: String {
+		/// Host for Vimeo embedded videos. 
+		case vimeo = "VIMEO"
 
-		case paid = "PAID"
-
-		case partiallyPaid = "PARTIALLY_PAID"
-
-		case partiallyRefunded = "PARTIALLY_REFUNDED"
-
-		case pending = "PENDING"
-
-		case refunded = "REFUNDED"
-
-		case voided = "VOIDED"
+		/// Host for YouTube embedded videos. 
+		case youtube = "YOUTUBE"
 
 		case unknownValue = ""
 	}

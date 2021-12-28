@@ -53,7 +53,7 @@ extension Storefront {
 			return self
 		}
 
-		/// List of errors that occurred executing the mutation. 
+		/// The list of errors that occurred from executing the mutation. 
 		@discardableResult
 		open func customerUserErrors(alias: String? = nil, _ subfields: (CustomerUserErrorQuery) -> Void) -> CustomerUpdatePayloadQuery {
 			let subquery = CustomerUserErrorQuery()
@@ -63,7 +63,7 @@ extension Storefront {
 			return self
 		}
 
-		/// List of errors that occurred executing the mutation. 
+		/// The list of errors that occurred from executing the mutation. 
 		@available(*, deprecated, message:"Use `customerUserErrors` instead")
 		@discardableResult
 		open func userErrors(alias: String? = nil, _ subfields: (UserErrorQuery) -> Void) -> CustomerUpdatePayloadQuery {
@@ -133,7 +133,7 @@ extension Storefront {
 			return field(field: "customerAccessToken", aliasSuffix: alias) as! Storefront.CustomerAccessToken?
 		}
 
-		/// List of errors that occurred executing the mutation. 
+		/// The list of errors that occurred from executing the mutation. 
 		open var customerUserErrors: [Storefront.CustomerUserError] {
 			return internalGetCustomerUserErrors()
 		}
@@ -142,7 +142,7 @@ extension Storefront {
 			return field(field: "customerUserErrors", aliasSuffix: alias) as! [Storefront.CustomerUserError]
 		}
 
-		/// List of errors that occurred executing the mutation. 
+		/// The list of errors that occurred from executing the mutation. 
 		@available(*, deprecated, message:"Use `customerUserErrors` instead")
 		open var userErrors: [Storefront.UserError] {
 			return internalGetUserErrors()
