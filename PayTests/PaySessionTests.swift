@@ -83,8 +83,8 @@ class PaySessionTests: XCTestCase {
         XCTAssertEqual(digitalRequest.countryCode,                   currency.countryCode)
         XCTAssertEqual(digitalRequest.currencyCode,                  currency.currencyCode)
         XCTAssertEqual(digitalRequest.merchantIdentifier,            session.merchantID)
-        XCTAssertEqual(digitalRequest.requiredBillingAddressFields,  [.all])
-        XCTAssertEqual(digitalRequest.requiredShippingAddressFields, [.all])
+        XCTAssertEqual(digitalRequest.requiredBillingContactFields,  [.phoneNumber,.name, .postalAddress])
+        XCTAssertEqual(digitalRequest.requiredShippingContactFields, [])
         XCTAssertEqual(digitalRequest.supportedNetworks,             [.visa, .masterCard, .amex])
         XCTAssertEqual(digitalRequest.merchantCapabilities,          [.capability3DS])
         XCTAssertFalse(digitalRequest.paymentSummaryItems.isEmpty)
@@ -93,6 +93,20 @@ class PaySessionTests: XCTestCase {
         let shippingRequest  = session.paymentRequestUsing(shippingCheckout, currency: currency, merchantID: session.merchantID)
         
         XCTAssertEqual(shippingRequest.requiredShippingAddressFields, [.all])
+    }
+    
+    func testPaymentRequest_withShipping_fields() {
+        let checkout = Models.createCheckout()
+        let currency = Models.createCurrency()
+        let session  = Models.createSession(checkout: checkout, currency: currency)
+        
+        let digitalCheckout = Models.createCheckout(requiresShipping: true)
+        let digitalRequest  = session.paymentRequestUsing(digitalCheckout, currency: currency, merchantID: session.merchantID)
+        
+
+        XCTAssertEqual(digitalRequest.requiredBillingContactFields,  [.phoneNumber,.name, .postalAddress])
+        XCTAssertEqual(digitalRequest.requiredShippingContactFields, [.phoneNumber, .name, .postalAddress, .emailAddress])
+
     }
     
     // ----------------------------------
@@ -413,28 +427,30 @@ class PaySessionTests: XCTestCase {
     
     func testSelectShippingMethod() {
         
-        let shippingRate   = Models.createShippingRate()
-        let shippingMethod = shippingRate.summaryItem
+        let preExistingShippingRate   = Models.createShippingRate()
+        let updatedShippingRate = Models.createShippingRates().last!
         
-        let checkout = Models.createCheckout(requiresShipping: true)
+        let shippingMethod = preExistingShippingRate.summaryItem
+        
+        let checkout = Models.createCheckout(requiresShipping: true, shippingRate: preExistingShippingRate)
         let delegate = self.setupDelegateForMockSessionWith(checkout) { session in
             
             session.checkout      = checkout
             session.shippingRates = [
-                shippingRate
+                preExistingShippingRate
             ]
         }
         
         let updatedCheckout = Models.createCheckout(
             requiresShipping: true,
-            shippingRate:     shippingRate
+            shippingRate:     updatedShippingRate
         )
         
         delegate.didSelectShippingRate = { session, selectedShippingRate, checkoutToUpdate, provide in
             provide(updatedCheckout)
         }
         
-        XCTAssertNil(checkout.shippingRate)
+        XCTAssertNotNil(checkout.shippingRate)
         
         let expectation = self.expectation(description: "")
         
