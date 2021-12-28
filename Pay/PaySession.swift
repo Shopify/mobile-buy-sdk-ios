@@ -24,6 +24,8 @@
 //  THE SOFTWARE.
 //
 
+#if canImport(PassKit)
+
 import Foundation
 import PassKit
 
@@ -129,6 +131,9 @@ public class PaySession: NSObject {
 
     /// Idempotency identifier of this session.
     public let identifier: String
+    
+    /// Shipping Contact can be set on the Pay Session, in order to pass in a pre-populated shipping address.
+    public var shippingContact: PKContact?
 
     internal var checkout:      PayCheckout
     internal var shippingRates: [PayShippingRate] = []
@@ -185,8 +190,22 @@ public class PaySession: NSObject {
         request.countryCode                   = currency.countryCode
         request.currencyCode                  = currency.currencyCode
         request.merchantIdentifier            = merchantID
-        request.requiredBillingAddressFields  = .all
-        request.requiredShippingAddressFields = .all
+        request.shippingContact               = shippingContact
+        request.requiredBillingContactFields  = [.phoneNumber, .name, .postalAddress]
+        request.requiredShippingContactFields = checkout.needsShipping ? [.phoneNumber, .name, .postalAddress, .phoneNumber, .emailAddress] : []
+        if let shippingRates = checkout.availableShippingRates {
+            self.shippingRates = shippingRates
+        }
+        
+        if checkout.needsShipping {
+            request.shippingMethods = checkout.availableShippingRates?.compactMap {
+                let method = PKShippingMethod(label: $0.title, amount: $0.price)
+                method.identifier = $0.handle
+                method.detail = ""
+                return method
+            }
+        }
+
         request.supportedNetworks             = self.acceptedCardBrands.paymentNetworks
         request.merchantCapabilities          = [.capability3DS]
         request.paymentSummaryItems           = checkout.summaryItems(for: self.shopName)
@@ -229,7 +248,7 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
         let authorization = PayAuthorization(
             paymentData:     payment.token.paymentData,
             billingAddress:  PayAddress(with: payment.billingContact!),
-            shippingAddress: PayAddress(with: payment.shippingContact!),
+            shippingAddress: payment.shippingContact != nil ? PayAddress(with: payment.shippingContact!) : nil,
             shippingRate:    shippingRate
         )
         
@@ -369,3 +388,5 @@ extension PaySession: PKPaymentAuthorizationControllerDelegate {
         self.delegate?.paySessionDidFinish(self)
     }
 }
+
+#endif
