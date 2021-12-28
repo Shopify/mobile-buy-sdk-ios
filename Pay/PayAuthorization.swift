@@ -39,7 +39,7 @@ public struct PayAuthorization {
     public let billingAddress: PayAddress
 
     /// Shipping address that was selected by the user
-    public let shippingAddress: PayAddress
+    public let shippingAddress: PayAddress?
 
     /// Shipping rate that was selected by the user
     public let shippingRate: PayShippingRate?
@@ -47,7 +47,7 @@ public struct PayAuthorization {
     // ----------------------------------
     //  MARK: - Init -
     //
-    internal init(paymentData: Data, billingAddress: PayAddress, shippingAddress: PayAddress, shippingRate: PayShippingRate?) {
+    internal init(paymentData: Data, billingAddress: PayAddress, shippingAddress: PayAddress?, shippingRate: PayShippingRate?) {
         self.token           = String(data: paymentData, encoding: .utf8)!
         self.billingAddress  = billingAddress
         self.shippingAddress = shippingAddress
