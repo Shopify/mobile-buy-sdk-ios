@@ -93,17 +93,6 @@ extension Storefront {
 			return self
 		}
 
-		/// The customer associated with the checkout. 
-		@available(*, deprecated, message:"This field will always return null. If you have an authentication token for the customer, you can use the `customer` field on the query root to retrieve it.")
-		@discardableResult
-		open func customer(alias: String? = nil, _ subfields: (CustomerQuery) -> Void) -> CheckoutQuery {
-			let subquery = CustomerQuery()
-			subfields(subquery)
-
-			addField(field: "customer", aliasSuffix: alias, subfields: subquery)
-			return self
-		}
-
 		/// Discounts that have been applied on the checkout. 
 		///
 		/// - parameters:
@@ -456,13 +445,6 @@ extension Storefront {
 				}
 				return try value.map { return try Attribute(fields: $0) }
 
-				case "customer":
-				if value is NSNull { return nil }
-				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
-				}
-				return try Customer(fields: value)
-
 				case "discountApplications":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Checkout.self, field: fieldName, value: fieldValue)
@@ -693,16 +675,6 @@ extension Storefront {
 
 		func internalGetCustomAttributes(alias: String? = nil) -> [Storefront.Attribute] {
 			return field(field: "customAttributes", aliasSuffix: alias) as! [Storefront.Attribute]
-		}
-
-		/// The customer associated with the checkout. 
-		@available(*, deprecated, message:"This field will always return null. If you have an authentication token for the customer, you can use the `customer` field on the query root to retrieve it.")
-		open var customer: Storefront.Customer? {
-			return internalGetCustomer()
-		}
-
-		func internalGetCustomer(alias: String? = nil) -> Storefront.Customer? {
-			return field(field: "customer", aliasSuffix: alias) as! Storefront.Customer?
 		}
 
 		/// Discounts that have been applied on the checkout. 
@@ -989,12 +961,6 @@ extension Storefront {
 					internalGetCustomAttributes().forEach {
 						response.append($0)
 						response.append(contentsOf: $0.childResponseObjectMap())
-					}
-
-					case "customer":
-					if let value = internalGetCustomer() {
-						response.append(value)
-						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
 					case "discountApplications":

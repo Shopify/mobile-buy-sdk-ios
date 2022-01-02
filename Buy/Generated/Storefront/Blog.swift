@@ -65,6 +65,7 @@ extension Storefront {
 		///         - `blog_title`
 		///         - `created_at`
 		///         - `tag`
+		///         - `tag_not`
 		///         - `updated_at`
 		///        
 		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
@@ -169,6 +170,7 @@ extension Storefront {
 		///     - before: Returns the elements that come before the specified cursor.
 		///     - reverse: Reverse the order of the underlying list.
 		///
+		@available(*, deprecated, message:"The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n")
 		@discardableResult
 		open func metafields(alias: String? = nil, namespace: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (MetafieldConnectionQuery) -> Void) -> BlogQuery {
 			var args: [String] = []
@@ -229,14 +231,6 @@ extension Storefront {
 		@discardableResult
 		open func title(alias: String? = nil) -> BlogQuery {
 			addField(field: "title", aliasSuffix: alias)
-			return self
-		}
-
-		/// The url pointing to the blog accessible from the web. 
-		@available(*, deprecated, message:"Use `onlineStoreUrl` instead")
-		@discardableResult
-		open func url(alias: String? = nil) -> BlogQuery {
-			addField(field: "url", aliasSuffix: alias)
 			return self
 		}
 	}
@@ -312,12 +306,6 @@ extension Storefront {
 				}
 				return value
 
-				case "url":
-				guard let value = value as? String else {
-					throw SchemaViolationError(type: Blog.self, field: fieldName, value: fieldValue)
-				}
-				return URL(string: value)!
-
 				default:
 				throw SchemaViolationError(type: Blog.self, field: fieldName, value: fieldValue)
 			}
@@ -391,9 +379,12 @@ extension Storefront {
 		}
 
 		/// A paginated list of metafields associated with the resource. 
+		@available(*, deprecated, message:"The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n")
 		open var metafields: Storefront.MetafieldConnection {
 			return internalGetMetafields()
 		}
+
+		@available(*, deprecated, message:"The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n")
 
 		open func aliasedMetafields(alias: String) -> Storefront.MetafieldConnection {
 			return internalGetMetafields(alias: alias)
@@ -430,16 +421,6 @@ extension Storefront {
 
 		func internalGetTitle(alias: String? = nil) -> String {
 			return field(field: "title", aliasSuffix: alias) as! String
-		}
-
-		/// The url pointing to the blog accessible from the web. 
-		@available(*, deprecated, message:"Use `onlineStoreUrl` instead")
-		open var url: URL {
-			return internalGetUrl()
-		}
-
-		func internalGetUrl(alias: String? = nil) -> URL {
-			return field(field: "url", aliasSuffix: alias) as! URL
 		}
 
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {

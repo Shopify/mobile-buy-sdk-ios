@@ -27,7 +27,9 @@
 import Foundation
 
 extension Storefront {
-	/// A version of the API. 
+	/// A version of the API, as defined by [Shopify API 
+	/// versioning](https://shopify.dev/api/usage/versioning). Versions are 
+	/// commonly referred to by their handle (for example, `2021-10`). 
 	open class ApiVersionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ApiVersion
 
@@ -58,7 +60,9 @@ extension Storefront {
 		}
 	}
 
-	/// A version of the API. 
+	/// A version of the API, as defined by [Shopify API 
+	/// versioning](https://shopify.dev/api/usage/versioning). Versions are 
+	/// commonly referred to by their handle (for example, `2021-10`). 
 	open class ApiVersion: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = ApiVersionQuery
 

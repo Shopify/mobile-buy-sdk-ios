@@ -27,18 +27,20 @@
 import Foundation
 
 extension Storefront {
-	/// Information about pagination in a connection. 
+	/// Returns information about pagination in a connection, in accordance with 
+	/// the [Relay 
+	/// specification](https://relay.dev/graphql/connections.htm#sec-undefined.PageInfo). 
 	open class PageInfoQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = PageInfo
 
-		/// Indicates if there are more pages to fetch. 
+		/// Whether there are more pages to fetch following the current page. 
 		@discardableResult
 		open func hasNextPage(alias: String? = nil) -> PageInfoQuery {
 			addField(field: "hasNextPage", aliasSuffix: alias)
 			return self
 		}
 
-		/// Indicates if there are any pages prior to the current page. 
+		/// Whether there are any pages prior to the current page. 
 		@discardableResult
 		open func hasPreviousPage(alias: String? = nil) -> PageInfoQuery {
 			addField(field: "hasPreviousPage", aliasSuffix: alias)
@@ -46,7 +48,9 @@ extension Storefront {
 		}
 	}
 
-	/// Information about pagination in a connection. 
+	/// Returns information about pagination in a connection, in accordance with 
+	/// the [Relay 
+	/// specification](https://relay.dev/graphql/connections.htm#sec-undefined.PageInfo). 
 	open class PageInfo: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = PageInfoQuery
 
@@ -70,7 +74,7 @@ extension Storefront {
 			}
 		}
 
-		/// Indicates if there are more pages to fetch. 
+		/// Whether there are more pages to fetch following the current page. 
 		open var hasNextPage: Bool {
 			return internalGetHasNextPage()
 		}
@@ -79,7 +83,7 @@ extension Storefront {
 			return field(field: "hasNextPage", aliasSuffix: alias) as! Bool
 		}
 
-		/// Indicates if there are any pages prior to the current page. 
+		/// Whether there are any pages prior to the current page. 
 		open var hasPreviousPage: Bool {
 			return internalGetHasPreviousPage()
 		}

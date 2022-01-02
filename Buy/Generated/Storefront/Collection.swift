@@ -74,39 +74,12 @@ extension Storefront {
 		}
 
 		/// Image associated with the collection. 
-		///
-		/// - parameters:
-		///     - maxWidth: Image width in pixels between 1 and 2048. This argument is deprecated: Use `maxWidth` on `Image.transformedSrc` instead.
-		///     - maxHeight: Image height in pixels between 1 and 2048. This argument is deprecated: Use `maxHeight` on `Image.transformedSrc` instead.
-		///     - crop: Crops the image according to the specified region. This argument is deprecated: Use `crop` on `Image.transformedSrc` instead.
-		///     - scale: Image size multiplier for high-resolution retina displays. Must be between 1 and 3. This argument is deprecated: Use `scale` on `Image.transformedSrc` instead.
-		///
 		@discardableResult
-		open func image(alias: String? = nil, maxWidth: Int32? = nil, maxHeight: Int32? = nil, crop: CropRegion? = nil, scale: Int32? = nil, _ subfields: (ImageQuery) -> Void) -> CollectionQuery {
-			var args: [String] = []
-
-			if let maxWidth = maxWidth {
-				args.append("maxWidth:\(maxWidth)")
-			}
-
-			if let maxHeight = maxHeight {
-				args.append("maxHeight:\(maxHeight)")
-			}
-
-			if let crop = crop {
-				args.append("crop:\(crop.rawValue)")
-			}
-
-			if let scale = scale {
-				args.append("scale:\(scale)")
-			}
-
-			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
-
+		open func image(alias: String? = nil, _ subfields: (ImageQuery) -> Void) -> CollectionQuery {
 			let subquery = ImageQuery()
 			subfields(subquery)
 
-			addField(field: "image", aliasSuffix: alias, args: argsString, subfields: subquery)
+			addField(field: "image", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -143,6 +116,7 @@ extension Storefront {
 		///     - before: Returns the elements that come before the specified cursor.
 		///     - reverse: Reverse the order of the underlying list.
 		///
+		@available(*, deprecated, message:"The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n")
 		@discardableResult
 		open func metafields(alias: String? = nil, namespace: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (MetafieldConnectionQuery) -> Void) -> CollectionQuery {
 			var args: [String] = []
@@ -198,9 +172,10 @@ extension Storefront {
 		///     - before: Returns the elements that come before the specified cursor.
 		///     - reverse: Reverse the order of the underlying list.
 		///     - sortKey: Sort the underlying list by the given key.
+		///     - filters: Returns a subset of products matching all product filters.
 		///
 		@discardableResult
-		open func products(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: ProductCollectionSortKeys? = nil, _ subfields: (ProductConnectionQuery) -> Void) -> CollectionQuery {
+		open func products(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: ProductCollectionSortKeys? = nil, filters: [ProductFilter]? = nil, _ subfields: (ProductConnectionQuery) -> Void) -> CollectionQuery {
 			var args: [String] = []
 
 			if let first = first {
@@ -225,6 +200,10 @@ extension Storefront {
 
 			if let sortKey = sortKey {
 				args.append("sortKey:\(sortKey.rawValue)")
+			}
+
+			if let filters = filters {
+				args.append("filters:[\(filters.map{ "\($0.serialize())" }.joined(separator: ","))]")
 			}
 
 			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
@@ -379,10 +358,6 @@ extension Storefront {
 			return internalGetImage()
 		}
 
-		open func aliasedImage(alias: String) -> Storefront.Image? {
-			return internalGetImage(alias: alias)
-		}
-
 		func internalGetImage(alias: String? = nil) -> Storefront.Image? {
 			return field(field: "image", aliasSuffix: alias) as! Storefront.Image?
 		}
@@ -401,9 +376,12 @@ extension Storefront {
 		}
 
 		/// A paginated list of metafields associated with the resource. 
+		@available(*, deprecated, message:"The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n")
 		open var metafields: Storefront.MetafieldConnection {
 			return internalGetMetafields()
 		}
+
+		@available(*, deprecated, message:"The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n")
 
 		open func aliasedMetafields(alias: String) -> Storefront.MetafieldConnection {
 			return internalGetMetafields(alias: alias)

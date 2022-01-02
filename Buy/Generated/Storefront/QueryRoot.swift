@@ -50,6 +50,7 @@ extension Storefront {
 		///         - `blog_title`
 		///         - `created_at`
 		///         - `tag`
+		///         - `tag_not`
 		///         - `updated_at`
 		///        
 		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
@@ -686,6 +687,7 @@ extension Storefront {
 		///         - `created_at`
 		///         - `product_type`
 		///         - `tag`
+		///         - `tag_not`
 		///         - `title`
 		///         - `updated_at`
 		///         - `variants.price`

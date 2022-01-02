@@ -1,5 +1,5 @@
 //
-//  CartErrorCode.swift
+//  VariantOptionFilter.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,23 +27,44 @@
 import Foundation
 
 extension Storefront {
-	/// Possible error codes that can be returned by `CartUserError`. 
-	public enum CartErrorCode: String {
-		/// The input value is invalid. 
-		case invalid = "INVALID"
+	/// A filter used to view a subset of products in a collection matching a 
+	/// specific variant option. 
+	open class VariantOptionFilter {
+		/// The name of the variant option to filter on. 
+		open var name: String
 
-		/// Merchandise line was not found in cart. 
-		case invalidMerchandiseLine = "INVALID_MERCHANDISE_LINE"
+		/// The value of the variant option to filter on. 
+		open var value: String
 
-		/// The input value should be less than the maximum value allowed. 
-		case lessThan = "LESS_THAN"
+		/// Creates the input object.
+		///
+		/// - parameters:
+		///     - name: The name of the variant option to filter on.
+		///     - value: The value of the variant option to filter on.
+		///
+		public static func create(name: String, value: String) -> VariantOptionFilter {
+			return VariantOptionFilter(name: name, value: value)
+		}
 
-		/// Missing discount code. 
-		case missingDiscountCode = "MISSING_DISCOUNT_CODE"
+		/// Creates the input object.
+		///
+		/// - parameters:
+		///     - name: The name of the variant option to filter on.
+		///     - value: The value of the variant option to filter on.
+		///
+		public init(name: String, value: String) {
+			self.name = name
+			self.value = value
+		}
 
-		/// Missing note. 
-		case missingNote = "MISSING_NOTE"
+		internal func serialize() -> String {
+			var fields: [String] = []
 
-		case unknownValue = ""
+			fields.append("name:\(GraphQL.quoteString(input: name))")
+
+			fields.append("value:\(GraphQL.quoteString(input: value))")
+
+			return "{\(fields.joined(separator: ","))}"
+		}
 	}
 }

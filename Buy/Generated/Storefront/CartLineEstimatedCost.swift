@@ -42,7 +42,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The estimated total cost of the merchandise line, without discounts. 
+		/// The estimated total cost of the merchandise line. 
 		@discardableResult
 		open func totalAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartLineEstimatedCostQuery {
 			let subquery = MoneyV2Query()
@@ -87,7 +87,7 @@ extension Storefront {
 			return field(field: "subtotalAmount", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The estimated total cost of the merchandise line, without discounts. 
+		/// The estimated total cost of the merchandise line. 
 		open var totalAmount: Storefront.MoneyV2 {
 			return internalGetTotalAmount()
 		}

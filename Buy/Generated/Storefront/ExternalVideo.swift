@@ -39,6 +39,7 @@ extension Storefront {
 		}
 
 		/// The URL. 
+		@available(*, deprecated, message:"Use `originUrl` instead")
 		@discardableResult
 		open func embeddedUrl(alias: String? = nil) -> ExternalVideoQuery {
 			addField(field: "embeddedUrl", aliasSuffix: alias)
@@ -137,6 +138,7 @@ extension Storefront {
 		}
 
 		/// The URL. 
+		@available(*, deprecated, message:"Use `originUrl` instead")
 		open var embeddedUrl: URL {
 			return internalGetEmbeddedUrl()
 		}
