@@ -27,5 +27,5 @@
 import Foundation
 
 internal enum SDK {
-    static let version = "6.2.0"
+    static let version = "6.3.0"
 }
