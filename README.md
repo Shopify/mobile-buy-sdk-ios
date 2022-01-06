@@ -4,7 +4,7 @@
 [![GitHub release](https://img.shields.io/github/release/shopify/mobile-buy-sdk-ios.svg?style=flat)](https://github.com/Shopify/mobile-buy-sdk-ios/releases/latest)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-4BC51D.svg?style=flat)](https://swift.org/package-manager/)
-[![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)](https://github.com/Shopify/mobile-buy-sdk-ios/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)](https://github.com/Shopify/mobile-buy-sdk-ios/blob/main/LICENSE)
 
 # Mobile Buy SDK
 
@@ -14,18 +14,21 @@ The Mobile Buy SDK makes it easy to create custom storefronts in your mobile app
 
 - [Documentation](#documentation-)
 - [Installation](#installation-)
+
   - [Dynamic framework installation](#dynamic-framework-installation-)
   - [Carthage](#carthage-)
   - [CocoaPods](#cocoapods-)
 
 - [Getting started](#getting-started-)
 - [Code generation](#code-generation-)
+
   - [Request models](#request-models-)
   - [Response models](#response-models-)
   - [The `Node` protocol](#the-node-protocol-)
   - [Aliases](#aliases-)
 
 - [Graph client](#graphclient-)
+
   - [Queries](#queries-)
   - [Mutations](#mutations-)
   - [Retry and polling](#retry-)
@@ -33,6 +36,7 @@ The Mobile Buy SDK makes it easy to create custom storefronts in your mobile app
   - [Errors](#errors-)
 
 - [Search](#search-)
+
   - [Fuzzy matching](#fuzzy-matching-)
   - [Field matching](#field-matching-)
   - [Negating field matching](#negating-field-matching-)
@@ -41,41 +45,44 @@ The Mobile Buy SDK makes it easy to create custom storefronts in your mobile app
   - [Exists operator](#exists-operator-)
 
 - [Card vaulting](#card-vaulting-)
+
   - [Card client](#card-client-)
 
 - [ Pay](#apple-pay-)
+
   - [Pay Session](#pay-session-)
-      - [Did update shipping address](#did-update-shipping-address-)
-      - [Did select shipping rate](#did-select-shipping-rate-)
-      - [Did authorize payment](#did-authorize-payment-)
-      - [Did finish payment](#did-finish-payment-)
+    - [Did update shipping address](#did-update-shipping-address-)
+    - [Did select shipping rate](#did-select-shipping-rate-)
+    - [Did authorize payment](#did-authorize-payment-)
+    - [Did finish payment](#did-finish-payment-)
 
 - [Case studies](#case-studies-)
+
   - [Fetch shop](#fetch-shop-)
   - [Fetch collections and products](#fetch-collections-and-products-)
   - [Pagination](#pagination-)
   - [Fetch product details](#fetch-product-details-)
   - [Checkout](#checkout-)
-      - [Creating a checkout](#checkout-)
-      - [Updating a checkout](#updating-a-checkout-)
-      - [Polling for checkout readiness](#polling-for-checkout-updates-)
-      - [Polling for shipping rates](#polling-for-shipping-rates-)
-      - [Updating shipping line](#updating-shipping-line-)
-      - [Completing a checkout](#completing-a-checkout-)
-          - [Web](#web-checkout-)
-          - [Credit card](#credit-card-checkout-)
-          - [ Pay](#apple-pay-checkout-)
-      - [Polling for checkout completion](#polling-for-checkout-completion-)
+    - [Creating a checkout](#checkout-)
+    - [Updating a checkout](#updating-a-checkout-)
+    - [Polling for checkout readiness](#polling-for-checkout-updates-)
+    - [Polling for shipping rates](#polling-for-shipping-rates-)
+    - [Updating shipping line](#updating-shipping-line-)
+    - [Completing a checkout](#completing-a-checkout-)
+      - [Web](#web-checkout-)
+      - [Credit card](#credit-card-checkout-)
+      - [ Pay](#apple-pay-checkout-)
+    - [Polling for checkout completion](#polling-for-checkout-completion-)
   - [Handling Errors](#handling-errors-)
   - [Customer Accounts](#customer-accounts-)
-      - [Creating a customer](#creating-a-customer-)
-      - [Customer login](#customer-login-)
-      - [Password reset](#password-reset-)
-      - [Create, update and delete address](#create-update-and-delete-address-)
-      - [Customer information](#customer-information-)
-      - [Customer Addresses](#customer-addresses-)
-      - [Customer Orders](#customer-orders-)
-      - [Customer Update](#customer-update-)
+    - [Creating a customer](#creating-a-customer-)
+    - [Customer login](#customer-login-)
+    - [Password reset](#password-reset-)
+    - [Create, update and delete address](#create-update-and-delete-address-)
+    - [Customer information](#customer-information-)
+    - [Customer Addresses](#customer-addresses-)
+    - [Customer Orders](#customer-orders-)
+    - [Customer Update](#customer-update-)
 
 - [Sample application](#sample-application-)
 - [Contributions](#contributions-)
@@ -94,7 +101,7 @@ The documentation is generated using [Jazzy](https://github.com/realm/jazzy).
 
 ### Swift Package Manager [⤴](#table-of-contents)
 
-This is the recommended approach of integration the SDK with your app. You can follow Apple's guide for [adding a package dependency to your app](https://developer.apple.com/documentation/xcode/adding_package_dependencies_to_your_app) for a thorough walkthrough. 
+This is the recommended approach of integration the SDK with your app. You can follow Apple's guide for [adding a package dependency to your app](https://developer.apple.com/documentation/xcode/adding_package_dependencies_to_your_app) for a thorough walkthrough.
 
 ### Dynamic Framework Installation [⤴](#table-of-contents)
 
@@ -112,15 +119,15 @@ git submodule update --init --recursive
 
 3. Drag the `Buy.xcodeproj` into your application project.
 4. Add **Buy.framework** target as a dependency:
-    1. Navigate to **Build Phases** > **Target Dependencies**.
-    2. Add `Buy.framework`.
+   1. Navigate to **Build Phases** > **Target Dependencies**.
+   2. Add `Buy.framework`.
 5. Link `Buy.framework`:
-    1. Navigate to **Build Phases** > **Link Binary With Libraries**.
-    2. Add `Buy.framework`.
+   1. Navigate to **Build Phases** > **Link Binary With Libraries**.
+   2. Add `Buy.framework`.
 6. Make sure that the framework is copied into the bundle:
-    1. Navigate to **Build Phases** > **New Copy Files Phase**.
-    2. From the **Destination** dropdown, select **Frameworks**.
-    3. Add `Buy.framework`.
+   1. Navigate to **Build Phases** > **New Copy Files Phase**.
+   2. From the **Destination** dropdown, select **Frameworks**.
+   3. Add `Buy.framework`.
 7. Import into your project files using `import Buy`.
 
 See the **Storefront** sample app for an example of how to add the `Buy` target a dependency.
@@ -128,12 +135,15 @@ See the **Storefront** sample app for an example of how to add the `Buy` target 
 ### Carthage [⤴](#table-of-contents)
 
 1. Add the following line to your Cartfile:
+
 ```ruby
 github "Shopify/mobile-buy-sdk-ios"
 ```
+
 2. Run `carthage update`.
 3. Follow the [steps to link the dynamic framework](#dynamic-framework-installation-) that Carthage produced.
 4. Import the SDK module:
+
 ```swift
 import Buy
 ```
@@ -141,11 +151,14 @@ import Buy
 ### CocoaPods [⤴](#table-of-contents)
 
 1. Add the following line to your podfile:
+
 ```ruby
 pod "Mobile-Buy-SDK"
 ```
+
 2. Run `pod install`.
 3. Import the SDK module:
+
 ```swift
 import MobileBuySDK
 ```
@@ -483,10 +496,7 @@ The following example shows a GraphQL error response for an invalid query:
           "column": 90
         }
       ],
-      "fields": [
-        "query CollectionsWithProducts",
-        "Shop"
-      ]
+      "fields": ["query CollectionsWithProducts", "Shop"]
     }
   ]
 }
@@ -943,7 +953,7 @@ query {
         }
         edges {
           cursor
-        	node {
+          node {
             id
             title
             productType
@@ -1082,7 +1092,7 @@ Since we'll need to update the checkout with additional information later, all w
 
 #### Updating a checkout [⤴](#table-of-contents)
 
-A customer's information might not be available when a checkout is created. The Buy SDK provides mutations for updating the specific checkout fields that are required for completion: the `email`, `shippingAddress` and  `shippingLine` fields.
+A customer's information might not be available when a checkout is created. The Buy SDK provides mutations for updating the specific checkout fields that are required for completion: the `email`, `shippingAddress` and `shippingLine` fields.
 
 Note that if your checkout contains a line item that requires shipping, you must provide a shipping address and a shipping line as part of your checkout.
 
@@ -1125,8 +1135,8 @@ let mutation = Storefront.buildMutation { $0
 
 Checkouts may have asynchronous operations that can take time to finish. If you want to complete a checkout or ensure all the fields are populated and up to date, polling is required until the `ready` value is `true`. Fields that are populated asynchronously include duties and taxes.
 
-All asynchronous computations are completed and the checkout is updated accordingly once the `checkout.ready` flag is `true`. 
-This flag should be checked (and polled if it is `false`) after every update to the checkout to ensure there are no asynchronous processes running that could affect the fields of the checkout. 
+All asynchronous computations are completed and the checkout is updated accordingly once the `checkout.ready` flag is `true`.
+This flag should be checked (and polled if it is `false`) after every update to the checkout to ensure there are no asynchronous processes running that could affect the fields of the checkout.
 Common examples would be after updating the shipping address or adjusting the line items of a checkout.
 
 ```swift
@@ -1292,6 +1302,7 @@ let task = client.mutateGraphWith(mutation) { result, error in
 }
 task.resume()
 ```
+
 **3D Secure Checkout**
 
 To implement 3D secure on your checkout flow, see [the API Help Docs](https://help.shopify.com/en/api/guides/3d-secure#graphql-storefront-api-changes).
@@ -1597,9 +1608,10 @@ The `Storefront.CustomerUpdateInput` object also includes other fields besides t
 
 ```graphql
 mutation {
-  customerUpdate(customer: {
-    phone: "+16471234567"
-  }, customerAccessToken: "...") {
+  customerUpdate(
+    customer: { phone: "+16471234567" }
+    customerAccessToken: "..."
+  ) {
     customer {
       phone
     }
@@ -1619,9 +1631,7 @@ The result is a mutation that updates a customer's phone number to `null`.
 
 ```graphql
 mutation {
-  customerUpdate(customer: {
-    phone: null
-  }, customerAccessToken: "...") {
+  customerUpdate(customer: { phone: null }, customerAccessToken: "...") {
     customer {
       phone
     }
@@ -1632,7 +1642,6 @@ mutation {
 ## Sample application [⤴](#table-of-contents)
 
 For help getting started, take a look at the [sample iOS app](https://github.com/Shopify/mobile-buy-sdk-ios-sample). It covers the most common use cases of the SDK and how to integrate with it. Use the sample app as a template, a starting point, or a place to cherrypick components as needed. Refer to the app's readme for more details.
-
 
 ## Contributions [⤴](#table-of-contents)
 

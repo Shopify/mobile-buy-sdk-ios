@@ -1,7 +1,7 @@
 **Please complete the checklist before filing an issue:**
 
 - [ ] Is this a "how to" question? For questions on how to use the SDK, implement features or other related questions, [please use our forums](https://community.shopify.com/c/Shopify-APIs-SDKs/bd-p/shopify-apis-and-technology).
-- [ ] Is this something you can **debug and fix**? Create a pull request and contribute! Bug fixes and documentation fixes are welcome. You can read our [contribution](https://github.com/Shopify/mobile-buy-sdk-ios/blob/master/CONTRIBUTING.md) guidelines for more details.
+- [ ] Is this something you can **debug and fix**? Create a pull request and contribute! Bug fixes and documentation fixes are welcome. You can read our [contribution](https://github.com/Shopify/mobile-buy-sdk-ios/blob/main/CONTRIBUTING.md) guidelines for more details.
 
 None of the above? Create an issue. Be sure to include all the necessary information for us to understand and reproduce the problem:
 

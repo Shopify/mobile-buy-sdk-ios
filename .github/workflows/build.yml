@@ -12,10 +12,9 @@ jobs:
     runs-on: macOS-latest
 
     steps:
-      - name: Checkout master
-        uses: actions/checkout@master
+      - name: Checkout Repository
+        uses: actions/checkout@v2
         with:
-          ref: "master"
           ssh-key: ${{ secrets.SSH_ACTIONS_KEY }}
 
       - name: Install Ruby
@@ -59,7 +58,7 @@ jobs:
               repo: context.repo.repo,
               title: 'Update schema (auto-generated)',
               head: branch_name,
-              base: 'master',
+              base: 'main',
               body: "### Release notes" +
                 "\n" +
                 `\nThe [latest schema changes](https://shopify.dev/concepts/about-apis/versioning/release-notes/${api_version}#storefront-api-changes).` +

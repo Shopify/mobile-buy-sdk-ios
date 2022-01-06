@@ -8,10 +8,8 @@ jobs:
     runs-on: macOS-latest
 
     steps:
-      - name: Checkout master
-        uses: actions/checkout@master
-        with:
-          ref: "master"
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
       - name: Get SDK version
         id: sdk-version
@@ -38,7 +36,7 @@ jobs:
               name: `${sdk_version} [${api_version}]`,
               body: notes,
               tag_name: sdk_version,
-              target_commitish: 'master',
+              target_commitish: 'main',
               draft: true,
               prerelease: false,
             })
