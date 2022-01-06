@@ -228,7 +228,7 @@ extension Storefront {
 		///     - query: Supported filter parameters:
 		///         - `processed_at`
 		///        
-		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+		///        See the detailed [search syntax](https://shopify.dev/api/usage/search-syntax)
 		///        for more information about using filters.
 		///
 		@discardableResult

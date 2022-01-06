@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// Represents the address of the location. 
+	/// Represents the address of a location. 
 	open class LocationAddressQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = LocationAddress
 
@@ -59,14 +59,14 @@ extension Storefront {
 			return self
 		}
 
-		/// The two-letter country code of the location. 
+		/// The country code of the location. 
 		@discardableResult
 		open func countryCode(alias: String? = nil) -> LocationAddressQuery {
 			addField(field: "countryCode", aliasSuffix: alias)
 			return self
 		}
 
-		/// A formatted version of the location address. 
+		/// A formatted version of the address for the location. 
 		@discardableResult
 		open func formatted(alias: String? = nil) -> LocationAddressQuery {
 			addField(field: "formatted", aliasSuffix: alias)
@@ -101,8 +101,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The code for the region of the address, such as the province, state, or 
-		/// district. For example QC for Quebec, Canada. 
+		/// The code for the province, state, or district of the address of the 
+		/// location. 
 		@discardableResult
 		open func provinceCode(alias: String? = nil) -> LocationAddressQuery {
 			addField(field: "provinceCode", aliasSuffix: alias)
@@ -117,7 +117,7 @@ extension Storefront {
 		}
 	}
 
-	/// Represents the address of the location. 
+	/// Represents the address of a location. 
 	open class LocationAddress: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = LocationAddressQuery
 
@@ -248,7 +248,7 @@ extension Storefront {
 			return field(field: "country", aliasSuffix: alias) as! String?
 		}
 
-		/// The two-letter country code of the location. 
+		/// The country code of the location. 
 		open var countryCode: String? {
 			return internalGetCountryCode()
 		}
@@ -257,7 +257,7 @@ extension Storefront {
 			return field(field: "countryCode", aliasSuffix: alias) as! String?
 		}
 
-		/// A formatted version of the location address. 
+		/// A formatted version of the address for the location. 
 		open var formatted: [String] {
 			return internalGetFormatted()
 		}
@@ -302,8 +302,8 @@ extension Storefront {
 			return field(field: "province", aliasSuffix: alias) as! String?
 		}
 
-		/// The code for the region of the address, such as the province, state, or 
-		/// district. For example QC for Quebec, Canada. 
+		/// The code for the province, state, or district of the address of the 
+		/// location. 
 		open var provinceCode: String? {
 			return internalGetProvinceCode()
 		}
