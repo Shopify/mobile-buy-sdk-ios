@@ -27,7 +27,9 @@
 import Foundation
 
 extension Storefront {
-	/// Describes the availability of a product variant at a particular location. 
+	/// The availability of a product variant at a particular location. Local 
+	/// pick-up must be enabled in the store's shipping settings, otherwise this 
+	/// will return an empty result. 
 	open class StoreAvailabilityQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = StoreAvailability
 
@@ -57,7 +59,9 @@ extension Storefront {
 		}
 	}
 
-	/// Describes the availability of a product variant at a particular location. 
+	/// The availability of a product variant at a particular location. Local 
+	/// pick-up must be enabled in the store's shipping settings, otherwise this 
+	/// will return an empty result. 
 	open class StoreAvailability: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = StoreAvailabilityQuery
 

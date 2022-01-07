@@ -61,7 +61,7 @@ jobs:
               base: 'main',
               body: "### Release notes" +
                 "\n" +
-                `\nThe [latest schema changes](https://shopify.dev/concepts/about-apis/versioning/release-notes/${api_version}#storefront-api-changes).` +
+                `\nThe [latest schema changes](https://shopify.dev/api/release-notes/${api_version}#graphql-storefront-api-changes).` +
                 "\n" +
                 "\n#### Steps to release" +
                 "\n- [ ] Tests are passing" +

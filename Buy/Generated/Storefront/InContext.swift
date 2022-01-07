@@ -30,8 +30,9 @@ extension Storefront {
 	open class InContextDirective: GraphQL.AbstractDirective {
 		/// Contextualizes data based on the additional information provided by the 
 		/// directive. For example, you can use the `@inContext(country: CA)` directive 
-		/// to query the price of a product in a storefront within the context of 
-		/// Canada. 
+		/// to [query a product's 
+		/// price](https://shopify.dev/custom-storefronts/products/international-pricing#query-product-prices) 
+		/// in a storefront within the context of Canada. 
 		///
 		/// - parameters:
 		///     - country: The country code for context. For example, `CA`.

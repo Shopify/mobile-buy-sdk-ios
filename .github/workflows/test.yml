@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  test:
     runs-on: macOS-latest
 
     steps:
@@ -18,16 +18,14 @@ jobs:
       - name: Install xcpretty
         run: gem install xcpretty
 
-      - name: Use Xcode 12
-        run: sudo xcode-select -s /Applications/Xcode_12.app
-
-      - name: List available simulators
-        run: xcrun simctl list devices
-
-      - name: Setup simulator
-        id: version
+      - name: Setup Xcode Simulator
         run: |
-          CURRENT_SIMULATOR_UUID=$(xcrun simctl create TestDevice com.apple.CoreSimulator.SimDeviceType.iPhone-11 com.apple.CoreSimulator.SimRuntime.iOS-14-0)
+          xcode-select -p
+          xcrun xcodebuild -version
+          xcrun simctl list runtimes
+          xcrun simctl list devicetypes
+          xcrun simctl delete all
+          CURRENT_SIMULATOR_UUID=$(xcrun simctl create TestDevice "iPhone 12")
           echo "CURRENT_SIMULATOR_UUID=$CURRENT_SIMULATOR_UUID" >> $GITHUB_ENV
 
       - name: Test Buy

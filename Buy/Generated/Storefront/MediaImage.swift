@@ -74,7 +74,7 @@ extension Storefront {
 	}
 
 	/// Represents a Shopify hosted image. 
-	open class MediaImage: GraphQL.AbstractResponse, GraphQLObject, Media, Node {
+	open class MediaImage: GraphQL.AbstractResponse, GraphQLObject, Media, MetafieldReference, Node {
 		public typealias Query = MediaImageQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {

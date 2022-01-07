@@ -40,14 +40,6 @@ extension Storefront {
 			return self
 		}
 
-		/// The description of the application as defined by the Script. 
-		@available(*, deprecated, message:"Use `title` instead")
-		@discardableResult
-		open func description(alias: String? = nil) -> ScriptDiscountApplicationQuery {
-			addField(field: "description", aliasSuffix: alias)
-			return self
-		}
-
 		/// Which lines of targetType that the discount is allocated over. 
 		@discardableResult
 		open func targetSelection(alias: String? = nil) -> ScriptDiscountApplicationQuery {
@@ -94,12 +86,6 @@ extension Storefront {
 				}
 				return DiscountApplicationAllocationMethod(rawValue: value) ?? .unknownValue
 
-				case "description":
-				guard let value = value as? String else {
-					throw SchemaViolationError(type: ScriptDiscountApplication.self, field: fieldName, value: fieldValue)
-				}
-				return value
-
 				case "targetSelection":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: ScriptDiscountApplication.self, field: fieldName, value: fieldValue)
@@ -137,16 +123,6 @@ extension Storefront {
 
 		func internalGetAllocationMethod(alias: String? = nil) -> Storefront.DiscountApplicationAllocationMethod {
 			return field(field: "allocationMethod", aliasSuffix: alias) as! Storefront.DiscountApplicationAllocationMethod
-		}
-
-		/// The description of the application as defined by the Script. 
-		@available(*, deprecated, message:"Use `title` instead")
-		open var description: String {
-			return internalGetDescription()
-		}
-
-		func internalGetDescription(alias: String? = nil) -> String {
-			return field(field: "description", aliasSuffix: alias) as! String
 		}
 
 		/// Which lines of targetType that the discount is allocated over. 

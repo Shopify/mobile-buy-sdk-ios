@@ -319,7 +319,7 @@ extension Storefront {
 		/// Completes a checkout using a credit card token from Shopify's card vault. 
 		/// Before you can complete checkouts using CheckoutCompleteWithCreditCardV2, 
 		/// you need to [_request payment 
-		/// processing_](https://help.shopify.com/api/guides/sales-channel-sdk/getting-started#request-payment-processing). 
+		/// processing_](https://shopify.dev/apps/channels/getting-started#request-payment-processing). 
 		///
 		/// - parameters:
 		///     - checkoutId: The ID of the checkout.
@@ -1781,7 +1781,7 @@ extension Storefront {
 		/// Completes a checkout using a credit card token from Shopify's card vault. 
 		/// Before you can complete checkouts using CheckoutCompleteWithCreditCardV2, 
 		/// you need to [_request payment 
-		/// processing_](https://help.shopify.com/api/guides/sales-channel-sdk/getting-started#request-payment-processing). 
+		/// processing_](https://shopify.dev/apps/channels/getting-started#request-payment-processing). 
 		open var checkoutCompleteWithCreditCardV2: Storefront.CheckoutCompleteWithCreditCardV2Payload? {
 			return internalGetCheckoutCompleteWithCreditCardV2()
 		}

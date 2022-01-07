@@ -172,39 +172,12 @@ extension Storefront {
 		}
 
 		/// The image associated with the article. 
-		///
-		/// - parameters:
-		///     - maxWidth: Image width in pixels between 1 and 2048. This argument is deprecated: Use `maxWidth` on `Image.transformedSrc` instead.
-		///     - maxHeight: Image height in pixels between 1 and 2048. This argument is deprecated: Use `maxHeight` on `Image.transformedSrc` instead.
-		///     - crop: Crops the image according to the specified region. This argument is deprecated: Use `crop` on `Image.transformedSrc` instead.
-		///     - scale: Image size multiplier for high-resolution retina displays. Must be between 1 and 3. This argument is deprecated: Use `scale` on `Image.transformedSrc` instead.
-		///
 		@discardableResult
-		open func image(alias: String? = nil, maxWidth: Int32? = nil, maxHeight: Int32? = nil, crop: CropRegion? = nil, scale: Int32? = nil, _ subfields: (ImageQuery) -> Void) -> ArticleQuery {
-			var args: [String] = []
-
-			if let maxWidth = maxWidth {
-				args.append("maxWidth:\(maxWidth)")
-			}
-
-			if let maxHeight = maxHeight {
-				args.append("maxHeight:\(maxHeight)")
-			}
-
-			if let crop = crop {
-				args.append("crop:\(crop.rawValue)")
-			}
-
-			if let scale = scale {
-				args.append("scale:\(scale)")
-			}
-
-			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
-
+		open func image(alias: String? = nil, _ subfields: (ImageQuery) -> Void) -> ArticleQuery {
 			let subquery = ImageQuery()
 			subfields(subquery)
 
-			addField(field: "image", aliasSuffix: alias, args: argsString, subfields: subquery)
+			addField(field: "image", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -241,6 +214,7 @@ extension Storefront {
 		///     - before: Returns the elements that come before the specified cursor.
 		///     - reverse: Reverse the order of the underlying list.
 		///
+		@available(*, deprecated, message:"The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n")
 		@discardableResult
 		open func metafields(alias: String? = nil, namespace: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (MetafieldConnectionQuery) -> Void) -> ArticleQuery {
 			var args: [String] = []
@@ -315,14 +289,6 @@ extension Storefront {
 		@discardableResult
 		open func title(alias: String? = nil) -> ArticleQuery {
 			addField(field: "title", aliasSuffix: alias)
-			return self
-		}
-
-		/// The url pointing to the article accessible from the web. 
-		@available(*, deprecated, message:"Use `onlineStoreUrl` instead")
-		@discardableResult
-		open func url(alias: String? = nil) -> ArticleQuery {
-			addField(field: "url", aliasSuffix: alias)
 			return self
 		}
 	}
@@ -449,12 +415,6 @@ extension Storefront {
 				}
 				return value
 
-				case "url":
-				guard let value = value as? String else {
-					throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
-				}
-				return URL(string: value)!
-
 				default:
 				throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
 			}
@@ -569,10 +529,6 @@ extension Storefront {
 			return internalGetImage()
 		}
 
-		open func aliasedImage(alias: String) -> Storefront.Image? {
-			return internalGetImage(alias: alias)
-		}
-
 		func internalGetImage(alias: String? = nil) -> Storefront.Image? {
 			return field(field: "image", aliasSuffix: alias) as! Storefront.Image?
 		}
@@ -591,9 +547,12 @@ extension Storefront {
 		}
 
 		/// A paginated list of metafields associated with the resource. 
+		@available(*, deprecated, message:"The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n")
 		open var metafields: Storefront.MetafieldConnection {
 			return internalGetMetafields()
 		}
+
+		@available(*, deprecated, message:"The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n")
 
 		open func aliasedMetafields(alias: String) -> Storefront.MetafieldConnection {
 			return internalGetMetafields(alias: alias)
@@ -648,16 +607,6 @@ extension Storefront {
 
 		func internalGetTitle(alias: String? = nil) -> String {
 			return field(field: "title", aliasSuffix: alias) as! String
-		}
-
-		/// The url pointing to the article accessible from the web. 
-		@available(*, deprecated, message:"Use `onlineStoreUrl` instead")
-		open var url: URL {
-			return internalGetUrl()
-		}
-
-		func internalGetUrl(alias: String? = nil) -> URL {
-			return field(field: "url", aliasSuffix: alias) as! URL
 		}
 
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {

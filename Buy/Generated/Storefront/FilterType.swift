@@ -1,5 +1,5 @@
 //
-//  MetafieldValueType.swift
+//  FilterType.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,16 +27,13 @@
 import Foundation
 
 extension Storefront {
-	/// Metafield value types. 
-	public enum MetafieldValueType: String {
-		/// An integer metafield. 
-		case integer = "INTEGER"
+	/// Denotes the type of data this filter group represents. 
+	public enum FilterType: String {
+		/// A list of selectable values. 
+		case list = "LIST"
 
-		/// A json string metafield. 
-		case jsonString = "JSON_STRING"
-
-		/// A string metafield. 
-		case string = "STRING"
+		/// A range of prices. 
+		case priceRange = "PRICE_RANGE"
 
 		case unknownValue = ""
 	}

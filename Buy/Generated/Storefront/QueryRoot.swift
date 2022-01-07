@@ -50,9 +50,10 @@ extension Storefront {
 		///         - `blog_title`
 		///         - `created_at`
 		///         - `tag`
+		///         - `tag_not`
 		///         - `updated_at`
 		///        
-		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+		///        See the detailed [search syntax](https://shopify.dev/api/usage/search-syntax)
 		///        for more information about using filters.
 		///
 		@discardableResult
@@ -159,7 +160,7 @@ extension Storefront {
 		///         - `title`
 		///         - `updated_at`
 		///        
-		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+		///        See the detailed [search syntax](https://shopify.dev/api/usage/search-syntax)
 		///        for more information about using filters.
 		///
 		@discardableResult
@@ -285,7 +286,7 @@ extension Storefront {
 		///         - `title`
 		///         - `updated_at`
 		///        
-		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+		///        See the detailed [search syntax](https://shopify.dev/api/usage/search-syntax)
 		///        for more information about using filters.
 		///
 		@discardableResult
@@ -515,7 +516,7 @@ extension Storefront {
 		///         - `title`
 		///         - `updated_at`
 		///        
-		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+		///        See the detailed [search syntax](https://shopify.dev/api/usage/search-syntax)
 		///        for more information about using filters.
 		///
 		@discardableResult
@@ -686,12 +687,13 @@ extension Storefront {
 		///         - `created_at`
 		///         - `product_type`
 		///         - `tag`
+		///         - `tag_not`
 		///         - `title`
 		///         - `updated_at`
 		///         - `variants.price`
 		///         - `vendor`
 		///        
-		///        See the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax)
+		///        See the detailed [search syntax](https://shopify.dev/api/usage/search-syntax)
 		///        for more information about using filters.
 		///
 		@discardableResult

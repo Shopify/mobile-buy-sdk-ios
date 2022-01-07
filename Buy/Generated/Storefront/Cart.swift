@@ -28,7 +28,9 @@ import Foundation
 
 extension Storefront {
 	/// A cart represents the merchandise that a buyer intends to purchase, and the 
-	/// estimated cost associated with the cart. 
+	/// estimated cost associated with the cart. To learn how to interact with a 
+	/// cart during a customer's session, refer to the [Cart 
+	/// guide](https://shopify.dev/custom-storefronts/cart). 
 	open class CartQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Cart
 
@@ -77,7 +79,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The estimated costs that the buyer will pay at checkout. 
+		/// The estimated costs that the buyer will pay at checkout. The estimated 
+		/// costs are subject to change and changes will be reflected at checkout. 
 		@discardableResult
 		open func estimatedCost(alias: String? = nil, _ subfields: (CartEstimatedCostQuery) -> Void) -> CartQuery {
 			let subquery = CartEstimatedCostQuery()
@@ -154,7 +157,9 @@ extension Storefront {
 	}
 
 	/// A cart represents the merchandise that a buyer intends to purchase, and the 
-	/// estimated cost associated with the cart. 
+	/// estimated cost associated with the cart. To learn how to interact with a 
+	/// cart during a customer's session, refer to the [Cart 
+	/// guide](https://shopify.dev/custom-storefronts/cart). 
 	open class Cart: GraphQL.AbstractResponse, GraphQLObject, Node {
 		public typealias Query = CartQuery
 
@@ -273,7 +278,8 @@ extension Storefront {
 			return field(field: "discountCodes", aliasSuffix: alias) as! [Storefront.CartDiscountCode]
 		}
 
-		/// The estimated costs that the buyer will pay at checkout. 
+		/// The estimated costs that the buyer will pay at checkout. The estimated 
+		/// costs are subject to change and changes will be reflected at checkout. 
 		open var estimatedCost: Storefront.CartEstimatedCost {
 			return internalGetEstimatedCost()
 		}
