@@ -1,5 +1,5 @@
 //
-//  Video.swift
+//  GenericFile.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,34 +27,43 @@
 import Foundation
 
 extension Storefront {
-	/// Represents a Shopify hosted video. 
-	open class VideoQuery: GraphQL.AbstractQuery, GraphQLQuery {
-		public typealias Response = Video
+	/// The generic file resource lets you manage files in a merchant’s store. 
+	/// Generic files include any file that doesn’t fit into a designated type such 
+	/// as image or video. Example: PDF, JSON. 
+	open class GenericFileQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = GenericFile
 
-		/// A word or phrase to share the nature or contents of a media. 
+		/// A word or phrase to indicate the contents of a file. 
 		@discardableResult
-		open func alt(alias: String? = nil) -> VideoQuery {
+		open func alt(alias: String? = nil) -> GenericFileQuery {
 			addField(field: "alt", aliasSuffix: alias)
 			return self
 		}
 
 		/// A globally-unique identifier. 
 		@discardableResult
-		open func id(alias: String? = nil) -> VideoQuery {
+		open func id(alias: String? = nil) -> GenericFileQuery {
 			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
-		/// The media content type. 
+		/// The MIME type of the file. 
 		@discardableResult
-		open func mediaContentType(alias: String? = nil) -> VideoQuery {
-			addField(field: "mediaContentType", aliasSuffix: alias)
+		open func mimeType(alias: String? = nil) -> GenericFileQuery {
+			addField(field: "mimeType", aliasSuffix: alias)
 			return self
 		}
 
-		/// The preview image for the media. 
+		/// The size of the original file in bytes. 
 		@discardableResult
-		open func previewImage(alias: String? = nil, _ subfields: (ImageQuery) -> Void) -> VideoQuery {
+		open func originalFileSize(alias: String? = nil) -> GenericFileQuery {
+			addField(field: "originalFileSize", aliasSuffix: alias)
+			return self
+		}
+
+		/// The preview image for the file. 
+		@discardableResult
+		open func previewImage(alias: String? = nil, _ subfields: (ImageQuery) -> Void) -> GenericFileQuery {
 			let subquery = ImageQuery()
 			subfields(subquery)
 
@@ -62,20 +71,19 @@ extension Storefront {
 			return self
 		}
 
-		/// The sources for a video. 
+		/// The URL of the file. 
 		@discardableResult
-		open func sources(alias: String? = nil, _ subfields: (VideoSourceQuery) -> Void) -> VideoQuery {
-			let subquery = VideoSourceQuery()
-			subfields(subquery)
-
-			addField(field: "sources", aliasSuffix: alias, subfields: subquery)
+		open func url(alias: String? = nil) -> GenericFileQuery {
+			addField(field: "url", aliasSuffix: alias)
 			return self
 		}
 	}
 
-	/// Represents a Shopify hosted video. 
-	open class Video: GraphQL.AbstractResponse, GraphQLObject, Media, MetafieldReference, Node {
-		public typealias Query = VideoQuery
+	/// The generic file resource lets you manage files in a merchant’s store. 
+	/// Generic files include any file that doesn’t fit into a designated type such 
+	/// as image or video. Example: PDF, JSON. 
+	open class GenericFile: GraphQL.AbstractResponse, GraphQLObject, MetafieldReference, Node {
+		public typealias Query = GenericFileQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
@@ -83,41 +91,50 @@ extension Storefront {
 				case "alt":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: Video.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: GenericFile.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "id":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: Video.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: GenericFile.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.ID(rawValue: value)
 
-				case "mediaContentType":
+				case "mimeType":
+				if value is NSNull { return nil }
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: Video.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: GenericFile.self, field: fieldName, value: fieldValue)
 				}
-				return MediaContentType(rawValue: value) ?? .unknownValue
+				return value
+
+				case "originalFileSize":
+				if value is NSNull { return nil }
+				guard let value = value as? Int else {
+					throw SchemaViolationError(type: GenericFile.self, field: fieldName, value: fieldValue)
+				}
+				return Int32(value)
 
 				case "previewImage":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: Video.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: GenericFile.self, field: fieldName, value: fieldValue)
 				}
 				return try Image(fields: value)
 
-				case "sources":
-				guard let value = value as? [[String: Any]] else {
-					throw SchemaViolationError(type: Video.self, field: fieldName, value: fieldValue)
+				case "url":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: GenericFile.self, field: fieldName, value: fieldValue)
 				}
-				return try value.map { return try VideoSource(fields: $0) }
+				return URL(string: value)!
 
 				default:
-				throw SchemaViolationError(type: Video.self, field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: GenericFile.self, field: fieldName, value: fieldValue)
 			}
 		}
 
-		/// A word or phrase to share the nature or contents of a media. 
+		/// A word or phrase to indicate the contents of a file. 
 		open var alt: String? {
 			return internalGetAlt()
 		}
@@ -135,16 +152,25 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
-		/// The media content type. 
-		open var mediaContentType: Storefront.MediaContentType {
-			return internalGetMediaContentType()
+		/// The MIME type of the file. 
+		open var mimeType: String? {
+			return internalGetMimeType()
 		}
 
-		func internalGetMediaContentType(alias: String? = nil) -> Storefront.MediaContentType {
-			return field(field: "mediaContentType", aliasSuffix: alias) as! Storefront.MediaContentType
+		func internalGetMimeType(alias: String? = nil) -> String? {
+			return field(field: "mimeType", aliasSuffix: alias) as! String?
 		}
 
-		/// The preview image for the media. 
+		/// The size of the original file in bytes. 
+		open var originalFileSize: Int32? {
+			return internalGetOriginalFileSize()
+		}
+
+		func internalGetOriginalFileSize(alias: String? = nil) -> Int32? {
+			return field(field: "originalFileSize", aliasSuffix: alias) as! Int32?
+		}
+
+		/// The preview image for the file. 
 		open var previewImage: Storefront.Image? {
 			return internalGetPreviewImage()
 		}
@@ -153,13 +179,13 @@ extension Storefront {
 			return field(field: "previewImage", aliasSuffix: alias) as! Storefront.Image?
 		}
 
-		/// The sources for a video. 
-		open var sources: [Storefront.VideoSource] {
-			return internalGetSources()
+		/// The URL of the file. 
+		open var url: URL? {
+			return internalGetUrl()
 		}
 
-		func internalGetSources(alias: String? = nil) -> [Storefront.VideoSource] {
-			return field(field: "sources", aliasSuffix: alias) as! [Storefront.VideoSource]
+		func internalGetUrl(alias: String? = nil) -> URL? {
+			return field(field: "url", aliasSuffix: alias) as! URL?
 		}
 
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
@@ -170,12 +196,6 @@ extension Storefront {
 					if let value = internalGetPreviewImage() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
-					}
-
-					case "sources":
-					internalGetSources().forEach {
-						response.append($0)
-						response.append(contentsOf: $0.childResponseObjectMap())
 					}
 
 					default:

@@ -39,6 +39,13 @@ extension Storefront {
 			return self
 		}
 
+		/// A globally-unique identifier. 
+		@discardableResult
+		open func id(alias: String? = nil) -> ShopQuery {
+			addField(field: "id", aliasSuffix: alias)
+			return self
+		}
+
 		/// Returns a metafield found by namespace and key. 
 		///
 		/// - parameters:
@@ -205,7 +212,7 @@ extension Storefront {
 
 	/// Shop represents a collection of the general settings and information about 
 	/// the shop. 
-	open class Shop: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource {
+	open class Shop: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource, Node {
 		public typealias Query = ShopQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
@@ -217,6 +224,12 @@ extension Storefront {
 					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
 				}
 				return value
+
+				case "id":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
+				}
+				return GraphQL.ID(rawValue: value)
 
 				case "metafield":
 				if value is NSNull { return nil }
@@ -308,6 +321,15 @@ extension Storefront {
 
 		func internalGetDescription(alias: String? = nil) -> String? {
 			return field(field: "description", aliasSuffix: alias) as! String?
+		}
+
+		/// A globally-unique identifier. 
+		open var id: GraphQL.ID {
+			return internalGetId()
+		}
+
+		func internalGetId(alias: String? = nil) -> GraphQL.ID {
+			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
 		/// Returns a metafield found by namespace and key. 

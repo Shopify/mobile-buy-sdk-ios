@@ -30,6 +30,7 @@ extension Storefront {
 	/// A filter used to view a subset of products in a collection matching a 
 	/// specific metafield value. Only the following metafield types are currently 
 	/// supported: - `number_integer` - `number_decimal` - `single_line_text_field` 
+	/// - `boolean` as of 2022-04. 
 	open class MetafieldFilter {
 		/// The namespace of the metafield to filter on. 
 		open var namespace: String

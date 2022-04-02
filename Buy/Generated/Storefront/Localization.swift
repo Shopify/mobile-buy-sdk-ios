@@ -31,13 +31,23 @@ extension Storefront {
 	open class LocalizationQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Localization
 
-		/// List of countries with enabled localized experiences. 
+		/// The list of countries with enabled localized experiences. 
 		@discardableResult
 		open func availableCountries(alias: String? = nil, _ subfields: (CountryQuery) -> Void) -> LocalizationQuery {
 			let subquery = CountryQuery()
 			subfields(subquery)
 
 			addField(field: "availableCountries", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// The list of languages available for the active country. 
+		@discardableResult
+		open func availableLanguages(alias: String? = nil, _ subfields: (LanguageQuery) -> Void) -> LocalizationQuery {
+			let subquery = LanguageQuery()
+			subfields(subquery)
+
+			addField(field: "availableLanguages", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -49,6 +59,17 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "country", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// The language of the active localized experience. Use the `@inContext` 
+		/// directive to change this value. 
+		@discardableResult
+		open func language(alias: String? = nil, _ subfields: (LanguageQuery) -> Void) -> LocalizationQuery {
+			let subquery = LanguageQuery()
+			subfields(subquery)
+
+			addField(field: "language", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 	}
@@ -66,24 +87,45 @@ extension Storefront {
 				}
 				return try value.map { return try Country(fields: $0) }
 
+				case "availableLanguages":
+				guard let value = value as? [[String: Any]] else {
+					throw SchemaViolationError(type: Localization.self, field: fieldName, value: fieldValue)
+				}
+				return try value.map { return try Language(fields: $0) }
+
 				case "country":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Localization.self, field: fieldName, value: fieldValue)
 				}
 				return try Country(fields: value)
 
+				case "language":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Localization.self, field: fieldName, value: fieldValue)
+				}
+				return try Language(fields: value)
+
 				default:
 				throw SchemaViolationError(type: Localization.self, field: fieldName, value: fieldValue)
 			}
 		}
 
-		/// List of countries with enabled localized experiences. 
+		/// The list of countries with enabled localized experiences. 
 		open var availableCountries: [Storefront.Country] {
 			return internalGetAvailableCountries()
 		}
 
 		func internalGetAvailableCountries(alias: String? = nil) -> [Storefront.Country] {
 			return field(field: "availableCountries", aliasSuffix: alias) as! [Storefront.Country]
+		}
+
+		/// The list of languages available for the active country. 
+		open var availableLanguages: [Storefront.Language] {
+			return internalGetAvailableLanguages()
+		}
+
+		func internalGetAvailableLanguages(alias: String? = nil) -> [Storefront.Language] {
+			return field(field: "availableLanguages", aliasSuffix: alias) as! [Storefront.Language]
 		}
 
 		/// The country of the active localized experience. Use the `@inContext` 
@@ -96,6 +138,16 @@ extension Storefront {
 			return field(field: "country", aliasSuffix: alias) as! Storefront.Country
 		}
 
+		/// The language of the active localized experience. Use the `@inContext` 
+		/// directive to change this value. 
+		open var language: Storefront.Language {
+			return internalGetLanguage()
+		}
+
+		func internalGetLanguage(alias: String? = nil) -> Storefront.Language {
+			return field(field: "language", aliasSuffix: alias) as! Storefront.Language
+		}
+
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
@@ -106,9 +158,19 @@ extension Storefront {
 						response.append(contentsOf: $0.childResponseObjectMap())
 					}
 
+					case "availableLanguages":
+					internalGetAvailableLanguages().forEach {
+						response.append($0)
+						response.append(contentsOf: $0.childResponseObjectMap())
+					}
+
 					case "country":
 					response.append(internalGetCountry())
 					response.append(contentsOf: internalGetCountry().childResponseObjectMap())
+
+					case "language":
+					response.append(internalGetLanguage())
+					response.append(contentsOf: internalGetLanguage().childResponseObjectMap())
 
 					default:
 					break

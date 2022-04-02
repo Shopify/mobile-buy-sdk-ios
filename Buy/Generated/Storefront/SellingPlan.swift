@@ -53,9 +53,9 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents the selling plan options available in the drop-down list in the 
-		/// storefront. For example, 'Delivery every week' or 'Delivery every 2 weeks' 
-		/// specifies the delivery frequency options for the product. 
+		/// The selling plan options available in the drop-down list in the storefront. 
+		/// For example, 'Delivery every week' or 'Delivery every 2 weeks' specifies 
+		/// the delivery frequency options for the product. 
 		@discardableResult
 		open func options(alias: String? = nil, _ subfields: (SellingPlanOptionQuery) -> Void) -> SellingPlanQuery {
 			let subquery = SellingPlanOptionQuery()
@@ -65,7 +65,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Represents how a selling plan affects pricing when a variant is purchased 
+		/// The price adjustments that a selling plan makes when a variant is purchased 
 		/// with a selling plan. 
 		@discardableResult
 		open func priceAdjustments(alias: String? = nil, _ subfields: (SellingPlanPriceAdjustmentQuery) -> Void) -> SellingPlanQuery {
@@ -161,9 +161,9 @@ extension Storefront {
 			return field(field: "name", aliasSuffix: alias) as! String
 		}
 
-		/// Represents the selling plan options available in the drop-down list in the 
-		/// storefront. For example, 'Delivery every week' or 'Delivery every 2 weeks' 
-		/// specifies the delivery frequency options for the product. 
+		/// The selling plan options available in the drop-down list in the storefront. 
+		/// For example, 'Delivery every week' or 'Delivery every 2 weeks' specifies 
+		/// the delivery frequency options for the product. 
 		open var options: [Storefront.SellingPlanOption] {
 			return internalGetOptions()
 		}
@@ -172,7 +172,7 @@ extension Storefront {
 			return field(field: "options", aliasSuffix: alias) as! [Storefront.SellingPlanOption]
 		}
 
-		/// Represents how a selling plan affects pricing when a variant is purchased 
+		/// The price adjustments that a selling plan makes when a variant is purchased 
 		/// with a selling plan. 
 		open var priceAdjustments: [Storefront.SellingPlanPriceAdjustment] {
 			return internalGetPriceAdjustments()

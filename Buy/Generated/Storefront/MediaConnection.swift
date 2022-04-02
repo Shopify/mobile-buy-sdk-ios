@@ -41,6 +41,16 @@ extension Storefront {
 			return self
 		}
 
+		/// A list of the nodes contained in MediaEdge. 
+		@discardableResult
+		open func nodes(alias: String? = nil, _ subfields: (MediaQuery) -> Void) -> MediaConnectionQuery {
+			let subquery = MediaQuery()
+			subfields(subquery)
+
+			addField(field: "nodes", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// Information to aid in pagination. 
 		@discardableResult
 		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> MediaConnectionQuery {
@@ -65,6 +75,12 @@ extension Storefront {
 				}
 				return try value.map { return try MediaEdge(fields: $0) }
 
+				case "nodes":
+				guard let value = value as? [[String: Any]] else {
+					throw SchemaViolationError(type: MediaConnection.self, field: fieldName, value: fieldValue)
+				}
+				return try value.map { return try UnknownMedia.create(fields: $0) }
+
 				case "pageInfo":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: MediaConnection.self, field: fieldName, value: fieldValue)
@@ -85,6 +101,15 @@ extension Storefront {
 			return field(field: "edges", aliasSuffix: alias) as! [Storefront.MediaEdge]
 		}
 
+		/// A list of the nodes contained in MediaEdge. 
+		open var nodes: [Media] {
+			return internalGetNodes()
+		}
+
+		func internalGetNodes(alias: String? = nil) -> [Media] {
+			return field(field: "nodes", aliasSuffix: alias) as! [Media]
+		}
+
 		/// Information to aid in pagination. 
 		open var pageInfo: Storefront.PageInfo {
 			return internalGetPageInfo()
@@ -102,6 +127,12 @@ extension Storefront {
 					internalGetEdges().forEach {
 						response.append($0)
 						response.append(contentsOf: $0.childResponseObjectMap())
+					}
+
+					case "nodes":
+					internalGetNodes().forEach {
+						response.append(($0 as! GraphQL.AbstractResponse))
+						response.append(contentsOf: ($0 as! GraphQL.AbstractResponse).childResponseObjectMap())
 					}
 
 					case "pageInfo":

@@ -31,6 +31,16 @@ extension Storefront {
 	open class CountryQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Country
 
+		/// The languages available for the country. 
+		@discardableResult
+		open func availableLanguages(alias: String? = nil, _ subfields: (LanguageQuery) -> Void) -> CountryQuery {
+			let subquery = LanguageQuery()
+			subfields(subquery)
+
+			addField(field: "availableLanguages", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The currency of the country. 
 		@discardableResult
 		open func currency(alias: String? = nil, _ subfields: (CurrencyQuery) -> Void) -> CountryQuery {
@@ -70,6 +80,12 @@ extension Storefront {
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "availableLanguages":
+				guard let value = value as? [[String: Any]] else {
+					throw SchemaViolationError(type: Country.self, field: fieldName, value: fieldValue)
+				}
+				return try value.map { return try Language(fields: $0) }
+
 				case "currency":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Country.self, field: fieldName, value: fieldValue)
@@ -97,6 +113,15 @@ extension Storefront {
 				default:
 				throw SchemaViolationError(type: Country.self, field: fieldName, value: fieldValue)
 			}
+		}
+
+		/// The languages available for the country. 
+		open var availableLanguages: [Storefront.Language] {
+			return internalGetAvailableLanguages()
+		}
+
+		func internalGetAvailableLanguages(alias: String? = nil) -> [Storefront.Language] {
+			return field(field: "availableLanguages", aliasSuffix: alias) as! [Storefront.Language]
 		}
 
 		/// The currency of the country. 
@@ -139,6 +164,12 @@ extension Storefront {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
 				switch($0) {
+					case "availableLanguages":
+					internalGetAvailableLanguages().forEach {
+						response.append($0)
+						response.append(contentsOf: $0.childResponseObjectMap())
+					}
+
 					case "currency":
 					response.append(internalGetCurrency())
 					response.append(contentsOf: internalGetCurrency().childResponseObjectMap())

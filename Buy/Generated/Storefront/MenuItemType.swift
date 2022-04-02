@@ -1,5 +1,5 @@
 //
-//  ProductVariantSortKeys.swift
+//  MenuItemType.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,24 +27,40 @@
 import Foundation
 
 extension Storefront {
-	/// The set of valid sort keys for the ProductVariant query. 
-	public enum ProductVariantSortKeys: String {
-		/// Sort by the `id` value. 
-		case id = "ID"
+	/// A menu item type. 
+	public enum MenuItemType: String {
+		/// An article link. 
+		case article = "ARTICLE"
 
-		/// Sort by the `position` value. 
-		case position = "POSITION"
+		/// A blog link. 
+		case blog = "BLOG"
 
-		/// Sort by relevance to the search terms when the `query` parameter is 
-		/// specified on the connection. Don't use this sort key when no search query 
-		/// is specified. 
-		case relevance = "RELEVANCE"
+		/// A catalog link. 
+		case catalog = "CATALOG"
 
-		/// Sort by the `sku` value. 
-		case sku = "SKU"
+		/// A collection link. 
+		case collection = "COLLECTION"
 
-		/// Sort by the `title` value. 
-		case title = "TITLE"
+		/// A collection link. 
+		case collections = "COLLECTIONS"
+
+		/// A frontpage link. 
+		case frontpage = "FRONTPAGE"
+
+		/// An http link. 
+		case http = "HTTP"
+
+		/// A page link. 
+		case page = "PAGE"
+
+		/// A product link. 
+		case product = "PRODUCT"
+
+		/// A search link. 
+		case search = "SEARCH"
+
+		/// A shop policy link. 
+		case shopPolicy = "SHOP_POLICY"
 
 		case unknownValue = ""
 	}

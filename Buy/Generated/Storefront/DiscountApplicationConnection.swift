@@ -42,6 +42,16 @@ extension Storefront {
 			return self
 		}
 
+		/// A list of the nodes contained in DiscountApplicationEdge. 
+		@discardableResult
+		open func nodes(alias: String? = nil, _ subfields: (DiscountApplicationQuery) -> Void) -> DiscountApplicationConnectionQuery {
+			let subquery = DiscountApplicationQuery()
+			subfields(subquery)
+
+			addField(field: "nodes", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// Information to aid in pagination. 
 		@discardableResult
 		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> DiscountApplicationConnectionQuery {
@@ -67,6 +77,12 @@ extension Storefront {
 				}
 				return try value.map { return try DiscountApplicationEdge(fields: $0) }
 
+				case "nodes":
+				guard let value = value as? [[String: Any]] else {
+					throw SchemaViolationError(type: DiscountApplicationConnection.self, field: fieldName, value: fieldValue)
+				}
+				return try value.map { return try UnknownDiscountApplication.create(fields: $0) }
+
 				case "pageInfo":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: DiscountApplicationConnection.self, field: fieldName, value: fieldValue)
@@ -87,6 +103,15 @@ extension Storefront {
 			return field(field: "edges", aliasSuffix: alias) as! [Storefront.DiscountApplicationEdge]
 		}
 
+		/// A list of the nodes contained in DiscountApplicationEdge. 
+		open var nodes: [DiscountApplication] {
+			return internalGetNodes()
+		}
+
+		func internalGetNodes(alias: String? = nil) -> [DiscountApplication] {
+			return field(field: "nodes", aliasSuffix: alias) as! [DiscountApplication]
+		}
+
 		/// Information to aid in pagination. 
 		open var pageInfo: Storefront.PageInfo {
 			return internalGetPageInfo()
@@ -104,6 +129,12 @@ extension Storefront {
 					internalGetEdges().forEach {
 						response.append($0)
 						response.append(contentsOf: $0.childResponseObjectMap())
+					}
+
+					case "nodes":
+					internalGetNodes().forEach {
+						response.append(($0 as! GraphQL.AbstractResponse))
+						response.append(contentsOf: ($0 as! GraphQL.AbstractResponse).childResponseObjectMap())
 					}
 
 					case "pageInfo":

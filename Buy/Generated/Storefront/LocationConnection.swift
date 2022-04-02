@@ -41,6 +41,16 @@ extension Storefront {
 			return self
 		}
 
+		/// A list of the nodes contained in LocationEdge. 
+		@discardableResult
+		open func nodes(alias: String? = nil, _ subfields: (LocationQuery) -> Void) -> LocationConnectionQuery {
+			let subquery = LocationQuery()
+			subfields(subquery)
+
+			addField(field: "nodes", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// Information to aid in pagination. 
 		@discardableResult
 		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> LocationConnectionQuery {
@@ -65,6 +75,12 @@ extension Storefront {
 				}
 				return try value.map { return try LocationEdge(fields: $0) }
 
+				case "nodes":
+				guard let value = value as? [[String: Any]] else {
+					throw SchemaViolationError(type: LocationConnection.self, field: fieldName, value: fieldValue)
+				}
+				return try value.map { return try Location(fields: $0) }
+
 				case "pageInfo":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: LocationConnection.self, field: fieldName, value: fieldValue)
@@ -85,6 +101,15 @@ extension Storefront {
 			return field(field: "edges", aliasSuffix: alias) as! [Storefront.LocationEdge]
 		}
 
+		/// A list of the nodes contained in LocationEdge. 
+		open var nodes: [Storefront.Location] {
+			return internalGetNodes()
+		}
+
+		func internalGetNodes(alias: String? = nil) -> [Storefront.Location] {
+			return field(field: "nodes", aliasSuffix: alias) as! [Storefront.Location]
+		}
+
 		/// Information to aid in pagination. 
 		open var pageInfo: Storefront.PageInfo {
 			return internalGetPageInfo()
@@ -100,6 +125,12 @@ extension Storefront {
 				switch($0) {
 					case "edges":
 					internalGetEdges().forEach {
+						response.append($0)
+						response.append(contentsOf: $0.childResponseObjectMap())
+					}
+
+					case "nodes":
+					internalGetNodes().forEach {
 						response.append($0)
 						response.append(contentsOf: $0.childResponseObjectMap())
 					}

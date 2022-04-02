@@ -42,6 +42,16 @@ extension Storefront {
 			return self
 		}
 
+		/// A list of the nodes contained in FulfillmentLineItemEdge. 
+		@discardableResult
+		open func nodes(alias: String? = nil, _ subfields: (FulfillmentLineItemQuery) -> Void) -> FulfillmentLineItemConnectionQuery {
+			let subquery = FulfillmentLineItemQuery()
+			subfields(subquery)
+
+			addField(field: "nodes", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// Information to aid in pagination. 
 		@discardableResult
 		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> FulfillmentLineItemConnectionQuery {
@@ -67,6 +77,12 @@ extension Storefront {
 				}
 				return try value.map { return try FulfillmentLineItemEdge(fields: $0) }
 
+				case "nodes":
+				guard let value = value as? [[String: Any]] else {
+					throw SchemaViolationError(type: FulfillmentLineItemConnection.self, field: fieldName, value: fieldValue)
+				}
+				return try value.map { return try FulfillmentLineItem(fields: $0) }
+
 				case "pageInfo":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: FulfillmentLineItemConnection.self, field: fieldName, value: fieldValue)
@@ -87,6 +103,15 @@ extension Storefront {
 			return field(field: "edges", aliasSuffix: alias) as! [Storefront.FulfillmentLineItemEdge]
 		}
 
+		/// A list of the nodes contained in FulfillmentLineItemEdge. 
+		open var nodes: [Storefront.FulfillmentLineItem] {
+			return internalGetNodes()
+		}
+
+		func internalGetNodes(alias: String? = nil) -> [Storefront.FulfillmentLineItem] {
+			return field(field: "nodes", aliasSuffix: alias) as! [Storefront.FulfillmentLineItem]
+		}
+
 		/// Information to aid in pagination. 
 		open var pageInfo: Storefront.PageInfo {
 			return internalGetPageInfo()
@@ -102,6 +127,12 @@ extension Storefront {
 				switch($0) {
 					case "edges":
 					internalGetEdges().forEach {
+						response.append($0)
+						response.append(contentsOf: $0.childResponseObjectMap())
+					}
+
+					case "nodes":
+					internalGetNodes().forEach {
 						response.append($0)
 						response.append(contentsOf: $0.childResponseObjectMap())
 					}

@@ -44,10 +44,9 @@ extension Storefront {
 		/// Sort by the `product_type` value. 
 		case productType = "PRODUCT_TYPE"
 
-		/// During a search (i.e. when the `query` parameter has been specified on the 
-		/// connection) this sorts the results by relevance to the search term(s). When 
-		/// no search query is specified, this sort key is not deterministic and should 
-		/// not be used. 
+		/// Sort by relevance to the search terms when the `query` parameter is 
+		/// specified on the connection. Don't use this sort key when no search query 
+		/// is specified. 
 		case relevance = "RELEVANCE"
 
 		/// Sort by the `title` value. 

@@ -29,8 +29,8 @@ import Foundation
 extension Storefront {
 	/// A cart represents the merchandise that a buyer intends to purchase, and the 
 	/// estimated cost associated with the cart. To learn how to interact with a 
-	/// cart during a customer's session, refer to the [Cart 
-	/// guide](https://shopify.dev/custom-storefronts/cart). 
+	/// cart during a customer's session, refer to [Manage a cart with the 
+	/// Storefront API](https://shopify.dev/api/examples/cart). 
 	open class CartQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Cart
 
@@ -69,6 +69,49 @@ extension Storefront {
 			return self
 		}
 
+		/// The delivery groups available for the cart, based on the default address of 
+		/// the logged-in customer. 
+		///
+		/// - parameters:
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///     - reverse: Reverse the order of the underlying list.
+		///
+		@discardableResult
+		open func deliveryGroups(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (CartDeliveryGroupConnectionQuery) -> Void) -> CartQuery {
+			var args: [String] = []
+
+			if let first = first {
+				args.append("first:\(first)")
+			}
+
+			if let after = after {
+				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
+			}
+
+			if let reverse = reverse {
+				args.append("reverse:\(reverse)")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = CartDeliveryGroupConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "deliveryGroups", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// The discount codes that have been applied to the cart. 
 		@discardableResult
 		open func discountCodes(alias: String? = nil, _ subfields: (CartDiscountCodeQuery) -> Void) -> CartQuery {
@@ -80,7 +123,10 @@ extension Storefront {
 		}
 
 		/// The estimated costs that the buyer will pay at checkout. The estimated 
-		/// costs are subject to change and changes will be reflected at checkout. 
+		/// costs are subject to change and changes will be reflected at checkout. The 
+		/// `estimatedCost` field uses the `buyerIdentity` field to determine 
+		/// [international 
+		/// pricing](https://shopify.dev/api/examples/international-pricing#create-a-cart). 
 		@discardableResult
 		open func estimatedCost(alias: String? = nil, _ subfields: (CartEstimatedCostQuery) -> Void) -> CartQuery {
 			let subquery = CartEstimatedCostQuery()
@@ -158,8 +204,8 @@ extension Storefront {
 
 	/// A cart represents the merchandise that a buyer intends to purchase, and the 
 	/// estimated cost associated with the cart. To learn how to interact with a 
-	/// cart during a customer's session, refer to the [Cart 
-	/// guide](https://shopify.dev/custom-storefronts/cart). 
+	/// cart during a customer's session, refer to [Manage a cart with the 
+	/// Storefront API](https://shopify.dev/api/examples/cart). 
 	open class Cart: GraphQL.AbstractResponse, GraphQLObject, Node {
 		public typealias Query = CartQuery
 
@@ -189,6 +235,12 @@ extension Storefront {
 					throw SchemaViolationError(type: Cart.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.iso8601DateParser.date(from: value)!
+
+				case "deliveryGroups":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Cart.self, field: fieldName, value: fieldValue)
+				}
+				return try CartDeliveryGroupConnection(fields: value)
 
 				case "discountCodes":
 				guard let value = value as? [[String: Any]] else {
@@ -269,6 +321,20 @@ extension Storefront {
 			return field(field: "createdAt", aliasSuffix: alias) as! Date
 		}
 
+		/// The delivery groups available for the cart, based on the default address of 
+		/// the logged-in customer. 
+		open var deliveryGroups: Storefront.CartDeliveryGroupConnection {
+			return internalGetDeliveryGroups()
+		}
+
+		open func aliasedDeliveryGroups(alias: String) -> Storefront.CartDeliveryGroupConnection {
+			return internalGetDeliveryGroups(alias: alias)
+		}
+
+		func internalGetDeliveryGroups(alias: String? = nil) -> Storefront.CartDeliveryGroupConnection {
+			return field(field: "deliveryGroups", aliasSuffix: alias) as! Storefront.CartDeliveryGroupConnection
+		}
+
 		/// The discount codes that have been applied to the cart. 
 		open var discountCodes: [Storefront.CartDiscountCode] {
 			return internalGetDiscountCodes()
@@ -279,7 +345,10 @@ extension Storefront {
 		}
 
 		/// The estimated costs that the buyer will pay at checkout. The estimated 
-		/// costs are subject to change and changes will be reflected at checkout. 
+		/// costs are subject to change and changes will be reflected at checkout. The 
+		/// `estimatedCost` field uses the `buyerIdentity` field to determine 
+		/// [international 
+		/// pricing](https://shopify.dev/api/examples/international-pricing#create-a-cart). 
 		open var estimatedCost: Storefront.CartEstimatedCost {
 			return internalGetEstimatedCost()
 		}
@@ -343,6 +412,10 @@ extension Storefront {
 					case "buyerIdentity":
 					response.append(internalGetBuyerIdentity())
 					response.append(contentsOf: internalGetBuyerIdentity().childResponseObjectMap())
+
+					case "deliveryGroups":
+					response.append(internalGetDeliveryGroups())
+					response.append(contentsOf: internalGetDeliveryGroups().childResponseObjectMap())
 
 					case "discountCodes":
 					internalGetDiscountCodes().forEach {

@@ -35,7 +35,10 @@ extension Storefront {
 
 		/// A list of price adjustments, with a maximum of two. When there are two, the 
 		/// first price adjustment goes into effect at the time of purchase, while the 
-		/// second one starts after a certain number of orders. 
+		/// second one starts after a certain number of orders. A price adjustment 
+		/// represents how a selling plan affects pricing when a variant is purchased 
+		/// with a selling plan. Prices display in the customer's currency if the shop 
+		/// is configured for it. 
 		@discardableResult
 		open func priceAdjustments(alias: String? = nil, _ subfields: (SellingPlanAllocationPriceAdjustmentQuery) -> Void) -> SellingPlanAllocationQuery {
 			let subquery = SellingPlanAllocationPriceAdjustmentQuery()
@@ -86,7 +89,10 @@ extension Storefront {
 
 		/// A list of price adjustments, with a maximum of two. When there are two, the 
 		/// first price adjustment goes into effect at the time of purchase, while the 
-		/// second one starts after a certain number of orders. 
+		/// second one starts after a certain number of orders. A price adjustment 
+		/// represents how a selling plan affects pricing when a variant is purchased 
+		/// with a selling plan. Prices display in the customer's currency if the shop 
+		/// is configured for it. 
 		open var priceAdjustments: [Storefront.SellingPlanAllocationPriceAdjustment] {
 			return internalGetPriceAdjustments()
 		}

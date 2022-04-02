@@ -413,6 +413,26 @@ extension Storefront {
 			return self
 		}
 
+		/// A storefront menu. 
+		///
+		/// - parameters:
+		///     - handle: Returns a storefront menu by the specified handle.
+		///
+		@discardableResult
+		open func menu(alias: String? = nil, handle: String, _ subfields: (MenuQuery) -> Void) -> QueryRootQuery {
+			var args: [String] = []
+
+			args.append("handle:\(GraphQL.quoteString(input: handle))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = MenuQuery()
+			subfields(subquery)
+
+			addField(field: "menu", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// Returns a specific node by ID. 
 		///
 		/// - parameters:
@@ -839,6 +859,13 @@ extension Storefront {
 				}
 				return try LocationConnection(fields: value)
 
+				case "menu":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
+				}
+				return try Menu(fields: value)
+
 				case "node":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -1078,6 +1105,19 @@ extension Storefront {
 			return field(field: "locations", aliasSuffix: alias) as! Storefront.LocationConnection
 		}
 
+		/// A storefront menu. 
+		open var menu: Storefront.Menu? {
+			return internalGetMenu()
+		}
+
+		open func aliasedMenu(alias: String) -> Storefront.Menu? {
+			return internalGetMenu(alias: alias)
+		}
+
+		func internalGetMenu(alias: String? = nil) -> Storefront.Menu? {
+			return field(field: "menu", aliasSuffix: alias) as! Storefront.Menu?
+		}
+
 		/// Returns a specific node by ID. 
 		open var node: Node? {
 			return internalGetNode()
@@ -1310,6 +1350,12 @@ extension Storefront {
 					case "locations":
 					response.append(internalGetLocations())
 					response.append(contentsOf: internalGetLocations().childResponseObjectMap())
+
+					case "menu":
+					if let value = internalGetMenu() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
 
 					case "node":
 					if let value = internalGetNode() {
