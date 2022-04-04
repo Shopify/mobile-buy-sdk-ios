@@ -215,6 +215,16 @@ extension Storefront {
 			return self
 		}
 
+		/// The collection's SEO information. 
+		@discardableResult
+		open func seo(alias: String? = nil, _ subfields: (SEOQuery) -> Void) -> CollectionQuery {
+			let subquery = SEOQuery()
+			subfields(subquery)
+
+			addField(field: "seo", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The collection’s name. Limit of 255 characters. 
 		@discardableResult
 		open func title(alias: String? = nil) -> CollectionQuery {
@@ -294,6 +304,12 @@ extension Storefront {
 					throw SchemaViolationError(type: Collection.self, field: fieldName, value: fieldValue)
 				}
 				return try ProductConnection(fields: value)
+
+				case "seo":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Collection.self, field: fieldName, value: fieldValue)
+				}
+				return try SEO(fields: value)
 
 				case "title":
 				guard let value = value as? String else {
@@ -415,6 +431,15 @@ extension Storefront {
 			return field(field: "products", aliasSuffix: alias) as! Storefront.ProductConnection
 		}
 
+		/// The collection's SEO information. 
+		open var seo: Storefront.SEO {
+			return internalGetSeo()
+		}
+
+		func internalGetSeo(alias: String? = nil) -> Storefront.SEO {
+			return field(field: "seo", aliasSuffix: alias) as! Storefront.SEO
+		}
+
 		/// The collection’s name. Limit of 255 characters. 
 		open var title: String {
 			return internalGetTitle()
@@ -456,6 +481,10 @@ extension Storefront {
 					case "products":
 					response.append(internalGetProducts())
 					response.append(contentsOf: internalGetProducts().childResponseObjectMap())
+
+					case "seo":
+					response.append(internalGetSeo())
+					response.append(contentsOf: internalGetSeo().childResponseObjectMap())
 
 					default:
 					break

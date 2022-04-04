@@ -1,5 +1,5 @@
 //
-//  BlogConnection.swift
+//  CartDeliveryGroupConnection.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,24 +27,24 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type for paginating through multiple Blogs. 
-	open class BlogConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
-		public typealias Response = BlogConnection
+	/// An auto-generated type for paginating through multiple CartDeliveryGroups. 
+	open class CartDeliveryGroupConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = CartDeliveryGroupConnection
 
 		/// A list of edges. 
 		@discardableResult
-		open func edges(alias: String? = nil, _ subfields: (BlogEdgeQuery) -> Void) -> BlogConnectionQuery {
-			let subquery = BlogEdgeQuery()
+		open func edges(alias: String? = nil, _ subfields: (CartDeliveryGroupEdgeQuery) -> Void) -> CartDeliveryGroupConnectionQuery {
+			let subquery = CartDeliveryGroupEdgeQuery()
 			subfields(subquery)
 
 			addField(field: "edges", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
-		/// A list of the nodes contained in BlogEdge. 
+		/// A list of the nodes contained in CartDeliveryGroupEdge. 
 		@discardableResult
-		open func nodes(alias: String? = nil, _ subfields: (BlogQuery) -> Void) -> BlogConnectionQuery {
-			let subquery = BlogQuery()
+		open func nodes(alias: String? = nil, _ subfields: (CartDeliveryGroupQuery) -> Void) -> CartDeliveryGroupConnectionQuery {
+			let subquery = CartDeliveryGroupQuery()
 			subfields(subquery)
 
 			addField(field: "nodes", aliasSuffix: alias, subfields: subquery)
@@ -53,7 +53,7 @@ extension Storefront {
 
 		/// Information to aid in pagination. 
 		@discardableResult
-		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> BlogConnectionQuery {
+		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> CartDeliveryGroupConnectionQuery {
 			let subquery = PageInfoQuery()
 			subfields(subquery)
 
@@ -62,52 +62,52 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type for paginating through multiple Blogs. 
-	open class BlogConnection: GraphQL.AbstractResponse, GraphQLObject {
-		public typealias Query = BlogConnectionQuery
+	/// An auto-generated type for paginating through multiple CartDeliveryGroups. 
+	open class CartDeliveryGroupConnection: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = CartDeliveryGroupConnectionQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
 				case "edges":
 				guard let value = value as? [[String: Any]] else {
-					throw SchemaViolationError(type: BlogConnection.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CartDeliveryGroupConnection.self, field: fieldName, value: fieldValue)
 				}
-				return try value.map { return try BlogEdge(fields: $0) }
+				return try value.map { return try CartDeliveryGroupEdge(fields: $0) }
 
 				case "nodes":
 				guard let value = value as? [[String: Any]] else {
-					throw SchemaViolationError(type: BlogConnection.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CartDeliveryGroupConnection.self, field: fieldName, value: fieldValue)
 				}
-				return try value.map { return try Blog(fields: $0) }
+				return try value.map { return try CartDeliveryGroup(fields: $0) }
 
 				case "pageInfo":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: BlogConnection.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CartDeliveryGroupConnection.self, field: fieldName, value: fieldValue)
 				}
 				return try PageInfo(fields: value)
 
 				default:
-				throw SchemaViolationError(type: BlogConnection.self, field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: CartDeliveryGroupConnection.self, field: fieldName, value: fieldValue)
 			}
 		}
 
 		/// A list of edges. 
-		open var edges: [Storefront.BlogEdge] {
+		open var edges: [Storefront.CartDeliveryGroupEdge] {
 			return internalGetEdges()
 		}
 
-		func internalGetEdges(alias: String? = nil) -> [Storefront.BlogEdge] {
-			return field(field: "edges", aliasSuffix: alias) as! [Storefront.BlogEdge]
+		func internalGetEdges(alias: String? = nil) -> [Storefront.CartDeliveryGroupEdge] {
+			return field(field: "edges", aliasSuffix: alias) as! [Storefront.CartDeliveryGroupEdge]
 		}
 
-		/// A list of the nodes contained in BlogEdge. 
-		open var nodes: [Storefront.Blog] {
+		/// A list of the nodes contained in CartDeliveryGroupEdge. 
+		open var nodes: [Storefront.CartDeliveryGroup] {
 			return internalGetNodes()
 		}
 
-		func internalGetNodes(alias: String? = nil) -> [Storefront.Blog] {
-			return field(field: "nodes", aliasSuffix: alias) as! [Storefront.Blog]
+		func internalGetNodes(alias: String? = nil) -> [Storefront.CartDeliveryGroup] {
+			return field(field: "nodes", aliasSuffix: alias) as! [Storefront.CartDeliveryGroup]
 		}
 
 		/// Information to aid in pagination. 

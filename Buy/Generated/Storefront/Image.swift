@@ -119,203 +119,197 @@ extension Storefront {
 		/// transforms. All transformation options are considered "best-effort". Any 
 		/// transformation that the original image type doesn't support will be 
 		/// ignored. If you need multiple variations of the same image, then you can 
-		/// use [GraphQL field aliases](https://graphql.org/learn/queries/#aliases). 
-		/// For example: ```graphql { ... on Image { original: url thumbnail: 
-		/// url(transform: { maxWidth: 80, maxHeight: 80 }) retina: url(transform: { 
-			/// scale: 2 }) } } ``` 
-			///
-			/// - parameters:
-			///     - transform: A set of options to transform the original image.
-			///
-			@discardableResult
-			open func url(alias: String? = nil, transform: ImageTransformInput? = nil) -> ImageQuery {
-				var args: [String] = []
+		/// use [GraphQL aliases](https://graphql.org/learn/queries/#aliases). 
+		///
+		/// - parameters:
+		///     - transform: A set of options to transform the original image.
+		///
+		@discardableResult
+		open func url(alias: String? = nil, transform: ImageTransformInput? = nil) -> ImageQuery {
+			var args: [String] = []
 
-				if let transform = transform {
-					args.append("transform:\(transform.serialize())")
-				}
-
-				let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
-
-				addField(field: "url", aliasSuffix: alias, args: argsString)
-				return self
+			if let transform = transform {
+				args.append("transform:\(transform.serialize())")
 			}
 
-			/// The original width of the image in pixels. Returns `null` if the image is 
-			/// not hosted by Shopify. 
-			@discardableResult
-			open func width(alias: String? = nil) -> ImageQuery {
-				addField(field: "width", aliasSuffix: alias)
-				return self
-			}
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			addField(field: "url", aliasSuffix: alias, args: argsString)
+			return self
 		}
 
-		/// Represents an image resource. 
-		open class Image: GraphQL.AbstractResponse, GraphQLObject {
-			public typealias Query = ImageQuery
+		/// The original width of the image in pixels. Returns `null` if the image is 
+		/// not hosted by Shopify. 
+		@discardableResult
+		open func width(alias: String? = nil) -> ImageQuery {
+			addField(field: "width", aliasSuffix: alias)
+			return self
+		}
+	}
 
-			internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
-				let fieldValue = value
-				switch fieldName {
-					case "altText":
-					if value is NSNull { return nil }
-					guard let value = value as? String else {
-						throw SchemaViolationError(type: Image.self, field: fieldName, value: fieldValue)
-					}
-					return value
+	/// Represents an image resource. 
+	open class Image: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = ImageQuery
 
-					case "height":
-					if value is NSNull { return nil }
-					guard let value = value as? Int else {
-						throw SchemaViolationError(type: Image.self, field: fieldName, value: fieldValue)
-					}
-					return Int32(value)
-
-					case "id":
-					if value is NSNull { return nil }
-					guard let value = value as? String else {
-						throw SchemaViolationError(type: Image.self, field: fieldName, value: fieldValue)
-					}
-					return GraphQL.ID(rawValue: value)
-
-					case "originalSrc":
-					guard let value = value as? String else {
-						throw SchemaViolationError(type: Image.self, field: fieldName, value: fieldValue)
-					}
-					return URL(string: value)!
-
-					case "src":
-					guard let value = value as? String else {
-						throw SchemaViolationError(type: Image.self, field: fieldName, value: fieldValue)
-					}
-					return URL(string: value)!
-
-					case "transformedSrc":
-					guard let value = value as? String else {
-						throw SchemaViolationError(type: Image.self, field: fieldName, value: fieldValue)
-					}
-					return URL(string: value)!
-
-					case "url":
-					guard let value = value as? String else {
-						throw SchemaViolationError(type: Image.self, field: fieldName, value: fieldValue)
-					}
-					return URL(string: value)!
-
-					case "width":
-					if value is NSNull { return nil }
-					guard let value = value as? Int else {
-						throw SchemaViolationError(type: Image.self, field: fieldName, value: fieldValue)
-					}
-					return Int32(value)
-
-					default:
+		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
+			let fieldValue = value
+			switch fieldName {
+				case "altText":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
 					throw SchemaViolationError(type: Image.self, field: fieldName, value: fieldValue)
 				}
-			}
+				return value
 
-			/// A word or phrase to share the nature or contents of an image. 
-			open var altText: String? {
-				return internalGetAltText()
-			}
-
-			func internalGetAltText(alias: String? = nil) -> String? {
-				return field(field: "altText", aliasSuffix: alias) as! String?
-			}
-
-			/// The original height of the image in pixels. Returns `null` if the image is 
-			/// not hosted by Shopify. 
-			open var height: Int32? {
-				return internalGetHeight()
-			}
-
-			func internalGetHeight(alias: String? = nil) -> Int32? {
-				return field(field: "height", aliasSuffix: alias) as! Int32?
-			}
-
-			/// A unique identifier for the image. 
-			open var id: GraphQL.ID? {
-				return internalGetId()
-			}
-
-			func internalGetId(alias: String? = nil) -> GraphQL.ID? {
-				return field(field: "id", aliasSuffix: alias) as! GraphQL.ID?
-			}
-
-			/// The location of the original image as a URL. If there are any existing 
-			/// transformations in the original source URL, they will remain and not be 
-			/// stripped. 
-			@available(*, deprecated, message:"Use `url` instead")
-			open var originalSrc: URL {
-				return internalGetOriginalSrc()
-			}
-
-			func internalGetOriginalSrc(alias: String? = nil) -> URL {
-				return field(field: "originalSrc", aliasSuffix: alias) as! URL
-			}
-
-			/// The location of the image as a URL. 
-			@available(*, deprecated, message:"Use `url` instead")
-			open var src: URL {
-				return internalGetSrc()
-			}
-
-			func internalGetSrc(alias: String? = nil) -> URL {
-				return field(field: "src", aliasSuffix: alias) as! URL
-			}
-
-			/// The location of the transformed image as a URL. All transformation 
-			/// arguments are considered "best-effort". If they can be applied to an image, 
-			/// they will be. Otherwise any transformations which an image type does not 
-			/// support will be ignored. 
-			@available(*, deprecated, message:"Use `url(transform:)` instead")
-			open var transformedSrc: URL {
-				return internalGetTransformedSrc()
-			}
-
-			@available(*, deprecated, message:"Use `url(transform:)` instead")
-
-			open func aliasedTransformedSrc(alias: String) -> URL {
-				return internalGetTransformedSrc(alias: alias)
-			}
-
-			func internalGetTransformedSrc(alias: String? = nil) -> URL {
-				return field(field: "transformedSrc", aliasSuffix: alias) as! URL
-			}
-
-			/// The location of the image as a URL. If no transform options are specified, 
-			/// then the original image will be preserved including any pre-applied 
-			/// transforms. All transformation options are considered "best-effort". Any 
-			/// transformation that the original image type doesn't support will be 
-			/// ignored. If you need multiple variations of the same image, then you can 
-			/// use [GraphQL field aliases](https://graphql.org/learn/queries/#aliases). 
-			/// For example: ```graphql { ... on Image { original: url thumbnail: 
-			/// url(transform: { maxWidth: 80, maxHeight: 80 }) retina: url(transform: { 
-				/// scale: 2 }) } } ``` 
-				open var url: URL {
-					return internalGetUrl()
+				case "height":
+				if value is NSNull { return nil }
+				guard let value = value as? Int else {
+					throw SchemaViolationError(type: Image.self, field: fieldName, value: fieldValue)
 				}
+				return Int32(value)
 
-				open func aliasedUrl(alias: String) -> URL {
-					return internalGetUrl(alias: alias)
+				case "id":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Image.self, field: fieldName, value: fieldValue)
 				}
+				return GraphQL.ID(rawValue: value)
 
-				func internalGetUrl(alias: String? = nil) -> URL {
-					return field(field: "url", aliasSuffix: alias) as! URL
+				case "originalSrc":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Image.self, field: fieldName, value: fieldValue)
 				}
+				return URL(string: value)!
 
-				/// The original width of the image in pixels. Returns `null` if the image is 
-				/// not hosted by Shopify. 
-				open var width: Int32? {
-					return internalGetWidth()
+				case "src":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Image.self, field: fieldName, value: fieldValue)
 				}
+				return URL(string: value)!
 
-				func internalGetWidth(alias: String? = nil) -> Int32? {
-					return field(field: "width", aliasSuffix: alias) as! Int32?
+				case "transformedSrc":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Image.self, field: fieldName, value: fieldValue)
 				}
+				return URL(string: value)!
 
-				internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
-					return []
+				case "url":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Image.self, field: fieldName, value: fieldValue)
 				}
+				return URL(string: value)!
+
+				case "width":
+				if value is NSNull { return nil }
+				guard let value = value as? Int else {
+					throw SchemaViolationError(type: Image.self, field: fieldName, value: fieldValue)
+				}
+				return Int32(value)
+
+				default:
+				throw SchemaViolationError(type: Image.self, field: fieldName, value: fieldValue)
 			}
 		}
+
+		/// A word or phrase to share the nature or contents of an image. 
+		open var altText: String? {
+			return internalGetAltText()
+		}
+
+		func internalGetAltText(alias: String? = nil) -> String? {
+			return field(field: "altText", aliasSuffix: alias) as! String?
+		}
+
+		/// The original height of the image in pixels. Returns `null` if the image is 
+		/// not hosted by Shopify. 
+		open var height: Int32? {
+			return internalGetHeight()
+		}
+
+		func internalGetHeight(alias: String? = nil) -> Int32? {
+			return field(field: "height", aliasSuffix: alias) as! Int32?
+		}
+
+		/// A unique identifier for the image. 
+		open var id: GraphQL.ID? {
+			return internalGetId()
+		}
+
+		func internalGetId(alias: String? = nil) -> GraphQL.ID? {
+			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID?
+		}
+
+		/// The location of the original image as a URL. If there are any existing 
+		/// transformations in the original source URL, they will remain and not be 
+		/// stripped. 
+		@available(*, deprecated, message:"Use `url` instead")
+		open var originalSrc: URL {
+			return internalGetOriginalSrc()
+		}
+
+		func internalGetOriginalSrc(alias: String? = nil) -> URL {
+			return field(field: "originalSrc", aliasSuffix: alias) as! URL
+		}
+
+		/// The location of the image as a URL. 
+		@available(*, deprecated, message:"Use `url` instead")
+		open var src: URL {
+			return internalGetSrc()
+		}
+
+		func internalGetSrc(alias: String? = nil) -> URL {
+			return field(field: "src", aliasSuffix: alias) as! URL
+		}
+
+		/// The location of the transformed image as a URL. All transformation 
+		/// arguments are considered "best-effort". If they can be applied to an image, 
+		/// they will be. Otherwise any transformations which an image type does not 
+		/// support will be ignored. 
+		@available(*, deprecated, message:"Use `url(transform:)` instead")
+		open var transformedSrc: URL {
+			return internalGetTransformedSrc()
+		}
+
+		@available(*, deprecated, message:"Use `url(transform:)` instead")
+
+		open func aliasedTransformedSrc(alias: String) -> URL {
+			return internalGetTransformedSrc(alias: alias)
+		}
+
+		func internalGetTransformedSrc(alias: String? = nil) -> URL {
+			return field(field: "transformedSrc", aliasSuffix: alias) as! URL
+		}
+
+		/// The location of the image as a URL. If no transform options are specified, 
+		/// then the original image will be preserved including any pre-applied 
+		/// transforms. All transformation options are considered "best-effort". Any 
+		/// transformation that the original image type doesn't support will be 
+		/// ignored. If you need multiple variations of the same image, then you can 
+		/// use [GraphQL aliases](https://graphql.org/learn/queries/#aliases). 
+		open var url: URL {
+			return internalGetUrl()
+		}
+
+		open func aliasedUrl(alias: String) -> URL {
+			return internalGetUrl(alias: alias)
+		}
+
+		func internalGetUrl(alias: String? = nil) -> URL {
+			return field(field: "url", aliasSuffix: alias) as! URL
+		}
+
+		/// The original width of the image in pixels. Returns `null` if the image is 
+		/// not hosted by Shopify. 
+		open var width: Int32? {
+			return internalGetWidth()
+		}
+
+		func internalGetWidth(alias: String? = nil) -> Int32? {
+			return field(field: "width", aliasSuffix: alias) as! Int32?
+		}
+
+		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
+			return []
+		}
+	}
+}

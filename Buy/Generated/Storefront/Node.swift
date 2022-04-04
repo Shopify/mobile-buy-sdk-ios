@@ -218,6 +218,21 @@ extension Storefront {
 		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
 		/// queries. 
 		@discardableResult
+		open func onGenericFile(subfields: (GenericFileQuery) -> Void) -> NodeQuery {
+			let subquery = GenericFileQuery()
+			subfields(subquery)
+			addInlineFragment(on: "GenericFile", subfields: subquery)
+			return self
+		}
+
+		/// An object with an ID field to support global identification, in accordance 
+		/// with the [Relay 
+		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
+		/// This interface is used by the 
+		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
+		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
+		/// queries. 
+		@discardableResult
 		open func onLocation(subfields: (LocationQuery) -> Void) -> NodeQuery {
 			let subquery = LocationQuery()
 			subfields(subquery)
@@ -252,6 +267,36 @@ extension Storefront {
 			let subquery = MediaImageQuery()
 			subfields(subquery)
 			addInlineFragment(on: "MediaImage", subfields: subquery)
+			return self
+		}
+
+		/// An object with an ID field to support global identification, in accordance 
+		/// with the [Relay 
+		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
+		/// This interface is used by the 
+		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
+		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
+		/// queries. 
+		@discardableResult
+		open func onMenu(subfields: (MenuQuery) -> Void) -> NodeQuery {
+			let subquery = MenuQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Menu", subfields: subquery)
+			return self
+		}
+
+		/// An object with an ID field to support global identification, in accordance 
+		/// with the [Relay 
+		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
+		/// This interface is used by the 
+		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
+		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
+		/// queries. 
+		@discardableResult
+		open func onMenuItem(subfields: (MenuItemQuery) -> Void) -> NodeQuery {
+			let subquery = MenuItemQuery()
+			subfields(subquery)
+			addInlineFragment(on: "MenuItem", subfields: subquery)
 			return self
 		}
 
@@ -383,6 +428,21 @@ extension Storefront {
 		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
 		/// queries. 
 		@discardableResult
+		open func onShop(subfields: (ShopQuery) -> Void) -> NodeQuery {
+			let subquery = ShopQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Shop", subfields: subquery)
+			return self
+		}
+
+		/// An object with an ID field to support global identification, in accordance 
+		/// with the [Relay 
+		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
+		/// This interface is used by the 
+		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
+		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
+		/// queries. 
+		@discardableResult
 		open func onShopPolicy(subfields: (ShopPolicyQuery) -> Void) -> NodeQuery {
 			let subquery = ShopPolicyQuery()
 			subfields(subquery)
@@ -455,11 +515,17 @@ extension Storefront {
 
 				case "ExternalVideo": return try ExternalVideo.init(fields: fields)
 
+				case "GenericFile": return try GenericFile.init(fields: fields)
+
 				case "Location": return try Location.init(fields: fields)
 
 				case "MailingAddress": return try MailingAddress.init(fields: fields)
 
 				case "MediaImage": return try MediaImage.init(fields: fields)
+
+				case "Menu": return try Menu.init(fields: fields)
+
+				case "MenuItem": return try MenuItem.init(fields: fields)
 
 				case "Metafield": return try Metafield.init(fields: fields)
 
@@ -476,6 +542,8 @@ extension Storefront {
 				case "ProductOption": return try ProductOption.init(fields: fields)
 
 				case "ProductVariant": return try ProductVariant.init(fields: fields)
+
+				case "Shop": return try Shop.init(fields: fields)
 
 				case "ShopPolicy": return try ShopPolicy.init(fields: fields)
 

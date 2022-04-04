@@ -1,5 +1,5 @@
 //
-//  ProductVariantSortKeys.swift
+//  DeliveryMethodType.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,24 +27,25 @@
 import Foundation
 
 extension Storefront {
-	/// The set of valid sort keys for the ProductVariant query. 
-	public enum ProductVariantSortKeys: String {
-		/// Sort by the `id` value. 
-		case id = "ID"
+	/// List of different delivery method types. 
+	public enum DeliveryMethodType: String {
+		/// Local Delivery. 
+		case local = "LOCAL"
 
-		/// Sort by the `position` value. 
-		case position = "POSITION"
+		/// None. 
+		case `none` = "NONE"
 
-		/// Sort by relevance to the search terms when the `query` parameter is 
-		/// specified on the connection. Don't use this sort key when no search query 
-		/// is specified. 
-		case relevance = "RELEVANCE"
+		/// Shipping to a Pickup Point. 
+		case pickupPoint = "PICKUP_POINT"
 
-		/// Sort by the `sku` value. 
-		case sku = "SKU"
+		/// Local Pickup. 
+		case pickUp = "PICK_UP"
 
-		/// Sort by the `title` value. 
-		case title = "TITLE"
+		/// Retail. 
+		case retail = "RETAIL"
+
+		/// Shipping. 
+		case shipping = "SHIPPING"
 
 		case unknownValue = ""
 	}

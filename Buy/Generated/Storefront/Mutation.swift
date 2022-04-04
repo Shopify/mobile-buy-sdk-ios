@@ -59,11 +59,14 @@ extension Storefront {
 			return self
 		}
 
-		/// Updates customer information associated with a cart. 
+		/// Updates customer information associated with a cart. Buyer identity is used 
+		/// to determine [international 
+		/// pricing](https://shopify.dev/api/examples/international-pricing#create-a-checkout) 
+		/// and should match the customer's shipping address. 
 		///
 		/// - parameters:
 		///     - cartId: The ID of the cart.
-		///     - buyerIdentity: The customer associated with the cart.
+		///     - buyerIdentity: The customer associated with the cart. Used to determine [international pricing](https://shopify.dev/api/examples/international-pricing#create-a-checkout). Buyer identity should match the customer's shipping address.
 		///
 		@discardableResult
 		open func cartBuyerIdentityUpdate(alias: String? = nil, cartId: GraphQL.ID, buyerIdentity: CartBuyerIdentityInput, _ subfields: (CartBuyerIdentityUpdatePayloadQuery) -> Void) -> MutationQuery {
@@ -1627,7 +1630,10 @@ extension Storefront {
 			return field(field: "cartAttributesUpdate", aliasSuffix: alias) as! Storefront.CartAttributesUpdatePayload?
 		}
 
-		/// Updates customer information associated with a cart. 
+		/// Updates customer information associated with a cart. Buyer identity is used 
+		/// to determine [international 
+		/// pricing](https://shopify.dev/api/examples/international-pricing#create-a-checkout) 
+		/// and should match the customer's shipping address. 
 		open var cartBuyerIdentityUpdate: Storefront.CartBuyerIdentityUpdatePayload? {
 			return internalGetCartBuyerIdentityUpdate()
 		}

@@ -42,6 +42,15 @@ extension Storefront {
 
 		/// Returns the resource which is being referred to by a metafield. 
 		@discardableResult
+		open func onGenericFile(subfields: (GenericFileQuery) -> Void) -> MetafieldReferenceQuery {
+			let subquery = GenericFileQuery()
+			subfields(subquery)
+			addInlineFragment(on: "GenericFile", subfields: subquery)
+			return self
+		}
+
+		/// Returns the resource which is being referred to by a metafield. 
+		@discardableResult
 		open func onMediaImage(subfields: (MediaImageQuery) -> Void) -> MetafieldReferenceQuery {
 			let subquery = MediaImageQuery()
 			subfields(subquery)
@@ -75,6 +84,15 @@ extension Storefront {
 			addInlineFragment(on: "ProductVariant", subfields: subquery)
 			return self
 		}
+
+		/// Returns the resource which is being referred to by a metafield. 
+		@discardableResult
+		open func onVideo(subfields: (VideoQuery) -> Void) -> MetafieldReferenceQuery {
+			let subquery = VideoQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Video", subfields: subquery)
+			return self
+		}
 	}
 
 	/// Returns the resource which is being referred to by a metafield. 
@@ -94,6 +112,8 @@ extension Storefront {
 				throw SchemaViolationError(type: UnknownMetafieldReference.self, field: "__typename", value: fields["__typename"] ?? NSNull())
 			}
 			switch typeName {
+				case "GenericFile": return try GenericFile.init(fields: fields)
+
 				case "MediaImage": return try MediaImage.init(fields: fields)
 
 				case "Page": return try Page.init(fields: fields)
@@ -101,6 +121,8 @@ extension Storefront {
 				case "Product": return try Product.init(fields: fields)
 
 				case "ProductVariant": return try ProductVariant.init(fields: fields)
+
+				case "Video": return try Video.init(fields: fields)
 
 				default:
 				return try UnknownMetafieldReference.init(fields: fields)

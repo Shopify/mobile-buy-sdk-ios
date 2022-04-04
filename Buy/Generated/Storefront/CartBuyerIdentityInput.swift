@@ -28,7 +28,9 @@ import Foundation
 
 extension Storefront {
 	/// Specifies the input fields to update the buyer information associated with 
-	/// a cart. 
+	/// a cart. Buyer identity is used to determine [international 
+	/// pricing](https://shopify.dev/api/examples/international-pricing#create-a-checkout) 
+	/// and should match the customer's shipping address. 
 	open class CartBuyerIdentityInput {
 		/// The email address of the buyer that is interacting with the cart. 
 		open var email: Input<String>

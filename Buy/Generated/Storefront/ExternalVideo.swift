@@ -38,6 +38,13 @@ extension Storefront {
 			return self
 		}
 
+		/// The embed URL of the video for the respective host. 
+		@discardableResult
+		open func embedUrl(alias: String? = nil) -> ExternalVideoQuery {
+			addField(field: "embedUrl", aliasSuffix: alias)
+			return self
+		}
+
 		/// The URL. 
 		@available(*, deprecated, message:"Use `originUrl` instead")
 		@discardableResult
@@ -67,6 +74,13 @@ extension Storefront {
 			return self
 		}
 
+		/// The origin URL of the video on the respective host. 
+		@discardableResult
+		open func originUrl(alias: String? = nil) -> ExternalVideoQuery {
+			addField(field: "originUrl", aliasSuffix: alias)
+			return self
+		}
+
 		/// The preview image for the media. 
 		@discardableResult
 		open func previewImage(alias: String? = nil, _ subfields: (ImageQuery) -> Void) -> ExternalVideoQuery {
@@ -92,6 +106,12 @@ extension Storefront {
 				}
 				return value
 
+				case "embedUrl":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: ExternalVideo.self, field: fieldName, value: fieldValue)
+				}
+				return URL(string: value)!
+
 				case "embeddedUrl":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: ExternalVideo.self, field: fieldName, value: fieldValue)
@@ -116,6 +136,12 @@ extension Storefront {
 				}
 				return MediaContentType(rawValue: value) ?? .unknownValue
 
+				case "originUrl":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: ExternalVideo.self, field: fieldName, value: fieldValue)
+				}
+				return URL(string: value)!
+
 				case "previewImage":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -135,6 +161,15 @@ extension Storefront {
 
 		func internalGetAlt(alias: String? = nil) -> String? {
 			return field(field: "alt", aliasSuffix: alias) as! String?
+		}
+
+		/// The embed URL of the video for the respective host. 
+		open var embedUrl: URL {
+			return internalGetEmbedUrl()
+		}
+
+		func internalGetEmbedUrl(alias: String? = nil) -> URL {
+			return field(field: "embedUrl", aliasSuffix: alias) as! URL
 		}
 
 		/// The URL. 
@@ -172,6 +207,15 @@ extension Storefront {
 
 		func internalGetMediaContentType(alias: String? = nil) -> Storefront.MediaContentType {
 			return field(field: "mediaContentType", aliasSuffix: alias) as! Storefront.MediaContentType
+		}
+
+		/// The origin URL of the video on the respective host. 
+		open var originUrl: URL {
+			return internalGetOriginUrl()
+		}
+
+		func internalGetOriginUrl(alias: String? = nil) -> URL {
+			return field(field: "originUrl", aliasSuffix: alias) as! URL
 		}
 
 		/// The preview image for the media. 

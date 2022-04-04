@@ -27,7 +27,10 @@
 import Foundation
 
 extension Storefront {
-	/// The estimated costs that the buyer will pay at checkout. 
+	/// The estimated costs that the buyer will pay at checkout. It uses 
+	/// [`CartBuyerIdentity`](https://shopify.dev/api/storefront/reference/cart/cartbuyeridentity) 
+	/// to determine [international 
+	/// pricing](https://shopify.dev/api/examples/international-pricing#create-a-cart). 
 	open class CartEstimatedCostQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartEstimatedCost
 
@@ -73,7 +76,10 @@ extension Storefront {
 		}
 	}
 
-	/// The estimated costs that the buyer will pay at checkout. 
+	/// The estimated costs that the buyer will pay at checkout. It uses 
+	/// [`CartBuyerIdentity`](https://shopify.dev/api/storefront/reference/cart/cartbuyeridentity) 
+	/// to determine [international 
+	/// pricing](https://shopify.dev/api/examples/international-pricing#create-a-cart). 
 	open class CartEstimatedCost: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CartEstimatedCostQuery
 

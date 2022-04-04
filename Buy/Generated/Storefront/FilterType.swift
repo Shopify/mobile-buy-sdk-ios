@@ -29,6 +29,9 @@ import Foundation
 extension Storefront {
 	/// Denotes the type of data this filter group represents. 
 	public enum FilterType: String {
+		/// A boolean value. 
+		case boolean = "BOOLEAN"
+
 		/// A list of selectable values. 
 		case list = "LIST"
 
