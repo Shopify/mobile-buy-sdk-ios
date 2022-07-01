@@ -31,6 +31,26 @@ extension Storefront {
 	open class CartLineQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartLine
 
+		/// An attribute associated with the cart line. 
+		///
+		/// - parameters:
+		///     - key: The key of the attribute.
+		///
+		@discardableResult
+		open func attribute(alias: String? = nil, key: String, _ subfields: (AttributeQuery) -> Void) -> CartLineQuery {
+			var args: [String] = []
+
+			args.append("key:\(GraphQL.quoteString(input: key))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = AttributeQuery()
+			subfields(subquery)
+
+			addField(field: "attribute", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// The attributes associated with the cart line. Attributes are represented as 
 		/// key-value pairs. 
 		@discardableResult
@@ -39,6 +59,17 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "attributes", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// The cost of the merchandise that the buyer will pay for at checkout. The 
+		/// costs are subject to change and changes will be reflected at checkout. 
+		@discardableResult
+		open func cost(alias: String? = nil, _ subfields: (CartLineCostQuery) -> Void) -> CartLineQuery {
+			let subquery = CartLineCostQuery()
+			subfields(subquery)
+
+			addField(field: "cost", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -55,6 +86,7 @@ extension Storefront {
 		/// The estimated cost of the merchandise that the buyer will pay for at 
 		/// checkout. The estimated costs are subject to change and changes will be 
 		/// reflected at checkout. 
+		@available(*, deprecated, message:"Use `cost` instead")
 		@discardableResult
 		open func estimatedCost(alias: String? = nil, _ subfields: (CartLineEstimatedCostQuery) -> Void) -> CartLineQuery {
 			let subquery = CartLineEstimatedCostQuery()
@@ -107,11 +139,24 @@ extension Storefront {
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "attribute":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: CartLine.self, field: fieldName, value: fieldValue)
+				}
+				return try Attribute(fields: value)
+
 				case "attributes":
 				guard let value = value as? [[String: Any]] else {
 					throw SchemaViolationError(type: CartLine.self, field: fieldName, value: fieldValue)
 				}
 				return try value.map { return try Attribute(fields: $0) }
+
+				case "cost":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: CartLine.self, field: fieldName, value: fieldValue)
+				}
+				return try CartLineCost(fields: value)
 
 				case "discountAllocations":
 				guard let value = value as? [[String: Any]] else {
@@ -155,6 +200,19 @@ extension Storefront {
 			}
 		}
 
+		/// An attribute associated with the cart line. 
+		open var attribute: Storefront.Attribute? {
+			return internalGetAttribute()
+		}
+
+		open func aliasedAttribute(alias: String) -> Storefront.Attribute? {
+			return internalGetAttribute(alias: alias)
+		}
+
+		func internalGetAttribute(alias: String? = nil) -> Storefront.Attribute? {
+			return field(field: "attribute", aliasSuffix: alias) as! Storefront.Attribute?
+		}
+
 		/// The attributes associated with the cart line. Attributes are represented as 
 		/// key-value pairs. 
 		open var attributes: [Storefront.Attribute] {
@@ -163,6 +221,16 @@ extension Storefront {
 
 		func internalGetAttributes(alias: String? = nil) -> [Storefront.Attribute] {
 			return field(field: "attributes", aliasSuffix: alias) as! [Storefront.Attribute]
+		}
+
+		/// The cost of the merchandise that the buyer will pay for at checkout. The 
+		/// costs are subject to change and changes will be reflected at checkout. 
+		open var cost: Storefront.CartLineCost {
+			return internalGetCost()
+		}
+
+		func internalGetCost(alias: String? = nil) -> Storefront.CartLineCost {
+			return field(field: "cost", aliasSuffix: alias) as! Storefront.CartLineCost
 		}
 
 		/// The discounts that have been applied to the cart line. 
@@ -177,6 +245,7 @@ extension Storefront {
 		/// The estimated cost of the merchandise that the buyer will pay for at 
 		/// checkout. The estimated costs are subject to change and changes will be 
 		/// reflected at checkout. 
+		@available(*, deprecated, message:"Use `cost` instead")
 		open var estimatedCost: Storefront.CartLineEstimatedCost {
 			return internalGetEstimatedCost()
 		}
@@ -226,11 +295,21 @@ extension Storefront {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
 				switch($0) {
+					case "attribute":
+					if let value = internalGetAttribute() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
 					case "attributes":
 					internalGetAttributes().forEach {
 						response.append($0)
 						response.append(contentsOf: $0.childResponseObjectMap())
 					}
+
+					case "cost":
+					response.append(internalGetCost())
+					response.append(contentsOf: internalGetCost().childResponseObjectMap())
 
 					case "discountAllocations":
 					internalGetDiscountAllocations().forEach {

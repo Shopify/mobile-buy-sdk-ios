@@ -1,5 +1,5 @@
 //
-//  DiscountApplicationTargetSelection.swift
+//  SellingPlanCheckoutChargeType.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,21 +27,13 @@
 import Foundation
 
 extension Storefront {
-	/// The lines on the order to which the discount is applied, of the type 
-	/// defined by the discount application's `targetType`. For example, the value 
-	/// `ENTITLED`, combined with a `targetType` of `LINE_ITEM`, applies the 
-	/// discount on all line items that are entitled to the discount. The value 
-	/// `ALL`, combined with a `targetType` of `SHIPPING_LINE`, applies the 
-	/// discount on all shipping lines. 
-	public enum DiscountApplicationTargetSelection: String {
-		/// The discount is allocated onto all the lines. 
-		case all = "ALL"
+	/// The checkout charge when the full amount isn't charged at checkout. 
+	public enum SellingPlanCheckoutChargeType: String {
+		/// The checkout charge is a percentage of the product or variant price. 
+		case percentage = "PERCENTAGE"
 
-		/// The discount is allocated onto only the lines that it's entitled for. 
-		case entitled = "ENTITLED"
-
-		/// The discount is allocated onto explicitly chosen lines. 
-		case explicit = "EXPLICIT"
+		/// The checkout charge is a fixed price amount. 
+		case price = "PRICE"
 
 		case unknownValue = ""
 	}

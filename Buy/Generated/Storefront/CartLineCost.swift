@@ -1,5 +1,5 @@
 //
-//  CartLineEstimatedCost.swift
+//  CartLineCost.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,34 +27,33 @@
 import Foundation
 
 extension Storefront {
-	/// The estimated cost of the merchandise line that the buyer will pay at 
-	/// checkout. 
-	open class CartLineEstimatedCostQuery: GraphQL.AbstractQuery, GraphQLQuery {
-		public typealias Response = CartLineEstimatedCost
+	/// The cost of the merchandise line that the buyer will pay at checkout. 
+	open class CartLineCostQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = CartLineCost
 
 		/// The amount of the merchandise line. 
 		@discardableResult
-		open func amount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartLineEstimatedCostQuery {
+		open func amountPerQuantity(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartLineCostQuery {
 			let subquery = MoneyV2Query()
 			subfields(subquery)
 
-			addField(field: "amount", aliasSuffix: alias, subfields: subquery)
+			addField(field: "amountPerQuantity", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
 		/// The compare at amount of the merchandise line. 
 		@discardableResult
-		open func compareAtAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartLineEstimatedCostQuery {
+		open func compareAtAmountPerQuantity(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartLineCostQuery {
 			let subquery = MoneyV2Query()
 			subfields(subquery)
 
-			addField(field: "compareAtAmount", aliasSuffix: alias, subfields: subquery)
+			addField(field: "compareAtAmountPerQuantity", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
-		/// The estimated cost of the merchandise line before discounts. 
+		/// The cost of the merchandise line before line-level discounts. 
 		@discardableResult
-		open func subtotalAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartLineEstimatedCostQuery {
+		open func subtotalAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartLineCostQuery {
 			let subquery = MoneyV2Query()
 			subfields(subquery)
 
@@ -62,9 +61,9 @@ extension Storefront {
 			return self
 		}
 
-		/// The estimated total cost of the merchandise line. 
+		/// The total cost of the merchandise line. 
 		@discardableResult
-		open func totalAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartLineEstimatedCostQuery {
+		open func totalAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartLineCostQuery {
 			let subquery = MoneyV2Query()
 			subfields(subquery)
 
@@ -73,63 +72,62 @@ extension Storefront {
 		}
 	}
 
-	/// The estimated cost of the merchandise line that the buyer will pay at 
-	/// checkout. 
-	open class CartLineEstimatedCost: GraphQL.AbstractResponse, GraphQLObject {
-		public typealias Query = CartLineEstimatedCostQuery
+	/// The cost of the merchandise line that the buyer will pay at checkout. 
+	open class CartLineCost: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = CartLineCostQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
-				case "amount":
+				case "amountPerQuantity":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: CartLineEstimatedCost.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CartLineCost.self, field: fieldName, value: fieldValue)
 				}
 				return try MoneyV2(fields: value)
 
-				case "compareAtAmount":
+				case "compareAtAmountPerQuantity":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: CartLineEstimatedCost.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CartLineCost.self, field: fieldName, value: fieldValue)
 				}
 				return try MoneyV2(fields: value)
 
 				case "subtotalAmount":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: CartLineEstimatedCost.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CartLineCost.self, field: fieldName, value: fieldValue)
 				}
 				return try MoneyV2(fields: value)
 
 				case "totalAmount":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: CartLineEstimatedCost.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: CartLineCost.self, field: fieldName, value: fieldValue)
 				}
 				return try MoneyV2(fields: value)
 
 				default:
-				throw SchemaViolationError(type: CartLineEstimatedCost.self, field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: CartLineCost.self, field: fieldName, value: fieldValue)
 			}
 		}
 
 		/// The amount of the merchandise line. 
-		open var amount: Storefront.MoneyV2 {
-			return internalGetAmount()
+		open var amountPerQuantity: Storefront.MoneyV2 {
+			return internalGetAmountPerQuantity()
 		}
 
-		func internalGetAmount(alias: String? = nil) -> Storefront.MoneyV2 {
-			return field(field: "amount", aliasSuffix: alias) as! Storefront.MoneyV2
+		func internalGetAmountPerQuantity(alias: String? = nil) -> Storefront.MoneyV2 {
+			return field(field: "amountPerQuantity", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
 		/// The compare at amount of the merchandise line. 
-		open var compareAtAmount: Storefront.MoneyV2? {
-			return internalGetCompareAtAmount()
+		open var compareAtAmountPerQuantity: Storefront.MoneyV2? {
+			return internalGetCompareAtAmountPerQuantity()
 		}
 
-		func internalGetCompareAtAmount(alias: String? = nil) -> Storefront.MoneyV2? {
-			return field(field: "compareAtAmount", aliasSuffix: alias) as! Storefront.MoneyV2?
+		func internalGetCompareAtAmountPerQuantity(alias: String? = nil) -> Storefront.MoneyV2? {
+			return field(field: "compareAtAmountPerQuantity", aliasSuffix: alias) as! Storefront.MoneyV2?
 		}
 
-		/// The estimated cost of the merchandise line before discounts. 
+		/// The cost of the merchandise line before line-level discounts. 
 		open var subtotalAmount: Storefront.MoneyV2 {
 			return internalGetSubtotalAmount()
 		}
@@ -138,7 +136,7 @@ extension Storefront {
 			return field(field: "subtotalAmount", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// The estimated total cost of the merchandise line. 
+		/// The total cost of the merchandise line. 
 		open var totalAmount: Storefront.MoneyV2 {
 			return internalGetTotalAmount()
 		}
@@ -151,12 +149,12 @@ extension Storefront {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
 				switch($0) {
-					case "amount":
-					response.append(internalGetAmount())
-					response.append(contentsOf: internalGetAmount().childResponseObjectMap())
+					case "amountPerQuantity":
+					response.append(internalGetAmountPerQuantity())
+					response.append(contentsOf: internalGetAmountPerQuantity().childResponseObjectMap())
 
-					case "compareAtAmount":
-					if let value = internalGetCompareAtAmount() {
+					case "compareAtAmountPerQuantity":
+					if let value = internalGetCompareAtAmountPerQuantity() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}

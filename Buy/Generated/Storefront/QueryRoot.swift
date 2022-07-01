@@ -777,6 +777,48 @@ extension Storefront {
 			addField(field: "shop", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
+
+		/// A list of redirects for a shop. 
+		///
+		/// - parameters:
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///     - reverse: Reverse the order of the underlying list.
+		///
+		@discardableResult
+		open func urlRedirects(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (UrlRedirectConnectionQuery) -> Void) -> QueryRootQuery {
+			var args: [String] = []
+
+			if let first = first {
+				args.append("first:\(first)")
+			}
+
+			if let after = after {
+				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
+			}
+
+			if let reverse = reverse {
+				args.append("reverse:\(reverse)")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = UrlRedirectConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "urlRedirects", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
 	}
 
 	/// The schema’s entry-point for queries. This acts as the public, top-level 
@@ -953,6 +995,12 @@ extension Storefront {
 					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
 				}
 				return try Shop(fields: value)
+
+				case "urlRedirects":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
+				}
+				return try UrlRedirectConnection(fields: value)
 
 				default:
 				throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
@@ -1291,6 +1339,19 @@ extension Storefront {
 			return field(field: "shop", aliasSuffix: alias) as! Storefront.Shop
 		}
 
+		/// A list of redirects for a shop. 
+		open var urlRedirects: Storefront.UrlRedirectConnection {
+			return internalGetUrlRedirects()
+		}
+
+		open func aliasedUrlRedirects(alias: String) -> Storefront.UrlRedirectConnection {
+			return internalGetUrlRedirects(alias: alias)
+		}
+
+		func internalGetUrlRedirects(alias: String? = nil) -> Storefront.UrlRedirectConnection {
+			return field(field: "urlRedirects", aliasSuffix: alias) as! Storefront.UrlRedirectConnection
+		}
+
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
@@ -1428,6 +1489,10 @@ extension Storefront {
 					case "shop":
 					response.append(internalGetShop())
 					response.append(contentsOf: internalGetShop().childResponseObjectMap())
+
+					case "urlRedirects":
+					response.append(internalGetUrlRedirects())
+					response.append(contentsOf: internalGetUrlRedirects().childResponseObjectMap())
 
 					default:
 					break

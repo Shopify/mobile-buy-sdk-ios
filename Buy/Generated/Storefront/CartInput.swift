@@ -36,7 +36,7 @@ extension Storefront {
 		/// A list of merchandise lines to add to the cart. 
 		open var lines: Input<[CartLineInput]>
 
-		/// The discount codes to apply to the cart. 
+		/// The case-insensitive discount codes that the customer added at checkout. 
 		open var discountCodes: Input<[String]>
 
 		/// A note that is associated with the cart. For example, the note can be a 
@@ -53,7 +53,7 @@ extension Storefront {
 		/// - parameters:
 		///     - attributes: An array of key-value pairs that contains additional information about the cart.
 		///     - lines: A list of merchandise lines to add to the cart.
-		///     - discountCodes: The discount codes to apply to the cart.
+		///     - discountCodes: The case-insensitive discount codes that the customer added at checkout. 
 		///     - note: A note that is associated with the cart. For example, the note can be a personalized message to the buyer.
 		///     - buyerIdentity: The customer associated with the cart. Used to determine [international pricing](https://shopify.dev/api/examples/international-pricing#create-a-checkout). Buyer identity should match the customer's shipping address.
 		///
@@ -74,7 +74,7 @@ extension Storefront {
 		/// - parameters:
 		///     - attributes: An array of key-value pairs that contains additional information about the cart.
 		///     - lines: A list of merchandise lines to add to the cart.
-		///     - discountCodes: The discount codes to apply to the cart.
+		///     - discountCodes: The case-insensitive discount codes that the customer added at checkout. 
 		///     - note: A note that is associated with the cart. For example, the note can be a personalized message to the buyer.
 		///     - buyerIdentity: The customer associated with the cart. Used to determine [international pricing](https://shopify.dev/api/examples/international-pricing#create-a-checkout). Buyer identity should match the customer's shipping address.
 		///

@@ -1,5 +1,5 @@
 //
-//  DiscountApplicationTargetSelection.swift
+//  HasMetafieldsIdentifier.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,22 +27,43 @@
 import Foundation
 
 extension Storefront {
-	/// The lines on the order to which the discount is applied, of the type 
-	/// defined by the discount application's `targetType`. For example, the value 
-	/// `ENTITLED`, combined with a `targetType` of `LINE_ITEM`, applies the 
-	/// discount on all line items that are entitled to the discount. The value 
-	/// `ALL`, combined with a `targetType` of `SHIPPING_LINE`, applies the 
-	/// discount on all shipping lines. 
-	public enum DiscountApplicationTargetSelection: String {
-		/// The discount is allocated onto all the lines. 
-		case all = "ALL"
+	/// Identifies a metafield on an owner resource by namespace and key. 
+	open class HasMetafieldsIdentifier {
+		/// A container for a set of metafields. 
+		open var namespace: String
 
-		/// The discount is allocated onto only the lines that it's entitled for. 
-		case entitled = "ENTITLED"
+		/// The identifier for the metafield. 
+		open var key: String
 
-		/// The discount is allocated onto explicitly chosen lines. 
-		case explicit = "EXPLICIT"
+		/// Creates the input object.
+		///
+		/// - parameters:
+		///     - namespace: A container for a set of metafields.
+		///     - key: The identifier for the metafield.
+		///
+		public static func create(namespace: String, key: String) -> HasMetafieldsIdentifier {
+			return HasMetafieldsIdentifier(namespace: namespace, key: key)
+		}
 
-		case unknownValue = ""
+		/// Creates the input object.
+		///
+		/// - parameters:
+		///     - namespace: A container for a set of metafields.
+		///     - key: The identifier for the metafield.
+		///
+		public init(namespace: String, key: String) {
+			self.namespace = namespace
+			self.key = key
+		}
+
+		internal func serialize() -> String {
+			var fields: [String] = []
+
+			fields.append("namespace:\(GraphQL.quoteString(input: namespace))")
+
+			fields.append("key:\(GraphQL.quoteString(input: key))")
+
+			return "{\(fields.joined(separator: ","))}"
+		}
 	}
 }

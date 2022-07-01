@@ -1,5 +1,5 @@
 //
-//  MetafieldConnection.swift
+//  UrlRedirectConnection.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,24 +27,24 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type for paginating through multiple Metafields. 
-	open class MetafieldConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
-		public typealias Response = MetafieldConnection
+	/// An auto-generated type for paginating through multiple UrlRedirects. 
+	open class UrlRedirectConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = UrlRedirectConnection
 
 		/// A list of edges. 
 		@discardableResult
-		open func edges(alias: String? = nil, _ subfields: (MetafieldEdgeQuery) -> Void) -> MetafieldConnectionQuery {
-			let subquery = MetafieldEdgeQuery()
+		open func edges(alias: String? = nil, _ subfields: (UrlRedirectEdgeQuery) -> Void) -> UrlRedirectConnectionQuery {
+			let subquery = UrlRedirectEdgeQuery()
 			subfields(subquery)
 
 			addField(field: "edges", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
-		/// A list of the nodes contained in MetafieldEdge. 
+		/// A list of the nodes contained in UrlRedirectEdge. 
 		@discardableResult
-		open func nodes(alias: String? = nil, _ subfields: (MetafieldQuery) -> Void) -> MetafieldConnectionQuery {
-			let subquery = MetafieldQuery()
+		open func nodes(alias: String? = nil, _ subfields: (UrlRedirectQuery) -> Void) -> UrlRedirectConnectionQuery {
+			let subquery = UrlRedirectQuery()
 			subfields(subquery)
 
 			addField(field: "nodes", aliasSuffix: alias, subfields: subquery)
@@ -53,7 +53,7 @@ extension Storefront {
 
 		/// Information to aid in pagination. 
 		@discardableResult
-		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> MetafieldConnectionQuery {
+		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> UrlRedirectConnectionQuery {
 			let subquery = PageInfoQuery()
 			subfields(subquery)
 
@@ -62,52 +62,52 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type for paginating through multiple Metafields. 
-	open class MetafieldConnection: GraphQL.AbstractResponse, GraphQLObject {
-		public typealias Query = MetafieldConnectionQuery
+	/// An auto-generated type for paginating through multiple UrlRedirects. 
+	open class UrlRedirectConnection: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = UrlRedirectConnectionQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
 				case "edges":
 				guard let value = value as? [[String: Any]] else {
-					throw SchemaViolationError(type: MetafieldConnection.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: UrlRedirectConnection.self, field: fieldName, value: fieldValue)
 				}
-				return try value.map { return try MetafieldEdge(fields: $0) }
+				return try value.map { return try UrlRedirectEdge(fields: $0) }
 
 				case "nodes":
 				guard let value = value as? [[String: Any]] else {
-					throw SchemaViolationError(type: MetafieldConnection.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: UrlRedirectConnection.self, field: fieldName, value: fieldValue)
 				}
-				return try value.map { return try Metafield(fields: $0) }
+				return try value.map { return try UrlRedirect(fields: $0) }
 
 				case "pageInfo":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: MetafieldConnection.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: UrlRedirectConnection.self, field: fieldName, value: fieldValue)
 				}
 				return try PageInfo(fields: value)
 
 				default:
-				throw SchemaViolationError(type: MetafieldConnection.self, field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: UrlRedirectConnection.self, field: fieldName, value: fieldValue)
 			}
 		}
 
 		/// A list of edges. 
-		open var edges: [Storefront.MetafieldEdge] {
+		open var edges: [Storefront.UrlRedirectEdge] {
 			return internalGetEdges()
 		}
 
-		func internalGetEdges(alias: String? = nil) -> [Storefront.MetafieldEdge] {
-			return field(field: "edges", aliasSuffix: alias) as! [Storefront.MetafieldEdge]
+		func internalGetEdges(alias: String? = nil) -> [Storefront.UrlRedirectEdge] {
+			return field(field: "edges", aliasSuffix: alias) as! [Storefront.UrlRedirectEdge]
 		}
 
-		/// A list of the nodes contained in MetafieldEdge. 
-		open var nodes: [Storefront.Metafield] {
+		/// A list of the nodes contained in UrlRedirectEdge. 
+		open var nodes: [Storefront.UrlRedirect] {
 			return internalGetNodes()
 		}
 
-		func internalGetNodes(alias: String? = nil) -> [Storefront.Metafield] {
-			return field(field: "nodes", aliasSuffix: alias) as! [Storefront.Metafield]
+		func internalGetNodes(alias: String? = nil) -> [Storefront.UrlRedirect] {
+			return field(field: "nodes", aliasSuffix: alias) as! [Storefront.UrlRedirect]
 		}
 
 		/// Information to aid in pagination. 
