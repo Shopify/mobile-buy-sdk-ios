@@ -10,8 +10,6 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-        with:
-          ssh-key: ${{ secrets.SSH_ACTIONS_KEY }}
 
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
