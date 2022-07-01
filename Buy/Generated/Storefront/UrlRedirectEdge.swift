@@ -1,5 +1,5 @@
 //
-//  MetafieldEdge.swift
+//  UrlRedirectEdge.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,22 +27,22 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type which holds one Metafield and a cursor during 
+	/// An auto-generated type which holds one UrlRedirect and a cursor during 
 	/// pagination. 
-	open class MetafieldEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
-		public typealias Response = MetafieldEdge
+	open class UrlRedirectEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = UrlRedirectEdge
 
 		/// A cursor for use in pagination. 
 		@discardableResult
-		open func cursor(alias: String? = nil) -> MetafieldEdgeQuery {
+		open func cursor(alias: String? = nil) -> UrlRedirectEdgeQuery {
 			addField(field: "cursor", aliasSuffix: alias)
 			return self
 		}
 
-		/// The item at the end of MetafieldEdge. 
+		/// The item at the end of UrlRedirectEdge. 
 		@discardableResult
-		open func node(alias: String? = nil, _ subfields: (MetafieldQuery) -> Void) -> MetafieldEdgeQuery {
-			let subquery = MetafieldQuery()
+		open func node(alias: String? = nil, _ subfields: (UrlRedirectQuery) -> Void) -> UrlRedirectEdgeQuery {
+			let subquery = UrlRedirectQuery()
 			subfields(subquery)
 
 			addField(field: "node", aliasSuffix: alias, subfields: subquery)
@@ -50,28 +50,28 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type which holds one Metafield and a cursor during 
+	/// An auto-generated type which holds one UrlRedirect and a cursor during 
 	/// pagination. 
-	open class MetafieldEdge: GraphQL.AbstractResponse, GraphQLObject {
-		public typealias Query = MetafieldEdgeQuery
+	open class UrlRedirectEdge: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = UrlRedirectEdgeQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
 				case "cursor":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: MetafieldEdge.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: UrlRedirectEdge.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "node":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: MetafieldEdge.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: UrlRedirectEdge.self, field: fieldName, value: fieldValue)
 				}
-				return try Metafield(fields: value)
+				return try UrlRedirect(fields: value)
 
 				default:
-				throw SchemaViolationError(type: MetafieldEdge.self, field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: UrlRedirectEdge.self, field: fieldName, value: fieldValue)
 			}
 		}
 
@@ -84,13 +84,13 @@ extension Storefront {
 			return field(field: "cursor", aliasSuffix: alias) as! String
 		}
 
-		/// The item at the end of MetafieldEdge. 
-		open var node: Storefront.Metafield {
+		/// The item at the end of UrlRedirectEdge. 
+		open var node: Storefront.UrlRedirect {
 			return internalGetNode()
 		}
 
-		func internalGetNode(alias: String? = nil) -> Storefront.Metafield {
-			return field(field: "node", aliasSuffix: alias) as! Storefront.Metafield
+		func internalGetNode(alias: String? = nil) -> Storefront.UrlRedirect {
+			return field(field: "node", aliasSuffix: alias) as! Storefront.UrlRedirect
 		}
 
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {

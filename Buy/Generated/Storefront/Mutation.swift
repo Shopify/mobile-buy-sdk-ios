@@ -111,7 +111,7 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - cartId: The ID of the cart.
-		///     - discountCodes: The discount codes to apply to the cart.
+		///     - discountCodes: The case-insensitive discount codes that the customer added at checkout.
 		///
 		@discardableResult
 		open func cartDiscountCodesUpdate(alias: String? = nil, cartId: GraphQL.ID, discountCodes: [String]? = nil, _ subfields: (CartDiscountCodesUpdatePayloadQuery) -> Void) -> MutationQuery {
@@ -230,30 +230,6 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - checkoutId: The ID of the checkout.
-		///     - input: The fields used to update a checkout's attributes.
-		///
-		@available(*, deprecated, message:"Use `checkoutAttributesUpdateV2` instead")
-		@discardableResult
-		open func checkoutAttributesUpdate(alias: String? = nil, checkoutId: GraphQL.ID, input: CheckoutAttributesUpdateInput, _ subfields: (CheckoutAttributesUpdatePayloadQuery) -> Void) -> MutationQuery {
-			var args: [String] = []
-
-			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
-
-			args.append("input:\(input.serialize())")
-
-			let argsString = "(\(args.joined(separator: ",")))"
-
-			let subquery = CheckoutAttributesUpdatePayloadQuery()
-			subfields(subquery)
-
-			addField(field: "checkoutAttributesUpdate", aliasSuffix: alias, args: argsString, subfields: subquery)
-			return self
-		}
-
-		/// Updates the attributes of a checkout if `allowPartialAddresses` is `true`. 
-		///
-		/// - parameters:
-		///     - checkoutId: The ID of the checkout.
 		///     - input: The checkout attributes to update.
 		///
 		@discardableResult
@@ -295,30 +271,6 @@ extension Storefront {
 			return self
 		}
 
-		/// Completes a checkout using a credit card token from Shopify's Vault. 
-		///
-		/// - parameters:
-		///     - checkoutId: The ID of the checkout.
-		///     - payment: The credit card info to apply as a payment.
-		///
-		@available(*, deprecated, message:"Use `checkoutCompleteWithCreditCardV2` instead")
-		@discardableResult
-		open func checkoutCompleteWithCreditCard(alias: String? = nil, checkoutId: GraphQL.ID, payment: CreditCardPaymentInput, _ subfields: (CheckoutCompleteWithCreditCardPayloadQuery) -> Void) -> MutationQuery {
-			var args: [String] = []
-
-			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
-
-			args.append("payment:\(payment.serialize())")
-
-			let argsString = "(\(args.joined(separator: ",")))"
-
-			let subquery = CheckoutCompleteWithCreditCardPayloadQuery()
-			subfields(subquery)
-
-			addField(field: "checkoutCompleteWithCreditCard", aliasSuffix: alias, args: argsString, subfields: subquery)
-			return self
-		}
-
 		/// Completes a checkout using a credit card token from Shopify's card vault. 
 		/// Before you can complete checkouts using CheckoutCompleteWithCreditCardV2, 
 		/// you need to [_request payment 
@@ -342,54 +294,6 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "checkoutCompleteWithCreditCardV2", aliasSuffix: alias, args: argsString, subfields: subquery)
-			return self
-		}
-
-		/// Completes a checkout with a tokenized payment. 
-		///
-		/// - parameters:
-		///     - checkoutId: The ID of the checkout.
-		///     - payment: The info to apply as a tokenized payment.
-		///
-		@available(*, deprecated, message:"Use `checkoutCompleteWithTokenizedPaymentV2` instead")
-		@discardableResult
-		open func checkoutCompleteWithTokenizedPayment(alias: String? = nil, checkoutId: GraphQL.ID, payment: TokenizedPaymentInput, _ subfields: (CheckoutCompleteWithTokenizedPaymentPayloadQuery) -> Void) -> MutationQuery {
-			var args: [String] = []
-
-			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
-
-			args.append("payment:\(payment.serialize())")
-
-			let argsString = "(\(args.joined(separator: ",")))"
-
-			let subquery = CheckoutCompleteWithTokenizedPaymentPayloadQuery()
-			subfields(subquery)
-
-			addField(field: "checkoutCompleteWithTokenizedPayment", aliasSuffix: alias, args: argsString, subfields: subquery)
-			return self
-		}
-
-		/// Completes a checkout with a tokenized payment. 
-		///
-		/// - parameters:
-		///     - checkoutId: The ID of the checkout.
-		///     - payment: The info to apply as a tokenized payment.
-		///
-		@available(*, deprecated, message:"Use `checkoutCompleteWithTokenizedPaymentV3` instead")
-		@discardableResult
-		open func checkoutCompleteWithTokenizedPaymentV2(alias: String? = nil, checkoutId: GraphQL.ID, payment: TokenizedPaymentInputV2, _ subfields: (CheckoutCompleteWithTokenizedPaymentV2PayloadQuery) -> Void) -> MutationQuery {
-			var args: [String] = []
-
-			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
-
-			args.append("payment:\(payment.serialize())")
-
-			let argsString = "(\(args.joined(separator: ",")))"
-
-			let subquery = CheckoutCompleteWithTokenizedPaymentV2PayloadQuery()
-			subfields(subquery)
-
-			addField(field: "checkoutCompleteWithTokenizedPaymentV2", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
@@ -447,30 +351,6 @@ extension Storefront {
 		///     - checkoutId: The ID of the checkout.
 		///     - customerAccessToken: The customer access token of the customer to associate.
 		///
-		@available(*, deprecated, message:"Use `checkoutCustomerAssociateV2` instead")
-		@discardableResult
-		open func checkoutCustomerAssociate(alias: String? = nil, checkoutId: GraphQL.ID, customerAccessToken: String, _ subfields: (CheckoutCustomerAssociatePayloadQuery) -> Void) -> MutationQuery {
-			var args: [String] = []
-
-			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
-
-			args.append("customerAccessToken:\(GraphQL.quoteString(input: customerAccessToken))")
-
-			let argsString = "(\(args.joined(separator: ",")))"
-
-			let subquery = CheckoutCustomerAssociatePayloadQuery()
-			subfields(subquery)
-
-			addField(field: "checkoutCustomerAssociate", aliasSuffix: alias, args: argsString, subfields: subquery)
-			return self
-		}
-
-		/// Associates a customer to the checkout. 
-		///
-		/// - parameters:
-		///     - checkoutId: The ID of the checkout.
-		///     - customerAccessToken: The customer access token of the customer to associate.
-		///
 		@discardableResult
 		open func checkoutCustomerAssociateV2(alias: String? = nil, checkoutId: GraphQL.ID, customerAccessToken: String, _ subfields: (CheckoutCustomerAssociateV2PayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -485,27 +365,6 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "checkoutCustomerAssociateV2", aliasSuffix: alias, args: argsString, subfields: subquery)
-			return self
-		}
-
-		/// Disassociates the current checkout customer from the checkout. 
-		///
-		/// - parameters:
-		///     - checkoutId: The ID of the checkout.
-		///
-		@available(*, deprecated, message:"Use `checkoutCustomerDisassociateV2` instead")
-		@discardableResult
-		open func checkoutCustomerDisassociate(alias: String? = nil, checkoutId: GraphQL.ID, _ subfields: (CheckoutCustomerDisassociatePayloadQuery) -> Void) -> MutationQuery {
-			var args: [String] = []
-
-			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
-
-			let argsString = "(\(args.joined(separator: ",")))"
-
-			let subquery = CheckoutCustomerDisassociatePayloadQuery()
-			subfields(subquery)
-
-			addField(field: "checkoutCustomerDisassociate", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
@@ -535,30 +394,6 @@ extension Storefront {
 		///     - discountCode: The discount code to apply to the checkout.
 		///     - checkoutId: The ID of the checkout.
 		///
-		@available(*, deprecated, message:"Use `checkoutDiscountCodeApplyV2` instead")
-		@discardableResult
-		open func checkoutDiscountCodeApply(alias: String? = nil, discountCode: String, checkoutId: GraphQL.ID, _ subfields: (CheckoutDiscountCodeApplyPayloadQuery) -> Void) -> MutationQuery {
-			var args: [String] = []
-
-			args.append("discountCode:\(GraphQL.quoteString(input: discountCode))")
-
-			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
-
-			let argsString = "(\(args.joined(separator: ",")))"
-
-			let subquery = CheckoutDiscountCodeApplyPayloadQuery()
-			subfields(subquery)
-
-			addField(field: "checkoutDiscountCodeApply", aliasSuffix: alias, args: argsString, subfields: subquery)
-			return self
-		}
-
-		/// Applies a discount to an existing checkout using a discount code. 
-		///
-		/// - parameters:
-		///     - discountCode: The discount code to apply to the checkout.
-		///     - checkoutId: The ID of the checkout.
-		///
 		@discardableResult
 		open func checkoutDiscountCodeApplyV2(alias: String? = nil, discountCode: String, checkoutId: GraphQL.ID, _ subfields: (CheckoutDiscountCodeApplyV2PayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -576,7 +411,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Removes the applied discount from an existing checkout. 
+		/// Removes the applied discounts from an existing checkout. 
 		///
 		/// - parameters:
 		///     - checkoutId: The ID of the checkout.
@@ -602,30 +437,6 @@ extension Storefront {
 		///     - checkoutId: The ID of the checkout.
 		///     - email: The email to update the checkout with.
 		///
-		@available(*, deprecated, message:"Use `checkoutEmailUpdateV2` instead")
-		@discardableResult
-		open func checkoutEmailUpdate(alias: String? = nil, checkoutId: GraphQL.ID, email: String, _ subfields: (CheckoutEmailUpdatePayloadQuery) -> Void) -> MutationQuery {
-			var args: [String] = []
-
-			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
-
-			args.append("email:\(GraphQL.quoteString(input: email))")
-
-			let argsString = "(\(args.joined(separator: ",")))"
-
-			let subquery = CheckoutEmailUpdatePayloadQuery()
-			subfields(subquery)
-
-			addField(field: "checkoutEmailUpdate", aliasSuffix: alias, args: argsString, subfields: subquery)
-			return self
-		}
-
-		/// Updates the email on an existing checkout. 
-		///
-		/// - parameters:
-		///     - checkoutId: The ID of the checkout.
-		///     - email: The email to update the checkout with.
-		///
 		@discardableResult
 		open func checkoutEmailUpdateV2(alias: String? = nil, checkoutId: GraphQL.ID, email: String, _ subfields: (CheckoutEmailUpdateV2PayloadQuery) -> Void) -> MutationQuery {
 			var args: [String] = []
@@ -640,55 +451,6 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "checkoutEmailUpdateV2", aliasSuffix: alias, args: argsString, subfields: subquery)
-			return self
-		}
-
-		/// Applies a gift card to an existing checkout using a gift card code. This 
-		/// will replace all currently applied gift cards. 
-		///
-		/// - parameters:
-		///     - giftCardCode: The code of the gift card to apply on the checkout.
-		///     - checkoutId: The ID of the checkout.
-		///
-		@available(*, deprecated, message:"Use `checkoutGiftCardsAppend` instead")
-		@discardableResult
-		open func checkoutGiftCardApply(alias: String? = nil, giftCardCode: String, checkoutId: GraphQL.ID, _ subfields: (CheckoutGiftCardApplyPayloadQuery) -> Void) -> MutationQuery {
-			var args: [String] = []
-
-			args.append("giftCardCode:\(GraphQL.quoteString(input: giftCardCode))")
-
-			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
-
-			let argsString = "(\(args.joined(separator: ",")))"
-
-			let subquery = CheckoutGiftCardApplyPayloadQuery()
-			subfields(subquery)
-
-			addField(field: "checkoutGiftCardApply", aliasSuffix: alias, args: argsString, subfields: subquery)
-			return self
-		}
-
-		/// Removes an applied gift card from the checkout. 
-		///
-		/// - parameters:
-		///     - appliedGiftCardId: The ID of the Applied Gift Card to remove from the Checkout.
-		///     - checkoutId: The ID of the checkout.
-		///
-		@available(*, deprecated, message:"Use `checkoutGiftCardRemoveV2` instead")
-		@discardableResult
-		open func checkoutGiftCardRemove(alias: String? = nil, appliedGiftCardId: GraphQL.ID, checkoutId: GraphQL.ID, _ subfields: (CheckoutGiftCardRemovePayloadQuery) -> Void) -> MutationQuery {
-			var args: [String] = []
-
-			args.append("appliedGiftCardId:\(GraphQL.quoteString(input: "\(appliedGiftCardId.rawValue)"))")
-
-			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
-
-			let argsString = "(\(args.joined(separator: ",")))"
-
-			let subquery = CheckoutGiftCardRemovePayloadQuery()
-			subfields(subquery)
-
-			addField(field: "checkoutGiftCardRemove", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
@@ -827,30 +589,6 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "checkoutLineItemsUpdate", aliasSuffix: alias, args: argsString, subfields: subquery)
-			return self
-		}
-
-		/// Updates the shipping address of an existing checkout. 
-		///
-		/// - parameters:
-		///     - shippingAddress: The shipping address to where the line items will be shipped.
-		///     - checkoutId: The ID of the checkout.
-		///
-		@available(*, deprecated, message:"Use `checkoutShippingAddressUpdateV2` instead")
-		@discardableResult
-		open func checkoutShippingAddressUpdate(alias: String? = nil, shippingAddress: MailingAddressInput, checkoutId: GraphQL.ID, _ subfields: (CheckoutShippingAddressUpdatePayloadQuery) -> Void) -> MutationQuery {
-			var args: [String] = []
-
-			args.append("shippingAddress:\(shippingAddress.serialize())")
-
-			args.append("checkoutId:\(GraphQL.quoteString(input: "\(checkoutId.rawValue)"))")
-
-			let argsString = "(\(args.joined(separator: ",")))"
-
-			let subquery = CheckoutShippingAddressUpdatePayloadQuery()
-			subfields(subquery)
-
-			addField(field: "checkoutShippingAddressUpdate", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
@@ -1304,13 +1042,6 @@ extension Storefront {
 				}
 				return try CartNoteUpdatePayload(fields: value)
 
-				case "checkoutAttributesUpdate":
-				if value is NSNull { return nil }
-				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
-				}
-				return try CheckoutAttributesUpdatePayload(fields: value)
-
 				case "checkoutAttributesUpdateV2":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -1325,33 +1056,12 @@ extension Storefront {
 				}
 				return try CheckoutCompleteFreePayload(fields: value)
 
-				case "checkoutCompleteWithCreditCard":
-				if value is NSNull { return nil }
-				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
-				}
-				return try CheckoutCompleteWithCreditCardPayload(fields: value)
-
 				case "checkoutCompleteWithCreditCardV2":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
 				}
 				return try CheckoutCompleteWithCreditCardV2Payload(fields: value)
-
-				case "checkoutCompleteWithTokenizedPayment":
-				if value is NSNull { return nil }
-				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
-				}
-				return try CheckoutCompleteWithTokenizedPaymentPayload(fields: value)
-
-				case "checkoutCompleteWithTokenizedPaymentV2":
-				if value is NSNull { return nil }
-				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
-				}
-				return try CheckoutCompleteWithTokenizedPaymentV2Payload(fields: value)
 
 				case "checkoutCompleteWithTokenizedPaymentV3":
 				if value is NSNull { return nil }
@@ -1367,13 +1077,6 @@ extension Storefront {
 				}
 				return try CheckoutCreatePayload(fields: value)
 
-				case "checkoutCustomerAssociate":
-				if value is NSNull { return nil }
-				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
-				}
-				return try CheckoutCustomerAssociatePayload(fields: value)
-
 				case "checkoutCustomerAssociateV2":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -1381,26 +1084,12 @@ extension Storefront {
 				}
 				return try CheckoutCustomerAssociateV2Payload(fields: value)
 
-				case "checkoutCustomerDisassociate":
-				if value is NSNull { return nil }
-				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
-				}
-				return try CheckoutCustomerDisassociatePayload(fields: value)
-
 				case "checkoutCustomerDisassociateV2":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
 				}
 				return try CheckoutCustomerDisassociateV2Payload(fields: value)
-
-				case "checkoutDiscountCodeApply":
-				if value is NSNull { return nil }
-				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
-				}
-				return try CheckoutDiscountCodeApplyPayload(fields: value)
 
 				case "checkoutDiscountCodeApplyV2":
 				if value is NSNull { return nil }
@@ -1416,33 +1105,12 @@ extension Storefront {
 				}
 				return try CheckoutDiscountCodeRemovePayload(fields: value)
 
-				case "checkoutEmailUpdate":
-				if value is NSNull { return nil }
-				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
-				}
-				return try CheckoutEmailUpdatePayload(fields: value)
-
 				case "checkoutEmailUpdateV2":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
 				}
 				return try CheckoutEmailUpdateV2Payload(fields: value)
-
-				case "checkoutGiftCardApply":
-				if value is NSNull { return nil }
-				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
-				}
-				return try CheckoutGiftCardApplyPayload(fields: value)
-
-				case "checkoutGiftCardRemove":
-				if value is NSNull { return nil }
-				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
-				}
-				return try CheckoutGiftCardRemovePayload(fields: value)
 
 				case "checkoutGiftCardRemoveV2":
 				if value is NSNull { return nil }
@@ -1485,13 +1153,6 @@ extension Storefront {
 					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
 				}
 				return try CheckoutLineItemsUpdatePayload(fields: value)
-
-				case "checkoutShippingAddressUpdate":
-				if value is NSNull { return nil }
-				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
-				}
-				return try CheckoutShippingAddressUpdatePayload(fields: value)
 
 				case "checkoutShippingAddressUpdateV2":
 				if value is NSNull { return nil }
@@ -1725,22 +1386,6 @@ extension Storefront {
 		}
 
 		/// Updates the attributes of a checkout if `allowPartialAddresses` is `true`. 
-		@available(*, deprecated, message:"Use `checkoutAttributesUpdateV2` instead")
-		open var checkoutAttributesUpdate: Storefront.CheckoutAttributesUpdatePayload? {
-			return internalGetCheckoutAttributesUpdate()
-		}
-
-		@available(*, deprecated, message:"Use `checkoutAttributesUpdateV2` instead")
-
-		open func aliasedCheckoutAttributesUpdate(alias: String) -> Storefront.CheckoutAttributesUpdatePayload? {
-			return internalGetCheckoutAttributesUpdate(alias: alias)
-		}
-
-		func internalGetCheckoutAttributesUpdate(alias: String? = nil) -> Storefront.CheckoutAttributesUpdatePayload? {
-			return field(field: "checkoutAttributesUpdate", aliasSuffix: alias) as! Storefront.CheckoutAttributesUpdatePayload?
-		}
-
-		/// Updates the attributes of a checkout if `allowPartialAddresses` is `true`. 
 		open var checkoutAttributesUpdateV2: Storefront.CheckoutAttributesUpdateV2Payload? {
 			return internalGetCheckoutAttributesUpdateV2()
 		}
@@ -1768,22 +1413,6 @@ extension Storefront {
 			return field(field: "checkoutCompleteFree", aliasSuffix: alias) as! Storefront.CheckoutCompleteFreePayload?
 		}
 
-		/// Completes a checkout using a credit card token from Shopify's Vault. 
-		@available(*, deprecated, message:"Use `checkoutCompleteWithCreditCardV2` instead")
-		open var checkoutCompleteWithCreditCard: Storefront.CheckoutCompleteWithCreditCardPayload? {
-			return internalGetCheckoutCompleteWithCreditCard()
-		}
-
-		@available(*, deprecated, message:"Use `checkoutCompleteWithCreditCardV2` instead")
-
-		open func aliasedCheckoutCompleteWithCreditCard(alias: String) -> Storefront.CheckoutCompleteWithCreditCardPayload? {
-			return internalGetCheckoutCompleteWithCreditCard(alias: alias)
-		}
-
-		func internalGetCheckoutCompleteWithCreditCard(alias: String? = nil) -> Storefront.CheckoutCompleteWithCreditCardPayload? {
-			return field(field: "checkoutCompleteWithCreditCard", aliasSuffix: alias) as! Storefront.CheckoutCompleteWithCreditCardPayload?
-		}
-
 		/// Completes a checkout using a credit card token from Shopify's card vault. 
 		/// Before you can complete checkouts using CheckoutCompleteWithCreditCardV2, 
 		/// you need to [_request payment 
@@ -1798,38 +1427,6 @@ extension Storefront {
 
 		func internalGetCheckoutCompleteWithCreditCardV2(alias: String? = nil) -> Storefront.CheckoutCompleteWithCreditCardV2Payload? {
 			return field(field: "checkoutCompleteWithCreditCardV2", aliasSuffix: alias) as! Storefront.CheckoutCompleteWithCreditCardV2Payload?
-		}
-
-		/// Completes a checkout with a tokenized payment. 
-		@available(*, deprecated, message:"Use `checkoutCompleteWithTokenizedPaymentV2` instead")
-		open var checkoutCompleteWithTokenizedPayment: Storefront.CheckoutCompleteWithTokenizedPaymentPayload? {
-			return internalGetCheckoutCompleteWithTokenizedPayment()
-		}
-
-		@available(*, deprecated, message:"Use `checkoutCompleteWithTokenizedPaymentV2` instead")
-
-		open func aliasedCheckoutCompleteWithTokenizedPayment(alias: String) -> Storefront.CheckoutCompleteWithTokenizedPaymentPayload? {
-			return internalGetCheckoutCompleteWithTokenizedPayment(alias: alias)
-		}
-
-		func internalGetCheckoutCompleteWithTokenizedPayment(alias: String? = nil) -> Storefront.CheckoutCompleteWithTokenizedPaymentPayload? {
-			return field(field: "checkoutCompleteWithTokenizedPayment", aliasSuffix: alias) as! Storefront.CheckoutCompleteWithTokenizedPaymentPayload?
-		}
-
-		/// Completes a checkout with a tokenized payment. 
-		@available(*, deprecated, message:"Use `checkoutCompleteWithTokenizedPaymentV3` instead")
-		open var checkoutCompleteWithTokenizedPaymentV2: Storefront.CheckoutCompleteWithTokenizedPaymentV2Payload? {
-			return internalGetCheckoutCompleteWithTokenizedPaymentV2()
-		}
-
-		@available(*, deprecated, message:"Use `checkoutCompleteWithTokenizedPaymentV3` instead")
-
-		open func aliasedCheckoutCompleteWithTokenizedPaymentV2(alias: String) -> Storefront.CheckoutCompleteWithTokenizedPaymentV2Payload? {
-			return internalGetCheckoutCompleteWithTokenizedPaymentV2(alias: alias)
-		}
-
-		func internalGetCheckoutCompleteWithTokenizedPaymentV2(alias: String? = nil) -> Storefront.CheckoutCompleteWithTokenizedPaymentV2Payload? {
-			return field(field: "checkoutCompleteWithTokenizedPaymentV2", aliasSuffix: alias) as! Storefront.CheckoutCompleteWithTokenizedPaymentV2Payload?
 		}
 
 		/// Completes a checkout with a tokenized payment. 
@@ -1859,22 +1456,6 @@ extension Storefront {
 		}
 
 		/// Associates a customer to the checkout. 
-		@available(*, deprecated, message:"Use `checkoutCustomerAssociateV2` instead")
-		open var checkoutCustomerAssociate: Storefront.CheckoutCustomerAssociatePayload? {
-			return internalGetCheckoutCustomerAssociate()
-		}
-
-		@available(*, deprecated, message:"Use `checkoutCustomerAssociateV2` instead")
-
-		open func aliasedCheckoutCustomerAssociate(alias: String) -> Storefront.CheckoutCustomerAssociatePayload? {
-			return internalGetCheckoutCustomerAssociate(alias: alias)
-		}
-
-		func internalGetCheckoutCustomerAssociate(alias: String? = nil) -> Storefront.CheckoutCustomerAssociatePayload? {
-			return field(field: "checkoutCustomerAssociate", aliasSuffix: alias) as! Storefront.CheckoutCustomerAssociatePayload?
-		}
-
-		/// Associates a customer to the checkout. 
 		open var checkoutCustomerAssociateV2: Storefront.CheckoutCustomerAssociateV2Payload? {
 			return internalGetCheckoutCustomerAssociateV2()
 		}
@@ -1885,22 +1466,6 @@ extension Storefront {
 
 		func internalGetCheckoutCustomerAssociateV2(alias: String? = nil) -> Storefront.CheckoutCustomerAssociateV2Payload? {
 			return field(field: "checkoutCustomerAssociateV2", aliasSuffix: alias) as! Storefront.CheckoutCustomerAssociateV2Payload?
-		}
-
-		/// Disassociates the current checkout customer from the checkout. 
-		@available(*, deprecated, message:"Use `checkoutCustomerDisassociateV2` instead")
-		open var checkoutCustomerDisassociate: Storefront.CheckoutCustomerDisassociatePayload? {
-			return internalGetCheckoutCustomerDisassociate()
-		}
-
-		@available(*, deprecated, message:"Use `checkoutCustomerDisassociateV2` instead")
-
-		open func aliasedCheckoutCustomerDisassociate(alias: String) -> Storefront.CheckoutCustomerDisassociatePayload? {
-			return internalGetCheckoutCustomerDisassociate(alias: alias)
-		}
-
-		func internalGetCheckoutCustomerDisassociate(alias: String? = nil) -> Storefront.CheckoutCustomerDisassociatePayload? {
-			return field(field: "checkoutCustomerDisassociate", aliasSuffix: alias) as! Storefront.CheckoutCustomerDisassociatePayload?
 		}
 
 		/// Disassociates the current checkout customer from the checkout. 
@@ -1917,22 +1482,6 @@ extension Storefront {
 		}
 
 		/// Applies a discount to an existing checkout using a discount code. 
-		@available(*, deprecated, message:"Use `checkoutDiscountCodeApplyV2` instead")
-		open var checkoutDiscountCodeApply: Storefront.CheckoutDiscountCodeApplyPayload? {
-			return internalGetCheckoutDiscountCodeApply()
-		}
-
-		@available(*, deprecated, message:"Use `checkoutDiscountCodeApplyV2` instead")
-
-		open func aliasedCheckoutDiscountCodeApply(alias: String) -> Storefront.CheckoutDiscountCodeApplyPayload? {
-			return internalGetCheckoutDiscountCodeApply(alias: alias)
-		}
-
-		func internalGetCheckoutDiscountCodeApply(alias: String? = nil) -> Storefront.CheckoutDiscountCodeApplyPayload? {
-			return field(field: "checkoutDiscountCodeApply", aliasSuffix: alias) as! Storefront.CheckoutDiscountCodeApplyPayload?
-		}
-
-		/// Applies a discount to an existing checkout using a discount code. 
 		open var checkoutDiscountCodeApplyV2: Storefront.CheckoutDiscountCodeApplyV2Payload? {
 			return internalGetCheckoutDiscountCodeApplyV2()
 		}
@@ -1945,7 +1494,7 @@ extension Storefront {
 			return field(field: "checkoutDiscountCodeApplyV2", aliasSuffix: alias) as! Storefront.CheckoutDiscountCodeApplyV2Payload?
 		}
 
-		/// Removes the applied discount from an existing checkout. 
+		/// Removes the applied discounts from an existing checkout. 
 		open var checkoutDiscountCodeRemove: Storefront.CheckoutDiscountCodeRemovePayload? {
 			return internalGetCheckoutDiscountCodeRemove()
 		}
@@ -1959,22 +1508,6 @@ extension Storefront {
 		}
 
 		/// Updates the email on an existing checkout. 
-		@available(*, deprecated, message:"Use `checkoutEmailUpdateV2` instead")
-		open var checkoutEmailUpdate: Storefront.CheckoutEmailUpdatePayload? {
-			return internalGetCheckoutEmailUpdate()
-		}
-
-		@available(*, deprecated, message:"Use `checkoutEmailUpdateV2` instead")
-
-		open func aliasedCheckoutEmailUpdate(alias: String) -> Storefront.CheckoutEmailUpdatePayload? {
-			return internalGetCheckoutEmailUpdate(alias: alias)
-		}
-
-		func internalGetCheckoutEmailUpdate(alias: String? = nil) -> Storefront.CheckoutEmailUpdatePayload? {
-			return field(field: "checkoutEmailUpdate", aliasSuffix: alias) as! Storefront.CheckoutEmailUpdatePayload?
-		}
-
-		/// Updates the email on an existing checkout. 
 		open var checkoutEmailUpdateV2: Storefront.CheckoutEmailUpdateV2Payload? {
 			return internalGetCheckoutEmailUpdateV2()
 		}
@@ -1985,39 +1518,6 @@ extension Storefront {
 
 		func internalGetCheckoutEmailUpdateV2(alias: String? = nil) -> Storefront.CheckoutEmailUpdateV2Payload? {
 			return field(field: "checkoutEmailUpdateV2", aliasSuffix: alias) as! Storefront.CheckoutEmailUpdateV2Payload?
-		}
-
-		/// Applies a gift card to an existing checkout using a gift card code. This 
-		/// will replace all currently applied gift cards. 
-		@available(*, deprecated, message:"Use `checkoutGiftCardsAppend` instead")
-		open var checkoutGiftCardApply: Storefront.CheckoutGiftCardApplyPayload? {
-			return internalGetCheckoutGiftCardApply()
-		}
-
-		@available(*, deprecated, message:"Use `checkoutGiftCardsAppend` instead")
-
-		open func aliasedCheckoutGiftCardApply(alias: String) -> Storefront.CheckoutGiftCardApplyPayload? {
-			return internalGetCheckoutGiftCardApply(alias: alias)
-		}
-
-		func internalGetCheckoutGiftCardApply(alias: String? = nil) -> Storefront.CheckoutGiftCardApplyPayload? {
-			return field(field: "checkoutGiftCardApply", aliasSuffix: alias) as! Storefront.CheckoutGiftCardApplyPayload?
-		}
-
-		/// Removes an applied gift card from the checkout. 
-		@available(*, deprecated, message:"Use `checkoutGiftCardRemoveV2` instead")
-		open var checkoutGiftCardRemove: Storefront.CheckoutGiftCardRemovePayload? {
-			return internalGetCheckoutGiftCardRemove()
-		}
-
-		@available(*, deprecated, message:"Use `checkoutGiftCardRemoveV2` instead")
-
-		open func aliasedCheckoutGiftCardRemove(alias: String) -> Storefront.CheckoutGiftCardRemovePayload? {
-			return internalGetCheckoutGiftCardRemove(alias: alias)
-		}
-
-		func internalGetCheckoutGiftCardRemove(alias: String? = nil) -> Storefront.CheckoutGiftCardRemovePayload? {
-			return field(field: "checkoutGiftCardRemove", aliasSuffix: alias) as! Storefront.CheckoutGiftCardRemovePayload?
 		}
 
 		/// Removes an applied gift card from the checkout. 
@@ -2096,22 +1596,6 @@ extension Storefront {
 
 		func internalGetCheckoutLineItemsUpdate(alias: String? = nil) -> Storefront.CheckoutLineItemsUpdatePayload? {
 			return field(field: "checkoutLineItemsUpdate", aliasSuffix: alias) as! Storefront.CheckoutLineItemsUpdatePayload?
-		}
-
-		/// Updates the shipping address of an existing checkout. 
-		@available(*, deprecated, message:"Use `checkoutShippingAddressUpdateV2` instead")
-		open var checkoutShippingAddressUpdate: Storefront.CheckoutShippingAddressUpdatePayload? {
-			return internalGetCheckoutShippingAddressUpdate()
-		}
-
-		@available(*, deprecated, message:"Use `checkoutShippingAddressUpdateV2` instead")
-
-		open func aliasedCheckoutShippingAddressUpdate(alias: String) -> Storefront.CheckoutShippingAddressUpdatePayload? {
-			return internalGetCheckoutShippingAddressUpdate(alias: alias)
-		}
-
-		func internalGetCheckoutShippingAddressUpdate(alias: String? = nil) -> Storefront.CheckoutShippingAddressUpdatePayload? {
-			return field(field: "checkoutShippingAddressUpdate", aliasSuffix: alias) as! Storefront.CheckoutShippingAddressUpdatePayload?
 		}
 
 		/// Updates the shipping address of an existing checkout. 
@@ -2396,12 +1880,6 @@ extension Storefront {
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
-					case "checkoutAttributesUpdate":
-					if let value = internalGetCheckoutAttributesUpdate() {
-						response.append(value)
-						response.append(contentsOf: value.childResponseObjectMap())
-					}
-
 					case "checkoutAttributesUpdateV2":
 					if let value = internalGetCheckoutAttributesUpdateV2() {
 						response.append(value)
@@ -2414,26 +1892,8 @@ extension Storefront {
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
-					case "checkoutCompleteWithCreditCard":
-					if let value = internalGetCheckoutCompleteWithCreditCard() {
-						response.append(value)
-						response.append(contentsOf: value.childResponseObjectMap())
-					}
-
 					case "checkoutCompleteWithCreditCardV2":
 					if let value = internalGetCheckoutCompleteWithCreditCardV2() {
-						response.append(value)
-						response.append(contentsOf: value.childResponseObjectMap())
-					}
-
-					case "checkoutCompleteWithTokenizedPayment":
-					if let value = internalGetCheckoutCompleteWithTokenizedPayment() {
-						response.append(value)
-						response.append(contentsOf: value.childResponseObjectMap())
-					}
-
-					case "checkoutCompleteWithTokenizedPaymentV2":
-					if let value = internalGetCheckoutCompleteWithTokenizedPaymentV2() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
@@ -2450,32 +1910,14 @@ extension Storefront {
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
-					case "checkoutCustomerAssociate":
-					if let value = internalGetCheckoutCustomerAssociate() {
-						response.append(value)
-						response.append(contentsOf: value.childResponseObjectMap())
-					}
-
 					case "checkoutCustomerAssociateV2":
 					if let value = internalGetCheckoutCustomerAssociateV2() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
-					case "checkoutCustomerDisassociate":
-					if let value = internalGetCheckoutCustomerDisassociate() {
-						response.append(value)
-						response.append(contentsOf: value.childResponseObjectMap())
-					}
-
 					case "checkoutCustomerDisassociateV2":
 					if let value = internalGetCheckoutCustomerDisassociateV2() {
-						response.append(value)
-						response.append(contentsOf: value.childResponseObjectMap())
-					}
-
-					case "checkoutDiscountCodeApply":
-					if let value = internalGetCheckoutDiscountCodeApply() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
@@ -2492,26 +1934,8 @@ extension Storefront {
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
-					case "checkoutEmailUpdate":
-					if let value = internalGetCheckoutEmailUpdate() {
-						response.append(value)
-						response.append(contentsOf: value.childResponseObjectMap())
-					}
-
 					case "checkoutEmailUpdateV2":
 					if let value = internalGetCheckoutEmailUpdateV2() {
-						response.append(value)
-						response.append(contentsOf: value.childResponseObjectMap())
-					}
-
-					case "checkoutGiftCardApply":
-					if let value = internalGetCheckoutGiftCardApply() {
-						response.append(value)
-						response.append(contentsOf: value.childResponseObjectMap())
-					}
-
-					case "checkoutGiftCardRemove":
-					if let value = internalGetCheckoutGiftCardRemove() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
@@ -2548,12 +1972,6 @@ extension Storefront {
 
 					case "checkoutLineItemsUpdate":
 					if let value = internalGetCheckoutLineItemsUpdate() {
-						response.append(value)
-						response.append(contentsOf: value.childResponseObjectMap())
-					}
-
-					case "checkoutShippingAddressUpdate":
-					if let value = internalGetCheckoutShippingAddressUpdate() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}

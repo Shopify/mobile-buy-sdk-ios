@@ -33,6 +33,16 @@ extension Storefront {
 	open class SellingPlanAllocationQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SellingPlanAllocation
 
+		/// The checkout charge amount due for the purchase. 
+		@discardableResult
+		open func checkoutChargeAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> SellingPlanAllocationQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "checkoutChargeAmount", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// A list of price adjustments, with a maximum of two. When there are two, the 
 		/// first price adjustment goes into effect at the time of purchase, while the 
 		/// second one starts after a certain number of orders. A price adjustment 
@@ -45,6 +55,16 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "priceAdjustments", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// The remaining balance charge amount due for the purchase. 
+		@discardableResult
+		open func remainingBalanceChargeAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> SellingPlanAllocationQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "remainingBalanceChargeAmount", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -70,11 +90,23 @@ extension Storefront {
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "checkoutChargeAmount":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: SellingPlanAllocation.self, field: fieldName, value: fieldValue)
+				}
+				return try MoneyV2(fields: value)
+
 				case "priceAdjustments":
 				guard let value = value as? [[String: Any]] else {
 					throw SchemaViolationError(type: SellingPlanAllocation.self, field: fieldName, value: fieldValue)
 				}
 				return try value.map { return try SellingPlanAllocationPriceAdjustment(fields: $0) }
+
+				case "remainingBalanceChargeAmount":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: SellingPlanAllocation.self, field: fieldName, value: fieldValue)
+				}
+				return try MoneyV2(fields: value)
 
 				case "sellingPlan":
 				guard let value = value as? [String: Any] else {
@@ -85,6 +117,15 @@ extension Storefront {
 				default:
 				throw SchemaViolationError(type: SellingPlanAllocation.self, field: fieldName, value: fieldValue)
 			}
+		}
+
+		/// The checkout charge amount due for the purchase. 
+		open var checkoutChargeAmount: Storefront.MoneyV2 {
+			return internalGetCheckoutChargeAmount()
+		}
+
+		func internalGetCheckoutChargeAmount(alias: String? = nil) -> Storefront.MoneyV2 {
+			return field(field: "checkoutChargeAmount", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
 		/// A list of price adjustments, with a maximum of two. When there are two, the 
@@ -99,6 +140,15 @@ extension Storefront {
 
 		func internalGetPriceAdjustments(alias: String? = nil) -> [Storefront.SellingPlanAllocationPriceAdjustment] {
 			return field(field: "priceAdjustments", aliasSuffix: alias) as! [Storefront.SellingPlanAllocationPriceAdjustment]
+		}
+
+		/// The remaining balance charge amount due for the purchase. 
+		open var remainingBalanceChargeAmount: Storefront.MoneyV2 {
+			return internalGetRemainingBalanceChargeAmount()
+		}
+
+		func internalGetRemainingBalanceChargeAmount(alias: String? = nil) -> Storefront.MoneyV2 {
+			return field(field: "remainingBalanceChargeAmount", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
 		/// A representation of how products and variants can be sold and purchased. 
@@ -116,11 +166,19 @@ extension Storefront {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
 				switch($0) {
+					case "checkoutChargeAmount":
+					response.append(internalGetCheckoutChargeAmount())
+					response.append(contentsOf: internalGetCheckoutChargeAmount().childResponseObjectMap())
+
 					case "priceAdjustments":
 					internalGetPriceAdjustments().forEach {
 						response.append($0)
 						response.append(contentsOf: $0.childResponseObjectMap())
 					}
+
+					case "remainingBalanceChargeAmount":
+					response.append(internalGetRemainingBalanceChargeAmount())
+					response.append(contentsOf: internalGetRemainingBalanceChargeAmount().childResponseObjectMap())
 
 					case "sellingPlan":
 					response.append(internalGetSellingPlan())

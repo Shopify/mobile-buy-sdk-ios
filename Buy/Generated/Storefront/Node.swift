@@ -458,6 +458,21 @@ extension Storefront {
 		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
 		/// queries. 
 		@discardableResult
+		open func onUrlRedirect(subfields: (UrlRedirectQuery) -> Void) -> NodeQuery {
+			let subquery = UrlRedirectQuery()
+			subfields(subquery)
+			addInlineFragment(on: "UrlRedirect", subfields: subquery)
+			return self
+		}
+
+		/// An object with an ID field to support global identification, in accordance 
+		/// with the [Relay 
+		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
+		/// This interface is used by the 
+		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
+		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
+		/// queries. 
+		@discardableResult
 		open func onVideo(subfields: (VideoQuery) -> Void) -> NodeQuery {
 			let subquery = VideoQuery()
 			subfields(subquery)
@@ -546,6 +561,8 @@ extension Storefront {
 				case "Shop": return try Shop.init(fields: fields)
 
 				case "ShopPolicy": return try ShopPolicy.init(fields: fields)
+
+				case "UrlRedirect": return try UrlRedirect.init(fields: fields)
 
 				case "Video": return try Video.init(fields: fields)
 

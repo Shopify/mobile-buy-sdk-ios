@@ -47,7 +47,7 @@ extension Storefront {
 	}
 
 	/// A monetary value with currency. 
-	open class MoneyV2: GraphQL.AbstractResponse, GraphQLObject, PricingValue {
+	open class MoneyV2: GraphQL.AbstractResponse, GraphQLObject, PricingValue, SellingPlanCheckoutChargeValue {
 		public typealias Query = MoneyV2Query
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {

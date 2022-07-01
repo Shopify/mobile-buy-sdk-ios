@@ -1,5 +1,5 @@
 //
-//  SDK.swift
+//  SellingPlanCheckoutChargeType.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -26,6 +26,15 @@
 
 import Foundation
 
-internal enum SDK {
-    static let version = "8.0.0"
+extension Storefront {
+	/// The checkout charge when the full amount isn't charged at checkout. 
+	public enum SellingPlanCheckoutChargeType: String {
+		/// The checkout charge is a percentage of the product or variant price. 
+		case percentage = "PERCENTAGE"
+
+		/// The checkout charge is a fixed price amount. 
+		case price = "PRICE"
+
+		case unknownValue = ""
+	}
 }

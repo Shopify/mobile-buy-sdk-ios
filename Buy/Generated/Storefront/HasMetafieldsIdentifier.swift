@@ -1,5 +1,5 @@
 //
-//  SDK.swift
+//  HasMetafieldsIdentifier.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -26,6 +26,44 @@
 
 import Foundation
 
-internal enum SDK {
-    static let version = "8.0.0"
+extension Storefront {
+	/// Identifies a metafield on an owner resource by namespace and key. 
+	open class HasMetafieldsIdentifier {
+		/// A container for a set of metafields. 
+		open var namespace: String
+
+		/// The identifier for the metafield. 
+		open var key: String
+
+		/// Creates the input object.
+		///
+		/// - parameters:
+		///     - namespace: A container for a set of metafields.
+		///     - key: The identifier for the metafield.
+		///
+		public static func create(namespace: String, key: String) -> HasMetafieldsIdentifier {
+			return HasMetafieldsIdentifier(namespace: namespace, key: key)
+		}
+
+		/// Creates the input object.
+		///
+		/// - parameters:
+		///     - namespace: A container for a set of metafields.
+		///     - key: The identifier for the metafield.
+		///
+		public init(namespace: String, key: String) {
+			self.namespace = namespace
+			self.key = key
+		}
+
+		internal func serialize() -> String {
+			var fields: [String] = []
+
+			fields.append("namespace:\(GraphQL.quoteString(input: namespace))")
+
+			fields.append("key:\(GraphQL.quoteString(input: key))")
+
+			return "{\(fields.joined(separator: ","))}"
+		}
+	}
 }

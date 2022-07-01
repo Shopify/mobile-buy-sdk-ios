@@ -27,7 +27,9 @@
 import Foundation
 
 extension Storefront {
-	/// Denotes the type of data this filter group represents. 
+	/// The type of data that the filter group represents. For more information, 
+	/// refer to [Filter products in a collection with the Storefront API] 
+	/// (https://shopify.dev/api/examples/filter-products). 
 	public enum FilterType: String {
 		/// A boolean value. 
 		case boolean = "BOOLEAN"

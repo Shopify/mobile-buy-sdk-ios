@@ -110,7 +110,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Whether or not the payment is still processing asynchronously. 
+		/// Whether the payment is still processing asynchronously. 
 		@discardableResult
 		open func ready(alias: String? = nil) -> PaymentQuery {
 			addField(field: "ready", aliasSuffix: alias)
@@ -312,7 +312,7 @@ extension Storefront {
 			return field(field: "nextActionUrl", aliasSuffix: alias) as! URL?
 		}
 
-		/// Whether or not the payment is still processing asynchronously. 
+		/// Whether the payment is still processing asynchronously. 
 		open var ready: Bool {
 			return internalGetReady()
 		}

@@ -68,6 +68,15 @@ extension Storefront {
 			addInlineFragment(on: "CartCodeDiscountAllocation", subfields: subquery)
 			return self
 		}
+
+		/// The discounts that have been applied to the cart line. 
+		@discardableResult
+		open func onCartCustomDiscountAllocation(subfields: (CartCustomDiscountAllocationQuery) -> Void) -> CartDiscountAllocationQuery {
+			let subquery = CartCustomDiscountAllocationQuery()
+			subfields(subquery)
+			addInlineFragment(on: "CartCustomDiscountAllocation", subfields: subquery)
+			return self
+		}
 	}
 
 	/// The discounts that have been applied to the cart line. 
@@ -96,6 +105,8 @@ extension Storefront {
 				case "CartAutomaticDiscountAllocation": return try CartAutomaticDiscountAllocation.init(fields: fields)
 
 				case "CartCodeDiscountAllocation": return try CartCodeDiscountAllocation.init(fields: fields)
+
+				case "CartCustomDiscountAllocation": return try CartCustomDiscountAllocation.init(fields: fields)
 
 				default:
 				return try UnknownCartDiscountAllocation.init(fields: fields)
