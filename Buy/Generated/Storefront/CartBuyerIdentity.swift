@@ -48,6 +48,19 @@ extension Storefront {
 			return self
 		}
 
+		/// An ordered set of delivery addresses tied to the buyer that is interacting 
+		/// with the cart. The rank of the preferences is determined by the order of 
+		/// the addresses in the array. Preferences can be used to populate relevant 
+		/// fields in the checkout flow. 
+		@discardableResult
+		open func deliveryAddressPreferences(alias: String? = nil, _ subfields: (DeliveryAddressQuery) -> Void) -> CartBuyerIdentityQuery {
+			let subquery = DeliveryAddressQuery()
+			subfields(subquery)
+
+			addField(field: "deliveryAddressPreferences", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The email address of the buyer that is interacting with the cart. 
 		@discardableResult
 		open func email(alias: String? = nil) -> CartBuyerIdentityQuery {
@@ -83,6 +96,12 @@ extension Storefront {
 					throw SchemaViolationError(type: CartBuyerIdentity.self, field: fieldName, value: fieldValue)
 				}
 				return try Customer(fields: value)
+
+				case "deliveryAddressPreferences":
+				guard let value = value as? [[String: Any]] else {
+					throw SchemaViolationError(type: CartBuyerIdentity.self, field: fieldName, value: fieldValue)
+				}
+				return try value.map { return try UnknownDeliveryAddress.create(fields: $0) }
 
 				case "email":
 				if value is NSNull { return nil }
@@ -121,6 +140,18 @@ extension Storefront {
 			return field(field: "customer", aliasSuffix: alias) as! Storefront.Customer?
 		}
 
+		/// An ordered set of delivery addresses tied to the buyer that is interacting 
+		/// with the cart. The rank of the preferences is determined by the order of 
+		/// the addresses in the array. Preferences can be used to populate relevant 
+		/// fields in the checkout flow. 
+		open var deliveryAddressPreferences: [DeliveryAddress] {
+			return internalGetDeliveryAddressPreferences()
+		}
+
+		func internalGetDeliveryAddressPreferences(alias: String? = nil) -> [DeliveryAddress] {
+			return field(field: "deliveryAddressPreferences", aliasSuffix: alias) as! [DeliveryAddress]
+		}
+
 		/// The email address of the buyer that is interacting with the cart. 
 		open var email: String? {
 			return internalGetEmail()
@@ -147,6 +178,12 @@ extension Storefront {
 					if let value = internalGetCustomer() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "deliveryAddressPreferences":
+					internalGetDeliveryAddressPreferences().forEach {
+						response.append(($0 as! GraphQL.AbstractResponse))
+						response.append(contentsOf: ($0 as! GraphQL.AbstractResponse).childResponseObjectMap())
 					}
 
 					default:

@@ -189,6 +189,14 @@ extension Storefront {
 			return self
 		}
 
+		/// The number of orders that the customer has made at the store in their 
+		/// lifetime. 
+		@discardableResult
+		open func numberOfOrders(alias: String? = nil) -> CustomerQuery {
+			addField(field: "numberOfOrders", aliasSuffix: alias)
+			return self
+		}
+
 		/// The orders associated with the customer. 
 		///
 		/// - parameters:
@@ -359,6 +367,12 @@ extension Storefront {
 				}
 				return try Metafield(fields: value) } as [Any?]
 
+				case "numberOfOrders":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Customer.self, field: fieldName, value: fieldValue)
+				}
+				return value
+
 				case "orders":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Customer.self, field: fieldName, value: fieldValue)
@@ -509,6 +523,16 @@ extension Storefront {
 
 		func internalGetMetafields(alias: String? = nil) -> [Storefront.Metafield?] {
 			return field(field: "metafields", aliasSuffix: alias) as! [Storefront.Metafield?]
+		}
+
+		/// The number of orders that the customer has made at the store in their 
+		/// lifetime. 
+		open var numberOfOrders: String {
+			return internalGetNumberOfOrders()
+		}
+
+		func internalGetNumberOfOrders(alias: String? = nil) -> String {
+			return field(field: "numberOfOrders", aliasSuffix: alias) as! String
 		}
 
 		/// The orders associated with the customer. 

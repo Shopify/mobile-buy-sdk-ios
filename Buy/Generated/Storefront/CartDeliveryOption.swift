@@ -62,6 +62,13 @@ extension Storefront {
 			return self
 		}
 
+		/// The unique identifier of the delivery option. 
+		@discardableResult
+		open func handle(alias: String? = nil) -> CartDeliveryOptionQuery {
+			addField(field: "handle", aliasSuffix: alias)
+			return self
+		}
+
 		/// The title of the delivery option. 
 		@discardableResult
 		open func title(alias: String? = nil) -> CartDeliveryOptionQuery {
@@ -102,6 +109,12 @@ extension Storefront {
 					throw SchemaViolationError(type: CartDeliveryOption.self, field: fieldName, value: fieldValue)
 				}
 				return try MoneyV2(fields: value)
+
+				case "handle":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: CartDeliveryOption.self, field: fieldName, value: fieldValue)
+				}
+				return value
 
 				case "title":
 				if value is NSNull { return nil }
@@ -149,6 +162,15 @@ extension Storefront {
 
 		func internalGetEstimatedCost(alias: String? = nil) -> Storefront.MoneyV2 {
 			return field(field: "estimatedCost", aliasSuffix: alias) as! Storefront.MoneyV2
+		}
+
+		/// The unique identifier of the delivery option. 
+		open var handle: String {
+			return internalGetHandle()
+		}
+
+		func internalGetHandle(alias: String? = nil) -> String {
+			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
 		/// The title of the delivery option. 

@@ -26,6 +26,6 @@
 
 extension Storefront {
     enum Schema {
-        static let version = "2022-07"
+        static let version = "2022-10"
     }
 }

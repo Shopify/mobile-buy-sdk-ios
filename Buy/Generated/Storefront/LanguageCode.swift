@@ -245,7 +245,7 @@ extension Storefront {
 		/// Malagasy. 
 		case mg = "MG"
 
-		/// Maori. 
+		/// Māori. 
 		case mi = "MI"
 
 		/// Macedonian. 

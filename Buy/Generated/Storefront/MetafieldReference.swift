@@ -42,6 +42,15 @@ extension Storefront {
 
 		/// Returns the resource which is being referred to by a metafield. 
 		@discardableResult
+		open func onCollection(subfields: (CollectionQuery) -> Void) -> MetafieldReferenceQuery {
+			let subquery = CollectionQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Collection", subfields: subquery)
+			return self
+		}
+
+		/// Returns the resource which is being referred to by a metafield. 
+		@discardableResult
 		open func onGenericFile(subfields: (GenericFileQuery) -> Void) -> MetafieldReferenceQuery {
 			let subquery = GenericFileQuery()
 			subfields(subquery)
@@ -112,6 +121,8 @@ extension Storefront {
 				throw SchemaViolationError(type: UnknownMetafieldReference.self, field: "__typename", value: fields["__typename"] ?? NSNull())
 			}
 			switch typeName {
+				case "Collection": return try Collection.init(fields: fields)
+
 				case "GenericFile": return try GenericFile.init(fields: fields)
 
 				case "MediaImage": return try MediaImage.init(fields: fields)

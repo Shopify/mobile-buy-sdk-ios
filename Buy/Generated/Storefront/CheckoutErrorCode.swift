@@ -93,6 +93,9 @@ extension Storefront {
 		/// allowed. 
 		case greaterThanOrEqualTo = "GREATER_THAN_OR_EQUAL_TO"
 
+		/// Higher value discount applied. 
+		case higherValueDiscountApplied = "HIGHER_VALUE_DISCOUNT_APPLIED"
+
 		/// The input value is invalid. 
 		case invalid = "INVALID"
 
@@ -128,6 +131,9 @@ extension Storefront {
 
 		/// Checkout is locked. 
 		case locked = "LOCKED"
+
+		/// Maximum number of discount codes limit reached. 
+		case maximumDiscountCodeLimitReached = "MAXIMUM_DISCOUNT_CODE_LIMIT_REACHED"
 
 		/// Missing payment input. 
 		case missingPaymentInput = "MISSING_PAYMENT_INPUT"

@@ -28,9 +28,9 @@ import Foundation
 
 extension Storefront {
 	/// A cart represents the merchandise that a buyer intends to purchase, and the 
-	/// estimated cost associated with the cart. To learn how to interact with a 
-	/// cart during a customer's session, refer to [Manage a cart with the 
-	/// Storefront API](https://shopify.dev/api/examples/cart). 
+	/// estimated cost associated with the cart. Learn how to [interact with a 
+	/// cart](https://shopify.dev/custom-storefronts/internationalization/international-pricing) 
+	/// during a customer's session. 
 	open class CartQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Cart
 
@@ -85,7 +85,7 @@ extension Storefront {
 		/// The estimated costs that the buyer will pay at checkout. The costs are 
 		/// subject to change and changes will be reflected at checkout. The `cost` 
 		/// field uses the `buyerIdentity` field to determine [international 
-		/// pricing](https://shopify.dev/api/examples/international-pricing#create-a-cart). 
+		/// pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing). 
 		@discardableResult
 		open func cost(alias: String? = nil, _ subfields: (CartCostQuery) -> Void) -> CartQuery {
 			let subquery = CartCostQuery()
@@ -102,8 +102,9 @@ extension Storefront {
 			return self
 		}
 
-		/// The delivery groups available for the cart, based on the default address of 
-		/// the logged-in customer. 
+		/// The delivery groups available for the cart, based on the buyer identity 
+		/// default delivery address preference or the default address of the logged-in 
+		/// customer. 
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -169,8 +170,8 @@ extension Storefront {
 		/// costs are subject to change and changes will be reflected at checkout. The 
 		/// `estimatedCost` field uses the `buyerIdentity` field to determine 
 		/// [international 
-		/// pricing](https://shopify.dev/api/examples/international-pricing#create-a-cart). 
-		@available(*, deprecated, message:"Use `cost` instead")
+		/// pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing). 
+		@available(*, deprecated, message:"Use `cost` instead.")
 		@discardableResult
 		open func estimatedCost(alias: String? = nil, _ subfields: (CartEstimatedCostQuery) -> Void) -> CartQuery {
 			let subquery = CartEstimatedCostQuery()
@@ -254,9 +255,9 @@ extension Storefront {
 	}
 
 	/// A cart represents the merchandise that a buyer intends to purchase, and the 
-	/// estimated cost associated with the cart. To learn how to interact with a 
-	/// cart during a customer's session, refer to [Manage a cart with the 
-	/// Storefront API](https://shopify.dev/api/examples/cart). 
+	/// estimated cost associated with the cart. Learn how to [interact with a 
+	/// cart](https://shopify.dev/custom-storefronts/internationalization/international-pricing) 
+	/// during a customer's session. 
 	open class Cart: GraphQL.AbstractResponse, GraphQLObject, Node {
 		public typealias Query = CartQuery
 
@@ -404,7 +405,7 @@ extension Storefront {
 		/// The estimated costs that the buyer will pay at checkout. The costs are 
 		/// subject to change and changes will be reflected at checkout. The `cost` 
 		/// field uses the `buyerIdentity` field to determine [international 
-		/// pricing](https://shopify.dev/api/examples/international-pricing#create-a-cart). 
+		/// pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing). 
 		open var cost: Storefront.CartCost {
 			return internalGetCost()
 		}
@@ -422,8 +423,9 @@ extension Storefront {
 			return field(field: "createdAt", aliasSuffix: alias) as! Date
 		}
 
-		/// The delivery groups available for the cart, based on the default address of 
-		/// the logged-in customer. 
+		/// The delivery groups available for the cart, based on the buyer identity 
+		/// default delivery address preference or the default address of the logged-in 
+		/// customer. 
 		open var deliveryGroups: Storefront.CartDeliveryGroupConnection {
 			return internalGetDeliveryGroups()
 		}
@@ -458,8 +460,8 @@ extension Storefront {
 		/// costs are subject to change and changes will be reflected at checkout. The 
 		/// `estimatedCost` field uses the `buyerIdentity` field to determine 
 		/// [international 
-		/// pricing](https://shopify.dev/api/examples/international-pricing#create-a-cart). 
-		@available(*, deprecated, message:"Use `cost` instead")
+		/// pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing). 
+		@available(*, deprecated, message:"Use `cost` instead.")
 		open var estimatedCost: Storefront.CartEstimatedCost {
 			return internalGetEstimatedCost()
 		}

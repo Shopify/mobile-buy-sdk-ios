@@ -31,7 +31,7 @@ extension Storefront {
 		/// Contextualizes data based on the additional information provided by the 
 		/// directive. For example, you can use the `@inContext(country: CA)` directive 
 		/// to [query a product's 
-		/// price](https://shopify.dev/api/examples/international-pricing#query-product-prices) 
+		/// price](https://shopify.dev/custom-storefronts/internationalization/international-pricing) 
 		/// in a storefront within the context of Canada. 
 		///
 		/// - parameters:

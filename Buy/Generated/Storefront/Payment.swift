@@ -32,14 +32,17 @@ extension Storefront {
 		public typealias Response = Payment
 
 		/// The amount of the payment. 
-		@available(*, deprecated, message:"Use `amountV2` instead")
 		@discardableResult
-		open func amount(alias: String? = nil) -> PaymentQuery {
-			addField(field: "amount", aliasSuffix: alias)
+		open func amount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> PaymentQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "amount", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
 		/// The amount of the payment. 
+		@available(*, deprecated, message:"Use `amount` instead.")
 		@discardableResult
 		open func amountV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> PaymentQuery {
 			let subquery = MoneyV2Query()
@@ -145,10 +148,10 @@ extension Storefront {
 			let fieldValue = value
 			switch fieldName {
 				case "amount":
-				guard let value = value as? String else {
+				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Payment.self, field: fieldName, value: fieldValue)
 				}
-				return Decimal(string: value, locale: GraphQL.posixLocale)
+				return try MoneyV2(fields: value)
 
 				case "amountV2":
 				guard let value = value as? [String: Any] else {
@@ -228,16 +231,16 @@ extension Storefront {
 		}
 
 		/// The amount of the payment. 
-		@available(*, deprecated, message:"Use `amountV2` instead")
-		open var amount: Decimal {
+		open var amount: Storefront.MoneyV2 {
 			return internalGetAmount()
 		}
 
-		func internalGetAmount(alias: String? = nil) -> Decimal {
-			return field(field: "amount", aliasSuffix: alias) as! Decimal
+		func internalGetAmount(alias: String? = nil) -> Storefront.MoneyV2 {
+			return field(field: "amount", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
 		/// The amount of the payment. 
+		@available(*, deprecated, message:"Use `amount` instead.")
 		open var amountV2: Storefront.MoneyV2 {
 			return internalGetAmountV2()
 		}
@@ -345,6 +348,10 @@ extension Storefront {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
 				switch($0) {
+					case "amount":
+					response.append(internalGetAmount())
+					response.append(contentsOf: internalGetAmount().childResponseObjectMap())
+
 					case "amountV2":
 					response.append(internalGetAmountV2())
 					response.append(contentsOf: internalGetAmountV2().childResponseObjectMap())

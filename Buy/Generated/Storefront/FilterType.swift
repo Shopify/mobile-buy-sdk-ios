@@ -29,7 +29,7 @@ import Foundation
 extension Storefront {
 	/// The type of data that the filter group represents. For more information, 
 	/// refer to [Filter products in a collection with the Storefront API] 
-	/// (https://shopify.dev/api/examples/filter-products). 
+	/// (https://shopify.dev/custom-storefronts/products-collections/filter-products). 
 	public enum FilterType: String {
 		/// A boolean value. 
 		case boolean = "BOOLEAN"

@@ -61,12 +61,14 @@ extension Storefront {
 
 		/// Updates customer information associated with a cart. Buyer identity is used 
 		/// to determine [international 
-		/// pricing](https://shopify.dev/api/examples/international-pricing#create-a-checkout) 
+		/// pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing) 
 		/// and should match the customer's shipping address. 
 		///
 		/// - parameters:
 		///     - cartId: The ID of the cart.
-		///     - buyerIdentity: The customer associated with the cart. Used to determine [international pricing](https://shopify.dev/api/examples/international-pricing#create-a-checkout). Buyer identity should match the customer's shipping address.
+		///     - buyerIdentity: The customer associated with the cart. Used to determine
+		///        [international pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing).
+		///        Buyer identity should match the customer's shipping address.
 		///
 		@discardableResult
 		open func cartBuyerIdentityUpdate(alias: String? = nil, cartId: GraphQL.ID, buyerIdentity: CartBuyerIdentityInput, _ subfields: (CartBuyerIdentityUpdatePayloadQuery) -> Void) -> MutationQuery {
@@ -223,6 +225,29 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "cartNoteUpdate", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Update the selected delivery options for a delivery group. 
+		///
+		/// - parameters:
+		///     - cartId: The ID of the cart.
+		///     - selectedDeliveryOptions: The selected delivery options.
+		///
+		@discardableResult
+		open func cartSelectedDeliveryOptionsUpdate(alias: String? = nil, cartId: GraphQL.ID, selectedDeliveryOptions: [CartSelectedDeliveryOptionInput], _ subfields: (CartSelectedDeliveryOptionsUpdatePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
+
+			args.append("selectedDeliveryOptions:[\(selectedDeliveryOptions.map{ "\($0.serialize())" }.joined(separator: ","))]")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CartSelectedDeliveryOptionsUpdatePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "cartSelectedDeliveryOptionsUpdate", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
@@ -659,13 +684,14 @@ extension Storefront {
 			return self
 		}
 
-		/// Creates a customer access token using a multipass token instead of email 
-		/// and password. A customer record is created if customer does not exist. If a 
-		/// customer record already exists but the record is disabled, then it's 
-		/// enabled. 
+		/// Creates a customer access token using a [multipass 
+		/// token](https://shopify.dev/api/multipass) instead of email and password. A 
+		/// customer record is created if the customer doesn't exist. If a customer 
+		/// record already exists but the record is disabled, then the customer record 
+		/// is enabled. 
 		///
 		/// - parameters:
-		///     - multipassToken: A valid multipass token to be authenticated.
+		///     - multipassToken: A valid [multipass token](https://shopify.dev/api/multipass) to be authenticated.
 		///
 		@discardableResult
 		open func customerAccessTokenCreateWithMultipass(alias: String? = nil, multipassToken: String, _ subfields: (CustomerAccessTokenCreateWithMultipassPayloadQuery) -> Void) -> MutationQuery {
@@ -886,8 +912,12 @@ extension Storefront {
 			return self
 		}
 
-		/// Sends a reset password email to the customer, as the first step in the 
-		/// reset password process. 
+		/// "Sends a reset password email to the customer. The reset password email 
+		/// contains a reset password URL and token that you can pass to the 
+		/// [`customerResetByUrl`](https://shopify.dev/api/storefront/latest/mutations/customerResetByUrl) 
+		/// or 
+		/// [`customerReset`](https://shopify.dev/api/storefront/latest/mutations/customerReset) 
+		/// mutation to reset the customer password." 
 		///
 		/// - parameters:
 		///     - email: The email address of the customer to recover.
@@ -907,7 +937,10 @@ extension Storefront {
 			return self
 		}
 
-		/// Resets a customer’s password with a token received from `CustomerRecover`. 
+		/// "Resets a customer’s password with the token received from a reset password 
+		/// email. You can send a reset password email with the 
+		/// [`customerRecover`](https://shopify.dev/api/storefront/latest/mutations/customerRecover) 
+		/// mutation." 
 		///
 		/// - parameters:
 		///     - id: Specifies the customer to reset.
@@ -930,8 +963,10 @@ extension Storefront {
 			return self
 		}
 
-		/// Resets a customer’s password with the reset password url received from 
-		/// `CustomerRecover`. 
+		/// "Resets a customer’s password with the reset password URL received from a 
+		/// reset password email. You can send a reset password email with the 
+		/// [`customerRecover`](https://shopify.dev/api/storefront/latest/mutations/customerRecover) 
+		/// mutation." 
 		///
 		/// - parameters:
 		///     - resetUrl: The customer's reset password url.
@@ -1041,6 +1076,13 @@ extension Storefront {
 					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
 				}
 				return try CartNoteUpdatePayload(fields: value)
+
+				case "cartSelectedDeliveryOptionsUpdate":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CartSelectedDeliveryOptionsUpdatePayload(fields: value)
 
 				case "checkoutAttributesUpdateV2":
 				if value is NSNull { return nil }
@@ -1293,7 +1335,7 @@ extension Storefront {
 
 		/// Updates customer information associated with a cart. Buyer identity is used 
 		/// to determine [international 
-		/// pricing](https://shopify.dev/api/examples/international-pricing#create-a-checkout) 
+		/// pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing) 
 		/// and should match the customer's shipping address. 
 		open var cartBuyerIdentityUpdate: Storefront.CartBuyerIdentityUpdatePayload? {
 			return internalGetCartBuyerIdentityUpdate()
@@ -1383,6 +1425,19 @@ extension Storefront {
 
 		func internalGetCartNoteUpdate(alias: String? = nil) -> Storefront.CartNoteUpdatePayload? {
 			return field(field: "cartNoteUpdate", aliasSuffix: alias) as! Storefront.CartNoteUpdatePayload?
+		}
+
+		/// Update the selected delivery options for a delivery group. 
+		open var cartSelectedDeliveryOptionsUpdate: Storefront.CartSelectedDeliveryOptionsUpdatePayload? {
+			return internalGetCartSelectedDeliveryOptionsUpdate()
+		}
+
+		open func aliasedCartSelectedDeliveryOptionsUpdate(alias: String) -> Storefront.CartSelectedDeliveryOptionsUpdatePayload? {
+			return internalGetCartSelectedDeliveryOptionsUpdate(alias: alias)
+		}
+
+		func internalGetCartSelectedDeliveryOptionsUpdate(alias: String? = nil) -> Storefront.CartSelectedDeliveryOptionsUpdatePayload? {
+			return field(field: "cartSelectedDeliveryOptionsUpdate", aliasSuffix: alias) as! Storefront.CartSelectedDeliveryOptionsUpdatePayload?
 		}
 
 		/// Updates the attributes of a checkout if `allowPartialAddresses` is `true`. 
@@ -1638,10 +1693,11 @@ extension Storefront {
 			return field(field: "customerAccessTokenCreate", aliasSuffix: alias) as! Storefront.CustomerAccessTokenCreatePayload?
 		}
 
-		/// Creates a customer access token using a multipass token instead of email 
-		/// and password. A customer record is created if customer does not exist. If a 
-		/// customer record already exists but the record is disabled, then it's 
-		/// enabled. 
+		/// Creates a customer access token using a [multipass 
+		/// token](https://shopify.dev/api/multipass) instead of email and password. A 
+		/// customer record is created if the customer doesn't exist. If a customer 
+		/// record already exists but the record is disabled, then the customer record 
+		/// is enabled. 
 		open var customerAccessTokenCreateWithMultipass: Storefront.CustomerAccessTokenCreateWithMultipassPayload? {
 			return internalGetCustomerAccessTokenCreateWithMultipass()
 		}
@@ -1774,8 +1830,12 @@ extension Storefront {
 			return field(field: "customerDefaultAddressUpdate", aliasSuffix: alias) as! Storefront.CustomerDefaultAddressUpdatePayload?
 		}
 
-		/// Sends a reset password email to the customer, as the first step in the 
-		/// reset password process. 
+		/// "Sends a reset password email to the customer. The reset password email 
+		/// contains a reset password URL and token that you can pass to the 
+		/// [`customerResetByUrl`](https://shopify.dev/api/storefront/latest/mutations/customerResetByUrl) 
+		/// or 
+		/// [`customerReset`](https://shopify.dev/api/storefront/latest/mutations/customerReset) 
+		/// mutation to reset the customer password." 
 		open var customerRecover: Storefront.CustomerRecoverPayload? {
 			return internalGetCustomerRecover()
 		}
@@ -1788,7 +1848,10 @@ extension Storefront {
 			return field(field: "customerRecover", aliasSuffix: alias) as! Storefront.CustomerRecoverPayload?
 		}
 
-		/// Resets a customer’s password with a token received from `CustomerRecover`. 
+		/// "Resets a customer’s password with the token received from a reset password 
+		/// email. You can send a reset password email with the 
+		/// [`customerRecover`](https://shopify.dev/api/storefront/latest/mutations/customerRecover) 
+		/// mutation." 
 		open var customerReset: Storefront.CustomerResetPayload? {
 			return internalGetCustomerReset()
 		}
@@ -1801,8 +1864,10 @@ extension Storefront {
 			return field(field: "customerReset", aliasSuffix: alias) as! Storefront.CustomerResetPayload?
 		}
 
-		/// Resets a customer’s password with the reset password url received from 
-		/// `CustomerRecover`. 
+		/// "Resets a customer’s password with the reset password URL received from a 
+		/// reset password email. You can send a reset password email with the 
+		/// [`customerRecover`](https://shopify.dev/api/storefront/latest/mutations/customerRecover) 
+		/// mutation." 
 		open var customerResetByUrl: Storefront.CustomerResetByUrlPayload? {
 			return internalGetCustomerResetByUrl()
 		}
@@ -1876,6 +1941,12 @@ extension Storefront {
 
 					case "cartNoteUpdate":
 					if let value = internalGetCartNoteUpdate() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "cartSelectedDeliveryOptionsUpdate":
+					if let value = internalGetCartSelectedDeliveryOptionsUpdate() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}

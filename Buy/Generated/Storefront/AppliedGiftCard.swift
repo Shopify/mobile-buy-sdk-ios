@@ -32,14 +32,17 @@ extension Storefront {
 		public typealias Response = AppliedGiftCard
 
 		/// The amount that was taken from the gift card by applying it. 
-		@available(*, deprecated, message:"Use `amountUsedV2` instead")
 		@discardableResult
-		open func amountUsed(alias: String? = nil) -> AppliedGiftCardQuery {
-			addField(field: "amountUsed", aliasSuffix: alias)
+		open func amountUsed(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> AppliedGiftCardQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "amountUsed", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
 		/// The amount that was taken from the gift card by applying it. 
+		@available(*, deprecated, message:"Use `amountUsed` instead.")
 		@discardableResult
 		open func amountUsedV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> AppliedGiftCardQuery {
 			let subquery = MoneyV2Query()
@@ -50,14 +53,17 @@ extension Storefront {
 		}
 
 		/// The amount left on the gift card. 
-		@available(*, deprecated, message:"Use `balanceV2` instead")
 		@discardableResult
-		open func balance(alias: String? = nil) -> AppliedGiftCardQuery {
-			addField(field: "balance", aliasSuffix: alias)
+		open func balance(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> AppliedGiftCardQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "balance", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
 		/// The amount left on the gift card. 
+		@available(*, deprecated, message:"Use `balance` instead.")
 		@discardableResult
 		open func balanceV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> AppliedGiftCardQuery {
 			let subquery = MoneyV2Query()
@@ -100,10 +106,10 @@ extension Storefront {
 			let fieldValue = value
 			switch fieldName {
 				case "amountUsed":
-				guard let value = value as? String else {
+				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: AppliedGiftCard.self, field: fieldName, value: fieldValue)
 				}
-				return Decimal(string: value, locale: GraphQL.posixLocale)
+				return try MoneyV2(fields: value)
 
 				case "amountUsedV2":
 				guard let value = value as? [String: Any] else {
@@ -112,10 +118,10 @@ extension Storefront {
 				return try MoneyV2(fields: value)
 
 				case "balance":
-				guard let value = value as? String else {
+				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: AppliedGiftCard.self, field: fieldName, value: fieldValue)
 				}
-				return Decimal(string: value, locale: GraphQL.posixLocale)
+				return try MoneyV2(fields: value)
 
 				case "balanceV2":
 				guard let value = value as? [String: Any] else {
@@ -147,16 +153,16 @@ extension Storefront {
 		}
 
 		/// The amount that was taken from the gift card by applying it. 
-		@available(*, deprecated, message:"Use `amountUsedV2` instead")
-		open var amountUsed: Decimal {
+		open var amountUsed: Storefront.MoneyV2 {
 			return internalGetAmountUsed()
 		}
 
-		func internalGetAmountUsed(alias: String? = nil) -> Decimal {
-			return field(field: "amountUsed", aliasSuffix: alias) as! Decimal
+		func internalGetAmountUsed(alias: String? = nil) -> Storefront.MoneyV2 {
+			return field(field: "amountUsed", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
 		/// The amount that was taken from the gift card by applying it. 
+		@available(*, deprecated, message:"Use `amountUsed` instead.")
 		open var amountUsedV2: Storefront.MoneyV2 {
 			return internalGetAmountUsedV2()
 		}
@@ -166,16 +172,16 @@ extension Storefront {
 		}
 
 		/// The amount left on the gift card. 
-		@available(*, deprecated, message:"Use `balanceV2` instead")
-		open var balance: Decimal {
+		open var balance: Storefront.MoneyV2 {
 			return internalGetBalance()
 		}
 
-		func internalGetBalance(alias: String? = nil) -> Decimal {
-			return field(field: "balance", aliasSuffix: alias) as! Decimal
+		func internalGetBalance(alias: String? = nil) -> Storefront.MoneyV2 {
+			return field(field: "balance", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
 		/// The amount left on the gift card. 
+		@available(*, deprecated, message:"Use `balance` instead.")
 		open var balanceV2: Storefront.MoneyV2 {
 			return internalGetBalanceV2()
 		}
@@ -215,9 +221,17 @@ extension Storefront {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
 				switch($0) {
+					case "amountUsed":
+					response.append(internalGetAmountUsed())
+					response.append(contentsOf: internalGetAmountUsed().childResponseObjectMap())
+
 					case "amountUsedV2":
 					response.append(internalGetAmountUsedV2())
 					response.append(contentsOf: internalGetAmountUsedV2().childResponseObjectMap())
+
+					case "balance":
+					response.append(internalGetBalance())
+					response.append(contentsOf: internalGetBalance().childResponseObjectMap())
 
 					case "balanceV2":
 					response.append(internalGetBalanceV2())

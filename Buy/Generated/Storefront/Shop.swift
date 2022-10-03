@@ -32,6 +32,16 @@ extension Storefront {
 	open class ShopQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Shop
 
+		/// The shop's branding configuration. 
+		@discardableResult
+		open func brand(alias: String? = nil, _ subfields: (BrandQuery) -> Void) -> ShopQuery {
+			let subquery = BrandQuery()
+			subfields(subquery)
+
+			addField(field: "brand", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// A description of the shop. 
 		@discardableResult
 		open func description(alias: String? = nil) -> ShopQuery {
@@ -115,7 +125,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The shop’s primary domain. 
+		/// The primary domain of the shop’s Online Store. 
 		@discardableResult
 		open func primaryDomain(alias: String? = nil, _ subfields: (DomainQuery) -> Void) -> ShopQuery {
 			let subquery = DomainQuery()
@@ -191,6 +201,13 @@ extension Storefront {
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "brand":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Shop.self, field: fieldName, value: fieldValue)
+				}
+				return try Brand(fields: value)
+
 				case "description":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
@@ -291,6 +308,15 @@ extension Storefront {
 			}
 		}
 
+		/// The shop's branding configuration. 
+		open var brand: Storefront.Brand? {
+			return internalGetBrand()
+		}
+
+		func internalGetBrand(alias: String? = nil) -> Storefront.Brand? {
+			return field(field: "brand", aliasSuffix: alias) as! Storefront.Brand?
+		}
+
 		/// A description of the shop. 
 		open var description: String? {
 			return internalGetDescription()
@@ -364,7 +390,7 @@ extension Storefront {
 			return field(field: "paymentSettings", aliasSuffix: alias) as! Storefront.PaymentSettings
 		}
 
-		/// The shop’s primary domain. 
+		/// The primary domain of the shop’s Online Store. 
 		open var primaryDomain: Storefront.Domain {
 			return internalGetPrimaryDomain()
 		}
@@ -431,6 +457,12 @@ extension Storefront {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
 				switch($0) {
+					case "brand":
+					if let value = internalGetBrand() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
 					case "metafield":
 					if let value = internalGetMetafield() {
 						response.append(value)

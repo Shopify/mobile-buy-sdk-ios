@@ -39,14 +39,17 @@ extension Storefront {
 		}
 
 		/// Price of this shipping rate. 
-		@available(*, deprecated, message:"Use `priceV2` instead")
 		@discardableResult
-		open func price(alias: String? = nil) -> ShippingRateQuery {
-			addField(field: "price", aliasSuffix: alias)
+		open func price(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ShippingRateQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "price", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
 		/// Price of this shipping rate. 
+		@available(*, deprecated, message:"Use `price` instead.")
 		@discardableResult
 		open func priceV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> ShippingRateQuery {
 			let subquery = MoneyV2Query()
@@ -78,10 +81,10 @@ extension Storefront {
 				return value
 
 				case "price":
-				guard let value = value as? String else {
+				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: ShippingRate.self, field: fieldName, value: fieldValue)
 				}
-				return Decimal(string: value, locale: GraphQL.posixLocale)
+				return try MoneyV2(fields: value)
 
 				case "priceV2":
 				guard let value = value as? [String: Any] else {
@@ -110,16 +113,16 @@ extension Storefront {
 		}
 
 		/// Price of this shipping rate. 
-		@available(*, deprecated, message:"Use `priceV2` instead")
-		open var price: Decimal {
+		open var price: Storefront.MoneyV2 {
 			return internalGetPrice()
 		}
 
-		func internalGetPrice(alias: String? = nil) -> Decimal {
-			return field(field: "price", aliasSuffix: alias) as! Decimal
+		func internalGetPrice(alias: String? = nil) -> Storefront.MoneyV2 {
+			return field(field: "price", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
 		/// Price of this shipping rate. 
+		@available(*, deprecated, message:"Use `price` instead.")
 		open var priceV2: Storefront.MoneyV2 {
 			return internalGetPriceV2()
 		}
@@ -141,6 +144,10 @@ extension Storefront {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
 				switch($0) {
+					case "price":
+					response.append(internalGetPrice())
+					response.append(contentsOf: internalGetPrice().childResponseObjectMap())
+
 					case "priceV2":
 					response.append(internalGetPriceV2())
 					response.append(contentsOf: internalGetPriceV2().childResponseObjectMap())

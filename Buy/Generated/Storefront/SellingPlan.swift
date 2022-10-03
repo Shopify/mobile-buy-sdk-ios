@@ -65,7 +65,12 @@ extension Storefront {
 
 		/// The selling plan options available in the drop-down list in the storefront. 
 		/// For example, 'Delivery every week' or 'Delivery every 2 weeks' specifies 
-		/// the delivery frequency options for the product. 
+		/// the delivery frequency options for the product. Individual selling plans 
+		/// contribute their options to the associated selling plan group. For example, 
+		/// a selling plan group might have an option called `option1: Delivery every`. 
+		/// One selling plan in that group could contribute `option1: 2 weeks` with the 
+		/// pricing for that option, and another selling plan could contribute 
+		/// `option1: 4 weeks`, with different pricing. 
 		@discardableResult
 		open func options(alias: String? = nil, _ subfields: (SellingPlanOptionQuery) -> Void) -> SellingPlanQuery {
 			let subquery = SellingPlanOptionQuery()
@@ -188,7 +193,12 @@ extension Storefront {
 
 		/// The selling plan options available in the drop-down list in the storefront. 
 		/// For example, 'Delivery every week' or 'Delivery every 2 weeks' specifies 
-		/// the delivery frequency options for the product. 
+		/// the delivery frequency options for the product. Individual selling plans 
+		/// contribute their options to the associated selling plan group. For example, 
+		/// a selling plan group might have an option called `option1: Delivery every`. 
+		/// One selling plan in that group could contribute `option1: 2 weeks` with the 
+		/// pricing for that option, and another selling plan could contribute 
+		/// `option1: 4 weeks`, with different pricing. 
 		open var options: [Storefront.SellingPlanOption] {
 			return internalGetOptions()
 		}

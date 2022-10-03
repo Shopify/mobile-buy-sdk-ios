@@ -201,6 +201,13 @@ extension Storefront {
 			return self
 		}
 
+		/// Whether the product is a gift card. 
+		@discardableResult
+		open func isGiftCard(alias: String? = nil) -> ProductQuery {
+			addField(field: "isGiftCard", aliasSuffix: alias)
+			return self
+		}
+
 		/// The media associated with the product. 
 		///
 		/// - parameters:
@@ -593,6 +600,12 @@ extension Storefront {
 				}
 				return try ImageConnection(fields: value)
 
+				case "isGiftCard":
+				guard let value = value as? Bool else {
+					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
+				}
+				return value
+
 				case "media":
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
@@ -817,6 +830,15 @@ extension Storefront {
 
 		func internalGetImages(alias: String? = nil) -> Storefront.ImageConnection {
 			return field(field: "images", aliasSuffix: alias) as! Storefront.ImageConnection
+		}
+
+		/// Whether the product is a gift card. 
+		open var isGiftCard: Bool {
+			return internalGetIsGiftCard()
+		}
+
+		func internalGetIsGiftCard(alias: String? = nil) -> Bool {
+			return field(field: "isGiftCard", aliasSuffix: alias) as! Bool
 		}
 
 		/// The media associated with the product. 

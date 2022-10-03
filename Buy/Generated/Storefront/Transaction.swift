@@ -32,14 +32,17 @@ extension Storefront {
 		public typealias Response = Transaction
 
 		/// The amount of money that the transaction was for. 
-		@available(*, deprecated, message:"Use `amountV2` instead")
 		@discardableResult
-		open func amount(alias: String? = nil) -> TransactionQuery {
-			addField(field: "amount", aliasSuffix: alias)
+		open func amount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> TransactionQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "amount", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
 		/// The amount of money that the transaction was for. 
+		@available(*, deprecated, message:"Use `amount` instead.")
 		@discardableResult
 		open func amountV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> TransactionQuery {
 			let subquery = MoneyV2Query()
@@ -57,7 +60,7 @@ extension Storefront {
 		}
 
 		/// The status of the transaction. 
-		@available(*, deprecated, message:"Use `statusV2` instead")
+		@available(*, deprecated, message:"Use `statusV2` instead.")
 		@discardableResult
 		open func status(alias: String? = nil) -> TransactionQuery {
 			addField(field: "status", aliasSuffix: alias)
@@ -87,10 +90,10 @@ extension Storefront {
 			let fieldValue = value
 			switch fieldName {
 				case "amount":
-				guard let value = value as? String else {
+				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Transaction.self, field: fieldName, value: fieldValue)
 				}
-				return Decimal(string: value, locale: GraphQL.posixLocale)
+				return try MoneyV2(fields: value)
 
 				case "amountV2":
 				guard let value = value as? [String: Any] else {
@@ -129,16 +132,16 @@ extension Storefront {
 		}
 
 		/// The amount of money that the transaction was for. 
-		@available(*, deprecated, message:"Use `amountV2` instead")
-		open var amount: Decimal {
+		open var amount: Storefront.MoneyV2 {
 			return internalGetAmount()
 		}
 
-		func internalGetAmount(alias: String? = nil) -> Decimal {
-			return field(field: "amount", aliasSuffix: alias) as! Decimal
+		func internalGetAmount(alias: String? = nil) -> Storefront.MoneyV2 {
+			return field(field: "amount", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
 		/// The amount of money that the transaction was for. 
+		@available(*, deprecated, message:"Use `amount` instead.")
 		open var amountV2: Storefront.MoneyV2 {
 			return internalGetAmountV2()
 		}
@@ -157,7 +160,7 @@ extension Storefront {
 		}
 
 		/// The status of the transaction. 
-		@available(*, deprecated, message:"Use `statusV2` instead")
+		@available(*, deprecated, message:"Use `statusV2` instead.")
 		open var status: Storefront.TransactionStatus {
 			return internalGetStatus()
 		}
@@ -188,6 +191,10 @@ extension Storefront {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
 				switch($0) {
+					case "amount":
+					response.append(internalGetAmount())
+					response.append(contentsOf: internalGetAmount().childResponseObjectMap())
+
 					case "amountV2":
 					response.append(internalGetAmountV2())
 					response.append(contentsOf: internalGetAmountV2().childResponseObjectMap())

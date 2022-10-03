@@ -360,14 +360,17 @@ extension Storefront {
 		}
 
 		/// Price of the order before shipping and taxes. 
-		@available(*, deprecated, message:"Use `subtotalPriceV2` instead")
 		@discardableResult
-		open func subtotalPrice(alias: String? = nil) -> OrderQuery {
-			addField(field: "subtotalPrice", aliasSuffix: alias)
+		open func subtotalPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "subtotalPrice", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
 		/// Price of the order before duties, shipping and taxes. 
+		@available(*, deprecated, message:"Use `subtotalPrice` instead.")
 		@discardableResult
 		open func subtotalPriceV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
 			let subquery = MoneyV2Query()
@@ -399,17 +402,20 @@ extension Storefront {
 			return self
 		}
 
-		/// The sum of all the prices of all the items in the order, taxes and 
+		/// The sum of all the prices of all the items in the order, duties, taxes and 
 		/// discounts included (must be positive). 
-		@available(*, deprecated, message:"Use `totalPriceV2` instead")
 		@discardableResult
-		open func totalPrice(alias: String? = nil) -> OrderQuery {
-			addField(field: "totalPrice", aliasSuffix: alias)
+		open func totalPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "totalPrice", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
 		/// The sum of all the prices of all the items in the order, duties, taxes and 
 		/// discounts included (must be positive). 
+		@available(*, deprecated, message:"Use `totalPrice` instead.")
 		@discardableResult
 		open func totalPriceV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
 			let subquery = MoneyV2Query()
@@ -420,14 +426,17 @@ extension Storefront {
 		}
 
 		/// The total amount that has been refunded. 
-		@available(*, deprecated, message:"Use `totalRefundedV2` instead")
 		@discardableResult
-		open func totalRefunded(alias: String? = nil) -> OrderQuery {
-			addField(field: "totalRefunded", aliasSuffix: alias)
+		open func totalRefunded(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "totalRefunded", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
 		/// The total amount that has been refunded. 
+		@available(*, deprecated, message:"Use `totalRefunded` instead.")
 		@discardableResult
 		open func totalRefundedV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
 			let subquery = MoneyV2Query()
@@ -438,14 +447,17 @@ extension Storefront {
 		}
 
 		/// The total cost of shipping. 
-		@available(*, deprecated, message:"Use `totalShippingPriceV2` instead")
 		@discardableResult
-		open func totalShippingPrice(alias: String? = nil) -> OrderQuery {
-			addField(field: "totalShippingPrice", aliasSuffix: alias)
+		open func totalShippingPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "totalShippingPrice", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
 		/// The total cost of shipping. 
+		@available(*, deprecated, message:"Use `totalShippingPrice` instead.")
 		@discardableResult
 		open func totalShippingPriceV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
 			let subquery = MoneyV2Query()
@@ -456,14 +468,17 @@ extension Storefront {
 		}
 
 		/// The total cost of taxes. 
-		@available(*, deprecated, message:"Use `totalTaxV2` instead")
 		@discardableResult
-		open func totalTax(alias: String? = nil) -> OrderQuery {
-			addField(field: "totalTax", aliasSuffix: alias)
+		open func totalTax(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
+			let subquery = MoneyV2Query()
+			subfields(subquery)
+
+			addField(field: "totalTax", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
 		/// The total cost of taxes. 
+		@available(*, deprecated, message:"Use `totalTax` instead.")
 		@discardableResult
 		open func totalTaxV2(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderQuery {
 			let subquery = MoneyV2Query()
@@ -663,10 +678,10 @@ extension Storefront {
 
 				case "subtotalPrice":
 				if value is NSNull { return nil }
-				guard let value = value as? String else {
+				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
 				}
-				return Decimal(string: value, locale: GraphQL.posixLocale)
+				return try MoneyV2(fields: value)
 
 				case "subtotalPriceV2":
 				if value is NSNull { return nil }
@@ -683,10 +698,10 @@ extension Storefront {
 				return try value.map { return try Fulfillment(fields: $0) }
 
 				case "totalPrice":
-				guard let value = value as? String else {
+				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
 				}
-				return Decimal(string: value, locale: GraphQL.posixLocale)
+				return try MoneyV2(fields: value)
 
 				case "totalPriceV2":
 				guard let value = value as? [String: Any] else {
@@ -695,10 +710,10 @@ extension Storefront {
 				return try MoneyV2(fields: value)
 
 				case "totalRefunded":
-				guard let value = value as? String else {
+				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
 				}
-				return Decimal(string: value, locale: GraphQL.posixLocale)
+				return try MoneyV2(fields: value)
 
 				case "totalRefundedV2":
 				guard let value = value as? [String: Any] else {
@@ -707,10 +722,10 @@ extension Storefront {
 				return try MoneyV2(fields: value)
 
 				case "totalShippingPrice":
-				guard let value = value as? String else {
+				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
 				}
-				return Decimal(string: value, locale: GraphQL.posixLocale)
+				return try MoneyV2(fields: value)
 
 				case "totalShippingPriceV2":
 				guard let value = value as? [String: Any] else {
@@ -720,10 +735,10 @@ extension Storefront {
 
 				case "totalTax":
 				if value is NSNull { return nil }
-				guard let value = value as? String else {
+				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
 				}
-				return Decimal(string: value, locale: GraphQL.posixLocale)
+				return try MoneyV2(fields: value)
 
 				case "totalTaxV2":
 				if value is NSNull { return nil }
@@ -1010,16 +1025,16 @@ extension Storefront {
 		}
 
 		/// Price of the order before shipping and taxes. 
-		@available(*, deprecated, message:"Use `subtotalPriceV2` instead")
-		open var subtotalPrice: Decimal? {
+		open var subtotalPrice: Storefront.MoneyV2? {
 			return internalGetSubtotalPrice()
 		}
 
-		func internalGetSubtotalPrice(alias: String? = nil) -> Decimal? {
-			return field(field: "subtotalPrice", aliasSuffix: alias) as! Decimal?
+		func internalGetSubtotalPrice(alias: String? = nil) -> Storefront.MoneyV2? {
+			return field(field: "subtotalPrice", aliasSuffix: alias) as! Storefront.MoneyV2?
 		}
 
 		/// Price of the order before duties, shipping and taxes. 
+		@available(*, deprecated, message:"Use `subtotalPrice` instead.")
 		open var subtotalPriceV2: Storefront.MoneyV2? {
 			return internalGetSubtotalPriceV2()
 		}
@@ -1041,19 +1056,19 @@ extension Storefront {
 			return field(field: "successfulFulfillments", aliasSuffix: alias) as! [Storefront.Fulfillment]?
 		}
 
-		/// The sum of all the prices of all the items in the order, taxes and 
+		/// The sum of all the prices of all the items in the order, duties, taxes and 
 		/// discounts included (must be positive). 
-		@available(*, deprecated, message:"Use `totalPriceV2` instead")
-		open var totalPrice: Decimal {
+		open var totalPrice: Storefront.MoneyV2 {
 			return internalGetTotalPrice()
 		}
 
-		func internalGetTotalPrice(alias: String? = nil) -> Decimal {
-			return field(field: "totalPrice", aliasSuffix: alias) as! Decimal
+		func internalGetTotalPrice(alias: String? = nil) -> Storefront.MoneyV2 {
+			return field(field: "totalPrice", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
 		/// The sum of all the prices of all the items in the order, duties, taxes and 
 		/// discounts included (must be positive). 
+		@available(*, deprecated, message:"Use `totalPrice` instead.")
 		open var totalPriceV2: Storefront.MoneyV2 {
 			return internalGetTotalPriceV2()
 		}
@@ -1063,16 +1078,16 @@ extension Storefront {
 		}
 
 		/// The total amount that has been refunded. 
-		@available(*, deprecated, message:"Use `totalRefundedV2` instead")
-		open var totalRefunded: Decimal {
+		open var totalRefunded: Storefront.MoneyV2 {
 			return internalGetTotalRefunded()
 		}
 
-		func internalGetTotalRefunded(alias: String? = nil) -> Decimal {
-			return field(field: "totalRefunded", aliasSuffix: alias) as! Decimal
+		func internalGetTotalRefunded(alias: String? = nil) -> Storefront.MoneyV2 {
+			return field(field: "totalRefunded", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
 		/// The total amount that has been refunded. 
+		@available(*, deprecated, message:"Use `totalRefunded` instead.")
 		open var totalRefundedV2: Storefront.MoneyV2 {
 			return internalGetTotalRefundedV2()
 		}
@@ -1082,16 +1097,16 @@ extension Storefront {
 		}
 
 		/// The total cost of shipping. 
-		@available(*, deprecated, message:"Use `totalShippingPriceV2` instead")
-		open var totalShippingPrice: Decimal {
+		open var totalShippingPrice: Storefront.MoneyV2 {
 			return internalGetTotalShippingPrice()
 		}
 
-		func internalGetTotalShippingPrice(alias: String? = nil) -> Decimal {
-			return field(field: "totalShippingPrice", aliasSuffix: alias) as! Decimal
+		func internalGetTotalShippingPrice(alias: String? = nil) -> Storefront.MoneyV2 {
+			return field(field: "totalShippingPrice", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
 		/// The total cost of shipping. 
+		@available(*, deprecated, message:"Use `totalShippingPrice` instead.")
 		open var totalShippingPriceV2: Storefront.MoneyV2 {
 			return internalGetTotalShippingPriceV2()
 		}
@@ -1101,16 +1116,16 @@ extension Storefront {
 		}
 
 		/// The total cost of taxes. 
-		@available(*, deprecated, message:"Use `totalTaxV2` instead")
-		open var totalTax: Decimal? {
+		open var totalTax: Storefront.MoneyV2? {
 			return internalGetTotalTax()
 		}
 
-		func internalGetTotalTax(alias: String? = nil) -> Decimal? {
-			return field(field: "totalTax", aliasSuffix: alias) as! Decimal?
+		func internalGetTotalTax(alias: String? = nil) -> Storefront.MoneyV2? {
+			return field(field: "totalTax", aliasSuffix: alias) as! Storefront.MoneyV2?
 		}
 
 		/// The total cost of taxes. 
+		@available(*, deprecated, message:"Use `totalTax` instead.")
 		open var totalTaxV2: Storefront.MoneyV2? {
 			return internalGetTotalTaxV2()
 		}
@@ -1185,6 +1200,12 @@ extension Storefront {
 						response.append(contentsOf: $0.childResponseObjectMap())
 					}
 
+					case "subtotalPrice":
+					if let value = internalGetSubtotalPrice() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
 					case "subtotalPriceV2":
 					if let value = internalGetSubtotalPriceV2() {
 						response.append(value)
@@ -1199,17 +1220,35 @@ extension Storefront {
 						}
 					}
 
+					case "totalPrice":
+					response.append(internalGetTotalPrice())
+					response.append(contentsOf: internalGetTotalPrice().childResponseObjectMap())
+
 					case "totalPriceV2":
 					response.append(internalGetTotalPriceV2())
 					response.append(contentsOf: internalGetTotalPriceV2().childResponseObjectMap())
+
+					case "totalRefunded":
+					response.append(internalGetTotalRefunded())
+					response.append(contentsOf: internalGetTotalRefunded().childResponseObjectMap())
 
 					case "totalRefundedV2":
 					response.append(internalGetTotalRefundedV2())
 					response.append(contentsOf: internalGetTotalRefundedV2().childResponseObjectMap())
 
+					case "totalShippingPrice":
+					response.append(internalGetTotalShippingPrice())
+					response.append(contentsOf: internalGetTotalShippingPrice().childResponseObjectMap())
+
 					case "totalShippingPriceV2":
 					response.append(internalGetTotalShippingPriceV2())
 					response.append(contentsOf: internalGetTotalShippingPriceV2().childResponseObjectMap())
+
+					case "totalTax":
+					if let value = internalGetTotalTax() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
 
 					case "totalTaxV2":
 					if let value = internalGetTotalTaxV2() {

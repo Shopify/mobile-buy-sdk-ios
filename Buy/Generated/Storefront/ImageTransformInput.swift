@@ -28,16 +28,17 @@ import Foundation
 
 extension Storefront {
 	/// The available options for transforming an image. All transformation options 
-	/// are considered "best-effort". Any transformation that the original image 
-	/// type doesn't support will be ignored. 
+	/// are considered best effort. Any transformation that the original image type 
+	/// doesn't support will be ignored. 
 	open class ImageTransformInput {
-		/// Region of the image to remain after cropping. Must be used in conjunction 
-		/// with maxWidth and/or maxHeight fields where the maxWidth / maxHeight are 
-		/// not equal. The crop parameter should coincide with the smaller value (i.e. 
-		/// smaller maxWidth indicates a LEFT / RIGHT crop, while smaller maxHeight 
-		/// indicates a TOP / BOTTOM crop). For example, { maxWidth: 5, maxHeight: 10, 
-		/// crop: LEFT } will result in an image with width 5 and height 10, where the 
-		/// right side of the image is removed. 
+		/// The region of the image to remain after cropping. Must be used in 
+		/// conjunction with the `maxWidth` and/or `maxHeight` fields, where the 
+		/// `maxWidth` and `maxHeight` aren't equal. The `crop` argument should 
+		/// coincide with the smaller value. A smaller `maxWidth` indicates a `LEFT` or 
+		/// `RIGHT` crop, while a smaller `maxHeight` indicates a `TOP` or `BOTTOM` 
+		/// crop. For example, `{ maxWidth: 5, maxHeight: 10, crop: LEFT }` will result 
+		/// in an image with a width of 5 and height of 10, where the right side of the 
+		/// image is removed. 
 		open var crop: Input<CropRegion>
 
 		/// Image width in pixels between 1 and 5760. 
@@ -58,7 +59,7 @@ extension Storefront {
 		/// Creates the input object.
 		///
 		/// - parameters:
-		///     - crop: Region of the image to remain after cropping. Must be used in conjunction with maxWidth and/or maxHeight fields where the maxWidth / maxHeight are not equal. The crop parameter should coincide with the smaller value (i.e. smaller maxWidth indicates a LEFT / RIGHT crop, while smaller maxHeight indicates a TOP / BOTTOM crop). For example, { maxWidth: 5, maxHeight: 10, crop: LEFT } will result in an image with width 5 and height 10, where the right side of the image is removed. 
+		///     - crop: The region of the image to remain after cropping. Must be used in conjunction with the `maxWidth` and/or `maxHeight` fields, where the `maxWidth` and `maxHeight` aren't equal. The `crop` argument should coincide with the smaller value. A smaller `maxWidth` indicates a `LEFT` or `RIGHT` crop, while a smaller `maxHeight` indicates a `TOP` or `BOTTOM` crop. For example, `{ maxWidth: 5, maxHeight: 10, crop: LEFT }` will result in an image with a width of 5 and height of 10, where the right side of the image is removed. 
 		///     - maxWidth: Image width in pixels between 1 and 5760. 
 		///     - maxHeight: Image height in pixels between 1 and 5760. 
 		///     - scale: Image size multiplier for high-resolution retina displays. Must be within 1..3. 
@@ -79,7 +80,7 @@ extension Storefront {
 		/// Creates the input object.
 		///
 		/// - parameters:
-		///     - crop: Region of the image to remain after cropping. Must be used in conjunction with maxWidth and/or maxHeight fields where the maxWidth / maxHeight are not equal. The crop parameter should coincide with the smaller value (i.e. smaller maxWidth indicates a LEFT / RIGHT crop, while smaller maxHeight indicates a TOP / BOTTOM crop). For example, { maxWidth: 5, maxHeight: 10, crop: LEFT } will result in an image with width 5 and height 10, where the right side of the image is removed. 
+		///     - crop: The region of the image to remain after cropping. Must be used in conjunction with the `maxWidth` and/or `maxHeight` fields, where the `maxWidth` and `maxHeight` aren't equal. The `crop` argument should coincide with the smaller value. A smaller `maxWidth` indicates a `LEFT` or `RIGHT` crop, while a smaller `maxHeight` indicates a `TOP` or `BOTTOM` crop. For example, `{ maxWidth: 5, maxHeight: 10, crop: LEFT }` will result in an image with a width of 5 and height of 10, where the right side of the image is removed. 
 		///     - maxWidth: Image width in pixels between 1 and 5760. 
 		///     - maxHeight: Image height in pixels between 1 and 5760. 
 		///     - scale: Image size multiplier for high-resolution retina displays. Must be within 1..3. 
