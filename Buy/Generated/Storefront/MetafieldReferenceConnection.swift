@@ -1,5 +1,5 @@
 //
-//  OrderConnection.swift
+//  MetafieldReferenceConnection.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,24 +27,24 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type for paginating through multiple Orders. 
-	open class OrderConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
-		public typealias Response = OrderConnection
+	/// An auto-generated type for paginating through multiple MetafieldReferences. 
+	open class MetafieldReferenceConnectionQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = MetafieldReferenceConnection
 
 		/// A list of edges. 
 		@discardableResult
-		open func edges(alias: String? = nil, _ subfields: (OrderEdgeQuery) -> Void) -> OrderConnectionQuery {
-			let subquery = OrderEdgeQuery()
+		open func edges(alias: String? = nil, _ subfields: (MetafieldReferenceEdgeQuery) -> Void) -> MetafieldReferenceConnectionQuery {
+			let subquery = MetafieldReferenceEdgeQuery()
 			subfields(subquery)
 
 			addField(field: "edges", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
-		/// A list of the nodes contained in OrderEdge. 
+		/// A list of the nodes contained in MetafieldReferenceEdge. 
 		@discardableResult
-		open func nodes(alias: String? = nil, _ subfields: (OrderQuery) -> Void) -> OrderConnectionQuery {
-			let subquery = OrderQuery()
+		open func nodes(alias: String? = nil, _ subfields: (MetafieldReferenceQuery) -> Void) -> MetafieldReferenceConnectionQuery {
+			let subquery = MetafieldReferenceQuery()
 			subfields(subquery)
 
 			addField(field: "nodes", aliasSuffix: alias, subfields: subquery)
@@ -53,74 +53,61 @@ extension Storefront {
 
 		/// Information to aid in pagination. 
 		@discardableResult
-		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> OrderConnectionQuery {
+		open func pageInfo(alias: String? = nil, _ subfields: (PageInfoQuery) -> Void) -> MetafieldReferenceConnectionQuery {
 			let subquery = PageInfoQuery()
 			subfields(subquery)
 
 			addField(field: "pageInfo", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
-
-		/// The total count of Orders. 
-		@discardableResult
-		open func totalCount(alias: String? = nil) -> OrderConnectionQuery {
-			addField(field: "totalCount", aliasSuffix: alias)
-			return self
-		}
 	}
 
-	/// An auto-generated type for paginating through multiple Orders. 
-	open class OrderConnection: GraphQL.AbstractResponse, GraphQLObject {
-		public typealias Query = OrderConnectionQuery
+	/// An auto-generated type for paginating through multiple MetafieldReferences. 
+	open class MetafieldReferenceConnection: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = MetafieldReferenceConnectionQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
 				case "edges":
 				guard let value = value as? [[String: Any]] else {
-					throw SchemaViolationError(type: OrderConnection.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: MetafieldReferenceConnection.self, field: fieldName, value: fieldValue)
 				}
-				return try value.map { return try OrderEdge(fields: $0) }
+				return try value.map { return try MetafieldReferenceEdge(fields: $0) }
 
 				case "nodes":
 				guard let value = value as? [[String: Any]] else {
-					throw SchemaViolationError(type: OrderConnection.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: MetafieldReferenceConnection.self, field: fieldName, value: fieldValue)
 				}
-				return try value.map { return try Order(fields: $0) }
+				return try value.map { return try UnknownMetafieldReference.create(fields: $0) }
 
 				case "pageInfo":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: OrderConnection.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: MetafieldReferenceConnection.self, field: fieldName, value: fieldValue)
 				}
 				return try PageInfo(fields: value)
 
-				case "totalCount":
-				guard let value = value as? String else {
-					throw SchemaViolationError(type: OrderConnection.self, field: fieldName, value: fieldValue)
-				}
-				return value
-
 				default:
-				throw SchemaViolationError(type: OrderConnection.self, field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: MetafieldReferenceConnection.self, field: fieldName, value: fieldValue)
 			}
 		}
 
 		/// A list of edges. 
-		open var edges: [Storefront.OrderEdge] {
+		open var edges: [Storefront.MetafieldReferenceEdge] {
 			return internalGetEdges()
 		}
 
-		func internalGetEdges(alias: String? = nil) -> [Storefront.OrderEdge] {
-			return field(field: "edges", aliasSuffix: alias) as! [Storefront.OrderEdge]
+		func internalGetEdges(alias: String? = nil) -> [Storefront.MetafieldReferenceEdge] {
+			return field(field: "edges", aliasSuffix: alias) as! [Storefront.MetafieldReferenceEdge]
 		}
 
-		/// A list of the nodes contained in OrderEdge. 
-		open var nodes: [Storefront.Order] {
+		/// A list of the nodes contained in MetafieldReferenceEdge. 
+		open var nodes: [MetafieldReference] {
 			return internalGetNodes()
 		}
 
-		func internalGetNodes(alias: String? = nil) -> [Storefront.Order] {
-			return field(field: "nodes", aliasSuffix: alias) as! [Storefront.Order]
+		func internalGetNodes(alias: String? = nil) -> [MetafieldReference] {
+			return field(field: "nodes", aliasSuffix: alias) as! [MetafieldReference]
 		}
 
 		/// Information to aid in pagination. 
@@ -130,15 +117,6 @@ extension Storefront {
 
 		func internalGetPageInfo(alias: String? = nil) -> Storefront.PageInfo {
 			return field(field: "pageInfo", aliasSuffix: alias) as! Storefront.PageInfo
-		}
-
-		/// The total count of Orders. 
-		open var totalCount: String {
-			return internalGetTotalCount()
-		}
-
-		func internalGetTotalCount(alias: String? = nil) -> String {
-			return field(field: "totalCount", aliasSuffix: alias) as! String
 		}
 
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
@@ -153,8 +131,8 @@ extension Storefront {
 
 					case "nodes":
 					internalGetNodes().forEach {
-						response.append($0)
-						response.append(contentsOf: $0.childResponseObjectMap())
+						response.append(($0 as! GraphQL.AbstractResponse))
+						response.append(contentsOf: ($0 as! GraphQL.AbstractResponse).childResponseObjectMap())
 					}
 
 					case "pageInfo":

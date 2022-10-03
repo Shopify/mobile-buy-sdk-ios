@@ -28,7 +28,12 @@ import Foundation
 
 extension Storefront {
 	/// Represents an option on a selling plan group that's available in the 
-	/// drop-down list in the storefront. 
+	/// drop-down list in the storefront. Individual selling plans contribute their 
+	/// options to the associated selling plan group. For example, a selling plan 
+	/// group might have an option called `option1: Delivery every`. One selling 
+	/// plan in that group could contribute `option1: 2 weeks` with the pricing for 
+	/// that option, and another selling plan could contribute `option1: 4 weeks`, 
+	/// with different pricing. 
 	open class SellingPlanGroupOptionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SellingPlanGroupOption
 
@@ -49,7 +54,12 @@ extension Storefront {
 	}
 
 	/// Represents an option on a selling plan group that's available in the 
-	/// drop-down list in the storefront. 
+	/// drop-down list in the storefront. Individual selling plans contribute their 
+	/// options to the associated selling plan group. For example, a selling plan 
+	/// group might have an option called `option1: Delivery every`. One selling 
+	/// plan in that group could contribute `option1: 2 weeks` with the pricing for 
+	/// that option, and another selling plan could contribute `option1: 4 weeks`, 
+	/// with different pricing. 
 	open class SellingPlanGroupOption: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = SellingPlanGroupOptionQuery
 

@@ -89,6 +89,44 @@ extension Storefront {
 			return self
 		}
 
+		/// A list of reference objects if the metafield's type is a resource reference 
+		/// list. 
+		///
+		/// - parameters:
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///
+		@discardableResult
+		open func references(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, _ subfields: (MetafieldReferenceConnectionQuery) -> Void) -> MetafieldQuery {
+			var args: [String] = []
+
+			if let first = first {
+				args.append("first:\(first)")
+			}
+
+			if let after = after {
+				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = MetafieldReferenceConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "references", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// The type name of the metafield. See the list of [supported 
 		/// types](https://shopify.dev/apps/metafields/definitions/types). 
 		@discardableResult
@@ -164,6 +202,13 @@ extension Storefront {
 					throw SchemaViolationError(type: Metafield.self, field: fieldName, value: fieldValue)
 				}
 				return try UnknownMetafieldReference.create(fields: value)
+
+				case "references":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Metafield.self, field: fieldName, value: fieldValue)
+				}
+				return try MetafieldReferenceConnection(fields: value)
 
 				case "type":
 				guard let value = value as? String else {
@@ -252,6 +297,20 @@ extension Storefront {
 			return field(field: "reference", aliasSuffix: alias) as! MetafieldReference?
 		}
 
+		/// A list of reference objects if the metafield's type is a resource reference 
+		/// list. 
+		open var references: Storefront.MetafieldReferenceConnection? {
+			return internalGetReferences()
+		}
+
+		open func aliasedReferences(alias: String) -> Storefront.MetafieldReferenceConnection? {
+			return internalGetReferences(alias: alias)
+		}
+
+		func internalGetReferences(alias: String? = nil) -> Storefront.MetafieldReferenceConnection? {
+			return field(field: "references", aliasSuffix: alias) as! Storefront.MetafieldReferenceConnection?
+		}
+
 		/// The type name of the metafield. See the list of [supported 
 		/// types](https://shopify.dev/apps/metafields/definitions/types). 
 		open var type: String {
@@ -281,7 +340,30 @@ extension Storefront {
 		}
 
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
-			return []
+			var response: [GraphQL.AbstractResponse] = []
+			objectMap.keys.forEach {
+				switch($0) {
+					case "parentResource":
+					response.append((internalGetParentResource() as! GraphQL.AbstractResponse))
+					response.append(contentsOf: (internalGetParentResource() as! GraphQL.AbstractResponse).childResponseObjectMap())
+
+					case "reference":
+					if let value = internalGetReference() {
+						response.append((value as! GraphQL.AbstractResponse))
+						response.append(contentsOf: (value as! GraphQL.AbstractResponse).childResponseObjectMap())
+					}
+
+					case "references":
+					if let value = internalGetReferences() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					default:
+					break
+				}
+			}
+			return response
 		}
 	}
 }

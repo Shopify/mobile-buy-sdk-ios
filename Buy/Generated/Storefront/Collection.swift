@@ -215,7 +215,7 @@ extension Storefront {
 
 	/// A collection represents a grouping of products that a shop owner can create 
 	/// to organize them or make their shops easier to browse. 
-	open class Collection: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource, Node, OnlineStorePublishable {
+	open class Collection: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource, MetafieldReference, Node, OnlineStorePublishable {
 		public typealias Query = CollectionQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {

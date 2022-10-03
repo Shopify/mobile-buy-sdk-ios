@@ -56,7 +56,7 @@ extension Storefront {
 		/// The location of the original image as a URL. If there are any existing 
 		/// transformations in the original source URL, they will remain and not be 
 		/// stripped. 
-		@available(*, deprecated, message:"Use `url` instead")
+		@available(*, deprecated, message:"Use `url` instead.")
 		@discardableResult
 		open func originalSrc(alias: String? = nil) -> ImageQuery {
 			addField(field: "originalSrc", aliasSuffix: alias)
@@ -64,7 +64,7 @@ extension Storefront {
 		}
 
 		/// The location of the image as a URL. 
-		@available(*, deprecated, message:"Use `url` instead")
+		@available(*, deprecated, message:"Use `url` instead.")
 		@discardableResult
 		open func src(alias: String? = nil) -> ImageQuery {
 			addField(field: "src", aliasSuffix: alias)
@@ -242,7 +242,7 @@ extension Storefront {
 		/// The location of the original image as a URL. If there are any existing 
 		/// transformations in the original source URL, they will remain and not be 
 		/// stripped. 
-		@available(*, deprecated, message:"Use `url` instead")
+		@available(*, deprecated, message:"Use `url` instead.")
 		open var originalSrc: URL {
 			return internalGetOriginalSrc()
 		}
@@ -252,7 +252,7 @@ extension Storefront {
 		}
 
 		/// The location of the image as a URL. 
-		@available(*, deprecated, message:"Use `url` instead")
+		@available(*, deprecated, message:"Use `url` instead.")
 		open var src: URL {
 			return internalGetSrc()
 		}

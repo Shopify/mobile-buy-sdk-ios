@@ -28,7 +28,13 @@ import Foundation
 
 extension Storefront {
 	/// Represents by how much the price of a variant associated with a selling 
-	/// plan is adjusted. Each variant can have up to two price adjustments. 
+	/// plan is adjusted. Each variant can have up to two price adjustments. If a 
+	/// variant has multiple price adjustments, then the first price adjustment 
+	/// applies when the variant is initially purchased. The second price 
+	/// adjustment applies after a certain number of orders (specified by the 
+	/// `orderCount` field) are made. If a selling plan doesn't have any price 
+	/// adjustments, then the unadjusted price of the variant is the effective 
+	/// price. 
 	open class SellingPlanPriceAdjustmentQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SellingPlanPriceAdjustment
 
@@ -43,7 +49,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The number of orders that the price adjustment applies to If the price 
+		/// The number of orders that the price adjustment applies to. If the price 
 		/// adjustment always applies, then this field is `null`. 
 		@discardableResult
 		open func orderCount(alias: String? = nil) -> SellingPlanPriceAdjustmentQuery {
@@ -53,7 +59,13 @@ extension Storefront {
 	}
 
 	/// Represents by how much the price of a variant associated with a selling 
-	/// plan is adjusted. Each variant can have up to two price adjustments. 
+	/// plan is adjusted. Each variant can have up to two price adjustments. If a 
+	/// variant has multiple price adjustments, then the first price adjustment 
+	/// applies when the variant is initially purchased. The second price 
+	/// adjustment applies after a certain number of orders (specified by the 
+	/// `orderCount` field) are made. If a selling plan doesn't have any price 
+	/// adjustments, then the unadjusted price of the variant is the effective 
+	/// price. 
 	open class SellingPlanPriceAdjustment: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = SellingPlanPriceAdjustmentQuery
 
@@ -88,7 +100,7 @@ extension Storefront {
 			return field(field: "adjustmentValue", aliasSuffix: alias) as! SellingPlanPriceAdjustmentValue
 		}
 
-		/// The number of orders that the price adjustment applies to If the price 
+		/// The number of orders that the price adjustment applies to. If the price 
 		/// adjustment always applies, then this field is `null`. 
 		open var orderCount: Int32? {
 			return internalGetOrderCount()

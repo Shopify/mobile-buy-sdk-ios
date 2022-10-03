@@ -32,7 +32,7 @@ extension Storefront {
 		public typealias Response = Article
 
 		/// The article's author. 
-		@available(*, deprecated, message:"Use `authorV2` instead")
+		@available(*, deprecated, message:"Use `authorV2` instead.")
 		@discardableResult
 		open func author(alias: String? = nil, _ subfields: (ArticleAuthorQuery) -> Void) -> ArticleQuery {
 			let subquery = ArticleAuthorQuery()
@@ -398,7 +398,7 @@ extension Storefront {
 		}
 
 		/// The article's author. 
-		@available(*, deprecated, message:"Use `authorV2` instead")
+		@available(*, deprecated, message:"Use `authorV2` instead.")
 		open var author: Storefront.ArticleAuthor {
 			return internalGetAuthor()
 		}

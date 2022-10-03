@@ -27,17 +27,18 @@
 import Foundation
 
 extension Storefront {
-	/// The costs that the buyer will pay at checkout. It uses 
+	/// The costs that the buyer will pay at checkout. The cart cost uses 
 	/// [`CartBuyerIdentity`](https://shopify.dev/api/storefront/reference/cart/cartbuyeridentity) 
 	/// to determine [international 
-	/// pricing](https://shopify.dev/api/examples/international-pricing#create-a-cart). 
+	/// pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing). 
 	open class CartCostQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = CartCost
 
 		/// The estimated amount, before taxes and discounts, for the customer to pay 
 		/// at checkout. The checkout charge amount doesn't include any deferred 
 		/// payments that'll be paid at a later date. If the cart has no deferred 
-		/// payments, the checkout charge amount is equivalent to subtotalAmount. 
+		/// payments, then the checkout charge amount is equivalent to 
+		/// `subtotalAmount`. 
 		@discardableResult
 		open func checkoutChargeAmount(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> CartCostQuery {
 			let subquery = MoneyV2Query()
@@ -57,7 +58,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Whether or not the subtotal amount is estimated. 
+		/// Whether the subtotal amount is estimated. 
 		@discardableResult
 		open func subtotalAmountEstimated(alias: String? = nil) -> CartCostQuery {
 			addField(field: "subtotalAmountEstimated", aliasSuffix: alias)
@@ -74,7 +75,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Whether or not the total amount is estimated. 
+		/// Whether the total amount is estimated. 
 		@discardableResult
 		open func totalAmountEstimated(alias: String? = nil) -> CartCostQuery {
 			addField(field: "totalAmountEstimated", aliasSuffix: alias)
@@ -91,7 +92,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Whether or not the total duty amount is estimated. 
+		/// Whether the total duty amount is estimated. 
 		@discardableResult
 		open func totalDutyAmountEstimated(alias: String? = nil) -> CartCostQuery {
 			addField(field: "totalDutyAmountEstimated", aliasSuffix: alias)
@@ -108,7 +109,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Whether or not the total tax amount is estimated. 
+		/// Whether the total tax amount is estimated. 
 		@discardableResult
 		open func totalTaxAmountEstimated(alias: String? = nil) -> CartCostQuery {
 			addField(field: "totalTaxAmountEstimated", aliasSuffix: alias)
@@ -116,10 +117,10 @@ extension Storefront {
 		}
 	}
 
-	/// The costs that the buyer will pay at checkout. It uses 
+	/// The costs that the buyer will pay at checkout. The cart cost uses 
 	/// [`CartBuyerIdentity`](https://shopify.dev/api/storefront/reference/cart/cartbuyeridentity) 
 	/// to determine [international 
-	/// pricing](https://shopify.dev/api/examples/international-pricing#create-a-cart). 
+	/// pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing). 
 	open class CartCost: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = CartCostQuery
 
@@ -190,7 +191,8 @@ extension Storefront {
 		/// The estimated amount, before taxes and discounts, for the customer to pay 
 		/// at checkout. The checkout charge amount doesn't include any deferred 
 		/// payments that'll be paid at a later date. If the cart has no deferred 
-		/// payments, the checkout charge amount is equivalent to subtotalAmount. 
+		/// payments, then the checkout charge amount is equivalent to 
+		/// `subtotalAmount`. 
 		open var checkoutChargeAmount: Storefront.MoneyV2 {
 			return internalGetCheckoutChargeAmount()
 		}
@@ -208,7 +210,7 @@ extension Storefront {
 			return field(field: "subtotalAmount", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// Whether or not the subtotal amount is estimated. 
+		/// Whether the subtotal amount is estimated. 
 		open var subtotalAmountEstimated: Bool {
 			return internalGetSubtotalAmountEstimated()
 		}
@@ -226,7 +228,7 @@ extension Storefront {
 			return field(field: "totalAmount", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// Whether or not the total amount is estimated. 
+		/// Whether the total amount is estimated. 
 		open var totalAmountEstimated: Bool {
 			return internalGetTotalAmountEstimated()
 		}
@@ -244,7 +246,7 @@ extension Storefront {
 			return field(field: "totalDutyAmount", aliasSuffix: alias) as! Storefront.MoneyV2?
 		}
 
-		/// Whether or not the total duty amount is estimated. 
+		/// Whether the total duty amount is estimated. 
 		open var totalDutyAmountEstimated: Bool {
 			return internalGetTotalDutyAmountEstimated()
 		}
@@ -262,7 +264,7 @@ extension Storefront {
 			return field(field: "totalTaxAmount", aliasSuffix: alias) as! Storefront.MoneyV2?
 		}
 
-		/// Whether or not the total tax amount is estimated. 
+		/// Whether the total tax amount is estimated. 
 		open var totalTaxAmountEstimated: Bool {
 			return internalGetTotalTaxAmountEstimated()
 		}

@@ -44,7 +44,8 @@ extension Storefront {
 		open var note: Input<String>
 
 		/// The customer associated with the cart. Used to determine [international 
-		/// pricing](https://shopify.dev/api/examples/international-pricing#create-a-checkout). 
+		/// pricing] 
+		/// (https://shopify.dev/custom-storefronts/internationalization/international-pricing). 
 		/// Buyer identity should match the customer's shipping address. 
 		open var buyerIdentity: Input<CartBuyerIdentityInput>
 
@@ -55,7 +56,7 @@ extension Storefront {
 		///     - lines: A list of merchandise lines to add to the cart.
 		///     - discountCodes: The case-insensitive discount codes that the customer added at checkout. 
 		///     - note: A note that is associated with the cart. For example, the note can be a personalized message to the buyer.
-		///     - buyerIdentity: The customer associated with the cart. Used to determine [international pricing](https://shopify.dev/api/examples/international-pricing#create-a-checkout). Buyer identity should match the customer's shipping address.
+		///     - buyerIdentity: The customer associated with the cart. Used to determine [international pricing] (https://shopify.dev/custom-storefronts/internationalization/international-pricing). Buyer identity should match the customer's shipping address. 
 		///
 		public static func create(attributes: Input<[AttributeInput]> = .undefined, lines: Input<[CartLineInput]> = .undefined, discountCodes: Input<[String]> = .undefined, note: Input<String> = .undefined, buyerIdentity: Input<CartBuyerIdentityInput> = .undefined) -> CartInput {
 			return CartInput(attributes: attributes, lines: lines, discountCodes: discountCodes, note: note, buyerIdentity: buyerIdentity)
@@ -76,7 +77,7 @@ extension Storefront {
 		///     - lines: A list of merchandise lines to add to the cart.
 		///     - discountCodes: The case-insensitive discount codes that the customer added at checkout. 
 		///     - note: A note that is associated with the cart. For example, the note can be a personalized message to the buyer.
-		///     - buyerIdentity: The customer associated with the cart. Used to determine [international pricing](https://shopify.dev/api/examples/international-pricing#create-a-checkout). Buyer identity should match the customer's shipping address.
+		///     - buyerIdentity: The customer associated with the cart. Used to determine [international pricing] (https://shopify.dev/custom-storefronts/internationalization/international-pricing). Buyer identity should match the customer's shipping address. 
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
 		public convenience init(attributes: [AttributeInput]? = nil, lines: [CartLineInput]? = nil, discountCodes: [String]? = nil, note: String? = nil, buyerIdentity: CartBuyerIdentityInput? = nil) {
