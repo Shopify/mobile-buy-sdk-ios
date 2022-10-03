@@ -240,6 +240,15 @@
 		4EF3D33B28EB2182007215E6 /* DeliveryAddressInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3D32B28EB2182007215E6 /* DeliveryAddressInput.swift */; };
 		4EF3D33C28EB2182007215E6 /* DeliveryAddressInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3D32B28EB2182007215E6 /* DeliveryAddressInput.swift */; };
 		4EF3D33D28EB2182007215E6 /* DeliveryAddressInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3D32B28EB2182007215E6 /* DeliveryAddressInput.swift */; };
+		4EF3D34128EB2287007215E6 /* BrandColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3D33E28EB2287007215E6 /* BrandColors.swift */; };
+		4EF3D34228EB2287007215E6 /* BrandColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3D33E28EB2287007215E6 /* BrandColors.swift */; };
+		4EF3D34328EB2287007215E6 /* BrandColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3D33E28EB2287007215E6 /* BrandColors.swift */; };
+		4EF3D34428EB2287007215E6 /* Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3D33F28EB2287007215E6 /* Brand.swift */; };
+		4EF3D34528EB2287007215E6 /* Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3D33F28EB2287007215E6 /* Brand.swift */; };
+		4EF3D34628EB2287007215E6 /* Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3D33F28EB2287007215E6 /* Brand.swift */; };
+		4EF3D34728EB2287007215E6 /* BrandColorGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3D34028EB2287007215E6 /* BrandColorGroup.swift */; };
+		4EF3D34828EB2287007215E6 /* BrandColorGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3D34028EB2287007215E6 /* BrandColorGroup.swift */; };
+		4EF3D34928EB2287007215E6 /* BrandColorGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3D34028EB2287007215E6 /* BrandColorGroup.swift */; };
 		4EFBFAB82694B88C0054C426 /* InContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFBFAB72694B88C0054C426 /* InContext.swift */; };
 		4EFBFAB92694B88C0054C426 /* InContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFBFAB72694B88C0054C426 /* InContext.swift */; };
 		4EFBFABA2694B88C0054C426 /* InContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFBFAB72694B88C0054C426 /* InContext.swift */; };
@@ -1052,6 +1061,9 @@
 		4EF3D32928EB2182007215E6 /* MetafieldReferenceEdge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetafieldReferenceEdge.swift; sourceTree = "<group>"; };
 		4EF3D32A28EB2182007215E6 /* CartSelectedDeliveryOptionInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartSelectedDeliveryOptionInput.swift; sourceTree = "<group>"; };
 		4EF3D32B28EB2182007215E6 /* DeliveryAddressInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliveryAddressInput.swift; sourceTree = "<group>"; };
+		4EF3D33E28EB2287007215E6 /* BrandColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandColors.swift; sourceTree = "<group>"; };
+		4EF3D33F28EB2287007215E6 /* Brand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brand.swift; sourceTree = "<group>"; };
+		4EF3D34028EB2287007215E6 /* BrandColorGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandColorGroup.swift; sourceTree = "<group>"; };
 		4EFBFAB72694B88C0054C426 /* InContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InContext.swift; sourceTree = "<group>"; };
 		4EFBFABB2694B89B0054C426 /* StoreAvailabilityEdge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreAvailabilityEdge.swift; sourceTree = "<group>"; };
 		4EFBFABC2694B89B0054C426 /* LocationConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationConnection.swift; sourceTree = "<group>"; };
@@ -1400,6 +1412,9 @@
 				9AA416CD1EE095B20060029B /* BlogConnection.swift */,
 				9AA416CE1EE095B20060029B /* BlogEdge.swift */,
 				9AA416CF1EE095B20060029B /* BlogSortKeys.swift */,
+				4EF3D33F28EB2287007215E6 /* Brand.swift */,
+				4EF3D34028EB2287007215E6 /* BrandColorGroup.swift */,
+				4EF3D33E28EB2287007215E6 /* BrandColors.swift */,
 				9A52D3A11F3CA58E00C093C8 /* CardBrand.swift */,
 				4E28FEC2270780B400F9EBED /* Cart.swift */,
 				4E28FEB5270780B400F9EBED /* CartAttributesUpdatePayload.swift */,
@@ -2258,6 +2273,9 @@
 				9AC2EF731F6818180037E0D7 /* BlogConnection.swift in Sources */,
 				9AC2EF661F6818180037E0D7 /* BlogEdge.swift in Sources */,
 				9AC2EF8E1F6818180037E0D7 /* BlogSortKeys.swift in Sources */,
+				4EF3D34628EB2287007215E6 /* Brand.swift in Sources */,
+				4EF3D34928EB2287007215E6 /* BrandColorGroup.swift in Sources */,
+				4EF3D34328EB2287007215E6 /* BrandColors.swift in Sources */,
 				9AC2EF631F6818180037E0D7 /* Card.swift in Sources */,
 				9AC2EFAB1F6818180037E0D7 /* Card.Client.swift in Sources */,
 				9AC2EF5C1F6818180037E0D7 /* Card.CreditCard.swift in Sources */,
@@ -2561,6 +2579,9 @@
 				9AA416D11EE095B20060029B /* BlogConnection.swift in Sources */,
 				9AA416D21EE095B20060029B /* BlogEdge.swift in Sources */,
 				9AA416D31EE095B20060029B /* BlogSortKeys.swift in Sources */,
+				4EF3D34428EB2287007215E6 /* Brand.swift in Sources */,
+				4EF3D34728EB2287007215E6 /* BrandColorGroup.swift in Sources */,
+				4EF3D34128EB2287007215E6 /* BrandColors.swift in Sources */,
 				9A0C80F01EB773310020F187 /* Card.swift in Sources */,
 				9A0C80F41EB785310020F187 /* Card.Client.swift in Sources */,
 				9A0C80F21EB773520020F187 /* Card.CreditCard.swift in Sources */,
@@ -2864,6 +2885,9 @@
 				9AF255ED1F6FEE50005BB0C9 /* BlogConnection.swift in Sources */,
 				9AF255E01F6FEE50005BB0C9 /* BlogEdge.swift in Sources */,
 				9AF256081F6FEE50005BB0C9 /* BlogSortKeys.swift in Sources */,
+				4EF3D34528EB2287007215E6 /* Brand.swift in Sources */,
+				4EF3D34828EB2287007215E6 /* BrandColorGroup.swift in Sources */,
+				4EF3D34228EB2287007215E6 /* BrandColors.swift in Sources */,
 				9AF255DD1F6FEE50005BB0C9 /* Card.swift in Sources */,
 				9AF256251F6FEE50005BB0C9 /* Card.Client.swift in Sources */,
 				9AF255D61F6FEE50005BB0C9 /* Card.CreditCard.swift in Sources */,
