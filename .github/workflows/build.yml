@@ -1,4 +1,4 @@
-name: Build new schema
+name: Generate Latest API Version
 
 on:
   workflow_dispatch:
