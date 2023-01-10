@@ -126,6 +126,21 @@
 		4E28FF1C270780B500F9EBED /* OnlineStorePublishable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E28FECD270780B500F9EBED /* OnlineStorePublishable.swift */; };
 		4E28FF1D270780B500F9EBED /* OnlineStorePublishable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E28FECD270780B500F9EBED /* OnlineStorePublishable.swift */; };
 		4E28FF1E270780B500F9EBED /* OnlineStorePublishable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E28FECD270780B500F9EBED /* OnlineStorePublishable.swift */; };
+		4E772600296DC92F00A6EAE7 /* MetaobjectHandleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7725FB296DC92E00A6EAE7 /* MetaobjectHandleInput.swift */; };
+		4E772601296DC92F00A6EAE7 /* MetaobjectHandleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7725FB296DC92E00A6EAE7 /* MetaobjectHandleInput.swift */; };
+		4E772602296DC92F00A6EAE7 /* MetaobjectHandleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7725FB296DC92E00A6EAE7 /* MetaobjectHandleInput.swift */; };
+		4E772603296DC92F00A6EAE7 /* Metaobject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7725FC296DC92E00A6EAE7 /* Metaobject.swift */; };
+		4E772604296DC92F00A6EAE7 /* Metaobject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7725FC296DC92E00A6EAE7 /* Metaobject.swift */; };
+		4E772605296DC92F00A6EAE7 /* Metaobject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7725FC296DC92E00A6EAE7 /* Metaobject.swift */; };
+		4E772606296DC92F00A6EAE7 /* MetaobjectConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7725FD296DC92E00A6EAE7 /* MetaobjectConnection.swift */; };
+		4E772607296DC92F00A6EAE7 /* MetaobjectConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7725FD296DC92E00A6EAE7 /* MetaobjectConnection.swift */; };
+		4E772608296DC92F00A6EAE7 /* MetaobjectConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7725FD296DC92E00A6EAE7 /* MetaobjectConnection.swift */; };
+		4E772609296DC92F00A6EAE7 /* MetaobjectEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7725FE296DC92E00A6EAE7 /* MetaobjectEdge.swift */; };
+		4E77260A296DC92F00A6EAE7 /* MetaobjectEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7725FE296DC92E00A6EAE7 /* MetaobjectEdge.swift */; };
+		4E77260B296DC92F00A6EAE7 /* MetaobjectEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7725FE296DC92E00A6EAE7 /* MetaobjectEdge.swift */; };
+		4E77260C296DC92F00A6EAE7 /* MetaobjectField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7725FF296DC92F00A6EAE7 /* MetaobjectField.swift */; };
+		4E77260D296DC92F00A6EAE7 /* MetaobjectField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7725FF296DC92F00A6EAE7 /* MetaobjectField.swift */; };
+		4E77260E296DC92F00A6EAE7 /* MetaobjectField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7725FF296DC92F00A6EAE7 /* MetaobjectField.swift */; };
 		4E87F1D9286F3B1900BFF389 /* CartLineCost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87F1CE286F3B1900BFF389 /* CartLineCost.swift */; };
 		4E87F1DA286F3B1900BFF389 /* CartLineCost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87F1CE286F3B1900BFF389 /* CartLineCost.swift */; };
 		4E87F1DB286F3B1900BFF389 /* CartLineCost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87F1CE286F3B1900BFF389 /* CartLineCost.swift */; };
@@ -1023,6 +1038,11 @@
 		4E28FECB270780B500F9EBED /* CartBuyerIdentity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartBuyerIdentity.swift; sourceTree = "<group>"; };
 		4E28FECC270780B500F9EBED /* Merchandise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Merchandise.swift; sourceTree = "<group>"; };
 		4E28FECD270780B500F9EBED /* OnlineStorePublishable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnlineStorePublishable.swift; sourceTree = "<group>"; };
+		4E7725FB296DC92E00A6EAE7 /* MetaobjectHandleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetaobjectHandleInput.swift; sourceTree = "<group>"; };
+		4E7725FC296DC92E00A6EAE7 /* Metaobject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Metaobject.swift; sourceTree = "<group>"; };
+		4E7725FD296DC92E00A6EAE7 /* MetaobjectConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetaobjectConnection.swift; sourceTree = "<group>"; };
+		4E7725FE296DC92E00A6EAE7 /* MetaobjectEdge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetaobjectEdge.swift; sourceTree = "<group>"; };
+		4E7725FF296DC92F00A6EAE7 /* MetaobjectField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetaobjectField.swift; sourceTree = "<group>"; };
 		4E87F1CE286F3B1900BFF389 /* CartLineCost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartLineCost.swift; sourceTree = "<group>"; };
 		4E87F1CF286F3B1900BFF389 /* CartCost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartCost.swift; sourceTree = "<group>"; };
 		4E87F1D0286F3B1900BFF389 /* SellingPlanCheckoutCharge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SellingPlanCheckoutCharge.swift; sourceTree = "<group>"; };
@@ -1581,6 +1601,11 @@
 				4EC8A6ED278792B400FC193B /* MetafieldReference.swift */,
 				4EF3D32828EB2182007215E6 /* MetafieldReferenceConnection.swift */,
 				4EF3D32928EB2182007215E6 /* MetafieldReferenceEdge.swift */,
+				4E7725FC296DC92E00A6EAE7 /* Metaobject.swift */,
+				4E7725FD296DC92E00A6EAE7 /* MetaobjectConnection.swift */,
+				4E7725FE296DC92E00A6EAE7 /* MetaobjectEdge.swift */,
+				4E7725FF296DC92F00A6EAE7 /* MetaobjectField.swift */,
+				4E7725FB296DC92E00A6EAE7 /* MetaobjectHandleInput.swift */,
 				8128550423C4AC7D00ADA66E /* Model3d.swift */,
 				8128550323C4AC7D00ADA66E /* Model3dSource.swift */,
 				9A6711312166678300A57A3F /* MoneyInput.swift */,
@@ -2459,6 +2484,11 @@
 				4EC8A7102787946400FC193B /* MetafieldReference.swift in Sources */,
 				4EF3D33428EB2182007215E6 /* MetafieldReferenceConnection.swift in Sources */,
 				4EF3D33728EB2182007215E6 /* MetafieldReferenceEdge.swift in Sources */,
+				4E772605296DC92F00A6EAE7 /* Metaobject.swift in Sources */,
+				4E772608296DC92F00A6EAE7 /* MetaobjectConnection.swift in Sources */,
+				4E77260B296DC92F00A6EAE7 /* MetaobjectEdge.swift in Sources */,
+				4E77260E296DC92F00A6EAE7 /* MetaobjectField.swift in Sources */,
+				4E772602296DC92F00A6EAE7 /* MetaobjectHandleInput.swift in Sources */,
 				815FAB4F23C4B82C00F98749 /* Model3d.swift in Sources */,
 				815FAB5023C4B82C00F98749 /* Model3dSource.swift in Sources */,
 				9A67113C2166678500A57A3F /* MoneyInput.swift in Sources */,
@@ -2765,6 +2795,11 @@
 				4EC8A6F7278792B400FC193B /* MetafieldReference.swift in Sources */,
 				4EF3D33228EB2182007215E6 /* MetafieldReferenceConnection.swift in Sources */,
 				4EF3D33528EB2182007215E6 /* MetafieldReferenceEdge.swift in Sources */,
+				4E772603296DC92F00A6EAE7 /* Metaobject.swift in Sources */,
+				4E772606296DC92F00A6EAE7 /* MetaobjectConnection.swift in Sources */,
+				4E772609296DC92F00A6EAE7 /* MetaobjectEdge.swift in Sources */,
+				4E77260C296DC92F00A6EAE7 /* MetaobjectField.swift in Sources */,
+				4E772600296DC92F00A6EAE7 /* MetaobjectHandleInput.swift in Sources */,
 				8128551323C4AC7E00ADA66E /* Model3d.swift in Sources */,
 				8128551223C4AC7E00ADA66E /* Model3dSource.swift in Sources */,
 				9A67113B2166678500A57A3F /* MoneyInput.swift in Sources */,
@@ -3071,6 +3106,11 @@
 				4EC8A7062787946300FC193B /* MetafieldReference.swift in Sources */,
 				4EF3D33328EB2182007215E6 /* MetafieldReferenceConnection.swift in Sources */,
 				4EF3D33628EB2182007215E6 /* MetafieldReferenceEdge.swift in Sources */,
+				4E772604296DC92F00A6EAE7 /* Metaobject.swift in Sources */,
+				4E772607296DC92F00A6EAE7 /* MetaobjectConnection.swift in Sources */,
+				4E77260A296DC92F00A6EAE7 /* MetaobjectEdge.swift in Sources */,
+				4E77260D296DC92F00A6EAE7 /* MetaobjectField.swift in Sources */,
+				4E772601296DC92F00A6EAE7 /* MetaobjectHandleInput.swift in Sources */,
 				815FAB4023C4B81500F98749 /* Model3d.swift in Sources */,
 				815FAB4123C4B81500F98749 /* Model3dSource.swift in Sources */,
 				9A67113D2166678500A57A3F /* MoneyInput.swift in Sources */,

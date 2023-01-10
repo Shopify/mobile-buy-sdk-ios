@@ -1,5 +1,5 @@
 //
-//  SDK.swift
+//  MetaobjectHandleInput.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -26,6 +26,44 @@
 
 import Foundation
 
-internal enum SDK {
-    static let version = "10.0.0"
+extension Storefront {
+	/// The input fields used to retrieve a metaobject by handle. 
+	open class MetaobjectHandleInput {
+		/// The handle of the metaobject. 
+		open var handle: String
+
+		/// The type of the metaobject. 
+		open var type: String
+
+		/// Creates the input object.
+		///
+		/// - parameters:
+		///     - handle: The handle of the metaobject.
+		///     - type: The type of the metaobject.
+		///
+		public static func create(handle: String, type: String) -> MetaobjectHandleInput {
+			return MetaobjectHandleInput(handle: handle, type: type)
+		}
+
+		/// Creates the input object.
+		///
+		/// - parameters:
+		///     - handle: The handle of the metaobject.
+		///     - type: The type of the metaobject.
+		///
+		public init(handle: String, type: String) {
+			self.handle = handle
+			self.type = type
+		}
+
+		internal func serialize() -> String {
+			var fields: [String] = []
+
+			fields.append("handle:\(GraphQL.quoteString(input: handle))")
+
+			fields.append("type:\(GraphQL.quoteString(input: type))")
+
+			return "{\(fields.joined(separator: ","))}"
+		}
+	}
 }

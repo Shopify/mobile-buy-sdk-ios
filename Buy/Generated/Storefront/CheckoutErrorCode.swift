@@ -47,6 +47,9 @@ extension Storefront {
 		/// Discount already applied. 
 		case discountAlreadyApplied = "DISCOUNT_ALREADY_APPLIED"
 
+		/// Discount code isn't working right now. Please contact us for help. 
+		case discountCodeApplicationFailed = "DISCOUNT_CODE_APPLICATION_FAILED"
+
 		/// Discount disabled. 
 		case discountDisabled = "DISCOUNT_DISABLED"
 
