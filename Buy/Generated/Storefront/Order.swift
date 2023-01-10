@@ -102,6 +102,16 @@ extension Storefront {
 			return self
 		}
 
+		/// A list of the custom attributes added to the order. 
+		@discardableResult
+		open func customAttributes(alias: String? = nil, _ subfields: (AttributeQuery) -> Void) -> OrderQuery {
+			let subquery = AttributeQuery()
+			subfields(subquery)
+
+			addField(field: "customAttributes", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The locale code in which this specific order happened. 
 		@discardableResult
 		open func customerLocale(alias: String? = nil) -> OrderQuery {
@@ -544,6 +554,12 @@ extension Storefront {
 				}
 				return try MoneyV2(fields: value)
 
+				case "customAttributes":
+				guard let value = value as? [[String: Any]] else {
+					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
+				}
+				return try value.map { return try Attribute(fields: $0) }
+
 				case "customerLocale":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
@@ -820,6 +836,15 @@ extension Storefront {
 
 		func internalGetCurrentTotalTax(alias: String? = nil) -> Storefront.MoneyV2 {
 			return field(field: "currentTotalTax", aliasSuffix: alias) as! Storefront.MoneyV2
+		}
+
+		/// A list of the custom attributes added to the order. 
+		open var customAttributes: [Storefront.Attribute] {
+			return internalGetCustomAttributes()
+		}
+
+		func internalGetCustomAttributes(alias: String? = nil) -> [Storefront.Attribute] {
+			return field(field: "customAttributes", aliasSuffix: alias) as! [Storefront.Attribute]
 		}
 
 		/// The locale code in which this specific order happened. 
@@ -1155,6 +1180,12 @@ extension Storefront {
 					case "currentTotalTax":
 					response.append(internalGetCurrentTotalTax())
 					response.append(contentsOf: internalGetCurrentTotalTax().childResponseObjectMap())
+
+					case "customAttributes":
+					internalGetCustomAttributes().forEach {
+						response.append($0)
+						response.append(contentsOf: $0.childResponseObjectMap())
+					}
 
 					case "discountApplications":
 					response.append(internalGetDiscountApplications())

@@ -50,6 +50,9 @@ extension Storefront {
 		/// A variant metafield to filter on. 
 		open var variantMetafield: Input<MetafieldFilter>
 
+		/// A product tag to filter on. 
+		open var tag: Input<String>
+
 		/// Creates the input object.
 		///
 		/// - parameters:
@@ -60,12 +63,13 @@ extension Storefront {
 		///     - price: A range of prices to filter with-in.
 		///     - productMetafield: A product metafield to filter on.
 		///     - variantMetafield: A variant metafield to filter on.
+		///     - tag: A product tag to filter on.
 		///
-		public static func create(available: Input<Bool> = .undefined, variantOption: Input<VariantOptionFilter> = .undefined, productType: Input<String> = .undefined, productVendor: Input<String> = .undefined, price: Input<PriceRangeFilter> = .undefined, productMetafield: Input<MetafieldFilter> = .undefined, variantMetafield: Input<MetafieldFilter> = .undefined) -> ProductFilter {
-			return ProductFilter(available: available, variantOption: variantOption, productType: productType, productVendor: productVendor, price: price, productMetafield: productMetafield, variantMetafield: variantMetafield)
+		public static func create(available: Input<Bool> = .undefined, variantOption: Input<VariantOptionFilter> = .undefined, productType: Input<String> = .undefined, productVendor: Input<String> = .undefined, price: Input<PriceRangeFilter> = .undefined, productMetafield: Input<MetafieldFilter> = .undefined, variantMetafield: Input<MetafieldFilter> = .undefined, tag: Input<String> = .undefined) -> ProductFilter {
+			return ProductFilter(available: available, variantOption: variantOption, productType: productType, productVendor: productVendor, price: price, productMetafield: productMetafield, variantMetafield: variantMetafield, tag: tag)
 		}
 
-		private init(available: Input<Bool> = .undefined, variantOption: Input<VariantOptionFilter> = .undefined, productType: Input<String> = .undefined, productVendor: Input<String> = .undefined, price: Input<PriceRangeFilter> = .undefined, productMetafield: Input<MetafieldFilter> = .undefined, variantMetafield: Input<MetafieldFilter> = .undefined) {
+		private init(available: Input<Bool> = .undefined, variantOption: Input<VariantOptionFilter> = .undefined, productType: Input<String> = .undefined, productVendor: Input<String> = .undefined, price: Input<PriceRangeFilter> = .undefined, productMetafield: Input<MetafieldFilter> = .undefined, variantMetafield: Input<MetafieldFilter> = .undefined, tag: Input<String> = .undefined) {
 			self.available = available
 			self.variantOption = variantOption
 			self.productType = productType
@@ -73,6 +77,7 @@ extension Storefront {
 			self.price = price
 			self.productMetafield = productMetafield
 			self.variantMetafield = variantMetafield
+			self.tag = tag
 		}
 
 		/// Creates the input object.
@@ -85,10 +90,11 @@ extension Storefront {
 		///     - price: A range of prices to filter with-in.
 		///     - productMetafield: A product metafield to filter on.
 		///     - variantMetafield: A variant metafield to filter on.
+		///     - tag: A product tag to filter on.
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
-		public convenience init(available: Bool? = nil, variantOption: VariantOptionFilter? = nil, productType: String? = nil, productVendor: String? = nil, price: PriceRangeFilter? = nil, productMetafield: MetafieldFilter? = nil, variantMetafield: MetafieldFilter? = nil) {
-			self.init(available: available.orUndefined, variantOption: variantOption.orUndefined, productType: productType.orUndefined, productVendor: productVendor.orUndefined, price: price.orUndefined, productMetafield: productMetafield.orUndefined, variantMetafield: variantMetafield.orUndefined)
+		public convenience init(available: Bool? = nil, variantOption: VariantOptionFilter? = nil, productType: String? = nil, productVendor: String? = nil, price: PriceRangeFilter? = nil, productMetafield: MetafieldFilter? = nil, variantMetafield: MetafieldFilter? = nil, tag: String? = nil) {
+			self.init(available: available.orUndefined, variantOption: variantOption.orUndefined, productType: productType.orUndefined, productVendor: productVendor.orUndefined, price: price.orUndefined, productMetafield: productMetafield.orUndefined, variantMetafield: variantMetafield.orUndefined, tag: tag.orUndefined)
 		}
 
 		internal func serialize() -> String {
@@ -161,6 +167,16 @@ extension Storefront {
 					break
 				}
 				fields.append("variantMetafield:\(variantMetafield.serialize())")
+				case .undefined: break
+			}
+
+			switch tag {
+				case .value(let tag): 
+				guard let tag = tag else {
+					fields.append("tag:null")
+					break
+				}
+				fields.append("tag:\(GraphQL.quoteString(input: tag))")
 				case .undefined: break
 			}
 

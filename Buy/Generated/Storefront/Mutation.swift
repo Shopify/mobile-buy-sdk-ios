@@ -912,12 +912,17 @@ extension Storefront {
 			return self
 		}
 
-		/// "Sends a reset password email to the customer. The reset password email 
+		/// Sends a reset password email to the customer. The reset password email 
 		/// contains a reset password URL and token that you can pass to the 
 		/// [`customerResetByUrl`](https://shopify.dev/api/storefront/latest/mutations/customerResetByUrl) 
 		/// or 
 		/// [`customerReset`](https://shopify.dev/api/storefront/latest/mutations/customerReset) 
-		/// mutation to reset the customer password." 
+		/// mutation to reset the customer password. This mutation is throttled by IP. 
+		/// With authenticated access, you can provide a 
+		/// [`Shopify-Storefront-Buyer-IP`](https://shopify.dev/api/usage/authentication#optional-ip-header) 
+		/// instead of the request IP. Make sure that the value provided to 
+		/// `Shopify-Storefront-Buyer-IP` is trusted. Unthrottled access to this 
+		/// mutation presents a security risk. 
 		///
 		/// - parameters:
 		///     - email: The email address of the customer to recover.
@@ -1830,12 +1835,17 @@ extension Storefront {
 			return field(field: "customerDefaultAddressUpdate", aliasSuffix: alias) as! Storefront.CustomerDefaultAddressUpdatePayload?
 		}
 
-		/// "Sends a reset password email to the customer. The reset password email 
+		/// Sends a reset password email to the customer. The reset password email 
 		/// contains a reset password URL and token that you can pass to the 
 		/// [`customerResetByUrl`](https://shopify.dev/api/storefront/latest/mutations/customerResetByUrl) 
 		/// or 
 		/// [`customerReset`](https://shopify.dev/api/storefront/latest/mutations/customerReset) 
-		/// mutation to reset the customer password." 
+		/// mutation to reset the customer password. This mutation is throttled by IP. 
+		/// With authenticated access, you can provide a 
+		/// [`Shopify-Storefront-Buyer-IP`](https://shopify.dev/api/usage/authentication#optional-ip-header) 
+		/// instead of the request IP. Make sure that the value provided to 
+		/// `Shopify-Storefront-Buyer-IP` is trusted. Unthrottled access to this 
+		/// mutation presents a security risk. 
 		open var customerRecover: Storefront.CustomerRecoverPayload? {
 			return internalGetCustomerRecover()
 		}

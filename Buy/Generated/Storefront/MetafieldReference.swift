@@ -69,6 +69,15 @@ extension Storefront {
 
 		/// Returns the resource which is being referred to by a metafield. 
 		@discardableResult
+		open func onMetaobject(subfields: (MetaobjectQuery) -> Void) -> MetafieldReferenceQuery {
+			let subquery = MetaobjectQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Metaobject", subfields: subquery)
+			return self
+		}
+
+		/// Returns the resource which is being referred to by a metafield. 
+		@discardableResult
 		open func onPage(subfields: (PageQuery) -> Void) -> MetafieldReferenceQuery {
 			let subquery = PageQuery()
 			subfields(subquery)
@@ -126,6 +135,8 @@ extension Storefront {
 				case "GenericFile": return try GenericFile.init(fields: fields)
 
 				case "MediaImage": return try MediaImage.init(fields: fields)
+
+				case "Metaobject": return try Metaobject.init(fields: fields)
 
 				case "Page": return try Page.init(fields: fields)
 

@@ -435,6 +435,83 @@ extension Storefront {
 			return self
 		}
 
+		/// Fetch a specific Metaobject by one of its unique identifiers. 
+		///
+		/// - parameters:
+		///     - id: The ID of the metaobject.
+		///     - handle: The handle and type of the metaobject.
+		///
+		@discardableResult
+		open func metaobject(alias: String? = nil, id: GraphQL.ID? = nil, handle: MetaobjectHandleInput? = nil, _ subfields: (MetaobjectQuery) -> Void) -> QueryRootQuery {
+			var args: [String] = []
+
+			if let id = id {
+				args.append("id:\(GraphQL.quoteString(input: "\(id.rawValue)"))")
+			}
+
+			if let handle = handle {
+				args.append("handle:\(handle.serialize())")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = MetaobjectQuery()
+			subfields(subquery)
+
+			addField(field: "metaobject", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// All active metaobjects for the shop. 
+		///
+		/// - parameters:
+		///     - type: The type of metaobject to retrieve.
+		///     - sortKey: The key of a field to sort with. Supports "id" and "updated_at".
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///     - reverse: Reverse the order of the underlying list.
+		///
+		@discardableResult
+		open func metaobjects(alias: String? = nil, type: String, sortKey: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (MetaobjectConnectionQuery) -> Void) -> QueryRootQuery {
+			var args: [String] = []
+
+			args.append("type:\(GraphQL.quoteString(input: type))")
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(GraphQL.quoteString(input: sortKey))")
+			}
+
+			if let first = first {
+				args.append("first:\(first)")
+			}
+
+			if let after = after {
+				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
+			}
+
+			if let reverse = reverse {
+				args.append("reverse:\(reverse)")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = MetaobjectConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "metaobjects", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// Returns a specific node by ID. 
 		///
 		/// - parameters:
@@ -788,9 +865,16 @@ extension Storefront {
 		///     - last: Returns up to the last `n` elements from the list.
 		///     - before: Returns the elements that come before the specified cursor.
 		///     - reverse: Reverse the order of the underlying list.
+		///     - query: Supported filter parameters:
+		///         - `created_at`
+		///         - `path`
+		///         - `target`
+		///        
+		///        See the detailed [search syntax](https://shopify.dev/api/usage/search-syntax)
+		///        for more information about using filters.
 		///
 		@discardableResult
-		open func urlRedirects(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (UrlRedirectConnectionQuery) -> Void) -> QueryRootQuery {
+		open func urlRedirects(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, query: String? = nil, _ subfields: (UrlRedirectConnectionQuery) -> Void) -> QueryRootQuery {
 			var args: [String] = []
 
 			if let first = first {
@@ -811,6 +895,10 @@ extension Storefront {
 
 			if let reverse = reverse {
 				args.append("reverse:\(reverse)")
+			}
+
+			if let query = query {
+				args.append("query:\(GraphQL.quoteString(input: query))")
 			}
 
 			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
@@ -909,6 +997,19 @@ extension Storefront {
 					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
 				}
 				return try Menu(fields: value)
+
+				case "metaobject":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
+				}
+				return try Metaobject(fields: value)
+
+				case "metaobjects":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
+				}
+				return try MetaobjectConnection(fields: value)
 
 				case "node":
 				if value is NSNull { return nil }
@@ -1170,6 +1271,32 @@ extension Storefront {
 			return field(field: "menu", aliasSuffix: alias) as! Storefront.Menu?
 		}
 
+		/// Fetch a specific Metaobject by one of its unique identifiers. 
+		open var metaobject: Storefront.Metaobject? {
+			return internalGetMetaobject()
+		}
+
+		open func aliasedMetaobject(alias: String) -> Storefront.Metaobject? {
+			return internalGetMetaobject(alias: alias)
+		}
+
+		func internalGetMetaobject(alias: String? = nil) -> Storefront.Metaobject? {
+			return field(field: "metaobject", aliasSuffix: alias) as! Storefront.Metaobject?
+		}
+
+		/// All active metaobjects for the shop. 
+		open var metaobjects: Storefront.MetaobjectConnection {
+			return internalGetMetaobjects()
+		}
+
+		open func aliasedMetaobjects(alias: String) -> Storefront.MetaobjectConnection {
+			return internalGetMetaobjects(alias: alias)
+		}
+
+		func internalGetMetaobjects(alias: String? = nil) -> Storefront.MetaobjectConnection {
+			return field(field: "metaobjects", aliasSuffix: alias) as! Storefront.MetaobjectConnection
+		}
+
 		/// Returns a specific node by ID. 
 		open var node: Node? {
 			return internalGetNode()
@@ -1421,6 +1548,16 @@ extension Storefront {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
+
+					case "metaobject":
+					if let value = internalGetMetaobject() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "metaobjects":
+					response.append(internalGetMetaobjects())
+					response.append(contentsOf: internalGetMetaobjects().childResponseObjectMap())
 
 					case "node":
 					if let value = internalGetNode() {
