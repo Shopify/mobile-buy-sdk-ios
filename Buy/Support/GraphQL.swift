@@ -163,11 +163,11 @@ public class GraphQL {
 	}
 
 	open class AbstractResponse: CustomDebugStringConvertible {
-		public var fields: [String: Any]
-		internal var objectMap: [String : Any?] = [:]
+		internal var rawFields: [String: Any]
+		internal var objectMap: [String: Any?] = [:]
 
 		required public init(fields: [String: Any]) throws {
-			self.fields = fields
+			self.rawFields = fields
 			for (key, value) in fields {
 				if key == "__typename" {
 					guard let stringValue = value as? String else {
@@ -196,7 +196,7 @@ public class GraphQL {
 		}
 
 		public var debugDescription: String {
-			return "<\(type(of: self)): \(fields)>"
+			return "<\(type(of: self)): \(rawFields)>"
 		}
 
 		internal func childObjectType(key: String) -> ChildObjectType {
