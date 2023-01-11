@@ -17,14 +17,10 @@ jobs:
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
 
-      - name: Install dependencies
-        run: |
-          gem install cocoapods
-
       - name: Push to cocoapods
         run: |
           set -eo pipefail
-          pod lib lint --allow-warnings --verbose
-          pod trunk push --allow-warnings --verbose
+          bundle exec pod lib lint --allow-warnings --verbose
+          bundle exec pod trunk push --allow-warnings --verbose
         env:
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
