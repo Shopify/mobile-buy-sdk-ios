@@ -162,9 +162,18 @@ public class GraphQL {
 		return escaped
 	}
 
-	open class AbstractResponse: CustomDebugStringConvertible {
+    open class AbstractResponse: CustomDebugStringConvertible, RawRepresentable {
+        
 		internal var rawFields: [String: Any]
 		internal var objectMap: [String: Any?] = [:]
+
+		public var rawValue: [String: Any] {
+			return rawFields
+		}
+
+		required public convenience init?(rawValue: [String : Any]) {
+			try? self.init(fields: rawValue)
+		}
 
 		required public init(fields: [String: Any]) throws {
 			self.rawFields = fields
