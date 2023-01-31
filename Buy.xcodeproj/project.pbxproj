@@ -1703,12 +1703,12 @@
 			path = Storefront;
 			sourceTree = "<group>";
 		};
-		9A22EC092404737100E3D3F2 /* Utitlies */ = {
+		9A22EC092404737100E3D3F2 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				9A22EC0A2404738300E3D3F2 /* Locale+LanguageTests.swift */,
 			);
-			path = Utitlies;
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		9A371408251A21AE00FE742B /* Support */ = {
@@ -1952,7 +1952,7 @@
 				9A46660F1EF1916300A41625 /* Custom */,
 				9AFA38EE1E64850A0056C5AA /* Info.plist */,
 				9A4666101EF1917000A41625 /* Mocks */,
-				9A22EC092404737100E3D3F2 /* Utitlies */,
+				9A22EC092404737100E3D3F2 /* Utilities */,
 			);
 			path = BuyTests;
 			sourceTree = "<group>";
