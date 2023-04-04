@@ -86,6 +86,24 @@ extension Storefront {
 
 		/// Represents an error in the input of a mutation. 
 		@discardableResult
+		open func onMetafieldDeleteUserError(subfields: (MetafieldDeleteUserErrorQuery) -> Void) -> DisplayableErrorQuery {
+			let subquery = MetafieldDeleteUserErrorQuery()
+			subfields(subquery)
+			addInlineFragment(on: "MetafieldDeleteUserError", subfields: subquery)
+			return self
+		}
+
+		/// Represents an error in the input of a mutation. 
+		@discardableResult
+		open func onMetafieldsSetUserError(subfields: (MetafieldsSetUserErrorQuery) -> Void) -> DisplayableErrorQuery {
+			let subquery = MetafieldsSetUserErrorQuery()
+			subfields(subquery)
+			addInlineFragment(on: "MetafieldsSetUserError", subfields: subquery)
+			return self
+		}
+
+		/// Represents an error in the input of a mutation. 
+		@discardableResult
 		open func onUserError(subfields: (UserErrorQuery) -> Void) -> DisplayableErrorQuery {
 			let subquery = UserErrorQuery()
 			subfields(subquery)
@@ -129,6 +147,10 @@ extension Storefront {
 				case "CheckoutUserError": return try CheckoutUserError.init(fields: fields)
 
 				case "CustomerUserError": return try CustomerUserError.init(fields: fields)
+
+				case "MetafieldDeleteUserError": return try MetafieldDeleteUserError.init(fields: fields)
+
+				case "MetafieldsSetUserError": return try MetafieldsSetUserError.init(fields: fields)
 
 				case "UserError": return try UserError.init(fields: fields)
 

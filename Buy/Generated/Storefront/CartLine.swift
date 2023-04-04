@@ -133,7 +133,7 @@ extension Storefront {
 	}
 
 	/// Represents information about the merchandise in the cart. 
-	open class CartLine: GraphQL.AbstractResponse, GraphQLObject, Node {
+	open class CartLine: GraphQL.AbstractResponse, GraphQLObject, BaseCartLine, Node {
 		public typealias Query = CartLineQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {

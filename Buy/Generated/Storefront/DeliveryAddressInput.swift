@@ -32,27 +32,34 @@ extension Storefront {
 		/// A delivery address preference of a buyer that is interacting with the cart. 
 		open var deliveryAddress: Input<MailingAddressInput>
 
+		/// The ID of a customer address that is associated with the buyer that is 
+		/// interacting with the cart. 
+		open var customerAddressId: Input<GraphQL.ID>
+
 		/// Creates the input object.
 		///
 		/// - parameters:
 		///     - deliveryAddress: A delivery address preference of a buyer that is interacting with the cart.
+		///     - customerAddressId: The ID of a customer address that is associated with the buyer that is interacting with the cart. 
 		///
-		public static func create(deliveryAddress: Input<MailingAddressInput> = .undefined) -> DeliveryAddressInput {
-			return DeliveryAddressInput(deliveryAddress: deliveryAddress)
+		public static func create(deliveryAddress: Input<MailingAddressInput> = .undefined, customerAddressId: Input<GraphQL.ID> = .undefined) -> DeliveryAddressInput {
+			return DeliveryAddressInput(deliveryAddress: deliveryAddress, customerAddressId: customerAddressId)
 		}
 
-		private init(deliveryAddress: Input<MailingAddressInput> = .undefined) {
+		private init(deliveryAddress: Input<MailingAddressInput> = .undefined, customerAddressId: Input<GraphQL.ID> = .undefined) {
 			self.deliveryAddress = deliveryAddress
+			self.customerAddressId = customerAddressId
 		}
 
 		/// Creates the input object.
 		///
 		/// - parameters:
 		///     - deliveryAddress: A delivery address preference of a buyer that is interacting with the cart.
+		///     - customerAddressId: The ID of a customer address that is associated with the buyer that is interacting with the cart. 
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
-		public convenience init(deliveryAddress: MailingAddressInput? = nil) {
-			self.init(deliveryAddress: deliveryAddress.orUndefined)
+		public convenience init(deliveryAddress: MailingAddressInput? = nil, customerAddressId: GraphQL.ID? = nil) {
+			self.init(deliveryAddress: deliveryAddress.orUndefined, customerAddressId: customerAddressId.orUndefined)
 		}
 
 		internal func serialize() -> String {
@@ -65,6 +72,16 @@ extension Storefront {
 					break
 				}
 				fields.append("deliveryAddress:\(deliveryAddress.serialize())")
+				case .undefined: break
+			}
+
+			switch customerAddressId {
+				case .value(let customerAddressId): 
+				guard let customerAddressId = customerAddressId else {
+					fields.append("customerAddressId:null")
+					break
+				}
+				fields.append("customerAddressId:\(GraphQL.quoteString(input: "\(customerAddressId.rawValue)"))")
 				case .undefined: break
 			}
 

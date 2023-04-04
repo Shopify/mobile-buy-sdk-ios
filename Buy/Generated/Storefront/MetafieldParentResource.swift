@@ -60,6 +60,15 @@ extension Storefront {
 
 		/// A resource that the metafield belongs to. 
 		@discardableResult
+		open func onCart(subfields: (CartQuery) -> Void) -> MetafieldParentResourceQuery {
+			let subquery = CartQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Cart", subfields: subquery)
+			return self
+		}
+
+		/// A resource that the metafield belongs to. 
+		@discardableResult
 		open func onCollection(subfields: (CollectionQuery) -> Void) -> MetafieldParentResourceQuery {
 			let subquery = CollectionQuery()
 			subfields(subquery)
@@ -73,6 +82,24 @@ extension Storefront {
 			let subquery = CustomerQuery()
 			subfields(subquery)
 			addInlineFragment(on: "Customer", subfields: subquery)
+			return self
+		}
+
+		/// A resource that the metafield belongs to. 
+		@discardableResult
+		open func onLocation(subfields: (LocationQuery) -> Void) -> MetafieldParentResourceQuery {
+			let subquery = LocationQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Location", subfields: subquery)
+			return self
+		}
+
+		/// A resource that the metafield belongs to. 
+		@discardableResult
+		open func onMarket(subfields: (MarketQuery) -> Void) -> MetafieldParentResourceQuery {
+			let subquery = MarketQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Market", subfields: subquery)
 			return self
 		}
 
@@ -143,9 +170,15 @@ extension Storefront {
 
 				case "Blog": return try Blog.init(fields: fields)
 
+				case "Cart": return try Cart.init(fields: fields)
+
 				case "Collection": return try Collection.init(fields: fields)
 
 				case "Customer": return try Customer.init(fields: fields)
+
+				case "Location": return try Location.init(fields: fields)
+
+				case "Market": return try Market.init(fields: fields)
 
 				case "Order": return try Order.init(fields: fields)
 

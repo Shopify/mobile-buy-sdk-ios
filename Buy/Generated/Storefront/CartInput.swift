@@ -49,6 +49,9 @@ extension Storefront {
 		/// Buyer identity should match the customer's shipping address. 
 		open var buyerIdentity: Input<CartBuyerIdentityInput>
 
+		/// The metafields to associate with this cart. 
+		open var metafields: Input<[CartInputMetafieldInput]>
+
 		/// Creates the input object.
 		///
 		/// - parameters:
@@ -57,17 +60,19 @@ extension Storefront {
 		///     - discountCodes: The case-insensitive discount codes that the customer added at checkout. 
 		///     - note: A note that is associated with the cart. For example, the note can be a personalized message to the buyer.
 		///     - buyerIdentity: The customer associated with the cart. Used to determine [international pricing] (https://shopify.dev/custom-storefronts/internationalization/international-pricing). Buyer identity should match the customer's shipping address. 
+		///     - metafields: The metafields to associate with this cart.
 		///
-		public static func create(attributes: Input<[AttributeInput]> = .undefined, lines: Input<[CartLineInput]> = .undefined, discountCodes: Input<[String]> = .undefined, note: Input<String> = .undefined, buyerIdentity: Input<CartBuyerIdentityInput> = .undefined) -> CartInput {
-			return CartInput(attributes: attributes, lines: lines, discountCodes: discountCodes, note: note, buyerIdentity: buyerIdentity)
+		public static func create(attributes: Input<[AttributeInput]> = .undefined, lines: Input<[CartLineInput]> = .undefined, discountCodes: Input<[String]> = .undefined, note: Input<String> = .undefined, buyerIdentity: Input<CartBuyerIdentityInput> = .undefined, metafields: Input<[CartInputMetafieldInput]> = .undefined) -> CartInput {
+			return CartInput(attributes: attributes, lines: lines, discountCodes: discountCodes, note: note, buyerIdentity: buyerIdentity, metafields: metafields)
 		}
 
-		private init(attributes: Input<[AttributeInput]> = .undefined, lines: Input<[CartLineInput]> = .undefined, discountCodes: Input<[String]> = .undefined, note: Input<String> = .undefined, buyerIdentity: Input<CartBuyerIdentityInput> = .undefined) {
+		private init(attributes: Input<[AttributeInput]> = .undefined, lines: Input<[CartLineInput]> = .undefined, discountCodes: Input<[String]> = .undefined, note: Input<String> = .undefined, buyerIdentity: Input<CartBuyerIdentityInput> = .undefined, metafields: Input<[CartInputMetafieldInput]> = .undefined) {
 			self.attributes = attributes
 			self.lines = lines
 			self.discountCodes = discountCodes
 			self.note = note
 			self.buyerIdentity = buyerIdentity
+			self.metafields = metafields
 		}
 
 		/// Creates the input object.
@@ -78,10 +83,11 @@ extension Storefront {
 		///     - discountCodes: The case-insensitive discount codes that the customer added at checkout. 
 		///     - note: A note that is associated with the cart. For example, the note can be a personalized message to the buyer.
 		///     - buyerIdentity: The customer associated with the cart. Used to determine [international pricing] (https://shopify.dev/custom-storefronts/internationalization/international-pricing). Buyer identity should match the customer's shipping address. 
+		///     - metafields: The metafields to associate with this cart.
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
-		public convenience init(attributes: [AttributeInput]? = nil, lines: [CartLineInput]? = nil, discountCodes: [String]? = nil, note: String? = nil, buyerIdentity: CartBuyerIdentityInput? = nil) {
-			self.init(attributes: attributes.orUndefined, lines: lines.orUndefined, discountCodes: discountCodes.orUndefined, note: note.orUndefined, buyerIdentity: buyerIdentity.orUndefined)
+		public convenience init(attributes: [AttributeInput]? = nil, lines: [CartLineInput]? = nil, discountCodes: [String]? = nil, note: String? = nil, buyerIdentity: CartBuyerIdentityInput? = nil, metafields: [CartInputMetafieldInput]? = nil) {
+			self.init(attributes: attributes.orUndefined, lines: lines.orUndefined, discountCodes: discountCodes.orUndefined, note: note.orUndefined, buyerIdentity: buyerIdentity.orUndefined, metafields: metafields.orUndefined)
 		}
 
 		internal func serialize() -> String {
@@ -134,6 +140,16 @@ extension Storefront {
 					break
 				}
 				fields.append("buyerIdentity:\(buyerIdentity.serialize())")
+				case .undefined: break
+			}
+
+			switch metafields {
+				case .value(let metafields): 
+				guard let metafields = metafields else {
+					fields.append("metafields:null")
+					break
+				}
+				fields.append("metafields:[\(metafields.map{ "\($0.serialize())" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 

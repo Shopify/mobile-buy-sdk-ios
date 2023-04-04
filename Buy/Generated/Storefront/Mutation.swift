@@ -203,6 +203,48 @@ extension Storefront {
 			return self
 		}
 
+		/// Deletes a cart metafield. 
+		///
+		/// - parameters:
+		///     - input: The input fields used to delete a cart metafield.
+		///
+		@discardableResult
+		open func cartMetafieldDelete(alias: String? = nil, input: CartMetafieldDeleteInput, _ subfields: (CartMetafieldDeletePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("input:\(input.serialize())")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CartMetafieldDeletePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "cartMetafieldDelete", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Sets cart metafield values. Cart metafield values will be set regardless if 
+		/// they were previously created or not. Allows a maximum of 25 cart metafields 
+		/// to be set at a time. 
+		///
+		/// - parameters:
+		///     - metafields: The list of Cart metafield values to set. Maximum of 25.
+		///
+		@discardableResult
+		open func cartMetafieldsSet(alias: String? = nil, metafields: [CartMetafieldsSetInput], _ subfields: (CartMetafieldsSetPayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("metafields:[\(metafields.map{ "\($0.serialize())" }.joined(separator: ","))]")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CartMetafieldsSetPayloadQuery()
+			subfields(subquery)
+
+			addField(field: "cartMetafieldsSet", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// Updates the note on the cart. 
 		///
 		/// - parameters:
@@ -228,6 +270,29 @@ extension Storefront {
 			return self
 		}
 
+		/// Update the customer's payment method that will be used to checkout. 
+		///
+		/// - parameters:
+		///     - cartId: The ID of the cart.
+		///     - payment: The payment information for the cart that will be used at checkout.
+		///
+		@discardableResult
+		open func cartPaymentUpdate(alias: String? = nil, cartId: GraphQL.ID, payment: CartPaymentInput, _ subfields: (CartPaymentUpdatePayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
+
+			args.append("payment:\(payment.serialize())")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CartPaymentUpdatePayloadQuery()
+			subfields(subquery)
+
+			addField(field: "cartPaymentUpdate", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// Update the selected delivery options for a delivery group. 
 		///
 		/// - parameters:
@@ -248,6 +313,30 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "cartSelectedDeliveryOptionsUpdate", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Submit the cart for checkout completion. 
+		///
+		/// - parameters:
+		///     - cartId: The ID of the cart.
+		///     - attemptToken: The attemptToken is used to guarantee an idempotent result.
+		///        If more than one call uses the same attemptToken within a short period of time, only one will be accepted.
+		///
+		@discardableResult
+		open func cartSubmitForCompletion(alias: String? = nil, cartId: GraphQL.ID, attemptToken: String, _ subfields: (CartSubmitForCompletionPayloadQuery) -> Void) -> MutationQuery {
+			var args: [String] = []
+
+			args.append("cartId:\(GraphQL.quoteString(input: "\(cartId.rawValue)"))")
+
+			args.append("attemptToken:\(GraphQL.quoteString(input: attemptToken))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = CartSubmitForCompletionPayloadQuery()
+			subfields(subquery)
+
+			addField(field: "cartSubmitForCompletion", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
@@ -1075,6 +1164,20 @@ extension Storefront {
 				}
 				return try CartLinesUpdatePayload(fields: value)
 
+				case "cartMetafieldDelete":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CartMetafieldDeletePayload(fields: value)
+
+				case "cartMetafieldsSet":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CartMetafieldsSetPayload(fields: value)
+
 				case "cartNoteUpdate":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -1082,12 +1185,26 @@ extension Storefront {
 				}
 				return try CartNoteUpdatePayload(fields: value)
 
+				case "cartPaymentUpdate":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CartPaymentUpdatePayload(fields: value)
+
 				case "cartSelectedDeliveryOptionsUpdate":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
 				}
 				return try CartSelectedDeliveryOptionsUpdatePayload(fields: value)
+
+				case "cartSubmitForCompletion":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Mutation.self, field: fieldName, value: fieldValue)
+				}
+				return try CartSubmitForCompletionPayload(fields: value)
 
 				case "checkoutAttributesUpdateV2":
 				if value is NSNull { return nil }
@@ -1419,6 +1536,34 @@ extension Storefront {
 			return field(field: "cartLinesUpdate", aliasSuffix: alias) as! Storefront.CartLinesUpdatePayload?
 		}
 
+		/// Deletes a cart metafield. 
+		open var cartMetafieldDelete: Storefront.CartMetafieldDeletePayload? {
+			return internalGetCartMetafieldDelete()
+		}
+
+		open func aliasedCartMetafieldDelete(alias: String) -> Storefront.CartMetafieldDeletePayload? {
+			return internalGetCartMetafieldDelete(alias: alias)
+		}
+
+		func internalGetCartMetafieldDelete(alias: String? = nil) -> Storefront.CartMetafieldDeletePayload? {
+			return field(field: "cartMetafieldDelete", aliasSuffix: alias) as! Storefront.CartMetafieldDeletePayload?
+		}
+
+		/// Sets cart metafield values. Cart metafield values will be set regardless if 
+		/// they were previously created or not. Allows a maximum of 25 cart metafields 
+		/// to be set at a time. 
+		open var cartMetafieldsSet: Storefront.CartMetafieldsSetPayload? {
+			return internalGetCartMetafieldsSet()
+		}
+
+		open func aliasedCartMetafieldsSet(alias: String) -> Storefront.CartMetafieldsSetPayload? {
+			return internalGetCartMetafieldsSet(alias: alias)
+		}
+
+		func internalGetCartMetafieldsSet(alias: String? = nil) -> Storefront.CartMetafieldsSetPayload? {
+			return field(field: "cartMetafieldsSet", aliasSuffix: alias) as! Storefront.CartMetafieldsSetPayload?
+		}
+
 		/// Updates the note on the cart. 
 		open var cartNoteUpdate: Storefront.CartNoteUpdatePayload? {
 			return internalGetCartNoteUpdate()
@@ -1432,6 +1577,19 @@ extension Storefront {
 			return field(field: "cartNoteUpdate", aliasSuffix: alias) as! Storefront.CartNoteUpdatePayload?
 		}
 
+		/// Update the customer's payment method that will be used to checkout. 
+		open var cartPaymentUpdate: Storefront.CartPaymentUpdatePayload? {
+			return internalGetCartPaymentUpdate()
+		}
+
+		open func aliasedCartPaymentUpdate(alias: String) -> Storefront.CartPaymentUpdatePayload? {
+			return internalGetCartPaymentUpdate(alias: alias)
+		}
+
+		func internalGetCartPaymentUpdate(alias: String? = nil) -> Storefront.CartPaymentUpdatePayload? {
+			return field(field: "cartPaymentUpdate", aliasSuffix: alias) as! Storefront.CartPaymentUpdatePayload?
+		}
+
 		/// Update the selected delivery options for a delivery group. 
 		open var cartSelectedDeliveryOptionsUpdate: Storefront.CartSelectedDeliveryOptionsUpdatePayload? {
 			return internalGetCartSelectedDeliveryOptionsUpdate()
@@ -1443,6 +1601,19 @@ extension Storefront {
 
 		func internalGetCartSelectedDeliveryOptionsUpdate(alias: String? = nil) -> Storefront.CartSelectedDeliveryOptionsUpdatePayload? {
 			return field(field: "cartSelectedDeliveryOptionsUpdate", aliasSuffix: alias) as! Storefront.CartSelectedDeliveryOptionsUpdatePayload?
+		}
+
+		/// Submit the cart for checkout completion. 
+		open var cartSubmitForCompletion: Storefront.CartSubmitForCompletionPayload? {
+			return internalGetCartSubmitForCompletion()
+		}
+
+		open func aliasedCartSubmitForCompletion(alias: String) -> Storefront.CartSubmitForCompletionPayload? {
+			return internalGetCartSubmitForCompletion(alias: alias)
+		}
+
+		func internalGetCartSubmitForCompletion(alias: String? = nil) -> Storefront.CartSubmitForCompletionPayload? {
+			return field(field: "cartSubmitForCompletion", aliasSuffix: alias) as! Storefront.CartSubmitForCompletionPayload?
 		}
 
 		/// Updates the attributes of a checkout if `allowPartialAddresses` is `true`. 
@@ -1949,14 +2120,38 @@ extension Storefront {
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
+					case "cartMetafieldDelete":
+					if let value = internalGetCartMetafieldDelete() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "cartMetafieldsSet":
+					if let value = internalGetCartMetafieldsSet() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
 					case "cartNoteUpdate":
 					if let value = internalGetCartNoteUpdate() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
+					case "cartPaymentUpdate":
+					if let value = internalGetCartPaymentUpdate() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
 					case "cartSelectedDeliveryOptionsUpdate":
 					if let value = internalGetCartSelectedDeliveryOptionsUpdate() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "cartSubmitForCompletion":
+					if let value = internalGetCartSubmitForCompletion() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}

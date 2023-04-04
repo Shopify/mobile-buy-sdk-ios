@@ -62,6 +62,16 @@ extension Storefront {
 			return self
 		}
 
+		/// The presentation for a media. 
+		@discardableResult
+		open func presentation(alias: String? = nil, _ subfields: (MediaPresentationQuery) -> Void) -> MediaImageQuery {
+			let subquery = MediaPresentationQuery()
+			subfields(subquery)
+
+			addField(field: "presentation", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The preview image for the media. 
 		@discardableResult
 		open func previewImage(alias: String? = nil, _ subfields: (ImageQuery) -> Void) -> MediaImageQuery {
@@ -105,6 +115,13 @@ extension Storefront {
 					throw SchemaViolationError(type: MediaImage.self, field: fieldName, value: fieldValue)
 				}
 				return MediaContentType(rawValue: value) ?? .unknownValue
+
+				case "presentation":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: MediaImage.self, field: fieldName, value: fieldValue)
+				}
+				return try MediaPresentation(fields: value)
 
 				case "previewImage":
 				if value is NSNull { return nil }
@@ -154,6 +171,15 @@ extension Storefront {
 			return field(field: "mediaContentType", aliasSuffix: alias) as! Storefront.MediaContentType
 		}
 
+		/// The presentation for a media. 
+		open var presentation: Storefront.MediaPresentation? {
+			return internalGetPresentation()
+		}
+
+		func internalGetPresentation(alias: String? = nil) -> Storefront.MediaPresentation? {
+			return field(field: "presentation", aliasSuffix: alias) as! Storefront.MediaPresentation?
+		}
+
 		/// The preview image for the media. 
 		open var previewImage: Storefront.Image? {
 			return internalGetPreviewImage()
@@ -169,6 +195,12 @@ extension Storefront {
 				switch($0) {
 					case "image":
 					if let value = internalGetImage() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "presentation":
+					if let value = internalGetPresentation() {
 						response.append(value)
 						response.append(contentsOf: value.childResponseObjectMap())
 					}

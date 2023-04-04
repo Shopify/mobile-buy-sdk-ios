@@ -150,6 +150,9 @@ extension Storefront {
 		/// The input value needs to be blank. 
 		case present = "PRESENT"
 
+		/// Product is not published for this customer. 
+		case productNotAvailable = "PRODUCT_NOT_AVAILABLE"
+
 		/// Shipping rate expired. 
 		case shippingRateExpired = "SHIPPING_RATE_EXPIRED"
 

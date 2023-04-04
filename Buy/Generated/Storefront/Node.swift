@@ -263,10 +263,40 @@ extension Storefront {
 		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
 		/// queries. 
 		@discardableResult
+		open func onMarket(subfields: (MarketQuery) -> Void) -> NodeQuery {
+			let subquery = MarketQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Market", subfields: subquery)
+			return self
+		}
+
+		/// An object with an ID field to support global identification, in accordance 
+		/// with the [Relay 
+		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
+		/// This interface is used by the 
+		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
+		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
+		/// queries. 
+		@discardableResult
 		open func onMediaImage(subfields: (MediaImageQuery) -> Void) -> NodeQuery {
 			let subquery = MediaImageQuery()
 			subfields(subquery)
 			addInlineFragment(on: "MediaImage", subfields: subquery)
+			return self
+		}
+
+		/// An object with an ID field to support global identification, in accordance 
+		/// with the [Relay 
+		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
+		/// This interface is used by the 
+		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
+		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
+		/// queries. 
+		@discardableResult
+		open func onMediaPresentation(subfields: (MediaPresentationQuery) -> Void) -> NodeQuery {
+			let subquery = MediaPresentationQuery()
+			subfields(subquery)
+			addInlineFragment(on: "MediaPresentation", subfields: subquery)
 			return self
 		}
 
@@ -551,7 +581,11 @@ extension Storefront {
 
 				case "MailingAddress": return try MailingAddress.init(fields: fields)
 
+				case "Market": return try Market.init(fields: fields)
+
 				case "MediaImage": return try MediaImage.init(fields: fields)
+
+				case "MediaPresentation": return try MediaPresentation.init(fields: fields)
 
 				case "Menu": return try Menu.init(fields: fields)
 
