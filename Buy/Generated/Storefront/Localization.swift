@@ -72,6 +72,17 @@ extension Storefront {
 			addField(field: "language", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
+
+		/// The market including the country of the active localized experience. Use 
+		/// the `@inContext` directive to change this value. 
+		@discardableResult
+		open func market(alias: String? = nil, _ subfields: (MarketQuery) -> Void) -> LocalizationQuery {
+			let subquery = MarketQuery()
+			subfields(subquery)
+
+			addField(field: "market", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
 	}
 
 	/// Information about the localized experiences configured for the shop. 
@@ -104,6 +115,12 @@ extension Storefront {
 					throw SchemaViolationError(type: Localization.self, field: fieldName, value: fieldValue)
 				}
 				return try Language(fields: value)
+
+				case "market":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Localization.self, field: fieldName, value: fieldValue)
+				}
+				return try Market(fields: value)
 
 				default:
 				throw SchemaViolationError(type: Localization.self, field: fieldName, value: fieldValue)
@@ -148,6 +165,16 @@ extension Storefront {
 			return field(field: "language", aliasSuffix: alias) as! Storefront.Language
 		}
 
+		/// The market including the country of the active localized experience. Use 
+		/// the `@inContext` directive to change this value. 
+		open var market: Storefront.Market {
+			return internalGetMarket()
+		}
+
+		func internalGetMarket(alias: String? = nil) -> Storefront.Market {
+			return field(field: "market", aliasSuffix: alias) as! Storefront.Market
+		}
+
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
@@ -171,6 +198,10 @@ extension Storefront {
 					case "language":
 					response.append(internalGetLanguage())
 					response.append(contentsOf: internalGetLanguage().childResponseObjectMap())
+
+					case "market":
+					response.append(internalGetMarket())
+					response.append(contentsOf: internalGetMarket().childResponseObjectMap())
 
 					default:
 					break

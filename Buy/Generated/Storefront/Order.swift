@@ -34,6 +34,16 @@ extension Storefront {
 	open class OrderQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Order
 
+		/// The address associated with the payment method. 
+		@discardableResult
+		open func billingAddress(alias: String? = nil, _ subfields: (MailingAddressQuery) -> Void) -> OrderQuery {
+			let subquery = MailingAddressQuery()
+			subfields(subquery)
+
+			addField(field: "billingAddress", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The reason for the order's cancellation. Returns `null` if the order wasn't 
 		/// canceled. 
 		@discardableResult
@@ -509,6 +519,13 @@ extension Storefront {
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
+				case "billingAddress":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
+				}
+				return try MailingAddress(fields: value)
+
 				case "cancelReason":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
@@ -766,6 +783,15 @@ extension Storefront {
 				default:
 				throw SchemaViolationError(type: Order.self, field: fieldName, value: fieldValue)
 			}
+		}
+
+		/// The address associated with the payment method. 
+		open var billingAddress: Storefront.MailingAddress? {
+			return internalGetBillingAddress()
+		}
+
+		func internalGetBillingAddress(alias: String? = nil) -> Storefront.MailingAddress? {
+			return field(field: "billingAddress", aliasSuffix: alias) as! Storefront.MailingAddress?
 		}
 
 		/// The reason for the order's cancellation. Returns `null` if the order wasn't 
@@ -1163,6 +1189,12 @@ extension Storefront {
 			var response: [GraphQL.AbstractResponse] = []
 			objectMap.keys.forEach {
 				switch($0) {
+					case "billingAddress":
+					if let value = internalGetBillingAddress() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
 					case "currentSubtotalPrice":
 					response.append(internalGetCurrentSubtotalPrice())
 					response.append(contentsOf: internalGetCurrentSubtotalPrice().childResponseObjectMap())

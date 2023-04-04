@@ -1,5 +1,5 @@
 //
-//  CartLineEdge.swift
+//  BaseCartLineEdge.swift
 //  Buy
 //
 //  Created by Shopify.
@@ -27,22 +27,22 @@
 import Foundation
 
 extension Storefront {
-	/// An auto-generated type which holds one CartLine and a cursor during 
+	/// An auto-generated type which holds one BaseCartLine and a cursor during 
 	/// pagination. 
-	open class CartLineEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
-		public typealias Response = CartLineEdge
+	open class BaseCartLineEdgeQuery: GraphQL.AbstractQuery, GraphQLQuery {
+		public typealias Response = BaseCartLineEdge
 
 		/// A cursor for use in pagination. 
 		@discardableResult
-		open func cursor(alias: String? = nil) -> CartLineEdgeQuery {
+		open func cursor(alias: String? = nil) -> BaseCartLineEdgeQuery {
 			addField(field: "cursor", aliasSuffix: alias)
 			return self
 		}
 
-		/// The item at the end of CartLineEdge. 
+		/// The item at the end of BaseCartLineEdge. 
 		@discardableResult
-		open func node(alias: String? = nil, _ subfields: (CartLineQuery) -> Void) -> CartLineEdgeQuery {
-			let subquery = CartLineQuery()
+		open func node(alias: String? = nil, _ subfields: (BaseCartLineQuery) -> Void) -> BaseCartLineEdgeQuery {
+			let subquery = BaseCartLineQuery()
 			subfields(subquery)
 
 			addField(field: "node", aliasSuffix: alias, subfields: subquery)
@@ -50,28 +50,28 @@ extension Storefront {
 		}
 	}
 
-	/// An auto-generated type which holds one CartLine and a cursor during 
+	/// An auto-generated type which holds one BaseCartLine and a cursor during 
 	/// pagination. 
-	open class CartLineEdge: GraphQL.AbstractResponse, GraphQLObject {
-		public typealias Query = CartLineEdgeQuery
+	open class BaseCartLineEdge: GraphQL.AbstractResponse, GraphQLObject {
+		public typealias Query = BaseCartLineEdgeQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
 			let fieldValue = value
 			switch fieldName {
 				case "cursor":
 				guard let value = value as? String else {
-					throw SchemaViolationError(type: CartLineEdge.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: BaseCartLineEdge.self, field: fieldName, value: fieldValue)
 				}
 				return value
 
 				case "node":
 				guard let value = value as? [String: Any] else {
-					throw SchemaViolationError(type: CartLineEdge.self, field: fieldName, value: fieldValue)
+					throw SchemaViolationError(type: BaseCartLineEdge.self, field: fieldName, value: fieldValue)
 				}
-				return try CartLine(fields: value)
+				return try UnknownBaseCartLine.create(fields: value)
 
 				default:
-				throw SchemaViolationError(type: CartLineEdge.self, field: fieldName, value: fieldValue)
+				throw SchemaViolationError(type: BaseCartLineEdge.self, field: fieldName, value: fieldValue)
 			}
 		}
 
@@ -84,13 +84,13 @@ extension Storefront {
 			return field(field: "cursor", aliasSuffix: alias) as! String
 		}
 
-		/// The item at the end of CartLineEdge. 
-		open var node: Storefront.CartLine {
+		/// The item at the end of BaseCartLineEdge. 
+		open var node: BaseCartLine {
 			return internalGetNode()
 		}
 
-		func internalGetNode(alias: String? = nil) -> Storefront.CartLine {
-			return field(field: "node", aliasSuffix: alias) as! Storefront.CartLine
+		func internalGetNode(alias: String? = nil) -> BaseCartLine {
+			return field(field: "node", aliasSuffix: alias) as! BaseCartLine
 		}
 
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
@@ -98,8 +98,8 @@ extension Storefront {
 			objectMap.keys.forEach {
 				switch($0) {
 					case "node":
-					response.append(internalGetNode())
-					response.append(contentsOf: internalGetNode().childResponseObjectMap())
+					response.append((internalGetNode() as! GraphQL.AbstractResponse))
+					response.append(contentsOf: (internalGetNode() as! GraphQL.AbstractResponse).childResponseObjectMap())
 
 					default:
 					break

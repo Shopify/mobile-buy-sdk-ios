@@ -42,7 +42,7 @@ extension Storefront {
 		///     - reverse: Reverse the order of the underlying list.
 		///
 		@discardableResult
-		open func cartLines(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (CartLineConnectionQuery) -> Void) -> CartDeliveryGroupQuery {
+		open func cartLines(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, _ subfields: (BaseCartLineConnectionQuery) -> Void) -> CartDeliveryGroupQuery {
 			var args: [String] = []
 
 			if let first = first {
@@ -67,7 +67,7 @@ extension Storefront {
 
 			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
 
-			let subquery = CartLineConnectionQuery()
+			let subquery = BaseCartLineConnectionQuery()
 			subfields(subquery)
 
 			addField(field: "cartLines", aliasSuffix: alias, args: argsString, subfields: subquery)
@@ -124,7 +124,7 @@ extension Storefront {
 				guard let value = value as? [String: Any] else {
 					throw SchemaViolationError(type: CartDeliveryGroup.self, field: fieldName, value: fieldValue)
 				}
-				return try CartLineConnection(fields: value)
+				return try BaseCartLineConnection(fields: value)
 
 				case "deliveryAddress":
 				guard let value = value as? [String: Any] else {
@@ -157,16 +157,16 @@ extension Storefront {
 		}
 
 		/// A list of cart lines for the delivery group. 
-		open var cartLines: Storefront.CartLineConnection {
+		open var cartLines: Storefront.BaseCartLineConnection {
 			return internalGetCartLines()
 		}
 
-		open func aliasedCartLines(alias: String) -> Storefront.CartLineConnection {
+		open func aliasedCartLines(alias: String) -> Storefront.BaseCartLineConnection {
 			return internalGetCartLines(alias: alias)
 		}
 
-		func internalGetCartLines(alias: String? = nil) -> Storefront.CartLineConnection {
-			return field(field: "cartLines", aliasSuffix: alias) as! Storefront.CartLineConnection
+		func internalGetCartLines(alias: String? = nil) -> Storefront.BaseCartLineConnection {
+			return field(field: "cartLines", aliasSuffix: alias) as! Storefront.BaseCartLineConnection
 		}
 
 		/// The destination address for the delivery group. 

@@ -32,8 +32,23 @@ extension Storefront {
 		/// The input value is invalid. 
 		case invalid = "INVALID"
 
+		/// Delivery group was not found in cart. 
+		case invalidDeliveryGroup = "INVALID_DELIVERY_GROUP"
+
+		/// Delivery option was not valid. 
+		case invalidDeliveryOption = "INVALID_DELIVERY_OPTION"
+
 		/// Merchandise line was not found in cart. 
 		case invalidMerchandiseLine = "INVALID_MERCHANDISE_LINE"
+
+		/// The metafields were not valid. 
+		case invalidMetafields = "INVALID_METAFIELDS"
+
+		/// The payment wasn't valid. 
+		case invalidPayment = "INVALID_PAYMENT"
+
+		/// Cannot update payment on an empty cart 
+		case invalidPaymentEmptyCart = "INVALID_PAYMENT_EMPTY_CART"
 
 		/// The input value should be less than the maximum value allowed. 
 		case lessThan = "LESS_THAN"
@@ -43,6 +58,9 @@ extension Storefront {
 
 		/// Missing note. 
 		case missingNote = "MISSING_NOTE"
+
+		/// The payment method is not supported. 
+		case paymentMethodNotSupported = "PAYMENT_METHOD_NOT_SUPPORTED"
 
 		case unknownValue = ""
 	}

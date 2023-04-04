@@ -50,6 +50,11 @@ extension Storefront {
 		/// fields in the checkout flow. 
 		open var deliveryAddressPreferences: Input<[DeliveryAddressInput]>
 
+		/// A set of wallet preferences tied to the buyer that is interacting with the 
+		/// cart. Preferences can be used to populate relevant payment fields in the 
+		/// checkout flow. 
+		open var walletPreferences: Input<[String]>
+
 		/// Creates the input object.
 		///
 		/// - parameters:
@@ -58,17 +63,19 @@ extension Storefront {
 		///     - countryCode: The country where the buyer is located.
 		///     - customerAccessToken: The access token used to identify the customer associated with the cart.
 		///     - deliveryAddressPreferences: An ordered set of delivery addresses tied to the buyer that is interacting with the cart. The rank of the preferences is determined by the order of the addresses in the array. Preferences can be used to populate relevant fields in the checkout flow. 
+		///     - walletPreferences: A set of wallet preferences tied to the buyer that is interacting with the cart. Preferences can be used to populate relevant payment fields in the checkout flow. 
 		///
-		public static func create(email: Input<String> = .undefined, phone: Input<String> = .undefined, countryCode: Input<CountryCode> = .undefined, customerAccessToken: Input<String> = .undefined, deliveryAddressPreferences: Input<[DeliveryAddressInput]> = .undefined) -> CartBuyerIdentityInput {
-			return CartBuyerIdentityInput(email: email, phone: phone, countryCode: countryCode, customerAccessToken: customerAccessToken, deliveryAddressPreferences: deliveryAddressPreferences)
+		public static func create(email: Input<String> = .undefined, phone: Input<String> = .undefined, countryCode: Input<CountryCode> = .undefined, customerAccessToken: Input<String> = .undefined, deliveryAddressPreferences: Input<[DeliveryAddressInput]> = .undefined, walletPreferences: Input<[String]> = .undefined) -> CartBuyerIdentityInput {
+			return CartBuyerIdentityInput(email: email, phone: phone, countryCode: countryCode, customerAccessToken: customerAccessToken, deliveryAddressPreferences: deliveryAddressPreferences, walletPreferences: walletPreferences)
 		}
 
-		private init(email: Input<String> = .undefined, phone: Input<String> = .undefined, countryCode: Input<CountryCode> = .undefined, customerAccessToken: Input<String> = .undefined, deliveryAddressPreferences: Input<[DeliveryAddressInput]> = .undefined) {
+		private init(email: Input<String> = .undefined, phone: Input<String> = .undefined, countryCode: Input<CountryCode> = .undefined, customerAccessToken: Input<String> = .undefined, deliveryAddressPreferences: Input<[DeliveryAddressInput]> = .undefined, walletPreferences: Input<[String]> = .undefined) {
 			self.email = email
 			self.phone = phone
 			self.countryCode = countryCode
 			self.customerAccessToken = customerAccessToken
 			self.deliveryAddressPreferences = deliveryAddressPreferences
+			self.walletPreferences = walletPreferences
 		}
 
 		/// Creates the input object.
@@ -79,10 +86,11 @@ extension Storefront {
 		///     - countryCode: The country where the buyer is located.
 		///     - customerAccessToken: The access token used to identify the customer associated with the cart.
 		///     - deliveryAddressPreferences: An ordered set of delivery addresses tied to the buyer that is interacting with the cart. The rank of the preferences is determined by the order of the addresses in the array. Preferences can be used to populate relevant fields in the checkout flow. 
+		///     - walletPreferences: A set of wallet preferences tied to the buyer that is interacting with the cart. Preferences can be used to populate relevant payment fields in the checkout flow. 
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
-		public convenience init(email: String? = nil, phone: String? = nil, countryCode: CountryCode? = nil, customerAccessToken: String? = nil, deliveryAddressPreferences: [DeliveryAddressInput]? = nil) {
-			self.init(email: email.orUndefined, phone: phone.orUndefined, countryCode: countryCode.orUndefined, customerAccessToken: customerAccessToken.orUndefined, deliveryAddressPreferences: deliveryAddressPreferences.orUndefined)
+		public convenience init(email: String? = nil, phone: String? = nil, countryCode: CountryCode? = nil, customerAccessToken: String? = nil, deliveryAddressPreferences: [DeliveryAddressInput]? = nil, walletPreferences: [String]? = nil) {
+			self.init(email: email.orUndefined, phone: phone.orUndefined, countryCode: countryCode.orUndefined, customerAccessToken: customerAccessToken.orUndefined, deliveryAddressPreferences: deliveryAddressPreferences.orUndefined, walletPreferences: walletPreferences.orUndefined)
 		}
 
 		internal func serialize() -> String {
@@ -135,6 +143,16 @@ extension Storefront {
 					break
 				}
 				fields.append("deliveryAddressPreferences:[\(deliveryAddressPreferences.map{ "\($0.serialize())" }.joined(separator: ","))]")
+				case .undefined: break
+			}
+
+			switch walletPreferences {
+				case .value(let walletPreferences): 
+				guard let walletPreferences = walletPreferences else {
+					fields.append("walletPreferences:null")
+					break
+				}
+				fields.append("walletPreferences:[\(walletPreferences.map{ "\(GraphQL.quoteString(input: $0))" }.joined(separator: ","))]")
 				case .undefined: break
 			}
 

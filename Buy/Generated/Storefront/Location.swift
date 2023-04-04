@@ -48,6 +48,50 @@ extension Storefront {
 			return self
 		}
 
+		/// Returns a metafield found by namespace and key. 
+		///
+		/// - parameters:
+		///     - namespace: A container for a set of metafields.
+		///     - key: The identifier for the metafield.
+		///
+		@discardableResult
+		open func metafield(alias: String? = nil, namespace: String, key: String, _ subfields: (MetafieldQuery) -> Void) -> LocationQuery {
+			var args: [String] = []
+
+			args.append("namespace:\(GraphQL.quoteString(input: namespace))")
+
+			args.append("key:\(GraphQL.quoteString(input: key))")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = MetafieldQuery()
+			subfields(subquery)
+
+			addField(field: "metafield", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// The metafields associated with the resource matching the supplied list of 
+		/// namespaces and keys. 
+		///
+		/// - parameters:
+		///     - identifiers: The list of metafields to retrieve by namespace and key.
+		///
+		@discardableResult
+		open func metafields(alias: String? = nil, identifiers: [HasMetafieldsIdentifier], _ subfields: (MetafieldQuery) -> Void) -> LocationQuery {
+			var args: [String] = []
+
+			args.append("identifiers:[\(identifiers.map{ "\($0.serialize())" }.joined(separator: ","))]")
+
+			let argsString = "(\(args.joined(separator: ",")))"
+
+			let subquery = MetafieldQuery()
+			subfields(subquery)
+
+			addField(field: "metafields", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// The name of the location. 
 		@discardableResult
 		open func name(alias: String? = nil) -> LocationQuery {
@@ -57,7 +101,7 @@ extension Storefront {
 	}
 
 	/// Represents a location where product inventory is held. 
-	open class Location: GraphQL.AbstractResponse, GraphQLObject, Node {
+	open class Location: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource, Node {
 		public typealias Query = LocationQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
@@ -74,6 +118,23 @@ extension Storefront {
 					throw SchemaViolationError(type: Location.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.ID(rawValue: value)
+
+				case "metafield":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Location.self, field: fieldName, value: fieldValue)
+				}
+				return try Metafield(fields: value)
+
+				case "metafields":
+				guard let value = value as? [Any] else {
+					throw SchemaViolationError(type: Location.self, field: fieldName, value: fieldValue)
+				}
+				return try value.map { if $0 is NSNull { return nil }
+				guard let value = $0 as? [String: Any] else {
+					throw SchemaViolationError(type: Location.self, field: fieldName, value: fieldValue)
+				}
+				return try Metafield(fields: value) } as [Any?]
 
 				case "name":
 				guard let value = value as? String else {
@@ -104,6 +165,33 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
+		/// Returns a metafield found by namespace and key. 
+		open var metafield: Storefront.Metafield? {
+			return internalGetMetafield()
+		}
+
+		open func aliasedMetafield(alias: String) -> Storefront.Metafield? {
+			return internalGetMetafield(alias: alias)
+		}
+
+		func internalGetMetafield(alias: String? = nil) -> Storefront.Metafield? {
+			return field(field: "metafield", aliasSuffix: alias) as! Storefront.Metafield?
+		}
+
+		/// The metafields associated with the resource matching the supplied list of 
+		/// namespaces and keys. 
+		open var metafields: [Storefront.Metafield?] {
+			return internalGetMetafields()
+		}
+
+		open func aliasedMetafields(alias: String) -> [Storefront.Metafield?] {
+			return internalGetMetafields(alias: alias)
+		}
+
+		func internalGetMetafields(alias: String? = nil) -> [Storefront.Metafield?] {
+			return field(field: "metafields", aliasSuffix: alias) as! [Storefront.Metafield?]
+		}
+
 		/// The name of the location. 
 		open var name: String {
 			return internalGetName()
@@ -120,6 +208,20 @@ extension Storefront {
 					case "address":
 					response.append(internalGetAddress())
 					response.append(contentsOf: internalGetAddress().childResponseObjectMap())
+
+					case "metafield":
+					if let value = internalGetMetafield() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
+					case "metafields":
+					internalGetMetafields().forEach {
+						if let value = $0 {
+							response.append(value)
+							response.append(contentsOf: value.childResponseObjectMap())
+						}
+					}
 
 					default:
 					break

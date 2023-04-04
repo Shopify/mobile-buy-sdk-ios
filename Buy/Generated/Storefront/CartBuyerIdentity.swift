@@ -74,6 +74,15 @@ extension Storefront {
 			addField(field: "phone", aliasSuffix: alias)
 			return self
 		}
+
+		/// A set of wallet preferences tied to the buyer that is interacting with the 
+		/// cart. Preferences can be used to populate relevant payment fields in the 
+		/// checkout flow. 
+		@discardableResult
+		open func walletPreferences(alias: String? = nil) -> CartBuyerIdentityQuery {
+			addField(field: "walletPreferences", aliasSuffix: alias)
+			return self
+		}
 	}
 
 	/// Represents information about the buyer that is interacting with the cart. 
@@ -116,6 +125,12 @@ extension Storefront {
 					throw SchemaViolationError(type: CartBuyerIdentity.self, field: fieldName, value: fieldValue)
 				}
 				return value
+
+				case "walletPreferences":
+				guard let value = value as? [String] else {
+					throw SchemaViolationError(type: CartBuyerIdentity.self, field: fieldName, value: fieldValue)
+				}
+				return value.map { return $0 }
 
 				default:
 				throw SchemaViolationError(type: CartBuyerIdentity.self, field: fieldName, value: fieldValue)
@@ -168,6 +183,17 @@ extension Storefront {
 
 		func internalGetPhone(alias: String? = nil) -> String? {
 			return field(field: "phone", aliasSuffix: alias) as! String?
+		}
+
+		/// A set of wallet preferences tied to the buyer that is interacting with the 
+		/// cart. Preferences can be used to populate relevant payment fields in the 
+		/// checkout flow. 
+		open var walletPreferences: [String] {
+			return internalGetWalletPreferences()
+		}
+
+		func internalGetWalletPreferences(alias: String? = nil) -> [String] {
+			return field(field: "walletPreferences", aliasSuffix: alias) as! [String]
 		}
 
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {

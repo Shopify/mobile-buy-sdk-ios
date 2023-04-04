@@ -30,6 +30,8 @@ extension Storefront {
 	/// Returns information about pagination in a connection, in accordance with 
 	/// the [Relay 
 	/// specification](https://relay.dev/graphql/connections.htm#sec-undefined.PageInfo). 
+	/// For more information, please read our [GraphQL Pagination Usage 
+	/// Guide](https://shopify.dev/api/usage/pagination-graphql). 
 	open class PageInfoQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = PageInfo
 
@@ -65,6 +67,8 @@ extension Storefront {
 	/// Returns information about pagination in a connection, in accordance with 
 	/// the [Relay 
 	/// specification](https://relay.dev/graphql/connections.htm#sec-undefined.PageInfo). 
+	/// For more information, please read our [GraphQL Pagination Usage 
+	/// Guide](https://shopify.dev/api/usage/pagination-graphql). 
 	open class PageInfo: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = PageInfoQuery
 

@@ -58,6 +58,16 @@ extension Storefront {
 			return self
 		}
 
+		/// The market that includes this country. 
+		@discardableResult
+		open func market(alias: String? = nil, _ subfields: (MarketQuery) -> Void) -> CountryQuery {
+			let subquery = MarketQuery()
+			subfields(subquery)
+
+			addField(field: "market", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The name of the country. 
 		@discardableResult
 		open func name(alias: String? = nil) -> CountryQuery {
@@ -97,6 +107,13 @@ extension Storefront {
 					throw SchemaViolationError(type: Country.self, field: fieldName, value: fieldValue)
 				}
 				return CountryCode(rawValue: value) ?? .unknownValue
+
+				case "market":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Country.self, field: fieldName, value: fieldValue)
+				}
+				return try Market(fields: value)
 
 				case "name":
 				guard let value = value as? String else {
@@ -142,6 +159,15 @@ extension Storefront {
 			return field(field: "isoCode", aliasSuffix: alias) as! Storefront.CountryCode
 		}
 
+		/// The market that includes this country. 
+		open var market: Storefront.Market? {
+			return internalGetMarket()
+		}
+
+		func internalGetMarket(alias: String? = nil) -> Storefront.Market? {
+			return field(field: "market", aliasSuffix: alias) as! Storefront.Market?
+		}
+
 		/// The name of the country. 
 		open var name: String {
 			return internalGetName()
@@ -173,6 +199,12 @@ extension Storefront {
 					case "currency":
 					response.append(internalGetCurrency())
 					response.append(contentsOf: internalGetCurrency().childResponseObjectMap())
+
+					case "market":
+					if let value = internalGetMarket() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
 
 					default:
 					break
