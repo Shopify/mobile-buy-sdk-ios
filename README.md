@@ -802,18 +802,11 @@ Before you display products to the user, you typically need to obtain various me
 let query = Storefront.buildQuery { $0
     .shop { $0
         .name()
-        .currencyCode()
-        .refundPolicy { $0
-            .title()
-            .url()
-        }
     }
 }
 
 let task = client.queryGraphWith(query) { response, error in
     let name         = response?.shop.name
-    let currencyCode = response?.shop.currencyCode
-    let moneyFormat  = response?.shop.moneyFormat
 }
 task.resume()
 ```
@@ -824,11 +817,6 @@ The corresponding GraphQL query looks like this:
 query {
   shop {
     name
-    currencyCode
-    refundPolicy {
-      title
-      url
-    }
   }
 }
 ```
