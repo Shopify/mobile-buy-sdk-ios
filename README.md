@@ -1641,4 +1641,4 @@ For help with the Mobile Buy SDK, see the [iOS Buy SDK documentation](https://he
 
 ## License [⤴](#table-of-contents)
 
-The Mobile Buy SDK is provided under an [MIT License](LICENSE).
+The Mobile Buy SDK for iOS is provided under an [MIT License](LICENSE).
