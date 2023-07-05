@@ -67,7 +67,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A globally-unique identifier. 
+		/// A globally-unique ID. 
 		@discardableResult
 		open func id(alias: String? = nil) -> CommentQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -142,7 +142,7 @@ extension Storefront {
 			return field(field: "contentHtml", aliasSuffix: alias) as! String
 		}
 
-		/// A globally-unique identifier. 
+		/// A globally-unique ID. 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}

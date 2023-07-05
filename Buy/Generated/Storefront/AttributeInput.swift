@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// Specifies the input fields required for an attribute. 
+	/// The input fields for an attribute. 
 	open class AttributeInput {
 		/// Key or name of the attribute. 
 		open var key: String

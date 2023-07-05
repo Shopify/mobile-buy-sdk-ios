@@ -60,6 +60,13 @@ extension Storefront {
 			addField(field: "pageInfo", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
+
+		/// The total count of Collections. 
+		@discardableResult
+		open func totalCount(alias: String? = nil) -> CollectionConnectionQuery {
+			addField(field: "totalCount", aliasSuffix: alias)
+			return self
+		}
 	}
 
 	/// An auto-generated type for paginating through multiple Collections. 
@@ -86,6 +93,12 @@ extension Storefront {
 					throw SchemaViolationError(type: CollectionConnection.self, field: fieldName, value: fieldValue)
 				}
 				return try PageInfo(fields: value)
+
+				case "totalCount":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: CollectionConnection.self, field: fieldName, value: fieldValue)
+				}
+				return value
 
 				default:
 				throw SchemaViolationError(type: CollectionConnection.self, field: fieldName, value: fieldValue)
@@ -117,6 +130,15 @@ extension Storefront {
 
 		func internalGetPageInfo(alias: String? = nil) -> Storefront.PageInfo {
 			return field(field: "pageInfo", aliasSuffix: alias) as! Storefront.PageInfo
+		}
+
+		/// The total count of Collections. 
+		open var totalCount: String {
+			return internalGetTotalCount()
+		}
+
+		func internalGetTotalCount(alias: String? = nil) -> String {
+			return field(field: "totalCount", aliasSuffix: alias) as! String
 		}
 
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {

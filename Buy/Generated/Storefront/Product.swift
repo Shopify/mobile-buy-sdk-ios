@@ -147,7 +147,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A globally-unique identifier. 
+		/// A globally-unique ID. 
 		@discardableResult
 		open func id(alias: String? = nil) -> ProductQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -440,6 +440,14 @@ extension Storefront {
 			return self
 		}
 
+		/// A URL parameters to be added to a page URL when it is linked from a GraphQL 
+		/// result. This allows for tracking the origin of the traffic. 
+		@discardableResult
+		open func trackingParameters(alias: String? = nil) -> ProductQuery {
+			addField(field: "trackingParameters", aliasSuffix: alias)
+			return self
+		}
+
 		/// The date and time when the product was last modified. A product's 
 		/// `updatedAt` value can change for different reasons. For example, if an 
 		/// order is placed for a product that has inventory tracking set up, then the 
@@ -533,7 +541,7 @@ extension Storefront {
 	/// digital download (such as a movie, music or ebook file) also qualifies as a 
 	/// product, as do services (such as equipment rental, work for hire, 
 	/// customization of another product or an extended warranty). 
-	open class Product: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource, MetafieldReference, Node, OnlineStorePublishable {
+	open class Product: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MenuItemResource, MetafieldParentResource, MetafieldReference, Node, OnlineStorePublishable, SearchResultItem, Trackable {
 		public typealias Query = ProductQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
@@ -697,6 +705,13 @@ extension Storefront {
 				}
 				return Int32(value)
 
+				case "trackingParameters":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
+				}
+				return value
+
 				case "updatedAt":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: Product.self, field: fieldName, value: fieldValue)
@@ -810,7 +825,7 @@ extension Storefront {
 			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
-		/// A globally-unique identifier. 
+		/// A globally-unique ID. 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -994,6 +1009,16 @@ extension Storefront {
 
 		func internalGetTotalInventory(alias: String? = nil) -> Int32? {
 			return field(field: "totalInventory", aliasSuffix: alias) as! Int32?
+		}
+
+		/// A URL parameters to be added to a page URL when it is linked from a GraphQL 
+		/// result. This allows for tracking the origin of the traffic. 
+		open var trackingParameters: String? {
+			return internalGetTrackingParameters()
+		}
+
+		func internalGetTrackingParameters(alias: String? = nil) -> String? {
+			return field(field: "trackingParameters", aliasSuffix: alias) as! String?
 		}
 
 		/// The date and time when the product was last modified. A product's 

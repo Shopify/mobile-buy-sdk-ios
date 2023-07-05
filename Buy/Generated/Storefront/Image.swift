@@ -46,7 +46,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A unique identifier for the image. 
+		/// A unique ID for the image. 
 		@discardableResult
 		open func id(alias: String? = nil) -> ImageQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -230,7 +230,7 @@ extension Storefront {
 			return field(field: "height", aliasSuffix: alias) as! Int32?
 		}
 
-		/// A unique identifier for the image. 
+		/// A unique ID for the image. 
 		open var id: GraphQL.ID? {
 			return internalGetId()
 		}

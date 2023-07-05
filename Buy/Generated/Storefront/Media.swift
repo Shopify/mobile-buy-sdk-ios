@@ -30,6 +30,8 @@ import Foundation
 public protocol Media {
 	var alt: String? { get }
 
+	var id: GraphQL.ID { get }
+
 	var mediaContentType: Storefront.MediaContentType { get }
 
 	var presentation: Storefront.MediaPresentation? { get }
@@ -46,6 +48,13 @@ extension Storefront {
 		@discardableResult
 		open func alt(alias: String? = nil) -> MediaQuery {
 			addField(field: "alt", aliasSuffix: alias)
+			return self
+		}
+
+		/// A globally-unique ID. 
+		@discardableResult
+		open func id(alias: String? = nil) -> MediaQuery {
+			addField(field: "id", aliasSuffix: alias)
 			return self
 		}
 
@@ -132,6 +141,12 @@ extension Storefront {
 				}
 				return value
 
+				case "id":
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: UnknownMedia.self, field: fieldName, value: fieldValue)
+				}
+				return GraphQL.ID(rawValue: value)
+
 				case "mediaContentType":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: UnknownMedia.self, field: fieldName, value: fieldValue)
@@ -182,6 +197,15 @@ extension Storefront {
 
 		func internalGetAlt(alias: String? = nil) -> String? {
 			return field(field: "alt", aliasSuffix: alias) as! String?
+		}
+
+		/// A globally-unique ID. 
+		open var id: GraphQL.ID {
+			return internalGetId()
+		}
+
+		func internalGetId(alias: String? = nil) -> GraphQL.ID {
+			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
 		/// The media content type. 

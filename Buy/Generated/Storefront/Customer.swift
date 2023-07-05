@@ -121,7 +121,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A unique identifier for the customer. 
+		/// A unique ID for the customer. 
 		@discardableResult
 		open func id(alias: String? = nil) -> CustomerQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -471,7 +471,7 @@ extension Storefront {
 			return field(field: "firstName", aliasSuffix: alias) as! String?
 		}
 
-		/// A unique identifier for the customer. 
+		/// A unique ID for the customer. 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}

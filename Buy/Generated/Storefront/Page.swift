@@ -61,7 +61,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A globally-unique identifier. 
+		/// A globally-unique ID. 
 		@discardableResult
 		open func id(alias: String? = nil) -> PageQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -138,6 +138,14 @@ extension Storefront {
 			return self
 		}
 
+		/// A URL parameters to be added to a page URL when it is linked from a GraphQL 
+		/// result. This allows for tracking the origin of the traffic. 
+		@discardableResult
+		open func trackingParameters(alias: String? = nil) -> PageQuery {
+			addField(field: "trackingParameters", aliasSuffix: alias)
+			return self
+		}
+
 		/// The timestamp of the latest page update. 
 		@discardableResult
 		open func updatedAt(alias: String? = nil) -> PageQuery {
@@ -148,7 +156,7 @@ extension Storefront {
 
 	/// Shopify merchants can create pages to hold static HTML content. Each Page 
 	/// object represents a custom page on the online store. 
-	open class Page: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource, MetafieldReference, Node, OnlineStorePublishable {
+	open class Page: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MenuItemResource, MetafieldParentResource, MetafieldReference, Node, OnlineStorePublishable, SearchResultItem, Trackable {
 		public typealias Query = PageQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
@@ -221,6 +229,13 @@ extension Storefront {
 				}
 				return value
 
+				case "trackingParameters":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Page.self, field: fieldName, value: fieldValue)
+				}
+				return value
+
 				case "updatedAt":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: Page.self, field: fieldName, value: fieldValue)
@@ -269,7 +284,7 @@ extension Storefront {
 			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
-		/// A globally-unique identifier. 
+		/// A globally-unique ID. 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -332,6 +347,16 @@ extension Storefront {
 
 		func internalGetTitle(alias: String? = nil) -> String {
 			return field(field: "title", aliasSuffix: alias) as! String
+		}
+
+		/// A URL parameters to be added to a page URL when it is linked from a GraphQL 
+		/// result. This allows for tracking the origin of the traffic. 
+		open var trackingParameters: String? {
+			return internalGetTrackingParameters()
+		}
+
+		func internalGetTrackingParameters(alias: String? = nil) -> String? {
+			return field(field: "trackingParameters", aliasSuffix: alias) as! String?
 		}
 
 		/// The timestamp of the latest page update. 

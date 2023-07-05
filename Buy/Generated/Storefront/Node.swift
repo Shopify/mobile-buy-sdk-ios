@@ -48,7 +48,7 @@ extension Storefront {
 	open class NodeQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Node
 
-		/// A globally-unique identifier. 
+		/// A globally-unique ID. 
 		@discardableResult
 		open func id(alias: String? = nil) -> NodeQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -192,6 +192,21 @@ extension Storefront {
 			let subquery = CommentQuery()
 			subfields(subquery)
 			addInlineFragment(on: "Comment", subfields: subquery)
+			return self
+		}
+
+		/// An object with an ID field to support global identification, in accordance 
+		/// with the [Relay 
+		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
+		/// This interface is used by the 
+		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
+		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
+		/// queries. 
+		@discardableResult
+		open func onComponentizableCartLine(subfields: (ComponentizableCartLineQuery) -> Void) -> NodeQuery {
+			let subquery = ComponentizableCartLineQuery()
+			subfields(subquery)
+			addInlineFragment(on: "ComponentizableCartLine", subfields: subquery)
 			return self
 		}
 
@@ -573,6 +588,8 @@ extension Storefront {
 
 				case "Comment": return try Comment.init(fields: fields)
 
+				case "ComponentizableCartLine": return try ComponentizableCartLine.init(fields: fields)
+
 				case "ExternalVideo": return try ExternalVideo.init(fields: fields)
 
 				case "GenericFile": return try GenericFile.init(fields: fields)
@@ -622,7 +639,7 @@ extension Storefront {
 			}
 		}
 
-		/// A globally-unique identifier. 
+		/// A globally-unique ID. 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}

@@ -46,7 +46,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A globally-unique identifier. 
+		/// A globally-unique ID. 
 		@discardableResult
 		open func id(alias: String? = nil) -> ShopPolicyQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -70,7 +70,7 @@ extension Storefront {
 
 	/// Policy that a merchant has configured for their store, such as their refund 
 	/// or privacy policy. 
-	open class ShopPolicy: GraphQL.AbstractResponse, GraphQLObject, Node {
+	open class ShopPolicy: GraphQL.AbstractResponse, GraphQLObject, MenuItemResource, Node {
 		public typealias Query = ShopPolicyQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
@@ -129,7 +129,7 @@ extension Storefront {
 			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
-		/// A globally-unique identifier. 
+		/// A globally-unique ID. 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}

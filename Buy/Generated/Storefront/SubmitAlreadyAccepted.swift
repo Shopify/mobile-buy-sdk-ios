@@ -31,7 +31,7 @@ extension Storefront {
 	open class SubmitAlreadyAcceptedQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = SubmitAlreadyAccepted
 
-		/// The id of the cart completion attempt that will be used for polling for the 
+		/// The ID of the cart completion attempt that will be used for polling for the 
 		/// result. 
 		@discardableResult
 		open func attemptId(alias: String? = nil) -> SubmitAlreadyAcceptedQuery {
@@ -58,7 +58,7 @@ extension Storefront {
 			}
 		}
 
-		/// The id of the cart completion attempt that will be used for polling for the 
+		/// The ID of the cart completion attempt that will be used for polling for the 
 		/// result. 
 		open var attemptId: String {
 			return internalGetAttemptId()

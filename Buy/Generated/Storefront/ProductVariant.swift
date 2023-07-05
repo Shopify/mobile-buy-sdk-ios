@@ -77,7 +77,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A globally-unique identifier. 
+		/// A globally-unique ID. 
 		@discardableResult
 		open func id(alias: String? = nil) -> ProductVariantQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -550,7 +550,7 @@ extension Storefront {
 			return field(field: "currentlyNotInStock", aliasSuffix: alias) as! Bool
 		}
 
-		/// A globally-unique identifier. 
+		/// A globally-unique ID. 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}

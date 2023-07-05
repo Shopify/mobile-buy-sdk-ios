@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// Specifies the input fields to create a merchandise line on a cart. 
+	/// The input fields to create a merchandise line on a cart. 
 	open class CartLineInput {
 		/// An array of key-value pairs that contains additional information about the 
 		/// merchandise line. 
@@ -36,11 +36,10 @@ extension Storefront {
 		/// The quantity of the merchandise. 
 		open var quantity: Input<Int32>
 
-		/// The identifier of the merchandise that the buyer intends to purchase. 
+		/// The ID of the merchandise that the buyer intends to purchase. 
 		open var merchandiseId: GraphQL.ID
 
-		/// The identifier of the selling plan that the merchandise is being purchased 
-		/// with. 
+		/// The ID of the selling plan that the merchandise is being purchased with. 
 		open var sellingPlanId: Input<GraphQL.ID>
 
 		/// Creates the input object.
@@ -48,8 +47,8 @@ extension Storefront {
 		/// - parameters:
 		///     - attributes: An array of key-value pairs that contains additional information about the merchandise line.
 		///     - quantity: The quantity of the merchandise.
-		///     - merchandiseId: The identifier of the merchandise that the buyer intends to purchase.
-		///     - sellingPlanId: The identifier of the selling plan that the merchandise is being purchased with.
+		///     - merchandiseId: The ID of the merchandise that the buyer intends to purchase.
+		///     - sellingPlanId: The ID of the selling plan that the merchandise is being purchased with.
 		///
 		public static func create(merchandiseId: GraphQL.ID, attributes: Input<[AttributeInput]> = .undefined, quantity: Input<Int32> = .undefined, sellingPlanId: Input<GraphQL.ID> = .undefined) -> CartLineInput {
 			return CartLineInput(merchandiseId: merchandiseId, attributes: attributes, quantity: quantity, sellingPlanId: sellingPlanId)
@@ -67,8 +66,8 @@ extension Storefront {
 		/// - parameters:
 		///     - attributes: An array of key-value pairs that contains additional information about the merchandise line.
 		///     - quantity: The quantity of the merchandise.
-		///     - merchandiseId: The identifier of the merchandise that the buyer intends to purchase.
-		///     - sellingPlanId: The identifier of the selling plan that the merchandise is being purchased with.
+		///     - merchandiseId: The ID of the merchandise that the buyer intends to purchase.
+		///     - sellingPlanId: The ID of the selling plan that the merchandise is being purchased with.
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
 		public convenience init(merchandiseId: GraphQL.ID, attributes: [AttributeInput]? = nil, quantity: Int32? = nil, sellingPlanId: GraphQL.ID? = nil) {

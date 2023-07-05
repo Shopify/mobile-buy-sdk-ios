@@ -31,7 +31,7 @@ extension Storefront {
 	open class MenuItemQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = MenuItem
 
-		/// A globally-unique identifier. 
+		/// A globally-unique ID. 
 		@discardableResult
 		open func id(alias: String? = nil) -> MenuItemQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -45,6 +45,16 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "items", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// The linked resource. 
+		@discardableResult
+		open func resource(alias: String? = nil, _ subfields: (MenuItemResourceQuery) -> Void) -> MenuItemQuery {
+			let subquery = MenuItemResourceQuery()
+			subfields(subquery)
+
+			addField(field: "resource", aliasSuffix: alias, subfields: subquery)
 			return self
 		}
 
@@ -103,6 +113,13 @@ extension Storefront {
 				}
 				return try value.map { return try MenuItem(fields: $0) }
 
+				case "resource":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: MenuItem.self, field: fieldName, value: fieldValue)
+				}
+				return try UnknownMenuItemResource.create(fields: value)
+
 				case "resourceId":
 				if value is NSNull { return nil }
 				guard let value = value as? String else {
@@ -140,7 +157,7 @@ extension Storefront {
 			}
 		}
 
-		/// A globally-unique identifier. 
+		/// A globally-unique ID. 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -156,6 +173,15 @@ extension Storefront {
 
 		func internalGetItems(alias: String? = nil) -> [Storefront.MenuItem] {
 			return field(field: "items", aliasSuffix: alias) as! [Storefront.MenuItem]
+		}
+
+		/// The linked resource. 
+		open var resource: MenuItemResource? {
+			return internalGetResource()
+		}
+
+		func internalGetResource(alias: String? = nil) -> MenuItemResource? {
+			return field(field: "resource", aliasSuffix: alias) as! MenuItemResource?
 		}
 
 		/// The ID of the linked resource. 
