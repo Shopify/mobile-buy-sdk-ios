@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// Specifies the input fields to create a line item on a checkout. 
+	/// The input fields to create a line item on a checkout. 
 	open class CheckoutLineItemInput {
 		/// Extra information in the form of an array of Key-Value pairs about the line 
 		/// item. 
@@ -36,7 +36,7 @@ extension Storefront {
 		/// The quantity of the line item. 
 		open var quantity: Int32
 
-		/// The identifier of the product variant for the line item. 
+		/// The ID of the product variant for the line item. 
 		open var variantId: GraphQL.ID
 
 		/// Creates the input object.
@@ -44,7 +44,7 @@ extension Storefront {
 		/// - parameters:
 		///     - customAttributes: Extra information in the form of an array of Key-Value pairs about the line item.
 		///     - quantity: The quantity of the line item.
-		///     - variantId: The identifier of the product variant for the line item.
+		///     - variantId: The ID of the product variant for the line item.
 		///
 		public static func create(quantity: Int32, variantId: GraphQL.ID, customAttributes: Input<[AttributeInput]> = .undefined) -> CheckoutLineItemInput {
 			return CheckoutLineItemInput(quantity: quantity, variantId: variantId, customAttributes: customAttributes)
@@ -61,7 +61,7 @@ extension Storefront {
 		/// - parameters:
 		///     - customAttributes: Extra information in the form of an array of Key-Value pairs about the line item.
 		///     - quantity: The quantity of the line item.
-		///     - variantId: The identifier of the product variant for the line item.
+		///     - variantId: The ID of the product variant for the line item.
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
 		public convenience init(quantity: Int32, variantId: GraphQL.ID, customAttributes: [AttributeInput]? = nil) {

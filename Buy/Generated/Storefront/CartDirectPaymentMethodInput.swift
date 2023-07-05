@@ -36,14 +36,24 @@ extension Storefront {
 		/// The session ID for the direct payment method used to create the payment. 
 		open var sessionId: String
 
+		/// The source of the credit card payment. 
+		open var cardSource: Input<CartCardSource>
+
 		/// Creates the input object.
 		///
 		/// - parameters:
 		///     - billingAddress: The customer's billing address.
 		///     - sessionId: The session ID for the direct payment method used to create the payment.
+		///     - cardSource: The source of the credit card payment.
 		///
-		public static func create(billingAddress: MailingAddressInput, sessionId: String) -> CartDirectPaymentMethodInput {
-			return CartDirectPaymentMethodInput(billingAddress: billingAddress, sessionId: sessionId)
+		public static func create(billingAddress: MailingAddressInput, sessionId: String, cardSource: Input<CartCardSource> = .undefined) -> CartDirectPaymentMethodInput {
+			return CartDirectPaymentMethodInput(billingAddress: billingAddress, sessionId: sessionId, cardSource: cardSource)
+		}
+
+		private init(billingAddress: MailingAddressInput, sessionId: String, cardSource: Input<CartCardSource> = .undefined) {
+			self.billingAddress = billingAddress
+			self.sessionId = sessionId
+			self.cardSource = cardSource
 		}
 
 		/// Creates the input object.
@@ -51,10 +61,11 @@ extension Storefront {
 		/// - parameters:
 		///     - billingAddress: The customer's billing address.
 		///     - sessionId: The session ID for the direct payment method used to create the payment.
+		///     - cardSource: The source of the credit card payment.
 		///
-		public init(billingAddress: MailingAddressInput, sessionId: String) {
-			self.billingAddress = billingAddress
-			self.sessionId = sessionId
+		@available(*, deprecated, message: "Use the static create() method instead.")
+		public convenience init(billingAddress: MailingAddressInput, sessionId: String, cardSource: CartCardSource? = nil) {
+			self.init(billingAddress: billingAddress, sessionId: sessionId, cardSource: cardSource.orUndefined)
 		}
 
 		internal func serialize() -> String {
@@ -63,6 +74,16 @@ extension Storefront {
 			fields.append("billingAddress:\(billingAddress.serialize())")
 
 			fields.append("sessionId:\(GraphQL.quoteString(input: sessionId))")
+
+			switch cardSource {
+				case .value(let cardSource): 
+				guard let cardSource = cardSource else {
+					fields.append("cardSource:null")
+					break
+				}
+				fields.append("cardSource:\(cardSource.rawValue)")
+				case .undefined: break
+			}
 
 			return "{\(fields.joined(separator: ","))}"
 		}

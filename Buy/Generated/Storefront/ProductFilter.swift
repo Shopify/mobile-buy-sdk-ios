@@ -27,7 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// A filter used to view a subset of products in a collection. 
+	/// The input fields for a filter used to view a subset of products in a 
+	/// collection. By default, the `available` and `price` filters are enabled. 
+	/// Filters are customized with the Shopify Search & Discovery app. Learn more 
+	/// about [customizing storefront 
+	/// filtering](https://help.shopify.com/manual/online-store/themes/customizing-themes/storefront-filters). 
 	open class ProductFilter {
 		/// Filter on if the product is available for sale. 
 		open var available: Input<Bool>

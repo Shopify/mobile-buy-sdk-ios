@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// Specifies the input fields required to create a customer access token. 
+	/// The input fields required to create a customer access token. 
 	open class CustomerAccessTokenCreateInput {
 		/// The email associated to the customer. 
 		open var email: String

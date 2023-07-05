@@ -52,7 +52,7 @@ extension Storefront {
 
 		/// A set of wallet preferences tied to the buyer that is interacting with the 
 		/// cart. Preferences can be used to populate relevant payment fields in the 
-		/// checkout flow. 
+		/// checkout flow. Accepted value: `["shop_pay"]`. 
 		open var walletPreferences: Input<[String]>
 
 		/// Creates the input object.
@@ -63,7 +63,7 @@ extension Storefront {
 		///     - countryCode: The country where the buyer is located.
 		///     - customerAccessToken: The access token used to identify the customer associated with the cart.
 		///     - deliveryAddressPreferences: An ordered set of delivery addresses tied to the buyer that is interacting with the cart. The rank of the preferences is determined by the order of the addresses in the array. Preferences can be used to populate relevant fields in the checkout flow. 
-		///     - walletPreferences: A set of wallet preferences tied to the buyer that is interacting with the cart. Preferences can be used to populate relevant payment fields in the checkout flow. 
+		///     - walletPreferences: A set of wallet preferences tied to the buyer that is interacting with the cart. Preferences can be used to populate relevant payment fields in the checkout flow.   Accepted value: `["shop_pay"]`. 
 		///
 		public static func create(email: Input<String> = .undefined, phone: Input<String> = .undefined, countryCode: Input<CountryCode> = .undefined, customerAccessToken: Input<String> = .undefined, deliveryAddressPreferences: Input<[DeliveryAddressInput]> = .undefined, walletPreferences: Input<[String]> = .undefined) -> CartBuyerIdentityInput {
 			return CartBuyerIdentityInput(email: email, phone: phone, countryCode: countryCode, customerAccessToken: customerAccessToken, deliveryAddressPreferences: deliveryAddressPreferences, walletPreferences: walletPreferences)
@@ -86,7 +86,7 @@ extension Storefront {
 		///     - countryCode: The country where the buyer is located.
 		///     - customerAccessToken: The access token used to identify the customer associated with the cart.
 		///     - deliveryAddressPreferences: An ordered set of delivery addresses tied to the buyer that is interacting with the cart. The rank of the preferences is determined by the order of the addresses in the array. Preferences can be used to populate relevant fields in the checkout flow. 
-		///     - walletPreferences: A set of wallet preferences tied to the buyer that is interacting with the cart. Preferences can be used to populate relevant payment fields in the checkout flow. 
+		///     - walletPreferences: A set of wallet preferences tied to the buyer that is interacting with the cart. Preferences can be used to populate relevant payment fields in the checkout flow.   Accepted value: `["shop_pay"]`. 
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
 		public convenience init(email: String? = nil, phone: String? = nil, countryCode: CountryCode? = nil, customerAccessToken: String? = nil, deliveryAddressPreferences: [DeliveryAddressInput]? = nil, walletPreferences: [String]? = nil) {

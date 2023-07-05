@@ -27,8 +27,8 @@
 import Foundation
 
 extension Storefront {
-	/// A filter used to view a subset of products in a collection matching a 
-	/// specific price range. 
+	/// The input fields for a filter used to view a subset of products in a 
+	/// collection matching a specific price range. 
 	open class PriceRangeFilter {
 		/// The minimum price in the range. Defaults to zero. 
 		open var min: Input<Double>

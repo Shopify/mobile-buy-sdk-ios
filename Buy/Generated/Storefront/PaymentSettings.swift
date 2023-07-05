@@ -68,7 +68,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The shop’s Shopify Payments account id. 
+		/// The shop’s Shopify Payments account ID. 
 		@discardableResult
 		open func shopifyPaymentsAccountId(alias: String? = nil) -> PaymentSettingsQuery {
 			addField(field: "shopifyPaymentsAccountId", aliasSuffix: alias)
@@ -185,7 +185,7 @@ extension Storefront {
 			return field(field: "enabledPresentmentCurrencies", aliasSuffix: alias) as! [Storefront.CurrencyCode]
 		}
 
-		/// The shop’s Shopify Payments account id. 
+		/// The shop’s Shopify Payments account ID. 
 		open var shopifyPaymentsAccountId: String? {
 			return internalGetShopifyPaymentsAccountId()
 		}

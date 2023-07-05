@@ -372,7 +372,9 @@ extension Storefront {
 			return self
 		}
 
-		/// Find a customer by its access token. 
+		/// The customer associated with the given access token. Tokens are obtained by 
+		/// using the [`customerAccessTokenCreate` 
+		/// mutation](https://shopify.dev/docs/api/storefront/latest/mutations/customerAccessTokenCreate). 
 		///
 		/// - parameters:
 		///     - customerAccessToken: The customer access token.
@@ -455,10 +457,12 @@ extension Storefront {
 			return self
 		}
 
-		/// A storefront menu. 
+		/// Retrieve a [navigation 
+		/// menu](https://help.shopify.com/manual/online-store/menus-and-links) by its 
+		/// handle. 
 		///
 		/// - parameters:
-		///     - handle: Returns a storefront menu by the specified handle.
+		///     - handle: The navigation menu's handle.
 		///
 		@discardableResult
 		open func menu(alias: String? = nil, handle: String, _ subfields: (MenuQuery) -> Void) -> QueryRootQuery {
@@ -699,6 +703,51 @@ extension Storefront {
 			return self
 		}
 
+		/// List of the predictive search results. 
+		///
+		/// - parameters:
+		///     - limit: Limits the number of results based on `limit_scope`. The value can range from 1 to 10, and the default is 10.
+		///     - limitScope: Decides the distribution of results.
+		///     - query: The search query.
+		///     - searchableFields: Specifies the list of resource fields to use for search. The default fields searched on are TITLE, PRODUCT_TYPE, VARIANT_TITLE, and VENDOR. For the best search experience, you should search on the default field set.
+		///     - types: The types of resources to search for.
+		///     - unavailableProducts: Specifies how unavailable products are displayed in the search results.
+		///
+		@discardableResult
+		open func predictiveSearch(alias: String? = nil, limit: Int32? = nil, limitScope: PredictiveSearchLimitScope? = nil, query: String, searchableFields: [SearchableField]? = nil, types: [PredictiveSearchType]? = nil, unavailableProducts: SearchUnavailableProductsType? = nil, _ subfields: (PredictiveSearchResultQuery) -> Void) -> QueryRootQuery {
+			var args: [String] = []
+
+			args.append("query:\(GraphQL.quoteString(input: query))")
+
+			if let limit = limit {
+				args.append("limit:\(limit)")
+			}
+
+			if let limitScope = limitScope {
+				args.append("limitScope:\(limitScope.rawValue)")
+			}
+
+			if let searchableFields = searchableFields {
+				args.append("searchableFields:[\(searchableFields.map{ "\($0.rawValue)" }.joined(separator: ","))]")
+			}
+
+			if let types = types {
+				args.append("types:[\(types.map{ "\($0.rawValue)" }.joined(separator: ","))]")
+			}
+
+			if let unavailableProducts = unavailableProducts {
+				args.append("unavailableProducts:\(unavailableProducts.rawValue)")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = PredictiveSearchResultQuery()
+			subfields(subquery)
+
+			addField(field: "predictiveSearch", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
 		/// Fetch a specific `Product` by one of its unique attributes. 
 		///
 		/// - parameters:
@@ -889,6 +938,76 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "publicApiVersions", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
+		/// List of the search results. 
+		///
+		/// - parameters:
+		///     - query: The search query.
+		///     - prefix: Specifies whether to perform a partial word match on the last search term.
+		///     - productFilters: Returns a subset of products matching all product filters.
+		///     - reverse: Reverse the order of the underlying list.
+		///     - sortKey: Sort the underlying list by the given key.
+		///     - types: The types of resrouces to search for.
+		///     - unavailableProducts: Specifies how unavailable products are displayed in the search results.
+		///     - first: Returns up to the first `n` elements from the list.
+		///     - after: Returns the elements that come after the specified cursor.
+		///     - last: Returns up to the last `n` elements from the list.
+		///     - before: Returns the elements that come before the specified cursor.
+		///
+		@discardableResult
+		open func search(alias: String? = nil, query: String, `prefix`: SearchPrefixQueryType? = nil, productFilters: [ProductFilter]? = nil, reverse: Bool? = nil, sortKey: SearchSortKeys? = nil, types: [SearchType]? = nil, unavailableProducts: SearchUnavailableProductsType? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, _ subfields: (SearchResultItemConnectionQuery) -> Void) -> QueryRootQuery {
+			var args: [String] = []
+
+			args.append("query:\(GraphQL.quoteString(input: query))")
+
+			if let `prefix` = `prefix` {
+				args.append("prefix:\(prefix.rawValue)")
+			}
+
+			if let productFilters = productFilters {
+				args.append("productFilters:[\(productFilters.map{ "\($0.serialize())" }.joined(separator: ","))]")
+			}
+
+			if let reverse = reverse {
+				args.append("reverse:\(reverse)")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
+			}
+
+			if let types = types {
+				args.append("types:[\(types.map{ "\($0.rawValue)" }.joined(separator: ","))]")
+			}
+
+			if let unavailableProducts = unavailableProducts {
+				args.append("unavailableProducts:\(unavailableProducts.rawValue)")
+			}
+
+			if let first = first {
+				args.append("first:\(first)")
+			}
+
+			if let after = after {
+				args.append("after:\(GraphQL.quoteString(input: after))")
+			}
+
+			if let last = last {
+				args.append("last:\(last)")
+			}
+
+			if let before = before {
+				args.append("before:\(GraphQL.quoteString(input: before))")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
+
+			let subquery = SearchResultItemConnectionQuery()
+			subfields(subquery)
+
+			addField(field: "search", aliasSuffix: alias, args: argsString, subfields: subquery)
 			return self
 		}
 
@@ -1107,6 +1226,13 @@ extension Storefront {
 				}
 				return try PageConnection(fields: value)
 
+				case "predictiveSearch":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
+				}
+				return try PredictiveSearchResult(fields: value)
+
 				case "product":
 				if value is NSNull { return nil }
 				guard let value = value as? [String: Any] else {
@@ -1151,6 +1277,12 @@ extension Storefront {
 					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
 				}
 				return try value.map { return try ApiVersion(fields: $0) }
+
+				case "search":
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: QueryRoot.self, field: fieldName, value: fieldValue)
+				}
+				return try SearchResultItemConnection(fields: value)
 
 				case "shop":
 				guard let value = value as? [String: Any] else {
@@ -1307,7 +1439,9 @@ extension Storefront {
 			return field(field: "collections", aliasSuffix: alias) as! Storefront.CollectionConnection
 		}
 
-		/// Find a customer by its access token. 
+		/// The customer associated with the given access token. Tokens are obtained by 
+		/// using the [`customerAccessTokenCreate` 
+		/// mutation](https://shopify.dev/docs/api/storefront/latest/mutations/customerAccessTokenCreate). 
 		open var customer: Storefront.Customer? {
 			return internalGetCustomer()
 		}
@@ -1343,7 +1477,9 @@ extension Storefront {
 			return field(field: "locations", aliasSuffix: alias) as! Storefront.LocationConnection
 		}
 
-		/// A storefront menu. 
+		/// Retrieve a [navigation 
+		/// menu](https://help.shopify.com/manual/online-store/menus-and-links) by its 
+		/// handle. 
 		open var menu: Storefront.Menu? {
 			return internalGetMenu()
 		}
@@ -1450,6 +1586,19 @@ extension Storefront {
 			return field(field: "pages", aliasSuffix: alias) as! Storefront.PageConnection
 		}
 
+		/// List of the predictive search results. 
+		open var predictiveSearch: Storefront.PredictiveSearchResult? {
+			return internalGetPredictiveSearch()
+		}
+
+		open func aliasedPredictiveSearch(alias: String) -> Storefront.PredictiveSearchResult? {
+			return internalGetPredictiveSearch(alias: alias)
+		}
+
+		func internalGetPredictiveSearch(alias: String? = nil) -> Storefront.PredictiveSearchResult? {
+			return field(field: "predictiveSearch", aliasSuffix: alias) as! Storefront.PredictiveSearchResult?
+		}
+
 		/// Fetch a specific `Product` by one of its unique attributes. 
 		open var product: Storefront.Product? {
 			return internalGetProduct()
@@ -1544,6 +1693,19 @@ extension Storefront {
 
 		func internalGetPublicApiVersions(alias: String? = nil) -> [Storefront.ApiVersion] {
 			return field(field: "publicApiVersions", aliasSuffix: alias) as! [Storefront.ApiVersion]
+		}
+
+		/// List of the search results. 
+		open var search: Storefront.SearchResultItemConnection {
+			return internalGetSearch()
+		}
+
+		open func aliasedSearch(alias: String) -> Storefront.SearchResultItemConnection {
+			return internalGetSearch(alias: alias)
+		}
+
+		func internalGetSearch(alias: String? = nil) -> Storefront.SearchResultItemConnection {
+			return field(field: "search", aliasSuffix: alias) as! Storefront.SearchResultItemConnection
 		}
 
 		/// The shop associated with the storefront access token. 
@@ -1686,6 +1848,12 @@ extension Storefront {
 					response.append(internalGetPages())
 					response.append(contentsOf: internalGetPages().childResponseObjectMap())
 
+					case "predictiveSearch":
+					if let value = internalGetPredictiveSearch() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
+					}
+
 					case "product":
 					if let value = internalGetProduct() {
 						response.append(value)
@@ -1723,6 +1891,10 @@ extension Storefront {
 						response.append($0)
 						response.append(contentsOf: $0.childResponseObjectMap())
 					}
+
+					case "search":
+					response.append(internalGetSearch())
+					response.append(contentsOf: internalGetSearch().childResponseObjectMap())
 
 					case "shop":
 					response.append(internalGetShop())

@@ -27,7 +27,9 @@
 import Foundation
 
 extension Storefront {
-	/// A menu used for navigation within a storefront. 
+	/// A [navigation 
+	/// menu](https://help.shopify.com/manual/online-store/menus-and-links) 
+	/// representing a hierarchy of hyperlinks (items). 
 	open class MenuQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Menu
 
@@ -38,7 +40,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A globally-unique identifier. 
+		/// A globally-unique ID. 
 		@discardableResult
 		open func id(alias: String? = nil) -> MenuQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -70,7 +72,9 @@ extension Storefront {
 		}
 	}
 
-	/// A menu used for navigation within a storefront. 
+	/// A [navigation 
+	/// menu](https://help.shopify.com/manual/online-store/menus-and-links) 
+	/// representing a hierarchy of hyperlinks (items). 
 	open class Menu: GraphQL.AbstractResponse, GraphQLObject, Node {
 		public typealias Query = MenuQuery
 
@@ -121,7 +125,7 @@ extension Storefront {
 			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
-		/// A globally-unique identifier. 
+		/// A globally-unique ID. 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}

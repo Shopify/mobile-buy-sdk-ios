@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// Specifies the fields required to reset a customer’s password. 
+	/// The input fields to reset a customer's password. 
 	open class CustomerResetInput {
 		/// The reset token required to reset the customer’s password. 
 		open var resetToken: String

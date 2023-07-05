@@ -48,7 +48,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The unique identifier of the policy. A default policy doesn't have an ID. 
+		/// The unique ID of the policy. A default policy doesn't have an ID. 
 		@discardableResult
 		open func id(alias: String? = nil) -> ShopPolicyWithDefaultQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -134,7 +134,7 @@ extension Storefront {
 			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
-		/// The unique identifier of the policy. A default policy doesn't have an ID. 
+		/// The unique ID of the policy. A default policy doesn't have an ID. 
 		open var id: GraphQL.ID? {
 			return internalGetId()
 		}

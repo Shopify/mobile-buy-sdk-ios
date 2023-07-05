@@ -33,7 +33,7 @@ extension Storefront {
 	open class ProductOptionQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = ProductOption
 
-		/// A globally-unique identifier. 
+		/// A globally-unique ID. 
 		@discardableResult
 		open func id(alias: String? = nil) -> ProductOptionQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -87,7 +87,7 @@ extension Storefront {
 			}
 		}
 
-		/// A globally-unique identifier. 
+		/// A globally-unique ID. 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}

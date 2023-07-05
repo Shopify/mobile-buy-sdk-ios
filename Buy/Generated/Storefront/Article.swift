@@ -164,7 +164,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A globally-unique identifier. 
+		/// A globally-unique ID. 
 		@discardableResult
 		open func id(alias: String? = nil) -> ArticleQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -264,10 +264,18 @@ extension Storefront {
 			addField(field: "title", aliasSuffix: alias)
 			return self
 		}
+
+		/// A URL parameters to be added to a page URL when it is linked from a GraphQL 
+		/// result. This allows for tracking the origin of the traffic. 
+		@discardableResult
+		open func trackingParameters(alias: String? = nil) -> ArticleQuery {
+			addField(field: "trackingParameters", aliasSuffix: alias)
+			return self
+		}
 	}
 
 	/// An article in an online store blog. 
-	open class Article: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource, Node, OnlineStorePublishable {
+	open class Article: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MenuItemResource, MetafieldParentResource, Node, OnlineStorePublishable, SearchResultItem, Trackable {
 		public typealias Query = ArticleQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
@@ -392,6 +400,13 @@ extension Storefront {
 				}
 				return value
 
+				case "trackingParameters":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
+				}
+				return value
+
 				default:
 				throw SchemaViolationError(type: Article.self, field: fieldName, value: fieldValue)
 			}
@@ -492,7 +507,7 @@ extension Storefront {
 			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
-		/// A globally-unique identifier. 
+		/// A globally-unique ID. 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
@@ -582,6 +597,16 @@ extension Storefront {
 
 		func internalGetTitle(alias: String? = nil) -> String {
 			return field(field: "title", aliasSuffix: alias) as! String
+		}
+
+		/// A URL parameters to be added to a page URL when it is linked from a GraphQL 
+		/// result. This allows for tracking the origin of the traffic. 
+		open var trackingParameters: String? {
+			return internalGetTrackingParameters()
+		}
+
+		func internalGetTrackingParameters(alias: String? = nil) -> String? {
+			return field(field: "trackingParameters", aliasSuffix: alias) as! String?
 		}
 
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {
