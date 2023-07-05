@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// Specifies the fields required to update a checkout's attributes. 
+	/// The input fields required to update a checkout's attributes. 
 	open class CheckoutAttributesUpdateV2Input {
 		/// The text of an optional note that a shop owner can attach to the checkout. 
 		open var note: Input<String>

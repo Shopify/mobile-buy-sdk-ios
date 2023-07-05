@@ -27,19 +27,21 @@
 import Foundation
 
 extension Storefront {
-	/// Specifies the input fields to delete a cart metafield. 
+	/// The input fields to delete a cart metafield. 
 	open class CartMetafieldDeleteInput {
 		/// The ID of the cart resource. 
 		open var ownerId: GraphQL.ID
 
-		/// The key name of the cart metafield. 
+		/// The key name of the cart metafield. Can either be a composite key 
+		/// (`namespace.key`) or a simple key that relies on the default app-reserved 
+		/// namespace. 
 		open var key: String
 
 		/// Creates the input object.
 		///
 		/// - parameters:
 		///     - ownerId: The ID of the cart resource.
-		///     - key: The key name of the cart metafield.
+		///     - key: The key name of the cart metafield. Can either be a composite key (`namespace.key`) or a simple key  that relies on the default app-reserved namespace. 
 		///
 		public static func create(ownerId: GraphQL.ID, key: String) -> CartMetafieldDeleteInput {
 			return CartMetafieldDeleteInput(ownerId: ownerId, key: key)
@@ -49,7 +51,7 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - ownerId: The ID of the cart resource.
-		///     - key: The key name of the cart metafield.
+		///     - key: The key name of the cart metafield. Can either be a composite key (`namespace.key`) or a simple key  that relies on the default app-reserved namespace. 
 		///
 		public init(ownerId: GraphQL.ID, key: String) {
 			self.ownerId = ownerId

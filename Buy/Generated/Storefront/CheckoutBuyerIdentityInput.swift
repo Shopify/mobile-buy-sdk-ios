@@ -27,7 +27,8 @@
 import Foundation
 
 extension Storefront {
-	/// Specifies the identity of the customer associated with the checkout. 
+	/// The input fields for the identity of the customer associated with the 
+	/// checkout. 
 	open class CheckoutBuyerIdentityInput {
 		/// The country code of one of the shop's [enabled 
 		/// countries](https://help.shopify.com/en/manual/payments/shopify-payments/multi-currency/setup). 

@@ -27,7 +27,8 @@
 import Foundation
 
 extension Storefront {
-	/// The store's branding configuration. 
+	/// The store's [branding 
+	/// configuration](https://help.shopify.com/en/manual/promoting-marketing/managing-brand-assets). 
 	open class BrandQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Brand
 
@@ -86,7 +87,8 @@ extension Storefront {
 		}
 	}
 
-	/// The store's branding configuration. 
+	/// The store's [branding 
+	/// configuration](https://help.shopify.com/en/manual/promoting-marketing/managing-brand-assets). 
 	open class Brand: GraphQL.AbstractResponse, GraphQLObject {
 		public typealias Query = BrandQuery
 

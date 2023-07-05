@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// Specifies the input fields required to activate a customer. 
+	/// The input fields to activate a customer. 
 	open class CustomerActivateInput {
 		/// The activation token required to activate the customer. 
 		open var activationToken: String

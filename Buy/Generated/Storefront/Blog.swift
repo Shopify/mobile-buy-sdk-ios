@@ -130,7 +130,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A globally-unique identifier. 
+		/// A globally-unique ID. 
 		@discardableResult
 		open func id(alias: String? = nil) -> BlogQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -209,7 +209,7 @@ extension Storefront {
 	}
 
 	/// An online store blog. 
-	open class Blog: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MetafieldParentResource, Node, OnlineStorePublishable {
+	open class Blog: GraphQL.AbstractResponse, GraphQLObject, HasMetafields, MenuItemResource, MetafieldParentResource, Node, OnlineStorePublishable {
 		public typealias Query = BlogQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
@@ -333,7 +333,7 @@ extension Storefront {
 			return field(field: "handle", aliasSuffix: alias) as! String
 		}
 
-		/// A globally-unique identifier. 
+		/// A globally-unique ID. 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}

@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// Specifies the input fields for a cart metafield value to set. 
+	/// The input fields for a cart metafield value to set. 
 	open class CartInputMetafieldInput {
 		/// The key name of the metafield. 
 		open var key: String

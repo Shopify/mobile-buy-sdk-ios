@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// Specifies the input fields to create a cart. 
+	/// The input fields to create a cart. 
 	open class CartInput {
 		/// An array of key-value pairs that contains additional information about the 
 		/// cart. 

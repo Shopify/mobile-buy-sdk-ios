@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// The fields required to create a new customer. 
+	/// The input fields to create a new customer. 
 	open class CustomerCreateInput {
 		/// The customer’s first name. 
 		open var firstName: Input<String>

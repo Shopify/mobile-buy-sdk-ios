@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// Specifies the fields for a monetary value with currency. 
+	/// The input fields for a monetary value with currency. 
 	open class MoneyInput {
 		/// Decimal money amount. 
 		open var amount: Decimal

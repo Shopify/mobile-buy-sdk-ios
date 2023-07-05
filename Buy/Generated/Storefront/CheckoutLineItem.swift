@@ -53,7 +53,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A globally-unique identifier. 
+		/// A globally-unique ID. 
 		@discardableResult
 		open func id(alias: String? = nil) -> CheckoutLineItemQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -171,7 +171,7 @@ extension Storefront {
 			return field(field: "discountAllocations", aliasSuffix: alias) as! [Storefront.DiscountAllocation]
 		}
 
-		/// A globally-unique identifier. 
+		/// A globally-unique ID. 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}

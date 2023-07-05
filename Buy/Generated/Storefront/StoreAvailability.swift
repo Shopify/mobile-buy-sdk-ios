@@ -57,6 +57,13 @@ extension Storefront {
 			addField(field: "pickUpTime", aliasSuffix: alias)
 			return self
 		}
+
+		/// The quantity of the product variant in-stock at this location. 
+		@discardableResult
+		open func quantityAvailable(alias: String? = nil) -> StoreAvailabilityQuery {
+			addField(field: "quantityAvailable", aliasSuffix: alias)
+			return self
+		}
 	}
 
 	/// The availability of a product variant at a particular location. Local 
@@ -85,6 +92,12 @@ extension Storefront {
 					throw SchemaViolationError(type: StoreAvailability.self, field: fieldName, value: fieldValue)
 				}
 				return value
+
+				case "quantityAvailable":
+				guard let value = value as? Int else {
+					throw SchemaViolationError(type: StoreAvailability.self, field: fieldName, value: fieldValue)
+				}
+				return Int32(value)
 
 				default:
 				throw SchemaViolationError(type: StoreAvailability.self, field: fieldName, value: fieldValue)
@@ -117,6 +130,15 @@ extension Storefront {
 
 		func internalGetPickUpTime(alias: String? = nil) -> String {
 			return field(field: "pickUpTime", aliasSuffix: alias) as! String
+		}
+
+		/// The quantity of the product variant in-stock at this location. 
+		open var quantityAvailable: Int32 {
+			return internalGetQuantityAvailable()
+		}
+
+		func internalGetQuantityAvailable(alias: String? = nil) -> Int32 {
+			return field(field: "quantityAvailable", aliasSuffix: alias) as! Int32
 		}
 
 		internal override func childResponseObjectMap() -> [GraphQL.AbstractResponse]  {

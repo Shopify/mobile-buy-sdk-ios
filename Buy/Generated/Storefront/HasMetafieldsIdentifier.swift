@@ -27,7 +27,8 @@
 import Foundation
 
 extension Storefront {
-	/// Identifies a metafield on an owner resource by namespace and key. 
+	/// The input fields to identify a metafield on an owner resource by namespace 
+	/// and key. 
 	open class HasMetafieldsIdentifier {
 		/// A container for a set of metafields. 
 		open var namespace: String

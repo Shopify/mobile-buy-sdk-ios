@@ -73,7 +73,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A globally-unique identifier. 
+		/// A globally-unique ID. 
 		@discardableResult
 		open func id(alias: String? = nil) -> AppliedGiftCardQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -190,7 +190,7 @@ extension Storefront {
 			return field(field: "balanceV2", aliasSuffix: alias) as! Storefront.MoneyV2
 		}
 
-		/// A globally-unique identifier. 
+		/// A globally-unique ID. 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}

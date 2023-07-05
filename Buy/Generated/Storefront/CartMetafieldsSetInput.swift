@@ -27,7 +27,7 @@
 import Foundation
 
 extension Storefront {
-	/// Specifies the input fields for a cart metafield value to set. 
+	/// The input fields for a cart metafield value to set. 
 	open class CartMetafieldsSetInput {
 		/// The ID of the cart resource. 
 		open var ownerId: GraphQL.ID

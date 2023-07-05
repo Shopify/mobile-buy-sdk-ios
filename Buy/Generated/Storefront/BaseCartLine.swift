@@ -119,7 +119,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A globally-unique identifier. 
+		/// A globally-unique ID. 
 		@discardableResult
 		open func id(alias: String? = nil) -> BaseCartLineQuery {
 			addField(field: "id", aliasSuffix: alias)
@@ -165,6 +165,15 @@ extension Storefront {
 			let subquery = CartLineQuery()
 			subfields(subquery)
 			addInlineFragment(on: "CartLine", subfields: subquery)
+			return self
+		}
+
+		/// Represents a cart line common fields. 
+		@discardableResult
+		open func onComponentizableCartLine(subfields: (ComponentizableCartLineQuery) -> Void) -> BaseCartLineQuery {
+			let subquery = ComponentizableCartLineQuery()
+			subfields(subquery)
+			addInlineFragment(on: "ComponentizableCartLine", subfields: subquery)
 			return self
 		}
 	}
@@ -244,6 +253,8 @@ extension Storefront {
 			switch typeName {
 				case "CartLine": return try CartLine.init(fields: fields)
 
+				case "ComponentizableCartLine": return try ComponentizableCartLine.init(fields: fields)
+
 				default:
 				return try UnknownBaseCartLine.init(fields: fields)
 			}
@@ -303,7 +314,7 @@ extension Storefront {
 			return field(field: "estimatedCost", aliasSuffix: alias) as! Storefront.CartLineEstimatedCost
 		}
 
-		/// A globally-unique identifier. 
+		/// A globally-unique ID. 
 		open var id: GraphQL.ID {
 			return internalGetId()
 		}
