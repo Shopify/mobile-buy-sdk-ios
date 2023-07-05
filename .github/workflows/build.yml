@@ -38,6 +38,8 @@ jobs:
           echo "Generating schema for $API_VERSION"
           ./Scripts/build $API_VERSION
           git add ./Buy/Generated
+          git config user.name github-actions
+          git config user.email github-actions@github.com
           git commit -m "Update schema (auto-generated)"
           git push --set-upstream --force origin $BRANCH_NAME
 
