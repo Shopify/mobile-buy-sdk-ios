@@ -6,7 +6,7 @@
 # build.rb
 
 require 'bundler/setup'
-require 'net/http'
+require 'faraday'
 require 'json'
 require 'optparse'
 require 'graphql_schema'
@@ -14,17 +14,30 @@ require 'graphql_swift_gen'
 require 'fileutils'
 require 'erb'
 
-shared_storefront_api_key = "4a6c829ec3cb12ef9004bf8ed27adf12"
+storefront_domain = "graphql.myshopify.com"
+storefront_access_token = "3a109d5ebb8117f935adc1df233f3dfc"
 storefront_api_version = ARGV[0]
 
-endpoint = URI("https://app.shopify.com/services/graphql/introspection/storefront?api_client_api_key=#{shared_storefront_api_key}&api_version=#{storefront_api_version}")
+introspection_query = File.read(File.join(__dir__, 'introspection.graphql'))
+
+conn = Faraday.new(
+  url: "https://#{storefront_domain}/api/#{storefront_api_version}/",
+  headers: {
+		'Accept' => 'application/json',
+		'Content-Type' => 'application/graphql',
+		'X-Shopify-Storefront-Access-Token' => storefront_access_token
+	}
+)
+
+res = conn.post('graphql') do |req|
+  req.body = introspection_query
+end
+
 scripts_path = __dir__
 parent_path = File.expand_path('..', scripts_path)
 generated_code_path = File.join(parent_path, 'Buy', 'Generated')
 
-res = Net::HTTP.get_response(endpoint)
-
-if res.is_a?(Net::HTTPSuccess)
+if res.success?
   puts "Using Storefront API version: #{storefront_api_version}"
 
 	FileUtils.rm_rf(generated_code_path)
