@@ -6,7 +6,7 @@
 # build.rb
 
 require 'bundler/setup'
-require 'net/http'
+require 'faraday'
 require 'json'
 require 'optparse'
 require 'graphql_schema'
@@ -14,72 +14,85 @@ require 'graphql_swift_gen'
 require 'fileutils'
 require 'erb'
 
-shared_storefront_api_key = "4a6c829ec3cb12ef9004bf8ed27adf12"
+storefront_domain = "graphql.myshopify.com"
+storefront_access_token = "3a109d5ebb8117f935adc1df233f3dfc"
 storefront_api_version = ARGV[0]
 
-endpoint = URI("https://app.shopify.com/services/graphql/introspection/storefront?api_client_api_key=#{shared_storefront_api_key}&api_version=#{storefront_api_version}")
+introspection_query = File.read(File.join(__dir__, 'introspection.graphql'))
+
+conn = Faraday.new(
+  url: "https://#{storefront_domain}/api/#{storefront_api_version}/",
+  headers: {
+    'Accept' => 'application/json',
+    'Content-Type' => 'application/graphql',
+    'X-Shopify-Storefront-Access-Token' => storefront_access_token
+  }
+)
+
+res = conn.post('graphql') do |req|
+  req.body = introspection_query
+end
+
 scripts_path = __dir__
 parent_path = File.expand_path('..', scripts_path)
 generated_code_path = File.join(parent_path, 'Buy', 'Generated')
 
-res = Net::HTTP.get_response(endpoint)
-
-if res.is_a?(Net::HTTPSuccess)
+if res.success?
   puts "Using Storefront API version: #{storefront_api_version}"
 
-	FileUtils.rm_rf(generated_code_path)
-	FileUtils.mkdir_p(generated_code_path)
+  FileUtils.rm_rf(generated_code_path)
+  FileUtils.mkdir_p(generated_code_path)
 
   template_path = File.join(scripts_path, 'version.swift.erb')
   output = ERB.new(File.read(template_path)).result()
   output_path = File.join(generated_code_path, 'Storefront.Schema.swift')
 
   File.open(output_path, "w") { |f|
-  	f.write "#{output}"
+    f.write "#{output}"
   }
   schema = GraphQLSchema.new(JSON.parse(res.body))
 else
   puts "Invalid API version provided. Please try again."
-	exit(false)
+  exit(false)
 end
 
 customScalars = [
-	GraphQLSwiftGen::Scalar.new(
-	  type_name:       'DateTime',
-	  swift_type:      'Date',
-	  deserialize_expr: ->(expr) { "GraphQL.iso8601DateParser.date(from: #{expr})!"  },
-	  serialize_expr:   ->(expr) { "GraphQL.iso8601DateParser.string(from: #{expr})" },
-	),
-	GraphQLSwiftGen::Scalar.new(
+  GraphQLSwiftGen::Scalar.new(
+    type_name:       'DateTime',
+    swift_type:      'Date',
+    deserialize_expr: ->(expr) { "GraphQL.iso8601DateParser.date(from: #{expr})!"  },
+    serialize_expr:   ->(expr) { "GraphQL.iso8601DateParser.string(from: #{expr})" },
+  ),
+  GraphQLSwiftGen::Scalar.new(
       type_name:       'URL',
       swift_type:      'URL',
       deserialize_expr: ->(expr) { "URL(string: #{expr})!" },
       serialize_expr:   ->(expr) { "#{expr}.absoluteString" },
     ),
-	GraphQLSwiftGen::Scalar.new(
-	  type_name:       'Int32',
-	  swift_type:      'Int',
-	  deserialize_expr: ->(expr) { "Int(#{expr})"   },
-	  serialize_expr:   ->(expr) { "Int32(#{expr})" },
-	),
-	GraphQLSwiftGen::Scalar.new(
-	  type_name:       'Money',
-	  swift_type:      'Decimal',
-	  deserialize_expr: ->(expr) { "Decimal(string: #{expr}, locale: GraphQL.posixLocale)" },
-	  serialize_expr:   ->(expr) { "String(describing: #{expr})"                           },
-	),
-	GraphQLSwiftGen::Scalar.new(
-	  type_name:       'Decimal',
-	  swift_type:      'Decimal',
-	  deserialize_expr: ->(expr) { "Decimal(string: #{expr}, locale: GraphQL.posixLocale)" },
-	  serialize_expr:   ->(expr) { "String(describing: #{expr})"                           },
-	)
+  GraphQLSwiftGen::Scalar.new(
+    type_name:       'Int32',
+    swift_type:      'Int',
+    deserialize_expr: ->(expr) { "Int(#{expr})"   },
+    serialize_expr:   ->(expr) { "Int32(#{expr})" },
+  ),
+  GraphQLSwiftGen::Scalar.new(
+    type_name:       'Money',
+    swift_type:      'Decimal',
+    deserialize_expr: ->(expr) { "Decimal(string: #{expr}, locale: GraphQL.posixLocale)" },
+    serialize_expr:   ->(expr) { "String(describing: #{expr})"                           },
+  ),
+  GraphQLSwiftGen::Scalar.new(
+    type_name:       'Decimal',
+    swift_type:      'Decimal',
+    deserialize_expr: ->(expr) { "Decimal(string: #{expr}, locale: GraphQL.posixLocale)" },
+    serialize_expr:   ->(expr) { "String(describing: #{expr})"                           },
+  )
 ]
 
 content = GraphQLSwiftGen.new(
-	schema,
-	nest_under: 'Storefront',
-	import_graphql_support: false,
-	custom_scalars: customScalars
+  schema,
+  nest_under: 'Storefront',
+  import_graphql_support: false,
+  custom_scalars: customScalars
 )
 content.save(generated_code_path)
