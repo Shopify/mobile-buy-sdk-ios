@@ -86,18 +86,20 @@ extension Storefront {
 		/// Returns a metafield found by namespace and key. 
 		///
 		/// - parameters:
-		///     - namespace: A container for a set of metafields.
+		///     - namespace: The container the metafield belongs to. If omitted, the app-reserved namespace will be used.
 		///     - key: The identifier for the metafield.
 		///
 		@discardableResult
-		open func metafield(alias: String? = nil, namespace: String, key: String, _ subfields: (MetafieldQuery) -> Void) -> CollectionQuery {
+		open func metafield(alias: String? = nil, namespace: String? = nil, key: String, _ subfields: (MetafieldQuery) -> Void) -> CollectionQuery {
 			var args: [String] = []
-
-			args.append("namespace:\(GraphQL.quoteString(input: namespace))")
 
 			args.append("key:\(GraphQL.quoteString(input: key))")
 
-			let argsString = "(\(args.joined(separator: ",")))"
+			if let namespace = namespace {
+				args.append("namespace:\(GraphQL.quoteString(input: namespace))")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
 
 			let subquery = MetafieldQuery()
 			subfields(subquery)

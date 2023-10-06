@@ -46,7 +46,7 @@ extension Storefront {
 		/// tokenized payment. 
 		open var paymentData: String
 
-		/// Whether to execute the payment in test mode, if possible. Test mode is not 
+		/// Whether to execute the payment in test mode, if possible. Test mode isn't 
 		/// supported in production stores. Defaults to `false`. 
 		open var test: Input<Bool>
 
@@ -63,7 +63,7 @@ extension Storefront {
 		///     - idempotencyKey: A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/api/usage/idempotent-requests).
 		///     - billingAddress: The billing address for the payment.
 		///     - paymentData: A simple string or JSON containing the required payment data for the tokenized payment.
-		///     - test: Whether to execute the payment in test mode, if possible. Test mode is not supported in production stores. Defaults to `false`.
+		///     - test: Whether to execute the payment in test mode, if possible. Test mode isn't supported in production stores. Defaults to `false`.
 		///     - identifier: Public Hash Key used for AndroidPay payments only.
 		///     - type: The type of payment token.
 		///
@@ -88,7 +88,7 @@ extension Storefront {
 		///     - idempotencyKey: A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/api/usage/idempotent-requests).
 		///     - billingAddress: The billing address for the payment.
 		///     - paymentData: A simple string or JSON containing the required payment data for the tokenized payment.
-		///     - test: Whether to execute the payment in test mode, if possible. Test mode is not supported in production stores. Defaults to `false`.
+		///     - test: Whether to execute the payment in test mode, if possible. Test mode isn't supported in production stores. Defaults to `false`.
 		///     - identifier: Public Hash Key used for AndroidPay payments only.
 		///     - type: The type of payment token.
 		///

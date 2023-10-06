@@ -30,8 +30,9 @@ extension Storefront {
 	/// The input fields to identify a metafield on an owner resource by namespace 
 	/// and key. 
 	open class HasMetafieldsIdentifier {
-		/// A container for a set of metafields. 
-		open var namespace: String
+		/// The container the metafield belongs to. If omitted, the app-reserved 
+		/// namespace will be used. 
+		open var namespace: Input<String>
 
 		/// The identifier for the metafield. 
 		open var key: String
@@ -39,28 +40,41 @@ extension Storefront {
 		/// Creates the input object.
 		///
 		/// - parameters:
-		///     - namespace: A container for a set of metafields.
+		///     - namespace: The container the metafield belongs to. If omitted, the app-reserved namespace will be used.
 		///     - key: The identifier for the metafield.
 		///
-		public static func create(namespace: String, key: String) -> HasMetafieldsIdentifier {
-			return HasMetafieldsIdentifier(namespace: namespace, key: key)
+		public static func create(key: String, namespace: Input<String> = .undefined) -> HasMetafieldsIdentifier {
+			return HasMetafieldsIdentifier(key: key, namespace: namespace)
+		}
+
+		private init(key: String, namespace: Input<String> = .undefined) {
+			self.namespace = namespace
+			self.key = key
 		}
 
 		/// Creates the input object.
 		///
 		/// - parameters:
-		///     - namespace: A container for a set of metafields.
+		///     - namespace: The container the metafield belongs to. If omitted, the app-reserved namespace will be used.
 		///     - key: The identifier for the metafield.
 		///
-		public init(namespace: String, key: String) {
-			self.namespace = namespace
-			self.key = key
+		@available(*, deprecated, message: "Use the static create() method instead.")
+		public convenience init(key: String, namespace: String? = nil) {
+			self.init(key: key, namespace: namespace.orUndefined)
 		}
 
 		internal func serialize() -> String {
 			var fields: [String] = []
 
-			fields.append("namespace:\(GraphQL.quoteString(input: namespace))")
+			switch namespace {
+				case .value(let namespace): 
+				guard let namespace = namespace else {
+					fields.append("namespace:null")
+					break
+				}
+				fields.append("namespace:\(GraphQL.quoteString(input: namespace))")
+				case .undefined: break
+			}
 
 			fields.append("key:\(GraphQL.quoteString(input: key))")
 

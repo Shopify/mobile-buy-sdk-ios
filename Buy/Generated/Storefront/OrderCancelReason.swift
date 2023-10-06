@@ -44,6 +44,9 @@ extension Storefront {
 		/// The order was canceled for an unlisted reason. 
 		case other = "OTHER"
 
+		/// Staff made an error. 
+		case staff = "STAFF"
+
 		case unknownValue = ""
 	}
 }

@@ -1007,9 +1007,10 @@ extension Storefront {
 		/// or 
 		/// [`customerReset`](https://shopify.dev/api/storefront/latest/mutations/customerReset) 
 		/// mutation to reset the customer password. This mutation is throttled by IP. 
-		/// With authenticated access, you can provide a 
+		/// With private access, you can provide a 
 		/// [`Shopify-Storefront-Buyer-IP`](https://shopify.dev/api/usage/authentication#optional-ip-header) 
-		/// instead of the request IP. Make sure that the value provided to 
+		/// instead of the request IP. The header is case-sensitive and must be sent as 
+		/// `Shopify-Storefront-Buyer-IP`. Make sure that the value provided to 
 		/// `Shopify-Storefront-Buyer-IP` is trusted. Unthrottled access to this 
 		/// mutation presents a security risk. 
 		///
@@ -2012,9 +2013,10 @@ extension Storefront {
 		/// or 
 		/// [`customerReset`](https://shopify.dev/api/storefront/latest/mutations/customerReset) 
 		/// mutation to reset the customer password. This mutation is throttled by IP. 
-		/// With authenticated access, you can provide a 
+		/// With private access, you can provide a 
 		/// [`Shopify-Storefront-Buyer-IP`](https://shopify.dev/api/usage/authentication#optional-ip-header) 
-		/// instead of the request IP. Make sure that the value provided to 
+		/// instead of the request IP. The header is case-sensitive and must be sent as 
+		/// `Shopify-Storefront-Buyer-IP`. Make sure that the value provided to 
 		/// `Shopify-Storefront-Buyer-IP` is trusted. Unthrottled access to this 
 		/// mutation presents a security risk. 
 		open var customerRecover: Storefront.CustomerRecoverPayload? {
