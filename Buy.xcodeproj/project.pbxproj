@@ -402,6 +402,9 @@
 		4ECBE42727FB45D200CB544E /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECBE40827FB45D200CB544E /* MenuItem.swift */; };
 		4ECBE42827FB45D200CB544E /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECBE40827FB45D200CB544E /* MenuItem.swift */; };
 		4ECBE42927FB45D200CB544E /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECBE40827FB45D200CB544E /* MenuItem.swift */; };
+		4EE722C42AD05A3B00D78174 /* MetaobjectSEO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE722C32AD05A3B00D78174 /* MetaobjectSEO.swift */; };
+		4EE722C52AD05A3B00D78174 /* MetaobjectSEO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE722C32AD05A3B00D78174 /* MetaobjectSEO.swift */; };
+		4EE722C62AD05A3B00D78174 /* MetaobjectSEO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE722C32AD05A3B00D78174 /* MetaobjectSEO.swift */; };
 		4EF3D32C28EB2182007215E6 /* DeliveryAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3D32628EB2182007215E6 /* DeliveryAddress.swift */; };
 		4EF3D32D28EB2182007215E6 /* DeliveryAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3D32628EB2182007215E6 /* DeliveryAddress.swift */; };
 		4EF3D32E28EB2182007215E6 /* DeliveryAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3D32628EB2182007215E6 /* DeliveryAddress.swift */; };
@@ -1295,6 +1298,7 @@
 		4ECBE40627FB45D200CB544E /* MenuItemType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItemType.swift; sourceTree = "<group>"; };
 		4ECBE40727FB45D200CB544E /* CartDeliveryGroupConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartDeliveryGroupConnection.swift; sourceTree = "<group>"; };
 		4ECBE40827FB45D200CB544E /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
+		4EE722C32AD05A3B00D78174 /* MetaobjectSEO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetaobjectSEO.swift; sourceTree = "<group>"; };
 		4EF3D32628EB2182007215E6 /* DeliveryAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliveryAddress.swift; sourceTree = "<group>"; };
 		4EF3D32728EB2182007215E6 /* CartSelectedDeliveryOptionsUpdatePayload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartSelectedDeliveryOptionsUpdatePayload.swift; sourceTree = "<group>"; };
 		4EF3D32828EB2182007215E6 /* MetafieldReferenceConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetafieldReferenceConnection.swift; sourceTree = "<group>"; };
@@ -1860,6 +1864,7 @@
 				4E7725FE296DC92E00A6EAE7 /* MetaobjectEdge.swift */,
 				4E7725FF296DC92F00A6EAE7 /* MetaobjectField.swift */,
 				4E7725FB296DC92E00A6EAE7 /* MetaobjectHandleInput.swift */,
+				4EE722C32AD05A3B00D78174 /* MetaobjectSEO.swift */,
 				8128550423C4AC7D00ADA66E /* Model3d.swift */,
 				8128550323C4AC7D00ADA66E /* Model3dSource.swift */,
 				9A6711312166678300A57A3F /* MoneyInput.swift */,
@@ -2798,6 +2803,7 @@
 				4E77260B296DC92F00A6EAE7 /* MetaobjectEdge.swift in Sources */,
 				4E77260E296DC92F00A6EAE7 /* MetaobjectField.swift in Sources */,
 				4E772602296DC92F00A6EAE7 /* MetaobjectHandleInput.swift in Sources */,
+				4EE722C62AD05A3B00D78174 /* MetaobjectSEO.swift in Sources */,
 				815FAB4F23C4B82C00F98749 /* Model3d.swift in Sources */,
 				815FAB5023C4B82C00F98749 /* Model3dSource.swift in Sources */,
 				9A67113C2166678500A57A3F /* MoneyInput.swift in Sources */,
@@ -3164,6 +3170,7 @@
 				4E772609296DC92F00A6EAE7 /* MetaobjectEdge.swift in Sources */,
 				4E77260C296DC92F00A6EAE7 /* MetaobjectField.swift in Sources */,
 				4E772600296DC92F00A6EAE7 /* MetaobjectHandleInput.swift in Sources */,
+				4EE722C42AD05A3B00D78174 /* MetaobjectSEO.swift in Sources */,
 				8128551323C4AC7E00ADA66E /* Model3d.swift in Sources */,
 				8128551223C4AC7E00ADA66E /* Model3dSource.swift in Sources */,
 				9A67113B2166678500A57A3F /* MoneyInput.swift in Sources */,
@@ -3530,6 +3537,7 @@
 				4E77260A296DC92F00A6EAE7 /* MetaobjectEdge.swift in Sources */,
 				4E77260D296DC92F00A6EAE7 /* MetaobjectField.swift in Sources */,
 				4E772601296DC92F00A6EAE7 /* MetaobjectHandleInput.swift in Sources */,
+				4EE722C52AD05A3B00D78174 /* MetaobjectSEO.swift in Sources */,
 				815FAB4023C4B81500F98749 /* Model3d.swift in Sources */,
 				815FAB4123C4B81500F98749 /* Model3dSource.swift in Sources */,
 				9A67113D2166678500A57A3F /* MoneyInput.swift in Sources */,

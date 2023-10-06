@@ -61,14 +61,14 @@ extension Storefront {
 			return self
 		}
 
-		/// The email address of the buyer that is interacting with the cart. 
+		/// The email address of the buyer that's interacting with the cart. 
 		@discardableResult
 		open func email(alias: String? = nil) -> CartBuyerIdentityQuery {
 			addField(field: "email", aliasSuffix: alias)
 			return self
 		}
 
-		/// The phone number of the buyer that is interacting with the cart. 
+		/// The phone number of the buyer that's interacting with the cart. 
 		@discardableResult
 		open func phone(alias: String? = nil) -> CartBuyerIdentityQuery {
 			addField(field: "phone", aliasSuffix: alias)
@@ -167,7 +167,7 @@ extension Storefront {
 			return field(field: "deliveryAddressPreferences", aliasSuffix: alias) as! [DeliveryAddress]
 		}
 
-		/// The email address of the buyer that is interacting with the cart. 
+		/// The email address of the buyer that's interacting with the cart. 
 		open var email: String? {
 			return internalGetEmail()
 		}
@@ -176,7 +176,7 @@ extension Storefront {
 			return field(field: "email", aliasSuffix: alias) as! String?
 		}
 
-		/// The phone number of the buyer that is interacting with the cart. 
+		/// The phone number of the buyer that's interacting with the cart. 
 		open var phone: String? {
 			return internalGetPhone()
 		}

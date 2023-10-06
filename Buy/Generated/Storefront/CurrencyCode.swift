@@ -481,7 +481,7 @@ extension Storefront {
 		@available(*, deprecated, message:"`VEF` is deprecated. Use `VES` available from version `2020-10` onwards instead.")
 		case vef = "VEF"
 
-		/// Venezuelan Bolivares (VES). 
+		/// Venezuelan Bolivares Soberanos (VES). 
 		case ves = "VES"
 
 		/// Vietnamese đồng (VND). 

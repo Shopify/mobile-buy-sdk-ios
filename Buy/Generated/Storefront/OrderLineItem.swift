@@ -74,7 +74,7 @@ extension Storefront {
 
 		/// The total price of the line item, not including any discounts. The total 
 		/// price is calculated using the original unit price multiplied by the 
-		/// quantity, and it is displayed in the presentment currency. 
+		/// quantity, and it's displayed in the presentment currency. 
 		@discardableResult
 		open func originalTotalPrice(alias: String? = nil, _ subfields: (MoneyV2Query) -> Void) -> OrderLineItemQuery {
 			let subquery = MoneyV2Query()
@@ -212,7 +212,7 @@ extension Storefront {
 
 		/// The total price of the line item, not including any discounts. The total 
 		/// price is calculated using the original unit price multiplied by the 
-		/// quantity, and it is displayed in the presentment currency. 
+		/// quantity, and it's displayed in the presentment currency. 
 		open var originalTotalPrice: Storefront.MoneyV2 {
 			return internalGetOriginalTotalPrice()
 		}

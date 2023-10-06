@@ -42,7 +42,7 @@ extension Storefront {
 		/// The text of an optional note that a shop owner can attach to the checkout. 
 		open var note: Input<String>
 
-		/// A list of extra information that is added to the checkout. 
+		/// A list of extra information that's added to the checkout. 
 		open var customAttributes: Input<[AttributeInput]>
 
 		/// Allows setting partial addresses on a Checkout, skipping the full 
@@ -67,7 +67,7 @@ extension Storefront {
 		///     - lineItems: A list of line item objects, each one containing information about an item in the checkout.
 		///     - shippingAddress: The shipping address to where the line items will be shipped.
 		///     - note: The text of an optional note that a shop owner can attach to the checkout.
-		///     - customAttributes: A list of extra information that is added to the checkout.
+		///     - customAttributes: A list of extra information that's added to the checkout.
 		///     - allowPartialAddresses: Allows setting partial addresses on a Checkout, skipping the full validation of attributes. The required attributes are city, province, and country. Full validation of addresses is still done at completion time. Defaults to `null`. 
 		///     - presentmentCurrencyCode: The three-letter currency code of one of the shop's enabled presentment currencies. Including this field creates a checkout in the specified currency. By default, new checkouts are created in the shop's primary currency. 
 		///     - buyerIdentity: The identity of the customer associated with the checkout.
@@ -94,7 +94,7 @@ extension Storefront {
 		///     - lineItems: A list of line item objects, each one containing information about an item in the checkout.
 		///     - shippingAddress: The shipping address to where the line items will be shipped.
 		///     - note: The text of an optional note that a shop owner can attach to the checkout.
-		///     - customAttributes: A list of extra information that is added to the checkout.
+		///     - customAttributes: A list of extra information that's added to the checkout.
 		///     - allowPartialAddresses: Allows setting partial addresses on a Checkout, skipping the full validation of attributes. The required attributes are city, province, and country. Full validation of addresses is still done at completion time. Defaults to `null`. 
 		///     - presentmentCurrencyCode: The three-letter currency code of one of the shop's enabled presentment currencies. Including this field creates a checkout in the specified currency. By default, new checkouts are created in the shop's primary currency. 
 		///     - buyerIdentity: The identity of the customer associated with the checkout.

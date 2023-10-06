@@ -32,7 +32,7 @@ extension Storefront {
 		/// The text of an optional note that a shop owner can attach to the checkout. 
 		open var note: Input<String>
 
-		/// A list of extra information that is added to the checkout. 
+		/// A list of extra information that's added to the checkout. 
 		open var customAttributes: Input<[AttributeInput]>
 
 		/// Allows setting partial addresses on a Checkout, skipping the full 
@@ -45,7 +45,7 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - note: The text of an optional note that a shop owner can attach to the checkout.
-		///     - customAttributes: A list of extra information that is added to the checkout.
+		///     - customAttributes: A list of extra information that's added to the checkout.
 		///     - allowPartialAddresses: Allows setting partial addresses on a Checkout, skipping the full validation of attributes. The required attributes are city, province, and country. Full validation of the addresses is still done at completion time. Defaults to `false` with  each operation. 
 		///
 		public static func create(note: Input<String> = .undefined, customAttributes: Input<[AttributeInput]> = .undefined, allowPartialAddresses: Input<Bool> = .undefined) -> CheckoutAttributesUpdateV2Input {
@@ -62,7 +62,7 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - note: The text of an optional note that a shop owner can attach to the checkout.
-		///     - customAttributes: A list of extra information that is added to the checkout.
+		///     - customAttributes: A list of extra information that's added to the checkout.
 		///     - allowPartialAddresses: Allows setting partial addresses on a Checkout, skipping the full validation of attributes. The required attributes are city, province, and country. Full validation of the addresses is still done at completion time. Defaults to `false` with  each operation. 
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")

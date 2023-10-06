@@ -74,6 +74,9 @@ extension Storefront {
 		/// Chechen. 
 		case ce = "CE"
 
+		/// Central Kurdish. 
+		case ckb = "CKB"
+
 		/// Czech. 
 		case cs = "CS"
 
@@ -121,6 +124,9 @@ extension Storefront {
 
 		/// Finnish. 
 		case fi = "FI"
+
+		/// Filipino. 
+		case fil = "FIL"
 
 		/// Faroese. 
 		case fo = "FO"
@@ -221,6 +227,9 @@ extension Storefront {
 		/// Kyrgyz. 
 		case ky = "KY"
 
+		/// Latin. 
+		case la = "LA"
+
 		/// Luxembourgish. 
 		case lb = "LB"
 
@@ -256,6 +265,9 @@ extension Storefront {
 
 		/// Mongolian. 
 		case mn = "MN"
+
+		/// Moldavian. 
+		case mo = "MO"
 
 		/// Marathi. 
 		case mr = "MR"
@@ -332,6 +344,12 @@ extension Storefront {
 		/// Kinyarwanda. 
 		case rw = "RW"
 
+		/// Sanskrit. 
+		case sa = "SA"
+
+		/// Sardinian. 
+		case sc = "SC"
+
 		/// Sindhi. 
 		case sd = "SD"
 
@@ -340,6 +358,9 @@ extension Storefront {
 
 		/// Sango. 
 		case sg = "SG"
+
+		/// Serbo-Croatian. 
+		case sh = "SH"
 
 		/// Sinhala. 
 		case si = "SI"

@@ -76,6 +76,26 @@ extension Storefront {
 			return self
 		}
 
+		/// The URL used for viewing the metaobject on the shop's Online Store. Returns 
+		/// `null` if the metaobject definition doesn't have the `online_store` 
+		/// capability. 
+		@discardableResult
+		open func onlineStoreUrl(alias: String? = nil) -> MetaobjectQuery {
+			addField(field: "onlineStoreUrl", aliasSuffix: alias)
+			return self
+		}
+
+		/// The metaobject's SEO information. Returns `null` if the metaobject 
+		/// definition doesn't have the `renderable` capability. 
+		@discardableResult
+		open func seo(alias: String? = nil, _ subfields: (MetaobjectSEOQuery) -> Void) -> MetaobjectQuery {
+			let subquery = MetaobjectSEOQuery()
+			subfields(subquery)
+
+			addField(field: "seo", aliasSuffix: alias, subfields: subquery)
+			return self
+		}
+
 		/// The type of the metaobject. Defines the namespace of its associated 
 		/// metafields. 
 		@discardableResult
@@ -93,7 +113,7 @@ extension Storefront {
 	}
 
 	/// An instance of a user-defined model based on a MetaobjectDefinition. 
-	open class Metaobject: GraphQL.AbstractResponse, GraphQLObject, MetafieldReference, Node {
+	open class Metaobject: GraphQL.AbstractResponse, GraphQLObject, MetafieldReference, Node, OnlineStorePublishable {
 		public typealias Query = MetaobjectQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {
@@ -123,6 +143,20 @@ extension Storefront {
 					throw SchemaViolationError(type: Metaobject.self, field: fieldName, value: fieldValue)
 				}
 				return GraphQL.ID(rawValue: value)
+
+				case "onlineStoreUrl":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Metaobject.self, field: fieldName, value: fieldValue)
+				}
+				return URL(string: value)!
+
+				case "seo":
+				if value is NSNull { return nil }
+				guard let value = value as? [String: Any] else {
+					throw SchemaViolationError(type: Metaobject.self, field: fieldName, value: fieldValue)
+				}
+				return try MetaobjectSEO(fields: value)
 
 				case "type":
 				guard let value = value as? String else {
@@ -182,6 +216,27 @@ extension Storefront {
 			return field(field: "id", aliasSuffix: alias) as! GraphQL.ID
 		}
 
+		/// The URL used for viewing the metaobject on the shop's Online Store. Returns 
+		/// `null` if the metaobject definition doesn't have the `online_store` 
+		/// capability. 
+		open var onlineStoreUrl: URL? {
+			return internalGetOnlineStoreUrl()
+		}
+
+		func internalGetOnlineStoreUrl(alias: String? = nil) -> URL? {
+			return field(field: "onlineStoreUrl", aliasSuffix: alias) as! URL?
+		}
+
+		/// The metaobject's SEO information. Returns `null` if the metaobject 
+		/// definition doesn't have the `renderable` capability. 
+		open var seo: Storefront.MetaobjectSEO? {
+			return internalGetSeo()
+		}
+
+		func internalGetSeo(alias: String? = nil) -> Storefront.MetaobjectSEO? {
+			return field(field: "seo", aliasSuffix: alias) as! Storefront.MetaobjectSEO?
+		}
+
 		/// The type of the metaobject. Defines the namespace of its associated 
 		/// metafields. 
 		open var type: String {
@@ -215,6 +270,12 @@ extension Storefront {
 					internalGetFields().forEach {
 						response.append($0)
 						response.append(contentsOf: $0.childResponseObjectMap())
+					}
+
+					case "seo":
+					if let value = internalGetSeo() {
+						response.append(value)
+						response.append(contentsOf: value.childResponseObjectMap())
 					}
 
 					default:

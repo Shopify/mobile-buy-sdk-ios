@@ -62,6 +62,9 @@ extension Storefront {
 		/// The payment method is not supported. 
 		case paymentMethodNotSupported = "PAYMENT_METHOD_NOT_SUPPORTED"
 
+		/// Validation failed. 
+		case validationCustom = "VALIDATION_CUSTOM"
+
 		case unknownValue = ""
 	}
 }

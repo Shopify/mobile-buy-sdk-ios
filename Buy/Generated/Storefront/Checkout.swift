@@ -83,7 +83,7 @@ extension Storefront {
 			return self
 		}
 
-		/// A list of extra information that is added to the checkout. 
+		/// A list of extra information that's added to the checkout. 
 		@discardableResult
 		open func customAttributes(alias: String? = nil, _ subfields: (AttributeQuery) -> Void) -> CheckoutQuery {
 			let subquery = AttributeQuery()
@@ -220,7 +220,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The Order Status Page for this Checkout, null when checkout is not 
+		/// The Order Status Page for this Checkout, null when checkout isn't 
 		/// completed. 
 		@discardableResult
 		open func orderStatusUrl(alias: String? = nil) -> CheckoutQuery {
@@ -289,7 +289,7 @@ extension Storefront {
 			return self
 		}
 
-		/// Once a shipping rate is selected by the customer it is transitioned to a 
+		/// Once a shipping rate is selected by the customer it's transitioned to a 
 		/// `shipping_line` object. 
 		@discardableResult
 		open func shippingLine(alias: String? = nil, _ subfields: (ShippingRateQuery) -> Void) -> CheckoutQuery {
@@ -680,7 +680,7 @@ extension Storefront {
 			return field(field: "currencyCode", aliasSuffix: alias) as! Storefront.CurrencyCode
 		}
 
-		/// A list of extra information that is added to the checkout. 
+		/// A list of extra information that's added to the checkout. 
 		open var customAttributes: [Storefront.Attribute] {
 			return internalGetCustomAttributes()
 		}
@@ -762,7 +762,7 @@ extension Storefront {
 			return field(field: "order", aliasSuffix: alias) as! Storefront.Order?
 		}
 
-		/// The Order Status Page for this Checkout, null when checkout is not 
+		/// The Order Status Page for this Checkout, null when checkout isn't 
 		/// completed. 
 		open var orderStatusUrl: URL? {
 			return internalGetOrderStatusUrl()
@@ -833,7 +833,7 @@ extension Storefront {
 			return field(field: "shippingDiscountAllocations", aliasSuffix: alias) as! [Storefront.DiscountAllocation]
 		}
 
-		/// Once a shipping rate is selected by the customer it is transitioned to a 
+		/// Once a shipping rate is selected by the customer it's transitioned to a 
 		/// `shipping_line` object. 
 		open var shippingLine: Storefront.ShippingRate? {
 			return internalGetShippingLine()

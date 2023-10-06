@@ -38,8 +38,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The original height of the image in pixels. Returns `null` if the image is 
-		/// not hosted by Shopify. 
+		/// The original height of the image in pixels. Returns `null` if the image 
+		/// isn't hosted by Shopify. 
 		@discardableResult
 		open func height(alias: String? = nil) -> ImageQuery {
 			addField(field: "height", aliasSuffix: alias)
@@ -73,7 +73,7 @@ extension Storefront {
 
 		/// The location of the transformed image as a URL. All transformation 
 		/// arguments are considered "best-effort". If they can be applied to an image, 
-		/// they will be. Otherwise any transformations which an image type does not 
+		/// they will be. Otherwise any transformations which an image type doesn't 
 		/// support will be ignored. 
 		///
 		/// - parameters:
@@ -138,8 +138,8 @@ extension Storefront {
 			return self
 		}
 
-		/// The original width of the image in pixels. Returns `null` if the image is 
-		/// not hosted by Shopify. 
+		/// The original width of the image in pixels. Returns `null` if the image 
+		/// isn't hosted by Shopify. 
 		@discardableResult
 		open func width(alias: String? = nil) -> ImageQuery {
 			addField(field: "width", aliasSuffix: alias)
@@ -220,8 +220,8 @@ extension Storefront {
 			return field(field: "altText", aliasSuffix: alias) as! String?
 		}
 
-		/// The original height of the image in pixels. Returns `null` if the image is 
-		/// not hosted by Shopify. 
+		/// The original height of the image in pixels. Returns `null` if the image 
+		/// isn't hosted by Shopify. 
 		open var height: Int32? {
 			return internalGetHeight()
 		}
@@ -263,7 +263,7 @@ extension Storefront {
 
 		/// The location of the transformed image as a URL. All transformation 
 		/// arguments are considered "best-effort". If they can be applied to an image, 
-		/// they will be. Otherwise any transformations which an image type does not 
+		/// they will be. Otherwise any transformations which an image type doesn't 
 		/// support will be ignored. 
 		@available(*, deprecated, message:"Use `url(transform:)` instead")
 		open var transformedSrc: URL {
@@ -298,8 +298,8 @@ extension Storefront {
 			return field(field: "url", aliasSuffix: alias) as! URL
 		}
 
-		/// The original width of the image in pixels. Returns `null` if the image is 
-		/// not hosted by Shopify. 
+		/// The original width of the image in pixels. Returns `null` if the image 
+		/// isn't hosted by Shopify. 
 		open var width: Int32? {
 			return internalGetWidth()
 		}

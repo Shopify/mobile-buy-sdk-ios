@@ -39,7 +39,7 @@ extension Storefront {
 		/// The case-insensitive discount codes that the customer added at checkout. 
 		open var discountCodes: Input<[String]>
 
-		/// A note that is associated with the cart. For example, the note can be a 
+		/// A note that's associated with the cart. For example, the note can be a 
 		/// personalized message to the buyer. 
 		open var note: Input<String>
 
@@ -58,7 +58,7 @@ extension Storefront {
 		///     - attributes: An array of key-value pairs that contains additional information about the cart.
 		///     - lines: A list of merchandise lines to add to the cart.
 		///     - discountCodes: The case-insensitive discount codes that the customer added at checkout. 
-		///     - note: A note that is associated with the cart. For example, the note can be a personalized message to the buyer.
+		///     - note: A note that's associated with the cart. For example, the note can be a personalized message to the buyer. 
 		///     - buyerIdentity: The customer associated with the cart. Used to determine [international pricing] (https://shopify.dev/custom-storefronts/internationalization/international-pricing). Buyer identity should match the customer's shipping address. 
 		///     - metafields: The metafields to associate with this cart.
 		///
@@ -81,7 +81,7 @@ extension Storefront {
 		///     - attributes: An array of key-value pairs that contains additional information about the cart.
 		///     - lines: A list of merchandise lines to add to the cart.
 		///     - discountCodes: The case-insensitive discount codes that the customer added at checkout. 
-		///     - note: A note that is associated with the cart. For example, the note can be a personalized message to the buyer.
+		///     - note: A note that's associated with the cart. For example, the note can be a personalized message to the buyer. 
 		///     - buyerIdentity: The customer associated with the cart. Used to determine [international pricing] (https://shopify.dev/custom-storefronts/internationalization/international-pricing). Buyer identity should match the customer's shipping address. 
 		///     - metafields: The metafields to associate with this cart.
 		///

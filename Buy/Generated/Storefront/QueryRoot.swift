@@ -778,7 +778,15 @@ extension Storefront {
 		/// Find a product by its handle. 
 		///
 		/// - parameters:
-		///     - handle: A unique string that identifies the product. Handles are automatically generated based on the product's title, and are always lowercase. Whitespace and special characters are replaced with a hyphen: `-`. If there are multiple consecutive whitespace or special characters, then they're replaced with a single hyphen. Whitespace or special characters at the beginning are removed. If a duplicate product title is used, then the handle is auto-incremented by one. For example, if you had two products called `Potion`, then their handles would be `potion` and `potion-1`. After a product has been created, changing the product title doesn't update the handle.
+		///     - handle: A unique string that identifies the product. Handles are automatically
+		///        generated based on the product's title, and are always lowercase. Whitespace
+		///        and special characters are replaced with a hyphen: `-`. If there are
+		///        multiple consecutive whitespace or special characters, then they're replaced
+		///        with a single hyphen. Whitespace or special characters at the beginning are
+		///        removed. If a duplicate product title is used, then the handle is
+		///        auto-incremented by one. For example, if you had two products called
+		///        `Potion`, then their handles would be `potion` and `potion-1`. After a
+		///        product has been created, changing the product title doesn't update the handle.
 		///
 		@available(*, deprecated, message:"Use `product` instead.")
 		@discardableResult
@@ -944,47 +952,23 @@ extension Storefront {
 		/// List of the search results. 
 		///
 		/// - parameters:
-		///     - query: The search query.
-		///     - prefix: Specifies whether to perform a partial word match on the last search term.
-		///     - productFilters: Returns a subset of products matching all product filters.
-		///     - reverse: Reverse the order of the underlying list.
-		///     - sortKey: Sort the underlying list by the given key.
-		///     - types: The types of resrouces to search for.
-		///     - unavailableProducts: Specifies how unavailable products are displayed in the search results.
 		///     - first: Returns up to the first `n` elements from the list.
 		///     - after: Returns the elements that come after the specified cursor.
 		///     - last: Returns up to the last `n` elements from the list.
 		///     - before: Returns the elements that come before the specified cursor.
+		///     - reverse: Reverse the order of the underlying list.
+		///     - sortKey: Sort the underlying list by the given key.
+		///     - query: The search query.
+		///     - prefix: Specifies whether to perform a partial word match on the last search term.
+		///     - productFilters: Returns a subset of products matching all product filters.
+		///     - types: The types of resources to search for.
+		///     - unavailableProducts: Specifies how unavailable products are displayed in the search results.
 		///
 		@discardableResult
-		open func search(alias: String? = nil, query: String, `prefix`: SearchPrefixQueryType? = nil, productFilters: [ProductFilter]? = nil, reverse: Bool? = nil, sortKey: SearchSortKeys? = nil, types: [SearchType]? = nil, unavailableProducts: SearchUnavailableProductsType? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, _ subfields: (SearchResultItemConnectionQuery) -> Void) -> QueryRootQuery {
+		open func search(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: SearchSortKeys? = nil, query: String, `prefix`: SearchPrefixQueryType? = nil, productFilters: [ProductFilter]? = nil, types: [SearchType]? = nil, unavailableProducts: SearchUnavailableProductsType? = nil, _ subfields: (SearchResultItemConnectionQuery) -> Void) -> QueryRootQuery {
 			var args: [String] = []
 
 			args.append("query:\(GraphQL.quoteString(input: query))")
-
-			if let `prefix` = `prefix` {
-				args.append("prefix:\(prefix.rawValue)")
-			}
-
-			if let productFilters = productFilters {
-				args.append("productFilters:[\(productFilters.map{ "\($0.serialize())" }.joined(separator: ","))]")
-			}
-
-			if let reverse = reverse {
-				args.append("reverse:\(reverse)")
-			}
-
-			if let sortKey = sortKey {
-				args.append("sortKey:\(sortKey.rawValue)")
-			}
-
-			if let types = types {
-				args.append("types:[\(types.map{ "\($0.rawValue)" }.joined(separator: ","))]")
-			}
-
-			if let unavailableProducts = unavailableProducts {
-				args.append("unavailableProducts:\(unavailableProducts.rawValue)")
-			}
 
 			if let first = first {
 				args.append("first:\(first)")
@@ -1000,6 +984,30 @@ extension Storefront {
 
 			if let before = before {
 				args.append("before:\(GraphQL.quoteString(input: before))")
+			}
+
+			if let reverse = reverse {
+				args.append("reverse:\(reverse)")
+			}
+
+			if let sortKey = sortKey {
+				args.append("sortKey:\(sortKey.rawValue)")
+			}
+
+			if let `prefix` = `prefix` {
+				args.append("prefix:\(prefix.rawValue)")
+			}
+
+			if let productFilters = productFilters {
+				args.append("productFilters:[\(productFilters.map{ "\($0.serialize())" }.joined(separator: ","))]")
+			}
+
+			if let types = types {
+				args.append("types:[\(types.map{ "\($0.rawValue)" }.joined(separator: ","))]")
+			}
+
+			if let unavailableProducts = unavailableProducts {
+				args.append("unavailableProducts:\(unavailableProducts.rawValue)")
 			}
 
 			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
