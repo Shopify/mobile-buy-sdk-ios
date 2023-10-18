@@ -171,23 +171,23 @@ The GraphQL schema defines a `Node` interface that declares an `id` field on any
 Given this query:
 
 ```swift
-let id    = GraphQL.ID(rawValue: "NkZmFzZGZhc")
+let id    = GraphQL.ID(rawValue: "gid://shopify/Product/123")
 let query = Storefront.buildQuery { $0
     .node(id: id) { $0
-        .onOrder { $0
+        .onProduct { $0
             .id()
-            .createdAt()
+            .title()
         }
     }
 }
 ```
 
-The `Storefront.Order` requires a cast:
+The `Storefront.Product` requires a cast:
 
 ```swift
 // response: Storefront.QueryRoot
 
-let order = response.node as! Storefront.Order
+let product = response.node as! Storefront.Product
 ```
 
 #### Aliases
