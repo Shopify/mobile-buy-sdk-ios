@@ -425,39 +425,17 @@ The following example shows a GraphQL error response for an invalid query:
 
 Learn more about [GraphQL errors](http://graphql.org/learn/validation/).
 
-## Search
-
-Some fields and connections accept search terms via the `query` parameter. For example, you can provide a `query` to search for collections that contain a specific search term in any of their fields.
-
-The following example shows how you can find collections that contain the word "shoes":
-
-```swift
-let query = Storefront.buildQuery { $0
-    .shop { $0
-        .collections(first: 10, query: "shoes") { $0
-            .nodes { $0
-                .id()
-                .title()
-                .description()
-            }
-        }
-    }
-}
-```
-
-For more information on the syntax and capabilities of search queries, see [shopify.dev](https://shopify.dev/docs/api/usage/search-syntax).
-
-## Case studies
+## Common Operations
 
 Getting started with any SDK can be confusing. The purpose of this section is to explore all areas of the Buy SDK that might be necessary to build a custom storefront on iOS and provide a solid starting point for your own implementation.
 
-In this section we're going to assume that you've [set up a client](#graphclient-) somewhere in your source code. Although it's possible to have multiple instances of `Graph.Client`, reusing a single instance offers many behind-the-scenes performance improvements:
+In this section we're going to assume that you've [set up a client](#graphclient) somewhere in your source code. Although it's possible to have multiple instances of `Graph.Client`, reusing a single instance offers many behind-the-scenes performance improvements:
 
 ```swift
 let client: Graph.Client
 ```
 
-### Fetch shop
+### Retrieving Shop Details
 
 Before you display products to the user, you typically need to obtain various metadata about your shop. This can be anything from a currency code to your shop's name:
 
@@ -469,7 +447,7 @@ let query = Storefront.buildQuery { $0
 }
 
 let task = client.queryGraphWith(query) { response, error in
-    let name         = response?.shop.name
+    let name = response?.shop.name
 }
 task.resume()
 ```
@@ -484,30 +462,22 @@ query {
 }
 ```
 
-### Fetch collections and products
+### Retrieving Collections and Products
 
-In our sample custom storefront, we want to display a collection with a preview of several products. With a conventional RESTful service, this would require one network call for collections and another network call for each collection in that array. This is often referred to as the `n + 1` problem.
-
-The Buy SDK is built on GraphQL, which solves the `n + 1` request problem. In the following example, a single query retrieves 10 collection and 10 products for each collection with just one network request:
+In our sample custom storefront, we want to display a collection with a preview of several products. The following query requests the first 10 collections, and the first 10 products in each collection.
 
 ```swift
 let query = Storefront.buildQuery { $0
-    .shop { $0
-        .collections(first: 10) { $0
-            .edges { $0
-                .node { $0
+    .collections(first: 10) { $0
+        .nodes { $0
+            .id()
+            .title()
+            .products(first: 10) { $0
+                .nodes { $0
                     .id()
                     .title()
-                    .products(first: 10) { $0
-                        .edges { $0
-                            .node { $0
-                                .id()
-                                .title()
-                                .productType()
-                                .description()
-                            }
-                        }
-                    }
+                    .productType()
+                    .description()
                 }
             }
         }
@@ -515,79 +485,11 @@ let query = Storefront.buildQuery { $0
 }
 
 let task = client.queryGraphWith(query) { response, error in
-    let collections  = response?.shop.collections.edges.map { $0.node }
-    collections?.forEach { collection in
-
-        let products = collection.products.edges.map { $0.node }
-    }
-}
-task.resume()
-```
-
-The corresponding GraphQL query looks like this:
-
-```swift
-{
-  shop {
-    collections(first: 10) {
-      edges {
-        node {
-          id
-          title
-          products(first: 10) {
-            edges {
-              node {
-                id
-                title
-                productType
-                description
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-```
-
-Since it only retrieves a small subset of properties for each resource, this GraphQL call is also much more bandwidth-efficient than it would be to fetch 100 complete resources via conventional REST.
-
-But what if you need to get more than 10 products in each collection?
-
-### Pagination
-
-Although it might be convenient to assume that a single network request will suffice for loading all collections and products, that might be naive. The best practice is to paginate results. Since the Buy SDK is built on top of GraphQL, it inherits the concept of `edges` and `nodes`.
-
-Learn more about [pagination in GraphQL](http://graphql.org/learn/pagination/).
-
-The following example shows how you can paginate through products in a collection:
-
-```swift
-let query = Storefront.buildQuery { $0
-    .node(id: collectionID) { $0
-        .onCollection { $0
-            .products(first: 10, after: productsCursor) { $0
-                .pageInfo { $0
-                    .hasNextPage()
-                }
-                .edges { $0
-                    .cursor()
-                    .node { $0
-                        .id()
-                        .title()
-                        .productType()
-                        .description()
-                    }
-                }
-            }
+    if let collections = response?.collections.nodes {
+        collections.forEach { collection in
+            let products = collection.products.nodes
         }
     }
-}
-
-let task = client.queryGraphWith(query) { response, error in
-    let collection    = response?.node as? Storefront.Collection
-    let productCursor = collection?.products.edges.last?.cursor
 }
 task.resume()
 ```
@@ -595,21 +497,17 @@ task.resume()
 The corresponding GraphQL query looks like this:
 
 ```graphql
-query {
-  node(id: "IjoxNDg4MTc3MzEsImxhc3R") {
-    ... on Collection {
-      products(first: 10, after: "sdWUiOiIxNDg4MTc3M") {
-        pageInfo {
-          hasNextPage
-        }
-        edges {
-          cursor
-          node {
-            id
-            title
-            productType
-            description
-          }
+{
+  collections(first: 10) {
+    nodes {
+      id
+      title
+      products(first: 10) {
+        nodes {
+          id
+          title
+          productType
+          description
         }
       }
     }
@@ -617,148 +515,97 @@ query {
 }
 ```
 
-Since we know exactly what collection we want to fetch products for, we'll use the [`node` interface](#the-node-protocol-) to query the collection by `id`. You might have also noticed that we're fetching a couple of additional fields and objects: `pageInfo` and `cursor`. We can then use a `cursor` of any product edge to fetch more products `before` it or `after` it. Likewise, the `pageInfo` object provides additional metadata about whether the next page (and potentially previous page) is available or not.
+### Retrieve a Product's Details
 
-### Fetch product details
-
-In our sample app we likely want to have a detailed product page with images, variants, and descriptions. Conventionally, we'd need multiple REST calls to fetch all the required information. But with the Buy SDK, we can do it with a single query:
+In our sample app we likely want to have a detailed product page with images, variants, and descriptions. Once we have a product's ID or `handle` value, we can request it directly.
 
 ```swift
 let query = Storefront.buildQuery { $0
-    .node(id: productID) { $0
-        .onProduct { $0
+    .product(handle: "t-shirt") { $0
+		.title()
+		.description()
+		.images(first: 10) { $0
+            .nodes { $0
+                .url()
+            }
+        }
+		.variants(first: 50) { $0
+			.nodes { $0
+                .id()
+                .title()
+                .price { $0
+                    .amount()
+                    .currencyCode()
+                }
+                .availableForSale()
+			}
+		}
+	}
+}
+
+let task = client.queryGraphWith(query) { response, error in
+    let product  = response?.product
+    let images   = product?.images.nodes
+    let variants = product?.variants.nodes
+}
+
+task.resume()
+```
+
+The corresponding GraphQL query looks like this:
+
+```graphql
+{
+  product(handle: "t-shirt") {
+    title
+    description
+    images(first: 10) {
+      nodes {
+        url
+      }
+    }
+    variants(first: 50) {
+      nodes {
+        id
+        title
+        price {
+          amount
+          currencyCode
+        }
+        availableForSale
+      }
+    }
+  }
+}
+```
+
+### Search and Filtering
+
+Some fields and connections accept search terms via the `query` parameter. For example, you can provide a `query` to search for collections that contain a specific search term in any of their fields.
+
+The following example shows how you can find collections that contain the word "shoes":
+
+```swift
+let query = Storefront.buildQuery { $0
+    .collections(first: 10, query: "shoes") { $0
+         .nodes { $0
             .id()
             .title()
             .description()
-            .images(first: 10) { $0
-                .edges { $0
-                    .node { $0
-                        .id()
-                        .src()
-                    }
-                }
-            }
-            .variants(first: 10) { $0
-                .edges { $0
-                    .node { $0
-                        .id()
-                        .price()
-                        .title()
-                        .available()
-                    }
-                }
-            }
-        }
-    }
-}
-
-let task = client.queryGraphWith(query) { response, error in
-    let product  = response?.node as? Storefront.Product
-    let images   = product?.images.edges.map { $0.node }
-    let variants = product?.variants.edges.map { $0.node }
-}
-task.resume()
-```
-
-The corresponding GraphQL query looks like this:
-
-```graphql
-{
-  node(id: "9Qcm9kdWN0LzMzMj") {
-    ... on Product {
-      id
-      title
-      description
-      images(first: 10) {
-        edges {
-          node {
-            id
-            src
-          }
-        }
-      }
-      variants(first: 10) {
-        edges {
-          node {
-            id
-            price
-            title
-            available
-          }
-        }
-      }
-    }
-  }
-}
-```
-
-#### Handling errors
-
-The `Graph.Client` can return a non-nil `Graph.QueryError`. **The error and the result are not mutually exclusive.** It is valid to have both an error and a result. However, the error `case`, in this instance, is **always** `.invalidQuery(let reasons)`. You should always evaluate the `error`, make sure that you don't have an invalid query, and then evaluate the result:
-
-```swift
-let task = self.client.queryGraphWith(query) { result, error in
-
-    if let error = error, case .invalidQuery(let reasons) = error {
-        reasons.forEach {
-            print("Error on \($0.line):\($0.column) - \($0.message)")
-        }
-    }
-
-    if let result = result {
-        // Do something with the result
-    } else {
-        // Handle any other errors
-    }
-}
-task.resume()
-```
-
-**IMPORTANT:** `Graph.QueryError` does not contain user-friendly information. Often, it describes the technical reason for the failure, and shouldn't be shown to the end-user. Handling errors is most useful for debugging.
-
-## Customer Accounts
-
-Using the Buy SDK, you can build custom storefronts that let your customers create accounts, browse previously completed orders, and manage their information. Since most customer-related actions modify states on the server, they are performed using various `mutation` requests. Let's take a look at a few examples.
-
-### Creating a customer
-
-Before a customer can log in, they must first create an account. In your application, you can provide a sign-up form that runs the following `mutation` request. In this example, the `input` for the mutation is some basic customer information that will create an account on your shop.
-
-```swift
-let input = Storefront.CustomerCreateInput.create(
-    email:            .value("john.smith@gmail.com"),
-    password:         .value("123456"),
-    firstName:        .value("John"),
-    lastName:         .value("Smith"),
-    acceptsMarketing: .value(true)
-)
-
-let mutation = Storefront.buildMutation { $0
-    .customerCreate(input: input) { $0
-        .customer { $0
-            .id()
-            .email()
-            .firstName()
-            .lastName()
-        }
-        .userErrors { $0
-            .field()
-            .message()
         }
     }
 }
 ```
 
-Keep in mind that this mutation returns a `Storefront.Customer` object, **not** an access token. After a successful mutation, the customer will still be required to [log in using their credentials](#customer-login-).
+For more information on the syntax and capabilities of search queries, see [shopify.dev](https://shopify.dev/docs/api/usage/search-syntax).
 
-### Customer login
+### Customer Authentication
 
 Any customer who has an account can log in to your shop. All log-in operations are `mutation` requests that exchange customer credentials for an access token. You can log in your customers using the `customerAccessTokenCreate` mutation. Keep in mind that the return access token will eventually expire. The expiry `Date` is provided by the `expiresAt` property of the returned payload.
 
 ```swift
 let input = Storefront.CustomerAccessTokenCreateInput.create(
-    email:    "john.smith@gmail.com",
-    password: "123456"
+    email: "john.smith@gmail.com", password: "123456"
 )
 
 let mutation = Storefront.buildMutation { $0
@@ -779,62 +626,9 @@ Optionally, you can refresh the custom access token periodically using the `cust
 
 **IMPORTANT:** It is your responsibility to securely store the customer access token. We recommend using Keychain and best practices for storing secure data.
 
-### Password reset
+### Retrieve Customer Details
 
-Occasionally, a customer might forget their account password. The SDK provides a way for your application to reset a customer's password. A minimalistic implementation can simply call the recover mutation, at which point the customer will receive an email with instructions on how to reset their password in a web browser.
-
-The following mutation takes a customer's email as an argument and returns `userErrors` in the payload if there are issues with the input:
-
-```swift
-let mutation = Storefront.buildMutation { $0
-    .customerRecover(email: "john.smith@gmail.com") { $0
-        .userErrors { $0
-            .field()
-            .message()
-        }
-    }
-}
-```
-
-### Create, update, and delete address
-
-You can create, update, and delete addresses on the customer's behalf using the appropriate `mutation`. Keep in mind that these mutations require customer authentication. Each query requires a customer access token as a parameter to perform the mutation.
-
-The following example shows a mutation for creating an address:
-
-```swift
-let input = Storefront.MailingAddressInput.create(
-    address1:  .value("80 Spadina Ave."),
-    address2:  .value("Suite 400"),
-    city:      .value("Toronto"),
-    country:   .value("Canada"),
-    firstName: .value("John"),
-    lastName:  .value("Smith"),
-    phone:     .value("1-123-456-7890"),
-    province:  .value("ON"),
-    zip:       .value("M5V 2J4")
-)
-
-let mutation = Storefront.buildMutation { $0
-    .customerAddressCreate(customerAccessToken: token, address: input) { $0
-        .customerAddress { $0
-            .id()
-            .address1()
-            .address2()
-        }
-        .userErrors { $0
-            .field()
-            .message()
-        }
-    }
-}
-```
-
-### Customer information
-
-Up to this point, our interaction with customer information has been through `mutation` requests. At some point, we'll also need to show the customer their information. We can do this using customer `query` operations.
-
-Just like the address mutations, customer `query` operations are authenticated and require a valid access token to execute. The following example shows how to obtain some basic customer info:
+Once you have a valid customer access token, you can use it to retrieve the details of the authenticated customer.
 
 ```swift
 let query = Storefront.buildQuery { $0
@@ -846,101 +640,6 @@ let query = Storefront.buildQuery { $0
     }
 }
 ```
-
-#### Customer Addresses
-
-You can obtain the addresses associated with the customer's account:
-
-```swift
-let query = Storefront.buildQuery { $0
-    .customer(customerAccessToken: token) { $0
-        .addresses(first: 10) { $0
-            .edges { $0
-                .node { $0
-                    .address1()
-                    .address2()
-                    .city()
-                    .province()
-                    .country()
-                }
-            }
-        }
-    }
-}
-```
-
-#### Customer Orders
-
-You can also obtain a customer's order history:
-
-```swift
-let query = Storefront.buildQuery { $0
-    .customer(customerAccessToken: token) { $0
-        .orders(first: 10) { $0
-            .edges { $0
-                .node { $0
-                    .id()
-                    .orderNumber()
-                    .totalPrice()
-                }
-            }
-        }
-    }
-}
-```
-
-#### Customer Update
-
-Input objects, like `Storefront.MailingAddressInput`, use `Input<T>` (where `T` is the type of value) to represent optional fields and distinguish `nil` values from `undefined` values (eg. `phone: Input<String>`).
-
-The following example uses `Storefront.CustomerUpdateInput` to show how to update a customer's phone number:
-
-```swift
-let input = Storefront.CustomerUpdateInput(
-    phone: .value("+16471234567")
-)
-```
-
-In this example, you create an input object by setting the `phone` field to the new phone number that you want to update the field with. Notice that you need to pass in an `Input.value()` instead of a simple string containing the phone number.
-
-The `Storefront.CustomerUpdateInput` object also includes other fields besides the `phone` field. These fields all default to a value of `.undefined` if you don't specify them otherwise. This means that the fields aren't serialized in the mutation, and will be omitted entirely. The result looks like this:
-
-```graphql
-mutation {
-  customerUpdate(
-    customer: { phone: "+16471234567" }
-    customerAccessToken: "..."
-  ) {
-    customer {
-      phone
-    }
-  }
-}
-```
-
-This approach works well for setting a new phone number or updating an existing phone number to a new value. But what if the customer wants to remove the phone number completely? Leaving the phone number blank or sending an empty string are semantically different and won't achieve the intended result. The former approach indicates that we didn't define a value, and the latter returns an invalid phone number error. This is where the `Input<T>` is especially useful. You can use it to signal the intention to remove a phone number by specifying a `nil` value:
-
-```swift
-let input = Storefront.CustomerUpdateInput(
-    phone: .value(nil)
-)
-```
-
-The result is a mutation that updates a customer's phone number to `null`.
-
-```graphql
-mutation {
-  customerUpdate(customer: { phone: null }, customerAccessToken: "...") {
-    customer {
-      phone
-    }
-  }
-}
-```
-
-## Sample application
-
-For help getting started, take a look at the [sample iOS app](https://github.com/Shopify/mobile-buy-sdk-ios-sample). It covers the most common use cases of the SDK and how to integrate with it. Use the sample app as a template, a starting point, or a place to cherrypick components as needed. Refer to the app's readme for more details.
 
 ## Contributions
 
