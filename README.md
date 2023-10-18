@@ -427,7 +427,7 @@ Learn more about [GraphQL errors](http://graphql.org/learn/validation/).
 
 ## Search
 
-Some `Storefront` models accept search terms via the `query` parameter. For example, you can provide a `query` to search for collections that contain a specific search term in any of their fields.
+Some fields and connections accept search terms via the `query` parameter. For example, you can provide a `query` to search for collections that contain a specific search term in any of their fields.
 
 The following example shows how you can find collections that contain the word "shoes":
 
@@ -435,99 +435,17 @@ The following example shows how you can find collections that contain the word "
 let query = Storefront.buildQuery { $0
     .shop { $0
         .collections(first: 10, query: "shoes") { $0
-            .edges { $0
-                .node { $0
-                    .id()
-                    .title()
-                    .description()
-                }
+            .nodes { $0
+                .id()
+                .title()
+                .description()
             }
         }
     }
 }
 ```
 
-#### Fuzzy matching
-
-In the example above, the query is `shoes`. This will match collections that contain "shoes" in the description, title, and other fields. This is the simplest form of query. It provides fuzzy matching of search terms on all fields of a collection.
-
-#### Field matching
-
-As an alternative to object-wide fuzzy matches, you can also specify individual fields to include in your search. For example, if you want to match collections of particular type, you can do so by specifying a field directly:
-
-```swift
-.collections(first: 10, query: "collection_type:runners") { $0
-    ...
-}
-```
-
-The format for specifying fields and search parameters is the following: `field:search_term`. Note that it's critical that there be no space between the `:` and the `search_term`. Fields that support search are documented in the generated interfaces of the Buy SDK.
-
-**IMPORTANT:** If you specify a field in a search (as in the example above), then the `search_term` will be an **exact match** instead of a fuzzy match. For example, based on the query above, a collection with the type `blue_runners` will not match the query for `runners`.
-
-#### Negating field matching
-
-Each search field can also be negated. Building on the example above, if you want to match all collections that were **not** of the type `runners`, then you can append a `-` to the relevant field:
-
-```swift
-.collections(first: 10, query: "-collection_type:runners") { $0
-    ...
-}
-```
-
-#### Boolean operators
-
-In addition to single field searches, you can build more complex searches using boolean operators. They very much like ordinary SQL operators.
-
-The following example shows how you can search for products that are tagged with `blue` and that are of type `sneaker`:
-
-```swift
-.products(first: 10, query: "tag:blue AND product_type:sneaker") { $0
-    ...
-}
-```
-
-You can also group search terms:
-
-```swift
-.products(first: 10, query: "(tag:blue AND product_type:sneaker) OR tag:red") { $0
-    ...
-}
-```
-
-#### Comparison operators
-
-The search syntax also allows for comparing values that aren't exact matches. For example, you might want to get products that were updated only after a certain a date. You can do that as well:
-
-```swift
-.products(first: 10, query: "updated_at:>\"2017-05-29T00:00:00Z\"") { $0
-    ...
-}
-```
-
-The query above will return products that have been updated after midnight on May 29, 2017. Note how the date is enclosed by another pair of escaped quotations. You can also use this technique for multiple words or sentences.
-
-The SDK supports the following comparison operators:
-
-- `:` equal to
-- `:<` less than
-- `:>` greater than
-- `:<=` less than or equal to
-- `:>=` greater than or equal to
-
-**IMPORTANT:** `:=` is not a valid operator.
-
-#### Exists operator
-
-There is one special operator that can be used for checking `nil` or empty values.
-
-The following example shows how you can find products that don't have any tags. You can do so using the `*` operator and negating the field:
-
-```swift
-.products(first: 10, query: "-tag:*") { $0
-    ...
-}
-```
+For more information on the syntax and capabilities of search queries, see [shopify.dev](https://shopify.dev/docs/api/usage/search-syntax).
 
 ## Case studies
 
