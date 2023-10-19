@@ -12,7 +12,7 @@ The Mobile Buy SDK makes it easy to create custom storefronts in your mobile app
 
 ### Documentation
 
-You can generate a complete HTML and `.docset` documentation by running the `Documentation` scheme. You can then use a documentation browser like [Dash](https://kapeli.com/dash) to access the `.docset` artifact, or browse the HTML directly in the `Docs/Buy` and `Docs/Pay` directories.
+You can generate complete `.html` and `.docset` documentation by running the `Documentation` scheme. You can then use a documentation browser like [Dash](https://kapeli.com/dash) to access the `.docset` artifact, or browse the HTML directly in the `Docs/Buy` and `Docs/Pay` directories.
 
 The documentation is generated using [Jazzy](https://github.com/realm/jazzy).
 
