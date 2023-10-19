@@ -8,7 +8,7 @@
 
 # Mobile Buy SDK
 
-The Mobile Buy SDK makes it easy to create custom storefronts in your mobile app. The SDK connects to the Shopify platform using the Storefront GraphQL API, and supports a wide range of native storefront experiences.
+The Mobile Buy SDK makes it easy to create custom storefronts in your mobile app. The SDK connects to the Shopify platform using the Storefront GraphQL API and supports a wide range of native storefront experiences.
 
 ### Documentation
 
