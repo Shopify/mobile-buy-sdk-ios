@@ -517,7 +517,7 @@ The corresponding GraphQL query looks like this:
 
 ### Retrieve a Product's Details
 
-In our sample app we likely want to have a detailed product page with images, variants, and descriptions. Once we have a product's ID or `handle` value, we can request it directly.
+You will likely want to have a detailed product page with images, variants, and descriptions. Once you have a product's ID or `handle` value, we can request it directly.
 
 ```swift
 let query = Storefront.buildQuery { $0
@@ -598,6 +598,126 @@ let query = Storefront.buildQuery { $0
 ```
 
 For more information on the syntax and capabilities of search queries, see [shopify.dev](https://shopify.dev/docs/api/usage/search-syntax).
+
+### Managing Carts
+
+Once you have your products displayed, you need a way for your prospective buyers to purchase them. This process starts with creating a `Cart`.
+
+#### Creating a Cart
+
+To create a `Cart`, you will use the `cartCreate` mutation. If you do not specify any input arguments, you will simply get an empty `Cart`.
+
+```swift
+let createCartMutation = Storefront.buildMutation { $0
+    .cartCreate { $0
+        .cart { $0
+            .id()
+        }
+    }
+}
+```
+
+However, you can also create a `Cart` with an initial set of line items and other attributes.
+
+```swift
+let aProductVariantID = // a product variant ID
+
+let linesInput: [Storefront.CartLineInput] = [
+    .create(merchandiseId: aProductVariantID, quantity: .value(5))
+]
+
+let buyerIdentityInput = Storefront.CartBuyerIdentityInput.create(
+    email: .value("your.customer@example.com")
+)
+
+let cartInput = Storefront.CartInput.create(
+    lines: .value(linesInput), buyerIdentity: .value(buyerIdentityInput)
+)
+
+let createCartMutation = Storefront.buildMutation { $0
+    .cartCreate(input: cartInput) { $0
+        .cart { $0
+            .id()
+        }
+    }
+}
+```
+
+#### Modifying a Cart
+
+Once you have a `Cart` object (or at least an ID to one), you can modify its contents and attributes using several available mutations. Below are a few common examples.
+
+##### Removing a Line Item
+
+```swift
+let removeCartLineMutation = Storefront.buildMutation { $0
+    .cartLinesRemove(cartId: myCartID, lineIds: [myCartLineID]) { $0
+        .cart { $0
+            .id()
+        }
+    }
+}
+```
+
+##### Adding a Discount Code
+
+```swift
+let updateDiscountCodeMutation = Storefront.buildMutation { $0
+    .cartDiscountCodesUpdate(cartId: myCartID, discountCodes: ["10OFF"]) { $0
+        .cart { $0
+            .id()
+        }
+    }
+}
+```
+
+For more information about managing carts, see [shopify.dev](https://shopify.dev/docs/custom-storefronts/building-with-the-storefront-api/cart/manage).
+
+### Proceeding to Checkout
+
+Once you have a `Cart` object that the buyer is ready to purchase, you first must retrieve the cart's `checkoutUrl` property.
+
+```swift
+let cartQuery = Storefront.buildQuery { $0
+    .cart(id: aCartID) { $0
+        .checkoutUrl()
+    }
+}
+```
+
+Once you have the checkout URL, you have a few options to begin the checkout process.
+
+Our **recommended approach** is to use our [Mobile Checkout SDK](https://github.com/Shopify/mobile-checkout-sdk-ios) which provides a native look and feel to Shopify's checkout flow.
+
+```swift
+import UIKit
+import ShopifyCheckout
+
+class MyViewController: UIViewController {
+    func proceedToCheckout() {
+        let checkoutURL = // retrieve from your `Cart` object
+
+        ShopifyCheckout.present(
+            checkout: checkoutURL, from: self, delegate: self
+        )
+    }
+}
+```
+
+Alternatively, you can open the checkout URL directly in a `SFSafariViewController`, via `UIApplication.shared.open(url:)`, or other web browser.
+
+```swift
+import UIKit
+import SafariServices
+
+class MyViewController: UIViewController {
+    func proceedToCheckout() {
+        let checkoutURL = // retrieve from your `Cart` object
+
+        present(SFSafariViewController(url: checkoutURL), animated: true)
+    }
+}
+```
 
 ### Customer Authentication
 
