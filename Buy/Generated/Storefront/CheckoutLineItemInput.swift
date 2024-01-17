@@ -30,7 +30,7 @@ extension Storefront {
 	/// The input fields to create a line item on a checkout. 
 	open class CheckoutLineItemInput {
 		/// Extra information in the form of an array of Key-Value pairs about the line 
-		/// item. 
+		/// item. The input must not contain more than `250` values. 
 		open var customAttributes: Input<[AttributeInput]>
 
 		/// The quantity of the line item. 
@@ -42,7 +42,7 @@ extension Storefront {
 		/// Creates the input object.
 		///
 		/// - parameters:
-		///     - customAttributes: Extra information in the form of an array of Key-Value pairs about the line item.
+		///     - customAttributes: Extra information in the form of an array of Key-Value pairs about the line item.  The input must not contain more than `250` values.
 		///     - quantity: The quantity of the line item.
 		///     - variantId: The ID of the product variant for the line item.
 		///
@@ -59,7 +59,7 @@ extension Storefront {
 		/// Creates the input object.
 		///
 		/// - parameters:
-		///     - customAttributes: Extra information in the form of an array of Key-Value pairs about the line item.
+		///     - customAttributes: Extra information in the form of an array of Key-Value pairs about the line item.  The input must not contain more than `250` values.
 		///     - quantity: The quantity of the line item.
 		///     - variantId: The ID of the product variant for the line item.
 		///

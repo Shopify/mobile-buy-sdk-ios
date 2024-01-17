@@ -691,7 +691,7 @@ extension Storefront {
 		/// Tonga. 
 		case to = "TO"
 
-		/// Turkey. 
+		/// Türkiye. 
 		case tr = "TR"
 
 		/// Trinidad & Tobago. 

@@ -39,7 +39,7 @@ extension Storefront {
 		open var merchandiseId: Input<GraphQL.ID>
 
 		/// An array of key-value pairs that contains additional information about the 
-		/// merchandise line. 
+		/// merchandise line. The input must not contain more than `250` values. 
 		open var attributes: Input<[AttributeInput]>
 
 		/// The ID of the selling plan that the merchandise is being purchased with. 
@@ -51,7 +51,7 @@ extension Storefront {
 		///     - id: The ID of the merchandise line.
 		///     - quantity: The quantity of the line item.
 		///     - merchandiseId: The ID of the merchandise for the line item.
-		///     - attributes: An array of key-value pairs that contains additional information about the merchandise line.
+		///     - attributes: An array of key-value pairs that contains additional information about the merchandise line.  The input must not contain more than `250` values.
 		///     - sellingPlanId: The ID of the selling plan that the merchandise is being purchased with.
 		///
 		public static func create(id: GraphQL.ID, quantity: Input<Int32> = .undefined, merchandiseId: Input<GraphQL.ID> = .undefined, attributes: Input<[AttributeInput]> = .undefined, sellingPlanId: Input<GraphQL.ID> = .undefined) -> CartLineUpdateInput {
@@ -72,7 +72,7 @@ extension Storefront {
 		///     - id: The ID of the merchandise line.
 		///     - quantity: The quantity of the line item.
 		///     - merchandiseId: The ID of the merchandise for the line item.
-		///     - attributes: An array of key-value pairs that contains additional information about the merchandise line.
+		///     - attributes: An array of key-value pairs that contains additional information about the merchandise line.  The input must not contain more than `250` values.
 		///     - sellingPlanId: The ID of the selling plan that the merchandise is being purchased with.
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")

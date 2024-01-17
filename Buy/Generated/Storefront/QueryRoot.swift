@@ -65,16 +65,16 @@ extension Storefront {
 		///     - before: Returns the elements that come before the specified cursor.
 		///     - reverse: Reverse the order of the underlying list.
 		///     - sortKey: Sort the underlying list by the given key.
-		///     - query: Supported filter parameters:
-		///         - `author`
-		///         - `blog_title`
-		///         - `created_at`
-		///         - `tag`
-		///         - `tag_not`
-		///         - `updated_at`
-		///        
-		///        See the detailed [search syntax](https://shopify.dev/api/usage/search-syntax)
-		///        for more information about using filters.
+		///     - query: Apply one or multiple filters to the query.
+		///        | name | description | acceptable_values | default_value | example_use |
+		///        | ---- | ---- | ---- | ---- | ---- |
+		///        | author |
+		///        | blog_title |
+		///        | created_at |
+		///        | tag |
+		///        | tag_not |
+		///        | updated_at |
+		///        Refer to the detailed [search syntax](https://shopify.dev/api/usage/search-syntax) for more information about using filters.
 		///
 		@discardableResult
 		open func articles(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: ArticleSortKeys? = nil, query: String? = nil, _ subfields: (ArticleConnectionQuery) -> Void) -> QueryRootQuery {
@@ -174,14 +174,14 @@ extension Storefront {
 		///     - before: Returns the elements that come before the specified cursor.
 		///     - reverse: Reverse the order of the underlying list.
 		///     - sortKey: Sort the underlying list by the given key.
-		///     - query: Supported filter parameters:
-		///         - `created_at`
-		///         - `handle`
-		///         - `title`
-		///         - `updated_at`
-		///        
-		///        See the detailed [search syntax](https://shopify.dev/api/usage/search-syntax)
-		///        for more information about using filters.
+		///     - query: Apply one or multiple filters to the query.
+		///        | name | description | acceptable_values | default_value | example_use |
+		///        | ---- | ---- | ---- | ---- | ---- |
+		///        | created_at |
+		///        | handle |
+		///        | title |
+		///        | updated_at |
+		///        Refer to the detailed [search syntax](https://shopify.dev/api/usage/search-syntax) for more information about using filters.
 		///
 		@discardableResult
 		open func blogs(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: BlogSortKeys? = nil, query: String? = nil, _ subfields: (BlogConnectionQuery) -> Void) -> QueryRootQuery {
@@ -323,13 +323,13 @@ extension Storefront {
 		///     - before: Returns the elements that come before the specified cursor.
 		///     - reverse: Reverse the order of the underlying list.
 		///     - sortKey: Sort the underlying list by the given key.
-		///     - query: Supported filter parameters:
-		///         - `collection_type`
-		///         - `title`
-		///         - `updated_at`
-		///        
-		///        See the detailed [search syntax](https://shopify.dev/api/usage/search-syntax)
-		///        for more information about using filters.
+		///     - query: Apply one or multiple filters to the query.
+		///        | name | description | acceptable_values | default_value | example_use |
+		///        | ---- | ---- | ---- | ---- | ---- |
+		///        | collection_type |
+		///        | title |
+		///        | updated_at |
+		///        Refer to the detailed [search syntax](https://shopify.dev/api/usage/search-syntax) for more information about using filters.
 		///
 		@discardableResult
 		open func collections(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: CollectionSortKeys? = nil, query: String? = nil, _ subfields: (CollectionConnectionQuery) -> Void) -> QueryRootQuery {
@@ -580,6 +580,8 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - ids: The IDs of the Nodes to return.
+		///        
+		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
 		open func nodes(alias: String? = nil, ids: [GraphQL.ID], _ subfields: (NodeQuery) -> Void) -> QueryRootQuery {
@@ -653,14 +655,14 @@ extension Storefront {
 		///     - before: Returns the elements that come before the specified cursor.
 		///     - reverse: Reverse the order of the underlying list.
 		///     - sortKey: Sort the underlying list by the given key.
-		///     - query: Supported filter parameters:
-		///         - `created_at`
-		///         - `handle`
-		///         - `title`
-		///         - `updated_at`
-		///        
-		///        See the detailed [search syntax](https://shopify.dev/api/usage/search-syntax)
-		///        for more information about using filters.
+		///     - query: Apply one or multiple filters to the query.
+		///        | name | description | acceptable_values | default_value | example_use |
+		///        | ---- | ---- | ---- | ---- | ---- |
+		///        | created_at |
+		///        | handle |
+		///        | title |
+		///        | updated_at |
+		///        Refer to the detailed [search syntax](https://shopify.dev/api/usage/search-syntax) for more information about using filters.
 		///
 		@discardableResult
 		open func pages(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: PageSortKeys? = nil, query: String? = nil, _ subfields: (PageConnectionQuery) -> Void) -> QueryRootQuery {
@@ -710,7 +712,11 @@ extension Storefront {
 		///     - limitScope: Decides the distribution of results.
 		///     - query: The search query.
 		///     - searchableFields: Specifies the list of resource fields to use for search. The default fields searched on are TITLE, PRODUCT_TYPE, VARIANT_TITLE, and VENDOR. For the best search experience, you should search on the default field set.
+		///        
+		///        The input must not contain more than `250` values.
 		///     - types: The types of resources to search for.
+		///        
+		///        The input must not contain more than `250` values.
 		///     - unavailableProducts: Specifies how unavailable products are displayed in the search results.
 		///
 		@discardableResult
@@ -874,7 +880,8 @@ extension Storefront {
 			return self
 		}
 
-		/// List of the shop’s products. 
+		/// List of the shop’s products. For storefront search, use [`search` 
+		/// query](https://shopify.dev/docs/api/storefront/latest/queries/search). 
 		///
 		/// - parameters:
 		///     - first: Returns up to the first `n` elements from the list.
@@ -883,19 +890,19 @@ extension Storefront {
 		///     - before: Returns the elements that come before the specified cursor.
 		///     - reverse: Reverse the order of the underlying list.
 		///     - sortKey: Sort the underlying list by the given key.
-		///     - query: Supported filter parameters:
-		///         - `available_for_sale`
-		///         - `created_at`
-		///         - `product_type`
-		///         - `tag`
-		///         - `tag_not`
-		///         - `title`
-		///         - `updated_at`
-		///         - `variants.price`
-		///         - `vendor`
-		///        
-		///        See the detailed [search syntax](https://shopify.dev/api/usage/search-syntax)
-		///        for more information about using filters.
+		///     - query: Apply one or multiple filters to the query.
+		///        | name | description | acceptable_values | default_value | example_use |
+		///        | ---- | ---- | ---- | ---- | ---- |
+		///        | available_for_sale |
+		///        | created_at |
+		///        | product_type |
+		///        | tag |
+		///        | tag_not |
+		///        | title |
+		///        | updated_at |
+		///        | variants.price |
+		///        | vendor |
+		///        Refer to the detailed [search syntax](https://shopify.dev/api/usage/search-syntax) for more information about using filters.
 		///
 		@discardableResult
 		open func products(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: ProductSortKeys? = nil, query: String? = nil, _ subfields: (ProductConnectionQuery) -> Void) -> QueryRootQuery {
@@ -961,7 +968,11 @@ extension Storefront {
 		///     - query: The search query.
 		///     - prefix: Specifies whether to perform a partial word match on the last search term.
 		///     - productFilters: Returns a subset of products matching all product filters.
+		///        
+		///        The input must not contain more than `250` values.
 		///     - types: The types of resources to search for.
+		///        
+		///        The input must not contain more than `250` values.
 		///     - unavailableProducts: Specifies how unavailable products are displayed in the search results.
 		///
 		@discardableResult
@@ -1037,13 +1048,13 @@ extension Storefront {
 		///     - last: Returns up to the last `n` elements from the list.
 		///     - before: Returns the elements that come before the specified cursor.
 		///     - reverse: Reverse the order of the underlying list.
-		///     - query: Supported filter parameters:
-		///         - `created_at`
-		///         - `path`
-		///         - `target`
-		///        
-		///        See the detailed [search syntax](https://shopify.dev/api/usage/search-syntax)
-		///        for more information about using filters.
+		///     - query: Apply one or multiple filters to the query.
+		///        | name | description | acceptable_values | default_value | example_use |
+		///        | ---- | ---- | ---- | ---- | ---- |
+		///        | created_at |
+		///        | path |
+		///        | target |
+		///        Refer to the detailed [search syntax](https://shopify.dev/api/usage/search-syntax) for more information about using filters.
 		///
 		@discardableResult
 		open func urlRedirects(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, query: String? = nil, _ subfields: (UrlRedirectConnectionQuery) -> Void) -> QueryRootQuery {
@@ -1680,7 +1691,8 @@ extension Storefront {
 			return field(field: "productTypes", aliasSuffix: alias) as! Storefront.StringConnection
 		}
 
-		/// List of the shop’s products. 
+		/// List of the shop’s products. For storefront search, use [`search` 
+		/// query](https://shopify.dev/docs/api/storefront/latest/queries/search). 
 		open var products: Storefront.ProductConnection {
 			return internalGetProducts()
 		}

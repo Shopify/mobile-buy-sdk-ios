@@ -69,6 +69,15 @@ extension Storefront {
 
 		/// The list of possible resources a `MenuItem` can reference. 
 		@discardableResult
+		open func onMetaobject(subfields: (MetaobjectQuery) -> Void) -> MenuItemResourceQuery {
+			let subquery = MetaobjectQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Metaobject", subfields: subquery)
+			return self
+		}
+
+		/// The list of possible resources a `MenuItem` can reference. 
+		@discardableResult
 		open func onPage(subfields: (PageQuery) -> Void) -> MenuItemResourceQuery {
 			let subquery = PageQuery()
 			subfields(subquery)
@@ -117,6 +126,8 @@ extension Storefront {
 				case "Blog": return try Blog.init(fields: fields)
 
 				case "Collection": return try Collection.init(fields: fields)
+
+				case "Metaobject": return try Metaobject.init(fields: fields)
 
 				case "Page": return try Page.init(fields: fields)
 

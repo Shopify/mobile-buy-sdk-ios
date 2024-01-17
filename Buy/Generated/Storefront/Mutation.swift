@@ -40,6 +40,8 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - attributes: An array of key-value pairs that contains additional information about the cart.
+		///        
+		///        The input must not contain more than `250` values.
 		///     - cartId: The ID of the cart.
 		///
 		@discardableResult
@@ -114,6 +116,8 @@ extension Storefront {
 		/// - parameters:
 		///     - cartId: The ID of the cart.
 		///     - discountCodes: The case-insensitive discount codes that the customer added at checkout.
+		///        
+		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
 		open func cartDiscountCodesUpdate(alias: String? = nil, cartId: GraphQL.ID, discountCodes: [String]? = nil, _ subfields: (CartDiscountCodesUpdatePayloadQuery) -> Void) -> MutationQuery {
@@ -138,6 +142,8 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - lines: A list of merchandise lines to add to the cart.
+		///        
+		///        The input must not contain more than `250` values.
 		///     - cartId: The ID of the cart.
 		///
 		@discardableResult
@@ -162,6 +168,8 @@ extension Storefront {
 		/// - parameters:
 		///     - cartId: The ID of the cart.
 		///     - lineIds: The merchandise line IDs to remove.
+		///        
+		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
 		open func cartLinesRemove(alias: String? = nil, cartId: GraphQL.ID, lineIds: [GraphQL.ID], _ subfields: (CartLinesRemovePayloadQuery) -> Void) -> MutationQuery {
@@ -185,6 +193,8 @@ extension Storefront {
 		/// - parameters:
 		///     - cartId: The ID of the cart.
 		///     - lines: The merchandise lines to update.
+		///        
+		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
 		open func cartLinesUpdate(alias: String? = nil, cartId: GraphQL.ID, lines: [CartLineUpdateInput], _ subfields: (CartLinesUpdatePayloadQuery) -> Void) -> MutationQuery {
@@ -229,6 +239,8 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - metafields: The list of Cart metafield values to set. Maximum of 25.
+		///        
+		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
 		open func cartMetafieldsSet(alias: String? = nil, metafields: [CartMetafieldsSetInput], _ subfields: (CartMetafieldsSetPayloadQuery) -> Void) -> MutationQuery {
@@ -298,6 +310,8 @@ extension Storefront {
 		/// - parameters:
 		///     - cartId: The ID of the cart.
 		///     - selectedDeliveryOptions: The selected delivery options.
+		///        
+		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
 		open func cartSelectedDeliveryOptionsUpdate(alias: String? = nil, cartId: GraphQL.ID, selectedDeliveryOptions: [CartSelectedDeliveryOptionInput], _ subfields: (CartSelectedDeliveryOptionsUpdatePayloadQuery) -> Void) -> MutationQuery {
@@ -595,6 +609,8 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - giftCardCodes: A list of gift card codes to append to the checkout.
+		///        
+		///        The input must not contain more than `250` values.
 		///     - checkoutId: The ID of the checkout.
 		///
 		@discardableResult
@@ -618,6 +634,8 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - lineItems: A list of line item objects to add to the checkout.
+		///        
+		///        The input must not contain more than `250` values.
 		///     - checkoutId: The ID of the checkout.
 		///
 		@discardableResult
@@ -642,6 +660,8 @@ extension Storefront {
 		/// - parameters:
 		///     - checkoutId: The checkout on which to remove line items.
 		///     - lineItemIds: Line item ids to remove.
+		///        
+		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
 		open func checkoutLineItemsRemove(alias: String? = nil, checkoutId: GraphQL.ID, lineItemIds: [GraphQL.ID], _ subfields: (CheckoutLineItemsRemovePayloadQuery) -> Void) -> MutationQuery {
@@ -664,6 +684,8 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - lineItems: A list of line item objects to set on the checkout.
+		///        
+		///        The input must not contain more than `250` values.
 		///     - checkoutId: The ID of the checkout.
 		///
 		@discardableResult
@@ -688,6 +710,8 @@ extension Storefront {
 		/// - parameters:
 		///     - checkoutId: The checkout on which to update line items.
 		///     - lineItems: Line items to update.
+		///        
+		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
 		open func checkoutLineItemsUpdate(alias: String? = nil, checkoutId: GraphQL.ID, lineItems: [CheckoutLineItemUpdateInput], _ subfields: (CheckoutLineItemsUpdatePayloadQuery) -> Void) -> MutationQuery {

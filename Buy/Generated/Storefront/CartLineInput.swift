@@ -30,7 +30,7 @@ extension Storefront {
 	/// The input fields to create a merchandise line on a cart. 
 	open class CartLineInput {
 		/// An array of key-value pairs that contains additional information about the 
-		/// merchandise line. 
+		/// merchandise line. The input must not contain more than `250` values. 
 		open var attributes: Input<[AttributeInput]>
 
 		/// The quantity of the merchandise. 
@@ -45,7 +45,7 @@ extension Storefront {
 		/// Creates the input object.
 		///
 		/// - parameters:
-		///     - attributes: An array of key-value pairs that contains additional information about the merchandise line.
+		///     - attributes: An array of key-value pairs that contains additional information about the merchandise line.  The input must not contain more than `250` values.
 		///     - quantity: The quantity of the merchandise.
 		///     - merchandiseId: The ID of the merchandise that the buyer intends to purchase.
 		///     - sellingPlanId: The ID of the selling plan that the merchandise is being purchased with.
@@ -64,7 +64,7 @@ extension Storefront {
 		/// Creates the input object.
 		///
 		/// - parameters:
-		///     - attributes: An array of key-value pairs that contains additional information about the merchandise line.
+		///     - attributes: An array of key-value pairs that contains additional information about the merchandise line.  The input must not contain more than `250` values.
 		///     - quantity: The quantity of the merchandise.
 		///     - merchandiseId: The ID of the merchandise that the buyer intends to purchase.
 		///     - sellingPlanId: The ID of the selling plan that the merchandise is being purchased with.
