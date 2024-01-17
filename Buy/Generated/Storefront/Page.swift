@@ -98,6 +98,8 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - identifiers: The list of metafields to retrieve by namespace and key.
+		///        
+		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
 		open func metafields(alias: String? = nil, identifiers: [HasMetafieldsIdentifier], _ subfields: (MetafieldQuery) -> Void) -> PageQuery {

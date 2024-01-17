@@ -285,6 +285,8 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - identifiers: The list of metafields to retrieve by namespace and key.
+		///        
+		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
 		open func metafields(alias: String? = nil, identifiers: [HasMetafieldsIdentifier], _ subfields: (MetafieldQuery) -> Void) -> ProductQuery {
@@ -467,14 +469,26 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - selectedOptions: The input fields used for a selected option.
+		///        
+		///        The input must not contain more than `250` values.
+		///     - ignoreUnknownOptions: Whether to ignore unknown product options.
+		///     - caseInsensitiveMatch: Whether to perform case insensitive match on option names and values.
 		///
 		@discardableResult
-		open func variantBySelectedOptions(alias: String? = nil, selectedOptions: [SelectedOptionInput], _ subfields: (ProductVariantQuery) -> Void) -> ProductQuery {
+		open func variantBySelectedOptions(alias: String? = nil, selectedOptions: [SelectedOptionInput], ignoreUnknownOptions: Bool? = nil, caseInsensitiveMatch: Bool? = nil, _ subfields: (ProductVariantQuery) -> Void) -> ProductQuery {
 			var args: [String] = []
 
 			args.append("selectedOptions:[\(selectedOptions.map{ "\($0.serialize())" }.joined(separator: ","))]")
 
-			let argsString = "(\(args.joined(separator: ",")))"
+			if let ignoreUnknownOptions = ignoreUnknownOptions {
+				args.append("ignoreUnknownOptions:\(ignoreUnknownOptions)")
+			}
+
+			if let caseInsensitiveMatch = caseInsensitiveMatch {
+				args.append("caseInsensitiveMatch:\(caseInsensitiveMatch)")
+			}
+
+			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"
 
 			let subquery = ProductVariantQuery()
 			subfields(subquery)

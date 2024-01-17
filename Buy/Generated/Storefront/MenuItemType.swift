@@ -50,6 +50,9 @@ extension Storefront {
 		/// An http link. 
 		case http = "HTTP"
 
+		/// A metaobject page link. 
+		case metaobject = "METAOBJECT"
+
 		/// A page link. 
 		case page = "PAGE"
 

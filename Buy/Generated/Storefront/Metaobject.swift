@@ -113,7 +113,7 @@ extension Storefront {
 	}
 
 	/// An instance of a user-defined model based on a MetaobjectDefinition. 
-	open class Metaobject: GraphQL.AbstractResponse, GraphQLObject, MetafieldReference, Node, OnlineStorePublishable {
+	open class Metaobject: GraphQL.AbstractResponse, GraphQLObject, MenuItemResource, MetafieldReference, Node, OnlineStorePublishable {
 		public typealias Query = MetaobjectQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {

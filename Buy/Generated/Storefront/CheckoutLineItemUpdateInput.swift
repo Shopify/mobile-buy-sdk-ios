@@ -39,7 +39,7 @@ extension Storefront {
 		open var quantity: Input<Int32>
 
 		/// Extra information in the form of an array of Key-Value pairs about the line 
-		/// item. 
+		/// item. The input must not contain more than `250` values. 
 		open var customAttributes: Input<[AttributeInput]>
 
 		/// Creates the input object.
@@ -48,7 +48,7 @@ extension Storefront {
 		///     - id: The ID of the line item.
 		///     - variantId: The variant ID of the line item.
 		///     - quantity: The quantity of the line item.
-		///     - customAttributes: Extra information in the form of an array of Key-Value pairs about the line item.
+		///     - customAttributes: Extra information in the form of an array of Key-Value pairs about the line item.  The input must not contain more than `250` values.
 		///
 		public static func create(id: Input<GraphQL.ID> = .undefined, variantId: Input<GraphQL.ID> = .undefined, quantity: Input<Int32> = .undefined, customAttributes: Input<[AttributeInput]> = .undefined) -> CheckoutLineItemUpdateInput {
 			return CheckoutLineItemUpdateInput(id: id, variantId: variantId, quantity: quantity, customAttributes: customAttributes)
@@ -67,7 +67,7 @@ extension Storefront {
 		///     - id: The ID of the line item.
 		///     - variantId: The variant ID of the line item.
 		///     - quantity: The quantity of the line item.
-		///     - customAttributes: Extra information in the form of an array of Key-Value pairs about the line item.
+		///     - customAttributes: Extra information in the form of an array of Key-Value pairs about the line item.  The input must not contain more than `250` values.
 		///
 		@available(*, deprecated, message: "Use the static create() method instead.")
 		public convenience init(id: GraphQL.ID? = nil, variantId: GraphQL.ID? = nil, quantity: Int32? = nil, customAttributes: [AttributeInput]? = nil) {

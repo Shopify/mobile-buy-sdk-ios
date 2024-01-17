@@ -125,6 +125,8 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - identifiers: The list of metafields to retrieve by namespace and key.
+		///        
+		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
 		open func metafields(alias: String? = nil, identifiers: [HasMetafieldsIdentifier], _ subfields: (MetafieldQuery) -> Void) -> ProductVariantQuery {
@@ -292,6 +294,13 @@ extension Storefront {
 			subfields(subquery)
 
 			addField(field: "storeAvailability", aliasSuffix: alias, args: argsString, subfields: subquery)
+			return self
+		}
+
+		/// Whether tax is charged when the product variant is sold. 
+		@discardableResult
+		open func taxable(alias: String? = nil) -> ProductVariantQuery {
+			addField(field: "taxable", aliasSuffix: alias)
 			return self
 		}
 
@@ -464,6 +473,12 @@ extension Storefront {
 					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
 				}
 				return try StoreAvailabilityConnection(fields: value)
+
+				case "taxable":
+				guard let value = value as? Bool else {
+					throw SchemaViolationError(type: ProductVariant.self, field: fieldName, value: fieldValue)
+				}
+				return value
 
 				case "title":
 				guard let value = value as? String else {
@@ -689,6 +704,15 @@ extension Storefront {
 
 		func internalGetStoreAvailability(alias: String? = nil) -> Storefront.StoreAvailabilityConnection {
 			return field(field: "storeAvailability", aliasSuffix: alias) as! Storefront.StoreAvailabilityConnection
+		}
+
+		/// Whether tax is charged when the product variant is sold. 
+		open var taxable: Bool {
+			return internalGetTaxable()
+		}
+
+		func internalGetTaxable(alias: String? = nil) -> Bool {
+			return field(field: "taxable", aliasSuffix: alias) as! Bool
 		}
 
 		/// The product variant’s title. 

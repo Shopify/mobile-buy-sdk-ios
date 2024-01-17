@@ -175,6 +175,8 @@ extension Storefront {
 		///
 		/// - parameters:
 		///     - identifiers: The list of metafields to retrieve by namespace and key.
+		///        
+		///        The input must not contain more than `250` values.
 		///
 		@discardableResult
 		open func metafields(alias: String? = nil, identifiers: [HasMetafieldsIdentifier], _ subfields: (MetafieldQuery) -> Void) -> CustomerQuery {
@@ -208,11 +210,11 @@ extension Storefront {
 		///     - before: Returns the elements that come before the specified cursor.
 		///     - reverse: Reverse the order of the underlying list.
 		///     - sortKey: Sort the underlying list by the given key.
-		///     - query: Supported filter parameters:
-		///         - `processed_at`
-		///        
-		///        See the detailed [search syntax](https://shopify.dev/api/usage/search-syntax)
-		///        for more information about using filters.
+		///     - query: Apply one or multiple filters to the query.
+		///        | name | description | acceptable_values | default_value | example_use |
+		///        | ---- | ---- | ---- | ---- | ---- |
+		///        | processed_at |
+		///        Refer to the detailed [search syntax](https://shopify.dev/api/usage/search-syntax) for more information about using filters.
 		///
 		@discardableResult
 		open func orders(alias: String? = nil, first: Int32? = nil, after: String? = nil, last: Int32? = nil, before: String? = nil, reverse: Bool? = nil, sortKey: OrderSortKeys? = nil, query: String? = nil, _ subfields: (OrderConnectionQuery) -> Void) -> CustomerQuery {

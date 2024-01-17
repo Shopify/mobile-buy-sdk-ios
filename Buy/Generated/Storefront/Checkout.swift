@@ -220,7 +220,7 @@ extension Storefront {
 			return self
 		}
 
-		/// The Order Status Page for this Checkout, null when checkout isn't 
+		/// The <b>Order status</b> page for this Checkout, null when checkout isn't 
 		/// completed. 
 		@discardableResult
 		open func orderStatusUrl(alias: String? = nil) -> CheckoutQuery {
@@ -762,7 +762,7 @@ extension Storefront {
 			return field(field: "order", aliasSuffix: alias) as! Storefront.Order?
 		}
 
-		/// The Order Status Page for this Checkout, null when checkout isn't 
+		/// The <b>Order status</b> page for this Checkout, null when checkout isn't 
 		/// completed. 
 		open var orderStatusUrl: URL? {
 			return internalGetOrderStatusUrl()
