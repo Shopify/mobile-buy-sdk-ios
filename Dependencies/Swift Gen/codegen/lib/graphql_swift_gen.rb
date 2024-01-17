@@ -34,8 +34,10 @@ class GraphQLSwiftGen
         output["#{schema_name}/#{directive.classify_name}.swift"] = generate_directive(directive)
       end
     end
-    schema.types.reject{ |type| type.name.start_with?('__') || type.scalar? }.each do |type|
-      output["#{schema_name}/#{type.name}.swift"] = generate_type(type)
+    schema.types.each do |type|
+      unless skip_type?(type)
+        output["#{schema_name}/#{type.name}.swift"] = generate_type(type)
+      end
     end
     output
   end
@@ -101,6 +103,16 @@ class GraphQLSwiftGen
     "associativity", "convenience", "dynamic", "didSet", "final", "get", "infix", "indirect", "lazy", "left", "mutating", "none", "nonmutating", "optional", "override", "postfix", "precedence", "prefix", "Protocol", "required", "right", "set", "Type", "unowned", "weak", "willSet"
   ]
   private_constant :RESERVED_WORDS
+
+  INTROSPECTION_TYPES = [
+    "InContextAnnotation",
+    "InContextAnnotationType"
+  ]
+  private_constant :INTROSPECTION_TYPES
+
+  def skip_type?(type)
+    type.name.start_with?('__') || type.scalar? || INTROSPECTION_TYPES.include?(type.name)
+  end
 
   def escape_reserved_word(word)
     return word unless RESERVED_WORDS.include?(word)
