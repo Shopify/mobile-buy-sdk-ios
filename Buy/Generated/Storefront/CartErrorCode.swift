@@ -29,14 +29,38 @@ import Foundation
 extension Storefront {
 	/// Possible error codes that can be returned by `CartUserError`. 
 	public enum CartErrorCode: String {
+		/// The specified address field contains emojis. 
+		case addressFieldContainsEmojis = "ADDRESS_FIELD_CONTAINS_EMOJIS"
+
+		/// The specified address field contains HTML tags. 
+		case addressFieldContainsHtmlTags = "ADDRESS_FIELD_CONTAINS_HTML_TAGS"
+
+		/// The specified address field contains a URL. 
+		case addressFieldContainsUrl = "ADDRESS_FIELD_CONTAINS_URL"
+
+		/// The specified address field does not match the expected pattern. 
+		case addressFieldDoesNotMatchExpectedPattern = "ADDRESS_FIELD_DOES_NOT_MATCH_EXPECTED_PATTERN"
+
+		/// The specified address field is required. 
+		case addressFieldIsRequired = "ADDRESS_FIELD_IS_REQUIRED"
+
+		/// The specified address field is too long. 
+		case addressFieldIsTooLong = "ADDRESS_FIELD_IS_TOO_LONG"
+
 		/// The input value is invalid. 
 		case invalid = "INVALID"
+
+		/// Company location not found or not allowed. 
+		case invalidCompanyLocation = "INVALID_COMPANY_LOCATION"
 
 		/// Delivery group was not found in cart. 
 		case invalidDeliveryGroup = "INVALID_DELIVERY_GROUP"
 
 		/// Delivery option was not valid. 
 		case invalidDeliveryOption = "INVALID_DELIVERY_OPTION"
+
+		/// The quantity must be a multiple of the specified increment. 
+		case invalidIncrement = "INVALID_INCREMENT"
 
 		/// Merchandise line was not found in cart. 
 		case invalidMerchandiseLine = "INVALID_MERCHANDISE_LINE"
@@ -50,8 +74,23 @@ extension Storefront {
 		/// Cannot update payment on an empty cart 
 		case invalidPaymentEmptyCart = "INVALID_PAYMENT_EMPTY_CART"
 
+		/// The given zip code is invalid for the provided country. 
+		case invalidZipCodeForCountry = "INVALID_ZIP_CODE_FOR_COUNTRY"
+
+		/// The given zip code is invalid for the provided province. 
+		case invalidZipCodeForProvince = "INVALID_ZIP_CODE_FOR_PROVINCE"
+
 		/// The input value should be less than the maximum value allowed. 
 		case lessThan = "LESS_THAN"
+
+		/// The quantity must be below the specified maximum for the item. 
+		case maximumExceeded = "MAXIMUM_EXCEEDED"
+
+		/// The quantity must be above the specified minimum for the item. 
+		case minimumNotMet = "MINIMUM_NOT_MET"
+
+		/// The customer access token is required when setting a company location. 
+		case missingCustomerAccessToken = "MISSING_CUSTOMER_ACCESS_TOKEN"
 
 		/// Missing discount code. 
 		case missingDiscountCode = "MISSING_DISCOUNT_CODE"
@@ -62,8 +101,17 @@ extension Storefront {
 		/// The payment method is not supported. 
 		case paymentMethodNotSupported = "PAYMENT_METHOD_NOT_SUPPORTED"
 
+		/// The given province cannot be found. 
+		case provinceNotFound = "PROVINCE_NOT_FOUND"
+
+		/// A general error occurred during address validation. 
+		case unspecifiedAddressError = "UNSPECIFIED_ADDRESS_ERROR"
+
 		/// Validation failed. 
 		case validationCustom = "VALIDATION_CUSTOM"
+
+		/// The given zip code is unsupported. 
+		case zipCodeNotSupported = "ZIP_CODE_NOT_SUPPORTED"
 
 		case unknownValue = ""
 	}

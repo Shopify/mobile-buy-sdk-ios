@@ -203,6 +203,51 @@ extension Storefront {
 		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
 		/// queries. 
 		@discardableResult
+		open func onCompany(subfields: (CompanyQuery) -> Void) -> NodeQuery {
+			let subquery = CompanyQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Company", subfields: subquery)
+			return self
+		}
+
+		/// An object with an ID field to support global identification, in accordance 
+		/// with the [Relay 
+		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
+		/// This interface is used by the 
+		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
+		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
+		/// queries. 
+		@discardableResult
+		open func onCompanyContact(subfields: (CompanyContactQuery) -> Void) -> NodeQuery {
+			let subquery = CompanyContactQuery()
+			subfields(subquery)
+			addInlineFragment(on: "CompanyContact", subfields: subquery)
+			return self
+		}
+
+		/// An object with an ID field to support global identification, in accordance 
+		/// with the [Relay 
+		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
+		/// This interface is used by the 
+		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
+		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
+		/// queries. 
+		@discardableResult
+		open func onCompanyLocation(subfields: (CompanyLocationQuery) -> Void) -> NodeQuery {
+			let subquery = CompanyLocationQuery()
+			subfields(subquery)
+			addInlineFragment(on: "CompanyLocation", subfields: subquery)
+			return self
+		}
+
+		/// An object with an ID field to support global identification, in accordance 
+		/// with the [Relay 
+		/// specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface). 
+		/// This interface is used by the 
+		/// [node](https://shopify.dev/api/admin-graphql/unstable/queries/node) and 
+		/// [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) 
+		/// queries. 
+		@discardableResult
 		open func onComponentizableCartLine(subfields: (ComponentizableCartLineQuery) -> Void) -> NodeQuery {
 			let subquery = ComponentizableCartLineQuery()
 			subfields(subquery)
@@ -587,6 +632,12 @@ extension Storefront {
 				case "Collection": return try Collection.init(fields: fields)
 
 				case "Comment": return try Comment.init(fields: fields)
+
+				case "Company": return try Company.init(fields: fields)
+
+				case "CompanyContact": return try CompanyContact.init(fields: fields)
+
+				case "CompanyLocation": return try CompanyLocation.init(fields: fields)
 
 				case "ComponentizableCartLine": return try ComponentizableCartLine.init(fields: fields)
 

@@ -45,6 +45,14 @@ extension Storefront {
 			return self
 		}
 
+		/// Describes how to present the filter values. Returns a value only for 
+		/// filters of type `LIST`. Returns null for other types. 
+		@discardableResult
+		open func presentation(alias: String? = nil) -> FilterQuery {
+			addField(field: "presentation", aliasSuffix: alias)
+			return self
+		}
+
 		/// An enumeration that denotes the type of data this filter represents. 
 		@discardableResult
 		open func type(alias: String? = nil) -> FilterQuery {
@@ -82,6 +90,13 @@ extension Storefront {
 				}
 				return value
 
+				case "presentation":
+				if value is NSNull { return nil }
+				guard let value = value as? String else {
+					throw SchemaViolationError(type: Filter.self, field: fieldName, value: fieldValue)
+				}
+				return FilterPresentation(rawValue: value) ?? .unknownValue
+
 				case "type":
 				guard let value = value as? String else {
 					throw SchemaViolationError(type: Filter.self, field: fieldName, value: fieldValue)
@@ -115,6 +130,16 @@ extension Storefront {
 
 		func internalGetLabel(alias: String? = nil) -> String {
 			return field(field: "label", aliasSuffix: alias) as! String
+		}
+
+		/// Describes how to present the filter values. Returns a value only for 
+		/// filters of type `LIST`. Returns null for other types. 
+		open var presentation: Storefront.FilterPresentation? {
+			return internalGetPresentation()
+		}
+
+		func internalGetPresentation(alias: String? = nil) -> Storefront.FilterPresentation? {
+			return field(field: "presentation", aliasSuffix: alias) as! Storefront.FilterPresentation?
 		}
 
 		/// An enumeration that denotes the type of data this filter represents. 

@@ -27,7 +27,11 @@
 import Foundation
 
 extension Storefront {
-	/// A container for all the information required to checkout items and pay. 
+	/// A container for all the information required to checkout items and pay. The 
+	/// Storefront GraphQL Checkout API is deprecated and will be removed in a 
+	/// future version. Please see 
+	/// https://shopify.dev/changelog/deprecation-of-checkout-apis for more 
+	/// information. 
 	open class CheckoutQuery: GraphQL.AbstractQuery, GraphQLQuery {
 		public typealias Response = Checkout
 
@@ -406,7 +410,11 @@ extension Storefront {
 		}
 	}
 
-	/// A container for all the information required to checkout items and pay. 
+	/// A container for all the information required to checkout items and pay. The 
+	/// Storefront GraphQL Checkout API is deprecated and will be removed in a 
+	/// future version. Please see 
+	/// https://shopify.dev/changelog/deprecation-of-checkout-apis for more 
+	/// information. 
 	open class Checkout: GraphQL.AbstractResponse, GraphQLObject, Node {
 		public typealias Query = CheckoutQuery
 

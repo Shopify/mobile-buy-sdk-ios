@@ -78,6 +78,15 @@ extension Storefront {
 
 		/// Returns the resource which is being referred to by a metafield. 
 		@discardableResult
+		open func onModel3d(subfields: (Model3dQuery) -> Void) -> MetafieldReferenceQuery {
+			let subquery = Model3dQuery()
+			subfields(subquery)
+			addInlineFragment(on: "Model3d", subfields: subquery)
+			return self
+		}
+
+		/// Returns the resource which is being referred to by a metafield. 
+		@discardableResult
 		open func onPage(subfields: (PageQuery) -> Void) -> MetafieldReferenceQuery {
 			let subquery = PageQuery()
 			subfields(subquery)
@@ -137,6 +146,8 @@ extension Storefront {
 				case "MediaImage": return try MediaImage.init(fields: fields)
 
 				case "Metaobject": return try Metaobject.init(fields: fields)
+
+				case "Model3d": return try Model3d.init(fields: fields)
 
 				case "Page": return try Page.init(fields: fields)
 

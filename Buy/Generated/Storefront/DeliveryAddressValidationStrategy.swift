@@ -1,9 +1,9 @@
 //
-//  Storefront.Schema.swift
+//  DeliveryAddressValidationStrategy.swift
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2020 Shopify Inc. All rights reserved.
+//  Copyright (c) 2017 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +24,20 @@
 //  THE SOFTWARE.
 //
 
+import Foundation
+
 extension Storefront {
-    enum Schema {
-        static let version = "2024-04"
-    }
+	/// Defines the types of available validation strategies for delivery 
+	/// addresses. 
+	public enum DeliveryAddressValidationStrategy: String {
+		/// Only the country code is validated. 
+		case countryCodeOnly = "COUNTRY_CODE_ONLY"
+
+		/// Strict validation is performed, i.e. all fields in the address are 
+		/// validated according to Shopify's checkout rules. If the address fails 
+		/// validation, the cart will not be updated. 
+		case strict = "STRICT"
+
+		case unknownValue = ""
+	}
 }

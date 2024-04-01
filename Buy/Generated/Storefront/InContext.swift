@@ -38,8 +38,9 @@ extension Storefront {
 		///     - country: The country code for context. For example, `CA`.
 		///     - language: The language code for context. For example, `EN`.
 		///     - preferredLocationId: The identifier of the customer's preferred location.
+		///     - buyer: The buyer's identity.
 		///
-		public init(country: CountryCode? = nil, language: LanguageCode? = nil, preferredLocationId: GraphQL.ID? = nil) {
+		public init(country: CountryCode? = nil, language: LanguageCode? = nil, preferredLocationId: GraphQL.ID? = nil, buyer: BuyerInput? = nil) {
 			var args: [String] = []
 
 			if let country = country {
@@ -52,6 +53,10 @@ extension Storefront {
 
 			if let preferredLocationId = preferredLocationId {
 				args.append("preferredLocationId:\(GraphQL.quoteString(input: "\(preferredLocationId.rawValue)"))")
+			}
+
+			if let buyer = buyer {
+				args.append("buyer:\(buyer.serialize())")
 			}
 
 			let argsString: String? = args.isEmpty ? nil : "(\(args.joined(separator: ",")))"

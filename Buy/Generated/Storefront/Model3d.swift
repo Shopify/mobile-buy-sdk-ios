@@ -84,7 +84,7 @@ extension Storefront {
 	}
 
 	/// Represents a Shopify hosted 3D model. 
-	open class Model3d: GraphQL.AbstractResponse, GraphQLObject, Media, Node {
+	open class Model3d: GraphQL.AbstractResponse, GraphQLObject, Media, MetafieldReference, Node {
 		public typealias Query = Model3dQuery
 
 		internal override func deserializeValue(fieldName: String, value: Any) throws -> Any? {

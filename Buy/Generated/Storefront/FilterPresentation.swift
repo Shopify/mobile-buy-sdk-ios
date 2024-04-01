@@ -1,9 +1,9 @@
 //
-//  Storefront.Schema.swift
+//  FilterPresentation.swift
 //  Buy
 //
 //  Created by Shopify.
-//  Copyright (c) 2020 Shopify Inc. All rights reserved.
+//  Copyright (c) 2017 Shopify Inc. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +24,21 @@
 //  THE SOFTWARE.
 //
 
+import Foundation
+
 extension Storefront {
-    enum Schema {
-        static let version = "2024-04"
-    }
+	/// Defines how to present the filter values, specifies the presentation of the 
+	/// filter. 
+	public enum FilterPresentation: String {
+		/// Image presentation, filter values display an image. 
+		case image = "IMAGE"
+
+		/// Swatch presentation, filter values display color or image patterns. 
+		case swatch = "SWATCH"
+
+		/// Text presentation, no additional visual display for filter values. 
+		case text = "TEXT"
+
+		case unknownValue = ""
+	}
 }
