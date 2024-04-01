@@ -120,6 +120,45 @@
 		4E28FF1C270780B500F9EBED /* OnlineStorePublishable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E28FECD270780B500F9EBED /* OnlineStorePublishable.swift */; };
 		4E28FF1D270780B500F9EBED /* OnlineStorePublishable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E28FECD270780B500F9EBED /* OnlineStorePublishable.swift */; };
 		4E28FF1E270780B500F9EBED /* OnlineStorePublishable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E28FECD270780B500F9EBED /* OnlineStorePublishable.swift */; };
+		4E69B2462BBB2C0B00913BAA /* Swatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B2392BBB2C0A00913BAA /* Swatch.swift */; };
+		4E69B2472BBB2C0B00913BAA /* Swatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B2392BBB2C0A00913BAA /* Swatch.swift */; };
+		4E69B2482BBB2C0B00913BAA /* Swatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B2392BBB2C0A00913BAA /* Swatch.swift */; };
+		4E69B2492BBB2C0B00913BAA /* FilterPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B23A2BBB2C0A00913BAA /* FilterPresentation.swift */; };
+		4E69B24A2BBB2C0B00913BAA /* FilterPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B23A2BBB2C0A00913BAA /* FilterPresentation.swift */; };
+		4E69B24B2BBB2C0B00913BAA /* FilterPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B23A2BBB2C0A00913BAA /* FilterPresentation.swift */; };
+		4E69B24C2BBB2C0B00913BAA /* QuantityPriceBreak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B23B2BBB2C0A00913BAA /* QuantityPriceBreak.swift */; };
+		4E69B24D2BBB2C0B00913BAA /* QuantityPriceBreak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B23B2BBB2C0A00913BAA /* QuantityPriceBreak.swift */; };
+		4E69B24E2BBB2C0B00913BAA /* QuantityPriceBreak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B23B2BBB2C0A00913BAA /* QuantityPriceBreak.swift */; };
+		4E69B24F2BBB2C0B00913BAA /* CompanyLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B23C2BBB2C0A00913BAA /* CompanyLocation.swift */; };
+		4E69B2502BBB2C0B00913BAA /* CompanyLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B23C2BBB2C0A00913BAA /* CompanyLocation.swift */; };
+		4E69B2512BBB2C0B00913BAA /* CompanyLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B23C2BBB2C0A00913BAA /* CompanyLocation.swift */; };
+		4E69B2522BBB2C0B00913BAA /* PurchasingCompany.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B23D2BBB2C0A00913BAA /* PurchasingCompany.swift */; };
+		4E69B2532BBB2C0B00913BAA /* PurchasingCompany.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B23D2BBB2C0A00913BAA /* PurchasingCompany.swift */; };
+		4E69B2542BBB2C0B00913BAA /* PurchasingCompany.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B23D2BBB2C0A00913BAA /* PurchasingCompany.swift */; };
+		4E69B2552BBB2C0B00913BAA /* BuyerInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B23E2BBB2C0B00913BAA /* BuyerInput.swift */; };
+		4E69B2562BBB2C0B00913BAA /* BuyerInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B23E2BBB2C0B00913BAA /* BuyerInput.swift */; };
+		4E69B2572BBB2C0B00913BAA /* BuyerInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B23E2BBB2C0B00913BAA /* BuyerInput.swift */; };
+		4E69B2582BBB2C0B00913BAA /* DeliveryAddressValidationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B23F2BBB2C0B00913BAA /* DeliveryAddressValidationStrategy.swift */; };
+		4E69B2592BBB2C0B00913BAA /* DeliveryAddressValidationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B23F2BBB2C0B00913BAA /* DeliveryAddressValidationStrategy.swift */; };
+		4E69B25A2BBB2C0B00913BAA /* DeliveryAddressValidationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B23F2BBB2C0B00913BAA /* DeliveryAddressValidationStrategy.swift */; };
+		4E69B25B2BBB2C0B00913BAA /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B2402BBB2C0B00913BAA /* Company.swift */; };
+		4E69B25C2BBB2C0B00913BAA /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B2402BBB2C0B00913BAA /* Company.swift */; };
+		4E69B25D2BBB2C0B00913BAA /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B2402BBB2C0B00913BAA /* Company.swift */; };
+		4E69B25E2BBB2C0B00913BAA /* CompanyContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B2412BBB2C0B00913BAA /* CompanyContact.swift */; };
+		4E69B25F2BBB2C0B00913BAA /* CompanyContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B2412BBB2C0B00913BAA /* CompanyContact.swift */; };
+		4E69B2602BBB2C0B00913BAA /* CompanyContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B2412BBB2C0B00913BAA /* CompanyContact.swift */; };
+		4E69B2612BBB2C0B00913BAA /* QuantityRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B2422BBB2C0B00913BAA /* QuantityRule.swift */; };
+		4E69B2622BBB2C0B00913BAA /* QuantityRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B2422BBB2C0B00913BAA /* QuantityRule.swift */; };
+		4E69B2632BBB2C0B00913BAA /* QuantityRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B2422BBB2C0B00913BAA /* QuantityRule.swift */; };
+		4E69B2642BBB2C0B00913BAA /* QuantityPriceBreakEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B2432BBB2C0B00913BAA /* QuantityPriceBreakEdge.swift */; };
+		4E69B2652BBB2C0B00913BAA /* QuantityPriceBreakEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B2432BBB2C0B00913BAA /* QuantityPriceBreakEdge.swift */; };
+		4E69B2662BBB2C0B00913BAA /* QuantityPriceBreakEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B2432BBB2C0B00913BAA /* QuantityPriceBreakEdge.swift */; };
+		4E69B2672BBB2C0B00913BAA /* QuantityPriceBreakConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B2442BBB2C0B00913BAA /* QuantityPriceBreakConnection.swift */; };
+		4E69B2682BBB2C0B00913BAA /* QuantityPriceBreakConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B2442BBB2C0B00913BAA /* QuantityPriceBreakConnection.swift */; };
+		4E69B2692BBB2C0B00913BAA /* QuantityPriceBreakConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B2442BBB2C0B00913BAA /* QuantityPriceBreakConnection.swift */; };
+		4E69B26A2BBB2C0B00913BAA /* CartDeliveryGroupType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B2452BBB2C0B00913BAA /* CartDeliveryGroupType.swift */; };
+		4E69B26B2BBB2C0B00913BAA /* CartDeliveryGroupType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B2452BBB2C0B00913BAA /* CartDeliveryGroupType.swift */; };
+		4E69B26C2BBB2C0B00913BAA /* CartDeliveryGroupType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E69B2452BBB2C0B00913BAA /* CartDeliveryGroupType.swift */; };
 		4E772600296DC92F00A6EAE7 /* MetaobjectHandleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7725FB296DC92E00A6EAE7 /* MetaobjectHandleInput.swift */; };
 		4E772601296DC92F00A6EAE7 /* MetaobjectHandleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7725FB296DC92E00A6EAE7 /* MetaobjectHandleInput.swift */; };
 		4E772602296DC92F00A6EAE7 /* MetaobjectHandleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7725FB296DC92E00A6EAE7 /* MetaobjectHandleInput.swift */; };
@@ -1204,6 +1243,19 @@
 		4E28FECB270780B500F9EBED /* CartBuyerIdentity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartBuyerIdentity.swift; sourceTree = "<group>"; };
 		4E28FECC270780B500F9EBED /* Merchandise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Merchandise.swift; sourceTree = "<group>"; };
 		4E28FECD270780B500F9EBED /* OnlineStorePublishable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnlineStorePublishable.swift; sourceTree = "<group>"; };
+		4E69B2392BBB2C0A00913BAA /* Swatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Swatch.swift; sourceTree = "<group>"; };
+		4E69B23A2BBB2C0A00913BAA /* FilterPresentation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterPresentation.swift; sourceTree = "<group>"; };
+		4E69B23B2BBB2C0A00913BAA /* QuantityPriceBreak.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuantityPriceBreak.swift; sourceTree = "<group>"; };
+		4E69B23C2BBB2C0A00913BAA /* CompanyLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyLocation.swift; sourceTree = "<group>"; };
+		4E69B23D2BBB2C0A00913BAA /* PurchasingCompany.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchasingCompany.swift; sourceTree = "<group>"; };
+		4E69B23E2BBB2C0B00913BAA /* BuyerInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuyerInput.swift; sourceTree = "<group>"; };
+		4E69B23F2BBB2C0B00913BAA /* DeliveryAddressValidationStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliveryAddressValidationStrategy.swift; sourceTree = "<group>"; };
+		4E69B2402BBB2C0B00913BAA /* Company.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
+		4E69B2412BBB2C0B00913BAA /* CompanyContact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyContact.swift; sourceTree = "<group>"; };
+		4E69B2422BBB2C0B00913BAA /* QuantityRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuantityRule.swift; sourceTree = "<group>"; };
+		4E69B2432BBB2C0B00913BAA /* QuantityPriceBreakEdge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuantityPriceBreakEdge.swift; sourceTree = "<group>"; };
+		4E69B2442BBB2C0B00913BAA /* QuantityPriceBreakConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuantityPriceBreakConnection.swift; sourceTree = "<group>"; };
+		4E69B2452BBB2C0B00913BAA /* CartDeliveryGroupType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartDeliveryGroupType.swift; sourceTree = "<group>"; };
 		4E7725FB296DC92E00A6EAE7 /* MetaobjectHandleInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetaobjectHandleInput.swift; sourceTree = "<group>"; };
 		4E7725FC296DC92E00A6EAE7 /* Metaobject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Metaobject.swift; sourceTree = "<group>"; };
 		4E7725FD296DC92E00A6EAE7 /* MetaobjectConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetaobjectConnection.swift; sourceTree = "<group>"; };
@@ -1664,6 +1716,7 @@
 				4EF3D33F28EB2287007215E6 /* Brand.swift */,
 				4EF3D34028EB2287007215E6 /* BrandColorGroup.swift */,
 				4EF3D33E28EB2287007215E6 /* BrandColors.swift */,
+				4E69B23E2BBB2C0B00913BAA /* BuyerInput.swift */,
 				9A52D3A11F3CA58E00C093C8 /* CardBrand.swift */,
 				4E28FEC2270780B400F9EBED /* Cart.swift */,
 				4E28FEB5270780B400F9EBED /* CartAttributesUpdatePayload.swift */,
@@ -1685,6 +1738,7 @@
 				4ECBE3FF27FB45D200CB544E /* CartDeliveryGroup.swift */,
 				4ECBE40727FB45D200CB544E /* CartDeliveryGroupConnection.swift */,
 				4ECBE3FE27FB45D200CB544E /* CartDeliveryGroupEdge.swift */,
+				4E69B2452BBB2C0B00913BAA /* CartDeliveryGroupType.swift */,
 				4ECBE40027FB45D200CB544E /* CartDeliveryOption.swift */,
 				4EB4DAC129DC5FED00C9A6BD /* CartDirectPaymentMethodInput.swift */,
 				4E28FEB9270780B400F9EBED /* CartDiscountAllocation.swift */,
@@ -1754,6 +1808,9 @@
 				9AA416D51EE095BB0060029B /* CommentAuthor.swift */,
 				9AA416D61EE095BB0060029B /* CommentConnection.swift */,
 				9AA416D71EE095BB0060029B /* CommentEdge.swift */,
+				4E69B2402BBB2C0B00913BAA /* Company.swift */,
+				4E69B2412BBB2C0B00913BAA /* CompanyContact.swift */,
+				4E69B23C2BBB2C0A00913BAA /* CompanyLocation.swift */,
 				4EB4DAB729DC5FED00C9A6BD /* CompletePaymentChallenge.swift */,
 				4EB4DAC529DC5FED00C9A6BD /* CompletionError.swift */,
 				4EB4DAC629DC5FED00C9A6BD /* CompletionErrorCode.swift */,
@@ -1791,6 +1848,7 @@
 				9ABEB3B82122FF7F00A373F2 /* CustomerUserError.swift */,
 				4EF3D32628EB2182007215E6 /* DeliveryAddress.swift */,
 				4EF3D32B28EB2182007215E6 /* DeliveryAddressInput.swift */,
+				4E69B23F2BBB2C0B00913BAA /* DeliveryAddressValidationStrategy.swift */,
 				4ECBE40127FB45D200CB544E /* DeliveryMethodType.swift */,
 				9A52D3A41F3CA5DB00C093C8 /* DigitalWallet.swift */,
 				9A67115321666AB100A57A3F /* DiscountAllocation.swift */,
@@ -1805,6 +1863,7 @@
 				9A0C802E1EAA51C50020F187 /* Domain.swift */,
 				8128550D23C4AC7E00ADA66E /* ExternalVideo.swift */,
 				4EC8A6EE278792B400FC193B /* Filter.swift */,
+				4E69B23A2BBB2C0A00913BAA /* FilterPresentation.swift */,
 				4EC8A6F5278792B400FC193B /* FilterType.swift */,
 				4EC8A6F3278792B400FC193B /* FilterValue.swift */,
 				9ABEB3A42122FF7500A373F2 /* Fulfillment.swift */,
@@ -1911,6 +1970,11 @@
 				9A0C804A1EAA51C50020F187 /* ProductVariantConnection.swift */,
 				9A0C804B1EAA51C50020F187 /* ProductVariantEdge.swift */,
 				9AE1F8151F605F8F00147E77 /* ProductVariantSortKeys.swift */,
+				4E69B23D2BBB2C0A00913BAA /* PurchasingCompany.swift */,
+				4E69B23B2BBB2C0A00913BAA /* QuantityPriceBreak.swift */,
+				4E69B2442BBB2C0B00913BAA /* QuantityPriceBreakConnection.swift */,
+				4E69B2432BBB2C0B00913BAA /* QuantityPriceBreakEdge.swift */,
+				4E69B2422BBB2C0B00913BAA /* QuantityRule.swift */,
 				9A0C804C1EAA51C50020F187 /* QueryRoot.swift */,
 				9A67114921666AAE00A57A3F /* ScriptDiscountApplication.swift */,
 				4EC2158D2A55CB8700BD6148 /* SearchableField.swift */,
@@ -1962,6 +2026,7 @@
 				4EB4DACF29DC5FEE00C9A6BD /* SubmitFailed.swift */,
 				4EB4DAA929DC5FED00C9A6BD /* SubmitSuccess.swift */,
 				4EB4DAAA29DC5FED00C9A6BD /* SubmitThrottled.swift */,
+				4E69B2392BBB2C0A00913BAA /* Swatch.swift */,
 				21751EEC243D136A005001D4 /* TokenizedPaymentInputV3.swift */,
 				4EC215902A55CB8700BD6148 /* Trackable.swift */,
 				9A0C80521EAA51C50020F187 /* Transaction.swift */,
@@ -2586,6 +2651,7 @@
 				4EF3D34628EB2287007215E6 /* Brand.swift in Sources */,
 				4EF3D34928EB2287007215E6 /* BrandColorGroup.swift in Sources */,
 				4EF3D34328EB2287007215E6 /* BrandColors.swift in Sources */,
+				4E69B2572BBB2C0B00913BAA /* BuyerInput.swift in Sources */,
 				9AC2EF631F6818180037E0D7 /* Card.swift in Sources */,
 				9AC2EFAB1F6818180037E0D7 /* Card.Client.swift in Sources */,
 				9AC2EF5C1F6818180037E0D7 /* Card.CreditCard.swift in Sources */,
@@ -2610,6 +2676,7 @@
 				4ECBE40E27FB45D200CB544E /* CartDeliveryGroup.swift in Sources */,
 				4ECBE42627FB45D200CB544E /* CartDeliveryGroupConnection.swift in Sources */,
 				4ECBE40B27FB45D200CB544E /* CartDeliveryGroupEdge.swift in Sources */,
+				4E69B26C2BBB2C0B00913BAA /* CartDeliveryGroupType.swift in Sources */,
 				4ECBE41127FB45D200CB544E /* CartDeliveryOption.swift in Sources */,
 				4EB4DB1C29DC5FEE00C9A6BD /* CartDirectPaymentMethodInput.swift in Sources */,
 				4E28FEE2270780B500F9EBED /* CartDiscountAllocation.swift in Sources */,
@@ -2679,6 +2746,9 @@
 				9AC2EF6D1F6818180037E0D7 /* CommentAuthor.swift in Sources */,
 				9AC2EF921F6818180037E0D7 /* CommentConnection.swift in Sources */,
 				9AC2EFBE1F6818180037E0D7 /* CommentEdge.swift in Sources */,
+				4E69B25D2BBB2C0B00913BAA /* Company.swift in Sources */,
+				4E69B2602BBB2C0B00913BAA /* CompanyContact.swift in Sources */,
+				4E69B2512BBB2C0B00913BAA /* CompanyLocation.swift in Sources */,
 				4EB4DAFE29DC5FEE00C9A6BD /* CompletePaymentChallenge.swift in Sources */,
 				4EB4DB2829DC5FEE00C9A6BD /* CompletionError.swift in Sources */,
 				4EB4DB2B29DC5FEE00C9A6BD /* CompletionErrorCode.swift in Sources */,
@@ -2716,6 +2786,7 @@
 				9ABEB3BB2122FF8000A373F2 /* CustomerUserError.swift in Sources */,
 				4EF3D32E28EB2182007215E6 /* DeliveryAddress.swift in Sources */,
 				4EF3D33D28EB2182007215E6 /* DeliveryAddressInput.swift in Sources */,
+				4E69B25A2BBB2C0B00913BAA /* DeliveryAddressValidationStrategy.swift in Sources */,
 				4ECBE41427FB45D200CB544E /* DeliveryMethodType.swift in Sources */,
 				9AC2EF571F6818180037E0D7 /* DigitalWallet.swift in Sources */,
 				9A67117421666AB200A57A3F /* DiscountAllocation.swift in Sources */,
@@ -2730,6 +2801,7 @@
 				9AC2EF5B1F6818180037E0D7 /* Domain.swift in Sources */,
 				815FAB4923C4B82C00F98749 /* ExternalVideo.swift in Sources */,
 				4EC8A70C2787946400FC193B /* Filter.swift in Sources */,
+				4E69B24B2BBB2C0B00913BAA /* FilterPresentation.swift in Sources */,
 				4EC8A7142787946400FC193B /* FilterType.swift in Sources */,
 				4EC8A7112787946400FC193B /* FilterValue.swift in Sources */,
 				9ABEB3AA2122FF7700A373F2 /* Fulfillment.swift in Sources */,
@@ -2851,6 +2923,11 @@
 				9AC2EF6E1F6818180037E0D7 /* ProductVariantConnection.swift in Sources */,
 				9AC2EFBB1F6818180037E0D7 /* ProductVariantEdge.swift in Sources */,
 				9AC2EF3D1F6818180037E0D7 /* ProductVariantSortKeys.swift in Sources */,
+				4E69B2542BBB2C0B00913BAA /* PurchasingCompany.swift in Sources */,
+				4E69B24E2BBB2C0B00913BAA /* QuantityPriceBreak.swift in Sources */,
+				4E69B2692BBB2C0B00913BAA /* QuantityPriceBreakConnection.swift in Sources */,
+				4E69B2662BBB2C0B00913BAA /* QuantityPriceBreakEdge.swift in Sources */,
+				4E69B2632BBB2C0B00913BAA /* QuantityRule.swift in Sources */,
 				9AC2EF3F1F6818180037E0D7 /* QueryRoot.swift in Sources */,
 				9A67115621666AB200A57A3F /* ScriptDiscountApplication.swift in Sources */,
 				9A3D4CD6251B9EF200B702E0 /* SDK.swift in Sources */,
@@ -2906,6 +2983,7 @@
 				4EB4DB4629DC5FEE00C9A6BD /* SubmitFailed.swift in Sources */,
 				4EB4DAD429DC5FEE00C9A6BD /* SubmitSuccess.swift in Sources */,
 				4EB4DAD729DC5FEE00C9A6BD /* SubmitThrottled.swift in Sources */,
+				4E69B2482BBB2C0B00913BAA /* Swatch.swift in Sources */,
 				21751F00243D136A005001D4 /* TokenizedPaymentInputV3.swift in Sources */,
 				4EC215B62A55CB8800BD6148 /* Trackable.swift in Sources */,
 				9AC2EF5D1F6818180037E0D7 /* Transaction.swift in Sources */,
@@ -2953,6 +3031,7 @@
 				4EF3D34428EB2287007215E6 /* Brand.swift in Sources */,
 				4EF3D34728EB2287007215E6 /* BrandColorGroup.swift in Sources */,
 				4EF3D34128EB2287007215E6 /* BrandColors.swift in Sources */,
+				4E69B2552BBB2C0B00913BAA /* BuyerInput.swift in Sources */,
 				9A0C80F01EB773310020F187 /* Card.swift in Sources */,
 				9A0C80F41EB785310020F187 /* Card.Client.swift in Sources */,
 				9A0C80F21EB773520020F187 /* Card.CreditCard.swift in Sources */,
@@ -2977,6 +3056,7 @@
 				4ECBE40C27FB45D200CB544E /* CartDeliveryGroup.swift in Sources */,
 				4ECBE42427FB45D200CB544E /* CartDeliveryGroupConnection.swift in Sources */,
 				4ECBE40927FB45D200CB544E /* CartDeliveryGroupEdge.swift in Sources */,
+				4E69B26A2BBB2C0B00913BAA /* CartDeliveryGroupType.swift in Sources */,
 				4ECBE40F27FB45D200CB544E /* CartDeliveryOption.swift in Sources */,
 				4EB4DB1A29DC5FEE00C9A6BD /* CartDirectPaymentMethodInput.swift in Sources */,
 				4E28FEE0270780B500F9EBED /* CartDiscountAllocation.swift in Sources */,
@@ -3046,6 +3126,9 @@
 				9AA416D91EE095BB0060029B /* CommentAuthor.swift in Sources */,
 				9AA416DA1EE095BB0060029B /* CommentConnection.swift in Sources */,
 				9AA416DB1EE095BB0060029B /* CommentEdge.swift in Sources */,
+				4E69B25B2BBB2C0B00913BAA /* Company.swift in Sources */,
+				4E69B25E2BBB2C0B00913BAA /* CompanyContact.swift in Sources */,
+				4E69B24F2BBB2C0B00913BAA /* CompanyLocation.swift in Sources */,
 				4EB4DAFC29DC5FEE00C9A6BD /* CompletePaymentChallenge.swift in Sources */,
 				4EB4DB2629DC5FEE00C9A6BD /* CompletionError.swift in Sources */,
 				4EB4DB2929DC5FEE00C9A6BD /* CompletionErrorCode.swift in Sources */,
@@ -3083,6 +3166,7 @@
 				9ABEB3BA2122FF8000A373F2 /* CustomerUserError.swift in Sources */,
 				4EF3D32C28EB2182007215E6 /* DeliveryAddress.swift in Sources */,
 				4EF3D33B28EB2182007215E6 /* DeliveryAddressInput.swift in Sources */,
+				4E69B2582BBB2C0B00913BAA /* DeliveryAddressValidationStrategy.swift in Sources */,
 				4ECBE41227FB45D200CB544E /* DeliveryMethodType.swift in Sources */,
 				9A52D3A51F3CA5DB00C093C8 /* DigitalWallet.swift in Sources */,
 				9A67117321666AB200A57A3F /* DiscountAllocation.swift in Sources */,
@@ -3097,6 +3181,7 @@
 				9A0C808D1EAA51C50020F187 /* Domain.swift in Sources */,
 				8128551C23C4AC7E00ADA66E /* ExternalVideo.swift in Sources */,
 				4EC8A6F8278792B400FC193B /* Filter.swift in Sources */,
+				4E69B2492BBB2C0B00913BAA /* FilterPresentation.swift in Sources */,
 				4EC8A6FF278792B400FC193B /* FilterType.swift in Sources */,
 				4EC8A6FD278792B400FC193B /* FilterValue.swift in Sources */,
 				9ABEB3A92122FF7700A373F2 /* Fulfillment.swift in Sources */,
@@ -3218,6 +3303,11 @@
 				9A0C80A91EAA51C50020F187 /* ProductVariantConnection.swift in Sources */,
 				9A0C80AA1EAA51C50020F187 /* ProductVariantEdge.swift in Sources */,
 				9AE1F8161F605F8F00147E77 /* ProductVariantSortKeys.swift in Sources */,
+				4E69B2522BBB2C0B00913BAA /* PurchasingCompany.swift in Sources */,
+				4E69B24C2BBB2C0B00913BAA /* QuantityPriceBreak.swift in Sources */,
+				4E69B2672BBB2C0B00913BAA /* QuantityPriceBreakConnection.swift in Sources */,
+				4E69B2642BBB2C0B00913BAA /* QuantityPriceBreakEdge.swift in Sources */,
+				4E69B2612BBB2C0B00913BAA /* QuantityRule.swift in Sources */,
 				9A0C80AB1EAA51C50020F187 /* QueryRoot.swift in Sources */,
 				9A67115521666AB200A57A3F /* ScriptDiscountApplication.swift in Sources */,
 				9A3D4CD5251B9EF200B702E0 /* SDK.swift in Sources */,
@@ -3273,6 +3363,7 @@
 				4EB4DB4429DC5FEE00C9A6BD /* SubmitFailed.swift in Sources */,
 				4EB4DAD229DC5FEE00C9A6BD /* SubmitSuccess.swift in Sources */,
 				4EB4DAD529DC5FEE00C9A6BD /* SubmitThrottled.swift in Sources */,
+				4E69B2462BBB2C0B00913BAA /* Swatch.swift in Sources */,
 				21751EFF243D136A005001D4 /* TokenizedPaymentInputV3.swift in Sources */,
 				4EC215B42A55CB8800BD6148 /* Trackable.swift in Sources */,
 				9A0C80B11EAA51C50020F187 /* Transaction.swift in Sources */,
@@ -3320,6 +3411,7 @@
 				4EF3D34528EB2287007215E6 /* Brand.swift in Sources */,
 				4EF3D34828EB2287007215E6 /* BrandColorGroup.swift in Sources */,
 				4EF3D34228EB2287007215E6 /* BrandColors.swift in Sources */,
+				4E69B2562BBB2C0B00913BAA /* BuyerInput.swift in Sources */,
 				9AF255DD1F6FEE50005BB0C9 /* Card.swift in Sources */,
 				9AF256251F6FEE50005BB0C9 /* Card.Client.swift in Sources */,
 				9AF255D61F6FEE50005BB0C9 /* Card.CreditCard.swift in Sources */,
@@ -3344,6 +3436,7 @@
 				4ECBE40D27FB45D200CB544E /* CartDeliveryGroup.swift in Sources */,
 				4ECBE42527FB45D200CB544E /* CartDeliveryGroupConnection.swift in Sources */,
 				4ECBE40A27FB45D200CB544E /* CartDeliveryGroupEdge.swift in Sources */,
+				4E69B26B2BBB2C0B00913BAA /* CartDeliveryGroupType.swift in Sources */,
 				4ECBE41027FB45D200CB544E /* CartDeliveryOption.swift in Sources */,
 				4EB4DB1B29DC5FEE00C9A6BD /* CartDirectPaymentMethodInput.swift in Sources */,
 				4E28FEE1270780B500F9EBED /* CartDiscountAllocation.swift in Sources */,
@@ -3413,6 +3506,9 @@
 				9AF255E71F6FEE50005BB0C9 /* CommentAuthor.swift in Sources */,
 				9AF2560C1F6FEE50005BB0C9 /* CommentConnection.swift in Sources */,
 				9AF256381F6FEE50005BB0C9 /* CommentEdge.swift in Sources */,
+				4E69B25C2BBB2C0B00913BAA /* Company.swift in Sources */,
+				4E69B25F2BBB2C0B00913BAA /* CompanyContact.swift in Sources */,
+				4E69B2502BBB2C0B00913BAA /* CompanyLocation.swift in Sources */,
 				4EB4DAFD29DC5FEE00C9A6BD /* CompletePaymentChallenge.swift in Sources */,
 				4EB4DB2729DC5FEE00C9A6BD /* CompletionError.swift in Sources */,
 				4EB4DB2A29DC5FEE00C9A6BD /* CompletionErrorCode.swift in Sources */,
@@ -3450,6 +3546,7 @@
 				9ABEB3BC2122FF8000A373F2 /* CustomerUserError.swift in Sources */,
 				4EF3D32D28EB2182007215E6 /* DeliveryAddress.swift in Sources */,
 				4EF3D33C28EB2182007215E6 /* DeliveryAddressInput.swift in Sources */,
+				4E69B2592BBB2C0B00913BAA /* DeliveryAddressValidationStrategy.swift in Sources */,
 				4ECBE41327FB45D200CB544E /* DeliveryMethodType.swift in Sources */,
 				9AF255D11F6FEE50005BB0C9 /* DigitalWallet.swift in Sources */,
 				9A67117521666AB200A57A3F /* DiscountAllocation.swift in Sources */,
@@ -3464,6 +3561,7 @@
 				9AF255D51F6FEE50005BB0C9 /* Domain.swift in Sources */,
 				815FAB3A23C4B81500F98749 /* ExternalVideo.swift in Sources */,
 				4EC8A7022787946300FC193B /* Filter.swift in Sources */,
+				4E69B24A2BBB2C0B00913BAA /* FilterPresentation.swift in Sources */,
 				4EC8A70A2787946300FC193B /* FilterType.swift in Sources */,
 				4EC8A7072787946300FC193B /* FilterValue.swift in Sources */,
 				9ABEB3AB2122FF7700A373F2 /* Fulfillment.swift in Sources */,
@@ -3585,6 +3683,11 @@
 				9AF255E81F6FEE50005BB0C9 /* ProductVariantConnection.swift in Sources */,
 				9AF256351F6FEE50005BB0C9 /* ProductVariantEdge.swift in Sources */,
 				9AF255B71F6FEE50005BB0C9 /* ProductVariantSortKeys.swift in Sources */,
+				4E69B2532BBB2C0B00913BAA /* PurchasingCompany.swift in Sources */,
+				4E69B24D2BBB2C0B00913BAA /* QuantityPriceBreak.swift in Sources */,
+				4E69B2682BBB2C0B00913BAA /* QuantityPriceBreakConnection.swift in Sources */,
+				4E69B2652BBB2C0B00913BAA /* QuantityPriceBreakEdge.swift in Sources */,
+				4E69B2622BBB2C0B00913BAA /* QuantityRule.swift in Sources */,
 				9AF255B91F6FEE50005BB0C9 /* QueryRoot.swift in Sources */,
 				9A67115721666AB200A57A3F /* ScriptDiscountApplication.swift in Sources */,
 				9A3D4CD7251B9EF200B702E0 /* SDK.swift in Sources */,
@@ -3640,6 +3743,7 @@
 				4EB4DB4529DC5FEE00C9A6BD /* SubmitFailed.swift in Sources */,
 				4EB4DAD329DC5FEE00C9A6BD /* SubmitSuccess.swift in Sources */,
 				4EB4DAD629DC5FEE00C9A6BD /* SubmitThrottled.swift in Sources */,
+				4E69B2472BBB2C0B00913BAA /* Swatch.swift in Sources */,
 				21751F01243D136A005001D4 /* TokenizedPaymentInputV3.swift in Sources */,
 				4EC215B52A55CB8800BD6148 /* Trackable.swift in Sources */,
 				9AF255D71F6FEE50005BB0C9 /* Transaction.swift in Sources */,
